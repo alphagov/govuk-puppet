@@ -1,0 +1,18 @@
+This repository contains the puppet modeuls and manifests for GOV.UK related projects.
+
+In order to run these locally you first want to install puppet and for that you'll want Ruby.
+
+    export PUPPET_VERSION="2.7.3"
+    export RUBY_PACKAGE="https://github.com/downloads/alphagov/packages/ruby-1.9.2-p290_amd64.deb"
+    wget -q -O ruby.deb $RUBY_PACKAGE && dpkg -i ruby.deb
+    gem install -v $PUPPET_VERSION puppet --no-rdoc --no-ri
+
+These modules probably work with different Ruby versions and Puppet versions, but consider doing so
+unsupported.
+
+You can then run the manifests with the following command:
+
+    sudo FACTER_govuk_class="$FACTER_govuk_class" puppet apply --modulepath=modules manifests/site.pp --onetime --no-daemonize --debug
+
+This assumes you have an environment variable set called FACTER_govuk_class. This should be set to the relevant class,
+if in doubt this is probably "development". Check the manifests/nodes.pp file for more options.
