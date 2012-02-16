@@ -1,0 +1,223 @@
+#!/usr/bin/python -tt
+# -*- coding: utf-8 -*-
+
+# This code is a work in progress and heavily influenced by logster
+
+import os
+import sys
+import re
+import optparse
+import stat
+import logging.handlers
+import fcntl
+import socket
+import traceback
+import inspect
+
+from time import time
+from math import floor
+
+sys.path.append("/usr/share/graylogtail")
+import graypy
+
+
+LOGTAIL = "/usr/sbin/logtail2"
+LOG_DIR = "/var/log"
+STATE_DIR = "/var/run"
+
+script_start_time = time()
+
+# Command-line options and parsing.
+cmdline = optparse.OptionParser(usage="usage: %prog [options] logfile",
+    description="Tail a log file and filter each line to generate metrics that can be sent to common monitoring packages.")
+cmdline.add_option('--state-dir', '-s', action='store', default=STATE_DIR,
+                    help='Where to store the logtail state file.  Default location %s' % STATE_DIR)
+cmdline.add_option('--dry-run', '-d', action='store_true', default=False,
+                    help='Parse the log file but send stats to standard output.')
+cmdline.add_option('--graylog-host', action='store',
+                    help='Hostname for Graylog, e.g. graylog.example.com')
+cmdline.add_option('--graylog-port', action='store', default=12201,
+                    help='Hostname for Graylog, e.g. graylog.example.com')
+cmdline.add_option('--facility', action='store', default="graylogtail",
+                    help='Facility for filtering messages in graylog')
+cmdline.add_option('--debug', '-D', action='store_true', default=False,
+                    help='Provide more verbose logging for debugging.')
+cmdline.add_option('--level', action='store', default="info",
+                    choices=('critical', 'error', 'warning', 'info', 'debug'),
+                    help='Specify the level messages should be logged at. Default to info')
+options, arguments = cmdline.parse_args()
+
+if (len(arguments) != 1):
+    cmdline.print_help()
+    cmdline.error("Supply at least one argument: logfile.")
+if (not options.dry_run) and (not options.graylog_host):
+    cmdline.print_help()
+    cmdline.error("You must supply --graylog-host")
+
+log_file   = arguments[0]
+state_dir  = options.state_dir
+
+# Logging for use throughout the script.
+# Uses appending log file, rotated at 100 MB, keeping 5.
+if (not os.path.isdir(LOG_DIR)):
+    os.mkdir(LOG_DIR)
+logger = logging.getLogger('graylogtail_script')
+formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
+hdlr = logging.handlers.RotatingFileHandler('%s/graylogtail.log' % LOG_DIR, 'a', 100 * 1024 * 1024, 5)
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.INFO)
+if (options.debug):
+    logger.setLevel(logging.DEBUG)
+
+# another logger, this one sends messages to graylog over udp
+graylog = logging.getLogger(options.facility)
+graylog.setLevel(logging.INFO)
+if (options.debug):
+    graylog.setLevel(logging.DEBUG)
+handler = graypy.GELFHandler(options.graylog_host, options.graylog_port, debugging_fields=False)
+graylog.addHandler(handler)
+
+
+class LockingError(Exception):
+    """ Exception raised for errors creating or destroying lockfiles. """
+    def __init__(self, message):
+        self.message = message
+
+## This provides a lineno() function to make it easy to grab the line
+## number that we're on (for logging)
+## Danny Yoo (dyoo@hkn.eecs.berkeley.edu)
+## taken from http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/145297
+def lineno():
+    """Returns the current line number in our program."""
+    return inspect.currentframe().f_back.f_lineno
+
+def start_locking(lockfile_name):
+    """ Acquire a lock via a provided lockfile filename. """
+    if os.path.exists(lockfile_name):
+        raise LockingError("Lock file already exists.")
+
+    f = open(lockfile_name, 'w')
+
+    try:
+        fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        f.write("%s" % os.getpid())
+    except IOError:
+        # Would be better to also check the pid in the lock file and remove the 
+        # lock file if that pid no longer exists in the process table.
+        raise LockingError("Cannot acquire graylogtail lock (%s)" % lockfile_name)
+
+    logger.debug("Locking successful")
+    return f
+
+
+def end_locking(lockfile_fd, lockfile_name):
+    """ Release a lock via a provided file descriptor. """
+    try:
+        fcntl.flock(lockfile_fd, fcntl.LOCK_UN | fcntl.LOCK_NB)
+    except IOError, e:
+        raise LockingError("Cannot release graylogtail lock (%s)" % lockfile_name)
+
+    try:
+        os.unlink(lockfile_name)
+    except OSError, e:
+        raise LockingError("Cannot unlink %s" % lockfile_name)
+
+    logger.debug("Unlocking successful")
+    return
+
+def main():
+    dirsafe_logfile = log_file.replace('/','-')
+    logtail_state_file = '%s/graylogtail-%s.state' % (state_dir, dirsafe_logfile)
+    logtail_lock_file  = '%s/graylogtail-%s.lock' % (state_dir, dirsafe_logfile)
+    shell_tail = "%s -f %s -o %s" % (LOGTAIL, log_file, logtail_state_file)
+
+    logger.debug("Using state file %s" % logtail_state_file)
+
+    # Check for lock file so we don't run multiple copies of the same parser
+    # simultaneuosly. This will happen if the log parsing takes more time than
+    # the cron period, which is likely on first run if the logfile is huge.
+    try:
+        lockfile = start_locking(logtail_lock_file)
+    except LockingError, e:
+        logger.warning("Failed to get lock. Is another instance of graylogtail running?")
+        sys.exit(1)
+
+    # Get input to parse.
+    try:
+        # Read the age of the state file to see how long it's been since we last
+        # ran. Replace the state file if it has gone missing. While we are here,
+        # touch the state file to reset the time in case logtail doesn't
+        # find any new lines (and thus won't update the statefile).
+        try:
+            state_file_age = os.stat(logtail_state_file)[stat.ST_MTIME]
+
+            # Calculate now() - state file age to determine check duration.
+            duration = floor(time()) - floor(state_file_age)
+            logger.debug("Setting duration to %s seconds." % duration)
+
+        except OSError, e:
+            logger.info('Writing new state file and exiting. (Was either first run, or state file went missing.)')
+            input = os.popen(shell_tail)
+            retval = input.close()
+            if (retval != 256):
+                logger.warning('%s returned bad exit code %s' % (shell_tail, retval))
+            end_locking(lockfile, logtail_lock_file)
+            sys.exit(0)
+
+        # Open a pipe to read input from logtail.
+        input = os.popen(shell_tail)
+
+    except SystemExit, e:
+        raise
+
+    except Exception, e:
+        print ("Failed to run %s to get log data (line %s): %s" %
+               (shell_tail, lineno(), e))
+        end_locking(lockfile, logtail_lock_file)
+        sys.exit(1)
+
+    # Parse each line from input, then send all lines to stdout or
+    # graylog.
+    try:
+        for line in input:
+            if (not options.dry_run):
+                if options.level == "critical":
+                    graylog.critical(line.rstrip())
+                elif options.level == "error":
+                    graylog.error(line.rstrip())
+                elif options.level == "warning":
+                    graylog.warning(line.rstrip())
+                elif options.level == "debug":
+                    graylog.debug(line.rstrip())
+                else:
+                    graylog.info(line.rstrip())
+            else:
+                print "[%s] %s" % (options.level.upper(), line.rstrip())
+
+    except Exception, e:
+        print "Exception caught at %s: %s" % (lineno(), e)
+        traceback.print_exc()
+        end_locking(lockfile, logtail_lock_file)
+        sys.exit(1)
+
+    # Log the execution time
+    exec_time = round(time() - script_start_time, 1)
+    logger.info("Total execution time: %s seconds." % exec_time)
+
+    # Set mtime and atime for the state file to the startup time of the script
+    # so that the cron interval is not thrown off by parsing a large number of
+    # log entries.
+    os.utime(logtail_state_file, (floor(script_start_time), floor(script_start_time)))
+
+    end_locking(lockfile, logtail_lock_file)
+
+    # try and remove the lockfile one last time, but it's a valid state that it's already been removed.
+    try:
+        end_locking(lockfile, logtail_lock_file)
+    except Exception, e:
+        pass
+
+if __name__ == '__main__':
+    main()
+

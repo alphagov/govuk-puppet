@@ -1,0 +1,2 @@
+# This file is managed by puppet. Do not edit by hand.
+mongo.database.hosts=production-mongo-client-20111213170552-01-internal.hosts.alphagov.co.uk,production-mongo-client-20111213170334-01-internal.hosts.alphagov.co.uk,production-mongo-client-20111213170556-01-internal.hosts.alphagov.co.uk

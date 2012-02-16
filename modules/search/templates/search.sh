@@ -1,0 +1,1 @@
+cd /data/vhost/search.<%= domain %>/current && RACK_ENV=<%= environment %> ruby ./regen.rb

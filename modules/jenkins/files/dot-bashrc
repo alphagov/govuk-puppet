@@ -1,0 +1,6 @@
+#on this next line, we start keychain and point it to the private keys that
+#we'd like it to cache
+/usr/bin/keychain /home/jenkins/.ssh/id_rsa
+
+# let the shell know ssh-agent
+source /home/jenkins/.keychain/${HOSTNAME}-sh > /dev/null

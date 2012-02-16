@@ -1,0 +1,94 @@
+#!/usr/bin/ruby
+require 'rubygems'
+require 'optparse'
+require 'json'
+
+checks  = {}
+options = {
+  'basedir' => '/etc/nrpe.d',
+  'conf_ext' => '.cfg',
+}
+
+OptionParser.new do |opts|
+  opts.on("-a", "--all")                   { |v| options['all'] = v }
+  opts.on("-c", "--command COMMAND")       { |command|  options['command'] = command }
+  opts.on("-d", "--directory DIR")         { |dir| options['basedir'] = dir }
+  opts.on("-j", "--json")                  { |v| options['json'] = v }
+  opts.on("-n", "--name NAME")             { |name| options['name'] = name }
+  opts.on("-o", "--output-file FILENAME")  { |filename| options['output'] = filename }
+  opts.on("-r", "--return RETCODE")        { |retcode|  options['retcode'] = retcode }
+  opts.on("-s", "--summary")               { |v| options['summary'] = v }
+end.parse!
+
+# build up the list of checks. Checks that appear more than once
+# overwrite the older instance
+
+Dir["#{options['basedir']}/*#{options['conf_ext']}"].each do |file|
+  File.open( file, 'r' ).each_line do |line|
+    line.chomp!
+
+    next unless line.match(/^command\[(.+)\]=(.+)/)
+    name, command = $1, $2
+
+    checks[name] = command
+  end
+end
+
+# filter out the checks we want to run
+#########################
+
+# just in case nothing is filtered.
+wanted = checks
+
+if options['name']
+  wanted = checks.reject { |k,v| ! k.include? options['name'] }
+end
+
+if options['command']
+  wanted = checks.reject { |k,v| ! v.include? options['command'] }
+end
+
+if options['name'] && options['command']
+  wanted = checks.reject { |k,v| (! k.include? options['name']) || (! v.include? options['command']) }
+end
+
+details  = { }
+statuses = { '0' => 0, '1' => 0, '2' => 0, '3' => 0 }
+
+ran = 0
+
+# run the checks and do some output wrangling
+#########################
+wanted.each_pair do |name,command|
+
+  output = %x{ #{command} }.chomp!
+  ret = $?.to_i / 256 # magic number
+
+  if options['json']
+    details[name] = { 'command' => command, 'output' => output, 'returncode' => ret }
+    next
+  end
+
+  if options['all']
+    puts "#{name} => #{output}"
+  elsif options['retcode']
+    if options['retcode'].to_i == ret
+      puts "#{name} => #{output}"
+    end
+  else # default to showing everything broken
+    if ret != 0
+      puts "#{name} => #{output}"
+    end
+  end
+
+  statuses[ret.to_s] += 1
+  ran += 1
+end
+
+if options['summary']
+  puts "Ran #{ran} checks - OK #{statuses['0']}. WARN #{statuses['1']}, CRIT #{statuses['2']}, UNKNOWN #{statuses['3']}"
+end
+
+if options['json']
+  puts details.to_json
+end

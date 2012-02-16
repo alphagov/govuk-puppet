@@ -1,0 +1,3 @@
+class opg_base {
+
+}

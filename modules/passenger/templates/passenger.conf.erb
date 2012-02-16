@@ -1,0 +1,11 @@
+<IfModule passenger_module>
+    PassengerRoot /usr
+    PassengerRuby /usr/bin/ruby
+    PassengerMaxPoolSize <%= maxpoolsize %>
+    PassengerPoolIdleTime <%= poolidletime %>
+    PassengerMaxInstancesPerApp <%= maxinstancesperapp %>
+    RailsFrameworkSpawnerIdleTime 0
+    RailsAppSpawnerIdleTime 0
+    PassengerLogLevel 3
+    PassengerHighPerformance on
+</IfModule>

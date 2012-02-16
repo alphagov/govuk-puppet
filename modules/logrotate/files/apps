@@ -1,0 +1,9 @@
+/data/vhost/**/shared/log/*.log {
+  daily
+  missingok
+  rotate 365
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+}

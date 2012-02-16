@@ -1,0 +1,116 @@
+server {
+  server_name  _;  #default
+  return 444;
+}
+
+server {
+  server_name publisher.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3000;
+  }
+}
+
+server {
+  server_name signonotron.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3001;
+  }
+}
+
+server {
+  server_name imminence.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3002;
+  }
+}
+
+server {
+  server_name panopticon.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3003;
+  }
+}
+
+server {
+  server_name needotron.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3004;
+  }
+}
+
+server {
+  server_name www.dev.gov.uk frontend.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3005;
+  }
+}
+
+server {
+  server_name jobs.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3006;
+  }
+}
+
+server {
+  server_name planner.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3007;
+  }
+}
+
+server {
+  server_name fco.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3008;
+  }
+}
+
+server {
+  server_name search.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3009;
+  }
+}
+
+server {
+  server_name smartanswers.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3010;
+  }
+}
+
+server {
+  server_name calendars.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3011;
+  }
+}
+
+server {
+  server_name contactotron.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3012;
+  }
+}
+
+server {
+  server_name static.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3013;
+  }
+}

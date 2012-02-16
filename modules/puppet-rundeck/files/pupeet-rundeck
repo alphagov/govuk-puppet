@@ -1,0 +1,8 @@
+description "start and stop puppet-rundeck"
+author "Gareth Rushgrove"
+
+expect daemon
+
+env RUBY_BIN=/usr/bin
+
+exec $RUBY_BIN/puppet-rundeck

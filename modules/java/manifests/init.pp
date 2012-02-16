@@ -1,0 +1,32 @@
+class java(
+  $distribution = 'jdk',
+  $version      = 'installed'
+) {
+  include apt
+
+  $distribution_debian = $distribution ? {
+    jdk => 'sun-java6-jdk',
+    jre => 'sun-java6-jre',
+  }
+
+  apt::deb_repository { "partner":
+    url  => "http://archive.canonical.com/",
+    repo => "partner"
+  }
+
+  file { "/var/local/sun-java6.preseed":
+    content => template("${module_name}/sun-java6.preseed"),
+  }
+
+  package { 'java':
+    ensure       => $version,
+    name         => $distribution_debian,
+    responsefile => "/var/local/sun-java6.preseed",
+    require      => [Exec["add_repo_partner"], File["/var/local/sun-java6.preseed"], Package['remove-openjdk']],
+  }
+  
+  package { 'remove-openjdk': 
+    name => 'openjdk-6-jre-headless',
+    ensure => 'absent'
+  }
+}

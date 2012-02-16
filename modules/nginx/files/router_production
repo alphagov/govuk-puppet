@@ -1,0 +1,78 @@
+upstream varnish {
+  server localhost:7999;
+}
+
+server {
+  listen 80 default;
+  server_name www.gov.uk;
+  rewrite ^/(.*) https://$server_name/$1 permanent;
+}
+
+server {
+  listen 443 ssl;
+  server_name www.gov.uk;
+  ssl_certificate           /etc/nginx/ssl/www.gov.uk.crt;
+  ssl_certificate_key       /etc/nginx/ssl/www.gov.uk.key;
+
+  ssl_protocols             TLSv1 SSLv3;
+  proxy_set_header          X-Forwarded-Ssl on;
+  ssl_ciphers               HIGH:!ADH:!kEDH;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  add_header                Strict-Transport-Security max-age=500;
+
+  access_log  /var/log/nginx/lb-access.log timed_combined;
+  error_log /var/log/nginx/lb-error_log;
+
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Forwarded-Ssl on;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_redirect off;
+
+  location = /government {
+    deny all;
+    auth_basic            "Enter your betademo password";
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.whitehall;
+    satisfy any;
+    proxy_pass http://varnish;
+  }
+  location ~ ^/government\/ {
+    deny all;
+    auth_basic            "Enter your betademo password";
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.whitehall;
+    satisfy any;
+    proxy_pass http://varnish;
+  }
+  location = /homepage {
+    rewrite ^(.*) / permanent;
+  }
+  location / {
+    root /var/www/fallback;
+    try_files /fallback.html @proxy;
+  }
+  location @proxy {
+    proxy_pass http://varnish;
+  }
+
+  error_page 500 502 /500.html;
+  error_page 503 /503.html;
+  error_page 504 /504.html;
+  error_page 404 401 /404.html;
+
+  location /500.html {
+    root /usr/share/nginx/www;
+  }
+  location /503.html {
+    root /usr/share/nginx/www;
+  }
+  location /504.html {
+    root /usr/share/nginx/www;
+  }
+  location /404.html {
+    root /usr/share/nginx/www;
+  }
+
+}

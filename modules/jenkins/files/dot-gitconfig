@@ -1,0 +1,5 @@
+[user]
+        name = Gitbot
+        email = gitbot@alphagov.co.uk
+[github]
+        user = alphagov-jenkins

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<solr persistent="false">
+ <cores adminPath="/admin/cores">
+   <core name="jobs" instanceDir="/etc/solr/jobs">
+     <property name="instanceDir" value="/etc/solr/jobs" />
+   </core>
+   <core name="need-o-tron" instanceDir="/etc/solr/need-o-tron">
+     <property name="instanceDir" value="/etc/solr/need-o-tron" />
+   </core>
+   <core name="rummager" instanceDir="/etc/solr/rummager">
+     <property name="instanceDir" value="/etc/solr/rummager" />
+   </core>
+   <core name="whitehall-rummager" instanceDir="/etc/solr/whitehall-rummager">
+     <property name="instanceDir" value="/etc/solr/whitehall-rummager" />
+   </core>
+ </cores>
+</solr>
