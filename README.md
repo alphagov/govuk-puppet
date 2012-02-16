@@ -1,4 +1,4 @@
-This repository contains the puppet modeuls and manifests for GOV.UK related projects.
+This repository contains the puppet modules and manifests for GOV.UK related projects.
 
 In order to run these locally you first want to install puppet and for that you'll want Ruby.
 
@@ -8,7 +8,7 @@ In order to run these locally you first want to install puppet and for that you'
     gem install -v $PUPPET_VERSION puppet --no-rdoc --no-ri
 
 These modules probably work with different Ruby versions and Puppet versions, but consider doing so
-unsupported.
+unsupported. It's also only tested/supported on Ubuntu 10.04 LTS 64bit.
 
 You can then run the manifests with the following command:
 
