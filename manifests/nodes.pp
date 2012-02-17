@@ -16,6 +16,7 @@ node default {
     graylog:            { include graylog_server }
     whitehall-frontend: { include whitehall_frontend_server }
     redirect:           { include redirect_server }
+    ertp-mongo:         { include ertp_mongo_server } 
     default:            { include base }
   }
 }
