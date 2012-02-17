@@ -226,6 +226,7 @@ class users::govuk {
 
 
 class users::freerange {
+  include users::setup
   user { "tomw":
     comment => "Tom Ward (tom.ward@gofreerange.co.uk)",
     ensure     => present,
@@ -374,11 +375,8 @@ class users::other {
 
 # Office of the public guardian, LPA project
 class users::opg {
-  # How to remove a user:
-  #user { "johndoefake":
-  #  ensure     => absent
-  #}
-
+  include users::setup
+ 
   user { "alister":
     comment => "Alister Bulman (alister.bulman@betransformative.com)",
     ensure     => present,
@@ -426,7 +424,7 @@ class users::opg {
     ensure  => present,
     key     => extlookup("jamie_key"),
     type    => "ssh-rsa",
-    user    => "garethr",
+    user    => "jamie",
     require => User["jamie"]
   }
 }
