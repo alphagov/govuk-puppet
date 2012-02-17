@@ -1,24 +1,20 @@
 class base {
-  include users
   include ntp
   include apt
   include base_packages::unix_tools
   include sudo
   include logrotate
   include motd
-  include nagios::client
-  include ganglia::client
   include wget
-  include hosts
   include sysctl
-  class { "webfacter": username => "facter", password => "factorum" }
-
   sshkey { 'github.com':
     ensure => present,
     type => 'ssh-rsa',
     key => extlookup("github_key")
   }
+}
 
+class govuk_base inherits base {
   file { "/data":
     ensure  => directory,
     owner   => 'deploy',
@@ -26,9 +22,15 @@ class base {
     mode    => '755',
     require => User['deploy'],
   }
+  include nagios::client
+  include ganglia::client
+  include hosts
+  include users::freerange
+  include users::other
+  class { "webfacter": username => "facter", password => "factorum" }
 }
 
-class redirect_server inherits base {
+class redirect_server inherits govuk_base {
   include nginx
   include nagios::client::checks
 
@@ -42,11 +44,11 @@ class redirect_server inherits base {
   }
 }
 
-class db_server inherits base {
+class db_server inherits govuk_base {
   include nagios::client::checks
 }
 
-class mongo_server inherits base {
+class mongo_server inherits govuk_base {
   include mongodb::server
 
   case $govuk_platform {
@@ -81,7 +83,7 @@ class mongo_server inherits base {
   include nagios::client::checks
 }
 
-class ruby_app_server inherits base {
+class ruby_app_server inherits govuk_base {
   include mysql::client
   include nagios::client::checks
 
@@ -244,7 +246,7 @@ class whitehall_frontend_server inherits ruby_app_server {
   }
 }
 
-class cache_server inherits base {
+class cache_server inherits govuk_base {
   include nagios::client::checks
   include varnish
 
@@ -256,19 +258,19 @@ class cache_server inherits base {
   }
 }
 
-class support_server inherits base {
+class support_server inherits govuk_base {
   include nagios::client::checks
   include solr
   include apollo
   include mysql::backup
 }
 
-class monitoring_server inherits base {
+class monitoring_server inherits govuk_base {
   include nagios
   include ganglia
 }
 
-class graylog_server inherits base {
+class graylog_server inherits govuk_base {
   include nagios::client::checks
   include mongodb::server
 }
@@ -308,7 +310,7 @@ class management_server {
   }
 }
 
-class puppetmaster inherits base {
+class puppetmaster inherits govuk_base {
   include puppetrundeck
   include webpuppet
 }

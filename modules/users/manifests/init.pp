@@ -1,8 +1,6 @@
 class users {
-    include users::setup
-    include users::govuk
-    include users::freerange
-    include users::other
+  include users::setup
+  include users::govuk
 }
 
 class users::setup {
