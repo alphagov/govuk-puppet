@@ -131,7 +131,7 @@ class nginx::router {
   }
   file { "/etc/nginx/ssl/$host.key":
     ensure  => present,
-    content => extlookupyy("${host}_key"),
+    content => extlookup("${host}_key"),
   }
   @@nagios_service { "check_nginx_5xx_on_${hostname}":
     use                 => "generic-service",
@@ -184,19 +184,20 @@ class nginx::vhost {
   }
 
   define ssl() {
+    if $name == "www.gov.uk" {
+      $cert = $name
+    } elsif $name == "www.preview.alphagov.co.uk" {
+      $cert = $name
+    } else {
+      $cert = "static.${govuk_platform}.alphagov.co.uk.crt"
+    }
     file { "/etc/nginx/ssl/$name.crt":
-      ensure => present,
-      source => [
-        "puppet:///modules/nginx/$name.crt",
-        "puppet:///modules/nginx/static.$govuk_platform.alphagov.co.uk.crt"
-      ]
+      ensure  => present,
+      content => extlookup("${cert}_crt")
     }
     file { "/etc/nginx/ssl/$name.key":
-      ensure => present,
-      source => [
-        "puppet:///modules/nginx/$name.key",
-        "puppet:///modules/nginx/static.$govuk_platform.alphagov.co.uk.key"
-      ]
+      ensure  => present,
+      content => extlookup("${cert}_key")
     }
   }
 

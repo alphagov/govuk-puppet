@@ -226,6 +226,7 @@ class users::govuk {
 
 
 class users::freerange {
+  include users::setup
   user { "tomw":
     comment => "Tom Ward (tom.ward@gofreerange.co.uk)",
     ensure     => present,
