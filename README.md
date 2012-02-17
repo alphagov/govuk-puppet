@@ -16,3 +16,14 @@ You can then run the manifests with the following command:
 
 This assumes you have an environment variable set called FACTER_govuk_class. This should be set to the relevant class,
 if in doubt this is probably "development". Check the manifests/nodes.pp file for more options.
+
+A handy script is included that will:
+
+* Install Ruby if required
+* Install Puppet if required
+* Exit unless FACTER_govuk_class is set
+* Run the local puppet manifests
+
+So to get started, or just to apply the latest manifests you can run:
+
+    ./update.sh
