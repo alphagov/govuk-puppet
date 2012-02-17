@@ -189,7 +189,7 @@ class nginx::vhost {
     } elsif $name == "www.preview.alphagov.co.uk" {
       $cert = $name
     } else {
-      $cert = "static.${govuk_platform}.alphagov.co.uk.crt"
+      $cert = "static.${govuk_platform}.alphagov.co.uk"
     }
     file { "/etc/nginx/ssl/$name.crt":
       ensure  => present,
