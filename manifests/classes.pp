@@ -7,6 +7,7 @@ class base {
   include motd
   include wget
   include sysctl
+  include users
   sshkey { 'github.com':
     ensure => present,
     type => 'ssh-rsa',
