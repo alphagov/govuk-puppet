@@ -8,4 +8,5 @@ $extlookup_precedence = ["%{fqdn}", "domain_%{domain}", "common"]
 import "modules.pp"
 import "classes.pp"
 import "opg_classes.pp"
+import "ertp_classes.pp"
 import "nodes.pp"
