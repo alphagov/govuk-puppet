@@ -372,3 +372,59 @@ class users::other {
     require => User["deploy"];
   }
 }
+
+# Office of the public guardian, LPA project
+class users::opg {
+  include users::setup
+ 
+  user { "alister":
+    comment => "Alister Bulman (alister.bulman@betransformative.com)",
+    ensure     => present,
+    home       => "/home/alister",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "alister_key1":
+    ensure  => present,
+    key     => extlookup("alister_key"),
+    type    => "ssh-rsa",
+    user    => "alister",
+    require => User["alister"]
+  }
+
+  user { "chrismo2012":
+    comment => "Chris Moreton (chris.moreton@betransformative.com)",
+    ensure     => present,
+    home       => "/home/chrismo2012",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "chrismo2012_key1":
+    ensure  => present,
+    key     => extlookup("chrismo2012_key"),
+    type    => "ssh-rsa",
+    user    => "chrismo2012",
+    require => User["chrismo2012"]
+  }
+
+  user { "jamie":
+    comment => "jamie (Jamie.Burns@betransformative.com)",
+    ensure     => present,
+    home       => "/home/jamie",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "jamie_key1":
+    ensure  => present,
+    key     => extlookup("jamie_key"),
+    type    => "ssh-rsa",
+    user    => "jamie",
+    require => User["jamie"]
+  }
+}
