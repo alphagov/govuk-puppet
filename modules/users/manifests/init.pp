@@ -27,55 +27,55 @@ class users::setup {
       require => User["deploy"];
     "deploy_key_fberriman":
       ensure  => present,
-      key     => extlookup("fberriman_key"),
+      key     => extlookup("fberriman_key", ""),
       type    => "ssh-dss",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_paulb":
       ensure  => present,
-      key     => extlookup("paulb_key"),
+      key     => extlookup("paulb_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_garethr":
       ensure  => present,
-      key     => extlookup("garethr_key"),
+      key     => extlookup("garethr_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_james":
       ensure  => present,
-      key     => extlookup("james_key"),
+      key     => extlookup("james_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_mwall":
       ensure  => present,
-      key     => extlookup("mwall_key"),
+      key     => extlookup("mwall_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
 	  "deploy_key_jordanh":
       ensure  => present,
-      key     => extlookup("jordanh_key"),
+      key     => extlookup("jordanh_key", ""),
       type    => "ssh-dss",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_dafydd":
       ensure  => present,
-      key     => extlookup("dafydd_key"),
+      key     => extlookup("dafydd_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_jenkins":
       ensure  => present,
-      key     => extlookup("jenkins_key"),
+      key     => extlookup("jenkins_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_jamesweiner":
       ensure  => present,
-      key     => extlookup("jamesweiner_key"),
+      key     => extlookup("jamesweiner_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
@@ -98,7 +98,7 @@ class users::govuk {
   }
   ssh_authorized_key { "mwall_key1":
     ensure  => present,
-    key     => extlookup("mwall_key"),
+    key     => extlookup("mwall_key", ""),
     type    => "ssh-rsa",
     user    => "mwall",
     require => User["mwall"]
@@ -115,7 +115,7 @@ class users::govuk {
   }
   ssh_authorized_key { "dafydd_key1":
     ensure  => present,
-    key     => extlookup("dafydd_key"),
+    key     => extlookup("dafydd_key", ""),
     type    => "ssh-rsa",
     user    => "dafydd",
     require => User["dafydd"]
@@ -132,7 +132,7 @@ class users::govuk {
   }
   ssh_authorized_key { "garethr_key1":
     ensure  => present,
-    key     => extlookup("garethr_key"),
+    key     => extlookup("garethr_key", ""),
     type    => "ssh-rsa",
     user    => "garethr",
     require => User["garethr"]
@@ -149,7 +149,7 @@ class users::govuk {
   }
   ssh_authorized_key { "heathd_key1":
     ensure  => present,
-    key     => extlookup("heathd_key"),
+    key     => extlookup("heathd_key", ""),
     type    => "ssh-rsa",
     user    => "heathd",
     require => User["heathd"]
@@ -166,7 +166,7 @@ class users::govuk {
   }
   ssh_authorized_key { "james_key1":
     ensure  => present,
-    key     => extlookup("james_key"),
+    key     => extlookup("james_key", ""),
     type    => "ssh-rsa",
     user    => "james",
     require => User["james"]
@@ -183,7 +183,7 @@ class users::govuk {
   }
   ssh_authorized_key { "joshua_key1":
     ensure  => present,
-    key     => extlookup("joshua_key"),
+    key     => extlookup("joshua_key", ""),
     type    => "ssh-rsa",
     user    => "joshua",
     require => User["joshua"]
@@ -200,7 +200,7 @@ class users::govuk {
   }
   ssh_authorized_key { "paulb_kurosuke":
     ensure  => present,
-    key     => extlookup("paulb_key"),
+    key     => extlookup("paulb_key", ""),
     type    => "ssh-rsa",
     user    => "paulb",
     require => User["paulb"],
@@ -217,7 +217,7 @@ class users::govuk {
   }
   ssh_authorized_key { "jamesweiner":
     ensure  => present,
-    key     => extlookup("jamesweiner_key"),
+    key     => extlookup("jamesweiner_key", ""),
     type    => "ssh-rsa",
     user    => "jamesweiner",
     require => User["jamesweiner"]
@@ -238,7 +238,7 @@ class users::freerange {
   }
   ssh_authorized_key { "tomw":
     ensure  => present,
-    key     => extlookup("tomw_key"),
+    key     => extlookup("tomw_key", ""),
     type    => "ssh-rsa",
     user    => "tomw",
     require => User["tomw"]
@@ -255,7 +255,7 @@ class users::freerange {
   }
   ssh_authorized_key { "chrisroos_key":
     ensure  => present,
-    key     => extlookup("chrisroos_key"),
+    key     => extlookup("chrisroos_key", ""),
     type    => "ssh-rsa",
     user    => "chrisroos",
     require => User["chrisroos"],
@@ -272,7 +272,7 @@ class users::freerange {
   }
   ssh_authorized_key { "jasoncale":
     ensure  => present,
-    key     => extlookup("jasoncale_key"),
+    key     => extlookup("jasoncale_key", ""),
     type    => "ssh-rsa",
     user    => "jasoncale",
     require => User["jasoncale"],
@@ -289,7 +289,7 @@ class users::freerange {
   }
   ssh_authorized_key { "jamesmead_key1":
     ensure  => present,
-    key     => extlookup("jamesmead_key"),
+    key     => extlookup("jamesmead_key", ""),
     type    => "ssh-rsa",
     user    => "jamesmead",
     require => User["jamesmead"]
@@ -306,7 +306,7 @@ class users::freerange {
   }
   ssh_authorized_key { "lazyatom_key1":
     ensure  => present,
-    key     => extlookup("lazyatom_key"),
+    key     => extlookup("lazyatom_key", ""),
     type    => "ssh-rsa",
     user    => "lazyatom",
     require => User["lazyatom"]
@@ -315,31 +315,31 @@ class users::freerange {
   ssh_authorized_key {
     "deploy_key_jamesmead":
       ensure  => present,
-      key     => extlookup("jamesmead_key"),
+      key     => extlookup("jamesmead_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_lazyatom":
       ensure  => present,
-      key     => extlookup("lazyatom_key"),
+      key     => extlookup("lazyatom_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_chrisroos":
       ensure  => present,
-      key     => extlookup("chrisroos_key"),
+      key     => extlookup("chrisroos_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_jasoncale":
       ensure  => present,
-      key     => extlookup("jasoncale_key"),
+      key     => extlookup("jasoncale_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
     "deploy_key_tomw":
       ensure  => present,
-      key     => extlookup("tomw_key"),
+      key     => extlookup("tomw_key", ""),
       type    => "ssh-rsa",
       user    => "deploy",
       require => User["deploy"];
@@ -359,14 +359,14 @@ class users::other {
   }
   ssh_authorized_key { "tomstuart_key1":
     ensure  => present,
-    key     => extlookup("tomstuart_key"),
+    key     => extlookup("tomstuart_key", ""),
     type    => "ssh-rsa",
     user    => "tomstuart",
     require => User["tomstuart"]
   }
   ssh_authorized_key { "deploy_key_tomstuart":
     ensure  => present,
-    key     => extlookup("tomstuart_key"),
+    key     => extlookup("tomstuart_key", ""),
     type    => "ssh-rsa",
     user    => "deploy",
     require => User["deploy"];
@@ -388,7 +388,7 @@ class users::opg {
   }
   ssh_authorized_key { "alister_key1":
     ensure  => present,
-    key     => extlookup("alister_key"),
+    key     => extlookup("alister_key", ""),
     type    => "ssh-rsa",
     user    => "alister",
     require => User["alister"]
@@ -405,7 +405,7 @@ class users::opg {
   }
   ssh_authorized_key { "chrismo2012_key1":
     ensure  => present,
-    key     => extlookup("chrismo2012_key"),
+    key     => extlookup("chrismo2012_key", ""),
     type    => "ssh-rsa",
     user    => "chrismo2012",
     require => User["chrismo2012"]
@@ -422,7 +422,7 @@ class users::opg {
   }
   ssh_authorized_key { "jamie_key1":
     ensure  => present,
-    key     => extlookup("jamie_key"),
+    key     => extlookup("jamie_key", ""),
     type    => "ssh-rsa",
     user    => "jamie",
     require => User["jamie"]
@@ -443,9 +443,43 @@ class users::ertp {
   }
   ssh_authorized_key { "jamehsu_key1":
     ensure  => present,
-    key     => extlookup("jameshu_key"),
+    key     => extlookup("jameshu_key", ""),
     type    => "ssh-rsa",
     user    => "jamehsu",
     require => User["jameshu"]
+  }
+
+  user { "michaela":
+    comment => "Michael Allen (m.allen@kainos.com)",
+    ensure     => present,
+    home       => "/home/michaela",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "michaela_key1":
+    ensure  => present,
+    key     => extlookup("michaela_key", ""),
+    type    => "ssh-rsa",
+    user    => "micheala",
+    require => User["michaela"]
+  }
+
+  user { "leszekg":
+    comment => "Leszek Gonczar (l.gonczar@kainos.com)",
+    ensure     => present,
+    home       => "/home/leszekg",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "leszekg_key1":
+    ensure  => present,
+    key     => extlookup("leszekg_key", ""),
+    type    => "ssh-rsa",
+    user    => "leszekg",
+    require => User["leszekg"]
   }
 }
