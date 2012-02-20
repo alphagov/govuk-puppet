@@ -376,7 +376,7 @@ class users::other {
 # Office of the public guardian, LPA project
 class users::opg {
   include users::setup
- 
+
   user { "alister":
     comment => "Alister Bulman (alister.bulman@betransformative.com)",
     ensure     => present,
@@ -426,5 +426,26 @@ class users::opg {
     type    => "ssh-rsa",
     user    => "jamie",
     require => User["jamie"]
+  }
+}
+
+class users::ertp {
+  include users::setup
+
+  user { "jameshu":
+    comment => "James Hughes (j.hughes@kainos.com)",
+    ensure     => present,
+    home       => "/home/jameshu",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "jamehsu_key1":
+    ensure  => present,
+    key     => extlookup("jameshu_key"),
+    type    => "ssh-rsa",
+    user    => "jamehsu",
+    require => User["jameshu"]
   }
 }
