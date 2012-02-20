@@ -9,5 +9,5 @@ class ertp_mongo_server inherits ertp_base {
 }
 
 class ertp_development inherits ertp_base {
-
+  include ertp_mongo_server
 }

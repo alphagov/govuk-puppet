@@ -17,6 +17,7 @@ node default {
     whitehall-frontend: { include whitehall_frontend_server }
     redirect:           { include redirect_server }
     ertp-mongo:         { include ertp_mongo_server } 
+    ertp-development:   { include ertp_development }
     default:            { include base }
   }
 }
