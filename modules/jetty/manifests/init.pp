@@ -1,6 +1,6 @@
 class jetty {
   include wget
-  include java
+  include openjdk
   include logster
   include graylogtail
 
