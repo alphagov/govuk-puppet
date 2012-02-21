@@ -19,7 +19,7 @@ class ertp_mongo_server inherits ertp_base {
 class ertp_frontend_server inherits ertp_base {
   $jetty_version = "7.5.4.v20111024"
   include jetty
-  include nginx
+  include nginx::ertp
 }
 
 # ERTP API Server Configuration
