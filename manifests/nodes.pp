@@ -16,7 +16,10 @@ node default {
     graylog:            { include graylog_server }
     whitehall-frontend: { include whitehall_frontend_server }
     redirect:           { include redirect_server }
-    ertp-mongo:         { include ertp_mongo_server } 
+    ertp-mongo:         { include ertp_mongo_server }
+    ertp-api:           { include ertp_api_server }
+    ertp-frontend:      { include ertp_frontend_server }
+    ertp-development:   { include ertp_development }
     default:            { include base }
   }
 }

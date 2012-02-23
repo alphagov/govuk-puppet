@@ -27,5 +27,5 @@ if ! grep -q FACTER /etc/environment; then
   exit
 fi
 
-sudo FACTER_govuk_class="$FACTER_govuk_class" puppet apply --modulepath=modules manifests/site.pp --onetime --no-daemonize --debug
+sudo FACTER_govuk_class="$FACTER_govuk_class" FACTER_govuk_platform="$FACTER_govuk_class" puppet apply --modulepath=modules manifests/site.pp --onetime --no-daemonize --debug
 
