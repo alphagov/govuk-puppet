@@ -1,10 +1,20 @@
 class ertp_base {
-  user { "deploy":
-    ensure      => present,
-    home        => "/home/deploy",
-    managehome  => true,
-    shell       => '/bin/bash'
-  }
+  include ntp
+  include apt
+  include base_packages::unix_tools
+  include sudo
+  include logrotate
+  include motd
+  include wget
+  include sysctl
+  include users
+
+  include nagios::client
+  include ganglia::client
+  include hosts
+  include users::freerange
+  include users::other
+  class { "webfacter": username => "facter", password => "factorum" }
 }
 
 # ERTP MongoServer Configuration
