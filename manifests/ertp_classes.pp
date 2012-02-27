@@ -8,13 +8,7 @@ class ertp_base {
   include wget
   include sysctl
   include users
-
-  include nagios::client
-  include ganglia::client
-  include hosts
-  include users::freerange
-  include users::other
-  class { "webfacter": username => "facter", password => "factorum" }
+  include users::ertp
 }
 
 # ERTP MongoServer Configuration
