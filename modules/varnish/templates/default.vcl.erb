@@ -1,6 +1,9 @@
 <% if govuk_platform == 'production' %>
 
-<% whitehall_paths = %w[ /government /bis /cabinetoffice /dclg /mod /defra /fco /dh /dfid /moj /hmrc ] %>
+<%
+  whitehall_paths = %w[ /government /bis /cabinetoffice /dclg /mod /defra /fco /dh /dfid /moj /hmrc ]
+  whitehall_paths += whitehall_paths.map { |p| p.upcase }
+%>
 
 <% frontend_hosts = (govuk_platform == 'production') ? ['frontend.cluster', 'frontend.cluster-1', 'frontend.cluster-2'] : ['frontend.cluster'] %>
 
