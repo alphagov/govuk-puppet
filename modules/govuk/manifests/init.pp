@@ -3,9 +3,15 @@ class govuk::testing_tools {
     ensure => installed,
     require => Exec["add_repo_kubuntu-backports"],
   }
+
   package { 'xvfb':
     ensure => installed;
   }
+
+  package { 'phantomjs':
+    ensure => installed;
+  }
+
   file { "/etc/init/xvfb.conf":
     ensure  => present,
     source  => "puppet:///modules/govuk/xvfb.conf",
