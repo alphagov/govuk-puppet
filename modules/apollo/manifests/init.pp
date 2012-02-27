@@ -2,25 +2,25 @@ class apollo {
   include java
 
   exec { 'download apollo':
-    command => "/usr/bin/curl -O http://apache.mirrors.timporter.net/activemq/activemq-apollo/1.0-beta5/apache-apollo-1.0-beta5-unix-distro.tar.gz",
+    command => "/usr/bin/curl -O http://apache.mirrors.timporter.net/activemq/activemq-apollo/1.0-beta6/apache-apollo-1.0-beta6-unix-distro.tar.gz",
     cwd => "/usr/local/src",
-    creates => "/usr/local/src/apache-apollo-1.0-beta5-unix-distro.tar.gz",
+    creates => "/usr/local/src/apache-apollo-1.0-beta6-unix-distro.tar.gz",
     require => Package['curl'],
     timeout => 3600
   }
 
   exec { 'unpack apollo':
     require => Exec['download apollo'],
-    creates => "/usr/local/src/apache-apollo-1.0-beta5",
+    creates => "/usr/local/src/apache-apollo-1.0-beta6",
     cwd => "/usr/local/src",
-    command => "/bin/tar -xzf ./apache-apollo-1.0-beta5-unix-distro.tar.gz"
+    command => "/bin/tar -xzf ./apache-apollo-1.0-beta6-unix-distro.tar.gz"
   }
 
   exec { 'create broker':
     require => [ Exec['unpack apollo'], Class['java' ] ],
     creates => '/usr/local/src/broker',
-    cwd => "/usr/local/src/apache-apollo-1.0-beta5",
-    command => "/usr/local/src/apache-apollo-1.0-beta5/bin/apollo create /usr/local/src/broker"
+    cwd => "/usr/local/src/apache-apollo-1.0-beta6",
+    command => "/usr/local/src/apache-apollo-1.0-beta6/bin/apollo create /usr/local/src/broker"
   }
 
   file { '/etc/init.d/broker':
