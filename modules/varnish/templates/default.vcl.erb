@@ -1,5 +1,7 @@
 <% if govuk_platform == 'production' %>
 
+<% whitehall_paths = %w[ /government /bis /cabinetoffice /dclg /mod /defra /fco /dh /dfid /moj /hmrc ] %>
+
 <% frontend_hosts = (govuk_platform == 'production') ? ['frontend.cluster', 'frontend.cluster-1', 'frontend.cluster-2'] : ['frontend.cluster'] %>
 
 <% frontend_hosts.each_with_index do |host, i| %>
@@ -105,17 +107,19 @@ director smartanswers round-robin {
   <% end %>
 }
 
+<% whitehall_paths.each do |path| %>
 backend whitehall {
   .host = "whitehall.cluster";
   .port = "8085";
   .probe = {
-    .url = "/government";
+    .url = "<%= path %>";
     .interval = 5s;
     .timeout = 1s;
     .window = 5;
     .threshold = 3;
   }
 }
+<% end %>
 
 <% else %>
 
@@ -140,7 +144,7 @@ sub vcl_recv {
     set req.backend = calendars;
   } else if (req.url ~ "/calculate-your-holiday-entitlement|/student-finance-calculator|/inherits-someone-dies-without-will|/maternity-benefits|/calculate-married-couples-allowance") {
     set req.backend = smartanswers;
-  } else if (req.url ~ "^/government\/|^/government$") {
+  } else if (req.url ~ "^/government\/|<%= whitehall_paths.map { |p| "^#{p}$" }.join("|") %>") {
     set req.backend = whitehall;
   } else if (req.url ~ "^/maternity(\.xml|\.json|\.ics)?(\?.*|)$|^/paternity(\.xml|\.json|\.ics)?(\?.*|)$") {
     set req.backend = planner;
