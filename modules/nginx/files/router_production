@@ -36,17 +36,9 @@ server {
   rewrite ^/cloudstore http://www.govstore.net/;
 
   location = /government {
-    deny all;
-    auth_basic            "Enter your betademo password";
-    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.whitehall;
-    satisfy any;
     proxy_pass http://varnish;
   }
   location ~ ^/government\/ {
-    deny all;
-    auth_basic            "Enter your betademo password";
-    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.whitehall;
-    satisfy any;
     proxy_pass http://varnish;
   }
   location = /homepage {
@@ -84,5 +76,6 @@ server {
   }
   location /418.html {
     root /usr/share/nginx/www;
- }
+  }
+
 }
