@@ -131,12 +131,6 @@ class nginx::router {
     require => Class['nginx::install'],
     notify => Exec['nginx_reload'],
   }
-  file { '/etc/nginx/htpasswd/htpasswd.whitehall':
-    ensure => file,
-    source => 'puppet:///modules/nginx/htpasswd.whitehall',
-    require => Class['nginx::install'],
-    notify => Exec['nginx_reload'],
-  }
   if $govuk_platform == 'production' {
     $host = "www.gov.uk"
   } else {
@@ -258,7 +252,6 @@ class nginx::vhost {
           ensure => present,
           source => [
             "puppet:///modules/nginx/htpasswd.$name",
-            "puppet:///modules/nginx/htpasswd.backend",
             "puppet:///modules/nginx/htpasswd.default"
           ],
         }
