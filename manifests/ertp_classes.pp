@@ -9,6 +9,7 @@ class ertp_base {
   include sysctl
   include users
   include users::ertp
+  include ertp
 }
 
 # ERTP MongoServer Configuration
@@ -24,12 +25,14 @@ class ertp_frontend_server inherits ertp_base {
   $jetty_version = "7.5.4.v20111024"
   include jetty
   include nginx::ertp
+  include ertp::config
 }
 
 # ERTP API Server Configuration
 class ertp_api_server inherits ertp_base {
   $jetty_version = "7.5.4.v20111024"
   include jetty
+  include ertp::config
 }
 
 # ERTP Development Configuration
@@ -37,4 +40,5 @@ class ertp_development inherits ertp_base {
   include ertp_mongo_server
   include ertp_api_server
   include ertp_frontend_server
+  include ertp::config
 }
