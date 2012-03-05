@@ -29,7 +29,7 @@ class nginx::install {
   }
   package { "nginx":
     require => Exec["add_repo_nginx_ppa"],
-    ensure => "1.0.11-1ppa1~lucid",
+    ensure => "installed",
   }
   file { '/etc/nginx/nginx.conf':
     ensure => file,

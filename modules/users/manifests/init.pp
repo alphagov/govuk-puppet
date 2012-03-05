@@ -18,6 +18,13 @@ class users::setup {
     managehome  => true,
     shell       => '/bin/bash'
   }
+  file { "/data":
+    ensure  => directory,
+    owner   => 'deploy',
+    group   => 'deploy',
+    mode    => '755',
+    require => User['deploy'],
+  }
   ssh_authorized_key {
     "deploy_key_heathd":
       ensure => present,

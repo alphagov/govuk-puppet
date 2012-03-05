@@ -10,25 +10,17 @@ class base {
   include users
   sshkey { 'github.com':
     ensure => present,
-    type => 'ssh-rsa',
-    key => extlookup("github_key")
+    type   => 'ssh-rsa',
+    key    => "AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" 
   }
 }
 
 class govuk_base inherits base {
-  file { "/data":
-    ensure  => directory,
-    owner   => 'deploy',
-    group   => 'deploy',
-    mode    => '755',
-    require => User['deploy'],
-  }
   include nagios::client
   include ganglia::client
-  include hosts
   include users::freerange
   include users::other
-  class { "webfacter": username => "facter", password => "factorum" }
+  include hosts
 }
 
 class redirect_server inherits govuk_base {
@@ -88,32 +80,17 @@ class ruby_app_server inherits govuk_base {
   include mysql::client
   include nagios::client::checks
 
-  package { "bundler":
-    provider => gem,
-    ensure   => installed,
+  package {
+    "bundler": provider => gem, ensure => installed;
+    "rails":   provider => gem, ensure => "3.1.1";
+    "mysql2":  provider => gem, ensure => installed, require => Package["libmysqlclient-dev"];
+    "rake":    provider => gem, ensure => "0.9.2";
+    "rack":    provider => gem, ensure => "1.3.5",
   }
-  package { "rails":
-    provider => gem,
-    ensure => "3.1.1",
-  }
-  package { "mysql2":
-    provider => gem,
-    ensure   => installed,
-    require => Package["libmysqlclient-dev"]
-  }
-  package { "rake":
-    provider => gem,
-    ensure => "0.9.2",
-  }
-  package { "rack":
-    provider => gem,
-    ensure => "1.3.5",
-  }
-  package { 'dictionaries-common':
-    ensure => installed;
-  }
-  package { 'miscfiles':
-    ensure => installed;
+
+  package {
+    'dictionaries-common': ensure => installed;
+    'miscfiles': ensure => installed;
   }
 }
 
@@ -317,65 +294,34 @@ class puppetmaster inherits govuk_base {
 }
 
 class development {
-  include govuk::testing_tools
-  include hosts
-  include nginx::development
-  include ntp
-  include motd
-  include mongodb::server
-  include users
-  include apt
   include base_packages::unix_tools
-  include solr
+  include govuk::testing_tools
+  include nginx::development
+  include mongodb::server
   include apollo
+  include hosts
+  include solr
+  include apt
+
   $mysql_password = "alphagov"
   include mysql::server
   include mysql::client
-  $jetty_version = "7.5.4.v20111024"
-  include jetty
-  include router
 
-  mysql::server::db {"fco_development":
-    user     => "fco",
-    password => "",
-    host     => "localhost"
-  }
-
-  mysql::server::db {"needotron_development":
-    user     => "needotron",
-    password => "",
-    host     => "localhost"
-  }
-
-  mysql::server::db {"panopticon_development":
-    user     => "panopticon",
-    password => "panopticon",
-    host     => "localhost"
-  }
-
-  mysql::server::db {"panopticon_test":
-    user     => "panopticon",
-    password => "panopticon",
-    host     => "localhost"
-  }
-
-  mysql::server::db {"contactotron_development":
-    user     => "contactotron",
-    password => "",
-    host     => "localhost"
+  mysql::server::db {
+    "fco_development":          user => "fco",          password => "",           host => "localhost";
+    "needotron_development":    user => "needotron",    password => "",           host => "localhost";
+    "panopticon_development":   user => "panopticon",   password => "panopticon", host => "localhost";
+    "panopticon_test":          user => "panopticon",   password => "panopticon", host => "localhost";
+    "contactotron_development": user => "contactotron", password => "",           host => "localhost";
   }
 
   package {
-    "bundler": provider => gem, ensure => "installed";
-    "foreman": provider => gem, ensure => "installed";
-    "mysql2": provider => gem, ensure => "installed";
+    "bundler":      provider => gem, ensure => "installed";
+    "foreman":      provider => gem, ensure => "installed";
+    "mysql2":       provider => gem, ensure => "installed", require => Class["mysql::client"];
     "ruby-debug19": provider => gem, ensure => "installed";
-    "rails": provider => gem, ensure => "installed";
-    "passenger": provider => gem, ensure => "installed";
-  }
-
-  # Avoid clash with nginx which runs on port 80
-  package { "apache2":
-    ensure => absent,
+    "rails":        provider => gem, ensure => "installed";
+    "passenger":    provider => gem, ensure => "installed";
+    "apache2":                       ensure => "absent";
   }
 }
