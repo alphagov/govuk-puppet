@@ -10,8 +10,8 @@ class base {
   include users
   sshkey { 'github.com':
     ensure => present,
-    type => 'ssh-rsa',
-    key => extlookup("github_key")
+    type   => 'ssh-rsa',
+    key    => "AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==" 
   }
 }
 
@@ -300,7 +300,6 @@ class development {
   include mongodb::server
   include apollo
   include hosts
-  include users
   include solr
   include apt
 
@@ -319,7 +318,7 @@ class development {
   package {
     "bundler":      provider => gem, ensure => "installed";
     "foreman":      provider => gem, ensure => "installed";
-    "mysql2":       provider => gem, ensure => "installed";
+    "mysql2":       provider => gem, ensure => "installed", require => Class["mysql::client"];
     "ruby-debug19": provider => gem, ensure => "installed";
     "rails":        provider => gem, ensure => "installed";
     "passenger":    provider => gem, ensure => "installed";
