@@ -111,6 +111,23 @@ class users::govuk {
     require => User["mwall"]
   }
 
+  user { "minglis":
+    comment => "Martyn Inglis (martyn.inglis@digital.cabinet-office.gov.uk)",
+    ensure     => present,
+    home       => "/home/minglis",
+    managehome => true,
+    groups     => ["admin", "deploy"],
+    require    => Class["users::setup"],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { "minglis_key":
+    ensure  => present,
+    key     => extlookup("minglis_key", ""),
+    type    => "ssh-rsa",
+    user    => "minglis",
+    require => User["minglis"]
+  }
+
   user { "dafydd":
     comment => "Dafydd Vaughan (dafydd.vaughan@digital.cabinet-office.gov.uk)",
     ensure     => present,
