@@ -6,6 +6,13 @@ class hosts {
   }
 }
 
+class hosts::ertp {
+  case $govuk_platform {
+    default:    { include hosts::ertp-preview }
+  }
+}
+
+
 class hosts::production {
   # TODO: Find out if these are used and if, instead, we can just use the
   # DNS and hit the public IP for them.
@@ -77,9 +84,15 @@ class hosts::preview {
   host { 'calendars.preview.alphagov.co.uk': ip => '10.58.253.150' }
   host { 'smartanswers.preview.alphagov.co.uk': ip => '10.58.253.150' }
   host { 'frontend.preview.alphagov.co.uk': ip => '10.58.253.150' }
+  
   host { 'whitehall.preview.alphagov.co.uk': ip => '10.49.105.155' }
   host { 'whitehall-search.preview.alphagov.co.uk': ip => '10.49.105.155' }
   host { 'whitehall.cluster': ip => '10.49.105.155' }
+}
+
+class hosts::ertp-preview {
+  host { 'ertp-api': ip => '10.239.86.141' }
+  host { 'ertp-mongo': ip => '10.236.89.222' }
 }
 
 class hosts::development {

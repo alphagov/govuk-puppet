@@ -1,2 +1,2 @@
-mongo.database.hosts=ec2-176-34-76-69.eu-west-1.compute.amazonaws.com
-ertp.api.url=http://ec2-176-34-220-116.eu-west-1.compute.amazonaws.com:8080/ertp-api
+mongo.database.hosts=ertp-mongo
+ertp.api.url=http://ertp-api:8080/ertp-api
