@@ -27,3 +27,5 @@ A handy script is included that will:
 So to get started, or just to apply the latest manifests you can run:
 
     ./update.sh
+
+On first run with the development class this currently takes approximately 8 minutes on a single processor virtual machine with 1GB RAM.
