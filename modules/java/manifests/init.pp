@@ -22,7 +22,11 @@ class java(
     ensure       => $version,
     name         => $distribution_debian,
     responsefile => "/var/local/sun-java6.preseed",
-    require      => [Exec["add_repo_sun-java-community-team"], File["/var/local/sun-java6.preseed"], Package['remove-openjdk']],
+    require      => [
+      Exec["apt-update-ppa-sun-java-community-team"],
+      File["/var/local/sun-java6.preseed"],
+      Package['remove-openjdk']
+    ],
   }
 
   package { 'remove-openjdk':

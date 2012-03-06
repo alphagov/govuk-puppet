@@ -44,22 +44,24 @@ class apt {
     command => "${provider} update",
   }
 
-  exec { "apt_update_2":
-    command => "${provider} update",
-  }
-
   package { "python-software-properties":
     ensure => installed,
   }
 
   define ppa_repository($publisher, $repo, $ensure="present") {
+
+    exec { "apt-update-ppa-${name}":
+      command     => "/usr/bin/apt-get update",
+      refreshonly => true,
+    }
+
     case $ensure {
       "present": {
         exec { "add_repo_$name":
           command => "/usr/bin/add-apt-repository ppa:$publisher/$repo",
           creates => "/etc/apt/sources.list.d/$publisher-$repo-$::lsbdistcodename.list",
           require => [Package["python-software-properties"]],
-          before  => Exec["apt_update_2"],
+          notify  => Exec["apt-update-ppa-${name}"],
         }
       }
       "absent": {
@@ -69,7 +71,7 @@ class apt {
   }
 
   define deb_repository($url, $repo, $ensure="present", $dist="${::lsbdistcodename}", $key_url=false, $key_name=false) {
-    exec { "apt_update_for_repo_$name":
+    exec { "apt-update-repo-$name":
       command => "/usr/bin/apt-get update",
       refreshonly => true
     }
@@ -87,7 +89,7 @@ class apt {
           command => "/bin/echo 'deb $url $dist $repo' >> /etc/apt/sources.list",
           unless  => "/bin/grep -Fxqe 'deb $url $dist $repo' /etc/apt/sources.list",
           require => [Package["python-software-properties"]],
-          notify  => Exec["apt_update_for_repo_$name"],
+          notify  => Exec["apt-update-repo-$name"],
         }
       }
       "absent": {
@@ -97,10 +99,14 @@ class apt {
   }
 
   define deb_key($keyserver = "keyserver.ubuntu.com") {
+    exec { "apt-update-key-$name":
+      command => "/usr/bin/apt-get update",
+      refreshonly => true
+    }
     exec { "add_key_$name":
       command => "/usr/bin/apt-key adv --keyserver $keyserver --recv $name",
       unless  => "apt-key list | grep -Fqe '${name}'",
-      before  => Exec["apt_update_2"],
+      notify  => Exec["apt-update-key-$name"],
     }
   }
 }

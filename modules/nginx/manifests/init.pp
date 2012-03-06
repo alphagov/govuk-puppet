@@ -47,9 +47,13 @@ class nginx::install {
     ensure => directory,
     owner => 'www-data',
   }
+  file { "/usr/share/nginx":
+    ensure  => directory,
+  }
   file { "/usr/share/nginx/www":
-    ensure => directory,
-    mode  => 0777,
+    ensure  => directory,
+    mode    => 0777,
+    require => File["/usr/share/nginx"],
   }
   file { '/etc/nginx/htpasswd':
     ensure => directory,
@@ -59,6 +63,7 @@ class nginx::install {
     require => Package['nginx']
   }
   file { "/etc/nginx/ssl":
+    require => Package['nginx'],
     ensure => directory
   }
 }

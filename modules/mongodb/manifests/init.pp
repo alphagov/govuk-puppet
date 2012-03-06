@@ -45,6 +45,7 @@ class mongodb::configuration {
     ensure  => present,
     owner   => 'mongodb',
     group   => 'mongodb',
+    require => Package['mongodb-10gen'],
     mode    => '644',
   }
   

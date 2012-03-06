@@ -9,7 +9,8 @@ class govuk::testing_tools {
   }
 
   package { 'phantomjs':
-    ensure => installed;
+    ensure => installed,
+    require => Exec["add_repo_jerome-etienne"],
   }
 
   file { "/etc/init/xvfb.conf":
@@ -24,6 +25,11 @@ class govuk::testing_tools {
       Package["xvfb"],
       File["/etc/init/xvfb.conf"],
     ]
+  }
+
+  apt::ppa_repository { "jerome-etienne":
+    publisher => "jerome-etienne",
+    repo      => "neoip"
   }
 
   apt::ppa_repository { "kubuntu-backports":
