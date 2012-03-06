@@ -9,6 +9,7 @@ class ertp_base {
   include sysctl
   include users
   include users::ertp
+  include hosts::ertp
 }
 
 # ERTP MongoServer Configuration
