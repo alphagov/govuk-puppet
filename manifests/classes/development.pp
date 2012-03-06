@@ -24,7 +24,6 @@ class development {
     "bundler":      provider => gem, ensure => "installed";
     "foreman":      provider => gem, ensure => "installed";
     "mysql2":       provider => gem, ensure => "installed", require => Class["mysql::client"];
-    "ruby-debug19": provider => gem, ensure => "installed", require => Package["build-essential"];
     "rails":        provider => gem, ensure => "installed";
     "passenger":    provider => gem, ensure => "installed";
     "apache2":                       ensure => "absent";
