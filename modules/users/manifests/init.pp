@@ -452,7 +452,7 @@ class users::ertp {
     ensure  => present,
     key     => extlookup("jameshu_key", ""),
     type    => "ssh-rsa",
-    user    => "jamehsu",
+    user    => "jameshu",
     require => User["jameshu"]
   }
 
@@ -469,7 +469,7 @@ class users::ertp {
     ensure  => present,
     key     => extlookup("michaela_key", ""),
     type    => "ssh-rsa",
-    user    => "micheala",
+    user    => "michaela",
     require => User["michaela"]
   }
 
