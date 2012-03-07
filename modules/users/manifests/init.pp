@@ -26,6 +26,12 @@ class users::setup {
     require => User['deploy'],
   }
   ssh_authorized_key {
+    "deploy_key_minglis":
+      ensure  => present,
+      key     => extlookup("minglis_key", ""),
+      type    => "ssh-rsa",
+      user   => "deploy",
+      require => User["deploy"];
     "deploy_key_heathd":
       ensure => present,
       key    => extlookup("heathd_key", ""),
