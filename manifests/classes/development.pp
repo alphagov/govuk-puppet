@@ -18,6 +18,7 @@ class development {
     "panopticon_development":   user => "panopticon",   password => "panopticon", host => "localhost";
     "panopticon_test":          user => "panopticon",   password => "panopticon", host => "localhost";
     "contactotron_development": user => "contactotron", password => "",           host => "localhost";
+    "signonotron_development":  user => "signonotron",  password => "",           host => "localhost";
     "whitehall_development":    user => "whitehall",    password => "whitehall",  host => "localhost";
     "whitehall_test":           user => "whitehall",    password => "whitehall",  host => "localhost";
   }
