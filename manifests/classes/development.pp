@@ -25,7 +25,7 @@ class development {
 
   package {
     "bundler":      provider => gem, ensure => "installed";
-    "foreman":      provider => gem, ensure => "installed";
+    "foreman":      provider => gem, ensure => "0.27.0";
     "linecache19":  provider => gem, ensure => "installed";
     "mysql2":       provider => gem, ensure => "installed", require => Class["mysql::client"];
     "rails":        provider => gem, ensure => "installed";
