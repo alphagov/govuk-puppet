@@ -110,19 +110,17 @@ director smartanswers round-robin {
   <% end %>
 }
 
-<% whitehall_paths.each do |path| %>
 backend whitehall {
   .host = "whitehall.cluster";
   .port = "8085";
   .probe = {
-    .url = "<%= path %>";
+    .url = "/government";
     .interval = 5s;
     .timeout = 1s;
     .window = 5;
     .threshold = 3;
   }
 }
-<% end %>
 
 <% else %>
 
