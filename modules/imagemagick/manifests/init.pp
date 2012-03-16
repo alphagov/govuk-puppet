@@ -1,5 +1,5 @@
 class imagemagick {
-  package { "imagemagick":
+  package { 'imagemagick':
     ensure => installed
   }
 }
