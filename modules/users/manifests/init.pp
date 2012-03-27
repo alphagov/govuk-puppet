@@ -92,6 +92,12 @@ class users::setup {
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
+    'deploy_key_davidt':
+      ensure => present,
+      key => extlookup('davidt_key', ''),
+      type => 'ssh-rsa',
+      user => 'deploy',
+      require => User['deploy'];
     }
 }
 
@@ -236,6 +242,22 @@ class users::govuk {
     require => User['paulb'],
   }
 
+  user { 'davidt':
+    ensure     => present,
+    comment    => "David Thompson <david.thompson@digital.cabinet-office.gov.uk>",
+    home       => '/home/davidt',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'davidt':
+    ensure  => present,
+    key     => extlookup('davidt_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'davidt',
+    require => User['davidt']
+  }
   user { 'jamesweiner':
     ensure     => present,
     comment    => 'James Weiner <james.weiner@digital.cabinet-office.gov.uk>',
