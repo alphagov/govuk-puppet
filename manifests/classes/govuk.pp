@@ -160,6 +160,8 @@ class frontend_server inherits ruby_app_server {
       to => ["localhost:8080"];
     "smartanswers.$govuk_platform.alphagov.co.uk":
       to => ["localhost:8080"];
+    "designprinciples.$govuk_platform.alphagov.co.uk":
+      to => ["localhost:8080"];
   }
 
   apache2::vhost::passenger {
@@ -173,6 +175,8 @@ class frontend_server inherits ruby_app_server {
       additional_port => 8083;
     "smartanswers.$govuk_platform.alphagov.co.uk":
       additional_port => 8084;
+    "designprinciples.$govuk_platform.alphagov.co.uk":
+      additional_port => 8085;
     "static.$govuk_platform.alphagov.co.uk":;
   }
 
