@@ -2,10 +2,10 @@ class sudo {
   file { '/etc/sudoers':
     owner   => root,
     group   => root,
-    mode    => 440,
+    mode    => '0440',
     source  => 'puppet:///modules/sudo/sudoers',
-    require => [ Package["sudo"] ]
+    require => Package['sudo']
   }
 
-  package { sudo: ensure => installed }
+  package { 'sudo': ensure => installed }
 }

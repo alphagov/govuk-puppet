@@ -9,28 +9,28 @@ class java(
     jre => 'sun-java6-jre',
   }
 
-  apt::ppa_repository { "sun-java-community-team":
-    publisher => "sun-java-community-team",
-    repo => "sun-java6"
+  apt::ppa_repository { 'sun-java-community-team':
+    publisher => 'sun-java-community-team',
+    repo      => 'sun-java6'
   }
 
-  file { "/var/local/sun-java6.preseed":
+  file { '/var/local/sun-java6.preseed':
     content => template("${module_name}/sun-java6.preseed"),
   }
 
   package { 'java':
     ensure       => $version,
     name         => $distribution_debian,
-    responsefile => "/var/local/sun-java6.preseed",
+    responsefile => '/var/local/sun-java6.preseed',
     require      => [
-      Exec["apt-update-ppa-sun-java-community-team"],
-      File["/var/local/sun-java6.preseed"],
+      Exec['apt-update-ppa-sun-java-community-team'],
+      File['/var/local/sun-java6.preseed'],
       Package['remove-openjdk']
     ],
   }
 
   package { 'remove-openjdk':
-    name => 'openjdk-6-jre-headless',
-    ensure => 'absent'
+    ensure => 'absent',
+    name   => 'openjdk-6-jre-headless',
   }
 }

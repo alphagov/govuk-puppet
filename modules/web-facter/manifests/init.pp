@@ -4,28 +4,28 @@ class webfacter(
   $password = false
 ) {
 
-  package { "web-facter":
+  package { 'web-facter':
     ensure   => latest,
     provider => gem,
   }
 
-  file { "/etc/web-facter.conf":
+  file { '/etc/web-facter.conf':
     ensure  => present,
     content => template('web-facter/web-facter.conf'),
     notify  => Service['web-facter'],
   }
 
-  file { "/etc/init/web-facter.conf":
+  file { '/etc/init/web-facter.conf':
     ensure  => present,
-    source  => "puppet:///modules/web-facter/web-facter",
+    source  => 'puppet:///modules/web-facter/web-facter',
   }
 
-  service { "web-facter":
+  service { 'web-facter':
     ensure   => running,
     provider => upstart,
     require  => [
-      Package["web-facter"],
-      File["/etc/init/web-facter.conf"],
+      Package['web-facter'],
+      File['/etc/init/web-facter.conf'],
     ]
   }
 

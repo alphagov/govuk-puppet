@@ -1,14 +1,14 @@
 class logrotate {
-  package { "logrotate":
+  package { 'logrotate':
     ensure => installed
   }
 
-  file { "/etc/logrotate.d/apps":
+  file { '/etc/logrotate.d/apps':
     ensure  => present,
     source  => 'puppet:///modules/logrotate/apps',
     owner   => 'root',
     group   => 'root',
-    mode    => '644',
+    mode    => '0644',
     require => Package['logrotate'],
   }
 }

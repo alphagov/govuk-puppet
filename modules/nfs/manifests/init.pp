@@ -1,9 +1,9 @@
 class nfs_common {
-  package { "nfs-common":
+  package { 'nfs-common':
     ensure => installed
   }
 
-  file { "/data/media":
+  file { '/data/media':
     ensure => directory
   }
 }
@@ -11,22 +11,22 @@ class nfs_common {
 class nfs_server {
   include nfs_common
 
-  service { "nfs-kernel-server":
+  service { 'nfs-kernel-server':
     ensure   => running,
-    require  => [Package["nfs-kernel-server"],Package["nfs-common"]]
+    require  => [Package['nfs-kernel-server'],Package['nfs-common']]
   }
 
-  package { "nfs-kernel-server":
-    ensure   => installed 
+  package { 'nfs-kernel-server':
+    ensure   => installed
   }
 
-  file { "/etc/exports":
-     owner   => "root",
-     group   => "root",
-     mode    => 644,
-     source  => "puppet:///modules/nfs/exports",
-     notify  => Service["nfs-kernel-server"],
-     require => [File["/data/media"]],
+  file { '/etc/exports':
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/nfs/exports',
+    notify  => Service['nfs-kernel-server'],
+    require => [File['/data/media']],
   }
 }
 
@@ -34,13 +34,13 @@ class nfs_client {
   include nfs_common
 
   define nfs_mount() {
-    mount { "/data/media":
-      device  => "$name:/data/media",
-      fstype  => "nfs",
-      ensure  => "mounted",
-      options => "defaults",
+    mount { '/data/media':
+      ensure  => 'mounted',
+      device  => '$name:/data/media',
+      fstype  => 'nfs',
+      options => 'defaults',
       atboot  => true,
-      require => Class["nfs_common"],
+      require => Class['nfs_common'],
     }
   }
 }

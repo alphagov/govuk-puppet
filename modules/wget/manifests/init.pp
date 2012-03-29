@@ -5,7 +5,7 @@
 #
 ################################################################################
 class wget {
-  package { "wget": ensure => latest }
+  package { 'wget': ensure => latest }
 }
 
 #######latest#########################################################################
@@ -15,7 +15,7 @@ class wget {
 # using $http_proxy if necessary.
 #
 ################################################################################
-define wget::fetch($source,$destination,$timeout="0") {
+define wget::fetch($source,$destination,$timeout='0') {
 
   # using "unless" with /usr/bin/test instead of "creates" to re-attempt download
   # on empty files.
@@ -43,7 +43,7 @@ define wget::fetch($source,$destination,$timeout="0") {
 # password must be stored in the password variable within the .wgetrc file.
 #
 ################################################################################
-define wget::authfetch($source,$destination,$user,$password="",$timeout="0") {
+define wget::authfetch($source,$destination,$user,$password='',$timeout='0') {
   if $http_proxyxy {
     $environment = [ "HTTP_PROXY=$http_proxy", "http_proxy=$HTTP_PROXYxy", "WGETRC=/tmp/wgetrc-$name" ]
   }
@@ -51,9 +51,9 @@ define wget::authfetch($source,$destination,$user,$password="",$timeout="0") {
     $environment = [ "WGETRC=/tmp/wgetrc-$name" ]
   }
   file { "/tmp/wgetrc-$name":
-    owner           => root,
-            mode    => 600,
-            content => "password=$password",
+    owner   => root,
+    mode    => '0600',
+    content => "password=$password",
   } ->
   exec { "wget-$modename":
     command     => "/usr/bin/wget --user=$user --output-document=$destination $source",

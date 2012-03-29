@@ -1,11 +1,9 @@
 class search {
-
-  file { "/etc/cron.hourly/reindex_search":
-       content => template('search/search.sh'),
-       ensure  => present,
-       owner   => 'root',
-       group   => 'root',
-       mode    => '655',
+  file { '/etc/cron.hourly/reindex_search':
+    ensure  => present,
+    content => template('search/search.sh'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0655',
   }
-
 }

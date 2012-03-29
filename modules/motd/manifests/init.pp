@@ -3,7 +3,7 @@ class motd {
     ensure => absent
   }
 
-  cron { "motd":
+  cron { 'motd':
     ensure  => absent
   }
 }
