@@ -9,6 +9,9 @@ esac
 RUBY_PACKAGE="https://gds-packages.s3.amazonaws.com/pool/ruby-1.9.2-p290_${ARCH}.deb"
 PUPPET_VERSION="2.7.3"
 
+# Missing package dependency
+sudo apt-get install libffi5
+
 # Install Ruby
 if ! which ruby >/dev/null; then
   cd $(mktemp -d /tmp/install_ruby.XXXXXXXXXX) && \
