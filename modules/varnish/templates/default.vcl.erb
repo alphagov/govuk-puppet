@@ -72,6 +72,20 @@ backend smartanswers_<%= i %> {
     .threshold = 3;
   }
 }
+
+backend designprinciples_<%= i %> {
+  .host = "<%= host %>";
+  .port = "8085";
+  .host_header = "designprinciples.<%= govuk_platform %>.alphagov.co.uk";
+  .probe = {
+    .url = "/";
+    .interval = 5s;
+    .timeout = 1s;
+    .window = 5;
+    .threshold = 3;
+  }
+}
+
 <% end %>
 
 director frontend round-robin {
@@ -106,6 +120,13 @@ director smartanswers round-robin {
   <% frontend_hosts.count.times do |i| %>
   {
   .backend = smartanswers_<%= i %>;
+  }
+  <% end %>
+}
+director designprinciples round-robin {
+  <% frontend_hosts.count.times do |i| %>
+  {
+  .backend = principles_<%= i %>;
   }
   <% end %>
 }
@@ -149,6 +170,8 @@ sub vcl_recv {
     set req.backend = whitehall;
   } else if (req.url ~ "^/maternity(\.xml|\.json|\.ics)?(\?.*|)$|^/paternity(\.xml|\.json|\.ics)?(\?.*|)$") {
     set req.backend = planner;
+  } else if (req.url ~ "^/designprinciples") {
+    set req.backend = designprinciples;
   } else {
     set req.backend = frontend;
   }
