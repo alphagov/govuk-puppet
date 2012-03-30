@@ -93,10 +93,10 @@ class users::setup {
       user    => 'deploy',
       require => User['deploy'];
     'deploy_key_davidt':
-      ensure => present,
-      key => extlookup('davidt_key', ''),
-      type => 'ssh-rsa',
-      user => 'deploy',
+      ensure  => present,
+      key     => extlookup('davidt_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
       require => User['deploy'];
     'deploy_key_mazz':
       ensure => present,
@@ -250,7 +250,7 @@ class users::govuk {
 
   user { 'davidt':
     ensure     => present,
-    comment    => "David Thompson <david.thompson@digital.cabinet-office.gov.uk>",
+    comment    => 'David Thompson <david.thompson@digital.cabinet-office.gov.uk>',
     home       => '/home/davidt',
     managehome => true,
     groups     => ['admin', 'deploy'],
