@@ -21,6 +21,7 @@ class hosts::production {
   host { 'fco.production.alphagov.co.uk':               ip => '10.53.54.49' }
   host { 'jobs.production.alphagov.co.uk':              ip => '10.53.54.49' }
   host { 'smartanswers.production.alphagov.co.uk':      ip => '10.53.54.49' }
+  host { 'designprincipals.production.alphagov.co.uk':  ip => '10.53.54.49' }
   host { 'frontend.production.alphagov.co.uk':          ip => '10.53.54.49' }
   host { 'search.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'planner.production.alphagov.co.uk':           ip => '10.53.54.49' }
@@ -79,6 +80,7 @@ class hosts::preview {
   host { 'search.preview.alphagov.co.uk':           ip => '10.58.253.150' }
   host { 'planner.preview.alphagov.co.uk':          ip => '10.58.253.150' }
   host { 'calendars.preview.alphagov.co.uk':        ip => '10.58.253.150' }
+  host { 'designprincipals.preview.alphagov.co.uk': ip => '10.58.253.150' }
   host { 'smartanswers.preview.alphagov.co.uk':     ip => '10.58.253.150' }
   host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }
 
