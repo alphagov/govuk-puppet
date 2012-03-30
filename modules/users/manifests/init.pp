@@ -98,6 +98,12 @@ class users::setup {
       type => 'ssh-rsa',
       user => 'deploy',
       require => User['deploy'];
+    'deploy_key_mazz':
+      ensure => present,
+      key => extlookup('mazz_key', ''),
+      type => 'ssh-rsa',
+      user => 'deploy',
+      require => User['deploy'];
     }
 }
 
@@ -258,6 +264,23 @@ class users::govuk {
     user    => 'davidt',
     require => User['davidt']
   }
+  user { 'mazz':
+    ensure     => present,
+    comment    => "Mazz Mosley <mazz.mosley@digital.cabinet-office.gov.uk>",
+    home       => '/home/mazz',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'mazz':
+    ensure  => present,
+    key     => extlookup('mazz_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'mazz',
+    require => User['mazz']
+  }
+
   user { 'jamesweiner':
     ensure     => present,
     comment    => 'James Weiner <james.weiner@digital.cabinet-office.gov.uk>',
