@@ -126,7 +126,7 @@ director smartanswers round-robin {
 director designprinciples round-robin {
   <% frontend_hosts.count.times do |i| %>
   {
-  .backend = principles_<%= i %>;
+  .backend = designprinciples_<%= i %>;
   }
   <% end %>
 }
