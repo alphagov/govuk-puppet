@@ -30,6 +30,8 @@ root ALL=(ALL) ALL
 # It needs passwordless sudo functionality.
 ubuntu  ALL=(ALL) NOPASSWD:ALL
 
+# the deploy user can access initctl
+deploy ALL=NOPASSWD:/sbin/initctl
 # the deploy user can restart the application server
 deploy ALL=NOPASSWD:/etc/init.d/jetty
 # the deploy user can restart varnish
