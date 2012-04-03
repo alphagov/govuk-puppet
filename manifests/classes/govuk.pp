@@ -189,7 +189,7 @@ class frontend_server inherits ruby_app_server {
 
   nginx::vhost::static { "static.$govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ["calendars", "planner", "smartanswers", "static", "frontend"],
+    aliases   => ["calendars", "planner", "smartanswers", "static", "frontend", "designprinciples"],
     ssl_only  => true
   }
 }
