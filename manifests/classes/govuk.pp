@@ -107,6 +107,7 @@ class backend_server inherits ruby_app_server {
   apache2::vhost::passenger {
     "needotron.$govuk_platform.alphagov.co.uk":;
     "signonotron.$govuk_platform.alphagov.co.uk":;
+    "signon.$govuk_platform.alphagov.co.uk":;
     "publisher.$govuk_platform.alphagov.co.uk":;
     "imminence.$govuk_platform.alphagov.co.uk":;
     "panopticon.$govuk_platform.alphagov.co.uk":;
@@ -125,6 +126,10 @@ class backend_server inherits ruby_app_server {
       to => ["localhost:8080"],
       ssl_only => true;
     "signonotron.$govuk_platform.alphagov.co.uk":
+      to => ["localhost:8080"],
+      protected => false,
+      ssl_only => true;
+    "signon.$govuk_platform.alphagov.co.uk":
       to => ["localhost:8080"],
       protected => false,
       ssl_only => true;
@@ -189,7 +194,7 @@ class frontend_server inherits ruby_app_server {
 
   nginx::vhost::static { "static.$govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ["calendars", "planner", "smartanswers", "static", "frontend"],
+    aliases   => ["calendars", "planner", "smartanswers", "static", "frontend", "designprinciples"],
     ssl_only  => true
   }
 }

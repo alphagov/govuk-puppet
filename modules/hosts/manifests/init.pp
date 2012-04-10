@@ -27,6 +27,7 @@ class hosts::production {
   host { 'planner.production.alphagov.co.uk':           ip => '10.53.54.49' }
   host { 'calendars.production.alphagov.co.uk':         ip => '10.53.54.49' }
   host { 'signonotron.production.alphagov.co.uk':       ip => '10.54.182.112' }
+  host { 'signon.production.alphagov.co.uk':            ip => '10.54.182.112' }
   host { 'panopticon.production.alphagov.co.uk':        ip => '10.54.182.112' }
   host { 'needotron.production.alphagov.co.uk':         ip => '10.54.182.112' }
   host { 'imminence.production.alphagov.co.uk':         ip => '10.54.182.112' }
@@ -71,6 +72,7 @@ class hosts::preview {
   host { 'graylog.cluster':     ip => '10.228.175.48' }
 
   host { 'signonotron.preview.alphagov.co.uk':      ip => '10.228.95.176' }
+  host { 'signon.preview.alphagov.co.uk':           ip => '10.228.95.176' }
   host { 'panopticon.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'needotron.preview.alphagov.co.uk':        ip => '10.228.95.176' }
   host { 'imminence.preview.alphagov.co.uk':        ip => '10.228.95.176' }
