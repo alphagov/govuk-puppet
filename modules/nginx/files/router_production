@@ -35,6 +35,9 @@ server {
 
   rewrite ^/cloudstore http://gcloud.civilservice.gov.uk/cloudstore/;
 
+  location ~ ^/government\/assets\/ {
+    proxy_pass http://varnish;
+  }
   location ~ ^/government\/.+ {
     deny all;
     auth_basic            "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
