@@ -23,6 +23,7 @@ class ertp_frontend_server inherits ertp_base {
   include jetty
   include nginx::ertp
   include ertp::config
+  include ertp::scripts
 }
 
 # ERTP API Server Configuration
