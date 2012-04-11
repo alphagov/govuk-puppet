@@ -33,7 +33,7 @@ server {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_redirect off;
 
-  rewrite ^/cloudstore http://www.govstore.net/;
+  rewrite ^/cloudstore http://gcloud.civilservice.gov.uk/cloudstore/;
 
   location / {
     allow 109.107.35.78;
