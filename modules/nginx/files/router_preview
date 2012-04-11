@@ -5,7 +5,7 @@ upstream varnish {
 server {
   listen 80 default;
   server_name www.preview.alphagov.co.uk;
-  rewrite ^/cloudstore http://www.govstore.net/;
+  rewrite ^/cloudstore http://gcloud.civilservice.gov.uk/cloudstore;
   rewrite ^/(.*) https://$server_name/$1 permanent;
 }
 
