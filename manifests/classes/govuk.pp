@@ -293,6 +293,10 @@ class management_server {
       user     => 'panopticon',
       password => 'panopticon',
       host     => 'localhost';
+    'signonotron2_test':
+      user     => 'signonotron2',
+      password => 'signonotron2',
+      host     => 'localhost';
   }
 }
 
