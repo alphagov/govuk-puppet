@@ -273,8 +273,10 @@ class management_server {
   }
   include solr
   include jenkins
-  include rundeck
   include imagemagick
+
+  # Seems to be not working at the moment
+  # include rundeck
 
   mysql::server::db {
     'whitehall_development':
