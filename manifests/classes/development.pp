@@ -8,28 +8,28 @@ class development {
   include solr
   include apt
 
-  $mysql_password = ""
+  $mysql_password = ''
   include mysql::server
   include mysql::client
 
   mysql::server::db {
-    "fco_development":          user => "fco",          password => "",           host => "localhost";
-    "needotron_development":    user => "needotron",    password => "",           host => "localhost";
-    "panopticon_development":   user => "panopticon",   password => "panopticon", host => "localhost";
-    "panopticon_test":          user => "panopticon",   password => "panopticon", host => "localhost";
-    "contactotron_development": user => "contactotron", password => "",           host => "localhost";
-    "signonotron_development":  user => "signonotron",  password => "",           host => "localhost";
-    "whitehall_development":    user => "whitehall",    password => "whitehall",  host => "localhost";
-    "whitehall_test":           user => "whitehall",    password => "whitehall",  host => "localhost";
+    'fco_development':          user => 'fco',          password => '',           host => 'localhost';
+    'needotron_development':    user => 'needotron',    password => '',           host => 'localhost';
+    'panopticon_development':   user => 'panopticon',   password => 'panopticon', host => 'localhost';
+    'panopticon_test':          user => 'panopticon',   password => 'panopticon', host => 'localhost';
+    'contactotron_development': user => 'contactotron', password => '',           host => 'localhost';
+    'signonotron_development':  user => 'signonotron',  password => '',           host => 'localhost';
+    'whitehall_development':    user => 'whitehall',    password => 'whitehall',  host => 'localhost';
+    'whitehall_test':           user => 'whitehall',    password => 'whitehall',  host => 'localhost';
   }
 
   package {
-    "bundler":      provider => gem, ensure => "installed";
-    "foreman":      provider => gem, ensure => "0.27.0";
-    "linecache19":  provider => gem, ensure => "installed";
-    "mysql2":       provider => gem, ensure => "installed", require => Class["mysql::client"];
-    "rails":        provider => gem, ensure => "installed";
-    "passenger":    provider => gem, ensure => "installed";
-    "apache2":                       ensure => "absent";
+    'bundler':      ensure => 'installed', provider => gem;
+    'foreman':      ensure => '0.27.0',    provider => gem;
+    'linecache19':  ensure => 'installed', provider => gem;
+    'mysql2':       ensure => 'installed', provider => gem, require => Class['mysql::client'];
+    'rails':        ensure => 'installed', provider => gem;
+    'passenger':    ensure => 'installed', provider => gem;
+    'apache2':      ensure => 'absent';
   }
 }
