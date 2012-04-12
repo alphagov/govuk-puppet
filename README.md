@@ -29,3 +29,14 @@ So to get started, or just to apply the latest manifests you can run:
     ./update.sh
 
 On first run with the development class this currently takes approximately 8 minutes on a single processor virtual machine with 1GB RAM.
+
+## Linting
+
+Puppet Lint is a tool that checks various syntax and style rules common
+to well written Puppet code. It can be run with:
+
+    bundle exec rake lint
+
+This outputs a set of errors or warnings that should be fixed. See the
+[Puppet Style Guide](http://docs.puppetlabs.com/guides/style_guide.html)
+for more information.
