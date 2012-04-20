@@ -299,6 +299,10 @@ class management_server {
       user     => 'signonotron2',
       password => 'signonotron2',
       host     => 'localhost';
+    'signonotron2_integration_test':
+      user     => 'signonotron2',
+      password => 'signonotron2',
+      host     => 'localhost';
   }
 }
 
