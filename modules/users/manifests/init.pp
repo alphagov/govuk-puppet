@@ -110,6 +110,12 @@ class users::setup {
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
+    'deploy_key_alext':
+      ensure  => present,
+      key     => extlookup('alext_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
     }
 }
 
