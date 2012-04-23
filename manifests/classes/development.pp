@@ -20,6 +20,7 @@ class development {
     'contactotron_development': user => 'contactotron', password => '',           host => 'localhost';
     'signonotron_development':  user => 'signonotron',  password => '',           host => 'localhost';
     'signonotron2_development': user => 'signonotron2', password => '',           host => 'localhost';
+    'signonotron2_test':        user => 'signonotron2', password => '',           host => 'localhost';
     'whitehall_development':    user => 'whitehall',    password => 'whitehall',  host => 'localhost';
     'whitehall_test':           user => 'whitehall',    password => 'whitehall',  host => 'localhost';
   }
