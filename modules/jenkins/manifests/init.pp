@@ -25,6 +25,9 @@ class jenkins {
     package { 'python-dev':
       ensure => installed,
     }
+    package { 'sqlite3':
+      ensure => installed,
+    }
 
     service { 'apache2':
       ensure     => running,
