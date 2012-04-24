@@ -93,7 +93,7 @@ class jenkins {
     }
   }
 
-  apt::key{ 'jenkins-ci.org.key':
+  apt::key{ 'Kohsuke Kawaguchi':
     ensure      => present,
     apt_key_url => 'http://pkg.jenkins-ci.org/debian',
   }

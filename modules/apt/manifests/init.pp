@@ -4,19 +4,19 @@ class apt {
 
   Exec['apt_update'] -> Package <| |>
 
-  define key($ensure='present', $apt_key_url='http://www.example.com/apt/keys') {
+  define key($ensure='present', $apt_key_url) {
     case $ensure {
       'present': {
         exec { "apt-key present $name":
-          command => "/usr/bin/wget -q $apt_key_url/$name -O -|/usr/bin/apt-key add -",
-          unless  => "/usr/bin/apt-key list|/bin/grep -c $name",
+          command => "/usr/bin/wget -q $apt_key_url -O -|/usr/bin/apt-key add -",
+          unless  => "/usr/bin/apt-key list|/bin/grep -c '$name'",
           before  => Exec['apt_update']
         }
       }
       'absent': {
         exec { "apt-key absent $name":
-          command => "/usr/bin/apt-key del $name",
-          onlyif  => "/usr/bin/apt-key list|/bin/grep -c $name",
+          command => "/usr/bin/apt-key del '$name'",
+          onlyif  => "/usr/bin/apt-key list|/bin/grep -c '$name'",
         }
       }
       default: {
@@ -41,7 +41,8 @@ class apt {
   }
 
   exec { 'apt_update':
-    command => "${provider} update",
+    command     => "${provider} update",
+    refreshonly => true
   }
 
   package { 'python-software-properties':
