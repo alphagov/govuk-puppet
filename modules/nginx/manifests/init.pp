@@ -8,17 +8,17 @@ class nginx {
     onlyif      => '/etc/init.d/nginx configtest',
   }
 
-  define nxensite() {
-    file { "/etc/nginx/sites-enabled/$name":
-      ensure  => link,
-      target  => "/etc/nginx/sites-available/$name",
-      require => File["/etc/nginx/sites-available/$name"],
-      notify  => Exec['nginx_reload']
-    }
-  }
-
   include nginx::install
   include nginx::service
+}
+
+define nginx::site() {
+  file { "/etc/nginx/sites-enabled/$name":
+    ensure  => link,
+    target  => "/etc/nginx/sites-available/$name",
+    require => File["/etc/nginx/sites-available/$name"],
+    notify  => Exec['nginx_reload']
+  }
 }
 
 class nginx::install {
@@ -168,124 +168,121 @@ class nginx::router {
   }
 }
 
-class nginx::vhost {
-
-  define redirect($to) {
-    file { "/etc/nginx/sites-available/$name":
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('nginx/redirect-vhost.conf'),
-      require => Class['nginx::install'],
-      notify  => Exec['nginx_reload'],
-    }
-
-    nxensite { $name: }
-    nginx::vhost::ssl { $name: }
+define nginx::redirect($to) {
+  file { "/etc/nginx/sites-available/$name":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('nginx/redirect-vhost.conf'),
+    require => Class['nginx::install'],
+    notify  => Exec['nginx_reload'],
   }
 
-  define ssl() {
-    if $name == 'www.gov.uk' {
-      $cert = $name
-    } elsif $name == 'www.preview.alphagov.co.uk' {
-      $cert = $name
-    } else {
-      $cert = "static.${::govuk_platform}.alphagov.co.uk"
+  nginx::site { $name: }
+  nginx::ssl { $name: }
+}
+
+define nginx::ssl() {
+  if $name == 'www.gov.uk' {
+    $cert = $name
+  } elsif $name == 'www.preview.alphagov.co.uk' {
+    $cert = $name
+  } else {
+    $cert = "static.${::govuk_platform}.alphagov.co.uk"
+  }
+  file { "/etc/nginx/ssl/$name.crt":
+    ensure  => present,
+    content => extlookup("${cert}_crt")
+  }
+  file { "/etc/nginx/ssl/$name.key":
+    ensure  => present,
+    content => extlookup("${cert}_key")
+  }
+}
+
+define nginx::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
+  file { "/etc/nginx/sites-available/$name":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('nginx/proxy-vhost.conf'),
+    require => Class['nginx::install'],
+    notify  => Exec['nginx_reload'],
+  }
+
+  @@nagios_service { "check_nginx_5xx_${name}_on_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => "check_ganglia_metric!${name}_nginx_http_5xx!0.05!0.1",
+    service_description => "check nginx error rate for ${name}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '//etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  cron { "logster-nginx-$name":
+    command => "/usr/sbin/logster --metric-prefix $name NginxGangliaLogster /var/log/nginx/${name}-access_log",
+    user    => root,
+    minute  => '*/2'
+  }
+
+  graylogtail::collect { "graylogtail-access-$name":
+    log_file => "/var/log/nginx/${name}-access_log",
+    facility => $name,
+  }
+  graylogtail::collect { "graylogtail-errors-$name":
+    log_file => "/var/log/nginx/${name}-error_log",
+    facility => $name,
+    level    => 'error',
+  }
+
+  case $protected {
+    default: {
+      file { "/etc/nginx/htpasswd/htpasswd.$name":
+        ensure => present,
+        source => [
+          "puppet:///modules/nginx/htpasswd.$name",
+          'puppet:///modules/nginx/htpasswd.default'
+        ],
+      }
     }
-    file { "/etc/nginx/ssl/$name.crt":
-      ensure  => present,
-      content => extlookup("${cert}_crt")
-    }
-    file { "/etc/nginx/ssl/$name.key":
-      ensure  => present,
-      content => extlookup("${cert}_key")
+    false: {
+      file { "/etc/nginx/htpasswd/htpasswd.$name":
+        ensure => absent
+      }
     }
   }
 
-  define proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
-    file { "/etc/nginx/sites-available/$name":
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('nginx/proxy-vhost.conf'),
-      require => Class['nginx::install'],
-      notify  => Exec['nginx_reload'],
-    }
+  nginx::ssl { $name: }
+  nginx::site { $name: }
+}
 
-    @@nagios_service { "check_nginx_5xx_${name}_on_${::hostname}":
-      use                 => 'generic-service',
-      check_command       => "check_ganglia_metric!${name}_nginx_http_5xx!0.05!0.1",
-      service_description => "check nginx error rate for ${name}",
-      host_name           => "${::govuk_class}-${::hostname}",
-      target              => '//etc/nagios3/conf.d/nagios_service.cfg',
-    }
-
-    cron { "logster-nginx-$name":
-      command => "/usr/sbin/logster --metric-prefix $name NginxGangliaLogster /var/log/nginx/${name}-access_log",
-      user    => root,
-      minute  => '*/2'
-    }
-
-    graylogtail::collect { "graylogtail-access-$name":
-      log_file => "/var/log/nginx/${name}-access_log",
-      facility => $name,
-    }
-    graylogtail::collect { "graylogtail-errors-$name":
-      log_file => "/var/log/nginx/${name}-error_log",
-      facility => $name,
-      level    => 'error',
-    }
-
-    case $protected {
-      default: {
-        file { "/etc/nginx/htpasswd/htpasswd.$name":
-          ensure => present,
-          source => [
-            "puppet:///modules/nginx/htpasswd.$name",
-            'puppet:///modules/nginx/htpasswd.default'
-          ],
-        }
-      }
-      false: {
-        file { "/etc/nginx/htpasswd/htpasswd.$name":
-          ensure => absent
-        }
-      }
-    }
-
-    nginx::vhost::ssl { $name: }
-    nxensite { $name: }
+define nginx::static($protected = true, $aliases = [], $ssl_only = false) {
+  file { "/etc/nginx/sites-available/$name":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('nginx/static-vhost.conf'),
+    require => Class['nginx::install'],
+    notify  => Exec['nginx_reload'],
   }
 
-  define static($protected = true, $aliases = [], $ssl_only = false) {
-    file { "/etc/nginx/sites-available/$name":
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => template('nginx/static-vhost.conf'),
-      require => Class['nginx::install'],
-      notify  => Exec['nginx_reload'],
-    }
-
-    case $protected {
-      default: {
-        file { "/etc/nginx/htpasswd/htpasswd.$name":
-          ensure => present,
-          source => [
-            "puppet:///modules/nginx/htpasswd.$name",
-            'puppet:///modules/nginx/htpasswd.backend',
-            'puppet:///modules/nginx/htpasswd.default'
-          ],
-        }
-      }
-      false: {
-        file { "/etc/nginx/htpasswd/htpasswd.$name":
-          ensure => absent
-        }
+  case $protected {
+    default: {
+      file { "/etc/nginx/htpasswd/htpasswd.$name":
+        ensure => present,
+        source => [
+          "puppet:///modules/nginx/htpasswd.$name",
+          'puppet:///modules/nginx/htpasswd.backend',
+          'puppet:///modules/nginx/htpasswd.default'
+        ],
       }
     }
-
-    nginx::vhost::ssl { $name: }
-    nxensite { $name: }
+    false: {
+      file { "/etc/nginx/htpasswd/htpasswd.$name":
+        ensure => absent
+      }
+    }
   }
+
+  nginx::ssl { $name: }
+  nginx::site { $name: }
 }
