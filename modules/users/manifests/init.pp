@@ -309,6 +309,22 @@ class users::govuk {
     user    => 'jamesweiner',
     require => User['jamesweiner']
   }
+  user { 'robyoung':
+    ensure     => present,
+    comment    => 'Rob Young <rob.young@digital.cabinet-office.gov.uk>',
+    home       => '/home/robyoung',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'robyoung':
+    ensure  => present,
+    key     => extlookup('robyoung_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'robyoung',
+    require => User['robyoung']
+  }
 }
 
 
