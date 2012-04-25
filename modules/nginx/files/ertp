@@ -11,7 +11,7 @@ server {
   }
 
   location / {
-    rewrite ^/(.*)$ http://127.0.0.1:9000/register-to-vote/$1 permanent;
+    rewrite ^/(.*)$ http://127.0.0.1:9000/register-to-vote/$1;
   }
 
   location /register-to-vote {
