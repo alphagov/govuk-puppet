@@ -1,30 +1,14 @@
-# By default, the Debian version of automysqlbackup will use:
-# mysqldump --defaults-file=/etc/mysql/debian.cnf
-# but you might want to overwrite with a specific user & pass.
-# To do this, simply edit bellow.
+# Username to access the MySQL server
+USERNAME='<%= mysql_backup_username %>'
 
-# Username to access the MySQL server e.g. dbuser
-USERNAME=root
-#`grep user /etc/mysql/debian.cnf | tail -n 1 | cut -d"=" -f2 | awk '{print $1}'`
-
-# Username to access the MySQL server e.g. password
-PASSWORD=zsDEZXx3343Xvdfgcszds0193019946847
-#`grep password /etc/mysql/debian.cnf | tail -n 1 | cut -d"=" -f2 | awk '{print $1}'`
+# Password to access the MySQL server e.g. password
+PASSWORD='<%= mysql_backup_password %>'
 
 # Host name (or IP address) of MySQL server e.g localhost
-DBHOST=rds.cluster
+DBHOST=<%= mysql_backup_host %>
 
 # List of DBNAMES for Daily/Weekly Backup e.g. "DB1 DB2 DB3"
-# Note that it's absolutely normal that the db named "mysql" is not in this
-# list, as it's added later by the script. See the MDBNAMES directives below
-# in this file (advanced options).
-# This is ONLY a convenient default, if you don't like it, don't complain
-# and write your own.
-# The following is a quick hack that will find the names of the databases by
-# reading the mysql folder content. Feel free to replace by something else.
-# DBNAMES=`find /var/lib/mysql -mindepth 1 -maxdepth 1 -type d | cut -d'/' -f5 | grep -v ^mysql\$ | tr \\\r\\\n ,\ `
-# This one does a list of dbs using a MySQL statement.
-DBNAMES=`mysql -u $USERNAME --password="$PASSWORD" --host=$DBHOST --execute="SHOW DATABASES" | awk '{print $1}' | grep -v ^Database$ | grep -v ^mysql$ | tr \\\r\\\n ,\ `
+DBNAMES="all"
 
 # Backup directory location e.g /backups
 # Folders inside this one will be created (daily, weekly, etc.), and the
@@ -45,17 +29,15 @@ MAILCONTENT="quiet"
 MAXATTSIZE="4000"
 
 # Email Address to send mail to? (user@domain.com)
-MAILADDR="govuk-dev@digital.cabinet-office.gov.uk"
+MAILADDR="<%= mysql_backup_email %>"
 
 # ============================================================
 # === ADVANCED OPTIONS ( Read the doc's below for details )===
 #=============================================================
 
-# List of DBBNAMES for Monthly Backups.
-MDBNAMES="mysql $DBNAMES"
-
-# List of DBNAMES to EXLUCDE if DBNAMES are set to all (must be in " quotes)
-DBEXCLUDE=""
+# Since these backups are not for restoring the original server, excluding the
+# mysql database is fine
+DBEXCLUDE="mysql"
 
 # Include CREATE DATABASE in backup?
 CREATE_DATABASE=yes
