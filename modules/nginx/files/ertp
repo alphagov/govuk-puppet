@@ -11,7 +11,7 @@ server {
   }
 
   location / {
-    rewrite ^/(.*)$ /register-to-vote;
+    rewrite ^/(.*)$ /register-to-vote redirect;
   }
 
   location /register-to-vote {
