@@ -133,8 +133,6 @@ class backend_server inherits ruby_app_server {
       to        => ['localhost:8080'],
       protected => false,
       ssl_only  => true;
-    "panopticon.$govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
     "contactotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
