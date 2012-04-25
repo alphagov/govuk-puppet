@@ -41,9 +41,9 @@ class govuk::testing_tools {
 
 class govuk::signing_key {
   include apt
-  apt::key { 'gds.asc':
+  apt::key { 'Government Digital Service':
     ensure      => present,
-    apt_key_url => 'https://github.com/downloads/alphagov/packages',
+    apt_key_url => 'https://github.com/downloads/alphagov/packages/gds.asc',
   }
 }
 
