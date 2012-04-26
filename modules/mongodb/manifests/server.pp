@@ -1,4 +1,4 @@
-class mongodb {
+class mongodb::server {
   include mongodb::repository
   include mongodb::package
   include mongodb::configuration
