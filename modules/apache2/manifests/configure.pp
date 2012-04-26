@@ -1,9 +1,3 @@
-File {
-  owner => 'root',
-  group => 'root',
-  mode  => '0644',
-}
-
 class apache2::configure {
 
   file { '/etc/apache2/sites-available/default':

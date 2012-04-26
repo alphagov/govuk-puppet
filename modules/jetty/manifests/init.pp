@@ -1,10 +1,10 @@
-class jetty {
+class jetty($version='7.5.4.v20111024'){
   include wget
   include openjdk
   include logster
   include graylogtail
 
-  $jetty_home = '/opt'
+  $home = '/opt'
 
   user { 'jetty':
     ensure     => present,
@@ -14,21 +14,21 @@ class jetty {
   }
 
   wget::fetch { 'jetty_download':
-    source      => "wget http://download.eclipse.org/jetty/$::jetty_version/dist/jetty-distribution-$::jetty_version.tar.gz",
-    destination => "/usr/local/src/jetty-distribution-$::jetty_version.tar.gz",
+    source      => "wget http://download.eclipse.org/jetty/$version/dist/jetty-distribution-$version.tar.gz",
+    destination => "/usr/local/src/jetty-distribution-$version.tar.gz",
   }
 
   exec { 'jetty_untar':
-    command => "tar zxf /usr/local/src/jetty-distribution-$::jetty_version.tar.gz && chown -R jetty:jetty $::jetty_home/jetty-distribution-$::jetty_version",
-    cwd     => $::jetty_home,
-    creates => "$::jetty_home/jetty-distribution-$::jetty_version",
+    command => "tar zxf /usr/local/src/jetty-distribution-$version.tar.gz && chown -R jetty:jetty $home/jetty-distribution-$version",
+    cwd     => $home,
+    creates => "$home/jetty-distribution-$version",
     path    => ['/bin',],
     notify  => Service['jetty'],
     require => User['jetty'],
   }
 
-  file { "$::jetty_home/jetty":
-    ensure  => "$::jetty_home/jetty-distribution-$::jetty_version",
+  file { "$home/jetty":
+    ensure  => "$home/jetty-distribution-$version",
     require => Exec['jetty_untar'],
   }
 
@@ -51,51 +51,51 @@ class jetty {
     target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
-  file { "$::jetty_home/jetty/webapps":
+  file { "$home/jetty/webapps":
     group   => 'deploy',
     owner   => 'jetty',
     mode    => '0664',
     require => Exec['jetty_untar'],
   }
 
-  file { "$::jetty_home/jetty/contexts/test.xml":
+  file { "$home/jetty/contexts/test.xml":
     ensure => absent,
   }
-  file { "$::jetty_home/jetty/contexts/test.d":
+  file { "$home/jetty/contexts/test.d":
     ensure => absent,
   }
-  file { "$::jetty_home/jetty/webapps/test.war":
+  file { "$home/jetty/webapps/test.war":
     ensure => absent,
   }
 
-  file { "$::jetty_home/jetty/etc/jetty-webapps.xml":
+  file { "$home/jetty/etc/jetty-webapps.xml":
     ensure  => present,
     source  => 'puppet:///modules/jetty/jetty-webapps.xml',
-    require => File["$::jetty_home/jetty"],
+    require => File["$home/jetty"],
     notify  => Service['jetty'],
   }
 
-  file { "$::jetty_home/jetty/etc/jetty-contexts.xml":
+  file { "$home/jetty/etc/jetty-contexts.xml":
     ensure  => present,
     source  => 'puppet:///modules/jetty/jetty-contexts.xml',
-    require => File["$::jetty_home/jetty"],
+    require => File["$home/jetty"],
     notify  => Service['jetty'],
   }
 
-  file { "$jetty_home/jetty/start.ini":
+  file { "$home/jetty/start.ini":
     ensure  => present,
     source  => 'puppet:///modules/jetty/start.ini',
-    require => File["$::jetty_home/jetty"],
+    require => File["$home/jetty"],
     notify  => Service['jetty'],
   }
 
   file { '/var/log/jetty':
-    ensure  => "$::jetty_home/jetty/logs",
-    require => File["$::jetty_home/jetty"],
+    ensure  => "$home/jetty/logs",
+    require => File["$home/jetty"],
   }
 
   file { '/etc/init.d/jetty':
-    ensure => "$::jetty_home/jetty-distribution-$::jetty_version/bin/jetty.sh"
+    ensure => "$home/jetty-distribution-$version/bin/jetty.sh"
   }
 
   service {'jetty':

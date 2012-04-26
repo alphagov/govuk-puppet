@@ -1,4 +1,4 @@
-class mysql::server {
+class mysql::server($root_password='') {
   include mysql::client
   package { ['mysql-server','automysqlbackup']:
     ensure => installed,
@@ -37,9 +37,9 @@ class mysql::server {
   }
 
   exec { 'set-mysql-password':
-    unless  => "/usr/bin/mysqladmin -uroot -p${mysql_password} status",
+    unless  => "/usr/bin/mysqladmin -uroot -p${root_password} status",
     path    => ['/bin', '/usr/bin'],
-    command => "mysqladmin -uroot password ${mysql_password}",
+    command => "mysqladmin -uroot password ${root_password}",
     require => Service['mysql'],
   }
 
