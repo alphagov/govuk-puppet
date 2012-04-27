@@ -7,24 +7,26 @@ class development {
   include hosts
   include solr
   include apt
-
-  $mysql_password = ''
-  include mysql::server
   include mysql::client
 
+  $mysql_password = ''
+  class { 'mysql::server':
+    root_password => $mysql_password
+  }
+
   mysql::server::db {
-    'fco_development':                user => 'fco',          password => '',           host => 'localhost';
-    'needotron_development':          user => 'needotron',    password => '',           host => 'localhost';
-    'panopticon_development':         user => 'panopticon',   password => 'panopticon', host => 'localhost';
-    'panopticon_test':                user => 'panopticon',   password => 'panopticon', host => 'localhost';
-    'contactotron_development':       user => 'contactotron', password => '',           host => 'localhost';
-    'signonotron_development':        user => 'signonotron',  password => '',           host => 'localhost';
-    'signonotron_integration_test':   user => 'signonotron',  password => '',           host => 'localhost';
-    'signonotron2_development':       user => 'signonotron2', password => '',           host => 'localhost';
-    'signonotron2_test':              user => 'signonotron2', password => '',           host => 'localhost';
-    'signonotron2_integration_test':  user => 'signonotron2', password => '',           host => 'localhost';
-    'whitehall_development':          user => 'whitehall',    password => 'whitehall',  host => 'localhost';
-    'whitehall_test':                 user => 'whitehall',    password => 'whitehall',  host => 'localhost';
+    'fco_development':                user => 'fco',          password => '',           host => 'localhost', root_password => $mysql_password;
+    'needotron_development':          user => 'needotron',    password => '',           host => 'localhost', root_password => $mysql_password;
+    'panopticon_development':         user => 'panopticon',   password => 'panopticon', host => 'localhost', root_password => $mysql_password;
+    'panopticon_test':                user => 'panopticon',   password => 'panopticon', host => 'localhost', root_password => $mysql_password;
+    'contactotron_development':       user => 'contactotron', password => '',           host => 'localhost', root_password => $mysql_password;
+    'signonotron_development':        user => 'signonotron',  password => '',           host => 'localhost', root_password => $mysql_password;
+    'signonotron_integration_test':   user => 'signonotron',  password => '',           host => 'localhost', root_password => $mysql_password;
+    'signonotron2_development':       user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
+    'signonotron2_test':              user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
+    'signonotron2_integration_test':  user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
+    'whitehall_development':          user => 'whitehall',    password => 'whitehall',  host => 'localhost', root_password => $mysql_password;
+    'whitehall_test':                 user => 'whitehall',    password => 'whitehall',  host => 'localhost', root_password => $mysql_password;
   }
 
   package {
