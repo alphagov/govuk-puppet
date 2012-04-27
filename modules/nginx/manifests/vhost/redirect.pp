@@ -1,4 +1,4 @@
-define nginx::redirect($to) {
+define nginx::vhost::redirect($to) {
   file { "/etc/nginx/sites-available/$name":
     owner   => 'root',
     group   => 'root',

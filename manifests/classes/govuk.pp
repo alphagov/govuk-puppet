@@ -224,7 +224,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
       require => Package['nginx'],
     }
 
-    nginx::nxensite { 'whitehall.staging.alphagov.co.uk': }
+    nginx::site { 'whitehall.staging.alphagov.co.uk': }
   }
 }
 
@@ -258,7 +258,7 @@ class govuk_base::graylog_server inherits govuk_base {
 }
 
 class govuk_base::management_server {
-  $mysql_password = extlookup('mysql_root')
+  $mysql_password = extlookup('mysql_root', '')
   $apache_port = '80'
   include ruby_app_server
   include govuk::testing_tools

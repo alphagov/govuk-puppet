@@ -19,11 +19,11 @@ class nginx::router {
   }
   file { "/etc/nginx/ssl/$host.crt":
     ensure  => present,
-    content => extlookup("${host}_crt"),
+    content => extlookup("${host}_crt", ''),
   }
   file { "/etc/nginx/ssl/$host.key":
     ensure  => present,
-    content => extlookup("${host}_key"),
+    content => extlookup("${host}_key", ''),
   }
   @@nagios_service { "check_nginx_5xx_on_${::hostname}":
     use                 => 'generic-service',

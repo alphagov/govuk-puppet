@@ -8,10 +8,10 @@ define nginx::ssl() {
   }
   file { "/etc/nginx/ssl/$name.crt":
     ensure  => present,
-    content => extlookup("${cert}_crt")
+    content => extlookup("${cert}_crt", '')
   }
   file { "/etc/nginx/ssl/$name.key":
     ensure  => present,
-    content => extlookup("${cert}_key")
+    content => extlookup("${cert}_key", '')
   }
 }

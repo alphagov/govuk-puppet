@@ -1,4 +1,4 @@
-define nginx::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
+define nginx::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
   file { "/etc/nginx/sites-available/$name":
     owner   => 'root',
     group   => 'root',
