@@ -1,4 +1,4 @@
-class apache2 {
+class apache2($port='8080') {
   exec { 'apache_graceful':
     command     => 'apache2ctl graceful',
     refreshonly => true,
@@ -6,6 +6,8 @@ class apache2 {
   }
 
   include apache2::install
-  include apache2::configure
+  class { 'apache2::configure':
+    port => $port
+  }
   include apache2::service
 }

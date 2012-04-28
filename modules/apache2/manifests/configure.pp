@@ -1,4 +1,4 @@
-class apache2::configure {
+class apache2::configure($port) {
 
   file { '/etc/apache2/sites-available/default':
     ensure  => 'present',

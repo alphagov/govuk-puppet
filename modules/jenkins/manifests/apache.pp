@@ -2,6 +2,8 @@ class jenkins::apache {
   jenkins::apache::a2enmod { 'proxy': }
   jenkins::apache::a2enmod { 'proxy_http': }
 
+  $port = '80'
+
   package { 'apache2':
     ensure => installed,
   }

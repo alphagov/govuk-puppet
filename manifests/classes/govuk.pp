@@ -90,8 +90,10 @@ class govuk_base::ruby_app_server inherits govuk_base {
 }
 
 class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_server {
-  $apache_port = '8080'
-  include apache2
+  class { 'apache2':
+    port => '8080'
+  }
+
   include passenger
   include nginx
 
@@ -141,8 +143,9 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
-  $apache_port = '8080'
-  include apache2
+  class { 'apache2':
+    port => '8080'
+  }
   include passenger
   include nginx
 
@@ -195,8 +198,9 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 }
 
 class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base::ruby_app_server {
-  $apache_port = '8080'
-  include apache2
+  class {'apache2':
+    port => '8080'
+  }
   include passenger
   include nginx
   include imagemagick
@@ -259,8 +263,7 @@ class govuk_base::graylog_server inherits govuk_base {
 
 class govuk_base::management_server {
   $mysql_password = extlookup('mysql_root', '')
-  $apache_port = '80'
-  include ruby_app_server
+  include govuk_base::ruby_app_server
   include govuk::testing_tools
   class { 'mysql::server':
     root_password => $mysql_password
