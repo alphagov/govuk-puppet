@@ -6,6 +6,7 @@ class base_packages::unix_tools {
       'tree',
       'curl',
       'gettext',
+      'ack-grep',
       'daemontools',
       'git-core',
       'build-essential',
