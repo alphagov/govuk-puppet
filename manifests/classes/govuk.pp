@@ -1,4 +1,4 @@
-class base {
+class govuk_base {
   include ntp
   include apt
   include base_packages::unix_tools
@@ -13,9 +13,7 @@ class base {
     type   => 'ssh-rsa',
     key    => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
   }
-}
 
-class govuk_base inherits base {
   include nagios::client
   include ganglia::client
   include users::freerange
@@ -23,7 +21,7 @@ class govuk_base inherits base {
   include hosts
 }
 
-class redirect_server inherits govuk_base {
+class govuk_base::redirect_server inherits govuk_base {
   include nginx
   include nagios::client::checks
 
@@ -37,11 +35,11 @@ class redirect_server inherits govuk_base {
   }
 }
 
-class db_server inherits govuk_base {
+class govuk_base::db_server inherits govuk_base {
   include nagios::client::checks
 }
 
-class mongo_server inherits govuk_base {
+class govuk_base::mongo_server inherits govuk_base {
   include mongodb::server
 
   case $::govuk_platform {
@@ -76,7 +74,7 @@ class mongo_server inherits govuk_base {
   include nagios::client::checks
 }
 
-class ruby_app_server inherits govuk_base {
+class govuk_base::ruby_app_server inherits govuk_base {
   include mysql::client
   include nagios::client::checks
 
@@ -91,9 +89,11 @@ class ruby_app_server inherits govuk_base {
   }
 }
 
-class backend_server inherits ruby_app_server {
-  $apache_port = '8080'
-  include apache2
+class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_server {
+  class { 'apache2':
+    port => '8080'
+  }
+
   include passenger
   include nginx
 
@@ -142,9 +142,10 @@ class backend_server inherits ruby_app_server {
   }
 }
 
-class frontend_server inherits ruby_app_server {
-  $apache_port = '8080'
-  include apache2
+class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
+  class { 'apache2':
+    port => '8080'
+  }
   include passenger
   include nginx
 
@@ -196,9 +197,10 @@ class frontend_server inherits ruby_app_server {
   }
 }
 
-class whitehall_frontend_server inherits ruby_app_server {
-  $apache_port = '8080'
-  include apache2
+class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base::ruby_app_server {
+  class {'apache2':
+    port => '8080'
+  }
   include passenger
   include nginx
   include imagemagick
@@ -226,11 +228,11 @@ class whitehall_frontend_server inherits ruby_app_server {
       require => Package['nginx'],
     }
 
-    nginx::nxensite { 'whitehall.staging.alphagov.co.uk': }
+    nginx::site { 'whitehall.staging.alphagov.co.uk': }
   }
 }
 
-class cache_server inherits govuk_base {
+class govuk_base::cache_server inherits govuk_base {
   include nagios::client::checks
   include varnish
 
@@ -242,29 +244,30 @@ class cache_server inherits govuk_base {
   }
 }
 
-class support_server inherits govuk_base {
+class govuk_base::support_server inherits govuk_base {
   include nagios::client::checks
   include solr
   include apollo
   include mysql::backup
 }
 
-class monitoring_server inherits govuk_base {
+class govuk_base::monitoring_server inherits govuk_base {
   include nagios
   include ganglia
 }
 
-class graylog_server inherits govuk_base {
+class govuk_base::graylog_server inherits govuk_base {
   include nagios::client::checks
   include mongodb::server
 }
 
-class management_server {
-  $mysql_password = extlookup('mysql_root')
-  $apache_port = '80'
-  include ruby_app_server
+class govuk_base::management_server {
+  $mysql_password = extlookup('mysql_root', '')
+  include govuk_base::ruby_app_server
   include govuk::testing_tools
-  include mysql::server
+  class { 'mysql::server':
+    root_password => $mysql_password
+  }
   include mongodb::server
   class {'mongodb::configure_replica_set':
     members => ['localhost:27081, localhost:27019, localhost:2720']
@@ -273,38 +276,41 @@ class management_server {
   include jenkins
   include imagemagick
 
-  # Seems to be not working at the moment
-  # include rundeck
-
   mysql::server::db {
     'whitehall_development':
-      user     => 'whitehall',
-      password => 'whitehall',
-      host     => 'localhost';
+      user          => 'whitehall',
+      password      => 'whitehall',
+      host          => 'localhost',
+      root_password => $mysql_password;
     'whitehall_test':
-      user     => 'whitehall',
-      password => 'whitehall',
-      host     => 'localhost';
+      user          => 'whitehall',
+      password      => 'whitehall',
+      host          => 'localhost',
+      root_password => $mysql_password;
     'contactotron_test':
-      user     => 'contactotron',
-      password => 'contactotron',
-      host     => 'localhost';
+      user          => 'contactotron',
+      password      => 'contactotron',
+      host          => 'localhost',
+      root_password => $mysql_password;
     'panopticon_test':
-      user     => 'panopticon',
-      password => 'panopticon',
-      host     => 'localhost';
+      user          => 'panopticon',
+      password      => 'panopticon',
+      host          => 'localhost',
+      root_password => $mysql_password;
     'signonotron2_test':
-      user     => 'signonotron2',
-      password => 'signonotron2',
-      host     => 'localhost';
+      user          => 'signonotron2',
+      password      => 'signonotron2',
+      host          => 'localhost',
+      root_password => $mysql_password;
     'signonotron2_integration_test':
-      user     => 'signonotron2',
-      password => 'signonotron2',
-      host     => 'localhost';
+      user          => 'signonotron2',
+      password      => 'signonotron2',
+      host          => 'localhost',
+      root_password => $mysql_password;
   }
 }
 
-class puppetmaster inherits govuk_base {
+class govuk_base::puppetmaster inherits govuk_base {
   include puppetrundeck
   include webpuppet
 }

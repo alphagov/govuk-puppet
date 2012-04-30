@@ -30,6 +30,14 @@ So to get started, or just to apply the latest manifests you can run:
 
 On first run with the development class this currently takes approximately 8 minutes on a single processor virtual machine with 1GB RAM.
 
+## Testing
+
+We're starting to use RSpec to test the manifests and modules. You can run both sets of tests with:
+
+    bundle exec rake spec
+
+The manifest tests are locationed in manifests/spec and some individual modules have tests in modules/<module>/spec. See the [RSpec Puppet](https://github.com/rodjek/rspec-puppet) documentation for more details.
+
 ## Linting
 
 Puppet Lint is a tool that checks various syntax and style rules common

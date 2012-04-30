@@ -1,5 +1,5 @@
 #!/bin/bash -x
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-bundle exec rake lint
+bundle exec rake
 RESULT=$?
 exit $RESULT

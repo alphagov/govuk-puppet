@@ -1,0 +1,66 @@
+class nagios::client::checks {
+  @@nagios_host { "${::govuk_class}-${::hostname}":
+    ensure  => present,
+    alias   => $::fqdn,
+    address => $::ipaddress,
+    use     => 'generic-host',
+    target  => "/etc/nagios3/conf.d/nagios_host_${::hostname}.cfg",
+  }
+
+  @@nagios_service { "check_ping_${::hostname}":
+    check_command       => 'check_ping!100.0,20%!500.0,60%',
+    use                 => 'generic-service',
+    host_name           => "${::govuk_class}-${::hostname}",
+    notification_period => '24x7',
+    service_description => "check ping for ${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  @@nagios_service { "check_disk_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_nrpe_1arg!check_disk',
+    service_description => "check disk on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  @@nagios_service { "check_users_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_nrpe_1arg!check_users',
+    service_description => "check users on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  @@nagios_service { "check_zombies_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_nrpe_1arg!check_zombie_procs',
+    service_description => "check for zombies on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  @@nagios_service { "check_procs_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_nrpe_1arg!check_total_procs',
+    service_description => "check procs on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  @@nagios_service { "check_load_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_nrpe_1arg!check_load',
+    service_description => "check load on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+
+  @@nagios_service { "check_ssh_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_ssh',
+    service_description => "check ssh access to ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
+  }
+}
