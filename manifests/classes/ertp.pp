@@ -31,6 +31,7 @@ class ertp_api_server inherits ertp_base {
   $jetty_version = '7.5.4.v20111024'
   include jetty
   include ertp::config
+  include places::scripts
 }
 
 # ERTP Development Configuration

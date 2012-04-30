@@ -19,3 +19,10 @@ class ertp::scripts {
     source => ['puppet:///modules/ertp/ertp-ems-admin.conf']
   }
 }
+
+class places::scripts {
+  file {'/etc/init/places.conf':
+    ensure => present,
+    source => ['puppet:///modules/ertp/places.conf']
+  }
+}
