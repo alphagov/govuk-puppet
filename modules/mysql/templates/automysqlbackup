@@ -35,9 +35,9 @@ MAILADDR="<%= mysql_backup_email %>"
 # === ADVANCED OPTIONS ( Read the doc's below for details )===
 #=============================================================
 
-# Since these backups are not for restoring the original server, excluding the
-# mysql database is fine
-DBEXCLUDE="mysql"
+# Since these backups are not for restoring the original server, excluding
+# metadata tables is fine
+DBEXCLUDE="mysql information_schema innodb tmp"
 
 # Include CREATE DATABASE in backup?
 CREATE_DATABASE=yes
