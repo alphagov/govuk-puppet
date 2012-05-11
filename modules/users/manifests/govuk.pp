@@ -204,4 +204,21 @@ class users::govuk {
     user    => 'robyoung',
     require => User['robyoung']
   }
+
+  user { 'jabley':
+    ensure     => present,
+    comment    => 'James Abley <james.abley@digital.cabinet-office.gov.uk>',
+    home       => '/home/jabley',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'jabley':
+    ensure  => present,
+    key     => extlookup('jabley_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'jabley',
+    require => User['jabley']
+  }
 }
