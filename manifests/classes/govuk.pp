@@ -252,7 +252,14 @@ class govuk_base::support_server inherits govuk_base {
   include nagios::client::checks
   include solr
   include apollo
-  include mysql::backup
+  if $::govuk_platform == 'production' {
+    /*
+      Since these backups are only for the purposes of restoring production
+      data to preview and development, it makes no sense to configure them on
+      any environment but production
+    */
+    include mysql::backup
+  }
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
