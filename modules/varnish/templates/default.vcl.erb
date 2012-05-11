@@ -86,6 +86,18 @@ backend designprinciples_<%= i %> {
   }
 }
 
+backend licencefinder_<%= i %> {
+  .host = "<%= host %>";
+  .port = "8086";
+  .host_header = "licencefinder.<%= govuk_platform %>.alphagov.co.uk";
+  .probe = {
+    .url = "/licence-finder";
+    .interval = 5s;
+    .timeout = 1s;
+    .window = 5;
+    .threshold = 3;
+  }
+}
 <% end %>
 
 director frontend round-robin {

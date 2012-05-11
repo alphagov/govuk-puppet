@@ -3,6 +3,7 @@ class hosts::production {
   host { 'fco.production.alphagov.co.uk':               ip => '10.53.54.49' }
   host { 'jobs.production.alphagov.co.uk':              ip => '10.53.54.49' }
   host { 'smartanswers.production.alphagov.co.uk':      ip => '10.53.54.49' }
+  host { 'licencefinder.production.alphagov.co.uk':     ip => '10.53.54.49' }
   host { 'designprincipals.production.alphagov.co.uk':  ip => '10.53.54.49' }
   host { 'frontend.production.alphagov.co.uk':          ip => '10.53.54.49' }
   host { 'search.production.alphagov.co.uk':            ip => '10.53.54.49' }

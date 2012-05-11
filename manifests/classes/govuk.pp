@@ -169,6 +169,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       to => ['localhost:8080'];
     "designprinciples.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
+    "licencefinder.$::govuk_platform.alphagov.co.uk":
+      to => ['localhost:8080'];
   }
 
   apache2::vhost::passenger {
@@ -184,6 +186,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8084;
     "designprinciples.$::govuk_platform.alphagov.co.uk":
       additional_port => 8085;
+    "licencefinder.$::govuk_platform.alphagov.co.uk":
+      additional_port => 8086;
     "static.$::govuk_platform.alphagov.co.uk":;
   }
 
@@ -196,7 +200,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   nginx::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples'],
+    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder'],
     ssl_only  => true
   }
 }
