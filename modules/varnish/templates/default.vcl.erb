@@ -142,6 +142,13 @@ director designprinciples round-robin {
   }
   <% end %>
 }
+director licencefinder round-robin {
+  <% frontend_hosts.count.times do |i| %>
+  {
+  .backend = licencefinder_<%= i %>;
+  }
+  <% end %>
+}
 
 backend whitehall {
   .host = "whitehall.cluster";
@@ -184,6 +191,8 @@ sub vcl_recv {
     set req.backend = planner;
   } else if (req.url ~ "^/designprinciples") {
     set req.backend = designprinciples;
+  } else if (req.url ~ "^/licence-finder") {
+    set req.backend = licencefinder;
   } else {
     set req.backend = frontend;
   }
