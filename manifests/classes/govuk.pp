@@ -264,6 +264,12 @@ class govuk_base::support_server inherits govuk_base {
     */
     include mysql::backup
   }
+  if $::govuk_platform == 'preview' {
+    /*
+      Only include elasticsearch on preview for the moment.
+    */
+    include elasticsearch
+  }
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
