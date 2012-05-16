@@ -171,7 +171,22 @@ class users::govuk {
     user    => 'mazz',
     require => User['mazz']
   }
-
+  user { 'annashipman':
+    ensure     => present,
+    comment    => 'Anna Shipman <anna.shipman@digital.cabinet-office.gov.uk>',
+    home       => '/home/annashipman',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'annashipman':
+    ensure  => present,
+    key     => extlookup('annashipman_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'annashipman',
+    require => User['annashipman']
+  }
   user { 'jamesweiner':
     ensure     => present,
     comment    => 'James Weiner <james.weiner@digital.cabinet-office.gov.uk>',
