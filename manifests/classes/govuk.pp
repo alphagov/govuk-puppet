@@ -322,6 +322,11 @@ class govuk_base::management_server {
       password      => 'signonotron2',
       host          => 'localhost',
       root_password => $mysql_password;
+    'efg_test':
+      user          => 'efg',
+      password      => 'efg',
+      host          => 'localhost',
+      root_password => $mysql_password;
   }
 }
 
