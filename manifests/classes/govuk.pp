@@ -335,6 +335,11 @@ class govuk_base::management_server {
       password      => 'efg',
       host          => 'localhost',
       root_password => $mysql_password;
+    'tariff_test':
+      user          => 'tariff',
+      password      => 'tariff',
+      host          => 'localhost',
+      root_password => $mysql_password;
   }
 }
 
