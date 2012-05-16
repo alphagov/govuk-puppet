@@ -14,8 +14,11 @@
 #   include elasticsearch
 # }
 #
-class elasticsearch {
+class elasticsearch($cluster) {
   include elasticsearch::package
+  class { 'elasticsearch::config':
+    cluster => $cluster
+  }
   include elasticsearch::config
   include elasticsearch::service
 }

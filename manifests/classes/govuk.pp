@@ -268,7 +268,9 @@ class govuk_base::support_server inherits govuk_base {
     /*
       Only include elasticsearch on preview for the moment.
     */
-    include elasticsearch
+    class { 'elasticsearch':
+        cluster => $::govuk_platform
+    }
   }
 }
 

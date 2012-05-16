@@ -6,9 +6,12 @@ class development {
   include apollo
   include hosts
   include solr
-  include elasticsearch
   include apt
   include mysql::client
+
+  class { 'elasticsearch':
+      cluster: $::govuk_platform
+  }
 
   $mysql_password = ''
   class { 'mysql::server':

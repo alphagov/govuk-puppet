@@ -1,6 +1,6 @@
 # elasticsearch::config
 # manages elasticsearch's configfiles
-class elasticsearch::config {
+class elasticsearch::config($cluster) {
   file {'/etc/elasticsearch/elasticsearch.yml':
     source  => 'puppet:///modules/elasticsearch/etc/elasticsearch/elasticsearch.yml',
     mode    => '0644',
@@ -11,7 +11,7 @@ class elasticsearch::config {
   }
 
   file {'/etc/default/elasticsearch':
-    source  => 'puppet:///modules/elasticsearch/etc/default/elasticsearch',
+    content => template("elasticsearch/elasticsearch.yml.erb"),
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
