@@ -129,5 +129,11 @@ class users::setup {
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
+    'deploy_key_kushalp':
+      ensure  => present,
+      key     => extlookup('kushalp_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
     }
 }
