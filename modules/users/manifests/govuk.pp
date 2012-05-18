@@ -253,4 +253,21 @@ class users::govuk {
     user    => 'jamiec',
     require => User['jamiec']
   }
+
+  user { 'kushalp':
+    ensure     => present,
+    comment    => 'Kushal Pisavadia <kushal.pisavadia@digital.cabinet-office.gov.uk>',
+    home       => '/home/kushalp',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'kushalp':
+    ensure  => present,
+    key     => extlookup('kushalp_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'kushalp',
+    require => User['kushalp']
+  }
 }
