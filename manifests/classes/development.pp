@@ -10,7 +10,7 @@ class development {
   include mysql::client
 
   class { 'elasticsearch':
-      cluster: $::govuk_platform
+      cluster => 'development'
   }
 
   $mysql_password = ''
