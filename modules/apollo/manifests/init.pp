@@ -6,7 +6,8 @@ class apollo {
     cwd     => '/usr/local/src',
     creates => '/usr/local/src/apache-apollo-1.0-unix-distro.tar.gz',
     require => Package['curl'],
-    timeout => 3600
+    timeout => 3600,
+    unless => "/bin/test `/usr/bin/md5sum -q /usr/local/src/apache-apollo-1.0-unix-distro.tar.gz` = '7388ff240b48acabcd6ec6859dbbbff6'",
   }
 
   exec { 'unpack apollo':
