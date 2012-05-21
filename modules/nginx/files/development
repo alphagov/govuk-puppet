@@ -123,3 +123,10 @@ server {
   }
 }
 
+server {
+  server_name tariff-api.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3016;
+  }
+}
