@@ -2,6 +2,10 @@ upstream varnish {
   server localhost:7999;
 }
 
+upstream router {
+  server localhost:8080;
+}
+
 server {
   listen 80 default;
   server_name www.preview.alphagov.co.uk;
@@ -72,3 +76,66 @@ server {
   }
 
 }
+
+server {
+  listen 443 ssl;
+  server_name router.preview.alphagov.co.uk;
+  ssl_certificate           /etc/nginx/ssl/www.preview.alphagov.co.uk.crt;
+  ssl_certificate_key       /etc/nginx/ssl/www.preview.alphagov.co.uk.key;
+
+  ssl_protocols             TLSv1 SSLv3;
+  proxy_set_header          X-Forwarded-Ssl on;
+  ssl_ciphers               HIGH:!ADH:!kEDH;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  add_header                Strict-Transport-Security max-age=500;
+
+  access_log  /var/log/nginx/lb-access.log timed_combined;
+  error_log /var/log/nginx/lb-error_log;
+
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Forwarded-Ssl on;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_redirect off;
+
+  location / {
+    allow 109.107.35.78;
+    allow 109.107.36.184;
+    deny all;
+    auth_basic            "Enter your betademo password";
+    auth_basic_user_file  /etc/htpasswd;
+    satisfy any;
+
+    root /var/www/fallback;
+    try_files /fallback.html @proxy;
+  }
+  location @proxy {
+    proxy_pass http://router;
+  }
+  location = /favicon.ico {
+    empty_gif;
+  }
+
+  error_page 500 502 /500.html;
+  error_page 503 /503.html;
+  error_page 504 /504.html;
+  error_page 404 401 /404.html;
+
+  location /500.html {
+    root /usr/share/nginx/www;
+  }
+  location /503.html {
+    root /usr/share/nginx/www;
+  }
+  location /504.html {
+    root /usr/share/nginx/www;
+  }
+  location /404.html {
+    root /usr/share/nginx/www;
+  }
+
+}
+
