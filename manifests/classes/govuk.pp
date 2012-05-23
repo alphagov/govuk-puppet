@@ -221,7 +221,8 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 
   nginx::vhost::proxy {
     "whitehall.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
+      to => ['localhost:8080'],
+      ssl_only => true;
     "whitehall-search.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
   }
