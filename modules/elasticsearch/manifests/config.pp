@@ -9,7 +9,7 @@ class elasticsearch::config($cluster) {
   }
 
   file {'/etc/default/elasticsearch':
-    source => 'puppet://modules/elasticsearch/etc/default/elasticsearch',
+    source => 'puppet:///modules/elasticsearch/etc/default/elasticsearch',
     mode => '0644',
     owner => 'root',
     group => 'root',
