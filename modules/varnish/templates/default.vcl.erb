@@ -98,6 +98,19 @@ backend licencefinder_<%= i %> {
     .threshold = 3;
   }
 }
+
+backend tariff_api_<%= i %> {
+  .host = "<%= host %>";
+  .port = "8086";
+  .host_header = "tariff-api.<%= govuk_platform %>.alphagov.co.uk";
+  .probe = {
+    .url = "/";
+    .interval = 5s;
+    .timeout = 1s;
+    .window = 5;
+    .threshold = 3;
+  }
+}
 <% end %>
 
 director frontend round-robin {
@@ -146,6 +159,13 @@ director licencefinder round-robin {
   <% frontend_hosts.count.times do |i| %>
   {
   .backend = licencefinder_<%= i %>;
+  }
+  <% end %>
+}
+director tariff_api round-robin {
+  <% frontend_hosts.count.times do |i| %>
+  {
+  .backend = tariff_api_<%= i %>;
   }
   <% end %>
 }
