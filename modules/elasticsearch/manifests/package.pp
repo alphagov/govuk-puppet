@@ -1,7 +1,7 @@
 class elasticsearch::package {
   include govuk::repository
 
-  package {'elasticsearch'
+  package {'elasticsearch':
     ensure => present
   }
 }
