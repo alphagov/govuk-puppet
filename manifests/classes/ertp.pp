@@ -31,6 +31,7 @@ class ertp_base::api_server inherits ertp_base {
   }
   include ertp::config
   include places::scripts
+  include ertp-api::scripts
 }
 
 class ertp_base::development inherits ertp_base {
