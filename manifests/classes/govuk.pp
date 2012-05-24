@@ -77,6 +77,7 @@ class govuk_base::mongo_server inherits govuk_base {
 class govuk_base::ruby_app_server inherits govuk_base {
   include mysql::client
   include nagios::client::checks
+  include nodejs
 
   package {
     'bundler':             ensure => installed, provider => gem;
