@@ -138,5 +138,9 @@ server {
     root /usr/share/nginx/www;
   }
 
+  location /dummy-backend {
+    root /usr/share/nginx/www/dummy-backend;
+  }
+
 }
 
