@@ -77,6 +77,7 @@ class govuk_base::mongo_server inherits govuk_base {
 class govuk_base::ruby_app_server inherits govuk_base {
   include mysql::client
   include nagios::client::checks
+  include nodejs
 
   package {
     'bundler':             ensure => installed, provider => gem;
@@ -171,6 +172,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       to => ['localhost:8080'];
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
+    "tariff-api.$::govuk_platform.alphagov.co.uk":
+      to => ['localhost:8080'];
   }
 
   apache2::vhost::passenger {
@@ -188,6 +191,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8085;
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       additional_port => 8086;
+    "tariff-api.$::govuk_platform.alphagov.co.uk":
+      additional_port => 8087;
     "static.$::govuk_platform.alphagov.co.uk":;
   }
 
@@ -200,7 +205,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   nginx::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder'],
+    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff-api'],
     ssl_only  => true
   }
 }
@@ -265,14 +270,6 @@ class govuk_base::support_server inherits govuk_base {
     */
     include mysql::backup
   }
-  if $::govuk_platform == 'preview' {
-    /*
-      Only include elasticsearch on preview for the moment.
-    */
-    class { 'elasticsearch':
-        cluster => $::govuk_platform
-    }
-  }
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
@@ -334,11 +331,6 @@ class govuk_base::management_server {
     'efg_test':
       user          => 'efg',
       password      => 'efg',
-      host          => 'localhost',
-      root_password => $mysql_password;
-    'tariff_test':
-      user          => 'tariff',
-      password      => 'tariff',
       host          => 'localhost',
       root_password => $mysql_password;
   }
