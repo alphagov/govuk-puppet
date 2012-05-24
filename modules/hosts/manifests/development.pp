@@ -23,4 +23,5 @@ class hosts::development {
   host { 'contactotron.dev.gov.uk':     ip => '127.0.0.1' }
   host { 'search.dev.gov.uk':           ip => '127.0.0.1' }
   host { 'tariff-api.dev.gov.uk':       ip => '127.0.0.1' }
+  host { 'tariff.dev.gov.uk':           ip => '127.0.0.1' }
 }
