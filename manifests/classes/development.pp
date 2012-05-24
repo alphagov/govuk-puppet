@@ -9,10 +9,6 @@ class development {
   include apt
   include mysql::client
 
-  class { 'elasticsearch':
-      cluster => 'development'
-  }
-
   $mysql_password = ''
   class { 'mysql::server':
     root_password => $mysql_password
