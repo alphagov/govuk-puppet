@@ -269,6 +269,11 @@ class govuk_base::support_server inherits govuk_base {
     */
     include mysql::backup
   }
+  if $::govuk_platform == 'preview' {
+    class {'elasticsearch':
+      cluster => $::govuk_platform
+    }
+  }
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
