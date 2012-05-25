@@ -9,7 +9,6 @@ class hosts::production {
   host { 'search.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'planner.production.alphagov.co.uk':           ip => '10.53.54.49' }
   host { 'calendars.production.alphagov.co.uk':         ip => '10.53.54.49' }
-  host { 'tariff.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'tariff-api.production.alphagov.co.uk':        ip => '10.54.182.112' }
   host { 'signonotron.production.alphagov.co.uk':       ip => '10.54.182.112' }
   host { 'signon.production.alphagov.co.uk':            ip => '10.54.182.112' }

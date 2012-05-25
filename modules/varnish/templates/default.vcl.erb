@@ -111,19 +111,6 @@ backend tariff_api_<%= i %> {
     .threshold = 3;
   }
 }
-
-backend tariff_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8087";
-  .host_header = "tariff.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
 <% end %>
 
 director frontend round-robin {
@@ -179,14 +166,6 @@ director tariff_api round-robin {
   <% frontend_hosts.count.times do |i| %>
   {
   .backend = tariff_api_<%= i %>;
-  }
-  <% end %>
-}
-
-director tariff round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = tariff_<%= i %>;
   }
   <% end %>
 }
