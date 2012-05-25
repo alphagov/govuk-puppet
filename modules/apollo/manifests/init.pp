@@ -2,7 +2,7 @@ class apollo {
   include java
 
   exec { 'download apollo':
-    command => '/usr/bin/curl -o apache-apollo-1.0-unix-distro.tar.gz https://gds-packages.s3.amazonaws.com/tarballs%2Fapache-apollo-1.0-unix-distro.tar.gz',
+    command => '/usr/bin/curl -o apache-apollo-1.0-unix-distro.tar.gz https://gds-public-readable-tarballs.s3.amazonaws.com/apache-apollo-1.0-unix-distro.tar.gz',
     cwd     => '/usr/local/src',
     creates => '/usr/local/src/apache-apollo-1.0-unix-distro.tar.gz',
     require => Package['curl'],
