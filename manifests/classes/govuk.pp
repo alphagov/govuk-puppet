@@ -111,6 +111,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "panopticon.$::govuk_platform.alphagov.co.uk":;
     "contactotron.$::govuk_platform.alphagov.co.uk":;
     "migratorator.$::govuk_platform.alphagov.co.uk":;
+    "tariff-api.$::govuk_platform.alphagov.co.uk":;
     "private-frontend.$::govuk_platform.alphagov.co.uk":;
   }
 
@@ -140,6 +141,9 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
       ssl_only  => true;
     "contactotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
+      ssl_only => true;
+    "tariff-api.$::govuk_platform.alphagov.co.uk":
+      to => ['localhost:8080'];
       ssl_only => true;
     "private-frontend.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
@@ -172,8 +176,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       to => ['localhost:8080'];
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
-    "tariff-api.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
     "tariff.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
   }
@@ -193,8 +195,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8085;
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       additional_port => 8086;
-    "tariff-api.$::govuk_platform.alphagov.co.uk":
-      additional_port => 8087;
     "tariff.$::govuk_platform.alphagov.co.uk":
       additional_port => 8088;
     "static.$::govuk_platform.alphagov.co.uk":;
@@ -209,7 +209,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   nginx::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff-api', 'tariff'],
+    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff'],
     ssl_only  => true
   }
 }
