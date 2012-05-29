@@ -196,7 +196,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       additional_port => 8086;
     "tariff.$::govuk_platform.alphagov.co.uk":
-      additional_port => 8088;
+      additional_port => 8087;
     "static.$::govuk_platform.alphagov.co.uk":;
   }
 
