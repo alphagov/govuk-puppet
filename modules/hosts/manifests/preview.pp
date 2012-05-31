@@ -30,6 +30,7 @@ class hosts::preview {
   host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }
   host { 'tariff-api.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'tariff.preview.alphagov.co.uk':           ip => '10.58.253.150' }
+  host { 'efg.preview.alphagov.co.uk':              ip => '10.58.253.150' }
 
   host { 'whitehall.preview.alphagov.co.uk':        ip => '10.49.105.155' }
   host { 'whitehall-search.preview.alphagov.co.uk': ip => '10.49.105.155' }

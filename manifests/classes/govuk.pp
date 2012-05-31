@@ -178,6 +178,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       to => ['localhost:8080'];
     "tariff.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
+    "efg.$::govuk_platform.alphagov.co.uk":
+      to => ['localhost:8080'];
   }
 
   apache2::vhost::passenger {
@@ -197,6 +199,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8086;
     "tariff.$::govuk_platform.alphagov.co.uk":
       additional_port => 8087;
+    "efg.$::govuk_platform.alphagov.co.uk":
+      additional_port => 8088;
     "static.$::govuk_platform.alphagov.co.uk":;
   }
 
@@ -209,7 +213,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   nginx::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff'],
+    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg'],
     ssl_only  => true
   }
 }

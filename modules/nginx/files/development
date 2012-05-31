@@ -138,3 +138,11 @@ server {
     proxy_pass http://127.0.0.1:3017;
   }
 }
+
+server {
+  server_name efg.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3018;
+  }
+}
