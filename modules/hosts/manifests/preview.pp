@@ -21,6 +21,7 @@ class hosts::preview {
   host { 'publisher.preview.alphagov.co.uk':        ip => '10.228.95.176' }
   host { 'private-frontend.preview.alphagov.co.uk': ip => '10.228.95.176' }
   host { 'contactotron.preview.alphagov.co.uk':     ip => '10.228.95.176' }
+  host { 'tariff-api.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'search.preview.alphagov.co.uk':           ip => '10.58.253.150' }
   host { 'planner.preview.alphagov.co.uk':          ip => '10.58.253.150' }
   host { 'calendars.preview.alphagov.co.uk':        ip => '10.58.253.150' }
@@ -28,7 +29,6 @@ class hosts::preview {
   host { 'smartanswers.preview.alphagov.co.uk':     ip => '10.58.253.150' }
   host { 'licencefinder.preview.alphagov.co.uk':    ip => '10.58.253.150' }
   host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }
-  host { 'tariff-api.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'tariff.preview.alphagov.co.uk':           ip => '10.58.253.150' }
   host { 'efg.preview.alphagov.co.uk':              ip => '10.58.253.150' }
 
