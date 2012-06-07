@@ -8,6 +8,7 @@ class development {
   include solr
   include apt
   include mysql::client
+  include nodejs
 
   class {'elasticsearch':
     cluster => 'development'
