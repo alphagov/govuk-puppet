@@ -9,6 +9,7 @@ class development {
   include apt
   include mysql::client
   include nodejs
+  include imagemagick
 
   class {'elasticsearch':
     cluster => 'development'
