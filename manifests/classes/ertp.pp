@@ -19,9 +19,9 @@ class ertp_base::mongo_server inherits ertp_base {
     staging: {
       class {'mongodb::configure_replica_set':
         members => [
-          'staging-ertp-mongo-1',
-          'staging-ertp-mongo-2',
-          'staging-ertp-mongo-3'
+          'ertp-mongo-1',
+          'ertp-mongo-2',
+          'ertp-mongo-3'
         ]
       }
     }
