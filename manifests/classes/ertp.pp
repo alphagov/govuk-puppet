@@ -14,6 +14,20 @@ class ertp_base {
 
 class ertp_base::mongo_server inherits ertp_base {
   include mongodb::server
+
+  case $::govuk_platform {
+    staging: {
+      class {'mongodb::configure_replica_set':
+        members => [
+          'staging-ertp-mongo-1',
+          'staging-ertp-mongo-2',
+          'staging-ertp-mongo-3'
+        ]
+      }
+    }
+    default: {
+    }
+  }
 }
 
 class ertp_base::frontend_server inherits ertp_base {
@@ -29,6 +43,27 @@ class ertp_base::api_server inherits ertp_base {
   class { 'jetty':
     version => '7.5.4.v20111024'
   }
+}
+
+class ertp_base::api_server::dwp inherits ertp_base::api_server {
+  include ertp::config
+  include places::scripts
+  include ertp-api::scripts
+}
+
+class ertp_base::api_server::ero inherits ertp_base::api_server {
+  include ertp::config
+  include places::scripts
+  include ertp-api::scripts
+}
+
+class ertp_base::api_server::citizen inherits ertp_base::api_server {
+  include ertp::config
+  include places::scripts
+  include ertp-api::scripts
+}
+
+class ertp_base::api_server::all inherits ertp_base::api_server {
   include ertp::config
   include places::scripts
   include ertp-api::scripts

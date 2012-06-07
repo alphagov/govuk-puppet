@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-["production", "preview"].each { |environment|
+["staging", "preview"].each { |environment|
 
   describe "ertp_base::mongo_server", :type => :class do
     let(:facts) { { :govuk_class => "ertp-mongo", :govuk_platform => environment } }
@@ -13,7 +13,22 @@ require_relative '../../spec_helper'
     it { should_not raise_error(Puppet::ParseError) }
   end
 
-  describe 'ertp_base::api_server', :type => :class do
+  describe 'ertp_base::api_server::all', :type => :class do
+    let(:facts) { { :govuk_class => "ertp-api", :govuk_platform => environment } }
+    it { should_not raise_error(Puppet::ParseError) }
+  end
+
+  describe 'ertp_base::api_server::ero', :type => :class do
+    let(:facts) { { :govuk_class => "ertp-api-ero", :govuk_platform => environment } }
+    it { should_not raise_error(Puppet::ParseError) }
+  end
+
+  describe 'ertp_base::api_server::citizen', :type => :class do
+    let(:facts) { { :govuk_class => "ertp-api-citizen", :govuk_platform => environment } }
+    it { should_not raise_error(Puppet::ParseError) }
+  end
+
+  describe 'ertp_base::api_server::all', :type => :class do
     let(:facts) { { :govuk_class => "ertp-api", :govuk_platform => environment } }
     it { should_not raise_error(Puppet::ParseError) }
   end

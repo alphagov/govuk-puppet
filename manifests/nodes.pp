@@ -13,7 +13,9 @@ node default {
     whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }
     redirect:           { include govuk_base::redirect_server }
     ertp-mongo:         { include ertp_base::mongo_server }
-    ertp-api:           { include ertp_base::api_server }
+    ertp-api:           { include ertp_base::api_server::all }
+    ertp-api-citizen:   { include ertp_base::api_server::citizen }
+    ertp-api-ero:       { include ertp_base::api_server::ero }
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-development:   { include ertp_base::development }
     default:            { }
