@@ -8,9 +8,3 @@ class places::scripts {
   }
 }
 
-class ertp-api::scripts {
-  file {'/etc/init/ertp-api.conf':
-    ensure => present,
-    source => ['puppet:///modules/ertp/ertp-api.conf']
-  }
-}
