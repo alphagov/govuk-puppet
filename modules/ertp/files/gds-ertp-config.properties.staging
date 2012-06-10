@@ -1,5 +1,2 @@
-mongo.database.hosts=ertp-mongo
-ertp.api.url=http://ertp-api:9900/ertp-api
-places.api.url=http://ertp-api:9700/places
-api.mode=dev
-
+ertp.api.url=http://ertp-citizen-api:9900/ertp-api
+places.api.url=http://ertp-citizen-api:9700/places
