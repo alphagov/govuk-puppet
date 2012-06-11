@@ -31,10 +31,6 @@ class ertp_base::mongo_server inherits ertp_base {
 }
 
 class ertp_base::frontend_server inherits ertp_base {
-  class { 'jetty':
-    version => '7.5.4.v20111024'
-  }
-
   case $::govuk_platform {
     staging: {
       include nginx::ertp::staging
@@ -49,9 +45,6 @@ class ertp_base::frontend_server inherits ertp_base {
 }
 
 class ertp_base::api_server inherits ertp_base {
-  class { 'jetty':
-    version => '7.5.4.v20111024'
-  }
 }
 
 class ertp_base::api_server::dwp inherits ertp_base::api_server {
@@ -80,9 +73,6 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 
 class ertp_base::development inherits ertp_base {
   include ertp_base::mongo_server
-  class { 'jetty':
-    version => '7.5.4.v20111024'
-  }
   include ertp::config
   include nginx::ertp
   include ertp::config
