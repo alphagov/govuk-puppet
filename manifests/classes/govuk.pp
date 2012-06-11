@@ -143,7 +143,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
       to       => ['localhost:8080'],
       ssl_only => true;
     "tariff-api.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'],
+      to       => ['localhost:8080'],
       ssl_only => true;
     "private-frontend.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
@@ -234,7 +234,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 
   nginx::vhost::proxy {
     "whitehall.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'],
+      to       => ['localhost:8080'],
       ssl_only => true;
     "whitehall-search.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];

@@ -1,6 +1,6 @@
 class elasticsearch::service {
   service {'elasticsearch':
-    ensure => running,
+    ensure  => running,
     require => Class['elasticsearch::config']
   }
 }

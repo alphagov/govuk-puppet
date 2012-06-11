@@ -39,7 +39,7 @@ class ertp_base::frontend_server inherits ertp_base {
       include nginx::ertp
     }
   }
- 
+
   include ertp::config
   include ertp::scripts
 }
@@ -60,7 +60,7 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
 }
 
 class ertp_base::api_server::citizen inherits ertp_base::api_server {
-  include ertp::citizen::api::config 
+  include ertp::citizen::api::config
   include places::scripts
   include ertp-api::scripts
 }

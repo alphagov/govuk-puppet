@@ -1,7 +1,7 @@
 class nodejs {
   include govuk::repository
   package { 'nodejs':
-    ensure => installed,
+    ensure  => installed,
     require => Class['govuk::repository'],
   }
 }
