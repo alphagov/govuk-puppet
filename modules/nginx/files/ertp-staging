@@ -1,5 +1,5 @@
 server {
-  server_name  _;
+  server_name  staging-ertp.alphagov.co.uk;
   listen *:80;
 
   location /admin {
