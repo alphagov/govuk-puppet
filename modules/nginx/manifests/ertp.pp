@@ -15,3 +15,21 @@ class nginx::ertp {
   }
 
 }
+
+class nginx::ertp::staging {
+  include nginx
+  file { '/etc/nginx/sites-enabled/default':
+    ensure  => file,
+    source  => 'puppet:///modules/nginx/ertp-staging',
+    require => Class['nginx::install'],
+    notify  => Exec['nginx_reload'],
+  }
+
+  file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
+    ensure  => file,
+    source  => 'puppet:///modules/nginx/htpasswd.ertp.staging',
+    require => Class['nginx::install'],
+    notify  => Exec['nginx_reload'],
+  }
+
+}

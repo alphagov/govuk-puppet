@@ -34,7 +34,16 @@ class ertp_base::frontend_server inherits ertp_base {
   class { 'jetty':
     version => '7.5.4.v20111024'
   }
-  include nginx::ertp
+
+  case $::govuk_platform {
+    staging: {
+      include nginx::ertp::staging
+    }
+    default: {
+      include nginx::ertp
+    }
+  }
+ 
   include ertp::config
   include ertp::scripts
 }

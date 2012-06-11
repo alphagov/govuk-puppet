@@ -1,2 +1,3 @@
 ertp.api.url=http://ertp-citizen-api:9900/ertp-api
+ertp.ems.api.url=http://ertp-ero-api:9900/ertp-api
 places.api.url=http://ertp-citizen-api:9700/places
