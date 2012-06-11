@@ -1,175 +1,7 @@
-<% if govuk_platform == 'production' %>
-
-<%
-  whitehall_paths = %w[ /government /bis /cabinetoffice /dclg /mod /defra /fco /dh /dfid /moj /hmrc ]
-  whitehall_paths += whitehall_paths.map { |p| p.upcase }
-%>
-
-<% frontend_hosts = (govuk_platform == 'production') ? ['frontend.cluster', 'frontend.cluster-1', 'frontend.cluster-2'] : ['frontend.cluster'] %>
-
-<% frontend_hosts.each_with_index do |host, i| %>
-backend frontend_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8080";
-  .host_header = "www.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-backend search_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8083";
-  .host_header = "search.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/browse";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-backend planner_<%= i %> {
-  .host = "<%= host %>";
-  .host_header = "planner.<%= govuk_platform %>.alphagov.co.uk";
-  .port = "8081";
-    .probe = {
-    .url = "/maternity";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-backend calendars_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8082";
-  .host_header = "calendars.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/bank-holidays";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-backend smartanswers_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8084";
-  .host_header = "smartanswers.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/calculate-your-holiday-entitlement";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-backend designprinciples_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8085";
-  .host_header = "designprinciples.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/designprinciples";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-backend licencefinder_<%= i %> {
-  .host = "<%= host %>";
-  .port = "8086";
-  .host_header = "licencefinder.<%= govuk_platform %>.alphagov.co.uk";
-  .probe = {
-    .url = "/licence-finder";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-<% end %>
-
-director frontend round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = frontend_<%= i %>;
-  }
-  <% end %>
-}
-director search round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = search_<%= i %>;
-  }
-  <% end %>
-}
-director planner round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = planner_<%= i %>;
-  }
-  <% end %>
-}
-director calendars round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = calendars_<%= i %>;
-  }
-  <% end %>
-}
-director smartanswers round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = smartanswers_<%= i %>;
-  }
-  <% end %>
-}
-director designprinciples round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = designprinciples_<%= i %>;
-  }
-  <% end %>
-}
-director licencefinder round-robin {
-  <% frontend_hosts.count.times do |i| %>
-  {
-  .backend = licencefinder_<%= i %>;
-  }
-  <% end %>
-}
-
-backend whitehall {
-  .host = "whitehall.cluster";
-  .port = "8085";
-  .probe = {
-    .url = "/government";
-    .interval = 5s;
-    .timeout = 1s;
-    .window = 5;
-    .threshold = 3;
-  }
-}
-
-<% else %>
-
 backend router {
   .host = "localhost";
   .port = "8080";
 }
-
-<% end %>
 
 acl purge_acl {
   "localhost";
@@ -177,31 +9,7 @@ acl purge_acl {
 
 sub vcl_recv {
 
-  <% if govuk_platform == 'production' %>
-
-  if (req.url ~ "^/browse$|^/browse\.json|^/browse\/.*\.json$|^/browse\/|^/search$|^/search\?q=.*|^/search\.json\?q=.*|^/autocomplete|^/preload-autocomplete|^/sitemap.xml|^/robots.txt") {
-    set req.backend = search;
-  } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
-    set req.backend = calendars;
-  } else if (req.url ~ "/calculate-your-holiday-entitlement|/student-finance-calculator|/inherits-someone-dies-without-will|/maternity-benefits|/calculate-married-couples-allowance") {
-    set req.backend = smartanswers;
-  } else if (req.url ~ "^/government\/|<%= whitehall_paths.map { |p| "^#{p}$" }.join("|") %>") {
-    set req.backend = whitehall;
-  } else if (req.url ~ "^/maternity(\.xml|\.json|\.ics)?(\?.*|)$|^/paternity(\.xml|\.json|\.ics)?(\?.*|)$") {
-    set req.backend = planner;
-  } else if (req.url ~ "^/designprinciples") {
-    set req.backend = designprinciples;
-  } else if (req.url ~ "^/licence-finder") {
-    set req.backend = licencefinder;
-  } else {
-    set req.backend = frontend;
-  }
-
-  <% else %>
-
   set req.backend = router;
-
-  <% end %>
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect
@@ -211,14 +19,10 @@ sub vcl_recv {
     error 667 req.http.x-Redir-Url;
   }
 
-  <% if govuk_platform == 'preview' %>
-
   # Rewrite url to pass through router, but only if it's not being retried
   if (!req.url ~ "^/router/route/") {
     set req.url = regsub(req.url, "^/", "/router/route/");
   }
-
-  <% end %>
 
   # normalize Accept-Encoding header
   if (req.http.Accept-Encoding) {
