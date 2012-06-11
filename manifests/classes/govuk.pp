@@ -259,6 +259,7 @@ class govuk_base::cache_server inherits govuk_base {
   include varnish
 
   include router
+  include jetty
   include nginx::router
 
   package { 'apache2':
