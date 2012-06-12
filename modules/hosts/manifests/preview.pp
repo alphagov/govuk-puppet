@@ -26,6 +26,7 @@ class hosts::preview {
   host { 'planner.preview.alphagov.co.uk':          ip => '10.58.253.150' }
   host { 'calendars.preview.alphagov.co.uk':        ip => '10.58.253.150' }
   host { 'designprincipals.preview.alphagov.co.uk': ip => '10.58.253.150' }
+  host { 'designprinciples.preview.alphagov.co.uk': ip => '10.58.253.150' }
   host { 'smartanswers.preview.alphagov.co.uk':     ip => '10.58.253.150' }
   host { 'licencefinder.preview.alphagov.co.uk':    ip => '10.58.253.150' }
   host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }
