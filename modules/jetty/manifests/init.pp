@@ -1,4 +1,4 @@
-class jetty($version='7.5.4.v20111024'){
+class jetty($version='7.6.4.v20120524'){
   include wget
   include openjdk
   include logster
