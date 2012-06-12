@@ -14,7 +14,8 @@ class jetty($version='7.6.4.v20120524'){
   }
 
   wget::fetch { 'jetty_download':
-    source      => "wget http://download.eclipse.org/jetty/$version/dist/jetty-distribution-$version.tar.gz",
+    /* Using the HEAnet mirror, as it's orders of magnitude faster */
+    source      => "wget http://ftp.heanet.ie/pub/eclipse//jetty/$version/dist/jetty-distribution-$version.tar.gz",
     destination => "/usr/local/src/jetty-distribution-$version.tar.gz",
     before      => Exec['jetty_untar'],
   }
