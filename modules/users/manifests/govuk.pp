@@ -287,4 +287,21 @@ class users::govuk {
     user    => 'bradleyw',
     require => User['bradleyw']
   }
+
+  user { 'ppotter':
+    ensure     => present,
+    comment    => 'Philip Potter <philip.potter@digital.cabinet-office.gov.uk>',
+    home       => '/home/ppotter',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'ppotter':
+    ensure  => present,
+    key     => extlookup('ppotter_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'ppotter',
+    require => User['ppotter']
+  }
 }
