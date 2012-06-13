@@ -3,10 +3,6 @@
 import socket
 import sys
 
-if sys.argv[1] == "ip-10-54-182-112.eu-west-1.compute.internal":
-        print "signonotron.production.alphagov.co.uk"
-        exit(0)
-
 if sys.argv[1] == "ip-10-236-86-54.eu-west-1.compute.internal":
         print "frontend.cluster-1"
         exit(0)

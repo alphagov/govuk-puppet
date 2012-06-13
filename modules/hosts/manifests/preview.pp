@@ -13,7 +13,6 @@ class hosts::preview {
   host { 'router.cluster':      ip => '10.58.175.43' }
   host { 'graylog.cluster':     ip => '10.228.175.48' }
 
-  host { 'signonotron.preview.alphagov.co.uk':      ip => '10.228.95.176' }
   host { 'signon.preview.alphagov.co.uk':           ip => '10.228.95.176' }
   host { 'panopticon.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'needotron.preview.alphagov.co.uk':        ip => '10.228.95.176' }

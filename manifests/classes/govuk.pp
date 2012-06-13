@@ -104,7 +104,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
 
   apache2::vhost::passenger {
     "needotron.$::govuk_platform.alphagov.co.uk":;
-    "signonotron.$::govuk_platform.alphagov.co.uk":;
     "signon.$::govuk_platform.alphagov.co.uk":;
     "publisher.$::govuk_platform.alphagov.co.uk":;
     "imminence.$::govuk_platform.alphagov.co.uk":;
@@ -125,10 +124,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "needotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
-    "signonotron.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      protected => false,
-      ssl_only  => true;
     "panopticon.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
