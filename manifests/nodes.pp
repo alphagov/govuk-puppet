@@ -18,8 +18,8 @@ node default {
     ertp-api-ems:       { include ertp_base::api_server::ems }
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-development:   { include ertp_base::development }
-	elms-frontend:		{ include elms_base::frontend_server }
-	elms-mongo			{ include elms_base::mongo_server }
+    elms-frontend:      { include elms_base::frontend_server }
+    elms-mongo:         { include elms_base::mongo_server }
     default:            { }
   }
 }
