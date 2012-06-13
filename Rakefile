@@ -29,6 +29,6 @@ EOD
 task :spec => [:specman, :specmod]
 
 desc <<-EOD
-Run rspec-puppet tests for manifests and modules and run puppet-lint
+Run rspec-puppet tests for manifests and modules
 EOD
-task :default => [:spec, :lint]
+task :default => [:spec]
