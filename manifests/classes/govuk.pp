@@ -145,26 +145,24 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
       ssl_only => true;
   }
 
-  if $::govuk_platform == 'preview' {
-    file { "/etc/nginx/sites-enabled/signonotron.preview.alphagov.co.uk":
-      ensure => absent,
-      notify => Exec['nginx_reload']
-    }
+  file { "/etc/nginx/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['nginx_reload']
+  }
 
-    file { "/etc/nginx/sites-available/signonotron.preview.alphagov.co.uk":
-      ensure => absent,
-      notify => Exec['nginx_reload']
-    }
+  file { "/etc/nginx/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['nginx_reload']
+  }
 
-    file { "/etc/apache2/sites-enabled/signonotron.preview.alphagov.co.uk":
-      ensure => absent,
-      notify => Exec['apache_graceful']
-    }
+  file { "/etc/apache2/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['apache_graceful']
+  }
 
-    file { "/etc/apache2/sites-available/signonotron.preview.alphagov.co.uk":
-      ensure => absent,
-      notify => Exec['apache_graceful']
-    }
+  file { "/etc/apache2/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['apache_graceful']
   }
 }
 
