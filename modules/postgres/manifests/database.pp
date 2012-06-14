@@ -1,11 +1,4 @@
-/*
-
-==Definition: postgresql::database
-
-Create a new PostgreSQL database
-
-*/
-define postgresql::database(
+define postgres::database(
   $ensure=present,
   $owner=false,
   $encoding=false,
@@ -26,25 +19,38 @@ define postgresql::database(
   case $ensure {
     present: {
       exec { "Create $name postgres db":
-        command => "createdb $ownerstring $encodingstring $name -T $template",
+        command => "createdb $ownerstring $encodingstring $name \
+                    -T $template;createlang -d $name plpgsql",
         user    => 'postgres',
-        unless  => "test \$(psql -tA -c \"SELECT count(*)=1 FROM pg_catalog.pg_database where datname='${name}';\") = t",
+        unless  => "test \$(psql -tA -c \"SELECT count(*)=1 \
+                    FROM pg_catalog.pg_database \
+                    WHERE datname='${name}';\") = t",
       }
     }
     absent:  {
       exec { "Remove $name postgres db":
         command => "dropdb $name",
         user    => 'postgres',
-        onlyif  => "test \$(psql -tA -c \"SELECT count(*)=1 FROM pg_catalog.pg_database where datname='${name}';\") = t",
+        onlyif  => "test \$(psql -tA -c \"SELECT count(*)=1 \
+                    FROM pg_catalog.pg_database \
+                    WHERE datname='${name}';\") = t",
       }
     }
     default: {
-      fail "Invalid 'ensure' value '$ensure' for postgres::database"
+      fail "Invalid 'ensure' value '$ensure' for postgresql::database"
     }
   }
 
   # Drop database before import
   if $overwrite {
+    exec {"Set $name to not be a template":
+      command   => "psql -qd postgres -c \"UPDATE pg_database \
+                    SET datistemplate='false' \
+                    WHERE datname='$name'\";",
+      user      => 'postgres',
+      before    => Exec["Drop database $name before import"],
+    }
+
     exec { "Drop database $name before import":
       command => "dropdb ${name}",
       onlyif  => "psql -l | grep '$name  *|'",
@@ -64,3 +70,4 @@ define postgresql::database(
     }
   }
 }
+

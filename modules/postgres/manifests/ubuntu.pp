@@ -1,4 +1,4 @@
-class postgresql::ubuntu {
+class postgres::ubuntu {
 
   case $::lsbdistcodename {
     'lucid' : {

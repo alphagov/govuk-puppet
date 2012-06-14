@@ -20,7 +20,8 @@ define postgres::user(
       exec { "Create $name postgres role":
         user    => 'postgres',
         unless  => "/usr/bin/psql -c '\\du' | grep '^  *$name'",
-        command => "/usr/bin/psql -c \"CREATE ROLE $name $options $passtext LOGIN\"",
+        command => "/usr/bin/psql -c \"CREATE ROLE $name \
+                    $options $passtext LOGIN\"",
         require => Service[postgresql],
       }
     }

@@ -1,8 +1,8 @@
-class postgresql {
+class postgres {
 
   case $::operatingsystem {
     'Ubuntu': {
-      include postgresql::ubuntu
+      include postgres::ubuntu
     }
     default: { notice "Unsupported operatingsystem $::operatingsystem" }
   }
