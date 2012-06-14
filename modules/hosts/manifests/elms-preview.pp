@@ -1,4 +1,4 @@
 class hosts::elms-preview {
-  host { 'elms-frontend':    ip => '10.239.86.141' }
-  host { 'elms-mongo':  ip => '10.236.89.222' }
+  host { 'elms-frontend':    ip => '10.237.35.45' }
+  host { 'elms-mongo':  ip => '10.234.74.235' }
 }
