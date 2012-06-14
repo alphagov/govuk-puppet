@@ -321,9 +321,7 @@ class users::govuk {
     user    => 'ssharpe',
     require => User['ssharpe']
   }
-}
-
-user { 'carlmassa':
+  user { 'carlmassa':
     ensure     => present,
     comment    => 'Carl Massa <carl.massa@digital.cabinet-office.gov.uk>',
     home       => '/home/carlmassa',
