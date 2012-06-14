@@ -8,7 +8,7 @@ class elms_base {
   include wget
   include sysctl
   include users
-  include hosts::elms
+  include hosts::elms-preview
   include openjdk
 }
 
