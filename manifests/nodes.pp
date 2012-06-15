@@ -12,7 +12,6 @@ node default {
     graylog:            { include govuk_base::graylog_server }
     whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }
     redirect:           { include govuk_base::redirect_server }
-    puppetmaster:       { notify { 'hello world': } }
     ertp-mongo:         { include ertp_base::mongo_server }
     ertp-api:           { include ertp_base::api_server::all }
     ertp-api-citizen:   { include ertp_base::api_server::citizen }
