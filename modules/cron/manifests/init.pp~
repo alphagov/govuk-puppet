@@ -1,0 +1,4 @@
+class cron {
+    service { cron:
+    }
+}
