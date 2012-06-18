@@ -8,6 +8,7 @@ class govuk_base {
   include wget
   include sysctl
   include users
+  include puppet
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
@@ -172,7 +173,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   }
   include passenger
   include nginx
-  include puppet
 
   nginx::vhost::proxy {
     'www.gov.uk':
