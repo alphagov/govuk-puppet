@@ -3,6 +3,11 @@ class puppet {
         ensure   => '2.7.3',
         provider => gem;
     }
+    file  { '/etc/puppet/puppet.conf': 
+        ensure => present,
+        mode   => 644,
+        source => "puppet:///modules/puppet/etc/puppet/puppet.conf";
+    }
 
     $first = fqdn_rand_fixed(30)
     $second = $first + 30
