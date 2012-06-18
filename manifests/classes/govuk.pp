@@ -1,5 +1,4 @@
 class govuk_base {
-  include puppet
   include ntp
   include apt
   include base_packages::unix_tools
@@ -173,6 +172,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   }
   include passenger
   include nginx
+  include puppet
 
   nginx::vhost::proxy {
     'www.gov.uk':
