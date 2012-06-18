@@ -8,6 +8,7 @@ class govuk_base {
   include wget
   include sysctl
   include users
+  include cron
   include puppet
   sshkey { 'github.com':
     ensure => present,
