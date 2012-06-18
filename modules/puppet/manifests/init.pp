@@ -4,10 +4,12 @@ class puppet {
         provider => gem;
     }
 
+    $first = fqdn_rand_fixed(30)
+    $second = $first + 30
     cron { 'puppet':
         user    => 'root',
         ensure  => present,
-        minute  => [0,30],
+        minute  => [$first, $second],
         command => '/usr/bin/puppet agent --onetime --no-daemonize';
     }
 
