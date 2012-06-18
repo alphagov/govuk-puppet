@@ -5,7 +5,9 @@ class puppet {
     }
 
     cron { 'puppet':
+        user    => 'root',
         ensure  => present,
-        command => 'puppet';
+        minute  => [0,30],
+        command => '/usr/bin/puppet agent --onetime --no-daemonize';
     }
 }
