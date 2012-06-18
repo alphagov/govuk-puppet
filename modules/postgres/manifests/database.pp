@@ -20,11 +20,17 @@ define postgres::database(
     present: {
       exec { "Create $name postgres db":
         command => "createdb $ownerstring $encodingstring $name \
-                    -T $template;createlang -d $name plpgsql",
+                    -T $template;",
         user    => 'postgres',
         unless  => "test \$(psql -tA -c \"SELECT count(*)=1 \
                     FROM pg_catalog.pg_database \
                     WHERE datname='${name}';\") = t",
+      }
+      exec { "Add plpgsql lang to $name postgres db":
+        command => "createlang -d $name plpgsql",
+        user    => 'postgres',
+        unless  => 'createlang -d template_postgis -l | grep plpgsql',
+        require => Exec["Create $name postgres db"],
       }
     }
     absent:  {

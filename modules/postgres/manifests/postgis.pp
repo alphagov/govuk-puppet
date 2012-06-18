@@ -33,9 +33,10 @@ class postgres::postgis(
         postgres::database { 'template_postgis':
             ensure    => present,
             encoding  => 'UTF8',
-            overwrite => true,
-            before    => Exec['Set template_postgis to be a template']
+            template  => 'template0',
+            before    => Exec['Set template_postgis to be a template'],
         }
+
 
 
         exec {'Set template_postgis to be a template':
@@ -43,6 +44,9 @@ class postgres::postgis(
                           SET datistemplate=\'true\' \
                           WHERE datname=\'template_postgis\';"',
             user      => 'postgres',
+            onlyif    => 'test $(psql -tA -c "SELECT datistemplate \
+                          FROM pg_database \
+                          WHERE datname=\'template_postgis\';") = f',
             logoutput => 'on_failure',
         }
 
@@ -51,6 +55,7 @@ class postgres::postgis(
             user      => 'postgres',
             require   => Exec['Set template_postgis to be a template'],
             logoutput => 'on_failure',
+            unless    => 'test $(psql -tA -d template_postgis -c "select count(*) from pg_proc where proname = \'st_minimumboundingcircle\';") = 2',
 
         }
 
@@ -59,6 +64,8 @@ class postgres::postgis(
             user      => 'postgres',
             require   => Exec['Import the PostGIS SQL to template_postgis'],
             logoutput => 'on_failure',
+            unless    => 'test $(psql -tA -d template_postgis -c "select count(*)=0 \
+                          from spatial_ref_sys") = f',
         }
 
         exec {'Grant access to PostGIS data':
@@ -66,6 +73,7 @@ class postgres::postgis(
                           TO PUBLIC; GRANT ALL ON spatial_ref_sys TO PUBLIC;"',
             user      => 'postgres',
             require   => Exec['Import the Spatial Refs to template_postgis'],
+            unless    => 'psql -tA -d template_postgis -c "\\z geometry_columns" | grep public',
             logoutput => 'on_failure',
         }
         if $geography {
@@ -74,8 +82,19 @@ class postgres::postgis(
                               geography_columns TO PUBLIC;"',
                 user      => 'postgres',
                 require   => Exec['Import the Spatial Refs to template_postgis'],
+                unless    => 'psql -tA -d template_postgis -c "\\z geography_columns" | grep public',
                 logoutput => 'on_failure',
             }
+        }
+        exec {'Fix the datum of srid 29902':
+            command   => "psql -qd template_postgis -c \"UPDATE spatial_ref_sys
+                          SET proj4text=proj4text||'+datum=ire65'
+                          WHERE srid=29902;\"",
+            user      => 'postgres',
+            unless    => 'test $(psql -d template_postgis -tA -c "select count(*)=1 from \
+                          spatial_ref_sys where srid=29902 and proj4text \
+                          LIKE \'%datum%\';") = t',
+            require   => Exec['Import the Spatial Refs to template_postgis'],
         }
     }
 
