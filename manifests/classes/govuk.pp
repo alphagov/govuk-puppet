@@ -23,6 +23,8 @@ class govuk_base {
   include hosts
 }
 
+class govuk_base::puppetmaster inherits govuk_base { }
+
 class govuk_base::redirect_server inherits govuk_base {
   include nginx
   include nagios::client::checks

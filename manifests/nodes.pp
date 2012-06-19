@@ -7,6 +7,7 @@ node default {
     support:            { include govuk_base::support_server }
     monitoring:         { include govuk_base::monitoring_server }
     development:        { include development }
+    puppet:             { include govuk_base::puppetmaster }
     management:         { include govuk_base::management_server }
     cache:              { include govuk_base::cache_server }
     graylog:            { include govuk_base::graylog_server }
