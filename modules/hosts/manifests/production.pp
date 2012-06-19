@@ -38,4 +38,8 @@ class hosts::production {
   host { 'router.cluster':      ip => '10.51.39.70' }
   host { 'graylog.cluster':     ip => '10.234.213.245' }
   host { 'whitehall.cluster':   ip => '10.224.50.207' }
+
+  host { 'designprincipals.production.alphagov.co.uk':
+    ensure => absent,
+  }
 }
