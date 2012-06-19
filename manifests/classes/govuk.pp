@@ -375,6 +375,4 @@ class govuk_base::management_server {
 }
 
 class govuk_base::puppetmaster inherits govuk_base {
-  #include puppetrundeck
-  #include webpuppet
 }
