@@ -47,7 +47,7 @@ class ertp::dwp::api::config {
   }
 }
 
-class ertp::ems::api::config {
+class ertp::ero::api::config {
   file { '/etc/gds-ertp-config.properties':
     ensure => present,
     source => [

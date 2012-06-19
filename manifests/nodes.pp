@@ -15,7 +15,7 @@ node default {
     ertp-mongo:         { include ertp_base::mongo_server }
     ertp-api:           { include ertp_base::api_server::all }
     ertp-api-citizen:   { include ertp_base::api_server::citizen }
-    ertp-api-ems:       { include ertp_base::api_server::ems }
+    ertp-api-ero:       { include ertp_base::api_server::ero }
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-development:   { include ertp_base::development }
     elms-frontend:      { include elms_base::frontend_server }
