@@ -5,7 +5,7 @@ GEM
     facter (1.6.5)
     puppet (2.7.3)
       facter (>= 1.5.1)
-    puppet-lint (0.1.12)
+    puppet-lint (0.1.13)
     rake (0.9.2.2)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
@@ -23,6 +23,6 @@ PLATFORMS
 
 DEPENDENCIES
   puppet (= 2.7.3)
-  puppet-lint
+  puppet-lint (>= 0.1.13)
   rake
   rspec-puppet
