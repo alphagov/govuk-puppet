@@ -45,7 +45,7 @@ class ertp_base::frontend_server inherits ertp_base {
 }
 
 class ertp_base::api_server inherits ertp_base {
- case $::govuk_platform {
+  case $::govuk_platform {
     staging: {
       include nginx::ertp::api::staging
     }
