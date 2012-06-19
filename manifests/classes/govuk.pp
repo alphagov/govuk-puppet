@@ -169,6 +169,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
 
   file { "/data/vhost/signonotron.$::govuk_platform.alphagov.co.uk":
     ensure => absent,
+    force  => true,
   }
 }
 
