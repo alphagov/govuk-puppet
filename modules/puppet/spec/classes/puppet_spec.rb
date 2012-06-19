@@ -1,9 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'puppet', :type => :class do
-  it { should create_package("puppet").with_ensure('2.7.3').with_provider('gem') }
+  it { should contain_file('/etc/puppet/puppet.conf') }
+  it { should contain_package("puppet").with_ensure('2.7.3').with_provider('gem') }
   it 'should schedule regular puppet updates' do
-    should create_cron('puppet').
+    should contain_cron('puppet').
            with_ensure('present').
            with_command(/puppet agent/).
            with_command(/--onetime/).
