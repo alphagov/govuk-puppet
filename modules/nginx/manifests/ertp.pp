@@ -45,7 +45,7 @@ class nginx::ertp::api::staging {
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/htpasswd.ertp.staging.api',
+    source  => 'puppet:///modules/nginx/htpasswd.ertp.api.staging',
     require => Class['nginx::install'],
     notify  => Exec['nginx_reload'],
   }
@@ -63,7 +63,7 @@ class nginx::ertp::api::preview {
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/htpasswd.ertp.preview.api',
+    source  => 'puppet:///modules/nginx/htpasswd.ertp.api.preview',
     require => Class['nginx::install'],
     notify  => Exec['nginx_reload'],
   }
