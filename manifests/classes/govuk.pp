@@ -168,6 +168,10 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     ensure => absent,
     notify => Exec['apache_graceful']
   }
+
+  file { "/data/vhost/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+  }
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
