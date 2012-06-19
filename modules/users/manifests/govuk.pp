@@ -304,4 +304,37 @@ class users::govuk {
     user    => 'ppotter',
     require => User['ppotter']
   }
+
+  user { 'ssharpe':
+    ensure     => present,
+    comment    => 'Sam Sharpe <sam.sharpe@digital.cabinet-office.gov.uk>',
+    home       => '/home/ssharpe',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'ssharpe':
+    ensure  => present,
+    key     => extlookup('ssharpe_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'ssharpe',
+    require => User['ssharpe']
+  }
+  user { 'carlmassa':
+    ensure     => present,
+    comment    => 'Carl Massa <carl.massa@digital.cabinet-office.gov.uk>',
+    home       => '/home/carlmassa',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'carlmassa':
+    ensure  => present,
+    key     => extlookup('carlmassa_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'carlmassa',
+    require => User['carlmassa']
+  }
 }

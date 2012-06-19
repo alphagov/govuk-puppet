@@ -13,7 +13,6 @@ class hosts::preview {
   host { 'router.cluster':      ip => '10.58.175.43' }
   host { 'graylog.cluster':     ip => '10.228.175.48' }
 
-  host { 'signonotron.preview.alphagov.co.uk':      ip => '10.228.95.176' }
   host { 'signon.preview.alphagov.co.uk':           ip => '10.228.95.176' }
   host { 'panopticon.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'needotron.preview.alphagov.co.uk':        ip => '10.228.95.176' }
@@ -25,7 +24,7 @@ class hosts::preview {
   host { 'search.preview.alphagov.co.uk':           ip => '10.58.253.150' }
   host { 'planner.preview.alphagov.co.uk':          ip => '10.58.253.150' }
   host { 'calendars.preview.alphagov.co.uk':        ip => '10.58.253.150' }
-  host { 'designprincipals.preview.alphagov.co.uk': ip => '10.58.253.150' }
+  host { 'designprinciples.preview.alphagov.co.uk': ip => '10.58.253.150' }
   host { 'smartanswers.preview.alphagov.co.uk':     ip => '10.58.253.150' }
   host { 'licencefinder.preview.alphagov.co.uk':    ip => '10.58.253.150' }
   host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }

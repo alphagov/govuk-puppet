@@ -4,14 +4,13 @@ class hosts::production {
   host { 'jobs.production.alphagov.co.uk':              ip => '10.53.54.49' }
   host { 'smartanswers.production.alphagov.co.uk':      ip => '10.53.54.49' }
   host { 'licencefinder.production.alphagov.co.uk':     ip => '10.53.54.49' }
-  host { 'designprincipals.production.alphagov.co.uk':  ip => '10.53.54.49' }
+  host { 'designprinciples.production.alphagov.co.uk':  ip => '10.53.54.49' }
   host { 'frontend.production.alphagov.co.uk':          ip => '10.53.54.49' }
   host { 'search.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'planner.production.alphagov.co.uk':           ip => '10.53.54.49' }
   host { 'calendars.production.alphagov.co.uk':         ip => '10.53.54.49' }
   host { 'tariff.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'tariff-api.production.alphagov.co.uk':        ip => '10.54.182.112' }
-  host { 'signonotron.production.alphagov.co.uk':       ip => '10.54.182.112' }
   host { 'signon.production.alphagov.co.uk':            ip => '10.54.182.112' }
   host { 'panopticon.production.alphagov.co.uk':        ip => '10.54.182.112' }
   host { 'needotron.production.alphagov.co.uk':         ip => '10.54.182.112' }

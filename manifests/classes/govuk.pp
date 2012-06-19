@@ -8,6 +8,7 @@ class govuk_base {
   include wget
   include sysctl
   include users
+  include puppet
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
@@ -104,7 +105,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
 
   apache2::vhost::passenger {
     "needotron.$::govuk_platform.alphagov.co.uk":;
-    "signonotron.$::govuk_platform.alphagov.co.uk":;
     "signon.$::govuk_platform.alphagov.co.uk":;
     "publisher.$::govuk_platform.alphagov.co.uk":;
     "imminence.$::govuk_platform.alphagov.co.uk":;
@@ -125,10 +125,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "needotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
-    "signonotron.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      protected => false,
-      ssl_only  => true;
     "panopticon.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
@@ -148,6 +144,26 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "private-frontend.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
+  }
+
+  file { "/etc/nginx/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['nginx_reload']
+  }
+
+  file { "/etc/nginx/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['nginx_reload']
+  }
+
+  file { "/etc/apache2/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['apache_graceful']
+  }
+
+  file { "/etc/apache2/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    notify => Exec['apache_graceful']
   }
 }
 
@@ -228,7 +244,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 
   apache2::vhost::passenger {
     "whitehall.$::govuk_platform.alphagov.co.uk":
-      additional_port => '8085';
+      aliases => ["whitehall-frontend.$::govuk_platform.alphagov.co.uk"];
     "whitehall-search.$::govuk_platform.alphagov.co.uk":;
   }
 
@@ -236,6 +252,8 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     "whitehall.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
+    "whitehall-frontend.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'];
     "whitehall-search.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
   }

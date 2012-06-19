@@ -62,7 +62,7 @@ class ertp_base::api_server::dwp inherits ertp_base::api_server {
   include ertp::dwp::api::config
 }
 
-class ertp_base::api_server::ems inherits ertp_base::api_server { 
+class ertp_base::api_server::ems inherits ertp_base::api_server {
   include ertp::ems::api::config
 }
 
