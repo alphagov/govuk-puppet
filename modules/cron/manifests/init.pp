@@ -1,5 +1,5 @@
 class cron {
-    service { cron:
+    service { 'cron':
         ensure => running,
         enable => true
     }
