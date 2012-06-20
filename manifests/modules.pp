@@ -28,4 +28,5 @@ import 'logster'
 import 'sysctl'
 import 'graylogtail'
 import 'ertp'
+import 'places'
 

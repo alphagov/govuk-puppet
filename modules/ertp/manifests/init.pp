@@ -20,13 +20,6 @@ class ertp-api::scripts {
   }
 }
 
-class places::scripts {
-  file {'/etc/init/places.conf':
-    ensure => present,
-    source => ['puppet:///modules/ertp/places.conf']
-  }
-}
-
 class ertp::config {
   file { '/etc/gds-ertp-config.properties':
     ensure => present,
