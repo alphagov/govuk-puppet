@@ -179,6 +179,9 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   }
   include passenger
   include nginx
+  class { 'rubygems':
+    version => '1.8.24'
+  }
 
   nginx::vhost::proxy {
     'www.gov.uk':
