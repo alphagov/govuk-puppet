@@ -10,7 +10,7 @@ class govuk_base {
   include users
   include cron
   include puppet
-  class { 'rubygems':
+  class { 'ruby::rubygems':
     version => '1.8.24'
   }
   sshkey { 'github.com':
