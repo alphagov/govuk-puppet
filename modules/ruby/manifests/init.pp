@@ -4,6 +4,10 @@ class ruby($version) {
         require => Apt::Deb_repository[brightbox]
     }
 
+    package { 'ruby1.8':
+        ensure => purged
+    }
+
     apt::deb_repository { 'brightbox':
         url  => 'http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu',
         repo => 'main',
