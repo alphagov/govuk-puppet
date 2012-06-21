@@ -16,25 +16,15 @@ class places_base {
 class places_base::mongo_server inherits places_base {
   include mongodb::server
 
-  case $::govuk_platform {
-    staging: {
-      class {'mongodb::configure_replica_set':
-        members => [
-          'places-mongo-1',
-          'places-mongo-2',
-          'places-mongo-3'
-        ]
-      }
-    }
-    default: {
-      class {'mongodb::configure_replica_set':
-        members => [
-          'places-mongo'
-        ]
-      }
-    }
+  class {'mongodb::configure_replica_set':
+    members => [
+      'places-mongo-1',
+      'places-mongo-2',
+      'places-mongo-3'
+    ]
   }
 }
+
 
 class places_base::api_server inherits places_base {
   include places::scripts

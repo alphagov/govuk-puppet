@@ -1,1 +1,1 @@
-mongo.database.hosts=places-mongo
+mongo.database.hosts=places-mongo-1,places-mongo-2,places-mongo-3
