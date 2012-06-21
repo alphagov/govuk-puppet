@@ -378,6 +378,6 @@ class govuk_base::management_server {
 
 class govuk_base::puppetmaster inherits govuk_base {
   class {'ruby':
-    version => '1.9.3.194'
+    version => '1:1.9.3.194-0~49~lucid1'
   }
 }
