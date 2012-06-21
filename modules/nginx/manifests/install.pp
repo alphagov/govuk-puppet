@@ -5,7 +5,7 @@ class nginx::install {
     repo      => 'stable',
   }
   package { 'nginx-full':
-    ensure  => '1.2.1-0ubuntu0ppa1~lucid',
+    ensure  => '1.2.1-0',
     require => Exec['add_repo_nginx_ppa'],
     notify  => Exec['nginx_reload'],
   }
