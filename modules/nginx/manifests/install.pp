@@ -5,7 +5,7 @@ class nginx::install {
     repo      => 'stable',
   }
   package { 'nginx':
-    ensure  => 'installed',
+    ensure  => '1.2.1-0ubuntu0ppa1~lucid',
     require => Exec['add_repo_nginx_ppa'],
   }
   file { '/etc/nginx/nginx.conf':
