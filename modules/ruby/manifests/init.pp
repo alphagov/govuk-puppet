@@ -1,6 +1,6 @@
 class ruby($version) {
     package { 'ruby' :
-        ensure => $version,
+        ensure  => $version,
         require => Apt::Deb_repository[brightbox]
     }
 
