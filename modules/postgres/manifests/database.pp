@@ -71,7 +71,8 @@ define postgres::database(
     exec { "Import dump into $name postgres db":
       command => "zcat -f ${source} | psql ${name}",
       user    => 'postgres',
-      onlyif  => "test $(psql ${name} -c '\\dt' | wc -l) -eq 1",
+      onlyif  => "test $(psql ${name} -c '\\dt' | wc -l) -le 7",
+      timeout => 0,
       require => Exec["Create $name postgres db"],
     }
   }

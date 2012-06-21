@@ -27,10 +27,16 @@ class places_base::mongo_server inherits places_base {
       }
     }
     default: {
+      class {'mongodb::configure_replica_set':
+        members => [
+          'places-mongo'
+        ]
+      }
     }
   }
 }
 
 class places_base::api_server inherits places_base {
   include places::scripts
+  include places::config
 }
