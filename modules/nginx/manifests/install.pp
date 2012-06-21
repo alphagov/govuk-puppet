@@ -8,7 +8,7 @@ class nginx::install {
     ensure  => '1.2.1-0ubuntu0ppa1~lucid',
     require => Exec['add_repo_nginx_ppa'],
     notify  => Exec['nginx_reload'],
-  } 
+  }
   file { '/etc/nginx/nginx.conf':
     ensure  => file,
     source  => 'puppet:///modules/nginx/nginx.conf',
