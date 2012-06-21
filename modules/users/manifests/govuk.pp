@@ -29,7 +29,7 @@ class users::govuk {
     require    => Class['users::setup'],
     shell      => '/bin/bash'
   }
-  ssh_authorized_key { 'davidillsley_key1':
+  ssh_authorized_key { 'davidillsley_key':
     ensure  => present,
     key     => extlookup('davidillsley_key', ''),
     type    => 'ssh-rsa',
@@ -265,7 +265,7 @@ class users::govuk {
   }
   ssh_authorized_key { 'jamiec':
     ensure  => present,
-    key     => extlookup('jamiecobbett_key', ''),
+    key     => extlookup('jamiec_key', ''),
     type    => 'ssh-rsa',
     user    => 'jamiec',
     require => User['jamiec']

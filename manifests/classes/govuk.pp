@@ -10,6 +10,9 @@ class govuk_base {
   include users
   include cron
   include puppet
+  class { 'ruby::rubygems':
+    version => '1.8.24'
+  }
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
@@ -179,7 +182,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   }
   include passenger
   include nginx
-
   nginx::vhost::proxy {
     'www.gov.uk':
       to      => ['localhost:8080'];
