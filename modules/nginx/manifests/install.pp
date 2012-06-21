@@ -5,7 +5,7 @@ class nginx::install {
     repo      => 'stable',
   }
 
-  if $govuk_class == 'frontend' {
+  if $::govuk_class == 'frontend' {
     package { 'nginx':
       ensure  => '1.2.1-0ubuntu0ppa1~lucid',
       require => Exec['add_repo_nginx_ppa'],
