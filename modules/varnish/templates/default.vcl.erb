@@ -19,11 +19,6 @@ sub vcl_recv {
     error 667 req.http.x-Redir-Url;
   }
 
-  # Rewrite url to pass through router, but only if it's not being retried
-  if (!req.url ~ "^/router/route/") {
-    set req.url = regsub(req.url, "^/", "/router/route/");
-  }
-
   # normalize Accept-Encoding header
   if (req.http.Accept-Encoding) {
     if (req.url ~ "\.(jpeg|jpg|png|gif|gz|tgz|bz2|tbz|zip|flv|pdf|mp3|ogg)$") {
