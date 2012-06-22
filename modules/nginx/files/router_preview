@@ -114,7 +114,7 @@ server {
     try_files /fallback.html @proxy;
   }
   location @proxy {
-    rewrite  ^/(.*)$  /router/route/$1  break;
+    rewrite  ^/(.*)$  /router/route/$host/$1  break;
     proxy_pass http://router;
   }
   location = /favicon.ico {
