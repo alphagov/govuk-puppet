@@ -1,5 +1,6 @@
 class mapit_server {
   include wget
+  include nginx
   include postgres::postgis
   include mapit
 
