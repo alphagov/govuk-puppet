@@ -10,10 +10,6 @@ server {
     satisfy any;
   }
 
-  location / {
-    rewrite ^/(.*)$ /elms redirect;
-  }
-
   location /licence-management/request {
     proxy_pass http://127.0.0.1:9000/licence-management/;
     deny all;
