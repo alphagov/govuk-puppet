@@ -59,7 +59,6 @@ server {
     try_files /fallback.html @proxy;
   }
   location @proxy {
-    rewrite  ^/(.*)$  /router/route/$1  break;
     proxy_pass http://varnish;
   }
 
