@@ -7,6 +7,7 @@ class places_base {
   include motd
   include wget
   include sysctl
+  include java
   include users
   include users::setup
   include hosts::places
