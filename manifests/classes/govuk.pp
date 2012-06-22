@@ -377,5 +377,5 @@ class govuk_base::management_server {
 }
 
 class govuk_base::puppetmaster inherits govuk_base {
-  include puppet::master
+  # include puppet::master
 }
