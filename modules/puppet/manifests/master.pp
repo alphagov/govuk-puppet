@@ -12,4 +12,11 @@ class puppet::master {
         provider => upstart,
         require  => File['/etc/init/puppetmaster.conf'],
     }
+
+    service { 'daemonized-puppetmaster': # kill any existing daemonized puppetmaster process
+        ensure   => stopped,
+        provider => base,
+        pattern  => '/usr/bin/puppet master$';
+    }
+
 }
