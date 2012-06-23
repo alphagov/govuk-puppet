@@ -17,7 +17,7 @@ define mapit::get_data(
     wget::fetch {'onspd_download':
       source      => "${base_url}/${file_onspd}",
       destination => "${mapit_datadir}/data/${file_onspd}",
-      require     => File["$mapit_datadir"],
+      require     => File[$mapit_datadir],
     }
 
     wget::fetch {'bdline_download':
@@ -29,7 +29,7 @@ define mapit::get_data(
     wget::fetch {'codepo_download':
       source      => "${base_url}/${file_codepo}",
       destination => "${mapit_datadir}/data/${file_codepo}",
-      require     => File["$mapit_datadir"],
+      require     => File[$mapit_datadir],
     }
 
     exec {'unzip_codepo':
@@ -40,7 +40,7 @@ define mapit::get_data(
 
     exec {'unzip_bdline':
       command   => "/usr/bin/unzip -d ${mapit_datadir}/data/bdline ${mapit_datadir}/data/${file_bdline}",
-      unless    => "test -s /data/vhosts/mapit/data/bdline/Docs/licence.txt",
+      unless    => 'test -s /data/vhosts/mapit/data/bdline/Docs/licence.txt',
       require   => Wget::Fetch['bdline_download'],
     }
 
@@ -50,4 +50,4 @@ define mapit::get_data(
       require   => Wget::Fetch['onspd_download'],
     }
 
-  } 
+  }

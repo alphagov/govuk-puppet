@@ -4,7 +4,7 @@ class mapit {
   #     mapit_datadir => '/data/vhosts/mapit',
   #   }
   mapit::setup{'setup dirs and users':
-    mapit_datadir => '/data/vhosts/mapit/', 
+    mapit_datadir => '/data/vhosts/mapit/',
   }
   package{['python-django-south','python-yaml','memcached','python-memcache',
           'git-core','python-pip','python-django','python-psycopg2',
@@ -20,7 +20,7 @@ class mapit {
   file { '/etc/init/mapit.conf':
     ensure  => file,
     source  => 'puppet:///modules/mapit/fastcgi_mapit.conf',
-    require => [ 
+    require => [
         User['mapit'],
         Exec['unzip_mapit'],
       ]
@@ -34,7 +34,7 @@ class mapit {
     command => 'tar -zxf /data/vhosts/mapit/data/mapit.tar.gz -C /data/vhosts/mapit',
     unless  => 'test -s /data/vhosts/mapit/mapit/README',
     user    => 'mapit',
-    require => [ 
+    require => [
         User['mapit'],
         File['/data/vhosts/mapit/'],
       ],
