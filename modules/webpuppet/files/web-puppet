@@ -1,8 +1,0 @@
-description "start and stop web-puppet"
-author "Gareth Rushgrove"
-
-expect daemon
-
-env RUBY_BIN=/opt/ruby/bin
-
-exec $RUBY_BIN/web-puppet --config /etc/web-puppet.conf

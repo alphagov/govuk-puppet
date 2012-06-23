@@ -20,6 +20,23 @@ class users::govuk {
     require => User['mwall']
   }
 
+  user { 'davidillsley':
+    ensure     => present,
+    comment    => 'David Illsley (david.illsley@digital.cabinet-office.gov.uk)',
+    home       => '/home/davidillsley',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'davidillsley_key':
+    ensure  => present,
+    key     => extlookup('davidillsley_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'davidillsley',
+    require => User['davidillsley']
+  }
+
   user { 'minglis':
     ensure     => present,
     comment    => 'Martyn Inglis (martyn.inglis@digital.cabinet-office.gov.uk)',
@@ -248,7 +265,7 @@ class users::govuk {
   }
   ssh_authorized_key { 'jamiec':
     ensure  => present,
-    key     => extlookup('jamiecobbett_key', ''),
+    key     => extlookup('jamiec_key', ''),
     type    => 'ssh-rsa',
     user    => 'jamiec',
     require => User['jamiec']

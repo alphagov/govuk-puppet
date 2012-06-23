@@ -2,20 +2,16 @@ server {
   server_name  _;
   listen *:80;
 
-  location /admin {
-    proxy_pass http://127.0.0.1:9500;
+  location /licence-management/admin {
+    proxy_pass http://127.0.0.1:9500/licence-management/admin;
     deny all;
     auth_basic            "Enter your elms admin password";
-    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp;
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.elms;
     satisfy any;
   }
 
-  location / {
-    rewrite ^/(.*)$ /elms redirect;
-  }
-
-  location /elms {
-    proxy_pass http://127.0.0.1:9000/elms;
+  location /licence-management/ {
+    proxy_pass http://127.0.0.1:9000/licence-management/;
     deny all;
     auth_basic            "Enter your elms password";
     auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.elms;

@@ -7,6 +7,7 @@ node default {
     support:            { include govuk_base::support_server }
     monitoring:         { include govuk_base::monitoring_server }
     development:        { include development }
+    puppet:             { include govuk_base::puppetmaster }
     management:         { include govuk_base::management_server }
     cache:              { include govuk_base::cache_server }
     graylog:            { include govuk_base::graylog_server }
@@ -15,12 +16,14 @@ node default {
     ertp-mongo:         { include ertp_base::mongo_server }
     ertp-api:           { include ertp_base::api_server::all }
     ertp-api-citizen:   { include ertp_base::api_server::citizen }
-    ertp-api-ems:       { include ertp_base::api_server::ems }
+    ertp-api-ero:       { include ertp_base::api_server::ero }
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-development:   { include ertp_base::development }
     elms-frontend:      { include elms_base::frontend_server }
     elms-mongo:         { include elms_base::mongo_server }
     mapit_server:       { include mapit_server }
+    places-api:         { include places_base::api_server }
+    places-mongo:       { include places_base::mongo_server }
     default:            { }
   }
 }

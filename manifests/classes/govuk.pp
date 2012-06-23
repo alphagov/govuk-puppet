@@ -8,6 +8,11 @@ class govuk_base {
   include wget
   include sysctl
   include users
+  include cron
+  include puppet
+  class { 'ruby::rubygems':
+    version => '1.8.24'
+  }
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
@@ -164,6 +169,11 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     ensure => absent,
     notify => Exec['apache_graceful']
   }
+
+  file { "/data/vhost/signonotron.$::govuk_platform.alphagov.co.uk":
+    ensure => absent,
+    force  => true,
+  }
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
@@ -172,8 +182,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   }
   include passenger
   include nginx
-  include puppet
-
   nginx::vhost::proxy {
     'www.gov.uk':
       to      => ['localhost:8080'];
@@ -369,6 +377,5 @@ class govuk_base::management_server {
 }
 
 class govuk_base::puppetmaster inherits govuk_base {
-  include puppetrundeck
-  include webpuppet
+  # include puppet::master
 }
