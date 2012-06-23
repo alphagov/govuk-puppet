@@ -1,4 +1,5 @@
-define mapit::setup() {
+define mapit::setup(
+    $mapit_datadir = '/data/vhosts/mapit') {
     group { 'mapit':
       name        => 'mapit',
       ensure      => present,
