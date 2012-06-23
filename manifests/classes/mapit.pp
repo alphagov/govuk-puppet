@@ -12,7 +12,7 @@ class mapit_server {
 
   wget::fetch {'mapit_dbdump_download':
       source      => 'http://cdnt.samsharpe.net/mapit.sql.gz',
-      destination => '/data/vhosts/mapit/data/mapit.sql.gz';,
+      destination => '/data/vhosts/mapit/data/mapit.sql.gz',
       require     => File['/data/vhosts/mapit/data/'],
   }
   postgres::database { 'mapit':
