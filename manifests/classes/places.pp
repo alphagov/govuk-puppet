@@ -27,6 +27,7 @@ class places_base::mongo_server inherits places_base {
       }
     }
     default: {
+      $mongo_hosts = ['localhost']
     }
   }
 }
