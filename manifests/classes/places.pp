@@ -27,7 +27,11 @@ class places_base::mongo_server inherits places_base {
       }
     }
     default: {
-      $mongo_hosts = ['localhost']
+      class {'mongodb::configure_replica_set':
+        members => [
+          'places-mongo'
+        ]
+      }
     }
   }
 }
