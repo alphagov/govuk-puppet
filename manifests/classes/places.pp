@@ -33,4 +33,5 @@ class places_base::mongo_server inherits places_base {
 
 class places_base::api_server inherits places_base {
   include places::scripts
+  include places::config
 }
