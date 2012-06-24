@@ -17,4 +17,8 @@ server {
     auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.elms;
     satisfy any;
   }
+
+  location / {
+    rewrite ^ /licence-management;
+  }
 }
