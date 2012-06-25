@@ -354,4 +354,11 @@ class users::govuk {
     user    => 'carlmassa',
     require => User['carlmassa']
   }
+  ssh_authorized_key { 'eddsowden':
+    ensure  => present,
+    key     => extlookup('eddsowden_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'eddsowden',
+    require => User['eddsowden']
+  }
 }
