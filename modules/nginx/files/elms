@@ -19,6 +19,6 @@ server {
   }
 
   location / {
-    rewrite ^ /licence-management;
+    rewrite ^ /licence-management redirect;
   }
 }

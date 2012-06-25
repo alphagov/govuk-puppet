@@ -4,19 +4,10 @@ class nginx::install {
     publisher => 'nginx',
     repo      => 'stable',
   }
-
-  if $::govuk_class == 'frontend' {
-    package { 'nginx-full':
-      ensure  => '1.2.1-0ubuntu0ppa1~lucid',
-      require => Exec['add_repo_nginx_ppa'],
-      notify  => Exec['nginx_reload'],
-    }
-  } else {
-    package { 'nginx-full':
-      ensure  => 'installed',
-      require => Exec['add_repo_nginx_ppa'],
-      notify  => Exec['nginx_reload'],
-    }
+  package { 'nginx-full':
+    ensure  => '1.2.1-0ubuntu0ppa1~lucid',
+    require => Exec['add_repo_nginx_ppa'],
+    notify  => Exec['nginx_reload'],
   }
   file { '/etc/nginx/nginx.conf':
     ensure  => file,
