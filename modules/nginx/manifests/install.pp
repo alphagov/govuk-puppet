@@ -7,7 +7,7 @@ class nginx::install {
   package { 'nginx':
     ensure  => '1.2.1-0*',
     require => Exec['add_repo_nginx_ppa'],
-    notify  => Exec['nginx_reload'],
+    notify  => Exec['nginx_restart'],
   }
   file { '/etc/nginx/nginx.conf':
     ensure  => file,
