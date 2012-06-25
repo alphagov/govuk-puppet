@@ -1,4 +1,4 @@
-class postgres::postgis(	
+class postgres::postgis(
   $ensure=present) {
 
   case $::lsbdistcodename {
