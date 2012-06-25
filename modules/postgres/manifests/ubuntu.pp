@@ -37,15 +37,15 @@ class postgres::ubuntu {
       ensure    => running,
       enable    => true,
       hasstatus => true,
-      start     => "/etc/init.d/postgresql-${version} start",
-      status    => "/etc/init.d/postgresql-${version} status",
-      stop      => "/etc/init.d/postgresql-${version} stop",
-      restart   => "/etc/init.d/postgresql-${version} restart",
+      start     => "/etc/init.d/postgresql start",
+      status    => "/etc/init.d/postgresql status",
+      stop      => "/etc/init.d/postgresql stop",
+      restart   => "/etc/init.d/postgresql restart",
       require   => Package['postgresql-common'],
   }
 
   exec { "reload postgresql ${version}":
       refreshonly => true,
-      command     => "/etc/init.d/postgresql-${version} reload",
+      command     => "/etc/init.d/postgresql reload",
   }
 }
