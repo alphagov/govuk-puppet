@@ -2,7 +2,7 @@ define apt::key($apt_key_url, $ensure='present') {
   case $ensure {
     'present': {
       exec { "apt-key present $name":
-        command => "/usr/bin/wget -q $apt_key_url/$name -O -|/usr/bin/apt-key add -",
+        command => "/usr/bin/wget -q $apt_key_url -O -|/usr/bin/apt-key add -",
         unless  => "/usr/bin/apt-key list|/bin/grep -c '$name'",
         before  => Exec['apt_update']
       }
