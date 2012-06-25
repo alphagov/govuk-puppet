@@ -14,7 +14,12 @@ define nginx::config::vhost::proxy($to, $aliases = [], $protected = true, $ssl_o
     service_description => "check nginx error rate for ${name}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
-
+  @@nagios::check { "check_nginx_active_connections_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => "check_ganglia_metric!nginx_active_connections!500!1000",
+    service_description => "check nginx active connections",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
   cron { "logster-nginx-$name":
     command => "/usr/sbin/logster --metric-prefix $name NginxGangliaLogster /var/log/nginx/${name}-access_log",
     user    => root,
