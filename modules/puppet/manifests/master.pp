@@ -16,6 +16,7 @@ class puppet::master {
     service { 'daemonized-puppetmaster': # kill any existing daemonized puppetmaster process
         ensure   => stopped,
         provider => base,
+        require  => Service['puppetmaster'], # don't kill the daemon til the upstart process is working
         pattern  => '/usr/bin/puppet master$';
     }
 
