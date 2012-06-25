@@ -44,6 +44,12 @@ class postgres::ubuntu {
       require   => Package['postgresql-common'],
   }
 
+  exec {'turn off standard conforming strings':
+      command   => 'sed -i \'s/#standard_conforming_strings = on/standard_conforming_strings = off/g\' /etc/postgresql/9.1/main/postgresql.conf',
+      unless    => 'grep "standard_conforming_strings = off" /etc/postgresql/9.1/main/postgresql.conf',
+      require   => Package['postgresql-common'],
+      }
+
   exec { "reload postgresql ${version}":
       refreshonly => true,
       command     => '/etc/init.d/postgresql reload',
