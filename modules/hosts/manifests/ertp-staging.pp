@@ -4,4 +4,5 @@ class hosts::ertp-staging {
   host { 'ertp-mongo-1':      ip => '10.234.119.78' }
   host { 'ertp-mongo-2':      ip => '10.229.123.95' }
   host { 'ertp-mongo-3':      ip => '10.234.43.20' }
+  host { 'places-api':        ip => '10.235.75.123' }
 }

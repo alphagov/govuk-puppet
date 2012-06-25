@@ -1,4 +1,4 @@
 mongo.database.hosts=ertp-mongo-1,ertp-mongo-2,ertp-mongo-3
-places.api.url=http://ertp-dwp-api:9700/places
+places.api.url=http://places-api:9700/places
 api.mode=dwp
 
