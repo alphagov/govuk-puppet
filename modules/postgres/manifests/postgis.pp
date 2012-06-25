@@ -1,4 +1,5 @@
 class postgres::postgis {
+    $version = '9.1'
 
     include postgres::ubuntu
     package {[
