@@ -1,4 +1,4 @@
-class postgres::postgis(
+class postgres::postgis(	
   $ensure=present) {
 
   case $::lsbdistcodename {
@@ -21,6 +21,7 @@ class postgres::postgis(
 
   case $ensure {
     present: {
+        include postgres::ubuntu
         package {[
             'binutils',
             'gdal-bin',
