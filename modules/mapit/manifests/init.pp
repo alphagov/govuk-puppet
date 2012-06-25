@@ -32,7 +32,7 @@ class mapit {
   }
   exec {'unzip_mapit':
     command => 'tar -zxf /data/vhosts/mapit/data/mapit.tar.gz -C /data/vhosts/mapit',
-    unless  => 'test -s /data/vhosts/mapit/mapit/README',
+    creates => '/data/vhosts/mapit/mapit/README',
     user    => 'mapit',
     require => [
         User['mapit'],
@@ -40,9 +40,10 @@ class mapit {
       ],
   }
   service { 'mapit':
-    ensure   => running,
-    provider => upstart,
-    require  => [
+    ensure    => running,
+    provider  => upstart,
+    subscribe => File['/etc/init/mapit.conf'],
+    require   => [
       File['/etc/init/mapit.conf'],
       Exec['unzip_mapit'],
     ],
