@@ -354,6 +354,15 @@ class users::govuk {
     user    => 'carlmassa',
     require => User['carlmassa']
   }
+   user { 'eddsowden':
+    ensure     => present,
+    comment    => 'Edd Sowden <edd.sowden@digital.cabinet-office.gov.uk>',
+    home       => '/home/eddsowden',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
   ssh_authorized_key { 'eddsowden':
     ensure  => present,
     key     => extlookup('eddsowden_key', ''),
