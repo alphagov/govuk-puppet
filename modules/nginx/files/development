@@ -139,15 +139,6 @@ server {
 }
 
 server {
-  server_name tariff-api.dev.gov.uk;
-  listen *:80;
-  location / {
-    proxy_pass http://127.0.0.1:3016;
-    proxy_set_header   Host   $host;
-  }
-}
-
-server {
   server_name tariff.dev.gov.uk;
   listen *:80;
   location / {
@@ -157,10 +148,20 @@ server {
 }
 
 server {
-  server_name efg.dev.gov.uk;
+  server_name tariff-api.dev.gov.uk;
   listen *:80;
   location / {
     proxy_pass http://127.0.0.1:3018;
+    proxy_set_header   Host   $host;
+  }
+}
+
+
+server {
+  server_name efg.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3019;
     proxy_set_header   Host   $host;
   }
 }

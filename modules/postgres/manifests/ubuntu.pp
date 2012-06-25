@@ -26,6 +26,7 @@ class postgres::ubuntu {
   package {[
       "postgresql-client-${version}",
       'postgresql-common',
+      'postgresql-client-common',
       "postgresql-contrib-${version}"
       ]:
       ensure  => present,
@@ -36,15 +37,22 @@ class postgres::ubuntu {
       ensure    => running,
       enable    => true,
       hasstatus => true,
-      start     => "/etc/init.d/postgresql-${version} start",
-      status    => "/etc/init.d/postgresql-${version} status",
-      stop      => "/etc/init.d/postgresql-${version} stop",
-      restart   => "/etc/init.d/postgresql-${version} restart",
+      start     => '/etc/init.d/postgresql start',
+      status    => '/etc/init.d/postgresql status',
+      stop      => '/etc/init.d/postgresql stop',
+      restart   => '/etc/init.d/postgresql restart',
       require   => Package['postgresql-common'],
   }
 
+  file {"/etc/postgresql/${version}/main/postgresql.conf":
+      ensure    => present,
+      source    => 'puppet:///modules/postgres/postgresql.conf',
+      require   => Package['postgresql-common'],
+      notify    => Exec["reload postgresql ${version}"],
+      }
+
   exec { "reload postgresql ${version}":
       refreshonly => true,
-      command     => "/etc/init.d/postgresql-${version} reload",
+      command     => '/etc/init.d/postgresql reload',
   }
 }

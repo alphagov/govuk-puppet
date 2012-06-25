@@ -21,6 +21,7 @@ class postgres::postgis(
 
   case $ensure {
     present: {
+        include postgres::ubuntu
         package {[
             'binutils',
             'gdal-bin',

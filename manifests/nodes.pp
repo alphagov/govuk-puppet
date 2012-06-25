@@ -21,6 +21,9 @@ node default {
     ertp-development:   { include ertp_base::development }
     elms-frontend:      { include elms_base::frontend_server }
     elms-mongo:         { include elms_base::mongo_server }
+    mapit_server:       { include mapit_server }
+    places-api:         { include places_base::api_server }
+    places-mongo:       { include places_base::mongo_server }
     default:            { }
   }
 }
