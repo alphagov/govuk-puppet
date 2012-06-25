@@ -26,6 +26,7 @@ class postgres::ubuntu {
   package {[
       "postgresql-client-${version}",
       'postgresql-common',
+      'postgresql-client-common',
       "postgresql-contrib-${version}"
       ]:
       ensure  => present,
