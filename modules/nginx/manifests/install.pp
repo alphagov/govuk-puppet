@@ -6,7 +6,7 @@ class nginx::install {
   }
   package { 'nginx':
     ensure  => '1.2.1-0*',
-    require => Exec['add_repo_nginx_ppa'],
+    require => Apt::Ppa_Repository['nginx_ppa'],
     notify  => Exec['nginx_restart'],
   }
   file { '/etc/nginx/nginx.conf':

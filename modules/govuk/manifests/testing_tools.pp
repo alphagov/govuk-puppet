@@ -1,7 +1,7 @@
 class govuk::testing_tools {
   package { 'libqt4-dev':
     ensure  => installed,
-    require => Exec['add_repo_kubuntu-backports'],
+    require => Apt::Ppa_Repository['kubuntu-backports'],
   }
 
   package { 'xvfb':
@@ -10,7 +10,7 @@ class govuk::testing_tools {
 
   package { 'phantomjs':
     ensure  => installed,
-    require => Exec['add_repo_jerome-etienne'],
+    require => Apt::Ppa_Repository['jerome-etienne'],
   }
 
   file { '/etc/init/xvfb.conf':

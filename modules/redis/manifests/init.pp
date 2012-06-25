@@ -7,7 +7,7 @@ class redis {
   package { 'redis-server':
     ensure       => installed,
     name         => $::distribution_debian,
-    require      => Exec['add_repo_redis-server'],
+    require      => Apt::Ppa_Repository['redis-server'],
   }
 
   service { 'redis-server':
