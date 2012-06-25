@@ -1,5 +1,6 @@
 class postgres::postgis::template (
     $ensure=present) {
+    $postgis_dir = '/usr/share/postgresql/9.1/contrib/postgis-1.5'
 
     include postgres::ubuntu
     postgres::database { 'template_postgis':
@@ -13,12 +14,12 @@ class postgres::postgis::template (
 
     exec {'Set template_postgis to be a template':
         command   => 'psql -qd postgres -c "UPDATE pg_database \
-                     SET datistemplate=\'true\' \
-                     WHERE datname=\'template_postgis\';"',
+                      SET datistemplate=\'true\' \
+                      WHERE datname=\'template_postgis\';"',
         user      => 'postgres',
         onlyif    => 'test $(psql -tA -c "SELECT datistemplate \
-                     FROM pg_database \
-                     WHERE datname=\'template_postgis\';") = f',
+                      FROM pg_database \
+                      WHERE datname=\'template_postgis\';") = f',
         logoutput => 'on_failure',
     }
 
