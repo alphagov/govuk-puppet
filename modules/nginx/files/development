@@ -139,6 +139,15 @@ server {
 }
 
 server {
+  server_name migratorator.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3015;
+    proxy_set_header   Host   $host;
+  }
+}
+
+server {
   server_name tariff.dev.gov.uk;
   listen *:80;
   location / {
@@ -165,7 +174,6 @@ server {
     proxy_set_header   Host   $host;
   }
 }
-
 
 server {
   server_name reviewomatic.dev.gov.uk;
