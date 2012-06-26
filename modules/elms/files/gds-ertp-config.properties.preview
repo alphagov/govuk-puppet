@@ -1,3 +1,4 @@
 mongo.database.hosts=elms-mongo
 places.api.url=http://places-api:9700/places
+feedActor=true
 
