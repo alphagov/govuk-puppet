@@ -311,7 +311,7 @@ class govuk_base::support_server inherits govuk_base {
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
-  # include nagios
+  include nagios
   # include ganglia
 }
 
