@@ -19,7 +19,6 @@ class mapit_server {
       ensure    => present,
       owner     => 'mapit',
       encoding  => 'UTF8',
-      # template  => 'template_postgis',
       source    => '/data/vhosts/mapit/data/mapit.sql.gz',
       require   => [ Postgres::User['mapit'], Wget::Fetch['mapit_dbdump_download'] ],
   }
