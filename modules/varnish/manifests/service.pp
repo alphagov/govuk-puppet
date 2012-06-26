@@ -4,7 +4,8 @@ class varnish::service {
 
   service { 'varnish':
     ensure     => running,
-    hasrestart => true,
+    hasrestart => false,
+    restart    => '/usr/sbin/service varnish reload',
     hasstatus  => true,
     require    => Class['varnish::install']
   }
