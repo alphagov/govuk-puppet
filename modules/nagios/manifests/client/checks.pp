@@ -1,10 +1,10 @@
 class nagios::client::checks {
-  @@nagios_host { "${::govuk_class}-${::hostname}":
+  @@nagios::host { "${::govuk_class}-${::hostname}":
     ensure  => present,
     alias   => $::fqdn,
     address => $::ipaddress,
     use     => 'generic-host',
-    target  => "/etc/nagios3/conf.d/nagios_host_${::hostname}.cfg",
+    hostname=> $::hostname,
   }
 
   @@nagios_service { "check_ping_${::hostname}":
