@@ -6,6 +6,7 @@ define nagios::host (
   $hostname = $title
 ) {
   file {"/etc/nagios3/conf.d/nagios_host_${hostname}.cfg":
+    ensure  => present,
     content => template('nagios/host.erb'),
     owner   => 'root',
     group   => 'root',
