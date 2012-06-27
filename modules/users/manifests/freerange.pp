@@ -34,6 +34,10 @@ class users::freerange {
     require => User['chrisroos'],
   }
 
+  user { 'jasoncale':
+    ensure     => absent,
+  }
+
   user { 'jamesmead':
     ensure     => present,
     comment    => 'James Mead (james@floehopper.org)',
