@@ -5,7 +5,7 @@ class jenkins {
 
   apt::key{ 'Kohsuke Kawaguchi':
     ensure      => present,
-    apt_key_url => 'http://pkg.jenkins-ci.org/debian',
+    apt_key_url => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
   }
 
   user { 'jenkins':
@@ -21,7 +21,7 @@ class jenkins {
     mode   => '0644',
     before => [
       Exec['apt_update'],
-      Exec['apt-key present jenkins-ci.org.key']
+      Exec['apt-key present Kohsuke Kawaguchi']
     ],
   }
 
