@@ -6,6 +6,10 @@ describe 'ruby', :type => :class do
       'ensure'  => '1.2.3.4.5.6',
       'require' => 'Apt::Ppa_repository[brightbox]'
   })}
+  it { should contain_package('ruby1.9.1-dev').with({
+      'ensure'  => '1.2.3.4.5.6',
+      'require' => 'Apt::Ppa_repository[brightbox]'
+  })}
 
   it { should contain_apt__ppa_repository('brightbox') }
 end
