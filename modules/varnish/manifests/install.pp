@@ -6,7 +6,7 @@ class varnish::install {
 
   file { '/etc/default/varnish':
     ensure  => file,
-    content  => template('varnish/defaults.erb'),
+    content => template('varnish/defaults.erb'),
     require => Package['varnish']
   }
 
