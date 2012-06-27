@@ -39,6 +39,7 @@ class users::freerange {
   }
   ssh_authorized_key { 'jasoncale':
     ensure  => absent,
+    user    => 'jasoncale'
   }
 
   user { 'jamesmead':
@@ -94,8 +95,6 @@ class users::freerange {
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
-    'deploy_key_jasoncale':
-      ensure  => absent;
     'deploy_key_tomw':
       ensure  => present,
       key     => extlookup('tomw_key', ''),
