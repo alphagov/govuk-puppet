@@ -14,6 +14,7 @@ sub vcl_recv {
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect
   # Don't redirect "/" to "".
+
   if (req.url ~ "(.+)/$") {
     set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "\1");
     error 667 req.http.x-Redir-Url;
