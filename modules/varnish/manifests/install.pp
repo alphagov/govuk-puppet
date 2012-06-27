@@ -12,11 +12,14 @@ class varnish::install {
 
   case $::lsbdistcodename {
     # in Varnish3, the purge function became ban
-    'lucid' : {
+    'lucid': {
         $varnish_version = 2
     }
-    default: {
+    'precise': {
         $varnish_version = 3
+    }
+    default: {
+        $varnish_version = 2
     }
   }
 
