@@ -39,6 +39,7 @@ class users::freerange {
   }
   ssh_authorized_key { 'jasoncale':
     ensure  => absent,
+    user    => 'jasoncale'
   }
 
   user { 'jamesmead':
