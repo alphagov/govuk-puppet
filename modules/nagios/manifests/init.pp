@@ -5,11 +5,6 @@ class nagios {
     notify      =>  Service['nagios3'],
     refreshonly => true,
   }
-
-  resources { ['nagios_host','nagios_service']:
-    purge => true,
-  }
-
   Nagios_host    <<||>> { notify => Service['nagios3'] }
   Nagios_service <<||>> { notify => Exec['fix_nagios_perms'] }
 }
