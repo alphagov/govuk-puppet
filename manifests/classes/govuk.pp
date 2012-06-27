@@ -265,19 +265,6 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     "whitehall-search.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
   }
-
-  if $::govuk_platform == 'preview' {
-    file { '/etc/nginx/sites-available/whitehall.staging.alphagov.co.uk':
-      ensure  => file,
-      content => "server {
-          server_name whitehall.staging.alphagov.co.uk;
-          rewrite ^(.*)\$ http://whitehall.preview.alphagov.co.uk\$1 permanent;
-      }",
-      require => Package['nginx'],
-    }
-
-    nginx::site { 'whitehall.staging.alphagov.co.uk': }
-  }
 }
 
 class govuk_base::cache_server inherits govuk_base {
