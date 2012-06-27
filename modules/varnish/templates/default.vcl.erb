@@ -51,10 +51,10 @@ sub vcl_recv {
     if(!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-<% if scope.lookupvar('varnish::varnish_version') == 2 %>
-      purge("req.url == " req.url);
-<% else %>
+<% if scope.lookupvar('varnish::varnish_version') == 3 %>
       ban("req.url == " + req.url);
+<% else %>
+      purge("req.url == " req.url);
 <% end %>
       error 200 "Purged";
     }
@@ -88,10 +88,10 @@ sub vcl_fetch {
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
-<% if scope.lookupvar('varnish::varnish_version') == 2 %>
-  if (beresp.cacheable) {
-<% else %>
+<% if scope.lookupvar('varnish::varnish_version') == 3 %>
   if (beresp.ttl > 0s) {
+<% else %>
+  if (beresp.cacheable) {
 <% end %>
     # Remove Expires from backend, it's not long enough
     unset beresp.http.expires;
@@ -126,10 +126,10 @@ sub vcl_fetch {
 }
 
 sub vcl_hash {
-<% if scope.lookupvar('varnish::varnish_version') == 2 %>
-  set req.hash += req.url;
-<% else %>
+<% if scope.lookupvar('varnish::varnish_version') == 3 %>
   hash_data(req.url);
+<% else %>
+  set req.hash += req.url;
 <% end %>
   return(hash);
 }
