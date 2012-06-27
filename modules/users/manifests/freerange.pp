@@ -34,23 +34,6 @@ class users::freerange {
     require => User['chrisroos'],
   }
 
-  user { 'jasoncale':
-    ensure     => present,
-    comment    => 'Jason Cale <jason.cale@gofreerange.com>',
-    home       => '/home/jasoncale',
-    managehome => true,
-    groups     => ['admin', 'deploy'],
-    require    => Class['users::setup'],
-    shell      => '/bin/bash'
-  }
-  ssh_authorized_key { 'jasoncale':
-    ensure  => present,
-    key     => extlookup('jasoncale_key', ''),
-    type    => 'ssh-rsa',
-    user    => 'jasoncale',
-    require => User['jasoncale'],
-  }
-
   user { 'jamesmead':
     ensure     => present,
     comment    => 'James Mead (james@floehopper.org)',
@@ -101,12 +84,6 @@ class users::freerange {
     'deploy_key_chrisroos':
       ensure  => present,
       key     => extlookup('chrisroos_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_jasoncale':
-      ensure  => present,
-      key     => extlookup('jasoncale_key', ''),
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
