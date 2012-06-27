@@ -4,7 +4,6 @@ class nagios::client::checks {
     hostalias => $::fqdn,
     address   => $::ipaddress,
     use       => 'generic-host',
-    hostname  => $::hostname,
   }
 
   @@nagios_service { "check_ping_${::hostname}":
