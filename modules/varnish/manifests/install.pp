@@ -10,20 +10,6 @@ class varnish::install {
     require => Package['varnish']
   }
 
-  case $::lsbdistcodename {
-    # in Varnish3, the purge function became ban
-    'lucid': {
-        $varnish_version = 2
-    }
-    'precise': {
-        $varnish_version = 3
-    }
-    default: {
-        $varnish_version = 2
-    }
-  }
-
-
   file { '/etc/default/varnishncsa':
     ensure  => file,
     source  => 'puppet:///modules/varnish/ncsa-defaults',

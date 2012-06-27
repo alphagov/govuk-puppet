@@ -51,7 +51,7 @@ sub vcl_recv {
     if(!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-<% if @varnish_version == 2 %>
+<% if scope.lookupvar('varnish::varnish_version') == 2 %>
       purge("req.url == " req.url);
 <% else %>
       ban("req.url == " + req.url);
@@ -88,7 +88,7 @@ sub vcl_fetch {
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
-<% if @varnish_version == 2 %>
+<% if scope.lookupvar('varnish::varnish_version') == 2 %>
   if (beresp.cacheable) {
 <% else %>
   if (beresp.ttl > 0s) {
@@ -126,7 +126,7 @@ sub vcl_fetch {
 }
 
 sub vcl_hash {
-<% if @varnish_version == 2 %>
+<% if scope.lookupvar('varnish::varnish_version') == 2 %>
   set req.hash += req.url;
 <% else %>
   hash_data(req.url);
