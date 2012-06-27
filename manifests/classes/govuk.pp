@@ -28,17 +28,8 @@ class govuk_base {
 }
 
 class govuk_base::redirect_server inherits govuk_base {
-  include nginx
+  class { 'nginx' : node_type => redirect }
   include nagios::client::checks
-
-  nginx::vhost::redirect {
-    'gov.uk':
-      to => 'https://www.gov.uk/';
-    'blog.alpha.gov.uk':
-      to => 'http://digital.cabinetoffice.gov.uk/';
-    'alpha.gov.uk':
-      to => 'http://webarchive.nationalarchives.gov.uk/20111004104716/http://alpha.gov.uk/';
-  }
 }
 
 class govuk_base::db_server inherits govuk_base {
@@ -102,7 +93,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   }
 
   include passenger
-  include nginx
+  class { 'nginx' : node_type => backend_server }
 
   package { 'graphviz':
     ensure => installed
@@ -118,47 +109,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "migratorator.$::govuk_platform.alphagov.co.uk":;
     "tariff-api.$::govuk_platform.alphagov.co.uk":;
     "private-frontend.$::govuk_platform.alphagov.co.uk":;
-  }
-
-  nginx::vhost::proxy {
-    "imminence.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "publisher.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "panopticon.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "signon.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      protected => false,
-      ssl_only  => true;
-    "migratorator.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      ssl_only  => true;
-    "contactotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "tariff-api.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "private-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-  }
-
-  file { "/etc/nginx/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
-    ensure => absent,
-    notify => Exec['nginx_reload']
-  }
-
-  file { "/etc/nginx/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
-    ensure => absent,
-    notify => Exec['nginx_reload']
   }
 
   file { "/etc/apache2/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
@@ -182,30 +132,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     port => '8080'
   }
   include passenger
-  include nginx
-  nginx::vhost::proxy {
-    'www.gov.uk':
-      to      => ['localhost:8080'];
-    "www.$::govuk_platform.alphagov.co.uk":
-      to      => ['localhost:8080'],
-      aliases => ["frontend.$::govuk_platform.alphagov.co.uk"];
-    "planner.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "calendars.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "search.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "smartanswers.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "designprinciples.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "licencefinder.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "tariff.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "efg.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-  }
+  class { 'nginx' : node_type => frontend_server }
 
   apache2::vhost::passenger {
     "www.$::govuk_platform.alphagov.co.uk":
@@ -236,11 +163,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     group  => 'deploy',
   }
 
-  nginx::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
-    protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg'],
-    ssl_only  => true
-  }
 }
 
 class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base::ruby_app_server {
@@ -248,7 +170,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     port => '8080'
   }
   include passenger
-  include nginx
+  class { 'nginx' : node_type => whitehall_frontend_server }
   include imagemagick
 
   apache2::vhost::passenger {
@@ -257,15 +179,6 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     "whitehall-search.$::govuk_platform.alphagov.co.uk":;
   }
 
-  nginx::vhost::proxy {
-    "whitehall.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "whitehall-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'];
-    "whitehall-search.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-  }
 }
 
 class govuk_base::cache_server inherits govuk_base {
