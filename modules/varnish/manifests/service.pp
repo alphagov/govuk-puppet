@@ -32,12 +32,11 @@ class varnish::service {
     facility => 'varnish',
   }
 
-  @@nagios_service { "check_varnish_5xx_${::hostname}":
+  @@nagios::check { "check_varnish_5xx_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_ganglia_metric!http_5xx!0.03!0.1',
     service_description => "check varnish error rate for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
   File['/etc/default/varnish'] ~> Service['varnish']

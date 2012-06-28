@@ -8,12 +8,11 @@ define nginx::config::vhost::proxy($to, $aliases = [], $protected = true, $ssl_o
     notify  => Exec['nginx_reload'],
   }
 
-  @@nagios_service { "check_nginx_5xx_${name}_on_${::hostname}":
+  @@nagios::check { "check_nginx_5xx_${name}_on_${::hostname}":
     use                 => 'generic-service',
     check_command       => "check_ganglia_metric!${name}_nginx_http_5xx!0.05!0.1",
     service_description => "check nginx error rate for ${name}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '//etc/nagios3/conf.d/nagios_service.cfg',
   }
 
   cron { "logster-nginx-$name":

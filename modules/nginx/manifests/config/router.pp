@@ -24,12 +24,11 @@ class nginx::config::router {
     ensure  => present,
     content => extlookup("${host}_key", ''),
   }
-  @@nagios_service { "check_nginx_5xx_on_${::hostname}":
+  @@nagios::check { "check_nginx_5xx_on_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_ganglia_metric!nginx_http_5xx!0.05!0.1',
     service_description => 'check nginx error rate',
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
   cron { 'logster-nginx':
     command => '/usr/sbin/logster NginxGangliaLogster /var/log/nginx/lb-access.log',
