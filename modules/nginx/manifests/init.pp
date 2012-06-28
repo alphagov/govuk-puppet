@@ -27,26 +27,24 @@ class nginx::configure($node_type) {
     whitehall_frontend_server: { include nginx::configure::whitehall_frontend_server }
     default : {
       notify { '$node_type':
-       message => "Unrecognised node type: $node_type"
+        message => "Unrecognised node type: $node_type"
       }
     }
   }
 }
 
 class nginx::configure::redirect {
-  notify { 'redirect': }
   nginx::vhost::redirect {
     'gov.uk':
       to => 'https://www.gov.uk/';
-       'blog.alpha.gov.uk':
+        'blog.alpha.gov.uk':
       to => 'http://digital.cabinetoffice.gov.uk/';
-       'alpha.gov.uk':
+        'alpha.gov.uk':
       to => 'http://webarchive.nationalarchives.gov.uk/20111004104716/http://alpha.gov.uk/';
   }
 }
 
 class nginx::configure::proxy {
-  notify { 'i am proxy': }
   nginx::vhost::proxy {
     "imminence.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
@@ -80,7 +78,6 @@ class nginx::configure::proxy {
 }
 
 class nginx::configure::frontend_server {
-  notify { "$govuk_platform i am fronting stuff": }
   nginx::vhost::proxy {
     'www.gov.uk':
       to      => ['localhost:8080'];
@@ -112,7 +109,6 @@ class nginx::configure::frontend_server {
 }
 
 class nginx::configure::whitehall_frontend_server {
-  notify { 'whitehall frontend': }
   nginx::vhost::proxy {
     "whitehall.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
@@ -125,7 +121,6 @@ class nginx::configure::whitehall_frontend_server {
 }
 
 class nginx::configure::backend_server {
-  notify { 'backend_server': }
   file { "/etc/nginx/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
     ensure => absent,
     notify => Exec['nginx_reload']
