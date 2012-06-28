@@ -38,7 +38,7 @@ class jenkins {
     ensure  => 'latest',
     require => [
       User['jenkins'],
-      Exec['apt-key present jenkins-ci.org.key'],
+      Exec['apt-key present Kohsuke Kawaguchi'],
       File['jenkins.list'],
       Exec['apt_update'],
     ],
