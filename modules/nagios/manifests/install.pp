@@ -138,15 +138,17 @@ class nagios::install {
     ensure  => present,
     owner   => nagios,
     group   => nagios,
-    require => Package[nagios3] # needed for the nagios system user
+    require => Package[nagios3],
   }
   cron { 'pagerduty':
     command => '/usr/local/bin/pagerduty_nagios.pl flush',
     user    => 'nagios',
     minute  => '*',
+    require => Package[nagios3],
   }
   user { 'www-data':
-    groups => ['nagios']
+    groups  => ['nagios'],
+    require => Package[nagios3],
   }
   # it's possible this is still missing running
   # dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
