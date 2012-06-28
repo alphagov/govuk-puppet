@@ -13,7 +13,6 @@ class nginx::config($node_type) {
     refreshonly => true,
     onlyif      => '/etc/init.d/nginx configtest',
   }
-  
   exec { 'nginx_restart':
     command     => '/etc/init.d/nginx restart',
     refreshonly => true,
