@@ -30,6 +30,10 @@ So to get started, or just to apply the latest manifests you can run:
 
 On first run with the development class this currently takes approximately 8 minutes on a single processor virtual machine with 1GB RAM.
 
+## Standards
+
+We have some standards to be considered when creating Puppet modules and classes. It's worth a quick read of the [Standards](https://github.com/alphagov/puppet/blob/master/STANDARDS.md)
+
 ## Testing
 
 We're starting to use RSpec to test the manifests and modules. You can run both sets of tests with:
