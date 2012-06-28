@@ -12,7 +12,7 @@ class elms_base {
   include openjdk
 }
 
-class elms_base::mongo_server inherits places_base {
+class elms_base::mongo_server inherits elms_base {
   include mongodb::server
 
   class {'mongodb::configure_replica_set':
