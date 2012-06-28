@@ -1,5 +1,4 @@
 class nginx::config::elms {
-  include nginx
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => 'puppet:///modules/nginx/elms',
