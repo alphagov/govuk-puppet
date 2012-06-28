@@ -14,12 +14,11 @@ class nagios::client::checks {
     target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
-  @@nagios_service { "check_disk_${::hostname}":
+  @@nagios::check { "check_disk_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_nrpe_1arg!check_disk',
     service_description => "check disk on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
   @@nagios_service { "check_users_${::hostname}":
