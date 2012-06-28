@@ -2,13 +2,13 @@ class nginx::config::router {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => "puppet:///modules/nginx/router_$::govuk_platform",
-    require => Class['nginx::install'],
+    require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
   file { '/etc/htpasswd':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.default',
-    require => Class['nginx::install'],
+    require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
   if $::govuk_platform == 'production' {

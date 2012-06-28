@@ -1,10 +1,10 @@
-define nginx::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
+define nginx::config::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
   file { "/etc/nginx/sites-available/$name":
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     content => template('nginx/proxy-vhost.conf'),
-    require => Class['nginx::install'],
+    require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
 
@@ -49,6 +49,6 @@ define nginx::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = fa
     }
   }
 
-  nginx::ssl { $name: }
+  nginx::config::ssl { $name: }
   nginx::config::site { $name: }
 }

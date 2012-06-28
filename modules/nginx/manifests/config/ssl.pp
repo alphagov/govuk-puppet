@@ -1,4 +1,4 @@
-define nginx::ssl() {
+define nginx::config::ssl() {
   if $name == 'www.gov.uk' {
     $cert = $name
   } elsif $name == 'www.preview.alphagov.co.uk' {

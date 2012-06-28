@@ -3,7 +3,6 @@ class nginx::service {
     ensure     => running,
     hasstatus  => true,
     hasrestart => true,
-    require    => Class['nginx::install'],
+    require    => Class['nginx::config'],
   }
-
 }

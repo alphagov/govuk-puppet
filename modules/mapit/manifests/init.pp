@@ -11,12 +11,9 @@ class mapit {
           'python-flup','python-gdal']:
     ensure => present,
   }
-  file { '/etc/nginx/sites-enabled/mapit':
-    ensure  => file,
-    source  => 'puppet:///modules/mapit/nginx_mapit.conf',
-    require => Class['nginx::install'],
-    notify  => Exec['nginx_reload'],
-  }
+
+  class { 'nginx' : node_type => mapit }
+
   file { '/etc/init/mapit.conf':
     ensure  => file,
     source  => 'puppet:///modules/mapit/fastcgi_mapit.conf',
