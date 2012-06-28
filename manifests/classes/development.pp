@@ -41,5 +41,6 @@ class development {
     'rails':        ensure => 'installed', provider => gem;
     'passenger':    ensure => 'installed', provider => gem;
     'apache2':      ensure => 'absent';
+    'wbritish-small':      ensure => installed;
   }
 }

@@ -83,6 +83,7 @@ class govuk_base::ruby_app_server inherits govuk_base {
     'rake':                ensure => '0.9.2',   provider => gem;
     'rack':                ensure => '1.3.5',   provider => gem;
     'dictionaries-common': ensure => installed;
+    'wbritish-small':      ensure => installed;
     'miscfiles':           ensure => installed;
   }
 }
