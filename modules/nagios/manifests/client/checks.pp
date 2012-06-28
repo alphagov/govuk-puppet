@@ -1,6 +1,5 @@
 class nagios::client::checks {
   @@nagios::host { "${::govuk_class}-${::hostname}":
-    ensure    => present,
     hostalias => $::fqdn,
     address   => $::ipaddress,
     use       => 'generic-host',

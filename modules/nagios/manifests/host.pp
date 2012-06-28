@@ -1,5 +1,4 @@
 define nagios::host (
-  $ensure    = present,
   $hostalias = $::fqdn,
   $address   = $::ipaddress,
   $use       = 'generic-host',
