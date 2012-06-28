@@ -33,7 +33,7 @@ class elms_base::frontend_server inherits elms_base {
 class elms_base::development inherits elms_base {
   include elms_base::mongo_server
   include elms::config
-  include nginx::elms
+  include nginx::config::elms
   include elms::config
   include elms::scripts
 }

@@ -15,16 +15,16 @@ class nginx($node_type = 'development') {
   }
   include nginx::install
   include nginx::service
-  class { 'nginx::configure' : node_type => $node_type }
+  class { 'nginx::config' : node_type => $node_type }
 }
 
-class nginx::configure($node_type) {
+class nginx::config($node_type) {
   case $node_type  {
-    redirect: { include nginx::configure::redirect }
-    proxy: { include nginx::configure::proxy }
-    frontend_server: { include nginx::configure::frontend_server }
-    backend_server: { include nginx::configure::backend_server }
-    whitehall_frontend_server: { include nginx::configure::whitehall_frontend_server }
+    redirect: { include nginx::config::redirect }
+    proxy: { include nginx::config::proxy }
+    frontend_server: { include nginx::config::frontend_server }
+    backend_server: { include nginx::config::backend_server }
+    whitehall_frontend_server: { include nginx::config::whitehall_frontend_server }
     default : {
       notify { '$node_type':
         message => "Unrecognised node type: $node_type"
@@ -33,7 +33,7 @@ class nginx::configure($node_type) {
   }
 }
 
-class nginx::configure::redirect {
+class nginx::config::redirect {
   nginx::vhost::redirect {
     'gov.uk':
       to => 'https://www.gov.uk/';
@@ -44,7 +44,7 @@ class nginx::configure::redirect {
   }
 }
 
-class nginx::configure::proxy {
+class nginx::config::proxy {
   nginx::vhost::proxy {
     "imminence.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
@@ -77,7 +77,7 @@ class nginx::configure::proxy {
   }
 }
 
-class nginx::configure::frontend_server {
+class nginx::config::frontend_server {
   nginx::vhost::proxy {
     'www.gov.uk':
       to      => ['localhost:8080'];
@@ -108,7 +108,7 @@ class nginx::configure::frontend_server {
   }
 }
 
-class nginx::configure::whitehall_frontend_server {
+class nginx::config::whitehall_frontend_server {
   nginx::vhost::proxy {
     "whitehall.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
@@ -120,7 +120,7 @@ class nginx::configure::whitehall_frontend_server {
   }
 }
 
-class nginx::configure::backend_server {
+class nginx::config::backend_server {
   file { "/etc/nginx/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
     ensure => absent,
     notify => Exec['nginx_reload']
