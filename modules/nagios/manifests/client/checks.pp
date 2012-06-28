@@ -21,43 +21,38 @@ class nagios::client::checks {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios_service { "check_users_${::hostname}":
+  @@nagios::check { "check_users_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_nrpe_1arg!check_users',
     service_description => "check users on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
-  @@nagios_service { "check_zombies_${::hostname}":
+  @@nagios::check { "check_zombies_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_nrpe_1arg!check_zombie_procs',
     service_description => "check for zombies on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
-  @@nagios_service { "check_procs_${::hostname}":
+  @@nagios::check { "check_procs_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_nrpe_1arg!check_total_procs',
     service_description => "check procs on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
-  @@nagios_service { "check_load_${::hostname}":
+  @@nagios::check { "check_load_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_nrpe_1arg!check_load',
     service_description => "check load on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
-  @@nagios_service { "check_ssh_${::hostname}":
+  @@nagios::check { "check_ssh_${::hostname}":
     use                 => 'generic-service',
     check_command       => 'check_ssh',
     service_description => "check ssh access to ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 }
