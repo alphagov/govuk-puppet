@@ -1,4 +1,5 @@
 define nginx::config::vhost::redirect($to) {
+  notify { "random shizzle $name" : }
   file { "/etc/nginx/sites-available/$name":
     owner   => 'root',
     group   => 'root',
@@ -7,6 +8,8 @@ define nginx::config::vhost::redirect($to) {
     require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
+
+  notify { $name: }
 
   nginx::config::site { $name: }
   nginx::config::ssl { $name: }
