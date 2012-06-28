@@ -135,9 +135,10 @@ class nagios::install {
     require => Package[nagios3],
   }
   file { '/var/log/sendEmail':
-    ensure => present,
-    owner  => nagios,
-    group  => nagios
+    ensure  => present,
+    owner   => nagios,
+    group   => nagios,
+    require => Package[nagios3] # needed for the nagios system user
   }
   cron { 'pagerduty':
     command => '/usr/local/bin/pagerduty_nagios.pl flush',
