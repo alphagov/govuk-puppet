@@ -1,7 +1,6 @@
 class development {
   include base_packages::unix_tools
   include govuk::testing_tools
-  include nginx::development
   include mongodb::server
   include apollo
   include hosts
@@ -10,6 +9,8 @@ class development {
   include mysql::client
   include nodejs
   include imagemagick
+
+  class  { 'nginx' : host_type => development }
 
   class {'elasticsearch':
     cluster => 'development'

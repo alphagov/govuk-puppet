@@ -26,6 +26,7 @@ class nginx::config($node_type) {
     backend_server: { include nginx::config::backend_server }
     whitehall_frontend_server: { include nginx::config::whitehall_frontend_server }
     elms : {  include nginx::config::elms }
+    development : { include nginx::config::development }
     default : {
       notify { '$node_type':
         message => "Unrecognised node type: $node_type"
