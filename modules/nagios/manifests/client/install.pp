@@ -10,10 +10,11 @@ class nagios::client::install {
     require => Package[nagios-nrpe-server],
   }
   file { '/usr/local/bin/nrpe-runner':
-    source => 'puppet:///modules/nagios/nrpe-runner',
-    owner  => root,
-    group  => root,
-    mode   => '0755',
+    source  => 'puppet:///modules/nagios/nrpe-runner',
+    owner   => root,
+    group   => root,
+    mode    => '0755',
+    require => Package[json],
   }
   package { 'json':
     ensure   => 'installed',
