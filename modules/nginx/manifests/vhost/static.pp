@@ -27,5 +27,5 @@ define nginx::vhost::static($protected = true, $aliases = [], $ssl_only = false)
   }
 
   nginx::ssl { $name: }
-  nginx::site { $name: }
+  nginx::config::site { $name: }
 }

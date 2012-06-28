@@ -8,6 +8,6 @@ define nginx::vhost::redirect($to) {
     notify  => Exec['nginx_reload'],
   }
 
-  nginx::site { $name: }
+  nginx::config::site { $name: }
   nginx::ssl { $name: }
 }

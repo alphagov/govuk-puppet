@@ -50,5 +50,5 @@ define nginx::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = fa
   }
 
   nginx::ssl { $name: }
-  nginx::site { $name: }
+  nginx::config::site { $name: }
 }
