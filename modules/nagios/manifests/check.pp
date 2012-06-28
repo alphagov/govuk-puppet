@@ -1,8 +1,8 @@
 define nagios::check (
-  $use                  = 'generic-service',
-  $host_name            = $::hostname,
   $service_description,
-  $check_command
+  $check_command,
+  $use                  = 'generic-service',
+  $host_name            = $::hostname
 ) {
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
     ensure  => present,
