@@ -34,13 +34,13 @@ class development {
   }
 
   package {
-    'bundler':      ensure => 'installed', provider => gem;
-    'foreman':      ensure => '0.27.0',    provider => gem;
-    'linecache19':  ensure => 'installed', provider => gem;
-    'mysql2':       ensure => 'installed', provider => gem, require => Class['mysql::client'];
-    'rails':        ensure => 'installed', provider => gem;
-    'passenger':    ensure => 'installed', provider => gem;
-    'apache2':      ensure => 'absent';
-    'wbritish-small':      ensure => installed;
+    'bundler':        ensure => 'installed', provider => gem;
+    'foreman':        ensure => '0.27.0',    provider => gem;
+    'linecache19':    ensure => 'installed', provider => gem;
+    'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];
+    'rails':          ensure => 'installed', provider => gem;
+    'passenger':      ensure => 'installed', provider => gem;
+    'apache2':        ensure => 'absent';
+    'wbritish-small': ensure => installed;
   }
 }
