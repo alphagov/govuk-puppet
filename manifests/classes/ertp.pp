@@ -33,10 +33,10 @@ class ertp_base::mongo_server inherits ertp_base {
 class ertp_base::frontend_server inherits ertp_base {
   case $::govuk_platform {
     staging: {
-      include nginx::ertp::staging
+      class { 'nginx' : node_type => ertp_staging }
     }
     default: {
-      include nginx::ertp
+      class { 'nginx' : node_type => ertp }
     }
   }
 
@@ -47,10 +47,10 @@ class ertp_base::frontend_server inherits ertp_base {
 class ertp_base::api_server inherits ertp_base {
   case $::govuk_platform {
     staging: {
-      include nginx::ertp::api::staging
+      class { 'nginx' : node_type => ertp_api_staging }
     }
     default: {
-      include nginx::ertp::api::preview
+      class { 'nginx' : node_type => ertp_api_preview }
     }
   }
 
@@ -76,7 +76,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 class ertp_base::development inherits ertp_base {
   include ertp_base::mongo_server
   include ertp::config
-  include nginx::ertp
+  class { 'nginx' : node_type => ertp }
   include ertp::config
   include ertp::scripts
 }

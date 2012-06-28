@@ -1,5 +1,4 @@
-class nginx::ertp {
-  include nginx
+class nginx::config::ertp {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp',
@@ -16,8 +15,7 @@ class nginx::ertp {
 
 }
 
-class nginx::ertp::staging {
-  include nginx
+class nginx::config::ertp::staging {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-staging',
@@ -34,8 +32,7 @@ class nginx::ertp::staging {
 
 }
 
-class nginx::ertp::api::staging {
-  include nginx
+class nginx::config::ertp::api::staging {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-staging-api',
@@ -52,8 +49,7 @@ class nginx::ertp::api::staging {
 
 }
 
-class nginx::ertp::api::preview {
-  include nginx
+class nginx::config::ertp::api::preview {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-preview-api',

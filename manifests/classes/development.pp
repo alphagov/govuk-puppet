@@ -10,7 +10,7 @@ class development {
   include nodejs
   include imagemagick
 
-  class  { 'nginx' : host_type => development }
+  class  { 'nginx' : node_type => development }
 
   class {'elasticsearch':
     cluster => 'development'

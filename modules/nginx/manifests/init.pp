@@ -66,6 +66,10 @@ class nginx::config($node_type) {
     development : { include nginx::config::development }
     router : { include nginx::config::router }
     mapit : { include nginx::config::mapit }
+    ertp : { include nginx::config::ertp }
+    ertp_api_staging : { include nginx::config::ertp::api::staging }
+    ertp_api_preview : { include nginx::config::ertp::api::preview }
+    ertp_staging : { include nginx::config::ertp::staging }
     default : {
       notify { '$node_type':
         message => "Unrecognised node type: $node_type"
