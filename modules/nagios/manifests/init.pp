@@ -7,5 +7,6 @@ class nagios {
   }
   Nagios::Host   <<||>> { notify => Service['nagios3'] }
   Nagios_service <<||>> { notify => Exec['fix_nagios_perms'] }
+  Nagios::Check  <<||>> { notify => Service['nagios3'] }
 }
 
