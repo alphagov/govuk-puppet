@@ -1,6 +1,6 @@
 class nginx::package {
   include apt
- 
+
   apt::ppa_repository { 'nginx_ppa':
     publisher => 'nginx',
     repo      => 'stable',
