@@ -187,7 +187,8 @@ class govuk_base::cache_server inherits govuk_base {
 
   include router
   include jetty
-  include nginx::router
+
+  class { 'nginx' : node_type => router}
 
   package { 'apache2':
     ensure => absent,

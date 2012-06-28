@@ -1,5 +1,4 @@
-class nginx::router {
-  include nginx
+class nginx::config::router {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
     source  => "puppet:///modules/nginx/router_$::govuk_platform",
