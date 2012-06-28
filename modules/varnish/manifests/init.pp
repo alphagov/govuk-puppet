@@ -1,5 +1,5 @@
 class varnish (
-    $default_ttl  = 9000,
+    $default_ttl  = 900,
     $storage_size = '6G'
 ) {
   case $::lsbdistcodename {

@@ -270,7 +270,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 
 class govuk_base::cache_server inherits govuk_base {
   include nagios::client::checks
-  class { 'varnish': storage_size => '6G', default_ttl => 9000 }
+  class { 'varnish': storage_size => '6G', default_ttl => 900 }
 
   include router
   include jetty
