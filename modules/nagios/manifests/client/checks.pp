@@ -5,13 +5,12 @@ class nagios::client::checks {
     use       => 'generic-host',
   }
 
-  @@nagios_service { "check_ping_${::hostname}":
+  @@nagios::check { "check_ping_${::hostname}":
     check_command       => 'check_ping!100.0,20%!500.0,60%',
     use                 => 'generic-service',
     host_name           => "${::govuk_class}-${::hostname}",
     notification_period => '24x7',
     service_description => "check ping for ${::govuk_class}-${::hostname}",
-    target              => '/etc/nagios3/conf.d/nagios_service.cfg',
   }
 
   @@nagios::check { "check_disk_${::hostname}":
