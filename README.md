@@ -32,7 +32,7 @@ On first run with the development class this currently takes approximately 8 min
 
 ## Standards
 
-We have some standards to be considered when creating Puppet modules and classes. It's worth a quick read of the [Standards](https://github.com/alphagov/puppet/blob/master/STANDARDS.md)
+We have some standards to be considered when creating Puppet modules and classes. It's worth a quick read of the [Standards](https://github.com/alphagov/puppet/blob/master/STANDARDS.asciidoc)
 
 ## Testing
 
