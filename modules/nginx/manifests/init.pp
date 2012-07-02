@@ -31,6 +31,26 @@ class nginx::config($node_type) {
     require => Package['nginx'],
     notify  => Exec['nginx_reload'],
   }
+
+  file { '/etc/nginx/conf.d/nginx-status.conf':
+    ensure  => file,
+    source  => 'puppet:///modules/nginx/nginx-status.conf',
+    require => Package['nginx'],
+    notify  => Exec['nginx_reload'],
+  }
+  file { '/usr/local/bin/nginx_ganglia2.sh':
+    ensure  => file,
+    source  => 'puppet:///modules/nginx/nginx_ganglia2.sh',
+    mode    => 755,
+    require => Package['nginx'],
+    notify  => Exec['nginx_reload'],
+  }
+  cron { 'ganglia-nginx-status':
+    command => '/usr/local/bin/nginx_ganglia2.sh',
+    user    => root,
+    minute  => '*/2'
+    require => [ File['/usr/local/bin/nginx_ganglia2.sh'], File['/etc/nginx/conf.d/nginx-status.conf'] ]
+  }
   file { ['/var/www', '/var/www/cache']:
     ensure => directory,
     owner  => 'www-data',
