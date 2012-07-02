@@ -57,7 +57,6 @@ class nginx::config($node_type) {
 
   case $node_type  {
     redirect: { include nginx::config::redirect }
-    proxy: { include nginx::config::proxy }
     frontend_server: { include nginx::config::frontend_server }
     backend_server: { include nginx::config::backend_server }
     whitehall_frontend_server: { include nginx::config::whitehall_frontend_server }
@@ -85,39 +84,6 @@ class nginx::config::redirect {
       to => 'http://digital.cabinetoffice.gov.uk/';
         'alpha.gov.uk':
       to => 'http://webarchive.nationalarchives.gov.uk/20111004104716/http://alpha.gov.uk/';
-  }
-}
-
-class nginx::config::proxy {
-  nginx::config::vhost::proxy {
-    "imminence.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "publisher.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "panopticon.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "signon.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      protected => false,
-      ssl_only  => true;
-    "migratorator.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      ssl_only  => true;
-    "contactotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "tariff-api.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "private-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
   }
 }
 
@@ -173,6 +139,36 @@ class nginx::config::backend_server {
   file { "/etc/nginx/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
     ensure => absent,
     notify => Exec['nginx_reload']
+  }
+  nginx::config::vhost::proxy {
+    "imminence.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "publisher.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "needotron.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "panopticon.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "signon.$::govuk_platform.alphagov.co.uk":
+      to        => ['localhost:8080'],
+      protected => false,
+      ssl_only  => true;
+    "migratorator.$::govuk_platform.alphagov.co.uk":
+      to        => ['localhost:8080'],
+      ssl_only  => true;
+    "contactotron.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "tariff-api.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "private-frontend.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
   }
 }
 
