@@ -10,7 +10,7 @@ class nagios::client::check_rw_rootfs {
     owner   => 'nagios',
     group   => 'nagios',
     mode    => '0755',
-    source  => 'puppet:///nagios/usr/lib/nagios/plugins/check_rw_rootfs',
+    source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_rw_rootfs',
     require => Package['nagios-nrpe-plugin'],
   }
 
