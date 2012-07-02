@@ -48,7 +48,7 @@ class nginx::config($node_type) {
   cron { 'ganglia-nginx-status':
     command => '/usr/local/bin/nginx_ganglia2.sh',
     user    => root,
-    minute  => '*/2'
+    minute  => '*/2',
     require => [ File['/usr/local/bin/nginx_ganglia2.sh'], File['/etc/nginx/conf.d/nginx-status.conf'] ]
   }
   file { ['/var/www', '/var/www/cache']:
@@ -73,6 +73,24 @@ class nginx::config($node_type) {
   file { '/etc/nginx/ssl':
     ensure  => directory,
     require => Package['nginx'],
+  }
+  case $node_type {
+    router : {
+      @@nagios::check { "check_nginx_active_connections_${::hostname}":
+        use                 => 'generic-service',
+        check_command       => "check_ganglia_metric!nginx_active_connections!1000!2000",
+        service_description => "check nginx active connections",
+        host_name           => "${::govuk_class}-${::hostname}",
+      }
+    }
+    default : {
+      @@nagios::check { "check_nginx_active_connections_${::hostname}":
+        use                 => 'generic-service',
+        check_command       => "check_ganglia_metric!nginx_active_connections!500!1000",
+        service_description => "check nginx active connections",
+        host_name           => "${::govuk_class}-${::hostname}",
+      }
+    }
   }
 
   case $node_type  {

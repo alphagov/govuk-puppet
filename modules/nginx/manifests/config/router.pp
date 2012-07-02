@@ -30,12 +30,6 @@ class nginx::config::router {
     service_description => 'check nginx error rate',
     host_name           => "${::govuk_class}-${::hostname}",
   }
-  @@nagios::check { "check_nginx_active_connections_${::hostname}":
-    use                 => 'generic-service',
-    check_command       => 'check_ganglia_metric!nginx_active_connections!1000!2000',
-    service_description => 'check nginx active connections',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
   cron { 'logster-nginx':
     command => '/usr/sbin/logster NginxGangliaLogster /var/log/nginx/lb-access.log',
     user    => root,
