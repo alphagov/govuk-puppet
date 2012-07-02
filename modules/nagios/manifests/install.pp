@@ -95,7 +95,7 @@ class nagios::install {
     ensure => absent,
   }
   file { '/etc/nagios3/conf.d/contacts_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/nagios/contacts_nagios2.cfg',
+    source  => "puppet:///nagios/contacts_nagios_${::govuk_platform}.cfg",
     owner   => root,
     group   => root,
     mode    => '0644',
