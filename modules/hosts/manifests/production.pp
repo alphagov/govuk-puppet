@@ -16,6 +16,8 @@ class hosts::production {
   host { 'needotron.production.alphagov.co.uk':         ip => '10.54.182.112' }
   host { 'imminence.production.alphagov.co.uk':         ip => '10.54.182.112' }
   host { 'publisher.production.alphagov.co.uk':         ip => '10.54.182.112' }
+  host { 'migratorator.production.alphagov.co.uk':      ip => '10.54.182.112' }
+  host { 'reviewomatic.production.alphagov.co.uk':      ip => '10.54.182.112' }
   host { 'private-frontend.production.alphagov.co.uk':  ip => '10.54.182.112' }
   host { 'contactotron.production.alphagov.co.uk':      ip => '10.54.182.112' }
   host { 'whitehall.production.alphagov.co.uk':         ip => '10.224.50.207' }
