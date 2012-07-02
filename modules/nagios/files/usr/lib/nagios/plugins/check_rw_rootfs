@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ -h /.check_rw_rootfs ]; then
+    # we've encountered a symlink - not touching it
+    echo File /.check_rw_rootfs is a symlink, somebody is messing with us
+    # exit with Nagios state 'UNKNOWN'
+    exit 3
+fi
+
+/bin/touch /.check_rw_rootfs 2>/dev/null
+if [ $? -ne 0 ]; then
+    # touching failed
+    echo CRITICAL: File /.check_rw_rootfs could not be touched by nagios user
+    # exit with Nagios state 'CRITICAL'
+    exit 2
+fi
+
+# exit with Nagios state 'OK'
+echo Everything seems to be in order
+exit 0
+
