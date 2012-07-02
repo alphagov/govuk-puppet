@@ -3,6 +3,11 @@ class ganglia::install {
   package { 'ganglia-webfrontend': 
     ensure => 'purged' 
   }
+  file { '/var/www/ganglia2':
+    ensure  => absent,
+    recurse => true,
+    force => true
+  }
   wget::fetch { 'ganglia-webfrontend':
     source  => "http://sourceforge.net/projects/ganglia/files/ganglia-web/3.5.0/ganglia-web-3.5.0.tar.gz/download",
     destination => "/tmp/ganglia-web-3.5.0.tar.gz"
