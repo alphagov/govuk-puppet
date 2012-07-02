@@ -108,6 +108,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "panopticon.$::govuk_platform.alphagov.co.uk":;
     "contactotron.$::govuk_platform.alphagov.co.uk":;
     "migratorator.$::govuk_platform.alphagov.co.uk":;
+    "reviewomatic.$::govuk_platform.alphagov.co.uk":;
     "tariff-api.$::govuk_platform.alphagov.co.uk":;
     "private-frontend.$::govuk_platform.alphagov.co.uk":;
   }
