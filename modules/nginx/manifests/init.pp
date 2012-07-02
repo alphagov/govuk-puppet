@@ -160,6 +160,9 @@ class nginx::config::backend_server {
     "migratorator.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;
+    "reviewomatic.$::govuk_platform.alphagov.co.uk":
+      to        => ['localhost:8080'],
+      ssl_only  => true;
     "contactotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
