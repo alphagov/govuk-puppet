@@ -1,4 +1,5 @@
 class nagios::install {
+  include apache2
   package {
     'nagios3': ensure              => 'installed';
     'nagios-images': ensure        => 'installed';
@@ -139,6 +140,14 @@ class nagios::install {
     owner   => nagios,
     group   => nagios,
     require => Package[nagios3],
+  }
+  file { '/etc/nagios3/apache2.conf':
+    source => 'puppet:///modules/nagios/etc/nagios3/apache2.conf',
+  }
+  file { '/etc/apache2/conf.d/nagios3.conf':
+    ensure => link,
+    target => '/etc/nagios3/apache2.conf',
+    require => Service[apache2]
   }
   cron { 'pagerduty':
     command => '/usr/local/bin/pagerduty_nagios.pl flush',
