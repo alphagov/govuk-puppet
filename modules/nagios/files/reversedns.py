@@ -21,7 +21,8 @@ if sys.argv[1] == "ip-10-54-182-112.eu-west-1.compute.internal":
 
 # hack for the change to whitehalls host not being done correctly
 if sys.argv[1] == "ip-10-229-67-207.eu-west-1.compute.internal":
-        print "ip-10-224-50-207.eu-west-1.compute.internal"
+#        print "ip-10-224-50-207.eu-west-1.compute.internal"
+        print "whitehall.production.alphagov.co.uk"
         exit(0)
 
 # hacks to pickup correct graphs, due to local hosts and ganglia name mismatch
