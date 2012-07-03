@@ -39,3 +39,38 @@ server {
     rewrite ^ /licence-management redirect;
   }
 }
+
+server {
+  listen 443 ssl;
+  server_name licensify.preview.alphagov.co.uk;
+  ssl_certificate           /etc/nginx/ssl/www.preview.alphagov.co.uk.crt;
+  ssl_certificate_key       /etc/nginx/ssl/www.preview.alphagov.co.uk.key;
+
+  ssl_protocols             TLSv1 SSLv3;
+  proxy_set_header          X-Forwarded-Ssl on;
+  ssl_ciphers               HIGH:!ADH:!kEDH;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  add_header                Strict-Transport-Security max-age=500;
+
+  location /licence-management/admin {
+    proxy_pass http://127.0.0.1:9500/licence-management/admin;
+    deny all;
+    auth_basic            "Enter your elms admin password";
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.elms;
+    satisfy any;
+  }
+
+  location /licence-management {
+    proxy_pass http://127.0.0.1:9000/licence-management;
+    deny all;
+    auth_basic            "Enter your elms password";
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.elms;
+    satisfy any;
+  }
+
+  location / {
+    rewrite ^ /licence-management redirect;
+  }
+}
