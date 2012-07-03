@@ -45,6 +45,14 @@ class nagios::install {
     notify  => Service[nagios3],
     require => Package[nagios3],
   }
+  file { '/etc/nagios3/conf.d/check_http_nagios2.cfg':
+    source  => 'puppet:///modules/nagios/nagios/check_http_nagios2.cfg',
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    notify  => Service[nagios3],
+    require => Package[nagios3],
+  }
   file { '/etc/nagios3/conf.d/check_smokey.cfg':
     source  => 'puppet:///modules/nagios/nagios/check_smokey.cfg',
     owner   => root,
