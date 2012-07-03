@@ -50,16 +50,6 @@ server {
     root /var/www/fallback;
     try_files /fallback.html @proxy;
   }
-  location /fonts {
-    allow 109.107.35.78;
-    allow 109.107.36.184;
-    deny all;
-    auth_basic            "Enter your betademo password";
-    auth_basic_user_file  /etc/htpasswd;
-    satisfy any;
-
-    add_header "Access-Control-Allow-Origin" "www.preview.alphagov.co.uk";
-  }
   location @proxy {
     proxy_pass http://varnish;
   }
