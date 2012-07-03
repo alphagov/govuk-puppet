@@ -1,22 +1,22 @@
 class ganglia::install {
   include wget
-  package { 'ganglia-webfrontend': 
-    ensure => 'purged' 
+  package { 'ganglia-webfrontend':
+    ensure => 'purged'
   }
   file { '/var/www/ganglia2':
     ensure  => absent,
     recurse => true,
-    force => true
+    force   => true
   }
   wget::fetch { 'ganglia-webfrontend':
-    source  => "http://sourceforge.net/projects/ganglia/files/ganglia-web/3.5.0/ganglia-web-3.5.0.tar.gz/download",
-    destination => "/tmp/ganglia-web-3.5.0.tar.gz"
+    source      => 'http://sourceforge.net/projects/ganglia/files/ganglia-web/3.5.0/ganglia-web-3.5.0.tar.gz/download',
+    destination => '/tmp/ganglia-web-3.5.0.tar.gz'
   }
   exec { 'ganglia_webfrontend_untar':
-    command => "tar zxf /tmp/ganglia-web-3.5.0.tar.gz && chown -R www-data:www-data /var/www/ganglia-web-3.5.0",
-    path => "/bin",
-    cwd => "/var/www/",
-    unless  => "/usr/bin/test -s /var/www/ganglia-web-3.5.0",
+    command => 'tar zxf /tmp/ganglia-web-3.5.0.tar.gz && chown -R www-data:www-data /var/www/ganglia-web-3.5.0',
+    path    => '/bin',
+    cwd     => '/var/www/',
+    unless  => '/usr/bin/test -s /var/www/ganglia-web-3.5.0',
     require => Wget::Fetch[ganglia-webfrontend]
   }
   file { '/var/lib/ganglia/dwoo':
@@ -55,6 +55,6 @@ class ganglia::install {
     owner   => root,
     group   => root,
     require => Exec[ganglia_webfrontend_untar],
-   }
+  }
 
 }
