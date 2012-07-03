@@ -1,3 +1,3 @@
 class ganglia {
-  include ganglia::install, ganglia::service
+  include ganglia::uninstall_old, ganglia::install, ganglia::service
 }

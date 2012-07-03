@@ -1,15 +1,7 @@
 class ganglia::install {
   include wget, apache2
-  package { 'ganglia-webfrontend':
-    ensure => 'purged'
-  }
   package { 'gmetad':
     ensure => 'installed'
-  }
-  file { '/var/www/ganglia2':
-    ensure  => absent,
-    recurse => true,
-    force   => true
   }
   wget::fetch { 'ganglia-webfrontend':
     source      => 'http://sourceforge.net/projects/ganglia/files/ganglia-web/3.5.0/ganglia-web-3.5.0.tar.gz/download',
