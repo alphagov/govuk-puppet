@@ -1,5 +1,5 @@
 class ganglia::install {
-  include wget
+  include wget, apache2
   package { 'ganglia-webfrontend':
     ensure => 'purged'
   }
@@ -17,7 +17,7 @@ class ganglia::install {
     path    => '/bin',
     cwd     => '/var/www/',
     unless  => '/usr/bin/test -s /var/www/ganglia-web-3.5.0',
-    require => Wget::Fetch[ganglia-webfrontend]
+    require => [Wget::Fetch[ganglia-webfrontend], Service[apache2]]
   }
   file { '/var/lib/ganglia/dwoo':
     ensure  => directory,
