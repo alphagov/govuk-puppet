@@ -370,4 +370,20 @@ class users::govuk {
     user    => 'eddsowden',
     require => User['eddsowden']
   }
+  user { 'tombyers':
+    ensure     => present,
+    comment    => 'Tom Byers <tom.byers@digital.cabinet-office.gov.uk>',
+    home       => '/home/tombyers',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'tombyers':
+    ensure  => present,
+    key     => extlookup('tombyers_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'tombyers',
+    require => User['tombyers']
+  }
 }
