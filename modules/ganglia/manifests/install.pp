@@ -3,6 +3,9 @@ class ganglia::install {
   package { 'ganglia-webfrontend':
     ensure => 'purged'
   }
+  package { 'gmetad':
+    ensure => 'installed'
+  }
   file { '/var/www/ganglia2':
     ensure  => absent,
     recurse => true,
