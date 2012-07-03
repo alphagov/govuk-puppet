@@ -45,6 +45,13 @@ server {
     satisfy any;
     proxy_pass http://varnish;
   }
+  location ~ ^/specialist {
+    deny all;
+    auth_basic            "Specialist Guides beta. Government employees please login:";
+    auth_basic_user_file  /etc/htpasswd;
+    satisfy any;
+    proxy_pass http://varnish;
+  }
   location ~ ^/government\/ {
     proxy_pass http://varnish;
   }
