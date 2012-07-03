@@ -145,8 +145,8 @@ class nagios::install {
     source => 'puppet:///modules/nagios/etc/nagios3/apache2.conf',
   }
   file { '/etc/apache2/conf.d/nagios3.conf':
-    ensure => link,
-    target => '/etc/nagios3/apache2.conf',
+    ensure  => link,
+    target  => '/etc/nagios3/apache2.conf',
     require => Service[apache2]
   }
   cron { 'pagerduty':
