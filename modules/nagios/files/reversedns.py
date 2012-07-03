@@ -15,6 +15,10 @@ if sys.argv[1] == "ip-10-53-54-49.eu-west-1.compute.internal":
         print "static.production.alphagov.co.uk"
         exit(0)
 
+if sys.argv[1] == "ip-10-54-182-112.eu-west-1.compute.internal":
+        print "signonotron.production.alphagov.co.uk"
+        exit(0)
+
 # hack for the change to whitehalls host not being done correctly
 if sys.argv[1] == "ip-10-229-67-207.eu-west-1.compute.internal":
         print "ip-10-224-50-207.eu-west-1.compute.internal"
