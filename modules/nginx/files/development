@@ -126,6 +126,16 @@ server {
   location / {
     proxy_pass http://127.0.0.1:3013;
     proxy_set_header   Host   $host;
+
+    if ($uri ~ \.(eot|ttf|woff)$) {
+      set $is_a_font_request "Y";
+    }
+    if ($http_origin ~ ^(.*\.gov\.uk|.*\.alphagov\.co\.uk)$) {
+      set $is_a_font_request "${is_a_font_request}Y";
+    }
+    if ($is_a_font_request = "YY") {
+      add_header "Access-Control-Allow-Origin" $http_origin;
+    }
   }
 }
 

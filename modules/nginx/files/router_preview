@@ -109,6 +109,16 @@ server {
     auth_basic_user_file  /etc/htpasswd;
     satisfy any;
 
+    if ($uri ~ \.(eot|ttf|woff)$) {
+      set $is_a_font_request "Y";
+    }
+    if ($http_origin ~ ^(.*\.gov\.uk|.*\.alphagov\.co\.uk)$) {
+      set $is_a_font_request "${is_a_font_request}Y";
+    }
+    if ($is_a_font_request = "YY") {
+      add_header "Access-Control-Allow-Origin" $http_origin;
+    }
+
     root /var/www/fallback;
     try_files /fallback.html @proxy;
   }
