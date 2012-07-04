@@ -16,15 +16,6 @@ collection_group {
         name = "varnish_client_req"
         title = "Client Requests"
     }
-
-    metric {
-        name = "varnish_backend_req"
-        title = "Backend Requests"
-    }
-    metric {
-        name = "varnish_backend_unhealthy"
-        title = "Backend conn. not attempted"
-    }
     metric {
         name = "varnish_backend_busy"
         title = "Backend conn. too many"
