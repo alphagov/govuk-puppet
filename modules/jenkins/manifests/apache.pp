@@ -45,7 +45,6 @@ class jenkins::apache {
   file { '/etc/apache2/envvars':
     ensure  => present,
     source  => 'puppet:///modules/apache2/envvars',
-    require => Class['apache2::install'],
     notify  => Service['apache2'],
   }
 }
