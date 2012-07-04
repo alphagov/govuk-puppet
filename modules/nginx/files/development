@@ -193,3 +193,12 @@ server {
     proxy_set_header   Host   $host;
   }
 }
+
+server {
+  server_name contentapi.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3022;
+    proxy_set_header   Host   $host;
+  }
+}

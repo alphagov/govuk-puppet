@@ -27,4 +27,5 @@ class hosts::development {
   host { 'efg.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'migratorator.dev.gov.uk':     ip => '127.0.0.1' }
   host { 'reviewomatic.dev.gov.uk':     ip => '127.0.0.1' }
+  host { 'contentapi.dev.gov.uk':       ip => '127.0.0.1' }
 }
