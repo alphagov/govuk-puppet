@@ -55,6 +55,18 @@ class nagios::client::checks {
 
   include nagios::client::check_rw_rootfs
 
+  @@nagios::check { "check_io_time${::hostname}":
+    check_command       => 'check_ganglia_metric!diskstat_sda1_io_time',
+    service_description => 'Check disk iotime is not excessive',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_swap_free${::hostname}":
+    check_command       => 'check_ganglia_metric!swap_free',
+    service_description => 'Check memory swap is enough',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
   @@nagios::check { "check_ntp_time_${::hostname}":
     check_command       => 'check_ntp_time!0.5!1',
     service_description => 'Check ntp drift is not excessive',
