@@ -40,7 +40,7 @@ We're starting to use RSpec to test the manifests and modules. You can run both 
 
     bundle exec rake spec
 
-The manifest tests are locationed in manifests/spec and some individual modules have tests in modules/<module>/spec. See the [RSpec Puppet](https://github.com/rodjek/rspec-puppet) documentation for more details.
+The manifest tests are located in manifests/spec and some individual modules have tests in modules/<module>/spec. See the [RSpec Puppet](https://github.com/rodjek/rspec-puppet) documentation for more details.
 
 ## Linting
 
