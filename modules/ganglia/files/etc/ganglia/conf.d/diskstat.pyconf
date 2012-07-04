@@ -4,7 +4,7 @@ modules {
     language = 'python'
 
     param devices {
-      value = 'sda'
+      value = 'sda1'
     }
 
     #param device-mapper {
@@ -18,34 +18,34 @@ collection_group {
   time_threshold = 30
 
   metric {
-    name = "diskstat_sda_io_time"
+    name = "diskstat_sda1_io_time"
   }
   metric {
-    name = "diskstat_sda_read_kbytes_per_sec"
+    name = "diskstat_sda1_read_kbytes_per_sec"
   }
   metric {
-    name = "diskstat_sda_read_time"
+    name = "diskstat_sda1_read_time"
   }
   metric {
-    name = "diskstat_sda_reads"
+    name = "diskstat_sda1_reads"
   }
   metric {
-    name = "diskstat_sda_reads_merged"
+    name = "diskstat_sda1_reads_merged"
   }
   metric {
-    name = "diskstat_sda_weighted_io_time"
+    name = "diskstat_sda1_weighted_io_time"
   }
   metric {
-    name = "diskstat_sda_write_kbytes_per_sec"
+    name = "diskstat_sda1_write_kbytes_per_sec"
   }
   metric {
-    name = "diskstat_sda_write_time"
+    name = "diskstat_sda1_write_time"
   }
   metric {
-    name = "diskstat_sda_writes"
+    name = "diskstat_sda1_writes"
   }
   metric {
-    name = "diskstat_sda_writes_merged"
+    name = "diskstat_sda1_writes_merged"
   }
 }
 
