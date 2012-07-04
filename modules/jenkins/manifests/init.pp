@@ -1,4 +1,7 @@
 class jenkins {
+  #TODO:
+  # also need to install fabric and cloth which are needed by private-utils,
+  # possibly this would be better done in the private-utils/jenkins.sh
 
   user { 'jenkins':
     ensure     => present,
@@ -16,6 +19,7 @@ class jenkins {
   package { 'python-dev':
     ensure => installed,
   }
+
   package { 'sqlite3':
     ensure => installed,
   }
