@@ -49,6 +49,13 @@ class varnish::service {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
+  @@nagios::check { "check_varnish_cache_miss_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!10!20',
+    service_description => "check varnish cache hit ratio for ${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
   File['/etc/default/varnish'] ~> Service['varnish']
   File['/etc/varnish/default.vcl'] ~> Service['varnish']
 }
