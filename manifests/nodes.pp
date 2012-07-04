@@ -9,6 +9,7 @@ node default {
     development:        { include development }
     puppet:             { include govuk_base::puppetmaster }
     management:         { include govuk_base::management_server }
+    management_slave:   { include govuk_base::management_server_slave }
     cache:              { include govuk_base::cache_server }
     graylog:            { include govuk_base::graylog_server }
     whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }
