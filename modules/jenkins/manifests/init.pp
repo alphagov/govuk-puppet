@@ -27,6 +27,20 @@ class jenkins {
     mode    => '0644',
     require => User['jenkins'],
   }
+
+  file { '/mnt/jenkins':
+    ensure  => directory,
+    owner   => jenkins,
+    group   => jenkins,
+    mode    => '0644',
+    require => User['jenkins'],
+  }
+
+  file { '/var/lib/jenkins':
+    ensure  => link,
+    target  => '/mnt/jenkins',
+    require => File['/mnt/jenkins'],
+  }
 }
 
 class jenkins::master inherits jenkins {
