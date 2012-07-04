@@ -225,7 +225,7 @@ class govuk_base::graylog_server inherits govuk_base {
   include mongodb::server
 }
 
-class govuk_base::management_server {
+class govuk_base::management_server_base {
   $mysql_password = extlookup('mysql_root', '')
   include govuk_base::ruby_app_server
   include govuk::testing_tools
@@ -237,7 +237,6 @@ class govuk_base::management_server {
     members => ['localhost:27081, localhost:27019, localhost:2720']
   }
   include solr
-  include jenkins
   include imagemagick
   class {'elasticsearch':
     cluster => $::govuk_platform
@@ -279,6 +278,19 @@ class govuk_base::management_server {
       password      => 'efg',
       host          => 'localhost',
       root_password => $mysql_password;
+  }
+}
+
+class govuk_base::management_server inherits govuk_base::management_server_base {
+  include jenkins
+}
+
+class govuk_base::management_server_slave inherits govuk_base::management_server_base {
+
+  ssh_authorized_key { 'management_server_master':
+    type => rsa,
+    key => extlookup('jenkins_key', ''),
+    user => 'jenkins'
   }
 }
 

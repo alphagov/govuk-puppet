@@ -62,4 +62,9 @@ require_relative '../../spec_helper'
     it { should_not raise_error(Puppet::ParseError) }
   end
 
+  describe 'govuk_base::management_server_base', :type => :class do
+    let(:facts) { { :govuk_class => "management", :govuk_platform => environment } }
+    it { should_not raise_error(Puppet::ParseError) }
+  end
+
 }
