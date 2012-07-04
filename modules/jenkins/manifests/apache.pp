@@ -7,7 +7,8 @@ class jenkins::apache {
   package { 'apache2':
     ensure => installed,
   }
-    service { 'apache2':
+
+  service { 'apache2':
     ensure     => running,
     hasstatus  => true,
     hasrestart => true,
@@ -39,5 +40,12 @@ class jenkins::apache {
     ensure => absent,
     force  => true,
     notify => Exec['apache_graceful'],
+  }
+
+  file { '/etc/apache2/envvars':
+    ensure  => present,
+    source  => 'puppet:///modules/apache2/envvars',
+    require => Class['apache2::install'],
+    notify  => Service['apache2'],
   }
 }
