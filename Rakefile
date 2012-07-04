@@ -22,5 +22,5 @@ end
 desc "Run rspec-puppet tests for manifests and modules"
 task :spec => [:specman, :specmod]
 
-desc "Run rspec-puppet tests for manifests and modules"
-task :default => [:spec]
+desc "Run rspec-puppet tests for manifests and modules and puppet-lint"
+task :default => [:lint, :spec]
