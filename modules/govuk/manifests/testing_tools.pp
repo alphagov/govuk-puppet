@@ -58,4 +58,5 @@ class govuk::phantomjs {
     publisher => 'jerome-etienne',
     repo      => 'neoip'
   }
+
 }
