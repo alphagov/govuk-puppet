@@ -225,7 +225,7 @@ class govuk_base::graylog_server inherits govuk_base {
   include mongodb::server
 }
 
-class govuk_base::management_server_base {
+class govuk_base::management_server {
   $mysql_password = extlookup('mysql_root', '')
   include govuk_base::ruby_app_server
   include govuk::testing_tools
