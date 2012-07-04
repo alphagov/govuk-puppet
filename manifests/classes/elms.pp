@@ -25,8 +25,8 @@ class elms_base::mongo_server inherits elms_base {
 }
 
 class elms_base::frontend_server inherits elms_base {
-  include nginx::elms
   include elms::config
+  class { 'nginx' : node_type => elms }
   include elms::scripts
 }
 
