@@ -93,7 +93,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     port => '8080'
   }
 
-  include passenger
+  class { 'passenger' : maxpoolsize => 12 }
   class { 'nginx' : node_type => backend_server }
 
   package { 'graphviz':
@@ -133,7 +133,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   class { 'apache2':
     port => '8080'
   }
-  include passenger
+  class { 'passenger' : maxpoolsize => 12 }
   class { 'nginx' : node_type => frontend_server }
 
   apache2::vhost::passenger {
