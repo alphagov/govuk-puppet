@@ -286,10 +286,9 @@ class govuk_base::management_server inherits govuk_base::management_server_base 
 }
 
 class govuk_base::management_server_slave inherits govuk_base::management_server_base {
-
   ssh_authorized_key { 'management_server_master':
     type => rsa,
-    key => extlookup('jenkins_key', ''),
+    key  => extlookup('jenkins_key', ''),
     user => 'jenkins'
   }
 }
