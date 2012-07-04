@@ -282,10 +282,11 @@ class govuk_base::management_server {
 }
 
 class govuk_base::management_server::master inherits govuk_base::management_server {
-  include jenkins
+  include jenkins::master
 }
 
 class govuk_base::management_server::slave inherits govuk_base::management_server {
+  include jenkins::slave
   ssh_authorized_key { 'management_server_master':
     type => rsa,
     key  => extlookup('jenkins_key', ''),

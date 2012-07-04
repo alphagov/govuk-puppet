@@ -1,13 +1,5 @@
 class jenkins {
 
-  include jenkins::apache
-  include jenkins::ssh_key
-
-  apt::key{ 'Kohsuke Kawaguchi':
-    ensure      => present,
-    apt_key_url => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
-  }
-
   user { 'jenkins':
     ensure     => present,
     home       => '/home/jenkins',
@@ -15,15 +7,8 @@ class jenkins {
     shell      => '/bin/bash'
   }
 
-  file { 'jenkins.list':
-    path   => '/etc/apt/sources.list.d/jenkins.list',
-    source => 'puppet:///modules/jenkins/jenkins.list',
-    mode   => '0644',
-    before => [
-      Exec['apt_update'],
-      Exec['apt-key present Kohsuke Kawaguchi']
-    ],
-  }
+  include jenkins::apache
+  include jenkins::ssh_key
 
   package { 'python-setuptools':
     ensure => installed,
@@ -33,15 +18,6 @@ class jenkins {
   }
   package { 'sqlite3':
     ensure => installed,
-  }
-  package { 'jenkins':
-    ensure  => 'latest',
-    require => [
-      User['jenkins'],
-      Exec['apt-key present Kohsuke Kawaguchi'],
-      File['jenkins.list'],
-      Exec['apt_update'],
-    ],
   }
 
   package { 'keychain':
@@ -63,4 +39,36 @@ class jenkins {
     mode    => '0644',
     require => User['jenkins'],
   }
+}
+
+class jenkins::master inherits jenkins {
+
+  apt::key{ 'Kohsuke Kawaguchi':
+    ensure      => present,
+    apt_key_url => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
+  }
+
+  file { 'jenkins.list':
+    path   => '/etc/apt/sources.list.d/jenkins.list',
+    source => 'puppet:///modules/jenkins/jenkins.list',
+    mode   => '0644',
+    before => [
+      Exec['apt_update'],
+      Exec['apt-key present Kohsuke Kawaguchi']
+    ],
+  }
+
+  package { 'jenkins':
+    ensure  => 'latest',
+    require => [
+      User['jenkins'],
+      Exec['apt-key present Kohsuke Kawaguchi'],
+      File['jenkins.list'],
+      Exec['apt_update'],
+    ],
+  }
+
+}
+
+class jenkins::slave inherits jenkins {
 }
