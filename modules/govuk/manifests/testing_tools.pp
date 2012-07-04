@@ -1,7 +1,7 @@
 class govuk::testing_tools {
   package { 'libqt4-dev':
     ensure  => installed,
-    require => Apt::Ppa_Repository['kubuntu-backports'],
+    require => Apt::Ppa_Repository['alexx2000-qt4'],
   }
 
   package { 'xvfb':
@@ -32,8 +32,10 @@ class govuk::testing_tools {
     repo      => 'neoip'
   }
 
-  apt::ppa_repository { 'kubuntu-backports':
-    publisher => 'kubuntu-ppa',
-    repo      => 'backports',
+  # This repository contains an archived copy of the backports
+  # for ubuntu lucid
+  apt::ppa_repository { 'alexx2000-qt4':
+    publisher => 'alexx2000',
+    repo      => 'qt4',
   }
 }
