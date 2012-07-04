@@ -299,3 +299,4 @@ class govuk_base::puppetmaster inherits govuk_base {
   include puppet::master
   include nagios::client::checks
 }
+ 
