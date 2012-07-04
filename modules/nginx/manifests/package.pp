@@ -5,19 +5,9 @@ class nginx::package {
     publisher => 'nginx',
     repo      => 'stable',
   }
-  package { 'nginx-common':
-    ensure  => '1.2.1*',
-    require => Apt::Ppa_Repository['nginx_ppa'],
-    notify  => Exec['nginx_restart'],
-  }
-  package { 'nginx-full':
-    ensure  => '1.2.1*',
-    require => [Apt::Ppa_Repository['nginx_ppa'],Package['nginx-common']],
-    notify  => Exec['nginx_restart'],
-  }
   package { 'nginx':
-    ensure  => '1.2.1*',
-    require => [Apt::Ppa_Repository['nginx_ppa'],Package['nginx-full']],
+    ensure  => '1.2.1-1ubuntu0ppa2~lucid',
+    require => [Apt::Ppa_Repository['nginx_ppa']],
     notify  => Exec['nginx_restart'],
   }
 }
