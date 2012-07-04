@@ -234,7 +234,7 @@ class govuk_base::management_server {
   }
   include mongodb::server
   class {'mongodb::configure_replica_set':
-    members => ['localhost:27081, localhost:27019, localhost:2720']
+    members => ['localhost']
   }
   include solr
   include imagemagick
