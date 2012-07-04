@@ -110,6 +110,9 @@ class nginx::config::frontend_server {
       to => ['localhost:8080'];
     "efg.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
+    "contentapi.$::govuk_platform.alphagov.co.uk":
+      to => ['localhost:8080'];
+
   }
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,

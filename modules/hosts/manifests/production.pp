@@ -6,6 +6,7 @@ class hosts::production {
   host { 'licencefinder.production.alphagov.co.uk':     ip => '10.53.54.49' }
   host { 'designprinciples.production.alphagov.co.uk':  ip => '10.53.54.49' }
   host { 'frontend.production.alphagov.co.uk':          ip => '10.236.86.54' } /* production-frontend-1 */
+  host { 'contentapi.production.alphagov.co.uk':        ip => '10.236.86.54' } /* production-frontend-1 */
   host { 'search.production.alphagov.co.uk':            ip => '10.250.157.37' } /* production-frontend-2 */
   host { 'planner.production.alphagov.co.uk':           ip => '10.53.54.49' }
   host { 'calendars.production.alphagov.co.uk':         ip => '10.53.54.49' }
