@@ -20,19 +20,7 @@ class jenkins {
     ensure => installed,
   }
 
-  package { 'keychain':
-    ensure => 'installed'
-  }
-
-  file {'/home/jenkins/.bashrc':
-    source  => 'puppet:///modules/jenkins/dot-bashrc',
-    owner   => jenkins,
-    group   => jenkins,
-    mode    => '0700',
-    require => Package['keychain'],
-  }
-
-  file {'/home/jenkins/.gitconfig':
+  file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/jenkins/dot-gitconfig',
     owner   => jenkins,
     group   => jenkins,
@@ -48,16 +36,6 @@ class jenkins::master inherits jenkins {
     apt_key_url => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
   }
 
-  file { 'jenkins.list':
-    path   => '/etc/apt/sources.list.d/jenkins.list',
-    source => 'puppet:///modules/jenkins/jenkins.list',
-    mode   => '0644',
-    before => [
-      Exec['apt_update'],
-      Exec['apt-key present Kohsuke Kawaguchi']
-    ],
-  }
-
   package { 'jenkins':
     ensure  => 'latest',
     require => [
@@ -68,6 +46,27 @@ class jenkins::master inherits jenkins {
     ],
   }
 
+  package { 'keychain':
+    ensure => 'installed'
+  }
+
+  file { '/home/jenkins/.bashrc':
+    source  => 'puppet:///modules/jenkins/dot-bashrc',
+    owner   => jenkins,
+    group   => jenkins,
+    mode    => '0700',
+    require => Package['keychain'],
+  }
+
+  file { 'jenkins.list':
+    path   => '/etc/apt/sources.list.d/jenkins.list',
+    source => 'puppet:///modules/jenkins/jenkins.list',
+    mode   => '0644',
+    before => [
+      Exec['apt_update'],
+      Exec['apt-key present Kohsuke Kawaguchi']
+    ],
+  }
 }
 
 class jenkins::slave inherits jenkins {
