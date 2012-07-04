@@ -1,6 +1,7 @@
 class varnish::service {
   include logster
   include graylogtail
+  include ganglia::client
 
   service { 'varnish':
     ensure     => running,
@@ -19,6 +20,15 @@ class varnish::service {
     ensure     => running,
     hasrestart => true,
     require    => Class['varnish::install']
+  }
+
+  file { '/etc/ganglia/conf.d/varnish.pyconf':
+    source  => 'puppet:///modules/varnish/etc/ganglia/conf.d/varnish.pyconf',
+    require => [Service['varnish'],Service['ganglia-monitor']]
+  }
+  file { '/usr/lib/ganglia/python_modules/varnish.py':
+    source  => 'puppet:///modules/varnish/usr/lib/ganglia/python_modules/varnish.py',
+    require => [Service['varnish'],Service['ganglia-monitor']]
   }
 
   cron { 'logster-varnish':
