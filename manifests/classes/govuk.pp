@@ -86,13 +86,13 @@ class govuk_base::ruby_app_server inherits govuk_base {
     'wbritish-small':      ensure => installed;
     'miscfiles':           ensure => installed;
   }
-
-  class { 'apache2':
-    port => '8080'
-  }
 }
 
 class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_server {
+  class { 'apache2':
+    port => '8080'
+  }
+
   class { 'passenger' : maxpoolsize => 12 }
   class { 'nginx' : node_type => backend_server }
 
@@ -130,6 +130,9 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
+  class { 'apache2':
+    port => '8080'
+  }
   class { 'passenger' : maxpoolsize => 12 }
   class { 'nginx' : node_type       => frontend_server }
 
@@ -165,6 +168,9 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 }
 
 class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base::ruby_app_server {
+  class {'apache2':
+    port => '8080'
+  }
   include passenger
   class { 'nginx' : node_type => whitehall_frontend_server }
   include imagemagick
