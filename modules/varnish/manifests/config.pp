@@ -1,9 +1,4 @@
-class varnish::install {
-
-  package { 'varnish':
-    ensure => installed
-  }
-
+class varnish::config {
   file { '/etc/default/varnish':
     ensure  => file,
     content => template('varnish/defaults.erb'),

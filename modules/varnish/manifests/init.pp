@@ -14,6 +14,7 @@ class varnish (
         $varnish_version = 2
     }
   }
-  include varnish::install
+  include varnish::package
+  include varnish::config
   include varnish::service
 }

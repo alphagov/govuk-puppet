@@ -8,18 +8,18 @@ class varnish::service {
     hasrestart => false,
     restart    => '/usr/sbin/service varnish reload',
     hasstatus  => true,
-    require    => Class['varnish::install']
+    require    => Class['varnish::package']
   }
   service { 'varnishncsa':
     ensure     => running,
     hasrestart => true,
     hasstatus  => true,
-    require    => Class['varnish::install']
+    require    => Class['varnish::package']
   }
   service { 'varnishlog':
     ensure     => running,
     hasrestart => true,
-    require    => Class['varnish::install']
+    require    => Class['varnish::package']
   }
 
   file { '/etc/ganglia/conf.d/varnish.pyconf':
