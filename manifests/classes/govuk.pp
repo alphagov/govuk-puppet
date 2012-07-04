@@ -225,7 +225,7 @@ class govuk_base::graylog_server inherits govuk_base {
   include mongodb::server
 }
 
-class govuk_base::management_server_base {
+class govuk_base::management_server {
   $mysql_password = extlookup('mysql_root', '')
   include govuk_base::ruby_app_server
   include govuk::testing_tools
@@ -281,11 +281,11 @@ class govuk_base::management_server_base {
   }
 }
 
-class govuk_base::management_server inherits govuk_base::management_server_base {
+class govuk_base::management_server::master inherits govuk_base::management_server {
   include jenkins
 }
 
-class govuk_base::management_server_slave inherits govuk_base::management_server_base {
+class govuk_base::management_server::slave inherits govuk_base::management_server {
   ssh_authorized_key { 'management_server_master':
     type => rsa,
     key  => extlookup('jenkins_key', ''),

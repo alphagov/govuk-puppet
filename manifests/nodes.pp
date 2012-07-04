@@ -8,8 +8,8 @@ node default {
     monitoring:         { include govuk_base::monitoring_server }
     development:        { include development }
     puppet:             { include govuk_base::puppetmaster }
-    management:         { include govuk_base::management_server }
-    management_slave:   { include govuk_base::management_server_slave }
+    management:         { include govuk_base::management_server::master }
+    management_slave:   { include govuk_base::management_server::slave }
     cache:              { include govuk_base::cache_server }
     graylog:            { include govuk_base::graylog_server }
     whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }

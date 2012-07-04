@@ -7,7 +7,7 @@ require_relative '../../spec_helper'
     it { should create_package("mongodb-10gen") }
     it { should_not raise_error(Puppet::ParseError) }
   end
-  
+
   describe 'places_base::api_server', :type => :class do
     let(:facts) { { :govuk_class => "places-api", :govuk_platform => environment } }
     it { should_not raise_error(Puppet::ParseError) }
