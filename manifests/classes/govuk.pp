@@ -94,7 +94,11 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   }
 
   class { 'passenger' : maxpoolsize => 12 }
+<<<<<<< HEAD
   class { 'nginx' : node_type       => backend_server }
+=======
+  class { 'nginx' : node_type => backend_server }
+>>>>>>> Increase passenger max pool size for frontend and backend servers
 
   package { 'graphviz':
     ensure => installed
@@ -134,7 +138,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     port => '8080'
   }
   class { 'passenger' : maxpoolsize => 12 }
-  class { 'nginx' : node_type       => frontend_server }
+  class { 'nginx' : node_type => frontend_server }
 
   apache2::vhost::passenger {
     "www.$::govuk_platform.alphagov.co.uk":
