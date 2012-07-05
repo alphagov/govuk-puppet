@@ -106,6 +106,7 @@ class nginx::config($node_type) {
     ertp_api_staging : { include nginx::config::ertp::api::staging }
     ertp_api_preview : { include nginx::config::ertp::api::preview }
     ertp_staging : { include nginx::config::ertp::staging }
+    mirror : { include nginx::config::mirror_server }
     default : {
       notify { '$node_type':
         message => "Unrecognised node type: $node_type"
@@ -122,6 +123,15 @@ class nginx::config::redirect {
       to => 'http://digital.cabinetoffice.gov.uk/';
         'alpha.gov.uk':
       to => 'http://webarchive.nationalarchives.gov.uk/20111004104716/http://alpha.gov.uk/';
+  }
+}
+
+class nginx::config::mirror_server {
+  nginx::config::vhost::mirror {
+    'www.gov.uk':
+      ;
+    "www.$::govuk_platform.alphagov.co.uk":
+      ;
   }
 }
 
