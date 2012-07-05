@@ -3,6 +3,8 @@ class ganglia::package {
   package {
     'gmetad':
       ensure => 'installed';
+    'rrdtool':
+      ensure => 'installed';
     'php5':
       ensure => 'installed',
       notify => Service[apache2]

@@ -12,9 +12,13 @@ class ganglia::client::install {
     require => File['/usr/lib/ganglia/python_modules']
   }
 
+  file { '/etc/ganglia/conf.d':
+    ensure => directory
+  }
+
   file { '/etc/ganglia/conf.d/diskstat.pyconf':
     source  => 'puppet:///modules/ganglia/etc/ganglia/conf.d/diskstat.pyconf',
-    require => File['/usr/lib/ganglia/python_modules']
+    require => [ File['/usr/lib/ganglia/python_modules'], File['/etc/ganglia/conf.d'] ]
   }
 
   file { '/etc/ganglia/gmond.conf':

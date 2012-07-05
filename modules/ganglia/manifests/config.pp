@@ -28,6 +28,14 @@ class ganglia::config {
     owner   => root,
     group   => root,
     source  => 'puppet:///modules/ganglia/apache.conf',
+  }
+  File['/etc/apache2/sites-enabled/ganglia'] ~> Service['apache2']
+
+  file { '/etc/ganglia/htpasswd.ganglia':
+    ensure  => present,
+    owner   => root,
+    group   => root,
+    source  => 'puppet:///modules/ganglia/htpasswd.ganglia',
     require => Exec[ganglia_webfrontend_untar],
   }
   file { '/etc/ganglia/gmetad.conf':
