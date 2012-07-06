@@ -10,8 +10,9 @@ class jenkins {
     shell      => '/bin/bash'
   }
 
-  package {
-    'brakeman':        ensure => 'installed', provider => gem;
+  package { 'brakeman':
+    ensure   => 'installed', 
+    provider => gem,
   }
 
   include jenkins::apache
