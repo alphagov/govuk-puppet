@@ -4,7 +4,8 @@ class ganglia::client::install {
   }
 
   file { '/usr/lib/ganglia/python_modules':
-    ensure => directory
+    ensure => directory,
+    require => Package['ganglia-monitor']
   }
 
   file { '/usr/lib/ganglia/python_modules/diskstat.py':
@@ -13,7 +14,8 @@ class ganglia::client::install {
   }
 
   file { '/etc/ganglia/conf.d':
-    ensure => directory
+    ensure => directory,
+    require => Package['ganglia-monitor']
   }
 
   file { '/etc/ganglia/conf.d/diskstat.pyconf':
