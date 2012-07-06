@@ -172,6 +172,14 @@ class users::govuk {
     user    => 'davidt',
     require => User['davidt']
   }
+  ssh_authorized_key { 'davidt_gds':
+    ensure  => present,
+    key     => extlookup('davidt_gds_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'davidt',
+    require => User['davidt']
+  }
+
   user { 'mazz':
     ensure     => present,
     comment    => 'Mazz Mosley <mazz.mosley@digital.cabinet-office.gov.uk>',
