@@ -211,3 +211,11 @@ server {
     proxy_set_header   Host   $host;
   }
 }
+server {
+  server_name whitehall.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3020;
+    proxy_set_header   Host   $host;
+  }
+}
