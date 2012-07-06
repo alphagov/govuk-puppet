@@ -11,7 +11,7 @@ class jenkins {
   }
 
   package { 'brakeman':
-    ensure   => 'installed', 
+    ensure   => 'installed',
     provider => gem,
   }
 
