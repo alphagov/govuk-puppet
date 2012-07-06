@@ -55,14 +55,14 @@ class passenger(
   # to install these gems, as puppet doesn't allow two definitions with the same
   # name.  In any case, we don't want to interfere with any other rack declarations.
 
-  exec {"install rack 1.0.0":
-    command => "gem install rack --no-rdoc --no-ri --version 1.0.0",
-    unless => "gem list | grep 'rack.*1.0.0'"
+  exec {'install rack 1.0.0':
+    command => 'gem install rack --no-rdoc --no-ri --version 1.0.0',
+    unless  => 'gem list | grep "rack.*1.0.0"'
   }
 
-  exec {"install rack 1.0.1":
-    command => "gem install rack --no-rdoc --no-ri --version 1.0.1",
-    unless => "gem list | grep 'rack.*1.0.1'"
+  exec {'install rack 1.0.1':
+    command => 'gem install rack --no-rdoc --no-ri --version 1.0.1',
+    unless  => 'gem list | grep "rack.*1.0.1"'
   }
 
   apache2::a2enmod { 'passenger': }
