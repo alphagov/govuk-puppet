@@ -74,3 +74,4 @@ server {
     rewrite ^ /licence-management redirect;
   }
 }
+ 
