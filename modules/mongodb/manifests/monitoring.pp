@@ -2,7 +2,7 @@ class mongodb::monitoring {
 
   include ganglia::client
   include nagios::client
-  
+
   package { 'python-pip':
     ensure => present,
   }
@@ -10,12 +10,12 @@ class mongodb::monitoring {
   package { 'build-essential':
     ensure => present,
   }
-  
+
   package { 'python-dev':
     ensure => present,
   }
 
-  exec { 'install-pymongo': 
+  exec { 'install-pymongo':
     command  => 'pip install pymongo',
     require  => [Package['python-pip'],Package['build-essential'],Package['python-dev']]
   }
