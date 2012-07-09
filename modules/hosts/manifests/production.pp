@@ -46,4 +46,3 @@ class hosts::production {
     ensure => absent,
   }
 }
- 

@@ -94,7 +94,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   }
 
   class { 'passenger' : maxpoolsize => 12 }
-  class { 'nginx' : node_type => backend_server }
+  class { 'nginx'     : node_type   => backend_server }
 
   package { 'graphviz':
     ensure => installed
@@ -299,4 +299,3 @@ class govuk_base::puppetmaster inherits govuk_base {
   include puppet::master
   include nagios::client::checks
 }
- 

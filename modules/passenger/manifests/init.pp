@@ -69,4 +69,3 @@ class passenger(
 
   File['/etc/apache2/mods-available/passenger.conf'] ~> Service['apache2']
 }
- 

@@ -94,4 +94,3 @@ class jenkins::master inherits jenkins {
 
 class jenkins::slave inherits jenkins {
 }
-   
