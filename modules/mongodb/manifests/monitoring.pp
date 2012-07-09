@@ -7,10 +7,6 @@ class mongodb::monitoring {
     ensure => present,
   }
 
-  package { 'build-essential':
-    ensure => present,
-  }
-
   package { 'python-dev':
     ensure => present,
   }
