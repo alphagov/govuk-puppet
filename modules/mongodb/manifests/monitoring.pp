@@ -2,6 +2,11 @@ class mongodb::monitoring {
 
   include ganglia::client
   include nagios::client
+  
+  package { 'pymongo': 
+    provider => 'pip',
+    ensure   => installed,
+  }
 
   file { '/etc/ganglia/conf.d/mongodb.pyconf':
     source  => 'puppet:///modules/mongodb/ganglia_mongodb.conf',
