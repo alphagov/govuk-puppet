@@ -9,7 +9,7 @@ class mongodb::monitoring {
 
   exec { 'install-pymongo':
     command  => 'pip install pymongo',
-    require  => [Package['python-pip'],Package['build-essential'],Package['python-dev']]
+    require  => [Package['python-pip'],Package['build-essential']]
   }
 
   file { '/etc/ganglia/conf.d/mongodb.pyconf':
