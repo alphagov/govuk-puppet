@@ -1,8 +1,5 @@
 class nagios::client::checks {
-  @@nagios::host { "${::govuk_class}-${::hostname}":
-    hostalias => $::fqdn,
-    address   => $::ipaddress,
-  }
+  include nagios::client
 
   @@nagios::check { "check_ping_${::hostname}":
     check_command       => 'check_ping!100.0,20%!500.0,60%',
