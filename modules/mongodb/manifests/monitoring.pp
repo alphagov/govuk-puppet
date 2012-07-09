@@ -10,11 +10,13 @@ class mongodb::monitoring {
 
   file { '/usr/lib/ganglia/python_modules/mongodb.py':
     source  => 'puppet:///modules/mongodb/ganglia_mongodb.py',
+    mode    => '0755',
     require => [Service['mongodb'],Service['ganglia-monitor']]
   }
 
   file { '/usr/lib/nagios/plugins/check_mongodb.py':
     source  => 'puppet:///modules/mongodb/nagios_check_mongodb.py',
+    mode    => '0755',
     require => [Service['mongodb'],Package['nagios-nrpe-server']]
   }
 
