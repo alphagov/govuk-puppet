@@ -7,10 +7,6 @@ class mongodb::monitoring {
     ensure => present,
   }
 
-  package { 'python-dev':
-    ensure => present,
-  }
-
   exec { 'install-pymongo':
     command  => 'pip install pymongo',
     require  => [Package['python-pip'],Package['build-essential'],Package['python-dev']]
