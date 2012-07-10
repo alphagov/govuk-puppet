@@ -426,4 +426,20 @@ class users::govuk {
     user    => 'chrisheathcote',
     require => User['chrisheathcote']
   }
+  user { 'johngriffin':
+    ensure     => present,
+    comment    => 'John Griffin <john.griffin@digital.cabinet-office.gov.uk>',
+    home       => '/home/jgriffin',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'johngriffin':
+    ensure  => present,
+    key     => extlookup('johngriffin_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'jgriffin',
+    require => User['johngriffin']
+  }
 }
