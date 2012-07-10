@@ -410,4 +410,20 @@ class users::govuk {
     user    => 'nick',
     require => User['nick']
   }
+  user { 'chrisheathcote':
+    ensure     => present,
+    comment    => 'Chris Heathcote <chris.heathcote@digital.cabinet-office.gov.uk>',
+    home       => '/home/chrisheathcote',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'chrisheathcote':
+    ensure  => present,
+    key     => extlookup('chrisheathcote_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'chrisheathcote',
+    require => User['chrisheathcote']
+  }
 }
