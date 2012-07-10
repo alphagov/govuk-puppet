@@ -53,7 +53,7 @@ class nagios::client::checks {
   include nagios::client::check_rw_rootfs
 
   @@nagios::check { "check_io_time${::hostname}":
-    check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!1!2',
+    check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!5!10',
     service_description => 'Check disk iotime is not excessive',
     host_name           => "${::govuk_class}-${::hostname}",
   }
