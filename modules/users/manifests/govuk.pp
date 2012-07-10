@@ -403,7 +403,7 @@ class users::govuk {
     require    => Class['users::setup'],
     shell      => '/bin/zsh'
   }
-  ssh_authorized_key { 'tombyers':
+  ssh_authorized_key { 'nickstenning':
     ensure  => present,
     key     => extlookup('nick_key', ''),
     type    => 'ssh-rsa',
