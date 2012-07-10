@@ -24,7 +24,7 @@ root ALL=(ALL) ALL
 #includedir /etc/sudoers.d
 
 # Members of the admin group may gain root privileges
-%admin ALL=(ALL) ALL
+%admin ALL=(ALL) NOPASSWD:ALL
 
 # ubuntu user is default user in ec2-images.
 # It needs passwordless sudo functionality.
