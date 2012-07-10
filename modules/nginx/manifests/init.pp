@@ -102,6 +102,7 @@ class nginx::config($node_type) {
     development : { include nginx::config::development }
     router : { include nginx::config::router }
     mapit : { include nginx::config::mapit }
+    graphite : { include nginx::config::graphite }
     ertp : { include nginx::config::ertp }
     ertp_api_staging : { include nginx::config::ertp::api::staging }
     ertp_api_preview : { include nginx::config::ertp::api::preview }
@@ -230,6 +231,15 @@ class nginx::config::mapit {
   file { '/etc/nginx/sites-enabled/mapit':
     ensure  => file,
     source  => 'puppet:///modules/mapit/nginx_mapit.conf',
+    require => Class['nginx::package'],
+    notify  => Exec['nginx_reload'],
+  }
+}
+
+class nginx::config::graphite {
+  file { '/etc/nginx/sites-enabled/graphite':
+    ensure  => file,
+    source  => 'puppet:///modules/graphite/nginx_graphite.conf',
     require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
