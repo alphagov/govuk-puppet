@@ -41,7 +41,7 @@
     <field name="sortable_title" stored="true" indexed="true" type="string"/>
     <copyField dest="sortable_title" source="title"/>
     <field name="description" stored="true" indexed="false" type="text"/>
-    <field name="format" stored="true" indexed="false" type="string"/>
+    <field name="format" stored="true" indexed="true" type="string"/>
     <field name="link" stored="true" indexed="true" type="string" required="true"/>
     <field name="additional_links__title" stored="true" indexed="false" multiValued="true" type="string"/>
     <field name="additional_links__link" stored="true" indexed="false" multiValued="true" type="string"/>
