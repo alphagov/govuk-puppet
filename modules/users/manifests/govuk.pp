@@ -394,4 +394,20 @@ class users::govuk {
     user    => 'tombyers',
     require => User['tombyers']
   }
+  user { 'nick':
+    ensure     => present,
+    comment    => 'Nick Stenning <nick.stenning@digital.cabinet-office.gov.uk>',
+    home       => '/home/nick',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'tombyers':
+    ensure  => present,
+    key     => extlookup('nick_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'nick',
+    require => User['nick']
+  }
 }
