@@ -442,4 +442,20 @@ class users::govuk {
     user    => 'jgriffin',
     require => User['johngriffin']
   }
+  user { 'stevelaing':
+    ensure     => present,
+    comment    => 'Steve Laing <steve.laing@digital.cabinet-office.gov.uk>',
+    home       => '/home/steve',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'stevelaing':
+    ensure  => present,
+    key     => extlookup('stevelaing_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'steve',
+    require => User['stevelaing']
+  }
 }

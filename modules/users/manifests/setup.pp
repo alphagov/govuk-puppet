@@ -219,6 +219,12 @@ class users::setup {
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
-
+    'deploy_key_stevelaing':
+      ensure  => present,
+      key     => extlookup('stevelaing_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
+      
     }
 }
