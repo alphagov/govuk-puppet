@@ -21,7 +21,7 @@ collection_group {
     name = "diskstat_sda1_io_time"
   }
   metric {
-    name = "diskstat_sda1_read_kbytes_per_sec"
+    name = "diskstat_sda1_read_bytes_per_sec"
   }
   metric {
     name = "diskstat_sda1_read_time"
@@ -36,7 +36,7 @@ collection_group {
     name = "diskstat_sda1_weighted_io_time"
   }
   metric {
-    name = "diskstat_sda1_write_kbytes_per_sec"
+    name = "diskstat_sda1_write_bytes_per_sec"
   }
   metric {
     name = "diskstat_sda1_write_time"
