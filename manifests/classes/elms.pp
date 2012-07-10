@@ -11,6 +11,7 @@ class elms_base {
   include hosts::elms-preview
   include openjdk
   include nagios::client
+  include ganglia::client
 }
 
 class elms_base::mongo_server inherits elms_base {
