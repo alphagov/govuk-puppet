@@ -10,11 +10,4 @@ class graphite::config {
   file { '/etc/init/graphite.conf':
     source  => 'puppet:///modules/graphite/fastcgi_graphite.conf',
   }
-  file { '/etc/apache2/sites-enabled/graphite':
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    source  => 'puppet:///modules/graphite/apache.conf',
-    require => Service[apache2]
-  }
 }
