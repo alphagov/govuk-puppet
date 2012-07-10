@@ -5,4 +5,7 @@ class graphite::config {
     group   => 'root',
     mode    => '0755',
   }
+  file { '/etc/init/graphite.conf':
+    source  => 'puppet:///modules/graphite/fastcgi_graphite.conf',
+  }
 }
