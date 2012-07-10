@@ -1,6 +1,4 @@
 class graphite::config {
-  include apache2
-
   file { '/var/log/graphite':
     ensure  => directory,
     owner   => 'root',
