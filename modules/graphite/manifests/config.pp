@@ -8,10 +8,12 @@ class graphite::config {
 
   file { '/etc/init/graphite.conf':
     source  => 'puppet:///modules/graphite/fastcgi_graphite.conf',
+    require =>  Package[python-graphite-web],
   }
 
   file { '/etc/init/carbon_cache.conf':
     source  => 'puppet:///modules/graphite/carbon_cache.conf',
+    require =>  Package[python-carbon],
   }
 
   file { '/opt/graphite/graphite/local-settings.py':
@@ -20,7 +22,8 @@ class graphite::config {
   }
 
   exec { 'create whisper db for graphite' :
-    command => '/opt/graphite/graphite/manage.py syncdb --noinput'
+    command => '/opt/graphite/graphite/manage.py syncdb --noinput',
+    require => Package[python-whisper]
   }
 
 }
