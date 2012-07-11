@@ -27,12 +27,12 @@ class graphite::config {
   }
 
   file { '/opt/graphite/graphite/manage.py':
-    mode => 755   
+    mode => '0755'
   }
-  
+
   file { '/opt/graphite/storage':
-    mode    => 755,
-    recurse => 'true',
+    mode    => '0755',
+    recurse => true,
     group   => 'root',
     owner   => 'root'
   }
@@ -44,9 +44,7 @@ class graphite::config {
     command     => '/opt/graphite/graphite/manage.py syncdb --noinput',
     require     => [Package[python-whisper],File['/opt/graphite/graphite/manage.py']],
     creates     => '/opt/graphite/storage/graphite.db',
-    environment => ["GRAPHITE_STORAGE_DIR=/opt/graphite/storage/","GRAPHITE_CONF_DIR=/opt/graphite/conf/"]
-
-  
+    environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
 }

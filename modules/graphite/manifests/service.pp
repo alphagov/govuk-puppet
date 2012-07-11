@@ -3,7 +3,7 @@ class graphite::service {
     ensure    => running,
     provider  => upstart,
     subscribe => File['/etc/init/carbon_cache.conf'],
-    require   => [File['/etc/init/carbon_cache.conf'], File['/opt/graphite/conf/carbon.conf']], 
+    require   => [File['/etc/init/carbon_cache.conf'], File['/opt/graphite/conf/carbon.conf']],
   }
   file { '/etc/init/graphite.conf':
     source => 'puppet:///modules/graphite/fastcgi_graphite.conf',
@@ -13,7 +13,7 @@ class graphite::service {
   }
   service { 'graphite':
     ensure    => running,
-    require   => [File['/etc/init/graphite.conf'], File['/opt/graphite/conf/storage-schemas.conf']], 
+    require   => [File['/etc/init/graphite.conf'], File['/opt/graphite/conf/storage-schemas.conf']],
     provider  => upstart,
 
   }
