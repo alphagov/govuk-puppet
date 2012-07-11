@@ -47,7 +47,7 @@ class mongodb::monitoring {
   }
 
   @@nagios::check { "check_mongod_lock_percentage_${::hostname}":
-    check_command       => 'check_nrpe!check_mongodb!lock 0.05 0.1',
+    check_command       => 'check_nrpe!check_mongodb!lock 5 10',
     service_description => "check mongod lock percentage on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
