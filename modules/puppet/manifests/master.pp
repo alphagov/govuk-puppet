@@ -8,9 +8,8 @@ class puppet::master {
     }
 
     service { 'puppetmaster':
-        ensure    => running,
-        provider  => upstart,
-        require   => File['/etc/init/puppetmaster.conf'],
-        subscribe => Class['Ruby::Rubygems'],
+        ensure   => running,
+        provider => upstart,
+        require  => File['/etc/init/puppetmaster.conf'],
     }
 }
