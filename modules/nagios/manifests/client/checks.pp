@@ -59,7 +59,7 @@ class nagios::client::checks {
   }
 
   @@nagios::check { "check_ntp_time_${::hostname}":
-    check_command       => 'check_ntp_time!0.5!1',
+    check_command       => 'check_ntp_time!1!2',
     service_description => 'Check ntp drift is not excessive',
     host_name           => "${::govuk_class}-${::hostname}",
   }
