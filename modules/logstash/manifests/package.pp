@@ -8,8 +8,8 @@ class logstash::package {
     require   => File['/var/apps']
   }
   wget::fetch { 'logstash-monolithic':
-    source      => 'http://semicomplete.com/files/logstash/logstash-1.1.0-monolithic.jar',
-    destination => '/var/apps/logstash/logstash-1.1.0-monolithic.jar',
+    source      => 'http://semicomplete.com/files/logstash/logstash-1.1.1-rc2-monolithic.jar',
+    destination => '/var/apps/logstash/logstash-1.1.1-rc2-monolithic.jar',
     require     => File['/var/apps/logstash']
   }
   wget::fetch { 'elasticsearch':
