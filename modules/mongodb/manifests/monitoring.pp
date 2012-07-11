@@ -31,7 +31,8 @@ class mongodb::monitoring {
 
   file { '/etc/nagios/nrpe.d/check_mongo.cfg':
     source  => 'puppet:///modules/mongodb/nrpe_check_mongo.cfg',
-    require => [Service['mongodb'],Package['nagios-nrpe-server']]
+    require => [Service['mongodb'],Package['nagios-nrpe-server']],
+    notify  => Service['nagios-nrpe-server'],
   }
 
   @@nagios::check { "check_mongod_running_${::hostname}":
