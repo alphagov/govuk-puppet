@@ -6,11 +6,6 @@ class graphite::config {
     mode    => '0755',
   }
 
-  file { '/etc/init/graphite.conf':
-    source  => 'puppet:///modules/graphite/fastcgi_graphite.conf',
-    require =>  Package[python-graphite-web],
-  }
-
   file { '/etc/init/carbon_cache.conf':
     source  => 'puppet:///modules/graphite/carbon_cache.conf',
     require =>  Package[python-carbon],
@@ -21,9 +16,37 @@ class graphite::config {
     require => [Package[python-graphite-web], Package[python-carbon]]
   }
 
+  file { '/opt/graphite/conf/carbon.conf':
+    source  => 'puppet:///modules/graphite/carbon.conf',
+    require => [Package[python-graphite-web], Package[python-carbon]]
+  }
+
+  file { '/opt/graphite/conf/storage-schemas.conf':
+    source  => 'puppet:///modules/graphite/storage-schema.conf',
+    require => [Package[python-graphite-web], Package[python-carbon]]
+  }
+
+  file { '/opt/graphite/graphite/manage.py':
+    mode => 755   
+  }
+  
+  file { '/opt/graphite/storage':
+    mode    => 755,
+    recurse => 'true',
+    group   => 'root',
+    owner   => 'root'
+  }
+  file{ '/opt/graphite/storage/log/webapp':
+        ensure => 'directory'
+  }
+
   exec { 'create whisper db for graphite' :
-    command => '/opt/graphite/graphite/manage.py syncdb --noinput',
-    require => Package[python-whisper]
+    command     => '/opt/graphite/graphite/manage.py syncdb --noinput',
+    require     => [Package[python-whisper],File['/opt/graphite/graphite/manage.py']],
+    creates     => '/opt/graphite/storage/graphite.db',
+    environment => ["GRAPHITE_STORAGE_DIR=/opt/graphite/storage/","GRAPHITE_CONF_DIR=/opt/graphite/conf/"]
+
+  
   }
 
 }
