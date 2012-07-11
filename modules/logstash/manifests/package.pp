@@ -12,4 +12,8 @@ class logstash::package {
     destination => '/var/apps/logstash/logstash-1.1.0-monolithic.jar',
     require     => File['/var/apps/logstash']
   }
+  package {'rabbitmq-server':
+    ensure  => installed,
+    require => Wget::Fetch['logstash-monolithic']
+  }
 }
