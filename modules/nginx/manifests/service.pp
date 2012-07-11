@@ -38,10 +38,10 @@ class nginx::service {
     service_description => "check HTTP response on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
-  @@nagios::check { "check_https_response_${::hostname}":
-    check_command       => 'check_https_port!monitoring-vhost.test!5!10',
-    service_description => "check HTTPS response ${::govuk_class}-${::hostname}",
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
+#  @@nagios::check { "check_https_response_${::hostname}":
+#    check_command       => 'check_https_port!monitoring-vhost.test!5!10',
+#    service_description => "check HTTPS response ${::govuk_class}-${::hostname}",
+#    host_name           => "${::govuk_class}-${::hostname}",
+#  }
 
 }
