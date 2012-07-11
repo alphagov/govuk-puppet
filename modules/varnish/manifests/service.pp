@@ -24,11 +24,13 @@ class varnish::service {
 
   file { '/etc/ganglia/conf.d/varnish.pyconf':
     source  => 'puppet:///modules/varnish/etc/ganglia/conf.d/varnish.pyconf',
-    require => [Service['varnish'],Service['ganglia-monitor']]
+    require => Service['varnish'],
+    notify  => Service['ganglia-monitor']
   }
   file { '/usr/lib/ganglia/python_modules/varnish.py':
     source  => 'puppet:///modules/varnish/usr/lib/ganglia/python_modules/varnish.py',
-    require => [Service['varnish'],Service['ganglia-monitor']]
+    require => Service['varnish'],
+    notify  => Service['ganglia-monitor']
   }
 
   cron { 'logster-varnish':
