@@ -9,7 +9,5 @@ class apache2($port='8080') {
   class { 'apache2::configure':
     port => $port
   }
-  class {'apache2::service':
-    subscribe => $subscribe
-  }
+  include apache2::service
 }
