@@ -1,0 +1,36 @@
+#!/bin/sh
+
+#
+# Simple wrapper around logstash to support easy piping of data to logstash
+# from STDIN.
+#
+# Usage: my_program 2>&1 | logpipe <stream_name>
+#
+
+NAME="$1"
+[ -z "$NAME" ] && NAME="unknown"
+
+LOGSTASH_CONFIG="$(mktemp)"
+
+cleanup () {
+  rm -f "$LOGSTASH_CONFIG"
+}
+trap cleanup EXIT
+
+cat >"$LOGSTASH_CONFIG" <<END_CONF
+  input {
+    stdin {
+      type => "logpipe:${NAME}"
+    }
+  }
+
+  output {
+    amqp {
+      host => "myamqpserver"
+      exchange_type => "fanout"
+      name => "rawlogs"
+    }
+  }
+END_CONF
+
+logstash agent -f "$LOGSTASH_CONFIG"
