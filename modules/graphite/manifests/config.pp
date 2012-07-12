@@ -27,17 +27,21 @@ class graphite::config {
   }
 
   file { '/opt/graphite/graphite/manage.py':
-    mode => '0755'
+    mode    => '0755',
+    require => Package[python-graphite-web]
   }
 
   file { '/opt/graphite/storage':
     mode    => '0755',
     recurse => true,
     group   => 'root',
-    owner   => 'root'
+    owner   => 'root',
+    require => Package[python-graphite-web]
   }
+
   file{ '/opt/graphite/storage/log/webapp':
-        ensure => 'directory'
+    ensure  => 'directory'
+    require => File['/opt/graphite/storage']
   }
 
   exec { 'create whisper db for graphite' :
