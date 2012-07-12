@@ -4,6 +4,6 @@ class apache2::service {
     hasstatus  => true,
     hasrestart => true,
     require    => Class['apache2::configure'],
-    subscribe  => Class['ruby::rubygems'],
+    subscribe  => $subscribe,
   }
 }
