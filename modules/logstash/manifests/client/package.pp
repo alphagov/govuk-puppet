@@ -8,8 +8,8 @@ class logstash::client::package {
     require   => File['/var/apps']
   }
   wget::fetch { 'logstash-monolithic':
-    source      => 'http://semicomplete.com/files/logstash/logstash-1.1.1-rc2-monolithic.jar',
-    destination => '/var/apps/logstash/logstash-1.1.1-rc2-monolithic.jar',
+    source      => 'https://gds-public-readable-tarballs.s3.amazonaws.com/logstash-1.1.0.2-monolithic.jar',
+    destination => '/var/apps/logstash/logstash-1.1.0.2-monolithic.jar',
     require     => File['/var/apps/logstash']
   }
 }
