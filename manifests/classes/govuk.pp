@@ -218,6 +218,7 @@ class govuk_base::monitoring_server inherits govuk_base {
   include nagios
   include nagios::client::checks
   include ganglia
+  include graphite
 }
 
 class govuk_base::graylog_server inherits govuk_base {
