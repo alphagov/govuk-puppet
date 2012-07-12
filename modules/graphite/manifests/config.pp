@@ -44,11 +44,34 @@ class graphite::config {
     require => File['/opt/graphite/storage']
   }
 
+  file{ '/etc/graphite':
+    ensure  => 'directory',
+  }
+
+  file{ '/etc/graphite/htpasswd.graphite':
+    source  => 'puppet:///modules/graphite/htpasswd.graphite',
+    require => File['/etc/graphite']
+  }
+
+  file { '/etc/apache2/mods-enabled/rewrite.load':
+    ensure  => link,
+    target  => '/etc/apache2/mods-available/rewrite.load',
+    require => Package[apache2]
+  }
+
   exec { 'create whisper db for graphite' :
     command     => '/opt/graphite/graphite/manage.py syncdb --noinput',
     require     => [Package[python-whisper],File['/opt/graphite/graphite/manage.py']],
     creates     => '/opt/graphite/storage/graphite.db',
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
+  }
+
+
+  file { '/etc/apache2/sites-enabled/graphite':
+    ensure  => 'present',
+    source  => 'puppet:///modules/graphite/apache.conf',
+    require => Class['apache2::install'],
+    notify  => Service['apache2'],
   }
 
 }
