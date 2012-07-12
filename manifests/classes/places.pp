@@ -11,6 +11,8 @@ class places_base {
   include users
   include users::setup
   include hosts::places
+  include nagios::client
+  include ganglia::client
 }
 
 class places_base::mongo_server inherits places_base {

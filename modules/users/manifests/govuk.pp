@@ -403,11 +403,59 @@ class users::govuk {
     require    => Class['users::setup'],
     shell      => '/bin/zsh'
   }
-  ssh_authorized_key { 'tombyers':
+  ssh_authorized_key { 'nick':
     ensure  => present,
     key     => extlookup('nick_key', ''),
     type    => 'ssh-rsa',
     user    => 'nick',
     require => User['nick']
+  }
+  user { 'chrisheathcote':
+    ensure     => present,
+    comment    => 'Chris Heathcote <chris.heathcote@digital.cabinet-office.gov.uk>',
+    home       => '/home/chrisheathcote',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'chrisheathcote':
+    ensure  => present,
+    key     => extlookup('chrisheathcote_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'chrisheathcote',
+    require => User['chrisheathcote']
+  }
+  user { 'johngriffin':
+    ensure     => present,
+    comment    => 'John Griffin <john.griffin@digital.cabinet-office.gov.uk>',
+    home       => '/home/jgriffin',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'johngriffin':
+    ensure  => present,
+    key     => extlookup('johngriffin_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'jgriffin',
+    require => User['johngriffin']
+  }
+  user { 'stevelaing':
+    ensure     => present,
+    comment    => 'Steve Laing <steve.laing@digital.cabinet-office.gov.uk>',
+    home       => '/home/steve',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/zsh'
+  }
+  ssh_authorized_key { 'stevelaing':
+    ensure  => present,
+    key     => extlookup('stevelaing_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'steve',
+    require => User['stevelaing']
   }
 }

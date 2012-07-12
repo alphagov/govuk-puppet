@@ -31,7 +31,8 @@ class mongodb::monitoring {
 
   file { '/etc/nagios/nrpe.d/check_mongo.cfg':
     source  => 'puppet:///modules/mongodb/nrpe_check_mongo.cfg',
-    require => [Service['mongodb'],Package['nagios-nrpe-server']]
+    require => [Service['mongodb'],Package['nagios-nrpe-server']],
+    notify  => Service['nagios-nrpe-server'],
   }
 
   @@nagios::check { "check_mongod_running_${::hostname}":
@@ -41,13 +42,13 @@ class mongodb::monitoring {
   }
 
   @@nagios::check { "check_mongod_responds_${::hostname}":
-    check_command       => 'check_nrpe!check_mongodb!connect!2!4',
+    check_command       => 'check_nrpe!check_mongodb!connect 2 4',
     service_description => "check mongod responds on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_mongod_lock_percentage_${::hostname}":
-    check_command       => 'check_nrpe!check_mongodb!connect!5!10',
+    check_command       => 'check_nrpe!check_mongodb!lock 5 10',
     service_description => "check mongod lock percentage on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }

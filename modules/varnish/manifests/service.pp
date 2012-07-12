@@ -24,11 +24,13 @@ class varnish::service {
 
   file { '/etc/ganglia/conf.d/varnish.pyconf':
     source  => 'puppet:///modules/varnish/etc/ganglia/conf.d/varnish.pyconf',
-    require => [Service['varnish'],Service['ganglia-monitor']]
+    require => Service['varnish'],
+    notify  => Service['ganglia-monitor']
   }
   file { '/usr/lib/ganglia/python_modules/varnish.py':
     source  => 'puppet:///modules/varnish/usr/lib/ganglia/python_modules/varnish.py',
-    require => [Service['varnish'],Service['ganglia-monitor']]
+    require => Service['varnish'],
+    notify  => Service['ganglia-monitor']
   }
 
   cron { 'logster-varnish':
@@ -51,7 +53,7 @@ class varnish::service {
 
   @@nagios::check { "check_varnish_cache_miss_${::hostname}":
     use                 => 'generic-service',
-    check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!10!20',
+    check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!0:50!0:30',
     service_description => "check varnish cache hit ratio for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }

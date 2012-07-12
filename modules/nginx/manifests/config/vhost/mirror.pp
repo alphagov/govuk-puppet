@@ -1,4 +1,4 @@
-define nginx::config::vhost::mirror ($aliases = []) {
+define nginx::config::vhost::mirror ($aliases = [], $ssl_only = false) {
   file { "/etc/nginx/sites-available/$name":
     owner   => 'root',
     group   => 'root',
@@ -14,6 +14,6 @@ define nginx::config::vhost::mirror ($aliases = []) {
   # htpasswd
 
   nginx::config::site { $name: }
-  #nginx::config::ssl { $name: }
+  nginx::config::ssl { $name: }
 }
 

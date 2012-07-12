@@ -207,5 +207,23 @@ class users::setup {
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
+    'deploy_key_chrisheathcote':
+      ensure  => present,
+      key     => extlookup('chrisheathcote_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
+    'deploy_key_johngriffin':
+      ensure  => present,
+      key     => extlookup('johngriffin_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
+    'deploy_key_stevelaing':
+      ensure  => present,
+      key     => extlookup('stevelaing_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
     }
 }
