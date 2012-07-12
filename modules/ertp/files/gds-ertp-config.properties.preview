@@ -1,4 +1,4 @@
-mongo.database.hosts=ertp-mongo
+mongo.database.hosts=ertp-mongo-1,ertp-mongo-2,ertp-mongo-3
 ertp.api.url=http://ertp-api:9900/ertp-api
 ertp.ems.api.url=http://ertp-api:9900/ertp-api
 places.api.url=http://places-api:9700/places

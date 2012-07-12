@@ -15,8 +15,6 @@ class ertp_base {
 class ertp_base::mongo_server inherits ertp_base {
   include mongodb::server
 
-  case $::govuk_platform {
-    staging: {
       class {'mongodb::configure_replica_set':
         members => [
           'ertp-mongo-1',
@@ -24,10 +22,6 @@ class ertp_base::mongo_server inherits ertp_base {
           'ertp-mongo-3'
         ]
       }
-    }
-    default: {
-    }
-  }
 }
 
 class ertp_base::frontend_server inherits ertp_base {
