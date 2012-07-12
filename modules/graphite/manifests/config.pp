@@ -40,7 +40,7 @@ class graphite::config {
   }
 
   file{ '/opt/graphite/storage/log/webapp':
-    ensure  => 'directory'
+    ensure  => 'directory',
     require => File['/opt/graphite/storage']
   }
 
