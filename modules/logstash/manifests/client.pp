@@ -1,5 +1,9 @@
 class logstash::client {
-  include logstash::client::package
-  include logstash::client::config
-  include logstash::client::service
+  class { 'logstash::client::config':
+    before => Class['logstash::client::package']
+  }
+  class { 'logstash::client::package': }
+  class { 'logstash::client::service':
+    subscribe => Class['logstash::client::package']
+  }
 }

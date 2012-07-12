@@ -1,0 +1,2 @@
+#!/bin/sh
+exec java -jar "/var/apps/logstash/logstash-1.1.0.2-monolithic.jar" "${@}"
