@@ -73,4 +73,10 @@ class graphite::config {
     notify  => Service['apache2'],
   }
 
+  file { '/etc/apache2/sites-enabled/000-default':
+    ensure  => 'absent',
+    require => File['/etc/apache2/sites-enabled/graphite'],
+    notify  => Service['apache2'],
+  }
+
 }
