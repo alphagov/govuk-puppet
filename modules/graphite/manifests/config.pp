@@ -6,11 +6,6 @@ class graphite::config {
     mode    => '0755',
   }
 
-  file { '/etc/init/carbon_cache.conf':
-    source  => 'puppet:///modules/graphite/carbon_cache.conf',
-    require =>  Package[python-carbon],
-  }
-
   file { '/opt/graphite/graphite/local-settings.py':
     source  => 'puppet:///modules/graphite/local_settings.py',
     require => [Package[python-graphite-web], Package[python-carbon]]
