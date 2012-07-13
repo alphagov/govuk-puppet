@@ -191,7 +191,7 @@ server {
   location / {
     proxy_pass http://127.0.0.1:3020;
     proxy_set_header   Host   $host;
-  }
+  } 
 }
 
 server {
@@ -208,6 +208,15 @@ server {
   listen *:80;
   location / {
     proxy_pass http://127.0.0.1:3022;
+    proxy_set_header   Host   $host;
+  }
+}
+
+server {
+  server_name explore.reviewomatic.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3023;
     proxy_set_header   Host   $host;
   }
 }
