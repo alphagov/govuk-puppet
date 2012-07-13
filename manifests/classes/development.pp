@@ -43,4 +43,6 @@ class development {
     'apache2':        ensure => 'absent';
     'wbritish-small': ensure => installed;
   }
+
+  include govuk::apps::review_o_matic_explore
 }

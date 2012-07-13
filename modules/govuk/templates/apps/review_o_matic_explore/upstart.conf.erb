@@ -1,0 +1,12 @@
+description "Proxy for Review-O-Matic Explore"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+env PORT=3023
+env UPSTREAM_AUTH=betademo:nottobeshared
+env UPSTREAM_HOST="reviewomatic.<%= govuk_class %>.alphagov.co.uk"
+
+chdir /var/govuk/apps/reviewomatic_explore
+
+exec node proxy.js
