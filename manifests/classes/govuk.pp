@@ -92,8 +92,9 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   class { 'apache2':
     port => '8080'
   }
-
   class { 'passenger' : maxpoolsize => 12 }
+  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
+
   class { 'nginx'     : node_type   => backend_server }
 
   package { 'graphviz':
@@ -175,6 +176,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     port => '8080'
   }
   include passenger
+  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
   class { 'nginx' : node_type => whitehall_frontend_server }
   include imagemagick
 
