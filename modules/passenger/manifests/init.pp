@@ -5,6 +5,7 @@ class passenger(
   $maxinstancesperapp = '0',
   $spawnmethod = 'smart-lv2'
 ) {
+  Class['ruby::rubygems'] ~> Class['passenger']
 
   include apt
 
