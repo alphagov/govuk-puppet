@@ -30,7 +30,6 @@ class passenger(
     require => [
       Exec['add-brightbox-lucid-repo'],
       Exec['apt_update'],
-      Package['apache2']
     ]
   }
 

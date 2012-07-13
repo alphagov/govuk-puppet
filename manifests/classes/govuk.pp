@@ -134,6 +134,9 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     port => '8080'
   }
   class { 'passenger' : maxpoolsize => 12 }
+
+  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
+
   class { 'nginx' : node_type       => frontend_server }
 
   apache2::vhost::passenger {
