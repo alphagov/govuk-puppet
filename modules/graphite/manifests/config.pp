@@ -66,7 +66,6 @@ class graphite::config {
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
-
   file { '/etc/apache2/sites-enabled/graphite':
     ensure  => 'present',
     source  => 'puppet:///modules/graphite/apache.conf',

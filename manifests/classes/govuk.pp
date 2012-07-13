@@ -218,6 +218,7 @@ class govuk_base::support_server inherits govuk_base {
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
+  class { 'apache2': port => '80'}
   include nagios
   include nagios::client::checks
   include ganglia
