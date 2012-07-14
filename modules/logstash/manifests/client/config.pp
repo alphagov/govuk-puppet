@@ -1,12 +1,5 @@
 class logstash::client::config {
-  file { '/etc/logstash' :
-    ensure => directory
-  }
-  file { '/etc/logstash/logstash-client' :
-    ensure  => directory,
-    require => File['/etc/logstash']
-  }
-  file { '/etc/logstash/grok-patterns' :
+  file { ['/etc/logstash', '/etc/logstash/logstash-client', '/etc/logstash/grok-patterns'] :
     ensure => directory
   }
   file { '/etc/logstash/logstash-client/default.conf' :

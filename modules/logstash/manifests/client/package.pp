@@ -1,11 +1,7 @@
 class logstash::client::package {
   include wget
-  file { '/var/apps':
+  file { ['/var/apps', '/var/apps/logstash']:
     ensure  => directory
-  }
-  file { '/var/apps/logstash':
-    ensure  => directory,
-    require => File['/var/apps']
   }
   file { '/usr/local/bin/logstash':
     ensure => present,

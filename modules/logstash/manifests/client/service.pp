@@ -10,4 +10,6 @@ class logstash::client::service {
     provider => upstart,
     require  => [File['/etc/init/logstash-client.conf'],File['/var/log/logstash'],File['/etc/logstash/grok-patterns/apache-error']]
   }
+
+  File <| tag == 'logstash-client' |> ~> Service['logstash-client']
 }

@@ -74,6 +74,10 @@ class nginx::config($node_type) {
     ensure  => directory,
     require => Package['nginx'],
   }
+  file { '/etc/logstash/logstash-client/nginx.conf':
+    source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
+    tag     => 'logstash-client'
+  }
   case $node_type {
     router : {
       @@nagios::check { "check_nginx_active_connections_${::hostname}":
