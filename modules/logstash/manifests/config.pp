@@ -1,13 +1,6 @@
 class logstash::config {
-  file { '/etc/logstash' :
+  file { ['/etc/logstash', '/etc/logstash/grok-patterns', '/var/log/logstash'] :
     ensure => directory
-  }
-  file { '/etc/logstash/grok-patterns' :
-    ensure => directory
-  }
-  file { '/etc/logstash/logstash-server.conf' :
-    source  => 'puppet:///modules/logstash/etc/logstash/logstash-server.conf',
-    require => File['/etc/logstash']
   }
   file { '/etc/logstash/grok-patterns/apache-error' :
     source  => 'puppet:///modules/logstash/etc/logstash/grok-patterns/apache-error',
