@@ -5,6 +5,14 @@ class nginx::service {
     hasrestart => true,
     require    => Class['nginx::config'],
   }
+  file { ['/etc/logstash', '/etc/logstash/logstash-client']:
+    ensure  => directory,
+    require => Service['nginx']
+  }
+  file { '/etc/logstash/logstash-client/nginx.conf':
+    source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
+    require => File['/etc/logstash/logstash-client']
+  }
   include nagios::client
 
   # Monitoring of NginX
