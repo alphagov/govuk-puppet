@@ -7,7 +7,7 @@ class varnish::config {
 
   file { '/etc/default/varnishncsa':
     ensure  => file,
-    source  => 'puppet:///modules/varnish/ncsa-defaults',
+    source  => 'puppet:///modules/varnish/etc/default/varnishncsa',
     require => Package['varnish']
   }
 
@@ -15,5 +15,12 @@ class varnish::config {
     ensure  => file,
     content => template('varnish/default.vcl.erb'),
     require => Package['varnish'],
+  }
+  file { '/etc/logstash/':
+    ensure  => directory
+  }
+  file { '/etc/logstash/logstash-client/':
+    ensure  => directory,
+    require => File['/etc/logstash/']
   }
 }
