@@ -8,8 +8,4 @@ class logstash::client::config {
     source  => 'puppet:///modules/logstash/etc/logstash/logstash-client/default.conf',
     require => File['/etc/logstash/logstash-client']
   }
-  file { '/etc/logstash/logstash-client/apache.conf' :
-    source  => 'puppet:///modules/logstash/etc/logstash/logstash-client/apache.conf',
-    require => File['/etc/logstash/logstash-client']
-  }
 }
