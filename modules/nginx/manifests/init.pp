@@ -1,6 +1,7 @@
 class nginx($node_type = 'development') {
   include logster
   include graylogtail
+  include logstash::client
 
   include nginx::package
   class { 'nginx::config' : node_type => $node_type }
@@ -8,7 +9,6 @@ class nginx($node_type = 'development') {
 }
 
 class nginx::config($node_type) {
-  include logstash::client
   exec { 'nginx_reload':
     command     => '/etc/init.d/nginx reload',
     refreshonly => true,
