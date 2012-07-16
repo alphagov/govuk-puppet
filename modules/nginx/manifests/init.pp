@@ -1,6 +1,7 @@
 class nginx($node_type = 'development') {
   include logster
   include graylogtail
+  include logstash::client
 
   include nginx::package
   class { 'nginx::config' : node_type => $node_type }
@@ -76,7 +77,7 @@ class nginx::config($node_type) {
   }
   file { '/etc/logstash/logstash-client/nginx.conf':
     source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
-    tag     => 'logstash-client'
+    require => Class['logstash::client::service']
   }
   case $node_type {
     router : {

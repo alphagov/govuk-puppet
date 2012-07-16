@@ -2,6 +2,7 @@ class varnish::service {
   include logster
   include graylogtail
   include ganglia::client
+  include logstash::client
 
   service { 'varnish':
     ensure     => running,
@@ -54,8 +55,7 @@ class varnish::service {
 
   file { '/etc/logstash/logstash-client/varnish.conf':
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
-    require => Service['varnish'],
-    tag     => 'logstash-client'
+    require => [Service['varnish'],Class['logstash::client::service']]
   }
 
 
