@@ -19,4 +19,10 @@ class elasticsearch::monitoring {
     require => [Service['elasticsearch'],Package['nagios-nrpe-server']],
     notify  => Service['nagios-nrpe-server']
   }
+
+  @@nagios::check { "check_elasticsearch_running_${::hostname}":
+    check_command       => 'check_nrpe!check_elasticsearch',
+    service_description => "check elasticsearch running on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
 }
