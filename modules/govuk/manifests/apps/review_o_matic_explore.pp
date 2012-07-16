@@ -10,8 +10,8 @@ class govuk::apps::review_o_matic_explore {
   }
 
   service { 'review-o-matic-explore':
-    provider  => upstart,
     ensure    => running,
+    provider  => upstart,
     require   => File['/etc/init/review-o-matic-explore.conf'],
     subscribe => File['/etc/init/review-o-matic-explore.conf']
   }
