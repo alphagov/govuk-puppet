@@ -1,11 +1,4 @@
 class graphite::config {
-  file { '/var/log/graphite':
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-  }
-
   file { '/opt/graphite/graphite/local-settings.py':
     source  => 'puppet:///modules/graphite/local_settings.py',
   }

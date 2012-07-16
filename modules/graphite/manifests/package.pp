@@ -12,8 +12,16 @@ class graphite::package {
     require => Apt::Deb_repository['ubuntuus'];
   }
 
+  # these file resources should probably be fixed in the source debs, but meh
   file { '/opt/graphite/graphite/manage.py':
     mode    => '0755',
     require => Package['python-graphite-web'],
+  }
+
+  file { '/var/log/graphite':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
   }
 }
