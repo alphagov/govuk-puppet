@@ -217,7 +217,6 @@ class govuk_base::support_server inherits govuk_base {
   class {'elasticsearch':
     cluster => $::govuk_platform
   }
-  include logstash::server
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
@@ -231,6 +230,7 @@ class govuk_base::monitoring_server inherits govuk_base {
 class govuk_base::graylog_server inherits govuk_base {
   include nagios::client::checks
   include mongodb::server
+  include logstash::server
 }
 
 class govuk_base::management_server {
