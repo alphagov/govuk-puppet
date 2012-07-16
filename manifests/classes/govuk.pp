@@ -217,6 +217,7 @@ class govuk_base::support_server inherits govuk_base {
   class {'elasticsearch':
     cluster => $::govuk_platform
   }
+  include logstash::server
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
