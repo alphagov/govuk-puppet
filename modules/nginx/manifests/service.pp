@@ -6,6 +6,7 @@ class nginx::service {
     require    => Class['nginx::config'],
   }
   include nagios::client
+  include ganglia::client
 
   # Monitoring of NginX
 
