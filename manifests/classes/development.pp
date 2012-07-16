@@ -1,6 +1,9 @@
 class development {
-  include base_packages::unix_tools
+  include govuk::repository
   include govuk::testing_tools
+
+  include base_packages::unix_tools
+
   include mongodb::server
   include apollo
   include hosts

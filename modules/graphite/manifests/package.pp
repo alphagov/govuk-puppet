@@ -1,5 +1,4 @@
 class graphite::package {
-  include govuk::repository
   include apt
 
   apt::deb_repository { 'ubuntuus':
@@ -10,6 +9,6 @@ class graphite::package {
 
   package{['python-flup', 'python-carbon', 'python-graphite-web', 'python-txamqp', 'python-whisper', 'libapache2-mod-fastcgi']:
     ensure  => present,
-    require => [Apt::Deb_repository['gds'], Apt::Deb_repository['ubuntuus']]
+    require => Apt::Deb_repository['ubuntuus'];
   }
 }

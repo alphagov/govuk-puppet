@@ -1,4 +1,7 @@
 class govuk_base {
+  # First and most importantly, set up our apt repository
+  include govuk::repository
+
   include ntp
   include apt
   include base_packages::unix_tools
