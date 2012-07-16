@@ -15,7 +15,7 @@ class java(
   }
 
   file { '/var/local/sun-java6.preseed':
-    content => template("${module_name}/sun-java6.preseed"),
+    content => template("${module_name}/sun-java6.preseed")
   }
 
   package { 'java':
@@ -24,13 +24,7 @@ class java(
     responsefile => '/var/local/sun-java6.preseed',
     require      => [
       Apt::Ppa_Repository['sun-java-community-team'],
-      File['/var/local/sun-java6.preseed'],
-      Package['remove-openjdk']
+      File['/var/local/sun-java6.preseed']
     ],
-  }
-
-  package { 'remove-openjdk':
-    ensure => 'absent',
-    name   => 'openjdk-6-jre-headless',
   }
 }
