@@ -1,6 +1,7 @@
 class development {
   include govuk::repository
   include govuk::testing_tools
+  include govuk::deploy_tools
 
   include base_packages::unix_tools
 
@@ -45,8 +46,4 @@ class development {
     'apache2':        ensure => 'absent';
     'wbritish-small': ensure => installed;
   }
-
-  include bundler
-  include fpm
-
 }
