@@ -17,7 +17,157 @@ collection_group {
   time_threshold = 60
 
   metric {
-    name_match = "es_(.+)"
+    name = "es_heap_committed"
+  }
+  metric {
+    name = "es_heap_used"
+  }
+  metric {
+    name = "es_non_heap_committed"
+  }
+  metric {
+    name = "es_non_heap_used"
+  }
+  metric {
+    name = "es_threads"
+  }
+  metric {
+    name = "es_threads_peak"
+  }
+  metric {
+    name = "es_gc_time"
+  }
+  metric {
+    name = "es_transport_open"
+  }
+  metric {
+    name = "es_transport_rx_count"
+  }
+  metric {
+    name = "es_transport_rx_size"
+  }
+  metric {
+    name = "es_transport_tx_count"
+  }
+  metric {
+    name = "es_transport_tx_size"
+  }
+  metric {
+    name = "es_http_current_open"
+  }
+  metric {
+    name = "es_http_total_open"
+  }
+  metric {
+    name = "es_indices_size"
+  }
+  metric {
+    name = "es_gc_count"
+  }
+  metric {
+    name = "es_merges_current"
+  }
+  metric {
+    name = "es_merges_current_docs"
+  }
+  metric {
+    name = "es_merges_total"
+  }
+  metric {
+    name = "es_merges_total_docs"
+  }
+  metric {
+    name = "es_merges_current_size"
+  }
+  metric {
+    name = "es_merges_total_size"
+  }
+  metric {
+    name = "es_merges_time"
+  }
+  metric {
+    name = "es_refresh_total"
+  }
+  metric {
+    name = "es_refresh_time"
+  }
+  metric {
+    name = "es_docs_count"
+  }
+  metric {
+    name = "es_docs_deleted"
+  }
+  metric {
+    name = "es_open_file_descriptors"
+  }
+  metric {
+    name = "es_cache_field_eviction"
+  }
+  metric {
+    name = "es_cache_field_size"
+  }
+  metric {
+    name = "es_cache_filter_count"
+  }
+  metric {
+    name = "es_cache_filter_evictions"
+  }
+  metric {
+    name = "es_cache_filter_size"
+  }
+  metric {
+    name = "es_query_current"
+  }
+  metric {
+    name = "es_query_time"
+  }
+  metric {
+    name = "es_fetch_current"
+  }
+  metric {
+    name = "es_fetch_total"
+  }
+  metric {
+    name = "es_fetch_time"
+  }
+  metric {
+    name = "es_flush_total"
+  }
+  metric {
+    name = "es_flush_time"
+  }
+  metric {
+    name = "es_get_exists_time"
+  }
+  metric {
+    name = "es_get_exists_total"
+  }
+  metric {
+    name = "es_get_time"
+  }
+  metric {
+    name = "es_get_total"
+  }
+  metric {
+    name = "es_get_missing_time"
+  }
+  metric {
+    name = "es_get_missing_total"
+  }
+  metric {
+    name = "es_indexing_delete_time"
+  }
+  metric {
+    name = "es_indexing_delete_total"
+  }
+  metric {
+    name = "es_indexing_index_time"
+  }
+  metric {
+    name = "es_indexing_index_total"
+  }
+  metric {
+    name = "es_query_total"
   }
 }
 
