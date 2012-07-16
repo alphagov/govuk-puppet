@@ -11,4 +11,9 @@ class graphite::package {
     ensure  => present,
     require => Apt::Deb_repository['ubuntuus'];
   }
+
+  file { '/opt/graphite/graphite/manage.py':
+    mode    => '0755',
+    require => Package['python-graphite-web'],
+  }
 }
