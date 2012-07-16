@@ -165,6 +165,8 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8087;
     "efg.$::govuk_platform.alphagov.co.uk":
       additional_port => 8088;
+    "contentapi.$::govuk_platform.alphagov.co.uk":
+      additional_port => 8089;
     "static.$::govuk_platform.alphagov.co.uk":;
   }
 
