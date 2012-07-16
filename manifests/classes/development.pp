@@ -34,7 +34,6 @@ class development {
   }
 
   package {
-    'bundler':        ensure => 'installed', provider => gem;
     'foreman':        ensure => '0.27.0',    provider => gem;
     'linecache19':    ensure => 'installed', provider => gem;
     'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];
@@ -43,4 +42,8 @@ class development {
     'apache2':        ensure => 'absent';
     'wbritish-small': ensure => installed;
   }
+
+  include bundler
+  include fpm
+
 }

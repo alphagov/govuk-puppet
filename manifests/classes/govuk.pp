@@ -76,9 +76,9 @@ class govuk_base::ruby_app_server inherits govuk_base {
   include mysql::client
   include nagios::client::checks
   include nodejs
+  include bundler
 
   package {
-    'bundler':             ensure => installed, provider => gem;
     'rails':               ensure => '3.1.1',   provider => gem;
     'mysql2':              ensure => installed, provider => gem, require => Package['libmysqlclient-dev'];
     'rake':                ensure => '0.9.2',   provider => gem;
@@ -236,15 +236,23 @@ class govuk_base::graylog_server inherits govuk_base {
 
 class govuk_base::management_server {
   $mysql_password = extlookup('mysql_root', '')
+
   include govuk_base::ruby_app_server
+
   include govuk::testing_tools
+  include govuk::deploy_tools
+
+  include nodejs
+
   class { 'mysql::server':
     root_password => $mysql_password
   }
+
   include mongodb::server
   class {'mongodb::configure_replica_set':
     members => ['localhost']
   }
+
   include solr
   include imagemagick
   class {'elasticsearch':
