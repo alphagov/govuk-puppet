@@ -20,7 +20,6 @@ class graphite::config {
 
   file { '/opt/graphite/storage':
     mode    => '0755',
-    recurse => true,
     group   => 'root',
     owner   => 'root',
   }
