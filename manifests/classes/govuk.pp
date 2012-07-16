@@ -132,6 +132,8 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     ensure => absent,
     force  => true,
   }
+
+  include govuk::apps::review_o_matic_explore
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
