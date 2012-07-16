@@ -46,12 +46,19 @@ class varnish::service {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios::check { "check_varnish_cache_miss_${::hostname}":
-    use                 => 'generic-service',
-    check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!0:50!0:30',
-    service_description => "check varnish cache hit ratio for ${::hostname}",
+  @@nagios::check { "check_varnish_running_${::hostname}":
+    check_command       => 'check_nrpe!check_proc_running!varnishd',
+    service_description => "check varnishd running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+
+  # This check is too noisy
+  #@@nagios::check { "check_varnish_cache_miss_${::hostname}":
+  #  use                 => 'generic-service',
+  #  check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!0:50!0:30',
+  #  service_description => "check varnish cache hit ratio for ${::hostname}",
+  #  host_name           => "${::govuk_class}-${::hostname}",
+  #}
 
   file { '/etc/logstash/logstash-client/varnish.conf':
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
