@@ -4,4 +4,5 @@ class elasticsearch($cluster) {
     cluster => $cluster
   }
   include elasticsearch::service
+  include elasticsearch::monitoring
 }
