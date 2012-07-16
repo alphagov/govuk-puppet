@@ -2,6 +2,7 @@ class varnish::service {
   include logster
   include graylogtail
   include ganglia::client
+  include logstash::client
 
   service { 'varnish':
     ensure     => running,
@@ -11,15 +12,9 @@ class varnish::service {
     require    => Class['varnish::package']
   }
   service { 'varnishncsa':
-    ensure     => running,
-    hasrestart => true,
-    hasstatus  => true,
-    require    => Class['varnish::package']
-  }
-  service { 'varnishlog':
-    ensure     => running,
-    hasrestart => true,
-    require    => Class['varnish::package']
+    ensure  => running,
+    status  => '/etc/init.d/varnishncsa status | grep \'varnishncsa is running\'',
+    require => Class['varnish::package']
   }
 
   file { '/etc/ganglia/conf.d/varnish.pyconf':
@@ -57,6 +52,12 @@ class varnish::service {
     service_description => "check varnish cache hit ratio for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+
+  file { '/etc/logstash/logstash-client/varnish.conf':
+    source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
+    require => [Service['varnish'],Class['logstash::client::service']]
+  }
+
 
   File['/etc/default/varnish'] ~> Service['varnish']
   File['/etc/varnish/default.vcl'] ~> Service['varnish']

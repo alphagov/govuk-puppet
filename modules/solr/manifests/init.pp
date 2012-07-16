@@ -1,6 +1,5 @@
 class solr {
   include java
-  include govuk::repository
   include graylogtail
 
   user { 'solr':
@@ -48,10 +47,7 @@ class solr {
 
   package { 'gds-solr':
     name    => 'gds-solr',
-    require => [
-      Package['java'],
-      Class['govuk::repository'],
-    ],
+    require => Package['java']; # FIXME: the *deb* should depend on java.
   }
 
   service { 'solr':

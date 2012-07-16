@@ -1,6 +1,10 @@
 class development {
-  include base_packages::unix_tools
+  include govuk::repository
   include govuk::testing_tools
+  include govuk::deploy_tools
+
+  include base_packages::unix_tools
+
   include mongodb::server
   include apollo
   include hosts
@@ -34,7 +38,6 @@ class development {
   }
 
   package {
-    'bundler':        ensure => 'installed', provider => gem;
     'foreman':        ensure => '0.27.0',    provider => gem;
     'linecache19':    ensure => 'installed', provider => gem;
     'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];

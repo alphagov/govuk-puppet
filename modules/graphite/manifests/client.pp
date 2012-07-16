@@ -1,0 +1,22 @@
+class graphite::client {
+  package{ 'statsd':
+    ensure  => present;
+  }
+
+  file { '/etc/statsd.conf':
+    source => 'puppet:///modules/graphite/etc/statsd.conf'
+  }
+
+  file { '/etc/init/statsd.conf':
+    source  => 'puppet:///modules/graphite/etc/init/statsd.conf',
+    require =>  [Package[statsd], File['/etc/statsd.conf']],
+  }
+
+  service { 'statsd':
+    ensure    => running,
+    provider  => upstart,
+    subscribe => File['/etc/init/statsd.conf'],
+    require   => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
+  }
+
+}

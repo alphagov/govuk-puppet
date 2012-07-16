@@ -7,7 +7,7 @@ class varnish::config {
 
   file { '/etc/default/varnishncsa':
     ensure  => file,
-    source  => 'puppet:///modules/varnish/ncsa-defaults',
+    source  => 'puppet:///modules/varnish/etc/default/varnishncsa',
     require => Package['varnish']
   }
 
