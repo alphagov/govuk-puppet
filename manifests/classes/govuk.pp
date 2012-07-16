@@ -21,6 +21,7 @@ class govuk_base {
 
   include nagios::client
   include ganglia::client
+  include graphite::client
   include users::freerange
   include users::newbamboo
   include users::other
