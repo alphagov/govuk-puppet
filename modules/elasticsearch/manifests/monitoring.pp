@@ -21,7 +21,7 @@ class elasticsearch::monitoring {
   }
 
   @@nagios::check { "check_elasticsearch_running_${::hostname}":
-    check_command       => 'check_nrpe!check_elastic',
+    check_command       => 'check_nrpe_1arg!check_elastic',
     service_description => "check elasticsearch running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
