@@ -1,5 +1,4 @@
 class mysql::server($root_password='') {
-  include mysql::client
   package { ['mysql-server','automysqlbackup']:
     ensure => installed,
   }
