@@ -12,4 +12,4 @@ env UPSTREAM_HOST="reviewomatic.<%= govuk_platform %>.alphagov.co.uk"
 env USER=deploy
 env GROUP=deploy
 
-exec start-stop-daemon --start --chuid $USER:$USER --chdir /var/apps/review-o-matic-explore --exec /usr/bin/node server.js
+exec start-stop-daemon --start --chuid $USER:$USER --chdir /var/apps/review-o-matic-explore --pidfile /var/run/review-o-matic-explore.pid -m --startas /usr/bin/node server.js
