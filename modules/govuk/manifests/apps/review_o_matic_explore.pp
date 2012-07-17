@@ -1,10 +1,12 @@
 class govuk::apps::review_o_matic_explore {
   include nodejs
 
-  file { '/var/apps/review-o-matic-explore':
-    ensure => directory,
-    owner  => 'deploy',
-    group  => 'deploy';
+  if $::govuk_platform != 'development' {
+    file { '/var/apps/review-o-matic-explore':
+      ensure => directory,
+      owner  => 'deploy',
+      group  => 'deploy';
+    }
   }
 
   file { '/etc/init/review-o-matic-explore.conf':
