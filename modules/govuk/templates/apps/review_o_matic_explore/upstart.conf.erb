@@ -7,6 +7,9 @@ env PORT=3023
 env UPSTREAM_AUTH=betademo:nottobeshared
 env UPSTREAM_HOST="reviewomatic.<%= govuk_platform %>.alphagov.co.uk"
 
-chdir /var/apps/review-o-matic-explore
+# Have to use this roundabout method of chuid'ing because lucid's upstart doesn't
+# support the setuid and setgrp stanzas.
+env USER=deploy
+env GROUP=deploy
 
-exec node proxy.js
+exec start-stop-daemon --start --chuid $USER:$USER --chdir /var/apps/review-o-matic-explore --exec /usr/bin/node server.js
