@@ -14,4 +14,12 @@ class logstash::server::package {
     unless  => 'test -s /var/apps/elasticsearch-0.18.7',
     require => [File['/var/apps'],Wget::Fetch['elasticsearch']]
   }
+  exec { 'easy_install pyes':
+    command => 'easy_install pyes',
+    creates => '/usr/local/lib/python2.6/dist-packages/pyes-0.19.1-py2.6.egg'
+  }
+  exec { 'easy_install argparse':
+    command => 'easy_install argparse',
+    creates => '/usr/local/lib/python2.6/dist-packages/argparse-1.2.1-py2.6.egg'
+  }
 }

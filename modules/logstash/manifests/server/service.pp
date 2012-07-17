@@ -9,7 +9,7 @@ class logstash::server::service {
   service { 'logstash-server':
     ensure   => running,
     provider => upstart,
-    require  => [File['/etc/init/logstash-server.conf'],File['/var/log/logstash'],File['/etc/logstash/grok-patterns/apache-error']]
+    require  => [File['/etc/init/logstash-server.conf'],Class['logstash::server::config']]
   }
   service { 'elasticsearch-0-18-7':
     ensure   => running,
