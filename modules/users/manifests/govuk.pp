@@ -2,6 +2,9 @@ class users::govuk {
   user { 'craig':
     ensure     => absent
   }
+  user { 'paulb':
+    ensure     => absent
+  }
 
   user { 'mwall':
     ensure     => present,
@@ -139,15 +142,6 @@ class users::govuk {
     require => User['joshua']
   }
 
-  user { 'paulb':
-    ensure     => present,
-    comment    => 'Paul Battley <paul.battley@digital.cabinet-office.gov.uk>',
-    home       => '/home/paulb',
-    managehome => true,
-    groups     => ['admin', 'deploy'],
-    require    => Class['users::setup'],
-    shell      => '/bin/tcsh'
-  }
   ssh_authorized_key { 'paulb_kurosuke':
     ensure  => present,
     key     => extlookup('paulb_key', ''),
