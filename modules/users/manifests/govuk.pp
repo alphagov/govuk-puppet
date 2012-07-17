@@ -458,4 +458,21 @@ class users::govuk {
     user    => 'stevelaing',
     require => User['stevelaing']
   }
+
+  user { 'i0n':
+    ensure     => present,
+    comment    => 'Ian Wood <ian.wood@digital.cabinet-office.gov.uk>',
+    home       => '/home/i0n',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'i0n':
+    ensure  => present,
+    key     => extlookup('i0n_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'i0n',
+    require => User['i0n']
+  }
 }
