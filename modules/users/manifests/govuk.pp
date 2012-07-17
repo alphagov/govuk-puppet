@@ -138,14 +138,6 @@ class users::govuk {
     require => User['joshua']
   }
 
-  ssh_authorized_key { 'paulb_kurosuke':
-    ensure  => present,
-    key     => extlookup('paulb_key', ''),
-    type    => 'ssh-rsa',
-    user    => 'paulb',
-    require => User['paulb'],
-  }
-
   user { 'davidt':
     ensure     => present,
     comment    => 'David Thompson <david.thompson@digital.cabinet-office.gov.uk>',
