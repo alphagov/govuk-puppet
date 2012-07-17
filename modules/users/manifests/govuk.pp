@@ -429,7 +429,7 @@ class users::govuk {
   user { 'johngriffin':
     ensure     => present,
     comment    => 'John Griffin <john.griffin@digital.cabinet-office.gov.uk>',
-    home       => '/home/jgriffin',
+    home       => '/home/johngriffin',
     managehome => true,
     groups     => ['admin', 'deploy'],
     require    => Class['users::setup'],
@@ -439,13 +439,13 @@ class users::govuk {
     ensure  => present,
     key     => extlookup('johngriffin_key', ''),
     type    => 'ssh-rsa',
-    user    => 'jgriffin',
+    user    => 'johngriffin',
     require => User['johngriffin']
   }
   user { 'stevelaing':
     ensure     => present,
     comment    => 'Steve Laing <steve.laing@digital.cabinet-office.gov.uk>',
-    home       => '/home/steve',
+    home       => '/home/stevelaing',
     managehome => true,
     groups     => ['admin', 'deploy'],
     require    => Class['users::setup'],
@@ -455,7 +455,7 @@ class users::govuk {
     ensure  => present,
     key     => extlookup('stevelaing_key', ''),
     type    => 'ssh-rsa',
-    user    => 'steve',
+    user    => 'stevelaing',
     require => User['stevelaing']
   }
 }
