@@ -295,6 +295,24 @@ class users::govuk {
     require => User['bradleyw']
   }
 
+  user { 'psd':
+    ensure     => present,
+    comment    => 'Paul Downey <paul.downey@digital.cabinet-office.gov.uk>',
+    home       => '/home/psd',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'psd':
+    ensure  => present,
+    key     => extlookup('psd_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'psd',
+    require => User['psd']
+  }
+
+
   user { 'ppotter':
     ensure     => present,
     comment    => 'Philip Potter <philip.potter@digital.cabinet-office.gov.uk>',
