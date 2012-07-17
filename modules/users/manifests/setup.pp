@@ -38,192 +38,194 @@ class users::setup {
       content => template('users/my.cnf')
     }
   }
-  ssh_authorized_key {
-    'deploy_key_minglis':
-      ensure  => present,
-      key     => extlookup('minglis_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_heathd':
-      ensure  => present,
-      key     => extlookup('heathd_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_fberriman':
-      ensure  => present,
-      key     => extlookup('fberriman_key', ''),
-      type    => 'ssh-dss',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_paulb':
-      ensure  => present,
-      key     => extlookup('paulb_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_garethr':
-      ensure  => present,
-      key     => extlookup('garethr_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_james':
-      ensure  => present,
-      key     => extlookup('james_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_mwall':
-      ensure  => present,
-      key     => extlookup('mwall_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_jordanh':
-      ensure  => present,
-      key     => extlookup('jordanh_key', ''),
-      type    => 'ssh-dss',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_dafydd':
-      ensure  => present,
-      key     => extlookup('dafydd_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_jenkins':
-      ensure  => present,
-      key     => extlookup('jenkins_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_annashipman':
-      ensure  => present,
-      key     => extlookup('annashipman_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_jamesweiner':
-      ensure  => present,
-      key     => extlookup('jamesweiner_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_davidt':
-      ensure  => present,
-      key     => extlookup('davidt_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_davidt_gds':
-      ensure  => present,
-      key     => extlookup('davidt_gds_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_mazz':
-      ensure  => present,
-      key     => extlookup('mazz_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_robyoung':
-      ensure  => present,
-      key     => extlookup('robyoung_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_alext':
-      ensure  => present,
-      key     => extlookup('alext_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_jabley':
-      ensure  => present,
-      key     => extlookup('jabley_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_jamiec':
-      ensure  => present,
-      key     => extlookup('jamiec_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_kushalp':
-      ensure  => present,
-      key     => extlookup('kushalp_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_bradleyw':
-      ensure  => present,
-      key     => extlookup('bradleyw_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_ppotter':
-      ensure  => present,
-      key     => extlookup('ppotter_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_ssharpe':
-      ensure  => present,
-      key     => extlookup('ssharpe_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_carlmassa':
-      ensure  => present,
-      key     => extlookup('carlmassa_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_joshua':
-      ensure  => present,
-      key     => extlookup('joshua_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_eddsowden':
-      ensure  => present,
-      key     => extlookup('eddsowden_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_tombyers':
-      ensure  => present,
-      key     => extlookup('tombyers_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_nick':
-      ensure  => present,
-      key     => extlookup('nick_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_chrisheathcote':
-      ensure  => present,
-      key     => extlookup('chrisheathcote_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_johngriffin':
-      ensure  => present,
-      key     => extlookup('johngriffin_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    'deploy_key_stevelaing':
-      ensure  => present,
-      key     => extlookup('stevelaing_key', ''),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
+  if $::govuk_platform != 'development' {
+    ssh_authorized_key {
+      'deploy_key_minglis':
+        ensure  => present,
+        key     => extlookup('minglis_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_heathd':
+        ensure  => present,
+        key     => extlookup('heathd_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_fberriman':
+        ensure  => present,
+        key     => extlookup('fberriman_key', ''),
+        type    => 'ssh-dss',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_paulb':
+        ensure  => present,
+        key     => extlookup('paulb_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_garethr':
+        ensure  => present,
+        key     => extlookup('garethr_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_james':
+        ensure  => present,
+        key     => extlookup('james_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_mwall':
+        ensure  => present,
+        key     => extlookup('mwall_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_jordanh':
+        ensure  => present,
+        key     => extlookup('jordanh_key', ''),
+        type    => 'ssh-dss',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_dafydd':
+        ensure  => present,
+        key     => extlookup('dafydd_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_jenkins':
+        ensure  => present,
+        key     => extlookup('jenkins_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_annashipman':
+        ensure  => present,
+        key     => extlookup('annashipman_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_jamesweiner':
+        ensure  => present,
+        key     => extlookup('jamesweiner_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_davidt':
+        ensure  => present,
+        key     => extlookup('davidt_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_davidt_gds':
+        ensure  => present,
+        key     => extlookup('davidt_gds_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_mazz':
+        ensure  => present,
+        key     => extlookup('mazz_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_robyoung':
+        ensure  => present,
+        key     => extlookup('robyoung_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_alext':
+        ensure  => present,
+        key     => extlookup('alext_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_jabley':
+        ensure  => present,
+        key     => extlookup('jabley_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_jamiec':
+        ensure  => present,
+        key     => extlookup('jamiec_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_kushalp':
+        ensure  => present,
+        key     => extlookup('kushalp_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_bradleyw':
+        ensure  => present,
+        key     => extlookup('bradleyw_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_ppotter':
+        ensure  => present,
+        key     => extlookup('ppotter_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_ssharpe':
+        ensure  => present,
+        key     => extlookup('ssharpe_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_carlmassa':
+        ensure  => present,
+        key     => extlookup('carlmassa_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_joshua':
+        ensure  => present,
+        key     => extlookup('joshua_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_eddsowden':
+        ensure  => present,
+        key     => extlookup('eddsowden_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_tombyers':
+        ensure  => present,
+        key     => extlookup('tombyers_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_nick':
+        ensure  => present,
+        key     => extlookup('nick_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_chrisheathcote':
+        ensure  => present,
+        key     => extlookup('chrisheathcote_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_johngriffin':
+        ensure  => present,
+        key     => extlookup('johngriffin_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
+      'deploy_key_stevelaing':
+        ensure  => present,
+        key     => extlookup('stevelaing_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
     }
+  }
 }

@@ -1,4 +1,6 @@
 class development {
+  include users::setup
+
   include govuk::repository
   include govuk::testing_tools
   include govuk::deploy_tools
