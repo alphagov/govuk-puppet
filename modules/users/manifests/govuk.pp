@@ -1,10 +1,6 @@
 class users::govuk {
-  user { 'craig':
-    ensure     => absent
-  }
-  user { 'paulb':
-    ensure     => absent
-  }
+  user { 'craig': ensure => absent }
+  user { 'paulb': ensure => absent }
 
   user { 'mwall':
     ensure     => present,
