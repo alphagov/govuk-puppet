@@ -401,7 +401,7 @@ class users::govuk {
     managehome => true,
     groups     => ['admin', 'deploy'],
     require    => Class['users::setup'],
-    shell      => '/bin/zsh'
+    shell      => '/bin/bash'
   }
   ssh_authorized_key { 'nick':
     ensure  => present,
