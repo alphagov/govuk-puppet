@@ -5,7 +5,7 @@ class logstash::client::service {
   service { 'logstash-client' :
     ensure   => running,
     provider => upstart,
-    require  => [File['/etc/init/logstash-client.conf'],Class['logstash::client::config']]
+    require  => [File['/etc/init/logstash-client.conf'],Class['logstash::client::config'],Class['logstash::config']]
   }
 
 }
