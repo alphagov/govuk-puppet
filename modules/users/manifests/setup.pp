@@ -226,6 +226,12 @@ class users::setup {
         type    => 'ssh-rsa',
         user    => 'deploy',
         require => User['deploy'];
+      'deploy_key_norm':
+        ensure  => present,
+        key     => extlookup('norm_key', ''),
+        type    => 'ssh-rsa',
+        user    => 'deploy',
+        require => User['deploy'];
     }
   }
 }

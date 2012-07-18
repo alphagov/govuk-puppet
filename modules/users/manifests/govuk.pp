@@ -475,4 +475,20 @@ class users::govuk {
     user    => 'i0n',
     require => User['i0n']
   }
+  user { 'norm':
+    ensure     => present,
+    comment    => 'Mark Norman Francis <mark.norman.francis@digital.cabinet-office.gov.uk>',
+    home       => '/home/norm',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'norm':
+    ensure  => present,
+    key     => extlookup('norm_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'norm',
+    require => User['norm']
+  }
 }
