@@ -219,7 +219,7 @@ class nginx::config::backend_server {
     "reviewomatic.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;
-    "explore.reviewomatic.$::govuk_platform.alphagov.co.uk":
+    "explore-reviewomatic.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:3023'],
       ssl_only  => false;
     "contactotron.$::govuk_platform.alphagov.co.uk":
