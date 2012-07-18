@@ -23,6 +23,7 @@ class hosts::production {
   host { 'contactotron.production.alphagov.co.uk':      ip => '10.54.182.112' }
   host { 'whitehall.production.alphagov.co.uk':         ip => '10.224.50.207' }
   host { 'whitehall-search.production.alphagov.co.uk':  ip => '10.224.50.207' }
+  host { 'whitehall-admin.production.alphagov.co.uk':   ip => '10.54.182.112' } /* production backend */
 
   host { 'rds.cluster':         ip => '10.228.229.245' }
   host { 'puppet.cluster':      ip => '10.226.54.244' }

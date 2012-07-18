@@ -231,6 +231,9 @@ class nginx::config::backend_server {
     "private-frontend.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
+    "whitehall-admin.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
   }
 }
 

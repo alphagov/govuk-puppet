@@ -36,6 +36,7 @@ class hosts::preview {
 
   host { 'whitehall.preview.alphagov.co.uk':        ip => '10.49.105.155' }
   host { 'whitehall-search.preview.alphagov.co.uk': ip => '10.49.105.155' }
+  host { 'whitehall-admin.preview.alphagov.co.uk':  ip => '10.228.95.176' }
   host { 'whitehall.cluster':                       ip => '10.49.105.155' }
 
   host { 'designprincipals.preview.alphagov.co.uk':
