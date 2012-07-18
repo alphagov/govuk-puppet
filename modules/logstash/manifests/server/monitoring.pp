@@ -1,9 +1,21 @@
 class logstash::server::monitoring {
   include nagios::client
+  include ganglia::client
   file { '/etc/nagios/nrpe.d/check_logstash.cfg':
     source  => 'puppet:///modules/logstash/etc/nagios/nrpe.d/check_logstash.cfg',
     require => [Service['logstash-server'],Package['nagios-nrpe-server']],
     notify  => Service['nagios-nrpe-server'],
+  }
+  file { '/usr/local/bin/rabbitmq_ganglia.sh':
+    source  => 'puppet:///modules/logstash/bin/rabbitmq_ganglia.sh',
+    require => [Package['rabbitmq-server'],Service['ganglia-monitor']],
+    mode    => '0755',
+  }
+  cron { 'rabbitmq-ganglia':
+    command => '/usr/local/bin/rabbitmq_ganglia.sh',
+    user    => root,
+    minute  => '*',
+    require => File['/usr/local/bin/rabbitmq_ganglia.sh'],
   }
   @@nagios::check { "check_logstash_server_running_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_logstash_running',
