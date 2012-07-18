@@ -22,4 +22,16 @@ class logstash::server::monitoring {
     service_description => "check logstash server running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+  @@nagios::check { "check_rabbitmq_consumers_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_ganglia_metric!rabbitmq.consumers!1.99:!-1:0.99',
+    service_description => "check rabbitmq has some consumers on ${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  @@nagios::check { "check_rabbitmq_queue_${::hostname}":
+    use                 => 'generic-service',
+    check_command       => 'check_ganglia_metric!rabbitmq.messages!20!100',
+    service_description => "check depth of rabbitmq queue on ${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
 }
