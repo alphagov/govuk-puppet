@@ -42,7 +42,7 @@ class govuk_base::db_server inherits govuk_base {
 
 class govuk_base::mysql_server inherits govuk_base{
   if ($::govuk_platform == 'preview') {
-        include mysql::server
+    include mysql::server
   }
 }
 

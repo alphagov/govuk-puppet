@@ -1,15 +1,5 @@
 class mysql::server($root_password='') {
-  package { ['mysql-server','automysqlbackup']:
-    ensure => installed,
-  }
-
-  service { 'mysql':
-    ensure     => running,
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
-    require    => Package['mysql-server'],
-  }
+  include mysql::server::service, mysql::server::package, mysql::server::config
 
   cron { 'daily sql tarball':
     ensure  => present,
@@ -17,29 +7,19 @@ class mysql::server($root_password='') {
     user    => 'root',
     minute  => 13,
     hour    => 4,
-    require => Service['mysql']
-  }
-
-  file { '/var/lib/mysql/my.cnf':
-    owner   => 'mysql',
-    group   => 'mysql',
-    source  => 'puppet:///modules/mysql/my.cnf',
-    notify  => Service['mysql'],
-    require => Package['mysql-server'],
-  }
-
-  file { '/etc/mysql/my.cnf':
-    ensure  => 'link',
-    target  => '/var/lib/mysql/my.cnf',
-    require => File['/var/lib/mysql/my.cnf'],
-    notify  => Service['mysql'],
   }
 
   exec { 'set-mysql-password':
     unless  => "/usr/bin/mysqladmin -uroot -p${root_password} status",
     path    => ['/bin', '/usr/bin'],
     command => "mysqladmin -uroot password ${root_password}",
-    require => Service['mysql'],
   }
+
+  anchor { ['mysql::server::start', 'mysql::server::end']: }
+
+  Anchor[mysql::server::start] -> Class[mysql::server::package] -> Class[mysql::server::config] ~> Class[mysql::server::service] ~> Anchor[mysql::server::end]
+  Anchor[mysql::server::start] ~> Class[mysql::server::service]
+  Class[mysql::server::service] -> Cron['daily sql tarball']
+  Class[mysql::server::service] -> Exec['set-mysql-password']
 
 }
