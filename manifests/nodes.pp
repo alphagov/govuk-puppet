@@ -3,7 +3,7 @@ node default {
     frontend:           { include govuk_base::ruby_app_server::frontend_server }
     backend:            { include govuk_base::ruby_app_server::backend_server }
     data:               { include govuk_base::db_server }
-    mongo:              { include govuk_base::mongo_server }
+    mongo:              { include govuk_base::mongo_server include govuk_base::mysql_server }
     support:            { include govuk_base::support_server }
     monitoring:         { include govuk_base::monitoring_server }
     development:        { include development }

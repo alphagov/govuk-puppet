@@ -40,6 +40,12 @@ class govuk_base::db_server inherits govuk_base {
   include nagios::client::checks
 }
 
+class govuk_base::mysql_server inherits govuk_base{
+  if ($::govuk_platform == 'preview') {
+        include mysql::server
+  }
+}
+
 class govuk_base::mongo_server inherits govuk_base {
   include mongodb::server
 
