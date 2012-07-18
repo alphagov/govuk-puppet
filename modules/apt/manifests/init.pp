@@ -18,8 +18,7 @@ class apt {
   }
 
   exec { 'apt_update':
-    command     => '/usr/bin/apt-get update',
-    refreshonly => true
+    command     => '/usr/bin/apt-get update'
   }
 
   package { 'python-software-properties':
