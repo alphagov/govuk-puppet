@@ -1,4 +1,5 @@
-T License
+"""
+The MIT License
 
 Copyright (c) 2008 Gilad Raphaelli <gilad@raphaelli.com>
 
