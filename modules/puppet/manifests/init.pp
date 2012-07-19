@@ -1,13 +1,11 @@
 class puppet {
   if ($::govuk_puppetdbtest == 'true') {
-    if ($::govuk_class == 'puppet') {
-      file { '/etc/puppet/puppet.conf':
-        source => 'puppet:///modules/puppet/etc/puppet/puppet.conf.puppetdb'
-      }
-      package { 'puppet':
-        ensure   => '2.7.18',
-        provider => gem;
-      }
+    file { '/etc/puppet/puppet.conf':
+      source => 'puppet:///modules/puppet/etc/puppet/puppet.conf.puppetdb'
+    }
+    package { 'puppet':
+      ensure   => '2.7.18',
+      provider => gem;
     }
   } else {
     file  { '/etc/puppet/puppet.conf':
