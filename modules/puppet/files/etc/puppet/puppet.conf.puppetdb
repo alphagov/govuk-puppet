@@ -8,4 +8,7 @@ configtimeout=300
 [master]
 reports = store
 storeconfigs = true
+modulepath = /usr/share/puppet/production/current/modules
+manifestdir = /usr/share/puppet/production/current/manifests
+
 storeconfigs_backend = puppetdb
