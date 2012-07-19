@@ -1,0 +1,11 @@
+[main]
+preferred_serialization_format = yaml
+
+[agent]
+report=true
+configtimeout=300
+
+[master]
+reports = store
+storeconfigs = true
+storeconfigs_backend = puppetdb

@@ -1,12 +1,24 @@
 class puppet {
-  package { 'puppet':
-    ensure   => '2.7.3',
-    provider => gem;
-  }
-  file  { '/etc/puppet/puppet.conf':
-    ensure => present,
-    mode   => '0644',
-    source => 'puppet:///modules/puppet/etc/puppet/puppet.conf';
+  if ($::govuk_platform == 'preview') {
+    if ($::govuk_class == 'puppet') {
+      file { '/etc/puppet/puppet.conf':
+        source => 'puppet:///modules/puppet/etc/puppet/puppet.conf.puppetdb'
+      }
+      package { 'puppet':
+        ensure   => '2.7.18',
+        provider => gem;
+      }
+    }
+  } else {
+    file  { '/etc/puppet/puppet.conf':
+      ensure => present,
+      mode   => '0644',
+      source => 'puppet:///modules/puppet/etc/puppet/puppet.conf';
+    }
+    package { 'puppet':
+      ensure   => '2.7.3',
+      provider => gem;
+    }
   }
 
   $first = fqdn_rand_fixed(30)
