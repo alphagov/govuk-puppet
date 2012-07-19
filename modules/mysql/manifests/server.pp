@@ -11,7 +11,6 @@ class mysql::server($root_password='') {
     minute  => 13,
     hour    => 4,
   }
-
   exec { 'set-mysql-password':
     unless  => "/usr/bin/mysqladmin -uroot -p${root_password} status",
     path    => ['/bin', '/usr/bin'],
@@ -24,5 +23,4 @@ class mysql::server($root_password='') {
   Anchor[mysql::server::start] ~> Class[mysql::server::service]
   Class[mysql::server::service] -> Cron['daily sql tarball']
   Class[mysql::server::service] -> Exec['set-mysql-password']
-
 }

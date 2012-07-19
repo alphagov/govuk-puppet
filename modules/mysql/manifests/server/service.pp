@@ -2,7 +2,6 @@ class mysql::server::service {
   service { 'mysql':
     ensure     => running,
     enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
+    status     => '/etc/init.d/mysql status | grep "mysql start"'
   }
 }

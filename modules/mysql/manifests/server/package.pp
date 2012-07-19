@@ -3,11 +3,18 @@ class mysql::server::package {
     ensure => installed,
   }
 
+  file { '/var/lib/mysql':
+    ensure  => directory,
+    require => Package['mysql-server'],
+    owner   => 'mysql',
+    group   => 'mysql'
+  }
+
   file { '/var/lib/mysql/my.cnf':
     owner   => 'mysql',
     group   => 'mysql',
     source  => 'puppet:///modules/mysql/my.cnf',
     notify  => Service['mysql'],
-    require => Package['mysql-server'],
+    require => File['/var/lib/mysql'],
   }
 }
