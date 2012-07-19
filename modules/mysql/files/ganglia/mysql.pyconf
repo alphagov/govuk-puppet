@@ -17,10 +17,10 @@ modules {
       value = 'localhost'
     }
     param user {
-      value = 'your_user'
+      value = 'ganglia'
     }
     param passwd {
-      value = 'your_password'
+      value = 'ganglia'
     }
     param get_innodb {
       value = True
