@@ -429,7 +429,7 @@ class users::govuk {
   user { 'johngriffin':
     ensure     => present,
     comment    => 'John Griffin <john.griffin@digital.cabinet-office.gov.uk>',
-    home       => '/home/johngriffin',
+    home       => '/home/jgriffin',
     managehome => true,
     groups     => ['admin', 'deploy'],
     require    => Class['users::setup'],
@@ -445,7 +445,7 @@ class users::govuk {
   user { 'stevelaing':
     ensure     => present,
     comment    => 'Steve Laing <steve.laing@digital.cabinet-office.gov.uk>',
-    home       => '/home/stevelaing',
+    home       => '/home/steve',
     managehome => true,
     groups     => ['admin', 'deploy'],
     require    => Class['users::setup'],
