@@ -1,5 +1,5 @@
 class puppet::master {
-  if ($::govuk_puppetdbtest == 'true') {
+  if ($::govuk_puppetdbtest == 'yes') {
     include apt
 
     apt::deb_repository {'puppetlabs-repo':

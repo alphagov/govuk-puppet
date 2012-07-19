@@ -1,5 +1,5 @@
 class puppet {
-  if ($::govuk_puppetdbtest == 'true') {
+  if ($::govuk_puppetdbtest == 'yes') {
     include puppetdb
 
     file { '/etc/puppet/puppet.conf':
