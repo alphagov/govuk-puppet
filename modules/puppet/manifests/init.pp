@@ -1,5 +1,5 @@
 class puppet {
-  if ($::govuk_platform == 'puppetdbtest') {
+  if ($::govuk_puppetdbtest == 'true') {
     if ($::govuk_class == 'puppet') {
       file { '/etc/puppet/puppet.conf':
         source => 'puppet:///modules/puppet/etc/puppet/puppet.conf.puppetdb'
