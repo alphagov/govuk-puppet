@@ -8,6 +8,7 @@ class mongodb::monitoring {
   }
 
   exec { 'install-pymongo':
+    unless   => 'python -c "import pymongo" 2>/dev/null'
     command  => 'pip install pymongo',
     require  => [Package['python-pip'],Package['build-essential']]
   }
