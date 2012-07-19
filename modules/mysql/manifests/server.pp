@@ -2,7 +2,7 @@ class mysql::server($root_password='') {
   include mysql::server::service
   include mysql::server::package
   include mysql::server::config
-  include mysql::server::monitoring
+  class {'mysql::server::monitoring': root_password => $root_password }
 
   cron { 'daily sql tarball':
     ensure  => present,

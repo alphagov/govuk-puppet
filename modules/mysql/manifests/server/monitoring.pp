@@ -1,4 +1,4 @@
-class mysql::server::monitoring {
+class mysql::server::monitoring ($root_password){
 
   include ganglia::client
   include nagios::client
@@ -22,6 +22,12 @@ class mysql::server::monitoring {
     source  => 'puppet:///modules/mysql/ganglia/mysql.py',
     mode    => '0755',
     require => [Service['mysql'],Service['ganglia-monitor']]
+  }
+
+  exec { 'grant-ganglia-mysql-access':
+    unless  => '/usr/bin/mysql -h 127.0.0.1 -uganglia -pganglia',
+    command => "/usr/bin/mysql -h 127.0.0.1 -uroot -p${root_password} -e \"grant USAGE on *.* to ganglia@'localhost' identified by 'ganglia'; flush privileges;\"",
+    require => Service['mysql'],
   }
 
   @@nagios::check { "check_mysqld_running_${::hostname}":
