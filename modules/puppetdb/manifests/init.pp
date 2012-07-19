@@ -1,4 +1,5 @@
 class puppetdb {
-  include puppetdb::package
-  include puppetdb::service
+  class {'puppetdb::package': }
+  class {'puppetdb::service': }
+  Class['puppetdb::package'] ~> Class['puppetdb::service']
 }
