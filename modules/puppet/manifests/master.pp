@@ -19,6 +19,11 @@ class puppet::master {
       source => 'puppet:///modules/puppet/etc/puppet/routes.yaml'
     }
   }
+  else {
+    file {['/etc/puppet/puppetdb.conf','/etc/puppet/routes.yaml']:
+      ensure => absent
+    }
+  }
   file { '/etc/init/puppetmaster.conf':
     require => Package['puppet'],
     source  => 'puppet:///modules/puppet/etc/init/puppetmaster.conf',
