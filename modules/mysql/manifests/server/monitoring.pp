@@ -26,8 +26,7 @@ class mysql::server::monitoring ($root_password){
   }
 
   exec { 'grant-ganglia-mysql-access':
-  # forcing it to run everywhere for now to reset permissions
-  # unless  => '/usr/bin/mysql -h 127.0.0.1 -uganglia -pganglia',
+    unless  => '/usr/bin/mysql -h 127.0.0.1 -uganglia -pganglia',
     command => "/usr/bin/mysql -h 127.0.0.1 -uroot -p${root_password} -e \"grant USAGE,PROCESS,SUPER,REPLICATION CLIENT on *.* to ganglia@'localhost' identified by 'ganglia'; flush privileges;\"",
     require => Service['mysql'],
   }
