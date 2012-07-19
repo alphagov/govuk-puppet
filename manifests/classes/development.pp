@@ -37,6 +37,8 @@ class development {
     'signonotron2_integration_test':  user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
     'whitehall_development':          user => 'whitehall',    password => 'whitehall',  host => 'localhost', root_password => $mysql_password;
     'whitehall_test':                 user => 'whitehall',    password => 'whitehall',  host => 'localhost', root_password => $mysql_password;
+    'efg_development':                user => 'efg',          password => 'efg',        host => 'localhost', root_password => $mysql_password;
+    'efg_test':                       user => 'efg',          password => 'efg',        host => 'localhost', root_password => $mysql_password;
   }
 
   package {
