@@ -1,5 +1,7 @@
 class puppet {
   if ($::govuk_puppetdbtest == 'true') {
+    include puppetdb
+
     file { '/etc/puppet/puppet.conf':
       source => 'puppet:///modules/puppet/etc/puppet/puppet.conf.puppetdb'
     }
