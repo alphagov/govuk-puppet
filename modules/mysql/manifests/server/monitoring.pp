@@ -9,7 +9,7 @@ class mysql::server::monitoring ($root_password){
 
   file { '/etc/ganglia/conf.d/mysql.pyconf':
     source  => 'puppet:///modules/mysql/ganglia/mysql.pyconf',
-    require => [Service['mysql'],Service['ganglia-monitor']],
+    require => Service['mysql'],
     notify  => Service['ganglia-monitor'],
   }
 
