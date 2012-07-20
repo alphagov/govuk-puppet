@@ -1,16 +1,10 @@
 class puppet {
   if ($::govuk_class == 'puppet') {
     include puppetdb
-
-    package { 'puppet':
-      ensure   => '2.7.18',
-      provider => gem;
-    }
-  } else {
-    package { 'puppet':
-      ensure   => '2.7.3',
-      provider => gem;
-    }
+  }
+  package { 'puppet':
+    ensure   => '2.7.18',
+    provider => gem;
   }
 
   file { '/etc/puppet/puppet.conf':
