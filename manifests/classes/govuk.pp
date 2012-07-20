@@ -344,5 +344,6 @@ class govuk_base::management_server::slave inherits govuk_base::management_serve
 
 class govuk_base::puppetmaster inherits govuk_base {
   include puppet::master
+  include puppetdb
   include nagios::client::checks
 }
