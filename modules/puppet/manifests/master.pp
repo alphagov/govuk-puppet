@@ -6,7 +6,7 @@ class puppet::master {
     require => Apt::Deb_repository['puppetlabs-repo']
   }
 
-  package { ['mysql-server','mysql-client']: #old storedconfigs, before we used puppetdb
+  package { ['mysql-server-5.1','mysql-client-5.1']: #old storedconfigs, before we used puppetdb
     ensure => purged
   }
 
