@@ -2,7 +2,7 @@ class mysql::server::master ($database, $user, $password, $host, $root_password,
   class { 'mysql::server':
     root_password=> $root_password
   }
-  db{$database:
+  db{"$database":
     user          => $user,
     password      => $password,
     host          => $host,

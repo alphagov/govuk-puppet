@@ -6,6 +6,7 @@ require 'puppet-lint/tasks/puppet-lint'
 PuppetLint.configuration.send("disable_autoloader_layout")
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
+PuppetLint.configuration.send("disable_only_variable_string")
 
 desc "Run rspec-puppet tests for modules"
 RSpec::Core::RakeTask.new(:specmod) do |t|
