@@ -9,11 +9,7 @@ define apt::ppa_repository($publisher, $repo, $ensure='present') {
     }
     'absent': {
       file { "/etc/apt/sources.list.d/${publisher}-${repo}-${::lsbdistcodename}.list":
-        ensure => absent,
-      }
-      exec { "remove_repo_$name":
-        command => '/usr/bin/apt-get update',
-        require => File["/etc/apt/sources.list.d/${publisher}-${repo}-${::lsbdistcodename}.list"],
+        ensure => absent;
       }
     }
     default: {

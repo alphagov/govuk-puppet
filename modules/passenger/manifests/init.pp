@@ -28,10 +28,7 @@ class passenger(
 
   package { 'libapache2-mod-passenger':
     ensure  => installed,
-    require => [
-      Exec['add-brightbox-lucid-repo'],
-      Exec['apt_update'],
-    ]
+    require => Exec['add-brightbox-lucid-repo'];
   }
 
   package { 'passenger':

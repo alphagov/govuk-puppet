@@ -24,10 +24,6 @@ class govuk::testing_tools {
 
 class govuk::phantomjs {
 
-  package { 'phantomjs':
-    ensure  => absent
-  }
-
   exec { 'download phantomjs':
     command => '/usr/bin/curl -o phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz https://gds-public-readable-tarballs.s3.amazonaws.com/phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz',
     cwd     => '/usr/local/src',
@@ -48,9 +44,14 @@ class govuk::phantomjs {
     ensure  => link,
     target  => '/usr/local/src/phantomjs-1.5.0-linux-x86_64-dynamic/bin/phantomjs',
     require => [
-      Exec['unpack phantomjs'],
-      Apt::Ppa_repository['jerome-etienne']
+      Exec['unpack phantomjs']
     ]
+  }
+
+  # No longer installed from a PPA
+
+  package { 'phantomjs':
+    ensure  => absent
   }
 
   apt::ppa_repository { 'jerome-etienne':
