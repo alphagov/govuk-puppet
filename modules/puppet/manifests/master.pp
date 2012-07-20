@@ -5,6 +5,11 @@ class puppet::master {
     ensure  => present,
     require => Apt::Deb_repository['puppetlabs-repo']
   }
+
+  package { ['mysql-server','mysql-client']: #old storedconfigs, before we used puppetdb
+    ensure => purged
+  }
+
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
   }
