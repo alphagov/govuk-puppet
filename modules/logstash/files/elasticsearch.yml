@@ -1,0 +1,4 @@
+# this file is puppet managed
+cluster.name:           clusterB16B00B5
+index.refresh_interval: 120s
+bootstrap.mlockall:     true
