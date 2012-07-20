@@ -4,7 +4,7 @@ class logstash::client {
   }
   class { 'logstash::client::package': }
   class { 'logstash::client::service':
-    subscribe => Class['logstash::client::package'],
+    subscribe => [Class['logstash::client::package'],Class['logstash::client::config']],
     before    => Class['logstash::client::monitoring']
   }
   class { 'logstash::client::monitoring': }
