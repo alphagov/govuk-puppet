@@ -50,7 +50,7 @@ class govuk_base::mysql_server inherits govuk_base{
       'need_o_tron_production':
         user          => 'need_o_tron',
         password      => $needotron_password,
-        host          => '%',
+        host          => 'localhost',
         root_password => $mysql_password;
     }
   }
@@ -289,36 +289,43 @@ class govuk_base::management_server {
       user          => 'whitehall',
       password      => 'whitehall',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
     'whitehall_test':
       user          => 'whitehall',
       password      => 'whitehall',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
     'contactotron_test':
       user          => 'contactotron',
       password      => 'contactotron',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
     'panopticon_test':
       user          => 'panopticon',
       password      => 'panopticon',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
     'signonotron2_test':
       user          => 'signonotron2',
       password      => 'signonotron2',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
     'signonotron2_integration_test':
       user          => 'signonotron2',
       password      => 'signonotron2',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
     'efg_test':
       user          => 'efg',
       password      => 'efg',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
   }
 }
