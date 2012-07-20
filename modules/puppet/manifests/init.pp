@@ -2,23 +2,21 @@ class puppet {
   if ($::govuk_class == 'puppet') {
     include puppetdb
 
-    file { '/etc/puppet/puppet.conf':
-      source => 'puppet:///modules/puppet/etc/puppet/puppet.conf.puppetdb'
-    }
     package { 'puppet':
       ensure   => '2.7.18',
       provider => gem;
     }
   } else {
-    file  { '/etc/puppet/puppet.conf':
-      ensure => present,
-      mode   => '0644',
-      source => 'puppet:///modules/puppet/etc/puppet/puppet.conf';
-    }
     package { 'puppet':
       ensure   => '2.7.3',
       provider => gem;
     }
+  }
+
+  file { '/etc/puppet/puppet.conf':
+    ensure => present,
+    mode   => '0644',
+    source => 'puppet:///modules/puppet/etc/puppet/puppet.conf';
   }
 
   $first = fqdn_rand_fixed(30)
