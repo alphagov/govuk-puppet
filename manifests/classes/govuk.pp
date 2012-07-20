@@ -43,7 +43,6 @@ class govuk_base::db_server inherits govuk_base {
 class govuk_base::mysql_server inherits govuk_base{
   $mysql_password = extlookup('mysql_root', '')
   $needotron_password = extlookup('mysql_need_o_tron_new', '')
-  notify {"------------- $needotron_password -----------------":}
   if ($::govuk_platform == 'preview') {
     class {'mysql::server::master':
       database      => 'need_o_tron_production',
