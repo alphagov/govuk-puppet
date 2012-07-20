@@ -21,6 +21,6 @@ class mysql::server($root_password='') {
 
   Anchor[mysql::server::start] -> Class[mysql::server::package] -> Class[mysql::server::config] ~> Class[mysql::server::service] ~> Anchor[mysql::server::end]
   Anchor[mysql::server::start] ~> Class[mysql::server::service]
-  Class[mysql::server::service] -> Cron['daily sql tarball']
+  Class[mysql::server::package] -> Cron['daily sql tarball']
   Class[mysql::server::service] -> Exec['set-mysql-password']
 }
