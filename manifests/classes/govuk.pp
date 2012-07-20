@@ -45,13 +45,12 @@ class govuk_base::mysql_server inherits govuk_base{
   $needotron_password = extlookup('mysql_need_o_tron_new', '')
   notify {"------------- $needotron_password -----------------":}
   if ($::govuk_platform == 'preview') {
-    class { 'mysql::server': root_password => $mysql_password }
-    mysql::server::db {
-      'need_o_tron_production':
-        user          => 'need_o_tron',
-        password      => $needotron_password,
-        host          => 'localhost',
-        root_password => $mysql_password;
+    class {'mysql::server::master':
+      database      => 'need_o_tron_production',
+      user          => 'need_o_tron',
+      password      => $needotron_password,
+      host          => 'localhost',
+      root_password => $mysql_password;
     }
   }
 }
