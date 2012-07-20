@@ -27,18 +27,20 @@ class development {
   }
 
   mysql::server::db {
-    'fco_development':                user => 'fco',          password => '',           host => 'localhost', root_password => $mysql_password;
-    'needotron_development':          user => 'needotron',    password => '',           host => 'localhost', root_password => $mysql_password;
-    'panopticon_development':         user => 'panopticon',   password => 'panopticon', host => 'localhost', root_password => $mysql_password;
-    'panopticon_test':                user => 'panopticon',   password => 'panopticon', host => 'localhost', root_password => $mysql_password;
-    'contactotron_development':       user => 'contactotron', password => '',           host => 'localhost', root_password => $mysql_password;
-    'signonotron2_development':       user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
-    'signonotron2_test':              user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
-    'signonotron2_integration_test':  user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
-    'whitehall_development':          user => 'whitehall',    password => 'whitehall',  host => 'localhost', root_password => $mysql_password;
-    'whitehall_test':                 user => 'whitehall',    password => 'whitehall',  host => 'localhost', root_password => $mysql_password;
-    'efg_development':                user => 'efg',          password => 'efg',        host => 'localhost', root_password => $mysql_password;
-    'efg_test':                       user => 'efg',          password => 'efg',        host => 'localhost', root_password => $mysql_password;
+    'fco_development':                user => 'fco',          password => '',             host => 'localhost', root_password => $mysql_password;
+    'needotron_development':          user => 'needotron',    password => '',             host => 'localhost', root_password => $mysql_password;
+    'panopticon_development':         user => 'panopticon',   password => 'panopticon',   host => 'localhost', root_password => $mysql_password;
+    'panopticon_test':                user => 'panopticon',   password => 'panopticon',   host => 'localhost', root_password => $mysql_password;
+    'contactotron_development':       user => 'contactotron', password => '',             host => 'localhost', root_password => $mysql_password;
+    'signonotron2_development':       user => 'signonotron2', password => '',             host => 'localhost', root_password => $mysql_password;
+    'signonotron2_test':              user => 'signonotron2', password => '',             host => 'localhost', root_password => $mysql_password;
+    'signonotron2_integration_test':  user => 'signonotron2', password => '',             host => 'localhost', root_password => $mysql_password;
+    'whitehall_development':          user => 'whitehall',    password => 'whitehall',    host => 'localhost', root_password => $mysql_password;
+    'whitehall_test':                 user => 'whitehall',    password => 'whitehall',    host => 'localhost', root_password => $mysql_password;
+    'efg_development':                user => 'efg',          password => 'efg',          host => 'localhost', root_password => $mysql_password;
+    'efg_test':                       user => 'efg',          password => 'efg',          host => 'localhost', root_password => $mysql_password;
+    'trade_tariff_development':       user => 'trade_tariff', password => 'trade_tariff', host => 'localhost', root_password => $mysql_password;
+    'trade_tariff_test':              user => 'trade_tariff', password => 'trade_tariff', host => 'localhost', root_password => $mysql_password;
   }
 
   package {
