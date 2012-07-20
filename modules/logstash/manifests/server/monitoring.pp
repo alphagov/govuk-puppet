@@ -30,7 +30,7 @@ class logstash::server::monitoring {
   }
   @@nagios::check { "check_rabbitmq_queue_${::hostname}":
     use                 => 'generic-service',
-    check_command       => 'check_ganglia_metric!rabbitmq.messages!20!100',
+    check_command       => 'check_ganglia_metric!rabbitmq.messages!1000!10000',
     service_description => "check depth of rabbitmq queue on ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
