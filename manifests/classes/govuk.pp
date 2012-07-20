@@ -121,6 +121,8 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     ensure => installed
   }
 
+  include imagemagick
+
   apache2::vhost::passenger {
     "needotron.$::govuk_platform.alphagov.co.uk":;
     "signon.$::govuk_platform.alphagov.co.uk":;
@@ -203,7 +205,6 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
   include passenger
   Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
   class { 'nginx' : node_type => whitehall_frontend_server }
-  include imagemagick
 
   apache2::vhost::passenger {
     "whitehall.$::govuk_platform.alphagov.co.uk":
