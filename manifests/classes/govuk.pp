@@ -50,7 +50,7 @@ class govuk_base::mysql_server inherits govuk_base{
       'need_o_tron_production':
         user          => 'need_o_tron',
         password      => $needotron_password,
-        host          => 'backend.cluster',
+        host          => '%',
         root_password => $mysql_password;
     }
   }
