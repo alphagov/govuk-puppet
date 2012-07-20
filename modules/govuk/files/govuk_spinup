@@ -1,0 +1,79 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "Usage: $(basename "$0") <appname>"
+  exit 1
+fi
+
+. /etc/environment
+
+[ -z "$GOVUK_RUN_AS_USER" ]  && GOVUK_RUN_AS_USER="deploy"
+[ -z "$GOVUK_RUN_AS_GROUP" ] && GOVUK_RUN_AS_GROUP="deploy"
+[ -z "$GOVUK_ENV" ]          && GOVUK_ENV="$FACTER_govuk_platform"
+
+status () {
+  echo "---> ${@}" >&2
+}
+
+error () {
+  echo "!!!> ${@}" >&2
+  exit 1
+}
+
+NAME="$1"
+
+set -eu
+
+APP_ROOT="/var/apps/${NAME}"
+APP_RUN="/var/run/${NAME}"
+
+if [ -z "$GOVUK_ENV" ]; then
+  error "The GOVUK_ENV or FACTER_govuk_platform environment variables must be set!"
+fi
+export GOVUK_ENV
+
+status "Spinning up '${NAME}' in '${GOVUK_ENV}' environment'"
+
+cd "$APP_ROOT"
+
+if [ -e Gemfile ]; then
+  status "Detected ruby application: installing bundle"
+
+  if [ ! -e Gemfile.lock ]; then
+    error "Gemfile.lock must exist in app directory"
+  fi
+
+  export BUNDLE_PATH="${APP_RUN}/bundle"
+  if [ "$FACTER_govuk_platform" != "development" ]; then
+    BUNDLE_ARGS="--deployment"
+    export BUNDLE_WITHOUT="development test"
+  else
+    BUNDLE_ARGS=""
+  fi
+  bundle install $BUNDLE_ARGS
+  bundle clean
+fi
+
+if [ -e Procfile ]; then
+  status "Detected Procfile: spawning 'web' task"
+  CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
+elif [ -e config.ru ]; then
+  status "Detected config.ru: spawning rack app under unicorn"
+  CMD="bundle exec unicorn -p \$PORT"
+elif [ -e config/environment.rb ]; then
+  status "Detected config/application.rb: spawning Rails 3 app under unicorn_rails"
+  CMD="bundle exec unicorn_rails -p \$PORT"
+else
+  echo "ERROR: can't deduce how to run '${NAME}'. Aborting!"
+  exit 1
+fi
+
+exec \
+  envmgr -n "$NAME" \
+  start-stop-daemon --start \
+                    --chuid "$GOVUK_RUN_AS_USER:$GOVUK_RUN_AS_GROUP" \
+                    --chdir "$APP_ROOT" \
+                    --pidfile "${APP_RUN}/app.pid" \
+                    --make-pidfile \
+                    --startas "/bin/sh" \
+                    -- -c "exec $CMD"

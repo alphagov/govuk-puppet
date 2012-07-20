@@ -54,4 +54,5 @@ class development {
   }
 
   include govuk::apps::review_o_matic_explore
+  include govuk::apps::planner
 }
