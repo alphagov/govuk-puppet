@@ -65,8 +65,14 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost
     default  => "${vhost}",
   }
 
-  nginx::config::vhost::proxy { "${app_vhost}.${platform}.alphagov.co.uk":
-    to => ["localhost:${port}"];
+  if $::govuk_platform == 'development' {
+    nginx::config::vhost::dev_proxy { "${app_vhost}.dev.gov.uk":
+      to => ["localhost:${port}"];
+    }
+  } else {
+    nginx::config::vhost::proxy { "${app_vhost}.${platform}.alphagov.co.uk":
+      to => ["localhost:${port}"];
+    }
   }
 
 }
