@@ -1,4 +1,4 @@
-define govuk::app( $port, $platform = $::govuk_platform, $config = false ) {
+define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost = 'NOTSET' ) {
 
   include govuk::deploy_tools
 
@@ -60,6 +60,15 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false ) {
       File["/var/apps/${title}"]
     ],
     subscribe => File["/etc/init/${title}.conf"];
+  }
+
+  $app_vhost = $vhost ? {
+    'NOTSET' => "${title}",
+    default  => "${vhost}",
+  }
+
+  nginx::config::vhost::proxy { "${app_vhost}.${platform}.alphagov.co.uk":
+    to => ["localhost:${port}"];
   }
 
 }
