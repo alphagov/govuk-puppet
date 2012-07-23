@@ -23,7 +23,7 @@ define contact{
         host_notification_options       d,r,u
         service_notification_commands   notify-service-by-email
         host_notification_commands      notify-host-by-email
-        email                           monitoring-ec2preview@digital.cabinet-office.gov.uk
+        email                           <%= @contact_email %>
         }
 
 

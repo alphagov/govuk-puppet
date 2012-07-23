@@ -101,8 +101,15 @@ class nagios::install {
   file { '/etc/nagios3/conf.d/extinfo_nagios2.cfg':
     ensure => absent,
   }
+
+  #TODO: pass contact emails in?
+  $contact_email = $::govuk_platform ? {
+    production => 'monitoring-ec2production@digital.cabinet-office.gov.uk',
+    preview    => 'monitoring-ec2preview@digital.cabinet-office.gov.uk',
+    default    => 'root@localhost',
+  }
   file { '/etc/nagios3/conf.d/contacts_nagios2.cfg':
-    source  => "puppet:///modules/nagios/contacts_nagios2_${::govuk_platform}.cfg",
+    content => template("nagios/contacts_nagios2.cfg.erb"),
     owner   => root,
     group   => root,
     mode    => '0644',
