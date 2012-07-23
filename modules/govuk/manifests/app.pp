@@ -1,4 +1,12 @@
-define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost = 'NOTSET' ) {
+define govuk::app(
+  $port,
+  $platform = $::govuk_platform,
+  $config = false,
+  $vhost = 'NOTSET',
+  $vhost_aliases = [],
+  $vhost_protected = true,
+  $vhost_ssl_only = false
+) {
 
   $app_vhost = $vhost ? {
     'NOTSET' => "${title}",
@@ -69,7 +77,10 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost
     }
   } else {
     nginx::config::vhost::proxy { "${app_vhost}.${platform}.alphagov.co.uk":
-      to => ["localhost:${port}"];
+      to        => ["localhost:${port}"],
+      aliases   => $vhost_aliases,
+      protected => $vhost_protected,
+      ssl_only  => $vhost_ssl_only;
     }
   }
 
