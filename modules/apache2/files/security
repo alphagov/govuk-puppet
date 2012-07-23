@@ -51,7 +51,6 @@ TraceEnable Off
 
 <IfModule mod_headers.c>
   Header always unset "X-Powered-By"
-  Header add "X-XSS-Protection" "0"
 </IfModule>
 
 Options -Indexes
