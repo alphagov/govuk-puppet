@@ -30,7 +30,7 @@ class ertp_base::frontend_server inherits ertp_base {
       class { 'nginx' : node_type => ertp_staging }
     }
     default: {
-      class { 'nginx' : node_type => ertp }
+      class { 'nginx' : node_type => ertp_preview }
     }
   }
 

@@ -4,7 +4,7 @@ class ertp {
 class ertp::scripts {
   file {'/etc/init/ertp.conf':
     ensure => present,
-    source => ['puppet:///modules/ertp/ertp.conf']
+    source => ['puppet:///modules/ertp/ertp-frontend.conf']
   }
 
   file {'/etc/init/ertp-ems-admin.conf':

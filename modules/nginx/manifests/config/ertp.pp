@@ -1,14 +1,14 @@
-class nginx::config::ertp {
+class nginx::config::ertp::preview {
   file { '/etc/nginx/sites-enabled/default':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/ertp',
+    source  => 'puppet:///modules/nginx/ertp-preview',
     require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
 
-  file { '/etc/nginx/htpasswd/htpasswd.ertp':
+  file { '/etc/nginx/htpasswd/htpasswd.ertp.preview':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/htpasswd.ertp',
+    source  => 'puppet:///modules/nginx/htpasswd.ertp.preview',
     require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }

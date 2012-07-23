@@ -6,7 +6,7 @@ server {
     proxy_pass http://127.0.0.1:9500;
     deny all;
     auth_basic            "Enter your ertp admin password";
-    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp;
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp.preview;
     satisfy any;
   }
 
@@ -14,7 +14,7 @@ server {
     proxy_pass http://127.0.0.1:9000/prototype;
     deny all;
     auth_basic            "Enter your ertp password";
-    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp;
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp.preview;
     satisfy any;
   }
 
@@ -26,7 +26,7 @@ server {
     proxy_pass http://127.0.0.1:9000/register-to-vote;
     deny all;
     auth_basic            "Enter your ertp password";
-    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp;
+    auth_basic_user_file  /etc/nginx/htpasswd/htpasswd.ertp.preview;
     satisfy any;
   }
 }
