@@ -23,19 +23,17 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost
     }
   }
 
-
-  file { "/etc/envmgr/${title}.conf":
-    ensure => 'file',
-    source => $config ? {
-      true    => "puppet:///modules/govuk/etc/envmgr/${title}.conf",
-      default => undef,
-    },
-    content => $config ? {
-      true    => undef,
-      default => '',
-    };
+  if $config {
+    file { "/etc/envmgr/${title}.conf":
+      ensure => 'file',
+      source => "puppet:///modules/govuk/etc/envmgr/${title}.conf";
+    }
+  } else {
+    file { "/etc/envmgr/${title}.conf":
+      ensure  => 'file',
+      content => '';
+    }
   }
-
 
   file { "/var/run/${title}":
     ensure => directory,
@@ -51,7 +49,7 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost
     ensure    => running,
     provider  => upstart,
     require   => [
-      Class["govuk::deploy_tools"],
+      Class['govuk::deploy_tools'],
       File["/etc/envmgr/${title}.conf"],
       File["/etc/init/${title}.conf"],
       File["/var/run/${title}"],
