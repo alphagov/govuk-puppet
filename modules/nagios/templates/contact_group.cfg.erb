@@ -1,0 +1,17 @@
+###############################################################################
+###############################################################################
+#
+# CONTACT GROUPS
+#
+###############################################################################
+###############################################################################
+
+# We only have one contact in this simple configuration file, so there is
+# no need to create more than one contact group.
+
+define contactgroup{
+        contactgroup_name       <%= @group_name %>
+        alias                   <%= @group_alias %>
+        members                 <%= @group_members.join(',') %>
+        }
+

@@ -167,7 +167,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
 
-  include govuk::app::planner
+  include govuk::apps::planner
 
   class { 'nginx' : node_type       => frontend_server }
 
@@ -269,6 +269,7 @@ class govuk_base::management_server {
 
   include govuk_base::ruby_app_server
 
+  include govuk::deploy_tools
   include govuk::testing_tools
 
   include nodejs

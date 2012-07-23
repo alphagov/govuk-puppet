@@ -1,5 +1,10 @@
 define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost = 'NOTSET' ) {
 
+  $app_vhost = $vhost ? {
+    'NOTSET' => "${title}",
+    default  => "${vhost}",
+  }
+
   # In the development environment, assume the repos are checked out straight
   # into /var/govuk.
   if $platform == 'development' {
@@ -56,11 +61,6 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost
       File["/var/apps/${title}"]
     ],
     subscribe => File["/etc/init/${title}.conf"];
-  }
-
-  $app_vhost = $vhost ? {
-    'NOTSET' => "${title}",
-    default  => "${vhost}",
   }
 
   if $::govuk_platform == 'development' {
