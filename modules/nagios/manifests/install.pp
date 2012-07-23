@@ -109,7 +109,7 @@ class nagios::install {
     default    => 'root@localhost',
   }
   file { '/etc/nagios3/conf.d/contacts_nagios2.cfg':
-    content => template("nagios/contacts_nagios2.cfg.erb"),
+    content => template('nagios/contacts_nagios2.cfg.erb'),
     owner   => root,
     group   => root,
     mode    => '0644',
