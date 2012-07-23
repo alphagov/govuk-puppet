@@ -147,8 +147,6 @@ class nginx::config::frontend_server {
     "www.$::govuk_platform.alphagov.co.uk":
       to      => ['localhost:8080'],
       aliases => ["frontend.$::govuk_platform.alphagov.co.uk"];
-    "planner.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
     "calendars.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
     "search.$::govuk_platform.alphagov.co.uk":
@@ -165,8 +163,8 @@ class nginx::config::frontend_server {
       to => ['localhost:8080'];
     "contentapi.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
-
   }
+
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,
     aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg'],

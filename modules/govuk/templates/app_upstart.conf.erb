@@ -1,0 +1,10 @@
+description "GOV.UK application: <%= name %>"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+env PORT=<%= port %>
+
+exec govuk_spinup "<%= name %>"

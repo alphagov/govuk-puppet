@@ -65,7 +65,7 @@ class jenkins::master inherits jenkins {
       User['jenkins'],
       Exec['apt-key present Kohsuke Kawaguchi'],
       File['jenkins.list'],
-      Exec['apt_update'],
+      Exec['apt-get update'],
     ],
   }
 
@@ -86,7 +86,7 @@ class jenkins::master inherits jenkins {
     source => 'puppet:///modules/jenkins/jenkins.list',
     mode   => '0644',
     before => [
-      Exec['apt_update'],
+      Exec['apt-get update'],
       Exec['apt-key present Kohsuke Kawaguchi']
     ],
   }

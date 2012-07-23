@@ -2,6 +2,8 @@ class govuk_base {
   # First and most importantly, set up our apt repository
   include govuk::repository
 
+  include govuk::deploy_tools
+
   include ntp
   include apt
   include base_packages::unix_tools
@@ -13,9 +15,11 @@ class govuk_base {
   include users
   include cron
   include puppet
+
   class { 'ruby::rubygems':
     version => '1.8.24'
   }
+
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
@@ -49,7 +53,9 @@ class govuk_base::mysql_server inherits govuk_base{
       user          => 'need_o_tron',
       password      => $needotron_password,
       host          => 'localhost',
-      root_password => $mysql_password;
+      root_password => $mysql_password,
+      #WIP for master slave
+      #master_host   => 'preview-mongo-client-20111213143425-01-external.hosts.alphagov.co.uk'
     }
   }
 }
@@ -161,13 +167,13 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
 
+  include govuk::app::planner
+
   class { 'nginx' : node_type       => frontend_server }
 
   apache2::vhost::passenger {
     "www.$::govuk_platform.alphagov.co.uk":
       aliases       => ["frontend.$::govuk_platform.alphagov.co.uk", 'www.gov.uk'];
-    "planner.$::govuk_platform.alphagov.co.uk":
-      additional_port => 8081;
     "calendars.$::govuk_platform.alphagov.co.uk":
       additional_port => 8082;
     "search.$::govuk_platform.alphagov.co.uk":
@@ -258,12 +264,12 @@ class govuk_base::graylog_server inherits govuk_base {
 }
 
 class govuk_base::management_server {
+  include apt
   $mysql_password = extlookup('mysql_root', '')
 
   include govuk_base::ruby_app_server
 
   include govuk::testing_tools
-  include govuk::deploy_tools
 
   include nodejs
 

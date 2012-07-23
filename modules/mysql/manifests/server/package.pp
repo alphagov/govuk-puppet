@@ -14,7 +14,7 @@ class mysql::server::package {
   file { '/var/lib/mysql/my.cnf':
     owner   => 'mysql',
     group   => 'mysql',
-    source  => 'puppet:///modules/mysql/my.cnf',
+    source  => 'puppet:///modules/mysql/my.cnf.default',
     notify  => Service['mysql'],
     require => File['/var/lib/mysql'],
   }

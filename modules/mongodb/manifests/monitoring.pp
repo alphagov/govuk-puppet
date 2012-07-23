@@ -3,14 +3,9 @@ class mongodb::monitoring {
   include ganglia::client
   include nagios::client
 
-  package { 'python-pip':
-    ensure => present,
-  }
-
-  exec { 'install-pymongo':
-    unless   => 'python -c "import pymongo" 2>/dev/null',
-    command  => 'pip install pymongo',
-    require  => [Package['python-pip'],Package['build-essential']]
+  package { 'pymongo':
+    ensure   => present,
+    provider => 'pip';
   }
 
   file { '/etc/ganglia/conf.d/mongodb.pyconf':
@@ -27,7 +22,7 @@ class mongodb::monitoring {
   file { '/usr/lib/nagios/plugins/check_mongodb.py':
     source  => 'puppet:///modules/mongodb/nagios_check_mongodb.py',
     mode    => '0755',
-    require => [Service['mongodb'],Package['nagios-nrpe-server'],Exec['install-pymongo']]
+    require => [Service['mongodb'],Package['nagios-nrpe-server'],Package['pymongo']]
   }
 
   file { '/etc/nagios/nrpe.d/check_mongo.cfg':
