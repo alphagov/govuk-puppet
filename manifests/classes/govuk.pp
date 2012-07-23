@@ -269,6 +269,7 @@ class govuk_base::management_server {
 
   include govuk_base::ruby_app_server
 
+  include govuk::deploy_tools
   include govuk::testing_tools
 
   include nodejs

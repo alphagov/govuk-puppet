@@ -18,13 +18,6 @@ class jenkins {
   include jenkins::apache
   include jenkins::ssh_key
 
-  package { 'python-setuptools':
-    ensure => installed,
-  }
-  package { 'python-dev':
-    ensure => installed,
-  }
-
   package { 'sqlite3':
     ensure => installed,
   }

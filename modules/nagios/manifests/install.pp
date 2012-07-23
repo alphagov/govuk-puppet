@@ -4,10 +4,8 @@ class nagios::install {
     'nagios3': ensure              => 'installed';
     'nagios-images': ensure        => 'installed';
     'nagios-plugins': ensure       => 'installed';
-    'python-setuptools': ensure    => 'installed';
     'libwww-perl': ensure          => 'installed';
     'libcrypt-ssleay-perl': ensure => 'installed';
-
   }
   file { '/usr/local/bin/check_ganglia_metric':
     source => 'puppet:///modules/nagios/check_ganglia_metric',
