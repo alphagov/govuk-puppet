@@ -264,6 +264,7 @@ class govuk_base::graylog_server inherits govuk_base {
 }
 
 class govuk_base::management_server {
+  include apt
   $mysql_password = extlookup('mysql_root', '')
 
   include govuk_base::ruby_app_server
