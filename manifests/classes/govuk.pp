@@ -49,7 +49,9 @@ class govuk_base::mysql_server inherits govuk_base{
       user          => 'need_o_tron',
       password      => $needotron_password,
       host          => 'localhost',
-      root_password => $mysql_password;
+      root_password => $mysql_password,
+      #WIP for master slave
+      #master_host   => 'preview-mongo-client-20111213143425-01-external.hosts.alphagov.co.uk'
     }
   }
 }
