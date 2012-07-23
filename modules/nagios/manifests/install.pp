@@ -95,7 +95,9 @@ class nagios::install {
   file {['/etc/nagios3/conf.d/services_nagios2.cfg',
         '/etc/nagios3/conf.d/host-gateway_nagios3.cfg',
         '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
-        '/etc/nagios3/conf.d/contacts_nagios2.cfg']:
+        '/etc/nagios3/conf.d/contacts_nagios2.cfg',
+        '/etc/nagios3/conf.d/generic-service_nagios2.cfg',
+        '/etc/nagios3/conf.d/localhost_nagios2']:
     ensure => absent,
   }
 
