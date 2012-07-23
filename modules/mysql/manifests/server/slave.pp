@@ -15,8 +15,8 @@ class mysql::server::slave ($database, $user, $password, $host, $root_password, 
     ensure => directory
   }
   exec { 'create-dump-from-master':
-    creates => "/opt/mysql-dump/dump.sql",
-    require =>File["/opt/mysql-dump/"],
+    creates => '/opt/mysql-dump/dump.sql',
+    require =>File['/opt/mysql-dump/'],
     command => "/usr/bin/mysqldump -h ${master_host} -u${user} -p'${password}' --database ${database} > /opt/mysql-dump/dump.sql",
   }
 }
