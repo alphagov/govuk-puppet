@@ -1,7 +1,5 @@
 define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost = 'NOTSET' ) {
 
-  include govuk::deploy_tools
-
   # In the development environment, assume the repos are checked out straight
   # into /var/govuk.
   if $platform == 'development' {
