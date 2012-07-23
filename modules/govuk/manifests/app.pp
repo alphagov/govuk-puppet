@@ -14,9 +14,9 @@ define govuk::app( $port, $platform = $::govuk_platform, $config = false, $vhost
   } else {
     file { "/var/apps/${title}":
       ensure => link,
-      target => "/var/govuk/${title}/current";
+      target => "/data/vhost/${app_vhost}.${platform}.alphagov.co.uk/current";
     }
-    file { "/var/govuk/${title}":
+    file { "/data/vhost/${app_vhost}.${platform}.alphagov.co.uk":
       ensure => directory,
       owner  => 'deploy',
       group  => 'deploy';
