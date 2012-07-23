@@ -8,7 +8,7 @@ class nginx::config::ertp::preview {
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.preview':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/htpasswd.ertp.preview',
+    source  => 'puppet:///modules/nginx/htpasswd.ertp',
     require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
