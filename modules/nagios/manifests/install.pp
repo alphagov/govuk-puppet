@@ -93,25 +93,26 @@ class nagios::install {
     require => Package[nagios3],
   }
   file {['/etc/nagios3/conf.d/services_nagios2.cfg',
-         '/etc/nagios3/conf.d/host-gateway_nagios3.cfg',
-         '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
-         '/etc/nagios3/conf.d/contacts_nagios2.cfg']:
+        '/etc/nagios3/conf.d/host-gateway_nagios3.cfg',
+        '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
+        '/etc/nagios3/conf.d/contacts_nagios2.cfg']:
     ensure => absent,
   }
 
   #TODO: extlookup or hiera for email addresses?
-  nagios::contact {'monitoring_google_group':
-    email => $::govuk_platform ? {
+  $contact_email = $::govuk_platform ? {
       production => 'monitoring-ec2production@digital.cabinet-office.gov.uk',
       preview    => 'monitoring-ec2preview@digital.cabinet-office.gov.uk',
       default    => 'root@localhost',
     }
+  nagios::contact {'monitoring_google_group':
+    email => $contact_email
   }
 
   #TODO: puppetize pagerduty contact (currently a file)
   nagios::contact_group {'emergencies':
-    $group_alias => 'Contacts for emergency situations',
-    $members     => ['monitoring_google_group','pagerduty'],
+    group_alias => 'Contacts for emergency situations',
+    members     => ['monitoring_google_group','pagerduty'],
   }
 
   nagios::service_template {'govuk_emergency_service':
