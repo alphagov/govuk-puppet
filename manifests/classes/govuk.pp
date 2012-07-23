@@ -2,6 +2,8 @@ class govuk_base {
   # First and most importantly, set up our apt repository
   include govuk::repository
 
+  include govuk::deploy_tools
+
   include ntp
   include apt
   include base_packages::unix_tools
@@ -13,9 +15,11 @@ class govuk_base {
   include users
   include cron
   include puppet
+
   class { 'ruby::rubygems':
     version => '1.8.24'
   }
+
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
@@ -263,7 +267,6 @@ class govuk_base::management_server {
   include govuk_base::ruby_app_server
 
   include govuk::testing_tools
-  include govuk::deploy_tools
 
   include nodejs
 
