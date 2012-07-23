@@ -1,13 +1,12 @@
 class mysql::server::package {
   include mysql::repository
-  package { ['percona-server-server-5.1','automysqlbackup']:
+  package { ['mysql-server','automysqlbackup']:
     ensure  => installed,
-    require => Apt::Deb_repository['percona-repo']
   }
 
   file { '/var/lib/mysql':
     ensure  => directory,
-    require => Package['percona-server-server-5.1'],
+    require => Package['mysql-server'],
     owner   => 'mysql',
     group   => 'mysql'
   }
