@@ -1,7 +1,7 @@
 define nagios::check (
   $service_description,
   $check_command,
-  $use                  = 'generic-service',
+  $use                  = 'govuk_emergency_service',
   $host_name            = $::hostname,
   $notification_period  = undef
 ) {

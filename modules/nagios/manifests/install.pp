@@ -92,30 +92,32 @@ class nagios::install {
     notify  => Service[nagios3],
     require => Package[nagios3],
   }
-  file { '/etc/nagios3/conf.d/services_nagios2.cfg':
-    ensure => absent,
-  }
-  file { '/etc/nagios3/conf.d/host-gateway_nagios3.cfg':
-    ensure => absent,
-  }
-  file { '/etc/nagios3/conf.d/extinfo_nagios2.cfg':
+  file {['/etc/nagios3/conf.d/services_nagios2.cfg',
+         '/etc/nagios3/conf.d/host-gateway_nagios3.cfg',
+         '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
+         '/etc/nagios3/conf.d/contacts_nagios2.cfg']:
     ensure => absent,
   }
 
-  #TODO: pass contact emails in?
-  $contact_email = $::govuk_platform ? {
-    production => 'monitoring-ec2production@digital.cabinet-office.gov.uk',
-    preview    => 'monitoring-ec2preview@digital.cabinet-office.gov.uk',
-    default    => 'root@localhost',
+  #TODO: extlookup or hiera for email addresses?
+  nagios::contact {'monitoring_google_group':
+    email => $::govuk_platform ? {
+      production => 'monitoring-ec2production@digital.cabinet-office.gov.uk',
+      preview    => 'monitoring-ec2preview@digital.cabinet-office.gov.uk',
+      default    => 'root@localhost',
+    }
   }
-  file { '/etc/nagios3/conf.d/contacts_nagios2.cfg':
-    content => template('nagios/contacts_nagios2.cfg.erb'),
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    notify  => Service[nagios3],
-    require => Package[nagios3],
+
+  #TODO: puppetize pagerduty contact (currently a file)
+  nagios::contact_group {'emergencies':
+    $group_alias => 'Contacts for emergency situations',
+    $members     => ['monitoring_google_group','pagerduty'],
   }
+
+  nagios::service_template {'govuk_emergency_service':
+    contact_groups => ['emergencies']
+  }
+
   file { '/etc/nagios3/resource.cfg':
     source  => 'puppet:///modules/nagios/nagios/resource.cfg',
     owner   => root,
