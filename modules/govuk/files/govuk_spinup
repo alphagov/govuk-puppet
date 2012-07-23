@@ -32,6 +32,11 @@ if [ -z "$GOVUK_ENV" ]; then
 fi
 export GOVUK_ENV
 
+# RAILS_ENV and friends are "production" in preview.
+if [ "$GOVUK_ENV" != "development" ]; then
+  GOVUK_ENV="production"
+fi
+
 status "Spinning up '${NAME}' in '${GOVUK_ENV}' environment'"
 
 cd "$APP_ROOT"
@@ -44,7 +49,7 @@ if [ -e Gemfile ]; then
   fi
 
   export BUNDLE_PATH="${APP_RUN}/bundle"
-  if [ "$FACTER_govuk_platform" != "development" ]; then
+  if [ "$GOVUK_ENV" != "development" ]; then
     BUNDLE_ARGS="--deployment"
     export BUNDLE_WITHOUT="development test"
   else
@@ -59,9 +64,12 @@ if [ -e Procfile ]; then
   CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
 elif [ -e config.ru ]; then
   status "Detected config.ru: spawning rack app under unicorn"
+  export RACK_ENV="$GOVUK_ENV"
   CMD="bundle exec unicorn -p \$PORT"
 elif [ -e config/environment.rb ]; then
   status "Detected config/application.rb: spawning Rails 3 app under unicorn_rails"
+  export RACK_ENV="$GOVUK_ENV"
+  export RAILS_ENV="$GOVUK_ENV"
   CMD="bundle exec unicorn_rails -p \$PORT"
 else
   echo "ERROR: can't deduce how to run '${NAME}'. Aborting!"
