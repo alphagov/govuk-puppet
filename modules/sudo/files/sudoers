@@ -6,6 +6,7 @@
 #
 
 Defaults env_reset
+Defaults env_keep+="FACTER_govuk_class FACTER_govuk_platform"
 
 # Host alias specification
 
