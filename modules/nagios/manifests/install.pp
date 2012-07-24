@@ -76,7 +76,8 @@ class nagios::install {
 
   @@nagios::check {'check_smokey':
     check_command       => 'run_smokey_tests',
-    service_description => 'Run small suite of functional tests'
+    service_description => 'Run small suite of functional tests',
+    host_name           => "${::govuk_class}-${::hostname}"
   }
 
   file { '/etc/nagios3/cgi.cfg':
