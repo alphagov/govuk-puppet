@@ -38,14 +38,12 @@ class mysql::server::monitoring ($root_password){
   }
 
   @@nagios::check { "check_mysql_connections_${::hostname}":
-    use                 => 'generic-service',
     check_command       => 'check_ganglia_metric!mysql_connections!50!90',
     service_description => "check mysql connections for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_mysql_max_connections_${::hostname}":
-    use                 => 'generic-service',
     check_command       => 'check_ganglia_metric!mysql_max_used_connections!75!90',
     service_description => "check mysql max connections for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",

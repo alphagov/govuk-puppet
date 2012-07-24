@@ -82,7 +82,6 @@ class nginx::config($node_type) {
   case $node_type {
     router : {
       @@nagios::check { "check_nginx_active_connections_${::hostname}":
-        use                 => 'generic-service',
         check_command       => 'check_ganglia_metric!nginx_active_connections!1000!2000',
         service_description => 'check nginx active connections',
         host_name           => "${::govuk_class}-${::hostname}",
@@ -90,7 +89,6 @@ class nginx::config($node_type) {
     }
     default : {
       @@nagios::check { "check_nginx_active_connections_${::hostname}":
-        use                 => 'generic-service',
         check_command       => 'check_ganglia_metric!nginx_active_connections!500!1000',
         service_description => 'check nginx active connections',
         host_name           => "${::govuk_class}-${::hostname}",

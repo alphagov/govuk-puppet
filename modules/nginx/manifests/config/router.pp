@@ -25,7 +25,6 @@ class nginx::config::router {
     content => extlookup("${host}_key", ''),
   }
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":
-    use                 => 'generic-service',
     check_command       => 'check_ganglia_metric!nginx_http_5xx!0.05!0.1',
     service_description => 'check nginx error rate',
     host_name           => "${::govuk_class}-${::hostname}",

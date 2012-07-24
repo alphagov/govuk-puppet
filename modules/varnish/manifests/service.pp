@@ -40,7 +40,6 @@ class varnish::service {
   }
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":
-    use                 => 'generic-service',
     check_command       => 'check_ganglia_metric!http_5xx!0.03!0.1',
     service_description => "check varnish error rate for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
@@ -54,7 +53,6 @@ class varnish::service {
 
   # This check is too noisy
   #@@nagios::check { "check_varnish_cache_miss_${::hostname}":
-  #  use                 => 'generic-service',
   #  check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!0:50!0:30',
   #  service_description => "check varnish cache hit ratio for ${::hostname}",
   #  host_name           => "${::govuk_class}-${::hostname}",
