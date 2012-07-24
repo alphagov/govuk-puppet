@@ -38,8 +38,8 @@ define govuk::app(
 
   if $config {
     file { "/etc/envmgr/${title}.conf":
-      ensure => 'file',
-      source => "puppet:///modules/govuk/etc/envmgr/${title}.conf";
+      ensure  => 'file',
+      content => template("etc/envmgr/${title}.erb.conf";
     }
   } else {
     file { "/etc/envmgr/${title}.conf":
