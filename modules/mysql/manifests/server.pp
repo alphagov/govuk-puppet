@@ -1,7 +1,9 @@
-class mysql::server($root_password='') {
+class mysql::server($root_password='', $server_id='1') {
   include mysql::server::service
   include mysql::server::package
-  include mysql::server::config
+  class { 'mysql::server::config':
+    server_id => $server_id
+  }
   class {'mysql::server::monitoring': root_password => $root_password }
 
   cron { 'daily sql tarball':
