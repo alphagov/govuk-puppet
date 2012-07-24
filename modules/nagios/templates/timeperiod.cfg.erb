@@ -1,0 +1,19 @@
+###############################################################################
+###############################################################################
+#
+# Time Period
+#
+###############################################################################
+###############################################################################
+
+define timeperiod{
+        timeperiod_name <%= @timeperiod_name %>
+        alias           <%= @timeperiod_alias %>
+<%= if @mon != '' then "        monday          #{@mon}" end %>
+<%= if @tue != '' then "        tuesday         #{@tue}" end %>
+<%= if @wed != '' then "        wednesday       #{@wed}" end %>
+<%= if @thu != '' then "        thursday        #{@thu}" end %>
+<%= if @fri != '' then "        friday          #{@fri}" end %>
+<%= if @sat != '' then "        saturday        #{@sat}" end %>
+<%= if @sun != '' then "        sunday          #{@sun}" end %>
+        }
