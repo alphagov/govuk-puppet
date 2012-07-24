@@ -71,6 +71,18 @@ define govuk::app(
     content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
     notify  => Service['ganglia-monitor'],
   }
+
+  @@nagios::check { "check_${title}_unicorn_cpu_usage${::hostname}":
+    check_command       => "check_ganglia_metric!procstat_${title}_cpu!5!10",
+    service_description => "Check the cpu used by unicorn ${title} isn't too high",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  @@nagios::check { "check_${title}_unicorn_mem_usage${::hostname}":
+    check_command       => "check_ganglia_metric!procstat_${title}_mem!5!10",
+    service_description => "Check the mem used by unicorn ${title} isn't too high",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
   service { "${title}":
     ensure    => running,
     provider  => upstart,
