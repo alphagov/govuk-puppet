@@ -96,7 +96,9 @@ class nagios::install {
         '/etc/nagios3/conf.d/host-gateway_nagios3.cfg',
         '/etc/nagios3/conf.d/extinfo_nagios2.cfg',
         '/etc/nagios3/conf.d/contacts_nagios2.cfg',
-        '/etc/nagios3/conf.d/generic-service_nagios2.cfg',
+# once the changes deleting uses of generic-service have been deployed,
+# it should be safe to delete this file:
+#        '/etc/nagios3/conf.d/generic-service_nagios2.cfg',
         '/etc/nagios3/conf.d/localhost_nagios2']:
     ensure => absent,
   }
