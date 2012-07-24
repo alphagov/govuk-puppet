@@ -68,14 +68,17 @@ class nagios::install {
     require => Package[nagios3],
   }
 
+  # This file is absent because it is superceded by the nagios::check immediately following.
   file { '/etc/nagios3/conf.d/localhost_service.cfg':
-    source  => 'puppet:///modules/nagios/nagios/localhost_service.cfg',
-    owner   => root,
-    group   => root,
-    mode    => '0644',
+    ensure  => absent,
     notify  => Service[nagios3],
-    require => Package[nagios3],
   }
+
+  @@nagios::check {'check_smokey':
+    check_command       => 'run_smokey_tests',
+    service_description => 'Run small suite of functional tests'
+  }
+
   file { '/etc/nagios3/cgi.cfg':
     source  => 'puppet:///modules/nagios/nagios/cgi.cfg',
     owner   => root,
