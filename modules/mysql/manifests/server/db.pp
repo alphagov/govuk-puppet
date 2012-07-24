@@ -14,4 +14,3 @@ define mysql::server::db($user, $password, $host, $root_password, $remote_host='
     ],
   }
 }
-
