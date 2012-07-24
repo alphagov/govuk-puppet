@@ -56,8 +56,6 @@ class govuk_base::mysql_server inherits govuk_base{
       host             => 'localhost',
       replica_password => $replica_password,
       root_password    => $mysql_password,
-      #WIP for master slave
-      #master_host     => 'preview-mongo-client-20111213143425-01-external.hosts.alphagov.co.uk'
     }
   }
 }

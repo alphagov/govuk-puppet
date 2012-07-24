@@ -1,8 +1,9 @@
-class mysql::server($root_password='', $server_id='1') {
+class mysql::server($root_password='', $server_id='1', $config_path='mysql/master/my.cnf') {
   include mysql::server::service
   include mysql::server::package
   class { 'mysql::server::config':
-    server_id => $server_id
+    server_id    => $server_id,
+    config_path  => $config_path
   }
   class {'mysql::server::monitoring': root_password => $root_password }
 
