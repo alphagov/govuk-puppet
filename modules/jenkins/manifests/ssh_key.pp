@@ -14,6 +14,17 @@ class jenkins::ssh_key {
     group  => 'jenkins',
   }
 
+  file { '/home/jenkins/.ssh/config':
+    source  => 'puppet:///modules/jenkins/dot-sshconfig',
+    owner   => jenkins,
+    group   => jenkins,
+    mode    => '0600',
+    require => [
+      User['jenkins'],
+      File['/home/jenkins/.ssh']
+    ]
+  }
+
   exec { 'Creating key pair for jenkins':
     command => "ssh-keygen -t rsa -C 'Provided by Puppet for jenkins' -N '' -f $private_key",
     creates => $private_key,

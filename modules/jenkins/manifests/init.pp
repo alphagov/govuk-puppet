@@ -30,22 +30,6 @@ class jenkins {
     require => User['jenkins'],
   }
 
-  file { '/home/jenkins/.ssh':
-    ensure  => directory,
-    owner   => jenkins,
-    group   => jenkins,
-    mode    => '0700',
-    require => User['jenkins'],
-  }
-
-  file { '/home/jenkins/.ssh/config':
-    source  => 'puppet:///modules/jenkins/dot-sshconfig',
-    owner   => jenkins,
-    group   => jenkins,
-    mode    => '0600',
-    require => [User['jenkins'], File['/home/jenkins/.ssh']]
-  }
-
   file { '/mnt/jenkins':
     ensure  => directory,
     owner   => jenkins,
