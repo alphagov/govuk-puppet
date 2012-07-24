@@ -42,7 +42,7 @@ define govuk::app(
   if $config {
     file { "/etc/envmgr/${title}.conf":
       ensure  => 'file',
-      content => template("etc/envmgr/${title}.conf.erb";
+      content => template("govuk/etc/envmgr/${title}.conf.erb");
     }
   } else {
     file { "/etc/envmgr/${title}.conf":
