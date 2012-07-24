@@ -47,15 +47,17 @@ class govuk_base::db_server inherits govuk_base {
 class govuk_base::mysql_server inherits govuk_base{
   $mysql_password = extlookup('mysql_root', '')
   $needotron_password = extlookup('mysql_need_o_tron_new', '')
+  $replica_password = extlookup('mysql_replica_password', '')
   if ($::govuk_platform == 'preview') {
     class {'mysql::server::master':
-      database      => 'need_o_tron_production',
-      user          => 'need_o_tron',
-      password      => $needotron_password,
-      host          => 'localhost',
-      root_password => $mysql_password,
+      database         => 'need_o_tron_production',
+      user             => 'need_o_tron',
+      password         => $needotron_password,
+      host             => 'localhost',
+      replica_password => $replica_password,
+      root_password    => $mysql_password,
       #WIP for master slave
-      #master_host   => 'preview-mongo-client-20111213143425-01-external.hosts.alphagov.co.uk'
+      #master_host     => 'preview-mongo-client-20111213143425-01-external.hosts.alphagov.co.uk'
     }
   }
 }
