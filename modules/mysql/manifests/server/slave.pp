@@ -4,7 +4,7 @@ class mysql::server::slave ($database, $user, $password, $host, $root_password, 
     server_id     => $slave_server_id
   }
 
-  Class['mysql::server'] -> Db["$database"]->Exec['create-dump-from-master']
+  Class['mysql::server'] -> Db["$database"]
   db{"$database":
     user          => $user,
     password      => $password,
