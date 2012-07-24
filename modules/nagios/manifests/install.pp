@@ -88,6 +88,47 @@ class nagios::install {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+  # This file is absent because it is superceded by the nagios::timeperiods immediately following.
+  file { '/etc/nagios3/conf.d/timeperiods_nagios2.cfg':
+    ensure  => absent,
+    notify  => Service[nagios3],
+  }
+
+  nagios::timeperiod {'24x7':
+    timeperiod_alias     => '24 Hours A Day, 7 Days A Week',
+    sun                  => '00:00-24:00',
+    mon                  => '00:00-24:00',
+    tue                  => '00:00-24:00',
+    wed                  => '00:00-24:00',
+    thu                  => '00:00-24:00',
+    fri                  => '00:00-24:00',
+    sat                  => '00:00-24:00',
+  }
+
+  nagios::timeperiod {'workhours':
+    timeperiod_alias     => 'Standard Work Hours',
+    mon                  => '09:00-17:00',
+    tue                  => '09:00-17:00',
+    wed                  => '09:00-17:00',
+    thu                  => '09:00-17:00',
+    fri                  => '09:00-17:00',
+  }
+
+  nagios::timeperiod {'nonworkhours':
+    timeperiod_alias     => 'Non-Work Hours',
+    sun                  => '00:00-24:00',
+    mon                  => '00:00-09:00,17:00-24:00',
+    tue                  => '00:00-09:00,17:00-24:00',
+    wed                  => '00:00-09:00,17:00-24:00',
+    thu                  => '00:00-09:00,17:00-24:00',
+    fri                  => '00:00-09:00,17:00-24:00',
+    sat                  => '00:00-24:00',
+  }
+
+  nagios::timeperiod {'never':
+    timeperiod_alias     => 'Never'
+  }
+
   file { '/etc/nagios3/cgi.cfg':
     source  => 'puppet:///modules/nagios/nagios/cgi.cfg',
     owner   => root,
