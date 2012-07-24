@@ -7,4 +7,4 @@ respawn
 
 env PORT=<%= port %>
 
-exec govuk_spinup "<%= name %>" 2> /var/log/<%= title %>/<%= title %>.log
+exec govuk_spinup "<%= name %>" 1> /var/log/<%= title %>/<%= title %>.log 2> /var/log/<%= title %>/<%= title %>.error.log
