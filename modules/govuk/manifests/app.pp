@@ -13,6 +13,9 @@ define govuk::app(
     default  => "${vhost}",
   }
 
+  file { "/var/log/${title}":
+    ensure => directory
+  }
   # In the development environment, assume the repos are checked out straight
   # into /var/govuk.
   if $platform == 'development' {
@@ -39,7 +42,7 @@ define govuk::app(
   if $config {
     file { "/etc/envmgr/${title}.conf":
       ensure  => 'file',
-      content => template("etc/envmgr/${title}.erb.conf";
+      content => template("etc/envmgr/${title}.conf.erb";
     }
   } else {
     file { "/etc/envmgr/${title}.conf":
