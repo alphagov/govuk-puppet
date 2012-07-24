@@ -1,0 +1,27 @@
+#
+
+modules {
+  module {
+  name = '<%= title %>-procstat'
+    language = 'python'
+
+    param <%= title %> {
+      value = '/var/run/<%= title %>/app.pid'
+    }
+
+  }
+}
+
+collection_group {
+  collect_every = 30
+  time_threshold = 30
+
+  metric {
+  name = "procstat_<%= title %>_cpu"
+  }
+
+  metric {
+    name = "procstat_<%= title %>_mem"
+  }
+}
+

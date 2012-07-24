@@ -61,6 +61,16 @@ define govuk::app(
     content => template('govuk/app_upstart.conf.erb');
   }
 
+  file { "/usr/lib/ganglia/python_modules/${title}-procstat.py":
+    ensure  => link,
+    target  => '/usr/lib/ganglia/python_modules/procstat.py',
+    require => Class[ganglia::client],
+  }
+
+  file {"/etc/ganglia/conf.d/unicorn-${title}.pyconf":
+    content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
+    notify  => Service['ganglia-monitor'],
+  }
   service { "${title}":
     ensure    => running,
     provider  => upstart,

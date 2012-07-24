@@ -13,6 +13,10 @@ class ganglia::client::install {
     require => File['/usr/lib/ganglia/python_modules']
   }
 
+  file { '/usr/lib/ganglia/python_modules/procstat.py':
+    source  => 'puppet:///modules/ganglia/usr/lib/ganglia/python_modules/procstat.py',
+    require => File['/usr/lib/ganglia/python_modules']
+  }
   file { '/etc/ganglia/conf.d':
     ensure  => directory,
     require => Package['ganglia-monitor']
