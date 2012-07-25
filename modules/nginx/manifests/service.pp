@@ -2,31 +2,24 @@ class nginx::service {
   service { 'nginx':
     ensure     => running,
     hasstatus  => true,
-    hasrestart => true,
-    require    => Class['nginx::config'],
+    hasrestart => true;
   }
+
   include nagios::client
   include ganglia::client
 
   # Monitoring of NginX
 
-  file { '/etc/nginx/ssl/monitoring-vhost.sslkey':
+  file { '/etc/nginx/sites-available/monitoring-vhost.conf':
     ensure  => file,
-    source  => 'puppet:///modules/nginx/monitoring-vhost.sslkey',
-    require => Class['nginx::package']
-  }
-
-  file { '/etc/nginx/ssl/monitoring-vhost.sslcert':
-    ensure  => file,
-    source  => 'puppet:///modules/nginx/monitoring-vhost.sslcert',
-    require => Class['nginx::package'],
+    source  => 'puppet:///modules/nginx/sites/monitoring-vhost-nginx.conf',
+    require => File['/etc/nginx/sites-available'];
   }
 
   file { '/etc/nginx/sites-enabled/monitoring-vhost.conf':
-    ensure  => file,
-    source  => 'puppet:///modules/nginx/monitoring-vhost-nginx.conf',
-    require => [File['/etc/nginx/ssl/monitoring-vhost.sslcert'],File['/etc/nginx/ssl/monitoring-vhost.sslkey']],
-    notify  => Exec['nginx_reload'],
+    ensure  => link,
+    target  => '/etc/nginx/sites-available/monitoring-vhost.conf',
+    require => File['/etc/nginx/sites-available/monitoring-vhost.conf'];
   }
 
   @@nagios::check { "check_nginx_running_${::hostname}":
