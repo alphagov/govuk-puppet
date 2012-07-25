@@ -10,6 +10,10 @@ class puppet::master {
     ensure => purged
   }
 
+  package { 'kwalify':
+    ensure => installed
+  }
+
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
   }
