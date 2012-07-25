@@ -3,6 +3,7 @@ GEM
   specs:
     diff-lcs (1.1.3)
     facter (1.6.10)
+    kwalify (0.7.2)
     puppet (2.7.18)
       facter (~> 1.5)
     puppet-lint (0.1.13)
@@ -22,6 +23,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  kwalify
   puppet (= 2.7.18)
   puppet-lint (>= 0.1.13)
   rake

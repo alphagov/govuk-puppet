@@ -1,0 +1,8 @@
+name    'puppetlabs-kwalify'
+version '0.0.1'
+source 'https://github.com/puppetlabs/puppetlabs-kwalify'
+author 'Puppetlabs'
+license 'Apache License 2.0'
+summary 'A set of kwalify related functions for puppet.'
+description ''
+project_page 'https://github.com/puppetlabs/puppetlabs-kwalify'
