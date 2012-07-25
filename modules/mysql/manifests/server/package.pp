@@ -1,5 +1,4 @@
 class mysql::server::package {
-  include mysql::repository
   package { ['mysql-server','automysqlbackup']:
     ensure  => installed,
   }
