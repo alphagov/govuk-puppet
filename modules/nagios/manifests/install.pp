@@ -1,5 +1,4 @@
 class nagios::install {
-  include nagios::package
   file { '/etc/nagios3/conf.d/check_ganglia_nagios2.cfg':
     source  => 'puppet:///modules/nagios/nagios/check_ganglia_nagios2.cfg',
     owner   => root,
