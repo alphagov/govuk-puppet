@@ -1,0 +1,10 @@
+input {
+  file {
+    type => "<%=title%>-unicorn-out"
+    path => "/var/log/<%=title%>/<%=title%>.log"
+  }
+  file {
+    type => "<%=title%>-unicorn-err"
+    path => "/var/log/<%=title%>/<%=title%>.error.log"
+  }
+}

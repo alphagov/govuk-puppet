@@ -72,6 +72,10 @@ define govuk::app(
     notify  => Service['ganglia-monitor'],
   }
 
+  file {"/etc/logstash/logstash-client/unicorn-${title}.conf":
+    content => template("govuk/etc/logstash/logstash-client/unicorn-logstash.conf.erb"),
+    notify  => Class['logstash::client::service']
+  }
   @@nagios::check { "check_${title}_unicorn_cpu_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_cpu!100!200",
     service_description => "Check the cpu used by unicorn ${title} isn't too high",
