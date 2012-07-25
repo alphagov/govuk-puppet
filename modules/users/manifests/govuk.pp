@@ -491,4 +491,20 @@ class users::govuk {
     user    => 'norm',
     require => User['norm']
   }
+  user { 'kief':
+    ensure     => present,
+    comment    => 'Kief <kmorris@thoughtworks.com>',
+    home       => '/home/kief',
+    managehome => true,
+    groups     => ['admin', 'deploy'],
+    require    => Class['users::setup'],
+    shell      => '/bin/bash'
+  }
+  ssh_authorized_key { 'kief':
+    ensure  => present,
+    key     => extlookup('kief_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'kief',
+    require => User['kief']
+  }
 }
