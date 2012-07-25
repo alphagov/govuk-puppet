@@ -1,4 +1,4 @@
-define mysql::server::create_replica_user($root_password, $host, $password, $remote_host='%') {
+define mysql::server::replica_user($root_password, $host, $password, $remote_host='%') {
   $user = 'replica_user'
   exec { "$name":
     unless  => "/usr/bin/mysql -h ${host} -u${user} -p'${password}' ${name}",
