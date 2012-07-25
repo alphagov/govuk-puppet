@@ -47,16 +47,14 @@ class jenkins {
 
 class jenkins::master inherits jenkins {
 
-  apt::key{ 'Kohsuke Kawaguchi':
-    ensure      => present,
-    apt_key_url => 'http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key',
-  }
+  # Kohsuke Kawaguchi <kk@kohsuke.org>
+  apt::key { 'D50582E6': }
 
   package { 'jenkins':
     ensure  => 'latest',
     require => [
       User['jenkins'],
-      Exec['apt-key present Kohsuke Kawaguchi'],
+      Apt::Key['D50582E6'],
       File['jenkins.list'],
       Exec['apt-get update'],
     ],
@@ -80,7 +78,7 @@ class jenkins::master inherits jenkins {
     mode   => '0644',
     before => [
       Exec['apt-get update'],
-      Exec['apt-key present Kohsuke Kawaguchi']
+      Apt::Key['D50582E6']
     ],
   }
 }

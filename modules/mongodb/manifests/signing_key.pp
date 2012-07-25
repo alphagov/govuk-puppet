@@ -1,4 +1,4 @@
 class mongodb::signing_key {
-  include apt
-  apt::deb_key { '7F0CEB10': }
+  # Richard Kreuter <richard@10gen.com>
+  apt::key { '7F0CEB10': }
 }

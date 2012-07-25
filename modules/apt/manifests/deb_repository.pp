@@ -1,13 +1,7 @@
-define apt::deb_repository($url, $repo, $ensure='present', $dist=$::lsbdistcodename, $key_url=false, $key_name=false) {
+define apt::deb_repository($url, $repo, $ensure='present', $dist=$::lsbdistcodename) {
   exec { "apt-update-repo-$name":
     command     => '/usr/bin/apt-get update',
     refreshonly => true,
-  }
-  if $key_name {
-    apt::key { $key_name:
-      ensure      => present,
-      apt_key_url => $key_url,
-    }
   }
   case $ensure {
     'present': {
