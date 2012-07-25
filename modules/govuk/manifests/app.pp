@@ -73,7 +73,7 @@ define govuk::app(
   }
 
   file {"/etc/logstash/logstash-client/unicorn-${title}.conf":
-    content => template("govuk/etc/logstash/logstash-client/unicorn-logstash.conf.erb"),
+    content => template('govuk/etc/logstash/logstash-client/unicorn-logstash.conf.erb'),
     notify  => Class['logstash::client::service']
   }
   @@nagios::check { "check_${title}_unicorn_cpu_usage${::hostname}":
