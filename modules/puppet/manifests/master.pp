@@ -11,7 +11,8 @@ class puppet::master {
   }
 
   package { 'kwalify':
-    ensure => installed
+    ensure   => installed,
+    provider => gem,
   }
 
   file {'/etc/puppet/puppetdb.conf':
