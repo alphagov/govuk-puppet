@@ -135,13 +135,14 @@ class nagios::config {
     }
   nagios::contact {'pager':
     email                       => $pager_fake_email,
-    service_notification_options=> 'c'
+    service_notification_options=> 'c',
+    notification_period         => 'nonworkhours'
   }
 
   #TODO: puppetize pagerduty contact (currently a file)
   nagios::contact_group {'emergencies':
     group_alias => 'Contacts for emergency situations',
-    members     => ['monitoring_google_group','pagerduty'],
+    members     => ['monitoring_google_group','pagerduty','pager'],
   }
 
   nagios::service_template {'govuk_emergency_service':
