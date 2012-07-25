@@ -7,7 +7,7 @@ define nagios::check (
 ) {
   $service_description_schema = {
     'type'    => 'str',
-    'pattern' => "/^[^']*$/"
+    'pattern' => '/^[^']*$/'
   }
   kwalify($service_description_schema, $service_description)
 
