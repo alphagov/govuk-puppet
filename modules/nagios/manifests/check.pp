@@ -9,7 +9,8 @@ define nagios::check (
     'type'    => 'str',
     'pattern' => '/^[^\']*$/'
   }
-  kwalify($service_description_schema, $service_description)
+  # can't work out how to get puppet to see the gem when running on the puppetmaster
+  #kwalify($service_description_schema, $service_description)
 
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
     ensure  => present,
