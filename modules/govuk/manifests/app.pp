@@ -77,12 +77,12 @@ define govuk::app(
     notify  => Class['logstash::client::service']
   }
   @@nagios::check { "check_${title}_unicorn_cpu_usage${::hostname}":
-    check_command       => "check_ganglia_metric!procstat_${title}_cpu!100!200",
+    check_command       => "check_ganglia_metric!procstat_${title}_cpu!50!100",
     service_description => "Check the cpu used by unicorn ${title} isnt too high",
     host_name           => "${::govuk_class}-${::hostname}",
   }
   @@nagios::check { "check_${title}_unicorn_mem_usage${::hostname}":
-    check_command       => "check_ganglia_metric!procstat_${title}_mem!100!200",
+    check_command       => "check_ganglia_metric!procstat_${title}_mem!100000000!200000000",
     service_description => "Check the mem used by unicorn ${title} isnt too high",
     host_name           => "${::govuk_class}-${::hostname}",
   }
