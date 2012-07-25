@@ -4,6 +4,6 @@ class nagios::service {
     alias      => 'nagios',
     hasstatus  => true,
     hasrestart => true,
-    require    => Class['nagios::install'],
+    subscribe  => Class['nagios::config'],
   }
 }
