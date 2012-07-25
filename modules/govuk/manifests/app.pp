@@ -100,7 +100,7 @@ define govuk::app(
     subscribe => File["/etc/init/${title}.conf"];
   }
 
-  if $::govuk_platform == 'development' {
+  if $platform == 'development' {
     nginx::config::vhost::dev_proxy { "${app_vhost}.dev.gov.uk":
       to => ["localhost:${port}"];
     }

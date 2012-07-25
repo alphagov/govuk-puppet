@@ -1,2 +1,6 @@
 UPSTREAM_AUTH=betademo:nottobeshared
-UPSTREAM_HOST="reviewomatic.<%= govuk_platform %>.alphagov.co.uk"
+<% if platform == 'development' %>
+UPSTREAM_HOST="reviewomatic.dev.gov.uk"
+<% else %>
+UPSTREAM_HOST="reviewomatic.<%= platform %>.alphagov.co.uk"
+<% end %>
