@@ -128,6 +128,16 @@ class nagios::config {
     email => $contact_email
   }
 
+  $pager_fake_email = $::govuk_platform ? {
+      production => 'monitoring-ec2production+pager@digital.cabinet-office.gov.uk',
+      preview    => 'monitoring-ec2preview+pager@digital.cabinet-office.gov.uk',
+      default    => 'root@localhost',
+    }
+  nagios::contact {'pager':
+    email                       => $pager_fake_email,
+    service_notification_options=> 'c'
+  }
+
   #TODO: puppetize pagerduty contact (currently a file)
   nagios::contact_group {'emergencies':
     group_alias => 'Contacts for emergency situations',
