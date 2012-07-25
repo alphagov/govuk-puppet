@@ -48,7 +48,7 @@ class ertp_base::api_server inherits ertp_base {
     }
   }
 
-  include ertp-api::scripts
+  include ertp::api::scripts
 }
 
 class ertp_base::api_server::dwp inherits ertp_base::api_server {
