@@ -2,6 +2,7 @@ class mongodb::monitoring {
 
   include ganglia::client
   include nagios::client
+  include logstash::client::service
 
   package { 'pymongo':
     ensure   => present,
@@ -51,7 +52,7 @@ class mongodb::monitoring {
 
   file { '/etc/logstash/logstash-client/mongodb.conf':
     source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
-    require => Class['logstash::client::service']
+    notify  => Service['logstash-client']
   }
 
 
