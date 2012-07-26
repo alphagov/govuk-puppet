@@ -2,7 +2,6 @@ class mongodb::monitoring {
 
   include ganglia::client
   include nagios::client
-  include logstash::client::service
 
   package { 'pymongo':
     ensure   => present,
@@ -49,11 +48,5 @@ class mongodb::monitoring {
     service_description => "check mongod lock percentage on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
-
-  file { '/etc/logstash/logstash-client/mongodb.conf':
-    source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
-    notify  => Service['logstash-client']
-  }
-
 
 }
