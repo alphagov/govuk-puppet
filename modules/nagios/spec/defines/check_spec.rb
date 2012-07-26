@@ -12,6 +12,21 @@ describe 'nagios::check', :type => :define do
 end
 
 describe 'nagios::check', :type => :define do
+  let(:title) { 'default_service' }
+  let(:pre_condition) {  'nagios::host{"bruce-forsyth":}' }
+  let(:params) {{
+    "check_command" => "nice-to-see-you",
+    "host_name" => "bruce-forsyth",
+    "service_description" => "has default service as regular"
+  }}
+  it { should contain_file('/etc/nagios3/conf.d/nagios_host_bruce-forsyth/default_service.cfg').
+       with_content(/use\s+govuk_regular_service/)
+     }
+end
+
+
+
+describe 'nagios::check', :type => :define do
   let(:title) { 'bad-description' }
   let(:pre_condition) {  'nagios::host{"bruce-forsyth":}' }
   let(:params) {{

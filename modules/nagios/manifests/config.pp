@@ -152,7 +152,7 @@ class nagios::config {
     contact_groups => ['emergencies']
   }
 
-  nagios::service_template {'govuk_regulars_service':
+  nagios::service_template {'govuk_regular_service':
     contact_groups => ['regular']
   }
 
