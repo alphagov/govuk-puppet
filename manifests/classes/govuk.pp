@@ -1,8 +1,15 @@
 class govuk_base {
   # First and most importantly, set up our apt repository
   include govuk::repository
-
   include govuk::deploy_tools
+
+  include users
+  include users::groups::govuk
+  include users::groups::freerange
+  include users::groups::newbamboo
+  include users::groups::other
+
+  include hosts
 
   include ntp
   include apt
@@ -12,7 +19,6 @@ class govuk_base {
   include motd
   include wget
   include sysctl
-  include users
   include cron
   include puppet
 
@@ -29,10 +35,7 @@ class govuk_base {
   include nagios::client
   include ganglia::client
   include graphite::client
-  include users::freerange
-  include users::newbamboo
-  include users::other
-  include hosts
+
 }
 
 class govuk_base::redirect_server inherits govuk_base {

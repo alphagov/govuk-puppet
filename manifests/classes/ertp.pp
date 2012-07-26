@@ -8,7 +8,8 @@ class ertp_base {
   include wget
   include sysctl
   include users
-  include users::ertp
+  include users::groups::govuk
+  include users::groups::ertp
   include hosts::ertp
 }
 

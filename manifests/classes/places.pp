@@ -9,7 +9,7 @@ class places_base {
   include sysctl
   include java
   include users
-  include users::setup
+  include users::groups::govuk
   include hosts::places
   include nagios::client
   include ganglia::client

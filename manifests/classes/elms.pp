@@ -8,6 +8,7 @@ class elms_base {
   include wget
   include sysctl
   include users
+  include users::groups::govuk
   include hosts::elms-preview
   include openjdk
   include nagios::client
