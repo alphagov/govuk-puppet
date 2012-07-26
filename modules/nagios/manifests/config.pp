@@ -31,14 +31,6 @@ class nagios::config {
     notify  => Service[nagios3],
     require => Package[nagios3],
   }
-  file { '/etc/nagios3/conf.d/pagerduty_nagios.cfg':
-    source  => 'puppet:///modules/nagios/pagerduty_nagios.cfg',
-    owner   => root,
-    group   => root,
-    mode    => '0644',
-    notify  => Service[nagios3],
-    require => Package[nagios3],
-  }
 
   # This file is absent because it is superceded by the nagios::check immediately following.
   file { '/etc/nagios3/conf.d/localhost_service.cfg':
@@ -81,10 +73,10 @@ class nagios::config {
   nagios::timeperiod {'nonworkhours':
     timeperiod_alias     => 'Non-Work Hours',
     sun                  => '00:00-24:00',
-    mon                  => '00:00-09:00,17:00-24:00',
-    tue                  => '00:00-09:00,17:00-24:00',
-    wed                  => '00:00-09:00,17:00-24:00',
-    thu                  => '00:00-09:00,17:00-24:00',
+    mon                  => '00:00-09:00,16:00-24:00',
+    tue                  => '00:00-09:00,16:00-24:00',
+    wed                  => '00:00-09:00,16:00-24:00',
+    thu                  => '00:00-09:00,16:00-24:00',
     fri                  => '00:00-09:00,17:00-24:00',
     sat                  => '00:00-24:00',
   }
@@ -133,20 +125,35 @@ class nagios::config {
       preview    => 'monitoring-ec2preview+pager@digital.cabinet-office.gov.uk',
       default    => 'root@localhost',
     }
-  nagios::contact {'pager':
+  nagios::contact {'pager_workhours':
     email                       => $pager_fake_email,
     service_notification_options=> 'c',
-    notification_period         => 'nonworkhours'
+    notification_period         => 'workhours'
   }
 
-  #TODO: puppetize pagerduty contact (currently a file)
+  nagios::contact {'pager_nonworkhours':
+    email                       => $pager_fake_email,
+    service_notification_options=> 'c',
+    notification_period         => 'nonworkhours',
+    config_template             =>  'nagios/pager_nonworkhours.cfg.erb'
+  }
+
   nagios::contact_group {'emergencies':
     group_alias => 'Contacts for emergency situations',
-    members     => ['monitoring_google_group','pagerduty','pager'],
+    members     => ['monitoring_google_group','pager_nonworkhours','pager_workhours'],
+  }
+
+  nagios::contact_group {'regular':
+    group_alias => 'Contacts for regular alerts',
+    members     => ['monitoring_google_group'],
   }
 
   nagios::service_template {'govuk_emergency_service':
     contact_groups => ['emergencies']
+  }
+
+  nagios::service_template {'govuk_regulars_service':
+    contact_groups => ['regular']
   }
 
   file { '/etc/nagios3/resource.cfg':
