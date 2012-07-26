@@ -16,4 +16,9 @@ class logstash::server::service {
     provider => upstart,
     require  => [File['/etc/init/elasticsearch-0-18-7.conf']]
   }
+
+  service { 'rabbitmq-server':
+    ensure   => running,
+    require  => Package['rabbitmq-server']
+  }
 }
