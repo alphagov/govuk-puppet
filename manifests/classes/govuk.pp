@@ -52,13 +52,16 @@ class govuk_base::mysql_server inherits govuk_base{
   $needotron_password = extlookup('mysql_need_o_tron_new', '')
   $replica_password = extlookup('mysql_replica_password', '')
   if ($::govuk_platform == 'preview') {
-    class {'mysql::server::master':
+    class { 'mysql::server::master':
       database         => 'need_o_tron_production',
       user             => 'need_o_tron',
       password         => $needotron_password,
       host             => 'localhost',
       replica_password => $replica_password,
       root_password    => $mysql_password,
+    }
+    class { 'mysql::server::monitoring':
+      root_password => $mysql_password
     }
   }
 }
@@ -280,6 +283,9 @@ class govuk_base::management_server {
   include nodejs
 
   class { 'mysql::server':
+    root_password => $mysql_password
+  }
+  class { 'mysql::server::monitoring':
     root_password => $mysql_password
   }
 

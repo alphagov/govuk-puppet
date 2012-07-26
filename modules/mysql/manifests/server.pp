@@ -5,7 +5,6 @@ class mysql::server($root_password='', $server_id='1', $config_path='mysql/maste
     server_id    => $server_id,
     config_path  => $config_path
   }
-  class {'mysql::server::monitoring': root_password => $root_password }
 
   cron { 'daily sql tarball':
     ensure  => present,
