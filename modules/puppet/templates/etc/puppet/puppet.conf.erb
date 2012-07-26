@@ -1,6 +1,10 @@
 [main]
 preferred_serialization_format = yaml
 
+<% if govuk_platform == 'development' %>
+modulepath=/var/govuk/puppet/modules
+manifestdir=/var/govuk/puppet/manifests
+<% else %>
 [agent]
 report=true
 configtimeout=300
@@ -13,3 +17,4 @@ modulepath = /usr/share/puppet/production/current/modules
 manifestdir = /usr/share/puppet/production/current/manifests
 
 storeconfigs_backend = puppetdb
+<% end %>

@@ -7,6 +7,8 @@ class development {
 
   include base_packages::unix_tools
 
+  include puppet
+
   include mongodb::server
   include apollo
   include hosts
