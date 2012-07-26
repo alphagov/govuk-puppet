@@ -26,6 +26,7 @@ server {
 
   location /licence-management/payment/worldpayCallback {
     proxy_pass http://127.0.0.1:9000/licence-management/payment/worldpayCallback;
+    allow all;
     auth_basic off;
   }
 
