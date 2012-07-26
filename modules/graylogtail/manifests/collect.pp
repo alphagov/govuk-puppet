@@ -6,6 +6,7 @@ define graylogtail::collect(
 ){
   $stripped_facility = facility_from_host($facility)
   cron { "cron-$name":
+    ensure  => absent,
     command => "/usr/sbin/graylogtail $log_file --level $level --facility $stripped_facility --graylog-host $host",
     user    => root,
     minute  => '*/2'

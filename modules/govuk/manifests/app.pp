@@ -16,6 +16,7 @@ define govuk::app(
   file { "/var/log/${title}":
     ensure => directory
   }
+
   # In the development environment, assume the repos are checked out straight
   # into /var/govuk.
   if $platform == 'development' {
@@ -76,6 +77,7 @@ define govuk::app(
     content => template('govuk/etc/logstash/logstash-client/unicorn-logstash.conf.erb'),
     notify  => Class['logstash::client::service']
   }
+
   @@nagios::check { "check_${title}_unicorn_cpu_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_cpu!50!100",
     service_description => "Check the cpu used by unicorn ${title} isnt too high",
