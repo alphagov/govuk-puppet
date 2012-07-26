@@ -3,11 +3,17 @@ class users {
     name        => 'admin',
     gid         => '3000';
   }
+  group { 'deploy':
+    ensure  => 'present',
+    name    => 'deploy',
+  }
   user { 'deploy':
     ensure      => present,
     home        => '/home/deploy',
     managehome  => true,
-    shell       => '/bin/bash'
+    shell       => '/bin/bash',
+    gid         => 'deploy',
+    require     => Group['deploy'];
   }
   file { '/data':
     ensure  => directory,
