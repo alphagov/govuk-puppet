@@ -17,6 +17,7 @@ class places_base {
 
 class places_base::mongo_server inherits places_base {
   include mongodb::server
+  include mongodb::monitoring
 
   class {'mongodb::configure_replica_set':
     members => [

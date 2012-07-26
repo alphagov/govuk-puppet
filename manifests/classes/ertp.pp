@@ -15,14 +15,15 @@ class ertp_base {
 
 class ertp_base::mongo_server inherits ertp_base {
   include mongodb::server
+  include mongodb::monitoring
 
-      class {'mongodb::configure_replica_set':
-        members => [
-          'ertp-mongo-1',
-          'ertp-mongo-2',
-          'ertp-mongo-3'
-        ]
-      }
+  class {'mongodb::configure_replica_set':
+    members => [
+      'ertp-mongo-1',
+      'ertp-mongo-2',
+      'ertp-mongo-3'
+    ]
+  }
 }
 
 class ertp_base::frontend_server inherits ertp_base {

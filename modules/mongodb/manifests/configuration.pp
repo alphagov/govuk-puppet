@@ -1,5 +1,4 @@
-class mongodb::configuration (
-  replicaset = $govuk_platform) {
+class mongodb::configuration ($replicaset = $govuk_platform) {
   file { '/etc/mongodb.conf':
     ensure  => present,
     content => template('mongodb/mongodb.conf'),
