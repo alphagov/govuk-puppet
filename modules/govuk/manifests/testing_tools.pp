@@ -25,24 +25,24 @@ class govuk::testing_tools {
 class govuk::phantomjs {
 
   exec { 'download phantomjs':
-    command => '/usr/bin/curl -o phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz https://gds-public-readable-tarballs.s3.amazonaws.com/phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz',
+    command => '/usr/bin/curl -o phantomjs-1.6.1-linux-x86_64-dynamic.tar.bz2 https://gds-public-readable-tarballs.s3.amazonaws.com/phantomjs-1.6.1-linux-x86_64-dynamic.tar.bz2',
     cwd     => '/usr/local/src',
-    creates => '/usr/local/src/phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz',
+    creates => '/usr/local/src/phantomjs-1.6.1-linux-x86_64-dynamic.tar.bz2',
     require => Package['curl'],
     timeout => 3600,
-    unless  => '/usr/bin/test "`shasum phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz`" = "137113dbb25dcd7cf4e19f70c05c11ed8f258b24  phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz"'
+    unless  => '/usr/bin/test "`shasum phantomjs-1.6.1-linux-x86_64-dynamic.tar.bz2`" = "a1f6382265d1f0536e15f244f9a9b86804fc4318  phantomjs-1.6.1-linux-x86_64-dynamic.tar.bz2"'
   }
 
   exec { 'unpack phantomjs':
     require => Exec['download phantomjs'],
-    creates => '/usr/local/src/phantomjs-1.5.0-linux-x86_64-dynamic',
+    creates => '/usr/local/src/phantomjs-1.6.1-linux-x86_64-dynamic',
     cwd     => '/usr/local/src',
-    command => '/bin/tar --transform=\'s/^phantomjs/phantomjs-1.5.0-linux-x86_64-dynamic/\' -zxf ./phantomjs-1.5.0-linux-x86_64-dynamic.tar.gz'
+    command => '/bin/tar -jxf ./phantomjs-1.6.1-linux-x86_64-dynamic.tar.bz2'
   }
 
   file { '/usr/local/bin/phantomjs':
     ensure  => link,
-    target  => '/usr/local/src/phantomjs-1.5.0-linux-x86_64-dynamic/bin/phantomjs',
+    target  => '/usr/local/src/phantomjs-1.6.1-linux-x86_64-dynamic/bin/phantomjs',
     require => [
       Exec['unpack phantomjs']
     ]
