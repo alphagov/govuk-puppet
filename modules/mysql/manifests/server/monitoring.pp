@@ -49,4 +49,9 @@ class mysql::server::monitoring ($root_password){
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
+  file { '/etc/logstash/logstash-client/mysql.conf':
+    source  => 'puppet:///modules/mysql/etc/logstash/logstash-client/mysql.conf',
+    notify  => Service['logstash-client']
+  }
+
 }
