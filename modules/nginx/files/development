@@ -220,3 +220,13 @@ server {
     proxy_set_header   Host   $host;
   }
 }
+
+server {
+  server_name businesssupportfinder.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3024;
+    proxy_set_header   Host   $host;
+  }
+}
+
