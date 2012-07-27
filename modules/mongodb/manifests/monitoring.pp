@@ -53,4 +53,10 @@ class mongodb::monitoring {
     source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
     notify  => Service['logstash-client']
   }
+  
+  file { '/etc/logstash/grok-patterns/mongodb':
+    source  => 'puppet:///modules/mongodb/etc/logstash/grok-patterns/mongodb-pattern',
+    notify  => Service['logstash-client']
+  }
+  
 }
