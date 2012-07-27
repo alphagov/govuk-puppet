@@ -6,6 +6,7 @@ class varnish::service {
 
   service { 'varnish':
     ensure     => running,
+    status     => '/etc/init.d/varnish status | grep \'varnishd is running\'',
     hasrestart => false,
     restart    => '/usr/sbin/service varnish reload',
     hasstatus  => true,
@@ -14,7 +15,7 @@ class varnish::service {
   service { 'varnishncsa':
     ensure  => running,
     status  => '/etc/init.d/varnishncsa status | grep \'varnishncsa is running\'',
-    require => Class['varnish::package']
+    require => [Class['varnish::package'], Service['varnish']]
   }
 
   file { '/etc/ganglia/conf.d/varnish.pyconf':

@@ -49,8 +49,8 @@ class mongodb::monitoring {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-   file { '/etc/logstash/logstash-client/mongodb.conf':
-     source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
-     notify  => Service['logstash-client']
-   }
+  file { '/etc/logstash/logstash-client/mongodb.conf':
+    source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
+    notify  => Service['logstash-client']
+  }
 }

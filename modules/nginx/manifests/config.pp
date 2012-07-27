@@ -50,10 +50,10 @@ class nginx::config($node_type) {
     }
 
 
-  file { '/etc/logstash/logstash-client/nginx.conf':
-    source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',  
-    notify  => Service['logstash-client']
-  }
+    file { '/etc/logstash/logstash-client/nginx.conf':
+      source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
+      notify  => Service['logstash-client']
+    }
 
 
     case $node_type {
