@@ -181,7 +181,7 @@ class nginx::config::backend_server {
       ssl_only  => true;
     "reviewomatic.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
-      ssl_only  => true;
+      ssl_only  => false;
     "contactotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
