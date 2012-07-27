@@ -67,7 +67,7 @@ class nagios::config {
     tue                  => '09:00-17:00',
     wed                  => '09:00-17:00',
     thu                  => '09:00-17:00',
-    fri                  => '09:00-09:30',
+    fri                  => '09:00-17:00',
   }
 
   nagios::timeperiod {'nonworkhours':
@@ -77,7 +77,7 @@ class nagios::config {
     tue                  => '00:00-09:00,16:00-24:00',
     wed                  => '00:00-09:00,16:00-24:00',
     thu                  => '00:00-09:00,16:00-24:00',
-    fri                  => '00:00-09:00,09:30-24:00',
+    fri                  => '00:00-09:00,17:00-24:00',
     sat                  => '00:00-24:00',
   }
 
@@ -135,6 +135,7 @@ class nagios::config {
     email                       => $pager_fake_email,
     service_notification_options=> 'c',
     notification_period         => 'nonworkhours',
+    config_template             =>  'nagios/pager_nonworkhours.cfg.erb'
   }
 
   nagios::contact_group {'emergencies':
