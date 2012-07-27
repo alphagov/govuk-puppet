@@ -60,7 +60,8 @@ class varnish::service {
 
   file { '/etc/logstash/logstash-client/varnish.conf':
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
-    require => [Service['varnish'],Class['logstash::client::service']]
+    require => [Service['varnish']],
+    notify  => Service['logstash-client']
   }
 
 

@@ -49,10 +49,12 @@ class nginx::config($node_type) {
       require => [ File['/usr/local/bin/nginx_ganglia2.sh'], File['/etc/nginx'] ]
     }
 
-    file { '/etc/logstash/logstash-client/nginx.conf':
-      source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
-      require => Class['logstash::client::service']
-    }
+
+  file { '/etc/logstash/logstash-client/nginx.conf':
+    source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',  
+    notify  => Service['logstash-client']
+  }
+
 
     case $node_type {
       router : {
