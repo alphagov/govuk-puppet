@@ -35,6 +35,7 @@ class mysql::server::monitoring ($root_password){
     check_command       => 'check_nrpe!check_proc_running!mysqld',
     service_description => "check mysqld running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
+    use                 => 'govuk_emergency_service',
   }
 
   @@nagios::check { "check_mysql_connections_${::hostname}":
