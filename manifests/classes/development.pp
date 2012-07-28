@@ -5,7 +5,7 @@ class development {
   include govuk::testing_tools
   include govuk::deploy_tools
 
-  include base_packages::unix_tools
+  include base_packages
 
   include puppet
   #include devdns

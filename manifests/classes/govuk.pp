@@ -13,7 +13,7 @@ class govuk_base {
 
   include ntp
   include apt
-  include base_packages::unix_tools
+  include base_packages
   include sudo
   include logrotate
   include motd
