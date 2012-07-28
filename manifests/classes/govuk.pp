@@ -21,6 +21,7 @@ class govuk_base {
   include sysctl
   include cron
   include puppet
+  include puppet::cronjob
 
   class { 'ruby::rubygems':
     version => '1.8.24'
