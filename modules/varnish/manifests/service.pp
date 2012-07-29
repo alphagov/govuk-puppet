@@ -6,10 +6,10 @@ class varnish::service {
 
   service { 'varnish':
     ensure     => running,
-    status     => '/etc/init.d/varnish status | grep \'varnishd is running\'',
     hasrestart => false,
     restart    => '/usr/sbin/service varnish reload',
-    hasstatus  => true,
+    hasstatus  => false,
+    status     => '/etc/init.d/varnish status | grep \'varnishd is running\'',
     require    => Class['varnish::package']
   }
   service { 'varnishncsa':
