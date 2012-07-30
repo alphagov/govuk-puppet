@@ -10,7 +10,7 @@ class ganglia::package {
     'php5':
       ensure  => 'installed',
       require => Package['ganglia-webfrontend'],
-      notify  => Service[apache2]
+      notify  => Class['apache2::service']
   }
 
   wget::fetch { 'ganglia-webfrontend':
@@ -23,6 +23,6 @@ class ganglia::package {
     path    => '/bin',
     cwd     => '/var/www/',
     unless  => '/usr/bin/test -s /var/www/ganglia-web-3.5.0',
-    require => [Wget::Fetch[ganglia-webfrontend], Service[apache2], Package[php5]]
+    require => [Wget::Fetch[ganglia-webfrontend], Class['apache2::service'], Package[php5]]
   }
 }

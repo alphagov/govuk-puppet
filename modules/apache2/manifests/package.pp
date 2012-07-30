@@ -1,4 +1,4 @@
-class apache2::install {
+class apache2::package {
   package { 'apache2':
     ensure => installed,
   }

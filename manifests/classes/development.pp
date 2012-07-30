@@ -51,7 +51,6 @@ class development {
     'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];
     'rails':          ensure => 'installed', provider => gem;
     'passenger':      ensure => 'installed', provider => gem;
-    'apache2':        ensure => 'absent';
     'wbritish-small': ensure => installed;
   }
 }

@@ -111,13 +111,14 @@ class govuk_base::ruby_app_server inherits govuk_base {
 
 class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_server {
   class { 'apache2':
-    port => '8080'
+    port => '8080',
   }
-  class { 'passenger' : maxpoolsize => 12 }
-  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
-
-  class { 'nginx'     : node_type   => backend_server }
-
+  class { 'passenger':
+    maxpoolsize => 12,
+  }
+  class { 'nginx':
+    node_type => backend_server,
+  }
   package { 'graphviz':
     ensure => installed
   }
@@ -138,16 +139,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "whitehall-admin.$::govuk_platform.alphagov.co.uk":;
   }
 
-  file { "/etc/apache2/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
-    ensure => absent,
-    notify => Exec['apache_graceful']
-  }
-
-  file { "/etc/apache2/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
-    ensure => absent,
-    notify => Exec['apache_graceful']
-  }
-
   file { "/data/vhost/signonotron.$::govuk_platform.alphagov.co.uk":
     ensure => absent,
     force  => true,
@@ -161,8 +152,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     port => '8080'
   }
   class { 'passenger' : maxpoolsize => 12 }
-
-  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
 
   include govuk::apps::planner
 
@@ -204,8 +193,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     port => '8080'
   }
   include passenger
-  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
-  class { 'nginx' : node_type => whitehall_frontend_server }
+  class { 'nginx': node_type => whitehall_frontend_server }
 
   apache2::vhost::passenger {
     "whitehall.$::govuk_platform.alphagov.co.uk":

@@ -1,20 +1,24 @@
-class apache2($port='8080') {
-  exec { 'apache_graceful':
-    command     => 'apache2ctl graceful',
-    refreshonly => true,
-    onlyif      => 'apache2ctl configtest',
+class apache2( $port = '8080' ) {
+
+  anchor { 'apache2::begin':
+    before => Class['apache2::package'],
+    notify => Class['apache2::service'];
   }
 
-  anchor {'apache2::start': }
-
-  include apache2::install
-  class { 'apache2::configure':
-    port => $port,
+  class { 'apache2::package':
+    notify => Class['apache2::service'];
   }
-  include apache2::service
 
-  anchor {'apache2::end': }
+  class { 'apache2::config':
+    port    => $port,
+    require => Class['apache2::package'],
+    notify  => Class['apache2::service'];
+  }
 
-  Anchor['apache2::start'] -> Class['apache2::install'] -> Class['apache2::configure'] ~> Class['apache2::service']
-  Anchor['apache2::start'] ~> Class['apache2::service'] ~> Anchor['apache2::end']
+  class { 'apache2::service': }
+
+  anchor { 'apache2::end':
+    require => Class['apache2::service'],
+  }
+
 }
