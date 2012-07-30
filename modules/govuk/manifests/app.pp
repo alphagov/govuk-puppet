@@ -9,8 +9,8 @@ define govuk::app(
 ) {
 
   $vhost_real = $vhost ? {
-    'NOTSET' => "${title}",
-    default  => "${vhost}",
+    'NOTSET' => ${title},
+    default  => ${vhost},
   }
 
   file { "/var/log/${title}":
@@ -89,7 +89,7 @@ define govuk::app(
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  service { "${title}":
+  service { ${title}:
     ensure    => running,
     provider  => upstart,
     require   => [
