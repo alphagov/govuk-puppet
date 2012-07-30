@@ -189,18 +189,15 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 }
 
 class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base::ruby_app_server {
-  class {'apache2':
-    port => '8080'
-  }
-  include passenger
-  class { 'nginx': node_type => whitehall_frontend_server }
+  include nginx
 
-  apache2::vhost::passenger {
+  nginx::config::vhost::redirect {
     "whitehall.$::govuk_platform.alphagov.co.uk":
-      aliases => ["whitehall-frontend.$::govuk_platform.alphagov.co.uk"];
-    "whitehall-search.$::govuk_platform.alphagov.co.uk":;
+      to => "https://whitehall-frontend.$::govuk_platform.alphagov.co.uk";
   }
 
+  include govuk::apps::whitehall_frontend
+  include govuk::apps::whitehall_search
 }
 
 class govuk_base::cache_server inherits govuk_base {
