@@ -89,7 +89,7 @@ define govuk::app(
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  service { ${title}:
+  service { $title:
     ensure    => running,
     provider  => upstart,
     require   => [
