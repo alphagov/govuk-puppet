@@ -193,7 +193,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 
   nginx::config::vhost::redirect {
     "whitehall.$::govuk_platform.alphagov.co.uk":
-      to => "https://whitehall-frontend.$::govuk_platform.alphagov.co.uk";
+      to => "https://whitehall-frontend.$::govuk_platform.alphagov.co.uk/";
   }
 
   include govuk::apps::whitehall_frontend
