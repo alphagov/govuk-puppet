@@ -9,8 +9,8 @@ define govuk::app(
 ) {
 
   $vhost_real = $vhost ? {
-    'NOTSET' => ${title},
-    default  => ${vhost},
+    'NOTSET' => $title,
+    default  => $vhost,
   }
 
   file { "/var/log/${title}":
