@@ -1,27 +1,20 @@
 class govuk_base {
-  # First and most importantly, set up our apt repository
-  include govuk::repository
-  include govuk::deploy_tools
+  include base
 
+  include ganglia::client
+  include graphite::client
+  include hosts
+  include nagios::client
+  include puppet
+  include puppet::cronjob
   include users
-  include users::groups::govuk
   include users::groups::freerange
+  include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
 
-  include hosts
-
-  include ntp
-  include apt
-  include base_packages
-  include sudo
-  include logrotate
-  include motd
-  include wget
-  include sysctl
-  include cron
-  include puppet
-  include puppet::cronjob
+  include govuk::repository
+  include govuk::deploy_tools
 
   class { 'ruby::rubygems':
     version => '1.8.24'
@@ -32,10 +25,6 @@ class govuk_base {
     type   => 'ssh-rsa',
     key    => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
   }
-
-  include nagios::client
-  include ganglia::client
-  include graphite::client
 
 }
 

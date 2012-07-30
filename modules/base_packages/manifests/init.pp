@@ -17,6 +17,7 @@ class base_packages {
       'logtail',
       'tree',
       'vim-nox',
+      'wget',
     ]:
     ensure => installed
   }

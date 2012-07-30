@@ -1,5 +1,5 @@
 class ganglia::package {
-  include wget, apache2
+  include apache2
   package {
     'gmetad':
       ensure  => 'installed',

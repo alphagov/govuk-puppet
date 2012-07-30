@@ -1,12 +1,6 @@
 class places_base {
-  include ntp
-  include apt
-  include base_packages
-  include sudo
-  include logrotate
-  include motd
-  include wget
-  include sysctl
+  include base
+
   include java
   include users
   include users::groups::govuk

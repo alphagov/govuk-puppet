@@ -1,5 +1,5 @@
 class logstash::package {
-  include wget, openjdk
+  include openjdk
   file { ['/var/apps', '/var/apps/logstash']:
     ensure  => directory
   }
