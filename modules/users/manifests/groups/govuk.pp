@@ -134,5 +134,9 @@ class users::groups::govuk {
     fullname   => 'Kief Morris',
     email      => 'kmorris@thoughtworks.com';
   }
+  govuk::user { 'rujmah':
+    fullname   => 'Robin Mayfield',
+    email      => 'robin.mayfield@digital.cabinet-office.gov.uk';
+  }
 
 }
