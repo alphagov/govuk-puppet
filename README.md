@@ -52,3 +52,5 @@ to well written Puppet code. It can be run with:
 This outputs a set of errors or warnings that should be fixed. See the
 [Puppet Style Guide](http://docs.puppetlabs.com/guides/style_guide.html)
 for more information.
+
+
