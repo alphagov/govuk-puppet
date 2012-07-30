@@ -38,21 +38,20 @@ class govuk_base::db_server inherits govuk_base {
 }
 
 class govuk_base::mysql_server inherits govuk_base{
-  $mysql_password = extlookup('mysql_root', '')
-  $needotron_password = extlookup('mysql_need_o_tron_new', '')
-  $replica_password = extlookup('mysql_replica_password', '')
+  #currently mysql  is just turned on for preview, this condition will be removed when everybody moves out of RDS
   if ($::govuk_platform == 'preview') {
-    class { 'mysql::server::master':
-      database         => 'need_o_tron_production',
-      user             => 'need_o_tron',
-      password         => $needotron_password,
-      host             => 'localhost',
-      replica_password => $replica_password,
-      root_password    => $mysql_password,
+    $root_password = extlookup('mysql_root', '')
+    $master_server_id = '1'
+    class { 'mysql::server':
+      root_password => $root_password,
+      server_id     => $master_server_id
     }
+
     class { 'mysql::server::monitoring':
-      root_password => $mysql_password
+      root_password => $root_password
     }
+
+    include govuk::apps::need_o_tron::db
   }
 }
 

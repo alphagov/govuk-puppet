@@ -1,9 +1,4 @@
-class mysql::server::master ($database, $user, $password, $host, $root_password, $replica_password, $remote_host='%') {
-  $master_server_id = '1'
-  class { 'mysql::server':
-    root_password => $root_password,
-    server_id     => $master_server_id
-  }
+define mysql::server::master ($database, $user, $password, $host, $root_password, $replica_password, $remote_host='%') {
   db{"$database":
     user          => $user,
     password      => $password,
