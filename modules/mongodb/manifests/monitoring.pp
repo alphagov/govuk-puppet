@@ -2,6 +2,7 @@ class mongodb::monitoring {
 
   include ganglia::client
   include nagios::client
+  include logstash::client
 
   package { 'pymongo':
     ensure   => present,
