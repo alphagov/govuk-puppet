@@ -51,7 +51,7 @@ class mysql::server::monitoring ($root_password){
 
   file { '/etc/logstash/logstash-client/mysql.conf':
     source  => 'puppet:///modules/mysql/etc/logstash/logstash-client/mysql.conf',
-    notify  => Service['logstash-client']
+    tag     => 'logstash-client'
   }
 
 }
