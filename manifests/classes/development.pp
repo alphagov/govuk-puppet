@@ -8,7 +8,7 @@ class development {
   include base_packages::unix_tools
 
   include puppet
-  include devdns
+  #include devdns
 
   include mongodb::server
   include apollo
