@@ -38,7 +38,7 @@ class govuk_base::db_server inherits govuk_base {
   include nagios::client::checks
 }
 
-class govuk_base::mysql_server inherits govuk_base{
+class govuk_base::mysql_master_server inherits govuk_base{
   #currently mysql  is just turned on for preview, this condition will be removed when everybody moves out of RDS
   if ($::govuk_platform == 'preview') {
     $root_password = extlookup('mysql_root', '')
@@ -46,6 +46,24 @@ class govuk_base::mysql_server inherits govuk_base{
     class { 'mysql::server':
       root_password => $root_password,
       server_id     => $master_server_id
+    }
+
+    class { 'mysql::server::monitoring':
+      root_password => $root_password
+    }
+
+    include govuk::apps::need_o_tron::db
+  }
+}
+
+class govuk_base::mysql_slave_server inherits govuk_base{
+  #currently mysql  is just turned on for preview, this condition will be removed when everybody moves out of RDS
+  if ($::govuk_platform == 'preview') {
+    $root_password = extlookup('mysql_root', '')
+    class { 'mysql::server':
+      root_password => $root_password,
+      server_id     => $::slave_server_id,
+      config_path   => 'mysql/slave/my.cnf'
     }
 
     class { 'mysql::server::monitoring':
