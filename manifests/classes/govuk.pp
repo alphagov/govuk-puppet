@@ -1,26 +1,20 @@
 class govuk_base {
-  # First and most importantly, set up our apt repository
-  include govuk::repository
-  include govuk::deploy_tools
+  include base
 
+  include ganglia::client
+  include graphite::client
+  include hosts
+  include nagios::client
+  include puppet
+  include puppet::cronjob
   include users
-  include users::groups::govuk
   include users::groups::freerange
+  include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
 
-  include hosts
-
-  include ntp
-  include apt
-  include base_packages::unix_tools
-  include sudo
-  include logrotate
-  include motd
-  include wget
-  include sysctl
-  include cron
-  include puppet
+  include govuk::repository
+  include govuk::deploy_tools
 
   class { 'ruby::rubygems':
     version => '1.8.24'
@@ -31,10 +25,6 @@ class govuk_base {
     type   => 'ssh-rsa',
     key    => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
   }
-
-  include nagios::client
-  include ganglia::client
-  include graphite::client
 
 }
 
@@ -121,13 +111,14 @@ class govuk_base::ruby_app_server inherits govuk_base {
 
 class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_server {
   class { 'apache2':
-    port => '8080'
+    port => '8080',
   }
-  class { 'passenger' : maxpoolsize => 12 }
-  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
-
-  class { 'nginx'     : node_type   => backend_server }
-
+  class { 'passenger':
+    maxpoolsize => 12,
+  }
+  class { 'nginx':
+    node_type => backend_server,
+  }
   package { 'graphviz':
     ensure => installed
   }
@@ -148,16 +139,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "whitehall-admin.$::govuk_platform.alphagov.co.uk":;
   }
 
-  file { "/etc/apache2/sites-enabled/signonotron.$::govuk_platform.alphagov.co.uk":
-    ensure => absent,
-    notify => Exec['apache_graceful']
-  }
-
-  file { "/etc/apache2/sites-available/signonotron.$::govuk_platform.alphagov.co.uk":
-    ensure => absent,
-    notify => Exec['apache_graceful']
-  }
-
   file { "/data/vhost/signonotron.$::govuk_platform.alphagov.co.uk":
     ensure => absent,
     force  => true,
@@ -171,8 +152,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     port => '8080'
   }
   class { 'passenger' : maxpoolsize => 12 }
-
-  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
 
   include govuk::apps::planner
 
@@ -214,8 +193,7 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
     port => '8080'
   }
   include passenger
-  Class['apache2::install'] -> Class['passenger'] ~> Class['apache2::service']
-  class { 'nginx' : node_type => whitehall_frontend_server }
+  class { 'nginx': node_type => whitehall_frontend_server }
 
   apache2::vhost::passenger {
     "whitehall.$::govuk_platform.alphagov.co.uk":

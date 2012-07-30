@@ -1,7 +1,6 @@
 mongo.database.hosts=elms-mongo-1,elms-mongo-2,elms-mongo-3
 places.api.url=http://places-api:9700/places
 feedActor=true
-elms.pdf.apihost=http://localhost:9600/fake-adobe/
 
 oauth_callback_url_override=https://licensify.preview.alphagov.co.uk/licence-management/admin/oauth
 

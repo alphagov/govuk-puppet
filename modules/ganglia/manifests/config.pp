@@ -23,13 +23,10 @@ class ganglia::config {
     group   => www-data,
     require => Exec[ganglia_webfrontend_untar],
   }
-  file { '/etc/apache2/sites-enabled/ganglia':
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    source  => 'puppet:///modules/ganglia/apache.conf',
+
+  apache2::site { 'ganglia':
+    source => 'puppet:///modules/ganglia/apache.conf',
   }
-  File['/etc/apache2/sites-enabled/ganglia'] ~> Service['apache2']
 
   file { '/etc/ganglia/htpasswd.ganglia':
     ensure  => present,

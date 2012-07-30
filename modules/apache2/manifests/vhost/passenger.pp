@@ -1,14 +1,6 @@
 define apache2::vhost::passenger($aliases = [], $environment='production', $additional_port=false) {
   include logster
   include graylogtail
-  file { "/etc/apache2/sites-available/$name":
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('apache2/passenger-vhost.conf'),
-    notify  => Service['apache2'],
-    require => Class['apache2::install']
-  }
 
   @@nagios::check { "check_apache_5xx_${name}_on_${::hostname}":
     check_command       => "check_ganglia_metric!${name}_apache_http_5xx!0.05!0.1",
@@ -36,5 +28,7 @@ define apache2::vhost::passenger($aliases = [], $environment='production', $addi
     level    => 'error',
   }
 
-  apache2::a2ensite { $name: }
+  apache2::site { $name:
+    content => template('apache2/passenger-vhost.conf'),
+  }
 }

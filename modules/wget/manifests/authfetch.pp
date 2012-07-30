@@ -7,7 +7,7 @@
 #
 ################################################################################
 define wget::authfetch($source, $destination, $user, $password='', $timeout='0') {
-  if $::http_proxyxy {
+  if $::http_proxy {
     $environment = [ "HTTP_PROXY=$::http_proxy", "http_proxy=$::http_proxy", "WGETRC=/tmp/wgetrc-$name" ]
   }
   else {

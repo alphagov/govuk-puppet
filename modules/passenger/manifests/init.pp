@@ -7,8 +7,6 @@ class passenger(
 ) {
   Class['ruby::rubygems'] ~> Class['passenger']
 
-  include apt
-
   exec { 'apt-get-update-for-brightbox-ludic-repo':
     command     => '/usr/bin/apt-get update',
     refreshonly => true
@@ -34,7 +32,7 @@ class passenger(
   package { 'passenger':
     ensure   => installed,
     provider => gem,
-    require  => Package['libapache2-mod-passenger']
+    require  => Package['libapache2-mod-passenger'],
   }
 
   file { '/etc/apache2/mods-available/passenger.conf':

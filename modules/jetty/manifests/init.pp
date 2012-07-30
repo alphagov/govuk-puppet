@@ -1,5 +1,4 @@
 class jetty($version='7.6.4.v20120524'){
-  include wget
   include openjdk
   include logster
   include graylogtail

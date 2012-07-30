@@ -1,12 +1,6 @@
 class elms_base {
-  include ntp
-  include apt
-  include base_packages::unix_tools
-  include sudo
-  include logrotate
-  include motd
-  include wget
-  include sysctl
+  include base
+
   include users
   include users::groups::govuk
   include hosts::elms-preview

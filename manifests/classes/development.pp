@@ -1,22 +1,22 @@
 class development {
-  include users
+  include base
 
-  include govuk::repository
-  include govuk::testing_tools
-  include govuk::deploy_tools
-
-  include base_packages::unix_tools
-
-  include puppet
-  include devdns
-
-  include mongodb::server
   include apollo
-  include solr
-  include apt
+  include base_packages
+  #include devdns
+  include imagemagick
+  include mongodb::server
   include mysql::client
   include nodejs
-  include imagemagick
+  include puppet
+  include solr
+  include users
+
+  include govuk::apps::review_o_matic_explore
+  include govuk::apps::planner
+  include govuk::deploy_tools
+  include govuk::repository
+  include govuk::testing_tools
 
   class  { 'nginx' : node_type => development }
 
@@ -52,10 +52,6 @@ class development {
     'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];
     'rails':          ensure => 'installed', provider => gem;
     'passenger':      ensure => 'installed', provider => gem;
-    'apache2':        ensure => 'absent';
     'wbritish-small': ensure => installed;
   }
-
-  include govuk::apps::review_o_matic_explore
-  include govuk::apps::planner
 }

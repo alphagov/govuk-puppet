@@ -42,19 +42,7 @@ class graphite::config {
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
-  file { '/etc/apache2/sites-available/graphite':
-    ensure  => 'present',
+  apache2::site { 'graphite':
     source  => 'puppet:///modules/graphite/apache.conf',
-  }
-
-  file { '/etc/apache2/sites-enabled/graphite':
-    ensure  => link,
-    target  => '/etc/apache2/sites-available/graphite',
-    require => File['/etc/apache2/sites-available/graphite'],
-  }
-
-  file { '/etc/apache2/sites-enabled/000-default':
-    ensure  => 'absent',
-    require => File['/etc/apache2/sites-enabled/graphite'],
   }
 }

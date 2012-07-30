@@ -7,5 +7,5 @@ class graphite {
   Anchor['graphite::start'] -> Class['graphite::package'] -> Class['graphite::config'] ~> Class['graphite::service'] ~> Anchor['graphite::end']
   Anchor['graphite::start'] ~> Class['graphite::service']
 
-  Class['apache2::install'] -> Class['graphite::config'] ~> Class['apache2::service']
+  Class['apache2::package'] -> Class['graphite::config'] ~> Class['apache2::service']
 }
