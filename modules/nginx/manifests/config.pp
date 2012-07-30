@@ -78,7 +78,6 @@ class nginx::config($node_type) {
     redirect:          { include nginx::config::redirect }
     frontend_server:   { include nginx::config::frontend_server }
     backend_server:    { include nginx::config::backend_server }
-    whitehall_frontend_server: { include nginx::config::whitehall_frontend_server }
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
     mapit:             { include nginx::config::mapit }
