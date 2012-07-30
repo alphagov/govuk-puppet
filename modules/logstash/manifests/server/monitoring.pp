@@ -1,11 +1,7 @@
 class logstash::server::monitoring {
   include nagios::client
   include ganglia::client
-  file { '/etc/nagios/nrpe.d/check_logstash.cfg':
-    source  => 'puppet:///modules/logstash/etc/nagios/nrpe.d/check_logstash.cfg',
-    require => [Service['logstash-server'],Package['nagios-nrpe-server']],
-    notify  => Service['nagios-nrpe-server'],
-  }
+  include logstash::common
   file { '/usr/local/bin/rabbitmq_ganglia.sh':
     source  => 'puppet:///modules/logstash/bin/rabbitmq_ganglia.sh',
     require => [Package['rabbitmq-server'],Service['ganglia-monitor']],
