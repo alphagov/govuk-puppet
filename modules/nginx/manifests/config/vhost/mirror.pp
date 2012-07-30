@@ -5,7 +5,7 @@ define nginx::config::vhost::mirror ($aliases = [], $ssl_only = false) {
   # htpasswd
 
   nginx::config::site { $name:
-    template('nginx/mirror-vhost.conf')
+    content => template('nginx/mirror-vhost.conf') 
   }
   nginx::config::ssl { $name: }
 }

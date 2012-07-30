@@ -34,7 +34,7 @@ define mapit::get_data(
 
     exec {'unzip_codepo':
       command   => "/usr/bin/unzip -d ${mapit_datadir}/data ${mapit_datadir}/data/${file_codepo}",
-      unless    => "test -s ${mapit_datadir}/data/Code-Point\ Open/readme.txt",
+      unless    => "test -s \"${mapit_datadir}/data/Code-Point Open/readme.txt\"",
       require   => Wget::Fetch['codepo_download'],
     }
 
