@@ -1,6 +1,5 @@
 class solr {
   include java
-  include graylogtail
 
   user { 'solr':
     ensure => present,

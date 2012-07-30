@@ -1,7 +1,6 @@
 class jetty($version='7.6.4.v20120524'){
   include openjdk
   include logster
-  include graylogtail
 
   $home = '/opt'
 

@@ -1,6 +1,5 @@
 class nginx($node_type = 'UNSET') {
   include logster
-  include graylogtail
   include logstash::client
 
   anchor { 'nginx::begin':

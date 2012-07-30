@@ -1,6 +1,5 @@
 class varnish::service {
   include logster
-  include graylogtail
   include ganglia::client
 
   service { 'varnish':
