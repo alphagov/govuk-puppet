@@ -61,19 +61,18 @@ if [ -e Gemfile ]; then
   bundle clean
 fi
 
+export FACTER_govuk_platform
 if [ -e Procfile ]; then
   status "Detected Procfile: spawning 'web' task"
   CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
 elif [ -e config.ru ]; then
   status "Detected config.ru: spawning rack app under unicorn"
   export RACK_ENV="$GOVUK_ENV"
-  export FACTER_govuk_platform
   CMD="bundle exec unicorn -p \$PORT"
 elif [ -e config/environment.rb ]; then
   status "Detected config/application.rb: spawning Rails 3 app under unicorn_rails"
   export RACK_ENV="$GOVUK_ENV"
   export RAILS_ENV="$GOVUK_ENV"
-  export FACTER_govuk_platform
   CMD="bundle exec unicorn_rails -p \$PORT"
 else
   echo "ERROR: can't deduce how to run '${NAME}'. Aborting!"
