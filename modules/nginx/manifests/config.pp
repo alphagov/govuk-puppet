@@ -78,7 +78,6 @@ class nginx::config($node_type) {
     redirect:          { include nginx::config::redirect }
     frontend_server:   { include nginx::config::frontend_server }
     backend_server:    { include nginx::config::backend_server }
-    whitehall_frontend_server: { include nginx::config::whitehall_frontend_server }
     elms:              { include nginx::config::elms }
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
@@ -145,18 +144,6 @@ class nginx::config::frontend_server {
     protected => false,
     aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg'],
     ssl_only  => true
-  }
-}
-
-class nginx::config::whitehall_frontend_server {
-  nginx::config::vhost::proxy {
-    "whitehall.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "whitehall-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'];
-    "whitehall-search.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
   }
 }
 
