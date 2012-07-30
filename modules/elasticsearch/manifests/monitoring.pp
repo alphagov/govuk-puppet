@@ -25,4 +25,11 @@ class elasticsearch::monitoring {
     service_description => "check elasticsearch running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+
+  file { '/etc/logstash/logstash-client/elasticsearch.conf':
+    source  => 'puppet:///modules/elasticsearch/etc/logstash/logstash-client/elasticsearch.conf',
+    tag     => 'logstash-client',
+    require => Class[logstash::client]
+  }
+
 }
