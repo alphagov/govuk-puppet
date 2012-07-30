@@ -1,4 +1,4 @@
-class nginx($node_type = 'development') {
+class nginx($node_type = 'UNSET') {
   include logster
   include graylogtail
   include logstash::client

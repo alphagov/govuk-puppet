@@ -78,7 +78,7 @@ class nginx::config($node_type) {
     redirect:          { include nginx::config::redirect }
     frontend_server:   { include nginx::config::frontend_server }
     backend_server:    { include nginx::config::backend_server }
-    elms:              { include nginx::config::elms }
+    whitehall_frontend_server: { include nginx::config::whitehall_frontend_server }
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
     mapit:             { include nginx::config::mapit }
@@ -87,6 +87,7 @@ class nginx::config($node_type) {
     ertp_api_preview:  { include nginx::config::ertp::api::preview }
     ertp_staging:      { include nginx::config::ertp::staging }
     mirror:            { include nginx::config::mirror_server }
+    UNSET:             {}
     default: {
       notify { '$node_type':
         message => "Unrecognised node type: $node_type"

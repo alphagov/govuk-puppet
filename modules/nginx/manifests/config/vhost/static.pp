@@ -1,11 +1,7 @@
 define nginx::config::vhost::static($protected = true, $aliases = [], $ssl_only = false) {
-  file { "/etc/nginx/sites-available/$name":
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+  nginx::config::ssl { $name: }
+  nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),
-    require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
   }
 
   case $protected {
@@ -25,7 +21,4 @@ define nginx::config::vhost::static($protected = true, $aliases = [], $ssl_only 
       }
     }
   }
-
-  nginx::config::ssl { $name: }
-  nginx::config::site { $name: }
 }

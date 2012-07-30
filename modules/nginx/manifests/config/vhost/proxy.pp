@@ -1,11 +1,7 @@
 define nginx::config::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
-  file { "/etc/nginx/sites-available/$name":
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+  nginx::config::ssl { $name: }
+  nginx::config::site { $name:
     content => template('nginx/proxy-vhost.conf'),
-    require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
   }
 
   @@nagios::check { "check_nginx_5xx_${name}_on_${::hostname}":
@@ -46,6 +42,4 @@ define nginx::config::vhost::proxy($to, $aliases = [], $protected = true, $ssl_o
     }
   }
 
-  nginx::config::ssl { $name: }
-  nginx::config::site { $name: }
 }

@@ -1,15 +1,16 @@
 class elms_base {
   include base
 
+  include puppet
   include users
-  include users::groups::govuk
-  include hosts::elms-preview
   include openjdk
   include nagios::client
   include ganglia::client
 }
 
 class elms_base::mongo_server inherits elms_base {
+  include users::groups::govuk
+  include hosts::elms-preview
   include mongodb::server
   include mongodb::monitoring
 
@@ -23,15 +24,25 @@ class elms_base::mongo_server inherits elms_base {
 }
 
 class elms_base::frontend_server inherits elms_base {
-  include elms::config
-  class { 'nginx' : node_type => elms }
-  include elms::scripts
+  include users::groups::govuk
+  include hosts::elms-preview
+  class { 'nginx': }
+  class { 'elms':
+    require => Class['nginx']
+  }
 }
 
 class elms_base::development inherits elms_base {
-  include elms_base::mongo_server
-  include elms::config
-  class { 'nginx' : node_type => elms }
-  include elms::config
-  include elms::scripts
+  host { 'elms-frontend': ip => '127.0.0.1' }
+  host { 'elms-mongo-1':  ip => '127.0.0.1' }
+
+  class { 'nginx': }
+  class { 'elms':
+    require => Class['nginx']
+  }
+
+  include mongodb::server
+  class {'mongodb::configure_replica_set':
+    members => ['elms-mongo-1'],
+  }
 }
