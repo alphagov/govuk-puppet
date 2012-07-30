@@ -7,9 +7,9 @@ fi
 
 . /etc/environment
 
-[ -z "$GOVUK_RUN_AS_USER" ]  && GOVUK_RUN_AS_USER="deploy"
-[ -z "$GOVUK_RUN_AS_GROUP" ] && GOVUK_RUN_AS_GROUP="deploy"
-[ -z "$GOVUK_ENV" ]          && GOVUK_ENV="$FACTER_govuk_platform"
+[ -z "$GOVUK_RUN_AS_USER" ]     && GOVUK_RUN_AS_USER="deploy"
+[ -z "$GOVUK_RUN_AS_GROUP" ]    && GOVUK_RUN_AS_GROUP="deploy"
+[ -z "$FACTER_govuk_platform" ] && FACTER_govuk_platform=""
 
 status () {
   echo "---> ${@}" >&2
@@ -27,15 +27,17 @@ set -eu
 APP_ROOT="/var/apps/${NAME}"
 APP_RUN="/var/run/${NAME}"
 
-if [ -z "$GOVUK_ENV" ]; then
-  error "The GOVUK_ENV or FACTER_govuk_platform environment variables must be set!"
+if [ -z "$FACTER_govuk_platform" ]; then
+  error "The FACTER_govuk_platform environment variable must be set!"
 fi
-export GOVUK_ENV
 
 # RAILS_ENV and friends are "production" in preview.
-if [ "$GOVUK_ENV" != "development" ]; then
+if [ "$FACTER_govuk_platform" = "development" ]; then
+  GOVUK_ENV="development"
+else
   GOVUK_ENV="production"
 fi
+export GOVUK_ENV
 
 status "Spinning up '${NAME}' in '${GOVUK_ENV}' environment'"
 
