@@ -8,7 +8,7 @@ define govuk::app(
   $vhost_ssl_only = false
 ) {
 
-  $app_vhost = $vhost ? {
+  $vhost_real = $vhost ? {
     'NOTSET' => "${title}",
     default  => "${vhost}",
   }
@@ -31,9 +31,9 @@ define govuk::app(
   } else {
     file { "/var/apps/${title}":
       ensure => link,
-      target => "/data/vhost/${app_vhost}.${platform}.alphagov.co.uk/current";
+      target => "/data/vhost/${vhost_real}.${platform}.alphagov.co.uk/current";
     }
-    file { "/data/vhost/${app_vhost}.${platform}.alphagov.co.uk":
+    file { "/data/vhost/${vhost_real}.${platform}.alphagov.co.uk":
       ensure => directory,
       owner  => 'deploy',
       group  => 'deploy';
@@ -103,11 +103,11 @@ define govuk::app(
   }
 
   if $platform == 'development' {
-    nginx::config::vhost::dev_proxy { "${app_vhost}.dev.gov.uk":
+    nginx::config::vhost::dev_proxy { "${vhost_real}.dev.gov.uk":
       to => ["localhost:${port}"];
     }
   } else {
-    nginx::config::vhost::proxy { "${app_vhost}.${platform}.alphagov.co.uk":
+    nginx::config::vhost::proxy { "${vhost_real}.${platform}.alphagov.co.uk":
       to        => ["localhost:${port}"],
       aliases   => $vhost_aliases,
       protected => $vhost_protected,
