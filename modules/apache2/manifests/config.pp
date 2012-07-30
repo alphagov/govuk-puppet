@@ -1,5 +1,8 @@
 class apache2::config($port) {
 
+  apache2::a2enmod { 'headers': }
+  apache2::a2dismod { 'status': }
+
   file { ['/etc/apache2/sites-enabled', '/etc/apache2/sites-available']:
     ensure  => directory,
     recurse => true, # enable recursive directory management
