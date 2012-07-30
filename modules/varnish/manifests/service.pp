@@ -2,7 +2,6 @@ class varnish::service {
   include logster
   include graylogtail
   include ganglia::client
-  include logstash::client
 
   service { 'varnish':
     ensure     => running,

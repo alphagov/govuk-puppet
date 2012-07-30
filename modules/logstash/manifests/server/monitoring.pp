@@ -1,7 +1,11 @@
 class logstash::server::monitoring {
   include nagios::client
   include ganglia::client
-  include logstash::common
+  file { '/etc/nagios/nrpe.d/check_logstash_server.cfg':
+    source  => 'puppet:///modules/logstash/etc/nagios/nrpe.d/check_logstash_server.cfg',
+    require => [Service['logstash-server'],Package['nagios-nrpe-server']],
+    notify  => Service['nagios-nrpe-server'],
+  }
   file { '/usr/local/bin/rabbitmq_ganglia.sh':
     source  => 'puppet:///modules/logstash/bin/rabbitmq_ganglia.sh',
     require => [Package['rabbitmq-server'],Service['ganglia-monitor']],
@@ -14,7 +18,7 @@ class logstash::server::monitoring {
     require => File['/usr/local/bin/rabbitmq_ganglia.sh'],
   }
   @@nagios::check { "check_logstash_server_running_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_logstash_running',
+    check_command       => 'check_nrpe_1arg!check_logstash_server_running',
     service_description => "check logstash server running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }

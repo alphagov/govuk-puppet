@@ -2,7 +2,6 @@ class mysql::server::monitoring ($root_password){
 
   include ganglia::client
   include nagios::client
-  include logstash::client
 
   package {'python-mysqldb':
     ensure => installed,

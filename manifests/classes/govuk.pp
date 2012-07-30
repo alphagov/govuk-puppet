@@ -15,6 +15,7 @@ class govuk_base {
 
   include govuk::repository
   include govuk::deploy_tools
+  include logstash::client
 
   class { 'ruby::rubygems':
     version => '1.8.24'

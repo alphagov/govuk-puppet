@@ -1,5 +1,4 @@
 class apache2::service {
-  include logstash::client
   service { 'apache2':
     ensure    => running,
     hasstatus => true,
