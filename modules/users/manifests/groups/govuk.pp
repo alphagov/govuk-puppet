@@ -63,6 +63,10 @@ class users::groups::govuk {
     fullname   => 'Rob Young',
     email      => 'rob.young@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'alext':
+    fullname   => 'Alex Tomlins',
+    email      => 'alex.tomlins@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'jabley':
     fullname   => 'James Abley',
     email      => 'james.abley@digital.cabinet-office.gov.uk';
