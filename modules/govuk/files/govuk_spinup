@@ -67,11 +67,13 @@ if [ -e Procfile ]; then
 elif [ -e config.ru ]; then
   status "Detected config.ru: spawning rack app under unicorn"
   export RACK_ENV="$GOVUK_ENV"
+  export FACTER_govuk_platform
   CMD="bundle exec unicorn -p \$PORT"
 elif [ -e config/environment.rb ]; then
   status "Detected config/application.rb: spawning Rails 3 app under unicorn_rails"
   export RACK_ENV="$GOVUK_ENV"
   export RAILS_ENV="$GOVUK_ENV"
+  export FACTER_govuk_platform
   CMD="bundle exec unicorn_rails -p \$PORT"
 else
   echo "ERROR: can't deduce how to run '${NAME}'. Aborting!"
