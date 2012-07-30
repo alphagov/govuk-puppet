@@ -33,7 +33,8 @@ class development {
     'needotron_development':          user => 'needotron',    password => '',           host => 'localhost', root_password => $mysql_password;
     'panopticon_development':         user => 'panopticon',   password => 'panopticon', host => 'localhost', root_password => $mysql_password;
     'panopticon_test':                user => 'panopticon',   password => 'panopticon', host => 'localhost', root_password => $mysql_password;
-    'contactotron_development':       user => 'contactotron', password => '',           host => 'localhost', root_password => $mysql_password;
+    'contactotron_development':       user => 'contactotron', password => 'contactotron', host => 'localhost', root_password => $mysql_password;
+    'contactotron_test':              user => 'contactotron', password => 'contactotron', host => 'localhost', root_password => $mysql_password;
     'signonotron2_development':       user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
     'signonotron2_test':              user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
     'signonotron2_integration_test':  user => 'signonotron2', password => '',           host => 'localhost', root_password => $mysql_password;
