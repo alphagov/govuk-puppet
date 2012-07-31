@@ -1,11 +1,11 @@
 #!/bin/sh
 
-if [ -z "$1" ]; then
-  echo "Usage: $(basename "$0") <appname>"
+if [ "$#" -ne "2" ]; then
+  echo "Usage: $(basename "$0") <appname> <apptype>"
   exit 1
 fi
 
-. /etc/environment
+[ -f /etc/environment ] && . /etc/environment
 
 [ -z "$GOVUK_RUN_AS_USER" ]     && GOVUK_RUN_AS_USER="deploy"
 [ -z "$GOVUK_RUN_AS_GROUP" ]    && GOVUK_RUN_AS_GROUP="deploy"
@@ -16,11 +16,12 @@ status () {
 }
 
 error () {
-  echo "!!!> ${@}" >&2
+  echo "ERROR: ${@}" >&2
   exit 1
 }
 
 NAME="$1"
+TYPE="$2"
 
 set -eu
 
@@ -39,7 +40,7 @@ else
 fi
 export GOVUK_ENV
 
-status "Spinning up '${NAME}' in '${GOVUK_ENV}' environment'"
+status "Spinning up '${NAME}' (type ${TYPE}) in '${GOVUK_ENV}' environment"
 
 cd "$APP_ROOT"
 
@@ -62,18 +63,19 @@ if [ -e Gemfile ]; then
 fi
 
 export FACTER_govuk_platform
-if [ -e Procfile ]; then
-  status "Detected Procfile: spawning 'web' task"
+
+if [ "$TYPE" = "procfile" ]; then
+  status "Spawning 'web' task from Procfile"
   CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
-elif [ -e config.ru ]; then
-  status "Detected config.ru: spawning rack app under unicorn"
+elif [ "$TYPE" = "rack" ]; then
+  status "Spawning rack app under unicorn"
   export RACK_ENV="$GOVUK_ENV"
   CMD="bundle exec unicorn -p \$PORT"
   if [ -e "${APP_ROOT}/config/unicorn.rb" ]; then
     CMD="$CMD -c \"${APP_ROOT}/config/unicorn.rb\""
   fi
-elif [ -e config/environment.rb ]; then
-  status "Detected config/application.rb: spawning Rails 3 app under unicorn_rails"
+elif [ "$TYPE" = "rails" ]; then
+  status "Spawning Rails 3 app under unicorn_rails"
   export RACK_ENV="$GOVUK_ENV"
   export RAILS_ENV="$GOVUK_ENV"
   CMD="bundle exec unicorn_rails -p \$PORT"
@@ -81,8 +83,7 @@ elif [ -e config/environment.rb ]; then
     CMD="$CMD -c \"${APP_ROOT}/config/unicorn.rb\""
   fi
 else
-  echo "ERROR: can't deduce how to run '${NAME}'. Aborting!"
-  exit 1
+  error "can't deduce how to run '${NAME}'. Aborting!"
 fi
 
 exec \

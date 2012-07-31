@@ -1,6 +1,2 @@
 UPSTREAM_AUTH=betademo:nottobeshared
-<% if platform == 'development' %>
-UPSTREAM_HOST="reviewomatic.dev.gov.uk"
-<% else %>
-UPSTREAM_HOST="reviewomatic.<%= platform %>.alphagov.co.uk"
-<% end %>
+UPSTREAM_HOST="reviewomatic.<%= upstream_domain %>"

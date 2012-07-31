@@ -1,17 +1,34 @@
 define govuk::app(
+  $type,
   $port,
   $platform = $::govuk_platform,
-  $config = false,
+  $environ_content = 'NOTSET',
+  $environ_source = 'NOTSET',
   $vhost = 'NOTSET',
   $vhost_aliases = [],
   $vhost_protected = true,
   $vhost_ssl_only = false
 ) {
 
+  if ! ($type in ['procfile', 'rack', 'rails']) {
+    fail 'Invalid argument $type to govuk::app! Must be one of "procfile", "rack", or "rails".'
+  }
+
+  if $environ_content != 'NOTSET' and $environ_source != 'NOTSET' {
+    fail 'You may only set one of $environ_content and $environ_source in govuk::app'
+  }
+
   $vhost_real = $vhost ? {
     'NOTSET' => $title,
     default  => $vhost,
   }
+
+  $domain = $platform ? {
+    'development' => 'dev.gov.uk',
+    default       => "${platform}.alphagov.co.uk",
+  }
+
+  $vhost_full = "${vhost_real}.${domain}"
 
   file { "/var/log/${title}":
     ensure => directory
@@ -31,36 +48,89 @@ define govuk::app(
   } else {
     file { "/var/apps/${title}":
       ensure => link,
-      target => "/data/vhost/${vhost_real}.${platform}.alphagov.co.uk/current";
+      target => "/data/vhost/${vhost_full}/current";
     }
-    file { "/data/vhost/${vhost_real}.${platform}.alphagov.co.uk":
+    file { "/data/vhost/${vhost}.${domain}":
       ensure => directory,
       owner  => 'deploy',
       group  => 'deploy';
     }
   }
 
-  if $config {
-    file { "/etc/envmgr/${title}.conf":
-      ensure  => 'file',
-      content => template("govuk/etc/envmgr/${title}.conf.erb");
+  # Install environment/configuration file
+  file { "/etc/envmgr/${title}.conf":
+    ensure  => 'file',
+  }
+
+  if $environ_content != 'NOTSET' {
+    File["/etc/envmgr/${title}.conf"] {
+      content => $environ_content
+    }
+  } elsif $environ_source != 'NOTSET' {
+    File["/etc/envmgr/${title}.conf"] {
+      source => $environ_source
     }
   } else {
-    file { "/etc/envmgr/${title}.conf":
-      ensure  => 'file',
-      content => '';
+    File["/etc/envmgr/${title}.conf"] {
+      content => ''
     }
   }
 
+  # Make sure run directory exists
   file { "/var/run/${title}":
     ensure => directory,
     owner  => 'deploy',
     group  => 'deploy';
   }
 
+  # Install service
   file { "/etc/init/${title}.conf":
     content => template('govuk/app_upstart.conf.erb');
   }
+
+  service { $title:
+    provider  => upstart,
+    require   => [
+      Class['govuk::deploy_tools'],
+      File["/etc/envmgr/${title}.conf"],
+      File["/etc/init/${title}.conf"],
+      File["/var/run/${title}"],
+      File["/var/apps/${title}"]
+    ],
+    subscribe => File["/etc/init/${title}.conf"];
+  }
+
+  if $platform != 'development' {
+    Service[$title] {
+      ensure => running
+    }
+  }
+
+  $vhost_aliases_real = regsubst($vhost_aliases, '^.+$', "\0.${domain}")
+
+  # Expose this application from nginx
+  if $platform == 'development' {
+    nginx::config::vhost::dev_proxy { $vhost_full:
+      to => ["localhost:${port}"],
+      aliases   => $vhost_aliases_real,
+    }
+  } else {
+    nginx::config::vhost::proxy { $vhost_full:
+      to        => ["localhost:${port}"],
+      aliases   => $vhost_aliases_real,
+      protected => $vhost_protected,
+      ssl_only  => $vhost_ssl_only,
+    }
+  }
+
+  # Set up monitoring
+  if $platform != 'development' {
+    govuk::app::monitoring { $title: }
+  }
+
+}
+
+define govuk::app::monitoring {
 
   file { "/usr/lib/ganglia/python_modules/${title}-procstat.py":
     ensure  => link,
@@ -87,32 +157,6 @@ define govuk::app(
     check_command       => "check_ganglia_metric!procstat_${title}_mem!100000000!200000000",
     service_description => "Check the mem used by unicorn ${title} isnt too high",
     host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  service { $title:
-    ensure    => running,
-    provider  => upstart,
-    require   => [
-      Class['govuk::deploy_tools'],
-      File["/etc/envmgr/${title}.conf"],
-      File["/etc/init/${title}.conf"],
-      File["/var/run/${title}"],
-      File["/var/apps/${title}"]
-    ],
-    subscribe => File["/etc/init/${title}.conf"];
-  }
-
-  if $platform == 'development' {
-    nginx::config::vhost::dev_proxy { "${vhost_real}.dev.gov.uk":
-      to => ["localhost:${port}"];
-    }
-  } else {
-    nginx::config::vhost::proxy { "${vhost_real}.${platform}.alphagov.co.uk":
-      to        => ["localhost:${port}"],
-      aliases   => $vhost_aliases,
-      protected => $vhost_protected,
-      ssl_only  => $vhost_ssl_only;
-    }
   }
 
 }
