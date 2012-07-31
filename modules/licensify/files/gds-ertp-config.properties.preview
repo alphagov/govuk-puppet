@@ -13,4 +13,4 @@ client_id=f85b2ba81c80d2e83aa3c83eaf9fa841eb39efc7c508dde3af2b6cb9af692803
 client_secret=c8e6a17c3ca49b8a1857d26fa8207c6de5d2eeef253b7c343f5f25d068720601
 
 worldpay.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayComplete
-worldpay.cancelled.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayCancelled  
+worldpay.cancelled.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayCancelled

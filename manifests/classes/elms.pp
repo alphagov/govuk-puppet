@@ -27,7 +27,7 @@ class elms_base::frontend_server inherits elms_base {
   include users::groups::govuk
   include hosts::elms-preview
   class { 'nginx': }
-  class { 'elms':
+  class { 'licensify':
     require => Class['nginx']
   }
 }
@@ -37,7 +37,7 @@ class elms_base::development inherits elms_base {
   host { 'elms-mongo-1':  ip => '127.0.0.1' }
 
   class { 'nginx': }
-  class { 'elms':
+  class { 'licensify':
     require => Class['nginx']
   }
 
