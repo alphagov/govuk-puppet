@@ -7,4 +7,8 @@ input {
     type => "<%=title%>-unicorn-err"
     path => "/var/log/<%=title%>/<%=title%>.error.log"
   }
+  file {
+    type => "<%=title%>-app"
+    path => "/var/apps/<%=title%>/log/*.log"
+  }
 }
