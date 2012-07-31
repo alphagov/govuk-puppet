@@ -9,7 +9,6 @@ class licensify::apps::licensify( $port = 9000 ) {
     type               => 'procfile',
     port               => $port,
     environ_content    => 'LANG=en_GB.UTF-8\n',
-    vhost_aliases      => ['licensify'],
     nginx_extra_config => template('licensify/nginx_extra'),
   }
 }
