@@ -126,7 +126,7 @@ class users::groups::govuk {
     shell      => '/bin/zsh';
   }
   govuk::user { 'stevelaing':
-    fullname   => 'John Griffin',
+    fullname   => 'Steve Laing',
     email      => 'steve.laing@digital.cabinet-office.gov.uk',
     shell      => '/bin/zsh';
   }
