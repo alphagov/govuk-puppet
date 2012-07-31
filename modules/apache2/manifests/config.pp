@@ -40,10 +40,4 @@ class apache2::config($port) {
     source  => 'puppet:///modules/apache2/security',
   }
 
-  file { '/data/vhost':
-    ensure  => directory,
-    owner   => 'deploy',
-    group   => 'deploy',
-    require => [User['deploy'], Group['deploy']],
-  }
 }
