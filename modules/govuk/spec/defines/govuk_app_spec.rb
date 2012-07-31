@@ -7,7 +7,7 @@ describe 'govuk::app', :type => :define do
     it do
       expect {
         should contain_file('/var/apps/giraffe')
-      }.to raise_error(Puppet::Error, /Must pass type/)
+      }.to raise_error(Puppet::Error, /Must pass app_type/)
     end
   end
 
@@ -15,7 +15,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :port => 8000,
-        :type => 'rails',
+        :app_type => 'rails',
         :platform => 'production'
       }
     end
@@ -35,7 +35,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :port => 8000,
-        :type => 'rails',
+        :app_type => 'rails',
         :platform => 'development'
       }
     end
@@ -47,7 +47,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :port => 8000,
-        :type => 'rails',
+        :app_type => 'rails',
         :platform => 'production',
         :vhost_aliases => ['foo']
       }
