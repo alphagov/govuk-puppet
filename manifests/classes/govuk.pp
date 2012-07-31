@@ -341,6 +341,7 @@ class govuk_base::management_server {
       user          => 'tariff',
       password      => 'tariff',
       host          => 'localhost',
+      remote_host   => 'localhost',
       root_password => $mysql_password;
   }
 }
