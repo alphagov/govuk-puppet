@@ -7,6 +7,7 @@ class elms_base {
   include nagios::client
   include ganglia::client
 
+  include govuk::repository
   include govuk::deploy
 }
 
