@@ -5,7 +5,9 @@ class users::groups::govuk {
 
   # Ensure defunct users are absent
   govuk::user { 'steve': ensure => absent }
-  govuk::user { 'jgriffin': ensure => absent }
+  govuk::user { 'jgriffin':
+    ensure => absent
+  }
 
   govuk::user { 'mwall':
     fullname   => 'Mat Wall',
@@ -125,7 +127,7 @@ class users::groups::govuk {
     email      => 'john.griffin@digital.cabinet-office.gov.uk',
     shell      => '/bin/zsh';
   }
-  govuk::user { 'stevelaing':
+  govuk::user { 'stevelaing': 
     fullname   => 'Steve Laing',
     email      => 'steve.laing@digital.cabinet-office.gov.uk',
     shell      => '/bin/zsh';
