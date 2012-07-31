@@ -3,6 +3,10 @@ class users::groups::govuk {
   govuk::user { 'craig': ensure => absent }
   govuk::user { 'paulb': ensure => absent }
 
+  # Ensure defunct users are absent
+  govuk::user { 'steve': ensure => absent }
+  govuk::user { 'jgriffin': ensure => absent }
+
   govuk::user { 'mwall':
     fullname   => 'Mat Wall',
     email      => 'mat.wall@digital.cabinet-office.gov.uk';
