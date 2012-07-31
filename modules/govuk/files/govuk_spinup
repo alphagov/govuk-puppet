@@ -57,8 +57,8 @@ if [ -e Gemfile ]; then
   else
     BUNDLE_ARGS=""
   fi
-  bundle install $BUNDLE_ARGS
-  bundle clean
+  sudo -u "$GOVUK_RUN_AS_USER" bundle install $BUNDLE_ARGS
+  sudo -u "$GOVUK_RUN_AS_USER" bundle clean
 fi
 
 export FACTER_govuk_platform
