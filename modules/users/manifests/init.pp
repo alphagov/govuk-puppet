@@ -22,6 +22,12 @@ class users {
     mode    => '0755',
     require => User['deploy'],
   }
+  ssh_authorized_key { 'deploy_key_jenkins':
+    ensure  => present,
+    key     => extlookup('jenkins_key', ''),
+    type    => 'ssh-rsa',
+    user    => 'deploy',
+  }
   if $::govuk_platform == 'preview' and $::govuk_class == 'support' {
     $mysql_host = 'rds.cluster'
     $mysql_user = 'backup'
