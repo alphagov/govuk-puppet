@@ -14,15 +14,10 @@ class jenkins::ssh_key {
     group  => 'jenkins',
   }
 
+  # SSH debugging has been reverted.  This block can be removed once the Jenkins machines
+  # have been updated
   file { '/home/jenkins/.ssh/config':
-    source  => 'puppet:///modules/jenkins/dot-sshconfig',
-    owner   => jenkins,
-    group   => jenkins,
-    mode    => '0600',
-    require => [
-      User['jenkins'],
-      File['/home/jenkins/.ssh']
-    ]
+    ensure  => absent,
   }
 
   exec { 'Creating key pair for jenkins':
