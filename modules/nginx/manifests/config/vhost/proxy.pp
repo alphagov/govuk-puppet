@@ -1,4 +1,10 @@
-define nginx::config::vhost::proxy($to, $aliases = [], $protected = true, $ssl_only = false) {
+define nginx::config::vhost::proxy(
+  $to,
+  $aliases = [],
+  $protected = true,
+  $ssl_only = false,
+  $extra_config = ''
+) {
   nginx::config::ssl { $name: }
   nginx::config::site { $name:
     content => template('nginx/proxy-vhost.conf'),

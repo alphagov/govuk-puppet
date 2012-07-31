@@ -1,0 +1,5 @@
+location /licence-management/payment/worldpayCallback {
+  proxy_pass http://localhost:<%= port %>/licence-management/payment/worldpayCallback;
+  allow all;
+  auth_basic off;
+}

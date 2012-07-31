@@ -7,7 +7,8 @@ define govuk::app(
   $vhost = 'NOTSET',
   $vhost_aliases = [],
   $vhost_protected = true,
-  $vhost_ssl_only = false
+  $vhost_ssl_only = false,
+  $nginx_extra_config = ''
 ) {
 
   if ! ($type in ['procfile', 'rack', 'rails']) {
@@ -50,7 +51,7 @@ define govuk::app(
       ensure => link,
       target => "/data/vhost/${vhost_full}/current";
     }
-    file { "/data/vhost/${vhost}.${domain}":
+    file { "/data/vhost/${vhost_full}":
       ensure => directory,
       owner  => 'deploy',
       group  => 'deploy';
@@ -106,20 +107,22 @@ define govuk::app(
     }
   }
 
-  $vhost_aliases_real = regsubst($vhost_aliases, '^.+$', "\0.${domain}")
+  $vhost_aliases_real = regsubst($vhost_aliases, '^.+$', "\\0.${domain}")
 
   # Expose this application from nginx
   if $platform == 'development' {
     nginx::config::vhost::dev_proxy { $vhost_full:
-      to => ["localhost:${port}"],
-      aliases   => $vhost_aliases_real,
+      to           => ["localhost:${port}"],
+      aliases      => $vhost_aliases_real,
+      extra_config => $nginx_extra_config,
     }
   } else {
     nginx::config::vhost::proxy { $vhost_full:
-      to        => ["localhost:${port}"],
-      aliases   => $vhost_aliases_real,
-      protected => $vhost_protected,
-      ssl_only  => $vhost_ssl_only,
+      to           => ["localhost:${port}"],
+      aliases      => $vhost_aliases_real,
+      protected    => $vhost_protected,
+      ssl_only     => $vhost_ssl_only,
+      extra_config => $nginx_extra_config,
     }
   }
 
