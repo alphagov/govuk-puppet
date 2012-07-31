@@ -92,7 +92,7 @@ define govuk::app(
   service { $title:
     provider  => upstart,
     require   => [
-      Class['govuk::deploy_tools'],
+      Class['govuk::deploy'],
       File["/etc/envmgr/${title}.conf"],
       File["/etc/init/${title}.conf"],
       File["/var/run/${title}"],

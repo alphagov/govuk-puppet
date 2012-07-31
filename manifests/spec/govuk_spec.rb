@@ -7,7 +7,7 @@ require_relative '../../spec_helper'
     it { should include_class('puppet') }
     it { should include_class('puppet::cronjob') }
     it { should include_class('cron') }
-    it { should include_class('govuk::deploy_tools') }
+    it { should include_class('govuk::deploy') }
   end
 
   describe 'govuk_base::redirect_server', :type => :class do

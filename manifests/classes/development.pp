@@ -14,7 +14,7 @@ class development {
 
   include govuk::apps::review_o_matic_explore
   include govuk::apps::planner
-  include govuk::deploy_tools
+  include govuk::deploy
   include govuk::repository
   include govuk::testing_tools
 
