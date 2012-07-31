@@ -2,6 +2,7 @@ class base_packages {
   package {
     [
       'ack-grep',
+      'bzip2',
       'build-essential',
       'curl',
       'daemontools',
@@ -15,9 +16,12 @@ class base_packages {
       'libxml2-dev',
       'libxslt1-dev',
       'logtail',
+      'tar',
       'tree',
+      'unzip',
       'vim-nox',
       'wget',
+      'xz-utils'
     ]:
     ensure => installed
   }
