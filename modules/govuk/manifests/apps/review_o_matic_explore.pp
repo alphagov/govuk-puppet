@@ -6,7 +6,7 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
   }
 
   govuk::app { 'review-o-matic-explore':
-    type            => 'procfile',
+    app_type        => 'procfile',
     port            => $port,
     environ_content => template('govuk/etc/envmgr/review-o-matic-explore.conf.erb'),
     vhost           => 'explore-reviewomatic',

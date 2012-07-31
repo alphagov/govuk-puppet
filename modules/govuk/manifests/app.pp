@@ -1,5 +1,5 @@
 define govuk::app(
-  $type,
+  $app_type,
   $port,
   $platform = $::govuk_platform,
   $environ_content = 'NOTSET',
@@ -11,8 +11,8 @@ define govuk::app(
   $nginx_extra_config = ''
 ) {
 
-  if ! ($type in ['procfile', 'rack', 'rails']) {
-    fail 'Invalid argument $type to govuk::app! Must be one of "procfile", "rack", or "rails".'
+  if ! ($app_type in ['procfile', 'rack', 'rails']) {
+    fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile", "rack", or "rails".'
   }
 
   if $environ_content != 'NOTSET' and $environ_source != 'NOTSET' {
