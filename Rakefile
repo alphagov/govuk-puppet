@@ -11,19 +11,19 @@ PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{
 PuppetLint.configuration.send("disable_only_variable_string")
 
 desc "Run rspec-puppet tests for modules"
-RSpec::Core::RakeTask.new(:specmod) do |t|
+RSpec::Core::RakeTask.new(:sspecmod) do |t|
   t.pattern = 'modules/*/spec/*/*_spec.rb'
   t.rspec_opts = "--color --format documentation"
 end
 
 desc "Run rspec-puppet tests for manifests"
-RSpec::Core::RakeTask.new(:specman) do |t|
+RSpec::Core::RakeTask.new(:sspecman) do |t|
   t.pattern = 'manifests/spec/*_spec.rb'
   t.rspec_opts = "--color --format documentation"
 end
 
 desc "Run rspec-puppet tests for manifests and modules"
-task :spec => [:specman, :specmod]
+task :sspec => [:specman, :specmod]
 
 desc "Run parallel_rspec tests for modules"
 task :pspecmod do
@@ -47,6 +47,13 @@ task :pspec do
   ParallelTest::CLI.run(myargs) 
 end
 
+# Set defaults to be parallel rspec
+desc "Test manifests and modules"
+task :spec => :pspec
+desc "Test manifests only"
+task :specman => :pspecman
+desc "Test modules only"
+task :specmod => :pspecmod
 
 desc "Run rspec-puppet tests for manifests and modules and puppet-lint"
 task :default => [:lint, :spec]
