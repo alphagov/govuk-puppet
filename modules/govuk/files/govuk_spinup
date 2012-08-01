@@ -46,27 +46,38 @@ status "Spinning up '${NAME}' (type ${TYPE}) in '${GOVUK_ENV}' environment"
 
 cd "$APP_ROOT"
 
-if [ "$TYPE" = "procfile" ]; then
-  status "Spawning 'web' task from Procfile"
-  CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
-elif [ "$TYPE" = "rack" ]; then
-  status "Spawning rack app under unicorn"
-  export RACK_ENV="$GOVUK_ENV"
-  CMD="bundle exec unicorn -p \$PORT"
-  if [ -e "${APP_ROOT}/config/unicorn.rb" ]; then
-    CMD="$CMD -c \"${APP_ROOT}/config/unicorn.rb\""
-  fi
-elif [ "$TYPE" = "rails" ]; then
-  status "Spawning Rails 3 app under unicorn_rails"
-  export RACK_ENV="$GOVUK_ENV"
-  export RAILS_ENV="$GOVUK_ENV"
-  CMD="bundle exec unicorn_rails -p \$PORT"
-  if [ -e "${APP_ROOT}/config/unicorn.rb" ]; then
-    CMD="$CMD -c \"${APP_ROOT}/config/unicorn.rb\""
-  fi
-else
-  error "unknown app type '${TYPE}'!"
-fi
+case "$TYPE" in
+  rack|rails)
+    if [ "$TYPE" = "rails" ]; then
+      UNICORN="unicorn_rails"
+      export RAILS_ENV="$GOVUK_ENV"
+    else
+      UNICORN="unicorn"
+      export RACK_ENV="$GOVUK_ENV"
+    fi
+
+    status "Spawning ${TYPE} app under ${UNICORN}"
+
+    CMD="bundle exec ${UNICORN} -p \$PORT"
+
+    if [ -e "${APP_ROOT}/config/unicorn.rb" ]; then
+      CMD="${CMD} -c \"${APP_ROOT}/config/unicorn.rb\""
+    else
+      # Must supply a config file (even a blank one) for SIGHUP graceful
+      # reloading to work.
+      CMD="${CMD} -c /dev/null"
+    fi
+    ;;
+
+  procfile)
+    status "Spawning 'web' task from Procfile"
+    CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
+    ;;
+
+  *)
+    error "unknown app type '${TYPE}'!"
+    ;;
+esac
 
 exec \
   envmgr -n "$NAME" \
