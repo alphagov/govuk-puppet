@@ -7,7 +7,7 @@ class puppet::cronjob {
     ensure  => present,
     user    => 'root',
     minute  => [$first, $second],
-    command => '/usr/bin/puppet agent --onetime --no-daemonize; /bin/chmod 644 /var/lib/puppet/state/last_run_report.yaml',
+    command => '/usr/bin/puppet agent --onetime --no-daemonize; /bin/chmod 644 /var/lib/puppet/state/*.yaml',
     require => Package['puppet'];
   }
 

@@ -44,12 +44,7 @@ class nagios::client::checks {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios::check { "check_puppet_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_puppet',
-    service_description => "Check puppet has run recently on ${::govuk_class}-${::hostname}",
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
+  include nagios::client::check_puppet_agent
   include nagios::client::check_rw_rootfs
 
   @@nagios::check { "check_io_time${::hostname}":

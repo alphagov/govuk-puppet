@@ -1,0 +1,53 @@
+#!/usr/bin/ruby
+
+require 'yaml'
+
+puppet_agent_state_filename = "/var/lib/puppet/state/state.yaml"
+if File.exists?(puppet_agent_state_filename)
+  last_run_time = File.stat(puppet_agent_state_filename).mtime.to_i
+  time_since_last_run = Time.now.to_i - last_run_time
+  if time_since_last_run >= 5400
+    puts "CRITICAL: Puppet last ran #{time_since_last_run} ago"
+    exit 2
+  elif time_since_last_run >= 3600
+    puts "WARNING: Puppet last ran #{time_since_last_run} ago"
+    exit 1
+  end
+end
+
+puppet_agent_lock_filename = "/var/lib/puppet/state/puppetdlock"
+if File.exists?(puppet_agent_lock_filename)
+  puts "OK: Puppet is running"
+  exit 0
+end
+
+
+puppet_agent_summary_filename = "/var/lib/puppet/state/last_run_summary.yaml"
+if File.exists?(puppet_agent_summary_filename)
+  begin
+    summary = YAML.load_file(puppet_agent_summary_filename)
+
+    total_events = summary['events']['total']
+    total_resources = summary['resources']['total']
+    total_changes = summary['changes']['total']
+
+    if(total_events + total_resources + total_changes == 0)
+      puts "CRITICAL: Puppet run did not have anything, check logs"
+      exit 3
+    end
+
+    resource_failures = summary['resources']['failed'] + summary['resources']['failed_to_restart']
+    events_failures = summary['events']['failure']
+
+    if(resource_failures + events_failures > 0)
+      puts "Warning: Puppet run had some failures"
+      exit 1
+    end
+  rescue
+    puts "CRITICAL: Could not parse puppet summary file"
+    exit 2
+  end
+end
+
+puts "OK: Puppet is doing good"
+exit 0
