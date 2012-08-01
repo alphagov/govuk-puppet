@@ -157,7 +157,7 @@ define govuk::app::monitoring {
     host_name           => "${::govuk_class}-${::hostname}",
   }
   @@nagios::check { "check_${title}_unicorn_mem_usage${::hostname}":
-    check_command       => "check_ganglia_metric!procstat_${title}_mem!100000000!200000000",
+    check_command       => "check_ganglia_metric!procstat_${title}_mem!1000000000!2000000000",
     service_description => "Check the mem used by unicorn ${title} isnt too high",
     host_name           => "${::govuk_class}-${::hostname}",
   }
