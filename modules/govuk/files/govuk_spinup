@@ -32,6 +32,8 @@ if [ -z "$FACTER_govuk_platform" ]; then
   error "The FACTER_govuk_platform environment variable must be set!"
 fi
 
+export FACTER_govuk_platform
+
 # RAILS_ENV and friends are "production" in preview.
 if [ "$FACTER_govuk_platform" = "development" ]; then
   GOVUK_ENV="development"
@@ -43,26 +45,6 @@ export GOVUK_ENV
 status "Spinning up '${NAME}' (type ${TYPE}) in '${GOVUK_ENV}' environment"
 
 cd "$APP_ROOT"
-
-if [ -e Gemfile ]; then
-  status "Detected ruby application: installing bundle"
-
-  if [ ! -e Gemfile.lock ]; then
-    error "Gemfile.lock must exist in app directory"
-  fi
-
-  export BUNDLE_PATH="${APP_RUN}/bundle"
-  if [ "$GOVUK_ENV" != "development" ]; then
-    BUNDLE_ARGS="--deployment"
-    export BUNDLE_WITHOUT="development test"
-  else
-    BUNDLE_ARGS=""
-  fi
-  sudo -u "$GOVUK_RUN_AS_USER" bundle install $BUNDLE_ARGS
-  sudo -u "$GOVUK_RUN_AS_USER" bundle clean
-fi
-
-export FACTER_govuk_platform
 
 if [ "$TYPE" = "procfile" ]; then
   status "Spawning 'web' task from Procfile"
@@ -83,7 +65,7 @@ elif [ "$TYPE" = "rails" ]; then
     CMD="$CMD -c \"${APP_ROOT}/config/unicorn.rb\""
   fi
 else
-  error "can't deduce how to run '${NAME}'. Aborting!"
+  error "unknown app type '${TYPE}'!"
 fi
 
 exec \
