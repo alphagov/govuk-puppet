@@ -15,7 +15,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :port => 8000,
-        :app_type => 'rails',
+        :app_type => 'rack',
         :platform => 'production'
       }
     end
@@ -35,7 +35,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :port => 8000,
-        :app_type => 'rails',
+        :app_type => 'rack',
         :platform => 'development'
       }
     end
@@ -47,7 +47,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :port => 8000,
-        :app_type => 'rails',
+        :app_type => 'rack',
         :platform => 'production',
         :vhost_aliases => ['foo']
       }
