@@ -170,7 +170,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   class { 'passenger': maxpoolsize => 12 }
 
   include govuk::apps::planner
-  include govuk::apps::tariff_web_app
+  include govuk::apps::tariff
 
   class { 'nginx': node_type => frontend_server }
 
