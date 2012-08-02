@@ -11,6 +11,8 @@ class licensify::apps::licensify( $port = 9000 ) {
     environ_content    => template('licensify/environ'),
     nginx_extra_config => template('licensify/nginx_extra'),
   }
+
+  licensify::build_clean { 'licensify': }
 }
 
 class licensify::apps::licensify_admin( $port = 9500 ) {
@@ -19,6 +21,8 @@ class licensify::apps::licensify_admin( $port = 9500 ) {
     port            => $port,
     environ_content => template('licensify/environ'),
   }
+
+  licensify::build_clean { 'licensify-admin': }
 }
 
 class licensify::apps::licensify_feed( $port = 9400 ) {
@@ -27,4 +31,6 @@ class licensify::apps::licensify_feed( $port = 9400 ) {
     port            => $port,
     environ_content => template('licensify/environ'),
   }
+
+  licensify::build_clean { 'licensify-feed': }
 }
