@@ -172,9 +172,6 @@ class nginx::config::backend_server {
     "contactotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
-    "tariff-api.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
     "private-frontend.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;

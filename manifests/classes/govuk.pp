@@ -152,7 +152,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "contactotron.$::govuk_platform.alphagov.co.uk":;
     "migratorator.$::govuk_platform.alphagov.co.uk":;
     "reviewomatic.$::govuk_platform.alphagov.co.uk":;
-    "tariff-api.$::govuk_platform.alphagov.co.uk":;
     "private-frontend.$::govuk_platform.alphagov.co.uk":;
   }
 
@@ -162,6 +161,7 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   }
 
   include govuk::apps::review_o_matic_explore
+  include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
 }
 
