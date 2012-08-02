@@ -166,14 +166,13 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
-  class { 'apache2':
-    port => '8080'
-  }
-  class { 'passenger' : maxpoolsize => 12 }
+  class { 'apache2': port => '8080' }
+  class { 'passenger': maxpoolsize => 12 }
 
   include govuk::apps::planner
+  include govuk::apps::tariff_web_app
 
-  class { 'nginx' : node_type       => frontend_server }
+  class { 'nginx': node_type => frontend_server }
 
   apache2::vhost::passenger {
     "www.$::govuk_platform.alphagov.co.uk":
@@ -188,8 +187,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8085;
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       additional_port => 8086;
-    "tariff.$::govuk_platform.alphagov.co.uk":
-      additional_port => 8087;
     "efg.$::govuk_platform.alphagov.co.uk":
       additional_port => 8088;
     "contentapi.$::govuk_platform.alphagov.co.uk":
