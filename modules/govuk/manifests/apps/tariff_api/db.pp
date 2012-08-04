@@ -5,9 +5,9 @@ class govuk::apps::tariff_api::db {
   $replica_password = extlookup('mysql_replica_password', '')
   $mysql_password = extlookup('mysql_root', '')
 
-  mysql::server::master { 'tariff_api_production':
-    database         => 'tariff_api_production',
-    user             => 'tariff_api',
+  mysql::server::master { 'tariff_production':
+    database         => 'tariff_production',
+    user             => 'tariff',
     password         => $tariff_api_password,
     host             => 'localhost',
     replica_password => $replica_password,
