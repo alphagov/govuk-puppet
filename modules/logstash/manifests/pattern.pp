@@ -6,7 +6,7 @@ define logstash::pattern (
   file { "/etc/logstash/grok-patterns/${title}":
     ensure  => 'file',
     content => $content,
-    source  => $source, 
+    source  => $source,
     require => Class['logstash::client::config'],
     notify  => Class['logstash::client::service'],
   }
