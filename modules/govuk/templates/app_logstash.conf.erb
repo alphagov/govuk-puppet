@@ -8,6 +8,14 @@ input {
     path => "/var/log/<%=title%>/app.err.log"
   }
   file {
+    type => "<%=title%>-upstart-out"
+    path => "/var/log/<%=title%>/upstart.out.log"
+  }
+  file {
+    type => "<%=title%>-upstart-err"
+    path => "/var/log/<%=title%>/upstart.err.log"
+  }
+  file {
     type => "<%=title%>-app"
     path => "/var/apps/<%=title%>/log/*.log"
   }
