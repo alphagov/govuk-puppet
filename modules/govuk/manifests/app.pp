@@ -37,6 +37,12 @@ define govuk::app(
     group  => 'deploy';
   }
 
+  file { ["/var/log/${title}/app.out.log", "/var/log/${title}/app.err.log"]:
+    ensure => file,
+    owner  => 'deploy',
+    group  => 'deploy';
+  }
+
   # In the development environment, assume the repos are checked out straight
   # into /var/govuk.
   if $platform == 'development' {
