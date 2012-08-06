@@ -3,7 +3,7 @@ class development {
 
   include apollo
   include base_packages
-  #include devdns
+  include hosts
   include imagemagick
   include mongodb::server
   include mysql::client
