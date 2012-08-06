@@ -1,0 +1,14 @@
+input {
+  file {
+    type => "<%=title%>-app-out"
+    path => "/var/log/<%=title%>/app.out.log"
+  }
+  file {
+    type => "<%=title%>-app-err"
+    path => "/var/log/<%=title%>/app.err.log"
+  }
+  file {
+    type => "<%=title%>-app"
+    path => "/var/apps/<%=title%>/log/*.log"
+  }
+}
