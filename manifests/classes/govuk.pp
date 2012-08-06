@@ -39,10 +39,12 @@ class govuk_base::db_server inherits govuk_base {
 }
 
 class govuk_base::mysql_master_server inherits govuk_base{
-  #currently mysql  is just turned on for preview, this condition will be removed when everybody moves out of RDS
+  # Currently MySQL is just turned on for preview, this condition
+  # will be removed when everybody moves off of RDS.
   if ($::govuk_platform == 'preview') {
     $root_password = extlookup('mysql_root', '')
     $master_server_id = '1'
+
     class { 'mysql::server':
       root_password => $root_password,
       server_id     => $master_server_id
@@ -53,13 +55,16 @@ class govuk_base::mysql_master_server inherits govuk_base{
     }
 
     include govuk::apps::need_o_tron::db
+    include govuk::apps::tariff_api::db
   }
 }
 
 class govuk_base::mysql_slave_server inherits govuk_base{
-  #currently mysql  is just turned on for preview, this condition will be removed when everybody moves out of RDS
+  # Currently MySQL is just turned on for preview, this condition
+  # will be removed when everybody moves off of RDS.
   if ($::govuk_platform == 'preview') {
     $root_password = extlookup('mysql_root', '')
+
     class { 'mysql::server':
       root_password => $root_password,
       server_id     => $::slave_server_id,
@@ -71,6 +76,7 @@ class govuk_base::mysql_slave_server inherits govuk_base{
     }
 
     include govuk::apps::need_o_tron::db
+    include govuk::apps::tariff_api::db
   }
 }
 
