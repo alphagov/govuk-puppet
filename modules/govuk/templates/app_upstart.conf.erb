@@ -13,6 +13,6 @@ env PORT=<%= port %>
 
 script
   exec govuk_spinup "<%= title %>" "<%= app_type %>" \
-    >>/var/log/<%= title %>/app.out.log \
-    2>>/var/log/<%= title %>/app.err.log
+    >>/var/log/<%= title %>/upstart.out.log \
+    2>>/var/log/<%= title %>/upstart.err.log
 end script
