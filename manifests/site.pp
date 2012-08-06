@@ -6,7 +6,11 @@ File {
   mode  => '0644',
 }
 
-$extlookup_datadir = '/usr/share/puppet/production/current/extdata'
+if $::govuk_platform == 'development' {
+  $extlookup_datadir = '/var/govuk/deployment/puppet/extdata'
+} else {
+  $extlookup_datadir = '/usr/share/puppet/production/current/extdata'
+}
 $extlookup_precedence = ['%{fqdn}', 'domain_%{domain}', 'common']
 
 import 'classes/*'

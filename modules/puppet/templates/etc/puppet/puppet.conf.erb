@@ -1,9 +1,8 @@
 [main]
 preferred_serialization_format = yaml
-
 <% if govuk_platform == 'development' %>
-modulepath=/var/govuk/puppet/modules
-manifestdir=/var/govuk/puppet/manifests
+modulepath = /var/govuk/puppet/modules
+manifestdir = /var/govuk/puppet/manifests
 <% else %>
 [agent]
 report=true
