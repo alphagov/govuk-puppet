@@ -1,0 +1,99 @@
+#!/bin/sh
+
+if [ "$#" -ne "2" ]; then
+  echo "Usage: $(basename "$0") <appname> <apptype>"
+  exit 1
+fi
+
+[ -f /etc/environment ] && . /etc/environment
+
+[ -z "$GOVUK_USER" ]            && GOVUK_USER="deploy"
+[ -z "$GOVUK_GROUP" ]           && GOVUK_GROUP="deploy"
+[ -z "$FACTER_govuk_platform" ] && FACTER_govuk_platform=""
+
+status () {
+  echo "---> ${@}" >&2
+}
+
+error () {
+  echo "ERROR: ${@}" >&2
+  exit 1
+}
+
+APP_NAME="$1"
+APP_TYPE="$2"
+APP_ROOT="/var/apps/${APP_NAME}"
+APP_RUN="/var/run/${APP_NAME}"
+APP_LOGROOT="/var/log/${APP_NAME}"
+
+set -eu
+
+if [ -z "$FACTER_govuk_platform" ]; then
+  error "The FACTER_govuk_platform environment variable must be set!"
+fi
+export FACTER_govuk_platform
+
+# RAILS_ENV and friends are "production" in preview.
+if [ "$FACTER_govuk_platform" = "development" ]; then
+  GOVUK_ENV="development"
+else
+  GOVUK_ENV="production"
+fi
+
+status "Spinning up '${APP_NAME}' (type ${APP_TYPE}) in '${GOVUK_ENV}' environment"
+
+cd "$APP_ROOT"
+
+SSD_EXTRA_ARGS=""
+
+case "$APP_TYPE" in
+  rack)
+    status "Spawning rack app under unicorn"
+
+    export RAILS_ENV="$GOVUK_ENV"
+    export RACK_ENV="$GOVUK_ENV"
+
+    CMD="bundle exec"
+    # Unicorn Herder args
+    CMD="${CMD} unicornherder -u unicorn -p '${APP_RUN}/app.pid'"
+    # Unicorn args
+    CMD="${CMD} -- -p \$PORT"
+
+    if [ -e "${APP_ROOT}/config/unicorn.rb" ]; then
+      CMD="${CMD} -c '${APP_ROOT}/config/unicorn.rb'"
+    else
+      CMD="${CMD} -c /etc/govuk/unicorn.rb"
+    fi
+    ;;
+
+  procfile)
+    status "Spawning 'web' task from Procfile"
+    CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
+    SSD_EXTRA_ARGS="${SSD_EXTRA_ARGS} --make-pidfile"
+    ;;
+
+  *)
+    error "unknown app type '${APP_TYPE}'!"
+    ;;
+esac
+
+status "Exporting app environment"
+set -x
+export GOVUK_ENV="$GOVUK_ENV"
+export GOVUK_USER="$GOVUK_USER"
+export GOVUK_GROUP="$GOVUK_GROUP"
+export GOVUK_APP_NAME="$APP_NAME"
+export GOVUK_APP_TYPE="$APP_TYPE"
+export GOVUK_APP_ROOT="$APP_ROOT"
+export GOVUK_APP_RUN="$APP_RUN"
+export GOVUK_APP_LOGROOT="$APP_LOGROOT"
+
+exec \
+  envmgr -n "$APP_NAME" \
+  start-stop-daemon --start \
+                    --chuid "$GOVUK_USER:$GOVUK_GROUP" \
+                    --chdir "$GOVUK_APP_ROOT" \
+                    --pidfile "${GOVUK_APP_RUN}/app.pid" \
+                    ${SSD_EXTRA_ARGS} \
+                    --startas "/bin/sh" \
+                    -- -c "exec $CMD"

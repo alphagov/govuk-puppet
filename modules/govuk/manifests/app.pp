@@ -31,8 +31,10 @@ define govuk::app(
 
   $vhost_full = "${vhost_real}.${domain}"
 
-  file { "/var/log/${title}":
-    ensure => directory
+  file { ["/var/log/${title}", "/var/run/${title}"]:
+    ensure => directory,
+    owner  => 'deploy',
+    group  => 'deploy';
   }
 
   # In the development environment, assume the repos are checked out straight
@@ -75,13 +77,6 @@ define govuk::app(
     File["/etc/envmgr/${title}.conf"] {
       content => ''
     }
-  }
-
-  # Make sure run directory exists
-  file { "/var/run/${title}":
-    ensure => directory,
-    owner  => 'deploy',
-    group  => 'deploy';
   }
 
   # Install service

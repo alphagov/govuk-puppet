@@ -1,4 +1,4 @@
-description "GOV.UK application: <%= name %>"
+description "GOV.UK application: <%= title %>"
 
 start on runlevel [2345]
 stop on runlevel [!2345]
@@ -12,7 +12,7 @@ respawn limit 5 20
 env PORT=<%= port %>
 
 script
-  exec govuk_spinup "<%= name %>" "<%= app_type %>" \
+  exec govuk_spinup "<%= title %>" "<%= app_type %>" \
     >>/var/log/<%= title %>/<%= title %>.log \
     2>>/var/log/<%= title %>/<%= title %>.error.log
 end script

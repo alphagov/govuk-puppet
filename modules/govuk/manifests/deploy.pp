@@ -17,6 +17,7 @@ class govuk::deploy {
     gid         => 'deploy',
     require     => Group['deploy'];
   }
+
   file { '/data':
     ensure  => directory,
     owner   => 'deploy',
@@ -28,6 +29,10 @@ class govuk::deploy {
     owner   => 'deploy',
     group   => 'deploy',
     require => File['/data'],
+  }
+
+  file { '/etc/govuk':
+    ensure => directory,
   }
 
   ssh_authorized_key { 'deploy_key_jenkins':
