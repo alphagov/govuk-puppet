@@ -3,8 +3,8 @@ class govuk::spinup {
   include unicornherder
 
   file { '/etc/govuk/unicorn.rb':
-    ensure => present,
-    source => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
     require => File['/etc/govuk'],
   }
 
