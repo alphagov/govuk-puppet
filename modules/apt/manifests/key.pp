@@ -1,6 +1,6 @@
 define apt::key(
   $ensure = 'present',
-  $keyserver = 'keyserver.ubuntu.com'
+  $keyserver = 'hkp://keyserver.ubuntu.com:80'
 ) {
   exec { "apt-update-key-$name":
     command     => '/usr/bin/apt-get update',
