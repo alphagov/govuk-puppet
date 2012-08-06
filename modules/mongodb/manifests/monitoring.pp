@@ -50,14 +50,12 @@ class mongodb::monitoring {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  file { '/etc/logstash/logstash-client/mongodb.conf':
+  @logstash::collector { 'mongodb':
     source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
-    notify  => Service['logstash-client']
   }
 
-  file { '/etc/logstash/grok-patterns/mongodb':
+  @logstash::pattern { 'mongodb':
     source  => 'puppet:///modules/mongodb/etc/logstash/grok-patterns/mongodb-pattern',
-    notify  => Service['logstash-client']
   }
 
 }

@@ -8,6 +8,4 @@ class logstash::client::service {
     provider  => upstart,
     require   => [File['/etc/init/logstash-client.conf'],Class['logstash::client::config'],Class['logstash::config']],
   }
-
-  Service['logstash-client'] <~ File <| tag == 'logstash-client' |>
 }

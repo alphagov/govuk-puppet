@@ -58,12 +58,9 @@ class varnish::service {
   #  host_name           => "${::govuk_class}-${::hostname}",
   #}
 
-  file { '/etc/logstash/logstash-client/varnish.conf':
+  @logstash::collector { 'varnish':
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
-    require => [Service['varnish']],
-    notify  => Service['logstash-client']
   }
-
 
   File['/etc/default/varnish'] ~> Service['varnish']
   File['/etc/varnish/default.vcl'] ~> Service['varnish']

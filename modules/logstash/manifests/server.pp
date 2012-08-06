@@ -1,11 +1,27 @@
 class logstash::server {
-  class { 'logstash::server::package': }
-  class { 'logstash::server::config':  }
-  class { 'logstash::server::service': }
+
+  anchor { 'logstash::server::begin':
+    before => Class['logstash::server::package'],
+    notify => Class['logstash::server::service'];
+  }
+
+  class { 'logstash::server::package':
+    notify => Class['logstash::server::service'];
+  }
+
+  class { 'logstash::server::config':
+    require   => Class['logstash::server::package'],
+    notify    => Class['logstash::server::service'];
+  }
+
+  class { 'logstash::server::service':
+    before    => Class['logstash::server::monitoring']
+  }
+
   class { 'logstash::server::monitoring': }
 
-  Class['logstash::server::package'] -> Class['logstash::server::config'] ~> Class['logstash::server::service']
-  Class['logstash::server::service'] -> Class['logstash::server::monitoring']
-  Class['logstash::server::package'] -> Class['logstash::server::service']
-  Class['logstash::server::package'] ~> Class['logstash::server::service']
+  anchor { 'logstash::server::end':
+    require => Class['logstash::server::monitoring'],
+  }
+
 }

@@ -26,10 +26,8 @@ class elasticsearch::monitoring {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  file { '/etc/logstash/logstash-client/elasticsearch.conf':
-    source  => 'puppet:///modules/elasticsearch/etc/logstash/logstash-client/elasticsearch.conf',
-    tag     => 'logstash-client',
-    require => Class[logstash::client]
+  @logstash::collector { 'elasticsearch':
+    source => 'puppet:///modules/elasticsearch/logstash.conf',
   }
 
 }

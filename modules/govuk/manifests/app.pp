@@ -132,32 +132,8 @@ define govuk::app(
     govuk::app::monitoring { $title: }
   }
 
-}
-
-define govuk::app::monitoring {
-
-  file { "/usr/lib/ganglia/python_modules/${title}-procstat.py":
-    ensure  => link,
-    target  => '/usr/lib/ganglia/python_modules/procstat.py',
-    require => Class[ganglia::client],
-  }
-
-
-  file {"/etc/ganglia/conf.d/unicorn-${title}.pyconf":
-    ensure => absent
-  }
-  file {"/etc/logstash/logstash-client/unicorn-${title}.conf":
-    ensure => absent,
-  }
-
-  file {"/etc/ganglia/conf.d/app-${title}.pyconf":
-    content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
-    notify  => Service['ganglia-monitor'],
-  }
-
-  file {"/etc/logstash/logstash-client/app-${title}.conf":
-    content => template('govuk/etc/logstash/logstash-client/app-logstash.conf.erb'),
-    notify  => Class['logstash::client::service']
+  @logstash::collector { "app-${title}":
+    content => template('govuk/app_logstash.conf.erb'),
   }
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
@@ -169,6 +145,25 @@ define govuk::app::monitoring {
     check_command       => "check_ganglia_metric!procstat_${title}_mem!1000000000!2000000000",
     service_description => "Check memory used by app ${title} is not too high",
     host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+}
+
+define govuk::app::monitoring {
+
+  file { "/usr/lib/ganglia/python_modules/${title}-procstat.py":
+    ensure  => link,
+    target  => '/usr/lib/ganglia/python_modules/procstat.py',
+    require => Class[ganglia::client],
+  }
+
+  file {"/etc/ganglia/conf.d/unicorn-${title}.pyconf":
+    ensure => absent
+  }
+
+  file {"/etc/ganglia/conf.d/app-${title}.pyconf":
+    content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
+    notify  => Service['ganglia-monitor'],
   }
 
 }

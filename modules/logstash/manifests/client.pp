@@ -1,11 +1,31 @@
 class logstash::client {
-  class { 'logstash::client::config':
-    before    => Class['logstash::client::package']
+
+  anchor { 'logstash::client::begin':
+    before => Class['logstash::client::package'],
+    notify => Class['logstash::client::service'];
   }
-  class { 'logstash::client::package': }
+
+  class { 'logstash::client::package':
+    notify => Class['logstash::client::service'];
+  }
+
+  class { 'logstash::client::config':
+    require   => Class['logstash::client::package'],
+    notify    => Class['logstash::client::service'];
+  }
+
   class { 'logstash::client::service':
-    subscribe => [Class['logstash::client::package'],Class['logstash::client::config']],
     before    => Class['logstash::client::monitoring']
   }
+
   class { 'logstash::client::monitoring': }
+
+  anchor { 'logstash::client::end':
+    require => Class['logstash::client::monitoring'],
+  }
+
+  # Realize all defined collectors and grok patterns
+  Logstash::Collector <| |>
+  Logstash::Pattern <| |>
+
 }

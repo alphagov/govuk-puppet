@@ -36,6 +36,10 @@ class nginx::config($node_type) {
     require => File['/usr/share/nginx'];
   }
 
+  @logstash::collector { 'nginx':
+    source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
+  }
+
   if $node_type != 'development' {
     file { '/usr/local/bin/nginx_ganglia2.sh':
       ensure  => file,
@@ -48,13 +52,6 @@ class nginx::config($node_type) {
       minute  => '*/2',
       require => [ File['/usr/local/bin/nginx_ganglia2.sh'], File['/etc/nginx'] ]
     }
-
-
-    file { '/etc/logstash/logstash-client/nginx.conf':
-      source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
-      notify  => Service['logstash-client']
-    }
-
 
     case $node_type {
       router : {

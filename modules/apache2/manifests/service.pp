@@ -4,8 +4,8 @@ class apache2::service {
     hasstatus => true,
     restart   => 'apache2ctl graceful',
   }
-  file { '/etc/logstash/logstash-client/apache.conf' :
-    source  => 'puppet:///modules/apache2/etc/logstash/logstash-client/apache.conf',
-    require => [Service['apache2'], Class['logstash::client::service']]
+
+  @logstash::collector { 'apache2':
+    source => 'puppet:///modules/apache2/logstash.conf',
   }
 }
