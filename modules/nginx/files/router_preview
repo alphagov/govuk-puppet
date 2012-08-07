@@ -25,7 +25,7 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_session_cache         shared:SSL:10m;
   ssl_session_timeout       5m;
-  add_header                Strict-Transport-Security max-age=500;
+  add_header                Strict-Transport-Security "max-age=2419200";
 
   access_log  /var/log/nginx/lb-access.log timed_combined;
   error_log /var/log/nginx/lb-error_log;
@@ -89,7 +89,7 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_session_cache         shared:SSL:10m;
   ssl_session_timeout       5m;
-  add_header                Strict-Transport-Security max-age=500;
+  add_header                Strict-Transport-Security "max-age=2419200";
 
   access_log  /var/log/nginx/lb-access.log timed_combined;
   error_log /var/log/nginx/lb-error_log;
