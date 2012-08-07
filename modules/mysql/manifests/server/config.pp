@@ -1,4 +1,4 @@
-class mysql::server::config($server_id='1', $config_path='mysql/master/my.cnf') {
+class mysql::server::config($server_id = '1', $config_path = 'mysql/master/my.cnf', $platform = $::govuk_platform) {
   file { '/etc/mysql':
     ensure => 'directory'
   }
@@ -8,6 +8,6 @@ class mysql::server::config($server_id='1', $config_path='mysql/master/my.cnf') 
     group    => 'mysql',
     content  => template($config_path),
     notify   => Service['mysql'],
-    require  => [File['/var/lib/mysql/my.cnf'],File['/etc/mysql']]
+    require  => [File['/var/lib/mysql/my.cnf'], File['/etc/mysql']]
   }
 }
