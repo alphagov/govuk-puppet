@@ -30,7 +30,7 @@ class govuk_base {
 }
 
 class govuk_base::redirect_server inherits govuk_base {
-  class { 'nginx' : node_type => redirect }
+  class { 'nginx': node_type => redirect }
   include nagios::client::checks
 }
 
@@ -105,10 +105,10 @@ class govuk_base::mongo_server inherits govuk_base {
   }
 
   if ($mongo_hosts) {
-    class {'mongodb::configure_replica_set':
+    class { 'mongodb::configure_replica_set':
       members => $mongo_hosts
     }
-    class {'mongodb::backup':
+    class { 'mongodb::backup':
       members => $mongo_hosts
     }
   }
@@ -232,7 +232,7 @@ class govuk_base::cache_server inherits govuk_base {
   include router
   include jetty
 
-  class { 'nginx' : node_type => router}
+  class { 'nginx': node_type => router}
 
   package { 'apache2':
     ensure => absent,
@@ -243,15 +243,15 @@ class govuk_base::support_server inherits govuk_base {
   include nagios::client::checks
   include solr
   include apollo
+
   if $::govuk_platform == 'production' {
-    /*
-      Since these backups are only for the purposes of restoring production
-      data to preview and development, it makes no sense to configure them on
-      any environment but production
-    */
+    # Since these backups are only for the purposes of restoring production
+    # data to preview and development, it makes no sense to configure them on
+    # any environment but production.
     include mysql::backup
   }
-  class {'elasticsearch':
+
+  class { 'elasticsearch':
     cluster => $::govuk_platform
   }
 }
@@ -291,13 +291,13 @@ class govuk_base::management_server {
 
   include mongodb::server
   include mongodb::monitoring
-  class {'mongodb::configure_replica_set':
+  class { 'mongodb::configure_replica_set':
     members => ['localhost']
   }
 
   include solr
   include imagemagick
-  class {'elasticsearch':
+  class { 'elasticsearch':
     cluster => $::govuk_platform
   }
 
