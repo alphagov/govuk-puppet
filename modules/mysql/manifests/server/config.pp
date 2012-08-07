@@ -1,7 +1,8 @@
-class mysql::server::config($server_id='1', $config_path='mysql/master/my.cnf'){
+class mysql::server::config($server_id='1', $config_path='mysql/master/my.cnf') {
   file { '/etc/mysql':
     ensure => 'directory'
   }
+
   file { '/etc/mysql/my.cnf':
     owner    => 'mysql',
     group    => 'mysql',

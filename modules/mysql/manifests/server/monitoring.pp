@@ -1,9 +1,9 @@
-class mysql::server::monitoring ($root_password){
+class mysql::server::monitoring ($root_password) {
 
   include ganglia::client
   include nagios::client
 
-  package {'python-mysqldb':
+  package { 'python-mysqldb':
     ensure => installed,
   }
 
