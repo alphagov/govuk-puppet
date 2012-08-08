@@ -1,5 +1,6 @@
 
 class mapit_server {
+  include sshd
   include nginx
   include postgres::postgis
   include mapit

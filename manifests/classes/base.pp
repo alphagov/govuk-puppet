@@ -7,5 +7,6 @@ class base {
   include ntp
   include sudo
   include sysctl
+  include sshd
   include unattended_upgrades
 }

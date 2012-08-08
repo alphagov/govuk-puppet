@@ -1,0 +1,45 @@
+Port                            22
+Protocol                        2
+HostKey                         /etc/ssh/ssh_host_rsa_key
+HostKey                         /etc/ssh/ssh_host_dsa_key
+UsePrivilegeSeparation          yes
+
+KeyRegenerationInterval         3600
+ServerKeyBits                   768
+
+SyslogFacility                  AUTH
+LogLevel                        INFO
+
+LoginGraceTime                  120
+StrictModes                     yes
+
+RSAAuthentication               yes
+PubkeyAuthentication            yes
+
+IgnoreRhosts                    yes
+RhostsRSAAuthentication         no
+HostbasedAuthentication         no
+PermitEmptyPasswords            no
+ChallengeResponseAuthentication no
+
+<%- if govuk_platform == "development" -%>
+PasswordAuthentication          yes
+PermitRootLogin                 yes
+X11Forwarding                   yes
+X11DisplayOffset                10
+<%- else -%>
+PasswordAuthentication          no
+PermitRootLogin                 no
+X11Forwarding                   no
+# TODO # Banner                 /etc/issue.net
+<%- end -%>
+
+PrintMotd                       no
+PrintLastLog                    yes
+TCPKeepAlive                    yes
+
+AcceptEnv                       LANG LC_*
+
+Subsystem     sftp              /usr/lib/openssh/sftp-server
+
+UsePAM                          yes
