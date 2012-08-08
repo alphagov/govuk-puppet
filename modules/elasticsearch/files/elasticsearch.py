@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/env python
 
 import json
 import time
@@ -6,19 +6,20 @@ import urllib
 
 global url, last_update, keyToPath
 
-def dig_it_up(obj,path):
+
+def dig_it_up(obj, path):
     try:
-        if type(path) in (str,unicode):
+        if type(path) in (str, unicode):
             path = path.split('.')
-        return reduce(lambda x,y:x[y],path,obj)
+        return reduce(lambda x, y: x[y], path, obj)
     except:
         return False
 
 # Set IP address and JSON Url
-url="http://localhost:9200/_cluster/nodes/_local/stats?all=true"
+url = "http://localhost:%(port)s/_cluster/nodes/_local/stats?all=true"
 
 # short name to full path for stats
-keyToPath=dict()
+keyToPath = dict()
 
 # Initial time modification stamp - Used to determine
 # when JSON is updated
@@ -141,14 +142,18 @@ def metric_init(params):
     print '[elasticsearch] Received the following parameters'
     print params
 
+    if 'port' not in params:
+        params['port'] = '9200'
+
+    if "metric_group" not in params:
+        params["metric_group"] = "elasticsearch"
+
     # First iteration - Grab statistics
+    url = url % params
     print '[elasticsearch] Fetching ' + url
     result = json.load(urllib.urlopen(url))
 
     descriptors = []
-
-    if "metric_group" not in params:
-        params["metric_group"] = "elasticsearch"
 
     Desc_Skel = {
         'name'        : 'XXX',
@@ -284,7 +289,7 @@ def metric_init(params):
          'format'     : '%d',
          'description': 'Merges (current)',
     }))
-    
+
     descriptors.append(create_desc({
          'name'       : 'es_merges_current_docs',
          'format'     : '%d',
@@ -535,7 +540,7 @@ def metric_init(params):
          'description': 'Total Queries',
     }))
     return descriptors
- 
+
 def metric_cleanup():
   pass
 
@@ -545,4 +550,3 @@ if __name__ == '__main__':
     for d in descriptors:
         v = d['call_back'](d['name'])
         print 'value for %s is %s' % (d['name'], str(v))
- 
