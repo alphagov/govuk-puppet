@@ -25,6 +25,10 @@ class users::groups::govuk {
     fullname   => 'Dafydd Vaughan',
     email      => 'dafydd.vaughan@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'dai':
+    fullname   => 'Dafydd Vaughan',
+    email      => 'dafydd.vaughan@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'garethr':
     fullname   => 'Gareth Rushgrove',
     email      => 'gareth.rushgrove@digital.cabinet-office.gov.uk',
