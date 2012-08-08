@@ -5,7 +5,7 @@ define govuk::user(
   $shell = '/bin/bash',
   $ssh_key = 'NOTSET',
   $ssh_key_type = 'ssh-rsa',
-  $has_deploy = true
+  $has_deploy = false
 ) {
 
   if $ssh_key == 'NOTSET' {
