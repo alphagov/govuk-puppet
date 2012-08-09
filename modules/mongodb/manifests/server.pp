@@ -20,6 +20,11 @@ class mongodb::server ($replicaset = $govuk_platform) {
 
   class { 'mongodb::service': }
 
+  class { 'mongodb::monitoring':
+    require => Class['mongodb::service'],
+  }
+
+  # We don't need to wait for the monitoring class
   anchor { 'mongodb::end':
     require => Class['mongodb::service'],
   }

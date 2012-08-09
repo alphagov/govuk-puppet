@@ -15,7 +15,6 @@ class elms_base::mongo_server inherits elms_base {
   include users::groups::govuk
   include hosts::elms-preview
   include mongodb::server
-  include mongodb::monitoring
 
   class {'mongodb::configure_replica_set':
     members => [

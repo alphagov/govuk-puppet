@@ -9,7 +9,6 @@ class ertp_base {
 
 class ertp_base::mongo_server inherits ertp_base {
   include mongodb::server
-  include mongodb::monitoring
 
   class {'mongodb::configure_replica_set':
     members => [

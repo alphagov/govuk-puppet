@@ -74,7 +74,6 @@ class govuk_base::mysql_slave_server inherits govuk_base{
 
 class govuk_base::mongo_server inherits govuk_base {
   include mongodb::server
-  include mongodb::monitoring
 
   case $::govuk_platform {
     production: {
@@ -258,7 +257,6 @@ class govuk_base::monitoring_server inherits govuk_base {
 class govuk_base::graylog_server inherits govuk_base {
   include nagios::client::checks
   include mongodb::server
-  include mongodb::monitoring
   include logstash::server
 }
 
@@ -282,7 +280,6 @@ class govuk_base::management_server {
   }
 
   include mongodb::server
-  include mongodb::monitoring
   class { 'mongodb::configure_replica_set':
     members => ['localhost']
   }
