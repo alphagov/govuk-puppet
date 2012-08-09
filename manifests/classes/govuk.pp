@@ -173,6 +173,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   include govuk::apps::planner
   include govuk::apps::tariff
+  include govuk::apps::efg
 
   class { 'nginx': node_type => frontend_server }
 
@@ -189,8 +190,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       additional_port => 8085;
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       additional_port => 8086;
-    "efg.$::govuk_platform.alphagov.co.uk":
-      additional_port => 8088;
     "contentapi.$::govuk_platform.alphagov.co.uk":
       additional_port => 8089;
     "static.$::govuk_platform.alphagov.co.uk":;
