@@ -19,6 +19,7 @@ class nagios::client::install {
   package { 'json':
     ensure   => 'installed',
     provider => gem,
+    require  => Package['build-essential'],
   }
   file { '/etc/nagios/nrpe.d':
     ensure  => directory,
