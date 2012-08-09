@@ -1,14 +1,11 @@
-#
-
 modules {
   module {
-  name = '<%= title %>-procstat'
+    name = 'app-<%= @title %>-procstat'
     language = 'python'
 
-    param <%= title %> {
-      value = '/var/run/<%= title %>/app.pid'
+    param <%= @title %> {
+      value = '/var/run/<%= @title %>/app.pid'
     }
-
   }
 }
 
@@ -17,11 +14,11 @@ collection_group {
   time_threshold = 30
 
   metric {
-  name = "procstat_<%= title %>_cpu"
+    name = "procstat_<%= @title %>_cpu"
   }
 
   metric {
-    name = "procstat_<%= title %>_mem"
+    name = "procstat_<%= @title %>_mem"
   }
 }
 
