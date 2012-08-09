@@ -128,7 +128,7 @@ define govuk::app(
   }
 
   # Set up monitoring
-  if $platform !=  "development" {
+  if $platform != 'development' {
     file { "/usr/lib/ganglia/python_modules/app-${title}-procstat.py":
       ensure  => link,
       target  => '/usr/lib/ganglia/python_modules/procstat.py',
