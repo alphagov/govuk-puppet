@@ -14,14 +14,10 @@ class logstash::client {
     notify    => Class['logstash::client::service'];
   }
 
-  class { 'logstash::client::service':
-    before    => Class['logstash::client::monitoring']
-  }
-
-  class { 'logstash::client::monitoring': }
+  class { 'logstash::client::service': }
 
   anchor { 'logstash::client::end':
-    require => Class['logstash::client::monitoring'],
+    require => Class['logstash::client::service'],
   }
 
   # Realize all defined collectors and grok patterns
