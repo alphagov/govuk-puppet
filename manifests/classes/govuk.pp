@@ -248,6 +248,7 @@ class govuk_base::monitoring_server inherits govuk_base {
 class govuk_base::graylog_server inherits govuk_base {
   include nagios::client::checks
   include mongodb::server
+  include elasticsearch
   include logstash::server
 }
 
