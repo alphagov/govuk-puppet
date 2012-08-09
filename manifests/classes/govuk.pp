@@ -233,9 +233,8 @@ class govuk_base::support_server inherits govuk_base {
     include mysql::backup
   }
 
-  class { 'elasticsearch':
-    cluster => $::govuk_platform
-  }
+  include elasticsearch
+  elasticsearch::node { "govuk-${::govuk_platform}": }
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
@@ -255,28 +254,27 @@ class govuk_base::graylog_server inherits govuk_base {
 class govuk_base::management_server {
   include apt
   include sshd
-  $mysql_password = extlookup('mysql_root', '')
 
   include govuk_base::ruby_app_server
 
   include govuk::deploy
   include govuk::testing_tools
 
+  include imagemagick
   include nodejs
+  include solr
 
-  class { 'mysql::server':
-    root_password => $mysql_password
-  }
+  include elasticsearch
+  elasticsearch::node { "govuk-${::govuk_platform}": }
 
   include mongodb::server
   class { 'mongodb::configure_replica_set':
     members => ['localhost']
   }
 
-  include solr
-  include imagemagick
-  class { 'elasticsearch':
-    cluster => $::govuk_platform
+  $mysql_password = extlookup('mysql_root', '')
+  class { 'mysql::server':
+    root_password => $mysql_password
   }
 
   mysql::server::db {

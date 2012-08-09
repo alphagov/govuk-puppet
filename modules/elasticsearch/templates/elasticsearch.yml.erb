@@ -1,8 +1,8 @@
-cluster.name: govuk-<%= cluster %>
-
-path.conf: /etc/elasticsearch
-
-path.data: /var/lib/elasticsearch
-
-path.logs: /var/log/elasticsearch
-
+bootstrap.mlockall: <%= @mlock_all %>
+cluster.name: <%= @cluster_name %>
+discovery.zen.ping.multicast.enabled: false
+discovery.zen.ping.unicast.hosts: <%= @cluster_hosts.inspect %>
+http.port: <%= @http_port %>
+transport.tcp.port: <%= @transport_port %>
+index.number_of_shards: <%= @number_of_shards %>
+index.number_of_replicas: <%= @number_of_replicas %>

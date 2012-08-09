@@ -1,0 +1,20 @@
+description "ElasticSearch server (<%= @cluster_name %>)"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 5 120
+
+env ES_HOME="/var/apps/elasticsearch-<%= @cluster_name %>"
+env ES_HEAP_SIZE="<%= @heap_size %>"
+env ES_PIDFILE="/var/run/elasticsearch/elasticsearch-<%= @cluster_name %>.pid"
+
+limit nofile 64000 64000
+limit memlock unlimited unlimited
+
+exec start-stop-daemon --start \
+                       --chuid elasticsearch:elasticsearch \
+                       --pidfile "$ES_PIDFILE" \
+                       --make-pidfile \
+                       --startas "${ES_HOME}/bin/elasticsearch" -- -f

@@ -3,6 +3,7 @@ class development {
 
   include apollo
   include base_packages
+  include elasticsearch
   include hosts
   include imagemagick
   include mongodb::server
@@ -20,11 +21,16 @@ class development {
   include govuk::repository
   include govuk::testing_tools
 
-  class  { 'nginx' : node_type => development }
-
-  class {'elasticsearch':
-    cluster => 'development'
+  elasticsearch::node { 'govuk-development':
+    heap_size          => '64m',
+    number_of_shards   => '1',
+    number_of_replicas => '0',
   }
+
+  class { 'nginx':
+    node_type => development
+  }
+
   $mysql_password = ''
   class { 'mysql::server':
     root_password => $mysql_password
