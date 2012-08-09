@@ -1,13 +1,14 @@
 define elasticsearch::node(
   $ensure = 'present',
-  $cluster_name = $title,
   $cluster_hosts = ['localhost'],
+  $cluster_name = $title,
   $heap_size = '512m',
   $http_port = '9200',
-  $transport_port = '9300',
-  $number_of_shards = '5',
+  $mlock_all = false,
   $number_of_replicas = '1',
-  $mlock_all = false
+  $number_of_shards = '5',
+  $refresh_interval = '1s',
+  $transport_port = '9300'
 ) {
 
   if ! ($ensure in ['present', 'absent']) {
@@ -19,10 +20,11 @@ define elasticsearch::node(
     cluster_hosts      => $cluster_hosts,
     heap_size          => $heap_size,
     http_port          => $http_port,
-    transport_port     => $transport_port,
-    number_of_shards   => $number_of_shards,
-    number_of_replicas => $number_of_replicas,
     mlock_all          => $mlock_all,
+    number_of_replicas => $number_of_replicas,
+    number_of_shards   => $number_of_shards,
+    refresh_interval   => $refresh_interval,
+    transport_port     => $transport_port,
     require            => Class['elasticsearch'],
     notify             => Elasticsearch::Node::Service[$cluster_name],
   }

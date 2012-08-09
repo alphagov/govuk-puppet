@@ -3,10 +3,11 @@ define elasticsearch::node::config (
   $cluster_hosts,
   $heap_size,
   $http_port,
-  $transport_port,
-  $number_of_shards,
-  $number_of_replicas,
   $mlock_all,
+  $number_of_replicas,
+  $number_of_shards,
+  $refresh_interval,
+  $transport_port,
   $cluster_name = $title
 ) {
   $es_home = "/var/apps/elasticsearch-${cluster_name}"
