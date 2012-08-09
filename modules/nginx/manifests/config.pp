@@ -129,8 +129,6 @@ class nginx::config::frontend_server {
       to => ['localhost:8080'];
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
-    "efg.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
     "contentapi.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
   }
