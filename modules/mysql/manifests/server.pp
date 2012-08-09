@@ -1,10 +1,32 @@
 class mysql::server($root_password='', $server_id='1', $config_path='mysql/master/my.cnf') {
-  include mysql::server::service
-  include mysql::server::package
+
+  anchor { 'mysql::server::begin':
+    before => Class['mysql::server::package'],
+    notify => Class['mysql::server::service'];
+  }
+
+  class { 'mysql::server::package':
+    notify => Class['mysql::server::service'];
+  }
 
   class { 'mysql::server::config':
     server_id    => $server_id,
-    config_path  => $config_path
+    config_path  => $config_path,
+    require      => Class['mysql::server::package'],
+    notify       => Class['mysql::server::service'];
+  }
+
+  class { 'mysql::server::service':
+  }
+
+  class { 'mysql::server::monitoring':
+    root_password => $root_password,
+    require       => Class['mysql::server::service'],
+  }
+
+  # Don't need to wait for monitoring class
+  anchor { 'mysql::server::end':
+    require => Class['mysql::server::service'],
   }
 
   cron { 'daily sql tarball':
@@ -13,17 +35,14 @@ class mysql::server($root_password='', $server_id='1', $config_path='mysql/maste
     user    => 'root',
     minute  => 13,
     hour    => 4,
+    require => Class['mysql::server::package'],
   }
+
   exec { 'set-mysql-password':
     unless  => "/usr/bin/mysqladmin -uroot -p${root_password} status",
     path    => ['/bin', '/usr/bin'],
     command => "mysqladmin -uroot password ${root_password}",
+    require => Class['mysql::server::service'],
   }
 
-  anchor { ['mysql::server::start', 'mysql::server::end']: }
-
-  Anchor[mysql::server::start] -> Class[mysql::server::package] -> Class[mysql::server::config] ~> Class[mysql::server::service] ~> Anchor[mysql::server::end]
-  Anchor[mysql::server::start] ~> Class[mysql::server::service]
-  Class[mysql::server::package] -> Cron['daily sql tarball']
-  Class[mysql::server::service] -> Exec['set-mysql-password']
 }

@@ -47,10 +47,6 @@ class govuk_base::mysql_master_server inherits govuk_base{
     server_id     => $master_server_id
   }
 
-  class { 'mysql::server::monitoring':
-    root_password => $root_password
-  }
-
   include govuk::apps::need_o_tron::db
   include govuk::apps::tariff_api::db
 }
@@ -62,10 +58,6 @@ class govuk_base::mysql_slave_server inherits govuk_base{
     root_password => $root_password,
     server_id     => $::slave_server_id,
     config_path   => 'mysql/slave/my.cnf'
-  }
-
-  class { 'mysql::server::monitoring':
-    root_password => $root_password
   }
 
   include govuk::apps::need_o_tron::db
@@ -273,9 +265,6 @@ class govuk_base::management_server {
   include nodejs
 
   class { 'mysql::server':
-    root_password => $mysql_password
-  }
-  class { 'mysql::server::monitoring':
     root_password => $mysql_password
   }
 
