@@ -219,6 +219,10 @@ class govuk_base::cache_server inherits govuk_base {
   package { 'apache2':
     ensure => absent,
   }
+
+  service { 'apache2':
+    ensure => stopped
+  }
 }
 
 class govuk_base::support_server inherits govuk_base {
