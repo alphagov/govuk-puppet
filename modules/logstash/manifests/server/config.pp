@@ -1,8 +1,13 @@
-class logstash::server::config {
+class logstash::server::config (
+  $http_port,
+  $transport_port
+) {
+
   include logstash::config
 
+
   file { '/etc/logstash/logstash-server.conf' :
-    source => 'puppet:///modules/logstash/etc/logstash/logstash-server.conf',
+    content => template('logstash/etc/logstash/logstash-server.conf.erb'),
   }
 
   file { '/etc/cron.daily/logstash_index_cleaner' :
@@ -11,8 +16,8 @@ class logstash::server::config {
   }
 
   elasticsearch::node { 'logstash-server':
-    http_port          => '9291',
-    transport_port     => '9391',
+    http_port          => $http_port,
+    transport_port     => $transport_port,
     number_of_shards   => '5',
     number_of_replicas => '0',
   }

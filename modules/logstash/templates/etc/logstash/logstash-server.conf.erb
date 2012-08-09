@@ -26,6 +26,6 @@ output {
   elasticsearch {
     cluster => "logstash-server"
     host    => "localhost"
-    port    => "9391"
+    port    => <%= transport_port %>
   }
 }

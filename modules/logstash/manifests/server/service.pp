@@ -1,8 +1,11 @@
-class logstash::server::service {
+class logstash::server::service (
+  $http_port,
+  $transport_port
+) {
 
   file { '/etc/init/logstash-server.conf':
-    source => 'puppet:///modules/logstash/etc/init/logstash-server.conf',
-    notify => Service['logstash-server'],
+    content => template('logstash/etc/init/logstash-server.conf.erb'),
+    notify  => Service['logstash-server'],
   }
 
   service { 'logstash-server':

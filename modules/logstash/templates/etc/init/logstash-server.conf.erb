@@ -19,4 +19,4 @@ exec start-stop-daemon --start \
                          -f /etc/logstash/logstash-server.conf \
                          --log /var/log/logstash/logstash-server.log \
                          --grok-patterns-path /etc/logstash/grok-patterns/ \
-                         -- web --backend elasticsearch://localhost:9391/logstash-server
+                         -- web --backend elasticsearch://localhost:<%= transport_port %>/logstash-server
