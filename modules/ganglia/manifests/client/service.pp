@@ -4,7 +4,5 @@ class ganglia::client::service {
     hasrestart => true,
     hasstatus  => false,
     pattern    => '/usr/sbin/gmond',
-    subscribe  => File['/etc/ganglia/gmond.conf'],
-    require    => Class['ganglia::client::install'],
   }
 }

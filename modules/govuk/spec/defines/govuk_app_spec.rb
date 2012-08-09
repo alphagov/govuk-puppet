@@ -28,7 +28,6 @@ describe 'govuk::app', :type => :define do
     it { should contain_file('/data/vhost/giraffe.production.alphagov.co.uk') }
 
     it { should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk') }
-    it { should contain_govuk__app__monitoring('giraffe') }
   end
 
   context 'on the development platform' do

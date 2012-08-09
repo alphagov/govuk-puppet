@@ -1,6 +1,4 @@
 class varnish::service {
-  include logster
-  include ganglia::client
 
   service { 'varnish':
     ensure     => running,
@@ -10,32 +8,25 @@ class varnish::service {
     status     => '/etc/init.d/varnish status | grep \'varnishd is running\'',
     require    => Class['varnish::package']
   }
+
   service { 'varnishncsa':
     ensure  => running,
     status  => '/etc/init.d/varnishncsa status | grep \'varnishncsa is running\'',
     require => [Class['varnish::package'], Service['varnish']]
   }
 
-  file { '/etc/ganglia/conf.d/varnish.pyconf':
+  @ganglia::pyconf { 'varnish':
     source  => 'puppet:///modules/varnish/etc/ganglia/conf.d/varnish.pyconf',
-    require => Service['varnish'],
-    notify  => Service['ganglia-monitor']
   }
-  file { '/usr/lib/ganglia/python_modules/varnish.py':
+
+  @ganglia::pymod { 'varnish':
     source  => 'puppet:///modules/varnish/usr/lib/ganglia/python_modules/varnish.py',
-    require => Service['varnish'],
-    notify  => Service['ganglia-monitor']
   }
 
   cron { 'logster-varnish':
     command => '/usr/sbin/logster SampleGangliaLogster /var/log/varnish/varnishncsa.log',
     user    => root,
     minute  => '*/2'
-  }
-
-  graylogtail::collect { 'graylogtail-varnish':
-    log_file => '/var/log/varnish/varnishncsa.log',
-    facility => 'varnish',
   }
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":

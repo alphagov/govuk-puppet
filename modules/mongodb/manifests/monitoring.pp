@@ -1,35 +1,24 @@
 class mongodb::monitoring {
 
-  include ganglia::client
-  include nagios::client
-  include logstash::client
-
   package { 'pymongo':
     ensure   => present,
     provider => 'pip';
   }
 
-  file { '/etc/ganglia/conf.d/mongodb.pyconf':
+  @ganglia::pyconf { 'mongodb':
     source  => 'puppet:///modules/mongodb/ganglia_mongodb.conf',
-    require => [Service['mongodb'],Service['ganglia-monitor']]
   }
 
-  file { '/usr/lib/ganglia/python_modules/mongodb.py':
+  @ganglia::pymod { 'mongodb':
     source  => 'puppet:///modules/mongodb/ganglia_mongodb.py',
-    mode    => '0755',
-    require => [Service['mongodb'],Service['ganglia-monitor']]
   }
 
-  file { '/usr/lib/nagios/plugins/check_mongodb.py':
+  @nagios::plugin { 'check_mongodb.py':
     source  => 'puppet:///modules/mongodb/nagios_check_mongodb.py',
-    mode    => '0755',
-    require => [Service['mongodb'],Package['nagios-nrpe-server'],Package['pymongo']]
   }
 
-  file { '/etc/nagios/nrpe.d/check_mongo.cfg':
+  @nagios::nrpe_config { 'check_mongo':
     source  => 'puppet:///modules/mongodb/nrpe_check_mongo.cfg',
-    require => [Service['mongodb'],Package['nagios-nrpe-server']],
-    notify  => Service['nagios-nrpe-server'],
   }
 
   @@nagios::check { "check_mongod_running_${::hostname}":

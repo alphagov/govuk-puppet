@@ -1,3 +1,0 @@
-# this file is puppet managed
-index.refresh_interval: 120s
-bootstrap.mlockall:     true

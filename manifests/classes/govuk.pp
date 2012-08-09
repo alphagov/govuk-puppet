@@ -47,10 +47,6 @@ class govuk_base::mysql_master_server inherits govuk_base{
     server_id     => $master_server_id
   }
 
-  class { 'mysql::server::monitoring':
-    root_password => $root_password
-  }
-
   include govuk::apps::need_o_tron::db
   include govuk::apps::tariff_api::db
 }
@@ -64,17 +60,12 @@ class govuk_base::mysql_slave_server inherits govuk_base{
     config_path   => 'mysql/slave/my.cnf'
   }
 
-  class { 'mysql::server::monitoring':
-    root_password => $root_password
-  }
-
   include govuk::apps::need_o_tron::db
   include govuk::apps::tariff_api::db
 }
 
 class govuk_base::mongo_server inherits govuk_base {
   include mongodb::server
-  include mongodb::monitoring
 
   case $::govuk_platform {
     production: {
@@ -242,9 +233,8 @@ class govuk_base::support_server inherits govuk_base {
     include mysql::backup
   }
 
-  class { 'elasticsearch':
-    cluster => $::govuk_platform
-  }
+  include elasticsearch
+  elasticsearch::node { "govuk-${::govuk_platform}": }
 }
 
 class govuk_base::monitoring_server inherits govuk_base {
@@ -258,39 +248,33 @@ class govuk_base::monitoring_server inherits govuk_base {
 class govuk_base::graylog_server inherits govuk_base {
   include nagios::client::checks
   include mongodb::server
-  include mongodb::monitoring
   include logstash::server
 }
 
 class govuk_base::management_server {
   include apt
   include sshd
-  $mysql_password = extlookup('mysql_root', '')
 
   include govuk_base::ruby_app_server
 
   include govuk::deploy
   include govuk::testing_tools
 
+  include imagemagick
   include nodejs
+  include solr
 
-  class { 'mysql::server':
-    root_password => $mysql_password
-  }
-  class { 'mysql::server::monitoring':
-    root_password => $mysql_password
-  }
+  include elasticsearch
+  elasticsearch::node { "govuk-${::govuk_platform}": }
 
   include mongodb::server
-  include mongodb::monitoring
   class { 'mongodb::configure_replica_set':
     members => ['localhost']
   }
 
-  include solr
-  include imagemagick
-  class { 'elasticsearch':
-    cluster => $::govuk_platform
+  $mysql_password = extlookup('mysql_root', '')
+  class { 'mysql::server':
+    root_password => $mysql_password
   }
 
   mysql::server::db {

@@ -1,21 +1,20 @@
 class logstash::server::config {
   include logstash::config
+
   file { '/etc/logstash/logstash-server.conf' :
-    source  => 'puppet:///modules/logstash/etc/logstash/logstash-server.conf',
-    require => File['/etc/logstash']
+    source => 'puppet:///modules/logstash/etc/logstash/logstash-server.conf',
   }
+
   file { '/etc/cron.daily/logstash_index_cleaner' :
-    source  => 'puppet:///modules/logstash/etc/cron.daily/logstash_index_cleaner',
-    mode    => '0755'
+    source => 'puppet:///modules/logstash/etc/cron.daily/logstash_index_cleaner',
+    mode   => '0755',
   }
-  file { '/var/apps/elasticsearch-0.18.7/bin/elasticsearch.in.sh' :
-    source  => 'puppet:///modules/logstash/elasticsearch.in.sh',
-    mode    => '0755',
-    notify  => Service['elasticsearch-0-18-7'],
+
+  elasticsearch::node { 'logstash-server':
+    http_port          => '9291',
+    transport_port     => '9391',
+    number_of_shards   => '5',
+    number_of_replicas => '0',
   }
-  file { '/var/apps/elasticsearch-0.18.7/config/elasticsearch.yml' :
-    source  => 'puppet:///modules/logstash/elasticsearch.yml',
-    mode    => '0644',
-    notify  => Service['elasticsearch-0-18-7'],
-  }
+
 }

@@ -1,12 +1,14 @@
-#
-
 modules {
   module {
     name = "elasticsearch"
     language = "python"
 
+    param port {
+      value = "<%= @http_port %>"
+    }
+
     param metric_group {
-      value = "elasticsearch"
+      value = "elasticsearch-<%= @cluster_name %>-<%= @hostname %>"
     }
 
   }
@@ -170,4 +172,3 @@ collection_group {
     name = "es_query_total"
   }
 }
-

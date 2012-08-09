@@ -40,33 +40,24 @@ class nginx::config($node_type) {
     source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
   }
 
-  if $node_type != 'development' {
-    file { '/usr/local/bin/nginx_ganglia2.sh':
-      ensure  => file,
-      source  => 'puppet:///modules/nginx/nginx_ganglia2.sh',
-      mode    => '0755';
-    }
-    cron { 'ganglia-nginx-status':
-      command => '/usr/local/bin/nginx_ganglia2.sh',
-      user    => root,
-      minute  => '*/2',
-      require => [ File['/usr/local/bin/nginx_ganglia2.sh'], File['/etc/nginx'] ]
-    }
+  @ganglia::cronjob { 'nginx-status':
+    source => 'puppet:///modules/nginx/nginx_ganglia2.sh',
+    minute => '*/2',
+  }
 
-    case $node_type {
-      router : {
-        @@nagios::check { "check_nginx_active_connections_${::hostname}":
-          check_command       => 'check_ganglia_metric!nginx_active_connections!1000!2000',
-          service_description => 'check nginx active connections',
-          host_name           => "${::govuk_class}-${::hostname}",
-        }
+  case $node_type {
+    router : {
+      @@nagios::check { "check_nginx_active_connections_${::hostname}":
+        check_command       => 'check_ganglia_metric!nginx_active_connections!1000!2000',
+        service_description => 'check nginx active connections',
+        host_name           => "${::govuk_class}-${::hostname}",
       }
-      default : {
-        @@nagios::check { "check_nginx_active_connections_${::hostname}":
-          check_command       => 'check_ganglia_metric!nginx_active_connections!500!1000',
-          service_description => 'check nginx active connections',
-          host_name           => "${::govuk_class}-${::hostname}",
-        }
+    }
+    default : {
+      @@nagios::check { "check_nginx_active_connections_${::hostname}":
+        check_command       => 'check_ganglia_metric!nginx_active_connections!500!1000',
+        service_description => 'check nginx active connections',
+        host_name           => "${::govuk_class}-${::hostname}",
       }
     }
   }

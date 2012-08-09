@@ -128,8 +128,15 @@ define govuk::app(
   }
 
   # Set up monitoring
-  if $platform != 'development' {
-    govuk::app::monitoring { $title: }
+  file { "/usr/lib/ganglia/python_modules/app-${title}-procstat.py":
+    ensure  => link,
+    target  => '/usr/lib/ganglia/python_modules/procstat.py',
+    require => Ganglia::Pymod['procstat'],
+  }
+
+  @ganglia::pyconf { "app-${title}":
+    content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
+    require => File["/usr/lib/ganglia/python_modules/app-${title}-procstat.py"],
   }
 
   @logstash::collector { "app-${title}":
@@ -145,25 +152,6 @@ define govuk::app(
     check_command       => "check_ganglia_metric!procstat_${title}_mem!1000000000!2000000000",
     service_description => "Check memory used by app ${title} is not too high",
     host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-}
-
-define govuk::app::monitoring {
-
-  file { "/usr/lib/ganglia/python_modules/${title}-procstat.py":
-    ensure  => link,
-    target  => '/usr/lib/ganglia/python_modules/procstat.py',
-    require => Class[ganglia::client],
-  }
-
-  file {"/etc/ganglia/conf.d/unicorn-${title}.pyconf":
-    ensure => absent
-  }
-
-  file {"/etc/ganglia/conf.d/app-${title}.pyconf":
-    content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
-    notify  => Service['ganglia-monitor'],
   }
 
 }

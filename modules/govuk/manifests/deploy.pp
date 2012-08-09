@@ -18,6 +18,9 @@ class govuk::deploy {
     require     => Group['deploy'];
   }
 
+  file { '/etc/govuk':
+    ensure => directory,
+  }
   file { '/data':
     ensure  => directory,
     owner   => 'deploy',
@@ -30,8 +33,7 @@ class govuk::deploy {
     group   => 'deploy',
     require => File['/data'],
   }
-
-  file { '/etc/govuk':
+  file { '/var/apps':
     ensure => directory,
   }
 
@@ -40,6 +42,7 @@ class govuk::deploy {
     key     => extlookup('jenkins_key', ''),
     type    => 'ssh-rsa',
     user    => 'deploy',
+    require => User['deploy'];
   }
 
   ssh_authorized_key { 'deploy_key_jenkins_skyscape':
