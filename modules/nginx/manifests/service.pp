@@ -5,9 +5,6 @@ class nginx::service {
     hasrestart => true;
   }
 
-  include nagios::client
-  include ganglia::client
-
   # Monitoring of NginX
 
   file { '/etc/nginx/sites-available/monitoring-vhost.conf':

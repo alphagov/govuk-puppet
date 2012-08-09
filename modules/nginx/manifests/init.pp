@@ -1,6 +1,4 @@
 class nginx($node_type = 'UNSET') {
-  include logster
-  include logstash::client
 
   anchor { 'nginx::begin':
     before => Class['nginx::package'],
@@ -17,8 +15,7 @@ class nginx($node_type = 'UNSET') {
     notify    => Class['nginx::service'];
   }
 
-  class { 'nginx::service':
-  }
+  class { 'nginx::service': }
 
   anchor { 'nginx::end':
     require => Class['nginx::service'],
