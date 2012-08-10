@@ -250,10 +250,17 @@ class govuk_base::monitoring_server inherits govuk_base {
 }
 
 class govuk_base::graylog_server inherits govuk_base {
-  include nagios::client::checks
-  include mongodb::server
   include elasticsearch
+  include nagios::client::checks
+  include nginx
+  include mongodb::server
   include logstash::server
+
+  nginx::config::vhost::proxy {
+    "logging.$::govuk_platform.alphagov.co.uk":
+      to      => ['localhost:9292'],
+      aliases => ["graylog.$::govuk_platform.alphagov.co.uk"],
+  }
 }
 
 class govuk_base::management_server {
