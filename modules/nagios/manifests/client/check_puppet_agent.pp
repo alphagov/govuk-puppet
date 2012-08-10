@@ -1,10 +1,6 @@
 class nagios::client::check_puppet_agent {
-  file { '/usr/lib/nagios/plugins/check_puppet_agent':
-    owner   => 'nagios',
-    group   => 'nagios',
-    mode    => '0755',
+  @nagios::plugin { 'check_puppet_agent':
     source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_puppet_agent',
-    require => Package['nagios-nrpe-plugin'],
   }
 
   @@nagios::check { "check_puppet_agent_${::hostname}":

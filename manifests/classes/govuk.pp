@@ -4,6 +4,7 @@ class govuk_base {
   include ganglia::client
   include graphite::client
   include hosts
+  include logstash::client
   include nagios::client
   include puppet
   include puppet::cronjob
@@ -15,7 +16,6 @@ class govuk_base {
 
   include govuk::repository
   include govuk::deploy
-  include logstash::client
 
   class { 'ruby::rubygems':
     version => '1.8.24'
@@ -31,11 +31,9 @@ class govuk_base {
 
 class govuk_base::redirect_server inherits govuk_base {
   class { 'nginx': node_type => redirect }
-  include nagios::client::checks
 }
 
 class govuk_base::db_server inherits govuk_base {
-  include nagios::client::checks
 }
 
 class govuk_base::mysql_master_server inherits govuk_base{
@@ -95,13 +93,10 @@ class govuk_base::mongo_server inherits govuk_base {
       members => $mongo_hosts
     }
   }
-
-  include nagios::client::checks
 }
 
 class govuk_base::ruby_app_server inherits govuk_base {
   include mysql::client
-  include nagios::client::checks
   include nodejs
   include bundler
 
@@ -208,7 +203,6 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 }
 
 class govuk_base::cache_server inherits govuk_base {
-  include nagios::client::checks
   class { 'varnish': storage_size => '6G', default_ttl => 900 }
 
   include router
@@ -229,7 +223,6 @@ class govuk_base::cache_server inherits govuk_base {
 }
 
 class govuk_base::support_server inherits govuk_base {
-  include nagios::client::checks
   include solr
   include apollo
 
@@ -247,14 +240,14 @@ class govuk_base::support_server inherits govuk_base {
 class govuk_base::monitoring_server inherits govuk_base {
   class { 'apache2': port => '80'}
   include nagios
-  include nagios::client::checks
+  include nagios::client
   include ganglia
   include graphite
 }
 
 class govuk_base::graylog_server inherits govuk_base {
   include elasticsearch
-  include nagios::client::checks
+  include nagios::client
   include nginx
   include logstash::server
 
@@ -360,5 +353,4 @@ class govuk_base::management_server::slave inherits govuk_base::management_serve
 class govuk_base::puppetmaster inherits govuk_base {
   include puppet::master
   include puppetdb
-  include nagios::client::checks
 }
