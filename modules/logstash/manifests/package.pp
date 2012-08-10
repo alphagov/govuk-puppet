@@ -32,6 +32,7 @@ class logstash::package {
     ensure  => directory,
     owner   => 'logstash',
     group   => 'logstash',
+    recurse => true,
     require => [User['logstash'], Group['logstash']],
   }
 
