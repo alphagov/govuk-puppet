@@ -9,6 +9,7 @@ PuppetLint.configuration.send("disable_autoloader_layout")
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
 PuppetLint.configuration.send("disable_only_variable_string")
+PuppetLint.configuration.send("inherits_across_namespaces")
 
 desc "Run rspec-puppet tests for modules"
 RSpec::Core::RakeTask.new(:sspecmod) do |t|
@@ -29,14 +30,14 @@ desc "Run parallel_rspec tests for modules"
 task :pspecmod do
   myargs = ["-t","rspec", "-m", "0.5"]
   myargs.concat(Dir['modules/*/spec/*/*_spec.rb'])
-  ParallelTest::CLI.run(myargs) 
+  ParallelTest::CLI.run(myargs)
 end
 
 desc "Run parallel_rspec for tests manifests"
 task :pspecman do
   myargs = ["-t","rspec", "-m", "0.5"]
   myargs.concat(Dir['manifests/spec/*_spec.rb'])
-  ParallelTest::CLI.run(myargs) 
+  ParallelTest::CLI.run(myargs)
 end
 
 desc "Run parallel_rspec tests for manifests and modules"
@@ -44,7 +45,7 @@ task :pspec do
   myargs = ["-t","rspec", "-m", "0.5"]
   myargs.concat(Dir['manifests/spec/*_spec.rb'])
   myargs.concat(Dir['modules/*/spec/*/*_spec.rb'])
-  ParallelTest::CLI.run(myargs) 
+  ParallelTest::CLI.run(myargs)
 end
 
 # Set defaults to be parallel rspec
