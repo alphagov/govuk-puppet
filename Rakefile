@@ -23,7 +23,7 @@ RSpec::Core::RakeTask.new(:sspecman) do |t|
 end
 
 desc "Run rspec-puppet tests for manifests and modules"
-task :sspec => [:specman, :specmod]
+task :sspec => [:sspecman, :sspecmod]
 
 desc "Run parallel_rspec tests for modules"
 task :pspecmod do
