@@ -8,6 +8,7 @@ node default {
     mysql_slave:        { include govuk_base::mysql_slave_server}
     support:            { include govuk_base::support_server }
     monitoring:         { include govuk_base::monitoring_server }
+    jumpbox:            { include govuk_base }
     development:        { include development }
     puppet:             { include govuk_base::puppetmaster }
     management:         { include govuk_base::management_server::master }
