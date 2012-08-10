@@ -1,3 +1,2 @@
-class logstash::client::package {
-  include logstash::package
+class logstash::client::package inherits logstash::package {
 }
