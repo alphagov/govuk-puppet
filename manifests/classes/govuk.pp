@@ -65,23 +65,42 @@ class govuk_base::mysql_slave_server inherits govuk_base{
 class govuk_base::mongo_server inherits govuk_base {
   include mongodb::server
 
-  case $::govuk_platform {
-    production: {
-      $mongo_hosts = [
-        'production-mongo-client-20111213170552-01-internal.hosts.alphagov.co.uk',
-        'production-mongo-client-20111213170334-01-internal.hosts.alphagov.co.uk',
-        'production-mongo-client-20111213170556-01-internal.hosts.alphagov.co.uk'
-      ]
+  case $::govuk_provider {
+    sky: {
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            '10.1.0.2',
+            '10.1.0.7',
+            '10.1.0.8'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
     }
-    preview: {
-      $mongo_hosts = [
-        'preview-mongo-client-20111213143425-01-internal.hosts.alphagov.co.uk',
-        'preview-mongo-client-20111213125804-01-internal.hosts.alphagov.co.uk',
-        'preview-mongo-client-20111213124811-01-internal.hosts.alphagov.co.uk'
-      ]
-    }
+    #aws
     default: {
-      $mongo_hosts = ['localhost']
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            'production-mongo-client-20111213170552-01-internal.hosts.alphagov.co.uk',
+            'production-mongo-client-20111213170334-01-internal.hosts.alphagov.co.uk',
+            'production-mongo-client-20111213170556-01-internal.hosts.alphagov.co.uk'
+          ]
+        }
+        preview: {
+          $mongo_hosts = [
+            'preview-mongo-client-20111213143425-01-internal.hosts.alphagov.co.uk',
+            'preview-mongo-client-20111213125804-01-internal.hosts.alphagov.co.uk',
+            'preview-mongo-client-20111213124811-01-internal.hosts.alphagov.co.uk'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
     }
   }
 
