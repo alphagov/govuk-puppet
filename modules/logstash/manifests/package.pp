@@ -17,6 +17,10 @@ class logstash::package {
     require     => Group['logstash'];
   }
 
+  file { '/etc/logstash':
+    ensure => directory,
+  }
+
   file { '/var/apps/logstash':
     ensure  => directory,
     owner   => 'logstash',
@@ -24,16 +28,16 @@ class logstash::package {
     require => [User['logstash'], Group['logstash']],
   }
 
-  file { '/etc/logstash':
-    ensure => directory,
-  }
-
-  file { ['/var/log/logstash', '/var/run/logstash']:
+  file { '/var/log/logstash':
     ensure  => directory,
     owner   => 'logstash',
     group   => 'logstash',
     recurse => true,
     require => [User['logstash'], Group['logstash']],
+  }
+
+  file { '/var/run/logstash':
+    ensure  => directory,
   }
 
   wget::fetch { 'logstash-monolithic':
