@@ -27,21 +27,21 @@ task :sspec => [:specman, :specmod]
 
 desc "Run parallel_rspec tests for modules"
 task :pspecmod do
-  myargs = ["-t","rspec"]
+  myargs = ["-t","rspec", "-m", "0.5"]
   myargs.concat(Dir['modules/*/spec/*/*_spec.rb'])
   ParallelTest::CLI.run(myargs) 
 end
 
 desc "Run parallel_rspec for tests manifests"
 task :pspecman do
-  myargs = ["-t","rspec"]
+  myargs = ["-t","rspec", "-m", "0.5"]
   myargs.concat(Dir['manifests/spec/*_spec.rb'])
   ParallelTest::CLI.run(myargs) 
 end
 
 desc "Run parallel_rspec tests for manifests and modules"
 task :pspec do
-  myargs = ["-t","rspec"]
+  myargs = ["-t","rspec", "-m", "0.5"]
   myargs.concat(Dir['manifests/spec/*_spec.rb'])
   myargs.concat(Dir['modules/*/spec/*/*_spec.rb'])
   ParallelTest::CLI.run(myargs) 
