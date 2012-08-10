@@ -15,9 +15,8 @@ define nagios::check (
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
     ensure  => present,
     content => template('nagios/service.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    require => Class['nagios::package'],
   }
+
   Nagios::Host[$host_name] -> Nagios::Check[$title]
 }
