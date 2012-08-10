@@ -156,5 +156,9 @@ class users::groups::govuk {
     fullname   => 'Shodhan Sheth',
     email      => 'shodhan.sheth@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'mneedham':
+    fullname   => 'Mark Needham',
+    email      => 'mark.needham@digital.cabinet-office.gov.uk';
+  }
 
 }
