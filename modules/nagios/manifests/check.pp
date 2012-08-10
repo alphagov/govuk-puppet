@@ -5,6 +5,7 @@ define nagios::check (
   $host_name            = $::hostname,
   $notification_period  = undef
 ) {
+
   $service_description_schema = {
     'type'    => 'str',
     'pattern' => '/^[^\']*$/'
@@ -16,7 +17,9 @@ define nagios::check (
     ensure  => present,
     content => template('nagios/service.erb'),
     require => Class['nagios::package'],
+    notify  => Class['nagios::service'],
   }
 
   Nagios::Host[$host_name] -> Nagios::Check[$title]
+
 }

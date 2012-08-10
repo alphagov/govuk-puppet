@@ -6,7 +6,7 @@ class nagios::client::check_rw_rootfs {
     mode    => '0644',
   }
 
-  @nagios::plugin { '/usr/lib/nagios/plugins/check_rw_rootfs':
+  @nagios::plugin { 'check_rw_rootfs':
     source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_rw_rootfs',
   }
 
