@@ -333,6 +333,11 @@ class govuk_base::management_server {
       host          => 'localhost',
       remote_host   => 'localhost',
       root_password => $mysql_password;
+    'datainsights_todays_activity_test':
+      user          => 'datainsight',
+      password      => 'datainsight',
+      host          => 'localhost',
+      root_password => $mysql_password;
   }
 }
 
