@@ -256,7 +256,6 @@ class govuk_base::graylog_server inherits govuk_base {
   include elasticsearch
   include nagios::client::checks
   include nginx
-  include mongodb::server
   include logstash::server
 
   nginx::config::vhost::proxy {
