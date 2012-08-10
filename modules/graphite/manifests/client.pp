@@ -15,8 +15,7 @@ class graphite::client {
   service { 'statsd':
     ensure    => running,
     provider  => upstart,
-    subscribe => File['/etc/init/statsd.conf'],
+    subscribe => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
     require   => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
   }
-
 }
