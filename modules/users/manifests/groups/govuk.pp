@@ -152,5 +152,9 @@ class users::groups::govuk {
     fullname   => 'Robin Mayfield',
     email      => 'robin.mayfield@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'ssheth':
+    fullname   => 'Shodhan Sheth',
+    email      => 'shodhan.sheth@digital.cabinet-office.gov.uk';
+  }
 
 }
