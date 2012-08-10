@@ -8,7 +8,7 @@ define apache2::vhost::passenger($aliases = [], $environment='production', $addi
   }
 
   cron { "logster-apache-$name":
-    command => "/usr/sbin/logster --metric-prefix $name ApacheGangliaLogster /var/log/apache2/${name}-access_log",
+    command => "/usr/sbin/logster --metric-prefix $name ApacheGangliaLogster /var/log/apache2/${name}-access.log",
     user    => root,
     minute  => '*/2'
   }

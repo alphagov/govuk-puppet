@@ -39,7 +39,7 @@ class nginx::config::router {
     facility => $name,
   }
   graylogtail::collect { 'graylogtail-errors':
-    log_file => '/var/log/nginx/lb-error_log',
+    log_file => '/var/log/nginx/lb-error.log',
     facility => $name,
     level    => 'error',
   }

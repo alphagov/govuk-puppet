@@ -28,7 +28,7 @@ server {
   add_header                Strict-Transport-Security "max-age=2419200";
 
   access_log  /var/log/nginx/lb-access.log timed_combined;
-  error_log /var/log/nginx/lb-error_log;
+  error_log /var/log/nginx/lb-error.log;
 
   proxy_set_header Host $http_host;
   proxy_set_header X-Forwarded-Ssl on;
@@ -92,7 +92,7 @@ server {
   add_header                Strict-Transport-Security "max-age=2419200";
 
   access_log  /var/log/nginx/lb-access.log timed_combined;
-  error_log /var/log/nginx/lb-error_log;
+  error_log /var/log/nginx/lb-error.log;
 
   proxy_set_header Host $http_host;
   proxy_set_header X-Forwarded-Ssl on;

@@ -16,17 +16,17 @@ define nginx::config::vhost::proxy(
     host_name           => "${::govuk_class}-${::hostname}",
   }
   cron { "logster-nginx-$name":
-    command => "/usr/sbin/logster --metric-prefix $name NginxGangliaLogster /var/log/nginx/${name}-access_log",
+    command => "/usr/sbin/logster --metric-prefix $name NginxGangliaLogster /var/log/nginx/${name}-access.log",
     user    => root,
     minute  => '*/2'
   }
 
   graylogtail::collect { "graylogtail-access-$name":
-    log_file => "/var/log/nginx/${name}-access_log",
+    log_file => "/var/log/nginx/${name}-access.log",
     facility => $name,
   }
   graylogtail::collect { "graylogtail-errors-$name":
-    log_file => "/var/log/nginx/${name}-error_log",
+    log_file => "/var/log/nginx/${name}-error.log",
     facility => $name,
     level    => 'error',
   }
