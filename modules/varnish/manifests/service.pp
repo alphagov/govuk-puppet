@@ -23,12 +23,6 @@ class varnish::service {
     source  => 'puppet:///modules/varnish/usr/lib/ganglia/python_modules/varnish.py',
   }
 
-  cron { 'logster-varnish':
-    command => '/usr/sbin/logster SampleGangliaLogster /var/log/varnish/varnishncsa.log',
-    user    => root,
-    minute  => '*/2'
-  }
-
   @@nagios::check { "check_varnish_5xx_${::hostname}":
     check_command       => 'check_ganglia_metric!http_5xx!0.03!0.1',
     service_description => "check varnish error rate for ${::hostname}",

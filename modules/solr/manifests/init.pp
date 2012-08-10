@@ -30,11 +30,6 @@ class solr {
     require => User['solr'],
   }
 
-  graylogtail::collect { 'graylogtail-solr':
-    log_file => '/var/log/solr/solr.log',
-    facility => 'solr',
-  }
-
   file { '/var/solr':
     ensure  => directory,
     recurse => true,

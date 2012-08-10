@@ -1,6 +1,5 @@
 class jetty($version='7.6.4.v20120524'){
   include openjdk
-  include logster
 
   $home = '/opt'
 
@@ -30,17 +29,6 @@ class jetty($version='7.6.4.v20120524'){
   file { "$home/jetty":
     ensure  => "$home/jetty-distribution-$version",
     require => Exec['jetty_untar'],
-  }
-
-  cron { 'logster-jetty':
-    command => '/usr/sbin/logster JettyGangliaLogster /var/log/jetty/`date +\%Y_\%m_\%d.request.log`',
-    user    => root,
-    minute  => '*/2'
-  }
-
-  graylogtail::collect { 'graylogtail-jetty':
-    log_file => '/var/log/jetty/`date +\%Y_\%m_\%d.request.log`',
-    facility => 'jetty',
   }
 
   @@nagios::check { "check_jetty_5xx_${::hostname}":
