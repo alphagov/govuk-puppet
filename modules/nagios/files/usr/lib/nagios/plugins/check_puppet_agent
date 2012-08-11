@@ -44,8 +44,8 @@ if File.exists?(puppet_agent_summary_filename)
       exit 1
     end
   rescue
-    puts "CRITICAL: Could not parse puppet summary file"
-    exit 2
+    puts "UNKNOWN: Could not parse puppet summary file"
+    exit 3
   end
 end
 
