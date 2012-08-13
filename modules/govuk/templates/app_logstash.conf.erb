@@ -1,22 +1,37 @@
 input {
   file {
-    type => "<%=title%>-app-out"
-    path => "/var/log/<%=title%>/app.out.log"
+    type => "<%= @title %>-app-out"
+    path => "/var/log/<%= @title %>/app.out.log"
   }
   file {
-    type => "<%=title%>-app-err"
-    path => "/var/log/<%=title%>/app.err.log"
+    type => "<%= @title %>-app-err"
+    path => "/var/log/<%= @title %>/app.err.log"
   }
   file {
-    type => "<%=title%>-upstart-out"
-    path => "/var/log/<%=title%>/upstart.out.log"
+    type => "<%= @title %>-upstart-out"
+    path => "/var/log/<%= @title %>/upstart.out.log"
   }
   file {
-    type => "<%=title%>-upstart-err"
-    path => "/var/log/<%=title%>/upstart.err.log"
+    type => "<%= @title %>-upstart-err"
+    path => "/var/log/<%= @title %>/upstart.err.log"
   }
   file {
-    type => "<%=title%>-app"
-    path => "/var/apps/<%=title%>/log/*.log"
+    type => "<%= @title %>-app"
+    path => "/var/apps/<%= @title %>/log/*.log"
+  }
+  file {
+    type => "<%= @title %>-nginx-access"
+    path => "/var/log/nginx/<%= @vhost_full %>-access.log"
+  }
+  file {
+    type => "<%= @title %>-nginx-error"
+    path => "/var/log/nginx/<%= @vhost_full %>-error.log"
+  }
+}
+
+filter {
+  grok {
+    type => "<%= @title %>-nginx-access"
+    pattern => "%{COMBINEDAPACHELOG}"
   }
 }
