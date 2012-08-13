@@ -14,6 +14,7 @@ node default {
     management:         { include govuk_base::management_server::master }
     management_slave:   { include govuk_base::management_server::slave }
     cache:              { include govuk_base::cache_server }
+    router-mongo:       { include govuk_base::router_mongo }
     graylog:            { include govuk_base::graylog_server }
     whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }
     redirect:           { include govuk_base::redirect_server }

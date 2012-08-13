@@ -70,9 +70,9 @@ class govuk_base::mongo_server inherits govuk_base {
       case $::govuk_platform {
         production: {
           $mongo_hosts = [
-            '10.1.0.2',
-            '10.1.0.7',
-            '10.1.0.8'
+            'to-be-defined',
+            'to-be-defined',
+            'to-be-defined'
           ]
         }
         default: {
@@ -95,6 +95,37 @@ class govuk_base::mongo_server inherits govuk_base {
             'preview-mongo-client-20111213143425-01-internal.hosts.alphagov.co.uk',
             'preview-mongo-client-20111213125804-01-internal.hosts.alphagov.co.uk',
             'preview-mongo-client-20111213124811-01-internal.hosts.alphagov.co.uk'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
+    }
+  }
+
+  if ($mongo_hosts) {
+    class { 'mongodb::configure_replica_set':
+      members => $mongo_hosts
+    }
+    class { 'mongodb::backup':
+      members => $mongo_hosts
+    }
+  }
+}
+
+class govuk_base::router_mongo inherits govuk_base {
+  # this is a newly defined node, so they will not be present on aws
+  include mongodb::server
+
+  case $::govuk_provider {
+    sky: {
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            '10.1.0.2',
+            '10.1.0.7',
+            '10.1.0.8'
           ]
         }
         default: {
