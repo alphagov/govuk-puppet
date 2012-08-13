@@ -105,6 +105,10 @@ class users::groups::govuk {
     fullname   => 'Sam Sharpe',
     email      => 'sam.sharpe@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'ukini':
+    fullname   => 'Uttam Kini',
+    email      => 'uttam.kini@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'carlmassa':
     fullname   => 'Carl Massa',
     email      => 'carl.massa@digital.cabinet-office.gov.uk';
