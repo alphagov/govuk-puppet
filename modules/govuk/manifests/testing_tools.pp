@@ -1,7 +1,11 @@
 class govuk::testing_tools {
   include govuk::phantomjs
 
-  package { 'xvfb':
+  package { [
+    'qt4-qmake',     # needed for capybara-webkit
+    'qt4-dev-tools', #    "            "
+    'xvfb'
+    ]:
     ensure => installed;
   }
 
@@ -18,7 +22,6 @@ class govuk::testing_tools {
       File['/etc/init/xvfb.conf'],
     ]
   }
-
 
 }
 

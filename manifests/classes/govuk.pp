@@ -4,6 +4,7 @@ class govuk_base {
   include ganglia::client
   include graphite::client
   include hosts
+  include logstash::client
   include nagios::client
   include puppet
   include puppet::cronjob
@@ -15,7 +16,6 @@ class govuk_base {
 
   include govuk::repository
   include govuk::deploy
-  include logstash::client
 
   class { 'ruby::rubygems':
     version => '1.8.24'
@@ -31,11 +31,9 @@ class govuk_base {
 
 class govuk_base::redirect_server inherits govuk_base {
   class { 'nginx': node_type => redirect }
-  include nagios::client::checks
 }
 
 class govuk_base::db_server inherits govuk_base {
-  include nagios::client::checks
 }
 
 class govuk_base::mysql_master_server inherits govuk_base{
@@ -67,23 +65,42 @@ class govuk_base::mysql_slave_server inherits govuk_base{
 class govuk_base::mongo_server inherits govuk_base {
   include mongodb::server
 
-  case $::govuk_platform {
-    production: {
-      $mongo_hosts = [
-        'production-mongo-client-20111213170552-01-internal.hosts.alphagov.co.uk',
-        'production-mongo-client-20111213170334-01-internal.hosts.alphagov.co.uk',
-        'production-mongo-client-20111213170556-01-internal.hosts.alphagov.co.uk'
-      ]
+  case $::govuk_provider {
+    sky: {
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            'to-be-defined',
+            'to-be-defined',
+            'to-be-defined'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
     }
-    preview: {
-      $mongo_hosts = [
-        'preview-mongo-client-20111213143425-01-internal.hosts.alphagov.co.uk',
-        'preview-mongo-client-20111213125804-01-internal.hosts.alphagov.co.uk',
-        'preview-mongo-client-20111213124811-01-internal.hosts.alphagov.co.uk'
-      ]
-    }
+    #aws
     default: {
-      $mongo_hosts = ['localhost']
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            'production-mongo-client-20111213170552-01-internal.hosts.alphagov.co.uk',
+            'production-mongo-client-20111213170334-01-internal.hosts.alphagov.co.uk',
+            'production-mongo-client-20111213170556-01-internal.hosts.alphagov.co.uk'
+          ]
+        }
+        preview: {
+          $mongo_hosts = [
+            'preview-mongo-client-20111213143425-01-internal.hosts.alphagov.co.uk',
+            'preview-mongo-client-20111213125804-01-internal.hosts.alphagov.co.uk',
+            'preview-mongo-client-20111213124811-01-internal.hosts.alphagov.co.uk'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
     }
   }
 
@@ -95,13 +112,41 @@ class govuk_base::mongo_server inherits govuk_base {
       members => $mongo_hosts
     }
   }
+}
 
-  include nagios::client::checks
+class govuk_base::router_mongo inherits govuk_base {
+  # this is a newly defined node, so they will not be present on aws
+  include mongodb::server
+
+  case $::govuk_provider {
+    sky: {
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            '10.1.0.2',
+            '10.1.0.7',
+            '10.1.0.8'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
+    }
+  }
+
+  if ($mongo_hosts) {
+    class { 'mongodb::configure_replica_set':
+      members => $mongo_hosts
+    }
+    class { 'mongodb::backup':
+      members => $mongo_hosts
+    }
+  }
 }
 
 class govuk_base::ruby_app_server inherits govuk_base {
   include mysql::client
-  include nagios::client::checks
   include nodejs
   include bundler
 
@@ -208,7 +253,6 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
 }
 
 class govuk_base::cache_server inherits govuk_base {
-  include nagios::client::checks
   class { 'varnish': storage_size => '6G', default_ttl => 900 }
 
   include router
@@ -216,6 +260,9 @@ class govuk_base::cache_server inherits govuk_base {
 
   class { 'nginx': node_type => router}
 
+  # Have realised that this purge does not kick in the first puppet run[Newly provisioned machines]
+  # Needs to be fixed. Unsure of how apache sneaks in.
+  # Kicks in the the next puppet run
   package { 'apache2':
     ensure => absent,
   }
@@ -226,7 +273,6 @@ class govuk_base::cache_server inherits govuk_base {
 }
 
 class govuk_base::support_server inherits govuk_base {
-  include nagios::client::checks
   include solr
   include apollo
 
@@ -244,16 +290,22 @@ class govuk_base::support_server inherits govuk_base {
 class govuk_base::monitoring_server inherits govuk_base {
   class { 'apache2': port => '80'}
   include nagios
-  include nagios::client::checks
+  include nagios::client
   include ganglia
   include graphite
 }
 
 class govuk_base::graylog_server inherits govuk_base {
-  include nagios::client::checks
-  include mongodb::server
   include elasticsearch
+  include nagios::client
+  include nginx
   include logstash::server
+
+  nginx::config::vhost::proxy {
+    "logging.$::govuk_platform.alphagov.co.uk":
+      to      => ['localhost:9292'],
+      aliases => ["graylog.$::govuk_platform.alphagov.co.uk"],
+  }
 }
 
 class govuk_base::management_server {
@@ -331,6 +383,11 @@ class govuk_base::management_server {
       host          => 'localhost',
       remote_host   => 'localhost',
       root_password => $mysql_password;
+    'datainsights_todays_activity_test':
+      user          => 'datainsight',
+      password      => 'datainsight',
+      host          => 'localhost',
+      root_password => $mysql_password;
   }
 }
 
@@ -351,5 +408,4 @@ class govuk_base::management_server::slave inherits govuk_base::management_serve
 class govuk_base::puppetmaster inherits govuk_base {
   include puppet::master
   include puppetdb
-  include nagios::client::checks
 }

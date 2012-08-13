@@ -33,7 +33,7 @@ if File.exists?(puppet_agent_summary_filename)
 
     if(total_events + total_resources + total_changes == 0)
       puts "CRITICAL: Puppet run did not have anything, check logs"
-      exit 3
+      exit 2
     end
 
     resource_failures = summary['resources']['failed'] + summary['resources']['failed_to_restart']
@@ -44,8 +44,8 @@ if File.exists?(puppet_agent_summary_filename)
       exit 1
     end
   rescue
-    puts "CRITICAL: Could not parse puppet summary file"
-    exit 2
+    puts "UNKNOWN: Could not parse puppet summary file"
+    exit 3
   end
 end
 

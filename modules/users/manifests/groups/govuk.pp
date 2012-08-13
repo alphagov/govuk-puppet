@@ -105,6 +105,10 @@ class users::groups::govuk {
     fullname   => 'Sam Sharpe',
     email      => 'sam.sharpe@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'ukini':
+    fullname   => 'Uttam Kini',
+    email      => 'uttam.kini@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'carlmassa':
     fullname   => 'Carl Massa',
     email      => 'carl.massa@digital.cabinet-office.gov.uk';
@@ -155,6 +159,14 @@ class users::groups::govuk {
   govuk::user { 'rujmah':
     fullname   => 'Robin Mayfield',
     email      => 'robin.mayfield@digital.cabinet-office.gov.uk';
+  }
+  govuk::user { 'ssheth':
+    fullname   => 'Shodhan Sheth',
+    email      => 'shodhan.sheth@digital.cabinet-office.gov.uk';
+  }
+  govuk::user { 'mneedham':
+    fullname   => 'Mark Needham',
+    email      => 'mark.needham@digital.cabinet-office.gov.uk';
   }
 
 }

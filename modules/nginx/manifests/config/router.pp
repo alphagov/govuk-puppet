@@ -29,20 +29,6 @@ class nginx::config::router {
     service_description => 'check nginx error rate',
     host_name           => "${::govuk_class}-${::hostname}",
   }
-  cron { 'logster-nginx':
-    command => '/usr/sbin/logster NginxGangliaLogster /var/log/nginx/lb-access.log',
-    user    => root,
-    minute  => '*/2'
-  }
-  graylogtail::collect { 'graylogtail-access':
-    log_file => '/var/log/nginx/lb-access.log',
-    facility => $name,
-  }
-  graylogtail::collect { 'graylogtail-errors':
-    log_file => '/var/log/nginx/lb-error_log',
-    facility => $name,
-    level    => 'error',
-  }
   file { '/var/www/fallback':
     ensure => directory,
     owner  => 'deploy',

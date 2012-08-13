@@ -4,17 +4,17 @@ define nagios::host (
   $use        = 'generic-host',
   $host_name  = $title
 ) {
+
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}":
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
+    require => Class['nagios::package'],
+    notify  => Class['nagios::service'],
   }
+
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}.cfg":
     ensure  => present,
     content => template('nagios/host.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    require => Class['nagios::package'],
+    notify  => Class['nagios::service'],
   }
 }

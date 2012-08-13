@@ -1,5 +1,8 @@
 class nagios::client::checks {
-  include nagios::client
+
+  anchor { ['nagios::client::checks::begin', 'nagios::client::checks::end']: }
+  include nagios::client::check_rw_rootfs
+  Anchor['nagios::client::checks::begin'] -> Class['nagios::client::check_rw_rootfs'] -> Anchor['nagios::client::checks::end']
 
   @@nagios::check { "check_ping_${::hostname}":
     check_command       => 'check_ping!100.0,20%!500.0,60%',
@@ -43,9 +46,6 @@ class nagios::client::checks {
     service_description => "check ssh access to ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
-
-  include nagios::client::check_puppet_agent
-  include nagios::client::check_rw_rootfs
 
   @@nagios::check { "check_io_time${::hostname}":
     check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!5!10',

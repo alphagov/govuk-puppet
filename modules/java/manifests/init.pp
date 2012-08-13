@@ -14,6 +14,8 @@ class java(
     repo      => 'sun-java6'
   }
 
+  apt::key {'3EBCE749':}
+
   file { '/var/local/sun-java6.preseed':
     content => template("${module_name}/sun-java6.preseed")
   }
@@ -24,6 +26,7 @@ class java(
     responsefile => '/var/local/sun-java6.preseed',
     require      => [
       Apt::Ppa_Repository['sun-java-community-team'],
+      Apt::Key['3EBCE749'],
       File['/var/local/sun-java6.preseed']
     ],
   }

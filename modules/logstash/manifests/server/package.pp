@@ -1,5 +1,4 @@
-class logstash::server::package {
-  include logstash::package
+class logstash::server::package inherits logstash::package {
 
   package {'rabbitmq-server':
     ensure => present,

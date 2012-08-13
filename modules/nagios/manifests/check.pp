@@ -5,6 +5,7 @@ define nagios::check (
   $host_name            = $::hostname,
   $notification_period  = undef
 ) {
+
   $service_description_schema = {
     'type'    => 'str',
     'pattern' => '/^[^\']*$/'
@@ -15,9 +16,10 @@ define nagios::check (
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
     ensure  => present,
     content => template('nagios/service.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    require => Class['nagios::package'],
+    notify  => Class['nagios::service'],
   }
+
   Nagios::Host[$host_name] -> Nagios::Check[$title]
+
 }

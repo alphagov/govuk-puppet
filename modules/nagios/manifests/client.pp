@@ -14,6 +14,11 @@ class nagios::client {
     notify  => Class['nagios::client::service'],
   }
 
+  class { 'nagios::client::checks':
+    require => Class['nagios::client::config'],
+    notify  => Class['nagios::client::service'],
+  }
+
   class { 'nagios::client::service': }
 
   anchor { 'nagios::client::end':

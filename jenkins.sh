@@ -7,7 +7,7 @@ export RUBYOPT="-W0"
 
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 mkdir -p build
-bundle exec rake pspec
+bundle exec rake sspec
 RESULT=$?
 
 bundle exec rake lint >build/puppet-lint
