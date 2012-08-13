@@ -2,7 +2,7 @@ class java(
   $distribution = 'jdk',
   $version      = 'installed'
 ) {
-  include apt, apt::key
+  include apt
 
   $distribution_debian = $distribution ? {
     jdk => 'sun-java6-jdk',
