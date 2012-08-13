@@ -1,12 +1,10 @@
 class places_base {
   include base
-
+  include monitoring
   include java
   include users
   include users::groups::govuk
   include hosts::places
-  include nagios::client
-  include ganglia::client
 }
 
 class places_base::mongo_server inherits places_base {

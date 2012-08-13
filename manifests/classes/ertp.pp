@@ -1,13 +1,16 @@
 class ertp_base {
   include base
-
+  include hosts::ertp
+  include puppet
   include users
   include users::groups::govuk
   include users::groups::ertp
-  include hosts::ertp
 }
 
 class ertp_base::mongo_server inherits ertp_base {
+  include monitoring
+  include puppet::cronjob
+
   include mongodb::server
 
   class {'mongodb::configure_replica_set':
@@ -20,6 +23,9 @@ class ertp_base::mongo_server inherits ertp_base {
 }
 
 class ertp_base::frontend_server inherits ertp_base {
+  include monitoring
+  include puppet::cronjob
+
   case $::govuk_platform {
     staging: {
       class { 'nginx' : node_type => ertp_staging }
@@ -34,6 +40,9 @@ class ertp_base::frontend_server inherits ertp_base {
 }
 
 class ertp_base::api_server inherits ertp_base {
+  include monitoring
+  include puppet::cronjob
+
   case $::govuk_platform {
     staging: {
       class { 'nginx' : node_type => ertp_api_staging }

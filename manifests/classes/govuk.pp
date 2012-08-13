@@ -1,12 +1,7 @@
 class govuk_base {
   include base
-
-  include ganglia::client
-  include graphite::client
   include hosts
-  include logstash::client
-  include logster
-  include nagios::client
+  include monitoring
   include puppet
   include puppet::cronjob
   include users
@@ -409,4 +404,29 @@ class govuk_base::management_server::slave inherits govuk_base::management_serve
 class govuk_base::puppetmaster inherits govuk_base {
   include puppet::master
   include puppetdb
+}
+
+
+class govuk_base::mapit_server inherits govuk_base {
+  include nginx
+  include postgres::postgis
+  include mapit
+
+  postgres::user {'mapit':
+      ensure   => present,
+      password => 'mapit',
+  }
+
+  wget::fetch {'mapit_dbdump_download':
+      source      => 'http://cdnt.samsharpe.net/mapit.sql.gz',
+      destination => '/data/vhosts/mapit/data/mapit.sql.gz',
+      require     => File['/data/vhosts/mapit/data/'],
+  }
+  postgres::database { 'mapit':
+      ensure    => present,
+      owner     => 'mapit',
+      encoding  => 'UTF8',
+      source    => '/data/vhosts/mapit/data/mapit.sql.gz',
+      require   => [ Postgres::User['mapit'], Wget::Fetch['mapit_dbdump_download'] ],
+  }
 }
