@@ -31,7 +31,6 @@ class varnish::service {
     check_command       => 'check_ganglia_metric!http_5xx!0.03!0.1',
     service_description => "check varnish error rate for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    require             => Logster::Cronjob['varnish'],
   }
 
   @@nagios::check { "check_varnish_running_${::hostname}":

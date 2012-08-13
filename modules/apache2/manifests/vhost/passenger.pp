@@ -8,7 +8,6 @@ define apache2::vhost::passenger($aliases = [], $environment='production', $addi
     check_command       => "check_ganglia_metric!${name}_apache_http_5xx!0.05!0.1",
     service_description => "check apache error rate for ${name}",
     host_name           => "${::govuk_class}-${::hostname}",
-    require             => Logster::Cronjob["apache2-vhost-${name}"],
   }
 
   apache2::site { $name:

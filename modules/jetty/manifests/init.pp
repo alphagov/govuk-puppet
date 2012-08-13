@@ -39,7 +39,6 @@ class jetty($version='7.6.4.v20120524'){
     check_command       => 'check_ganglia_metric!jetty_http_5xx!0.03!0.1',
     service_description => "check jetty error rate for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
-    require             => Logster::Cronjob['jetty'],
   }
 
   file { "$home/jetty/webapps":
