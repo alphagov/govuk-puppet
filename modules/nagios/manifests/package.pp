@@ -49,5 +49,11 @@ class nagios::package {
     source => 'puppet:///modules/nagios/pagerduty_nagios.pl',
     mode   => '0755',
   }
-
+  
+  file { '/var/lib/nagios3/rw':
+    ensure => directory,
+    mode   => '2710',
+    owner  => nagios,
+    group  => www-data
+  }
 }
