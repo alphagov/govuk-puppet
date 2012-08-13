@@ -25,6 +25,10 @@ if using < python2.5, http://code.activestate.com/recipes/523034/ works as a
 pure python collections.defaultdict substitute
 """
 
+# Suppress writing of bytecode to quieten Puppet runs
+import sys
+sys.dont_write_bytecode = True
+
 #from collections import defaultdict
 try:
     from collections import defaultdict

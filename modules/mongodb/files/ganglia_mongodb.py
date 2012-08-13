@@ -25,6 +25,10 @@
 # THE SOFTWARE.
 #
 
+# Suppress writing of bytecode to quieten Puppet runs
+import sys
+sys.dont_write_bytecode = True
+
 import json
 import os
 import re

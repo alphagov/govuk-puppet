@@ -36,6 +36,10 @@
 ###  License to use, modify, and distribute under the GPL
 ###  http://www.gnu.org/licenses/gpl.txt
 
+# Suppress writing of bytecode to quieten Puppet runs
+import sys
+sys.dont_write_bytecode = True
+
 import time
 import subprocess
 import traceback
