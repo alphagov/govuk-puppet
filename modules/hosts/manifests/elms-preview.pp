@@ -4,5 +4,4 @@ class hosts::elms-preview {
   host { 'elms-mongo-2':       ip => '10.229.30.142' }
   host { 'elms-mongo-3':       ip => '10.234.81.24' }
   host { 'places-api':         ip => '10.229.118.175' }
-  host { 'monitoring.cluster': ip => '10.51.62.202' }
 }
