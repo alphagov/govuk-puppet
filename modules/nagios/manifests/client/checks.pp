@@ -1,6 +1,8 @@
 class nagios::client::checks {
 
+  anchor { ['nagios::client::checks::begin', 'nagios::client::checks::end']: }
   include nagios::client::check_rw_rootfs
+  Anchor['nagios::client::checks::begin'] -> Class['nagios::client::check_rw_rootfs'] -> Anchor['nagios::client::checks::end']
 
   @@nagios::check { "check_ping_${::hostname}":
     check_command       => 'check_ping!100.0,20%!500.0,60%',
