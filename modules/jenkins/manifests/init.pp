@@ -46,12 +46,11 @@ class jenkins {
 }
 
 class jenkins::master inherits jenkins {
-  
   include java
 
   # Kohsuke Kawaguchi <kk@kohsuke.org>
   apt::key { 'D50582E6': }
-  
+
   exec { 'update-alternatives-java':
     command => 'update-alternatives --set java /usr/lib/jvm/java-6-sun/jre/bin/java',
     require => Package['sun-java6-jdk']

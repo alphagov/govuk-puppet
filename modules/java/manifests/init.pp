@@ -13,7 +13,7 @@ class java(
     publisher => 'sun-java-community-team',
     repo      => 'sun-java6'
   }
-  
+
   apt::key {'3EBCE749':}
 
   file { '/var/local/sun-java6.preseed':
