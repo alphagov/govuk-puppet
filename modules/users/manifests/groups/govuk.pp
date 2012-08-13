@@ -117,6 +117,10 @@ class users::groups::govuk {
     fullname   => 'Tom Byers',
     email      => 'tom.byers@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'tombye':
+    fullname   => 'Tom Byers',
+    email      => 'tom.byers@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'nick':
     fullname   => 'Nick Stenning',
     email      => 'nick.stenning@digital.cabinet-office.gov.uk';
