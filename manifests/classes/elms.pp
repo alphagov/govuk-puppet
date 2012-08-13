@@ -1,5 +1,6 @@
 class elms_base {
   include base
+  include hosts
   include puppet
   include users
   include openjdk

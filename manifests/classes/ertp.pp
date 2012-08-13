@@ -1,5 +1,6 @@
 class ertp_base {
   include base
+  include hosts
   include hosts::ertp
   include puppet
   include users
