@@ -31,10 +31,15 @@ class jetty($version='7.6.4.v20120524'){
     require => Exec['jetty_untar'],
   }
 
+  @logster::cronjob { 'jetty':
+    args => 'JettyGangliaLogster /var/log/jetty/`date +\%Y_\%m_\%d.request.log`',
+  }
+
   @@nagios::check { "check_jetty_5xx_${::hostname}":
     check_command       => 'check_ganglia_metric!jetty_http_5xx!0.03!0.1',
     service_description => "check jetty error rate for ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
+    require             => Logster::Cronjob['jetty'],
   }
 
   file { "$home/jetty/webapps":

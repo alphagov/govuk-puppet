@@ -5,6 +5,7 @@ class govuk_base {
   include graphite::client
   include hosts
   include logstash::client
+  include logster
   include nagios::client
   include puppet
   include puppet::cronjob

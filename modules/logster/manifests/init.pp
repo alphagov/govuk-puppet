@@ -40,4 +40,6 @@ class logster {
     group  => root,
     mode   => '0755',
   }
+
+  Logster::Cronjob <| |>
 }
