@@ -40,6 +40,10 @@ class logstash::package {
     ensure  => directory,
   }
 
+  @logrotate::conf { 'logstash':
+    matches => '/var/log/logstash/*.log',
+  }
+
   wget::fetch { 'logstash-monolithic':
     source      => "http://semicomplete.com/files/logstash/logstash-${logstash_version}-monolithic.jar",
     destination => "/var/apps/logstash/logstash-${logstash_version}-monolithic.jar",
