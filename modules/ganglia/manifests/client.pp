@@ -24,6 +24,11 @@ class ganglia::client {
     source => 'puppet:///modules/ganglia/usr/lib/ganglia/python_modules/diskstat.py',
   }
 
+  @ganglia::pyconf { 'diskstat':
+    source  => 'puppet:///modules/ganglia/etc/ganglia/conf.d/diskstat.pyconf',
+    require => Ganglia::Pymod['diskstat'],
+  }
+
   @ganglia::pymod { 'procstat':
     source  => 'puppet:///modules/ganglia/usr/lib/ganglia/python_modules/procstat.py',
   }
