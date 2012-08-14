@@ -14,8 +14,15 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
     require         => Class['nodejs'];
   }
 
-  nginx::config::vhost::proxy { "dg-explore-reviewomatic.${upstream_domain}":
-    to           => ["localhost:${port}"],
-    extra_config => 'proxy_set_header X-Explore-Upstream direct.gov.uk;',
+  if $::govuk_platform == 'development' {
+    nginx::config::vhost::dev_proxy { "dg-explore-reviewomatic.${upstream_domain}":
+      to           => ["localhost:${port}"],
+      extra_config => 'proxy_set_header X-Explore-Upstream direct.gov.uk;',
+    }
+  } else {
+    nginx::config::vhost::proxy { "dg-explore-reviewomatic.${upstream_domain}":
+      to           => ["localhost:${port}"],
+      extra_config => 'proxy_set_header X-Explore-Upstream direct.gov.uk;',
+    }
   }
 }
