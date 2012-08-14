@@ -5,6 +5,7 @@ class places_base {
   include users
   include users::groups::govuk
   include hosts::places
+  include govuk::deploy
 }
 
 class places_base::mongo_server inherits places_base {
