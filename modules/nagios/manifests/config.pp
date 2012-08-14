@@ -66,20 +66,41 @@ class nagios::config {
   }
 
   #TODO: extlookup or hiera for email addresses?
-  $contact_email = $::govuk_platform ? {
-    production => 'monitoring-ec2production@digital.cabinet-office.gov.uk',
-    preview    => 'monitoring-ec2preview@digital.cabinet-office.gov.uk',
-    default    => 'root@localhost',
+
+  case $::govuk_provider {
+    sky: {
+      $contact_email = $::govuk_platform ? { 
+        production   => 'monitoring-skyprod+pager@digital.cabinet-office.gov.uk',
+        default      => 'root@localhost',
+      }
+    }
+    default: {
+      $contact_email = $::govuk_platform ? {
+        production   => 'monitoring-ec2production+pager@digital.cabinet-office.gov.uk',
+        preview      => 'monitoring-ec2preview+pager@digital.cabinet-office.gov.uk',
+        default      => 'root@localhost',
+      }
+    }
   }
 
   nagios::contact { 'monitoring_google_group':
     email => $contact_email
   }
 
-  $pager_fake_email = $::govuk_platform ? {
-    production => 'monitoring-ec2production+pager@digital.cabinet-office.gov.uk',
-    preview    => 'monitoring-ec2preview+pager@digital.cabinet-office.gov.uk',
-    default    => 'root@localhost',
+  case $::govuk_provider {
+    sky: {
+      $pager_fake_email = $::govuk_platform ? {
+          production    => 'monitoring-skyprod+pager@digital.cabinet-office.gov.uk',
+          default       => 'root@localhost',
+      }
+    }
+    default: {
+      $pager_fake_email = $::govuk_platform ? {
+          production    => 'monitoring-ec2production+pager@digital.cabinet-office.gov.uk',
+          preview       => 'monitoring-ec2preview+pager@digital.cabinet-office.gov.uk',
+          default       => 'root@localhost',
+      }
+    }
   }
 
   nagios::contact { 'pager_workhours':
