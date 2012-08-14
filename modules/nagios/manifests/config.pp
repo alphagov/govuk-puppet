@@ -134,8 +134,24 @@ class nagios::config {
     contact_groups => ['regular']
   }
 
+  case $::govuk_provider {
+    sky: {
+      $monitoring_url = $::govuk_platform ? {
+        production    => 'http://skyscape-monitoring/nagios3/',
+        default       => 'http://skyscape-monitoring/nagios3/',
+      }
+    }
+    default: {
+      $monitoring_url = $::govuk_platform ? {
+        production    => 'http://monitoring.production.alphagov.co.uk/nagios3/',
+        preview       => 'http://monitoring.preview.alphagov.co.uk/nagios3/',
+        default       => 'http://localhost/nagios3/',
+      }
+    }
+  }
+
   file { '/etc/nagios3/resource.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/resource.cfg',
+    content  => template('nagios/resource.cfg.erb'),
   }
 
   file { '/etc/nagios3/commands.cfg':
