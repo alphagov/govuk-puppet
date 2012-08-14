@@ -1,5 +1,5 @@
 server {
-  server_name  _;
+  server_name  preview-ertp-api.alphagov.co.uk;
   listen *:80;
 
 
