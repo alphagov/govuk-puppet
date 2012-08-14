@@ -1,19 +1,19 @@
 class nagios::config {
 
   file { '/etc/nagios3/conf.d/check_ganglia_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/nagios/check_ganglia_nagios2.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/check_ganglia_nagios2.cfg',
   }
 
   file { '/etc/nagios3/conf.d/generic-host_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/nagios/generic-host_nagios2.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/generic-host_nagios2.cfg',
   }
 
   file { '/etc/nagios3/conf.d/check_http_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/nagios/check_http_nagios2.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/check_http_nagios2.cfg',
   }
 
   file { '/etc/nagios3/conf.d/check_smokey.cfg':
-    source  => 'puppet:///modules/nagios/nagios/check_smokey.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/check_smokey.cfg',
   }
 
   @@nagios::check {'check_smokey':
@@ -58,11 +58,11 @@ class nagios::config {
   }
 
   file { '/etc/nagios3/cgi.cfg':
-    source => 'puppet:///modules/nagios/nagios/cgi.cfg',
+    source => 'puppet:///modules/nagios/etc/nagios3/cgi.cfg',
   }
 
   file { '/etc/nagios3/conf.d/hostgroups_nagios2.cfg':
-    source => 'puppet:///modules/nagios/nagios/hostgroups_nagios2.cfg',
+    source => 'puppet:///modules/nagios/etc/nagios3/conf.d/hostgroups_nagios2.cfg',
   }
 
   #TODO: extlookup or hiera for email addresses?
@@ -135,19 +135,19 @@ class nagios::config {
   }
 
   file { '/etc/nagios3/resource.cfg':
-    source  => 'puppet:///modules/nagios/nagios/resource.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/resource.cfg',
   }
 
   file { '/etc/nagios3/commands.cfg':
-    source  => 'puppet:///modules/nagios/nagios/commands.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/commands.cfg',
   }
 
   file { '/etc/nagios3/nagios.cfg':
-    source  => 'puppet:///modules/nagios/nagios/nagios.cfg',
+    source  => 'puppet:///modules/nagios/etc/nagios3/nagios.cfg',
   }
 
   file { '/etc/nagios3/htpasswd.users':
-    source  => 'puppet:///modules/nagios/nagios/htpasswd.users',
+    source  => 'puppet:///modules/nagios/etc/nagios3/htpasswd.users',
   }
 
   file { '/etc/nagios3/apache2.conf':

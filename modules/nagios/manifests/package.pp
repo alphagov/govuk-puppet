@@ -19,7 +19,7 @@ class nagios::package {
   }
 
   file { '/usr/local/bin/sendEmail':
-    source => 'puppet:///modules/nagios/sendEmail',
+    source => 'puppet:///modules/nagios/usr/local/bin/sendEmail',
     mode   => '0755',
   }
 
@@ -29,12 +29,12 @@ class nagios::package {
   }
 
   file { '/usr/local/bin/check_ganglia_metric':
-    source => 'puppet:///modules/nagios/check_ganglia_metric',
+    source => 'puppet:///modules/nagios/usr/local/bin/check_ganglia_metric',
     mode   => '0755',
   }
 
   file { '/usr/local/bin/reversedns.py':
-    source => 'puppet:///modules/nagios/reversedns.py',
+    source => 'puppet:///modules/nagios/usr/local/bin/reversedns.py',
     mode   => '0755',
   }
 
@@ -46,7 +46,7 @@ class nagios::package {
 
   # pagerduty stuff
   file { '/usr/local/bin/pagerduty_nagios.pl':
-    source => 'puppet:///modules/nagios/pagerduty_nagios.pl',
+    source => 'puppet:///modules/nagios/usr/local/bin/pagerduty_nagios.pl',
     mode   => '0755',
   }
 
