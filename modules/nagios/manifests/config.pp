@@ -69,7 +69,7 @@ class nagios::config {
 
   case $::govuk_provider {
     sky: {
-      $contact_email = $::govuk_platform ? { 
+      $contact_email = $::govuk_platform ? {
         production   => 'monitoring-skyprod+pager@digital.cabinet-office.gov.uk',
         default      => 'root@localhost',
       }
