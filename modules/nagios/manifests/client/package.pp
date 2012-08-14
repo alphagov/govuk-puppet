@@ -1,7 +1,6 @@
 class nagios::client::package {
 
   package { [
-    'nagios-nrpe-plugin',
     'nagios-plugins-basic',
     'nagios-plugins-standard',
     'nagios-nrpe-server'

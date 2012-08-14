@@ -8,6 +8,7 @@ class nagios::package {
     'nagios-plugins': ensure       => 'installed';
     'libwww-perl': ensure          => 'installed';
     'libcrypt-ssleay-perl': ensure => 'installed';
+    'nagios-nrpe-plugin': ensure   => 'installed';
   }
 
   file { '/etc/nagios3/conf.d':
