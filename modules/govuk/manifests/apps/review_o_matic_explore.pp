@@ -13,4 +13,9 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
     vhost_ssl_only  => false,
     require         => Class['nodejs'];
   }
+
+  nginx::config::vhost::proxy { "bl-explore-reviewomatic.${upstream_domain}":
+    to           => ["localhost:${port}"],
+    extra_config => 'proxy_set_header X-Explore-Upstream businesslink.gov.uk;',
+  }
 }
