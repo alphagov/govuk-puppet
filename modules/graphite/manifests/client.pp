@@ -1,4 +1,5 @@
 class graphite::client {
+  include govuk::repository
   package{ 'statsd':
     ensure  => present;
   }
