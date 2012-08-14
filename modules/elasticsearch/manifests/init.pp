@@ -2,6 +2,7 @@ class elasticsearch {
   include govuk::repository
   package { 'elasticsearch':
     ensure  => '0.19.8',
+    require => Class['govuk::repository'],
     notify  => Exec['disable-default-elasticsearch'],
   }
 
