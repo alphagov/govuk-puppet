@@ -3,13 +3,10 @@ class ganglia::package {
   package {
     'gmetad':
       ensure  => 'installed',
-      require => Package['ganglia-webfrontend'];
     'rrdtool':
       ensure  => 'installed',
-      require => Package['ganglia-webfrontend'];
     'php5':
       ensure  => 'installed',
-      require => Package['ganglia-webfrontend'],
       notify  => Class['apache2::service']
   }
 
