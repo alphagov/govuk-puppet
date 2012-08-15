@@ -4,6 +4,7 @@ class base_packages {
       'ack-grep',
       'bzip2',
       'build-essential',
+      'libc6-dev',
       'curl',
       'daemontools',
       'gettext',
