@@ -1,6 +1,6 @@
 class nodejs {
-  include govuk::repository
   package { 'nodejs':
-    ensure => '0.8.2';
+    ensure  => '0.8.2',
+    require => Apt::Deb_repository['gds'],
   }
 }
