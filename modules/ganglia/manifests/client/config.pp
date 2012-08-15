@@ -1,6 +1,6 @@
 class ganglia::client::config {
 
-  file { '/usr/lib/ganglia/python_modules',
+  file { '/usr/lib/ganglia/python_modules':
     ensure  => directory,
     recurse => true,
     purge   => true,
