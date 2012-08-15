@@ -1,0 +1,18 @@
+###########################################
+# Init settings for puppetdb
+###########################################
+
+# Location of your Java binary (version 6 or higher)
+JAVA_BIN="/usr/bin/java"
+
+# Modify this if you'd like to change the memory allocation, enable JMX, etc
+<% if govuk_provider == "sky" %>
+  JAVA_ARGS="-Xmx1024m"
+<% else %>
+  JAVA_ARGS="-Xmx192m"
+<% end %>
+
+# These normally shouldn't need to be edited if using OS packages
+USER="puppetdb"
+INSTALL_DIR="/usr/share/puppetdb"
+CONFIG="/etc/puppetdb/conf.d"
