@@ -1,8 +1,7 @@
 class graphite::client {
-  include govuk::repository
-  package{ 'statsd':
-    ensure  => present,
-    require => Class['govuk::repository'];
+
+  package { 'statsd':
+    ensure => present,
   }
 
   file { '/etc/statsd.conf':
@@ -20,4 +19,5 @@ class graphite::client {
     subscribe => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
     require   => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
   }
+
 }

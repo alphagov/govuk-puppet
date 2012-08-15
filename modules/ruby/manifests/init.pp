@@ -1,20 +1,17 @@
 class ruby($version) {
-    package { 'ruby1.9.1':
-        ensure  => $version,
-        require => Apt::Ppa_repository[brightbox]
-    }
 
-    package { 'ruby1.9.1-dev':
-        ensure  => $version,
-        require => Apt::Ppa_repository[brightbox]
-    }
+  apt::repository { 'brightbox-ruby-ng':
+    type  => 'ppa',
+    owner => 'brightbox',
+    repo  => 'ruby-ng',
+  }
 
-    package { 'ruby1.8':
-        ensure => purged
-    }
+  package { ['ruby1.9.1', 'ruby1.9.1-dev']:
+    ensure => $version,
+  }
 
-    apt::ppa_repository { 'brightbox':
-        publisher  => 'brightbox',
-        repo       => 'ruby-ng',
-    }
+  package { 'ruby1.8':
+    ensure => purged
+  }
+
 }

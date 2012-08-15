@@ -3,7 +3,6 @@ class puppet::master {
 
   package { 'puppetdb-terminus':
     ensure  => present,
-    require => Apt::Deb_repository['puppetlabs-repo']
   }
 
   package { ['mysql-server-5.1','mysql-client-5.1']: #old storedconfigs, before we used puppetdb

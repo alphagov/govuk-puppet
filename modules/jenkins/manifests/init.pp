@@ -48,20 +48,22 @@ class jenkins {
 class jenkins::master inherits jenkins {
   include java
 
-  # Kohsuke Kawaguchi <kk@kohsuke.org>
-  apt::key { 'D50582E6': }
+  apt::repository { 'jenkins':
+    url  => 'http://pkg.jenkins-ci.org/debian',
+    dist => '',
+    repo => 'binary/',
+    key  => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
+  }
 
   exec { 'update-alternatives-java':
     command => 'update-alternatives --set java /usr/lib/jvm/java-6-sun/jre/bin/java',
     require => Package['sun-java6-jdk']
   }
+
   package { 'jenkins':
     ensure  => 'latest',
     require => [
       User['jenkins'],
-      Apt::Key['D50582E6'],
-      File['jenkins.list'],
-      Exec['apt-get update'],
       Package['sun-java6-jdk'],
       Exec['update-alternatives-java']
     ],
@@ -77,16 +79,6 @@ class jenkins::master inherits jenkins {
     group   => jenkins,
     mode    => '0700',
     require => Package['keychain'],
-  }
-
-  file { 'jenkins.list':
-    path   => '/etc/apt/sources.list.d/jenkins.list',
-    source => 'puppet:///modules/jenkins/jenkins.list',
-    mode   => '0644',
-    before => [
-      Exec['apt-get update'],
-      Apt::Key['D50582E6']
-    ],
   }
 }
 
