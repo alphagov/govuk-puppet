@@ -2,8 +2,8 @@ class ganglia::package {
   include apache2
   package {
     'gmetad':
-      before  => Package['ganglia-monitor'], # Stupid bug in lucid makes this order-dependent.
-      ensure  => 'installed';
+      ensure  => 'installed',
+      before  => Package['ganglia-monitor']; # Stupid bug in lucid makes this order-dependent.
     'rrdtool':
       ensure  => 'installed';
     'php5':
