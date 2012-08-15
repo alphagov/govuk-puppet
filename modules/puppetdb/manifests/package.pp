@@ -3,7 +3,6 @@ class puppetdb::package {
 
   package { 'puppetdb':
     ensure  => 'present',
-    require => Apt::Deb_repository['puppetlabs-repo']
   }
 
 }

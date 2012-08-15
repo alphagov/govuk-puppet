@@ -1,23 +1,25 @@
 class apt {
-  include apt::update
 
-  file { 'sources.list':
+  file { '/etc/apt/sources.list':
     ensure => present,
-    name   => '/etc/apt/sources.list',
-    owner  => root,
-    group  => root,
-    mode   => '0644';
+    source => 'puppet:///modules/apt/sources.list',
   }
 
-  file { 'sources.list.d':
-    ensure => directory,
-    name   => '/etc/apt/sources.list.d',
-    owner  => root,
-    group  => root;
+  file { '/etc/apt/sources.list.d':
+    ensure  => directory,
+    recurse => true,
+    purge   => true,
+    force   => true,
+    ignore  => '*.save'
   }
 
   package { 'python-software-properties':
-    ensure => installed;
+    ensure => installed,
+    tag    => 'no_require_apt_update',
   }
+
+  class { 'apt::update': }
+
+  Class['apt::update'] -> Package <| provider != pip and provider != gem and ensure != absent and ensure != purged and tag != 'no_require_apt_update' |>
 
 }

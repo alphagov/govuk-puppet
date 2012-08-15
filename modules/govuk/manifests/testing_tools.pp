@@ -57,10 +57,4 @@ class govuk::phantomjs {
     ensure  => absent
   }
 
-  apt::ppa_repository { 'jerome-etienne':
-    ensure    => 'absent',
-    publisher => 'jerome-etienne',
-    repo      => 'neoip'
-  }
-
 }
