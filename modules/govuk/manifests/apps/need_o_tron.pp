@@ -1,5 +1,5 @@
 class govuk::apps::need_o_tron($port = '4000') {
-  govuk::app { 'need_o_tron':
+  govuk::app { 'needotron':
     app_type => 'rack',
     port     => $port;
   }
