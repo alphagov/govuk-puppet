@@ -24,7 +24,7 @@ define elasticsearch::node::config (
     force   => true,
   }
 
-  if $ensure == 'present' {
+  if $ensure != 'absent' {
 
     file { "${es_home}/config":
       ensure  => directory,
