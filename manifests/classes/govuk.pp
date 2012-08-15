@@ -193,6 +193,9 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   include govuk::apps::review_o_matic_explore
   include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
+  if($::govuk_provider == 'sky') {
+    include govuk::apps::need_o_tron
+  }
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
