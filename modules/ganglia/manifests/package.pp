@@ -6,7 +6,7 @@ class ganglia::package {
     'rrdtool':
       ensure  => 'installed';
     'php5':
-      ensure  => 'installed';
+      ensure  => 'installed',
       notify  => Class['apache2::service']
   }
 
