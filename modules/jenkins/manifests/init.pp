@@ -22,6 +22,11 @@ class jenkins {
     ensure => installed,
   }
 
+  # This is required for the Deploy Redirector Config job
+  package { 'libtext-csv-perl':
+    ensure => installed,
+  }
+
   file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/jenkins/dot-gitconfig',
     owner   => jenkins,
