@@ -87,38 +87,14 @@ class nagios::config {
     email => $contact_email
   }
 
-  case $::govuk_provider {
-    sky: {
-      $pager_fake_email = $::govuk_platform ? {
-          production    => 'monitoring-skyprod+pager@digital.cabinet-office.gov.uk',
-          default       => 'root@localhost',
-      }
-    }
-    default: {
-      $pager_fake_email = $::govuk_platform ? {
-          production    => 'monitoring-ec2production+pager@digital.cabinet-office.gov.uk',
-          preview       => 'monitoring-ec2preview+pager@digital.cabinet-office.gov.uk',
-          default       => 'root@localhost',
-      }
-    }
-  }
-
-  nagios::contact { 'pager_workhours':
-    email                        => $pager_fake_email,
-    service_notification_options => 'c',
-    notification_period          => 'workhours'
-  }
-
-  nagios::contact { 'pager_nonworkhours':
-    email                        => $pager_fake_email,
+  nagios::pager_contact { 'pager_nonworkhours':
     service_notification_options => 'c',
     notification_period          => 'nonworkhours',
-    config_template              =>  'nagios/pager_nonworkhours.cfg.erb'
   }
 
   nagios::contact_group { 'emergencies':
     group_alias => 'Contacts for emergency situations',
-    members     => ['monitoring_google_group','pager_nonworkhours','pager_workhours'],
+    members     => ['monitoring_google_group','pager_nonworkhours'],
   }
 
   nagios::contact_group { 'regular':
