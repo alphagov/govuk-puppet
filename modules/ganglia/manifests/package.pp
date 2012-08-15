@@ -2,11 +2,11 @@ class ganglia::package {
   include apache2
   package {
     'gmetad':
-      ensure  => 'installed',
+      ensure  => 'installed';
     'rrdtool':
-      ensure  => 'installed',
+      ensure  => 'installed';
     'php5':
-      ensure  => 'installed',
+      ensure  => 'installed';
       notify  => Class['apache2::service']
   }
 
