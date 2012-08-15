@@ -147,7 +147,7 @@ class govuk_base::ruby_app_server inherits govuk_base {
   include bundler
 
   package {
-    'rails':               ensure => '3.1.1',   provider => gem;
+    'rails':               ensure => '3.1.1',   provider => gem, require => Class['base'];
     'mysql2':              ensure => installed, provider => gem, require => Package['libmysqlclient-dev'];
     'rake':                ensure => '0.9.2',   provider => gem;
     'rack':                ensure => '1.3.5',   provider => gem;
