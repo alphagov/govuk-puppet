@@ -21,7 +21,8 @@ class base_packages {
       'unzip',
       'vim-nox',
       'wget',
-      'xz-utils'
+      'xz-utils',
+      'zip'
     ]:
     ensure => installed
   }
