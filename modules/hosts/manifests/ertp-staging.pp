@@ -6,5 +6,5 @@ class hosts::ertp-staging {
   host { 'ertp-mongo-3':       ip => '10.234.43.20' }
   host { 'places-api':         ip => '10.235.75.123' }
   host { 'monitoring.cluster': ip => '10.51.62.202' }
-  host { 'graylog.cluster':     ip => '10.32.31.104' }
+  host { 'graylog.cluster':    ip => '10.32.31.104' }
 }
