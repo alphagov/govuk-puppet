@@ -139,6 +139,9 @@ class nginx::config::backend_server {
     "publisher.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
+    "needotron.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
     "panopticon.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
