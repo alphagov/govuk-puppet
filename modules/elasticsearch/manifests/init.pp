@@ -1,9 +1,8 @@
 class elasticsearch {
-  include govuk::repository
+
   package { 'elasticsearch':
-    ensure  => '0.19.8',
-    require => Class['govuk::repository'],
-    notify  => Exec['disable-default-elasticsearch'],
+    ensure => '0.19.8',
+    notify => Exec['disable-default-elasticsearch'],
   }
 
   # We are installing elasticsearch in order to provide the .jar, but

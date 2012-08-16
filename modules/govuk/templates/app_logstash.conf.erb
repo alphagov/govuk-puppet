@@ -34,4 +34,22 @@ filter {
     type => "<%= @title %>-nginx-access"
     pattern => "%{COMBINEDAPACHELOG}"
   }
+  grok {
+  pattern => "%{WORD:method}%{SPACE}%{DATA}%{SPACE}action=%{WORD:controller}#%{WORD:action}%{SPACE}status=%{INT:status}%{SPACE}duration=%{NUMBER:duration}%{SPACE}view=%{NUMBER:view}%{GREEDYDATA}"
+  type => "<%= @title %>-app"
+    add_tag => [ "lograge" ]
+  }
+}
+
+output {
+  statsd {
+    host => 'localhost'
+    tags => [ "lograge" ]
+    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.duration", "%{duration}" ]
+  }
+  statsd {
+    host => 'localhost'
+    tags => [ "lograge" ]
+    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.view", "%{view}" ]
+  }
 }

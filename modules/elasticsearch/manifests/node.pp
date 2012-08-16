@@ -31,7 +31,6 @@ define elasticsearch::node(
 
   elasticsearch::node::service { $cluster_name:
     ensure  => $ensure,
-    require => Elasticsearch::Node::Config[$cluster_name],
   }
 
 }
