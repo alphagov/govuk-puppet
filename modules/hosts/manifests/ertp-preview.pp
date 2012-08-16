@@ -17,4 +17,7 @@ class hosts::ertp-preview {
   host { 'monitoring.cluster':
     ip => '10.51.62.202'
   }
+  host { 'graylog.cluster':     
+    ip => '10.32.31.104' 
+  }
 }
