@@ -66,9 +66,9 @@ class govuk_base::mongo_server inherits govuk_base {
       case $::govuk_platform {
         production: {
           $mongo_hosts = [
-            'to-be-defined',
-            'to-be-defined',
-            'to-be-defined'
+            'mongo-1.production.internal',
+            'mongo-2.production.internal',
+            'mongo-3.production.internal'
           ]
         }
         default: {
