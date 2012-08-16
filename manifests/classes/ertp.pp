@@ -6,6 +6,7 @@ class ertp_base {
   include users::groups::govuk
   include users::groups::ertp
   include govuk::deploy
+  include govuk::repository
 }
 
 class ertp_base::mongo_server inherits ertp_base {
