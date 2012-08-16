@@ -37,3 +37,5 @@ deploy ALL=NOPASSWD:/sbin/initctl
 deploy ALL=NOPASSWD:/etc/init.d/jetty
 # the deploy user can restart varnish
 deploy ALL=NOPASSWD:/etc/init.d/varnish
+# the deploy user can restart nginx
+deploy ALL=NOPASSWD:/etc/init.d/nginx
