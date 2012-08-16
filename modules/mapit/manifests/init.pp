@@ -12,7 +12,7 @@ class mapit {
     ensure => present,
   }
 
-  class { 'nginx' : node_type => mapit }
+  class { 'nginx::config' : node_type => mapit }
 
   file { '/etc/init/mapit.conf':
     ensure  => file,
