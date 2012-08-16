@@ -1,4 +1,4 @@
-define mysql::server::master ($database, $user, $password, $host, $root_password, $replica_password, $remote_host='%') {
+define mysql::server::master ($user, $password, $host, $root_password, $replica_password, $database=$title, $remote_host='%') {
   db { $database:
     user          => $user,
     password      => $password,
