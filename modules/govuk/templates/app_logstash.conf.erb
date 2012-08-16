@@ -45,11 +45,11 @@ output {
   statsd {
     host => 'localhost'
     tags => [ "lograge" ]
-    timing => [ "<%= @title %>.%{controller}.%{action}.duration", "%{duration}" ]
+    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.duration", "%{duration}" ]
   }
   statsd {
     host => 'localhost'
     tags => [ "lograge" ]
-    timing => [ "<%= @title %>.%{controller}.%{action}.view", "%{view}" ]
+    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.view", "%{view}" ]
   }
 }
