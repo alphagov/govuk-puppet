@@ -22,5 +22,4 @@ class hosts::skyscape::production {
   host { 'ip-10-3-0-6.backend-sky.internal':    ip => '10.3.0.6',   host_aliases => [ 'ip-10-3-0-6', 'mongo-1.production.internal', 'mongo.cluster'] }
   host { 'ip-10-3-0-7.backend-sky.internal':    ip => '10.3.0.7',   host_aliases => [ 'ip-10-3-0-7', 'mongo-2.production.internal'] }
   host { 'ip-10-3-0-8.backend-sky.internal':    ip => '10.3.0.8',   host_aliases => [ 'ip-10-3-0-8', 'mongo-3.production.internal'] }
->>>>>>> Adding mongo hosts and replication config for sky backend
 }
