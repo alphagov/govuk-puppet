@@ -7,7 +7,7 @@ class mapit {
     mapit_datadir => '/data/vhosts/mapit/',
   }
   package{['python-django-south','python-yaml','memcached','python-memcache',
-          'git-core','python-pip','python-django','python-psycopg2',
+          'python-pip','python-django','python-psycopg2',
           'python-flup','python-gdal']:
     ensure => present,
   }
