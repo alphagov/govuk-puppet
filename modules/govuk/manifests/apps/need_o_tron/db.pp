@@ -1,6 +1,4 @@
 class govuk::apps::need_o_tron::db {
-  Class['mysql::server'] -> Class['govuk::apps::need_o_tron::db']
-
   $needotron_password = extlookup('mysql_need_o_tron_new', '')
   $replica_password = extlookup('mysql_replica_password', '')
   $mysql_password = extlookup('mysql_root', '')

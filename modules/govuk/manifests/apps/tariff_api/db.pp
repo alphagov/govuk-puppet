@@ -1,6 +1,4 @@
 class govuk::apps::tariff_api::db {
-  Class['mysql::server'] -> Class['govuk::apps::tariff_api::db']
-
   $tariff_api_password = extlookup('mysql_tariff_api', '')
   $replica_password = extlookup('mysql_replica_password', '')
   $mysql_password = extlookup('mysql_root', '')
