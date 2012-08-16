@@ -25,8 +25,15 @@ class govuk_base {
 
 }
 
+# This is not the redirector app, it handles redirects from alphagov to GOV.UK
 class govuk_base::redirect_server inherits govuk_base {
   class { 'nginx': node_type => redirect }
+}
+
+# This is the redirector app for redirecting Directgov and Business Link URLs
+class govuk_base::redirector_server inherits govuk_base {
+  include nginx
+  include govuk::apps::redirector
 }
 
 class govuk_base::db_server inherits govuk_base {
@@ -66,9 +73,9 @@ class govuk_base::mongo_server inherits govuk_base {
       case $::govuk_platform {
         production: {
           $mongo_hosts = [
-            'to-be-defined',
-            'to-be-defined',
-            'to-be-defined'
+            'mongo-1.production.internal',
+            'mongo-2.production.internal',
+            'mongo-3.production.internal'
           ]
         }
         default: {
