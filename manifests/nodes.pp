@@ -13,6 +13,7 @@ node default {
     puppet:             { include govuk_base::puppetmaster }
     management:         { include govuk_base::management_server::master }
     management_slave:   { include govuk_base::management_server::slave }
+    mapit_server:       { include govuk_base::mapit_server }
     cache:              { include govuk_base::cache_server }
     router-mongo:       { include govuk_base::router_mongo }
     graylog:            { include govuk_base::graylog_server }
@@ -28,7 +29,6 @@ node default {
     elms-frontend:      { include elms_base::frontend_server }
     elms-mongo:         { include elms_base::mongo_server }
     elms-development:   { include elms_base::development }
-    mapit_server:       { include mapit_server }
     places-api:         { include places_base::api_server }
     places-mongo:       { include places_base::mongo_server }
     default:            { }
