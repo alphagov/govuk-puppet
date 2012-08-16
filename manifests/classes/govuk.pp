@@ -164,6 +164,9 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   class { 'passenger':
     maxpoolsize => 12,
   }
+
+  include govuk::apps::support
+
   class { 'nginx':
     node_type => backend_server,
   }
