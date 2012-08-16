@@ -48,6 +48,9 @@ class govuk_base::mysql_master_server inherits govuk_base{
     server_id     => $master_server_id
   }
 
+  Class['mysql::server'] -> Class['govuk::apps::need_o_tron::db']
+
+  include govuk::apps::signonotron::db
   include govuk::apps::need_o_tron::db
   include govuk::apps::tariff_api::db
 }
