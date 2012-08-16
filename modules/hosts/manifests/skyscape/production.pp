@@ -18,4 +18,5 @@ class hosts::skyscape::production {
   host { 'ip-10-1-0-5.router-sky.internal':     ip => '10.1.0.5',   host_aliases => [ 'ip-10-1-0-5', 'production-cache-2'] }
 
   host { 'ip-10-3-0-5.backend-sky.internal':    ip => '10.3.0.5',   host_aliases => [ 'ip-10-3-0-5', 'production-support', 'support.cluster'] }
+  host { 'ip-10-3-0-20.backend-sky.internal':    ip => '10.3.0.20',   host_aliases => [ 'ip-10-3-0-20', 'mapit', 'mapit.alphagov.co.uk'] }
 }
