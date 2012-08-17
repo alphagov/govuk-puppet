@@ -22,7 +22,7 @@ define mapit::setup(
       require => User['mapit'],
     }
 
-    file { "$mapit_datadir/data":
+    file { "${mapit_datadir}/data":
       ensure  => directory,
       owner   => 'mapit',
       group   => 'mapit',
