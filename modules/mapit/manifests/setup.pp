@@ -14,7 +14,7 @@ define mapit::setup(
       require     => Group['mapit'],
     }
 
-    file { '$mapit_datadir':
+    file { "$mapit_datadir":
       ensure  => directory,
       owner   => 'mapit',
       group   => 'mapit',
