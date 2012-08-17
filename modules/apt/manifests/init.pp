@@ -2,7 +2,7 @@ class apt {
 
   file { '/etc/apt/sources.list':
     ensure => present,
-    source => 'puppet:///modules/apt/sources.list',
+    source => "puppet:///modules/apt/sources.list.${::lsbdistcodename}",
   }
 
   file { '/etc/apt/sources.list.d':
