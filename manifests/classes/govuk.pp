@@ -434,7 +434,7 @@ class govuk_base::mapit_server inherits govuk_base {
   wget::fetch {'mapit_dbdump_download':
       source      => 'http://cdnt.samsharpe.net/mapit.sql.gz',
       destination => '/data/vhost/mapit/data/mapit.sql.gz',
-      require     => File['/data/vhost/mapit/data/'],
+      require     => File['/data/vhost/mapit/data'],
   }
   postgres::database { 'mapit':
       ensure    => present,
