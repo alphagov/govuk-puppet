@@ -27,4 +27,13 @@ class base_packages {
     ]:
     ensure => installed
   }
+
+  case $::lsbdistcodename {
+    'precise': {
+       package{'ruby1.9.1-dev':
+           ensure => installed,
+       }
+    }
+  }
+
 }
