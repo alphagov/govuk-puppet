@@ -1,0 +1,87 @@
+# This file is managed by Puppet. Local changes will be clobbered.
+upstream <%= name %>-proxy {
+  <%- to.each do |node| -%>
+  server <%= node %>;
+  <%- end -%>
+}
+
+<% if ssl_only %>
+server {
+  server_name <%= name %> <%= aliases.join(" ") unless aliases.empty? %>;
+  listen 80;
+  rewrite ^/(.*) https://$server_name/$1 permanent;
+}
+<% end %>
+
+<%
+  if ssl_only
+    ports = [443]
+  else
+    ports = [80, 443]
+  end
+%>
+
+<% ports.each do |port| %>
+server {
+  server_name <%= name %> <%= aliases.join(" ") unless aliases.empty? %>;
+
+  <% if port == 443 %>
+  listen                    443 ssl;
+  ssl_certificate           /etc/nginx/ssl/<%= name %>.crt;
+  ssl_certificate_key       /etc/nginx/ssl/<%= name %>.key;
+  proxy_set_header          X-Forwarded-Ssl on;
+  ssl_protocols             TLSv1 SSLv3;
+  ssl_ciphers               HIGH:!ADH:!kEDH;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache         shared:SSL:1m;
+  ssl_session_timeout       5m;
+  add_header                Strict-Transport-Security "max-age=2419200";
+  <% end %>
+  <% if port == 80 %>
+  listen               80;
+  <% end %>
+
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_redirect off;
+
+  access_log /var/log/nginx/<%= name %>-access.log timed_combined;
+  error_log /var/log/nginx/<%= name %>-error.log;
+
+  <% if name == "whitehall-frontend.preview.alphagov.co.uk" %>
+    location /government/admin {
+      rewrite ^ https://whitehall-admin.preview.alphagov.co.uk$request_uri? permanent;
+    }
+  <% end %>
+
+  <% if name == "whitehall-frontend.production.alphagov.co.uk" %>
+    location /government/admin {
+      rewrite ^ https://whitehall-admin.production.alphagov.co.uk$request_uri? permanent;
+    }
+  <% end %>
+
+  location / {
+    <%- if protected -%>
+    # TODO: Make only the correct platforms hosts appear here
+    # Production Frontends:
+    allow 10.2.0.2;
+    allow 10.2.0.3;
+    allow 10.2.0.4;
+    deny all;
+    auth_basic            "Enter your betademo password";
+    auth_basic_user_file  htpasswd/htpasswd.<%=name %>;
+    satisfy any;
+    <%- end -%>
+    proxy_pass http://<%= name %>-proxy;
+  }
+
+  location ^~ /google7623855bb2e66cde.html {
+    auth_basic off;
+    proxy_pass http://<%= name %>-proxy;
+  }
+
+  <%= extra_config %>
+}
+<% end %>

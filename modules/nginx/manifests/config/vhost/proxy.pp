@@ -6,9 +6,15 @@ define nginx::config::vhost::proxy(
   $extra_config = ''
 ) {
 
+  if $::govuk_provider == 'sky' {
+    $proxy_vhost_template = 'nginx/proxy-vhost.conf.sky'
+  } else {
+    $proxy_vhost_template = 'nginx/proxy-vhost.conf'
+  }
+
   nginx::config::ssl { $name: }
   nginx::config::site { $name:
-    content => template('nginx/proxy-vhost.conf'),
+    content => template($proxy_vhost_template),
   }
 
   case $protected {
