@@ -6,11 +6,7 @@
 JAVA_BIN="/usr/bin/java"
 
 # Modify this if you'd like to change the memory allocation, enable JMX, etc
-<% if govuk_provider == "sky" %>
-  JAVA_ARGS="-Xmx1024m"
-<% else %>
-  JAVA_ARGS="-Xmx192m"
-<% end %>
+JAVA_ARGS="<%= @java_args %>"
 
 # These normally shouldn't need to be edited if using OS packages
 USER="puppetdb"
