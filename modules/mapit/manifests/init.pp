@@ -57,7 +57,7 @@ class mapit {
     user    => 'mapit',
     require => [
         User['mapit'],
-        File['/data/vhost/mapit/'],
+        File['/data/vhost/mapit'],
       ],
   }
   service { 'mapit':
