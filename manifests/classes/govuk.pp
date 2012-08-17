@@ -41,11 +41,20 @@ class govuk_base::db_server inherits govuk_base {
 
 class govuk_base::mysql_master_server inherits govuk_base{
   $root_password = extlookup('mysql_root', '')
+  $replica_password = extlookup('mysql_replica_password', '')
   $master_server_id = '1'
 
   class { 'mysql::server':
     root_password => $root_password,
     server_id     => $master_server_id
+  }
+
+  # TODO: PP 2012-08-17: push replica_user into mysql::server
+  mysql::server::replica_user { $database:
+    host           => 'localhost',
+    root_password  => $root_password,
+    remote_host    => $remote_host,
+    password       => $replica_password,
   }
 
   Class['mysql::server'] -> Class['govuk::apps::signonotron::db']
@@ -59,15 +68,13 @@ class govuk_base::mysql_master_server inherits govuk_base{
 
 class govuk_base::mysql_slave_server inherits govuk_base{
   $root_password = extlookup('mysql_root', '')
+  $replica_password = extlookup('mysql_replica_password', '')
 
   class { 'mysql::server':
     root_password => $root_password,
-    server_id     => $::slave_server_id,
+    server_id     => '2', # TODO: unhardcode to custom fact? $::slave_server_id
     config_path   => 'mysql/slave/my.cnf'
   }
-
-  include govuk::apps::need_o_tron::db
-  include govuk::apps::tariff_api::db
 }
 
 class govuk_base::mongo_server inherits govuk_base {
