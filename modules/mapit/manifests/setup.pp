@@ -1,5 +1,5 @@
 define mapit::setup(
-    $mapit_datadir = '/data/vhosts/mapit') {
+    $mapit_datadir = '/data/vhost/mapit') {
     group { 'mapit':
       ensure      => present,
       name        => 'mapit',
@@ -14,7 +14,7 @@ define mapit::setup(
       require     => Group['mapit'],
     }
 
-    file { [ '/data/vhosts/', $mapit_datadir ]:
+    file { '$mapit_datadir':
       ensure  => directory,
       owner   => 'mapit',
       group   => 'mapit',

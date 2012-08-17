@@ -1,10 +1,6 @@
 class mapit {
-  # # not needed now I have snapshotted the DB
-  #   mapit::get_data{'get_recent_data':
-  #     mapit_datadir => '/data/vhosts/mapit',
-  #   }
   mapit::setup{'setup dirs and users':
-    mapit_datadir => '/data/vhosts/mapit/',
+    mapit_datadir => '/data/vhost/mapit/',
   }
   package{['python-django-south','python-yaml','memcached','python-memcache',
           'python-django','python-psycopg2',
@@ -22,18 +18,18 @@ class mapit {
         Exec['unzip_mapit'],
       ]
   }
-  file { '/data/vhosts/mapit/data/mapit.tar.gz':
+  file { '/data/vhost/mapit/data/mapit.tar.gz':
     ensure  => file,
     source  => 'puppet:///modules/mapit/mapit.tar.gz',
     before  => Exec['unzip_mapit'],
   }
   exec {'unzip_mapit':
-    command => 'tar -zxf /data/vhosts/mapit/data/mapit.tar.gz -C /data/vhosts/mapit',
-    creates => '/data/vhosts/mapit/mapit/README',
+    command => 'tar -zxf /data/vhost/mapit/data/mapit.tar.gz -C /data/vhost/mapit',
+    creates => '/data/vhost/mapit/mapit/README',
     user    => 'mapit',
     require => [
         User['mapit'],
-        File['/data/vhosts/mapit/'],
+        File['/data/vhost/mapit/'],
       ],
   }
   service { 'mapit':
