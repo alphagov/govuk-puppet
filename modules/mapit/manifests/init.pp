@@ -1,7 +1,35 @@
 class mapit {
-  mapit::setup{'setup dirs and users':
-    mapit_datadir => '/data/vhost/mapit/',
+
+  group { 'mapit':
+      ensure      => present,
+      name        => 'mapit',
   }
+
+  user { 'mapit':
+      ensure      => present,
+      home        => '/home/mapit',
+      managehome  => true,
+      shell       => '/bin/bash',
+      gid         => 'mapit',
+      require     => Group['mapit'],
+  }
+
+  file { '/data/vhost/mapit':
+      ensure  => directory,
+      owner   => 'mapit',
+      group   => 'mapit',
+      mode    => '0755',
+      require => User['mapit'],
+  }
+
+  file { '/data/vhost/mapit/data':
+      ensure  => directory,
+      owner   => 'mapit',
+      group   => 'mapit',
+      mode    => '0755',
+      require => User['mapit'],
+  }
+
   package{['python-django-south','python-yaml','memcached','python-memcache',
           'python-django','python-psycopg2',
           'python-flup','python-gdal']:
@@ -42,3 +70,4 @@ class mapit {
     ],
   }
 }
+
