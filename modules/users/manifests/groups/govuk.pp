@@ -8,6 +8,7 @@ class users::groups::govuk {
   govuk::user { 'jgriffin':
     ensure => absent
   }
+  govuk::user { 'i0n': ensure => absent }
 
   govuk::user { 'mwall':
     fullname   => 'Mat Wall',
@@ -143,10 +144,6 @@ class users::groups::govuk {
     fullname   => 'Steve Laing',
     email      => 'steve.laing@digital.cabinet-office.gov.uk',
     shell      => '/bin/zsh';
-  }
-  govuk::user { 'i0n':
-    fullname   => 'Ian Wood',
-    email      => 'ian.wood@digital.cabinet-office.gov.uk';
   }
   govuk::user { 'norm':
     fullname   => 'Mark Norman Francis',
