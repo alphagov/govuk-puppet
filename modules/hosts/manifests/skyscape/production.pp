@@ -18,7 +18,8 @@ class hosts::skyscape::production {
   host { 'ip-10-1-0-5.router-sky.internal':     ip => '10.1.0.5',   host_aliases => [ 'ip-10-1-0-5', 'production-cache-2'] }
 
   #TODO: change panopticon.production to load balanced cluster ip
-  host { 'ip-10-3-0-2.backend-sky.internal':    ip => '10.3.0.2',   host_aliases => [ 'ip-10-3-0-2', 'production-backend', 'panopticon.production.alphagov.co.uk'] }
+  host { 'ip-10-3-0-2.backend-sky.internal':    ip => '10.3.0.2',   host_aliases => [ 'ip-10-3-0-2', 'production-backend', 'panopticon.production.alphagov.co.uk',
+                                                                                      'whiethall-admin.production.alphagov.co.uk'] }
   host { 'ip-10-3-0-3.backend-sky.internal':    ip => '10.3.0.3',   host_aliases => [ 'ip-10-3-0-3', 'production-backend-1'] }
   host { 'ip-10-3-0-4.backend-sky.internal':    ip => '10.3.0.4',   host_aliases => [ 'ip-10-3-0-4', 'production-backend-2'] }
   host { 'ip-10-3-0-5.backend-sky.internal':    ip => '10.3.0.5',   host_aliases => [ 'ip-10-3-0-5', 'production-support', 'support.cluster'] }
