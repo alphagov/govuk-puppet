@@ -8,7 +8,7 @@ class hosts::skyscape::production {
   host { 'ip-10-0-0-20.mgmt-sky.internal':      ip => '10.0.0.20',  host_aliases => [ 'ip-10-0-0-20', 'monitoring', 'monitoring.production.internal', 'monitoring.cluster' ] }
   host { 'ip-10-0-0-21.mgmt-sky.internal':      ip => '10.0.0.21',  host_aliases => [ 'ip-10-0-0-21', 'logging', 'logging.production.internal', 'graylog.cluster' ] }
 
-  host { 'ip-10-2-0-2.frontend-sky.internal':   ip => '10.2.0.2',   host_aliases => [ 'ip-10-2-0-2', 'production-frontend'] }
+  host { 'ip-10-2-0-2.frontend-sky.internal':   ip => '10.2.0.2',   host_aliases => [ 'ip-10-2-0-2', 'production-frontend', 'search.production.alphagov.co.uk'] }
   host { 'ip-10-2-0-3.frontend-sky.internal':   ip => '10.2.0.3',   host_aliases => [ 'ip-10-2-0-3', 'production-frontend-1'] }
   host { 'ip-10-2-0-4.frontend-sky.internal':   ip => '10.2.0.4',   host_aliases => [ 'ip-10-2-0-4', 'production-frontend-2'] }
 
