@@ -423,7 +423,6 @@ class govuk_base::puppetmaster inherits govuk_base {
 
 
 class govuk_base::mapit_server inherits govuk_base {
-  include nginx
   include postgres::postgis
   include mapit
 
