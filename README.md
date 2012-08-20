@@ -1,55 +1,42 @@
+# Puppet manifests
+
 This repository contains the puppet modules and manifests for GOV.UK related projects.
 
-In order to run these locally you first want to install puppet and for that you'll want Ruby.
+## Getting started
 
-    export PUPPET_VERSION="2.7.3"
-    export RUBY_PACKAGE="https://github.com/downloads/alphagov/packages/ruby-1.9.2-p290_amd64.deb"
-    wget -q -O ruby.deb $RUBY_PACKAGE && dpkg -i ruby.deb
-    gem install -v $PUPPET_VERSION puppet --no-rdoc --no-ri
+In order to run/test the Puppet manifests you will need Ruby and Puppet. Running under Ruby other than 1.9.x may work but is unsupported.
 
-These modules probably work with different Ruby versions and Puppet versions, but consider doing so
-unsupported. It's also only tested/supported on Ubuntu 10.04 LTS 64bit.
-
-You can then run the manifests with the following command:
-
-    sudo FACTER_govuk_class="$FACTER_govuk_class" puppet apply --modulepath=modules manifests/site.pp --onetime --no-daemonize --debug
-
-This assumes you have an environment variable set called FACTER_govuk_class. This should be set to the relevant class,
-if in doubt this is probably "development". Check the manifests/nodes.pp file for more options.
-
-A handy script is included that will:
-
-* Install Ruby if required
-* Install Puppet if required
-* Exit unless FACTER_govuk_class is set
-* Run the local puppet manifests
-
-So to get started, or just to apply the latest manifests you can run:
-
-    ./update.sh
-
-On first run with the development class this currently takes approximately 8 minutes on a single processor virtual machine with 1GB RAM.
+Dependencies are managed with Bundler. Just run `bundle install` and you should be good to go.
 
 ## Standards
 
-We have some standards to be considered when creating Puppet modules and classes.
-It's worth a quick read of the [Standards](https://github.com/alphagov/puppet/blob/master/STANDARDS.asciidoc)
+Please familiarise yourself with [our Puppet style guide][style] before contributing to this repository.
+
+[style]: https://github.com/alphagov/styleguides/blob/master/puppet.md
 
 ## Testing
 
-We're starting to use RSpec to test the manifests and modules. You can run both sets of tests with:
+Run the tests with the provider wrapper around rake:
 
-    bundle exec rake spec
+    ./rake test
 
-The manifest tests are located in manifests/spec and some individual modules have tests in modules/<module>/spec. See the [RSpec Puppet](https://github.com/rodjek/rspec-puppet) documentation for more details. The spec files are run in parallel, so PLEASE SPLIT YOUR TESTS INTO ONE TEST PER FILE.
+The manifest tests are located in `manifests/spec` and some individual modules
+have tests in `modules/<module>/spec`. See the [RSpec
+Puppet](https://github.com/rodjek/rspec-puppet) documentation for more
+details. The specs are run in parallel, so PLEASE SPLIT YOUR TESTS INTO ONE
+TEST PER FILE.
 
-## Linting
-
-Puppet Lint is a tool that checks various syntax and style rules common
+[Puppet-lint][pl] is a tool that checks various syntax and style rules common
 to well written Puppet code. It can be run with:
 
-    bundle exec rake lint
+    ./rake lint
 
 This outputs a set of errors or warnings that should be fixed. See the
 [Puppet Style Guide](http://docs.puppetlabs.com/guides/style_guide.html)
 for more information.
+
+[pl]: https://github.com/rodjek/puppet-lint
+
+You can also run both tests and lint checks with the default rake task:
+
+    ./rake
