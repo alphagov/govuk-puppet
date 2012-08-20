@@ -6,8 +6,17 @@ class nginx::package {
     repo  => 'stable',
   }
 
+  case $::lsbdistcodename {
+    'precise': {
+      $version = '1.2.1-1ubuntu0ppa1~precise'
+    }
+    default: {
+      $version = '1.2.1-1ubuntu0ppa2~lucid'
+    }
+  }
+
   package { 'nginx':
-    ensure  => '1.2.1-1ubuntu0ppa2~lucid',
+    ensure  => $version,
     notify  => Exec['nginx_restart'],
   }
 
