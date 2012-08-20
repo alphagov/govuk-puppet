@@ -33,6 +33,12 @@ task :lint do
   end
 end
 
+desc "Test sudoers syntax"
+task :sudoers do
+  $stderr.puts '---> Checking sudoers syntax'
+  sh 'visudo -c -f modules/sudo/files/sudoers'
+end
+
 desc "Run rspec tests with `rake spec[num_cpus, pattern, rspec_options]`"
 task :spec, [:count, :pattern, :options] do |t, args|
   $stderr.puts '---> Running puppet specs (parallel)'
@@ -58,6 +64,6 @@ RSpec::Core::RakeTask.new(:sspec) do |t|
 end
 
 desc "Run all tests"
-task :test => [:spec]
+task :test => [:spec, :sudoers]
 
 task :default => [:lint, :test]

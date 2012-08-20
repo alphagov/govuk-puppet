@@ -1,18 +1,7 @@
-# /etc/sudoers
-#
-# This file MUST be edited with the 'visudo' command as root.
-#
-# See the man page for details on how to write a sudoers file.
-#
+# /etc/sudoers -- MANAGED BY PUPPET: DO NOT EDIT
 
 Defaults env_reset
 Defaults env_keep+="FACTER_govuk_class FACTER_govuk_platform FACTER_govuk_provider" 
-
-# Host alias specification
-
-# User alias specification
-
-# Cmnd alias specification
 
 # User privilege specification
 root ALL=(ALL) ALL
@@ -21,15 +10,12 @@ root ALL=(ALL) ALL
 # (Note that later entries override this, so you might need to move
 # it further down)
 %sudo ALL=(ALL) ALL
-#
-#includedir /etc/sudoers.d
 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) NOPASSWD:ALL
 
-# ubuntu user is default user in ec2-images.
-# It needs passwordless sudo functionality.
-ubuntu  ALL=(ALL) NOPASSWD:ALL
+# ubuntu user is default user in ec2-images, and needs passwordless sudo functionality.
+ubuntu ALL=(ALL) NOPASSWD:ALL
 
 # the deploy user can access initctl
 deploy ALL=NOPASSWD:/sbin/initctl
