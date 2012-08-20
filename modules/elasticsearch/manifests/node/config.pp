@@ -61,14 +61,14 @@ define elasticsearch::node::config (
       require => File[$es_home],
     }
 
-    file { "/mnt/elasticsearch":
+    file { '/mnt/elasticsearch':
       ensure => directory
       }
 
     file { "${es_home}/data":
       ensure  => link,
       target  => '/mnt/elasticsearch',
-      require => [File[$es_home], File["/mnt/elasticsearch"]],
+      require => [File[$es_home], File['/mnt/elasticsearch']],
     }
 
   }
