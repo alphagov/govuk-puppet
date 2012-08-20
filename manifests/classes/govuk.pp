@@ -446,10 +446,11 @@ class govuk_base::mapit_server inherits govuk_base {
       require     => File['/data/vhost/mapit/data'],
   }
   postgres::database { 'mapit':
-      ensure    => present,
-      owner     => 'mapit',
-      encoding  => 'UTF8',
-      source    => '/data/vhost/mapit/data/mapit.sql.gz',
-      require   => [ Postgres::User['mapit'], Wget::Fetch['mapit_dbdump_download'] ],
+      ensure   => present,
+      owner    => 'mapit',
+      encoding => 'UTF8',
+      source   => '/data/vhost/mapit/data/mapit.sql.gz',
+      template => 'template0',
+      require  => [ Postgres::User['mapit'], Wget::Fetch['mapit_dbdump_download'] ],
   }
 }
