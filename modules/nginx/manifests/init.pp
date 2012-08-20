@@ -1,12 +1,12 @@
 class nginx($node_type = 'UNSET') {
 
   anchor { 'nginx::begin':
-    before => Class['nginx::package'],
     notify => Class['nginx::service'];
   }
 
   class { 'nginx::package':
-    notify => Class['nginx::service'];
+    require => Class['nginx::begin'],
+    notify  => Class['nginx::service'];
   }
 
   class { 'nginx::config':
@@ -15,11 +15,11 @@ class nginx($node_type = 'UNSET') {
     notify    => Class['nginx::service'];
   }
 
-  class { 'nginx::service': }
-
-  anchor { 'nginx::end':
-    require => Class['nginx::service'],
+  class { 'nginx::service':
+    notify => Class['nginx::end'],
   }
+
+  anchor { 'nginx::end': }
 
   # Monitoring of NginX
   nginx::config::site { 'monitoring-vhost.test':
