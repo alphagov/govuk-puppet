@@ -30,7 +30,11 @@ class base_packages {
 
   case $::lsbdistcodename {
     'precise': {
-        package{'ruby1.9.1-dev':
+        package{
+          [
+            'ruby1.9.1-dev',
+            'nodejs'
+          }:
             ensure => installed,
         }
     }
