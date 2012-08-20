@@ -33,9 +33,11 @@ class base_packages {
         package{
           [
             'ruby1.9.1-dev',
-            'nodejs'
           ]:
-            ensure => '0.6.12~dfsg1-1ubuntu1',
+            ensure => installed,
+        }
+        package{'nodejs':
+          ensure => installed,
         }
     }
     default: {}
