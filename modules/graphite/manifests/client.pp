@@ -1,7 +1,8 @@
 class graphite::client {
 
   package { 'statsd':
-    ensure => present,
+    ensure  => present,
+    require => Package['nodejs'],
   }
 
   file { '/etc/statsd.conf':
