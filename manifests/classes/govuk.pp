@@ -50,7 +50,7 @@ class govuk_base::mysql_master_server inherits govuk_base{
   }
 
   # TODO: PP 2012-08-17: push replica_user into mysql::server
-  mysql::server::replica_user { 'replica_user':
+  class {'mysql::server::replica_user':
     host           => 'localhost',
     root_password  => $root_password,
     password       => $replica_password,
