@@ -57,13 +57,15 @@ class govuk_base::mysql_master_server inherits govuk_base{
     require        => Class['mysql::server'],
   }
 
-  Class['mysql::server'] -> Class['govuk::apps::signonotron::db']
-  Class['mysql::server'] -> Class['govuk::apps::need_o_tron::db']
-  Class['mysql::server'] -> Class['govuk::apps::tariff_api::db']
-
-  include govuk::apps::signonotron::db
-  include govuk::apps::need_o_tron::db
-  include govuk::apps::tariff_api::db
+  class {'govuk::apps::signonotron::db':
+    require => Class['mysql::server']
+  }
+  class {'govuk::apps::need_o_tron::db':
+    require => Class['mysql::server']
+  }
+  class {'govuk::apps::tariff_api::db':
+    require => Class['mysql::server']
+  }
 }
 
 class govuk_base::mysql_slave_server inherits govuk_base{
