@@ -24,7 +24,7 @@ class hosts::skyscape::production {
   #TODO: change panopticon.production to load balanced cluster ip
   host { 'ip-10-3-0-2.backend-sky.internal':    ip => '10.3.0.2',   host_aliases => [ 'production-backend', 'panopticon.production.alphagov.co.uk',
                                                                                       'whitehall-admin.production.alphagov.co.uk'] }
-  host { 'ip-10-3-0-3.backend-sky.internal':    ip => '10.3.0.3',   host_aliases => [ 'ip-10-3-0-3', 'production-backend-1'] }
+  host { 'ip-10-3-0-3.backend-sky.internal':    ip => '10.3.0.3',   host_aliases => [ 'ip-10-3-0-3', 'production-backend-1', 'signon.production.alphagov.co.uk'] }
   host { 'ip-10-3-0-4.backend-sky.internal':    ip => '10.3.0.4',   host_aliases => [ 'ip-10-3-0-4', 'production-backend-2'] }
   host { 'ip-10-3-0-5.backend-sky.internal':    ip => '10.3.0.5',   host_aliases => [ 'ip-10-3-0-5', 'production-support', 'support.cluster'] }
   host { 'ip-10-3-0-20.backend-sky.internal':   ip => '10.3.0.20',  host_aliases => [ 'ip-10-3-0-20', 'mapit', 'mapit.alphagov.co.uk'] }
