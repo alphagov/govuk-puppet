@@ -5,7 +5,6 @@
 Create a new PostgreSQL user
 
 */
-include postgres::ubuntu
 
 define postgres::user(
   $ensure,
