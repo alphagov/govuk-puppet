@@ -196,18 +196,18 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   include imagemagick
 
   apache2::vhost::passenger {
-    "needotron.$::govuk_platform.alphagov.co.uk":;
-    "signon.$::govuk_platform.alphagov.co.uk":;
-    "publisher.$::govuk_platform.alphagov.co.uk":;
-    "imminence.$::govuk_platform.alphagov.co.uk":;
-    "panopticon.$::govuk_platform.alphagov.co.uk":;
-    "contactotron.$::govuk_platform.alphagov.co.uk":;
-    "migratorator.$::govuk_platform.alphagov.co.uk":;
-    "reviewomatic.$::govuk_platform.alphagov.co.uk":;
-    "private-frontend.$::govuk_platform.alphagov.co.uk":;
+    "needotron.${::govuk_platform}.alphagov.co.uk":;
+    "signon.${::govuk_platform}.alphagov.co.uk":;
+    "publisher.${::govuk_platform}.alphagov.co.uk":;
+    "imminence.${::govuk_platform}.alphagov.co.uk":;
+    "panopticon.${::govuk_platform}.alphagov.co.uk":;
+    "contactotron.${::govuk_platform}.alphagov.co.uk":;
+    "migratorator.${::govuk_platform}.alphagov.co.uk":;
+    "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
+    "private-frontend.${::govuk_platform}.alphagov.co.uk":;
   }
 
-  file { "/data/vhost/signonotron.$::govuk_platform.alphagov.co.uk":
+  file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
     ensure => absent,
     force  => true,
   }
@@ -232,26 +232,26 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   class { 'nginx': node_type => frontend_server }
 
   apache2::vhost::passenger {
-    "www.$::govuk_platform.alphagov.co.uk":
-      aliases       => ["frontend.$::govuk_platform.alphagov.co.uk", 'www.gov.uk'];
-    "calendars.$::govuk_platform.alphagov.co.uk":
+    "www.${::govuk_platform}.alphagov.co.uk":
+      aliases         => ["frontend.${::govuk_platform}.alphagov.co.uk", 'www.gov.uk'];
+    "calendars.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8082;
-    "search.$::govuk_platform.alphagov.co.uk":
+    "search.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8083;
-    "smartanswers.$::govuk_platform.alphagov.co.uk":
+    "smartanswers.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8084;
-    "designprinciples.$::govuk_platform.alphagov.co.uk":
+    "designprinciples.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8085;
-    "licencefinder.$::govuk_platform.alphagov.co.uk":
+    "licencefinder.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8086;
-    "contentapi.$::govuk_platform.alphagov.co.uk":
+    "contentapi.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8089;
-    "static.$::govuk_platform.alphagov.co.uk":;
+    "static.${::govuk_platform}.alphagov.co.uk":;
   }
 
-  file { "/data/vhost/frontend.$::govuk_platform.alphagov.co.uk":
+  file { "/data/vhost/frontend.${::govuk_platform}.alphagov.co.uk":
     ensure => link,
-    target => "/data/vhost/www.$::govuk_platform.alphagov.co.uk",
+    target => "/data/vhost/www.${::govuk_platform}.alphagov.co.uk",
     owner  => 'deploy',
     group  => 'deploy',
   }
@@ -262,8 +262,8 @@ class govuk_base::ruby_app_server::whitehall_frontend_server inherits govuk_base
   include nginx
 
   nginx::config::vhost::redirect {
-    "whitehall.$::govuk_platform.alphagov.co.uk":
-      to => "https://whitehall-frontend.$::govuk_platform.alphagov.co.uk/";
+    "whitehall.${::govuk_platform}.alphagov.co.uk":
+      to => "https://whitehall-frontend.${::govuk_platform}.alphagov.co.uk/";
   }
 
   include govuk::apps::whitehall_frontend
@@ -320,9 +320,9 @@ class govuk_base::graylog_server inherits govuk_base {
   include logstash::server
 
   nginx::config::vhost::proxy {
-    "logging.$::govuk_platform.alphagov.co.uk":
+    "logging.${::govuk_platform}.alphagov.co.uk":
       to      => ['localhost:9292'],
-      aliases => ["graylog.$::govuk_platform.alphagov.co.uk"],
+      aliases => ["graylog.${::govuk_platform}.alphagov.co.uk"],
   }
 }
 
