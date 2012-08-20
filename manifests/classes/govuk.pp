@@ -53,8 +53,8 @@ class govuk_base::mysql_master_server inherits govuk_base{
   mysql::server::replica_user { 'replica_user':
     host           => 'localhost',
     root_password  => $root_password,
-#    remote_host    => #TODO: what goes here?,
     password       => $replica_password,
+    require        => Class['mysql::server'],
   }
 
   Class['mysql::server'] -> Class['govuk::apps::signonotron::db']
