@@ -29,7 +29,7 @@ define postgres::database(
       exec { "Add plpgsql lang to $name postgres db":
         command => "createlang -d $name plpgsql",
         user    => 'postgres',
-        unless  => 'createlang -d template_postgis -l | grep plpgsql',
+        unless  => "createlang -d $name -l | grep plpgsql",
         require => Exec["Create $name postgres db"],
       }
     }
