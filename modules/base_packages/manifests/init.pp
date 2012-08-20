@@ -34,7 +34,7 @@ class base_packages {
           [
             'ruby1.9.1-dev',
             'nodejs'
-          }:
+          ]:
             ensure => installed,
         }
     }
