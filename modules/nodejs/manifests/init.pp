@@ -6,7 +6,7 @@ class nodejs {
     default: {
       $version = '0.8.2'
     }
-
+  }
   package { 'nodejs':
     ensure  => $version,
   }
