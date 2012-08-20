@@ -18,7 +18,7 @@ Please familiarise yourself with [our Puppet style guide][style] before contribu
 
 Run the tests with the provider wrapper around rake:
 
-    ./rake test
+    bundle exec rake test
 
 The manifest tests are located in `manifests/spec` and some individual modules
 have tests in `modules/<module>/spec`. See the [RSpec
@@ -29,7 +29,7 @@ TEST PER FILE.
 [Puppet-lint][pl] is a tool that checks various syntax and style rules common
 to well written Puppet code. It can be run with:
 
-    ./rake lint
+    bundle exec rake lint
 
 This outputs a set of errors or warnings that should be fixed. See the
 [Puppet Style Guide](http://docs.puppetlabs.com/guides/style_guide.html)
@@ -39,4 +39,4 @@ for more information.
 
 You can also run both tests and lint checks with the default rake task:
 
-    ./rake
+    bundle exec rake
