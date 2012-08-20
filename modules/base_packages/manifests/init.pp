@@ -36,9 +36,7 @@ class base_packages {
           ]:
             ensure => installed,
         }
-        package{'nodejs':
-          ensure => installed,
-        }
+        include nodejs
     }
     default: {}
   }

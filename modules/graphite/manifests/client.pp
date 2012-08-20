@@ -1,5 +1,5 @@
 class graphite::client {
-
+  include nodejs
   package { 'statsd':
     ensure  => present,
     require => Package['nodejs'],
