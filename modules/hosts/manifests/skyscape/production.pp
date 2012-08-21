@@ -11,7 +11,7 @@ class hosts::skyscape::production {
   #TODO: use loadbalanced ip instead
   host { 'ip-10-2-0-2.frontend-sky.internal':   ip => '10.2.0.2',   host_aliases => [ 'ip-10-2-0-2', 'production-frontend', 'search.production.alphagov.co.uk',
                                                                                       'licencefinder.production.alphagov.co.uk', 'planner.production.alphagov.co.uk',
-                                                                                      'calendars.production.alphagov.co.uk', 'smartanswers.production.alphagov.co.uk','tariff.production.alphagov.co.uk'] }
+                                                                                      'calendars.production.alphagov.co.uk', 'smartanswers.production.alphagov.co.uk','tariff.production.alphagov.co.uk', 'whitehall-frontend.production.alphagov.co.uk'] }
   host { 'ip-10-2-0-3.frontend-sky.internal':   ip => '10.2.0.3',   host_aliases => [ 'ip-10-2-0-3', 'production-frontend-1'] }
   host { 'ip-10-2-0-4.frontend-sky.internal':   ip => '10.2.0.4',   host_aliases => [ 'ip-10-2-0-4', 'production-frontend-2'] }
 
