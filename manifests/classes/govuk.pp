@@ -75,7 +75,7 @@ class govuk_base::mysql_slave_server inherits govuk_base{
 
   class { 'mysql::server':
     root_password => $root_password,
-    server_id     => '2', # TODO: unhardcode to custom fact? $::slave_server_id
+    server_id     => $::mysql_server_id,
     config_path   => 'mysql/slave/my.cnf'
   }
 }
