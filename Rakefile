@@ -41,18 +41,21 @@ task :sudoers do
 end
 
 desc "Run rspec tests with `rake spec[num_cpus, pattern, rspec_options]`"
-task :spec, [:count, :pattern, :options] do |t, args|
+task :spec, [:pattern, :options] do |t, args|
   $stderr.puts '---> Running puppet specs (parallel)'
-  count, pattern, options = ParallelTests.parse_rake_args(args)
 
   matched_files = FileList[SPECS_PATTERN]
 
-  if pattern != ''
-    matcher = Regexp.new(pattern)
+  if args[:pattern]
+    matcher = Regexp.new(args[:pattern])
     matched_files.select! { |f| matcher.match(f) }
   end
 
-  cli_args = ['-t', 'rspec', '-n', count, '-o', options]
+  cli_args = ['-t', 'rspec']
+  if args[:options]
+    cli_args << '-o'
+    cli_args << args[:options]
+  end
   cli_args.concat(matched_files)
 
   ParallelTest::CLI.run(cli_args)
