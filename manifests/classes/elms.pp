@@ -16,12 +16,40 @@ class elms_base::mongo_server inherits elms_base {
   include hosts::elms-preview
   include mongodb::server
 
+  case $::govuk_provider {
+    sky: {
+      case $::govuk_platform {
+        production: {
+          $mongo_hosts = [
+            'licensify-mongo-1.frontend-sky.production.internal',
+            'licensify-mongo-2.frontend-sky.production.internal',
+            'licensify-mongo-3.frontend-sky.production.internal'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
+    }
+    #aws
+    default: {
+      case $::govuk_platform {
+        preview: {
+          $mongo_hosts = [
+            'elms-mongo-1',
+            'elms-mongo-2',
+            'elms-mongo-3'
+          ]
+        }
+        default: {
+          $mongo_hosts = ['localhost']
+        }
+      }
+    }
+  }
+
   class {'mongodb::configure_replica_set':
-    members => [
-      'elms-mongo-1',
-      'elms-mongo-2',
-      'elms-mongo-3'
-    ]
+    members => $mongo_hosts
   }
 }
 
