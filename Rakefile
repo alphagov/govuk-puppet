@@ -5,7 +5,7 @@ require 'puppet-lint'
 require 'parallel_tests'
 require 'parallel_tests/cli'
 
-ENV['RUBYOPT'] = ENV['RUBYOPT'] + ' -W0'
+ENV['RUBYOPT'] = (ENV['RUBYOPT'] || '') + ' -W0'
 SPECS_PATTERN = '{manifests/spec,modules/*/spec/*}/*_spec.rb'
 
 PuppetLint.configuration.with_filename = true
