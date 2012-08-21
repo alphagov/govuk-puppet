@@ -5,6 +5,7 @@ class govuk_base {
   include puppet
   include puppet::cronjob
   include users
+  include users::groups::bitzesty
   include users::groups::freerange
   include users::groups::govuk
   include users::groups::newbamboo
