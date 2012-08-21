@@ -1,6 +1,6 @@
 class puppetdb::config {
   $java_args = $::govuk_provider ? {
-    'sky'   => '-Xmx1024m',
+    'sky'   => '-Xmx2048m',
     default => '-Xmx192m',
   }
 
