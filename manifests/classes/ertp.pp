@@ -59,6 +59,7 @@ class ertp_base::api_server inherits ertp_base {
 
 class ertp_base::api_server::dwp inherits ertp_base::api_server {
   include ertp::dwp::api::config
+  include ertp::dwp::scripts
 }
 
 class ertp_base::api_server::ero inherits ertp_base::api_server {
@@ -71,6 +72,7 @@ class ertp_base::api_server::citizen inherits ertp_base::api_server {
 
 class ertp_base::api_server::all inherits ertp_base::api_server {
   include ertp::config
+  include ertp::dwp::scripts
 }
 
 class ertp_base::development inherits ertp_base {

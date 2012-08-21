@@ -9,6 +9,7 @@ node default {
     elms-mongo:         { include elms_base::mongo_server }
     ertp-api-citizen:   { include ertp_base::api_server::citizen }
     ertp-api-ero:       { include ertp_base::api_server::ero }
+    ertp-api-dwp:       { include ertp_base::api_server::dwp }
     ertp-api:           { include ertp_base::api_server::all }
     ertp-development:   { include ertp_base::development }
     ertp-frontend:      { include ertp_base::frontend_server }

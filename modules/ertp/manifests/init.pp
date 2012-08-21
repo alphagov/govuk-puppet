@@ -13,6 +13,13 @@ class ertp::scripts {
   }
 }
 
+class ertp::dwp::scripts {
+  file {'/etc/init/ertp-dwp-feed.conf':
+    ensure => present,
+    source => ['puppet:///modules/ertp/ertp-dwp-feed.conf']
+  }
+}
+
 class ertp::api::scripts {
   file {'/etc/init/ertp-api.conf':
     ensure => present,
