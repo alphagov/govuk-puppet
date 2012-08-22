@@ -236,6 +236,14 @@ define govuk::app(
     content => template('govuk/app_logstash.conf.erb'),
   }
 
+  @logrotate::conf { "govuk-${title}":
+    matches => "/var/log/${title}/*.log",
+  }
+
+  @logrotate::conf { "govuk-${title}-rack":
+    matches => "/data/vhost/${vhost_full}/shared/log/*.log",
+  }
+
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_cpu!50!100",
     service_description => "Check CPU used by app ${title} is not too high",
