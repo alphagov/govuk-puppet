@@ -1,8 +1,3 @@
 mongo.database.hosts=ertp-mongo-1,ertp-mongo-2,ertp-mongo-3
 places.api.url=http://places-api:9700/places
 api.mode=ems
-dwp.match.request.generating.interval=30
-dwp.match.response.polling.interval=30
-dwp.max.number.of.records=100
-dwp.match.request.path=dwp-feeds/requests
-dwp.match.response.path=dwp-feeds/responses
