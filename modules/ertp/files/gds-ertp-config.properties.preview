@@ -8,5 +8,5 @@ dwp.match.request.generating.interval=30
 dwp.match.response.polling.interval=30
 dwp.max.number.of.records=100
 dwp.match.request.path=~/dwp-feed-1.0-SNAPSHOT/dwp-feeds/requests
-dwp.match.response.path=~/dwp-feed-1.0-SNAPSHOTdwp-feeds/responses
+dwp.match.response.path=~/dwp-feed-1.0-SNAPSHOT/dwp-feeds/responses
 
