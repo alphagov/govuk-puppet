@@ -4,5 +4,5 @@ ertp.dwp.api.url=http://ertp-dwp-api:9900/ertp-api
 dwp.match.request.generating.interval=30
 dwp.match.response.polling.interval=30
 dwp.max.number.of.records=100
-dwp.match.request.path=dwp-feeds/requests
-dwp.match.response.path=dwp-feeds/responses
+dwp.match.request.path=~/dwp-feed-1.0-SNAPSHOT/dwp-feeds/requests
+dwp.match.response.path=~/dwp-feed-1.0-SNAPSHOT/dwp-feeds/responses
