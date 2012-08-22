@@ -14,7 +14,6 @@ class hosts::skyscape::production {
                                                                                       'calendars.production.alphagov.co.uk', 'smartanswers.production.alphagov.co.uk','tariff.production.alphagov.co.uk', 'whitehall-frontend.production.alphagov.co.uk'] }
   host { 'ip-10-2-0-3.frontend-sky.internal':   ip => '10.2.0.3',   host_aliases => [ 'ip-10-2-0-3', 'production-frontend-1'] }
   host { 'ip-10-2-0-4.frontend-sky.internal':   ip => '10.2.0.4',   host_aliases => [ 'ip-10-2-0-4', 'production-frontend-2'] }
-  host { 'whitehall.production.alphagov.co.uk': ip => '10.2.0.5' }
 
   #TODO: change router.cluster to load balanced cluster ip
   host { 'ip-10-1-0-3.router-sky.internal':     ip => '10.1.0.3',   host_aliases => [ 'ip-10-1-0-3', 'production-cache'] }
