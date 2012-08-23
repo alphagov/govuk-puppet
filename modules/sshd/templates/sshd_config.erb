@@ -4,9 +4,6 @@ HostKey                         /etc/ssh/ssh_host_rsa_key
 HostKey                         /etc/ssh/ssh_host_dsa_key
 UsePrivilegeSeparation          yes
 
-KeyRegenerationInterval         3600
-ServerKeyBits                   768
-
 SyslogFacility                  AUTH
 LogLevel                        INFO
 
@@ -17,21 +14,22 @@ RSAAuthentication               yes
 PubkeyAuthentication            yes
 
 IgnoreRhosts                    yes
-RhostsRSAAuthentication         no
 HostbasedAuthentication         no
 PermitEmptyPasswords            no
-ChallengeResponseAuthentication no
+KerberosAuthentication          no
+GSSAPIAuthentication            no
 
 <%- if govuk_platform == "development" -%>
 PasswordAuthentication          yes
 PermitRootLogin                 yes
 X11Forwarding                   yes
 X11DisplayOffset                10
+ChallengeResponseAuthentication yes
 <%- else -%>
 PasswordAuthentication          no
 PermitRootLogin                 no
 X11Forwarding                   no
-# TODO # Banner                 /etc/issue.net
+ChallengeResponseAuthentication no
 <%- end -%>
 
 PrintMotd                       no
