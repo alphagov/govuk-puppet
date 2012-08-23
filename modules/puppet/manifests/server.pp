@@ -1,4 +1,5 @@
 class puppet::server{
+  include nginx
   package { 'unicorn':
   provider => gem,
 }
