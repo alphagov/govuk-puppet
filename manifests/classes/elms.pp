@@ -21,9 +21,9 @@ class elms_base::mongo_server inherits elms_base {
       case $::govuk_platform {
         production: {
           $mongo_hosts = [
-            'licensify-mongo-1.frontend-sky.production.internal',
-            'licensify-mongo-2.frontend-sky.production.internal',
-            'licensify-mongo-3.frontend-sky.production.internal'
+            'licencify-mongo-1.frontend-sky.production.internal',
+            'licencify-mongo-2.frontend-sky.production.internal',
+            'licencify-mongo-3.frontend-sky.production.internal'
           ]
         }
         default: {

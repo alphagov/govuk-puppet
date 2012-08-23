@@ -36,7 +36,7 @@ class hosts::skyscape::production {
   host { 'ip-10-3-0-8.backend-sky.internal':    ip => '10.3.0.8',   host_aliases => [ 'ip-10-3-0-8', 'mongo-3.production.internal'] }
   host { 'ip-10-3-0-30.backend-sky.internal':   ip => '10.3.0.30',  host_aliases => [ 'ip-10-3-0-30', 'mysql-master', 'mysql-master.production.internal'] }
 
-  host { 'licensify-mongo-1.backend-sky.production.internal':  ip => '10.3.0.9'}
-  host { 'licensify-mongo-2.backend-sky.production.internal':  ip => '10.3.0.10'}
-  host { 'licensify-mongo-3.backend-sky.production.internal':  ip => '10.3.0.11'}
+  host { 'licencify-mongo-1.backend-sky.production.internal':  ip => '10.3.0.9'}
+  host { 'licencify-mongo-2.backend-sky.production.internal':  ip => '10.3.0.10'}
+  host { 'licencify-mongo-3.backend-sky.production.internal':  ip => '10.3.0.11'}
 }
