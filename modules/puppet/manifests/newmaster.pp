@@ -43,7 +43,6 @@ class puppet::newmaster($unicorn_port='9090') {
   file { '/etc/init/puppetmaster.conf':
     content => template('puppet/etc/init/puppetmaster.conf.erb'),
     require => Package['puppet'],
-    source  => 'puppet:///modules/puppet/etc/init/newpuppetmaster.conf',
   }
 
   service { 'puppetmaster':
