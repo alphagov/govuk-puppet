@@ -231,6 +231,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   include govuk::apps::planner
   include govuk::apps::tariff
   include govuk::apps::efg
+  include govuk::apps::contentapi
 
   class { 'nginx': node_type => frontend_server }
 
