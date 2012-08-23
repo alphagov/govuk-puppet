@@ -431,6 +431,10 @@ class govuk_base::puppetmaster inherits govuk_base {
   include puppetdb
 }
 
+class govuk_base::new_puppetmaster inherits govuk_base {
+  include puppet::newmaster
+  include puppetdb
+}
 
 class govuk_base::mapit_server inherits govuk_base {
   include postgres::postgis
