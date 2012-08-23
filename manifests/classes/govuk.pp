@@ -427,12 +427,7 @@ class govuk_base::management_server::slave inherits govuk_base::management_serve
 }
 
 class govuk_base::puppetmaster inherits govuk_base {
-  if $::govuk_provider== 'sky' {
-    include puppet::newmaster
-  }
-  else {
-    include puppet::master
-  }
+  include puppet::master
   include puppetdb
 }
 
