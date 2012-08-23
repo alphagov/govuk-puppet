@@ -19,6 +19,12 @@ class puppet::newmaster {
     content => "worker_processes 4\n",
   }
 
+  file {'/var/run/puppetmaster':
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
+  }
+
   package { 'puppetdb-terminus':
     ensure  => present,
   }
