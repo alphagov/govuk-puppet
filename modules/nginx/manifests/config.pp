@@ -120,9 +120,6 @@ class nginx::config::frontend_server {
       to => ['localhost:8080'];
     "licencefinder.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
-    #TODO: Remove contentapi from here once aws is out. should be backend app
-    "contentapi.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
     }
 
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
@@ -162,8 +159,6 @@ class nginx::config::backend_server {
     "private-frontend.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
-    "contentapi.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
   }
 }
 
