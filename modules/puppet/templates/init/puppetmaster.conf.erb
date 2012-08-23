@@ -6,7 +6,7 @@ start on runlevel [2345]
 stop on runlevel [!2345]
 
 env PIDFILE=/var/run/puppetmaster/puppet-unicorn.pid
-env CMD="unicornherder -u unicorn -p $PIDFILE -- -p 9090 -c /etc/puppet/unicorn.conf"
+env CMD="unicornherder -u unicorn -p $PIDFILE -- -p <%= @unicorn_port %> -c /etc/puppet/unicorn.conf"
 
 respawn
 respawn limit 7 20
