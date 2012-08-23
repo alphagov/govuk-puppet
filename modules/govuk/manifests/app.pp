@@ -202,20 +202,13 @@ define govuk::app(
   $vhost_aliases_real = regsubst($vhost_aliases, '^.+$', "\\0.${domain}")
 
   # Expose this application from nginx
-  if $platform == 'development' {
-    nginx::config::vhost::dev_proxy { $vhost_full:
-      to           => ["localhost:${port}"],
-      aliases      => $vhost_aliases_real,
-      extra_config => $nginx_extra_config,
-    }
-  } else {
-    nginx::config::vhost::proxy { $vhost_full:
-      to           => ["localhost:${port}"],
-      aliases      => $vhost_aliases_real,
-      protected    => $vhost_protected,
-      ssl_only     => $vhost_ssl_only,
-      extra_config => $nginx_extra_config,
-    }
+  nginx::config::vhost::proxy { $vhost_full:
+    to           => ["localhost:${port}"],
+    aliases      => $vhost_aliases_real,
+    protected    => $vhost_protected,
+    ssl_only     => $vhost_ssl_only,
+    extra_config => $nginx_extra_config,
+    platform     => $platform,
   }
 
   # Set up monitoring

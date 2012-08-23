@@ -39,7 +39,7 @@ describe 'govuk::app', :type => :define do
       }
     end
 
-    it { should contain_nginx__config__vhost__dev_proxy('giraffe.dev.gov.uk') }
+    it { should contain_nginx__config__vhost__proxy('giraffe.dev.gov.uk') }
   end
 
   context 'with aliases' do

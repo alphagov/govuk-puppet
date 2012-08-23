@@ -3,7 +3,8 @@ define nginx::config::vhost::proxy(
   $aliases = [],
   $protected = true,
   $ssl_only = false,
-  $extra_config = ''
+  $extra_config = '',
+  $platform = $::govuk_platform
 ) {
 
   if $::govuk_provider == 'sky' {

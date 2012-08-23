@@ -8,10 +8,14 @@ define nginx::config::ssl() {
   }
   file { "/etc/nginx/ssl/$name.crt":
     ensure  => present,
-    content => extlookup("${cert}_crt", '')
+    content => extlookup("${cert}_crt", ''),
+    require => Class['nginx::package'],
+    notify  => Class['nginx::service'],
   }
   file { "/etc/nginx/ssl/$name.key":
     ensure  => present,
-    content => extlookup("${cert}_key", '')
+    content => extlookup("${cert}_key", ''),
+    require => Class['nginx::package'],
+    notify  => Class['nginx::service'],
   }
 }
