@@ -62,7 +62,8 @@ define elasticsearch::node::config (
     }
 
     file { '/mnt/elasticsearch':
-      ensure => directory
+      ensure => directory,
+      owner  => 'elasticsearch',
       }
 
     file { "${es_home}/data":
