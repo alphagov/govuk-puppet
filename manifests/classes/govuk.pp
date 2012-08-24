@@ -187,8 +187,6 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     maxpoolsize => 12,
   }
 
-  include govuk::apps::support
-
   class { 'nginx':
     node_type => backend_server,
   }
@@ -218,6 +216,8 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
   include govuk::apps::review_o_matic_explore
   include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
+  include govuk::apps::support
+  include govuk::apps::contentapi
 }
 
 class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app_server {
@@ -231,6 +231,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   include govuk::apps::planner
   include govuk::apps::tariff
   include govuk::apps::efg
+  #TODO: Remove from frontend once ec2 is out. On sky, will be backend
   include govuk::apps::contentapi
 
   class { 'nginx': node_type => frontend_server }
