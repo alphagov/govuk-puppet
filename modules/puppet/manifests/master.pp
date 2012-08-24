@@ -1,10 +1,10 @@
 class puppet::master::package {
   anchor {'puppet::master::package::begin':
       before => [
-         Class['puppet::repository'],
-         Class['nginx'],
-         Class['unicornherder'],
-         ]
+          Class['puppet::repository'],
+          Class['nginx'],
+          Class['unicornherder'],
+          ]
   }
   include puppet::repository
   include nginx
@@ -30,10 +30,10 @@ class puppet::master::package {
 
   anchor {'puppet::master::package::end':
       require => [
-         Class['puppet::repository'],
-         Class['nginx'],
-         Class['unicornherder'],
-         ]
+          Class['puppet::repository'],
+          Class['nginx'],
+          Class['unicornherder'],
+          ]
   }
 }
 
@@ -57,7 +57,7 @@ class puppet::master::config ($unicorn_port = '9090') {
 
   file {'/etc/puppet/unicorn.conf':
     content => "worker_processes 4\n",
-  }    
+  }
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
   }
@@ -71,7 +71,7 @@ class puppet::master::service {
     ensure   => running,
     provider => upstart,
     require  => File['/etc/init/puppetmaster.conf'],
-  }    
+  }
 }
 
 class puppet::master($unicorn_port='9090') {
