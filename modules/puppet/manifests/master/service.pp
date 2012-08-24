@@ -3,5 +3,6 @@ class puppet::master::service {
     ensure   => running,
     provider => upstart,
     require  => File['/etc/init/puppetmaster.conf'],
+    restart  => '/sbin/initctl reload puppetmaster',
   }
 }
