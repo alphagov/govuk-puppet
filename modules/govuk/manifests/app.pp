@@ -183,14 +183,13 @@ define govuk::app(
 
   service { $title:
     provider  => upstart,
-    require   => [
+    subscribe => [
       Class['govuk::deploy'],
       File["/etc/envmgr/${title}.conf"],
       File["/etc/init/${title}.conf"],
       File["/var/run/${title}"],
       File["/var/apps/${title}"]
-    ],
-    subscribe => File["/etc/init/${title}.conf"];
+    ];
   }
 
   if $platform != 'development' {

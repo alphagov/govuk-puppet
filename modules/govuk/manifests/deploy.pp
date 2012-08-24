@@ -1,14 +1,17 @@
 class govuk::deploy {
+
   include bundler
   include fpm
   include python
   include pip
-  include govuk::spinup
+  include envmgr
+  include unicornherder
 
   group { 'deploy':
     ensure  => 'present',
     name    => 'deploy',
   }
+
   user { 'deploy':
     ensure      => present,
     home        => '/home/deploy',
@@ -21,18 +24,21 @@ class govuk::deploy {
   file { '/etc/govuk':
     ensure => directory,
   }
+
   file { '/data':
     ensure  => directory,
     owner   => 'deploy',
     group   => 'deploy',
     require => User['deploy'],
   }
+
   file { '/data/vhost':
     ensure  => directory,
     owner   => 'deploy',
     group   => 'deploy',
     require => File['/data'],
   }
+
   file { '/var/apps':
     ensure => directory,
   }
@@ -51,4 +57,18 @@ class govuk::deploy {
     type    => 'ssh-rsa',
     user    => 'deploy',
   }
+
+  file { '/etc/govuk/unicorn.rb':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
+    require => File['/etc/govuk'],
+  }
+
+  file { '/usr/local/bin/govuk_spinup':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/bin/govuk_spinup',
+    mode    => '0755',
+    require => Package['envmgr'],
+  }
+
 }
