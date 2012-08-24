@@ -9,7 +9,7 @@ class puppet::master::package {
   package { 'puppetdb-terminus':
     ensure  => present,
   }
-  file {'/var/run/puppetmaster':
+  file {['/var/log/puppetmaster','/var/run/puppetmaster']:
     ensure => directory,
     owner  => 'puppet',
     group  => 'puppet',
