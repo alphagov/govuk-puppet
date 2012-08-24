@@ -18,7 +18,6 @@ class hosts::skyscape::production {
 
   host { 'licencify-frontend.backend-sky.production.internal':  ip => '10.2.0.5', host_aliases => ['production-elms-frontend-1'] }
 
-  #TODO: change router.cluster to load balanced cluster ip
   host { 'ip-10-1-0-3.router-sky.internal':     ip => '10.1.0.3',   host_aliases => [ 'ip-10-1-0-3', 'production-cache'] }
   host { 'ip-10-1-0-4.router-sky.internal':     ip => '10.1.0.4',   host_aliases => [ 'ip-10-1-0-4', 'production-cache-1'] }
   host { 'ip-10-1-0-5.router-sky.internal':     ip => '10.1.0.5',   host_aliases => [ 'ip-10-1-0-5', 'production-cache-2'] }
