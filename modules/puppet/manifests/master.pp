@@ -1,5 +1,29 @@
-class puppet::master {
+class puppet::master($unicorn_port='9090') {
   include puppet::repository
+  include nginx
+  include unicornherder
+  include puppet::master::config::nginx
+  package { 'unicorn':
+    provider => gem,
+  }
+  exec {'install rack 1.0.1':
+    command => 'gem install rack --no-rdoc --no-ri --version 1.0.1',
+    unless  => 'gem list | grep "rack.*1.0.1"'
+  }
+  file { '/etc/puppet/config.ru':
+    require => Exec['install rack 1.0.1'],
+    source  => 'puppet:///modules/puppet/etc/puppet/config.ru'
+  }
+
+  file {'/etc/puppet/unicorn.conf':
+    content => "worker_processes 4\n",
+  }
+
+  file {'/var/run/puppetmaster':
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
+  }
 
   package { 'puppetdb-terminus':
     ensure  => present,
@@ -9,11 +33,6 @@ class puppet::master {
     ensure => purged
   }
 
-  package { 'kwalify':
-    ensure   => installed,
-    provider => gem,
-  }
-
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
   }
@@ -21,10 +40,9 @@ class puppet::master {
     source => 'puppet:///modules/puppet/etc/puppet/routes.yaml'
   }
 
-
   file { '/etc/init/puppetmaster.conf':
+    content => template('puppet/etc/init/puppetmaster.conf.erb'),
     require => Package['puppet'],
-    source  => 'puppet:///modules/puppet/etc/init/puppetmaster.conf',
   }
 
   service { 'puppetmaster':

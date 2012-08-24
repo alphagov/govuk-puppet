@@ -27,8 +27,8 @@ node default {
     mysql_slave:        { include govuk_base::mysql_slave_server}
     places-api:         { include places_base::api_server }
     places-mongo:       { include places_base::mongo_server }
-    puppet:             { include govuk_base::puppetmaster }
-    new-puppet:         { include govuk_base::new_puppetmaster }
+    puppet:             { include govuk_base::oldpuppetmaster }
+    new-puppet:         { include govuk_base::puppetmaster }
     redirect:           { include govuk_base::redirect_server }
     redirector:         { include govuk_base::redirector_server }
     router-mongo:       { include govuk_base::router_mongo }

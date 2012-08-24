@@ -426,13 +426,13 @@ class govuk_base::management_server::slave inherits govuk_base::management_serve
   }
 }
 
-class govuk_base::puppetmaster inherits govuk_base {
-  include puppet::master
+class govuk_base::oldpuppetmaster inherits govuk_base {
+  include puppet::oldmaster
   include puppetdb
 }
 
-class govuk_base::new_puppetmaster inherits govuk_base {
-  include puppet::newmaster
+class govuk_base::puppetmaster inherits govuk_base {
+  include puppet::master
   include puppetdb
 }
 
