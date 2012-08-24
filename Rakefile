@@ -13,6 +13,7 @@ PuppetLint.configuration.fail_on_warnings = true
 PuppetLint.configuration.send("disable_autoloader_layout")
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.send("disable_inherits_across_namespaces")
+PuppetLint.configuration.send("disable_double_quoted_strings")
 
 desc "Run puppet-lint"
 task :lint do
