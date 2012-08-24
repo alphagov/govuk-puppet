@@ -1,14 +1,4 @@
 class puppet::master::package {
-  anchor {'puppet::master::package::begin':
-      before => [
-          Class['puppet::repository'],
-          Class['nginx'],
-          Class['unicornherder'],
-          ]
-  }
-  include puppet::repository
-  include nginx
-  include unicornherder
   package { 'unicorn':
     provider => gem,
   }
@@ -26,14 +16,6 @@ class puppet::master::package {
   }
   file { '/etc/init/puppetmaster.conf':
     content => template('puppet/etc/init/puppetmaster.conf.erb'),
-  }
-
-  anchor {'puppet::master::package::end':
-      require => [
-          Class['puppet::repository'],
-          Class['nginx'],
-          Class['unicornherder'],
-          ]
   }
 }
 
@@ -75,19 +57,26 @@ class puppet::master::service {
 }
 
 class puppet::master($unicorn_port='9090') {
-    include puppet::master::package, puppet::master::config, puppet::master::service
-    anchor {'puppet::master::begin':
-        before => [
-            Class['puppet::master::package'],
-            Class['puppet::master::config'],
-            Class['puppet::master::service'],
-        ]
-    }
-    anchor {'puppet::master::end':
-        subscribe => [
-            Class['puppet::master::package'],
-            Class['puppet::master::config'],
-            Class['puppet::master::service'],
-        ]
-    }
+  include puppet::repository
+  include nginx
+  include unicornherder
+
+  anchor {'puppet::master::begin':
+    notify => Class['puppet::master::service'],
+  }
+  class{'puppet::master::package':
+    require => [
+        Class['unicornherder'],
+        Anchor['puppet::master::begin']
+    ],
+  }
+  class{'puppet::master::config':
+    unicorn_port => $unicorn_port,
+    require      => Class['puppet::master::package'],
+    notify       => Class['puppet::master::service'],
+  }
+  class{'puppet::master::service':
+    notify  => Anchor['puppet::master::end'],
+  }
+  anchor {'puppet::master::end': }
 }
