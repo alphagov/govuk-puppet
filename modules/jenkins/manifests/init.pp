@@ -21,6 +21,9 @@ class jenkins {
   package { 'sqlite3':
     ensure => installed,
   }
+  package { 'gnuplot':
+    ensure => installed,
+  }
 
   # This is required for the Deploy Redirector Config job
   package { 'libtext-csv-perl':
