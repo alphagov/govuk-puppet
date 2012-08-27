@@ -6,6 +6,15 @@
   ErrorLog ${APACHE_LOG_DIR}/error.log
   LogLevel warn
   CustomLog ${APACHE_LOG_DIR}/access.log combined
+  ProxyPass /reports !
+  Alias /reports /mnt/jenkins/workspace/private-utils/loadtest/govuk-funkload/out
   ProxyPass        / http://localhost:8080/
   ProxyPassReverse / http://localhost:8080/
 </VirtualHost>
+
+<Directory /mnt/jenkins/workspace/private-utils/loadtest/govuk-funkload/out/>
+  Options Indexes FollowSymLinks
+  AllowOverride All
+  Order deny,allow
+  Allow from all
+</Directory>
