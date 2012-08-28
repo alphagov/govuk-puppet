@@ -1,0 +1,3 @@
+SHORTNAME \b[\w-]+\b
+DOMAIN (?:%{HOSTNAME})
+SYSLOG_PUPPETMASTER_CATALOG %{SYSLOGTIMESTAMP} %{SYSLOGHOST} %{SYSLOGPROG}: Compiled catalog for %{SHORTNAME:puppetclient}.%{DOMAIN} in environment %{WORD} in %{NUMBER:catalog_time} seconds
