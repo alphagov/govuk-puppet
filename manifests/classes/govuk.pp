@@ -11,6 +11,16 @@ class govuk_base {
   include users::groups::newbamboo
   include users::groups::other
 
+  case $::govuk_provider {
+    'sky': {
+      include ufw::govuk
+    }
+    'scc': {
+      include ufw::govuk
+    }
+    default {}
+  }
+
   include govuk::repository
   include govuk::deploy
 
