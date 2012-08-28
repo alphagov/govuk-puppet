@@ -18,7 +18,7 @@ class govuk_base {
     'scc': {
       include ufw::govuk
     }
-    default {}
+    default: {}
   }
 
   include govuk::repository

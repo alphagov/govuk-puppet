@@ -2,7 +2,7 @@ class ufw::govuk {
 
   include ufw
 
-  # The rules in this module are based on an audit of all ports listening 
+  # The rules in this module are based on an audit of all ports listening
   # for our EC2 Preview and Production infrastructure. The CSV describing all
   # listening ports is saved as port_audit.csv
 
