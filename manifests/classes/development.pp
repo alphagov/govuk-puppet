@@ -11,6 +11,7 @@ class development {
   include nodejs
   include puppet
   include solr
+  include tmpreaper
   include users
 
   include govuk::apps::review_o_matic_explore

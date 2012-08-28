@@ -8,5 +8,6 @@ class base {
   include sudo
   include sysctl
   include sshd
+  include tmpreaper
   include unattended_upgrades
 }
