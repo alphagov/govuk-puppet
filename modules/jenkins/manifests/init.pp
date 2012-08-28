@@ -18,11 +18,13 @@ class jenkins {
   include jenkins::apache
   include jenkins::ssh_key
 
-  package { 'sqlite3':
-    ensure => installed,
-  }
-  package { 'gnuplot':
-    ensure => installed,
+  package { [
+    'sqlite3',
+    'gnuplot',
+    'python-virtualenv',
+    'python-paramiko',
+    ]:
+      ensure => installed,
   }
 
   # This is required for the Deploy Redirector Config job
