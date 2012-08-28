@@ -4,7 +4,9 @@ define nginx::config::vhost::proxy(
   $protected = true,
   $ssl_only = false,
   $extra_config = '',
-  $platform = $::govuk_platform
+  $platform = $::govuk_platform,
+  $health_check_path = 'NOTSET',
+  $health_check_port = 'NOTSET'
 ) {
 
   if $::govuk_provider == 'sky' {
