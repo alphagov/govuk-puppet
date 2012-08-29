@@ -403,6 +403,7 @@ class govuk_base::management_server {
   include imagemagick
   include nodejs
   include solr
+  include clamav
 
   include elasticsearch
   elasticsearch::node { "govuk-${::govuk_platform}": }

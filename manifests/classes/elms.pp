@@ -58,6 +58,8 @@ class elms_base::frontend_server inherits elms_base {
   include puppet::cronjob
   include users::groups::govuk
   include hosts::elms-preview
+  include clamav
+
   class { 'nginx': }
   class { 'licensify':
     require => Class['nginx']
