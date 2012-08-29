@@ -43,6 +43,7 @@ class nagios::package {
     ensure  => present,
     owner   => nagios,
     group   => nagios,
+    require => Package['nagios3']
   }
 
   # pagerduty stuff
@@ -52,9 +53,10 @@ class nagios::package {
   }
 
   file { '/var/lib/nagios3/rw':
-    ensure => directory,
-    mode   => '2710',
-    owner  => nagios,
-    group  => www-data
+    ensure  => directory,
+    mode    => '2710',
+    owner   => nagios,
+    group   => www-data,
+    require => Package['nagios3']
   }
 }
