@@ -218,6 +218,37 @@ class govuk_base::ruby_app_server::backend_server inherits govuk_base::ruby_app_
     "private-frontend.${::govuk_platform}.alphagov.co.uk":;
   }
 
+  nginx::config::vhost::proxy {
+    "imminence.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "publisher.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "needotron.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "panopticon.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "signon.$::govuk_platform.alphagov.co.uk":
+      to        => ['localhost:8080'],
+      protected => false,
+      ssl_only  => true;
+    "migratorator.$::govuk_platform.alphagov.co.uk":
+      to        => ['localhost:8080'],
+      ssl_only  => true;
+    "reviewomatic.$::govuk_platform.alphagov.co.uk":
+      to        => ['localhost:8080'],
+      ssl_only  => false;
+    "contactotron.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+    "private-frontend.$::govuk_platform.alphagov.co.uk":
+      to       => ['localhost:8080'],
+      ssl_only => true;
+  }
+
   file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
     ensure => absent,
     force  => true,
@@ -260,37 +291,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
     "licencefinder.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8086;
     "static.${::govuk_platform}.alphagov.co.uk":;
-  }
-
-  nginx::config::vhost::proxy {
-    "imminence.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "publisher.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "panopticon.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "signon.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      protected => false,
-      ssl_only  => true;
-    "migratorator.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      ssl_only  => true;
-    "reviewomatic.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      ssl_only  => false;
-    "contactotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "private-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
   }
 
   file { "/data/vhost/frontend.${::govuk_platform}.alphagov.co.uk":
