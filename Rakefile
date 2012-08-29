@@ -41,7 +41,7 @@ task :sudoers do
   sh 'visudo -c -f modules/sudo/files/sudoers'
 end
 
-desc "Run rspec tests with `rake spec[num_cpus, pattern, rspec_options]`"
+desc "Run rspec tests with `rake spec[pattern, rspec_options]`"
 task :spec, [:pattern, :options] do |t, args|
   $stderr.puts '---> Running puppet specs (parallel)'
 
