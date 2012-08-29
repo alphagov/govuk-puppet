@@ -104,29 +104,6 @@ class nginx::config::mirror_server {
 }
 
 class nginx::config::frontend_server {
-  nginx::config::vhost::proxy {
-    'www.gov.uk':
-      to      => ['localhost:8080'];
-    "www.$::govuk_platform.alphagov.co.uk":
-      to      => ['localhost:8080'],
-      aliases => ["frontend.$::govuk_platform.alphagov.co.uk"];
-    "calendars.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "search.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "smartanswers.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "designprinciples.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "licencefinder.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    }
-
-  nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
-    protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg'],
-    ssl_only  => true
-  }
 }
 
 class nginx::config::backend_server {
