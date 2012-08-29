@@ -64,8 +64,8 @@ class nginx::config($node_type) {
 
   case $node_type  {
     redirect:          { include nginx::config::redirect }
-    frontend_server:   { include nginx::config::frontend_server }
-    backend_server:    { include nginx::config::backend_server }
+    frontend_server:   { }
+    backend_server:    { }
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
     mapit:             { include nginx::config::mapit }
@@ -101,12 +101,6 @@ class nginx::config::mirror_server {
     "www.$::govuk_platform.alphagov.co.uk":
       ;
   }
-}
-
-class nginx::config::frontend_server {
-}
-
-class nginx::config::backend_server {
 }
 
 class nginx::config::mapit {
