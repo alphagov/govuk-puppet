@@ -27,7 +27,12 @@ class ufw::govuk {
     port => 5666,
   }
   ufw::allow { "allow-gmond-from-all":
-    port => 8649,
+    proto => 'tcp',
+    port  => 8649,
+  }
+  ufw::allow { "allow-gmond-from-all":
+    proto => 'udp',
+    port  => 8649,
   }
   ufw::allow { "allow-gmetad-8651-from-all":
     port => 8651,
