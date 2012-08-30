@@ -26,11 +26,11 @@ class ufw::govuk {
   ufw::allow { "allow-nrpe-from-all":
     port => 5666,
   }
-  ufw::allow { "allow-gmond-from-all":
+  ufw::allow { "allow-gmond-8649-tcp-from-all":
     proto => 'tcp',
     port  => 8649,
   }
-  ufw::allow { "allow-gmond-from-all":
+  ufw::allow { "allow-gmond-8649-udp-from-all":
     proto => 'udp',
     port  => 8649,
   }
