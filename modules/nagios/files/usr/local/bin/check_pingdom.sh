@@ -12,7 +12,7 @@ result=`curl --silent --header "App-Key: ${KEY}" --user ${USER}:${PASSWORD} http
 
 if [[ $? == 6 ]]; then
   echo "UNAVAILABLE"
-  exit 1
+  exit 3
 fi
 
 echo $result | grep 'status":"up"' > /dev/null
