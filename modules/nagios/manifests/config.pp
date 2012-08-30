@@ -16,9 +16,24 @@ class nagios::config {
     source  => 'puppet:///modules/nagios/etc/nagios3/check_smokey.cfg',
   }
 
+  file { '/etc/nagios3/conf.d/check_pingdom.cfg':
+    source  => 'puppet:///modules/nagios/etc/nagios3/check_pingdom.cfg',
+  }
+
+  file { '/usr/local/bin/check_pingdom.sh':
+    mode   => '0755',
+    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.sh',
+  }
+
   @@nagios::check {'check_smokey':
     check_command       => 'run_smokey_tests',
     service_description => 'Run small suite of functional tests',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check {'check_pingdom':
+    check_command       => 'run_pingdom_homepage_check',
+    service_description => 'Check the current pingdom status',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
