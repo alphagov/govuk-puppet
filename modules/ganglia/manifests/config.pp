@@ -49,8 +49,8 @@ class ganglia::config {
         require => Exec[ganglia_webfrontend_untar],
       }
   } else {
-      file { '/etc/ganglia/gmetad-scc.conf':
-        source  => 'puppet:///modules/ganglia/gmetad.conf',
+      file { '/etc/ganglia/gmetad.conf':
+        source  => 'puppet:///modules/ganglia/gmetad-scc.conf',
         owner   => root,
         group   => root,
         require => Exec[ganglia_webfrontend_untar],
