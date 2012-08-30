@@ -273,6 +273,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   include govuk::apps::tariff
   include govuk::apps::efg
   include govuk::apps::calendars
+  include govuk::apps::smartanswers
   #TODO: Remove from frontend once ec2 is out. On sky, will be backend
   include govuk::apps::contentapi
 
@@ -283,8 +284,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       aliases         => ["frontend.${::govuk_platform}.alphagov.co.uk", 'www.gov.uk'];
     "search.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8083;
-    "smartanswers.${::govuk_platform}.alphagov.co.uk":
-      additional_port => 8084;
     "designprinciples.${::govuk_platform}.alphagov.co.uk":
       additional_port => 8085;
     "licencefinder.${::govuk_platform}.alphagov.co.uk":
@@ -299,8 +298,6 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
       to      => ['localhost:8080'],
       aliases => ["frontend.$::govuk_platform.alphagov.co.uk"];
     "search.$::govuk_platform.alphagov.co.uk":
-      to => ['localhost:8080'];
-    "smartanswers.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
     "designprinciples.$::govuk_platform.alphagov.co.uk":
       to => ['localhost:8080'];
