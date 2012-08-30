@@ -6,5 +6,5 @@ class hosts::scc::production {
   # The monitoring box
   host { 'dc2gdsmon201.gds.internal':       ip => '192.168.228.22',  host_aliases   => [ 'monitoring', 'monitoring.production.internal', 'monitoring.cluster' ] }
   # The puppet master
-  host { 'dc2gdsotn201.gds.internal':       ip => '192.168.228.23',  host_aliases   => [ 'dc2gdsptm201.gds.internal', 'puppet', 'puppet.production.internal'] }
+  host { 'dc2gdsotn201.gds.internal':       ip => '192.168.228.23',  host_aliases   => [ 'dc2gdsotn201', 'dc2gdsptm201.gds.internal', 'puppet', 'puppet.production.internal'] }
 }
