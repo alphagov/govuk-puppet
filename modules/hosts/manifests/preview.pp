@@ -33,6 +33,7 @@ class hosts::preview {
   host { 'efg.preview.alphagov.co.uk':              ip => '10.58.253.150' }
   host { 'migratorator.preview.alphagov.co.uk':     ip => '10.228.95.176' }
   host { 'reviewomatic.preview.alphagov.co.uk':     ip => '10.228.95.176' }
+  host { 'datainsight.preview.alphagov.co.uk':      ip => '10.58.253.150' }
 
   host { 'whitehall.preview.alphagov.co.uk':        ip => '10.49.105.155' }
   host { 'whitehall-search.preview.alphagov.co.uk': ip => '10.49.105.155' }
