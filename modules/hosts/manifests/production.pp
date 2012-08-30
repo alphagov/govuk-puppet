@@ -24,6 +24,7 @@ class hosts::production {
   host { 'whitehall.production.alphagov.co.uk':         ip => '10.224.50.207' }
   host { 'whitehall-search.production.alphagov.co.uk':  ip => '10.224.50.207' }
   host { 'whitehall-admin.production.alphagov.co.uk':   ip => '10.54.182.112' } /* production backend */
+  host { 'datainsight.production.alphagov.co.uk':       ip => '10.53.54.49' }
 
   host { 'rds.cluster':         ip => '10.228.229.245' }
   host { 'puppet.cluster':      ip => '10.226.54.244' }

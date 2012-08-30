@@ -29,4 +29,5 @@ class hosts::development {
   host { 'reviewomatic.dev.gov.uk':     ip => '127.0.0.1' }
   host { 'contentapi.dev.gov.uk':       ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk': ip => '127.0.0.1' }
+  host { 'datainsight.dev.gov.uk':      ip => '127.0.0.1' }
 }
