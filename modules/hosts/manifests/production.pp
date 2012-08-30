@@ -8,6 +8,7 @@ class hosts::production {
   host { 'frontend.production.alphagov.co.uk':          ip => '10.236.86.54' } /* production-frontend-1 */
   host { 'contentapi.production.alphagov.co.uk':        ip => '10.236.86.54' } /* production-frontend-1 */
   host { 'search.production.alphagov.co.uk':            ip => '10.250.157.37' } /* production-frontend-2 */
+  host { 'feedback.production.alphagov.co.uk':          ip => '10.53.54.49' }
   host { 'planner.production.alphagov.co.uk':           ip => '10.53.54.49' }
   host { 'calendars.production.alphagov.co.uk':         ip => '10.53.54.49' }
   host { 'tariff.production.alphagov.co.uk':            ip => '10.53.54.49' }

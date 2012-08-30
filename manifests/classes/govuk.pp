@@ -275,6 +275,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   include govuk::apps::efg
   include govuk::apps::calendars
   include govuk::apps::smartanswers
+  include govuk::apps::frontend
   #TODO: Remove from frontend once ec2 is out. On sky, will be backend
   include govuk::apps::contentapi
 
@@ -308,7 +309,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
 
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg'],
+    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback'],
     ssl_only  => true
   }
 

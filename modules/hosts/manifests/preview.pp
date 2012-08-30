@@ -28,6 +28,7 @@ class hosts::preview {
   host { 'smartanswers.preview.alphagov.co.uk':     ip => '10.58.253.150' }
   host { 'licencefinder.preview.alphagov.co.uk':    ip => '10.58.253.150' }
   host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }
+  host { 'feedback.preview.alphagov.co.uk':         ip => '10.58.253.150' }
   host { 'contentapi.preview.alphagov.co.uk':       ip => '10.58.253.150' }
   host { 'tariff.preview.alphagov.co.uk':           ip => '10.58.253.150' }
   host { 'efg.preview.alphagov.co.uk':              ip => '10.58.253.150' }

@@ -231,6 +231,15 @@ server {
 }
 
 server {
+  server_name feedback.dev.gov.uk;
+  listen *:80;
+  location / {
+    proxy_pass http://127.0.0.1:3028;
+    proxy_set_header   Host   $host;
+  }
+}
+
+server {
   server_name router.cluster;
   listen *:8080;
   location /router/ {
