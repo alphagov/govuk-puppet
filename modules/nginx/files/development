@@ -1,3 +1,6 @@
+# It's not necessary to add your app here if it is instantiated by govuk::app
+# even in development, govuk::app will do the right thing if you are using that.
+
 server {
   server_name  _;  #default
   return 444;
