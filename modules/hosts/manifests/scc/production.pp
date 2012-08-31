@@ -10,5 +10,5 @@ class hosts::scc::production {
   # The flat sites
   host { 'dc2gdsweb201.gds.internal':       ip => '192.168.228.24',  host_aliases   => [ 'dc2gdsweb201'] }
   host { 'dc2gdsweb202.gds.internal':       ip => '192.168.228.25',  host_aliases   => [ 'dc2gdsweb202'] }
-  host { 'dc2gdsweb202.gds.internal':       ip => '192.168.228.26',  host_aliases   => [ 'dc2gdsweb203'] }
+  host { 'dc2gdsweb203.gds.internal':       ip => '192.168.228.26',  host_aliases   => [ 'dc2gdsweb203'] }
 }
