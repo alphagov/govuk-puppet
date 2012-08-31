@@ -363,6 +363,11 @@ class govuk_base::support_server inherits govuk_base {
   elasticsearch::node { "govuk-${::govuk_platform}": }
 }
 
+class govuk_base::mirror_server inherits govuk_base {
+  class { 'nginx': node_type => "mirror" }
+  include mirror
+}
+
 class govuk_base::monitoring_server inherits govuk_base {
   class { 'apache2': port => '80'}
   include nagios

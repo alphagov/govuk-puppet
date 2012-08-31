@@ -11,9 +11,12 @@ class mirror {
   # Note that this exec task will only ever run once; a decision
   # about how to run this periodically has yet to be made, so the
   # exec task is left here merely to document the mirroring process
+  #The command is for testing, since it takes a loooonggg time to download the site
+  #For the entire site, the below command in the next line should be used
+  #command => '/usr/bin/wget -mE -R licence-finder https://www.gov.uk',
   exec { 'update-govuk-mirror':
     creates => '/usr/share/www/www.gov.uk',
-    command => '/usr/bin/wget -mE -R licence-finder https://www.gov.uk',
+    command => '/usr/bin/wget -mE -A index.html https://www.gov.uk',
     cwd     => '/usr/share/www',
     require => File['/usr/share/www'],
     user    => 'www-data',

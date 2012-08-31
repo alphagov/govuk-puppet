@@ -32,6 +32,7 @@ node default {
     redirector:         { include govuk_base::redirector_server }
     router-mongo:       { include govuk_base::router_mongo }
     support:            { include govuk_base::support_server }
+    mirror:             { include govuk_base::mirror_server }
     whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }
     default:            { }
   }
