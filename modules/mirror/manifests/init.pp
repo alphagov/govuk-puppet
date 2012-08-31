@@ -30,10 +30,10 @@ class mirror {
     timeout => 3600, # 1 hour. wget doesn't understand ETags
   }
   cron { 'update-latest-to-mirror':
-        ensure  => absent,
+        ensure  => present,
         user    => 'root',
         hour    => 15,
-        minute  => 50,
+        minute  => 55,
         command => '/tmp/update-mirror.sh',
         require => File['/tmp/update-mirror.sh']
   }
