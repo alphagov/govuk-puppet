@@ -133,7 +133,7 @@ define govuk::app(
 
   govuk::app::config { $title:
     require            => Govuk::App::Package[$title],
-    notify             => Govuk::App::Service[$title],
+    notify             => Service[$title],
     environ_source     => $environ_source,
     environ_content    => $environ_content,
     domain             => $domain,
