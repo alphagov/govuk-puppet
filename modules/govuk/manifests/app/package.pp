@@ -9,9 +9,10 @@ define govuk::app::package (
   }
 
   file { ["/var/log/${title}/app.out.log", "/var/log/${title}/app.err.log"]:
-    ensure => file,
-    owner  => 'deploy',
-    group  => 'deploy';
+    ensure  => file,
+    owner   => 'deploy',
+    group   => 'deploy',
+    require => File["/var/log/${title}"],
   }
 
   # In the development environment, assume the repos are checked out straight
