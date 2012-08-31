@@ -1,8 +1,8 @@
 node default {
   case $govuk_class {
-    backend:            { include govuk_base::ruby_app_server::backend_server }
-    cache:              { include govuk_base::cache_server }
-    data:               { include govuk_base::db_server }
+    backend:            { include govuk_node::backend_server }
+    cache:              { include govuk_node::cache_server }
+    data:               { include govuk_node::db_server }
     development:        { include development }
     elms-development:   { include elms_base::development }
     elms-frontend:      { include elms_base::frontend_server }
@@ -14,26 +14,26 @@ node default {
     ertp-development:   { include ertp_base::development }
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-mongo:         { include ertp_base::mongo_server }
-    frontend:           { include govuk_base::ruby_app_server::frontend_server }
-    graylog:            { include govuk_base::graylog_server }
-    jumpbox:            { include govuk_base }
-    logging:            { include govuk_base::graylog_server }
-    management:         { include govuk_base::management_server::master }
-    management_slave:   { include govuk_base::management_server::slave }
-    mapit_server:       { include govuk_base::mapit_server }
-    mongo:              { include govuk_base::mongo_server include govuk_base::mysql_master_server }
-    monitoring:         { include govuk_base::monitoring_server }
-    mysql_master:       { include govuk_base::mysql_master_server}
-    mysql_slave:        { include govuk_base::mysql_slave_server}
+    frontend:           { include govuk_node::frontend_server }
+    graylog:            { include govuk_node::graylog_server }
+    jumpbox:            { include govuk_node::base }
+    logging:            { include govuk_node::graylog_server }
+    management:         { include govuk_node::management_server_master }
+    management_slave:   { include govuk_node::management_server_slave }
+    mapit_server:       { include govuk_node::mapit_server }
+    mongo:              { include govuk_node::mongo_server include govuk_node::mysql_master_server }
+    monitoring:         { include govuk_node::monitoring_server }
+    mysql_master:       { include govuk_node::mysql_master_server }
+    mysql_slave:        { include govuk_node::mysql_slave_server }
     places-api:         { include places_base::api_server }
     places-mongo:       { include places_base::mongo_server }
-    puppet:             { include govuk_base::puppetmaster }
-    redirect:           { include govuk_base::redirect_server }
-    redirector:         { include govuk_base::redirector_server }
-    router-mongo:       { include govuk_base::router_mongo }
-    support:            { include govuk_base::support_server }
-    mirror:             { include govuk_base::mirror_server }
-    whitehall-frontend: { include govuk_base::ruby_app_server::whitehall_frontend_server }
+    puppet:             { include govuk_node::puppetmaster }
+    redirect:           { include govuk_node::redirect_server }
+    redirector:         { include govuk_node::redirector_server }
+    router-mongo:       { include govuk_node::router_mongo }
+    support:            { include govuk_node::support_server }
+    mirror:             { include govuk_node::mirror_server }
+    whitehall-frontend: { include govuk_node::whitehall_frontend_server }
     default:            { }
   }
 }
