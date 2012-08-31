@@ -16,10 +16,8 @@ class mirror {
     source => 'puppet:///modules/mirror/update-mirror.sh'
   }
 
-  # Note that this exec task will only ever run once; a decision
-  # about how to run this periodically has yet to be made, so the
-  # exec task is left here merely to document the mirroring process
-  #The command is for testing, since it takes a loooonggg time to download the site
+  # Note that this exec task will only ever run once; 
+  # A cron job does the periodic updates
   exec { 'copy-to-mirror':
     creates => '/usr/share/www/www.gov.uk',
     command => '/usr/bin/wget -mE -R licence-finder https://www.gov.uk',
@@ -32,8 +30,8 @@ class mirror {
   cron { 'update-latest-to-mirror':
         ensure  => present,
         user    => 'root',
-        hour    => 15,
-        minute  => 55,
+        hour    => 15,# The time can be changed to any convenient time of the day
+        minute  => 55,# The time here is just added for the convenience of testing
         command => '/tmp/update-mirror.sh',
         require => File['/tmp/update-mirror.sh']
   }
