@@ -18,6 +18,7 @@ class development {
   include govuk::apps::review_o_matic_explore
   include govuk::apps::planner
   include govuk::apps::tariff
+  include govuk::apps::feedback
 
   include govuk::deploy
   include govuk::repository
