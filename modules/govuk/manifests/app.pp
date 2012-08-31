@@ -124,6 +124,8 @@ define govuk::app(
 
   $vhost_full = "${vhost_real}.${domain}"
 
+  include govuk::deploy
+
   govuk::app::package { $title:
     vhost_full => $vhost_full,
     platform   => $platform,
