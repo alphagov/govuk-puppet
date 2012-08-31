@@ -16,7 +16,7 @@ class mirror {
   #command => '/usr/bin/wget -mE -R licence-finder https://www.gov.uk',
   exec { 'update-govuk-mirror':
     creates => '/usr/share/www/www.gov.uk',
-    command => '/usr/bin/wget -mE -A index.html https://www.gov.uk',
+    command => '/usr/bin/wget -mE -R licence-finder https://www.gov.uk',
     cwd     => '/usr/share/www',
     require => File['/usr/share/www'],
     user    => 'www-data',
