@@ -16,7 +16,7 @@ class mirror {
     source => 'puppet:///modules/mirror/update-mirror.sh'
   }
 
-  # Note that this exec task will only ever run once; 
+  # Note that this exec task will only ever run once;
   # A cron job does the periodic updates
   exec { 'copy-to-mirror':
     creates => '/usr/share/www/www.gov.uk',
