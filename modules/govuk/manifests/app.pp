@@ -69,7 +69,7 @@ define govuk::app(
   # The app will be served at "$vhost.$platform.alphagov.co.uk" in production
   # and preview environments.
   #
-  $vhost = 'NOTSET',
+  $vhost = undef,
 
   #
   # vhost_aliases: other vhosts on which your app is served
@@ -113,7 +113,7 @@ define govuk::app(
   }
 
   $vhost_real = $vhost ? {
-    'NOTSET' => $title,
+    undef    => $title,
     default  => $vhost,
   }
 
@@ -131,6 +131,7 @@ define govuk::app(
 
   govuk::app::config { $title:
     require            => Govuk::App::Package[$title],
+    notify             => Govuk::App::Service[$title],
     environ_source     => $environ_source,
     environ_content    => $environ_content,
     domain             => $domain,
@@ -147,13 +148,7 @@ define govuk::app(
 
   service { $title:
     provider  => upstart,
-    subscribe => [
-      Class['govuk::deploy'],
-      File["/etc/envmgr/${title}.conf"],
-      File["/etc/init/${title}.conf"],
-      File["/var/run/${title}"],
-      File["/var/apps/${title}"]
-    ];
+    subscribe => Class['govuk::deploy'],
   }
 
   if $platform != 'development' {
@@ -161,6 +156,4 @@ define govuk::app(
       ensure => running
     }
   }
-
-
 }
