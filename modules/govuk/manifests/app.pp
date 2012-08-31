@@ -128,7 +128,10 @@ define govuk::app(
 
   $vhost_full = "${vhost_real}.${domain}"
 
-  govuk::app::package {$title: }
+  govuk::app::package { $title: 
+    vhost_full => $vhost_full,
+    platform   => $platform,
+  }
 
   # Install environment/configuration file
   file { "/etc/envmgr/${title}.conf":
