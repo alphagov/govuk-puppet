@@ -96,7 +96,7 @@ class nginx::config::redirect {
 
 class nginx::config::mirror_server {
   nginx::config::vhost::mirror {
-    'www.gov.uk':
+    'www.gov.uk': ssl_only => true
       ;
     "www.$::govuk_platform.alphagov.co.uk":
       ;
