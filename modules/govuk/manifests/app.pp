@@ -52,14 +52,14 @@ define govuk::app(
   #       environ_content => template('govuk/apps/foo_environment.conf'),
   #     }
   #
-  $environ_content = 'NOTSET',
+  $environ_content = undef,
 
   #
   # environ_source: source of the envmgr config file loaded for this app
   #
   # Same as environ_content but using Puppet's `source` parameter.
   #
-  $environ_source = 'NOTSET',
+  $environ_source = undef,
 
   #
   # vhost: the virtual host prefix for this app
@@ -110,10 +110,6 @@ define govuk::app(
 
   if ! ($app_type in ['procfile', 'rack']) {
     fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile" or "rack".'
-  }
-
-  if $environ_content != 'NOTSET' and $environ_source != 'NOTSET' {
-    fail 'You may only set one of $environ_content and $environ_source in govuk::app'
   }
 
   $vhost_real = $vhost ? {

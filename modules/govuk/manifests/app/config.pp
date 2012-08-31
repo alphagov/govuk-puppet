@@ -1,6 +1,4 @@
 define govuk::app::config (
-  $environ_source,
-  $environ_content,
   $domain,
   $port,
   $vhost_aliases,
@@ -10,25 +8,26 @@ define govuk::app::config (
   $nginx_extra_config,
   $platform,
   $health_check_path,
-  $health_check_port
+  $health_check_port,
+  $environ_source  = undef,
+  $environ_content = undef
 ) {
+  if $environ_content != undef and $environ_source != undef {
+    fail 'You may only set one of $environ_content and $environ_source in govuk::app'
+  }
+
+  if $environ_source == undef and $environ_content == undef {
+    $environ_content_real = ''
+  }
+  else {
+    $environ_content_real = $environ_content
+  }
+
   # Install environment/configuration file
   file { "/etc/envmgr/${title}.conf":
     ensure  => 'file',
-  }
-
-  if $environ_content != 'NOTSET' {
-    File["/etc/envmgr/${title}.conf"] {
-      content => $environ_content
-    }
-  } elsif $environ_source != 'NOTSET' {
-    File["/etc/envmgr/${title}.conf"] {
-      source => $environ_source
-    }
-  } else {
-    File["/etc/envmgr/${title}.conf"] {
-      content => ''
-    }
+    source  => $environ_source,
+    content => $environ_content_real,
   }
 
   # Install service
