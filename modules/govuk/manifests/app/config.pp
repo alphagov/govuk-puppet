@@ -1,4 +1,5 @@
 define govuk::app::config (
+  $app_type,
   $domain,
   $port,
   $vhost_aliases,

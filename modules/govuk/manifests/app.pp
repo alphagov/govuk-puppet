@@ -134,6 +134,7 @@ define govuk::app(
   govuk::app::config { $title:
     require            => Govuk::App::Package[$title],
     notify             => Service[$title],
+    app_type           => $app_type,
     environ_source     => $environ_source,
     environ_content    => $environ_content,
     domain             => $domain,
