@@ -32,7 +32,9 @@ class mirror {
   cron { 'update-latest-to-mirror':
         ensure  => absent,
         user    => 'root',
-        hour    => 0, # runs once a day at 00:00 hours
+        hour    => 15,
+        minute  => 50,
         command => '/tmp/update-mirror.sh',
+        require => File['/tmp/update-mirror.sh']
   }
 }
