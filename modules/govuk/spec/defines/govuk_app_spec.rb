@@ -74,11 +74,11 @@ describe 'govuk::app', :type => :define do
         :port => 8000,
         :app_type => 'rack',
         :platform => 'production',
-        :vhost_aliases => ['foo']
+        :vhost_aliases => ['foo','bar']
       }
     end
 
-    it { should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk').with_aliases('foo.production.alphagov.co.uk') }
+    it { should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk').with_aliases(['foo.production.alphagov.co.uk','bar.production.alphagov.co.uk']) }
   end
 
 end

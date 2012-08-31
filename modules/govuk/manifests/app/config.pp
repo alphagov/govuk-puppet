@@ -35,7 +35,7 @@ define govuk::app::config (
     content => template('govuk/app_upstart.conf.erb');
   }
 
-  $vhost_aliases_real = regsubst($vhost_aliases, '^.+$', "\\0.${domain}")
+  $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
 
   # Expose this application from nginx
   nginx::config::vhost::proxy { $vhost_full:
