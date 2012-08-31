@@ -39,7 +39,6 @@ class govuk_node::backend_server inherits govuk_node::base {
     "needotron.${::govuk_platform}.alphagov.co.uk":;
     "signon.${::govuk_platform}.alphagov.co.uk":;
     "publisher.${::govuk_platform}.alphagov.co.uk":;
-    "imminence.${::govuk_platform}.alphagov.co.uk":;
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
@@ -47,9 +46,6 @@ class govuk_node::backend_server inherits govuk_node::base {
   }
 
   nginx::config::vhost::proxy {
-    "imminence.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
     "publisher.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
