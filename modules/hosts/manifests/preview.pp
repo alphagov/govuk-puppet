@@ -1,6 +1,6 @@
 class hosts::preview {
   host { 'rds.cluster':       ip => '10.229.38.255' }
-  host { 'puppet.cluster':    ip => '10.224.103.67' }
+  host { 'puppet.cluster':    ip => '10.228.138.128' }
   host { 'frontend.cluster':  ip => '10.58.253.150' }
   host { 'backend.cluster':   ip => '10.228.95.176' }
   host { 'support.cluster':   ip => '10.57.10.89' }
