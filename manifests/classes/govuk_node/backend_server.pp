@@ -22,7 +22,6 @@ class govuk_node::backend_server inherits govuk_node::base {
     "signon.${::govuk_platform}.alphagov.co.uk":;
     "publisher.${::govuk_platform}.alphagov.co.uk":;
     "imminence.${::govuk_platform}.alphagov.co.uk":;
-    "panopticon.${::govuk_platform}.alphagov.co.uk":;
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
@@ -37,9 +36,6 @@ class govuk_node::backend_server inherits govuk_node::base {
       to       => ['localhost:8080'],
       ssl_only => true;
     "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "panopticon.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
     "signon.$::govuk_platform.alphagov.co.uk":
@@ -70,4 +66,5 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::whitehall_admin
   include govuk::apps::support
   include govuk::apps::contentapi
+  include govuk::apps::panopticon
 }
