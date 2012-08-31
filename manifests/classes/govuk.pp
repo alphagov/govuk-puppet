@@ -275,7 +275,7 @@ class govuk_base::ruby_app_server::frontend_server inherits govuk_base::ruby_app
   include govuk::apps::efg
   include govuk::apps::calendars
   include govuk::apps::smartanswers
-  include govuk::apps::frontend
+  include govuk::apps::feedback
   #TODO: Remove from frontend once ec2 is out. On sky, will be backend
   include govuk::apps::contentapi
 
