@@ -6,8 +6,13 @@ class govuk::apps::publicapi {
     default       => "${platform}.alphagov.co.uk",
   }
 
+  $privateapi = $platform ? {
+    'development' => 'localhost:3022',
+    default       => "contentapi.${domain}"
+  }
+
   nginx::config::vhost::proxy { "public-api.${domain}":
-    to                => ["contentapi.${domain}"],
+    to                => [$privateapi],
     protected         => false,
     ssl_only          => false,
     platform          => $platform
