@@ -11,10 +11,13 @@ class govuk::apps::publicapi {
     default       => "contentapi.${domain}"
   }
 
-  nginx::config::vhost::proxy { "public-api.${domain}":
+  $full_domain = "public-api.${domain}"
+
+  nginx::config::vhost::proxy { $full_domain:
     to                => [$privateapi],
     protected         => false,
     ssl_only          => false,
-    platform          => $platform
+    platform          => $platform,
+    extra_config      => "location /api { proxy_pass http://${full_domain}-proxy/; }"
   }
 }
