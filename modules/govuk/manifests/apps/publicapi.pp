@@ -18,7 +18,7 @@ class govuk::apps::publicapi {
     protected         => false,
     ssl_only          => false,
     platform          => $platform,
-    extra_config      => "location /api { 
+    extra_config      => "location /api {
       proxy_set_header Host ${privateapi};
       proxy_pass http://${full_domain}-proxy/;
     }"
