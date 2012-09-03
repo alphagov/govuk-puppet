@@ -80,6 +80,11 @@ server {
     auth_basic_user_file  htpasswd/htpasswd.<%=name %>;
     satisfy any;
     <%- end -%>
+    root /data/vhost/<%= name %>/current/public;
+    try_files $uri/index.html $uri.html $uri @app;
+  }
+
+  location @app {
     proxy_pass http://<%= name %>-proxy;
   }
 
