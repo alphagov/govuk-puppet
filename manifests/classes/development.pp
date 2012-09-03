@@ -19,6 +19,8 @@ class development {
   include govuk::apps::planner
   include govuk::apps::tariff
   include govuk::apps::feedback
+  include govuk::apps::contentapi
+  include govuk::apps::publicapi
 
   include govuk::deploy
   include govuk::repository

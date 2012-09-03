@@ -18,8 +18,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::feedback
   include govuk::apps::designprinciples
   include govuk::apps::licencefinder
-  #TODO: Remove from frontend once ec2 is out. On sky, will be backend
-  include govuk::apps::contentapi
+  include govuk::apps::publicapi
 
   class { 'nginx': node_type => frontend_server }
 
