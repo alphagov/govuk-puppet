@@ -22,7 +22,7 @@ class hosts::preview {
   host { 'contactotron.preview.alphagov.co.uk':     ip => '10.228.95.176' }
   host { 'tariff-api.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'contentapi.preview.alphagov.co.uk':       ip => '10.228.95.176' }
-  
+
   host { 'search.preview.alphagov.co.uk':           ip => '10.58.253.150' }
   host { 'planner.preview.alphagov.co.uk':          ip => '10.58.253.150' }
   host { 'calendars.preview.alphagov.co.uk':        ip => '10.58.253.150' }
