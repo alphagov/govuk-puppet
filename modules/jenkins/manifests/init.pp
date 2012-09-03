@@ -23,6 +23,7 @@ class jenkins {
     'gnuplot',
     'python-virtualenv',
     'python-paramiko',
+    'ant'
     ]:
       ensure => installed,
   }
