@@ -10,7 +10,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
   }
 
   include govuk::apps::planner
-  include govuk::apps::datainsight_web
+  include govuk::apps::datainsight_frontend
   include govuk::apps::tariff
   include govuk::apps::efg
   include govuk::apps::calendars

@@ -23,19 +23,19 @@ class hosts::preview {
   host { 'tariff-api.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'contentapi.preview.alphagov.co.uk':       ip => '10.228.95.176' }
 
-  host { 'search.preview.alphagov.co.uk':           ip => '10.58.253.150' }
-  host { 'planner.preview.alphagov.co.uk':          ip => '10.58.253.150' }
-  host { 'calendars.preview.alphagov.co.uk':        ip => '10.58.253.150' }
-  host { 'designprinciples.preview.alphagov.co.uk': ip => '10.58.253.150' }
-  host { 'smartanswers.preview.alphagov.co.uk':     ip => '10.58.253.150' }
-  host { 'licencefinder.preview.alphagov.co.uk':    ip => '10.58.253.150' }
-  host { 'frontend.preview.alphagov.co.uk':         ip => '10.58.253.150' }
-  host { 'feedback.preview.alphagov.co.uk':         ip => '10.58.253.150' }
-  host { 'tariff.preview.alphagov.co.uk':           ip => '10.58.253.150' }
-  host { 'efg.preview.alphagov.co.uk':              ip => '10.58.253.150' }
-  host { 'migratorator.preview.alphagov.co.uk':     ip => '10.228.95.176' }
-  host { 'reviewomatic.preview.alphagov.co.uk':     ip => '10.228.95.176' }
-  host { 'datainsight.preview.alphagov.co.uk':      ip => '10.58.253.150' }
+  host { 'search.preview.alphagov.co.uk':               ip => '10.58.253.150' }
+  host { 'planner.preview.alphagov.co.uk':              ip => '10.58.253.150' }
+  host { 'calendars.preview.alphagov.co.uk':            ip => '10.58.253.150' }
+  host { 'designprinciples.preview.alphagov.co.uk':     ip => '10.58.253.150' }
+  host { 'smartanswers.preview.alphagov.co.uk':         ip => '10.58.253.150' }
+  host { 'licencefinder.preview.alphagov.co.uk':        ip => '10.58.253.150' }
+  host { 'frontend.preview.alphagov.co.uk':             ip => '10.58.253.150' }
+  host { 'feedback.preview.alphagov.co.uk':             ip => '10.58.253.150' }
+  host { 'tariff.preview.alphagov.co.uk':               ip => '10.58.253.150' }
+  host { 'efg.preview.alphagov.co.uk':                  ip => '10.58.253.150' }
+  host { 'migratorator.preview.alphagov.co.uk':         ip => '10.228.95.176' }
+  host { 'reviewomatic.preview.alphagov.co.uk':         ip => '10.228.95.176' }
+  host { 'datainsight-frontend.preview.alphagov.co.uk': ip => '10.58.253.150' }
 
   host { 'whitehall.preview.alphagov.co.uk':        ip => '10.49.105.155' }
   host { 'whitehall-search.preview.alphagov.co.uk': ip => '10.49.105.155' }
