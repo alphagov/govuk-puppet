@@ -1,6 +1,6 @@
 class logstash::package {
 
-  $logstash_version = '1.1.1'
+  $logstash_version = '1.1.1.sincedbfixed'
 
   include openjdk
 
@@ -45,7 +45,7 @@ class logstash::package {
   }
 
   wget::fetch { 'logstash-monolithic':
-    source      => "http://semicomplete.com/files/logstash/logstash-${logstash_version}-monolithic.jar",
+    source      => "https://gds-public-readable-tarballs.s3.amazonaws.com/logstash-${logstash_version}-monolithic.jar",
     destination => "/var/apps/logstash/logstash-${logstash_version}-monolithic.jar",
     require     => File['/var/apps/logstash'],
   }
