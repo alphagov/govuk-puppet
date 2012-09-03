@@ -1,6 +1,7 @@
 class users {
   group { 'admin':
     name => 'admin',
+    gid  => '3000',
   }
   if $::govuk_platform == 'preview' and $::govuk_class == 'support' {
     $mysql_host = 'rds.cluster'
