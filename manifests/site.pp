@@ -13,5 +13,5 @@ if $::govuk_platform == 'development' {
 }
 $extlookup_precedence = ['%{fqdn}', 'domain_%{domain}', 'common']
 
-import 'classes/*'
+import 'classes/**/*'
 import 'nodes.pp'
