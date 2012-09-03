@@ -25,7 +25,7 @@ class mirror {
     require => File['/usr/share/www', '/usr/local/bin/govuk_update_mirror'],
     user    => 'www-data',
     group   => 'www-data',
-    timeout => 3600, # 1 hour. wget doesn't understand ETags
+    timeout => 7200, # 1 hour. wget doesn't understand ETags
   }
   cron { 'update-latest-to-mirror':
         ensure  => present,
