@@ -17,12 +17,29 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   include imagemagick
 
+  # WIP, transitioning frontend to unicorn but don't want changes to go to production yet
+  # -- ppotter, 2012-09-03
+  case $::govuk_platform {
+    production: {
+      apache2::vhost::passenger {
+        "panopticon.${::govuk_platform}.alphagov.co.uk":;
+      }
+
+      nginx::config::vhost::proxy {
+        "panopticon.$::govuk_platform.alphagov.co.uk":
+          to       => ['localhost:8080'],
+          ssl_only => true;
+      }
+    }
+    default: {
+      include govuk::apps::panopticon
+    }
+  }
   apache2::vhost::passenger {
     "needotron.${::govuk_platform}.alphagov.co.uk":;
     "signon.${::govuk_platform}.alphagov.co.uk":;
     "publisher.${::govuk_platform}.alphagov.co.uk":;
     "imminence.${::govuk_platform}.alphagov.co.uk":;
-    "panopticon.${::govuk_platform}.alphagov.co.uk":;
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
@@ -37,9 +54,6 @@ class govuk_node::backend_server inherits govuk_node::base {
       to       => ['localhost:8080'],
       ssl_only => true;
     "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "panopticon.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
     "signon.$::govuk_platform.alphagov.co.uk":
