@@ -6,11 +6,6 @@ class govuk::apps::frontend( $port = 3005 ) {
     vhost_aliases => ['frontend'],
   }
 
-  nginx::config::vhost::proxy {
-    'www.gov.uk':
-      to      => ["localhost:${port}"];
-  }
-
   # nginx::config::vhost::static needs this link to be here
   # it assumes a file structure of /data/vhost/{app}.{platform}.alphagov.co.uk/shared/public/{app}
   # but for frontend, it's /data/vhost/www.{platform}.alphagov.co.uk/shared/public/frontend
