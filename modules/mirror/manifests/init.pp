@@ -15,17 +15,10 @@ class mirror {
     mode   => '0755',
     source => 'puppet:///modules/mirror/govuk_update_mirror'
   }
-
-  # Note that this exec task will only ever run once;
-  # A cron job does the periodic updates
-  exec { 'copy-to-mirror':
-    creates => '/usr/share/www/www.gov.uk',
-    command => '/usr/local/bin/govuk_update_mirror',
-    cwd     => '/usr/share/www',
-    require => File['/usr/share/www', '/usr/local/bin/govuk_update_mirror'],
-    user    => 'www-data',
-    group   => 'www-data',
-    timeout => 7200, # 1 hour. wget doesn't understand ETags
+  file { '/usr/share/www/www.gov.uk':
+    ensure => directory,
+    owner  => 'www-data',
+    group  => 'www-data',
   }
   cron { 'update-latest-to-mirror':
         ensure  => present,

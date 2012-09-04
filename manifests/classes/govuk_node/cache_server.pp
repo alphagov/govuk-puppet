@@ -3,6 +3,7 @@ class govuk_node::cache_server inherits govuk_node::base {
 
   include router
   include jetty
+  include govuk_node::mirror_server
 
   class { 'nginx': node_type => router}
 
