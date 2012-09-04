@@ -13,11 +13,12 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::licencefinder
   include govuk::apps::publicapi
   include govuk::apps::frontend
+  include govuk::apps::search
 
   include nginx
 
-  # WIP, transitioning search & static to unicorn but don't want changes to go to production yet
-  # -- ppotter, 2012-09-04
+  # WIP, transitioning static to unicorn but don't want changes to go to production yet
+  # -- ppotter, 2012-09-05
   case $::govuk_platform {
     production: {
       class { 'apache2':
@@ -28,8 +29,6 @@ class govuk_node::frontend_server inherits govuk_node::base {
       }
 
       apache2::vhost::passenger {
-        "search.${::govuk_platform}.alphagov.co.uk":
-          additional_port => 8083;
         "static.${::govuk_platform}.alphagov.co.uk":;
       }
 
@@ -38,14 +37,8 @@ class govuk_node::frontend_server inherits govuk_node::base {
         aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback'],
         ssl_only  => true
       }
-
-      nginx::config::vhost::proxy {
-        "search.$::govuk_platform.alphagov.co.uk":
-          to => ['localhost:8080'];
-        }
     }
     default: {
-      include govuk::apps::search
       include govuk::apps::static
     }
   }

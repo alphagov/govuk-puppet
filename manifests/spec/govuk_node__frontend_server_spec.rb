@@ -21,10 +21,10 @@ describe 'govuk_node::frontend_server', :type => :class do
     it do
       should_not raise_error(Puppet::ParseError)
       should include_class('govuk::apps::frontend')
-      should_not include_class('govuk::apps::search')
+      should include_class('govuk::apps::search')
       should_not include_class('govuk::apps::static')
       should_not contain_apache2__vhost__passenger('www.production.alphagov.co.uk')
-      should contain_apache2__vhost__passenger('search.production.alphagov.co.uk')
+      should_not contain_apache2__vhost__passenger('search.production.alphagov.co.uk')
       should contain_apache2__vhost__passenger('static.production.alphagov.co.uk')
     end
   end
