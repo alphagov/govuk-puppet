@@ -14,7 +14,7 @@ describe 'govuk_node::backend_server', :type => :class do
   context 'in production' do
     let(:facts) { { :govuk_class => "backend", :govuk_platform => 'production' } }
     it { should_not raise_error(Puppet::ParseError) }
-    it { should_not include_class('govuk::apps::panopticon') }
-    it { should contain_apache2__vhost__passenger('panopticon.production.alphagov.co.uk') }
+    it { should include_class('govuk::apps::panopticon') }
+    it { should_not contain_apache2__vhost__passenger('panopticon.production.alphagov.co.uk') }
   end
 end

@@ -17,24 +17,8 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   include imagemagick
 
-  # WIP, transitioning frontend to unicorn but don't want changes to go to production yet
-  # -- ppotter, 2012-09-03
-  case $::govuk_platform {
-    production: {
-      apache2::vhost::passenger {
-        "panopticon.${::govuk_platform}.alphagov.co.uk":;
-      }
+  include govuk::apps::panopticon
 
-      nginx::config::vhost::proxy {
-        "panopticon.$::govuk_platform.alphagov.co.uk":
-          to       => ['localhost:8080'],
-          ssl_only => true;
-      }
-    }
-    default: {
-      include govuk::apps::panopticon
-    }
-  }
   apache2::vhost::passenger {
     "needotron.${::govuk_platform}.alphagov.co.uk":;
     "signon.${::govuk_platform}.alphagov.co.uk":;
