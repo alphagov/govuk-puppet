@@ -86,4 +86,17 @@ describe 'govuk::app::config', :type => :define do
     it { should contain_nginx__config__vhost__proxy('giraffe.example.com').with_aliases(['foo.example.com','bar.example.com']) }
   end
 
+  context 'without vhost' do
+    let(:params) do
+      {
+        :port => 8000,
+        :app_type => 'rack',
+        :domain => 'example.com',
+        :vhost_full => 'giraffe.example.com',
+        :enable_nginx_vhost => false,
+      }
+    end
+
+    it { should_not contain_nginx__config__vhost__proxy('giraffe.example.com') }
+  end
 end
