@@ -47,10 +47,6 @@ class govuk_node::frontend_server inherits govuk_node::base {
     default: {
       include govuk::apps::search
       include govuk::apps::static
-
-      apache2::vhost::passenger {
-        "static.${::govuk_platform}.alphagov.co.uk":;
-      }
     }
   }
 }
