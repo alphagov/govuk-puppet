@@ -169,5 +169,9 @@ class users::groups::govuk {
     fullname   => 'Alex Torrance',
     email      => 'alex.torrance@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'rthorn':
+    fullname   => 'Russell Thorn',
+    email      => 'russell.thorn@digital.cabinet-office.gov.uk';
+  }
 
 }
