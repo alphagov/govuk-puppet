@@ -19,8 +19,8 @@ server {
   ssl_certificate           /etc/nginx/ssl/www.preview.alphagov.co.uk.crt;
   ssl_certificate_key       /etc/nginx/ssl/www.preview.alphagov.co.uk.key;
 
-  limit_req zone=one burst=5 nodelay;
-  limit_conn two 4;
+  limit_req zone=rate burst=5 nodelay;
+  limit_conn connections 4;
 
   ssl_protocols             TLSv1 SSLv3;
   proxy_set_header          X-Forwarded-Ssl on;
