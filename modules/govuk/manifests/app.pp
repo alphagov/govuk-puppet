@@ -62,6 +62,13 @@ define govuk::app(
   $environ_source = undef,
 
   #
+  # enable_nginx_vhost: should this app be fronted by nginx?
+  #
+  # Boolean: true or false
+  #
+  $enable_nginx_vhost = true,
+
+  #
   # vhost: the virtual host prefix for this app
   #
   # Defaults to $title, the name of your application.
@@ -147,6 +154,7 @@ define govuk::app(
     platform           => $platform,
     health_check_path  => $health_check_path,
     health_check_port  => $health_check_port,
+    enable_nginx_vhost => $enable_nginx_vhost,
   }
 
   service { $title:
