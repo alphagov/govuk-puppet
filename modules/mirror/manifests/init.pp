@@ -23,8 +23,8 @@ class mirror {
   cron { 'update-latest-to-mirror':
         ensure  => present,
         user    => 'root',
-        hour    => 15,# The time can be changed to any convenient time of the day
-        minute  => 55,# The time here is just added for the convenience of testing
+        hour    => 00,# The time can be changed to any convenient time of the day
+        minute  => 00,# The time here is just added for the convenience of testing
         command => '/usr/local/bin/govuk_update_mirror',
         require => File['/usr/local/bin/govuk_update_mirror'],
   }
