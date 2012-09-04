@@ -19,40 +19,26 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::designprinciples
   include govuk::apps::licencefinder
   include govuk::apps::publicapi
+  include govuk::apps::frontend
 
   class { 'nginx': node_type => frontend_server }
 
-  # WIP, transitioning frontend & search to unicorn but don't want changes to go to production yet
+  # WIP, transitioning search to unicorn but don't want changes to go to production yet
   # -- ppotter, 2012-09-03
   case $::govuk_platform {
     production: {
       apache2::vhost::passenger {
-        "www.${::govuk_platform}.alphagov.co.uk":
-          aliases         => ["frontend.${::govuk_platform}.alphagov.co.uk", 'www.gov.uk'];
         "search.${::govuk_platform}.alphagov.co.uk":
           additional_port => 8083;
         "static.${::govuk_platform}.alphagov.co.uk":;
       }
 
       nginx::config::vhost::proxy {
-        'www.gov.uk':
-          to      => ['localhost:8080'];
-        "www.$::govuk_platform.alphagov.co.uk":
-          to      => ['localhost:8080'],
-          aliases => ["frontend.$::govuk_platform.alphagov.co.uk"];
         "search.$::govuk_platform.alphagov.co.uk":
           to => ['localhost:8080'];
         }
-
-      file { "/data/vhost/frontend.${::govuk_platform}.alphagov.co.uk":
-        ensure => link,
-        target => "/data/vhost/www.${::govuk_platform}.alphagov.co.uk",
-        owner  => 'deploy',
-        group  => 'deploy',
-      }
     }
     default: {
-      include govuk::apps::frontend
       include govuk::apps::search
 
       apache2::vhost::passenger {
