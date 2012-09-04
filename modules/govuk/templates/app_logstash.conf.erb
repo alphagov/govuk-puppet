@@ -29,34 +29,34 @@ input {
   }
 }
 
-filter {
-  grok {
-    type => "<%= @title %>-nginx-access"
-    pattern => '%{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\]  "(?:%{WORD:verb} %{URIPATHPARAM:request}(?: HTTP/%{NUMBER:httpversion})?|-)" %{NUMBER:response} (?:%{NUMBER:bytes}|-) "(?:%{URI:referrer}|-)" %{QS:agent} %{NUMBER:request_time} %{NUMBER:upstream_response_time} %{NUMBER:gzip_ratio} (?:%{WORD:cache_hit}|-)%{GREEDYDATA}'
-    add_tag => [ "nginx" ]
-  }
-  grok {
-    pattern => "%{WORD:method}%{SPACE}%{DATA}%{SPACE}action=%{WORD:controller}#%{WORD:action}%{SPACE}status=%{INT:status}%{SPACE}duration=%{NUMBER:duration}%{SPACE}view=%{NUMBER:view}%{GREEDYDATA}"
-    type => "<%= @title %>-app"
-    add_tag => [ "lograge" ]
-  }
-}
+#filter {
+#  grok {
+#    type => "<%= @title %>-nginx-access"
+#    pattern => '%{IPORHOST:clientip} %{USER:ident} %{USER:auth} \[%{HTTPDATE:timestamp}\]  "(?:%{WORD:verb} %{URIPATHPARAM:request}(?: HTTP/%{NUMBER:httpversion})?|-)" %{NUMBER:response} (?:%{NUMBER:bytes}|-) "(?:%{URI:referrer}|-)" %{QS:agent} %{NUMBER:request_time} %{NUMBER:upstream_response_time} %{NUMBER:gzip_ratio} (?:%{WORD:cache_hit}|-)%{GREEDYDATA}'
+#    add_tag => [ "nginx" ]
+#  }
+#  grok {
+#    pattern => "%{WORD:method}%{SPACE}%{DATA}%{SPACE}action=%{WORD:controller}#%{WORD:action}%{SPACE}status=%{INT:status}%{SPACE}duration=%{NUMBER:duration}%{SPACE}view=%{NUMBER:view}%{GREEDYDATA}"
+#    type => "<%= @title %>-app"
+#    add_tag => [ "lograge" ]
+#  }
+#}
 
-output {
-  statsd {
-    host => 'localhost'
-    tags => [ "lograge" ]
-    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.duration", "%{duration}" ]
-  }
-  statsd {
-    host => 'localhost'
-    tags => [ "lograge" ]
-    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.view", "%{view}" ]
-  }
-  statsd {
-    host => 'localhost'
-    tags => [ "nginx" ]
-    increment => "nginx.response.%{verb}.%{response}"
-    count => [ "nginx.bytes", "%{bytes}" ]
-  }
-}
+#output {
+#  statsd {
+#    host => 'localhost'
+#    tags => [ "lograge" ]
+#    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.duration", "%{duration}" ]
+#  }
+#  statsd {
+#    host => 'localhost'
+#    tags => [ "lograge" ]
+#    timing => [ "<%= @title %>.%{controller}.%{action}.%{method}.view", "%{view}" ]
+#  }
+#  statsd {
+#    host => 'localhost'
+#    tags => [ "nginx" ]
+#    increment => "nginx.response.%{verb}.%{response}"
+#    count => [ "nginx.bytes", "%{bytes}" ]
+#  }
+#}

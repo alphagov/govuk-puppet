@@ -1,6 +1,6 @@
 class logstash::package {
 
-  $logstash_version = '1.1.1.sincedbfixed'
+  $logstash_version = '1.1.1.sincedbfixed.grokdisabled'
 
   include openjdk
 
