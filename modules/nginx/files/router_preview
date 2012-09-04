@@ -51,7 +51,7 @@ server {
     satisfy any;
 
     root /var/www/fallback;
-    try_files /flatsite/$uri /flatsite/$uri/ /flatsite/$uri/index.html /flatsite/index.html /fallback.html @proxy;
+    try_files /fallback.html /flatsite/$uri /flatsite/$uri/ /flatsite/$uri/index.html /flatsite/index.html @proxy;
   }
   location @proxy {
     proxy_pass http://varnish;
@@ -81,7 +81,7 @@ server {
 }
 
 server {
-  listen 443 ssl;
+  listen 443 ssl default_server;
   server_name router.preview.alphagov.co.uk;
   ssl_certificate           /etc/nginx/ssl/www.preview.alphagov.co.uk.crt;
   ssl_certificate_key       /etc/nginx/ssl/www.preview.alphagov.co.uk.key;
