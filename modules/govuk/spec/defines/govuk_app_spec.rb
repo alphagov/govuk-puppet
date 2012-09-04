@@ -20,14 +20,16 @@ describe 'govuk::app', :type => :define do
       }
     end
 
-    it { should contain_file('/var/apps/giraffe').with_ensure('link') }
-    it { should contain_file('/var/run/giraffe') }
-    it { should contain_file('/var/log/giraffe') }
-    it { should contain_file('/etc/envmgr/giraffe.conf').with_content('') }
-    it { should contain_file('/etc/init/giraffe.conf') }
-    it { should contain_file('/data/vhost/giraffe.production.alphagov.co.uk') }
+    it do
+      should contain_file('/var/apps/giraffe').with_ensure('link')
+      should contain_file('/var/run/giraffe')
+      should contain_file('/var/log/giraffe')
+      should contain_file('/etc/envmgr/giraffe.conf').with_content('')
+      should contain_file('/etc/init/giraffe.conf')
+      should contain_file('/data/vhost/giraffe.production.alphagov.co.uk')
+      should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk')
+    end
 
-    it { should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk') }
   end
 
   context 'when specifying environ_source' do

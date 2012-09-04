@@ -1,9 +1,11 @@
 require_relative '../../../../spec_helper'
 
 describe 'varnish', :type => :class do
-  it { should contain_file('/etc/varnish/default.vcl') }
-  it { should contain_file('/etc/default/varnish') }
-  it { should contain_package('varnish').with_ensure('installed') }
-  it { should contain_service('varnish') }
+  it do
+    should contain_file('/etc/varnish/default.vcl')
+    should contain_file('/etc/default/varnish')
+    should contain_package('varnish').with_ensure('installed')
+    should contain_service('varnish')
+  end
 end
 
