@@ -5,6 +5,8 @@ class nginx::config::router {
     require => Class['nginx::package'],
     notify  => Exec['nginx_reload'],
   }
+  # The cache/router also contains a flat site as a backup for software failures
+  nginx::config::vhost::mirror { 'www.gov.uk': ssl_only => true }
   file { '/etc/htpasswd':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.default',
