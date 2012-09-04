@@ -22,7 +22,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
 
   class { 'nginx': node_type => frontend_server }
 
-  # WIP, transitioning frontend to unicorn but don't want changes to go to production yet
+  # WIP, transitioning frontend & search to unicorn but don't want changes to go to production yet
   # -- ppotter, 2012-09-03
   case $::govuk_platform {
     production: {
@@ -53,16 +53,10 @@ class govuk_node::frontend_server inherits govuk_node::base {
     }
     default: {
       include govuk::apps::frontend
+      include govuk::apps::search
 
       apache2::vhost::passenger {
-        "search.${::govuk_platform}.alphagov.co.uk":
-          additional_port => 8083;
         "static.${::govuk_platform}.alphagov.co.uk":;
-      }
-
-      nginx::config::vhost::proxy {
-        "search.$::govuk_platform.alphagov.co.uk":
-          to => ['localhost:8080'];
       }
     }
   }
