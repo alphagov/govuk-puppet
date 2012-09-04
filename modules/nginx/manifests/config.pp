@@ -95,7 +95,7 @@ class nginx::config::redirect {
 }
 
 class nginx::config::mirror_server {
-  nginx::config::vhost::mirror { 'www.gov.uk': ssl_only => true }
+  nginx::config::vhost::mirror { 'www.gov.uk':}
 }
 
 class nginx::config::mapit {

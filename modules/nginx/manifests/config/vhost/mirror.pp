@@ -1,4 +1,4 @@
-define nginx::config::vhost::mirror ($aliases = [], $ssl_only = false) {
+define nginx::config::vhost::mirror ($aliases = [], $port = "443") {
 
   nginx::config::site { $title:
     content => template('nginx/mirror-vhost.conf')

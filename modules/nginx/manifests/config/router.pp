@@ -6,7 +6,7 @@ class nginx::config::router {
     notify  => Exec['nginx_reload'],
   }
   # The cache/router also contains a flat site as a backup for software failures
-  nginx::config::vhost::mirror { "flatsite.${::govuk_platform}.alphagov.co.uk": ssl_only => true }
+  nginx::config::vhost::mirror { "flatsite.${::govuk_platform}.alphagov.co.uk":port => "444" }
   file { '/etc/htpasswd':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.default',
