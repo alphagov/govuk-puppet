@@ -10,17 +10,9 @@ class nginx::config::router {
     notify  => Exec['nginx_reload'],
   }
   if $::govuk_platform == 'production' {
-    $host = 'www.gov.uk'
+    nginx::config::ssl {'www.gov.uk': }
   } else {
-    $host = "www.$::govuk_platform.alphagov.co.uk"
-  }
-  file { "/etc/nginx/ssl/$host.crt":
-    ensure  => present,
-    content => extlookup("${host}_crt", ''),
-  }
-  file { "/etc/nginx/ssl/$host.key":
-    ensure  => present,
-    content => extlookup("${host}_key", ''),
+    nginx::config::ssl {"www.$::govuk_platform.alphagov.co.uk": }
   }
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":
     check_command       => 'check_ganglia_metric!nginx_http_5xx!0.05!0.1',
