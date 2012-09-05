@@ -1,0 +1,15 @@
+#!/bin/bash
+REG_UPDATES=`apt-get -ys upgrade | egrep '^Inst' | wc -l`
+TOT_UPDATES=`apt-get -ys dist-upgrade | egrep '^Inst' | wc -l`
+SEC_UPDATES=$(($TOT_UPDATES - $REG_UPDATES))
+#echo $REG_UPDATES $SEC_UPDATES $TOT_UPDATES
+if [ $SEC_UPDATES -gt 0 ]; then
+  echo "CRITICAL: $SEC_UPDATES security updates need to be applied with 'apt-get dist-update'"
+  exit 2
+elif [ $REG_UPDATES -gt 0 ]; then
+  echo "WARNING: $TOT_UPDATES package updates need to be applied with 'apt-get update'"
+  exit 1
+else
+  echo "OK: All packages up to date"
+  exit 0
+fi
