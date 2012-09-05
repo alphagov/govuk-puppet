@@ -32,8 +32,12 @@ class development {
     number_of_replicas => '0',
   }
 
-  class { 'nginx':
-    node_type => development
+  include nginx
+
+  nginx::config::site { '/etc/nginx/sites-enabled/default':
+    # FIXME: this file probably shouldn't live in the nginx module,
+    # can't think of a better place at the moment
+    source  => 'puppet:///modules/nginx/development',
   }
 
   $mysql_password = ''

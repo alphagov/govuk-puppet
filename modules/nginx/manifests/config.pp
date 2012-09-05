@@ -63,7 +63,6 @@ class nginx::config($node_type) {
   }
 
   case $node_type  {
-    development:       { include nginx::config::development }
     router:            { include nginx::config::router }
     ertp_preview:      { include nginx::config::ertp::preview }
     ertp_api_staging:  { include nginx::config::ertp::api::staging }
