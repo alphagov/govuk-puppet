@@ -2,13 +2,6 @@ class govuk_node::frontend_server inherits govuk_node::base {
 
   include govuk_node::ruby_app_server
 
-  class { 'apache2':
-    port => '8080'
-  }
-  class { 'passenger':
-    maxpoolsize => 12
-  }
-
   include govuk::apps::planner
   include govuk::apps::datainsight_frontend
   include govuk::apps::tariff
@@ -27,6 +20,13 @@ class govuk_node::frontend_server inherits govuk_node::base {
   # -- ppotter, 2012-09-04
   case $::govuk_platform {
     production: {
+      class { 'apache2':
+        port => '8080'
+      }
+      class { 'passenger':
+        maxpoolsize => 12
+      }
+
       apache2::vhost::passenger {
         "search.${::govuk_platform}.alphagov.co.uk":
           additional_port => 8083;
