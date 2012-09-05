@@ -14,9 +14,23 @@ class govuk_node::base {
   case $::govuk_provider {
     'sky': {
       include ufw::govuk
+
+      user { 'ubuntu':
+        ensure   => present,
+        password => extlookup('ubuntu_pass_hash','!!'),
+        groups   => ['admin'],
+        require  => Group['admin'];
+      }
     }
     'scc': {
       include ufw::govuk
+
+      user { 'ubuntu':
+        ensure   => present,
+        password => extlookup('ubuntu_pass_hash','!!'),
+        groups   => ['admin'],
+        require  => Group['admin'];
+      }
     }
     default: {}
   }
