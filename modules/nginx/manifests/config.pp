@@ -73,7 +73,7 @@ class nginx::config($node_type) {
     ertp_api_staging:  { include nginx::config::ertp::api::staging }
     ertp_api_preview:  { include nginx::config::ertp::api::preview }
     ertp_staging:      { include nginx::config::ertp::staging }
-    mirror:            { include nginx::config::mirror_server }
+    mirror:            { }
     UNSET:             {}
     default: {
       notify { '$node_type':
@@ -92,10 +92,6 @@ class nginx::config::redirect {
         'alpha.gov.uk':
       to => 'http://webarchive.nationalarchives.gov.uk/20111004104716/http://alpha.gov.uk/';
   }
-}
-
-class nginx::config::mirror_server {
-  nginx::config::vhost::mirror { 'www.gov.uk':}
 }
 
 class nginx::config::mapit {
