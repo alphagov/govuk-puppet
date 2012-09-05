@@ -2,6 +2,7 @@ class nagios::client::checks {
 
   anchor { ['nagios::client::checks::begin', 'nagios::client::checks::end']: }
   include nagios::client::check_rw_rootfs
+  include nagios::client::check_apt_updates
   Anchor['nagios::client::checks::begin'] -> Class['nagios::client::check_rw_rootfs'] -> Anchor['nagios::client::checks::end']
 
   @@nagios::check { "check_ping_${::hostname}":
@@ -14,12 +15,6 @@ class nagios::client::checks {
   @@nagios::check { "check_disk_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_disk',
     service_description => "check disk on ${::govuk_class}-${::hostname}",
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  @@nagios::check { "check_apt_updates_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_apt_updates',
-    service_description => "check package updates on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
