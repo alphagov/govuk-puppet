@@ -1,4 +1,9 @@
-define nginx::config::vhost::static($protected = true, $aliases = [], $ssl_only = false) {
+define nginx::config::vhost::static(
+  $to = "localhost:8080", #FIXME: remove this default value once static is no longer served by apache
+  $protected = true,
+  $aliases = [],
+  $ssl_only = false
+) {
   nginx::config::ssl { $name: }
   nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),
