@@ -2,16 +2,17 @@ define govuk::app::config (
   $app_type,
   $domain,
   $port,
-  $vhost_aliases,
   $vhost_full,
-  $vhost_protected,
-  $vhost_ssl_only,
-  $nginx_extra_config,
-  $platform,
-  $health_check_path,
-  $health_check_port,
+  $vhost_aliases = [],
+  $vhost_protected = true,
+  $vhost_ssl_only = false,
+  $nginx_extra_config = '',
+  $platform = $::govuk_platform,
+  $health_check_path = 'NOTSET',
+  $health_check_port = 'NOTSET',
   $environ_source  = undef,
-  $environ_content = undef
+  $environ_content = undef,
+  $enable_nginx_vhost = true
 ) {
   if $environ_content != undef and $environ_source != undef {
     fail 'You may only set one of $environ_content and $environ_source in govuk::app'
@@ -38,16 +39,18 @@ define govuk::app::config (
 
   $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
 
-  # Expose this application from nginx
-  nginx::config::vhost::proxy { $vhost_full:
-    to                => ["localhost:${port}"],
-    aliases           => $vhost_aliases_real,
-    protected         => $vhost_protected,
-    ssl_only          => $vhost_ssl_only,
-    extra_config      => $nginx_extra_config,
-    platform          => $platform,
-    health_check_path => $health_check_path,
-    health_check_port => $health_check_port
+  if $enable_nginx_vhost {
+    # Expose this application from nginx
+    nginx::config::vhost::proxy { $vhost_full:
+      to                => ["localhost:${port}"],
+      aliases           => $vhost_aliases_real,
+      protected         => $vhost_protected,
+      ssl_only          => $vhost_ssl_only,
+      extra_config      => $nginx_extra_config,
+      platform          => $platform,
+      health_check_path => $health_check_path,
+      health_check_port => $health_check_port
+    }
   }
 
   # Set up monitoring

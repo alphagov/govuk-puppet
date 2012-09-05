@@ -21,41 +21,15 @@ describe 'govuk::app', :type => :define do
     end
 
     it do
-      should contain_file('/var/apps/giraffe').with_ensure('link')
-      should contain_file('/var/run/giraffe')
-      should contain_file('/var/log/giraffe')
-      should contain_file('/etc/envmgr/giraffe.conf').with_content('')
-      should contain_file('/etc/init/giraffe.conf')
-      should contain_file('/data/vhost/giraffe.production.alphagov.co.uk')
-      should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk')
+      should contain_govuk__app__package('giraffe').with(
+        'vhost_full' => 'giraffe.production.alphagov.co.uk',
+        'platform' => 'production',
+      )
+      should contain_govuk__app__config('giraffe').with(
+        'domain' => 'production.alphagov.co.uk',
+      )
+      should contain_service('giraffe').with_provider('upstart')
     end
-
-  end
-
-  context 'when specifying environ_source' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :platform => 'development',
-        :environ_source => 'puppet:///foo/bar/baz',
-      }
-    end
-
-    it { should contain_file('/etc/envmgr/giraffe.conf').with_source('puppet:///foo/bar/baz').without_content }
-  end
-
-  context 'when specifying environ_content' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :platform => 'development',
-        :environ_content => 'NECK=very long',
-      }
-    end
-
-    it { should contain_file('/etc/envmgr/giraffe.conf').with_content('NECK=very long').without_source }
   end
 
   context 'on the development platform' do
@@ -67,20 +41,6 @@ describe 'govuk::app', :type => :define do
       }
     end
 
-    it { should contain_nginx__config__vhost__proxy('giraffe.dev.gov.uk') }
+    it { should contain_govuk__app__config('giraffe').with_vhost_full('giraffe.dev.gov.uk') }
   end
-
-  context 'with aliases' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :platform => 'production',
-        :vhost_aliases => ['foo','bar']
-      }
-    end
-
-    it { should contain_nginx__config__vhost__proxy('giraffe.production.alphagov.co.uk').with_aliases(['foo.production.alphagov.co.uk','bar.production.alphagov.co.uk']) }
-  end
-
 end

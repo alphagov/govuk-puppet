@@ -23,14 +23,20 @@ class govuk_node::frontend_server inherits govuk_node::base {
 
   class { 'nginx': node_type => frontend_server }
 
-  # WIP, transitioning search to unicorn but don't want changes to go to production yet
-  # -- ppotter, 2012-09-03
+  # WIP, transitioning search & static to unicorn but don't want changes to go to production yet
+  # -- ppotter, 2012-09-04
   case $::govuk_platform {
     production: {
       apache2::vhost::passenger {
         "search.${::govuk_platform}.alphagov.co.uk":
           additional_port => 8083;
         "static.${::govuk_platform}.alphagov.co.uk":;
+      }
+
+      nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
+        protected => false,
+        aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback'],
+        ssl_only  => true
       }
 
       nginx::config::vhost::proxy {
@@ -40,16 +46,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
     }
     default: {
       include govuk::apps::search
-
-      apache2::vhost::passenger {
-        "static.${::govuk_platform}.alphagov.co.uk":;
-      }
+      include govuk::apps::static
     }
-  }
-
-  nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
-    protected => false,
-    aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback'],
-    ssl_only  => true
   }
 }
