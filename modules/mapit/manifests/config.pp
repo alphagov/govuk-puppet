@@ -8,8 +8,7 @@ class mapit::config {
                 ]
   }
 
-  file { '/etc/nginx/sites-enabled/mapit':
-    ensure  => file,
+  nginx::config::site { 'mapit':
     source  => 'puppet:///modules/mapit/nginx_mapit.conf'
   }
 }
