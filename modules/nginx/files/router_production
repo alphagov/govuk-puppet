@@ -56,7 +56,7 @@ server {
   }
   location / {
     root /var/www/fallback;
-    try_files /fallback.html /flatsite/$uri /flatsite/$uri.html /flatsite/$uri/ /flatsite/$uri/index.html /flatsite/index.html @proxy;
+    try_files /fallback.html /flatsite/$uri /flatsite/$uri.html /flatsite/$uri/ /flatsite/$uri.1.html /flatsite/$uri/index.html /flatsite/index.html @proxy;
   }
   location @proxy {
     proxy_pass http://varnish;
