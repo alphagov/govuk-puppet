@@ -1,14 +1,15 @@
 [main]
 preferred_serialization_format = yaml
 pluginsync = true
+lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
+
 <% if govuk_platform == 'development' %>
 modulepath = /var/govuk/puppet/modules
 manifestdir = /var/govuk/puppet/manifests
 <% else %>
 [agent]
-report=false
-configtimeout=600
-vardir=/var/lib/puppet { mode = 644 }
+report = false
+configtimeout = 600
 
 [master]
 reports = store

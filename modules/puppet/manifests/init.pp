@@ -5,7 +5,7 @@ class puppet {
   }
 
   package { 'puppet':
-    ensure   => '2.7.18',
+    ensure   => '2.7.19',
     provider => gem,
     require  => Group['puppet'];
   }

@@ -5,20 +5,14 @@ class puppet::cronjob {
 
   case $::govuk_provider {
     sky: {
-      cron { 'puppet':
-        ensure  => absent,
-        user    => 'root',
-        minute  => [$first, $second],
-        command => '/usr/bin/puppet agent --onetime --no-daemonize; /bin/chmod 644 /var/lib/puppet/state/*.yaml',
-        require => Package['puppet'];
-      }
+      cron { 'puppet': ensure => absent }
     }
     default: {
       cron { 'puppet':
         ensure  => present,
         user    => 'root',
         minute  => [$first, $second],
-        command => '/usr/bin/puppet agent --onetime --no-daemonize; /bin/chmod 644 /var/lib/puppet/state/*.yaml',
+        command => '/usr/bin/puppet agent --onetime --no-daemonize',
         require => Package['puppet'];
       }
     }
