@@ -18,7 +18,7 @@
 -b 8192
 
 ## Set failure mode to panic
--f 2
+-f 1
 
 ##
 ## FAU_SAR.1, FAU_SAR.2, FMT_MTD.1
@@ -228,6 +228,9 @@
 -w /etc/security/pam_env.conf -p wa -k CFG_pam
 -w /etc/security/namespace.conf -p wa -k CFG_pam
 -w /etc/security/namespace.init -p wa -k CFG_pam
+
+## GDS specific secrets
+-w /etc/puppet/ssl -p wa -k CFG_puppet_ssl
 
 ## postfix configuration
 -w /etc/aliases -p wa -k CFG_aliases
