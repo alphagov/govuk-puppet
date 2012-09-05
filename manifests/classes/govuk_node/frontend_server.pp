@@ -14,7 +14,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::publicapi
   include govuk::apps::frontend
 
-  class { 'nginx': node_type => frontend_server }
+  include nginx
 
   # WIP, transitioning search & static to unicorn but don't want changes to go to production yet
   # -- ppotter, 2012-09-04
