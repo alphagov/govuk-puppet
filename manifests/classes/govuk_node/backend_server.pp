@@ -8,9 +8,8 @@ class govuk_node::backend_server inherits govuk_node::base {
     maxpoolsize => 12,
   }
 
-  class { 'nginx':
-    node_type => backend_server,
-  }
+  include nginx
+
   package { 'graphviz':
     ensure => installed
   }

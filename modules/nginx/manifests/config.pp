@@ -64,7 +64,6 @@ class nginx::config($node_type) {
 
   case $node_type  {
     redirect:          { }
-    backend_server:    { }
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
     mapit:             { include nginx::config::mapit }
