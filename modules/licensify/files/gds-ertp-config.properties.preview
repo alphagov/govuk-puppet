@@ -1,4 +1,4 @@
-mongo.database.hosts=elms-mongo-1,elms-mongo-2,elms-mongo-3
+mongo.database.hosts=licensify-mongo0,licensify-mongo1,licensify-mongo2
 places.api.url=http://places-api:9700/places
 feedActor=true
 
