@@ -7,4 +7,9 @@ class mapit::config {
                   Exec['unzip_mapit'],
                 ]
   }
+
+  file { '/etc/nginx/sites-enabled/mapit':
+    ensure  => file,
+    source  => 'puppet:///modules/mapit/nginx_mapit.conf'
+  }
 }

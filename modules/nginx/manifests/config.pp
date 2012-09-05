@@ -65,7 +65,6 @@ class nginx::config($node_type) {
   case $node_type  {
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
-    mapit:             { include nginx::config::mapit }
     ertp_preview:      { include nginx::config::ertp::preview }
     ertp_api_staging:  { include nginx::config::ertp::api::staging }
     ertp_api_preview:  { include nginx::config::ertp::api::preview }
@@ -76,12 +75,5 @@ class nginx::config($node_type) {
         message => "Unrecognised node type: $node_type"
       }
     }
-  }
-}
-
-class nginx::config::mapit {
-  file { '/etc/nginx/sites-enabled/mapit':
-    ensure  => file,
-    source  => 'puppet:///modules/mapit/nginx_mapit.conf'
   }
 }

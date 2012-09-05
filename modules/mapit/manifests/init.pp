@@ -1,7 +1,7 @@
 class mapit {
 
   include mapit::package, mapit::config, mapit::service
-  class { 'nginx' : node_type => 'mapit' }
+  include nginx
 
   anchor { ['mapit::start', 'mapit::end']: }
 
