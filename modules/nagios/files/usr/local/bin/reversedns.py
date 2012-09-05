@@ -3,40 +3,31 @@
 import socket
 import sys
 
-if sys.argv[1] == "ip-10-236-86-54.eu-west-1.compute.internal":
-        print "frontend.production.alphagov.co.uk"
-        exit(0)
+STATIC_MAPPING = {
+    'ip-10-236-86-54.eu-west-1.compute.internal': 'frontend.production.alphagov.co.uk',
+    'ip-10-250-157-37.eu-west-1.compute.internal': 'static.production.alphagov.co.uk',
+    'ip-10-53-54-49.eu-west-1.compute.internal': 'frontend.cluster',
+    'ip-10-54-182-112.eu-west-1.compute.internal': 'signonotron.production.alphagov.co.uk',
+    'ip-10-32-31-104.eu-west-1.compute.internal': 'graylog.cluster',
+    'ip-10-229-67-207.eu-west-1.compute.internal': 'whitehall.production.alphagov.co.uk',
+}
 
-if sys.argv[1] == "ip-10-250-157-37.eu-west-1.compute.internal":
-        print "static.production.alphagov.co.uk"
-        exit(0)
+def main():
+    if len(sys.argv) != 2:
+        print >>sys.stderr, 'Usage: python reversedns.py <name>'
+        sys.exit(1)
 
-if sys.argv[1] == "ip-10-53-54-49.eu-west-1.compute.internal":
-        print "frontend.cluster"
-        exit(0)
+    name = sys.argv[1]
 
-if sys.argv[1] == "ip-10-54-182-112.eu-west-1.compute.internal":
-        print "signonotron.production.alphagov.co.uk"
-        exit(0)
+    if name in STATIC_MAPPING:
+        print STATIC_MAPPING[name]
+        return
 
-if sys.argv[1] == "ip-10-32-31-104.eu-west-1.compute.internal":
-        print "graylog.cluster"
-        exit(0)
+    try:
+        print socket.gethostbyaddr(name)[0]
+    except:
+        print name
 
-# hack for the change to whitehalls host not being done correctly
-if sys.argv[1] == "ip-10-229-67-207.eu-west-1.compute.internal":
-#        print "ip-10-224-50-207.eu-west-1.compute.internal"
-        print "whitehall.production.alphagov.co.uk"
-        exit(0)
 
-if sys.argv[1] == "ip-10-236-86-54.eu-west-1.compute.internal":
-        print "frontend.production.alphagov.co.uk"
-
-# hacks to pickup correct graphs, due to local hosts and ganglia name mismatch
-if sys.argv[1] in ['ip-10-54-182-112.eu-west-1.compute.internal', 'ip-10-236-86-54.eu-west-1.compute.internal', 'ip-10-250-157-37.eu-west-1.compute.internal', 'ip-10-53-54-49.eu-west-1.compute.internal', 'ip-10-32-31-104.eu-west-1.compute.internal' ]:
-        print sys.argv[1]
-        exit(0)
-try:
-        print socket.gethostbyaddr(sys.argv[1])[0]
-except:
-        print sys.argv[1]
+if __name__ == '__main__':
+    main()
