@@ -63,7 +63,7 @@ class nginx::config($node_type) {
   }
 
   case $node_type  {
-    redirect:          { include nginx::config::redirect }
+    redirect:          { }
     frontend_server:   { }
     backend_server:    { }
     development:       { include nginx::config::development }
@@ -80,17 +80,6 @@ class nginx::config($node_type) {
         message => "Unrecognised node type: $node_type"
       }
     }
-  }
-}
-
-class nginx::config::redirect {
-  nginx::config::vhost::redirect {
-    'gov.uk':
-      to => 'https://www.gov.uk/';
-        'blog.alpha.gov.uk':
-      to => 'http://digital.cabinetoffice.gov.uk/';
-        'alpha.gov.uk':
-      to => 'http://webarchive.nationalarchives.gov.uk/20111004104716/http://alpha.gov.uk/';
   }
 }
 
