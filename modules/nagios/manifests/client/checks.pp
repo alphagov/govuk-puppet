@@ -17,6 +17,12 @@ class nagios::client::checks {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
+  @@nagios::check { "check_apt_updates_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_apt_updates',
+    service_description => "check package updates on ${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
   @@nagios::check { "check_users_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_users',
     service_description => "check users on ${::govuk_class}-${::hostname}",
