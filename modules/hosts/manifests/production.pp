@@ -28,7 +28,12 @@ class hosts::production {
   host { 'datainsight-frontend.production.alphagov.co.uk': ip => '10.53.54.49' }
 
   host { 'rds.cluster':         ip => '10.228.229.245' }
-  host { 'puppet.cluster':      ip => '10.226.54.244' }
+
+  host { 'puppet': ensure => absent }
+  host { 'puppet.cluster':
+    ip           => '10.32.18.246',
+    host_aliases => ['puppet'],
+  }
 
   host { 'frontend.cluster':    ip => '10.53.54.49' }
   host { 'frontend.cluster-1':  ip => '10.236.86.54' }
