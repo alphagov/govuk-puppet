@@ -17,8 +17,8 @@ class elms_base {
   # resolves to an internal (10.0.0.0/8) IP address.
   if $::govuk_provider != 'sky' and $::govuk_provider != 'scc' {
     exec { 'add-production.alphagov.co.uk-to-resolv-search':
-      command => "sed -i'' -E -e 's/^(search .+)$/\1 ${$::govuk_platform}.alphagov.co.uk/' /etc/resolv.conf",
-      unless  => "grep -qE '^search\b.* ${$::govuk_platform}.alphagov.co.uk' /etc/resolv.conf"
+      command => "sed -i'' -E -e 's/^(search .+)$/\\1 ${$::govuk_platform}.alphagov.co.uk/' /etc/resolv.conf",
+      unless  => "grep -qE '^search\\b.* ${$::govuk_platform}.alphagov.co.uk' /etc/resolv.conf"
     }
   }
 
