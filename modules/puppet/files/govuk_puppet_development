@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /var/govuk/puppet
+exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp "$@"

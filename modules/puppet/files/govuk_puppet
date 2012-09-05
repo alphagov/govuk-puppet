@@ -1,0 +1,2 @@
+#!/bin/sh
+exec sudo puppet agent --onetime --no-daemonize "$@"
