@@ -1,4 +1,4 @@
-class nagios::client::check_rw_rootfs {
+class nagios::client::check_apt_updates {
   @nagios::plugin { 'check_apt_updates':
     source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_apt_updates',
   }
