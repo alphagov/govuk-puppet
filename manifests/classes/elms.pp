@@ -15,7 +15,7 @@ class elms_base {
   # "production.alphagov.co.uk" to the search path, we can resolve "licensify-
   # frontend" as a CNAME to an Amazon public DNS name, which within EC2
   # resolves to an internal (10.0.0.0/8) IP address.
-  if !($::govuk_provider in ['sky', 'scc']) {
+  if $::govuk_provider != 'sky' and $::govuk_provider != 'scc' {
     exec { 'add-production.alphagov.co.uk-to-resolv-search':
       command => "sed -i'' -E -e 's/^(search .+)$/\1 ${$::govuk_platform}.alphagov.co.uk/' /etc/resolv.conf",
       unless  => "grep -qE '^search\b.* ${$::govuk_platform}.alphagov.co.uk' /etc/resolv.conf"
