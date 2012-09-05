@@ -4,4 +4,5 @@ class monitoring {
   include graphite::client
   include logstash::client
   include logster
+  include auditd
 }
