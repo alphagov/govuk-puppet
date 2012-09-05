@@ -1,5 +1,5 @@
 class govuk_node::mirror_server inherits govuk_node::base {
-  class { 'nginx': node_type => "mirror" }
+  include nginx
   nginx::config::vhost::mirror { 'www.gov.uk':}
   include mirror
 }

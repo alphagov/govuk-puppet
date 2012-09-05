@@ -63,7 +63,6 @@ class nginx::config($node_type) {
   }
 
   case $node_type  {
-    redirect:          { }
     development:       { include nginx::config::development }
     router:            { include nginx::config::router }
     mapit:             { include nginx::config::mapit }
@@ -71,7 +70,6 @@ class nginx::config($node_type) {
     ertp_api_staging:  { include nginx::config::ertp::api::staging }
     ertp_api_preview:  { include nginx::config::ertp::api::preview }
     ertp_staging:      { include nginx::config::ertp::staging }
-    mirror:            { }
     UNSET:             {}
     default: {
       notify { '$node_type':
