@@ -14,7 +14,8 @@ class jenkins {
   # use java 7 rather than java 6.
   if $::govuk_java_version == 'oracle7' {
 
-    include java::oracle7
+    include java::oracle7::jdk
+    include java::oracle7::jre
 
     class { 'java::set_defaults':
       jdk => 'oracle7',
