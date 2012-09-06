@@ -1,5 +1,5 @@
 class apollo {
-  include java
+  include java::sun6::jre
 
   exec { 'download apollo':
     command => '/usr/bin/curl -o apache-apollo-1.0-unix-distro.tar.gz https://gds-public-readable-tarballs.s3.amazonaws.com/apache-apollo-1.0-unix-distro.tar.gz',
@@ -20,7 +20,7 @@ class apollo {
   exec { 'create broker':
     require => [
       Exec['unpack apollo'],
-      Class['java' ]
+      Class['java::sun6::jre']
     ],
     creates => '/usr/local/src/broker',
     cwd     => '/usr/local/src/apache-apollo-1.0',

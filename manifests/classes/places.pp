@@ -1,7 +1,7 @@
 class places_base {
   include base
   include monitoring
-  include java
+  include java::sun6::jre
   include users
   include users::groups::govuk
   include hosts::places

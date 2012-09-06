@@ -1,5 +1,5 @@
 class jetty($version='7.6.4.v20120524'){
-  include openjdk
+  include java::openjdk6::jre
 
   $home = '/opt'
 

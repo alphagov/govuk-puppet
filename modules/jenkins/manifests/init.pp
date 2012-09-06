@@ -10,6 +10,29 @@ class jenkins {
     shell      => '/bin/bash'
   }
 
+  # This facter fact can be set on slave machines to signal that the slave should install and
+  # use java 7 rather than java 6.
+  if $::govuk_java_version == 'oracle7' {
+
+    include java::oracle7
+
+    class { 'java::set_defaults':
+      jdk => 'oracle7',
+      jre => 'oracle7',
+    }
+
+  } else {
+
+    include java::sun6::jdk
+    include java::sun6::jre
+
+    class { 'java::set_defaults':
+      jdk => 'sun6',
+      jre => 'sun6',
+    }
+
+  }
+
   package { 'brakeman':
     ensure   => 'installed',
     provider => gem,
@@ -57,7 +80,6 @@ class jenkins {
 }
 
 class jenkins::master inherits jenkins {
-  include java
 
   apt::repository { 'jenkins':
     url  => 'http://pkg.jenkins-ci.org/debian',
@@ -66,18 +88,9 @@ class jenkins::master inherits jenkins {
     key  => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
   }
 
-  exec { 'update-alternatives-java':
-    command => 'update-alternatives --set java /usr/lib/jvm/java-6-sun/jre/bin/java',
-    require => Package['sun-java6-jdk']
-  }
-
   package { 'jenkins':
     ensure  => 'latest',
-    require => [
-      User['jenkins'],
-      Package['sun-java6-jdk'],
-      Exec['update-alternatives-java']
-    ],
+    require => User['jenkins'],
   }
 
   package { 'keychain':

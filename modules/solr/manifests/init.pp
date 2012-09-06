@@ -1,5 +1,5 @@
 class solr {
-  include java
+  include java::sun6::jre
 
   user { 'solr':
     ensure => present,
@@ -41,7 +41,7 @@ class solr {
 
   package { 'gds-solr':
     name    => 'gds-solr',
-    require => Package['java']; # FIXME: the *deb* should depend on java.
+    require => Class['java::sun6::jre']; # FIXME: the *deb* should depend on java.
   }
 
   service { 'solr':

@@ -2,7 +2,7 @@ class elms_base {
   include base
   include hosts
   include monitoring
-  include openjdk
+  include java::openjdk6::jre
   include puppet
   include puppet::cronjob
   include users

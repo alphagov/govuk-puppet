@@ -2,7 +2,7 @@ class logstash::package {
 
   $logstash_version = '1.1.1.sincedbfixed.grokdisabled.globfixed'
 
-  include openjdk
+  include java::openjdk6::jre
 
   group { 'logstash':
     ensure  => 'present',
