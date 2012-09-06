@@ -10,7 +10,7 @@ STATIC_MAPPING = {
     'ip-10-54-182-112.eu-west-1.compute.internal': 'signonotron.production.alphagov.co.uk',
     'ip-10-32-31-104.eu-west-1.compute.internal': 'graylog.cluster',
     'ip-10-229-67-207.eu-west-1.compute.internal': 'whitehall.production.alphagov.co.uk',
-    'ip-10-32-18-246.eu-west-1.compute.internal': 'puppet',
+    'ip-10-32-18-246.eu-west-1.compute.internal': 'puppet.cluster',
 }
 
 def main():
