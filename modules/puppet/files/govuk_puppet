@@ -1,2 +1,2 @@
 #!/bin/sh
-exec sudo puppet agent --onetime --no-daemonize "$@"
+exec sudo RUBYOPT="-W0" puppet agent --onetime --no-daemonize "$@"
