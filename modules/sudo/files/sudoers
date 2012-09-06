@@ -1,7 +1,7 @@
 # /etc/sudoers -- MANAGED BY PUPPET: DO NOT EDIT
 
 Defaults env_reset
-Defaults env_keep+="FACTER_govuk_class FACTER_govuk_platform FACTER_govuk_provider" 
+Defaults env_keep+="FACTER_govuk_class FACTER_govuk_platform FACTER_govuk_provider FACTER_govuk_java_version"
 
 # User privilege specification
 root ALL=(ALL) ALL
