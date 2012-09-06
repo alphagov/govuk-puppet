@@ -20,7 +20,7 @@ class nagios::config {
     source  => 'puppet:///modules/nagios/etc/nagios3/check_pingdom.cfg',
   }
 
-  file { '/etc/nagios3/conf.d/check_pingdom.cfg':
+  file { '/etc/nagios3/conf.d/check_graphite.cfg':
     source  => 'puppet:///modules/nagios/etc/nagios3/check_graphite.cfg',
     require => Package['check_graphite'],
   }

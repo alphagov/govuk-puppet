@@ -6,9 +6,9 @@ class govuk::apps::efg( $port = 3019 ) {
   }
 
   @@nagios::check { "check_efg_login_failures":
-    check_command           => 'check_grapite_metric!stats.govuk.app.efg.logins.failure!100!100',
+    check_command       => 'check_grapite_metric!stats.govuk.app.efg.logins.failure!100!100',
     service_description => 'check EFG login failures',
-    host_name       => "${::govuk_class}-${::hostname}",
+    host_name           => "${::govuk_class}-${::hostname}",
   }
 
 }
