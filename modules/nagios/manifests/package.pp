@@ -11,6 +11,11 @@ class nagios::package {
     'nagios-nrpe-plugin': ensure   => 'installed';
   }
 
+  package { 'check_graphite':
+      ensure    => 'installed',
+      provider  => gem,
+  }
+
   file { '/etc/nagios3/conf.d':
     ensure  => directory,
     purge   => true,
