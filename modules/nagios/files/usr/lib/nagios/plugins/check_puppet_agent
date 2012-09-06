@@ -27,17 +27,17 @@ if File.exists?(puppet_agent_summary_filename)
   begin
     summary = YAML.load_file(puppet_agent_summary_filename)
 
-    total_events = summary['events']['total']
-    total_resources = summary['resources']['total']
-    total_changes = summary['changes']['total']
+    total_events = summary['events']['total'].to_i
+    total_resources = summary['resources']['total'].to_i
+    total_changes = summary['changes']['total'].to_i
 
     if(total_events + total_resources + total_changes == 0)
       puts "CRITICAL: Puppet run did not have anything, check logs"
       exit 2
     end
 
-    resource_failures = summary['resources']['failed'] + summary['resources']['failed_to_restart']
-    events_failures = summary['events']['failure']
+    resource_failures = summary['resources']['failed'].to_i + summary['resources']['failed_to_restart'].to_i
+    events_failures = summary['events']['failure'].to_i
 
     if(resource_failures + events_failures > 0)
       puts "Warning: Puppet run had some failures"
