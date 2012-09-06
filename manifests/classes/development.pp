@@ -34,7 +34,7 @@ class development {
 
   include nginx
 
-  nginx::config::site { '/etc/nginx/sites-enabled/default':
+  nginx::config::site { 'default':
     # FIXME: this file probably shouldn't live in the nginx module,
     # can't think of a better place at the moment
     source  => 'puppet:///modules/nginx/development',
