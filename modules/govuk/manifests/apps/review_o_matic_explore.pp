@@ -16,10 +16,19 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
 
   nginx::config::vhost::proxy { "explore-dg.${upstream_domain}":
     to           => ["localhost:${port}"],
-    extra_config => 'proxy_set_header X-Explore-Upstream www.direct.gov.uk;',
+    extra_config => "
+            proxy_set_header X-Explore-Title Directgov;
+            proxy_set_header X-Explore-Upstream www.direct.gov.uk;
+            proxy_set_header X-Explore-Redirector redirector.${upstream_domain};
+    ",
   }
+
   nginx::config::vhost::proxy { "explore-bl.${upstream_domain}":
     to           => ["localhost:${port}"],
-    extra_config => 'proxy_set_header X-Explore-Upstream www.businesslink.gov.uk;',
+    extra_config => "
+            proxy_set_header X-Explore-Title 'Business Link';
+            proxy_set_header X-Explore-Upstream www.businesslink.gov.uk;
+            proxy_set_header X-Explore-Redirector redirector.${upstream_domain};
+    ",
   }
 }
