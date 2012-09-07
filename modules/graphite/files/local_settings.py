@@ -8,7 +8,7 @@ DATABASE_NAME = STORAGE_DIR + "graphite.db"
 # Set your local timezone (django will *try* to figure this out automatically)
 # If your graphs appear to be offset by a couple hours then this probably
 # needs to be explicitly set to your local timezone.
-#TIME_ZONE = 'America/Los_Angeles'
+TIME_ZONE = 'Europe/London'
 
 # Uncomment these to enable more performance-related logging
 #LOG_RENDERING_PERFORMANCE = True
