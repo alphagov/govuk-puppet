@@ -3,16 +3,16 @@ class nginx::config::router {
     source  => "puppet:///modules/nginx/router_$::govuk_platform",
   }
   # The cache/router also contains a flat site as a backup for software failures
-  nginx::config::vhost::mirror { "flatsite.${::govuk_platform}.alphagov.co.uk":port => "444" }
+  nginx::config::vhost::mirror { "flatsite.${::govuk_platform}.alphagov.co.uk":port => "444", certtype => 'wildcard_alphagov' }
   file { '/etc/htpasswd':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.default',
     notify  => Exec['nginx_reload'],
   }
   if $::govuk_platform == 'production' {
-    nginx::config::ssl {'www.gov.uk': }
+    nginx::config::ssl {'www.gov.uk': certtype => 'www' }
   } else {
-    nginx::config::ssl {"www.$::govuk_platform.alphagov.co.uk": }
+    nginx::config::ssl {"www.$::govuk_platform.alphagov.co.uk": certtype => 'www' }
   }
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":
     check_command       => 'check_ganglia_metric!nginx_http_5xx!0.05!0.1',

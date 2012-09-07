@@ -1,19 +1,9 @@
-define nginx::config::ssl( $certtype = undef ) {
-  if $certtype == undef {
-    if $name == 'www.gov.uk' {
-      $certtype_real = "www"
-    } elsif $name == 'www.preview.alphagov.co.uk' {
-      $certtype_real = "www"
-    } else {
-      $certtype_real = "wildcard_alphagov"
-    }
+define nginx::config::ssl( $certtype ) {
+  if ! ($certtype in ['www','wildcard_alphagov']) {
+    fail "${certtype} is not a valid certtype"
   }
-  else {
-    if ! ($certtype in ['www','wildcard_alphagov']) {
-      fail "${certtype} is not a valid certtype"
-    }
-    $certtype_real = $certtype
-  }
+  $certtype_real = $certtype
+
   file { "/etc/nginx/ssl/$name.crt":
     ensure  => present,
     content => extlookup("${certtype_real}_crt", ''),

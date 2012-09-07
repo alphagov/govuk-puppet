@@ -4,7 +4,7 @@ define nginx::config::vhost::static(
   $aliases = [],
   $ssl_only = false
 ) {
-  nginx::config::ssl { $name: }
+  nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),
   }

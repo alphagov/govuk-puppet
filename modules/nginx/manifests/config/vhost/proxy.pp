@@ -15,7 +15,7 @@ define nginx::config::vhost::proxy(
     $proxy_vhost_template = 'nginx/proxy-vhost.conf'
   }
 
-  nginx::config::ssl { $name: }
+  nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:
     content => template($proxy_vhost_template),
   }
