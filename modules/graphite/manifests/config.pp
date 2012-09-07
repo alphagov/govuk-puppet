@@ -1,4 +1,5 @@
 class graphite::config {
+  file { '/opt/graphite/graphite/local-settings.py': ensure => absent }
   file { '/opt/graphite/graphite/local_settings.py':
     source  => 'puppet:///modules/graphite/local_settings.py',
   }
