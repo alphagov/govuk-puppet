@@ -1,20 +1,22 @@
-define nginx::config::ssl() {
-  if $name == 'www.gov.uk' {
-    $cert = $name
-  } elsif $name == 'www.preview.alphagov.co.uk' {
-    $cert = $name
-  } else {
-    $cert = "static.${::govuk_platform}.alphagov.co.uk"
+define nginx::config::ssl( $certtype = undef ) {
+  if $certtype == undef {
+    if $name == 'www.gov.uk' {
+      $certtype = "www"
+    } elsif $name == 'www.preview.alphagov.co.uk' {
+      $certtype = "www"
+    } else {
+      $certtype = "wildcard_alphagov"
+    }
   }
   file { "/etc/nginx/ssl/$name.crt":
     ensure  => present,
-    content => extlookup("${cert}_crt", ''),
+    content => extlookup("${certtype}_crt", ''),
     require => Class['nginx::package'],
     notify  => Class['nginx::service'],
   }
   file { "/etc/nginx/ssl/$name.key":
     ensure  => present,
-    content => extlookup("${cert}_key", ''),
+    content => extlookup("${certtype}_key", ''),
     require => Class['nginx::package'],
     notify  => Class['nginx::service'],
   }
