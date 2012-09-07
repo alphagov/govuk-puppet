@@ -89,4 +89,9 @@ class ufw::govuk {
     port => 9294,
   }
 
+  # Support Server
+  ufw::allow { "allow-apt_cacher-from-all":
+    port => 3142,
+  }
+  
 }
