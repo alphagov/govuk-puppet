@@ -11,6 +11,10 @@ class logstash::server::config (
     group   => 'logstash',
   }
 
+  @logrotate::conf { 'logstash-aggregation':
+    matches => '/var/log/logstash-aggregation/**/*'
+  }
+
   file { '/etc/logstash/logstash-server.conf':
     content => template('logstash/etc/logstash/logstash-server.conf.erb'),
   }
