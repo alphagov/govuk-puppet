@@ -5,6 +5,4 @@ class fail2ban::service {
     require    => Class['fail2ban::package']
   }
 
-  File['/etc/fail2ban/fail2ban.conf'] ~> Service['fail2ban']
-  File['/etc/fail2ban/jail.conf']     ~> Service['fail2ban']
 }
