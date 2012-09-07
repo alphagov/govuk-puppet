@@ -1,8 +1,8 @@
-class postgres::postgis {
+class postgres::package {
 
   include postgres::repository
 
-  package { 'postgis':
+  package { 'postgresql-9.1':
     ensure => present,
   }
 
