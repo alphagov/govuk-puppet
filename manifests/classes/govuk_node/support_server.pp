@@ -1,6 +1,8 @@
 class govuk_node::support_server inherits govuk_node::base {
   include solr
   include apollo
+  include apt_cacher::server
+  include apt_cacher::client
 
   if $::govuk_platform == 'production' {
     # Since these backups are only for the purposes of restoring production
