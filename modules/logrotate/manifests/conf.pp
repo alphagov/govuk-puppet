@@ -1,4 +1,7 @@
-define logrotate::conf ($matches) {
+define logrotate::conf (
+  $matches,
+  $days_to_keep = '365'
+) {
 
   file { "/etc/logrotate.d/${title}":
     ensure  => present,

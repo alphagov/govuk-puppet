@@ -1,7 +1,7 @@
 <%= @matches %> {
   daily
   missingok
-  rotate 365
+  rotate <%= @days_to_keep %>
   compress
   notifempty
   copytruncate
