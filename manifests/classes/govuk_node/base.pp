@@ -11,6 +11,10 @@ class govuk_node::base {
   include users::groups::newbamboo
   include users::groups::other
 
+  #Security additions
+  include rkhunter
+  include fail2ban
+
   case $::govuk_provider {
     'sky': {
       include ufw::govuk
