@@ -9,6 +9,9 @@ define nginx::config::ssl( $certtype = undef ) {
     }
   }
   else {
+    if ! ($certtype in ['www','wildcard_alphagov']) {
+      fail "${certtype} is not a valid certtype"
+    }
     $certtype_real = $certtype
   }
   file { "/etc/nginx/ssl/$name.crt":
