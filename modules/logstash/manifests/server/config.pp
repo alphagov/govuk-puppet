@@ -6,6 +6,10 @@ class logstash::server::config (
   include logstash::config
 
 
+  file { '/var/log/logstash-aggregation':
+    ensure => 'directory',
+  }
+
   file { '/etc/logstash/logstash-server.conf':
     content => template('logstash/etc/logstash/logstash-server.conf.erb'),
   }
