@@ -1,8 +1,6 @@
 class logstash::server::package inherits logstash::package {
 
-  package {'rabbitmq-server':
-    ensure => present,
-  }
+  include rabbitmq
 
   package { 'pyes':
     ensure   => '0.19.1',
