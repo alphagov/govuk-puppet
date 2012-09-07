@@ -1,0 +1,6 @@
+input {
+  file {
+    type => "datainsight-<%= @title %>-collector-app"
+    path => "/var/apps/datainsight-<%= @title %>-collector/log/*.log"
+  }
+}

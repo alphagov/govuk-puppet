@@ -34,6 +34,7 @@ node default {
     support:            { include govuk_node::support_server }
     mirror:             { include govuk_node::mirror_server }
     whitehall-frontend: { include govuk_node::whitehall_frontend_server }
+    datainsight:        { include govuk_node::datainsight }
     default:            { }
   }
 }
