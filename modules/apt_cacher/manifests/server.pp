@@ -1,5 +1,5 @@
 class apt_cacher::server {
-  
+ 
   package {'apt-cacher':
     ensure => installed,
   }
