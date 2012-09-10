@@ -24,4 +24,3 @@ class hosts::skyscape::production {
   host { 'mongo-3.backend.production'           : ip => '10.3.0.8' }
   host { 'support-1.backend.production'         : ip => '10.3.0.5' , host_aliases => [ 'support-1', 'support.cluster']}
 }
->>>>>>> fix a typo in the hosts file manifest for Skyscape
