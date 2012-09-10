@@ -17,7 +17,7 @@ class rabbitmq {
   }
 
   @ganglia::cronjob { 'rabbitmq':
-    source => 'puppet:///modules/logstash/rabbitmq_ganglia.sh',
+    source => 'puppet:///modules/rabbitmq/rabbitmq_ganglia.sh',
   }
 
   @@nagios::check { "check_rabbitmq_consumers_${::hostname}":
