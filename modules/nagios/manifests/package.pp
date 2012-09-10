@@ -2,36 +2,35 @@ class nagios::package {
 
   include apache2
 
-  package {
-    'nagios3': ensure              => 'installed';
-    'nagios-images': ensure        => 'installed';
-    'nagios-plugins': ensure       => 'installed';
-    'libwww-perl': ensure          => 'installed';
-    'libcrypt-ssleay-perl': ensure => 'installed';
-    'nagios-nrpe-plugin': ensure   => 'installed';
+  package { [
+    'nagios3',
+    'nagios-images',
+    'nagios-plugins',
+    'libwww-perl',
+    'libcrypt-ssleay-perl',
+    'nagios-nrpe-plugin',
+  ]:
+    ensure => present,
   }
 
   package { 'check_graphite':
-      ensure    => 'installed',
-      provider  => gem,
+    ensure   => present,
+    provider => 'gem',
   }
 
-  file { '/etc/nagios3/conf.d':
-    ensure  => directory,
-    purge   => true,
-    force   => true,
-    recurse => true,
-    require => Package['nagios3'],
+  package { 'NagAconda':
+    ensure   => present,
+    provider => 'pip',
+  }
+
+  file { '/usr/local/bin/check_pingdom.sh':
+    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.sh',
+    mode   => '0755',
   }
 
   file { '/usr/local/bin/sendEmail':
     source => 'puppet:///modules/nagios/usr/local/bin/sendEmail',
     mode   => '0755',
-  }
-
-  exec { '/usr/bin/easy_install nagaconda':
-    creates => '/usr/local/lib/python2.6/dist-packages/NagAconda-0.1.4-py2.6.egg',
-    require => Package['python-setuptools'],
   }
 
   file { '/usr/local/bin/check_ganglia_metric':
@@ -44,17 +43,17 @@ class nagios::package {
     mode   => '0755',
   }
 
+  # pagerduty stuff
+  file { '/usr/local/bin/pagerduty_nagios.pl':
+    source => 'puppet:///modules/nagios/usr/local/bin/pagerduty_nagios.pl',
+    mode   => '0755',
+  }
+
   file { '/var/log/sendEmail':
     ensure  => present,
     owner   => nagios,
     group   => nagios,
     require => Package['nagios3']
-  }
-
-  # pagerduty stuff
-  file { '/usr/local/bin/pagerduty_nagios.pl':
-    source => 'puppet:///modules/nagios/usr/local/bin/pagerduty_nagios.pl',
-    mode   => '0755',
   }
 
   file { '/var/lib/nagios3/rw':
@@ -64,4 +63,5 @@ class nagios::package {
     group   => www-data,
     require => Package['nagios3']
   }
+
 }

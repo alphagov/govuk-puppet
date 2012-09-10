@@ -1,42 +1,26 @@
 class nagios::config {
 
-  file { '/etc/nagios3/conf.d/check_ganglia_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/check_ganglia_nagios2.cfg',
+  file { '/etc/nagios3':
+    ensure  => directory,
+    recurse => true,
+    source  => 'puppet:///modules/nagios/etc/nagios3',
   }
 
-  file { '/etc/nagios3/conf.d/generic-host_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/generic-host_nagios2.cfg',
+  file { '/etc/nagios3/conf.d':
+    ensure  => directory,
+    purge   => true,
+    force   => true,
+    recurse => true,
+    source  => 'puppet:///modules/nagios/etc/nagios3/conf.d',
   }
 
-  file { '/etc/nagios3/conf.d/check_http_nagios2.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/check_http_nagios2.cfg',
-  }
-
-  file { '/etc/nagios3/conf.d/check_smokey.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/check_smokey.cfg',
-  }
-
-  file { '/etc/nagios3/conf.d/check_pingdom.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/check_pingdom.cfg',
-  }
-
-  file { '/etc/nagios3/conf.d/check_graphite.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/check_graphite.cfg',
-    require => Package['check_graphite'],
-  }
-
-  file { '/usr/local/bin/check_pingdom.sh':
-    mode   => '0755',
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.sh',
-  }
-
-  @@nagios::check {'check_smokey':
+  @@nagios::check { 'check_smokey':
     check_command       => 'run_smokey_tests',
     service_description => 'Run small suite of functional tests',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
-  @@nagios::check {'check_pingdom':
+  @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
     service_description => 'Check the current pingdom status',
     host_name           => "${::govuk_class}-${::hostname}"
@@ -75,14 +59,6 @@ class nagios::config {
 
   nagios::timeperiod { 'never':
     timeperiod_alias => 'Never'
-  }
-
-  file { '/etc/nagios3/cgi.cfg':
-    source => 'puppet:///modules/nagios/etc/nagios3/cgi.cfg',
-  }
-
-  file { '/etc/nagios3/conf.d/hostgroups_nagios2.cfg':
-    source => 'puppet:///modules/nagios/etc/nagios3/conf.d/hostgroups_nagios2.cfg',
   }
 
   #TODO: extlookup or hiera for email addresses?
@@ -150,22 +126,6 @@ class nagios::config {
     content  => template('nagios/resource.cfg.erb'),
   }
 
-  file { '/etc/nagios3/commands.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/commands.cfg',
-  }
-
-  file { '/etc/nagios3/nagios.cfg':
-    source  => 'puppet:///modules/nagios/etc/nagios3/nagios.cfg',
-  }
-
-  file { '/etc/nagios3/htpasswd.users':
-    source  => 'puppet:///modules/nagios/etc/nagios3/htpasswd.users',
-  }
-
-  file { '/etc/nagios3/apache2.conf':
-    source => 'puppet:///modules/nagios/etc/nagios3/apache2.conf',
-  }
-
   file { '/etc/apache2/conf.d/nagios3.conf':
     ensure  => link,
     target  => '/etc/nagios3/apache2.conf',
@@ -182,7 +142,4 @@ class nagios::config {
     groups => ['nagios'],
   }
 
-  # it's possible this is still missing running
-  # dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
-  # dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3
 }
