@@ -1,40 +1,19 @@
 class graphite::config {
-  file { '/opt/graphite/graphite/local-settings.py': ensure => absent }
+
+  file { '/opt/graphite/graphite/manage.py':
+    mode => '0755',
+  }
+
   file { '/opt/graphite/graphite/local_settings.py':
     source  => 'puppet:///modules/graphite/local_settings.py',
   }
 
   file { '/opt/graphite/conf/carbon.conf':
-    source  => 'puppet:///modules/graphite/carbon.conf',
+    source => 'puppet:///modules/graphite/carbon.conf',
   }
 
   file { '/opt/graphite/conf/storage-schemas.conf':
-    source  => 'puppet:///modules/graphite/storage-schema.conf',
-  }
-
-  file { '/opt/graphite/storage':
-    mode    => '0755',
-    group   => 'root',
-    owner   => 'root',
-  }
-
-  file{ '/opt/graphite/storage/log/webapp':
-    ensure  => 'directory',
-    require => File['/opt/graphite/storage']
-  }
-
-  file{ '/etc/graphite':
-    ensure  => 'directory',
-  }
-
-  file{ '/etc/graphite/htpasswd.graphite':
-    source  => 'puppet:///modules/graphite/htpasswd.graphite',
-    require => File['/etc/graphite']
-  }
-
-  file { '/etc/apache2/mods-enabled/rewrite.load':
-    ensure  => link,
-    target  => '/etc/apache2/mods-available/rewrite.load',
+    source => 'puppet:///modules/graphite/storage-schema.conf',
   }
 
   exec { 'create whisper db for graphite' :
@@ -43,7 +22,22 @@ class graphite::config {
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
-  apache2::site { 'graphite':
-    source  => 'puppet:///modules/graphite/apache.conf',
+  $domain = $::govuk_platform ? {
+    'development' => 'dev.gov.uk',
+    default       => "${::govuk_platform}.alphagov.co.uk",
   }
+
+  nginx::config::vhost::proxy { "graphite.${domain}":
+    to   => ['localhost:33333'],
+    root => '/opt/graphite/webapp',
+  }
+
+  file { '/etc/init/graphite.conf':
+    source => 'puppet:///modules/graphite/etc/init/graphite.conf',
+  }
+
+  file { '/etc/init/carbon_cache.conf':
+    source => 'puppet:///modules/graphite/etc/init/carbon_cache.conf',
+  }
+
 }
