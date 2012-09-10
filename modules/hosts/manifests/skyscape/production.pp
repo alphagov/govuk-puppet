@@ -13,6 +13,8 @@ class hosts::skyscape::production {
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'  : ip => '10.2.0.2' }
+  host { 'frontend-2.frontend.production'  : ip => '10.2.0.3' }
+  host { 'frontend-3.frontend.production'  : ip => '10.2.0.4' }
 
   #Backend VDC machines
   host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk'] }
