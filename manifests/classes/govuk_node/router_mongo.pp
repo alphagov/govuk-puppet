@@ -7,9 +7,9 @@ class govuk_node::router_mongo inherits govuk_node::base {
       case $::govuk_platform {
         production: {
           $mongo_hosts = [
-            '10.1.0.2',
-            '10.1.0.7',
-            '10.1.0.8'
+            '10.1.0.5',
+            '10.1.0.6',
+            '10.1.0.7'
           ]
         }
         default: {
