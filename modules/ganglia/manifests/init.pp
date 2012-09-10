@@ -1,7 +1,23 @@
 class ganglia {
-  anchor {['ganglia::start','ganglia::end']: }
-  include ganglia::uninstall_old, ganglia::package, ganglia::config, ganglia::service
 
-  Anchor['ganglia::start'] -> Class['ganglia::uninstall_old'] -> Class['ganglia::package'] -> Class['ganglia::config'] ~> Class['ganglia::service'] ~> Anchor['ganglia::end']
-  Class['ganglia::package'] ~> Class['ganglia::service']
+  anchor { 'ganglia::begin':
+    notify => Class['ganglia::service'];
+  }
+
+  class { 'ganglia::package':
+    require => Anchor['ganglia::begin'],
+    notify  => Class['ganglia::service'];
+  }
+
+  class { 'ganglia::config':
+    require   => Class['ganglia::package'],
+    notify    => Class['ganglia::service'];
+  }
+
+  class { 'ganglia::service':
+    notify => Anchor['ganglia::end'],
+  }
+
+  anchor { 'ganglia::end': }
+
 }
