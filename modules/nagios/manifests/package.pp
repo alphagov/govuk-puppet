@@ -1,6 +1,6 @@
 class nagios::package {
 
-  include apache2
+  include nginx::fcgi
 
   package { [
     'nagios3',

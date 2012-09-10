@@ -1,4 +1,16 @@
-class nagios::config {
+class nagios::config ($platform = $::govuk_platform) {
+
+  $domain = $platform ? {
+    'development' => 'dev.gov.uk',
+    default       => "${platform}.alphagov.co.uk",
+  }
+
+  $vhost = "nagios.${domain}"
+
+  nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
+  nginx::config::site { $vhost:
+    content => template('nagios/nginx.conf.erb'),
+  }
 
   file { '/etc/nagios3':
     ensure  => directory,
@@ -124,12 +136,6 @@ class nagios::config {
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),
-  }
-
-  file { '/etc/apache2/conf.d/nagios3.conf':
-    ensure  => link,
-    target  => '/etc/nagios3/apache2.conf',
-    require => Service[apache2]
   }
 
   cron { 'pagerduty':
