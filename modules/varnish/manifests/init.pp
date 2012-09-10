@@ -15,11 +15,11 @@ class varnish (
     }
   }
   anchor { 'varnish::begin':
-    before => Class['varnish::package'],
     notify => Class['varnish::service'];
   }
   class { 'varnish::package':
-    notify => Class['varnish::service'];
+    require => Anchor['varnish::begin'],
+    notify  => Class['varnish::service'];
   }
   class { 'varnish::config':
     require      => Class['varnish::package'],
