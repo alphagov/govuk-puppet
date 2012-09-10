@@ -6,7 +6,10 @@ class hosts::skyscape::production {
   host { 'jenkins-1.management.production' : ip => '10.0.0.3' }
 
   #Router VDC machines
-  host { 'cache-1.router.production'       : ip => '10.1.0.2' }
+  host { 'cache-1.router.production'        : ip => '10.1.0.2' }
+  host { 'router-mongo-1.router.production' : ip => '10.1.0.5' }
+  host { 'router-mongo-2.router.production' : ip => '10.1.0.6' }
+  host { 'router-mongo-3.router.production' : ip => '10.1.0.7' }
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'  : ip => '10.2.0.2' }
