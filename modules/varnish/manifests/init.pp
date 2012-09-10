@@ -14,7 +14,20 @@ class varnish (
         $varnish_version = 2
     }
   }
-  include varnish::package
-  include varnish::config
-  include varnish::service
+  anchor { 'varnish::begin':
+    before => Class['varnish::package'],
+    notify => Class['varnish::service'];
+  }
+  class { 'varnish::package':
+    notify => Class['varnish::service'];
+  }
+  class { 'varnish::config':
+    require      => Class['varnish::package'],
+    notify       => Class['varnish::service'];
+  }
+  class { 'varnish::service':
+  }
+  anchor { 'varnish::end':
+    require => Class['varnish::service']
+  }
 }
