@@ -1,7 +1,12 @@
 class govuk_node::monitoring_server inherits govuk_node::base {
-  class { 'apache2': port => '80'}
+
+  package { 'apache2':
+    ensure => 'purged',
+  }
+
   include nagios
   include nagios::client
   include ganglia
   include graphite
+
 }
