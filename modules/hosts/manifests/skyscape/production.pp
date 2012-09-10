@@ -6,7 +6,7 @@ class hosts::skyscape::production {
   host { 'jenkins-1.management.production' : ip => '10.0.0.3' }
 
   #Router VDC machines
-  host { 'cache-1.router.production'        : ip => '10.1.0.2' }
+  host { 'cache-1.router.production'        : ip => '10.1.0.2', host_aliases => ['cache.cluster', 'router.cluster'] }# This host aliases need to point to the Load balancer when it is in
   host { 'cache-2.router.production'        : ip => '10.1.0.3' }
   host { 'cache-3.router.production'        : ip => '10.1.0.4' }
   host { 'router-mongo-1.router.production' : ip => '10.1.0.5' }
@@ -23,4 +23,5 @@ class hosts::skyscape::production {
   host { 'mongo-2.backend.production'           : ip => '10.3.0.7' }
   host { 'mongo-3.backend.production'           : ip => '10.3.0.8' }
   host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql.backend.production' ]  }
+  host { 'support-1.backend.production'         : ip => '10.3.0.5' , host_aliases => [ 'support.cluster']}
 }
