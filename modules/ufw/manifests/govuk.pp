@@ -77,6 +77,11 @@ class ufw::govuk {
     port => 443,
   }
 
+  # Routers
+  ufw::allow { "allow-http-8080-from-all":
+    port => 8080,
+  }
+
   # Puppet master
   ufw::allow { "allow-puppetmaster-from-all":
     port => 8140,
