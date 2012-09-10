@@ -2,7 +2,7 @@ class hosts::skyscape::production {
   # These are real hosts (1-1 mapping between Host and Service)
   # Anything that ends .cluster is maintained for backwards compatibility with EC2
   #Management VDC machines
-  host { 'puppet-1.management.production'  : ip => '10.0.0.2', host_aliases => [ 'puppet' ] }
+  host { 'puppet-1.management.production'  : ip => '10.0.0.2', host_aliases => [ 'puppet-1', 'puppet' ] }
   host { 'jenkins-1.management.production' : ip => '10.0.0.3' }
 
   #Router VDC machines
