@@ -24,5 +24,5 @@ class hosts::skyscape::production {
   host { 'mongo-1.backend.production'           : ip => '10.3.0.6', host_aliases  => [ 'mongo.backend.production', 'mongodb.cluster' ] }
   host { 'mongo-2.backend.production'           : ip => '10.3.0.7' }
   host { 'mongo-3.backend.production'           : ip => '10.3.0.8' }
-  host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql.backend.production' ]  }
+  host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql-master-1', 'mysql.backend.production' ]  }
 }
