@@ -18,6 +18,7 @@ class govuk_node::base {
   case $::govuk_provider {
     'sky': {
       include ufw::govuk
+      include apt_cacher::client
 
       user { 'ubuntu':
         ensure   => present,
