@@ -108,4 +108,9 @@ class ufw::govuk {
     port => 9200,
   }
 
+  #Load balancer Health Check ports
+  ufw::allow { "allow-loadbalancer-health-check-signonotron-ssl-from-all":
+    port => 9401,
+  }
+
 }

@@ -36,9 +36,11 @@ class govuk_node::backend_server inherits govuk_node::base {
       to       => ['localhost:8080'],
       ssl_only => true;
     "signon.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      protected => false,
-      ssl_only  => true;
+      to                    => ['localhost:8080'],
+      protected             => false,
+      ssl_only              => true,
+      ssl_health_check_port => "9401",
+      health_check_path     => "/users/sign_in";
     "migratorator.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;

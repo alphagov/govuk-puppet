@@ -6,7 +6,8 @@ define nginx::config::vhost::proxy(
   $extra_config = '',
   $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
-  $health_check_port = 'NOTSET'
+  $health_check_port = 'NOTSET',
+  $ssl_health_check_port = 'NOTSET'
 ) {
 
   if $::govuk_provider == 'sky' {
