@@ -24,7 +24,7 @@ define govuk::app::config (
     $environ_content_real = $environ_content
   }
 
-  if $health_check_path = 'NOTSET' {
+  if $health_check_path == 'NOTSET' {
     $health_check_port = 'NOTSET'
     $ssl_health_check_port = 'NOTSET'
   }
