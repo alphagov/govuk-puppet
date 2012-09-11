@@ -18,7 +18,9 @@ class hosts::skyscape::production {
   host { 'router-mongo-3.router.production' : ip => '10.1.0.7' }
 
   #Frontend VDC machines
-  host { 'frontend-1.frontend.production'  : ip => '10.2.0.2' }
+  host { 'frontend-1.frontend.production'  : ip => '10.2.0.2', host_aliases => [
+                                                               'search.production.alphagov.co.uk' # needed for frontend to call 'rake rummager:index' during deploy
+                                                                ] }
   host { 'frontend-2.frontend.production'  : ip => '10.2.0.3' }
   host { 'frontend-3.frontend.production'  : ip => '10.2.0.4' }
 
