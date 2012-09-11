@@ -5,7 +5,6 @@ class govuk_node::monitoring_server inherits govuk_node::base {
   }
 
   include nagios
-  include nagios::client
   include ganglia
   include graphite
 
