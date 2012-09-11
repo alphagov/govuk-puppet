@@ -17,7 +17,6 @@ class ufw {
 
   service { 'ufw':
     ensure    => running,
-    enable    => true,
     hasstatus => true,
     subscribe => Package['ufw'],
   }
