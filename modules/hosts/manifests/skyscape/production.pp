@@ -25,7 +25,9 @@ class hosts::skyscape::production {
   host { 'frontend-3.frontend.production'  : ip => '10.2.0.4' }
 
   #Backend VDC machines
-  host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk'] }
+  host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk'
+                                                                'panopticon.production.alphagov.co.uk' # needed for panopticon registation
+                                                                ]}
   host { 'backend-2.backend.production'         : ip => '10.3.0.3' }
   host { 'backend-3.backend.production'         : ip => '10.3.0.4' }
   host { 'support-1.backend.production'         : ip => '10.3.0.5', host_aliases => [ 'support-1', 'support.cluster']}
