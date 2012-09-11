@@ -9,7 +9,6 @@ define govuk::app::config (
   $nginx_extra_config = '',
   $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
-  $health_check_port = 'NOTSET',
   $environ_source  = undef,
   $environ_content = undef,
   $enable_nginx_vhost = true
@@ -23,6 +22,26 @@ define govuk::app::config (
   }
   else {
     $environ_content_real = $environ_content
+  }
+
+  if $health_check_path = 'NOTSET' {
+    $health_check_port = 'NOTSET'
+    $ssl_health_check_port = 'NOTSET'
+  }
+  else {
+    if $vhost_ssl_only {
+      $health_check_port = 'NOTSET'
+    }
+    else {
+      $health_check_port = $port + 6500
+      ufw::allow { "allow-loadbalancer-health-check-${title}-http-from-all":
+        port => $health_check_port,
+      }
+    }
+    $ssl_health_check_port = $port + 6400
+    ufw::allow { "allow-loadbalancer-health-check-${title}-https-from-all":
+      port => $ssl_health_check_port,
+    }
   }
 
   # Install environment/configuration file
@@ -42,14 +61,15 @@ define govuk::app::config (
   if $enable_nginx_vhost {
     # Expose this application from nginx
     nginx::config::vhost::proxy { $vhost_full:
-      to                => ["localhost:${port}"],
-      aliases           => $vhost_aliases_real,
-      protected         => $vhost_protected,
-      ssl_only          => $vhost_ssl_only,
-      extra_config      => $nginx_extra_config,
-      platform          => $platform,
-      health_check_path => $health_check_path,
-      health_check_port => $health_check_port
+      to                    => ["localhost:${port}"],
+      aliases               => $vhost_aliases_real,
+      protected             => $vhost_protected,
+      ssl_only              => $vhost_ssl_only,
+      extra_config          => $nginx_extra_config,
+      platform              => $platform,
+      health_check_path     => $health_check_path,
+      health_check_port     => $health_check_port,
+      ssl_health_check_port => $ssl_health_check_port,
     }
   }
 

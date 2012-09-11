@@ -17,7 +17,7 @@ class hosts::skyscape::production {
   host { 'router-mongo-2.router.production' : ip => '10.1.0.6' }
   host { 'router-mongo-3.router.production' : ip => '10.1.0.7' }
   #Load Balancer vhosts
-  host { 'cache.cluster.router.production' : ip => '10.1.1.2', host_aliases => ['cache.cluster', 'router.cluster'] }
+  host { 'cache.router.production' : ip => '10.1.1.2', host_aliases => ['cache', 'cache.cluster', 'router.cluster'] }
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'  : ip => '10.2.0.2', host_aliases => ['frontend-1',
@@ -39,5 +39,5 @@ class hosts::skyscape::production {
   host { 'mapit-server-1.backend.production'    : ip => '10.3.0.9', host_aliases => [ 'mapit-server-1', 'mapit.alpha.gov.uk'] }
   host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql-master-1', 'mysql.backend.production' ]  }
   #Load Balancer vhosts
-  host { 'calendars.cluster.router.production' : ip => '10.2.1.1', host_aliases => ['calendars.cluster', 'calendars.production.alphagov.co.uk'] }
+  host { 'calendars.router.production' : ip => '10.2.1.1', host_aliases => ['calendars', 'calendars.cluster', 'calendars.production.alphagov.co.uk'] }
 }

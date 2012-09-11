@@ -24,9 +24,6 @@ define govuk::app(
   # health_check_path used by load balancers to check health of service
   $health_check_path = 'NOTSET',
 
-  # health_check_port used by load balancers to check health of service
-  $health_check_port = 'NOTSET',
-
   #
   # platform: the deployment environment to configure
   #
@@ -153,7 +150,6 @@ define govuk::app(
     nginx_extra_config => $nginx_extra_config,
     platform           => $platform,
     health_check_path  => $health_check_path,
-    health_check_port  => $health_check_port,
     enable_nginx_vhost => $enable_nginx_vhost,
   }
 
