@@ -8,7 +8,7 @@ define nginx::config::ssl( $certtype ) {
     content => extlookup("${certtype}_crt", ''),
     require => Class['nginx::package'],
     notify  => Class['nginx::service'],
-  } 
+  }
   file { "/etc/nginx/ssl/$name.key":
     ensure  => present,
     content => extlookup("${certtype}_key", ''),
