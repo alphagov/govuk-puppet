@@ -22,9 +22,10 @@ class hosts::skyscape::production {
   host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk'] }
   host { 'backend-2.backend.production'         : ip => '10.3.0.3' }
   host { 'backend-3.backend.production'         : ip => '10.3.0.4' }
-  host { 'support-1.backend.production'         : ip => '10.3.0.5' , host_aliases => [ 'support-1', 'support.cluster']}
+  host { 'support-1.backend.production'         : ip => '10.3.0.5', host_aliases => [ 'support-1', 'support.cluster']}
   host { 'mongo-1.backend.production'           : ip => '10.3.0.6', host_aliases  => [ 'mongo-1', 'mongo.backend.production', 'mongodb.cluster' ] }
   host { 'mongo-2.backend.production'           : ip => '10.3.0.7' }
   host { 'mongo-3.backend.production'           : ip => '10.3.0.8' }
+  host { 'mapit-server-1.backend.production'    : ip => '10.3.0.9', host_aliases => [ 'mapit-server-1', 'mapit.alpha.gov.uk'] }
   host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql-master-1', 'mysql.backend.production' ]  }
 }
