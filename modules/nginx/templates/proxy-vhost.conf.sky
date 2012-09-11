@@ -132,7 +132,6 @@ server {
   ssl_session_cache         shared:SSL:10m;
   ssl_session_timeout       5m;
   add_header                Strict-Transport-Security "max-age=2419200";
-  <% end %>
 
   proxy_set_header Host <%= name%>;
   proxy_set_header X-Real-IP $remote_addr;
