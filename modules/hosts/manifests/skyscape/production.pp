@@ -12,6 +12,8 @@ class hosts::skyscape::production {
   host { 'cache-2.router.production'        : ip => '10.1.0.3' }
   host { 'cache-3.router.production'        : ip => '10.1.0.4' }
   host { 'router-mongo-1.router.production' : ip => '10.1.0.5' }
+  host { 'router-mongo-2.router.production' : ip => '10.1.0.6' }
+  host { 'router-mongo-3.router.production' : ip => '10.1.0.7' }
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'  : ip => '10.2.0.2' }
