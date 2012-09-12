@@ -1,13 +1,14 @@
 define nginx::config::vhost::proxy(
   $to,
   $aliases = [],
-  $protected = true,
-  $ssl_only = false,
   $extra_config = '',
-  $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
   $health_check_port = 'NOTSET',
-  $ssl_health_check_port = 'NOTSET'
+  $platform = $::govuk_platform,
+  $protected = true,
+  $root = "/data/vhost/${title}/current/public",
+  $ssl_health_check_port = 'NOTSET',
+  $ssl_only = false
 ) {
 
   if $::govuk_provider == 'sky' {

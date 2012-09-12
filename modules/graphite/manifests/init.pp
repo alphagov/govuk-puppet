@@ -1,11 +1,27 @@
 class graphite {
-  include graphite::package, graphite::config, graphite::service
-  include apache2
 
-  anchor { ['graphite::start', 'graphite::end']: }
+  include nginx
+  include pip
+  include gunicorn
 
-  Anchor['graphite::start'] -> Class['graphite::package'] -> Class['graphite::config'] ~> Class['graphite::service'] ~> Anchor['graphite::end']
-  Anchor['graphite::start'] ~> Class['graphite::service']
+  anchor { 'graphite::begin':
+    notify => Class['graphite::service'];
+  }
 
-  Class['apache2::package'] -> Class['graphite::config'] ~> Class['apache2::service']
+  class { 'graphite::package':
+    require => Anchor['graphite::begin'],
+    notify  => Class['graphite::service'];
+  }
+
+  class { 'graphite::config':
+    require   => Class['graphite::package'],
+    notify    => Class['graphite::service'];
+  }
+
+  class { 'graphite::service':
+    notify => Anchor['graphite::end'],
+  }
+
+  anchor { 'graphite::end': }
+
 }

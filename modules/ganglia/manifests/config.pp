@@ -1,4 +1,17 @@
-class ganglia::config {
+class ganglia::config ($platform = $::govuk_platform) {
+
+  $domain = $platform ? {
+    'development' => 'dev.gov.uk',
+    default       => "${platform}.alphagov.co.uk",
+  }
+
+  $vhost = "ganglia.${domain}"
+
+  nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
+  nginx::config::site { $vhost:
+    content => template('ganglia/nginx.conf.erb'),
+  }
+
   file { '/var/lib/ganglia/dwoo':
     ensure  => directory,
     owner   => www-data,
@@ -18,10 +31,6 @@ class ganglia::config {
     ensure  => directory,
     owner   => www-data,
     group   => www-data,
-  }
-
-  apache2::site { 'ganglia':
-    source => 'puppet:///modules/ganglia/apache.conf',
   }
 
   file { '/etc/ganglia/htpasswd.ganglia':
