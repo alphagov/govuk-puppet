@@ -52,10 +52,10 @@ class hosts::skyscape::production {
   host { 'calendars.router.production' : ip => '10.2.1.1', host_aliases => ['calendars', 'calendars.cluster', 'calendars.production.alphagov.co.uk'] }
 
   #EFG machines
-  host { 'efg-mysql-master-1.efg.production': 
-    ip => '10.4.0.10' 
+  host { 'efg-mysql-master-1.efg.production':
+    ip => '10.4.0.10'
   }
-  host { 'efg-frontend-1.efg.production': 
+  host { 'efg-frontend-1.efg.production':
     ip => '10.4.0.2'
   }
 }
