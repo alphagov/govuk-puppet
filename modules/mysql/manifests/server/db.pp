@@ -27,7 +27,7 @@ define mysql::server::db($user, $password, $host, $root_password, $remote_host='
 
   exec { "grant-${name}-db":
     unless  => "/usr/bin/mysql -h ${::ipaddress} -u${user} ${passarg} ${name}",
-    command => "/usr/bin/mysql -h ${host} -uroot ${rootpassarg} -e \"grant all on ${name}.* to ${user}@'${remote_host}' identified by '$password'; flush privileges;\"",
+    command => "/usr/bin/mysql -h ${host} -uroot ${rootpassarg} -e 'grant all on ${name}.* to ${user}@\"${remote_host}\" identified by \"$password\"; flush privileges;'",
     require => [
       Class['mysql::server'],
       Exec["create-${name}-db"]
