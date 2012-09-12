@@ -21,7 +21,15 @@ class hosts::skyscape::production {
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'  : ip => '10.2.0.2', host_aliases => ['frontend-1',
-                                                                'search.production.alphagov.co.uk' # needed for frontend to call 'rake rummager:index' during deploy
+                                                                'search.production.alphagov.co.uk', # needed for frontend to call 'rake rummager:index' during deploy
+                                                                'frontend.production.alphagov.co.uk',
+                                                                'static.production.alphagov.co.uk',
+                                                                'smartanswers.production.alphagov.co.uk',
+                                                                'tariff.production.alphagov.co.uk',
+                                                                'planner.production.alphagov.co.uk',
+                                                                'licencefinder.production.alphagov.co.uk',
+                                                                'designprinciples.production.alphagov.co.uk',
+                                                                'feedback.production.alphagov.co.uk',
                                                                 ] }
   host { 'frontend-2.frontend.production'  : ip => '10.2.0.3' }
   host { 'frontend-3.frontend.production'  : ip => '10.2.0.4' }
