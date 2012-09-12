@@ -33,7 +33,8 @@ class hosts::skyscape::production {
                                                                 ] }
   host { 'frontend-2.frontend.production'             : ip => '10.2.0.3' }
   host { 'frontend-3.frontend.production'             : ip => '10.2.0.4' }
-  host { 'whitehall-frontend-1.frontend.production'   : ip => '10.2.0.5', host_aliases => ['whitehall-frontend-1', 'whitehall-frontend.production.alphagov.co.uk']}
+  host { 'whitehall-frontend-1.frontend.production'   : ip => '10.2.0.5', host_aliases => ['whitehall-frontend-1', 'whitehall-frontend.production.alphagov.co.uk',
+                                                                                           'whitehall-search.production.alphagov.co.uk']}
 
   #Backend VDC machines
   host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk',
