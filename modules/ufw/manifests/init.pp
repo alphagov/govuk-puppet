@@ -1,4 +1,5 @@
 class ufw {
+
   package { 'ufw':
     ensure => present,
   }
@@ -20,4 +21,10 @@ class ufw {
     hasstatus => true,
     subscribe => Package['ufw'],
   }
+
+  # Collect all virtual ufw rules
+  Ufw::Allow <| |>
+  Ufw::Deny <| |>
+  Ufw::Limit <| |>
+
 }

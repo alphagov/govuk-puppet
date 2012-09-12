@@ -34,12 +34,12 @@ define govuk::app::config (
     }
     else {
       $health_check_port = $port + 6500
-      ufw::allow { "allow-loadbalancer-health-check-${title}-http-from-all":
+      @ufw::allow { "allow-loadbalancer-health-check-${title}-http-from-all":
         port => $health_check_port,
       }
     }
     $ssl_health_check_port = $port + 6400
-    ufw::allow { "allow-loadbalancer-health-check-${title}-https-from-all":
+    @ufw::allow { "allow-loadbalancer-health-check-${title}-https-from-all":
       port => $ssl_health_check_port,
     }
   }
