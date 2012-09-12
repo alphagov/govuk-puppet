@@ -1,5 +1,7 @@
 class nagios::config ($platform = $::govuk_platform) {
 
+  include govuk::htpasswd
+
   $domain = $platform ? {
     'development' => 'dev.gov.uk',
     default       => "${platform}.alphagov.co.uk",
