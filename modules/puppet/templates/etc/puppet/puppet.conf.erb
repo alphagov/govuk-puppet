@@ -2,20 +2,20 @@
 preferred_serialization_format = yaml
 pluginsync = true
 lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
-
-<% if govuk_platform == 'development' %>
+<%- if govuk_platform == 'development' -%>
 modulepath = /var/govuk/puppet/modules
 manifestdir = /var/govuk/puppet/manifests
-<% else %>
-[agent]
-report = false
-configtimeout = 600
+<%- end -%>
 
 [master]
 reports = store
 storeconfigs = true
+storeconfigs_backend = puppetdb
+<%- if govuk_platform != 'development' -%>
 modulepath = /usr/share/puppet/production/current/modules
 manifestdir = /usr/share/puppet/production/current/manifests
+<%- end -%>
 
-storeconfigs_backend = puppetdb
-<% end %>
+[agent]
+report = false
+configtimeout = 600
