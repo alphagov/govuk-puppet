@@ -108,11 +108,3 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
   include ertp::config
   include ertp::dwp::scripts
 }
-
-class ertp_base::development inherits ertp_base {
-  include ertp_base::mongo_server
-  include ertp::config
-  class { 'nginx' : node_type => ertp }
-  include ertp::config
-  include ertp::scripts
-}
