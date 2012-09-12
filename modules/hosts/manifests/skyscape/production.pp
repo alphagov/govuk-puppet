@@ -20,7 +20,7 @@ class hosts::skyscape::production {
   host { 'cache.router.production' : ip => '10.1.1.2', host_aliases => ['cache', 'cache.cluster', 'router.cluster'] }
 
   #Frontend VDC machines
-  host { 'frontend-1.frontend.production'  : ip => '10.2.0.2', host_aliases => ['frontend-1',
+  host { 'frontend-1.frontend.production'             : ip => '10.2.0.2', host_aliases => ['frontend-1',
                                                                 'search.production.alphagov.co.uk', # needed for frontend to call 'rake rummager:index' during deploy
                                                                 'frontend.production.alphagov.co.uk',
                                                                 'static.production.alphagov.co.uk',
@@ -31,8 +31,9 @@ class hosts::skyscape::production {
                                                                 'designprinciples.production.alphagov.co.uk',
                                                                 'feedback.production.alphagov.co.uk',
                                                                 ] }
-  host { 'frontend-2.frontend.production'  : ip => '10.2.0.3' }
-  host { 'frontend-3.frontend.production'  : ip => '10.2.0.4' }
+  host { 'frontend-2.frontend.production'             : ip => '10.2.0.3' }
+  host { 'frontend-3.frontend.production'             : ip => '10.2.0.4' }
+  host { 'whitehall-frontend-1.frontend.production'   : ip => '10.2.0.5' }
 
   #Backend VDC machines
   host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk',
