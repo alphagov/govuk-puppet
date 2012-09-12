@@ -4,6 +4,7 @@ node default {
     cache:              { include govuk_node::cache_server }
     data:               { include govuk_node::db_server }
     development:        { include development }
+    efg_frontend:       { include govuk_node::efg_frontend_server }
     elms-development:   { include elms_base::development }
     elms-frontend:      { include elms_base::frontend_server }
     elms-mongo:         { include elms_base::mongo_server }
