@@ -25,15 +25,32 @@ class ertp_base::mongo_server inherits ertp_base {
 }
 
 class ertp_base::frontend_server inherits ertp_base {
+  include nginx
   include monitoring
   include puppet::cronjob
 
   case $::govuk_platform {
     staging: {
-      class { 'nginx' : node_type => ertp_staging }
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/ertp/nginx/ertp-staging',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
+        ensure  => present,
+        source  => 'puppet:///modules/nginx/htpasswd.ertp.staging',
+        require => Class['nginx::package'],
+      }
     }
     default: {
-      class { 'nginx' : node_type => ertp_preview }
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/ertp/nginx/ertp-preview',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.preview':
+        ensure  => present,
+        source  => 'puppet:///modules/nginx/htpasswd.ertp.preview',
+        require => Class['nginx::package'],
+      }
     }
   }
 
@@ -42,15 +59,32 @@ class ertp_base::frontend_server inherits ertp_base {
 }
 
 class ertp_base::api_server inherits ertp_base {
+  include nginx
   include monitoring
   include puppet::cronjob
 
   case $::govuk_platform {
     staging: {
-      class { 'nginx' : node_type => ertp_api_staging }
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/nginx/ertp-staging-api',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/nginx/htpasswd.ertp.api.staging',
+        require => Class['nginx::package'],
+      }
     }
     default: {
-      class { 'nginx' : node_type => ertp_api_preview }
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/nginx/ertp-preview-api',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/nginx/htpasswd.ertp.api.preview',
+        require => Class['nginx::package'],
+      }
     }
   }
 

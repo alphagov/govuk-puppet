@@ -21,6 +21,11 @@ class nginx($node_type = 'UNSET') {
 
   anchor { 'nginx::end': }
 
+  # Include ability to do a full restart of nginx. This does not explicitly
+  # trigger a restart, but simply makes the class available to any manifest
+  # that `include`s nginx.
+  include nginx::restart
+
   # Monitoring of NginX
   nginx::config::site { 'monitoring-vhost.test':
     source  => 'puppet:///modules/nginx/sites/monitoring-vhost-nginx.conf',

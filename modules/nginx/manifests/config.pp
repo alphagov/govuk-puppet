@@ -57,10 +57,6 @@ class nginx::config($node_type) {
 
   case $node_type  {
     router:            { include nginx::config::router }
-    ertp_preview:      { include nginx::config::ertp::preview }
-    ertp_api_staging:  { include nginx::config::ertp::api::staging }
-    ertp_api_preview:  { include nginx::config::ertp::api::preview }
-    ertp_staging:      { include nginx::config::ertp::staging }
     UNSET:             {}
     default: {
       notify { '$node_type':
