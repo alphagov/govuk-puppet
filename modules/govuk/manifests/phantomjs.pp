@@ -30,4 +30,8 @@ class govuk::phantomjs {
     ensure  => absent
   }
 
+  package { 'libfontconfig1':
+    ensure => present
+  }
+
 }
