@@ -16,8 +16,8 @@ class nginx::package {
   }
 
   package { 'nginx':
-    ensure  => $version,
-    notify  => Exec['nginx_restart'],
+    ensure => $version,
+    notify => Class['nginx::restart'],
   }
 
 }

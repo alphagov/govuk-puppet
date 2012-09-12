@@ -1,20 +1,11 @@
 class nginx::config($node_type) {
-  exec { 'nginx_reload':
-    command     => '/etc/init.d/nginx reload',
-    refreshonly => true,
-    onlyif      => '/etc/init.d/nginx configtest',
-  }
-  exec { 'nginx_restart':
-    command     => '/etc/init.d/nginx restart',
-    refreshonly => true,
-    onlyif      => '/etc/init.d/nginx configtest',
-  }
 
   file { '/etc/nginx':
     ensure  => directory,
     recurse => true,
     source  => 'puppet:///modules/nginx/etc/nginx';
   }
+
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
     ensure  => directory,
     recurse => true, # enable recursive directory management
@@ -22,6 +13,7 @@ class nginx::config($node_type) {
     force   => true, # also purge subdirs and links etc.
     require => File['/etc/nginx'];
   }
+
   file { ['/var/www', '/var/www/cache']:
     ensure => directory,
     owner  => 'www-data',
@@ -30,6 +22,7 @@ class nginx::config($node_type) {
   file { '/usr/share/nginx':
     ensure  => directory,
   }
+
   file { '/usr/share/nginx/www':
     ensure  => directory,
     mode    => '0755',

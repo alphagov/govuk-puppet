@@ -3,14 +3,14 @@ class nginx::config::ertp::preview {
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-preview',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.preview':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.ertp.preview',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
 }
@@ -20,14 +20,14 @@ class nginx::config::ertp::staging {
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-staging',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.ertp.staging',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
 }
@@ -37,14 +37,14 @@ class nginx::config::ertp::api::staging {
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-staging-api',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.ertp.api.staging',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
 }
@@ -54,14 +54,14 @@ class nginx::config::ertp::api::preview {
     ensure  => file,
     source  => 'puppet:///modules/nginx/ertp-preview-api',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
   file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
     ensure  => file,
     source  => 'puppet:///modules/nginx/htpasswd.ertp.api.preview',
     require => Class['nginx::package'],
-    notify  => Exec['nginx_reload'],
+    notify  => Class['nginx::service'],
   }
 
 }
