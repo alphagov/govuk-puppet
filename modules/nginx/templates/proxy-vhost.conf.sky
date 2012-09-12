@@ -69,17 +69,6 @@ server {
   <% end %>
 
   location / {
-    <%- if protected -%>
-    # TODO: Make only the correct platforms hosts appear here
-    # Access production backends from production frontends:
-    allow 10.2.0.0/24;
-    # Access production frontends from production backends:
-    allow 10.3.0.0/24;
-    deny all;
-    auth_basic            "Enter your betademo password";
-    auth_basic_user_file  htpasswd/htpasswd.<%=name %>;
-    satisfy any;
-    <%- end -%>
     root /data/vhost/<%= name %>/current/public;
     try_files $uri/index.html $uri.html $uri @app;
   }
