@@ -1,6 +1,6 @@
 class nginx::php {
 
-  include php
+  include ::php
 
   file { '/etc/nginx/conf.d/php.conf':
     ensure  => present,
