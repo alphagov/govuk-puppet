@@ -5,6 +5,7 @@ node default {
     data:               { include govuk_node::db_server }
     development:        { include development }
     efg_frontend:       { include govuk_node::efg_frontend_server }
+    efg_mysql_master:   { include govuk_node::efg_mysql_master_server }
     elms-development:   { include elms_base::development }
     elms-frontend:      { include elms_base::frontend_server }
     elms-mongo:         { include elms_base::mongo_server }
