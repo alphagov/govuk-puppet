@@ -3,5 +3,6 @@ class govuk::apps::datainsight_frontend( $port = 3027 ) {
     app_type => 'rack',
     port     => $port;
   }
-}
 
+  include govuk::phantomjs
+}
