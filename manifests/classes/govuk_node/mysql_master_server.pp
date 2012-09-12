@@ -25,4 +25,7 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
   class {'govuk::apps::tariff_api::db':
     require => Class['mysql::server']
   }
+  class {'govuk::apps::whitehall_frontend::db':
+    require => Class['mysql::server']
+  }
 }
