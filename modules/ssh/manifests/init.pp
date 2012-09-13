@@ -20,5 +20,14 @@ class ssh {
 
   anchor { 'ssh::end': }
 
+  # Export this machine's SSH RSA key to the puppetmaster
+  @@sshkey { $::fqdn:
+    type    => 'ssh-rsa',
+    key     => $::sshrsakey,
+    require => Class['ssh::service'],
+  }
+
+  # Collect the keys of all machines that share your puppetmaster
+  Sshkey <<||>>
 
 }
