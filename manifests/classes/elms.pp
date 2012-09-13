@@ -54,7 +54,6 @@ class elms_base {
 
 class elms_base::mongo_server inherits elms_base {
   include mongodb::server
-  $mongo_hosts = []
 
   case $::govuk_provider {
     sky: {
