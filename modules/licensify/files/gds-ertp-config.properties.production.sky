@@ -1,0 +1,16 @@
+mongo.database.hosts=elms-mongo-1,elms-mongo-2,elms-mongo-3
+places.api.url=http://places-api:9700/places
+feedActor=true
+
+oauth_callback_url_override=https://licensify-admin.production.alphagov.co.uk/licence-management/admin/oauth
+
+elms.frontend.host=https://licensify.production.alphagov.co.uk/
+
+access_token_url=https://signon.production.alphagov.co.uk/oauth/access_token
+authorization_url=https://signon.production.alphagov.co.uk/oauth/authorize
+user_details_url=https://signon.production.alphagov.co.uk/user.json
+client_id=f85b2ba81c80d2e83aa3c83eaf9fa841eb39efc7c508dde3af2b6cb9af692803
+client_secret=c8e6a17c3ca49b8a1857d26fa8207c6de5d2eeef253b7c343f5f25d068720601
+
+worldpay.redirectUrl=https://licensify.production.alphagov.co.uk/licence-management/payment/worldpayComplete
+worldpay.cancelled.redirectUrl=https://licensify.production.alphagov.co.uk/licence-management/payment/worldpayCancelled
