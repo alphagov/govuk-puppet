@@ -10,4 +10,5 @@ class base {
   include sshd
   include tmpreaper
   include unattended_upgrades
+  include wget
 }

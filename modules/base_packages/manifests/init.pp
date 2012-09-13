@@ -21,7 +21,6 @@ class base_packages {
       'tree',
       'unzip',
       'vim-nox',
-      'wget',
       'xz-utils',
       'zip'
     ]:
