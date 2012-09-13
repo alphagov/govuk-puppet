@@ -14,16 +14,10 @@ server {
   <%- if platform == 'development' -%>
   listen 80;
   <%- else -%>
-  listen                    443 ssl;
-  ssl_certificate           /etc/nginx/ssl/<%= vhost %>.crt;
-  ssl_certificate_key       /etc/nginx/ssl/<%= vhost %>.key;
-  proxy_set_header          X-Forwarded-Ssl on;
-  ssl_protocols             TLSv1 SSLv3;
-  ssl_ciphers               HIGH:!ADH:!kEDH;
-  ssl_prefer_server_ciphers on;
-  ssl_session_cache         shared:SSL:10m;
-  ssl_session_timeout       5m;
-  add_header                Strict-Transport-Security "max-age=2419200";
+  listen              443 ssl;
+  ssl_certificate     /etc/nginx/ssl/<%= vhost %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= vhost %>.key;
+  include             /etc/nginx/ssl.conf
   <%- end -%>
 
   index index.php index.html;

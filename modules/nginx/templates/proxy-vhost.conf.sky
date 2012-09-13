@@ -32,16 +32,10 @@ server {
   server_name <%= name %> <%= aliases.join(" ") unless aliases.empty? %>;
 
   <% if port == 443 %>
-  listen                    443 ssl;
-  ssl_certificate           /etc/nginx/ssl/<%= name %>.crt;
-  ssl_certificate_key       /etc/nginx/ssl/<%= name %>.key;
-  proxy_set_header          X-Forwarded-Ssl on;
-  ssl_protocols             TLSv1 SSLv3;
-  ssl_ciphers               HIGH:!ADH:!kEDH;
-  ssl_prefer_server_ciphers on;
-  ssl_session_cache         shared:SSL:10m;
-  ssl_session_timeout       5m;
-  add_header                Strict-Transport-Security "max-age=2419200";
+  listen              443 ssl;
+  ssl_certificate     /etc/nginx/ssl/<%= name %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= name %>.key;
+  include             /etc/nginx/ssl.conf
   <% end %>
   <% if port == 80 %>
   listen               80;
@@ -111,16 +105,10 @@ server {
 <% if ssl_health_check_port != 'NOTSET' %>
 server {
 
-  listen                    <%= ssl_health_check_port %> ssl;
-  ssl_certificate           /etc/nginx/ssl/<%= name %>.crt;
-  ssl_certificate_key       /etc/nginx/ssl/<%= name %>.key;
-  proxy_set_header          X-Forwarded-Ssl on;
-  ssl_protocols             TLSv1 SSLv3;
-  ssl_ciphers               HIGH:!ADH:!kEDH;
-  ssl_prefer_server_ciphers on;
-  ssl_session_cache         shared:SSL:10m;
-  ssl_session_timeout       5m;
-  add_header                Strict-Transport-Security "max-age=2419200";
+  listen              <%= ssl_health_check_port %> ssl;
+  ssl_certificate     /etc/nginx/ssl/<%= name %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= name %>.key;
+  include             /etc/nginx/ssl.conf
 
   proxy_set_header Host <%= name%>;
   proxy_set_header X-Real-IP $remote_addr;
@@ -130,8 +118,6 @@ server {
 
   access_log /var/log/nginx/<%= name %>-https-health-check-access.log timed_combined;
   error_log /var/log/nginx/<%= name %>-https-health-check-error.log;
-
- 
   
   location / {
     #TODO: See what ips we need to allow
