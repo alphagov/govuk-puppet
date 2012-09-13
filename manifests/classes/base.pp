@@ -3,7 +3,6 @@ class base {
   include base_packages
   include cron
   include logrotate
-  include motd
   include ntp
   include sudo
   include sysctl
