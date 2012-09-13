@@ -1,7 +1,7 @@
 class govuk_node::base {
   include ::base
   include hosts
-  include monitoring
+  include monitoring::client
   include puppet
   include puppet::cronjob
   include users

@@ -10,7 +10,7 @@ class ertp_base {
 }
 
 class ertp_base::mongo_server inherits ertp_base {
-  include monitoring
+  include monitoring::client
   include puppet::cronjob
 
   include mongodb::server
@@ -26,7 +26,7 @@ class ertp_base::mongo_server inherits ertp_base {
 
 class ertp_base::frontend_server inherits ertp_base {
   include nginx
-  include monitoring
+  include monitoring::client
   include puppet::cronjob
 
   case $::govuk_platform {
@@ -60,7 +60,7 @@ class ertp_base::frontend_server inherits ertp_base {
 
 class ertp_base::api_server inherits ertp_base {
   include nginx
-  include monitoring
+  include monitoring::client
   include puppet::cronjob
 
   case $::govuk_platform {

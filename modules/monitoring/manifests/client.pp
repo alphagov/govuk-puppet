@@ -1,4 +1,4 @@
-class monitoring {
+class monitoring::client {
   include nagios::client
   include ganglia::client
   include graphite::client
