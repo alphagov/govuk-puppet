@@ -35,5 +35,6 @@ class ganglia::client {
 
   Ganglia::Pyconf <| |>
   Ganglia::Pymod <| |>
+  Ganglia::Pymod_alias <| |>
   Ganglia::Cronjob <| |>
 }

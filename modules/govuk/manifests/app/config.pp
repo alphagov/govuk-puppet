@@ -69,9 +69,8 @@ define govuk::app::config (
   }
 
   # Set up monitoring
-  file { "/usr/lib/ganglia/python_modules/app-${title}-procstat.py":
-    ensure  => link,
-    target  => '/usr/lib/ganglia/python_modules/procstat.py',
+  @ganglia::pymod_alias { "app-${title}-procstat":
+    target => "procstat",
   }
 
   @ganglia::pyconf { "app-${title}":
