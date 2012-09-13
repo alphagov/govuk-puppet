@@ -25,15 +25,7 @@ class elms_base {
   # And this is the old way of resolving sibling hosts. Yes. It's horrible.
   case $::govuk_provider {
     sky: {
-      case $::govuk_platform {
-        production: {
-          host { 'licensify-frontend.backend-sky.production.internal': ip => '10.2.0.5',  host_aliases => ['licensify-frontend'] }
-          host { 'licensify-mongo0.backend-sky.production.internal':   ip => '10.3.0.9',  host_aliases => ['licensify-mongo0'] }
-          host { 'licensify-mongo1.backend-sky.production.internal':   ip => '10.3.0.10', host_aliases => ['licensify-mongo1'] }
-          host { 'licensify-mongo2.backend-sky.production.internal':   ip => '10.3.0.11', host_aliases => ['licensify-mongo2'] }
-        }
-        default: {}
-      }
+      # hosts managed as part of hosts module
     }
     scc: {
       # nothing
