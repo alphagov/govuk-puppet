@@ -1,7 +1,6 @@
 #!/bin/bash
 cd /tmp
 rm -rf www.gov.uk
-#Right now just copies only one file, for testing
 /usr/bin/wget --header "Accept: text/html" -v -mE -R licence-finder,trade-tariff https://www.gov.uk
 rm -rf /usr/share/www/www.gov.uk
 mv www.gov.uk /usr/share/www/
