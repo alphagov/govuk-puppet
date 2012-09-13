@@ -5,7 +5,6 @@ class govuk::apps::whitehall_frontend::db {
   mysql::server::db { 'whitehall_production':
     user          => 'whitehall_fe',
     password      => $whitehall_frontend_password,
-    host          => 'localhost',
     root_password => $mysql_password,
   }
 }

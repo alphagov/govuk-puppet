@@ -5,7 +5,6 @@ class govuk::apps::tariff_api::db {
   mysql::server::db { 'tariff_production':
     user          => 'tariff',
     password      => $tariff_api_password,
-    host          => 'localhost',
     root_password => $mysql_password,
   }
 }

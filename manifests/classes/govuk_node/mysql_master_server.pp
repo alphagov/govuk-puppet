@@ -8,11 +8,10 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
     server_id     => $master_server_id
   }
 
-  # TODO: PP 2012-08-17: push replica_user into mysql::server
-  class {'mysql::server::replica_user':
-    host           => 'localhost',
+  mysql::user {'replica_user':
     root_password  => $root_password,
-    password       => $replica_password,
+    user_password  => $replica_password,
+    privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
   class {'govuk::apps::signonotron::db':

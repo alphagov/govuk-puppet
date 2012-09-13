@@ -5,7 +5,6 @@ class govuk::apps::efg::db {
   mysql::server::db {'efg_production':
     user          => 'efg',
     password      => $efg_password,
-    host          => 'localhost',
     root_password => $mysql_password,
   }
 }

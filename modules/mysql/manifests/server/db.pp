@@ -1,14 +1,4 @@
-define mysql::server::db($user, $password, $host, $root_password, $remote_host='%') {
-
-  case $password {
-    '': {
-        $passarg = ''
-    }
-    default: {
-        $passarg = "-p'${password}'"
-    }
-  }
-
+define mysql::server::db($user, $password, $root_password, $remote_host='%') {
   case $root_password {
     '': {
         $rootpassarg = ''
@@ -18,20 +8,17 @@ define mysql::server::db($user, $password, $host, $root_password, $remote_host='
     }
   }
 
-
   exec { "create-${name}-db":
-    unless  => "/usr/bin/mysql -h ${host} -uroot ${rootpassarg} -e 'use ${name}'",
-    command => "/usr/bin/mysql -h ${host} -uroot ${rootpassarg} -e \'create database ${name};\'",
+    unless  => "/usr/bin/mysql -uroot ${rootpassarg} -e 'use ${name}'",
+    command => "/usr/bin/mysql -uroot ${rootpassarg} -e \'create database ${name};\'",
     require => Class['mysql::server'],
   }
 
-  exec { "grant-${name}-db":
-    unless  => "/usr/bin/mysql -h ${host} -u${user} ${passarg} ${name}",
-    command => "/usr/bin/mysql -h ${host} -uroot ${rootpassarg} -e 'grant all on ${name}.* to ${user}@\"${remote_host}\" identified by \"${password}\"; flush privileges;'",
-    require => [
-      Class['mysql::server'],
-      Exec["create-${name}-db"]
-    ],
+  mysql::user {"${user}_on_${name}":
+    root_password => $root_password,
+    user_password => $password,
+    remote_host   => $remote_host,
+    db            => $name,
+    require       => Exec["create-${name}-db"],
   }
-
 }

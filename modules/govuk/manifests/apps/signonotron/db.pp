@@ -5,7 +5,6 @@ class govuk::apps::signonotron::db {
   mysql::server::db {'signon_production':
     user          => 'signon',
     password      => $signon_password,
-    host          => 'localhost',
     root_password => $mysql_password,
   }
 }
