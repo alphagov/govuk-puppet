@@ -13,7 +13,6 @@ class govuk_node::efg_mysql_master_server inherits govuk_node::base {
     host           => 'localhost',
     root_password  => $root_password,
     password       => $replica_password,
-    require        => Class['mysql::server'],
   }
 
   class {'govuk::apps::efg::db':
