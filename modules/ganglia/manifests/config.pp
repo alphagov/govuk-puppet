@@ -42,7 +42,7 @@ class ganglia::config ($platform = $::govuk_platform) {
   #
   # This bug in ganglia-monitor is fixed in maverick [1], so if we upgrade to
   # precise, this config file will actually break gmetad, because
-  # /var/lib/ganglia/rrds will once more be owned by ganglia. >_<
+  # /var/lib/ganglia/rrds will once more be owned by nobody. >_<
   # [1] https://bugs.launchpad.net/ubuntu/+source/ganglia/+bug/444485
   #  -- PP, 2012-08-15
   if $::govuk_provider != 'scc' {
