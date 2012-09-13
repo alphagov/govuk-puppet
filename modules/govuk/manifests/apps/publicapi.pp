@@ -11,6 +11,11 @@ class govuk::apps::publicapi {
     default       => "contentapi.${domain}"
   }
 
+  $whitehallapi = $platform ? {
+    'development' => 'localhost:3020',
+    default       => "whitehall-frontend.${domain}"
+  }
+
   $full_domain = "public-api.${domain}"
 
   nginx::config::vhost::proxy { $full_domain:
@@ -18,10 +23,16 @@ class govuk::apps::publicapi {
     protected         => false,
     ssl_only          => false,
     platform          => $platform,
-    extra_config      => "location /api {
-      proxy_set_header Host ${privateapi};
-      proxy_set_header API_PREFIX api;
-      proxy_pass http://${full_domain}-proxy/;
-    }"
+    extra_config      => "
+      location /api {
+        proxy_set_header Host ${privateapi};
+        proxy_set_header API_PREFIX api;
+        proxy_pass http://${full_domain}-proxy/;
+      }
+
+      location /api/specialist {
+        proxy_pass http://${whitehallapi}
+      }
+    "
   }
 }
