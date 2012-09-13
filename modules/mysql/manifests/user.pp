@@ -1,4 +1,4 @@
-define mysql::user ($root_password, $user_password, $remote_host='%', $db='*', $privileges='all') {
+define mysql::user ($root_password, $user_password, $username=$title, $remote_host='%', $db='*', $privileges='all') {
   case $user_password {
     '': {
         $userpassarg = ''
@@ -27,8 +27,8 @@ define mysql::user ($root_password, $user_password, $remote_host='%', $db='*', $
   }
 
   exec { "create_mysql_user_${title}":
-    unless  => "/usr/bin/mysql -u${title} '${userpassarg}' ${dbarg}",
-    command => "/usr/bin/mysql -uroot '${rootpassarg}' -e 'grant ${privileges} on ${db}.* to ${title}@\"${remote_host}\" identified by \"$user_password\"; flush privileges;'",
+    unless  => "/usr/bin/mysql -u${username} '${userpassarg}' ${dbarg}",
+    command => "/usr/bin/mysql -uroot '${rootpassarg}' -e 'grant ${privileges} on ${db}.* to ${username}@\"${remote_host}\" identified by \"$user_password\"; flush privileges;'",
     require => Class['mysql::server'],
   }
 }

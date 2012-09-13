@@ -16,6 +16,7 @@ define mysql::server::db($user, $password, $root_password, $remote_host='%') {
 
   mysql::user {"${user}_on_${name}":
     root_password => $root_password,
+    username      => $user,
     user_password => $password,
     remote_host   => $remote_host,
     db            => $name,
