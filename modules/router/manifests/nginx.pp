@@ -16,7 +16,7 @@ class router::nginx {
   file { '/etc/nginx/router_routes.conf':
     ensure  => present,
     content => template('router/routes.conf.erb'),
-    notify  => Class['nginx::service'],
+    notify  => Nginx::Config::Site['www.gov.uk'],
   }
 
   file { '/usr/share/nginx':
