@@ -74,12 +74,9 @@ define govuk::app::config (
   }
 
   # Set up monitoring
-  if $platform != 'development' {
-    file { "/usr/lib/ganglia/python_modules/app-${title}-procstat.py":
-      ensure  => link,
-      target  => '/usr/lib/ganglia/python_modules/procstat.py',
-      require => Ganglia::Pymod['procstat'],
-    }
+  file { "/usr/lib/ganglia/python_modules/app-${title}-procstat.py":
+    ensure  => link,
+    target  => '/usr/lib/ganglia/python_modules/procstat.py',
   }
 
   @ganglia::pyconf { "app-${title}":
