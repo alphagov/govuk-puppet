@@ -1,8 +1,0 @@
-description "start and stop web-facter"
-author "Gareth Rushgrove"
-
-expect daemon
-
-env RUBY_BIN=/usr/bin
-
-exec $RUBY_BIN/web-facter --config /etc/web-facter.conf
