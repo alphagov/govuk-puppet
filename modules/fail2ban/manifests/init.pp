@@ -10,8 +10,8 @@ class fail2ban {
   }
 
   class { 'fail2ban::config':
-    require   => Class['fail2ban::package'],
-    notify    => Class['fail2ban::service'];
+    require => Class['fail2ban::package'],
+    notify  => Class['fail2ban::service'];
   }
 
   class { 'fail2ban::service':
