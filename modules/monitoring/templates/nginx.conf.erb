@@ -15,7 +15,7 @@ server {
   listen              443 ssl default_server;
   ssl_certificate     /etc/nginx/ssl/<%= vhost %>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= vhost %>.key;
-  include             /etc/nginx/ssl.conf
+  include             /etc/nginx/ssl.conf;
   <%- end -%>
 
   index index.html;

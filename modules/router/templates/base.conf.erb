@@ -13,7 +13,7 @@ server {
   listen              443 ssl default_server;
   ssl_certificate     /etc/nginx/ssl/www.gov.uk.crt;
   ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
-  include             /etc/nginx/ssl.conf
+  include             /etc/nginx/ssl.conf;
 
   include             /etc/nginx/router_routes.conf
 }
@@ -23,7 +23,7 @@ server {
   listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/www.<%= @platform %>.alphagov.co.uk.crt;
   ssl_certificate_key /etc/nginx/ssl/www.<%= @platform %>.alphagov.co.uk.key;
-  include             /etc/nginx/ssl.conf
+  include             /etc/nginx/ssl.conf;
 
   include             /etc/nginx/router_routes.conf
 }

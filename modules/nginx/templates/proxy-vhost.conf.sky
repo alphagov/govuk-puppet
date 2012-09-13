@@ -35,7 +35,7 @@ server {
   listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/<%= name %>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= name %>.key;
-  include             /etc/nginx/ssl.conf
+  include             /etc/nginx/ssl.conf;
   <% end %>
   <% if port == 80 %>
   listen               80;
@@ -108,7 +108,7 @@ server {
   listen              <%= ssl_health_check_port %> ssl;
   ssl_certificate     /etc/nginx/ssl/<%= name %>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= name %>.key;
-  include             /etc/nginx/ssl.conf
+  include             /etc/nginx/ssl.conf;
 
   proxy_set_header Host <%= name%>;
   proxy_set_header X-Real-IP $remote_addr;
