@@ -1,0 +1,71 @@
+proxy_set_header Host $http_host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-Server $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_redirect off;
+
+access_log /var/log/nginx/lb-access.log timed_combined;
+error_log  /var/log/nginx/lb-error.log;
+
+<%- if @platform != 'production' -%>
+deny all;
+auth_basic            "Enter your betademo password";
+auth_basic_user_file  /etc/govuk.htpasswd;
+satisfy any;
+<%- end -%>
+
+rewrite ^/cloudstore http://gcloud.civilservice.gov.uk/cloudstore/;
+
+location @upstream {
+  proxy_pass http://varnish;
+}
+location ~ ^/government\/assets\/ {
+  proxy_pass http://varnish;
+}
+location ~ ^/government\/.+ {
+  deny all;
+  auth_basic           "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
+  auth_basic_user_file /etc/govuk.htpasswd;
+  satisfy any;
+  proxy_pass http://varnish;
+}
+location ~ ^/government\/ {
+  proxy_pass http://varnish;
+}
+location = /government {
+  proxy_pass http://varnish;
+}
+location = /homepage {
+  rewrite ^(.*) / permanent;
+}
+location / {
+  root /var/www/fallback;
+  try_files /fallback.html /flatsite/$uri /flatsite/$uri.html /flatsite/$uri/ /flatsite/$uri.1.html /flatsite/$uri/index.html /flatsite/index.html @upstream;
+}
+
+error_page 404 401 /404.html;
+error_page 406 /406.html;
+error_page 418 /418.html;
+error_page 500 502 /500.html;
+error_page 503 /503.html;
+error_page 504 /504.html;
+
+location /404.html {
+  root /usr/share/nginx/www;
+}
+location /406.html {
+  root /usr/share/nginx/www;
+}
+location /418.html {
+  root /usr/share/nginx/www;
+}
+location /500.html {
+  root /usr/share/nginx/www;
+}
+location /503.html {
+  root /usr/share/nginx/www;
+}
+location /504.html {
+  root /usr/share/nginx/www;
+}
+
