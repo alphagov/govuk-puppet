@@ -52,7 +52,7 @@ class hosts::skyscape::production {
   host { 'mongo-3.backend.production'           : ip => '10.3.0.8' }
   host { 'mapit-server-1.backend.production'    : ip => '10.3.0.9', host_aliases => [ 'mapit-server-1', 'mapit.alpha.gov.uk'] }
   host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql-master-1', 'mysql.backend.production' ]  }
-  host { 'elms-backend-1.backend.production'    : ip => '10.3.5.0', host_aliases => ['elms-backend-1']}
+  host { 'elms-backend-1.backend.production'    : ip => '10.3.5.0', host_aliases => ['elms-backend-1', 'licsensify-admin.production.alphagov.co.uk']}
   host { 'elms-backend-2.backend.production'    : ip => '10.3.5.1', host_aliases => ['elms-backend-2']}
   host { 'elms-mongo-1.backend.production'      : ip => '10.3.5.3', host_aliases => ['elms-mongo-1']}
   host { 'elms-mongo-2.backend.production'      : ip => '10.3.5.4', host_aliases => ['elms-mongo-2']}
