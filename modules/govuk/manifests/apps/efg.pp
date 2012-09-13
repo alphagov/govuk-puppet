@@ -1,8 +1,9 @@
 class govuk::apps::efg( $port = 3019 ) {
   govuk::app { 'efg':
-    app_type       => 'rack',
-    port           => $port,
-    vhost_ssl_only => true;
+    app_type          => 'rack',
+    port              => $port,
+    health_check_path => "/",
+    vhost_ssl_only    => true;
   }
 
   @@nagios::check { "check_efg_login_failures":
