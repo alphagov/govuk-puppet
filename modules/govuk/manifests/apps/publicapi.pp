@@ -31,7 +31,7 @@ class govuk::apps::publicapi {
       }
 
       location /api/specialist {
-        proxy_pass http://${whitehallapi}
+        proxy_pass http://${whitehallapi};
       }
     "
   }
