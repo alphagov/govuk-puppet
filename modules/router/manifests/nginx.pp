@@ -19,6 +19,18 @@ class router::nginx {
     notify  => Class['nginx::service'],
   }
 
+  file { '/usr/share/nginx':
+    ensure  => directory,
+  }
+
+  file { '/usr/share/nginx/www':
+    ensure  => directory,
+    mode    => '0755',
+    owner   => deploy,
+    group   => deploy,
+    require => File['/usr/share/nginx'];
+  }
+
   # The cache/router also contains a flat site as a backup for software failures
   nginx::config::vhost::mirror { "flatsite.${platform}.alphagov.co.uk":
     port     => '444',

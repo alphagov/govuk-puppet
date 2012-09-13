@@ -19,16 +19,6 @@ class nginx::config {
     owner  => 'www-data',
   }
 
-  file { '/usr/share/nginx':
-    ensure  => directory,
-  }
-
-  file { '/usr/share/nginx/www':
-    ensure  => directory,
-    mode    => '0755',
-    require => File['/usr/share/nginx'];
-  }
-
   @logstash::collector { 'nginx':
     source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
   }
