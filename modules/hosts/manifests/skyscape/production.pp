@@ -2,12 +2,13 @@ class hosts::skyscape::production {
   # These are real hosts (1-1 mapping between Host and Service)
   # Anything that ends .cluster is maintained for backwards compatibility with EC2
   #Management VDC machines
-  host { 'puppet-1.management.production'  : ip  => '10.0.0.2', host_aliases  => [ 'puppet-1', 'puppet' ] }
-  host { 'jenkins-1.management.production' : ip  => '10.0.0.3' }
-  host { 'monitoring.management.production' : ip => '10.0.0.20', host_aliases => ['monitoring','monitoring.cluster'] }
-  host { 'logging.management.production' : ip    => '10.0.0.21', host_aliases => ['logging','graylog.cluster']}
-  host { 'jumpbox-1.management.production' : ip  => '10.0.0.100' }
-  host { 'jumpbox-2.management.production' : ip  => '10.0.0.200' }
+  host { 'puppet-1.management.production'   : ip  => '10.0.0.2', host_aliases  => [ 'puppet-1', 'puppet' ] }
+  host { 'jenkins-1.management.production'  : ip  => '10.0.0.3' }
+  host { 'monitoring.management.production' : ip  => '10.0.0.20', host_aliases => ['monitoring','monitoring.cluster'] }
+  host { 'logging.management.production'    : ip  => '10.0.0.21', host_aliases => ['logging','graylog.cluster']}
+  host { 'jumpbox-1.management.production'  : ip  => '10.0.0.100' }
+  host { 'jumpbox-2.management.production'  : ip  => '10.0.0.200' }
+  host { 'vcd00003.vpn.skyscapecs.net'      : ip  => '10.202.5.11' }
 
   #Router VDC machines
   host { 'cache-1.router.production'        : ip => '10.1.0.2' }
