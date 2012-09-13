@@ -35,6 +35,7 @@ class hosts::skyscape::production {
   host { 'frontend-3.frontend.production'             : ip => '10.2.0.4' }
   host { 'whitehall-frontend-1.frontend.production'   : ip => '10.2.0.5', host_aliases => ['whitehall-frontend-1', 'whitehall-frontend.production.alphagov.co.uk',
                                                                                             'whitehall-search.production.alphagov.co.uk']}
+  host { 'whitehall-frontend-2.frontend.production'   : ip => '10.2.0.6', host_aliases => ['whitehall-frontend-2']}
   host { 'elms-frontend-1.frontend.production'        : ip => '10.2.0.7', host_aliases => ['elms-frontend-1']}
   host { 'elms-frontend-2.frontend.production'        : ip => '10.2.0.8', host_aliases => ['elms-frontend-2']}
 
