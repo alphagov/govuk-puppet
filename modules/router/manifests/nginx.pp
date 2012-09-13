@@ -26,8 +26,8 @@ class router::nginx {
   file { '/usr/share/nginx/www':
     ensure  => directory,
     mode    => '0755',
-    owner   => deploy,
-    group   => deploy,
+    owner   => 'deploy',
+    group   => 'deploy',
     require => File['/usr/share/nginx'];
   }
 
