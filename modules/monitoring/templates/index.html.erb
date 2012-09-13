@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Inconsolata);
+
+    body {
+      margin: 1em;
+      padding: 0;
+      font-family: Inconsolata, monospace;
+    }
+
+    .outbound {
+      margin: 0;
+      padding: 1em 0;
+    }
+
+    .outbound a {
+      color: #2E3191;
+      font-size: 24px;
+      padding: 1em;
+      text-decoration: none;
+      border: 1px solid #2E3191;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>GOV.UK <%= @govuk_platform %> monitoring</h1>
+  <p class=outbound>
+    <a href="https://ganglia.<%= @govuk_platform %>.alphagov.co.uk/">Ganglia</a>
+    <a href="https://graphite.<%= @govuk_platform %>.alphagov.co.uk/">Graphite</a>
+    <a href="https://nagios.<%= @govuk_platform %>.alphagov.co.uk/">Nagios</a>
+  </p>
+</body>

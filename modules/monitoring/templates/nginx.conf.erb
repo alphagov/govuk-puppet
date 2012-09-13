@@ -1,0 +1,35 @@
+<%- if platform != 'development' -%>
+server {
+  server_name <%= vhost %>;
+  listen 80;
+  rewrite ^/(.*) https://$server_name/$1 permanent;
+}
+<%- end -%>
+
+server {
+  server_name <%= vhost %>;
+
+  <%- if platform == 'development' -%>
+  listen 80;
+  <%- else -%>
+  listen                    443 ssl default_server;
+  ssl_certificate           /etc/nginx/ssl/<%= vhost %>.crt;
+  ssl_certificate_key       /etc/nginx/ssl/<%= vhost %>.key;
+  proxy_set_header          X-Forwarded-Ssl on;
+  ssl_protocols             TLSv1 SSLv3;
+  ssl_ciphers               HIGH:!ADH:!kEDH;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  add_header                Strict-Transport-Security "max-age=2419200";
+  <%- end -%>
+
+  index index.html;
+  root /var/www/monitoring;
+
+  access_log /var/log/nginx/<%= vhost %>-access.log timed_combined;
+  error_log /var/log/nginx/<%= vhost %>-error.log;
+
+  auth_basic "Enter your betademo password";
+  auth_basic_user_file /etc/govuk.htpasswd;
+}
