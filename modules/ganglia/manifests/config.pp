@@ -1,5 +1,7 @@
 class ganglia::config ($platform = $::govuk_platform) {
 
+  include govuk::htpasswd
+
   $domain = $platform ? {
     'development' => 'dev.gov.uk',
     default       => "${platform}.alphagov.co.uk",
@@ -31,13 +33,6 @@ class ganglia::config ($platform = $::govuk_platform) {
     ensure  => directory,
     owner   => www-data,
     group   => www-data,
-  }
-
-  file { '/etc/ganglia/htpasswd.ganglia':
-    ensure  => present,
-    owner   => root,
-    group   => root,
-    source  => 'puppet:///modules/ganglia/htpasswd.ganglia',
   }
 
   # TODO: this config file contains a hack to drop priveleges to "ganglia"

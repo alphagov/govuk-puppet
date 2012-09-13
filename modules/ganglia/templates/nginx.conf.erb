@@ -33,7 +33,7 @@ server {
   error_log /var/log/nginx/<%= vhost %>-error.log;
 
   auth_basic "Ganglia Restricted Access";
-  auth_basic_user_file /etc/ganglia/htpasswd.ganglia;
+  auth_basic_user_file /etc/govuk.htpasswd;
 
   location ~ \.php$ {
     include /etc/nginx/fastcgi_params;

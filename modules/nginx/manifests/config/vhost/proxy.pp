@@ -17,26 +17,11 @@ define nginx::config::vhost::proxy(
     $proxy_vhost_template = 'nginx/proxy-vhost.conf'
   }
 
+  include govuk::htpasswd
+
   nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:
     content => template($proxy_vhost_template),
-  }
-
-  case $protected {
-    default: {
-      file { "/etc/nginx/htpasswd/htpasswd.$name":
-        ensure => present,
-        source => [
-          "puppet:///modules/nginx/htpasswd.$name",
-          'puppet:///modules/nginx/htpasswd.default'
-        ],
-      }
-    }
-    false: {
-      file { "/etc/nginx/htpasswd/htpasswd.$name":
-        ensure => absent
-      }
-    }
   }
 
   @logster::cronjob { "nginx-vhost-${title}":

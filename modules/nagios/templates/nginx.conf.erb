@@ -33,7 +33,7 @@ server {
   error_log /var/log/nginx/<%= vhost %>-error.log;
 
   auth_basic "Nagios Restricted Access";
-  auth_basic_user_file /etc/nagios3/htpasswd.users;
+  auth_basic_user_file /etc/govuk.htpasswd;
 
   location /stylesheets {
     alias /etc/nagios3/stylesheets;

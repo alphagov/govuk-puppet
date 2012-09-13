@@ -47,7 +47,7 @@ server {
     allow 109.107.36.184;
     deny all;
     auth_basic            "Enter your betademo password";
-    auth_basic_user_file  /etc/htpasswd;
+    auth_basic_user_file  /etc/govuk.htpasswd;
     satisfy any;
 
     root /var/www/fallback;
@@ -109,7 +109,7 @@ server {
     allow 109.107.36.184;
     deny all;
     auth_basic            "Enter your betademo password";
-    auth_basic_user_file  /etc/htpasswd;
+    auth_basic_user_file  /etc/govuk.htpasswd;
     satisfy any;
 
     root /var/www/fallback;
