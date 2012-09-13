@@ -6,7 +6,7 @@ class govuk::apps::datainsight_frontend( $port = 3027 ) {
 
   file { ['/mnt/datainsight', '/mnt/datainsight/graphs']:
     ensure => directory,
-    owner => 'deploy'
+    owner  => 'deploy'
   }
 
   file { '/var/tmp/graphs':
