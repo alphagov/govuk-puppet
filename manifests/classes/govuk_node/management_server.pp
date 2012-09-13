@@ -1,6 +1,6 @@
 class govuk_node::management_server {
   include apt
-  include sshd
+  include ssh
 
   include govuk_node::ruby_app_server
 

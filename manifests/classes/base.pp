@@ -6,7 +6,7 @@ class base {
   include ntp
   include sudo
   include sysctl
-  include sshd
+  include ssh
   include tmpreaper
   include unattended_upgrades
   include wget
