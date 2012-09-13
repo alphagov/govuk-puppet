@@ -35,6 +35,8 @@ class hosts::skyscape::production {
   host { 'frontend-3.frontend.production'             : ip => '10.2.0.4' }
   host { 'whitehall-frontend-1.frontend.production'   : ip => '10.2.0.5', host_aliases => ['whitehall-frontend-1', 'whitehall-frontend.production.alphagov.co.uk',
                                                                                             'whitehall-search.production.alphagov.co.uk']}
+  host { 'elms-frontend-1.frontend.production'        : ip => '10.2.0.7', host_aliases => ['elms-frontend-1']}
+  host { 'elms-frontend-2.frontend.production'        : ip => '10.2.0.8', host_aliases => ['elms-frontend-2']}
 
   #Backend VDC machines
   host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'signon.production.alphagov.co.uk',
@@ -48,6 +50,11 @@ class hosts::skyscape::production {
   host { 'mongo-3.backend.production'           : ip => '10.3.0.8' }
   host { 'mapit-server-1.backend.production'    : ip => '10.3.0.9', host_aliases => [ 'mapit-server-1', 'mapit.alpha.gov.uk'] }
   host { 'mysql-master-1.backend.production'    : ip => '10.3.10.0', host_aliases => [ 'mysql-master-1', 'mysql.backend.production' ]  }
+  host { 'elms-backend-1.backend.production'    : ip => '10.3.5.0', host_aliases => ['elms-backend-1']}
+  host { 'elms-backend-2.backend.production'    : ip => '10.3.5.1', host_aliases => ['elms-backend-2']}
+  host { 'elms-mongo-1.backend.production'      : ip => '10.3.5.3', host_aliases => ['elms-mongo-1']}
+  host { 'elms-mongo-2.backend.production'      : ip => '10.3.5.4', host_aliases => ['elms-mongo-2']}
+  host { 'elms-mongo-3.backend.production'      : ip => '10.3.5.5', host_aliases => ['elms-mongo-3']}
   #Load Balancer vhosts
   host { 'calendars.router.production' : ip => '10.2.1.1', host_aliases => ['calendars', 'calendars.cluster', 'calendars.production.alphagov.co.uk'] }
 

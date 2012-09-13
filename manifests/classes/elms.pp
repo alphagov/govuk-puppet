@@ -63,12 +63,26 @@ class elms_base {
 class elms_base::mongo_server inherits elms_base {
   include mongodb::server
 
+  case $::govuk_provider {
+    sky: {
+      $mongo_hosts = [
+        'elms-mongo-1.backend.production',
+        'elms-mongo-2.backend.production',
+        'elms-mongo-3.backend.production'
+      ]
+    }
+    #aws
+    default: {
+      $mongo_hosts = [
+        'licensify-mongo0',
+        'licensify-mongo1',
+        'licensify-mongo2'
+      ]
+    }
+  }
+
   class { 'mongodb::configure_replica_set':
-    members => [
-      'licensify-mongo0',
-      'licensify-mongo1',
-      'licensify-mongo2'
-    ]
+    members => [ $mongo_hosts ]
   }
 }
 
