@@ -8,6 +8,8 @@ define govuk::user(
   $has_deploy = false
 ) {
 
+  include shell
+
   if $ssh_key == 'NOTSET' {
     $ssh_key_name = "${title}_key"
   } else {
@@ -20,15 +22,15 @@ define govuk::user(
     home       => "/home/$title",
     managehome => true,
     groups     => ['admin', 'deploy'],
-    require    => [Group['admin'], Group['deploy']],
-    shell      => $shell;
+    require    => [Class['shell'], Group['admin'], Group['deploy']],
+    shell      => $shell,
   }
   ssh_authorized_key { $ssh_key_name:
     ensure  => $ensure,
     key     => extlookup($ssh_key_name, ''),
     type    => $ssh_key_type,
     user    => $title,
-    require => User[$title];
+    require => User[$title],
   }
 
   if $has_deploy {
