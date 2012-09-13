@@ -29,18 +29,13 @@ define govuk::app::config (
     $ssl_health_check_port = 'NOTSET'
   }
   else {
-    if $vhost_ssl_only {
-      $health_check_port = 'NOTSET'
-    }
-    else {
-      $health_check_port = $port + 6500
-      @ufw::allow { "allow-loadbalancer-health-check-${title}-http-from-all":
-        port => $health_check_port,
-      }
-    }
+    $health_check_port = $port + 6500
     $ssl_health_check_port = $port + 6400
-    @ufw::allow { "allow-loadbalancer-health-check-${title}-https-from-all":
-      port => $ssl_health_check_port,
+    @ufw::allow {
+      "allow-loadbalancer-health-check-${title}-http-from-all":
+        port => $health_check_port;
+      "allow-loadbalancer-health-check-${title}-https-from-all":
+        port => $ssl_health_check_port;
     }
   }
 
