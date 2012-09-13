@@ -1,4 +1,4 @@
-class nginx::config($node_type) {
+class nginx::config {
 
   file { '/etc/nginx':
     ensure  => directory,
@@ -38,30 +38,10 @@ class nginx::config($node_type) {
     minute => '*/2',
   }
 
-  case $node_type {
-    router : {
-      @@nagios::check { "check_nginx_active_connections_${::hostname}":
-        check_command       => 'check_ganglia_metric!nginx_active_connections!1000!2000',
-        service_description => 'check nginx active connections',
-        host_name           => "${::govuk_class}-${::hostname}",
-      }
-    }
-    default : {
-      @@nagios::check { "check_nginx_active_connections_${::hostname}":
-        check_command       => 'check_ganglia_metric!nginx_active_connections!500!1000',
-        service_description => 'check nginx active connections',
-        host_name           => "${::govuk_class}-${::hostname}",
-      }
-    }
+  @@nagios::check { "check_nginx_active_connections_${::hostname}":
+    check_command       => 'check_ganglia_metric!nginx_active_connections!500!1000',
+    service_description => 'check nginx active connections',
+    host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  case $node_type  {
-    router:            { include nginx::config::router }
-    UNSET:             {}
-    default: {
-      notify { '$node_type':
-        message => "Unrecognised node type: $node_type"
-      }
-    }
-  }
 }

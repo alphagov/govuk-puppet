@@ -1,4 +1,4 @@
-class nginx($node_type = 'UNSET') {
+class nginx {
 
   anchor { 'nginx::begin':
     notify => Class['nginx::service'];
@@ -10,9 +10,8 @@ class nginx($node_type = 'UNSET') {
   }
 
   class { 'nginx::config':
-    node_type => $node_type,
-    require   => Class['nginx::package'],
-    notify    => Class['nginx::service'];
+    require => Class['nginx::package'],
+    notify  => Class['nginx::service'];
   }
 
   class { 'nginx::service':
