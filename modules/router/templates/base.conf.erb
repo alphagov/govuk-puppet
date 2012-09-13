@@ -1,5 +1,5 @@
 upstream varnish {
-  server http://localhost:7999;
+  server localhost:7999;
 }
 
 server {
@@ -15,7 +15,7 @@ server {
   ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
   include             /etc/nginx/ssl.conf;
 
-  include             /etc/nginx/router_routes.conf
+  include             /etc/nginx/router_routes.conf;
 }
 
 server {
@@ -25,5 +25,5 @@ server {
   ssl_certificate_key /etc/nginx/ssl/www.<%= @platform %>.alphagov.co.uk.key;
   include             /etc/nginx/ssl.conf;
 
-  include             /etc/nginx/router_routes.conf
+  include             /etc/nginx/router_routes.conf;
 }
