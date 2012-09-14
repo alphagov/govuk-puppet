@@ -1,4 +1,4 @@
-class govuk::apps::signonotron::db {
+class govuk::apps::signon::db {
   $signon_password = extlookup('mysql_signonotron', '')
   $mysql_password = extlookup('mysql_root', '')
 

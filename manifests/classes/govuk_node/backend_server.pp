@@ -59,5 +59,5 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::support
   include govuk::apps::contentapi
   include govuk::apps::imminence
-  include govuk::apps::signonotron
+  include govuk::apps::signon
 }
