@@ -31,6 +31,8 @@ class router::nginx {
     require => File['/usr/share/nginx'];
   }
 
+  govuk::errorpage {['404','406','418','500','503','504']:}
+
   # The cache/router also contains a flat site as a backup for software failures
   nginx::config::vhost::mirror { "flatsite.${platform}.alphagov.co.uk":
     port     => '444',
