@@ -6,6 +6,9 @@ define nginx::config::vhost::static(
 ) {
 
   include govuk::htpasswd
+  $health_check_port = "9513"
+  $ssl_health_check_port = "9413"
+  $health_check_path = "/bank-holidays"
 
   nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:
