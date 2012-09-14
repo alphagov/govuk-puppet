@@ -28,6 +28,11 @@ class nagios::config ($platform = $::govuk_platform) {
     source  => 'puppet:///modules/nagios/etc/nagios3/conf.d',
   }
 
+  file { '/etc/nagios3/conf.d/check_graphite.cfg':
+    content => template('nagios/etc/nagios3/conf.d/check_graphite.cfg.erb'),
+  }
+
+
   @@nagios::check { 'check_smokey':
     check_command       => 'run_smokey_tests',
     service_description => 'Run small suite of functional tests',
