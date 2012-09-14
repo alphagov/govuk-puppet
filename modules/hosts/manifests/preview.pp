@@ -37,10 +37,11 @@ class hosts::preview {
   host { 'reviewomatic.preview.alphagov.co.uk':         ip => '10.228.95.176' }
   host { 'datainsight-frontend.preview.alphagov.co.uk': ip => '10.58.253.150' }
 
-  host { 'whitehall.preview.alphagov.co.uk':        ip => '10.49.105.155' }
-  host { 'whitehall-search.preview.alphagov.co.uk': ip => '10.49.105.155' }
-  host { 'whitehall-admin.preview.alphagov.co.uk':  ip => '10.228.95.176' }
-  host { 'whitehall.cluster':                       ip => '10.49.105.155' }
+  host { 'whitehall-frontend.preview.alphagov.co.uk':   ip => '10.49.105.155' }
+  host { 'whitehall-search.preview.alphagov.co.uk':     ip => '10.49.105.155' }
+  host { 'whitehall.preview.alphagov.co.uk':            ip => '10.49.105.155' }
+  host { 'whitehall.cluster':                           ip => '10.49.105.155' }
+  host { 'whitehall-admin.preview.alphagov.co.uk':      ip => '10.228.95.176' }
 
   host { 'designprincipals.preview.alphagov.co.uk':
     ensure => absent,
