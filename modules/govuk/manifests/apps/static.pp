@@ -3,6 +3,7 @@ class govuk::apps::static( $port = 3013 ) {
     app_type           => 'rack',
     port               => $port,
     enable_nginx_vhost => false,
+    health_check_path  => '/templates/wrapper.html.erb';
   }
 
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
