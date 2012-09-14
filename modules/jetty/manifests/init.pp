@@ -53,6 +53,7 @@ class jetty($version='7.6.4.v20120524'){
   }
   file { "$home/jetty/contexts/test.d":
     ensure => absent,
+    force  => true,
   }
   file { "$home/jetty/webapps/test.war":
     ensure => absent,
