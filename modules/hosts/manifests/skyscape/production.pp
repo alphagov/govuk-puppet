@@ -22,7 +22,6 @@ class hosts::skyscape::production {
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'             : ip => '10.2.0.2', host_aliases => ['frontend-1',
-                                                                'frontend.production.alphagov.co.uk',
                                                                 'smartanswers.production.alphagov.co.uk',
                                                                 'tariff.production.alphagov.co.uk',
                                                                 'planner.production.alphagov.co.uk',
@@ -41,6 +40,7 @@ class hosts::skyscape::production {
   host { 'calendars.frontend.production'                : ip => '10.2.1.1', host_aliases => ['calendars', 'calendars.production.alphagov.co.uk'] }
   host { 'static.frontend.production'                   : ip => '10.2.1.2', host_aliases => ['static', 'static.production.alphagov.co.uk'] }
   host { 'search.frontend.production'                   : ip => '10.2.1.3', host_aliases => ['search', 'search.production.alphagov.co.uk'] }
+  host { 'frontend.frontend.production'                 : ip => '10.2.1.4', host_aliases => ['frontend', 'frontend.production.alphagov.co.uk'] }
 
   #Backend VDC machines
   host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'panopticon.production.alphagov.co.uk' # needed for panopticon registation
