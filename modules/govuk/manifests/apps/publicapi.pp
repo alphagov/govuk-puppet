@@ -31,6 +31,7 @@ class govuk::apps::publicapi {
       }
 
       location /api/specialist {
+        proxy_set_header Host ${whitehallapi};
         proxy_pass http://${whitehallapi};
       }
     "
