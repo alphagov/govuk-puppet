@@ -1,9 +1,10 @@
 class govuk::apps::frontend( $port = 3005 ) {
   govuk::app { 'frontend':
-    app_type      => 'rack',
-    port          => $port,
-    vhost         => 'www',
-    vhost_aliases => ['frontend'],
+    app_type          => 'rack',
+    port              => $port,
+    vhost             => 'www',
+    vhost_aliases     => ['frontend'],
+    health_check_path => '/'
   }
 
   # nginx::config::vhost::static needs this link to be here
