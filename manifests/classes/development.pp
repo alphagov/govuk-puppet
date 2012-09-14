@@ -21,6 +21,7 @@ class development {
   include govuk::apps::feedback
   include govuk::apps::contentapi
   include govuk::apps::publicapi
+  include govuk::apps::signonotron
 
   include govuk::deploy
   include govuk::repository
