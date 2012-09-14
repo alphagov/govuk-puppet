@@ -1,7 +1,12 @@
 class govuk::apps::redirector {
-  file { '/etc/nginx/sites-enabled/redirections':
+  file { '/etc/nginx/sites-enabled/businesslink':
     ensure => link,
-    target => '/var/apps/redirector/redirections',
+    target => '/var/apps/redirector/businesslink.conf',
+    notify => Class['nginx::service'],
+  }
+  file { '/etc/nginx/sites-enabled/directgov':
+    ensure => link,
+    target => '/var/apps/redirector/directgov.conf',
     notify => Class['nginx::service'],
   }
   file { '/var/apps/redirector':
