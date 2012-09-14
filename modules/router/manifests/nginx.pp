@@ -31,7 +31,9 @@ class router::nginx {
     require => File['/usr/share/nginx'];
   }
 
-  router::errorpage {['404','406','418','500','503','504']:}
+  router::errorpage {['404','406','418','500','503','504']:
+    require => File['/usr/share/nginx/www'],
+  }
 
   # The cache/router also contains a flat site as a backup for software failures
   nginx::config::vhost::mirror { "flatsite.${platform}.alphagov.co.uk":
