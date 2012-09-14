@@ -5,7 +5,7 @@ upstream varnish {
 server {
   server_name www.gov.uk www.<%= @platform %>.alphagov.co.uk www-origin.<%= @platform %>.alphagov.co.uk;
   listen 80 default_server;
-  rewrite ^/(.*) https://$server_name/$1 permanent;
+  rewrite ^/(.*) https://$host/$1 permanent;
 }
 
 server {
