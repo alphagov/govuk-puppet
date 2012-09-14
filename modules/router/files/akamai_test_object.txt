@@ -15,58 +15,42 @@ CDN Test Object
   Pol. Not I, my lord.
   Ham. Then I would you were so honest a man.
   Pol. Honest, my lord?
-  Ham. Ay, sir. To be honest, as this world goes, is to be one
-man
+  Ham. Ay, sir. To be honest, as this world goes, is to be one man
     pick'd out of ten thousand.
   Pol. That's very true, my lord.
   Ham. For if the sun breed maggots in a dead dog, being a god
     kissing carrion- Have you a daughter?
   Pol. I have, my lord.
-  Ham. Let her not walk i' th' sun. Conception is a blessing, but
-not
+  Ham. Let her not walk i' th' sun. Conception is a blessing, but not
     as your daughter may conceive. Friend, look to't.
-  Pol. [aside] How say you by that? Still harping on my daughter.
-Yet
-    he knew me not at first. He said I was a fishmonger. He is
-far
-    gone, far gone! And truly in my youth I suff'red much
-extremity
-    for love- very near this. I'll speak to him again.- What do
-you
+  Pol. [aside] How say you by that? Still harping on my daughter. Yet
+    he knew me not at first. He said I was a fishmonger. He is far
+    gone, far gone! And truly in my youth I suff'red much extremity
+    for love- very near this. I'll speak to him again.- What do you
     read, my lord?
   Ham. Words, words, words.
   Pol. What is the matter, my lord?
   Ham. Between who?
   Pol. I mean, the matter that you read, my lord.
-  Ham. Slanders, sir; for the satirical rogue says here that old
-men
+  Ham. Slanders, sir; for the satirical rogue says here that old men
     have grey beards; that their faces are wrinkled; their eyes
     purging thick amber and plum-tree gum; and that they have a
-    plentiful lack of wit, together with most weak hams. All
-which,
-    sir, though I most powerfully and potently believe, yet I
-hold it
+    plentiful lack of wit, together with most weak hams. All which,
+    sir, though I most powerfully and potently believe, yet I hold it
     not honesty to have it thus set down; for you yourself, sir,
     should be old as I am if, like a crab, you could go backward.
 
-  Pol. [aside] Though this be madness, yet there is a method
-in't.-
+  Pol. [aside] Though this be madness, yet there is a method in't.-
    Will You walk out of the air, my lord?
   Ham. Into my grave?
-  Pol. Indeed, that is out o' th' air. [Aside] How pregnant
-sometimes
-    his replies are! a happiness that often madness hits on,
-which
-    reason and sanity could not so prosperously be delivered of.
-I
-    will leave him and suddenly contrive the means of meeting
-between
-    him and my daughter.- My honourable lord, I will most humbly
-take
+  Pol. Indeed, that is out o' th' air. [Aside] How pregnant sometimes
+    his replies are! a happiness that often madness hits on, which
+    reason and sanity could not so prosperously be delivered of. I
+    will leave him and suddenly contrive the means of meeting between
+    him and my daughter.- My honourable lord, I will most humbly take
     my leave of you.
   Ham. You cannot, sir, take from me anything that I will more
-    willingly part withal- except my life, except my life, except
-my
+    willingly part withal- except my life, except my life, except my
     life,
 
 -----
@@ -80,8 +64,7 @@ my
     him asleep, leaves him. Anon comes in a fellow, takes off his
     crown, kisses it, pours poison in the sleeper's ears, and
     leaves him. The Queen returns, finds the King dead, and makes
-    passionate action. The Poisoner with some three or four
-Mutes,
+    passionate action. The Poisoner with some three or four Mutes,
     comes in again, seem to condole with her. The dead body is
     carried away. The Poisoner wooes the Queen with gifts; she
     seems harsh and unwilling awhile, but in the end accepts
@@ -94,12 +77,10 @@ Mutes,
 
                       Enter Prologue.
 
-  Ham. We shall know by this fellow. The players cannot keep
-counsel;
+  Ham. We shall know by this fellow. The players cannot keep counsel;
     they'll tell all.
   Oph. Will he tell us what this show meant?
-  Ham. Ay, or any show that you'll show him. Be not you asham'd
-to
+  Ham. Ay, or any show that you'll show him. Be not you asham'd to
     show, he'll not shame to tell you what it means.
   Oph. You are naught, you are naught! I'll mark the play.
 
@@ -200,32 +181,26 @@ Exit.
   Queen. The lady doth protest too much, methinks.
   Ham. O, but she'll keep her word.
   King. Have you heard the argument? Is there no offence in't?
-  Ham. No, no! They do but jest, poison in jest; no offence i'
-th'
+  Ham. No, no! They do but jest, poison in jest; no offence i'th'
     world.
   King. What do you call the play?
   Ham. 'The Mousetrap.' Marry, how? Tropically. This play is the
-    image of a murther done in Vienna. Gonzago is the duke's
-name;
-    his wife, Baptista. You shall see anon. 'Tis a knavish piece
-of
+    image of a murther done in Vienna. Gonzago is the duke's name;
+    his wife, Baptista. You shall see anon. 'Tis a knavish piece of
     work; but what o' that? Your Majesty, and we that have free
-    souls, it touches us not. Let the gall'd jade winch; our
-withers
+    souls, it touches us not. Let the gall'd jade winch; our withers
     are unwrung.
 
                          Enter Lucianus.
 
     This is one Lucianus, nephew to the King.
   Oph. You are as good as a chorus, my lord.
-  Ham. I could interpret between you and your love, if I could
-see
+  Ham. I could interpret between you and your love, if I could see
     the puppets dallying.
   Oph. You are keen, my lord, you are keen.
   Ham. It would cost you a groaning to take off my edge.
   Oph. Still better, and worse.
-  Ham. So you must take your husbands.- Begin, murtherer. Pox,
-leave
+  Ham. So you must take your husbands.- Begin, murtherer. Pox, leave
     thy damnable faces, and begin! Come, the croaking raven doth
     bellow for revenge.
 
@@ -237,11 +212,9 @@ leave
       On wholesome life usurp immediately.
                                    Pours the poison in his ears.
 
-  Ham. He poisons him i' th' garden for's estate. His name's
-Gonzago.
+  Ham. He poisons him i' th' garden for's estate. His name's Gonzago.
     The story is extant, and written in very choice Italian. You
-    shall see anon how the murtherer gets the love of Gonzago's
-wife.
+    shall see anon how the murtherer gets the love of Gonzago's wife.
   Oph. The King rises.
   Ham. What, frighted with false fire?
   Queen. How fares my lord?
