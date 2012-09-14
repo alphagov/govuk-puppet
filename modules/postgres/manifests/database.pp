@@ -1,79 +1,39 @@
-define postgres::database(
-  $ensure=present,
-  $owner=false,
-  $encoding=false,
-  $template='template1',
-  $source=false,
-  $overwrite=false) {
+define postgres::database (
+  $ensure = 'present',
+  $owner = false,
+  $template = 'template1',
+  $encoding = false
+) {
+
+  if ($ensure != 'absent') and $owner {
+    Postgres::User[$owner] -> Postgres::Exec["Create postgres database '${title}'"]
+  }
 
   $ownerstring = $owner ? {
     false   => '',
-    default => "-O $owner"
+    default => "-O '${owner}'"
   }
 
   $encodingstring = $encoding ? {
     false   => '',
-    default => "-E $encoding",
+    default => "-E '${encoding}'",
   }
 
   case $ensure {
-    present: {
-      exec { "Create $name postgres db":
-        command => "createdb $ownerstring $encodingstring $name \
-                    -T $template;",
-        user    => 'postgres',
-        unless  => "test \$(psql -tA -c \"SELECT count(*)=1 \
-                    FROM pg_catalog.pg_database \
-                    WHERE datname='${name}';\") = t",
-      }
-      exec { "Add plpgsql lang to $name postgres db":
-        command => "createlang -d $name plpgsql",
-        user    => 'postgres',
-        unless  => "createlang -d $name -l | grep plpgsql",
-        require => Exec["Create $name postgres db"],
+    'present': {
+      postgres::exec { "Create postgres database '${title}'":
+        command => "createdb ${ownerstring} ${encodingstring} '${title}' -T '${template}'",
+        unless  => "psql -Atc \"select count(*) from pg_catalog.pg_database where datname='${title}'\" | grep -qF 1",
       }
     }
-    absent:  {
-      exec { "Remove $name postgres db":
-        command => "dropdb $name",
-        user    => 'postgres',
-        onlyif  => "test \$(psql -tA -c \"SELECT count(*)=1 \
-                    FROM pg_catalog.pg_database \
-                    WHERE datname='${name}';\") = t",
+    'absent': {
+      postgres::exec { "Remove postgres database '${title}'":
+        command => "dropdb '${title}'",
+        unless  => "psql -Atc \"select count(*) from pg_catalog.pg_database WHERE datname='${title}'\" | grep -qF 0",
       }
     }
     default: {
-      fail "Invalid 'ensure' value '$ensure' for postgresql::database"
-    }
-  }
-
-  # Drop database before import
-  if $overwrite {
-    exec {"Set $name to not be a template":
-      command   => "psql -qd postgres -c \"UPDATE pg_database \
-                    SET datistemplate='false' \
-                    WHERE datname='$name'\";",
-      user      => 'postgres',
-      before    => Exec["Drop database $name before import"],
-    }
-
-    exec { "Drop database $name before import":
-      command => "dropdb ${name}",
-      onlyif  => "psql -l | grep '$name  *|'",
-      user    => 'postgres',
-      before  => Exec["Create $name postgres db"],
-    }
-  }
-
-  # Import initial dump
-  if $source {
-    # TODO: handle non-gziped files
-    exec { "Import dump into $name postgres db":
-      command => "zcat -f ${source} | psql ${name}",
-      user    => 'postgres',
-      onlyif  => "test $(psql ${name} -c '\\dt' | wc -l) -le 7",
-      timeout => 0,
-      require => Exec["Create $name postgres db"],
+      fail "Invalid 'ensure' value '${ensure}' for postgresql::database"
     }
   }
 }
