@@ -3,9 +3,20 @@ class clamav {
     ensure => '0.97.5',
   }
 
-  # I'm adding this class as we'll probably add some clamav utils / services in here also
-  # but at the moment it simply installs the clamav package, which does most of the work
+  service { 'clamav-daemon':
+    ensure => 'running',
+    enable => 'true',
+    require => Package["clamav"]
+  }
 
-  # Also TODO:
-  # Add something in here to allow for modification of the default clamav config in /opt/clamav/etc
+  file { '/opt/clamav/etc/clamd.conf':
+    notify => Service["clamav-daemon"],
+    ensure  => present,
+    source => 'puppet:///modules/clamav/opt/clamav/etc/clamd.conf',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+  
+  Package['clamav'] -> File['/opt/clamav/etc/clamd.conf']
 }
