@@ -60,6 +60,11 @@ class router::nginx {
   @logstash::collector { 'router':
         source => 'puppet:///modules/router/etc/logstash/logstash-client/router.conf',
   }
+
+  @logster::cronjob { 'lb':
+    args => "NginxGangliaLogster /var/log/nginx/lb-access.log",
+  }
+
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":
     check_command       => 'check_ganglia_metric!nginx_http_5xx!0.05!0.1',
     service_description => 'check nginx error rate',
