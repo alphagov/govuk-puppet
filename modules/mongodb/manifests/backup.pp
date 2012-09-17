@@ -5,6 +5,6 @@ class mongodb::backup($members) {
     owner   => 'root',
     group   => 'root',
     mode    => '0744',
-    require => Package['mongodb-10gen'],
+    require => Package['mongodb20-10gen'],
   }
 }
