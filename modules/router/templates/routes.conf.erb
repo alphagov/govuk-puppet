@@ -15,6 +15,7 @@ satisfy any;
 <%- end -%>
 
 rewrite ^/cloudstore http://gcloud.civilservice.gov.uk/cloudstore/;
+rewrite ^/performance/transactional-services http://transactionalservices.alphagov.co.uk/;
 
 location @upstream {
   proxy_pass http://varnish;
