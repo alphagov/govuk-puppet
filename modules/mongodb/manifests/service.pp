@@ -4,7 +4,7 @@ class mongodb::service {
     hasrestart => true,
     hasstatus  => true,
     require    => [
-      Package['mongodb-10gen'],
+      Package['mongodb20-10gen'],
       File['/etc/mongodb.conf'],
       File['/var/log/mongodb/mongod.log'],
       File['/etc/init/mongodb.conf'],

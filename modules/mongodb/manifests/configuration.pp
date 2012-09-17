@@ -5,7 +5,7 @@ class mongodb::configuration ($replicaset = $govuk_platform) {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['mongodb-10gen'],
+    require => Package['mongodb20-10gen'],
     notify  => Service['mongodb'],
   }
 
@@ -13,7 +13,7 @@ class mongodb::configuration ($replicaset = $govuk_platform) {
     ensure  => present,
     owner   => 'mongodb',
     group   => 'mongodb',
-    require => Package['mongodb-10gen'],
+    require => Package['mongodb20-10gen'],
     mode    => '0644',
   }
 
@@ -23,7 +23,7 @@ class mongodb::configuration ($replicaset = $govuk_platform) {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['mongodb-10gen'],
+    require => Package['mongodb20-10gen'],
     notify  => Service['mongodb'],
   }
 }
