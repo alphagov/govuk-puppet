@@ -1,2 +1,2 @@
 # This file is managed by puppet. Do not edit by hand.
-mongo.database.hosts=10.1.0.2,10.1.0.7,10.1.0.8
+mongo.database.hosts=10.1.0.5,10.1.0.6,10.1.0.7
