@@ -18,7 +18,7 @@ class hosts::skyscape::production {
   host { 'router-mongo-2.router.production' : ip => '10.1.0.6' }
   host { 'router-mongo-3.router.production' : ip => '10.1.0.7' }
   #Load Balancer vhosts
-  host { 'cache.router.production' : ip => '10.1.1.1', host_aliases => ['cache', 'cache.cluster', 'router.cluster'] }
+  host { 'cache.router.production' : ip => '10.1.1.1', host_aliases => ['cache', 'cache.cluster', 'router.cluster', 'www.gov.uk'] }
 
   #Frontend VDC machines
   host { 'frontend-1.frontend.production'             : ip => '10.2.0.2', host_aliases => ['frontend-1',
