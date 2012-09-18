@@ -18,6 +18,7 @@ class govuk_node::base {
   case $::govuk_provider {
     'sky': {
       include ufw::govuk
+      include harden
       include apt_cacher::client
 
       user { 'ubuntu':
@@ -29,6 +30,7 @@ class govuk_node::base {
     }
     'scc': {
       include ufw::govuk
+      include harden
 
       user { 'ubuntu':
         ensure   => present,
