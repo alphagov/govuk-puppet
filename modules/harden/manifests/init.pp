@@ -59,7 +59,7 @@ class harden {
     source => 'puppet:///modules/harden/etc/sysctl.conf',
     notify => Exec['read sysctl.conf']
   }
-    
+
   exec { 'read sysctl.conf':
     command     => '/sbin/sysctl -p',
     refreshonly => true,
