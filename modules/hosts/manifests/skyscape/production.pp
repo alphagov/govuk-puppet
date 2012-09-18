@@ -43,7 +43,7 @@ class hosts::skyscape::production {
   host { 'smartanswers.frontend.production'             : ip => '10.2.1.5', host_aliases => ['smartanswers', 'smartanswers.production.alphagov.co.uk'] }
 
   #Backend VDC machines
-  host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'panopticon.production.alphagov.co.uk', 'publisher.production.alphagov.co.uk' # needed for panopticon registation
+  host { 'backend-1.backend.production'         : ip => '10.3.0.2', host_aliases => [ 'backend-1', 'panopticon.production.alphagov.co.uk', 'publisher.production.alphagov.co.uk', 'tariff-api.production.alphagov.co.uk' # needed for panopticon registation
                                                                 ]}
   host { 'backend-2.backend.production'         : ip => '10.3.0.3' }
   host { 'backend-3.backend.production'         : ip => '10.3.0.4' }
