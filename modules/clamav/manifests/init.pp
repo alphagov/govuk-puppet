@@ -5,7 +5,6 @@ class clamav {
 
   service { 'clamav-daemon':
     ensure  => 'running',
-    enable  => true,
     require => Package["clamav"]
   }
 
