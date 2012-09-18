@@ -47,6 +47,10 @@ class users::groups::govuk {
     fullname   => 'Joshua Marshall',
     email      => 'joshua.marshall@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'jordan':
+    fullname   => 'Jordan Hatch',
+    email      => 'jordan.hatch@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'davidt':
     fullname   => 'David Thompson',
     email      => 'david.thompson@digital.cabinet-office.gov.uk';
