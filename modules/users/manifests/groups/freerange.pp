@@ -5,7 +5,6 @@ class users::groups::freerange {
   govuk::user { 'tomw':
     fullname   => 'Tom Ward',
     email      => 'tom.ward@gofreerange.co.uk',
-    shell      => '/bin/zsh';
   }
   govuk::user { 'chrisroos':
     fullname   => 'Chris Roos',

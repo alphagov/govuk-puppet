@@ -33,7 +33,6 @@ class users::groups::govuk {
   govuk::user { 'garethr':
     fullname   => 'Gareth Rushgrove',
     email      => 'gareth.rushgrove@digital.cabinet-office.gov.uk',
-    shell      => '/bin/zsh';
   }
   govuk::user { 'heathd':
     fullname   => 'David Heath',
@@ -137,17 +136,14 @@ class users::groups::govuk {
   govuk::user { 'chrisheathcote':
     fullname   => 'Chris Heathcote',
     email      => 'chris.heathcote@digital.cabinet-office.gov.uk',
-    shell      => '/bin/zsh';
   }
   govuk::user { 'johngriffin':
     fullname   => 'John Griffin',
     email      => 'john.griffin@digital.cabinet-office.gov.uk',
-    shell      => '/bin/zsh';
   }
   govuk::user { 'stevelaing':
     fullname   => 'Steve Laing',
     email      => 'steve.laing@digital.cabinet-office.gov.uk',
-    shell      => '/bin/zsh';
   }
   govuk::user { 'norm':
     fullname   => 'Mark Norman Francis',
