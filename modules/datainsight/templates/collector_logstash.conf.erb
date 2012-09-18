@@ -1,6 +1,6 @@
 input {
   file {
     type => "datainsight-<%= @title %>-collector-app"
-    path => "/data/vhost/${vhost_full}/shared/log/*.log"
+    path => "/data/vhost/<%= @vhost_full %>/shared/log/*.log"
   }
 }
