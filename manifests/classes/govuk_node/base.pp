@@ -11,10 +11,12 @@ class govuk_node::base {
   include users::groups::newbamboo
   include users::groups::other
 
+  include govuk::repository
+  include govuk::deploy
+
   #Security additions
   include rkhunter
   include fail2ban
-
   include govuk::repository
   include govuk::deploy
 
@@ -54,5 +56,4 @@ class govuk_node::base {
     }
     default: {}
   }
-
 }

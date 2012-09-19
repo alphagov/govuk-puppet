@@ -1,17 +1,4 @@
-class elms_base {
-  include base
-  include hosts
-  include monitoring::client
-  include puppet
-  include puppet::cronjob
-  include users
-  include users::groups::govuk
-
-  include govuk::repository
-  include govuk::deploy
-}
-
-class elms_base::mongo_server inherits elms_base {
+class elms_base::mongo_server inherits govuk_node::base {
   include mongodb::server
   include java::openjdk6::jre
 
@@ -38,7 +25,7 @@ class elms_base::mongo_server inherits elms_base {
   }
 }
 
-class elms_base::frontend_server inherits elms_base {
+class elms_base::frontend_server inherits govuk_node::base {
   include clamav
   include java::openjdk6::jre
 
@@ -48,7 +35,7 @@ class elms_base::frontend_server inherits elms_base {
   }
 }
 
-class elms_base::sc_frontend_server inherits elms_base {
+class elms_base::sc_frontend_server inherits govuk_node::base {
   include clamav
   include java::openjdk6::jre
 
@@ -58,7 +45,7 @@ class elms_base::sc_frontend_server inherits elms_base {
   }
 }
 
-class elms_base::sc_backend_server inherits elms_base {
+class elms_base::sc_backend_server inherits govuk_node::base {
   include clamav
   include java::openjdk6::jre
 
