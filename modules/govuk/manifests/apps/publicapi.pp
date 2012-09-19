@@ -26,7 +26,7 @@ class govuk::apps::publicapi {
     extra_config      => "
       location /api {
         proxy_set_header Host ${privateapi};
-        proxy_set_header API_PREFIX api;
+        proxy_set_header API-PREFIX api;
         proxy_pass http://${full_domain}-proxy/;
       }
 
