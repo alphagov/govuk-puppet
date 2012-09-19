@@ -5,6 +5,7 @@ class govuk::apps::signon( $port = 3016 ) {
     vhost_ssl_only    => true,
     health_check_path => "/users/sign_in",
     vhost_aliases     => ['signonotron'],
+    vhost_protected   => false
   }
 
   @@nagios::check { "check_signon_login_failures":
