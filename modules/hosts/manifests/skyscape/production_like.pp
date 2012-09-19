@@ -17,7 +17,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "cache-3.router.${platform}"         : ip => "10.1.0.4" }
   host { "router-mongo-1.router.${platform}"  : ip => "10.1.0.5" }
   host { "router-mongo-2.router.${platform}"  : ip => "10.1.0.6" }
-  host { "router-mongo-3.router.${platform}"              : ip => "10.1.0.7" }
+  host { "router-mongo-3.router.${platform}"  : ip => "10.1.0.7" }
 
   #Router LB vhosts
   host { "cache.router.${platform}"           : ip => "10.1.1.1", host_aliases => ["cache",
@@ -46,7 +46,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
   #Frontend LB vhosts
   host { "calendars.frontend.${platform}"               : ip => "10.2.1.1", host_aliases => ["calendars",
-                                                                                             "calendars.${platform}.alphagov.co.uk"
+                                                                                            "calendars.${platform}.alphagov.co.uk"
                                                                                             ]}
   host { "static.frontend.${platform}"                  : ip => "10.2.1.2", host_aliases => ["static",
                                                                                             "static.${platform}.alphagov.co.uk"
