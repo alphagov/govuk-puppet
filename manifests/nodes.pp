@@ -8,6 +8,8 @@ node default {
     efg_mysql_master:   { include govuk_node::efg_mysql_master_server }
     elms-development:   { include elms_base::development }
     elms-frontend:      { include elms_base::frontend_server }
+    elms-sc-backend:    { include elms_base::sc_backend_server }
+    elms-sc-frontend:    { include elms_base::sc_frontend_server }
     elms-mongo:         { include elms_base::mongo_server }
     ertp-api-citizen:   { include ertp_base::api_server::citizen }
     ertp-api-ero:       { include ertp_base::api_server::ero }

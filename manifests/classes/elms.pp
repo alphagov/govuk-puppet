@@ -70,7 +70,28 @@ class elms_base::frontend_server inherits elms_base {
   include clamav
 
   class { 'nginx': }
-  class { 'licensify':
+  class { 'licensify::apps':
     require => Class['nginx']
   }
+}
+
+class elms_base::sc_frontend_server inherits elms_base {
+  include clamav
+
+  class { 'nginx': }
+  class { 'licensify::apps::licensify':
+    require => Class['nginx']
+  }
+}
+
+class elms_base::sc_backend_server inherits elms_base {
+  include clamav
+
+  class { 'nginx': }
+  class { 'licensify::apps::licensify_admin':
+    require => Class['nginx']
+  }
+  class { 'licensify::apps::licensify_feed':
+    require => Class['nginx']
+  }  
 }
