@@ -51,13 +51,6 @@ class govuk::deploy {
     require => User['deploy'];
   }
 
-  ssh_authorized_key { 'deploy_key_jenkins_skyscape':
-    ensure  => present,
-    key     => extlookup('jenkins_skyscape_key', ''),
-    type    => 'ssh-rsa',
-    user    => 'deploy',
-  }
-
   file { '/etc/govuk/unicorn.rb':
     ensure  => present,
     source  => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
