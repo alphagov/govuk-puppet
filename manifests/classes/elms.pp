@@ -2,7 +2,6 @@ class elms_base {
   include base
   include hosts
   include monitoring::client
-  include java::openjdk6::jre
   include puppet
   include puppet::cronjob
   include users
@@ -10,38 +9,11 @@ class elms_base {
 
   include govuk::repository
   include govuk::deploy
-
-  case $::govuk_provider {
-    sky: {
-      # hosts managed as part of hosts module
-    }
-    scc: {
-      # nothing
-    }
-    default: {
-      case $::govuk_platform {
-        production: {
-          host { 'licensify-frontend': ip => '10.229.67.16' }
-          host { 'licensify-mongo0':   ip => '10.32.34.170' }
-          host { 'licensify-mongo1':   ip => '10.239.11.229' }
-          host { 'licensify-mongo2':   ip => '10.32.57.17' }
-        }
-        preview: {
-          host { 'licensify-frontend': ip => '10.237.35.45' }
-          host { 'licensify-mongo0':   ip => '10.234.74.235' }
-          host { 'licensify-mongo1':   ip => '10.229.30.142' }
-          host { 'licensify-mongo2':   ip => '10.234.81.24' }
-          host { 'places-api':         ip => '10.229.118.175' }
-        }
-        default: {}
-      }
-    }
-  }
-
 }
 
 class elms_base::mongo_server inherits elms_base {
   include mongodb::server
+  include java::openjdk6::jre
 
   case $::govuk_provider {
     sky: {
@@ -68,6 +40,7 @@ class elms_base::mongo_server inherits elms_base {
 
 class elms_base::frontend_server inherits elms_base {
   include clamav
+  include java::openjdk6::jre
 
   class { 'nginx': }
   class { 'licensify::apps':
@@ -77,6 +50,7 @@ class elms_base::frontend_server inherits elms_base {
 
 class elms_base::sc_frontend_server inherits elms_base {
   include clamav
+  include java::openjdk6::jre
 
   class { 'nginx': }
   class { 'licensify::apps::licensify':
@@ -86,6 +60,7 @@ class elms_base::sc_frontend_server inherits elms_base {
 
 class elms_base::sc_backend_server inherits elms_base {
   include clamav
+  include java::openjdk6::jre
 
   class { 'nginx': }
   class { 'licensify::apps::licensify_admin':
