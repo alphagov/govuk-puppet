@@ -2,8 +2,9 @@ class hosts {
   case $::govuk_provider {
     sky: {
       case $::govuk_platform {
-        production: { include hosts::skyscape::production }
-        default:    { include hosts::skyscape::production }
+        production: { include hosts::skyscape::production_like }
+        staging:    { include hosts::skyscape::production_like }
+        default:    { include hosts::skyscape::production_like }
       }
     }
     scc: {

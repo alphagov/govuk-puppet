@@ -1,4 +1,4 @@
-class hosts::skyscape::production {
+class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # These are real hosts (1-1 mapping between Host and Service)
   # Anything that ends .cluster is maintained for backwards compatibility with EC2
   #Management VDC machines
