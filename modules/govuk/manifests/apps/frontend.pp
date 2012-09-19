@@ -1,10 +1,15 @@
 class govuk::apps::frontend( $port = 3005 ) {
   govuk::app { 'frontend':
-    app_type          => 'rack',
-    port              => $port,
-    vhost             => 'www',
-    vhost_aliases     => ['frontend'],
-    health_check_path => '/'
+    app_type               => 'rack',
+    port                   => $port,
+    vhost                  => 'www',
+    vhost_aliases          => ['frontend'],
+    health_check_path      => '/',
+    nginx_extra_config     => "location @specialist {
+    proxy_pass http://whitehall-frontend.${::govuk_platform}.alphagov.co.uk
+}",
+    nginx_extra_app_config => "proxy_next_upstream http_404;
+error_page 404 = @specialist;"
   }
 
   # nginx::config::vhost::static needs this link to be here

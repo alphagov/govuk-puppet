@@ -109,7 +109,15 @@ define govuk::app(
   # possible number of "special cases". As such, use of this option is
   # discouraged, and it is included for backwards compatibility purposes only.
   #
-  $nginx_extra_config = ''
+  $nginx_extra_config = '',
+
+  #
+  # nginx_extra_app_config: additional @app block configuration
+  #
+  # This parameter is used to add additional logic (like proxy
+  # fallback behaviour) to the default downstream proxy functionality
+  # used in Nginx.
+  $nginx_extra_app_config = ''
 ) {
 
   if ! ($app_type in ['procfile', 'rack']) {
@@ -136,21 +144,22 @@ define govuk::app(
   }
 
   govuk::app::config { $title:
-    require            => Govuk::App::Package[$title],
-    notify             => Service[$title],
-    app_type           => $app_type,
-    environ_source     => $environ_source,
-    environ_content    => $environ_content,
-    domain             => $domain,
-    port               => $port,
-    vhost_aliases      => $vhost_aliases,
-    vhost_full         => $vhost_full,
-    vhost_protected    => $vhost_protected,
-    vhost_ssl_only     => $vhost_ssl_only,
-    nginx_extra_config => $nginx_extra_config,
-    platform           => $platform,
-    health_check_path  => $health_check_path,
-    enable_nginx_vhost => $enable_nginx_vhost,
+    require                => Govuk::App::Package[$title],
+    notify                 => Service[$title],
+    app_type               => $app_type,
+    environ_source         => $environ_source,
+    environ_content        => $environ_content,
+    domain                 => $domain,
+    port                   => $port,
+    vhost_aliases          => $vhost_aliases,
+    vhost_full             => $vhost_full,
+    vhost_protected        => $vhost_protected,
+    vhost_ssl_only         => $vhost_ssl_only,
+    nginx_extra_config     => $nginx_extra_config,
+    nginx_extra_app_config => $nginx_extra_app_config,
+    platform               => $platform,
+    health_check_path      => $health_check_path,
+    enable_nginx_vhost     => $enable_nginx_vhost,
   }
 
   service { $title:

@@ -2,6 +2,7 @@ define nginx::config::vhost::proxy(
   $to,
   $aliases = [],
   $extra_config = '',
+  $extra_app_config = '',
   $health_check_path = 'NOTSET',
   $health_check_port = 'NOTSET',
   $platform = $::govuk_platform,
