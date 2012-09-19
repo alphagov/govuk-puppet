@@ -43,8 +43,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "smartanswers.frontend.${platform}"             : ip => "10.2.1.5", host_aliases => ["smartanswers", "smartanswers.${platform}.alphagov.co.uk"] }
 
   #Backend VDC machines
-  host { "backend-1.backend.${platform}"         : ip => "10.3.0.2", host_aliases => [ "backend-1", "panopticon.${platform}.alphagov.co.uk", "publisher.${platform}.alphagov.co.uk", "tariff-api.${platform}.alphagov.co.uk" # needed for panopticon registation
-                                                                ]}
+  host { "backend-1.backend.${platform}"         : ip => "10.3.0.2", host_aliases => [ "backend-1", "panopticon.${platform}.alphagov.co.uk", "publisher.${platform}.alphagov.co.uk", "tariff-api.${platform}.alphagov.co.uk", "contentapi.${platform}.alphagov.co.uk" ]}
   host { "backend-2.backend.${platform}"         : ip => "10.3.0.3" }
   host { "backend-3.backend.${platform}"         : ip => "10.3.0.4" }
   host { "support-1.backend.${platform}"         : ip => "10.3.0.5", host_aliases => [ "support-1", "support.cluster"]}
