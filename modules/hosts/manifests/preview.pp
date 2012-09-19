@@ -42,12 +42,12 @@ class hosts::preview {
   host { 'whitehall.preview.alphagov.co.uk':            ip => '10.49.105.155' }
   host { 'whitehall.cluster':                           ip => '10.49.105.155' }
   host { 'whitehall-admin.preview.alphagov.co.uk':      ip => '10.228.95.176' }
-  
+
   host { 'licensify-frontend': ip => '10.237.35.45' }
   host { 'licensify-mongo0':   ip => '10.234.74.235' }
   host { 'licensify-mongo1':   ip => '10.229.30.142' }
   host { 'licensify-mongo2':   ip => '10.234.81.24' }
-  host { 'places-api':         ip => '10.229.118.175' }  
+  host { 'places-api':         ip => '10.229.118.175' }
 
   host { 'designprincipals.preview.alphagov.co.uk':
     ensure => absent,

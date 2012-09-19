@@ -50,11 +50,11 @@ class hosts::production {
   host { 'router.cluster':      ip => '10.51.39.70' }
   host { 'graylog.cluster':     ip => '10.234.213.245' }
   host { 'whitehall.cluster':   ip => '10.224.50.207' }
-  
+
   host { 'licensify-frontend': ip => '10.229.67.16' }
   host { 'licensify-mongo0':   ip => '10.32.34.170' }
   host { 'licensify-mongo1':   ip => '10.239.11.229' }
-  host { 'licensify-mongo2':   ip => '10.32.57.17' }  
+  host { 'licensify-mongo2':   ip => '10.32.57.17' }
 
   host { 'designprincipals.production.alphagov.co.uk':
     ensure => absent,

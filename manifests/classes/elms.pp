@@ -68,5 +68,5 @@ class elms_base::sc_backend_server inherits elms_base {
   }
   class { 'licensify::apps::licensify_feed':
     require => Class['nginx']
-  }  
+  }
 }

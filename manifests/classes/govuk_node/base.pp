@@ -14,7 +14,7 @@ class govuk_node::base {
   #Security additions
   include rkhunter
   include fail2ban
-  
+
   include govuk::repository
   include govuk::deploy
 
