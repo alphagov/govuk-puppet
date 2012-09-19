@@ -20,7 +20,6 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   apache2::vhost::passenger {
     "needotron.${::govuk_platform}.alphagov.co.uk":;
-    "signon.${::govuk_platform}.alphagov.co.uk":;
     "publisher.${::govuk_platform}.alphagov.co.uk":;
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
@@ -35,12 +34,6 @@ class govuk_node::backend_server inherits govuk_node::base {
     "needotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
-    "signon.$::govuk_platform.alphagov.co.uk":
-      to                    => ['localhost:8080'],
-      protected             => false,
-      ssl_only              => true,
-      ssl_health_check_port => "9401",
-      health_check_path     => "/users/sign_in";
     "migratorator.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;
@@ -66,4 +59,5 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::support
   include govuk::apps::contentapi
   include govuk::apps::imminence
+  include govuk::apps::signon
 }

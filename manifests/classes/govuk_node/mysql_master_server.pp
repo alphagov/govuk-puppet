@@ -14,7 +14,7 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
     privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
-  class {'govuk::apps::signonotron::db':
+  class {'govuk::apps::signon::db':
     require => Class['mysql::server']
   }
   class {'govuk::apps::need_o_tron::db':
