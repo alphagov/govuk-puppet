@@ -86,6 +86,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "mysql-master-1.backend.${platform}"    : ip => "10.3.10.0", host_aliases => ["mysql-master-1",
                                                                                       "mysql.backend.${platform}"
                                                                                       ]}
+  host { "load-balancer-1.backend.${platform}"   : ip => "10.3.0.101" }
 
   #Backend LB vhosts
   host { "signon.backend.${platform}"            : ip => "10.3.1.1", host_aliases =>  ["signon",
