@@ -125,20 +125,10 @@ class nagios::config ($platform = $::govuk_platform) {
     contact_groups => ['regular']
   }
 
-  case $::govuk_provider {
-    sky: {
-      $monitoring_url = $::govuk_platform ? {
-        production    => 'http://skyscape-monitoring/nagios3/',
-        default       => 'http://skyscape-monitoring/nagios3/',
-      }
-    }
-    default: {
-      $monitoring_url = $::govuk_platform ? {
-        production    => 'http://monitoring.production.alphagov.co.uk/nagios3/',
-        preview       => 'http://monitoring.preview.alphagov.co.uk/nagios3/',
-        default       => 'http://localhost/nagios3/',
-      }
-    }
+  $monitoring_url = $::govuk_platform ? {
+    production    => 'https://nagios.production.alphagov.co.uk/',
+    preview       => 'https://nagios.preview.alphagov.co.uk/',
+    default       => 'http://localhost/nagios3/',
   }
 
   file { '/etc/nagios3/resource.cfg':
