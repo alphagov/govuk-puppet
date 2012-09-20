@@ -11,7 +11,8 @@ STATIC_MAPPING = {
     'ip-10-32-31-104.eu-west-1.compute.internal': 'graylog.cluster',
     'ip-10-229-67-207.eu-west-1.compute.internal': 'whitehall.production.alphagov.co.uk',
     'ip-10-32-18-246.eu-west-1.compute.internal': 'puppet.cluster',
-    'ip-10-237-35-45' : 'ip-10-237-35-45.eu-west-1.compute.internal'
+    'ip-10-237-35-45' : 'ip-10-237-35-45.eu-west-1.compute.internal',
+    'ip-10-229-67-16' : 'ip-10-229-67-16.eu-west-1.compute.internal'
 
 }
 
