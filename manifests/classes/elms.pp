@@ -42,7 +42,7 @@ class elms_base::sky_frontend_server inherits govuk_node::base {
   class { 'nginx': }
   class { 'licensify::apps::licensify':
   }
-  Class['nginx'] -> Class['licensify::apps::licensify']
+  #Class['nginx'] -> Class['licensify::apps::licensify']
 }
 
 class elms_base::sky_backend_server inherits govuk_node::base {
