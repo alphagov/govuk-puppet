@@ -2,6 +2,7 @@ class licensify::apps {
   include licensify::apps::licensify
   include licensify::apps::licensify_admin
   include licensify::apps::licensify_feed
+  include licensify::config
 }
 
 class licensify::apps::licensify( $port = 9000 ) {
