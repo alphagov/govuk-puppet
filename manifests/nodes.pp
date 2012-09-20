@@ -21,6 +21,7 @@ node default {
     frontend:           { include govuk_node::frontend_server }
     graylog:            { include govuk_node::graylog_server }
     jumpbox:            { include govuk_node::base }
+    load-balancer:      { include govuk_node::load_balancer }
     logging:            { include govuk_node::graylog_server }
     management:         { include govuk_node::management_server_master }
     management_slave:   { include govuk_node::management_server_slave }
