@@ -106,6 +106,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   nagios::contact { 'zendesk_email':
     email => 'carl.massa+zendesk@digital.cabinet-office.gov.uk',
+    service_notification_options => 'c,w,u',
   }
 
   nagios::pager_contact { 'pager_nonworkhours':
