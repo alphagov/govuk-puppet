@@ -94,13 +94,15 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       ]}
 
   # ELMS (Licence Finder) VDC machines
-  host { "elms-backend-1.backend.${platform}"    : ip => "10.3.5.0", host_aliases =>  ["elms-backend-1",
+  host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1"] }
+  host { "licensify-frontend-2.licensify.${platform}"           : ip => "10.5.0.3", host_aliases =>  ["licensify-frontend-2"] }
+  host { "licensify-backend-1.licensify.${platform}"            : ip => "10.5.0.4", host_aliases =>  ["licensify-backend-1",
                                                                                       "licensify-admin.${platform}.alphagov.co.uk"
                                                                                       ]}
-  host { "elms-backend-2.backend.${platform}"    : ip => "10.3.5.1", host_aliases =>  ["elms-backend-2"]}
-  host { "elms-mongo-1.backend.${platform}"      : ip => "10.3.5.3", host_aliases =>  ["elms-mongo-1"]}
-  host { "elms-mongo-2.backend.${platform}"      : ip => "10.3.5.4", host_aliases =>  ["elms-mongo-2"]}
-  host { "elms-mongo-3.backend.${platform}"      : ip => "10.3.5.5", host_aliases =>  ["elms-mongo-3"]}
+  host { "licensify-backend-2.licensify.${platform}"           : ip => "10.5.0.5", host_aliases =>  ["licensify-backend-2"] }
+  host { "licensify-mongo-1.licensify.${platform}"             : ip => "10.5.0.6", host_aliases =>  ["licensify-mongo-1"] }
+  host { "licensify-mongo-2.licensify.${platform}"             : ip => "10.5.0.7", host_aliases =>  ["licensify-mongo-2"] }
+  host { "licensify-mongo-3.licensify.${platform}"             : ip => "10.5.0.8", host_aliases =>  ["licensify-mongo-3"] }
 
 
   #EFG VDC machines
