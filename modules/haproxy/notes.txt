@@ -1,0 +1,2 @@
+0) apt-get install haproxy
+1) /etc/haproxy/default: ENABLED=0 -> ENABLED=1
