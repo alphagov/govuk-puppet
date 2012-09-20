@@ -10,6 +10,11 @@ class puppet {
     require  => Group['puppet'];
   }
 
+  package { 'libshadow':
+    ensure   => present,
+    provider => gem,
+  }
+
   file { '/etc/puppet/puppet.conf':
     ensure  => present,
     mode    => '0644',
