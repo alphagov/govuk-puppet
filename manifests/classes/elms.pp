@@ -40,9 +40,7 @@ class elms_base::sky_frontend_server inherits govuk_node::base {
   include java::openjdk6::jre
 
   class { 'nginx': }
-  class { 'licensify::apps::licensify':
-  }
-  #Class['nginx'] -> Class['licensify::apps::licensify']
+  class { 'licensify::apps::licensify': }
 }
 
 class elms_base::sky_backend_server inherits govuk_node::base {
@@ -50,10 +48,6 @@ class elms_base::sky_backend_server inherits govuk_node::base {
   include java::openjdk6::jre
 
   class { 'nginx': }
-  class { 'licensify::apps::licensify_admin':
-    require => Class['nginx']
-  }
-  class { 'licensify::apps::licensify_feed':
-    require => Class['nginx']
-  }
+  class { 'licensify::apps::licensify_admin': }
+  class { 'licensify::apps::licensify_feed': }
 }
