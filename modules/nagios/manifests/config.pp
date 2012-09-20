@@ -35,12 +35,14 @@ class nagios::config ($platform = $::govuk_platform) {
 
   @@nagios::check { 'check_smokey':
     check_command       => 'run_smokey_tests',
+    use                 => 'govuk_emergency_service',
     service_description => 'Run small suite of functional tests',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
+    use                 => 'govuk_emergency_service',
     service_description => 'Check the current pingdom status',
     host_name           => "${::govuk_class}-${::hostname}"
   }
@@ -102,6 +104,10 @@ class nagios::config ($platform = $::govuk_platform) {
     email => $contact_email
   }
 
+  nagios::contact { 'zendesk_email':
+    email => 'carl.massa+zendesk@digital.cabinet-office.gov.uk',
+  }
+
   nagios::pager_contact { 'pager_nonworkhours':
     service_notification_options => 'c',
     notification_period          => 'nonworkhours',
@@ -109,7 +115,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   nagios::contact_group { 'emergencies':
     group_alias => 'Contacts for emergency situations',
-    members     => ['monitoring_google_group','pager_nonworkhours'],
+    members     => ['monitoring_google_group','pager_nonworkhours','zendesk_email'],
   }
 
   nagios::contact_group { 'regular':
