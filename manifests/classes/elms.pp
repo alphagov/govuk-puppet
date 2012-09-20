@@ -5,9 +5,9 @@ class elms_base::mongo_server inherits govuk_node::base {
   case $::govuk_provider {
     sky: {
       $mongo_hosts = [
-        'elms-mongo-1.backend.production',
-        'elms-mongo-2.backend.production',
-        'elms-mongo-3.backend.production'
+        'licensify-mongo-1.backend.production',
+        'licensify-mongo-2.backend.production',
+        'licensify-mongo-3.backend.production'
       ]
     }
     #aws
