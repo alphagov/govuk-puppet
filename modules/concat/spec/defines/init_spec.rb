@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../../../../spec_helper'
 
 describe 'concat' do
   basedir = '/var/lib/puppet/concat'
