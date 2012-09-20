@@ -1,2 +1,12 @@
 0) apt-get install haproxy
 1) /etc/haproxy/default: ENABLED=0 -> ENABLED=1
+
+sample config for contentapi:
+
+listen  ssl-relay 0.0.0.0:8443
+        balance roundrobin
+        mode tcp
+        option httpchk HEAD /
+        server  inst1 10.3.0.2:443 check inter 2000 fall 3 port 9522
+        server  inst2 10.3.0.3:443 check inter 2000 fall 3 port 9522
+
