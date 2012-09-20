@@ -22,6 +22,7 @@ class development {
   include govuk::apps::contentapi
   include govuk::apps::publicapi
   include govuk::apps::signon
+  include govuk::apps::businesssupportfinder
 
   include govuk::deploy
   include govuk::repository
