@@ -8,6 +8,8 @@ class nagios::package {
     'nagios-plugins',
     'libwww-perl',
     'libcrypt-ssleay-perl',
+    'libnet-ssleay-perl',
+    'libio-socket-ssl-perl',
     'nagios-nrpe-plugin',
   ]:
     ensure => present,
