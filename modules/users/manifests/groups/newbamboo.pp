@@ -6,7 +6,7 @@ class users::groups::newbamboo {
   }
   govuk::user { 'niallm':
     fullname   => 'Niall Mullally',
-    email      => 'naill@new-bamboo.co.uk';
+    email      => 'niall@new-bamboo.co.uk';
   }
   govuk::user { 'ollyl':
     fullname   => 'Olly Legg',
