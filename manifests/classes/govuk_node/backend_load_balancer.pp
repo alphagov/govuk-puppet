@@ -19,4 +19,9 @@ class govuk_node::backend_load_balancer {
     health_check_port => 9503,
     listen_port       => 8403,
   }
+  haproxy::balance {'contentapi':
+    servers           => $backend_servers,
+    health_check_port => 9522,
+    listen_port       => 8422,
+  }
 }
