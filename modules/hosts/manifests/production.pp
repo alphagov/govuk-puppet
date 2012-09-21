@@ -21,7 +21,6 @@ class hosts::production {
   host { 'migratorator.production.alphagov.co.uk':         ip => '10.54.182.112' }
   host { 'reviewomatic.production.alphagov.co.uk':         ip => '10.54.182.112' }
   host { 'private-frontend.production.alphagov.co.uk':     ip => '10.54.182.112' }
-  host { 'contactotron.production.alphagov.co.uk':         ip => '10.54.182.112' }
   host { 'whitehall-frontend.production.alphagov.co.uk':   ip => '10.224.50.207' }
   host { 'whitehall.production.alphagov.co.uk':            ip => '10.224.50.207' }
   host { 'whitehall-search.production.alphagov.co.uk':     ip => '10.224.50.207' }
