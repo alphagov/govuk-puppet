@@ -91,11 +91,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                         "signon.${platform}.alphagov.co.uk"
   ]}
 
-  #Backend LB vhosts
-  host { "signon.backend.${platform}"            : ip => "10.3.1.1", host_aliases =>  ["signon",
-                                                                                      "signon.${platform}.alphagov.co.uk"
-                                                                                      ]}
-
   # ELMS (Licence Finder) VDC machines
   host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }
   host { "licensify-frontend-2.licensify.${platform}"           : ip => "10.5.0.3", host_aliases =>  ["licensify-frontend-2"] }
