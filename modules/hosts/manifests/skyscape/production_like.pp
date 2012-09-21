@@ -94,7 +94,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       ]}
 
   # ELMS (Licence Finder) VDC machines
-  host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1"] }
+  host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }
   host { "licensify-frontend-2.licensify.${platform}"           : ip => "10.5.0.3", host_aliases =>  ["licensify-frontend-2"] }
   host { "licensify-backend-1.licensify.${platform}"            : ip => "10.5.0.4", host_aliases =>  ["licensify-backend-1",
                                                                                       "licensify-admin.${platform}.alphagov.co.uk"
