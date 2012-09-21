@@ -25,4 +25,11 @@ class govuk_node::backend_load_balancer {
     listen_port       => 8422,
     internal_only     => true,
   }
+  haproxy::balance_http {'contentapi':
+    servers           => $backend_servers,
+    health_check_port => 9522,
+    listen_port       => 8522,
+    internal_only     => true,
+  }
+
 }

@@ -1,4 +1,4 @@
-upstream <%= name %>-proxy {
+upstream <%= name %>-http-proxy {
   server localhost:<%= @listen_port %>;
 }
 
@@ -23,6 +23,6 @@ server {
     allow 127.0.0.1;
     deny all;
 <%- end -%>
-    proxy_pass http://<%= name %>-proxy;
+    proxy_pass http://<%= name %>-http-proxy;
   }
 }
