@@ -1,10 +1,6 @@
 class logstash::package {
 
-  if $::govuk_provider == 'sky' {
-    $logstash_version = '1.1.1.sincedbfixed.grokdisabled.globfixed.test'
-  } else {
-    $logstash_version = '1.1.1.sincedbfixed.grokdisabled.globfixed'
-  }
+  $logstash_version = '1.1.1.sincedbfixed.grokdisabled.globreallyfixed'
 
   include java::openjdk6::jre
 
