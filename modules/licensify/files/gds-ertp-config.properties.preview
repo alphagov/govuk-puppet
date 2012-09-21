@@ -16,5 +16,7 @@ googleAnalytics.account.admin=UA-34519962-2
 googleAnalytics.account.frontend=UA-34519962-1
 googleAnalytics.domain=preview.alphagov.co.uk
 
+signon.url=https://signon.preview.alphagov.co.uk
+
 worldpay.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayComplete
 worldpay.cancelled.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayCancelled
