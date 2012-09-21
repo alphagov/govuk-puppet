@@ -22,7 +22,7 @@ server {
   location / {
 <%- if @internal_only -%>
     # Only accept connnections from internal machines
-    allow 10.*;
+    allow 10.0.0.0/8;
     allow 127.0.0.1;
     deny all;
 <%- end -%>
