@@ -19,7 +19,6 @@ class hosts::preview {
   host { 'imminence.preview.alphagov.co.uk':        ip => '10.228.95.176' }
   host { 'publisher.preview.alphagov.co.uk':        ip => '10.228.95.176' }
   host { 'private-frontend.preview.alphagov.co.uk': ip => '10.228.95.176' }
-  host { 'contactotron.preview.alphagov.co.uk':     ip => '10.228.95.176' }
   host { 'tariff-api.preview.alphagov.co.uk':       ip => '10.228.95.176' }
   host { 'contentapi.preview.alphagov.co.uk':       ip => '10.228.95.176' }
 
