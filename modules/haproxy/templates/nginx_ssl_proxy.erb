@@ -20,6 +20,12 @@ server {
   error_log /var/log/nginx/<%= vhost %>-error.log;
 
   location / {
+<%- if @internal_only -%>
+    # Only accept connnections from internal machines
+    allow 10.*;
+    allow 127.0.0.1;
+    deny all;
+<%- end -%>
     proxy_pass https://<%= name %>-proxy;
   }
 }

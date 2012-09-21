@@ -23,5 +23,6 @@ class govuk_node::backend_load_balancer {
     servers           => $backend_servers,
     health_check_port => 9522,
     listen_port       => 8422,
+    internal_only     => true,
   }
 }

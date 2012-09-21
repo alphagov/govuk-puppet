@@ -1,4 +1,4 @@
-define haproxy::balance ($servers, $listen_port, $health_check_port) {
+define haproxy::balance ($servers, $listen_port, $health_check_port, $internal_only = false) {
   concat::fragment {"haproxy_listen_$title":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment.erb'),
