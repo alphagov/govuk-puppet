@@ -41,8 +41,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                             "whitehall-search.${platform}.alphagov.co.uk"
                                                                                             ]}
   host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6", host_aliases => ["whitehall-frontend-2"]}
-  host { "elms-frontend-1.frontend.${platform}"         : ip => "10.2.0.7", host_aliases => ["elms-frontend-1", "licensify.${platform}.alphagov.co.uk"]}
-  host { "elms-frontend-2.frontend.${platform}"         : ip => "10.2.0.8", host_aliases => ["elms-frontend-2"]}
+ 
 
   #Frontend LB vhosts
   host { "calendars.frontend.${platform}"               : ip => "10.2.1.1", host_aliases => ["calendars",
