@@ -24,7 +24,6 @@ class govuk_node::backend_server inherits govuk_node::base {
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
-    "private-frontend.${::govuk_platform}.alphagov.co.uk":;
   }
 
   nginx::config::vhost::proxy {
@@ -43,9 +42,6 @@ class govuk_node::backend_server inherits govuk_node::base {
     "contactotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
-    "private-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
   }
 
   file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
@@ -60,4 +56,5 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::contentapi
   include govuk::apps::imminence
   include govuk::apps::signon
+  include govuk::apps::private_frontend
 }
