@@ -16,9 +16,6 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   include imagemagick
 
-  include govuk::apps::panopticon
-  include govuk::apps::publisher
-
   apache2::vhost::passenger {
     "needotron.${::govuk_platform}.alphagov.co.uk":;
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
@@ -50,6 +47,8 @@ class govuk_node::backend_server inherits govuk_node::base {
     force  => true,
   }
 
+  include govuk::apps::panopticon
+  include govuk::apps::publisher
   include govuk::apps::review_o_matic_explore
   include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
