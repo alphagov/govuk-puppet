@@ -1,4 +1,4 @@
-define nginx::config::vhost::licensify_post($to_port) {
+define nginx::config::vhost::licensify_post($port="9000") {
   $vhost_name = "post.licensify.${::govuk_platform}.alphagov.co.uk"
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost_name: content => template('nginx/licensify-post-vhost.conf') }
