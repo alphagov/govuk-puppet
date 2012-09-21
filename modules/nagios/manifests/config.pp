@@ -178,7 +178,7 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::service_template { 'govuk_medium_priority':
-    contact_groups => ['medium-priority']
+    contact_groups => ['med-priority']
   }
 
   nagios::service_template { 'govuk_low_priority':
