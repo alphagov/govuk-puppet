@@ -15,6 +15,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::frontend
   include govuk::apps::search
   include govuk::apps::static
+  include govuk::apps::businesssupportfinder
 
   include nginx
 }
