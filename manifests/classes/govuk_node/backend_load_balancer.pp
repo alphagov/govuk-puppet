@@ -18,7 +18,7 @@ class govuk_node::backend_load_balancer {
   haproxy::balance_http {'signon':
     servers           => $backend_servers,
     health_check_port => 9516,
-    listen_port       => 8416,
+    listen_port       => 8516,
   }
   # Panopticon Load Balancers
   haproxy::balance_ssl  {'panopticon':
@@ -29,7 +29,7 @@ class govuk_node::backend_load_balancer {
   haproxy::balance_http {'panopticon':
     servers           => $backend_servers,
     health_check_port => 9503,
-    listen_port       => 8403,
+    listen_port       => 8503,
   }
   # Content API Load Balancers
   haproxy::balance_ssl  {'contentapi':
