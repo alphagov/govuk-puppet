@@ -17,10 +17,10 @@ class govuk_node::backend_server inherits govuk_node::base {
   include imagemagick
 
   include govuk::apps::panopticon
+  include govuk::apps::publisher
 
   apache2::vhost::passenger {
     "needotron.${::govuk_platform}.alphagov.co.uk":;
-    "publisher.${::govuk_platform}.alphagov.co.uk":;
     "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
@@ -28,9 +28,6 @@ class govuk_node::backend_server inherits govuk_node::base {
   }
 
   nginx::config::vhost::proxy {
-    "publisher.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
     "needotron.$::govuk_platform.alphagov.co.uk":
       to       => ['localhost:8080'],
       ssl_only => true;
