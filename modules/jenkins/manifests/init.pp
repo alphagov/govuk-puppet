@@ -56,7 +56,7 @@ class jenkins {
   package { 'libtext-csv-perl':
     ensure => installed,
   }
-  
+
   # This is required for the redirector-integration job
   package { 'libcrypt-ssleay-perl':
     ensure => installed,
