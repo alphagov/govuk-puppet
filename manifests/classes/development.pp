@@ -14,6 +14,7 @@ class development {
   include tmpreaper
   include users
   include clamav
+  include rabbitmq
 
   include govuk::apps::review_o_matic_explore
   include govuk::apps::planner
@@ -61,6 +62,9 @@ class development {
     'efg_test':                       user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'tariff_development':             user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
     'tariff_test':                    user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
+    'datainsights_todays_activity':   user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsight_weekly_reach':       user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsights_format_success':    user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
   }
 
   package {
