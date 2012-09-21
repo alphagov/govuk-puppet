@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'haproxy::balance', :type => :define do
+describe 'haproxy::balance_ssl', :type => :define do
   context 'external load balancer' do
     let(:title) { 'giraffe' }
     let(:params) {
