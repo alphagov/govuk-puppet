@@ -52,8 +52,13 @@ class jenkins {
       ensure => installed,
   }
 
-  # This is required for the Deploy Redirector Config job
+  # This is required for the redirector-deploy job
   package { 'libtext-csv-perl':
+    ensure => installed,
+  }
+  
+  # This is required for the redirector-integration job
+  package { 'libcrypt-ssleay-perl':
     ensure => installed,
   }
 
