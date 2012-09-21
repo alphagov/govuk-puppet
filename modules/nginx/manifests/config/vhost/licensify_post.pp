@@ -1,7 +1,5 @@
 define nginx::config::vhost::licensify_post($port) {
 
-  $name = "post.$name{}.${::govuk_platform}.alphagov.co.uk"
-
   nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name: content => template('nginx/licensify-post-vhost.conf') }
 
