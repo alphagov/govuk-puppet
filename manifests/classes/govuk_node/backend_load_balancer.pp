@@ -9,17 +9,17 @@ class govuk_node::backend_load_balancer {
     "backend-3" => "10.3.0.4",
   }
 
-  haproxy::balance {'signon':
+  haproxy::balance_ssl {'signon':
     servers           => $backend_servers,
     health_check_port => 9516,
     listen_port       => 8416,
   }
-  haproxy::balance {'panopticon':
+  haproxy::balance_ssl {'panopticon':
     servers           => $backend_servers,
     health_check_port => 9503,
     listen_port       => 8403,
   }
-  haproxy::balance {'contentapi':
+  haproxy::balance_ssl {'contentapi':
     servers           => $backend_servers,
     health_check_port => 9522,
     listen_port       => 8422,
