@@ -36,11 +36,6 @@ class govuk_node::management_server {
       password      => 'whitehall',
       remote_host   => 'localhost',
       root_password => $mysql_password;
-    'contactotron_test':
-      user          => 'contactotron',
-      password      => 'contactotron',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
     'panopticon_test':
       user          => 'panopticon',
       password      => 'panopticon',

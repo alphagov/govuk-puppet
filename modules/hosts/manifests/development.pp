@@ -20,7 +20,6 @@ class hosts::development {
   host { 'panopticon.dev.gov.uk':           ip => '127.0.0.1' }
   host { 'needotron.dev.gov.uk':            ip => '127.0.0.1' }
   host { 'imminence.dev.gov.uk':            ip => '127.0.0.1' }
-  host { 'contactotron.dev.gov.uk':         ip => '127.0.0.1' }
   host { 'search.dev.gov.uk':               ip => '127.0.0.1' }
   host { 'tariff-api.dev.gov.uk':           ip => '127.0.0.1' }
   host { 'tariff.dev.gov.uk':               ip => '127.0.0.1' }
