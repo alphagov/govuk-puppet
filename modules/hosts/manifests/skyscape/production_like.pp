@@ -100,9 +100,9 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       "licensify-admin.${platform}.alphagov.co.uk"
                                                                                       ]}
   host { "licensify-backend-2.licensify.${platform}"           : ip => "10.5.0.5", host_aliases =>  ["licensify-backend-2"] }
-  host { "licensify-mongo-1.licensify.${platform}"             : ip => "10.5.0.6", host_aliases =>  ["licensify-mongo-1"] }
-  host { "licensify-mongo-2.licensify.${platform}"             : ip => "10.5.0.7", host_aliases =>  ["licensify-mongo-2"] }
-  host { "licensify-mongo-3.licensify.${platform}"             : ip => "10.5.0.8", host_aliases =>  ["licensify-mongo-3"] }
+  host { "licensify-mongo-1.licensify.${platform}"             : ip => "10.5.0.6", host_aliases =>  ["licensify-mongo-1", "elms-mongo-1"] }
+  host { "licensify-mongo-2.licensify.${platform}"             : ip => "10.5.0.7", host_aliases =>  ["licensify-mongo-2", "elms-mongo-2"] }
+  host { "licensify-mongo-3.licensify.${platform}"             : ip => "10.5.0.8", host_aliases =>  ["licensify-mongo-3", "elms-mongo-3"] }
 
 
   #EFG VDC machines

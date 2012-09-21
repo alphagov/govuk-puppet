@@ -12,7 +12,7 @@ class logstash::client::service {
   cron { 'logstash-client':
     ensure  => present,
     user    => 'root',
-    hour  => [0, 8, 16],
+    hour    => [0, 8, 16],
     command => '/usr/sbin/service logstash-client restart #Restart to ensure leaking file descriptors are given up',
     require => Service['logstash-client'];
   }
