@@ -85,7 +85,11 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "mysql-master-1.backend.${platform}"    : ip => "10.3.10.0", host_aliases => ["mysql-master-1",
                                                                                       "mysql.backend.${platform}"
                                                                                       ]}
-  host { "load-balancer-1.backend.${platform}"   : ip => "10.3.0.101" }
+  host { "load-balancer-1.backend.${platform}": ensure => absent }
+  host { "backend-lb-1.backend.${platform}"   : ip     => "10.3.0.101", host_aliases => ["backend-lb-1",
+                                                                                        "signon",
+                                                                                        "signon.${platform}.alphagov.co.uk"
+  ]}
 
   #Backend LB vhosts
   host { "signon.backend.${platform}"            : ip => "10.3.1.1", host_aliases =>  ["signon",
