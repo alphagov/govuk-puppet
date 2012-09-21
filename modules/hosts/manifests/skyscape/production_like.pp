@@ -41,7 +41,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                             "whitehall-search.${platform}.alphagov.co.uk"
                                                                                             ]}
   host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6", host_aliases => ["whitehall-frontend-2"]}
- 
+
 
   #Frontend LB vhosts
   host { "calendars.frontend.${platform}"               : ip => "10.2.1.1", host_aliases => ["calendars",
