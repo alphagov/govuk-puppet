@@ -13,7 +13,7 @@ class licensify::apps::licensify( $port = 9000 ) {
     nginx_extra_config => template('licensify/nginx_extra'),
   }
 
-  nginx::config::vhost::licensify_post{ 'licensify':}
+  nginx::config::vhost::licensify_upload{ 'licensify':}
   licensify::build_clean { 'licensify': }
 
 }

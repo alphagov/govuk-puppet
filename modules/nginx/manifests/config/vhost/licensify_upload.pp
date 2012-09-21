@@ -1,7 +1,7 @@
-define nginx::config::vhost::licensify_post($port="9000") {
-  $vhost_name = "post.licensify.${::govuk_platform}.alphagov.co.uk"
+define nginx::config::vhost::licensify_upload($port="9000") {
+  $vhost_name = "uploadlicensify.${::govuk_platform}.alphagov.co.uk"
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
-  nginx::config::site { $vhost_name: content => template('nginx/licensify-post-vhost.conf') }
+  nginx::config::site { $vhost_name: content => template('nginx/licensify-upload-vhost.conf') }
 
   @logster::cronjob { "nginx-vhost-${vhost_name}":
     args => "--metric-prefix ${vhost_name} NginxGangliaLogster /var/log/nginx/${vhost_name}-access.log",
