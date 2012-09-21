@@ -13,7 +13,7 @@ class licensify::apps::licensify( $port = 9000 ) {
     nginx_extra_config => template('licensify/nginx_extra'),
   }
 
-  nginx::config::vhost::licensify_post{ "post.${name}.${::govuk_platform}.alphagov.co.uk": to_port => $port}
+  nginx::config::vhost::licensify_post{ "post.licensify.${::govuk_platform}.alphagov.co.uk": to_port => $port}
   licensify::build_clean { 'licensify': }
 
 }
