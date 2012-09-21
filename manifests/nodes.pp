@@ -1,6 +1,7 @@
 node default {
   case $::govuk_class {
     backend:            { include govuk_node::backend_server }
+    backend-lb:         { include govuk_node::backend_load_balancer }
     cache:              { include govuk_node::cache_server }
     data:               { include govuk_node::db_server }
     development:        { include development }
@@ -21,7 +22,6 @@ node default {
     frontend:           { include govuk_node::frontend_server }
     graylog:            { include govuk_node::graylog_server }
     jumpbox:            { include govuk_node::base }
-    load-balancer:      { include govuk_node::load_balancer }
     logging:            { include govuk_node::graylog_server }
     management:         { include govuk_node::management_server_master }
     management_slave:   { include govuk_node::management_server_slave }

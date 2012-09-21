@@ -1,0 +1,8 @@
+listen <%= @title %> 0.0.0.0:<%= @listen_port %>
+  balance roundrobin
+  mode tcp
+  option httpchk HEAD /
+<%- @backend_servers.each do | server, ip | -%>
+  listen <%= server %> <%= ip %>:443 check inter 2000 fall 3 port <%= @health_check_port %>
+<%- end -%>
+
