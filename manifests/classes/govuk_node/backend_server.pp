@@ -53,4 +53,5 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::imminence
   include govuk::apps::signon
   include govuk::apps::private_frontend
+  include govuk::apps::search
 }
