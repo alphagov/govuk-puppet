@@ -34,7 +34,10 @@ class hosts::production {
     ip           => '10.32.18.246',
     host_aliases => ['puppet'],
   }
-
+  host { 'ip-10-240-29-155.eu-west-1.compute.internal':
+    ip           => '10.240.29.155',
+    host_aliases => ['ip-10-240-29-155','mapit','mapit.production.alphagov.co.uk','mapit.alpha.gov.uk'],
+  }
   host { 'frontend.cluster':    ip => '10.53.54.49' }
   host { 'frontend.cluster-1':  ip => '10.236.86.54' }
   host { 'frontend.cluster-2':  ip => '10.250.157.37' }

@@ -47,7 +47,10 @@ class hosts::preview {
   host { 'licensify-mongo1':   ip => '10.229.30.142' }
   host { 'licensify-mongo2':   ip => '10.234.81.24' }
   host { 'places-api':         ip => '10.229.118.175' }
-
+  host { 'ip-10-240-29-155.eu-west-1.compute.internal':
+    ip           => '10.240.29.155',
+    host_aliases => ['ip-10-240-29-155','mapit','mapit.preview.alphagov.co.uk','mapit.alpha.gov.uk'],
+  }
   host { 'designprincipals.preview.alphagov.co.uk':
     ensure => absent,
   }
