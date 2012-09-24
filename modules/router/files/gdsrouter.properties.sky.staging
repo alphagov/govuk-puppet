@@ -1,2 +1,1 @@
-# This file is managed by puppet. Do not edit by hand.
-mongo.database.hosts=router-1.mongo,router-2.mongo,router-3.mongo
+gdsrouter.properties.sky.production
