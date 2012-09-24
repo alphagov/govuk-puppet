@@ -9,26 +9,18 @@ class govuk_node::backend_load_balancer {
     "backend-3" => "10.3.0.4",
   }
 
-  $mapit_servers = {
-    "mapit-server-1" => "10.3.0.9",
-    "mapit-server-2" => "10.3.0.10",
-  }
-
-  # Signon Load Balancers
   haproxy::balance_http_and_https {'signon':
     servers           => $backend_servers,
     health_check_port => 9516,
     https_listen_port => 8416,
     http_listen_port  => 8516,
   }
-  # Panopticon Load Balancers
   haproxy::balance_http_and_https {'panopticon':
     servers           => $backend_servers,
     health_check_port => 9503,
     https_listen_port => 8403,
     http_listen_port  => 8503,
   }
-  # Content API Load Balancers
   haproxy::balance_http_and_https {'contentapi':
     servers           => $backend_servers,
     health_check_port => 9522,
@@ -37,7 +29,11 @@ class govuk_node::backend_load_balancer {
     internal_only     => true,
   }
 
-  # Mapit Server Load Balancer
+  $mapit_servers = {
+    "mapit-server-1" => "10.3.0.9",
+    "mapit-server-2" => "10.3.0.10",
+  }
+
   haproxy::balance_http {'mapit':
     servers           => $mapit_servers,
     health_check_port => 80,
