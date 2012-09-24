@@ -17,29 +17,17 @@ class govuk_node::backend_server inherits govuk_node::base {
   include imagemagick
 
   apache2::vhost::passenger {
-    "needotron.${::govuk_platform}.alphagov.co.uk":;
-    "contactotron.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
-    "private-frontend.${::govuk_platform}.alphagov.co.uk":;
   }
 
   nginx::config::vhost::proxy {
-    "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
     "migratorator.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;
     "reviewomatic.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => false;
-    "contactotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "private-frontend.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
   }
 
   file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
@@ -56,4 +44,6 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::contentapi
   include govuk::apps::imminence
   include govuk::apps::signon
+  include govuk::apps::private_frontend
+  include govuk::apps::need_o_tron
 }

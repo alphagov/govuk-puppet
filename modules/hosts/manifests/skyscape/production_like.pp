@@ -15,9 +15,9 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "cache-1.router.${platform}"         : ip => "10.1.0.2" }
   host { "cache-2.router.${platform}"         : ip => "10.1.0.3" }
   host { "cache-3.router.${platform}"         : ip => "10.1.0.4" }
-  host { "router-mongo-1.router.${platform}"  : ip => "10.1.0.5" }
-  host { "router-mongo-2.router.${platform}"  : ip => "10.1.0.6" }
-  host { "router-mongo-3.router.${platform}"  : ip => "10.1.0.7" }
+  host { "router-mongo-1.router.${platform}"  : ip => "10.1.0.5", host_aliases => ['router-mongo-1', 'router-1.mongo'] }
+  host { "router-mongo-2.router.${platform}"  : ip => "10.1.0.6", host_aliases => ['router-mongo-2', 'router-2.mongo'] }
+  host { "router-mongo-3.router.${platform}"  : ip => "10.1.0.7", host_aliases => ['router-mongo-3', 'router-3.mongo'] }
 
   #Router LB vhosts
   host { "cache.router.${platform}"           : ip => "10.1.1.1", host_aliases => ["cache",
@@ -41,8 +41,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                             "whitehall-search.${platform}.alphagov.co.uk"
                                                                                             ]}
   host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6", host_aliases => ["whitehall-frontend-2"]}
-  host { "elms-frontend-1.frontend.${platform}"         : ip => "10.2.0.7", host_aliases => ["elms-frontend-1", "licensify.${platform}.alphagov.co.uk"]}
-  host { "elms-frontend-2.frontend.${platform}"         : ip => "10.2.0.8", host_aliases => ["elms-frontend-2"]}
+
 
   #Frontend LB vhosts
   host { "calendars.frontend.${platform}"               : ip => "10.2.1.1", host_aliases => ["calendars",
@@ -86,12 +85,11 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "mysql-master-1.backend.${platform}"    : ip => "10.3.10.0", host_aliases => ["mysql-master-1",
                                                                                       "mysql.backend.${platform}"
                                                                                       ]}
-  host { "load-balancer-1.backend.${platform}"   : ip => "10.3.0.101" }
-
-  #Backend LB vhosts
-  host { "signon.backend.${platform}"            : ip => "10.3.1.1", host_aliases =>  ["signon",
-                                                                                      "signon.${platform}.alphagov.co.uk"
-                                                                                      ]}
+  host { "load-balancer-1.backend.${platform}": ensure => absent }
+  host { "backend-lb-1.backend.${platform}"   : ip     => "10.3.0.101", host_aliases => ["backend-lb-1",
+                                                                                        "signon",
+                                                                                        "signon.${platform}.alphagov.co.uk"
+  ]}
 
   # ELMS (Licence Finder) VDC machines
   host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }

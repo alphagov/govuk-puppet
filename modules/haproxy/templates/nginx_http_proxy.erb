@@ -1,14 +1,11 @@
-upstream <%= name %>-ssl-proxy {
+upstream <%= name %>-http-proxy {
   server localhost:<%= @listen_port %>;
 }
 
 server {
   server_name <%= vhost %>;
 
-  listen              443 ssl;
-  ssl_certificate     /etc/nginx/ssl/<%= vhost %>.crt;
-  ssl_certificate_key /etc/nginx/ssl/<%= vhost %>.key;
-  include             /etc/nginx/ssl.conf;
+  listen              80;
 
   proxy_set_header Host $http_host;
   proxy_set_header X-Real-IP $remote_addr;
@@ -26,6 +23,6 @@ server {
     allow 127.0.0.1;
     deny all;
 <%- end -%>
-    proxy_pass https://<%= name %>-ssl-proxy;
+    proxy_pass http://<%= name %>-http-proxy;
   }
 }

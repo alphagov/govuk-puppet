@@ -13,6 +13,7 @@ class puppet {
   package { 'libshadow':
     ensure   => present,
     provider => gem,
+    require  => Package['build-essential'],
   }
 
   file { '/etc/puppet/puppet.conf':

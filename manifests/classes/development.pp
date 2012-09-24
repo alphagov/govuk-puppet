@@ -14,6 +14,7 @@ class development {
   include tmpreaper
   include users
   include clamav
+  include rabbitmq
 
   include govuk::apps::review_o_matic_explore
   include govuk::apps::planner
@@ -24,10 +25,14 @@ class development {
   include govuk::apps::signon
   include govuk::apps::businesssupportfinder
   include govuk::apps::publisher
+  include govuk::apps::private_frontend
+  include govuk::apps::need_o_tron
 
   include govuk::deploy
   include govuk::repository
   include govuk::testing_tools
+
+  include datainsight::config::google_oauth
 
   elasticsearch::node { 'govuk-development':
     heap_size          => '64m',
@@ -53,8 +58,6 @@ class development {
     'needotron_development':          user => 'needotron',    password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'panopticon_development':         user => 'panopticon',   password => 'panopticon',   root_password => $mysql_password, remote_host => 'localhost';
     'panopticon_test':                user => 'panopticon',   password => 'panopticon',   root_password => $mysql_password, remote_host => 'localhost';
-    'contactotron_development':       user => 'contactotron', password => 'contactotron', root_password => $mysql_password, remote_host => 'localhost';
-    'contactotron_test':              user => 'contactotron', password => 'contactotron', root_password => $mysql_password, remote_host => 'localhost';
     'signonotron2_development':       user => 'signonotron2', password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'signonotron2_test':              user => 'signonotron2', password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'signonotron2_integration_test':  user => 'signonotron2', password => '',             root_password => $mysql_password, remote_host => 'localhost';
@@ -64,6 +67,9 @@ class development {
     'efg_test':                       user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'tariff_development':             user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
     'tariff_test':                    user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
+    'datainsights_todays_activity':   user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsight_weekly_reach':       user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsights_format_success':    user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
   }
 
   package {
@@ -73,5 +79,11 @@ class development {
     'rails':          ensure => 'installed', provider => gem;
     'passenger':      ensure => 'installed', provider => gem;
     'wbritish-small': ensure => installed;
+  }
+
+  file { [ '/var/lib/datainsight-narrative-recorder.json' ]:
+    ensure  => present,
+    owner   => 'vagrant',
+    group   => 'vagrant',
   }
 }
