@@ -9,7 +9,7 @@ describe 'nginx::config::vhost::default', :type => :define do
   context 'with no params' do
     it 'should install a default vhost that 404s' do
       should contain_nginx__config__site('donkey')
-        .with_content(/server_name\s+default_server;/)
+        .with_content(/listen.*default_server;/)
         .with_content(/return\s+404;/)
     end
   end
@@ -20,7 +20,7 @@ describe 'nginx::config::vhost::default', :type => :define do
     end
     it 'should install a default vhost that returns that status code' do
       should contain_nginx__config__site('donkey')
-        .with_content(/server_name\s+default_server;/)
+        .with_content(/listen.*default_server;/)
         .with_content(/return\s+418;/)
     end
   end
