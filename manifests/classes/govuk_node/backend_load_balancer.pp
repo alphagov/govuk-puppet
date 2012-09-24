@@ -15,38 +15,25 @@ class govuk_node::backend_load_balancer {
   }
 
   # Signon Load Balancers
-  haproxy::balance_https {'signon':
+  haproxy::balance_http_and_https {'signon':
     servers           => $backend_servers,
     health_check_port => 9516,
-    listen_port       => 8416,
-  }
-  haproxy::balance_http {'signon':
-    servers           => $backend_servers,
-    health_check_port => 9516,
-    listen_port       => 8516,
+    https_listen_port => 8416,
+    http_listen_port  => 8516,
   }
   # Panopticon Load Balancers
-  haproxy::balance_https {'panopticon':
+  haproxy::balance_http_and_https {'panopticon':
     servers           => $backend_servers,
     health_check_port => 9503,
-    listen_port       => 8403,
-  }
-  haproxy::balance_http {'panopticon':
-    servers           => $backend_servers,
-    health_check_port => 9503,
-    listen_port       => 8503,
+    https_listen_port => 8403,
+    http_listen_port  => 8503,
   }
   # Content API Load Balancers
-  haproxy::balance_https {'contentapi':
+  haproxy::balance_http_and_https {'contentapi':
     servers           => $backend_servers,
     health_check_port => 9522,
-    listen_port       => 8422,
-    internal_only     => true,
-  }
-  haproxy::balance_http {'contentapi':
-    servers           => $backend_servers,
-    health_check_port => 9522,
-    listen_port       => 8522,
+    https_listen_port => 8422,
+    http_listen_port  => 8522,
     internal_only     => true,
   }
 
