@@ -1,6 +1,6 @@
 define logrotate::conf (
   $matches,
-  $days_to_keep = '365'
+  $days_to_keep = '31'
 ) {
 
   file { "/etc/logrotate.d/${title}":

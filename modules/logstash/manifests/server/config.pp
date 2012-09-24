@@ -12,7 +12,8 @@ class logstash::server::config (
   }
 
   @logrotate::conf { 'logstash-aggregation':
-    matches => '/var/log/logstash-aggregation/**/*'
+    matches      => '/var/log/logstash-aggregation/**/*',
+    days_to_keep => '365',
   }
 
   file { '/etc/logstash/logstash-server.conf':
