@@ -5,11 +5,11 @@ class govuk_node::router_mongo inherits govuk_node::base {
   case $::govuk_provider {
     sky: {
       case $::govuk_platform {
-        production: {
+        'production', 'staging': {
           $mongo_hosts = [
-            '10.1.0.5',
-            '10.1.0.6',
-            '10.1.0.7'
+            'router-1.mongo',
+            'router-2.mongo',
+            'router-3.mongo'
           ]
         }
         default: {
