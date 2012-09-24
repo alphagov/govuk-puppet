@@ -31,6 +31,8 @@ class development {
   include govuk::repository
   include govuk::testing_tools
 
+  include datainsight::config::google_oauth
+
   elasticsearch::node { 'govuk-development':
     heap_size          => '64m',
     number_of_shards   => '1',
@@ -76,5 +78,11 @@ class development {
     'rails':          ensure => 'installed', provider => gem;
     'passenger':      ensure => 'installed', provider => gem;
     'wbritish-small': ensure => installed;
+  }
+
+  file { [ '/var/lib/datainsight-narrative-recorder.json' ]:
+    ensure  => present,
+    owner   => 'vagrant',
+    group   => 'vagrant',
   }
 }
