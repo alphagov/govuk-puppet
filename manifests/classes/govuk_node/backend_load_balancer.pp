@@ -54,7 +54,7 @@ class govuk_node::backend_load_balancer {
   haproxy::balance_http {'mapit':
     servers           => $mapit_servers,
     health_check_port => 80,
-    listen_port       => 80,
+    listen_port       => 10191,
     internal_only     => true,
   }
 
