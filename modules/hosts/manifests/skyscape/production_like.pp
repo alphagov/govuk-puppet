@@ -72,12 +72,11 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "support-1.backend.${platform}"         : ip => "10.3.0.5", host_aliases =>  ["support-1",
                                                                                       "support.cluster"
                                                                                       ]}
-  host { "mongo-1.backend.${platform}"           : ip => "10.3.0.6", host_aliases =>  ["mongo-1",
-                                                                                      "mongo.backend.${platform}",
-                                                                                      "mongodb.cluster"
+  host { "mongo-1.backend.${platform}"           : ip => "10.3.0.6", host_aliases =>  ["mongo-1", "mongo.backend.${platform}",
+                                                                                      "mongodb.cluster", "backend-1.mongo"
                                                                                       ]}
-  host { "mongo-2.backend.${platform}"           : ip => "10.3.0.7" }
-  host { "mongo-3.backend.${platform}"           : ip => "10.3.0.8" }
+  host { "mongo-2.backend.${platform}"           : ip => "10.3.0.7", host_aliases => ['mongo-2', 'backend-2.mongo'] }
+  host { "mongo-3.backend.${platform}"           : ip => "10.3.0.8", host_aliases => ['mongo-3', 'backend-3.mongo'] }
   host { "mapit-server-1.backend.${platform}"    : ip => "10.3.0.9", host_aliases =>  ["mapit-server-1",
                                                                                       "mapit.alpha.gov.uk"
                                                                                       ]}
