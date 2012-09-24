@@ -24,6 +24,7 @@ class development {
   include govuk::apps::publicapi
   include govuk::apps::signon
   include govuk::apps::businesssupportfinder
+  include govuk::apps::publisher
   include govuk::apps::private_frontend
   include govuk::apps::need_o_tron
 
