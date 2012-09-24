@@ -72,7 +72,7 @@ define govuk::app::config (
             }
           }
           staging: {
-            nginx::config::vhost::proxy { "$name.*":
+            nginx::config::vhost::proxy { $vhost_full:
               to                    => ["localhost:${port}"],
               aliases               => $vhost_aliases_real,
               protected             => $vhost_protected,
