@@ -49,7 +49,7 @@ class hosts::preview {
   host { 'places-api':         ip => '10.229.118.175' }
   host { 'ip-10-240-29-155.eu-west-1.compute.internal':
     ip           => '10.240.29.155',
-    host_aliases => ['ip-10-240-29-155','mapit','mapit.preview.alphagov.co.uk','mapit.alpha.gov.uk'],
+    host_aliases => ['ip-10-240-29-155','mapit','mapit.preview.alphagov.co.uk','mapit.production.alphagov.co.uk','mapit.alpha.gov.uk'],
   }
   host { 'designprincipals.preview.alphagov.co.uk':
     ensure => absent,
