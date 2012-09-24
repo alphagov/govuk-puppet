@@ -69,6 +69,7 @@ define govuk::app::config (
               health_check_path     => $health_check_path,
               health_check_port     => $health_check_port,
               ssl_health_check_port => $ssl_health_check_port,
+            }
           }
           staging: {
             nginx::config::vhost::proxy { "$name.*":
