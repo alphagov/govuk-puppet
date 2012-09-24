@@ -67,8 +67,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       "tariff-api.${platform}.alphagov.co.uk",
                                                                                       "contentapi.${platform}.alphagov.co.uk"
                                                                                       ]}
-  host { "backend-2.backend.${platform}"         : ip => "10.3.0.3" }
-  host { "backend-3.backend.${platform}"         : ip => "10.3.0.4" }
+  host { "backend-2.backend.${platform}"         : ip => "10.3.0.3", host_aliases => ['backend-2'] }
+  host { "backend-3.backend.${platform}"         : ip => "10.3.0.4", host_aliases => ['backend-3'] }
   host { "support-1.backend.${platform}"         : ip => "10.3.0.5", host_aliases =>  ["support-1",
                                                                                       "support.cluster"
                                                                                       ]}
