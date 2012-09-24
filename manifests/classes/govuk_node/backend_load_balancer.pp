@@ -9,6 +9,11 @@ class govuk_node::backend_load_balancer {
     "backend-3" => "10.3.0.4",
   }
 
+  $mapit_servers = {
+    "mapit-server-1" => "10.3.0.9",
+    "mapit-server-2" => "10.3.0.10",
+  }
+
   # Signon Load Balancers
   haproxy::balance_ssl  {'signon':
     servers           => $backend_servers,
@@ -42,6 +47,14 @@ class govuk_node::backend_load_balancer {
     servers           => $backend_servers,
     health_check_port => 9522,
     listen_port       => 8522,
+    internal_only     => true,
+  }
+
+  # Mapit Server Load Balancer
+  haproxy::balance_http {'mapit':
+    servers           => $mapit_servers,
+    health_check_port => 80,
+    listen_port       => 80,
     internal_only     => true,
   }
 
