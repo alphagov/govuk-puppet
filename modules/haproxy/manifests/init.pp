@@ -18,7 +18,7 @@ class haproxy {
   concat::fragment {"haproxy_header":
     target => '/etc/haproxy/haproxy.cfg',
     source => 'puppet:///haproxy/haproxy_header.cfg',
-    order  => 01,
+    order  => '01',
   }
 
   service {'haproxy':

@@ -2,7 +2,7 @@ define haproxy::balance_http ($servers, $listen_port, $health_check_port, $inter
   concat::fragment {"haproxy_listen_http_$title":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment_http.erb'),
-    order   => 10,
+    order   => '10',
   }
 
   include nginx

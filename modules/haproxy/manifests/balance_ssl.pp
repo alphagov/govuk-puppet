@@ -2,7 +2,7 @@ define haproxy::balance_ssl ($servers, $listen_port, $health_check_port, $intern
   concat::fragment {"haproxy_listen_ssl_$title":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment_ssl.erb'),
-    order   => 10,
+    order   => '10',
   }
 
   include nginx
