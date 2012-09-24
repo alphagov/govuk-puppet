@@ -32,7 +32,7 @@ class mapit::package {
 
   package{['python-django-south','python-yaml','memcached','python-memcache',
           'python-django','python-psycopg2',
-          'python-flup','python-gdal']:
+          'python-flup','python-gdal', 'gdal-bin']:
     ensure => present,
   }
 
