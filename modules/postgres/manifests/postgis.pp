@@ -6,4 +6,8 @@ class postgres::postgis {
     ensure => present,
   }
 
+  package { 'postgresql-9.1-postgis':
+    ensure => present,
+  }
+
 }
