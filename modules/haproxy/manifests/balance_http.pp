@@ -1,4 +1,7 @@
 define haproxy::balance_http ($servers, $listen_port, $health_check_port, $internal_only = false) {
+
+  $lb_name = "${title}_http"
+
   concat::fragment {"haproxy_listen_http_$title":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment_http.erb'),

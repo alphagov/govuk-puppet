@@ -18,7 +18,7 @@ describe 'haproxy::balance_https', :type => :define do
     it 'should create haproxy fragment listening on 8080' do
       # ensure correct order
       should contain_concat__fragment('haproxy_listen_https_giraffe').
-        with_content(/listen giraffe 0.0.0.0:8080.*server giraffe-1.*server giraffe-2.*server giraffe-3/m)
+        with_content(/listen giraffe_https 0.0.0.0:8080.*server giraffe-1.*server giraffe-2.*server giraffe-3/m)
       # ensure correct config
       should contain_concat__fragment('haproxy_listen_https_giraffe').
         with_content(/server giraffe-1 1.1.1.1:443.*port 9090/)
