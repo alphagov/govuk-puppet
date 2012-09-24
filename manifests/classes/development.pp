@@ -43,9 +43,7 @@ class development {
   include nginx
 
   nginx::config::site { 'default':
-    # FIXME: this file probably shouldn't live in the nginx module,
-    # can't think of a better place at the moment
-    source  => 'puppet:///modules/nginx/development',
+    source => 'puppet:///modules/nginx/development',
   }
 
   $mysql_password = ''
