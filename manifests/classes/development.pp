@@ -25,6 +25,7 @@ class development {
   include govuk::apps::signon
   include govuk::apps::businesssupportfinder
   include govuk::apps::private_frontend
+  include govuk::apps::need_o_tron
 
   include govuk::deploy
   include govuk::repository
