@@ -10,22 +10,6 @@ class govuk_node::backend_load_balancer {
   }
 
   haproxy::balance_http_and_https {
-    'signon':
-      servers           => $backend_servers,
-      health_check_port => 9516,
-      https_listen_port => 8416,
-      http_listen_port  => 8516;
-    'panopticon':
-      servers           => $backend_servers,
-      health_check_port => 9503,
-      https_listen_port => 8403,
-      http_listen_port  => 8503;
-    'contentapi':
-      servers           => $backend_servers,
-      health_check_port => 9522,
-      https_listen_port => 8422,
-      http_listen_port  => 8522,
-      internal_only     => true;
     'publisher':
       servers           => $backend_servers,
       health_check_port => 9500,
@@ -36,6 +20,11 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9502,
       https_listen_port => 8402,
       http_listen_port  => 8502;
+    'panopticon':
+      servers           => $backend_servers,
+      health_check_port => 9503,
+      https_listen_port => 8403,
+      http_listen_port  => 8503;
     'need_o_tron':
       servers           => $backend_servers,
       health_check_port => 9504,
@@ -51,6 +40,12 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9518,
       https_listen_port => 8418,
       http_listen_port  => 8518,
+      internal_only     => true;
+    'contentapi':
+      servers           => $backend_servers,
+      health_check_port => 9522,
+      https_listen_port => 8422,
+      http_listen_port  => 8522,
       internal_only     => true;
     'whitehall-admin':
       servers           => $backend_servers,
