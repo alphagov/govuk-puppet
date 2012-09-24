@@ -26,6 +26,47 @@ class govuk_node::backend_load_balancer {
       https_listen_port => 8422,
       http_listen_port  => 8522,
       internal_only     => true;
+    'publisher':
+      servers           => $backend_servers,
+      health_check_port => 9500,
+      https_listen_port => 8400,
+      http_listen_port  => 8500;
+    'imminence':
+      servers           => $backend_servers,
+      health_check_port => 9502,
+      https_listen_port => 8402,
+      http_listen_port  => 8502;
+    'need_o_tron':
+      servers           => $backend_servers,
+      health_check_port => 9504,
+      https_listen_port => 8404,
+      http_listen_port  => 8504;
+    'signon':
+      servers           => $backend_servers,
+      health_check_port => 9516,
+      https_listen_port => 8416,
+      http_listen_port  => 8516;
+    'tariff_api':
+      servers           => $backend_servers,
+      health_check_port => 9518,
+      https_listen_port => 8418,
+      http_listen_port  => 8518,
+      internal_only     => true;
+    'whitehall-admin':
+      servers           => $backend_servers,
+      health_check_port => 9526,
+      https_listen_port => 8426,
+      http_listen_port  => 8526;
+    'private-frontend':
+      servers           => $backend_servers,
+      health_check_port => 9530,
+      https_listen_port => 8430,
+      http_listen_port  => 8530;
+    'support':
+      servers           => $backend_servers,
+      health_check_port => 9531,
+      https_listen_port => 8431,
+      http_listen_port  => 8531;
   }
 
   $mapit_servers = {
