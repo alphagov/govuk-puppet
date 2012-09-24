@@ -1,4 +1,6 @@
 class haproxy {
+  include nginx
+
   package {'haproxy':
     ensure => present,
     notify => Service[haproxy],
@@ -25,4 +27,8 @@ class haproxy {
     ensure    => running,
     hasstatus => true,
   }
+
+  # Install a default vhost that 404s if haproxy doesn't know about the
+  # specified host.
+  nginx::config::vhost::default { 'haproxy_default': }
 }
