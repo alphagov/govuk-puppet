@@ -1,4 +1,4 @@
-listen <%= @title %> 0.0.0.0:<%= @listen_port %>
+listen <%= @lb_name %> 0.0.0.0:<%= @listen_port %>
   balance roundrobin
   mode tcp
   option httpchk HEAD /
