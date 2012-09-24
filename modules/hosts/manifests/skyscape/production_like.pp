@@ -15,9 +15,9 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "cache-1.router.${platform}"         : ip => "10.1.0.2" }
   host { "cache-2.router.${platform}"         : ip => "10.1.0.3" }
   host { "cache-3.router.${platform}"         : ip => "10.1.0.4" }
-  host { "router-mongo-1.router.${platform}"  : ip => "10.1.0.5" }
-  host { "router-mongo-2.router.${platform}"  : ip => "10.1.0.6" }
-  host { "router-mongo-3.router.${platform}"  : ip => "10.1.0.7" }
+  host { "router-mongo-1.router.${platform}"  : ip => "10.1.0.5", host_aliases => ['router-mongo-1', 'router-1.mongo'] }
+  host { "router-mongo-2.router.${platform}"  : ip => "10.1.0.6", host_aliases => ['router-mongo-2', 'router-2.mongo'] }
+  host { "router-mongo-3.router.${platform}"  : ip => "10.1.0.7", host_aliases => ['router-mongo-3', 'router-3.mongo'] }
 
   #Router LB vhosts
   host { "cache.router.${platform}"           : ip => "10.1.1.1", host_aliases => ["cache",
