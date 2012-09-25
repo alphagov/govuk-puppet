@@ -20,4 +20,5 @@ define nginx::config::vhost::mirror ($aliases = [], $port = "443", $certtype = '
     service_description => "check nginx error rate for ${title}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+
 }
