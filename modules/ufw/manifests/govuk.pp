@@ -113,4 +113,9 @@ class ufw::govuk {
     port => 9401,
   }
 
+  #Load balancer Health Check ports
+  ufw::allow { "allow-haproxy-health-check-from-vshield":
+    port => 8900,
+  }
+
 }
