@@ -13,7 +13,6 @@ class development {
   include solr
   include tmpreaper
   include users
-  include clamav
   include rabbitmq
 
   include govuk::apps::review_o_matic_explore
