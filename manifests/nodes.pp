@@ -20,6 +20,7 @@ node default {
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-mongo:         { include ertp_base::mongo_server }
     frontend:           { include govuk_node::frontend_server }
+    frontend-lb:        { include govuk_node::frontend_load_balancer }
     graylog:            { include govuk_node::graylog_server }
     jumpbox:            { include govuk_node::base }
     logging:            { include govuk_node::graylog_server }
