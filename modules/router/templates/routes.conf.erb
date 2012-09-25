@@ -42,7 +42,7 @@ location = /government {
 }
 
 # Temporary http authentication for datainsight-frontend
-location ~ ^/performance.* {
+location /performance {
   deny all;
   auth_basic           "Enter your betademo password:";
   auth_basic_user_file /etc/govuk.htpasswd;
