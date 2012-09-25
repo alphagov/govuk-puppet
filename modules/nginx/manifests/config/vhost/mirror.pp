@@ -8,7 +8,7 @@ define nginx::config::vhost::mirror ($aliases = [], $port = "443", $certtype = '
   file { '/var/www/www.gov.uk':
     ensure  => link,
     target  => '/var/lib/govuk_mirror/current',
-    require => File['/var/www/'],
+    require => File['/var/www'],
   }
 
   @logster::cronjob { "nginx-vhost-${title}":
