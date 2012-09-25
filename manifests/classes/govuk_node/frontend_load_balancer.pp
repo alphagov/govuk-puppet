@@ -107,6 +107,16 @@ class govuk_node::frontend_load_balancer {
       http_listen_port  => 8517;
   }
 
+  # Whitehall Frontend Load Balancers
+  haproxy::balance_http_and_https {
+    'whitehall-frontend':
+      servers           => $whitehall_frontend_servers,
+      internal_only     => true,
+      health_check_port => 9520,
+      https_listen_port => 8420,
+      http_listen_port  => 8520;
+  }
+
   # EFG frontend loadbalancers
   haproxy::balance_http_and_https {
     'efg':
