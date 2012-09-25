@@ -27,72 +27,67 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                   ]}
 
   #Frontend VDC machines
-  host { "frontend-1.frontend.${platform}"    : ip => "10.2.0.2", host_aliases => ["frontend-1",
-                                                                                  "tariff.${platform}.alphagov.co.uk",
-                                                                                  "planner.${platform}.alphagov.co.uk",
-                                                                                  "licencefinder.${platform}.alphagov.co.uk",
-                                                                                  "designprinciples.${platform}.alphagov.co.uk",
-                                                                                  "feedback.${platform}.alphagov.co.uk",
-                                                                                  ]}
+  host { "frontend-1.frontend.${platform}"              : ip => "10.2.0.2" }
   host { "frontend-2.frontend.${platform}"              : ip => "10.2.0.3" }
   host { "frontend-3.frontend.${platform}"              : ip => "10.2.0.4" }
-  host { "whitehall-frontend-1.frontend.${platform}"    : ip => "10.2.0.5", host_aliases => ["whitehall-frontend-1",
-                                                                                            "whitehall-frontend.${platform}.alphagov.co.uk",
-                                                                                            "whitehall-search.${platform}.alphagov.co.uk"
-                                                                                            ]}
-  host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6", host_aliases => ["whitehall-frontend-2"]}
+  host { "whitehall-frontend-1.frontend.${platform}"    : ip => "10.2.0.5" }
+  host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6" }
 
 
   #Frontend LB vhosts
-  host { "frontend-lb-1.frontend.${platform}"           : ip => "10.2.0.101", host_aliases => ["frontend-lb-1"] }
-  host { "calendars.frontend.${platform}"               : ip => "10.2.1.1", host_aliases   => ["calendars",
-                                                                                            "calendars.${platform}.alphagov.co.uk"
-                                                                                            ]}
-  host { "static.frontend.${platform}"                  : ip => "10.2.1.2", host_aliases => ["static",
-                                                                                            "static.${platform}.alphagov.co.uk"
-                                                                                            ]}
-  host { "search.frontend.${platform}"                  : ip => "10.2.1.3", host_aliases => ["search",
-                                                                                            "search.${platform}.alphagov.co.uk"
-                                                                                            ]}
-  host { "frontend.frontend.${platform}"                : ip => "10.2.1.4", host_aliases => ["frontend",
-                                                                                            "frontend.${platform}.alphagov.co.uk"
-                                                                                            ]}
-  host { "smartanswers.frontend.${platform}"            : ip => "10.2.1.5", host_aliases => ["smartanswers",
-                                                                                            "smartanswers.${platform}.alphagov.co.uk"
-                                                                                            ]}
+  host { "frontend-lb-1.frontend.${platform}"           : ip => "10.2.0.101", host_aliases => ["frontend-lb-1",
+                                                                                "businesssupportfinder.${platform}.alphagov.co.uk"
+                                                                                "calendars.${platform}.alphagov.co.uk"
+                                                                                "datainsight-frontend.${platform}.alphagov.co.uk",
+                                                                                "designprinciples.${platform}.alphagov.co.uk",
+                                                                                "efg.${platform}.alphagov.co.uk",
+                                                                                "feedback.${platform}.alphagov.co.uk",
+                                                                                "frontend.${platform}.alphagov.co.uk"
+                                                                                "licencefinder.${platform}.alphagov.co.uk",
+                                                                                "planner.${platform}.alphagov.co.uk",
+                                                                                "publicapi.${platform}.alphagov.co.uk",
+                                                                                "search.${platform}.alphagov.co.uk"
+                                                                                "smartanswers.${platform}.alphagov.co.uk"
+                                                                                "static.${platform}.alphagov.co.uk"
+                                                                                "tariff.${platform}.alphagov.co.uk",
+                                                                                "whitehall-frontend.${platform}.alphagov.co.uk",
+                                                                                "whitehall-search.${platform}.alphagov.co.uk"
+                                                                                ]}
+  host { "calendars.frontend.${platform}"               : ensure => absent }
+  host { "static.frontend.${platform}"                  : ensure => absent }
+  host { "search.frontend.${platform}"                  : ensure => absent }
+  host { "frontend.frontend.${platform}"                : ensure => absent }
+  host { "smartanswers.frontend.${platform}"            : ensure => absent }
 
   #Backend VDC machines
-  host { "backend-1.backend.${platform}"         : ip => "10.3.0.2", host_aliases =>  ["backend-1",
-                                                                                      "panopticon.${platform}.alphagov.co.uk",
-                                                                                      "publisher.${platform}.alphagov.co.uk",
-                                                                                      "tariff-api.${platform}.alphagov.co.uk",
-                                                                                      "contentapi.${platform}.alphagov.co.uk"
-                                                                                      ]}
+  host { "backend-1.backend.${platform}"         : ip => "10.3.0.2", host_aliases => ['backend-1'] }
   host { "backend-2.backend.${platform}"         : ip => "10.3.0.3", host_aliases => ['backend-2'] }
   host { "backend-3.backend.${platform}"         : ip => "10.3.0.4", host_aliases => ['backend-3'] }
-  host { "support-1.backend.${platform}"         : ip => "10.3.0.5", host_aliases =>  ["support-1",
-                                                                                      "support.cluster"
-                                                                                      ]}
-  host { "mongo-1.backend.${platform}"           : ip => "10.3.0.6", host_aliases =>  ["mongo-1", "mongo.backend.${platform}",
-                                                                                      "mongodb.cluster", "backend-1.mongo"
-                                                                                      ]}
+  host { "support-1.backend.${platform}"         : ip => "10.3.0.5", host_aliases => ['support-1', 'support.cluster'] }
+  host { "mongo-1.backend.${platform}"           : ip => "10.3.0.6", host_aliases =>  ['mongo-1', "mongo.backend.${platform}",
+                                                                                      "mongodb.cluster", "backend-1.mongo" ]}
   host { "mongo-2.backend.${platform}"           : ip => "10.3.0.7", host_aliases => ['mongo-2', 'backend-2.mongo'] }
   host { "mongo-3.backend.${platform}"           : ip => "10.3.0.8", host_aliases => ['mongo-3', 'backend-3.mongo'] }
 
-  host { "mapit-server-1.backend.${platform}"    : ip => "10.3.0.9", host_aliases => [
-    "mapit-server-1",
-    "mapit.alpha.gov.uk",
-    "mapit.production.alphagov.co.uk",
-    "mapit" ]}
+  host { "mapit-server-1.backend.${platform}"    : ip => "10.3.0.9",  host_aliases => ["mapit-server-1","mapit.alpha.gov.uk"]}
   host { "mapit-server-2.backend.${platform}"    : ip => "10.3.0.10", host_aliases => ["mapit-server-2"]}
   host { "mysql-master-1.backend.${platform}"    : ip => "10.3.10.0", host_aliases => ['mysql-master-1', 'master.mysql',
                                                                                       "mysql.backend.${platform}"
                                                                                       ]}
   host { "load-balancer-1.backend.${platform}": ensure => absent }
   host { "backend-lb-1.backend.${platform}"   : ip     => "10.3.0.101", host_aliases => ["backend-lb-1",
-                                                                                        "signon",
-                                                                                        "signon.${platform}.alphagov.co.uk"
-  ]}
+                                                                                      "contentapi.${platform}.alphagov.co.uk"
+                                                                                      "imminence.${platform}.alphagov.co.uk"
+                                                                                      "mapit.${platform}.alphagov.co.uk",
+                                                                                      "needotron.${platform}.alphagov.co.uk"
+                                                                                      "panopticon.${platform}.alphagov.co.uk",
+                                                                                      "private-frontend.${platform}.alphagov.co.uk",
+                                                                                      "publisher.${platform}.alphagov.co.uk",
+                                                                                      "signon.${platform}.alphagov.co.uk"
+                                                                                      "support.${platform}.alphagov.co.uk"
+                                                                                      "tariff-api.${platform}.alphagov.co.uk",
+                                                                                      "whitehall-admin.${platform}.alphagov.co.uk",
+                                                                                      ]}
 
   # ELMS (Licence Finder) VDC machines
   host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }
