@@ -1,6 +1,36 @@
-#!/bin/bash
-cd /tmp
-rm -rf www.gov.uk
-/usr/bin/wget --header "Accept: text/html" -v -mE -R licence-finder,trade-tariff https://www.gov.uk
-rm -rf /usr/share/www/www.gov.uk
-mv www.gov.uk /usr/share/www/
+#!/bin/sh
+set -e
+
+MIRROR_ROOT=/var/lib/govuk_mirror
+TMP_ROOT=$(mktemp -d -t govuk_mirror.XXXXX)
+
+cleanup () {
+  rm -rf "$LOCK"
+  rm -rf "$TMP_ROOT"
+}
+trap cleanup EXIT
+
+cd "$TMP_ROOT"
+
+DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
+
+wget --mirror \
+  --adjust-extension \
+  -o mirror.log \
+  -X /licence-finder,/trade-tariff \
+  https://www.gov.uk
+
+mv www.gov.uk "$DEST"
+mv mirror.log "$DEST.log"
+
+# Clean up all but the last 7 mirror versions
+find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
+  sort -r |
+  tail -n +8 |
+  while read dir; do
+    rm -rf "$dir"
+    rm "${dir}.log"
+  done
+
+# Update symlink to latest version
+ln -snf "$DEST" "${MIRROR_ROOT}/current"
