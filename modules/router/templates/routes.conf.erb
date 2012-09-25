@@ -41,6 +41,15 @@ location = /government {
   proxy_pass http://varnish;
 }
 
+# Temporary http authentication for datainsight-frontend
+location ~ ^/performance.* {
+  deny all;
+  auth_basic           "Enter your betademo password:";
+  auth_basic_user_file /etc/govuk.htpasswd;
+  satisfy any;
+  proxy_pass http://varnish;
+}
+
 # Akamai CDN test object. This file is used by Akamai's infrastructure to
 # determine optimal routing within their network. It can be any text file
 # 8-12KiB in size.
