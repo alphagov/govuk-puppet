@@ -9,7 +9,7 @@ class govuk::apps::static( $port = 3013 ) {
     to        => "localhost:${port}",
     protected => false,
     aliases   => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
-    ssl_only  => true
+    ssl_only  => true,
     health_check_path  => '/templates/wrapper.html.erb';
   }
 
