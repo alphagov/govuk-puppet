@@ -14,11 +14,23 @@ cd "$TMP_ROOT"
 
 DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
 
+# Mirror the site
+#
+# It is likely that wget will return a nonzero exit code, due to unauthorized
+# endpoints or 406 responses, etc. We don't catch this error but ensure the
+# mirrored website is of a reasonable size (>10MB) instead.
+set +e
 wget --mirror \
   --adjust-extension \
   -o mirror.log \
   -X /licence-finder,/trade-tariff \
   https://www.gov.uk
+set -e
+
+if [ ! "$(du -ks www.gov.uk | awk)" -gt "10000" ]; then
+  echo "ERROR: mirror appears to have failed (total size <10MB)" >&2
+  exit 1
+fi
 
 mv www.gov.uk "$DEST"
 mv mirror.log "$DEST.log"
