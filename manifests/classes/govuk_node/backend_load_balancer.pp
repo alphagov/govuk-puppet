@@ -25,7 +25,7 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9503,
       https_listen_port => 8403,
       http_listen_port  => 8503;
-    'need_o_tron':
+    'needotron':
       servers           => $backend_servers,
       health_check_port => 9504,
       https_listen_port => 8404,
@@ -35,7 +35,7 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9516,
       https_listen_port => 8416,
       http_listen_port  => 8516;
-    'tariff_api':
+    'tariff-api':
       servers           => $backend_servers,
       health_check_port => 9518,
       https_listen_port => 8418,
