@@ -16,22 +16,12 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   include imagemagick
 
-  include govuk::apps::panopticon
-
   apache2::vhost::passenger {
-    "needotron.${::govuk_platform}.alphagov.co.uk":;
-    "publisher.${::govuk_platform}.alphagov.co.uk":;
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
     "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
   }
 
   nginx::config::vhost::proxy {
-    "publisher.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
-    "needotron.$::govuk_platform.alphagov.co.uk":
-      to       => ['localhost:8080'],
-      ssl_only => true;
     "migratorator.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;
@@ -45,6 +35,8 @@ class govuk_node::backend_server inherits govuk_node::base {
     force  => true,
   }
 
+  include govuk::apps::panopticon
+  include govuk::apps::publisher
   include govuk::apps::review_o_matic_explore
   include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
@@ -54,4 +46,5 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::signon
   include govuk::apps::private_frontend
   include govuk::apps::search
+  include govuk::apps::need_o_tron
 }

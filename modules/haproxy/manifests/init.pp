@@ -1,5 +1,5 @@
 class haproxy {
-  include concat::setup
+  include nginx
 
   package {'haproxy':
     ensure => present,
@@ -20,11 +20,15 @@ class haproxy {
   concat::fragment {"haproxy_header":
     target => '/etc/haproxy/haproxy.cfg',
     source => 'puppet:///haproxy/haproxy_header.cfg',
-    order  => 01,
+    order  => '01',
   }
 
   service {'haproxy':
     ensure    => running,
     hasstatus => true,
   }
+
+  # Install a default vhost that 404s if haproxy doesn't know about the
+  # specified host.
+  nginx::config::vhost::default { 'haproxy_default': }
 }

@@ -12,7 +12,12 @@ define nginx::config::vhost::proxy(
 ) {
 
   if $::govuk_provider == 'sky' {
-    $proxy_vhost_template = 'nginx/proxy-vhost.conf.sky'
+    $proxy_vhost_template = 'nginx/proxy-vhost.sky.conf'
+    if $platform == 'production' {
+      $server_name = $name
+    } else {
+      $server_name = "$name.*"
+    }
   } else {
     $proxy_vhost_template = 'nginx/proxy-vhost.conf'
   }

@@ -23,6 +23,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) {
     app_type        => 'procfile',
     port            => $port,
     environ_content => template('licensify/environ'),
+    vhost_protected => false,
   }
 
   licensify::build_clean { 'licensify-admin': }

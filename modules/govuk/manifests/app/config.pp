@@ -55,16 +55,63 @@ define govuk::app::config (
 
   if $enable_nginx_vhost {
     # Expose this application from nginx
-    nginx::config::vhost::proxy { $vhost_full:
-      to                    => ["localhost:${port}"],
-      aliases               => $vhost_aliases_real,
-      protected             => $vhost_protected,
-      ssl_only              => $vhost_ssl_only,
-      extra_config          => $nginx_extra_config,
-      platform              => $platform,
-      health_check_path     => $health_check_path,
-      health_check_port     => $health_check_port,
-      ssl_health_check_port => $ssl_health_check_port,
+    case $::govuk_provider {
+      sky: {
+        case $platform {
+          production: {
+            nginx::config::vhost::proxy { $vhost_full:
+              to                    => ["localhost:${port}"],
+              aliases               => $vhost_aliases_real,
+              protected             => $vhost_protected,
+              ssl_only              => $vhost_ssl_only,
+              extra_config          => $nginx_extra_config,
+              platform              => $platform,
+              health_check_path     => $health_check_path,
+              health_check_port     => $health_check_port,
+              ssl_health_check_port => $ssl_health_check_port,
+            }
+          }
+          staging: {
+            nginx::config::vhost::proxy { $name:
+              to                    => ["localhost:${port}"],
+              aliases               => $vhost_aliases_real,
+              protected             => $vhost_protected,
+              ssl_only              => $vhost_ssl_only,
+              extra_config          => $nginx_extra_config,
+              platform              => $platform,
+              health_check_path     => $health_check_path,
+              health_check_port     => $health_check_port,
+              ssl_health_check_port => $ssl_health_check_port,
+            }
+          }
+          default: {
+            nginx::config::vhost::proxy { $vhost_full:
+              to                    => ["localhost:${port}"],
+              aliases               => $vhost_aliases_real,
+              protected             => $vhost_protected,
+              ssl_only              => $vhost_ssl_only,
+              extra_config          => $nginx_extra_config,
+              platform              => $platform,
+              health_check_path     => $health_check_path,
+              health_check_port     => $health_check_port,
+              ssl_health_check_port => $ssl_health_check_port,
+            }
+          }
+        }
+      }
+      default: {
+        nginx::config::vhost::proxy { $vhost_full:
+          to                    => ["localhost:${port}"],
+          aliases               => $vhost_aliases_real,
+          protected             => $vhost_protected,
+          ssl_only              => $vhost_ssl_only,
+          extra_config          => $nginx_extra_config,
+          platform              => $platform,
+          health_check_path     => $health_check_path,
+          health_check_port     => $health_check_port,
+          ssl_health_check_port => $ssl_health_check_port,
+        }
+      }
     }
   }
 

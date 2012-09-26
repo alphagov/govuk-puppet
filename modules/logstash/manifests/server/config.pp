@@ -11,12 +11,30 @@ class logstash::server::config (
     group   => 'logstash',
   }
 
+  file { '/var/log/apdex':
+    ensure  => 'directory',
+    owner   => 'logstash',
+    group   => 'logstash',
+  }
+
   @logrotate::conf { 'logstash-aggregation':
-    matches => '/var/log/logstash-aggregation/**/*'
+    matches      => '/var/log/logstash-aggregation/**/*',
+    days_to_keep => '365',
   }
 
   file { '/etc/logstash/logstash-server.conf':
     content => template('logstash/etc/logstash/logstash-server.conf.erb'),
+  }
+
+  file { '/usr/local/bin/apdex.sh':
+    source => 'puppet:///modules/logstash/usr/local/bin/apdex.sh',
+    mode   => '0755',
+  }
+
+  cron { 'apdex-for-frontend':
+    command => "/usr/local/bin/apdex.sh frontend www",
+    user    => 'logstash',
+    minute  => '30',
   }
 
   file { '/var/apps/logstash/logstash_index_cleaner':

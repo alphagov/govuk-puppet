@@ -8,6 +8,7 @@
   CustomLog ${APACHE_LOG_DIR}/access.log combined
   ProxyPass /reports !
   Alias /reports /mnt/jenkins/workspace/private-utils/loadtest/govuk-funkload/out
+  ProxyPass /redirector-integration-reports http://ci.alphagov.co.uk/job/redirector-integration/lastBuild/artifact/dist/dashboard.html
   ProxyPass        / http://localhost:8080/
   ProxyPassReverse / http://localhost:8080/
 </VirtualHost>

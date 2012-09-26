@@ -12,4 +12,9 @@ class logstash::server::package inherits logstash::package {
     provider => 'pip',
   }
 
+  package { 'apdex':
+    ensure   => installed,
+    provider => 'gem',
+  }
+
 }

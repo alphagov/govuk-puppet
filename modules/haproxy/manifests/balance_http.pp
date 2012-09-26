@@ -1,11 +1,12 @@
 define haproxy::balance_http ($servers, $listen_port, $health_check_port, $internal_only = false) {
+
+  $lb_name = "${title}_http"
+
   concat::fragment {"haproxy_listen_http_$title":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment_http.erb'),
-    order   => 10,
+    order   => '10',
   }
-
-  include nginx
 
   $vhost_suffix = extlookup('app_domain_suffix','dev.gov.uk')
   $vhost = "${title}.${vhost_suffix}"

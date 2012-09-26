@@ -5,6 +5,12 @@ define nginx::config::vhost::mirror ($aliases = [], $port = "443", $certtype = '
   }
   nginx::config::ssl { $title: certtype => $certtype }
 
+  file { '/var/www/www.gov.uk':
+    ensure  => link,
+    target  => '/var/lib/govuk_mirror/current',
+    require => File['/var/www'],
+  }
+
   @logster::cronjob { "nginx-vhost-${title}":
     args => "--metric-prefix ${title} NginxGangliaLogster /var/log/nginx/${title}-access.log",
   }
@@ -14,4 +20,5 @@ define nginx::config::vhost::mirror ($aliases = [], $port = "443", $certtype = '
     service_description => "check nginx error rate for ${title}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+
 }

@@ -14,6 +14,14 @@ class nginx::config {
     require => File['/etc/nginx'];
   }
 
+  file { '/etc/nginx/mime.types':
+    ensure  => present,
+    source  => 'puppet:///modules/nginx/etc/nginx/mime.types',
+    require => File['/etc/nginx'],
+    notify  => Class['nginx::service'];
+  }
+
+
   file { ['/var/www', '/var/www/cache']:
     ensure => directory,
     owner  => 'www-data',

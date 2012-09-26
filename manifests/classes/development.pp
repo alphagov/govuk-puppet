@@ -13,7 +13,6 @@ class development {
   include solr
   include tmpreaper
   include users
-  include clamav
   include rabbitmq
 
   include govuk::apps::review_o_matic_explore
@@ -24,11 +23,15 @@ class development {
   include govuk::apps::publicapi
   include govuk::apps::signon
   include govuk::apps::businesssupportfinder
+  include govuk::apps::publisher
   include govuk::apps::private_frontend
+  include govuk::apps::need_o_tron
 
   include govuk::deploy
   include govuk::repository
   include govuk::testing_tools
+
+  include datainsight::config::google_oauth
 
   elasticsearch::node { 'govuk-development':
     heap_size          => '64m',
@@ -39,9 +42,7 @@ class development {
   include nginx
 
   nginx::config::site { 'default':
-    # FIXME: this file probably shouldn't live in the nginx module,
-    # can't think of a better place at the moment
-    source  => 'puppet:///modules/nginx/development',
+    source => 'puppet:///modules/nginx/development',
   }
 
   $mysql_password = ''
@@ -75,5 +76,11 @@ class development {
     'rails':          ensure => 'installed', provider => gem;
     'passenger':      ensure => 'installed', provider => gem;
     'wbritish-small': ensure => installed;
+  }
+
+  file { [ '/var/lib/datainsight-narrative-recorder.json' ]:
+    ensure  => present,
+    owner   => 'vagrant',
+    group   => 'vagrant',
   }
 }

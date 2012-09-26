@@ -8,17 +8,8 @@ class mirror {
     source => 'puppet:///modules/mirror/govuk_update_mirror'
   }
 
-  file { '/usr/share/www':
+  file { '/var/lib/govuk_mirror':
     ensure => directory,
-    owner  => 'www-data',
-    group  => 'www-data',
-  }
-
-  file { '/usr/share/www/www.gov.uk':
-    ensure  => directory,
-    owner   => 'www-data',
-    group   => 'www-data',
-    require => File['/usr/share/www'],
   }
 
   cron { 'update-latest-to-mirror':
