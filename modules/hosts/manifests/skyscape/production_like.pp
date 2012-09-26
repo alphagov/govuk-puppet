@@ -89,6 +89,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       "tariff-api.${platform}.alphagov.co.uk",
                                                                                       "whitehall-admin.${platform}.alphagov.co.uk",
                                                                                       ]}
+  host { "backend-lb-2.backend.${platform}"   : ip     => "10.3.0.102"}
 
   # ELMS (Licence Finder) VDC machines
   host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }
