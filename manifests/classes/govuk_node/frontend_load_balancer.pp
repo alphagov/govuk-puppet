@@ -81,12 +81,6 @@ class govuk_node::frontend_load_balancer {
       # I have reserved port 3032 in the development Procfile to remain consistent
       https_listen_port => 8432,
       http_listen_port  => 8532;
-    'search':
-      internal_only     => true,
-      servers           => $govuk_frontend_servers,
-      health_check_port => 9509,
-      https_listen_port => 8409,
-      http_listen_port  => 8509;
     'smartanswers':
       servers           => $govuk_frontend_servers,
       internal_only     => true,
