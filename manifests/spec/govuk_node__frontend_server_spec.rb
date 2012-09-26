@@ -6,7 +6,6 @@ describe 'govuk_node::frontend_server', :type => :class do
     it do
       should_not raise_error(Puppet::ParseError)
       should include_class('govuk::apps::frontend')
-      should include_class('govuk::apps::search')
       should include_class('govuk::apps::static')
     end
   end
@@ -18,7 +17,6 @@ describe 'govuk_node::frontend_server', :type => :class do
     it do
       should_not raise_error(Puppet::ParseError)
       should include_class('govuk::apps::frontend')
-      should include_class('govuk::apps::search')
       should include_class('govuk::apps::static')
     end
   end
