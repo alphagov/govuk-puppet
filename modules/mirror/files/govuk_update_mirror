@@ -28,7 +28,9 @@ wget --mirror \
 set -e
 
 if [ ! "$(du -ks www.gov.uk | awk)" -gt "10000" ]; then
-  echo "ERROR: mirror appears to have failed (total size <10MB)" >&2
+  echo "ERROR: Mirror appears to have failed (total size <10MB)" >> mirror.log
+  echo "ERROR: Not updating 'current' symlink" >> mirror.log
+  mv mirror.log "$DEST.log"
   exit 1
 fi
 
