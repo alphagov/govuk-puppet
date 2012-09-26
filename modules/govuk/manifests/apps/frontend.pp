@@ -8,6 +8,9 @@ class govuk::apps::frontend( $port = 3005 ) {
     nginx_extra_config     => "location @specialist {
     proxy_pass http://whitehall-frontend.${::govuk_platform}.alphagov.co.uk
 }",
+    # Please note that this routing strategy is *temporary*, until we have a better
+    # solution for router replacement. It should be removed once a proper router
+    # registration API is reinstated. -NS
     nginx_extra_app_config => "proxy_next_upstream http_404;
 error_page 404 = @specialist;"
   }
