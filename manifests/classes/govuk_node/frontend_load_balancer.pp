@@ -94,7 +94,7 @@ class govuk_node::frontend_load_balancer {
       https_listen_port => 8410,
       http_listen_port  => 8510;
     'static':
-      internal_only     => true,
+      internal_only     => false,
       servers           => $govuk_frontend_servers,
       health_check_port => 9513,
       https_listen_port => 8413,
