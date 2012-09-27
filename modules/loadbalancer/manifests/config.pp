@@ -5,7 +5,7 @@ class loadbalancer::config {
   exec {"start haproxy":
     path => '/usr/sbin/'
   }
-  exec {"stop_services":
+  exec {"purge_init_d":
     path => '/usr/local/bin/'
   }
 
@@ -15,10 +15,10 @@ class loadbalancer::config {
     source => 'puppet:///modules/loadbalancer/stop_loadbalancer.sh'
   }
 
-    file{ '/usr/local/bin/stop_services':
+    file{ '/usr/local/bin/purge_init_d':
     ensure => present,
     mode   => '0755',
-    source => 'puppet:///modules/loadbalancer/stop_services.sh'
+    source => 'puppet:///modules/loadbalancer/purge_init_d.sh'
   }
 
   file{ '/etc/init/nginx.conf':
@@ -36,16 +36,6 @@ class loadbalancer::config {
     source => 'puppet:///modules/loadbalancer/loadbalancer.conf'
   }
 
-  file{ '/etc/init.d/nginx':
-    ensure => absent,
-  }
-
-  file{ '/etc/init.d/haproxy':
-    ensure => absent,
-  }
-
-  Service['nginx'] -> File['/etc/init.d/nginx']
-  Service['nginx'] -> File['/etc/init.d/haproxy']
-  Exec['stop_services'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> File['/etc/init.d/nginx'] -> File['/etc/init.d/nginx'] -> Exec['start nginx'] -> Exec['start haproxy']
+  Exec['purge_init_d'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> Exec['start nginx'] -> Exec['start haproxy']
 
 }
