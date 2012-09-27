@@ -1,9 +1,9 @@
 class loadbalancer::config {
   exec {"start nginx":
-    path => '/usr/sbin/'
+    path => '/sbin/'
   }
   exec {"start haproxy":
-    path => '/usr/sbin/'
+    path => '/sbin/'
   }
   exec {"purge_init_d":
     path => '/usr/local/bin/'
