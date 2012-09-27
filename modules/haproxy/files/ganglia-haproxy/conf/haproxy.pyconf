@@ -1,0 +1,172 @@
+modules {
+    module {
+        name = "haproxy"
+        language = "python"
+        param socket_timeout {
+        	value = 15
+        }
+        param stats_socket {
+            value = '/var/run/haproxy.sock'
+        }
+        param services {
+            value = 'http_FRONTEND,https_FRONTEND,apache80_BACKEND,apache443_BACKEND'
+        }
+        param groups {
+            value = 'haproxy'
+        }
+    }
+}
+collection_group {
+    collect_every = 60
+    time_threshold = 180
+    metric {
+        name = "http_FRONTEND_scur"
+        title = "HTTP F Current Sessions"
+        value_threshold = 10
+    }
+    metric {
+        name = "http_FRONTEND_rate"
+        title = "HTTP F Current Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "http_FRONTEND_rate_max"
+        title = "HTTP F Max Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "http_FRONTEND_hrsp_1xx"
+        title = "HTTP F Rsps 1xx"
+        value_threshold = 100
+    }
+    metric {
+        name = "http_FRONTEND_hrsp_2xx"
+        title = "HTTP F Rsps 2xx"
+        value_threshold = 1000
+    }
+    metric {
+        name = "http_FRONTEND_hrsp_3xx"
+        title = "HTTP F Rsps 3xx"
+        value_threshold = 1000
+    }
+    metric {
+        name = "http_FRONTEND_hrsp_4xx"
+        title = "HTTP F Rsps 4xx"
+        value_threshold = 1000
+    }
+    metric {
+        name = "http_FRONTEND_hrsp_5xx"
+        title = "HTTP F Rsps 5xx"
+        value_threshold = 10
+    }
+    metric {
+        name = "http_FRONTEND_hrsp_other"
+        title = "HTTP F Rsps other"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_hrsp_1xx"
+        title = "HTTP B Rsps 1xx"
+        value_threshold = 100
+    }
+    metric {
+        name = "apache80_BACKEND_hrsp_2xx"
+        title = "HTTP B Rsps 2xx"
+        value_threshold = 1000
+    }
+    metric {
+        name = "apache80_BACKEND_hrsp_3xx"
+        title = "HTTP B Rsps 3xx"
+        value_threshold = 1000
+    }
+    metric {
+        name = "apache80_BACKEND_hrsp_4xx"
+        title = "HTTP B Rsps 4xx"
+        value_threshold = 1000
+    }
+    metric {
+        name = "apache80_BACKEND_hrsp_5xx"
+        title = "HTTP B Rsps 5xx"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_hrsp_other"
+        title = "HTTP B Rsps other"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_qcur"
+        title = "HTTP B Queue Current"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_rate"
+        title = "HTTP B Current Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_rate_max"
+        title = "HTTP B Max Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_scur"
+        title = "HTTP B Current Sessions"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache80_BACKEND_cli_abrt"
+        title = "HTTP B Client Aborts"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_srv_abrt"
+        title = "HTTPS B Server Aborts"
+        value_threshold = 10
+    }
+        metric {
+        name = "https_FRONTEND_scur"
+        title = "HTTPS F Current Sessions"
+        value_threshold = 10
+    }
+    metric {
+        name = "https_FRONTEND_rate"
+        title = "HTTPS F Current Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "https_FRONTEND_rate_max"
+        title = "HTTPS F Max Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_qcur"
+        title = "HTTPS Queue Current"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_rate"
+        title = "HTTPS B Current Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_rate_max"
+        title = "HTTPS B Max Session Rate"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_scur"
+        title = "HTTPS B Current Sessions"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_cli_abrt"
+        title = "HTTPS B Client Aborts"
+        value_threshold = 10
+    }
+    metric {
+        name = "apache443_BACKEND_srv_abrt"
+        title = "HTTPS B Server Aborts"
+        value_threshold = 10
+    }
+}
