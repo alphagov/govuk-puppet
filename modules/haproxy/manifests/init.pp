@@ -32,8 +32,13 @@ class haproxy {
   # specified host.
   nginx::config::vhost::default { 'haproxy_default': }
 
+  package {'libnagios-plugin-perl':
+    ensure => present,
+  }
+
   @nagios::plugin {'check_haproxy.pl':
-    source => 'puppet:///modules/haproxy/check_haproxy.pl',
+    source  => 'puppet:///modules/haproxy/check_haproxy.pl',
+    require => Package['libnagios-plugin-perl'],
   }
   @nagios::nrpe_config {'check_haproxy':
     source => 'puppet:///modules/haproxy/nrpe_check_haproxy.cfg',
