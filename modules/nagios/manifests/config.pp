@@ -32,12 +32,23 @@ class nagios::config ($platform = $::govuk_platform) {
     content => template('nagios/etc/nagios3/conf.d/check_graphite.cfg.erb'),
   }
 
-
-  @@nagios::check { 'check_smokey':
-    check_command       => 'run_smokey_tests',
-    use                 => 'govuk_high_priority',
-    service_description => 'Run small suite of functional tests',
-    host_name           => "${::govuk_class}-${::hostname}"
+  nagios::check_feature {
+    'check_apollo':          feature => 'apollo';
+    'check_cache':           feature => 'cache';
+    'check_calendars':       feature => 'calendars';
+    'check_contractsfinder': feature => 'contractsfinder';
+    'check_efg':             feature => 'efg';
+    'check_frontend':        feature => 'frontend';
+    'check_licencefinder':   feature => 'licencefinder';
+    'check_mongo':           feature => 'mongo';
+    'check_mysql':           feature => 'mysql';
+    'check_planner':         feature => 'planner';
+    'check_router':          feature => 'router';
+    'check_search':          feature => 'search';
+    'check_smartanswers':    feature => 'smartanswers';
+    'check_solr':            feature => 'solr';
+    'check_tariff':          feature => 'tariff';
+    'check_whitehall':       feature => 'whitehall';
   }
 
   @@nagios::check { 'check_pingdom':
@@ -182,6 +193,10 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::service_template { 'govuk_low_priority':
+    contact_groups => ['low-priority']
+  }
+
+  nagios::service_template { 'govuk_unprio_priority':
     contact_groups => ['low-priority']
   }
 
