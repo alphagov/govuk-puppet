@@ -16,4 +16,5 @@ class govuk::apps::datainsight_frontend( $port = 3027 ) {
   }
 
   include govuk::phantomjs
+  include fonts
 }

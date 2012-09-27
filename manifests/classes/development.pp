@@ -14,6 +14,7 @@ class development {
   include tmpreaper
   include users
   include rabbitmq
+  include fonts
 
   include govuk::apps::review_o_matic_explore
   include govuk::apps::planner
