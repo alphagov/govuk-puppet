@@ -21,47 +21,47 @@ collection_group {
     time_threshold = 180
     metric {
         name = "<%= @lb_name %>_scur"
-        title = "HTTP F Current Sessions"
+        title = "<%= @lb_name %> Current Sessions"
         value_threshold = 10
     }
     metric {
         name = "<%= @lb_name %>_rate"
-        title = "HTTP F Current Session Rate"
+        title = "<%= @lb_name %> Current Session Rate"
         value_threshold = 10
     }
     metric {
         name = "<%= @lb_name %>_rate_max"
-        title = "HTTP F Max Session Rate"
+        title = "<%= @lb_name %> Max Session Rate"
         value_threshold = 10
     }
     metric {
         name = "<%= @lb_name %>_hrsp_1xx"
-        title = "HTTP F Rsps 1xx"
+        title = "<%= @lb_name %> Rsps 1xx"
         value_threshold = 100
     }
     metric {
         name = "<%= @lb_name %>_hrsp_2xx"
-        title = "HTTP F Rsps 2xx"
+        title = "<%= @lb_name %> Rsps 2xx"
         value_threshold = 1000
     }
     metric {
         name = "<%= @lb_name %>_hrsp_3xx"
-        title = "HTTP F Rsps 3xx"
+        title = "<%= @lb_name %> Rsps 3xx"
         value_threshold = 1000
     }
     metric {
         name = "<%= @lb_name %>_hrsp_4xx"
-        title = "HTTP F Rsps 4xx"
+        title = "<%= @lb_name %> Rsps 4xx"
         value_threshold = 1000
     }
     metric {
         name = "<%= @lb_name %>_hrsp_5xx"
-        title = "HTTP F Rsps 5xx"
+        title = "<%= @lb_name %> Rsps 5xx"
         value_threshold = 10
     }
     metric {
         name = "<%= @lb_name %>_hrsp_other"
-        title = "HTTP F Rsps other"
+        title = "<%= @lb_name %> Rsps other"
         value_threshold = 10
     }
 }
