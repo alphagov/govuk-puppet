@@ -31,4 +31,16 @@ class haproxy {
   # Install a default vhost that 404s if haproxy doesn't know about the
   # specified host.
   nginx::config::vhost::default { 'haproxy_default': }
+
+  @nagios::plugin {'check_haproxy.pl':
+    source => 'puppet:///modules/haproxy/check_haproxy.pl',
+  }
+  @nagios::nrpe_config {'check_haproxy':
+    source => 'puppet:///modules/haproxy/nrpe_check_haproxy.cfg',
+  }
+  @@nagios::check {"check_haproxy_${::hostname}":
+    check_command       => "check_nrpe_1arg!check_haproxy",
+    service_description => "check haproxy is OK",
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
 }
