@@ -44,6 +44,8 @@ class loadbalancer::config {
     ensure => absent,
   }
 
+  Service['nginx'] -> File['/etc/init.d/nginx']
+  Service['nginx'] -> File['/etc/init.d/haproxy']
   Exec['stop_services'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> File['/etc/init.d/nginx'] -> File['/etc/init.d/nginx'] -> Exec['start nginx'] -> Exec['start haproxy']
 
 }
