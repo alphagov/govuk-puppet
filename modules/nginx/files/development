@@ -40,7 +40,7 @@ server {
     proxy_pass http://127.0.0.1:3005;
     proxy_set_header   Host   $host;
     proxy_next_upstream http_404;
-    error_page 404 = @specialist
+    error_page 404 = @specialist;
   }
 
   location @specialist {
