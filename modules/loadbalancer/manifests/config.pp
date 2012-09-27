@@ -35,7 +35,7 @@ class loadbalancer::config {
     ensure => present,
     source => 'puppet:///modules/loadbalancer/loadbalancer.conf'
   }
-
+  Package['nginx'] -> File['/usr/local/bin/purge_init_d']
   File['/usr/local/bin/purge_init_d'] -> Exec['purge_init_d'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> Exec['start nginx'] -> Exec['start haproxy']
 
 }
