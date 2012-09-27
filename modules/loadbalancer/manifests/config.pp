@@ -15,7 +15,7 @@ class loadbalancer::config {
     source => 'puppet:///modules/loadbalancer/stop_loadbalancer.sh'
   }
 
-    file{ '/usr/local/bin/purge_init_d':
+  file{ '/usr/local/bin/purge_init_d':
     ensure => present,
     mode   => '0755',
     source => 'puppet:///modules/loadbalancer/purge_init_d.sh'
@@ -36,6 +36,6 @@ class loadbalancer::config {
     source => 'puppet:///modules/loadbalancer/loadbalancer.conf'
   }
 
-  Exec['purge_init_d'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> Exec['start nginx'] -> Exec['start haproxy']
+  File['/usr/local/bin/purge_init_d'] -> Exec['purge_init_d'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> Exec['start nginx'] -> Exec['start haproxy']
 
 }
