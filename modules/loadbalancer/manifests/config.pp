@@ -5,10 +5,6 @@ class loadbalancer::config {
   exec {"start haproxy":
     path => '/sbin/'
   }
-  exec {"purge_init_d":
-    path => '/usr/local/bin/'
-  }
-
   exec { 'purge-initd-nginx':
     command     => '/etc/init.d/nginx stop && /bin/rm /etc/init.d/nginx && /usr/sbin/update-rc.d nginx remove',
     refreshonly => true,
