@@ -75,8 +75,9 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       "mysql.backend.${platform}"
                                                                                       ]}
   host { "load-balancer-1.backend.${platform}": ensure => absent }
-  host { "backend-lb-1.backend.${platform}"   : ip     => "10.3.0.101", host_aliases => ["backend-lb-1",
-                                                                                      "contentapi.${platform}.alphagov.co.uk",
+  host { "backend-lb-1.backend.${platform}"   : ip     => "10.3.0.101", host_aliases => ["backend-lb-1"]}
+  host { "backend-lb-2.backend.${platform}"   : ip     => "10.3.0.102"}
+  host { "backend-internal-lb.${platform}"    : ip     => "10.3.1.2",  host_aliases =>["contentapi.${platform}.alphagov.co.uk",
                                                                                       "imminence.${platform}.alphagov.co.uk",
                                                                                       "mapit.${platform}.alphagov.co.uk",
                                                                                       "needotron.${platform}.alphagov.co.uk",
@@ -87,9 +88,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       "signon.${platform}.alphagov.co.uk",
                                                                                       "support.${platform}.alphagov.co.uk",
                                                                                       "tariff-api.${platform}.alphagov.co.uk",
-                                                                                      "whitehall-admin.${platform}.alphagov.co.uk",
-                                                                                      ]}
-  host { "backend-lb-2.backend.${platform}"   : ip     => "10.3.0.102"}
+                                                                                      "whitehall-admin.${platform}.alphagov.co.uk"]}
 
   # ELMS (Licence Finder) VDC machines
   host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }
