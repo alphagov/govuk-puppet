@@ -9,6 +9,11 @@ class loadbalancer::config {
     path => '/usr/local/bin/'
   }
 
+  exec { 'purge-initd-nginx':
+    command     => '/etc/init.d/nginx stop && /bin/rm /etc/init.d/nginx && /usr/sbin/update-rc.d nginx remove',
+    refreshonly => true,
+  }
+
   file{ '/usr/local/bin/stop_loadbalancer':
     ensure => present,
     mode   => '0755',
@@ -35,7 +40,6 @@ class loadbalancer::config {
     ensure => present,
     source => 'puppet:///modules/loadbalancer/loadbalancer.conf'
   }
-  Package['nginx'] -> File['/usr/local/bin/purge_init_d']
-  Service['nginx'] -> File['/usr/local/bin/purge_init_d'] -> Exec['purge_init_d'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> Exec['start nginx'] -> Exec['start haproxy']
+  Service['nginx'] ->  Exec['purge-initd-nginx'] -> File['/etc/init/nginx.conf'] -> File['/etc/init/haproxy.conf'] -> Exec['start nginx'] -> Exec['start haproxy']
 
 }
