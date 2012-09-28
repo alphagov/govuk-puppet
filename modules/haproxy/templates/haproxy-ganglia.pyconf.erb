@@ -9,7 +9,7 @@ modules {
             value = '/var/run/haproxy.sock'
         }
         param services {
-            value = '<%= @lb_name %>'
+            value = '<%= @lb_name %>_FRONTEND'
         }
         param groups {
             value = 'haproxy'
