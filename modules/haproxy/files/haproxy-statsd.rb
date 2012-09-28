@@ -11,7 +11,7 @@ IO.popen(["curl","http://localhost:8000/haproxy;csv"]) do |haproxy_csv|
 
   while line = haproxy_csv.gets do
     stats = Hash[HEADERS.zip($_.split(/,/))]
-    HEADERS[2..-1].each do |statname|
+    %w(scur smax ereq econ rate).each do |statname|
       SOCKET.send("haproxy.#{HOSTNAME}.#{stats['pxname']}.#{stats['svname']}.#{statname}:#{stats[statname]}|g",0,'127.0.0.1',8125)
     end
   end
