@@ -19,7 +19,7 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
     extra_config => "
             proxy_set_header X-Explore-Title Directgov;
             proxy_set_header X-Explore-Upstream www.direct.gov.uk;
-            proxy_set_header X-Explore-Redirector redirector.${upstream_domain};
+            proxy_set_header X-Explore-Redirector www-direct-gov-uk.redirector.${upstream_domain};
     ",
   }
 
@@ -28,7 +28,7 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
     extra_config => "
             proxy_set_header X-Explore-Title 'Business Link';
             proxy_set_header X-Explore-Upstream www.businesslink.gov.uk;
-            proxy_set_header X-Explore-Redirector redirector.${upstream_domain};
+            proxy_set_header X-Explore-Redirector www-businesslink-gov-uk.redirector.${upstream_domain};
     ",
   }
 }
