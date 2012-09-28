@@ -16,6 +16,10 @@ class graphite::client {
     require => [Package['statsd'], File['/etc/statsd.conf']],
   }
 
+  file { '/etc/statsd/':
+    ensure => directory,
+  }
+
   file { '/etc/statsd/scripts':
     ensure  => directory,
     recurse => true,
