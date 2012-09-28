@@ -1,0 +1,267 @@
+# Backends
+
+backend calendars {
+  .host = 'calendars.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'calendars.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend datainsight-frontend {
+  .host = 'datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend designprinciples {
+  .host = 'designprinciples.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'designprinciples.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend feedback {
+  .host = 'feedback.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'feedback.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend frontend {
+  .host = 'www.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'www.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend licencefinder {
+  .host = 'licencefinder.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'licencefinder.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend licensify {
+  .host = 'licensify.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'licensify.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend planner {
+  .host = 'planner.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'planner.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend public-api {
+  .host = 'public-api.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'public-api.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend search {
+  .host = 'search.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'search.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend smartanswers {
+  .host = 'smartanswers.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'smartanswers.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend static {
+  .host = 'static.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'static.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend tariff {
+  .host = 'tariff.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'tariff.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+backend whitehall {
+  .host = 'whitehall-frontend.<%= govuk_platform %>.alphagov.co.uk';
+  .port = '80';
+  .host_header = 'whitehall-frontend.<%= govuk_platform %>.alphagov.co.uk';
+}
+
+acl purge_acl {
+  "localhost";
+}
+
+sub vcl_recv {
+  # Listing Routes
+  if (req.url ~ "^/autocomplete$|^/preload-autocomplete$|^/sitemap.xml$|^/browse") {
+    set req.backend = search;
+  } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
+    set req.backend = calendars;
+  } else if (req.url ~ "^/maternity-benefits|^/inherits-someone-dies-without-will|^/calculate-married-couples-allowance|^/student-finance-calculator|^/calculate-your-holiday-entitlement|^/legal-right-to-work-in-the-uk|^/become-a-driving-instructor|^/calculate-employee-redundancy-pay|^/claim-a-national-insurance-refund|^/calculate-your-redundancy-pay|^/become-a-motorcycle-instructor|^/apply-for-probate|^/report-a-lost-or-stolen-passport|^/calculate-state-pension|^/maternity-paternity-calculator|^/appeal-a-benefits-decision|^/calculate-statutory-sick-pay|^/request-for-flexible-working|^/towing-rules|^/auto-enrolled-into-workplace-pension|^/can-i-get-a-british-passport|^/exchange-a-foreign-driving-licence|^/calculate-night-work-hours|^/childcare-costs-for-tax-credits|^/calculate-agricultural-holiday-entitlement|^/register-a-death|^/estimate-self-assessment-penalties|^/benefits-if-you-are-abroad|^/am-i-getting-minimum-wage|^/vehicles-you-can-drive|^/additional-commodity-code|^/driving-in-the-uk-on-a-foreign-licence|^/calculate-child-maintenance-draft|^/recognise-a-trade-union|^/child-benefit-tax-calculator") {
+    set req.backend = smartanswers;
+  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon.ico$|^/robots.txt$|^/fonts") {
+    set req.backend = static;
+  } else if (req.url ~ "^/maternity$|^/maternity.ics$|^/maternity.json$|^/maternity.xml$|^/paternity$|^/paternity.ics$|^/paternity.json$|^/paternity.xml$|^/adoption$|^/adoption.ics$|^/adoption.json$|^/adoption.xml$") {
+    set req.backend = planner;
+  } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/app|^/designprinciples/performanceframework$") {
+    set req.backend = designprinciples;
+  } else if (req.url ~ "^/licence-finder") {
+    set req.backend = licencefinder;
+  } else if (req.url ~ "^/apply-for-a-licence") {
+    set req.backend = licensify;
+  } else if (req.url ~ "^/trade-tariff") {
+    set req.backend = tariff;
+  } else if (req.url ~ "^/api") {
+    set req.backend = public-api;
+  } else if (req.url ~ "^/feedback$") {
+    set req.backend = feedback;
+  } else if (req.url ~ "^/performance") {
+    set req.backend = datainsight-frontend;
+  } else {
+  set req.backend = frontend;
+}
+
+
+  if (req.url ~ "(.+)/$") {
+    set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "");
+    error 667 req.http.x-Redir-Url;
+  }
+
+  # Rewrite url to pass through router, but only if it's not being retried
+  if (!req.url ~ "^/router/route/") {	
+    set req.url = regsub(req.url, "^/", "/router/route/");
+  }
+
+  # normalize Accept-Encoding header
+  if (req.http.Accept-Encoding) {
+    if (req.url ~ "\.(jpeg|jpg|png|gif|gz|tgz|bz2|tbz|zip|flv|pdf|mp3|ogg)$") {
+      remove req.http.Accept-Encoding; # already compressed
+    }
+    elsif (req.http.Accept-Encoding ~ "gzip") {
+      set req.http.Accept-Encoding = "gzip";
+    }
+    elsif (req.http.Accept-Encoding ~ "deflate") {
+      set req.http.Accept-Encoding = "deflate";
+    }
+    else {
+      remove req.http.Accept-Encoding;
+    }
+  }
+
+  # Serve stale period
+  set req.grace = 6h;
+
+  # remove cookies
+  unset req.http.cookie;
+
+  # purge individual URLs from the cache
+  if(req.request == "PURGE") {
+    if(!client.ip ~ purge_acl) {
+      error 405 "Not allowed";
+    } else {
+<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+      ban("req.url == " + req.url);
+<% else %>
+      purge("req.url == " req.url);
+<% end %>
+      error 200 "Purged";
+    }
+  }
+
+  # don't cache post requests
+  if (req.request == "POST") {
+    return(pass);
+  }
+
+  # allow http auth reqests
+  if (req.http.Authorization) {
+    return(lookup);
+  }
+
+  # Ignore cookies for caching purposes
+  if (req.request == "GET" && req.http.cookie) {
+    return(lookup);
+  }
+}
+
+sub vcl_fetch {
+  # remove cookies
+  unset beresp.http.set-cookie;
+
+  # hide some internal headers
+  unset beresp.http.X-XSS-Protection;
+  unset beresp.http.X-Slimmer-Section;
+  unset beresp.http.X-Slimmer-Proposition;
+  unset beresp.http.X-Slimmer-Template;
+  unset beresp.http.X-Rack-Cache;
+  unset beresp.http.X-Runtime;
+
+<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+  if (beresp.ttl > 0s) {
+<% else %>
+  if (beresp.cacheable) {
+<% end %>
+    # Remove Expires from backend, it's not long enough
+    unset beresp.http.expires;
+
+    # Set how long Varnish will keep it
+    set beresp.ttl = <%= scope.lookupvar('varnish::default_ttl') %>s;
+
+    # marker for vcl_deliver to reset Age
+    set beresp.http.magicmarker = "1";
+  }
+
+  # if we get a 503 error then server stale content
+  if (beresp.status >= 503 && beresp.status <= 504) {
+    set beresp.saintmode = 5m;
+    if (req.restarts > 0) {
+      return(restart);
+    }
+  }
+
+  # Serve stale period
+  set beresp.grace = 6h;
+
+  # Allow cached authorized requests
+  if (req.http.Authorization) {
+    return(deliver);
+  }
+
+  # Ignore cookies for caching purposes
+  if (beresp.http.Set-Cookie) {
+    return(deliver);
+  }
+}
+
+sub vcl_hash {
+<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+  hash_data(req.url);
+<% else %>
+  set req.hash += req.url;
+<% end %>
+  return(hash);
+}
+
+sub vcl_deliver {
+  if (resp.http.magicmarker) {
+    # Remove the magic marker
+    unset resp.http.magicmarker;
+
+    # By definition we have a fresh object
+    set resp.http.age = "0";
+  }
+
+  # Add a custom header to indicate whether we hit the cache or not
+  if (obj.hits > 0) {
+    set resp.http.X-Cache = "HIT";
+  } else {
+    set resp.http.X-Cache = "MISS";
+  }
+}
+
+sub vcl_error {
+  # 667 errors are our internal "redirect wanted" errors
+  # They're raised in vcl_recv.
+  if (obj.status == 667) {
+    set obj.http.Location = obj.response;
+    set obj.status = 301;
+    return(deliver);
+  }
+}
