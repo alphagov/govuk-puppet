@@ -20,48 +20,18 @@ collection_group {
     collect_every = 60
     time_threshold = 180
     metric {
-        name = "<%= @lb_name %>_scur"
-        title = "<%= @lb_name %> Current Sessions"
+        name = "<%= @lb_name %>_FRONTEND_scur"
+        title = "<%= @lb_name %> frontend Current Sessions"
         value_threshold = 10
     }
     metric {
-        name = "<%= @lb_name %>_rate"
-        title = "<%= @lb_name %> Current Session Rate"
+        name = "<%= @lb_name %>_FRONTEND_rate"
+        title = "<%= @lb_name %> frontend Current Session Rate"
         value_threshold = 10
     }
     metric {
-        name = "<%= @lb_name %>_rate_max"
-        title = "<%= @lb_name %> Max Session Rate"
-        value_threshold = 10
-    }
-    metric {
-        name = "<%= @lb_name %>_hrsp_1xx"
-        title = "<%= @lb_name %> Rsps 1xx"
-        value_threshold = 100
-    }
-    metric {
-        name = "<%= @lb_name %>_hrsp_2xx"
-        title = "<%= @lb_name %> Rsps 2xx"
-        value_threshold = 1000
-    }
-    metric {
-        name = "<%= @lb_name %>_hrsp_3xx"
-        title = "<%= @lb_name %> Rsps 3xx"
-        value_threshold = 1000
-    }
-    metric {
-        name = "<%= @lb_name %>_hrsp_4xx"
-        title = "<%= @lb_name %> Rsps 4xx"
-        value_threshold = 1000
-    }
-    metric {
-        name = "<%= @lb_name %>_hrsp_5xx"
-        title = "<%= @lb_name %> Rsps 5xx"
-        value_threshold = 10
-    }
-    metric {
-        name = "<%= @lb_name %>_hrsp_other"
-        title = "<%= @lb_name %> Rsps other"
+        name = "<%= @lb_name %>_FRONTEND_rate_max"
+        title = "<%= @lb_name %> frontend Max Session Rate"
         value_threshold = 10
     }
 }
