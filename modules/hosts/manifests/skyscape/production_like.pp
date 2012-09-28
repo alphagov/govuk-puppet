@@ -76,8 +76,9 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       ]}
   host { "load-balancer-1.backend.${platform}": ensure => absent }
   host { "backend-lb-1.backend.${platform}"   : ip     => "10.3.0.101", host_aliases => ["backend-lb-1"]}
-  host { "backend-lb-2.backend.${platform}"   : ip     => "10.3.0.102"}
-  host { "backend-internal-lb.${platform}"    : ip     => "10.3.1.2",  host_aliases =>["contentapi.${platform}.alphagov.co.uk",
+  host { "backend-lb-2.backend.${platform}"   : ip     => "10.3.0.102", host_aliases => ["backend-lb-2"]}
+  host { "backend-internal-lb.backend.${platform}"    : ip     => "10.3.1.2",  host_aliases =>["backend-internal-lb",
+                                                                                      "contentapi.${platform}.alphagov.co.uk",
                                                                                       "imminence.${platform}.alphagov.co.uk",
                                                                                       "mapit.${platform}.alphagov.co.uk",
                                                                                       "needotron.${platform}.alphagov.co.uk",
