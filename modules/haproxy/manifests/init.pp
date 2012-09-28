@@ -49,4 +49,8 @@ class haproxy {
     service_description => "check haproxy is OK",
     host_name           => "${::govuk_class}-${::hostname}",
   }
+
+  @graphite::cronjob {'haproxy':
+    source => 'puppet:///modules/haproxy/haproxy-statsd.rb',
+  }
 }
