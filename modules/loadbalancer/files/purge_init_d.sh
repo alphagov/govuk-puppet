@@ -5,4 +5,5 @@
 set -e
 /bin/rm -f /etc/init.d/nginx
 /bin/rm -f /etc/init.d/haproxy
-exit 0
+/usr/sbin/update-rc.d nginx remove
+/usr/sbin/update-rc.d haproxy remove
