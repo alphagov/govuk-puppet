@@ -36,14 +36,11 @@ def get_stats(params):
     buff = StringIO()
     end = time() + float(params['socket_timeout'])
     
-    client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    
     try:
-        client.connect(params['stats_socket'])
-        client.send('show stat' + '\n')
+        stream = os.popen("curl 'http://localhost:8000/haproxy;csv' 2>/dev/null")
     
         while time() <=  end:
-            data = client.recv(4096)
+            data = stream.read(4096)
             if data:
                 buff.write(data)
             else:
@@ -51,7 +48,7 @@ def get_stats(params):
     except Exception, e:
         raise
     finally:
-        client.close()
+        stream.close()
 
 def metric_init(params):
     global services, descriptors, stats_keys
