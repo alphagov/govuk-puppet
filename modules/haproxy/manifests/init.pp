@@ -49,8 +49,4 @@ class haproxy {
     service_description => "check haproxy is OK",
     host_name           => "${::govuk_class}-${::hostname}",
   }
-
-  @ganglia::pymod { 'haproxy':
-    source => 'puppet:///modules/haproxy/ganglia-haproxy/src/haproxy.py',
-  }
 }

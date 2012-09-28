@@ -15,8 +15,4 @@ define haproxy::balance_https ($servers, $listen_port, $health_check_port, $inte
   nginx::config::site {"https_${vhost}":
     content => template('haproxy/nginx_https_proxy.erb')
   }
-
-  @ganglia::pyconf { "haproxy_${lb_name}":
-    content => template('haproxy/haproxy-ganglia.pyconf.erb'),
-  }
 }
