@@ -55,7 +55,6 @@ class nagios::client::checks {
   @@nagios::check { "check_io_time${::hostname}":
     check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!5!10',
     service_description => 'Check disk iotime is not excessive',
-    use                 => 'govuk_low_priority',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
