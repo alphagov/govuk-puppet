@@ -92,7 +92,7 @@ sub vcl_recv {
   # Static
     set req.http.Host = "static.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = static;
-  } else if (req.url ~ "^/maternity$|^/maternity.ics$|^/maternity.json$|^/maternity.xml$|^/paternity$|^/paternity.ics$|^/paternity.json$|^/paternity.xml$|^/adoption$|^/adoption.ics$|^/adoption.json$|^/adoption.xml$") {
+  } else if (req.url ~ "^/maternity|^/paternity|^/adoption") {
   # Planner
     set req.http.Host = "planner.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = planner;
