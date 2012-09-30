@@ -1,87 +1,68 @@
 # Backends
 
 backend calendars {
-  .host = 'calendars.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'calendars.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "calendars.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
-backend datainsight-frontend {
-  .host = 'datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk';
+backend datainsight {
+  .host = "datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend designprinciples {
-  .host = 'designprinciples.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'designprinciples.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "designprinciples.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend feedback {
-  .host = 'feedback.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'feedback.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "feedback.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend frontend {
-  .host = 'www.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'www.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "www.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend licencefinder {
-  .host = 'licencefinder.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'licencefinder.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "licencefinder.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend licensify {
-  .host = 'licensify.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'licensify.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "licensify.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend planner {
-  .host = 'planner.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'planner.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "planner.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
-backend public-api {
-  .host = 'public-api.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'public-api.<%= govuk_platform %>.alphagov.co.uk';
+backend publicapi {
+  .host = "public-api.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend search {
-  .host = 'search.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'search.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "search.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend smartanswers {
-  .host = 'smartanswers.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'smartanswers.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "smartanswers.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend static {
-  .host = 'static.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'static.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "static.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 backend tariff {
-  .host = 'tariff.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'tariff.<%= govuk_platform %>.alphagov.co.uk';
-}
-
-backend whitehall {
-  .host = 'whitehall-frontend.<%= govuk_platform %>.alphagov.co.uk';
-  .port = '80';
-  .host_header = 'whitehall-frontend.<%= govuk_platform %>.alphagov.co.uk';
+  .host = "tariff.<%= govuk_platform %>.alphagov.co.uk";
+  .port = "80";
 }
 
 acl purge_acl {
@@ -91,36 +72,65 @@ acl purge_acl {
 sub vcl_recv {
   # Listing Routes
   if (req.url ~ "^/autocomplete$|^/preload-autocomplete$|^/sitemap.xml$|^/browse") {
+  # Search 
+    set req.http.Host = "search.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = search;
   } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
+  # Calendars
+    set req.http.Host = "calendars.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = calendars;
   } else if (req.url ~ "^/maternity-benefits|^/inherits-someone-dies-without-will|^/calculate-married-couples-allowance|^/student-finance-calculator|^/calculate-your-holiday-entitlement|^/legal-right-to-work-in-the-uk|^/become-a-driving-instructor|^/calculate-employee-redundancy-pay|^/claim-a-national-insurance-refund|^/calculate-your-redundancy-pay|^/become-a-motorcycle-instructor|^/apply-for-probate|^/report-a-lost-or-stolen-passport|^/calculate-state-pension|^/maternity-paternity-calculator|^/appeal-a-benefits-decision|^/calculate-statutory-sick-pay|^/request-for-flexible-working|^/towing-rules|^/auto-enrolled-into-workplace-pension|^/can-i-get-a-british-passport|^/exchange-a-foreign-driving-licence|^/calculate-night-work-hours|^/childcare-costs-for-tax-credits|^/calculate-agricultural-holiday-entitlement|^/register-a-death|^/estimate-self-assessment-penalties|^/benefits-if-you-are-abroad|^/am-i-getting-minimum-wage|^/vehicles-you-can-drive|^/additional-commodity-code|^/driving-in-the-uk-on-a-foreign-licence|^/calculate-child-maintenance-draft|^/recognise-a-trade-union|^/child-benefit-tax-calculator") {
+  # Smart Answers
+    set req.http.Host = "smartanswers.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = smartanswers;
   } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon.ico$|^/robots.txt$|^/fonts") {
+  # Static
+    set req.http.Host = "static.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = static;
   } else if (req.url ~ "^/maternity$|^/maternity.ics$|^/maternity.json$|^/maternity.xml$|^/paternity$|^/paternity.ics$|^/paternity.json$|^/paternity.xml$|^/adoption$|^/adoption.ics$|^/adoption.json$|^/adoption.xml$") {
+  # Planner
+    set req.http.Host = "planner.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = planner;
   } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/app|^/designprinciples/performanceframework$") {
+  # Design Principles 
+    set req.http.Host = "designprinciples.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = designprinciples;
   } else if (req.url ~ "^/licence-finder") {
+  # Licence Finder
+    set req.http.Host = "licence-finder.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = licencefinder;
   } else if (req.url ~ "^/apply-for-a-licence") {
+  # Licensify
+    set req.http.Host = "licensify.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = licensify;
   } else if (req.url ~ "^/trade-tariff") {
+  # Tariff 
+    set req.http.Host = "tariff.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = tariff;
   } else if (req.url ~ "^/api") {
-    set req.backend = public-api;
+  # Public API 
+    set req.http.Host = "public-api.<%= govuk_platform %>.alphagov.co.uk";
+    set req.backend = publicapi;
   } else if (req.url ~ "^/feedback$") {
+  # Feedback
+    set req.http.Host = "feedback.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = feedback;
   } else if (req.url ~ "^/performance") {
-    set req.backend = datainsight-frontend;
+  # Datainsights 
+    set req.http.Host = "datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk";
+    set req.backend = datainsight;
   } else {
-  set req.backend = frontend;
+    set req.http.Host = "www.<%= govuk_platform %>.alphagov.co.uk";
+    set req.backend = frontend;
+  }
 }
 
+  # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
+  # vcl_error completes the redirect
+  # Don't redirect "/" to "".
 
   if (req.url ~ "(.+)/$") {
-    set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "");
+    set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "\1");
     error 667 req.http.x-Redir-Url;
   }
 
