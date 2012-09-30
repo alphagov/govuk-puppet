@@ -1,0 +1,14 @@
+127.0.0.1 calendars.production.alphagov.co.uk
+127.0.0.1 datainsight-frontend.production.alphagov.co.uk
+127.0.0.1 designprinciples.production.alphagov.co.uk
+127.0.0.1 feedback.production.alphagov.co.uk
+127.0.0.1 frontend.production.alphagov.co.uk
+127.0.0.1 licencefinder.production.alphagov.co.uk
+127.0.0.1 licensify.production.alphagov.co.uk
+127.0.0.1 planner.production.alphagov.co.uk
+127.0.0.1 public-api.production.alphagov.co.uk
+127.0.0.1 search.production.alphagov.co.uk
+127.0.0.1 smartanswers.production.alphagov.co.uk
+127.0.0.1 static.production.alphagov.co.uk
+127.0.0.1 tariff.production.alphagov.co.uk
+127.0.0.1 whitehall-frontend.production.alphagov.co.uk
