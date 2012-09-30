@@ -96,7 +96,7 @@ sub vcl_recv {
   # Planner
     set req.http.Host = "planner.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = planner;
-  } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/app|^/designprinciples/performanceframework$") {
+  } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/app$|^/designprinciples/performanceframework$") {
   # Design Principles 
     set req.http.Host = "designprinciples.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = designprinciples;
@@ -129,7 +129,7 @@ sub vcl_recv {
     set req.http.Host = "whitehall-frontend.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = whitehall;
   } else {
-    set req.http.Host = "frontend.<%= govuk_platform %>.alphagov.co.uk";
+    set req.http.Host = "www.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = frontend;
   }
 
