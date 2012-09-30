@@ -111,7 +111,7 @@ sub vcl_recv {
   # Public API 
     set req.http.Host = "public-api.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = publicapi;
-  } else if (req.url ~ "^/feedback$") {
+  } else if (req.url ~ "^/feedback") {
   # Feedback
     set req.http.Host = "feedback.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = feedback;
