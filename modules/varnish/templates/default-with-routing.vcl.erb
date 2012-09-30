@@ -124,12 +124,12 @@ sub vcl_recv {
   # Datainsights 
     set req.http.Host = "datainsight-frontend.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = datainsight;
-  } else if (req.url ~ "^/government|^/specialist") {
+    } else if (req.url ~ "^/government|^/specialist|^/whitehall|^/bis|^/BIS|^/cabinetoffice|^/CABINETOFFICE|^/dclg|^/DCLG|^/mod|^/MOD|^/defra|^/DEFRA|^/fco|^/FCO|^/dh|^/DH|^/dfid|^/DFID|^/moj|^/MOJ|^/hmrc|^/HMRC") {
   # Whitehall
     set req.http.Host = "whitehall-frontend.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = whitehall;
   } else {
-    set req.http.Host = "www.<%= govuk_platform %>.alphagov.co.uk";
+    set req.http.Host = "frontend.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = frontend;
   }
 
