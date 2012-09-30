@@ -76,7 +76,7 @@ acl purge_acl {
 
 sub vcl_recv {
   # Listing Routes
-  if (req.url ~ "^/autocomplete$|^/preload-autocomplete$|^/sitemap.xml$|^/browse") {
+  if (req.url ~ "^/autocomplete$|^/preload-autocomplete$|^/sitemap.xml$") {
   # Search 
     set req.http.Host = "search.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = search;
