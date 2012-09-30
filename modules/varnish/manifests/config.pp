@@ -13,16 +13,16 @@ class varnish::config {
 
   case $::govuk_provider {
     sky: {
-      $vcl_config_template = 'default-with-routing.vcl.erb',
+      $vcl_config_template = 'default-with-routing.vcl.erb'
     }
     default: {
       $vcl_config_template = $::govuk_platform ? {
         preview => 'default-with-routing.vcl.erb',
-        default => 'default.vcl.erb',
+        default => 'default.vcl.erb'
       }
     }
   }
-  
+
   file { '/etc/varnish/default.vcl':
     ensure  => file,
     content => template("varnish/${vcl_config_template}"),
