@@ -102,7 +102,7 @@ sub vcl_recv {
     set req.backend = designprinciples;
   } else if (req.url ~ "^/licence-finder") {
   # Licence Finder
-    set req.http.Host = "licence-finder.<%= govuk_platform %>.alphagov.co.uk";
+    set req.http.Host = "licencefinder.<%= govuk_platform %>.alphagov.co.uk";
     set req.backend = licencefinder;
   } else if (req.url ~ "^/apply-for-a-licence") {
   # Licensify
