@@ -11,17 +11,8 @@ class varnish::config {
     require => Package['varnish']
   }
 
-  case $::govuk_provider {
-    sky: {
-      $vcl_config_template = 'default-with-routing.vcl.erb'
-    }
-    default: {
-      $vcl_config_template = $::govuk_platform ? {
-        preview => 'default-with-routing.vcl.erb',
-        default => 'default.vcl.erb'
-      }
-    }
-  }
+  # Switch this to just default.vcl.erb to use the router again
+  $vcl_config_template = 'default-with-routing.vcl.erb'
 
   file { '/etc/varnish/default.vcl':
     ensure  => file,
