@@ -61,7 +61,8 @@ class govuk_node::frontend_load_balancer {
       internal_only     => true,
       health_check_port => 9505,
       https_listen_port => 8405,
-      http_listen_port  => 8505;
+      http_listen_port  => 8505,
+      aliases           => ["www.${::govuk_platform}.alphagov.co.uk"];
     'licencefinder':
       servers           => $govuk_frontend_servers,
       internal_only     => true,

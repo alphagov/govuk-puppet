@@ -1,4 +1,4 @@
-define haproxy::balance_http ($servers, $listen_port, $health_check_port, $internal_only = false) {
+define haproxy::balance_http ($servers, $listen_port, $health_check_port, $internal_only = false, $aliases=[]) {
 
   $lb_name = "${title}-http"
 
