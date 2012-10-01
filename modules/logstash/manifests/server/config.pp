@@ -37,6 +37,11 @@ class logstash::server::config (
     minute  => '30',
   }
 
+  package { 'ordereddict':
+    ensure   => 'present',
+    provider => 'pip',
+  }
+
   file { '/var/apps/logstash/logstash_index_cleaner':
     source => 'puppet:///modules/logstash/etc/cron.daily/logstash_index_cleaner',
     mode   => '0755',
