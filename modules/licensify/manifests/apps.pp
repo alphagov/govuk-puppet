@@ -21,6 +21,7 @@ class licensify::apps::licensify( $port = 9000 ) {
     environ_content    => template('licensify/environ'),
     nginx_extra_config => template('licensify/nginx_extra'),
     require            => File['/etc/gds-licensify-config.conf'],
+    health_check_path  => '/'
   }
 
   nginx::config::vhost::licensify_upload{ 'licensify':}
