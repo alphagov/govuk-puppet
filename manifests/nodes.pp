@@ -41,6 +41,7 @@ node default {
     mirror:             { include govuk_node::mirror_server }
     whitehall-frontend: { include govuk_node::whitehall_frontend_server }
     datainsight:        { include govuk_node::datainsight }
+    akamai_logs:        { include govuk_node::akamai_logs }
     default:            { }
   }
 }
