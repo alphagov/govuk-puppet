@@ -3,6 +3,8 @@ feedActor=true
 
 oauth_callback_url_override=https://licensify-admin.production.alphagov.co.uk/licence-management/admin/oauth
 
+uploadUrlBase=https://uploadlicensify.production.alphahov.co.uk/
+
 elms.frontend.host=https://www.gov.uk/
 
 access_token_url=https://signon.production.alphagov.co.uk/oauth/access_token
@@ -13,3 +15,5 @@ client_secret=c8e6a17c3ca49b8a1857d26fa8207c6de5d2eeef253b7c343f5f25d068720601
 
 worldpay.redirectUrl=https://www.gov.uk/apply-for-a-licence/payment/worldpayComplete
 worldpay.cancelled.redirectUrl=https://www.gov.uk/apply-for-a-licence/payment/worldpayCancelled
+
+
