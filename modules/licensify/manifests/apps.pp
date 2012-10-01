@@ -1,10 +1,16 @@
+class licensify::apps::base {
+  
+  $aws_access_key_id = extlookup('aws_access_key_id', '')
+  $aws_secret_key = extlookup('aws_secret_key', '')
+}
+
 class licensify::apps {
   include licensify::apps::licensify
   include licensify::apps::licensify_admin
   include licensify::apps::licensify_feed
 }
 
-class licensify::apps::licensify( $port = 9000 ) {
+class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base {
   include licensify::config
 
   file { '/etc/gds-licensify-config.conf':
@@ -29,7 +35,7 @@ class licensify::apps::licensify( $port = 9000 ) {
 
 }
 
-class licensify::apps::licensify_admin( $port = 9500 ) {
+class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps::base {
   include licensify::config
 
   file { '/etc/gds-licensify-admin-config.conf':
@@ -51,7 +57,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) {
   licensify::build_clean { 'licensify-admin': }
 }
 
-class licensify::apps::licensify_feed( $port = 9400 ) {
+class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::base {
   include licensify::config
 
   file { '/etc/gds-licensify-feed-config.conf':
