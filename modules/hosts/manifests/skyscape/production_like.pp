@@ -1,6 +1,8 @@
 class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # These are real hosts (1-1 mapping between Host and Service)
   # Anything that ends .cluster is maintained for backwards compatibility with EC2
+  
+  class {'hosts::skyscape::dead_hosts': platform => $platform}
 
   #Management VDC machines
   host { "puppet-1.management.${platform}"    : ip  => "10.0.0.2", host_aliases  => [ "puppet-1", "puppet" ] }
@@ -111,5 +113,4 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # Redirector VDC machines
   host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" }
   host { "redirector-2.redirector.${platform}"  : ip => "10.6.0.3" }
-
 }
