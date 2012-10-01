@@ -124,18 +124,18 @@ class govuk_node::frontend_load_balancer {
     'licensify-frontend':
       servers           => $licensify_frontend_servers,
       internal_only     => true,
-      health_check_port => 9520,
-      https_listen_port => 8480,
-      http_listen_port  => 8580;
+      health_check_port => 15500,
+      https_listen_port => 8490,
+      http_listen_port  => 8590;
   }
 
   # EFG frontend loadbalancers
   haproxy::balance_http_and_https {
     'efg':
       servers           => $govuk_frontend_servers,
-      health_check_port => 15500,
-      https_listen_port => 8490,
-      http_listen_port  => 8590;
+      health_check_port => 9519,
+      https_listen_port => 8419,
+      http_listen_port  => 8519;
   }
 
 }
