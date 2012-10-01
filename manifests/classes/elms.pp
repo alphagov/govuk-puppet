@@ -1,4 +1,5 @@
 class elms_base::mongo_server inherits govuk_node::base {
+  include ecryptfs
   include mongodb::server
   include java::openjdk6::jre
 
