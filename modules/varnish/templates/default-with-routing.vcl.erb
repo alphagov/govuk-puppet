@@ -206,6 +206,16 @@ sub vcl_fetch {
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
+  if (beresp.status == 301 || beresp.status == 302) 
+  { 
+  <% if @govuk_platform == "production" %>
+  set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^/]+)", "https://www.gov.uk"); 
+  <% else %>
+    set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^/]+)", "https://www.<%= @govuk_platform %>.alphagov.co.uk");
+  <% end %>
+  } 
+
+
 <% if scope.lookupvar('varnish::varnish_version') == 3 %>
   if (beresp.ttl > 0s) {
 <% else %>
