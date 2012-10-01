@@ -90,8 +90,8 @@ class jetty($version='7.6.4.v20120524'){
   }
 
   service {'jetty':
-    ensure     => running,
-    enable     => true,
+    ensure     => stopped,
+    enable     => false,
     hasstatus  => false,
     hasrestart => true,
     require    => File['/etc/init.d/jetty'],
