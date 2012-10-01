@@ -7,7 +7,7 @@ class licensify::apps {
 class licensify::apps::licensify( $port = 9000 ) {
   include licensify::config
 
-  file { '/etc/gds-licensify-config.properties':
+  file { '/etc/gds-licensify-config.conf':
     ensure => present,
     source => [
                 "puppet:///modules/licensify/gds-licensify-config.properties.${::govuk_platform}.${::govuk_provider}",
@@ -31,7 +31,7 @@ class licensify::apps::licensify( $port = 9000 ) {
 class licensify::apps::licensify_admin( $port = 9500 ) {
   include licensify::config
 
-  file { '/etc/gds-licensify-admin-config.properties':
+  file { '/etc/gds-licensify-admin-config.conf':
     ensure => present,
     source => [
                 "puppet:///modules/licensify/gds-licensify-admin-config.properties.${::govuk_platform}.${::govuk_provider}",
@@ -53,7 +53,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) {
 class licensify::apps::licensify_feed( $port = 9400 ) {
   include licensify::config
 
-  file { '/etc/gds-licensify-feed-config.properties':
+  file { '/etc/gds-licensify-feed-config.conf':
     ensure => present,
     source => [
                 "puppet:///modules/licensify/gds-licensify-feed-config.properties.${::govuk_platform}.${::govuk_provider}",
