@@ -2,10 +2,11 @@ class licensify::apps {
   include licensify::apps::licensify
   include licensify::apps::licensify_admin
   include licensify::apps::licensify_feed
-  include licensify::config
 }
 
 class licensify::apps::licensify( $port = 9000 ) {
+  include licensify::config
+
   file { '/etc/gds-licensify-config.properties':
     ensure => present,
     source => [
@@ -28,6 +29,8 @@ class licensify::apps::licensify( $port = 9000 ) {
 }
 
 class licensify::apps::licensify_admin( $port = 9500 ) {
+  include licensify::config
+
   file { '/etc/gds-licensify-admin-config.properties':
     ensure => present,
     source => [
@@ -48,6 +51,8 @@ class licensify::apps::licensify_admin( $port = 9500 ) {
 }
 
 class licensify::apps::licensify_feed( $port = 9400 ) {
+  include licensify::config
+
   file { '/etc/gds-licensify-feed-config.properties':
     ensure => present,
     source => [
