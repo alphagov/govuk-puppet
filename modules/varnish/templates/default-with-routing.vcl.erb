@@ -215,6 +215,10 @@ sub vcl_fetch {
   <% end %>
   } 
 
+  # If the backend says no-cache or no-store, we should not cache
+  if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") { 
+     return(pass); 
+  } 
 
 <% if scope.lookupvar('varnish::varnish_version') == 3 %>
   if (beresp.ttl > 0s) {
