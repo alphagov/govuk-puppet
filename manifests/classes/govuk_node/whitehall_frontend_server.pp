@@ -8,5 +8,4 @@ class govuk_node::whitehall_frontend_server inherits govuk_node::base {
   }
 
   include govuk::apps::whitehall_frontend
-  include govuk::apps::whitehall_search
 }
