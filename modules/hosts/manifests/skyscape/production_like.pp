@@ -2,6 +2,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # These are real hosts (1-1 mapping between Host and Service)
   # Anything that ends .cluster is maintained for backwards compatibility with EC2
 
+  class {'hosts::skyscape::dead_hosts': platform => $platform}
+
   #Management VDC machines
   host { "puppet-1.management.${platform}"    : ip  => "10.0.0.2", host_aliases  => [ "puppet-1", "puppet" ] }
   host { "jenkins-1.management.${platform}"   : ip  => "10.0.0.3" }
@@ -35,24 +37,25 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
 
   #Frontend LB vhosts
-  host { "frontend-lb-2.frontend.${platform}"           : ip => "10.2.0.102", host_aliases => ["frontend-lb-2"] }
-  host { "frontend-lb-1.frontend.${platform}"           : ip => "10.2.0.101", host_aliases => ["frontend-lb-1",
-                                                                                "businesssupportfinder.${platform}.alphagov.co.uk",
-                                                                                "calendars.${platform}.alphagov.co.uk",
-                                                                                "datainsight-frontend.${platform}.alphagov.co.uk",
-                                                                                "designprinciples.${platform}.alphagov.co.uk",
-                                                                                "efg.${platform}.alphagov.co.uk",
-                                                                                "feedback.${platform}.alphagov.co.uk",
-                                                                                "frontend.${platform}.alphagov.co.uk",
-                                                                                "licencefinder.${platform}.alphagov.co.uk",
-                                                                                "planner.${platform}.alphagov.co.uk",
-                                                                                "publicapi.${platform}.alphagov.co.uk",
-                                                                                "smartanswers.${platform}.alphagov.co.uk",
-                                                                                "static.${platform}.alphagov.co.uk",
-                                                                                "tariff.${platform}.alphagov.co.uk",
-                                                                                "whitehall-frontend.${platform}.alphagov.co.uk",
-                                                                                "whitehall-search.${platform}.alphagov.co.uk"
-                                                                                ]}
+  host { "frontend-lb-2.frontend.${platform}"                  : ip => "10.2.0.102", host_aliases => ["frontend-lb-2"] }
+  host { "frontend-lb-1.frontend.${platform}"                  : ip => "10.2.0.101", host_aliases => ["frontend-lb-1"]}
+  host { "frontend-internal-lb.frontend.${platform}"           : ip => "10.2.1.2", host_aliases  => ["frontend-internal-lb",
+                                                                                    "businesssupportfinder.${platform}.alphagov.co.uk",
+                                                                                    "calendars.${platform}.alphagov.co.uk",
+                                                                                    "datainsight-frontend.${platform}.alphagov.co.uk",
+                                                                                    "designprinciples.${platform}.alphagov.co.uk",
+                                                                                    "efg.${platform}.alphagov.co.uk",
+                                                                                    "feedback.${platform}.alphagov.co.uk",
+                                                                                    "frontend.${platform}.alphagov.co.uk",
+                                                                                    "licencefinder.${platform}.alphagov.co.uk",
+                                                                                    "planner.${platform}.alphagov.co.uk",
+                                                                                    "publicapi.${platform}.alphagov.co.uk",
+                                                                                    "smartanswers.${platform}.alphagov.co.uk",
+                                                                                    "static.${platform}.alphagov.co.uk",
+                                                                                    "tariff.${platform}.alphagov.co.uk",
+                                                                                    "whitehall-frontend.${platform}.alphagov.co.uk",
+                                                                                    "whitehall-search.${platform}.alphagov.co.uk"
+                                                                                  ]}
   host { "calendars.frontend.${platform}"               : ensure => absent }
   host { "static.frontend.${platform}"                  : ensure => absent }
   host { "search.frontend.${platform}"                  : ensure => absent }
@@ -110,5 +113,4 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # Redirector VDC machines
   host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" }
   host { "redirector-2.redirector.${platform}"  : ip => "10.6.0.3" }
-
 }
