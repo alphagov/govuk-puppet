@@ -3,7 +3,7 @@ server {
   listen *:80;
 
  location /dwp-file-processor {
-    proxy_pass http://127.0.0.1:9600/;
+    proxy_pass http://127.0.0.1:9600;
   }
 
   location / {
