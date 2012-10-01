@@ -110,6 +110,12 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9520,
       https_listen_port => 8420,
       http_listen_port  => 8520;
+    'whitehall-search':
+      servers           => $whitehall_frontend_servers,
+      internal_only     => true,
+      health_check_port => 9525,
+      https_listen_port => 8425,
+      http_listen_port  => 8525;
   }
 
 # Licensify Frontend Load Balancers
@@ -118,8 +124,8 @@ class govuk_node::frontend_load_balancer {
       servers           => $licensify_frontend_servers,
       internal_only     => true,
       health_check_port => 9520,
-      https_listen_port => 8420,
-      http_listen_port  => 8520;
+      https_listen_port => 8480,
+      http_listen_port  => 8580;
   }
 
   # EFG frontend loadbalancers
