@@ -1,4 +1,6 @@
-class logstash::server {
+class logstash::server (
+  $es_heap_size = '4g'
+) {
 
   $http_port      = '9291'
   $transport_port = '9391'
@@ -13,6 +15,7 @@ class logstash::server {
   }
 
   class { 'logstash::server::config':
+    es_heap_size   => $es_heap_size,
     http_port      => $http_port,
     transport_port => $transport_port,
     require        => Class['logstash::server::package'],

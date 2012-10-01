@@ -1,4 +1,5 @@
 class logstash::server::config (
+  $es_heap_size,
   $http_port,
   $transport_port
 ) {
@@ -55,6 +56,7 @@ class logstash::server::config (
   }
 
   elasticsearch::node { 'logstash-server':
+    heap_size          => $es_heap_size,
     http_port          => $http_port,
     transport_port     => $transport_port,
     number_of_shards   => '5',
