@@ -38,6 +38,10 @@ class users::groups::govuk {
     fullname   => 'David Heath',
     email      => 'david.heath@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'henryhadlow':
+    fullname   => 'Henry Hadlow',
+    email      => 'henry.hadlow@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'james':
     fullname   => 'James Stewart',
     email      => 'james.stewart@digital.cabinet-office.gov.uk';
