@@ -35,24 +35,25 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
 
   #Frontend LB vhosts
-  host { "frontend-lb-2.frontend.${platform}"           : ip => "10.2.0.102", host_aliases => ["frontend-lb-2"] }
-  host { "frontend-lb-1.frontend.${platform}"           : ip => "10.2.0.101", host_aliases => ["frontend-lb-1",
-                                                                                "businesssupportfinder.${platform}.alphagov.co.uk",
-                                                                                "calendars.${platform}.alphagov.co.uk",
-                                                                                "datainsight-frontend.${platform}.alphagov.co.uk",
-                                                                                "designprinciples.${platform}.alphagov.co.uk",
-                                                                                "efg.${platform}.alphagov.co.uk",
-                                                                                "feedback.${platform}.alphagov.co.uk",
-                                                                                "frontend.${platform}.alphagov.co.uk",
-                                                                                "licencefinder.${platform}.alphagov.co.uk",
-                                                                                "planner.${platform}.alphagov.co.uk",
-                                                                                "publicapi.${platform}.alphagov.co.uk",
-                                                                                "smartanswers.${platform}.alphagov.co.uk",
-                                                                                "static.${platform}.alphagov.co.uk",
-                                                                                "tariff.${platform}.alphagov.co.uk",
-                                                                                "whitehall-frontend.${platform}.alphagov.co.uk",
-                                                                                "whitehall-search.${platform}.alphagov.co.uk"
-                                                                                ]}
+  host { "frontend-lb-2.frontend.${platform}"                  : ip => "10.2.0.102", host_aliases => ["frontend-lb-2"] }
+  host { "frontend-lb-1.frontend.${platform}"                  : ip => "10.2.0.101", host_aliases => ["frontend-lb-1"]}
+  host { "frontend-internal-lb.frontend.${platform}"           : ip => "10.2.1.2", host_aliases  => ["frontend-internal-lb",
+                                                                                    "businesssupportfinder.${platform}.alphagov.co.uk",
+                                                                                    "calendars.${platform}.alphagov.co.uk",
+                                                                                    "datainsight-frontend.${platform}.alphagov.co.uk",
+                                                                                    "designprinciples.${platform}.alphagov.co.uk",
+                                                                                    "efg.${platform}.alphagov.co.uk",
+                                                                                    "feedback.${platform}.alphagov.co.uk",
+                                                                                    "frontend.${platform}.alphagov.co.uk",
+                                                                                    "licencefinder.${platform}.alphagov.co.uk",
+                                                                                    "planner.${platform}.alphagov.co.uk",
+                                                                                    "publicapi.${platform}.alphagov.co.uk",
+                                                                                    "smartanswers.${platform}.alphagov.co.uk",
+                                                                                    "static.${platform}.alphagov.co.uk",
+                                                                                    "tariff.${platform}.alphagov.co.uk",
+                                                                                    "whitehall-frontend.${platform}.alphagov.co.uk",
+                                                                                    "whitehall-search.${platform}.alphagov.co.uk"
+                                                                                  ]}
   host { "calendars.frontend.${platform}"               : ensure => absent }
   host { "static.frontend.${platform}"                  : ensure => absent }
   host { "search.frontend.${platform}"                  : ensure => absent }

@@ -2,6 +2,7 @@ class govuk_node::frontend_load_balancer {
   include govuk_node::base
 
   include haproxy
+  include loadbalancer::cron
 
   $govuk_frontend_servers = {
     "frontend-1" => "10.2.0.2",
