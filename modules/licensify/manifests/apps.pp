@@ -1,5 +1,4 @@
 class licensify::apps::base {
-  
   $aws_access_key_id = extlookup('aws_access_key_id', '')
   $aws_secret_key = extlookup('aws_secret_key', '')
 }
