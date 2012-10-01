@@ -3,7 +3,7 @@ upstream <%= name %>-ssl-proxy {
 }
 
 server {
-  server_name <%= vhost %>;
+  server_name <%= vhost %>  <%= aliases.join(" ") unless aliases.empty? %>;
 
   listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/<%= vhost %>.crt;
