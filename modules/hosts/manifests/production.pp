@@ -23,7 +23,6 @@ class hosts::production {
   host { 'private-frontend.production.alphagov.co.uk':     ip => '10.54.182.112' }
   host { 'whitehall-frontend.production.alphagov.co.uk':   ip => '10.224.50.207' }
   host { 'whitehall.production.alphagov.co.uk':            ip => '10.224.50.207' }
-  host { 'whitehall-search.production.alphagov.co.uk':     ip => '10.224.50.207' }
   host { 'whitehall-admin.production.alphagov.co.uk':      ip => '10.54.182.112' } /* production backend */
   host { 'datainsight-frontend.production.alphagov.co.uk': ip => '10.53.54.49' }
 
