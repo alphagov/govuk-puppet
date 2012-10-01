@@ -77,7 +77,7 @@ acl purge_acl {
 sub vcl_recv {
   # Listing Routes
   if (req.url ~ "^/autocomplete$|^/preload-autocomplete$|^/sitemap.xml$|^/browse") {
-  # Search 
+  # Search
     set req.http.Host = "search.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = search;
   } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
@@ -97,7 +97,7 @@ sub vcl_recv {
     set req.http.Host = "planner.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = planner;
   } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/designprinciples/performanceframework$") {
-  # Design Principles 
+  # Design Principles
     set req.http.Host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = designprinciples;
   } else if (req.url ~ "^/licence-finder") {
@@ -109,11 +109,11 @@ sub vcl_recv {
     set req.http.Host = "licensify.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = licensify;
   } else if (req.url ~ "^/trade-tariff") {
-  # Tariff 
+  # Tariff
     set req.http.Host = "tariff.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = tariff;
   } else if (req.url ~ "^/api") {
-  # Public API 
+  # Public API
     set req.http.Host = "public-api.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = publicapi;
   } else if (req.url ~ "^/feedback") {
@@ -121,10 +121,10 @@ sub vcl_recv {
     set req.http.Host = "feedback.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = feedback;
   } else if (req.url ~ "^/performance") {
-  # Datainsights 
+  # Datainsights
     set req.http.Host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = datainsight;
-  } else if (req.url ~ "^/government|^/specialist|^/bis$|^/cabinetoffice$|^/dclg$|^/mod$|^/defra$|^/fco$|^/dh$|^/dfid$|^/moj$|^/hmrc$") {
+  } else if (req.url ~ "^/government|^/specialist|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
   # Whitehall
     set req.http.Host = "whitehall-frontend.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = whitehall;
