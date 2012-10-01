@@ -206,14 +206,9 @@ sub vcl_fetch {
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
-  if (beresp.status == 301 || beresp.status == 302) 
-  { 
-  <% if @govuk_platform == "production" %>
-  set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^/]+)", "https://www.gov.uk"); 
-  <% else %>
-    set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^/]+)", "https://www.<%= @govuk_platform %>.alphagov.co.uk");
-  <% end %>
-  } 
+  if (beresp.status == 301 || beresp.status == 302) {
+    <% if @govuk_platform == "production" %>set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^.]+\.[^.]+\.alphagov\.co\.uk)", "https://www.gov.uk");<% else %>set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^.]+\.[^.]+\.alphagov\.co\.uk)", "https://www.<%= @govuk_platform %>.alphagov.co.uk");<% end %>
+  }
 
   # If the backend says no-cache or no-store, we should not cache
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") { 
