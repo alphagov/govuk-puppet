@@ -68,6 +68,11 @@ class jenkins {
     provider => 'pip',
   }
 
+  package { 'twisted':
+    ensure   => '10.0.0',
+    provider => 'pip',
+  }
+
   file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/jenkins/dot-gitconfig',
     owner   => jenkins,
