@@ -5,11 +5,15 @@ class loadbalancer::cron {
     source => 'puppet:///modules/loadbalancer/stop_loadbalancer.sh'
   }
 
-  cron { 'update-latest-to-mirror':
+  cron { 'stop-loadbalancer':
     ensure  => present,
     user    => 'root',
     minute  => '*/1',
     command => '/usr/local/bin/stop_loadbalancer',
     require => File['/usr/local/bin/stop_loadbalancer'],
+  }
+
+   cron { 'update-latest-to-mirror':
+    ensure  => absent
   }
 }
