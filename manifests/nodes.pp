@@ -42,6 +42,7 @@ node default {
     whitehall-frontend: { include govuk_node::whitehall_frontend_server }
     datainsight:        { include govuk_node::datainsight }
     akamai_logs:        { include govuk_node::akamai_logs }
+    licensify-lb:       { include govuk_node::licensify_load_balancer }
     default:            { }
   }
 }
