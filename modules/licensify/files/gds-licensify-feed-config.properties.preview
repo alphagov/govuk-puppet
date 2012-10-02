@@ -49,3 +49,6 @@ play.akka.actor.retrieveBodyParserTimeout = 10 seconds
 
 session.secure=true
 session.cookieName=licensing_session
+
+# Accept any certs in preview as the test PDF processing server doesn't have a real cert.
+ws.acceptAnyCertificate=true
