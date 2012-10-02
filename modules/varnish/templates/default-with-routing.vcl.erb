@@ -162,7 +162,7 @@ sub vcl_recv {
   set req.grace = 6h;
 
   # remove cookies
-  if (req.backend != "licensify") {
+  if (req.backend != licensify) {
     unset req.http.cookie;
   }
   # purge individual URLs from the cache
@@ -197,7 +197,7 @@ sub vcl_recv {
 
 sub vcl_fetch {
   # remove cookies
-  if (req.backend != "licensify") {
+  if (req.backend != licensify) {
     unset beresp.http.set-cookie;
   }
 
