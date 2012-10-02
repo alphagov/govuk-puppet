@@ -26,7 +26,7 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
     environ_content    => template('licensify/environ'),
     nginx_extra_config => template('licensify/nginx_extra'),
     require            => File['/etc/gds-licensify-config.conf'],
-    health_check_path  => '/'
+    health_check_path  => '/api/licences'
   }
 
   nginx::config::vhost::licensify_upload{ 'licensify':}
@@ -51,7 +51,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
     environ_content   => template('licensify/environ'),
     vhost_protected   => false,
     require           => File['/etc/gds-licensify-admin-config.conf'],
-    health_check_path => "/"
+    health_check_path => "/login"
   }
 
   licensify::build_clean { 'licensify-admin': }
