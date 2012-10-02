@@ -60,20 +60,6 @@ define govuk::app::config (
       sky: {
         case $platform {
           production: {
-            nginx::config::vhost::proxy { $vhost_full:
-              to                    => ["localhost:${port}"],
-              aliases               => $vhost_aliases_real,
-              protected             => $vhost_protected,
-              ssl_only              => $vhost_ssl_only,
-              extra_config          => $nginx_extra_config,
-              extra_app_config      => $nginx_extra_app_config,
-              platform              => $platform,
-              health_check_path     => $health_check_path,
-              health_check_port     => $health_check_port,
-              ssl_health_check_port => $ssl_health_check_port,
-            }
-          }
-          staging: {
             nginx::config::vhost::proxy { $name:
               to                    => ["localhost:${port}"],
               aliases               => $vhost_aliases_real,
@@ -88,7 +74,7 @@ define govuk::app::config (
             }
           }
           default: {
-            nginx::config::vhost::proxy { $vhost_full:
+            nginx::config::vhost::proxy { $name:
               to                    => ["localhost:${port}"],
               aliases               => $vhost_aliases_real,
               protected             => $vhost_protected,
