@@ -16,11 +16,12 @@ class govuk::apps::publicapi {
     default       => "whitehall-frontend.${domain}"
   }
 
-  $full_domain = "public-api.${domain}"
+  $app_name = 'public-api'
+  $full_domain = "${app_name}.${domain}"
 
   case $::govuk_provider {
     sky: {
-      nginx::config::vhost::proxy { 'public-api':
+      nginx::config::vhost::proxy { "${app_name}":
         to                => [$privateapi],
         protected         => false,
         ssl_only          => false,
@@ -29,7 +30,7 @@ class govuk::apps::publicapi {
           location /api {
             proxy_set_header Host ${privateapi};
             proxy_set_header API-PREFIX api;
-            proxy_pass http://${full_domain}-proxy/;
+            proxy_pass http://${app_name}-proxy/;
           }
 
           location /api/specialist {
