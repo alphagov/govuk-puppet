@@ -12,8 +12,8 @@ class loadbalancer::cron {
     command => '/usr/local/bin/stop_loadbalancer',
     require => File['/usr/local/bin/stop_loadbalancer'],
   }
-
-   cron { 'update-latest-to-mirror':
+# This is aaded to rectify a copy paste mistake
+  cron { 'update-latest-to-mirror':
     ensure  => absent
   }
 }
