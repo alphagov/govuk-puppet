@@ -16,16 +16,12 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   apache2::vhost::passenger {
     "migratorator.${::govuk_platform}.alphagov.co.uk":;
-    "reviewomatic.${::govuk_platform}.alphagov.co.uk":;
   }
 
   nginx::config::vhost::proxy {
     "migratorator.$::govuk_platform.alphagov.co.uk":
       to        => ['localhost:8080'],
       ssl_only  => true;
-    "reviewomatic.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      ssl_only  => false;
   }
 
   file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
