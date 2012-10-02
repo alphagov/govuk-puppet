@@ -4,7 +4,7 @@ feedActor=true
 
 oauth_callback_url_override=https://licensify-admin.preview.alphagov.co.uk/licence-management/admin/oauth
 
-elms.frontend.host=https://licensify.preview.alphagov.co.uk/
+elms.frontend.host=https://www.preview.alphagov.co.uk/
 
 access_token_url=https://signon.preview.alphagov.co.uk/oauth/access_token
 authorization_url=https://signon.preview.alphagov.co.uk/oauth/authorize
@@ -18,5 +18,5 @@ googleAnalytics.domain=preview.alphagov.co.uk
 
 signon.url=https://signon.preview.alphagov.co.uk
 
-worldpay.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayComplete
-worldpay.cancelled.redirectUrl=https://licensify.preview.alphagov.co.uk/licence-management/payment/worldpayCancelled
+worldpay.redirectUrl=https://www.preview.alphagov.co.uk/licence-management/payment/worldpayComplete
+worldpay.cancelled.redirectUrl=https://www.preview.alphagov.co.uk/licence-management/payment/worldpayCancelled
