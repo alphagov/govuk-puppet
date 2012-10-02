@@ -121,7 +121,7 @@ class govuk_node::frontend_load_balancer {
 
 # Licensify Frontend Load Balancers
   haproxy::balance_http_and_https {
-    'licensify.frontend':
+    'licensify':
       servers           => $licensify_frontend_servers,
       internal_only     => true,
       health_check_port => 15500,
