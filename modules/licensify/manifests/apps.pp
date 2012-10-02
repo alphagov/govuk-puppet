@@ -46,11 +46,12 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
   }
 
   govuk::app { 'licensify-admin':
-    app_type        => 'procfile',
-    port            => $port,
-    environ_content => template('licensify/environ'),
-    vhost_protected => false,
-    require         => File['/etc/gds-licensify-admin-config.conf'],
+    app_type          => 'procfile',
+    port              => $port,
+    environ_content   => template('licensify/environ'),
+    vhost_protected   => false,
+    require           => File['/etc/gds-licensify-admin-config.conf'],
+    health_check_path => "/"
   }
 
   licensify::build_clean { 'licensify-admin': }
