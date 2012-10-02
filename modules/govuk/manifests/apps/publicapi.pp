@@ -21,7 +21,7 @@ class govuk::apps::publicapi {
 
   case $::govuk_provider {
     sky: {
-      nginx::config::vhost::proxy { "${app_name}":
+      nginx::config::vhost::proxy { $app_name:
         to                => [$privateapi],
         protected         => false,
         ssl_only          => false,
