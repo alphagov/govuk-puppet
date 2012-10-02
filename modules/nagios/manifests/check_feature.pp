@@ -1,11 +1,15 @@
 define nagios::check_feature ($feature) {
+  nagios::check_feature_w_prio { "check_feature_${feature}_urgent":
+    feature   => $feature,
+    prio      => 'urgent'
+  }
   nagios::check_feature_w_prio { "check_feature_${feature}_high":
     feature   => $feature,
     prio      => 'high'
   }
-  nagios::check_feature_w_prio { "check_feature_${feature}_medium":
+  nagios::check_feature_w_prio { "check_feature_${feature}_normal":
     feature   => $feature,
-    prio      => 'medium'
+    prio      => 'normal'
   }
   nagios::check_feature_w_prio { "check_feature_${feature}_low":
     feature   => $feature,

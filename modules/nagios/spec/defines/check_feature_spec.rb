@@ -12,10 +12,14 @@ describe 'nagios::check_feature', :type => :define do
   }}
   it {
     should contain_file('/etc/nagios3/conf.d/nagios_host_test_class-test_host/'\
+      'check_feature_test_feature_urgent_checker.cfg')
+    should contain_file('/etc/nagios3/conf.d/nagios_host_test_class-test_host/'\
       'check_feature_test_feature_high_checker.cfg')
     should contain_file('/etc/nagios3/conf.d/nagios_host_test_class-test_host/'\
-      'check_feature_test_feature_medium_checker.cfg')
+      'check_feature_test_feature_normal_checker.cfg')
     should contain_file('/etc/nagios3/conf.d/nagios_host_test_class-test_host/'\
       'check_feature_test_feature_low_checker.cfg')
+    should contain_file('/etc/nagios3/conf.d/nagios_host_test_class-test_host/'\
+      'check_feature_test_feature_unprio_checker.cfg')
   }
 end
