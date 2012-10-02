@@ -1,5 +1,10 @@
 # Backends
 
+backend businesssupportfinder {
+  .host = "businesssupportfinder.<%= @govuk_platform %>.alphagov.co.uk";
+  .port = "80";
+}
+
 backend calendars {
   .host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
   .port = "80";
@@ -104,6 +109,10 @@ sub vcl_recv {
   # Licence Finder
     set req.http.Host = "licencefinder.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = licencefinder;
+  } else if (req.url ~ "^/business-finance-support-finder") {
+  # Business Support Finder
+    set req.http.Host = "businesssupportfinder.<%= @govuk_platform %>.alphagov.co.uk";
+    set req.backend = businesssupportfinder;
   } else if (req.url ~ "^/apply-for-a-licence") {
   # Licensify
     set req.http.Host = "licensify.<%= @govuk_platform %>.alphagov.co.uk";
