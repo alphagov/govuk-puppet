@@ -3,7 +3,7 @@ upstream <%= name %>-http-proxy {
 }
 
 server {
-  server_name <%= vhost %>;
+  server_name <%= vhost %>  <%= aliases.join(" ") unless aliases.empty? %>;
 
   listen              80;
 

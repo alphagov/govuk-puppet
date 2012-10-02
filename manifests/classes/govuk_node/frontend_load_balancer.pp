@@ -2,6 +2,7 @@ class govuk_node::frontend_load_balancer {
   include govuk_node::base
 
   include haproxy
+  include loadbalancer::cron
 
   $govuk_frontend_servers = {
     "frontend-1" => "10.2.0.2",
@@ -60,7 +61,8 @@ class govuk_node::frontend_load_balancer {
       internal_only     => true,
       health_check_port => 9505,
       https_listen_port => 8405,
-      http_listen_port  => 8505;
+      http_listen_port  => 8505,
+      aliases           => ["www.${::govuk_platform}.alphagov.co.uk"];
     'licencefinder':
       servers           => $govuk_frontend_servers,
       internal_only     => true,
@@ -115,6 +117,16 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9525,
       https_listen_port => 8425,
       http_listen_port  => 8525;
+  }
+
+# Licensify Frontend Load Balancers
+  haproxy::balance_http_and_https {
+    'licensify-frontend':
+      servers           => $licensify_frontend_servers,
+      internal_only     => true,
+      health_check_port => 15500,
+      https_listen_port => 8490,
+      http_listen_port  => 8590;
   }
 
   # EFG frontend loadbalancers

@@ -9,4 +9,6 @@ dwp.match.response.polling.interval=30
 dwp.max.number.of.records=100
 dwp.match.request.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/requests
 dwp.match.response.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/responses
+dwp.match.request.downloaded.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/downloaded
+
 

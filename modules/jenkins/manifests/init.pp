@@ -62,6 +62,12 @@ class jenkins {
     ensure => installed,
   }
 
+  # This is required for the gov.uk spider job
+  package { 'scrapy':
+    ensure   => '0.14.4',
+    provider => 'pip',
+  }
+
   file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/jenkins/dot-gitconfig',
     owner   => jenkins,

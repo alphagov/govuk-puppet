@@ -13,6 +13,11 @@ class router::nginx {
     content => template('router/base.conf.erb'),
   }
 
+  nginx::config::site { 'router-replacement-port8080':
+    source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
+    require => Service['jetty']
+  }
+
   file { '/etc/nginx/router_routes.conf':
     ensure  => present,
     content => template('router/routes.conf.erb'),

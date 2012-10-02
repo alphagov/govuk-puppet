@@ -66,23 +66,23 @@ class ertp_base::api_server inherits ertp_base {
   case $::govuk_platform {
     staging: {
       nginx::config::site { 'default':
-        source  => 'puppet:///modules/nginx/ertp-staging-api',
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-staging-api',
       }
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/nginx/htpasswd.ertp.api.staging',
+        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.staging',
         require => Class['nginx::package'],
       }
     }
     default: {
       nginx::config::site { 'default':
-        source  => 'puppet:///modules/nginx/ertp-preview-api',
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
       }
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/nginx/htpasswd.ertp.api.preview',
+        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.preview',
         require => Class['nginx::package'],
       }
     }
