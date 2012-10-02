@@ -3,7 +3,7 @@ class govuk::apps::frontend( $port = 3005 ) {
     app_type               => 'rack',
     port                   => $port,
     vhost                  => 'www',
-    vhost_aliases          => ['frontend'],
+    vhost_aliases          => ['frontend','www'],
     health_check_path      => '/',
     nginx_extra_config     => "location @specialist {
   proxy_set_header Host whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
