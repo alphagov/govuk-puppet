@@ -8,10 +8,11 @@
 application.secret="yin8VQSK>TsDwM2UhMq3O<lZ_cI@<Mu6XFOf06ThCy3p=^`:r>T/?cWvXqx1Os/r"
 
 #statsd settings
-statsd.enabled:true
-statsd.prefix: "govuk.app.licensing.admin"
-statsd.host: localhost
-statsd.port: 8125
+statsd.enabled=true
+statsd.stat.prefix="govuk.app.licensing.admin"
+statsd.host=localhost
+statsd.port=8125
+
 
 
 # The application languages
