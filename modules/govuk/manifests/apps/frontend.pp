@@ -6,7 +6,8 @@ class govuk::apps::frontend( $port = 3005 ) {
     vhost_aliases          => ['frontend'],
     health_check_path      => '/',
     nginx_extra_config     => "location @specialist {
-    proxy_pass http://whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
+  proxy_set_header Host whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
+  proxy_pass http://whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
 }",
     # Please note that this routing strategy is *temporary*, until we have a better
     # solution for router replacement. It should be removed once a proper router
