@@ -32,6 +32,10 @@ class nagios::config ($platform = $::govuk_platform) {
     content => template('nagios/etc/nagios3/conf.d/check_graphite.cfg.erb'),
   }
 
+  file { '/etc/nagios3/conf.d/check_graphite_metric_since.cfg':
+    content => template('nagios/etc/nagios3/conf.d/check_graphite_metric_since.cfg.erb'),
+  }
+
   nagios::check_feature {
     'check_apollo':          feature => 'apollo';
     'check_cache':           feature => 'cache';
