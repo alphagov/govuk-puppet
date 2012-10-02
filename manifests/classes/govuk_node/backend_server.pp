@@ -8,8 +8,6 @@ class govuk_node::backend_server inherits govuk_node::base {
     maxpoolsize => 12,
   }
 
-  include nginx
-
   package { 'graphviz':
     ensure => installed
   }
@@ -47,4 +45,11 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::private_frontend
   include govuk::apps::search
   include govuk::apps::need_o_tron
+
+  include nginx
+
+  # If we miss all the apps, throw a 500 to be caught by the cache nginx
+  nginx::config::vhost::default { 'default':
+    status => '500',
+  }
 }
