@@ -2,7 +2,16 @@ class govuk_node::graylog_server inherits govuk_node::base {
   include elasticsearch
   include nagios::client
   include nginx
-  include logstash::server
+
+  if $::govuk_provider == 'sky' {
+    $es_heap_size = '8g'
+  } else {
+    $es_heap_size = '4g'
+  }
+
+  class { 'logstash::server':
+    es_heap_size => $es_heap_size,
+  }
 
   nginx::config::vhost::proxy {
     "logging.${::govuk_platform}.alphagov.co.uk":
