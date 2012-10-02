@@ -129,7 +129,7 @@ class govuk_node::frontend_load_balancer {
       http_listen_port  => 8590;
   }
 # Licensify upload pdf public endpoint
-  haproxy::balance_http {
+  haproxy::balance_https {
     'uploadlicensify':
       servers           => $licensify_frontend_servers,
       internal_only     => true,
