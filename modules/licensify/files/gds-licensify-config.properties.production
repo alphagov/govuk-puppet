@@ -7,6 +7,12 @@
 # If you deploy your application to several instances be sure to use the same key!
 application.secret="opjdL5Cy^THl6Q[aqFus7xFPELAvf7Gap23W0R@lGXYNabe<Hu4<i1XhB=sqRDys"
 
+#statsd settings
+statsd.enabled:true
+statsd.prefix: "govuk.app.licensing.frontend"
+statsd.host: localhost
+statsd.port: 8126
+
 # The application languages
 # ~~~~~
 application.langs="en"
