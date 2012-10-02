@@ -90,7 +90,7 @@ class govuk_node::backend_load_balancer {
 
   haproxy::balance_https {'licensify-admin':
     servers           => $licensify_backend_servers,
-    health_check_port => 15900,
+    health_check_port => 16000,
     listen_port       => 8490,
     internal_only     => true,
   }
