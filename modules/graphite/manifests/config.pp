@@ -22,14 +22,23 @@ class graphite::config {
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
-  $domain = $::govuk_platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${::govuk_platform}.alphagov.co.uk",
-  }
-
-  nginx::config::vhost::proxy { "graphite.${domain}":
-    to   => ['localhost:33333'],
-    root => '/opt/graphite/webapp',
+  case $::govuk_provider {
+    sky: {
+      nginx::config::vhost::proxy { "graphite":
+      to   => ['localhost:33333'],
+      root => '/opt/graphite/webapp',
+      }
+    }
+    default: {
+      $domain = $::govuk_platform ? {
+        'development' => 'dev.gov.uk',
+        default       => "${::govuk_platform}.alphagov.co.uk",
+      }
+      nginx::config::vhost::proxy { "graphite.${domain}":
+      to   => ['localhost:33333'],
+      root => '/opt/graphite/webapp',
+      }
+    }
   }
 
   file { '/etc/init/graphite.conf':
