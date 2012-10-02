@@ -11,7 +11,7 @@ application.secret="yin8VQSK>TsDwM2UhMq3O<lZ_cI@<Mu6XFOf06ThCy3p=^`:r>T/?cWvXqx1
 statsd.enabled:true
 statsd.prefix: "govuk.app.licensing.feed"
 statsd.host: localhost
-statsd.port: 8126
+statsd.port: 8125
 
 # The application languages
 # ~~~~~
