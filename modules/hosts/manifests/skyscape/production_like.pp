@@ -103,7 +103,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "licensify-mongo-2.licensify.${platform}"              : ip => "10.5.0.7", host_aliases  =>  ["licensify-mongo-2"] }
   host { "licensify-mongo-3.licensify.${platform}"              : ip => "10.5.0.8", host_aliases  =>  ["licensify-mongo-3"] }
   #Licensify load balancer V-shield edge
-  host { "licensify-internal-lb.licensify"                      : ip => "10.5.1.2", host_aliases  =>  ["licensify.${platform}.alphagov.co.uk", "uploadlicensify.production.alphahov.co.uk"] }
+  host { "licensify-internal-lb.licensify"                      : ip => "10.5.1.2", host_aliases  =>  ["licensify.${platform}.alphagov.co.uk", "uploadlicensify.${platform}.alphagov.co.uk"] }
 
 
 

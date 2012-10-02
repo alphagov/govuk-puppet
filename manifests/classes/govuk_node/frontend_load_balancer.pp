@@ -19,11 +19,6 @@ class govuk_node::frontend_load_balancer {
     "efg-frontend-1" => "10.4.0.2",
   }
 
-  $licensify_frontend_servers = {
-    "licensify-frontend-1" => "10.5.0.2",
-    "licensify-frontend-2" => "10.5.0.3",
-  }
-
   # Frontend Load Balancers
   haproxy::balance_http_and_https {
     'businesssupportfinder':
@@ -117,24 +112,6 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9525,
       https_listen_port => 8425,
       http_listen_port  => 8525;
-  }
-
-# Licensify Frontend Load Balancers
-  haproxy::balance_http_and_https {
-    'licensify':
-      servers           => $licensify_frontend_servers,
-      internal_only     => true,
-      health_check_port => 15500,
-      https_listen_port => 8490,
-      http_listen_port  => 8590;
-  }
-# Licensify upload pdf public endpoint
-  haproxy::balance_https {
-    'uploadlicensify':
-      servers           => $licensify_frontend_servers,
-      internal_only     => true,
-      health_check_port => 15500,  #The health check port is the same as licensify, since it is the same app listening on a different vhost
-      listen_port       => 8491;
   }
 
   # EFG frontend loadbalancers
