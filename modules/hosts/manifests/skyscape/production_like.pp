@@ -53,7 +53,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                     "smartanswers.${platform}.alphagov.co.uk",
                                                                                     "static.${platform}.alphagov.co.uk",
                                                                                     "tariff.${platform}.alphagov.co.uk",
-                                                                                    "whitehall-frontend.${platform}.alphagov.co.uk"
+                                                                                    "whitehall-frontend.${platform}.alphagov.co.uk",
+                                                                                    "licensify.${platform}.alphagov.co.uk"
                                                                                   ]}
   host { "calendars.frontend.${platform}"               : ensure => absent }
   host { "static.frontend.${platform}"                  : ensure => absent }
@@ -94,7 +95,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                       "whitehall-admin.${platform}.alphagov.co.uk"]}
 
   # ELMS (Licence Finder) VDC machines
-  host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1", "licensify.${platform}.alphagov.co.uk"] }
+  host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases =>  ["licensify-frontend-1"] }
   host { "licensify-frontend-2.licensify.${platform}"           : ip => "10.5.0.3", host_aliases =>  ["licensify-frontend-2"] }
   host { "licensify-backend-1.licensify.${platform}"            : ip => "10.5.0.4", host_aliases =>  ["licensify-backend-1",
                                                                                       "licensify-admin.${platform}.alphagov.co.uk"
