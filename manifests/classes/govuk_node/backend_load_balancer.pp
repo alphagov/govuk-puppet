@@ -85,7 +85,7 @@ class govuk_node::backend_load_balancer {
 
   $licensify_backend_servers = {
     "licensify-server-1" => "10.5.0.4",
-    "mapit-server-2"     => "10.5.0.5",
+    "licensify-server-2" => "10.5.0.5",
   }
 
   haproxy::balance_https {'licensify-admin':
