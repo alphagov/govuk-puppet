@@ -54,7 +54,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                     "static.${platform}.alphagov.co.uk",
                                                                                     "tariff.${platform}.alphagov.co.uk",
                                                                                     "whitehall-frontend.${platform}.alphagov.co.uk",
-                                                                                    "licensify.${platform}.alphagov.co.uk"
+                                                                                    "licensify.${platform}.alphagov.co.uk",
+                                                                                    "uploadlicensify.production.alphahov.co.uk"
                                                                                   ]}
   host { "calendars.frontend.${platform}"               : ensure => absent }
   host { "static.frontend.${platform}"                  : ensure => absent }
@@ -103,6 +104,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "licensify-mongo-1.licensify.${platform}"              : ip => "10.5.0.6", host_aliases  =>  ["licensify-mongo-1"] }
   host { "licensify-mongo-2.licensify.${platform}"              : ip => "10.5.0.7", host_aliases  =>  ["licensify-mongo-2"] }
   host { "licensify-mongo-3.licensify.${platform}"              : ip => "10.5.0.8", host_aliases  =>  ["licensify-mongo-3"] }
+
 
 
   #EFG VDC machines
