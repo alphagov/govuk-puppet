@@ -140,7 +140,7 @@ class govuk_node::frontend_load_balancer {
   # EFG frontend loadbalancers
   haproxy::balance_http_and_https {
     'efg':
-      servers           => $govuk_frontend_servers,
+      servers           => $efg_frontend_servers,
       health_check_port => 9519,
       https_listen_port => 8419,
       http_listen_port  => 8519;
