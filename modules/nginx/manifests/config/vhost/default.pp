@@ -1,4 +1,5 @@
 define nginx::config::vhost::default(
+  $extra_config = '',
   $status = '404',
   $ssl_certtype = 'wildcard_alphagov'
 ) {

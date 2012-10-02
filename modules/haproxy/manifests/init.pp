@@ -30,7 +30,12 @@ class haproxy {
 
   # Install a default vhost that 404s if haproxy doesn't know about the
   # specified host.
-  nginx::config::vhost::default { 'haproxy_default': }
+  nginx::config::vhost::default { 'haproxy_default':
+    extra_config => "
+location /site_alive {
+  proxy_pass http://localhost:8900;
+}",
+  }
 
   ## Monitoring stuff
   package {'libnagios-plugin-perl':
