@@ -1,9 +1,11 @@
 node default {
   case $::govuk_class {
+    akamai_logs:        { include govuk_node::akamai_logs }
     backend:            { include govuk_node::backend_server }
     backend-lb:         { include govuk_node::backend_load_balancer }
     cache:              { include govuk_node::cache_server }
     data:               { include govuk_node::db_server }
+    datainsight:        { include govuk_node::datainsight }
     development:        { include development }
     efg_frontend:       { include govuk_node::efg_frontend_server }
     efg_mysql_master:   { include govuk_node::efg_mysql_master_server }
@@ -23,10 +25,12 @@ node default {
     frontend-lb:        { include govuk_node::frontend_load_balancer }
     graylog:            { include govuk_node::graylog_server }
     jumpbox:            { include govuk_node::base }
+    licensify-lb:       { include govuk_node::licensify_load_balancer }
     logging:            { include govuk_node::graylog_server }
     management:         { include govuk_node::management_server_master }
     management_slave:   { include govuk_node::management_server_slave }
     mapit_server:       { include govuk_node::mapit_server }
+    mirror:             { include govuk_node::mirror_server }
     mongo:              { include govuk_node::mongo_server include govuk_node::mysql_master_server }
     monitoring:         { include govuk_node::monitoring_server }
     mysql_master:       { include govuk_node::mysql_master_server }
@@ -38,11 +42,7 @@ node default {
     redirector:         { include govuk_node::redirector_server }
     router-mongo:       { include govuk_node::router_mongo }
     support:            { include govuk_node::support_server }
-    mirror:             { include govuk_node::mirror_server }
     whitehall-frontend: { include govuk_node::whitehall_frontend_server }
-    datainsight:        { include govuk_node::datainsight }
-    akamai_logs:        { include govuk_node::akamai_logs }
-    licensify-lb:       { include govuk_node::licensify_load_balancer }
     default:            { }
   }
 }
