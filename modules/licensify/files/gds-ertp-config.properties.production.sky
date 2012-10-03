@@ -3,7 +3,7 @@ feedActor=true
 
 oauth_callback_url_override=https://licensify-admin.production.alphagov.co.uk/licence-management/admin/oauth
 
-uploadUrlBase=https://uploadlicensify.production.alphahov.co.uk/
+uploadUrlBase=https://uploadlicensify.production.alphagov.co.uk/
 
 elms.frontend.host=https://www.gov.uk/
 
