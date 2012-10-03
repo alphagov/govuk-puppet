@@ -5,4 +5,9 @@ class users::groups::other {
     email      => 'tom@experthuman.com';
   }
 
+  govuk::user { 'chrismdp':
+    fullname => 'Chris Parsons',
+    email    => 'chris@thinkcodelearn.com';
+  }
+
 }
