@@ -3,6 +3,7 @@ node default {
     akamai_logs:        { include govuk_node::akamai_logs }
     backend:            { include govuk_node::backend_server }
     backend-lb:         { include govuk_node::backend_load_balancer }
+    backup:             { include govuk_node::backup }
     cache:              { include govuk_node::cache_server }
     data:               { include govuk_node::db_server }
     datainsight:        { include govuk_node::datainsight }
