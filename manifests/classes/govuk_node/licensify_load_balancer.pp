@@ -16,19 +16,21 @@ class govuk_node::licensify_load_balancer {
 # Licensify Frontend Load Balancers
   haproxy::balance_http_and_https {
     'licensify':
-      servers           => $licensify_frontend_servers,
-      internal_only     => true,
-      health_check_port => 15500,
-      https_listen_port => 8490,
-      http_listen_port  => 8590;
+      servers             => $licensify_frontend_servers,
+      internal_only       => true,
+      health_check_port   => 15500,
+      https_listen_port   => 8490,
+      http_listen_port    => 8590,
+      health_check_method => 'GET'
   }
 # Licensify upload pdf public endpoint
   haproxy::balance_https {
     'uploadlicensify':
-      servers           => $licensify_frontend_servers,
-      internal_only     => true,
-      health_check_port => 15500,  #The health check port is the same as licensify, since it is the same app listening on a different vhost
-      listen_port       => 8491;
+      servers             => $licensify_frontend_servers,
+      internal_only       => true,
+      health_check_port   => 15500,  #The health check port is the same as licensify, since it is the same app listening on a different vhost
+      listen_port         => 8491,
+      health_check_method => 'GET'
   }
 
     haproxy::balance_https {'licensify-admin':
