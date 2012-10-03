@@ -54,6 +54,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                     "static.${platform}.alphagov.co.uk",
                                                                                     "tariff.${platform}.alphagov.co.uk",
                                                                                     "whitehall-frontend.${platform}.alphagov.co.uk",
+                                                                                    "www.${platform}.alphagov.co.uk"
                                                                                   ]}
   host { "calendars.frontend.${platform}"               : ensure => absent }
   host { "static.frontend.${platform}"                  : ensure => absent }
