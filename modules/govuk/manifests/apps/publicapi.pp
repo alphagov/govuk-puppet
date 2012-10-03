@@ -28,7 +28,7 @@ class govuk::apps::publicapi {
       location /api {
         proxy_set_header Host ${privateapi};
         proxy_set_header API-PREFIX api;
-        proxy_set_header Authorization  "";
+        proxy_set_header Authorization  \"\";
         proxy_pass http://${full_domain}-proxy/;
       }
 
