@@ -9,14 +9,14 @@ class nagios::client::checks {
     check_command       => 'check_ping!100.0,20%!500.0,60%',
     host_name           => "${::govuk_class}-${::hostname}",
     notification_period => '24x7',
-    use                 => 'govuk_medium_priority',
+    use                 => 'govuk_high_priority',
     service_description => "check ping for ${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_disk_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_disk',
     service_description => "check disk on ${::govuk_class}-${::hostname}",
-    use                 => 'govuk_medium_priority',
+    use                 => 'govuk_high_priority',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
@@ -41,13 +41,13 @@ class nagios::client::checks {
   @@nagios::check { "check_load_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_load',
     service_description => "check load on ${::govuk_class}-${::hostname}",
-    use                 => 'govuk_low_priority',
+    use                 => 'govuk_normal_priority',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_ssh_${::hostname}":
     check_command       => 'check_ssh',
-    use                 => 'govuk_medium_priority',
+    use                 => 'govuk_high_priority',
     service_description => "check ssh access to ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }

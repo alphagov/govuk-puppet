@@ -57,7 +57,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
-    use                 => 'govuk_high_priority',
+    use                 => 'govuk_urgent_priority',
     service_description => 'Check the current pingdom status',
     host_name           => "${::govuk_class}-${::hostname}"
   }
@@ -119,18 +119,18 @@ class nagios::config ($platform = $::govuk_platform) {
     email => $contact_email
   }
 
+  nagios::contact { 'zendesk_urgent_priority':
+    email                        => 'zd-alrt-urgent@digital.cabinet-office.gov.uk',
+    service_notification_options => 'c,w,u',
+  }
+
   nagios::contact { 'zendesk_high_priority':
     email                        => 'zd-alrt-high@digital.cabinet-office.gov.uk',
     service_notification_options => 'c,w,u',
   }
 
-  nagios::contact { 'zendesk_medium_priority':
-    email                        => 'zd-alrt-med@digital.cabinet-office.gov.uk',
-    service_notification_options => 'c,w,u',
-  }
-
-  nagios::contact { 'zendesk_low_priority':
-    email                        => 'zd-alrt-low@digital.cabinet-office.gov.uk',
+  nagios::contact { 'zendesk_normal_priority':
+    email                        => 'zd-alrt-normal@digital.cabinet-office.gov.uk',
     service_notification_options => 'c,w,u',
   }
 
@@ -153,15 +153,20 @@ class nagios::config ($platform = $::govuk_platform) {
 
   case $::govuk_platform {
     production: {
-      $highprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_high_priority']
-      $medprio_members  = ['monitoring_google_group','zendesk_medium_priority']
-      $lowprio_members  = ['monitoring_google_group','zendesk_low_priority']
+      $urgentprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_urgent_priority']
+      $highprio_members  = ['monitoring_google_group','zendesk_high_priority']
+      $normalprio_members  = ['monitoring_google_group','zendesk_normal_priority']
     }
     default: {
-      $highprio_members = ['monitoring_google_group']
-      $medprio_members  = $highprio_members
-      $lowprio_members  = $highprio_members
+      $urgentprio_members = ['monitoring_google_group']
+      $highprio_members  = $urgentprio_members
+      $normalprio_members  = $urgentprio_members
     }
+  }
+
+  nagios::contact_group { 'urgent-priority':
+    group_alias => 'Contacts for urgent priority alerts',
+    members     => $urgentprio_members,
   }
 
   nagios::contact_group { 'high-priority':
@@ -169,14 +174,9 @@ class nagios::config ($platform = $::govuk_platform) {
     members     => $highprio_members,
   }
 
-  nagios::contact_group { 'med-priority':
-    group_alias => 'Contacts for medium priority alerts',
-    members     => $medprio_members,
-  }
-
-  nagios::contact_group { 'low-priority':
-    group_alias => 'Contacts for low priority alerts',
-    members     => $lowprio_members,
+  nagios::contact_group { 'normal-priority':
+    group_alias => 'Contacts for normal priority alerts',
+    members     => $normalprio_members,
   }
   # End Zendesk Groups
 
@@ -188,20 +188,24 @@ class nagios::config ($platform = $::govuk_platform) {
     contact_groups => ['regular']
   }
 
+  nagios::service_template { 'govuk_urgent_priority':
+    contact_groups => ['urgent-priority']
+  }
+
   nagios::service_template { 'govuk_high_priority':
     contact_groups => ['high-priority']
   }
 
-  nagios::service_template { 'govuk_medium_priority':
-    contact_groups => ['med-priority']
+  nagios::service_template { 'govuk_normal_priority':
+    contact_groups => ['normal-priority']
   }
 
   nagios::service_template { 'govuk_low_priority':
-    contact_groups => ['low-priority']
+    contact_groups => ['regular']
   }
 
   nagios::service_template { 'govuk_unprio_priority':
-    contact_groups => ['low-priority']
+    contact_groups => ['regular']
   }
 
   $monitoring_url = $::govuk_platform ? {
