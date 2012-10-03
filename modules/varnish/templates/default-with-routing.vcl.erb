@@ -76,7 +76,7 @@ acl purge_acl {
 
 sub vcl_recv {
   # Listing Routes
-  if (req.url ~ "^/autocomplete$|^/preload-autocomplete$|^/sitemap.xml$") {
+  if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap.xml(\?.*)?$") {
   # Search
     set req.http.Host = "search.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = search;
@@ -84,15 +84,15 @@ sub vcl_recv {
   # Calendars
     set req.http.Host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = calendars;
-  } else if (req.url ~ "^/maternity-benefits|^/inherits-someone-dies-without-will|^/calculate-married-couples-allowance|^/student-finance-calculator|^/calculate-your-holiday-entitlement|^/legal-right-to-work-in-the-uk|^/become-a-driving-instructor|^/calculate-employee-redundancy-pay|^/claim-a-national-insurance-refund|^/calculate-your-redundancy-pay|^/become-a-motorcycle-instructor|^/apply-for-probate|^/report-a-lost-or-stolen-passport|^/calculate-state-pension|^/maternity-paternity-calculator|^/appeal-a-benefits-decision|^/calculate-statutory-sick-pay|^/request-for-flexible-working|^/towing-rules|^/auto-enrolled-into-workplace-pension|^/can-i-get-a-british-passport|^/exchange-a-foreign-driving-licence|^/calculate-night-work-hours|^/childcare-costs-for-tax-credits|^/calculate-agricultural-holiday-entitlement|^/register-a-death|^/estimate-self-assessment-penalties|^/benefits-if-you-are-abroad|^/am-i-getting-minimum-wage|^/vehicles-you-can-drive|^/additional-commodity-code|^/driving-in-the-uk-on-a-foreign-licence|^/calculate-child-maintenance-draft|^/recognise-a-trade-union|^/child-benefit-tax-calculator") {
+  } else if (req.url ~ "^/(maternity-benefits|inherits-someone-dies-without-will|calculate-married-couples-allowance|student-finance-calculator|calculate-your-holiday-entitlement|legal-right-to-work-in-the-uk|become-a-driving-instructor|calculate-employee-redundancy-pay|claim-a-national-insurance-refund|calculate-your-redundancy-pay|become-a-motorcycle-instructor|apply-for-probate|report-a-lost-or-stolen-passport|calculate-state-pension|maternity-paternity-calculator|appeal-a-benefits-decision|calculate-statutory-sick-pay|request-for-flexible-working|towing-rules|auto-enrolled-into-workplace-pension|can-i-get-a-british-passport|exchange-a-foreign-driving-licence|calculate-night-work-hours|childcare-costs-for-tax-credits|calculate-agricultural-holiday-entitlement|register-a-death|estimate-self-assessment-penalties|benefits-if-you-are-abroad|am-i-getting-minimum-wage|vehicles-you-can-drive|additional-commodity-code|driving-in-the-uk-on-a-foreign-licence|calculate-child-maintenance-draft|recognise-a-trade-union|child-benefit-tax-calculator)") {
   # Smart Answers
     set req.http.Host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = smartanswers;
-  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon.ico$|^/robots.txt$|^/fonts") {
+  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon.ico(\?.*)?$|^/robots.txt(\?.*)?$|^/fonts") {
   # Static
     set req.http.Host = "static.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = static;
-  } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/designprinciples/performanceframework$") {
+  } else if (req.url ~ "^/designprinciples(\?.*)?$|^/designprinciples/styleguide(\?.*)?$|^/designprinciples/performanceframework(\?.*)?$") {
   # Design Principles
     set req.http.Host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = designprinciples;
