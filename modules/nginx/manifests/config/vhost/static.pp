@@ -2,7 +2,8 @@ define nginx::config::vhost::static(
   $to = "localhost:8080", #FIXME: remove this default value once static is no longer served by apache
   $protected = true,
   $aliases = [],
-  $ssl_only = false
+  $ssl_only = false,
+  $server_names = []
 ) {
 
   include govuk::htpasswd
