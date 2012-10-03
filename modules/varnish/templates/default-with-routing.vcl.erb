@@ -40,11 +40,6 @@ backend licensify {
   .port = "80";
 }
 
-backend planner {
-  .host = "planner.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
 backend publicapi {
   .host = "public-api.<%= @govuk_platform %>.alphagov.co.uk";
   .port = "80";
@@ -97,10 +92,6 @@ sub vcl_recv {
   # Static
     set req.http.Host = "static.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = static;
-  } else if (req.url ~ "^/maternity|^/paternity|^/adoption") {
-  # Planner
-    set req.http.Host = "planner.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = planner;
   } else if (req.url ~ "^/designprinciples$|^/designprinciples/styleguide$|^/designprinciples/performanceframework$") {
   # Design Principles
     set req.http.Host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
