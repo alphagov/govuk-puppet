@@ -13,6 +13,10 @@ env ES_PIDFILE="/var/run/elasticsearch/elasticsearch-<%= @cluster_name %>.pid"
 limit nofile 64000 64000
 limit memlock unlimited unlimited
 
+pre-start script
+    mkdir -p /var/run/elasticsearch
+end script
+
 exec start-stop-daemon --start \
                        --chuid elasticsearch:elasticsearch \
                        --pidfile "$ES_PIDFILE" \
