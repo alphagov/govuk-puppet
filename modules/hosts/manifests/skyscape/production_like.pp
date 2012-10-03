@@ -32,8 +32,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "frontend-1.frontend.${platform}"              : ip => "10.2.0.2", host_aliases => ['frontend-1'] }
   host { "frontend-2.frontend.${platform}"              : ip => "10.2.0.3", host_aliases => ['frontend-2'] }
   host { "frontend-3.frontend.${platform}"              : ip => "10.2.0.4", host_aliases => ['frontend-3'] }
-  host { "whitehall-frontend-1.frontend.${platform}"    : ip => "10.2.0.5" }
-  host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6" }
+  host { "whitehall-frontend-1.frontend.${platform}"    : ip => "10.2.0.5", host_aliases => ['whitehall-frontend-1'] }
+  host { "whitehall-frontend-2.frontend.${platform}"    : ip => "10.2.0.6", host_aliases => ['whitehall-frontend-2'] }
 
 
   #Frontend LB vhosts
