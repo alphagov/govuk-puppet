@@ -12,4 +12,10 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
+  @@nagios::check { "check_no_overdue_scheduled_editions":
+    check_command       => "check_graphite_metric!stats.gauges.govuk.app.whitehall.scheduled_publishing.due!0!0",
+    service_description => 'There should never be any overdue scheduled editions',
+    use                 => 'govuk_high_priority',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
 }
