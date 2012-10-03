@@ -33,10 +33,11 @@ class govuk_node::licensify_load_balancer {
       health_check_method => 'GET'
   }
 
-    haproxy::balance_https {'licensify-admin':
-    servers           => $licensify_backend_servers,
-    health_check_port => 16000,
-    listen_port       => 8492,
-    internal_only     => true,
+  haproxy::balance_https {'licensify-admin':
+    servers             => $licensify_backend_servers,
+    health_check_port   => 16000,
+    listen_port         => 8492,
+    health_check_method => 'GET',
+    internal_only       => true,
   }
 }
