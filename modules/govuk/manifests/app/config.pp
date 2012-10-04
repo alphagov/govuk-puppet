@@ -102,15 +102,11 @@ define govuk::app::config (
     service_description => "Check memory used by app ${title} is not too high",
     host_name           => "${::govuk_class}-${::hostname}",
   }
-
-  #Experimenting with nagios app health checks only on skyscape, so that we don't get flooded with bad alerts everywhere
-  if $::govuk_provider == 'sky'{
-    if $health_check_path != 'NOTSET' {
-      @@nagios::check { "check_app_${title}_up_on_${::hostname}":
-        check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
-        service_description => "check if app ${title} is up on ${::govuk_class}-${::hostname}",
-        host_name           => "${::govuk_class}-${::hostname}",
-      }
+  if $health_check_path != 'NOTSET' {
+    @@nagios::check { "check_app_${title}_up_on_${::hostname}":
+      check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
+      service_description => "check if app ${title} is up on ${::govuk_class}-${::hostname}",
+      host_name           => "${::govuk_class}-${::hostname}",
     }
   }
 }
