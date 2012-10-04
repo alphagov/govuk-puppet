@@ -77,7 +77,7 @@ define govuk::app::config (
 
   @ganglia::pyconf { "app-${title}":
     content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
-    require => File["/usr/lib/ganglia/python_modules/app-${title}-proc$::govuk_provider == 'sky'stat.py"],
+    require => File["/usr/lib/ganglia/python_modules/app-${title}-procstat.py"]
   }
 
   @logstash::collector { "app-${title}":
