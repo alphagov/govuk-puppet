@@ -10,6 +10,7 @@ class govuk_node::base {
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
+  include users::assets
 
   include govuk::repository
   include govuk::deploy

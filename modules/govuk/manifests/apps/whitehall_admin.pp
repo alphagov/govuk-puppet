@@ -5,6 +5,27 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
     health_check_path => '/';
   }
 
+  file { "/data/uploads":
+    ensure  => 'directory',
+    owner   => 'assets',
+    group   => 'assets',
+    mode    => '0664',
+    require => [User['assets'], Group['assets']],
+  }
+
+  package { 'nfs-common':
+    ensure => installed,
+  }
+
+  mount { "/data/uploads":
+    ensure  => "mounted",
+    device  => "asset-master.preview.alphagov.co.uk:/mnt/uploads",
+    fstype  => "nfs",
+    options => "defaults",
+    atboot  => true,
+    require => [File["/data/uploads"], Package['nfs-common']],
+  }
+
   @@nagios::check { "check_scheduled_publishing":
     check_command       => "check_graphite_metric_since!hitcount(stats.govuk.app.whitehall.scheduled_publishing.call_rate,'16minutes')!16minutes!0.9:100!0.9:100",
     service_description => 'scheduled publishing should run at least once every 16 minutes',
