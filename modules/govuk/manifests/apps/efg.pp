@@ -2,7 +2,7 @@ class govuk::apps::efg( $port = 3019 ) {
   govuk::app { 'efg':
     app_type          => 'rack',
     port              => $port,
-    health_check_path => "/",
+    health_check_path => "/healthcheck",
     vhost_ssl_only    => true;
   }
 
