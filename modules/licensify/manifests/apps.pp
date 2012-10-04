@@ -31,7 +31,7 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
   # Experimenting with app http checks
   if $::govuk_provider == 'sky'{
     @@nagios::check { "check_app_licensify_up_on_${::hostname}":
-      check_command       => "check_nrpe!check_app_up!licensify.${::govuk_platform}.alphagov.co.uk!${port}!/api/licences",
+      check_command       => "check_nrpe!check_app_up",
       service_description => "check if app licensify is up on ${::govuk_class}-${::hostname}",
       host_name           => "${::govuk_class}-${::hostname}",
     }
