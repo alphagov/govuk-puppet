@@ -8,6 +8,9 @@ class hosts::preview {
   host { 'mysql.cluster':     ip => '10.59.61.129' }
   host { 'mongodb.cluster':   ip => '10.59.61.129' }
 
+  host { 'asset-master.preview.alphagov.co.uk':         ip => '10.32.13.47' }
+  host { 'asset-slave.preview.alphagov.co.uk':          ip => '10.32.14.101' }
+
   host { 'monitoring.cluster':  ip => '10.51.62.202' }
   host { 'cache.cluster':       ip => '10.58.175.43' }
   host { 'router.cluster':      ip => '10.58.175.43' }
@@ -40,6 +43,7 @@ class hosts::preview {
   host { 'whitehall.preview.alphagov.co.uk':            ip => '10.49.105.155' }
   host { 'whitehall.cluster':                           ip => '10.49.105.155' }
   host { 'whitehall-admin.preview.alphagov.co.uk':      ip => '10.228.95.176' }
+
 
   host { 'licensify-frontend': ip => '10.237.35.45' }
   host { 'licensify-mongo0':   ip => '10.234.74.235' }
