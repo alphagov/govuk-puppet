@@ -41,6 +41,14 @@ location = /government {
   proxy_pass http://varnish;
 }
 
+location /apply-for-a-licence {
+  deny all;
+  auth_basic "The licencing application beta requires a password";
+  auth_basic_user_file /etc/govuk.htpasswd;
+  satisfy any;
+  proxy pass http://varnish;
+}
+
 # Temporary http authentication for datainsight-frontend
 location /performance {
   deny all;
