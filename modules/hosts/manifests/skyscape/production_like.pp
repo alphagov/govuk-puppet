@@ -109,8 +109,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
 
   #EFG VDC machines
-  host { "efg-mysql-master-1.efg.${platform}" : ip => "10.4.0.10"}
-  host { "efg-frontend-1.efg.${platform}"     : ip => "10.4.0.2"}
+  host { "efg-mysql-master-1.efg.${platform}" : ip => "10.4.0.10",  host_aliases => ['efg-mysql-master-1', 'efg.master.mysql']}
+  host { "efg-frontend-1.efg.${platform}"     : ip => "10.4.0.2",   host_aliases => ['efg-frontend-1']}
 
   # Redirector VDC machines
   host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" }
