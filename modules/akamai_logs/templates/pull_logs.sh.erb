@@ -1,0 +1,62 @@
+#! /bin/sh
+# Pulls the log files from Akamai
+set -x
+
+LOCAL_DOWNLOAD_DIR=<%= @local_logs_dir %>/tmp
+LOCAL_LOGS_DIR=<%= @local_logs_dir %>/logs
+LOCAL_MD5=/usr/bin/md5sum
+
+AKAMAI_USER=<%= @akamai_user %>
+AKAMAI_HOST=<%= @akamai_host %>
+AKAMAI_LOGS_DIR=<%= @path_to_logs %>
+AKAMAI_MD5=/usr/bin/md5sum
+
+BACKUP_USER=<%= @user %>
+BACKUP_HOST=localhost
+BACKUP_LOGS_DIR=<%= @local_logs_dir %>
+BACKUP_MD5=/usr/bin/md5sum
+
+LOCK_FILE=$LOCAL_DOWNLOADS_DIR/.lock
+CHECKSUM_FILE=md5sums-$(date +%s)
+
+# Create lockfile, to avoid running the scanner
+if [ -e $LOCK_FILE ]; then
+  echo "WARN: Lock file exists, aborting"
+  exit 1
+fi
+touch $LOCK_FILE
+
+# Get the files from SFTP
+ssh $AKAMAI_USER@$AKAMAI_HOST "cd $AKAMAI_LOGS_DIR && $AKAMAI_MD5 *.gz" > $LOCAL_DOWNLOAD_DIR/$CHECKSUM_FILE
+sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/*.gz $LOCAL_DOWNLOAD_DIR
+
+# RSYNC the files to my backup machine
+rsync -az --exclude=.lock $LOCAL_DOWNLOAD_DIR/ $BACKUP_USER@$BACKUP_HOST:$BACKUP_LOGS_DIR
+
+# Remove the lockfile, to allow the scanner to run again
+rm $LOCK_FILE
+
+# Use checksum to verify I got the files correct
+cd $LOCAL_DOWNLOAD_DIR && $LOCAL_MD5 -c $CHECKSUM_FILE
+if [ $? -ne 0 ] ; then
+  echo "ERROR: Checksum between akamai and local copy failed."
+  exit 1
+fi
+
+ssh $BACKUP_USER@$BACKUP_HOST "cd $BACKUP_LOGS_DIR && $BACKUP_MD5 -c $CHECKSUM_FILE"
+if [ $? -ne 0 ] ; then
+  echo "ERROR: Checksum between akamai and backup copy failed."
+  exit 1
+fi
+
+# Delete the files on the akamai
+for log_file in $(awk '{print $2}' $LOCAL_DOWNLOAD_DIR/$CHECKSUM_FILE); do
+  ssh $AKAMAI_USER@$AKAMAI_HOST "rm $AKAMAI_LOGS_DIR/$log_file"
+done
+rm $LOCAL_DOWNLOAD_DIR/$CHECKSUM_FILE
+ssh $BACKUP_USER@$BACKUP_HOST "rm $BACKUP_LOGS_DIR/$CHECKSUM_FILE"
+
+# Move the files into the log directory
+for log_file in $(awk '{print $2}' $LOCAL_DOWNLOAD_DIR/$CHECKSUM_FILE); do
+  mv $LOCAL_DOWNLOAD_DIR/$log_file $LOCAL_LOGS_DIR/
+done

@@ -1,6 +1,7 @@
 node default {
   case $::govuk_class {
     akamai_logs:        { include govuk_node::akamai_logs }
+    akamai_logs_backup: { include govuk_node::akamai_logs_backup }
     asset_master:       { include govuk_node::asset_master }
     asset_slave:        { include govuk_node::asset_slave }
     backend:            { include govuk_node::backend_server }
