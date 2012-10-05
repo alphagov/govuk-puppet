@@ -5,7 +5,7 @@ cd $1
 set +o errexit # disable fail on errors
 
 for file in `find . -type f`; do
-  clamscan $file
+  /opt/clamav/bin/clamscan $file
   case $? in
   0)
     rsync -R --remove-source-files $file $2
