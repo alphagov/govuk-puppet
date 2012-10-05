@@ -152,10 +152,17 @@ class nagios::config ($platform = $::govuk_platform) {
   # The next three contact groups include Zendesk for production
 
   case $::govuk_platform {
-    production: {
-      $urgentprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_urgent_priority']
-      $highprio_members  = ['monitoring_google_group','zendesk_high_priority']
-      $normalprio_members  = ['monitoring_google_group','zendesk_normal_priority']
+    case $::govuk_provider {
+      sky: {
+        $urgentprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_urgent_priority']
+        $highprio_members  = ['monitoring_google_group','zendesk_high_priority']
+        $normalprio_members  = ['monitoring_google_group','zendesk_normal_priority']
+      }
+      default: {
+        $urgentprio_members = ['monitoring_google_group']
+        $highprio_members  = $urgentprio_members
+        $normalprio_members  = $urgentprio_members
+      }
     }
     default: {
       $urgentprio_members = ['monitoring_google_group']
