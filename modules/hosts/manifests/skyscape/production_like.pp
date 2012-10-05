@@ -113,6 +113,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "efg-frontend-1.efg.${platform}"     : ip => "10.4.0.2",   host_aliases => ['efg-frontend-1']}
 
   # Redirector VDC machines
-  host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" }
-  host { "redirector-2.redirector.${platform}"  : ip => "10.6.0.3" }
+  host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" , host_aliases => ['redirector-1']}
+  host { "redirector-2.redirector.${platform}"  : ip => "10.6.0.3" , host_aliases => ['redirector-2']}
 }
