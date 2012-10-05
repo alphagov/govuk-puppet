@@ -6,12 +6,6 @@ class logstash::server::config (
 
   include logstash::config
 
-  file { '/var/log/logstash-aggregation':
-    ensure  => 'directory',
-    owner   => 'logstash',
-    group   => 'logstash',
-  }
-
   file { '/var/log/apdex':
     ensure  => 'directory',
     owner   => 'logstash',
