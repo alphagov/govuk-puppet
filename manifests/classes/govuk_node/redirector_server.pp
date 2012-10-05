@@ -14,4 +14,7 @@ class govuk_node::redirector_server inherits govuk_node::base {
   package { 'libcrypt-ssleay-perl':
     ensure => present,
   }
+  nginx::config::vhost::default { 'default':
+    status => '444',
+  }
 }

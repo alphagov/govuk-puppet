@@ -4,13 +4,13 @@ upstream varnish {
 
 server {
   server_name www.gov.uk www.<%= @platform %>.alphagov.co.uk www-origin.<%= @platform %>.alphagov.co.uk;
-  listen 80 default_server;
+  listen 80;
   rewrite ^/(.*) https://$host/$1 permanent;
 }
 
 server {
   server_name         www.gov.uk;
-  listen              443 ssl default_server;
+  listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/www.gov.uk.crt;
   ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
   include             /etc/nginx/ssl.conf;
