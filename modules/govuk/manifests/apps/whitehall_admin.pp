@@ -19,7 +19,7 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
 
   mount { "/data/uploads":
     ensure  => "mounted",
-    device  => "asset-master.preview.alphagov.co.uk:/mnt/uploads",
+    device  => "asset-master.${::govuk_platform}.alphagov.co.uk:/mnt/uploads",
     fstype  => "nfs",
     options => "defaults",
     atboot  => true,
