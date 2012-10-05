@@ -123,9 +123,9 @@ class jenkins::master inherits jenkins {
   }
 
   file { '/var/govuk-archive':
-    ensure => directory,
-    owner  => jenkins,
-    group  => jenkins,
+    ensure  => directory,
+    owner   => jenkins,
+    group   => jenkins,
     require => User['jenkins'],
   }
 
