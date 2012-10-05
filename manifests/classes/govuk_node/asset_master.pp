@@ -32,7 +32,7 @@ class govuk_node::asset_master inherits govuk_node::base {
   ufw::allow { 'Allow all access from backend machines':
     from => '10.3.0.0/16',
   }
-  
+
   package { 'nfs-kernel-server':
     ensure => installed,
   }
