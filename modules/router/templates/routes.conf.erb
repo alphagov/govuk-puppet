@@ -46,7 +46,7 @@ location /apply-for-a-licence {
   auth_basic "The licencing application beta requires a password";
   auth_basic_user_file /etc/govuk.htpasswd;
   satisfy any;
-  proxy pass http://varnish;
+  proxy_pass http://varnish;
 }
 
 # Temporary http authentication for datainsight-frontend
