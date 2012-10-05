@@ -1,0 +1,11 @@
+#!/bin/bash
+BACKUPROOT="/data/backups/"
+CLIENTNAME="<%= @host_name %>"
+SOURCEDIR="<%= @directory %>"
+# Not currently used here, probably will use it for auto-cleanup later
+FREQUENCY="<%= @frequency %>"
+DATE=`date +"%Y%m%d"`
+mkdir -fp ${BACKUPROOT}${CLIENTNAME}${SOURCEDIR}
+rsync -qa -e ssh --delete backup@${CLIENTNAME}:${SOURCEDIR} ${BACKUPROOT}${CLIENTNAME}${SOURCEDIR}
+echo "Date: $DATE" > ${BACKUPROOT}${CLIENTNAME}${SOURCEDIR}/BACKUPINFO
+
