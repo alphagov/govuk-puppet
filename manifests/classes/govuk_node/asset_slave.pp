@@ -17,7 +17,7 @@ class govuk_node::asset_slave inherits govuk_node::asset_master {
     require => [File["/data/master-uploads"]],
   }
 
-  ufw::allow {
+  ufw::allow {'Allow all backend machines to access':
     from => '10.3.0.0/16',
   }
 
