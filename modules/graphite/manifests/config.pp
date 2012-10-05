@@ -41,7 +41,7 @@ class graphite::config {
   }
 
   @@nagios::check { "check_carbon_cache_running_on_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_procs -a carbon-cache',
+    check_command       => 'check_nrpe_1arg!check_procs -a carbon-cache 1:',
     service_description => "check if carbon-cache is running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
