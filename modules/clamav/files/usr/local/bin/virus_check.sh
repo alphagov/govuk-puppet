@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -e
+set -o errexit # fail on errors
 cd $1
-unset -e
+set +o errexit # disable fail on errors
 
 for file in `find . -type f`; do
   clamscan $file
