@@ -9,7 +9,7 @@ class backup::client {
       require    => Group['backup'],
       shell      => '/bin/bash',
     }
-  
+
   govuk::user { 'backup':
       fullname  => 'Backup User',
       email     => 'webops@digital.cabinet-office.gov.uk';
