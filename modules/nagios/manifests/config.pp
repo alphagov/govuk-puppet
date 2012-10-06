@@ -37,23 +37,23 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::check_feature {
-    'check_apollo':          feature => 'apollo';
-    'check_businesssupportfinder': feature => 'businesssupportfinder';
-    'check_cache':           feature => 'cache';
-    'check_calendars':       feature => 'calendars';
-    'check_contractsfinder': feature => 'contractsfinder';
-    'check_efg':             feature => 'efg';
-    'check_frontend':        feature => 'frontend';
-    'check_licencefinder':   feature => 'licencefinder';
-    'check_mongo':           feature => 'mongo';
-    'check_mysql':           feature => 'mysql';
-    'check_planner':         feature => 'planner';
-    'check_router':          feature => 'router';
-    'check_search':          feature => 'search';
-    'check_smartanswers':    feature => 'smartanswers';
-    'check_solr':            feature => 'solr';
-    'check_tariff':          feature => 'tariff';
-    'check_whitehall':       feature => 'whitehall';
+    'check_apollo':                 feature => 'apollo';
+    'check_businesssupportfinder':  feature => 'businesssupportfinder';
+    'check_cache':                  feature => 'cache';
+    'check_calendars':              feature => 'calendars';
+    'check_contractsfinder':        feature => 'contractsfinder';
+    'check_efg':                    feature => 'efg';
+    'check_frontend':               feature => 'frontend';
+    'check_licencefinder':          feature => 'licencefinder';
+    'check_mongo':                  feature => 'mongo';
+    'check_mysql':                  feature => 'mysql';
+    'check_planner':                feature => 'planner';
+    'check_router':                 feature => 'router';
+    'check_search':                 feature => 'search';
+    'check_smartanswers':           feature => 'smartanswers';
+    'check_solr':                   feature => 'solr';
+    'check_tariff':                 feature => 'tariff';
+    'check_whitehall':              feature => 'whitehall';
   }
 
   @@nagios::check { 'check_pingdom':
