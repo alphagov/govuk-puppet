@@ -53,6 +53,9 @@ class nagios::config ($platform = $::govuk_platform) {
     'check_solr':            feature => 'solr';
     'check_tariff':          feature => 'tariff';
     'check_whitehall':       feature => 'whitehall';
+    'check_elasticsearch':   feature => 'elasticsearch';
+    'check_publishing':      feature => 'mainstream_publishing_tools';
+    'check_signon':          feature => 'signon';
   }
 
   @@nagios::check { 'check_pingdom':
