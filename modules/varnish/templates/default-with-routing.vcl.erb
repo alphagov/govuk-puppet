@@ -1,3 +1,40 @@
+# A list of smartanswers to make them easy to maintain
+
+<% smartanswers = %w[additional-commodity-code
+                     am-i-getting-minimum-wage
+                     appeal-a-benefits-decision
+                     apply-for-probate
+                     auto-enrolled-into-workplace-pension
+                     become-a-driving-instructor
+                     become-a-motorcycle-instructor
+                     benefits-if-you-are-abroad
+                     calculate-agricultural-holiday-entitlement
+                     calculate-child-maintenance-draft
+                     calculate-employee-redundancy-pay
+                     calculate-married-couples-allowance
+                     calculate-night-work-hours
+                     calculate-state-pension
+                     calculate-statutory-sick-pay
+                     calculate-your-holiday-entitlement
+                     calculate-your-redundancy-pay
+                     can-i-get-a-british-passport
+                     child-benefit-tax-calculator
+                     childcare-costs-for-tax-credits
+                     claim-a-national-insurance-refund
+                     driving-in-the-uk-on-a-foreign-licence
+                     estimate-self-assessment-penalties
+                     exchange-a-foreign-driving-licence
+                     inherits-someone-dies-without-will
+                     legal-right-to-work-in-the-uk
+                     maternity-benefits
+                     maternity-paternity-calculator
+                     recognise-a-trade-union
+                     register-a-death
+                     report-a-lost-or-stolen-passport
+                     request-for-flexible-working
+                     student-finance-calculator
+                     towing-rules
+                     vehicles-you-can-drive] %>
 # Backends
 
 backend businesssupportfinder {
@@ -84,7 +121,7 @@ sub vcl_recv {
   # Calendars
     set req.http.Host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = calendars;
-  } else if (req.url ~ "^/(maternity-benefits|inherits-someone-dies-without-will|calculate-married-couples-allowance|student-finance-calculator|calculate-your-holiday-entitlement|legal-right-to-work-in-the-uk|become-a-driving-instructor|calculate-employee-redundancy-pay|claim-a-national-insurance-refund|calculate-your-redundancy-pay|become-a-motorcycle-instructor|apply-for-probate|report-a-lost-or-stolen-passport|calculate-state-pension|maternity-paternity-calculator|appeal-a-benefits-decision|calculate-statutory-sick-pay|request-for-flexible-working|towing-rules|auto-enrolled-into-workplace-pension|can-i-get-a-british-passport|exchange-a-foreign-driving-licence|calculate-night-work-hours|childcare-costs-for-tax-credits|calculate-agricultural-holiday-entitlement|register-a-death|estimate-self-assessment-penalties|benefits-if-you-are-abroad|am-i-getting-minimum-wage|vehicles-you-can-drive|additional-commodity-code|driving-in-the-uk-on-a-foreign-licence|calculate-child-maintenance-draft|recognise-a-trade-union|child-benefit-tax-calculator)") {
+  } else if (req.url ~ "^/(<%= smartanswers.join("|") %>)") {
   # Smart Answers
     set req.http.Host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = smartanswers;
