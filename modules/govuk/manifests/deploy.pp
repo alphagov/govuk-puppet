@@ -72,11 +72,11 @@ class govuk::deploy {
     require => Package['envmgr'],
   }
 
-   case $::govuk_platform {
-     'production':  { $asset_host = "https://d17tffe05zdvwj.cloudfront.net" }
-     'preview':     { $asset_host = "https://djb1962t8apu5.cloudfront.net" }
-     'development': { $asset_host = "http://static.dev.gov.uk" }
-     default:       { $asset_host = "http://static.$::govuk_platform.gov.uk" }
+  $asset_host = $::govuk_platform ? {
+    'production'  => "https://d17tffe05zdvwj.cloudfront.net",
+    'preview'     => "https://djb1962t8apu5.cloudfront.net",
+    'development' => "http://static.dev.gov.uk",
+    default       => "https://static.${::govuk_platform}.gov.uk",
   }
 
   file { '/etc/govuk/asset_host.conf':
