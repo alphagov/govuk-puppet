@@ -72,11 +72,23 @@ class govuk::deploy {
     require => Package['envmgr'],
   }
 
-  $asset_host = $::govuk_platform ? {
-    'production'  => "https://d17tffe05zdvwj.cloudfront.net",
-    'preview'     => "https://djb1962t8apu5.cloudfront.net",
-    'development' => "http://static.dev.gov.uk",
-    default       => "https://static.${::govuk_platform}.gov.uk",
+  $app_domain = extlookup('app_domain_suffix', 'dev.gov.uk')
+
+  case $::govuk_provider {
+    sky: {
+      # This will change. When we know what our assets CDN is going to be
+      # called and when we can put it there this should point there. For the
+      # moment we serve assets direct from static. Ugh. -NS
+      $asset_host = "https://static.${app_domain}"
+    }
+    default: {
+      $asset_host = $::govuk_platform ? {
+        'production'  => "https://d17tffe05zdvwj.cloudfront.net",
+        'preview'     => "https://djb1962t8apu5.cloudfront.net",
+        'development' => "http://static.${app_domain}",
+        default       => "https://static.${app_domain}",
+      }
+    }
   }
 
   file { '/etc/govuk/asset_host.conf':
