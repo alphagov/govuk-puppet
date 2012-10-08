@@ -13,5 +13,5 @@ application.secret="yin8VQSK>TsDwM2UhMq3O<lZ_cI@<Mu6XFOf06ThCy3p=^`:r>T/?cWvXqx1
 # Root logger:
 logger.root=ERROR
 
+# Set session cookies to https only (not set in dev for obvious reasons)
 session.secure=true
-session.cookieName=licensing_session
