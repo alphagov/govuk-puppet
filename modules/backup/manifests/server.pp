@@ -6,14 +6,12 @@ class backup::server {
     ensure  => directory,
     owner   => 'backup',
     mode    => '0700',
-    require => User['backup']
   }
 
   file {'/home/backup/.ssh':
     ensure  => directory,
     owner   => 'backup',
     mode    => '0700',
-    require => User['backup']
   }
 
   file {'/home/backup/.ssh/id_rsa':
@@ -21,7 +19,6 @@ class backup::server {
     owner   => 'backup',
     mode    => '0600',
     content => extlookup('backup_key_private', ''),
-    require => File['/home/backup/.ssh'],
   }
 
   Backup::Directory   <<||>> { notify => Class['backup::server'] }
