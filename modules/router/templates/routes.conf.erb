@@ -1,8 +1,21 @@
+keepalive_timeout 120;
+
 proxy_set_header Host $http_host;
 proxy_set_header X-Real-IP $remote_addr;
 proxy_set_header X-Forwarded-Server $host;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_redirect off;
+
+# This sets the IP used by Nginx to the client IP from the X-Forwarded-For
+# chain, rather than the IP from the CDN node
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;
+set_real_ip_from 0.0.0.0/0;
+
+# With the above real-ip in place we can limit connections and requests
+# based on that
+limit_req zone=rate burst=5 nodelay;
+limit_conn connections 4;
 
 access_log /var/log/nginx/lb-access.log timed_combined;
 error_log  /var/log/nginx/lb-error.log;

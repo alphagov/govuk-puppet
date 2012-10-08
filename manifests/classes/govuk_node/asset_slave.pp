@@ -1,4 +1,5 @@
 class govuk_node::asset_slave inherits govuk_node::asset_master {
+  include users::assets
 
   file { "/data/master-uploads":
     ensure  => 'directory',
