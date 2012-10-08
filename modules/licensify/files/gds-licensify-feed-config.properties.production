@@ -55,4 +55,5 @@ play.akka.actor.retrieveBodyParserTimeout = 10 seconds
 
 session.secure=true
 session.cookieName=licensing_session
+ws.acceptAnyCertificate=true
 
