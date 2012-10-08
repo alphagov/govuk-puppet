@@ -6,6 +6,7 @@ class govuk::deploy {
   include pip
   include envmgr
   include unicornherder
+  include users::assets
 
   group { 'deploy':
     ensure  => 'present',

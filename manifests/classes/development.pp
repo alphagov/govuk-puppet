@@ -13,6 +13,7 @@ class development {
   include solr
   include tmpreaper
   include users
+  include users::assets
   include rabbitmq
   include fonts
 
