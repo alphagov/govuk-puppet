@@ -7,7 +7,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   #Management VDC machines
   host { "puppet-1.management.${platform}"    : ip  => "10.0.0.2", host_aliases  => [ "puppet-1", "puppet" ] }
   host { "jenkins-1.management.${platform}"   : ip  => "10.0.0.3" }
-  host { "monitoring.management.${platform}"  : ip  => "10.0.0.20", host_aliases => ["monitoring","monitoring.cluster"] }
+  host { "monitoring.management.${platform}"  : ip  => "10.0.0.20", host_aliases => ["monitoring","monitoring.cluster","nagios.production.alphagov.co.uk","ganglia.production.alphagov.co.uk","graphite.production.alphagov.co.uk"] }
   host { "logging.management.${platform}"     : ip  => "10.0.0.21", host_aliases => ["logging","graylog.cluster"]}
   host { "jumpbox-1.management.${platform}"   : ip  => "10.0.0.100" }
   host { "jumpbox-2.management.${platform}"   : ip  => "10.0.0.200" }
