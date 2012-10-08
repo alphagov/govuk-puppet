@@ -11,6 +11,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "logging.management.${platform}"     : ip  => "10.0.0.21", host_aliases => ["logging","graylog.cluster"]}
   host { "jumpbox-1.management.${platform}"   : ip  => "10.0.0.100" }
   host { "jumpbox-2.management.${platform}"   : ip  => "10.0.0.200" }
+  host { "backup-1.management.${platform}"    : ip  => "10.0.0.50" }
   host { "vcd00003.vpn.skyscapecs.net"        : ip  => "10.202.5.11" }
 
   #Router VDC machines
