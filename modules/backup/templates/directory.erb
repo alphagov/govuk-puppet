@@ -6,6 +6,6 @@ SOURCEDIR="<%= @directory %>"
 FREQUENCY="<%= @frequency %>"
 DATE=`date +"%Y%m%d"`
 mkdir -fp ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
-rsync -qa -e ssh --delete backup@${CLIENTNAME}:${SOURCEDIR} ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
+rsync -qa -e ssh --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR} ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 echo "Date: $DATE" > ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}/BACKUPINFO
 

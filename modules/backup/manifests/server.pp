@@ -4,21 +4,21 @@ class backup::server {
 
   file {'/data/backups':
     ensure  => directory,
-    owner   => 'backup',
+    owner   => 'govuk-backup',
     mode    => '0700',
   }
 
-  file {'/home/backup/.ssh':
+  file {'/home/govuk-backup/.ssh':
     ensure  => directory,
-    owner   => 'backup',
+    owner   => 'govuk-backup',
     mode    => '0700',
   }
 
-  file {'/home/backup/.ssh/id_rsa':
+  file {'/home/govuk-backup/.ssh/id_rsa':
     ensure  => file,
-    owner   => 'backup',
+    owner   => 'govuk-backup',
     mode    => '0600',
-    content => extlookup('backup_key_private', ''),
+    content => extlookup('govuk-backup_key_private', ''),
   }
 
   Backup::Directory   <<||>> { notify => Class['backup::server'] }
