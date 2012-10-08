@@ -27,7 +27,7 @@ set +e
 wget --mirror \
   --adjust-extension \
   -o mirror.log \
-  -X /licence-finder,/trade-tariff,/business-finance-support-finder \
+  -X /licence-finder,/trade-tariff,/business-finance-support-finder,/government \
   --header="X-Govuk-Mirrorer: 1" \
   -i whitelist_urls \
   https://www.gov.uk/
