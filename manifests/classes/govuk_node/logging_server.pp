@@ -1,4 +1,4 @@
-class govuk_node::graylog_server inherits govuk_node::base {
+class govuk_node::logging_server inherits govuk_node::base {
   include elasticsearch
   include nagios::client
   include nginx

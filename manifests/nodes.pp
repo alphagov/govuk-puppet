@@ -27,10 +27,10 @@ node default {
     ertp-mongo:         { include ertp_base::mongo_server }
     frontend:           { include govuk_node::frontend_server }
     frontend-lb:        { include govuk_node::frontend_load_balancer }
-    graylog:            { include govuk_node::graylog_server }
+    graylog:            { include govuk_node::logging_server }
     jumpbox:            { include govuk_node::base }
     licensify-lb:       { include govuk_node::licensify_load_balancer }
-    logging:            { include govuk_node::graylog_server }
+    logging:            { include govuk_node::logging_server }
     management:         { include govuk_node::management_server_master }
     management_slave:   { include govuk_node::management_server_slave }
     mapit_server:       { include govuk_node::mapit_server }
