@@ -78,9 +78,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "mysql-master-1.backend.${platform}"    : ip => "10.3.10.0", host_aliases => ['mysql-master-1', 'master.mysql',
                                                                                       "mysql.backend.${platform}"
                                                                                       ]}
-  host { "mysql-slave-1.backend.${platform}"    : ip => "10.3.10.1", host_aliases => ['mysql-slave-1', 'slave.mysql']}
-                                                                                                                                                                          "mysql.backend.${platform}"
-                                                                                                                                                                          ]}
+  host { "mysql-slave-1.backend.${platform}"     : ip => "10.3.10.1", host_aliases => ['mysql-slave-1', 'slave.mysql']}
+
   host { "load-balancer-1.backend.${platform}"        : ensure => absent }
   host { "backend-lb-1.backend.${platform}"           : ip     => "10.3.0.101", host_aliases => ["backend-lb-1"]}
   host { "backend-lb-2.backend.${platform}"           : ip     => "10.3.0.102", host_aliases => ["backend-lb-2"]}
@@ -119,7 +118,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   #EFG VDC machines
   host { "efg-mysql-master-1.efg.${platform}" : ip => "10.4.0.10",  host_aliases => ['efg-mysql-master-1', 'efg.master.mysql']}
   host { "efg-frontend-1.efg.${platform}"     : ip => "10.4.0.2",   host_aliases => ['efg-frontend-1']}
-  host { "efg-mysql-slave-1.efg.${platform}" : ip => "10.4.0.11",  host_aliases => ['efg-mysql-slave-1', 'efg.slave.mysql']}
+  host { "efg-mysql-slave-1.efg.${platform}"  : ip => "10.4.0.11",  host_aliases => ['efg-mysql-slave-1', 'efg.slave.mysql']}
 
   # Redirector VDC machines
   host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" , host_aliases => ['redirector-1']}
