@@ -42,6 +42,9 @@ fi
 
 export GOVUK_ASSET_HOST=`cat /etc/govuk/asset_host.conf`
 
+SHORT_HOSTNAME = `hostname -s`
+export GOVUK_STATSD_PREFIX="govuk.app.${APP_NAME}.${SHORT_HOSTNAME}"
+
 status "Spinning up '${APP_NAME}' (type ${APP_TYPE}) in '${GOVUK_ENV}' environment"
 
 cd "$APP_ROOT"
