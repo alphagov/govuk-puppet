@@ -3,7 +3,7 @@ class govuk_node::logging_server inherits govuk_node::base {
   include nagios::client
   include nginx
 
-  @@backup::directory {'backup_aggregated_logstash':
+  @@backup::directory {"backup_aggregated_logstash_$::hostname":
     directory => '/data/logging/logstash-aggregation'
   }
 

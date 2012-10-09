@@ -14,7 +14,7 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
     privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
-  @@backup::directory {'backup_mysql_backups':
+  @@backup::directory {"backup_mysql_backups_$::hostname":
     directory => '/var/lib/automysqlbackup/',
   }
 
