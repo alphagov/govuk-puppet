@@ -1,12 +1,12 @@
 define backup::directory (
     $directory,
+    $host_name,
+    $fq_dn,
     $frequency = 'daily',
     $versioned = false,
-    $host_name = $::hostname,
-    $fq_dn      = $::fqdn
     ) {
 
-    file { "/etc/backup/${frequency}/directory_${host_name}_${name}":
+    file { "/etc/backup/${frequency}/directory_${name}":
         content => template('backup/directory.erb'),
         mode    => '0755',
     }

@@ -5,6 +5,8 @@ class govuk_node::logging_server inherits govuk_node::base {
 
   @@backup::directory {"backup_aggregated_logstash_$::hostname":
     directory => '/data/logging/logstash-aggregation'
+    host_name => $::hostname,
+    fq_dn     => $::fqdn,
   }
 
   if $::govuk_provider == 'sky' {
