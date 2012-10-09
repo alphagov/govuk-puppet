@@ -45,5 +45,5 @@ class backup::server {
     minute   => '0',
   }
 
-  Backup::Directory   <<||>> { notify => Class['backup::server'] }
+  Backup::Directory   <<||>> { }
 }
