@@ -2,13 +2,12 @@ class backup::server {
 
   include backup::client
 
-  file {'/data/backups':
-    ensure  => directory,
-    owner   => 'govuk-backup',
-    mode    => '0700',
-  }
-
-  file {'/home/govuk-backup/.ssh':
+  file { ['/data/backups',
+          '/home/govuk-backup/.ssh'
+          '/etc/backup',
+          '/etc/backup/daily',
+          '/etc/backup/weekly',
+          '/etc/backup/monthly']:
     ensure  => directory,
     owner   => 'govuk-backup',
     mode    => '0700',
