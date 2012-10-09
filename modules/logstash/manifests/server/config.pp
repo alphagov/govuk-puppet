@@ -65,12 +65,6 @@ class logstash::server::config (
   }
 
   if $::govuk_provider == 'sky' {
-    file { '/data':
-      ensure => 'directory',
-      owner  => 'logstash',
-      group  => 'logstash'
-    }
-
     file { '/data/logging':
       ensure  => 'directory',
       owner   => 'logstash',
