@@ -89,8 +89,7 @@ class logstash::server::config (
     file { '/mnt/logging':
       ensure  => 'directory',
       owner   => 'logstash',
-      group   => 'logstash',
-      require => File['/mnt']
+      group   => 'logstash'
     }
 
     file { '/mnt/logging/logstash-aggregation':
