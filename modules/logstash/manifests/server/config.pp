@@ -104,7 +104,7 @@ class logstash::server::config (
       target  => '/mnt/logging/logstash-aggregation',
       owner   => 'logstash',
       group   => 'logstash',
-      require => File['/data/logging']
+      require => File['/mnt/logging/logstash-aggregation']
     }
   }
 }
