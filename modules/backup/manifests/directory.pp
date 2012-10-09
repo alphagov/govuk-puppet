@@ -2,7 +2,7 @@ define backup::directory (
     $directory,
     $frequency = 'daily',
     $versioned = false,
-    $host_name = $::hostname
+    $host_name = $::fqdn
     ) {
 
     file { "/etc/backup/${frequency}/directory_${host_name}_${name}":
