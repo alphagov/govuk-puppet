@@ -26,10 +26,17 @@ class logstash::server::config (
     mode   => '0755',
   }
 
-  cron { 'apdex-for-frontend':
-    command => "/usr/local/bin/apdex.sh frontend www",
-    user    => 'logstash',
-    minute  => '30',
+  logstash::apdex {
+    'www':                   instance_class => 'frontend';
+    'calendars':             instance_class => 'frontend';
+    'smartanswers':          instance_class => 'frontend';
+    'businesssupportfinder': instance_class => 'frontend';
+    'search':                instance_class => 'frontend';
+    'tariff':                instance_class => 'frontend';
+    'publisher':             instance_class => 'backend';
+    'imminence':             instance_class => 'backend';
+    'panopticon':            instance_class => 'backend';
+    'whitehall-frontend':    instance_class => 'whitehall';
   }
 
   package { 'ordereddict':
