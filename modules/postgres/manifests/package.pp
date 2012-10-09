@@ -6,4 +6,6 @@ class postgres::package {
     ensure => present,
   }
 
+  Class['postgres::repository'] -> Package['postgresql-9.1']
+
 }
