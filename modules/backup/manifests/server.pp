@@ -3,7 +3,7 @@ class backup::server {
   include backup::client
 
   file { ['/data/backups',
-          '/home/govuk-backup/.ssh'
+          '/home/govuk-backup/.ssh',
           '/etc/backup',
           '/etc/backup/daily',
           '/etc/backup/weekly',
