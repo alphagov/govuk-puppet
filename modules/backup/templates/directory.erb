@@ -6,6 +6,7 @@ SOURCEDIR="<%= @directory %>"
 FREQUENCY="<%= @frequency %>"
 DATE=`date +"%Y%m%d"`
 mkdir -p ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
-rsync -qa -e ssh --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR} ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
+rsync -qa -e "ssh -o VisualHostKey=false" --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR} ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 echo "Date: $DATE" > ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}/BACKUPINFO
+logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR completed!
 
