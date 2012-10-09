@@ -8,7 +8,7 @@ class govuk::apps::signon( $port = 3016 ) {
     vhost_protected   => false
   }
 
-  @@nagios::check { "check_signon_login_failures":
+  @@nagios::check { "check_signon_login_failures_${::hostname}":
     check_command       => 'check_graphite_metric!stats.govuk.app.signon.logins.failure!20!50',
     service_description => 'check Sign-On-O-Tron login failures',
     host_name           => "${::govuk_class}-${::hostname}",
