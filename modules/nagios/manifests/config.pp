@@ -66,6 +66,41 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+  @@nagios::check { 'check_pingdom_calendar':
+    check_command       => 'run_pingdom_calendar_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a calendar',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_quick_answer':
+    check_command       => 'run_pingdom_quick_answer_check',
+    use                 => 'govuk_urgent_priority',
+    service_description => 'Check the current pingdom status for a quick answer',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_search':
+    check_command       => 'run_pingdom_search_check',
+    use                 => 'govuk_urgent_priority',
+    service_description => 'Check the current pingdom status for search',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_smart_answer':
+    check_command       => 'run_pingdom_smart_answer_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a smart answer',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_specialist':
+    check_command       => 'run_pingdom_specialist_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a specialist guide',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
