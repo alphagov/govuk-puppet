@@ -39,10 +39,16 @@ location ~ ^/government\/assets\/ {
 }
 
 location ~ ^/government\/.+ {
+  # XXX: If you remove this password control remove the cache control
+  # below too!
   deny all;
   auth_basic           "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
   auth_basic_user_file /etc/govuk.htpasswd;
   satisfy any;
+  # This is for Akamai and is part of the password above: If you
+  # remove the passwd, remove this cache control as well!
+  add_header           Cache-Control  no-cache;
+
   proxy_pass http://varnish;
 }
 
@@ -109,4 +115,3 @@ location /503.html {
 location /504.html {
   root /usr/share/nginx/www;
 }
-
