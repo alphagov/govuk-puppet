@@ -28,8 +28,8 @@ class graphite::config {
   }
 
   nginx::config::vhost::proxy { "graphite.${domain}":
-    to   => ['localhost:33333'],
-    root => '/opt/graphite/webapp',
+    to      => ['localhost:33333'],
+    root    => '/opt/graphite/webapp',
     aliases => ["graphite.production-ec2.alphagov.co.uk"],
   }
 
