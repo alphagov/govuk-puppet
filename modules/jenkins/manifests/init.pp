@@ -121,6 +121,14 @@ class jenkins::master inherits jenkins {
     mode    => '0700',
     require => Package['keychain'],
   }
+
+  file { '/var/govuk-archive':
+    ensure  => directory,
+    owner   => jenkins,
+    group   => jenkins,
+    require => User['jenkins'],
+  }
+
 }
 
 class jenkins::slave inherits jenkins {

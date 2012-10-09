@@ -4,6 +4,10 @@ class monitoring {
     ensure => 'purged',
   }
 
+  package { 'python-rrdtool':
+    ensure => 'installed',
+  }
+
   include nagios
   include ganglia
   include graphite
@@ -22,6 +26,11 @@ class monitoring {
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost:
     content => template('monitoring/nginx.conf.erb'),
+  }
+
+  file { '/opt/graphite/storage/rrd/ganglia':
+    ensure => link,
+    target => '/var/lib/ganglia/rrds/GDS/',
   }
 
   file { '/var/www/monitoring':

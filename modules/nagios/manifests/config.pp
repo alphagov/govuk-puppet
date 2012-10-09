@@ -37,28 +37,67 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::check_feature {
-    'check_apollo':          feature => 'apollo';
-    'check_cache':           feature => 'cache';
-    'check_calendars':       feature => 'calendars';
-    'check_contractsfinder': feature => 'contractsfinder';
-    'check_efg':             feature => 'efg';
-    'check_frontend':        feature => 'frontend';
-    'check_licencefinder':   feature => 'licencefinder';
-    'check_mongo':           feature => 'mongo';
-    'check_mysql':           feature => 'mysql';
-    'check_planner':         feature => 'planner';
-    'check_router':          feature => 'router';
-    'check_search':          feature => 'search';
-    'check_smartanswers':    feature => 'smartanswers';
-    'check_solr':            feature => 'solr';
-    'check_tariff':          feature => 'tariff';
-    'check_whitehall':       feature => 'whitehall';
+    'check_apollo':                 feature => 'apollo';
+    'check_businesssupportfinder':  feature => 'businesssupportfinder';
+    'check_cache':                  feature => 'cache';
+    'check_calendars':              feature => 'calendars';
+    'check_contractsfinder':        feature => 'contractsfinder';
+    'check_efg':                    feature => 'efg';
+    'check_elasticsearch':          feature => 'elasticsearch';
+    'check_frontend':               feature => 'frontend';
+    'check_licencefinder':          feature => 'licencefinder';
+    'check_mongo':                  feature => 'mongo';
+    'check_mysql':                  feature => 'mysql';
+    'check_planner':                feature => 'planner';
+    'check_publishing':             feature => 'mainstream_publishing_tools';
+    'check_router':                 feature => 'router';
+    'check_search':                 feature => 'search';
+    'check_smartanswers':           feature => 'smartanswers';
+    'check_signon':                 feature => 'signon';
+    'check_solr':                   feature => 'solr';
+    'check_tariff':                 feature => 'tariff';
+    'check_whitehall':              feature => 'whitehall';
   }
 
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
     use                 => 'govuk_urgent_priority',
     service_description => 'Check the current pingdom status',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_calendar':
+    check_command       => 'run_pingdom_calendar_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a calendar',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_quick_answer':
+    check_command       => 'run_pingdom_quick_answer_check',
+    use                 => 'govuk_urgent_priority',
+    service_description => 'Check the current pingdom status for a quick answer',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_search':
+    check_command       => 'run_pingdom_search_check',
+    use                 => 'govuk_urgent_priority',
+    service_description => 'Check the current pingdom status for search',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_smart_answer':
+    check_command       => 'run_pingdom_smart_answer_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a smart answer',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_specialist':
+    check_command       => 'run_pingdom_specialist_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a specialist guide',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
@@ -153,9 +192,18 @@ class nagios::config ($platform = $::govuk_platform) {
 
   case $::govuk_platform {
     production: {
-      $urgentprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_urgent_priority']
-      $highprio_members  = ['monitoring_google_group','zendesk_high_priority']
-      $normalprio_members  = ['monitoring_google_group','zendesk_normal_priority']
+      case $::govuk_provider {
+        sky: {
+          $urgentprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_urgent_priority']
+          $highprio_members  = ['monitoring_google_group','zendesk_high_priority']
+          $normalprio_members  = ['monitoring_google_group','zendesk_normal_priority']
+        }
+        default: {
+          $urgentprio_members = ['monitoring_google_group']
+          $highprio_members  = $urgentprio_members
+          $normalprio_members  = $urgentprio_members
+        }
+      }
     }
     default: {
       $urgentprio_members = ['monitoring_google_group']

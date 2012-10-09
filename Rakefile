@@ -42,6 +42,16 @@ task :sudoers do
   sh 'visudo -c -f modules/sudo/files/sudoers'
 end
 
+desc "Test nagios::checks are unique per machine"
+task :nagios_checks do
+  $stderr.puts '---> Checking nagios::check titles are sufficiently unique'
+  bad_lines = %x{grep -nPr --exclude-dir='modules/nagios' 'nagios::check\\b.*check_((?!hostname)(?!vhost_name).)*:$' modules/}
+  if !bad_lines.empty? then
+    $stderr.puts bad_lines
+    fail 'ERROR: nagios::check resource titles should be unique per machine. Normally you can achieve this by adding ${::hostname} eg "check_widgets_${::hostname}".'
+  end
+end
+
 desc "Run rspec tests with `rake spec[pattern, rspec_options]`"
 task :spec, [:pattern, :options] do |t, args|
   $stderr.puts '---> Running puppet specs (parallel)'
@@ -70,6 +80,6 @@ RSpec::Core::RakeTask.new(:sspec) do |t|
 end
 
 desc "Run all tests"
-task :test => [:spec, :sudoers]
+task :test => [:spec, :sudoers, :nagios_checks]
 
 task :default => [:lint, :test]

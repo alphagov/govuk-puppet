@@ -40,6 +40,12 @@ class govuk_node::mongo_server inherits govuk_node::base {
     }
   }
 
+  @@backup::directory {"backup_mongodb_backups_$::hostname":
+    directory => '/var/lib/automongodbbackup/',
+    host_name => $::hostname,
+    fq_dn     => $::fqdn,
+  }
+
   if ($mongo_hosts) {
     class { 'mongodb::configure_replica_set':
       members => $mongo_hosts

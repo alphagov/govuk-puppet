@@ -11,7 +11,7 @@ class govuk_node::efg_mysql_master_server inherits govuk_node::base {
   mysql::user {'replica_user':
     root_password  => $root_password,
     user_password  => $replica_password,
-    priveleges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
+    privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
   class {'govuk::apps::efg::db':

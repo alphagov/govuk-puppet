@@ -6,20 +6,20 @@ class logstash::server::config (
 
   include logstash::config
 
-  file { '/var/log/logstash-aggregation':
-    ensure  => 'directory',
-    owner   => 'logstash',
-    group   => 'logstash',
-  }
-
   file { '/var/log/apdex':
     ensure  => 'directory',
     owner   => 'logstash',
     group   => 'logstash',
   }
 
+  if $::govuk_provider == 'sky' {
+    $logstash_dir = '/data/logging'
+  } else {
+    $logstash_dir = '/mnt/logging'
+  }
+
   @logrotate::conf { 'logstash-aggregation':
-    matches      => '/var/log/logstash-aggregation/**/*',
+    matches      => "${logstash_dir}/logstash-aggregation/**/*",
     days_to_keep => '365',
   }
 
@@ -32,10 +32,17 @@ class logstash::server::config (
     mode   => '0755',
   }
 
-  cron { 'apdex-for-frontend':
-    command => "/usr/local/bin/apdex.sh frontend www",
-    user    => 'logstash',
-    minute  => '30',
+  logstash::apdex {
+    'www':                   instance_class => 'frontend';
+    'calendars':             instance_class => 'frontend';
+    'smartanswers':          instance_class => 'frontend';
+    'businesssupportfinder': instance_class => 'frontend';
+    'search':                instance_class => 'frontend';
+    'tariff':                instance_class => 'frontend';
+    'publisher':             instance_class => 'backend';
+    'imminence':             instance_class => 'backend';
+    'panopticon':            instance_class => 'backend';
+    'whitehall-frontend':    instance_class => 'whitehall';
   }
 
   package { 'ordereddict':
@@ -63,4 +70,48 @@ class logstash::server::config (
     number_of_replicas => '0',
   }
 
+  if $::govuk_provider == 'sky' {
+    file { '/data/logging':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data']
+    }
+
+    file { '/data/logging/logstash-aggregation':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data/logging']
+    }
+
+    file { '/var/log/logstash-aggregation':
+      ensure  => 'link',
+      target  => '/data/logging/logstash-aggregation',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data/logging']
+    }
+  } else {
+    file { '/mnt/logging':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash'
+    }
+
+    file { '/mnt/logging/logstash-aggregation':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/mnt/logging']
+    }
+
+    file { '/var/log/logstash-aggregation':
+      ensure  => 'link',
+      target  => '/mnt/logging/logstash-aggregation',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/mnt/logging/logstash-aggregation']
+    }
+  }
 }

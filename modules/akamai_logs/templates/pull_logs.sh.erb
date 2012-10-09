@@ -1,0 +1,77 @@
+#! /bin/bash
+# Pulls the log files from Akamai
+set -x
+
+LOCAL_DOWNLOAD_DIR=<%= @local_logs_dir %>/tmp
+LOCAL_LOGS_DIR=<%= @local_logs_dir %>/logs
+
+AKAMAI_USER=<%= @akamai_user %>
+AKAMAI_HOST=<%= @akamai_host %>
+AKAMAI_LOGS_DIR=<%= @path_to_logs %>
+
+BACKUP_USER=<%= @backup_user %>
+BACKUP_HOST=<%= @backup_host %>
+BACKUP_LOGS_DIR=<%= @local_logs_dir %>
+
+LOCK_FILE=$LOCAL_DOWNLOAD_DIR/.lock
+TIME=$(date +%s)
+LIST_FILE=$LOCAL_DOWNLOAD_DIR/filelist-$TIME
+
+SFTP_LINE_FILTER='\.log\.gz$'
+
+# Just to be sure
+mkdir -p $LOCAL_DOWNLOAD_DIR
+mkdir -p $LOCAL_LOGS_DIR
+
+# Create lockfile, to avoid running the scanner
+if [ -e $LOCK_FILE ]; then
+  echo "WARN: Lock file exists, aborting"
+  exit 1
+fi
+touch $LOCK_FILE
+
+# Get the files from SFTP
+echo 'ls -l *.gz' | sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR | grep -e $SFTP_LINE_FILTER > $LIST_FILE
+sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/*.gz $LOCAL_DOWNLOAD_DIR
+
+# RSYNC the files to my backup machine
+rsync -acz --exclude=.lock $LOCAL_DOWNLOAD_DIR/ $BACKUP_USER@$BACKUP_HOST:$BACKUP_LOGS_DIR
+
+# Remove the lockfile, to allow the scanner to run again
+rm $LOCK_FILE
+
+# Check local files by gzip integrity and size
+cd $LOCAL_DOWNLOAD_DIR
+while read entry; do
+  # File under check
+  filename=$(echo $entry | awk '{print $9}')
+
+  # Checking gzip integrity
+  gzip -t $filename
+  if [ $? -ne 0 ] ; then
+    echo "ERROR($TIME): GZIP integrity check of '$filename' failed."
+    exit 1
+  fi
+
+  remote_size=$(echo $entry | awk '{print $5}')
+  local_size=$(ls -l $filename | awk '{print $5}')
+  if [ $remote_size -ne $local_size ]; then
+    echo "ERROR($TIME): Filesize of '$filename' differs between local and akamai."
+  exit 1
+  fi
+done < $LIST_FILE
+
+# Delete the files on akamai
+for log_file in $(awk '{print $9}' $LIST_FILE); do
+  sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR <<END_SCRIPT
+  rm $log_file
+END_SCRIPT
+done
+
+# Move the files into the log directory
+for log_file in $(awk '{print $9}' $LIST_FILE); do
+  mv $LOCAL_DOWNLOAD_DIR/$log_file $LOCAL_LOGS_DIR/
+done
+
+# Cleanup Tempfiles
+rm $LIST_FILE

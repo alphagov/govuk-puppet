@@ -6,6 +6,7 @@ class govuk::deploy {
   include pip
   include envmgr
   include unicornherder
+  include users::assets
 
   group { 'deploy':
     ensure  => 'present',
@@ -70,6 +71,21 @@ class govuk::deploy {
     source  => 'puppet:///modules/govuk/bin/govuk_spinup',
     mode    => '0755',
     require => Package['envmgr'],
+  }
+
+  $app_domain = extlookup('app_domain_suffix', 'dev.gov.uk')
+
+  $asset_host = $::govuk_platform ? {
+    'production'  => "https://d17tffe05zdvwj.cloudfront.net",
+    'preview'     => "https://djb1962t8apu5.cloudfront.net",
+    'development' => "http://static.${app_domain}",
+    default       => "https://static.${app_domain}",
+  }
+
+  file { '/etc/govuk/asset_host.conf':
+    ensure  => present,
+    content => $asset_host,
+    require => File['/etc/govuk'],
   }
 
 }

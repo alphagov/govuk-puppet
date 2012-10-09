@@ -1,6 +1,17 @@
 class govuk_node::asset_master inherits govuk_node::base {
 
-  file { '/mnt/uploads':
+  include clamav
+  include users::assets
+
+  $directories = [
+    "/mnt/uploads",
+    "/mnt/uploads/whitehall",
+    "/mnt/uploads/whitehall/incoming",
+    "/mnt/uploads/whitehall/clean",
+    "/mnt/uploads/whitehall/infected",
+  ]
+
+  file { $directories:
     ensure  => directory,
     owner   => 'assets',
     group   => 'assets',
@@ -19,6 +30,10 @@ class govuk_node::asset_master inherits govuk_node::base {
     notify  => Service['nfs-kernel-server'],
   }
 
+  ufw::allow { 'Allow all access from backend machines':
+    from => '10.3.0.0/16',
+  }
+
   package { 'nfs-kernel-server':
     ensure => installed,
   }
@@ -27,5 +42,17 @@ class govuk_node::asset_master inherits govuk_node::base {
     ensure    => running,
     hasstatus => true,
     require   => Package['nfs-kernel-server'],
+  }
+
+  cron { 'virus-check':
+    user      => 'assets',
+    minute    => '*/2',
+    command   => '/usr/local/bin/virus_check.sh /mnt/uploads/whitehall/incoming /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
+    require   => File['/usr/local/bin/virus_check.sh'],
+  }
+
+  file { '/usr/local/bin/virus_check.sh':
+    source => 'puppet:///modules/clamav/usr/local/bin/virus_check.sh',
+    mode   => '0755',
   }
 }

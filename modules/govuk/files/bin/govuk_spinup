@@ -40,6 +40,8 @@ else
   GOVUK_ENV="production"
 fi
 
+export GOVUK_ASSET_HOST=`cat /etc/govuk/asset_host.conf`
+
 status "Spinning up '${APP_NAME}' (type ${APP_TYPE}) in '${GOVUK_ENV}' environment"
 
 cd "$APP_ROOT"

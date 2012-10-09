@@ -24,6 +24,7 @@ class fonts {
   exec {'make_font_metadata':
     cwd         => $fontdir,
     command     => '/usr/bin/ttmkfdir .',
-    refreshonly => true
+    refreshonly => true,
+    require     => Package['ttmkfdir'],
   }
 }

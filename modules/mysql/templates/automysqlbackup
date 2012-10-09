@@ -70,4 +70,4 @@ SOCKET=
 #PREBACKUP="/etc/mysql-backup-pre"
 
 # Command run after backups (uncomment to use)
-POSTBACKUP="cd /var/lib/automysqlbackup; tar -cjvf tmp.tbz2 latest/; mv tmp.tbz2 latest.tbz2; chmod u=wr,go=r latest.tbz2"
+POSTBACKUP="cd /var/lib/automysqlbackup; tar -cjvf tmp.tbz2 latest/; mv tmp.tbz2 latest.tbz2; chmod u=wr,go=r latest.tbz2; chmod -R go=r /var/lib/automysqlbackup/"

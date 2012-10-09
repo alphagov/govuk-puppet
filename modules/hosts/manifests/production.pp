@@ -12,7 +12,6 @@ class hosts::production {
   host { 'calendars.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'tariff.production.alphagov.co.uk':               ip => '10.53.54.49' }
   host { 'tariff-api.production.alphagov.co.uk':           ip => '10.54.182.112' }
-  host { 'signon.production.alphagov.co.uk':               ip => '10.54.182.112' }
   host { 'panopticon.production.alphagov.co.uk':           ip => '10.54.182.112' }
   host { 'contentapi.production.alphagov.co.uk':           ip => '10.54.182.112' }
   host { 'needotron.production.alphagov.co.uk':            ip => '10.54.182.112' }
@@ -25,6 +24,9 @@ class hosts::production {
   host { 'whitehall.production.alphagov.co.uk':            ip => '10.224.50.207' }
   host { 'whitehall-admin.production.alphagov.co.uk':      ip => '10.54.182.112' } /* production backend */
   host { 'datainsight-frontend.production.alphagov.co.uk': ip => '10.53.54.49' }
+
+  host { 'asset-master.production.alphagov.co.uk':         ip => '10.241.2.112' }
+  host { 'asset-slave.production.alphagov.co.uk':          ip => '10.32.20.43' }
 
   host { 'rds.cluster':         ip => '10.228.229.245' }
 

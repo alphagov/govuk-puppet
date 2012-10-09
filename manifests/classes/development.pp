@@ -13,6 +13,7 @@ class development {
   include solr
   include tmpreaper
   include users
+  include users::assets
   include rabbitmq
   include fonts
 
@@ -83,5 +84,13 @@ class development {
     ensure  => present,
     owner   => 'vagrant',
     group   => 'vagrant',
+  }
+
+  file { [ '/home/vagrant/.bashrc', '/home/vagrant/.zshenv' ]:
+    owner   => vagrant,
+    group   => vagrant,
+    mode    => '0644',
+    content => "# We use xvfb for DISPLAY, so that integration tests can run
+export DISPLAY=:99"
   }
 }
