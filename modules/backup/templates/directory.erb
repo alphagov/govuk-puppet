@@ -5,8 +5,9 @@ SOURCEDIR="<%= @directory %>"
 # Not currently used here, probably will use it for auto-cleanup later
 FREQUENCY="<%= @frequency %>"
 DATE=`date +"%Y%m%d"`
+logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR started
 mkdir -p ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 rsync -qa -e "ssh -o VisualHostKey=false" --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR} ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 echo "Date: $DATE" > ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}/BACKUPINFO
-logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR completed!
+logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR ended
 
