@@ -30,31 +30,6 @@ class nagios::package {
     mode   => '0755',
   }
 
-  file { '/usr/local/bin/check_pingdom_calendar.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom_calendar.sh',
-    mode   => '0755',
-  }
-
-  file { '/usr/local/bin/check_pingdom_quick_answer.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom_quick_answer.sh',
-    mode   => '0755',
-  }
-
-  file { '/usr/local/bin/check_pingdom_search.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom_search.sh',
-    mode   => '0755',
-  }
-
-  file { '/usr/local/bin/check_pingdom_smart_answer.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom_smart_answer.sh',
-    mode   => '0755',
-  }
-
-  file { '/usr/local/bin/check_pingdom_specialist.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom_specialist.sh',
-    mode   => '0755',
-  }
-
   file { '/usr/local/bin/sendEmail':
     source => 'puppet:///modules/nagios/usr/local/bin/sendEmail',
     mode   => '0755',
