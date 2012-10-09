@@ -1,5 +1,6 @@
 class govuk_node::base {
   include ::base
+  include backup::client
   include hosts
   include monitoring::client
   include puppet
