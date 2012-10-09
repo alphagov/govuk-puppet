@@ -47,7 +47,7 @@ location ~ ^/government\/.+ {
   satisfy any;
   # This is for Akamai and is part of the password above: If you
   # remove the passwd, remove this cache control as well!
-  add_header           Cache-Control  private;
+  add_header           Cache-Control  no-cache;
 
   proxy_pass http://varnish;
 }
