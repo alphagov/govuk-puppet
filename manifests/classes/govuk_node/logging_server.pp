@@ -3,6 +3,10 @@ class govuk_node::logging_server inherits govuk_node::base {
   include nagios::client
   include nginx
 
+  backup::directory {'backup_aggregated_logstash':
+    directory => '/data/logging/logstash-aggregation'
+  }
+
   if $::govuk_provider == 'sky' {
     $es_heap_size = '8g'
   } else {
