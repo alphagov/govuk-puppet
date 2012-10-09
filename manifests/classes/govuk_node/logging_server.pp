@@ -4,7 +4,7 @@ class govuk_node::logging_server inherits govuk_node::base {
   include nginx
 
   @@backup::directory {"backup_aggregated_logstash_$::hostname":
-    directory => '/data/logging/logstash-aggregation'
+    directory => '/data/logging/logstash-aggregation',
     host_name => $::hostname,
     fq_dn     => $::fqdn,
   }
