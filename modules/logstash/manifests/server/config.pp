@@ -57,4 +57,55 @@ class logstash::server::config (
     number_of_replicas => '0',
   }
 
+  if $::govuk_provider == 'sky' {
+    file { '/data':
+      ensure => 'directory',
+      owner  => 'logstash',
+      group  => 'logstash'
+    }
+
+    file { '/data/logging':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data']
+    }
+
+    file { '/data/logging/logstash-aggregation':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data/logging']
+    }
+
+    file { '/var/log/logstash-aggregation':
+      ensure  => 'link',
+      target  => '/data/logging/logstash-aggregation',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data/logging']
+    }
+  } else {
+    file { '/mnt/logging':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/mnt']
+    }
+
+    file { '/mnt/logging/logstash-aggregation':
+      ensure  => 'directory',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/mnt/logging']
+    }
+
+    file { '/var/log/logstash-aggregation':
+      ensure  => 'link',
+      target  => '/mnt/logging/logstash-aggregation',
+      owner   => 'logstash',
+      group   => 'logstash',
+      require => File['/data/logging']
+    }
+  }
 }
