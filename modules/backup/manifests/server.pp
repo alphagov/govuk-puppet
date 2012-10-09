@@ -2,6 +2,8 @@ class backup::server {
 
   include backup::client
 
+  backup::directory { directory => '/etc/backup' }
+
   file { ['/data/backups',
           '/home/govuk-backup/.ssh',
           '/etc/backup',
