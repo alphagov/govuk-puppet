@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+# /usr/local/bin isn't in the path for cron by default
+PATH=$PATH:/usr/local/bin
+export PATH
+
 MIRROR_ROOT=/var/lib/govuk_mirror
 TMP_ROOT=$(mktemp -d -t govuk_mirror.XXXXX)
 
