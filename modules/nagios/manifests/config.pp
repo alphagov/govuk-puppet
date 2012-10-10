@@ -101,6 +101,14 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+  # START frontend
+  @@nagios::check { "check_frontend_to_contentapi_responsiveness":
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.frontend.*.request.id.*)!500!1000',
+    service_description => 'check frontend to_contentapi responsiveness',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  # END frontend
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
