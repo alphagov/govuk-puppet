@@ -7,12 +7,18 @@ class govuk::apps::static( $port = 3013 ) {
     health_check_path  => '/templates/wrapper.html.erb';
   }
 
+  $whitehall_host = "whitehall-frontend.$::govuk_platform.alphagov.co.uk"
+
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
-    to            => "localhost:${port}",
-    protected     => false,
-    aliases       => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
-    ssl_only      => true,
-    server_names  => ['static.*'],
+    to                => "localhost:${port}",
+    protected         => false,
+    aliases           => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
+    ssl_only          => true,
+    server_names      => ['static.*'],
+    extra_root_config => "location /government/ {
+      proxy_set_header Host $whitehall_host;
+      proxy_pass http://$whitehall_host;
+    }",
   }
 
 }
