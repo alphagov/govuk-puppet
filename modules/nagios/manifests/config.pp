@@ -108,7 +108,7 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios::check { "check_signon_accounts_suspended": 
+  @@nagios::check { "check_signon_accounts_suspended":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.suspend)!5!10',
     service_description => 'check Sign-On-O-Tron user suspensions',
     host_name           => "${::govuk_class}-${::hostname}",
@@ -124,7 +124,7 @@ class nagios::config ($platform = $::govuk_platform) {
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.password_reset_request)!5!10',
     service_description => 'check Sign-On-O-Tron password reset requests',
     host_name           => "${::govuk_class}-${::hostname}",
-  }  
+  }
   # END signon checks
 
   nagios::timeperiod { '24x7':
