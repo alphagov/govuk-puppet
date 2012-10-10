@@ -108,6 +108,14 @@ class nagios::config ($platform = $::govuk_platform) {
   }
   # END frontend
 
+  # START rummager
+  @@nagios::check { "check_rummager_to_elasticsearch_errors":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.search.*.elasticsearcherror)!5!10',
+    service_description => 'check rummager to elasticsearch errors',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  # END rummager
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
