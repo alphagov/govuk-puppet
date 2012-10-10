@@ -10,7 +10,6 @@ class licensify::apps {
 }
 
 class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base {
-  include licensify::config
 
   file { '/etc/gds-licensify-config.conf':
     ensure => present,
@@ -34,7 +33,6 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
 }
 
 class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps::base {
-  include licensify::config
 
   file { '/etc/gds-licensify-admin-config.conf':
     ensure => present,
@@ -57,7 +55,6 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
 }
 
 class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::base {
-  include licensify::config
 
   file { '/etc/gds-licensify-feed-config.conf':
     ensure => present,

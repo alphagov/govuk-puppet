@@ -12,8 +12,14 @@ class logstash::server::config (
     group   => 'logstash',
   }
 
+  if $::govuk_provider == 'sky' {
+    $logstash_dir = '/data/logging'
+  } else {
+    $logstash_dir = '/mnt/logging'
+  }
+
   @logrotate::conf { 'logstash-aggregation':
-    matches      => '/var/log/logstash-aggregation/**/*',
+    matches      => "${logstash_dir}/logstash-aggregation/**/*",
     days_to_keep => '365',
   }
 
