@@ -25,6 +25,12 @@ define govuk::user(
     require    => [Class['shell'], Group['admin'], Group['deploy']],
     shell      => $shell,
   }
+
+  file { "/home/$title/.bashrc":
+    ensure  => $ensure,
+    source  => 'puppet:///modules/users/bashrc',
+    require => User[$title]
+    }
   ssh_authorized_key { $ssh_key_name:
     ensure  => $ensure,
     key     => extlookup($ssh_key_name, ''),

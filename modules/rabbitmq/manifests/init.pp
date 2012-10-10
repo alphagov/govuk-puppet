@@ -1,9 +1,11 @@
 class rabbitmq {
 
-  apt::repository { 'cmsj-rabbitmq':
-    type  => 'ppa',
-    owner => 'cmsj',
-    repo  => 'rabbitmq',
+  if $::lsbdistcodename == 'lucid' {
+    apt::repository { 'cmsj-rabbitmq':
+      type  => 'ppa',
+      owner => 'cmsj',
+      repo  => 'rabbitmq',
+    }
   }
 
   package { 'rabbitmq-server':

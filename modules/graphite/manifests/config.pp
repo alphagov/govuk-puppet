@@ -28,8 +28,9 @@ class graphite::config {
   }
 
   nginx::config::vhost::proxy { "graphite.${domain}":
-    to   => ['localhost:33333'],
-    root => '/opt/graphite/webapp',
+    to      => ['localhost:33333'],
+    root    => '/opt/graphite/webapp',
+    aliases => ["graphite.production-ec2.alphagov.co.uk"],
   }
 
   file { '/etc/init/graphite.conf':
@@ -41,7 +42,7 @@ class graphite::config {
   }
 
   @@nagios::check { "check_carbon_cache_running_on_${::hostname}":
-    check_command       => 'check_nrpe_1arg!/usr/lib/nagios/plugins/check_procs -a carbon-cache 1:',
+    check_command       => 'check_nrpe_1arg!check_proc_running_with_arg!python!carbon-cache',
     service_description => "check if carbon-cache is running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }

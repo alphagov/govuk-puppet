@@ -1,6 +1,7 @@
 class govuk_node::asset_master inherits govuk_node::base {
 
   include clamav
+  include users::assets
 
   $directories = [
     "/mnt/uploads",

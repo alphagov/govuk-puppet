@@ -18,6 +18,10 @@ You need to create a sql dump for all databases from the master:
 
 The command will prompt for the root password.
 
+Get the binary file and binary log position by executing 
+SHOW MASTER STATUS;
+
+
 Source: http://dev.mysql.com/doc/refman/5.1/en/replication-howto-mysqldump.html
 
 ## Slave
@@ -30,9 +34,11 @@ Then you need to set the replication on the slave
 
     STOP SLAVE;
     CHANGE MASTER TO
-           MASTER_HOST='**HOSTNAME**',
+           MASTER_HOST='master.mysql',
            MASTER_USER='replica_user',
-           MASTER_PASSWORD='**REPLICA PASSWORD**';
+           MASTER_PASSWORD='password',
+           MASTER_LOG_FILE='Binary_file_from_master',
+           MASTER_LOG_POS=position;
     START SLAVE;
     SHOW SLAVE STATUS \G;
 

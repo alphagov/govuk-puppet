@@ -37,22 +37,25 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::check_feature {
-    'check_apollo':          feature => 'apollo';
-    'check_cache':           feature => 'cache';
-    'check_calendars':       feature => 'calendars';
-    'check_contractsfinder': feature => 'contractsfinder';
-    'check_efg':             feature => 'efg';
-    'check_frontend':        feature => 'frontend';
-    'check_licencefinder':   feature => 'licencefinder';
-    'check_mongo':           feature => 'mongo';
-    'check_mysql':           feature => 'mysql';
-    'check_planner':         feature => 'planner';
-    'check_router':          feature => 'router';
-    'check_search':          feature => 'search';
-    'check_smartanswers':    feature => 'smartanswers';
-    'check_solr':            feature => 'solr';
-    'check_tariff':          feature => 'tariff';
-    'check_whitehall':       feature => 'whitehall';
+    'check_apollo':                 feature => 'apollo';
+    'check_businesssupportfinder':  feature => 'businesssupportfinder';
+    'check_cache':                  feature => 'cache';
+    'check_calendars':              feature => 'calendars';
+    'check_contractsfinder':        feature => 'contractsfinder';
+    'check_efg':                    feature => 'efg';
+    'check_elasticsearch':          feature => 'elasticsearch';
+    'check_frontend':               feature => 'frontend';
+    'check_licencefinder':          feature => 'licencefinder';
+    'check_mongo':                  feature => 'mongo';
+    'check_mysql':                  feature => 'mysql';
+    'check_publishing':             feature => 'mainstream_publishing_tools';
+    'check_router':                 feature => 'router';
+    'check_search':                 feature => 'search';
+    'check_smartanswers':           feature => 'smartanswers';
+    'check_signon':                 feature => 'signon';
+    'check_solr':                   feature => 'solr';
+    'check_tariff':                 feature => 'tariff';
+    'check_whitehall':              feature => 'whitehall';
   }
 
   @@nagios::check { 'check_pingdom':
@@ -61,6 +64,49 @@ class nagios::config ($platform = $::govuk_platform) {
     service_description => 'Check the current pingdom status',
     host_name           => "${::govuk_class}-${::hostname}"
   }
+
+  @@nagios::check { 'check_pingdom_calendar':
+    check_command       => 'run_pingdom_calendar_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a calendar',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_quick_answer':
+    check_command       => 'run_pingdom_quick_answer_check',
+    use                 => 'govuk_urgent_priority',
+    service_description => 'Check the current pingdom status for a quick answer',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_search':
+    check_command       => 'run_pingdom_search_check',
+    use                 => 'govuk_urgent_priority',
+    service_description => 'Check the current pingdom status for search',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_smart_answer':
+    check_command       => 'run_pingdom_smart_answer_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a smart answer',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  @@nagios::check { 'check_pingdom_specialist':
+    check_command       => 'run_pingdom_specialist_check',
+    use                 => 'govuk_high_priority',
+    service_description => 'Check the current pingdom status for a specialist guide',
+    host_name           => "${::govuk_class}-${::hostname}"
+  }
+
+  # START frontend
+  @@nagios::check { "check_frontend_to_contentapi_responsiveness":
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.frontend.*.request.id.*)!500!1000',
+    service_description => 'check frontend to_contentapi responsiveness',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  # END frontend
 
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
@@ -101,10 +147,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   case $::govuk_provider {
     sky: {
-      $contact_email = $::govuk_platform ? {
-        production   => 'monitoring-skyprod@digital.cabinet-office.gov.uk',
-        default      => 'root@localhost',
-      }
+      $contact_email = extlookup('monitoring_group', 'root@localhost')
     }
     default: {
       $contact_email = $::govuk_platform ? {

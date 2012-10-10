@@ -125,7 +125,7 @@ sub vcl_recv {
   # Smart Answers
     set req.http.Host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = smartanswers;
-  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon.ico(\?.*)?$|^/robots.txt(\?.*)?$|^/fonts") {
+  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon.ico(\?.*)?$|^/humans.txt(\?.*)?$|^/robots.txt(\?.*)?$|^/fonts") {
   # Static
     set req.http.Host = "static.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = static;
