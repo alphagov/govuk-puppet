@@ -3,7 +3,8 @@ define nginx::config::vhost::static(
   $protected = true,
   $aliases = [],
   $ssl_only = false,
-  $server_names = []
+  $server_names = [],
+  $extra_root_config = ''
 ) {
 
   include govuk::htpasswd
