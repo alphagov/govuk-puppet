@@ -101,6 +101,32 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+  # BEGIN signon checks
+  @@nagios::check { "check_signon_login_failures":
+    check_command       => 'check_graphite_metric!stats.govuk.app.signon.*.logins.failure!20!50',
+    service_description => 'check Sign-On-O-Tron login failures',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_signon_accounts_suspended": 
+    check_command       => 'check_graphite_metric!stats.govuk.app.signon.*.users.suspend!5!10',
+    service_description => 'check Sign-On-O-Tron user suspensions',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_signon_accounts_created":
+    check_command       => 'check_graphite_metric!stats.govuk.app.signon.*.users.created!5!10',
+    service_description => 'check Sign-On-O-Tron users created',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_signon_password_reset_requests":
+    check_command       => 'check_graphite_metric!stats.govuk.app.signon.*.users.password_reset_request!5!10',
+    service_description => 'check Sign-On-O-Tron password reset requests',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }  
+  # END signon checks
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
