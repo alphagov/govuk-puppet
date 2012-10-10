@@ -15,7 +15,13 @@ class govuk::apps::static( $port = 3013 ) {
     aliases           => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
     ssl_only          => true,
     server_names      => ['static.*'],
-    extra_root_config => "location ~ ^/government\/(assets|uploads)\/ {
+    extra_root_config => "location ^~ /government/assets/ {
+      expires max;
+      proxy_set_header Host $whitehall_host;
+      proxy_pass http://$whitehall_host;
+    }
+
+    location ^~ /government/uploads/ {
       proxy_set_header Host $whitehall_host;
       proxy_pass http://$whitehall_host;
     }",
