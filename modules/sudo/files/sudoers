@@ -19,6 +19,8 @@ ubuntu ALL=(ALL) NOPASSWD:ALL
 
 # the deploy user can access initctl
 deploy ALL=NOPASSWD:/sbin/initctl
+# The deploy user can move files
+deploy ALL=NOPASSWD:/bin/mv
 # the deploy user can restart the application server
 deploy ALL=NOPASSWD:/etc/init.d/jetty
 # the deploy user can restart varnish
