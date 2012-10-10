@@ -27,9 +27,9 @@ define govuk::user(
   }
 
   file { "/home/$title/.bashrc":
-    ensure => $ensure,
-    source => 'puppet:///modules/users/bashrc',
-    require => User["$title"]
+    ensure  => $ensure,
+    source  => 'puppet:///modules/users/bashrc',
+    require => User[$title]
     }
   ssh_authorized_key { $ssh_key_name:
     ensure  => $ensure,
