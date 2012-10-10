@@ -48,7 +48,6 @@ class nagios::config ($platform = $::govuk_platform) {
     'check_licencefinder':          feature => 'licencefinder';
     'check_mongo':                  feature => 'mongo';
     'check_mysql':                  feature => 'mysql';
-    'check_planner':                feature => 'planner';
     'check_publishing':             feature => 'mainstream_publishing_tools';
     'check_router':                 feature => 'router';
     'check_search':                 feature => 'search';
