@@ -140,10 +140,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   case $::govuk_provider {
     sky: {
-      $contact_email = $::govuk_platform ? {
-        production   => 'monitoring-skyprod@digital.cabinet-office.gov.uk',
-        default      => 'root@localhost',
-      }
+      $contact_email = extlookup('monitoring_group', 'root@localhost')
     }
     default: {
       $contact_email = $::govuk_platform ? {
