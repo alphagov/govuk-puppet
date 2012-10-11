@@ -100,6 +100,32 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+  # BEGIN signon checks
+  @@nagios::check { "check_signon_login_failures":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.logins.failure)!5!10',
+    service_description => 'check Sign-On-O-Tron login failures',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_signon_accounts_suspended":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.suspend)!1!2',
+    service_description => 'check Sign-On-O-Tron user suspensions',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_signon_accounts_created":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.created)!1!2',
+    service_description => 'check Sign-On-O-Tron users created',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_signon_password_reset_requests":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.password_reset_request)!1!2',
+    service_description => 'check Sign-On-O-Tron password reset requests',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  # END signon checks
+
   # START frontend
   @@nagios::check { "check_frontend_to_contentapi_responsiveness":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.frontend.*.request.id.*)!500!1000',
