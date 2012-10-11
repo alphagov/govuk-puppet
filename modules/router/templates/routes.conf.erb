@@ -34,6 +34,9 @@ location @upstream {
   proxy_pass http://varnish;
 }
 
+# Start Inside Gov password logic
+### This whole government block is so we can hide Inside Gov for the
+### moment - the whole thing can be removed once we're live.
 location ~ ^/government\/assets\/ {
   proxy_pass http://varnish;
 }
@@ -67,6 +70,7 @@ location ~ ^/government\/ {
 location = /government {
   proxy_pass http://varnish;
 }
+# End Inside Gov password logic
 
 location /apply-for-a-licence {
   deny all;
