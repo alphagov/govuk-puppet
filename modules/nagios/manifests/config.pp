@@ -145,7 +145,6 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END contentapi
->>>>>>> master
 
   # BEGIN signon checks
   @@nagios::check { "check_signon_login_failures":
