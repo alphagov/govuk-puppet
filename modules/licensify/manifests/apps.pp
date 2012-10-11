@@ -23,7 +23,7 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
     port               => $port,
     environ_content    => template('licensify/environ'),
     nginx_extra_config => template('licensify/nginx_extra'),
-    health_check_path  => '/api/licences'
+    health_check_path  => '/api/licences',
     require            => File['/etc/licensing'],
   }
 
@@ -38,7 +38,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
     port              => $port,
     environ_content   => template('licensify/environ'),
     vhost_protected   => false,
-    health_check_path => "/login"
+    health_check_path => "/login",
     require           => File['/etc/licensing'],
   }
 
