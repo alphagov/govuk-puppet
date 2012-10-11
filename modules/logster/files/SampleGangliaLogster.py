@@ -35,11 +35,14 @@ class SampleGangliaLogster(GangliaLogster):
     def __init__(self):
         '''Initialize any data structures or variables needed for keeping track
         of the tasty bits we find in the log we are parsing.'''
-        self.http_1xx = 0;
-        self.http_2xx = 0;
-        self.http_3xx = 0;
-        self.http_4xx = 0;
-        self.http_5xx = 0;
+        self.http_1xx = 0
+        self.http_2xx = 0
+        self.http_301 = 0
+        self.http_3xx = 0
+        self.http_404 = 0
+        self.http_410 = 0
+        self.http_4xx = 0
+        self.http_5xx = 0
         
         # Regular expression for matching lines we are interested in, and capturing
         # fields from the line (in this case, http_status_code).
@@ -66,8 +69,14 @@ class SampleGangliaLogster(GangliaLogster):
                     self.http_2xx += 1
                 elif (status < 400):
                     self.http_3xx += 1
+                    if (status == 301):
+                        self.http_301 += 1
                 elif (status < 500):
                     self.http_4xx += 1
+                    if (status == 404):
+                        self.http_404 += 1
+                    if (status == 410):
+                        self.http_410 += 1
                 else:
                     self.http_5xx += 1
 
@@ -88,7 +97,10 @@ class SampleGangliaLogster(GangliaLogster):
             GangliaMetricObject("%shttp_1xx" % self.prefix(), (self.http_1xx / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_2xx" % self.prefix(), (self.http_2xx / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_3xx" % self.prefix(), (self.http_3xx / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_301" % self.prefix(), (self.http_301 / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_4xx" % self.prefix(), (self.http_4xx / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_404" % self.prefix(), (self.http_404 / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_410" % self.prefix(), (self.http_410 / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_5xx" % self.prefix(), (self.http_5xx / self.duration), units="Responses per sec"),
         ]
 
