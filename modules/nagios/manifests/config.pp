@@ -103,12 +103,14 @@ class nagios::config ($platform = $::govuk_platform) {
   # BEGIN imminence checks
   @@nagios::check { "check_imminence_admin_responsiveness_${::hostname}":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.admin.*)!500!1000',
+    use                 => 'govuk_normal_priority',
     service_description => 'check imminence admin responsiveness',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_imminence_api_responsiveness_${::hostname}":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.api.*)!500!1000',
+    use                 => 'govuk_high_priority',
     service_description => 'check imminence api responsiveness',
     host_name           => "${::govuk_class}-${::hostname}",
   }
@@ -117,30 +119,35 @@ class nagios::config ($platform = $::govuk_platform) {
   # START contentapi
   @@nagios::check { "check_contentapi_responsiveness":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.artefact)!500!1000',
+    use                 => 'govuk_normal_priority',
     service_description => 'check content api responsiveness',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_licensify_connection_timeouts":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.timed_out)!5!10',
+    use                 => 'govuk_normal_priority',
     service_description => 'check timeouts connecting to licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_licensify_http_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.http)!5!10',
+    use                 => 'govuk_normal_priority',
     service_description => 'check HTTP errors connecting to licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_search_unavailable":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.search.unavailable)!5!10',
+    use                 => 'govuk_high_priority',
     service_description => 'check search being unavailable',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_mongo_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.mongo_errors)!5!10',
+    use                 => 'govuk_normal_priority',
     service_description => 'check mongo errors',
     host_name           => "${::govuk_class}-${::hostname}",
   }
@@ -149,24 +156,28 @@ class nagios::config ($platform = $::govuk_platform) {
   # BEGIN signon checks
   @@nagios::check { "check_signon_login_failures":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.logins.failure)!5!10',
+    use                 => 'govuk_normal_priority',
     service_description => 'check Sign-On-O-Tron login failures',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_signon_accounts_suspended":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.suspend)!1!2',
+    use                 => 'govuk_normal_priority',
     service_description => 'check Sign-On-O-Tron user suspensions',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_signon_accounts_created":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.created)!1!2',
+    use                 => 'govuk_normal_priority',
     service_description => 'check Sign-On-O-Tron users created',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_signon_password_reset_requests":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.password_reset_request)!1!2',
+    use                 => 'govuk_normal_priority',
     service_description => 'check Sign-On-O-Tron password reset requests',
     host_name           => "${::govuk_class}-${::hostname}",
   }
@@ -175,6 +186,7 @@ class nagios::config ($platform = $::govuk_platform) {
   # START frontend
   @@nagios::check { "check_frontend_to_contentapi_responsiveness":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.frontend.*.request.id.*)!500!1000',
+    use                 => 'govuk_normal_priority',
     service_description => 'check frontend to_contentapi responsiveness',
     host_name           => "${::govuk_class}-${::hostname}",
   }
@@ -183,6 +195,7 @@ class nagios::config ($platform = $::govuk_platform) {
   # START rummager
   @@nagios::check { "check_rummager_to_elasticsearch_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.search.*.elasticsearcherror)!5!10',
+    use                 => 'govuk_high_priority',
     service_description => 'check rummager to elasticsearch errors',
     host_name           => "${::govuk_class}-${::hostname}",
   }
