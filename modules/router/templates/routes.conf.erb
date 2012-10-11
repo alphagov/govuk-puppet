@@ -42,6 +42,10 @@ location ~ ^/government\/uploads\/ {
   proxy_pass http://varnish;
 }
 
+location ~ ^/government\/.+\.atom$ {
+  proxy_pass http://varnish;
+}
+
 location ~ ^/government\/.+ {
   # XXX: If you remove this password control remove the cache control
   # below too!
