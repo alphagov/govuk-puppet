@@ -33,7 +33,7 @@ define govuk::user(
     }
   ssh_authorized_key { $ssh_key_name:
     ensure  => $ensure,
-    key     => extlookup($ssh_key_name, ''),
+    key     => extlookup($ssh_key_name, 'you_have_not_got_a_public_key_in_extdata_you_special_child'),
     type    => $ssh_key_type,
     user    => $title,
     require => User[$title],
@@ -42,7 +42,7 @@ define govuk::user(
   if $has_deploy {
     ssh_authorized_key { "deploy_key_${title}":
       ensure  => $ensure,
-      key     => extlookup($ssh_key_name, ''),
+      key     => extlookup($ssh_key_name, 'you_have_not_got_a_public_key_in_extdata_you_special_child'),
       type    => $ssh_key_type,
       user    => 'deploy',
       require => User['deploy'];
@@ -50,7 +50,7 @@ define govuk::user(
   } else {
     ssh_authorized_key { "deploy_key_${title}":
       ensure  => absent,
-      key     => extlookup($ssh_key_name, ''),
+      key     => extlookup($ssh_key_name, 'you_have_not_got_a_public_key_in_extdata_you_special_child'),
       type    => $ssh_key_type,
       user    => 'deploy',
       require => User['deploy'];
