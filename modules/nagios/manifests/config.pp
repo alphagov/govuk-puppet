@@ -100,6 +100,20 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+  # BEGIN imminence checks
+  @@nagios::check { "check_imminence_admin_responsiveness_${::hostname}":
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.admin.*)!500!1000',
+    service_description => 'check imminence admin responsiveness',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_imminence_api_responsiveness_${::hostname}":
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.api.*)!500!1000',
+    service_description => 'check imminence api responsiveness',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  # END imminence
+
   # START contentapi
   @@nagios::check { "check_contentapi_responsiveness":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.artefact)!500!1000',
