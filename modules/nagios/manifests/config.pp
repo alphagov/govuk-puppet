@@ -103,7 +103,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   # BEGIN imminence checks
   @@nagios::check { "check_imminence_responsiveness_${::hostname}":
-    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time)!500!1000',
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.*)!500!1000',
     service_description => 'check imminence responsiveness',
     host_name           => "${::govuk_class}-${::hostname}",
   }
