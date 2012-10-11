@@ -45,7 +45,7 @@ end
 desc "Test nagios::checks are unique per machine"
 task :nagios_checks do
   $stderr.puts '---> Checking nagios::check titles are sufficiently unique'
-  bad_lines = %x{grep -nPr --exclude-dir='modules/nagios' 'nagios::check\\b.*check_((?!hostname).)*:$' modules/}
+  bad_lines = %x{find modules -type d -path modules/nagios -prune -or -type f -print0 | xargs -0 grep -nPr 'nagios::check\\b.*check_((?!hostname).)*:$'}
   if !bad_lines.empty? then
     $stderr.puts bad_lines
     fail 'ERROR: nagios::check resource titles should be unique per machine. Normally you can achieve this by adding ${::hostname} eg "check_widgets_${::hostname}".'
