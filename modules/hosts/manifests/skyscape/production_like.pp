@@ -106,6 +106,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                     "datainsight-narrative-recorder.${platform}.alphagov.co.uk",
                                                                                     "datainsight-weekly-reach-recorder.${platform}.alphagov.co.uk",
                                                                                     "datainsight-todays-activity-recorder.${platform}.alphagov.co.uk",
+                                                                                    "datainsight-everything-recorder.${platform}.alphagov.co.uk",
                                                                                     "datainsight-format-success-recorder.${platform}.alphagov.co.uk"]}
 
   # ELMS (Licence Finder) VDC machines
