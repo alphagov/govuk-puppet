@@ -14,7 +14,7 @@ class govuk::apps::static( $port = 3013 ) {
     protected         => false,
     aliases           => ['calendars', 'planner', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
     ssl_only          => true,
-    server_names      => ['static.*'],
+    server_names      => ['static.*', 'assets.*'],
     extra_root_config => "location ^~ /government/assets/ {
       expires max;
       proxy_set_header Host $whitehall_host;
