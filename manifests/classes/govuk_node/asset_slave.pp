@@ -1,5 +1,9 @@
-class govuk_node::asset_slave inherits govuk_node::asset_master {
+class govuk_node::asset_slave inherits govuk_node::asset_base {
   include users::assets
+
+  cron { 'virus-check':
+    ensure => 'absent'
+  }
 
   file { "/data/master-uploads":
     ensure  => 'directory',
