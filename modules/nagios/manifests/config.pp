@@ -100,6 +100,7 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
+<<<<<<< HEAD
   # BEGIN imminence checks
   @@nagios::check { "check_imminence_admin_responsiveness_${::hostname}":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.admin.*)!500!1000',
@@ -113,6 +114,39 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END imminence
+=======
+  # START contentapi
+  @@nagios::check { "check_contentapi_responsiveness":
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.artefact)!500!1000',
+    service_description => 'check content api responsiveness',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_contentapi_licensify_connection_timeouts":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.timed_out)!5!10',
+    service_description => 'check timeouts connecting to licensify',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_contentapi_licensify_http_errors":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.http)!5!10',
+    service_description => 'check HTTP errors connecting to licensify',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_contentapi_search_unavailable":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.search.unavailable)!5!10',
+    service_description => 'check search being unavailable',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_contentapi_mongo_errors":
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.mongo_errors)!5!10',
+    service_description => 'check mongo errors',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+  # END contentapi
+>>>>>>> master
 
   # BEGIN signon checks
   @@nagios::check { "check_signon_login_failures":
