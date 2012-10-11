@@ -19,7 +19,7 @@ class govuk_node::redirector_server inherits govuk_node::base {
   }
 
   @logster::cronjob { "nginx-redirector":
-    args => "--metric-prefix redirector RedirectorGangliaLogster /var/log/nginx/access.log",
+    args => "--metric-prefix redirector NginxGangliaLogster /var/log/nginx/access.log",
   }
 
   @@nagios::check { "check_nginx_404_redirector_on_${::hostname}":
