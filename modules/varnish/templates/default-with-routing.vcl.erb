@@ -78,7 +78,7 @@ backend licensify {
 }
 
 backend publicapi {
-  .host = "public-api.<%= @govuk_platform %>.alphagov.co.uk";
+  .host = "publicapi.<%= @govuk_platform %>.alphagov.co.uk";
   .port = "80";
 }
 
@@ -151,7 +151,7 @@ sub vcl_recv {
     set req.backend = tariff;
   } else if (req.url ~ "^/api") {
   # Public API
-    set req.http.Host = "public-api.<%= @govuk_platform %>.alphagov.co.uk";
+    set req.http.Host = "publicapi.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = publicapi;
   } else if (req.url ~ "^/feedback") {
   # Feedback
