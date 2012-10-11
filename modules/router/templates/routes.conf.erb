@@ -27,8 +27,10 @@ auth_basic_user_file  /etc/govuk.htpasswd;
 satisfy any;
 <%- end -%>
 
-rewrite ^/cloudstore http://gcloud.civilservice.gov.uk/cloudstore/;
-rewrite ^/performance/transactional-services http://transactionalservices.alphagov.co.uk/;
+# These redirects are a last resort for any given problem. Any additions should be cleared with Etienne
+rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
+rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
+rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
 
 location @upstream {
   proxy_pass http://varnish;
