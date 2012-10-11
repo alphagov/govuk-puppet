@@ -103,19 +103,19 @@ class nagios::config ($platform = $::govuk_platform) {
 
   # START contentapi
   @@nagios::check { "check_contentapi_responsiveness":
-    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.id.*)!500!1000',
+    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.artefact)!500!1000',
     service_description => 'check content api responsiveness',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_licensify_connection_timeouts":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.id.*.edition.license_request_error.timed_out)!5!10',
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.timed_out)!5!10',
     service_description => 'check timeouts connecting to licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_licensify_http_errors":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.id.*.edition.license_request_error.http)!5!10',
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.http)!5!10',
     service_description => 'check HTTP errors connecting to licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
