@@ -70,14 +70,6 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9507,
       https_listen_port => 8407,
       http_listen_port  => 8507;
-    'publicapi':
-      servers           => $govuk_frontend_servers,
-      internal_only     => true,
-      health_check_port => 80,
-      # Public API has no port of it's own - it proxies to contentapi which is on port 3022
-      # I have reserved port 3032 in the development Procfile to remain consistent
-      https_listen_port => 8432,
-      http_listen_port  => 8532;
     'smartanswers':
       servers           => $govuk_frontend_servers,
       internal_only     => true,
@@ -123,4 +115,6 @@ class govuk_node::frontend_load_balancer {
       http_listen_port  => 8519;
   }
 
+  # public api
+  include govuk::apps::publicapi
 }

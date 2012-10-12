@@ -11,7 +11,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::feedback
   include govuk::apps::designprinciples
   include govuk::apps::licencefinder
-  include govuk::apps::publicapi
+  include govuk::apps::publicapi #FIXME to be removed -- ppotter 2012-10-12
   include govuk::apps::frontend
   include govuk::apps::static
   include govuk::apps::businesssupportfinder
