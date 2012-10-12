@@ -34,6 +34,24 @@ describe GovukIndexer do
       i.blacklist_paths.should_not include("/vat")
     end
 
+    it "should add hardcoded whitelist items to the start_urls, even if their format would be blacklisted" do
+      WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+        to_return(:body => {
+          "_response_info" => {"status" => "ok"},
+          "total" => 4,
+          "results" => [
+            {"format" => "custom-application", "web_url" => "http://www.test.gov.uk/bank-holidays"},
+            {"format" => "place", "web_url" => "http://www.test.gov.uk/somewhere"},
+          ]
+        }.to_json)
+      i = GovukIndexer.new
+      i.all_start_urls.should include("http://www.test.gov.uk/bank-holidays")
+      i.all_start_urls.should_not include("http://www.test.gov.uk/somewhere")
+
+      i.blacklist_paths.should include("/somewhere")
+      i.blacklist_paths.should_not include("/bank-holidays")
+    end
+
     it "should add the hardcoded items to the start_urls" do
       i = GovukIndexer.new
 

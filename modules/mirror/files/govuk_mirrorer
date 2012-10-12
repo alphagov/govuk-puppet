@@ -24,7 +24,13 @@ class GovukIndexer
     https://www.gov.uk/designprinciples/performanceframework
   ).freeze
 
-  ADDITIONAL_BLACKLIST_PATH = %w(
+  # Calendars currently register as custom-application
+  WHITELIST_PATHS = %w(
+    /bank-holidays
+    /when-do-the-clocks-change
+  ).freeze
+
+  ADDITIONAL_BLACKLIST_PATHS = %w(
     /trade-tariff
     /licence-finder
     /business-finance-support-finder
@@ -34,7 +40,7 @@ class GovukIndexer
 
   def initialize
     @all_start_urls = ADDITIONAL_START_URLS.dup
-    @blacklist_paths = ADDITIONAL_BLACKLIST_PATH.dup
+    @blacklist_paths = ADDITIONAL_BLACKLIST_PATHS.dup
     process_artefacts
   end
 
@@ -54,7 +60,10 @@ class GovukIndexer
 
   def process_artefacts
     artefacts.each do |artefact|
-      if FORMATS_TO_503.include?(artefact["format"])
+      uri = URI.parse(artefact["web_url"])
+      if WHITELIST_PATHS.include?(uri.path)
+        @all_start_urls << artefact["web_url"]
+      elsif FORMATS_TO_503.include?(artefact["format"])
         @blacklist_paths << URI.parse(artefact["web_url"]).path
       else
         @all_start_urls << artefact["web_url"]
