@@ -25,7 +25,9 @@ class govuk::apps::publicapi {
     ssl_only          => false,
     platform          => $platform,
     extra_config      => "
-      location /api {
+      expires 30m;
+
+      location /api/ {
         proxy_set_header Host ${privateapi};
         proxy_set_header API-PREFIX api;
         proxy_set_header Authorization  \"\";
