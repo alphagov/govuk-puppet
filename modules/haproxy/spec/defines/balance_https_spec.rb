@@ -22,6 +22,9 @@ describe 'haproxy::balance_https', :type => :define do
       # ensure correct config
       should contain_concat__fragment('haproxy_listen_https_giraffe').
         with_content(/server giraffe-1 1.1.1.1:443.*port 9090/)
+      # ensure correct health check
+      should contain_concat__fragment('haproxy_listen_https_giraffe').
+        with_content(%r"^\s*option httpchk HEAD / HTTP/1\.1\\r\\nHost:\\ giraffe\.dev\.gov\.uk$")
     end
 
     it 'should create nginx proxy allowing everyone access' do
