@@ -104,7 +104,9 @@ class GovukMirrorer < Spidey::AbstractSpider
 
   def process_govuk_page(page, data = {})
     unless page.uri.host == SITE_HOSTNAME
-      logger.warn "Ended up on non #{SITE_HOSTNAME} page #{page.uri.to_s}"
+      msg = "Ended up on non #{SITE_HOSTNAME} page #{page.uri.to_s}"
+      msg << " from #{agent.history[-2].uri.to_s}" if agent.history[-2]
+      logger.warn msg
       return
     end
     save_to_disk(page)
@@ -166,8 +168,9 @@ class GovukMirrorer < Spidey::AbstractSpider
   protected
 
   def add_error(attrs)
-    raise attrs[:error] unless attrs[:error].is_a?(Mechanize::Error)
-    logger.warn "Error #{attrs[:error].inspect} for #{attrs[:url]}, data: #{attrs[:data].inspect}"
+    msg = "Error #{attrs[:error].inspect} for #{attrs[:url]}, data: #{attrs[:data].inspect}"
+    msg << "\n#{attrs[:error].backtrace.join("\n")}" unless attrs[:error].is_a?(Mechanize::Error)
+    logger.warn msg
     @http_errors[attrs[:url]] = attrs[:error]
   end
 
