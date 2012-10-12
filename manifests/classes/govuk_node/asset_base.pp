@@ -47,4 +47,9 @@ class govuk_node::asset_base inherits govuk_node::base {
     source => 'puppet:///modules/clamav/usr/local/bin/virus_check.sh',
     mode   => '0755',
   }
+
+  file { '/usr/local/bin/sync_assets_from_master.rb':
+    source => 'puppet:///modules/clamav/usr/local/bin/sync_assets_from_master.rb',
+    mode   => '0755',
+  }
 }
