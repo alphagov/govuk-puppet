@@ -79,8 +79,15 @@ class GovukMirrorer < Spidey::AbstractSpider
     super
     setup_agent
     @http_errors = {}
-    @logger = Logger.new(STDOUT)
+
+    @logger = Logger.new(attrs[:logfile] || STDOUT)
+    if attrs[:log_level]
+      @logger.level = Logger.const_get(attrs[:log_level].upcase)
+    else
+      @logger.level = Logger::INFO
+    end
     @verbose_debug = false
+
     @indexer = GovukIndexer.new
     @indexer.all_start_urls.each do |url|
       @logger.debug "Adding start url #{url}" if @verbose_debug
@@ -194,6 +201,15 @@ class GovukMirrorer < Spidey::AbstractSpider
 end
 
 if $0 == __FILE__
-  mirrorer = GovukMirrorer.new
+  require 'optparse'
+  options = {}
+  OptionParser.new do |o|
+    o.on('--logfile FILE') { |file| options[:logfile] = file }
+    o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
+    o.on('-h') { puts o; exit }
+    o.parse!
+  end
+
+  mirrorer = GovukMirrorer.new(options)
   mirrorer.crawl
 end
