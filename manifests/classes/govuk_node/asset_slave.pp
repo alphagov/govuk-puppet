@@ -25,6 +25,6 @@ class govuk_node::asset_slave inherits govuk_node::asset_master {
   cron { 'sync-assets-from-master':
     user      => 'assets',
     minute    => '*/5',
-    command   => '/usr/bin/rsync -r /data/master-uploads/ /mnt/uploads',
+    command   => '/usr/bin/rsync --delete -r /data/master-uploads/ /mnt/uploads',
   }
 }
