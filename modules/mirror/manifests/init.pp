@@ -8,10 +8,16 @@ class mirror {
     source => 'puppet:///modules/mirror/govuk_update_mirror'
   }
 
-  file { '/usr/local/bin/govuk_content_indexer':
-    ensure => present,
-    mode   => '0755',
-    source => 'puppet:///modules/mirror/govuk_content_indexer'
+  package { 'spidey':
+    ensure   => present,
+    provider => gem
+  }
+
+  file { '/usr/local/bin/govuk_mirrorer':
+    ensure  => present,
+    mode    => '0755',
+    source  => 'puppet:///modules/mirror/govuk_mirrorer',
+    require => package['spidey']
   }
 
   file { '/var/lib/govuk_mirror':
