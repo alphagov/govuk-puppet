@@ -28,7 +28,7 @@ node default {
     frontend:           { include govuk_node::frontend_server }
     frontend-lb:        { include govuk_node::frontend_load_balancer }
     graylog:            { include govuk_node::logging_server }
-    jumpbox:            { include govuk_node::base }
+    jumpbox:            { include govuk_node::jumpbox }
     licensify-lb:       { include govuk_node::licensify_load_balancer }
     logging:            { include govuk_node::logging_server }
     management:         { include govuk_node::management_server_master }
