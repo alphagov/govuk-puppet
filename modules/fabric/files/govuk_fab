@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# This is a thin wrapper around the GOV.UK fabric scripts, assumed to be
+# installed in /usr/local/share/govuk-fabric.
+#
+exec fab -f /usr/local/share/govuk-fabric/fabfile.py "$@"
