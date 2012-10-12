@@ -8,7 +8,7 @@ class datainsight::recorders::everything {
     group   => 'deploy',
   }
 
-  file { [ '/var/data/datainsight/everything' ]:
+  file { [ '/var/data', '/var/data/datainsight', '/var/data/datainsight/everything' ]:
     ensure  => directory,
     owner   => 'deploy',
     group   => 'deploy',
