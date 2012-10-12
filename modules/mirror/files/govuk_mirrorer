@@ -71,11 +71,13 @@ class GovukIndexer
 end
 
 class GovukMirrorer < Spidey::AbstractSpider
+  USER_AGENT = "GOV.UK Mirrorer/0.1"
   SITE_HOSTNAME = 'www.gov.uk'
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0
     super
+    setup_agent
     @http_errors = {}
     @logger = Logger.new(STDOUT)
     @verbose_debug = false
@@ -180,6 +182,11 @@ class GovukMirrorer < Spidey::AbstractSpider
     File.open(path, 'wb') do |f|
       f.write page.body
     end
+  end
+
+  def setup_agent
+    agent.user_agent = USER_AGENT
+    agent.request_headers["X-Govuk-Mirrorer"] = "1"
   end
 end
 
