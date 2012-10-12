@@ -1,5 +1,5 @@
 define nginx::config::vhost::licensify_upload($port="9000") {
-  $vhost_name = "uploadlicensify.${::govuk_platform}.alphagov.co.uk"
+  $vhost_name = "uploadlicense.${::govuk_platform}.alphagov.co.uk"
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost_name: content => template('nginx/licensify-upload-vhost.conf') }
 
