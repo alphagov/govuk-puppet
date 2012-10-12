@@ -74,7 +74,7 @@ class router::nginx {
 
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":
     check_command       => 'check_ganglia_metric!nginx_http_5xx!0.05!0.1',
-    service_description => 'check nginx error rate',
+    service_description => 'router nginx high 5xx rate',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 }

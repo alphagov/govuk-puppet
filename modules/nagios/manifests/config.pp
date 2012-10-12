@@ -61,42 +61,42 @@ class nagios::config ($platform = $::govuk_platform) {
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
     use                 => 'govuk_urgent_priority',
-    service_description => 'Check the current pingdom status',
+    service_description => 'pingdom says gov.uk is down',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
   @@nagios::check { 'check_pingdom_calendar':
     check_command       => 'run_pingdom_calendar_check',
     use                 => 'govuk_high_priority',
-    service_description => 'Check the current pingdom status for a calendar',
+    service_description => 'pingdom says calendar is down',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
   @@nagios::check { 'check_pingdom_quick_answer':
     check_command       => 'run_pingdom_quick_answer_check',
     use                 => 'govuk_urgent_priority',
-    service_description => 'Check the current pingdom status for a quick answer',
+    service_description => 'pingdom says quick answer is down',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
   @@nagios::check { 'check_pingdom_search':
     check_command       => 'run_pingdom_search_check',
     use                 => 'govuk_urgent_priority',
-    service_description => 'Check the current pingdom status for search',
+    service_description => 'pingdom says search is down',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
   @@nagios::check { 'check_pingdom_smart_answer':
     check_command       => 'run_pingdom_smart_answer_check',
     use                 => 'govuk_high_priority',
-    service_description => 'Check the current pingdom status for a smart answer',
+    service_description => 'pingdown say smartanswers is down',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
   @@nagios::check { 'check_pingdom_specialist':
     check_command       => 'run_pingdom_specialist_check',
     use                 => 'govuk_high_priority',
-    service_description => 'Check the current pingdom status for a specialist guide',
+    service_description => 'pingdom says specialist guides is down',
     host_name           => "${::govuk_class}-${::hostname}"
   }
 
@@ -104,14 +104,14 @@ class nagios::config ($platform = $::govuk_platform) {
   @@nagios::check { "check_imminence_admin_responsiveness_${::hostname}":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.admin.*)!500!1000',
     use                 => 'govuk_normal_priority',
-    service_description => 'check imminence admin responsiveness',
+    service_description => 'imminence admin unresponsive',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_imminence_api_responsiveness_${::hostname}":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.api.*)!500!1000',
     use                 => 'govuk_high_priority',
-    service_description => 'check imminence api responsiveness',
+    service_description => 'imminence api unresponsive',
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END imminence
@@ -120,35 +120,35 @@ class nagios::config ($platform = $::govuk_platform) {
   @@nagios::check { "check_contentapi_responsiveness":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.artefact)!500!1000',
     use                 => 'govuk_normal_priority',
-    service_description => 'check content api responsiveness',
+    service_description => 'contentapi unresponsive',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_licensify_connection_timeouts":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.timed_out)!5!10',
     use                 => 'govuk_normal_priority',
-    service_description => 'check timeouts connecting to licensify',
+    service_description => 'timeouts from contentapi->licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_licensify_http_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.http)!5!10',
     use                 => 'govuk_normal_priority',
-    service_description => 'check HTTP errors connecting to licensify',
+    service_description => 'http errors from contentapi->licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_search_unavailable":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.search.unavailable)!5!10',
     use                 => 'govuk_high_priority',
-    service_description => 'check search being unavailable',
+    service_description => 'search errors from contentapi->search',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_contentapi_mongo_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.mongo_errors)!5!10',
     use                 => 'govuk_normal_priority',
-    service_description => 'check mongo errors',
+    service_description => 'mongo errors from contentapi->mongo',
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END contentapi
@@ -157,28 +157,28 @@ class nagios::config ($platform = $::govuk_platform) {
   @@nagios::check { "check_signon_login_failures":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.logins.failure)!5!10',
     use                 => 'govuk_normal_priority',
-    service_description => 'check Sign-On-O-Tron login failures',
+    service_description => 'signon login failures too high',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_signon_accounts_suspended":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.suspend)!1!2',
     use                 => 'govuk_normal_priority',
-    service_description => 'check Sign-On-O-Tron user suspensions',
+    service_description => 'signon user suspensions too high',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_signon_accounts_created":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.created)!1!2',
     use                 => 'govuk_normal_priority',
-    service_description => 'check Sign-On-O-Tron users created',
+    service_description => 'signon user creation too high',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_signon_password_reset_requests":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.password_reset_request)!1!2',
     use                 => 'govuk_normal_priority',
-    service_description => 'check Sign-On-O-Tron password reset requests',
+    service_description => 'signon password resets too high',
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END signon checks
@@ -187,7 +187,7 @@ class nagios::config ($platform = $::govuk_platform) {
   @@nagios::check { "check_frontend_to_contentapi_responsiveness":
     check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.frontend.*.request.id.*)!500!1000',
     use                 => 'govuk_normal_priority',
-    service_description => 'check frontend to_contentapi responsiveness',
+    service_description => 'contentapi unresponsive from frontend',
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END frontend
@@ -196,7 +196,7 @@ class nagios::config ($platform = $::govuk_platform) {
   @@nagios::check { "check_rummager_to_elasticsearch_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.search.*.elasticsearcherror)!5!10',
     use                 => 'govuk_high_priority',
-    service_description => 'check rummager to elasticsearch errors',
+    service_description => 'search errors from rummager too high',
     host_name           => "${::govuk_class}-${::hostname}",
   }
   # END rummager

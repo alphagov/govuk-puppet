@@ -94,18 +94,18 @@ define govuk::app::config (
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_cpu!50!100",
-    service_description => "Check CPU used by app ${title} is not too high",
+    service_description => "high CPU usage for ${title} app",
     host_name           => "${::govuk_class}-${::hostname}",
   }
   @@nagios::check { "check_${title}_app_mem_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_mem!1000000000!2000000000",
-    service_description => "Check memory used by app ${title} is not too high",
+    service_description => "high memory for ${title} app",
     host_name           => "${::govuk_class}-${::hostname}",
   }
   if $health_check_path != 'NOTSET' {
     @@nagios::check { "check_app_${title}_up_on_${::hostname}":
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
-      service_description => "check if app ${title} is up on ${::govuk_class}-${::hostname}",
+      service_description => "${title} app running on ${::govuk_class}-${::hostname}",
       host_name           => "${::govuk_class}-${::hostname}",
     }
   }

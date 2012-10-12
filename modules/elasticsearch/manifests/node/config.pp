@@ -80,7 +80,7 @@ define elasticsearch::node::config (
 
   @@nagios::check { "check_elasticsearch-${cluster_name}_running_on_${::hostname}":
     check_command       => "check_nrpe!check_elasticsearch!${http_port}",
-    service_description => "check elasticsearch running on ${::govuk_class}-${::hostname}",
+    service_description => "elasticsearch running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 }

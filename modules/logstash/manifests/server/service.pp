@@ -20,7 +20,7 @@ class logstash::server::service (
 
   @@nagios::check { "check_logstash_server_running_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_logstash_server_running',
-    service_description => "check logstash server running on ${::govuk_class}-${::hostname}",
+    service_description => "logstash-server not running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 

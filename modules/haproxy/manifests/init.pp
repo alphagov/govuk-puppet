@@ -51,7 +51,7 @@ location /site_alive {
   }
   @@nagios::check {"check_haproxy_${::hostname}":
     check_command       => "check_nrpe_1arg!check_haproxy",
-    service_description => "check haproxy is OK for ${::hostname}",
+    service_description => "haproxy on ${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 

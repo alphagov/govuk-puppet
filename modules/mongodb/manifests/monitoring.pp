@@ -23,19 +23,19 @@ class mongodb::monitoring {
 
   @@nagios::check { "check_mongod_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mongod',
-    service_description => "check mongod running on ${::govuk_class}-${::hostname}",
+    service_description => "mongod not running on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_mongod_responds_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!connect 2 4',
-    service_description => "check mongod responds on ${::govuk_class}-${::hostname}",
+    service_description => "mongod not responding on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_mongod_lock_percentage_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!lock 5 10',
-    service_description => "check mongod lock percentage on ${::govuk_class}-${::hostname}",
+    service_description => "mongod high lock% on ${::govuk_class}-${::hostname}",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 

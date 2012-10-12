@@ -38,7 +38,7 @@ class nginx::config {
 
   @@nagios::check { "check_nginx_active_connections_${::hostname}":
     check_command       => 'check_ganglia_metric!nginx_active_connections!500!1000',
-    service_description => 'check nginx active connections',
+    service_description => 'nginx high active conn',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 

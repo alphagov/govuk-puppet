@@ -12,7 +12,7 @@ class nagios::client::check_rw_rootfs {
 
   @@nagios::check { "check_rw_rootfs_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_rw_rootfs',
-    service_description => 'Check that root filesystem is writable',
+    service_description => 'root filesystem is readonly',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 }
