@@ -105,7 +105,7 @@ define govuk::app::config (
   if $health_check_path != 'NOTSET' {
     @@nagios::check { "check_app_${title}_up_on_${::hostname}":
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
-      service_description => "${title} app running on ${::govuk_class}-${::hostname}",
+      service_description => "${title} app running",
       host_name           => "${::govuk_class}-${::hostname}",
     }
   }

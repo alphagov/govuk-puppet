@@ -24,13 +24,13 @@ class rabbitmq {
 
   @@nagios::check { "check_rabbitmq_consumers_${::hostname}":
     check_command       => 'check_ganglia_metric!rabbitmq.consumers!1:2.99!-1:0.99',
-    service_description => "rabbitmq consumers on ${::hostname}",
+    service_description => "rabbitmq consumers",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_rabbitmq_queue_${::hostname}":
     check_command       => 'check_ganglia_metric!rabbitmq.messages!1000!10000',
-    service_description => "rabbitmq queue depth on ${::hostname}",
+    service_description => "rabbitmq queue depth",
     host_name           => "${::govuk_class}-${::hostname}",
   }
 

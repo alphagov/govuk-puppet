@@ -29,13 +29,13 @@ class varnish::service {
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":
     check_command       => 'check_ganglia_metric!http_5xx!0.03!0.1',
-    service_description => "router varnish high 5xx rate for ${::hostname}",
+    service_description => 'router varnish high 5xx rate',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_varnish_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!varnishd',
-    service_description => "varnishd not running on ${::govuk_class}-${::hostname}",
+    service_description => 'varnishd not running',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
