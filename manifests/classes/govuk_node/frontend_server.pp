@@ -4,7 +4,10 @@ class govuk_node::frontend_server inherits govuk_node::base {
 
   include govuk::apps::datainsight_frontend
   include govuk::apps::tariff
-  include govuk::apps::efg
+  case $::govuk_provider {
+          'scc':   {}
+          default: { include govuk::apps::efg }
+  }
   include govuk::apps::calendars
   include govuk::apps::smartanswers
   include govuk::apps::feedback
