@@ -64,12 +64,6 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9514,
       https_listen_port => 8414,
       http_listen_port  => 8514;
-    'planner':
-      servers           => $govuk_frontend_servers,
-      internal_only     => true,
-      health_check_port => 9507,
-      https_listen_port => 8407,
-      http_listen_port  => 8507;
     'smartanswers':
       servers           => $govuk_frontend_servers,
       internal_only     => true,
