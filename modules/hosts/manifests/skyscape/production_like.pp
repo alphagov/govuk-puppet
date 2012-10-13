@@ -49,7 +49,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                     "feedback.${platform}.alphagov.co.uk",
                                                                                     "frontend.${platform}.alphagov.co.uk",
                                                                                     "licencefinder.${platform}.alphagov.co.uk",
-                                                                                    "planner.${platform}.alphagov.co.uk",
                                                                                     "publicapi.${platform}.alphagov.co.uk",
                                                                                     "smartanswers.${platform}.alphagov.co.uk",
                                                                                     "static.${platform}.alphagov.co.uk",

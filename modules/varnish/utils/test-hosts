@@ -5,7 +5,6 @@
 127.0.0.1 frontend.production.alphagov.co.uk
 127.0.0.1 licencefinder.production.alphagov.co.uk
 127.0.0.1 licensify.production.alphagov.co.uk
-127.0.0.1 planner.production.alphagov.co.uk
 127.0.0.1 publicapi.production.alphagov.co.uk
 127.0.0.1 search.production.alphagov.co.uk
 127.0.0.1 smartanswers.production.alphagov.co.uk
