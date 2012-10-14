@@ -293,7 +293,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   nagios::contact_group { 'emergencies':
     group_alias => 'Contacts for emergency situations',
-    members     => ['monitoring_google_group','pager_nonworkhours'],
+    members     => ['monitoring_google_group','zendesk_urgent_priority','pager_nonworkhours'],
   }
 
   nagios::contact_group { 'regular':
