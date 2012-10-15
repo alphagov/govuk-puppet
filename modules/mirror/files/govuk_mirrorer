@@ -1,0 +1,224 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'mechanize'
+require 'json'
+require 'spidey'
+require 'logger'
+
+class GovukIndexer
+  API_ENDPOINT = 'https://www.gov.uk/api/artefacts.json'.freeze
+
+  FORMATS_TO_503 = %w(
+    local_transaction
+    smart-answer
+    custom-application
+    place
+    licence
+  ).freeze
+
+  ADDITIONAL_START_URLS = %w(
+    https://www.gov.uk/
+    https://www.gov.uk/designprinciples
+    https://www.gov.uk/designprinciples/styleguide
+    https://www.gov.uk/designprinciples/performanceframework
+  ).freeze
+
+  # Calendars currently register as custom-application
+  WHITELIST_PATHS = %w(
+    /bank-holidays
+    /when-do-the-clocks-change
+  ).freeze
+
+  ADDITIONAL_BLACKLIST_PATHS = %w(
+    /trade-tariff
+    /licence-finder
+    /business-finance-support-finder
+    /government
+    /apply-for-a-licence
+  ).freeze
+
+  def initialize
+    @all_start_urls = ADDITIONAL_START_URLS.dup
+    @blacklist_paths = ADDITIONAL_BLACKLIST_PATHS.dup
+    process_artefacts
+  end
+
+  attr_reader :all_start_urls, :blacklist_paths
+
+  def blacklisted_url?(url)
+    path = URI.parse(url).path
+    return false if path.nil? # e.g. mailto: links...
+    url_segments = path.sub(%r{\A/}, '').split('/')
+    @blacklist_paths.any? do |path|
+      bl_segments = path.sub(%r{\A/}, '').split('/')
+      url_segments[0..(bl_segments.length - 1)] == bl_segments
+    end
+  end
+
+  private
+
+  def process_artefacts
+    artefacts.each do |artefact|
+      uri = URI.parse(artefact["web_url"])
+      if WHITELIST_PATHS.include?(uri.path)
+        @all_start_urls << artefact["web_url"]
+      elsif FORMATS_TO_503.include?(artefact["format"])
+        @blacklist_paths << URI.parse(artefact["web_url"]).path
+      else
+        @all_start_urls << artefact["web_url"]
+      end
+    end
+  end
+
+  def artefacts
+    @artefacts ||= begin
+      page = Mechanize.new.get(API_ENDPOINT)
+      JSON.parse(page.body)["results"]
+    end
+  end
+end
+
+class GovukMirrorer < Spidey::AbstractSpider
+  USER_AGENT = "GOV.UK Mirrorer/0.1"
+  SITE_HOSTNAME = 'www.gov.uk'
+
+  def initialize(attrs = {})
+    attrs[:request_interval] ||= 0
+    super
+    setup_agent
+    @http_errors = {}
+
+    @logger = Logger.new(attrs[:logfile] || STDOUT)
+    if attrs[:log_level]
+      @logger.level = Logger.const_get(attrs[:log_level].upcase)
+    else
+      @logger.level = Logger::INFO
+    end
+    @verbose_debug = false
+
+    @indexer = GovukIndexer.new
+    @indexer.all_start_urls.each do |url|
+      @logger.debug "Adding start url #{url}" if @verbose_debug
+      handle url, :process_govuk_page
+    end
+  end
+
+  attr_accessor :logger
+
+  def crawl(options = {})
+    each_url do |url, handler, default_data|
+      begin
+        page = agent.get(url)
+        logger.debug "Handling #{url.inspect}" if @verbose_debug
+        send handler, page, default_data
+      rescue => ex
+        add_error url: url, handler: handler, error: ex, data: default_data
+      end
+    end
+  end
+
+  def process_govuk_page(page, data = {})
+    unless page.uri.host == SITE_HOSTNAME
+      msg = "Ended up on non #{SITE_HOSTNAME} page #{page.uri.to_s}"
+      msg << " from #{agent.history[-2].uri.to_s}" if agent.history[-2]
+      logger.warn msg
+      return
+    end
+    save_to_disk(page)
+    extract_and_handle_links(page)
+  end
+
+  def extract_and_handle_links(page)
+    if page.is_a?(Mechanize::Page)
+      page.search("//a[@href]").each do |elem|
+        process_link(page, elem["href"])
+      end
+      page.search("//img[@src]").each do |elem|
+        process_link(page, elem["src"])
+      end
+      page.search("//link[@href]").each do |elem|
+        process_link(page, elem["href"])
+      end
+      page.search("//script[@src]").each do |elem|
+        process_link(page, elem["src"])
+      end
+    end
+  end
+
+  def process_link(page, href)
+    uri = URI.parse(href)
+    if uri.scheme.nil? # relative link
+      uri = URI.join(page.uri.to_s, href)
+    elsif uri.host == SITE_HOSTNAME
+      logger.warn "Link to non https #{href} from #{page.uri.to_s}" unless uri.scheme == "https"
+      uri.scheme = 'https'
+    else
+      logger.debug "Ignoring non #{SITE_HOSTNAME} link #{href} on #{page.uri.to_s}" if @verbose_debug
+      return
+    end
+    uri.fragment = nil # prevent duplicate url's being missed
+    maybe_handle uri.to_s, :process_govuk_page, :referrer => page.uri.to_s
+  rescue URI::Error => ex
+    logger.warn "#{ex.class} parsing url #{href} on page #{page.uri.to_s}"
+  end
+
+  def maybe_handle(url, handler, data = {})
+    logger.debug "Evaluating link #{url}" if @verbose_debug
+    if @urls.include?(url)
+      logger.debug "Skipping seen url #{url}" if @verbose_debug
+      return
+    end
+    if @http_errors.has_key?(url)
+      logger.debug "Skipping previous erroring url #{url}"
+      return
+    end
+    if @indexer.blacklisted_url?(url)
+      logger.debug "Skipping blacklisted url #{url}"
+      return
+    end
+    logger.debug "Adding url #{url} from #{data[:referrer]}"
+    handle url, handler, data
+  end
+
+  protected
+
+  def add_error(attrs)
+    msg = "Error #{attrs[:error].inspect} for #{attrs[:url]}, data: #{attrs[:data].inspect}"
+    msg << "\n#{attrs[:error].backtrace.join("\n")}" unless attrs[:error].is_a?(Mechanize::Error)
+    logger.warn msg
+    @http_errors[attrs[:url]] = attrs[:error]
+  end
+
+  private
+
+  # Saves to a file in ./hostname/path
+  # adds .html for html files
+  def save_to_disk(page)
+    path = page.extract_filename(true)
+    logger.info "Saving #{page.uri.to_s} to #{path}"
+    FileUtils.mkdir_p(File.dirname(path))
+    File.open(path, 'wb') do |f|
+      f.write page.body
+    end
+  end
+
+  def setup_agent
+    agent.user_agent = USER_AGENT
+    agent.request_headers["X-Govuk-Mirrorer"] = "1"
+  end
+end
+
+if $0 == __FILE__
+  require 'optparse'
+  options = {}
+  OptionParser.new do |o|
+    o.on('--logfile FILE') { |file| options[:logfile] = file }
+    o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
+    o.on('-h') { puts o; exit }
+    o.parse!
+  end
+
+  mirrorer = GovukMirrorer.new(options)
+  mirrorer.crawl
+end
