@@ -76,7 +76,7 @@ class govuk::deploy {
   $app_domain = extlookup('app_domain_suffix', 'dev.gov.uk')
 
   $asset_host = $::govuk_platform ? {
-    'production'  => "https://d17tffe05zdvwj.cloudfront.net",
+    'production'  => "https://assets.digital.cabinet-office.gov.uk",
     'preview'     => "https://djb1962t8apu5.cloudfront.net",
     'development' => "http://static.${app_domain}",
     default       => "https://static.${app_domain}",
