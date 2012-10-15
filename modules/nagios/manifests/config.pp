@@ -336,10 +336,6 @@ class nagios::config ($platform = $::govuk_platform) {
   }
   # End Zendesk Groups
 
-  nagios::service_template { 'govuk_emergency_service':
-    contact_groups => ['regular']
-  }
-
   nagios::service_template { 'govuk_regular_service':
     contact_groups => ['regular']
   }
