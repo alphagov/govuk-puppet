@@ -143,12 +143,6 @@ class nagios::config ($platform = $::govuk_platform) {
   # END signon checks
 
   # START frontend
-  @@nagios::check { "check_frontend_to_contentapi_responsiveness":
-    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.frontend.*.request.id.*)!500!1000',
-    use                 => 'govuk_normal_priority',
-    service_description => 'contentapi unresponsive from frontend',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
   # END frontend
 
   # START rummager
