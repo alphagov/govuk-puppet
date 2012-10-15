@@ -25,7 +25,7 @@ class govuk_node::licensify_load_balancer {
   }
 # Licensify upload pdf public endpoint
   haproxy::balance_https {
-    'uploadlicensify':
+    'uploadlicence':
       servers             => $licensify_frontend_servers,
       internal_only       => true,
       health_check_port   => 15500,  #The health check port is the same as licensify, since it is the same app listening on a different vhost
