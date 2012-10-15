@@ -5,19 +5,19 @@ class mirror {
   file { '/usr/local/bin/govuk_update_mirror':
     ensure => present,
     mode   => '0755',
-    source => 'puppet:///modules/mirror/govuk_update_mirror'
+    source => 'puppet:///modules/mirror/govuk_update_mirror',
   }
 
   package { 'spidey':
     ensure   => present,
-    provider => gem
+    provider => gem,
   }
 
   file { '/usr/local/bin/govuk_mirrorer':
     ensure  => present,
     mode    => '0755',
     source  => 'puppet:///modules/mirror/govuk_mirrorer',
-    require => package['spidey']
+    require => Package['spidey'],
   }
 
   file { '/var/lib/govuk_mirror':
