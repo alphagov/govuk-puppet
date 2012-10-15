@@ -137,12 +137,6 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios::check { "check_contentapi_mongo_errors":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.mongo_errors)!5!10',
-    use                 => 'govuk_normal_priority',
-    service_description => 'mongo errors from contentapi to mongo',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
   # END contentapi
 
   # BEGIN signon checks
