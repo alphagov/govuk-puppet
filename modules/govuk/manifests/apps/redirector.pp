@@ -9,6 +9,11 @@ class govuk::apps::redirector {
     target => '/var/apps/redirector/directgov.conf',
     notify => Class['nginx::service'],
   }
+  file { '/etc/nginx/sites-enabled/lrc':
+    ensure => link,
+    target => '/var/apps/redirector/lrc.conf',
+    notify => Class['nginx::service'],
+  }
   file { '/var/apps/redirector':
     ensure  => directory,
     owner   => 'deploy',
