@@ -1,8 +1,11 @@
 class govuk::apps::datainsight_frontend( $port = 3027 ) {
   govuk::app { 'datainsight-frontend':
-    app_type          => 'rack',
-    port              => $port,
-    health_check_path => '/performance';
+    app_type               => 'rack',
+    port                   => $port,
+    health_check_path      => '/performance',
+    nginx_extra_config     => "location ^~ /performance/graphs/ {
+      limit_req zone=one rate=25r/s;
+}",
   }
 
   file { ['/mnt/datainsight', '/mnt/datainsight/graphs']:
