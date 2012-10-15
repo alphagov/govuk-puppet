@@ -36,6 +36,12 @@ class nagios::config ($platform = $::govuk_platform) {
     content => template('nagios/etc/nagios3/conf.d/check_graphite_metric_since.cfg.erb'),
   }
 
+  cron { 'cron_smokey_features':
+    command => '/opt/smokey/cron.sh',
+    # Every 5 minutes
+    minute => '*/5',
+  }
+
   nagios::check_feature {
     'check_apollo':                 feature => 'apollo';
     'check_businesssupportfinder':  feature => 'businesssupportfinder';
