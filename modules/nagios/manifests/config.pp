@@ -140,33 +140,6 @@ class nagios::config ($platform = $::govuk_platform) {
   # END contentapi
 
   # BEGIN signon checks
-  @@nagios::check { "check_signon_login_failures":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.logins.failure)!5!10',
-    use                 => 'govuk_normal_priority',
-    service_description => 'signon login failures too high',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  @@nagios::check { "check_signon_accounts_suspended":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.suspend)!1!2',
-    use                 => 'govuk_normal_priority',
-    service_description => 'signon user suspensions too high',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  @@nagios::check { "check_signon_accounts_created":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.created)!1!2',
-    use                 => 'govuk_normal_priority',
-    service_description => 'signon user creation too high',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  @@nagios::check { "check_signon_password_reset_requests":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.signon.*.users.password_reset_request)!1!2',
-    use                 => 'govuk_normal_priority',
-    service_description => 'signon password resets too high',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
   # END signon checks
 
   # START frontend
