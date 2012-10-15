@@ -124,7 +124,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   # START contentapi
   @@nagios::check { "check_contentapi_responsiveness":
-    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.contentapi.*.request.artefact)!500!1000',
+    check_command       => 'check_graphite_metric!maxSeries(stats.timers.govuk.app.contentapi.*.request.artefact.upper_90)!500!1000',
     use                 => 'govuk_normal_priority',
     service_description => 'contentapi unresponsive',
     host_name           => "${::govuk_class}-${::hostname}",
