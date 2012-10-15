@@ -85,6 +85,18 @@ class development {
     group   => 'vagrant',
   }
 
+  file { [ '/var/tmp/datainsight-everything-recorder.json' ]:
+    ensure  => present,
+    owner   => 'deploy',
+    group   => 'deploy',
+  }
+
+  file { [ '/var/data', '/var/data/datainsight', '/var/data/datainsight/everything' ]:
+    ensure  => directory,
+    owner   => 'deploy',
+    group   => 'deploy',
+  }
+
   file { [ '/home/vagrant/.bashrc', '/home/vagrant/.zshenv' ]:
     owner   => vagrant,
     group   => vagrant,
