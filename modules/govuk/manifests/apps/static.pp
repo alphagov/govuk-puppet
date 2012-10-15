@@ -8,6 +8,7 @@ class govuk::apps::static( $port = 3013 ) {
   }
 
   $whitehall_host = "whitehall-frontend.$::govuk_platform.alphagov.co.uk"
+  $datainsight_host = "datainsight-frontend.$::govuk_platform.alphagov.co.uk"
 
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     to                => "localhost:${port}",
