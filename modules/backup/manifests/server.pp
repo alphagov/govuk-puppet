@@ -25,6 +25,7 @@ class backup::server {
     user    => 'govuk-backup',
     # Every day at 0300
     hour    => '3',
+    minute  => '0',
   }
 
   cron { 'cron_govuk-backup_weekly':
