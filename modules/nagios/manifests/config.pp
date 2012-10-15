@@ -137,13 +137,6 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios::check { "check_contentapi_search_unavailable":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.search.unavailable)!5!10',
-    use                 => 'govuk_high_priority',
-    service_description => 'search errors from contentapi to search',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
   @@nagios::check { "check_contentapi_mongo_errors":
     check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.mongo_errors)!5!10',
     use                 => 'govuk_normal_priority',
