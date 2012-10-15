@@ -132,4 +132,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # Redirector VDC machines
   host { "redirector-1.redirector.${platform}"  : ip => "10.6.0.2" , host_aliases => ['redirector-1']}
   host { "redirector-2.redirector.${platform}"  : ip => "10.6.0.3" , host_aliases => ['redirector-2']}
+
+  # Apto VDC
+  host { "gds01prod.aptosolutions.co.uk"  : ip => "217.171.99.28" }
+
 }
