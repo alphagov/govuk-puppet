@@ -291,11 +291,6 @@ class nagios::config ($platform = $::govuk_platform) {
     notification_period          => 'nonworkhours',
   }
 
-  nagios::contact_group { 'emergencies':
-    group_alias => 'Contacts for emergency situations',
-    members     => ['monitoring_google_group','pager_nonworkhours'],
-  }
-
   nagios::contact_group { 'regular':
     group_alias => 'Contacts for regular alerts',
     members     => ['monitoring_google_group'],
@@ -342,7 +337,7 @@ class nagios::config ($platform = $::govuk_platform) {
   # End Zendesk Groups
 
   nagios::service_template { 'govuk_emergency_service':
-    contact_groups => ['emergencies']
+    contact_groups => ['regular']
   }
 
   nagios::service_template { 'govuk_regular_service':
