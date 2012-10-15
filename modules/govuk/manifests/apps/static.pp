@@ -24,15 +24,6 @@ class govuk::apps::static( $port = 3013 ) {
     location ^~ /government/uploads/ {
       proxy_set_header Host $whitehall_host;
       proxy_pass http://$whitehall_host;
-    }
-
-    # PNGs for graphs that are being served in IE instead of SVGs
-    # cannot be static assets since they are being regenerated
-    # every N minutes, but should be still served via CDN
-    location ~ /performance/graphs/.*\.png$ {
-      proxy_set_header Host $datainsight_host;
-      proxy_set_header Cache-Control 'max-age=300';
-      proxy_pass http://$datainsight_host;
     }",
   }
 
