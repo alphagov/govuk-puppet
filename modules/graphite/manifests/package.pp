@@ -23,7 +23,6 @@ class graphite::package {
   file { '/opt/graphite':
     owner   => 'root',
     group   => 'root',
-    recurse => true,
   }
 
 }
