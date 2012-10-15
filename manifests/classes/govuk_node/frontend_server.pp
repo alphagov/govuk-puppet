@@ -6,6 +6,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::tariff
   case $::govuk_provider {
           'scc':   {}
+          'sky':   {}
           default: { include govuk::apps::efg }
   }
   include govuk::apps::calendars
