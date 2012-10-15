@@ -152,13 +152,8 @@ class nagios::config ($platform = $::govuk_platform) {
   # END frontend
 
   # START rummager
-  @@nagios::check { "check_rummager_to_elasticsearch_errors":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.search.*.elasticsearcherror)!5!10',
-    use                 => 'govuk_high_priority',
-    service_description => 'search errors from rummager too high',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
   # END rummager
+
   # Start Whitehall
     @@nagios::check { "check_scheduled_publishing_${::hostname}":
       check_command       => "check_graphite_metric_since!hitcount(stats.govuk.app.whitehall.scheduled_publishing.call_rate,'16minutes')!16minutes!0.9:100!0.9:100",
