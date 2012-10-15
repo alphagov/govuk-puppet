@@ -130,15 +130,8 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
-  @@nagios::check { "check_contentapi_licensify_connection_timeouts":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.license_request_error.http)!5!10',
-    use                 => 'govuk_normal_priority',
-    service_description => 'timeouts from contentapi to licensify',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
   @@nagios::check { "check_contentapi_licensify_http_errors":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.edition.license_request_error.http)!5!10',
+    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.license_request_error.http)!5!10',
     use                 => 'govuk_normal_priority',
     service_description => 'http errors from contentapi to licensify',
     host_name           => "${::govuk_class}-${::hostname}",
