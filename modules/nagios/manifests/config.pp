@@ -107,19 +107,6 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   # BEGIN imminence checks
-  @@nagios::check { "check_imminence_admin_responsiveness_${::hostname}":
-    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.admin.*.*.upper_90)!500!1000',
-    use                 => 'govuk_normal_priority',
-    service_description => 'imminence admin unresponsive',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  @@nagios::check { "check_imminence_api_responsiveness_${::hostname}":
-    check_command       => 'check_graphite_metric!maxSeries(stats.govuk.app.imminence.*.response_time.api.*.*.upper_90)!500!1000',
-    use                 => 'govuk_high_priority',
-    service_description => 'imminence api unresponsive',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
   # END imminence
 
   # START contentapi
@@ -127,13 +114,6 @@ class nagios::config ($platform = $::govuk_platform) {
     check_command       => 'check_graphite_metric!maxSeries(stats.timers.govuk.app.contentapi.*.request.artefact.upper_90)!500!1000',
     use                 => 'govuk_normal_priority',
     service_description => 'contentapi unresponsive',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
-  @@nagios::check { "check_contentapi_licensify_http_errors":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.contentapi.*.request.artefact.license_request_error.http)!5!10',
-    use                 => 'govuk_normal_priority',
-    service_description => 'http errors from contentapi to licensify',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
