@@ -43,6 +43,10 @@ class SampleGangliaLogster(GangliaLogster):
         self.http_410 = 0
         self.http_4xx = 0
         self.http_5xx = 0
+        self.http_500 = 0
+        self.http_502 = 0
+        self.http_503 = 0
+        self.http_504 = 0
         
         # Regular expression for matching lines we are interested in, and capturing
         # fields from the line (in this case, http_status_code).
@@ -79,6 +83,14 @@ class SampleGangliaLogster(GangliaLogster):
                         self.http_410 += 1
                 else:
                     self.http_5xx += 1
+                    if (status == 500):
+                        self.http_500 += 1
+                    if (status == 502):
+                        self.http_502 += 1
+                    if (status == 503):
+                        self.http_503 += 1
+                    if (status == 504):
+                        self.http_504 += 1
 
             else:
                 raise LogsterParsingException, "regmatch failed to match"
@@ -102,5 +114,9 @@ class SampleGangliaLogster(GangliaLogster):
             GangliaMetricObject("%shttp_404" % self.prefix(), (self.http_404 / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_410" % self.prefix(), (self.http_410 / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_5xx" % self.prefix(), (self.http_5xx / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_500" % self.prefix(), (self.http_500 / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_502" % self.prefix(), (self.http_502 / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_503" % self.prefix(), (self.http_503 / self.duration), units="Responses per sec"),
+            GangliaMetricObject("%shttp_504" % self.prefix(), (self.http_504 / self.duration), units="Responses per sec"),
         ]
 
