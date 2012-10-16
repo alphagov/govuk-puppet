@@ -55,6 +55,11 @@ location ~ ^/government\/uploads\/ {
   proxy_pass http://varnish;
 }
 
+location ~ ^/apply-for-a-licence\/assets\/.+ {
+  limit_req zone=rate burst=5 nodelay;      
+  limit_conn connections 25;      
+}
+
 location ~ ^/government\/.+\.atom$ {
   proxy_pass http://varnish;
 }
@@ -81,14 +86,6 @@ location = /government {
   proxy_pass http://varnish;
 }
 # End Inside Gov password logic
-
-location /apply-for-a-licence {
-  deny all;
-  auth_basic "The licencing application beta requires a password";
-  auth_basic_user_file /etc/govuk.htpasswd;
-  satisfy any;
-  proxy_pass http://varnish;
-}
 
 # Temporary http authentication for datainsight-frontend
 location /performance {
