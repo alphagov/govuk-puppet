@@ -42,3 +42,6 @@ find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
 
 # Update symlink to latest version
 ln -snf "$DEST" "${MIRROR_ROOT}/current"
+
+# Grab the error pages
+for title in 404 406 410 418 500 503 504 ; do curl -sf https://static.production.alphagov.co.uk/templates/${title}.html.erb -o /var/lib/govuk_mirror/current/${title}.html; done
