@@ -31,7 +31,6 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   include govuk::apps::panopticon
   include govuk::apps::publisher
-  include govuk::apps::review_o_matic_explore
   include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
   include govuk::apps::support
@@ -41,6 +40,14 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::private_frontend
   include govuk::apps::search
   include govuk::apps::need_o_tron
+
+  case $::govuk_provider {
+    'scc':   {}
+    'sky':   {}
+    default: {
+      include govuk::apps::review_o_matic_explore
+    }
+  }
 
   include nginx
 
