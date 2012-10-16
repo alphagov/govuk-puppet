@@ -59,11 +59,6 @@ location ~ ^/government\/.+\.atom$ {
   proxy_pass http://varnish;
 }
 
-location ~ ^/apply-for-a-licence\/assets\/.+ {
-  limit_req zone=rate burst=5 nodelay;
-  limit_conn connections 25;
-}
-
 location ~ ^/government\/.+ {
   # XXX: If you remove this password control remove the cache control
   # below too!
@@ -84,7 +79,7 @@ location ~ ^/government\/ {
 
 location = /government {
   proxy_pass http://varnish;
-}Time taken to GET path /api
+}
 # End Inside Gov password logic
 
 # Temporary http authentication for datainsight-frontend
