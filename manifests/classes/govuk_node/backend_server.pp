@@ -33,7 +33,6 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::publisher
   include govuk::apps::tariff_api
   include govuk::apps::whitehall_admin
-  include govuk::apps::support
   include govuk::apps::contentapi
   include govuk::apps::imminence
   include govuk::apps::signon

@@ -64,12 +64,6 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9530,
       https_listen_port => 8430,
       http_listen_port  => 8530;
-    'support':
-      servers           => $backend_servers,
-      health_check_port => 9531,
-      https_listen_port => 8431,
-      http_listen_port  => 8531,
-      aliases           => ["internalsupport.${::govuk_platform}.alphagov.co.uk"];
   }
 
   $mapit_servers = {
