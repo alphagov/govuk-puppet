@@ -29,13 +29,8 @@ class govuk_node::asset_base inherits govuk_node::base {
     notify  => Service['nfs-kernel-server'],
   }
 
-  case $::govuk_provider {
-    'sky', 'scc': {
-      ufw::allow { 'Allow all access from backend machines':
-        from => '10.3.0.0/16',
-      }
-    }
-    default: {}
+  ufw::allow { 'Allow all access from backend machines':
+    from => '10.3.0.0/16',
   }
 
   package { 'nfs-kernel-server':
