@@ -165,7 +165,7 @@ sub vcl_recv {
   # Datainsights
     set req.http.Host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = datainsight;
-  } else if (req.url ~ "^/government|^/specialist|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
+  } else if (req.url ~ "^/government|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
   # Whitehall
     set req.http.Host = "whitehall-frontend.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = whitehall;
