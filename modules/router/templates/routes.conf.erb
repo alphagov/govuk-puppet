@@ -114,6 +114,7 @@ location / {
 
 error_page 404 401 /404.html;
 error_page 406 /406.html;
+error_page 410 /410.html;
 error_page 418 /418.html;
 error_page 500 502 /500.html;
 error_page 503 /503.html;
@@ -123,6 +124,9 @@ location /404.html {
   root /usr/share/nginx/www;
 }
 location /406.html {
+  root /usr/share/nginx/www;
+}
+location /410.html {
   root /usr/share/nginx/www;
 }
 location /418.html {
