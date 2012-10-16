@@ -123,6 +123,18 @@ class nagios::config ($platform = $::govuk_platform) {
   # END signon checks
 
   # START frontend
+  @@nagios::check { "check_frontend_to_exit_403_rejects":
+    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.403),'5min')!5min!50!100',
+    use                 => 'govuk_normal_priority',
+    service_description => 'check volume of 403 rejects for exit links',
+    host_name           => "${::govuk_class}-${::hostname}",
+  }
+
+  @@nagios::check { "check_frontend_to_exit_404_rejects":
+    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),'5min')!5min!50!100',
+    use                 => 'govuk_normal_priority',
+    service_description => 'check volume of 404 rejects for exit links',
+    host_name           => "${::govuk_class}-${::hostname}",
   # END frontend
 
   # START rummager
