@@ -57,7 +57,8 @@ location ~ ^/government\/uploads\/ {
 
 location ~ ^/apply-for-a-licence\/assets\/.+ {
   limit_req zone=rate burst=5 nodelay;      
-  limit_conn connections 25;      
+  limit_conn connections 25;    
+  proxy_pass http://varnish;  
 }
 
 location ~ ^/government\/.+\.atom$ {
