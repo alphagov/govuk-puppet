@@ -49,11 +49,7 @@ class govuk_node::asset_base inherits govuk_node::base {
   }
 
   file { '/usr/local/bin/virus_check.sh':
-    ensure    => absent,
-  }
-
-  file { '/usr/local/bin/virus_scan.sh':
-    source => 'puppet:///modules/clamav/usr/local/bin/virus_scan.sh',
+    source => 'puppet:///modules/clamav/usr/local/bin/virus_check.sh',
     mode   => '0755',
   }
 
