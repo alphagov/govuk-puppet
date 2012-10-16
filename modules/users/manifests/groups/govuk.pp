@@ -181,6 +181,10 @@ class users::groups::govuk {
     fullname   => 'Tim Paul',
     email      => 'tim.paul@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'ops01':
+    fullname   => '2nd Line Support Secure Laptop Ops01',
+    email      => '2nd-line-support@digital.cabinet-office.gov.uk';
+  }
   govuk::user { 'ops02':
     fullname   => '2nd Line Support Secure Laptop Ops02',
     email      => '2nd-line-support@digital.cabinet-office.gov.uk';
