@@ -32,6 +32,7 @@ satisfy any;
 # These redirects are a last resort for any given problem. Any additions should be cleared with Etienne
 rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
 rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
+rewrite ^/feedback/internal/?$ https://support.production.alphagov.co.uk/;
 
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
