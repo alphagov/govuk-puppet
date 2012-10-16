@@ -161,7 +161,7 @@ sub vcl_recv {
   # Feedback
     set req.http.Host = "feedback.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = feedback;
-  } else if (req.url ~ "^/performance") {
+  } else if (req.url ~ "^/performance$|^/performance/") {
   # Datainsights
     set req.http.Host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
     set req.backend = datainsight;
