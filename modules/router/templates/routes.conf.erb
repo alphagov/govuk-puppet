@@ -35,7 +35,7 @@ satisfy any;
 rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
 rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
 rewrite ^/feedback/internal/?$ https://support.production.alphagov.co.uk/;
-rewrite ^/tell-us-once-report-death/?$ /after-a-death;
+rewrite ^/tell-us-once-report-death/?$ /after-a-death redirect;
 
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
