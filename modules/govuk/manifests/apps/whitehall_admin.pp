@@ -4,7 +4,13 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
   govuk::app { 'whitehall-admin':
     app_type          => 'rack',
     port              => $port,
-    health_check_path => '/healthcheck';
+    health_check_path => '/healthcheck',
+    nginx_extra_config => "
+      location /government/uploads {
+        expires 12h;
+        add_header Cache-Control private;
+      }
+    ",;
   }
 
   file { "/data/uploads":
