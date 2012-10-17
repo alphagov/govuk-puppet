@@ -200,17 +200,17 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::contact { 'zendesk_urgent_priority':
-    email                        => 'zd-alrt-urgent@digital.cabinet-office.gov.uk',
+    email                        => extlookup('zendesk_urgent_priority_email'),
     service_notification_options => 'c,w,u',
   }
 
   nagios::contact { 'zendesk_high_priority':
-    email                        => 'zd-alrt-high@digital.cabinet-office.gov.uk',
+    email                        => extlookup('zendesk_high_priority_email'),
     service_notification_options => 'c,w,u',
   }
 
   nagios::contact { 'zendesk_normal_priority':
-    email                        => 'zd-alrt-normal@digital.cabinet-office.gov.uk',
+    email                        => extlookup('zendesk_normal_priority_email'),
     service_notification_options => 'c,w,u',
   }
 
