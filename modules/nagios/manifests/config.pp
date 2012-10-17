@@ -200,17 +200,17 @@ class nagios::config ($platform = $::govuk_platform) {
   }
 
   nagios::contact { 'zendesk_urgent_priority':
-    email                        => extlookup('zendesk_urgent_priority_email'),
+    email                        => extlookup('zendesk_urgent_priority_email', ''),
     service_notification_options => 'c,w,u',
   }
 
   nagios::contact { 'zendesk_high_priority':
-    email                        => extlookup('zendesk_high_priority_email'),
+    email                        => extlookup('zendesk_high_priority_email', ''),
     service_notification_options => 'c,w,u',
   }
 
   nagios::contact { 'zendesk_normal_priority':
-    email                        => extlookup('zendesk_normal_priority_email'),
+    email                        => extlookup('zendesk_normal_priority_email', ''),
     service_notification_options => 'c,w,u',
   }
 
@@ -230,9 +230,12 @@ class nagios::config ($platform = $::govuk_platform) {
     production: {
       case $::govuk_provider {
         sky: {
-          $urgentprio_members = ['monitoring_google_group','pager_nonworkhours', 'zendesk_urgent_priority']
-          $highprio_members  = ['monitoring_google_group','zendesk_high_priority']
-          $normalprio_members  = ['monitoring_google_group','zendesk_normal_priority']
+          $urgentprio_members = extlookup(nagios_is_pagerduty_enabled, true) ? {
+              false   => ['monitoring_google_group'],
+              default => ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority']
+          }
+          $highprio_members   = ['monitoring_google_group','zendesk_high_priority']
+          $normalprio_members = ['monitoring_google_group','zendesk_normal_priority']
         }
         default: {
           $urgentprio_members = ['monitoring_google_group']
