@@ -7,6 +7,9 @@ define nagios::host (
 
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}":
     ensure  => directory,
+    purge   => true,
+    force   => true,
+    recurse => true,
     require => Class['nagios::package'],
     notify  => Class['nagios::service'],
   }
