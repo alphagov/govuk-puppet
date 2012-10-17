@@ -7,7 +7,7 @@ class govuk::apps::static( $port = 3013 ) {
     health_check_path  => '/templates/wrapper.html.erb';
   }
 
-  $whitehall_host = "whitehall-frontend.$::govuk_platform.alphagov.co.uk"
+  $whitehall_frontend_host = "whitehall-frontend.$::govuk_platform.alphagov.co.uk"
 
   nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
     to                => "localhost:${port}",
@@ -16,8 +16,8 @@ class govuk::apps::static( $port = 3013 ) {
     ssl_only          => true,
     server_names      => ['static.*', 'assets.*'],
     extra_root_config => "location ~ ^/government/(assets|uploads)/ {
-      proxy_set_header Host $whitehall_host;
-      proxy_pass http://$whitehall_host;
+      proxy_set_header Host $whitehall_frontend_host;
+      proxy_pass http://$whitehall_frontend_host;
     }
     ",
   }
