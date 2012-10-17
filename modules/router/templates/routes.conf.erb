@@ -43,7 +43,6 @@ rewrite ^/green-deal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/child-maintenance/?$ /calculate-child-maintenance permanent;
 rewrite ^/childmaintenance/?$ /calculate-child-maintenance permanent;
 rewrite ^/growing-a-business/?$ /growing-your-business permanent;
-rewrite ^/tell-us-once-report-death$ /after-a-death permanent;
 
 location @upstream {
   proxy_pass http://varnish;
