@@ -30,9 +30,12 @@ satisfy any;
 <%- end -%>
 
 # These redirects are a last resort for any given problem. Any additions should be cleared with Etienne
+# They are recorded here as well for those without access to GitHub
+# https://docs.google.com/a/digital.cabinet-office.gov.uk/document/d/1DJeKKnhmfQVJWhlwn0M7R5hSFy7t0kz-VJn2FqNSc7Y/edit
 rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
 rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
 rewrite ^/feedback/internal/?$ https://support.production.alphagov.co.uk/;
+rewrite ^/tell-us-once-report-death/?$ /after-a-death;
 
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
