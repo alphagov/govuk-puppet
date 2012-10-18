@@ -262,16 +262,21 @@ sub vcl_fetch {
      return(pass); 
   } 
 
-<% if scope.lookupvar('varnish::varnish_version') == 3 %>
   if (beresp.ttl > 0s) {
-<% else %>
-  if (beresp.cacheable) {
-<% end %>
-    # Remove Expires from backend, it's not long enough
-    unset beresp.http.expires;
+    if (beresp.ttl < <%= scope.lookupvar('varnish::default_ttl') %>s) {
+      # Rewrite or add cache-control header
+      if (beresp.http.cache-control) {
+        set beresp.http.cache-control = regsub(beresp.http.cache-control, "\bmax-age=\d+\b", "max-age=<%= scope.lookupvar('varnish::default_ttl') %>");
+      } else {
+        set beresp.http.cache-control = "max-age=<%= scope.lookupvar('varnish::default_ttl') %>";
+      }
 
-    # Set how long Varnish will keep it
-    set beresp.ttl = <%= scope.lookupvar('varnish::default_ttl') %>s;
+      # Remove Expires from backend, it's not long enough
+      unset beresp.http.expires;
+
+      # Set how long Varnish will keep it
+      set beresp.ttl = <%= scope.lookupvar('varnish::default_ttl') %>s;
+    }
 
     # marker for vcl_deliver to reset Age
     set beresp.http.magicmarker = "1";
