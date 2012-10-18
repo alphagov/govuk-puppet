@@ -6,11 +6,14 @@ class govuk::apps::efg( $port = 3019 ) {
     enable_nginx_vhost => false,
   }
 
-  nginx::config::vhost::proxy { "www.sflg.gov.uk":
+  $vhost_name = extlookup('efg_domain', 'efg.dev.gov.uk')
+
+  nginx::config::vhost::proxy { $vhost_name:
     to                => ["localhost:${port}"],
+    aliases           => ["efg.production.alphagov.co.uk"],
     protected         => false,
     ssl_only          => true,
-    extra_config => '
+    extra_config      => '
   location /sflg/ {
     rewrite ^ https://$server_name/? permanent;
   }
