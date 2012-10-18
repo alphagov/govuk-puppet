@@ -2,9 +2,9 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
   include users::assets
 
   govuk::app { 'whitehall-admin':
-    app_type          => 'rack',
-    port              => $port,
-    health_check_path => '/healthcheck',
+    app_type           => 'rack',
+    port               => $port,
+    health_check_path  => '/healthcheck',
     nginx_extra_config => "
       location /government/uploads {
         expires 12h;
