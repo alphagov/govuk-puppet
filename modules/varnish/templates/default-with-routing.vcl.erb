@@ -222,11 +222,6 @@ sub vcl_recv {
     }
   }
 
-  # don't cache post requests
-  if (req.request == "POST") {
-    return(pass);
-  }
-
   # allow http auth reqests
   if (req.http.Authorization) {
     return(lookup);
