@@ -52,7 +52,7 @@ class nagios::client::checks {
   }
 
   @@nagios::check { "check_io_time${::hostname}":
-    check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!5!10',
+    check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!30!60',
     service_description => "high disk I/O usage",
     host_name           => "${::govuk_class}-${::hostname}",
   }
