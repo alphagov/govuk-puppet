@@ -222,14 +222,12 @@ sub vcl_recv {
     }
   }
 
-  # allow http auth reqests
-  if (req.http.Authorization) {
-    return(lookup);
-  }
-
-  # Ignore cookies for caching purposes
-  if (req.request == "GET" && req.http.cookie) {
-    return(lookup);
+  # Usually, varnish would refuse to cache requests with an Authorization
+  # header. We don't mind, so return lookup.
+  if (req.request == "GET" || req.request == "HEAD") {
+    if (req.http.Authorization) {
+      return(lookup);
+    }
   }
 }
 
