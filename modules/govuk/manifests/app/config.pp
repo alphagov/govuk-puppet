@@ -45,11 +45,13 @@ define govuk::app::config (
     ensure  => 'file',
     source  => $environ_source,
     content => $environ_content_real,
+    notify  => Service[$title],
   }
 
   # Install service
   file { "/etc/init/${title}.conf":
     content => template('govuk/app_upstart.conf.erb');
+    notify  => Service[$title],
   }
 
   $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
