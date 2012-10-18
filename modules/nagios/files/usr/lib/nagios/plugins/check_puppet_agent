@@ -6,10 +6,10 @@ puppet_agent_state_filename = "/var/lib/puppet/state/state.yaml"
 if File.exists?(puppet_agent_state_filename)
   last_run_time = File.stat(puppet_agent_state_filename).mtime.to_i
   time_since_last_run = Time.now.to_i - last_run_time
-  if time_since_last_run >= 5400
+  if time_since_last_run >= 14400
     puts "CRITICAL: Puppet last ran #{time_since_last_run} ago"
     exit 2
-  elif time_since_last_run >= 3600
+  elif time_since_last_run >= 7200
     puts "WARNING: Puppet last ran #{time_since_last_run} ago"
     exit 1
   end
@@ -40,7 +40,7 @@ if File.exists?(puppet_agent_summary_filename)
     events_failures = summary['events']['failure'].to_i
 
     if(resource_failures + events_failures > 0)
-      puts "Warning: Puppet run had some failures"
+      puts "WARNING: Puppet run had some failures"
       exit 1
     end
   rescue
