@@ -10,6 +10,10 @@ class govuk::apps::whitehall_frontend( $port = 3020 ) {
       location /government/admin {
         rewrite ^ https://whitehall-admin.${vhost_suffix}\$request_uri? permanent;
       }
+      location /government/assets {
+        expires max;
+        add_header Cache-Control public;
+      }
       location /government/uploads {
         proxy_set_header Host 'whitehall-admin.${vhost_suffix}';
         proxy_pass http://whitehall-admin.${vhost_suffix};
