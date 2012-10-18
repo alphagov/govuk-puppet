@@ -28,7 +28,7 @@ class varnish::service {
   }
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":
-    check_command       => 'check_ganglia_metric!http_5xx!0.03!0.1',
+    check_command       => 'check_ganglia_metric!http_5xx!1!2',
     service_description => 'router varnish high 5xx rate',
     host_name           => "${::govuk_class}-${::hostname}",
   }
