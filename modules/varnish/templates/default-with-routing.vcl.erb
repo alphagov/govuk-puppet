@@ -199,7 +199,9 @@ sub vcl_recv {
     }
   }
 
-  # Serve stale period
+  # Serve stale period. This is the period for which Varnish is *allowed* to
+  # serve stale content beyond the object TTL in the event of errors from
+  # origin.
   set req.grace = 6h;
 
   # remove cookies
@@ -237,6 +239,11 @@ sub vcl_recv {
 }
 
 sub vcl_fetch {
+  # Serve stale period. This is the period for which Varnish is allowed to
+  # keep an object, beyond its specified TTL. It should always be as long or
+  # longer than req.grace in vcl_recv.
+  set beresp.grace = 6h;
+
   # remove cookies
   if (req.backend != licensify) {
     unset beresp.http.set-cookie;
@@ -285,9 +292,6 @@ sub vcl_fetch {
       return(restart);
     }
   }
-
-  # Serve stale period
-  set beresp.grace = 6h;
 
   # Allow cached authorized requests
   if (req.http.Authorization) {
