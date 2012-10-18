@@ -40,6 +40,11 @@ class akamai_logs {
     mode    => 744
   }
 
+  file { "/etc/akamai_logs":
+    ensure => directory,
+    owner  => $user
+  }
+
   cron { "fetch-logs-from-akamai":
     command => "/home/${user}/pull_logs.sh",
     user    => $user,

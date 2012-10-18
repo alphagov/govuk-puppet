@@ -13,6 +13,13 @@ BACKUP_USER=<%= @backup_user %>
 BACKUP_HOST=<%= @backup_host %>
 BACKUP_LOGS_DIR=<%= @local_logs_dir %>
 
+CONFIG_SHOULD_RUN="/etc/akamai_logs/should_run"
+CONFIG_SHOULD_PURGE_FROM_AKAMAI="/etc/akamai_logs/should_purge_from_akamai"
+
+if [ ! -e $CONFIG_SHOULD_RUN ]; then
+  exit 1
+fi
+
 LOCK_FILE=$LOCAL_DOWNLOAD_DIR/.lock
 TIME=$(date +%s)
 LIST_FILE=$LOCAL_DOWNLOAD_DIR/filelist-$TIME
@@ -62,11 +69,11 @@ while read entry; do
 done < $LIST_FILE
 
 # Delete the files on akamai
-for log_file in $(awk '{print $9}' $LIST_FILE); do
-  sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR <<END_SCRIPT
-  rm $log_file
-END_SCRIPT
-done
+if [ -e $CONFIG_SHOULD_PURGE_FROM_AKAMAI ]; then
+  for log_file in $(awk '{print $9}' $LIST_FILE); do
+    echo "rm $log_file" | sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR
+  done
+fi
 
 # Move the files into the log directory
 for log_file in $(awk '{print $9}' $LIST_FILE); do
