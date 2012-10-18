@@ -124,17 +124,18 @@ class nagios::config ($platform = $::govuk_platform) {
 
   # START frontend
   @@nagios::check { "check_frontend_to_exit_403_rejects":
-    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.403),'5min')!5min!50!100',
+    check_command       => "check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.403),'5min')!5min!50!100",
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 403 rejects for exit links',
     host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_frontend_to_exit_404_rejects":
-    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),'5min')!5min!50!100',
+    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5min\')!5min!50!100',
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 404 rejects for exit links',
     host_name           => "${::govuk_class}-${::hostname}",
+    }
   # END frontend
 
   # START rummager
@@ -142,7 +143,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   # Start Whitehall
     @@nagios::check { "check_scheduled_publishing_${::hostname}":
-      check_command       => "check_graphite_metric_since!hitcount(stats.govuk.app.whitehall.scheduled_publishing.call_rate,'16minutes')!16minutes!0.9:100!0.9:100",
+      check_command       => 'check_graphite_metric_since!hitcount(stats.govuk.app.whitehall.scheduled_publishing.call_rate,\'16minutes\')!16minutes!0.9:100!0.9:100',
       service_description => 'whitehall sched pub not run in prev 16m',
       use                 => 'govuk_high_priority',
       host_name           => "${::govuk_class}-${::hostname}",
