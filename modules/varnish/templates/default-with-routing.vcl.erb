@@ -243,7 +243,6 @@ sub vcl_fetch {
   }
 
   # hide some internal headers
-  unset beresp.http.X-XSS-Protection;
   unset beresp.http.X-Slimmer-Section;
   unset beresp.http.X-Slimmer-Proposition;
   unset beresp.http.X-Slimmer-Template;
