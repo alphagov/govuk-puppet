@@ -11,12 +11,7 @@ define nginx::config::vhost::proxy(
   $ssl_health_check_port = 'NOTSET',
   $ssl_only = false
 ) {
-
-  if $::govuk_provider == 'sky' {
-    $proxy_vhost_template = 'nginx/proxy-vhost.sky.conf'
-  } else {
-    $proxy_vhost_template = 'nginx/proxy-vhost.conf'
-  }
+  $proxy_vhost_template = 'nginx/proxy-vhost.conf'
 
   include govuk::htpasswd
 
