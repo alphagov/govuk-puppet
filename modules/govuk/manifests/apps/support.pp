@@ -8,9 +8,6 @@ class govuk::apps::support($port = 3031) {
     app_type                => 'rack',
     vhost_aliases           => ['internalsupport'],
     port                    => $port,
-    health_check_path       => '/',
-    nginx_extra_app_config  => 'auth_basic "Enter your password";
-    auth_basic_user_file  /etc/support.htpasswd;
-    ';
+    health_check_path       => '/';
   }
 }
