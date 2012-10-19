@@ -9,13 +9,18 @@ define nginx::config::vhost::proxy(
   $protected = true,
   $root = "/data/vhost/${title}/current/public",
   $ssl_health_check_port = 'NOTSET',
-  $ssl_only = false
+  $ssl_only = false,
+  $ssl_manage_cert = true # This is a *horrible* hack to make EFG work.
+                          # Please, please, remove when we have a
+                          # sensible means of managing SSL certificates.
 ) {
   $proxy_vhost_template = 'nginx/proxy-vhost.conf'
 
   include govuk::htpasswd
 
-  nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
+  if $ssl_manage_cert {
+    nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
+  }
   nginx::config::site { $name:
     content => template($proxy_vhost_template),
   }

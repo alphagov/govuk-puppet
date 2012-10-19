@@ -35,6 +35,7 @@ class govuk::apps::efg( $port = 3019 ) {
     health_check_port     => $health_check_port,
     ssl_only              => true,
     ssl_health_check_port => $ssl_health_check_port,
+    ssl_manage_cert       => false,
     extra_config          => '
   location /sflg/ {
     rewrite ^ https://$server_name/? permanent;
