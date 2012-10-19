@@ -1,177 +1,141 @@
+# Varnish will append its default logic to any overwritten subroutine. If
+# you're not sure what that is, see here:
+#
+#   https://www.varnish-cache.org/trac/browser/bin/varnishd/default.vcl?rev=2.0
+
+<%
+
 # A list of smartanswers to make them easy to maintain
+smartanswers = %w[
+  additional-commodity-code
+  am-i-getting-minimum-wage
+  appeal-a-benefits-decision
+  apply-for-probate
+  auto-enrolled-into-workplace-pension
+  become-a-driving-instructor
+  become-a-motorcycle-instructor
+  benefits-if-you-are-abroad
+  calculate-agricultural-holiday-entitlement
+  calculate-employee-redundancy-pay
+  calculate-married-couples-allowance
+  calculate-night-work-hours
+  calculate-state-pension
+  calculate-statutory-sick-pay
+  calculate-your-child-maintenance
+  calculate-your-holiday-entitlement
+  calculate-your-redundancy-pay
+  can-i-get-a-british-passport
+  child-benefit-tax-calculator
+  childcare-costs-for-tax-credits
+  claim-a-national-insurance-refund
+  driving-in-great-britain-on-non-gb-licence
+  estimate-self-assessment-penalties
+  exchange-a-foreign-driving-licence
+  inherits-someone-dies-without-will
+  legal-right-to-work-in-the-uk
+  maternity-benefits
+  maternity-paternity-calculator
+  plan-adoption-leave
+  plan-maternity-leave
+  plan-paternity-leave
+  recognise-a-trade-union
+  register-a-death
+  report-a-lost-or-stolen-passport
+  request-for-flexible-working
+  student-finance-calculator
+  towing-rules
+  vehicles-you-can-drive
+  which-finance-is-right-for-your-business
+]
 
-<% smartanswers = %w[additional-commodity-code
-                     am-i-getting-minimum-wage
-                     appeal-a-benefits-decision
-                     apply-for-probate
-                     auto-enrolled-into-workplace-pension
-                     become-a-driving-instructor
-                     become-a-motorcycle-instructor
-                     benefits-if-you-are-abroad
-                     calculate-agricultural-holiday-entitlement
-                     calculate-employee-redundancy-pay
-                     calculate-married-couples-allowance
-                     calculate-night-work-hours
-                     calculate-state-pension
-                     calculate-statutory-sick-pay
-                     calculate-your-child-maintenance
-                     calculate-your-holiday-entitlement
-                     calculate-your-redundancy-pay
-                     can-i-get-a-british-passport
-                     child-benefit-tax-calculator
-                     childcare-costs-for-tax-credits
-                     claim-a-national-insurance-refund
-                     driving-in-great-britain-on-non-gb-licence
-                     estimate-self-assessment-penalties
-                     exchange-a-foreign-driving-licence
-                     inherits-someone-dies-without-will
-                     legal-right-to-work-in-the-uk
-                     maternity-benefits
-                     maternity-paternity-calculator
-                     plan-adoption-leave
-                     plan-maternity-leave
-                     plan-paternity-leave
-                     recognise-a-trade-union
-                     register-a-death
-                     report-a-lost-or-stolen-passport
-                     request-for-flexible-working
-                     student-finance-calculator
-                     towing-rules
-                     vehicles-you-can-drive
-                     which-finance-is-right-for-your-business] %>
+backends = %w[
+  businesssupportfinder
+  calendars
+  datainsight_frontend
+  designprinciples
+  feedback
+  frontend
+  licencefinder
+  licensify
+  publicapi
+  search
+  smartanswers
+  static
+  tariff
+  whitehall_frontend
+]
+
+backend_vhosts = backends.inject({}) do |mapping, n|
+  if n != 'frontend'
+    mapping[n] = "#{n.gsub('_', '-')}.#{@govuk_platform}.alphagov.co.uk"
+  else
+    mapping[n] = "www.#{@govuk_platform}.alphagov.co.uk"
+  mapping
+end
+
+def set_backend(name)
+  "set req.http.Host = \"#{backend_vhosts[name]}\"\n" +
+  "set req.backend = #{name};"
+end
+
+%>
+
 # Backends
-
-backend businesssupportfinder {
-  .host = "businesssupportfinder.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend calendars {
-  .host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend datainsight {
-  .host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend designprinciples {
-  .host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend feedback {
-  .host = "feedback.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend frontend {
-  .host = "frontend.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend licencefinder {
-  .host = "licencefinder.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend licensify {
-  .host = "licensify.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend publicapi {
-  .host = "publicapi.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend search {
-  .host = "search.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend smartanswers {
-  .host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend static {
-  .host = "static.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend tariff {
-  .host = "tariff.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend whitehall {
-  .host = "whitehall-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
+<% backends.each do |name| %>
+  backend <%= name %> {
+    .host = "<%= backend_vhosts[name] %>";
+    .port = "80";
+  }
+<% end %>
 
 acl purge_acl {
   "localhost";
 }
 
 sub vcl_recv {
-  # Listing Routes
+  # Routing
   if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap.xml(\?.*)?$") {
-  # Search
-    set req.http.Host = "search.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = search;
+    # Search
+    <%= set_backend('search') %>
   } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
-  # Calendars
-    set req.http.Host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = calendars;
+    # Calendars
+    <%= set_backend('calendars') %>
   } else if (req.url ~ "^/(<%= smartanswers.join("|") %>)") {
-  # Smart Answers
-    set req.http.Host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = smartanswers;
+    # Smart Answers
+    <%= set_backend('smartanswers') %>
   } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$") {
-  # Static
-    set req.http.Host = "static.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = static;
+    # Static
+    <%= set_backend('static') %>
   } else if (req.url ~ "^/designprinciples(\?.*)?$|^/designprinciples/styleguide(\?.*)?$|^/designprinciples/performanceframework(\?.*)?$") {
-  # Design Principles
-    set req.http.Host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = designprinciples;
+    # Design Principles
+    <%= set_backend('designprinciples') %>
   } else if (req.url ~ "^/licence-finder") {
-  # Licence Finder
-    set req.http.Host = "licencefinder.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = licencefinder;
+    # Licence Finder
+    <%= set_backend('licencefinder') %>
   } else if (req.url ~ "^/business-finance-support-finder") {
-  # Business Support Finder
-    set req.http.Host = "businesssupportfinder.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = businesssupportfinder;
+    # Business Support Finder
+    <%= set_backend('businesssupportfinder') %>
   } else if (req.url ~ "^/apply-for-a-licence") {
-  # Licensify
-    set req.http.Host = "licensify.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = licensify;
+    # Licensify
+    <%= set_backend('licensify') %>
   } else if (req.url ~ "^/trade-tariff") {
-  # Tariff
-    set req.http.Host = "tariff.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = tariff;
+    # Tariff
+    <%= set_backend('tariff') %>
   } else if (req.url ~ "^/api") {
-  # Public API
-    set req.http.Host = "publicapi.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = publicapi;
+    # Public API
+    <%= set_backend('publicapi') %>
   } else if (req.url ~ "^/feedback") {
-  # Feedback
-    set req.http.Host = "feedback.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = feedback;
+    # Feedback
+    <%= set_backend('feedback') %>
   } else if (req.url ~ "^/performance$|^/performance/") {
-  # Datainsights
-    set req.http.Host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = datainsight;
+    # Datainsights
+    <%= set_backend('datainsight_frontend') %>
   } else if (req.url ~ "^/government$|^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
-  # Whitehall
-    set req.http.Host = "whitehall-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = whitehall;
+    # Whitehall
+    <%= set_backend('whitehall_frontend') %>
   } else {
-    set req.http.Host = "www.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = frontend;
+    # Fall through to frontend
+    <%= set_backend('frontend') %>
   }
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
