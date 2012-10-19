@@ -9,6 +9,7 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
       location /government/uploads {
         expires 12h;
         add_header Cache-Control private;
+        try_files $uri @app;
       }
     ",;
   }
