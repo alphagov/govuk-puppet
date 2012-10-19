@@ -3,8 +3,17 @@ class govuk::apps::efg( $port = 3019 ) {
     app_type           => 'rack',
     port               => $port,
     health_check_path  => "/healthcheck",
-    vhost_ssl_only     => true,
-    nginx_extra_config => '
+    enable_nginx_vhost => false,
+  }
+
+  $vhost_name = extlookup('efg_domain', 'efg.dev.gov.uk')
+
+  nginx::config::vhost::proxy { $vhost_name:
+    to                => ["localhost:${port}"],
+    aliases           => ["efg.production.alphagov.co.uk"],
+    protected         => false,
+    ssl_only          => true,
+    extra_config      => '
   location /sflg/ {
     rewrite ^ https://$server_name/? permanent;
   }
@@ -12,7 +21,7 @@ class govuk::apps::efg( $port = 3019 ) {
   location /training/ {
     rewrite ^ https://efg.production.alphagov.co.uk/? redirect;
   }
-    ';
+';
   }
 
   @@nagios::check { "check_efg_login_failures_${::hostname}":
