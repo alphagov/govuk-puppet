@@ -9,7 +9,6 @@ class akamai_logs {
     ensure      => present,
     home        => "/home/${user}",
     managehome  => true,
-    group       => $user
   }
 
   package { 'rsync':
@@ -32,7 +31,7 @@ class akamai_logs {
     target  => "/mnt/akamai"
   }
 
-  file { "/home/${user}/pull_logs.sh"
+  file { "/home/${user}/pull_logs.sh":
     ensure  => present,
     content => template("akamai_logs/pull_logs.sh.erb"),
     owner   => $user,

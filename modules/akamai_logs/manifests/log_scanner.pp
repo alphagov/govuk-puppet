@@ -2,11 +2,6 @@ class akamai_logs::log_scanner {
 
   $app_name = 'datainsight-akamai-scanner'
 
-  user { 'deploy':
-    ensure      => present,
-    group       => 'deploy'
-  }
-
   file { "/data/vhost/${app_name}":
     ensure => directory,
     owner  => 'deploy',
@@ -14,7 +9,7 @@ class akamai_logs::log_scanner {
   }
 
   @logstash::collector { "app-${app_name}":
-    content => template("datainsight/log_scanner_logstash.conf.erb"),
+    content => template("akamai_logs/log_scanner_logstash.conf.erb"),
   }
 
   @logrotate::conf { "${app_name}-app":
