@@ -64,15 +64,11 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9530,
       https_listen_port => 8430,
       http_listen_port  => 8530;
-  }
-  if ($::govuk_platform == 'preview') {
-    haproxy::balance_http_and_https {
-      'support':
-        servers           => $backend_servers,
-        health_check_port => 9531,
-        https_listen_port => 8431,
-        http_listen_port  => 8531;
-    }
+    'support':
+      servers           => $backend_servers,
+      health_check_port => 9531,
+      https_listen_port => 8431,
+      http_listen_port  => 8531;
   }
 
   $mapit_servers = {
