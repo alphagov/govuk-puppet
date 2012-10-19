@@ -141,7 +141,6 @@ sub vcl_recv {
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect
   # Don't redirect "/" to "".
-
   if (req.url ~ "(.+)/$") {
     set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "\1");
     error 667 req.http.x-Redir-Url;
@@ -170,11 +169,12 @@ sub vcl_recv {
 
   # remove cookies
   if (req.backend != licensify) {
-    unset req.http.cookie;
+    unset req.http.Cookie;
   }
+
   # purge individual URLs from the cache
-  if(req.request == "PURGE") {
-    if(!client.ip ~ purge_acl) {
+  if (req.request == "PURGE") {
+    if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
 <% if scope.lookupvar('varnish::varnish_version') == 3 %>
@@ -213,6 +213,7 @@ sub vcl_fetch {
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
+  # Rewrite any absolute redirects to be correct
   if (beresp.http.Location) {
   <% if @govuk_platform == "production" %>
     set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^.]+\.[^.]+\.alphagov\.co\.uk)", "https://www.gov.uk");
@@ -223,7 +224,7 @@ sub vcl_fetch {
 
   # If the backend says no-cache or no-store, we should not cache
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") { 
-     return(pass); 
+     return(pass);
   } 
 
   if (beresp.ttl > 0s) {
