@@ -71,7 +71,7 @@ location /apply-for-a-licence/ {
 }
 
 location @fallback {
-  proxy pass http://varnish;
+  proxy_pass http://varnish;
 }
 
 location ~ ^/government\/.+\.atom$ {
