@@ -50,7 +50,7 @@ define govuk::app::config (
 
   # Install service
   file { "/etc/init/${title}.conf":
-    content => template('govuk/app_upstart.conf.erb');
+    content => template('govuk/app_upstart.conf.erb'),
     notify  => Service[$title],
   }
 
