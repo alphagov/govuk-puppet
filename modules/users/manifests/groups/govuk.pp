@@ -4,11 +4,10 @@ class users::groups::govuk {
   govuk::user { 'paulb': ensure => absent }
 
   # Ensure defunct users are absent
-  govuk::user { 'steve': ensure => absent }
-  govuk::user { 'jgriffin':
-    ensure => absent
-  }
-  govuk::user { 'i0n': ensure => absent }
+  govuk::user { 'steve':     ensure => absent }
+  govuk::user { 'jgriffin':  ensure => absent }
+  govuk::user { 'i0n':       ensure => absent }
+  govuk::user { 'ukini':     ensure => absent }
 
   govuk::user { 'mwall':
     fullname   => 'Mat Wall',
@@ -113,10 +112,6 @@ class users::groups::govuk {
     fullname   => 'Sam Sharpe',
     email      => 'sam.sharpe@digital.cabinet-office.gov.uk';
   }
-  govuk::user { 'ukini':
-    fullname   => 'Uttam Kini',
-    email      => 'uttam.kini@digital.cabinet-office.gov.uk';
-  }
   govuk::user { 'carlmassa':
     fullname   => 'Carl Massa',
     email      => 'carl.massa@digital.cabinet-office.gov.uk';
@@ -193,5 +188,4 @@ class users::groups::govuk {
     fullname   => '2nd Line Support Secure Laptop Ops04',
     email      => '2nd-line-support@digital.cabinet-office.gov.uk';
   }
-
 }
