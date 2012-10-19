@@ -249,7 +249,7 @@ sub vcl_fetch {
 
   # if we get a 503 error then server stale content
   if (beresp.status >= 503 && beresp.status <= 504) {
-    set beresp.saintmode = 5m;
+    set beresp.saintmode = 30s;
     if (req.restarts > 0) {
       return(restart);
     }
