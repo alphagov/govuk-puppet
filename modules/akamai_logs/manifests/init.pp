@@ -36,7 +36,7 @@ class akamai_logs {
     content => template("akamai_logs/pull_logs.sh.erb"),
     owner   => $user,
     group   => $user,
-    mode    => 744
+    mode    => '0744'
   }
 
   file { "/etc/akamai_logs":
