@@ -107,6 +107,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
                                                                                     "datainsight-todays-activity-recorder.${platform}.alphagov.co.uk",
                                                                                     "datainsight-everything-recorder.${platform}.alphagov.co.uk",
                                                                                     "datainsight-format-success-recorder.${platform}.alphagov.co.uk"]}
+  host { "akamai-logs-1.backend.${platform}"            : ip     => "10.3.0.11", host_aliases => ["akamai-logs-1"] }
+  host { "akamai-logs-backup-1.backend.${platform}"     : ip     => "10.3.0.12", host_aliases => ["akamai-logs-backup-1"] }
 
   # ELMS (Licence Finder) VDC machines
   host { "licensify-frontend-1.licensify.${platform}"           : ip => "10.5.0.2", host_aliases  =>  ["licensify-frontend-1"] }
