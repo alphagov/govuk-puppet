@@ -20,7 +20,7 @@ if [ $# -lt 2 ]; then
 fi
 
 make_result_file() {
-  if [ -n "`which tempname`" ]; then
+  if [ -n "`which tempfile`" ]; then
     RESULTFILE=`tempfile -p CLAM-`
   elif [ -n "`which mktemp`" ]; then
     RESULTFILE=`mktemp -t CLAM-`
