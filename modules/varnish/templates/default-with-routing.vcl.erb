@@ -130,7 +130,7 @@ sub vcl_recv {
   } else if (req.url ~ "^/performance$|^/performance/") {
     # Datainsights
     <%= set_backend('datainsight_frontend') %>
-  } else if (req.url ~ "^/government$|^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
+  } else if (req.url ~ "^/government$|^/government/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
     # Whitehall
     <%= set_backend('whitehall_frontend') %>
   } else {
