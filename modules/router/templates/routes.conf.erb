@@ -68,6 +68,7 @@ location ~ ^/apply-for-a-licence\/assets\/.+ {
 
 location /apply-for-a-licence/ {
   error_page 500 @fallback;
+  proxy_pass http://varnish;  
 }
 
 location @fallback {
