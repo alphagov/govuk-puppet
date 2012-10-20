@@ -1,11 +1,13 @@
 class govuk::apps::efg( $port = 3019 ) {
+
+  $vhost_name = extlookup('efg_domain', 'efg.dev.gov.uk')
+
   govuk::app { 'efg':
     app_type           => 'rack',
     port               => $port,
+    environ_content    => template('govuk/etc/envmgr/efg.conf.erb'),
     enable_nginx_vhost => false,
   }
-
-  $vhost_name = extlookup('efg_domain', 'efg.dev.gov.uk')
 
   # BEWARE A BODGE
   #
