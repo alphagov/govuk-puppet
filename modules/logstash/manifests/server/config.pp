@@ -56,7 +56,7 @@ class logstash::server::config (
   }
 
   cron { 'logstash-clean-indices':
-    command => "/var/apps/logstash/logstash_index_cleaner --port ${http_port} --days-to-keep 7",
+    command => "/var/apps/logstash/logstash_index_cleaner --port ${http_port} --days-to-keep 4",
     user    => 'logstash',
     minute  => '34',
     hour    => '2',
