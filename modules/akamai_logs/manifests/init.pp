@@ -41,7 +41,8 @@ class akamai_logs {
 
   file { "/etc/akamai_logs":
     ensure => directory,
-    owner  => $user
+    owner  => 'deploy',
+    group  => 'deploy'
   }
 
   cron { "fetch-logs-from-akamai":
