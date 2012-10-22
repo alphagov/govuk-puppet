@@ -66,13 +66,9 @@ location ~ ^/apply-for-a-licence\/assets\/.+ {
   proxy_pass http://varnish;  
 }
 
-location /apply-for-a-licence/ {
-  error_page 500 @fallback;
+location ~ ^/apply-for-a-licence\/.+ {
+  proxy_intercept_errors off;
   proxy_pass http://varnish;  
-}
-
-location @fallback {
-  proxy_pass http://varnish;
 }
 
 location ~ ^/government\/.+\.atom$ {
