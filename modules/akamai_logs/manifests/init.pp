@@ -4,6 +4,7 @@ class akamai_logs {
   $akamai_user = "sshacs"
   $akamai_host = "govdigital.upload.akamai.com"
   $path_to_logs = "184928/logs"
+  $backup_host = "akamai-logs-backup-1"
 
   user { $user:
     ensure      => present,
