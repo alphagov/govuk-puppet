@@ -1,0 +1,14 @@
+# Set this to the email address where reports and run output should be sent
+REPORT_EMAIL="root"
+
+# Set this to yes to enable rkhunter weekly database updates
+CRON_DB_UPDATE="yes"
+
+# Set this to yes to enable reports of weekly database updates
+DB_UPDATE_EMAIL="no"
+
+# Set this to yes to enable rkhunter daily runs
+CRON_DAILY_RUN="yes"
+
+# Nicenesses range from -20 (most favorable scheduling) to 19 (least favorable).
+NICE="10"
