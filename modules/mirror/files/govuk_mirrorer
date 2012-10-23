@@ -108,11 +108,17 @@ class GovukMirrorer < Spidey::AbstractSpider
 
   def crawl(options = {})
     each_url do |url, handler, default_data|
+      retried = false
       begin
         page = agent.get(url)
         logger.debug "Handling #{url.inspect}" if @verbose_debug
         send handler, page, default_data
       rescue => ex
+        if ex.is_a?(Mechanize::ResponseCodeError) and ex.response_code.to_i == 503 and ! retried
+          retried = true
+          sleep 1
+          retry
+        end
         add_error url: url, handler: handler, error: ex, data: default_data
       end
     end

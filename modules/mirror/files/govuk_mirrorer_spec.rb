@@ -136,6 +136,70 @@ describe GovukMirrorer do
     end
   end
 
+  describe "crawl" do
+    before :each do
+      GovukIndexer.any_instance.stub(:all_start_urls).and_return(%w(
+        https://www.example.com/1
+        https://www.example.com/2
+      ))
+
+      @m = GovukMirrorer.new
+      @m.stub(:process_govuk_page)
+      @m.send(:agent).stub(:get).and_return("default")
+    end
+
+    it "should fetch each page and pass it to the handler" do
+      @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_return("page_1")
+      @m.should_receive(:process_govuk_page).with("page_1", {}).ordered
+
+      @m.send(:agent).should_receive(:get).with("https://www.example.com/2").ordered.and_return("page_2")
+      @m.should_receive(:process_govuk_page).with("page_2", {}).ordered
+
+      @m.crawl
+    end
+
+    describe "handling errors" do
+      it "should call add_error with the relevant details" do
+        error = StandardError.new("Boom")
+        @m.send(:agent).should_receive(:get).with("https://www.example.com/1").and_raise(error)
+        @m.should_receive(:add_error).with(:url => "https://www.example.com/1", :handler => :process_govuk_page, :error => error, :data => {})
+
+        @m.crawl
+      end
+
+      it "should continue with the next URL" do
+        @m.send(:agent).stub(:get).with("https://www.example.com/1").and_raise("Boom")
+        @m.send(:agent).should_receive(:get).with("https://www.example.com/2").and_return("something")
+
+        @m.crawl
+      end
+
+      context "503 error" do
+        it "should sleep for a second, and then retry" do
+          error = Mechanize::ResponseCodeError.new(stub("Page", :code => 503), "Boom")
+          @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_raise(error)
+          @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_return("page_1")
+
+          @m.should_not_receive(:add_error)
+          @m.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
+          @m.should_receive(:process_govuk_page).with("page_1", {})
+
+          @m.crawl
+        end
+
+        it "should only retry once" do
+          error = Mechanize::ResponseCodeError.new(stub("Page", :code => 503), "Boom")
+          @m.send(:agent).should_receive(:get).with("https://www.example.com/1").twice.and_raise(error)
+
+          @m.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
+          @m.should_receive(:add_error).with(:url => "https://www.example.com/1", :handler => :process_govuk_page, :error => error, :data => {}).once
+
+          @m.crawl
+        end
+      end
+    end
+  end
+
   describe "process_govuk_page" do
     before :each do
       @m = GovukMirrorer.new
