@@ -67,6 +67,38 @@ describe GovukIndexer do
       i.blacklist_paths.should include("/licence-finder")
       i.blacklist_paths.should include("/trade-tariff")
     end
+
+    describe "handling errors fetching artefacts" do
+      it "should sleep and retry fetching artefacts on HTTP error" do
+        WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+          to_return(:status => [502, "Gateway Timeout"]).
+          to_return(:body => {
+            "_response_info" => {"status" => "ok"},
+            "total" => 2,
+            "results" => [
+              {"format" => "answer", "web_url" => "http://www.test.gov.uk/foo"},
+              {"format" => "guide", "web_url" => "http://www.test.gov.uk/vat"},
+            ]
+          }.to_json)
+        GovukIndexer.any_instance.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
+
+        i = GovukIndexer.new
+
+        i.all_start_urls.should include("http://www.test.gov.uk/foo")
+        i.all_start_urls.should include("http://www.test.gov.uk/vat")
+      end
+
+      it "should only retry once" do
+        WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+          to_return(:status => [502, "Gateway Timeout"]).
+          to_return(:status => [502, "Gateway Timeout"])
+
+        GovukIndexer.any_instance.stub(:sleep) # Make tests fast
+        lambda do
+          GovukIndexer.new
+        end.should raise_error(Mechanize::ResponseCodeError)
+      end
+    end
   end
 
   describe "blacklisted_url?" do

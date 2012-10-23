@@ -72,9 +72,17 @@ class GovukIndexer
   end
 
   def artefacts
+    retried = false
     @artefacts ||= begin
       page = Mechanize.new.get(API_ENDPOINT)
       JSON.parse(page.body)["results"]
+    rescue Mechanize::ResponseCodeError => ex
+      if ! retried
+        retried = true
+        sleep 1
+        retry
+      end
+      raise
     end
   end
 end
