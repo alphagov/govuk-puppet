@@ -25,6 +25,7 @@ node default {
     ertp-development:   { include ertp_base::development }
     ertp-frontend:      { include ertp_base::frontend_server }
     ertp-mongo:         { include ertp_base::mongo_server }
+    exception-handler:  { include govuk_node::exception_handler }
     frontend:           { include govuk_node::frontend_server }
     frontend-lb:        { include govuk_node::frontend_load_balancer }
     graylog:            { include govuk_node::logging_server }
