@@ -6,8 +6,8 @@ require 'parallel_tests/cli'
 ENV['RUBYOPT'] = (ENV['RUBYOPT'] || '') + ' -W0'
 
 THIRD_PARTY_MODULES = %w[
-  modules/concat/**/*
-  modules/kwalify/**/*
+  concat
+  kwalify
 ]
 
 PuppetLint.configuration.with_filename = true
@@ -32,7 +32,8 @@ end
 
 desc "Run puppet-lint on one or more modules"
 task :lint do
-  manifests_to_lint = FileList[*get_modules.map { |x| "modules/#{x}/**/*.pp" }]
+  manifests_to_lint = FileList['manifests/**/*.pp']
+  manifests_to_lint += FileList[*get_modules.map { |x| "modules/#{x}/**/*.pp" }]
   linter = PuppetLint.new
 
   if ignore_paths = PuppetLint.configuration.ignore_paths
@@ -51,9 +52,10 @@ end
 
 desc "Run rspec"
 task :spec do
-  matched_files = FileList[*get_modules.map { |x| "modules/#{x}/spec/**/*_spec.rb" }]
+  matched_files = FileList['manifests/**/*_spec.rb']
+  matched_files += FileList[*get_modules.map { |x| "modules/#{x}/spec/**/*_spec.rb" }]
 
-  matched_files = matched_files.exclude(*THIRD_PARTY_MODULES)
+  matched_files = matched_files.exclude(*THIRD_PARTY_MODULES.map { |x| "modules/#{x}/**/*" })
 
   cli_args = ['-t', 'rspec']
   cli_args.concat(matched_files)
@@ -68,7 +70,7 @@ task :custom do
   custom_rakefiles.select! { |x| File.exist?(x) }
 
   # Until we remove these from this repository, exclude third party modules.
-  custom_rakefiles = custom_rakefiles.exclude(*THIRD_PARTY_MODULES)
+  custom_rakefiles = custom_rakefiles.exclude(*THIRD_PARTY_MODULES.map { |x| "modules/#{x}/**/*" })
 
   custom_rakefiles.each do |fn|
     name = File.dirname(fn)
