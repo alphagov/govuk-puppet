@@ -1,183 +1,146 @@
+# Varnish will append its default logic to any overwritten subroutine. If
+# you're not sure what that is, see here:
+#
+#   https://www.varnish-cache.org/trac/browser/bin/varnishd/default.vcl?rev=2.0
+
+<%
+
 # A list of smartanswers to make them easy to maintain
+smartanswers = %w[
+  additional-commodity-code
+  am-i-getting-minimum-wage
+  appeal-a-benefits-decision
+  apply-for-probate
+  auto-enrolled-into-workplace-pension
+  become-a-driving-instructor
+  become-a-motorcycle-instructor
+  benefits-if-you-are-abroad
+  calculate-agricultural-holiday-entitlement
+  calculate-employee-redundancy-pay
+  calculate-married-couples-allowance
+  calculate-night-work-hours
+  calculate-state-pension
+  calculate-statutory-sick-pay
+  calculate-your-child-maintenance
+  calculate-your-holiday-entitlement
+  calculate-your-redundancy-pay
+  can-i-get-a-british-passport
+  child-benefit-tax-calculator
+  childcare-costs-for-tax-credits
+  claim-a-national-insurance-refund
+  driving-in-great-britain-on-non-gb-licence
+  estimate-self-assessment-penalties
+  exchange-a-foreign-driving-licence
+  inherits-someone-dies-without-will
+  legal-right-to-work-in-the-uk
+  maternity-benefits
+  maternity-paternity-calculator
+  plan-adoption-leave
+  plan-maternity-leave
+  plan-paternity-leave
+  recognise-a-trade-union
+  register-a-death
+  report-a-lost-or-stolen-passport
+  request-for-flexible-working
+  student-finance-calculator
+  towing-rules
+  vehicles-you-can-drive
+  which-finance-is-right-for-your-business
+]
 
-<% smartanswers = %w[additional-commodity-code
-                     am-i-getting-minimum-wage
-                     appeal-a-benefits-decision
-                     apply-for-probate
-                     auto-enrolled-into-workplace-pension
-                     become-a-driving-instructor
-                     become-a-motorcycle-instructor
-                     benefits-if-you-are-abroad
-                     calculate-agricultural-holiday-entitlement
-                     calculate-employee-redundancy-pay
-                     calculate-married-couples-allowance
-                     calculate-night-work-hours
-                     calculate-state-pension
-                     calculate-statutory-sick-pay
-                     calculate-your-child-maintenance
-                     calculate-your-holiday-entitlement
-                     calculate-your-redundancy-pay
-                     can-i-get-a-british-passport
-                     child-benefit-tax-calculator
-                     childcare-costs-for-tax-credits
-                     claim-a-national-insurance-refund
-                     driving-in-great-britain-on-non-gb-licence
-                     estimate-self-assessment-penalties
-                     exchange-a-foreign-driving-licence
-                     inherits-someone-dies-without-will
-                     legal-right-to-work-in-the-uk
-                     maternity-benefits
-                     maternity-paternity-calculator
-                     plan-adoption-leave
-                     plan-maternity-leave
-                     plan-paternity-leave
-                     recognise-a-trade-union
-                     register-a-death
-                     report-a-lost-or-stolen-passport
-                     request-for-flexible-working
-                     student-finance-calculator
-                     towing-rules
-                     vehicles-you-can-drive
-                     which-finance-is-right-for-your-business] %>
+backends = %w[
+  businesssupportfinder
+  calendars
+  datainsight_frontend
+  designprinciples
+  feedback
+  frontend
+  licencefinder
+  licensify
+  publicapi
+  search
+  smartanswers
+  static
+  tariff
+  whitehall_frontend
+]
+
+backend_vhosts = backends.inject({}) do |mapping, n|
+  if n != 'frontend'
+    mapping[n] = "#{n.gsub('_', '-')}.#{@govuk_platform}.alphagov.co.uk"
+  else
+    mapping[n] = "www.#{@govuk_platform}.alphagov.co.uk"
+  mapping
+end
+
+def set_backend(name)
+  "set req.http.Host = \"#{backend_vhosts[name]}\"\n" +
+  "set req.backend = #{name};"
+end
+
+%>
+
 # Backends
-
-backend businesssupportfinder {
-  .host = "businesssupportfinder.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend calendars {
-  .host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend datainsight {
-  .host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend designprinciples {
-  .host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend feedback {
-  .host = "feedback.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend frontend {
-  .host = "frontend.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend licencefinder {
-  .host = "licencefinder.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend licensify {
-  .host = "licensify.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend publicapi {
-  .host = "publicapi.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend search {
-  .host = "search.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend smartanswers {
-  .host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend static {
-  .host = "static.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend tariff {
-  .host = "tariff.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
-
-backend whitehall {
-  .host = "whitehall-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-  .port = "80";
-}
+<% backends.each do |name| %>
+  backend <%= name %> {
+    .host = "<%= backend_vhosts[name] %>";
+    .port = "80";
+  }
+<% end %>
 
 acl purge_acl {
   "localhost";
 }
 
 sub vcl_recv {
-  # Listing Routes
+  # Routing
   if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap.xml(\?.*)?$") {
-  # Search
-    set req.http.Host = "search.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = search;
+    # Search
+    <%= set_backend('search') %>
   } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
-  # Calendars
-    set req.http.Host = "calendars.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = calendars;
+    # Calendars
+    <%= set_backend('calendars') %>
   } else if (req.url ~ "^/(<%= smartanswers.join("|") %>)") {
-  # Smart Answers
-    set req.http.Host = "smartanswers.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = smartanswers;
+    # Smart Answers
+    <%= set_backend('smartanswers') %>
   } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$") {
-  # Static
-    set req.http.Host = "static.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = static;
+    # Static
+    <%= set_backend('static') %>
   } else if (req.url ~ "^/designprinciples(\?.*)?$|^/designprinciples/styleguide(\?.*)?$|^/designprinciples/performanceframework(\?.*)?$") {
-  # Design Principles
-    set req.http.Host = "designprinciples.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = designprinciples;
+    # Design Principles
+    <%= set_backend('designprinciples') %>
   } else if (req.url ~ "^/licence-finder") {
-  # Licence Finder
-    set req.http.Host = "licencefinder.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = licencefinder;
+    # Licence Finder
+    <%= set_backend('licencefinder') %>
   } else if (req.url ~ "^/business-finance-support-finder") {
-  # Business Support Finder
-    set req.http.Host = "businesssupportfinder.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = businesssupportfinder;
+    # Business Support Finder
+    <%= set_backend('businesssupportfinder') %>
   } else if (req.url ~ "^/apply-for-a-licence") {
-  # Licensify
-    set req.http.Host = "licensify.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = licensify;
+    # Licensify
+    <%= set_backend('licensify') %>
   } else if (req.url ~ "^/trade-tariff") {
-  # Tariff
-    set req.http.Host = "tariff.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = tariff;
+    # Tariff
+    <%= set_backend('tariff') %>
   } else if (req.url ~ "^/api") {
-  # Public API
-    set req.http.Host = "publicapi.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = publicapi;
+    # Public API
+    <%= set_backend('publicapi') %>
   } else if (req.url ~ "^/feedback") {
-  # Feedback
-    set req.http.Host = "feedback.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = feedback;
+    # Feedback
+    <%= set_backend('feedback') %>
   } else if (req.url ~ "^/performance$|^/performance/") {
-  # Datainsights
-    set req.http.Host = "datainsight-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = datainsight;
-  } else if (req.url ~ "^/government$|^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
-  # Whitehall
-    set req.http.Host = "whitehall-frontend.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = whitehall;
+    # Datainsights
+    <%= set_backend('datainsight_frontend') %>
+  } else if (req.url ~ "^/government$|^/government/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
+    # Whitehall
+    <%= set_backend('whitehall_frontend') %>
   } else {
-    set req.http.Host = "www.<%= @govuk_platform %>.alphagov.co.uk";
-    set req.backend = frontend;
+    # Fall through to frontend
+    <%= set_backend('frontend') %>
   }
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect
   # Don't redirect "/" to "".
-
   if (req.url ~ "(.+)/$") {
     set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "\1");
     error 667 req.http.x-Redir-Url;
@@ -199,16 +162,19 @@ sub vcl_recv {
     }
   }
 
-  # Serve stale period
+  # Serve stale period. This is the period for which Varnish is *allowed* to
+  # serve stale content beyond the object TTL in the event of errors from
+  # origin.
   set req.grace = 6h;
 
   # remove cookies
   if (req.backend != licensify) {
-    unset req.http.cookie;
+    unset req.http.Cookie;
   }
+
   # purge individual URLs from the cache
-  if(req.request == "PURGE") {
-    if(!client.ip ~ purge_acl) {
+  if (req.request == "PURGE") {
+    if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
 <% if scope.lookupvar('varnish::varnish_version') == 3 %>
@@ -220,59 +186,50 @@ sub vcl_recv {
     }
   }
 
-  # don't cache post requests
-  if (req.request == "POST") {
-    return(pass);
-  }
-
-  # allow http auth reqests
-  if (req.http.Authorization) {
-    return(lookup);
-  }
-
-  # Ignore cookies for caching purposes
-  if (req.request == "GET" && req.http.cookie) {
-    return(lookup);
+  # Usually, varnish would refuse to cache requests with an Authorization
+  # header. We don't mind, so return lookup.
+  if (req.request == "GET" || req.request == "HEAD") {
+    if (req.http.Authorization) {
+      return(lookup);
+    }
   }
 }
 
 sub vcl_fetch {
+  # Serve stale period. This is the period for which Varnish is allowed to
+  # keep an object, beyond its specified TTL. It should always be as long or
+  # longer than req.grace in vcl_recv.
+  set beresp.grace = 6h;
+
   # remove cookies
   if (req.backend != licensify) {
     unset beresp.http.set-cookie;
   }
 
   # hide some internal headers
-  unset beresp.http.X-XSS-Protection;
-  unset beresp.http.X-Slimmer-Section;
-  unset beresp.http.X-Slimmer-Proposition;
-  unset beresp.http.X-Slimmer-Template;
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
-  if (beresp.http.Location) {
-  <% if @govuk_platform == "production" %>
-    set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^.]+\.[^.]+\.alphagov\.co\.uk)", "https://www.gov.uk");
-  <% else %>
-    set beresp.http.Location = regsub(beresp.http.Location, "^(\w+://[^.]+\.[^.]+\.alphagov\.co\.uk)", "https://www.<%= @govuk_platform %>.alphagov.co.uk");
-  <% end %>
-  }
-
   # If the backend says no-cache or no-store, we should not cache
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") { 
-     return(pass); 
+     return(pass);
   } 
 
-<% if scope.lookupvar('varnish::varnish_version') == 3 %>
   if (beresp.ttl > 0s) {
-<% else %>
-  if (beresp.cacheable) {
-<% end %>
-    # Remove Expires from backend, it's not long enough
-    unset beresp.http.expires;
+    if (beresp.ttl < <%= scope.lookupvar('varnish::default_ttl') %>s) {
+      # Rewrite or add cache-control header
+      if (beresp.http.cache-control) {
+        set beresp.http.cache-control = regsub(beresp.http.cache-control, "\bmax-age=\d+\b", "max-age=<%= scope.lookupvar('varnish::default_ttl') %>");
+      } else {
+        set beresp.http.cache-control = "max-age=<%= scope.lookupvar('varnish::default_ttl') %>";
+      }
 
-    # Set how long Varnish will keep it
-    set beresp.ttl = <%= scope.lookupvar('varnish::default_ttl') %>s;
+      # Remove Expires from backend, it's not long enough
+      unset beresp.http.expires;
+
+      # Set how long Varnish will keep it
+      set beresp.ttl = <%= scope.lookupvar('varnish::default_ttl') %>s;
+    }
 
     # marker for vcl_deliver to reset Age
     set beresp.http.magicmarker = "1";
@@ -280,14 +237,11 @@ sub vcl_fetch {
 
   # if we get a 503 error then server stale content
   if (beresp.status >= 503 && beresp.status <= 504) {
-    set beresp.saintmode = 5m;
+    set beresp.saintmode = 30s;
     if (req.restarts > 0) {
       return(restart);
     }
   }
-
-  # Serve stale period
-  set beresp.grace = 6h;
 
   # Allow cached authorized requests
   if (req.http.Authorization) {
