@@ -1,0 +1,6 @@
+desc "Test sudoers syntax"
+task :sudoers do
+  sh 'visudo -c -f files/sudoers'
+end
+
+task :default => :sudoers
