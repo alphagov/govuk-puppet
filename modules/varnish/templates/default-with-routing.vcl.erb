@@ -71,6 +71,7 @@ backend_vhosts = backends.inject({}) do |mapping, n|
   else
     mapping[n] = "www.#{@govuk_platform}.alphagov.co.uk"
   end
+  mapping
 end
 
 def set_backend(name)
