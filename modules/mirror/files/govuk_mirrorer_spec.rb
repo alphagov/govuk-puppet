@@ -206,7 +206,7 @@ describe GovukMirrorer do
         @m.crawl
       end
 
-      context "503 error" do
+      context "5xx error" do
         it "should sleep for a second, and then retry" do
           error = Mechanize::ResponseCodeError.new(stub("Page", :code => 503), "Boom")
           @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_raise(error)

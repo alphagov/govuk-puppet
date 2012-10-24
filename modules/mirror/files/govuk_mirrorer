@@ -122,7 +122,7 @@ class GovukMirrorer < Spidey::AbstractSpider
         logger.debug "Handling #{url.inspect}" if @verbose_debug
         send handler, page, default_data
       rescue => ex
-        if ex.is_a?(Mechanize::ResponseCodeError) and ex.response_code.to_i == 503 and ! retried
+        if ex.is_a?(Mechanize::ResponseCodeError) and (500..599).include?(ex.response_code.to_i) and ! retried
           retried = true
           sleep 1
           retry
