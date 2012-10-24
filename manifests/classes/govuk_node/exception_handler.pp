@@ -15,5 +15,6 @@ class govuk_node::exception_handler inherits govuk_node::base {
   class { 'mongodb::backup':
     members => $mongo_hosts
   }
+  include nginx
   include govuk::apps::errbit
 }
