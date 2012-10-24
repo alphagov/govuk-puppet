@@ -1,4 +1,4 @@
-class hosts::ertp-staging {
+class hosts::ertp_staging {
   host { 'ertp-ems-api':       ip => '10.32.5.251' }
   host { 'ertp-citizen-api':   ip => '10.241.67.78' }
   host { 'ertp-dwp-api':       ip => '10.32.1.112' }
