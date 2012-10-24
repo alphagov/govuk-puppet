@@ -28,6 +28,8 @@ APP_LOGROOT="/var/log/${APP_NAME}"
 
 set -eu
 
+[ -d /var/run/${APP_NAME} ] || mkdir /var/run/${APP_NAME} && chown ${GOVUK_USER}:${GOVUK_GROUP} /var/run/${APP_NAME}
+
 if [ -z "$FACTER_govuk_platform" ]; then
   error "The FACTER_govuk_platform environment variable must be set!"
 fi
