@@ -92,4 +92,7 @@ task :nagios_checks do
   end
 end
 
-task :default => [:lint, :spec, :nagios_checks, :custom]
+desc "Run all tests"
+task :test => [:spec, :nagios_checks, :custom]
+
+task :default => [:lint, :test]
