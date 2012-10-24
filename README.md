@@ -18,7 +18,7 @@ Please familiarise yourself with [our Puppet style guide][style] before contribu
 
 Run the tests with the provider wrapper around rake:
 
-    bundle exec rake test
+    bundle exec rake
 
 The manifest tests are located in `manifests/spec` and some individual modules
 have tests in `modules/<module>/spec`. See the [RSpec
@@ -36,7 +36,3 @@ This outputs a set of errors or warnings that should be fixed. See the
 for more information.
 
 [pl]: https://github.com/rodjek/puppet-lint
-
-You can also run both tests and lint checks with the default rake task:
-
-    bundle exec rake
