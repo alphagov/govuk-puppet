@@ -13,6 +13,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "jumpbox-2.management.${platform}"   : ip  => "10.0.0.200" }
   host { "backup-1.management.${platform}"    : ip  => "10.0.0.50" }
   host { "vcd00003.vpn.skyscapecs.net"        : ip  => "10.202.5.11" }
+  host { "exception-handler-1.management.${platform}"  : ip  => "10.0.0.4", host_aliases => ["exception-handler-1", "exception-handler"] }  
 
   #Router VDC machines
   host { "cache-1.router.${platform}"         : ip => "10.1.0.2" }
