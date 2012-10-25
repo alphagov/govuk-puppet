@@ -74,6 +74,15 @@ location ~ ^/performance/graphs/ {
 ### This whole government block is so we can hide Inside Gov for the
 ### moment - the whole thing can be removed once we're live.
 
+location ~ ^/government/assets/ {
+  proxy_pass http://varnish;
+}
+location ~ ^/government/uploads/ {
+  proxy_pass http://varnish;
+}
+location ~ ^/government/.+\.atom$ {
+  proxy_pass http://varnish;
+}
 location ~ ^/government/.+ {
   # XXX: If you remove this password control remove the cache control below
   # too!
@@ -86,15 +95,6 @@ location ~ ^/government/.+ {
   # This is for Akamai and is part of the password above: If you remove the
   # passwd, remove this cache control as well!
   add_header cache-control no-cache;
-}
-location ~ ^/government/assets/ {
-  proxy_pass http://varnish;
-}
-location ~ ^/government/uploads/ {
-  proxy_pass http://varnish;
-}
-location ~ ^/government/.+\.atom$ {
-  proxy_pass http://varnish;
 }
 
 # End Inside Gov password logic
