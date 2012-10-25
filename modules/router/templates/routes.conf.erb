@@ -49,7 +49,7 @@ location @upstream {
   proxy_pass http://varnish;
 }
 
-location /apply-for-a-licence/ {
+location ~ ^/apply-for-a-licence/ {
   proxy_intercept_errors off;
 
   # Set proxy timeout to 50 seconds as a quick fix for problems
@@ -59,13 +59,13 @@ location /apply-for-a-licence/ {
   proxy_pass http://varnish;
 }
 
-location /apply-for-a-licence/assets/ {
+location ~ ^/apply-for-a-licence/assets/ {
   limit_req zone=rate burst=5 nodelay;
   limit_conn connections 25;
   proxy_pass http://varnish;
 }
 
-location /performance/graphs/ {
+location ~ ^/performance/graphs/ {
   limit_req zone=rate burst=25 nodelay;
   proxy_pass http://varnish;
 }
@@ -74,7 +74,7 @@ location /performance/graphs/ {
 ### This whole government block is so we can hide Inside Gov for the
 ### moment - the whole thing can be removed once we're live.
 
-location /government/ {
+location ~ ^/government/.+ {
   # XXX: If you remove this password control remove the cache control below
   # too!
   deny all;
@@ -87,13 +87,10 @@ location /government/ {
   # passwd, remove this cache control as well!
   add_header cache-control no-cache;
 }
-location = /government/ {
+location ~ ^/government/assets/ {
   proxy_pass http://varnish;
 }
-location /government/assets/ {
-  proxy_pass http://varnish;
-}
-location /government/uploads/ {
+location ~ ^/government/uploads/ {
   proxy_pass http://varnish;
 }
 location ~ ^/government/.+\.atom$ {
