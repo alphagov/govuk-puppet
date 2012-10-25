@@ -104,6 +104,11 @@ location = /government {
 }
 # End Inside Gov password logic
 
+location /performance/graphs/ {
+  limit_req zone=rate burst=25 nodelay;
+  proxy_pass http://varnish;
+}
+
 # Akamai CDN test object. This file is used by Akamai's infrastructure to
 # determine optimal routing within their network. It can be any text file
 # 8-12KiB in size.
