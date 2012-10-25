@@ -65,49 +65,48 @@ location /apply-for-a-licence/assets/ {
   proxy_pass http://varnish;
 }
 
-# Start Inside Gov password logic
-### This whole government block is so we can hide Inside Gov for the
-### moment - the whole thing can be removed once we're live.
-location ~ ^/government\/assets\/ {
-  proxy_pass http://varnish;
-}
-
-location ~ ^/government\/uploads\/ {
-  proxy_pass http://varnish;
-}
-
-
-location ~ ^/government\/.+\.atom$ {
-  proxy_pass http://varnish;
-}
-
-location ~ ^/government\/.+ {
-  # XXX: If you remove this password control remove the cache control
-  # below too!
-  deny all;
-  auth_basic           "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
-  auth_basic_user_file /etc/govuk.htpasswd;
-  satisfy any;
-  # This is for Akamai and is part of the password above: If you
-  # remove the passwd, remove this cache control as well!
-  add_header           Cache-Control  no-cache;
-
-  proxy_pass http://varnish;
-}
-
-location ~ ^/government\/ {
-  proxy_pass http://varnish;
-}
-
-location = /government {
-  proxy_pass http://varnish;
-}
-# End Inside Gov password logic
-
 location /performance/graphs/ {
   limit_req zone=rate burst=25 nodelay;
   proxy_pass http://varnish;
 }
+
+# Start Inside Gov password logic
+### This whole government block is so we can hide Inside Gov for the
+### moment - the whole thing can be removed once we're live.
+
+location /government {
+  # XXX: If you remove this password control remove the cache control below
+  # too!
+  deny all;
+  auth_basic           "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
+  auth_basic_user_file /etc/govuk.htpasswd;
+  satisfy any;
+
+  proxy_pass http://varnish;
+
+  location = /government {
+    auth_basic off;
+  }
+  location = /government/ {
+    auth_basic off;
+  }
+  location /government/ {
+    # This is for Akamai and is part of the password above: If you remove the
+    # passwd, remove this cache control as well!
+    add_header cache-control no-cache;
+  }
+  location /government/assets/ {
+    auth_basic off;
+  }
+  location /government/uploads/ {
+    auth_basic off;
+  }
+  location ~ \.atom$ {
+    auth_basic off;
+  }
+}
+
+# End Inside Gov password logic
 
 # Akamai CDN test object. This file is used by Akamai's infrastructure to
 # determine optimal routing within their network. It can be any text file
