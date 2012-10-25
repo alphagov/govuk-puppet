@@ -31,7 +31,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   host { "backup-1.management.${platform}":
     ip => '10.0.0.50',
   }
-  host { 'vcd00003.vpn.skyscapecs.net',:
+  host { 'vcd00003.vpn.skyscapecs.net':
     ip => '10.202.5.11',
   }
   host { "exception-handler-1.management.${platform}":
