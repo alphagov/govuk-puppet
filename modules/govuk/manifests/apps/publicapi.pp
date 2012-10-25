@@ -27,21 +27,21 @@ class govuk::apps::publicapi {
     extra_config      => "
       expires 30m;
 
-      # Specify this location explicitly to avoid Nginx automatically
-      # issuing a 301 redirect if a corresponding location with a
-      # trailing slash exists and has a proxy_pass directive.
-      location = /api {
-        proxy_set_header Host ${privateapi};
-        proxy_set_header API-PREFIX api;
-        proxy_set_header Authorization  \"\";
-        proxy_pass http://${full_domain}-proxy/;
-      }
+      # Specify this location regexfully to avoid quirky Nginx behaviour
+      # where a location block with a trailing slash triggers 301 redirects
+      # on requests made to that path without a trailing slash, *if* there
+      # is a proxy_pass directive in the block.
 
-      location /api/ {
+      location ~ ^/api(/|$) {
+        # Remove the prefix before passing through
+        # Can't just do this using the proxy_pass URL, because we're
+        # having to match the incoming path on a regular expression
+        rewrite ^/api/?(.*) /$1 break;
+
         proxy_set_header Host ${privateapi};
         proxy_set_header API-PREFIX api;
         proxy_set_header Authorization  \"\";
-        proxy_pass http://${full_domain}-proxy/;
+        proxy_pass http://${full_domain}-proxy;
       }
 
       location /api/specialist {
