@@ -31,6 +31,11 @@ class govuk_node::backend_load_balancer {
       health_check_port => 9504,
       https_listen_port => 8404,
       http_listen_port  => 8504;
+    'migratorator':
+      servers           => $backend_servers,
+      health_check_port => 9515,
+      https_listen_port => 8415,
+      http_listen_port  => 8515;
     'signon':
       servers           => $backend_servers,
       health_check_port => 9516,
