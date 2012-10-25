@@ -27,6 +27,16 @@ class govuk::apps::publicapi {
     extra_config      => "
       expires 30m;
 
+      # Specify this location explicitly to avoid Nginx automatically
+      # issuing a 301 redirect if a corresponding location with a
+      # trailing slash exists and has a proxy_pass directive.
+      location = /api {
+        proxy_set_header Host ${privateapi};
+        proxy_set_header API-PREFIX api;
+        proxy_set_header Authorization  \"\";
+        proxy_pass http://${full_domain}-proxy/;
+      }
+
       location /api/ {
         proxy_set_header Host ${privateapi};
         proxy_set_header API-PREFIX api;
