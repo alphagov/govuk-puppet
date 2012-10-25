@@ -1,28 +1,11 @@
 class govuk_node::backend_server inherits govuk_node::base {
   include govuk_node::ruby_app_server
 
-  class { 'apache2':
-    port => '8080',
-  }
-  class { 'passenger':
-    maxpoolsize => 12,
-  }
-
   package { 'graphviz':
     ensure => installed
   }
 
   include imagemagick
-
-  apache2::vhost::passenger {
-    "migratorator.${::govuk_platform}.alphagov.co.uk":;
-  }
-
-  nginx::config::vhost::proxy {
-    "migratorator.$::govuk_platform.alphagov.co.uk":
-      to        => ['localhost:8080'],
-      ssl_only  => true;
-  }
 
   file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
     ensure => absent,
@@ -40,6 +23,7 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::private_frontend
   include govuk::apps::search
   include govuk::apps::need_o_tron
+  include govuk::apps::migratorator
 
   case $::govuk_provider {
     'scc':   {}
