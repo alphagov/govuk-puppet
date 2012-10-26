@@ -7,6 +7,10 @@ class govuk::apps::efg( $port = 3019 ) {
     port               => $port,
     environ_content    => template('govuk/etc/envmgr/efg.conf.erb'),
     enable_nginx_vhost => false,
+    vhost_protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
   }
 
   # BEWARE A BODGE

@@ -11,7 +11,8 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
         add_header Cache-Control private;
         try_files $uri @app;
       }
-    ';
+    ',
+    vhost_protected => true;
   }
 
   file { "/data/uploads":

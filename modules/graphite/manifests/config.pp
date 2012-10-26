@@ -31,6 +31,10 @@ class graphite::config {
     to      => ['localhost:33333'],
     root    => '/opt/graphite/webapp',
     aliases => ["graphite.production-ec2.alphagov.co.uk"],
+    protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
   }
 
   file { '/etc/init/graphite.conf':

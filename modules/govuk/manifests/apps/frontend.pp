@@ -5,6 +5,10 @@ class govuk::apps::frontend( $port = 3005 ) {
     vhost                  => 'www',
     vhost_aliases          => ['frontend','www'],
     health_check_path      => '/',
+    vhost_protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
     nginx_extra_config     => "location @specialist {
   proxy_set_header Host whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
   proxy_pass http://whitehall-frontend.${::govuk_platform}.alphagov.co.uk;

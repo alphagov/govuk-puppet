@@ -7,6 +7,10 @@ class govuk::apps::migratorator( $port = 3015 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/',
+    vhost_protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
     nginx_extra_config => '
       deny all;
       auth_basic            "Migratorator";

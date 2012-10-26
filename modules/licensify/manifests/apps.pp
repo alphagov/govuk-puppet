@@ -24,6 +24,10 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
     environ_content    => template('licensify/environ'),
     nginx_extra_config => template('licensify/nginx_extra'),
     health_check_path  => '/api/licences',
+    vhost_protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
     require            => File['/etc/licensing'],
   }
 
@@ -52,6 +56,10 @@ class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::
     port            => $port,
     environ_content => template('licensify/environ'),
     require         => File['/etc/licensing'],
+    vhost_protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
   }
 
   licensify::build_clean { 'licensify-feed': }

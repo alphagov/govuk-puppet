@@ -19,5 +19,9 @@ class govuk::apps::whitehall_frontend( $port = 3020 ) {
         proxy_pass http://whitehall-admin.${vhost_suffix};
       }
     ",
+    vhost_protected => $::govuk_provider ? {
+      /sky|scc/ => false,
+      default   => true
+    },
   }
 }
