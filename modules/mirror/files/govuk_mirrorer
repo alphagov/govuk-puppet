@@ -72,9 +72,17 @@ class GovukIndexer
   end
 
   def artefacts
+    retried = false
     @artefacts ||= begin
       page = Mechanize.new.get(API_ENDPOINT)
       JSON.parse(page.body)["results"]
+    rescue Mechanize::ResponseCodeError => ex
+      if ! retried
+        retried = true
+        sleep 1
+        retry
+      end
+      raise
     end
   end
 end
@@ -108,11 +116,17 @@ class GovukMirrorer < Spidey::AbstractSpider
 
   def crawl(options = {})
     each_url do |url, handler, default_data|
+      retried = false
       begin
         page = agent.get(url)
         logger.debug "Handling #{url.inspect}" if @verbose_debug
         send handler, page, default_data
       rescue => ex
+        if ex.is_a?(Mechanize::ResponseCodeError) and (500..599).include?(ex.response_code.to_i) and ! retried
+          retried = true
+          sleep 1
+          retry
+        end
         add_error url: url, handler: handler, error: ex, data: default_data
       end
     end
