@@ -36,7 +36,7 @@ class govuk::apps::publicapi {
         # Remove the prefix before passing through
         # Can't just do this using the proxy_pass URL, because we're
         # having to match the incoming path on a regular expression
-        rewrite ^/api/?(.*) /$1 break;
+        rewrite ^/api/?(.*) /\$1 break;
 
         proxy_set_header Host ${privateapi};
         proxy_set_header API-PREFIX api;
