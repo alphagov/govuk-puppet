@@ -4,7 +4,7 @@ class govuk::apps::static( $port = 3013 ) {
     port               => $port,
     enable_nginx_vhost => false,
     #if changed, nginx::config::vhost::static also needs to change
-    health_check_path  => '/templates/wrapper.html.erb';
+    health_check_path  => '/templates/wrapper.html.erb',
   }
 
   $whitehall_frontend_host = "whitehall-frontend.$::govuk_platform.alphagov.co.uk"

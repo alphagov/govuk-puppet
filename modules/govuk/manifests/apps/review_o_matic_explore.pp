@@ -11,7 +11,7 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
     environ_content => template('govuk/etc/envmgr/review-o-matic-explore.conf.erb'),
     vhost           => 'explore-reviewomatic',
     vhost_ssl_only  => false,
-    require         => Class['nodejs'];
+    require         => Class['nodejs'],
   }
 
   nginx::config::vhost::proxy { "explore-dg.${upstream_domain}":
