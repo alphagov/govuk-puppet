@@ -23,9 +23,5 @@ class govuk_node::logging_server inherits govuk_node::base {
     "logging.${::govuk_platform}.alphagov.co.uk":
       to        => ['localhost:9292'],
       aliases   => ["graylog.${::govuk_platform}.alphagov.co.uk"],
-      protected => $::govuk_provider ? {
-        /sky|scc/ => false,
-        default   => true
-      },
   }
 }

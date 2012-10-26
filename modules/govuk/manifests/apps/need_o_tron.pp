@@ -4,9 +4,5 @@ class govuk::apps::need_o_tron($port = '3004') {
     vhost_ssl_only    => true,
     port              => $port,
     health_check_path => '/',
-    vhost_protected => $::govuk_provider ? {
-      /sky|scc/ => false,
-      default   => true
-    };
   }
 }

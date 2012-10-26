@@ -12,7 +12,7 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
         try_files $uri @app;
       }
     ',
-    vhost_protected => true;
+    vhost_protected    => true;
   }
 
   file { "/data/uploads":

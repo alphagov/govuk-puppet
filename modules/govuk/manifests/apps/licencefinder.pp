@@ -3,9 +3,5 @@ class govuk::apps::licencefinder( $port = 3014 ) {
     app_type          => 'rack',
     port              => $port,
     health_check_path => '/licence-finder',
-    vhost_protected => $::govuk_provider ? {
-      /sky|scc/ => false,
-      default   => true
-    };
   }
 }

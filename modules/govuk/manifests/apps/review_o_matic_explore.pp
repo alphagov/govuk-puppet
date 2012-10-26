@@ -12,10 +12,6 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
     vhost           => 'explore-reviewomatic',
     vhost_ssl_only  => false,
     require         => Class['nodejs'],
-    vhost_protected => $::govuk_provider ? {
-      /sky|scc/ => false,
-      default   => true
-    };
   }
 
   nginx::config::vhost::proxy { "explore-dg.${upstream_domain}":
@@ -25,10 +21,6 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
             proxy_set_header X-Explore-Upstream www.direct.gov.uk;
             proxy_set_header X-Explore-Redirector www-direct-gov-uk.redirector.${upstream_domain};
     ",
-    protected => $::govuk_provider ? {
-      /sky|scc/ => false,
-      default   => true
-    },
   }
 
   nginx::config::vhost::proxy { "explore-bl.${upstream_domain}":
@@ -38,9 +30,5 @@ class govuk::apps::review_o_matic_explore( $port = 3023 ) {
             proxy_set_header X-Explore-Upstream www.businesslink.gov.uk;
             proxy_set_header X-Explore-Redirector www-businesslink-gov-uk.redirector.${upstream_domain};
     ",
-    protected => $::govuk_provider ? {
-      /sky|scc/ => false,
-      default   => true
-    },
   }
 }
