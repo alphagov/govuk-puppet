@@ -23,12 +23,12 @@ class govuk_node::redirector_server inherits govuk_node::base {
   }
 
   @@nagios::check { "check_nginx_404_redirector_on_${::hostname}":
-    check_command       => "check_ganglia_metric!redirector_nginx_http_404!0.05!0.1",
+    check_command       => "check_ganglia_metric!redirector_nginx_http_404!5!10",
     service_description => "nginx 404 rate for redirector",
     host_name           => "${::govuk_class}-${::hostname}",
   }
   @@nagios::check { "check_nginx_5xx_redirector_on_${::hostname}":
-    check_command       => "check_ganglia_metric!redirector_nginx_http_5xx!0.05!0.1",
+    check_command       => "check_ganglia_metric!redirector_nginx_http_5xx!5!10",
     service_description => "nginx 5xx rate for redirector",
     host_name           => "${::govuk_class}-${::hostname}",
   }

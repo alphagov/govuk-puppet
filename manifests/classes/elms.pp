@@ -1,4 +1,5 @@
-class elms_base::mongo_server inherits govuk_node::base {
+class elms_base::mongo_server {
+  include govuk_node::base
   include ecryptfs
   include mongodb::server
   include java::openjdk6::jre
@@ -26,7 +27,8 @@ class elms_base::mongo_server inherits govuk_node::base {
   }
 }
 
-class elms_base::frontend_server inherits govuk_node::base {
+class elms_base::frontend_server {
+  include govuk_node::base
   include clamav
   include java::openjdk6::jre
 
@@ -36,7 +38,8 @@ class elms_base::frontend_server inherits govuk_node::base {
   }
 }
 
-class elms_base::sky_frontend_server inherits govuk_node::base {
+class elms_base::sky_frontend_server {
+  include govuk_node::base
   include clamav
   include java::openjdk6::jre
 
@@ -44,7 +47,8 @@ class elms_base::sky_frontend_server inherits govuk_node::base {
   class { 'licensify::apps::licensify': }
 }
 
-class elms_base::sky_backend_server inherits govuk_node::base {
+class elms_base::sky_backend_server {
+  include govuk_node::base
   include clamav
   include java::openjdk6::jre
 

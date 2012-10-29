@@ -1,4 +1,4 @@
-class hosts::ertp-preview {
+class hosts::ertp_preview {
   host { 'ertp-api':
     ip => '10.239.86.141'
   }

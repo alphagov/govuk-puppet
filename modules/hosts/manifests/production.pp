@@ -1,12 +1,12 @@
 class hosts::production {
-  host { 'static.production.alphagov.co.uk':               ip => '10.250.157.37' } /* production-frontend-2 */
+  host { 'static.production.alphagov.co.uk':               ip => '10.250.157.37' } # production-frontend-2
   host { 'fco.production.alphagov.co.uk':                  ip => '10.53.54.49' }
   host { 'jobs.production.alphagov.co.uk':                 ip => '10.53.54.49' }
   host { 'smartanswers.production.alphagov.co.uk':         ip => '10.53.54.49' }
   host { 'licencefinder.production.alphagov.co.uk':        ip => '10.53.54.49' }
   host { 'designprinciples.production.alphagov.co.uk':     ip => '10.53.54.49' }
-  host { 'frontend.production.alphagov.co.uk':             ip => '10.236.86.54' } /* production-frontend-1 */
-  host { 'search.production.alphagov.co.uk':               ip => '10.236.93.237' } /* production-backend-2 */
+  host { 'frontend.production.alphagov.co.uk':             ip => '10.236.86.54' } # production-frontend-1
+  host { 'search.production.alphagov.co.uk':               ip => '10.236.93.237' } # production-backend-2
   host { 'feedback.production.alphagov.co.uk':             ip => '10.53.54.49' }
   host { 'calendars.production.alphagov.co.uk':            ip => '10.53.54.49' }
   host { 'tariff.production.alphagov.co.uk':               ip => '10.53.54.49' }
@@ -21,7 +21,7 @@ class hosts::production {
   host { 'private-frontend.production.alphagov.co.uk':     ip => '10.54.182.112' }
   host { 'whitehall-frontend.production.alphagov.co.uk':   ip => '10.224.50.207' }
   host { 'whitehall.production.alphagov.co.uk':            ip => '10.224.50.207' }
-  host { 'whitehall-admin.production.alphagov.co.uk':      ip => '10.54.182.112' } /* production backend */
+  host { 'whitehall-admin.production.alphagov.co.uk':      ip => '10.54.182.112' } # production backend
   host { 'datainsight-frontend.production.alphagov.co.uk': ip => '10.53.54.49' }
 
   host { 'asset-master.production.alphagov.co.uk':         ip => '10.241.2.112' }

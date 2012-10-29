@@ -26,10 +26,4 @@ server {
   include             /etc/nginx/ssl.conf;
 
   include             /etc/nginx/router_routes.conf;
-
-  location ^~ /performance/graphs/ {
-    limit_req zone=rate burst=25 nodelay;
-    proxy_pass http://varnish;
-  }
-
 }

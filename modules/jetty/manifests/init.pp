@@ -11,7 +11,7 @@ class jetty($version='7.6.4.v20120524'){
   }
 
   wget::fetch { 'jetty_download':
-    /* Using the HEAnet mirror, as it's orders of magnitude faster */
+    # Using the HEAnet mirror, as it's orders of magnitude faster
     source      => "https://gds-public-readable-tarballs.s3.amazonaws.com/jetty-distribution-$version.tar.gz",
     destination => "/usr/local/src/jetty-distribution-$version.tar.gz",
     before      => Exec['jetty_untar'],

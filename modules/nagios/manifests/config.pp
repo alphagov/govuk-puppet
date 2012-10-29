@@ -38,8 +38,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   cron { 'cron_smokey_features':
     command => '/opt/smokey/cron.sh',
-    # Every 5 minutes
-    minute => '*/5',
+    minute  => '*/5',
   }
 
   nagios::check_feature {
@@ -111,13 +110,6 @@ class nagios::config ($platform = $::govuk_platform) {
   # END imminence
 
   # START contentapi
-  @@nagios::check { "check_contentapi_responsiveness":
-    check_command       => 'check_graphite_metric!maxSeries(stats.timers.govuk.app.contentapi.*.request.artefact.upper_90)!500!1000',
-    use                 => 'govuk_normal_priority',
-    service_description => 'contentapi unresponsive',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
   # END contentapi
 
   # BEGIN signon checks
@@ -244,7 +236,7 @@ class nagios::config ($platform = $::govuk_platform) {
     production: {
       case $::govuk_provider {
         sky: {
-          if extlookup(nagios_is_zendesk_enabled, '') == "true"{
+          if extlookup(nagios_is_zendesk_enabled, '') == true {
             $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority']
             $highprio_members   = ['monitoring_google_group','zendesk_high_priority']
             $normalprio_members = ['monitoring_google_group','zendesk_normal_priority']

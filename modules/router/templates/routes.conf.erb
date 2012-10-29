@@ -49,59 +49,54 @@ location @upstream {
   proxy_pass http://varnish;
 }
 
-# Start Inside Gov password logic
-### This whole government block is so we can hide Inside Gov for the
-### moment - the whole thing can be removed once we're live.
-location ~ ^/government\/assets\/ {
-  proxy_pass http://varnish;
-}
-
-location ~ ^/government\/uploads\/ {
-  proxy_pass http://varnish;
-}
-
-location ~ ^/apply-for-a-licence\/assets\/.+ {
-  limit_req zone=rate burst=5 nodelay;      
-  limit_conn connections 25;    
-  proxy_pass http://varnish;  
-}
-
-location ~ ^/apply-for-a-licence\/.+ {
+location ~ ^/apply-for-a-licence/ {
   proxy_intercept_errors off;
 
   # Set proxy timeout to 50 seconds as a quick fix for problems
   # where civica QueryPayments calls are taking too long.
   # 50s is max beccause that's what haproxy is configured at
   proxy_read_timeout 50;
-  
-  proxy_pass http://varnish;  
-}
-
-location ~ ^/government\/.+\.atom$ {
   proxy_pass http://varnish;
 }
 
-location ~ ^/government\/.+ {
-  # XXX: If you remove this password control remove the cache control
-  # below too!
+location ~ ^/apply-for-a-licence/assets/ {
+  limit_req zone=rate burst=5 nodelay;
+  limit_conn connections 25;
+  proxy_pass http://varnish;
+}
+
+location ~ ^/performance/graphs/ {
+  limit_req zone=rate burst=25 nodelay;
+  proxy_pass http://varnish;
+}
+
+# Start Inside Gov password logic
+### This whole government block is so we can hide Inside Gov for the
+### moment - the whole thing can be removed once we're live.
+
+location ~ ^/government/assets/ {
+  proxy_pass http://varnish;
+}
+location ~ ^/government/uploads/ {
+  proxy_pass http://varnish;
+}
+location ~ ^/government/.+\.atom$ {
+  proxy_pass http://varnish;
+}
+location ~ ^/government/.+ {
+  # XXX: If you remove this password control remove the cache control below
+  # too!
   deny all;
   auth_basic           "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
   auth_basic_user_file /etc/govuk.htpasswd;
   satisfy any;
-  # This is for Akamai and is part of the password above: If you
-  # remove the passwd, remove this cache control as well!
-  add_header           Cache-Control  no-cache;
-
   proxy_pass http://varnish;
+
+  # This is for Akamai and is part of the password above: If you remove the
+  # passwd, remove this cache control as well!
+  add_header cache-control no-cache;
 }
 
-location ~ ^/government\/ {
-  proxy_pass http://varnish;
-}
-
-location = /government {
-  proxy_pass http://varnish;
-}
 # End Inside Gov password logic
 
 # Akamai CDN test object. This file is used by Akamai's infrastructure to
@@ -127,22 +122,29 @@ error_page 504 /504.html;
 
 location /404.html {
   root /usr/share/nginx/www;
+  internal;
 }
 location /406.html {
   root /usr/share/nginx/www;
+  internal;
 }
 location /410.html {
   root /usr/share/nginx/www;
+  internal;
 }
 location /418.html {
   root /usr/share/nginx/www;
+  internal;
 }
 location /500.html {
   root /usr/share/nginx/www;
+  internal;
 }
 location /503.html {
   root /usr/share/nginx/www;
+  internal;
 }
 location /504.html {
   root /usr/share/nginx/www;
+  internal;
 }
