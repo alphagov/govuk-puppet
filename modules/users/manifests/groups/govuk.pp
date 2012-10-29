@@ -180,6 +180,10 @@ class users::groups::govuk {
     fullname   => 'Max Griffiths',
     email      => 'max.griffiths@digital.cabinet-office.gov.uk';
   }
+  govuk::user { 'maxf':
+    fullname   => 'Max Fliri',
+    email      => 'mfliri@thoughtworks.com';
+  }
   govuk::user { 'ops01':
     fullname   => '2nd Line Support Secure Laptop Ops01',
     email      => '2nd-line-support@digital.cabinet-office.gov.uk';
