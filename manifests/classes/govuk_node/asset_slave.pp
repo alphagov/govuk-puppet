@@ -9,6 +9,7 @@ class govuk_node::asset_slave inherits govuk_node::asset_base {
     ensure  => 'directory',
     owner   => 'assets',
     group   => 'assets',
+    mode    => '0775',
     require => [User['assets'], Group['assets']],
   }
 
