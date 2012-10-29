@@ -1,10 +1,6 @@
 class php {
 
-  apt::repository { 'fabianarias-php5':
-    owner => 'fabianarias',
-    repo  => 'php5',
-    type  => 'ppa',
-  }
+  include govuk::ppa
 
   package { 'php5-fpm':
     ensure => present,

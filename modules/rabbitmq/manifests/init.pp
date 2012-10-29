@@ -1,12 +1,6 @@
 class rabbitmq {
 
-  if $::lsbdistcodename == 'lucid' {
-    apt::repository { 'cmsj-rabbitmq':
-      type  => 'ppa',
-      owner => 'cmsj',
-      repo  => 'rabbitmq',
-    }
-  }
+  include govuk::ppa
 
   package { 'rabbitmq-server':
     ensure => present,
