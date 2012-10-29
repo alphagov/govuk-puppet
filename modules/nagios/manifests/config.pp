@@ -110,13 +110,6 @@ class nagios::config ($platform = $::govuk_platform) {
   # END imminence
 
   # START contentapi
-  @@nagios::check { "check_contentapi_responsiveness":
-    check_command       => 'check_graphite_metric!maxSeries(stats.timers.govuk.app.contentapi.*.request.artefact.upper_90)!500!1000',
-    use                 => 'govuk_normal_priority',
-    service_description => 'contentapi unresponsive',
-    host_name           => "${::govuk_class}-${::hostname}",
-  }
-
   # END contentapi
 
   # BEGIN signon checks
