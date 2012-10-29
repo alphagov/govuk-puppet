@@ -54,7 +54,8 @@ class jenkins {
 
   # Required for redirector-deploy
   package { 's3cmd':
-    ensure => 'installed',
+    ensure   => 'installed',
+    provider => 'pip',
   }
 
   # This is required for the redirector-deploy job
