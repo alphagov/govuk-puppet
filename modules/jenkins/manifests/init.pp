@@ -52,6 +52,11 @@ class jenkins {
       ensure => installed,
   }
 
+  # Required for redirector-deploy
+  package { 's3cmd':
+    ensure => 'installed',
+  }
+
   # This is required for the redirector-deploy job
   package { 'libtext-csv-perl':
     ensure => installed,
