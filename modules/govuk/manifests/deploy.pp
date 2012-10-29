@@ -45,7 +45,7 @@ class govuk::deploy {
     ensure => directory,
   }
 
-  if $govuk_platform != 'development' {
+  if $::govuk_platform != 'development' {
     ssh_authorized_key { 'deploy_key_jenkins':
       ensure  => present,
       key     => extlookup('jenkins_key', ''),
