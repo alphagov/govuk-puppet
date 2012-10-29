@@ -10,10 +10,10 @@ class nginx::package {
 
   case $::lsbdistcodename {
     'precise': {
-      $version = '1.2.1-1ubuntu0ppa1~precise'
+      $version = '1.2.4-0ubuntu0ppa2~precise'
     }
     default: {
-      $version = '1.2.1-1ubuntu0ppa2~lucid'
+      $version = '1.2.4-0ubuntu0ppa2~lucid'
     }
   }
 
