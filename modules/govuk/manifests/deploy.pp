@@ -45,19 +45,21 @@ class govuk::deploy {
     ensure => directory,
   }
 
-  ssh_authorized_key { 'deploy_key_jenkins':
-    ensure  => present,
-    key     => extlookup('jenkins_key', ''),
-    type    => 'ssh-rsa',
-    user    => 'deploy',
-    require => User['deploy'];
-  }
+  if $govuk_platform != 'development' {
+    ssh_authorized_key { 'deploy_key_jenkins':
+      ensure  => present,
+      key     => extlookup('jenkins_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+      require => User['deploy'];
+    }
 
-  ssh_authorized_key { 'deploy_key_jenkins_skyscape':
-    ensure  => present,
-    key     => extlookup('jenkins_skyscape_key', ''),
-    type    => 'ssh-rsa',
-    user    => 'deploy',
+    ssh_authorized_key { 'deploy_key_jenkins_skyscape':
+      ensure  => present,
+      key     => extlookup('jenkins_skyscape_key', ''),
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+    }
   }
 
   file { '/etc/govuk/unicorn.rb':
