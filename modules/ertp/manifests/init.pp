@@ -16,7 +16,10 @@ class ertp::scripts {
 class ertp::dwp::scripts {
   file {'/etc/init/ertp-dwp-feed.conf':
     ensure => present,
-    source => ['puppet:///modules/ertp/ertp-dwp-feed.conf']
+    source => [
+      'puppet:///modules/ertp/ertp-dwp-feed.conf.${::govuk_platform}",
+      'puppet:///modules/ertp/ertp-dwp-feed.conf'
+    ]
   }
 }
 

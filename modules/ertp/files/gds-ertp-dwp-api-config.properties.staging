@@ -7,3 +7,4 @@ dwp.max.number.of.records=100
 dwp.match.request.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/requests
 dwp.match.response.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/responses
 dwp.match.request.downloaded.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/downloaded
+dwp.bearerToken=FBSh3ODeDfy4A6D2YOCKZJBLmsamBpkS3XZSKa6GlIeKMopw6BMI9-7swTOtW0xWmVTrg7kmcD00Bc_iq8RIOw
