@@ -68,7 +68,7 @@ class varnish::config {
     'frontend' => 'www'
   }
 
-  $domain = extlookup('app_domain', 'dev.gov.uk')
+  $domain = extlookup('app_domain')
 
   file { '/etc/default/varnish':
     ensure  => file,
