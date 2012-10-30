@@ -1,10 +1,6 @@
 class nginx::fcgi {
 
-  apt::repository { 'brianmercer-fcgiwrap':
-    owner => 'brianmercer',
-    repo  => 'fcgiwrap',
-    type  => 'ppa',
-  }
+  include govuk::ppa
 
   package { 'spawn-fcgi':
     ensure => present,

@@ -1,12 +1,6 @@
 class nginx::package {
 
-  include apt
-
-  apt::repository { 'nginx':
-    type  => 'ppa',
-    owner => 'nginx',
-    repo  => 'stable',
-  }
+  include govuk::ppa
 
   case $::lsbdistcodename {
     'precise': {

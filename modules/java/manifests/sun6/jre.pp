@@ -1,9 +1,8 @@
 class java::sun6::jre ( $ensure = present ) {
 
   if $ensure != absent {
-    include java::sun6::repository
+    include govuk::ppa
 
-    Class['java::sun6::repository'] -> Package['sun-java6-jre']
     File['/var/local/sun6_jre.preseed'] -> Package['sun-java6-jre']
   }
 

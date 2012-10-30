@@ -1,11 +1,9 @@
 class postgres::package {
 
-  include postgres::repository
+  include govuk::ppa
 
   package { 'postgresql-9.1':
     ensure => present,
   }
-
-  Class['postgres::repository'] -> Package['postgresql-9.1']
 
 }
