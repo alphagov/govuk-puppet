@@ -1,6 +1,6 @@
 class govuk::apps::whitehall_frontend( $port = 3020 ) {
 
-  $vhost_suffix = extlookup('app_domain_suffix', 'dev.gov.uk')
+  $vhost_suffix = extlookup('app_domain', 'dev.gov.uk')
 
   govuk::app { 'whitehall-frontend':
     app_type           => 'rack',

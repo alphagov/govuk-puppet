@@ -9,7 +9,7 @@ define haproxy::balance_https (
 
   $lb_name = "${title}-https"
 
-  $vhost_suffix = extlookup('app_domain_suffix','dev.gov.uk')
+  $vhost_suffix = extlookup('app_domain','dev.gov.uk')
   $vhost = "${title}.${vhost_suffix}"
 
   concat::fragment {"haproxy_listen_https_$title":
