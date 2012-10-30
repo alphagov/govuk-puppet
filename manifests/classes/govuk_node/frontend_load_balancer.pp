@@ -19,6 +19,8 @@ class govuk_node::frontend_load_balancer {
     "efg-frontend-1" => "10.4.0.2",
   }
 
+  $app_domain = extlookup('app_domain')
+
   # Frontend Load Balancers
   haproxy::balance_http_and_https {
     'businesssupportfinder':
@@ -57,7 +59,7 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9505,
       https_listen_port => 8405,
       http_listen_port  => 8505,
-      aliases           => ["www.${::govuk_platform}.alphagov.co.uk"];
+      aliases           => ["www.${app_domain}"];
     'licencefinder':
       servers           => $govuk_frontend_servers,
       internal_only     => true,

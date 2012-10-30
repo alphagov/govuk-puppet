@@ -2,11 +2,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   include govuk::htpasswd
 
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
-
+  $domain = extlookup('app_domain')
   $vhost = "nagios.${domain}"
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
@@ -301,11 +297,7 @@ class nagios::config ($platform = $::govuk_platform) {
     contact_groups => ['regular']
   }
 
-  $monitoring_url = $::govuk_platform ? {
-    production    => 'https://nagios.production.alphagov.co.uk/',
-    preview       => 'https://nagios.preview.alphagov.co.uk/',
-    default       => 'http://localhost/nagios3/',
-  }
+  $monitoring_url = "https://${vhost}.${domain}"
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),

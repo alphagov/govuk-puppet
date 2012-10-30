@@ -1,13 +1,8 @@
 define datainsight::collector ($platform = $::govuk_platform) {
 
   # Variable setup
+  $domain = extlookup('app_domain')
   $vhost = "datainsight-${title}-collector"
-
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
-
   $vhost_full = "${vhost}.${domain}"
 
   include datainsight::config::google_oauth

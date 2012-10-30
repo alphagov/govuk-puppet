@@ -1,10 +1,7 @@
 class govuk::apps::publicapi {
   $platform = $::govuk_platform
 
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
+  $domain = extlookup('app_domain')
 
   $privateapi = $platform ? {
     'development' => 'localhost:3022',

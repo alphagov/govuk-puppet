@@ -35,7 +35,7 @@ satisfy any;
 # https://docs.google.com/a/digital.cabinet-office.gov.uk/document/d/1DJeKKnhmfQVJWhlwn0M7R5hSFy7t0kz-VJn2FqNSc7Y/edit
 rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
 rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
-rewrite ^/feedback/internal/?$ https://support.production.alphagov.co.uk/;
+rewrite ^/feedback/internal/?$ https://support.<%= @app_domain %>/;
 rewrite ^/tell-us-once-report-death/?$ /after-a-death redirect;
 
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;

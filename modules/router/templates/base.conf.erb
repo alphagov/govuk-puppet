@@ -3,7 +3,7 @@ upstream varnish {
 }
 
 server {
-  server_name www.gov.uk www.<%= @platform %>.alphagov.co.uk www-origin.<%= @platform %>.alphagov.co.uk;
+  server_name www.gov.uk www.<%= @app_domain %> www-origin.<%= @app_domain %>;
   listen 80;
   rewrite ^/(.*) https://$host/$1 permanent;
 }
@@ -19,10 +19,10 @@ server {
 }
 
 server {
-  server_name         www.<%= @platform %>.alphagov.co.uk www-origin.<%= @platform %>.alphagov.co.uk;
+  server_name         www.<%= @app_domain %> www-origin.<%= @app_domain %>;
   listen              443 ssl;
-  ssl_certificate     /etc/nginx/ssl/www.<%= @platform %>.alphagov.co.uk.crt;
-  ssl_certificate_key /etc/nginx/ssl/www.<%= @platform %>.alphagov.co.uk.key;
+  ssl_certificate     /etc/nginx/ssl/www.<%= @app_domain %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/www.<%= @app_domain %>.key;
   include             /etc/nginx/ssl.conf;
 
   include             /etc/nginx/router_routes.conf;

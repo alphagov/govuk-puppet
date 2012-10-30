@@ -1,7 +1,8 @@
 class router::nginx {
   $platform = $::govuk_platform
+  $app_domain = extlookup('app_domain')
 
-  nginx::config::ssl { "www.${platform}.alphagov.co.uk":
+  nginx::config::ssl { "www.${app_domain}":
     certtype => 'wildcard_alphagov'
   }
 
@@ -41,7 +42,7 @@ class router::nginx {
   }
 
   # The cache/router also contains a flat site as a backup for software failures
-  nginx::config::vhost::mirror { "flatsite.${platform}.alphagov.co.uk":
+  nginx::config::vhost::mirror { "flatsite.${app_domain}":
     port     => '444',
     certtype => 'wildcard_alphagov',
   }

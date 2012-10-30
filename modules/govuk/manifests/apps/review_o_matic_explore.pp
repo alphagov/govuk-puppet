@@ -1,9 +1,6 @@
 class govuk::apps::review_o_matic_explore( $port = 3023 ) {
-  if $::govuk_platform == 'development' {
-    $upstream_domain = 'dev.gov.uk'
-  } else {
-    $upstream_domain = "${::govuk_platform}.alphagov.co.uk"
-  }
+
+  $upstream_domain = extlookup('app_domain')
 
   govuk::app { 'review-o-matic-explore':
     app_type        => 'procfile',

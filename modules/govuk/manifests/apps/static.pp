@@ -7,9 +7,10 @@ class govuk::apps::static( $port = 3013 ) {
     health_check_path  => '/templates/wrapper.html.erb',
   }
 
-  $whitehall_frontend_host = "whitehall-frontend.$::govuk_platform.alphagov.co.uk"
+  $app_domain = extlookup('app_domain')
+  $whitehall_frontend_host = "whitehall-frontend.${app_domain}"
 
-  nginx::config::vhost::static { "static.$::govuk_platform.alphagov.co.uk":
+  nginx::config::vhost::static { "static.${app_domain}":
     to                => "localhost:${port}",
     protected         => false,
     aliases           => ['calendars', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],

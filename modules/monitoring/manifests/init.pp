@@ -15,12 +15,7 @@ class monitoring {
   include govuk::htpasswd
 
   $platform = $::govuk_platform
-
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
-
+  $domain = extlookup('app_domain')
   $vhost = "monitoring.${domain}"
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }

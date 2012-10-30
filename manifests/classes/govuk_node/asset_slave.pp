@@ -13,9 +13,11 @@ class govuk_node::asset_slave inherits govuk_node::asset_base {
     require => [User['assets'], Group['assets']],
   }
 
+  $app_domain = extlookup('app_domain')
+
   mount { "/data/master-uploads":
     ensure  => "mounted",
-    device  => "asset-master.${::govuk_platform}.alphagov.co.uk:/mnt/uploads",
+    device  => "asset-master.${app_domain}:/mnt/uploads",
     fstype  => "nfs",
     options => "ro",
     atboot  => true,
