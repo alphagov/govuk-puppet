@@ -6,7 +6,7 @@
 <%-
 
 def vhost_for_backend(name)
-  first_part = @backend_vhost_exceptions.fetch(name, name.gsub('_', '-'))
+  first_part = name.gsub('_', '-')
   "#{first_part}.#{@domain}"
 end
 
