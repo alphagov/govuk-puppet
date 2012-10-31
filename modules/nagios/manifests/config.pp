@@ -1,6 +1,7 @@
 class nagios::config ($platform = $::govuk_platform) {
 
   include govuk::htpasswd
+  include nagios::client::check_datainsight_recorder
 
   $domain = $platform ? {
     'development' => 'dev.gov.uk',
@@ -151,6 +152,47 @@ class nagios::config ($platform = $::govuk_platform) {
     }
 
   # END Whitehall
+
+  # START datainsight
+  if $::govuk_platform == 'preview' {
+    $datainsight_base_uri="https://www.${domain}/performance/dashboard"
+
+    @@nagios::check { 'check_datainsight_narrative_endpoint':
+      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
+      use                 => 'govuk_normal_priority',
+      service_description => 'check the endpoint of the datainsight narrative is updated recently',
+      host_name           => "${::govuk_class}-${::hostname}",
+    }
+
+    @@nagios::check { 'check_datainsight_todays_activity_endpoint':
+      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/todays-activity.json 60",
+      use                 => 'govuk_normal_priority',
+      service_description => 'check the endpoint of datainsight todays activity is updated recently',
+      host_name           => "${::govuk_class}-${::hostname}",
+    }
+
+    @@nagios::check { 'check_datainsight_visits_endpoint':
+      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
+      use                 => 'govuk_normal_priority',
+      service_description => 'check the endpoint of datainsight visits is updated recently',
+      host_name           => "${::govuk_class}-${::hostname}",
+    }
+
+    @@nagios::check { 'check_datainsight_unique_visitors_endpoint':
+      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
+      use                 => 'govuk_normal_priority',
+      service_description => 'check the endpoint of datainsight unique visitors is updated recently',
+      host_name           => "${::govuk_class}-${::hostname}",
+    }
+
+    @@nagios::check { 'check_datainsight_format_success_endpoint':
+      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/format-success.json 10080",
+      use                 => 'govuk_normal_priority',
+      service_description => 'check the endpoint of datainsight format success is updated recently',
+      host_name           => "${::govuk_class}-${::hostname}",
+    }
+  }
+  # END datainsight
 
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
