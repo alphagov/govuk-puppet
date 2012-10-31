@@ -24,16 +24,15 @@ PuppetLint.configuration.send("disable_class_parameter_defaults")
 
 def get_modules
   if ENV['mods']
-    ENV['mods'].split(',')
+    ENV['mods'].split(',').map { |x| x == 'manifests' ? x : "modules/#{x}" }
   else
-    ['*']
+    ['manifests', 'modules/*']
   end
 end
 
 desc "Run puppet-lint on one or more modules"
 task :lint do
-  manifests_to_lint = FileList['manifests/**/*.pp']
-  manifests_to_lint += FileList[*get_modules.map { |x| "modules/#{x}/**/*.pp" }]
+  manifests_to_lint = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]
   linter = PuppetLint.new
 
   if ignore_paths = PuppetLint.configuration.ignore_paths
@@ -52,8 +51,7 @@ end
 
 desc "Run rspec"
 task :spec do
-  matched_files = FileList['manifests/**/*_spec.rb']
-  matched_files += FileList[*get_modules.map { |x| "modules/#{x}/spec/**/*_spec.rb" }]
+  matched_files = FileList[*get_modules.map { |x| "#{x}/spec/**/*_spec.rb" }]
 
   matched_files = matched_files.exclude(*THIRD_PARTY_MODULES.map { |x| "modules/#{x}/**/*" })
 
