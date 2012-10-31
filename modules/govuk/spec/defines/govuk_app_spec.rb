@@ -22,25 +22,14 @@ describe 'govuk::app', :type => :define do
 
     it do
       should contain_govuk__app__package('giraffe').with(
-        'vhost_full' => 'giraffe.production.alphagov.co.uk',
+        'vhost_full' => 'giraffe.test.gov.uk',
         'platform' => 'production',
       )
       should contain_govuk__app__config('giraffe').with(
-        'domain' => 'production.alphagov.co.uk',
+        'domain' => 'test.gov.uk',
       )
       should contain_service('giraffe').with_provider('upstart')
     end
   end
 
-  context 'on the development platform' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :platform => 'development'
-      }
-    end
-
-    it { should contain_govuk__app__config('giraffe').with_vhost_full('giraffe.dev.gov.uk') }
-  end
 end
