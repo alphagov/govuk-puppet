@@ -45,17 +45,6 @@ class govuk_node::base {
         require  => Group['admin'];
       }
     }
-    'scc': {
-      include ufw::govuk
-      include harden
-
-      user { 'ubuntu':
-        ensure   => present,
-        password => extlookup('ubuntu_pass_hash','!!'),
-        groups   => ['admin'],
-        require  => Group['admin'];
-      }
-    }
     default: {}
   }
 }

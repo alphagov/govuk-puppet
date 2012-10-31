@@ -30,7 +30,7 @@ class govuk_node::asset_base inherits govuk_node::base {
   }
 
   case $::govuk_provider {
-    'sky', 'scc': {
+    'sky': {
       ufw::allow { 'Allow all access from backend machines':
         from => '10.3.0.0/16',
       }

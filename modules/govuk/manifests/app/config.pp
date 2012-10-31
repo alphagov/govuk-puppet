@@ -56,13 +56,12 @@ define govuk::app::config (
 
   $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
 
-  # By default, apps are unprotected in Skyscape and SCC, unless they
+  # By default, apps are unprotected in Skyscape, unless they
   # explicitly declare that they want to be. Otherwise, they are protected by
   # default.
   if $vhost_protected == undef {
     $vhost_protected_real = $::govuk_provider ? {
       'sky'   => false,
-      'scc'   => false,
       default => true,
     }
   } else {
