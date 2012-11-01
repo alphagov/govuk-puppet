@@ -80,7 +80,7 @@ class govuk::deploy {
     source  => 'puppet:///modules/govuk/bin/govuk_sync_dir_prod_to_staging',
     mode    => '0755',
   }
-  
+
   $app_domain = extlookup('app_domain_suffix', 'dev.gov.uk')
 
   $asset_host = extlookup('asset_host', "https://static.${app_domain}")
