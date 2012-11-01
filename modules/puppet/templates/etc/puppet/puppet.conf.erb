@@ -3,7 +3,7 @@ preferred_serialization_format = yaml
 pluginsync = true
 lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
 <%- if govuk_platform == 'development' -%>
-modulepath = /var/govuk/puppet/modules
+modulepath = /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
 manifestdir = /var/govuk/puppet/manifests
 <%- end -%>
 
@@ -12,7 +12,7 @@ reports = store
 storeconfigs = true
 storeconfigs_backend = puppetdb
 <%- if govuk_platform != 'development' -%>
-modulepath = /usr/share/puppet/production/current/modules
+modulepath = /usr/share/puppet/production/current/modules:/usr/share/puppet/production/current/vendor/modules
 manifestdir = /usr/share/puppet/production/current/manifests
 <%- end -%>
 
