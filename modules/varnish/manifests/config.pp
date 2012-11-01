@@ -61,13 +61,6 @@ class varnish::config {
     'whitehall_frontend'
   ]
 
-  # All backends should exist at $backend.$domain (with underscores replaced by
-  # dashes), except for the following exceptions, which live at
-  # $backend_vhost_exceptions[$backend].$domain.
-  $backend_vhost_exceptions = {
-    'frontend' => 'www'
-  }
-
   $domain = extlookup('app_domain_suffix', 'dev.gov.uk')
 
   file { '/etc/default/varnish':
