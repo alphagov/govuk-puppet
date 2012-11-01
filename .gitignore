@@ -1,10 +1,10 @@
+*~
+.#*
+.idea
+.project
+.tmp/
 /.bundle/
 /.gems/
 /build/
-*~
-\#*\#
-.#*
-.project
-vendor
-.idea
+/vendor/
 .DS_Store
