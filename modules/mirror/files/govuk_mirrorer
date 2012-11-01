@@ -4,6 +4,8 @@ require 'net/http'
 
 # Copied from ruby stdlib, with a single line addition to support SNI
 # This can be removed once we've upgraded to ruby 1.9.3
+# 1.9.2_p290 version: https://github.com/ruby/ruby/blob/v1_9_2_290/lib/net/http.rb#L642
+# 1.9.3 version:      https://github.com/ruby/ruby/blob/ruby_1_9_3/lib/net/http.rb#L760
 module Net
   HTTP.class_eval do
     def connect
