@@ -38,36 +38,14 @@ if [ -e $LOCK_FILE ]; then
 fi
 touch $LOCK_FILE
 
-# Get the files from SFTP
-echo 'ls -l *.gz' | sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR | grep -e $SFTP_LINE_FILTER > $LIST_FILE
-sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/*.gz $LOCAL_DOWNLOAD_DIR
+# Get the files via rsync
+rsync -acz -e ssh $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/ $LOCAL_DOWNLOAD_DIR
 
 # RSYNC the files to my backup machine
 rsync -acz --exclude=.lock $LOCAL_DOWNLOAD_DIR/ $BACKUP_USER@$BACKUP_HOST:$BACKUP_LOGS_DIR
 
-# Remove the lockfile, to allow the scanner to run again
-rm $LOCK_FILE
-
-# Check local files by gzip integrity and size
-cd $LOCAL_DOWNLOAD_DIR
-while read entry; do
-  # File under check
-  filename=$(echo $entry | awk '{print $9}')
-
-  # Checking gzip integrity
-  gzip -t $filename
-  if [ $? -ne 0 ] ; then
-    echo "ERROR($TIME): GZIP integrity check of '$filename' failed."
-    exit 1
-  fi
-
-  remote_size=$(echo $entry | awk '{print $5}')
-  local_size=$(ls -l $filename | awk '{print $5}')
-  if [ $remote_size -ne $local_size ]; then
-    echo "ERROR($TIME): Filesize of '$filename' differs between local and akamai."
-  exit 1
-  fi
-done < $LIST_FILE
+# Generate list of rsynced files
+ls -l | grep '\.txt$' > $LIST_FILE
 
 # Delete the files on akamai
 if [ -e $CONFIG_SHOULD_PURGE_FROM_AKAMAI ]; then
@@ -83,3 +61,6 @@ done
 
 # Cleanup Tempfiles
 rm $LIST_FILE
+
+# Remove the lockfile, to allow the scanner to run again
+rm $LOCK_FILE
