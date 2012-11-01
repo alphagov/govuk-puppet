@@ -71,6 +71,14 @@ MAXATTSIZE="4000"
 # Which day do you want weekly backups? (1 to 7 where 1 is Monday)
 DOWEEKLY=6
 
+# Which day of the Month fo you want monthly backups. 00 to disable, 01, 02 etc
+# to pick the day. 
+<% if @domonthly == false %>
+DOMONTHLY=00
+<% else %>
+DOMONTHLY=01
+<% end %>
+
 # Choose Compression type. (gzip or bzip2)
 COMP="gzip"
 
@@ -446,7 +454,7 @@ echo ======================================================================
 echo Backup Start `date`
 echo ======================================================================
 	# Monthly Full Backup of all Databases
-	if [ $DOM = "01" ]; then
+	if [ $DOM = "$DOMONTHLY" ]; then
 		echo Monthly Full Backup
 		  dbdump "$BACKUPDIR/monthly/$DATE.$M" &&
 		  compression "$BACKUPDIR/monthly/" "$DATE.$M"

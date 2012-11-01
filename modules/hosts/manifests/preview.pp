@@ -56,4 +56,8 @@ class hosts::preview {
   host { 'designprincipals.preview.alphagov.co.uk':
     ensure => absent,
   }
+  host { 'ec2-54-247-0-108.eu-west-1.compute.amazonaws.com':
+    ip           => '10.238.163.220',
+    host_aliases => ['ec2-54-247-0-108.eu-west-1','exception-handler-1'],
+  }
 }

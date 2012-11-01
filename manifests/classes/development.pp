@@ -34,6 +34,14 @@ class development {
 
   include datainsight::config::google_oauth
 
+  include java::sun6::jdk
+  include java::sun6::jre
+
+  class { 'java::set_defaults':
+    jdk => 'sun6',
+    jre => 'sun6',
+  }
+
   elasticsearch::node { 'govuk-development':
     heap_size          => '64m',
     number_of_shards   => '1',
