@@ -5,4 +5,4 @@ if [ $# != 1 ]; then
   exit 1
 fi
 MACHINENAME=`hostname -f`
-rsync --delete -aze "ssh -o ProxyCommand='ssh jumpbox.staging.alphagov.co.uk exec nc %h %p'" ${1}/ ${MACHINENAME}:${1}
+rsync --delete -vaze "ssh -o ProxyCommand='ssh jumpbox.staging.alphagov.co.uk exec nc %h %p'" ${1}/ ${MACHINENAME}:${1}
