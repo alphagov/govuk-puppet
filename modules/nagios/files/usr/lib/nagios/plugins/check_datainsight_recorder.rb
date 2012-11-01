@@ -29,7 +29,10 @@ begin
   http = Net::HTTP.new(uri.host, uri.port)
   http.use_ssl = (uri.scheme == 'https')
 
-  response = http.request(Net::HTTP::Get.new(uri.path))
+  get_request = Net::HTTP::Get.new(uri.path)
+  get_request.basic_auth(uri.user, uri.password) if uri.user
+
+  response = http.request(get_request)
   raise "Service returned HTTP #{response.code}" unless response.is_a? Net::HTTPOK
 
   result = JSON.parse(response.body)

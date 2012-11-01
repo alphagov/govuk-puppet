@@ -155,7 +155,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   # START datainsight
   if $::govuk_platform == 'preview' {
-    $datainsight_base_uri="https://www.${domain}/performance/dashboard"
+    $datainsight_base_uri="https://betademo:nottobeshared@www.${domain}/performance/dashboard"
 
     @@nagios::check { 'check_datainsight_narrative_endpoint':
       check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
