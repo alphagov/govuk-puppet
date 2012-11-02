@@ -7,9 +7,6 @@ class hosts {
         default:    { include hosts::skyscape::production_like }
       }
     }
-    scc: {
-        include hosts::scc::production
-    }
     default: {
       case $::govuk_platform {
         production: { include hosts::production }

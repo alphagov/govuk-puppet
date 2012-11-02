@@ -26,7 +26,6 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::migratorator
 
   case $::govuk_provider {
-    'scc':   {}
     'sky':   {}
     default: {
       include govuk::apps::review_o_matic_explore

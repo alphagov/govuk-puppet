@@ -45,19 +45,10 @@ class ganglia::config ($platform = $::govuk_platform) {
   # /var/lib/ganglia/rrds will once more be owned by nobody. >_<
   # [1] https://bugs.launchpad.net/ubuntu/+source/ganglia/+bug/444485
   #  -- PP, 2012-08-15
-  if $::govuk_provider != 'scc' {
-      file { '/etc/ganglia/gmetad.conf':
-        source  => 'puppet:///modules/ganglia/gmetad.conf',
-        owner   => root,
-        group   => root,
-        require => Exec[ganglia_webfrontend_untar],
-      }
-  } else {
-      file { '/etc/ganglia/gmetad.conf':
-        source  => 'puppet:///modules/ganglia/gmetad-scc.conf',
-        owner   => root,
-        group   => root,
-        require => Exec[ganglia_webfrontend_untar],
-      }
+  file { '/etc/ganglia/gmetad.conf':
+    source  => 'puppet:///modules/ganglia/gmetad.conf',
+    owner   => root,
+    group   => root,
+    require => Exec[ganglia_webfrontend_untar],
   }
 }
