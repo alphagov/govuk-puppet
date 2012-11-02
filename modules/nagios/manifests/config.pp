@@ -164,10 +164,10 @@ class nagios::config ($platform = $::govuk_platform) {
       host_name           => "${::govuk_class}-${::hostname}",
     }
 
-    @@nagios::check { 'check_datainsight_todays_activity_endpoint':
-      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/todays-activity.json 60",
+    @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
+      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
       use                 => 'govuk_normal_priority',
-      service_description => 'check the endpoint of datainsight todays activity is updated recently',
+      service_description => 'check the endpoint of datainsight hourly traffic is updated recently',
       host_name           => "${::govuk_class}-${::hostname}",
     }
 
