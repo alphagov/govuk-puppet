@@ -1,8 +1,0 @@
-#!/bin/bash
-if [ $# != 1 ]; then
-  echo "Usage: $0 /path/to/directory"
-  echo "Info: This script rsyncs data from this machine to the same machine and directory in the staging enviroment. It takes one option - the directory to sync"
-  exit 1
-fi
-MACHINENAME=`hostname -f`
-rsync --delete -vaze "ssh -o ProxyCommand='ssh jumpbox.staging.alphagov.co.uk exec nc %h %p'" ${1}/ ${MACHINENAME}:${1}
