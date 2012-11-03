@@ -1,0 +1,13 @@
+/data/logging/logstash-aggregation/*/var/*/**/* {
+  daily
+  missingok
+  rotate 365
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+  sharedscripts
+  postrotate
+    /sbin/restart logstash-server > /dev/null
+  endscript
+}

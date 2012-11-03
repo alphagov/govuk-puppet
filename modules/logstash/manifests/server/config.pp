@@ -18,9 +18,9 @@ class logstash::server::config (
     $logstash_dir = '/mnt/logging'
   }
 
-  @logrotate::conf { 'logstash-aggregation':
-    matches      => "${logstash_dir}/logstash-aggregation/**/*",
-    days_to_keep => '365',
+  file { '/etc/logrotate.d/logstash-aggregation':
+    ensure => 'file',
+    source => 'puppet:///modules/logstash/etc/logrotate.d/logstash-aggregation',
   }
 
   file { '/etc/logstash/logstash-server.conf':
