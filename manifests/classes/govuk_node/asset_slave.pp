@@ -17,7 +17,7 @@ class govuk_node::asset_slave inherits govuk_node::asset_base {
     ensure  => "mounted",
     device  => "asset-master.${::govuk_platform}.alphagov.co.uk:/mnt/uploads",
     fstype  => "nfs",
-    options => "ro",
+    options => "rw",
     atboot  => true,
     require => [File["/data/master-uploads"]],
   }
