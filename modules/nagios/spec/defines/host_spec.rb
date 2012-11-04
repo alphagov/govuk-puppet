@@ -7,5 +7,5 @@ describe 'nagios::host', :type => :define do
       "hostname"    => "test_host",
       "fqdn"        => "test_host.blah.blah"
   }}
-  it { should contain_file('/etc/nagios3/conf.d/nagios_host_test_host.blah.blah.cfg') }
+  it { should contain_file('/etc/nagios3/conf.d/nagios_host_bruce-forsyth.cfg') }
 end
