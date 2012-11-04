@@ -30,11 +30,13 @@ class varnish::service {
   @@nagios::check { "check_varnish_5xx_${::hostname}":
     check_command       => 'check_ganglia_metric!http_5xx!1!2',
     service_description => 'router varnish high 5xx rate',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { "check_varnish_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!varnishd',
     service_description => 'varnishd not running',
+    host_name           => $::fqdn,
   }
 
   @logstash::collector { 'varnish':

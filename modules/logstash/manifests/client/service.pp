@@ -24,5 +24,6 @@ class logstash::client::service {
   @@nagios::check { "check_logstash_client_running_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_logstash_client_running',
     service_description => "logstash-client not running",
+    host_name           => $::fqdn,
   }
 }

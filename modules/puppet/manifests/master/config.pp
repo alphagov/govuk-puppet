@@ -10,6 +10,7 @@ class puppet::master::config ($unicorn_port = '9090') {
   @@nagios::check { "check_nginx_5xx_puppetmaster_on_${::hostname}":
     check_command       => "check_ganglia_metric!puppetmaster_nginx_http_5xx!0.05!0.1",
     service_description => "puppetmaster nginx high 5xx rate",
+    host_name           => $::fqdn,
   }
 
   file { '/etc/puppet/config.ru':

@@ -109,15 +109,18 @@ define govuk::app::config (
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_cpu!50!100",
     service_description => "high CPU usage for ${title} app",
+    host_name           => $::fqdn,
   }
   @@nagios::check { "check_${title}_app_mem_usage${::hostname}":
     check_command       => "check_ganglia_metric!procstat_${title}_mem!2000000000!3000000000",
     service_description => "high memory for ${title} app",
+    host_name           => $::fqdn,
   }
   if $health_check_path != 'NOTSET' {
     @@nagios::check { "check_app_${title}_up_on_${::hostname}":
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
       service_description => "${title} app running",
+      host_name           => $::fqdn,
     }
   }
 }

@@ -10,5 +10,6 @@ define nginx::config::vhost::licensify_upload($port="9000") {
   @@nagios::check { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
     check_command       => "check_ganglia_metric!${vhost_name}_nginx_http_5xx!0.05!0.1",
     service_description => "${vhost_name} high nginx 5xx rate",
+    host_name           => $::fqdn,
   }
 }

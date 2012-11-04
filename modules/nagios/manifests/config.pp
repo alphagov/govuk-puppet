@@ -69,36 +69,42 @@ class nagios::config ($platform = $::govuk_platform) {
     check_command       => 'run_pingdom_homepage_check',
     use                 => 'govuk_urgent_priority',
     service_description => 'pingdom says gov.uk is down',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_calendar':
     check_command       => 'run_pingdom_calendar_check',
     use                 => 'govuk_high_priority',
     service_description => 'pingdom says calendar is down',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_quick_answer':
     check_command       => 'run_pingdom_quick_answer_check',
     use                 => 'govuk_urgent_priority',
     service_description => 'pingdom says quick answer is down',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_search':
     check_command       => 'run_pingdom_search_check',
     use                 => 'govuk_urgent_priority',
     service_description => 'pingdom says search is down',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_smart_answer':
     check_command       => 'run_pingdom_smart_answer_check',
     use                 => 'govuk_high_priority',
     service_description => 'pingdown say smartanswers is down',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_specialist':
     check_command       => 'run_pingdom_specialist_check',
     use                 => 'govuk_high_priority',
     service_description => 'pingdom says specialist guides is down',
+    host_name           => $::fqdn,
   }
 
   # BEGIN imminence checks
@@ -115,13 +121,15 @@ class nagios::config ($platform = $::govuk_platform) {
     check_command       => "check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.403),'5min')!5min!50!100",
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 403 rejects for exit links',
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { "check_frontend_to_exit_404_rejects":
     check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5min\')!5min!50!100',
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 404 rejects for exit links',
-    }
+    host_name           => $::fqdn,
+  }
   # END frontend
 
   # START rummager
@@ -133,12 +141,14 @@ class nagios::config ($platform = $::govuk_platform) {
       check_command       => 'check_graphite_metric_since!hitcount(stats.govuk.app.whitehall.scheduled_publishing.call_rate,\'60minutes\')!60minutes!3:!2:',
       service_description => 'whitehall sched pub not running every 15 minutes',
       use                 => 'govuk_urgent_priority',
+      host_name           => $::fqdn,
     }
 
     @@nagios::check { "check_no_overdue_scheduled_editions_${::hostname}":
       check_command       => "check_graphite_metric!stats.gauges.govuk.app.whitehall.scheduled_publishing.due!0!0",
       service_description => 'whitehall has overdue scheduled editions',
       use                 => 'govuk_urgent_priority',
+      host_name           => $::fqdn,
     }
 
   # END Whitehall
@@ -151,30 +161,35 @@ class nagios::config ($platform = $::govuk_platform) {
       check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
       use                 => 'govuk_normal_priority',
       service_description => 'check the endpoint of the datainsight narrative is updated recently',
+      host_name           => $::fqdn,
     }
 
     @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
       check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
       use                 => 'govuk_normal_priority',
       service_description => 'check the endpoint of datainsight hourly traffic is updated recently',
+      host_name           => $::fqdn,
     }
 
     @@nagios::check { 'check_datainsight_visits_endpoint':
       check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
       use                 => 'govuk_normal_priority',
       service_description => 'check the endpoint of datainsight visits is updated recently',
+      host_name           => $::fqdn,
     }
 
     @@nagios::check { 'check_datainsight_unique_visitors_endpoint':
       check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
       use                 => 'govuk_normal_priority',
       service_description => 'check the endpoint of datainsight unique visitors is updated recently',
+      host_name           => $::fqdn,
     }
 
     @@nagios::check { 'check_datainsight_format_success_endpoint':
       check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/format-success.json 10080",
       use                 => 'govuk_normal_priority',
       service_description => 'check the endpoint of datainsight format success is updated recently',
+      host_name           => $::fqdn,
     }
   }
   # END datainsight

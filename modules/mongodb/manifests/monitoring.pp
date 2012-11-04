@@ -24,16 +24,19 @@ class mongodb::monitoring {
   @@nagios::check { "check_mongod_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mongod',
     service_description => "mongod not running",
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { "check_mongod_responds_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!connect 2 4',
     service_description => "mongod not responding",
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { "check_mongod_lock_percentage_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!lock 5 10',
     service_description => "mongod high lock pct",
+    host_name           => $::fqdn,
   }
 
   @logstash::collector { 'mongodb':

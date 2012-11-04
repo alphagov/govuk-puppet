@@ -52,12 +52,14 @@ class govuk::apps::efg( $port = 3019 ) {
   @@nagios::check { "check_app_efg_up_on_${::hostname}":
     check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
     service_description => "efg app running",
+    host_name           => $::fqdn,
   }
 
   @@nagios::check { "check_efg_login_failures_${::hostname}":
     check_command       => 'check_graphite_metric!stats.govuk.app.efg.logins.failure!10!15',
     use                 => 'govuk_normal_priority',
     service_description => 'EFG login failures',
+    host_name           => $::fqdn,
   }
 
 }
