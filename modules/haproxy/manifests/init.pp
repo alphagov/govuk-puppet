@@ -52,7 +52,6 @@ location /site_alive {
   @@nagios::check {"check_haproxy_${::hostname}":
     check_command       => "check_nrpe_1arg!check_haproxy",
     service_description => "haproxy services",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @graphite::cronjob {'haproxy':

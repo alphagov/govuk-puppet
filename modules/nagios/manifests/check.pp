@@ -2,7 +2,7 @@ define nagios::check (
   $service_description,
   $check_command,
   $use                  = 'govuk_regular_service',
-  $host_name            = $::hostname,
+  $host_name            = $::fqdn,
   $notification_period  = undef
 ) {
 

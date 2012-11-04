@@ -25,7 +25,7 @@ class nagios::client {
     require => Class['nagios::client::service'],
   }
 
-  @@nagios::host { "${::govuk_class}-${::hostname}":
+  @@nagios::host { "$::fqdn":
     hostalias => $::fqdn,
     address   => $::ipaddress,
   }

@@ -26,7 +26,6 @@ define nagios::check_feature_w_prio ($feature, $prio) {
     check_command       => "run_smokey_tests!${feature}!${prio}",
     use                 => "govuk_${prio}_priority",
     service_description => "Run ${feature} ${prio} priority tests",
-    host_name           => "${::govuk_class}-${::hostname}"
   }
 }
 

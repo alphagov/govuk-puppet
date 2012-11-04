@@ -24,19 +24,16 @@ class mysql::server::monitoring ($root_password) {
   @@nagios::check { "check_mysqld_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mysqld',
     service_description => "mysqld not running",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_mysql_connections_${::hostname}":
     check_command       => 'check_ganglia_metric!mysql_connections!50!100',
     service_description => "mysql high cur conn",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_mysql_max_connections_${::hostname}":
     check_command       => 'check_ganglia_metric!mysql_max_used_connections!100!150',
     service_description => "mysql high max conn",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @logstash::collector { 'mysql':

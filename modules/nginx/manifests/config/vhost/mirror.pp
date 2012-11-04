@@ -18,7 +18,6 @@ define nginx::config::vhost::mirror ($aliases = [], $port = "443", $certtype = '
   @@nagios::check { "check_nginx_5xx_${title}_on_${::hostname}":
     check_command       => "check_ganglia_metric!${title}_nginx_http_5xx!0.5!1.0",
     service_description => "${title} nginx 5xx rate too high",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
 }

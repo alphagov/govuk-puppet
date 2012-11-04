@@ -33,12 +33,10 @@ class nginx {
   @@nagios::check { "check_nginx_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!nginx',
     service_description => "nginx not running",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_http_response_${::hostname}":
     check_command       => 'check_http_port!monitoring-vhost.test!5!10',
     service_description => "nginx http port unresponsive",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 }

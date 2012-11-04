@@ -2,7 +2,7 @@ define nagios::host (
   $hostalias  = $::fqdn,
   $address    = $::ipaddress,
   $use        = 'generic-host',
-  $host_name  = $title
+  $host_name  = $::fqdn
 ) {
 
   file {"/etc/nagios3/conf.d/nagios_host_${host_name}":

@@ -45,6 +45,5 @@ class puppet {
   @@nagios::check { "check_puppet_agent_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_puppet_agent',
     service_description => "puppet errors",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 }

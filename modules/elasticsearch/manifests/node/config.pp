@@ -81,6 +81,5 @@ define elasticsearch::node::config (
   @@nagios::check { "check_elasticsearch-${cluster_name}_running_on_${::hostname}":
     check_command       => "check_nrpe!check_elasticsearch!${http_port}",
     service_description => "elasticsearch not running",
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 }

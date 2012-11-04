@@ -30,21 +30,12 @@ class varnish::service {
   @@nagios::check { "check_varnish_5xx_${::hostname}":
     check_command       => 'check_ganglia_metric!http_5xx!1!2',
     service_description => 'router varnish high 5xx rate',
-    host_name           => "${::govuk_class}-${::hostname}",
   }
 
   @@nagios::check { "check_varnish_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!varnishd',
     service_description => 'varnishd not running',
-    host_name           => "${::govuk_class}-${::hostname}",
   }
-
-  # This check is too noisy
-  #@@nagios::check { "check_varnish_cache_miss_${::hostname}":
-  #  check_command       => 'check_ganglia_metric!varnish_cache_hit_ratio!0:50!0:30',
-  #  service_description => "check varnish cache hit ratio for ${::hostname}",
-  #  host_name           => "${::govuk_class}-${::hostname}",
-  #}
 
   @logstash::collector { 'varnish':
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
