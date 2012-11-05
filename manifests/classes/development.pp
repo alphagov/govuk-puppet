@@ -17,17 +17,6 @@ class development {
   include rabbitmq
   include fonts
 
-  include govuk::apps::review_o_matic_explore
-  include govuk::apps::tariff
-  include govuk::apps::feedback
-  include govuk::apps::contentapi
-  include govuk::apps::publicapi
-  include govuk::apps::signon
-  include govuk::apps::businesssupportfinder
-  include govuk::apps::publisher
-  include govuk::apps::private_frontend
-  include govuk::apps::need_o_tron
-
   include govuk::deploy
   include govuk::repository
   include govuk::testing_tools
