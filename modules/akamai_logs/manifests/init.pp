@@ -21,7 +21,7 @@ class akamai_logs {
     owner   => $user
   }
 
-  file { ["/mnt/akamai", "/mnt/akamai/tmp", "/mnt/akamai/logs"]:
+  file { ["/mnt/akamai", "/mnt/akamai/logs"]:
     ensure  => directory,
     owner   => $user
   }

@@ -3,7 +3,6 @@
 set -x
 set -e
 
-LOCAL_DOWNLOAD_DIR=<%= @local_logs_dir %>/tmp
 LOCAL_LOGS_DIR=<%= @local_logs_dir %>/logs
 
 AKAMAI_USER=<%= @akamai_user %>
@@ -25,10 +24,7 @@ LOCK_FILE=$LOCAL_DOWNLOAD_DIR/.lock
 TIME=$(date +%s)
 LIST_FILE=$LOCAL_DOWNLOAD_DIR/filelist-$TIME
 
-SFTP_LINE_FILTER='\.log\.gz$'
-
 # Just to be sure
-mkdir -p $LOCAL_DOWNLOAD_DIR
 mkdir -p $LOCAL_LOGS_DIR
 
 # Create lockfile, to avoid running the scanner
@@ -39,25 +35,17 @@ fi
 touch $LOCK_FILE
 
 # Get the files via rsync
-rsync -acz -e ssh $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/ $LOCAL_DOWNLOAD_DIR
+rsync -iacz -e ssh $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/ $LOCAL_LOGS_DIR > $LIST_FILE
 
 # RSYNC the files to my backup machine
-rsync -acz --exclude=.lock $LOCAL_DOWNLOAD_DIR/ $BACKUP_USER@$BACKUP_HOST:$BACKUP_LOGS_DIR
-
-# Generate list of rsynced files
-ls -l | grep '\.txt$' > $LIST_FILE
+rsync -acz --exclude=.lock $LOCAL_LOGS_DIR/ $BACKUP_USER@$BACKUP_HOST:$BACKUP_LOGS_DIR
 
 # Delete the files on akamai
 if [ -e $CONFIG_SHOULD_PURGE_FROM_AKAMAI ]; then
-  for log_file in $(awk '{print $9}' $LIST_FILE); do
+  grep '^>f' $LIST_FILE | awk '{print $2}' | while read log_file; do
     echo "rm $log_file" | sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR
   done
 fi
-
-# Move the files into the log directory
-for log_file in $(awk '{print $9}' $LIST_FILE); do
-  mv $LOCAL_DOWNLOAD_DIR/$log_file $LOCAL_LOGS_DIR/
-done
 
 # Cleanup Tempfiles
 rm $LIST_FILE
