@@ -66,9 +66,9 @@ class govuk_node::backend_load_balancer {
       http_listen_port  => 8509;
     'private-frontend':
       servers           => $backend_servers,
-      health_check_port => 9530,
-      https_listen_port => 8430,
-      http_listen_port  => 8530;
+      health_check_port => 9505,
+      https_listen_port => 8405,
+      http_listen_port  => 8505;
     'support':
       servers           => $backend_servers,
       health_check_port => 9531,
