@@ -32,6 +32,10 @@ X11Forwarding                   no
 ChallengeResponseAuthentication no
 <%- end -%>
 
+<%- if @govuk_class == "jumpbox" -%>
+AllowUsers <%= ssh_allow_users %>
+<%- end -%>
+
 PrintMotd                       no
 PrintLastLog                    yes
 TCPKeepAlive                    yes
