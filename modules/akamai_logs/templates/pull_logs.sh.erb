@@ -20,9 +20,9 @@ if [ ! -e $CONFIG_SHOULD_RUN ]; then
   exit 1
 fi
 
-LOCK_FILE=$LOCAL_DOWNLOAD_DIR/.lock
+LOCK_FILE=$LOCAL_LOGS_DIR/.lock
 TIME=$(date +%s)
-LIST_FILE=$LOCAL_DOWNLOAD_DIR/filelist-$TIME
+LIST_FILE=$LOCAL_LOGS_DIR/filelist-$TIME
 
 # Just to be sure
 mkdir -p $LOCAL_LOGS_DIR
