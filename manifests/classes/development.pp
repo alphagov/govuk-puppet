@@ -94,11 +94,18 @@ class development {
     group   => 'vagrant',
   }
 
-  file { [ '/home/vagrant/.bashrc', '/home/vagrant/.zshenv' ]:
+  file { '/home/vagrant/.zshenv':
     owner   => vagrant,
     group   => vagrant,
     mode    => '0644',
     content => "# We use xvfb for DISPLAY, so that integration tests can run
 export DISPLAY=:99"
+  }
+
+  file { '/home/vagrant/.bashrc':
+    owner   => vagrant,
+    group   => vagrant,
+    mode    => '0644',
+    source  => 'puppet:///modules/govuk/vagrant_bashrc'
   }
 }
