@@ -83,7 +83,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # We use xvfb for DISPLAY, so that integration tests can run
-export DISPLAY=:99
+DISPLAY=${DISPLAY:-:99}
+export DISPLAY
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
