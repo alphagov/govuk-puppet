@@ -4,6 +4,11 @@ class govuk::apps::redirector {
     target => '/var/apps/redirector/businesslink.conf',
     notify => Class['nginx::service'],
   }
+  file { '/etc/nginx/sites-enabled/communities':
+    ensure => link,
+    target => '/var/apps/redirector/communities.conf',
+    notify => Class['nginx::service'],
+  }
   file { '/etc/nginx/sites-enabled/directgov':
     ensure => link,
     target => '/var/apps/redirector/directgov.conf',
