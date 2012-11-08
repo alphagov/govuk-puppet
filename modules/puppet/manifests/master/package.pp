@@ -7,7 +7,7 @@ class puppet::master::package {
     unless  => 'gem list | grep "rack.*1.0.1"'
   }
   package { 'puppetdb-terminus':
-    ensure  => present,
+    ensure => '1.0.0-1puppetlabs1',
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
     ensure => directory,
