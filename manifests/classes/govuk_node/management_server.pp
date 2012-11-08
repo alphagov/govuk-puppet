@@ -13,7 +13,9 @@ class govuk_node::management_server {
   include clamav
 
   include elasticsearch
-  elasticsearch::node { "govuk-${::govuk_platform}": }
+  elasticsearch::node { "govuk-${::govuk_platform}":
+    number_of_replicas => '0'
+  }
 
   include mongodb::server
   class { 'mongodb::configure_replica_set':
