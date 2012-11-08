@@ -23,7 +23,8 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_session_cache         shared:SSL:10m;
   ssl_session_timeout       5m;
-  add_header                Strict-Transport-Security "max-age=2419200";
+  # max-age=31536000 commits us to using HSTS for one year
+  add_header                Strict-Transport-Security "max-age=31536000";
   <%- end -%>
 
   index index.html;
