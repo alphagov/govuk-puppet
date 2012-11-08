@@ -132,11 +132,7 @@ define govuk::app(
     default  => $vhost,
   }
 
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
-
+  $domain = extlookup('app_domain')
   $vhost_full = "${vhost_real}.${domain}"
 
   include govuk::deploy

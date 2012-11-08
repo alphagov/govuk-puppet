@@ -24,13 +24,13 @@ describe 'haproxy::balance_https', :type => :define do
         with_content(/server giraffe-1 1.1.1.1:443.*port 9090/)
       # ensure correct health check
       should contain_concat__fragment('haproxy_listen_https_giraffe').
-        with_content(%r"^\s*option httpchk HEAD / HTTP/1\.1\\r\\nHost:\\ giraffe\.dev\.gov\.uk$")
+        with_content(%r"^\s*option httpchk HEAD / HTTP/1\.1\\r\\nHost:\\ giraffe\.test\.gov\.uk$")
     end
 
     it 'should create nginx proxy allowing everyone access' do
-      should contain_nginx__config__ssl('giraffe.dev.gov.uk')
-      should contain_nginx__config__site('https_giraffe.dev.gov.uk')
-      should_not contain_nginx__config__site('https_giraffe.dev.gov.uk').with_content(/deny all/)
+      should contain_nginx__config__ssl('giraffe.test.gov.uk')
+      should contain_nginx__config__site('https_giraffe.test.gov.uk')
+      should_not contain_nginx__config__site('https_giraffe.test.gov.uk').with_content(/deny all/)
     end
   end
 
@@ -46,8 +46,8 @@ describe 'haproxy::balance_https', :type => :define do
     }
 
     it 'should create nginx proxy only allowing local access' do
-      should contain_nginx__config__ssl('giraffe.dev.gov.uk')
-      should contain_nginx__config__site('https_giraffe.dev.gov.uk').
+      should contain_nginx__config__ssl('giraffe.test.gov.uk')
+      should contain_nginx__config__site('https_giraffe.test.gov.uk').
         with_content(/deny all/)
     end
   end

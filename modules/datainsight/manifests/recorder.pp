@@ -1,9 +1,6 @@
 define datainsight::recorder($port, $platform = $::govuk_platform) {
 
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
+  $domain = extlookup('app_domain')
 
   govuk::app { "datainsight-${title}-recorder":
     app_type => 'rack',

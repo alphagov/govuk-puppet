@@ -1,7 +1,11 @@
 define router::errorpage () {
+
+  $app_domain = extlookup('app_domain')
+
   exec {"update_error_page_${title}":
-    command => "curl -f https://static.${::govuk_platform}.alphagov.co.uk/templates/${title}.html.erb -o /usr/share/nginx/www/${title}.html",
+    command => "curl -f https://static.${app_domain}/templates/${title}.html.erb -o /usr/share/nginx/www/${title}.html",
     user    => 'deploy',
     group   => 'deploy',
   }
+
 }

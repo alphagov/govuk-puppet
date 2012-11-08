@@ -14,7 +14,7 @@ define haproxy::balance_http (
     order   => '10',
   }
 
-  $vhost_suffix = extlookup('app_domain_suffix','dev.gov.uk')
+  $vhost_suffix = extlookup('app_domain')
   $vhost = "${title}.${vhost_suffix}"
 
   nginx::config::site{"http_${vhost}":

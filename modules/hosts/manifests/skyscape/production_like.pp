@@ -2,6 +2,8 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   # these are real hosts (1-1 mapping between host and service) anything that
   # ends .cluster is maintained for backwards compatibility with ec2
 
+  $app_domain = extlookup('app_domain')
+
   class { 'hosts::skyscape::dead_hosts':
     platform => $platform,
   }
@@ -16,7 +18,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   }
   host { "monitoring.management.${platform}":
     ip           => '10.0.0.20',
-    host_aliases => ['monitoring', 'monitoring.cluster', 'nagios.production.alphagov.co.uk', 'ganglia.production.alphagov.co.uk', 'graphite.production.alphagov.co.uk'],
+    host_aliases => ['monitoring', 'monitoring.cluster', "nagios.${app_domain}", "ganglia.${app_domain}", "graphite.${app_domain}"],
   }
   host { "logging.management.${platform}":
     ip           => '10.0.0.21',
@@ -36,7 +38,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   }
   host { "exception-handler-1.management.${platform}":
     ip           => '10.0.0.4',
-    host_aliases => ['exception-handler-1', 'exception-handler', 'errbit.production.alphagov.co.uk']
+    host_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
   }
 
   #router vdc machines
@@ -91,20 +93,20 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
     ip           => '10.2.1.2',
     host_aliases => [
       'frontend-internal-lb',
-      "businesssupportfinder.${platform}.alphagov.co.uk",
-      "calendars.${platform}.alphagov.co.uk",
-      "datainsight-frontend.${platform}.alphagov.co.uk",
-      "designprinciples.${platform}.alphagov.co.uk",
-      "efg.${platform}.alphagov.co.uk",
-      "feedback.${platform}.alphagov.co.uk",
-      "frontend.${platform}.alphagov.co.uk",
-      "licencefinder.${platform}.alphagov.co.uk",
-      "publicapi.${platform}.alphagov.co.uk",
-      "smartanswers.${platform}.alphagov.co.uk",
-      "static.${platform}.alphagov.co.uk",
-      "tariff.${platform}.alphagov.co.uk",
-      "whitehall-frontend.${platform}.alphagov.co.uk",
-      "www.${platform}.alphagov.co.uk"
+      "businesssupportfinder.${app_domain}",
+      "calendars.${app_domain}",
+      "datainsight-frontend.${app_domain}",
+      "designprinciples.${app_domain}",
+      "efg.${app_domain}",
+      "feedback.${app_domain}",
+      "frontend.${app_domain}",
+      "licencefinder.${app_domain}",
+      "publicapi.${app_domain}",
+      "smartanswers.${app_domain}",
+      "static.${app_domain}",
+      "tariff.${app_domain}",
+      "whitehall-frontend.${app_domain}",
+      "www.${app_domain}"
     ]
   }
 
@@ -165,38 +167,38 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
     ip           => '10.3.1.2',
     host_aliases => [
       'backend-internal-lb',
-      "contentapi.${platform}.alphagov.co.uk",
-      "imminence.${platform}.alphagov.co.uk",
-      "mapit.${platform}.alphagov.co.uk",
-      "needotron.${platform}.alphagov.co.uk",
-      "panopticon.${platform}.alphagov.co.uk",
-      "private-frontend.${platform}.alphagov.co.uk",
-      "publisher.${platform}.alphagov.co.uk",
-      "search.${platform}.alphagov.co.uk",
-      "signon.${platform}.alphagov.co.uk",
-      "support.${platform}.alphagov.co.uk",
-      "tariff-api.${platform}.alphagov.co.uk",
-      "whitehall-admin.${platform}.alphagov.co.uk"
+      "contentapi.${app_domain}",
+      "imminence.${app_domain}",
+      "mapit.${app_domain}",
+      "needotron.${app_domain}",
+      "panopticon.${app_domain}",
+      "private-frontend.${app_domain}",
+      "publisher.${app_domain}",
+      "search.${app_domain}",
+      "signon.${app_domain}",
+      "support.${app_domain}",
+      "tariff-api.${app_domain}",
+      "whitehall-admin.${app_domain}"
     ]
   }
   host { "asset-master.backend.${platform}":
     ip           => '10.3.0.20',
-    host_aliases => ['asset-master', "asset-master.${platform}.alphagov.co.uk"]
+    host_aliases => ['asset-master', "asset-master.${app_domain}"]
   }
   host { "asset-slave.backend.${platform}":
     ip           => '10.3.0.21',
-    host_aliases => ['asset-slave', "asset-slave.${platform}.alphagov.co.uk"]
+    host_aliases => ['asset-slave', "asset-slave.${app_domain}"]
   }
   host { "datainsight-1.backend.${platform}":
     ip           => '10.3.0.30',
     host_aliases => [
       'datainsight-1',
-      "datainsight.${platform}.alphagov.co.uk",
-      "datainsight-narrative-recorder.${platform}.alphagov.co.uk",
-      "datainsight-weekly-reach-recorder.${platform}.alphagov.co.uk",
-      "datainsight-todays-activity-recorder.${platform}.alphagov.co.uk",
-      "datainsight-everything-recorder.${platform}.alphagov.co.uk",
-      "datainsight-format-success-recorder.${platform}.alphagov.co.uk"
+      "datainsight.${app_domain}",
+      "datainsight-narrative-recorder.${app_domain}",
+      "datainsight-weekly-reach-recorder.${app_domain}",
+      "datainsight-todays-activity-recorder.${app_domain}",
+      "datainsight-everything-recorder.${app_domain}",
+      "datainsight-format-success-recorder.${app_domain}"
     ]
   }
   host { "akamai-logs-1.backend.${platform}":
@@ -249,7 +251,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   #licensify load balancer v-shield edge
   host { 'licensify-internal-lb.licensify':
     ip           => '10.5.1.2',
-    host_aliases => ["licensify.${platform}.alphagov.co.uk", "uploadlicensify.${platform}.alphagov.co.uk", "licensify-admin.${platform}.alphagov.co.uk"]
+    host_aliases => ["licensify.${app_domain}", "uploadlicensify.${app_domain}", "licensify-admin.${app_domain}"]
   }
 
   #efg vdc machines
