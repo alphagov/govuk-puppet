@@ -9,6 +9,9 @@ class puppet::master::package {
   package { 'puppetdb-terminus':
     ensure => '1.0.0-1puppetlabs1',
   }
+  package { 'puppet-common':
+    ensure => '2.7.19-1puppetlabs2',
+  }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
     ensure => directory,
     owner  => 'puppet',
