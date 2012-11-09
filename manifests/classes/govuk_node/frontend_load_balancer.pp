@@ -21,6 +21,10 @@ class govuk_node::frontend_load_balancer {
 
   $app_domain = extlookup('app_domain')
 
+  # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
+  $asset_url = extlookup('asset_host')
+  $asset_host = regsubst($asset_url, "https?://(.+)", "\1")
+
   # Frontend Load Balancers
   haproxy::balance_http_and_https {
     'businesssupportfinder':
@@ -77,7 +81,8 @@ class govuk_node::frontend_load_balancer {
       servers           => $govuk_frontend_servers,
       health_check_port => 9513,
       https_listen_port => 8413,
-      http_listen_port  => 8513;
+      http_listen_port  => 8513,
+      aliases           => [$asset_host];
     'tariff':
       servers           => $govuk_frontend_servers,
       internal_only     => true,
