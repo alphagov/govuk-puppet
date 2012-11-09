@@ -27,4 +27,10 @@ class govuk_node::asset_slave inherits govuk_node::asset_base {
     minute    => '*/30',
     command   => '/usr/local/bin/sync_assets_from_master.rb /data/master-uploads /mnt/uploads whitehall/clean whitehall/incoming whitehall/infected',
   }
+
+  cron { 'sync-assets-from-master-draft':
+    user      => 'assets',
+    minute    => '*/30',
+    command   => '/usr/local/bin/sync_assets_from_master.rb /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
+  }
 }
