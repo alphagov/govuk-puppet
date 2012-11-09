@@ -21,7 +21,5 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
-  nginx::config::vhost::default { 'default':
-    status => '500',
-  }
+  nginx::config::vhost::default { 'default': }
 }
