@@ -39,7 +39,8 @@ class development {
 
   include nginx
 
-  nginx::config::site { 'default':
+  nginx::config::vhost::default { 'default': }
+  nginx::config::site { 'development':
     source => 'puppet:///modules/nginx/development',
   }
 
