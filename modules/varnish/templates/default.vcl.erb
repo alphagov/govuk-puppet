@@ -140,8 +140,10 @@ sub vcl_fetch {
   unset beresp.http.X-Runtime;
 
   # If the backend says no-cache or no-store, we should not cache
-  if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") { 
-     return(pass);
+  if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") {
+    # Don't cache the decision to not cache
+    set beresp.ttl = 0s;
+    return(pass);
   } 
 
   if (beresp.ttl > 0s) {
