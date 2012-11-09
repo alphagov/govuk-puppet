@@ -8,6 +8,9 @@ class govuk_node::asset_base inherits govuk_node::base {
     "/mnt/uploads/whitehall/incoming",
     "/mnt/uploads/whitehall/clean",
     "/mnt/uploads/whitehall/infected",
+    "/mnt/uploads/whitehall/draft-incoming",
+    "/mnt/uploads/whitehall/draft-clean",
+    "/mnt/uploads/whitehall/draft-infected",
   ]
 
   file { $directories:
