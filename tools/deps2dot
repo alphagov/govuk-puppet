@@ -1,0 +1,50 @@
+#!/bin/sh
+
+#
+# deps2dot
+#
+# Prints intermodule dependencies as a DOT language graph
+#
+
+set -e
+
+cd "$(dirname "$0")"
+cd ../modules
+
+puppetcode () {
+  egrep -rv '\s+#.+' "$1"/**/*.pp 2>/dev/null || :
+}
+
+getincludes () {
+  puppetcode "$1" | egrep -o 'include \S+' | cut -d' ' -f2-
+}
+
+getclasses () {
+  puppetcode "$1" | egrep -o 'class\s*{.+' | cut -d"'" -f2
+}
+
+dotname () {
+  echo "$1" | sed 's/:/_/g'
+}
+
+MODULES=$(ls -d */ | tr -d /)
+
+
+echo "digraph G {"
+
+for mod in $MODULES; do
+  {
+    getincludes "$mod"
+    getclasses "$mod"
+  } |
+    sed -E 's/^:://' |
+    #sed -E 's/([^:]+):.+/\1/' |
+    sort |
+    uniq |
+    grep -vF "$mod" |
+    while read dep; do
+      echo "$(dotname $mod) -> $(dotname $dep);"
+    done
+done
+
+echo "}"
