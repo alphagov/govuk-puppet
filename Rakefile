@@ -13,6 +13,7 @@ THIRD_PARTY_MODULES = %w[
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.send("disable_double_quoted_strings")
+PuppetLink.configuration.send("disable_quoted_booleans"
 
 # puppet-lint has got a lot stricter (but a lot faster) recently. I'm
 # temporarily disabling the following checks but will bring them back bit by
