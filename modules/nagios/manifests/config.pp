@@ -275,7 +275,7 @@ class nagios::config ($platform = $::govuk_platform) {
     production: {
       case $::govuk_provider {
         sky: {
-          if extlookup(nagios_is_zendesk_enabled, '') == true {
+          if extlookup(nagios_is_zendesk_enabled, '') == "true" {
             $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority']
             $highprio_members   = ['monitoring_google_group','zendesk_high_priority']
             $normalprio_members = ['monitoring_google_group','zendesk_normal_priority']
