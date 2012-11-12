@@ -5,6 +5,5 @@ describe 'puppet', :type => :class do
 
   it do
     should contain_file('/etc/puppet/puppet.conf')
-    should contain_package("puppet").with_provider('gem')
   end
 end
