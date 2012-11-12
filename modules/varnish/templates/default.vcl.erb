@@ -140,28 +140,19 @@ sub vcl_fetch {
   unset beresp.http.X-Runtime;
 
   # If the backend says no-cache or no-store, we should not cache
-  if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") { 
-     return(pass);
+  if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") {
+    # Don't cache the decision to not cache
+    set beresp.ttl = 0s;
+    return(pass);
   } 
 
-  if (beresp.ttl > 0s) {
-    if (beresp.ttl < <%= scope.lookupvar('varnish::default_ttl') %>s) {
-      # Rewrite or add cache-control header
-      if (beresp.http.cache-control) {
-        set beresp.http.cache-control = regsub(beresp.http.cache-control, "\bmax-age=\d+\b", "max-age=<%= scope.lookupvar('varnish::default_ttl') %>");
-      } else {
-        set beresp.http.cache-control = "max-age=<%= scope.lookupvar('varnish::default_ttl') %>";
-      }
-
-      # Remove Expires from backend, it's not long enough
-      unset beresp.http.expires;
-
-      # Set how long Varnish will keep it
-      set beresp.ttl = <%= scope.lookupvar('varnish::default_ttl') %>s;
-    }
-
-    # marker for vcl_deliver to reset Age
-    set beresp.http.magicmarker = "1";
+  # If neither a Cache-Control or Expires header is provided, Varnish will
+  # automatically set the TTL to the default_ttl. This *won't* however, set
+  # this for downstreams. Explicitly set a C-C header if we intercept a
+  # response with no useable caching information.
+  if (!beresp.http.Cache-Control && !beresp.http.Expires) {
+    set beresp.http.X-Varnish-Defaulted = "1";
+    set beresp.http.Cache-Control = "max-age=<%= scope.lookupvar('varnish::default_ttl') %>";
   }
 
   # if we get a 503 error then server stale content
@@ -193,14 +184,6 @@ sub vcl_hash {
 }
 
 sub vcl_deliver {
-  if (resp.http.magicmarker) {
-    # Remove the magic marker
-    unset resp.http.magicmarker;
-
-    # By definition we have a fresh object
-    set resp.http.age = "0";
-  }
-
   # Add a custom header to indicate whether we hit the cache or not
   if (obj.hits > 0) {
     set resp.http.X-Cache = "HIT";
