@@ -39,7 +39,7 @@ rewrite ^/performance/transactional-services/?$ http://transactionalservices.alp
 rewrite ^/support/internal/?$ https://support.<%= @app_domain %>/;
 rewrite ^/tell-us-once-report-death/?$ /after-a-death redirect;
 rewrite ^/studentfinance/?$ /student-finance permanent;
-
+rewrite ^/browse/births-deaths-marriages/registry-offices/?$ /browse/births-deaths-marriages/register-offices permanent;
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/green-deal/?$ /green-deal-energy-saving-measures permanent;
