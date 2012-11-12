@@ -6,11 +6,16 @@ class puppet::master::package {
     command => 'gem install rack --no-rdoc --no-ri --version 1.0.1',
     unless  => 'gem list | grep "rack.*1.0.1"'
   }
-  package { 'puppetdb-terminus':
-    ensure => '1.0.0-1puppetlabs1',
-  }
   package { 'puppet-common':
     ensure => '2.7.19-1puppetlabs2',
+  }
+  package { 'puppetdb-terminus':
+    ensure  => '1.0.0-1puppetlabs1',
+    require => Package['puppet-common'],
+  }
+  package { 'puppet':
+    require => Package['puppet-common'],
+    ensure  => '2.7.19-1puppetlabs2',
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
     ensure => directory,
