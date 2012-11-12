@@ -21,7 +21,7 @@ class puppet {
 
   file { '/etc/puppet/puppet.conf':
     ensure  => present,
-    modt    => '0644',
+    mode    => '0644',
     content => template('puppet/etc/puppet/puppet.conf.erb'),
   }
 
