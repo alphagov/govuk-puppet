@@ -4,11 +4,14 @@ class puppet {
     name    => 'puppet';
   }
 
-  package { 'puppet':
-    ensure   => '2.7.19',
-    provider => gem,
-    require  => Group['puppet'];
-  }
+# Can't manage both apt and gem 'puppet' packages in the same puppet run
+# and we need to manage apt puppet to avoid upgrading to puppet 3 (!)
+# If necessary, we can rewrite this as an exec
+#  package { 'puppet':
+#    ensure   => '2.7.19',
+#    provider => gem,
+#    require  => Group['puppet'];
+#  }
 
   package { 'libshadow':
     ensure   => present,
