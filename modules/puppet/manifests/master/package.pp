@@ -14,8 +14,8 @@ class puppet::master::package {
     require => Package['puppet-common'],
   }
   package { 'puppet':
-    require => Package['puppet-common'],
     ensure  => '2.7.19-1puppetlabs2',
+    require => Package['puppet-common'],
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
     ensure => directory,
