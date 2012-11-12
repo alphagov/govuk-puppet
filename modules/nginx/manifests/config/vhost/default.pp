@@ -1,6 +1,7 @@
 define nginx::config::vhost::default(
   $extra_config = '',
-  $status = '404',
+  $status = '500',
+  $status_message = "'{\"error\": \"Fell through to default vhost\"}\\n'",
   $ssl_certtype = 'wildcard_alphagov'
 ) {
 

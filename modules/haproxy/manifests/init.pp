@@ -28,7 +28,7 @@ class haproxy {
     hasstatus => true,
   }
 
-  # Install a default vhost that 404s if haproxy doesn't know about the
+  # Install a default vhost that 500s if haproxy doesn't know about the
   # specified host.
   nginx::config::vhost::default { 'haproxy_default':
     extra_config => "

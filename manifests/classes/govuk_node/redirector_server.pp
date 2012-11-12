@@ -15,7 +15,8 @@ class govuk_node::redirector_server inherits govuk_node::base {
     ensure => present,
   }
   nginx::config::vhost::default { 'default':
-    status => '444',
+    status         => '444',
+    status_message => '',
   }
 
   @logster::cronjob { "nginx-redirector":

@@ -11,8 +11,11 @@ class govuk_node::cache_server inherits govuk_node::base {
     storage_size => '6G',
     default_ttl  => '900',
   }
+
+  # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
-    status => '444',
+    status         => '444',
+    status_message => '',
   }
 
   case $::govuk_provider {
