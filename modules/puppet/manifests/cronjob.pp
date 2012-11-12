@@ -8,6 +8,5 @@ class puppet::cronjob {
     user    => 'root',
     minute  => [$first, $second],
     command => '/usr/bin/puppet agent --onetime --no-daemonize',
-    require => Package['puppet'];
   }
 }
