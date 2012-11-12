@@ -339,7 +339,7 @@ class nagios::config ($platform = $::govuk_platform) {
     contact_groups => ['regular']
   }
 
-  $monitoring_url = "https://${vhost}.${domain}"
+  $monitoring_url = "https://${vhost}/"
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),
