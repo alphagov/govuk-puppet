@@ -40,3 +40,15 @@ for more information.
 You can also run both tests and lint checks with the default rake task:
 
     bundle exec rake
+
+### Scoped testing
+
+You can run the tests for a specific module or modules by setting an
+environment variable, `mods` for the rake task, e.g.
+
+    bundle exec rake mods=nginx,varnish
+
+The `manifests/` directory is considered one module called `manifests` for
+this purpose.
+
+    bundle exec rake mods=manifests,govuk
