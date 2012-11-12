@@ -7,7 +7,9 @@ class govuk_node::backend_server inherits govuk_node::base {
 
   include imagemagick
 
-  file { "/data/vhost/signonotron.${::govuk_platform}.alphagov.co.uk":
+  $app_domain = extlookup('app_domain')
+
+  file { "/data/vhost/signonotron.${app_domain}":
     ensure => absent,
     force  => true,
   }

@@ -75,7 +75,7 @@ class govuk::deploy {
     require => Package['envmgr'],
   }
 
-  $app_domain = extlookup('app_domain_suffix', 'dev.gov.uk')
+  $app_domain = extlookup('app_domain')
 
   $asset_host = extlookup('asset_host', "https://static.${app_domain}")
 

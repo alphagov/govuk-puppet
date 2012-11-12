@@ -27,9 +27,11 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
     ensure => installed,
   }
 
+  $app_domain = extlookup('app_domain')
+
   mount { "/data/uploads":
     ensure  => "mounted",
-    device  => "asset-master.${::govuk_platform}.alphagov.co.uk:/mnt/uploads",
+    device  => "asset-master.${app_domain}:/mnt/uploads",
     fstype  => "nfs",
     options => "defaults",
     atboot  => true,

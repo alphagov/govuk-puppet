@@ -4,7 +4,7 @@ class puppetdb::package {
   include puppet::repository
 
   package { 'puppetdb':
-    ensure => 'present',
+    ensure => '1.0.0-1puppetlabs1',
   }
 
 }

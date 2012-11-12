@@ -19,9 +19,11 @@ class govuk_node::logging_server inherits govuk_node::base {
     es_heap_size => $es_heap_size,
   }
 
+  $app_domain = extlookup('app_domain')
+
   nginx::config::vhost::proxy {
-    "logging.${::govuk_platform}.alphagov.co.uk":
+    "logging.${app_domain}":
       to        => ['localhost:9292'],
-      aliases   => ["graylog.${::govuk_platform}.alphagov.co.uk"],
+      aliases   => ["graylog.${app_domain}"],
   }
 }

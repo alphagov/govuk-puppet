@@ -1,12 +1,15 @@
 class govuk::apps::frontend( $port = 3005 ) {
+
+  $app_domain = extlookup('app_domain')
+
   govuk::app { 'frontend':
     app_type               => 'rack',
     port                   => $port,
     vhost_aliases          => ['private-frontend', 'www'], # TODO: Remove the www alias once we're sure it's not being used.
     health_check_path      => '/',
     nginx_extra_config     => "location @specialist {
-  proxy_set_header Host whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
-  proxy_pass http://whitehall-frontend.${::govuk_platform}.alphagov.co.uk;
+  proxy_set_header Host whitehall-frontend.${app_domain};
+  proxy_pass http://whitehall-frontend.${app_domain};
 }",
     # Please note that this routing strategy is *temporary*, until we have a better
     # solution for router replacement. It should be removed once a proper router
@@ -15,11 +18,11 @@ class govuk::apps::frontend( $port = 3005 ) {
 error_page 404 = @specialist;"
   }
 
-  # Frontend used to be deployed to /data/vhost/www.{platform}.alphagov.co.uk
-  # Leave this symlink in place until we're sure that nothing needs it any more.
-  file { "/data/vhost/www.${::govuk_platform}.alphagov.co.uk":
+  # Frontend used to be deployed to /data/vhost/www.${app_domain}. Leave this
+  # symlink in place until we're sure that nothing needs it any more.
+  file { "/data/vhost/www.${app_domain}":
     ensure => link,
-    target => "/data/vhost/frontend.${::govuk_platform}.alphagov.co.uk",
+    target => "/data/vhost/frontend.${app_domain}",
     owner  => 'deploy',
     group  => 'deploy',
   }

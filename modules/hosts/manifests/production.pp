@@ -1,31 +1,34 @@
 class hosts::production {
-  host { 'static.production.alphagov.co.uk':               ip => '10.250.157.37' } # production-frontend-2
-  host { 'fco.production.alphagov.co.uk':                  ip => '10.53.54.49' }
-  host { 'jobs.production.alphagov.co.uk':                 ip => '10.53.54.49' }
-  host { 'smartanswers.production.alphagov.co.uk':         ip => '10.53.54.49' }
-  host { 'licencefinder.production.alphagov.co.uk':        ip => '10.53.54.49' }
-  host { 'designprinciples.production.alphagov.co.uk':     ip => '10.53.54.49' }
-  host { 'frontend.production.alphagov.co.uk':             ip => '10.236.86.54' } # production-frontend-1
-  host { 'search.production.alphagov.co.uk':               ip => '10.236.93.237' } # production-backend-2
-  host { 'feedback.production.alphagov.co.uk':             ip => '10.53.54.49' }
-  host { 'calendars.production.alphagov.co.uk':            ip => '10.53.54.49' }
-  host { 'tariff.production.alphagov.co.uk':               ip => '10.53.54.49' }
-  host { 'tariff-api.production.alphagov.co.uk':           ip => '10.54.182.112' }
-  host { 'panopticon.production.alphagov.co.uk':           ip => '10.54.182.112' }
-  host { 'contentapi.production.alphagov.co.uk':           ip => '10.54.182.112' }
-  host { 'needotron.production.alphagov.co.uk':            ip => '10.54.182.112' }
-  host { 'imminence.production.alphagov.co.uk':            ip => '10.54.182.112' }
-  host { 'publisher.production.alphagov.co.uk':            ip => '10.54.182.112' }
-  host { 'migratorator.production.alphagov.co.uk':         ip => '10.54.182.112' }
-  host { 'reviewomatic.production.alphagov.co.uk':         ip => '10.54.182.112' }
-  host { 'private-frontend.production.alphagov.co.uk':     ip => '10.54.182.112' }
-  host { 'whitehall-frontend.production.alphagov.co.uk':   ip => '10.224.50.207' }
-  host { 'whitehall.production.alphagov.co.uk':            ip => '10.224.50.207' }
-  host { 'whitehall-admin.production.alphagov.co.uk':      ip => '10.54.182.112' } # production backend
-  host { 'datainsight-frontend.production.alphagov.co.uk': ip => '10.53.54.49' }
 
-  host { 'asset-master.production.alphagov.co.uk':         ip => '10.241.2.112' }
-  host { 'asset-slave.production.alphagov.co.uk':          ip => '10.32.20.43' }
+  $app_domain = extlookup('app_domain')
+
+  host { "static.${app_domain}":               ip => '10.250.157.37' } # production-frontend-2
+  host { "fco.${app_domain}":                  ip => '10.53.54.49' }
+  host { "jobs.${app_domain}":                 ip => '10.53.54.49' }
+  host { "smartanswers.${app_domain}":         ip => '10.53.54.49' }
+  host { "licencefinder.${app_domain}":        ip => '10.53.54.49' }
+  host { "designprinciples.${app_domain}":     ip => '10.53.54.49' }
+  host { "frontend.${app_domain}":             ip => '10.236.86.54' } # production-frontend-1
+  host { "search.${app_domain}":               ip => '10.236.93.237' } # production-backend-2
+  host { "feedback.${app_domain}":             ip => '10.53.54.49' }
+  host { "calendars.${app_domain}":            ip => '10.53.54.49' }
+  host { "tariff.${app_domain}":               ip => '10.53.54.49' }
+  host { "tariff-api.${app_domain}":           ip => '10.54.182.112' }
+  host { "panopticon.${app_domain}":           ip => '10.54.182.112' }
+  host { "contentapi.${app_domain}":           ip => '10.54.182.112' }
+  host { "needotron.${app_domain}":            ip => '10.54.182.112' }
+  host { "imminence.${app_domain}":            ip => '10.54.182.112' }
+  host { "publisher.${app_domain}":            ip => '10.54.182.112' }
+  host { "migratorator.${app_domain}":         ip => '10.54.182.112' }
+  host { "reviewomatic.${app_domain}":         ip => '10.54.182.112' }
+  host { "private-frontend.${app_domain}":     ip => '10.54.182.112' }
+  host { "whitehall-frontend.${app_domain}":   ip => '10.224.50.207' }
+  host { "whitehall.${app_domain}":            ip => '10.224.50.207' }
+  host { "whitehall-admin.${app_domain}":      ip => '10.54.182.112' } # production backend
+  host { "datainsight-frontend.${app_domain}": ip => '10.53.54.49' }
+
+  host { "asset-master.${app_domain}":         ip => '10.241.2.112' }
+  host { "asset-slave.${app_domain}":          ip => '10.32.20.43' }
 
   host { 'rds.cluster':         ip => '10.228.229.245' }
 
@@ -36,7 +39,7 @@ class hosts::production {
   }
   host { 'ip-10-240-29-155.eu-west-1.compute.internal':
     ip           => '10.240.29.155',
-    host_aliases => ['ip-10-240-29-155','mapit','mapit.production.alphagov.co.uk','mapit.alpha.gov.uk'],
+    host_aliases => ['ip-10-240-29-155','mapit',"mapit.${app_domain}",'mapit.alpha.gov.uk'],
   }
   host { 'frontend.cluster':    ip => '10.53.54.49' }
   host { 'frontend.cluster-1':  ip => '10.236.86.54' }
@@ -58,7 +61,7 @@ class hosts::production {
   host { 'licensify-mongo1':   ip => '10.239.11.229' }
   host { 'licensify-mongo2':   ip => '10.32.57.17' }
 
-  host { 'designprincipals.production.alphagov.co.uk':
+  host { "designprincipals.${app_domain}":
     ensure => absent,
   }
 }

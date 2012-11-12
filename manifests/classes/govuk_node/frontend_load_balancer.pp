@@ -63,7 +63,7 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9505,
       https_listen_port => 8405,
       http_listen_port  => 8505,
-      aliases           => ["www.${::govuk_platform}.alphagov.co.uk"]; # TODO: remove this alias once we're sure it's not being used.
+      aliases           => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
     'licencefinder':
       servers           => $govuk_frontend_servers,
       internal_only     => true,

@@ -2,11 +2,7 @@ class ganglia::config ($platform = $::govuk_platform) {
 
   include govuk::htpasswd
 
-  $domain = $platform ? {
-    'development' => 'dev.gov.uk',
-    default       => "${platform}.alphagov.co.uk",
-  }
-
+  $domain = extlookup('app_domain')
   $vhost = "ganglia.${domain}"
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
