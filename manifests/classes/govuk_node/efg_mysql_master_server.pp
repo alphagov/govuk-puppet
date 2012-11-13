@@ -14,6 +14,12 @@ class govuk_node::efg_mysql_master_server inherits govuk_node::base {
     privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
+  @@backup::directory {"backup_mysql_backups_$::hostname":
+    directory => '/var/lib/automysqlbackup/',
+    host_name => $::hostname,
+    fq_dn     => $::fqdn,
+  }
+
   class {'govuk::apps::efg::db':
     require => Class['mysql::server']
   }
