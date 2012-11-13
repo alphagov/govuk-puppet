@@ -16,7 +16,7 @@ class govuk::apps::static( $port = 3013 ) {
     aliases           => ['calendars', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
     ssl_only          => true,
     server_names      => ['static.*', 'assets.*'],
-    extra_root_config => "location ~ ^/government/(assets|uploads)/ {
+    extra_root_config => "location ~ ^/government/(assets|uploads|placeholder$)/ {
       proxy_set_header Host $whitehall_frontend_host;
       proxy_set_header X-Real-IP \$remote_addr;
       proxy_set_header X-Forwarded-Server \$host;
