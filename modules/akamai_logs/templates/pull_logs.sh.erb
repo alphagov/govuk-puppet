@@ -17,6 +17,7 @@ CONFIG_SHOULD_RUN="/etc/akamai_logs/should_run"
 CONFIG_SHOULD_PURGE_FROM_AKAMAI="/etc/akamai_logs/should_purge_from_akamai"
 
 if [ ! -e $CONFIG_SHOULD_RUN ]; then
+  echo "Should not run."
   exit 1
 fi
 
@@ -27,9 +28,13 @@ LIST_FILE=$LOCAL_LOGS_DIR/filelist-$TIME
 # Just to be sure
 mkdir -p $LOCAL_LOGS_DIR
 
+# Clean up the lock and list files
+trap "rm -f $LOCK_FILE" EXIT
+trap "rm -f $LIST_FILE" EXIT
+
 # Create lockfile, to avoid running the scanner
 if [ -e $LOCK_FILE ]; then
-  echo "WARN: Lock file exists, aborting"
+  echo "WARN: Lock file exists, aborting" >&2
   exit 1
 fi
 touch $LOCK_FILE
@@ -46,9 +51,3 @@ if [ -e $CONFIG_SHOULD_PURGE_FROM_AKAMAI ]; then
     echo "rm $log_file" | sftp $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR
   done
 fi
-
-# Cleanup Tempfiles
-rm $LIST_FILE
-
-# Remove the lockfile, to allow the scanner to run again
-rm $LOCK_FILE
