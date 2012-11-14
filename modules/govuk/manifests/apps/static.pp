@@ -23,6 +23,10 @@ class govuk::apps::static( $port = 3013 ) {
       proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
       proxy_set_header X-Forwarded-Host \$host;
       proxy_pass http://$whitehall_frontend_host;
+
+      # Explicitly re-include Strict-Transport-Security header, thus clearing
+      # the Cache-Control headers set in the parent server directive.
+      include /etc/nginx/sts.conf;
     }
     ",
   }
