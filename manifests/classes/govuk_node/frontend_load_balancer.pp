@@ -23,7 +23,7 @@ class govuk_node::frontend_load_balancer {
 
   # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
   $asset_url = extlookup('asset_host')
-  $asset_host = regsubst($asset_url, "https?://(.+)", "\1")
+  $asset_host = regsubst($asset_url, "https?://(.+)", '\1')
 
   # Frontend Load Balancers
   haproxy::balance_http_and_https {
