@@ -105,7 +105,7 @@ location ~ ^/government/.+ {
   # passwd, remove this cache control as well!
   add_header cache-control no-cache;
 }
-location ~ ^/government/world.+ {
+location ~ ^/government/world(/|$) {
   # XXX: If you remove this password control remove the cache control below
   # too!
   deny all;
