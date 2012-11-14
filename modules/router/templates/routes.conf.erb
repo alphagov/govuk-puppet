@@ -105,6 +105,19 @@ location ~ ^/government/.+ {
   # passwd, remove this cache control as well!
   add_header cache-control no-cache;
 }
+location ~ ^/government/world(/|$) {
+  # XXX: If you remove this password control remove the cache control below
+  # too!
+  deny all;
+  auth_basic           "This part of INSIDE GOVERNMENT is not currently public. Government employees please login:";
+  auth_basic_user_file /etc/govuk.htpasswd;
+  satisfy any;
+  proxy_pass http://varnish;
+
+  # This is for Akamai and is part of the password above: If you remove the
+  # passwd, remove this cache control as well!
+  add_header cache-control no-cache;
+}
 
 # End Inside Gov password logic
 
