@@ -76,38 +76,12 @@ location ~ ^/performance/.+\.(json|png)$ {
   proxy_pass http://varnish;
 }
 
-# Start Inside Gov password logic
-### This whole government block is so we can hide Inside Gov for the
-### moment - the whole thing can be removed once we're live.
-
-location ~ ^/government/assets/ {
-  proxy_pass http://varnish;
-}
-location ~ ^/government/uploads/ {
-  proxy_pass http://varnish;
-}
-location ~ ^/government/.+\.atom$ {
-  proxy_pass http://varnish;
-}
-location ~ ^/government/placeholder {
-  proxy_pass http://varnish;
-}
-location ~ ^/government/.+ {
-  # XXX: If you remove this password control remove the cache control below
-  # too!
-  deny all;
-  auth_basic           "The INSIDE GOVERNMENT Beta has now ended. Government employees please login:";
-  auth_basic_user_file /etc/govuk.htpasswd;
-  satisfy any;
-  proxy_pass http://varnish;
-
-  # This is for Akamai and is part of the password above: If you remove the
-  # passwd, remove this cache control as well!
-  add_header cache-control no-cache;
-}
+# Start Inside Gov password logic:
+#
+# This whole government block is so we can hide the remaining undeployed parts
+# of Inside Gov.
 location ~ ^/government/world(/|$) {
-  # XXX: If you remove this password control remove the cache control below
-  # too!
+  # XXX: If you remove this password control remove the cache control below too!
   deny all;
   auth_basic           "This part of INSIDE GOVERNMENT is not currently public. Government employees please login:";
   auth_basic_user_file /etc/govuk.htpasswd;
@@ -118,7 +92,6 @@ location ~ ^/government/world(/|$) {
   # passwd, remove this cache control as well!
   add_header cache-control no-cache;
 }
-
 # End Inside Gov password logic
 
 # Akamai CDN test object. This file is used by Akamai's infrastructure to
