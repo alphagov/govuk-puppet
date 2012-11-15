@@ -65,7 +65,11 @@ class govuk_node::management_server {
       root_password => $mysql_password;
     'datainsights_todays_activity_test':
       user          => 'datainsight',
-      password      => 'datainsight',
+      password      => '',
+      root_password => $mysql_password;
+    'datainsight_weekly_reach_test':
+      user          => 'datainsight',
+      password      => '',
       root_password => $mysql_password;
   }
 }
