@@ -78,6 +78,21 @@ class govuk_node::management_server {
       password      => 'efg',
       remote_host   => 'localhost',
       root_password => $mysql_password;
+    'efg_test1':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'efg_test2':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'efg_test3':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
     'tariff_test':
       user          => 'tariff',
       password      => 'tariff',
