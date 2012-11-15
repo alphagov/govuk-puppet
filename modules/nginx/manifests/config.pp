@@ -27,6 +27,15 @@ class nginx::config {
     owner  => 'www-data',
   }
 
+  file { '/var/www/error':
+    ensure  => directory,
+    source  => 'puppet:///modules/nginx/error',
+    purge   => true,
+    recurse => true,
+    force   => true,
+    require => File['/var/www'],
+  }
+
   @logstash::collector { 'nginx':
     source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
   }
