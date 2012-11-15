@@ -4,7 +4,6 @@ class varnish::config {
   $smartanswers = [
     'additional-commodity-code',
     'am-i-getting-minimum-wage',
-    'appeal-a-benefits-decision',
     'apply-for-probate',
     'auto-enrolled-into-workplace-pension',
     'become-a-driving-instructor',
