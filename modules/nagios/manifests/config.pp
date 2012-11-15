@@ -261,7 +261,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   nagios::pager_contact { 'pager_nonworkhours':
     service_notification_options => 'c',
-    notification_period          => 'nonworkhours',
+    notification_period          => '24x7',
   }
 
   nagios::contact_group { 'regular':
