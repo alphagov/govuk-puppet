@@ -38,6 +38,26 @@ class govuk_node::management_server {
       password      => 'whitehall',
       remote_host   => 'localhost',
       root_password => $mysql_password;
+    'whitehall_test1':
+      user          => 'whitehall',
+      password      => 'whitehall',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'whitehall_test2':
+      user          => 'whitehall',
+      password      => 'whitehall',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'whitehall_test3':
+      user          => 'whitehall',
+      password      => 'whitehall',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'whitehall_test4':
+      user          => 'whitehall',
+      password      => 'whitehall',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
     'panopticon_test':
       user          => 'panopticon',
       password      => 'panopticon',
