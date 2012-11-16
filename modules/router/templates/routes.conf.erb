@@ -39,6 +39,7 @@ rewrite ^/performance/transactional-services/?$ http://transactionalservices.alp
 rewrite ^/support/internal/?$ https://support.<%= @app_domain %>/;
 
 # These rewrites (FURLS) are for the purposes of URL Shortening. As of 2012-11-14 the process for adding this has not yet been clarified. If in doubt, check with your Tech Arch.
+# The greendeal redirects were added at the request of Tom L and approved by James T - please see me (carl) if there are issues
 rewrite ^/studentfinance/?$ /student-finance permanent;
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
