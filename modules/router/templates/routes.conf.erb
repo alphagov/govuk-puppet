@@ -30,23 +30,28 @@ auth_basic_user_file  /etc/govuk.htpasswd;
 satisfy any;
 <%- end -%>
 
-# These redirects are a last resort for any given problem. Any additions should be cleared with Etienne
+# These redirects to external URLs are a last resort for any given problem. Any additions should be cleared with Etienne
 # They are recorded here as well for those without access to GitHub
 # https://docs.google.com/a/digital.cabinet-office.gov.uk/document/d/1DJeKKnhmfQVJWhlwn0M7R5hSFy7t0kz-VJn2FqNSc7Y/edit
 rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
 rewrite ^/digitalstrategy/?$ http://publications.cabinetoffice.gov.uk/digital/;
 rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
 rewrite ^/support/internal/?$ https://support.<%= @app_domain %>/;
-rewrite ^/tell-us-once-report-death/?$ /after-a-death redirect;
-rewrite ^/studentfinance/?$ /student-finance permanent;
 
+# These rewrites (FURLS) are for the purposes of URL Shortening. As of 2012-11-14 the process for adding this has not yet been clarified. If in doubt, check with your Tech Arch.
+rewrite ^/studentfinance/?$ /student-finance permanent;
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/green-deal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/child-maintenance/?$ /calculate-child-maintenance permanent;
 rewrite ^/childmaintenance/?$ /calculate-child-maintenance permanent;
-rewrite ^/growing-a-business/?$ /growing-your-business permanent;
 rewrite ^/advancedlearningloans/?$ /24_advanced_learning_loans permanent;
+
+# These rewrites are caused by content being relocated. They should be amended by the person moving the content.
+rewrite ^/growing-a-business/?$ /growing-your-business permanent;
+rewrite ^/tell-us-once-report-death/?$ /after-a-death permanent;
+rewrite ^/browse/births-deaths-marriages/registry-offices/?$ /browse/births-deaths-marriages/register-offices permanent;
+# End rewrites
 
 location @upstream {
   proxy_pass http://varnish;
