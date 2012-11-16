@@ -2,6 +2,7 @@ class base {
   include apt
   include base_packages
   include cron
+  include lockrun
   include logrotate
   include ntp
   include sudo
