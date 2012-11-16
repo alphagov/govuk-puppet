@@ -51,8 +51,8 @@ rewrite ^/advancedlearningloans/?$ /24_advanced_learning_loans permanent;
 rewrite ^/growing-a-business/?$ /growing-your-business permanent;
 rewrite ^/tell-us-once-report-death/?$ /after-a-death permanent;
 rewrite ^/browse/births-deaths-marriages/registry-offices/?$ /browse/births-deaths-marriages/register-offices permanent;
-rewrite ^/employer-direct-online /advertise-job permanent;
-rewrite ^/jobseeker-direct /jobs-jobsearch permanent;
+rewrite ^/employer-direct-online/?$ /advertise-job permanent;
+rewrite ^/jobseeker-direct/?$ /jobs-jobsearch permanent;
 # End rewrites
 
 location @upstream {
