@@ -12,6 +12,9 @@ define nginx::config::vhost::static(
   $ssl_health_check_port = "9413"
   $health_check_path = "/templates/wrapper.html.erb"
 
+  # Used by static-vhost template
+  $app_domain = extlookup('app_domain')
+
   nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),

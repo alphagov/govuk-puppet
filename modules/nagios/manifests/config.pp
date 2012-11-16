@@ -261,7 +261,7 @@ class nagios::config ($platform = $::govuk_platform) {
 
   nagios::pager_contact { 'pager_nonworkhours':
     service_notification_options => 'c',
-    notification_period          => 'nonworkhours',
+    notification_period          => '24x7',
   }
 
   nagios::contact_group { 'regular':
@@ -339,7 +339,7 @@ class nagios::config ($platform = $::govuk_platform) {
     contact_groups => ['regular']
   }
 
-  $monitoring_url = "https://${vhost}.${domain}"
+  $monitoring_url = "https://${vhost}/"
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),

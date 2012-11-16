@@ -23,7 +23,6 @@ class puppet {
     ensure  => present,
     mode    => '0644',
     content => template('puppet/etc/puppet/puppet.conf.erb'),
-    require => Package['puppet'];
   }
 
   file { '/usr/local/bin/govuk_puppet':

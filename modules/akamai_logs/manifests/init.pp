@@ -21,7 +21,7 @@ class akamai_logs {
     owner   => $user
   }
 
-  file { ["/mnt/akamai", "/mnt/akamai/logs"]:
+  file { ["/mnt/akamai", "/mnt/akamai/logs", "/var/log/akamai"]:
     ensure  => directory,
     owner   => $user
   }
@@ -47,7 +47,7 @@ class akamai_logs {
   }
 
   cron { "fetch-logs-from-akamai":
-    command => "/home/${user}/pull_logs.sh",
+    command => "/home/${user}/pull_logs.sh 2>> /var/log/akamai/error",
     user    => $user,
     require => User[$user],
     hour    => '*/4'

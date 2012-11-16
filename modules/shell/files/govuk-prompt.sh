@@ -7,6 +7,9 @@ case $MYIP in
   217.171.99.78)
     MYENV="staging";
     ;;
+  217.171.99.86)
+    MYENV="preview";
+    ;;
   *)
     MYENV=""
     ;;
