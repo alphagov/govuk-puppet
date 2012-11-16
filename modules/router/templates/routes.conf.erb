@@ -43,6 +43,8 @@ rewrite ^/studentfinance/?$ /student-finance permanent;
 rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
 rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/green-deal/?$ /green-deal-energy-saving-measures permanent;
+rewrite ^/greendealcashback/?$ /green-deal-energy-saving-measures/cashback-scheme permanent;   # These currently redirect to a 404 (as of 2012-11-16), but Tom L has requested
+rewrite ^/green-deal-cashback/?$ /green-deal-energy-saving-measures/cashback-scheme permanent; # that we put these live now in order to satisfy TPTB.
 rewrite ^/child-maintenance/?$ /calculate-child-maintenance permanent;
 rewrite ^/childmaintenance/?$ /calculate-child-maintenance permanent;
 rewrite ^/advancedlearningloans/?$ /24_advanced_learning_loans permanent;
