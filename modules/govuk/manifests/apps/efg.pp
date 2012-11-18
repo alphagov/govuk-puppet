@@ -44,7 +44,7 @@ class govuk::apps::efg( $port = 3019 ) {
   }
 
   location /training/ {
-    rewrite ^ https://efg.production.alphagov.co.uk/? redirect;
+    rewrite ^ https://training.sflg.gov.uk/? redirect;
   }
 ';
   }
