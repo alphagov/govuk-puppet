@@ -1,16 +1,16 @@
-class govuk::apps::frontend( 
+class govuk::apps::frontend(
   $port = 3005,
   $protected = false) {
 
   $app_domain = extlookup('app_domain')
 
   govuk::app { 'frontend':
-    app_type           => 'rack',
-    port               => $port,
-    vhost_protected    => $protected,
-    vhost_aliases      => ['private-frontend', 'www'], # TODO: Remove the www alias once we're sure it's not being used.
-    health_check_path  => '/',
-    nginx_extra_config => "location @specialist {
+    app_type               => 'rack',
+    port                   => $port,
+    vhost_protected        => $protected,
+    vhost_aliases          => ['private-frontend', 'www'], # TODO: Remove the www alias once we're sure it's not being used.
+    health_check_path      => '/',
+    nginx_extra_config     => "location @specialist {
   proxy_set_header Host whitehall-frontend.${app_domain};
   proxy_pass http://whitehall-frontend.${app_domain};
 }",
