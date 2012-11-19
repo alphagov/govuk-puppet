@@ -32,13 +32,15 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
 
   $app_domain = extlookup('app_domain')
 
-  mount { "/data/uploads":
-    ensure  => "mounted",
-    device  => "asset-master.${app_domain}:/mnt/uploads",
-    fstype  => "nfs",
-    options => "defaults",
-    atboot  => true,
-    require => [File["/data/uploads"], Package['nfs-common']],
+  if $govuk_platform != 'development' {
+    mount { "/data/uploads":
+      ensure  => "mounted",
+      device  => "asset-master.${app_domain}:/mnt/uploads",
+      fstype  => "nfs",
+      options => "defaults",
+      atboot  => true,
+      require => [File["/data/uploads"], Package['nfs-common']],
+    }
   }
 
 }

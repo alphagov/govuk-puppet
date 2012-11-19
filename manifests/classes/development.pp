@@ -21,6 +21,35 @@ class development {
   include govuk::repository
   include govuk::testing_tools
 
+  include govuk::apps::businesssupportfinder
+  include govuk::apps::calendars
+  include govuk::apps::contentapi
+  include govuk::apps::datainsight_frontend
+  include govuk::apps::designprinciples
+  include govuk::apps::efg
+  include govuk::apps::errbit
+  include govuk::apps::feedback
+  include govuk::apps::frontend
+  include govuk::apps::imminence
+  include govuk::apps::licencefinder
+  include govuk::apps::migratorator
+  include govuk::apps::need_o_tron
+  include govuk::apps::panopticon
+  include govuk::apps::planner
+  include govuk::apps::publicapi
+  include govuk::apps::publisher
+  include govuk::apps::redirector
+  include govuk::apps::review_o_matic_explore
+  include govuk::apps::search
+  include govuk::apps::signon
+  include govuk::apps::smartanswers
+  include govuk::apps::static
+  include govuk::apps::support
+  include govuk::apps::tariff
+  include govuk::apps::tariff_api
+  include govuk::apps::whitehall_admin
+  include govuk::apps::whitehall_frontend
+
   include datainsight::config::google_oauth
 
   include java::sun6::jdk
