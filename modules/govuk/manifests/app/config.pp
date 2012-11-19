@@ -48,6 +48,18 @@ define govuk::app::config (
     notify  => Service[$title],
   }
 
+  # Ensure config dir exists
+  file { "/etc/govuk/${title}":
+    ensure  => 'directory',
+    require => File['/etc/govuk'],
+  }
+
+  # Ensure env dir exists
+  file { "/etc/govuk/${title}/env.d":
+    ensure  => 'directory',
+    require => File["/etc/govuk/${title}"],
+  }
+
   # Install service
   file { "/etc/init/${title}.conf":
     content => template('govuk/app_upstart.conf.erb'),
