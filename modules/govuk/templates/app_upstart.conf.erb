@@ -1,6 +1,8 @@
 description "GOV.UK application: <%= title %>"
 
+<%- if @platform != 'development' -%>
 start on runlevel [2345]
+<%- end -%>
 stop on runlevel [!2345]
 
 respawn
