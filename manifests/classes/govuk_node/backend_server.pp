@@ -22,10 +22,12 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::contentapi
   include govuk::apps::imminence
   include govuk::apps::signon
-  include govuk::apps::frontend
   include govuk::apps::search
   include govuk::apps::need_o_tron
   include govuk::apps::migratorator
+  class {'govuk::apps::frontend':
+    protected => true,
+  }
 
   case $::govuk_provider {
     'sky':   {}
