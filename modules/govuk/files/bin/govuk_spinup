@@ -100,7 +100,7 @@ export GOVUK_APP_RUN="$APP_RUN"
 export GOVUK_APP_LOGROOT="$APP_LOGROOT"
 
 exec \
-  envmgr -n "$APP_NAME" \
+  govuk_setenv "$APP_NAME" \
   start-stop-daemon --start \
                     --chuid "$GOVUK_USER:$GOVUK_GROUP" \
                     --chdir "$GOVUK_APP_ROOT" \

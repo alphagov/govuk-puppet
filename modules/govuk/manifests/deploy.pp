@@ -4,7 +4,6 @@ class govuk::deploy {
   include fpm
   include python
   include pip
-  include envmgr
   include unicornherder
   include users::assets
 
@@ -76,7 +75,6 @@ class govuk::deploy {
     ensure  => present,
     source  => 'puppet:///modules/govuk/bin/govuk_spinup',
     mode    => '0755',
-    require => Package['envmgr'],
   }
 
   # daemontools provides envdir, used by govuk_setenv
