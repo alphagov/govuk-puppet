@@ -77,6 +77,12 @@ class govuk::deploy {
 
   $app_domain = extlookup('app_domain')
 
+  file { '/etc/govuk/app_domain':
+    ensure  => present,
+    content => $app_domain,
+    require => File['/etc/govuk'],
+  }
+
   $asset_host = extlookup('asset_host', "https://static.${app_domain}")
 
   file { '/etc/govuk/asset_host.conf':
