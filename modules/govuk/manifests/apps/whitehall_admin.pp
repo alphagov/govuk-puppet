@@ -32,7 +32,7 @@ class govuk::apps::whitehall_admin( $port = 3026 ) {
 
   $app_domain = extlookup('app_domain')
 
-  if $govuk_platform != 'development' {
+  if $::govuk_platform != 'development' {
     mount { "/data/uploads":
       ensure  => "mounted",
       device  => "asset-master.${app_domain}:/mnt/uploads",
