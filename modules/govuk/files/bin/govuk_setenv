@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -eu
+
+GOVUK_CONF_ROOT="/etc/govuk"
+ENVDIR_NAME="env.d"
+
+if [ ! "$#" -gt "1" ]; then
+  echo "Usage: $(basename "$0") (<appname>|default) child"
+  echo
+  echo "Run a command in the correct environment, for either a specific app,"
+  echo "or with default GOV.UK environment variables."
+  exit 1
+fi
+
+APPNAME="$1"
+shift
+
+if [ "$APPNAME" = "default" ]; then
+  exec envdir "${GOVUK_CONF_ROOT}/${ENVDIR_NAME}" "$@"
+else
+  exec \
+    envdir "${GOVUK_CONF_ROOT}/${ENVDIR_NAME}" \
+    envdir "${GOVUK_CONF_ROOT}/${APPNAME}/${ENVDIR_NAME}" "$@"
+fi

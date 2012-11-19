@@ -79,6 +79,20 @@ class govuk::deploy {
     require => Package['envmgr'],
   }
 
+  # daemontools provides envdir, used by govuk_setenv
+  package { 'daemontools':
+    ensure => present,
+  }
+
+  # govuk_setenv is a simple script that loads the environment for a GOV.UK
+  # application and execs its arguments
+  file { '/usr/local/bin/govuk_setenv':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/bin/govuk_setenv',
+    mode    => '0755',
+    require => Package['daemontools'],
+  }
+
   # /etc/govuk/env.d is an envdir. Each file and its contents should denote
   # the name and value of an environment variable that should be exported
   file { '/etc/govuk/env.d':
