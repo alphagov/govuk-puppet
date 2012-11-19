@@ -160,14 +160,9 @@ define govuk::app(
     enable_nginx_vhost     => $enable_nginx_vhost,
   }
 
-  service { $title:
-    provider  => upstart,
+  govuk::app::service { $title:
+    platform  => $platform,
     subscribe => Class['govuk::deploy'],
   }
 
-  if $platform != 'development' {
-    Service[$title] {
-      ensure => running
-    }
-  }
 }
