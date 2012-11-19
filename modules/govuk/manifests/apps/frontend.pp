@@ -1,13 +1,13 @@
 class govuk::apps::frontend( 
   $port = 3005,
-  $private = false) {
+  $protected = false) {
 
   $app_domain = extlookup('app_domain')
 
   govuk::app { 'frontend':
     app_type           => 'rack',
     port               => $port,
-    vhost_protected    => $private,
+    vhost_protected    => $protected,
     vhost_aliases      => ['private-frontend', 'www'], # TODO: Remove the www alias once we're sure it's not being used.
     health_check_path  => '/',
     nginx_extra_config => "location @specialist {
