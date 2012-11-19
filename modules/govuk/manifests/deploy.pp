@@ -83,12 +83,31 @@ class govuk::deploy {
     require => File['/etc/govuk'],
   }
 
-  $asset_host = extlookup('asset_host', "https://static.${app_domain}")
+  $asset_root = extlookup('asset_root', "https://static.${app_domain}")
 
+  # This file is deprecated and will be removed once the transition from
+  # asset_host -> asset_root is completed.
   file { '/etc/govuk/asset_host.conf':
     ensure  => present,
-    content => $asset_host,
+    content => $asset_root,
     require => File['/etc/govuk'],
   }
 
+  file { '/etc/govuk/asset_root':
+    ensure  => present,
+    content => $asset_root,
+    require => File['/etc/govuk'],
+  }
+
+  # There will also be a file here called /etc/govuk/asset_host, but I don't
+  # want to create it with invalid content, which it would contain until the
+  # asset_host extdata variable is repurposed.
+
+  # $asset_host = extlookup('asset_host', "static.${app_domain}")
+
+  # file { '/etc/govuk/asset_host':
+  #   ensure  => present,
+  #   content => $asset_host,
+  #   require => File['/etc/govuk'],
+  # }
 }

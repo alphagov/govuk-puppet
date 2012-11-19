@@ -42,7 +42,10 @@ else
   GOVUK_ENV="production"
 fi
 
-export GOVUK_ASSET_HOST=`cat /etc/govuk/asset_host.conf`
+# GOVUK_ASSET_HOST is deprecated and will be removed. It was misnamed as it
+# refers to a URL, not a host name.
+export GOVUK_ASSET_HOST=`cat /etc/govuk/asset_root`
+export GOVUK_ASSET_ROOT=`cat /etc/govuk/asset_root`
 
 SHORT_HOSTNAME=`hostname -s`
 export GOVUK_STATSD_PREFIX="govuk.app.${APP_NAME}.${SHORT_HOSTNAME}"
