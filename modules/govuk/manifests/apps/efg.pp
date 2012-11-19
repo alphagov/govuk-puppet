@@ -9,6 +9,11 @@ class govuk::apps::efg( $port = 3019 ) {
     enable_nginx_vhost => false,
   }
 
+  govuk::app::envvar { 'EFG_HOST':
+    app   => 'efg',
+    value => $vhost_name,
+  }
+
   # BEWARE A BODGE
   #
   # Because the EFG app lives, unprotected, at, efg_domain (probably
