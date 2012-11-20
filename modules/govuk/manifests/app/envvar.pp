@@ -18,7 +18,6 @@ define govuk::app::envvar (
 
   file { "${envdir}/${varname}":
     content => $value,
-    require => File[$envdir],
     notify  => Govuk::App::Service[$app],
   }
 
