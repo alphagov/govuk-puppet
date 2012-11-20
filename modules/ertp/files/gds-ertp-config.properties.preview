@@ -5,6 +5,7 @@ ertp.dwp.api.url=http://ertp-api:9900/ertp-api
 places.api.url=http://places-api:9700/places
 api.mode=dev
 dwp.match.request.finalising.interval=30
+dwp.match.request.generating.interval=30
 dwp.match.response.polling.interval=30
 dwp.max.number.of.records=100
 dwp.match.request.path=/home/deploy/dwp-feed-1.0-SNAPSHOT/dwp-feeds/requests
