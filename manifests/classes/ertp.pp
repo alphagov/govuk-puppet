@@ -59,9 +59,45 @@ class ertp_base::frontend_server inherits ertp_base {
 }
 
 class ertp_base::api_server inherits ertp_base {
-  include nginx
   include monitoring::client
   include puppet::cronjob
+  include ertp::api::scripts
+}
+
+class ertp_base::api_server::dwp inherits ertp_base::api_server {
+  include ertp::dwp::api::config
+  include ertp::dwp::scripts
+  include nginx
+
+  case $::govuk_platform {
+    staging: {
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-staging-dwp-web-app',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.staging',
+        require => Class['nginx::package'],
+      }
+    }
+    default: {
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.preview',
+        require => Class['nginx::package'],
+      }
+    }
+  }
+}
+
+class ertp_base::api_server::ero inherits ertp_base::api_server {
+  include ertp::ero::api::config
+  include nginx
 
   case $::govuk_platform {
     staging: {
@@ -87,17 +123,6 @@ class ertp_base::api_server inherits ertp_base {
       }
     }
   }
-
-  include ertp::api::scripts
-}
-
-class ertp_base::api_server::dwp inherits ertp_base::api_server {
-  include ertp::dwp::api::config
-  include ertp::dwp::scripts
-}
-
-class ertp_base::api_server::ero inherits ertp_base::api_server {
-  include ertp::ero::api::config
 }
 
 class ertp_base::api_server::citizen inherits ertp_base::api_server {
@@ -105,6 +130,32 @@ class ertp_base::api_server::citizen inherits ertp_base::api_server {
 }
 
 class ertp_base::api_server::all inherits ertp_base::api_server {
+  include nginx
   include ertp::config
   include ertp::dwp::scripts
+
+  case $::govuk_platform {
+    staging: {
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-staging-api',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.staging',
+        require => Class['nginx::package'],
+      }
+    }
+    default: {
+      nginx::config::site { 'default':
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
+      }
+
+      file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.preview',
+        require => Class['nginx::package'],
+      }
+    }
+  }
 }
