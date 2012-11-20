@@ -1,6 +1,5 @@
 #! /bin/bash
 # Pulls the log files from Akamai
-set -x
 set -e
 
 LOCAL_LOGS_DIR=<%= @local_logs_dir %>/logs
@@ -17,7 +16,7 @@ CONFIG_SHOULD_RUN="/etc/akamai_logs/should_run"
 CONFIG_SHOULD_PURGE_FROM_AKAMAI="/etc/akamai_logs/should_purge_from_akamai"
 
 if [ ! -e $CONFIG_SHOULD_RUN ]; then
-  echo "Should not run."
+  echo "$( date -u --rfc-3339=s ) Should not run."
   exit 1
 fi
 
@@ -34,7 +33,7 @@ trap "rm -f $LIST_FILE" EXIT
 
 # Create lockfile, to avoid running the scanner
 if [ -e $LOCK_FILE ]; then
-  echo "WARN: Lock file exists, aborting" >&2
+  echo "$( date -u --rfc-3339=s ) WARN: Lock file exists, aborting" >&2
   exit 1
 fi
 touch $LOCK_FILE
