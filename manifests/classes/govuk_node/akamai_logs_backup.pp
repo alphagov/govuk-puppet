@@ -24,7 +24,7 @@ class govuk_node::akamai_logs_backup inherits govuk_node::base {
     require => User[$user]
   }
 
-  file { '/mnt/logs':
+  file { ["/mnt/akamai", "/mnt/akamai/logs"]:
     ensure  => directory,
     owner   => $user
   }
