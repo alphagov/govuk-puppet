@@ -50,7 +50,8 @@ class akamai_logs {
     command => "/home/${user}/pull_logs.sh 2>> /var/log/akamai/error",
     user    => $user,
     require => User[$user],
-    hour    => '*/4'
+    hour    => '*/4',
+    minute  => '1'
   }
 
   include akamai_logs::log_scanner
