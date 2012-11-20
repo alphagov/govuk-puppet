@@ -5,8 +5,12 @@ class govuk::apps::efg( $port = 3019 ) {
   govuk::app { 'efg':
     app_type           => 'rack',
     port               => $port,
-    environ_content    => template('govuk/etc/envmgr/efg.conf.erb'),
     enable_nginx_vhost => false,
+  }
+
+  govuk::app::envvar { 'EFG_HOST':
+    app   => 'efg',
+    value => $vhost_name,
   }
 
   # BEWARE A BODGE

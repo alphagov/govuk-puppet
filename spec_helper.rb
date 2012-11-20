@@ -75,6 +75,10 @@ RSpec.configure do |c|
 
   c.before do
     setup_extdata_stubs
-    set_extdata({ 'app_domain' => 'test.gov.uk' })
+    set_extdata({
+      'app_domain'    => 'test.gov.uk',
+      'http_username' => 'test_username',
+      'http_password' => 'test_password'
+    })
   end
 end

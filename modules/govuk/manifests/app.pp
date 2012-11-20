@@ -32,33 +32,6 @@ define govuk::app(
   $platform = $::govuk_platform,
 
   #
-  # environ_content: contents of the envmgr config file loaded for this app
-  #
-  # This can be used to define the contents of an
-  # [envmgr](https://github.com/nickstenning/envmgr) config file which is
-  # loaded before your application. This file can be used to control the
-  # environment variables available to the application:
-  #
-  #     govuk::app { 'foo':
-  #       [...]
-  #       environ_content => "SECRET_KEY=2DD6A5F73278",
-  #     }
-  #
-  #     govuk::app { 'foo':
-  #       [...]
-  #       environ_content => template('govuk/apps/foo_environment.conf'),
-  #     }
-  #
-  $environ_content = undef,
-
-  #
-  # environ_source: source of the envmgr config file loaded for this app
-  #
-  # Same as environ_content but using Puppet's `source` parameter.
-  #
-  $environ_source = undef,
-
-  #
   # enable_nginx_vhost: should this app be fronted by nginx?
   #
   # Boolean: true or false
@@ -145,8 +118,6 @@ define govuk::app(
   govuk::app::config { $title:
     require                => Govuk::App::Package[$title],
     app_type               => $app_type,
-    environ_source         => $environ_source,
-    environ_content        => $environ_content,
     domain                 => $domain,
     port                   => $port,
     vhost_aliases          => $vhost_aliases,
@@ -160,14 +131,9 @@ define govuk::app(
     enable_nginx_vhost     => $enable_nginx_vhost,
   }
 
-  service { $title:
-    provider  => upstart,
+  govuk::app::service { $title:
+    platform  => $platform,
     subscribe => Class['govuk::deploy'],
   }
 
-  if $platform != 'development' {
-    Service[$title] {
-      ensure => running
-    }
-  }
 }

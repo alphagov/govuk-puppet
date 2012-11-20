@@ -6,7 +6,6 @@ class base_packages {
       'build-essential',
       'libc6-dev',
       'curl',
-      'daemontools',
       'gettext',
       'git-core',
       'htop',

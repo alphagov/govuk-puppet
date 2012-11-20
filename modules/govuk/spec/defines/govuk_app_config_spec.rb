@@ -21,40 +21,10 @@ describe 'govuk::app::config', :type => :define do
       }
     end
 
-    it { should contain_file('/etc/envmgr/giraffe.conf').with_content('') }
-    it { should contain_file('/etc/init/giraffe.conf') }
-
-    it { should contain_nginx__config__vhost__proxy('giraffe.foo.bar.baz') }
-  end
-
-  context 'when specifying environ_source' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :platform => 'development',
-        :environ_source => 'puppet:///foo/bar/baz',
-        :domain => 'example.com',
-        :vhost_full => 'giraffe.example.com',
-      }
+    it do
+      should contain_file('/etc/init/giraffe.conf')
+      should contain_nginx__config__vhost__proxy('giraffe.foo.bar.baz')
     end
-
-    it { should contain_file('/etc/envmgr/giraffe.conf').with_source('puppet:///foo/bar/baz').without_content }
-  end
-
-  context 'when specifying environ_content' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :platform => 'development',
-        :environ_content => 'NECK=very long',
-        :domain => 'example.com',
-        :vhost_full => 'giraffe.example.com',
-      }
-    end
-
-    it { should contain_file('/etc/envmgr/giraffe.conf').with_content('NECK=very long').without_source }
   end
 
   context 'on the development platform' do

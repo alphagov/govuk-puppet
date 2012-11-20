@@ -10,26 +10,13 @@ define govuk::app::config (
   $nginx_extra_app_config = '',
   $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
-  $environ_source  = undef,
-  $environ_content = undef,
   $enable_nginx_vhost = true
 ) {
-  if $environ_content != undef and $environ_source != undef {
-    fail 'You may only set one of $environ_content and $environ_source in govuk::app'
-  }
-
-  if $environ_source == undef and $environ_content == undef {
-    $environ_content_real = ''
-  }
-  else {
-    $environ_content_real = $environ_content
-  }
 
   if $health_check_path == 'NOTSET' {
     $health_check_port = 'NOTSET'
     $ssl_health_check_port = 'NOTSET'
-  }
-  else {
+  } else {
     $health_check_port = $port + 6500
     $ssl_health_check_port = $port + 6400
     @ufw::allow {
@@ -40,12 +27,16 @@ define govuk::app::config (
     }
   }
 
-  # Install environment/configuration file
-  file { "/etc/envmgr/${title}.conf":
-    ensure  => 'file',
-    source  => $environ_source,
-    content => $environ_content_real,
-    notify  => Service[$title],
+  # Ensure config dir exists
+  file { "/etc/govuk/${title}":
+    ensure  => 'directory',
+    require => File['/etc/govuk'],
+  }
+
+  # Ensure env dir exists
+  file { "/etc/govuk/${title}/env.d":
+    ensure  => 'directory',
+    require => File["/etc/govuk/${title}"],
   }
 
   # Install service
