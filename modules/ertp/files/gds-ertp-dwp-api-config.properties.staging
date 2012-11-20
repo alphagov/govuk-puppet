@@ -1,5 +1,6 @@
 mongo.database.hosts=ertp-mongo-1,ertp-mongo-2,ertp-mongo-3
 api.mode=dwp
+ertp.dwp.api.url=http://localhost:9900/ertp-api
 dwp.match.request.finalising.interval=120
 dwp.match.request.generating.interval=30
 dwp.match.response.polling.interval=15
