@@ -28,8 +28,7 @@ LIST_FILE=$LOCAL_LOGS_DIR/filelist-$TIME
 mkdir -p $LOCAL_LOGS_DIR
 
 # Clean up the lock and list files
-trap "rm -f $LOCK_FILE" EXIT
-trap "rm -f $LIST_FILE" EXIT
+trap "rm -f $LOCK_FILE $LIST_FILE" EXIT
 
 # Create lockfile, to avoid running the scanner
 if [ -e $LOCK_FILE ]; then
