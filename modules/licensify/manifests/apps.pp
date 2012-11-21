@@ -1,6 +1,4 @@
 class licensify::apps::base {
-  $aws_access_key_id = extlookup('aws_access_key_id', '')
-  $aws_secret_key = extlookup('aws_secret_key', '')
 
   file { '/etc/licensing':
     ensure  => directory,
@@ -21,10 +19,13 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
   govuk::app { 'licensify':
     app_type           => 'procfile',
     port               => $port,
-    environ_content    => template('licensify/environ'),
     nginx_extra_config => template('licensify/nginx_extra'),
     health_check_path  => '/api/licences',
     require            => File['/etc/licensing'],
+  }
+
+  licensify::envvars { 'licensify':
+    app => 'licensify',
   }
 
   nginx::config::vhost::licensify_upload{ 'licensify':}
@@ -36,10 +37,13 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
   govuk::app { 'licensify-admin':
     app_type          => 'procfile',
     port              => $port,
-    environ_content   => template('licensify/environ'),
     vhost_protected   => false,
     health_check_path => "/login",
     require           => File['/etc/licensing'],
+  }
+
+  licensify::envvars { 'licensify-admin':
+    app => 'licensify-admin',
   }
 
   licensify::build_clean { 'licensify-admin': }
@@ -50,9 +54,30 @@ class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::
   govuk::app { 'licensify-feed':
     app_type        => 'procfile',
     port            => $port,
-    environ_content => template('licensify/environ'),
     require         => File['/etc/licensing'],
   }
 
+  licensify::envvars { 'licensify-feed':
+    app => 'licensify-feed'
+  }
+
   licensify::build_clean { 'licensify-feed': }
+}
+
+define licensify::apps::envvars($app) {
+  $aws_access_key_id = extlookup('aws_access_key_id', '')
+  $aws_secret_key = extlookup('aws_secret_key', '')
+
+  Govuk::App::Envvar {
+    app => $app,
+  }
+  govuk::app::envvar { 'LANG':
+    value => 'en_GB.UTF-8',
+  }
+  govuk::app::envvar { 'AWS_ACCESS_KEY_ID':
+    value => $aws_access_key_id,
+  }
+  govuk::app::envvar { 'AWS_SECRET_KEY':
+    value => $aws_secret_key,
+  }
 }
