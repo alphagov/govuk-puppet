@@ -1,0 +1,17 @@
+server {
+  listen 80;
+  server_name deploy.<%= @app_domain %>;
+
+  location / {
+    proxy_pass http://localhost:8080;
+  }
+}
+
+server {
+  listen 80;
+  server_name puppetdb.<%= @app_domain %>;
+
+  location / {
+    proxy_pass http://puppet-1.management.production/;
+  }
+}

@@ -39,7 +39,12 @@ class jenkins {
     provider => gem,
   }
 
-  include jenkins::apache
+  # FIXME: only needed for migration from apache to nginx.
+  # these two lines can be deleted after we've deployed to prod
+  package { 'apache2': ensure => purged }
+  service { 'apache2': ensure => stopped }
+
+  include nginx
   include jenkins::ssh_key
 
   package { [
@@ -104,6 +109,8 @@ class jenkins {
 
 class jenkins::master inherits jenkins {
 
+  $app_domain = extlookup('app_domain')
+
   apt::repository { 'jenkins':
     url  => 'http://pkg.jenkins-ci.org/debian',
     dist => '',
@@ -135,6 +142,9 @@ class jenkins::master inherits jenkins {
     require => User['jenkins'],
   }
 
+  file { '/etc/nginx/sites-enabled/jenkins':
+    content => template('jenkins/nginx.conf.erb'),
+  }
 }
 
 class jenkins::slave inherits jenkins {
