@@ -39,6 +39,11 @@ class jenkins {
     provider => gem,
   }
 
+  # FIXME: only needed for migration from apache to nginx.
+  # these two lines can be deleted after we've deployed to prod
+  package { 'apache2': ensure => purged }
+  service { 'apache2': ensure => stopped }
+
   include nginx
   include jenkins::ssh_key
 
