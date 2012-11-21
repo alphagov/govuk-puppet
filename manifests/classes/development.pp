@@ -97,6 +97,7 @@ class development {
     'efg_test1':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'efg_test2':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'efg_test3':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_test4':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'efg_il0':                        user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'tariff_development':             user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
     'tariff_test':                    user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
