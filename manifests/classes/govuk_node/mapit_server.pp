@@ -6,7 +6,6 @@ class govuk_node::mapit_server inherits govuk_node::base {
   include mapit
 
   wget::fetch { 'mapit_dbdump_download':
-    source      => 'http://cdnt.samsharpe.net/mapit.sql.gz',
     source      => 'http://gds-public-readable-tarballs.s3.amazonaws.com/mapit.sql.gz',
     destination => '/data/vhost/mapit/data/mapit.sql.gz',
     require     => File['/data/vhost/mapit/data'],
