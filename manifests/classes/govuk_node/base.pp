@@ -22,8 +22,12 @@ class govuk_node::base {
   include govuk::repository
   include govuk::deploy
 
-  class { 'ruby::rubygems':
-    version => '1.8.24'
+  case $::lsbdistcodename {
+    'lucid': {
+      class { 'ruby::rubygems':
+        version => '1.8.24'
+      }
+    }
   }
 
   sshkey { 'github.com':
