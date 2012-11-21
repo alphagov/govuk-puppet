@@ -104,6 +104,8 @@ class jenkins {
 
 class jenkins::master inherits jenkins {
 
+  $app_domain = extlookup('app_domain')
+
   apt::repository { 'jenkins':
     url  => 'http://pkg.jenkins-ci.org/debian',
     dist => '',
@@ -136,7 +138,7 @@ class jenkins::master inherits jenkins {
   }
 
   file { '/etc/nginx/sites-enabled/jenkins':
-    source  => 'puppet:///modules/jenkins/nginx.conf',
+    content => template('jenkins/nginx.conf.erb'),
   }
 }
 
