@@ -24,7 +24,7 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
     require            => File['/etc/licensing'],
   }
 
-  licensify::envvars { 'licensify':
+  licensify::apps::envvars { 'licensify':
     app => 'licensify',
   }
 
@@ -42,7 +42,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
     require           => File['/etc/licensing'],
   }
 
-  licensify::envvars { 'licensify-admin':
+  licensify::apps::envvars { 'licensify-admin':
     app => 'licensify-admin',
   }
 
@@ -57,7 +57,7 @@ class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::
     require         => File['/etc/licensing'],
   }
 
-  licensify::envvars { 'licensify-feed':
+  licensify::apps::envvars { 'licensify-feed':
     app => 'licensify-feed'
   }
 
