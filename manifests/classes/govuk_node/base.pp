@@ -23,7 +23,8 @@ class govuk_node::base {
   include govuk::deploy
 
   case $::lsbdistcodename {
-    'lucid': {
+    precise: {}
+    default: {
       class { 'ruby::rubygems':
         version => '1.8.24'
       }
