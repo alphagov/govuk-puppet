@@ -27,15 +27,15 @@ LIST_FILE=$LOCAL_LOGS_DIR/filelist-$TIME
 # Just to be sure
 mkdir -p $LOCAL_LOGS_DIR
 
-# Clean up the lock and list files
-trap "rm -f $LOCK_FILE $LIST_FILE" EXIT
-
 # Create lockfile, to avoid running the scanner
 if [ -e $LOCK_FILE ]; then
   echo "$( date -u --rfc-3339=s ) WARN: Lock file exists, aborting" >&2
   exit 1
 fi
 touch $LOCK_FILE
+
+# Clean up the lock and list files
+trap "rm -f $LOCK_FILE $LIST_FILE" EXIT
 
 # Get the files via rsync
 rsync -iacz -e ssh $AKAMAI_USER@$AKAMAI_HOST:$AKAMAI_LOGS_DIR/ $LOCAL_LOGS_DIR > $LIST_FILE
