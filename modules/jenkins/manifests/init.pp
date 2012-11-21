@@ -39,7 +39,7 @@ class jenkins {
     provider => gem,
   }
 
-  include jenkins::apache
+  include nginx
   include jenkins::ssh_key
 
   package { [
@@ -135,6 +135,9 @@ class jenkins::master inherits jenkins {
     require => User['jenkins'],
   }
 
+  file { '/etc/nginx/sites-enabled/jenkins':
+    source  => 'puppet:///modules/jenkins/nginx.conf',
+  }
 }
 
 class jenkins::slave inherits jenkins {
