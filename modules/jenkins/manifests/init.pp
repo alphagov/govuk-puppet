@@ -127,7 +127,7 @@ class jenkins::master inherits jenkins {
     ensure => 'installed'
   }
 
-  nginx::config::site { $vhost:
+  nginx::config::site { 'jenkins':
     content => template('jenkins/nginx.conf.erb'),
   }
 
