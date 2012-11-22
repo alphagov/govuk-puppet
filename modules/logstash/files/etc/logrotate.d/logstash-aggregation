@@ -1,4 +1,10 @@
-/data/logging/logstash-aggregation/*/var/*/**/* {
+/data/logging/logstash-aggregation/*/*.log
+/data/logging/logstash-aggregation/*/*/*.log
+/data/logging/logstash-aggregation/*/*/*/*.log
+/data/logging/logstash-aggregation/*/*/*/*/*.log
+/data/logging/logstash-aggregation/*/*/*/*/*/*.log
+/data/logging/logstash-aggregation/*/var/log/messages
+/data/logging/logstash-aggregation/*/var/log/syslog {
   daily
   missingok
   rotate 365
