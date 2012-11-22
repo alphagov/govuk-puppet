@@ -30,11 +30,19 @@ define govuk::app::config (
   # Ensure config dir exists
   file { "/etc/govuk/${title}":
     ensure  => 'directory',
+    purge   => true,
+    recurse => true,
+    force   => true,
+    notify  => Govuk::App::Service[$title],
   }
 
   # Ensure env dir exists
   file { "/etc/govuk/${title}/env.d":
     ensure  => 'directory',
+    purge   => true,
+    recurse => true,
+    force   => true,
+    notify  => Govuk::App::Service[$title],
   }
 
   # This sets the default app for this resource type in the current scope
