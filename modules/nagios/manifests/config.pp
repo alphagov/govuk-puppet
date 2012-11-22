@@ -150,43 +150,41 @@ class nagios::config ($platform = $::govuk_platform) {
   # END Whitehall
 
   # START datainsight
-  if $::govuk_platform == 'preview' {
-    $datainsight_base_uri="https://betademo:nottobeshared@www.${domain}/performance/dashboard"
+  $datainsight_base_uri="https://betademo:nottobeshared@www.${domain}/performance/dashboard"
 
-    @@nagios::check { 'check_datainsight_narrative_endpoint':
-      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
-      use                 => 'govuk_normal_priority',
-      service_description => 'check the endpoint of the datainsight narrative is updated recently',
-      host_name           => $::fqdn,
-    }
+  @@nagios::check { 'check_datainsight_narrative_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
+    use                 => 'govuk_normal_priority',
+    service_description => 'check the endpoint of the datainsight narrative is updated recently',
+    host_name           => $::fqdn,
+  }
 
-    @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
-      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
-      use                 => 'govuk_normal_priority',
-      service_description => 'check the endpoint of datainsight hourly traffic is updated recently',
-      host_name           => $::fqdn,
-    }
+  @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
+    use                 => 'govuk_normal_priority',
+    service_description => 'check the endpoint of datainsight hourly traffic is updated recently',
+    host_name           => $::fqdn,
+  }
 
-    @@nagios::check { 'check_datainsight_visits_endpoint':
-      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
-      use                 => 'govuk_normal_priority',
-      service_description => 'check the endpoint of datainsight visits is updated recently',
-      host_name           => $::fqdn,
-    }
+  @@nagios::check { 'check_datainsight_visits_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
+    use                 => 'govuk_normal_priority',
+    service_description => 'check the endpoint of datainsight visits is updated recently',
+    host_name           => $::fqdn,
+  }
 
-    @@nagios::check { 'check_datainsight_unique_visitors_endpoint':
-      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
-      use                 => 'govuk_normal_priority',
-      service_description => 'check the endpoint of datainsight unique visitors is updated recently',
-      host_name           => $::fqdn,
-    }
+  @@nagios::check { 'check_datainsight_unique_visitors_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
+    use                 => 'govuk_normal_priority',
+    service_description => 'check the endpoint of datainsight unique visitors is updated recently',
+    host_name           => $::fqdn,
+  }
 
-    @@nagios::check { 'check_datainsight_format_success_endpoint':
-      check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/format-success.json 10080",
-      use                 => 'govuk_normal_priority',
-      service_description => 'check the endpoint of datainsight format success is updated recently',
-      host_name           => $::fqdn,
-    }
+  @@nagios::check { 'check_datainsight_format_success_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/format-success.json 10080",
+    use                 => 'govuk_normal_priority',
+    service_description => 'check the endpoint of datainsight format success is updated recently',
+    host_name           => $::fqdn,
   }
   # END datainsight
 
