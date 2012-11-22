@@ -13,6 +13,7 @@ class logstash::client::service {
     ensure      => present,
     user        => 'root',
     hour        => [0, 8, 16],
+    minute      => 0,
     environment => 'PATH=/usr/sbin:/usr/bin:/sbin:/bin',
     command     => '/usr/sbin/service logstash-client restart #Restart to ensure leaking file descriptors are given up',
     require     => Service['logstash-client'];
