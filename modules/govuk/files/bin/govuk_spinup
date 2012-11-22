@@ -1,15 +1,9 @@
 #!/bin/sh
 
-if [ "$#" -ne "2" ]; then
-  echo "Usage: $(basename "$0") <appname> <apptype>"
+if [ "$#" -ne "0" ]; then
+  echo "Usage: govuk_setenv <APP_NAME> $(basename "$0")"
   exit 1
 fi
-
-[ -f /etc/environment ] && . /etc/environment
-
-[ -z "$GOVUK_USER" ]            && GOVUK_USER="deploy"
-[ -z "$GOVUK_GROUP" ]           && GOVUK_GROUP="deploy"
-[ -z "$FACTER_govuk_platform" ] && FACTER_govuk_platform=""
 
 status () {
   echo "---> ${@}" >&2
@@ -20,42 +14,15 @@ error () {
   exit 1
 }
 
-APP_NAME="$1"
-APP_TYPE="$2"
-APP_ROOT="/var/apps/${APP_NAME}"
-APP_RUN="/var/run/${APP_NAME}"
-APP_LOGROOT="/var/log/${APP_NAME}"
-
 set -eu
 
-[ -d /var/run/${APP_NAME} ] || mkdir /var/run/${APP_NAME} && chown ${GOVUK_USER}:${GOVUK_GROUP} /var/run/${APP_NAME}
+status "Spinning up '${GOVUK_APP_NAME}' (type ${GOVUK_APP_TYPE}) in '${GOVUK_ENV}' environment"
 
-if [ -z "$FACTER_govuk_platform" ]; then
-  error "The FACTER_govuk_platform environment variable must be set!"
-fi
-export FACTER_govuk_platform
+cd "$GOVUK_APP_ROOT"
 
-# RAILS_ENV and friends are "production" in preview.
-if [ "$FACTER_govuk_platform" = "development" ]; then
-  GOVUK_ENV="development"
-else
-  GOVUK_ENV="production"
-fi
+MAKE_PIDFILE=""
 
-# GOVUK_ASSET_HOST is deprecated and will be removed. It was misnamed as it
-# refers to a URL, not a host name.
-export GOVUK_ASSET_HOST=`cat /etc/govuk/asset_root`
-
-SHORT_HOSTNAME=`hostname -s`
-export GOVUK_STATSD_PREFIX="govuk.app.${APP_NAME}.${SHORT_HOSTNAME}"
-
-status "Spinning up '${APP_NAME}' (type ${APP_TYPE}) in '${GOVUK_ENV}' environment"
-
-cd "$APP_ROOT"
-
-SSD_EXTRA_ARGS=""
-
-case "$APP_TYPE" in
+case "$GOVUK_APP_TYPE" in
   rack)
     status "Spawning rack app under unicorn"
 
@@ -64,12 +31,12 @@ case "$APP_TYPE" in
 
     CMD="bundle exec"
     # Unicorn Herder args
-    CMD="${CMD} unicornherder -u unicorn -p '${APP_RUN}/app.pid'"
+    CMD="${CMD} unicornherder -u unicorn -p '${GOVUK_APP_RUN}/app.pid'"
     # Unicorn args
     CMD="${CMD} -- -p \$PORT"
 
-    if [ -e "${APP_ROOT}/config/unicorn.rb" ]; then
-      CMD="${CMD} -c '${APP_ROOT}/config/unicorn.rb'"
+    if [ -e "${GOVUK_APP_ROOT}/config/unicorn.rb" ]; then
+      CMD="${CMD} -c '${GOVUK_APP_ROOT}/config/unicorn.rb'"
     else
       CMD="${CMD} -c /etc/govuk/unicorn.rb"
     fi
@@ -78,31 +45,29 @@ case "$APP_TYPE" in
   procfile)
     status "Spawning 'web' task from Procfile"
     CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
-    SSD_EXTRA_ARGS="${SSD_EXTRA_ARGS} --make-pidfile"
+    MAKE_PIDFILE="--make-pidfile"
     ;;
 
   *)
-    error "unknown app type '${APP_TYPE}'!"
+    error "unknown app type '${GOVUK_APP_TYPE}'!"
     ;;
 esac
 
-status "Exporting app environment"
-set -x
-export GOVUK_ENV="$GOVUK_ENV"
-export GOVUK_USER="$GOVUK_USER"
-export GOVUK_GROUP="$GOVUK_GROUP"
-export GOVUK_APP_NAME="$APP_NAME"
-export GOVUK_APP_TYPE="$APP_TYPE"
-export GOVUK_APP_ROOT="$APP_ROOT"
-export GOVUK_APP_RUN="$APP_RUN"
-export GOVUK_APP_LOGROOT="$APP_LOGROOT"
+status "App environment"
+echo "GOVUK_ENV=${GOVUK_ENV}"
+echo "GOVUK_USER=${GOVUK_USER}"
+echo "GOVUK_GROUP=${GOVUK_GROUP}"
+echo "GOVUK_APP_NAME=${GOVUK_APP_NAME}"
+echo "GOVUK_APP_TYPE=${GOVUK_APP_TYPE}"
+echo "GOVUK_APP_ROOT=${GOVUK_APP_ROOT}"
+echo "GOVUK_APP_RUN=${GOVUK_APP_RUN}"
+echo "GOVUK_APP_LOGROOT=${GOVUK_APP_LOGROOT}"
 
-exec \
-  govuk_setenv "$APP_NAME" \
-  start-stop-daemon --start \
-                    --chuid "$GOVUK_USER:$GOVUK_GROUP" \
-                    --chdir "$GOVUK_APP_ROOT" \
-                    --pidfile "${GOVUK_APP_RUN}/app.pid" \
-                    ${SSD_EXTRA_ARGS} \
-                    --startas "/bin/sh" \
-                    -- -c "exec $CMD"
+set -x
+exec start-stop-daemon --start \
+          --chuid "$GOVUK_USER:$GOVUK_GROUP" \
+          --chdir "$GOVUK_APP_ROOT" \
+          --pidfile "${GOVUK_APP_RUN}/app.pid" \
+          ${MAKE_PIDFILE} \
+          --startas "/bin/sh" \
+          -- -c "exec $CMD"

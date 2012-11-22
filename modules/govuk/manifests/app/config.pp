@@ -30,13 +30,46 @@ define govuk::app::config (
   # Ensure config dir exists
   file { "/etc/govuk/${title}":
     ensure  => 'directory',
-    require => File['/etc/govuk'],
   }
 
   # Ensure env dir exists
   file { "/etc/govuk/${title}/env.d":
     ensure  => 'directory',
-    require => File["/etc/govuk/${title}"],
+  }
+
+  # This sets the default app for this resource type in the current scope
+  Govuk::App::Envvar {
+    app => $title
+  }
+
+  govuk::app::envvar {
+    "${title}-GOVUK_USER":
+      varname => "GOVUK_USER",
+      value   => "deploy";
+    "${title}-GOVUK_GROUP":
+      varname => "GOVUK_GROUP",
+      value   => "deploy";
+    "${title}-GOVUK_APP_TYPE":
+      varname => "GOVUK_APP_TYPE",
+      value   => $app_type;
+    "${title}-PORT":
+      varname => "PORT",
+      value   => $port;
+    "${title}-GOVUK_APP_NAME":
+      varname => "GOVUK_APP_NAME",
+      value   => $title;
+    "${title}-GOVUK_APP_ROOT":
+      varname => "GOVUK_APP_ROOT",
+      value   => "/var/apps/${title}";
+    "${title}-GOVUK_APP_RUN":
+      varname => "GOVUK_APP_RUN",
+      value   => "/var/run/${title}";
+    "${title}-GOVUK_APP_LOGROOT":
+      varname => "GOVUK_APP_LOGROOT",
+      value   => "/var/log/${title}";
+    "${title}-GOVUK_STATSD_PREFIX":
+      varname => "GOVUK_STATSD_PREFIX",
+      value   => "govuk.app.${title}.${::hostname}";
   }
 
   # Install service
