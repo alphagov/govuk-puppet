@@ -1,0 +1,39 @@
+server {
+  listen 80;
+  server_name logging.*;
+
+  location / {
+    proxy_pass http://logging.management.production/;
+    proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  listen 443;
+  server_name errbit.*;
+
+  location / {
+    proxy_pass https://exception-handler-1.management.production/;
+    proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  listen 80;
+  server_name monitoring.*;
+
+  location / {
+    proxy_pass http://monitoring.management.production/;
+    proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  listen 443;
+  server_name monitoring.* nagios.* ganglia.* graphite.*;
+
+  location / {
+    proxy_pass https://monitoring.management.production/;
+    proxy_set_header Host $http_host;
+  }
+}

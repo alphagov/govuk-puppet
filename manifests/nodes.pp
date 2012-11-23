@@ -10,6 +10,7 @@ node default {
     cache:              { include govuk_node::cache_server }
     data:               { include govuk_node::db_server }
     datainsight:        { include govuk_node::datainsight }
+    deployment:         { include govuk_node::deployment_server }
     development:        { include development }
     efg_frontend:       { include govuk_node::efg_frontend_server }
     efg_mysql_master:   { include govuk_node::efg_mysql_master_server }
