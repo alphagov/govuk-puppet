@@ -2,6 +2,14 @@ class govuk::apps::whitehall_frontend( $port = 3020 ) {
 
   $vhost_suffix = extlookup('app_domain')
 
+  $proxy_pass_in_dev = $::govuk_platform ? {
+    "development" => "
+      proxy_set_header Host 'whitehall-admin.${vhost_suffix}';
+      proxy_pass http://whitehall-admin.${vhost_suffix};
+    ",
+    default => "",
+  }
+
   govuk::app { 'whitehall-frontend':
     app_type           => 'rack',
     port               => $port,
@@ -13,6 +21,7 @@ class govuk::apps::whitehall_frontend( $port = 3020 ) {
       location /government/assets {
         expires max;
         add_header Cache-Control public;
+        ${proxy_pass_in_dev}
       }
       location /government/uploads {
         proxy_set_header Host 'whitehall-admin.${vhost_suffix}';

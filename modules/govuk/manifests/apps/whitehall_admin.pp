@@ -1,9 +1,19 @@
-class govuk::apps::whitehall_admin( $port = 3026 ) {
+class govuk::apps::whitehall_admin( $port = undef ) {
+
+  if $port != undef {
+    $port_real = $port
+  } else {
+    $port_real = $::govuk_platform ? {
+      "development" => 3020,
+      default       => 3026,
+    }
+  }
+
   include users::assets
 
   govuk::app { 'whitehall-admin':
     app_type           => 'rack',
-    port               => $port,
+    port               => $port_real,
     health_check_path  => '/healthcheck',
     nginx_extra_config => '
       location /government/uploads {
