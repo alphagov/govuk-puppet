@@ -16,6 +16,8 @@ fi
 APPNAME="$1"
 shift
 
+[ -f /etc/environment ] && . /etc/environment
+
 if [ "$APPNAME" = "default" ]; then
   exec envdir "${GOVUK_CONF_ROOT}/${ENVDIR_NAME}" "$@"
 else

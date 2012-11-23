@@ -11,10 +11,8 @@ respawn
 # and should be killed off.
 respawn limit 5 20
 
-env PORT=<%= port %>
-
 script
-  exec govuk_spinup "<%= title %>" "<%= app_type %>" \
+  exec govuk_setenv "<%= title %>" govuk_spinup \
     >>/var/log/<%= title %>/upstart.out.log \
     2>>/var/log/<%= title %>/upstart.err.log
 end script
