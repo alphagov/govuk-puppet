@@ -53,7 +53,7 @@ class Cleaner
 end
 
 def copy_files_from_master_to_slave(origin_path, destination_path)
-  `/usr/bin/rsync -v -r #{origin_path}/. #{destination_path}`
+  `/usr/bin/rsync -v -a #{origin_path}/. #{destination_path}`
 end
 
 copy_files_from_master_to_slave(master_path, local_path)
