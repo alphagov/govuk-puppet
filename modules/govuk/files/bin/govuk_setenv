@@ -16,7 +16,9 @@ fi
 APPNAME="$1"
 shift
 
+# TODO: remove these when Plek/apps no longer use FACTER_govuk_platform
 [ -f /etc/environment ] && . /etc/environment
+export FACTER_govuk_platform
 
 if [ "$APPNAME" = "default" ]; then
   exec envdir "${GOVUK_CONF_ROOT}/${ENVDIR_NAME}" "$@"
