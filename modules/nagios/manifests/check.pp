@@ -1,6 +1,7 @@
 define nagios::check (
   $service_description,
   $check_command,
+  $ensure               = 'present',
   $use                  = 'govuk_regular_service',
   $host_name            = $::fqdn,
   $notification_period  = undef
@@ -13,13 +14,15 @@ define nagios::check (
   # can't work out how to get puppet to see the gem when running on the puppetmaster
   #kwalify($service_description_schema, $service_description)
 
-  file {"/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
-    ensure  => present,
+  file { "/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
+    ensure  => $ensure,
     content => template('nagios/service.erb'),
     require => Class['nagios::package'],
     notify  => Class['nagios::service'],
   }
 
-  Nagios::Host[$host_name] -> Nagios::Check[$title]
+  if $ensure == 'present' {
+    Nagios::Host[$host_name] -> Nagios::Check[$title]
+  }
 
 }
