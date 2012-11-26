@@ -17,11 +17,11 @@ class govuk::apps::whitehall_admin( $port = undef ) {
     health_check_path  => '/healthcheck',
     nginx_extra_config => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-      proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean-uploads/=/clean/;
+      proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;
 
       location ~ /clean/(.*) {
         internal;
-        alias /data/uploads/whitehall/clean-uploads/$1;
+        alias /data/uploads/whitehall/clean/$1;
       }
 
       location /government/uploads {
