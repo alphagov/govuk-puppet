@@ -7,6 +7,9 @@ class monitoring::client {
 
   # Disable logstash for now
   #include logstash::client
+  file { '/etc/init/logstash-client.conf':
+    content => 'exec echo',
+  }
   service { 'logstash-client':
     ensure => stopped,
   }
