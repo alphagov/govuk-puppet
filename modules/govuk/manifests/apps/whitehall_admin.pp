@@ -53,4 +53,21 @@ class govuk::apps::whitehall_admin( $port = undef ) {
     }
   }
 
+  file { '/usr/local/bin/govuk_run_delayed_job_worker':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/bin/govuk_run_delayed_job_worker',
+    mode    => '0755',
+    notify => Service['whitehall-admin-delayed-job-worker'],
+  }
+
+  file { "/etc/init/whitehall-admin-delayed-job-worker.conf":
+    ensure  => present,
+    content => template('govuk/whitehall-admin/whitehall-admin-delayed-job-worker.conf.erb'),
+    require => File['/usr/local/bin/govuk_run_delayed_job_worker'],
+    notify => Service['whitehall-admin-delayed-job-worker'],
+  }
+
+  service { "whitehall-admin-delayed-job-worker":
+    ensure   => running,
+  }
 }

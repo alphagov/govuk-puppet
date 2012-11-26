@@ -1,0 +1,8 @@
+description "Whitehall Admin Delayed job background worker"
+
+start on starting whitehall-admin
+stop on stopping whitehall-admin
+respawn
+respawn limit 5 120
+
+exec govuk_setenv whitehall-admin govuk_run_delayed_job_worker
