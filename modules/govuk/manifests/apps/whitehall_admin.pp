@@ -21,7 +21,7 @@ class govuk::apps::whitehall_admin( $port = undef ) {
 
       location ~ /clean/(.*) {
         internal;
-        alias /data/uploads/whitehall/clean/$1;
+        alias /data/uploads/whitehall/clean-uploads/$1;
       }
 
       location /government/uploads {
