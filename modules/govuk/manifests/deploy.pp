@@ -121,6 +121,12 @@ class govuk::deploy {
     value => $asset_root,
   }
 
+  $website_root = extlookup('website_root')
+
+  govuk::envvar { 'GOVUK_WEBSITE_ROOT':
+    value => $website_root,
+  }
+
   # I don't want to create the following with invalid content, which it would
   # contain until the asset_host extdata variable is repurposed. Commented out
   # until the transition from asset_host -> asset_root has occurred in
