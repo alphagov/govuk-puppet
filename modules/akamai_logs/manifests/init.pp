@@ -47,11 +47,15 @@ class akamai_logs {
   }
 
   cron { "fetch-logs-from-akamai":
-    command => "/home/${user}/pull_logs.sh 2>> /var/log/akamai/error",
+    command => "/home/${user}/pull_logs.sh >> /var/log/akamai/out.log 2>> /var/log/akamai/error.log",
     user    => $user,
     require => User[$user],
     hour    => '*/4',
     minute  => '1'
+  }
+
+  @logrotate::conf { "akamai-logs":
+    matches => "/var/log/akamai/*.log"
   }
 
   include akamai_logs::log_scanner
