@@ -7,4 +7,5 @@ class govuk_node::mysql_slave_server inherits govuk_node::base {
     server_id     => $::mysql_server_id,
     config_path   => 'mysql/slave/my.cnf'
   }
+
 }
