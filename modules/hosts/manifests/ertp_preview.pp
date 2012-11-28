@@ -2,6 +2,9 @@ class hosts::ertp_preview {
   host { 'ertp-api':
     ip => '10.239.86.141'
   }
+  host { 'ertp-stats-api':
+    ip => '10.239.86.141'
+  }
   host { 'ertp-mongo-1':
     ip => '10.238.233.55'
   }
