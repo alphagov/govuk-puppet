@@ -32,23 +32,23 @@ class ertp_base::frontend_server inherits ertp_base {
   case $::govuk_platform {
     staging: {
       nginx::config::site { 'default':
-        source  => 'puppet:///modules/ertp/nginx/ertp-staging',
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-staging',
       }
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
         ensure  => present,
-        source  => 'puppet:///modules/nginx/htpasswd.ertp.staging',
+        source  => 'puppet:///modules/nginx/etc/htpasswd.ertp.staging',
         require => Class['nginx::package'],
       }
     }
     default: {
       nginx::config::site { 'default':
-        source  => 'puppet:///modules/ertp/nginx/ertp-preview',
+        source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview',
       }
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.preview':
         ensure  => present,
-        source  => 'puppet:///modules/nginx/htpasswd.ertp.preview',
+        source  => 'puppet:///modules/nginx/etc/htpasswd.ertp.preview',
         require => Class['nginx::package'],
       }
     }
