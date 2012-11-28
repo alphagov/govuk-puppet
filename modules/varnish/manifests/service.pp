@@ -39,6 +39,16 @@ class varnish::service {
     host_name           => $::fqdn,
   }
 
+  @nagios::nrpe_config { 'check_varnish_responding':
+    source => 'puppet:///modules/varnish/nrpe_check_varnish.cfg',
+  }
+
+  @@nagios::check { "check_varnish_responding_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_varnish_responding',
+    service_description => 'varnishd port not responding',
+    host_name           => $::fqdn,
+  }
+
   @logstash::collector { 'varnish':
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
   }
