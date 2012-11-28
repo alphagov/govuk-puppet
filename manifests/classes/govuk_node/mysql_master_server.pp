@@ -14,12 +14,6 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
     privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
-  @@backup::directory {"backup_mysql_backups_$::hostname":
-    directory => '/var/lib/automysqlbackup/',
-    host_name => $::hostname,
-    fq_dn     => $::fqdn,
-  }
-
   class {'govuk::apps::signon::db':
     require => Class['mysql::server']
   }
