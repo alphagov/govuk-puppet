@@ -8,10 +8,4 @@ class govuk_node::mysql_slave_server inherits govuk_node::base {
     config_path   => 'mysql/slave/my.cnf'
   }
 
-  @@backup::directory {"backup_mysql_backups_$::hostname":
-    directory => '/var/lib/automysqlbackup/',
-    host_name => $::hostname,
-    fq_dn     => $::fqdn,
-  }
-
 }
