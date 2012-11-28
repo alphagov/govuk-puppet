@@ -26,7 +26,10 @@ class ertp::dwp::scripts {
 class ertp::api::scripts {
   file {'/etc/init/ertp-api.conf':
     ensure => present,
-    source => ['puppet:///modules/ertp/ertp-api.conf']
+    source => [
+      'puppet:///modules/ertp/ertp-api.conf',
+      'puppet:///modules/ertp/ertp-stats-api.conf'
+    ]
   }
 }
 
