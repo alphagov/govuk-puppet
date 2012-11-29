@@ -75,11 +75,12 @@ class govuk_node::backend_load_balancer {
       https_listen_port => 8431,
       http_listen_port  => 8531;
     'canary-backend':
-      servers           => $backend_servers,
-      internal_only     => true,
-      health_check_port => 9701,
-      https_listen_port => 8601,
-      http_listen_port  => 8701;
+      servers             => $backend_servers,
+      internal_only       => true,
+      health_check_port   => 9701,
+      health_check_method => 'GET',
+      https_listen_port   => 8601,
+      http_listen_port    => 8701;
   }
 
   $mapit_servers = {
