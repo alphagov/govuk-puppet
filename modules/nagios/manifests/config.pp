@@ -75,13 +75,6 @@ class nagios::config ($platform = $::govuk_platform) {
     host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_pingdom_quick_answer':
-    check_command       => 'run_pingdom_quick_answer_check',
-    use                 => 'govuk_urgent_priority',
-    service_description => 'pingdom says quick answer is down',
-    host_name           => $::fqdn,
-  }
-
   @@nagios::check { 'check_pingdom_search':
     check_command       => 'run_pingdom_search_check',
     use                 => 'govuk_urgent_priority',
