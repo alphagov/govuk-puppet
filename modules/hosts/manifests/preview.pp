@@ -27,6 +27,7 @@ class hosts::preview {
   host { "private-frontend.${app_domain}": ip => '10.228.95.176' }
   host { "tariff-api.${app_domain}":       ip => '10.228.95.176' }
   host { "contentapi.${app_domain}":       ip => '10.228.95.176' }
+  host { "canary-backend.${app_domain}":   ip => '10.228.95.176' }
 
   host { "search.${app_domain}":               ip => '10.228.95.176' }
   host { "calendars.${app_domain}":            ip => '10.58.253.150' }
@@ -40,6 +41,7 @@ class hosts::preview {
   host { "migratorator.${app_domain}":         ip => '10.228.95.176' }
   host { "reviewomatic.${app_domain}":         ip => '10.228.95.176' }
   host { "datainsight-frontend.${app_domain}": ip => '10.58.253.150' }
+  host { "canary-frontend.${app_domain}":      ip => '10.58.253.150' }
 
   host { "whitehall-frontend.${app_domain}":   ip => '10.49.105.155' }
   host { "whitehall.${app_domain}":            ip => '10.49.105.155' }
