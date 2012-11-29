@@ -8,4 +8,6 @@ class govuk_node::mysql_slave_server inherits govuk_node::base {
     config_path   => 'mysql/slave/my.cnf'
   }
 
+  include mysql::backup
+
 }
