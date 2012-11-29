@@ -1,5 +1,5 @@
 class mysql::server::package {
-  package { ['mysql-server','automysqlbackup']:
+  package { ['mysql-server']:
     ensure  => installed,
   }
 
