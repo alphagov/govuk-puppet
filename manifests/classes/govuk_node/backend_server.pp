@@ -14,6 +14,7 @@ class govuk_node::backend_server inherits govuk_node::base {
     force  => true,
   }
 
+  include govuk::apps::canary_backend
   include govuk::apps::panopticon
   include govuk::apps::publisher
   include govuk::apps::tariff_api

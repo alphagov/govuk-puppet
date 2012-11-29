@@ -9,6 +9,7 @@ class govuk_node::frontend_server inherits govuk_node::base {
           default: { include govuk::apps::efg }
   }
   include govuk::apps::calendars
+  include govuk::apps::canary_frontend
   include govuk::apps::smartanswers
   include govuk::apps::feedback
   include govuk::apps::designprinciples
