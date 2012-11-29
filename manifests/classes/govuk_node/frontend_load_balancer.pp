@@ -39,6 +39,12 @@ class govuk_node::frontend_load_balancer {
       health_check_port => 9511,
       https_listen_port => 8411,
       http_listen_port  => 8511;
+    'canary-frontend':
+      servers           => $govuk_frontend_servers,
+      internal_only     => true,
+      health_check_port => 9700,
+      https_listen_port => 8600,
+      http_listen_port  => 8700;
     'datainsight-frontend':
       servers           => $govuk_frontend_servers,
       internal_only     => true,

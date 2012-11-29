@@ -46,6 +46,7 @@ class varnish::config {
   $backends = [
     'businesssupportfinder',
     'calendars',
+    'canary_frontend',
     'datainsight_frontend',
     'designprinciples',
     'feedback',

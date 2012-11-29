@@ -63,6 +63,8 @@ sub vcl_recv {
     <%= set_backend('datainsight_frontend') %>
   } else if (req.url ~ "^/government$|^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
     <%= set_backend('whitehall_frontend') %>
+  } else if (req.url ~ "^/__canary__$") {
+    <%= set_backend('canary_frontend') %>
   } else {
     <%= set_backend('frontend') %>
   }
