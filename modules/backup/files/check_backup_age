@@ -1,0 +1,23 @@
+#!/bin/bash
+count=0
+message=""
+
+for backupinfo in `find /data/backups/ -name BACKUPINFO`; do
+   directory=${backupinfo%%/BACKUPINFO}
+   date=`cat $backupinfo | sed -e 's/Date: //g'`
+   today=`date +%s`; 
+   backupdate=`date --date="$date" +%s`;
+   age=$((($today - $backupdate)/60/60/24));
+   if [ $age -gt 0 ]; then 
+      message="${message}Backup of $directory last done $age days ago! ";
+      count=$(($count + 1));
+   fi;
+done;
+
+if [ $count -eq 0 ]; then
+   echo "OK: All backups are less than a day old";
+   exit 0;
+else
+   echo "WARNING: $message";
+   exit 1;
+fi

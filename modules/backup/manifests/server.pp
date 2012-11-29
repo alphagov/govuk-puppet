@@ -46,5 +46,19 @@ class backup::server {
     minute   => '0',
   }
 
+  @nagios::plugin { 'check_backup_age':
+    source  => 'puppet:///modules/backup/check_backup_age',
+  }
+
+  @nagios::nrpe_config { 'check_backup_age':
+    source  => 'puppet:///modules/backup/nrpe_check_backup_age.cfg',
+  }
+
+  @@nagios::check { "check_backup_age_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_backup_age',
+    service_description => "backup not run recently",
+    host_name           => $::fqdn,
+  }
+
   Backup::Directory   <<||>> { }
 }
