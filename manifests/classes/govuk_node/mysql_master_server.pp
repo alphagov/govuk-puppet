@@ -3,8 +3,6 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
   $replica_password = extlookup('mysql_replica_password', '')
   $master_server_id = '1'
 
-  include mysql::backup
-
   class { 'mysql::server':
     root_password => $root_password,
     server_id     => $master_server_id
