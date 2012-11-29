@@ -95,6 +95,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       'frontend-internal-lb',
       "businesssupportfinder.${app_domain}",
       "calendars.${app_domain}",
+      "canary-frontend.${app_domain}",
       "datainsight-frontend.${app_domain}",
       "designprinciples.${app_domain}",
       "efg.${app_domain}",
@@ -167,6 +168,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
     ip           => '10.3.1.2',
     host_aliases => [
       'backend-internal-lb',
+      "canary-backend.${app_domain}",
       "contentapi.${app_domain}",
       "imminence.${app_domain}",
       "mapit.${app_domain}",

@@ -23,6 +23,8 @@ class development {
 
   include govuk::apps::businesssupportfinder
   include govuk::apps::calendars
+  include govuk::apps::canary_frontend
+  include govuk::apps::canary_backend
   include govuk::apps::contentapi
   include govuk::apps::datainsight_frontend
   include govuk::apps::designprinciples

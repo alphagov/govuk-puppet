@@ -39,4 +39,6 @@ class hosts::development {
   host { 'whitehall.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'whitehall-admin.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'whitehall-frontend.dev.gov.uk':                   ip => '127.0.0.1' }
+  host { 'canary-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
+  host { 'canary-backend.dev.gov.uk':                       ip => '127.0.0.1' }
 }
