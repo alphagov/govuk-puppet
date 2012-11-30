@@ -14,6 +14,12 @@ class govuk_node::backup {
         fq_dn     => 'licensify-mongo-1.licensify.production',
     }
 
+    backup::directory {'backup_mongodb_backups_exception-handler-1':
+        directory => '/var/lib/automongodbbackup/',
+        host_name => 'exception-handler-1',
+        fq_dn     => 'exception-handler-1.management.production',
+    }
+
     backup::directory {'backup_mysql_backups_mysql':
         directory => '/var/lib/automysqlbackup/',
         host_name => 'mysql-slave-1',
