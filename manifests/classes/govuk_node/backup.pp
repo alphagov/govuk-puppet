@@ -26,7 +26,7 @@ class govuk_node::backup {
         fq_dn     => 'efg-mysql-slave-1.efg.production',
     }
 
-#    backup::directory {"backup_aggregated_logstash_logging":
+#    backup::directory {'backup_aggregated_logstash_logging':
 #        directory => '/data/logging/logstash-aggregation',
 #        host_name => 'logging',
 #        fq_dn     => 'logging.management.production',
