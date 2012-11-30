@@ -16,7 +16,6 @@ class router::nginx {
 
   nginx::config::site { 'router-replacement-port8080':
     source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
-    require => Service['jetty']
   }
 
   file { '/etc/nginx/router_routes.conf':
