@@ -22,12 +22,6 @@ class elms_base::mongo_server {
     }
   }
 
-  @@backup::directory {"backup_mongodb_backups_$::hostname":
-    directory => '/var/lib/automongodbbackup/',
-    host_name => $::hostname,
-    fq_dn     => $::fqdn,
-  }
-
   class { 'mongodb::backup':
     members   => $mongo_hosts,
     domonthly => false
