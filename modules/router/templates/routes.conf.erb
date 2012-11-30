@@ -58,6 +58,34 @@ rewrite ^/employer-direct-online/?$ /advertise-job permanent;
 rewrite ^/jobseeker-direct/?$ /jobs-jobsearch permanent;
 # End rewrites
 
+### Government department vanity URLs - Inside Government
+<%- {
+    '/ago'                   => '/government/organisations/attorney-generals-office',
+    '/bis'                   => '/government/organisations/department-for-business-innovation-skills',
+    '/brac'                  => '/government/organisations/building-regulations-advisory-committee',
+    '/cabinetoffice'         => '/government/organisations/cabinet-office',
+    '/communities'           => '/government/organisations/department-for-communities-and-local-government',
+    '/dclg'                  => '/government/organisations/department-for-communities-and-local-government',
+    '/defra'                 => '/government/organisations/department-for-environment-food-rural-affairs',
+    '/dfid'                  => '/government/organisations/department-for-international-development',
+    '/dft'                   => '/government/organisations/department-for-transport',
+    '/dh'                    => '/government/organisations/department-of-health',
+    '/dsa'                   => '/government/organisations/driving-standards-agency',
+    '/fco'                   => '/government/organisations/foreign-commonwealth-office',
+    '/hmrc'                  => '/government/organisations/hm-revenue-customs',
+    '/mod'                   => '/government/organisations/ministry-of-defence',
+    '/moj'                   => '/government/organisations/ministry-of-justice',
+    '/pins'                  => '/government/organisations/planning-inspectorate',
+    '/planning-inspectorate' => '/government/organisations/planning-inspectorate',
+    '/transport'             => '/government/organisations/department-for-transport'
+  }.each do |from, to| -%>
+location = <%= from %> {
+  expires 1h;
+  add_header cache-control 'public';
+  return 301 <%= to %>;
+}
+<%- end -%>
+
 location @upstream {
   proxy_pass http://varnish;
 }
