@@ -80,7 +80,7 @@ rewrite ^/jobseeker-direct/?$ /jobs-jobsearch permanent;
     '/transport'             => '/government/organisations/department-for-transport'
   }.each do |from, to| -%>
 location = <%= from %> {
-  expires 1h;
+  expires 1d;
   add_header cache-control 'public';
   return 301 <%= to %>;
 }
