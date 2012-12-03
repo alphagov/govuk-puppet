@@ -81,6 +81,17 @@ class development {
   }
 
   mysql::server::db {
+    'datainsights_todays_activity':   user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsight_weekly_reach':       user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsight_weekly_reach_test':  user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsights_format_success':    user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'efg_development':                user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_test':                       user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_test1':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_test2':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_test3':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_test4':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
+    'efg_il0':                        user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'fco_development':                user => 'fco',          password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'needotron_development':          user => 'needotron',    password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'panopticon_development':         user => 'panopticon',   password => 'panopticon',   root_password => $mysql_password, remote_host => 'localhost';
@@ -90,25 +101,14 @@ class development {
     'signonotron2_development':       user => 'signonotron2', password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'signonotron2_test':              user => 'signonotron2', password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'signonotron2_integration_test':  user => 'signonotron2', password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'tariff_development':             user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
+    'tariff_test':                    user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
     'whitehall_development':          user => 'whitehall',    password => 'whitehall',    root_password => $mysql_password, remote_host => 'localhost';
     'whitehall_test':                 user => 'whitehall',    password => 'whitehall',    root_password => $mysql_password, remote_host => 'localhost';
     'whitehall_test1':                user => 'whitehall',    password => 'whitehall',    root_password => $mysql_password, remote_host => 'localhost';
     'whitehall_test2':                user => 'whitehall',    password => 'whitehall',    root_password => $mysql_password, remote_host => 'localhost';
     'whitehall_test3':                user => 'whitehall',    password => 'whitehall',    root_password => $mysql_password, remote_host => 'localhost';
     'whitehall_test4':                user => 'whitehall',    password => 'whitehall',    root_password => $mysql_password, remote_host => 'localhost';
-    'efg_development':                user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'efg_test':                       user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'efg_test1':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'efg_test2':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'efg_test3':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'efg_test4':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'efg_il0':                        user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
-    'tariff_development':             user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
-    'tariff_test':                    user => 'tariff',       password => 'tariff',       root_password => $mysql_password, remote_host => 'localhost';
-    'datainsights_todays_activity':   user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
-    'datainsight_weekly_reach':       user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
-    'datainsight_weekly_reach_test':  user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
-    'datainsights_format_success':    user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
   }
 
   package {

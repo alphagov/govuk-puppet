@@ -28,6 +28,44 @@ class govuk_node::management_server {
   }
 
   mysql::server::db {
+    'datainsights_todays_activity_test':
+      user          => 'datainsight',
+      password      => '',
+      root_password => $mysql_password;
+    'datainsight_weekly_reach_test':
+      user          => 'datainsight',
+      password      => '',
+      root_password => $mysql_password;
+    'efg_test':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'efg_test1':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'efg_test2':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'efg_test3':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'efg_test4':
+      user          => 'efg',
+      password      => 'efg',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'panopticon_test':
+      user          => 'panopticon',
+      password      => 'panopticon',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
     'release_development':
       user          => 'release',
       password      => 'release',
@@ -36,6 +74,21 @@ class govuk_node::management_server {
     'release_test':
       user          => 'release',
       password      => 'release',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'signonotron2_test':
+      user          => 'signonotron2',
+      password      => 'signonotron2',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'signonotron2_integration_test':
+      user          => 'signonotron2',
+      password      => 'signonotron2',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'tariff_test':
+      user          => 'tariff',
+      password      => 'tariff',
       remote_host   => 'localhost',
       root_password => $mysql_password;
     'whitehall_development':
@@ -67,59 +120,6 @@ class govuk_node::management_server {
       user          => 'whitehall',
       password      => 'whitehall',
       remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'panopticon_test':
-      user          => 'panopticon',
-      password      => 'panopticon',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'signonotron2_test':
-      user          => 'signonotron2',
-      password      => 'signonotron2',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'signonotron2_integration_test':
-      user          => 'signonotron2',
-      password      => 'signonotron2',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test1':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test2':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test3':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test4':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'tariff_test':
-      user          => 'tariff',
-      password      => 'tariff',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'datainsights_todays_activity_test':
-      user          => 'datainsight',
-      password      => '',
-      root_password => $mysql_password;
-    'datainsight_weekly_reach_test':
-      user          => 'datainsight',
-      password      => '',
       root_password => $mysql_password;
   }
 }
