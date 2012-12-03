@@ -181,6 +181,13 @@ class nagios::config ($platform = $::govuk_platform) {
   }
   # END datainsight
 
+  @@nagios::check {'check_mapit_responding':
+    check_command       => "check_mapit",
+    use                 => 'govuk_normal_priority'
+    service_description => 'mapit not responding to postcode query'
+    host_name           => $::fqdn,
+  }
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
