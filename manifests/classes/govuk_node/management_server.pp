@@ -28,6 +28,16 @@ class govuk_node::management_server {
   }
 
   mysql::server::db {
+    'release_development':
+      user          => 'release',
+      password      => 'release',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
+    'release_test':
+      user          => 'release',
+      password      => 'release',
+      remote_host   => 'localhost',
+      root_password => $mysql_password;
     'whitehall_development':
       user          => 'whitehall',
       password      => 'whitehall',
