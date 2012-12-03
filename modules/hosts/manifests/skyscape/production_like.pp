@@ -172,6 +172,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "contentapi.${app_domain}",
       "imminence.${app_domain}",
       "mapit.${app_domain}",
+      "migratorator.${app_domain}",
       "needotron.${app_domain}",
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
