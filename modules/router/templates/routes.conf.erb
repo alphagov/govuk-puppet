@@ -91,7 +91,7 @@ location ~ ^/performance/.+\.(json|png)$ {
 #
 # This whole government block is so we can hide the remaining undeployed parts
 # of Inside Gov.
-location ~ ^/government/world(/|$) {
+location ~ ^/government/world(?!.*\.atom$).*$ {
   # XXX: If you remove this password control remove the cache control below too!
   deny all;
   auth_basic           "This part of INSIDE GOVERNMENT is not currently public. Government employees please login:";
