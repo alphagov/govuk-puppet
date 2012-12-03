@@ -30,6 +30,9 @@ password=${mysql_password}
     }
   }
 
-  include elasticsearch
+  include java::openjdk6::jre
+  class {'elasticsearch':
+      require => Class['java::openjdk6::jre'],
+  }
   elasticsearch::node { "govuk-${::govuk_platform}": }
 }
