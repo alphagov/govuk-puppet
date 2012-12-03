@@ -4,10 +4,14 @@ class users::groups::govuk {
   govuk::user { 'paulb': ensure => absent }
 
   # Ensure defunct users are absent
-  govuk::user { 'steve':     ensure => absent }
-  govuk::user { 'jgriffin':  ensure => absent }
-  govuk::user { 'i0n':       ensure => absent }
-  govuk::user { 'ukini':     ensure => absent }
+  govuk::user { 'steve':       ensure => absent }
+  govuk::user { 'jgriffin':    ensure => absent }
+  govuk::user { 'i0n':         ensure => absent }
+  govuk::user { 'ukini':       ensure => absent }
+  govuk::user { 'jamesweiner': ensure => absent }
+  govuk::user { 'kief':        ensure => absent }
+  govuk::user { 'ssheth':      ensure => absent }
+  govuk::user { 'mneedham':    ensure => absent }
 
   govuk::user { 'mwall':
     fullname   => 'Mat Wall',
@@ -71,10 +75,6 @@ class users::groups::govuk {
   govuk::user { 'annashipman':
     fullname   => 'Anna Shipman',
     email      => 'anna.shipman@digital.cabinet-office.gov.uk';
-  }
-  govuk::user { 'jamesweiner':
-    fullname   => 'James Weiner',
-    email      => 'james.weiner@digital.cabinet-office.gov.uk';
   }
   govuk::user { 'robyoung':
     fullname   => 'Rob Young',
@@ -148,21 +148,9 @@ class users::groups::govuk {
     fullname   => 'Mark Norman Francis',
     email      => 'mark.norman.francis@digital.cabinet-office.gov.uk';
   }
-  govuk::user { 'kief':
-    fullname   => 'Kief Morris',
-    email      => 'kmorris@thoughtworks.com';
-  }
   govuk::user { 'rujmah':
     fullname   => 'Robin Mayfield',
     email      => 'robin.mayfield@digital.cabinet-office.gov.uk';
-  }
-  govuk::user { 'ssheth':
-    fullname   => 'Shodhan Sheth',
-    email      => 'shodhan.sheth@digital.cabinet-office.gov.uk';
-  }
-  govuk::user { 'mneedham':
-    fullname   => 'Mark Needham',
-    email      => 'mark.needham@digital.cabinet-office.gov.uk';
   }
   govuk::user { 'alex_tea':
     fullname   => 'Alex Torrance',
