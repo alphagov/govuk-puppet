@@ -183,8 +183,8 @@ class nagios::config ($platform = $::govuk_platform) {
 
   @@nagios::check {'check_mapit_responding':
     check_command       => "check_mapit",
-    use                 => 'govuk_normal_priority'
-    service_description => 'mapit not responding to postcode query'
+    use                 => 'govuk_normal_priority',
+    service_description => 'mapit not responding to postcode query',
     host_name           => $::fqdn,
   }
 
