@@ -46,8 +46,6 @@ rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/green-deal/?$ /green-deal-energy-saving-measures permanent;
 rewrite ^/greendealcashback/?$ /green-deal-energy-saving-measures/cashback-scheme permanent;   # These currently redirect to a 404 (as of 2012-11-16), but Tom L has requested
 rewrite ^/green-deal-cashback/?$ /green-deal-energy-saving-measures/cashback-scheme permanent; # that we put these live now in order to satisfy TPTB.
-rewrite ^/child-maintenance/?$ /calculate-child-maintenance permanent;
-rewrite ^/childmaintenance/?$ /calculate-child-maintenance permanent;
 rewrite ^/advancedlearningloans/?$ /24_advanced_learning_loans permanent;
 
 # These rewrites are caused by content being relocated. They should be amended by the person moving the content.
@@ -56,6 +54,10 @@ rewrite ^/tell-us-once-report-death/?$ /after-a-death permanent;
 rewrite ^/browse/births-deaths-marriages/registry-offices/?$ /browse/births-deaths-marriages/register-offices permanent;
 rewrite ^/employer-direct-online/?$ /advertise-job permanent;
 rewrite ^/jobseeker-direct/?$ /jobs-jobsearch permanent;
+rewrite ^/arranging-child-maintenance-child-support-agency(/.*)?$ /child-maintenance$1 permanent;
+rewrite ^/childmaintenance(/.*)?$ /child-maintenance$1 permanent;
+rewrite ^/make-child-maintenance-deductions-employee-pay(/.*)?$ /child-maintenance-for-employers$1 permanent;
+rewrite ^/personal-independence-payment/?$ /pip permanent;
 # End rewrites
 
 ### Government department vanity URLs - Inside Government
