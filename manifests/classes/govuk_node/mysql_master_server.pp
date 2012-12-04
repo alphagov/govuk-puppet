@@ -27,6 +27,9 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
   class {'govuk::apps::whitehall_admin::db':
     require => Class['mysql::server']
   }
+  class {'govuk::apps::release::db':
+    require => Class['mysql::server']
+  }
 
   $whitehall_frontend_password = extlookup('mysql_whitehall_frontend', '')
   mysql::user { 'whitehall_fe':
