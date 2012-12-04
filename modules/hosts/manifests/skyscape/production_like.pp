@@ -174,6 +174,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
+      "release.${app_domain}",
       "search.${app_domain}",
       "signon.${app_domain}",
       "support.${app_domain}",
