@@ -54,6 +54,7 @@ class development {
   include govuk::apps::travel_advice_publisher
   include govuk::apps::whitehall_admin
   include govuk::apps::whitehall_frontend
+  include govuk::apps::release
 
   include datainsight::config::google_oauth
 
