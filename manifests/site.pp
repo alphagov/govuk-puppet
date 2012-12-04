@@ -7,7 +7,7 @@ File {
 }
 
 if $::govuk_platform == 'development' {
-  $extlookup_datadir = '/var/govuk/deployment/puppet/extdata'
+  $extlookup_datadir = '/var/govuk/development/extdata'
 } else {
   $extlookup_datadir = '/usr/share/puppet/production/current/extdata'
 }
