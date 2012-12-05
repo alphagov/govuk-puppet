@@ -39,7 +39,7 @@ sub vcl_recv {
   # Routing
   if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap.xml(\?.*)?$") {
     <%= set_backend('search') %>
-  } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays") {
+  } else if (req.url ~ "^/when-do-the-clocks-change|^/bank-holidays|^/gwyliau-banc") {
     <%= set_backend('calendars') %>
   } else if (req.url ~ "^/(<%= @smartanswers.join("|") %>)") {
     <%= set_backend('smartanswers') %>
