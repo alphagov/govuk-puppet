@@ -1,6 +1,6 @@
 description "Whitehall Admin Delayed job background worker"
 
-<%- if @platform != 'development' -%>
+<%- if govuk_platform != 'development' -%>
 start on runlevel [2345]
 <%- end -%>
 stop on runlevel [!2345]
