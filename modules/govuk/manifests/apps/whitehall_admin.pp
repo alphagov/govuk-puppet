@@ -23,6 +23,15 @@ class govuk::apps::whitehall_admin( $port = undef ) {
         internal;
         alias /data/uploads/whitehall/clean/$1;
       }
+
+      location /government/uploads {
+        expires 12h;
+        add_header Cache-Control public;
+        # Explicitly reinclude Strict-Transport-Security header, as calling
+        # add_header above will have reset the set of headers sent by nginx.
+        include /etc/nginx/sts.conf;
+        try_files $uri @app;
+      }
     ',
     vhost_protected    => true;
   }
