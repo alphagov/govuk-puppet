@@ -19,6 +19,11 @@ class govuk::apps::redirector {
     target => '/var/apps/redirector/ago.conf',
     notify => Class['nginx::service'],
   }
+  file { '/etc/nginx/sites-enabled/mod':
+    ensure => link,
+    target => '/var/apps/redirector/mod.conf',
+    notify => Class['nginx::service'],
+  }
   file { '/var/apps/redirector':
     ensure  => directory,
     owner   => 'deploy',
