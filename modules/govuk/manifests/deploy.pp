@@ -154,4 +154,19 @@ class govuk::deploy {
     'RAILS_ENV': value => $govuk_env;
     'RACK_ENV':  value => $govuk_env;
   }
+
+  include govuk::deploy::redirector
+}
+
+class govuk::deploy::redirector {
+  # Required for adding assets
+  package { 's3cmd':
+    ensure   => 'installed',
+    provider => 'pip',
+  }
+
+  # This is required for the redirector-deploy job
+  package { 'libtext-csv-perl':
+    ensure => installed,
+  }
 }
