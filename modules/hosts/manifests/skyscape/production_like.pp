@@ -106,6 +106,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "smartanswers.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
+      "travel-advice-frontend.${app_domain}",
       "whitehall-frontend.${app_domain}",
       "www.${app_domain}"
     ]

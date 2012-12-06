@@ -29,19 +29,20 @@ class hosts::preview {
   host { "contentapi.${app_domain}":       ip => '10.228.95.176' }
   host { "canary-backend.${app_domain}":   ip => '10.228.95.176' }
 
-  host { "search.${app_domain}":               ip => '10.228.95.176' }
-  host { "calendars.${app_domain}":            ip => '10.58.253.150' }
-  host { "designprinciples.${app_domain}":     ip => '10.58.253.150' }
-  host { "smartanswers.${app_domain}":         ip => '10.58.253.150' }
-  host { "licencefinder.${app_domain}":        ip => '10.58.253.150' }
-  host { "frontend.${app_domain}":             ip => '10.58.253.150' }
-  host { "feedback.${app_domain}":             ip => '10.58.253.150' }
-  host { "tariff.${app_domain}":               ip => '10.58.253.150' }
-  host { "efg.${app_domain}":                  ip => '10.58.253.150' }
-  host { "migratorator.${app_domain}":         ip => '10.228.95.176' }
-  host { "reviewomatic.${app_domain}":         ip => '10.228.95.176' }
-  host { "datainsight-frontend.${app_domain}": ip => '10.58.253.150' }
-  host { "canary-frontend.${app_domain}":      ip => '10.58.253.150' }
+  host { "search.${app_domain}":                 ip => '10.228.95.176' }
+  host { "calendars.${app_domain}":              ip => '10.58.253.150' }
+  host { "designprinciples.${app_domain}":       ip => '10.58.253.150' }
+  host { "smartanswers.${app_domain}":           ip => '10.58.253.150' }
+  host { "licencefinder.${app_domain}":          ip => '10.58.253.150' }
+  host { "frontend.${app_domain}":               ip => '10.58.253.150' }
+  host { "feedback.${app_domain}":               ip => '10.58.253.150' }
+  host { "tariff.${app_domain}":                 ip => '10.58.253.150' }
+  host { "efg.${app_domain}":                    ip => '10.58.253.150' }
+  host { "migratorator.${app_domain}":           ip => '10.228.95.176' }
+  host { "reviewomatic.${app_domain}":           ip => '10.228.95.176' }
+  host { "datainsight-frontend.${app_domain}":   ip => '10.58.253.150' }
+  host { "canary-frontend.${app_domain}":        ip => '10.58.253.150' }
+  host { "travel-advice-frontend.${app_domain}": ip => '10.58.253.150' }
 
   host { "whitehall-frontend.${app_domain}":   ip => '10.49.105.155' }
   host { "whitehall.${app_domain}":            ip => '10.49.105.155' }
