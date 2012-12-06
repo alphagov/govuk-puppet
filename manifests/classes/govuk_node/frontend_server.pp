@@ -4,10 +4,6 @@ class govuk_node::frontend_server inherits govuk_node::base {
 
   include govuk::apps::datainsight_frontend
   include govuk::apps::tariff
-  case $::govuk_provider {
-          'sky':   {}
-          default: { include govuk::apps::efg }
-  }
   include govuk::apps::calendars
   include govuk::apps::canary_frontend
   include govuk::apps::smartanswers
@@ -18,6 +14,13 @@ class govuk_node::frontend_server inherits govuk_node::base {
   include govuk::apps::frontend
   include govuk::apps::static
   include govuk::apps::businesssupportfinder
+  case $::govuk_provider {
+    'sky':   {}
+    default: {
+      include govuk::apps::efg
+      include govuk::apps::travel_advice_frontend # Only add to EC2 (i.e. preview) for now.
+    }
+  }
 
   include nginx
 
