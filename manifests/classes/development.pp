@@ -49,6 +49,7 @@ class development {
   include govuk::apps::support
   include govuk::apps::tariff
   include govuk::apps::tariff_api
+  include govuk::apps::travel_advice_frontend
   include govuk::apps::whitehall_admin
   include govuk::apps::whitehall_frontend
 
