@@ -57,6 +57,22 @@ class jenkins {
       ensure => installed,
   }
 
+  # Required for redirector-deploy
+  package { 's3cmd':
+    ensure   => 'installed',
+    provider => 'pip',
+  }
+
+  # This is required for the redirector-deploy job
+  package { 'libtext-csv-perl':
+    ensure => installed,
+  }
+
+  # This is required for the redirector-integration job
+  package { 'libcrypt-ssleay-perl':
+    ensure => installed,
+  }
+
   # This is required for the gov.uk spider job
   package { 'scrapy':
     ensure   => '0.14.4',

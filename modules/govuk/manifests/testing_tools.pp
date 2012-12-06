@@ -23,8 +23,4 @@ class govuk::testing_tools {
     ]
   }
 
-  # This is required for the redirector-integration job
-  package { 'libcrypt-ssleay-perl':
-    ensure => installed,
-  }
 }
