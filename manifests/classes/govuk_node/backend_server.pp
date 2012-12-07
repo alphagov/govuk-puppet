@@ -34,7 +34,7 @@ class govuk_node::backend_server inherits govuk_node::base {
     'sky':   {}
     default: {
       include govuk::apps::review_o_matic_explore
-      include govuk::apps::travel_advice_publisher
+      include govuk::apps::travel_advice_publisher # Only add to EC2 (i.e. preview) for now
     }
   }
 

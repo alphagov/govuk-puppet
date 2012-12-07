@@ -182,6 +182,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "signon.${app_domain}",
       "support.${app_domain}",
       "tariff-api.${app_domain}",
+      "travel-advice-publisher.${app_domain}",
       "whitehall-admin.${app_domain}"
     ]
   }
