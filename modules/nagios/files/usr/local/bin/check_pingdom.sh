@@ -10,7 +10,7 @@ CHECK=$1
 
 curl --connect-timeout 5 -s https://api.pingdom.com/ >/dev/null 2>&1
 
-if [ $? == 28 ]; then
+if [ $? != 0 ]; then
   echo "UNKNOWN: Pingdom API Down"
   exit 3
 fi
