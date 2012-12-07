@@ -8,6 +8,13 @@ CHECK=$1
 [ -z "$KEY" ] && echo "Need to set KEY" && exit 1;
 [ -z "$USER" ] && echo "Need to set USER" && exit 1;
 
+pingdom_down=`curl -s http://isup.me/api.pingdom.com | grep -c "It's not just you"`
+
+if [ $pingdom_down == 1 ]; then
+  echo "UNKNOWN: Pingdom API Down"
+  exit 3
+fi
+
 result=`curl --silent --header "App-Key: ${KEY}" --user ${USER}:${PASSWORD} https://api.pingdom.com/api/2.0/checks/${CHECK}`
 
 if [[ $? == 6 ]]; then
