@@ -8,9 +8,9 @@ CHECK=$1
 [ -z "$KEY" ] && echo "Need to set KEY" && exit 1;
 [ -z "$USER" ] && echo "Need to set USER" && exit 1;
 
-pingdom_down=`curl -s http://isup.me/api.pingdom.com | grep -c "It's not just you"`
+pingdom_down=`curl --connect-timeout 5 -s https://api.pingdom.com/ >/dev/null 2>&1`
 
-if [ $pingdom_down == 1 ]; then
+if [ $pingdom_down == 28 ]; then
   echo "UNKNOWN: Pingdom API Down"
   exit 3
 fi
