@@ -18,7 +18,7 @@ Unattended-Upgrade::Package-Blacklist {
 // If empty or unset then no email is sent, make sure that you
 // have a working mail setup on your system. The package 'mailx'
 // must be installed or anything that provides /usr/bin/mail.
-Unattended-Upgrade::Mail "ops@alphagov.co.uk";
+Unattended-Upgrade::Mail "2nd-line-support@digital.cabinet-office.gov.uk";
 
 // Do automatic removal of new unused dependencies after the upgrade
 // (equivalent to apt-get autoremove)
