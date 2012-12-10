@@ -19,15 +19,16 @@ class hosts::preview {
   host { 'router.cluster':      ip => '10.58.175.43' }
   host { 'graylog.cluster':     ip => '10.32.31.104' }
 
-  host { "signon.${app_domain}":           ip => '10.228.95.176' }
-  host { "panopticon.${app_domain}":       ip => '10.228.95.176' }
-  host { "needotron.${app_domain}":        ip => '10.228.95.176' }
-  host { "imminence.${app_domain}":        ip => '10.228.95.176' }
-  host { "publisher.${app_domain}":        ip => '10.228.95.176' }
-  host { "private-frontend.${app_domain}": ip => '10.228.95.176' }
-  host { "tariff-api.${app_domain}":       ip => '10.228.95.176' }
-  host { "contentapi.${app_domain}":       ip => '10.228.95.176' }
-  host { "canary-backend.${app_domain}":   ip => '10.228.95.176' }
+  host { "signon.${app_domain}":                  ip => '10.228.95.176' }
+  host { "panopticon.${app_domain}":              ip => '10.228.95.176' }
+  host { "needotron.${app_domain}":               ip => '10.228.95.176' }
+  host { "imminence.${app_domain}":               ip => '10.228.95.176' }
+  host { "publisher.${app_domain}":               ip => '10.228.95.176' }
+  host { "private-frontend.${app_domain}":        ip => '10.228.95.176' }
+  host { "tariff-api.${app_domain}":              ip => '10.228.95.176' }
+  host { "contentapi.${app_domain}":              ip => '10.228.95.176' }
+  host { "canary-backend.${app_domain}":          ip => '10.228.95.176' }
+  host { "travel-advice-publisher.${app_domain}": ip => '10.228.95.176' }
 
   host { "search.${app_domain}":                 ip => '10.228.95.176' }
   host { "calendars.${app_domain}":              ip => '10.58.253.150' }
