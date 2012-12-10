@@ -1,6 +1,6 @@
 class postfix::service {
   service { 'postfix':
-    ensure => running,
+    ensure  => running,
     require => Class['postfix::package']
   }
 }
