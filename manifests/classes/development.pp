@@ -1,4 +1,6 @@
 class development {
+
+  include postfix
   include base
 
   include apollo
