@@ -6,13 +6,12 @@ class varnish::service {
     restart    => '/usr/sbin/service varnish reload',
     hasstatus  => false,
     status     => '/etc/init.d/varnish status | grep \'varnishd is running\'',
-    require    => Class['varnish::package']
   }
 
   service { 'varnishncsa':
     ensure  => running,
     status  => '/etc/init.d/varnishncsa status | grep \'varnishncsa is running\'',
-    require => [Class['varnish::package'], Service['varnish']]
+    require => Service['varnish'],
   }
 
   @ganglia::pyconf { 'varnish':
@@ -53,6 +52,4 @@ class varnish::service {
     source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
   }
 
-  File['/etc/default/varnish'] ~> Service['varnish']
-  File['/etc/varnish/default.vcl'] ~> Service['varnish']
 }
