@@ -1,5 +1,7 @@
 class varnish::config {
 
+  include varnish::restart
+
   # A list of smartanswers to make them easy to maintain
   $smartanswers = [
     'additional-commodity-code',
@@ -66,6 +68,7 @@ class varnish::config {
   file { '/etc/default/varnish':
     ensure  => file,
     content => template('varnish/defaults.erb'),
+    notify  => Class['varnish::restart'], # requires a full varnish restart to pick up changes
   }
 
   file { '/etc/default/varnishncsa':
