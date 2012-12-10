@@ -2,7 +2,7 @@ server {
   server_name  preview-ertp.alphagov.co.uk;
   listen *:80;
 
-  location /status {
+  location /stats {
     proxy_pass http://127.0.0.1:9500;
     deny all;
     auth_basic            "Enter your ertp admin password";
