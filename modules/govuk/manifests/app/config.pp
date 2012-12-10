@@ -10,6 +10,7 @@ define govuk::app::config (
   $nginx_extra_app_config = '',
   $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
+  $intercept_errors = false,
   $enable_nginx_vhost = true
 ) {
 
@@ -112,6 +113,7 @@ define govuk::app::config (
       platform              => $platform,
       health_check_path     => $health_check_path,
       health_check_port     => $health_check_port,
+      intercept_errors      => $intercept_errors,
       ssl_health_check_port => $ssl_health_check_port,
     }
   }

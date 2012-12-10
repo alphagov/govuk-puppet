@@ -25,6 +25,14 @@ define govuk::app(
   $health_check_path = 'NOTSET',
 
   #
+  # intercept_errors: should nginx intercept application errors
+  #
+  # If set to true, the nginx fronting the application will intercept
+  # application errors and serve default error pages
+  #
+  $intercept_errors = false,
+
+  #
   # platform: the deployment environment to configure
   #
   # You probably don't need to set this explicitly.
@@ -128,6 +136,7 @@ define govuk::app(
     nginx_extra_app_config => $nginx_extra_app_config,
     platform               => $platform,
     health_check_path      => $health_check_path,
+    intercept_errors       => $intercept_errors,
     enable_nginx_vhost     => $enable_nginx_vhost,
   }
 
