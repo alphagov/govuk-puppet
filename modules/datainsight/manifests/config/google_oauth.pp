@@ -7,21 +7,18 @@ class datainsight::config::google_oauth {
   file { "/etc/gds/google_credentials.yml":
     ensure  => present,
     content => template("datainsight/google_credentials.yml.erb"),
-    owner   => "deploy",
-    require => User['deploy']
+    owner   => "deploy"
   }
 
   file { "/var/lib/gds/google-analytics-token.yml":
     ensure  => present,
     content => template("datainsight/google-analytics-token.yml.erb"),
-    owner   => "deploy",
-    require => User['deploy']
+    owner   => "deploy"
   }
 
   file { "/var/lib/gds/google-drive-token.yml":
     ensure  => present,
     content => template("datainsight/google-drive-token.yml.erb"),
-    owner   => "deploy",
-    require => User['deploy']
+    owner   => "deploy"
   }
 }
