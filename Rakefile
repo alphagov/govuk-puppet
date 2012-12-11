@@ -7,13 +7,11 @@ ENV['RUBYOPT'] = (ENV['RUBYOPT'] || '') + ' -W0'
 
 THIRD_PARTY_MODULES = %w[
   concat
-  kwalify
 ]
 
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.send("disable_double_quoted_strings")
-PuppetLint.configuration.send("disable_quoted_booleans")
 
 # puppet-lint has got a lot stricter (but a lot faster) recently. I'm
 # temporarily disabling the following checks but will bring them back bit by
