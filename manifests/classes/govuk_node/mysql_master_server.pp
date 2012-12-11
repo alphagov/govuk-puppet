@@ -8,7 +8,7 @@ class govuk_node::mysql_master_server inherits govuk_node::base {
     root_password => $root_password,
   }
 
-  mysql::user {'replica_user':
+  mysql::user { 'replica_user':
     root_password  => $root_password,
     user_password  => $replica_password,
     privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
