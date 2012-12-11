@@ -79,7 +79,12 @@ RSpec.configure do |c|
       'app_domain'    => 'test.gov.uk',
       'website_root'  => 'www.test.gov.uk',
       'http_username' => 'test_username',
-      'http_password' => 'test_password'
+      'http_password' => 'test_password',
+
+      'google_client_id_datainsight'               => 'example client id',
+      'google_client_secret_datainsight'           => 'example client secret',
+      'google_analytics_refresh_token_datainsight' => 'example refresh token',
+      'google_drive_refresh_token_datainsight'     => 'example refresh token'
     })
   end
 end
