@@ -1,0 +1,4 @@
+[mysqld]
+# Reduce InnoDB buffer pool size for dev VMs
+innodb_buffer_pool_size = 512M
+log-bin = OFF

@@ -81,6 +81,7 @@ class development {
   class { 'mysql::server':
     root_password => $mysql_password
   }
+  include mysql::server::development
 
   mysql::server::db {
     'datainsights_todays_activity':   user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';

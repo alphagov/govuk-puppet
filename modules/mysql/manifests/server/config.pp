@@ -10,4 +10,11 @@ class mysql::server::config($server_id = '1', $config_path = 'mysql/master/my.cn
     notify   => Service['mysql'],
     require  => [File['/var/lib/mysql/my.cnf'], File['/etc/mysql']]
   }
+
+  file { '/etc/mysql/conf.d':
+    ensure  => 'directory',
+    purge   => true,
+    recurse => true,
+    force   => true,
+  }
 }
