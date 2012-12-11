@@ -4,10 +4,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
   $app_domain = extlookup('app_domain')
 
-  class { 'hosts::skyscape::dead_hosts':
-    platform => $platform,
-  }
-
   #management vdc machines
   host { "puppet-1.management.${platform}":
     ip           => '10.0.0.2',
