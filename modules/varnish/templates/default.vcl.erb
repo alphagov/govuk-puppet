@@ -132,8 +132,20 @@ sub vcl_fetch {
   # longer than req.grace in vcl_recv.
   set beresp.grace = 6h;
 
-  # remove cookies
-  if (req.backend != licensify) {
+  if (req.backend == licensify) {
+    # Licensify sends custom 500 errors, and we need to send No-Fallback: true
+    # to prevent Akamai from falling back to the static site in NetStorage.
+    # Unfortunately, with our current build of Nginx we can't use add_headers
+    # for an error response, so this will have to live here.
+    #
+    # FIXME: This should be implemented by either the app or the per-app Nginx
+    # (by compiling Nginx with the more_headers module, for example).
+    #
+    # - NS 2012-12-11
+    set beresp.http.No-Fallback = "true";
+
+  # Remove cookies for all apps but Licensify
+  } else {
     unset beresp.http.set-cookie;
   }
 
