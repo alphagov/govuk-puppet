@@ -36,6 +36,10 @@ class govuk_node::management_server {
       user          => 'datainsight',
       password      => '',
       root_password => $mysql_password;
+    'datainsight_insidegov_test':
+      user          => 'datainsight',
+      password      => '',
+      root_password => $mysql_password;
     'efg_test':
       user          => 'efg',
       password      => 'efg',

@@ -87,6 +87,8 @@ class development {
     'datainsight_weekly_reach':       user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'datainsight_weekly_reach_test':  user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'datainsights_format_success':    user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsight_insidegov':          user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
+    'datainsight_insidegov_test':     user => 'datainsight',  password => '',             root_password => $mysql_password, remote_host => 'localhost';
     'efg_development':                user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'efg_test':                       user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';
     'efg_test1':                      user => 'efg',          password => 'efg',          root_password => $mysql_password, remote_host => 'localhost';

@@ -204,6 +204,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "datainsight-todays-activity-recorder.${app_domain}",
       "datainsight-everything-recorder.${app_domain}",
       "datainsight-format-success-recorder.${app_domain}"
+      "datainsight-insidegov-recorder.${app_domain}"
     ]
   }
   host { "akamai-logs-1.backend.${platform}":

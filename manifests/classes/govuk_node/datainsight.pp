@@ -9,6 +9,7 @@ class govuk_node::datainsight inherits govuk_node::base {
   include datainsight::recorders::weekly_reach
   include datainsight::recorders::todays_activity
   include datainsight::recorders::format_success
+  include datainsight::recorders::insidegov
   include datainsight::recorders::everything
 
   datainsight::collector { 'narrative': }
