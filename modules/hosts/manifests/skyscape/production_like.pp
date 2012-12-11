@@ -203,7 +203,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "datainsight-weekly-reach-recorder.${app_domain}",
       "datainsight-todays-activity-recorder.${app_domain}",
       "datainsight-everything-recorder.${app_domain}",
-      "datainsight-format-success-recorder.${app_domain}"
+      "datainsight-format-success-recorder.${app_domain}",
       "datainsight-insidegov-recorder.${app_domain}"
     ]
   }
