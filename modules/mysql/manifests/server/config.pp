@@ -1,14 +1,11 @@
-class mysql::server::config($config_path = 'mysql/master/my.cnf', $platform = $::govuk_platform) {
+class mysql::server::config {
+
   file { '/etc/mysql':
-    ensure => 'directory'
+    ensure => 'directory',
   }
 
   file { '/etc/mysql/my.cnf':
-    owner    => 'mysql',
-    group    => 'mysql',
-    content  => template($config_path),
-    notify   => Service['mysql'],
-    require  => [File['/var/lib/mysql/my.cnf'], File['/etc/mysql']]
+    source => 'puppet:///modules/mysql/etc/mysql/my.cnf',
   }
 
   file { '/etc/mysql/conf.d':

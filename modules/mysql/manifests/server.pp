@@ -1,4 +1,4 @@
-class mysql::server($root_password='', $config_path='mysql/master/my.cnf') {
+class mysql::server($root_password='') {
 
   anchor { 'mysql::server::begin':
     before => Class['mysql::server::package'],
@@ -10,9 +10,8 @@ class mysql::server($root_password='', $config_path='mysql/master/my.cnf') {
   }
 
   class { 'mysql::server::config':
-    config_path  => $config_path,
-    require      => Class['mysql::server::package'],
-    notify       => Class['mysql::server::service'];
+    require => Class['mysql::server::package'],
+    notify  => Class['mysql::server::service'];
   }
 
   class { 'mysql::server::service':
