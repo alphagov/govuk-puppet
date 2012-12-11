@@ -1,5 +1,3 @@
-add_header 'No-Fallback' 'true';
-
 location /apply-for-a-licence/payment/worldpayCallback {
   proxy_pass http://localhost:<%= port %>/apply-for-a-licence/payment/worldpayCallback;
   allow all;
