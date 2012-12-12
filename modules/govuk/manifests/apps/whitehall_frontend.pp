@@ -18,9 +18,6 @@ class govuk::apps::whitehall_frontend( $port = 3020 ) {
     port               => $port,
     health_check_path  => '/healthcheck',
     nginx_extra_config => "
-      location /government/admin {
-        rewrite ^ https://whitehall-admin.${vhost_suffix}\$request_uri? permanent;
-      }
       location /government/assets {
         ${asset_config_in_platform}
       }
