@@ -34,7 +34,7 @@ class mysql::server::monitoring ($root_password) {
   }
 
   @@nagios::check { "check_mysql_max_connections_${::hostname}":
-    check_command       => 'check_ganglia_metric!mysql_max_used_connections!100!150',
+    check_command       => 'check_ganglia_metric!mysql_max_used_connections!180!200',
     service_description => "mysql high max conn",
     host_name           => $::fqdn,
   }
