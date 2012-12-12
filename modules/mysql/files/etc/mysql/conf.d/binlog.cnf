@@ -1,0 +1,2 @@
+[mysqld]
+log-bin = mysql-bin
