@@ -11,8 +11,6 @@ class backup::offsite {
   file { '/usr/local/bin/offsite-backup':
     ensure => present,
     source => 'puppet:///modules/backup/usr/local/bin/offsite-backup',
-    owner  => 'root',
-    group  => 'root',
     mode   => '0755',
   }
 
