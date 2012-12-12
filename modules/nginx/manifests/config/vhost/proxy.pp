@@ -5,6 +5,7 @@ define nginx::config::vhost::proxy(
   $extra_app_config = '',
   $health_check_path = 'NOTSET',
   $health_check_port = 'NOTSET',
+  $intercept_errors = false,
   $platform = $::govuk_platform,
   $protected = true,
   $root = "/data/vhost/${title}/current/public",
