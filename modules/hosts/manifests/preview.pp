@@ -45,6 +45,12 @@ class hosts::preview {
   host { "canary-frontend.${app_domain}":        ip => '10.58.253.150' }
   host { "travel-advice-frontend.${app_domain}": ip => '10.58.253.150' }
 
+  host { "datainsight-format-success-recorder.${app_domain}":  ip => '10.32.49.43' }
+  host { "datainsight-insidegov-recorder.${app_domain}":       ip => '10.32.49.43' }
+  host { "datainsight-narrative-recorder.${app_domain}":       ip => '10.32.49.43' }
+  host { "datainsight-todays-activity-recorder.${app_domain}": ip => '10.32.49.43' }
+  host { "datainsight-weekly-reach-recorder.${app_domain}":    ip => '10.32.49.43' }
+
   host { "whitehall-frontend.${app_domain}":   ip => '10.49.105.155' }
   host { "whitehall.${app_domain}":            ip => '10.49.105.155' }
   host { 'whitehall.cluster':                           ip => '10.49.105.155' }
