@@ -2,6 +2,13 @@ class govuk_node::backup {
     include govuk_node::base
     include backup::server
 
+    $offsite_backup = extlookup('offsite-backups', 'off')
+
+    case $offsite_backup {
+      "on":    { include backup::offsite }
+      default: {}
+    }
+
     backup::directory {'backup_mongodb_backups_mongo':
         directory => '/var/lib/automongodbbackup/',
         host_name => 'mongo-1',

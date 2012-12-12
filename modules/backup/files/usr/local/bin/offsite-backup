@@ -1,0 +1,27 @@
+#!/bin/bash
+
+GPG_KEY='05119BA4'
+
+BKP_DIR="/data/backups/"
+MYSQL_BKP="/var/lib/automysqlbackup/daily.tar"
+MONGO_BKP="/var/lib/automongodbbackup/latest"
+
+LIC_HOST="licensify-mongo-1.licensify.production"
+MONDB_HOST="mongo-1.backend.production"
+MYDB_HOST="mysql-slave-1.backend.production"
+EFGMYDB_HOST="efg-mysql-slave-1.efg.production"
+
+TAR_OPTS="cf -"
+TAR_OPTS="$TAR_OPTS ${BKP_DIR}${MONDB_HOST}${MONGO_BKP}"
+TAR_OPTS="$TAR_OPTS ${BKP_DIR}${MYDB_HOST}${MYSQL_BKP}"
+TAR_OPTS="$TAR_OPTS ${BKP_DIR}${EFGMYDB_HOST}${MYSQL_BKP}"
+# The following line can be uncommented when Tony says it is OK
+# to copy the Licensify Backups offsite
+# TAR_OPTS="$TAR_OPTS ${BKP_DIR}${LIC_HOST}${MONGO_BKP}"
+
+GPG_OPTS="--encrypt -r ${GPG_KEY}"
+DEST="offsite-backup.production.alphagov.co.uk"
+FILENAME="govuk-backup-$(date +%Y%m%d).tar.gpg"
+
+gpg --recv-keys $GPG_KEY
+tar $TAR_OPTS | gpg $GPG_OPTS | ssh $DEST "cat > $FILENAME"
