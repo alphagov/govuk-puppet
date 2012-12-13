@@ -58,11 +58,11 @@ class akamai_logs {
     matches => "/var/log/akamai/*.log"
   }
 
-  nagios::plugin { "check_akamai_logs"
+  @nagios::plugin { "check_akamai_logs"
     content => template("akamai_logs/check_akamai_logs.sh.erb")
   }
 
-  nagios::nrpe_config { "check_akamai_logs"
+  @nagios::nrpe_config { "check_akamai_logs"
     content => "command[check_akamai_logs]=/usr/lib/nagios/plugins/check_akamai_logs"
   }
 
