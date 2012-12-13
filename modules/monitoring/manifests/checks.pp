@@ -149,7 +149,7 @@ class monitoring::checks {
   nagios::check { 'check_wildcard_cert_valid':
     check_command       => "check_ssl_cert!signon.${app_domain}!30",
     use                 => 'govuk_normal_priority',
-    service_description => "check the *.${app_domain} SSL certificate is valid and not due to expire",
+    service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
     host_name           => $::fqdn,
   }
   # END ssl certificate checks
