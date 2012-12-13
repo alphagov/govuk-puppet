@@ -18,10 +18,6 @@ You need to create a sql dump for all databases from the master:
 
 The command will prompt for the root password.
 
-Get the binary file and binary log position by executing 
-SHOW MASTER STATUS;
-
-
 Source: http://dev.mysql.com/doc/refman/5.1/en/replication-howto-mysqldump.html
 
 ## Slave
@@ -30,7 +26,13 @@ Now you need to restore the dump to the slave- you can confirm the password in c
 
     mysql -uroot -p < dump.sql
 
-Then you need to set the replication on the slave
+Find the binary log file and position from the dump:
+
+    head -n30 dump.sql | grep -i log_file
+
+Then you need to set the replication on the slave, replacing the
+password with the replica_user password, and the master_log_file and
+master_log_pos with the fields found from the above grep.
 
     STOP SLAVE;
     CHANGE MASTER TO
