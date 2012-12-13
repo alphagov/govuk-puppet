@@ -58,5 +58,19 @@ class akamai_logs {
     matches => "/var/log/akamai/*.log"
   }
 
+  @nagios::plugin { "check_akamai_logs"
+    content => template("akamai_logs/check_akamai_logs.sh.erb")
+  }
+
+  @nagios::nrpe_config { "check_akamai_logs"
+    content => "command[check_akamai_logs]=/usr/lib/nagios/plugins/check_akamai_logs"
+  }
+
+  @@nagios::check { "check_akamai_logs_${::hostname}"
+    check_command       => 'check_nrpe_1arg!check_akamai_logs',
+    service_description => "no recently fetched akamai logs",
+    host_name           => $::fqdn
+  }
+
   include akamai_logs::log_scanner
 }
