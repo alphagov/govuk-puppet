@@ -21,6 +21,9 @@ class monitoring {
 
   include govuk::htpasswd
 
+  # Include monitoring-server-only checks
+  include monitoring::checks
+
   $platform = $::govuk_platform
   $domain = extlookup('app_domain')
   $vhost = "monitoring.${domain}"
