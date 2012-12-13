@@ -28,7 +28,7 @@ Source: http://dev.mysql.com/doc/refman/5.1/en/replication-howto-mysqldump.html
 
 Now you need to restore the dump to the slave- you can confirm the password in common.csv
 
-    mysql  -root -p < dump.sql
+    mysql -uroot -p < dump.sql
 
 Then you need to set the replication on the slave
 
