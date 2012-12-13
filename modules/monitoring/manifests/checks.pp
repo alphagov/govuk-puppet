@@ -145,6 +145,15 @@ class monitoring::checks {
     host_name           => $::fqdn,
   }
 
+  # START ssl certificate checks
+  nagios::check { 'check_wildcard_cert_valid':
+    check_command       => "check_ssl_cert!signon.${app_domain}!30",
+    use                 => 'govuk_normal_priority',
+    service_description => "check the *.${app_domain} SSL certificate is valid and not due to expire",
+    host_name           => $::fqdn,
+  }
+  # END ssl certificate checks
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
