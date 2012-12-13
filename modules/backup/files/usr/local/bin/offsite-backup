@@ -19,7 +19,7 @@ TAR_OPTS="$TAR_OPTS ${BKP_DIR}${EFGMYDB_HOST}${MYSQL_BKP}"
 # to copy the Licensify Backups offsite
 # TAR_OPTS="$TAR_OPTS ${BKP_DIR}${LIC_HOST}${MONGO_BKP}"
 
-GPG_OPTS="-q --yes --batch --trust-model always --encrypt -r ${GPG_KEY}"
+GPG_OPTS="-q --yes --batch --trust-model always --cipher-algo AES256 --encrypt -r ${GPG_KEY}"
 DEST="offsite-backup.production.alphagov.co.uk"
 FILENAME="govuk-backup-$(date +%Y%m%d).tar.gpg"
 SSH_OPTS="-C -o VisualHostKey=no"
