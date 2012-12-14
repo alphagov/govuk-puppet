@@ -21,4 +21,4 @@ check_syntax () {
 
 check_syntax "$@" 2>&1 | grep -vF 'storeconfigs being set'
 
-exit $(<"$status")
+exit $(cat "$status")
