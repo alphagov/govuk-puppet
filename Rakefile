@@ -29,6 +29,15 @@ def get_modules
   end
 end
 
+desc "Check for puppet syntax errors"
+task :syntax do
+  $stderr.puts '---> Checking puppet syntax'
+
+  sh("tools/puppet-syntax modules manifests") do |ok, res|
+    fail 'ERROR: puppet syntax errors' unless ok
+  end
+end
+
 desc "Run puppet-lint on one or more modules"
 task :lint do
   manifests_to_lint = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]
@@ -94,4 +103,4 @@ end
 desc "Run all tests"
 task :test => [:spec, :nagios_checks, :custom]
 
-task :default => [:lint, :test]
+task :default => [:syntax, :lint, :test]
