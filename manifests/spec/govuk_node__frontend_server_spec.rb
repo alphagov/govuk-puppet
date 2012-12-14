@@ -4,7 +4,6 @@ describe 'govuk_node::frontend_server', :type => :class do
   context 'in preview' do
     let(:facts) { { :govuk_class => "frontend", :govuk_platform => 'preview' } }
     it do
-      should_not raise_error(Puppet::ParseError)
       should include_class('govuk::apps::frontend')
       should include_class('govuk::apps::static')
     end
@@ -15,7 +14,6 @@ describe 'govuk_node::frontend_server', :type => :class do
   context 'in production' do
     let(:facts) { { :govuk_class => "frontend", :govuk_platform => 'production' } }
     it do
-      should_not raise_error(Puppet::ParseError)
       should include_class('govuk::apps::frontend')
       should include_class('govuk::apps::static')
     end

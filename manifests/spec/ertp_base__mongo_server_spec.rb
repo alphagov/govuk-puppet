@@ -6,7 +6,6 @@ require_relative '../../spec_helper'
     let(:facts) { { :govuk_class => "ertp-mongo", :govuk_platform => environment } }
     it do
       should create_package("mongodb20-10gen")
-      should_not raise_error(Puppet::ParseError)
     end
   end
 }
