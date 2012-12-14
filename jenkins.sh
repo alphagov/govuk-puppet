@@ -3,7 +3,7 @@ set -ex
 
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 
-bundle exec rake test
+bundle exec rake syntax test
 RESULT=$?
 
 mkdir -p build
