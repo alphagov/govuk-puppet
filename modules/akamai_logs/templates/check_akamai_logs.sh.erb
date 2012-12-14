@@ -1,14 +1,14 @@
-#! /usr/bin/env bash
+#!/bin/sh
 #
 # Check that we have recent downloads.
 
 # Count the number of log files less than a day old that are over 10M in size
 num_files=$(find <%= @local_logs_dir %>/logs -name 'gdslog*.gz' -mtime -1 -size +10M | wc -l)
 
-if [$num_files -lt 2]; then
-	echo "ERROR: Fewer downloaded Akamai logs than expected."
-	exit(2)
+if [ "$num_files" -lt "2" ]; then
+  echo "ERROR: Fewer downloaded Akamai logs than expected."
+  exit 2
 else
-	echo "OK"
-	exit(0)
+  echo "OK"
+  exit 0
 fi
