@@ -6,7 +6,6 @@ describe 'govuk_node::backend_server', :type => :class do
     it do
       should include_class('govuk::apps::panopticon')
       should include_class('govuk::apps::search')
-      should_not contain_apache2__vhost__passenger('panopticon.preview.alphagov.co.uk')
     end
   end
 
@@ -18,7 +17,6 @@ describe 'govuk_node::backend_server', :type => :class do
     it do
       should include_class('govuk::apps::panopticon')
       should include_class('govuk::apps::search')
-      should_not contain_apache2__vhost__passenger('panopticon.production.alphagov.co.uk')
     end
   end
 end
