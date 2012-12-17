@@ -1,0 +1,9 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+cd ..
+
+bundle install --quiet
+
+# Filter warnings about 'storeconfigs' not being set -- we don't currently
+# attempt to test stored config configuration on the dev vm
+exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp "$@" | egrep -v "warning:.+storeconfigs"
