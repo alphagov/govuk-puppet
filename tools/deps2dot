@@ -31,6 +31,10 @@ MODULES=$(ls -d */ | tr -d /)
 
 
 echo "digraph G {"
+echo "  overlap=prism;"
+echo "  bgcolor=transparent;"
+echo "  rankdir=TB;"
+echo "  splines=true;"
 
 for mod in $MODULES; do
   {
