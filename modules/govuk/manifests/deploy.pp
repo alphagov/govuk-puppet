@@ -26,6 +26,10 @@ class govuk::deploy {
     ensure => directory,
   }
 
+  file { '/var/lib/govuk':
+    ensure => directory,
+  }
+
   file { '/data':
     ensure  => directory,
     owner   => 'deploy',
