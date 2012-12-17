@@ -3,6 +3,7 @@ cd "$(dirname "$0")"
 cd ..
 
 bundle install --quiet
+bundle exec librarian-puppet install --quiet
 
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
 # attempt to test stored config configuration on the dev vm

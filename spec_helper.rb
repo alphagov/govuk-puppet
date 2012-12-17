@@ -88,3 +88,15 @@ RSpec.configure do |c|
     })
   end
 end
+
+# TODO: insert snotty comment complaining about rspec-puppet and the
+# need for monkey-patching here
+module RSpec::Puppet
+  module Support
+    alias_method :real_build_catalog, :build_catalog
+    def build_catalog (nodename, fact_val, code)
+      Puppet[:modulepath] = File.join(HERE, 'modules') + ':' + File.join(HERE, 'vendor', 'modules')
+      real_build_catalog(nodename,fact_val,code)
+    end
+  end
+end
