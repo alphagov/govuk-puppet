@@ -39,7 +39,7 @@ class govuk_node::base {
 
   case $::govuk_provider {
     'sky': {
-      include ufw::govuk
+      include govuk::firewall
       include harden
       include apt_cacher::client
 

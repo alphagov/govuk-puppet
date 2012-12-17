@@ -18,6 +18,7 @@ class development {
   include fonts
 
   include govuk::deploy
+  include govuk::firewall
   include govuk::repository
   include govuk::testing_tools
 
@@ -52,7 +53,7 @@ class development {
   include govuk::apps::tariff_api
   include govuk::apps::travel_advice_frontend
   include govuk::apps::travel_advice_publisher
-  include govuk::apps::whitehall_admin
+  # include govuk::apps::whitehall_admin
   include govuk::apps::whitehall_frontend
 
   include datainsight::config::google_oauth
