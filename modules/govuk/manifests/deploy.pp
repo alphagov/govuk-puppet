@@ -61,6 +61,17 @@ class govuk::deploy {
     }
   }
 
+  $deploy_user_data_sync_key = extlookup('deploy_user_data_sync_key', 'NONE')
+
+  if $deploy_user_data_sync_key != 'NONE' {
+    ssh_authorized_key { 'data_sync_key':
+      ensure  => present,
+      key     => $deploy_user_data_sync_key,
+      type    => 'ssh-rsa',
+      user    => 'deploy',
+    }
+  }
+
   file { '/etc/govuk/unicorn.rb':
     ensure  => present,
     source  => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
