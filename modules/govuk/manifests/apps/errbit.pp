@@ -1,4 +1,4 @@
-class govuk::apps::errbit( $port = 3034 ) {
+class govuk::apps::errbit( $port = 3029 ) {
   govuk::app { 'errbit':
     app_type          => 'rack',
     port              => $port,
