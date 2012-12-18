@@ -1,6 +1,11 @@
-class ufw::govuk {
+class govuk::firewall {
 
   include ufw
+
+  # Collect all virtual ufw rules
+  Ufw::Allow <| |>
+  Ufw::Deny <| |>
+  Ufw::Limit <| |>
 
   # The rules in this module are based on an audit of all ports listening
   # for our EC2 Preview and Production infrastructure. The CSV describing all
@@ -15,7 +20,6 @@ class ufw::govuk {
   #         grep -v "127.0.0.1:" | sed 's:0.0.0.0\:\*::g' |\
   #         sed "s: [0-9]*/::g" | cut -d: -f2 | sort | uniq -c |\
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
-
 
   # SSH Connections
   ufw::allow { "allow-ssh-from-all":
@@ -89,6 +93,7 @@ class ufw::govuk {
   ufw::allow { "allow-puppetdb-from-all":
     port => 9292,
   }
+
   # Puppet clients
   ufw::allow { "allow-facter-from-all":
     port => 9294,
