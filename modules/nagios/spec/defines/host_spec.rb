@@ -3,7 +3,6 @@ require_relative '../../../../spec_helper'
 describe 'nagios::host', :type => :define do
   let(:title) { 'bruce-forsyth' }
   let(:facts) {{
-      "govuk_class" => "test_class",
       "hostname"    => "test_host",
       "fqdn"        => "test_host.blah.blah"
   }}
