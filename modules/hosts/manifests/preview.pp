@@ -29,6 +29,7 @@ class hosts::preview {
   host { "contentapi.${app_domain}":              ip => '10.228.95.176' }
   host { "canary-backend.${app_domain}":          ip => '10.228.95.176' }
   host { "travel-advice-publisher.${app_domain}": ip => '10.228.95.176' }
+  host { "release.${app_domain}":                 ip => '10.228.95.176' }
 
   host { "search.${app_domain}":                 ip => '10.228.95.176' }
   host { "calendars.${app_domain}":              ip => '10.58.253.150' }

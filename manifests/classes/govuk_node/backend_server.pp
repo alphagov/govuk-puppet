@@ -26,6 +26,8 @@ class govuk_node::backend_server inherits govuk_node::base {
   include govuk::apps::search
   include govuk::apps::need_o_tron
   include govuk::apps::migratorator
+  include govuk::apps::release
+
   class {'govuk::apps::frontend':
     protected => true,
   }
