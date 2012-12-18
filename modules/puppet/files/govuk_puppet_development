@@ -1,6 +1,2 @@
 #!/bin/sh
-cd /var/govuk/puppet
-
-# Filter warnings about 'storeconfigs' not being set -- we don't currently
-# attempt to test stored config configuration on the dev vm
-exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp "$@" | egrep -v "warning:.+storeconfigs"
+exec sh /var/govuk/puppet/tools/puppet-apply-dev "$@"

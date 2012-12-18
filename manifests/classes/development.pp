@@ -122,7 +122,6 @@ class development {
     'linecache19':    ensure => 'installed', provider => gem;
     'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];
     'rails':          ensure => 'installed', provider => gem;
-    'passenger':      ensure => 'installed', provider => gem;
     'wbritish-small': ensure => installed;
   }
 

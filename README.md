@@ -4,21 +4,42 @@ This repository contains the puppet modules and manifests for GOV.UK related pro
 
 ## Getting started
 
-In order to run/test the Puppet manifests you will need Ruby and Puppet. Running under Ruby other than 1.9.x may work but is unsupported.
+In order to run/test the Puppet manifests you will need Ruby 1.9.x and
+Bundler.
 
-Dependencies are managed with Bundler. Just run `bundle install` and you should be good to go.
+Dependencies are managed with [Bundler](http://gembundler.com/) and
+[librarian-puppet](http://librarian-puppet.com/), but hopefully this should be
+transparent unless you need to update the dependencies yourself.
+
+If you wish to apply the Puppet manifests on the current machine (currently
+only advisable if you're on an Ubuntu 10.04 machine) you can run
+
+    $ ./tools/puppet-apply-dev
+
+If you're on a GOV.UK development VM, you should be able to run
+
+    $ govuk_puppet
+
+which is a thin wrapper around the `puppet-apply-dev` script.
 
 ## Standards
 
-Please familiarise yourself with [our Puppet style guide][style] before contributing to this repository.
+Please familiarise yourself with [our Puppet style guide][style] before
+contributing to this repository.
 
 [style]: https://github.com/alphagov/styleguides/blob/master/puppet.md
 
 ## Testing
 
-Run the tests with the provider wrapper around rake:
+If you haven't already run `puppet-apply-dev` you'll need to ensure that the
+manifest dependencies are up to date:
 
-    bundle exec rake test
+    $ bundle install
+    $ bundle exec librarian-puppet install
+
+Run the tests:
+
+    $ bundle exec rake
 
 The manifest tests are located in `manifests/spec` and some individual modules
 have tests in `modules/<module>/spec`. See the [RSpec
@@ -31,15 +52,11 @@ to well written Puppet code. It can be run with:
 
     bundle exec rake lint
 
-This outputs a set of errors or warnings that should be fixed. See the
-[Puppet Style Guide](http://docs.puppetlabs.com/guides/style_guide.html)
-for more information.
+This outputs a set of errors or warnings that should be fixed. See the [Puppet
+Style Guide](http://docs.puppetlabs.com/guides/style_guide.html) for more
+information.
 
 [pl]: https://github.com/rodjek/puppet-lint
-
-You can also run both tests and lint checks with the default rake task:
-
-    bundle exec rake
 
 ### Scoped testing
 

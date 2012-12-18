@@ -1,0 +1,7 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    ripienaar/concat (0.2.0)
+
+DEPENDENCIES
+  ripienaar/concat (>= 0)
