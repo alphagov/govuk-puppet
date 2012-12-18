@@ -1,4 +1,4 @@
-class govuk_node::support_server inherits govuk_node::base {
+class govuk::node::support_server inherits govuk::node::base {
   include solr
   include apollo
   include apt_cacher::server

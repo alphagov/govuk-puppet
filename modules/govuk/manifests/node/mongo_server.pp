@@ -1,4 +1,4 @@
-class govuk_node::mongo_server inherits govuk_node::base {
+class govuk::node::mongo_server inherits govuk::node::base {
   include mongodb::server
 
   case $::govuk_provider {

@@ -1,6 +1,6 @@
-class govuk_node::frontend_server inherits govuk_node::base {
+class govuk::node::frontend_server inherits govuk::node::base {
 
-  include govuk_node::ruby_app_server
+  include govuk::node::ruby_app_server
 
   include govuk::apps::datainsight_frontend
   include govuk::apps::tariff

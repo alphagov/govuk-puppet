@@ -1,5 +1,5 @@
-class govuk_node::licensify_load_balancer {
-  include govuk_node::base
+class govuk::node::licensify_load_balancer {
+  include govuk::node::base
 
   include haproxy
   include loadbalancer::cron

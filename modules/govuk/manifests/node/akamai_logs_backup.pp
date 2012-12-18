@@ -1,4 +1,4 @@
-class govuk_node::akamai_logs_backup inherits govuk_node::base {
+class govuk::node::akamai_logs_backup inherits govuk::node::base {
   $user = 'logkeeper'
 
   user { $user:

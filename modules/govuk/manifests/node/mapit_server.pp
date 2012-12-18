@@ -1,4 +1,4 @@
-class govuk_node::mapit_server inherits govuk_node::base {
+class govuk::node::mapit_server inherits govuk::node::base {
 
   include postgres
   include postgres::postgis

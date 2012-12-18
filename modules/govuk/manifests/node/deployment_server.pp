@@ -1,4 +1,4 @@
-class govuk_node::deployment_server inherits govuk_node::base {
+class govuk::node::deployment_server inherits govuk::node::base {
   include jenkins::master
 
   # Close connection if vhost not known

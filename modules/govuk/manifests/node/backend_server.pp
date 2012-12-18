@@ -1,5 +1,5 @@
-class govuk_node::backend_server inherits govuk_node::base {
-  include govuk_node::ruby_app_server
+class govuk::node::backend_server inherits govuk::node::base {
+  include govuk::node::ruby_app_server
 
   package { 'graphviz':
     ensure => installed

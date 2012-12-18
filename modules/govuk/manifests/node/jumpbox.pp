@@ -1,4 +1,4 @@
-class govuk_node::jumpbox inherits govuk_node::base {
+class govuk::node::jumpbox inherits govuk::node::base {
 
   include fabric
 

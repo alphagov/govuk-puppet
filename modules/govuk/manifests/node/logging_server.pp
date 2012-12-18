@@ -1,4 +1,4 @@
-class govuk_node::logging_server inherits govuk_node::base {
+class govuk::node::logging_server inherits govuk::node::base {
   include nagios::client
   include nginx
 

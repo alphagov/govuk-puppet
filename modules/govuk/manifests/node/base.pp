@@ -1,4 +1,4 @@
-class govuk_node::base {
+class govuk::node::base {
   include ::base
   include backup::client
   include hosts

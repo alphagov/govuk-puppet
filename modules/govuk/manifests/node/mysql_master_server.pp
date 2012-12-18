@@ -1,4 +1,4 @@
-class govuk_node::mysql_master_server inherits govuk_node::base {
+class govuk::node::mysql_master_server inherits govuk::node::base {
   $root_password = extlookup('mysql_root', '')
   $replica_password = extlookup('mysql_replica_password', '')
 
