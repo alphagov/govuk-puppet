@@ -1,6 +1,6 @@
-require_relative '../../spec_helper'
+require_relative '../../../../spec_helper'
 
-describe 'govuk_node::frontend_server', :type => :class do
+describe 'govuk::node::s_frontend', :type => :class do
   context 'in preview' do
     let(:facts) { { :govuk_class => "frontend", :govuk_platform => 'preview' } }
     it do
