@@ -1,3 +1,13 @@
+# == Class: puppet::master
+#
+# Install and configure a puppet master served by nginx and unicorn.
+#
+# === Parameters
+#
+# [*unicorn_port*]
+#   Specify the port on which unicorn (and hence the puppetmaster) should
+#   listen.
+#
 class puppet::master($unicorn_port='9090') {
   include puppet::repository
   include nginx
@@ -18,7 +28,11 @@ class puppet::master($unicorn_port='9090') {
     notify       => Class['puppet::master::service'],
   }
   class{'puppet::master::service':
-    notify  => Anchor['puppet::master::end'],
+    # This subscribe is here because /etc/puppet/puppet.conf is currently
+    # provided by a manifest separate from puppet::master::*. TODO: move
+    # master puppet.conf into the configuration of the puppetmaster.
+    subscribe => File['/etc/puppet/puppet.conf'],
+    notify    => Anchor['puppet::master::end'],
   }
   anchor {'puppet::master::end': }
 }
