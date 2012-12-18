@@ -1,4 +1,4 @@
-class govuk_node::asset_master inherits govuk_node::asset_base {
+class govuk::node::asset_master inherits govuk::node::asset_base {
 
   cron { 'virus-check':
     ensure    => 'absent',

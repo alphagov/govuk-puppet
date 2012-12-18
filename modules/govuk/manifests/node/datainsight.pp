@@ -1,7 +1,7 @@
-class govuk_node::datainsight inherits govuk_node::base {
+class govuk::node::datainsight inherits govuk::node::base {
 
   include nginx
-  include govuk_node::ruby_app_server
+  include govuk::node::ruby_app_server
 
   include rabbitmq
 

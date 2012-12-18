@@ -1,8 +1,8 @@
-class govuk_node::management_server {
+class govuk::node::management_server {
   include apt
   include ssh
 
-  include govuk_node::ruby_app_server
+  include govuk::node::ruby_app_server
 
   include govuk::deploy
   include govuk::testing_tools

@@ -1,4 +1,4 @@
-class govuk_node::ruby_app_server {
+class govuk::node::ruby_app_server {
   include mysql::client
   include nodejs
   include bundler

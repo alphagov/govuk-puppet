@@ -1,4 +1,4 @@
-class govuk_node::cache_server inherits govuk_node::base {
+class govuk::node::cache_server inherits govuk::node::base {
 
   include govuk::htpasswd
   include mirror

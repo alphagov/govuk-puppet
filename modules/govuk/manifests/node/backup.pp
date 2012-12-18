@@ -1,5 +1,5 @@
-class govuk_node::backup {
-    include govuk_node::base
+class govuk::node::backup {
+    include govuk::node::base
     include backup::server
 
     $offsite_backup = extlookup('offsite-backups', 'off')

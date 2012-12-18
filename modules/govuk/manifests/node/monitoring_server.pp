@@ -1,4 +1,4 @@
-class govuk_node::monitoring_server inherits govuk_node::base {
+class govuk::node::monitoring_server inherits govuk::node::base {
 
   include monitoring
 

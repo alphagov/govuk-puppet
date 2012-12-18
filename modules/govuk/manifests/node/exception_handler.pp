@@ -1,4 +1,4 @@
-class govuk_node::exception_handler inherits govuk_node::base {
+class govuk::node::exception_handler inherits govuk::node::base {
   include mongodb::server
 
   $mongo_hosts = ['localhost']

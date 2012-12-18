@@ -1,4 +1,4 @@
-class govuk_node::asset_slave inherits govuk_node::asset_base {
+class govuk::node::asset_slave inherits govuk::node::asset_base {
 
   include lockrun
   include users::assets

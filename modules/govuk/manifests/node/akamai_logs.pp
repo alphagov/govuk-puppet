@@ -1,3 +1,3 @@
-class govuk_node::akamai_logs inherits govuk_node::base {
+class govuk::node::akamai_logs inherits govuk::node::base {
   class { '::akamai_logs': }
 }

@@ -1,5 +1,5 @@
 # This is not the redirector app, it handles redirects from alphagov to GOV.UK
-class govuk_node::redirect_server inherits govuk_node::base {
+class govuk::node::redirect_server inherits govuk::node::base {
   include nginx
   nginx::config::vhost::redirect {
     'gov.uk':

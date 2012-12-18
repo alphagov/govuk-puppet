@@ -1,5 +1,5 @@
-class govuk_node::efg_frontend_server inherits govuk_node::base {
-  include govuk_node::ruby_app_server
+class govuk::node::efg_frontend_server inherits govuk::node::base {
+  include govuk::node::ruby_app_server
 
   include govuk::apps::efg
 

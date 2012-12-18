@@ -1,4 +1,4 @@
-class govuk_node::puppetmaster inherits govuk_node::base {
+class govuk::node::puppetmaster inherits govuk::node::base {
   class {'puppet::master':
     subscribe => Class['ruby::rubygems'],
   }

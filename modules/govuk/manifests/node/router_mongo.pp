@@ -1,4 +1,4 @@
-class govuk_node::router_mongo inherits govuk_node::base {
+class govuk::node::router_mongo inherits govuk::node::base {
   # this is a newly defined node, so they will not be present on aws
   include mongodb::server
 

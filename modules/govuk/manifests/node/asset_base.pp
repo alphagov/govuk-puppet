@@ -1,4 +1,4 @@
-class govuk_node::asset_base inherits govuk_node::base {
+class govuk::node::asset_base inherits govuk::node::base {
   include clamav
   include users::assets
 

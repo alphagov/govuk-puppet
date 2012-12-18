@@ -1,2 +1,2 @@
-class govuk_node::db_server inherits govuk_node::base {
+class govuk::node::db_server inherits govuk::node::base {
 }
