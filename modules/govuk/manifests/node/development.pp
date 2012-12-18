@@ -1,4 +1,4 @@
-class development {
+class govuk::node::development {
   include base
 
   include apollo
