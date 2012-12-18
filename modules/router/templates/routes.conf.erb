@@ -30,63 +30,92 @@ auth_basic_user_file  /etc/govuk.htpasswd;
 satisfy any;
 <%- end -%>
 
-# These redirects to external URLs are a last resort for any given problem. Any additions should be cleared with Etienne
-# They are recorded here as well for those without access to GitHub
-# https://docs.google.com/a/digital.cabinet-office.gov.uk/document/d/1DJeKKnhmfQVJWhlwn0M7R5hSFy7t0kz-VJn2FqNSc7Y/edit
-rewrite ^/cloudstore/?$ http://gcloud.civilservice.gov.uk/cloudstore/;
-rewrite ^/digitalstrategy/?$ http://publications.cabinetoffice.gov.uk/digital/;
-rewrite ^/performance/transactional-services/?$ http://transactionalservices.alphagov.co.uk/;
-rewrite ^/support/internal/?$ https://support.<%= @app_domain %>/;
+<%
+external_redirects = {
+  # These redirects to external URLs are a last resort for any given problem.
+  # Any additions should be cleared with Etienne. They are recorded here as
+  # well for those without access to GitHub:
+  # https://docs.google.com/a/digital.cabinet-office.gov.uk/document/d/1DJeKKnhmfQVJWhlwn0M7R5hSFy7t0kz-VJn2FqNSc7Y/edit
+  '/cloudstore'                         => 'http://gcloud.civilservice.gov.uk/cloudstore/',
+  '/digitalstrategy'                    => 'http://publications.cabinetoffice.gov.uk/digital/',
+  '/performance/transactional-services' => 'http://transactionalservices.alphagov.co.uk/',
+  '/support/internal'                   => "https://support.#{@app_domain}/",
+}
 
-# These rewrites (FURLS) are for the purposes of URL Shortening. As of 2012-11-14 the process for adding this has not yet been clarified. If in doubt, check with your Tech Arch.
-# The greendeal redirects were added at the request of Tom L and approved by James T - please see me (carl) if there are issues
-rewrite ^/studentfinance/?$ /student-finance permanent;
-rewrite ^/jobsearch/?$ /jobs-jobsearch permanent;
-rewrite ^/greendeal/?$ /green-deal-energy-saving-measures permanent;
-rewrite ^/green-deal/?$ /green-deal-energy-saving-measures permanent;
-rewrite ^/greendealcashback/?$ /green-deal-energy-saving-measures/cashback-scheme permanent;   # These currently redirect to a 404 (as of 2012-11-16), but Tom L has requested
-rewrite ^/green-deal-cashback/?$ /green-deal-energy-saving-measures/cashback-scheme permanent; # that we put these live now in order to satisfy TPTB.
-rewrite ^/advancedlearningloans/?$ /24_advanced_learning_loans permanent;
+internal_redirects = {
+  # These rewrites (FURLS) are for the purposes of URL Shortening. As of
+  # 2012-11-14 the process for adding this has not yet been clarified. If in
+  # doubt, check with your Tech Arch.
+  '/advancedlearningloans' => '/24_advanced_learning_loans',
+  '/green-deal'            => '/green-deal-energy-saving-measures',
+  '/green-deal-cashback'   => '/green-deal-energy-saving-measures/cashback-scheme',
+  '/greendeal'             => '/green-deal-energy-saving-measures',
+  '/greendealcashback'     => '/green-deal-energy-saving-measures/cashback-scheme',
+  '/jobsearch'             => '/jobs-jobsearch',
+  '/studentfinance'        => '/student-finance',
 
-# These rewrites are caused by content being relocated. They should be amended by the person moving the content.
-rewrite ^/growing-a-business/?$ /growing-your-business permanent;
-rewrite ^/tell-us-once-report-death/?$ /after-a-death permanent;
-rewrite ^/browse/births-deaths-marriages/registry-offices/?$ /browse/births-deaths-marriages/register-offices permanent;
-rewrite ^/employer-direct-online/?$ /advertise-job permanent;
-rewrite ^/jobseeker-direct/?$ /jobs-jobsearch permanent;
-rewrite ^/arranging-child-maintenance-child-support-agency(/.*)?$ /child-maintenance$1 permanent;
-rewrite ^/childmaintenance(/.*)?$ /child-maintenance$1 permanent;
-rewrite ^/make-child-maintenance-deductions-employee-pay(/.*)?$ /child-maintenance-for-employers$1 permanent;
-rewrite ^/personal-independence-payment/?$ /pip permanent;
-rewrite ^/child-support-agency-employer-helpline/?$ /child-support-agency permanent;
-rewrite ^/calculate-child-maintenance/?$ /calculate-your-child-maintenance permanent;
-# End rewrites
+  # Government department vanity URLs - Inside Government
+  '/ago'                   => '/government/organisations/attorney-generals-office',
+  '/bis'                   => '/government/organisations/department-for-business-innovation-skills',
+  '/brac'                  => '/government/organisations/building-regulations-advisory-committee',
+  '/cabinetoffice'         => '/government/organisations/cabinet-office',
+  '/communities'           => '/government/organisations/department-for-communities-and-local-government',
+  '/dclg'                  => '/government/organisations/department-for-communities-and-local-government',
+  '/defra'                 => '/government/organisations/department-for-environment-food-rural-affairs',
+  '/dfid'                  => '/government/organisations/department-for-international-development',
+  '/dft'                   => '/government/organisations/department-for-transport',
+  '/dh'                    => '/government/organisations/department-of-health',
+  '/dsa'                   => '/government/organisations/driving-standards-agency',
+  '/fco'                   => '/government/organisations/foreign-commonwealth-office',
+  '/hmrc'                  => '/government/organisations/hm-revenue-customs',
+  '/mod'                   => '/government/organisations/ministry-of-defence',
+  '/moj'                   => '/government/organisations/ministry-of-justice',
+  '/pins'                  => '/government/organisations/planning-inspectorate',
+  '/planning-inspectorate' => '/government/organisations/planning-inspectorate',
+  '/transport'             => '/government/organisations/department-for-transport',
 
-### Government department vanity URLs - Inside Government
-<%- {
-    '/ago'                   => '/government/organisations/attorney-generals-office',
-    '/bis'                   => '/government/organisations/department-for-business-innovation-skills',
-    '/brac'                  => '/government/organisations/building-regulations-advisory-committee',
-    '/cabinetoffice'         => '/government/organisations/cabinet-office',
-    '/communities'           => '/government/organisations/department-for-communities-and-local-government',
-    '/dclg'                  => '/government/organisations/department-for-communities-and-local-government',
-    '/defra'                 => '/government/organisations/department-for-environment-food-rural-affairs',
-    '/dfid'                  => '/government/organisations/department-for-international-development',
-    '/dft'                   => '/government/organisations/department-for-transport',
-    '/dh'                    => '/government/organisations/department-of-health',
-    '/dsa'                   => '/government/organisations/driving-standards-agency',
-    '/fco'                   => '/government/organisations/foreign-commonwealth-office',
-    '/hmrc'                  => '/government/organisations/hm-revenue-customs',
-    '/mod'                   => '/government/organisations/ministry-of-defence',
-    '/moj'                   => '/government/organisations/ministry-of-justice',
-    '/pins'                  => '/government/organisations/planning-inspectorate',
-    '/planning-inspectorate' => '/government/organisations/planning-inspectorate',
-    '/transport'             => '/government/organisations/department-for-transport'
-  }.each do |from, to| -%>
-location = <%= from %> {
+  # These rewrites are caused by content being relocated. They should be
+  # amended by the person moving the content.
+  '/browse/births-deaths-marriages/registry-offices' => '/browse/births-deaths-marriages/register-offices',
+  '/calculate-child-maintenance'                     => '/calculate-your-child-maintenance',
+  '/child-support-agency-employer-helpline'          => '/child-support-agency',
+  '/employer-direct-online'                          => '/advertise-job',
+  '/growing-a-business'                              => '/growing-your-business',
+  '/jobseeker-direct'                                => '/jobs-jobsearch',
+  '/personal-independence-payment'                   => '/pip',
+  '/tell-us-once-report-death'                       => '/after-a-death',
+}
+
+prefix_redirects = {
+  # These rewrites are caused by content being relocated. They should be
+  # amended by the person moving the content.
+  '/arranging-child-maintenance-child-support-agency' => '/child-maintenance',
+  '/childmaintenance'                                 => '/child-maintenance',
+  '/make-child-maintenance-deductions-employee-pay'   => '/child-maintenance-for-employers',
+}
+%>
+
+<%- external_redirects.each do |from, to| -%>
+location ~ ^<%= from %>/?$ {
+  expires 1d;
+  add_header cache-control 'public';
+  return 302 <%= to %>;
+}
+<%- end -%>
+
+<%- internal_redirects.each do |from, to| -%>
+location ~ ^<%= from %>/?$ {
   expires 1d;
   add_header cache-control 'public';
   return 301 <%= to %>;
+}
+<%- end -%>
+
+<%- prefix_redirects.each do |from, to| -%>
+location ~ ^<%= from %>($|/.*) {
+  expires 1d;
+  add_header cache-control 'public';
+  return 301 <%= to %>$1;
 }
 <%- end -%>
 
