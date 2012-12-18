@@ -50,7 +50,7 @@ TEST PER FILE.
 [Puppet-lint][pl] is a tool that checks various syntax and style rules common
 to well written Puppet code. It can be run with:
 
-    bundle exec rake lint
+    $ bundle exec rake lint
 
 This outputs a set of errors or warnings that should be fixed. See the [Puppet
 Style Guide](http://docs.puppetlabs.com/guides/style_guide.html) for more
@@ -63,9 +63,9 @@ information.
 You can run the tests for a specific module or modules by setting an
 environment variable, `mods` for the rake task, e.g.
 
-    bundle exec rake mods=nginx,varnish
+    $ bundle exec rake mods=nginx,varnish
 
 The `manifests/` directory is considered one module called `manifests` for
 this purpose.
 
-    bundle exec rake mods=manifests,govuk
+    $ bundle exec rake mods=manifests,govuk
