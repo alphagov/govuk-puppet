@@ -131,7 +131,7 @@ class monitoring::checks {
   }
 
   @@nagios::check { 'check_datainsight_format_success_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/format-success.json 10080",
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'check the endpoint of datainsight format success is updated recently',
     host_name           => $::fqdn,
