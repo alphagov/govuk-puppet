@@ -150,7 +150,7 @@ class monitoring::checks {
     service_description => 'checks if datainsight endpoint for insidegov most entered policies is updated regularly',
     host_name           => $::fqdn,
   }
-  
+
   @@nagios::check { 'check_datainsight_insidegov_content_engagement_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
