@@ -105,38 +105,58 @@ class monitoring::checks {
   @@nagios::check { 'check_datainsight_narrative_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
     use                 => 'govuk_normal_priority',
-    service_description => 'check the endpoint of the datainsight narrative is updated recently',
+    service_description => 'checks if datainsight endpoint for gov.uk narrative is updated regularly',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
     use                 => 'govuk_normal_priority',
-    service_description => 'check the endpoint of datainsight hourly traffic is updated recently',
+    service_description => 'checks if datainsight endpoint for gov.uk hourly traffic is updated regularly',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_datainsight_visits_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
     use                 => 'govuk_normal_priority',
-    service_description => 'check the endpoint of datainsight visits is updated recently',
+    service_description => 'checks if datainsight endpoint for gov.uk visits is updated regularly',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_datainsight_unique_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
     use                 => 'govuk_normal_priority',
-    service_description => 'check the endpoint of datainsight unique visitors is updated recently',
+    service_description => 'checks if datainsight endpoint for gov.uk visitors is updated regularly',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_datainsight_format_success_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
-    service_description => 'check the endpoint of datainsight format success is updated recently',
+    service_description => 'checks if datainsight endpoint for gov.uk content engagement is updated regularly',
     host_name           => $::fqdn,
   }
-  # END datainsight
+
+  @@nagios::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/visitors/weekly.json 10080",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if datainsight endpoint for insidegov visitors is updated regularly',
+    host_name           => $::fqdn,
+  }
+
+  @@nagios::check { 'check_datainsight_insidegov_policies_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/most-entered-policies.json 10080",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if datainsight endpoint for insidegov most entered policies is updated regularly',
+    host_name           => $::fqdn,
+  }
+  
+  @@nagios::check { 'check_datainsight_insidegov_content_engagement_endpoint':
+    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
+    host_name           => $::fqdn,
+  }  # END datainsight
 
   @@nagios::check {'check_mapit_responding':
     check_command       => "check_mapit",
