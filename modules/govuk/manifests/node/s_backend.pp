@@ -26,7 +26,15 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::search
   include govuk::apps::need_o_tron
   include govuk::apps::migratorator
-  include govuk::apps::release
+
+  # The release App should not go to Skyscape yet
+  case $::govuk_provider {
+    'sky':   {}
+    default: {
+      include govuk::apps::release
+    }
+  }
+  # End release App
 
   class {'govuk::apps::frontend':
     protected => true,
