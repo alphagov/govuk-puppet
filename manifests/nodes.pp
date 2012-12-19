@@ -16,7 +16,7 @@ node default {
       ertp-development:   { include ertp_base::development }
       ertp-frontend:      { include ertp_base::frontend_server }
       ertp-mongo:         { include ertp_base::mongo_server }
-      graylog:            { include govuk_node::logging }
+      graylog:            { include govuk::node::s_logging }
       places-api:         { include places_base::api_server }
       places-mongo:       { include places_base::mongo_server }
 
