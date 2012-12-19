@@ -8,5 +8,7 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
     to => "https://whitehall-frontend.${app_domain}/",
   }
 
-  include govuk::apps::whitehall_frontend
+  class { 'govuk::apps::whitehall':
+    configure_frontend => true,
+  }
 }

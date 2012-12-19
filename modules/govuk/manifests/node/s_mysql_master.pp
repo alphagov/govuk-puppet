@@ -26,7 +26,7 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
     user_password => extlookup('mysql_whitehall_frontend', ''),
     db            => 'whitehall_production',
     privileges    => 'SELECT',
-    require       => Class['govuk::apps::whitehall_admin::db'],
+    require       => Class['govuk::apps::whitehall::db'],
   }
 
 }

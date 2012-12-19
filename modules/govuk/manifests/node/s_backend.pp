@@ -18,7 +18,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::panopticon
   include govuk::apps::publisher
   include govuk::apps::tariff_api
-  include govuk::apps::whitehall_admin
   include govuk::apps::support
   include govuk::apps::contentapi
   include govuk::apps::imminence
@@ -26,6 +25,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::search
   include govuk::apps::need_o_tron
   include govuk::apps::migratorator
+  class { 'govuk::apps::whitehall':
+    configure_admin => true,
+    port            => 3026,
+  }
 
   # The release App should not go to Skyscape yet
   case $::govuk_provider {

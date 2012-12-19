@@ -91,8 +91,8 @@ define govuk::app::config (
     # Expose this application from nginx
     govuk::app::nginx_vhost { $title:
       vhost                  => $vhost_full,
-      aliases                => $vhost_aliases,
-      protected              => $vhost_protected,
+      aliases                => $vhost_aliases_real,
+      protected              => $vhost_protected_real,
       app_port               => $port,
       ssl_only               => $vhost_ssl_only,
       nginx_extra_config     => $nginx_extra_config,
