@@ -4,6 +4,9 @@ set -e
 cd "$(dirname "$0")"
 cd ..
 
+# Temporary workaround while dev VMs don't come with git preinstalled
+sudo apt-get install -y -qq git-core
+
 bundle install --quiet
 bundle exec librarian-puppet install --quiet
 
