@@ -1,4 +1,5 @@
 class govuk::apps::whitehall(
+  $vhost = 'whitehall',
   $port = 3020,
   $configure_frontend = false,
   $configure_admin = false,
@@ -6,8 +7,15 @@ class govuk::apps::whitehall(
 
   $app_domain = extlookup('app_domain')
 
+  if $::govuk_platform != 'development' {
+    if $configure_frontend == true and $configure_admin == true {
+      abort "You should not be configuring whitehall-frontend and whitehall-admin on the same node"
+    }
+  }
+
   govuk::app { 'whitehall':
     app_type           => 'rack',
+    vhost              => $vhost,
     port               => $port,
     health_check_path  => '/healthcheck',
     enable_nginx_vhost => false;
