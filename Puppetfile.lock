@@ -11,8 +11,16 @@ FORGE
       maestrodev/wget (>= 0.0.0)
       puppetlabs/gcc (>= 0.0.0)
 
+GIT
+  remote: git://github.com/alphagov/puppet-cpanm.git
+  ref: 5e83403
+  sha: 5e8340368c8badc5c1d0753926ad780b55629dab
+  specs:
+    cpanm (0.0.1)
+
 DEPENDENCIES
   attachmentgenie/ufw (>= 0)
+  cpanm (>= 0)
   puppetlabs/gcc (>= 0)
   ripienaar/concat (>= 0)
   thomasvandoren/redis (>= 0)
