@@ -3,10 +3,17 @@ FORGE
   specs:
     attachmentgenie/ufw (1.0.2)
       puppetlabs/stdlib (>= 2.2.1)
+    maestrodev/wget (1.0.0)
+    puppetlabs/gcc (0.0.3)
     puppetlabs/stdlib (3.2.0)
     ripienaar/concat (0.2.0)
+    thomasvandoren/redis (0.0.9)
+      maestrodev/wget (>= 0.0.0)
+      puppetlabs/gcc (>= 0.0.0)
 
 DEPENDENCIES
   attachmentgenie/ufw (>= 0)
+  puppetlabs/gcc (>= 0)
   ripienaar/concat (>= 0)
+  thomasvandoren/redis (>= 0)
 
