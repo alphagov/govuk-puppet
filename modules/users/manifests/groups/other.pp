@@ -10,4 +10,9 @@ class users::groups::other {
     email    => 'chris@thinkcodelearn.com';
   }
 
+  govuk::user { 'murraysteele':
+    fullname => 'Murray Steele',
+    email    => 'murray.steele@digital.cabinet-office.gov.uk';
+  }
+
 }

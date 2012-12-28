@@ -1,5 +1,5 @@
 class elms_base::mongo_server {
-  include govuk_node::base
+  include govuk::node::s_base
   include ecryptfs
   include mongodb::server
   include java::openjdk6::jre
@@ -33,7 +33,7 @@ class elms_base::mongo_server {
 }
 
 class elms_base::frontend_server {
-  include govuk_node::base
+  include govuk::node::s_base
   include clamav
   include java::openjdk6::jre
 
@@ -44,7 +44,7 @@ class elms_base::frontend_server {
 }
 
 class elms_base::sky_frontend_server {
-  include govuk_node::base
+  include govuk::node::s_base
   include clamav
   include java::openjdk6::jre
 
@@ -53,7 +53,7 @@ class elms_base::sky_frontend_server {
 }
 
 class elms_base::sky_backend_server {
-  include govuk_node::base
+  include govuk::node::s_base
   include clamav
   include java::openjdk6::jre
 

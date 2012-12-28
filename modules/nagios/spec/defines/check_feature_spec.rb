@@ -4,7 +4,6 @@ describe 'nagios::check_feature', :type => :define do
   let(:title) { 'check_test_feature' }
   let(:pre_condition) {  'nagios::host{"test_host.blah.blah":}' }
   let(:facts) {{
-    "govuk_class" => "test_class",
     "hostname"    => "test_host",
     "fqdn"        => "test_host.blah.blah"
   }}
