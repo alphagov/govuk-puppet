@@ -51,6 +51,12 @@ class nagios::package {
     mode   => '0755',
   }
 
+  # campfire stuff
+  file { '/usr/local/bin/campfire_nagios':
+    source => 'puppet:///modules/nagios/usr/local/bin/campfire_nagios',
+    mode   => '0755',
+  }
+
   file { '/var/log/sendEmail':
     ensure  => present,
     owner   => nagios,
