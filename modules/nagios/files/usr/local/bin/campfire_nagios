@@ -1,7 +1,14 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'optparse'
-require 'tinder'
+begin
+  if Gem.available?('tinder')
+    require 'tinder'
+  else
+    puts "tinder not installed, please \"gem install tinder\""
+    exit 1
+  end
+end
  
 options = OpenStruct.new
 options.message   = ""
@@ -40,12 +47,23 @@ if (options.subdomain == "") or
    (options.room == "") or 
    (options.token == "") or
    (options.message == "")
-  puts "Options missing, see \"#{File.basename($0)} -h\" for details"
+  puts "ERROR: Options missing, see \"#{File.basename($0)} -h\" for details"
   exit 1
 end
 
-campfire = Tinder::Campfire.new(options.subdomain, 
+begin 
+  campfire = Tinder::Campfire.new(options.subdomain, 
                                 :ssl => true,
                                 :token => options.token)
-room = campfire.find_room_by_name options.room
-room.speak "#{options.message}"
+  room = campfire.find_room_by_name options.room
+rescue Tinder::AuthenticationFailed
+  puts "ERROR: Authentication failed for https://#{options.subdomain}.campfirenow.com/ with token #{options.token}"
+  exit 1
+end
+
+if room == nil
+  puts "ERROR: Room #{options.room} does not exist"
+  exit 1
+else
+  room.speak "#{options.message}"
+end
