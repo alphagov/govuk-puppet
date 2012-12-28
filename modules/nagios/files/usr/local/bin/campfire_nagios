@@ -3,22 +3,27 @@ require 'rubygems'
 require 'optparse'
 require 'tinder'
  
-options = {}
- 
+options = OpenStruct.new
+options.message   = ""
+options.room      = ""
+options.subdomain = ""
+options.token     = ""
+
+
 optparse = OptionParser.new do |o| 
     o.banner = "#{File.basename($0)} -s \"<subdomain\" -t \"<token>\" -r \"<room>\" -m \"<message>\""
  
     o.on('-m', '--message <message>', 'Message for Campfire') do |message|
-        options[:message] = message
+        options.message << message
     end                                                                                                   
     o.on('-s', '--subdomain <subdomain>', 'Subdomain for Campfire') do |subdomain|
-        options[:subdomain] = subdomain
+        options.subdomain << subdomain
     end                                                                                                   
     o.on('-t', '--token <token>', 'Token for Campfire Auth') do |token|
-        options[:token] = token
+        options.token << token
     end                                                                                                   
     o.on('-r', '--room <room>', 'Room to notify') do |room|
-        options[:room] = room
+        options.room << room
     end                                                                                                   
  
     o.separator ""
@@ -30,9 +35,17 @@ optparse = OptionParser.new do |o|
 end
  
 optparse.parse!
- 
-campfire = Tinder::Campfire.new(options[:subdomain], 
+
+if (options.subdomain == "") or
+   (options.room == "") or 
+   (options.token == "") or
+   (options.message == "")
+  puts "Options missing, see \"#{File.basename($0)} -h\" for details"
+  exit 1
+end
+
+campfire = Tinder::Campfire.new(options.subdomain, 
                                 :ssl => true,
-                                :token => options[:token])
-room = campfire.find_room_by_name options[:room]
-room.speak "#{options[:message]}"
+                                :token => options.token)
+room = campfire.find_room_by_name options.room
+room.speak "#{options.message}"
