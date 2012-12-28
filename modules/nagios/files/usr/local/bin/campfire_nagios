@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'optparse'
+require 'tinder'
+ 
+options = {}
+ 
+optparse = OptionParser.new do |o| 
+    o.banner = "#{File.basename($0)} -s \"<subdomain\" -t \"<token>\" -r \"<room>\" -m \"<message>\""
+ 
+    o.on('-m', '--message <message>', 'Message for Campfire') do |message|
+        options[:message] = message
+    end                                                                                                   
+    o.on('-s', '--subdomain <subdomain>', 'Subdomain for Campfire') do |subdomain|
+        options[:subdomain] = subdomain
+    end                                                                                                   
+    o.on('-t', '--token <token>', 'Token for Campfire Auth') do |token|
+        options[:token] = token
+    end                                                                                                   
+    o.on('-r', '--room <room>', 'Room to notify') do |room|
+        options[:room] = room
+    end                                                                                                   
+ 
+    o.separator ""
+ 
+    o.on_tail('-h', '--help', 'Display this help screen') do
+        puts o
+        exit 1
+    end 
+end
+ 
+optparse.parse!
+ 
+campfire = Tinder::Campfire.new(options[:subdomain], 
+                                :ssl => true,
+                                :token => options[:token])
+room = campfire.find_room_by_name options[:room]
+room.speak "#{options[:message]}"
