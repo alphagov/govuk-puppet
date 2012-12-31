@@ -15,10 +15,6 @@ define nagios::check_feature ($feature) {
     feature   => $feature,
     prio      => 'low'
   }
-  nagios::check_feature_w_prio { "check_feature_${feature}_unprio":
-    feature   => $feature,
-    prio      => 'unprio'
-  }
 }
 
 define nagios::check_feature_w_prio ($feature, $prio) {
