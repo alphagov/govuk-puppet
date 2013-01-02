@@ -5,9 +5,9 @@ class base {
   include lockrun
   include logrotate
   include ntp
+  include ssh
   include sudo
   include sysctl
-  include ssh
   include tmpreaper
   include unattended_upgrades
   include wget

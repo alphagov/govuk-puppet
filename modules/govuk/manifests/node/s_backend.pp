@@ -15,17 +15,17 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   }
 
   include govuk::apps::canary_backend
-  include govuk::apps::panopticon
-  include govuk::apps::publisher
-  include govuk::apps::tariff_api
-  include govuk::apps::whitehall_admin
-  include govuk::apps::support
   include govuk::apps::contentapi
   include govuk::apps::imminence
-  include govuk::apps::signon
-  include govuk::apps::search
-  include govuk::apps::need_o_tron
   include govuk::apps::migratorator
+  include govuk::apps::need_o_tron
+  include govuk::apps::panopticon
+  include govuk::apps::publisher
+  include govuk::apps::search
+  include govuk::apps::signon
+  include govuk::apps::support
+  include govuk::apps::tariff_api
+  include govuk::apps::whitehall_admin
 
   # The release App should not go to Skyscape yet
   case $::govuk_provider {

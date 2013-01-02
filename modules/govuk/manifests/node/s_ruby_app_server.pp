@@ -1,7 +1,7 @@
 class govuk::node::s_ruby_app_server {
+  include bundler
   include mysql::client
   include nodejs
-  include bundler
 
   package {
     'rails':               ensure => '3.1.1',   provider => gem, require => Package['build-essential'];
