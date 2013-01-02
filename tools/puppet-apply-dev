@@ -11,13 +11,13 @@ bundle install --quiet
 bundle exec librarian-puppet install --quiet
 
 for dir in `ls vendor/modules`; do
-  test -d modules/$dir && echo "WARNING: modules/${dir} conflicts with vendor/modules/${dir}";
+  test -d modules/$dir && echo "\033[1;31mWARNING: modules/${dir} conflicts with vendor/modules/${dir}\033[0m";
   EXPLAIN_CONFLICTS=1
 done;
 if [ "$EXPLAIN_CONFLICTS" = "1" ]; then
-  echo "INFO: You have directories in both vendor/modules/ and modules/ that appear to conflict."
-  echo "      The directory in modules/ will be preferred over the one in vendor/modules, so"
-  echo "      watch carefully for any missing class errors related to these modules"
+  echo "\033[1;31mWARNING: You have directories in both vendor/modules/ and modules/ that appear to conflict."
+  echo "         The directory in modules/ will be preferred over the one in vendor/modules, so"
+  echo "         watch carefully for any missing class errors related to these modules\033[0m"
 fi
 
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
