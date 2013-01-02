@@ -10,6 +10,16 @@ sudo apt-get install -y -qq git-core
 bundle install --quiet
 bundle exec librarian-puppet install --quiet
 
+for dir in `ls vendor/modules`; do 
+  test -d modules/$dir && echo "WARNING: modules/${dir} conflicts with vendor/modules/${dir}";
+  EXPLAIN_CONFLICTS=1
+done;
+if [ "$EXPLAIN_CONFLICTS" = "1" ]; then
+  echo "INFO: You have directories in both vendor/modules/ and modules/ that appear to conflict."
+  echo "      The directory in modules/ will be preferred over the one in vendor/modules, so"
+  echo "      watch carefully for any missing class errors related to these modules"
+fi
+
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
 # attempt to test stored config configuration on the dev vm
 exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp "$@" | egrep -v "warning:.+storeconfigs"
