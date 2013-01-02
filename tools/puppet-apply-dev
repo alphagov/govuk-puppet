@@ -17,7 +17,11 @@ done;
 if [ "$EXPLAIN_CONFLICTS" = "1" ]; then
   echo "\033[1;31mWARNING: You have directories in both vendor/modules/ and modules/ that appear to conflict."
   echo "         The directory in modules/ will be preferred over the one in vendor/modules, so"
-  echo "         watch carefully for any missing class errors related to these modules\033[0m"
+  echo "         watch carefully for any missing class errors related to these modules."
+  echo ""
+  echo "         If there are no missing class errors, this warning can be ignored unless the"
+  echo "         directory above is something you have added yourself - it's likely someone is"
+  echo "         working on that module.\033[0m"
 fi
 
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
