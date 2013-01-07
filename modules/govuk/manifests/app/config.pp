@@ -141,7 +141,7 @@ define govuk::app::config (
   }
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
-    check_command       => "check_ganglia_metric!procstat_${title}_cpu!50!100",
+    check_command       => "check_ganglia_metric!procstat_${title}_cpu!90!100",
     service_description => "high CPU usage for ${title} app",
     host_name           => $::fqdn,
   }
