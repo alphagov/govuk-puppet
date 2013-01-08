@@ -13,6 +13,7 @@ class vpnc (
     mode    => '0600',
     content => template("vpnc/network.conf.erb"),
     notify  => Service['vpnc'],
+    require => Package['vpnc'],
   }
 
   file {'/etc/init/vpnc.conf':
