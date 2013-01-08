@@ -37,6 +37,12 @@ class govuk::node::s_base {
     key    => extlookup('github_key',''),
   }
 
+  sshkey { 'github.gds':
+    ensure => present,
+    type   => 'ssh-rsa',
+    key    => extlookup('github_gds_key',''),
+  }
+
   case $::govuk_provider {
     'sky': {
       include apt_cacher::client
