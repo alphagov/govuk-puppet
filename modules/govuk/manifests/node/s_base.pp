@@ -8,7 +8,6 @@ class govuk::node::s_base {
   include users
   include users::assets
   include users::groups::bitzesty
-  include users::groups::freerange
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
