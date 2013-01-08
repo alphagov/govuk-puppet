@@ -3,10 +3,25 @@ FORGE
   specs:
     attachmentgenie/ufw (1.0.2)
       puppetlabs/stdlib (>= 2.2.1)
+    maestrodev/wget (1.0.0)
+    puppetlabs/gcc (0.0.3)
     puppetlabs/stdlib (3.2.0)
     ripienaar/concat (0.2.0)
+    thomasvandoren/redis (0.0.9)
+      maestrodev/wget (>= 0.0.0)
+      puppetlabs/gcc (>= 0.0.0)
+
+GIT
+  remote: git://github.com/alphagov/puppet-cpanm.git
+  ref: 4e3dfca
+  sha: 4e3dfca9b5ca25da71a78412305710e665475698
+  specs:
+    cpanm (0.0.1)
 
 DEPENDENCIES
   attachmentgenie/ufw (>= 0)
+  cpanm (>= 0)
+  puppetlabs/gcc (>= 0)
   ripienaar/concat (>= 0)
+  thomasvandoren/redis (>= 0)
 

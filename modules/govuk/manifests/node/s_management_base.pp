@@ -7,17 +7,17 @@ class govuk::node::s_management_base {
   include govuk::deploy
   include govuk::testing_tools
 
+  include clamav
   include imagemagick
+  include mongodb::server
   include nodejs
   include solr
-  include clamav
 
   include elasticsearch
   elasticsearch::node { "govuk-${::govuk_platform}":
     number_of_replicas => '0'
   }
 
-  include mongodb::server
   class { 'mongodb::configure_replica_set':
     members => ['localhost']
   }

@@ -19,7 +19,5 @@ describe 'nagios::check_feature', :type => :define do
       'check_feature_test_feature_normal_checker.cfg')
     should contain_file('/etc/nagios3/conf.d/nagios_host_test_host.blah.blah/'\
       'check_feature_test_feature_low_checker.cfg')
-    should contain_file('/etc/nagios3/conf.d/nagios_host_test_host.blah.blah/'\
-      'check_feature_test_feature_unprio_checker.cfg')
   }
 end

@@ -40,6 +40,8 @@ external_redirects = {
   '/digitalstrategy'                    => 'http://publications.cabinetoffice.gov.uk/digital/',
   '/performance/transactional-services' => 'http://transactionalservices.alphagov.co.uk/',
   '/support/internal'                   => "https://support.#{@app_domain}/",
+  '/cabinet-office/sprint'              => 'http://digital.cabinetoffice.gov.uk/sprint-13/',
+  '/cabinet-office/sprint13'            => 'http://digital.cabinetoffice.gov.uk/sprint-13/',
 }
 
 internal_redirects = {
@@ -74,6 +76,9 @@ internal_redirects = {
   '/planning-inspectorate' => '/government/organisations/planning-inspectorate',
   '/transport'             => '/government/organisations/department-for-transport',
 
+  # topical events (Olympics, G8 etc.)
+  '/g8' => '/government/topical-events/g8-2013',
+
   # These rewrites are caused by content being relocated. They should be
   # amended by the person moving the content.
   '/browse/births-deaths-marriages/registry-offices' => '/browse/births-deaths-marriages/register-offices',
@@ -84,14 +89,19 @@ internal_redirects = {
   '/jobseeker-direct'                                => '/jobs-jobsearch',
   '/personal-independence-payment'                   => '/pip',
   '/tell-us-once-report-death'                       => '/after-a-death',
+  '/business-event-finder'                           => '/business-training-and-networking-events-near-you',
+  '/complain-about-a-bankrupt'                       => '/complain-about-someone-bankrupt',
+  '/expenses-and-benefits-prizes-cash-prizes'        => '/expenses-and-benefits-cash-prizes',
+  '/forecasting-finances'                            => '/forecast-business-finances',
 }
 
 prefix_redirects = {
   # These rewrites are caused by content being relocated. They should be
   # amended by the person moving the content.
-  '/arranging-child-maintenance-child-support-agency' => '/child-maintenance',
-  '/childmaintenance'                                 => '/child-maintenance',
-  '/make-child-maintenance-deductions-employee-pay'   => '/child-maintenance-for-employers',
+  '/arranging-child-maintenance-child-support-agency'       => '/child-maintenance',
+  '/childmaintenance'                                       => '/child-maintenance',
+  '/make-child-maintenance-deductions-employee-pay'         => '/child-maintenance-for-employers',
+  '/expenses-and-benefits-sporting-recreational-facilities' => '/expenses-benefits-sporting-recreational-facilities',
 }
 %>
 

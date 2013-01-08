@@ -63,7 +63,7 @@ task :spec do
 
   matched_files = matched_files.exclude(*THIRD_PARTY_MODULES.map { |x| "modules/#{x}/**/*" })
 
-  cli_args = ['-t', 'rspec']
+  cli_args = ['-t', 'rspec', '-n', '1']
   cli_args.concat(matched_files)
 
   $stderr.puts '---> Running puppet specs (parallel)'

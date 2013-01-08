@@ -1,26 +1,26 @@
 class govuk::node::s_base {
-  include base
   include backup::client
+  include base
   include hosts
   include monitoring::client
   include puppet
   include puppet::cronjob
   include users
+  include users::assets
   include users::groups::bitzesty
   include users::groups::freerange
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
-  include users::assets
 
-  include govuk::repository
   include govuk::deploy
+  include govuk::repository
 
-  #Security additions
-  include rkhunter
+  # Security additions
   include fail2ban
-  include govuk::repository
   include govuk::deploy
+  include govuk::repository
+  include rkhunter
 
   case $::lsbdistcodename {
     precise: {}
@@ -39,9 +39,9 @@ class govuk::node::s_base {
 
   case $::govuk_provider {
     'sky': {
+      include apt_cacher::client
       include govuk::firewall
       include harden
-      include apt_cacher::client
 
       user { 'ubuntu':
         ensure   => present,

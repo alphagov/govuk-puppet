@@ -16,6 +16,7 @@ class govuk::node::s_development {
   include users::assets
   include rabbitmq
   include fonts
+  include redis
 
   include govuk::deploy
   include govuk::repository

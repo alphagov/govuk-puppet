@@ -1,9 +1,28 @@
 #!/bin/sh
+set -e
+
 cd "$(dirname "$0")"
 cd ..
 
+# Temporary workaround while dev VMs don't come with git preinstalled
+sudo apt-get install -y -qq git-core
+
 bundle install --quiet
 bundle exec librarian-puppet install --quiet
+
+for dir in `ls vendor/modules`; do
+  test -d modules/$dir && echo "\033[0;36mINFO: modules/${dir} conflicts with vendor/modules/${dir}\033[0m";
+  EXPLAIN_CONFLICTS=1
+done;
+if [ "$EXPLAIN_CONFLICTS" = "1" ]; then
+  echo "\033[0;36mINFO: You have directories in both vendor/modules/ and modules/ that appear to conflict."
+  echo "      The directory in modules/ will be preferred over the one in vendor/modules, so"
+  echo "      watch carefully for any missing class errors related to these modules."
+  echo ""
+  echo "      If there are no missing class errors, this warning can be ignored unless the"
+  echo "      directory above is something you have added yourself - it's likely someone is"
+  echo "      working on that module.\033[0m"
+fi
 
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
 # attempt to test stored config configuration on the dev vm

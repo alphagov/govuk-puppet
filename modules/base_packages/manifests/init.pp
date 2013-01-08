@@ -1,9 +1,10 @@
 class base_packages {
+  include gcc
+
   package {
     [
       'ack-grep',
       'bzip2',
-      'build-essential',
       'curl',
       'gettext',
       'git-core',

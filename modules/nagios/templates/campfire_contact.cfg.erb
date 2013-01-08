@@ -1,0 +1,22 @@
+define contact {
+       contact_name                             <%= @name %>
+       alias                                    Campfire Pseudo Contact
+       service_notification_period              24x7
+       host_notification_period                 24x7
+       service_notification_options             w,c,r,f
+       host_notification_options                d,r,u,f,s
+       service_notification_commands            notify-service-by-campfire
+       host_notification_commands               notify-host-by-campfire
+}
+
+# 'notify-host-by-campfire' command definition
+define command{
+    command_name    notify-host-by-campfire
+    command_line    /usr/local/bin/campfire_nagios -s <%= @campfire_subdomain %> -t <%= @campfire_token %> -r <%= @campfire_room %> -m "[nagios] $NOTIFICATIONTYPE$ : $HOSTDISPLAYNAME$ is $HOSTSTATE$"
+    }
+
+# 'notify-service-by-campfire' command definition
+define command{
+    command_name    notify-service-by-campfire
+    command_line    /usr/local/bin/campfire_nagios -s <%= @campfire_subdomain %> -t <%= @campfire_token %> -r <%= @campfire_room %> -m "[nagios] $SERVICESTATE$: $SERVICEDESC$ on $HOSTALIAS$"
+    }
