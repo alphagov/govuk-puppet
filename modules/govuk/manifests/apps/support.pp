@@ -5,5 +5,6 @@ class govuk::apps::support($port = 3031) {
     port              => $port,
     vhost_ssl_only    => true,
     health_check_path => '/',
+    intercept_errors  => str2bool(extlookup('support_intercept_errors', true)),
   }
 }
