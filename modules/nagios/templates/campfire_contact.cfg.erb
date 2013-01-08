@@ -12,11 +12,11 @@ define contact {
 # 'notify-host-by-campfire' command definition
 define command{
     command_name    notify-host-by-campfire
-    command_line    /usr/local/bin/campfire_nagios -s <%= @campfire_subdomain %> -t <%= @campfire_token %> -r <%= @campfire_room %> -m "$NOTIFICATIONTYPE$ : $HOSTDISPLAYNAME$ is $HOSTSTATE$"
+    command_line    /usr/local/bin/campfire_nagios -s <%= @campfire_subdomain %> -t <%= @campfire_token %> -r <%= @campfire_room %> -m "[nagios] $NOTIFICATIONTYPE$ : $HOSTDISPLAYNAME$ is $HOSTSTATE$"
     }
 
 # 'notify-service-by-campfire' command definition
 define command{
     command_name    notify-service-by-campfire
-    command_line    /usr/local/bin/campfire_nagios -s <%= @campfire_subdomain %> -t <%= @campfire_token %> -r <%= @campfire_room %> -m "$SERVICESTATE$: $SERVICEDESC$ on $HOSTALIAS$"
+    command_line    /usr/local/bin/campfire_nagios -s <%= @campfire_subdomain %> -t <%= @campfire_token %> -r <%= @campfire_room %> -m "[nagios] $SERVICESTATE$: $SERVICEDESC$ on $HOSTALIAS$"
     }
