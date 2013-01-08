@@ -22,6 +22,7 @@ DEPENDENCIES
   attachmentgenie/ufw (>= 0)
   cpanm (>= 0)
   puppetlabs/gcc (>= 0)
+  puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)
   thomasvandoren/redis (>= 0)
 
