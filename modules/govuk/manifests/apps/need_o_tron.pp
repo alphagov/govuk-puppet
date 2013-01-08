@@ -4,5 +4,6 @@ class govuk::apps::need_o_tron($port = '3004') {
     vhost_ssl_only    => true,
     port              => $port,
     health_check_path => '/',
+    intercept_errors  => str2bool(extlookup('needotron_intercept_errors', true)),
   }
 }
