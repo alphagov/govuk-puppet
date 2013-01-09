@@ -4,6 +4,6 @@ class govuk::apps::release( $port = 3036 ) {
     port              => $port,
     vhost_ssl_only    => true,
     health_check_path => '/',
-    intercept_errors  => str2bool(extlookup('release_intercept_errors', true)),
+    intercept_errors  => str2bool(extlookup('release_intercept_errors', 'yes')),
   }
 }
