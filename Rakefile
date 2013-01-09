@@ -79,7 +79,9 @@ task :spec do
   cli_args = ['-t', 'rspec', '-n', '1']
   cli_args.concat(matched_files)
 
-  $stderr.puts '---> Running puppet specs (parallel)'
+  $stderr.puts '---> Running puppet specs'
+  # This test isn't parallel any more, remove the -n1
+  # from cli_args to enable parallel
   ParallelTest::CLI.run(cli_args)
 end
 
