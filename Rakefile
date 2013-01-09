@@ -1,4 +1,5 @@
 require 'rspec/core/rake_task'
+require 'puppet/face'
 require 'puppet-lint'
 require 'parallel_tests'
 require 'parallel_tests/cli'
@@ -33,9 +34,21 @@ desc "Check for puppet syntax errors"
 task :syntax do
   $stderr.puts '---> Checking puppet syntax'
 
-  sh("tools/puppet-syntax modules manifests") do |ok, res|
-    fail 'ERROR: puppet syntax errors' unless ok
+  def validate_manifest(file)
+    Puppet::Face[:parser, '0.0.1'].validate(file)
   end
+
+  errors = []
+  matched_files = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]
+  matched_files.each do |puppet_file|
+    begin
+      validate_manifest(puppet_file)
+    rescue => error
+      errors << error
+    end
+  end
+
+  fail errors.join("\n") unless errors.empty?
 end
 
 desc "Run puppet-lint on one or more modules"
