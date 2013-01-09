@@ -38,10 +38,17 @@ task :syntax do
     Puppet::Face[:parser, '0.0.1'].validate(file)
   end
 
+  errors = []
   matched_files = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]
   matched_files.each do |puppet_file|
-    validate_manifest(puppet_file)
+    begin
+      validate_manifest(puppet_file)
+    rescue => error
+      errors << error
+    end
   end
+
+  fail errors.join("\n") unless errors.empty?
 end
 
 desc "Run puppet-lint on one or more modules"
