@@ -1,117 +1,33 @@
 require 'csv'
 require 'rspec-puppet'
-
-# Mock out extdata for the purposes of testing. The actual solution (below) is
-# astonishingly ugly, and involves monkeypatching pieces of ruby stdlib that
-# the extant extlookup function relies on.
-#
-# Ideally, we could do something like this:
-#
-#     require 'puppet/parser/functions/extlookup'
-#
-#     module Puppet::Parser::Functions
-#       newfunction(:extlookup, :type => :rvalue) do |args|
-#         key, default = args
-#         {
-#           'app_domain' => 'test.gov.uk',
-#         }[key] || default or raise Puppet::ParseError, "No match found for '#{key}' in any data file during extlookup()"
-#       end
-#     end
-#
-# and indeed it looks like this should work in Puppet >= 3.0.0, where the
-# appropriate line in puppet/parser/functions.rb reads
-#
-#     Puppet.warning "Overwriting previous definition for function #{name}" if get_function(name)
-#
-# but unfortunately, the same line in 2.7.x reads
-#
-#     raise Puppet::DevError, "Function #{name} already defined" if functions.include?(name)
-#
-# In summary: FIXME -- remove the monstrosity that is MockExtdata.
-#
-#  - NS 2012-10-31
-
-# Usage
-#
-#   before :each do
-#    update_extdata({'extdata value i want' => 'value required',})
-#  end
-#
-#  #force refresh of the extdata - yes its a hack
-#  let(:facts) { {:unique => "yes really"} }
-#
-# if this gets used we need to find a good way to flush the data at the right level so we don't have this silly code
-# -- the cache is @@cache in rspec-puppet/lib/rspec-puppet/support.rb
-# ---- ppotter
-
-module MockExtdata
-
-  def set_extdata(h)
-    @mock_extdata = h
-  end
-
-  def update_extdata(h)
-    @mock_extdata.merge!(h)
-  end
-
-  def setup_extdata_stubs
-    @mock_extdata ||= {}
-
-    old_exists = File.method(:exists?)
-    File.stubs(:exists?) do |f|
-      if f =~ /extdata\/[^\/]*\.csv$/
-        true
-      else
-        old_exists.call(f)
-      end
-    end
-
-    old_read = CSV.method(:read)
-    CSV.stubs(:read) do |f, *args|
-      if f =~ /extdata\/[^\/]*\.csv$/
-        @mock_extdata.to_a
-      else
-        old_read.call(f, *args)
-      end
-    end
-  end
-
-end
+require 'puppet/parser/functions/extlookup'
 
 HERE = File.expand_path(File.dirname(__FILE__))
 
 RSpec.configure do |c|
-  c.module_path = File.join(HERE, 'modules')
   c.manifest    = File.join(HERE, 'manifests', 'site.pp')
-
-  c.include MockExtdata
+  c.module_path = [
+    File.join(HERE, 'modules'),
+    File.join(HERE, 'vendor', 'modules')
+  ].join(':')
 
   c.before do
-    setup_extdata_stubs
-    set_extdata({
-      'app_domain'    => 'test.gov.uk',
-      'website_root'  => 'http://www.test.gov.uk',
-      'http_username' => 'test_username',
-      'http_password' => 'test_password',
-      'internal_tld'  => 'test',
-      'assets_uploads_disk' => '/dev/sdb1',
+    # Mock out extdata for the purposes of testing.
+    module Puppet::Parser::Functions
+      newfunction(:extlookup, :type => :rvalue) do |args|
+        key, default = args
+        {
+          'app_domain'    => 'test.gov.uk',
+          'website_root'  => 'www.test.gov.uk',
+          'http_username' => 'test_username',
+          'http_password' => 'test_password',
 
-      'google_client_id_datainsight'               => 'example client id',
-      'google_client_secret_datainsight'           => 'example client secret',
-      'google_analytics_refresh_token_datainsight' => 'example refresh token',
-      'google_drive_refresh_token_datainsight'     => 'example refresh token'
-    })
-  end
-end
-
-# TODO: insert snotty comment complaining about rspec-puppet and the
-# need for monkey-patching here
-module RSpec::Puppet
-  module Support
-    alias_method :real_build_catalog, :build_catalog
-    def build_catalog (nodename, fact_val, code)
-      Puppet[:modulepath] = File.join(HERE, 'modules') + ':' + File.join(HERE, 'vendor', 'modules')
-      real_build_catalog(nodename,fact_val,code)
+          'google_client_id_datainsight'               => 'example client id',
+          'google_client_secret_datainsight'           => 'example client secret',
+          'google_analytics_refresh_token_datainsight' => 'example refresh token',
+          'google_drive_refresh_token_datainsight'     => 'example refresh token'
+        }[key] || default or raise Puppet::ParseError, "No match found for '#{key}' in any data file during extlookup()"
+      end
     end
   end
 end
