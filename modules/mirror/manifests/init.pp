@@ -11,6 +11,7 @@ class mirror {
   package { 'spidey':
     ensure   => present,
     provider => gem,
+    require  => Package['libxml2-dev'],
   }
 
   file { '/usr/local/bin/govuk_mirrorer':
