@@ -48,12 +48,28 @@ class govuk::node::s_base {
       include govuk::firewall
       include harden
 
+      # Start explanation of setting user passwords
+
+      # TL;DR:  
+      # Setting ubuntu password will silently fail on the first run of puppet.
+
+      # Details:
+      # On the first run of puppet, ruby-libshadow is not installed when 
+      # puppet is started by Ruby. This means that the User provider does
+      # not have the ability to set passwords. We install the libshadow gem
+      # during the puppet run, but Ruby is not re-executed, so the running 
+      # puppet process still does not have the ability to set the 'ubuntu'
+      # password. On the second run of puppet, the password for the ubuntu 
+      # user will be set.
+
       user { 'ubuntu':
         ensure   => present,
         password => extlookup('ubuntu_pass_hash','!!'),
         groups   => ['admin'],
         require  => Group['admin'];
       }
+
+      # End explanation
     }
     default: {}
   }

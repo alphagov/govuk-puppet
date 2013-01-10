@@ -13,6 +13,7 @@ class puppet {
 #    require  => Group['puppet'];
 #  }
 
+  # This is required to allow Puppet to set the password hash for the ubuntu user
   package { 'libshadow':
     ensure   => present,
     provider => gem,
