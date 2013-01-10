@@ -147,7 +147,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   }
   host { "redis-1.backend.${platform}":
     ip           => '10.3.0.50',
-    host_aliases => ['redis-1.backend']
+    host_aliases => ['redis-1.backend', 'redis-1']
   }
   host { "mysql-master-1.backend.${platform}":
     ip           => '10.3.10.0',

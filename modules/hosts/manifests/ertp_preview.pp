@@ -1,4 +1,7 @@
 class hosts::ertp_preview {
+  host { 'puppet':
+    ip => '10.33.163.224',
+  }
   host { 'ertp-api':
     ip => '10.239.86.141'
   }

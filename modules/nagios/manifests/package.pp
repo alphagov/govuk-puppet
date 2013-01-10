@@ -64,12 +64,21 @@ class nagios::package {
     require => Package['nagios3']
   }
 
-  file { '/var/lib/nagios3/rw':
-    ensure  => directory,
-    mode    => '2710',
-    owner   => nagios,
-    group   => www-data,
-    require => Package['nagios3']
+  #
+  # The following execs ensure that the Nagios web interface can send commands
+  # to the Nagios daemon, by adjusting the permissions on the FIFO they use to
+  # communicate with each other. This cannot be achieved simply by modifying
+  # the permissions with Puppet, as Nagios recreates the pipe when it starts,
+  # and reads the correct permissions from dpkg.
+  #   - NS 2013-01-09
+  #
+  exec { 'dpkg-statoverride /var/lib/nagios3/rw':
+    command => '/usr/sbin/dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw',
+    unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/nagios3/rw',
   }
 
+  exec { 'dpkg-statoverride /var/lib/nagios3':
+    command => '/usr/sbin/dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3',
+    unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/nagios3',
+  }
 }

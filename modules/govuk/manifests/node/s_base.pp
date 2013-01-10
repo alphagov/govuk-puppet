@@ -8,7 +8,6 @@ class govuk::node::s_base {
   include users
   include users::assets
   include users::groups::bitzesty
-  include users::groups::freerange
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
@@ -34,7 +33,13 @@ class govuk::node::s_base {
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
-    key    => 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
+    key    => extlookup('github_key',''),
+  }
+
+  sshkey { 'github.gds':
+    ensure => present,
+    type   => 'ssh-rsa',
+    key    => extlookup('github_gds_key',''),
   }
 
   case $::govuk_provider {
@@ -43,12 +48,28 @@ class govuk::node::s_base {
       include govuk::firewall
       include harden
 
+      # Start explanation of setting user passwords
+
+      # TL;DR:
+      # Setting ubuntu password will silently fail on the first run of puppet.
+
+      # Details:
+      # On the first run of puppet, ruby-libshadow is not installed when
+      # puppet is started by Ruby. This means that the User provider does
+      # not have the ability to set passwords. We install the libshadow gem
+      # during the puppet run, but Ruby is not re-executed, so the running
+      # puppet process still does not have the ability to set the 'ubuntu'
+      # password. On the second run of puppet, the password for the ubuntu
+      # user will be set.
+
       user { 'ubuntu':
         ensure   => present,
         password => extlookup('ubuntu_pass_hash','!!'),
         groups   => ['admin'],
         require  => Group['admin'];
       }
+
+      # End explanation
     }
     default: {}
   }

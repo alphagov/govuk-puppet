@@ -34,7 +34,7 @@ class govuk::node::s_redis {
     #   - warns if using >80% of system memory, critical if >90%
     #   - warns if >50 blocked clients, critical if >100
     #   - report connected_clients in nagios status text
-    check_command       => "check_redis!${redis_port}!'1,2'!'80,90'!blocked_clients,connected_clients!50,~!100,~",
+    check_command       => "check_nrpe!check_redis!${redis_port} 1,2 80,90 blocked_clients,connected_clients 50,~ 100,~",
     service_description => 'redis server',
     host_name           => $::fqdn,
   }
