@@ -58,7 +58,7 @@ module MockExtdata
     @mock_extdata ||= {}
 
     old_exists = File.method(:exists?)
-    File.stub(:exists?) do |f|
+    File.stubs(:exists?) do |f|
       if f =~ /extdata\/[^\/]*\.csv$/
         true
       else
@@ -67,7 +67,7 @@ module MockExtdata
     end
 
     old_read = CSV.method(:read)
-    CSV.stub(:read) do |f, *args|
+    CSV.stubs(:read) do |f, *args|
       if f =~ /extdata\/[^\/]*\.csv$/
         @mock_extdata.to_a
       else
