@@ -1,4 +1,4 @@
-class govuk::apps::whitehall_admin::db {
+class govuk::apps::whitehall::db {
   $whitehall_admin_password = extlookup('mysql_whitehall_admin', '')
   $mysql_password = extlookup('mysql_root', '')
 

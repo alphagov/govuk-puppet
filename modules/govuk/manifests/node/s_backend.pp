@@ -25,7 +25,11 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::signon
   include govuk::apps::support
   include govuk::apps::tariff_api
-  include govuk::apps::whitehall_admin
+  class { 'govuk::apps::whitehall':
+    configure_admin => true,
+    port            => 3026,
+    vhost           => 'whitehall-admin',
+  }
 
   # The release App should not go to Skyscape yet
   case $::govuk_provider {
