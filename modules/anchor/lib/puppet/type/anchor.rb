@@ -32,6 +32,10 @@ Puppet::Type.newtype(:anchor) do
       class { 'ntp': } -> class { 'mcollective': }
       class { 'mcollective': } -> class { 'ntp': }
 
+  This has been forked from puppetlabs-stdlib in order to support #refresh:
+
+      - http://projects.puppetlabs.com/issues/12510
+      - https://github.com/puppetlabs/puppetlabs-stdlib/pull/78
   ENDOFDESC
 
   newparam :name do
@@ -39,7 +43,9 @@ Puppet::Type.newtype(:anchor) do
   end
 
   def refresh
+    # We don't do anything with them, but we need this to
+    #   show that we are "refresh aware" and not break the
+    #   chain of propagation.
   end
 
 end
-
