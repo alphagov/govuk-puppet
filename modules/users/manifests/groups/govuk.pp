@@ -66,6 +66,11 @@ class users::groups::govuk {
     email    => 'david.thompson@digital.cabinet-office.gov.uk',
     ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDEovDxQewPlw+vf22JYCGN1Ada+9dCjYKBTkjH2t/miQPo6PWQhiZgLUJ6I65tHQKxb8kGLDIg9pF48vw3ioTZxIdNf/z1VocKG0fG4GRhFI0hNAuMg3pVf7Fj4QkBJRbnhnQVaLPBilche4ITJD0edM+WFuwrKFSFOrBPtB2fJmVeFpCWASM02Oc/2D7V4HTsEanob7tjhy1pKz45a6Koa8eSEh8pmj7AnLh39YPufT13g9hXtiMNOvY17YdAyKoLQe/Nvx8+8+nBPkeJW+C15xI81Ft0f1WOIhEpwc4QLqcTY1PKT7k1s2dD/pcFCFwUchZ1HZbDcgLN4BYd8/0f',
   }
+  govuk::user { 'dcarley':
+    fullname => 'Dan Carley',
+    email    => 'dan.carley@digital.cabinet-office.gov.uk',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCd6wN5MjI+l8Ggjf5xhHT44L9LIGDR2dS65ovQcQ9VSTfnP3CMaF25ZyWsJ89Gu5UoO1BEbzkftMzFTjGAdWDFZ81QAl+3GGy2h3iQXtGvCKuC4Bl+OoaOQ0JuHySNXsMT/EyhzNHZN9SDPIOh7d/OERSYgO4RMSXv3SkYdD+18VSK9cztwloJYfs/2J1fYe+O4uGQd3NiGyiDvpIdR+bIn3Ct6T3Q/FgVXwrtbs9jxWw/LKAP6jYtwxdU4a8WcuijUS5oijW3iNKPMXwkxGJAH+J6fFbcAePfoheiehcbpa6dkshRWh2qG2px+T5V3HL7QVm70c2BTb/iA2MZOKop',
+  }
   govuk::user { 'eddsowden':
     fullname => 'Edd Sowden',
     email    => 'edd.sowden@digital.cabinet-office.gov.uk',
