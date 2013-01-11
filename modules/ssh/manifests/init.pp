@@ -20,11 +20,19 @@ class ssh {
 
   anchor { 'ssh::end': }
 
+  # The "internally-qualified domain name" of a machine is the first two
+  # components of its three-component name. i.e. the IQDN of a machine with
+  # FQDN foo-1.bar.production is foo-1.bar. Internal references to other
+  # machines which must be unambiguous (e.g. in deployment scripts) should use
+  # the IQDN.
+  $iqdn = regsubst($::fqdn, '\.[^\.]+$', '')
+
   # Export this machine's SSH RSA key to the puppetmaster
   @@sshkey { $::fqdn:
-    type    => 'ssh-rsa',
-    key     => $::sshrsakey,
-    require => Class['ssh::service'],
+    type         => 'ssh-rsa',
+    key          => $::sshrsakey,
+    host_aliases => [$iqdn],
+    require      => Class['ssh::service'],
   }
 
   # Collect the keys of all machines that share your puppetmaster
