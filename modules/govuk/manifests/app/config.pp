@@ -75,24 +75,12 @@ define govuk::app::config (
 
   $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
 
-  # By default, apps are unprotected in Skyscape, unless they
-  # explicitly declare that they want to be. Otherwise, they are protected by
-  # default.
-  if $vhost_protected == undef {
-    $vhost_protected_real = $::govuk_provider ? {
-      'sky'   => false,
-      default => true,
-    }
-  } else {
-    $vhost_protected_real = $vhost_protected
-  }
-
   if $enable_nginx_vhost {
     # Expose this application from nginx
     govuk::app::nginx_vhost { $title:
       vhost                  => $vhost_full,
       aliases                => $vhost_aliases_real,
-      protected              => $vhost_protected_real,
+      protected              => $vhost_protected,
       app_port               => $port,
       ssl_only               => $vhost_ssl_only,
       nginx_extra_config     => $nginx_extra_config,
