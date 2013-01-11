@@ -8,7 +8,7 @@ describe 'govuk::host', :type => :define do
   it do
     should contain_host('giraffe.foobar.test')
       .with_ip('1.2.3.4')
-      .with_host_aliases(['giraffe.foobar', [], []])
+      .with_host_aliases(['giraffe.foobar'])
   end
 
   context 'with legacy aliases' do
@@ -23,7 +23,7 @@ describe 'govuk::host', :type => :define do
     it do
       should contain_host('giraffe.foobar.test')
         .with_ip('1.2.3.4')
-        .with_host_aliases(['giraffe.foobar', [], ['foo', 'bar', 'baz']])
+        .with_host_aliases(['giraffe.foobar', 'foo', 'bar', 'baz'])
     end
   end
 
@@ -40,7 +40,7 @@ describe 'govuk::host', :type => :define do
     it do
       should contain_host('giraffe.foobar.test')
         .with_ip('1.2.3.4')
-        .with_host_aliases(['giraffe.foobar', ['foo.donkeys', 'bar.donkeys', 'baz.donkeys'], []])
+        .with_host_aliases(['giraffe.foobar', 'foo.donkeys', 'bar.donkeys', 'baz.donkeys'])
     end
   end
 end
