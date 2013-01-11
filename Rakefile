@@ -1,5 +1,4 @@
 require 'rspec/core/rake_task'
-require 'puppet/face'
 require 'puppet-lint'
 require 'parallel_tests'
 require 'parallel_tests/cli'
@@ -30,13 +29,15 @@ def get_modules
   end
 end
 
-desc "Check for puppet syntax errors"
-task :syntax do
-  $stderr.puts '---> Checking puppet syntax'
+desc "Check for Puppet manifest syntax errors"
+task :syntax_pp do
+  require 'puppet/face'
 
   def validate_manifest(file)
     Puppet::Face[:parser, '0.0.1'].validate(file)
   end
+
+  $stderr.puts '---> Checking Puppet manifest syntax'
 
   errors = []
   matched_files = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]
@@ -48,6 +49,39 @@ task :syntax do
     end
   end
 
+  fail errors.join("\n") unless errors.empty?
+end
+
+desc "Check for Puppet template syntax errors"
+task :syntax_erb do
+  require 'erb'
+  require 'stringio'
+
+  $stderr.puts '---> Checking Puppet template syntax'
+
+  # We now have to redirect STDERR in order to capture warnings.
+  $stderr = warnings = StringIO.new()
+  errors = []
+
+  # get_modules() may or may not return a trailing asterisk.
+  # Templates don't have to have a .erb extension
+  matched_files = FileList[*get_modules.map { |x| x.chomp('/*') + '/*/templates/**/*' }]
+  matched_files.reject! { |f| File.directory?(f) }
+  matched_files.each do |erb_file|
+    begin
+      erb = ERB.new(File.read(erb_file), nil, '-')
+      erb.filename = erb_file
+      erb.result
+    rescue NameError
+      # This is normal because we don't have the variables that would
+      # ordinarily be bound by the parent Puppet manifest.
+    rescue StandardError, SyntaxError => error
+      errors << error
+    end
+  end
+
+  $stderr = STDERR
+  errors << warnings.string unless warnings.string.empty?
   fail errors.join("\n") unless errors.empty?
 end
 
@@ -118,4 +152,4 @@ end
 desc "Run all tests"
 task :test => [:spec, :nagios_checks, :custom]
 
-task :default => [:syntax, :lint, :test]
+task :default => [:syntax_pp, :syntax_erb, :lint, :test]
