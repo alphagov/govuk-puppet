@@ -12,6 +12,17 @@ class hosts::development {
   host { 'graylog.cluster':     ip => '127.0.0.1' }
   host { 'whitehall.cluster':   ip => '127.0.0.1' }
 
+  govuk::host { 'test':
+    ip              => '1.2.3.4',
+    vdc             => 'testyvdc',
+    legacy_aliases  => ['legacy1', 'legacy2.foo'],
+    service_aliases => ['svc1'],
+  }
+  govuk::host { 'test2':
+    ip              => '4.5.6.7',
+    vdc             => 'testyvdc2',
+  }
+
   host { 'static.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'smartanswers.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'licencefinder.dev.gov.uk':                        ip => '127.0.0.1' }

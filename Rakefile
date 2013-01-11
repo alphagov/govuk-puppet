@@ -85,6 +85,9 @@ task :syntax_erb do
   fail errors.join("\n") unless errors.empty?
 end
 
+desc "Check for all Puppet syntax errors"
+task :syntax => [:syntax_erb, :syntax_pp]
+
 desc "Run puppet-lint on one or more modules"
 task :lint do
   manifests_to_lint = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]
