@@ -230,17 +230,17 @@ class monitoring::checks {
 
   nagios::contact { 'zendesk_urgent_priority':
     email                        => 'zd-alrt-urgent@digital.cabinet-office.gov.uk',
-    service_notification_options => 'c,w,u',
+    service_notification_options => 'c,w',
   }
 
   nagios::contact { 'zendesk_high_priority':
     email                        => 'zd-alrt-high@digital.cabinet-office.gov.uk',
-    service_notification_options => 'c,w,u',
+    service_notification_options => 'c,w',
   }
 
   nagios::contact { 'zendesk_normal_priority':
     email                        => 'zd-alrt-normal@digital.cabinet-office.gov.uk',
-    service_notification_options => 'c,w,u',
+    service_notification_options => 'c,w',
   }
 
   nagios::pager_contact { 'pager_nonworkhours':
