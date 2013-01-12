@@ -28,35 +28,35 @@ class monitoring::checks {
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
     use                 => 'govuk_urgent_priority',
-    service_description => 'pingdom says gov.uk is down',
+    service_description => 'Pingdom homepage check',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_calendar':
     check_command       => 'run_pingdom_calendar_check',
     use                 => 'govuk_high_priority',
-    service_description => 'pingdom says calendar is down',
+    service_description => 'Pingdom calendar check',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_search':
     check_command       => 'run_pingdom_search_check',
     use                 => 'govuk_urgent_priority',
-    service_description => 'pingdom says search is down',
+    service_description => 'Pingdom search check',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_smart_answer':
     check_command       => 'run_pingdom_smart_answer_check',
     use                 => 'govuk_high_priority',
-    service_description => 'pingdown say smartanswers is down',
+    service_description => 'Pingdom smartanswers check',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_pingdom_specialist':
     check_command       => 'run_pingdom_specialist_check',
     use                 => 'govuk_high_priority',
-    service_description => 'pingdom says specialist guides is down',
+    service_description => 'Pingdom specialist guides check',
     host_name           => $::fqdn,
   }
 
