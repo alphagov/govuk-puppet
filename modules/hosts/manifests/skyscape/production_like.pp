@@ -11,8 +11,9 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
     legacy_aliases => ['puppet-1', 'puppet'],
   }
   govuk::host { 'jenkins-1':
-    ip  => '10.0.0.3',
-    vdc => 'management',
+    ip             => '10.0.0.3',
+    vdc            => 'management',
+    legacy_aliases => ['jenkins-1'],
   }
   govuk::host { 'monitoring':
     ip              => '10.0.0.20',
@@ -27,16 +28,19 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
     service_aliases => ['graylog'],
   }
   govuk::host { 'jumpbox-1':
-    ip  => '10.0.0.100',
-    vdc => 'management',
+    ip              => '10.0.0.100',
+    vdc             => 'management',
+    legacy_aliases  => ['jumpbox-1'],
   }
   govuk::host { 'jumpbox-2':
-    ip  => '10.0.0.200',
-    vdc => 'management',
+    ip              => '10.0.0.200',
+    vdc             => 'management',
+    legacy_aliases  => ['jumpbox-2'],
   }
   govuk::host { 'backup-1':
-    ip  => '10.0.0.50',
-    vdc => 'management',
+    ip              => '10.0.0.50',
+    vdc             => 'management',
+    legacy_aliases  => ['backup-1'],
   }
   govuk::host { 'exception-handler-1':
     ip             => '10.0.0.4',
@@ -46,16 +50,19 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
   #router vdc machines
   govuk::host { 'cache-1':
-    ip  => '10.1.0.2',
-    vdc => 'router',
+    ip              => '10.1.0.2',
+    vdc             => 'router',
+    legacy_aliases  => ['cache-1'],
   }
   govuk::host { 'cache-2':
-    ip  => '10.1.0.3',
-    vdc => 'router',
+    ip              => '10.1.0.3',
+    vdc             => 'router',
+    legacy_aliases  => ['cache-2'],
   }
   govuk::host { 'cache-3':
-    ip  => '10.1.0.4',
-    vdc => 'router',
+    ip              => '10.1.0.4',
+    vdc             => 'router',
+    legacy_aliases  => ['cache-3'],
   }
 
   #router lb vhosts
