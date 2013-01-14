@@ -8,46 +8,8 @@ class postfix::config {
     notify  => Service[postfix]
   }
 
-  file { "/etc/postfix/sasl_passwd":
-    content => template("postfix/etc/postfix/sasl_passwd.erb"),
-    notify  => Exec[postmap_sasl_passwd]
-  }
-
-  exec { "postmap_sasl_passwd":
-                command      => "/usr/sbin/postmap /etc/postfix/sasl_passwd",
-                refreshonly  => true,
-                require      => [
-                                  File["/etc/postfix/sasl_passwd"],
-                                  Package["postfix"]
-                                ],
-  }
-
-  file { "/etc/postfix/outbound_rewrites":
-    content => template("postfix/etc/postfix/outbound_rewrites.erb"),
-    notify  => Exec[postmap_outbound_rewrites]
-  }
-
-  exec { "postmap_outbound_rewrites":
-                command      => "/usr/sbin/postmap /etc/postfix/outbound_rewrites",
-                refreshonly  => true,
-                require      => [
-                                  File["/etc/postfix/outbound_rewrites"],
-                                  Package["postfix"]
-                                ],
-  }
-
-  file { "/etc/postfix/local_remote_rewrites":
-    content => template("postfix/etc/postfix/local_remote_rewrites.erb"),
-    notify  => Exec[postmap_local_remote_rewrites]
-  }
-
-  exec { "postmap_local_remote_rewrites":
-                command      => "/usr/sbin/postmap /etc/postfix/local_remote_rewrites",
-                refreshonly  => true,
-                require      => [
-                                  File["/etc/postfix/local_remote_rewrites"],
-                                  Package["postfix"]
-                                ],
-  }
+  postfix::postmapfile { 'sasl_passwd': name           => 'sasl_passwd' }
+  postfix::postmapfile { 'outbound_rewrites': name     => 'outbound_rewrites' }
+  postfix::postmapfile { 'local_remote_rewrites': name => 'local_remote_rewrites' } 
 
 }
