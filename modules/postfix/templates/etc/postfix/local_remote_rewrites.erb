@@ -1,6 +1,6 @@
-root@<%= @fqdn %>        machine.email+<%= @fqdn %>.root@digital.cabinet-office.gov.uk
-root@<%= @hostname %>    machine.email+<%= @fqdn %>.root@digital.cabinet-office.gov.uk
-root@                    machine.email+<%= @fqdn %>.root@digital.cabinet-office.gov.uk
-deploy@<%= @fqdn %>      machine.email+<%= @fqdn %>.deploy@digital.cabinet-office.gov.uk
-deploy@<%= @hostname %>  machine.email+<%= @fqdn %>.deploy@digital.cabinet-office.gov.uk
-deploy                   machine.email+<%= @fqdn %>.deploy@digital.cabinet-office.gov.uk
+root@<%= @fqdn %>        <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain %>
+root@<%= @hostname %>    <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain %>
+root@                    <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain %>
+deploy@<%= @fqdn %>      <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
+deploy@<%= @hostname %>  <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
+deploy                   <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
