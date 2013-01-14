@@ -310,7 +310,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   govuk::host { 'licensify-internal-lb':
     ip             => '10.5.1.2',
     vdc            => 'licensify',
-    legacy_aliases => ["licensify.${app_domain}", "uploadlicensify.${app_domain}", "licensify-admin.${app_domain}"],
+    legacy_aliases => ["licensify.${app_domain}", "uploadlicence.${app_domain}", "licensify-admin.${app_domain}"],
   }
 
   #efg vdc machines
