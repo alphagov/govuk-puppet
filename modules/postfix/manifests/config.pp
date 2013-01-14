@@ -14,10 +14,11 @@ class postfix::config {
   }
 
   exec { "postmap_sasl_passwd":
-                command => "/usr/sbin/postmap /etc/postfix/sasl_passwd",
-                refreshonly => true,
-                require => [
-                        File["/etc/postfix/sasl_passwd"],
-                        Package["postfix"]],
+                command      => "/usr/sbin/postmap /etc/postfix/sasl_passwd",
+                refreshonly  => true,
+                require      => [
+                                  File["/etc/postfix/sasl_passwd"],
+                                  Package["postfix"]
+                                ],
   }
 }
