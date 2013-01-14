@@ -21,4 +21,33 @@ class postfix::config {
                                   Package["postfix"]
                                 ],
   }
+
+  file { "/etc/postfix/outbound_rewrites":
+    content => template("postfix/etc/postfix/outbound_rewrites.erb"),
+    notify  => Exec[postmap_outbound_rewrites]
+  }
+
+  exec { "postmap_outbound_rewrites":
+                command      => "/usr/sbin/postmap /etc/postfix/outbound_rewrites",
+                refreshonly  => true,
+                require      => [
+                                  File["/etc/postfix/outbound_rewrites"],
+                                  Package["postfix"]
+                                ],
+  }
+
+  file { "/etc/postfix/local_remote_rewrites":
+    content => template("postfix/etc/postfix/local_remote_rewrites.erb"),
+    notify  => Exec[postmap_local_remote_rewrites]
+  }
+
+  exec { "postmap_local_remote_rewrites":
+                command      => "/usr/sbin/postmap /etc/postfix/local_remote_rewrites",
+                refreshonly  => true,
+                require      => [
+                                  File["/etc/postfix/local_remote_rewrites"],
+                                  Package["postfix"]
+                                ],
+  }
+
 }

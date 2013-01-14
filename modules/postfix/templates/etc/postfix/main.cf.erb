@@ -43,3 +43,5 @@ smtp_use_tls = yes
 smtp_tls_security_level = encrypt
 smtp_tls_note_starttls_offer = yes
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_generic_maps = hash:/etc/postfix/outbound_rewrites
+recipient_canonical_maps    = hash:/etc/postfix/local_remote_rewrites
