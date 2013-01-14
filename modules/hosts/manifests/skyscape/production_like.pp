@@ -125,7 +125,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "tariff.${app_domain}",
       "travel-advice-frontend.${app_domain}",
       "whitehall-frontend.${app_domain}",
-      "www.${app_domain}"
     ]
   }
 
