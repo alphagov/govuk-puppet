@@ -1,7 +1,13 @@
 class fonts {
   $fontdir = '/usr/share/fonts/gov_uk'
 
-  package {'ttmkfdir': ensure => present }
+  package { 'ttmkfdir':
+    ensure => absent,
+  }
+
+  package { 'xfonts-utils':
+    ensure => present,
+  }
 
   file { '/usr/share/fonts':
     ensure => directory,
@@ -21,10 +27,10 @@ class fonts {
     require => File['/usr/share/fonts']
   }
 
-  exec {'make_font_metadata':
+  exec { 'make_font_metadata':
     cwd         => $fontdir,
-    command     => '/usr/bin/ttmkfdir .',
+    command     => '/usr/bin/mkfontscale',
     refreshonly => true,
-    require     => Package['ttmkfdir'],
+    require     => Package['xfonts-utils'],
   }
 }
