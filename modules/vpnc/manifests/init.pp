@@ -17,7 +17,7 @@ class vpnc (
   }
 
   file {'/etc/init/vpnc.conf':
-    source  => 'puppet:///vpnc/etc/init/vpnc.conf',
+    source  => 'puppet:///modules/vpnc/etc/init/vpnc.conf',
     notify  => Service['vpnc'],
   }
 
