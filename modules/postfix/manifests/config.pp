@@ -10,6 +10,6 @@ class postfix::config {
 
   postfix::postmapfile { 'sasl_passwd': name           => 'sasl_passwd' }
   postfix::postmapfile { 'outbound_rewrites': name     => 'outbound_rewrites' }
-  postfix::postmapfile { 'local_remote_rewrites': name => 'local_remote_rewrites' } 
+  postfix::postmapfile { 'local_remote_rewrites': name => 'local_remote_rewrites' }
 
 }
