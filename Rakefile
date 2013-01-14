@@ -18,7 +18,6 @@ PuppetLint.configuration.send("disable_double_quoted_strings")
 # bit.
 PuppetLint.configuration.send("disable_documentation")
 PuppetLint.configuration.send("disable_autoloader_layout")
-PuppetLint.configuration.send("disable_variables_not_enclosed")
 PuppetLint.configuration.send("disable_class_parameter_defaults")
 
 def get_modules

@@ -8,7 +8,7 @@ define haproxy::balance_http (
 
   $lb_name = "${title}-http"
 
-  concat::fragment {"haproxy_listen_http_$title":
+  concat::fragment {"haproxy_listen_http_${title}":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment_http.erb'),
     order   => '10',

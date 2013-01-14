@@ -18,11 +18,11 @@ class java::set_defaults (
   }
 
   if $jdk_real == 'UNKNOWN' {
-    fail "Unknown Java JDK name supplied to java::set_defaults: '$jdk'"
+    fail "Unknown Java JDK name supplied to java::set_defaults: '${jdk}'"
   }
 
   if $jre_real == 'UNKNOWN' {
-    fail "Unknown Java JRE name supplied to java::set_defaults: '$jre'"
+    fail "Unknown Java JRE name supplied to java::set_defaults: '${jre}'"
   }
 
   $path_javac = $jdk ? {

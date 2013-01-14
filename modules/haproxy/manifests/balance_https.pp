@@ -12,7 +12,7 @@ define haproxy::balance_https (
   $vhost_suffix = extlookup('app_domain')
   $vhost = "${title}.${vhost_suffix}"
 
-  concat::fragment {"haproxy_listen_https_$title":
+  concat::fragment {"haproxy_listen_https_${title}":
     target  => '/etc/haproxy/haproxy.cfg',
     content => template('haproxy/listen_fragment_https.erb'),
     order   => '10',
