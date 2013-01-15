@@ -157,13 +157,7 @@ class govuk::deploy {
     value => $asset_root,
   }
 
-  # GOVUK_ENV, and hence RAILS_ENV, RACK_ENV are "production" in preview/staging/production.
-  $govuk_env = $::govuk_platform ? {
-    "development" => "development",
-    "dev"         => "development",
-    default       => "production"
-  }
-
+  $govuk_env = extlookup('govuk_env', 'production')
   govuk::envvar {
     'GOVUK_ENV': value => $govuk_env;
     'RAILS_ENV': value => $govuk_env;
