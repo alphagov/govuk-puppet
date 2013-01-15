@@ -6,11 +6,13 @@ define haproxy::balance_http (
     $aliases=[],
     $health_check_method = 'HEAD') {
 
+  $forward_port = 80
+
   $lb_name = "${title}-http"
 
   concat::fragment {"haproxy_listen_http_${title}":
     target  => '/etc/haproxy/haproxy.cfg',
-    content => template('haproxy/listen_fragment_http.erb'),
+    content => template('haproxy/listen_fragment.erb'),
     order   => '10',
   }
 
