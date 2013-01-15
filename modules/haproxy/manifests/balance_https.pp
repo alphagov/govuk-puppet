@@ -4,8 +4,7 @@ define haproxy::balance_https (
     $health_check_port,
     $internal_only = false,
     $aliases = [],
-    $health_check_method = 'HEAD',
-    $health_check_path = '/') {
+    $health_check_method = 'HEAD') {
 
   $lb_name = "${title}-https"
 
