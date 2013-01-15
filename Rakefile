@@ -5,10 +5,6 @@ require 'parallel_tests/cli'
 
 ENV['RUBYOPT'] = (ENV['RUBYOPT'] || '') + ' -W0'
 
-THIRD_PARTY_MODULES = %w[
-  concat
-]
-
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.send("disable_double_quoted_strings")
@@ -110,8 +106,6 @@ desc "Run rspec"
 task :spec do
   matched_files = FileList[*get_modules.map { |x| "#{x}/spec/**/*_spec.rb" }]
 
-  matched_files = matched_files.exclude(*THIRD_PARTY_MODULES.map { |x| "modules/#{x}/**/*" })
-
   cli_args = ['-t', 'rspec', '-n', '1']
   cli_args.concat(matched_files)
 
@@ -125,9 +119,6 @@ desc "Run custom module rake tasks"
 task :custom do
   custom_rakefiles = FileList[*get_modules.map { |x| File.join(x, "Rakefile") }]
   custom_rakefiles.select! { |x| File.exist?(x) }
-
-  # Until we remove these from this repository, exclude third party modules.
-  custom_rakefiles = custom_rakefiles.exclude(*THIRD_PARTY_MODULES.map { |x| "modules/#{x}/**/*" })
 
   custom_rakefiles.each do |fn|
     name = File.dirname(fn)
