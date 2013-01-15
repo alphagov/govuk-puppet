@@ -70,7 +70,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   govuk::host { 'cache':
     ip              => '10.1.1.1',
     vdc             => 'router',
-    legacy_aliases  => ['cache', 'www.gov.uk'],
+    legacy_aliases  => ['cache', 'www.gov.uk', "www.${app_domain}"],
     service_aliases => ['cache', 'router'],
   }
 
@@ -133,7 +133,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "tariff.${app_domain}",
       "travel-advice-frontend.${app_domain}",
       "whitehall-frontend.${app_domain}",
-      "www.${app_domain}"
     ]
   }
 
