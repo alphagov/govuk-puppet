@@ -4,11 +4,7 @@ class govuk::node::s_backend_lb {
   include haproxy
   include loadbalancer::cron
 
-  $backend_servers = {
-    "backend-1" => "10.3.0.2",
-    "backend-2" => "10.3.0.3",
-    "backend-3" => "10.3.0.4",
-  }
+  $backend_servers = ["backend-1", "backend-2", "backend-3"]
 
   haproxy::balance_http_and_https {
     'publisher':
@@ -83,10 +79,7 @@ class govuk::node::s_backend_lb {
       http_listen_port    => 8701;
   }
 
-  $mapit_servers = {
-    "mapit-server-1" => "10.3.0.9",
-    "mapit-server-2" => "10.3.0.10",
-  }
+  $mapit_servers = ["mapit-server-1", "mapit-server-2",]
 
   haproxy::balance_http {'mapit':
     servers           => $mapit_servers,

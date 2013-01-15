@@ -4,14 +4,8 @@ class govuk::node::s_licensify_lb {
   include haproxy
   include loadbalancer::cron
 
-  $licensify_frontend_servers = {
-    "licensify-frontend-1" => "10.5.0.2",
-    "licensify-frontend-2" => "10.5.0.3",
-  }
-  $licensify_backend_servers = {
-    "licensify-backend-1" => "10.5.0.4",
-    "licensify-backend-2" => "10.5.0.5",
-  }
+  $licensify_frontend_servers = ["licensify-frontend-1", "licensify-frontend-2"]
+  $licensify_backend_servers = ["licensify-backend-1", "licensify-backend-2"]
 
 # Licensify Frontend Load Balancers
   haproxy::balance_http_and_https {
