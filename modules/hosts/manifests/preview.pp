@@ -2,9 +2,11 @@ class hosts::preview {
 
   $app_domain = extlookup('app_domain')
 
+  host { 'puppet':
+    ip           => '10.33.163.224',
+    host_aliases => ['puppet.cluster', 'puppetdb.cluster'],
+  }
   host { 'rds.cluster':       ip => '10.229.38.255' }
-  host { 'puppet':            ip => '10.33.163.224' }
-  host { 'puppet.cluster':    ip => '10.33.163.224' }
   host { 'frontend.cluster':  ip => '10.58.253.150' }
   host { 'backend.cluster':   ip => '10.228.95.176' }
   host { 'support.cluster':   ip => '10.57.10.89' }
