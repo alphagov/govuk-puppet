@@ -21,6 +21,14 @@ class govuk::node::s_base {
   include govuk::repository
   include rkhunter
 
+  $email_collection = extlookup('email_collection','off')
+  case $email_collection {
+    "on":     {
+        include postfix
+    }
+    default : {}
+  }
+
   case $::lsbdistcodename {
     precise: {}
     default: {
