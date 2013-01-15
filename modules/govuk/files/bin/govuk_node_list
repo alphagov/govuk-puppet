@@ -24,7 +24,7 @@ def main():
         query = '["and", {0}, {1}]'.format(query, node_class_query)
 
     qs = urllib.urlencode({'query': query})
-    res = urllib2.urlopen('http://puppet-1.management.production/nodes?{0}'.format(qs))
+    res = urllib2.urlopen('http://puppetdb.cluster/nodes?{0}'.format(qs))
     hosts = json.load(res)
 
     for host in hosts:
