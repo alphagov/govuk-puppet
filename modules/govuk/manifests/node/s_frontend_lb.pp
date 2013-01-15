@@ -4,20 +4,11 @@ class govuk::node::s_frontend_lb {
   include haproxy
   include loadbalancer::cron
 
-  $govuk_frontend_servers = {
-    "frontend-1" => "10.2.0.2",
-    "frontend-2" => "10.2.0.3",
-    "frontend-3" => "10.2.0.4",
-  }
+  $govuk_frontend_servers = ["frontend-1", "frontend-2", "frontend-3"]
 
-  $whitehall_frontend_servers = {
-    "whitehall-frontend-1" => "10.2.0.5",
-    "whitehall-frontend-2" => "10.2.0.6",
-  }
+  $whitehall_frontend_servers = ["whitehall-frontend-1", "whitehall-frontend-2",]
 
-  $efg_frontend_servers = {
-    "efg-frontend-1" => "10.4.0.2",
-  }
+  $efg_frontend_servers = ["efg-frontend-1"]
 
   $app_domain = extlookup('app_domain')
 

@@ -4,8 +4,9 @@ define haproxy::balance_https (
     $health_check_port,
     $internal_only = false,
     $aliases = [],
-    $health_check_method = 'HEAD',
-    $health_check_path = '/') {
+    $health_check_method = 'HEAD') {
+
+  $forward_port = 443
 
   $lb_name = "${title}-https"
 
@@ -14,7 +15,7 @@ define haproxy::balance_https (
 
   concat::fragment {"haproxy_listen_https_${title}":
     target  => '/etc/haproxy/haproxy.cfg',
-    content => template('haproxy/listen_fragment_https.erb'),
+    content => template('haproxy/listen_fragment.erb'),
     order   => '10',
   }
 
