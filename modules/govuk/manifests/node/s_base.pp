@@ -14,11 +14,10 @@ class govuk::node::s_base {
 
   include govuk::deploy
   include govuk::repository
+  include govuk::scripts
 
   # Security additions
   include fail2ban
-  include govuk::deploy
-  include govuk::repository
   include rkhunter
 
   $email_collection = extlookup('email_collection','off')

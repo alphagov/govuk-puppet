@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+# NB: This script uses optparse, not argparse, for Python 2.6 compatibility and
+# to avoid the need to depend on any other packages.
+from optparse import OptionParser
+import json
+import urllib
+import urllib2
+
+
+def nodeclass_callback(option, opt, value, parser):
+    setattr(parser.values, option.dest, value.split(','))
+
+def main():
+    opts, args = parser.parse_args()
+
+    query = '["=", ["node", "active"], true]'
+
+    if opts.node_class:
+        node_classes = ['["=", ["fact", "govuk_class"], "{0}"]'.format(c) for c in opts.node_class]
+	node_class_query = '["or", {0}]'.format(', '.join(node_classes))
+        query = '["and", {0}, {1}]'.format(query, node_class_query)
+
+    qs = urllib.urlencode({'query': query})
+    res = urllib2.urlopen('http://puppet-1.management.production/nodes?{0}'.format(qs))
+    hosts = json.load(res)
+
+    for host in hosts:
+        print(host)
+
+
+parser = OptionParser(description='List local nodes of a specified class')
+
+parser.add_option(
+    '-c', '--class',
+    dest='node_class',
+    type='str',
+    help='Restrict the output to nodes of the specified class. (e.g. "frontend,backend")',
+    action='callback',
+    callback=nodeclass_callback
+)
+
+if __name__ == '__main__':
+    main()
