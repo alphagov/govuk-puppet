@@ -5,11 +5,7 @@ describe 'haproxy::balance_https', :type => :define do
     let(:title) { 'giraffe' }
     let(:params) {
       {
-        :servers => {
-          'giraffe-1' => '1.1.1.1',
-          'giraffe-2' => '2.2.2.2',
-          'giraffe-3' => '3.3.3.3',
-        },
+        :servers => ['giraffe-1', 'giraffe-2', 'giraffe-3',],
         :listen_port => 8080,
         :health_check_port => 9090,
       }
@@ -21,7 +17,7 @@ describe 'haproxy::balance_https', :type => :define do
         with_content(/listen giraffe-https 0.0.0.0:8080.*server giraffe-1.*server giraffe-2.*server giraffe-3/m)
       # ensure correct config
       should contain_concat__fragment('haproxy_listen_https_giraffe').
-        with_content(/server giraffe-1 1.1.1.1:443.*port 9090/)
+        with_content(/server giraffe-1 giraffe-1:443.*port 9090/)
       # ensure correct health check
       should contain_concat__fragment('haproxy_listen_https_giraffe').
         with_content(%r"^\s*option httpchk HEAD / HTTP/1\.1\\r\\nHost:\\ giraffe\.test\.gov\.uk$")
@@ -38,7 +34,7 @@ describe 'haproxy::balance_https', :type => :define do
     let(:title) { 'giraffe' }
     let(:params) {
       {
-        :servers => {'giraffe-1' => '1.1.1.1'},
+        :servers => ['giraffe-1'],
         :listen_port => 8080,
         :health_check_port => 9090,
         :internal_only => true,

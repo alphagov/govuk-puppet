@@ -2,7 +2,7 @@ listen <%= @lb_name %> 0.0.0.0:<%= @listen_port %>
   balance roundrobin
   mode tcp
   option httpchk <%= @health_check_method %> <%= @health_check_path %> HTTP/1.1\r\nHost:\ <%= @vhost %>
-<%- @servers.sort.each do | server, ip | -%>
-  server <%= server %> <%= ip %>:443 check inter 10000 fall 3 port <%= @health_check_port %>
+<%- @servers.sort.each do | server | -%>
+  server <%= server %> <%= server %>:443 check inter 10000 fall 3 port <%= @health_check_port %>
 <%- end -%>
 
