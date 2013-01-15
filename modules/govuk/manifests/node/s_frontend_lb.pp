@@ -10,6 +10,12 @@ class govuk::node::s_frontend_lb {
     "frontend-3" => "10.2.0.4",
   }
 
+  $extra_smartanswers_servers = {
+    "frontend-4" => "10.2.0.7",
+    "frontend-5" => "10.2.0.8",
+    "frontend-6" => "10.2.0.9",
+  }
+
   $whitehall_frontend_servers = {
     "whitehall-frontend-1" => "10.2.0.5",
     "whitehall-frontend-2" => "10.2.0.6",
@@ -78,7 +84,7 @@ class govuk::node::s_frontend_lb {
       https_listen_port => 8414,
       http_listen_port  => 8514;
     'smartanswers':
-      servers           => $govuk_frontend_servers,
+      servers           => merge($govuk_frontend_servers, $extra_smartanswers_servers),
       internal_only     => true,
       health_check_port => 9510,
       https_listen_port => 8410,
