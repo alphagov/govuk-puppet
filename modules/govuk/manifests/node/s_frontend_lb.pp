@@ -5,6 +5,7 @@ class govuk::node::s_frontend_lb {
   include loadbalancer::cron
 
   $govuk_frontend_servers = ["frontend-1", "frontend-2", "frontend-3"]
+  $extra_smartanswers_servers = extlookup("extra_smartanswers_servers",[])
 
   $whitehall_frontend_servers = ["whitehall-frontend-1", "whitehall-frontend-2",]
 
@@ -69,7 +70,7 @@ class govuk::node::s_frontend_lb {
       https_listen_port => 8414,
       http_listen_port  => 8514;
     'smartanswers':
-      servers           => $govuk_frontend_servers,
+      servers           => flatten([$govuk_frontend_servers,$extra_smartanswers_servers]),
       internal_only     => true,
       health_check_port => 9510,
       https_listen_port => 8410,
