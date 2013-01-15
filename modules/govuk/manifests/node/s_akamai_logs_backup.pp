@@ -29,7 +29,7 @@ class govuk::node::s_akamai_logs_backup inherits govuk::node::s_base {
     owner   => $user
   }
 
-  file { "/home/$user/akamai":
+  file { "/home/${user}/akamai":
     ensure  => symlink,
     owner   => $user,
     target  => "/mnt/akamai"

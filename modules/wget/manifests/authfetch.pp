@@ -8,20 +8,20 @@
 ################################################################################
 define wget::authfetch($source, $destination, $user, $password='', $timeout='0') {
   if $::http_proxy {
-    $environment = [ "HTTP_PROXY=$::http_proxy", "http_proxy=$::http_proxy", "WGETRC=/tmp/wgetrc-$name" ]
+    $environment = [ "HTTP_PROXY=${::http_proxy}", "http_proxy=${::http_proxy}", "WGETRC=/tmp/wgetrc-${name}" ]
   }
   else {
-    $environment = [ "WGETRC=/tmp/wgetrc-$name" ]
+    $environment = [ "WGETRC=/tmp/wgetrc-${name}" ]
   }
-  file { "/tmp/wgetrc-$name":
+  file { "/tmp/wgetrc-${name}":
     owner   => root,
     mode    => '0600',
-    content => "password=$password",
+    content => "password=${password}",
   } ->
-  exec { "wget-auth-$name":
-    command     => "/usr/bin/wget --user=$user --output-document=$destination $source",
+  exec { "wget-auth-${name}":
+    command     => "/usr/bin/wget --user=${user} --output-document=${destination} ${source}",
     timeout     => $timeout,
-    unless      => "/usr/bin/test -s $destination",
+    unless      => "/usr/bin/test -s ${destination}",
     environment => $environment,
   }
 }

@@ -21,7 +21,7 @@ class jenkins::ssh_key {
   }
 
   exec { 'Creating key pair for jenkins':
-    command => "ssh-keygen -t rsa -C 'Provided by Puppet for jenkins' -N '' -f $private_key",
+    command => "ssh-keygen -t rsa -C 'Provided by Puppet for jenkins' -N '' -f ${private_key}",
     creates => $private_key,
     require => [
       User['jenkins'],
