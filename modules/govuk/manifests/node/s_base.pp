@@ -1,24 +1,22 @@
 class govuk::node::s_base {
+
   include backup::client
   include base
+  include fail2ban
+  include govuk::deploy
+  include govuk::repository
+  include govuk::scripts
   include hosts
   include monitoring::client
   include puppet
   include puppet::cronjob
+  include rkhunter
   include users
   include users::assets
   include users::groups::bitzesty
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
-
-  include govuk::deploy
-  include govuk::repository
-  include govuk::scripts
-
-  # Security additions
-  include fail2ban
-  include rkhunter
 
   $email_collection = extlookup('email_collection','off')
   case $email_collection {
