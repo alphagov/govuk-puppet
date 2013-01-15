@@ -123,7 +123,7 @@ end
 
 desc "Run custom module rake tasks"
 task :custom do
-  custom_rakefiles = FileList[*get_modules.map { |x| "modules/#{x}/Rakefile" }]
+  custom_rakefiles = FileList[*get_modules.map { |x| File.join(x, "Rakefile") }]
   custom_rakefiles.select! { |x| File.exist?(x) }
 
   # Until we remove these from this repository, exclude third party modules.
