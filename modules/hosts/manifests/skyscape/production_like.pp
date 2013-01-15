@@ -6,9 +6,10 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
 
   #management vdc machines
   govuk::host { 'puppet-1':
-    ip             => '10.0.0.2',
-    vdc            => 'management',
-    legacy_aliases => ['puppet-1', 'puppet'],
+    ip              => '10.0.0.2',
+    vdc             => 'management',
+    legacy_aliases  => ['puppet-1', 'puppet'],
+    service_aliases => ['puppet', 'puppetdb'],
   }
   govuk::host { 'jenkins-1':
     ip             => '10.0.0.3',

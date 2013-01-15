@@ -12,6 +12,6 @@ server {
   server_name puppetdb.*;
 
   location / {
-    proxy_pass http://puppet-1.management.production/;
+    proxy_pass http://puppetdb.cluster/;
   }
 }
