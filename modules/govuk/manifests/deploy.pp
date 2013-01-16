@@ -63,7 +63,7 @@ class govuk::deploy {
       type    => 'ssh-rsa',
       user    => 'deploy',
     }
-    # This key is required to allow Production Jenkins to sync data to 
+    # This key is required to allow Production Jenkins to sync data to
     # other environments.
     ssh_authorized_key { 'deploy_key_jenkins_skyscape_production':
       ensure  => present,
