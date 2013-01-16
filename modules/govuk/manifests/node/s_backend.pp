@@ -21,6 +21,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
   include govuk::apps::publisher
+  include govuk::apps::release
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::support
