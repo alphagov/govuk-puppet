@@ -52,6 +52,15 @@ Vagrant::Config.run do |config|
 
       c.ssh.forward_agent = true
       c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
+
+      c.vm.provision :puppet do |puppet|
+        puppet.manifest_file = "site.pp"
+        puppet.manifests_path = "../puppet/manifests"
+        puppet.module_path = [
+          "../puppet/modules",
+          "../puppet/vendor/modules",
+        ]
+      end
     end
   end
 end
