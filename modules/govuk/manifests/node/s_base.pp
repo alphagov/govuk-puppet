@@ -26,13 +26,8 @@ class govuk::node::s_base {
     default : {}
   }
 
-  case $::lsbdistcodename {
-    precise: {}
-    default: {
-      class { 'ruby::rubygems':
-        version => '1.8.24'
-      }
-    }
+  class { 'ruby::rubygems':
+    version => '1.8.24',
   }
 
   sshkey { 'github.com':
