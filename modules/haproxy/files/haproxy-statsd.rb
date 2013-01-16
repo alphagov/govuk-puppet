@@ -4,7 +4,7 @@ require 'socket'
 HOSTNAME = `facter hostname`.chomp
 SOCKET = UDPSocket.new
 
-IO.popen(["curl","http://localhost:8000/haproxy;csv"]) do |haproxy_csv|
+IO.popen(["curl","-s","http://localhost:8000/haproxy;csv"]) do |haproxy_csv|
   header_line = haproxy_csv.gets
   header_line.gsub!(/# /,'')
   HEADERS = header_line.split(/,/)[0..-2]
