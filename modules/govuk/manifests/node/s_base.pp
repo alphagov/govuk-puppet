@@ -6,6 +6,7 @@ class govuk::node::s_base {
   include govuk::deploy
   include govuk::repository
   include govuk::scripts
+  include govuk::sshkeys
   include hosts
   include monitoring::client
   include puppet
@@ -33,18 +34,6 @@ class govuk::node::s_base {
         version => '1.8.24'
       }
     }
-  }
-
-  sshkey { 'github.com':
-    ensure => present,
-    type   => 'ssh-rsa',
-    key    => extlookup('github_key',''),
-  }
-
-  sshkey { 'github.gds':
-    ensure => present,
-    type   => 'ssh-rsa',
-    key    => extlookup('github_gds_key',''),
   }
 
   case $::govuk_provider {
