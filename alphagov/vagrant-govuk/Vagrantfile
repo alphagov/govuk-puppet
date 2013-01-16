@@ -24,7 +24,7 @@ def nodes_from_json
     node = JSON.parse(File.read(json_file))
     name = node["vm_name"] + "." + node["zone"]
 
-    [name, { :ip => node["ip"], :class => node["class"] }]
+    [name, node]
   }
 
   Hash[nodes]
@@ -37,7 +37,7 @@ Vagrant::Config.run do |config|
       c.vm.box_url = BOX_URL
       c.vm.host_name = ENV['VAGRANT_HOSTNAME'] || 'vm'
 
-      c.vm.network :hostonly, node_opts[:ip]
+      c.vm.network :hostonly, node_opts["ip"]
 
       # Mitigate boot hangs.
       c.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
