@@ -216,11 +216,8 @@ class monitoring::checks {
       $contact_email = extlookup('monitoring_group', 'root@localhost')
     }
     default: {
-      $contact_email = $::govuk_platform ? {
-        production   => 'monitoring-ec2production@digital.cabinet-office.gov.uk',
-        preview      => 'monitoring-ec2preview@digital.cabinet-office.gov.uk',
-        default      => 'root@localhost',
-      }
+      # ugh.
+      $contact_email = 'monitoring-ec2preview@digital.cabinet-office.gov.uk'
     }
   }
 
