@@ -60,6 +60,10 @@ Vagrant::Config.run do |config|
           "../puppet/modules",
           "../puppet/vendor/modules",
         ]
+        puppet.facter = {
+          :govuk_class => node_opts["class"],
+          :govuk_platform => "development",
+        }
       end
     end
   end
