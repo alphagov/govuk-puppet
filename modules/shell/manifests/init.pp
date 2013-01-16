@@ -16,11 +16,4 @@ class shell {
     ensure => 'absent',
   }
 
-  # Some integration tests use a headless webkit that requires DISPLAY=:99
-  file { '/etc/profile.d/xvfb_display.sh':
-    content => '# We use xvfb for DISPLAY, so that integration tests can run
-export DISPLAY=:99
-',
-  }
-
 }
