@@ -1,8 +1,5 @@
 class base_packages {
 
-  include gcc
-  include screen
-
   package {
     [
       'ack-grep',
