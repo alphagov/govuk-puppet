@@ -18,9 +18,10 @@ class puppet::master::package {
     require => Package['puppet-common'],
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
-    ensure => directory,
-    owner  => 'puppet',
-    group  => 'puppet',
+    ensure  => directory,
+    owner   => 'puppet',
+    group   => 'puppet',
+    require => Package['puppet-common'],
   }
   file { '/etc/init/puppetmaster.conf':
     content => template('puppet/etc/init/puppetmaster.conf.erb'),
