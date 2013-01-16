@@ -35,8 +35,8 @@ Vagrant::Config.run do |config|
     config.vm.define node_name do |c|
       c.vm.box = BOX_NAME
       c.vm.box_url = BOX_URL
-      c.vm.host_name = ENV['VAGRANT_HOSTNAME'] || 'vm'
 
+      c.vm.host_name = node_name
       c.vm.network :hostonly, node_opts["ip"]
 
       # Mitigate boot hangs.
