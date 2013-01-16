@@ -15,7 +15,7 @@ class logstash::client::service {
     hour        => [0, 8, 16],
     minute      => fqdn_rand_fixed(60),
     environment => 'PATH=/usr/sbin:/usr/bin:/sbin:/bin',
-    command     => '/usr/sbin/service logstash-client restart #Restart to ensure leaking file descriptors are given up',
+    command     => '/usr/sbin/service logstash-client restart 2>&1 >/dev/null',
     require     => Service['logstash-client'];
   }
 

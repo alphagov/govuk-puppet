@@ -7,6 +7,7 @@ class puppet::cronjob {
     ensure  => present,
     user    => 'root',
     minute  => [$first, $second],
-    command => '/usr/bin/puppet agent --onetime --no-daemonize',
+    command => '/usr/local/bin/govuk_puppet',
+    require => File['/usr/local/bin/govuk_puppet'],
   }
 }
