@@ -39,8 +39,16 @@ Vagrant::Config.run do |config|
       c.vm.host_name = node_name
       c.vm.network :hostonly, node_opts["ip"]
 
-      # Mitigate boot hangs.
-      c.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+      c.vm.customize([
+        'modifyvm', :id,
+
+        # Mitigate boot hangs.
+        "--rtcuseutc", "on",
+
+        # Isolate guests from host networking.
+        "--natdnsproxy1", "on",
+        "--natdnshostresolver1", "on",
+      ])
 
       c.ssh.forward_agent = true
       c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
