@@ -1,6 +1,7 @@
 # == Class: puppet::master
 #
 # Install and configure a puppet master served by nginx and unicorn.
+# Includes PuppetDB of a fixed version on the same host.
 #
 # === Parameters
 #
@@ -13,13 +14,20 @@ class puppet::master($unicorn_port='9090') {
   include nginx
   include unicornherder
 
+  $puppetdb_version = '1.0.2-1puppetlabs1'
+
+  class { '::puppetdb':
+    package_ensure => $puppetdb_version,
+  }
+
   anchor {'puppet::master::begin':
     notify => Class['puppet::master::service'],
   }
   class{'puppet::master::package':
-    require => [
-        Class['unicornherder'],
-        Anchor['puppet::master::begin']
+    puppetdb_version  => $puppetdb_version,
+    require           => [
+      Class['unicornherder'],
+      Anchor['puppet::master::begin'],
     ],
   }
   class{'puppet::master::config':

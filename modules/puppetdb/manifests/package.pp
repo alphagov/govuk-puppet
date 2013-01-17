@@ -1,10 +1,10 @@
-class puppetdb::package {
+class puppetdb::package($package_ensure) {
 
   include postgres
   include puppet::repository
 
   package { 'puppetdb':
-    ensure  => '1.0.2-1puppetlabs1',
+    ensure  => $package_ensure,
     require => [Package['puppet-common'],Package['puppet']],
   }
 

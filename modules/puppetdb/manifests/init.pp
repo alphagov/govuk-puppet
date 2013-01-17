@@ -1,12 +1,23 @@
-class puppetdb {
+# == Class: puppetdb
+#
+# Install and configure PuppetDB with Postgres and Java, listening on the
+# loopback interface.
+#
+# === Parameters
+#
+# [*package_ensure*]
+#   Ensure parameter passed to the package{} resource.
+#
+class puppetdb($package_ensure) {
 
   anchor { 'puppetdb::begin':
     notify => Class['puppetdb::service'];
   }
 
   class { 'puppetdb::package':
-    require => Anchor['puppetdb::begin'],
-    notify  => Class['puppetdb::service'];
+    package_ensure  => $package_ensure,
+    require         => Anchor['puppetdb::begin'],
+    notify          => Class['puppetdb::service'];
   }
 
   class { 'puppetdb::config':
