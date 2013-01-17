@@ -35,8 +35,6 @@ define govuk::user(
   $has_deploy = false
 ) {
 
-  include shell
-
   user { $title:
     ensure     => $ensure,
     comment    => "${fullname} <${email}>",
@@ -45,12 +43,6 @@ define govuk::user(
     groups     => ['admin', 'deploy'],
     require    => Class['shell'],
     shell      => $shell,
-  }
-
-  file { "/home/${title}/.bashrc":
-    ensure  => $ensure,
-    source  => 'puppet:///modules/users/bashrc',
-    require => User[$title]
   }
 
   if $ssh_key != undef {
