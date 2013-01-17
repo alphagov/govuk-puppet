@@ -1,4 +1,16 @@
-class puppet::master::package {
+# == Class: puppet::master::package
+#
+# Install packages for a Puppet Master. Currently includes some generic
+# dependencies like `puppet` and `puppet-common` which should eventually be
+# broken into a "base" sub-class.
+#
+# === Parameters
+#
+# [*puppetdb_version*]
+#   Specify the version of puppetdb-terminus to install which should match
+#   the puppetdb installation. Passed in by parent class.
+#
+class puppet::master::package($puppetdb_version) {
   package { 'unicorn':
     provider => gem,
   }
@@ -10,7 +22,7 @@ class puppet::master::package {
     ensure => '2.7.19-1puppetlabs2',
   }
   package { 'puppetdb-terminus':
-    ensure  => '1.0.0-1puppetlabs1',
+    ensure  => $puppetdb_version,
     require => Package['puppet-common'],
   }
   package { 'puppet':
