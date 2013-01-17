@@ -72,7 +72,6 @@ require 'logger'
 
 class GovukIndexer
   GOVUK_ROOT = 'https://www.gov.uk'.freeze
-  API_ENDPOINT = (GOVUK_ROOT + '/api/artefacts.json').freeze
 
   FORMATS_TO_503 = %w(
     local_transaction
@@ -82,12 +81,12 @@ class GovukIndexer
     licence
   ).freeze
 
-  ADDITIONAL_START_URLS = %w(
+  ADDITIONAL_START_PATHS = %w(
     /
     /designprinciples
     /designprinciples/styleguide
     /designprinciples/performanceframework
-  ).map{ |x| (GOVUK_ROOT + x).freeze}
+  ).freeze
 
   # Calendars currently register as custom-application
   WHITELIST_PATHS = %w(
@@ -103,8 +102,10 @@ class GovukIndexer
     /apply-for-a-licence
   ).freeze
 
-  def initialize
-    @all_start_urls = ADDITIONAL_START_URLS.dup
+  def initialize (root = GOVUK_ROOT)
+    @root = root
+    @api_endpoint = (@root + '/api/artefacts.json').freeze
+    @all_start_urls = ADDITIONAL_START_PATHS.map{ |x| (@root + x).freeze}
     @blacklist_paths = ADDITIONAL_BLACKLIST_PATHS.dup
     process_artefacts
   end
@@ -142,7 +143,7 @@ class GovukIndexer
       m = Mechanize.new
       # Force Mechanize to use Net::HTTP which we've monkey-patched above
       m.agent.http.reuse_ssl_sessions = false
-      page = m.get(API_ENDPOINT)
+      page = m.get(@api_endpoint)
       JSON.parse(page.body)["results"]
     rescue Mechanize::ResponseCodeError => ex
       if ! retried
