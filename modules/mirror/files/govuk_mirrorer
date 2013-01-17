@@ -71,8 +71,6 @@ require 'spidey'
 require 'logger'
 
 class GovukIndexer
-  GOVUK_ROOT = 'https://www.gov.uk'.freeze
-
   FORMATS_TO_503 = %w(
     local_transaction
     smart-answer
@@ -102,7 +100,7 @@ class GovukIndexer
     /apply-for-a-licence
   ).freeze
 
-  def initialize (root = GOVUK_ROOT)
+  def initialize(root)
     @root = root
     @api_endpoint = (@root + '/api/artefacts.json').freeze
     @all_start_urls = ADDITIONAL_START_PATHS.map{ |x| (@root + x).freeze}
@@ -159,6 +157,7 @@ end
 class GovukMirrorer < Spidey::AbstractSpider
   USER_AGENT = "GOV.UK Mirrorer/0.1"
   SITE_HOSTNAME = 'www.gov.uk'
+  SITE_ROOT = 'https://www.gov.uk'
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0
@@ -174,7 +173,7 @@ class GovukMirrorer < Spidey::AbstractSpider
     end
     @verbose_debug = false
 
-    @indexer = GovukIndexer.new
+    @indexer = GovukIndexer.new(SITE_ROOT)
     @indexer.all_start_urls.each do |url|
       @logger.debug "Adding start url #{url}" if @verbose_debug
       handle url, :process_govuk_page
