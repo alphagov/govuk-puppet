@@ -77,7 +77,7 @@ RSpec.configure do |c|
     setup_extdata_stubs
     set_extdata({
       'app_domain'    => 'test.gov.uk',
-      'website_root'  => 'www.test.gov.uk',
+      'website_root'  => 'http://www.test.gov.uk',
       'http_username' => 'test_username',
       'http_password' => 'test_password',
 
