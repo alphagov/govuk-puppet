@@ -1,7 +1,6 @@
 class govuk::node::s_development {
   include base
 
-  include apollo
   include base_packages
   include elasticsearch
   include hosts

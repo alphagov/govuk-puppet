@@ -103,9 +103,6 @@ class govuk::firewall {
   ufw::allow { "allow-apt_cacher-from-all":
     port => 3142,
   }
-  ufw::allow { "allow-apollo-from-all":
-    port => 61613,
-  }
   ufw::allow { "allow-solr-from-all":
     port => 8983,
   }
