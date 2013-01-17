@@ -102,8 +102,8 @@ class GovukIndexer
 
   def initialize(root)
     @root = root
-    @api_endpoint = (@root + '/api/artefacts.json').freeze
-    @all_start_urls = ADDITIONAL_START_PATHS.map{ |x| (@root + x).freeze}
+    @api_endpoint = @root + '/api/artefacts.json'
+    @all_start_urls = ADDITIONAL_START_PATHS.map{ |x| @root + x}
     @blacklist_paths = ADDITIONAL_BLACKLIST_PATHS.dup
     process_artefacts
   end
