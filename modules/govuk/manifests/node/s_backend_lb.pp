@@ -32,6 +32,11 @@ class govuk::node::s_backend_lb {
       health_check_port => 9515,
       https_listen_port => 8415,
       http_listen_port  => 8515;
+    'release':
+      servers           => $backend_servers,
+      health_check_port => 9536,
+      https_listen_port => 8436,
+      http_listen_port  => 8536;
     'signon':
       servers           => $backend_servers,
       health_check_port => 9516,
