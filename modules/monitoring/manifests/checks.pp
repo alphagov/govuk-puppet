@@ -84,13 +84,6 @@ class monitoring::checks {
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
   }
-
-  @@nagios::check { "check_no_overdue_scheduled_editions_${::hostname}":
-    check_command       => "check_graphite_metric!stats.gauges.govuk.app.whitehall.scheduled_publishing.due!0!0",
-    service_description => 'whitehall has overdue scheduled editions',
-    use                 => 'govuk_urgent_priority',
-    host_name           => $::fqdn,
-  }
   # END whitehall
 
   # START datainsight
