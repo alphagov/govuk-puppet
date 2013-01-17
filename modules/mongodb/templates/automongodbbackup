@@ -255,8 +255,8 @@ DOM=`date +%d`						# Date of the Month e.g. 27
 M=`date +%B`						# Month e.g January
 W=`date +%V`						# Week Number e.g 37
 VER=0.9							    # Version Number
-LOGFILE=$BACKUPDIR/$DBHOST-`date +%N`.log		# Logfile Name
-LOGERR=$BACKUPDIR/ERRORS_$DBHOST-`date +%N`.log		# Logfile Name
+LOGFILE=$BACKUPDIR/logs/$DBHOST-`date +%N`.log		# Logfile Name
+LOGERR=$BACKUPDIR/logs/ERRORS_$DBHOST-`date +%N`.log		# Logfile Name
 BACKUPFILES=""
 OPT=""							# OPT string for use with mongodump
 
@@ -297,6 +297,11 @@ fi
 if [ ! -e "$BACKUPDIR/monthly" ]	# Check Monthly Directory exists.
 	then
 	mkdir -p "$BACKUPDIR/monthly"
+fi
+
+if [ ! -e "$BACKUPDIR/logs" ]		# Check Log Directory exists.
+	then
+	mkdir -p "$BACKUPDIR/logs"
 fi
 
 if [ "$LATEST" = "yes" ]
@@ -543,16 +548,14 @@ else
                         echo "STDERR written to during mongodump execution."
                         echo "The backup probably succeeded, as mongodump sometimes writes to STDERR, but you may wish to scan the error log below:"
                         cat "$LOGERR"
-        else
-                cat "$LOGFILE"
         fi
 fi
 
-# TODO: Would be nice to know if there were any *actual* errors in the $LOGERR
-STATUS=1
-
-# Clean up Logfile
-eval rm -f "$LOGFILE"
-eval rm -f "$LOGERR"
+STATUS=0
+ERRORS=`wc -l $LOGERR | awk '{print $1}'`
+if [ $ERRORS -gt 0 ];
+then
+  STATUS=1
+fi
 
 exit $STATUS
