@@ -27,103 +27,55 @@ class govuk::node::s_management_base {
     root_password => $mysql_password
   }
 
+  Mysql::Server::Db {
+    root_password => $mysql_password,
+    remote_host   => 'localhost',
+  }
+
   mysql::server::db {
-    'datainsights_todays_activity_test':
-      user          => 'datainsight',
-      password      => '',
-      root_password => $mysql_password;
-    'datainsight_weekly_reach_test':
-      user          => 'datainsight',
-      password      => '',
-      root_password => $mysql_password;
-    'datainsight_insidegov_test':
-      user          => 'datainsight',
-      password      => '',
-      root_password => $mysql_password;
-    'efg_test':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test1':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test2':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test3':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'efg_test4':
-      user          => 'efg',
-      password      => 'efg',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
+    [
+      'datainsights_todays_activity_test',
+      'datainsight_weekly_reach_test',
+      'datainsight_insidegov_test',
+    ]:
+      user     => 'datainsight',
+      password => '';
+
+    [
+      'efg_test',
+      'efg_test1',
+      'efg_test2',
+      'efg_test3',
+      'efg_test4',
+    ]:
+      user     => 'efg',
+      password => 'efg';
+
     'panopticon_test':
-      user          => 'panopticon',
-      password      => 'panopticon',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'release_development':
-      user          => 'release',
-      password      => 'release',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'release_test':
-      user          => 'release',
-      password      => 'release',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'signonotron2_test':
-      user          => 'signonotron2',
-      password      => 'signonotron2',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'signonotron2_integration_test':
-      user          => 'signonotron2',
-      password      => 'signonotron2',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
+      user     => 'panopticon',
+      password => 'panopticon';
+
+    ['release_development', 'release_test']:
+      user     => 'release',
+      password => 'release';
+
+    ['signonotron2_test', 'signonotron2_integration_test']:
+      user     => 'signonotron2',
+      password => 'signonotron2';
+
     'tariff_test':
-      user          => 'tariff',
-      password      => 'tariff',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'whitehall_development':
-      user          => 'whitehall',
-      password      => 'whitehall',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'whitehall_test':
-      user          => 'whitehall',
-      password      => 'whitehall',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'whitehall_test1':
-      user          => 'whitehall',
-      password      => 'whitehall',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'whitehall_test2':
-      user          => 'whitehall',
-      password      => 'whitehall',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'whitehall_test3':
-      user          => 'whitehall',
-      password      => 'whitehall',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
-    'whitehall_test4':
-      user          => 'whitehall',
-      password      => 'whitehall',
-      remote_host   => 'localhost',
-      root_password => $mysql_password;
+      user     => 'tariff',
+      password => 'tariff';
+
+    [
+      'whitehall_development',
+      'whitehall_test',
+      'whitehall_test1',
+      'whitehall_test2',
+      'whitehall_test3',
+      'whitehall_test4',
+    ]:
+      user     => 'whitehall',
+      password => 'whitehall';
   }
 }
