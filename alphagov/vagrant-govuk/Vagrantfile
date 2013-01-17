@@ -24,6 +24,10 @@ def nodes_from_json
     node = JSON.parse(File.read(json_file))
     name = node["vm_name"] + "." + node["zone"]
 
+    # Ignore physical attributes.
+    node.delete("memory")
+    node.delete("num_cores")
+
     [name, node]
   }
 
