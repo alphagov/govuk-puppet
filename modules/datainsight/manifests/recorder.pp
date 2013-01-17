@@ -1,4 +1,4 @@
-define datainsight::recorder($port, $platform = $::govuk_platform) {
+define datainsight::recorder($port) {
 
   $domain = extlookup('app_domain')
 
