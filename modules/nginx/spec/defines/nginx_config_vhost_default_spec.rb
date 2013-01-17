@@ -2,9 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'nginx::config::vhost::default', :type => :define do
   let(:title) { 'donkey' }
-  let(:facts) do
-    { :govuk_platform => 'production' }
-  end
 
   context 'with no params' do
     it 'should install a default vhost that 500s' do

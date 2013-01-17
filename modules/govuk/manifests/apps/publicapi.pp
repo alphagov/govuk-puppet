@@ -20,7 +20,6 @@ class govuk::apps::publicapi {
     to                => [$privateapi],
     protected         => false,
     ssl_only          => false,
-    platform          => $platform,
     extra_config      => "
       expires 30m;
 

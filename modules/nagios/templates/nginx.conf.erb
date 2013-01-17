@@ -1,6 +1,6 @@
 # This file is managed by Puppet. Local changes will be clobbered.
 
-<%- if platform != 'development' -%>
+<%- if @enable_ssl -%>
 server {
   server_name <%= vhost %>;
   listen 80;
@@ -11,7 +11,7 @@ server {
 server {
   server_name <%= vhost %>;
 
-  <%- if platform == 'development' -%>
+  <%- if !@enable_ssl -%>
   listen 80;
   <%- else -%>
   listen                    443 ssl;
