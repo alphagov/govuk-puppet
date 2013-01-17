@@ -1,17 +1,9 @@
 class govuk::apps::publicapi {
-  $platform = $::govuk_platform
 
   $domain = extlookup('app_domain')
 
-  $privateapi = $platform ? {
-    'development' => 'localhost:3022',
-    default       => "contentapi.${domain}"
-  }
-
-  $whitehallapi = $platform ? {
-    'development' => 'localhost:3020',
-    default       => "whitehall-frontend.${domain}"
-  }
+  $privateapi = "contentapi.${domain}"
+  $whitehallapi = "whitehall-frontend.${domain}"
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${domain}"
