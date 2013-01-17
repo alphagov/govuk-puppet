@@ -134,14 +134,12 @@ define govuk::app(
     vhost_ssl_only         => $vhost_ssl_only,
     nginx_extra_config     => $nginx_extra_config,
     nginx_extra_app_config => $nginx_extra_app_config,
-    platform               => $platform,
     health_check_path      => $health_check_path,
     intercept_errors       => $intercept_errors,
     enable_nginx_vhost     => $enable_nginx_vhost,
   }
 
   govuk::app::service { $title:
-    platform  => $platform,
     subscribe => Class['govuk::deploy'],
   }
 

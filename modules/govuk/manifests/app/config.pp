@@ -8,7 +8,6 @@ define govuk::app::config (
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
-  $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
   $intercept_errors = false,
   $enable_nginx_vhost = true
@@ -66,6 +65,9 @@ define govuk::app::config (
       varname => "GOVUK_STATSD_PREFIX",
       value   => "govuk.app.${title}.${::hostname}";
   }
+
+  # Used by the upstart config template
+  $enable_service = str2bool(extlookup('govuk_app_enable_services', 'yes'))
 
   # Install service
   file { "/etc/init/${title}.conf":
