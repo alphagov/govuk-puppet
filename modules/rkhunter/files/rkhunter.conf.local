@@ -1,0 +1,4 @@
+ALLOWHIDDENDIR=/etc/.java
+ALLOWHIDDENDIR=/dev/.udev
+ALLOWHIDDENDIR=/dev/.initramfs
+ALLOWHIDDENFILE=/dev/.blkid.tab
