@@ -99,6 +99,7 @@ class govuk::node::s_development {
       'datainsight_weekly_reach',
       'datainsight_weekly_reach_test',
       'datainsights_format_success',
+      'datainsights_format_success_test',
       'datainsight_insidegov',
       'datainsight_insidegov_test',
     ]:

@@ -36,6 +36,7 @@ class govuk::node::s_management_base {
     [
       'datainsights_todays_activity_test',
       'datainsight_weekly_reach_test',
+      'datainsights_format_success_test',
       'datainsight_insidegov_test',
     ]:
       user     => 'datainsight',
