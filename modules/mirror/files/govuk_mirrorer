@@ -71,7 +71,8 @@ require 'spidey'
 require 'logger'
 
 class GovukIndexer
-  API_ENDPOINT = 'https://www.gov.uk/api/artefacts.json'.freeze
+  GOVUK_ROOT = 'https://www.gov.uk'.freeze
+  API_ENDPOINT = (GOVUK_ROOT + '/api/artefacts.json').freeze
 
   FORMATS_TO_503 = %w(
     local_transaction
@@ -82,11 +83,11 @@ class GovukIndexer
   ).freeze
 
   ADDITIONAL_START_URLS = %w(
-    https://www.gov.uk/
-    https://www.gov.uk/designprinciples
-    https://www.gov.uk/designprinciples/styleguide
-    https://www.gov.uk/designprinciples/performanceframework
-  ).freeze
+    /
+    /designprinciples
+    /designprinciples/styleguide
+    /designprinciples/performanceframework
+  ).map{ |x| (GOVUK_ROOT + x).freeze}
 
   # Calendars currently register as custom-application
   WHITELIST_PATHS = %w(
