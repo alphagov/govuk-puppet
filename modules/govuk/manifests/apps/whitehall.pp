@@ -62,6 +62,8 @@ class govuk::apps::whitehall(
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
       proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;
 
+      client_max_body_size 500m;
+
       location ~ /clean/(.*) {
         internal;
         alias /data/uploads/whitehall/clean/$1;
