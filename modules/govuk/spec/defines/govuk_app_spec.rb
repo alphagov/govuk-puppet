@@ -16,14 +16,12 @@ describe 'govuk::app', :type => :define do
       {
         :port => 8000,
         :app_type => 'rack',
-        :platform => 'production'
       }
     end
 
     it do
       should contain_govuk__app__package('giraffe').with(
         'vhost_full' => 'giraffe.test.gov.uk',
-        'platform' => 'production',
       )
       should contain_govuk__app__config('giraffe').with(
         'domain' => 'test.gov.uk',

@@ -120,7 +120,6 @@ define govuk::app(
 
   govuk::app::package { $title:
     vhost_full => $vhost_full,
-    platform   => $platform,
   }
 
   govuk::app::config { $title:

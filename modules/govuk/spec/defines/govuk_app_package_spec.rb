@@ -15,7 +15,6 @@ describe 'govuk::app::package', :type => :define do
     let(:params) do
       {
         :vhost_full => 'giraffe.example.com',
-        :platform => 'production'
       }
     end
 

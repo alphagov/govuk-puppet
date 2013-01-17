@@ -27,19 +27,6 @@ describe 'govuk::app::config', :type => :define do
     end
   end
 
-  context 'on the development platform' do
-    let(:params) do
-      {
-        :port => 8000,
-        :app_type => 'rack',
-        :domain => 'example.com',
-        :vhost_full => 'giraffe.example.com',
-      }
-    end
-
-    it { should contain_nginx__config__vhost__proxy('giraffe.example.com') }
-  end
-
   context 'with aliases' do
     let(:params) do
       {
