@@ -9,6 +9,7 @@ BOX_URL     = "http://gds-boxes.s3.amazonaws.com/#{BOX_NAME}.box"
 # this. Temporary solution while only Ops are using this.
 def nodes_from_json
   json_dir = File.expand_path("../../deployment/provisioner/machines", __FILE__)
+  json_local = File.expand_path("../nodes.local.json", __FILE__)
 
   unless File.exists?(json_dir)
     puts "Unable to find nodes in 'deployment' repo"
@@ -20,18 +21,26 @@ def nodes_from_json
     File.join(json_dir, "**", "*.json")
   )
 
-  nodes = json_files.map { |json_file|
-    node = JSON.parse(File.read(json_file))
-    name = node["vm_name"] + "." + node["zone"]
+  nodes = Hash[
+    json_files.map { |json_file|
+      node = JSON.parse(File.read(json_file))
+      name = node["vm_name"] + "." + node["zone"]
 
-    # Ignore physical attributes.
-    node.delete("memory")
-    node.delete("num_cores")
+      # Ignore physical attributes.
+      node.delete("memory")
+      node.delete("num_cores")
 
-    [name, node]
-  }
+      [name, node]
+    }
+  ]
 
-  Hash[nodes]
+  # Local JSON file can override node properties like "memory".
+  if File.exists?(json_local)
+    nodes_local = JSON.parse(File.read(json_local))
+    nodes_local.each { |k,v| nodes[k].merge!(v) if nodes.has_key?(k) }
+  end
+
+  nodes
 end
 
 Vagrant::Config.run do |config|
@@ -51,6 +60,10 @@ Vagrant::Config.run do |config|
       # Isolate guests from host networking.
       modifyvm_args << "--natdnsproxy1" << "on"
       modifyvm_args << "--natdnshostresolver1" << "on"
+
+      if node_opts.has_key?("memory")
+        modifyvm_args << "--memory" << node_opts["memory"]
+      end
 
       c.vm.customize(modifyvm_args)
 
