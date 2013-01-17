@@ -71,8 +71,6 @@ require 'spidey'
 require 'logger'
 
 class GovukIndexer
-  API_ENDPOINT = 'https://www.gov.uk/api/artefacts.json'.freeze
-
   FORMATS_TO_503 = %w(
     local_transaction
     smart-answer
@@ -81,11 +79,11 @@ class GovukIndexer
     licence
   ).freeze
 
-  ADDITIONAL_START_URLS = %w(
-    https://www.gov.uk/
-    https://www.gov.uk/designprinciples
-    https://www.gov.uk/designprinciples/styleguide
-    https://www.gov.uk/designprinciples/performanceframework
+  ADDITIONAL_START_PATHS = %w(
+    /
+    /designprinciples
+    /designprinciples/styleguide
+    /designprinciples/performanceframework
   ).freeze
 
   # Calendars currently register as custom-application
@@ -102,8 +100,10 @@ class GovukIndexer
     /apply-for-a-licence
   ).freeze
 
-  def initialize
-    @all_start_urls = ADDITIONAL_START_URLS.dup
+  def initialize(root)
+    @root = root
+    @api_endpoint = @root + '/api/artefacts.json'
+    @all_start_urls = ADDITIONAL_START_PATHS.map{ |x| @root + x}
     @blacklist_paths = ADDITIONAL_BLACKLIST_PATHS.dup
     process_artefacts
   end
@@ -141,7 +141,7 @@ class GovukIndexer
       m = Mechanize.new
       # Force Mechanize to use Net::HTTP which we've monkey-patched above
       m.agent.http.reuse_ssl_sessions = false
-      page = m.get(API_ENDPOINT)
+      page = m.get(@api_endpoint)
       JSON.parse(page.body)["results"]
     rescue Mechanize::ResponseCodeError => ex
       if ! retried
@@ -157,6 +157,7 @@ end
 class GovukMirrorer < Spidey::AbstractSpider
   USER_AGENT = "GOV.UK Mirrorer/0.1"
   SITE_HOSTNAME = 'www.gov.uk'
+  SITE_ROOT = 'https://www.gov.uk'
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0
@@ -172,7 +173,7 @@ class GovukMirrorer < Spidey::AbstractSpider
     end
     @verbose_debug = false
 
-    @indexer = GovukIndexer.new
+    @indexer = GovukIndexer.new(SITE_ROOT)
     @indexer.all_start_urls.each do |url|
       @logger.debug "Adding start url #{url}" if @verbose_debug
       handle url, :process_govuk_page
