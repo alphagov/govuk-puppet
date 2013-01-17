@@ -4,7 +4,7 @@ class govuk::node::s_development {
   include apollo
   include base_packages
   include elasticsearch
-  include hosts
+  include hosts::development
   include imagemagick
   include mongodb::server
   include mysql::client

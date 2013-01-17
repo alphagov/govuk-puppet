@@ -32,12 +32,13 @@ define govuk::host(
 
   # The following parameters should typically not be customized
   $service_suffix = 'cluster',
-  $platform = $::govuk_platform,
 ) {
+
+  $tld = extlookup('internal_tld', 'production')
 
   $service_aliases_real = regsubst($service_aliases, '$', ".${service_suffix}")
 
-  host { "${hostname}.${vdc}.${platform}":
+  host { "${hostname}.${vdc}.${tld}":
     ensure       => $ensure,
     ip           => $ip,
     host_aliases => flatten(["${hostname}.${vdc}", $service_aliases_real, $legacy_aliases]),

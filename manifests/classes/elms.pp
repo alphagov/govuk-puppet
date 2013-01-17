@@ -4,12 +4,14 @@ class elms_base::mongo_server {
   include mongodb::server
   include java::openjdk6::jre
 
+  $internal_tld = extlookup('internal_tld', 'production')
+
   case $::govuk_provider {
     sky: {
       $mongo_hosts = [
-        "licensify-mongo-1.licensify.${::govuk_platform}",
-        "licensify-mongo-2.licensify.${::govuk_platform}",
-        "licensify-mongo-3.licensify.${::govuk_platform}"
+        "licensify-mongo-1.licensify.${internal_tld}",
+        "licensify-mongo-2.licensify.${internal_tld}",
+        "licensify-mongo-3.licensify.${internal_tld}"
       ]
     }
     #aws

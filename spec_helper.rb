@@ -80,6 +80,7 @@ RSpec.configure do |c|
       'website_root'  => 'http://www.test.gov.uk',
       'http_username' => 'test_username',
       'http_password' => 'test_password',
+      'internal_tld'  => 'test',
 
       'google_client_id_datainsight'               => 'example client id',
       'google_client_secret_datainsight'           => 'example client secret',
