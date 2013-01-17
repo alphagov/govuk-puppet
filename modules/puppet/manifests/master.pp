@@ -27,12 +27,16 @@ class puppet::master($unicorn_port='9090') {
     require      => Class['puppet::master::package'],
     notify       => Class['puppet::master::service'],
   }
+  class { 'puppet::master::generate_cert':
+    require   => Class['puppet::master::config'],
+  }
   class{'puppet::master::service':
     # This subscribe is here because /etc/puppet/puppet.conf is currently
     # provided by a manifest separate from puppet::master::*. TODO: move
     # master puppet.conf into the configuration of the puppetmaster.
     subscribe => File['/etc/puppet/puppet.conf'],
     notify    => Anchor['puppet::master::end'],
+    require   => Class['puppet::master::generate_cert'],
   }
   anchor {'puppet::master::end': }
 }
