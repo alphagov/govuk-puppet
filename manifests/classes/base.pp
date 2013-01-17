@@ -12,6 +12,7 @@ class base {
   include sudo
   include sysctl
   include tmpreaper
+  include tmux
   include unattended_upgrades
   include wget
 }
