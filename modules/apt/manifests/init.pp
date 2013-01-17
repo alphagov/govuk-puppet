@@ -5,11 +5,6 @@ class apt {
     source => "puppet:///modules/apt/sources.list.${::lsbdistcodename}",
   }
 
-  file { '/etc/apt/apt.conf.d/10periodic':
-    ensure => present,
-    source => "puppet:///modules/apt/10periodic",
-  }
-
   file { '/etc/apt/sources.list.d':
     ensure  => directory,
     recurse => true,
