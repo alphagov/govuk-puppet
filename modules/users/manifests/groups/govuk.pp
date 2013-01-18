@@ -31,6 +31,11 @@ class users::groups::govuk {
     email    => 'anna.shipman@digital.cabinet-office.gov.uk',
     ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDAuPt8UVjsxrbNUxy1v+Rmu+hq4bMAa7YAgAgyAuNrDq1G++RzLntZMiAELXWaxOrGNk738d6qpi/rMIyAY9l87woaA2/WRhFExkx2U5nnvLNItkxPKiOYHi1+LmQ++swb5zcg1P+TvkLPeNm95G61G1MxzEuROv/vAlk8IPPPWp08Qg+3vby7P0zyeu7KT8uwfSEIcXPxkofeMRXPiD4DSudYACEV5DB15YX37mlqu26QqyarTVCUMSvu916ejDSMeL/uE0aNYVAYSLmEbtat1MX0rZsnL+Z3F4UqkR6lmYHrK6++ZjeJ/TXAECdfH4uqdJlgfjXkQedg/LQFc9ZH',
   }
+  govuk::user { 'benilovj':
+    fullname => 'Jake Benilov',
+    email    => 'jake.benilov@digital.cabinet-office.gov.uk',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAABIwAAAQEArCY6wWXNDgQnanfWtGs0wRVzHcBApLyJ5MWVGVZL+aLbRlgoNj2vqaGTNCXkWHbfpRZ1BRNCuLhuF0xMNI17nsj2qaUohXqbOsYAyycZ3GSE5n5fkrflOrk8bAsfavr8WjZq2tGHniGYol+bQYw61+RzSjKQ0GX+KSVzQ/sdKiUPnIG7MoZ0PA58CSxbPhd1OLOMa8YR5aK/7ildABcYqMV8Pbr1hVyJ7DIkJMpt9PwoFVketzBdIUo/fqNez3LMxwNnijlcIfhHrlkCvLQgeC92oinEFfRKcLFWPy3k6Z/u0UddG67XAiZvfDdZu7NxrOw2mE5keiHWrKaoIBIlZw==',
+  }
   govuk::user { 'bradleyw':
     fullname => 'Bradley Wright',
     email    => 'bradley.wright@digital.cabinet-office.gov.uk',
