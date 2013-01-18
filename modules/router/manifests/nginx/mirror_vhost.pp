@@ -1,7 +1,7 @@
-define nginx::config::vhost::mirror ($aliases = [], $port = "443", $certtype = 'wildcard_alphagov') {
+define router::nginx::mirror_vhost ($aliases = [], $port = "443", $certtype = 'wildcard_alphagov') {
 
   nginx::config::site { $title:
-    content => template('nginx/mirror-vhost.conf')
+    content => template('router/mirror-vhost.conf')
   }
   nginx::config::ssl { $title: certtype => $certtype }
 
