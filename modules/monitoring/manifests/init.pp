@@ -50,7 +50,7 @@ class monitoring {
 
   file { '/var/www/ganglia-views':
     ensure  => directory,
-    source  => 'puppet:///modules/monitoring/files/ganglia-views',
+    source  => 'puppet:///modules/monitoring/ganglia-views',
     recurse => true,
     force   => true,
     purge   => true,
