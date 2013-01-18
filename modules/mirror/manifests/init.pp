@@ -36,7 +36,7 @@ exec /usr/local/bin/govuk_update_mirror
     user    => 'root',
     hour    => '0',
     minute  => '0',
-    command => 'start govuk_update_mirror',
+    command => '/sbin/start govuk_update_mirror',
     require => File['/etc/init/govuk_update_mirror.conf'],
   }
 
