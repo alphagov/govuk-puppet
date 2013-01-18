@@ -1,7 +1,5 @@
 class mirror {
 
-  include wget
-
   file { '/usr/local/bin/govuk_update_mirror':
     ensure => present,
     mode   => '0755',
