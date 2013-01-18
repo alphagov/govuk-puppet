@@ -48,4 +48,14 @@ class monitoring {
     require => File['/var/www/monitoring'],
   }
 
+  file { '/var/www/ganglia-views':
+    ensure  => directory,
+    source  => 'puppet:///modules/monitoring/files/ganglia-views',
+    recurse => true,
+    force   => true,
+    purge   => true,
+    owner   => 'www-data',
+    group   => 'www-data',
+  }
+
 }
