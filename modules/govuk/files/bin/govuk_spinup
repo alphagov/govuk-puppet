@@ -26,6 +26,13 @@ case "$GOVUK_APP_TYPE" in
   rack)
     status "Spawning rack app under unicorn"
 
+    if [ ! -d ${GOVUK_APP_RUN} ]; then
+      status "Creating ${GOVUK_APP_RUN}";
+      mkdir -p ${GOVUK_APP_RUN};
+      chown ${GOVUK_USER}:${GOVUK_GROUP} ${GOVUK_APP_RUN};
+      chmod 755 ${GOVUK_APP_RUN};
+    fi
+
     export RAILS_ENV="$GOVUK_ENV"
     export RACK_ENV="$GOVUK_ENV"
 
