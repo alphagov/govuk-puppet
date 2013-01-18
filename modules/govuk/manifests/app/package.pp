@@ -2,7 +2,7 @@ define govuk::app::package (
   $vhost_full,
   $platform
 ) {
-  file { ["/var/log/${title}", "/var/run/${title}"]:
+  file { "/var/log/${title}":
     ensure => directory,
     owner  => 'deploy',
     group  => 'deploy';

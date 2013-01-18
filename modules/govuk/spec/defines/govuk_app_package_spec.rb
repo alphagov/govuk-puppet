@@ -21,7 +21,6 @@ describe 'govuk::app::package', :type => :define do
 
     it do
       should contain_file('/var/apps/giraffe').with_ensure('link')
-      should contain_file('/var/run/giraffe')
       should contain_file('/var/log/giraffe')
       should contain_file('/data/vhost/giraffe.example.com')
     end
