@@ -23,13 +23,21 @@ class mirror {
     ensure => directory,
   }
 
+  file { '/etc/init/govuk_update_mirror.conf':
+    content => '
+task
+exec /usr/local/bin/govuk_update_mirror
+',
+    require => File['/usr/local/bin/govuk_update_mirror'],
+  }
+
   cron { 'update-latest-to-mirror':
     ensure  => present,
     user    => 'root',
     hour    => '0',
     minute  => '0',
-    command => '/usr/local/bin/govuk_update_mirror',
-    require => File['/usr/local/bin/govuk_update_mirror'],
+    command => 'start govuk_update_mirror',
+    require => File['/etc/init/govuk_update_mirror.conf'],
   }
 
 }
