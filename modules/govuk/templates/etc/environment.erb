@@ -1,0 +1,14 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
+LC_ALL=en_GB.UTF-8
+<%
+# Of the known variables, only populate those which have a value in the
+# top-scope, from Facter.
+@govuk_vars.each do |key|
+  val = scope.lookupvar("::#{key}")
+  unless val == :undefined
+-%>
+FACTER_<%= key -%>=<%= val %>
+<%
+  end
+end
+-%>
