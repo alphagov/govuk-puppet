@@ -5,7 +5,24 @@
 # - IPv4 loopback.
 # - IPv6 lookback and multicast.
 #
+# It will not manage the following, due to resource conflicts with hosts::*
+# and govuk::host, until we have real DNS:
+#
+# - Create an entry for the machine itself.
+# - Purge unmanaged resources.
+#
 class hosts::default {
+# FIXME: See class docs above.
+#  resources { 'host':
+#    purge => true,
+#  }
+#
+#  host { $::fqdn:
+#    ensure        => present,
+#    ip            => $::ipaddress,
+#    host_aliases  => $::hostname,
+#  }
+
   host {
     'localhost':
       ensure        => present,
