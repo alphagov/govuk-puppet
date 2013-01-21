@@ -93,8 +93,7 @@ end
 
 class GovukMirrorer < Spidey::AbstractSpider
   USER_AGENT = "GOV.UK Mirrorer/0.1"
-  SITE_ROOT = 'https://www.gov.uk'
-  SITE_HOSTNAME = URI.parse(SITE_ROOT).host
+  DEFAULT_SITE_ROOT = 'https://www.gov.uk'
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0
@@ -110,11 +109,17 @@ class GovukMirrorer < Spidey::AbstractSpider
     end
     @verbose_debug = false
 
-    @indexer = GovukIndexer.new(SITE_ROOT)
+    @site_root = attrs[:site_root] || DEFAULT_SITE_ROOT
+
+    @indexer = GovukIndexer.new(@site_root)
     @indexer.all_start_urls.each do |url|
       @logger.debug "Adding start url #{url}" if @verbose_debug
       handle url, :process_govuk_page
     end
+  end
+
+  def site_hostname
+    URI.parse(@site_root).host
   end
 
   attr_accessor :logger
@@ -138,8 +143,8 @@ class GovukMirrorer < Spidey::AbstractSpider
   end
 
   def process_govuk_page(page, data = {})
-    unless page.uri.host == SITE_HOSTNAME
-      msg = "Ended up on non #{SITE_HOSTNAME} page #{page.uri.to_s}"
+    unless page.uri.host == site_hostname
+      msg = "Ended up on non #{site_hostname} page #{page.uri.to_s}"
       msg << " from #{agent.history[-2].uri.to_s}" if agent.history[-2]
       logger.warn msg
       return
@@ -169,11 +174,11 @@ class GovukMirrorer < Spidey::AbstractSpider
     uri = URI.parse(href)
     if uri.scheme.nil? # relative link
       uri = URI.join(page.uri.to_s, href)
-    elsif uri.host == SITE_HOSTNAME
+    elsif uri.host == site_hostname
       logger.warn "Link to non https #{href} from #{page.uri.to_s}" unless uri.scheme == "https"
       uri.scheme = 'https'
     else
-      logger.debug "Ignoring non #{SITE_HOSTNAME} link #{href} on #{page.uri.to_s}" if @verbose_debug
+      logger.debug "Ignoring non #{site_hostname} link #{href} on #{page.uri.to_s}" if @verbose_debug
       return
     end
     uri.fragment = nil # prevent duplicate url's being missed

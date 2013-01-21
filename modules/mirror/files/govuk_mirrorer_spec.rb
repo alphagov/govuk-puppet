@@ -242,10 +242,10 @@ describe GovukMirrorer do
 
   describe "process_govuk_page" do
     before :each do
-      @m = GovukMirrorer.new({:site_root => "https://www.gov.uk"})
+      @m = GovukMirrorer.new({:site_root => "https://site-under-test"})
       @m.stub(:save_to_disk)
       @m.stub(:extract_and_handle_links)
-      @page = stub("Page", :uri => URI.parse("https://www.gov.uk/something"))
+      @page = stub("Page", :uri => URI.parse("https://site-under-test/something"))
     end
 
     it "should save the page to disk" do
