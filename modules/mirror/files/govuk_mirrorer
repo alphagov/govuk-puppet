@@ -251,11 +251,11 @@ class GovukMirrorConfigurer
     if ENV['MIRRORER_SITE_ROOT'].nil?
       raise NoRootUrlSpecifiedError
     end
-    mirrorer = GovukMirrorer.new(options)
-    mirrorer.crawl
+    options
   end
 end
 
 if $0 == __FILE__
-  GovukMirrorConfigurer.run
+  mirrorer = GovukMirrorer.new(GovukMirrorConfigurer.run)
+  mirrorer.crawl
 end
