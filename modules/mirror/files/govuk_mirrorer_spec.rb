@@ -384,4 +384,9 @@ describe GovukMirrorConfigurer do
       GovukMirrorConfigurer.run
     end.should raise_error(GovukMirrorConfigurer::NoRootUrlSpecifiedError)
   end
+
+  it "should place the site root into the options bucket even though it sucks" do
+    ENV["MIRRORER_SITE_ROOT"] = "sausage"
+    GovukMirrorConfigurer.run.should include(:site_root => "sausage" )
+  end
 end

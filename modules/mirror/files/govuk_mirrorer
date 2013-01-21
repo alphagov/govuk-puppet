@@ -251,7 +251,8 @@ class GovukMirrorConfigurer
     if ENV['MIRRORER_SITE_ROOT'].nil?
       raise NoRootUrlSpecifiedError
     end
-    options
+    options[:site_root] = ENV['MIRRORER_SITE_ROOT']
+    options.freeze
   end
 end
 
