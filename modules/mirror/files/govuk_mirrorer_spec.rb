@@ -377,3 +377,11 @@ describe GovukMirrorer do
     end
   end
 end
+
+describe GovukMirrorConfigurer do
+  it "should fail if MIRRORER_SITE_ROOT is not set" do
+    lambda do
+      GovukMirrorConfigurer.run
+    end.should raise_error(GovukMirrorConfigurer::NoRootUrlSpecifiedError)
+  end
+end

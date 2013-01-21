@@ -235,16 +235,27 @@ class GovukMirrorer < Spidey::AbstractSpider
   end
 end
 
-if $0 == __FILE__
-  require 'optparse'
-  options = {}
-  OptionParser.new do |o|
-    o.on('--logfile FILE') { |file| options[:logfile] = file }
-    o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
-    o.on('-h') { puts o; exit }
-    o.parse!
-  end
+class GovukMirrorConfigurer
+  class NoRootUrlSpecifiedError < Exception ; end
 
-  mirrorer = GovukMirrorer.new(options)
-  mirrorer.crawl
+  def self.run
+    require 'optparse'
+    options = {}
+    OptionParser.new do |o|
+      o.on('--logfile FILE') { |file| options[:logfile] = file }
+      o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
+      o.on('-h') { puts o; exit }
+      o.parse!
+    end
+
+    if ENV['MIRRORER_SITE_ROOT'].nil?
+      raise NoRootUrlSpecifiedError
+    end
+    mirrorer = GovukMirrorer.new(options)
+    mirrorer.crawl
+  end
+end
+
+if $0 == __FILE__
+  GovukMirrorConfigurer.run
 end
