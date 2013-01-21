@@ -224,7 +224,7 @@ class hosts::skyscape::production_like {
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
-      "release.${app_domain}",
+      # "release.${app_domain}", - removed because we do want calls to release.production in staging to go to the real production
       "search.${app_domain}",
       "signon.${app_domain}",
       "support.${app_domain}",
