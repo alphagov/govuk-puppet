@@ -49,6 +49,11 @@ class hosts::skyscape::production_like {
     vdc            => 'management',
     legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
   }
+  govuk::host { 'mirrorer-1':
+    ip             => '10.0.0.128',
+    vdc            => 'management',
+    legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
+  }
 
   #router vdc machines
   govuk::host { 'cache-1':
