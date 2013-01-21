@@ -6,6 +6,12 @@ File {
   mode  => '0644',
 }
 
+# Default destination address to 'any' instead of the default `$::ipaddress`
+# in order to support nodes with multiple interfaces such as Vagrant.
+Ufw::Allow {
+  ip  => 'any',
+}
+
 if $::govuk_platform == 'development' {
   $extlookup_datadir = '/var/govuk/development/extdata'
 } else {
