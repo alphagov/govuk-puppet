@@ -94,6 +94,7 @@ Vagrant::Config.run do |config|
         puppet.facter = {
           :govuk_class => node_opts["class"],
           :govuk_platform => "development",
+          :govuk_provider => "sky",
         }
       end
     end
