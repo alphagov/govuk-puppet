@@ -93,8 +93,8 @@ end
 
 class GovukMirrorer < Spidey::AbstractSpider
   USER_AGENT = "GOV.UK Mirrorer/0.1"
-  SITE_HOSTNAME = 'www.gov.uk'
   SITE_ROOT = 'https://www.gov.uk'
+  SITE_HOSTNAME = URI.parse(SITE_ROOT).host
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0

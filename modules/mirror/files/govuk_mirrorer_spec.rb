@@ -242,7 +242,7 @@ describe GovukMirrorer do
 
   describe "process_govuk_page" do
     before :each do
-      @m = GovukMirrorer.new
+      @m = GovukMirrorer.new({:site_root => "https://www.gov.uk"})
       @m.stub(:save_to_disk)
       @m.stub(:extract_and_handle_links)
       @page = stub("Page", :uri => URI.parse("https://www.gov.uk/something"))
