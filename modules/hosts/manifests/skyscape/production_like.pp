@@ -132,7 +132,6 @@ class hosts::skyscape::production_like {
       "smartanswers.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
-      "travel-advice-frontend.${app_domain}",
       "whitehall-frontend.${app_domain}",
     ]
   }
