@@ -1,9 +1,11 @@
 class monitoring::checks {
 
+  include lockrun
+
   $app_domain = extlookup('app_domain')
 
   cron { 'cron_smokey_features':
-    command => '/opt/smokey/cron.sh',
+    command => '/usr/local/bin/lockrun -L /var/run/smokey.lock -q -- /opt/smokey/cron.sh',
     minute  => '*/5',
   }
 
