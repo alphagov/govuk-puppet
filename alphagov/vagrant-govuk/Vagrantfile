@@ -70,6 +70,20 @@ Vagrant::Config.run do |config|
       c.ssh.forward_agent = true
       c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
 
+      # Additional shared folders for Puppet Master nodes.
+      # These can't been NFS because OSX won't export overlapping paths.
+      if node_opts["class"] == "puppet"
+        c.vm.share_folder "pm-extdata",
+          "/usr/share/puppet/production/current/extdata",
+          "../deployment/puppet/extdata"
+        c.vm.share_folder "pm-manifests",
+          "/usr/share/puppet/production/current/manifests",
+          "../puppet/manifests"
+        c.vm.share_folder "pm-modules",
+          "/usr/share/puppet/production/current/modules",
+          "../puppet/modules"
+      end
+
       c.vm.provision :puppet do |puppet|
         puppet.manifest_file = "site.pp"
         puppet.manifests_path = "../puppet/manifests"
