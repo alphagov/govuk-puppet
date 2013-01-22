@@ -1,0 +1,28 @@
+#!/bin/sh
+
+if [ $# != 1 ]; then
+  echo "UNKNOWN: invalid arguments to check_dir_empty"
+  exit 3
+fi
+
+DIRPATH=$1
+
+if [ -e "$DIRPATH" ]; then
+  if [ -d "$DIRPATH" ]; then
+    if [ $(ls -A "$DIRPATH") ]; then
+      echo "CRITICAL: ${DIRPATH} exists and is not empty!"
+      exit 2
+    else
+      echo "WARNING: ${DIRPATH} exists, but is empty"
+      exit 1
+    fi
+  else
+    echo "WARNING: ${DIRPATH} exists but isn't a directory"
+    exit 1
+  fi
+else
+  echo "OK: ${DIRPATH} doesn't exist"
+  exit 0
+fi
+  
+  

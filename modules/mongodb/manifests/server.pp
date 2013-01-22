@@ -1,4 +1,4 @@
-class mongodb::server ($replicaset = $govuk_platform) {
+class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
 
   anchor { 'mongodb::begin':
     before => Class['mongodb::repository'],
@@ -14,6 +14,7 @@ class mongodb::server ($replicaset = $govuk_platform) {
 
   class { 'mongodb::configuration':
     replicaset => $replicaset,
+    dbpath     => $dbpath,
     require    => Class['mongodb::package'],
     notify     => Class['mongodb::service'];
   }
@@ -21,6 +22,7 @@ class mongodb::server ($replicaset = $govuk_platform) {
   class { 'mongodb::service': }
 
   class { 'mongodb::monitoring':
+    dbpath  => $dbpath,
     require => Class['mongodb::service'],
   }
 
