@@ -6,7 +6,7 @@ class router::nginx {
     certtype => 'wildcard_alphagov'
   }
 
-  nginx::config::site { 'www.${app_domain}':
+  nginx::config::site { "www.${app_domain}":
     content => template('router/base.conf.erb'),
   }
 
