@@ -6,11 +6,7 @@ class router::nginx {
     certtype => 'wildcard_alphagov'
   }
 
-  nginx::config::ssl { 'www.gov.uk':
-    certtype => 'www'
-  }
-
-  nginx::config::site { 'www.gov.uk':
+  nginx::config::site { 'www.${app_domain}':
     content => template('router/base.conf.erb'),
   }
 

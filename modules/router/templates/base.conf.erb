@@ -3,19 +3,9 @@ upstream varnish {
 }
 
 server {
-  server_name www.gov.uk www.<%= @app_domain %> www-origin.<%= @app_domain %>;
+  server_name www.<%= @app_domain %> www-origin.<%= @app_domain %>;
   listen 80;
   rewrite ^/(.*) https://$host/$1 permanent;
-}
-
-server {
-  server_name         www.gov.uk;
-  listen              443 ssl;
-  ssl_certificate     /etc/nginx/ssl/www.gov.uk.crt;
-  ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
-  include             /etc/nginx/ssl.conf;
-
-  include             /etc/nginx/router_routes.conf;
 }
 
 server {
