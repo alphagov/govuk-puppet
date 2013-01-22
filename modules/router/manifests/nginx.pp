@@ -41,7 +41,7 @@ class router::nginx {
   }
 
   # The cache/router also contains a flat site as a backup for software failures
-  nginx::config::vhost::mirror { "flatsite.${app_domain}":
+  router::nginx::mirror_vhost { "flatsite.${app_domain}":
     port     => '444',
     certtype => 'wildcard_alphagov',
   }
