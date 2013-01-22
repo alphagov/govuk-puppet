@@ -76,10 +76,11 @@ Vagrant::Config.run do |config|
         c.vm.share_folder "pm-puppet",
           "/usr/share/puppet/production/current",
           "../puppet"
-        c.vm.share_folder "pm-extdata",
-          "/usr/share/puppet/production/current/extdata",
-          "../deployment/puppet/extdata"
       end
+
+      c.vm.share_folder "pm-extdata",
+        "/usr/share/puppet/production/current/extdata",
+        "../deployment/puppet/extdata"
 
       c.vm.provision :puppet do |puppet|
         puppet.manifest_file = "site.pp"
