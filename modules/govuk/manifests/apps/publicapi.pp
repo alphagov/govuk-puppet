@@ -12,7 +12,6 @@ class govuk::apps::publicapi {
     to               => [$privateapi],
     protected        => false,
     ssl_only         => false,
-    platform         => $platform,
     extra_app_config => "
       # Don't proxy_pass / anywhere, just return 404. All real requests will
       # be handled by the location blocks below.
