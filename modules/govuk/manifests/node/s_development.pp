@@ -18,6 +18,7 @@ class govuk::node::s_development {
   include redis
 
   include govuk::deploy
+  include govuk::envsys
   include govuk::repository
   include govuk::testing_tools
 

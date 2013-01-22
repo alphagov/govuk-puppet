@@ -4,6 +4,7 @@ class govuk::node::s_base {
   include base
   include fail2ban
   include govuk::deploy
+  include govuk::envsys
   include govuk::repository
   include govuk::scripts
   include govuk::sshkeys
