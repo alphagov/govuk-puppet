@@ -1,5 +1,8 @@
 description "GOV.UK application: <%= title %>"
 
+# ideally we'd use the "manual" stanza to disable job startup in
+# development, but this stanza was only added in upstart 0.6.7 and
+# lucid runs upstart 0.6.5.
 <%- if @enable_service -%>
 start on runlevel [2345]
 <%- end -%>
