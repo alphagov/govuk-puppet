@@ -214,10 +214,8 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['backend-lb-2']
   }
-  govuk::host { 'backend-internal-lb':
-    ip             => '10.3.1.2',
-    vdc            => 'backend',
-    legacy_aliases => [
+
+  $backend_aliases_orig = [
       'backend-internal-lb',
       "canary-backend.${app_domain}",
       "contentapi.${app_domain}",
@@ -228,14 +226,25 @@ class hosts::skyscape::production_like {
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
-      # "release.${app_domain}", - removed because we do want calls to release.production in staging to go to the real production
       "search.${app_domain}",
       "signon.${app_domain}",
       "support.${app_domain}",
       "tariff-api.${app_domain}",
       "travel-advice-publisher.${app_domain}",
       "whitehall-admin.${app_domain}"
-    ],
+      ]
+
+  if str2bool(extlookup('releaseapp_host_org', 'no')) {
+    $backend_aliases = flatten([$backend_aliases_orig, ["release.${app_domain}"]])
+  } else {
+    $backend_aliases = $backend_aliases_orig
+  }
+
+
+  govuk::host { 'backend-internal-lb':
+    ip             => '10.3.1.2',
+    vdc            => 'backend',
+    legacy_aliases => $backend_aliases,
   }
   govuk::host { 'asset-master':
     ip             => '10.3.0.20',
