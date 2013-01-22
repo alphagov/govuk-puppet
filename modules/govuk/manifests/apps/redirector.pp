@@ -24,16 +24,6 @@ class govuk::apps::redirector {
     target => '/var/apps/redirector/mod.conf',
     notify => Class['nginx::service'],
   }
-  file { '/etc/nginx/sites-enabled/decc':
-    ensure => link,
-    target => '/var/apps/redirector/decc.conf',
-    notify => Class['nginx::service'],
-  }
-  file { '/etc/nginx/sites-enabled/scotlandoffice':
-    ensure => link,
-    target => '/var/apps/redirector/scotlandoffice.conf',
-    notify => Class['nginx::service'],
-  }
   file { '/var/apps/redirector':
     ensure  => directory,
     owner   => 'deploy',
