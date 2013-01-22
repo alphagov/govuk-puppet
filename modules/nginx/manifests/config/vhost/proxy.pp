@@ -6,7 +6,6 @@ define nginx::config::vhost::proxy(
   $health_check_path = 'NOTSET',
   $health_check_port = 'NOTSET',
   $intercept_errors = false,
-  $platform = $::govuk_platform,
   $protected = true,
   $root = "/data/vhost/${title}/current/public",
   $ssl_health_check_port = 'NOTSET',
@@ -15,9 +14,14 @@ define nginx::config::vhost::proxy(
                           # Please, please, remove when we have a
                           # sensible means of managing SSL certificates.
 ) {
+  include govuk::htpasswd
+
   $proxy_vhost_template = 'nginx/proxy-vhost.conf'
 
-  include govuk::htpasswd
+  # Whether to enable SSL. Used by template.
+  $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
+  # Whether to enable basic auth protection. Used by template.
+  $enable_basic_auth = str2bool(extlookup('nginx_enable_basic_auth', 'yes'))
 
   if $ssl_manage_cert {
     nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }

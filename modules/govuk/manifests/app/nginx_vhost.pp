@@ -5,7 +5,6 @@ define govuk::app::nginx_vhost (
   $protected = undef,
   $ssl_only = false,
   $nginx_extra_config = '',
-  $platform = $::govuk_platform,
   $health_check_path = 'NOTSET',
   $nginx_extra_app_config = '',
   $intercept_errors = false
@@ -43,7 +42,6 @@ define govuk::app::nginx_vhost (
     ssl_only              => $ssl_only,
     extra_config          => $nginx_extra_config,
     extra_app_config      => $nginx_extra_app_config,
-    platform              => $platform,
     health_check_path     => $health_check_path,
     health_check_port     => $health_check_port,
     intercept_errors      => $intercept_errors,

@@ -35,6 +35,13 @@ class puppet::master::package($puppetdb_version) {
     group   => 'puppet',
     require => Package['puppet-common'],
   }
+  file { '/var/lib/puppet/log':
+    ensure  => directory,
+    mode    => '0750',
+    owner   => 'puppet',
+    group   => 'puppet',
+    require => Package['puppet-common'],
+  }
   file { '/etc/init/puppetmaster.conf':
     content => template('puppet/etc/init/puppetmaster.conf.erb'),
   }

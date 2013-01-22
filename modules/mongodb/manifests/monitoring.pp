@@ -1,4 +1,4 @@
-class mongodb::monitoring {
+class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
 
   package { 'pymongo':
     ensure   => present,
@@ -21,6 +21,14 @@ class mongodb::monitoring {
     source  => 'puppet:///modules/mongodb/nrpe_check_mongo.cfg',
   }
 
+  @nagios::plugin { 'check_dir_empty':
+    source  => 'puppet:///modules/mongodb/nagios_check_dir_empty',
+  }
+
+  @nagios::nrpe_config { 'check_dir_empty':
+    source  => 'puppet:///modules/mongodb/nrpe_check_dir_empty.cfg',
+  }
+
   @@nagios::check { "check_mongod_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mongod',
     service_description => "mongod not running",
@@ -36,6 +44,12 @@ class mongodb::monitoring {
   @@nagios::check { "check_mongod_lock_percentage_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!lock 5 10',
     service_description => "mongod high lock pct",
+    host_name           => $::fqdn,
+  }
+
+  @@nagios::check { "check_mongod_rollbacks_${::hostname}":
+    check_command       => "check_nrpe!check_dir_empty!${dbpath}/rollback",
+    service_description => "mongod rollback dir should be nonexistent",
     host_name           => $::fqdn,
   }
 

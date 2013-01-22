@@ -1,4 +1,7 @@
-class mongodb::configuration ($replicaset = $govuk_platform) {
+class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
+
+  # $dbpath and $replicaset are both used by the templates below
+
   file { '/etc/mongodb.conf':
     ensure  => present,
     content => template('mongodb/mongodb.conf'),

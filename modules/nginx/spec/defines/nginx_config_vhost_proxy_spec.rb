@@ -2,9 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'nginx::config::vhost::proxy', :type => :define do
   let(:title) { 'rabbit' }
-  let(:facts) do
-    { :govuk_platform => 'production' }
-  end
 
   context 'with a list of upstreams' do
     let(:params) do

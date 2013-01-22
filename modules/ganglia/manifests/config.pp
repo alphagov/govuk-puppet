@@ -1,9 +1,10 @@
-class ganglia::config ($platform = $::govuk_platform) {
+class ganglia::config {
 
   include govuk::htpasswd
 
   $domain = extlookup('app_domain')
   $vhost = "ganglia.${domain}"
+  $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost:

@@ -14,9 +14,18 @@ error () {
   exit 1
 }
 
+create_app_dirs () {
+  mkdir -p "$@"
+  chown "${GOVUK_USER}:${GOVUK_GROUP}" "$@"
+  chmod 755 "$@"
+}
+
 set -eu
 
 status "Spinning up '${GOVUK_APP_NAME}' (type ${GOVUK_APP_TYPE}) in '${GOVUK_ENV}' environment"
+
+# Ensure that app directories exist and have correct permissions
+create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
 
 cd "$GOVUK_APP_ROOT"
 

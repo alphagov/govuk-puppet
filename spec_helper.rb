@@ -77,9 +77,10 @@ RSpec.configure do |c|
     setup_extdata_stubs
     set_extdata({
       'app_domain'    => 'test.gov.uk',
-      'website_root'  => 'www.test.gov.uk',
+      'website_root'  => 'http://www.test.gov.uk',
       'http_username' => 'test_username',
       'http_password' => 'test_password',
+      'internal_tld'  => 'test',
 
       'google_client_id_datainsight'               => 'example client id',
       'google_client_secret_datainsight'           => 'example client secret',

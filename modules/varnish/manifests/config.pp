@@ -25,6 +25,7 @@ class varnish::config {
     'childcare-costs-for-tax-credits',
     'claim-a-national-insurance-refund',
     'driving-in-great-britain-on-non-gb-licence',
+    'energy-grants-calculator',
     'estimate-self-assessment-penalties',
     'exchange-a-foreign-driving-licence',
     'inherits-someone-dies-without-will',

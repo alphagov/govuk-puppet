@@ -4,14 +4,16 @@ require 'webmock/rspec'
 load './govuk_mirrorer'
 
 describe GovukIndexer do
+  let(:no_artefacts) { %({"_response_info":{"status":"ok"},"total":0,"results":[]}) }
+  let(:default_root) { "http://giraffe.example" }
+  let(:default_api_endpoint) { "http://giraffe.example/api/artefacts.json" }
+
   before :each do
-    WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
-      to_return(:body => %({"_response_info":{"status":"ok"},"total":0,"results":[]}))
   end
 
   describe "construction and loading data" do
     it "should add items to start_urls or blacklist according to format" do
-      WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+      WebMock.stub_request(:get, default_api_endpoint).
         to_return(:body => {
           "_response_info" => {"status" => "ok"},
           "total" => 4,
@@ -22,7 +24,7 @@ describe GovukIndexer do
             {"format" => "guide", "web_url" => "http://www.test.gov.uk/vat"},
           ]
         }.to_json)
-      i = GovukIndexer.new
+      i = GovukIndexer.new(default_root)
       i.all_start_urls.should include("http://www.test.gov.uk/foo")
       i.all_start_urls.should include("http://www.test.gov.uk/vat")
       i.all_start_urls.should_not include("http://www.test.gov.uk/bar/baz")
@@ -35,7 +37,7 @@ describe GovukIndexer do
     end
 
     it "should add hardcoded whitelist items to the start_urls, even if their format would be blacklisted" do
-      WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+      WebMock.stub_request(:get, default_api_endpoint).
         to_return(:body => {
           "_response_info" => {"status" => "ok"},
           "total" => 4,
@@ -44,7 +46,7 @@ describe GovukIndexer do
             {"format" => "place", "web_url" => "http://www.test.gov.uk/somewhere"},
           ]
         }.to_json)
-      i = GovukIndexer.new
+      i = GovukIndexer.new(default_root)
       i.all_start_urls.should include("http://www.test.gov.uk/bank-holidays")
       i.all_start_urls.should_not include("http://www.test.gov.uk/somewhere")
 
@@ -53,7 +55,9 @@ describe GovukIndexer do
     end
 
     it "should add the hardcoded items to the start_urls" do
-      i = GovukIndexer.new
+      WebMock.stub_request(:get, "https://www.gov.uk/api/artefacts.json").
+        to_return(:body => no_artefacts)
+      i = GovukIndexer.new("https://www.gov.uk")
 
       i.all_start_urls.should include("https://www.gov.uk/")
       i.all_start_urls.should include("https://www.gov.uk/designprinciples")
@@ -62,7 +66,9 @@ describe GovukIndexer do
     end
 
     it "should add the hardcoded items to the blacklist" do
-      i = GovukIndexer.new
+      WebMock.stub_request(:get, default_api_endpoint).
+        to_return(:body => no_artefacts)
+      i = GovukIndexer.new(default_root)
 
       i.blacklist_paths.should include("/licence-finder")
       i.blacklist_paths.should include("/trade-tariff")
@@ -70,7 +76,7 @@ describe GovukIndexer do
 
     describe "handling errors fetching artefacts" do
       it "should sleep and retry fetching artefacts on HTTP error" do
-        WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+        WebMock.stub_request(:get, default_api_endpoint).
           to_return(:status => [502, "Gateway Timeout"]).
           to_return(:body => {
             "_response_info" => {"status" => "ok"},
@@ -82,20 +88,20 @@ describe GovukIndexer do
           }.to_json)
         GovukIndexer.any_instance.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
 
-        i = GovukIndexer.new
+        i = GovukIndexer.new(default_root)
 
         i.all_start_urls.should include("http://www.test.gov.uk/foo")
         i.all_start_urls.should include("http://www.test.gov.uk/vat")
       end
 
       it "should only retry once" do
-        WebMock.stub_request(:get, GovukIndexer::API_ENDPOINT).
+        WebMock.stub_request(:get, default_api_endpoint).
           to_return(:status => [502, "Gateway Timeout"]).
           to_return(:status => [502, "Gateway Timeout"])
 
         GovukIndexer.any_instance.stub(:sleep) # Make tests fast
         lambda do
-          GovukIndexer.new
+          GovukIndexer.new(default_root)
         end.should raise_error(Mechanize::ResponseCodeError)
       end
     end
@@ -103,7 +109,9 @@ describe GovukIndexer do
 
   describe "blacklisted_url?" do
     before :each do
-      @indexer = GovukIndexer.new
+      WebMock.stub_request(:get, "http://www.foo.com/api/artefacts.json").
+        to_return(:body => no_artefacts)
+      @indexer = GovukIndexer.new("http://www.foo.com")
 
       @indexer.instance_variable_set('@blacklist_paths', %w(
         /foo/bar
@@ -234,10 +242,10 @@ describe GovukMirrorer do
 
   describe "process_govuk_page" do
     before :each do
-      @m = GovukMirrorer.new
+      @m = GovukMirrorer.new({:site_root => "https://site-under-test"})
       @m.stub(:save_to_disk)
       @m.stub(:extract_and_handle_links)
-      @page = stub("Page", :uri => URI.parse("https://www.gov.uk/something"))
+      @page = stub("Page", :uri => URI.parse("https://site-under-test/something"))
     end
 
     it "should save the page to disk" do
@@ -367,5 +375,18 @@ describe GovukMirrorer do
       @m.process_link(@page, "mailto:me@example.com")
       @m.process_link(@page, "mailto:someone@www.gov.uk")
     end
+  end
+end
+
+describe GovukMirrorConfigurer do
+  it "should fail if MIRRORER_SITE_ROOT is not set" do
+    lambda do
+      GovukMirrorConfigurer.run
+    end.should raise_error(GovukMirrorConfigurer::NoRootUrlSpecifiedError)
+  end
+
+  it "should place the site root into the options bucket even though it sucks" do
+    ENV["MIRRORER_SITE_ROOT"] = "sausage"
+    GovukMirrorConfigurer.run.should include(:site_root => "sausage" )
   end
 end

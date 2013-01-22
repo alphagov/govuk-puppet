@@ -14,6 +14,7 @@ define nginx::config::vhost::static(
 
   # Used by static-vhost template
   $app_domain = extlookup('app_domain')
+  $website_root = extlookup('website_root', "https://www.${app_domain}")
 
   nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:

@@ -13,7 +13,7 @@ class ruby::rubygems ($version) {
     }
 
     exec { 'migrate_system_rubygems':
-      command => "/bin/mv ${system_path}/* ${rubygems_path}/",
+      command => "/usr/bin/rsync -a ${system_path}/ ${rubygems_path}/",
       onlyif  => "/usr/bin/test -d ${system_path}",
       require => File[$rubygems_path],
     }

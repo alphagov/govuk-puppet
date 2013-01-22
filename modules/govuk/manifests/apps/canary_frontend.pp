@@ -18,12 +18,6 @@ class govuk::apps::canary_frontend {
       port => $ssl_health_check_port;
   }
 
-  # TODO: remove this and use HTTPS when the dev VM is SSL-only
-  $scheme = $::govuk_platform ? {
-    'development' => 'http',
-    default       => 'https',
-  }
-
   nginx::config::site { "canary-frontend.${app_domain}":
     content => "
       server {
@@ -33,7 +27,7 @@ class govuk::apps::canary_frontend {
         listen ${ssl_health_check_port} ssl;
         server_name canary-frontend.${app_domain};
         location / {
-          proxy_pass ${scheme}://canary-backend.${app_domain};
+          proxy_pass http://canary-backend.${app_domain};
         }
       }
     ",

@@ -1,4 +1,4 @@
-define datainsight::collector ($platform = $::govuk_platform) {
+define datainsight::collector {
 
   # Variable setup
   $domain = extlookup('app_domain')

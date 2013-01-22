@@ -40,7 +40,7 @@ class govuk::apps::static( $port = 3013 ) {
     nginx::config::vhost::static { "static.${app_domain}":
       to                => "localhost:${port}",
       protected         => false,
-      aliases           => ['calendars', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder', 'travel-advice-frontend'],
+      aliases           => ['calendars', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
       ssl_only          => true,
       server_names      => ['static.*', 'assets.*'],
       extra_root_config => $nginx_extra_config,

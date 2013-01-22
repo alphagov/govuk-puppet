@@ -2,11 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'nginx::config::vhost::static', :type => :define do
   let(:title) { 'static.example.com' }
-  let(:facts) {
-    {
-      :govuk_platform => 'production',
-    }
-  }
 
   context 'with no params' do
     it 'should proxy to server localhost:8080' do

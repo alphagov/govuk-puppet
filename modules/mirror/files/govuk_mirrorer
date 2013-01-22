@@ -1,69 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'net/http'
-
-# Copied from ruby stdlib, with a single line addition to support SNI
-# This can be removed once we've upgraded to ruby 1.9.3
-# 1.9.2_p290 version: https://github.com/ruby/ruby/blob/v1_9_2_290/lib/net/http.rb#L642
-# 1.9.3 version:      https://github.com/ruby/ruby/blob/ruby_1_9_3/lib/net/http.rb#L760
-module Net
-  HTTP.class_eval do
-    def connect
-      D "opening connection to #{conn_address()}..."
-      s = timeout(@open_timeout) { TCPSocket.open(conn_address(), conn_port()) }
-      D "opened"
-      if use_ssl?
-        ssl_parameters = Hash.new
-        iv_list = instance_variables
-        SSL_ATTRIBUTES.each do |name|
-          ivname = "@#{name}".intern
-          if iv_list.include?(ivname) and
-             value = instance_variable_get(ivname)
-            ssl_parameters[name] = value
-          end
-        end
-        @ssl_context = OpenSSL::SSL::SSLContext.new
-        @ssl_context.set_params(ssl_parameters)
-        s = OpenSSL::SSL::SSLSocket.new(s, @ssl_context)
-        s.sync_close = true
-      end
-      @socket = BufferedIO.new(s)
-      @socket.read_timeout = @read_timeout
-      @socket.debug_output = @debug_output
-      if use_ssl?
-        begin
-          if proxy?
-            @socket.writeline sprintf('CONNECT %s:%s HTTP/%s',
-                                      @address, @port, HTTPVersion)
-            @socket.writeline "Host: #{@address}:#{@port}"
-            if proxy_user
-              credential = ["#{proxy_user}:#{proxy_pass}"].pack('m')
-              credential.delete!("\r\n")
-              @socket.writeline "Proxy-Authorization: Basic #{credential}"
-            end
-            @socket.writeline ''
-            HTTPResponse.read_new(@socket).value
-          end
-
-          # This is the only line that's different from the ruby method
-          # Server Name Indication (SNI) RFC 3546
-          s.hostname = @address if s.respond_to? :hostname=
-
-          timeout(@open_timeout) { s.connect }
-          if @ssl_context.verify_mode != OpenSSL::SSL::VERIFY_NONE
-            s.post_connection_check(@address)
-          end
-        rescue => exception
-          D "Conn close because of connect error #{exception}"
-          @socket.close if @socket and not @socket.closed?
-          raise exception
-        end
-      end
-      on_connect
-    end
-  end
-end
-
 require 'rubygems'
 require 'mechanize'
 require 'json'
@@ -71,8 +8,6 @@ require 'spidey'
 require 'logger'
 
 class GovukIndexer
-  API_ENDPOINT = 'https://www.gov.uk/api/artefacts.json'.freeze
-
   FORMATS_TO_503 = %w(
     local_transaction
     smart-answer
@@ -81,11 +16,11 @@ class GovukIndexer
     licence
   ).freeze
 
-  ADDITIONAL_START_URLS = %w(
-    https://www.gov.uk/
-    https://www.gov.uk/designprinciples
-    https://www.gov.uk/designprinciples/styleguide
-    https://www.gov.uk/designprinciples/performanceframework
+  ADDITIONAL_START_PATHS = %w(
+    /
+    /designprinciples
+    /designprinciples/styleguide
+    /designprinciples/performanceframework
   ).freeze
 
   # Calendars currently register as custom-application
@@ -102,8 +37,10 @@ class GovukIndexer
     /apply-for-a-licence
   ).freeze
 
-  def initialize
-    @all_start_urls = ADDITIONAL_START_URLS.dup
+  def initialize(root)
+    @root = root
+    @api_endpoint = @root + '/api/artefacts.json'
+    @all_start_urls = ADDITIONAL_START_PATHS.map{ |x| @root + x}
     @blacklist_paths = ADDITIONAL_BLACKLIST_PATHS.dup
     process_artefacts
   end
@@ -141,7 +78,7 @@ class GovukIndexer
       m = Mechanize.new
       # Force Mechanize to use Net::HTTP which we've monkey-patched above
       m.agent.http.reuse_ssl_sessions = false
-      page = m.get(API_ENDPOINT)
+      page = m.get(@api_endpoint)
       JSON.parse(page.body)["results"]
     rescue Mechanize::ResponseCodeError => ex
       if ! retried
@@ -156,7 +93,7 @@ end
 
 class GovukMirrorer < Spidey::AbstractSpider
   USER_AGENT = "GOV.UK Mirrorer/0.1"
-  SITE_HOSTNAME = 'www.gov.uk'
+  DEFAULT_SITE_ROOT = 'https://www.gov.uk'
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0
@@ -172,11 +109,17 @@ class GovukMirrorer < Spidey::AbstractSpider
     end
     @verbose_debug = false
 
-    @indexer = GovukIndexer.new
+    @site_root = attrs[:site_root] || DEFAULT_SITE_ROOT
+
+    @indexer = GovukIndexer.new(@site_root)
     @indexer.all_start_urls.each do |url|
       @logger.debug "Adding start url #{url}" if @verbose_debug
       handle url, :process_govuk_page
     end
+  end
+
+  def site_hostname
+    URI.parse(@site_root).host
   end
 
   attr_accessor :logger
@@ -200,8 +143,8 @@ class GovukMirrorer < Spidey::AbstractSpider
   end
 
   def process_govuk_page(page, data = {})
-    unless page.uri.host == SITE_HOSTNAME
-      msg = "Ended up on non #{SITE_HOSTNAME} page #{page.uri.to_s}"
+    unless page.uri.host == site_hostname
+      msg = "Ended up on non #{site_hostname} page #{page.uri.to_s}"
       msg << " from #{agent.history[-2].uri.to_s}" if agent.history[-2]
       logger.warn msg
       return
@@ -231,11 +174,11 @@ class GovukMirrorer < Spidey::AbstractSpider
     uri = URI.parse(href)
     if uri.scheme.nil? # relative link
       uri = URI.join(page.uri.to_s, href)
-    elsif uri.host == SITE_HOSTNAME
+    elsif uri.host == site_hostname
       logger.warn "Link to non https #{href} from #{page.uri.to_s}" unless uri.scheme == "https"
       uri.scheme = 'https'
     else
-      logger.debug "Ignoring non #{SITE_HOSTNAME} link #{href} on #{page.uri.to_s}" if @verbose_debug
+      logger.debug "Ignoring non #{site_hostname} link #{href} on #{page.uri.to_s}" if @verbose_debug
       return
     end
     uri.fragment = nil # prevent duplicate url's being missed
@@ -292,16 +235,28 @@ class GovukMirrorer < Spidey::AbstractSpider
   end
 end
 
-if $0 == __FILE__
-  require 'optparse'
-  options = {}
-  OptionParser.new do |o|
-    o.on('--logfile FILE') { |file| options[:logfile] = file }
-    o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
-    o.on('-h') { puts o; exit }
-    o.parse!
-  end
+class GovukMirrorConfigurer
+  class NoRootUrlSpecifiedError < Exception ; end
 
-  mirrorer = GovukMirrorer.new(options)
+  def self.run
+    require 'optparse'
+    options = {}
+    OptionParser.new do |o|
+      o.on('--logfile FILE') { |file| options[:logfile] = file }
+      o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
+      o.on('-h') { puts o; exit }
+      o.parse!
+    end
+
+    if ENV['MIRRORER_SITE_ROOT'].nil?
+      raise NoRootUrlSpecifiedError
+    end
+    options[:site_root] = ENV['MIRRORER_SITE_ROOT']
+    options
+  end
+end
+
+if $0 == __FILE__
+  mirrorer = GovukMirrorer.new(GovukMirrorConfigurer.run)
   mirrorer.crawl
 end

@@ -1,10 +1,9 @@
 class govuk::node::s_development {
   include base
 
-  include apollo
   include base_packages
   include elasticsearch
-  include hosts
+  include hosts::development
   include imagemagick
   include mongodb::server
   include mysql::client
@@ -51,7 +50,6 @@ class govuk::node::s_development {
   include govuk::apps::support
   include govuk::apps::tariff
   include govuk::apps::tariff_api
-  include govuk::apps::travel_advice_frontend
   include govuk::apps::travel_advice_publisher
   include govuk::apps::release
   class { 'govuk::apps::whitehall':

@@ -1,8 +1,9 @@
-class hosts::skyscape::production_like ($platform = $::govuk_platform) {
+class hosts::skyscape::production_like {
   # these are real hosts (1-1 mapping between host and service) anything that
   # ends .cluster is maintained for backwards compatibility with ec2
 
   $app_domain = extlookup('app_domain')
+  $internal_tld = extlookup('internal_tld', 'production')
 
   #management vdc machines
   govuk::host { 'puppet-1':
@@ -45,6 +46,11 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   }
   govuk::host { 'exception-handler-1':
     ip             => '10.0.0.4',
+    vdc            => 'management',
+    legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
+  }
+  govuk::host { 'mirrorer-1':
+    ip             => '10.0.0.128',
     vdc            => 'management',
     legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
   }
@@ -131,7 +137,6 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "smartanswers.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
-      "travel-advice-frontend.${app_domain}",
       "whitehall-frontend.${app_domain}",
     ]
   }
@@ -161,7 +166,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   govuk::host { 'mongo-1':
     ip              => '10.3.0.6',
     vdc             => 'backend',
-    legacy_aliases  => ['mongo-1', "mongo.backend.${platform}", 'backend-1.mongo'],
+    legacy_aliases  => ['mongo-1', "mongo.backend.${internal_tld}", 'backend-1.mongo'],
     service_aliases => ['mongodb'],
   }
   govuk::host { 'mongo-2':
@@ -192,7 +197,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
   govuk::host { 'mysql-master-1':
     ip             => '10.3.10.0',
     vdc            => 'backend',
-    legacy_aliases => ['mysql-master-1', 'master.mysql', "mysql.backend.${platform}"],
+    legacy_aliases => ['mysql-master-1', 'master.mysql', "mysql.backend.${internal_tld}"],
   }
   govuk::host { 'mysql-slave-1':
     ip             => '10.3.10.1',
@@ -223,7 +228,7 @@ class hosts::skyscape::production_like ($platform = $::govuk_platform) {
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
-      "release.${app_domain}",
+      # "release.${app_domain}", - removed because we do want calls to release.production in staging to go to the real production
       "search.${app_domain}",
       "signon.${app_domain}",
       "support.${app_domain}",

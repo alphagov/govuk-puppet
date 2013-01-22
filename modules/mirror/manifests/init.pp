@@ -1,7 +1,5 @@
 class mirror {
 
-  include wget
-
   file { '/usr/local/bin/govuk_update_mirror':
     ensure => present,
     mode   => '0755',
@@ -25,13 +23,25 @@ class mirror {
     ensure => directory,
   }
 
+  $app_domain = extlookup('app_domain')
+
+  file { '/etc/init/govuk_update_mirror.conf':
+    content => "
+task
+env MIRRORER_SITE_ROOT=https://www-origin.${app_domain}
+export MIRRORER_SITE_ROOT
+exec /usr/local/bin/govuk_update_mirror
+",
+    require => File['/usr/local/bin/govuk_update_mirror'],
+  }
+
   cron { 'update-latest-to-mirror':
     ensure  => present,
     user    => 'root',
     hour    => '0',
     minute  => '0',
-    command => '/usr/local/bin/govuk_update_mirror',
-    require => File['/usr/local/bin/govuk_update_mirror'],
+    command => '/sbin/start govuk_update_mirror',
+    require => File['/etc/init/govuk_update_mirror.conf'],
   }
 
 }

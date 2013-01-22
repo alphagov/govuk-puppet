@@ -19,7 +19,7 @@ class govuk::node::s_akamai_logs_backup inherits govuk::node::s_base {
   ssh_authorized_key { 'akamai_log_box':
     ensure  => present,
     type    => 'ssh-rsa',
-    key     => extlookup('akamai_logs_key', ''),
+    key     => extlookup('akamai_logs_key', 'NO_KEY_IN_EXTDATA'),
     user    => $user,
     require => User[$user]
   }

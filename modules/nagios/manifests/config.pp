@@ -1,9 +1,10 @@
-class nagios::config ($platform = $::govuk_platform) {
+class nagios::config {
 
   include govuk::htpasswd
 
   $domain = extlookup('app_domain')
   $vhost = "nagios.${domain}"
+  $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost:
