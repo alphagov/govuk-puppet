@@ -32,7 +32,6 @@ describe 'govuk::app::config', :type => :define do
       {
         :port => 8000,
         :app_type => 'rack',
-        :platform => 'development',
         :domain => 'example.com',
         :vhost_full => 'giraffe.example.com',
       }
@@ -46,7 +45,6 @@ describe 'govuk::app::config', :type => :define do
       {
         :port => 8000,
         :app_type => 'rack',
-        :platform => 'production',
         :vhost_aliases => ['foo','bar'],
         :domain => 'example.com',
         :vhost_full => 'giraffe.example.com',
