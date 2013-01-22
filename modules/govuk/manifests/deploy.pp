@@ -51,7 +51,7 @@ class govuk::deploy {
   if $::govuk_platform != 'development' {
     ssh_authorized_key { 'deploy_key_jenkins':
       ensure  => present,
-      key     => extlookup('jenkins_key', ''),
+      key     => extlookup('jenkins_key', 'NO_KEY_IN_EXTDATA'),
       type    => 'ssh-rsa',
       user    => 'deploy',
       require => User['deploy'];
@@ -59,7 +59,7 @@ class govuk::deploy {
 
     ssh_authorized_key { 'deploy_key_jenkins_skyscape':
       ensure  => present,
-      key     => extlookup('jenkins_skyscape_key', ''),
+      key     => extlookup('jenkins_skyscape_key', 'NO_KEY_IN_EXTDATA'),
       type    => 'ssh-rsa',
       user    => 'deploy',
     }
@@ -67,7 +67,7 @@ class govuk::deploy {
     # other environments.
     ssh_authorized_key { 'deploy_key_jenkins_skyscape_production':
       ensure  => present,
-      key     => extlookup('jenkins_skyscape_production_key', ''),
+      key     => extlookup('jenkins_skyscape_production_key', 'NO_KEY_IN_EXTDATA'),
       type    => 'ssh-rsa',
       user    => 'deploy',
     }
