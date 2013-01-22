@@ -42,7 +42,6 @@ class hosts::development {
   host { 'whitehall-frontend.dev.gov.uk':                   ip => '127.0.0.1' }
   host { 'canary-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'canary-backend.dev.gov.uk':                       ip => '127.0.0.1' }
-  host { 'travel-advice-frontend.dev.gov.uk':               ip => '127.0.0.1' }
   host { 'travel-advice-publisher.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'release.dev.gov.uk':                              ip => '127.0.0.1' }
 }

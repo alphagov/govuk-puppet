@@ -51,7 +51,6 @@ class govuk::node::s_development {
   include govuk::apps::support
   include govuk::apps::tariff
   include govuk::apps::tariff_api
-  include govuk::apps::travel_advice_frontend
   include govuk::apps::travel_advice_publisher
   include govuk::apps::release
   class { 'govuk::apps::whitehall':

@@ -19,7 +19,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     'sky':   {}
     default: {
       include govuk::apps::efg
-      include govuk::apps::travel_advice_frontend # Only add to EC2 (i.e. preview) for now.
     }
   }
 
