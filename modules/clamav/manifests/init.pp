@@ -1,21 +1,17 @@
 class clamav {
-  package { 'clamav':
-    ensure => '0.97.5',
+  anchor { 'clamav::begin':
+    notify  => Class['clamav::service'],
   }
-
-  service { 'clamav-daemon':
-    ensure  => 'running',
-    require => Package["clamav"]
+  class { 'clamav::package':
+    notify  => Class['clamav::config'],
+    require => Anchor['clamav::begin'],
   }
-
-  file { '/opt/clamav/etc/clamd.conf':
-    ensure => present,
-    notify => Service["clamav-daemon"],
-    source => 'puppet:///modules/clamav/opt/clamav/etc/clamd.conf',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
+  class { 'clamav::config':
+    notify  => Class['clamav::service'],
+    require => Class['clamav::package'],
   }
-
-  Package['clamav'] -> File['/opt/clamav/etc/clamd.conf']
+  class { 'clamav::service': }
+  anchor { 'clamav::end':
+    require => Class['clamav::service'],
+  }
 }
