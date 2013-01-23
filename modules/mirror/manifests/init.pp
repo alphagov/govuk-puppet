@@ -23,15 +23,13 @@ class mirror {
     ensure => directory,
   }
 
-  $app_domain = extlookup('app_domain')
-
   file { '/etc/init/govuk_update_mirror.conf':
-    content => "
+    content => '
 task
-env MIRRORER_SITE_ROOT=https://www-origin.${app_domain}
+env MIRRORER_SITE_ROOT=https://www.gov.uk
 export MIRRORER_SITE_ROOT
 exec /usr/local/bin/govuk_update_mirror
-",
+',
     require => File['/usr/local/bin/govuk_update_mirror'],
   }
 
