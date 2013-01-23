@@ -21,7 +21,7 @@ DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
 # Mirror the site
 govuk_mirrorer --logfile mirror.log
 
-if [ ! "$(du -ks www.gov.uk | awk '{print $1}')" -gt "10000" ]; then
+if [ ! -d www.gov.uk ] || [ ! "$(du -ks www.gov.uk | awk '{print $1}')" -gt "10000" ]; then
   echo "ERROR: Mirror appears to have failed (total size <10MB)" >> mirror.log
   echo "ERROR: Not updating 'current' symlink" >> mirror.log
   mv mirror.log "$DEST.log"
