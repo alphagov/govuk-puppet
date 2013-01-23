@@ -11,7 +11,13 @@ class clamav {
     require => Class['clamav::package'],
   }
   class { 'clamav::service': }
+  class { 'clamav::monitoring':
+    require => Class['clamav::config'],
+  }
   anchor { 'clamav::end':
-    require => Class['clamav::service'],
+    require => Class[
+      'clamav::service',
+      'clamav::monitoring'
+    ],
   }
 }
