@@ -28,8 +28,8 @@ if [ ! "$(du -ks www.gov.uk | awk '{print $1}')" -gt "10000" ]; then
   exit 1
 fi
 
-mv www.gov.uk "$DEST"
 mv mirror.log "$DEST.log"
+mv www.gov.uk "$DEST"
 
 # Clean up all but the last 7 mirror versions
 find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
