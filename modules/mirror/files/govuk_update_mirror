@@ -17,18 +17,17 @@ trap cleanup EXIT
 cd "$TMP_ROOT"
 
 DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
+LOGFILE=$DEST.log
 
 # Mirror the site
-govuk_mirrorer --logfile mirror.log
+govuk_mirrorer --logfile $LOGFILE
 
 if [ ! -d www.gov.uk ] || [ ! "$(du -ks www.gov.uk | awk '{print $1}')" -gt "10000" ]; then
-  echo "ERROR: Mirror appears to have failed (total size <10MB)" >> mirror.log
-  echo "ERROR: Not updating 'current' symlink" >> mirror.log
-  mv mirror.log "$DEST.log"
+  echo "ERROR: Mirror appears to have failed (total size <10MB)" >> $LOGFILE
+  echo "ERROR: Not updating 'current' symlink" >> $LOGFILE
   exit 1
 fi
 
-mv mirror.log "$DEST.log"
 mv www.gov.uk "$DEST"
 
 # Clean up all but the last 7 mirror versions
