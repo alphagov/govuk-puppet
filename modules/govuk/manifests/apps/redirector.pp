@@ -29,6 +29,11 @@ class govuk::apps::redirector {
     target => '/var/apps/redirector/decc.conf',
     notify => Class['nginx::service'],
   }
+  file { '/etc/nginx/sites-enabled/og_decc':
+    ensure => link,
+    target => '/var/apps/redirector/og_decc.conf',
+    notify => Class['nginx::service'],
+  }
   file { '/var/apps/redirector':
     ensure  => directory,
     owner   => 'deploy',
