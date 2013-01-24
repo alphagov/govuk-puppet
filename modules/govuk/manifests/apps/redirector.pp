@@ -7,7 +7,7 @@ class govuk::apps::redirector {
   }
   file { '/etc/nginx/sites-enabled/redirector_include_all':
     ensure  => present,
-    content => 'include /var/apps/redirector/configs/*.conf;',
+    content => "include /var/apps/redirector/configs/*.conf;\n",
     notify  => Class['nginx::service'],
     require => File['/var/apps/redirector/configs'],
   }
