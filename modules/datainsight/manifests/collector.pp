@@ -33,6 +33,26 @@ define datainsight::collector {
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
   }
 
+  # Ensure config dir exists
+  file { "/etc/govuk/${vhost}":
+    ensure  => 'directory',
+    purge   => true,
+    recurse => true,
+    force   => true,
+    notify  => Govuk::App::Service[$vhost],
+  }
+
+  # Ensure env dir exists
+  file { "/etc/govuk/${vhost}/env.d":
+    ensure  => 'directory',
+    purge   => true,
+    recurse => true,
+    force   => true,
+    notify  => Govuk::App::Service[$vhost],
+  }
+
+  Govuk::App::Envvar { app => $vhost }
+
   govuk::app::envvar {
     "${vhost}-GOVUK_USER":
       varname => "GOVUK_USER",
