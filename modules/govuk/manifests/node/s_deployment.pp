@@ -1,6 +1,14 @@
 class govuk::node::s_deployment inherits govuk::node::s_base {
   include jenkins::master
-  include govuk::vpnc
+
+  class { 'govuk::vpnc':
+    dnsupdate => 'no',
+  }
+
+  host { 'github.gds':
+    ip      => '192.168.9.110',
+    comment => 'Ignore VPN DNS and set static host for GHE',
+  }
 
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
