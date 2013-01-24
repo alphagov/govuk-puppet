@@ -17,7 +17,8 @@ if $::govuk_platform == 'development' {
 } else {
   $extlookup_datadir = '/usr/share/puppet/production/current/extdata'
 }
-$extlookup_precedence = ['%{govuk_platform}', 'common']
+
+$extlookup_precedence = ['%{environment}', 'common']
 
 import 'classes/**/*'
 import 'nodes.pp'
