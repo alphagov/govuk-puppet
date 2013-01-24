@@ -1,12 +1,16 @@
 class auditd::config {
-  file { '/etc/audit/audit.rules':
-    ensure  => file,
-    source  => 'puppet:///modules/auditd/etc/audit/audit.rules',
+  concat { '/etc/audit/audit.rules':
     mode    => '0600',
     owner   => 'root',
     group   => 'root',
-    require => Package['auditd']
   }
+
+  concat::fragment {'auditd_base_rules':
+    target => '/etc/audit/audit.rules',
+    source => 'puppet:///modules/auditd/etc/audit/audit.rules',
+    order  => '01',
+  }
+
   file { '/etc/audit/auditd.conf':
     ensure  => file,
     source  => 'puppet:///modules/auditd/etc/audit/auditd.conf',
