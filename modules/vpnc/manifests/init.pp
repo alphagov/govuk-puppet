@@ -1,3 +1,24 @@
+# == Class: vpnc
+#
+# Setup an IPsec VPN using vpnc.
+#
+# === Parameters
+#
+# [*gateway*]
+#   IP or hostname of the IPSec gateway
+#
+# [*group*]
+#   IPSec ID, aka group name
+#
+# [*group_pw*]
+#   IPSec secret, aka group password
+#
+# [*user*]
+#   Xauth username
+#
+# [*password*]
+#   Xauth password
+#
 class vpnc (
   $gateway,
   $group,
