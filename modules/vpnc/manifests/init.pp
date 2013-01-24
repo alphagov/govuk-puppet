@@ -19,12 +19,18 @@
 # [*password*]
 #   Xauth password
 #
+# [*dnsupdate*]
+#   Whether to accept nameservers from the VPN endpoint.
+#   Valid values are yes, or no.
+#   Default: undef (equivalent to yes)
+#
 class vpnc (
   $gateway,
   $group,
   $group_pw,
   $user,
-  $password
+  $password,
+  $dnsupdate = undef
 ) {
   package {'vpnc':
     ensure => present,

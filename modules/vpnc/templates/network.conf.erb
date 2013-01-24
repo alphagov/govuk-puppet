@@ -4,3 +4,8 @@ IPSec secret <%= @group_pw %>
 IKE Authmode psk
 Xauth username <%= @user %>
 Xauth password <%= @password %>
+<% if %w{yes no}.include?(@dnsupdate) -%>
+
+# This config option is deprecated. See upstream README.debian
+DNSUpdate <%= @dnsupdate %>
+<% end -%>
