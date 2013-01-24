@@ -5,10 +5,8 @@ class govuk::apps::redirector {
     group   => 'deploy',
     require => User['deploy'],
   }
-  file { '/etc/nginx/sites-enabled/redirector_include_all':
-    ensure  => present,
+  nginx::config::site { 'redirector_include_all':
     content => "include /var/apps/redirector/configs/*.conf;\n",
-    notify  => Class['nginx::service'],
     require => File['/var/apps/redirector/configs'],
   }
 }
