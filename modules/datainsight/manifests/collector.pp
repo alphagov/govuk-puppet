@@ -38,8 +38,7 @@ define datainsight::collector {
     ensure  => 'directory',
     purge   => true,
     recurse => true,
-    force   => true,
-    notify  => Govuk::App::Service[$vhost],
+    force   => true
   }
 
   # Ensure env dir exists
@@ -47,8 +46,7 @@ define datainsight::collector {
     ensure  => 'directory',
     purge   => true,
     recurse => true,
-    force   => true,
-    notify  => Govuk::App::Service[$vhost],
+    force   => true
   }
 
   Govuk::App::Envvar { app => $vhost }
