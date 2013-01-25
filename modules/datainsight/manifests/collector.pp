@@ -49,9 +49,9 @@ define datainsight::collector {
     force   => true
   }
 
-  Govuk::App::Envvar { app => $vhost }
+  Govuk::Envvar { app => $vhost }
 
-  govuk::app::envvar {
+  govuk::envvar {
     "${vhost}-GOVUK_USER":
       varname => "GOVUK_USER",
       value   => "deploy";
