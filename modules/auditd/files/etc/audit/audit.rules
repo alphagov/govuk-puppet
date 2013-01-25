@@ -267,5 +267,3 @@
 
 ## Make the configuration immutable
 #-e 2
-
-## Extra rules from defined types are placed below
