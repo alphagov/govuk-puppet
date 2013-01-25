@@ -51,6 +51,11 @@ class users::groups::govuk {
     email    => 'chris.heathcote@digital.cabinet-office.gov.uk',
     ssh_key  => 'AAAAB3NzaC1yc2EAAAABIwAAAQEA9KolxDUqEoD+0CFvQCsUm4PZ/MbD4H8uUVOlgatbPAXVp2bSkvyBbmcodwuYoxmZET+vUC3EYeEWnsZVRFi+nxweOKxBwYDBz67iO/wj/V9WyP6VEhOw/45JNzkGLHKi84IcwYSrS+O2Y7xtFXNKTqiIJFjb+a9XLFwTdS5sMAzXi8Jhw8Yu6X6IU2+Ub+Zj1SYOgdu2MsbHxRFi0iDqCd3MPIGPwznWSMfP5TkqqPlG9cX0+92E8P3I52cSDgej+FEv8gMkX6li2xWUb1f1ruG0YWbmDtyb3BtWHhzhq+UE3C0wleHWVbWcOq+gP7WccZbk6d0HS7wXy1T0ouuktw==',
   }
+  govuk::user { 'dabel':
+    fullname => 'Dan Abel',
+    email    => 'dan.abel@digital.cabinet-office.gov.uk',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDWoMjmzyhI3smmKziws6bBgHGf6bp00k2//Tc9l8mDtzBzTJmvSLkb+Zbe/Rmi0BE+sHEANa+K+AsbqRFVFQG+Risx8Mn+e9LVoh3yNKHyBOvXkz/MsV9LECmDpY7tpByb+CWXjsWID/ze7oc85QGXdMWJun0qQOt1pjgCNuEtXyPKT5rbGc7JlJD0VbODtXB2ft2EUEg4l95lcl302fhjZDNXhjPuczhbRXY1B0WUg9uGNmrHdmbdk7Kbcyu9JIlUT93ww+fW1edSiX4BWqGnVyZaLoQr1m1dyvd/wdM9gytfTOLtKUiKgI61nk6Dc9Fz0tGYjmvdIgsk3bqlh/u5',
+  }
   govuk::user { 'dafydd':
     fullname => 'Dafydd Vaughan',
     email    => 'dafydd.vaughan@digital.cabinet-office.gov.uk',
