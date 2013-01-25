@@ -1,2 +1,7 @@
 #!/bin/sh
-exec sudo RUBYOPT="-W0" puppet agent --onetime --no-daemonize "$@"
+MYUID=`id -u`
+if [ $MYUID = 0 ]; then
+  RUBYOPT="-W0" exec puppet agent --onetime --no-daemonize "$@"
+else
+  exec sudo RUBYOPT="-W0" puppet agent --onetime --no-daemonize "$@"
+fi
