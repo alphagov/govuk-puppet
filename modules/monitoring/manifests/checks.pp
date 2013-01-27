@@ -5,8 +5,8 @@ class monitoring::checks {
   $app_domain = extlookup('app_domain')
 
   cron { 'cron_smokey_features':
-    command => '/usr/local/bin/lockrun -L /var/run/smokey.lock -q -- /opt/smokey/cron.sh',
-    minute  => '*/5',
+    command => '/usr/local/bin/lockrun -L /var/run/smokey.lock -q -- /opt/smokey/cron_json.sh /tmp/smokey.json',
+    minute  => '*',
   }
 
   nagios::check_feature {
