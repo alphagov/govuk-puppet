@@ -81,8 +81,8 @@ class monitoring::checks {
   # START whitehall
   @@nagios::check { "check_scheduled_publishing_${::hostname}":
     # Will generate a warning if the time averaged runs per machine per 15
-    # minute interval drops below 0.9 and a critical if below 0.7
-    check_command       => 'check_graphite_metric_since!avg(hitcount(stats.govuk.app.whitehall.*.scheduled_publishing.call_rate,\'15minutes\'))!15minutes!0.9:!0.7:',
+    # minute interval drops below 0.6 and a critical if below 0.3
+    check_command       => 'check_graphite_metric_since!avg(hitcount(stats.govuk.app.whitehall.*.scheduled_publishing.call_rate,\'15minutes\'))!15minutes!0.7:!0.3:',
     service_description => 'whitehall sched pub not running every 15 minutes',
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
