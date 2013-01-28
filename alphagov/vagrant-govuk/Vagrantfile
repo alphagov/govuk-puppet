@@ -5,14 +5,14 @@ BOX_DIST    = "precise"
 BOX_NAME    = "govuk_dev_#{BOX_DIST}64_#{BOX_VERSION}"
 BOX_URL     = "http://gds-boxes.s3.amazonaws.com/#{BOX_NAME}.box"
 
-# Load node definitions from the JSON in the deployment repo parallel to
+# Load node definitions from the JSON in the vcloud-templates repo parallel to
 # this. Temporary solution while only Ops are using this.
 def nodes_from_json
-  json_dir = File.expand_path("../../deployment/provisioner/machines", __FILE__)
+  json_dir = File.expand_path("../../vcloud-templates/machines", __FILE__)
   json_local = File.expand_path("../nodes.local.json", __FILE__)
 
   unless File.exists?(json_dir)
-    puts "Unable to find nodes in 'deployment' repo"
+    puts "Unable to find nodes in 'vcloud-templates' repo"
     puts
     return {}
   end
