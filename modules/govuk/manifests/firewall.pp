@@ -58,11 +58,6 @@ class govuk::firewall {
     port => 8080,
   }
 
-  # Puppet clients
-  ufw::allow { "allow-facter-from-all":
-    port => 9294,
-  }
-
   # Support Server
   ufw::allow { "allow-apt_cacher-from-all":
     port => 3142,
