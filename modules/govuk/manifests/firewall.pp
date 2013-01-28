@@ -110,14 +110,4 @@ class govuk::firewall {
     port => 9200,
   }
 
-  #Load balancer Health Check ports
-  ufw::allow { "allow-loadbalancer-health-check-signonotron-ssl-from-all":
-    port => 9401,
-  }
-
-  #Load balancer Health Check ports
-  ufw::allow { "allow-haproxy-health-check-from-vshield":
-    port => 8900,
-  }
-
 }
