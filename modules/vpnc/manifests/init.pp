@@ -19,6 +19,9 @@
 # [*password*]
 #   Xauth password
 #
+# [*state*]
+#   Initial start state of service
+#
 # [*dnsupdate*]
 #   Whether to accept nameservers from the VPN endpoint.
 #   Valid values are yes, or no.
@@ -30,6 +33,7 @@ class vpnc (
   $group_pw,
   $user,
   $password,
+  $state = 'running',
   $dnsupdate = undef
 ) {
   package {'vpnc':
@@ -49,7 +53,7 @@ class vpnc (
   }
 
   service {'vpnc':
-    ensure  => running,
+    ensure  => $state,
     require => Package['vpnc'],
   }
 }
