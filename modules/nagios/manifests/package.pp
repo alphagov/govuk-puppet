@@ -75,12 +75,10 @@ class nagios::package {
   exec { 'dpkg-statoverride /var/lib/nagios3/rw':
     command => '/usr/sbin/dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw',
     unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/nagios3/rw',
-    require => Package['nagios3'],
   }
 
   exec { 'dpkg-statoverride /var/lib/nagios3':
     command => '/usr/sbin/dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3',
     unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/nagios3',
-    require => Package['nagios3'],
   }
 }
