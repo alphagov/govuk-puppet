@@ -15,7 +15,7 @@ The above repos should be cloned parallel to this one. `development/install.sh` 
 
 The preferred method of installing Vagrant is through Bundler. This allows us to pin specific versions. However if you already have a system-wide installation that should also work.
 
-There is also an rbenv version file included. I recommend that you use the version of Ruby specified in there. However any 1.9.x should work.
+There is also an rbenv version file included. I recommend that you use rbenv and the version of Ruby specified in there. If you only have 1.8.x available then you will almost certainly need to install rbenv, see [here](https://github.com/sstephenson/rbenv/#homebrew-on-mac-os-x) and [here](http://dan.carley.co/blog/2012/02/07/rbenv-and-bundler/).
 
 ## Usage
 
