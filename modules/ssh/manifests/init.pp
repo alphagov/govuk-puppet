@@ -14,11 +14,17 @@ class ssh {
     notify  => Class['ssh::service'];
   }
 
+  class { 'ssh::firewall':
+    require => Class['ssh::package'],
+  }
+
   class { 'ssh::service':
     notify => Anchor['ssh::end'],
   }
 
-  anchor { 'ssh::end': }
+  anchor { 'ssh::end':
+    require => Anchor['ssh::firewall'],
+  }
 
   # The "internally-qualified domain name" of a machine is the first two
   # components of its three-component name. i.e. the IQDN of a machine with

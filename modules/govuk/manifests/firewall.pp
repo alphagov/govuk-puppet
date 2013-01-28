@@ -21,11 +21,6 @@ class govuk::firewall {
   #         sed "s: [0-9]*/::g" | cut -d: -f2 | sort | uniq -c |\
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
-  # SSH Connections
-  ufw::allow { "allow-ssh-from-all":
-    port => 22,
-  }
-
   # Monitoring Suite Clients
   ufw::allow { "allow-nrpe-from-all":
     port => 5666,
