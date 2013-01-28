@@ -2,7 +2,8 @@ class govuk::openconnect(
 ) {
 
   class { 'govuk::vpnc':
-    state => 'stopped',
+    dnsupdate => 'no',
+    state     => 'stopped',
   }
 
   class { '::openconnect':
