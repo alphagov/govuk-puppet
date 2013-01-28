@@ -32,15 +32,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     vhost           => 'whitehall-admin',
   }
 
-  # The release App should not go to Skyscape yet
-  case $::govuk_provider {
-    'sky':   {}
-    default: {
-      include govuk::apps::release
-    }
-  }
-  # End release App
-
   class {'govuk::apps::frontend':
     protected => true,
   }
