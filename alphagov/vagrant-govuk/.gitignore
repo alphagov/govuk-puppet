@@ -1,3 +1,4 @@
+.vagrant
 .bundle/
 vendor/
 nodes.local.json
