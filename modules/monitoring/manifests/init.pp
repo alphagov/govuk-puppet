@@ -24,8 +24,7 @@ class monitoring {
   # Include monitoring-server-only checks
   include monitoring::checks
 
-  $domain = extlookup('app_domain')
-  $vhost = "monitoring.${domain}"
+  $vhost = 'monitoring.*'
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
@@ -41,6 +40,8 @@ class monitoring {
   file { '/var/www/monitoring':
     ensure => directory,
   }
+
+  $domain = extlookup('app_domain')
 
   file { '/var/www/monitoring/index.html':
     ensure  => present,
