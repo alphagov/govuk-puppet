@@ -22,9 +22,6 @@ class govuk::firewall {
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
   # Monitoring Suite Clients
-  ufw::allow { "allow-nrpe-from-all":
-    port => 5666,
-  }
   ufw::allow { "allow-gmond-8649-tcp-from-all":
     proto => 'tcp',
     port  => 8649,
