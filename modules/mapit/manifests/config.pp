@@ -17,6 +17,9 @@ class mapit::config {
                 ]
   }
 
+  nginx::config::ssl { 'wildcard_alphagov':
+    certtype => 'wildcard_alphagov'
+  }
   nginx::config::site { 'mapit':
     source  => 'puppet:///modules/mapit/nginx_mapit.conf'
   }
