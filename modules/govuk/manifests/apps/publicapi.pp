@@ -1,12 +1,12 @@
 class govuk::apps::publicapi {
 
-  $domain = extlookup('app_domain')
+  $app_domain = extlookup('app_domain')
 
-  $privateapi = "contentapi.${domain}"
-  $whitehallapi = "whitehall-frontend.${domain}"
+  $privateapi = "contentapi.${app_domain}"
+  $whitehallapi = "whitehall-frontend.${app_domain}"
 
   $app_name = 'publicapi'
-  $full_domain = "${app_name}.${domain}"
+  $full_domain = "${app_name}.${app_domain}"
 
   nginx::config::vhost::proxy { $full_domain:
     to               => [$privateapi],
