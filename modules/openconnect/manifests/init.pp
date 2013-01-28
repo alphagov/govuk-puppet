@@ -32,7 +32,7 @@ class openconnect (
 
   service {'openconnect':
     ensure  => running,
-    require => [ Package['openconnect'], Package['vpnc'] ]
+    require => Package['openconnect']
   }
 
 }
