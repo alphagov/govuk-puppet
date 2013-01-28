@@ -40,7 +40,7 @@ class govuk::firewall {
     port => 8126,
   }
 
-  # Monitoring Suite Servers
+  # RabbitMQ Servers (e.g. logging)
   ufw::allow { "allow-amqp-from-all":
     port => 5672,
   }
