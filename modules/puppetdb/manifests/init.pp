@@ -25,10 +25,14 @@ class puppetdb($package_ensure) {
     notify  => Class['puppetdb::service'];
   }
 
+  class { 'puppetdb::firewall': }
+
   class { 'puppetdb::service':
     notify => Anchor['puppetdb::end'],
   }
 
-  anchor { 'puppetdb::end': }
+  anchor { 'puppetdb::end':
+    require => Class['puppetdb::firewall'],
+  }
 
 }
