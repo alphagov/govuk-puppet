@@ -15,7 +15,7 @@ define nagios::passive_puppet_check (
 
     $check_content = template('nagios/passive_service.erb')
 
-    Nagios::Host[$host_name] -> Nagios::Check[$title]
+    Nagios::Host[$host_name] -> Nagios::Passive_puppet_check[$title]
 
   } else {
     $check_content = ''
