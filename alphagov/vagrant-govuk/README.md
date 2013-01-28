@@ -19,9 +19,9 @@ There is also an rbenv version file included. I recommend that you use rbenv and
 
 ## Usage
 
-You need only bring up the subset of nodes that you're working on. To bring up a PuppetMaster and Monitoring box for example:
+You need only bring up the subset of nodes that you're working on. To bring up a frontend and backend for example:
 ```sh
-vagrant up puppet-1.management monitoring.management
+vagrant up frontend-1.frontend backend-1.backend
 ```
 
 Vagrant will run the Puppet provisioner against the node when it boots up. Some yellow warnings are expected due to [storeconfigs](http://projects.puppetlabs.com/issues/7078). Nodes should look almost identical to that of Skyscape staging, including network addresses.
