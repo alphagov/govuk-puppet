@@ -45,13 +45,6 @@ class govuk::firewall {
     port => 5672,
   }
 
-  # Database Servers
-  ufw::allow { "allow-mongod-27017-from-all":
-    port => 27017,
-  }
-  ufw::allow { "allow-mongod-28017-from-all":
-    port => 28017,
-  }
   ufw::allow { "allow-mysqld-from-all":
     port => 3306,
   }

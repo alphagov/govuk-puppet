@@ -19,6 +19,7 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
     notify     => Class['mongodb::service'];
   }
 
+  class { 'mongodb::firewall': }
   class { 'mongodb::service': }
 
   class { 'mongodb::monitoring':
@@ -28,6 +29,9 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
 
   # We don't need to wait for the monitoring class
   anchor { 'mongodb::end':
-    require => Class['mongodb::service'],
+    require => Class[
+      'mongodb::firewall',
+      'mongodb::service'
+    ],
   }
 }
