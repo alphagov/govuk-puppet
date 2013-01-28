@@ -15,6 +15,8 @@ The above repos should be cloned parallel to this one. `development/install.sh` 
 
 The preferred method of installing Vagrant is through Bundler. This allows us to pin specific versions. However if you already have a system-wide installation that should also work.
 
+There is also an rbenv version file included. I recommend that you use the version of Ruby specified in there. However any 1.9.x should work.
+
 ## Usage
 
 You need only bring up the subset of nodes that you're working on. To bring up a PuppetMaster and Monitoring box for example:
