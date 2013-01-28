@@ -58,10 +58,6 @@ class govuk::firewall {
     port => 8080,
   }
 
-  # Puppet master
-  ufw::allow { "allow-puppetmaster-from-all":
-    port => 8140,
-  }
   ufw::allow { "allow-puppetdb-from-all":
     port => 9292,
   }
