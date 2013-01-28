@@ -45,10 +45,6 @@ class govuk::firewall {
     port => 5672,
   }
 
-  ufw::allow { "allow-mysqld-from-all":
-    port => 3306,
-  }
-
   # Webservers
   ufw::allow { "allow-http-from-all":
     port => 80,
