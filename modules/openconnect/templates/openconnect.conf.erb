@@ -6,4 +6,8 @@ stop on runlevel [!2345]
 respawn
 respawn limit 5 120
 
-exec echo <%= @password %> | openconnect <%= @gateway %>/github --no-dtls --script /etc/vpnc/vpnc-script --user <%= @user %> --passwd-on-stdin
+<% if %w{yes no}.include?(@dnsupdate) -%>
+<% @dns_text="export DNS_UPDATE=" + @dnsupdate + "&&" %> 
+<% end %>
+
+exec <%= @dns_text %> echo <%= @password %> | openconnect <%= @gateway %>/github --no-dtls --script /etc/vpnc/vpnc-script --user <%= @user %> --passwd-on-stdin
