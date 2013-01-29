@@ -28,11 +28,25 @@ class openconnect (
     ensure => present,
   }
 
+  file { '/etc/openconnect':
+    ensure  => directory,
+    mode    => '0700',
+  }
+
+  file { '/etc/openconnect/network.passwd':
+    ensure  => present,
+    mode    => '0600',
+    content => $password,
+  }
+
   file {"/etc/init/openconnect.conf":
     mode    => '0600',
     content => template("openconnect/openconnect.conf.erb"),
     notify  => Service['openconnect'],
-    require => Package['openconnect'],
+    require => [
+      Package['openconnect'],
+      File['/etc/openconnect/network.passwd']
+    ],
   }
 
   service {'openconnect':
