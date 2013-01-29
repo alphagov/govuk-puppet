@@ -12,13 +12,19 @@ define govuk::app::envvar (
   $app,
   # Value of the environment variable
   $value,
-  $envdir = "/etc/govuk/${app}/env.d",
-  $varname = $title
+  $envdir  = "/etc/govuk/${app}/env.d",
+  $varname = $title,
+  $notify  = true
 ) {
 
-  file { "${envdir}/${varname}":
-    content => $value,
-    notify  => Govuk::App::Service[$app],
+  if $notify {
+    file { "${envdir}/${varname}":
+      content => $value,
+      notify  => Govuk::App::Service[$app],
+    }
+  } else {
+    file { "${envdir}/${varname}":
+      content => $value,
+    }
   }
-
 }
