@@ -14,7 +14,7 @@ define govuk::app::envvar (
   $value,
   $envdir  = "/etc/govuk/${app}/env.d",
   $varname = $title,
-  $notify  = true
+  $notify  = 'true'
 ) {
 
   if $notify {
