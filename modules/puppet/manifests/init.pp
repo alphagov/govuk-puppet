@@ -42,7 +42,7 @@ class puppet {
   }
 
   @nagios::plugin { 'check_puppet_agent':
-    source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_puppet_agent',
+    source  => 'puppet:///modules/puppet/usr/lib/nagios/plugins/check_puppet_agent',
   }
 
   @@nagios::check { "check_puppet_agent_${::hostname}":
