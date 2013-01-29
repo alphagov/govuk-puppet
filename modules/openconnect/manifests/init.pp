@@ -2,6 +2,8 @@
 #
 # Setup a VPN using openconnect and vpnc config.
 #
+# Requires vpnc::package for /etc/vpnc/vpnc-script
+#
 # === Parameters
 #
 # [*gateway*]
@@ -24,6 +26,8 @@ class openconnect (
   $password,
   $dnsupdate = undef
 ) {
+  include ::vpnc::package
+
   package {'openconnect':
     ensure => present,
   }
@@ -45,6 +49,7 @@ class openconnect (
     notify  => Service['openconnect'],
     require => [
       Package['openconnect'],
+      Class['vpnc::package'],
       File['/etc/openconnect/network.passwd']
     ],
   }

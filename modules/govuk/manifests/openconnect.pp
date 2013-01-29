@@ -1,6 +1,7 @@
 class govuk::openconnect(
 ) {
 
+  # Stop the old VPN.
   class { 'govuk::vpnc':
     dnsupdate => 'no',
     state     => 'stopped',
