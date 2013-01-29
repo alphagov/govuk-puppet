@@ -21,14 +21,6 @@ class govuk::firewall {
   #         sed "s: [0-9]*/::g" | cut -d: -f2 | sort | uniq -c |\
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
-  # Monitoring Suite Clients
-  @ufw::allow { "allow-gmetad-8651-from-all":
-    port => 8651,
-  }
-  @ufw::allow { "allow-gmetad-8652-from-all":
-    port => 8652,
-  }
-
   # RabbitMQ Servers (e.g. logging)
   @ufw::allow { "allow-amqp-from-all":
     port => 5672,
