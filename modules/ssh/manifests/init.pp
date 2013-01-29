@@ -15,7 +15,7 @@ class ssh {
   }
 
   class { 'ssh::firewall':
-    require => Class['ssh::package'],
+    require => Class['ssh::config'],
   }
 
   class { 'ssh::service':

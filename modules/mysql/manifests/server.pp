@@ -14,7 +14,10 @@ class mysql::server($root_password='') {
     notify  => Class['mysql::server::service'];
   }
 
-  class { 'mysql::server::firewall': }
+  class { 'mysql::server::firewall':
+    require => Class['mysql::server::config'],
+  }
+
   class { 'mysql::server::service': }
 
   class { 'mysql::server::monitoring':

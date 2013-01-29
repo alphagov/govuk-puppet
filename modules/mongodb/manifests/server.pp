@@ -19,7 +19,10 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
     notify     => Class['mongodb::service'];
   }
 
-  class { 'mongodb::firewall': }
+  class { 'mongodb::firewall':
+    require => Class['mongodb::configuration'],
+  }
+
   class { 'mongodb::service': }
 
   class { 'mongodb::monitoring':

@@ -39,7 +39,9 @@ class puppet::master($unicorn_port='9090') {
     require   => Class['puppet::master::config'],
   }
 
-  class { 'puppet::master::firewall': }
+  class { 'puppet::master::firewall':
+    require => Class['puppet::master::config'],
+  }
 
   class{'puppet::master::service':
     # This subscribe is here because /etc/puppet/puppet.conf is currently
