@@ -13,11 +13,16 @@
 # [*password*]
 #   Xauth password
 #
-
+# [*dnsupdate*]
+#   Whether to accept nameservers from the VPN endpoint.
+#   Valid values are yes, or no.
+#   Default: undef (equivalent to yes)
+#
 class openconnect (
   $gateway,
   $user,
-  $password
+  $password,
+  $dnsupdate
 ) {
   package {'openconnect':
     ensure => present,
