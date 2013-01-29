@@ -23,7 +23,7 @@ class ssh {
   }
 
   anchor { 'ssh::end':
-    require => Anchor['ssh::firewall'],
+    require => Class['ssh::firewall'],
   }
 
   # The "internally-qualified domain name" of a machine is the first two
