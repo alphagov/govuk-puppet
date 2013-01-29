@@ -6,7 +6,7 @@
 #
 class clamav::monitoring {
   @@nagios::check { "check_clamav_definitions_${::hostname}":
-    check_command       => 'check_nrpe!check_path_age!/opt/clamav/share/clamav/daily.cld!2',
+    check_command       => 'check_nrpe!check_path_age!/opt/clamav/share/clamav/daily.cld 2',
     service_description => "clamav definitions out of date",
     host_name           => $::fqdn,
     require             => Class['nagios::client::check_path_age'],
