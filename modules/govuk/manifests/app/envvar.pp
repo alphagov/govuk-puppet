@@ -14,10 +14,10 @@ define govuk::app::envvar (
   $value,
   $envdir  = "/etc/govuk/${app}/env.d",
   $varname = $title,
-  $notify  = 'true'
+  $notify_service  = true
 ) {
 
-  if $notify {
+  if $notify_service {
     file { "${envdir}/${varname}":
       content => $value,
       notify  => Govuk::App::Service[$app],
