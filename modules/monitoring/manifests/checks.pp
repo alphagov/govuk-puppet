@@ -11,7 +11,6 @@ class monitoring::checks {
 
   nagios::check_feature {
     'check_businesssupportfinder':  feature => 'businesssupportfinder';
-    'check_cache':                  feature => 'cache';
     'check_calendars':              feature => 'calendars';
     'check_contractsfinder':        feature => 'contractsfinder';
     'check_efg':                    feature => 'efg';
