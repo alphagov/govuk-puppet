@@ -70,4 +70,3 @@ define datainsight::collector {
       value   => "govuk.app.${vhost}.${::hostname}";
   }
 }
-
