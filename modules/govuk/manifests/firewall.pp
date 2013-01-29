@@ -22,55 +22,55 @@ class govuk::firewall {
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
   # Monitoring Suite Clients
-  ufw::allow { "allow-gmond-8649-tcp-from-all":
+  @ufw::allow { "allow-gmond-8649-tcp-from-all":
     proto => 'tcp',
     port  => 8649,
   }
-  ufw::allow { "allow-gmond-8649-udp-from-all":
+  @ufw::allow { "allow-gmond-8649-udp-from-all":
     proto => 'udp',
     port  => 8649,
   }
-  ufw::allow { "allow-gmetad-8651-from-all":
+  @ufw::allow { "allow-gmetad-8651-from-all":
     port => 8651,
   }
-  ufw::allow { "allow-gmetad-8652-from-all":
+  @ufw::allow { "allow-gmetad-8652-from-all":
     port => 8652,
   }
-  ufw::allow { "allow-statsd-from-all":
+  @ufw::allow { "allow-statsd-from-all":
     port => 8126,
   }
 
   # RabbitMQ Servers (e.g. logging)
-  ufw::allow { "allow-amqp-from-all":
+  @ufw::allow { "allow-amqp-from-all":
     port => 5672,
   }
 
   # Webservers
-  ufw::allow { "allow-http-from-all":
+  @ufw::allow { "allow-http-from-all":
     port => 80,
   }
-  ufw::allow { "allow-https-from-all":
+  @ufw::allow { "allow-https-from-all":
     port => 443,
   }
 
   # Routers
-  ufw::allow { "allow-http-8080-from-all":
+  @ufw::allow { "allow-http-8080-from-all":
     port => 8080,
   }
 
   # Support Server
-  ufw::allow { "allow-apt_cacher-from-all":
+  @ufw::allow { "allow-apt_cacher-from-all":
     port => 3142,
   }
-  ufw::allow { "allow-solr-from-all":
+  @ufw::allow { "allow-solr-from-all":
     port => 8983,
   }
-  ufw::allow { "allow-elasticsearch-from-all":
+  @ufw::allow { "allow-elasticsearch-from-all":
     port => 9200,
   }
 
   #Load balancer Health Check ports
-  ufw::allow { "allow-loadbalancer-health-check-signonotron-ssl-from-all":
+  @ufw::allow { "allow-loadbalancer-health-check-signonotron-ssl-from-all":
     port => 9401,
   }
 

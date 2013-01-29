@@ -24,7 +24,7 @@ class haproxy {
   }
 
   #Load balancer Health Check ports
-  ufw::allow { "allow-haproxy-health-check-from-vshield":
+  @ufw::allow { "allow-haproxy-health-check-from-vshield":
     port => 8900,
   }
 
