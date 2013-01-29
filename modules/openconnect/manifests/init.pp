@@ -22,7 +22,7 @@ class openconnect (
   $gateway,
   $user,
   $password,
-  $dnsupdate
+  $dnsupdate = undef
 ) {
   package {'openconnect':
     ensure => present,
