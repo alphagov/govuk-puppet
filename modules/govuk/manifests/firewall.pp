@@ -22,14 +22,6 @@ class govuk::firewall {
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
   # Monitoring Suite Clients
-  @ufw::allow { "allow-gmond-8649-tcp-from-all":
-    proto => 'tcp',
-    port  => 8649,
-  }
-  @ufw::allow { "allow-gmond-8649-udp-from-all":
-    proto => 'udp',
-    port  => 8649,
-  }
   @ufw::allow { "allow-gmetad-8651-from-all":
     port => 8651,
   }
