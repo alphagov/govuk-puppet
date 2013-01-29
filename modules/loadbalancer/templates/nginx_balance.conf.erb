@@ -1,18 +1,18 @@
-upstream <%= @name %>-upstream {
+upstream <%= @vhost %>-upstream {
 <%- @servers.each do |server| -%>
   server <%= server %>:443 max_fails=3 fail_timeout=10s;
 <%- end -%>
 }
 
 server {
-  server_name <%= @vhost %> <%= @aliases.join(" ") unless @aliases.empty? %>;
+  server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
 
   <%- unless @https_only -%>
   listen              80;
   <%- end -%>
   listen              443 ssl;
-  ssl_certificate     /etc/nginx/ssl/<%= @vhost %>.crt;
-  ssl_certificate_key /etc/nginx/ssl/<%= @vhost %>.key;
+  ssl_certificate     /etc/nginx/ssl/<%= @vhost_real %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= @vhost_real %>.key;
   include             /etc/nginx/ssl.conf;
 
   # Needed to do keepalives upstream
@@ -31,8 +31,8 @@ server {
   # behind the load balancers.
   client_max_body_size 4g;
 
-  access_log /var/log/nginx/<%= @vhost %>-access.log timed_combined;
-  error_log /var/log/nginx/<%= @vhost %>-error.log;
+  access_log /var/log/nginx/<%= @vhost_real %>-access.log timed_combined;
+  error_log /var/log/nginx/<%= @vhost_real %>-error.log;
 
   location / {
     <%- if @internal_only -%>
@@ -41,6 +41,6 @@ server {
     allow 127.0.0.1;
     deny all;
     <%- end -%>
-    proxy_pass https://<%= @name %>-upstream;
+    proxy_pass https://<%= @vhost %>-upstream;
   }
 }
