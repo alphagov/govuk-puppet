@@ -27,8 +27,15 @@ class rkhunter::monitoring {
     require => Class['nagios::client'],
   }
 
+  file { '/var/lib/rkhunter/db/mirrors.dat':
+    owner   => root,
+    group   => nagios,
+    mode    => '0644',
+    require => Class['nagios::client'],
+  }
+
   @@nagios::check { "check_rkhunter_definitions_${::hostname}":
-    check_command       => 'check_nrpe!check_path_age!/var/lib/rkhunter/db/mirrors.dat!8',
+    check_command       => 'check_nrpe!check_path_age!/var/lib/rkhunter/db/mirrors.dat 8',
     service_description => "rkhunter definitions not updated",
     host_name           => $::fqdn,
   }
