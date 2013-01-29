@@ -36,9 +36,6 @@ class govuk::firewall {
   @ufw::allow { "allow-gmetad-8652-from-all":
     port => 8652,
   }
-  @ufw::allow { "allow-statsd-from-all":
-    port => 8126,
-  }
 
   # RabbitMQ Servers (e.g. logging)
   @ufw::allow { "allow-amqp-from-all":
