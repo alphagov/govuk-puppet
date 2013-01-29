@@ -14,6 +14,12 @@ class rkhunter {
     notify  => Anchor['rkhunter::end'],
   }
 
-  anchor { 'rkhunter::end': }
+  class { 'rkhunter::monitoring':
+    require => Class['rkhunter::config'],
+  }
+
+  anchor { 'rkhunter::end':
+    require => Class['rkhunter::monitoring'],
+  }
 
 }
