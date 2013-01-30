@@ -43,9 +43,6 @@ class govuk::firewall {
   @ufw::allow { "allow-apt_cacher-from-all":
     port => 3142,
   }
-  @ufw::allow { "allow-solr-from-all":
-    port => 8983,
-  }
   @ufw::allow { "allow-elasticsearch-from-all":
     port => 9200,
   }
