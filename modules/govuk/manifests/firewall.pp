@@ -21,11 +21,6 @@ class govuk::firewall {
   #         sed "s: [0-9]*/::g" | cut -d: -f2 | sort | uniq -c |\
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
-  # RabbitMQ Servers (e.g. logging)
-  @ufw::allow { "allow-amqp-from-all":
-    port => 5672,
-  }
-
   # Webservers
   @ufw::allow { "allow-http-from-all":
     port => 80,
