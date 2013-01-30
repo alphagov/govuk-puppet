@@ -32,6 +32,10 @@ def main(argv):
         print "WARNING: Path %r has not been modified in the last %s days" \
             % (opts.path, opts.days)
         return 1
+    else:
+        print "OK: Path %r has been modified in the last %s days" \
+            % (opts.path, opts.days)
+        return 0
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
