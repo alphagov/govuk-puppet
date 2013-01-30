@@ -19,10 +19,17 @@ class nagios::client {
     notify  => Class['nagios::client::service'],
   }
 
+  class { 'nagios::client::firewall':
+    require => Class['nagios::client::config'],
+  }
+
   class { 'nagios::client::service': }
 
   anchor { 'nagios::client::end':
-    require => Class['nagios::client::service'],
+    require => Class[
+      'nagios::client::firewall',
+      'nagios::client::service'
+    ],
   }
 
   @@nagios::host { $::fqdn:

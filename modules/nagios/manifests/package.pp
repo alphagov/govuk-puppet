@@ -1,5 +1,9 @@
 class nagios::package {
 
+  # nagios3-cgi has apache2 as a `Recommends:` so it may get unintentionally
+  # installed. This gets rid of it in that eventually.
+  include apache::remove
+
   include nginx::fcgi
 
   package { [
@@ -75,10 +79,12 @@ class nagios::package {
   exec { 'dpkg-statoverride /var/lib/nagios3/rw':
     command => '/usr/sbin/dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw',
     unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/nagios3/rw',
+    require => Package['nagios3'],
   }
 
   exec { 'dpkg-statoverride /var/lib/nagios3':
     command => '/usr/sbin/dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3',
     unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/nagios3',
+    require => Package['nagios3'],
   }
 }

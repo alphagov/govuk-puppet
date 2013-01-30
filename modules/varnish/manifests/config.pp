@@ -32,6 +32,7 @@ class varnish::config {
     'legal-right-to-work-in-the-uk',
     'maternity-benefits',
     'maternity-paternity-calculator',
+    'pip-checker',
     'plan-adoption-leave',
     'plan-maternity-leave',
     'plan-paternity-leave',
@@ -40,6 +41,7 @@ class varnish::config {
     'report-a-lost-or-stolen-passport',
     'request-for-flexible-working',
     'student-finance-calculator',
+    'student-finance-forms',
     'towing-rules',
     'vehicles-you-can-drive',
     'which-finance-is-right-for-your-business'

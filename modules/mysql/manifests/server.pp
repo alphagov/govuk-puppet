@@ -14,8 +14,11 @@ class mysql::server($root_password='') {
     notify  => Class['mysql::server::service'];
   }
 
-  class { 'mysql::server::service':
+  class { 'mysql::server::firewall':
+    require => Class['mysql::server::config'],
   }
+
+  class { 'mysql::server::service': }
 
   class { 'mysql::server::monitoring':
     root_password => $root_password,
@@ -24,7 +27,10 @@ class mysql::server($root_password='') {
 
   # Don't need to wait for monitoring class
   anchor { 'mysql::server::end':
-    require => Class['mysql::server::service'],
+    require => Class[
+      'mysql::server::firewall',
+      'mysql::server::service'
+    ],
   }
 
   cron { 'daily sql tarball':
