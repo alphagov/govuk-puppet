@@ -1,5 +1,7 @@
 class graphite::config {
 
+  $vhost = 'ganglia.*'
+
   file { '/opt/graphite/graphite/manage.py':
     mode => '0755',
   }
@@ -22,9 +24,7 @@ class graphite::config {
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
-  $app_domain = extlookup('app_domain')
-
-  nginx::config::vhost::proxy { "graphite.${app_domain}":
+  nginx::config::vhost::proxy { $vhost:
     to      => ['localhost:33333'],
     root    => '/opt/graphite/webapp',
     aliases => ["graphite.production-ec2.alphagov.co.uk"],
