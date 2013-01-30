@@ -1,6 +1,6 @@
 class graphite::config {
 
-  $vhost = 'ganglia.*'
+  $vhost = 'graphite.*'
 
   file { '/opt/graphite/graphite/manage.py':
     mode => '0755',
