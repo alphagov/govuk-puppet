@@ -38,6 +38,11 @@ class puppet::master($unicorn_port='9090') {
   class { 'puppet::master::generate_cert':
     require   => Class['puppet::master::config'],
   }
+
+  class { 'puppet::master::firewall':
+    require => Class['puppet::master::config'],
+  }
+
   class{'puppet::master::service':
     # This subscribe is here because /etc/puppet/puppet.conf is currently
     # provided by a manifest separate from puppet::master::*. TODO: move
@@ -46,5 +51,8 @@ class puppet::master($unicorn_port='9090') {
     notify    => Anchor['puppet::master::end'],
     require   => Class['puppet::master::generate_cert'],
   }
-  anchor {'puppet::master::end': }
+
+  anchor {'puppet::master::end':
+    require => Class['puppet::master::firewall'],
+  }
 }

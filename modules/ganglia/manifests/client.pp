@@ -14,10 +14,17 @@ class ganglia::client {
     notify  => Class['ganglia::client::service'],
   }
 
+  class { 'ganglia::client::firewall':
+    require => Class['ganglia::client::config'],
+  }
+
   class { 'ganglia::client::service': }
 
   anchor { 'ganglia::client::end':
-    require => Class['ganglia::client::service'],
+    require => Class[
+      'ganglia::client::firewall',
+      'ganglia::client::service'
+    ],
   }
 
   @ganglia::pymod { 'diskstat':
