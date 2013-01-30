@@ -29,9 +29,4 @@ class govuk::firewall {
     port => 443,
   }
 
-  # Support Server
-  @ufw::allow { "allow-elasticsearch-from-all":
-    port => 9200,
-  }
-
 }

@@ -29,6 +29,11 @@ define elasticsearch::node(
     notify             => Elasticsearch::Node::Service[$cluster_name],
   }
 
+  class { 'elasticsearch::node::firewall':
+    http_port => $http_port,
+    require   => Elasticsearch::Node::Config[$cluster_name],
+  }
+
   elasticsearch::node::service { $cluster_name:
     ensure  => $ensure,
   }
