@@ -1,9 +1,9 @@
 define datainsight::collector {
 
   # Variable setup
-  $domain = extlookup('app_domain')
+  $app_domain = extlookup('app_domain')
   $vhost = "datainsight-${title}-collector"
-  $vhost_full = "${vhost}.${domain}"
+  $vhost_full = "${vhost}.${app_domain}"
 
   include datainsight::config::google_oauth
 

@@ -113,8 +113,8 @@ define govuk::app(
     default  => $vhost,
   }
 
-  $domain = extlookup('app_domain')
-  $vhost_full = "${vhost_real}.${domain}"
+  $app_domain = extlookup('app_domain')
+  $vhost_full = "${vhost_real}.${app_domain}"
 
   include govuk::deploy
 
@@ -125,7 +125,7 @@ define govuk::app(
   govuk::app::config { $title:
     require                => Govuk::App::Package[$title],
     app_type               => $app_type,
-    domain                 => $domain,
+    domain                 => $app_domain,
     port                   => $port,
     vhost_aliases          => $vhost_aliases,
     vhost_full             => $vhost_full,

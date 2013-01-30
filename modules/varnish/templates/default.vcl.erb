@@ -7,7 +7,7 @@
 
 def vhost_for_backend(name)
   first_part = name.gsub('_', '-')
-  "#{first_part}.#{@domain}"
+  "#{first_part}.#{@app_domain}"
 end
 
 def set_backend(name)

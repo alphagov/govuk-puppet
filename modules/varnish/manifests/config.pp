@@ -66,7 +66,7 @@ class varnish::config {
     'whitehall_frontend'
   ]
 
-  $domain = extlookup('app_domain')
+  $app_domain = extlookup('app_domain')
 
   file { '/etc/default/varnish':
     ensure  => file,
