@@ -2,7 +2,8 @@ class nagios::config {
 
   include govuk::htpasswd
 
-  $vhost = 'nagios.*'
+  $vhost = 'nagios'
+  $app_domain = extlookup('app_domain','dev.gov.uk')
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   # Used by graphite check templates, below
@@ -38,7 +39,7 @@ class nagios::config {
 
   # Used by resource.cfg to insert links to correct monitoring instance into
   # emails.
-  $monitoring_url = "https://${vhost}/"
+  $monitoring_url = "https://${vhost}.${app_domain}/"
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),
