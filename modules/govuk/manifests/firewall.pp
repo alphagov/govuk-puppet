@@ -40,9 +40,6 @@ class govuk::firewall {
   }
 
   # Support Server
-  @ufw::allow { "allow-apt_cacher-from-all":
-    port => 3142,
-  }
   @ufw::allow { "allow-elasticsearch-from-all":
     port => 9200,
   }
