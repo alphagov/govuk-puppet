@@ -3,6 +3,7 @@ class graphite {
   include nginx
   include pip
   include gunicorn
+  include apache::remove
 
   anchor { 'graphite::begin':
     notify => Class['graphite::service'];
