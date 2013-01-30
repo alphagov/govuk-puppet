@@ -21,7 +21,7 @@ class hosts::skyscape::production_like {
     ip              => '10.0.0.20',
     vdc             => 'management',
     legacy_aliases  => ['monitoring', "nagios.${app_domain}", "ganglia.${app_domain}", "graphite.${app_domain}"],
-    service_aliases => ['monitoring'],
+    service_aliases => ['monitoring', 'nagios', 'ganglia', 'graphite'],
   }
   govuk::host { 'logging':
     ip              => '10.0.0.21',
