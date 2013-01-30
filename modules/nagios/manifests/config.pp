@@ -5,6 +5,10 @@ class nagios::config {
   $vhost = 'nagios.*'
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
+  # Used by graphite check templates, below
+  $http_username = extlookup('http_username', '')
+  $http_password = extlookup('http_password', '')
+
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost:
     content => template('nagios/nginx.conf.erb'),

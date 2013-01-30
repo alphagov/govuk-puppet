@@ -1,4 +1,4 @@
 define command {
   command_name  check_graphite_metric_since
-  command_line  /usr/bin/check_graphite -H http://graphite.cluster/render -U betademo -P nottobeshared -M "$ARG1$" -F "$ARG2$" -w "$ARG3$" -c "$ARG4$"
+  command_line  /usr/bin/check_graphite -H http://graphite.cluster/render -U <%= @http_username %> -P <%= @http_password %> -M "$ARG1$" -F "$ARG2$" -w "$ARG3$" -c "$ARG4$"
 }
