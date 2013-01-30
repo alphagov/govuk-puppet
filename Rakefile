@@ -106,12 +106,10 @@ desc "Run rspec"
 task :spec do
   matched_files = FileList[*get_modules.map { |x| "#{x}/spec/**/*_spec.rb" }]
 
-  cli_args = ['-t', 'rspec', '-n', '1']
+  cli_args = ['-t', 'rspec']
   cli_args.concat(matched_files)
 
   $stderr.puts '---> Running puppet specs'
-  # This test isn't parallel any more, remove the -n1
-  # from cli_args to enable parallel
   ParallelTest::CLI.run(cli_args)
 end
 
