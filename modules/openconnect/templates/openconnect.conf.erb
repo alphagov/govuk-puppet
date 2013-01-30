@@ -10,4 +10,9 @@ respawn limit 5 120
 env DNS_UPDATE=<%= @dnsupdate %>
 export DNS_UPDATE
 <% end -%>
-exec cat /etc/openconnect/network.passwd | openconnect <%= @gateway %>/github --no-dtls --script /etc/vpnc/vpnc-script --user <%= @user %> --passwd-on-stdin
+exec cat /etc/openconnect/network.passwd | openconnect \
+  <%= @gateway -%>/github \
+  --no-dtls \
+  --script /etc/vpnc/vpnc-script \
+  --user <%= @user -%> \
+  --passwd-on-stdin
