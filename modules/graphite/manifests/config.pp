@@ -24,8 +24,9 @@ class graphite::config {
     environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
   }
 
-  nginx::config::vhost::proxy { $vhost:
+  nginx::config::vhost::proxy { 'graphite':
     to      => ['localhost:33333'],
+    aliases => [$vhost],
     root    => '/opt/graphite/webapp',
     aliases => ["graphite.production-ec2.alphagov.co.uk"],
   }
