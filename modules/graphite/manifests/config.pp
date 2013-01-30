@@ -26,9 +26,8 @@ class graphite::config {
 
   nginx::config::vhost::proxy { 'graphite':
     to      => ['localhost:33333'],
-    aliases => [$vhost],
     root    => '/opt/graphite/webapp',
-    aliases => ["graphite.production-ec2.alphagov.co.uk"],
+    aliases => [$vhost,'graphite.production-ec2.alphagov.co.uk'],
   }
 
   file { '/etc/init/graphite.conf':
