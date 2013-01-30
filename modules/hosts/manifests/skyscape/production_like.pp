@@ -217,6 +217,7 @@ class hosts::skyscape::production_like {
 
   $backend_aliases_orig = [
       'backend-internal-lb',
+      "asset-manager.${app_domain}",
       "canary-backend.${app_domain}",
       "contentapi.${app_domain}",
       "imminence.${app_domain}",

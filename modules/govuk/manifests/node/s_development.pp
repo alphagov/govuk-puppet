@@ -22,6 +22,7 @@ class govuk::node::s_development {
   include govuk::repository
   include govuk::testing_tools
 
+  include govuk::apps::asset_manager
   include govuk::apps::businesssupportfinder
   include govuk::apps::calendars
   include govuk::apps::canary_frontend

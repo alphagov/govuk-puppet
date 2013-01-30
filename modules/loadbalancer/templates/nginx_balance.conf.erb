@@ -1,0 +1,46 @@
+upstream <%= @vhost %>-upstream {
+<%- @servers.each do |server| -%>
+  server <%= server %>:443 max_fails=3 fail_timeout=10s;
+<%- end -%>
+}
+
+server {
+  server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
+
+  <%- unless @https_only -%>
+  listen              80;
+  <%- end -%>
+  listen              443 ssl;
+  ssl_certificate     /etc/nginx/ssl/<%= @vhost_real %>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= @vhost_real %>.key;
+  include             /etc/nginx/ssl.conf;
+
+  # Needed to do keepalives upstream
+  proxy_http_version 1.1;
+
+  # Try next upstream if one returns an error
+  proxy_next_upstream error timeout http_500 http_502 http_503 http_504;
+
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_redirect off;
+
+  # No need to set this limit here, as long as it is enforced by servers
+  # behind the load balancers.
+  client_max_body_size 4g;
+
+  access_log /var/log/nginx/<%= @vhost_real %>-access.log timed_combined;
+  error_log /var/log/nginx/<%= @vhost_real %>-error.log;
+
+  location / {
+    <%- if @internal_only -%>
+    # Only accept connnections from internal machines
+    allow 10.0.0.0/8;
+    allow 127.0.0.1;
+    deny all;
+    <%- end -%>
+    proxy_pass https://<%= @vhost %>-upstream;
+  }
+}

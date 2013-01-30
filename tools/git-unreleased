@@ -1,10 +1,10 @@
 #!/bin/sh
 
-BUILD_FROM=$(git tag --points-at origin/release | grep preview)
-BUILD_TO=$(git tag --points-at origin/preview | grep preview)
+BUILD_FROM=$(git tag --points-at origin/release | grep build)
+BUILD_TO=$(git tag --points-at origin/preview | grep build)
 
 git log --simplify-by-decoration --decorate --pretty=oneline "${BUILD_FROM}...${BUILD_TO}" |
 fgrep 'tag: ' |
-grep -Eo 'preview_\d+' |
+grep -Eo 'build_\d+' |
 cut -d_ -f2- |
 sort -n

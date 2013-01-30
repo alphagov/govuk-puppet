@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -eu
+
+# Prune branches no longer present upstream
+git remote prune origin
+
+# Prune local (and remote-tracking) branches other than master, preview, and
+# release
+git for-each-ref refs/heads --format '%(refname)' |
+egrep -v '^refs/heads/(master|preview|release)$' |
+while read refname; do
+  git branch -d "${refname#refs/heads/}" || true
+done
