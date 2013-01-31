@@ -5,7 +5,7 @@ Facter.add("varnish_cachesize_mb") do
     ram = 0
     File.open( "/proc/meminfo" , 'r' ) do |f|
         f.grep( /^MemTotal:/ ) { |mem|
-            # memory in gigabytes
+            # 75% of the memory in GB
             ram = mem.split( / +/ )[1].to_i / 1024 * 3 / 4
         }
     end
