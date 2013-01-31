@@ -4,6 +4,6 @@ define service {
   service_description <%= @service_description %>
   active_checks_enabled     0
   passive_checks_enabled    1
-  check_command             check_dummy!1!"Unexpected active check on passive service"   
+  check_command             check_dummy!1!"Unexpected active check on passive service"
   max_check_attempts        1
 }
