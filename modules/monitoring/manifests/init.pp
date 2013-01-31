@@ -30,7 +30,7 @@ class monitoring {
     ensure => directory,
   }
 
-  $domain = extlookup('app_domain')
+  $app_domain = extlookup('app_domain')
 
   file { '/var/www/monitoring/index.html':
     ensure  => present,
