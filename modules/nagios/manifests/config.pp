@@ -9,11 +9,9 @@ class nagios::config {
   $http_username = extlookup('http_username', '')
   $http_password = extlookup('http_password', '')
 
-  # Used by vhost templates and $monitoring_url below.
-  $vhost = 'nagios'
-
-  nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
-  nginx::config::site { $vhost:
+  nginx::config::ssl { 'nagios':
+    certtype => 'wildcard_alphagov' }
+  nginx::config::site { 'nagios':
     content => template('nagios/nginx.conf.erb'),
   }
 
@@ -41,7 +39,7 @@ class nagios::config {
 
   # Used by resource.cfg to insert links to correct monitoring instance into
   # emails.
-  $monitoring_url = "https://${vhost}.${app_domain}/"
+  $monitoring_url = "https://nagios.${app_domain}/"
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),

@@ -2,11 +2,11 @@ class ganglia::config {
 
   include govuk::htpasswd
 
-  $vhost = 'ganglia'
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
-  nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
-  nginx::config::site { $vhost:
+  nginx::config::ssl { 'ganglia':
+    certtype => 'wildcard_alphagov' }
+  nginx::config::site { 'ganglia':
     content => template('ganglia/nginx.conf.erb'),
   }
 
