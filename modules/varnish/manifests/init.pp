@@ -1,7 +1,6 @@
 class varnish (
     $default_ttl  = 900,
-    $storage_size = '3G'
-    # TODO - make this dependent on facter e.g. "memorytotal => 3.87 GB"
+    $storage_size = "${::varnish_cachesize_mb}M"
 ) {
 
   case $::lsbdistcodename {
