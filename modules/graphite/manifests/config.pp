@@ -1,7 +1,5 @@
 class graphite::config {
 
-  $vhost = 'graphite.*'
-
   file { '/opt/graphite/graphite/manage.py':
     mode => '0755',
   }
@@ -27,7 +25,7 @@ class graphite::config {
   nginx::config::vhost::proxy { 'graphite':
     to      => ['localhost:33333'],
     root    => '/opt/graphite/webapp',
-    aliases => [$vhost,'graphite.production-ec2.alphagov.co.uk'],
+    aliases => ['graphite.*' ,'graphite.production-ec2.alphagov.co.uk'],
   }
 
   file { '/etc/init/graphite.conf':

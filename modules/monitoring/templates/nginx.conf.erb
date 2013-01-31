@@ -1,13 +1,13 @@
 <%- if @enable_ssl -%>
 server {
-  server_name <%= vhost %>;
+  server_name <%= vhost %> monitoring.*;
   listen 80;
   rewrite ^/(.*) https://$host/$1 permanent;
 }
 <%- end -%>
 
 server {
-  server_name <%= vhost %>;
+  server_name <%= vhost %> monitoring.*;
 
   <%- if !@enable_ssl -%>
   listen 80;

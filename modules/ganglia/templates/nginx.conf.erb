@@ -2,14 +2,14 @@
 
 <%- if @enable_ssl -%>
 server {
-  server_name <%= vhost %>;
+  server_name <%= vhost %> ganglia.*;
   listen 80;
   rewrite ^/(.*) https://$host/$1 permanent;
 }
 <%- end -%>
 
 server {
-  server_name <%= vhost %>;
+  server_name <%= vhost %> ganglia.*;
 
   <%- if !@enable_ssl -%>
   listen 80;

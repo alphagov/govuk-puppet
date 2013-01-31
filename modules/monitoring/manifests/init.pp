@@ -13,7 +13,7 @@ class monitoring {
   # Include monitoring-server-only checks
   include monitoring::checks
 
-  $vhost = 'monitoring.*'
+  $vhost = 'monitoring'
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
