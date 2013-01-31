@@ -21,12 +21,4 @@ class govuk::firewall {
   #         sed "s: [0-9]*/::g" | cut -d: -f2 | sort | uniq -c |\
   #         awk 'BEGIN{OFS=",";}{print $1,$2,$3}' > port_audit.csv
 
-  # Webservers
-  @ufw::allow { "allow-http-from-all":
-    port => 80,
-  }
-  @ufw::allow { "allow-https-from-all":
-    port => 443,
-  }
-
 }
