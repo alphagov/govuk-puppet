@@ -204,7 +204,7 @@ class users::groups::govuk {
   govuk::user { 'robyoung':
     fullname => 'Rob Young',
     email    => 'rob.young@digital.cabinet-office.gov.uk',
-    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCfNVroXhmwWJldKKIIGOIlBJbKuQtPVV8gVau3DL6uzoDsZuxZQVJAxjMuQzqjotSk2y2oKsOujKmo3nVukORQmAyeHx8HBXZnBkTMFUUYduZPg91wV91tjGVumtHeC0x06Av0hgt/SL0rdPhR0Au4XicRxpHqDW2u009H10bXrjYdVJG4gH8PNsIpV22UbFx0a2tw53AkvslAK8AO2AXZ9Y0/AAs2j3eXoTqwdAmhFX27pLpRPNRv8ErXtUTHThEGZtvPBFIuoh2t/+n6BIZq5uCztXjK0plUz0/ABJHVaIOw6XqCHXlQUl+ym5FmstVuXYBui+zf1v4ynKzAYIr/',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Ow1NSyFzV31HAuIf7FFrGIki01sM4+PUdnHrBtTqNFrraGTqcrRKOs8oHtDMhiGC9MPQWvgTMo/sDdAYp3W5SelBJX3L2J0ixKU9D7FNn963SGxWgfuZGTYvu50uDbPwGXH/FXaa99lo3FDv4o2hodC3TRPISAIS3fGXD/K1RuczvIeWfrYAUg2yC01Jv6XzJvHeVVfgQkp0YkV2J0Y5+hXJlcyxmFMdOZeXF5o68ypac/KEu5ksmFX+9h8YPjJ9vidVqzDQosSTA/2W8zTiqTztHeAFOgp/uw8XgLxzel8FLTE6xyu0WSAQHVTZfm5r6U/blft/Q3gcDldrLzRD',
   }
   govuk::user { 'rthorn':
     fullname => 'Russell Thorn',
