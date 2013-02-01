@@ -61,10 +61,13 @@ define elasticsearch::node::config (
       require => File[$es_home],
     }
 
-    file { '/mnt/elasticsearch':
-      ensure => directory,
-      owner  => 'elasticsearch',
+    # There may be multiple invocations of this define.
+    if !defined(File['/mnt/elasticsearch']) {
+      file { '/mnt/elasticsearch':
+        ensure => directory,
+        owner  => 'elasticsearch',
       }
+    }
 
     file { "${es_home}/data":
       ensure  => link,
