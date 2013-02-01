@@ -1,5 +1,5 @@
 require 'facter'
-# A fact that is equal to 75% of the memory in MB
+# A fact that is equal to the memory in MB
 Facter.add("memtotalmb") do
     confine :kernel => :linux
     ram = 0
