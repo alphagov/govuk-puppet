@@ -2,8 +2,6 @@ class nagios::config {
 
   include govuk::htpasswd
 
-  $shortname = 'nagios'
-  $vhost = "${shortname}.*"
   $app_domain = extlookup('app_domain','dev.gov.uk')
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
@@ -11,8 +9,9 @@ class nagios::config {
   $http_username = extlookup('http_username', '')
   $http_password = extlookup('http_password', '')
 
-  nginx::config::ssl { $vhost: certtype => 'wildcard_alphagov' }
-  nginx::config::site { $vhost:
+  nginx::config::ssl { 'nagios':
+    certtype => 'wildcard_alphagov' }
+  nginx::config::site { 'nagios':
     content => template('nagios/nginx.conf.erb'),
   }
 
@@ -40,7 +39,7 @@ class nagios::config {
 
   # Used by resource.cfg to insert links to correct monitoring instance into
   # emails.
-  $monitoring_url = "https://${shortname}.${app_domain}/"
+  $monitoring_url = "https://nagios.${app_domain}/"
 
   file { '/etc/nagios3/resource.cfg':
     content  => template('nagios/resource.cfg.erb'),
