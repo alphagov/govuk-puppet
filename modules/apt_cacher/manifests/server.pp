@@ -11,6 +11,10 @@ class apt_cacher::server {
     notify  => Service['apt-cacher'],
   }
 
+  @ufw::allow { "allow-apt_cacher-from-all":
+    port => 3142,
+  }
+
   service {'apt-cacher':
     ensure  => running,
     require => Package['apt-cacher'],

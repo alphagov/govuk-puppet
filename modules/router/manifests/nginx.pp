@@ -14,6 +14,10 @@ class router::nginx {
     content => template('router/base.conf.erb'),
   }
 
+  @ufw::allow { "allow-http-8080-from-all":
+    port => 8080,
+  }
+
   nginx::config::site { 'router-replacement-port8080':
     source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
   }

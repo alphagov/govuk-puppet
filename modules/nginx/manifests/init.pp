@@ -14,11 +14,17 @@ class nginx {
     notify  => Class['nginx::service'];
   }
 
+  class { 'nginx::firewall':
+    require => Class['nginx::config'],
+  }
+
   class { 'nginx::service':
     notify => Anchor['nginx::end'],
   }
 
-  anchor { 'nginx::end': }
+  anchor { 'nginx::end':
+    require => Class['nginx::firewall'],
+  }
 
   # Include ability to do a full restart of nginx. This does not explicitly
   # trigger a restart, but simply makes the class available to any manifest

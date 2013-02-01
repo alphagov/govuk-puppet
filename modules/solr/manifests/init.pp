@@ -44,6 +44,10 @@ class solr {
     require => Class['java::sun6::jre']; # FIXME: the *deb* should depend on java.
   }
 
+  @ufw::allow { "allow-solr-from-all":
+    port => 8983,
+  }
+
   service { 'solr':
     ensure   => running,
     provider => upstart,
