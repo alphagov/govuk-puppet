@@ -11,6 +11,12 @@ env CMD="unicornherder -u unicorn -p $PIDFILE -- -p <%= @unicorn_port %> -c /etc
 respawn
 respawn limit 7 20
 
+pre-start script
+    # prepare environment
+    mkdir -p /var/run/puppetmaster
+    chown puppet:puppet /var/run/puppetmaster
+end script
+
 exec start-stop-daemon --start \
                        --chuid 'puppet:puppet' \
                        --chdir '/etc/puppet' \
