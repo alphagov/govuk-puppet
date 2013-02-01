@@ -1,12 +1,11 @@
 require 'facter'
 # A fact that is equal to 75% of the memory in MB
-Facter.add("varnish_cachesize_mb") do
+Facter.add("memtotalmb") do
     confine :kernel => :linux
     ram = 0
     File.open( "/proc/meminfo" , 'r' ) do |f|
         f.grep( /^MemTotal:/ ) { |mem|
-            # 75% of the memory in GB
-            ram = mem.split( / +/ )[1].to_i / 1024 * 3 / 4
+            ram = mem.split( / +/ )[1].to_i / 1024
         }
     end
     setcode do
