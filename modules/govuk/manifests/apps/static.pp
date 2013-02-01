@@ -32,7 +32,7 @@ class govuk::apps::static( $port = 3013 ) {
     app_type           => 'rack',
     port               => $port,
     enable_nginx_vhost => $should_use_proxy_vhost,
-    health_check_path  => '/templates/wrapper.html.erb', # if changed, nginx::config::vhost::static also needs to change
+    health_check_path  => '/templates/wrapper.html.erb',
     nginx_extra_config => $nginx_extra_config,
   }
 

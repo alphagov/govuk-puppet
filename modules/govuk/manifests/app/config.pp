@@ -87,7 +87,6 @@ define govuk::app::config (
       ssl_only               => $vhost_ssl_only,
       nginx_extra_config     => $nginx_extra_config,
       nginx_extra_app_config => $nginx_extra_app_config,
-      health_check_path      => $health_check_path,
       intercept_errors       => $intercept_errors,
     }
   }

@@ -1,16 +1,12 @@
 define nginx::config::vhost::static(
-  $to = "localhost:8080", #FIXME: remove this default value once static is no longer served by apache
+  $to,
   $protected = true,
   $aliases = [],
   $ssl_only = false,
   $server_names = [],
   $extra_root_config = ''
 ) {
-
   include govuk::htpasswd
-  $health_check_port = "9513"
-  $ssl_health_check_port = "9413"
-  $health_check_path = "/templates/wrapper.html.erb"
 
   # Used by static-vhost template
   $app_domain = extlookup('app_domain')
