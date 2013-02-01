@@ -1,6 +1,6 @@
 class varnish (
     $default_ttl  = 900,
-    $storage_size = "${::varnish_cachesize_mb}M"
+    $storage_size = "512M"
 ) {
 
   case $::lsbdistcodename {
