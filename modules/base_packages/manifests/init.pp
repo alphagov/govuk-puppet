@@ -40,7 +40,12 @@ class base_packages {
         }
         include nodejs
     }
-    default: {}
+    default: {
+      # see pivotaltracker 42952267
+      package {'dpkg':
+        ensure => '1.15.5.6ubuntu4.6',
+      }
+    }
   }
 
 }
