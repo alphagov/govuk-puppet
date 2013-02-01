@@ -5,8 +5,10 @@ class govuk::node::s_cache inherits govuk::node::s_base {
   include nginx
   include router::nginx
 
+  # Set the varnish storage size to 75% of memory
+  $varnish_storage_size = $::memtotalmb / 4 * 3
   class { 'varnish':
-    storage_size => '6G',
+    storage_size => join([$varnish_storage_size,"M"],""),
     default_ttl  => '900',
   }
 
