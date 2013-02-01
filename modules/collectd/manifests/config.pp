@@ -3,4 +3,13 @@ class collectd::config {
     ensure  => present,
     source  => 'puppet:///modules/collectd/etc/collectd/collectd.conf',
   }
+
+  file { '/etc/collectd/conf.d':
+    ensure  => directory,
+  }
+
+  file { '/etc/collectd/conf.d/default.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/collectd/etc/collectd/conf.d/default.conf',
+  }
 }
