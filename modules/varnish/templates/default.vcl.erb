@@ -45,7 +45,7 @@ sub vcl_recv {
     <%= set_backend('smartanswers') %>
   } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$") {
     <%= set_backend('static') %>
-  } else if (req.url ~ "^/designprinciples(\?.*)?$|^/designprinciples/styleguide(\?.*)?$|^/designprinciples/performanceframework(\?.*)?$") {
+  } else if (req.url ~ "^/designprinciples") {
     <%= set_backend('designprinciples') %>
   } else if (req.url ~ "^/licence-finder") {
     <%= set_backend('licencefinder') %>
