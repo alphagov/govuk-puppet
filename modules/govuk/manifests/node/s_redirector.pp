@@ -15,7 +15,16 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     ensure => present,
   }
 
-  nginx::config::vhost::default { 'default': }
+  nginx::config::vhost::default { 'default':
+    status         => '444',
+    status_message => '',
+    extra_config   => "
+    location /healthcheck {
+      default_type application/json;
+      return 200 '{\"healthcheck\": \"ok\"}'
+    }
+    ",
+  }
 
   @logster::cronjob { "nginx-redirector":
     args => "--metric-prefix redirector NginxGangliaLogster /var/log/nginx/access.log",
