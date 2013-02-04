@@ -1,11 +1,20 @@
 class graphite::config {
 
-  file { '/opt/graphite/graphite/manage.py':
-    mode => '0755',
+  file { '/etc/graphite/local_settings.py':
+    ensure  => present,
+    source  => 'puppet:///modules/graphite/local_settings.py',
   }
 
-  file { '/opt/graphite/graphite/local_settings.py':
-    source  => 'puppet:///modules/graphite/local_settings.py',
+  # Allow this to fail() on later versions of Ubuntu.
+  # Could be replaced by a `pythonversion` fact.
+  $python_version = $::lsbdistcodename ? {
+    'lucid'   => '2.6',
+    'precise' => '2.7',
+  }
+  file { '/usr/lib/pythonX.X/dist-packages/graphite/local_settings.py':
+    ensure  => link,
+    path    => "/usr/lib/python${python_version}/dist-packages/graphite/local_settings.py",
+    target  => '/etc/graphite/local_settings.py',
   }
 
   file { '/etc/carbon/carbon.conf':
