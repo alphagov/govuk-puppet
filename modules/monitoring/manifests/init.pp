@@ -30,11 +30,9 @@ class monitoring {
     ensure => directory,
   }
 
-  $app_domain = extlookup('app_domain')
-
   file { '/var/www/monitoring/index.html':
     ensure  => present,
-    content => template('monitoring/index.html.erb'),
+    source  => 'puppet:///modules/monitoring/index.html',
     require => File['/var/www/monitoring'],
   }
 

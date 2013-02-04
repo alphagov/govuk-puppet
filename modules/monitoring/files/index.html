@@ -1,0 +1,51 @@
+<!doctype html>
+<head>
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Inconsolata);
+
+    body {
+      margin: 1em;
+      padding: 0;
+      font-family: Inconsolata, monospace;
+    }
+
+    .outbound {
+      margin: 0;
+      padding: 1em 0;
+    }
+
+    .outbound a {
+      color: #2E3191;
+      font-size: 24px;
+      padding: 1em;
+      text-decoration: none;
+      border: 1px solid #2E3191;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+  </style>
+  <script type="text/javascript">
+    // Redirect from the monitoring sub-domain to another parallel
+    // sub-domain without knowing the common parent-domain on the server
+    // side.
+    function redirect(subDomain, path) {
+      var destDomain = location.hostname.replace(/^monitoring/, subDomain);
+      var destURL = location.protocol + "//" + destDomain +
+        (location.port ? ":" + location.port : "") +
+        (path ? path : "/");
+
+      window.location.href = destURL;
+    }
+  </script>
+</head>
+<body>
+  <h1>GOV.UK monitoring</h1>
+  <p class=outbound>
+    <a href="javascript:void(0)" onclick="redirect('ganglia');">Ganglia</a>
+    <a href="javascript:void(0)" onclick="redirect('ganglia', '/views/basichealth.html');">Ganglia views &mdash; basic health</a>
+    <a href="javascript:void(0)" onclick="redirect('ganglia', '/views/memdisk.html');">Ganglia views &mdash; memory and disk</a>
+    <a href="javascript:void(0)" onclick="redirect('graphite');">Graphite</a>
+    <a href="javascript:void(0)" onclick="redirect('nagios');">Nagios</a>
+  </p>
+</body>
