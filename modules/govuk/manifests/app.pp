@@ -21,7 +21,12 @@ define govuk::app(
   #
   $port,
 
-  # health_check_path used by load balancers to check health of service
+  #
+  # health_check_path: path at which to check the status of the application.
+  #
+  # This is used to export health checks to ensure the application is running
+  # correctly.
+  #
   $health_check_path = 'NOTSET',
 
   #

@@ -3,12 +3,9 @@ define nginx::config::vhost::proxy(
   $aliases = [],
   $extra_config = '',
   $extra_app_config = '',
-  $health_check_path = 'NOTSET',
-  $health_check_port = 'NOTSET',
   $intercept_errors = false,
   $protected = true,
   $root = "/data/vhost/${title}/current/public",
-  $ssl_health_check_port = 'NOTSET',
   $ssl_only = false,
   $ssl_manage_cert = true # This is a *horrible* hack to make EFG work.
                           # Please, please, remove when we have a
