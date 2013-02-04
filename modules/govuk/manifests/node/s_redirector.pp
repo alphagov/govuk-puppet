@@ -14,10 +14,8 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
   package { 'libcrypt-ssleay-perl':
     ensure => present,
   }
-  nginx::config::vhost::default { 'default':
-    status         => '444',
-    status_message => '',
-  }
+
+  nginx::config::vhost::default { 'default': }
 
   @logster::cronjob { "nginx-redirector":
     args => "--metric-prefix redirector NginxGangliaLogster /var/log/nginx/access.log",
