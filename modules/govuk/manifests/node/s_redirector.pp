@@ -21,7 +21,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     extra_config   => "
     location /healthcheck {
       default_type application/json;
-      return 200 '{\"healthcheck\": \"ok\"}'
+      return 200 '{\"healthcheck\": \"ok\"}\n';
     }
     ",
   }
