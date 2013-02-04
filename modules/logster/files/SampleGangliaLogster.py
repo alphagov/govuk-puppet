@@ -47,10 +47,14 @@ class SampleGangliaLogster(GangliaLogster):
         self.http_502 = 0
         self.http_503 = 0
         self.http_504 = 0
+
+        self.line_count = 0
+        self.request_time = 0.0
+        self.upstream_response_time = 0.0
         
         # Regular expression for matching lines we are interested in, and capturing
-        # fields from the line (in this case, http_status_code).
-        self.reg = re.compile('.*HTTP/1.\d\" (?P<http_status_code>\d{3}) .*')
+        # fields from the line (in this case, http_status_code, request_time and upstream_response_time).
+        self.reg = re.compile('.*HTTP/1.\d\" (?P<http_status_code>\d{3})(?: \d+ "[^"]*" "[^"]*" (?P<request_time>[\d\.]+) (?P<upstream_response_time>[\d\.]+))?')
 
     def prefix(self):
         return ""
@@ -65,6 +69,12 @@ class SampleGangliaLogster(GangliaLogster):
 
             if regMatch:
                 linebits = regMatch.groupdict()
+
+                if linebits['request_time'] is not None:
+                    self.line_count += 1
+                    self.request_time += float(linebits['request_time'])
+                    self.upstream_response_time += float(linebits['upstream_response_time'])
+
                 status = int(linebits['http_status_code'])
 
                 if (status < 200):
@@ -103,9 +113,9 @@ class SampleGangliaLogster(GangliaLogster):
         '''Run any necessary calculations on the data collected from the logs
         and return a list of metric objects.'''
         self.duration = duration
-        
+
         # Return a list of metrics objects
-        return [
+        metrics = [
             GangliaMetricObject("%shttp_1xx" % self.prefix(), (self.http_1xx / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_2xx" % self.prefix(), (self.http_2xx / self.duration), units="Responses per sec"),
             GangliaMetricObject("%shttp_3xx" % self.prefix(), (self.http_3xx / self.duration), units="Responses per sec"),
@@ -120,3 +130,10 @@ class SampleGangliaLogster(GangliaLogster):
             GangliaMetricObject("%shttp_504" % self.prefix(), (self.http_504 / self.duration), units="Responses per sec"),
         ]
 
+        if self.line_count > 0:
+            metrics += [
+                GangliaMetricObject("%stime_request" % self.prefix(),  (self.request_time / self.line_count),           units="Average request time"),
+                GangliaMetricObject("%stime_upstream" % self.prefix(), (self.upstream_response_time / self.line_count), units="Average upstream response time"),
+            ]
+
+        return metrics
