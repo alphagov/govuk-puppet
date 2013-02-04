@@ -1,9 +1,10 @@
 require 'json'
 
-BOX_VERSION = "20121220"
-BOX_DIST    = "precise"
-BOX_NAME    = "govuk_dev_#{BOX_DIST}64_#{BOX_VERSION}"
-BOX_URL     = "http://gds-boxes.s3.amazonaws.com/#{BOX_NAME}.box"
+box_version = "20121220"
+box_dist    = "precise"
+
+@box_name   = "govuk_dev_#{box_dist}64_#{box_version}"
+@box_url    = "http://gds-boxes.s3.amazonaws.com/#{@box_name}.box"
 
 # Load node definitions from the JSON in the vcloud-templates repo parallel to
 # this. Temporary solution while only Ops are using this.
@@ -46,8 +47,8 @@ end
 Vagrant::Config.run do |config|
   nodes_from_json.each do |node_name, node_opts|
     config.vm.define node_name do |c|
-      c.vm.box = BOX_NAME
-      c.vm.box_url = BOX_URL
+      c.vm.box = @box_name
+      c.vm.box_url = @box_url
 
       c.vm.host_name = node_name
       c.vm.network :hostonly, node_opts["ip"]
