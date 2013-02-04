@@ -12,4 +12,9 @@ class collectd::config {
     ensure  => present,
     source  => 'puppet:///modules/collectd/etc/collectd/conf.d/default.conf',
   }
+
+  file { '/etc/collectd/conf.d/network.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/collectd/etc/collectd/conf.d/network.conf.client',
+  }
 }
