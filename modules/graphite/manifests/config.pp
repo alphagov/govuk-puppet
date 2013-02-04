@@ -1,18 +1,35 @@
 class graphite::config {
 
-  file { '/opt/graphite/graphite/manage.py':
-    mode => '0755',
+  # Remove old non-FHS config paths.
+  # FIXME: This can be removed when all nodes are running 0.9.9
+  file { ['/opt/graphite/conf', '/opt/graphite/graphite']:
+    ensure  => absent,
+    force   => true,
+    backup  => false,
   }
 
-  file { '/opt/graphite/graphite/local_settings.py':
+  file { '/etc/graphite/local_settings.py':
+    ensure  => present,
     source  => 'puppet:///modules/graphite/local_settings.py',
   }
 
-  file { '/opt/graphite/conf/carbon.conf':
+  # Allow this to fail() on later versions of Ubuntu.
+  # Could be replaced by a `pythonversion` fact.
+  $python_version = $::lsbdistcodename ? {
+    'lucid'   => '2.6',
+    'precise' => '2.7',
+  }
+  file { '/usr/lib/pythonX.X/dist-packages/graphite/local_settings.py':
+    ensure  => link,
+    path    => "/usr/lib/python${python_version}/dist-packages/graphite/local_settings.py",
+    target  => '/etc/graphite/local_settings.py',
+  }
+
+  file { '/etc/carbon/carbon.conf':
     source => 'puppet:///modules/graphite/carbon.conf',
   }
 
-  file { '/opt/graphite/conf/storage-schemas.conf':
+  file { '/etc/carbon/storage-schemas.conf':
     source => 'puppet:///modules/graphite/storage-schema.conf',
   }
 
@@ -32,6 +49,10 @@ class graphite::config {
     source => 'puppet:///modules/graphite/etc/init/graphite.conf',
   }
 
+  # Use our upstart script.
+  file { '/etc/init.d/carbon-cache':
+    ensure => absent,
+  }
   file { '/etc/init/carbon_cache.conf':
     source => 'puppet:///modules/graphite/etc/init/carbon_cache.conf',
   }
