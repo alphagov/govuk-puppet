@@ -19,6 +19,7 @@ class govuk::node::s_base {
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
+  include users::groups::freerange
 
   $email_collection = extlookup('email_collection','off')
   case $email_collection {
