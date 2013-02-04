@@ -8,11 +8,11 @@ class graphite::config {
     source  => 'puppet:///modules/graphite/local_settings.py',
   }
 
-  file { '/opt/graphite/conf/carbon.conf':
+  file { '/etc/carbon/carbon.conf':
     source => 'puppet:///modules/graphite/carbon.conf',
   }
 
-  file { '/opt/graphite/conf/storage-schemas.conf':
+  file { '/etc/carbon/storage-schemas.conf':
     source => 'puppet:///modules/graphite/storage-schema.conf',
   }
 
@@ -32,6 +32,10 @@ class graphite::config {
     source => 'puppet:///modules/graphite/etc/init/graphite.conf',
   }
 
+  # Use our upstart script.
+  file { '/etc/init.d/carbon-cache':
+    ensure => absent,
+  }
   file { '/etc/init/carbon_cache.conf':
     source => 'puppet:///modules/graphite/etc/init/carbon_cache.conf',
   }
