@@ -1,5 +1,13 @@
 class graphite::config {
 
+  # Remove old non-FHS config paths.
+  # FIXME: This can be removed when all nodes are running 0.9.9
+  file { ['/opt/graphite/conf', '/opt/graphite/graphite']:
+    ensure  => absent,
+    force   => true,
+    backup  => false,
+  }
+
   file { '/etc/graphite/local_settings.py':
     ensure  => present,
     source  => 'puppet:///modules/graphite/local_settings.py',
