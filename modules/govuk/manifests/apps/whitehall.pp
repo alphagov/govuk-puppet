@@ -37,7 +37,6 @@ class govuk::apps::whitehall(
     govuk::app::nginx_vhost { 'whitehall-frontend':
       vhost              => "whitehall-frontend.${app_domain}",
       app_port           => $port,
-      health_check_path  => '/healthcheck',
       nginx_extra_config => "
       location /government/assets {
         ${asset_config_in_platform}
@@ -57,7 +56,6 @@ class govuk::apps::whitehall(
       vhost              => "whitehall-admin.${app_domain}",
       app_port           => $port,
       protected          => true,
-      health_check_path  => '/healthcheck',
       intercept_errors   => str2bool(extlookup('whitehall_admin_intercept_errors', 'yes')),
       nginx_extra_config => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
