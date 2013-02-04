@@ -6,6 +6,8 @@ class collectd::config {
 
   file { '/etc/collectd/conf.d':
     ensure  => directory,
+    purge   => true,
+    recurse => true,
   }
 
   file { '/etc/collectd/conf.d/default.conf':
