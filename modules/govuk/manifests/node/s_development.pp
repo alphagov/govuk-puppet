@@ -44,7 +44,6 @@ class govuk::node::s_development {
   include govuk::apps::publisher
   include govuk::apps::redirector
   include govuk::apps::release
-  include govuk::apps::review_o_matic_explore
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::smartanswers
