@@ -5,6 +5,7 @@ class monitoring {
   }
 
   include nagios
+  include nsca::server
   include ganglia
   include graphite
 
