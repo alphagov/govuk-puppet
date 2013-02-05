@@ -12,10 +12,7 @@ define govuk::app::nginx_vhost (
   # explicitly declare that they want to be. Otherwise, they are protected by
   # default.
   if $protected == undef {
-    $protected_real = $::govuk_provider ? {
-      'sky'   => false,
-      default => true,
-    }
+    $protected_real = str2bool(extlookup('protect_vhosts_by_default', 'no'))
   } else {
     $protected_real = $protected
   }
