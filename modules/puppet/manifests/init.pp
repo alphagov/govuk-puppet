@@ -35,21 +35,11 @@ class puppet {
     ],
   }
 
-#### Only the monitoring boxen have passive checks so far (as they can write directly to the log) ######
-#
-  if $::govuk_class == 'monitoring' {
-    $passive_update_filename = "puppet:///modules/puppet/do_puppet_passive_check_update"
-  } else {
-    $passive_update_filename = "puppet:///modules/puppet/no_puppet_passive_check_update"
-  }
-
   file { '/usr/local/bin/puppet_passive_check_update':
     ensure => present,
     mode   => '0755',
-    source => $passive_update_filename,
+    source => "puppet:///modules/puppet/puppet_passive_check_update",
   }
-#
-########################################
 
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
     ensure   => stopped,

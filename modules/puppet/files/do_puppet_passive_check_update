@@ -1,4 +1,0 @@
-#!/bin/bash
-OUTPUT=`/usr/lib/nagios/plugins/check_puppet_agent`
-CODE=$?
-echo "[$(date +%s)] PROCESS_SERVICE_CHECK_RESULT;$(facter fqdn);Passive Puppet Check;$CODE;$OUTPUT" >> /var/lib/nagios3/rw/nagios.cmd
