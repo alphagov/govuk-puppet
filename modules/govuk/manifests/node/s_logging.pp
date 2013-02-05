@@ -1,5 +1,4 @@
 class govuk::node::s_logging inherits govuk::node::s_base {
-  include nagios::client
   include nginx
 
   if $::govuk_provider == 'sky' {
