@@ -1,5 +1,6 @@
 #!/bin/sh
-CMD="/usr/bin/puppet agent --onetime --no-daemonize"
+PUPPET=`which puppet`
+CMD="${PUPPET} agent --onetime --no-daemonize"
 
 if [ "$(id -u)" -eq "0" ]; then
   RUBYOPT="-W0" exec $CMD "$@"
