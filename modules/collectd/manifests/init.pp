@@ -16,6 +16,6 @@ class collectd {
   class { 'collectd::service': }
 
   anchor { 'collectd::end':
-    require => Class['collectd::service'],
+    subscribe => Class['collectd::service'],
   }
 }
