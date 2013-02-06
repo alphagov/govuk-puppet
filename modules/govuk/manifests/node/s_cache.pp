@@ -27,9 +27,4 @@ class govuk::node::s_cache inherits govuk::node::s_base {
     }
     default: {}
   }
-
-  # FIXME: Remove soon
-  cron { "logster-cronjob-jetty":
-    ensure => 'absent',
-  }
 }
