@@ -32,24 +32,6 @@ class elms_base::mongo_server {
   class { 'mongodb::configure_replica_set':
     members => $mongo_hosts
   }
-
-  $mongodb_encrypted = str2bool(extlookup('licensify_mongo_encrypted', 'no'))
-  if $mongodb_encrypted {
-    file { '/etc/motd-mongodb-encrypted':
-      ensure  => present,
-      content => '
-          This server has an encrypted drive for /var/lib/mongodb
-
-          After reboot, please see the Operations Manual for how to remount
-          the /var/lib/mongodb partition as it requires manual intervention.
-      ',
-    }
-    file { '/etc/motd':
-      ensure  => present,
-      target  => '/etc/motd-mongodb-encrypted',
-      require => File['/etc/motd-mongodb-encrypted'],
-    }
-  }
 }
 
 class elms_base::frontend_server {
