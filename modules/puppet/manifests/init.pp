@@ -36,9 +36,9 @@ class puppet {
   }
 
   file { '/usr/local/bin/puppet_passive_check_update':
-    ensure => present,
-    mode   => '0755',
-    source => "puppet:///modules/puppet/puppet_passive_check_update",
+    ensure  => present,
+    mode    => '0755',
+    content => template('puppet/puppet_passive_check_update'),
   }
 
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
