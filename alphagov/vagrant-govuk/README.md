@@ -29,7 +29,7 @@ Vagrant will run the Puppet provisioner against the node when it boots up. Nodes
 
 ## Customisation
 
-Node definitions can be overridden with a `nodes.local.json` file that is merged on top of all other node definitions.
+Node definitions can be overridden with a `nodes.local.json` file in the vagrant-govuk directory that is merged on top of all other node definitions.
 
 To increase the amount of RAM on a PuppetMaster for example:
 ```json
