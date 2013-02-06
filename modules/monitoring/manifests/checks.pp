@@ -26,11 +26,6 @@ class monitoring::checks {
     'check_whitehall':              feature => 'whitehall';
   }
 
-
-  nagios::passive_check { 'check puppet':
-    service_description => 'Passive Puppet Check'
-  }
-
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
     use                 => 'govuk_urgent_priority',

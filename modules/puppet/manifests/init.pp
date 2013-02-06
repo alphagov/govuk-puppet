@@ -56,4 +56,8 @@ class puppet {
     service_description => "puppet errors",
     host_name           => $::fqdn,
   }
+
+  @@nagios::passive_check { 'check puppet':
+    service_description => 'puppet last run errors'
+  }
 }

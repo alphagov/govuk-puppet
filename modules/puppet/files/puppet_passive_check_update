@@ -1,5 +1,5 @@
 #!/bin/bash
 OUTPUT=`/usr/lib/nagios/plugins/check_puppet_agent`
 CODE=$?
-printf "$(facter fqdn)\tPassive Puppet Check\t$CODE\t$OUTPUT\n" | send_nsca -H nagios.cluster
+printf "$(facter fqdn)\tpuppet last run errors\t$CODE\t$OUTPUT\n" | send_nsca -H nagios.cluster
 exit $?
