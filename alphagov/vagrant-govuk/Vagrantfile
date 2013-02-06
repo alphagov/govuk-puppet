@@ -51,7 +51,7 @@ Vagrant::Config.run do |config|
       c.vm.box_url = @box_url
 
       c.vm.host_name = node_name
-      c.vm.network :hostonly, node_opts["ip"]
+      c.vm.network :hostonly, node_opts["ip"], :netmask => "255.255.000.000"
 
       modifyvm_args = ['modifyvm', :id]
 
