@@ -1,5 +1,5 @@
 LoadPlugin network
 
 <Plugin network>
-  Server "monitoring.cluster"
+  Server "graphite.cluster"
 </Plugin>
