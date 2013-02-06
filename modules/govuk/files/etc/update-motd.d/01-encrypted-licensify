@@ -1,0 +1,9 @@
+#!/bin/bash
+cat <<EOF
+
+This server has an encrypted drive for /var/lib/mongodb
+
+After reboot, please see the Operations Manual for how to remount
+the /var/lib/mongodb partition as it requires manual intervention.
+
+EOF
