@@ -22,12 +22,6 @@ class logster {
     group   => root,
     require => File['/usr/share/logster'],
   }
-  file { '/usr/share/logster/JettyGangliaLogster.py':
-    source  => 'puppet:///modules/logster/JettyGangliaLogster.py',
-    owner   => root,
-    group   => root,
-    require => File['/usr/share/logster'],
-  }
   file { '/usr/share/logster/NginxGangliaLogster.py':
     source  => 'puppet:///modules/logster/NginxGangliaLogster.py',
     owner   => root,
