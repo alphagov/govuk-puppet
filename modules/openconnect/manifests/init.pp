@@ -20,11 +20,16 @@
 #   Valid values are yes, or no.
 #   Default: undef (equivalent to yes)
 #
+# [*cacerts*]
+#   PEM string of CAs to trust.
+#   Default: undef
+#
 class openconnect (
   $gateway,
   $user,
   $password,
-  $dnsupdate = undef
+  $dnsupdate = undef,
+  $cacerts = undef
 ) {
   include ::vpnc::package
 
@@ -41,6 +46,15 @@ class openconnect (
     ensure  => present,
     mode    => '0600',
     content => $password,
+  }
+
+  $cacerts_ensure = $cacerts ? {
+    undef   => absent,
+    default => present,
+  }
+  file { '/etc/openconnect/network.cacerts':
+    ensure  => $cacerts_ensure,
+    content => $cacerts,
   }
 
   file {"/etc/init/openconnect.conf":

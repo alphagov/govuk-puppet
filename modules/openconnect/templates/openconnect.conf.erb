@@ -14,5 +14,8 @@ exec cat /etc/openconnect/network.passwd | openconnect \
   <%= @gateway -%>/github \
   --no-dtls \
   --script /etc/vpnc/vpnc-script \
+<% unless @cacerts.nil? -%>
+  --CAfile /etc/openconnect/network.cacerts \
+<% end -%>
   --user <%= @user -%> \
   --passwd-on-stdin
