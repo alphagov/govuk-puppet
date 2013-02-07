@@ -32,6 +32,7 @@ class varnish::config {
     'legal-right-to-work-in-the-uk',
     'maternity-benefits',
     'maternity-paternity-calculator',
+    'overseas-passports',
     'pip-checker',
     'plan-adoption-leave',
     'plan-maternity-leave',
