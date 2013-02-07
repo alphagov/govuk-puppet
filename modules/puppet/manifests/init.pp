@@ -35,21 +35,11 @@ class puppet {
     ],
   }
 
-#### Only the monitoring boxen have passive checks so far (as they can write directly to the log) ######
-#
-  if $::govuk_class == 'monitoring' {
-    $passive_update_filename = "puppet:///modules/puppet/do_puppet_passive_check_update"
-  } else {
-    $passive_update_filename = "puppet:///modules/puppet/no_puppet_passive_check_update"
-  }
-
   file { '/usr/local/bin/puppet_passive_check_update':
-    ensure => present,
-    mode   => '0755',
-    source => $passive_update_filename,
+    ensure  => present,
+    mode    => '0755',
+    content => template('puppet/puppet_passive_check_update'),
   }
-#
-########################################
 
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
     ensure   => stopped,
@@ -65,5 +55,9 @@ class puppet {
     check_command       => 'check_nrpe_1arg!check_puppet_agent',
     service_description => "puppet errors",
     host_name           => $::fqdn,
+  }
+
+  @@nagios::passive_check { 'check puppet':
+    service_description => 'puppet last run errors'
   }
 }
