@@ -7,7 +7,8 @@ class nsca::server {
   }
 
   service {'nsca':
-    ensure  => running,
+    ensure    => running,
+    hasstatus => false,
     # ugh. cross-module dependency alert.
     # we require Package['nagios3'] because it creates the 'nagios'
     # user which the nsca process depends on. I don't want to depend
@@ -16,6 +17,6 @@ class nsca::server {
     #
     # if you can imagine a better way of doing this, please do it! :)
     # -- ppotter 2013-02-07
-    require => [Package['nagios3'],Package['nsca']],
+    require   => [Package['nagios3'],Package['nsca']],
   }
 }
