@@ -13,6 +13,10 @@ class collectd {
     require => Class['collectd::package'],
   }
 
+  class { 'collectd::plugins':
+    require => Class['collectd::config'],
+  }
+
   class { 'collectd::service': }
 
   anchor { 'collectd::end':
