@@ -1,0 +1,21 @@
+class collectd::plugin::mysql(
+  $root_password
+) {
+  $collectd_mysql_password = 'collectd'
+
+  @mysql::user { 'collectd':
+    root_password => $root_password,
+    user_password => $collectd_mysql_password,
+    remote_host   => 'localhost',
+    privileges    => 'REPLICATION CLIENT',
+    tag           => 'collectd::plugin',
+    notify        => File['/etc/collectd/conf.d/mysql.conf'],
+  }
+
+  @file { '/etc/collectd/conf.d/mysql.conf':
+    ensure  => present,
+    content => template('collectd/etc/collectd/conf.d/mysql.conf.erb'),
+    tag     => 'collectd::plugin',
+    notify  => Class['collectd::service'],
+  }
+}

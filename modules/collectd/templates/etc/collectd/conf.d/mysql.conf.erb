@@ -1,0 +1,9 @@
+LoadPlugin mysql
+
+<Plugin "mysql">
+  <Database "">
+    Host "localhost"
+    User "collectd"
+    Password "<%= collectd_mysql_password -%>"
+  </Database>
+</Plugin>

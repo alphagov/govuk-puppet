@@ -6,5 +6,6 @@
 # have to list every resource type used.
 #
 class collectd::plugins {
-  File <| tag == 'collectd::plugin' |>
+  File        <| tag == 'collectd::plugin' |>
+  Mysql::User <| tag == 'collectd::plugin' |>
 }
