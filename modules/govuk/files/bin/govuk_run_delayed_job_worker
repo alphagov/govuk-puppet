@@ -1,5 +1,4 @@
 #!/bin/sh
-exit 0
 if [ -z "$GOVUK_APP_ROOT" ]; then
   echo "Usage: govuk_setenv <APP_NAME> $(basename "$0")"
 fi
