@@ -9,6 +9,7 @@ class base {
   include screen
   include shell
   include ssh
+  include motd
   include sudo
   include sysctl
   include tmpreaper
