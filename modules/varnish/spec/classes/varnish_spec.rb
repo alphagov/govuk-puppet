@@ -8,4 +8,3 @@ describe 'varnish', :type => :class do
     should contain_service('varnish')
   end
 end
-
