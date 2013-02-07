@@ -6,6 +6,7 @@ describe 'varnish::config', :type => :class do
 
     it { should contain_file('/etc/varnish/default.vcl').with_content(/^\s+purge\(/) }
     it { should contain_file('/etc/varnish/default.vcl').with_content(/^\s+set req\.hash/) }
+    it { should contain_file('/etc/varnish/default.vcl').with_content(/^\s+set beresp.ttl = 0s;\n\s+return\(pass\);/) }
   end
 
   context 'Varnish 3 on Ubuntu precise' do
@@ -13,5 +14,6 @@ describe 'varnish::config', :type => :class do
 
     it { should contain_file('/etc/varnish/default.vcl').with_content(/^\s+ban\(/) }
     it { should contain_file('/etc/varnish/default.vcl').with_content(/^\s+hash_data\(/) }
+    it { should contain_file('/etc/varnish/default.vcl').with_content(/^\s+set beresp.ttl = 0s;\n\s+return\(hit_for_pass\);/) }
   end
 end
