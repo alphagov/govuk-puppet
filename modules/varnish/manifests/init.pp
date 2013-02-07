@@ -24,6 +24,9 @@ class varnish (
     require => Class['varnish::package'],
     notify  => Class['varnish::service'];
   }
+  class { 'collectd::plugin::varnish':
+    require => Class['varnish::config'],
+  }
   class { 'varnish::service': }
   anchor { 'varnish::end':
     require => Class['varnish::service']
