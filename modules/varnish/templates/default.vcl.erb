@@ -108,7 +108,7 @@ sub vcl_recv {
     if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+<% if scope.lookupvar('varnish::varnish_version').to_i == 3 %>
       ban("req.url == " + req.url);
 <% else %>
       purge("req.url == " req.url);
@@ -189,7 +189,7 @@ sub vcl_fetch {
 }
 
 sub vcl_hash {
-<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+<% if scope.lookupvar('varnish::varnish_version').to_i == 3 %>
   hash_data(req.url);
 <% else %>
   set req.hash += req.url;
