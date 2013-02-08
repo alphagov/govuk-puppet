@@ -196,6 +196,11 @@ govuk::user { 'benilovj':
     email    => '2nd-line-support@digital.cabinet-office.gov.uk',
     ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDG2CL84SiAak+VqTzYR6CnQPLXCyGOvBTRcICG/Nv7eSgJ6mBKlULQgHU9Xs729YViH+z0ZDfmKvfuISt30jcK+YqfHgFQsv6OphYFZazYVfxUcw/MaRfk8aOYUIPL/slWvdVH9CE0Ux9rm3OcUe6b0pgLu6cJ+d/aRGOjgu7Rx92UYzgdW1n1ZtyzBkSlQY02XlnU6S9ZXdE+tEOGqHa7T4i+EGyQY2EVVIkOt7oCfVd/eJLW9J11rn5LVcF0phwC8rehciNzOli1/AB9mVmq4jqTS32Wc+30S3EYmi9Ra+W2bRlrjXzyMedQTF4FpL9ZHH1o2FJ4UnzECR7w9AW3CQswFZUCRUjuF+NFc4YjsPx1dEDaP3YOkOFqSJ/wmDK5GM2OagAS0tRfdy2H2sYlzaN1kkAo73M9fjH97vcgWC88k7J2tgn+rv2Nxv3UWsLkOYLrfRq3TlOKWd3CX5Cs1XUTL35X6FIqai/KXXdc6qeRw6D2xGmxnf4Fy44QdaFBp3qF9A0PEjVZopr/wtS2fdbfCgHh2VkgkuP216wWUv/ve/Gi41d+siCuHnunds0guiRUJGHOvzO6+3EiJ1HJhR9JEMQgQomm3lMk0ASKVnLwYpq3VDB1u55poTMHmpMUwCts6Yu4DPtkXWxDfN1mNHKyY5jvJCWD4+1JOHwKjQ==',
   }
+  govuk::user { 'pbadensk':
+    fullname => 'Pawel Badenski',
+    email    => 'pawel.badenski@digital.cabinet-office.gov.uk',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDKSgHRiOIzlSdubYqlAj4wtz2r1+cGykUcbZyNo6LDckv6Ld1O27VkMrtEVWj4lWQnYPNYTu6giwwUZiHa9D00N1QJpYJWF633hUatRfCzTGLcj1wGiEuKdzheZzJzTG6oCg+9YQF3wR+0lKle7M97PV3zTkFPmdQbKia4ZxNTm9MYBRrCV+R4CAo8RnJKz3pQM9woEo4vIs0OuBPhnte8lSRWrggH/YaOoGATFqW3k5r112Qj1shjX5aVmWuscdfwI3m6mOOBu4617Fxt0OuQiJVa3YlIfL2g2RL121JxP8iKtDUVVIy/aGqDK5Igdf5c+ZvfJ6DPBzYEJmLWrH61',
+  }
   govuk::user { 'ppotter':
     fullname => 'Philip Potter',
     email    => 'philip.potter@digital.cabinet-office.gov.uk',
@@ -245,11 +250,6 @@ govuk::user { 'benilovj':
     fullname => 'Tom Byers',
     email    => 'tom.byers@digital.cabinet-office.gov.uk',
     ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDFJVtKolj8BTxqM4O0BOjmrTeQK5rq16kEC/1vb+KwTA5T5Rn1zQb9avPKYwa/CYYnffmsJXS7k5Fm5LQebx6xETbCSEmEKzNiwvFiYBVlw9iT17EBQhiALrylkgnb6K3bYX7pPS6j6reA5+s05KX9/U4IsPRse6XoKldzmk+ID47V3l/bDUwH26DusMGnw25uqpOxtdZhOzpFh6iEvdqp4xjcFldinC929TlV+fanoyR14p9fCfDLu/o1dsm9jnqpEWx+xQByQ0GaUQHa/j9bT/oY2H2WoQqfM9YPzhpQkGlKQDIJ9dHFQiGSD6fE6ZIxFH+pX3T5Qb9IJ6pMwnsn',
-  }
-  govuk::user { 'pbadensk':
-    fullname => 'Pawel Badenski',
-    email    => 'pawel.badenski@digital.cabinet-office.gov.uk',
-    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDKSgHRiOIzlSdubYqlAj4wtz2r1+cGykUcbZyNo6LDckv6Ld1O27VkMrtEVWj4lWQnYPNYTu6giwwUZiHa9D00N1QJpYJWF633hUatRfCzTGLcj1wGiEuKdzheZzJzTG6oCg+9YQF3wR+0lKle7M97PV3zTkFPmdQbKia4ZxNTm9MYBRrCV+R4CAo8RnJKz3pQM9woEo4vIs0OuBPhnte8lSRWrggH/YaOoGATFqW3k5r112Qj1shjX5aVmWuscdfwI3m6mOOBu4617Fxt0OuQiJVa3YlIfL2g2RL121JxP8iKtDUVVIy/aGqDK5Igdf5c+ZvfJ6DPBzYEJmLWrH61',
   }
 
   # -------------------------------------------------------------------------
