@@ -25,13 +25,19 @@ You need only bring up the subset of nodes that you're working on. To bring up a
 vagrant up frontend-1.frontend backend-1.backend
 ```
 
-Vagrant will run the Puppet provisioner against the node when it boots up. Nodes should look almost identical to that of Skyscape staging, including network addresses.
+Vagrant will run the Puppet provisioner against the node when it boots up. Nodes should look almost identical to that of Skyscape staging, including network addresses. Physical attributes like `memory` and `num_cores` will be ignored because they don't scale appropriately to local VMs, but they can still be customised as described below.
 
 ## Customisation
 
-Node definitions can be overridden with a `nodes.local.json` file in the vagrant-govuk directory that is merged on top of all other node definitions.
+Node definitions can be overridden with a `nodes.local.json` file in the vagrant-govuk directory. This is merged on top of all other node definitions. The following keys are currently used and available for customisation:
 
-To increase the amount of RAM on a PuppetMaster for example:
+- `box_dist` Ubuntu distribution. Currently "precise" (default) or "lucid".
+- `box_version` Internal version number of the GDS basebox.
+- `memory` Amount of RAM. Default is "384".
+- `ip` IP address for hostonly networking. Currently all subnets are /16.
+- `class` Name of the Puppet class/role.
+
+For example to increase the amount of RAM on a PuppetMaster:
 ```json
 {
   "puppet-1.management": {

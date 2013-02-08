@@ -1,7 +1,6 @@
 require 'json'
 
-# Construct box name and URL from distro and version. These defaults can be
-# overridden with the keys "box_dist" and "box_version" in nodes.local.json
+# Construct box name and URL from distro and version.
 def get_box(dist, version)
   dist    ||= "precise"
   version ||= "20121220"
@@ -12,8 +11,8 @@ def get_box(dist, version)
   return name, url
 end
 
-# Load node definitions from the JSON in the vcloud-templates repo parallel to
-# this. Temporary solution while only Ops are using this.
+# Load node definitions from the JSON in the vcloud-templates repo parallel
+# to this.
 def nodes_from_json
   json_dir = File.expand_path("../../vcloud-templates/machines", __FILE__)
   json_local = File.expand_path("../nodes.local.json", __FILE__)
