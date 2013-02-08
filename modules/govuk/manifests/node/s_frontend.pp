@@ -7,18 +7,19 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   class {
     'govuk::apps::businesssupportfinder': vhost_protected => $protect_fe;
     'govuk::apps::calendars':             vhost_protected => $protect_fe;
-    'govuk::apps::canary_frontend':       vhost_protected => false;
     'govuk::apps::datainsight_frontend':  vhost_protected => $protect_fe;
     'govuk::apps::designprinciples':      vhost_protected => $protect_fe;
     'govuk::apps::feedback':              vhost_protected => $protect_fe;
     'govuk::apps::frontend':              vhost_protected => $protect_fe;
     'govuk::apps::licencefinder':         vhost_protected => $protect_fe;
   #FIXME publicapi to be removed when we ditch ec2 -- ppotter 2012-10-12
-    'govuk::apps::publicapi':             vhost_protected => false;
     'govuk::apps::smartanswers':          vhost_protected => $protect_fe;
-    'govuk::apps::static':                vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => $protect_fe;
   }
+
+    include govuk::apps::canary_frontend
+    include govuk::apps::publicapi
+    include govuk::apps::static
 
   case $::govuk_provider {
     'sky':   {}
