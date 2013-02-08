@@ -1,0 +1,10 @@
+<Plugin python>
+  Import "elasticsearch"
+
+  <Module elasticsearch>
+    Verbose false
+    Host "127.0.0.1"
+    Port "<%= es_port -%>"
+    Cluster "<%= es_cluster -%>"
+  </Module>
+</Plugin>
