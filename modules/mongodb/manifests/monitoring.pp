@@ -1,9 +1,6 @@
 class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
 
-  package { 'pymongo':
-    ensure   => present,
-    provider => 'pip';
-  }
+  include python::mongodb
 
   @ganglia::pyconf { 'mongodb':
     source  => 'puppet:///modules/mongodb/ganglia_mongodb.conf',
