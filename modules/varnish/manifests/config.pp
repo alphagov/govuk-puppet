@@ -1,4 +1,9 @@
 class varnish::config {
+  # VCL syntax is different between major versions.
+  $vcl_version = $::lsbdistcodename ? {
+    'precise' => 3,
+    default   => 2,
+  }
 
   include varnish::restart
 
@@ -32,6 +37,7 @@ class varnish::config {
     'legal-right-to-work-in-the-uk',
     'maternity-benefits',
     'maternity-paternity-calculator',
+    'overseas-passports',
     'pip-checker',
     'plan-adoption-leave',
     'plan-maternity-leave',

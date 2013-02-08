@@ -108,7 +108,7 @@ sub vcl_recv {
     if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+<% if @vcl_version.to_i == 3 %>
       ban("req.url == " + req.url);
 <% else %>
       purge("req.url == " req.url);
@@ -157,7 +157,11 @@ sub vcl_fetch {
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") {
     # Don't cache the decision to not cache
     set beresp.ttl = 0s;
+<% if @vcl_version.to_i == 3 -%>
+    return(hit_for_pass);
+<% else -%>
     return(pass);
+<% end -%>
   } 
 
   # If neither a Cache-Control or Expires header is provided, Varnish will
@@ -189,7 +193,7 @@ sub vcl_fetch {
 }
 
 sub vcl_hash {
-<% if scope.lookupvar('varnish::varnish_version') == 3 %>
+<% if @vcl_version.to_i == 3 %>
   hash_data(req.url);
 <% else %>
   set req.hash += req.url;

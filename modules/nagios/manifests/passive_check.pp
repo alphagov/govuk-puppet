@@ -1,6 +1,6 @@
 define nagios::passive_check (
   $service_description,
-  $host_name           = $::fqdn,
+  $host_name
 ){
   Nagios::Host[$host_name] -> Nagios::Passive_check[$title]
 

@@ -26,5 +26,8 @@ password=${mysql_password}
   class {'elasticsearch':
       require => Class['java::openjdk6::jre'],
   }
-  elasticsearch::node { "govuk-${::govuk_platform}": }
+  elasticsearch::node { "govuk-${::govuk_platform}":
+    heap_size          => '2g',
+    number_of_replicas => '0',
+  }
 }

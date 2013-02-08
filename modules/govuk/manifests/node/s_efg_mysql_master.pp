@@ -16,6 +16,4 @@ class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
   class {'govuk::apps::efg::db':
     require => Class['mysql::server']
   }
-
-  include mysql::backup
 }

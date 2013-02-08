@@ -2,17 +2,6 @@ class varnish (
     $default_ttl  = 900,
     $storage_size = "512M"
 ) {
-
-  case $::lsbdistcodename {
-    # in Varnish3, the purge function became ban
-    'precise': {
-      $varnish_version = 3
-    }
-    default: {
-      $varnish_version = 2
-    }
-  }
-
   anchor { 'varnish::begin':
     notify => Class['varnish::service'];
   }
