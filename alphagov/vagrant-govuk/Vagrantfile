@@ -1,10 +1,16 @@
 require 'json'
 
-box_version = "20121220"
-box_dist    = "precise"
+# Construct box name and URL from distro and version. These defaults can be
+# overridden with the keys "box_dist" and "box_version" in nodes.local.json
+def get_box(dist, version)
+  dist    ||= "precise"
+  version ||= "20121220"
 
-@box_name   = "govuk_dev_#{box_dist}64_#{box_version}"
-@box_url    = "http://gds-boxes.s3.amazonaws.com/#{@box_name}.box"
+  name  = "govuk_dev_#{dist}64_#{version}"
+  url   = "http://gds-boxes.s3.amazonaws.com/#{name}.box"
+
+  return name, url
+end
 
 # Load node definitions from the JSON in the vcloud-templates repo parallel to
 # this. Temporary solution while only Ops are using this.
@@ -47,8 +53,12 @@ end
 Vagrant::Config.run do |config|
   nodes_from_json.each do |node_name, node_opts|
     config.vm.define node_name do |c|
-      c.vm.box = @box_name
-      c.vm.box_url = @box_url
+      box_name, box_url = get_box(
+        node_opts["box_dist"],
+        node_opts["box_version"]
+      )
+      c.vm.box = box_name
+      c.vm.box_url = box_url
 
       c.vm.host_name = node_name
       c.vm.network :hostonly, node_opts["ip"], :netmask => "255.255.000.000"
