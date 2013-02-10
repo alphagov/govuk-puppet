@@ -49,6 +49,18 @@ class nagios::config {
     content  => template('nagios/resource.cfg.erb'),
   }
 
+  file { '/etc/nagios-plugins':
+    ensure => directory,
+  }
+
+  file { '/etc/nagios-plugins/config':
+    ensure => directory,
+  }
+
+  file { '/etc/nagios-plugins/config/check_nrpe.cfg':
+    source => 'puppet:///modules/nagios/etc/nagios-plugins/config/check_nrpe.cfg'
+  }
+
   user { 'www-data':
     groups => ['nagios'],
   }
