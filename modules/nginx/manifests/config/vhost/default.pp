@@ -19,11 +19,17 @@
 #   Type of SSL cert passed to nginx::config::ssl
 #   Default: wildcard_alphagov
 #
+# [*healthcheck*]
+#   URI which will always return 200 responses.
+#   Can be set to `false` to disable this functionality.
+#   Default: /healthcheck
+#
 define nginx::config::vhost::default(
   $extra_config = '',
   $status = '500',
   $status_message = "'{\"error\": \"Fell through to default vhost\"}\\n'",
-  $ssl_certtype = 'wildcard_alphagov'
+  $ssl_certtype = 'wildcard_alphagov',
+  $healthcheck = '/healthcheck'
 ) {
 
   # Whether to enable SSL. Used by template.
