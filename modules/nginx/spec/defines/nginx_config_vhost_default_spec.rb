@@ -8,6 +8,7 @@ describe 'nginx::config::vhost::default', :type => :define do
       should contain_nginx__config__site('donkey')
         .with_content(/listen.*\s+default_server;/)
         .with_content(/return\s+500/)
+        .with_content(/location = \/healthcheck \{/)
     end
   end
 
@@ -20,5 +21,23 @@ describe 'nginx::config::vhost::default', :type => :define do
         .with_content(/listen.*\s+default_server;/)
         .with_content(/return\s+418/)
     end
+  end
+
+  context 'with healthcheck disabled' do
+    let(:params) do
+      { :healthcheck => false }
+    end
+    it { should_not contain_nginx__config__site('donkey')
+      .with_content(/location = \/healthcheck \{/)
+    }
+  end
+
+  context 'with healthcheck /giraffe' do
+    let(:params) do
+      { :healthcheck => '/giraffe' }
+    end
+    it { should contain_nginx__config__site('donkey')
+      .with_content( /location = \/giraffe \{/)
+    }
   end
 end
