@@ -40,9 +40,10 @@ class graphite::config {
   }
 
   nginx::config::vhost::proxy { 'graphite':
-    to      => ['localhost:33333'],
-    root    => '/opt/graphite/webapp',
-    aliases => ['graphite.*' ,'graphite.production-ec2.alphagov.co.uk'],
+    to        => ['localhost:33333'],
+    root      => '/opt/graphite/webapp',
+    aliases   => ['graphite.*' ,'graphite.production-ec2.alphagov.co.uk'],
+    protected => str2bool(extlookup('monitoring_protected','yes')),
   }
 
   file { '/etc/init/graphite.conf':
