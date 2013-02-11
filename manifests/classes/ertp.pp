@@ -29,6 +29,12 @@ class ertp_base::frontend_server inherits ertp_base {
   include monitoring::client
   include puppet::cronjob
 
+  $ertp_http_username         = extlookup('ertp_http_username','')
+  $ertp_preview_http_hash     = extlookup('ertp_preview_http_hash','')
+  $ertp_staging_http_hash     = extlookup('ertp_staging_http_hash','')
+  $ertp_api_preview_http_hash = extlookup('ertp_api_preview_http_hash','')
+  $ertp_api_staging_http_hash = extlookup('ertp_api_staging_http_hash','')
+
   case $::govuk_platform {
     staging: {
       nginx::config::site { 'default':
@@ -37,7 +43,7 @@ class ertp_base::frontend_server inherits ertp_base {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.staging':
         ensure  => present,
-        source  => 'puppet:///modules/nginx/etc/htpasswd.ertp.staging',
+        content => "${ertp_http_username}:${ertp_staging_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -48,7 +54,7 @@ class ertp_base::frontend_server inherits ertp_base {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.preview':
         ensure  => present,
-        source  => 'puppet:///modules/nginx/etc/htpasswd.ertp.preview',
+        content => "${ertp_http_username}:${ertp_preview_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -77,7 +83,7 @@ class ertp_base::api_server::dwp inherits ertp_base::api_server {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.staging',
+        content => "${ertp_http_username}:${ertp_api_staging_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -88,7 +94,7 @@ class ertp_base::api_server::dwp inherits ertp_base::api_server {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.preview',
+        content => "${ertp_http_username}:${ertp_api_preview_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -107,7 +113,7 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.staging',
+        content => "${ertp_http_username}:${ertp_api_staging_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -118,7 +124,7 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.preview',
+        content => "${ertp_http_username}:${ertp_api_preview_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -142,7 +148,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.staging',
+        content => "${ertp_http_username}:${ertp_api_staging_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
@@ -153,7 +159,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/htpasswd.ertp.api.preview',
+        content => "${ertp_http_username}:${ertp_api_preview_http_hash}\n",
         require => Class['nginx::package'],
       }
     }
