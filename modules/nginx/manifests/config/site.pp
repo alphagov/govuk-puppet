@@ -1,4 +1,8 @@
-define nginx::config::site($content = 'UNSET', $source = 'UNSET') {
+define nginx::config::site(
+  $content = 'UNSET',
+  $source = 'UNSET',
+  $vhost_protected = false
+) {
 
   if $content != 'UNSET' {
     file { "/etc/nginx/sites-available/${title}":

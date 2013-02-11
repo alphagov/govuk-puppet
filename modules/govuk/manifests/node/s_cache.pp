@@ -1,9 +1,14 @@
 class govuk::node::s_cache inherits govuk::node::s_base {
 
+  $protect_cache_servers = str2bool(extlookup('protect_cache_servers', 'no'))
+
   include govuk::htpasswd
   include mirror
   include nginx
-  include router::nginx
+
+  class { 'router::nginx':
+    vhost_protected => $protect_cache_servers
+  }
 
   # Set the varnish storage size to 75% of memory
   $varnish_storage_size = $::memtotalmb / 4 * 3
