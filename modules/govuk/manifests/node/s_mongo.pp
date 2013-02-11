@@ -6,18 +6,11 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
 
   case $::govuk_provider {
     sky: {
-      case $::govuk_platform {
-        'production', 'staging': {
-          $mongo_hosts = [
-            'backend-1.mongo',
-            'backend-2.mongo',
-            'backend-3.mongo'
-          ]
-        }
-        default: {
-          $mongo_hosts = ['localhost']
-        }
-      }
+      $mongo_hosts = [
+        'backend-1.mongo',
+        'backend-2.mongo',
+        'backend-3.mongo'
+      ]
     }
     #aws
     default: {
