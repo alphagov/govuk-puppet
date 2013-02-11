@@ -29,6 +29,10 @@ class hosts::skyscape::production_like {
     legacy_aliases  => ['logging'],
     service_aliases => ['graylog'],
   }
+  govuk::host { 'elasticsearch-1':
+    ip              => '10.0.0.27',
+    vdc             => 'management',
+  }
   govuk::host { 'jumpbox-1':
     ip              => '10.0.0.100',
     vdc             => 'management',
