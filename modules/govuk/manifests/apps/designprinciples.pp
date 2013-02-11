@@ -1,5 +1,5 @@
 class govuk::apps::designprinciples(
-  $vhost_protected = undef,
+  $vhost_protected,
   $port = 3023
 ) {
   govuk::app { 'designprinciples':

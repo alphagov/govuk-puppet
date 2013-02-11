@@ -1,6 +1,6 @@
 class govuk::apps::datainsight_frontend(
   $port = 3027,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'datainsight-frontend':
     app_type          => 'rack',

@@ -3,7 +3,7 @@ class govuk::apps::whitehall(
   $port = 3020,
   $configure_frontend = false,
   $configure_admin = false,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
 
   $app_domain = extlookup('app_domain')

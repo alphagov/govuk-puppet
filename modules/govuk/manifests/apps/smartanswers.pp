@@ -1,6 +1,6 @@
 class govuk::apps::smartanswers(
   $port = 3010,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'smartanswers':
     app_type          => 'rack',

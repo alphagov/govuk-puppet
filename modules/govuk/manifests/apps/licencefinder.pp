@@ -1,6 +1,6 @@
 class govuk::apps::licencefinder(
   $port = 3014,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'licencefinder':
     app_type          => 'rack',

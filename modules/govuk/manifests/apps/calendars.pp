@@ -1,6 +1,6 @@
 class govuk::apps::calendars(
   $port = 3011,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'calendars':
     app_type          => 'rack',

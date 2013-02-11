@@ -1,6 +1,6 @@
 class govuk::apps::businesssupportfinder(
   $port = 3024,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'businesssupportfinder':
     app_type          => 'rack',

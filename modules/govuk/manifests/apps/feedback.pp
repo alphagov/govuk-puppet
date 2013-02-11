@@ -1,6 +1,6 @@
 class govuk::apps::feedback(
   $port = 3028,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'feedback':
     app_type          => 'rack',

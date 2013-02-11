@@ -1,6 +1,6 @@
 class govuk::apps::tariff(
   $port = 3017,
-  $vhost_protected = undef
+  $vhost_protected
 ) {
   govuk::app { 'tariff':
     app_type          => 'rack',
