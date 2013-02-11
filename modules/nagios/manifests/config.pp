@@ -37,6 +37,10 @@ class nagios::config {
     content => template('nagios/etc/nagios3/conf.d/check_graphite_metric_since.cfg.erb'),
   }
 
+  file { '/etc/nagios3/conf.d/check_http_nagios2.cfg':
+    content => template('nagios/etc/nagios3/conf.d/check_http_nagios2.cfg.erb'),
+  }
+
   file { '/etc/nagios3/conf.d/check_mapit.cfg':
     content => template('nagios/etc/nagios3/conf.d/check_mapit.cfg.erb'),
   }
