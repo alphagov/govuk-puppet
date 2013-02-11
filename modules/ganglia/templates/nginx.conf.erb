@@ -26,8 +26,10 @@ server {
   access_log /var/log/nginx/ganglia-access.log timed_combined;
   error_log /var/log/nginx/ganglia-error.log;
 
+  <%- if @monitoring_protected -%>
   auth_basic "Ganglia Restricted Access";
   auth_basic_user_file /etc/govuk.htpasswd;
+  <%- end -%>
 
   location ~ \.php$ {
     include /etc/nginx/fastcgi_params;
