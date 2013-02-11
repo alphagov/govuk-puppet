@@ -1,4 +1,4 @@
-class govuk::node::s_support inherits govuk::node::s_base {
+class govuk::node::s_elasticsearch inherits govuk::node::s_base {
 
 
   include java::openjdk6::jre
