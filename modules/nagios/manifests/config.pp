@@ -9,6 +9,7 @@ class nagios::config {
   $http_username = extlookup('http_username', '')
   $http_password = extlookup('http_password', '')
 
+  $protect_monitoring = str2bool(extlookup('monitoring_protected','yes'))
   nginx::config::ssl { 'nagios':
     certtype => 'wildcard_alphagov' }
   nginx::config::site { 'nagios':
