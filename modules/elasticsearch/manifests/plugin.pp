@@ -27,7 +27,7 @@ define elasticsearch::plugin (
   }
 
   exec { "/usr/share/elasticsearch/bin/plugin -install '${install_from}'":
-    unless => "test -n '\$(ls \"${plugin_dir}\")'",
+    unless => "test -n \"$(ls '${plugin_dir}')\"",
     notify => Class['elasticsearch::service'],
   }
 
