@@ -102,6 +102,7 @@ class GovukIndexer
     /business-finance-support-finder
     /government
     /apply-for-a-licence
+    /search
   ).freeze
 
   def initialize(root)
