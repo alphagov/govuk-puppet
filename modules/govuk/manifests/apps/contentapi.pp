@@ -1,6 +1,6 @@
-class govuk::apps::contentapi(
+class govuk::apps::contentapi (
   $port = 3022,
-  $vhost_proteced
+  $vhost_protected
 ) {
   govuk::app { 'contentapi':
     app_type           => 'rack',
