@@ -11,4 +11,12 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     require            => Class['java::oracle7::jre'],
   }
 
+  elasticsearch::plugin { 'redis-river':
+    install_from => 'leeadkins/elasticsearch-redis-river/0.0.4',
+  }
+
+  elasticsearch::plugin { 'head':
+    install_from => 'mobz/elasticsearch-head',
+  }
+
 }
