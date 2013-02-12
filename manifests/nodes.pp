@@ -1,7 +1,11 @@
 node default {
 
   if $::govuk_class == '' {
-    warning('$govuk_class is blank, not doing any initialization!')
+    $warn_head = '$::govuk_class is blank, not doing any initialization!'
+    $warn_body = 'Consider sourcing `/etc/environment` or running with `sudo -i`'
+
+    warning($warn_head)
+    notify { "${warn_head} ${warn_body}": }
   } else {
     case $::govuk_class {
       'elms-development':   { include elms_base::development }
