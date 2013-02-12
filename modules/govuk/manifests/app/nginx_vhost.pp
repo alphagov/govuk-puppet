@@ -8,14 +8,9 @@ define govuk::app::nginx_vhost (
   $nginx_extra_app_config = '',
   $intercept_errors = false
 ) {
-  # By default, apps are unprotected in Skyscape, unless they
-  # explicitly declare that they want to be. Otherwise, they are protected by
-  # default.
+
   if $protected == undef {
-    $protected_real = $::govuk_provider ? {
-      'sky'   => false,
-      default => true,
-    }
+    $protected_real = false
   } else {
     $protected_real = $protected
   }

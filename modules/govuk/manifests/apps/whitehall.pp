@@ -3,6 +3,7 @@ class govuk::apps::whitehall(
   $port = 3020,
   $configure_frontend = false,
   $configure_admin = false,
+  $vhost_protected
 ) {
 
   $app_domain = extlookup('app_domain')
@@ -36,6 +37,7 @@ class govuk::apps::whitehall(
 
     govuk::app::nginx_vhost { 'whitehall-frontend':
       vhost              => "whitehall-frontend.${app_domain}",
+      protected          => $vhost_protected,
       app_port           => $port,
       nginx_extra_config => "
       location /government/assets {

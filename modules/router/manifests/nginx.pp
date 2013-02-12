@@ -1,4 +1,6 @@
-class router::nginx {
+class router::nginx (
+  $vhost_protected
+) {
   $platform = $::govuk_platform
   $app_domain = extlookup('app_domain')
 
@@ -11,7 +13,8 @@ class router::nginx {
   }
 
   nginx::config::site { 'www.gov.uk':
-    content => template('router/base.conf.erb'),
+    content         => template('router/base.conf.erb'),
+    vhost_protected => $vhost_protected,
   }
 
   @ufw::allow { "allow-http-8080-from-all":

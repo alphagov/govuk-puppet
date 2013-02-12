@@ -15,7 +15,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   }
 
   include govuk::apps::canary_backend
-  include govuk::apps::contentapi
   include govuk::apps::imminence
   include govuk::apps::migratorator
   include govuk::apps::need_o_tron
@@ -26,6 +25,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::signon
   include govuk::apps::support
   include govuk::apps::tariff_api
+  class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::whitehall':
     configure_admin => true,
     port            => 3026,
@@ -33,7 +33,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   }
 
   class {'govuk::apps::frontend':
-    protected => true,
+    vhost_protected => true,
   }
 
   case $::govuk_provider {
