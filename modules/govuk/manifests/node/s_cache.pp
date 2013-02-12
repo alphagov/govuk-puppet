@@ -3,7 +3,6 @@ class govuk::node::s_cache inherits govuk::node::s_base {
   $protect_cache_servers = str2bool(extlookup('protect_cache_servers', 'no'))
 
   include govuk::htpasswd
-  include mirror
   include nginx
 
   class { 'router::nginx':
