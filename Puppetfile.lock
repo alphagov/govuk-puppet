@@ -1,8 +1,6 @@
 FORGE
   remote: http://forge.puppetlabs.com
   specs:
-    attachmentgenie/ufw (1.0.2)
-      puppetlabs/stdlib (>= 2.2.1)
     maestrodev/wget (1.0.0)
     puppetlabs/gcc (0.0.3)
     puppetlabs/stdlib (3.2.0)
@@ -18,11 +16,19 @@ GIT
   specs:
     cpanm (0.0.1)
 
+GIT
+  remote: git://github.com/alphagov/puppet-module-ufw.git
+  ref: dc7ddc2
+  sha: dc7ddc2d976baf7a50a78d3f02b45a175e86cb41
+  specs:
+    ufw (1.0.2)
+      puppetlabs/stdlib (>= 2.2.1)
+
 DEPENDENCIES
-  attachmentgenie/ufw (>= 0)
   cpanm (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)
   thomasvandoren/redis (>= 0)
+  ufw (>= 0)
 
