@@ -2,7 +2,6 @@ class govuk::node::s_development {
   include base
 
   include base_packages
-  include elasticsearch
   include hosts::development
   include imagemagick
   include mongodb::server
@@ -68,7 +67,8 @@ class govuk::node::s_development {
     jre => 'sun6',
   }
 
-  elasticsearch::node { 'govuk-development':
+  class { 'elasticsearch':
+    cluster_name       => 'govuk-development',
     heap_size          => '64m',
     number_of_shards   => '1',
     number_of_replicas => '0',

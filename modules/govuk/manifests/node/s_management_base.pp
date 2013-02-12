@@ -13,8 +13,8 @@ class govuk::node::s_management_base {
   include nodejs
   include solr
 
-  include elasticsearch
-  elasticsearch::node { "govuk-${::govuk_platform}":
+  class { 'elasticsearch':
+    cluster_name       => "govuk-${::govuk_platform}",
     number_of_replicas => '0'
   }
 

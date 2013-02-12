@@ -1,7 +1,6 @@
 # == Type: elasticsearch::plugin
 #
-# Install an elasticsearch plugin for all elasticsearch::node instances on the
-# current host.
+# Install an elasticsearch plugin on the current host.
 #
 # === Parameters
 #
@@ -29,6 +28,7 @@ define elasticsearch::plugin (
 
   exec { "/usr/share/elasticsearch/bin/plugin -install '${install_from}'":
     unless => "test -n '\$(ls \"${plugin_dir}\")'",
+    notify => Class['elasticsearch::service'],
   }
 
 }
