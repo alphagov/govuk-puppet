@@ -1,17 +1,29 @@
 class varnish::service {
 
+  # Sysv scripts on Lucid always return exit code 0.
+  $service_hasstatus = $::lsbdistcodename ? {
+    'lucid' => false,
+    default => true,
+  }
+  $service_status = $::lsbdistcodename ? {
+    'lucid' => '/etc/init.d/varnish status | grep \'varnishd is running\'',
+    default => undef,
+  }
+
   service { 'varnish':
     ensure     => running,
     hasrestart => false,
     restart    => '/usr/sbin/service varnish reload',
-    hasstatus  => false,
-    status     => '/etc/init.d/varnish status | grep \'varnishd is running\'',
+    hasstatus  => $service_hasstatus,
+    status     => $service_status,
   }
 
+  # Sysv scripts always return exit code 0 on all dists.
   service { 'varnishncsa':
-    ensure  => running,
-    status  => '/etc/init.d/varnishncsa status | grep \'varnishncsa is running\'',
-    require => Service['varnish'],
+    ensure    => running,
+    status    => '/etc/init.d/varnishncsa status | grep \'varnishncsa is running\'',
+    hasstatus => false,
+    require   => Service['varnish'],
   }
 
   @ganglia::pyconf { 'varnish':
