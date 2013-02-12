@@ -52,4 +52,8 @@ class govuk::node::s_redis {
       port => $redis_port;
   }
 
+  @logrotate::conf { 'redis':
+    matches => '/var/log/redis_*.log',
+  }
+
 }
