@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# govuk_logpipe: pipes your logs
+#
+# This is a simple wrapper around the logship tool (installed by the Python
+# "tagalog" package) which ships its STDIN to the redis servers in the current
+# environment.
+#
+# Passes additional arguments through to logship, so run "govuk_logpipe -h"
+# for more configuration options.
+
+set -e
+: ${REDIS_SERVERS:=$(govuk_node_list -c redis | xargs -IHOST echo redis://HOST | xargs)}
+: ${REDIS_KEY:="logs"}
+
+set -u
+export PATH="/usr/local/bin:${PATH}"
+exec logship --bulk -k "$REDIS_KEY" -u $REDIS_SERVERS "$@"
