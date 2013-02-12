@@ -11,7 +11,13 @@ class govuk::node::s_mirrorer inherits govuk::node::s_base {
     mode    => '0700',
     require => Govuk::User['govuk-netstorage'],
   }
-  file {'/home/govuk-netstorage/.ssh/id_rsa':
+  file { '/home/govuk-netstorage/.ssh/rsyncpassword':
+    ensure  => file,
+    owner   => 'govuk-netstorage',
+    mode    => '0600',
+    content => extlookup('govuk-netstorage_rsync_password', ''),
+  }
+  file { '/home/govuk-netstorage/.ssh/id_rsa':
     ensure  => file,
     owner   => 'govuk-netstorage',
     mode    => '0600',
