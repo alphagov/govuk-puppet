@@ -5,8 +5,9 @@ class govuk::node::s_redis {
   include cpanm::install
   include govuk::node::s_base
 
+  $redis_max_memory = $::memtotalmb / 4 * 3
   class { 'redis':
-    redis_max_memory => '1gb',
+    redis_max_memory => "${redis_max_memory}mb",
     redis_port       => $redis_port,
   }
 
