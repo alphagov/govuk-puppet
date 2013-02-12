@@ -14,6 +14,14 @@ class elasticsearch {
     refreshonly => true,
   }
 
+  # Manage elasticsearch plugins, which are installed by elasticsearch::plugin
+  file { '/usr/share/elasticsearch/plugins':
+    ensure  => directory,
+    purge   => true,
+    recurse => true,
+    force   => true,
+  }
+
   file { '/var/run/elasticsearch':
     ensure => directory,
   }

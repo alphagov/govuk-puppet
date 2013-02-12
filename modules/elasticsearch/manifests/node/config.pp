@@ -61,6 +61,12 @@ define elasticsearch::node::config (
       require => File[$es_home],
     }
 
+    file { "${es_home}/plugins":
+      ensure  => link,
+      target  => '/usr/share/elasticsearch/plugins',
+      require => File[$es_home],
+    }
+
     # There may be multiple invocations of this define.
     if !defined(File['/mnt/elasticsearch']) {
       file { '/mnt/elasticsearch':
