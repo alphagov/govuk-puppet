@@ -29,6 +29,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   class { 'govuk::apps::whitehall':
     configure_admin => true,
     port            => 3026,
+    vhost_protected => true,
     vhost           => 'whitehall-admin',
   }
 
