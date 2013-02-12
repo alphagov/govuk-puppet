@@ -23,11 +23,12 @@ password=${mysql_password}
   }
 
   include java::openjdk6::jre
+
   class {'elasticsearch':
-      require => Class['java::openjdk6::jre'],
-  }
-  elasticsearch::node { "govuk-${::govuk_platform}":
+    cluster_name       => "govuk-${::govuk_platform}",
     heap_size          => '2g',
     number_of_replicas => '0',
+    require            => Class['java::openjdk6::jre'],
   }
+
 }

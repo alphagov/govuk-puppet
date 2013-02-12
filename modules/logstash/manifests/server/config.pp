@@ -62,7 +62,8 @@ class logstash::server::config (
     hour    => '2',
   }
 
-  elasticsearch::node { 'logstash-server':
+  class { 'elasticsearch':
+    cluster_name       => 'logstash-server',
     heap_size          => $es_heap_size,
     http_port          => $http_port,
     transport_port     => $transport_port,

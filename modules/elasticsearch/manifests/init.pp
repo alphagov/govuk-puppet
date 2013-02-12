@@ -1,37 +1,47 @@
-class elasticsearch {
+class elasticsearch (
+  $cluster_hosts = ['localhost'],
+  $cluster_name = 'elasticsearch',
+  $heap_size = '512m',
+  $http_port = '9200',
+  $mlock_all = false,
+  $number_of_replicas = '1',
+  $number_of_shards = '5',
+  $refresh_interval = '1s',
+  $transport_port = '9300'
+) {
 
-  package { 'elasticsearch':
-    ensure => '0.19.8',
-    notify => Exec['disable-default-elasticsearch'],
-  }
-
-  # We are installing elasticsearch in order to provide the .jar, but
-  # configuration of individual ES nodes is done by elasticsearch::node.
-  #
-  # As such, we disable the default elasticsearch setup.
-  exec { 'disable-default-elasticsearch':
-    command     => '/etc/init.d/elasticsearch stop && /bin/rm /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
-    refreshonly => true,
-  }
-
-  file { '/var/run/elasticsearch':
-    ensure => directory,
+  anchor { 'elasticsearch::begin':
+    notify => Class['elasticsearch::service'];
   }
 
-  file { '/var/log/elasticsearch':
-    ensure  => directory,
-    owner   => 'elasticsearch',
-    group   => 'elasticsearch',
-    require => Package['elasticsearch'], # need to wait for package to create ES user.
+  class { 'elasticsearch::package':
+    require => Anchor['elasticsearch::begin'],
+    notify  => Class['elasticsearch::service'];
   }
 
-  @logstash::collector { 'elasticsearch':
-    source => 'puppet:///modules/elasticsearch/logstash.conf',
+  class { 'elasticsearch::config':
+    cluster_hosts      => $cluster_hosts,
+    cluster_name       => $cluster_name,
+    heap_size          => $heap_size,
+    http_port          => $http_port,
+    mlock_all          => $mlock_all,
+    number_of_replicas => $number_of_replicas,
+    number_of_shards   => $number_of_shards,
+    refresh_interval   => $refresh_interval,
+    transport_port     => $transport_port,
+    require            => Class['elasticsearch::package'],
+    notify             => Class['elasticsearch::service'];
   }
-  @ganglia::pymod { 'elasticsearch':
-    source  => 'puppet:///modules/elasticsearch/elasticsearch.py',
+
+  class { 'elasticsearch::service':
+    cluster_name => $cluster_name,
+    notify       => Anchor['elasticsearch::end'],
   }
-  @nagios::nrpe_config { 'check_elasticsearch':
-    source => 'puppet:///modules/elasticsearch/check_elasticsearch.cfg',
+
+  anchor { 'elasticsearch::end': }
+
+  @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
+    port => $http_port,
   }
+
 }
