@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+#
+# govuk_es_rotate_indices: update the current index alias to point at todays
+#
+# Each index for application logging data is named after today's date, e.g.
+# "logs-2013.02.13". This script makes sure that an alias named "logs-current"
+# (or equivalent) exists pointing to today's index, and removes any alias
+# pointing to yesterday's.
+#
+# It should be called from a cronjob that runs shortly after midnight.
+#
+from datetime import datetime, timedelta
+import httplib
+import json
+
+DATE_FORMAT = '%Y.%m.%d'
+
+ELASTICSEARCH_HOST = 'localhost'
+ELASTICSEARCH_PORT = 9200
+ELASTICSEARCH_INDEX_PREFIXES = ['logs']
+
+
+def get_connection():
+    return httplib.HTTPConnection(ELASTICSEARCH_HOST, port=ELASTICSEARCH_PORT)
+
+
+def index_exists(name):
+    conn = get_connection()
+    conn.request('HEAD', '/' + name)
+    resp = conn.getresponse()
+    return resp.status == httplib.OK
+
+
+def create_index(name):
+    conn = get_connection()
+    conn.request('PUT', '/' + name)
+    resp = conn.getresponse()
+    return resp.status == httplib.OK
+
+
+def update_current_alias(prefix):
+    conn = get_connection()
+
+    now = datetime.utcnow()
+    ydy = now - timedelta(days=1)
+
+    now_str = now.strftime(DATE_FORMAT)
+    ydy_str = ydy.strftime(DATE_FORMAT)
+
+    cur_index = '{0}-current'.format(prefix)
+    now_index = '{0}-{1}'.format(prefix, now_str)
+    ydy_index = '{0}-{1}'.format(prefix, ydy_str)
+
+    actions = []
+
+    if index_exists(ydy_index):
+        actions.append({'remove': {'index': ydy_index, 'alias': cur_index}})
+
+    if not index_exists(now_index):
+        create_index(now_index)
+
+    actions.append({'add': {'index': now_index, 'alias': cur_index}})
+    payload = json.dumps({'actions': actions})
+
+    conn.request('POST', '/_aliases', payload, headers={'Content-Type': 'application/json'})
+    resp = conn.getresponse()
+
+    if resp.status != httplib.OK:
+        raise RuntimeError('Failed to update aliases for index with prefix '
+                           '"{0}":\nstatus={1}\nheaders={2}\nbody={3}'
+                           ''.format(prefix, resp.status, resp.getheaders(), resp.read()))
+
+
+def main():
+    for prefix in ELASTICSEARCH_INDEX_PREFIXES:
+        update_current_alias(prefix)
+
+
+if __name__ == '__main__':
+    main()

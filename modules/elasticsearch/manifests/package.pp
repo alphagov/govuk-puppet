@@ -31,4 +31,11 @@ class elasticsearch::package {
     require => Package['elasticsearch'], # need to wait for package to create ES user.
   }
 
+  # simple tool to rotate daily aliases
+  file { '/usr/local/bin/elasticsearch-rotate-indices':
+    ensure => present,
+    source => 'puppet:///modules/elasticsearch/elasticsearch-rotate-indices',
+    mode   => '0755',
+  }
+
 }
