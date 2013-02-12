@@ -9,13 +9,10 @@ class collectd::plugin::mysql(
     remote_host   => 'localhost',
     privileges    => 'REPLICATION CLIENT',
     tag           => 'collectd::plugin',
-    notify        => File['/etc/collectd/conf.d/mysql.conf'],
+    notify        => Collectd::Plugin['nginx'],
   }
 
-  @file { '/etc/collectd/conf.d/mysql.conf':
-    ensure  => present,
+  collectd::plugin { 'mysql':
     content => template('collectd/etc/collectd/conf.d/mysql.conf.erb'),
-    tag     => 'collectd::plugin',
-    notify  => Class['collectd::service'],
   }
 }

@@ -8,12 +8,8 @@ class collectd::plugin::varnish {
 
   } else {
 
-    @file { '/etc/collectd/conf.d/varnish.conf':
-      ensure  => present,
-      source  => 'puppet:///modules/collectd/etc/collectd/conf.d/varnish.conf',
-      tag     => 'collectd::plugin',
-      notify  => Class['collectd::service'],
-    }
+    collectd::plugin { 'varnish': }
+
   }
 
 }
