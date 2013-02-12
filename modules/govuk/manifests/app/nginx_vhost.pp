@@ -9,10 +9,8 @@ define govuk::app::nginx_vhost (
   $intercept_errors = false
 ) {
 
-  # Apps should ideally be declared as protected or not in the $govuk::apps
-  # definition. This is a catch all case.
   if $protected == undef {
-    $protected_real = str2bool(extlookup('protect_vhosts_by_default', 'no'))
+    $protected_real = false
   } else {
     $protected_real = $protected
   }
