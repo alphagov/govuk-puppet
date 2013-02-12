@@ -33,6 +33,16 @@ exec /usr/local/bin/govuk_update_mirror
     require => File['/usr/local/bin/govuk_update_mirror'],
   }
 
+  file { '/etc/init/govuk_update_netstorage.conf':
+    content => '
+task
+start on stopped govuk_update_mirror
+exec sudo -u govuk-netstorage rsync -e ssh -rLptgoD -z --delete \
+             /var/lib/govuk_mirror/current/. \
+             sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror
+',
+  }
+
   cron { 'update-latest-to-mirror':
     ensure  => present,
     user    => 'root',
