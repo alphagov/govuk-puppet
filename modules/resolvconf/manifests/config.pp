@@ -7,8 +7,8 @@
 # it requires no other parsing or knowledge about the network configuration.
 #
 # Values can be populated with the extlookup key `resolvconf_nameservers`.
-# If not specified, it will default to a stock-empty config. This is the
-# preferred behavour for hosts that use DHCP - like EC2 and Vagrant.
+# If not specified, or the `$::dhcp_enabled` fact is true, it will default
+# to the stock-empty config.
 #
 class resolvconf::config {
   $nameservers = extlookup('resolvconf_nameservers', [])
