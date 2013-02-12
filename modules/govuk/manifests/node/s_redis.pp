@@ -47,6 +47,9 @@ class govuk::node::s_redis {
     'allow-redis-from-frontend':
       from => '10.2.0.0/16',
       port => $redis_port;
+    'allow-redis-from-management':
+      from => '10.0.0.0/16',
+      port => $redis_port;
   }
 
 }
