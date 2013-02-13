@@ -251,6 +251,16 @@ location = /__testobj__ {
 
 location / {
   root /var/www/fallback;
+
+  <%- if @vhost_protected -%>
+
+      deny all;
+      auth_basic            "Enter your betademo password";
+      auth_basic_user_file  /etc/govuk.htpasswd;
+      satisfy any;
+
+  <%- end -%>
+
   try_files /fallback.html /flatsite/$uri /flatsite/$uri.html /flatsite/$uri/ /flatsite/$uri.1.html /flatsite/$uri/index.html /flatsite/index.html @upstream;
 }
 
