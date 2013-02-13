@@ -12,6 +12,7 @@ class govuk::node::s_base {
   include monitoring::client
   include puppet
   include puppet::cronjob
+  include resolvconf
   include rkhunter
   include users
   include users::assets
