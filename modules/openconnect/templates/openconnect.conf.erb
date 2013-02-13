@@ -1,0 +1,21 @@
+description "openconnect vpn client daemon"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 5 120
+
+<% if %w{yes no}.include?(@dnsupdate) -%>
+env DNS_UPDATE=<%= @dnsupdate %>
+export DNS_UPDATE
+<% end -%>
+exec cat /etc/openconnect/network.passwd | openconnect \
+  <%= @gateway -%>/github \
+  --no-dtls \
+  --script /etc/vpnc/vpnc-script \
+<% unless @cacerts.nil? -%>
+  --CAfile /etc/openconnect/network.cacerts \
+<% end -%>
+  --user <%= @user -%> \
+  --passwd-on-stdin

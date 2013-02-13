@@ -1,9 +1,6 @@
 class govuk::node::s_deployment inherits govuk::node::s_base {
   include jenkins::master
-
-  class { 'govuk::vpnc':
-    dnsupdate => 'no',
-  }
+  include govuk::openconnect
 
   host { 'github.gds':
     ip      => '192.168.9.110',

@@ -19,6 +19,9 @@
 # [*password*]
 #   Xauth password
 #
+# [*state*]
+#   Initial start state of service
+#
 # [*dnsupdate*]
 #   Whether to accept nameservers from the VPN endpoint.
 #   Valid values are yes, or no.
@@ -30,26 +33,33 @@ class vpnc (
   $group_pw,
   $user,
   $password,
+  $state = 'running',
   $dnsupdate = undef
 ) {
-  package {'vpnc':
-    ensure => present,
+  anchor { 'vpnc::begin':
+    notify  => Class['vpnc::service'],
   }
 
-  file {"/etc/vpnc/network.conf":
-    mode    => '0600',
-    content => template("vpnc/network.conf.erb"),
-    notify  => Service['vpnc'],
-    require => Package['vpnc'],
+  class { 'vpnc::package':
+    require => Anchor['vpnc::begin'],
   }
 
-  file {'/etc/init/vpnc.conf':
-    source  => 'puppet:///modules/vpnc/etc/init/vpnc.conf',
-    notify  => Service['vpnc'],
+  class { 'vpnc::config':
+    gateway   => $gateway,
+    group     => $group,
+    group_pw  => $group_pw,
+    user      => $user,
+    password  => $password,
+    dnsupdate => $dnsupdate,
+    subscribe => Class['vpnc::package'],
   }
 
-  service {'vpnc':
-    ensure  => running,
-    require => Package['vpnc'],
+  class { 'vpnc::service':
+    state     => $state,
+    subscribe => Class['vpnc::config'],
+  }
+
+  anchor { 'vpnc::end':
+    subscribe => Class['vpnc::service'],
   }
 }
