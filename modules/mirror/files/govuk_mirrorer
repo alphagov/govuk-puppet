@@ -269,10 +269,18 @@ class GovukMirrorer < Spidey::AbstractSpider
       logger.debug "Skipping blacklisted url #{url}"
       return
     end
+    if url.include? '?'
+      logger.debug "Skipping querystringed url #{url}"
+      return
+    end
     logger.debug "Adding url #{url} from #{data[:referrer]}"
-    handle url, handler, data
+    spidey_handle url, handler, data
   end
 
+  def spidey_handle (url, handler, data)
+    handle url, handler, data
+  end
+  
   protected
 
   def add_error(attrs)
