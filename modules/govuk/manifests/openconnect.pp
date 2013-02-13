@@ -8,9 +8,9 @@ class govuk::openconnect(
   }
 
   class { '::openconnect':
-    gateway   => extlookup('vpnc_gateway',''),
-    user      => extlookup('vpnc_user',''),
-    password  => extlookup('vpnc_password',''),
+    gateway   => extlookup('openconnect_gateway',''),
+    user      => extlookup('openconnect_user',''),
+    password  => extlookup('openconnect_password',''),
     dnsupdate => 'no',
     require   => Class['govuk::vpnc']
   }
