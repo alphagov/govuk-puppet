@@ -21,20 +21,25 @@ class govuk::node::s_development {
   include govuk::repository
   include govuk::testing_tools
 
+  class {
+    'govuk::apps::businesssupportfinder': vhost_protected => false;
+    'govuk::apps::calendars':             vhost_protected => false;
+    'govuk::apps::datainsight_frontend':  vhost_protected => false;
+    'govuk::apps::designprinciples':      vhost_protected => false;
+    'govuk::apps::feedback':              vhost_protected => false;
+    'govuk::apps::frontend':              vhost_protected => false;
+    'govuk::apps::licencefinder':         vhost_protected => false;
+    'govuk::apps::smartanswers':          vhost_protected => false;
+    'govuk::apps::tariff':                vhost_protected => false;
+    'govuk::apps::contentapi':            vhost_protected => false;
+  }
+
   include govuk::apps::asset_manager
-  include govuk::apps::businesssupportfinder
-  include govuk::apps::calendars
   include govuk::apps::canary_frontend
   include govuk::apps::canary_backend
-  include govuk::apps::contentapi
-  include govuk::apps::datainsight_frontend
-  include govuk::apps::designprinciples
   include govuk::apps::efg
   include govuk::apps::errbit
-  include govuk::apps::feedback
-  include govuk::apps::frontend
   include govuk::apps::imminence
-  include govuk::apps::licencefinder
   include govuk::apps::migratorator
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
@@ -45,16 +50,15 @@ class govuk::node::s_development {
   include govuk::apps::release
   include govuk::apps::search
   include govuk::apps::signon
-  include govuk::apps::smartanswers
   include govuk::apps::static
   include govuk::apps::support
-  include govuk::apps::tariff
   include govuk::apps::tariff_api
   include govuk::apps::travel_advice_publisher
   include govuk::apps::release
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
     configure_frontend => true,
+    vhost_protected    => false,
   }
 
   include datainsight::config::google_oauth
