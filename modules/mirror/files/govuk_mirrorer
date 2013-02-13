@@ -100,7 +100,7 @@ class GovukIndexer
     /trade-tariff
     /licence-finder
     /business-finance-support-finder
-    /government/uploads
+    /government
     /apply-for-a-licence
     /search
   ).freeze
