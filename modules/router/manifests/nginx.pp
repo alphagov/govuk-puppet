@@ -47,12 +47,6 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
-  # The cache/router also contains a flat site as a backup for software failures
-  router::nginx::mirror_vhost { "flatsite.${app_domain}":
-    port     => '444',
-    certtype => 'wildcard_alphagov',
-  }
-
   file { '/var/www/akamai_test_object.txt':
     ensure => present,
     source => 'puppet:///modules/router/akamai_test_object.txt',
