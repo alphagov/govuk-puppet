@@ -83,6 +83,11 @@ class jenkins {
     provider => 'pip',
   }
 
+  # Required for running whitehall tests (uses pdfinfo)
+  package { 'poppler-utils':
+    ensure   => 'installed',
+  }
+
   file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/jenkins/dot-gitconfig',
     owner   => jenkins,
