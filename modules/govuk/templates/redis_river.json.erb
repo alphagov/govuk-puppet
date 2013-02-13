@@ -1,0 +1,14 @@
+{
+  "type": "redis",
+  "redis": {
+    "mode": "list",
+    "host": "<%= @fqdn %>",
+    "port": 6379,
+    "key": "logs",
+    "database": 0
+  },
+  "index": {
+    "bulk_timeout": 5,
+    "bulk_size": 100
+  }
+}

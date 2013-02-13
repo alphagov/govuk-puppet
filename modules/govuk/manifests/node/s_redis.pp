@@ -56,4 +56,13 @@ class govuk::node::s_redis {
     matches => '/var/log/redis_*.log',
   }
 
+  # Each redis machine is used by the govuk_logpipe tool as a message broker
+  # for log data from applications. The logging elasticsearch cluster needs a
+  # river for each redis server to read the data into a logstash-compatible
+  # index.
+  @@elasticsearch::river { "logging-${::hostname}":
+    content => template('govuk/redis_river.json.erb'),
+    tag     => 'logging',
+  }
+
 }
