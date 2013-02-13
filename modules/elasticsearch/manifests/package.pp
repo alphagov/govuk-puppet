@@ -31,11 +31,12 @@ class elasticsearch::package {
     require => Package['elasticsearch'], # need to wait for package to create ES user.
   }
 
-  # simple tool to rotate daily aliases
-  file { '/usr/local/bin/elasticsearch-rotate-indices':
-    ensure => present,
-    source => 'puppet:///modules/elasticsearch/elasticsearch-rotate-indices',
-    mode   => '0755',
+  # Install the estools package (which we maintain, see
+  # https://github.com/alphagov/estools), which is used to install templates
+  # and rivers, among other things.
+  package { 'estools':
+    ensure   => '1.0.2',
+    provider => 'pip',
   }
 
 }

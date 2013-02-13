@@ -19,13 +19,12 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     install_from => 'mobz/elasticsearch-head',
   }
 
-  # TODO: don't hard code index names in this script
   cron { 'elasticsearch-rotate-indices':
     ensure  => present,
     user    => 'nobody',
     hour    => '0',
     minute  => '1',
-    command => '/usr/local/bin/elasticsearch-rotate-indices',
+    command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 31 logs',
     require => Class['elasticsearch'],
   }
 
