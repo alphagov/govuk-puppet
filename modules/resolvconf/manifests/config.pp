@@ -10,9 +10,9 @@
 # If not specified, or the `$::dhcp_enabled` fact is true, it will default
 # to the stock-empty config.
 #
-class resolvconf::config {
-  $nameservers = extlookup('resolvconf_nameservers', [])
-
+class resolvconf::config(
+  $nameservers
+) {
   file { '/etc/resolvconf/resolv.conf.d/head':
     ensure  => present,
     content => template('resolvconf/etc/resolvconf/resolv.conf.d/head.erb'),

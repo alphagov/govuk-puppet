@@ -1,4 +1,6 @@
 class resolvconf {
+  $nameservers = extlookup('resolvconf_nameservers', [])
+
   anchor { 'resolvconf::begin': }
 
   class { 'resolvconf::package':
@@ -7,7 +9,8 @@ class resolvconf {
   }
 
   class { 'resolvconf::config':
-    notify  => Class['resolvconf::reload'],
+    nameservers => $nameservers,
+    notify      => Class['resolvconf::reload'],
   }
 
   class { 'resolvconf::reload':
