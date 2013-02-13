@@ -2,7 +2,7 @@ user www-data;
 worker_processes  4;
 
 error_log  /var/log/nginx/error.log;
-pid        /var/run/nginx.pid;
+pid        <%= '/var' if @lsbdistcodename == 'lucid' -%>/run/nginx.pid;
 
 events {
     worker_connections  1024;
