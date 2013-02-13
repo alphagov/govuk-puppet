@@ -68,6 +68,10 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     }'
   }
 
+  # Collect all elasticsearch::river resources exported by the environment's
+  # redis machines.
+  Elasticsearch::River <<| tag == 'logging' |>>
+
   cron { 'elasticsearch-rotate-indices':
     ensure  => present,
     user    => 'nobody',
