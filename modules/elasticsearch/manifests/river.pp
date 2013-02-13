@@ -23,6 +23,9 @@ define elasticsearch::river (
   case $ensure {
 
     'present': {
+      if $content =~ /'/ {
+        fail('Sorry, but you cannot have single quotes in your elasticsearch::river content')
+      }
       exec { "create-elasticsearch-river-${river_name}":
         command => "echo '${content}' | es-river create '${river_name}'",
         unless  => "echo '${content}' | es-river compare '${river_name}'",

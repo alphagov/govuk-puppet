@@ -23,6 +23,10 @@ define elasticsearch::template (
   case $ensure {
 
     'present': {
+      if $content =~ /'/ {
+        fail('Sorry, but you cannot have single quotes in your elasticsearch::template content')
+      }
+
       exec { "create-elasticsearch-template-${template_name}":
         command => "echo '${content}' | es-template create '${template_name}'",
         unless  => "echo '${content}' | es-template compare '${template_name}'",
