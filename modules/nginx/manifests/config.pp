@@ -6,6 +6,11 @@ class nginx::config {
     source  => 'puppet:///modules/nginx/etc/nginx';
   }
 
+  file { '/etc/nginx/nginx.conf':
+    ensure  => present,
+    content => template('nginx/etc/nginx/nginx.conf.erb'),
+  }
+
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
     ensure  => directory,
     recurse => true, # enable recursive directory management
