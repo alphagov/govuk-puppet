@@ -92,6 +92,10 @@ class govuk::apps::whitehall(
     package { 'nfs-common':
       ensure => installed,
     }
+    # Needed for pdfinfo, used to count page numbers in uploaded PDFs
+    package { 'poppler-utils':
+      ensure => installed,
+    }
 
     if $::govuk_platform != 'development' {
       mount { "/data/uploads":
