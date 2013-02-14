@@ -1,5 +1,7 @@
 class mirror {
 
+  include lockrun
+
   file { '/usr/local/bin/govuk_update_mirror':
     ensure => present,
     mode   => '0755',
@@ -43,7 +45,7 @@ class mirror {
     user    => 'root',
     hour    => '0',
     minute  => '0',
-    command => '/usr/local/bin/govuk_update_and_upload_mirror',
+    command => '/usr/local/bin/lockrun -L /var/run/govuk_update_and_upload_mirror.lock -- /usr/local/bin/govuk_update_and_upload_mirror',
     require => File['/usr/local/bin/govuk_update_and_upload_mirror'],
   }
 
