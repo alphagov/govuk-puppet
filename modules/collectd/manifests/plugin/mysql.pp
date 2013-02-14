@@ -12,7 +12,7 @@ class collectd::plugin::mysql(
     notify        => Collectd::Plugin['nginx'],
   }
 
-  collectd::plugin { 'mysql':
+  @collectd::plugin { 'mysql':
     content => template('collectd/etc/collectd/conf.d/mysql.conf.erb'),
   }
 }
