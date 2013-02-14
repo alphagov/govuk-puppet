@@ -1,2 +1,5 @@
+#!/bin/sh
+set -e
+
 export MIRRORER_SITE_ROOT=https://www.gov.uk
 /usr/local/bin/govuk_update_mirror && /usr/local/bin/govuk_upload_mirror
