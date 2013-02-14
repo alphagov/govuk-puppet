@@ -5,6 +5,7 @@ FORGE
     puppetlabs/gcc (0.0.3)
     puppetlabs/stdlib (3.2.0)
     ripienaar/concat (0.2.0)
+    saz/rsyslog (2.0.0)
     thomasvandoren/redis (0.0.9)
       maestrodev/wget (>= 0.0.0)
       puppetlabs/gcc (>= 0.0.0)
@@ -29,6 +30,7 @@ DEPENDENCIES
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)
+  saz/rsyslog (>= 0)
   thomasvandoren/redis (>= 0)
   ufw (>= 0)
 
