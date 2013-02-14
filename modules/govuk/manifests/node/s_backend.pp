@@ -37,12 +37,9 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     vhost_protected => true,
   }
 
-  case $::govuk_provider {
-    'sky':   {}
-    default: {
-      include govuk::apps::travel_advice_publisher # Only add to EC2 (i.e. preview) for now
-      include govuk::apps::asset_manager # Only add to EC2 (i.e. preview) for now
-    }
+  if str2bool(extlookup('govuk_enable_travel_advice', 'no')) {
+    include govuk::apps::travel_advice_publisher
+    include govuk::apps::asset_manager
   }
 
   include nginx
