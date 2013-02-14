@@ -1,7 +1,7 @@
 class govuk::node::s_logging inherits govuk::node::s_base {
 
 # we want this to be a syslog server.
-class { 'rsyslog::server': }
+  class { 'rsyslog::server': }
 
 # we want all the other machines to be able to send syslog on 514/tcp to this machine
   @ufw::allow {
