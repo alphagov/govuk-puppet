@@ -1,5 +1,21 @@
 upstream varnish {
-  server localhost:7999;
+  # FIXME: https://www.pivotaltracker.com/story/show/44377213
+  # Review when upgrading packages from:
+  #
+  #   - 1.2.4-2ubuntu0ppa4~lucid
+  #   - 1.2.4-2ubuntu0ppa1~precise
+  #
+  # Despite documentation to the contrary, Lucid allows a request to be
+  # retried twice when there is a single upstream server. Based on
+  # proxy_next_upstream and proxy_read_timeout
+  #
+  # Precise does not, which is as expected, but not as desireable.Allow it
+  # to match the behaviour of Lucid by specifying an additional server.
+  # max_fails=0 should prevent it ever from being removed from rotation.
+  server localhost:7999 max_fails=0;
+<% unless @lsbdistcodename == 'lucid' -%>
+  server localhost:7999 max_fails=0;
+<% end -%>
 }
 
 server {
