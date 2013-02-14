@@ -5,7 +5,6 @@ FORGE
     puppetlabs/gcc (0.0.3)
     puppetlabs/stdlib (3.2.0)
     ripienaar/concat (0.2.0)
-    saz/rsyslog (2.0.0)
     thomasvandoren/redis (0.0.9)
       maestrodev/wget (>= 0.0.0)
       puppetlabs/gcc (>= 0.0.0)
@@ -25,12 +24,19 @@ GIT
     ufw (1.0.2)
       puppetlabs/stdlib (>= 2.2.1)
 
+GIT
+  remote: git://github.com/puppetlabs-operations/puppet-rsyslog.git
+  ref: b0175c4
+  sha: b0175c45ef7d5dded409f72860b018270290f22f
+  specs:
+    rsyslog (1.1.4)
+
 DEPENDENCIES
   cpanm (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)
-  saz/rsyslog (>= 0)
+  rsyslog (>= 0)
   thomasvandoren/redis (>= 0)
   ufw (>= 0)
 
