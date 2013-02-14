@@ -25,9 +25,9 @@ GIT
       puppetlabs/stdlib (>= 2.2.1)
 
 GIT
-  remote: git://github.com/puppetlabs-operations/puppet-rsyslog.git
-  ref: b0175c4
-  sha: b0175c45ef7d5dded409f72860b018270290f22f
+  remote: git@github.com:alphagov/puppet-rsyslog.git
+  ref: 4928525
+  sha: 4928525194c5f9f7760021dea56093c231e92f45
   specs:
     rsyslog (1.1.4)
 

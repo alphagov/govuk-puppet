@@ -11,5 +11,5 @@ mod 'ufw',
   :git => 'git://github.com/alphagov/puppet-module-ufw.git',
   :ref => 'dc7ddc2'
 mod 'rsyslog',
-  :git => 'git://github.com/puppetlabs-operations/puppet-rsyslog.git',
-  :ref => 'b0175c4'
+  :git => 'git@github.com:alphagov/puppet-rsyslog.git',
+  :ref => '4928525'
