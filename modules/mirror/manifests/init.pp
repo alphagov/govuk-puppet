@@ -23,30 +23,19 @@ class mirror {
     ensure => directory,
   }
 
-  file { '/etc/init/govuk_update_mirror.conf':
-    content => '
-task
-env MIRRORER_SITE_ROOT=https://www.gov.uk
-export MIRRORER_SITE_ROOT
-exec /usr/local/bin/govuk_update_mirror
-',
-    require => File['/usr/local/bin/govuk_update_mirror'],
-  }
-
-
-  file { '/etc/init/govuk_update_netstorage.conf':
-    content => '
-task
-start on stopped govuk_update_mirror
-exec /usr/local/bin/govuk_upload_mirror
-',
-    require => File['/usr/local/bin/govuk_upload_mirror'],
-  }
-
   file { '/usr/local/bin/govuk_upload_mirror':
     ensure => present,
     mode   => '0755',
     source => 'puppet:///modules/mirror/govuk_upload_mirror',
+}
+
+  file { '/usr/local/bin/govuk_update_and_upload_mirror':
+    ensure  => present,
+    mode    => '0755',
+    source  => 'puppet:///modules/mirror/govuk_update_and_upload_mirror',
+    require => [File['/usr/local/bin/govuk_upload_mirror'],
+                File['/usr/local/bin/govuk_update_mirror'],
+                File['/var/lib/govuk_mirror']],
 }
 
   cron { 'update-latest-to-mirror':
@@ -54,8 +43,8 @@ exec /usr/local/bin/govuk_upload_mirror
     user    => 'root',
     hour    => '0',
     minute  => '0',
-    command => '/sbin/start govuk_update_mirror',
-    require => File['/etc/init/govuk_update_mirror.conf'],
+    command => '/usr/local/bin/govuk_update_and_upload_mirror',
+    require => File['/usr/local/bin/govuk_update_and_upload_mirror'],
   }
 
 }
