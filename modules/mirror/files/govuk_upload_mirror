@@ -1,0 +1,3 @@
+sudo -u govuk-netstorage rsync -e ssh -rLptgoD -z --delete \
+             /var/lib/govuk_mirror/current/. \
+             sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror

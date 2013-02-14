@@ -33,15 +33,21 @@ exec /usr/local/bin/govuk_update_mirror
     require => File['/usr/local/bin/govuk_update_mirror'],
   }
 
+
   file { '/etc/init/govuk_update_netstorage.conf':
     content => '
 task
 start on stopped govuk_update_mirror
-exec sudo -u govuk-netstorage rsync -e ssh -rLptgoD -z --delete \
-             /var/lib/govuk_mirror/current/. \
-             sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror
+exec /usr/local/bin/govuk_upload_mirror
 ',
+    require => File['/usr/local/bin/govuk_upload_mirror'],
   }
+
+  file { '/usr/local/bin/govuk_upload_mirror':
+    ensure => present,
+    mode   => '0755',
+    source => 'puppet:///modules/mirror/govuk_upload_mirror',
+}
 
   cron { 'update-latest-to-mirror':
     ensure  => present,
