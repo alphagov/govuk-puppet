@@ -9,8 +9,7 @@
 
 # [*content*]
 #   The content to use to create the river. This should be a valid JSON
-#   document. NB: This is a bit of a hack, and you should not have any single
-#   quotes anywhere in your JSON document!
+#   document.
 #
 define elasticsearch::river (
   $content,
@@ -23,13 +22,17 @@ define elasticsearch::river (
   case $ensure {
 
     'present': {
-      if $content =~ /'/ {
-        fail('Sorry, but you cannot have single quotes in your elasticsearch::river content')
-      }
       exec { "create-elasticsearch-river-${river_name}":
-        command => "echo '${content}' | es-river create '${river_name}'",
-        unless  => "echo '${content}' | es-river compare '${river_name}'",
-        require => Class['elasticsearch::service'],
+        command  => "es-river create '${river_name}' <<EOS
+${content}
+EOS",
+        unless   => "es-river compare '${river_name}' <<EOS
+${content}
+EOS",
+        # This is required to ensure the correct interpolation of variables in
+        # the above commands.
+        provider => 'shell',
+        require  => Class['elasticsearch::service'],
       }
     }
 

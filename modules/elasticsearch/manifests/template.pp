@@ -9,8 +9,7 @@
 
 # [*content*]
 #   The content to use to create the template. This should be a valid JSON
-#   document. NB: This is a bit of a hack, and you should not have any single
-#   quotes anywhere in your JSON document!
+#   document.
 #
 define elasticsearch::template (
   $content,
@@ -23,14 +22,17 @@ define elasticsearch::template (
   case $ensure {
 
     'present': {
-      if $content =~ /'/ {
-        fail('Sorry, but you cannot have single quotes in your elasticsearch::template content')
-      }
-
       exec { "create-elasticsearch-template-${template_name}":
-        command => "echo '${content}' | es-template create '${template_name}'",
-        unless  => "echo '${content}' | es-template compare '${template_name}'",
-        require => Class['elasticsearch::service'],
+        command  => "es-template create '${template_name}' <<EOS
+${content}
+EOS",
+        unless   => "es-template compare '${template_name}' <<EOS
+${content}
+EOS",
+        # This is required to ensure the correct interpolation of variables in
+        # the above commands.
+        provider => 'shell',
+        require  => Class['elasticsearch::service'],
       }
     }
 
