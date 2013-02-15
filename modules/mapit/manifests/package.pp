@@ -44,7 +44,7 @@ class mapit::package {
 
   exec {'unzip_mapit':
     command => 'tar -zxf /data/vhost/mapit/data/mapit.tar.gz -C /data/vhost/mapit',
-    creates => '/data/vhost/mapit/mapit/README',
+    creates => '/data/vhost/mapit/mapit/README.rst',
     user    => 'mapit',
     require => [
         User['mapit'],
