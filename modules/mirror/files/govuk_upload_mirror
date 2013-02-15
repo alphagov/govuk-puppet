@@ -1,7 +1,5 @@
 #!/bin/sh
-rsync -rLptgoD -z --delete \
-             /var/lib/govuk_mirror/current/. \
+rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror
-rsync -ptgo -z  \
-             /var/lib/govuk_mirror/error/503.html \
+rsync -ptgo -z var/lib/govuk_mirror/error/503.html \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/error/503.html
