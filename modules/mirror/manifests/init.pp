@@ -1,7 +1,7 @@
 class mirror {
 
   include lockrun
-  
+
   # set up user that's needed to upload the mirrored site to net storage
   govuk::user { 'govuk-netstorage':
     fullname => 'Netstorage Upload User',
@@ -30,11 +30,13 @@ class mirror {
   file { '/var/run/govuk_update_and_upload_mirror.lock':
     ensure => present,
     mode   => '0500',
+    owner  => 'govuk-netstorage',
   }
 
   # directory that we put the mirrored content into locally
   file { '/var/lib/govuk_mirror':
     ensure => directory,
+    owner  => 'govuk-netstorage',
   }
 
   # script to mirror the site locally
@@ -77,11 +79,11 @@ class mirror {
 
   cron { 'update-latest-to-mirror':
     ensure  => present,
-    user    => 'root',
+    user    => 'govuk-netstorage',
     hour    => '0',
     minute  => '0',
     command => '/usr/local/bin/lockrun -L /var/run/govuk_update_and_upload_mirror.lock -- /usr/local/bin/govuk_update_and_upload_mirror',
-    require => File['/usr/local/bin/govuk_update_and_upload_mirror'],
+    require => [File['/usr/local/bin/govuk_update_and_upload_mirror'],
+                File['/var/run/govuk_update_and_upload_mirror.lock']],
   }
-
 }

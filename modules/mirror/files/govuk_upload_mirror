@@ -1,8 +1,7 @@
 #!/bin/sh
-
-sudo -u govuk-netstorage rsync -e ssh -rLptgoD -z --delete \
+rsync -rLptgoD -z --delete \
              /var/lib/govuk_mirror/current/. \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror
-sudo -u govuk-netstorage rsync -e ssh -ptgo -z  \
+rsync -ptgo -z  \
              /var/lib/govuk_mirror/error/503.html \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/error/503.html
