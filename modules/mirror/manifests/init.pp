@@ -2,6 +2,17 @@ class mirror {
 
   include lockrun
 
+  #create cron lock file writable by user
+  file { '/var/run/govuk_update_and_upload_mirror.lock':
+    ensure => present,
+    mode   => '0500',
+  }
+
+  # directory that we put the mirrored content into locally
+  file { '/var/lib/govuk_mirror':
+    ensure => directory,
+  }
+
   file { '/usr/local/bin/govuk_update_mirror':
     ensure => present,
     mode   => '0755',
@@ -19,10 +30,6 @@ class mirror {
     mode    => '0755',
     source  => 'puppet:///modules/mirror/govuk_mirrorer',
     require => Package['spidey'],
-  }
-
-  file { '/var/lib/govuk_mirror':
-    ensure => directory,
   }
 
   file { '/usr/local/bin/govuk_upload_mirror':
