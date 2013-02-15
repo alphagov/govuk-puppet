@@ -3,7 +3,6 @@ class govuk::node::s_frontend_lb {
   include loadbalancer
 
   $govuk_frontend_servers = ["frontend-1", "frontend-2", "frontend-3"]
-  $extra_smartanswers_servers = extlookup("extra_smartanswers_servers",[])
   $whitehall_frontend_servers = ["whitehall-frontend-1", "whitehall-frontend-2",]
   $efg_frontend_servers = ["efg-frontend-1"]
 
@@ -27,6 +26,7 @@ class govuk::node::s_frontend_lb {
       'designprinciples',
       'feedback',
       'licencefinder',
+      'smartanswers',
       'tariff',
     ]:
       ;
@@ -35,8 +35,6 @@ class govuk::node::s_frontend_lb {
       servers       => $efg_frontend_servers;
     'frontend':
       aliases       => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
-    'smartanswers':
-      servers       => flatten([$govuk_frontend_servers,$extra_smartanswers_servers]);
     'static':
       internal_only => false,
       aliases       => [$asset_host];
