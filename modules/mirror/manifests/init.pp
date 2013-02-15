@@ -1,6 +1,30 @@
 class mirror {
 
   include lockrun
+  
+  # set up user that's needed to upload the mirrored site to net storage
+  govuk::user { 'govuk-netstorage':
+    fullname => 'Netstorage Upload User',
+    email    => 'webops@digital.cabinet-office.gov.uk',
+  }
+  file { '/home/govuk-netstorage/.ssh':
+    ensure  => directory,
+    owner   => 'govuk-netstorage',
+    mode    => '0700',
+    require => Govuk::User['govuk-netstorage'],
+  }
+  file { '/home/govuk-netstorage/.ssh/rsyncpassword':
+    ensure  => file,
+    owner   => 'govuk-netstorage',
+    mode    => '0600',
+    content => extlookup('govuk-netstorage_rsync_password', ''),
+  }
+  file { '/home/govuk-netstorage/.ssh/id_rsa':
+    ensure  => file,
+    owner   => 'govuk-netstorage',
+    mode    => '0600',
+    content => extlookup('govuk-netstorage_key_private', ''),
+  }
 
   #create cron lock file writable by user
   file { '/var/run/govuk_update_and_upload_mirror.lock':
