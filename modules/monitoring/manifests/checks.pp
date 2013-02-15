@@ -76,7 +76,8 @@ class monitoring::checks {
     # minute interval drops below 0.6 and a critical if below 0.3
     check_command       => 'check_graphite_metric_since!avg(hitcount(stats.govuk.app.whitehall.*.scheduled_publishing.call_rate,\'15minutes\'))!15minutes!0.6:!0.3:',
     service_description => 'whitehall sched pub not running every 15 minutes',
-    use                 => 'govuk_urgent_priority',
+    # This was govuk_urgent_priority, but is generating too many spurious pages.
+    use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
   }
   # END whitehall
