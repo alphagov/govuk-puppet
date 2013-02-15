@@ -1,6 +1,10 @@
 #!/bin/sh
-PUPPET=`which puppet`
-CMD="${PUPPET} agent --onetime --no-daemonize"
+
+# Prepend to PATH for when:
+#   - Puppet binstub is in /usr/local/bin
+#   - Cron runs with `PATH=/usr/bin:bin`
+PATH="/usr/local/bin:${PATH}"
+CMD="puppet agent --onetime --no-daemonize"
 
 if [ "$(id -u)" -eq "0" ]; then
   RUBYOPT="-W0" exec $CMD "$@"
