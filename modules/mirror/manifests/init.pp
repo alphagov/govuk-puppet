@@ -13,6 +13,7 @@ class mirror {
     ensure => directory,
   }
 
+  # script to mirror the site locally
   file { '/usr/local/bin/govuk_update_mirror':
     ensure => present,
     mode   => '0755',
@@ -25,6 +26,7 @@ class mirror {
     require  => Package['libxml2-dev'],
   }
 
+  # ruby script that does the crawlling to make the local mirror
   file { '/usr/local/bin/govuk_mirrorer':
     ensure  => present,
     mode    => '0755',
@@ -32,12 +34,14 @@ class mirror {
     require => Package['spidey'],
   }
 
+  # script that uploads the mirrored files to net storage
   file { '/usr/local/bin/govuk_upload_mirror':
     ensure => present,
     mode   => '0755',
     source => 'puppet:///modules/mirror/govuk_upload_mirror',
 }
 
+  # parent script that is called by cron that calls the above scripts to do the mirroring
   file { '/usr/local/bin/govuk_update_and_upload_mirror':
     ensure  => present,
     mode    => '0755',
