@@ -30,10 +30,24 @@ server {
 
 server {
   listen 443;
-  server_name monitoring.* nagios.* ganglia.* graphite.*;
+  server_name monitoring.* nagios.* ganglia.*;
 
   location / {
     proxy_pass https://monitoring.management.production/;
     proxy_set_header Host $http_host;
+  }
+}
+
+server {
+  listen 443;
+  server_name graphite.*;
+
+  location / {
+    proxy_pass https://monitoring.management.production/;
+    proxy_set_header Host $http_host;
+
+    add_header "Access-Control-Allow-Origin" "*";
+    add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
+    add_header "Access-Control-Allow-Headers" "origin, authorization, accept";
   }
 }
