@@ -42,7 +42,6 @@ class elasticsearch (
 
   class { 'collectd::plugin::elasticsearch':
     es_port     => $http_port,
-    es_cluster  => $cluster_name,
   }
 
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
