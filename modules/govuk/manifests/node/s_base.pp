@@ -22,6 +22,11 @@ class govuk::node::s_base {
   include users::groups::other
   include users::groups::freerange
 
+
+  class { 'rsyslog::client':
+    server => 'logging.cluster',
+  }
+
   $email_collection = extlookup('email_collection','off')
   case $email_collection {
     "on":     {

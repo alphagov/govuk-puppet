@@ -10,3 +10,6 @@ mod 'cpanm',
 mod 'ufw',
   :git => 'git://github.com/alphagov/puppet-module-ufw.git',
   :ref => 'dc7ddc2'
+mod 'rsyslog',
+  :git => 'git://github.com/alphagov/puppet-rsyslog.git',
+  :ref => '4928525'

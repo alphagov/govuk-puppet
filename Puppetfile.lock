@@ -24,11 +24,19 @@ GIT
     ufw (1.0.2)
       puppetlabs/stdlib (>= 2.2.1)
 
+GIT
+  remote: git://github.com/alphagov/puppet-rsyslog.git
+  ref: 4928525
+  sha: 4928525194c5f9f7760021dea56093c231e92f45
+  specs:
+    rsyslog (1.1.4)
+
 DEPENDENCIES
   cpanm (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)
+  rsyslog (>= 0)
   thomasvandoren/redis (>= 0)
   ufw (>= 0)
 
