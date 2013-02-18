@@ -10,6 +10,11 @@ class nginx::config {
     ensure  => present,
     content => template('nginx/etc/nginx/nginx.conf.erb'),
   }
+  nginx::log {  [
+                'access.log',
+                'error.log'
+                ]:
+  }
 
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
     ensure  => directory,

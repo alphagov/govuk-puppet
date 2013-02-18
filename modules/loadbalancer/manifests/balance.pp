@@ -41,4 +41,9 @@ define loadbalancer::balance(
     content => template('loadbalancer/nginx_balance.conf.erb'),
   }
 
+  nginx::log { [
+                "${vhost_real}-access.log",
+                "${vhost_real}-error.log",
+                ]:
+  }
 }

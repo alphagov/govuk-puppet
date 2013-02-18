@@ -21,7 +21,11 @@ class monitoring {
   nginx::config::site { 'monitoring':
     content => template('monitoring/nginx.conf.erb'),
   }
-
+  nginx::log {  [
+                  'monitoring-access.log',
+                  'monitoring-error.log'
+                ]:
+  }
   file { '/opt/graphite/storage/rrd/ganglia':
     ensure => link,
     target => '/var/lib/ganglia/rrds/GDS/',

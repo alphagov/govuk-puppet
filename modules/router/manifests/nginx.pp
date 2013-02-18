@@ -30,6 +30,11 @@ class router::nginx (
     content => template('router/routes.conf.erb'),
     notify  => Class['nginx::service'],
   }
+  nginx::log {  [
+                "lb-access.log",
+                "lb-error.log"
+                ]:
+  }
 
   file { '/usr/share/nginx':
     ensure  => directory,

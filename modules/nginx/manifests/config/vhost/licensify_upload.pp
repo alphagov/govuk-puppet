@@ -3,6 +3,11 @@ define nginx::config::vhost::licensify_upload($port="9000") {
   $vhost_name = "uploadlicence.${app_domain}"
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost_name: content => template('nginx/licensify-upload-vhost.conf') }
+  nginx::log {  [
+                "${vhost_name}-access.log",
+                "${vhost_name}-error.log"
+                ]:
+  }
 
   @logster::cronjob { "nginx-vhost-${vhost_name}":
     args => "--metric-prefix ${vhost_name} NginxGangliaLogster /var/log/nginx/${vhost_name}-access.log",

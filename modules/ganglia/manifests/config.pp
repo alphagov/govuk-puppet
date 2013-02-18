@@ -10,6 +10,11 @@ class ganglia::config {
   nginx::config::site { 'ganglia':
     content => template('ganglia/nginx.conf.erb'),
   }
+  nginx::log {  [
+                'ganglia-access.log',
+                'ganglia-error.log'
+                ]:
+  }
 
   file { '/var/lib/ganglia/dwoo':
     ensure  => directory,
