@@ -49,4 +49,9 @@ class mysql::server($root_password='') {
     require => Class['mysql::server::service'],
   }
 
+  class { 'collectd::plugin::mysql':
+    root_password => $root_password,
+    require       => Exec['set-mysql-password'],
+  }
+
 }
