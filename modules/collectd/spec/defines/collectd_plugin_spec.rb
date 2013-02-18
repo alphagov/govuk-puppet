@@ -27,4 +27,9 @@ describe 'collectd::plugin', :type => :define do
       :content => "LoadPlugin giraffe\n",
     )}
   end
+
+  context 'prefix => 00-' do
+    let(:params) {{ :prefix => '00-' }}
+    it { should contain_file('/etc/collectd/conf.d/00-giraffe.conf') }
+  end
 end

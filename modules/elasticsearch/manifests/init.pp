@@ -40,6 +40,10 @@ class elasticsearch (
 
   anchor { 'elasticsearch::end': }
 
+  class { 'collectd::plugin::elasticsearch':
+    es_port     => $http_port,
+  }
+
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
     port => $http_port,
   }
