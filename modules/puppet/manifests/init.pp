@@ -51,12 +51,6 @@ class puppet {
     source  => 'puppet:///modules/puppet/usr/lib/nagios/plugins/check_puppet_agent',
   }
 
-  @@nagios::check { "check_puppet_agent_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_puppet_agent',
-    service_description => "puppet errors",
-    host_name           => $::fqdn,
-  }
-
   @@nagios::passive_check { "check_puppet_${::hostname}":
     service_description => 'puppet last run errors',
     host_name           => $::fqdn,
