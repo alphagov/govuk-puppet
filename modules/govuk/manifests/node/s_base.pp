@@ -24,8 +24,8 @@ class govuk::node::s_base {
 
 
   class { 'rsyslog::client':
-    server => 'logging.cluster',
-    log_local  => true,
+    server    => 'logging.cluster',
+    log_local => true,
   }
 
   $email_collection = extlookup('email_collection','off')
