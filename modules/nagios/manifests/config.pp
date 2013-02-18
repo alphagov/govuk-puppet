@@ -15,6 +15,11 @@ class nagios::config {
   nginx::config::site { 'nagios':
     content => template('nagios/nginx.conf.erb'),
   }
+  nginx::log {  [
+                'nagios-access.log',
+                'nagios-error.log'
+                ]:
+  }
 
   file { '/etc/nagios3':
     ensure  => directory,

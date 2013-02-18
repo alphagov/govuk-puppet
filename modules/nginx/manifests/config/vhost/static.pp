@@ -16,6 +16,11 @@ define nginx::config::vhost::static(
   nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),
   }
+  nginx::log {  [
+                "${name}-access.log",
+                "${name}-error.log"
+                ]:
+  }
 
   @logster::cronjob { "nginx-vhost-${title}":
     args => "--metric-prefix ${title} NginxGangliaLogster /var/log/nginx/${title}-access.log",

@@ -2,6 +2,11 @@ class puppet::master::config ($unicorn_port = '9090') {
   nginx::config::site { 'puppetmaster':
     content => template('puppet/puppetmaster-vhost.conf'),
   }
+  nginx::log {  [
+                'puppetmaster-access.log',
+                'puppetmaster-error.log'
+                ]:
+  }
 
   @logster::cronjob { "nginx-vhost-puppetmaster":
     args => "--metric-prefix puppetmaster NginxGangliaLogster /var/log/nginx/puppetmaster-access.log",

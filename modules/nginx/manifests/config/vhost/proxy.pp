@@ -26,6 +26,11 @@ define nginx::config::vhost::proxy(
   nginx::config::site { $name:
     content => template($proxy_vhost_template),
   }
+  nginx::log {  [
+                "${name}-access.log",
+                "${name}-error.log"
+                ]:
+  }
 
   @logster::cronjob { "nginx-vhost-${title}":
     args => "--metric-prefix ${title} NginxGangliaLogster /var/log/nginx/${title}-access.log",

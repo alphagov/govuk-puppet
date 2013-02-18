@@ -23,4 +23,9 @@ class mapit::config {
   nginx::config::site { 'mapit':
     source  => 'puppet:///modules/mapit/nginx_mapit.conf'
   }
+  nginx::log {  [
+                'mapit.access.log',
+                'mapit.error.log'
+                ]:
+  }
 }
