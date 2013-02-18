@@ -1,6 +1,6 @@
 define nginx::log (
   $logpath  = '/var/log/nginx',
-  $logowner = 'www-date',
+  $logowner = 'www-data',
   $loggroup = 'adm',
   $logmode  = '0640'
   ){
