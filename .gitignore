@@ -11,3 +11,4 @@
 .DS_Store
 # Put "--profile" in a file called .rspec to get per-test timing results
 .rspec
+.rvmrc
