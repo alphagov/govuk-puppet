@@ -49,7 +49,7 @@ govuk::user { 'benilovj':
   govuk::user { 'bradleyw':
     fullname => 'Bradley Wright',
     email    => 'bradley.wright@digital.cabinet-office.gov.uk',
-    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDlpKXpNLybMHgL42W8AemrbBuD/QWiblRACI+guwSrmLuHery53Dx1Tp8NFaMHXTPnhm0VDlvLO7V2s/hLgzc10ozo5m8DQR3ziAcG67sicTjJCdA9ioOPCphzhtiCAMP39Dn/7dr5/XSHkmIvVcruZqXifklRSzkTjQG/i6Q0P3o8ueU/VAOyC1sUqk1DXDt7HRcahQVgisYxaBvxbjFd6CgrrMVchmzWlR6jLY1+Pp1Ld/U0z2/37vuPOYhOimaSyye2GtX2/e7huUOn2gRiH8KJuASFojvmmg3/W4E5XIDcHibXD6DMqX5y6gk338rzLTS2FdXPL55XGjG2kXx/QZNDuG9XhTBVTw1E1f3smDdrArvPOKIVO7A98RgPr4dSrnDM4xABAF+L3JYAiew4voytNglxxet1YzMuTHpoW3OCQusVyiuLVFvBjWsaJ3CgkIIg4rZYFkWetCaFQIJ4B64x3kJLGtp0GX+LFhsTvj8giyyo/jHo86OevfitiYiuzh+iPCOUgJMbXNQA0uPeg6z2vuXybTYtBYwDB6TuxE0DzOIhUEEDEt3Ge9o4YPfHGfr6gO/qEjYxBc22UUMA86SSe1K81kIfMQXsK+PEQJiwBWFHveC2ILhCJV+3E/xO56upl010+j15zFMubmMnQGQdPHta4c8+AjUgKUEM2Q==',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDF8hB/QZNnzh8f4L0l/dW5anGKNcS57SqbCF5cpkKSkTrcH57JKKr/jQOqLr4+bR/BK1ipBk1LpgC1wKNNFkiZRiq6XZ3mipJv/02RdanwkxKumqEoK5YibiL6kHN686Cr9HUe+CMon0Taiv8evd7je5nVrZBouBPrxOFNSdqVPpoajaTl7xUy13JL+2qRc4QLFhZoV6TPDp4iy2lMJ+x5VSolIPmY0j4/F+1sF//uDcM7HdByrq+2yjBiZGVrSBddMJmwjPWpScSvx5KixmpVx79poBE37gTeB0Dq7VJdDSBu+VEu0oWevvEOoJXXk6yG6L7LX1/uEpBeBC//KySX',
   }
   govuk::user { 'carlmassa':
     fullname => 'Carl Massa',
