@@ -1,7 +1,7 @@
-# == Class: nagios::client::check_path_age
+# == Class: nagios::client::check_file_size
 #
-# Install a Nagios plugin that can alert when the modified time of a file or
-# directory exceeds N number of days.
+# Install a Nagios plugin that can alert when the size of a file is less than a
+# minimum number of bytes.
 #
 class nagios::client::check_file_size {
   @nagios::plugin { 'check_file_size.py':
