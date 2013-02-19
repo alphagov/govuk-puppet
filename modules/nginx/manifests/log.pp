@@ -9,6 +9,8 @@ define nginx::log (
     owner   => $logowner,
     group   => $loggroup,
     mode    => $logmode,
+    content => '',
+    replace => false,
     require => Class['nginx::package'],
   }
 }
