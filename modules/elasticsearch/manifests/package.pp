@@ -18,6 +18,7 @@ class elasticsearch::package {
     purge   => true,
     recurse => true,
     force   => true,
+    require => Package['elasticsearch'],
   }
 
   file { '/var/run/elasticsearch':
