@@ -2,8 +2,12 @@ server {
   server_name  preview-ertp-api.alphagov.co.uk;
   listen *:80;
 
- location /dwp-file-processor {
+  location /dwp-file-processor {
     proxy_pass http://127.0.0.1:9600/dwp-file-processor;
+  }
+
+  location /gateway {
+    proxy_pass http://127.0.0.1:9950/gateway;
   }
 
   location / {
