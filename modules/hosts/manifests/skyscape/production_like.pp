@@ -84,10 +84,11 @@ class hosts::skyscape::production_like {
   }
 
   #router lb vhosts
+  $website_host = extlookup('website_host', 'www.gov.uk')
   govuk::host { 'cache':
     ip              => '10.1.1.1',
     vdc             => 'router',
-    legacy_aliases  => ['cache', 'www.gov.uk', "www.${app_domain}", "www-origin.${app_domain}"],
+    legacy_aliases  => ['cache', "www.${app_domain}", "www-origin.${app_domain}", $website_host ],
     service_aliases => ['cache', 'router'],
   }
 
