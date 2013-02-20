@@ -1,11 +1,43 @@
 #!/bin/sh
 set -e
 
+ANSI_YELLOW="\033[33m"
+ANSI_RESET="\033[0m"
+ANSI_BOLD="\033[1m"
+
+warn () {
+  echo "${ANSI_BOLD}${ANSI_YELLOW}WARNING:${ANSI_RESET} ${ANSI_BOLD}${@}${ANSI_RESET}" >&2
+}
+
+safe_git_pull () {
+  local repo=$1
+  cd $1
+
+  local branch=$(git symbolic-ref HEAD | sed 's|^refs/heads/||')
+
+  if [ -f lock ]; then
+    warn "skipped updating ${repo} because 'lock' file exists"
+  elif ! git diff --quiet --ignore-submodules --no-ext-diff; then
+    warn "skipped updating ${repo} due to local changes"
+  else
+    if ! git pull --rebase origin "$branch"; then
+      warn "updating ${repo} failed"
+      exit 1
+    fi
+  fi
+}
+
 cd "$(dirname "$0")"
 cd ..
 
 # Temporary workaround while dev VMs don't come with git preinstalled
 sudo apt-get install -y -qq git-core
+
+# Execute the following in a subshell to avoid changing $PWD
+(
+  safe_git_pull /var/govuk/puppet
+  safe_git_pull /var/govuk/development
+)
 
 bundle install --quiet
 bundle exec librarian-puppet install --quiet
