@@ -1,1 +1,1 @@
-command[check_redis]=/usr/lib/nagios/plugins/check_redis -H $HOSTADDRESS$ -p $ARG1$ -T $ARG2$ -R -A -M <%= @redis_max_memory %>M -m $ARG3$ -a $ARG4$ -w $ARG5$ -c $ARG6$ -f -P "$SERVICEPERFDATA$"
+command[check_redis]=/usr/lib/nagios/plugins/check_redis -H localhost -p $ARG1$ -T $ARG2$ -R -A -M <%= @redis_max_memory %>M -m $ARG3$ -a $ARG4$ -w $ARG5$ -c $ARG6$ -f -P "$SERVICEPERFDATA$"
