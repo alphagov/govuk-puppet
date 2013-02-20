@@ -41,7 +41,7 @@ define govuk::host(
   host { "${hostname}.${vdc}.${tld}":
     ensure       => $ensure,
     ip           => $ip,
-    host_aliases => flatten(["${hostname}.${vdc}", $service_aliases_real, $legacy_aliases]),
+    host_aliases => unique(flatten(["${hostname}.${vdc}", $service_aliases_real, $legacy_aliases])),
   }
 
 }
