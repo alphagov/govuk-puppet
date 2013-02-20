@@ -23,7 +23,7 @@ class govuk::node::s_redis {
   }
 
   @nagios::nrpe_config { 'check_redis':
-    source => 'puppet:///modules/govuk/node/s_redis/nagios/check_redis.cfg',
+    content => template('govuk/node/s_redis/nagios/check_redis.cfg.erb'),
   }
 
   @@nagios::check { "check_redis_${::hostname}":
