@@ -84,18 +84,11 @@ class hosts::skyscape::production_like {
   }
 
   #router lb vhosts
-
-  # TODO: remove when www.gov.uk is removed from /etc/hosts
-  $default_aliases = ['cache', "www.${app_domain}", "www-origin.${app_domain}"]
-  $cache_aliases = str2bool(extlookup('govuk_host_alias', 'yes')) ? {
-    false   => $default_aliases,
-    default => flatten([$default_aliases, 'www.gov.uk']),
-  }
-
+  $website_host = extlookup('website_host', 'www.gov.uk')
   govuk::host { 'cache':
     ip              => '10.1.1.1',
     vdc             => 'router',
-    legacy_aliases  => $cache_aliases,
+    legacy_aliases  => ['cache', "www.${app_domain}", "www-origin.${app_domain}", $website_host ],
     service_aliases => ['cache', 'router'],
   }
 
