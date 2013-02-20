@@ -31,6 +31,17 @@ require 'rspec-puppet'
 #
 #  - NS 2012-10-31
 
+# Usage
+#
+#   before :each do
+#    update_extdata({'extdata value i want' => 'value required',})
+#  end
+#
+#  #force refresh of the extdata - yes its a hack
+#  let(:facts) { {:unique => "yes really"} }
+#
+# if this gets used we need to find a good way to flush the data at the right level so we don't have this silly code
+
 module MockExtdata
 
   def set_extdata(h)
