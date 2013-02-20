@@ -8,7 +8,7 @@ class govuk::apps::asset_manager( $port = 3037 ) {
     client_max_body_size 500m;
 
     proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-    proxy_set_header X-Accel-Mapping /var/govuk/asset-manager/uploads/assets/=/raw/;
+    proxy_set_header X-Accel-Mapping /var/apps/asset-manager/uploads/assets/=/raw/;
 
     # /raw/(.*) is the path mapping sent from the rails application to
     # nginx and is immediately picked up. /raw/(.*) is not available
