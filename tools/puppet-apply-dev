@@ -38,7 +38,7 @@ cd ..
 # Make sure puppet is at least looking in the right place
 if [ ! -f /etc/puppet/puppet.conf ]; then
   sudo mkdir -p /etc/puppet
-  sudo tee >/etc/puppet/puppet.conf <<EOM
+  sudo tee /etc/puppet/puppet.conf >/dev/null <<EOM
 [main]
 modulepath=/var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
 manifestdir=/var/govuk/puppet/manifests
