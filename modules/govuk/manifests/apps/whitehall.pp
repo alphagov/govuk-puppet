@@ -52,7 +52,7 @@ class govuk::apps::whitehall(
   }
 
   if $configure_admin == true {
-    include users::assets
+    include assets
 
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost              => "whitehall-admin.${app_domain}",
@@ -81,17 +81,6 @@ class govuk::apps::whitehall(
     '
     }
 
-    file { "/data/uploads":
-      ensure  => 'directory',
-      owner   => 'assets',
-      group   => 'assets',
-      mode    => '0664',
-      require => [User['assets'], Group['assets']],
-    }
-
-    package { 'nfs-common':
-      ensure => installed,
-    }
     # Needed for pdfinfo, used to count page numbers in uploaded PDFs
     package { 'poppler-utils':
       ensure => installed,

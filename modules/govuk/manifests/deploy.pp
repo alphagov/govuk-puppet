@@ -1,11 +1,11 @@
 class govuk::deploy {
 
+  include assets::user
   include bundler
   include fpm
-  include python
   include pip
+  include python
   include unicornherder
-  include users::assets
 
   group { 'deploy':
     ensure  => 'present',

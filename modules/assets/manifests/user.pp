@@ -1,4 +1,4 @@
-class users::assets {
+class assets::user {
   group { 'assets':
     ensure     => 'present',
     gid        => '2900',
@@ -6,7 +6,7 @@ class users::assets {
 
   user { 'assets':
     ensure     => 'present',
-    home       => "/home/assets",
+    home       => '/home/assets',
     shell      => '/bin/false',
     uid        => '2900',
     gid        => 'assets',
