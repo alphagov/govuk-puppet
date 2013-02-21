@@ -39,7 +39,6 @@ class jenkins {
     provider => gem,
   }
 
-  include nginx
   include jenkins::ssh_key
 
   package { [

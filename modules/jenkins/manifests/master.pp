@@ -23,10 +23,6 @@ class jenkins::master inherits jenkins {
     ensure => 'installed'
   }
 
-  nginx::config::site { 'jenkins':
-    content => template('jenkins/nginx.conf.erb'),
-  }
-
   file { '/home/jenkins/.bashrc':
     source  => 'puppet:///modules/jenkins/dot-bashrc',
     owner   => jenkins,
