@@ -11,7 +11,7 @@ class govuk::node::s_development {
   include solr
   include tmpreaper
   include users
-  include users::assets
+  include asset::user
   include rabbitmq
   include fonts
   include redis
