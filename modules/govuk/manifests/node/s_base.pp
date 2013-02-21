@@ -15,7 +15,7 @@ class govuk::node::s_base {
   include resolvconf
   include rkhunter
   include users
-  include asset::user
+  include assets::user
   include users::groups::bitzesty
   include users::groups::govuk
   include users::groups::newbamboo
