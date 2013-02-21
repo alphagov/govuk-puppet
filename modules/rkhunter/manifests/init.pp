@@ -11,7 +11,14 @@ class rkhunter {
 
   class { 'rkhunter::config':
     require => Class['rkhunter::package'],
-    notify  => Anchor['rkhunter::end'],
+    notify  => [
+      Class['rkhunter::update'],
+      Anchor['rkhunter::end'],
+    ],
+  }
+
+  class { 'rkhunter::update':
+    require => Class['rkhunter::config'],
   }
 
   class { 'rkhunter::monitoring':
