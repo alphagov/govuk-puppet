@@ -4,9 +4,7 @@ class govuk::node::s_management inherits govuk::node::s_base {
   include jenkins::master
   include govuk::openconnect
 
-  package { 'apache2':
-    ensure => 'purged'
-  }
+  include apache::remove
 
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
