@@ -16,7 +16,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include govuk::apps::canary_backend
   include govuk::apps::imminence
-  include govuk::apps::kibana
   include govuk::apps::migratorator
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
@@ -36,6 +35,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   class {'govuk::apps::frontend':
     vhost_protected => true,
+  }
+
+  if str2bool(extlookup('govuk_enable_kibana', 'no')) {
+    include govuk::apps::kibana
   }
 
   if str2bool(extlookup('govuk_enable_travel_advice', 'no')) {
