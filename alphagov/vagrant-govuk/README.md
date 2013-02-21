@@ -8,7 +8,6 @@ You will need access to the repos:
 
 - `puppet` obviously
 - `vcloud-templates` for node definitions
-- `deployment` for extdata
 
 ## Setup
 
