@@ -54,7 +54,7 @@ sudo apt-get install -y -qq git-core
   safe_git_pull /var/govuk/development
 )
 
-bundle install --quiet
+bundle install --quiet --without subprojects
 bundle exec librarian-puppet install --quiet
 
 for dir in `ls vendor/modules`; do
