@@ -41,6 +41,8 @@ require 'rspec-puppet'
 #  let(:facts) { {:unique => "yes really"} }
 #
 # if this gets used we need to find a good way to flush the data at the right level so we don't have this silly code
+# -- the cache is @@cache in rspec-puppet/lib/rspec-puppet/support.rb
+# ---- ppotter
 
 module MockExtdata
 
