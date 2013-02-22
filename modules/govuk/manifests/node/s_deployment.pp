@@ -1,4 +1,5 @@
 class govuk::node::s_deployment inherits govuk::node::s_base {
+  include nginx
   include jenkins::master
   include govuk::openconnect
 
@@ -13,7 +14,11 @@ class govuk::node::s_deployment inherits govuk::node::s_base {
     status_message => '',
   }
 
+  nginx::config::site { 'jenkins':
+    content => template('govuk/node/s_deployment/jenkins.conf.erb'),
+  }
+
   nginx::config::site { 'monitoring-proxy':
-    content => template('jenkins/monitoring-proxy.conf.erb'),
+    content => template('govuk/node/s_deployment/monitoring-proxy.conf.erb'),
   }
 }

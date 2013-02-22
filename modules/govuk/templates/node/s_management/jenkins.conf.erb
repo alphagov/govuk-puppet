@@ -1,0 +1,15 @@
+server {
+  listen 80;
+  server_name ci.alphagov.co.uk;
+
+  location / {
+    proxy_pass http://localhost:8080;
+
+    location /api/json { 
+      add_header "Access-Control-Allow-Origin" "*";
+      add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS";
+      add_header "Access-Control-Allow-Headers" "origin, authorization, cookie, accept";
+      add_header "Access-Control-Allow-Credentials" "true";
+    }
+  }
+}
