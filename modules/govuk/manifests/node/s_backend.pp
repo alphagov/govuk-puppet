@@ -14,6 +14,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     force  => true,
   }
 
+  include govuk::apps::asset_manager
   include govuk::apps::canary_backend
   include govuk::apps::imminence
   include govuk::apps::migratorator
@@ -38,10 +39,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   if str2bool(extlookup('govuk_enable_kibana', 'no')) {
     include govuk::apps::kibana
-  }
-
-  if str2bool(extlookup('govuk_enable_travel_advice', 'no')) {
-    include govuk::apps::asset_manager
   }
 
   include nginx
