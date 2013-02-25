@@ -165,7 +165,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 
       file { '/etc/nginx/ssl/server.key':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/ssl/server.key',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.key',
         require => Class['nginx::package'],
       }
 
@@ -177,7 +177,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 
       file { '/etc/nginx/ssl/ca.crt':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/ca/crt',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/ca.crt',
         require => Class['nginx::package'],
       }
     }
