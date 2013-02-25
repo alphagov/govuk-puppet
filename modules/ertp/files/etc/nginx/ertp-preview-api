@@ -15,3 +15,18 @@ server {
   }
  
 }
+
+server {
+	server_name	preview-ertp-api.certified.alphagov.co.uk;
+  	listen	443 ssl;
+  	ssl 	on;
+  
+  	ssl_certificate     	/etc/nginx/ssl/server.crt;
+  	ssl_certificate_key 	/etc/nginx/ssl/server.key;
+  	ssl_client_certificate 	/etc/nginx/ssl/ca.crt;
+  	ssl_verify_client on;
+
+  	location / {
+    	proxy_pass http://127.0.0.1:9900/;
+  	}
+}

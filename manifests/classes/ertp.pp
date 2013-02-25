@@ -162,6 +162,24 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
         content => "${ertp_http_username}:${ertp_api_preview_http_hash}\n",
         require => Class['nginx::package'],
       }
+
+      file { '/etc/nginx/ssl/server.key':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/ssl/server.key',
+        require => Class['nginx::package'],
+      }
+
+      file { '/etc/nginx/ssl/server.crt':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.crt,
+        require => Class['nginx::package'],
+      }
+
+      file { '/etc/nginx/ssl/ca.crt':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/ca/crt',
+        require => Class['nginx::package'],
+      }
     }
   }
 }
