@@ -28,15 +28,12 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::travel_advice_publisher
 
   class { 'govuk::apps::contentapi': vhost_protected => false }
+  class { 'govuk::apps::frontend':   vhost_protected => true  }
   class { 'govuk::apps::whitehall':
     configure_admin => true,
     port            => 3026,
     vhost_protected => true,
     vhost           => 'whitehall-admin',
-  }
-
-  class {'govuk::apps::frontend':
-    vhost_protected => true,
   }
 
   if str2bool(extlookup('govuk_enable_kibana', 'no')) {
