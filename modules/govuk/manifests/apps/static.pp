@@ -4,6 +4,7 @@
 class govuk::apps::static( $port = 3013 ) {
   $app_domain = extlookup('app_domain')
   $whitehall_frontend_host = "whitehall-frontend.${app_domain}"
+  $asset_manager_host = "asset-manager.${app_domain}"
 
   # In production, the static vhost uses precompiled assets and serves them
   # using nginx.
