@@ -1,0 +1,4 @@
+define command {
+  command_name check_whitehall_overdue
+  command_line /usr/lib/nagios/plugins/check_http -H whitehall-admin.<%= app_domain %> -u '/healthcheck/overdue' -a <%= @http_username %>:<%= @http_password %> -s '{"overdue":0}'
+}

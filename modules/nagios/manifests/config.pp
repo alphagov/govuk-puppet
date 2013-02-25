@@ -51,6 +51,10 @@ class nagios::config {
     content => template('nagios/etc/nagios3/conf.d/check_mapit.cfg.erb'),
   }
 
+  file { '/etc/nagios3/conf.d/check_whitehall_overdue.cfg':
+    content => template('nagios/etc/nagios3/conf.d/check_whitehall_overdue.cfg.erb'),
+  }
+
   # Used by resource.cfg to insert links to correct monitoring instance into
   # emails.
   $monitoring_url = "https://nagios.${app_domain}/"
