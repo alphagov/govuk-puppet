@@ -1,0 +1,7 @@
+class users::nick {
+  govuk::user { 'nick':
+    fullname => 'Nick Stenning',
+    email    => 'nick.stenning@digital.cabinet-office.gov.uk',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQC6kPL0dJKNNOFb6EDh1XcivYi7yf6gmnSeBOwVVAGSxQB5TiBLzp21eSTjsKSVmsaG8AAhde/ve0NFqk7tOz4tKGDGEXPjkBgCUnJzmbB6iJIijGLseZKJ577eXIHRJUgPIqCPOrbmdK0uEwYwXbUKjY2lLRjH4XkkVg4YLVuGlYmpvx9u86GoGLSo9hODbznsE4VKIQv+IKxU8EAccypjDBHkcNiA9nsmkNWG4ZROLc8K+ZedskJBl8jiw9MRWsma5sGF0HYyYyvK9zVdjmQv9phQacSufuCUx4hYAUPU76p40e0VuiR7KXd4bV1aXXLk3tIqoazDm6SK9OL9cJ2lR2e/zdIzmxwTfaNzy2CHZAxd+ed9FTKrKyTMayV255GRfgWK+YkiahMpSpV440ZXpwzu2mbUkJP8DEFkSolybWzNzixjM+aaoHxALq7dDTN5jxpYTENaa6WNC9S1gdoEzDE2d1S9J48qxfPlSxWqPWUZDEOGrD/z0e4mO8y9/Aqru2Vi5yZzolQghcnfcAn6wYE0OSrmVj6ThWD/wDbTXmrpyW2Y3HMQ9Fcndx31nW7Ks3F5wZkG8V3+k2Hxc0tSP7unO6SoaQMe4cm3wYrPvxfi+Gb+Bmj/GdL8MfjuEKm0277jbaD3NsbYuFvWqntyV9WLV/XHkD2asEGnIVNRDw==',
+  }
+}
