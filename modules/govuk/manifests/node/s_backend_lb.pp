@@ -25,6 +25,7 @@ class govuk::node::s_backend_lb {
     ]:
       ;
     [
+      'asset-manager',
       'canary-backend',
       'contentapi',
       'search',
