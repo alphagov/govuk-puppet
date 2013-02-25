@@ -71,6 +71,13 @@ class monitoring::checks {
   # END frontend
 
   # START whitehall
+  @@nagios::check { "check_whitehall_overdue_from_${::hostname}":
+    check_command       => 'check_whitehall_overdue',
+    service_description => 'overdue publications in Whitehall',
+    use                 => 'govuk_low_priority',
+    host_name           => $::fqdn,
+  }
+
   @@nagios::check { "check_scheduled_publishing_${::hostname}":
     # Will generate a warning if the time averaged runs per machine per 15
     # minute interval drops below 0.6 and a critical if below 0.3
