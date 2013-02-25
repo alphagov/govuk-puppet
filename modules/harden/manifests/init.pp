@@ -40,6 +40,13 @@ class harden {
     source => 'puppet:///modules/harden/etc/security/limits.conf',
   }
 
+  file { '/etc/security/limits.d':
+    ensure  => directory,
+    purge   => true,
+    force   => true,
+    recurse => true,
+  }
+
   # Remove setuid privileges
   file { [
       '/bin/mount',

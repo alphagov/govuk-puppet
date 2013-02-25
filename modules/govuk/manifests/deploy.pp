@@ -3,6 +3,7 @@ class govuk::deploy {
   include assets::user
   include bundler
   include fpm
+  include harden
   include pip
   include python
   include unicornherder
@@ -20,6 +21,13 @@ class govuk::deploy {
     shell       => '/bin/bash',
     gid         => 'deploy',
     require     => [Group['deploy'],Group['assets']];
+  }
+
+  harden::limit { 'deploy-nofile':
+    domain => 'deploy',
+    type   => '-', # set both hard and soft limits
+    item   => 'nofile',
+    value  => '16384',
   }
 
   file { '/etc/govuk':
