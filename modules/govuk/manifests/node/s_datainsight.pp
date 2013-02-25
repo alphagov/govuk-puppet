@@ -12,7 +12,6 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   include datainsight::recorders::insidegov
   include datainsight::recorders::everything
 
-  datainsight::collector { 'narrative': }
   datainsight::collector { 'ga': }
   datainsight::collector { 'insidegov': }
   datainsight::collector { 'nongovuk-reach': }
