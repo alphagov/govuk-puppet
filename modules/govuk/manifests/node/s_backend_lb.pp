@@ -20,6 +20,7 @@ class govuk::node::s_backend_lb {
       'release',
       'signon',
       'support',
+      'travel-advice-publisher',
       'whitehall-admin',
     ]:
       ;
