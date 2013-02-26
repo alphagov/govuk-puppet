@@ -46,7 +46,7 @@ EOM
 fi
 
 # Temporary workaround while dev VMs don't come with git preinstalled
-sudo apt-get install -y -qq git-core
+sudo apt-get install -y -qq git-core libxml2-dev libxslt-dev
 
 # Execute the following in a subshell to avoid changing $PWD
 (
