@@ -1,24 +1,10 @@
 # govuk::apps::static
 #
 # The GOV.UK static application -- serves static assets and templates
-
 class govuk::apps::static( $port = 3013 ) {
-
   $app_domain = extlookup('app_domain')
   $whitehall_frontend_host = "whitehall-frontend.${app_domain}"
-
-  $nginx_extra_config = "location ~ ^/government/(assets|uploads|placeholder$)/ {
-      proxy_set_header Host ${whitehall_frontend_host};
-      proxy_set_header X-Real-IP \$remote_addr;
-      proxy_set_header X-Forwarded-Server \$host;
-      proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Host \$host;
-      proxy_pass http://${whitehall_frontend_host};
-
-      # Explicitly re-include Strict-Transport-Security header, thus clearing
-      # the Cache-Control headers set in the parent server directive.
-      include /etc/nginx/sts.conf;
-  }"
+  $asset_manager_host = "asset-manager.${app_domain}"
 
   # In production, the static vhost uses precompiled assets and serves them
   # using nginx.
@@ -33,7 +19,7 @@ class govuk::apps::static( $port = 3013 ) {
     port               => $port,
     enable_nginx_vhost => $should_use_proxy_vhost,
     health_check_path  => '/templates/wrapper.html.erb',
-    nginx_extra_config => $nginx_extra_config,
+    nginx_extra_config => template('govuk/static_extra_nginx_config.conf.erb'),
   }
 
   if ! $should_use_proxy_vhost {
@@ -43,7 +29,7 @@ class govuk::apps::static( $port = 3013 ) {
       aliases           => ['calendars', 'smartanswers', 'static', 'frontend', 'designprinciples', 'licencefinder', 'tariff', 'efg', 'feedback', 'datainsight-frontend', 'businesssupportfinder'],
       ssl_only          => true,
       server_names      => ['static.*', 'assets.*'],
-      extra_root_config => $nginx_extra_config,
+      extra_root_config => template('govuk/static_extra_nginx_config.conf.erb'),
     }
   }
 
