@@ -8,10 +8,6 @@ class akamai_logs::log_scanner {
     group  => 'deploy'
   }
 
-  @logstash::collector { "app-${app_name}":
-    content => template("akamai_logs/log_scanner_logstash.conf.erb"),
-  }
-
   @logrotate::conf { "${app_name}-app":
     matches => "/data/vhost/${app_name}/shared/log/*.log",
   }

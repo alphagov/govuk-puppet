@@ -46,10 +46,6 @@ class nginx::config {
     require => File['/var/www'],
   }
 
-  @logstash::collector { 'nginx':
-    source  => 'puppet:///modules/nginx/etc/logstash/logstash-client/nginx.conf',
-  }
-
   @ganglia::cronjob { 'nginx-status':
     source => 'puppet:///modules/nginx/nginx_ganglia2.sh',
     minute => '*/2',
