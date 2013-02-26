@@ -1,5 +1,5 @@
 class govuk::node::s_base {
-
+  include assets::user
   include backup::client
   include base
   include fail2ban
@@ -15,13 +15,11 @@ class govuk::node::s_base {
   include resolvconf
   include rkhunter
   include users
-  include assets::user
   include users::groups::bitzesty
+  include users::groups::freerange
   include users::groups::govuk
   include users::groups::newbamboo
   include users::groups::other
-  include users::groups::freerange
-
 
   class { 'rsyslog::client':
     server    => 'logging.cluster',
@@ -30,10 +28,10 @@ class govuk::node::s_base {
 
   $email_collection = extlookup('email_collection','off')
   case $email_collection {
-    "on":     {
-        include postfix
+    "on": {
+      include postfix
     }
-    default : {}
+    default: {}
   }
 
   class { 'ruby::rubygems':

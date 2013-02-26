@@ -1,20 +1,20 @@
 class govuk::node::s_development {
   include base
 
+  include assets::user
   include base_packages
+  include fonts
   include hosts::development
   include imagemagick
   include mongodb::server
   include mysql::client
   include nodejs
   include puppet
+  include rabbitmq
+  include redis
   include solr
   include tmpreaper
   include users
-  include assets::user
-  include rabbitmq
-  include fonts
-  include redis
 
   include govuk::deploy
   include govuk::envsys
@@ -35,8 +35,8 @@ class govuk::node::s_development {
   }
 
   include govuk::apps::asset_manager
-  include govuk::apps::canary_frontend
   include govuk::apps::canary_backend
+  include govuk::apps::canary_frontend
   include govuk::apps::efg
   include govuk::apps::errbit
   include govuk::apps::imminence
@@ -49,13 +49,13 @@ class govuk::node::s_development {
   include govuk::apps::publisher
   include govuk::apps::redirector
   include govuk::apps::release
+  include govuk::apps::release
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::static
   include govuk::apps::support
   include govuk::apps::tariff_api
   include govuk::apps::travel_advice_publisher
-  include govuk::apps::release
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
     configure_frontend => true,
