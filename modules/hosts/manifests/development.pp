@@ -30,7 +30,6 @@ class hosts::development {
   host { 'contentapi.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'datainsight-frontend.dev.gov.uk':                 ip => '127.0.0.1' }
-  host { 'datainsight-narrative-recorder.dev.gov.uk':       ip => '127.0.0.1' }
   host { 'datainsight-weekly-reach-recorder.dev.gov.uk':    ip => '127.0.0.1' }
   host { 'datainsight-todays-activity-recorder.dev.gov.uk': ip => '127.0.0.1' }
   host { 'datainsight-format-success-recorder.dev.gov.uk':  ip => '127.0.0.1' }

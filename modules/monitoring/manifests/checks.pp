@@ -98,13 +98,6 @@ class monitoring::checks {
     source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_datainsight_recorder.rb',
   }
 
-  @@nagios::check { 'check_datainsight_narrative_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/narrative.json 60",
-    use                 => 'govuk_normal_priority',
-    service_description => 'checks if datainsight endpoint for gov.uk narrative is updated regularly',
-    host_name           => $::fqdn,
-  }
-
   @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
     use                 => 'govuk_normal_priority',
