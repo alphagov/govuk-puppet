@@ -6,8 +6,9 @@ location ~ ^/government/(assets|uploads|placeholder$)/ {
   proxy_set_header X-Forwarded-Host $host;
   proxy_pass http://<%= @whitehall_frontend_host %>;
 
-  # Explicitly re-include Strict-Transport-Security header, thus clearing
-  # the Cache-Control headers set in the parent server directive.
+  # Explicitly re-include Strict-Transport-Security header, this
+  # forces nginx not to clear Cache-Control headers further up the
+  # stack.
   include /etc/nginx/sts.conf;
 }
 
@@ -18,4 +19,9 @@ location ~ ^/media/ {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Forwarded-Host $host;
   proxy_pass http://<%= @asset_manager_host %>;
+
+  # Explicitly re-include Strict-Transport-Security header, this
+  # forces nginx not to clear Cache-Control headers further up the
+  # stack.
+  include /etc/nginx/sts.conf;
 }
