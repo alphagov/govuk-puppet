@@ -170,12 +170,6 @@ class govuk::node::s_development {
     'wbritish-small': ensure => installed;
   }
 
-  file { [ '/var/lib/datainsight-narrative-recorder.json' ]:
-    ensure  => present,
-    owner   => 'vagrant',
-    group   => 'vagrant',
-  }
-
   file { [ '/var/tmp/datainsight-everything-recorder.json' ]:
     ensure  => present,
     owner   => 'vagrant',

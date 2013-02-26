@@ -51,7 +51,6 @@ class hosts::preview {
 
   host { "datainsight-format-success-recorder.${app_domain}":  ip => '10.32.49.43' }
   host { "datainsight-insidegov-recorder.${app_domain}":       ip => '10.32.49.43' }
-  host { "datainsight-narrative-recorder.${app_domain}":       ip => '10.32.49.43' }
   host { "datainsight-todays-activity-recorder.${app_domain}": ip => '10.32.49.43' }
   host { "datainsight-weekly-reach-recorder.${app_domain}":    ip => '10.32.49.43' }
 

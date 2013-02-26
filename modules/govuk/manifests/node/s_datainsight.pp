@@ -5,7 +5,6 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
 
   include rabbitmq
 
-  include datainsight::recorders::narrative
   include datainsight::recorders::weekly_reach
   include datainsight::recorders::todays_activity
   include datainsight::recorders::format_success

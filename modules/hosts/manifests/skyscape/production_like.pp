@@ -275,7 +275,6 @@ class hosts::skyscape::production_like {
     legacy_aliases => [
       'datainsight-1',
       "datainsight.${app_domain}",
-      "datainsight-narrative-recorder.${app_domain}",
       "datainsight-weekly-reach-recorder.${app_domain}",
       "datainsight-todays-activity-recorder.${app_domain}",
       "datainsight-everything-recorder.${app_domain}",
