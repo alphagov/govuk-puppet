@@ -35,6 +35,16 @@ safe_git_pull () {
 cd "$(dirname "$0")"
 cd ..
 
+ROOT="$(pwd)"
+SELF="${ROOT}/tools/puppet-apply-dev"
+
+if [ -z "$NO_PULL" ]; then
+  safe_git_pull /var/govuk/puppet
+  safe_git_pull /var/govuk/development
+  # Re-exec myself
+  NO_PULL=1 exec "$SELF" "$@"
+fi
+
 # Make sure puppet is at least looking in the right place
 if [ ! -f /etc/puppet/puppet.conf ]; then
   sudo mkdir -p /etc/puppet
@@ -47,12 +57,6 @@ fi
 
 # Temporary workaround while dev VMs don't come with git preinstalled
 sudo apt-get install -y -qq git-core libxml2-dev libxslt-dev
-
-# Execute the following in a subshell to avoid changing $PWD
-(
-  safe_git_pull /var/govuk/puppet
-  safe_git_pull /var/govuk/development
-)
 
 bundle install --quiet --without subprojects
 bundle exec librarian-puppet install --quiet
