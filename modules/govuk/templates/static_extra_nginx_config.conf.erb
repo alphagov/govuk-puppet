@@ -11,7 +11,7 @@ location ~ ^/government/(assets|uploads|placeholder$)/ {
   include /etc/nginx/sts.conf;
 }
 
-location ~ /media/ {
+location ~ ^/media/ {
   proxy_set_header Host <%= @asset_manager_host %>;
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Server $host;
