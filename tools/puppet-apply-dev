@@ -47,6 +47,7 @@ fi
 
 # Make sure puppet is at least looking in the right place
 if [ ! -f /etc/puppet/puppet.conf ]; then
+  info "installing default /etc/puppet/puppet/conf"
   sudo mkdir -p /etc/puppet
   sudo tee /etc/puppet/puppet.conf >/dev/null <<EOM
 [main]
@@ -67,5 +68,6 @@ done
 
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
 # attempt to test stored config configuration on the dev vm
+info "running puppet"
 exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp \
   --environment development "$@" | egrep -iv "warning:.+storeconfigs"
