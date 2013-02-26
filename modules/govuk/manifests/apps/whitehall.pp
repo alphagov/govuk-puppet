@@ -86,17 +86,6 @@ class govuk::apps::whitehall(
       ensure => installed,
     }
 
-    if $::govuk_platform != 'development' {
-      mount { "/data/uploads":
-        ensure  => "mounted",
-        device  => "asset-master.${app_domain}:/mnt/uploads",
-        fstype  => "nfs",
-        options => "defaults",
-        atboot  => true,
-        require => [File["/data/uploads"], Package['nfs-common']],
-      }
-    }
-
     file { '/usr/local/bin/govuk_run_delayed_job_worker':
       ensure  => present,
       source  => 'puppet:///modules/govuk/bin/govuk_run_delayed_job_worker',
