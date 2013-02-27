@@ -6,10 +6,6 @@ server {
     proxy_pass http://127.0.0.1:9600/dwp-file-processor;
   }
 
-  location /gateway {
-    proxy_pass http://127.0.0.1:9950/gateway;
-  }
-
   location / {
     proxy_pass http://127.0.0.1:9900/;
   }
@@ -26,7 +22,7 @@ server {
   	ssl_client_certificate 	/etc/nginx/ssl/ca.crt;
   	ssl_verify_client on;
 
-  	location / {
-    	proxy_pass http://127.0.0.1:9900/;
+  	location /gateway {
+    	proxy_pass http://127.0.0.1:9950/gateway;
   	}
 }
