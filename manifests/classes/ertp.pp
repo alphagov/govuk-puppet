@@ -116,7 +116,26 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
         content => "${ertp_http_username}:${ertp_api_staging_http_hash}\n",
         require => Class['nginx::package'],
       }
+
+      file { '/etc/nginx/ssl/server.key':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.key',
+        require => Class['nginx::package'],
+      }
+
+      file { '/etc/nginx/ssl/server.crt':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.crt',
+        require => Class['nginx::package'],
+      }
+
+      file { '/etc/nginx/ssl/ca.crt':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/ca.crt',
+        require => Class['nginx::package'],
+      }
     }
+    
     default: {
       nginx::config::site { 'default':
         source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
@@ -152,6 +171,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
         require => Class['nginx::package'],
       }
     }
+
     default: {
       nginx::config::site { 'default':
         source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
