@@ -358,7 +358,7 @@ class hosts::skyscape::production_like {
   govuk::host { 'efg-frontend-1':
     ip             => '10.4.0.2',
     vdc            => 'efg',
-    legacy_aliases => ['efg-frontend-1', "${efg_domain}"],
+    legacy_aliases => ['efg-frontend-1', ${efg_domain}],
   }
   govuk::host { 'efg-mysql-slave-1':
     ip             => '10.4.0.11',
