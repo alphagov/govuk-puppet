@@ -15,11 +15,11 @@ class govuk::node::s_base {
   include resolvconf
   include rkhunter
   include users
-  include users::groups::bitzesty
-  include users::groups::freerange
-  include users::groups::govuk
-  include users::groups::newbamboo
-  include users::groups::other
+
+  # Enable management of groups specified in extdata
+  $user_groups = extlookup("user_groups", [])
+  $user_groups_real = regsubst($user_groups, '^', 'users::groups::')
+  class { $user_groups_real: }
 
   class { 'rsyslog::client':
     server    => 'logging.cluster',
