@@ -4,7 +4,6 @@ class govuk::node::s_frontend_lb {
 
   $govuk_frontend_servers = ["frontend-1", "frontend-2", "frontend-3"]
   $whitehall_frontend_servers = ["whitehall-frontend-1", "whitehall-frontend-2",]
-  $efg_frontend_servers = ["efg-frontend-1"]
 
   $app_domain = extlookup('app_domain')
 
@@ -30,9 +29,6 @@ class govuk::node::s_frontend_lb {
       'tariff',
     ]:
       ;
-    'efg':
-      internal_only => false,
-      servers       => $efg_frontend_servers;
     'frontend':
       aliases       => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
     'static':
