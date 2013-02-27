@@ -29,10 +29,11 @@ class hosts::skyscape::production_like {
     legacy_aliases  => ['logging'],
     service_aliases => ['graylog'],
   }
-  govuk::host { 'elasticsearch-1':
-    ip              => '10.0.0.27',
+  govuk::host { 'logs-elasticsearch-1':
+    ip              => '10.0.0.29',
     vdc             => 'management',
-    legacy_aliases  => ['elasticsearch-1'],
+    legacy_aliases  => ['logs-elasticsearch-1'],
+    service_aliases => ['logs-elasticsearch'],
   }
   govuk::host { 'logging-1':
     ip              => '10.0.0.28',
