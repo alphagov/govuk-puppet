@@ -142,7 +142,6 @@ class hosts::skyscape::production_like {
       "canary-frontend.${app_domain}",
       "datainsight-frontend.${app_domain}",
       "designprinciples.${app_domain}",
-      "efg.${app_domain}",
       "feedback.${app_domain}",
       "frontend.${app_domain}",
       "licencefinder.${app_domain}",
@@ -357,7 +356,7 @@ class hosts::skyscape::production_like {
   govuk::host { 'efg-frontend-1':
     ip             => '10.4.0.2',
     vdc            => 'efg',
-    legacy_aliases => ['efg-frontend-1'],
+    legacy_aliases => ['efg-frontend-1', "efg.${app_domain}"],
   }
   govuk::host { 'efg-mysql-slave-1':
     ip             => '10.4.0.11',
