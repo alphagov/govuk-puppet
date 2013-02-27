@@ -58,7 +58,6 @@ class govuk::apps::whitehall(
       vhost              => "whitehall-admin.${app_domain}",
       app_port           => $port,
       protected          => true,
-      intercept_errors   => str2bool(extlookup('whitehall_admin_intercept_errors', 'yes')),
       nginx_extra_config => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
       proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;
