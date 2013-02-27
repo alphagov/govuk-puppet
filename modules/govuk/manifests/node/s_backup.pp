@@ -2,6 +2,12 @@ class govuk::node::s_backup {
     include govuk::node::s_base
     include backup::server
 
+    #To accommodate futzing around with databases, we install a MySQL server
+    $root_password = extlookup('mysql_root', '')
+    class { 'mysql::server':
+      root_password => $root_password,
+    }
+
     $offsite_backup = extlookup('offsite-backups', 'off')
 
     case $offsite_backup {
