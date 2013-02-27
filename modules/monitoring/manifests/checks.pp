@@ -74,7 +74,7 @@ class monitoring::checks {
   @@nagios::check { "check_whitehall_overdue_from_${::hostname}":
     check_command       => 'check_whitehall_overdue',
     service_description => 'overdue publications in Whitehall',
-    use                 => 'govuk_low_priority',
+    use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
   }
 
@@ -84,7 +84,7 @@ class monitoring::checks {
     check_command       => 'check_graphite_metric_since!avg(hitcount(stats.govuk.app.whitehall.*.scheduled_publishing.call_rate,\'15minutes\'))!15minutes!0.6:!0.3:',
     service_description => 'whitehall sched pub not running every 15 minutes',
     # This was govuk_urgent_priority, but is generating too many spurious pages.
-    use                 => 'govuk_high_priority',
+    use                 => 'govuk_low_priority',
     host_name           => $::fqdn,
   }
   # END whitehall
