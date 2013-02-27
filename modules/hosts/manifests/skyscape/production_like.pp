@@ -3,6 +3,7 @@ class hosts::skyscape::production_like {
   # ends .cluster is maintained for backwards compatibility with ec2
 
   $app_domain = extlookup('app_domain')
+  $efg_domain = extlookup('efg_domain',"efg.${app_domain}")
   $internal_tld = extlookup('internal_tld', 'production')
 
   #management vdc machines
@@ -353,10 +354,11 @@ class hosts::skyscape::production_like {
     vdc            => 'efg',
     legacy_aliases => ['efg-mysql-master-1', 'efg.master.mysql'],
   }
+
   govuk::host { 'efg-frontend-1':
     ip             => '10.4.0.2',
     vdc            => 'efg',
-    legacy_aliases => ['efg-frontend-1', "efg.${app_domain}"],
+    legacy_aliases => ['efg-frontend-1', "${efg_domain}"],
   }
   govuk::host { 'efg-mysql-slave-1':
     ip             => '10.4.0.11',
