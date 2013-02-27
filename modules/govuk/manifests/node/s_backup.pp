@@ -7,6 +7,7 @@ class govuk::node::s_backup {
     class { 'mysql::server':
       root_password => $root_password,
     }
+    class {'govuk::apps::whitehall::db':       require => Class['mysql::server'] }
 
     $offsite_backup = extlookup('offsite-backups', 'off')
 
