@@ -122,6 +122,12 @@ govuk::user { 'benilovj':
     email    => 'henry.hadlow@digital.cabinet-office.gov.uk',
     ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDFLyYiA+8aNel58JKdiAdS0nHi5DjiqAb9E5rGmg0R9rAdnqYk6ith9mMhQO9la8A6AOHUy7H5cD+Nu7kjpmvmF1bE+Lps+Dps0uVMunwM6eNqBkG3qDprK6WwIGweLC2MNEhwbiVvjfoRXkUAiicuCAIzaMpC2wNKpFVTDcMBVqoS0439Up5/f0Q/1FLtNlf76V0nyetHR3mt8jgP5FgAnbQK0fG4HMwPp7juEqJkVul0IGuosOMEM6yuNfdTjwrVZ6wu450V4LfrzfQ3Xbc0nDfrb2s9iBrtVzVsWbBef5QviY6ydRjHa8qR46zvBs3ITz/3MxvWFbgunLSB3hTz',
   }
+
+  govuk::user { 'jackfranklin':
+    fullname => 'Jack Franklin',
+    email    => 'jack.franklin@digital.cabinet-office.gov.uk',
+    ssh_key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCqi2KHkjPjxvSathKOelAKqmMaWaQ5CUDev6vN+LkgTNxD7UqjCMD22T2RheSUcOSTVtbQeo+2iw9BVWYVwHFazSqBca1LkNf9mEbDuhKJlk4j3Y672v7u0DGZqsCaOIble/XxOHhDTrYnuzDIB+xkaQQlqaBheuKJiC9ZXoV5CR4ZEuuXZORAWd1MKO6GvNSuFPmCDn2mPGu7ZdtsyzK6XL0yVzF9uo5Qn763J3yJZVp0fiDsHthWvWEgokB3cqL6aWd7uiaKv03Ek4XwkSahIbrzddp2CjUvckeVQZ78c1zAhhzGJjeUY9lA99H9a8A6Ry6YUbSxOt77SZDjkH11',
+  }
   govuk::user { 'jabley':
     fullname => 'James Abley',
     email    => 'james.abley@digital.cabinet-office.gov.uk',
