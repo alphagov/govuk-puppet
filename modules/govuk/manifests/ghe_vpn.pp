@@ -21,7 +21,7 @@ class govuk::ghe_vpn {
     user      => extlookup('openconnect_user',''),
     password  => extlookup('openconnect_password',''),
     dnsupdate => 'no',
-    require   => Class['govuk::ghe_vpn::vpnc']
+    require   => Class['vpnc']
   }
 
 }
