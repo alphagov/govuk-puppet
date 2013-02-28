@@ -135,7 +135,7 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
         require => Class['nginx::package'],
       }
     }
-    
+
     default: {
       nginx::config::site { 'default':
         source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
