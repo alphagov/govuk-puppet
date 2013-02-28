@@ -23,6 +23,7 @@ class govuk::envsys {
     'govuk_class',
     'govuk_platform',
     'govuk_provider',
+    'govuk_java_version',
   ]
 
   file { '/etc/environment':
