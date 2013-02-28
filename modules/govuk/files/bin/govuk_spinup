@@ -39,10 +39,15 @@ case "$GOVUK_APP_TYPE" in
     export RACK_ENV="$GOVUK_ENV"
 
     CMD="bundle exec"
-    # Unicorn Herder args
-    CMD="${CMD} unicornherder -u unicorn -p '${GOVUK_APP_RUN}/app.pid'"
-    # Unicorn args
-    CMD="${CMD} -- -p \$PORT"
+    if [ "$UNICORNHERDER" == "false" ]; then
+        # Unicorn args
+        CMD="${CMD} unicorn -p \$PORT"
+    else
+        # Unicorn Herder args
+        CMD="${CMD} unicornherder -u unicorn -p '${GOVUK_APP_RUN}/app.pid'"
+        # Unicorn args
+        CMD="${CMD} -- -p \$PORT"
+    fi
 
     if [ -e "${GOVUK_APP_ROOT}/config/unicorn.rb" ]; then
       CMD="${CMD} -c '${GOVUK_APP_ROOT}/config/unicorn.rb'"
@@ -71,6 +76,7 @@ echo "GOVUK_APP_TYPE=${GOVUK_APP_TYPE}"
 echo "GOVUK_APP_ROOT=${GOVUK_APP_ROOT}"
 echo "GOVUK_APP_RUN=${GOVUK_APP_RUN}"
 echo "GOVUK_APP_LOGROOT=${GOVUK_APP_LOGROOT}"
+echo "UNICORNHERDER=${UNICORNHERDER}"
 
 set -x
 exec start-stop-daemon --start \

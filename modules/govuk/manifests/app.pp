@@ -22,6 +22,14 @@ define govuk::app(
   $port,
 
   #
+  # use_unicornherder: decide to use unicornherder or unicorn for spinup
+  #
+  # If set true, this would use unicornherder to spinup the application,
+  # else uses unicorn to spinup the application.
+  #
+  $use_unicornherder = true,
+
+  #
   # health_check_path: path at which to check the status of the application.
   #
   # This is used to export health checks to ensure the application is running
@@ -130,6 +138,7 @@ define govuk::app(
   govuk::app::config { $title:
     require                => Govuk::App::Package[$title],
     app_type               => $app_type,
+    use_unicornherder      => $govuk::app::use_unicornherder,
     domain                 => $app_domain,
     port                   => $port,
     vhost_aliases          => $vhost_aliases,
