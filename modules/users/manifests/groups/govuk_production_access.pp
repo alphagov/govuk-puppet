@@ -2,6 +2,7 @@ class users::groups::govuk_production_access {
 
   include users::alext
   include users::annashipman
+  include users::bob
   include users::carlmassa
   include users::dafydd
   include users::dai
