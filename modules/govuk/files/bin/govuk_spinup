@@ -39,7 +39,7 @@ case "$GOVUK_APP_TYPE" in
     export RACK_ENV="$GOVUK_ENV"
 
     CMD="bundle exec"
-    if [ "$UNICORNHERDER" == "false" ]; then
+    if [ "$UNICORNHERDER" = "false" ]; then
         # Unicorn args
         CMD="${CMD} unicorn -p \$PORT"
     else
