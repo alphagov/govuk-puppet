@@ -1,3 +1,12 @@
 mongo.database.hosts=ertp-mongo-1,ertp-mongo-2,ertp-mongo-3
 places.api.url=http://places-api:9700/places
+ertp.api.url=http://ertp-api:9900/ertp-api
+ertp.ems.api.url=http://ertp-api:9900/ertp-api
+stats.api.url=http://ertp-stats-api:9125/stats-api
+ertp.dwp.api.url=http://ertp-api:9900/ertp-api
+ertp.gateway.api.url=http://localhost:9950/gateway
+ertp.ems.registrations.url=/ems/registration-requests
+ertp.ems.mark.url=/ems/registration-requests/received
+http.connectionTimeout=180000
+http.soTimeout=180000
 api.mode=ems
