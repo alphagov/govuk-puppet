@@ -10,7 +10,8 @@ define govuk::app::config (
   $nginx_extra_app_config = '',
   $health_check_path = 'NOTSET',
   $intercept_errors = false,
-  $enable_nginx_vhost = true
+  $enable_nginx_vhost = true,
+  $use_unicornherder = true,
 ) {
 
   # Ensure config dir exists
