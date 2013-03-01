@@ -27,7 +27,8 @@ define loadbalancer::balance(
     $aliases = [],
     $https_only = false,
     $internal_only = false,
-    $vhost = $title
+    $vhost = $title,
+    $read_timeout = 60,
 ) {
 
   $vhost_suffix = extlookup('app_domain')
