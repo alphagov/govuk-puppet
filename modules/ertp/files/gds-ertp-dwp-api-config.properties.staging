@@ -1,8 +1,7 @@
 mongo.database.hosts=ertp-mongo-1,ertp-mongo-2,ertp-mongo-3
 api.mode=dwp
 ertp.dwp.api.url=http://localhost:9900/ertp-api
-ertp.api.url=http://ertp-api:9900/ertp-api
-ertp.dwp.api.url=http://ertp-api:9900/ertp-api
+ertp.api.url=http://ertp-ems-api:9900/ertp-api
 dwp.max.number.of.records.per.request.page=1000
 dwp.max.number.or.records.per.response.page=1000
 dwp.match.request.appending.schedule=0 0/1 9-17 * * ?
