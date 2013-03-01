@@ -67,9 +67,6 @@ class elasticsearch::config (
     content => template('elasticsearch/upstart.conf.erb'),
   }
 
-  @logstash::collector { 'elasticsearch':
-    source => 'puppet:///modules/elasticsearch/logstash.conf',
-  }
 
   @ganglia::pyconf { "elasticsearch-${cluster_name}":
     content => template('elasticsearch/elasticsearch.pyconf.erb'),

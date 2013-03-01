@@ -60,8 +60,4 @@ class varnish::service {
     host_name           => $::fqdn,
   }
 
-  @logstash::collector { 'varnish':
-    source  => 'puppet:///modules/varnish/etc/logstash/logstash-client/varnish.conf',
-  }
-
 }

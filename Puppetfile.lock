@@ -26,13 +26,22 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-rsyslog.git
-  ref: 22c4146
-  sha: 22c4146a5358acc95016149b2a8f68811a5ccc0f
+  ref: 691c6f4
+  sha: 691c6f4fe4c20455ffdb7d13f709d0e9cd35855a
   specs:
     rsyslog (1.1.4)
 
+GIT
+  remote: git://github.com/electrical/puppet-logstash.git
+  ref: 694fa1a
+  sha: 694fa1afc87e0151ae0a5121c0241cf0b3a1bbbf
+  specs:
+    logstash (0.0.4)
+      puppetlabs/stdlib (>= 3.0.0)
+
 DEPENDENCIES
   cpanm (>= 0)
+  logstash (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)

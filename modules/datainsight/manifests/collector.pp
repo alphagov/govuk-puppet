@@ -25,10 +25,6 @@ define datainsight::collector {
     target => "/data/vhost/${vhost_full}/current/log"
   }
 
-  @logstash::collector { "app-${vhost}":
-    content => template('datainsight/collector_logstash.conf.erb'),
-  }
-
   @logrotate::conf { "${vhost}-app":
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
   }

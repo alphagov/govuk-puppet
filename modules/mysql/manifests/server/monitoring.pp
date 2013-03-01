@@ -39,8 +39,4 @@ class mysql::server::monitoring ($root_password) {
     host_name           => $::fqdn,
   }
 
-  @logstash::collector { 'mysql':
-    source  => 'puppet:///modules/mysql/etc/logstash/logstash-client/mysql.conf',
-  }
-
 }

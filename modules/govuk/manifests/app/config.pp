@@ -102,10 +102,6 @@ define govuk::app::config (
     require => File["/usr/lib/ganglia/python_modules/app-${title}-procstat.py"]
   }
 
-  @logstash::collector { "app-${title}":
-    content => template('govuk/app_logstash.conf.erb'),
-  }
-
   @logrotate::conf { "govuk-${title}":
     matches => "/var/log/${title}/*.log",
   }

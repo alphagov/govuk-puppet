@@ -70,10 +70,6 @@ class router::nginx (
     group  => 'deploy',
   }
 
-  @logstash::collector { 'router':
-        source => 'puppet:///modules/router/etc/logstash/logstash-client/router.conf',
-  }
-
   @logster::cronjob { 'lb':
     args => "NginxGangliaLogster /var/log/nginx/lb-access.log",
   }

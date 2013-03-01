@@ -23,13 +23,6 @@ class puppet::master::config ($unicorn_port = '9090') {
     source  => 'puppet:///modules/puppet/etc/puppet/config.ru'
   }
 
-  @logstash::pattern { 'puppetmaster':
-    source  => 'puppet:///modules/puppet/etc/logstash/grok-patterns/puppetmaster',
-  }
-
-  @logstash::collector { "puppetmaster":
-    source => 'puppet:///modules/puppet/logstash.conf',
-  }
 
   @logrotate::conf { "puppetmaster":
     matches => "/var/log/puppetmaster/*.log",

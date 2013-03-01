@@ -50,12 +50,4 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
     host_name           => $::fqdn,
   }
 
-  @logstash::collector { 'mongodb':
-    source  => 'puppet:///modules/mongodb/etc/logstash/logstash-client/mongodb.conf',
-  }
-
-  @logstash::pattern { 'mongodb':
-    source  => 'puppet:///modules/mongodb/etc/logstash/grok-patterns/mongodb-pattern',
-  }
-
 }
