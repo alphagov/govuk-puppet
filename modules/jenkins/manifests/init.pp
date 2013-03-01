@@ -39,6 +39,11 @@ class jenkins {
     provider => gem,
   }
 
+  package { 'ghtools':
+    ensure   => 'installed',
+    provider => pip,
+  }
+
   include jenkins::ssh_key
 
   package { [
