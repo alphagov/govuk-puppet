@@ -119,19 +119,19 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
 
       file { '/etc/nginx/ssl/server.key':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.key',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/staging-server.key',
         require => Class['nginx::package'],
       }
 
       file { '/etc/nginx/ssl/server.crt':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.crt',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/staging-server.crt',
         require => Class['nginx::package'],
       }
 
       file { '/etc/nginx/ssl/ca.crt':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/ca.crt',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/staging-ca.crt',
         require => Class['nginx::package'],
       }
     }
@@ -185,19 +185,19 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
 
       file { '/etc/nginx/ssl/server.key':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.key',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/preview-server.key',
         require => Class['nginx::package'],
       }
 
       file { '/etc/nginx/ssl/server.crt':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/server.crt',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/preview-server.crt',
         require => Class['nginx::package'],
       }
 
       file { '/etc/nginx/ssl/ca.crt':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/nginx/ssl/ca.crt',
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/preview-ca.crt',
         require => Class['nginx::package'],
       }
     }
