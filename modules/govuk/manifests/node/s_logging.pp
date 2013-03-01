@@ -75,7 +75,7 @@ include java::oracle7::jre
 #configure logstash outputs
 
   logstash::output::elasticsearch_http {'syslog':
-    host  => "elasticsearch-1.management",
+    host  => "logs-elasticsearch.cluster",
     index => "logs-current",
   }
 
