@@ -23,16 +23,18 @@ define elasticsearch::template (
 
     'present': {
       exec { "create-elasticsearch-template-${template_name}":
-        command  => "es-template create '${template_name}' <<EOS
+        command   => "es-template create '${template_name}' <<EOS
 ${content}
 EOS",
-        unless   => "es-template compare '${template_name}' <<EOS
+        unless    => "es-template compare '${template_name}' <<EOS
 ${content}
 EOS",
+        tries     => '3',
+        try_sleep => '30',
         # This is required to ensure the correct interpolation of variables in
         # the above commands.
-        provider => 'shell',
-        require  => Class['elasticsearch::service'],
+        provider  => 'shell',
+        require   => Class['elasticsearch::service'],
       }
     }
 
