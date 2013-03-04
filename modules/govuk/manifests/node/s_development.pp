@@ -12,7 +12,6 @@ class govuk::node::s_development {
   include puppet
   include rabbitmq
   include redis
-  include solr
   include tmpreaper
   include users
 
