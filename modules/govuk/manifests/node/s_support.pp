@@ -1,5 +1,4 @@
 class govuk::node::s_support inherits govuk::node::s_base {
-  include solr
   include apt_cacher::server
   include apt_cacher::client
 

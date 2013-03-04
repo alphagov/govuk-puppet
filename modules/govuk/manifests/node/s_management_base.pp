@@ -12,7 +12,6 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include imagemagick
   include mongodb::server
   include nodejs
-  include solr
 
   class { 'elasticsearch':
     cluster_name       => "govuk-${::govuk_platform}",
