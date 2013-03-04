@@ -33,10 +33,6 @@ class graphite::config {
     source => 'puppet:///modules/graphite/storage-schema.conf',
   }
 
-  file { '/opt/graphite':
-    ensure => directory,
-  }
-
   file { '/opt/graphite/storage':
     ensure  => directory,
     require => File['/opt/graphite'],
