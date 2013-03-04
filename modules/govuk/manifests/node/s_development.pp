@@ -14,6 +14,8 @@ class govuk::node::s_development {
   include redis
   include tmpreaper
   include users
+  include pip
+  include virtualenv
 
   include govuk::deploy
   include govuk::envsys
@@ -32,6 +34,7 @@ class govuk::node::s_development {
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
+    'performance_platform::backstage': ;
   }
 
   include govuk::apps::asset_manager
