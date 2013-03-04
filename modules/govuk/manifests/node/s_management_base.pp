@@ -1,4 +1,4 @@
-class govuk::node::s_management_base {
+class govuk::node::s_management_base inherits govuk::node::s_base {
   include apt
   include ssh
 
