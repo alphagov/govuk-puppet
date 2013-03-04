@@ -34,9 +34,12 @@ class graphite::config {
   }
 
   exec { 'create whisper db for graphite' :
-    command     => '/opt/graphite/graphite/manage.py syncdb --noinput',
+    command     => '/usr/bin/django-admin syncdb --noinput --settings=graphite.settings',
     creates     => '/opt/graphite/storage/graphite.db',
-    environment => ['GRAPHITE_STORAGE_DIR=/opt/graphite/storage/','GRAPHITE_CONF_DIR=/opt/graphite/conf/']
+    environment => [
+      'GRAPHITE_STORAGE_DIR=/opt/graphite/storage',
+      'GRAPHITE_CONF_DIR=/etc/graphite/'
+    ],
   }
 
   nginx::config::vhost::proxy { 'graphite':
