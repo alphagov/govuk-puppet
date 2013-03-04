@@ -24,6 +24,7 @@ server {
   root /var/www/ganglia-web-3.5.0;
 
   access_log /var/log/nginx/ganglia-access.log timed_combined;
+  access_log /var/log/nginx/ganglia-json.event.access.log json_event;
   error_log /var/log/nginx/ganglia-error.log;
 <%- if @monitoring_protected -%>
   auth_basic "Ganglia Restricted Access";

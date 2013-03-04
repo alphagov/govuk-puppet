@@ -22,6 +22,7 @@ server {
   root /var/www/monitoring;
 
   access_log /var/log/nginx/monitoring-access.log timed_combined;
+  access_log /var/log/nginx/monitoring-json.event.access.log json_event;
   error_log /var/log/nginx/monitoring-error.log;
 
   auth_basic "Enter your username/password";

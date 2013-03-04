@@ -34,6 +34,7 @@ server {
   client_max_body_size 4g;
 
   access_log /var/log/nginx/<%= @vhost_real %>-access.log timed_combined;
+  access_log /var/log/nginx/<%= @vhost_real %>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_real %>-error.log;
 
   location / {
