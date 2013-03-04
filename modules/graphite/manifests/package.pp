@@ -31,6 +31,7 @@ class graphite::package {
   }
 
   file { '/opt/graphite':
+    ensure  => directory,
     owner   => 'root',
     group   => 'root',
   }
