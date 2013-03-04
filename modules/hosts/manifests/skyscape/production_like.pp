@@ -66,6 +66,11 @@ class hosts::skyscape::production_like {
     vdc            => 'management',
     legacy_aliases => ['mirrorer-1'],
   }
+  govuk::host { 'graphite-1':
+    ip             => '10.0.0.22',
+    vdc            => 'management',
+    legacy_aliases => ['graphite-1'],
+  }
 
   #router vdc machines
   govuk::host { 'cache-1':
