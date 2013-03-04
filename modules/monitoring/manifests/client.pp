@@ -5,5 +5,6 @@ class monitoring::client {
   include graphite::client
   include logster
   include auditd
+  include collectd
 
 }
