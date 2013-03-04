@@ -52,6 +52,7 @@ http {
                          '"http_user_agent": "$http_user_agent" } }';
 
     access_log  /var/log/nginx/access.log timed_combined;
+    access_log  /var/log/nginx/json.event.access.log logstash_json;
 
     client_max_body_size 20M;
 
