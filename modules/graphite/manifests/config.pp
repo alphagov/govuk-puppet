@@ -33,6 +33,15 @@ class graphite::config {
     source => 'puppet:///modules/graphite/storage-schema.conf',
   }
 
+  file { '/opt/graphite':
+    ensure => directory,
+  }
+
+  file { '/opt/graphite/storage':
+    ensure  => directory,
+    require => File['/opt/graphite'],
+  }
+
   exec { 'create whisper db for graphite' :
     command     => '/usr/bin/django-admin syncdb --noinput --settings=graphite.settings',
     creates     => '/opt/graphite/storage/graphite.db',
@@ -40,6 +49,7 @@ class graphite::config {
       'GRAPHITE_STORAGE_DIR=/opt/graphite/storage',
       'GRAPHITE_CONF_DIR=/etc/graphite/'
     ],
+    require     => File['/opt/graphite/storage'],
   }
 
   nginx::config::vhost::proxy { 'graphite':
