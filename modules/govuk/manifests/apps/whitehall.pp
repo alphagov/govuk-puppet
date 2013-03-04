@@ -10,7 +10,7 @@ class govuk::apps::whitehall(
 
   if $::govuk_platform != 'development' {
     if $configure_frontend == true and $configure_admin == true {
-      abort "You should not be configuring whitehall-frontend and whitehall-admin on the same node"
+      fail('You should not be configuring whitehall-frontend and whitehall-admin on the same node')
     }
   }
 
