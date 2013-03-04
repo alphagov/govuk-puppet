@@ -1,4 +1,4 @@
-define govuk::app(
+define govuk::app (
   #
   # app_type: 'rack' or 'procfile'.
   #
@@ -138,7 +138,7 @@ define govuk::app(
   govuk::app::config { $title:
     require                => Govuk::App::Package[$title],
     app_type               => $app_type,
-    use_unicornherder      => $govuk::app::use_unicornherder,
+    use_unicornherder      => $use_unicornherder,
     domain                 => $app_domain,
     port                   => $port,
     vhost_aliases          => $vhost_aliases,
