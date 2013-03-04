@@ -5,6 +5,7 @@ class govuk::node::s_management_base {
   include govuk::node::s_ruby_app_server
 
   include govuk::deploy
+  include govuk::ghe_vpn
   include govuk::testing_tools
 
   include clamav
