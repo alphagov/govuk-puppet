@@ -25,6 +25,9 @@
 -w /etc/libaudit.conf -p wa -k auditconfig
 -w /etc/audisp/ -p wa -k audispconfig
 
+## Monitor for use of audit management tools
+-w /sbin/auditctl -p x -k audittools
+-w /sbin/auditd -p x -k audittools
 
 ## special files
 -a entry,always -F arch=b32 -S mknod -S mknodat -k specialfiles
