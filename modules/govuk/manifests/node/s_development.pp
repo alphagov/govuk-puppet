@@ -28,6 +28,7 @@ class govuk::node::s_development {
     'govuk::apps::feedback':              vhost_protected => false;
     'govuk::apps::frontend':              vhost_protected => false;
     'govuk::apps::licencefinder':         vhost_protected => false;
+    'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;

@@ -25,6 +25,7 @@ class govuk::node::s_frontend_lb {
       'designprinciples',
       'feedback',
       'licencefinder',
+      'limelight',
       'smartanswers',
       'tariff',
     ]:

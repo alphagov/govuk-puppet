@@ -45,4 +45,5 @@ class hosts::development {
   host { 'travel-advice-publisher.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'release.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'asset-manager.dev.gov.uk':                        ip => '127.0.0.1' }
+  host { 'limelight.dev.gov.uk':                            ip => '127.0.0.1' }
 }

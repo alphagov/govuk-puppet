@@ -150,6 +150,7 @@ class hosts::skyscape::production_like {
       "feedback.${app_domain}",
       "frontend.${app_domain}",
       "licencefinder.${app_domain}",
+      "limelight.${app_domain}",
       "publicapi.${app_domain}",
       "smartanswers.${app_domain}",
       "static.${app_domain}",
