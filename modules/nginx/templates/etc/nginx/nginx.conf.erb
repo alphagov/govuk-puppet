@@ -32,7 +32,27 @@ http {
       '$request_time $upstream_response_time '
       '$gzip_ratio $sent_http_x_cache $sent_http_location $http_host';
 
+    log_format json_event '{ "@timestamp": "$time_iso8601", '
+                         '"@fields": { '
+                         '"remote_addr": "$remote_addr", '
+                         '"remote_user": "$remote_user", '
+                         '"body_bytes_sent": "$body_bytes_sent", '
+                         '"bytes_sent": "$bytes_sent", '
+                         '"request_time": "$request_time", '
+                         '"upstream_response_time": "$upstream_response_time", '
+                         '"upstream_addr": "$upstream_addr", '
+                         '"gzip_ratio": "$gzip_ratio", '
+                         '"sent_http_x_cache": "$sent_http_x_cache", '
+                         '"sent_http_location": "$sent_http_location", '
+                         '"http_host": "$http_host", '
+                         '"status": "$status", '
+                         '"request": "$request", '
+                         '"request_method": "$request_method", '
+                         '"http_referrer": "$http_referer", '
+                         '"http_user_agent": "$http_user_agent" } }';
+
     access_log  /var/log/nginx/access.log timed_combined;
+    access_log  /var/log/nginx/json.event.access.log json_event;
 
     client_max_body_size 20M;
 

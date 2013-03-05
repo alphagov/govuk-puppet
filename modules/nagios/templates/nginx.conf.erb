@@ -31,6 +31,7 @@ server {
   root /usr/share/nagios3/htdocs;
 
   access_log /var/log/nginx/nagios-access.log timed_combined;
+  access_log /var/log/nginx/nagios-json.event.access.log json_event;
   error_log /var/log/nginx/nagios-error.log;
 <%- if @protect_monitoring -%>
   auth_basic "Nagios Restricted Access";
