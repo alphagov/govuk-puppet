@@ -156,4 +156,24 @@ define govuk::app(
     subscribe => Class['govuk::deploy'],
   }
 
+  govuk::app::logstream { "${title}-upstart-out":
+    logfile => "/var/log/${title}/upstart.out.log",
+    tags    => [$title, 'STDOUT', 'UPSTART'],
+  }
+
+  govuk::app::logstream { "${title}-upstart-err":
+    logfile => "/var/log/${title}/upstart.err.log",
+    tags    => [$title, 'STDERR', 'UPSTART'],
+  }
+
+  govuk::app::logstream { "${title}-app-out":
+    logfile => "/var/log/${title}/app.out.log",
+    tags    => [$title, 'STDOUT', 'APPLICATION'],
+  }
+
+  govuk::app::logstream { "${title}-app-err":
+    logfile => "/var/log/${title}/app.err.log",
+    tags    => [$title, 'STDERR', 'APPLICATION'],
+  }
+
 }
