@@ -142,6 +142,11 @@
 -a exit,always -F arch=b64 -S open -F dir=/data -F success=0 -k unauthedfileacess
 -a exit,always -F arch=b64 -S open -F dir=/srv -F success=0 -k unauthedfileacess
 
+#Monitor for use of process ID change (switching accounts) applications
+-w /bin/su -p x -k priv_esc
+-w /usr/bin/sudo -p x -k priv_esc
+-w /etc/sudoers -p rw -k priv_esc
+
 
 ## Make the configuration immutable
 #-e 2
