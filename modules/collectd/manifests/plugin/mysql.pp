@@ -9,7 +9,7 @@ class collectd::plugin::mysql(
     remote_host   => 'localhost',
     privileges    => 'REPLICATION CLIENT',
     tag           => 'collectd::plugin',
-    notify        => Collectd::Plugin['nginx'],
+    notify        => Collectd::Plugin['mysql'],
   }
 
   @collectd::plugin { 'mysql':
