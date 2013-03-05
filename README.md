@@ -71,3 +71,17 @@ The `manifests/` directory is considered one module called `manifests` for
 this purpose.
 
     $ bundle exec rake mods=manifests,govuk
+
+### Node testing
+
+Some issues that span multiple classes or modules may not be picked up unit
+testing. Duplicate resource and mislabelled depdendencies are such examples.
+To catch these, all available `govuk::node` classes can be exercised with:
+
+    $ bundle exec rake spec:nodes
+
+Because compiling node complete node catalogs takes quite a long time you
+may wish to restrict it to certain classes of node by setting an environment
+variable, `classes` for the rake task, e.g.
+
+    $ bundle exec rake spec:nodes classes=frontend,backend
