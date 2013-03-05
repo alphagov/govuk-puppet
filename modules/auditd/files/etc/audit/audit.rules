@@ -60,6 +60,17 @@
 -w /etc/shadow -k etcpasswd
 -w /etc/security/opasswd -k opasswd
 
+## monitor usage of passwd
+-w /usr/bin/passwd -p x -k passwd_modification
+
+#Monitor for use of tools to change group identifiers
+-w /usr/sbin/groupadd -p x -k group_modification
+-w /usr/sbin/groupmod -p x -k group_modification
+-w /usr/sbin/addgroup -p x -k group_modification
+-w /usr/sbin/useradd -p x -k user_modification
+-w /usr/sbin/usermod -p x -k user_modification
+-w /usr/sbin/adduser -p x -k user_modification
+
 ## login configuration and information
 -w /etc/login.defs -p wa -k login
 -w /etc/securetty -p wa -k login
@@ -112,6 +123,10 @@
 ## changes to issue
 -w /etc/issue -p wa -k etcissue
 -w /etc/issue.net -p wa -k etcissue
+
+## log all commands executed by an effective id of 0 aka root.
+-a exit,always -F arch=b64 -F euid=0 -S execve -k rootcmd
+-a exit,always -F arch=b32 -F euid=0 -S execve -k rootcmd
 
 
 ## Make the configuration immutable
