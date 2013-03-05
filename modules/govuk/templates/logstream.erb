@@ -18,8 +18,8 @@ respawn limit 5 20
 #
 # LOG_FILE: specify the location of log file to be tailed
 # TAG: should be a string of tags to tag a log line with me
-instance "$LOG_FILE"
+instance "<%= @logfile %>"
 
 script
-  tail -F $LOG_FILE | govuk_logpipe -t `echo $TAG`
+    tail -F <%= @logfile %> | govuk_logpipe -t `echo <%= @tag_string %>`
 end script
