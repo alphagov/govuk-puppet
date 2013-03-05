@@ -21,5 +21,5 @@ respawn limit 5 20
 instance "<%= @logfile %>"
 
 script
-    tail -F <%= @logfile %> | govuk_logpipe -t `echo <%= @tag_string %>`
+    tail -F <%= @logfile %> | govuk_logpipe -t <%= @tag_string %>
 end script
