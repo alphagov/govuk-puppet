@@ -165,4 +165,11 @@ define govuk::app(
     subscribe => Class['govuk::deploy'],
   }
 
+  if $logstream and $app_type == 'rack' {
+    govuk::logstream { "${title}-production-log":
+      logfile => "/data/vhost/${vhost_full}/share/log/production.log",
+      tags    => [$title, 'STDOUT', 'APPLICATION'],
+    }
+  }
+
 }
