@@ -35,7 +35,7 @@ class varnish::service {
   }
 
   @logster::cronjob { 'varnish':
-    args => 'SampleGangliaLogster /var/log/varnish/varnishncsa.log',
+    args => 'ExtendedSampleLogster /var/log/varnish/varnishncsa.log',
   }
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":
