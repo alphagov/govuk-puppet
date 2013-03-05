@@ -131,6 +131,17 @@
 -a exit,always -F arch=b64 -F euid=0 -S execve -k rootcmd
 -a exit,always -F arch=b32 -F euid=0 -S execve -k rootcmd
 
+## Capture all failures to access on critical elements
+-a exit,always -F arch=b64 -S open -F dir=/etc -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/bin -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/sbin -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/usr/bin -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/usr/sbin -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/var -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/home -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/data -F success=0 -k unauthedfileacess
+-a exit,always -F arch=b64 -S open -F dir=/srv -F success=0 -k unauthedfileacess
+
 
 ## Make the configuration immutable
 #-e 2
