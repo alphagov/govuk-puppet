@@ -1,4 +1,6 @@
 class performance_platform::backstage {
+  include pip
+  include virtualenv
 
   $app_domain = extlookup('app_domain')
 
