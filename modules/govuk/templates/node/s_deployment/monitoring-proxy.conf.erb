@@ -43,7 +43,7 @@ server {
   server_name graphite.*;
 
   location / {
-    proxy_pass https://monitoring.management.production/;
+    proxy_pass https://graphite.cluster/;
     proxy_set_header Host $http_host;
 
     add_header "Access-Control-Allow-Origin" "*";
