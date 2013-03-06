@@ -34,7 +34,7 @@ class govuk::node::s_development {
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
-    'performance_platform::backstage': ;
+    'performance_platform::backdrop': ;
   }
 
   include govuk::apps::asset_manager

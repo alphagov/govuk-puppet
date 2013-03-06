@@ -10,7 +10,7 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   include datainsight::recorders::format_success
   include datainsight::recorders::insidegov
   include datainsight::recorders::everything
-  include performance_platform::backstage
+  include performance_platform::backdrop
 
   datainsight::collector { 'ga': }
   datainsight::collector { 'insidegov': }

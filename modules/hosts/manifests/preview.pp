@@ -55,8 +55,8 @@ class hosts::preview {
   host { "datainsight-todays-activity-recorder.${app_domain}": ip => '10.32.49.43' }
   host { "datainsight-weekly-reach-recorder.${app_domain}":    ip => '10.32.49.43' }
 
-  host { "read.backstage.${app_domain}":         ip => '10.32.49.43' }
-  host { "write.backstage.${app_domain}":        ip => '10.32.49.43' }
+  host { "read.backdrop.${app_domain}":         ip => '10.32.49.43' }
+  host { "write.backdrop.${app_domain}":        ip => '10.32.49.43' }
 
   host { "whitehall-frontend.${app_domain}":   ip => '10.49.105.155' }
   host { "whitehall.${app_domain}":            ip => '10.49.105.155' }
