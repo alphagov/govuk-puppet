@@ -25,7 +25,7 @@ class govuk::apps::publicapi {
       # requests made to that path without a trailing slash, *if* there is a
       # proxy_pass directive in the block.
 
-      location ~ ^/api/(specialist|worldwide-organisations)(/|$) {
+      location ~ ^/api/(specialist|worldwide-organisations|world-locations)(/|$) {
         proxy_set_header Host ${whitehallapi};
         proxy_pass http://${whitehallapi};
       }
