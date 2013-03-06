@@ -3,7 +3,7 @@ class hosts::ertp_preview {
     ip => '10.33.163.224',
   }
   host { 'ertp-api':
-    ip => '10.239.86.141'
+    ip => '10.33.180.32'
   }
   host { 'ertp-stats-api':
     ip => '10.239.86.141'
