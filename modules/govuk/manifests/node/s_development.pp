@@ -33,6 +33,7 @@ class govuk::node::s_development {
     'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
+    'govuk::apps::transaction_wrappers':  vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
   }
 
