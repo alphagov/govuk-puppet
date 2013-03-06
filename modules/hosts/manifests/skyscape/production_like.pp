@@ -20,8 +20,8 @@ class hosts::skyscape::production_like {
   govuk::host { 'monitoring':
     ip              => '10.0.0.20',
     vdc             => 'management',
-    legacy_aliases  => ['monitoring', "nagios.${app_domain}", "ganglia.${app_domain}", "graphite.${app_domain}"],
-    service_aliases => ['monitoring', 'nagios', 'ganglia', 'graphite'],
+    legacy_aliases  => ['monitoring', "nagios.${app_domain}", "ganglia.${app_domain}"],
+    service_aliases => ['monitoring', 'nagios', 'ganglia'],
   }
   govuk::host { 'logging':
     ip              => '10.0.0.21',
@@ -69,7 +69,8 @@ class hosts::skyscape::production_like {
   govuk::host { 'graphite-1':
     ip             => '10.0.0.22',
     vdc            => 'management',
-    legacy_aliases => ['graphite-1'],
+    legacy_aliases => ['graphite-1', "graphite.${app_domain}"],
+    service_aliases => ['graphite'],
   }
 
   #router vdc machines
