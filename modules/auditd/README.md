@@ -42,6 +42,7 @@ following keys:-
     audit_tools             auditctl, auditd
     unauthedfileaccess      /etc/, /bin/, /sbin/, /usr/bin/, /usr/sbin/, /var/, /home/, /data/, /srv/
     priv_esc                privilege escalations
+    power                   shutdown, poweroff, halt, reboot
 
 Example
 
