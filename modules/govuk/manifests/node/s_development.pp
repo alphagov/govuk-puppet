@@ -56,6 +56,7 @@ class govuk::node::s_development {
   include govuk::apps::static
   include govuk::apps::support
   include govuk::apps::tariff_api
+  include govuk::apps::transaction_wrappers
   include govuk::apps::travel_advice_publisher
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
