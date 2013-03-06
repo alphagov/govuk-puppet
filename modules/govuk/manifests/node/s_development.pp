@@ -33,6 +33,7 @@ class govuk::node::s_development {
     'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
+    'govuk::apps::transaction_wrappers':  vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
   }
 
@@ -56,7 +57,6 @@ class govuk::node::s_development {
   include govuk::apps::static
   include govuk::apps::support
   include govuk::apps::tariff_api
-  include govuk::apps::transaction_wrappers
   include govuk::apps::travel_advice_publisher
   class { 'govuk::apps::whitehall':
     configure_admin    => true,

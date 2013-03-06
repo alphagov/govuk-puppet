@@ -1,4 +1,7 @@
-class govuk::apps::transaction_wrappers($port = 3041) {
+class govuk::apps::transaction_wrappers(
+  $port = 3041,
+  $vhost_protected
+) {
   govuk::app { 'transaction-wrappers':
     app_type          => 'rack',
     port              => $port,
