@@ -1,7 +1,7 @@
 class mongodb::backup {
   file { '/etc/cron.daily/automongodbbackup-replicaset':
     ensure  => present,
-    content => template('mongodb/automongodbbackup'),
+    source  => 'puppet:///modules/mongodb/automongodbbackup',
     owner   => 'root',
     group   => 'root',
     mode    => '0744',
