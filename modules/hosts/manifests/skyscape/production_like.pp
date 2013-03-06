@@ -67,9 +67,9 @@ class hosts::skyscape::production_like {
     legacy_aliases => ['mirrorer-1'],
   }
   govuk::host { 'graphite-1':
-    ip             => '10.0.0.22',
-    vdc            => 'management',
-    legacy_aliases => ['graphite-1', "graphite.${app_domain}"],
+    ip              => '10.0.0.22',
+    vdc             => 'management',
+    legacy_aliases  => ['graphite-1', "graphite.${app_domain}"],
     service_aliases => ['graphite'],
   }
 
