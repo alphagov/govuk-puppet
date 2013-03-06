@@ -3,6 +3,7 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
   #TODO: When Preview is no longer in EC2, the Mongo Servers
   #should not include the s_mysql_master class
   include govuk::node::s_mysql_master
+  include mongodb::backup
 
   case $::govuk_provider {
     sky: {
@@ -38,9 +39,6 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
 
   if ($mongo_hosts) {
     class { 'mongodb::configure_replica_set':
-      members => $mongo_hosts
-    }
-    class { 'mongodb::backup':
       members => $mongo_hosts
     }
   }

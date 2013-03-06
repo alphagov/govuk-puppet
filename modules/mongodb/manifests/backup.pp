@@ -1,5 +1,4 @@
 class mongodb::backup(
-  $members,
   $domonthly = true) {
   file { '/etc/cron.daily/automongodbbackup-replicaset':
     ensure  => present,
