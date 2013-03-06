@@ -34,7 +34,7 @@ class graphite::config {
   }
 
   file { '/etc/carbon/relay-rules.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/storage-schema.conf'
+    source => 'puppet:///modules/graphite/etc/carbon/relay-rules.conf',
   }
 
   file { '/opt/graphite/storage':
