@@ -18,6 +18,7 @@ class govuk::apps::whitehall(
     app_type           => 'rack',
     vhost              => $vhost,
     port               => $port,
+    logstream          => true,
     health_check_path  => '/healthcheck',
     enable_nginx_vhost => false;
   }
