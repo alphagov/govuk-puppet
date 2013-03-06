@@ -33,7 +33,7 @@ define nginx::config::vhost::proxy(
   }
 
   @logster::cronjob { "nginx-vhost-${title}":
-    args => "--metric-prefix ${title} NginxGangliaLogster /var/log/nginx/${title}-access.log",
+    args => "--metric-prefix ${title}_nginx ExtendedSampleLogster /var/log/nginx/${title}-access.log",
   }
 
   @@nagios::check { "check_nginx_5xx_${title}_on_${::hostname}":

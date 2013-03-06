@@ -9,7 +9,7 @@ class puppet::master::config ($unicorn_port = '9090') {
   }
 
   @logster::cronjob { "nginx-vhost-puppetmaster":
-    args => "--metric-prefix puppetmaster NginxGangliaLogster /var/log/nginx/puppetmaster-access.log",
+    args => "--metric-prefix puppetmaster_nginx ExtendedSampleLogster /var/log/nginx/puppetmaster-access.log",
   }
 
   @@nagios::check { "check_nginx_5xx_puppetmaster_on_${::hostname}":
