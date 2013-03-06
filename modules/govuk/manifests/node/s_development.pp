@@ -14,6 +14,8 @@ class govuk::node::s_development {
   include redis
   include tmpreaper
   include users
+  include pip
+  include virtualenv
 
   include govuk::deploy
   include govuk::envsys
