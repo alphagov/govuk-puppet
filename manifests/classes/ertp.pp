@@ -73,7 +73,7 @@ class ertp_base::api_server inherits ertp_base {
     staging: {
       file { '/etc/gds-ertp-ero-auth-details-staging.txt':
         ensure  => present,
-        source  => 'puppet:///modules/ertp/etc/gds-ertp-ero-auth-details-staging.txt',
+        source  => 'puppet:///modules/ertp/etc/migrations/gds-ertp-ero-auth-details-staging.txt',
       }
     }
     default: {
