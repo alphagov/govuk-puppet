@@ -11,38 +11,38 @@ following keys:-
 
     KEY                     Usage
     -----------------------------------------------------------------------
-    auditlog                audit the audit logs
     auditconfig             audit the audit config /etc/audit/, /etc/libaudit.conf, /etc/audisp/
-    specialfiles            mknod mknodat
-    mount                   mount and umount
-    time                    adjtimex, settimeofday, clock_settime
-    stunnel                 stunnel
+    auditlog                audit the audit logs
+    audit_tools             auditctl, auditd
     cron                    All crontabs & cron configurations. (including root crontab)
     etcgroup                /etc/group, /etc/gshadow
+    etcissues               /etc/issue, /etc/issue.net
     etcpasswd               /etc/passwd, /etc/shadow
-    opasswd                 /etc/security/opasswd
-    login                   /etc/login.defs, /etc/securetty, /var/log/faillog, /var/log/lastlog, /var/log/tallylog
+    group_modification      /usr/sbin/groupadd, /usr/sbin/groupmod, /usr/sbin/addgroup
+    hostname                sethostname
     hosts                   /etc/hosts
-    network                 /etc/networks/
     init                    /etc/inittab, /etc/init.d/, /etc/init/
     libpath                 /etc/ld.so.conf
     localtime               /etc/localtime
-    sysctl                  /etc/sysctl.conf
-    modprobe                /etc/modprobe.conf
-    pam                     /etc/pam.d/, /etc/security/limits.conf, /etc/security/pam_env.conf, /etc/security/namespace.conf, /etc/security/namespace.init
-    puppet_ssl              /etc/puppet/ssl
+    login                   /etc/login.defs, /etc/securetty, /var/log/faillog, /var/log/lastlog, /var/log/tallylog
     mail                    /etc/aliases, /etc/postfix/
-    sshd                    /etc/ssh/sshd_config
-    hostname                sethostname
-    etcissues               /etc/issue, /etc/issue.net
-    rootcmd                 all root commands
+    modprobe                /etc/modprobe.conf
+    mount                   mount and umount
+    network                 /etc/networks/
+    opasswd                 /etc/security/opasswd
+    pam                     /etc/pam.d/, /etc/security/limits.conf, /etc/security/pam_env.conf, /etc/security/namespace.conf, /etc/security/namespace.init
     password_modification   /usr/bin/passwd
-    group_modification      /usr/sbin/groupadd, /usr/sbin/groupmod, /usr/sbin/addgroup
-    user_modifcation        /usr/sbin/useradd, /usr/sbin/usermod, /usr/sbin/adduser
-    audit_tools             auditctl, auditd
-    unauthedfileaccess      /etc/, /bin/, /sbin/, /usr/bin/, /usr/sbin/, /var/, /home/, /data/, /srv/
-    priv_esc                privilege escalations
     power                   shutdown, poweroff, halt, reboot
+    priv_esc                privilege escalations
+    puppet_ssl              /etc/puppet/ssl
+    rootcmd                 all root commands
+    specialfiles            mknod mknodat
+    sshd                    /etc/ssh/sshd_config
+    stunnel                 stunnel
+    sysctl                  /etc/sysctl.conf
+    time                    adjtimex, settimeofday, clock_settime
+    unauthedfileaccess      /etc/, /bin/, /sbin/, /usr/bin/, /usr/sbin/, /var/, /home/, /data/, /srv/
+    user_modifcation        /usr/sbin/useradd, /usr/sbin/usermod, /usr/sbin/adduser
 
 Example
 
