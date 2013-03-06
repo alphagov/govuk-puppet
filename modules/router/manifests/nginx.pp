@@ -71,7 +71,8 @@ class router::nginx (
   }
 
   @logster::cronjob { 'lb':
-    args => "--metric-prefix nginx ExtendedSampleLogster /var/log/nginx/lb-access.log",
+    file    => '/var/log/nginx/lb-access.log',
+    prefix  => 'nginx',
   }
 
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":

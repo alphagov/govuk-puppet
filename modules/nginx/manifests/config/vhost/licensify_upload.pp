@@ -10,7 +10,8 @@ define nginx::config::vhost::licensify_upload($port="9000") {
   }
 
   @logster::cronjob { "nginx-vhost-${vhost_name}":
-    args => "--metric-prefix ${vhost_name}_nginx ExtendedSampleLogster /var/log/nginx/${vhost_name}-access.log",
+    file    => "/var/log/nginx/${vhost_name}-access.log",
+    prefix  => "${vhost_name}_nginx",
   }
 
   @@nagios::check { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
