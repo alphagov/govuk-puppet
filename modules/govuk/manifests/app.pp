@@ -30,6 +30,14 @@ define govuk::app (
   $use_unicornherder = true,
 
   #
+  # logstream: choose whether or not to create a log tailing upstart job
+  #
+  # If set true, logstream upstart job will be created for a selection of
+  # logs we care about.
+  #
+  $logstream = false,
+
+  #
   # health_check_path: path at which to check the status of the application.
   #
   # This is used to export health checks to ensure the application is running
@@ -153,7 +161,15 @@ define govuk::app (
   }
 
   govuk::app::service { $title:
+    logstream => $logstream,
     subscribe => Class['govuk::deploy'],
+  }
+
+  if $logstream and $app_type == 'rack' {
+    govuk::logstream { "${title}-production-log":
+      logfile => "/data/vhost/${vhost_full}/share/log/production.log",
+      tags    => [$title, 'STDOUT', 'APPLICATION'],
+    }
   }
 
 }
