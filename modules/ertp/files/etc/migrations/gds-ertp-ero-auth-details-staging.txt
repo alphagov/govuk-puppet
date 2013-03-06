@@ -1,0 +1,11 @@
+dumfriesgalloway|dumfriesgalloway-token|00QH|
+grampian|grampian-token|00QA,00QB,00QX|
+renfrewshire|renfrewshire-token|00RC,00QN,00QU|
+strandidox|strandidox-token|00BW|E08000010
+xpress|xpress-token|00CW|E08000031
+halarose|halarose-token|00AL|E09000011
+democracycounts|democracycounts-token|16UG|
+smoke_test_1_ero|smoke_test_ero_1_token|81ZZ|F09999981
+smoke_test_2_ero|smoke_test_ero_2_token|82ZZ|F09999982
+smoke_test_3_ero|smoke_test_ero_3_token|83ZZ|F09999983
+gds_test_ero|gds_test_ero_token|70ZZ|F09999970

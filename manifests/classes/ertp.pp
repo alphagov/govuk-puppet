@@ -68,6 +68,18 @@ class ertp_base::api_server inherits ertp_base {
   include monitoring::client
   include puppet::cronjob
   include ertp::api::scripts
+
+  case $::govuk_platform {
+    staging: {
+      file { '/etc/gds-ertp-ero-auth-details-staging.txt':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/gds-ertp-ero-auth-details-staging.txt',
+      }
+    }
+    default: {
+      ## no default at the moment
+    }
+  }
 }
 
 class ertp_base::api_server::dwp inherits ertp_base::api_server {
