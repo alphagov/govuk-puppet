@@ -25,6 +25,9 @@ class govuk::node::s_base {
     server    => 'logging.cluster',
     log_local => true,
   }
+  rsyslog::snippet { '10-ratelimit':
+    content => '$SystemLogRateLimitInterval 0'
+    }
 
   $email_collection = extlookup('email_collection','off')
   case $email_collection {
