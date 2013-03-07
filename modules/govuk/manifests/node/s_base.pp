@@ -31,7 +31,11 @@ class govuk::node::s_base {
     "on": {
       include postfix
     }
-    default: {}
+    default: {
+      package { 'postfix':
+        ensure  => absent,
+      }
+    }
   }
 
   class { 'ruby::rubygems':
