@@ -6,7 +6,7 @@ namespace :spec do
   task :normal do
     matched_files = FileList[*get_modules.map { |x| "#{x}/spec/**/*_spec.rb" }]
 
-    cli_args = ['-t', 'rspec', '-o']
+    cli_args = ['-t', 'rspec']
     cli_args.concat(matched_files)
 
     $stderr.puts '---> Running puppet specs'
