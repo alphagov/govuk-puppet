@@ -2,6 +2,7 @@ class elms_base::mongo_server {
   include govuk::node::s_base
   include ecryptfs
   include mongodb::server
+  include mongodb::backup
   include java::openjdk6::jre
 
   $internal_tld = extlookup('internal_tld', 'production')
@@ -27,11 +28,6 @@ class elms_base::mongo_server {
   $mongodb_encrypted = str2bool(extlookup('licensify_mongo_encrypted', 'no'))
   if $mongodb_encrypted {
     motd::snippet {'01-encrypted-licensify': }
-  }
-
-  class { 'mongodb::backup':
-    members   => $mongo_hosts,
-    domonthly => false
   }
 
   class { 'mongodb::configure_replica_set':
