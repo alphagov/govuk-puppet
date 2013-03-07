@@ -1,0 +1,10 @@
+description "ClamAV anti virus daemon"
+<% if @enable_service %>
+start on runlevel [2345]
+<% end %>
+stop on runlevel [!2345]
+respawn
+respawn limit 5 30
+expect fork
+
+exec start-stop-daemon --start --chuid clamav:clamav --exec /opt/clamav/sbin/clamd
