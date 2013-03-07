@@ -3,7 +3,7 @@
 from os.path import dirname, abspath
 
 # Turn on debugging and restart apache if you ever see an "Internal Server Error" page
-DEBUG = True
+#DEBUG = True
 
 # Set your local timezone (django will *try* to figure this out automatically)
 # If your graphs appear to be offset by a couple hours then this probably
