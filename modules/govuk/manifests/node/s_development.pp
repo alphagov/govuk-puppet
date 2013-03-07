@@ -35,6 +35,7 @@ class govuk::node::s_development {
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::transaction_wrappers':  vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
+    'performance_platform::backdrop': ;
   }
 
   include govuk::apps::asset_manager
