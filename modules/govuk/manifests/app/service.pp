@@ -12,18 +12,16 @@ define govuk::app::service ( $logstream = false ) {
     }
   }
 
-  if $logstream {
-
     govuk::logstream { "${title}-upstart-out":
-        logfile => "/var/log/${title}/upstart.out.log",
-        tags    => [$title, 'STDOUT', 'UPSTART'],
+      logfile => "/var/log/${title}/upstart.out.log",
+      tags    => [$title, 'STDOUT', 'UPSTART'],
+      enable  => $logstream,
     }
 
     govuk::logstream { "${title}-upstart-err":
       logfile => "/var/log/${title}/upstart.err.log",
       tags    => [$title, 'STDERR', 'UPSTART'],
+      enable  => $logstream,
     }
-
-  }
 
 }

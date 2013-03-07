@@ -35,7 +35,7 @@ define govuk::app (
   # If set true, logstream upstart job will be created for a selection of
   # logs we care about.
   #
-  $logstream = false,
+  $logstream = true,
 
   #
   # health_check_path: path at which to check the status of the application.
@@ -165,10 +165,11 @@ define govuk::app (
     subscribe => Class['govuk::deploy'],
   }
 
-  if $logstream and $app_type == 'rack' {
+  if $app_type == 'rack' {
     govuk::logstream { "${title}-production-log":
       logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
       tags    => [$title, 'STDOUT', 'APPLICATION'],
+      enable  => $logstream,
     }
   }
 
