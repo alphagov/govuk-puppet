@@ -1,5 +1,6 @@
 class govuk::apps::asset_manager( $port = 3037 ) {
   include assets
+  include clamav
 
   govuk::app { 'asset-manager':
     app_type           => 'rack',
