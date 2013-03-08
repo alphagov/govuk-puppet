@@ -1,6 +1,6 @@
-description "Whitehall Admin Delayed job background worker"
+description "Delayed job background worker for <%= @title %>"
 
-<%- if govuk_platform != 'development' -%>
+<%- if @enable_service -%>
 start on runlevel [2345]
 <%- end -%>
 stop on runlevel [!2345]
@@ -11,4 +11,4 @@ respawn
 # and should be killed off.
 respawn limit 5 20
 
-exec govuk_setenv whitehall govuk_run_delayed_job_worker
+exec govuk_setenv <%= @setenv_as %> govuk_run_delayed_job_worker
