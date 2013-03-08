@@ -30,6 +30,7 @@ class users::groups::govuk {
   include users::eddsowden
   include users::garethr
   include users::garimas
+  include users::grogers
   include users::heathd
   include users::henryhadlow
   include users::jabley
