@@ -37,6 +37,9 @@ define govuk::app::config (
     app => $title
   }
 
+  # Used more than once in this class.
+  $govuk_app_run = "/var/run/${title}"
+
   govuk::app::envvar {
     "${title}-GOVUK_USER":
       varname => "GOVUK_USER",
@@ -58,7 +61,7 @@ define govuk::app::config (
       value   => "/var/apps/${title}";
     "${title}-GOVUK_APP_RUN":
       varname => "GOVUK_APP_RUN",
-      value   => "/var/run/${title}";
+      value   => $govuk_app_run;
     "${title}-GOVUK_APP_LOGROOT":
       varname => "GOVUK_APP_LOGROOT",
       value   => "/var/log/${title}";
@@ -93,6 +96,12 @@ define govuk::app::config (
   }
 
   # Set up monitoring
+
+  # Double string escape for both Puppet and collectd.
+  collectd::plugin::process { "app-${title}":
+    regex => "unicorn master( -D)? -P ${govuk_app_run}/app\\\\.pid",
+  }
+
   @ganglia::pymod_alias { "app-${title}-procstat":
     target => "procstat",
   }
