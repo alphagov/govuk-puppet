@@ -26,27 +26,10 @@ class govuk::node::s_base {
     log_local => true,
   }
 
-  $email_collection = extlookup('email_collection','off')
-  case $email_collection {
-    "on": {
-      class { 'postfix':
-        smarthost         => extlookup(
-          'postfix_smarthost',
-          'email-smtp.us-east-1.amazonaws.com:587'
-        ),
-        smarthost_aliases => extlookup(
-          'postfix_smarthost_aliases',
-          'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
-        ),
-        smarthost_user    => extlookup('amazon_ses_key', 'NO_SES_KEY'),
-        smarthost_pass    => extlookup('amazon_ses_secret', 'NO_SES_SECRET'),
-      }
-    }
-    default: {
-      package { 'postfix':
-        ensure  => absent,
-      }
-    }
+  class { 'postfix':
+    smarthost       => extlookup('postfix_smarthost', ''),
+    smarthost_user  => extlookup('postfix_smarthost_user', ''),
+    smarthost_pass  => extlookup('postfix_smarthost_pass', ''),
   }
 
   class { 'ruby::rubygems':
