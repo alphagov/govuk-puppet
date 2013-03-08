@@ -4,9 +4,15 @@ class postfix::config(
   $smarthost_pass
 ) {
 
+  file { '/etc/mailname':
+    ensure  => present,
+    content => "${::fqdn}\n",
+  }
+
   file { "/etc/postfix/main.cf":
     content => template("postfix/etc/postfix/main.cf.erb"),
-    notify  => Service[postfix]
+    notify  => Service[postfix],
+    require => File['/etc/mailname'],
   }
 
   if $smarthost {

@@ -1,9 +1,15 @@
 require_relative '../../../../spec_helper'
 
 describe 'postfix::config', :type => :class do
+  let(:mailname)    { '/etc/mailname' }
   let(:main_cf)     { '/etc/postfix/main.cf' }
   let(:sasl_passwd) { '/etc/postfix/sasl_passwd' }
 
+  let(:facts) {{
+    :fqdn     => 'host.example.com',
+    :domain   => 'example.com',
+    :hostname => 'host',
+  }}
   # This essentially mocks the defaults of the parent class.
   let(:default_params) {{
     :smarthost          => '',
@@ -17,6 +23,10 @@ describe 'postfix::config', :type => :class do
     it { should contain_file(main_cf).with_content(/^relayhost = $/) }
     it { should_not contain_file(main_cf).with_content(/^smtp_generic_maps/) }
     it { should_not contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
+
+    it { should contain_file(mailname).with_content("host.example.com\n") }
+    it { should contain_file(main_cf).with_content(/^myhostname = host\.example\.com$/) }
+    it { should contain_file(main_cf).with_content(/^mydestination = host\.example\.com, localhost\.example\.com, , localhost$/) }
   end
 
   describe 'when smarthosting' do
