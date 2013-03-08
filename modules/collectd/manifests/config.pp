@@ -19,4 +19,7 @@ class collectd::config {
     ensure  => present,
     source  => 'puppet:///modules/collectd/etc/collectd/conf.d/network.conf.client',
   }
+
+  # Always collect basic processlist info.
+  include ::collectd::plugin::processes
 }
