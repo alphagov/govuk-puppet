@@ -16,6 +16,8 @@ class govuk::node::s_frontend_lb {
     servers           => $govuk_frontend_servers,
   }
 
+  $hide_frontend_apps = !str2bool(extlookup('expose_frontend_apps_directly', 'no'))
+
   loadbalancer::balance {
     [
       'businesssupportfinder',
@@ -29,8 +31,9 @@ class govuk::node::s_frontend_lb {
       'smartanswers',
       'tariff',
     ]:
-      ;
+      internal_only => $hide_frontend_apps;
     'frontend':
+      internal_only => $hide_frontend_apps,
       aliases       => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
     'static':
       internal_only => false,
