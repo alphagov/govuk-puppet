@@ -54,6 +54,7 @@ class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::
   govuk::app { 'licensify-feed':
     app_type        => 'procfile',
     port            => $port,
+    vhost_protected => true,
     require         => File['/etc/licensing'],
   }
 
