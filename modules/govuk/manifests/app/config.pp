@@ -96,10 +96,8 @@ define govuk::app::config (
   }
 
   # Set up monitoring
-
-  # Double string escape for both Puppet and collectd.
   collectd::plugin::process { "app-${title}":
-    regex => "unicorn master( -D)? -P ${govuk_app_run}/app\\\\.pid",
+    regex => "unicorn master( -D)? -P ${govuk_app_run}/app\\.pid",
   }
 
   @ganglia::pymod_alias { "app-${title}-procstat":

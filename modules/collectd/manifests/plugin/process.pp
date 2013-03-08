@@ -9,6 +9,7 @@
 #
 # [*regex*]
 #   This will trigger the use of `ProcessMatch` instead of `Process`.
+#   Backslashes will be double escaped for the benefit of collectd's parser.
 #   Default: ''
 #
 define collectd::plugin::process(

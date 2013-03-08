@@ -27,6 +27,20 @@ EOS
 EOS
       )}
     end
+
+    describe 'regex containing single and double blackslash' do
+      let(:params) {{
+        :regex => "^giraffe\\\.giraffe\\\\$",
+      }}
+
+      it {
+        should contain_collectd__plugin('process-giraffe').with_content(<<EOS
+<Plugin Processes>
+  ProcessMatch "giraffe" "^giraffe\\\\.giraffe\\\\\\\\$"
+</Plugin>
+EOS
+      )}
+    end
   end
 
   describe 'when title is invalid' do

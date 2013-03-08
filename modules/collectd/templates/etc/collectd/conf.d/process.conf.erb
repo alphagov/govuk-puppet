@@ -2,6 +2,6 @@
 <% if @regex == '' -%>
   Process "<%= @title -%>"
 <% else -%>
-  ProcessMatch "<%= @title -%>" "<%= regex -%>"
+  ProcessMatch "<%= @title -%>" "<%= regex.gsub('\\') { '\\\\' } -%>"
 <% end -%>
 </Plugin>
