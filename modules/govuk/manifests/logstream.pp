@@ -4,7 +4,7 @@ define govuk::logstream (
   $enable = false
 ) {
 
-  if $enable == true {
+  if ($enable == true and $::govuk_platform != 'development') {
     $tag_string = join($tags, ' ')
 
     file { "/etc/init/logstream-${title}.conf":
