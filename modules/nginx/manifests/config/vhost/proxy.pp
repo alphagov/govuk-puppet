@@ -30,11 +30,15 @@ define nginx::config::vhost::proxy(
   nginx::config::site { $name:
     content => template($proxy_vhost_template),
   }
-  nginx::log {  [
-                $access_log,
-                $error_log
-                ]:
-                  logpath => $logpath;
+
+  nginx::log { $error_log :
+    logpath   => $logpath,
+    logstream => true,
+  }
+
+  nginx::log { $access_log :
+    logpath   => $logpath,
+    logstream => true,
   }
 
   @logster::cronjob { "nginx-vhost-${title}":

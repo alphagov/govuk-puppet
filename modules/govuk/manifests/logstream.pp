@@ -21,12 +21,12 @@ define govuk::logstream (
 
     file { "/etc/init/logstream-${title}.conf":
       ensure  => absent,
-      require => Service["logstream-${title}"],
+      require => Exec["logstream-STOP-${title}"],
     }
 
-    service { "logstream-${title}":
-      ensure   => stopped,
-      provider => 'upstart',
+    exec { "logstream-STOP-${title}" :
+      command => "initctl stop logstream-${title}",
+      onlyif  => "initctl status logstream-${title}",
     }
   }
 
