@@ -1,9 +1,12 @@
+
+
 define nginx::log (
   $logpath   = '/var/log/nginx',
   $logowner  = 'www-data',
   $loggroup  = 'adm',
   $logmode   = '0640',
-  $logstream = false
+  $logstream = false,
+  $logname   = regsubst($name, '\.[^.]*$', '')
   ){
   file { "${logpath}/${name}":
     ensure  => 'present',
@@ -17,7 +20,7 @@ define nginx::log (
 
   govuk::logstream { $name:
     logfile => "${logpath}/${name}",
-    tags    => [$name, 'NGINX'],
+    tags    => [$logname, 'NGINX'],
     enable  => $logstream,
   }
 
