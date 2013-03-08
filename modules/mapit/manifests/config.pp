@@ -27,5 +27,6 @@ class mapit::config {
                 'mapit.access.log',
                 'mapit.error.log'
                 ]:
+                 logstream => true;
   }
 }

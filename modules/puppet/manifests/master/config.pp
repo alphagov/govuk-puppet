@@ -6,6 +6,7 @@ class puppet::master::config ($unicorn_port = '9090') {
                 'puppetmaster-access.log',
                 'puppetmaster-error.log'
                 ]:
+                  logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-puppetmaster":

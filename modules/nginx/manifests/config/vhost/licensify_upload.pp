@@ -7,6 +7,7 @@ define nginx::config::vhost::licensify_upload($port="9000") {
                 "${vhost_name}-access.log",
                 "${vhost_name}-error.log"
                 ]:
+                  logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-${vhost_name}":

@@ -34,6 +34,7 @@ class router::nginx (
                 "lb-access.log",
                 "lb-error.log"
                 ]:
+                  logstream => true;
   }
 
   file { '/usr/share/nginx':

@@ -19,6 +19,7 @@ class nagios::config {
                 'nagios-access.log',
                 'nagios-error.log'
                 ]:
+                  logstream => true;
   }
 
   file { '/etc/nagios3':
