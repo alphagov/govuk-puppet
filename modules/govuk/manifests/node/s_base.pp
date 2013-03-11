@@ -25,6 +25,12 @@ class govuk::node::s_base {
     server    => 'logging.cluster',
     log_local => true,
   }
+  rsyslog::snippet { '10-ratelimit':
+    content => '$SystemLogRateLimitInterval 0'
+    }
+  rsyslog::snippet { '41-audispd':
+    content => ':programname, isequal, "audispd"  ~'
+    }
 
   class { 'postfix':
     smarthost       => extlookup('postfix_smarthost', ''),
