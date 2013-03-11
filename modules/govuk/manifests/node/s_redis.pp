@@ -50,6 +50,19 @@ class govuk::node::s_redis {
     'allow-redis-from-management':
       from => '10.0.0.0/16',
       port => $redis_port;
+    'allow-redis-from-router':
+      from => '10.1.0.0/16',
+      port => $redis_port;
+    'allow-redis-from-efg':
+      from => '10.4.0.0/16',
+      port => $redis_port;
+    'allow-redis-from-licensify':
+      from => '10.5.0.0/16',
+      port => $redis_port;
+    'allow-redis-from-redirector':
+      from => '10.6.0.0/16',
+      port => $redis_port;
+
   }
 
   @logrotate::conf { 'redis':
