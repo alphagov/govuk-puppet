@@ -88,9 +88,9 @@ Vagrant::Config.run do |config|
           "../puppet"
       end
 
-      c.vm.share_folder "pm-extdata",
-        "/usr/share/puppet/production/current/extdata",
-        "../deployment/puppet/extdata"
+      c.vm.share_folder "extdata",
+        "/tmp/vagrant-puppet/extdata",
+        "../puppet/extdata"
 
       c.vm.provision :puppet do |puppet|
         puppet.manifest_file = "site.pp"
@@ -99,6 +99,7 @@ Vagrant::Config.run do |config|
           "../puppet/modules",
           "../puppet/vendor/modules",
         ]
+        puppet.options = ["--environment", "vagrant"]
         puppet.facter = {
           :govuk_class => node_opts["class"],
           :govuk_provider => "sky",
