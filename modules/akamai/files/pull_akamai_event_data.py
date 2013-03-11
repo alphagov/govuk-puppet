@@ -9,11 +9,9 @@ import yaml
 logging.basicConfig(level=logging.INFO)
 logging.getLogger('suds.client').setLevel(logging.WARN)
 
-# - periodicity / state (how much have we got already)
-# - add to cron
 # - pass into syslog
-# - what events are we picking up (have emailed ellen)
 # - do proper exception handling of transport layer errors
+# - what events are we picking up (have emailed ellen)
 
 LAST_RUN_FILE = 'last_run'
 
@@ -41,7 +39,7 @@ def log_results(results):
     """ Write results out in a sensible way, at the moment just to STDOUT
     """
     for item in results:
-        print "[" + item.eventTime + "] Application: " + item.application + ", Action: " + item.action
+        print "[" + item.eventTime + "][AkamaiEventData] Application: " + item.application + ", Action: " + item.action
 
 
 def write_last_run(event_time):
@@ -61,7 +59,7 @@ def get_interval():
     try:
         with open (LAST_RUN_FILE, 'r') as f:
             last_run = yaml.safe_load(f)["last_run"]
-    except IOError:
+    except (IOError, TypeError):
         last_run = now
     return last_run, now
 

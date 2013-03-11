@@ -7,7 +7,9 @@ class akamai::event_data {
 
   $akamai_webservice_username = extlookup('akamai_webservice_username')
   $akamai_webservice_password = extlookup('akamai_webservice_password')
+
   $akamai_script_dir = '/usr/local/akamai'
+  $akamai_script = "${akamai_script_dir}/pull_akamai_event_data.py"
 
   package { ['suds', 'pyyaml']:
     ensure   => present,
@@ -23,16 +25,23 @@ class akamai::event_data {
     mode    => '0600',
   }
 
-  file { "${akamai_script_dir}/pull_event_data_access_logs.py":
+  file { "${akamai_script_dir}/last_run":
+    mode   => '0644',
+  }
+
+
+  file { $akamai_script:
     ensure  => present,
-    source  => 'puppet:///modules/akamai/pull_event_data_access_logs.py',
+    source  => 'puppet:///modules/akamai/pull_akamai_event_data.py',
     require => [Package['suds', 'pyyaml'], File[$akamai_script_dir]],
     mode    => '0700',
   }
 
-  file { "${akamai_script_dir}/last_run":
-    ensure => present,
-    mode   => '0644',
+  cron { 'pull_akamai_event_data':
+    ensure  => present,
+    command => "cd ${akamai_script_dir}; ./pull_akamai_event_data.py | /usr/bin/logger -t akamai_event_data",
+    hour    => '1',
+    require => File[$akamai_script],
   }
 
 }
