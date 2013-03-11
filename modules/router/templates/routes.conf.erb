@@ -26,7 +26,7 @@ error_log  /var/log/nginx/lb-error.log;
 
 <%- if @platform != 'production' -%>
 deny all;
-auth_basic            "Enter your username/password";
+auth_basic            "Enter the GOV.UK username/password (not your personal username/password)";
 auth_basic_user_file  /etc/govuk.htpasswd;
 satisfy any;
 <%- end -%>
@@ -431,7 +431,7 @@ location / {
   <%- if @vhost_protected -%>
 
       deny all;
-      auth_basic            "Enter your betademo password";
+      auth_basic            "Enter the GOV.UK username/password (not your personal username/password)";
       auth_basic_user_file  /etc/govuk.htpasswd;
       satisfy any;
 
