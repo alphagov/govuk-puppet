@@ -48,6 +48,9 @@ class govuk::node::s_base {
     'unattended-upgrades-shutdown':
       logfile => "/var/log/unattended-upgrades/unattended-upgrades-shutdown.log",
       tags    => ['apt','unattended'];
+    'rkhunter':
+      logfile => "/var/log/rkhunter.log",
+      tags    => ['rkhunter'];
   }
 
   class { 'postfix':
