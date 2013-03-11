@@ -26,16 +26,10 @@ class govuk::node::s_base {
     log_local => true,
   }
 
-  $email_collection = extlookup('email_collection','off')
-  case $email_collection {
-    "on": {
-      include postfix
-    }
-    default: {
-      package { 'postfix':
-        ensure  => absent,
-      }
-    }
+  class { 'postfix':
+    smarthost       => extlookup('postfix_smarthost', ''),
+    smarthost_user  => extlookup('postfix_smarthost_user', ''),
+    smarthost_pass  => extlookup('postfix_smarthost_pass', ''),
   }
 
   class { 'ruby::rubygems':

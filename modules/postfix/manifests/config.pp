@@ -1,17 +1,30 @@
-class postfix::config {
+class postfix::config(
+  $smarthost,
+  $smarthost_user,
+  $smarthost_pass
+) {
 
-  $amazon_ses_key    = extlookup('amazon_ses_key','NO_SES_KEY')
-  $amazon_ses_secret = extlookup('amazon_ses_secret','NO_SES_SECRET')
-  $email_list        = extlookup('email_list','noemail')
-  $email_domain      = extlookup('email_domain','localhost')
+  file { '/etc/mailname':
+    ensure  => present,
+    content => "${::fqdn}\n",
+  }
 
   file { "/etc/postfix/main.cf":
     content => template("postfix/etc/postfix/main.cf.erb"),
-    notify  => Service[postfix]
+    notify  => Service[postfix],
+    require => File['/etc/mailname'],
   }
 
-  postfix::postmapfile { 'sasl_passwd':           name => 'sasl_passwd' }
-  postfix::postmapfile { 'outbound_rewrites':     name => 'outbound_rewrites' }
-  postfix::postmapfile { 'local_remote_rewrites': name => 'local_remote_rewrites' }
+  if $smarthost {
+    $email_list   = extlookup('email_list', 'noemail')
+    $email_domain = extlookup('email_domain', 'localhost')
+
+    postfix::postmapfile { 'outbound_rewrites':     name => 'outbound_rewrites' }
+    postfix::postmapfile { 'local_remote_rewrites': name => 'local_remote_rewrites' }
+
+    if ($smarthost_user and $smarthost_pass) {
+      postfix::postmapfile { 'sasl_passwd': name => 'sasl_passwd' }
+    }
+  }
 
 }
