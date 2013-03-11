@@ -42,6 +42,7 @@ class varnish::service {
     logfile => '/var/log/varnish/varnishncsa.log',
     tags    => ['varnish'],
     require => Service['varnishncsa'],
+    enable  => true,
   }
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":
