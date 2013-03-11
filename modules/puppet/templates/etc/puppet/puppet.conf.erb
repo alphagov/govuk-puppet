@@ -2,6 +2,7 @@
 preferred_serialization_format = yaml
 pluginsync = true
 lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
+environment = <%= scope.lookupvar("::environment") %>
 <%- if govuk_platform == 'development' -%>
 modulepath = /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
 manifestdir = /var/govuk/puppet/manifests

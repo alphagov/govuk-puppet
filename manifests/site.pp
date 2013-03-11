@@ -12,11 +12,14 @@ Ufw::Allow {
   ip  => 'any',
 }
 
-if $::govuk_platform == 'development' {
-  $extlookup_datadir = '/var/govuk/development/extdata'
-} else {
-  $extlookup_datadir = '/usr/share/puppet/production/current/extdata'
-}
+# extdata is parallel to the manifests and modules directories.
+# NB: manifestdir may not be correct if `puppet apply` is used.
+$extlookup_datadir = inline_template('<%=
+  File.expand_path(
+    "../extdata",
+    File.dirname(scope.lookupvar("::settings::manifest"))
+  )
+-%>')
 
 $extlookup_precedence = [
   '%{environment}_credentials',
