@@ -64,7 +64,6 @@ class varnish::config {
     'frontend',
     'licencefinder',
     'licensify',
-    'limelight',
     'publicapi',
     'search',
     'smartanswers',
