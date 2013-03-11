@@ -38,6 +38,12 @@ class varnish::service {
     file => '/var/log/varnish/varnishncsa.log',
   }
 
+  govuk::logstream { 'varnishncsa':
+    logfile => '/var/log/varnish/varnishncsa.log',
+    tags    => ['varnish'],
+    require => Service['varnishncsa'],
+  }
+
   @@nagios::check { "check_varnish_5xx_${::hostname}":
     check_command       => 'check_ganglia_metric!http_5xx!1!2',
     service_description => 'router varnish high 5xx rate',
@@ -59,5 +65,4 @@ class varnish::service {
     service_description => 'varnishd port not responding',
     host_name           => $::fqdn,
   }
-
 }
