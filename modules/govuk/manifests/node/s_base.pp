@@ -32,6 +32,24 @@ class govuk::node::s_base {
     content => ':programname, isequal, "audispd"  ~'
     }
 
+  govuk::logstream {
+    'apt-history':
+      logfile => "/var/log/apt/history.log",
+      tags    => ['apt','history'];
+    'apt-term':
+      logfile => "/var/log/apt/term.log",
+      tags    => ['apt','term'];
+    'dpkg':
+      logfile => "/var/log/dpkg.log",
+      tags    => ['dpkg'];
+    'unattended-upgrades':
+      logfile => "/var/log/unattended-upgrades/unattended-upgrades.log",
+      tags    => ['apt','unattended'];
+    'unattended-upgrades-shutdown':
+      logfile => "/var/log/unattended-upgrades/unattended-upgrades-shutdown.log",
+      tags    => ['apt','unattended'];
+  }
+
   class { 'postfix':
     smarthost       => extlookup('postfix_smarthost', ''),
     smarthost_user  => extlookup('postfix_smarthost_user', ''),
