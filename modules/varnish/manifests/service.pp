@@ -41,6 +41,7 @@ class varnish::service {
   govuk::logstream { 'varnishncsa':
     logfile => '/var/log/varnish/varnishncsa.log',
     tags    => ['varnish'],
+    require => Service['varnishncsa'],
   }
 
   @@nagios::check { "check_varnish_5xx_${::hostname}":
