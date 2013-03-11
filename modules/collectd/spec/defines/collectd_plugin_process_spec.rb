@@ -43,13 +43,26 @@ EOS
     end
   end
 
-  describe 'when title is invalid' do
-    let(:title) { 'this makes for a bad filename' }
+  describe 'when title contains dots and underscores' do
+    let(:title) { 'gi.ar-ffe' }
+    it { should contain_collectd__plugin('process-gi.ar-ffe') }
+  end
 
-    it do
-      expect {
-        should contain_collectd__plugin('process-giraffe')
-      }.to raise_error(Puppet::Error, /validate_re/)
+  describe 'when title is invalid' do
+    [
+      "should not contain spaces",
+      "nor_gramatically_incorrect_apostrophe's",
+      "nor(brackets)"
+    ].each do |title|
+      describe title do
+        let(:title) { title }
+
+        it do
+          expect {
+            should contain_collectd__plugin('process-giraffe')
+          }.to raise_error(Puppet::Error, /validate_re/)
+        end
+      end
     end
   end
 end

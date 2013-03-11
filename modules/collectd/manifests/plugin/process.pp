@@ -16,7 +16,7 @@ define collectd::plugin::process(
   $regex = ''
 ) {
   # Sanitise file and metric names.
-  validate_re($title, '^[\w-]+$')
+  validate_re($title, '^[\w\-\.]+$')
 
   @collectd::plugin { "process-${title}":
     content => template('collectd/etc/collectd/conf.d/process.conf.erb'),
