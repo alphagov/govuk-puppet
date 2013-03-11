@@ -9,7 +9,7 @@ class akamai::event_data {
   $akamai_webservice_password = extlookup('akamai_webservice_password')
   $akamai_script_dir = '/usr/local/akamai'
 
-  package { 'suds':
+  package { ['suds', 'pyyaml']:
     ensure   => present,
     provider => 'pip',
   }
@@ -18,16 +18,21 @@ class akamai::event_data {
     ensure => directory,
   }
 
-  file { "${akamai_script_dir}/bin":
-    ensure  => directory,
-    require => File[$akamai_script_dir]
+  file { "${akamai_script_dir}/akamai_logs.yaml":
+    content => template('akamai/akamai_logs.yaml.erb'),
+    mode    => '0600',
   }
 
-  file { "${akamai_script_dir}/bin/pull_event_data_access_logs.py":
+  file { "${akamai_script_dir}/pull_event_data_access_logs.py":
     ensure  => present,
-    content => template('akamai/pull_event_data_access_logs.py.erb'),
-    require => [Package['suds'], File["${akamai_script_dir}/bin"]],
+    source  => 'puppet:///modules/akamai/pull_event_data_access_logs.py',
+    require => [Package['suds', 'pyyaml'], File[$akamai_script_dir]],
     mode    => '0700',
+  }
+
+  file { "${akamai_script_dir}/last_run":
+    ensure => present,
+    mode   => '0644',
   }
 
 }
