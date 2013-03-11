@@ -15,6 +15,14 @@ class auditd::config {
     group   => 'root',
     require => Package['auditd']
   }
+  file { '/etc/audisp/plugins.d/syslog.conf':
+    ensure  => file,
+    source  => 'puppet:///modules/auditd/etc/audisp/plugins.d/syslog.conf',
+    mode    => '0640',
+    owner   => 'root',
+    group   => 'root',
+    require => Package['auditd']
+  }
   file { '/sbin/audispd':
     mode  => '0750',
     owner => 'root',

@@ -10,7 +10,7 @@ class graphite::config {
 
   file { '/etc/graphite/local_settings.py':
     ensure  => present,
-    source  => 'puppet:///modules/graphite/local_settings.py',
+    source  => 'puppet:///modules/graphite/etc/graphite/local_settings.py',
   }
 
   # Allow this to fail() on later versions of Ubuntu.
@@ -26,7 +26,7 @@ class graphite::config {
   }
 
   file { '/etc/carbon/carbon.conf':
-    source => 'puppet:///modules/graphite/carbon.conf',
+    source => 'puppet:///modules/graphite/etc/carbon/carbon.conf',
   }
 
   file { '/etc/carbon/storage-schemas.conf':
@@ -34,7 +34,7 @@ class graphite::config {
   }
 
   file { '/etc/carbon/relay-rules.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/storage-schema.conf'
+    source => 'puppet:///modules/graphite/etc/carbon/relay-rules.conf',
   }
 
   file { '/opt/graphite/storage':

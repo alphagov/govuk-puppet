@@ -46,5 +46,6 @@ define loadbalancer::balance(
                 "${vhost_real}-access.log",
                 "${vhost_real}-error.log",
                 ]:
+                  logstream => true;
   }
 }

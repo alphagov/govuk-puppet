@@ -3,6 +3,15 @@ if [ -z "$GOVUK_APP_ROOT" ]; then
   echo "Usage: govuk_setenv <APP_NAME> $(basename "$0")"
 fi
 
+create_app_dirs () {
+  mkdir -p "$@"
+  chown "${GOVUK_USER}:${GOVUK_GROUP}" "$@"
+  chmod 755 "$@"
+}
+
+# Ensure that app directories exist and have correct permissions
+create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
+
 start-stop-daemon --start \
           --chuid "$GOVUK_USER:$GOVUK_GROUP" \
           --chdir "$GOVUK_APP_ROOT" \

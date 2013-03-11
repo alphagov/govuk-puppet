@@ -73,11 +73,7 @@ DOWEEKLY=6
 
 # Which day of the Month fo you want monthly backups. 00 to disable, 01, 02 etc
 # to pick the day. 
-<% if @domonthly == false %>
-DOMONTHLY=00
-<% else %>
 DOMONTHLY=01
-<% end %>
 
 # Choose Compression type. (gzip or bzip2)
 COMP="gzip"

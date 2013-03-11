@@ -12,18 +12,25 @@ define nginx::config::vhost::static(
   $app_domain = extlookup('app_domain')
   $website_root = extlookup('website_root', "https://www.${app_domain}")
 
+  $logpath = '/var/log/nginx'
+  $access_log = "${name}-access.log"
+  $json_access_log = "${name}-json.event.access.log"
+  $error_log = "${name}-error.log"
+
   nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),
   }
   nginx::log {  [
-                "${name}-access.log",
-                "${name}-error.log"
+                $access_log,
+                $error_log
                 ]:
+                  logpath => $logpath;
   }
 
   @logster::cronjob { "nginx-vhost-${title}":
-    args => "--metric-prefix ${title}_nginx ExtendedSampleLogster /var/log/nginx/${title}-access.log",
+    file    => "${logpath}/${access_log}",
+    prefix  => "${title}_nginx",
   }
 
   @@nagios::check { "check_nginx_5xx_${title}_on_${::hostname}":

@@ -25,6 +25,7 @@ class monitoring {
                   'monitoring-access.log',
                   'monitoring-error.log'
                 ]:
+                  logstream => true;
   }
   file { '/opt/graphite/storage/rrd/ganglia':
     ensure => link,

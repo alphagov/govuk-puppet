@@ -25,6 +25,12 @@ class govuk::node::s_base {
     server    => 'logging.cluster',
     log_local => true,
   }
+  rsyslog::snippet { '10-ratelimit':
+    content => '$SystemLogRateLimitInterval 0'
+    }
+  rsyslog::snippet { '41-audispd':
+    content => ':programname, isequal, "audispd"  ~'
+    }
 
   govuk::logstream {
     'apt-history':
@@ -44,12 +50,10 @@ class govuk::node::s_base {
       tags    => ['apt','unattended'];
   }
 
-  $email_collection = extlookup('email_collection','off')
-  case $email_collection {
-    "on": {
-      include postfix
-    }
-    default: {}
+  class { 'postfix':
+    smarthost       => extlookup('postfix_smarthost', ''),
+    smarthost_user  => extlookup('postfix_smarthost_user', ''),
+    smarthost_pass  => extlookup('postfix_smarthost_pass', ''),
   }
 
   class { 'ruby::rubygems':

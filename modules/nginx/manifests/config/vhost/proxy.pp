@@ -14,6 +14,10 @@ define nginx::config::vhost::proxy(
   include govuk::htpasswd
 
   $proxy_vhost_template = 'nginx/proxy-vhost.conf'
+  $logpath = '/var/log/nginx'
+  $access_log = "${name}-access.log"
+  $json_access_log = "${name}-json.event.access.log"
+  $error_log = "${name}-error.log"
 
   # Whether to enable SSL. Used by template.
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
@@ -26,14 +30,18 @@ define nginx::config::vhost::proxy(
   nginx::config::site { $name:
     content => template($proxy_vhost_template),
   }
+
   nginx::log {  [
-                "${name}-access.log",
-                "${name}-error.log"
+                $error_log,
+                $access_log
                 ]:
+                  logpath   => $logpath,
+                  logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-${title}":
-    args => "--metric-prefix ${title}_nginx ExtendedSampleLogster /var/log/nginx/${title}-access.log",
+    file    => "${logpath}/${access_log}",
+    prefix  => "${title}_nginx",
   }
 
   @@nagios::check { "check_nginx_5xx_${title}_on_${::hostname}":

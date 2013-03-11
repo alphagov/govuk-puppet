@@ -14,6 +14,7 @@ class ganglia::config {
                 'ganglia-access.log',
                 'ganglia-error.log'
                 ]:
+                  logstream => true;
   }
 
   file { '/var/lib/ganglia/dwoo':

@@ -6,10 +6,12 @@ class puppet::master::config ($unicorn_port = '9090') {
                 'puppetmaster-access.log',
                 'puppetmaster-error.log'
                 ]:
+                  logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-puppetmaster":
-    args => "--metric-prefix puppetmaster_nginx ExtendedSampleLogster /var/log/nginx/puppetmaster-access.log",
+    file    => '/var/log/nginx/puppetmaster-access.log',
+    prefix  => 'puppetmaster_nginx',
   }
 
   @@nagios::check { "check_nginx_5xx_puppetmaster_on_${::hostname}":

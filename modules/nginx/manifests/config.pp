@@ -14,6 +14,7 @@ class nginx::config {
                 'access.log',
                 'error.log'
                 ]:
+                  logstream => true;
   }
 
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
