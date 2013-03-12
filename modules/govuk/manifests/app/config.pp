@@ -97,7 +97,7 @@ define govuk::app::config (
 
   # Set up monitoring
   collectd::plugin::process { "app-${title}":
-    regex => "unicorn master( -D)? -P ${govuk_app_run}/app\\.pid",
+    regex => "unicorn (master|worker\\[\\d+\\]).* -P ${govuk_app_run}/app\\.pid",
   }
 
   @ganglia::pymod_alias { "app-${title}-procstat":
