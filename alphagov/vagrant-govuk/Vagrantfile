@@ -3,7 +3,7 @@ require 'json'
 # Construct box name and URL from distro and version.
 def get_box(dist, version)
   dist    ||= "precise"
-  version ||= "20121220"
+  version ||= "20130220"
 
   name  = "govuk_dev_#{dist}64_#{version}"
   url   = "http://gds-boxes.s3.amazonaws.com/#{name}.box"
