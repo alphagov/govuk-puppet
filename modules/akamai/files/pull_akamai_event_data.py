@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 
 from suds import WebFault
+from suds import transport
 from suds.client import Client
 from datetime import datetime, timedelta
 import logging
+import sys
 import yaml
 
 logging.basicConfig(level=logging.INFO)
 logging.getLogger('suds.client').setLevel(logging.WARN)
-
-# - pass into syslog
-# - do proper exception handling of transport layer errors
-# - what events are we picking up (have emailed ellen)
 
 LAST_RUN_FILE = 'last_run'
 
@@ -21,18 +19,29 @@ def load_config():
     with open('akamai_logs.yaml') as f:
         return yaml.safe_load(f)["web_service"]
 
+def logging_exit(error):
+    time_of_error = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print "[" + time_of_error + "][AkamaiEventData] Pull for Akamai logs failed, Reason: " + str(error)
+    sys.exit()
+
 def initiate_client(url, username, password):
     """Setup suds SOAP client with HTTP basic authentication and the appropriate
     Akamai URL
     """
-    client = Client(url, username=username, password=password)
+    try:
+        client = Client(url, username=username, password=password)
+    except transport.TransportError as error:
+        logging_exit(error)
     return client
 
 def request_event_data(client, start, end):
     """ Get Akamai EdgeControl event alerts between given start date and end date
     TODO: introduce transport layer exception handling
     """
-    response = client.service.getEdgeControlAlertsEvents(start, end)
+    try:
+        response = client.service.getEdgeControlAlertsEvents(start, end)
+    except AttributeError, error:
+        logging_exit(error)
     return response
 
 def log_results(results):
