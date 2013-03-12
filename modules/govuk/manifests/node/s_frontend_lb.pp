@@ -29,6 +29,7 @@ class govuk::node::s_frontend_lb {
       'licencefinder',
       'limelight',
       'smartanswers',
+      'transaction-wrappers',
       'tariff',
     ]:
       internal_only => $hide_frontend_apps;

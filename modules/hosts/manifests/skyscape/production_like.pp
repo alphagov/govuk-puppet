@@ -156,6 +156,7 @@ class hosts::skyscape::production_like {
       "smartanswers.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
+      "transaction-wrappers.${app_domain}",
       "whitehall-frontend.${app_domain}",
     ]
   }
