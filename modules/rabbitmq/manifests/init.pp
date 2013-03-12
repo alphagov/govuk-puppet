@@ -22,10 +22,4 @@ class rabbitmq {
 
   class { 'collectd::plugin::rabbitmq':  }
 
-  @@nagios::check { "check_rabbitmq_queue_${::hostname}":
-    check_command       => 'check_ganglia_metric!rabbitmq.messages!1000!10000',
-    service_description => "rabbitmq queue depth",
-    host_name           => $::fqdn,
-  }
-
 }
