@@ -28,7 +28,7 @@ class mysql::server::monitoring ($root_password) {
   }
 
   @@nagios::check { "check_mysql_connections_${::hostname}":
-    check_command       => 'check_ganglia_metric!mysql_connections!50!100',
+    check_command       => "check_graphite_metric!${::fqdn_underscore}.mysql.threads-connected!250!350",
     service_description => "mysql high cur conn",
     host_name           => $::fqdn,
   }
