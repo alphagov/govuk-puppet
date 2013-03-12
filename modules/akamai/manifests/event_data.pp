@@ -4,17 +4,14 @@
 # EdgeControl actions, including login date and time, and session information
 #
 class akamai::event_data {
+  include python::suds
+  include python::pyyaml
 
   $akamai_webservice_username = extlookup('akamai_webservice_username')
   $akamai_webservice_password = extlookup('akamai_webservice_password')
 
   $akamai_script_dir = '/usr/local/akamai'
   $akamai_script = "${akamai_script_dir}/pull_akamai_event_data.py"
-
-  package { ['suds', 'pyyaml']:
-    ensure   => present,
-    provider => 'pip',
-  }
 
   file { $akamai_script_dir:
     ensure => directory,
@@ -26,14 +23,14 @@ class akamai::event_data {
   }
 
   file { "${akamai_script_dir}/last_run":
+    ensure => undef,
     mode   => '0644',
   }
-
 
   file { $akamai_script:
     ensure  => present,
     source  => 'puppet:///modules/akamai/pull_akamai_event_data.py',
-    require => [Package['suds', 'pyyaml'], File[$akamai_script_dir]],
+    require => File[$akamai_script_dir],
     mode    => '0700',
   }
 
