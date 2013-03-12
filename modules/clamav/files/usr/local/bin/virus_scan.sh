@@ -51,8 +51,8 @@ make_result_file
 $CLAMSCAN_CMD --no-summary --stdout -r . > "$RESULTFILE"
 set -o errexit # enable fail on errors
 
-logger -t virus_scan "`grep 'FOUND$' "$RESULTFILE" | wc -l` viruses found"
-logger -t virus_scan "`grep ': OK$' "$RESULTFILE" | wc -l` clean found"
+logger -t virus_scan "`grep 'FOUND$' "$RESULTFILE" | wc -l` viruses found in $INCOMING_DIR"
+logger -t virus_scan "`grep ': OK$' "$RESULTFILE" | wc -l` clean found in $INCOMING_DIR"
 
 grep 'FOUND$' "$RESULTFILE" | sed 's/: [^:]* FOUND$//' | rsync --remove-source-files --files-from=- . "$INFECTED_DIR/."
 if [ -n "$CLEAN_DIR" ]; then
