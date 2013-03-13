@@ -65,7 +65,7 @@ sub vcl_recv {
     <%= set_backend('whitehall_frontend') %>
   } else if (req.url ~ "^/__canary__$") {
     <%= set_backend('canary_frontend') %>
-  <% if str2bool(extlookup('govuk_enable_transaction_wrappers', 'no')) %>
+  <% if @transaction_wrappers_enabled %>
   } else if (req.url ~ "^/pay-for-certificates-for-marriage|^/pay-to-deposit-marriage-documents|^/pay-to-register-death-abroad|^/pay-to-register-birth-abroad") {
     <%= set_backend('transaction-wrappers') %>
   <% end %>

@@ -74,6 +74,7 @@ class varnish::config {
   ]
 
   $app_domain = extlookup('app_domain')
+  $transaction_wrappers_enabled = str2bool(extlookup('govuk_enable_transaction_wrappers', 'no'))
 
   file { '/etc/default/varnish':
     ensure  => file,
