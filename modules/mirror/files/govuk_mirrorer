@@ -8,63 +8,67 @@ require 'net/http'
 # 1.9.3 version:      https://github.com/ruby/ruby/blob/ruby_1_9_3/lib/net/http.rb#L760
 
 module Net
-if "1.9.2" == RUBY_VERSION  
 
-  HTTP.class_eval do
-    def connect
-      D "opening connection to #{conn_address()}..."
-      s = timeout(@open_timeout) { TCPSocket.open(conn_address(), conn_port()) }
-      D "opened"
-      if use_ssl?
-        ssl_parameters = Hash.new
-        iv_list = instance_variables
-        SSL_ATTRIBUTES.each do |name|
-          ivname = "@#{name}".intern
-          if iv_list.include?(ivname) and
-             value = instance_variable_get(ivname)
-            ssl_parameters[name] = value
-          end
-        end
-        @ssl_context = OpenSSL::SSL::SSLContext.new
-        @ssl_context.set_params(ssl_parameters)
-        s = OpenSSL::SSL::SSLSocket.new(s, @ssl_context)
-        s.sync_close = true
-      end
-      @socket = BufferedIO.new(s)
-      @socket.read_timeout = @read_timeout
-      @socket.debug_output = @debug_output
-      if use_ssl?
-        begin
-          if proxy?
-            @socket.writeline sprintf('CONNECT %s:%s HTTP/%s',
-                                      @address, @port, HTTPVersion)
-            @socket.writeline "Host: #{@address}:#{@port}"
-            if proxy_user
-              credential = ["#{proxy_user}:#{proxy_pass}"].pack('m')
-              credential.delete!("\r\n")
-              @socket.writeline "Proxy-Authorization: Basic #{credential}"
+  if "1.9.2" == RUBY_VERSION
+
+    HTTP.class_eval do
+      def connect
+        D "opening connection to #{conn_address()}..."
+        s = timeout(@open_timeout) { TCPSocket.open(conn_address(), conn_port()) }
+        D "opened"
+
+        if use_ssl?
+          ssl_parameters = Hash.new
+          iv_list = instance_variables
+          SSL_ATTRIBUTES.each do |name|
+            ivname = "@#{name}".intern
+            if iv_list.include?(ivname) and
+               value = instance_variable_get(ivname)
+              ssl_parameters[name] = value
             end
-            @socket.writeline ''
-            HTTPResponse.read_new(@socket).value
           end
-
-          # This is the only line that's different from the ruby method
-          # Server Name Indication (SNI) RFC 3546
-          s.hostname = @address if s.respond_to? :hostname=
-
-          timeout(@open_timeout) { s.connect }
-          if @ssl_context.verify_mode != OpenSSL::SSL::VERIFY_NONE
-            s.post_connection_check(@address)
-          end
-        rescue => exception
-          D "Conn close because of connect error #{exception}"
-          @socket.close if @socket and not @socket.closed?
-          raise exception
+          @ssl_context = OpenSSL::SSL::SSLContext.new
+          @ssl_context.set_params(ssl_parameters)
+          s = OpenSSL::SSL::SSLSocket.new(s, @ssl_context)
+          s.sync_close = true
         end
+
+        @socket = BufferedIO.new(s)
+        @socket.read_timeout = @read_timeout
+        @socket.debug_output = @debug_output
+        if use_ssl?
+          begin
+            if proxy?
+              @socket.writeline sprintf('CONNECT %s:%s HTTP/%s',
+                                        @address, @port, HTTPVersion)
+              @socket.writeline "Host: #{@address}:#{@port}"
+              if proxy_user
+                credential = ["#{proxy_user}:#{proxy_pass}"].pack('m')
+                credential.delete!("\r\n")
+                @socket.writeline "Proxy-Authorization: Basic #{credential}"
+              end
+              @socket.writeline ''
+              HTTPResponse.read_new(@socket).value
+            end
+
+            # This is the only line that's different from the ruby method
+            # Server Name Indication (SNI) RFC 3546
+            s.hostname = @address if s.respond_to? :hostname=
+
+            timeout(@open_timeout) { s.connect }
+            if @ssl_context.verify_mode != OpenSSL::SSL::VERIFY_NONE
+              s.post_connection_check(@address)
+            end
+          rescue => exception
+            D "Conn close because of connect error #{exception}"
+            @socket.close if @socket and not @socket.closed?
+            raise exception
+          end
+        end
+        on_connect
       end
-      on_connect
     end
-  end
+
   end
 end
 
@@ -72,7 +76,7 @@ require 'rubygems'
 require 'mechanize'
 require 'json'
 require 'spidey'
-require 'logger'
+require 'syslogger'
 
 class GovukIndexer
   FORMATS_TO_503 = %w(
@@ -119,8 +123,8 @@ class GovukIndexer
     path = URI.parse(url).path
     return false if path.nil? # e.g. mailto: links...
     url_segments = path.sub(%r{\A/}, '').split('/')
-    @blacklist_paths.any? do |path|
-      bl_segments = path.sub(%r{\A/}, '').split('/')
+    @blacklist_paths.any? do |blacklist_path|
+      bl_segments = blacklist_path.sub(%r{\A/}, '').split('/')
       url_segments[0..(bl_segments.length - 1)] == bl_segments
     end
   end
@@ -169,7 +173,14 @@ class GovukMirrorer < Spidey::AbstractSpider
     setup_agent
     @http_errors = {}
 
-    @logger = Logger.new(attrs[:logfile] || STDOUT)
+    # Syslog settings
+    # programname: govuk_mirrorer
+    # options: Syslog::LOG_PID | Syslog::LOG_CONS
+    # facility: local5
+    # Syslog::LOG_PID - adds the process number to the message (just after the program name)
+    # Syslog::LOG_CONS - writes the message on the console if an error occurs when sending the message
+    @logger = Syslogger.new('govuk_mirrorer', Syslog::LOG_PID | Syslog::LOG_CONS, Syslog::LOG_LOCAL5)
+
     if attrs[:log_level]
       @logger.level = Logger.const_get(attrs[:log_level].upcase)
     else
@@ -280,13 +291,13 @@ class GovukMirrorer < Spidey::AbstractSpider
   def spidey_handle (url, handler, data)
     handle url, handler, data
   end
-  
+
   protected
 
   def add_error(attrs)
     msg = "Error #{attrs[:error].inspect} for #{attrs[:url]}, data: #{attrs[:data].inspect}"
     msg << "\n#{attrs[:error].backtrace.join("\n")}" unless attrs[:error].is_a?(Mechanize::Error)
-    logger.warn msg
+    logger.warn msg.to_s
     @http_errors[attrs[:url]] = attrs[:error]
   end
 

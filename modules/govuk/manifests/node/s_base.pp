@@ -17,7 +17,7 @@ class govuk::node::s_base {
   include users
 
   # Enable management of groups specified in extdata
-  $user_groups = extlookup("user_groups", [])
+  $user_groups = extlookup('user_groups', [])
   $user_groups_real = regsubst($user_groups, '^', 'users::groups::')
   class { $user_groups_real: }
 
@@ -39,22 +39,22 @@ class govuk::node::s_base {
 
   govuk::logstream {
     'apt-history':
-      logfile => "/var/log/apt/history.log",
+      logfile => '/var/log/apt/history.log',
       tags    => ['apt','history'];
     'apt-term':
-      logfile => "/var/log/apt/term.log",
+      logfile => '/var/log/apt/term.log',
       tags    => ['apt','term'];
     'dpkg':
-      logfile => "/var/log/dpkg.log",
+      logfile => '/var/log/dpkg.log',
       tags    => ['dpkg'];
     'unattended-upgrades':
-      logfile => "/var/log/unattended-upgrades/unattended-upgrades.log",
+      logfile => '/var/log/unattended-upgrades/unattended-upgrades.log',
       tags    => ['apt','unattended'];
     'unattended-upgrades-shutdown':
-      logfile => "/var/log/unattended-upgrades/unattended-upgrades-shutdown.log",
+      logfile => '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log',
       tags    => ['apt','unattended'];
     'rkhunter':
-      logfile => "/var/log/rkhunter.log",
+      logfile => '/var/log/rkhunter.log',
       tags    => ['rkhunter'];
   }
 
