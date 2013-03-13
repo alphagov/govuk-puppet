@@ -12,10 +12,5 @@ create_app_dirs () {
 # Ensure that app directories exist and have correct permissions
 create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
 
-start-stop-daemon --start \
-          --chuid "$GOVUK_USER:$GOVUK_GROUP" \
-          --chdir "$GOVUK_APP_ROOT" \
-          --pidfile "${GOVUK_APP_RUN}/delayed_job.pid" \
-          --make-pidfile \
-          --startas "/bin/sh" \
-          -- -c "exec bundle exec rake --trace jobs:work 2>>'${GOVUK_APP_LOGROOT}/delayed_job.err.log' 1>>'${GOVUK_APP_LOGROOT}/delayed_job.out.log'"
+cd $GOVUK_APP_ROOT
+exec sudo -u $GOVUK_USER sh -c "exec bundle exec rake --trace jobs:work 2>>'${GOVUK_APP_LOGROOT}/delayed_job.err.log' 1>>'${GOVUK_APP_LOGROOT}/delayed_job.out.log'"
