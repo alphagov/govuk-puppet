@@ -13,6 +13,13 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include mongodb::server
   include nodejs
 
+  $redis_port = 6379
+  $redis_max_memory = 256
+  class { 'redis':
+    redis_max_memory => "${redis_max_memory}mb",
+    redis_port       => $redis_port,
+  }
+
   class { 'elasticsearch':
     cluster_name       => "govuk-${::govuk_platform}",
     number_of_replicas => '0'
