@@ -46,7 +46,7 @@ class mirror {
     ensure  => present,
     mode    => '0755',
     source  => 'puppet:///modules/mirror/govuk_mirrorer',
-    require => [Package['spidey'], Package['syslogger']],
+    require => Class['ruby::spidey', 'ruby::syslogger'],
   }
 
   # script that uploads the mirrored files to net storage
