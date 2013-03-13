@@ -46,12 +46,17 @@ class mirror {
     require  => Package['libxml2-dev'],
   }
 
+  package { 'syslogger':
+    ensure   => present,
+    provider => gem,
+  }
+
   # ruby script that does the crawlling to make the local mirror
   file { '/usr/local/bin/govuk_mirrorer':
     ensure  => present,
     mode    => '0755',
     source  => 'puppet:///modules/mirror/govuk_mirrorer',
-    require => Package['spidey'],
+    require => [Package['spidey'], Package['syslogger']],
   }
 
   # script that uploads the mirrored files to net storage
