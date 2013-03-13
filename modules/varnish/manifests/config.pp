@@ -76,7 +76,7 @@ class varnish::config {
   $transaction_wrappers_enabled = str2bool(extlookup('govuk_enable_transaction_wrappers', 'no'))
 
   if $transaction_wrappers_enabled {
-    $backends = flatten($all_backends,'transaction-wrappers')
+    $backends = flatten([$all_backends,'transaction_wrappers'])
   } else {
     $backends = $all_backends
   }
