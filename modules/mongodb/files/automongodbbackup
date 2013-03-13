@@ -242,7 +242,8 @@ REPLICAONSLAVE="yes"
 [ ! -z "$1" ] && [ -f "$1" ] && source ${1}
 
 #=====================================================================
-
+STARTEPOCH=$(date +'%s')
+APPNAME=$(basename $0)
 PATH=/usr/local/bin:/usr/bin:/bin
 DATE=`date +%Y-%m-%d_%Hh%Mm`		# Datestamp e.g 2002-09-21
 DOW=`date +%A`						# Day of the week e.g. Monday
@@ -549,9 +550,17 @@ fi
 
 STATUS=0
 ERRORS=`wc -l $LOGERR | awk '{print $1}'`
+FINISHEPOCH=$(date +'%s')
+TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
 if [ $ERRORS -gt 0 ];
 then
   STATUS=1
 fi
 
+if [ $STATUS -gt 0 ];
+then
+  logger -t $APPNAME "$APPNAME wrote to STDERR. This may indicate an issue. Completed in T:$TOTALTIME seconds"
+else
+  logger -t $APPNAME "$APPNAME completed in T:$TOTALTIME seconds"
+fi
 exit $STATUS

@@ -1,4 +1,8 @@
 #!/bin/bash
+# Script to push backups offsite.
+
+STARTEPOCH=$(date +'%s')
+APPNAME=$(basename $0)
 
 GPG_KEY='05119BA4'
 
@@ -26,3 +30,9 @@ SSH_OPTS="-C -o VisualHostKey=no"
 
 gpg -q --recv-keys $GPG_KEY 2>/dev/null
 tar $TAR_OPTS 2>/dev/null | gpg $GPG_OPTS | ssh $SSH_OPTS $DEST "cat > $FILENAME"
+
+FINISHEPOCH=$(date +'%s')
+TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
+
+MESSAGE="Offsite backups completed in T:$TOTALTIME seconds"
+logger -t $APPNAME $MESSAGE

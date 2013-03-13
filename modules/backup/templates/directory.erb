@@ -1,4 +1,5 @@
 #!/bin/bash
+STARTEPOCH=$(date +'%s')
 BACKUPROOT="/data/backups"
 CLIENTNAME="<%= @fq_dn %>"
 SOURCEDIR="<%= @directory %>"
@@ -9,5 +10,7 @@ logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR started
 mkdir -p ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 rsync -qa -e "ssh -o VisualHostKey=false" --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR}/ ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 echo "Date: $DATE" > ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}/BACKUPINFO
-logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR ended
+FINISHEPOCH=$(date +'%s')
+TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
+logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR ended in T:$TOTALTIME seconds
 
