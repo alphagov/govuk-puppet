@@ -13,4 +13,4 @@ create_app_dirs () {
 create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
 
 cd $GOVUK_APP_ROOT
-exec sudo -u $GOVUK_USER sh -c "exec bundle exec rake --trace jobs:work 2>>'${GOVUK_APP_LOGROOT}/delayed_job.err.log' 1>>'${GOVUK_APP_LOGROOT}/delayed_job.out.log'"
+exec sudo -u $GOVUK_USER -E sh -c "exec bundle exec rake --trace jobs:work 2>>'${GOVUK_APP_LOGROOT}/delayed_job.err.log' 1>>'${GOVUK_APP_LOGROOT}/delayed_job.out.log'"
