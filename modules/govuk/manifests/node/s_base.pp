@@ -37,6 +37,16 @@ class govuk::node::s_base {
     content => ':programname, isequal, "audispd"  ~'
   }
 
+  rsyslog::snippet { '490-client-programs':
+    content => template('govuk/etc/rsyslog.d/490-client-programs.conf.erb'),
+    require => File['govuk-log-dir'],
+  }
+
+  file { 'govuk-log-dir':
+    ensure => directory,
+    path   => '/var/log/govuk',
+  }
+
   govuk::logstream {
     'apt-history':
       logfile => '/var/log/apt/history.log',

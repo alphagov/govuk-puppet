@@ -176,10 +176,10 @@ class GovukMirrorer < Spidey::AbstractSpider
     # Syslog settings
     # programname: govuk_mirrorer
     # options: Syslog::LOG_PID | Syslog::LOG_CONS
-    # facility: local5
+    # facility: local3
     # Syslog::LOG_PID - adds the process number to the message (just after the program name)
     # Syslog::LOG_CONS - writes the message on the console if an error occurs when sending the message
-    @logger = Syslogger.new('govuk_mirrorer', Syslog::LOG_PID | Syslog::LOG_CONS, Syslog::LOG_LOCAL5)
+    @logger = Syslogger.new('govuk_mirrorer', Syslog::LOG_PID | Syslog::LOG_CONS, Syslog::LOG_LOCAL3)
 
     if attrs[:log_level]
       @logger.level = Logger.const_get(attrs[:log_level].upcase)
