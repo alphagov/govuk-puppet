@@ -26,8 +26,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-rsyslog.git
-  ref: fd37da9
-  sha: fd37da926f93d62c759acd8829019aa3994045f6
+  ref: 8a2245e
+  sha: 8a2245e697678ec22a8c98adbb8d20d976b6e2d8
   specs:
     rsyslog (1.1.4)
 

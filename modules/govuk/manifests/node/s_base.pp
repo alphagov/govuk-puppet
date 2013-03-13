@@ -25,12 +25,17 @@ class govuk::node::s_base {
     server    => 'logging.cluster',
     log_local => true,
   }
-  rsyslog::snippet { '10-ratelimit':
+
+  # Introducing rsyslog::snippet for custom config files
+  # for rsyslogs
+
+  rsyslog::snippet { '100-ratelimit':
     content => '$SystemLogRateLimitInterval 0'
-    }
-  rsyslog::snippet { '39-audispd':
+  }
+
+  rsyslog::snippet { '390-audispd':
     content => ':programname, isequal, "audispd"  ~'
-    }
+  }
 
   govuk::logstream {
     'apt-history':
