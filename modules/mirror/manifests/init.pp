@@ -1,5 +1,6 @@
 class mirror {
-
+  include ruby::spidey
+  include ruby::syslogger
   include lockrun
 
   # set up user that's needed to upload the mirrored site to net storage
@@ -40,18 +41,12 @@ class mirror {
     source => 'puppet:///modules/mirror/govuk_update_mirror',
   }
 
-  package { 'spidey':
-    ensure   => present,
-    provider => gem,
-    require  => Package['libxml2-dev'],
-  }
-
   # ruby script that does the crawlling to make the local mirror
   file { '/usr/local/bin/govuk_mirrorer':
     ensure  => present,
     mode    => '0755',
     source  => 'puppet:///modules/mirror/govuk_mirrorer',
-    require => Package['spidey'],
+    require => Class['ruby::spidey', 'ruby::syslogger'],
   }
 
   # script that uploads the mirrored files to net storage
