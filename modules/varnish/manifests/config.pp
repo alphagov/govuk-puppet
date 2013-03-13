@@ -69,6 +69,7 @@ class varnish::config {
     'smartanswers',
     'static',
     'tariff',
+    'transaction-wrappers',
     'whitehall_frontend'
   ]
 
