@@ -9,8 +9,13 @@ class govuk::node::s_deployment inherits govuk::node::s_base {
     status_message => '',
   }
 
+  nginx::config::ssl { 'jenkins':
+    certtype => 'wildcard_alphagov',
+  }
+
   nginx::config::site { 'jenkins':
     content => template('govuk/node/s_deployment/jenkins.conf.erb'),
+    require => Nginx::Config::Ssl['jenkins'],
   }
 
   nginx::config::site { 'monitoring-proxy':
