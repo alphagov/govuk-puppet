@@ -11,24 +11,39 @@ You will need access to the repos:
 
 ## Setup
 
-The above repos should be cloned parallel to this one. `development/install.sh` will do this for you.
+The above repos should be cloned parallel to this one.
+`development/install.sh` will do this for you.
 
-The preferred method of installing Vagrant is through Bundler. This allows us to pin specific versions. However if you already have a system-wide installation that should also work.
+The preferred method of installing Vagrant is through Bundler. This allows
+us to pin specific versions. However if you already have a system-wide
+installation that should also work.
 
-There is also an rbenv version file included. I recommend that you use rbenv and the version of Ruby specified in there. If you only have 1.8.x available then you will almost certainly need to install rbenv, see [here](https://github.com/sstephenson/rbenv/#homebrew-on-mac-os-x) and [here](http://dan.carley.co/blog/2012/02/07/rbenv-and-bundler/).
+There is also an rbenv version file included. I recommend that you use rbenv
+and the version of Ruby specified in there. If you only have 1.8.x available
+then you will almost certainly need to install rbenv, see
+[here](https://github.com/sstephenson/rbenv/#homebrew-on-mac-os-x) and
+[here](http://dan.carley.co/blog/2012/02/07/rbenv-and-bundler/).
 
 ## Usage
 
-You need only bring up the subset of nodes that you're working on. To bring up a frontend and backend for example:
+You need only bring up the subset of nodes that you're working on. To bring
+up a frontend and backend for example:
 ```sh
 vagrant up frontend-1.frontend backend-1.backend
 ```
 
-Vagrant will run the Puppet provisioner against the node when it boots up. Nodes should look almost identical to that of Skyscape staging, including network addresses. Physical attributes like `memory` and `num_cores` will be ignored because they don't scale appropriately to local VMs, but they can still be customised as described below.
+Vagrant will run the Puppet provisioner against the node when it boots up.
+Nodes should look almost identical to that of Skyscape staging, including
+network addresses. Physical attributes like `memory` and `num_cores` will be
+ignored because they don't scale appropriately to local VMs, but they can
+still be customised as described below.
 
 ## Customisation
 
-Node definitions can be overridden with a `nodes.local.json` file in the vagrant-govuk directory. This is merged on top of all other node definitions. The following keys are currently used and available for customisation:
+Node definitions can be overridden with a `nodes.local.json` file in the
+vagrant-govuk directory. This is merged on top of all other node
+definitions. The following keys are currently used and available for
+customisation:
 
 - `box_dist` Ubuntu distribution. Currently "precise" (default) or "lucid".
 - `box_version` Internal version number of the GDS basebox.
@@ -52,14 +67,17 @@ For example to increase the amount of RAM on a PuppetMaster:
 /usr/local/lib/site_ruby/1.9.1/rubygems/custom_require.rb:36:in `require': iconv will be deprecated in the future, use String#encode instead.
 /usr/lib/ruby/gems/1.9.1/gems/puppet-2.7.19/lib/puppet/provider/service/bsd.rb:12: warning: class variable access from toplevel
 ```
-These are expected because Puppet 2.7 doesn't quite claim to be compatible with Ruby 1.9
+These are expected because Puppet 2.7 doesn't quite claim to be compatible
+with Ruby 1.9
 
 ### Storeconfigs
 ```
 warning: You cannot collect without storeconfigs being set on line ..
 warning: You cannot collect exported resources without storeconfigs being set; the collection will be ignored on line ..
 ```
-These are expected because storeconfigs doesn't work with `puppet apply`. If you want to test a manifest that requires storeconfigs you can bring up a `puppet-1.management` node and use `puppet agent`.
+These are expected because storeconfigs doesn't work with `puppet apply`. If
+you want to test a manifest that requires storeconfigs you can bring up a
+`puppet-1.management` node and use `puppet agent`.
 
 ### NFS failed mounts
 ```
@@ -69,4 +87,6 @@ client software not being installed on the guest machine. Please verify
 that the NFS client software is properly installed, and consult any resources
 specific to the linux distro you're using for more information on how to do this.
 ```
-This seems to be caused by a combination of OSX, VirtualBox, and Cisco AnyConnect. Try temporarily disconnecting from the VPN when bringing up a new node.
+This seems to be caused by a combination of OSX, VirtualBox, and Cisco
+AnyConnect. Try temporarily disconnecting from the VPN when bringing up a
+new node.
