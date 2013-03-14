@@ -1,4 +1,4 @@
-class users::bob {
+class users::cal {
   govuk::user { 'cal':
     fullname => 'Cal Paterson',
     email    => 'cal.paterson@digital.cabinet-office.gov.uk',
