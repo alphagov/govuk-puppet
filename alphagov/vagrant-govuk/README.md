@@ -32,10 +32,13 @@ vagrant up frontend-1.frontend backend-1.backend
 ```
 
 Vagrant will run the Puppet provisioner against the node when it boots up.
-Nodes should look almost identical to that of Skyscape staging, including
-network addresses. Physical attributes like `memory` and `num_cores` will be
-ignored because they don't scale appropriately to local VMs, but they can
-still be customised as described below.
+Nodes should look almost identical to that of Skyscape, including network
+addresses. To access a node's services like HTTP/HTTPS you can point your
+`hosts` file to the host-only IP address (eth1).
+
+Physical attributes like `memory` and `num_cores` will be ignored because
+they don't scale appropriately to local VMs, but can still be customised as
+described below.
 
 ## Customisation
 
