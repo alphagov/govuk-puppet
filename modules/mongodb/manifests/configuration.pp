@@ -2,7 +2,7 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
 
   # $dbpath and $replicaset are both used by the templates below
 
-  $mongo_log_file = "/var/log/mongodb/mongod.log"
+  $mongod_log_file = "/var/log/mongodb/mongod.log"
 
   file { '/etc/mongodb.conf':
     ensure  => present,
@@ -33,7 +33,7 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
   }
 
   govuk::logstream { 'mongodb-logstream':
-    logfile => $mongo_log_file,
+    logfile => $mongod_log_file,
     tags    => ['MONGODB', $::fqdn],
     enable  => true,
   }
