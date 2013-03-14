@@ -214,6 +214,11 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['redis-1'],
   }
+  govuk::host { 'redis-2':
+    ip             => '10.3.0.51',
+    vdc            => 'backend',
+    legacy_aliases => ['redis-2'],
+  }
   govuk::host { 'mysql-master-1':
     ip             => '10.3.10.0',
     vdc            => 'backend',
