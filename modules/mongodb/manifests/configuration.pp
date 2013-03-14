@@ -2,6 +2,8 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
 
   # $dbpath and $replicaset are both used by the templates below
 
+  $mongod_log_file = "/var/log/mongodb/mongod.log"
+
   file { '/etc/mongodb.conf':
     ensure  => present,
     content => template('mongodb/mongodb.conf'),
@@ -28,5 +30,11 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
     mode    => '0644',
     require => Package['mongodb20-10gen'],
     notify  => Service['mongodb'],
+  }
+
+  govuk::logstream { 'mongodb-logstream':
+    logfile => $mongod_log_file,
+    tags    => ['MONGODB', $::fqdn],
+    enable  => true,
   }
 }
