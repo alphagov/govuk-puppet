@@ -11,23 +11,22 @@ You will need access to the repos:
 
 ## Setup
 
-The above repos should be cloned parallel to this one.
-`development/install.sh` will do this for you.
+The above repos should be cloned in parallel to this one. Either
+`alphagov/gds-boxen` or `gds/development:install.sh` can do this for you.
 
-The preferred method of installing Vagrant is through Bundler. This allows
-us to pin specific versions. However if you already have a system-wide
+The preferred method of installing Vagrant is through Bundler. This allows us
+to pin specific versions. However if you already have a system-wide
 installation that should also work.
 
-There is also an rbenv version file included. I recommend that you use rbenv
-and the version of Ruby specified in there. If you only have 1.8.x available
-then you will almost certainly need to install rbenv, see
-[here](https://github.com/sstephenson/rbenv/#homebrew-on-mac-os-x) and
-[here](http://dan.carley.co/blog/2012/02/07/rbenv-and-bundler/).
+It is recommended that you use Ruby 1.9 through rbenv. `alphagov/gds-boxen`
+can also set this up for you. Alternatively you can read about how to do it
+yourself [here](https://github.com/sstephenson/rbenv/#homebrew-on-mac-os-x)
+and [here](http://dan.carley.co/blog/2012/02/07/rbenv-and-bundler/).
 
 ## Usage
 
-You need only bring up the subset of nodes that you're working on. To bring
-up a frontend and backend for example:
+You need only bring up the subset of nodes that you're working on. For
+example, to bring up a frontend and backend:
 ```sh
 vagrant up frontend-1.frontend backend-1.backend
 ```
@@ -42,8 +41,7 @@ still be customised as described below.
 
 Node definitions can be overridden with a `nodes.local.json` file in the
 vagrant-govuk directory. This is merged on top of all other node
-definitions. The following keys are currently used and available for
-customisation:
+definitions. The following keys are currently available for customisation:
 
 - `box_dist` Ubuntu distribution. Currently "precise" (default) or "lucid".
 - `box_version` Internal version number of the GDS basebox.
@@ -61,6 +59,8 @@ For example to increase the amount of RAM on a PuppetMaster:
 ```
 
 ## Errors
+
+Some errors that you might encounter..
 
 ### Ruby warnings
 ```
