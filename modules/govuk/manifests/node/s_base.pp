@@ -47,6 +47,10 @@ class govuk::node::s_base {
     path   => '/var/log/govuk',
   }
 
+  @logrotate::conf { 'govuk-logs':
+    matches => '/var/log/govuk/*.log',
+  }
+
   govuk::logstream {
     'apt-history':
       logfile => '/var/log/apt/history.log',
