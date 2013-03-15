@@ -1,11 +1,11 @@
-class mysql::server::config {
+class mysql::server::config ( $error_log ) {
 
   file { '/etc/mysql':
     ensure => 'directory',
   }
 
   file { '/etc/mysql/my.cnf':
-    source => 'puppet:///modules/mysql/etc/mysql/my.cnf',
+    content => template('mysql/etc/mysql/my.cnf.erb'),
   }
 
   file { '/etc/mysql/conf.d':
