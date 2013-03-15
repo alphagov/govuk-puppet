@@ -34,10 +34,8 @@ class govuk::node::s_backend_lb {
       internal_only => true;
   }
 
-  if str2bool(extlookup('govuk_enable_kibana', 'no')) {
-    loadbalancer::balance { 'kibana':
-      read_timeout => 5,
-    }
+  loadbalancer::balance { 'kibana':
+    read_timeout => 5,
   }
 
   loadbalancer::balance { 'mapit':
