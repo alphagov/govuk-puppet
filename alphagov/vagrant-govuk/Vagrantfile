@@ -49,7 +49,7 @@ def nodes_from_json
   nodes
 end
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   nodes_from_json.each do |node_name, node_opts|
     config.vm.define node_name do |c|
       box_name, box_url = get_box(
@@ -59,38 +59,39 @@ Vagrant::Config.run do |config|
       c.vm.box = box_name
       c.vm.box_url = box_url
 
-      c.vm.host_name = node_name
-      c.vm.network :hostonly, node_opts["ip"], :netmask => "255.255.000.000"
+      c.vm.hostname = node_name
+      c.vm.network :private_network, {
+        :ip => node_opts["ip"],
+        :netmask => "255.255.000.000"
+      }
 
-      modifyvm_args = ['modifyvm', :id]
+      c.vm.provider :virtualbox do |vb|
+        modifyvm_args = ['modifyvm', :id]
 
-      # Mitigate boot hangs.
-      modifyvm_args << "--rtcuseutc" << "on"
+        # Mitigate boot hangs.
+        modifyvm_args << "--rtcuseutc" << "on"
 
-      # Isolate guests from host networking.
-      modifyvm_args << "--natdnsproxy1" << "on"
-      modifyvm_args << "--natdnshostresolver1" << "on"
+        # Isolate guests from host networking.
+        modifyvm_args << "--natdnsproxy1" << "on"
+        modifyvm_args << "--natdnshostresolver1" << "on"
 
-      if node_opts.has_key?("memory")
-        modifyvm_args << "--memory" << node_opts["memory"]
+        if node_opts.has_key?("memory")
+          modifyvm_args << "--memory" << node_opts["memory"]
+        end
+
+        vb.customize(modifyvm_args)
       end
 
-      c.vm.customize(modifyvm_args)
-
       c.ssh.forward_agent = true
-      c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
+      c.vm.synced_folder "..", "/var/govuk", :nfs => true
 
       # Additional shared folders for Puppet Master nodes.
       # These can't been NFS because OSX won't export overlapping paths.
       if node_opts["class"] == "puppet"
-        c.vm.share_folder "pm-puppet",
-          "/usr/share/puppet/production/current",
-          "../puppet"
+        c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
-      c.vm.share_folder "extdata",
-        "/tmp/vagrant-puppet/extdata",
-        "../puppet/extdata"
+      c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
 
       c.vm.provision :puppet do |puppet|
         puppet.manifest_file = "site.pp"
