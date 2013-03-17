@@ -9,6 +9,8 @@
 /build/
 /vendor/
 .DS_Store
+# Ignore config from the "pt" gem for CLI access to PT
+.pt
 # Put "--profile" in a file called .rspec to get per-test timing results
 .rspec
 .rvmrc
