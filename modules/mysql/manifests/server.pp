@@ -1,5 +1,7 @@
 class mysql::server($root_password='') {
 
+  $mysql_error_log = "/var/log/mysql/error.log"
+
   anchor { 'mysql::server::begin':
     before => Class['mysql::server::package'],
     notify => Class['mysql::server::service'];
@@ -10,15 +12,18 @@ class mysql::server($root_password='') {
   }
 
   class { 'mysql::server::config':
-    require => Class['mysql::server::package'],
-    notify  => Class['mysql::server::service'];
+    require   => Class['mysql::server::package'],
+    notify    => Class['mysql::server::service'],
+    error_log => $mysql_error_log,
   }
 
   class { 'mysql::server::firewall':
     require => Class['mysql::server::config'],
   }
 
-  class { 'mysql::server::service': }
+  class { 'mysql::server::service':
+    error_log => $mysql_error_log,
+  }
 
   class { 'mysql::server::monitoring':
     root_password => $root_password,
