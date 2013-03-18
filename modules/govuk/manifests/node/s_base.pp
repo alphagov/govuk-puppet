@@ -33,7 +33,7 @@ class govuk::node::s_base {
     content => '$SystemLogRateLimitInterval 0'
   }
 
-  rsyslog::snippet { '390-audispd':
+  rsyslog::snippet { '410-audispd':
     content => ':programname, isequal, "audispd"  ~'
   }
 
