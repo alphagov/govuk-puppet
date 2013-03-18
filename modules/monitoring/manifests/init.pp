@@ -17,7 +17,8 @@ class monitoring {
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   nginx::config::ssl { 'monitoring':
-    certtype => 'wildcard_alphagov' }
+    certtype => 'wildcard_alphagov_mgmt',
+  }
   nginx::config::site { 'monitoring':
     content => template('monitoring/nginx.conf.erb'),
   }
