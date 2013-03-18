@@ -12,7 +12,7 @@ mod 'ufw',
   :ref => 'dc7ddc2'
 mod 'rsyslog',
   :git => 'git://github.com/alphagov/puppet-rsyslog.git',
-  :ref => '8a2245e'
+  :ref => 'c89fd61'
 mod 'logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
