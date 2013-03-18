@@ -34,7 +34,7 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
 
   govuk::logstream { 'mongodb-logstream':
     logfile => $mongod_log_file,
-    tags    => ['MONGODB', $::fqdn],
+    tags    => ['mongodb', $::fqdn],
     enable  => true,
   }
 }

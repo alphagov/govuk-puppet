@@ -6,7 +6,7 @@ class mysql::server::service ( $error_log ) {
 
   govuk::logstream { 'mysql-error-logs':
     logfile => $error_log,
-    tags    => ['MYSQL', 'ERROR'],
+    tags    => ['mysql', 'error'],
     enable  => true,
   }
 }
