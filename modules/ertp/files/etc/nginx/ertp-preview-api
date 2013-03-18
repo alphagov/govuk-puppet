@@ -6,7 +6,7 @@ server {
     proxy_pass http://127.0.0.1:9600/dwp-file-processor;
   }
 
-  location / {
+  location /ertp-api/ems/registration-requests {
     proxy_pass http://127.0.0.1:9900/;
   }
  
