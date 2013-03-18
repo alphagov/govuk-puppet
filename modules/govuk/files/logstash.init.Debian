@@ -39,7 +39,7 @@ LS_GROUP=root
 export JAVA_HOME=/usr
 
 # Directory where the logstash all in one jar lives
-LS_HOME=<%= scope.lookupvar('logstash::installpath') %>
+LS_HOME=/srv/logstash
 
 # Additional Java OPTS
 #LS_JAVA_OPTS=
