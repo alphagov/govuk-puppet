@@ -14,13 +14,13 @@ define govuk::app::service ( $logstream = false ) {
 
     govuk::logstream { "${title}-upstart-out":
       logfile => "/var/log/${title}/upstart.out.log",
-      tags    => [$title, 'STDOUT', 'UPSTART'],
+      tags    => [$title, 'stdout', 'upstart'],
       enable  => $logstream,
     }
 
     govuk::logstream { "${title}-upstart-err":
       logfile => "/var/log/${title}/upstart.err.log",
-      tags    => [$title, 'STDERR', 'UPSTART'],
+      tags    => [$title, 'stderr', 'upstart'],
       enable  => $logstream,
     }
 
