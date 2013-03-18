@@ -25,6 +25,7 @@ include java::oracle7::jre
     jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
     require     => Wget::Fetch['logstash-monolithic'],
+    initfile    => template('govuk/logstash.init.Debian.erb'),
   }
 
 #configure logstash inputs
