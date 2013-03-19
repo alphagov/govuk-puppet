@@ -170,6 +170,7 @@ class govuk::node::s_development {
     'linecache19':    ensure => 'installed', provider => gem;
     'mysql2':         ensure => 'installed', provider => gem, require => Class['mysql::client'];
     'rails':          ensure => 'installed', provider => gem;
+    'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
   }
 
