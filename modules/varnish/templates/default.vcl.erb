@@ -66,7 +66,7 @@ sub vcl_recv {
   } else if (req.url ~ "^/__canary__$") {
     <%= set_backend('canary_frontend') %>
   <% if @transaction_wrappers_enabled %>
-  } else if (req.url ~ "^/pay-for-certificates-for-marriage([/?.].*)?$|^/pay-to-deposit-marriage-documents([/?.].*)?$|^/pay-to-register-death-abroad([/?.].*)?$|^/pay-to-register-birth-abroad([/?.].*)?$") {
+  } else if (req.url ~ "^/pay-foreign-marriage-certificates/(.+)$|^/deposit-foreign-marriage/(.+)$|^/pay-register-death-abroad/(.+)$|^/pay-register-birth-abroad/(.+)$|^/pay-legalisation-post/(.+)$|^/pay-legalisation-drop-off/(.+)$") {
     <%= set_backend('transaction_wrappers') %>
   <% end %>
   } else {
