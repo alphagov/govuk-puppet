@@ -63,7 +63,7 @@ class monitoring::checks {
 
   # START frontend
   @@nagios::check { "check_frontend_to_exit_404_rejects":
-    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),"5minutes")!5minutes!50!100',
+    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')!5minutes!50!100',
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 404 rejects for exit links',
     host_name           => $::fqdn,
