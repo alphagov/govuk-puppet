@@ -118,12 +118,12 @@ define govuk::app::config (
   }
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
-    check_command       => "check_ganglia_metric!procstat_${title}_cpu!90!100",
+    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*,0.001))!90!100",
     service_description => "high CPU usage for ${title} app",
     host_name           => $::fqdn,
   }
   @@nagios::check { "check_${title}_app_mem_usage${::hostname}":
-    check_command       => "check_ganglia_metric!procstat_${title}_mem!2000000000!3000000000",
+    check_command       => "check_ganglia_metric!${::fqdn_underscore}.processes-app-${title}.ps_rss!2000000000!3000000000",
     service_description => "high memory for ${title} app",
     host_name           => $::fqdn,
   }

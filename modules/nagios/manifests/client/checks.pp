@@ -57,7 +57,7 @@ class nagios::client::checks {
   }
 
   @@nagios::check { "check_io_time${::hostname}":
-    check_command       => 'check_ganglia_metric!diskstat_sda1_io_time!30!60',
+    check_command       => "check_graphite_metric!maxSeries(${::fqdn_underscore}.disk-sd?.disk_time.*)!30!60",
     service_description => "high disk I/O usage",
     host_name           => $::fqdn,
   }

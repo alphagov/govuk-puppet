@@ -45,8 +45,9 @@ class varnish::service {
     enable  => true,
   }
 
+  # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check { "check_varnish_5xx_${::hostname}":
-    check_command       => 'check_ganglia_metric!http_5xx!1!2',
+    check_command       => "check_graphite_metric!keepLastValue(${::fqdn_underscore}.http_5xx)!1!2",
     service_description => 'router varnish high 5xx rate',
     host_name           => $::fqdn,
   }
