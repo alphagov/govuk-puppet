@@ -123,7 +123,7 @@ define govuk::app::config (
     host_name           => $::fqdn,
   }
   @@nagios::check { "check_${title}_app_mem_usage${::hostname}":
-    check_command       => "check_ganglia_metric!${::fqdn_underscore}.processes-app-${title}.ps_rss!2000000000!3000000000",
+    check_command       => "check_graphite_metric!${::fqdn_underscore}.processes-app-${title}.ps_rss!2000000000!3000000000",
     service_description => "high memory for ${title} app",
     host_name           => $::fqdn,
   }
