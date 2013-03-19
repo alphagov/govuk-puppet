@@ -5,13 +5,12 @@ define logster::cronjob (
 ) {
 
   $prefix_real = $prefix ? {
-    ''      => '',
-    default => "--metric-prefix=${prefix} ",
+    ''      => $::fqdn_underscore,
+    default => "${::fqdn_underscore}.${prefix}",
   }
 
-  $fqdn_escaped = regsubst($::fqdn, '\.', '_', 'G')
-  $output = "--output=ganglia --output=graphite --graphite-host=graphite.cluster:2003 --graphite-prefix=${fqdn_escaped}"
-  $args = "${prefix_real}${output} ${parser} ${file}"
+  $output = "--output=graphite --graphite-host=graphite.cluster:2003"
+  $args = "--metric-prefix=${prefix_real} ${output} ${parser} ${file}"
 
   cron { "logster-cronjob-${title}":
     command => "/usr/sbin/logster ${args}",
