@@ -10,7 +10,7 @@ class govuk::node::s_deployment inherits govuk::node::s_base {
   }
 
   nginx::config::ssl { 'jenkins':
-    certtype => 'wildcard_alphagov',
+    certtype => 'wildcard_alphagov_mgmt',
   }
 
   nginx::config::site { 'jenkins':
