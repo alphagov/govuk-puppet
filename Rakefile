@@ -1,7 +1,5 @@
 require 'rspec/core/rake_task'
 
-ENV['RUBYOPT'] = (ENV['RUBYOPT'] || '') + ' -W0'
-
 def get_modules
   if ENV['mods']
     ENV['mods'].split(',').map { |x| x == 'manifests' ? x : "modules/#{x}" }
