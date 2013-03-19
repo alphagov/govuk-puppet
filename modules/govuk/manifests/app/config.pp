@@ -118,7 +118,7 @@ define govuk::app::config (
   }
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
-    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*,0.001))!90!100",
+    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.001)!90!100",
     service_description => "high CPU usage for ${title} app",
     host_name           => $::fqdn,
   }
