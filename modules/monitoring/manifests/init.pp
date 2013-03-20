@@ -6,7 +6,7 @@ class monitoring {
 
   include nagios
   include nsca::server
-  include ganglia
+  include ganglia::remove
   include graphite
 
   include govuk::htpasswd

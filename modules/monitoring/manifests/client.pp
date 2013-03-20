@@ -1,7 +1,7 @@
 class monitoring::client {
   include nagios::client
   include nsca::client
-  include ganglia::client
+  include ganglia::remove
   include graphite::client
   include logster
   include auditd

@@ -2,14 +2,6 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
 
   include python::mongodb
 
-  @ganglia::pyconf { 'mongodb':
-    source  => 'puppet:///modules/mongodb/ganglia_mongodb.conf',
-  }
-
-  @ganglia::pymod { 'mongodb':
-    source  => 'puppet:///modules/mongodb/ganglia_mongodb.py',
-  }
-
   @nagios::plugin { 'check_mongodb.py':
     source  => 'puppet:///modules/mongodb/nagios_check_mongodb.py',
   }

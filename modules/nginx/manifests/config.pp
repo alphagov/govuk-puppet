@@ -47,11 +47,6 @@ class nginx::config {
     require => File['/var/www'],
   }
 
-  @ganglia::cronjob { 'nginx-status':
-    source => 'puppet:///modules/nginx/nginx_ganglia2.sh',
-    minute => '*/2',
-  }
-
   @@nagios::check { "check_nginx_active_connections_${::hostname}":
     check_command       => "check_graphite_metric!${::fqdn_underscore}.nginx.nginx_connections-active!500!1000",
     service_description => 'nginx high active conn',

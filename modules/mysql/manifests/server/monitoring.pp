@@ -4,18 +4,6 @@ class mysql::server::monitoring ($root_password) {
     ensure => installed,
   }
 
-  @ganglia::pyconf { 'mysql':
-    source  => 'puppet:///modules/mysql/ganglia/mysql.pyconf',
-  }
-
-  @ganglia::pymod { 'DBUtil':
-    source  => 'puppet:///modules/mysql/ganglia/DBUtil.py',
-  }
-
-  @ganglia::pymod { 'mysql':
-    source  => 'puppet:///modules/mysql/ganglia/mysql.py',
-  }
-
   exec { 'grant-ganglia-mysql-access':
     unless  => '/usr/bin/mysql -h 127.0.0.1 -uganglia -pganglia',
     command => "/usr/bin/mysql -h 127.0.0.1 -uroot -p${root_password} -e \"grant USAGE,PROCESS,SUPER,REPLICATION CLIENT on *.* to ganglia@'localhost' identified by 'ganglia'; flush privileges;\"",
