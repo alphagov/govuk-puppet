@@ -4,7 +4,7 @@
 STARTEPOCH=$(date +'%s')
 APPNAME=$(basename $0)
 
-GPG_KEY='05119BA4'
+GPG_KEY='13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
 
 BKP_DIR="/data/backups/"
 MYSQL_BKP="/var/lib/automysqlbackup/daily.tar"
