@@ -12,6 +12,7 @@ manifestdir = /var/govuk/puppet/manifests
 reports = store
 storeconfigs = true
 storeconfigs_backend = puppetdb
+config_version = /usr/local/bin/puppet_config_version /usr/share/puppet/production/current
 <%- if govuk_platform != 'development' -%>
 modulepath = /usr/share/puppet/production/current/modules:/usr/share/puppet/production/current/vendor/modules
 manifestdir = /usr/share/puppet/production/current/manifests
