@@ -33,6 +33,7 @@ class varnish::config {
     'energy-grants-calculator',
     'estimate-self-assessment-penalties',
     'exchange-a-foreign-driving-licence',
+    'help-if-you-are-arrested-abroad',
     'inherits-someone-dies-without-will',
     'legal-right-to-work-in-the-uk',
     'maternity-paternity-calculator',
