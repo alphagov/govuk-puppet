@@ -14,3 +14,5 @@
 # Put "--profile" in a file called .rspec to get per-test timing results
 .rspec
 .rvmrc
+# Written by Cap and read by puppet_config_version
+REVISION

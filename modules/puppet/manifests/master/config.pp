@@ -40,4 +40,9 @@ class puppet::master::config ($unicorn_port = '9090') {
   file {'/etc/puppet/routes.yaml':
     source => 'puppet:///modules/puppet/etc/puppet/routes.yaml'
   }
+  file { '/usr/local/bin/puppet_config_version':
+    ensure  => present,
+    source  => 'puppet:///modules/puppet/usr/local/bin/puppet_config_version',
+    mode    => '0755',
+  }
 }
