@@ -28,10 +28,6 @@ class monitoring {
                 ]:
                   logstream => true;
   }
-  file { '/opt/graphite/storage/rrd/ganglia':
-    ensure => link,
-    target => '/var/lib/ganglia/rrds/GDS/',
-  }
 
   file { '/var/www/monitoring':
     ensure => directory,
@@ -43,14 +39,18 @@ class monitoring {
     require => File['/var/www/monitoring'],
   }
 
+  # FIXME [#45082195]: No longer required.
+  file { '/opt/graphite/storage/rrd/ganglia':
+    ensure => absent,
+  }
+
+  # FIXME [#45082195]: No longer required.
   file { '/var/www/ganglia-views':
-    ensure  => directory,
-    source  => 'puppet:///modules/monitoring/ganglia-views',
+    ensure  => absent,
     recurse => true,
     force   => true,
     purge   => true,
-    owner   => 'www-data',
-    group   => 'www-data',
+    backup  => false,
   }
 
 }
