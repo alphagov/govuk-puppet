@@ -2,7 +2,10 @@ require_relative '../../../../spec_helper'
 
 describe 'logster::cronjob', :type => :define do
   let(:title) { 'giraffe' }
-  let(:facts) {{ :fqdn => 'host.example.com' }}
+  let(:facts) {{
+    :fqdn => 'host.example.com',
+    :fqdn_underscore => 'host_example_com',
+  }}
   let(:graphite_host) { 'graphite.cluster:2003' }
 
   describe 'with default params' do
@@ -11,7 +14,7 @@ describe 'logster::cronjob', :type => :define do
     }}
 
     it { should contain_cron('logster-cronjob-giraffe').with(
-      :command => "/usr/sbin/logster --output=ganglia --output=graphite --graphite-host=#{graphite_host} --graphite-prefix=host_example_com ExtendedSampleLogster /var/log/zebra.log",
+      :command => "/usr/sbin/logster --metric-prefix=host_example_com --output=graphite --graphite-host=#{graphite_host} ExtendedSampleLogster /var/log/zebra.log",
     )}
   end
 
@@ -23,7 +26,7 @@ describe 'logster::cronjob', :type => :define do
     }}
 
     it { should contain_cron('logster-cronjob-giraffe').with(
-      :command => "/usr/sbin/logster --metric-prefix=llama_ --output=ganglia --output=graphite --graphite-host=#{graphite_host} --graphite-prefix=host_example_com CamelLogster /var/log/zebra.log",
+      :command => "/usr/sbin/logster --metric-prefix=host_example_com.llama_ --output=graphite --graphite-host=#{graphite_host} CamelLogster /var/log/zebra.log",
     )}
   end
 end

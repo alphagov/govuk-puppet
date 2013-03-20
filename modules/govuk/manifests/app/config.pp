@@ -100,15 +100,6 @@ define govuk::app::config (
     regex => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
   }
 
-  @ganglia::pymod_alias { "app-${title}-procstat":
-    target => "procstat",
-  }
-
-  @ganglia::pyconf { "app-${title}":
-    content => template('govuk/etc/ganglia/conf.d/procstat.pyconf.erb'),
-    require => File["/usr/lib/ganglia/python_modules/app-${title}-procstat.py"]
-  }
-
   @logrotate::conf { "govuk-${title}":
     matches => "/var/log/${title}/*.log",
   }

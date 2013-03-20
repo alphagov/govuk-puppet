@@ -30,7 +30,7 @@ server {
 
 server {
   listen 443;
-  server_name monitoring.* nagios.* ganglia.*;
+  server_name monitoring.* nagios.*;
 
   location / {
     proxy_pass https://monitoring.management.production/;

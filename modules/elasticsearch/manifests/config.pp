@@ -67,15 +67,6 @@ class elasticsearch::config (
     content => template('elasticsearch/upstart.conf.erb'),
   }
 
-
-  @ganglia::pyconf { "elasticsearch-${cluster_name}":
-    content => template('elasticsearch/elasticsearch.pyconf.erb'),
-  }
-
-  @ganglia::pymod { 'elasticsearch':
-    source => 'puppet:///modules/elasticsearch/elasticsearch.py',
-  }
-
   @nagios::nrpe_config { 'check_elasticsearch':
     source => 'puppet:///modules/elasticsearch/check_elasticsearch.cfg',
   }

@@ -86,9 +86,6 @@ cmdline.add_option('--gmetric-options', action='store',
                     default='-d 180 -c /etc/ganglia/gmond.conf')
 cmdline.add_option('--graphite-host', action='store',
                     help='Hostname and port for Graphite collector, e.g. graphite.example.com:2003')
-cmdline.add_option('--graphite-prefix', action='store',
-                    help='Hostname to be prefixed to all metrics published to Graphite. It should be escaped, e.g. host_example_com',
-                    default='')
 cmdline.add_option('--state-dir', '-s', action='store', default=state_dir,
                     help='Where to store the logtail state file.  Default location %s' % state_dir)
 cmdline.add_option('--output', '-o', action='append',
@@ -195,8 +192,6 @@ def submit_graphite(metrics, options):
             metric.name = options.metric_prefix + "." + metric.name
         if (options.metric_suffix is not None):
             metric.name = metric.name + "." + options.metric_suffix
-        if (options.graphite_prefix != ""):
-            metric.name = options.graphite_prefix + "." + metric.name
 
         metric_string = "%s %s %s" % (metric.name, metric.value, metric.timestamp)
         logger.debug("Submitting Graphite metric: %s" % metric_string)

@@ -16,10 +16,6 @@ class rabbitmq {
     require => Package['rabbitmq-server'],
   }
 
-  @ganglia::cronjob { 'rabbitmq':
-    source => 'puppet:///modules/rabbitmq/rabbitmq_ganglia.sh',
-  }
-
   class { 'collectd::plugin::rabbitmq':  }
 
 }

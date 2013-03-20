@@ -26,14 +26,6 @@ class varnish::service {
     require   => Service['varnish'],
   }
 
-  @ganglia::pyconf { 'varnish':
-    source  => 'puppet:///modules/varnish/etc/ganglia/conf.d/varnish.pyconf',
-  }
-
-  @ganglia::pymod { 'varnish':
-    source  => 'puppet:///modules/varnish/usr/lib/ganglia/python_modules/varnish.py',
-  }
-
   @logster::cronjob { 'varnish':
     file => '/var/log/varnish/varnishncsa.log',
   }
