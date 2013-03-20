@@ -27,7 +27,8 @@ class varnish::service {
   }
 
   @logster::cronjob { 'varnish':
-    file => '/var/log/varnish/varnishncsa.log',
+    file   => '/var/log/varnish/varnishncsa.log',
+    prefix => 'varnish',
   }
 
   govuk::logstream { 'varnishncsa':
@@ -39,7 +40,7 @@ class varnish::service {
 
   # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check { "check_varnish_5xx_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.http_5xx)!3minutes!1!2",
+    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.varnish.http_5xx)!3minutes!1!2",
     service_description => 'router varnish high 5xx rate',
     host_name           => $::fqdn,
   }

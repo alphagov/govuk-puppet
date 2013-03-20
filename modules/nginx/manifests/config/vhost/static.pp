@@ -35,7 +35,7 @@ define nginx::config::vhost::static(
 
   # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check { "check_nginx_5xx_${title}_on_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.${title}_nginx.${title}_nginx_http_5xx)!3minutes!0.05!0.1",
+    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.${title}_nginx.http_5xx)!3minutes!0.05!0.1",
     service_description => "${title} nginx 5xx rate too high",
     host_name           => $::fqdn,
   }
