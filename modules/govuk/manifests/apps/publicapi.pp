@@ -4,6 +4,7 @@ class govuk::apps::publicapi {
 
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
+  $backdropread = "read.backdrop.${app_domain}"
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"
@@ -42,6 +43,14 @@ class govuk::apps::publicapi {
         proxy_pass http://${full_domain}-proxy;
       }
 
+      location ~ ^/performance/licensing/api(/|$) {
+        rewrite ^/performance/licensing/api/? /licensify break;
+
+        proxy_set_header Host ${backdropread};
+        proxy_set_header X-API-PREFIX performance/licensing/api;
+
+        proxy_pass http://${backdropread};
+      }
     "
   }
 }
