@@ -73,12 +73,12 @@ class router::nginx (
 
   @logster::cronjob { 'lb':
     file    => '/var/log/nginx/lb-access.log',
-    prefix  => 'nginx',
+    prefix  => 'nginx_logs',
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check { "check_nginx_5xx_on_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.nginx.http_5xx)!3minutes!1!5",
+    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.nginx_logs.http_5xx)!3minutes!1!5",
     service_description => 'router nginx high 5xx rate',
     host_name           => $::fqdn,
   }
