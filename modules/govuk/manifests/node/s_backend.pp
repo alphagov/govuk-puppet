@@ -29,6 +29,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::tariff_api
   include govuk::apps::travel_advice_publisher
 
+  if str2bool(extlookup('govuk_enable_tariff_demo', 'no')) {
+    include govuk::apps::tariff_demo_api
+  }
+
   class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::frontend':   vhost_protected => true  }
   class { 'govuk::apps::whitehall':
