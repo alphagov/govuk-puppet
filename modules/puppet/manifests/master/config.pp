@@ -11,12 +11,12 @@ class puppet::master::config ($unicorn_port = '9090') {
 
   @logster::cronjob { "nginx-vhost-puppetmaster":
     file    => '/var/log/nginx/puppetmaster-access.log',
-    prefix  => 'puppetmaster_nginx',
+    prefix  => 'nginx_logs.puppetmaster',
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check { "check_nginx_5xx_puppetmaster_on_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.puppetmaster_nginx.http_5xx)!3minutes!0.05!0.1",
+    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx)!3minutes!0.05!0.1",
     service_description => "puppetmaster nginx high 5xx rate",
     host_name           => $::fqdn,
   }
