@@ -1,9 +1,16 @@
 bootstrap.mlockall: <%= @mlock_all %>
 cluster.name: <%= @cluster_name %>
-discovery.zen.ping.multicast.enabled: false
-discovery.zen.ping.unicast.hosts: <%= @cluster_hosts.inspect %>
+discovery:
+  zen:
+    minimum_master_nodes: 2
+    ping:
+      multicast.enabled: false
+      unicast.hosts: <%= @cluster_hosts.inspect %>
+
 http.port: <%= @http_port %>
 index.number_of_replicas: <%= @number_of_replicas %>
 index.number_of_shards: <%= @number_of_shards %>
 index.refresh_interval: <%= @refresh_interval %>
 transport.tcp.port: <%= @transport_port %>
+network.publish_host: <%= @host %>
+node.name: <%= @host %>

@@ -4,10 +4,16 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
 
   include java::oracle7::jre
 
+  $tld = extlookup('internal_tld', 'production')
+
   class { 'elasticsearch':
+    cluster_hosts      => ['logs-elasticsearch-1.management:9300',
+                           'logs-elasticsearch-2.management:9300',
+                           'logs-elasticsearch-3.management:9300'],
     cluster_name       => 'logging',
     heap_size          => "${es_heap_size}m",
     number_of_replicas => '0',
+    host            => "${::fqdn}.${tld}",
     require            => Class['java::oracle7::jre'],
   }
 
