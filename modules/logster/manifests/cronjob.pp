@@ -3,6 +3,7 @@ define logster::cronjob (
   $parser = 'ExtendedSampleLogster',
   $prefix = ''
 ) {
+  validate_re($prefix, '^[\w\-\.]*$')
 
   $prefix_real = $prefix ? {
     ''      => $::fqdn_underscore,
@@ -10,7 +11,7 @@ define logster::cronjob (
   }
 
   $output = "--output=graphite --graphite-host=graphite.cluster:2003"
-  $args = "--metric-prefix=${prefix_real} ${output} ${parser} ${file}"
+  $args = "--metric-prefix='${prefix_real}' ${output} ${parser} ${file}"
 
   cron { "logster-cronjob-${title}":
     command => "/usr/sbin/logster ${args}",
