@@ -30,9 +30,10 @@ if File.exists?(puppet_agent_summary_filename)
     total_events = summary['events']['total'].to_i
     total_resources = summary['resources']['total'].to_i
     total_changes = summary['changes']['total'].to_i
+    config_version = summary['version']['config']
 
     if(total_events + total_resources + total_changes == 0)
-      puts "CRITICAL: Puppet run did not have anything, check logs"
+      puts "CRITICAL: Puppet run did not have anything, check logs [ver: #{config_version}]"
       exit 2
     end
 
@@ -40,7 +41,7 @@ if File.exists?(puppet_agent_summary_filename)
     events_failures = summary['events']['failure'].to_i
 
     if(resource_failures + events_failures > 0)
-      puts "WARNING: Puppet run had some failures"
+      puts "WARNING: Puppet run had some failures [ver: #{config_version}]"
       exit 1
     end
   rescue
@@ -49,5 +50,5 @@ if File.exists?(puppet_agent_summary_filename)
   end
 end
 
-puts "OK: Puppet is doing good"
+puts "OK: Puppet is doing good [ver: #{config_version}]"
 exit 0
