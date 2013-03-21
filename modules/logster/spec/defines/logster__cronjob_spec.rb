@@ -14,7 +14,7 @@ describe 'logster::cronjob', :type => :define do
     }}
 
     it { should contain_cron('logster-cronjob-giraffe').with(
-      :command => "/usr/sbin/logster --metric-prefix=host_example_com --output=graphite --graphite-host=#{graphite_host} ExtendedSampleLogster /var/log/zebra.log",
+      :command => "/usr/sbin/logster --metric-prefix='host_example_com' --output=graphite --graphite-host=#{graphite_host} ExtendedSampleLogster /var/log/zebra.log",
     )}
   end
 
@@ -22,11 +22,24 @@ describe 'logster::cronjob', :type => :define do
     let(:params) {{
       :file => '/var/log/zebra.log',
       :parser => 'CamelLogster',
-      :prefix => 'llama_',
+      :prefix => 'llama_catcher',
     }}
 
     it { should contain_cron('logster-cronjob-giraffe').with(
-      :command => "/usr/sbin/logster --metric-prefix=host_example_com.llama_ --output=graphite --graphite-host=#{graphite_host} CamelLogster /var/log/zebra.log",
+      :command => "/usr/sbin/logster --metric-prefix='host_example_com.llama_catcher' --output=graphite --graphite-host=#{graphite_host} CamelLogster /var/log/zebra.log",
     )}
+  end
+
+  describe 'with invalid prefix' do
+    let(:params) {{
+      :file => '/var/log/zebra.log',
+      :prefix => 'not*valid',
+    }}
+
+    it do
+      expect {
+        should contain_collectd__plugin('process-giraffe')
+      }.to raise_error(Puppet::Error, /validate_re/)
+    end
   end
 end
