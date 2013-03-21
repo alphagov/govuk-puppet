@@ -33,7 +33,7 @@ class varnish::service {
 
   govuk::logstream { 'varnishncsa':
     logfile => '/var/log/varnish/varnishncsa.log',
-    tags    => ['varnish'],
+    fields  => {'application' => 'varnish'},
     require => Service['varnishncsa'],
     enable  => true,
   }

@@ -21,5 +21,5 @@ respawn limit 5 20
 instance "<%= @logfile %>"
 
 script
-    tail -F <%= @logfile %> | govuk_logpipe -t <%= @tag_string %>
+    tail -F <%= @logfile %> | govuk_logpipe -t <%= @tag_string %> -f <%= fields.map { |k,v| "#{k}=#{v}" }.join(' ') %>
 end script

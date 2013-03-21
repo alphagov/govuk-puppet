@@ -54,22 +54,26 @@ class govuk::node::s_base {
   govuk::logstream {
     'apt-history':
       logfile => '/var/log/apt/history.log',
-      tags    => ['apt','history'];
+      tags    => ['history'],
+      fields  => {'application' => 'apt'};
     'apt-term':
       logfile => '/var/log/apt/term.log',
-      tags    => ['apt','term'];
+      tags    => ['term'],
+      fields  => {'application' => 'apt'};
     'dpkg':
       logfile => '/var/log/dpkg.log',
-      tags    => ['dpkg'];
+      fields  => {'application' => 'dpkg'};
     'unattended-upgrades':
       logfile => '/var/log/unattended-upgrades/unattended-upgrades.log',
-      tags    => ['apt','unattended'];
+      tags    => ['unattended'],
+      fields  => {'application' => 'apt'};
     'unattended-upgrades-shutdown':
       logfile => '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log',
-      tags    => ['apt','unattended'];
+      tags    => ['unattended'],
+      fields  => {'application' => 'apt'};
     'rkhunter':
       logfile => '/var/log/rkhunter.log',
-      tags    => ['rkhunter'];
+      fields  => {'application' => 'rkhunter'};
   }
 
   class { 'postfix':

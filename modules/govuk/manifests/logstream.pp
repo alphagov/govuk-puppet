@@ -1,6 +1,7 @@
 define govuk::logstream (
   $logfile,
   $tags = [],
+  $fields = {},
   $enable = false
 ) {
 
