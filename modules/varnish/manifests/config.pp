@@ -44,6 +44,7 @@ class varnish::config {
     'plan-maternity-leave',
     'plan-paternity-leave',
     'recognise-a-trade-union',
+    'register-a-birth',
     'register-a-death',
     'report-a-lost-or-stolen-passport',
     'request-for-flexible-working',
