@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Hook used by Puppet's config_version to determine the revision of a Puppet
+# repository which is associated and reported with catalogs.
+
+set -eu
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <path>"
+  exit 1
+fi
+
+SHA1=""
+PUPPET_DIR=$1
+GIT_DIR="${PUPPET_DIR}/.git"
+CAP_FILE="${PUPPET_DIR}/REVISION"
+
+if [[ -d $GIT_DIR && $(which git) ]]; then
+  # Most authoritative. Available in Vagrant.
+  SHA1=$(git rev-parse HEAD 2>/dev/null)
+elif [ -f $CAP_FILE ]; then
+  # Only created by Cap deployments.
+  SHA1=$(cat $CAP_FILE 2>/dev/null)
+fi
+
+if [ -n "$SHA1" ]; then
+  echo $SHA1
+else
+  # Fallback matches default Puppet behaviour.
+  date "+%s"
+fi
