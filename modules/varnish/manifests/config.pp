@@ -56,7 +56,7 @@ class varnish::config {
   ]
 
   # List of available backends
-  $all_backends = [
+  $backends = [
     'businesssupportfinder',
     'calendars',
     'canary_frontend',
@@ -72,17 +72,11 @@ class varnish::config {
     'smartanswers',
     'static',
     'tariff',
+    'transaction_wrappers',
     'whitehall_frontend'
   ]
 
   $app_domain = extlookup('app_domain')
-  $transaction_wrappers_enabled = str2bool(extlookup('govuk_enable_transaction_wrappers', 'no'))
-
-  if $transaction_wrappers_enabled {
-    $backends = flatten([$all_backends,'transaction_wrappers'])
-  } else {
-    $backends = $all_backends
-  }
 
   file { '/etc/default/varnish':
     ensure  => file,
