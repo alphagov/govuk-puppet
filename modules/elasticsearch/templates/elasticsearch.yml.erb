@@ -2,7 +2,7 @@ bootstrap.mlockall: <%= @mlock_all %>
 cluster.name: <%= @cluster_name %>
 discovery:
   zen:
-    minimum_master_nodes: 2
+    minimum_master_nodes: <%= @minimum_master_nodes %>
     ping:
       multicast.enabled: false
       unicast.hosts: <%= @cluster_hosts.inspect %>

@@ -4,6 +4,7 @@ class elasticsearch (
   $heap_size = '512m',
   $http_port = '9200',
   $mlock_all = false,
+  $minimum_master_nodes = '1',
   $host = 'localhost',
   $number_of_replicas = '1',
   $number_of_shards = '5',
@@ -21,18 +22,19 @@ class elasticsearch (
   }
 
   class { 'elasticsearch::config':
-    cluster_hosts      => $cluster_hosts,
-    cluster_name       => $cluster_name,
-    heap_size          => $heap_size,
-    http_port          => $http_port,
-    mlock_all          => $mlock_all,
-    number_of_replicas => $number_of_replicas,
-    number_of_shards   => $number_of_shards,
-    refresh_interval   => $refresh_interval,
-    transport_port     => $transport_port,
-    host               => $host,
-    require            => Class['elasticsearch::package'],
-    notify             => Class['elasticsearch::service'];
+    cluster_hosts        => $cluster_hosts,
+    cluster_name         => $cluster_name,
+    heap_size            => $heap_size,
+    http_port            => $http_port,
+    mlock_all            => $mlock_all,
+    number_of_replicas   => $number_of_replicas,
+    number_of_shards     => $number_of_shards,
+    refresh_interval     => $refresh_interval,
+    transport_port       => $transport_port,
+    minimum_master_nodes => $minimum_master_nodes,
+    host                 => $host,
+    require              => Class['elasticsearch::package'],
+    notify               => Class['elasticsearch::service'];
   }
 
   class { 'elasticsearch::service':
