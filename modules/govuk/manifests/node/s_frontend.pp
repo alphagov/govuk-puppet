@@ -15,12 +15,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => $protect_fe;
     'govuk::apps::tariff':                vhost_protected => $protect_fe;
-  }
-
-  if str2bool(extlookup('govuk_enable_transaction_wrappers', 'no')) {
-    class {
-      'govuk::apps::transaction_wrappers':  vhost_protected => $protect_fe;
-    }
+    'govuk::apps::transaction_wrappers':  vhost_protected => $protect_fe;
   }
 
   include govuk::apps::canary_frontend

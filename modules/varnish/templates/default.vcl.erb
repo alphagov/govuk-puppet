@@ -69,11 +69,9 @@ sub vcl_recv {
     <%= set_backend('whitehall_frontend') %>
   } else if (req.url ~ "^/__canary__$") {
     <%= set_backend('canary_frontend') %>
-  <% if @transaction_wrappers_enabled %>
   <%# This matches on any subpath of the slugs, the bare slugs should fall through to content in Frontend %>
   } else if (req.url ~ "^/pay-foreign-marriage-certificates/(.+)$|^/deposit-foreign-marriage/(.+)$|^/pay-register-death-abroad/(.+)$|^/pay-register-birth-abroad/(.+)$|^/pay-legalisation-post/(.+)$|^/pay-legalisation-drop-off/(.+)$") {
     <%= set_backend('transaction_wrappers') %>
-  <% end %>
   } else {
     <%= set_backend('frontend') %>
   }
