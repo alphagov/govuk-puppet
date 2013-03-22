@@ -13,7 +13,7 @@ define govuk::logstream (
       ensure  => present,
       content => template('govuk/logstream.erb'),
       notify  => Service["logstream-${title}"],
-      }
+    }
 
     service { "logstream-${title}":
       ensure    => running,

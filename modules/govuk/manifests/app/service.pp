@@ -25,5 +25,4 @@ define govuk::app::service ( $logstream = false ) {
       fields  => {'application' => $title},
       enable  => $logstream,
     }
-
-}
+  }
