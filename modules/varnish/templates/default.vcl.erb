@@ -59,7 +59,7 @@ sub vcl_recv {
     <%= set_backend('publicapi') %>
   } else if (req.url ~ "^/feedback") {
     <%= set_backend('feedback') %>
-  } else if (req.url ~ "^/performance/licensing/api$") {
+  } else if (req.url ~ "^/performance/licensing/api") {
     <%= set_backend('publicapi') %>
   } else if (req.url ~ "^/performance/licensing$|^/performance/licensing/") {
     <%= set_backend('limelight') %>
