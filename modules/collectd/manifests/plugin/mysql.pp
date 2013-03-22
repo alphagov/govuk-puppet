@@ -1,6 +1,32 @@
-class collectd::plugin::mysql(
-  $root_password
+# == Define: collectd::plugin::mysql
+#
+# Monitor a MySQL master, slave, or standalone server.
+#
+# NB: This is define() to workaround an issue in Puppet whereby param classes
+# are eagerly evaluated and prevent the template from being redefined.
+#
+# === Parameters:
+#
+# [*root_password*]
+#   MySQL root password.
+#
+# [*master*]
+#   Enable `SHOW MASTER STATUS` collection.
+#   Default: false
+#
+# [*slave*]
+#   Enable `SHOW SLAVE STATUS` collection.
+#   Default: false
+#
+define collectd::plugin::mysql(
+  $root_password,
+  $master = false,
+  $slave = false
 ) {
+  if $master and $slave {
+    fail('collectd::plugin::mysql: master and slave are mutually exclusive options')
+  }
+
   $collectd_mysql_password = 'collectd'
 
   @mysql::user { 'collectd':

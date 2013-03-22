@@ -22,4 +22,11 @@ class mysql::server::monitoring ($root_password) {
     host_name           => $::fqdn,
   }
 
+  collectd::plugin::mysql { 'lazy_eval_workaround':
+    master        => false,
+    slave         => false,
+    root_password => $root_password,
+    require       => Exec['set-mysql-password'],
+  }
+
 }

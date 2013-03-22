@@ -5,5 +5,11 @@ LoadPlugin mysql
     Host "localhost"
     User "collectd"
     Password "<%= collectd_mysql_password -%>"
+<% if @master.to_s == 'true' -%>
+    MasterStats true
+<% end -%>
+<% if @slave.to_s == 'true' -%>
+    SlaveStats true
+<% end -%>
   </Database>
 </Plugin>
