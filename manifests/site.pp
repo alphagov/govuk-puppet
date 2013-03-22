@@ -22,6 +22,7 @@ $extlookup_datadir = inline_template('<%=
 -%>')
 
 $extlookup_precedence = [
+  '%{govuk_class}',
   '%{environment}_credentials',
   '%{environment}',
   'common'
