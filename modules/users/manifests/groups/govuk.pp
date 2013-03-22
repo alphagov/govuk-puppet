@@ -22,6 +22,7 @@ class users::groups::govuk {
   include users::cal
   include users::carlmassa
   include users::chrisheathcote
+  include users::cpawar
   include users::dabel
   include users::dafydd
   include users::dai
