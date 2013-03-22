@@ -15,7 +15,8 @@
 #   Default: false
 #
 # [*slave*]
-#   Enable `SHOW SLAVE STATUS` collection.
+#   Enable `SHOW SLAVE STATUS` collection. This will disable the creation
+#   of the `collectd` user, because it is expected to come from the master.
 #   Default: false
 #
 define collectd::plugin::mysql(
@@ -29,13 +30,15 @@ define collectd::plugin::mysql(
 
   $collectd_mysql_password = 'collectd'
 
-  @mysql::user { 'collectd':
-    root_password => $root_password,
-    user_password => $collectd_mysql_password,
-    remote_host   => 'localhost',
-    privileges    => 'REPLICATION CLIENT',
-    tag           => 'collectd::plugin',
-    notify        => Collectd::Plugin['mysql'],
+  if $slave != true {
+    @mysql::user { 'collectd':
+      root_password => $root_password,
+      user_password => $collectd_mysql_password,
+      remote_host   => 'localhost',
+      privileges    => 'REPLICATION CLIENT',
+      tag           => 'collectd::plugin',
+      notify        => Collectd::Plugin['mysql'],
+    }
   }
 
   @collectd::plugin { 'mysql':
