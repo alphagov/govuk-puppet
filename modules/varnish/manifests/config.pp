@@ -36,6 +36,7 @@ class varnish::config {
     'help-if-you-are-arrested-abroad',
     'inherits-someone-dies-without-will',
     'legal-right-to-work-in-the-uk',
+    'marriage-abroad',
     'maternity-paternity-calculator',
     'non-gb-driving-licence',
     'overseas-passports',
