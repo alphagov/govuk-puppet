@@ -22,6 +22,12 @@ class mysql::server::monitoring ($root_password) {
     host_name           => $::fqdn,
   }
 
+  @@nagios::check { "check_mysql_replication_${::hostname}":
+    check_command       => "check_graphite_metric!transformNull(${::fqdn_underscore}.mysql.time_offset,86400)!300!600",
+    service_description => "mysql replication lag",
+    host_name           => $::fqdn,
+  }
+
   collectd::plugin::mysql { 'lazy_eval_workaround':
     master        => false,
     slave         => false,
