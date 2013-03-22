@@ -427,24 +427,6 @@ location ~ ^/performance/.+\.(json|png)$ {
   proxy_pass http://varnish;
 }
 
-# Start Inside Gov password logic:
-#
-# This whole government block is so we can hide the remaining undeployed parts
-# of Inside Gov.
-location ~ ^/government/world(?!.*\.atom$).*$ {
-  # XXX: If you remove this password control remove the cache control below too!
-  deny all;
-  auth_basic           "This part of INSIDE GOVERNMENT is not currently public. Government employees please login:";
-  auth_basic_user_file /etc/govuk.htpasswd;
-  satisfy any;
-  proxy_pass http://varnish;
-
-  # This is for Akamai and is part of the password above: If you remove the
-  # passwd, remove this cache control as well!
-  add_header cache-control no-cache;
-}
-# End Inside Gov password logic
-
 # Akamai CDN test object. This file is used by Akamai's infrastructure to
 # determine optimal routing within their network. It can be any text file
 # 8-12KiB in size.
