@@ -43,7 +43,7 @@ class hosts::skyscape::production_like {
   govuk::host { 'logs-elasticsearch-3':
     ip              => '10.0.0.31',
     vdc             => 'management',
-    legacy_aliases  => ['logs-elasticsearch-2'],
+    legacy_aliases  => ['logs-elasticsearch-3'],
   }
   govuk::host { 'logging-1':
     ip              => '10.0.0.28',
