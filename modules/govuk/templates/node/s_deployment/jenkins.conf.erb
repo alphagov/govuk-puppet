@@ -1,5 +1,10 @@
 server {
+  server_name deploy.*;
   listen 80;
+  return 301 https://$host/;
+}
+
+server {
   listen 443 ssl;
   server_name deploy.*;
 
