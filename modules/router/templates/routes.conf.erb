@@ -391,7 +391,7 @@ prefix_redirects = {
 # World Location regular expression
 <% # This captures most of them - specific overrides are covered in `internal_redirects`%>
 location /world/ {
-  rewrite ^/world/([a-z0-9-])+$ /government/world/$1 last;
+  rewrite ^/world/([a-z0-9-]+)$ /government/world/$1 permanent;
 }
 
 <%- external_redirects.each do |from, to| -%>
