@@ -6,7 +6,6 @@ class nginx::config {
     source  => 'puppet:///modules/nginx/etc/nginx';
   }
 
-  $server_name_max_hash_size = extlookup('nginx_server_name_max_hash_size',512)
   file { '/etc/nginx/nginx.conf':
     ensure  => present,
     content => template('nginx/etc/nginx/nginx.conf.erb'),
