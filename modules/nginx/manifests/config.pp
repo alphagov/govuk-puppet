@@ -1,4 +1,4 @@
-class nginx::config {
+class nginx::config ($server_names_hash_max_size) {
 
   file { '/etc/nginx':
     ensure  => directory,
