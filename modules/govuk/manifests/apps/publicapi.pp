@@ -44,7 +44,7 @@ class govuk::apps::publicapi {
       }
 
       location ~ ^/performance/licensing/api$ {
-        rewrite ^/performance/licensing/api /licensify break;
+        rewrite ^/performance/licensing/api(.*)$ /licensify\$1 break;
 
         proxy_set_header Host ${backdropread};
         proxy_set_header X-API-PREFIX performance/licensing/api;
