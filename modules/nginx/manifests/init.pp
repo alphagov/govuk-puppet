@@ -1,4 +1,4 @@
-class nginx {
+class nginx ($server_names_hash_max_size = 512) {
 
   anchor { 'nginx::begin':
     notify => Class['nginx::service'];
@@ -10,8 +10,9 @@ class nginx {
   }
 
   class { 'nginx::config':
-    require => Class['nginx::package'],
-    notify  => Class['nginx::service'];
+    server_names_hash_max_size => $server_names_hash_max_size,
+    require                    => Class['nginx::package'],
+    notify                     => Class['nginx::service'];
   }
 
   class { 'nginx::firewall':

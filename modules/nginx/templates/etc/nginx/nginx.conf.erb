@@ -19,7 +19,7 @@ http {
     limit_req_zone $binary_remote_addr zone=rate:30m rate=10r/s;
     limit_conn_zone $binary_remote_addr zone=connections:10m;
 
-    server_names_hash_max_size <%= @server_name_hash_max_size -%>;
+    server_names_hash_max_size <%= @server_names_hash_max_size -%>;
     server_names_hash_bucket_size 128;
     proxy_headers_hash_bucket_size 128;
     map_hash_bucket_size 128;
