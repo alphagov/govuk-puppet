@@ -9,6 +9,7 @@ class elasticsearch::config (
   $number_of_shards,
   $refresh_interval,
   $transport_port,
+  $host,
 ) {
   $es_home = "/var/apps/elasticsearch-${cluster_name}"
 

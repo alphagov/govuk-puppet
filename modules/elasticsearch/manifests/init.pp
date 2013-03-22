@@ -4,10 +4,11 @@ class elasticsearch (
   $heap_size = '512m',
   $http_port = '9200',
   $mlock_all = false,
+  $host = 'localhost',
   $number_of_replicas = '1',
   $number_of_shards = '5',
   $refresh_interval = '1s',
-  $transport_port = '9300'
+  $transport_port = '9300',
 ) {
 
   anchor { 'elasticsearch::begin':
@@ -29,6 +30,7 @@ class elasticsearch (
     number_of_shards   => $number_of_shards,
     refresh_interval   => $refresh_interval,
     transport_port     => $transport_port,
+    host               => $host,
     require            => Class['elasticsearch::package'],
     notify             => Class['elasticsearch::service'];
   }
@@ -46,6 +48,10 @@ class elasticsearch (
 
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
     port => $http_port,
+  }
+
+  @ufw::allow { "allow-elasticsearch-transport-${transport_port}-from-all":
+    port => $transport_port;
   }
 
 }
