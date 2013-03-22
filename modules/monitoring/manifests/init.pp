@@ -6,7 +6,6 @@ class monitoring {
 
   include nagios
   include nsca::server
-  include ganglia::remove
   include graphite
 
   include govuk::htpasswd
@@ -37,20 +36,6 @@ class monitoring {
     ensure  => present,
     source  => 'puppet:///modules/monitoring/index.html',
     require => File['/var/www/monitoring'],
-  }
-
-  # FIXME [#45082195]: No longer required.
-  file { '/opt/graphite/storage/rrd/ganglia':
-    ensure => absent,
-  }
-
-  # FIXME [#45082195]: No longer required.
-  file { '/var/www/ganglia-views':
-    ensure  => absent,
-    recurse => true,
-    force   => true,
-    purge   => true,
-    backup  => false,
   }
 
 }

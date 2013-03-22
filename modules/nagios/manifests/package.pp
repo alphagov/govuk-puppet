@@ -39,11 +39,6 @@ class nagios::package {
     mode   => '0755',
   }
 
-  # FIXME [#45082195]: No longer required.
-  file { '/usr/local/bin/check_ganglia_metric':
-    ensure => absent,
-  }
-
   file { '/usr/local/bin/reversedns.py':
     source => 'puppet:///modules/nagios/usr/local/bin/reversedns.py',
     mode   => '0755',
