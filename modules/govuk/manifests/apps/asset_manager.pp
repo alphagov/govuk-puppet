@@ -6,7 +6,7 @@ class govuk::apps::asset_manager( $port = 3037 ) {
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
-    health_check_path  => '/',
+    health_check_path  => '/healthcheck',
     nginx_extra_config => '
     client_max_body_size 500m;
 
