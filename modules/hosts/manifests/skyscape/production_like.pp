@@ -20,8 +20,8 @@ class hosts::skyscape::production_like {
   govuk::host { 'monitoring':
     ip              => '10.0.0.20',
     vdc             => 'management',
-    legacy_aliases  => ['monitoring', "nagios.${app_domain}", "ganglia.${app_domain}"],
-    service_aliases => ['monitoring', 'nagios', 'ganglia'],
+    legacy_aliases  => ['monitoring', "nagios.${app_domain}"],
+    service_aliases => ['monitoring', 'nagios'],
   }
   govuk::host { 'logging':
     ip              => '10.0.0.21',
