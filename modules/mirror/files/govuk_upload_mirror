@@ -1,5 +1,15 @@
 #!/bin/sh
+logger -t mirrorer Started uploading to NetStorage
 rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror
+EXITCODE=$?
+if [ "$EXITCODE" != "0" ]; then
+   logger -p user.crit -t mirrorer Uploading mirror failed with exit code: $EXITCODE
+fi
 rsync -ptgo -z var/lib/govuk_mirror/error/503.html \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/error/503.html
+EXITCODE=$?
+if [ "$EXITCODE" != "0" ]; then
+   logger -p user.crit -t mirrorer Uploading error pages failed with exit code: $EXITCODE
+fi
+logger -t mirrorer Finished uploading to NetStorage
