@@ -78,6 +78,17 @@ class govuk::apps::whitehall(
         include /etc/nginx/sts.conf;
         try_files $uri @app;
       }
+
+      # This file can change to accomodate new PAYE versions, so it needs a
+      # smaller expiry.
+      location /government/uploads/uploaded/hmrc/realtimepayetools-update.xml {
+        expires 30m;
+        add_header Cache-Control public;
+        # Explicitly reinclude Strict-Transport-Security header, as calling
+        # add_header above will have reset the set of headers sent by nginx.
+        include /etc/nginx/sts.conf;
+        try_files $uri @app;
+      }
     '
     }
 
