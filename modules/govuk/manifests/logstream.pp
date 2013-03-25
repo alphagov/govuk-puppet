@@ -1,7 +1,9 @@
 define govuk::logstream (
   $logfile,
   $tags = [],
-  $enable = false
+  $fields = {},
+  $enable = false,
+  $host = $::fqdn
 ) {
 
   if ($enable == true and $::govuk_platform != 'development') {

@@ -20,7 +20,8 @@ define nginx::log (
 
   govuk::logstream { $name:
     logfile => "${logpath}/${name}",
-    tags    => [$logname, 'nginx'],
+    tags    => ['nginx'],
+    fields  => {'application' => $logname},
     enable  => $logstream,
   }
 

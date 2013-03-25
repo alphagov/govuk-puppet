@@ -168,7 +168,8 @@ define govuk::app (
   if $app_type == 'rack' {
     govuk::logstream { "${title}-production-log":
       logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
-      tags    => [$title, 'stdout', 'application'],
+      tags    => ['stdout', 'application'],
+      fields  => {'application' => $title},
       enable  => $logstream,
     }
   }
