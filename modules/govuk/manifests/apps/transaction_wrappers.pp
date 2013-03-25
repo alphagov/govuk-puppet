@@ -6,6 +6,6 @@ class govuk::apps::transaction_wrappers(
     app_type          => 'rack',
     port              => $port,
     vhost_protected   => $vhost_protected,
-    health_check_path => '/pay-certificates-marriage',
+    health_check_path => '/pay-foreign-marriage-certificates/start',
   }
 }
