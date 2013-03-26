@@ -256,6 +256,7 @@ class hosts::skyscape::production_like {
       "canary-backend.${app_domain}",
       "contentapi.${app_domain}",
       "imminence.${app_domain}",
+      "kibana.${app_domain}",
       "mapit.${app_domain}",
       "migratorator.${app_domain}",
       "needotron.${app_domain}",
