@@ -40,7 +40,7 @@ class jenkins {
   }
 
   package { 'ghtools':
-    ensure   => 'installed',
+    ensure   => '0.20.0',
     provider => pip,
   }
 
