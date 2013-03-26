@@ -1,17 +1,14 @@
 # Skyscape Preview
 
 Host jumpbox.preview.alphagov.co.uk
-  ForwardAgent yes
   ProxyCommand none
 
 Host jumpbox-1.management.preview skyscape-dev-jumpbox1
   Hostname jumpbox.preview.alphagov.co.uk
-  ForwardAgent yes
   ProxyCommand none
 
 Host jumpbox-2.management.preview skyscape-dev-jumpbox2
   Hostname jumpbox.preview.alphagov.co.uk
-  ForwardAgent yes
   Port     1022
   ProxyCommand none
 
