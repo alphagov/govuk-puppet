@@ -32,9 +32,4 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
     notify  => Service['mongodb'],
   }
 
-  govuk::logstream { 'mongodb-logstream':
-    logfile => $mongod_log_file,
-    fields  => {'application' => 'mongodb'},
-    enable  => true,
-  }
 }
