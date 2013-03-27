@@ -6,6 +6,7 @@ class govuk::deploy {
   include harden
   include pip
   include python
+  include virtualenv
   include unicornherder
 
   group { 'deploy':
