@@ -49,4 +49,5 @@ class hosts::development {
   host { 'asset-manager.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'limelight.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'kibana.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
 }

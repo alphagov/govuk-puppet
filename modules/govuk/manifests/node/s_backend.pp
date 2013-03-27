@@ -16,6 +16,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include govuk::apps::asset_manager
   include govuk::apps::canary_backend
+  include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
   include govuk::apps::migratorator
