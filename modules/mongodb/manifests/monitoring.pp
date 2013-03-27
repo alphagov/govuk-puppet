@@ -59,4 +59,10 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
     service_description => "mongod last flush time",
     host_name           => $::fqdn,
   }
+
+  @@nagios::check { "check_mongod_connections_${::hostname}":
+    check_command       =>"check_nrpe!check_mongodb!connections 400 600",
+    service_description => "mongod number of connections",
+    host_name           => $::fqdn,
+  }
 }
