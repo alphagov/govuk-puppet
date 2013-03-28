@@ -18,6 +18,12 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     'govuk::apps::transaction_wrappers':  vhost_protected => $protect_fe;
   }
 
+  if str2bool(extlookup('govuk_enable_tariff_demo', 'no')) {
+    class {
+      'govuk::apps::tariff_demo':           vhost_protected => $protect_fe;
+    }
+  }
+
   include govuk::apps::canary_frontend
   include govuk::apps::publicapi #FIXME to be removed when we ditch ec2 -- ppotter 2012-10-12
   include govuk::apps::static
