@@ -36,6 +36,7 @@ class hosts::preview {
   host { "release.${app_domain}":                 ip => '10.228.95.176' }
   host { "asset-manager.${app_domain}":           ip => '10.228.95.176' }
   host { "kibana.${app_domain}":                  ip => '10.228.95.176' }
+  host { "govuk-delivery.${app_domain}":          ip => '10.228.95.176' }
 
   host { "search.${app_domain}":                 ip => '10.228.95.176' }
   host { "calendars.${app_domain}":              ip => '10.58.253.150' }

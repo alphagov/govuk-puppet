@@ -28,6 +28,7 @@ class govuk::node::s_backend_lb {
       'asset-manager',
       'canary-backend',
       'contentapi',
+      'govuk-delivery',
       'search',
       'tariff-api',
       'tariff-demo-api',
