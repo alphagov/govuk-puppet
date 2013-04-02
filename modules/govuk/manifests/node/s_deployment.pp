@@ -21,4 +21,21 @@ class govuk::node::s_deployment inherits govuk::node::s_base {
   nginx::config::site { 'monitoring-proxy':
     content => template('govuk/node/s_deployment/monitoring-proxy.conf.erb'),
   }
+
+  File {
+    owner => jenkins,
+    group => jenkins,
+  }
+
+  $github_ca_cert_content = extlookup('github_ca_cert')
+
+  file {
+    '/home/jenkins/govuk':
+      ensure  => directory;
+    '/home/jenkins/govuk/cert':
+      ensure  => directory;
+    '/home/jenkins/govuk/cert/github.gds.pem':
+      ensure  => present,
+      content => $github_ca_cert_content;
+  }
 }
