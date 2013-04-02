@@ -36,7 +36,7 @@ find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
   tail -n +8 |
   while read dir; do
     rm -rf "$dir"
-    rm "${dir}.log"
+    test -f "${dir}.log" && rm "${dir}.log"
   done
 
 # Update symlink to latest version
