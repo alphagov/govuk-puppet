@@ -38,7 +38,7 @@ check_dir_exists() {
   fi
 }
 
-logger -t virus_scan "virus scan starting in $INCOMING_DIR"
+logger -t virus_scan "virus scan in '${INCOMING_DIR}' starting"
 
 check_dir_exists $INCOMING_DIR
 check_dir_exists $INFECTED_DIR
@@ -59,9 +59,11 @@ if [ -n "$CLEAN_DIR" ]; then
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
 fi
 
-logger -t virus_scan "`grep 'FOUND$' "$RESULTFILE" | wc -l` viruses found in $INCOMING_DIR"
-logger -t virus_scan "`grep ': OK$' "$RESULTFILE" | wc -l` clean found in $INCOMING_DIR"
-logger -t virus_scan "virus scan took T:$((`date +%s`-START_TIME)) seconds"
+COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE")
+COUNT_CLEAN=$(grep -c ': OK$' "$RESULTFILE")
+TIME_TOOK=$((`date +%s`-START_TIME))
 rm $RESULTFILE
+
+logger -t virus_scan "virus scan in '${INCOMING_DIR}' took: ${TIME_TOOK}s, found: ${COUNT_FOUND}, clean: ${FOUND_CLEAN}"
 
 popd >/dev/null
