@@ -1,11 +1,11 @@
 class monitoring::checks {
 
-  include lockrun
+  include daemontools # provides setlock
 
   $app_domain = extlookup('app_domain')
 
   cron { 'cron_smokey_features':
-    command => '/usr/local/bin/lockrun -L /var/run/smokey.lock -q -- /opt/smokey/cron_json.sh /tmp/smokey.json',
+    command => '/usr/bin/setlock -n /var/run/smokey.lock /opt/smokey/cron_json.sh /tmp/smokey.json',
     minute  => '*',
   }
 

@@ -3,7 +3,6 @@ class base {
   include base_packages
   include cron
   include gcc
-  include lockrun
   include logrotate
   include ntp
   include screen

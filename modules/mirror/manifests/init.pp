@@ -1,7 +1,7 @@
 class mirror {
   include ruby::spidey
   include ruby::syslogger
-  include lockrun
+  include daemontools # provides setlock
 
   # set up user that's needed to upload the mirrored site to net storage
   govuk::user { 'govuk-netstorage':
@@ -71,7 +71,7 @@ class mirror {
     user    => 'govuk-netstorage',
     hour    => '0',
     minute  => '0',
-    command => '/usr/local/bin/lockrun -L /var/run/govuk_update_and_upload_mirror.lock -- /usr/local/bin/govuk_update_and_upload_mirror',
+    command => '/usr/bin/setlock -n /var/run/govuk_update_and_upload_mirror.lock /usr/local/bin/govuk_update_and_upload_mirror',
     require => [File['/usr/local/bin/govuk_update_and_upload_mirror'],
                 File['/var/run/govuk_update_and_upload_mirror.lock']],
   }
