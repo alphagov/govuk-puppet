@@ -58,10 +58,10 @@ grep 'FOUND$' "$RESULTFILE" | sed 's/: [^:]* FOUND$//' | rsync --remove-source-f
 if [ -n "$CLEAN_DIR" ]; then
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
 fi
-rm $RESULTFILE
 
 logger -t virus_scan "`grep 'FOUND$' "$RESULTFILE" | wc -l` viruses found in $INCOMING_DIR"
 logger -t virus_scan "`grep ': OK$' "$RESULTFILE" | wc -l` clean found in $INCOMING_DIR"
 logger -t virus_scan "virus scan took T:$((`date +%s`-START_TIME)) seconds"
+rm $RESULTFILE
 
 popd >/dev/null
