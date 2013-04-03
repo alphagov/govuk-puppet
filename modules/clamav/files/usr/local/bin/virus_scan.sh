@@ -38,6 +38,8 @@ check_dir_exists() {
   fi
 }
 
+logger -t virus_scan "virus scan starting in $INCOMING_DIR"
+
 check_dir_exists $INCOMING_DIR
 check_dir_exists $INFECTED_DIR
 if [ -n "$CLEAN_DIR" ]; then

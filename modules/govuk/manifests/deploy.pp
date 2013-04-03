@@ -2,6 +2,7 @@ class govuk::deploy {
 
   include assets::user
   include bundler
+  include daemontools
   include fpm
   include harden
   include pip
@@ -109,18 +110,14 @@ class govuk::deploy {
     mode    => '0755',
   }
 
-  # daemontools provides envdir, used by govuk_setenv
-  package { 'daemontools':
-    ensure => present,
-  }
-
   # govuk_setenv is a simple script that loads the environment for a GOV.UK
   # application and execs its arguments
+  # daemontools provides envdir, used by govuk_setenv
   file { '/usr/local/bin/govuk_setenv':
     ensure  => present,
     source  => 'puppet:///modules/govuk/bin/govuk_setenv',
     mode    => '0755',
-    require => Package['daemontools'],
+    require => Class['daemontools'],
   }
 
   # /etc/govuk/env.d is an envdir. Each file and its contents should denote
