@@ -24,6 +24,8 @@ node default {
       'places-api':         { include places_base::api_server }
       'places-mongo':       { include places_base::mongo_server }
 
+      'feedex':             { notify {'placeholder for including feedex module when it gets written':}}
+
       default: {
         $underscored_govuk_class = regsubst($::govuk_class, '-', '_')
         $node_class_name = "govuk::node::s_${underscored_govuk_class}"
