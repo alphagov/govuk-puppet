@@ -6,5 +6,6 @@ class govuk::apps::signon( $port = 3016 ) {
     health_check_path => "/users/sign_in",
     vhost_aliases     => ['signonotron'],
     vhost_protected   => false,
+    logstream         => false,
   }
 }
