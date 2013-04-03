@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 INCOMING_DIR="$1"
 INFECTED_DIR="$2"
 CLEAN_DIR="$3"
@@ -21,9 +23,9 @@ if [ $# -lt 2 ]; then
 fi
 
 make_result_file() {
-  if [ -n "`which tempfile`" ]; then
+  if which tempfile >/dev/null 2>&1; then
     RESULTFILE=`tempfile -p CLAM-`
-  elif [ -n "`which mktemp`" ]; then
+  elif which mktemp >/dev/null 2>&1; then
     RESULTFILE=`mktemp -t CLAM-`
   else
     echo "ERROR: no mktemp or tempname command"
@@ -46,24 +48,21 @@ if [ -n "$CLEAN_DIR" ]; then
   check_dir_exists $CLEAN_DIR
 fi
 
-set -o errexit # fail on errors
 pushd "$INCOMING_DIR" > /dev/null 2>&1
-set +o errexit # disable fail on errors
 
 make_result_file
-$CLAMSCAN_CMD --no-summary --stdout -r . > "$RESULTFILE"
-set -o errexit # enable fail on errors
+$CLAMSCAN_CMD --no-summary --stdout -r . > "$RESULTFILE" || true
 
 grep 'FOUND$' "$RESULTFILE" | sed 's/: [^:]* FOUND$//' | rsync --remove-source-files --files-from=- . "$INFECTED_DIR/."
 if [ -n "$CLEAN_DIR" ]; then
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
 fi
 
-COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE" || true)
+COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE" || true)
 COUNT_CLEAN=$(grep -c ': OK$' "$RESULTFILE" || true)
 TIME_TOOK=$((`date +%s`-START_TIME))
 rm $RESULTFILE
 
-logger -t virus_scan "virus scan in '${INCOMING_DIR}' took: ${TIME_TOOK}s, found: ${COUNT_FOUND}, clean: ${FOUND_CLEAN}"
+logger -t virus_scan "virus scan in '${INCOMING_DIR}' took: ${TIME_TOOK}s, found: ${COUNT_FOUND}, clean: ${COUNT_CLEAN}"
 
 popd >/dev/null
