@@ -59,8 +59,8 @@ if [ -n "$CLEAN_DIR" ]; then
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
 fi
 
-COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE")
-COUNT_CLEAN=$(grep -c ': OK$' "$RESULTFILE")
+COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE" || true)
+COUNT_CLEAN=$(grep -c ': OK$' "$RESULTFILE" || true)
 TIME_TOOK=$((`date +%s`-START_TIME))
 rm $RESULTFILE
 
