@@ -12,6 +12,7 @@ define govuk::app::config (
   $intercept_errors = false,
   $enable_nginx_vhost = true,
   $use_unicornherder = true,
+  $logstream = true,
 ) {
 
   # Ensure config dir exists
@@ -92,6 +93,7 @@ define govuk::app::config (
       nginx_extra_config     => $nginx_extra_config,
       nginx_extra_app_config => $nginx_extra_app_config,
       intercept_errors       => $intercept_errors,
+      logstream              => $logstream,
     }
   }
 
