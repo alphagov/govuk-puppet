@@ -19,7 +19,7 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
     ensure  => 'mounted',
     device  => "asset-master.${app_domain}:/mnt/uploads",
     fstype  => 'nfs',
-    options => 'rw',
+    options => 'rw,soft',
     atboot  => true,
     require => File['/data/master-uploads'],
   }
