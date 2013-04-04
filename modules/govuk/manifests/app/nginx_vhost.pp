@@ -4,6 +4,7 @@ define govuk::app::nginx_vhost (
   $aliases = [],
   $protected = undef,
   $ssl_only = false,
+  $logstream = true,
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
   $intercept_errors = false
@@ -20,6 +21,7 @@ define govuk::app::nginx_vhost (
     aliases               => $aliases,
     protected             => $protected_real,
     ssl_only              => $ssl_only,
+    logstream             => $logstream,
     extra_config          => $nginx_extra_config,
     extra_app_config      => $nginx_extra_app_config,
     intercept_errors      => $intercept_errors,

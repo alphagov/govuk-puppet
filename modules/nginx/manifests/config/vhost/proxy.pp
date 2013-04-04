@@ -7,6 +7,7 @@ define nginx::config::vhost::proxy(
   $protected = true,
   $root = "/data/vhost/${title}/current/public",
   $ssl_only = false,
+  $logstream = true,
   $ssl_manage_cert = true # This is a *horrible* hack to make EFG work.
                           # Please, please, remove when we have a
                           # sensible means of managing SSL certificates.
@@ -37,7 +38,7 @@ define nginx::config::vhost::proxy(
                 $access_log
                 ]:
                   logpath   => $logpath,
-                  logstream => true;
+                  logstream => $logstream;
   }
 
   @logster::cronjob { "nginx-vhost-${title}":

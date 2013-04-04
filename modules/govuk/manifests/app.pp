@@ -158,6 +158,7 @@ define govuk::app (
     health_check_path      => $health_check_path,
     intercept_errors       => $intercept_errors,
     enable_nginx_vhost     => $enable_nginx_vhost,
+    logstream              => $logstream,
   }
 
   govuk::app::service { $title:
