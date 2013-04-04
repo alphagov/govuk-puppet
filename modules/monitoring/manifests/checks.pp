@@ -149,7 +149,7 @@ class monitoring::checks {
     $backdrop_read_base_uri = "https://${http_username}:${http_password}@read.backdrop.${app_domain}"
 
     @@nagios::check { 'check_backdrop_read_endpoint':
-      check_command       => "check_nrpe!check_performance_platform!health_check ${backdrop_read_base_uri}/_status ${http_username} ${http_password}",
+      check_command       => "check_nrpe!check_performance_platform_health!${backdrop_read_base_uri}/_status ${http_username} ${http_password}",
       use                 => 'govuk_normal_priority',
       service_description => 'checks if backdrop.read endpoint is up',
       host_name           => $::fqdn,
@@ -163,7 +163,7 @@ class monitoring::checks {
     $limelight_base_uri = "https://${http_username}:${http_password}@limelight.${app_domain}"
 
     @@nagios::check { 'check_limelight_endpoint':
-      check_command       => "check_nrpe!check_performance_platform!health_check ${limelight_base_uri}/_status ${http_username} ${http_password}",
+      check_command       => "check_nrpe!check_performance_platform_health!${limelight_base_uri}/_status ${http_username} ${http_password}",
       use                 => 'govuk_normal_priority',
       service_description => 'checks if limelight homepage is up',
       host_name           => $::fqdn,
