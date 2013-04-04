@@ -188,6 +188,21 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['backend-3'],
   }
+  govuk::host { 'elasticsearch-1':
+    ip              => '10.3.0.15',
+    vdc             => 'backend',
+    legacy_aliases  => ['elasticsearch-1'],
+  }
+  govuk::host { 'elasticsearch-2':
+    ip              => '10.3.0.16',
+    vdc             => 'backend',
+    legacy_aliases  => ['elasticsearch-2'],
+  }
+  govuk::host { 'elasticsearch-3':
+    ip              => '10.3.0.17',
+    vdc             => 'backend',
+    legacy_aliases  => ['elasticsearch-3'],
+  }
   govuk::host { 'support-1':
     ip              => '10.3.0.5',
     vdc             => 'backend',
