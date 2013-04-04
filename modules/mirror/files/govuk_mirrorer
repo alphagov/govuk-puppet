@@ -209,7 +209,6 @@ class GovukMirrorer < Spidey::AbstractSpider
         page = agent.get(url)
         logger.debug "Handling #{url.inspect}"
         send handler, page, default_data
-        logger.info "Completed crawling the site"
       rescue => ex
         if ex.is_a?(Mechanize::ResponseCodeError) and (500..599).include?(ex.response_code.to_i) and ! retried
           retried = true
@@ -219,6 +218,7 @@ class GovukMirrorer < Spidey::AbstractSpider
         add_log_warning url: url, handler: handler, error: ex, data: default_data
       end
     end
+    logger.info "Completed crawling the site"
   end
 
   def process_govuk_page(page, data = {})
