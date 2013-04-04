@@ -137,7 +137,8 @@ class monitoring::checks {
     host_name           => $::fqdn,
   }  # END datainsight
 
-  if $::govuk_platform != 'production' {
+  $performance_platform_nagios_check = str2bool(extlookup('performance_platform_nagios_check', 'no'))
+  if $performance_platform_nagios_check {
     @nagios::plugin { 'check_performance_platform':
       source  => 'puppet:///modules/performance_platform/check_performance_platform.cfg',
     }
