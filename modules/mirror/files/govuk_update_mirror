@@ -37,7 +37,9 @@ find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
   tail -n +8 |
   while read dir; do
     rm -rf "$dir"
-    rm "${dir}.log"
+    if [ -f ${dir}.log ]; then
+      rm "${dir}.log"
+    fi
   done
 
 echo "$(date "+%Y%m%dT%H%M%S"): Updating symlink to newest version" >$LOGFILE
