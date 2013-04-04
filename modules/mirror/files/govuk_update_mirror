@@ -18,7 +18,7 @@ cd "$TMP_ROOT"
 
 DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
 LOGFILE=$DEST.log
-
+echo "$(date "+%Y%m%dT%H%M%S"): Starting to mirror the site" >$LOGFILE
 # Mirror the site
 govuk_mirrorer --logfile $LOGFILE
 
@@ -30,18 +30,21 @@ fi
 
 mv www.gov.uk "$DEST"
 
+echo "$(date "+%Y%m%dT%H%M%S"): Cleaning up old directories and logs" >$LOGFILE
 # Clean up all but the last 7 mirror versions
 find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
   sort -r |
   tail -n +8 |
   while read dir; do
     rm -rf "$dir"
-    test -f "${dir}.log" && rm "${dir}.log"
+    rm "${dir}.log"
   done
 
+echo "$(date "+%Y%m%dT%H%M%S"): Updating symlink to newest version" >$LOGFILE
 # Update symlink to latest version
 ln -snf "$DEST" "${MIRROR_ROOT}/current"
 
+echo "$(date "+%Y%m%dT%H%M%S"): Grabbing the latest error page" >$LOGFILE
 # Grab the 503 error page
 test -d /var/lib/govuk_mirror/error/ || mkdir /var/lib/govuk_mirror/error/
 curl -sf https://assets.digital.cabinet-office.gov.uk/templates/503.html.erb -o /var/lib/govuk_mirror/error/503.html
