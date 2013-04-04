@@ -186,13 +186,12 @@ class GovukMirrorer < Spidey::AbstractSpider
     else
       @logger.level = Logger::INFO
     end
-    @verbose_debug = false
 
     @site_root = attrs[:site_root] || DEFAULT_SITE_ROOT
 
     @indexer = GovukIndexer.new(@site_root)
     @indexer.all_start_urls.each do |url|
-      @logger.debug "Adding start url #{url}" if @verbose_debug
+      @logger.debug "Adding start url #{url}"
       handle url, :process_govuk_page
     end
   end
@@ -208,15 +207,16 @@ class GovukMirrorer < Spidey::AbstractSpider
       retried = false
       begin
         page = agent.get(url)
-        logger.debug "Handling #{url.inspect}" if @verbose_debug
+        logger.debug "Handling #{url.inspect}"
         send handler, page, default_data
+        logger.info "Completed crawling the site"
       rescue => ex
         if ex.is_a?(Mechanize::ResponseCodeError) and (500..599).include?(ex.response_code.to_i) and ! retried
           retried = true
           sleep 1
           retry
         end
-        add_error url: url, handler: handler, error: ex, data: default_data
+        add_log_warning url: url, handler: handler, error: ex, data: default_data
       end
     end
   end
@@ -257,7 +257,7 @@ class GovukMirrorer < Spidey::AbstractSpider
       logger.warn "Link to non https #{href} from #{page.uri.to_s}" unless uri.scheme == "https"
       uri.scheme = 'https'
     else
-      logger.debug "Ignoring non #{site_hostname} link #{href} on #{page.uri.to_s}" if @verbose_debug
+      logger.debug "Ignoring non #{site_hostname} link #{href} on #{page.uri.to_s}"
       return
     end
     uri.fragment = nil # prevent duplicate url's being missed
@@ -267,9 +267,9 @@ class GovukMirrorer < Spidey::AbstractSpider
   end
 
   def maybe_handle(url, handler, data = {})
-    logger.debug "Evaluating link #{url}" if @verbose_debug
+    logger.debug "Evaluating link #{url}"
     if @urls.include?(url)
-      logger.debug "Skipping seen url #{url}" if @verbose_debug
+      logger.debug "Skipping seen url #{url}"
       return
     end
     if @http_errors.has_key?(url)
@@ -294,7 +294,7 @@ class GovukMirrorer < Spidey::AbstractSpider
 
   protected
 
-  def add_error(attrs)
+  def add_log_warning(attrs)
     msg = "Error #{attrs[:error].inspect} for #{attrs[:url]}, data: #{attrs[:data].inspect}"
     msg << "\n#{attrs[:error].backtrace.join("\n")}" unless attrs[:error].is_a?(Mechanize::Error)
     logger.warn msg.to_s
@@ -307,7 +307,7 @@ class GovukMirrorer < Spidey::AbstractSpider
   # adds .html for html files
   def save_to_disk(page)
     path = page.extract_filename(true)
-    logger.info "Saving #{page.uri.to_s} to #{path}"
+    logger.debug "Saving #{page.uri.to_s} to #{path}"
     FileUtils.mkdir_p(File.dirname(path))
     File.open(path, 'wb') do |f|
       f.write page.body
@@ -329,9 +329,14 @@ class GovukMirrorConfigurer
     require 'optparse'
     options = {}
     OptionParser.new do |o|
+      o.banner = "Usage: govuk_mirrorer [options]"
+
       o.on('--logfile FILE') { |file| options[:logfile] = file }
-      o.on('--loglevel LEVEL') {|level| options[:log_level] = level }
-      o.on('-h') { puts o; exit }
+      o.on('--loglevel LEVEL', 'DEBUG/INFO/WARN/ERROR, it defaults to INFO') do |level|
+        options[:log_level] = level
+      end
+      o.on('-v', '--verbose', 'makes loglevel as DEBUG') { |level| options[:log_level] = 'DEBUG' }
+      o.on('-h', '--help') { puts o; exit }
       o.parse!
     end
 
