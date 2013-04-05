@@ -51,6 +51,7 @@ class users::groups::govuk {
   include users::mwall
   include users::nick
   include users::norm
+  include users::ole
   include users::ops01
   include users::ops02
   include users::ops04
