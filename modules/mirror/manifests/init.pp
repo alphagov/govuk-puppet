@@ -24,7 +24,7 @@ class mirror {
   #create cron lock file writable by user
   file { '/var/run/govuk_update_and_upload_mirror.lock':
     ensure => present,
-    mode   => '0500',
+    mode   => '0700',
     owner  => 'govuk-netstorage',
   }
 
