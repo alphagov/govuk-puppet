@@ -61,8 +61,8 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
   }
 
   @@nagios::check { "check_mongod_connections_${::hostname}":
-    check_command       =>"check_nrpe!check_mongodb!connections 400 600",
-    service_description => "mongod number of connections",
+    check_command       =>"check_nrpe!check_mongodb!connections 80 90",
+    service_description => "mongod percentage connection usage",
     host_name           => $::fqdn,
   }
 }
