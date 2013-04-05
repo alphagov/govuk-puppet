@@ -3,6 +3,8 @@ class monitoring::checks {
   include daemontools # provides setlock
 
   $app_domain = extlookup('app_domain')
+  $http_username = extlookup('http_username', 'UNSET')
+  $http_password = extlookup('http_password', 'UNSET')
 
   cron { 'cron_smokey_features':
     command => '/usr/bin/setlock -n /var/run/smokey.lock /opt/smokey/cron_json.sh /tmp/smokey.json',
@@ -80,8 +82,6 @@ class monitoring::checks {
   # END whitehall
 
   # START datainsight
-  $http_username = extlookup('http_username', 'UNSET')
-  $http_password = extlookup('http_password', 'UNSET')
   $datainsight_base_uri = "https://${http_username}:${http_password}@datainsight-frontend.${app_domain}/performance/dashboard"
 
   @nagios::plugin { 'check_datainsight_recorder':
@@ -137,40 +137,41 @@ class monitoring::checks {
     host_name           => $::fqdn,
   }  # END datainsight
 
-  $performance_platform_nagios_check = str2bool(extlookup('performance_platform_nagios_check', 'no'))
-  if $performance_platform_nagios_check {
-    @nagios::plugin { 'check_performance_platform':
-      source  => 'puppet:///modules/performance_platform/check_performance_platform.cfg',
-    }
-
-    # START backdrop
-    $http_username = extlookup('http_username', 'UNSET')
-    $http_password = extlookup('http_password', 'UNSET')
-    $backdrop_read_base_uri = "https://${http_username}:${http_password}@read.backdrop.${app_domain}"
-
-    @@nagios::check { 'check_backdrop_read_endpoint':
-      check_command       => "check_nrpe!check_performance_platform_health!${backdrop_read_base_uri}/_status ${http_username} ${http_password}",
-      use                 => 'govuk_normal_priority',
-      service_description => 'checks if backdrop.read endpoint is up',
-      host_name           => $::fqdn,
-    }
-
-    # END backdrop
-
-    # START limelight
-    $http_username = extlookup('http_username', 'UNSET')
-    $http_password = extlookup('http_password', 'UNSET')
-    $limelight_base_uri = "https://${http_username}:${http_password}@limelight.${app_domain}"
-
-    @@nagios::check { 'check_limelight_endpoint':
-      check_command       => "check_nrpe!check_performance_platform_health!${limelight_base_uri}/_status ${http_username} ${http_password}",
-      use                 => 'govuk_normal_priority',
-      service_description => 'checks if limelight homepage is up',
-      host_name           => $::fqdn,
-    }
-
-    # END limelight
+  @nagios::plugin { 'check_performance_platform':
+    source  => 'puppet:///modules/performance_platform/check_performance_platform.cfg',
   }
+
+  # START backdrop
+  $backdrop_read_base_uri = "https://read.backdrop.${app_domain}"
+  $backdrop_write_base_uri = "https://write.backdrop.${app_domain}"
+
+  @@nagios::check { 'check_backdrop_read_endpoint':
+    check_command       => "check_nrpe!check_https_url!${backdrop_read_base_uri} ${http_username} ${http_password} _status",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if backdrop.read endpoint is up',
+    host_name           => $::fqdn,
+  }
+
+  @@nagios::check { 'check_backdrop_write_endpoint':
+    check_command       => "check_nrpe!check_https_url!${backdrop_write_base_uri} ${http_username} ${http_password} _status",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if backdrop.write endpoint is up',
+    host_name           => $::fqdn,
+  }
+
+  # END backdrop
+
+  # START limelight
+  $limelight_base_uri = "https://limelight.${app_domain}"
+
+  @@nagios::check { 'check_limelight_endpoint':
+    check_command       => "check_nrpe!check_https_url!${limelight_base_uri} ${http_username} ${http_password} _status",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if limelight homepage is up',
+    host_name           => $::fqdn,
+  }
+
+  # END limelight
 
   @@nagios::check {'check_mapit_responding':
     check_command       => "check_mapit",
