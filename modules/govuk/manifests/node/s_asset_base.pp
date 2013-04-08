@@ -51,6 +51,10 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     require   => Package['nfs-kernel-server'],
   }
 
+  collectd::plugin { 'nfs':
+    require   => Package['nfs-kernel-server'],
+  }
+
   file { '/usr/local/bin/virus_check.sh':
     ensure    => absent,
   }
