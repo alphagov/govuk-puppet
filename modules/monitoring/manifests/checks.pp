@@ -137,9 +137,6 @@ class monitoring::checks {
     host_name           => $::fqdn,
   }  # END datainsight
 
-  @nagios::plugin { 'check_performance_platform':
-    source  => 'puppet:///modules/performance_platform/check_performance_platform.cfg',
-  }
   $warning_time = 5
   $critical_time = 10
 
