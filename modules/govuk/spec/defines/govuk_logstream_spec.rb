@@ -22,7 +22,7 @@ describe 'govuk::logstream', :type => :define do
     }
   end
 
-  context 'with json' do
+  context 'with json flag set to true' do
     let(:params) { {
       :logfile => '/var/log/elephant.log',
       :enable => true,
@@ -31,7 +31,7 @@ describe 'govuk::logstream', :type => :define do
 
     it {
       should contain_file('/etc/init/logstream-giraffe.conf').with(
-        :content => /--json /
+        :content => /govuk_logpipe --json /
       )
     }
   end
