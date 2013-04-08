@@ -3,6 +3,8 @@ class monitoring::checks {
   include monitoring::checks::smokey
 
   $app_domain = extlookup('app_domain')
+  $http_username = extlookup('http_username', 'UNSET')
+  $http_password = extlookup('http_password', 'UNSET')
 
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
@@ -59,8 +61,6 @@ class monitoring::checks {
   # END whitehall
 
   # START datainsight
-  $http_username = extlookup('http_username', 'UNSET')
-  $http_password = extlookup('http_password', 'UNSET')
   $datainsight_base_uri = "https://${http_username}:${http_password}@datainsight-frontend.${app_domain}/performance/dashboard"
 
   @nagios::plugin { 'check_datainsight_recorder':
@@ -115,6 +115,41 @@ class monitoring::checks {
     service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
     host_name           => $::fqdn,
   }  # END datainsight
+
+  $warning_time = 5
+  $critical_time = 10
+
+  # START backdrop
+  $backdrop_read_base_uri = "https://read.backdrop.${app_domain}"
+  $backdrop_write_base_uri = "https://write.backdrop.${app_domain}"
+
+  @@nagios::check { 'check_backdrop_read_endpoint':
+    check_command       => "check_nrpe!check_https_url!${backdrop_read_base_uri} ${warning_time} ${critical_time} _status",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if backdrop.read endpoint is up',
+    host_name           => $::fqdn,
+  }
+
+  @@nagios::check { 'check_backdrop_write_endpoint':
+    check_command       => "check_nrpe!check_https_url!${backdrop_write_base_uri} ${warning_time} ${critical_time} _status",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if backdrop.write endpoint is up',
+    host_name           => $::fqdn,
+  }
+
+  # END backdrop
+
+  # START limelight
+  $limelight_base_uri = "https://limelight.${app_domain}"
+
+  @@nagios::check { 'check_limelight_endpoint':
+    check_command       => "check_nrpe!check_https_url!${limelight_base_uri} ${warning_time} ${critical_time} _status",
+    use                 => 'govuk_normal_priority',
+    service_description => 'checks if limelight homepage is up',
+    host_name           => $::fqdn,
+  }
+
+  # END limelight
 
   @@nagios::check {'check_mapit_responding':
     check_command       => "check_mapit",
