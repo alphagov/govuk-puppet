@@ -3,7 +3,8 @@ define govuk::logstream (
   $tags = [],
   $fields = {},
   $enable = false,
-  $host = $::fqdn
+  $host = $::fqdn,
+  $json = false
 ) {
 
   if ($enable == true and $::govuk_platform != 'development') {
