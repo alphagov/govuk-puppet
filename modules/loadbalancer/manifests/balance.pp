@@ -42,10 +42,13 @@ define loadbalancer::balance(
     content => template('loadbalancer/nginx_balance.conf.erb'),
   }
 
-  nginx::log { [
-                "${vhost_real}-access.log",
-                "${vhost_real}-error.log",
-                ]:
-                  logstream => true;
+  nginx::log {
+    "${vhost_real}-json.event.access.log":
+      json      => true,
+      logstream => true;
+    "${vhost_real}-access.log":
+      logstream => false;
+    "${vhost_real}-error.log":
+      logstream => true;
   }
 }

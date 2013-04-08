@@ -15,11 +15,14 @@ class nagios::config {
   nginx::config::site { 'nagios':
     content => template('nagios/nginx.conf.erb'),
   }
-  nginx::log {  [
-                'nagios-access.log',
-                'nagios-error.log'
-                ]:
-                  logstream => true;
+  nginx::log {
+    'nagios-json.event.access.log':
+      json      => true,
+      logstream => true;
+    'nagios-access.log':
+      logstream => false;
+    'nagios-error.log':
+      logstream => true;
   }
 
   file { '/etc/nagios3':

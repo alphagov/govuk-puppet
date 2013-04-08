@@ -33,12 +33,17 @@ define nginx::config::vhost::proxy(
     content => template($proxy_vhost_template),
   }
 
-  nginx::log {  [
-                $error_log,
-                $access_log
-                ]:
-                  logpath   => $logpath,
-                  logstream => $logstream;
+  nginx::log {
+    $json_access_log:
+      json      => true,
+      logpath   => $logpath,
+      logstream => $logstream;
+    $access_log:
+      logpath   => $logpath,
+      logstream => false;
+    $error_log:
+      logpath   => $logpath,
+      logstream => $logstream;
   }
 
   @logster::cronjob { "nginx-vhost-${title}":

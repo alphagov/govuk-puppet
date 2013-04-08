@@ -6,6 +6,7 @@ define nginx::log (
   $loggroup  = 'adm',
   $logmode   = '0640',
   $logstream = false,
+  $json      = false,
   $logname   = regsubst($name, '\.[^.]*$', '')
   ){
   file { "${logpath}/${name}":
@@ -23,6 +24,7 @@ define nginx::log (
     tags    => ['nginx'],
     fields  => {'application' => $logname},
     enable  => $logstream,
+    json    => $json,
   }
 
 }
