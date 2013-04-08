@@ -4,7 +4,8 @@ define nagios::check (
   $check_command       = undef,
   $host_name           = $::fqdn,
   $notification_period = undef,
-  $use                 = 'govuk_regular_service'
+  $use                 = 'govuk_regular_service',
+  $action_url          = undef
 ) {
 
   $check_filename = "/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg"

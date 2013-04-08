@@ -10,4 +10,7 @@ define service {
 <%- if @notification_period -%>
         notification_period <%= @notification_period %>
 <%- end -%>
+<%- if @action_url -%>
+		action_url          <%= action_url %>
+<%- end -%>
 }

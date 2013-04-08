@@ -54,6 +54,7 @@ class monitoring::checks {
     service_description => 'overdue publications in Whitehall',
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
+    action_url          => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/outage#TOC-zd-ur-CRITICAL:-whitehall-has-overdue-scheduled-editions-on-monitoring.management.production',
   }
   # END whitehall
 
