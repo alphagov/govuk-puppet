@@ -1,30 +1,8 @@
 class monitoring::checks {
 
-  include daemontools # provides setlock
+  include monitoring::checks::smokey
 
   $app_domain = extlookup('app_domain')
-
-  cron { 'cron_smokey_features':
-    command => '/usr/bin/setlock -n /var/run/smokey.lock /opt/smokey/cron_json.sh /tmp/smokey.json',
-    minute  => '*',
-  }
-
-  nagios::check_feature {
-    'check_businesssupportfinder':  feature => 'businesssupportfinder';
-    'check_calendars':              feature => 'calendars';
-    'check_contractsfinder':        feature => 'contractsfinder';
-    'check_efg':                    feature => 'efg';
-    'check_frontend':               feature => 'frontend';
-    'check_licencefinder':          feature => 'licencefinder';
-    'check_licensing':              feature => 'licensing';
-    'check_publishing':             feature => 'mainstream_publishing_tools';
-    'check_router':                 feature => 'router';
-    'check_search':                 feature => 'search';
-    'check_smartanswers':           feature => 'smartanswers';
-    'check_signon':                 feature => 'signon';
-    'check_tariff':                 feature => 'tariff';
-    'check_whitehall':              feature => 'whitehall';
-  }
 
   @@nagios::check { 'check_pingdom':
     check_command       => 'run_pingdom_homepage_check',
