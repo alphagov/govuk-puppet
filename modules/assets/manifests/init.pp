@@ -5,6 +5,10 @@ class assets {
     ensure => installed,
   }
 
+  collectd::plugin { 'nfs':
+    require => Package['nfs-common'],
+  }
+
   file { "/data/uploads":
     ensure  => 'directory',
     owner   => 'assets',
