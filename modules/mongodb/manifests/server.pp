@@ -34,6 +34,12 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
     require => Class['mongodb::configuration'],
   }
 
+  file { '/etc/logrotate.d/mongodb':
+    ensure  => present,
+    source  => 'puppet:///modules/mongodb/mongodb.logrotate',
+    require => Package['mongodb20-10gen'],
+  }
+
   # We don't need to wait for the monitoring class
   anchor { 'mongodb::end':
     require => Class[
