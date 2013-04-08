@@ -17,7 +17,6 @@ class mongodb::service {
   govuk::logstream { 'mongodb-logstream':
     logfile => $mongod_log_file,
     fields  => {'application' => 'mongodb'},
-    enable  => true,
   }
 
 }

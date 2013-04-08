@@ -8,6 +8,5 @@ class mysql::server::service ( $error_log ) {
     logfile => $error_log,
     tags    => ['error'],
     fields  => {'application' => 'mysql'},
-    enable  => true,
   }
 }
