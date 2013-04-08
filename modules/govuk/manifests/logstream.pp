@@ -2,10 +2,12 @@ define govuk::logstream (
   $logfile,
   $tags = [],
   $fields = {},
-  $enable = false,
+  $enable = true,
   $host = $::fqdn
 ) {
 
+  # TODO: Change the `enable => false` to a more Puppet-esque
+  # `ensure => absent` interface?
   if ($enable == true and $::govuk_platform != 'development') {
     $tag_string = join($tags, ' ')
 

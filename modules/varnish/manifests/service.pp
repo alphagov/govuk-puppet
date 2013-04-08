@@ -35,7 +35,6 @@ class varnish::service {
     logfile => '/var/log/varnish/varnishncsa.log',
     fields  => {'application' => 'varnish'},
     require => Service['varnishncsa'],
-    enable  => true,
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
