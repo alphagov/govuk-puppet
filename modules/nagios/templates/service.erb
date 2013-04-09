@@ -11,6 +11,12 @@ define service {
         notification_period <%= @notification_period %>
 <%- end -%>
 <%- if @action_url -%>
-		action_url          <%= action_url %>
+        _gds_action_url     <%= @action_url %>
+<%- end -%>
+<%- if @document_url -%>
+        _gds_document_url   <%= @document_url %>
+<%- end -%>
+<%- if @graph_url -%>
+       _gds_graph_url       <%= @graph_url %>
 <%- end -%>
 }
