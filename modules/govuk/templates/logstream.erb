@@ -20,6 +20,13 @@ respawn limit 5 20
 # TAG: should be a string of tags to tag a log line with me
 instance "<%= @logfile %>"
 
+<%
+logpipe_args = []
+logpipe_args << "--json" if @json.to_s == 'true'
+logpipe_args += ["-t", @tag_string] unless @tag_string.empty?
+logpipe_args += ["-f", "host=#{@host}"]
+logpipe_args += @fields.map { |k,v| "#{k}=#{v}" }
+-%>
 script
-    tail -F <%= @logfile %> | govuk_logpipe <%= "-t #{@tag_string}" unless @tag_string.empty? %> -f host=<%= @host %> <%= "#{fields.map { |k,v| "#{k}=#{v}" }.join(' ')}" unless fields.empty? %>
+    tail -F <%= @logfile %> | govuk_logpipe <%= logpipe_args.join(" ") %>
 end script

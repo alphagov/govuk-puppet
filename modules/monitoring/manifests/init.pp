@@ -21,11 +21,14 @@ class monitoring {
   nginx::config::site { 'monitoring':
     content => template('monitoring/nginx.conf.erb'),
   }
-  nginx::log {  [
-                  'monitoring-access.log',
-                  'monitoring-error.log'
-                ]:
-                  logstream => true;
+  nginx::log {
+    'monitoring-json.event.access.log':
+      json      => true,
+      logstream => true;
+    'monitoring-access.log':
+      logstream => false;
+    'monitoring-error.log':
+      logstream => true;
   }
 
   file { '/var/www/monitoring':

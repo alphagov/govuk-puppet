@@ -22,11 +22,17 @@ define nginx::config::vhost::static(
   nginx::config::site { $name:
     content => template('nginx/static-vhost.conf'),
   }
-  nginx::log {  [
-                $access_log,
-                $error_log
-                ]:
-                  logpath => $logpath;
+  nginx::log {
+    $json_access_log:
+      json      => true,
+      logpath   => $logpath,
+      logstream => true;
+    $access_log:
+      logpath   => $logpath,
+      logstream => false;
+    $error_log:
+      logpath   => $logpath,
+      logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-${title}":

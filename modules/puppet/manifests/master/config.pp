@@ -2,11 +2,14 @@ class puppet::master::config ($unicorn_port = '9090') {
   nginx::config::site { 'puppetmaster':
     content => template('puppet/puppetmaster-vhost.conf'),
   }
-  nginx::log {  [
-                'puppetmaster-access.log',
-                'puppetmaster-error.log'
-                ]:
-                  logstream => true;
+  nginx::log {
+    'puppetmaster-json.event.access.log':
+      json      => true,
+      logstream => true;
+    'puppetmaster-access.log':
+      logstream => false;
+    'puppetmaster-error.log':
+      logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-puppetmaster":

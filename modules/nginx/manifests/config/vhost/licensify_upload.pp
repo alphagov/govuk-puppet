@@ -5,11 +5,14 @@ define nginx::config::vhost::licensify_upload($port="9000") {
 
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost_name: content => template('nginx/licensify-upload-vhost.conf') }
-  nginx::log {  [
-                "${vhost_name}-access.log",
-                "${vhost_name}-error.log"
-                ]:
-                  logstream => true;
+  nginx::log {
+    "${vhost_name}-json.event.access.log":
+      json      => true,
+      logstream => true;
+    "${vhost_name}-access.log":
+      logstream => false;
+    "${vhost_name}-error.log":
+      logstream => true;
   }
 
   @logster::cronjob { "nginx-vhost-${vhost_name}":

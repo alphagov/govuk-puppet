@@ -30,11 +30,14 @@ class router::nginx (
     content => template('router/routes.conf.erb'),
     notify  => Class['nginx::service'],
   }
-  nginx::log {  [
-                "lb-access.log",
-                "lb-error.log"
-                ]:
-                  logstream => true;
+  nginx::log {
+    'lb-json.event.access.log':
+      json      => true,
+      logstream => true;
+    'lb-access.log':
+      logstream => false;
+    'lb-error.log':
+      logstream => true;
   }
 
   file { '/usr/share/nginx':
