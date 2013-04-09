@@ -9,6 +9,6 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
     check_command       => "check_graphite_metric_args!${check_url}!300!600!--droplast 1",
     service_description => "mysql replication lag",
     host_name           => $::fqdn,
-    graph_url           => "https://graphite.${::monitoring_domain_suffix}/render/?width=1110&height=933&target=${check_url}",
+    graph_url           => "https://graphite.${::monitoring_domain_suffix}/render/?width=600&height=300&target=${check_url}",
   }
 }
