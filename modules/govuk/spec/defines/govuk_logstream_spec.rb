@@ -22,7 +22,7 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass appropriate CLI args' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe  -f host=camel.example.com $/,
+        :content => /\| govuk_logpipe -f host=camel.example.com$/,
       )
     end
   end
@@ -37,7 +37,7 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass --tags with list' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe -t zebra llama -f host=camel.example.com $/,
+        :content => /\| govuk_logpipe -t zebra llama -f host=camel.example.com$/,
       )
     end
   end
@@ -52,7 +52,7 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass --fields with kv pairs' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe  -f host=camel.example.com zebra=stripey llama=fluffy$/,
+        :content => /\| govuk_logpipe -f host=camel.example.com zebra=stripey llama=fluffy$/,
       )
     end
   end
@@ -67,7 +67,7 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass --fields with correct host kv' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe  -f host=orangutan.zoo.com $/,
+        :content => /\| govuk_logpipe -f host=orangutan.zoo.com$/,
       )
     end
   end
@@ -82,7 +82,7 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass --json arg' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe --json  -f host=camel.example.com $/,
+        :content => /\| govuk_logpipe --json -f host=camel.example.com$/,
       )
     end
   end
