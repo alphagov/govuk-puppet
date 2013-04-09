@@ -23,11 +23,9 @@ instance "<%= @logfile %>"
 <%
 logpipe_args = []
 logpipe_args << "--json" if @json.to_s == 'true'
-logpipe_args << "-t #{@tag_string}" unless @tag_string.empty?
-field_args = []
-field_args << "-f host=#{@host}"
-field_args << (@fields.map { |k,v| "#{k}=#{v}" }.join(' ')) unless @fields.empty?
-logpipe_args << field_args.join(" ")
+logpipe_args += ["-t", @tag_string] unless @tag_string.empty?
+logpipe_args += ["-f", "host=#{@host}"]
+logpipe_args += @fields.map { |k,v| "#{k}=#{v}" }
 -%>
 script
     tail -F <%= @logfile %> | govuk_logpipe <%= logpipe_args.join(" ") %>
