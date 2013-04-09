@@ -120,18 +120,18 @@ class monitoring::checks {
   $critical_time = 10
 
   # START backdrop
-  $backdrop_read_base_uri = "https://read.backdrop.${app_domain}"
-  $backdrop_write_base_uri = "https://write.backdrop.${app_domain}"
+  $backdrop_read_hostname = "read.backdrop.${app_domain}"
+  $backdrop_write_hostname = "write.backdrop.${app_domain}"
 
   @@nagios::check { 'check_backdrop_read_endpoint':
-    check_command       => "check_https_url!${backdrop_read_base_uri} ${warning_time} ${critical_time} _status",
+    check_command       => "check_https_url!${backdrop_read_hostname}!/_status${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if backdrop.read endpoint is up',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { 'check_backdrop_write_endpoint':
-    check_command       => "check_https_url!${backdrop_write_base_uri} ${warning_time} ${critical_time} _status",
+    check_command       => "check_https_url!${backdrop_write_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if backdrop.write endpoint is up',
     host_name           => $::fqdn,
@@ -140,10 +140,10 @@ class monitoring::checks {
   # END backdrop
 
   # START limelight
-  $limelight_base_uri = "https://limelight.${app_domain}"
+  $limelight_hostname = "limelight.${app_domain}"
 
   @@nagios::check { 'check_limelight_endpoint':
-    check_command       => "check_https_url!${limelight_base_uri} ${warning_time} ${critical_time} _status",
+    check_command       => "check_https_url!${limelight_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if limelight homepage is up',
     host_name           => $::fqdn,
