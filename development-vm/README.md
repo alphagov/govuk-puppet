@@ -28,9 +28,11 @@ should be run in the shell on the development VM.
 
 ## 1. Prerequisites and assumptions
 
-  * You should have an account on GitHub and be added to the `alphagov` organisation
-  * You should have [generated and registered](https://help.github.com/categories/56/articles) an SSH key pair with your GitHub account
   * You are using a Mac
+  * You should have an account on:
+    * GitHub.com (public) and be added to the `alphagov` organisation
+    * GitHub Enterprise (private) and be added to the `gds` organisation
+  * You should have [generated and registered](https://help.github.com/categories/56/articles) SSH key pairs for your Mac for both your GitHub accounts (later you may need to do this on your vagrant box too).
   * You should have installed [VirtualBox](https://www.virtualbox.org/) on
     your machine (**NB**: you don't need to do any more than install
     VirtualBox. The steps that follow will create your VM.)
@@ -70,6 +72,8 @@ by running puppet:
     dev$ govuk_puppet
 
 This may take a long time on first run, but *should* exit with no errors.
+
+Note, if you want to pull and push from repos from within of your virtual machine, then you will need to generate and register SSH keys with both Github.com and GitHub Enterprise from within your VM in the normal way.
 
 ## 4. Set up the apps
 
