@@ -71,13 +71,16 @@ class ertp_base::api_server inherits ertp_base {
 
   case $::govuk_platform {
     staging: {
-      file { '/etc/gds-ertp-ero-auth-details-staging.txt':
+      file { '/etc/gds-ertp-ero-auth-details.txt':
         ensure  => present,
         source  => 'puppet:///modules/ertp/etc/migrations/gds-ertp-ero-auth-details-staging.txt',
       }
     }
     default: {
-      ## no default at the moment
+      file { '/etc/gds-ertp-ero-auth-details.txt':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/migrations/gds-ertp-ero-auth-details-preview.txt',
+      }
     }
   }
 }
