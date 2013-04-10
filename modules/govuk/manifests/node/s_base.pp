@@ -33,6 +33,10 @@ class govuk::node::s_base {
     content => '$SystemLogRateLimitInterval 0'
   }
 
+  rsyslog::snippet { '100-preservefqdn':
+    content => '$PreserveFQDN on',
+  }
+
   rsyslog::snippet { '410-audispd':
     content => ':programname, isequal, "audispd"  ~'
   }
