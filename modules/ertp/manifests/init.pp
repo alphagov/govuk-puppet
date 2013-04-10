@@ -34,9 +34,9 @@ class ertp::api::scripts {
     source => ['puppet:///modules/ertp/ertp-gateway.conf']
   }
 
-  file {'/etc/init/ertp-stats-api.conf':
+  file {'/etc/init/ertp-admin-api.conf':
     ensure => present,
-    source => ['puppet:///modules/ertp/ertp-stats-api.conf']
+    source => ['puppet:///modules/ertp/ertp-admin-api.conf']
   }
 }
 
