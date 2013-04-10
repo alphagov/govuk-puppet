@@ -14,7 +14,7 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   if str2bool(extlookup('govuk_enable_backdrop', 'no')) {
     class {
       'govuk::apps::backdrop_read':  vhost_protected => true;
-      'govuk::apps::backdrop_write': vhost_protected => true;
+      'govuk::apps::backdrop_write': vhost_protected => false;
     }
   }
 
