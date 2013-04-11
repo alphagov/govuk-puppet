@@ -7,6 +7,10 @@ class php {
     notify => Service['php5-fpm'],
   }
 
+  package { 'php5-cli':
+    ensure => present,
+  }
+
   file { '/etc/php5/fpm/pool.d/www.conf':
     ensure  => present,
     require => Package['php5-fpm'],
