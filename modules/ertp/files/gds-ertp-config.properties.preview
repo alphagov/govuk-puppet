@@ -31,3 +31,4 @@ ertp.api.jobs.registration.expiry.in.days=1
 ertp.api.jobs.perform.registration.cleanup=true
 ertp.api.jobs.registration.cleanup.schedule=0 0/15 9-17 * * ?
 admin.bearerToken=admin_token
+admin.frontend.url=http://preview-ertp.alphagov.co.uk

@@ -3,3 +3,4 @@ ertp.ems.api.url=http://ertp-ems-api:9900/ertp-api
 admin.api.url=http://ertp-admin-api:9125/admin-api
 places.api.url=http://places-api:9700/places
 admin.bearerToken=admin_token
+admin.frontend.url=http://staging-ertp.alphagov.co.uk
