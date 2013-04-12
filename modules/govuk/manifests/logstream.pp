@@ -36,16 +36,16 @@ define govuk::logstream (
     $tag_string = join($tags, ' ')
 
     file { "/etc/init/logstream-${title}.conf":
-      ensure  => present,
-      content => template('govuk/logstream.erb'),
-      notify  => Service["logstream-${title}"],
-      require => Class['govuk::logging'],
+      ensure    => present,
+      content   => template('govuk/logstream.erb'),
+      notify    => Service["logstream-${title}"],
+      subscribe => Class['govuk::logging'],
     }
 
     service { "logstream-${title}":
       ensure    => running,
       provider  => 'upstart',
-      require => Class['govuk::logging'],
+      subscribe => Class['govuk::logging'],
     }
   } else {
 
