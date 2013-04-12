@@ -15,8 +15,8 @@
 # [*enable*]
 #   If set to false any existing logstream jobs will be removed. Defaults to true.
 #
-# [*host*]
-#   Adds a host field. Defaults to $::fqdn.
+# [*source_host*]
+#   Set the value of @source_host. Defaults to $::fqdn.
 #
 # [*json*]
 #   Whether the log is in json format. Defaults to false.
@@ -26,7 +26,7 @@ define govuk::logstream (
   $tags = [],
   $fields = {},
   $enable = true,
-  $host = $::fqdn,
+  $source_host = $::fqdn,
   $json = false
 ) {
 
@@ -36,14 +36,16 @@ define govuk::logstream (
     $tag_string = join($tags, ' ')
 
     file { "/etc/init/logstream-${title}.conf":
-      ensure  => present,
-      content => template('govuk/logstream.erb'),
-      notify  => Service["logstream-${title}"],
+      ensure    => present,
+      content   => template('govuk/logstream.erb'),
+      notify    => Service["logstream-${title}"],
+      subscribe => Class['govuk::logging'],
     }
 
     service { "logstream-${title}":
       ensure    => running,
       provider  => 'upstart',
+      subscribe => Class['govuk::logging'],
     }
   } else {
 
