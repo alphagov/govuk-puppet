@@ -16,12 +16,13 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
   $app_domain = extlookup('app_domain')
 
   mount { '/data/master-uploads':
-    ensure  => 'mounted',
-    device  => "asset-master.${app_domain}:/mnt/uploads",
-    fstype  => 'nfs',
-    options => 'rw,soft',
-    atboot  => true,
-    require => File['/data/master-uploads'],
+    ensure   => 'mounted',
+    device   => "asset-master.${app_domain}:/mnt/uploads",
+    fstype   => 'nfs',
+    options  => 'rw,soft',
+    remounts => false,
+    atboot   => true,
+    require  => File['/data/master-uploads'],
   }
 
   file { '/var/run/whitehall-assets':

@@ -21,12 +21,13 @@ class assets {
     $app_domain = extlookup('app_domain')
 
     mount { "/data/uploads":
-      ensure  => "mounted",
-      device  => "asset-master.${app_domain}:/mnt/uploads",
-      fstype  => "nfs",
-      options => 'rw,soft',
-      atboot  => true,
-      require => [File["/data/uploads"], Package['nfs-common']],
+      ensure   => "mounted",
+      device   => "asset-master.${app_domain}:/mnt/uploads",
+      fstype   => "nfs",
+      options  => 'rw,soft',
+      remounts => false,
+      atboot   => true,
+      require  => [File["/data/uploads"], Package['nfs-common']],
     }
   }
 }
