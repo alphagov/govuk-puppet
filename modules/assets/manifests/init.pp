@@ -24,7 +24,7 @@ class assets {
       ensure  => "mounted",
       device  => "asset-master.${app_domain}:/mnt/uploads",
       fstype  => "nfs",
-      options => 'rw,soft',
+      options => "defaults",
       atboot  => true,
       require => [File["/data/uploads"], Package['nfs-common']],
     }
