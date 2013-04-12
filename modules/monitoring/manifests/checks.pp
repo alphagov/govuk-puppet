@@ -124,7 +124,7 @@ class monitoring::checks {
   $backdrop_write_hostname = "write.backdrop.${app_domain}"
 
   @@nagios::check { 'check_backdrop_read_endpoint':
-    check_command       => "check_https_url!${backdrop_read_hostname}!/_status${warning_time}!${critical_time}",
+    check_command       => "check_https_url!${backdrop_read_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if backdrop.read endpoint is up',
     host_name           => $::fqdn,
