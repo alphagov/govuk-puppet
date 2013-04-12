@@ -39,11 +39,13 @@ define govuk::logstream (
       ensure  => present,
       content => template('govuk/logstream.erb'),
       notify  => Service["logstream-${title}"],
+      require => Class['govuk::logging'],
     }
 
     service { "logstream-${title}":
       ensure    => running,
       provider  => 'upstart',
+      require => Class['govuk::logging'],
     }
   } else {
 
