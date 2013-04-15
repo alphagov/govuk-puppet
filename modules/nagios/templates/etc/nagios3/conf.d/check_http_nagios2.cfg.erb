@@ -20,5 +20,5 @@ define command {
   # ARG3 = Warn if no response in this time (seconds)
   # ARG4 = Critical if no response in this time (seconds)
   command_name  check_https_url
-  command_line  /usr/lib/nagios/plugins/check_http -a "<%= @http_username %>:<%= @http_password %>" -S -H $ARG1$ -u $ARG2 -w $ARG3$ -c $ARG4$
+  command_line  /usr/lib/nagios/plugins/check_http -a "<%= @http_username %>:<%= @http_password %>" -S -H $ARG1$ -u $ARG2$ -w $ARG3$ -c $ARG4$
 }
