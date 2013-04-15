@@ -15,7 +15,6 @@ set -e
 
 set -u
 export PATH="/usr/local/bin:${PATH}"
-exec logship --bulk-index logs-current \
-             -k "$REDIS_KEY" \
+exec logship -k "$REDIS_KEY" \
              -u $REDIS_SERVERS \
              "$@"
