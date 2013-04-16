@@ -24,6 +24,8 @@ instance "<%= @logfile %>"
 logpipe_args = []
 logpipe_args << "--json" if @json.to_s == 'true'
 logpipe_args += ["--source-host", @source_host]
+logpipe_args << "--bulk"
+logpipe_args += ["--bulk-index", "logs-current"]
 logpipe_args += ["-t", @tag_string] unless @tag_string.empty?
 logpipe_args += ["-f", @fields.map { |k,v| "#{k}=#{v}" }] unless @fields.empty?
 -%>
