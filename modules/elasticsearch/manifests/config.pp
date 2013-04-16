@@ -79,4 +79,15 @@ class elasticsearch::config (
     host_name           => $::fqdn,
   }
 
+  @nagios::nrpe_config { 'check_elasticsearch_cluster_health':
+    source => 'puppet:///modules/elasticsearch/check_elasticsearch_cluster_health.cfg',
+  }
+
+  @@nagios::check { "check_elasticsearch-${cluster_name}_cluster_health_running_on_${::hostname}":
+    check_command       => "check_nrpe!check_elasticsearch_cluster_health!${http_port}",
+    service_description => 'elasticsearch cluster is not healthy',
+    host_name           => $::fqdn,
+    document_url        => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions',
+  }
+
 }
