@@ -13,6 +13,11 @@ set -e
 : ${REDIS_SERVERS:=$(govuk_node_list -c redis | xargs -IHOST echo redis://HOST | xargs)}
 : ${REDIS_KEY:="logs"}
 
+if [ -z $REDIS_SERVERS ]; then
+  echo "ERROR: govuk_node_list returned no redis nodes"
+  exit 1
+fi
+
 set -u
 export PATH="/usr/local/bin:${PATH}"
 exec logship -k "$REDIS_KEY" \
