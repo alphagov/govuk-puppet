@@ -1,0 +1,14 @@
+/var/log/mongodb/mongod.log {
+        daily
+        missingok
+        rotate 31
+        compress
+        delaycompress
+        notifempty
+        create 644 mongodb mongodb
+        sharedscripts
+        postrotate
+                killall -SIGUSR1 mongod
+                find /var/log/mongodb/ -type f -regex ".*\.\(log.[0-9].*-[0-9].*\)" -exec rm {} \;
+        endscript
+}
