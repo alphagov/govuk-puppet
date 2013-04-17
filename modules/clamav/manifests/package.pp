@@ -1,5 +1,5 @@
 class clamav::package {
-  package { ['clamav', 'clamav-data']:
+  package { ['clamav', 'clamav-freshclam', 'clamav-daemon']:
     ensure => 'latest',
   }
 
