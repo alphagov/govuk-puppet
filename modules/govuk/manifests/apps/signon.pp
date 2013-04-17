@@ -8,4 +8,6 @@ class govuk::apps::signon( $port = 3016 ) {
     vhost_protected   => false,
     logstream         => false,
   }
+
+  govuk::delayed_job::worker { 'signon': }
 }
