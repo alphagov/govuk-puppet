@@ -1,15 +1,15 @@
 class clamav::config {
-  file { '/opt/clamav/etc/clamd.conf':
+  file { '/etc/clamav/clamd.conf':
     ensure => present,
-    source => 'puppet:///modules/clamav/opt/clamav/etc/clamd.conf',
+    source => 'puppet:///modules/clamav/etc/clamd.conf',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
   }
 
-  file { '/opt/clamav/etc/freshclam.conf':
+  file { '/etc/clamav/freshclam.conf':
     ensure => present,
-    source => 'puppet:///modules/clamav/opt/clamav/etc/freshclam.conf',
+    source => 'puppet:///modules/clamav/etc/freshclam.conf',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
