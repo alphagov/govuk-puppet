@@ -1,11 +1,11 @@
 class clamav::package {
-  package { 'clamav':
-    ensure => '0.97.5',
+  package { ['clamav', 'clamav-data']:
+    ensure => 'latest',
   }
 
   $symlink_target = $::govuk_platform ? {
-    'development' => "/opt/clamav/bin/clamscan",
-    default       => "/opt/clamav/bin/clamdscan",
+    'development' => "/usr/bin/clamscan",
+    default       => "/usr/bin/clamdscan",
   }
   file { '/usr/local/bin/govuk_clamscan':
     ensure  => symlink,

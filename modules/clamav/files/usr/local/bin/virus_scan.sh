@@ -5,7 +5,7 @@ set -eu
 INCOMING_DIR="$1"
 INFECTED_DIR="$2"
 CLEAN_DIR="$3"
-CLAMSCAN_CMD="/opt/clamav/bin/clamscan"
+CLAMSCAN_CMD="clamscan"
 START_TIME=`date +%s`
 
 usage() {
