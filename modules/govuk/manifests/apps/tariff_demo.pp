@@ -1,5 +1,5 @@
 class govuk::apps::tariff_demo(
-  $port = 3043,
+  $port = 3044,
   $vhost_protected
 ) {
   govuk::app { 'tariff-demo':
