@@ -22,10 +22,6 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     install_from => 'mobz/elasticsearch-head',
   }
 
-  rsyslog::snippet { '300-open_udp_port':
-    content => template('govuk/etc/rsyslog.d/open_udp_port.conf.erb')
-  }
-
   # Install a template for *ALL* indices on this elasticsearch node which sets
   # up some favourable settings for storing logging data. Of note:
   #
