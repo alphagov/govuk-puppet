@@ -43,7 +43,7 @@ sub vcl_recv {
     <%= set_backend('calendars') %>
   } else if (req.url ~ "^/(<%= @smartanswers.join("|") %>)") {
     <%= set_backend('smartanswers') %>
-  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$") {
+  } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$|^/apple-touch(\?.*)?\.png$") {
     <%= set_backend('static') %>
   } else if (req.url ~ "^/service-manual([/?.].*)?$|^/designprinciples([/?.].*)?$") {
     <%= set_backend('designprinciples') %>
@@ -169,7 +169,7 @@ sub vcl_fetch {
 <% else -%>
     return(pass);
 <% end -%>
-  } 
+  }
 
   # If neither a Cache-Control or Expires header is provided, Varnish will
   # automatically set the TTL to the default_ttl. This *won't* however, set
