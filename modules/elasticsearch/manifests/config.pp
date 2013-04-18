@@ -31,8 +31,8 @@ class elasticsearch::config (
   }
 
   file { "${es_home}/config/logging.yml":
-    ensure  => present,
-    content => template('elasticsearch/logging.yml.erb'),
+    ensure => present,
+    source => 'puppet:///modules/elasticsearch/logging.yml',
   }
 
   file { "${es_home}/bin":

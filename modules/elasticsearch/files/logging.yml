@@ -13,11 +13,11 @@ additivity:
 appender:
   syslog:
     type: syslog
-    syslogHost: <%= @fqdn %>
+    syslogHost: 127.0.0.1
     facility: local0
     layout:
       type: pattern
-      conversionPattern: "%m%n"
+      conversionPattern: "[%d{ISO8601}][%t][%-5p][%-25c] %m%n"
 
   console:
     type: console
