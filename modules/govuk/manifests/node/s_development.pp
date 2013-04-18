@@ -60,6 +60,7 @@ class govuk::node::s_development {
   include govuk::apps::static
   include govuk::apps::support
   include govuk::apps::tariff_api
+  include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
@@ -154,6 +155,10 @@ class govuk::node::s_development {
     ['tariff_development', 'tariff_test']:
       user     => 'tariff',
       password => 'tariff';
+
+    ['transition_development', 'transition_test']:
+      user     => 'transition',
+      password => 'transition';
 
     [
       'whitehall_development',
