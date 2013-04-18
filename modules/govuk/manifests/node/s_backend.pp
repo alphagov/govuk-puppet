@@ -27,7 +27,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::support
-  include govuk::apps::tariff_admin
   include govuk::apps::tariff_api
   include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
