@@ -17,7 +17,7 @@ appender:
     facility: local0
     layout:
       type: pattern
-      conversionPattern: "%m%n"
+      conversionPattern: "elasticsearch-<%= @cluster_name %>: %m%n"
 
   console:
     type: console
