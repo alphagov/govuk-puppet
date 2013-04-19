@@ -89,6 +89,20 @@ class govuk::apps::whitehall(
         include /etc/nginx/sts.conf;
         try_files $uri @app;
       }
+
+      # Don\'t ask for basic auth on API pages so internal apps can hit them
+      # more easily.
+      location /api {
+        auth_basic off;
+        try_files $uri @app;
+      }
+
+      # Don\'t ask for basic auth on SSO API pages so we can sync
+      # permissions.
+      location /auth/gds {
+        auth_basic off;
+        try_files $uri @app;
+      }
     '
     }
 

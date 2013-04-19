@@ -50,6 +50,16 @@ class ertp::config {
   }
 }
 
+class ertp::gateway::config {
+  file { '/etc/gateway-service.yml':
+    ensure => present,
+    source => [
+      "puppet:///modules/ertp/gateway-service.yml.${::govuk_platform}",
+      'puppet:///modules/ertp/gateway-service.yml'
+    ]
+  }
+}
+
 class ertp::dwp::api::config {
   file { '/etc/gds-ertp-config.properties':
     ensure => present,

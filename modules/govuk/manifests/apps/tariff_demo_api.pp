@@ -1,4 +1,4 @@
-class govuk::apps::tariff_demo_api($port = 3042) {
+class govuk::apps::tariff_demo_api($port = 3043) {
   govuk::app { 'tariff-demo-api':
     app_type          => 'rack',
     port              => $port,

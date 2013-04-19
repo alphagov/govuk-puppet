@@ -75,6 +75,10 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
       user     => 'tariff',
       password => 'tariff';
 
+    'transition_test':
+      user     => 'transition',
+      password => 'transition';
+
     [
       'whitehall_development',
       'whitehall_test',
