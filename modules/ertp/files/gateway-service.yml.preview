@@ -76,6 +76,10 @@ ertpAdminApiConfiguration:
 
 http:
 
+    port: 9090
+    
+    adminPort: 9091
+
     requestLog:
         # Settings for logging to stdout.
         console:
