@@ -21,6 +21,7 @@ class govuk::node::s_backend_lb {
       'signon',
       'support',
       'travel-advice-publisher',
+      'transition',
       'whitehall-admin',
     ]:
       ;
