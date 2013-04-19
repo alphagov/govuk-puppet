@@ -6,7 +6,7 @@ class hosts::ertp_preview {
     ip => '10.33.180.32'
   }
   host { 'ertp-admin-api':
-    ip => '10.239.86.141'
+    ip => '10.33.180.32'
   }
   host { 'ertp-mongo-1':
     ip => '10.238.233.55'
