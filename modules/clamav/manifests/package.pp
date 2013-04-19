@@ -9,7 +9,7 @@ class clamav::package {
   #
   exec { 'remove_custom_clamav_package':
     command => '/sbin/stop clamav-daemon; /usr/bin/apt-get -q -y purge clamav; /usr/sbin/userdel clamav',
-    onlyif  => '/usr/bin/test "$(dpkg-query -Wf \'${Package}:${Version}:${Maintainer}\' clamav 2>/dev/null)" = "clamav:0.97.5:<vagrant@vm>"',
+    onlyif  => "/usr/bin/test \"\$(dpkg-query -Wf '\${Package}:\${Version}:\${Maintainer}' clamav 2>/dev/null)\" = \"clamav:0.97.5:<vagrant@vm>\"",
   }
 
   package { ['clamav', 'clamav-freshclam', 'clamav-daemon']:
