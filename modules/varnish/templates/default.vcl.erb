@@ -45,7 +45,7 @@ sub vcl_recv {
     # on other parts of the stack. This should be reverted later this month
     # (Apr 2013) when the platform team have implemented changes to
     # Rummager.
-    if req.url ~ "^/sitemap\.xml.+" {
+    if (req.url ~ "^/sitemap\.xml.+") {
       set req.url = regsub(req.url, "^(/sitemap\.xml).*", "\1");
     }
     <%= set_backend('search') %>
