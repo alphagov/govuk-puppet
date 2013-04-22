@@ -39,7 +39,7 @@ def request_event_data(client, start, end):
     TODO: introduce transport layer exception handling
     """
     try:
-        response = client.service.getEdgeControlAlertsEvents(start, end)
+        response = client.service.getEdgeControlEvents(start, end)
     except AttributeError, error:
         logging_exit(error)
     return response
@@ -48,7 +48,10 @@ def log_results(results):
     """ Write results out in a sensible way, at the moment just to STDOUT
     """
     for item in results:
-        print "[" + item.eventTime + "][AkamaiEventData] Application: " + item.application + ", Action: " + item.action
+        changes = []
+        for index, key in enumerate(item["dataKeyArray"]):
+            changes.append("'" + key + "': '" + item["newValueArray"][index] + "'")
+        print "[" + item.eventTime + "][AkamaiEventData] Application: " + item.application + ", Action: " + item.action + ", Changes: [" + ", ".join(changes) + "]"
 
 
 def write_last_run(event_time):
