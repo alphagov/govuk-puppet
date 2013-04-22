@@ -1,4 +1,4 @@
-class govuk::apps::tariff_admin( $port = 3045 ) {
+class govuk::apps::tariff_admin( $port = 3046 ) {
   govuk::app { 'trade-tariff-admin':
     app_type          => 'rack',
     port              => $port,
