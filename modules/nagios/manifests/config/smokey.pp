@@ -12,7 +12,6 @@ class nagios::config::smokey {
 
   file { '/etc/smokey.sh':
     content => template('nagios/etc/smokey.sh.erb'),
-    owner   => 'nagios',
     mode    => '0400',
   }
 
