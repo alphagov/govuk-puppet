@@ -1,40 +1,11 @@
 class monitoring::checks {
 
+  include monitoring::checks::pingdom
   include monitoring::checks::smokey
 
   $app_domain = extlookup('app_domain')
   $http_username = extlookup('http_username', 'UNSET')
   $http_password = extlookup('http_password', 'UNSET')
-
-  nagios::check { 'check_pingdom':
-    check_command       => 'run_pingdom_homepage_check',
-    use                 => 'govuk_urgent_priority',
-    service_description => 'Pingdom homepage check',
-  }
-
-  nagios::check { 'check_pingdom_calendar':
-    check_command       => 'run_pingdom_calendar_check',
-    use                 => 'govuk_high_priority',
-    service_description => 'Pingdom calendar check',
-  }
-
-  nagios::check { 'check_pingdom_search':
-    check_command       => 'run_pingdom_search_check',
-    use                 => 'govuk_urgent_priority',
-    service_description => 'Pingdom search check',
-  }
-
-  nagios::check { 'check_pingdom_smart_answer':
-    check_command       => 'run_pingdom_smart_answer_check',
-    use                 => 'govuk_high_priority',
-    service_description => 'Pingdom smartanswers check',
-  }
-
-  nagios::check { 'check_pingdom_specialist':
-    check_command       => 'run_pingdom_specialist_check',
-    use                 => 'govuk_high_priority',
-    service_description => 'Pingdom specialist guides check',
-  }
 
   # START frontend
   nagios::check { "check_frontend_to_exit_404_rejects":
