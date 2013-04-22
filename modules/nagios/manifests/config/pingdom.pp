@@ -1,4 +1,14 @@
 class nagios::config::pingdom {
+  $pingdom_user     = extlookup('pingdom_user', 'UNSET')
+  $pingdom_password = extlookup('pingdom_password', 'UNSET')
+  $pingdom_key      = extlookup('pingdom_key', 'UNSET')
+
+  file { '/etc/pingdom.sh':
+    content => template('nagios/etc/pingdom.sh.erb'),
+    owner   => 'nagios',
+    mode    => '0400',
+  }
+
   file { '/usr/local/bin/check_pingdom.sh':
     source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.sh',
     mode   => '0755',
