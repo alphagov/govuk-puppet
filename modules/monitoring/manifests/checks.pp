@@ -1,61 +1,25 @@
 class monitoring::checks {
 
+  include monitoring::checks::pingdom
   include monitoring::checks::smokey
 
   $app_domain = extlookup('app_domain')
   $http_username = extlookup('http_username', 'UNSET')
   $http_password = extlookup('http_password', 'UNSET')
 
-  @@nagios::check { 'check_pingdom':
-    check_command       => 'run_pingdom_homepage_check',
-    use                 => 'govuk_urgent_priority',
-    service_description => 'Pingdom homepage check',
-    host_name           => $::fqdn,
-  }
-
-  @@nagios::check { 'check_pingdom_calendar':
-    check_command       => 'run_pingdom_calendar_check',
-    use                 => 'govuk_high_priority',
-    service_description => 'Pingdom calendar check',
-    host_name           => $::fqdn,
-  }
-
-  @@nagios::check { 'check_pingdom_search':
-    check_command       => 'run_pingdom_search_check',
-    use                 => 'govuk_urgent_priority',
-    service_description => 'Pingdom search check',
-    host_name           => $::fqdn,
-  }
-
-  @@nagios::check { 'check_pingdom_smart_answer':
-    check_command       => 'run_pingdom_smart_answer_check',
-    use                 => 'govuk_high_priority',
-    service_description => 'Pingdom smartanswers check',
-    host_name           => $::fqdn,
-  }
-
-  @@nagios::check { 'check_pingdom_specialist':
-    check_command       => 'run_pingdom_specialist_check',
-    use                 => 'govuk_high_priority',
-    service_description => 'Pingdom specialist guides check',
-    host_name           => $::fqdn,
-  }
-
   # START frontend
-  @@nagios::check { "check_frontend_to_exit_404_rejects":
+  nagios::check { "check_frontend_to_exit_404_rejects":
     check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')!5minutes!50!100',
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 404 rejects for exit links',
-    host_name           => $::fqdn,
   }
   # END frontend
 
   # START whitehall
-  @@nagios::check { "check_whitehall_overdue_from_${::hostname}":
+  nagios::check { "check_whitehall_overdue_from_${::hostname}":
     check_command       => 'check_whitehall_overdue',
     service_description => 'overdue publications in Whitehall',
     use                 => 'govuk_urgent_priority',
-    host_name           => $::fqdn,
     document_url        => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/outage#TOC-zd-ur-CRITICAL:-whitehall-has-overdue-scheduled-editions-on-monitoring.management.production',
   }
   # END whitehall
@@ -67,53 +31,46 @@ class monitoring::checks {
     source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_datainsight_recorder.rb',
   }
 
-  @@nagios::check { 'check_datainsight_hourly_traffic_endpoint':
+  nagios::check { 'check_datainsight_hourly_traffic_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for gov.uk hourly traffic is updated regularly',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_datainsight_visits_endpoint':
+  nagios::check { 'check_datainsight_visits_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for gov.uk visits is updated regularly',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_datainsight_unique_visitors_endpoint':
+  nagios::check { 'check_datainsight_unique_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for gov.uk visitors is updated regularly',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_datainsight_format_success_endpoint':
+  nagios::check { 'check_datainsight_format_success_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for gov.uk content engagement is updated regularly',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
+  nagios::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/visitors/weekly.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for insidegov visitors is updated regularly',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_datainsight_insidegov_policies_endpoint':
+  nagios::check { 'check_datainsight_insidegov_policies_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/most-entered-policies.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for insidegov most entered policies is updated regularly',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_datainsight_insidegov_content_engagement_endpoint':
+  nagios::check { 'check_datainsight_insidegov_content_engagement_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
-    host_name           => $::fqdn,
   }  # END datainsight
 
   $warning_time = 5
@@ -123,18 +80,16 @@ class monitoring::checks {
   $backdrop_read_hostname = "read.backdrop.${app_domain}"
   $backdrop_write_hostname = "write.backdrop.${app_domain}"
 
-  @@nagios::check { 'check_backdrop_read_endpoint':
+  nagios::check { 'check_backdrop_read_endpoint':
     check_command       => "check_https_url!${backdrop_read_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if backdrop.read endpoint is up',
-    host_name           => $::fqdn,
   }
 
-  @@nagios::check { 'check_backdrop_write_endpoint':
+  nagios::check { 'check_backdrop_write_endpoint':
     check_command       => "check_https_url!${backdrop_write_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if backdrop.write endpoint is up',
-    host_name           => $::fqdn,
   }
 
   # END backdrop
@@ -142,20 +97,18 @@ class monitoring::checks {
   # START limelight
   $limelight_hostname = "limelight.${app_domain}"
 
-  @@nagios::check { 'check_limelight_endpoint':
+  nagios::check { 'check_limelight_endpoint':
     check_command       => "check_https_url!${limelight_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
     service_description => 'checks if limelight homepage is up',
-    host_name           => $::fqdn,
   }
 
   # END limelight
 
-  @@nagios::check {'check_mapit_responding':
+  nagios::check {'check_mapit_responding':
     check_command       => "check_mapit",
     use                 => 'govuk_normal_priority',
     service_description => 'mapit not responding to postcode query',
-    host_name           => $::fqdn,
   }
 
   # START ssl certificate checks
@@ -163,7 +116,6 @@ class monitoring::checks {
     check_command       => "check_ssl_cert!signon.${app_domain}!30",
     use                 => 'govuk_normal_priority',
     service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
-    host_name           => $::fqdn,
   }
   # END ssl certificate checks
 

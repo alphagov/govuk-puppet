@@ -29,11 +29,6 @@ class nagios::package {
     provider => 'pip',
   }
 
-  file { '/usr/local/bin/check_pingdom.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.sh',
-    mode   => '0755',
-  }
-
   file { '/usr/local/bin/sendEmail':
     source => 'puppet:///modules/nagios/usr/local/bin/sendEmail',
     mode   => '0755',

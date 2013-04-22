@@ -1,6 +1,8 @@
 class nagios::config {
 
   include govuk::htpasswd
+  include nagios::config::pingdom
+  include nagios::config::smokey
 
   $app_domain = extlookup('app_domain','dev.gov.uk')
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
@@ -36,6 +38,8 @@ class nagios::config {
     purge   => true,
     force   => true,
     recurse => true,
+    # FIXME: Remove this when we are sure that we have explicit file{}
+    # resources for everything. It is confusing.
     source  => 'puppet:///modules/nagios/etc/nagios3/conf.d',
   }
 

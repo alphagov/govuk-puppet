@@ -1,0 +1,4 @@
+define command {
+  command_name run_pingdom_<%= @title -%>_check
+  command_line /usr/local/bin/check_pingdom.sh <%= @check_id %>
+}
