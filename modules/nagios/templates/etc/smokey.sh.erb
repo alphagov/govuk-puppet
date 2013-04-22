@@ -1,0 +1,10 @@
+#!/bin/bash
+<%
+# Sort ensures the file from changing on every run for Rubies which don't
+# have ordered Hash.
+@smokey_vars.sort_by { |k,v| k }
+            .each do |key, val|
+  next if val == 'UNSET'
+-%>
+export <%= key -%>="<%= val -%>"
+<% end -%>
