@@ -45,6 +45,9 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     vhost           => 'whitehall-admin',
   }
 
+  # Remove all trace of apache
+  include apache::remove
+  # And use nginx instead
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
