@@ -2,6 +2,14 @@
 ### ERTP Gateway configuration
 ###
 
+## Core properties
+coreGatewayConfiguration:
+    salt:   theloniousmonk
+
+    maxNumberRequestInQuota: 5
+
+    ## millis
+    quotaPeriod: 10000
 
 ## Redis
 redisConfiguration:
@@ -75,9 +83,7 @@ ertpAdminApiConfiguration:
 ## Logging
 
 http:
-
     port: 9090
-    
     adminPort: 9091
 
     requestLog:

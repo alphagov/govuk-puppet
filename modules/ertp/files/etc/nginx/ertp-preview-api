@@ -26,5 +26,7 @@ server {
 
   	location /gateway {
     	proxy_pass http://127.0.0.1:9090/gateway;
+      proxy_set_header  DN      $ssl_client_s_dn;
+      proxy_set_header  X-Real-IP  $remote_addr;
   	}
 }
