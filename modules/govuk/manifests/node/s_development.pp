@@ -47,7 +47,6 @@ class govuk::node::s_development {
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
-  include govuk::apps::migratorator
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
   include govuk::apps::planner
