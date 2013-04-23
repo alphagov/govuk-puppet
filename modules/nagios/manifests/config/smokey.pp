@@ -16,6 +16,6 @@ class nagios::config::smokey {
   }
 
   file { '/etc/nagios3/conf.d/check_smokey.cfg':
-    source => 'puppet:///modules/nagios/files/etc/nagios3/conf.d/check_smokey.cfg',
+    source => 'puppet:///modules/nagios/etc/nagios3/conf.d/check_smokey.cfg',
   }
 }
