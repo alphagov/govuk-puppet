@@ -2,13 +2,20 @@ class clamav::service {
 
   $enable_service = ($::govuk_platform != 'development')
 
-  file { "/etc/init/clamav-daemon.conf":
-    content => template('clamav/etc/init/clamav-daemon.conf.erb'),
-    notify  => Service['clamav-daemon'],
+  # FIXME: Old package files to be removed.
+  file { [
+    '/etc/init/clamav-daemon.conf',
+    '/etc/cron.d/clamav-freshclam',
+    '/etc/cron.d/clamav-freshclam.dpkg-old'
+    ]:
+    ensure => absent,
   }
 
-  service { 'clamav-daemon':
-    ensure   => $enable_service,
-    provider => 'upstart',
+  service {
+    'clamav-freshclam':
+      ensure  => $enable_service;
+    'clamav-daemon':
+      ensure  => $enable_service,
+      require => File['/etc/init/clamav-daemon.conf'];
   }
 }
