@@ -28,7 +28,7 @@ ertpApiValidityConfirmation:
     # max post body length
     maxBodyLength:  750000
 
-    maxNumberOfMarkReceivedIds: 500
+    maxNumberOfPostElements: 500
 
     validRegistrationRequestJsonKeys:
         - eroRecordId
