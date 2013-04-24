@@ -20,8 +20,9 @@ class nagios {
     require => Class['nagios::service'],
   }
 
-  Nagios::Host          <<||>> { notify => Class['nagios::service'] }
-  Nagios::Check         <<||>> { notify => Class['nagios::service'] }
-  Nagios::Passive_check <<||>> { notify => Class['nagios::service'] }
+  Nagios::Host            <<||>> { notify => Class['nagios::service'] }
+  Nagios::Check           <<||>> { notify => Class['nagios::service'] }
+  Nagios::Check::Graphite <<||>> { notify => Class['nagios::service'] }
+  Nagios::Passive_check   <<||>> { notify => Class['nagios::service'] }
 }
 
