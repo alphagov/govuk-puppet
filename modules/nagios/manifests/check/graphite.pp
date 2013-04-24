@@ -63,6 +63,7 @@ define nagios::check::graphite(
   nagios::check { $title:
     check_command       => "${check_command}!${target}!${warning}!${critical}${args_real}",
     service_description => $desc,
+    host_name           => $host_name,
     graph_url           => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
 target=${target}&\

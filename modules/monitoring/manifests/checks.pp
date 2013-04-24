@@ -12,6 +12,7 @@ class monitoring::checks {
     check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')!5minutes!50!100',
     use                 => 'govuk_normal_priority',
     service_description => 'check volume of 404 rejects for exit links',
+    host_name           => $::fqdn,
   }
   # END frontend
 
@@ -20,6 +21,7 @@ class monitoring::checks {
     check_command       => 'check_whitehall_overdue',
     service_description => 'overdue publications in Whitehall',
     use                 => 'govuk_urgent_priority',
+    host_name           => $::fqdn,
     document_url        => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/outage#TOC-zd-ur-CRITICAL:-whitehall-has-overdue-scheduled-editions-on-monitoring.management.production',
   }
   # END whitehall
@@ -34,42 +36,49 @@ class monitoring::checks {
   nagios::check { 'check_datainsight_hourly_traffic_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk hourly traffic is updated regularly',
   }
 
   nagios::check { 'check_datainsight_visits_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk visits is updated regularly',
   }
 
   nagios::check { 'check_datainsight_unique_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk visitors is updated regularly',
   }
 
   nagios::check { 'check_datainsight_format_success_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk content engagement is updated regularly',
   }
 
   nagios::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/visitors/weekly.json 10080",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov visitors is updated regularly',
   }
 
   nagios::check { 'check_datainsight_insidegov_policies_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/most-entered-policies.json 10080",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov most entered policies is updated regularly',
   }
 
   nagios::check { 'check_datainsight_insidegov_content_engagement_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
   }  # END datainsight
 
@@ -83,12 +92,14 @@ class monitoring::checks {
   nagios::check { 'check_backdrop_read_endpoint':
     check_command       => "check_https_url!${backdrop_read_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if backdrop.read endpoint is up',
   }
 
   nagios::check { 'check_backdrop_write_endpoint':
     check_command       => "check_https_url!${backdrop_write_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if backdrop.write endpoint is up',
   }
 
@@ -100,6 +111,7 @@ class monitoring::checks {
   nagios::check { 'check_limelight_endpoint':
     check_command       => "check_https_url!${limelight_hostname}!/_status!${warning_time}!${critical_time}",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'checks if limelight homepage is up',
   }
 
@@ -108,6 +120,7 @@ class monitoring::checks {
   nagios::check {'check_mapit_responding':
     check_command       => "check_mapit",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => 'mapit not responding to postcode query',
   }
 
@@ -115,6 +128,7 @@ class monitoring::checks {
   nagios::check { 'check_wildcard_cert_valid':
     check_command       => "check_ssl_cert!signon.${app_domain}!30",
     use                 => 'govuk_normal_priority',
+    host_name           => $::fqdn,
     service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
   }
   # END ssl certificate checks
