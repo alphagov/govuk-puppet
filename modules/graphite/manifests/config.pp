@@ -25,9 +25,6 @@ class graphite::config {
     source => 'puppet:///modules/graphite/etc/carbon/storage-schema.conf',
   }
 
-  file { '/etc/carbon/relay-rules.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/relay-rules.conf',
-  }
 
   file { '/opt/graphite/storage':
     ensure  => directory,
@@ -61,9 +58,6 @@ class graphite::config {
   }
   file { '/etc/init/carbon_cache.conf':
     source => 'puppet:///modules/graphite/etc/init/carbon_cache.conf',
-  }
-  file { '/etc/init/carbon_relay.conf':
-    source => 'puppet:///modules/graphite/etc/init/carbon_relay.conf',
   }
 
   @@nagios::check { "check_carbon_cache_running_on_${::hostname}":
