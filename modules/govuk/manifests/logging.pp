@@ -1,7 +1,7 @@
 class govuk::logging {
   # tagalog provides logship, used by govuk_logpipe
   package { 'tagalog':
-    ensure   => '0.2.6',
+    ensure   => '0.2.7',
     provider => 'pip',
   }
 
