@@ -24,6 +24,14 @@
 # [*critical*]
 #   Integer that will raise a critical alert.
 #
+# [*host_name*]
+#   Passed to `nagios::check` as `host_name`. Usually `$::fqdn`.
+#
+#   This is a mandatory argument because the type is typically used as an
+#   exported resource. In which case the variable must be eagerly evaluated
+#   when passed by the exporting node, rather than lazily evaluated inside
+#   the define by the collecting node.
+#
 # [*args*]
 #   Single string of additional arguments passed to `check_graphite`. This
 #   will trigger the use of `check_graphite_metric_args` instead of
@@ -36,6 +44,7 @@ define nagios::check::graphite(
   $desc,
   $warning,
   $critical,
+  $host_name,
   $args = undef
 ) {
   $check_command = $args ? {

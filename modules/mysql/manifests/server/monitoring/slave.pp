@@ -4,10 +4,11 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
   }
 
   @@nagios::check::graphite { "check_mysql_replication_${::hostname}":
-    target   => "transformNull(${::fqdn_underscore}.mysql.time_offset,86400)",
-    desc     => 'mysql replication lag',
-    warning  => 300,
-    critical => 600,
-    args     => '--droplast 1',
+    target    => "transformNull(${::fqdn_underscore}.mysql.time_offset,86400)",
+    desc      => 'mysql replication lag',
+    warning   => 300,
+    critical  => 600,
+    host_name => $::fqdn,
+    args      => '--droplast 1',
   }
 }
