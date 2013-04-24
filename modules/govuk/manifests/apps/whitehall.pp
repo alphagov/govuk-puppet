@@ -79,6 +79,17 @@ class govuk::apps::whitehall(
         try_files $uri @app;
       }
 
+      # These are for files we have to upload manually on behalf of
+      # departments - see HMRC PAYE tools and Number10 virtual tour
+      location /government/uploads/uploaded {
+        expires 12h;
+        add_header Cache-Control public;
+        # Explicitly reinclude Strict-Transport-Security header, as calling
+        # add_header above will have reset the set of headers sent by nginx.
+        include /etc/nginx/sts.conf;
+        alias /data/uploads/whitehall/clean/uploaded;
+      }
+
       # This file can change to accomodate new PAYE versions, so it needs a
       # smaller expiry.
       location /government/uploads/uploaded/hmrc/realtimepayetools-update.xml {
