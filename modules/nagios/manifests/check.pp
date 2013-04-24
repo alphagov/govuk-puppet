@@ -1,8 +1,52 @@
+# == Define: nagios::check
+#
+# Most of these params relate to Nagios service configuration directives:
+#
+# http://nagios.sourceforge.net/docs/3_0/objectdefinitions.html#service
+#
+# === Parameters:
+#
+# [*ensure*]
+#   Can be used to remove an existing check.
+#   Default: present
+#
+# [*service_description*]
+#   Description of the alert.
+#
+# [*check_command*]
+#   Command used to check whether the service is healthy.
+#
+# [*host_name*]
+#   The title of a `Nagios::Host` resource. Usually `$::fqdn`.
+#
+#   This is a mandatory argument because the type is typically used as an
+#   exported resource. In which case the variable must be eagerly evaluated
+#   when passed by the exporting node, rather than lazily evaluated inside
+#   the define by the collecting node.
+#
+# [*notification_period*]
+#   The title of a `Nagios::Timeperiod` resource.
+#
+# [*use*]
+#   The title of a `Nagios::Service_template` resource which this service
+#   should inherit.
+#   Default: govuk_regular_service
+#
+# [*action_url*]
+#   Custom URL to be included in the alert.
+#   FIXME: Is this the same as `document_url`?
+#
+# [*document_url*]
+#   Custom URL of documentation to be included in the alert.
+#
+# [*graph_url*]
+#   Custom URL of a graph to be included in the alert.
+#
 define nagios::check (
+  $host_name,
   $ensure              = 'present',
   $service_description = undef,
   $check_command       = undef,
-  $host_name           = $::fqdn,
   $notification_period = undef,
   $use                 = 'govuk_regular_service',
   $action_url          = undef,
