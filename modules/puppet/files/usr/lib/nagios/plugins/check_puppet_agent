@@ -15,13 +15,6 @@ if File.exists?(puppet_agent_state_filename)
   end
 end
 
-puppet_agent_lock_filename = "/var/lib/puppet/state/puppetdlock"
-if File.exists?(puppet_agent_lock_filename)
-  puts "OK: Puppet is running"
-  exit 0
-end
-
-
 puppet_agent_summary_filename = "/var/lib/puppet/state/last_run_summary.yaml"
 if File.exists?(puppet_agent_summary_filename)
   begin
