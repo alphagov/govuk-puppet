@@ -22,17 +22,13 @@
 # [*ssh_key_type*]
 #   The key type of the user's SSH public key: "ssh-rsa", "ssh-dsa", etc.
 #
-# [*has_deploy*]
-#   Whether the user should have SSH access to the 'deploy' user.
-#
 define govuk::user(
   $ensure = present,
   $fullname = 'No Name',
   $email = 'no.name@digital.cabinet-office.gov.uk',
   $shell = '/bin/bash',
   $ssh_key = undef,
-  $ssh_key_type = 'ssh-rsa',
-  $has_deploy = false
+  $ssh_key_type = 'ssh-rsa'
 ) {
 
   user { $title:
@@ -51,22 +47,6 @@ define govuk::user(
       key    => $ssh_key,
       type   => $ssh_key_type,
       user   => $title,
-    }
-
-    if $has_deploy {
-      ssh_authorized_key { "deploy_key_${title}":
-        ensure => $ensure,
-        key    => $ssh_key,
-        type   => $ssh_key_type,
-        user   => 'deploy',
-      }
-    } else {
-      ssh_authorized_key { "deploy_key_${title}":
-        ensure => absent,
-        key    => $ssh_key,
-        type   => $ssh_key_type,
-        user   => 'deploy',
-      }
     }
   }
 }
