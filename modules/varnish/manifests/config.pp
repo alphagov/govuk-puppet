@@ -39,6 +39,7 @@ class varnish::config {
     'legalisation-document-checker',
     'marriage-abroad',
     'maternity-paternity-calculator',
+    'minimum-wage-calculator-employers',
     'non-gb-driving-licence',
     'overseas-passports',
     'pip-checker',
