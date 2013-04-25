@@ -1,2 +1,5 @@
 # Site-specific additions and overrides for usr.sbin.clamd.
 # For more details, please see /etc/apparmor.d/local/README.
+
+# Permit reads within /data which contains vhosts and NFS mounts.
+/data/** r,
