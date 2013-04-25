@@ -56,8 +56,13 @@ if [ ! -e $MYSQL_DIR/latest.tbz2 ]; then
   exit 3
 fi
 
-tar -jxf $MYSQL_DIR/latest.tbz2 -C $MYSQL_DIR
-bunzip2 -fk $MYSQL_DIR/latest/*.bz2
+if [ -e $MYSQL_DIR/.extracted ]; then
+  echo "MySQL dump has already been extracted."
+else
+  echo "Extracting compressed SQL files..."
+  tar -jxvf $MYSQL_DIR/latest.tbz2 -C $MYSQL_DIR
+  touch $MYSQL_DIR/.extracted
+fi
 
 if [[ $FACTER_govuk_class = "development" ]]; then
   echo "On a development box: mapping database names accordingly"
@@ -73,9 +78,9 @@ else
   PV_COMMAND="cat"
 fi
 
-for file in $(find $MYSQL_DIR -name '*production*.sql'); do
+for file in $(find $MYSQL_DIR -name '*production*.sql.bz2'); do
   if [[ ! $DRY_RUN -gt 0 ]]; then
-    PROD_DB_NAME=$(grep -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
+    PROD_DB_NAME=$(bzgrep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
     if [[ -n $SED_ARGUMENTS ]]; then
       TARGET_DB_NAME=$(echo $PROD_DB_NAME | sed $SED_ARGUMENTS)
     else
@@ -94,9 +99,9 @@ for file in $(find $MYSQL_DIR -name '*production*.sql'); do
     echo $PROD_DB_NAME '->' $TARGET_DB_NAME
     mysql $MYSQL_ARGUMENTS -e "drop database if exists $TARGET_DB_NAME"
     if [[ -n $SED_ARGUMENTS ]]; then
-      $PV_COMMAND $file | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
+      $PV_COMMAND $file | bzcat | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
     else
-      $PV_COMMAND $file | mysql $MYSQL_ARGUMENTS
+      $PV_COMMAND $file | bzcat | mysql $MYSQL_ARGUMENTS
     fi
   else
     echo "MySQL (not) restoring $(basename $file)"
