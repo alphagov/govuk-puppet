@@ -59,40 +59,26 @@ class govuk::deploy {
     ensure => directory,
   }
 
-  if $::govuk_platform != 'development' {
-    ssh_authorized_key { 'deploy_key_jenkins':
-      ensure  => present,
-      key     => extlookup('jenkins_key', 'NO_KEY_IN_EXTDATA'),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-      require => User['deploy'];
-    }
-
-    ssh_authorized_key { 'deploy_key_jenkins_skyscape':
-      ensure  => present,
-      key     => extlookup('jenkins_skyscape_key', 'NO_KEY_IN_EXTDATA'),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-    }
-    # This key is required to allow Production Jenkins to sync data to
-    # other environments.
-    ssh_authorized_key { 'deploy_key_jenkins_skyscape_production':
-      ensure  => present,
-      key     => extlookup('jenkins_skyscape_production_key', 'NO_KEY_IN_EXTDATA'),
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-    }
+  # Referenced by authorized_keys template below.
+  $deploy_ssh_keys = {
+    'jenkins_key'                     => extlookup('jenkins_key', 'NONE_IN_EXTDATA'),
+    'jenkins_skyscape_key'            => extlookup('jenkins_skyscape_key', 'NONE_IN_EXTDATA'),
+    # Production Jenkins sync to other environments.
+    'jenkins_skyscape_production_key' => extlookup('jenkins_skyscape_production_key', 'NONE_IN_EXTDATA'),
+    'deploy_user_data_sync_key'       => extlookup('deploy_user_data_sync_key', 'NONE_IN_EXTDATA'),
   }
-
-  $deploy_user_data_sync_key = extlookup('deploy_user_data_sync_key', 'NONE')
-
-  if $deploy_user_data_sync_key != 'NONE' {
-    ssh_authorized_key { 'data_sync_key':
-      ensure  => present,
-      key     => $deploy_user_data_sync_key,
-      type    => 'ssh-rsa',
-      user    => 'deploy',
-    }
+  file { '/home/deploy/.ssh':
+    ensure => directory,
+    owner  => 'deploy',
+    group  => 'deploy',
+    mode   => '0700',
+  }
+  file { '/home/deploy/.ssh/authorized_keys':
+    ensure  => present,
+    owner   => 'deploy',
+    group   => 'deploy',
+    mode    => '0600',
+    content => template('govuk/home/deploy/.ssh/authorized_keys.erb'),
   }
 
   file { '/etc/govuk/unicorn.rb':
