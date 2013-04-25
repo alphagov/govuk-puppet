@@ -28,7 +28,7 @@ EOF
 DIR="backups/$(date +%Y-%m-%d)"
 
 # By default, ignore the trade tariff databases
-IGNORE="tariff"
+IGNORE="tariff tariff_demo"
 
 while getopts "hF:d:sri:u:" OPTION
 do
