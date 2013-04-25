@@ -83,7 +83,7 @@ fi
 
 for file in $(find $MYSQL_DIR -name '*production*.sql'); do
   if [[ ! $DRY_RUN -gt 0 ]]; then
-    PROD_DB_NAME=$(grep -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
+    PROD_DB_NAME=$(grep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
     if [[ -n $SED_ARGUMENTS ]]; then
       TARGET_DB_NAME=$(echo $PROD_DB_NAME | sed $SED_ARGUMENTS)
     else
