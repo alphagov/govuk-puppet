@@ -3,3 +3,6 @@
 
 # Permit reads within /data which contains vhosts and NFS mounts.
 /data/** r,
+
+# Ditto for EC2 nodes which mount EBS to /mnt.
+/mnt/** r,
