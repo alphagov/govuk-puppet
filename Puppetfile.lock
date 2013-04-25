@@ -39,7 +39,15 @@ GIT
     logstash (0.0.4)
       puppetlabs/stdlib (>= 3.0.0)
 
+GIT
+  remote: git@github.com:alphagov/puppet-apparmor.git
+  ref: 2575d60f03c08a0ee97589e30434ff79e4f0dc1f
+  sha: 2575d60f03c08a0ee97589e30434ff79e4f0dc1f
+  specs:
+    apparmor (0.0.1)
+
 DEPENDENCIES
+  apparmor (>= 0)
   cpanm (>= 0)
   logstash (>= 0)
   puppetlabs/gcc (>= 0)

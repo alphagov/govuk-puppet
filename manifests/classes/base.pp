@@ -1,4 +1,5 @@
 class base {
+  include apparmor
   include apt
   include base_packages
   include cron

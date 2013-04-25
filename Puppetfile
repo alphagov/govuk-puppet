@@ -16,3 +16,6 @@ mod 'rsyslog',
 mod 'logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
+mod 'apparmor',
+  :git => 'git@github.com:alphagov/puppet-apparmor.git',
+  :ref => '2575d60f03c08a0ee97589e30434ff79e4f0dc1f'
