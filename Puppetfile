@@ -18,4 +18,4 @@ mod 'logstash',
   :ref => '694fa1a'
 mod 'apparmor',
   :git => 'git@github.com:alphagov/puppet-apparmor.git',
-  :ref => '2575d60f03c08a0ee97589e30434ff79e4f0dc1f'
+  :ref => 'fd0106ccd688a8af4b62e57d420a26e80b484731'
