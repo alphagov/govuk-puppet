@@ -56,8 +56,16 @@ if [ ! -e $MYSQL_DIR/latest.tbz2 ]; then
   exit 3
 fi
 
-tar -jxf $MYSQL_DIR/latest.tbz2 -C $MYSQL_DIR
-bunzip2 -fk $MYSQL_DIR/latest/*.bz2
+if [ -e $MYSQL_DIR/.extracted ]; then
+  echo "MySQL dump has already been extracted."
+else
+  echo "Extracting compressed SQL files..."
+  tar -jxvf $MYSQL_DIR/latest.tbz2 -C $MYSQL_DIR
+  echo "Decompressing SQL files..."
+  bunzip2 -fkv $MYSQL_DIR/latest/*.bz2
+  echo "...done."
+  touch $MYSQL_DIR/.extracted
+fi
 
 if [[ $FACTER_govuk_class = "development" ]]; then
   echo "On a development box: mapping database names accordingly"
