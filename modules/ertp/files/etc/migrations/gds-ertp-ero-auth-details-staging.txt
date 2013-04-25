@@ -2,8 +2,11 @@ dumfriesgalloway|dumfriesgalloway-token|true|00QH|
 grampian|grampian-token|true|00QA,00QB,00QX|
 renfrewshire|renfrewshire-token|true|00RC,00QN,00QU|
 strandidox|strandidox-token|true|00BW|E08000010
+strandidox-qa|strandidox-qa-token|true|12UC|E07000009
 xpress|xpress-token|true|00CW|E08000031
 halarose|halarose-token|true|00AL|E09000011
+halarose-2|halarose-token-2|true|00QL,00QG,00QD|S12000035,S12000039,S12000009
+halarose-3|halarose-token-3|true|00NN|W06000023
 democracycounts|democracycounts-token|true|16UG|
 smoke_test_1_ero|smoke_test_ero_1_token|true|81ZZ|F09999981
 smoke_test_2_ero|smoke_test_ero_2_token|true|82ZZ|F09999982
