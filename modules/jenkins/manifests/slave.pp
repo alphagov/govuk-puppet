@@ -7,9 +7,11 @@ class jenkins::slave inherits jenkins {
       value  => '1024',
     }
 
-    ssh_authorized_key { 'management_server_master':
-      type => rsa,
-      key  => extlookup('jenkins_key', 'NO_KEY_IN_EXTDATA'),
-      user => 'jenkins'
+    $jenkins_master_ssh_key = extlookup('jenkins_key', 'NO_KEY_IN_EXTDATA')
+
+    File["${jenkins::jenkins_home}/.ssh/authorized_keys"] {
+      ensure  => present,
+      content => "ssh-rsa ${jenkins_master_ssh_key} management_server_master",
     }
+
 }

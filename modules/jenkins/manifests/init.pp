@@ -1,13 +1,25 @@
 class jenkins {
+  include jenkins::ssh_key
+
   #TODO:
   # also need to install fabric and cloth which are needed by private-utils,
   # possibly this would be better done in the private-utils/jenkins.sh
 
+  $jenkins_home = '/home/jenkins'
   user { 'jenkins':
     ensure     => present,
-    home       => '/home/jenkins',
+    home       => $jenkins_home,
     managehome => true,
     shell      => '/bin/bash'
+  }
+
+  # Parents created in `jenkins::ssh_key`.
+  # Contents overridden in `jenkins::slave`.
+  file { "${jenkins_home}/.ssh/authorized_keys":
+    ensure  => absent,
+    owner   => 'jenkins',
+    group   => 'jenkins',
+    mode    => '0600',
   }
 
   # This facter fact can be set on slave machines to signal that the slave should install and
@@ -43,8 +55,6 @@ class jenkins {
     ensure   => '0.20.0',
     provider => pip,
   }
-
-  include jenkins::ssh_key
 
   package { [
     'sqlite3',
