@@ -15,4 +15,10 @@ class clamav::config {
     mode   => '0644',
   }
 
+  # Must trigger a restart of clamd to take effect. Handled by dependencies
+  # in the parent class.
+  apparmor::profile { 'usr.sbin.clamd':
+    local_only   => true,
+    local_source => 'puppet:///modules/clamav/etc/apparmor.d/local/usr.sbin.clamd',
+  }
 }
