@@ -10,6 +10,13 @@ FORGE
       puppetlabs/gcc (>= 0.0.0)
 
 GIT
+  remote: git://github.com/alphagov/puppet-apparmor.git
+  ref: fd0106ccd688a8af4b62e57d420a26e80b484731
+  sha: fd0106ccd688a8af4b62e57d420a26e80b484731
+  specs:
+    apparmor (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-cpanm.git
   ref: 4e3dfca
   sha: 4e3dfca9b5ca25da71a78412305710e665475698
@@ -38,13 +45,6 @@ GIT
   specs:
     logstash (0.0.4)
       puppetlabs/stdlib (>= 3.0.0)
-
-GIT
-  remote: git@github.com:alphagov/puppet-apparmor.git
-  ref: fd0106ccd688a8af4b62e57d420a26e80b484731
-  sha: fd0106ccd688a8af4b62e57d420a26e80b484731
-  specs:
-    apparmor (0.0.1)
 
 DEPENDENCIES
   apparmor (>= 0)
