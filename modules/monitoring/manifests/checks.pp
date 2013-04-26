@@ -8,10 +8,13 @@ class monitoring::checks {
   $http_password = extlookup('http_password', 'UNSET')
 
   # START frontend
-  nagios::check { "check_frontend_to_exit_404_rejects":
-    check_command       => 'check_graphite_metric_since!hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')!5minutes!50!100',
-    service_description => 'check volume of 404 rejects for exit links',
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_frontend_to_exit_404_rejects":
+    target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')',
+    warning   => 50,
+    critical  => 100,
+    args      => '--from 5minutes',
+    desc      => 'check volume of 404 rejects for exit links',
+    host_name => $::fqdn,
   }
   # END frontend
 

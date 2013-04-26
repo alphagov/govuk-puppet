@@ -50,10 +50,12 @@ class nginx::config ($server_names_hash_max_size) {
     require => File['/var/www'],
   }
 
-  @@nagios::check { "check_nginx_active_connections_${::hostname}":
-    check_command       => "check_graphite_metric!${::fqdn_underscore}.nginx.nginx_connections-active!500!1000",
-    service_description => 'nginx high active conn',
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_nginx_active_connections_${::hostname}":
+    target    => "${::fqdn_underscore}.nginx.nginx_connections-active",
+    warning   => 500,
+    critical  => 1000,
+    desc      => 'nginx high active conn',
+    host_name => $::fqdn,
   }
 
 }

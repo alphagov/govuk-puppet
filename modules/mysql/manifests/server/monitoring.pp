@@ -10,10 +10,12 @@ class mysql::server::monitoring ($root_password) {
     host_name           => $::fqdn,
   }
 
-  @@nagios::check { "check_mysql_connections_${::hostname}":
-    check_command       => "check_graphite_metric!${::fqdn_underscore}.mysql.threads-connected!250!350",
-    service_description => "mysql high cur conn",
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_mysql_connections_${::hostname}":
+    target    => "${::fqdn_underscore}.mysql.threads-connected",
+    warning   => 250,
+    critical  => 350,
+    desc      => "mysql high cur conn",
+    host_name => $::fqdn,
   }
 
   collectd::plugin::mysql { 'lazy_eval_workaround':

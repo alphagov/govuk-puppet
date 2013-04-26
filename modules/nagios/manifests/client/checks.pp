@@ -56,10 +56,12 @@ class nagios::client::checks {
     host_name           => $::fqdn,
   }
 
-  @@nagios::check { "check_io_time${::hostname}":
-    check_command       => "check_graphite_metric!maxSeries(${::fqdn_underscore}.disk-sd?.disk_time.*)!30!60",
-    service_description => "high disk I/O usage",
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_io_time${::hostname}":
+    target    => "maxSeries(${::fqdn_underscore}.disk-sd?.disk_time.*)",
+    warning   => 30,
+    critical  => 60,
+    desc      => "high disk I/O usage",
+    host_name => $::fqdn,
   }
 
   @@nagios::check { "check_ntp_time_${::hostname}":

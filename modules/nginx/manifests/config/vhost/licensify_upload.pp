@@ -21,9 +21,12 @@ define nginx::config::vhost::licensify_upload($port="9000") {
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
-  @@nagios::check { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx)!3minutes!0.05!0.1",
-    service_description => "${vhost_name} high nginx 5xx rate",
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
+    target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx)",
+    warning   => 0.05,
+    critical  => 0.1,
+    args      => '--from 3minutes',
+    desc      => "${vhost_name} high nginx 5xx rate",
+    host_name => $::fqdn,
   }
 }

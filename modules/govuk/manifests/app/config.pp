@@ -112,15 +112,19 @@ define govuk::app::config (
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
   }
 
-  @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
-    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)!${nagios_cpu_warning}!${nagios_cpu_critical}",
-    service_description => "high CPU usage for ${title} app",
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
+    target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)",
+    warning   => ${nagios_cpu_warning},
+    critical  => ${nagios_cpu_critical},
+    desc      => "high CPU usage for ${title} app",
+    host_name => $::fqdn,
   }
-  @@nagios::check { "check_${title}_app_mem_usage${::hostname}":
-    check_command       => "check_graphite_metric!${::fqdn_underscore}.processes-app-${title}.ps_rss!2000000000!3000000000",
-    service_description => "high memory for ${title} app",
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_${title}_app_mem_usage${::hostname}":
+    target    => "${::fqdn_underscore}.processes-app-${title}.ps_rss",
+    warning   => 2000000000,
+    critical  => 3000000000,
+    desc      => "high memory for ${title} app",
+    host_name => $::fqdn,
   }
   if $health_check_path != 'NOTSET' {
     @@nagios::check { "check_app_${title}_up_on_${::hostname}":
