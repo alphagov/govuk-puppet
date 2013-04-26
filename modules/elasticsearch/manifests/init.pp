@@ -11,6 +11,7 @@ class elasticsearch (
   $refresh_interval = '1s',
   $transport_port = '9300',
 ) {
+  include elasticsearch::monitoring
 
   anchor { 'elasticsearch::begin':
     notify => Class['elasticsearch::service'];
