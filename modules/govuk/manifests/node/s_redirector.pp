@@ -1,7 +1,7 @@
 # This is the redirector app for redirecting Directgov and Business Link URLs
 class govuk::node::s_redirector inherits govuk::node::s_base {
   class {'nginx':
-    server_names_hash_max_size => 4096,
+    server_names_hash_max_size => 8192,
   }
   include nginx::php
   include govuk::apps::redirector
