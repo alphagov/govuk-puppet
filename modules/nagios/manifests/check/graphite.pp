@@ -45,7 +45,8 @@ define nagios::check::graphite(
   $warning,
   $critical,
   $host_name,
-  $args = undef
+  $args = undef,
+  $document_url = '',
 ) {
   $check_command = $args ? {
     undef   => 'check_graphite_metric',
@@ -69,5 +70,6 @@ width=${graph_width}&height=${graph_height}&\
 target=${target}&\
 target=alias(dashed(constantLine(${warning})),\"warning\")&\
 target=alias(dashed(constantLine(${critical})),\"critical\")",
+    document_url        => $document_url,
   }
 }
