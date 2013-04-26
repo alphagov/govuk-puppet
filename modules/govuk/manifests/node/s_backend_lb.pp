@@ -12,7 +12,6 @@ class govuk::node::s_backend_lb {
   loadbalancer::balance {
     [
       'imminence',
-      'migratorator',
       'needotron',
       'panopticon',
       'private-frontend',
