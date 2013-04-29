@@ -22,10 +22,16 @@ safe_git_pull () {
 
   if [ -f lock ]; then
     warn "skipped updating ${repo} because 'lock' file exists"
+  elif [ "$branch" != "master" ]; then
+    warn "skipped updating ${repo} because on non-master branch"
   elif ! git diff --quiet --ignore-submodules --no-ext-diff; then
     warn "skipped updating ${repo} due to local changes"
   else
-    if ! git pull --rebase origin "$branch"; then
+    if ! git fetch origin; then
+      warn "git fetch failed for ${repo}"
+      exit 1
+    fi
+    if ! git merge --ff-only origin/master; then
       warn "updating ${repo} failed"
       exit 1
     fi
