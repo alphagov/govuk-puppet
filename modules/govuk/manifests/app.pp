@@ -177,7 +177,7 @@ define govuk::app (
     intercept_errors       => $intercept_errors,
     enable_nginx_vhost     => $enable_nginx_vhost,
     logstream              => $logstream,
-    nagios_cpu_warning      => $nagios_cpu_warning,
+    nagios_cpu_warning     => $nagios_cpu_warning,
     nagios_cpu_critical    => $nagios_cpu_critical,
   }
 
