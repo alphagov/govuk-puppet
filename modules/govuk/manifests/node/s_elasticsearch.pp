@@ -2,6 +2,11 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
 
   include java::oracle7::jre
 
+  class { 'java::set_defaults':
+    jdk => 'oracle7',
+    jre => 'oracle7',
+  }
+
   $es_heap_size = $::memtotalmb / 4 * 3
 
   class { 'elasticsearch':
