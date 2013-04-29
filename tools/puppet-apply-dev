@@ -55,8 +55,8 @@ if [ -z "$NO_PULL" ]; then
     sudo apt-get update -y -qq
     sudo apt-get install -y -qq $PACKAGES
   fi
-  if ! gem list -i bundler >/dev/null 2>&1; then
-    sudo gem install bundler --no-ri --no-rdoc
+  if ! gem list -i puppet -v "= 2.7.19" >/dev/null 2>&1; then
+    sudo gem install -v "= 2.7.19" puppet --no-ri --no-rdoc
   fi
 
   safe_git_pull /var/govuk/puppet
@@ -90,5 +90,5 @@ exec sudo \
   RUBYOPT="-W0" \
   FACTER_govuk_class=${FACTER_govuk_class:-development} \
   FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
-  bundle exec puppet apply manifests/site.pp \
+  puppet apply manifests/site.pp \
   --environment development "$@" | egrep -iv "warning:.+storeconfigs"
