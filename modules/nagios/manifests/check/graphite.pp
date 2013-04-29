@@ -45,24 +45,18 @@ define nagios::check::graphite(
   $warning,
   $critical,
   $host_name,
-  $args = undef,
+  $args = '',
   $document_url = ''
 ) {
-  $check_command = $args ? {
-    undef   => 'check_graphite_metric',
-    default => 'check_graphite_metric_args',
-  }
-  $args_real = $args ? {
-    undef   => '',
-    default => "!${args}",
-  }
+  $check_command = 'check_graphite_metric_args'
+  $args_real = "-F 5minutes ${args}"
 
   $monitoring_domain_suffix = extlookup("monitoring_domain_suffix", "")
   $graph_width = 600
   $graph_height = 300
 
   nagios::check { $title:
-    check_command              => "${check_command}!${target}!${warning}!${critical}${args_real}",
+    check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
     graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
