@@ -68,7 +68,7 @@ class graphite::config {
   }
 
   @@nagios::check { "check_carbon_aggregator_running_on_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!carbon-aggregator',
+    check_command       => 'check_nrpe!check_proc_running!carbon-aggregat',
     service_description => "carbon-aggregator running",
     host_name           => $::fqdn,
   }
