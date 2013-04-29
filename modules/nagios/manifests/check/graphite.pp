@@ -13,8 +13,6 @@
 # [*target*]
 #   Graphite expression that will return a single metric. See:
 #   http://graphite.readthedocs.org/en/1.0/url-api.html#target
-#   This metric will be summarized over the last 5 minutes using the graphite
-#   summarize function to average the values.
 #
 # [*desc*]
 #   Description of the Nagios alert. Will be passed to the `nagios::check`
@@ -34,14 +32,6 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
-# [*summary_function*]
-#   Used to pass to graphites summary function, for the type of summary over
-#   5mins.
-#
-#  It defaults to avg. Options that can be passed are: 'avg', 'max', 'min', and 'last'.
-#  For more details refer to graphite.readthedocs.org/en/0.9.10/functions.html summarize
-#  section.
-#
 # [*args*]
 #   Single string of additional arguments passed to `check_graphite`. This
 #   will trigger the use of `check_graphite_metric_args` instead of
@@ -56,14 +46,12 @@ define nagios::check::graphite(
   $critical,
   $host_name,
   $args = undef,
-  $document_url = '',
-  $summary_function = 'avg'
+  $document_url = ''
 ) {
   $check_command = $args ? {
     undef   => 'check_graphite_metric',
     default => 'check_graphite_metric_args',
   }
-  $target_real = "summarize(${target},\"5minutes\",\"${summary_function}\",true)"
   $args_real = $args ? {
     undef   => '',
     default => "!${args}",
@@ -74,7 +62,7 @@ define nagios::check::graphite(
   $graph_height = 300
 
   nagios::check { $title:
-    check_command              => "${check_command}!${target_real}!${warning}!${critical}${args_real}",
+    check_command              => "${check_command}!${target}!${warning}!${critical}${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
     graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
