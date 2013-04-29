@@ -18,10 +18,11 @@ describe 'nagios::check::graphite', :type => :define do
 
     it 'should contain a nagios_check resource' do
       should contain_nagios__check('count_tigers').with(
-        :check_command       => 'check_graphite_metric!sumSeries(zoo.*.tiger)!10!20',
-        :service_description => 'number of animals in the zoo',
-        :host_name           => 'warden.zoo.tld',
-        :graph_url           => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),\"warning\"\)&target=alias\(dashed\(constantLine\(20\)\),\"critical\"\)$/,
+        :check_command              => 'check_graphite_metric!sumSeries(zoo.*.tiger)!10!20',
+        :service_description        => 'number of animals in the zoo',
+        :host_name                  => 'warden.zoo.tld',
+        :graph_url                  => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),\"warning\"\)&target=alias\(dashed\(constantLine\(20\)\),\"critical\"\)$/,
+        :attempts_before_hard_state => 1,
       )
     end
   end

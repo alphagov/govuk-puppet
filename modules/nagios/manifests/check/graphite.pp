@@ -62,14 +62,15 @@ define nagios::check::graphite(
   $graph_height = 300
 
   nagios::check { $title:
-    check_command       => "${check_command}!${target}!${warning}!${critical}${args_real}",
-    service_description => $desc,
-    host_name           => $host_name,
-    graph_url           => "https://graphite.${monitoring_domain_suffix}/render/?\
+    check_command              => "${check_command}!${target}!${warning}!${critical}${args_real}",
+    service_description        => $desc,
+    host_name                  => $host_name,
+    graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
 target=${target}&\
 target=alias(dashed(constantLine(${warning})),\"warning\")&\
 target=alias(dashed(constantLine(${critical})),\"critical\")",
-    document_url        => $document_url,
+    document_url               => $document_url,
+    attempts_before_hard_state => 1,
   }
 }

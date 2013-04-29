@@ -44,14 +44,15 @@
 #
 define nagios::check (
   $host_name,
-  $ensure              = 'present',
-  $service_description = undef,
-  $check_command       = undef,
-  $notification_period = undef,
-  $use                 = 'govuk_regular_service',
-  $action_url          = undef,
-  $document_url        = undef,
-  $graph_url           = undef
+  $ensure                     = 'present',
+  $service_description        = undef,
+  $check_command              = undef,
+  $notification_period        = undef,
+  $use                        = 'govuk_regular_service',
+  $action_url                 = undef,
+  $document_url               = undef,
+  $graph_url                  = undef,
+  $attempts_before_hard_state = undef
 ) {
 
   $check_filename = "/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg"
