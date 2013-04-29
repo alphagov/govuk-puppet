@@ -20,10 +20,12 @@ class govuk::node::s_licensify_lb {
   file {
     '/usr/share/nginx/html/licensify_frontend_maintenance.html':
         ensure => present,
-        source => 'puppet:///modules/govuk/node/s_licensify_lb/licensify_frontend_maintenance.html';
+        source => 'puppet:///modules/govuk/node/s_licensify_lb/licensify_frontend_maintenance.html',
+        before => Loadbalancer::Balance['licensify', 'uploadlicence'];
     '/usr/share/nginx/html/licensify_backend_maintenance.html':
         ensure => present,
-        source => 'puppet:///modules/govuk/node/s_licensify_lb/licensify_backend_maintenance.html';
+        source => 'puppet:///modules/govuk/node/s_licensify_lb/licensify_backend_maintenance.html',
+        before => Loadbalancer::Balance['licensify-admin'];
   }
 
   loadbalancer::balance {
