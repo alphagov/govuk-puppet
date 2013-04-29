@@ -68,6 +68,9 @@ class govuk::node::s_development {
     vhost_protected    => false,
   }
 
+  # Ensure vagrant user exists, if not a vagrant basebox
+  user { 'vagrant': }
+
   include datainsight::config::google_oauth
 
   include java::sun6::jdk
