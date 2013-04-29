@@ -49,12 +49,13 @@ define nagios::check::graphite(
   $host_name,
   $args = undef,
   $document_url = '',
+  $summary_function = 'avg'
 ) {
   $check_command = $args ? {
     undef   => 'check_graphite_metric',
     default => 'check_graphite_metric_args',
   }
-  $target_real = "summarize(${target},\"5minutes\",\"avg\")"
+  $target_real = "summarize(${target},\"5minutes\",\"${summary_function}\")"
   $args_real = $args ? {
     undef   => '',
     default => "!${args}",
