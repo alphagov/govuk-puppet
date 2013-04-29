@@ -114,8 +114,8 @@ define govuk::app::config (
 
   @@nagios::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
     target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)",
-    warning   => ${nagios_cpu_warning},
-    critical  => ${nagios_cpu_critical},
+    warning   => $nagios_cpu_warning,
+    critical  => $nagios_cpu_critical,
     desc      => "high CPU usage for ${title} app",
     host_name => $::fqdn,
   }
