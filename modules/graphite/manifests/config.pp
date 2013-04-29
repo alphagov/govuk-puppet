@@ -17,16 +17,11 @@ class graphite::config {
     target  => '/etc/graphite/local_settings.py',
   }
 
-  file { '/etc/carbon/carbon.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/carbon.conf',
-  }
-
-  file { '/etc/carbon/storage-schemas.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/storage-schema.conf',
-  }
-
-  file { '/etc/carbon/aggregation-rules.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/aggregation-rules.conf',
+  file { '/etc/carbon':
+    ensure  => directory,
+    source  => 'puppet:///modules/graphite/etc/carbon',
+    purge   => true,
+    recurse => true,
   }
 
   file { '/opt/graphite/storage':
