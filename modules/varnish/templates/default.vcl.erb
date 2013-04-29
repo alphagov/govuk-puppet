@@ -67,6 +67,11 @@ sub vcl_recv {
     <%= set_backend('datainsight_frontend') %>
   } else if (req.url ~ "^/government$|^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
     <%= set_backend('whitehall_frontend') %>
+    # Don't waste our internal cache on uploaded assets (large) which are
+    # typically cached for a long time at the CDN edge.
+    if (req.url ~ "^/government/uploads/") {
+      return(pass);
+    }
   } else if (req.url ~ "^/__canary__$") {
     <%= set_backend('canary_frontend') %>
   <%# This matches on any subpath of the slugs, the bare slugs should fall through to content in Frontend %>
