@@ -4,6 +4,10 @@ define service {
   service_description       <%= @service_description %>
   passive_checks_enabled    1
   check_period              never
-  check_command             check_dummy!1!"Unexpected active check on passive service"
+<% if @freshness_threshold != '' -%>
+  check_freshness           1
+  freshness_threshold       <%= @freshness_threshold %>
+<% end -%>
+  check_command             check_dummy!1!"<%= @active_message -%>"
   max_check_attempts        1
 }
