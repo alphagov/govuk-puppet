@@ -22,13 +22,6 @@
 #   Limit access to the loadbalanced service to internal IP address only.
 #   Default: false
 #
-# [*maintenance*]
-#   File path under `/usr/share/nginx/html` which will be served with a 503
-#   response for all requests. Intended to be triggered with a feature flag
-#   by the module caller.
-#   FIXME: Revert this hack after Licensify maint (30/04/13)
-#   Default: ''
-#
 define loadbalancer::balance(
     $servers,
     $aliases = [],
@@ -36,8 +29,8 @@ define loadbalancer::balance(
     $internal_only = false,
     $vhost = $title,
     $read_timeout = 60,
-    $maintenance = ''
 ) {
+
   $vhost_suffix = extlookup('app_domain')
   $vhost_real = "${vhost}.${vhost_suffix}"
 
