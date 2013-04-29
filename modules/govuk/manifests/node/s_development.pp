@@ -73,12 +73,29 @@ class govuk::node::s_development {
 
   include datainsight::config::google_oauth
 
-  include java::sun6::jdk
-  include java::sun6::jre
+  # Java 6 is deprecated in precise, so use Oracle's Java 7
+  case $::lsbdistcodename {
+    'lucid': {
+      include java::sun6::jdk
+      include java::sun6::jre
 
-  class { 'java::set_defaults':
-    jdk => 'sun6',
-    jre => 'sun6',
+      class { 'java::set_defaults':
+        jdk => 'sun6',
+        jre => 'sun6',
+      }
+    }
+    'precise': {
+      include java::oracle7::jdk
+      include java::oracle7::jre
+
+      class { 'java::set_defaults':
+        jdk => 'oracle7',
+        jre => 'oracle7',
+      }
+    }
+    default: {
+      fail("Unknown distribution: ${::lsbdistcodename}. Can't install java")
+    }
   }
 
   class { 'elasticsearch':
