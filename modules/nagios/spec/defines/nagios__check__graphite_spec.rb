@@ -18,7 +18,7 @@ describe 'nagios::check::graphite', :type => :define do
 
     it 'should contain a nagios_check resource' do
       should contain_nagios__check('count_tigers').with(
-        :check_command              => 'check_graphite_metric!summarize(sumSeries(zoo.*.tiger),"5minutes","avg")!10!20',
+        :check_command              => 'check_graphite_metric!summarize(sumSeries(zoo.*.tiger),"5minutes","avg",true)!10!20',
         :service_description        => 'number of animals in the zoo',
         :host_name                  => 'warden.zoo.tld',
         :graph_url                  => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),\"warning\"\)&target=alias\(dashed\(constantLine\(20\)\),\"critical\"\)$/,
@@ -40,7 +40,7 @@ describe 'nagios::check::graphite', :type => :define do
 
     it 'should modify check_command' do
       should contain_nagios__check('count_deer').with(
-        :check_command => 'check_graphite_metric_args!summarize(sumSeries(zoo.*.deer),"5minutes","avg")!30!40!--droplast 1',
+        :check_command => 'check_graphite_metric_args!summarize(sumSeries(zoo.*.deer),"5minutes","avg",true)!30!40!--droplast 1',
       )
     end
   end
@@ -58,7 +58,7 @@ describe 'nagios::check::graphite', :type => :define do
 
     it "should pass the specified function to graphite's summarize function" do
       should contain_nagios__check('count_tigers').with(
-        :check_command              => 'check_graphite_metric!summarize(sumSeries(zoo.*.tiger),"5minutes","max")!10!20',
+        :check_command              => 'check_graphite_metric!summarize(sumSeries(zoo.*.tiger),"5minutes","max",true)!10!20',
         :service_description        => 'number of animals in the zoo',
         :host_name                  => 'warden.zoo.tld',
         :graph_url                  => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),\"warning\"\)&target=alias\(dashed\(constantLine\(20\)\),\"critical\"\)$/,

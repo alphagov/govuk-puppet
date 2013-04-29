@@ -34,6 +34,14 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
+# [*summary_function*]
+#   Used to pass to graphites summary function, for the type of summary over
+#   5mins.
+#
+#  It defaults to avg. Options that can be passed are: 'avg', 'max', 'min', and 'last'.
+#  For more details refer to graphite.readthedocs.org/en/0.9.10/functions.html summarize
+#  section.
+#
 # [*args*]
 #   Single string of additional arguments passed to `check_graphite`. This
 #   will trigger the use of `check_graphite_metric_args` instead of
@@ -55,7 +63,7 @@ define nagios::check::graphite(
     undef   => 'check_graphite_metric',
     default => 'check_graphite_metric_args',
   }
-  $target_real = "summarize(${target},\"5minutes\",\"${summary_function}\")"
+  $target_real = "summarize(${target},\"5minutes\",\"${summary_function}\",true)"
   $args_real = $args ? {
     undef   => '',
     default => "!${args}",
