@@ -25,8 +25,8 @@ class graphite::config {
     source => 'puppet:///modules/graphite/etc/carbon/storage-schema.conf',
   }
 
-  file { '/etc/carbon/relay-rules.conf':
-    source => 'puppet:///modules/graphite/etc/carbon/relay-rules.conf',
+  file { '/etc/carbon/aggregation-rules.conf':
+    source => 'puppet:///modules/graphite/etc/carbon/aggregation-rules.conf',
   }
 
   file { '/opt/graphite/storage':
@@ -62,13 +62,19 @@ class graphite::config {
   file { '/etc/init/carbon_cache.conf':
     source => 'puppet:///modules/graphite/etc/init/carbon_cache.conf',
   }
-  file { '/etc/init/carbon_relay.conf':
-    source => 'puppet:///modules/graphite/etc/init/carbon_relay.conf',
+  file { '/etc/init/carbon_aggregator.conf':
+    source => 'puppet:///modules/graphite/etc/init/carbon_aggregator.conf',
   }
 
   @@nagios::check { "check_carbon_cache_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-cache',
     service_description => "carbon-cache running",
+    host_name           => $::fqdn,
+  }
+
+  @@nagios::check { "check_carbon_aggregator_running_on_${::hostname}":
+    check_command       => 'check_nrpe!check_proc_running!carbon-aggregator',
+    service_description => "carbon-aggregator running",
     host_name           => $::fqdn,
   }
 
