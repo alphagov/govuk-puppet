@@ -10,21 +10,19 @@ class govuk::node::s_licensify_lb {
   # FIXME: Revert this hack after Licensify maintenance (30/04/13)
   $licensify_maintenance_mode = str2bool(extlookup('licensify_maintenance_mode','no'))
   if $licensify_maintenance_mode {
-    $ensure_maintenance_file             = present
     $licensify_frontend_maintenance_file = 'licensify_frontend_maintenance.html'
     $licensify_backend_maintenance_file  = 'licensify_backend_maintenance.html'
   } else {
-    $ensure_maintenance_file             = absent
     $licensify_frontend_maintenance_file = undef
     $licensify_backend_maintenance_file  = undef
   }
 
   file {
     '/usr/share/nginx/html/licensify_frontend_maintenance.html':
-        ensure => $ensure_maintenance_file,
+        ensure => present,
         source => 'puppet:///modules/govuk/node/s_licensify_lb/licensify_frontend_maintenance.html';
     '/usr/share/nginx/html/licensify_backend_maintenance.html':
-        ensure => $ensure_maintenance_file,
+        ensure => present,
         source => 'puppet:///modules/govuk/node/s_licensify_lb/licensify_backend_maintenance.html';
   }
 
