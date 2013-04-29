@@ -8,7 +8,7 @@ class govuk::node::s_licensify_lb {
   $enable_feed_console = str2bool(extlookup('govuk_enable_licensify_feed_console','no'))
 
   # FIXME: Revert this hack after Licensify maintenance (30/04/13)
-  $licensify_maintenance_mode = str2bool(extlookup('licensify_maintenance_mode',false))
+  $licensify_maintenance_mode = str2bool(extlookup('licensify_maintenance_mode','no'))
   if $licensify_maintenance_mode {
     $ensure_maintenance_file             = present
     $licensify_frontend_maintenance_file = 'licensify_frontend_maintenance.html'
