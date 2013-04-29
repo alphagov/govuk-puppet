@@ -45,6 +45,20 @@ ROOT="$(pwd)"
 SELF="${ROOT}/tools/puppet-apply-dev"
 
 if [ -z "$NO_PULL" ]; then
+  info "preflight checks"
+  # Temporary workaround while dev VMs don't come with git preinstalled
+  export DEBIAN_FRONTEND=noninteractive
+  export DEBIAN_PRIORITY=critical
+
+  PACKAGES="ruby1.9.1 ruby1.9.1-dev git-core build-essential libxml2-dev libxslt1-dev"
+  if ! dpkg -s $PACKAGES >/dev/null 2>&1; then
+    sudo apt-get update -y -qq
+    sudo apt-get install -y -qq $PACKAGES
+  fi
+  if ! gem list -i bundler >/dev/null 2>&1; then
+    sudo gem install bundler --no-ri --no-rdoc
+  fi
+
   safe_git_pull /var/govuk/puppet
   safe_git_pull /var/govuk/development
   # Re-exec myself
@@ -62,9 +76,6 @@ manifestdir=/var/govuk/puppet/manifests
 EOM
 fi
 
-# Temporary workaround while dev VMs don't come with git preinstalled
-sudo apt-get install -y -qq git-core libxml2-dev libxslt-dev
-
 bundle install --quiet --without subprojects
 bundle exec librarian-puppet install --quiet
 
@@ -75,5 +86,9 @@ done
 # Filter warnings about 'storeconfigs' not being set -- we don't currently
 # attempt to test stored config configuration on the dev vm
 info "running puppet"
-exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp \
+exec sudo \
+  RUBYOPT="-W0" \
+  FACTER_govuk_class=${FACTER_govuk_class:-development} \
+  FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
+  bundle exec puppet apply manifests/site.pp \
   --environment development "$@" | egrep -iv "warning:.+storeconfigs"
