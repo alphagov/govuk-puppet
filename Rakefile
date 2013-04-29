@@ -18,4 +18,4 @@ task :test => [:spec, :nagios_checks, :custom]
 desc "Check for all Puppet syntax errors"
 task :syntax => [:syntax_erb, :syntax_pp]
 
-task :default => [:syntax_pp, :syntax_erb, :lint, :test]
+task :default => [:puppetfile, :syntax_pp, :syntax_erb, :lint, :test]
