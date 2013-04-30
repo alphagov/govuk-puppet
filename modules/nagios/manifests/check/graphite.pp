@@ -62,8 +62,8 @@ define nagios::check::graphite(
     graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
 target=${target}&\
-target=alias(dashed(constantLine(${warning})),\"warning\")&\
-target=alias(dashed(constantLine(${critical})),\"critical\")",
+target=alias(dashed(constantLine(${warning})),%22warning%22)&\
+target=alias(dashed(constantLine(${critical})),%22critical%22)",
     document_url               => $document_url,
     attempts_before_hard_state => 1,
   }
