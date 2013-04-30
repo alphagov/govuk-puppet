@@ -3,6 +3,7 @@
 # The GOV.UK static application -- serves static assets and templates
 class govuk::apps::static( $port = 3013 ) {
   $app_domain = extlookup('app_domain')
+  $website_root = extlookup('website_root')
   $whitehall_frontend_host = "whitehall-frontend.${app_domain}"
   $asset_manager_host = "asset-manager.${app_domain}"
 
