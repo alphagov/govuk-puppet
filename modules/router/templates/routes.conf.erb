@@ -456,7 +456,7 @@ location @upstream {
   proxy_pass http://varnish;
 }
 
-location ~ ^/apply-for-a-licence/ {
+location ~ ^/apply-for-a-licence/? {
   proxy_intercept_errors off;
 
   # Set proxy timeout to 50 seconds as a quick fix for problems
