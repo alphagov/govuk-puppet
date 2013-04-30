@@ -144,14 +144,6 @@ sub vcl_fetch {
   # longer than req.grace in vcl_recv.
   set beresp.grace = 6h;
 
-  # Don't cache 5xx errors from backends. Keep retrying and let them present
-  # their own errors pages if necessary.
-  if (beresp.status >= 500 && beresp.status <= 504) {
-    # Don't cache the decision to not cache
-    set beresp.ttl = 0s;
-    return(hit_for_pass);
-  }
-
   if (req.backend == licensify) {
     # Licensify sends custom 500 errors, and we need to send No-Fallback: true
     # to prevent Akamai from falling back to the static site in NetStorage.
@@ -167,6 +159,14 @@ sub vcl_fetch {
   # Remove cookies for all apps but Licensify
   } else {
     unset beresp.http.set-cookie;
+  }
+
+  # Don't cache 5xx errors from backends. Keep retrying and let them present
+  # their own errors pages if necessary.
+  if (beresp.status >= 500 && beresp.status <= 504) {
+    # Don't cache the decision to not cache
+    set beresp.ttl = 0s;
+    return(hit_for_pass);
   }
 
   # hide some internal headers
