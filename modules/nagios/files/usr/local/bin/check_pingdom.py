@@ -56,6 +56,25 @@ def check_pingdom_up():
     except:
         unknown("Pingdom API Down")
 
+def parse_pingdom_result(json_result):
+    try:
+        message = "\n\n"
+        message += "Check Status:  %s\n" % json_result['check']['status'].upper()
+        message += "Check Name:    %s\n" % json_result['check']['name']
+        if json_result['check']['type']['http']['encryption'] == "true":
+            scheme = "https"
+        else:
+            scheme = "http"
+        message += "Check URL:     %s://%s%s\n" % ( scheme,
+                                                json_result['check']['hostname'],
+                                                json_result['check']['type']['http']['url'] )
+        message += "Expected Text: %s\n" % json_result['check']['type']['http']['shouldcontain']
+        message += "Pingdom URL:   https://my.pingdom.com/reports/uptime#check=%s&daterange=7days\n" % json_result['check']['id']
+        return message
+    except:
+        #This is extra details that are nice to have, it should never break execution
+        return ""
+
 def get_pingdom_result(config,check_id):
     try:
         basic_auth_token = "Basic " + (config.pingdom_user + ":" + config.pingdom_pass).encode("base64").rstrip()
@@ -70,14 +89,16 @@ def get_pingdom_result(config,check_id):
         pingdom_check = json.loads(result.read())
         try:
             status = pingdom_check['check']['status']
+            message = parse_pingdom_result(pingdom_check)
+
             if status == 'up':
-                ok("Pingdom reports this URL is UP")
+                ok("Pingdom reports this URL is UP" + message)
             elif status in ['unknown']:
-                unknown("Pingdom check in unknown state")
+                unknown("Pingdom check in unknown state" + message)
             elif status in ['unconfirmed_down','paused']:
-                warning("Pingdom check in %s state" % status)
+                warning("Pingdom check is neither up nor down!" + message)
             else:
-                critical("Pingdom reports this URL is not UP")
+                critical("Pingdom reports this URL is not UP" + message)
         except Exception, e:
             unknown("Could not parse Pingdom output")
     except Exception, e:
