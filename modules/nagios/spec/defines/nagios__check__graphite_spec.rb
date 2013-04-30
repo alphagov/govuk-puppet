@@ -21,7 +21,7 @@ describe 'nagios::check::graphite', :type => :define do
         :check_command              => 'check_graphite_metric_args!sumSeries(zoo.*.tiger)!10!20!-F 5minutes ',
         :service_description        => 'number of animals in the zoo',
         :host_name                  => 'warden.zoo.tld',
-        :graph_url                  => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),\"warning\"\)&target=alias\(dashed\(constantLine\(20\)\),\"critical\"\)$/,
+        :graph_url                  => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)$/,
         :attempts_before_hard_state => 1,
       )
     end
