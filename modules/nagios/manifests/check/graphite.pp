@@ -50,6 +50,7 @@ define nagios::check::graphite(
 ) {
   $check_command = 'check_graphite_metric_args'
   $args_real = "-F 5minutes ${args}"
+  $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
   $monitoring_domain_suffix = extlookup("monitoring_domain_suffix", "")
   $graph_width = 600
@@ -61,7 +62,7 @@ define nagios::check::graphite(
     host_name                  => $host_name,
     graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
-target=${target}&\
+target=${url_encoded_target}&\
 target=alias(dashed(constantLine(${warning})),%22warning%22)&\
 target=alias(dashed(constantLine(${critical})),%22critical%22)",
     document_url               => $document_url,
