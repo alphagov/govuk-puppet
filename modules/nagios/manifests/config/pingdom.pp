@@ -14,6 +14,12 @@ class nagios::config::pingdom {
     mode   => '0755',
   }
 
+  file {[
+  '/usr/local/bin/check_pingdom.py',
+  '/etc/pingdom.sh'
+  ]:
+    ensure => absent,
+  }
   nagios::check_config::pingdom {
     'homepage':
       check_id => 489558;
