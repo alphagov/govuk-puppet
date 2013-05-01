@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+
+#
+# Testing: ./check_pingdom.py <checkid>
+#    Pingdom IDs are found in manifests/config/pingdom.pp
+#    You must have an /etc/pingdom.ini which looks like templates/etc/pingdom.ini.erb
+#
+
 import sys
 import ConfigParser
 import json
@@ -61,14 +68,15 @@ def parse_pingdom_result(json_result):
         message = "\n\n"
         message += "Check Status:  %s\n" % json_result['check']['status'].upper()
         message += "Check Name:    %s\n" % json_result['check']['name']
-        if json_result['check']['type']['http']['encryption'] == "true":
+        if json_result['check']['type']['http']['encryption']:
             scheme = "https"
         else:
             scheme = "http"
         message += "Check URL:     %s://%s%s\n" % ( scheme,
                                                 json_result['check']['hostname'],
                                                 json_result['check']['type']['http']['url'] )
-        message += "Expected Text: %s\n" % json_result['check']['type']['http']['shouldcontain']
+        if 'shouldcontain' in json_result['check']['type']['http'].keys():
+            message += "Expected Text: %s\n" % json_result['check']['type']['http']['shouldcontain']
         message += "Pingdom URL:   https://my.pingdom.com/reports/uptime#check=%s&daterange=7days\n" % json_result['check']['id']
         return message
     except:
@@ -84,8 +92,8 @@ def get_pingdom_result(config,check_id):
         req.add_header("Authorization", basic_auth_token)
         try:
             result = urlopen(req)
-        except HTTPError:
-            unknown("Could not retrieve check result")
+        except HTTPError, e:
+            unknown("Could not retrieve check result (%s)" % e)
         pingdom_check = json.loads(result.read())
         try:
             status = pingdom_check['check']['status']
@@ -100,7 +108,7 @@ def get_pingdom_result(config,check_id):
             else:
                 critical("Pingdom reports this URL is not UP" + message)
         except Exception, e:
-            unknown("Could not parse Pingdom output")
+            unknown("Could not parse Pingdom output (%s)" % e)
     except Exception, e:
         unknown("Unknown %s retrieving check status" % e)
 
