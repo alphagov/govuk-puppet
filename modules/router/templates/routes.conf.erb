@@ -6,7 +6,7 @@ proxy_set_header X-Forwarded-Server $host;
 proxy_set_header X-Forwarded-Host $http_host;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_redirect off;
-<% if @real_ip_header != 'UNSET' -%>
+<% if @real_ip_header != '' -%>
 
 # Use an unspoofable header from an upstream CDN or L7 load balancer.
 real_ip_header <%= @real_ip_header -%>;

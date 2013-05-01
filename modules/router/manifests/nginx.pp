@@ -21,11 +21,11 @@
 #   inserted by an upstream CDN or L7 load balancer. It *must* not be
 #   spoofable by the originating client.
 #
-#   Default: 'UNSET', which will disable this functionality.
+#   Default: '', which will disable this functionality.
 #
 class router::nginx (
   $vhost_protected,
-  $real_ip_header = 'UNSET'
+  $real_ip_header = ''
 ) {
   $app_domain = extlookup('app_domain')
 

@@ -1,7 +1,14 @@
 class govuk::node::s_cache inherits govuk::node::s_base {
 
-  $protect_cache_servers = str2bool(extlookup('protect_cache_servers', 'no'))
-  $cache_real_ip_header = extlookup('cache_real_ip_header', undef)
+  $protect_cache_servers    = str2bool(extlookup('protect_cache_servers', 'no'))
+  $extlookup_real_ip_header = extlookup('cache_real_ip_header', '')
+
+  # FIXME: extlookup() can't return a real `undef` value. So we have to
+  # proxy it to preserve the class's own default.
+  $cache_real_ip_header = $extlookup_real_ip_header ? {
+    ''      => undef,
+    default => $extlookup_real_ip_header,
+  }
 
   include govuk::htpasswd
   include nginx
