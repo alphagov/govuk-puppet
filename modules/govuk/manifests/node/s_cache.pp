@@ -1,12 +1,14 @@
 class govuk::node::s_cache inherits govuk::node::s_base {
 
   $protect_cache_servers = str2bool(extlookup('protect_cache_servers', 'no'))
+  $cache_real_ip_header = extlookup('cache_real_ip_header', undef)
 
   include govuk::htpasswd
   include nginx
 
   class { 'router::nginx':
-    vhost_protected => $protect_cache_servers
+    vhost_protected => $protect_cache_servers,
+    real_ip_header  => $cache_real_ip_header,
   }
 
   # Set the varnish storage size to 75% of memory

@@ -6,15 +6,17 @@ proxy_set_header X-Forwarded-Server $host;
 proxy_set_header X-Forwarded-Host $http_host;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_redirect off;
+<% if @real_ip_header != 'UNSET' -%>
 
-# This sets the IP used by Nginx to the client IP from the X-Forwarded-For
-# chain, rather than the IP from the CDN node
-real_ip_header X-Forwarded-For;
+# Use an unspoofable header from an upstream CDN or L7 load balancer.
+real_ip_header <%= @real_ip_header -%>;
 real_ip_recursive on;
 set_real_ip_from 0.0.0.0/0;
+<% end -%>
 
-# With the above real-ip in place we can limit connections and requests
-# based on that
+# Limit requests and connections based on $remote_addr.
+# NB: This may not be accurate if there is a L3 load balancer upstream and
+# real_ip_header cannot be set!
 limit_req zone=rate burst=5 nodelay;
 limit_conn connections 4;
 
