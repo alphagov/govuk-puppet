@@ -18,7 +18,6 @@
 class router::nginx (
   $vhost_protected
 ) {
-  $platform = $::govuk_platform
   $app_domain = extlookup('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
