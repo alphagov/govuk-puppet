@@ -37,21 +37,6 @@ server {
   access_log /var/log/nginx/<%= @vhost_real %>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_real %>-error.log;
 
-<%
-# FIXME: Revert this hack after Licensify maint (30/04/13)
-if @maintenance != ''
--%>
-  location / {
-    return 503;
-  }
-
-  error_page 503 @maint;
-  location @maint {
-    rewrite .* /<%= maintenance -%> break;
-    root /usr/share/nginx/html;
-    internal;
-  }
-<% else -%>
   location / {
     <%- if @internal_only -%>
     # Only accept connnections from internal machines
@@ -61,5 +46,4 @@ if @maintenance != ''
     <%- end -%>
     proxy_pass https://<%= @vhost %>-upstream;
   }
-<% end -%>
 }
