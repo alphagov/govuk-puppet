@@ -15,9 +15,9 @@ class nagios::config::pingdom {
   }
 
   file {[
-  '/usr/local/bin/check_pingdom.py',
-  '/etc/pingdom.sh'
-  ]:
+    '/usr/local/bin/check_pingdom.sh',
+    '/etc/pingdom.sh'
+    ]:
     ensure => absent,
   }
   nagios::check_config::pingdom {
