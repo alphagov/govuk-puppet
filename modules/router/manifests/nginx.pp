@@ -1,3 +1,20 @@
+# == Class: router::nginx
+#
+# Nginx configs for "cache" nodes:
+#
+# - Forwards requests to Varnish over loopback (which subsequently routes to
+#   the correct frontend/backend).
+# - Performs some early redirects and prevents them travelling down the
+#   stack for performance reasons.
+# - Intercepts error responses and replaces them with stylised pages. These
+#   are periodically fetched from static/assets and stored locally.
+#
+# === Parameters
+#
+# [*vhost_protected*]
+#   Mandatory boolean value. Whether to enable BasicAuth or not. Used in
+#   environments where origin is not firewalled.
+#
 class router::nginx (
   $vhost_protected
 ) {
