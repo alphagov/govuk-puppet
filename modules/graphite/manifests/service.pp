@@ -4,7 +4,7 @@ class graphite::service {
     ensure => running,
   }
 
-  service { 'carbon_relay':
+  service { 'carbon_aggregator':
     ensure => running,
   }
 

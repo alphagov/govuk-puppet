@@ -7,6 +7,9 @@ define service {
         host_name           <%= @host_name %>
         service_description <%= @service_description %>
         check_command       <%= @check_command %>
+<%- if @attempts_before_hard_state -%>
+        max_check_attempts  <%= attempts_before_hard_state %>
+<%- end -%>
 <%- if @notification_period -%>
         notification_period <%= @notification_period %>
 <%- end -%>

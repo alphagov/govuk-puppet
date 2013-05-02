@@ -122,7 +122,25 @@ define govuk::app (
   # This parameter is used to add additional logic (like proxy
   # fallback behaviour) to the default downstream proxy functionality
   # used in Nginx.
-  $nginx_extra_app_config = ''
+  $nginx_extra_app_config = '',
+
+  #
+  # nagios_cpu_warning: percentage at which Nagios should generate a warning
+  #
+  # This parameter is used to change the threshold of the exported nagios
+  # cpu usage check. It defaults to 150% for a warning and does not generally
+  # need to be altered.
+  $nagios_cpu_warning = 150,
+
+  #
+  # nagios_cpu_critical: percentage at which Nagios should generate a critical
+  #
+  # This parameter is used to change the threshold of the exported nagios
+  # cpu usage check. It defaults to 200% for a critical and does not generally
+  # need to be altered.
+  $nagios_cpu_critical = 200,
+
+
 ) {
 
   if ! ($app_type in ['procfile', 'rack']) {
@@ -159,6 +177,8 @@ define govuk::app (
     intercept_errors       => $intercept_errors,
     enable_nginx_vhost     => $enable_nginx_vhost,
     logstream              => $logstream,
+    nagios_cpu_warning     => $nagios_cpu_warning,
+    nagios_cpu_critical    => $nagios_cpu_critical,
   }
 
   govuk::app::service { $title:

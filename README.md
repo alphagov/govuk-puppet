@@ -43,8 +43,7 @@ Run the tests:
 
     $ bundle exec rake
 
-The manifest tests are located in `manifests/spec` and some individual modules
-have tests in `modules/<module>/spec`. See the [RSpec
+The module tests are located in `modules/<module>/spec`. See the [RSpec
 Puppet](https://github.com/rodjek/rspec-puppet) documentation for more
 details. The specs are run in parallel, so PLEASE SPLIT YOUR TESTS INTO ONE
 TEST PER FILE.

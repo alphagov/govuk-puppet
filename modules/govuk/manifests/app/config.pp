@@ -13,6 +13,8 @@ define govuk::app::config (
   $enable_nginx_vhost = true,
   $use_unicornherder = true,
   $logstream = true,
+  $nagios_cpu_warning = 150,
+  $nagios_cpu_critical = 200,
 ) {
 
   # Ensure config dir exists
@@ -111,7 +113,7 @@ define govuk::app::config (
   }
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
-    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)!150!200",
+    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)!${nagios_cpu_warning}!${nagios_cpu_critical}",
     service_description => "high CPU usage for ${title} app",
     host_name           => $::fqdn,
   }

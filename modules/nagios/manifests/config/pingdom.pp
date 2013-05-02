@@ -3,17 +3,23 @@ class nagios::config::pingdom {
   $pingdom_password = extlookup('pingdom_password', 'UNSET')
   $pingdom_key      = extlookup('pingdom_key', 'UNSET')
 
-  file { '/etc/pingdom.sh':
-    content => template('nagios/etc/pingdom.sh.erb'),
+  file { '/etc/pingdom.ini':
+    content => template('nagios/etc/pingdom.ini.erb'),
     owner   => 'nagios',
     mode    => '0400',
   }
 
-  file { '/usr/local/bin/check_pingdom.sh':
-    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.sh',
+  file { '/usr/local/bin/check_pingdom.py':
+    source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.py',
     mode   => '0755',
   }
 
+  file {[
+    '/usr/local/bin/check_pingdom.sh',
+    '/etc/pingdom.sh'
+    ]:
+    ensure => absent,
+  }
   nagios::check_config::pingdom {
     'homepage':
       check_id => 489558;

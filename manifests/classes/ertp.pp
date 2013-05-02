@@ -219,6 +219,12 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
         source  => 'puppet:///modules/ertp/etc/nginx/ssl/preview-ca.crt',
         require => Class['nginx::package'],
       }
+
+      file { '/etc/nginx/ssl/ca.key':
+        ensure  => present,
+        source  => 'puppet:///modules/ertp/etc/nginx/ssl/preview-ca.key',
+        require => Class['nginx::package'],
+      }
     }
   }
 }
