@@ -109,4 +109,6 @@ class jenkins {
     target  => '/mnt/jenkins',
     require => File['/mnt/jenkins'],
   }
+
+  include golang
 }
