@@ -4,6 +4,7 @@ class govuk::node::s_development {
   include assets::user
   include base_packages
   include fonts
+  include golang
   include hosts::development
   include imagemagick
   include mongodb::server
