@@ -17,56 +17,64 @@
 #   The user's login shell. Default: "/bin/bash"
 #
 # [*ssh_key*]
-#   The user's SSH public key, e.g. "AAAAB3NzaC1yc[...]KKT65FL+uUaC"
+#   The user's SSH public key as a string or array thereof, e.g.
 #
-# [*ssh_key_type*]
-#   The key type of the user's SSH public key: "ssh-rsa", "ssh-dsa", etc.
+#       "ssh-rsa AAAAB3NzaC1yc[...]KKT65FL+uUaC comment"
 #
-# [*has_deploy*]
-#   Whether the user should have SSH access to the 'deploy' user.
+#   Not providing a param, or setting the user as absent, will result in any
+#   existing file being removed. The `.ssh` directory will be created for
+#   present users regardless of whether `ssh_key` is passed.
 #
 define govuk::user(
   $ensure = present,
   $fullname = 'No Name',
   $email = 'no.name@digital.cabinet-office.gov.uk',
   $shell = '/bin/bash',
-  $ssh_key = undef,
-  $ssh_key_type = 'ssh-rsa',
-  $has_deploy = false
+  $ssh_key = undef
 ) {
+
+  $home = "/home/${title}"
+
+  if ($ensure == present) {
+    $dir_ensure = directory
+
+    if ($ssh_key) {
+      $key_ensure  = present
+      $key_content = template('govuk/home/govuk_user/.ssh/authorized_keys.erb')
+    } else {
+      # Don't eval template if we're deleting anyway.
+      $key_ensure  = absent
+      $key_content = undef
+    }
+  } else {
+    $dir_ensure = undef
+    $key_ensure = absent
+  }
 
   user { $title:
     ensure     => $ensure,
     comment    => "${fullname} <${email}>",
-    home       => "/home/${title}",
+    home       => $home,
     managehome => true,
     groups     => ['admin', 'deploy'],
     require    => Class['shell'],
     shell      => $shell,
   }
 
-  if $ssh_key != undef {
-    ssh_authorized_key { "${title}_key":
-      ensure => $ensure,
-      key    => $ssh_key,
-      type   => $ssh_key_type,
-      user   => $title,
-    }
+  # FIXME: Manage group?
+  file { "${home}/.ssh":
+    ensure => $dir_ensure,
+    owner  => $title,
+    group  => undef,
+    mode   => '0700',
+  }
 
-    if $has_deploy {
-      ssh_authorized_key { "deploy_key_${title}":
-        ensure => $ensure,
-        key    => $ssh_key,
-        type   => $ssh_key_type,
-        user   => 'deploy',
-      }
-    } else {
-      ssh_authorized_key { "deploy_key_${title}":
-        ensure => absent,
-        key    => $ssh_key,
-        type   => $ssh_key_type,
-        user   => 'deploy',
-      }
-    }
+  # FIXME: Manage group?
+  file { "${home}/.ssh/authorized_keys":
+    ensure  => $key_ensure,
+    owner   => $title,
+    group   => undef,
+    mode    => '0600',
+    content => $key_content,
   }
 }
