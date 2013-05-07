@@ -119,7 +119,7 @@ class ertp_base::api_server::dwp inherits ertp_base::api_server {
 class ertp_base::api_server::ero inherits ertp_base::api_server {
   include ertp::ero::api::config
   include ertp::gateway::config
-  include ertp::explorer 
+  include ertp::explorer
   include redis
   include nginx
 
@@ -177,7 +177,7 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
   include ertp::config
   include ertp::gateway::config
   include ertp::dwp::scripts
-  include ertp::explorer 
+  include ertp::explorer
   include redis
 
   case $::govuk_platform {
