@@ -129,6 +129,11 @@ class ertp_base::api_server::ero inherits ertp_base::api_server {
         source  => 'puppet:///modules/ertp/etc/nginx/ertp-staging-api',
       }
 
+      file {'/var/www/explorer/api.js':
+        ensure => present,
+        source => ['puppet:///modules/ertp/html/api-staging.js']
+      }
+
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.staging':
         ensure  => present,
         content => "${ertp_http_username}:${ertp_api_staging_http_hash}\n",
@@ -196,6 +201,11 @@ class ertp_base::api_server::all inherits ertp_base::api_server {
     default: {
       nginx::config::site { 'default':
         source  => 'puppet:///modules/ertp/etc/nginx/ertp-preview-api',
+      }
+
+      file {'/var/www/explorer/api.js':
+        ensure => present,
+        source => ['puppet:///modules/ertp/html/api-preview.js']
       }
 
       file { '/etc/nginx/htpasswd/htpasswd.ertp.api.preview':
