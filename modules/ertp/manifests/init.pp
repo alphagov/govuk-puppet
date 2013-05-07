@@ -6,6 +6,11 @@ class ertp::explorer {
     ensure => present,
     source => ['puppet:///modules/ertp/html/ertp-explorer.html']
   }
+
+  file {'/var/www/explorer/api.js':
+    ensure => present,
+    source => ['puppet:///modules/ertp/html/api.js']
+  }
 }
 
 class ertp::scripts {
