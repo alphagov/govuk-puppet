@@ -140,18 +140,20 @@ function doQueueSubmission() {
 	</div>
   <div class="container" id="bearer-token-title">
      <div class="row">
-        <div class="span6">
+        <div class="span12">
               <label><h6>Bearer token</h6></label>
               <input id="bearer-token" type="text">
         </div>
+  	</div>
+  	 <div class="row">
+        <div class="span12">
+              <label><h6>URL:</h6></label><span id="ertp-api-url"></span>
         </div>
+  	</div>
   </div>
   <div class="container collapse in" id="queue-fetch">
       <h3>Queue Fetch</h3>
       <div class="row">
-          <div class="span12">
-            <h6>URL:</h6><span id="ertp-api-url"></span></div>
-          </div>
         <form>
         <fieldset>
         <div class="row">
@@ -190,9 +192,6 @@ function doQueueSubmission() {
   <div class="container collapse" id="queue-submission">
       <h3>Queue submissions</h3>
        <div class="row">
-         <div class="span12">
-            <h6>URL:</h6><span id="ertp-api-url"></span></div>
-          </div>
         <form>
         <fieldset>
         <div class="row">
