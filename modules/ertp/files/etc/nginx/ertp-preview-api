@@ -25,7 +25,6 @@ server {
   	ssl_certificate     	  /etc/nginx/ssl/server.crt;
   	ssl_certificate_key 	  /etc/nginx/ssl/server.key;
   	ssl_client_certificate 	/etc/nginx/ssl/ca.crt;
-    ssl_crl                 /etc/nginx/ssl/crl.pem  
   	ssl_verify_client on;
 
     add_header Strict-Transport-Security max-age=31536000;

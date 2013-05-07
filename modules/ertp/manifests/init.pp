@@ -2,7 +2,7 @@ class ertp {
 }
 
 class ertp::explorer {
-  file {'/var/www/index.html':
+  file {'/var/www/explorer/index.html':
     ensure => present,
     source => ['puppet:///modules/ertp/html/ertp-explorer.html']
   }

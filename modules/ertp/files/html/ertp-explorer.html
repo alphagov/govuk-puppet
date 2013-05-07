@@ -1,3 +1,297 @@
-<html>
-EXPLORE
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>ERTP API Explorer</title>
+  	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.top-link').on('click', function(e) {
+      $(this).toggleClass('active');
+    });
+  });
+
+function addParam(queryString, paramName, paramValue) {
+  if(paramValue) {
+    if(queryString === "?") {
+      queryString += paramName + "=" + paramValue;
+    } else {
+      queryString += "&" + paramName + "=" + paramValue;
+    }
+  }
+  return queryString;
+}
+
+function doQueueFetch () {
+  var bearerToken = $('#bearer-token').val();
+  var pageSize = $('#queue-fetch-page-size').val();
+  var olderThanId = $('#queue-fetch-older-than-id').val();
+  var date = $('#queue-fetch-date').val();
+  var status = $('#queue-fetch-status').val();
+
+  var queryString = "?";
+  
+  queryString = addParam(queryString, "date", date);
+  queryString = addParam(queryString, "olderThanId", olderThanId);
+  queryString = addParam(queryString, "pageSize", pageSize);
+  queryString = addParam(queryString, "status", status);
+
+  var url = "http://localhost:4567/ertp-api/ems/registration-requests" + queryString;
+
+  var request = $.ajax({
+      url: url,
+      type: "get",
+      headers: { 'Authorization': 'Bearer ' + bearerToken }
+    });
+    
+  request.done(function (response, textStatus, jqXHR){
+    var obj = JSON.parse(jqXHR.responseText);
+    $('#queue-fetch-results').html("<i><h5>Status:</h5> " +  jqXHR.status + "<p/><pre>" + JSON.stringify(obj, null, 4) + "</pre></i>");
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown){
+    var obj = JSON.parse(jqXHR.responseText);
+    $('#queue-fetch-results').html("<i><h5>Status:</h5> " +  jqXHR.status + "<p/>" + JSON.stringify(obj, null, 4) + "</i>");
+  });
+
+  request.always(function () {
+  }); 
+}
+
+function doQueueSubmission() {
+  var url = "http://localhost:4567/ertp-api/ems/registration-requests"
+  var bearerToken = $('#bearer-token').val();
+
+  var registration = {
+    "eroRecordId": $('#queue-submission-ero-record-id').val(),
+    "applicant.firstName": $('#queue-submission-first-name').val(),
+    "applicant.lastName": $('#queue-submission-last-name').val(),
+    "applicant.middleNames": $('#queue-submission-middle-names').val(),
+    
+    "applicant.dateOfBirth": $('#queue-submission-date-of-birth').val(),
+    "applicant.nationality": $('#queue-submission-nationality').val(),
+    "includeInEditedRegister": $('#queue-submission-edited-register').val(),
+    
+    "address.current.lineOne": $('#queue-submission-address-1').val(),
+    "address.current.lineTwo": $('#queue-submission-address-1').val(),
+    "address.current.lineThree": $('#queue-submission-address-1').val(),
+    "address.current.lineFour": $('#queue-submission-address-1').val(),
+    "address.current.lineFive": $('#queue-submission-address-1').val(),
+    "address.current.postcode": $('#queue-submission-postcode').val(),
+    "address.current.city": $('#queue-submission-city').val(),
+    "address.current.county": $('#queue-submission-county').val(),
+    "address.current.uprn": $('#queue-submission-uprn').val(),
+    "localAuthority.current.snacCode":$('#queue-submission-snac').val(),
+    "localAuthority.current.gssId": $('#queue-submission-gss').val(),
+    
+    "address.previous.lineOne": $('#queue-submission-prev-address-1').val(),
+    "address.previous.lineTwo": $('#queue-submission-prev-address-2').val(),
+    "address.previous.lineThree": $('#queue-submission-prev-address-3').val(),
+    "address.previous.lineFour": $('#queue-submission-prev-address-4').val(),
+    "address.previous.lineFive": $('#queue-submission-prev-address-5').val(),
+    "address.previous.city": $('#queue-submission-prev-city').val(),
+    "address.previous.county": $('#queue-submission-prev-county').val(),
+    "address.previous.uprn": $('#queue-submission-prev-uprn').val(),
+    "address.previous.postcode": $('#queue-submission-prev-postcode').val(),
+    "localAuthority.previous.snacCode":$('#queue-submission-previous-snac').val(),
+    "localAuthority.previous.gssId": $('#queue-submission-previous-gss').val()
+   
+  };
+
+  var registrations = {
+    "registrations" : [registration]
+  };
+
+  var request = $.ajax({
+      url: url,
+      type: "post",
+      data : JSON.stringify(registrations),
+      headers: { 'Authorization': 'Bearer ' + bearerToken, "Content-type" : "text/json" }
+    });
+    
+  request.done(function (response, textStatus, jqXHR){
+    var obj = JSON.parse(jqXHR.responseText);
+    $('#queue-submission-results').html("<i><h5>Status:</h5> " +  jqXHR.status + "<p/><pre>" + JSON.stringify(obj, null, 4) + "</pre></i>");
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown){
+    var obj = JSON.parse(jqXHR.responseText);
+    $('#queue-submission-results').html("<i><h5>Status:</h5> " +  jqXHR.status + "<p/>" + JSON.stringify(obj, null, 4) + "</i>");
+  });
+
+  request.always(function () {
+  }); 
+}
+
+</script>
+</head>
+
+<body>
+	<div class="navbar">
+  		<div class="navbar-inner">
+    	<a class="brand" href="#">ERTP API Explorer</a>
+    	<ul class="nav">
+      	 <li class="active top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#queue-fetch">Queue fetching</a></li>
+      	 <li class="top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#queue-submission">Queue submissions</a></li>
+ 		     <li class="top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#mark-retrieved">Marking retrieved</a></li>
+    	</ul>
+  		</div>
+	</div>
+  <div class="container" id="bearer-token-title">
+     <div class="row">
+        <div class="span6">
+              <label><h6>Bearer token</h6></label>
+              <input id="bearer-token" type="text">
+        </div>
+        </div>
+  </div>
+  <div class="container collapse in" id="queue-fetch">
+      <h3>Queue Fetch</h3>
+      <div class="row">
+          <div class="span12">
+            <h6>URL:</h6>GET: http://preview-ertp-api.alphagov.co.uk/ertp-api/ems/registration-requests</div>
+          </div>
+        <form>
+        <fieldset>
+        <div class="row">
+        <div class="span6"><h5>Parameters</h5></div>
+        </div>
+
+        <div class="row">
+        <div class="span6">
+              <label><h6>Page Size</h6></label>
+              <input id="queue-fetch-page-size" type="text" placeholder="(allowed 0 < n <= 500)">
+              <label><h6>Date (yyyy-mm-dd)</h6></label>
+              <input id="queue-fetch-date" type="text" placeholder="Date of oldest">
+        </div>
+        <div class="span6">
+              <label><h6>Status (one of: Verified, Unprocessed or SentForVerification)</h6></label>
+              <input id="queue-fetch-status" type="text" placeholder="Record status">
+              <label><h6>Older Than Id</h6></label>
+              <input id="queue-fetch-older-than-id" type="text" placeholder="Id of oldest record">
+        </div>
+      </fieldset>
+      </form>
+      <div class="row">
+        <div class="span12">
+          <button class="btn btn-primary" type="button" onclick="doQueueFetch();">Go</button>
+        </div>
+      </div>
+        <div class="row">
+          <div class="span12" id="queue-fetch-results-title"><h6>Query Results</h6></div>
+        </div>
+        <div class="row">
+          <div class="span12" id="queue-fetch-results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container collapse" id="queue-submission">
+      <h3>Queue submissions</h3>
+       <div class="row">
+          <div class="span12">
+            <h6>URL:</h6>POST: http://preview-ertp-api.alphagov.co.uk/ertp-api/ems/registration-requests</div>
+          </div>
+        <form>
+        <fieldset>
+        <div class="row">
+          <div class="span6"><h6>Registration Request</h6></div>
+        </div>
+
+            
+        <div class="row">
+        <div class="span6">
+          <label><h6>Ero Record Id</h6></label>
+          <input id="queue-submission-ero-record-id" type="text">
+          <label><h6>Middle Names</h6></label>
+          <input id="queue-submission-middle-names" type="text">
+          <label><h6>Date of Birth</h6></label>
+          <input id="queue-submission-date-of-birth" type="text">
+          <label><h6>Include In Edited Register</h6></label>
+          <input id="queue-submission-edited-register" type="text">
+        </div>
+        <div class="span6">
+          <label><h6>First Name</h6></label>
+          <input id="queue-submission-first-name" type="text">
+          <label><h6>Last Name</h6></label>
+          <input id="queue-submission-last-name" type="text">
+          <label><h6>Nationality</h6></label>
+          <input id="queue-submission-nationality" type="text">
+        </div>
+        </div>
+        <hr/>
+        <div class="row">
+        <div class="span6">
+           <label><h6>Address 1</h6></label>
+          <input id="queue-submission-address-1" type="text">
+          <label><h6>Address 2</h6></label>
+          <input id="queue-submission-address-2" type="text">
+          <label><h6>Address 3</h6></label>
+          <input id="queue-submission-address-3" type="text">
+          <label><h6>Address 4</h6></label>
+          <input id="queue-submission-address-4" type="text">
+          <label><h6>Address 5</h6></label>
+          <input id="queue-submission-address-5" type="text">
+          <label><h6>County</h6></label>
+          <input id="queue-submission-county" type="text">
+          <label><h6>City</h6></label>
+          <input id="queue-submission-city" type="text">
+          <label><h6>Postcode</h6></label>
+          <input id="queue-submission-postcode" type="text">
+          <label><h6>UPRN</h6></label>
+          <input id="queue-submission-uprn" type="text">
+          <label><h6>SNAC</h6></label>
+          <input id="queue-submission-snac" type="text">
+          <label><h6>GSS</h6></label>
+          <input id="queue-submission-gss" type="text">
+        </div>
+        <div class="span6">
+           <label><h6>Prev Address 1</h6></label>
+          <input id="queue-submission-prev-address-1" type="text">
+          <label><h6>Prev Address 2</h6></label>
+          <input id="queue-submission-prev-address-2" type="text">
+          <label><h6>Prev Address 3</h6></label>
+          <input id="queue-submission-prev-address-3" type="text">
+          <label><h6>Prev Address 4</h6></label>
+          <input id="queue-submission-prev-address-4" type="text">
+          <label><h6>Prev Address 5</h6></label>
+          <input id="queue-submission-prev-address-5" type="text">
+          <label><h6>Prev County</h6></label>
+          <input id="queue-submission-prev-county" type="text">
+          <label><h6>Prev City</h6></label>
+          <input id="queue-submission-prev-city" type="text">
+          <label><h6>Pre Postcode</h6></label>
+          <input id="queue-submission-prev-postcode" type="text">
+          <label><h6>Pre UPRN</h6></label>
+          <input id="queue-submission-prev-uprn" type="text">
+          <label><h6>Pre SNAC</h6></label>
+          <input id="queue-submission-prev-snac" type="text">
+          <label><h6>Prev GSS</h6></label>
+          <input id="queue-submission-prev-gss" type="text">
+        </div>
+        </div>
+      </fieldset>
+      </form>
+      <div class="row">
+        <div class="span12">
+          <button class="btn btn-primary" type="button" onclick="doQueueSubmission();">Go</button>
+        </div>
+      </div>
+        <div class="row">
+          <div class="span12" id="queue-fetch-submission-title"><h6>Submission Results</h6></div>
+        </div>
+        <div class="row">
+          <div class="span12" id="queue-submission-results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container collapse" id="mark-retrieved">
+     <h3> Marking retrieved</h3>
+  </div>
+
+</body>
 </html>
+
