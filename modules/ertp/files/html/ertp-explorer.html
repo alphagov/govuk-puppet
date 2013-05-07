@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>ERTP API Explorer</title>
-  	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-	<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-	<script src="api.js"></script>
+  <title>ERTP API Explorer</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+  <script src="api.js"></script>
 <script>
 
 $(document).ready(function() {
@@ -128,36 +128,35 @@ function doQueueSubmission() {
 </head>
 
 <body>
-	<div class="navbar">
-  		<div class="navbar-inner">
-    	<a class="brand" href="#">ERTP API Explorer</a>
-    	<ul class="nav">
-      	 <li class="active top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#queue-fetch">Queue fetching</a></li>
-      	 <li class="top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#queue-submission">Queue submissions</a></li>
- 		     <li class="top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#mark-retrieved">Marking retrieved</a></li>
-    	</ul>
-  		</div>
-	</div>
+  <div class="navbar">
+      <div class="navbar-inner">
+      <a class="brand" href="#">ERTP API Explorer</a>
+      <ul class="nav">
+         <li class="active top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#queue-fetch">Queue fetching</a></li>
+         <li class="top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#queue-submission">Queue submissions</a></li>
+         <li class="top-link"><a href="#" id="do-queue-fetch" data-toggle="collapse" data-target="#mark-retrieved">Marking retrieved</a></li>
+      </ul>
+      </div>
+  </div>
   <div class="container" id="bearer-token-title">
      <div class="row">
         <div class="span12">
               <label><h6>Bearer token</h6></label>
               <input id="bearer-token" type="text">
         </div>
-  	</div>
-  	 <div class="row">
+    </div>
+     <div class="row">
         <div class="span12">
               <label><h6>URL:</h6></label><span id="ertp-api-url"></span>
         </div>
-  	</div>
+    </div>
   </div>
   <div class="container collapse in" id="queue-fetch">
       <h3>Queue Fetch</h3>
-      <div class="row">
         <form>
         <fieldset>
         <div class="row">
-        <div class="span6"><h5>Parameters</h5></div>
+        <div class="span12"><h5>Parameters</h5></div>
         </div>
 
         <div class="row">
@@ -173,6 +172,7 @@ function doQueueSubmission() {
               <label><h6>Older Than Id</h6></label>
               <input id="queue-fetch-older-than-id" type="text" placeholder="Id of oldest record">
         </div>
+        </div>
       </fieldset>
       </form>
       <div class="row">
@@ -186,18 +186,14 @@ function doQueueSubmission() {
         <div class="row">
           <div class="span12" id="queue-fetch-results"></div>
         </div>
-      </div>
-    </div>
   </div>
   <div class="container collapse" id="queue-submission">
       <h3>Queue submissions</h3>
-       <div class="row">
         <form>
         <fieldset>
         <div class="row">
-          <div class="span6"><h6>Registration Request</h6></div>
+          <div class="span12"><h6>Registration Request</h6></div>
         </div>
-
             
         <div class="row">
         <div class="span6">
@@ -284,7 +280,6 @@ function doQueueSubmission() {
           <div class="span12" id="queue-submission-results"></div>
         </div>
       </div>
-    </div>
   </div>
   <div class="container collapse" id="mark-retrieved">
      <h3> Marking retrieved</h3>
