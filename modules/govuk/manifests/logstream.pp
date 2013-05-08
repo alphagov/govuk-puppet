@@ -33,8 +33,6 @@ define govuk::logstream (
   # TODO: Change the `enable => false` to a more Puppet-esque
   # `ensure => absent` interface?
   if ($enable == true and $::govuk_platform != 'development') {
-    $tag_string = join($tags, ' ')
-
     file { "/etc/init/logstream-${title}.conf":
       ensure    => present,
       content   => template('govuk/logstream.erb'),
