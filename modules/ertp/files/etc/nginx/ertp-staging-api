@@ -2,11 +2,6 @@ server {
   server_name  staging-ertp-api.alphagov.co.uk;
   listen *:80;
 
-  location /explorer {
-    root        /var/www;
-    index       index.html;
-  }
-
   location / {
     proxy_pass http://127.0.0.1:9900/;
   }

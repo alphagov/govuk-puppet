@@ -1,13 +1,6 @@
 class ertp {
 }
 
-class ertp::explorer {
-  file {'/var/www/explorer/index.html':
-    ensure => present,
-    source => ['puppet:///modules/ertp/html/ertp-explorer.html']
-  }
-}
-
 class ertp::scripts {
   file {'/etc/init/ertp.conf':
     ensure => present,
