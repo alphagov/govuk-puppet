@@ -51,6 +51,15 @@ class govuk::apps::publicapi {
 
         proxy_pass http://${backdropread};
       }
+
+      location ~ ^/performance/licensing-journey/api {
+        rewrite ^/performance/licensing-journey/api(.*)$ /licensing_journey\$1 break;
+
+        proxy_set_header Host ${backdropread};
+        proxy_set_header X-API-PREFIX performance/licensing-journey/api;
+
+        proxy_pass http://${backdropread};
+      }
     "
   }
 }
