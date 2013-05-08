@@ -1,7 +1,23 @@
+# == Class: router::nginx
+#
+# Nginx configs for "cache" nodes:
+#
+# - Forwards requests to Varnish over loopback (which subsequently routes to
+#   the correct frontend/backend).
+# - Performs some early redirects and prevents them travelling down the
+#   stack for performance reasons.
+# - Intercepts error responses and replaces them with stylised pages. These
+#   are periodically fetched from static/assets and stored locally.
+#
+# === Parameters
+#
+# [*vhost_protected*]
+#   Mandatory boolean value. Whether to enable BasicAuth or not. Used in
+#   environments where origin is not firewalled.
+#
 class router::nginx (
   $vhost_protected
 ) {
-  $platform = $::govuk_platform
   $app_domain = extlookup('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
@@ -14,7 +30,6 @@ class router::nginx (
 
   nginx::config::site { 'www.gov.uk':
     content         => template('router/base.conf.erb'),
-    vhost_protected => $vhost_protected,
   }
 
   @ufw::allow { "allow-http-8080-from-all":
