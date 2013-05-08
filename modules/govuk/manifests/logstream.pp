@@ -1,6 +1,6 @@
 # == Define: govuk::logstream
 #
-# Creates an upstart job which tails a logfile and sends it to govuk_logpipe.
+# Creates an upstart job which tails a logfile and sends it to logship from tagalog.
 #
 # == Parameters
 # [*logfile*]
