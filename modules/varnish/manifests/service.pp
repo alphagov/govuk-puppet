@@ -1,21 +1,9 @@
 class varnish::service {
 
-  # Sysv scripts on Lucid always return exit code 0.
-  $service_hasstatus = $::lsbdistcodename ? {
-    'lucid' => false,
-    default => true,
-  }
-  $service_status = $::lsbdistcodename ? {
-    'lucid' => '/etc/init.d/varnish status | grep \'varnishd is running\'',
-    default => undef,
-  }
-
   service { 'varnish':
     ensure     => running,
     hasrestart => false,
     restart    => '/usr/sbin/service varnish reload',
-    hasstatus  => $service_hasstatus,
-    status     => $service_status,
   }
 
   # Sysv scripts always return exit code 0 on all dists.
