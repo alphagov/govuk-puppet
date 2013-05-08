@@ -1,4 +1,4 @@
-class nginx ($server_names_hash_max_size = 512) {
+class nginx ($server_names_hash_max_size = 512, $variables_hash_max_size = 512) {
 
   anchor { 'nginx::begin':
     notify => Class['nginx::service'];
