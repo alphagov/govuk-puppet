@@ -1,6 +1,6 @@
 # == Define: govuk::logstream
 #
-# Creates an upstart job which tails a logfile and sends it to logship from tagalog.
+# Creates an upstart job which tails a logfile and sends it to govuk_logpipe.
 #
 # == Parameters
 # [*logfile*]
@@ -33,6 +33,8 @@ define govuk::logstream (
   # TODO: Change the `enable => false` to a more Puppet-esque
   # `ensure => absent` interface?
   if ($enable == true and $::govuk_platform != 'development') {
+    $tag_string = join($tags, ' ')
+
     file { "/etc/init/logstream-${title}.conf":
       ensure    => present,
       content   => template('govuk/logstream.erb'),
