@@ -19,17 +19,15 @@ PermitEmptyPasswords            no
 KerberosAuthentication          no
 GSSAPIAuthentication            no
 
+PermitRootLogin                 no
+PasswordAuthentication          no
+ChallengeResponseAuthentication no
+
 <%- if govuk_platform == "development" -%>
-PasswordAuthentication          yes
-PermitRootLogin                 yes
 X11Forwarding                   yes
 X11DisplayOffset                10
-ChallengeResponseAuthentication yes
 <%- else -%>
-PasswordAuthentication          no
-PermitRootLogin                 no
 X11Forwarding                   no
-ChallengeResponseAuthentication no
 <%- end -%>
 
 <%- if @govuk_class == "jumpbox" -%>
