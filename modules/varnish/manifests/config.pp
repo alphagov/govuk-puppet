@@ -1,10 +1,4 @@
 class varnish::config {
-  # VCL syntax is different between major versions.
-  $vcl_version = $::lsbdistcodename ? {
-    'precise' => 3,
-    default   => 2,
-  }
-
   include varnish::restart
 
   # A list of smartanswers to make them easy to maintain
