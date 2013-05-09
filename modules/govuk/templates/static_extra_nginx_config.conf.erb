@@ -1,3 +1,7 @@
+location /robots.txt {
+  expires 1w;
+}
+
 location ~ ^/government/(assets|uploads|placeholder$)/ {
   proxy_set_header Host <%= @whitehall_frontend_host %>;
   proxy_set_header X-Real-IP $remote_addr;
