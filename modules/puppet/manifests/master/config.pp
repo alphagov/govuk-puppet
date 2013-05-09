@@ -4,8 +4,9 @@ class puppet::master::config ($unicorn_port = '9090') {
   }
   nginx::log {
     'puppetmaster-json.event.access.log':
-      json      => true,
-      logstream => true;
+      json          => true,
+      logstream     => true,
+      statsd_metric => "%{@source_host}.nginx_logs.puppetmaster.http_%{@fields.status}";
     'puppetmaster-access.log':
       logstream => false;
     'puppetmaster-error.log':
