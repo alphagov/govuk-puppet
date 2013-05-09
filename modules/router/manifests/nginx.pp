@@ -47,8 +47,9 @@ class router::nginx (
   }
   nginx::log {
     'lb-json.event.access.log':
-      json      => true,
-      logstream => true;
+      json          => true,
+      logstream     => true,
+      statsd_metric => "%{@source_host}.nginx_logs.http_%{@fields.status}";
     'lb-access.log':
       logstream => false;
     'lb-error.log':
