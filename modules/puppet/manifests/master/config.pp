@@ -6,7 +6,7 @@ class puppet::master::config ($unicorn_port = '9090') {
     'puppetmaster-json.event.access.log':
       json          => true,
       logstream     => true,
-      statsd_metric => "%{@source_host}.nginx_logs.puppetmaster.http_%{@fields.status}";
+      statsd_metric => "${$::fqdn_underscore}.nginx_logs.puppetmaster.http_%{@fields.status}";
     'puppetmaster-access.log':
       logstream => false;
     'puppetmaster-error.log':
