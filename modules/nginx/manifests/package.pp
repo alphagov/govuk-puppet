@@ -11,7 +11,12 @@ class nginx::package {
     }
   }
 
+  # nginx package actually has nothing useful in it; we need nginx-full
   package { 'nginx':
+    ensure => purged,
+  }
+
+  package { 'nginx-full':
     ensure => $version,
     notify => Class['nginx::restart'],
   }
