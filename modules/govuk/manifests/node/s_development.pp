@@ -38,6 +38,7 @@ class govuk::node::s_development {
     'govuk::apps::contentapi':            vhost_protected => false;
     'govuk::apps::backdrop_read':         vhost_protected => true;
     'govuk::apps::backdrop_write':        vhost_protected => false;
+    'govuk::apps::backdrop_ga_collector': ;
   }
 
   include govuk::apps::asset_manager
