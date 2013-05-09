@@ -35,9 +35,10 @@ define nginx::config::vhost::proxy(
 
   nginx::log {
     $json_access_log:
-      json      => true,
-      logpath   => $logpath,
-      logstream => $logstream;
+      json          => true,
+      logpath       => $logpath,
+      logstream     => $logstream,
+      statsd_metric => "%{@source_host}.nginx_logs.${title_escaped}.http_%{@fields.status}";
     $access_log:
       logpath   => $logpath,
       logstream => false;

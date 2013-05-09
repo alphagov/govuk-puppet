@@ -73,4 +73,20 @@ describe 'govuk::logstream', :type => :define do
       )
     end
   end
+
+  context 'with statsd shipper specified' do
+    let(:params) { {
+      :logfile       => log_file,
+      :enable        => true,
+      :json          => true,
+      :statsd_metric => '%{@source_host}.foo.%{@fields.bar}',
+    } }
+
+    it 'should pass --json arg' do
+      should contain_file(upstart_conf).with(
+        :ensure  => 'present',
+        :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd,metric=%{@source_host}.foo.%{@fields.bar}$/,
+      )
+    end
+  end
 end

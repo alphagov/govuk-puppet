@@ -1,13 +1,12 @@
-
-
 define nginx::log (
-  $logpath   = '/var/log/nginx',
-  $logowner  = 'www-data',
-  $loggroup  = 'adm',
-  $logmode   = '0640',
-  $logstream = false,
-  $json      = false,
-  $logname   = regsubst($name, '\.[^.]*$', '')
+  $logpath       = '/var/log/nginx',
+  $logowner      = 'www-data',
+  $loggroup      = 'adm',
+  $logmode       = '0640',
+  $logstream     = false,
+  $json          = false,
+  $logname       = regsubst($name, '\.[^.]*$', ''),
+  $statsd_metric = undef
   ){
   file { "${logpath}/${name}":
     ensure  => 'present',
@@ -20,11 +19,12 @@ define nginx::log (
   }
 
   govuk::logstream { $name:
-    logfile => "${logpath}/${name}",
-    tags    => ['nginx'],
-    fields  => {'application' => $logname},
-    enable  => $logstream,
-    json    => $json,
+    logfile       => "${logpath}/${name}",
+    tags          => ['nginx'],
+    fields        => {'application' => $logname},
+    enable        => $logstream,
+    json          => $json,
+    statsd_metric => $statsd_metric,
   }
 
 }

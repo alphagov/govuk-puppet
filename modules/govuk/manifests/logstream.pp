@@ -21,13 +21,18 @@
 # [*json*]
 #   Whether the log is in json format. Defaults to false.
 #
+# [*statsd_metric*]
+#   if defined, specifies statsd metric (in logship's CLI format) to
+#   send to statsd. Defaults to undef.
+#
 define govuk::logstream (
   $logfile,
   $tags = [],
   $fields = {},
   $enable = true,
   $source_host = $::fqdn,
-  $json = false
+  $json = false,
+  $statsd_metric = undef
 ) {
 
   # TODO: Change the `enable => false` to a more Puppet-esque
