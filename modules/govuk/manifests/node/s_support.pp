@@ -22,6 +22,7 @@ password=${mysql_password}
   }
 
   include java::openjdk6::jre
+  include java::openjdk6::jdk
 
   class { 'java::set_defaults':
     jdk => 'openjdk6',
