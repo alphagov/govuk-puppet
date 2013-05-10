@@ -74,8 +74,8 @@ class nagios::client::checks {
     desc      => "high disk time",
     target    => "movingMedian(sum(${::fqdn_underscore}.disk-sd?.disk_time.*),${disk_time_window_points})",
     args      => "--from ${disk_time_window_minutes}mins",
-    warning   => 50,  # milliseconds
-    critical  => 100, # milliseconds
+    warning   => 100, # milliseconds
+    critical  => 200, # milliseconds
     host_name => $::fqdn,
   }
 
