@@ -13,6 +13,14 @@ class govuk::apps::backdrop_ga_collector {
     owner   => "deploy"
   }
 
+  # Ensure lib dir exists
+  file { "/var/lib/govuk/backdrop-ga-collector":
+    ensure  => 'directory',
+    purge   => true,
+    recurse => true,
+    force   => true
+  }
+
   file { "/var/lib/govuk/backdrop-ga-collector/google_storage.db":
     ensure  => present,
     content => template("govuk/google_storage.db.erb"),
