@@ -49,7 +49,7 @@ class router::nginx (
     'lb-json.event.access.log':
       json          => true,
       logstream     => true,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.http_%{@fields.status}";
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.www-origin.http_%{@fields.status}";
     'lb-access.log':
       logstream => false;
     'lb-error.log':
