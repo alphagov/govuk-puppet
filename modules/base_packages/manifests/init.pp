@@ -4,7 +4,6 @@ class base_packages {
     [
       'ack-grep',
       'bzip2',
-      'curl',
       'gettext',
       'git-core',
       'htop',
