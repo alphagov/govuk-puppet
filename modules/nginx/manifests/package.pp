@@ -13,7 +13,7 @@ class nginx::package {
       $version = '1.4.1-1ppa0~precise'
     }
     default: {
-      $version = '1.4.1-1ppa1~precise'
+      $version = '1.4.1-1ppa1~lucid'
     }
   }
 
