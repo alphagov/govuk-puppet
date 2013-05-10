@@ -43,11 +43,20 @@ class govuk::apps::publicapi {
         proxy_pass http://${full_domain}-proxy;
       }
 
-      location ~ ^/performance/licensing/api {
-        rewrite ^/performance/licensing/api(.*)$ /licensing\$1 break;
+      location ~ ^/performance/licensing/api/journey {
+        rewrite ^/performance/licensing/api/journey(.*)$ /licensing_journey\$1 break;
 
         proxy_set_header Host ${backdropread};
-        proxy_set_header X-API-PREFIX performance/licensing/api;
+        proxy_set_header X-API-PREFIX performance/licensing-journey/api;
+
+        proxy_pass http://${backdropread};
+      }
+
+      location ~ ^/performance/licensing/api/application {
+        rewrite ^/performance/licensing/api/application(.*)$ /licensing\$1 break;
+
+        proxy_set_header Host ${backdropread};
+        proxy_set_header X-API-PREFIX performance/licensing/api/application;
 
         proxy_pass http://${backdropread};
       }
