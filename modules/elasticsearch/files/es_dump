@@ -1,5 +1,13 @@
 #!/usr/bin/ruby
 
+# es_dump
+# -------
+# export all ElasticSearch indexes which have aliases to zip archives
+#
+# USAGE:
+# es_dump <instance url> <save path>
+#
+
 require 'rubygems'
 require 'net/http'
 require 'logger'
