@@ -16,9 +16,14 @@ class nginx::package {
     ensure => purged,
   }
 
-  package { 'nginx-full':
+  package { 'nginx-common':
     ensure => $version,
     notify => Class['nginx::restart'],
-  }
+   }
 
+  package { 'nginx-full':
+    ensure  => $version,
+    notify  => Class['nginx::restart'],
+    require => Package['nginx-common'],
+  }  
 }
