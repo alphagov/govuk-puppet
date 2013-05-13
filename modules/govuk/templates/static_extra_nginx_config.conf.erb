@@ -1,3 +1,7 @@
+location /robots.txt {
+  expires 1w;
+}
+
 location ~ ^/government/(assets|uploads|placeholder$)/ {
   proxy_set_header Host <%= @whitehall_frontend_host %>;
   proxy_set_header X-Real-IP $remote_addr;
@@ -24,4 +28,10 @@ location ~ ^/media/ {
   # forces nginx not to clear Cache-Control headers further up the
   # stack.
   include /etc/nginx/sts.conf;
+}
+
+location /static/overseas-passport/OS_Payment_Instruction.pdf {
+  expires max;
+  add_header cache-control 'public';
+  return 301 <%= @website_root %>/government/publications/overseas-passport-creditdebit-card-payment-authorisation;
 }

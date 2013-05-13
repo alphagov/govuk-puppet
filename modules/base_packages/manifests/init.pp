@@ -9,6 +9,7 @@ class base_packages {
       'git-core',
       'htop',
       'iotop',
+      'dstat',
       'iptraf',
       'less',
       'libc6-dev',

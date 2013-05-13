@@ -16,8 +16,10 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   }
 
   class { 'govuk::apps::backdrop_write': vhost_protected => false; }
+  class { 'govuk::apps::backdrop_ga_collector': }
 
   datainsight::collector { 'ga': }
   datainsight::collector { 'insidegov': }
   datainsight::collector { 'nongovuk-reach': }
+
 }

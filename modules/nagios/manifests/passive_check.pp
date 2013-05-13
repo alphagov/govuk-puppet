@@ -36,10 +36,7 @@ define nagios::passive_check (
   file { "/etc/nagios3/conf.d/nagios_host_${host_name}/${title}.cfg":
     ensure  => present,
     content => template('nagios/passive_service.erb'),
+    require => Class['nagios::package'],
     notify  => Class['nagios::service'],
-    require => [
-      Class['nagios::package'],
-      Nagios::Timeperiod['never'],
-    ],
   }
 }

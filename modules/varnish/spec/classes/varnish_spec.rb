@@ -1,10 +1,24 @@
 require_relative '../../../../spec_helper'
 
 describe 'varnish', :type => :class do
-  it do
-    should contain_file('/etc/varnish/default.vcl')
-    should contain_file('/etc/default/varnish')
-    should contain_package('varnish').with_ensure('installed')
-    should contain_service('varnish')
+  context 'Varnish 3.x on Precise' do
+    let(:facts) {{
+      :lsbdistcodename => 'precise',
+    }}
+
+    it { should contain_file('/etc/varnish/default.vcl') }
+    it { should contain_file('/etc/default/varnish') }
+    it { should contain_package('varnish').with_ensure('installed') }
+    it { should contain_service('varnish') }
+  end
+
+  context 'Varnish 2.x on Lucid' do
+    let(:facts) {{
+      :lsbdistcodename => 'lucid',
+    }}
+
+    it do
+      expect { should }.to raise_error(Puppet::Error, /not supported/)
+    end
   end
 end

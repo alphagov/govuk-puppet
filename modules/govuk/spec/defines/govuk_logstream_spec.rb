@@ -1,6 +1,8 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk::logstream', :type => :define do
+  let(:default_shipper) { 'redis,\$REDIS_SERVERS,key=logs,bulk=true,bulk_index=logs-current' }
+  let(:default_filters) { 'init_txt,add_timestamp,add_source_host' }
   let(:title) { 'giraffe' }
   let(:facts) {{ :fqdn => 'camel.example.com' }}
 
@@ -15,16 +17,16 @@ describe 'govuk::logstream', :type => :define do
 
     it 'should tail correct logfile' do
       should contain_file(upstart_conf).with(
-        :content => /^\s+tail -F \/var\/log\/elephant\.log \| govuk_logpipe/,
+        :content => /^\s+tail -F \/var\/log\/elephant\.log \| logship/,
       )
     end
 
     it 'should pass appropriate CLI args' do
       should contain_file(upstart_conf).with(
-        :ensure  => 'present',
-        :content => /\| govuk_logpipe --source-host camel.example.com --bulk --bulk-index logs-current$/,
+        :content => /\| logship -f #{default_filters} -s #{default_shipper}$/,
       )
     end
+
   end
 
   context 'with tags => Array' do
@@ -34,10 +36,10 @@ describe 'govuk::logstream', :type => :define do
       :tags    => ['zebra', 'llama'],
     } }
 
-    it 'should pass --tags with list' do
+    it 'should pass add_tags with list in filter chain' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe --source-host camel.example.com --bulk --bulk-index logs-current -t zebra llama$/,
+        :content => /\| logship -f #{default_filters},add_tags:zebra:llama -s #{default_shipper}$/,
       )
     end
   end
@@ -52,22 +54,7 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass --fields with kv pairs' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe --source-host camel.example.com --bulk --bulk-index logs-current -f zebra=stripey llama=fluffy$/,
-      )
-    end
-  end
-
-  context 'with source_host => orangutan.zoo.com' do
-    let(:params) { {
-      :logfile     => log_file,
-      :enable      => true,
-      :source_host => 'orangutan.zoo.com',
-    } }
-
-    it 'should pass --fields with correct host kv' do
-      should contain_file(upstart_conf).with(
-        :ensure  => 'present',
-        :content => /\| govuk_logpipe --source-host orangutan.zoo.com --bulk --bulk-index logs-current$/,
+        :content => /\| logship -f #{default_filters},add_fields:zebra=stripey:llama=fluffy -s #{default_shipper}$/,
       )
     end
   end
@@ -82,7 +69,23 @@ describe 'govuk::logstream', :type => :define do
     it 'should pass --json arg' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| govuk_logpipe --json --source-host camel.example.com --bulk --bulk-index logs-current$/,
+        :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper}$/,
+      )
+    end
+  end
+
+  context 'with statsd shipper specified' do
+    let(:params) { {
+      :logfile       => log_file,
+      :enable        => true,
+      :json          => true,
+      :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
+    } }
+
+    it 'should pass --json arg' do
+      should contain_file(upstart_conf).with(
+        :ensure  => 'present',
+        :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd,metric=tom_jerry.foo.%{@fields.bar}$/,
       )
     end
   end

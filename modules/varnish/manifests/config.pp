@@ -1,10 +1,4 @@
 class varnish::config {
-  # VCL syntax is different between major versions.
-  $vcl_version = $::lsbdistcodename ? {
-    'precise' => 3,
-    default   => 2,
-  }
-
   include varnish::restart
 
   # A list of smartanswers to make them easy to maintain
@@ -33,6 +27,7 @@ class varnish::config {
     'energy-grants-calculator',
     'estimate-self-assessment-penalties',
     'exchange-a-foreign-driving-licence',
+    'find-a-british-embassy',
     'help-if-you-are-arrested-abroad',
     'inherits-someone-dies-without-will',
     'legal-right-to-work-in-the-uk',

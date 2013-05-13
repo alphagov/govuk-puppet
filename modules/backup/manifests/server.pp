@@ -3,7 +3,6 @@ class backup::server {
   include backup::client
 
   file { ['/data/backups',
-          '/home/govuk-backup/.ssh',
           '/etc/backup',
           '/etc/backup/daily',
           '/etc/backup/weekly',
@@ -13,11 +12,13 @@ class backup::server {
     mode    => '0700',
   }
 
+  # Parent dir is provided by govuk::user in backup::client.
   file {'/home/govuk-backup/.ssh/id_rsa':
     ensure  => file,
     owner   => 'govuk-backup',
     mode    => '0600',
     content => extlookup('govuk-backup_key_private', ''),
+    require => Class['backup::client'],
   }
 
   cron { 'cron_govuk-backup_daily':

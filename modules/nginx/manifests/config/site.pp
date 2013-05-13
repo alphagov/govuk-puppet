@@ -1,7 +1,6 @@
 define nginx::config::site(
   $content = 'UNSET',
   $source = 'UNSET',
-  $vhost_protected = false
 ) {
 
   if $content != 'UNSET' {

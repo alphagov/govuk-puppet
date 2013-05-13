@@ -12,8 +12,9 @@ class nginx::config ($server_names_hash_max_size) {
   }
   nginx::log {
     'json.event.access.log':
-      json      => true,
-      logstream => true;
+      json          => true,
+      logstream     => true,
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}";
     'access.log':
       logstream => false;
     'error.log':

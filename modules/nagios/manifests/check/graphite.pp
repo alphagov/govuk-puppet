@@ -45,31 +45,26 @@ define nagios::check::graphite(
   $warning,
   $critical,
   $host_name,
-  $args = undef,
+  $args = '',
   $document_url = ''
 ) {
-  $check_command = $args ? {
-    undef   => 'check_graphite_metric',
-    default => 'check_graphite_metric_args',
-  }
-  $args_real = $args ? {
-    undef   => '',
-    default => "!${args}",
-  }
+  $check_command = 'check_graphite_metric_args'
+  $args_real = "-F 5minutes ${args}"
+  $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
   $monitoring_domain_suffix = extlookup("monitoring_domain_suffix", "")
   $graph_width = 600
   $graph_height = 300
 
   nagios::check { $title:
-    check_command              => "${check_command}!${target}!${warning}!${critical}${args_real}",
+    check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
     graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
-target=${target}&\
-target=alias(dashed(constantLine(${warning})),\"warning\")&\
-target=alias(dashed(constantLine(${critical})),\"critical\")",
+target=${url_encoded_target}&\
+target=alias(dashed(constantLine(${warning})),%22warning%22)&\
+target=alias(dashed(constantLine(${critical})),%22critical%22)",
     document_url               => $document_url,
     attempts_before_hard_state => 1,
   }

@@ -90,6 +90,12 @@ class govuk::node::s_base {
     version => '1.8.24',
   }
 
+  # whoopsie is the ubuntu crash reporter. We don't want to be running any
+  # software that sends data from our machines to 3rd-party services. Remove it.
+  package { 'whoopsie':
+    ensure => purged,
+  }
+
   case $::govuk_provider {
     'sky': {
       include govuk::firewall

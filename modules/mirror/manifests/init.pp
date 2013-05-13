@@ -8,17 +8,12 @@ class mirror {
     fullname => 'Netstorage Upload User',
     email    => 'webops@digital.cabinet-office.gov.uk',
   }
-  file { '/home/govuk-netstorage/.ssh':
-    ensure  => directory,
-    owner   => 'govuk-netstorage',
-    mode    => '0700',
-    require => Govuk::User['govuk-netstorage'],
-  }
   file { '/home/govuk-netstorage/.ssh/id_rsa':
     ensure  => file,
     owner   => 'govuk-netstorage',
     mode    => '0600',
     content => extlookup('govuk-netstorage_key_private', ''),
+    require => Govuk::User['govuk-netstorage'],
   }
 
   #create cron lock file writable by user

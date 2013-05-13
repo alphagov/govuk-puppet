@@ -56,11 +56,26 @@ class nagios::client::checks {
     host_name           => $::fqdn,
   }
 
-  @@nagios::check::graphite { "check_io_time${::hostname}":
-    target    => "maxSeries(${::fqdn_underscore}.disk-sd?.disk_time.*)",
-    warning   => 30,
-    critical  => 60,
-    desc      => "high disk I/O usage",
+  # Check how much time the kernel is spending reading and writing to disk. This
+  # checks the median (50th percentile) time (in milliseconds) spent per second
+  # performing I/O operations over the last 5 minutes. The argument to
+  # movingMedian is the number of data points to include in the moving average
+  # frame, calculated below as
+  #
+  #   (5 minutes * 60 seconds minute^-1) / 10 seconds datapoint^-1
+  #
+  # This will not alert on short spikes in I/O unless they are very large.
+  # Instead, it is intended to alert on persistent high I/O.
+
+  $disk_time_window_minutes = 5
+  $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
+
+  @@nagios::check::graphite { "check_disk_time_${::hostname}":
+    desc      => "high disk time",
+    target    => "movingMedian(sum(${::fqdn_underscore}.disk-sd?.disk_time.*),${disk_time_window_points})",
+    args      => "--from ${disk_time_window_minutes}mins",
+    warning   => 100, # milliseconds
+    critical  => 200, # milliseconds
     host_name => $::fqdn,
   }
 

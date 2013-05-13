@@ -3,13 +3,17 @@ class collectd::package {
 
   # Allow this to fail() on unsupported versions of Ubuntu.
   $package_version = $::lsbdistcodename ? {
-    'lucid'   => '5.1.0-3',
-    'precise' => '5.1.0-2',
+    'lucid'   => '5.3.0-ppa8~lucid1',
+    'precise' => '5.3.0-ppa8~precise1',
   }
 
-  # collectd doesn't have a versioned dependency on collectd-core so if we
-  # want to upgrade it to a given version we have to manage both.
-  package { ['collectd', 'collectd-core']:
+  # collectd contains only configuration files, which we're overriding anyway
+  package { 'collectd':
+    ensure => purged,
+  }
+  # collectd-core contains collectd itself, and all the compiled plugins
+  package { 'collectd-core':
     ensure  => $package_version,
+    require => Package['collectd'],
   }
 }

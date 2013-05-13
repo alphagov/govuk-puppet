@@ -5,4 +5,13 @@ describe 'mirror', :type => :class do
     should contain_file('/usr/local/bin/govuk_mirrorer')
     should_not raise_error(Puppet::ParseError)
   end
+
+  it {
+    # Leaky abstraction? We need to know that govuk::user creates the
+    # parent directory for our file.
+    should contain_file('/home/govuk-netstorage/.ssh').with_ensure('directory')
+  }
+  it {
+    should contain_file('/home/govuk-netstorage/.ssh/id_rsa').with_ensure('file')
+  }
 end

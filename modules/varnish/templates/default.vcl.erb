@@ -120,11 +120,7 @@ sub vcl_recv {
     if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-<% if @vcl_version.to_i == 3 %>
       ban("req.url == " + req.url);
-<% else %>
-      purge("req.url == " req.url);
-<% end %>
       error 200 "Purged";
     }
   }
@@ -144,14 +140,6 @@ sub vcl_fetch {
   # longer than req.grace in vcl_recv.
   set beresp.grace = 6h;
 
-  # Don't cache 5xx errors from backends. Keep retrying and let them present
-  # their own errors pages if necessary.
-  if (beresp.status >= 500 && beresp.status <= 504) {
-    # Don't cache the decision to not cache
-    set beresp.ttl = 0s;
-    return(hit_for_pass);
-  }
-
   if (req.backend == licensify) {
     # Licensify sends custom 500 errors, and we need to send No-Fallback: true
     # to prevent Akamai from falling back to the static site in NetStorage.
@@ -169,6 +157,14 @@ sub vcl_fetch {
     unset beresp.http.set-cookie;
   }
 
+  # Don't cache 5xx errors from backends. Keep retrying and let them present
+  # their own errors pages if necessary.
+  if (beresp.status >= 500 && beresp.status <= 504) {
+    # Don't cache the decision to not cache
+    set beresp.ttl = 0s;
+    return(hit_for_pass);
+  }
+
   # hide some internal headers
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
@@ -177,11 +173,7 @@ sub vcl_fetch {
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") {
     # Don't cache the decision to not cache
     set beresp.ttl = 0s;
-<% if @vcl_version.to_i == 3 -%>
     return(hit_for_pass);
-<% else -%>
-    return(pass);
-<% end -%>
   }
 
   # If neither a Cache-Control or Expires header is provided, Varnish will
@@ -213,11 +205,7 @@ sub vcl_fetch {
 }
 
 sub vcl_hash {
-<% if @vcl_version.to_i == 3 %>
   hash_data(req.url);
-<% else %>
-  set req.hash += req.url;
-<% end %>
   return(hash);
 }
 
