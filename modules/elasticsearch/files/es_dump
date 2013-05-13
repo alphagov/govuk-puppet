@@ -1,0 +1,29 @@
+#!/usr/bin/ruby
+
+require 'rubygems'
+require 'net/http'
+require 'logger'
+require 'json'
+require 'es_dump_restore'
+
+logger = Logger.new(STDOUT)
+
+host = ARGV[0]
+directory = ARGV[1]
+
+uri = URI.join(host, "/_aliases")
+
+logger.info "Connecting to ElasticSearch on #{host}"
+res = Net::HTTP.get_response(uri)
+
+raise "Could not connect to ElasticSearch on #{uri}. Status code: #{res.code}" unless res.code == '200'
+
+indexes = JSON.parse(res.body)
+aliases = indexes.map {|k,i| i['aliases'].keys }.flatten
+
+logger.info "Discovered #{aliases.size} aliases from #{host}"
+
+aliases.each_with_index do |index,i|
+  logger.info "Requesting #{host}/#{index} (#{i+1} of #{aliases.size})"
+  EsDumpRestore::App.new.dump(host, index, File.join(directory, "#{index}.zip"))
+end
