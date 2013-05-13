@@ -2,7 +2,7 @@
 
 # es_dump
 # -------
-# export all ElasticSearch indexes which have aliases to zip archives
+# export all Elasticsearch indexes which have aliases to zip archives
 #
 # USAGE:
 # es_dump <instance url> <save path>
@@ -21,10 +21,10 @@ directory = ARGV[1]
 
 uri = URI.join(host, "/_aliases")
 
-logger.info "Connecting to ElasticSearch on #{host}"
+logger.info "Connecting to Elasticsearch on #{host}"
 res = Net::HTTP.get_response(uri)
 
-raise "Could not connect to ElasticSearch on #{uri}. Status code: #{res.code}" unless res.code == '200'
+raise "Could not connect to Elasticsearch on #{uri}. Status code: #{res.code}" unless res.code == '200'
 
 indexes = JSON.parse(res.body)
 aliases = indexes.map {|k,i| i['aliases'].keys }.flatten
