@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # es_dump
 # -------
@@ -31,7 +31,7 @@ aliases = indexes.map {|k,i| i['aliases'].keys }.flatten
 
 logger.info "Discovered #{aliases.size} aliases from #{host}"
 
-aliases.each_with_index do |index,i|
-  logger.info "Requesting #{host}/#{index} (#{i+1} of #{aliases.size})"
-  EsDumpRestore::App.new.dump(host, index, File.join(directory, "#{index}.zip"))
+aliases.each_with_index do |index_name,i|
+  logger.info "Requesting #{host}/#{index_name} (#{i+1} of #{aliases.size})"
+  EsDumpRestore::App.new.dump(host, index_name, File.join(directory, "#{index_name}.zip"))
 end
