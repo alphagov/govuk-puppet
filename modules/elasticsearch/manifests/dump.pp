@@ -17,7 +17,7 @@ class elasticsearch::dump {
   }
 
   cron { "dump-elasticsearch-indexes":
-    command => "/usr/bin/es_dump http://localhost:9200",
+    command => "/usr/bin/es_dump http://localhost:9200 /var/es_dump",
     user    => "elasticsearch",
     require => [
       File["/var/es_dump"],

@@ -17,7 +17,7 @@ require 'es_dump_restore'
 logger = Logger.new(STDOUT)
 
 host = ARGV[0]
-directory = "/var/es_dump"
+directory = ARGV[1]
 
 uri = URI.join(host, "/_aliases")
 
