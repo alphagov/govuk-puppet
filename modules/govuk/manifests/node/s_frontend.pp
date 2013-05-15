@@ -12,7 +12,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     'govuk::apps::feedback':              vhost_protected => $protect_fe;
     'govuk::apps::frontend':              vhost_protected => $protect_fe;
     'govuk::apps::licencefinder':         vhost_protected => $protect_fe;
-    'govuk::apps::limelight':             vhost_protected => true;
+    'govuk::apps::limelight':             vhost_protected => $protect_fe;
     'govuk::apps::smartanswers':          vhost_protected => $protect_fe;
     'govuk::apps::tariff':                vhost_protected => $protect_fe;
     'govuk::apps::transaction_wrappers':  vhost_protected => $protect_fe;
