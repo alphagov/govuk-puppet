@@ -16,4 +16,5 @@ class base {
   include tmux
   include unattended_upgrades
   include wget
+  include curl
 }
