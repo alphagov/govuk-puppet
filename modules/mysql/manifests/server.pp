@@ -39,12 +39,7 @@ class mysql::server($root_password='') {
   }
 
   cron { 'daily sql tarball':
-    ensure  => present,
-    command => 'for d in `find /var/lib/automysqlbackup/daily -mindepth 1 -maxdepth 1 -type d`; do ls -1tr $d/* | tail -1; done | sudo xargs tar cf /var/lib/automysqlbackup/daily.tar 2>/dev/null',
-    user    => 'root',
-    minute  => 13,
-    hour    => 7,
-    require => Class['mysql::server::package'],
+    ensure  => absent,
   }
 
   exec { 'set-mysql-password':
