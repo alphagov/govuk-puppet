@@ -11,7 +11,7 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   include datainsight::recorders::insidegov
   include datainsight::recorders::everything
 
-  class { 'govuk::apps::backdrop_read':  vhost_protected => true; }
+  class { 'govuk::apps::backdrop_read':  vhost_protected => false; }
   class { 'govuk::apps::backdrop_write': vhost_protected => false; }
   class { 'govuk::apps::backdrop_ga_collector': }
 

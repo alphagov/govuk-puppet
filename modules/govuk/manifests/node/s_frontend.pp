@@ -12,7 +12,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     'govuk::apps::feedback':              vhost_protected => $protect_fe;
     'govuk::apps::frontend':              vhost_protected => $protect_fe;
     'govuk::apps::licencefinder':         vhost_protected => $protect_fe;
-    'govuk::apps::limelight':             vhost_protected => true;
+    'govuk::apps::limelight':             vhost_protected => $protect_fe;
     'govuk::apps::smartanswers':          vhost_protected => $protect_fe;
     'govuk::apps::tariff':                vhost_protected => $protect_fe;
     'govuk::apps::transaction_wrappers':  vhost_protected => $protect_fe;
@@ -40,10 +40,12 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
 
-  @@nagios::check { "check_nginx_connections_writing_${::hostname}":
-    check_command       => "check_graphite_metric!${::fqdn_underscore}.nginx.nginx_connections-writing!150!250",
-    service_description => 'nginx high conn writing - upstream indicator',
-    host_name           => $::fqdn,
-    document_url        => "https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions#TOC-nginx-high-conn-writing---upstream-indicator-Check",
+  @@nagios::check::graphite { "check_nginx_connections_writing_${::hostname}":
+    target       => "${::fqdn_underscore}.nginx.nginx_connections-writing",
+    warning      => 150,
+    critical     => 250,
+    desc         => 'nginx high conn writing - upstream indicator',
+    host_name    => $::fqdn,
+    document_url => "https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions#TOC-nginx-high-conn-writing---upstream-indicator-Check",
   }
 }
