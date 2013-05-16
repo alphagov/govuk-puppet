@@ -39,7 +39,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.redirector.http_404)",
     warning   => 5,
     critical  => 10,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => "nginx 404 rate for redirector",
     host_name => $::fqdn,
   }
@@ -47,7 +47,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.redirector.http_5xx)",
     warning   => 5,
     critical  => 10,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => "nginx 5xx rate for redirector",
     host_name => $::fqdn,
   }

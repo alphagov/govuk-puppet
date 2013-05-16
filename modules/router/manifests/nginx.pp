@@ -100,7 +100,7 @@ class router::nginx (
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.http_5xx)",
     warning   => 1,
     critical  => 5,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => 'router nginx high 5xx rate',
     host_name => $::fqdn,
   }

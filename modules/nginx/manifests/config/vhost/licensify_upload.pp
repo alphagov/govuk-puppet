@@ -25,7 +25,7 @@ define nginx::config::vhost::licensify_upload($port="9000") {
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx)",
     warning   => 0.05,
     critical  => 0.1,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => "${vhost_name} high nginx 5xx rate",
     host_name => $::fqdn,
   }

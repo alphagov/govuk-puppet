@@ -30,7 +30,7 @@ class varnish::service {
     target    => "keepLastValue(${::fqdn_underscore}.varnish_logs.http_5xx)",
     warning   => 1,
     critical  => 2,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => 'router varnish high 5xx rate',
     host_name => $::fqdn,
   }

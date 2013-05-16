@@ -12,7 +12,6 @@ class monitoring::checks {
     target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')',
     warning   => 50,
     critical  => 100,
-    args      => '--from 5minutes',
     desc      => 'check volume of 404 rejects for exit links',
     host_name => $::fqdn,
   }

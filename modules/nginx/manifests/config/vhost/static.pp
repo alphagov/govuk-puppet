@@ -46,7 +46,7 @@ define nginx::config::vhost::static(
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx)",
     warning   => 0.05,
     critical  => 0.1,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => "${title} nginx 5xx rate too high",
     host_name => $::fqdn,
   }

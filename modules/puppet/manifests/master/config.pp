@@ -23,7 +23,7 @@ class puppet::master::config ($unicorn_port = '9090') {
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx)",
     warning   => 0.05,
     critical  => 0.1,
-    args      => '--from 3minutes',
+    from      => '3minutes',
     desc      => "puppetmaster nginx high 5xx rate",
     host_name => $::fqdn,
   }
