@@ -98,9 +98,10 @@ define govuk::app::config (
       logstream              => $logstream,
     }
   }
+  $title_underscore = regsubst($title, '\.', '_', 'G')
 
   # Set up monitoring
-  collectd::plugin::process { "app-${title}":
+  collectd::plugin::process { "app-${title_underscore}":
     regex => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
   }
 
@@ -113,12 +114,12 @@ define govuk::app::config (
   }
 
   @@nagios::check { "check_${title}_app_cpu_usage${::hostname}":
-    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)!${nagios_cpu_warning}!${nagios_cpu_critical}",
+    check_command       => "check_graphite_metric!scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)!${nagios_cpu_warning}!${nagios_cpu_critical}",
     service_description => "high CPU usage for ${title} app",
     host_name           => $::fqdn,
   }
   @@nagios::check { "check_${title}_app_mem_usage${::hostname}":
-    check_command       => "check_graphite_metric!${::fqdn_underscore}.processes-app-${title}.ps_rss!2000000000!3000000000",
+    check_command       => "check_graphite_metric!${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss!2000000000!3000000000",
     service_description => "high memory for ${title} app",
     host_name           => $::fqdn,
   }
