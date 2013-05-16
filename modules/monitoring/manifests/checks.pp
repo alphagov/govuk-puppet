@@ -9,7 +9,7 @@ class monitoring::checks {
 
   # START frontend
   @@nagios::check::graphite { "check_frontend_to_exit_404_rejects":
-    target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),\'5minutes\')',
+    target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),"5minutes")',
     warning   => 50,
     critical  => 100,
     desc      => 'check volume of 404 rejects for exit links',
