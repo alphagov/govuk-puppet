@@ -28,7 +28,7 @@ ertpApiValidityConfirmation:
     # max post body length
     maxBodyLength:  750000
 
-    maxNumberOfMarkReceivedIds: 500
+    maxNumberOfPostElements: 500
 
     validRegistrationRequestJsonKeys:
         - eroRecordId
@@ -83,9 +83,7 @@ ertpAdminApiConfiguration:
 ## Logging
 
 http:
-
     port: 9090
-
     adminPort: 9091
 
     requestLog:
