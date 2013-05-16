@@ -45,7 +45,7 @@ describe 'nagios::check::graphite', :type => :define do
     end
   end
 
-  context 'when args are passed' do
+  context 'when from and args params are passed' do
     let(:title) { 'count_deer' }
     let(:params) {{
       :target    => 'sumSeries(zoo.*.deer)',
@@ -53,12 +53,13 @@ describe 'nagios::check::graphite', :type => :define do
       :warning   => 30,
       :critical  => 40,
       :host_name => 'warden.zoo.tld',
+      :from      => '23minutes',
       :args      => '--droplast 1',
     }}
 
     it 'should modify check_command' do
       should contain_nagios__check('count_deer').with(
-        :check_command => 'check_graphite_metric_args!sumSeries(zoo.*.deer)!30!40!-F 5minutes --droplast 1',
+        :check_command => 'check_graphite_metric_args!sumSeries(zoo.*.deer)!30!40!-F 23minutes --droplast 1',
       )
     end
   end
