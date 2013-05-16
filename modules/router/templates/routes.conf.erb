@@ -512,6 +512,10 @@ error_page 500 502 /500.html;
 error_page 503 /503.html;
 error_page 504 /504.html;
 
+# Serve a friendly error for rate limited requests. Maintains backwards
+# compat because these previously emitted 503.
+error_page 429 /503.html;
+
 location /404.html {
   root /usr/share/nginx/www;
   internal;
