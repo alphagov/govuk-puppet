@@ -13,7 +13,7 @@ class elasticsearch::dump {
   file { "/usr/bin/es_dump":
     ensure  => file,
     source  => 'puppet:///modules/elasticsearch/es_dump',
-    mode    => '0770',
+    mode    => '0755',
   }
 
   cron { "dump-elasticsearch-indexes":
