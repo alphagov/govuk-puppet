@@ -19,10 +19,13 @@ class puppet::master::config ($unicorn_port = '9090') {
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
-  @@nagios::check { "check_nginx_5xx_puppetmaster_on_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx)!3minutes!0.05!0.1",
-    service_description => "puppetmaster nginx high 5xx rate",
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_nginx_5xx_puppetmaster_on_${::hostname}":
+    target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx)",
+    warning   => 0.05,
+    critical  => 0.1,
+    from      => '3minutes',
+    desc      => "puppetmaster nginx high 5xx rate",
+    host_name => $::fqdn,
   }
 
   file { '/etc/puppet/config.ru':

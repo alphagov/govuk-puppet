@@ -32,10 +32,12 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
+# [*from*]
+#   Single string representing a time period passed to `check_graphite_args`.
+#   Default: '5minutes'
+#
 # [*args*]
-#   Single string of additional arguments passed to `check_graphite`. This
-#   will trigger the use of `check_graphite_metric_args` instead of
-#   `check_graphite_metric`.
+#   Single string of additional arguments passed to `check_graphite_args`.
 #   Default: ''
 #
 #
@@ -46,10 +48,11 @@ define nagios::check::graphite(
   $critical,
   $host_name,
   $args = '',
+  $from = '5minutes',
   $document_url = ''
 ) {
   $check_command = 'check_graphite_metric_args'
-  $args_real = "-F 5minutes ${args}"
+  $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
   $monitoring_domain_suffix = extlookup("monitoring_domain_suffix", "")

@@ -26,10 +26,13 @@ class varnish::service {
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
-  @@nagios::check { "check_varnish_5xx_${::hostname}":
-    check_command       => "check_graphite_metric_since!keepLastValue(${::fqdn_underscore}.varnish_logs.http_5xx)!3minutes!1!2",
-    service_description => 'router varnish high 5xx rate',
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_varnish_5xx_${::hostname}":
+    target    => "keepLastValue(${::fqdn_underscore}.varnish_logs.http_5xx)",
+    warning   => 1,
+    critical  => 2,
+    from      => '3minutes',
+    desc      => 'router varnish high 5xx rate',
+    host_name => $::fqdn,
   }
 
   @@nagios::check { "check_varnish_running_${::hostname}":

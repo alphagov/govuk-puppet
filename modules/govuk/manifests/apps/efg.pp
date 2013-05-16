@@ -31,11 +31,12 @@ class govuk::apps::efg( $port = 3019 ) {
 ';
   }
 
-  @@nagios::check { "check_efg_login_failures_${::hostname}":
-    check_command       => 'check_graphite_metric!sumSeries(stats.govuk.app.efg.*.logins.failure)!10!15',
-    use                 => 'govuk_normal_priority',
-    service_description => 'EFG login failures',
-    host_name           => $::fqdn,
+  @@nagios::check::graphite { "check_efg_login_failures_${::hostname}":
+    target    => 'sumSeries(stats.govuk.app.efg.*.logins.failure)',
+    warning   => 10,
+    critical  => 15,
+    desc      => 'EFG login failures',
+    host_name => $::fqdn,
   }
 
 }
