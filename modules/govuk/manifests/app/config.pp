@@ -98,9 +98,10 @@ define govuk::app::config (
       logstream              => $logstream,
     }
   }
+  $title_underscore = regsubst($title, '\.', '_', 'G')
 
   # Set up monitoring
-  collectd::plugin::process { "app-${title}":
+  collectd::plugin::process { "app-${title_underscore}":
     regex => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
   }
 
@@ -113,14 +114,14 @@ define govuk::app::config (
   }
 
   @@nagios::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
-    target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title}.ps_cputime.*),0.0001)",
+    target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
     warning   => $nagios_cpu_warning,
     critical  => $nagios_cpu_critical,
     desc      => "high CPU usage for ${title} app",
     host_name => $::fqdn,
   }
   @@nagios::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-    target    => "${::fqdn_underscore}.processes-app-${title}.ps_rss",
+    target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
     warning   => 2000000000,
     critical  => 3000000000,
     desc      => "high memory for ${title} app",
