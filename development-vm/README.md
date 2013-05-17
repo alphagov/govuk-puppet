@@ -170,7 +170,7 @@ copy of the production search index on your local vm, run the following from
     dev$ ./replicate-search-index.sh
 
 If you have an existing search index you need to remove, run the following from the
-Rummager repository.
+Rummager repository before the replication script.
 
     dev$ RUMMAGER_INDEX=all rake rummager:switch_to_empty_index
 
