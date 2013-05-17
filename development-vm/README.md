@@ -163,9 +163,20 @@ Then, from `development/replication` run.
 
     dev$ ./replicate-data-local.sh -F ../ssh_config -d path/to/dir -s -u $USERNAME
 
+Dumps of the Elasticsearch indexes take place nightly on preview boxes. To get a
+copy of the production search index on your local vm, run the following from
+`development/replication`.
+
+    dev$ ./replicate-search-index.sh http://localhost:9200/
+
+If you have an existing search index you need to remove, run the following from the
+Rummager repository.
+
+    dev$ rake rummager:switch_to_empty_index
+
 ## 9. Accessing Skyscape Preview
 
-The Skyscape Preview environment is not behind a VPN but still remains less open 
+The Skyscape Preview environment is not behind a VPN but still remains less open
 than legacy preview (which was on AWS). The following documents access during the
 migration period from the AWS Preview environment. It will be updated again after
 this migration is complete.
@@ -181,10 +192,10 @@ These web pages are generally protected via HTTP basic authentication, which
 requires a shared username and password to be provided. This shared username and
 password should be well known by members of the development team, so just ask.
 
-During the migration to Skyscape Preview, access to these URLs requires some 
+During the migration to Skyscape Preview, access to these URLs requires some
 additional host entries, to override the public DNS entries for the AWS legacy
-environment. After the migration the public DNS will be updated to point to 
-Skyscape Preview, but until then a script is available to add the required 
+environment. After the migration the public DNS will be updated to point to
+Skyscape Preview, but until then a script is available to add the required
 host aliases to your Mac.
 
 See Script:
@@ -192,12 +203,12 @@ https://github.com/alphagov/private-utils/blob/master/script/govuk_select_previe
 
 ### 9.2 Access to servers via SSH
 
-Note: This assumes that you have followed Step 6, and have your machine's Public 
-key added to the Puppet repositary, and this has been deployed to the Skyscape 
+Note: This assumes that you have followed Step 6, and have your machine's Public
+key added to the Puppet repositary, and this has been deployed to the Skyscape
 preview environment.
 
-While the load balanced endpoints are available directly via the public 
-Internet, SSH access to the boxes which comprise the environment is brokered via 
+While the load balanced endpoints are available directly via the public
+Internet, SSH access to the boxes which comprise the environment is brokered via
 a "jumpbox". You will need to configure your machine to use this jumpbox. See the
 last three stanzas in the configuration below and add them to your ~/.ssh/config.
 
@@ -206,9 +217,9 @@ http://goo.gl/UFcnQ
 
 Note: if the user name you added to puppet is different to the user name you
 have on your laptop, then pay particular attention to the note at the bottom of the
-Ops Manual page. You will need to add the User directive to both Host stanzas. 
+Ops Manual page. You will need to add the User directive to both Host stanzas.
 
-Assuming you have created an ssh key-pair and the public key has been distributed, 
+Assuming you have created an ssh key-pair and the public key has been distributed,
 and your SSH config is upto date, you can connect to `backend-1.backend.preview` by:
 
     $ ssh backend-1.backend.preview
