@@ -96,13 +96,6 @@ if $FETCH_ARCHIVES; then
   status "Copying data from ${REMOTE_ES_HOST}"
 
   scp "${REMOTE_ES_HOST}:${REMOTE_ARCHIVE_PATH}/*.zip" $LOCAL_ARCHIVE_PATH
-  FILE_COUNT=`ls -l ${LOCAL_ARCHIVE_PATH}/*.zip | wc -l`
-
-  if [ $FILE_COUNT -eq 1 ]; then
-    ok "${FILE_COUNT} archive found"
-  else
-    ok "${FILE_COUNT} archives found"
-  fi
 else
   status "Skipping fetch of new archives"
 
@@ -110,6 +103,17 @@ else
     error "Download directory ${LOCAL_ARCHIVE_PATH} does not exist and fetching new archives has been skipped."
     exit 1
   fi
+fi
+
+FILE_COUNT=`ls -l ${LOCAL_ARCHIVE_PATH}/*.zip | wc -l | tr -d ' '`
+
+if [ $FILE_COUNT -lt 1 ]; then
+  error "No archives found in ${LOCAL_ARCHIVE_PATH}"
+  exit 1
+elif [ $FILE_COUNT -eq 1 ]; then
+  ok "${FILE_COUNT} archive found"
+else
+  ok "${FILE_COUNT} archives found"
 fi
 
 status "Restoring data into Elasticsearch"
