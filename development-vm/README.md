@@ -172,7 +172,7 @@ copy of the production search index on your local vm, run the following from
 If you have an existing search index you need to remove, run the following from the
 Rummager repository.
 
-    dev$ rake rummager:switch_to_empty_index
+    dev$ RUMMAGER_INDEX=all rake rummager:switch_to_empty_index
 
 ## 9. Accessing Skyscape Preview
 
