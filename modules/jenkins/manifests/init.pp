@@ -121,4 +121,5 @@ class jenkins {
   }
 
   include golang
+  include bundler
 }
