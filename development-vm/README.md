@@ -167,7 +167,7 @@ Dumps of the Elasticsearch indexes take place nightly on preview boxes. To get a
 copy of the production search index on your local vm, run the following from
 `development/replication`.
 
-    dev$ ./replicate-search-index.sh http://localhost:9200/
+    dev$ ./replicate-search-index.sh
 
 If you have an existing search index you need to remove, run the following from the
 Rummager repository.
