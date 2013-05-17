@@ -84,15 +84,15 @@ else
   gem install es_dump_restore -v 0.0.3
 fi
 
-if [ -d $LOCAL_ARCHIVE_PATH ]; then
-  ok "Download directory ${LOCAL_ARCHIVE_PATH} exists"
-else
-  status "Creating local backups directory"
-  mkdir -p $LOCAL_ARCHIVE_PATH
-  ok "Download directory ${LOCAL_ARCHIVE_PATH} created"
-fi
-
 if $FETCH_ARCHIVES; then
+  if [ -d $LOCAL_ARCHIVE_PATH ]; then
+    ok "Download directory ${LOCAL_ARCHIVE_PATH} exists"
+  else
+    status "Creating local backups directory"
+    mkdir -p $LOCAL_ARCHIVE_PATH
+    ok "Download directory ${LOCAL_ARCHIVE_PATH} created"
+  fi
+
   status "Copying data from ${REMOTE_ES_HOST}"
 
   scp "${REMOTE_ES_HOST}:${REMOTE_ARCHIVE_PATH}/*.zip" $LOCAL_ARCHIVE_PATH
@@ -105,6 +105,11 @@ if $FETCH_ARCHIVES; then
   fi
 else
   status "Skipping fetch of new archives"
+
+  if [ ! -d $LOCAL_ARCHIVE_PATH ]; then
+    error "Download directory ${LOCAL_ARCHIVE_PATH} does not exist and fetching new archives has been skipped."
+    exit 1
+  fi
 fi
 
 status "Restoring data into Elasticsearch"
