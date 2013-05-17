@@ -36,27 +36,32 @@ Usage: $0 [options]
 Download Elasticsearch index archives and import into another instance.
 
 OPTIONS:
-   -h              Show this message
-   -d destination  Import the data into a different Elasticsearch instance
-   -s skip         Skip fetching new archives
+   -h       Show this message
+   -s skip  Skip fetching new archives
+   -d dir   Store archives in a different directory
+   -t       Import the data into a different Elasticsearch instance
 
 EOF
 }
 
-while getopts "hd:s" OPTION
+while getopts "hsd:t:" OPTION
 do
   case $OPTION in
     h )
       usage
       exit 1
       ;;
-    d )
-      # override the SSH user
-      LOCAL_ES_HOST=$OPTARG
-      ;;
     s )
-      # override the SSH user
+      # skip fetching new archives
       FETCH_ARCHIVES=false
+      ;;
+    d )
+      # override the archive directory
+      LOCAL_ARCHIVE_PATH=$OPTARG
+      ;;
+    t )
+      # override the destination
+      LOCAL_ES_HOST=$OPTARG
       ;;
   esac
 done
