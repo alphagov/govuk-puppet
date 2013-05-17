@@ -34,5 +34,8 @@ logger.info "Discovered #{aliases.size} aliases from #{host}"
 
 aliases.each_with_index do |index_name,i|
   logger.info "Requesting #{host}/#{index_name} (#{i+1} of #{aliases.size})"
-  EsDumpRestore::App.new.dump(host, index_name, File.join(directory, "#{index_name}.zip"))
+  file_path = File.join(directory, "#{index_name}.zip")
+
+  EsDumpRestore::App.new.dump(host, index_name, file_path)
+  File.open(file_path).chmod(0644)
 end
