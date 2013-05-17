@@ -166,6 +166,7 @@ end
 class GovukMirrorer < Spidey::AbstractSpider
   USER_AGENT = "GOV.UK Mirrorer/0.1"
   DEFAULT_SITE_ROOT = 'https://www.gov.uk'
+  RETRY_RESP_CODES = [429, (500..599).to_a].flatten
 
   def initialize(attrs = {})
     attrs[:request_interval] ||= 0
@@ -210,7 +211,7 @@ class GovukMirrorer < Spidey::AbstractSpider
         logger.debug "Handling #{url.inspect}"
         send handler, page, default_data
       rescue => ex
-        if ex.is_a?(Mechanize::ResponseCodeError) and (500..599).include?(ex.response_code.to_i) and ! retried
+        if ex.is_a?(Mechanize::ResponseCodeError) and RETRY_RESP_CODES.include?(ex.response_code.to_i) and ! retried
           retried = true
           sleep 1
           retry

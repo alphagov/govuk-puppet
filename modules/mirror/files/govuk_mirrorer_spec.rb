@@ -214,27 +214,35 @@ describe GovukMirrorer do
         @m.crawl
       end
 
-      context "5xx error" do
-        it "should sleep for a second, and then retry" do
-          error = Mechanize::ResponseCodeError.new(stub("Page", :code => 503), "Boom")
-          @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_raise(error)
-          @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_return("page_1")
+      context "error handling" do
+        [
+          [429, "Too Many Requests"],
+          [500, "Internal Server Error"],
+          [503, "Boom"],
+        ].each do |resp_code, resp_reason|
+          context "#{resp_code} #{resp_reason}" do
+            it "should sleep for a second, and then retry" do
+              error = Mechanize::ResponseCodeError.new(stub("Page", :code => resp_code), resp_reason)
+              @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_raise(error)
+              @m.send(:agent).should_receive(:get).with("https://www.example.com/1").ordered.and_return("page_1")
 
-          @m.should_not_receive(:add_log_warning)
-          @m.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
-          @m.should_receive(:process_govuk_page).with("page_1", {})
+              @m.should_not_receive(:add_log_warning)
+              @m.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
+              @m.should_receive(:process_govuk_page).with("page_1", {})
 
-          @m.crawl
-        end
+              @m.crawl
+            end
 
-        it "should only retry once" do
-          error = Mechanize::ResponseCodeError.new(stub("Page", :code => 503), "Boom")
-          @m.send(:agent).should_receive(:get).with("https://www.example.com/1").twice.and_raise(error)
+            it "should only retry once" do
+              error = Mechanize::ResponseCodeError.new(stub("Page", :code => resp_code), resp_reason)
+              @m.send(:agent).should_receive(:get).with("https://www.example.com/1").twice.and_raise(error)
 
-          @m.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
-          @m.should_receive(:add_log_warning).with(:url => "https://www.example.com/1", :handler => :process_govuk_page, :error => error, :data => {}).once
+              @m.should_receive(:sleep).with(1) # Actually on kernel, but setting the expectation here works
+              @m.should_receive(:add_log_warning).with(:url => "https://www.example.com/1", :handler => :process_govuk_page, :error => error, :data => {}).once
 
-          @m.crawl
+              @m.crawl
+            end
+          end
         end
       end
     end
