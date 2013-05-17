@@ -63,7 +63,7 @@ ertpApiValidityConfirmation:
 ertpApiConfiguration:
 
     ## Host for ertp api
-    ertpApiHost: ertp-api
+    ertpApiHost: localhost
 
     ## Port for ertp api
     ertpApiPort: 9900
@@ -72,7 +72,7 @@ ertpApiConfiguration:
 ertpAdminApiConfiguration:
 
     ## Host for ertp api
-    ertpAdminApiHost: ertp-admin-api
+    ertpAdminApiHost: localhost
 
     ## Port for ertp api
     ertpAdminApiPort: 9125
