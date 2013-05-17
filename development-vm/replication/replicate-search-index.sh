@@ -36,10 +36,10 @@ Usage: $0 [options]
 Download Elasticsearch index archives and import into another instance.
 
 OPTIONS:
-   -h       Show this message
-   -s skip  Skip fetching new archives
-   -d dir   Store archives in a different directory
-   -t       Import the data into a different Elasticsearch instance
+   -h               Show this message
+   -s               Skip fetching new archives
+   -d dir           Store archives in a different directory
+   -t destination   Import the data into a different Elasticsearch instance
 
 EOF
 }
