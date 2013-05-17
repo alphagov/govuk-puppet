@@ -117,7 +117,7 @@ status "Restoring data into Elasticsearch"
 for f in $LOCAL_ARCHIVE_PATH/*.zip
 do
   status $f
-  es_dump_restore restore "$LOCAL_ES_HOST" `echo $f | grep -Eo '[a-z_\-]+\.' | grep -Eo '[a-z_\-]+'` "$f"
+  es_dump_restore restore "$LOCAL_ES_HOST" `basename $f .zip` "$f"
 done
 
 ok "Restore complete"
