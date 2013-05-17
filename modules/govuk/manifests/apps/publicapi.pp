@@ -5,6 +5,9 @@ class govuk::apps::publicapi {
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
   $backdropread = "read.backdrop.${app_domain}"
+  $backdropwrite = "write.backdrop.${app_domain}"
+
+  $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"

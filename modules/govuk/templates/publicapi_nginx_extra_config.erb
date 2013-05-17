@@ -41,3 +41,24 @@
     proxy_pass http://<%= @backdropread %>;
   }
 
+<% if @enable_backdrop_test_bucket %>
+
+  location ~ ^/performance/test/api/test/upload {
+    rewrite ^/performance/test/api/test/upload(.*)$ /test/upload$1 break;
+
+    proxy_set_header Host <%= @backdropwrite %>;
+    proxy_set_header X-API-PREFIX performance/test/api/test;
+
+    proxy_pass http://<%= @backdropwrite %>;
+  }
+
+  location ~ ^/performance/test/api/test {
+    rewrite ^/performance/test/api/test(.*)$ /test$1 break;
+
+    proxy_set_header Host <%= @backdropread %>;
+    proxy_set_header X-API-PREFIX performance/test/api/test;
+
+    proxy_pass http://<%= @backdropread %>;
+  }
+
+<% end %>
