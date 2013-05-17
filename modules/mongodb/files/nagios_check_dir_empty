@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 if [ $# != 1 ]; then
   echo "UNKNOWN: invalid arguments to check_dir_empty"
@@ -9,7 +10,7 @@ DIRPATH=$1
 
 if [ -e "$DIRPATH" ]; then
   if [ -d "$DIRPATH" ]; then
-    if [ $(ls -A "$DIRPATH") ]; then
+    if [ "$(ls -A "$DIRPATH")" ]; then
       echo "CRITICAL: ${DIRPATH} exists and is not empty!"
       exit 2
     else
@@ -24,5 +25,3 @@ else
   echo "OK: ${DIRPATH} doesn't exist"
   exit 0
 fi
-  
-  
