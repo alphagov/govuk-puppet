@@ -3,3 +3,4 @@
 /.vagrant
 /Vagrantfile.local
 /replication/backups/
+/replication/es_archives/
