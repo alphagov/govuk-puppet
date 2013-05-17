@@ -5,7 +5,9 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
   class { 'mysql::server':
     root_password => $root_password,
   }
-  include mysql::server::binlog
+  class { 'mysql::server::binlog':
+    root_password => $root_password,
+  }
 
   mysql::user { 'replica_user':
     root_password  => $root_password,
