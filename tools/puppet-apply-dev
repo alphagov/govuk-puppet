@@ -50,7 +50,7 @@ if [ -z "$NO_PULL" ]; then
   export DEBIAN_FRONTEND=noninteractive
   export DEBIAN_PRIORITY=critical
 
-  PACKAGES="ruby1.9.1 ruby1.9.1-dev git-core build-essential libxml2-dev libxslt1-dev"
+  PACKAGES="ruby1.9.1 ruby1.9.1-dev rubygems1.9.1 git-core build-essential libxml2-dev libxslt1-dev"
   if ! dpkg -s $PACKAGES >/dev/null 2>&1; then
     sudo apt-get update -y -qq
     sudo apt-get install -y -qq $PACKAGES
