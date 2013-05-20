@@ -514,6 +514,7 @@ error_page 504 /504.html;
 
 # Serve a friendly error for rate limited requests. Maintains backwards
 # compat because these previously emitted 503.
+# FIXME: Mainstream to provide a new page for this.
 error_page 429 /503.html;
 
 location /404.html {
