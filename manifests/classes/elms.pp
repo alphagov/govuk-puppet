@@ -29,6 +29,7 @@ class elms_base::mongo_server {
     motd::snippet {'01-encrypted-licensify': }
   }
 
+  # Disable monthly backups to limit the retention of IL3 data.
   class { 'mongodb::backup':
     domonthly => false
   }
