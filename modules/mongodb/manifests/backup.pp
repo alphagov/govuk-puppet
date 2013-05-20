@@ -1,7 +1,8 @@
-class mongodb::backup {
+class mongodb::backup(
+  $domonthly = true) {
   file { '/etc/cron.daily/automongodbbackup-replicaset':
     ensure  => present,
-    source  => 'puppet:///modules/mongodb/automongodbbackup',
+    content => template('mongodb/automongodbbackup'),
     owner   => 'root',
     group   => 'root',
     mode    => '0744',
