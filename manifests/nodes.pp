@@ -8,9 +8,6 @@ node default {
     notify { "${warn_head} ${warn_body}": }
   } else {
     case $::govuk_class {
-      'elms-development':   { include elms_base::development }
-      'elms-frontend':      { include elms_base::frontend_server }
-
       'elms-sky-frontend':  { include govuk::node::s_licensify_frontend }
       'elms-sky-backend':   { include govuk::node::s_licensify_backend }
       'elms-mongo':         { include govuk::node::s_licensify_mongo }
