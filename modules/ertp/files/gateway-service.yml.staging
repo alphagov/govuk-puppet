@@ -136,7 +136,7 @@ httpClientConfiguration:
     # The socket timeout value. If a read or write to the underlying
     # TCP/IP connection hasn't succeeded after this duration, a
     # timeout exception is thrown.
-    timeout: 5000ms
+    timeout: 30000ms
 
     # The connection timeout value. If a TCP/IP connection cannot be
     # established in this time, a timeout exception is thrown.
