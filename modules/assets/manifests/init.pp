@@ -13,7 +13,7 @@ class assets {
     ensure  => 'directory',
     owner   => 'assets',
     group   => 'assets',
-    mode    => '0664',
+    mode    => '0755',
     require => [User['assets'], Group['assets']],
   }
 
