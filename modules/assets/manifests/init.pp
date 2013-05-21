@@ -9,12 +9,13 @@ class assets {
     require => Package['nfs-common'],
   }
 
-  file { "/data/uploads":
-    ensure  => 'directory',
-    owner   => 'assets',
-    group   => 'assets',
-    mode    => '0755',
-    require => [User['assets'], Group['assets']],
+  # Ownership and permissions come from the mount.
+  file { '/data/uploads':
+    ensure  => directory,
+    owner   => undef,
+    group   => undef,
+    mode    => undef,
+    require => Class['assets::user'],
   }
 
   if $::govuk_platform != 'development' {
