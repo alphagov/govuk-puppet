@@ -5,6 +5,9 @@ class govuk::apps::publicapi {
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
   $backdropread = "read.backdrop.${app_domain}"
+  $backdropwrite = "write.backdrop.${app_domain}"
+
+  $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"
@@ -18,48 +21,6 @@ class govuk::apps::publicapi {
       # be handled by the location blocks below.
       return 404;
     ",
-    extra_config     => "
-      expires 30m;
-
-      # Specify these locations regexfully to avoid quirky Nginx behaviour
-      # where a location block with a trailing slash triggers 301 redirects on
-      # requests made to that path without a trailing slash, *if* there is a
-      # proxy_pass directive in the block.
-
-      location ~ ^/api/(specialist|worldwide-organisations|world-locations)(/|$) {
-        proxy_set_header Host ${whitehallapi};
-        proxy_pass http://${whitehallapi};
-      }
-
-      location ~ ^/api(/|$) {
-        # Remove the prefix before passing through
-        # Can't just do this using the proxy_pass URL, because we're
-        # having to match the incoming path on a regular expression
-        rewrite ^/api/?(.*) /\$1 break;
-
-        proxy_set_header Host ${privateapi};
-        proxy_set_header API-PREFIX api;
-        proxy_set_header Authorization  \"\";
-        proxy_pass http://${full_domain}-proxy;
-      }
-
-      location ~ ^/performance/licensing/api/journey {
-        rewrite ^/performance/licensing/api/journey(.*)$ /licensing_journey\$1 break;
-
-        proxy_set_header Host ${backdropread};
-        proxy_set_header X-API-PREFIX performance/licensing-journey/api;
-
-        proxy_pass http://${backdropread};
-      }
-
-      location ~ ^/performance/licensing/api/application {
-        rewrite ^/performance/licensing/api/application(.*)$ /licensing\$1 break;
-
-        proxy_set_header Host ${backdropread};
-        proxy_set_header X-API-PREFIX performance/licensing/api/application;
-
-        proxy_pass http://${backdropread};
-      }
-    "
+    extra_config     => template("govuk/publicapi_nginx_extra_config.erb")
   }
 }
