@@ -39,6 +39,13 @@ GIT
       puppetlabs/stdlib (>= 2.2.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-rbenv.git
+  ref: 24c39b2e6389bb55cc3873bc98189ca63cf3a5e7
+  sha: 24c39b2e6389bb55cc3873bc98189ca63cf3a5e7
+  specs:
+    rbenv (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-rsyslog.git
   ref: d897c50
   sha: d897c506dd9454ffdc37d9583025efe1b4cc3a52
@@ -60,6 +67,7 @@ DEPENDENCIES
   logstash (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
+  rbenv (>= 0)
   ripienaar/concat (>= 0)
   rsyslog (>= 0)
   thomasvandoren/redis (>= 0)

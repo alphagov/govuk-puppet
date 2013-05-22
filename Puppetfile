@@ -22,3 +22,6 @@ mod 'apparmor',
 mod 'curl',
   :git => 'git://github.com/alphagov/puppet-curl.git',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'
+mod 'rbenv',
+  :git => 'git://github.com/alphagov/puppet-rbenv.git',
+  :ref => '24c39b2e6389bb55cc3873bc98189ca63cf3a5e7'
