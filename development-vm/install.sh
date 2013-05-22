@@ -205,14 +205,14 @@ status "Checking whether you use rvm or rbenv to manage ruby"
 
 if which rbenv >/dev/null 2>&1; then
   if ! rbenv commands | grep -q sudo; then
-    countdown "Found rbenv but not rbenv-sudo. Going to install rbenv-sudo in ~/.rbenv/plugins"
-    mkdir -p "${HOME}/.rbenv/plugins"
+    countdown "Found rbenv but not rbenv-sudo. Going to install rbenv-sudo in your rbenv plugins folder"
+    mkdir -p "${RBENV_ROOT}/plugins"
 
     # This was originally dcarley/rbenv-sudo, but I've switched this to use my
     # fork in order to address a minor bug preventing the use of flags to sudo
     # (such as -p, used above). See
     # https://github.com/dcarley/rbenv-sudo/pull/2 for further details.
-    git clone git://github.com/nickstenning/rbenv-sudo.git "${HOME}/.rbenv/plugins/rbenv-sudo"
+    git clone git://github.com/nickstenning/rbenv-sudo.git "${RBENV_ROOT}/plugins/rbenv-sudo"
   fi
   SUDO_COMMAND="rbenv sudo"
   ok "Found rbenv and rbenv-sudo: using 'rbenv sudo' to elevate privileges"
