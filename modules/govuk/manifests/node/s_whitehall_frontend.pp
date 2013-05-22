@@ -1,6 +1,7 @@
 class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
   include nginx
+  include rbenv
 
   $app_domain = extlookup('app_domain')
   $protect_fe = str2bool(extlookup('protect_frontend_apps', 'no'))
