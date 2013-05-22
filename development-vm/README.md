@@ -135,7 +135,7 @@ Your manifest for the above would be called `friendlygiraffe.pp` and look simila
       govuk::user { 'friendlygiraffe':
         fullname => 'Friendly Giraffe',
         email    => 'friendly.giraffe@digital.cabinet-office.gov.uk',
-        ssh_key  => 'AAAAB3NzaC1yc2EAAAA...',
+        ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAA... friendlygiraffe-laptop-20130101',
       }
     }
 
