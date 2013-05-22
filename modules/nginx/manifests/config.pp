@@ -36,11 +36,6 @@ class nginx::config ($server_names_hash_max_size) {
     notify  => Class['nginx::service'];
   }
 
-  file { '/etc/logrotate.d/nginx':
-    ensure => present,
-    source => 'puppet:///modules/nginx/etc/logrotate.d/nginx',
-  }
-
   file { ['/var/www', '/var/www/cache']:
     ensure => directory,
     owner  => 'www-data',
