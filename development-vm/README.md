@@ -125,15 +125,23 @@ This way, commits you make on the VM get your name and email set on them:
 To get production/preview access you will need to add your public key and
 configure a user account for yourself in our `puppet` repository.
 
-Let's say you want the username "friendlygiraffe". Add your user account
-settings to `puppet/modules/users/manifests/groups/govuk.pp`. Your entry will
-look similar to the following:
+Let's say you want the username "friendlygiraffe". Create a puppet manifest file containing 
+your user account settings in `puppet/modules/users/manifests/` and include it in 
+`puppet/modules/users/manifests/groups/govuk.pp`. 
 
-    govuk::user { 'friendlygiraffe':
-      fullname => 'Friendly Giraffe',
-      email    => 'friendly.giraffe@digital.cabinet-office.gov.uk',
-      ssh_key  => 'AAAAB3NzaC1yc2EAAAA...',
+Your manifest for the above would be called `friendlygiraffe.pp` and look similar to the following:
+
+    class users::friendlygiraffe {
+      govuk::user { 'friendlygiraffe':
+        fullname => 'Friendly Giraffe',
+        email    => 'friendly.giraffe@digital.cabinet-office.gov.uk',
+        ssh_key  => 'AAAAB3NzaC1yc2EAAAA...',
+      }
     }
+
+It should be included in `puppet/modules/users/manifests/groups/govuk.pp` like so:
+
+    include users::friendlygiraffe
 
 Once committed and pushed, you'll need to find someone who already has
 production permissions to deploy it for you.
