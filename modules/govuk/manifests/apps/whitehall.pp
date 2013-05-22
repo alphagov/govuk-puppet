@@ -89,18 +89,14 @@ class govuk::apps::whitehall(
         # Explicitly reinclude Strict-Transport-Security header, as calling
         # add_header above will have reset the set of headers sent by nginx.
         include /etc/nginx/sts.conf;
+        # Needs to be an alias otherwise it appends the path wrongly.
         alias /data/uploads/whitehall/clean/uploaded;
-      }
 
-      # This file can change to accomodate new PAYE versions, so it needs a
-      # smaller expiry.
-      location /government/uploads/uploaded/hmrc/realtimepayetools-update.xml {
-        expires 30m;
-        add_header Cache-Control public;
-        # Explicitly reinclude Strict-Transport-Security header, as calling
-        # add_header above will have reset the set of headers sent by nginx.
-        include /etc/nginx/sts.conf;
-        try_files $uri @app;
+        # This type of file can change to accomodate new PAYE versions,
+        # so it needs a smaller expiry.
+        location ~ realtimepayetools-update\.xml {
+          expires 30m;
+        }
       }
 
       # Don\'t ask for basic auth on API pages so internal apps can hit them
