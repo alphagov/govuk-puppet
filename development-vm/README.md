@@ -173,7 +173,11 @@ Then, from `development/replication` run.
 
 Dumps of the Elasticsearch indexes take place nightly on preview boxes. To get a
 copy of the production search index on your local vm, run the following from
-`development/replication`.
+`rummager`:
+
+    dev$ RUMMAGER_INDEX=all bundle exec rake rummager:migrate_from_unaliased_index
+
+Then run this from `development/replication`:
 
     dev$ ./replicate-search-index.sh
 
