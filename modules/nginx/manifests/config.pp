@@ -36,7 +36,6 @@ class nginx::config ($server_names_hash_max_size) {
     notify  => Class['nginx::service'];
   }
 
-
   file { ['/var/www', '/var/www/cache']:
     ensure => directory,
     owner  => 'www-data',

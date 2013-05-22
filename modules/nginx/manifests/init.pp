@@ -15,6 +15,10 @@ class nginx ($server_names_hash_max_size = 512, $variables_hash_max_size = 512) 
     notify                     => Class['nginx::service'];
   }
 
+  class { 'nginx::logging':
+    require => Class['nginx::package'];
+  }
+
   class { 'nginx::firewall':
     require => Class['nginx::config'],
   }
