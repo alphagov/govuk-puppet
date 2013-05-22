@@ -10,6 +10,9 @@ halarose-2|halarose-token-2|true|00QL,00QG,00QD|S12000035,S12000039,S12000009|tr
 halarose-3|halarose-token-3|true|00NN|W06000023|true
 halarose-4|nBNpNWBN_mCc3JMXtSBx0J68_kwbD5UzF_mPztxP_JKL12YCA9O6EFmx59Z4ei4JHhbi-oRmVagzu9hFtaWMmA|true|33UD||true
 halarose-5|Ea4JfzseYQal6M6dNxd5g9JR8p-UcjYstzHzOl78Xox2gLkTtEJ6O4kHwdnLwVpa7mCDdZrhFPSpRDWEI9-RBw|true|00FY||true
+halarose-6|LfmM4Aq80lkpyaJrlac4Yy9SAgOhOOXGwMgkm4T-KJ2F37EQeo7werQz5CLDay8LJYzhAcdERuulli9aRL4xrA|true|00CN||true
+halarose-7|T86mCI0z5xDuZp69Wkt-ULzMjQHMEgvv9kyTLn0MfRAXI3GG4ldvJsU_6FZJVS4irPmk8DAF7IraRQivzGXQMA|true|00DA||true
+halarose-8|X2SPOv1Pkzc676MkAF3VX94880OaQIsizNxqbZZP58wa7NHOx7Ae8-ToBa31hlC88tYboFVMdbwdxTIVgSz66w|true|00HN||true
 democracycounts|democracycounts-token|true|16UG||true
 smoke_test_1_ero|smoke_test_ero_1_token|true|81ZZ|F09999981|true
 smoke_test_2_ero|smoke_test_ero_2_token|true|82ZZ|F09999982|true
