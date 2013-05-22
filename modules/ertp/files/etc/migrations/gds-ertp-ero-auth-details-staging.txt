@@ -3,7 +3,7 @@ grampian|grampian-token|true|00QA,00QB,00QX||true
 renfrewshire|renfrewshire-token|true|00RC,00QN,00QU||true
 strandidox|strandidox-token|true|00BW|E08000010|true
 strandidox-qa|strandidox-qa-token|true|12UC|E07000009|true
-strandidox-qa-2|strandidox-qa-token-2|true|00HA|E07000009|true
+strandidox-qa-2|strandidox-qa-token-2|true|00HA|E06000022|true
 xpress|xpress-token|true|00CW|E08000031|true
 halarose|halarose-token|true|00AL|E09000011|true
 halarose-2|halarose-token-2|true|00QL,00QG,00QD|S12000035,S12000039,S12000009|true
