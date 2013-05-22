@@ -3,6 +3,11 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
   include nginx
   include rbenv
 
+  rbenv::version { '1.9.3-p392': }
+  rbenv::alias { '1.9.3':
+    to_version => '1.9.3-p392',
+  }
+
   $app_domain = extlookup('app_domain')
   $protect_fe = str2bool(extlookup('protect_frontend_apps', 'no'))
 
