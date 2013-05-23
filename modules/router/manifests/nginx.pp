@@ -15,8 +15,17 @@
 #   Mandatory boolean value. Whether to enable BasicAuth or not. Used in
 #   environments where origin is not firewalled.
 #
+# [*real_ip_header*]
+#   Invokes [real_ip](http://wiki.nginx.org/HttpRealipModule) to replace
+#   `$remote_addr` with an address from the named header. The header must be
+#   inserted by an upstream CDN or L7 load balancer. It *must* not be
+#   spoofable by the originating client.
+#
+#   Default: '', which will disable this functionality.
+#
 class router::nginx (
-  $vhost_protected
+  $vhost_protected,
+  $real_ip_header = ''
 ) {
   $app_domain = extlookup('app_domain')
 
