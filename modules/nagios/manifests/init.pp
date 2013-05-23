@@ -15,9 +15,13 @@ class nagios {
   }
 
   class { 'nagios::service': }
+  class { 'nagios::nginx': }
 
   anchor { 'nagios::end':
-    require => Class['nagios::service'],
+    require => Class[
+      'nagios::service',
+      'nagios::nginx'
+    ],
   }
 
   Nagios::Host            <<||>> { notify => Class['nagios::service'] }

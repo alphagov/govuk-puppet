@@ -5,27 +5,10 @@ class nagios::config {
   include nagios::config::smokey
 
   $app_domain = extlookup('app_domain','dev.gov.uk')
-  $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
 
   # Used by graphite check templates, below
   $http_username = extlookup('http_username', '')
   $http_password = extlookup('http_password', '')
-
-  $protect_monitoring = str2bool(extlookup('monitoring_protected','yes'))
-  nginx::config::ssl { 'nagios':
-    certtype => 'wildcard_alphagov' }
-  nginx::config::site { 'nagios':
-    content => template('nagios/nginx.conf.erb'),
-  }
-  nginx::log {
-    'nagios-json.event.access.log':
-      json      => true,
-      logstream => true;
-    'nagios-access.log':
-      logstream => false;
-    'nagios-error.log':
-      logstream => true;
-  }
 
   file { '/etc/nagios3':
     ensure  => directory,
