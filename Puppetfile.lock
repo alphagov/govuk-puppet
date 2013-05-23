@@ -40,8 +40,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-rbenv.git
-  ref: 24c39b2e6389bb55cc3873bc98189ca63cf3a5e7
-  sha: 24c39b2e6389bb55cc3873bc98189ca63cf3a5e7
+  ref: 89f284f961e76fd893e51332e4999db3dc6b055f
+  sha: 89f284f961e76fd893e51332e4999db3dc6b055f
   specs:
     rbenv (0.0.1)
 
