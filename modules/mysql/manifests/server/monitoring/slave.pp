@@ -9,7 +9,7 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
     warning      => 300,
     critical     => 600,
     host_name    => $::fqdn,
-    document_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-lag-check',
+    document_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-lag',
   }
 
   $nagios_mysql_password = extlookup('mysql_nagios')
@@ -20,7 +20,8 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
 
   @@nagios::check { "check_mysql_slave_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_mysql_slave',
-    service_description => "check mysql slave is running",
+    service_description => 'mysql replication running',
     host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-running',
   }
 }
