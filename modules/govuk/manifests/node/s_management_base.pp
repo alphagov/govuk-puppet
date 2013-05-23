@@ -1,6 +1,7 @@
 class govuk::node::s_management_base inherits govuk::node::s_base {
   include apt
   include ssh
+  include rbenv
 
   include govuk::node::s_ruby_app_server
 
@@ -12,6 +13,11 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include imagemagick
   include mongodb::server
   include nodejs
+
+  rbenv::version { '1.9.3-p392': }
+  rbenv::alias { '1.9.3':
+    to_version => '1.9.3-p392',
+  }
 
   $redis_port = 6379
   $redis_max_memory = 256
