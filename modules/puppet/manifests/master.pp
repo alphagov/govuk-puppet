@@ -11,7 +11,6 @@
 #
 class puppet::master($unicorn_port='9090') {
   include puppet::repository
-  include nginx
   include unicornherder
 
   $puppetdb_version = '1.0.2-1puppetlabs1'
@@ -48,11 +47,16 @@ class puppet::master($unicorn_port='9090') {
     # provided by a manifest separate from puppet::master::*. TODO: move
     # master puppet.conf into the configuration of the puppetmaster.
     subscribe => File['/etc/puppet/puppet.conf'],
-    notify    => Anchor['puppet::master::end'],
     require   => Class['puppet::master::generate_cert'],
   }
 
+  class { 'puppet::master::nginx': }
+
   anchor {'puppet::master::end':
-    require => Class['puppet::master::firewall'],
+    subscribe => Class['puppet::master::service'],
+    require   => Class[
+      'puppet::master::firewall',
+      'puppet::master::nginx'
+    ],
   }
 }
