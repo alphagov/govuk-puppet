@@ -1,6 +1,4 @@
 class mirror {
-  include ruby::spidey
-  include ruby::syslogger
   include daemontools # provides setlock
 
   # set up user that's needed to upload the mirrored site to net storage
@@ -36,13 +34,7 @@ class mirror {
     source => 'puppet:///modules/mirror/govuk_update_mirror',
   }
 
-  # ruby script that does the crawlling to make the local mirror
-  file { '/usr/local/bin/govuk_mirrorer':
-    ensure  => present,
-    mode    => '0755',
-    source  => 'puppet:///modules/mirror/govuk_mirrorer',
-    require => Class['ruby::spidey', 'ruby::syslogger'],
-  }
+  include ruby::govuk_mirrorer
 
   # script that uploads the mirrored files to net storage
   file { '/usr/local/bin/govuk_upload_mirror':
