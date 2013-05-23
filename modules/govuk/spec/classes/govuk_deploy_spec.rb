@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::deploy', :type => :class do
+describe 'govuk::deploy::setup', :type => :class do
   let(:file_path) { '/home/deploy/.ssh/authorized_keys' }
 
   context 'with all keys present in extdata' do
