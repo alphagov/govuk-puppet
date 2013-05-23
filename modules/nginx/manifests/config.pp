@@ -10,16 +10,6 @@ class nginx::config ($server_names_hash_max_size) {
     ensure  => present,
     content => template('nginx/etc/nginx/nginx.conf.erb'),
   }
-  nginx::log {
-    'json.event.access.log':
-      json          => true,
-      logstream     => true,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}";
-    'access.log':
-      logstream => false;
-    'error.log':
-      logstream => true;
-  }
 
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
     ensure  => directory,
