@@ -8,11 +8,10 @@ node default {
     notify { "${warn_head} ${warn_body}": }
   } else {
     case $::govuk_class {
-      'elms-development':   { include elms_base::development }
-      'elms-frontend':      { include elms_base::frontend_server }
-      'elms-mongo':         { include elms_base::mongo_server }
-      'elms-sky-backend':   { include elms_base::sky_backend_server }
-      'elms-sky-frontend':  { include elms_base::sky_frontend_server }
+      'elms-sky-frontend':  { include govuk::node::s_licensify_frontend }
+      'elms-sky-backend':   { include govuk::node::s_licensify_backend }
+      'elms-mongo':         { include govuk::node::s_licensify_mongo }
+
       'ertp-api-citizen':   { include ertp_base::api_server::citizen }
       'ertp-api-dwp':       { include ertp_base::api_server::dwp }
       'ertp-api-ero':       { include ertp_base::api_server::ero }
