@@ -221,11 +221,10 @@ preview environment.
 
 While the load balanced endpoints are available directly via the public
 Internet, SSH access to the boxes which comprise the environment is brokered via
-a "jumpbox". You will need to configure your machine to use this jumpbox. See the
-last three stanzas in the configuration below and add them to your ~/.ssh/config.
-
-See Ops Manual:
-http://goo.gl/UFcnQ
+a "jumpbox". You will need to configure your machine to use this jumpbox. See
+the [instructions in the Ops
+Manual](https://github.gds/pages/gds/opsmanual/2nd-line/skyscape-ssh-configuration.html)
+for adding the relevant lines to your ~/.ssh/config.
 
 Note: if the user name you added to puppet is different to the user name you
 have on your laptop, then pay particular attention to the note at the bottom of the
