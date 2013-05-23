@@ -39,7 +39,7 @@ class govuk::node::s_redis {
     check_command       => "check_nrpe!check_redis!${redis_port} 1,2 80,90 blocked_clients,connected_clients 5,800 10,1000 LLEN,logs 10000 30000",
     service_description => 'redis server',
     host_name           => $::fqdn,
-    document_url        => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions#TOC-Redis-Server-Check'
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
   }
 
   @ufw::allow {

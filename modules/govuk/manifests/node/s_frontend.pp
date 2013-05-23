@@ -46,6 +46,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     critical     => 250,
     desc         => 'nginx high conn writing - upstream indicator',
     host_name    => $::fqdn,
-    document_url => "https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions#TOC-nginx-high-conn-writing---upstream-indicator-Check",
+    document_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
   }
 }

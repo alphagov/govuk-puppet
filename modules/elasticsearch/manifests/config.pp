@@ -87,7 +87,7 @@ class elasticsearch::config (
     check_command       => "check_nrpe!check_elasticsearch_cluster_health!${http_port}",
     service_description => 'elasticsearch cluster is not healthy',
     host_name           => $::fqdn,
-    document_url        => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions',
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#elasticsearch-cluster-health',
   }
 
 }

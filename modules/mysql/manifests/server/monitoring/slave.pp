@@ -9,7 +9,7 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
     warning      => 300,
     critical     => 600,
     host_name    => $::fqdn,
-    document_url => 'https://sites.google.com/a/digital.cabinet-office.gov.uk/wiki/projects-and-processes/gov-uk/ops-manual/nagios-alerts-documentation-actions#TOC-mysql-replication-lag-Check',
+    document_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-lag-check',
   }
 
   $nagios_mysql_password = extlookup('mysql_nagios')
