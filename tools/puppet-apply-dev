@@ -79,7 +79,7 @@ manifestdir=/var/govuk/puppet/manifests
 EOM
 fi
 
-bundle install --quiet --without subprojects
+bundle install --quiet
 bundle exec librarian-puppet install --quiet
 
 for dir in `ls vendor/modules`; do
