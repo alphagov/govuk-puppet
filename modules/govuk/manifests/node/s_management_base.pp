@@ -14,7 +14,9 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include mongodb::server
   include nodejs
 
-  rbenv::version { '1.9.3-p392': }
+  rbenv::version { '1.9.3-p392':
+    bundler_version => '1.3.5'
+  }
   rbenv::alias { '1.9.3':
     to_version => '1.9.3-p392',
   }
