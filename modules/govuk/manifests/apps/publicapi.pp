@@ -8,6 +8,7 @@ class govuk::apps::publicapi {
   $backdropwrite = "write.backdrop.${app_domain}"
 
   $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
+  $enable_backdrop_government_annotations_bucket = str2bool(extlookup('govuk_enable_backdrop_government_annotations_bucket', 'no'))
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"

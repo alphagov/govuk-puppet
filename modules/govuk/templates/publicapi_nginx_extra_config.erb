@@ -41,6 +41,26 @@
     proxy_pass http://<%= @backdropread %>;
   }
 
+<% if @enable_backdrop_government_annotations_bucket %>
+  location ~ ^/performance/government/api/annotations/upload {
+    rewrite ^/performance/government/api/annotations/upload(.*)$ /government_annotations/upload$1 break;
+
+    proxy_set_header Host <%= @backdropwrite %>;
+    proxy_set_header X-API-PREFIX performance/government/api/annotations;
+
+    proxy_pass http://<%= @backdropwrite %>;
+  }
+
+  location ~ ^/performance/government/api/annotations {
+    rewrite ^/performance/government/api/annotations(.*)$ /government_annotations$1 break;
+
+    proxy_set_header Host <%= @backdropread %>;
+    proxy_set_header X-API-PREFIX performance/government/api/annotations;
+
+    proxy_pass http://<%= @backdropread %>;
+  }
+<% end %>
+
 <% if @enable_backdrop_test_bucket %>
 
   location ~ ^/performance/test/api/test/upload {
