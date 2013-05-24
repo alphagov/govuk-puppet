@@ -28,7 +28,11 @@ class nginx ($server_names_hash_max_size = 512, $variables_hash_max_size = 512) 
   }
 
   anchor { 'nginx::end':
-    require => Class['nginx::firewall'],
+    require => Class[
+      'nginx::logging',
+      'nginx::firewall',
+      'nginx::service'
+    ],
   }
 
   # Include ability to do a full restart of nginx. This does not explicitly

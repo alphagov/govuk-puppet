@@ -1,6 +1,5 @@
 class graphite {
 
-  include nginx
   include pip
   include gunicorn
   include apache::remove
@@ -27,8 +26,13 @@ class graphite {
     notify => Anchor['graphite::end'],
   }
 
+  class { 'graphite::nginx': }
+
   anchor { 'graphite::end':
-    require => Class['graphite::firewall'],
+    require => Class[
+      'graphite::firewall',
+      'graphite::nginx'
+    ],
   }
 
 }
