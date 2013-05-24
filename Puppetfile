@@ -24,4 +24,4 @@ mod 'curl',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'
 mod 'rbenv',
   :git => 'git://github.com/alphagov/puppet-rbenv.git',
-  :ref => 'dae127e665c85aaf6f62b5e7abaa0a470afe253a'
+  :ref => 'f551dc291d19d0f5680325e5b3e5765969479724'
