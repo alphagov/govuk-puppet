@@ -18,6 +18,10 @@ server {
     satisfy any;
   }
 
+  location /favicon.ico {
+    return 404;
+  }
+
   location / {
     rewrite ^/(.*)$ /register-to-vote redirect;
   }
