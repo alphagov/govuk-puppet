@@ -13,6 +13,8 @@ Host jumpbox-2.management.preview skyscape-dev-jumpbox2
   ProxyCommand none
 
 Host *.preview
+  # If you get an error 'percent_expand: unknown key %r' then replace %r with your username
+  # This is a known issue with the version of ssh on lucid.
   ProxyCommand ssh -e none %r@jumpbox.preview.alphagov.co.uk exec nc $(echo %h | sed 's/\.preview$/\.production/') %p
 
 # Beta hosts
