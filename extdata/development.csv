@@ -5,6 +5,7 @@ asset_root,"http://static.dev.gov.uk"
 govuk_app_enable_capistrano_layout,false
 govuk_app_enable_services,false
 govuk_enable_backdrop_test_bucket,true
+govuk_enable_backdrop_government_annotations_bucket,true
 govuk_env,"development"
 imminence_intercept_errors,false
 internal_tld,"development"
