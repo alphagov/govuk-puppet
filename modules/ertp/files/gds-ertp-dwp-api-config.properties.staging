@@ -14,6 +14,7 @@ dwp.match.request.base=/var/apps/ertp/dwp-feed/requests
 dwp.match.request.path=/var/apps/ertp/dwp-feed/requests/working
 dwp.match.request.downloaded.path=/var/apps/ertp/dwp-feed/downloaded
 dwp.match.response.path=/var/apps/ertp/dwp-feed/responses
+dwp.match.response.archived.path=/var/apps/ertp/dwp-feed/archive/responses
 dwp.match.request.appending.schedule=0 0/1 * * * ?
 dwp.match.request.capping.schedule=0 0/5 * * * ?
 dwp.match.response.processing.schedule=0 0/1 * * * ?
