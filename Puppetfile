@@ -25,3 +25,5 @@ mod 'curl',
 mod 'rbenv',
   :git => 'git://github.com/alphagov/puppet-rbenv.git',
   :ref => 'e04e539aa3340d1087e6e9c81c3b180183a7b96f'
+mod 'harden',
+  :git => 'git://github.com/alphagov/puppet-harden.git'
