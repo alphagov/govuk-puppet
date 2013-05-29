@@ -34,9 +34,12 @@ class rkhunter::monitoring {
     require => Class['nagios::client'],
   }
 
+  # Convert days to seconds.
+  $critical_age = 8 * (24 * 60 * 60)
+
   @@nagios::check { "check_rkhunter_definitions_${::hostname}":
-    check_command       => 'check_nrpe!check_path_age!/var/lib/rkhunter/db/mirrors.dat 8',
-    service_description => "rkhunter definitions not updated",
+    check_command       => "check_nrpe!check_file_age!-f /var/lib/rkhunter/db/mirrors.dat -c ${critical_age}",
+    service_description => 'rkhunter definitions not updated',
     host_name           => $::fqdn,
   }
 }
