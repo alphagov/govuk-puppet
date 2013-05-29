@@ -124,13 +124,13 @@ else
   ok "${FILE_COUNT} archives found"
 fi
 
-if [[ $@ ]]; then
+if [ $# -gt 0 ]; then
   for index_name in $@; do
     filenames="$filenames $LOCAL_ARCHIVE_PATH/$index_name.zip"
   done
 
   for filename in $filenames; do
-    if [[ ! -e $filename ]]; then
+    if [ ! -e $filename ]; then
       error "File $filename not found: aborting."
       exit 1
     fi
