@@ -9,6 +9,7 @@ LOCAL_ES_HOST="http://localhost:9200/"
 LOCAL_ARCHIVE_PATH="es_archives/$(date +%Y-%m-%d)"
 
 FETCH_ARCHIVES=true
+DRY_RUN=false
 
 ANSI_GREEN="\033[32m"
 ANSI_RED="\033[31m"
@@ -31,20 +32,24 @@ error () {
 usage()
 {
 cat << EOF
-Usage: $0 [options]
+Usage: $0 [options] [index_name ...]
 
 Download Elasticsearch index archives and import into another instance.
+
+If one or more index names are given, only those index files are imported;
+otherwise, all index files are imported.
 
 OPTIONS:
    -h               Show this message
    -s               Skip fetching new archives
+   -n               Don't actually import anything (dry run)
    -d dir           Store archives in a different directory
    -t destination   Import the data into a different Elasticsearch instance
 
 EOF
 }
 
-while getopts "hsd:t:" OPTION
+while getopts "hsnd:t:" OPTION
 do
   case $OPTION in
     h )
@@ -54,6 +59,9 @@ do
     s )
       # skip fetching new archives
       FETCH_ARCHIVES=false
+      ;;
+    n )
+      DRY_RUN=true
       ;;
     d )
       # override the archive directory
@@ -116,12 +124,31 @@ else
   ok "${FILE_COUNT} archives found"
 fi
 
+if [[ $@ ]]; then
+  for index_name in $@; do
+    filenames="$filenames $LOCAL_ARCHIVE_PATH/$index_name.zip"
+  done
+
+  for filename in $filenames; do
+    if [[ ! -e $filename ]]; then
+      error "File $filename not found: aborting."
+      exit 1
+    fi
+  done
+else
+  filenames=${LOCAL_ARCHIVE_PATH}/*.zip
+fi
+
 status "Restoring data into Elasticsearch"
 
-for f in $LOCAL_ARCHIVE_PATH/*.zip
+for f in $filenames
 do
-  status $f
-  es_dump_restore restore "$LOCAL_ES_HOST" `basename $f .zip` "$f"
+  if $DRY_RUN; then
+    status "$f (dry run)"
+  else
+    status $f
+    es_dump_restore restore "$LOCAL_ES_HOST" `basename $f .zip` "$f"
+  fi
 done
 
 ok "Restore complete"
