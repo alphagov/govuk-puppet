@@ -2,8 +2,8 @@ class govuk::node::s_backend_lb {
   include govuk::node::s_base
   include loadbalancer
 
-  $backend_servers = ["backend-1", "backend-2", "backend-3"]
-  $mapit_servers = ["mapit-server-1", "mapit-server-2"]
+  $backend_servers = extlookup('lb_nodes_backend')
+  $mapit_servers = extlookup('lb_nodes_mapit')
 
   Loadbalancer::Balance {
     servers => $backend_servers,

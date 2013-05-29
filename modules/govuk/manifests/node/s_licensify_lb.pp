@@ -3,8 +3,8 @@ class govuk::node::s_licensify_lb {
 
   include loadbalancer
 
-  $licensify_frontend_servers = ["licensify-frontend-1", "licensify-frontend-2"]
-  $licensify_backend_servers = ["licensify-backend-1", "licensify-backend-2"]
+  $licensify_frontend_servers = extlookup('lb_nodes_licensify_frontend')
+  $licensify_backend_servers = extlookup('lb_nodes_licensify_backend')
   $enable_feed_console = str2bool(extlookup('govuk_enable_licensify_feed_console','no'))
 
   loadbalancer::balance {

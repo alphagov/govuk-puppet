@@ -2,8 +2,8 @@ class govuk::node::s_frontend_lb {
   include govuk::node::s_base
   include loadbalancer
 
-  $govuk_frontend_servers = ["frontend-1", "frontend-2", "frontend-3"]
-  $whitehall_frontend_servers = ["whitehall-frontend-1", "whitehall-frontend-2",]
+  $govuk_frontend_servers = extlookup('lb_nodes_frontend')
+  $whitehall_frontend_servers = extlookup('lb_nodes_whitehall_frontend')
 
   $app_domain = extlookup('app_domain')
 
