@@ -4,3 +4,7 @@
 
 # let the shell know ssh-agent
 source /home/jenkins/.keychain/${HOSTNAME}-sh > /dev/null
+
+# initialize rbenv
+export RBENV_ROOT=/usr/lib/rbenv
+eval "$(rbenv init -)"
