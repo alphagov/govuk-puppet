@@ -164,6 +164,7 @@ class hosts::skyscape::production_like {
     legacy_aliases => [
       'frontend-internal-lb',
       "businesssupportfinder.${app_domain}",
+      "calculators.${app_domain}",
       "calendars.${app_domain}",
       "canary-frontend.${app_domain}",
       "datainsight-frontend.${app_domain}",

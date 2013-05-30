@@ -39,6 +39,7 @@ class hosts::preview {
   host { "govuk-delivery.${app_domain}":          ip => '10.228.95.176' }
 
   host { "search.${app_domain}":                 ip => '10.228.95.176' }
+  host { "calculators.${app_domain}":              ip => '10.58.253.150' }
   host { "calendars.${app_domain}":              ip => '10.58.253.150' }
   host { "designprinciples.${app_domain}":       ip => '10.58.253.150' }
   host { "smartanswers.${app_domain}":           ip => '10.58.253.150' }

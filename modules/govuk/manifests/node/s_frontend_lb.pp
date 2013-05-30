@@ -21,6 +21,7 @@ class govuk::node::s_frontend_lb {
   loadbalancer::balance {
     [
       'businesssupportfinder',
+      'calculators',
       'calendars',
       'canary-frontend',
       'datainsight-frontend',
