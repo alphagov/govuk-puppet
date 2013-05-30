@@ -40,6 +40,7 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
     check_command       => "check_nrpe!check_dir_empty!${dbpath}/rollback",
     service_description => "mongod rollback dir should be nonexistent",
     host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mongodb-rollback',
   }
 
   @@nagios::check { "check_mongod_replication_lag_${::hostname}":
