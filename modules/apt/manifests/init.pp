@@ -1,4 +1,5 @@
 class apt {
+  include apt::monitoring
 
   file { '/etc/apt/sources.list':
     ensure => present,
