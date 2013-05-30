@@ -33,7 +33,8 @@ MAKE_PIDFILE=""
 
 # Initialize rbenv
 export RBENV_ROOT=/usr/lib/rbenv
-eval "$(rbenv init -)"
+export PATH="${RBENV_ROOT}/shims:${PATH}"
+rbenv rehash 2>/dev/null
 
 case "$GOVUK_APP_TYPE" in
   rack)
