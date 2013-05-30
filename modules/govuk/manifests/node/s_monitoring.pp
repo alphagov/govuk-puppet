@@ -5,13 +5,13 @@ class govuk::node::s_monitoring inherits govuk::node::s_base {
   $offsite_backup = extlookup('offsite-backups', 'off')
 
   case $offsite_backup {
-    "on":    { include backup::offsite::monitoring }
+    'on':    { include backup::offsite::monitoring }
     default: {}
   }
 
   $campfire = extlookup('campfire','off')
   case $campfire {
-    "on":     {
+    'on':     {
       nagios::campfire_contact {'campfire_notification':
         campfire_subdomain => extlookup('campfire_subdomain','unset'),
         campfire_token     => extlookup('campfire_token','unset'),
@@ -25,8 +25,8 @@ class govuk::node::s_monitoring inherits govuk::node::s_base {
     production: {
       case $::govuk_provider {
         sky: {
-          if extlookup(nagios_is_zendesk_enabled, '') == "yes" {
-            if $campfire == "on" {
+          if extlookup(nagios_is_zendesk_enabled, '') == 'yes' {
+            if $campfire == 'on' {
               $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority', 'campfire_notification']
               $highprio_members   = ['monitoring_google_group','zendesk_high_priority', 'campfire_notification']
               $normalprio_members = ['monitoring_google_group','zendesk_normal_priority', 'campfire_notification']

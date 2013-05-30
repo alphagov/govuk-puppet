@@ -7,7 +7,7 @@ class puppet::master::config ($unicorn_port = '9090') {
 
 
   file {'/etc/puppet/unicorn.conf':
-    source => "puppet:///modules/puppet/etc/puppet/unicorn.conf",
+    source => 'puppet:///modules/puppet/etc/puppet/unicorn.conf',
   }
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),

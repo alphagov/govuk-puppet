@@ -21,14 +21,14 @@ class assets {
   if $::govuk_platform != 'development' {
     $app_domain = extlookup('app_domain')
 
-    mount { "/data/uploads":
-      ensure   => "mounted",
+    mount { '/data/uploads':
+      ensure   => 'mounted',
       device   => "asset-master.${app_domain}:/mnt/uploads",
-      fstype   => "nfs",
+      fstype   => 'nfs',
       options  => 'rw,soft',
       remounts => false,
       atboot   => true,
-      require  => [File["/data/uploads"], Package['nfs-common']],
+      require  => [File['/data/uploads'], Package['nfs-common']],
     }
   }
 }

@@ -52,13 +52,13 @@ class nginx ($server_names_hash_max_size = 512, $variables_hash_max_size = 512) 
 
   @@nagios::check { "check_nginx_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!nginx',
-    service_description => "nginx not running",
+    service_description => 'nginx not running',
     host_name           => $::fqdn,
   }
 
   @@nagios::check { "check_http_response_${::hostname}":
     check_command       => 'check_http_port!monitoring-vhost.test!5!10',
-    service_description => "nginx http port unresponsive",
+    service_description => 'nginx http port unresponsive',
     host_name           => $::fqdn,
   }
 }

@@ -12,7 +12,7 @@ class govuk::node::s_backup {
     $offsite_backup = extlookup('offsite-backups', 'off')
 
     case $offsite_backup {
-      "on":    { include backup::offsite }
+      'on':    { include backup::offsite }
       default: {}
     }
 

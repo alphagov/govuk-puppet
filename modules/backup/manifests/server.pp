@@ -57,7 +57,7 @@ class backup::server {
 
   @@nagios::check { "check_backup_age_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_backup_age',
-    service_description => "backup not run recently",
+    service_description => 'backup not run recently',
     host_name           => $::fqdn,
   }
 

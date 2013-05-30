@@ -3,14 +3,14 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   include clamav
 
   $directories = [
-    "/mnt/uploads",
-    "/mnt/uploads/whitehall",
-    "/mnt/uploads/whitehall/incoming",
-    "/mnt/uploads/whitehall/clean",
-    "/mnt/uploads/whitehall/infected",
-    "/mnt/uploads/whitehall/draft-incoming",
-    "/mnt/uploads/whitehall/draft-clean",
-    "/mnt/uploads/whitehall/draft-infected",
+    '/mnt/uploads',
+    '/mnt/uploads/whitehall',
+    '/mnt/uploads/whitehall/incoming',
+    '/mnt/uploads/whitehall/clean',
+    '/mnt/uploads/whitehall/infected',
+    '/mnt/uploads/whitehall/draft-incoming',
+    '/mnt/uploads/whitehall/draft-clean',
+    '/mnt/uploads/whitehall/draft-infected',
   ]
 
   file { $directories:
@@ -27,7 +27,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => "/mnt/uploads     10.0.0.0/8(rw,fsid=0,insecure,no_subtree_check,async,all_squash,anonuid=2900,anongid=2900)",
+    content => '/mnt/uploads     10.0.0.0/8(rw,fsid=0,insecure,no_subtree_check,async,all_squash,anonuid=2900,anongid=2900)',
     require => File['/mnt/uploads'],
     notify  => Service['nfs-kernel-server'],
   }

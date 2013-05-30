@@ -16,7 +16,7 @@ class govuk::apps::efg( $port = 3019 ) {
 
   nginx::config::vhost::proxy { $vhost_name:
     to                    => ["localhost:${port}"],
-    aliases               => ["efg.production.alphagov.co.uk"],
+    aliases               => ['efg.production.alphagov.co.uk'],
     protected             => false,
     ssl_only              => true,
     ssl_manage_cert       => false,

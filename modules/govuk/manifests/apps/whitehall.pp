@@ -28,7 +28,7 @@ class govuk::apps::whitehall(
   if $configure_frontend == true {
 
     $asset_config_in_platform = $::govuk_platform ? {
-      "development" => "
+      'development' => "
         proxy_set_header Host 'whitehall-admin.${app_domain}';
         proxy_pass http://whitehall-admin.${app_domain};
       ",

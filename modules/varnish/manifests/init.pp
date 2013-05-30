@@ -1,6 +1,6 @@
 class varnish (
     $default_ttl  = 900,
-    $storage_size = "512M"
+    $storage_size = '512M'
 ) {
   anchor { 'varnish::begin':
     notify => Class['varnish::service'];

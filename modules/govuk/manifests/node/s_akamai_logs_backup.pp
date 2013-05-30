@@ -25,7 +25,7 @@ class govuk::node::s_akamai_logs_backup inherits govuk::node::s_base {
     content => "ssh-rsa ${akamai_logs_ssh_key} akamai_log_box",
   }
 
-  file { ["/mnt/akamai", "/mnt/akamai/logs"]:
+  file { ['/mnt/akamai', '/mnt/akamai/logs']:
     ensure  => directory,
     owner   => $user
   }
@@ -33,6 +33,6 @@ class govuk::node::s_akamai_logs_backup inherits govuk::node::s_base {
   file { "/home/${user}/akamai":
     ensure  => symlink,
     owner   => $user,
-    target  => "/mnt/akamai"
+    target  => '/mnt/akamai'
   }
 }

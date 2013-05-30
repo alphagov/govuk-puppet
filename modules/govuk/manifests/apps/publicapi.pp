@@ -22,6 +22,6 @@ class govuk::apps::publicapi {
       # be handled by the location blocks below.
       return 404;
     ",
-    extra_config     => template("govuk/publicapi_nginx_extra_config.erb")
+    extra_config     => template('govuk/publicapi_nginx_extra_config.erb')
   }
 }

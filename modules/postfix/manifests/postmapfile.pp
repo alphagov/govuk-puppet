@@ -4,7 +4,7 @@ define postfix::postmapfile($name) {
                 refreshonly => true,
                 require     => [
                             File["/etc/postfix/${name}"],
-                            Package["postfix"]],
+                            Package['postfix']],
         }
         file { "/etc/postfix/${name}":
                 ensure  => present,

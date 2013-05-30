@@ -6,7 +6,7 @@ class mysql::server::monitoring ($root_password) {
 
   @@nagios::check { "check_mysqld_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mysqld',
-    service_description => "mysqld not running",
+    service_description => 'mysqld not running',
     host_name           => $::fqdn,
   }
 
@@ -14,7 +14,7 @@ class mysql::server::monitoring ($root_password) {
     target    => "${::fqdn_underscore}.mysql.threads-connected",
     warning   => 250,
     critical  => 350,
-    desc      => "mysql high cur conn",
+    desc      => 'mysql high cur conn',
     host_name => $::fqdn,
   }
 

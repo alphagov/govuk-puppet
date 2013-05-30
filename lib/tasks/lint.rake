@@ -2,7 +2,6 @@ require 'puppet-lint'
 
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
-PuppetLint.configuration.send("disable_double_quoted_strings")
 
 # FIXME: this is disabled not because it's a bad idea for a check, but because
 # we have a temporary workaround in place for the UFW module (see 6b0f870)

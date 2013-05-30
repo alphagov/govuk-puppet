@@ -1,6 +1,6 @@
 class mongodb::service {
 
-  $mongod_log_file = "/var/log/mongodb/mongod.log"
+  $mongod_log_file = '/var/log/mongodb/mongod.log'
 
   service { 'mongodb':
     ensure     => running,

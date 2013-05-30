@@ -58,9 +58,9 @@ class openconnect (
     content => $cacerts,
   }
 
-  file {"/etc/init/openconnect.conf":
+  file {'/etc/init/openconnect.conf':
     mode    => '0600',
-    content => template("openconnect/openconnect.conf.erb"),
+    content => template('openconnect/openconnect.conf.erb'),
     notify  => Service['openconnect'],
     require => [
       Package['openconnect'],

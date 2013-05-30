@@ -2,7 +2,7 @@ class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib
 
   # $dbpath and $replicaset are both used by the templates below
 
-  $mongod_log_file = "/var/log/mongodb/mongod.log"
+  $mongod_log_file = '/var/log/mongodb/mongod.log'
 
   file { '/etc/mongodb.conf':
     ensure  => present,

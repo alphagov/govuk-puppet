@@ -1,4 +1,4 @@
-define nginx::config::vhost::licensify_upload($port="9000") {
+define nginx::config::vhost::licensify_upload($port='9000') {
   $app_domain = extlookup('app_domain')
   $vhost_name = "uploadlicence.${app_domain}"
   $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')

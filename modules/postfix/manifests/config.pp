@@ -9,8 +9,8 @@ class postfix::config(
     content => "${::fqdn}\n",
   }
 
-  file { "/etc/postfix/main.cf":
-    content => template("postfix/etc/postfix/main.cf.erb"),
+  file { '/etc/postfix/main.cf':
+    content => template('postfix/etc/postfix/main.cf.erb'),
     notify  => Service[postfix],
     require => File['/etc/mailname'],
   }

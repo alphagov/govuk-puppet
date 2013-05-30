@@ -1,6 +1,6 @@
 class mysql::server($root_password='') {
 
-  $mysql_error_log = "/var/log/mysql/error.log"
+  $mysql_error_log = '/var/log/mysql/error.log'
 
   anchor { 'mysql::server::begin':
     before => Class['mysql::server::package'],

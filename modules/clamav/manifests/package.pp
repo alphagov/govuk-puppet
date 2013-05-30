@@ -4,8 +4,8 @@ class clamav::package {
   }
 
   $symlink_target = $::govuk_platform ? {
-    'development' => "/usr/bin/clamscan",
-    default       => "/usr/bin/clamdscan",
+    'development' => '/usr/bin/clamscan',
+    default       => '/usr/bin/clamdscan',
   }
   file { '/usr/local/bin/govuk_clamscan':
     ensure  => symlink,

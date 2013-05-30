@@ -16,13 +16,13 @@ class puppet::master::nginx {
       logstream => true;
   }
 
-  @logster::cronjob { "nginx-vhost-puppetmaster":
+  @logster::cronjob { 'nginx-vhost-puppetmaster':
     file    => '/var/log/nginx/puppetmaster-access.log',
     prefix  => 'nginx_logs.puppetmaster',
   }
 
-  @logrotate::conf { "puppetmaster":
-    matches => "/var/log/puppetmaster/*.log",
+  @logrotate::conf { 'puppetmaster':
+    matches => '/var/log/puppetmaster/*.log',
   }
 
   # FIXME: keepLastValue() because logster only runs every 2m.
@@ -31,7 +31,7 @@ class puppet::master::nginx {
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
-    desc      => "puppetmaster nginx high 5xx rate",
+    desc      => 'puppetmaster nginx high 5xx rate',
     host_name => $::fqdn,
   }
 }

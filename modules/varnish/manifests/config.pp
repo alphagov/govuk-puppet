@@ -89,6 +89,6 @@ class varnish::config {
 
   file { '/etc/varnish/default.vcl':
     ensure  => file,
-    content => template("varnish/default.vcl.erb"),
+    content => template('varnish/default.vcl.erb'),
   }
 }

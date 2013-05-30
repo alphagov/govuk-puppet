@@ -44,31 +44,31 @@ define govuk::app::config (
 
   govuk::app::envvar {
     "${title}-GOVUK_USER":
-      varname => "GOVUK_USER",
-      value   => "deploy";
+      varname => 'GOVUK_USER',
+      value   => 'deploy';
     "${title}-GOVUK_GROUP":
-      varname => "GOVUK_GROUP",
-      value   => "deploy";
+      varname => 'GOVUK_GROUP',
+      value   => 'deploy';
     "${title}-GOVUK_APP_TYPE":
-      varname => "GOVUK_APP_TYPE",
+      varname => 'GOVUK_APP_TYPE',
       value   => $app_type;
     "${title}-PORT":
-      varname => "PORT",
+      varname => 'PORT',
       value   => $port;
     "${title}-GOVUK_APP_NAME":
-      varname => "GOVUK_APP_NAME",
+      varname => 'GOVUK_APP_NAME',
       value   => $title;
     "${title}-GOVUK_APP_ROOT":
-      varname => "GOVUK_APP_ROOT",
+      varname => 'GOVUK_APP_ROOT',
       value   => "/var/apps/${title}";
     "${title}-GOVUK_APP_RUN":
-      varname => "GOVUK_APP_RUN",
+      varname => 'GOVUK_APP_RUN',
       value   => $govuk_app_run;
     "${title}-GOVUK_APP_LOGROOT":
-      varname => "GOVUK_APP_LOGROOT",
+      varname => 'GOVUK_APP_LOGROOT',
       value   => "/var/log/${title}";
     "${title}-GOVUK_STATSD_PREFIX":
-      varname => "GOVUK_STATSD_PREFIX",
+      varname => 'GOVUK_STATSD_PREFIX',
       value   => "govuk.app.${title}.${::hostname}";
   }
 

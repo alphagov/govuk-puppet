@@ -7,7 +7,7 @@ class rabbitmq {
     name   => 'rabbitmq-server',
   }
 
-  @ufw::allow { "allow-amqp-from-all":
+  @ufw::allow { 'allow-amqp-from-all':
     port => 5672,
   }
 

@@ -1,7 +1,7 @@
 define mysql::user ($root_password, $user_password, $username=$title, $remote_host='%', $db='*', $privileges='all') {
   case $user_password {
-    "": {
-        $userpassarg = ""
+    '': {
+        $userpassarg = ''
     }
     default: {
         $userpassarg = "'-p${user_password}'"
@@ -9,8 +9,8 @@ define mysql::user ($root_password, $user_password, $username=$title, $remote_ho
   }
 
   case $root_password {
-    "": {
-        $rootpassarg = ""
+    '': {
+        $rootpassarg = ''
     }
     default: {
         $rootpassarg = "'-p${root_password}'"
@@ -18,8 +18,8 @@ define mysql::user ($root_password, $user_password, $username=$title, $remote_ho
   }
 
   case $db {
-    "*": {
-        $dbarg = ""
+    '*': {
+        $dbarg = ''
     }
     default: {
         $dbarg = "'${db}'"

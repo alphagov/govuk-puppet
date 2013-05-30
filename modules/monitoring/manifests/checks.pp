@@ -8,7 +8,7 @@ class monitoring::checks {
   $http_password = extlookup('http_password', 'UNSET')
 
   # START frontend
-  @@nagios::check::graphite { "check_frontend_to_exit_404_rejects":
+  @@nagios::check::graphite { 'check_frontend_to_exit_404_rejects':
     target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),"5minutes")',
     warning   => 50,
     critical  => 100,
@@ -109,7 +109,7 @@ class monitoring::checks {
   # END limelight
 
   nagios::check {'check_mapit_responding':
-    check_command       => "check_mapit",
+    check_command       => 'check_mapit',
     host_name           => $::fqdn,
     service_description => 'mapit not responding to postcode query',
   }

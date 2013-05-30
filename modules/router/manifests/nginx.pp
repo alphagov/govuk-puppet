@@ -41,7 +41,7 @@ class router::nginx (
     content         => template('router/base.conf.erb'),
   }
 
-  @ufw::allow { "allow-http-8080-from-all":
+  @ufw::allow { 'allow-http-8080-from-all':
     port => 8080,
   }
 

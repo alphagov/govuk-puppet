@@ -29,7 +29,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     ",
   }
 
-  @logster::cronjob { "nginx-redirector":
+  @logster::cronjob { 'nginx-redirector':
     file    => '/var/log/nginx/access.log',
     prefix  => 'nginx_logs.redirector',
   }
@@ -40,7 +40,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     warning   => 5,
     critical  => 10,
     from      => '3minutes',
-    desc      => "nginx 404 rate for redirector",
+    desc      => 'nginx 404 rate for redirector',
     host_name => $::fqdn,
   }
   @@nagios::check::graphite { "check_nginx_5xx_redirector_on_${::hostname}":
@@ -48,7 +48,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     warning   => 5,
     critical  => 10,
     from      => '3minutes',
-    desc      => "nginx 5xx rate for redirector",
+    desc      => 'nginx 5xx rate for redirector',
     host_name => $::fqdn,
   }
 }

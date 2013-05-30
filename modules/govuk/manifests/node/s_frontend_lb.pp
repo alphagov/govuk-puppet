@@ -9,7 +9,7 @@ class govuk::node::s_frontend_lb {
 
   # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
   $asset_url = extlookup('asset_host')
-  $asset_host = regsubst($asset_url, "https?://(.+)", '\1')
+  $asset_host = regsubst($asset_url, 'https?://(.+)', '\1')
 
   Loadbalancer::Balance {
     internal_only     => true,

@@ -15,7 +15,7 @@ class apt::monitoring {
   }
   @@nagios::check { "check_apt_updates_${::hostname}":
     check_command       => 'check_nrpe!check_apt_updates!200 1000',
-    service_description => "outstanding package updates",
+    service_description => 'outstanding package updates',
     host_name           => $::fqdn,
   }
 

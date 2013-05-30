@@ -41,7 +41,7 @@ class licensify::apps::licensify_admin( $port = 9500 ) inherits licensify::apps:
     app_type          => 'procfile',
     port              => $port,
     vhost_protected   => false,
-    health_check_path => "/login",
+    health_check_path => '/login',
     require           => File['/etc/licensing'],
   }
 
