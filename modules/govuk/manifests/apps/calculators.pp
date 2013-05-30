@@ -1,5 +1,5 @@
 class govuk::apps::calculators(
-  $port = 3042,
+  $port = 3047,
   $vhost_protected
 ) {
   govuk::app { 'calculators':
