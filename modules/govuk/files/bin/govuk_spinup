@@ -31,6 +31,10 @@ cd "$GOVUK_APP_ROOT"
 
 MAKE_PIDFILE=""
 
+# Initialize rbenv
+export RBENV_ROOT=/usr/lib/rbenv
+eval "$(rbenv init -)"
+
 case "$GOVUK_APP_TYPE" in
   rack)
     status "Spawning rack app under unicorn"
