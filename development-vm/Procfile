@@ -38,12 +38,12 @@ backdrop_read:        ./run_in.sh ../backdrop ./start-app.sh read 3038
 backdrop_write:       ./run_in.sh ../backdrop ./start-app.sh write 3039
 limelight:             govuk_setenv limelight ./run_in.sh ../limelight bundle exec unicorn -p 3040
 transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
-calculators:           ./run_in.sh ../calculators ./script/rails s -p 3042
 # govuk_delivery has port 3042
 # tariff_demo_api: grabbing port 3043 in preview only
 # transition has port 3044?
 # tariff_demo: grabbing port 3045 in preview only
 # tariff_admin: grabbing port 3046 in preview only
+calculators:           ./run_in.sh ../calculators ./script/rails s -p 3047
 
 datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
 datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
