@@ -20,7 +20,7 @@ DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
 LOGFILE=$DEST.log
 echo "$(date "+%Y%m%dT%H%M%S"): Starting to mirror the site" >>$LOGFILE
 # Mirror the site
-govuk_mirrorer --logfile $LOGFILE
+govuk_mirrorer --syslog
 
 if [ ! -d www.gov.uk ] || [ ! "$(du -ks www.gov.uk | awk '{print $1}')" -gt "10000" ]; then
   echo "ERROR: Mirror appears to have failed (total size <10MB)" >> $LOGFILE
