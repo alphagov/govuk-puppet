@@ -1,7 +1,6 @@
 class nagios::client::checks {
 
   include nagios::client::check_rw_rootfs
-  include nagios::client::check_apt_updates
 
   anchor { ['nagios::client::checks::begin', 'nagios::client::checks::end']: }
   Anchor['nagios::client::checks::begin']

@@ -1,0 +1,22 @@
+#!/bin/sh
+# Read marker files created by `notify-reboot-required` of the
+# `update-notifier-common` package. These indicate that a package has
+# requested the machine to be rebooted at a convenient time.
+
+REBOOT_FILE="/var/run/reboot-required"
+REBOOT_PKGS="/var/run/reboot-required.pkgs"
+
+if [ -f $REBOOT_FILE ]; then
+  echo -n "WARNING: "
+  cat $REBOOT_FILE
+
+  if [ -s $REBOOT_PKGS ]; then
+    echo "Triggered by packages:"
+    cat $REBOOT_PKGS
+  fi
+
+  exit 1
+fi
+
+echo "OK: No file '${REBOOT_FILE}'"
+exit 0
