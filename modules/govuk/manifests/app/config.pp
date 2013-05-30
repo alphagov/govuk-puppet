@@ -11,7 +11,6 @@ define govuk::app::config (
   $health_check_path = 'NOTSET',
   $intercept_errors = false,
   $enable_nginx_vhost = true,
-  $use_unicornherder = true,
   $logstream = true,
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,

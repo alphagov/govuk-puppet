@@ -22,14 +22,6 @@ define govuk::app (
   $port,
 
   #
-  # use_unicornherder: decide to use unicornherder or unicorn for spinup
-  #
-  # If set true, this would use unicornherder to spinup the application,
-  # else uses unicorn to spinup the application.
-  #
-  $use_unicornherder = true,
-
-  #
   # logstream: choose whether or not to create a log tailing upstart job
   #
   # If set true, logstream upstart job will be created for a selection of
@@ -164,7 +156,6 @@ define govuk::app (
   govuk::app::config { $title:
     require                => Govuk::App::Package[$title],
     app_type               => $app_type,
-    use_unicornherder      => $use_unicornherder,
     domain                 => $app_domain,
     port                   => $port,
     vhost_aliases          => $vhost_aliases,

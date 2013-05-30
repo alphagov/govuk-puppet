@@ -16,11 +16,6 @@ respawn limit 5 20
 
 script
 
-  <%- if @use_unicornherder -%>
-  export UNICORNHERDER=true
-  <%- else -%>
-  export UNICORNHERDER=false
-  <%- end -%>
   exec govuk_setenv "<%= title %>" govuk_spinup \
     >>/var/log/<%= title %>/upstart.out.log \
     2>>/var/log/<%= title %>/upstart.err.log
