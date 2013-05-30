@@ -2,13 +2,15 @@ class nagios::client::checks {
 
   include nagios::client::check_rw_rootfs
   include nagios::client::check_apt_updates
-  include nagios::client::check_path_age
 
   anchor { ['nagios::client::checks::begin', 'nagios::client::checks::end']: }
   Anchor['nagios::client::checks::begin']
     -> Class['nagios::client::check_rw_rootfs']
-    -> Class['nagios::client::check_path_age']
     -> Anchor['nagios::client::checks::end']
+
+  @nagios::nrpe_config { 'check_file_age':
+    source => 'puppet:///modules/nagios/etc/nagios/nrpe.d/check_file_age.cfg',
+  }
 
   @@nagios::check { "check_ping_${::hostname}":
     check_command       => 'check_ping!100.0,20%!500.0,60%',
