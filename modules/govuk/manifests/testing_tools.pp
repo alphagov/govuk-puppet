@@ -1,5 +1,5 @@
 class govuk::testing_tools {
-  include govuk::phantomjs
+  include phantomjs
 
   package { [
     'qt4-qmake',     # needed for capybara-webkit

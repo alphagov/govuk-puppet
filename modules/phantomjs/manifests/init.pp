@@ -1,4 +1,4 @@
-class govuk::phantomjs {
+class phantomjs {
 
   exec { 'download phantomjs':
     command => '/usr/bin/curl -o phantomjs-1.8.1-linux-x86_64.tar.bz2 https://gds-public-readable-tarballs.s3.amazonaws.com/phantomjs-1.8.1-linux-x86_64.tar.bz2',
@@ -19,19 +19,11 @@ class govuk::phantomjs {
   file { '/usr/local/bin/phantomjs':
     ensure  => link,
     target  => '/usr/local/src/phantomjs-1.8.1-linux-x86_64/bin/phantomjs',
-    require => [
-      Exec['unpack phantomjs']
-    ]
-  }
-
-  # No longer installed from a PPA
-
-  package { 'phantomjs':
-    ensure  => absent
+    require => Exec['unpack phantomjs'],
   }
 
   package { 'libfontconfig1':
-    ensure => present
+    ensure => present,
   }
 
 }

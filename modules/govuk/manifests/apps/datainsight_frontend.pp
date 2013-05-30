@@ -19,6 +19,6 @@ class govuk::apps::datainsight_frontend(
     target => '/mnt/datainsight/graphs',
   }
 
-  include govuk::phantomjs
+  include phantomjs
   include fonts
 }
