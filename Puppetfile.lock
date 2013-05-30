@@ -31,6 +31,13 @@ GIT
     curl (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-harden.git
+  ref: master
+  sha: 0966c98cc3f54815c9aac0ebe6e900b70f85182d
+  specs:
+    harden (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-module-ufw.git
   ref: dc7ddc2
   sha: dc7ddc2d976baf7a50a78d3f02b45a175e86cb41
@@ -64,6 +71,7 @@ DEPENDENCIES
   apparmor (>= 0)
   cpanm (>= 0)
   curl (>= 0)
+  harden (>= 0)
   logstash (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
