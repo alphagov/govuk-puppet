@@ -12,6 +12,7 @@ process :'contact-o-tron'
 process :designprinciples => :static
 process :efg
 process :errbit
+process :fact_cave
 process :fco
 process :feedback => [:static]
 process :frontend => [:static, :contentapi, :rummager]

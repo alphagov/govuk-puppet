@@ -44,6 +44,7 @@ transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -
 # tariff_demo: grabbing port 3045 in preview only
 # tariff_admin: grabbing port 3046 in preview only
 calculators:           ./run_in.sh ../calculators ./script/rails s -p 3047
+fact_cave:             ./run_in.sh ../fact-cave ./script/rails s -p 3048
 
 datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
 datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
