@@ -67,6 +67,10 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
       user     => 'efg',
       password => 'efg';
 
+    'fact_cave_test':
+      user     => 'fact_cave',
+      password => 'fact_cave';
+
     'panopticon_test':
       user     => 'panopticon',
       password => 'panopticon';

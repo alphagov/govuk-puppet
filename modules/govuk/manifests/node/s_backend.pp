@@ -42,6 +42,9 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   if str2bool(extlookup('govuk_enable_tariff_demo', 'no')) {
     include govuk::apps::tariff_demo_api
   }
+  if str2bool(extlookup('govuk_enable_fact_cave', 'no')) {
+    include govuk::apps::fact_cave
+  }
 
   class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::frontend':   vhost_protected => true  }
