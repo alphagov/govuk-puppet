@@ -8,9 +8,14 @@ REBOOT_PKGS="/var/run/reboot-required.pkgs"
 
 if [ -f $REBOOT_FILE ]; then
   echo -n "WARNING: "
-  cat $REBOOT_FILE
+  if [ -s $REBOOT_FILE ]; then
+    cat $REBOOT_FILE
+  else
+    echo "Reboot required"
+  fi
 
   if [ -s $REBOOT_PKGS ]; then
+    echo
     echo "Triggered by packages:"
     cat $REBOOT_PKGS
   fi
