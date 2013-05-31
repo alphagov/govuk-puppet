@@ -6,10 +6,10 @@
 #
 class clamav::monitoring {
   # Convert days to seconds.
-  $critical_age = 2 * (24 * 60 * 60)
+  $warning_age = 2 * (24 * 60 * 60)
 
   @@nagios::check { "check_clamav_definitions_${::hostname}":
-    check_command       => "check_nrpe!check_file_age!-f /var/lib/clamav/daily.cld -c ${critical_age}",
+    check_command       => "check_nrpe!check_file_age!\"-f /var/lib/clamav/daily.cld -c0 -w${warning_age}\"",
     service_description => 'clamav definitions out of date',
     host_name           => $::fqdn,
   }
