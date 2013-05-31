@@ -21,7 +21,7 @@ class nagios::client::checks {
 
   @@nagios::check { "check_disk_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_disk',
-    service_description => 'high disk usage',
+    service_description => 'low available disk space',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
   }
