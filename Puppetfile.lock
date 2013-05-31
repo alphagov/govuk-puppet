@@ -31,6 +31,13 @@ GIT
     curl (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-ext4mount.git
+  ref: master
+  sha: 7ede4c7f0c3c6d56020cc70a91edcd64c57ebb14
+  specs:
+    ext4mount (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-harden.git
   ref: master
   sha: 0966c98cc3f54815c9aac0ebe6e900b70f85182d
@@ -71,6 +78,7 @@ DEPENDENCIES
   apparmor (>= 0)
   cpanm (>= 0)
   curl (>= 0)
+  ext4mount (>= 0)
   harden (>= 0)
   logstash (>= 0)
   puppetlabs/gcc (>= 0)

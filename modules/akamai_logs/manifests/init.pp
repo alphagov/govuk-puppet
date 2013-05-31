@@ -23,7 +23,13 @@ class akamai_logs {
 
   file { ['/mnt/akamai', '/mnt/akamai/logs', '/var/log/akamai']:
     ensure  => directory,
-    owner   => $user
+    owner   => $user,
+    require => Ext4mount['akamai-mount'],
+  }
+
+  ext4mount { 'akamai-mount':
+    mountpoint => '/mnt',
+    disk       => '/dev/sdb1',
   }
 
   file { $local_logs_dir:
