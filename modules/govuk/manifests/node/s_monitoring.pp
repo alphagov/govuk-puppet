@@ -25,7 +25,7 @@ class govuk::node::s_monitoring inherits govuk::node::s_base {
     production: {
       case $::govuk_provider {
         sky: {
-          if extlookup(nagios_is_zendesk_enabled, '') == 'yes' {
+          if extlookup('nagios_is_zendesk_enabled', '') == 'yes' {
             if $campfire == 'on' {
               $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority', 'campfire_notification']
               $highprio_members   = ['monitoring_google_group','zendesk_high_priority', 'campfire_notification']
