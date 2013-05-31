@@ -24,7 +24,6 @@ export FACTER_govuk_platform
 if which rbenv >/dev/null 2>&1; then
   export RBENV_ROOT=/usr/lib/rbenv
   export PATH="${RBENV_ROOT}/shims:${PATH}"
-  rbenv rehash 2>/dev/null
 fi
 
 if [ "$APPNAME" = "default" ]; then
