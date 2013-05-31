@@ -31,13 +31,6 @@ cd "$GOVUK_APP_ROOT"
 
 MAKE_PIDFILE=""
 
-# Initialize rbenv
-if which rbenv >/dev/null 2>&1; then
-  export RBENV_ROOT=/usr/lib/rbenv
-  export PATH="${RBENV_ROOT}/shims:${PATH}"
-  rbenv rehash 2>/dev/null
-fi
-
 case "$GOVUK_APP_TYPE" in
   rack)
     status "Spawning rack app under unicorn"
