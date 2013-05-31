@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+"""
+Print a list of kernel packages that can be uninstalled. This is derived
+from dpkg(1) output and won't include the currently booted or last installed
+kernel.
+
+With careful review this output can be piped to `xargs sudo apt-get purge`.
+"""
+
+import os
+import subprocess
+
+dpkg_query = ['/usr/bin/dpkg-query', '-Wf', '${Package}\n']
+package_patterns = ["linux-headers-%s", "linux-image-%s"]
+package_wildcard = "*-generic"
+
+kernels_installed = set()
+kernels_protected = set()
+
+# All installed versions.
+for package_pattern in package_patterns:
+    out = subprocess.check_output(dpkg_query +
+        [package_pattern % package_wildcard])
+    kernels_installed.update(out.split())
+
+# Current version.
+kernel_current = os.uname()[2]
+for package_pattern in package_patterns:
+    kernels_protected.add(package_pattern % kernel_current)
+
+# Latest version.
+for package_pattern in package_patterns:
+    out = subprocess.check_output(dpkg_query +
+        [package_pattern % package_wildcard])
+    kernels_protected.add(out.split()[-1])
+
+kernels_to_remove = kernels_installed - kernels_protected
+print("\n".join(kernels_to_remove))

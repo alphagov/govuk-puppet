@@ -16,4 +16,12 @@ class govuk::scripts {
     mode    => '0755',
   }
 
+  # govuk_unused_kernels identifies unused kernel packages than can be
+  # uninstalled
+  file { '/usr/local/bin/govuk_unused_kernels':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/bin/govuk_unused_kernels',
+    mode    => '0755',
+  }
+
 }
