@@ -10,7 +10,7 @@
 # contention at a single point. Binding to loopback prevents the service
 # from being exposed to clients on other nodes. And as a bonus, we get
 # logging of all requests to ES.
-# 
+#
 # === Parameters:
 #
 # [*port*]
