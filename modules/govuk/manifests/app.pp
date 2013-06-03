@@ -173,8 +173,21 @@ define govuk::app (
   }
 
   govuk::app::service { $title:
-    logstream => $logstream,
     subscribe => Class['govuk::deploy'],
+  }
+
+  govuk::logstream { "${title}-upstart-out":
+    logfile => "/var/log/${title}/upstart.out.log",
+    tags    => ['stdout', 'upstart'],
+    fields  => {'application' => $title},
+    enable  => $logstream,
+  }
+
+  govuk::logstream { "${title}-upstart-err":
+    logfile => "/var/log/${title}/upstart.err.log",
+    tags    => ['stderr', 'upstart'],
+    fields  => {'application' => $title},
+    enable  => $logstream,
   }
 
   if $app_type == 'rack' {
