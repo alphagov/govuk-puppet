@@ -3,9 +3,13 @@
 # Load balance connections to Elasticsearch by creating a loopback-only
 # vhost in Nginx which will forward to a set of Elasticsearch servers.
 #
-# For the benefit of applications which use client libraries that don't
-# natively support load balancing. As a bonus, it will expose logging for
-# all requests to ES.
+# This is for the benefit of applications with client libraries that don't
+# support native cluster awareness or load balancing.
+#
+# Using loopback rather than a separate load balancer node prevents network
+# contention at a single point. Binding to loopback prevents the service
+# from being exposed to clients on other nodes. And as a bonus, we get
+# logging of all requests to ES.
 # 
 # === Parameters:
 #
