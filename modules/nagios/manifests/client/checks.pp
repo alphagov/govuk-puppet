@@ -24,6 +24,7 @@ class nagios::client::checks {
     service_description => 'low available disk space',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
   @@nagios::check { "check_users_${::hostname}":
