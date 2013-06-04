@@ -23,62 +23,26 @@
     proxy_pass http://<%= @full_domain %>-proxy;
   }
 
-  location ~ ^/performance/licensing/api/journey {
-    rewrite ^/performance/licensing/api/journey(.*)$ /licensing_journey$1 break;
+  <% @backdrop_buckets.each do |bucket| %>
+    <% if bucket["enabled"] %>
+      location ~ ^/performance/<%= bucket["path"] %> {
+        rewrite ^/performance/<%= bucket["path"] %>(.*)$ /<%= bucket["name"] %>$1 break;
 
-    proxy_set_header Host <%= @backdropread %>;
-    proxy_set_header X-API-PREFIX performance/licensing-journey/api;
+        proxy_set_header Host <%= @backdropread %>;
+        proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>;
 
-    proxy_pass http://<%= @backdropread %>;
-  }
+        proxy_pass http://<%= @backdropread %>;
+      }
 
-  location ~ ^/performance/licensing/api/application {
-    rewrite ^/performance/licensing/api/application(.*)$ /licensing$1 break;
+      <% if bucket["allow_upload"] %>
+        location ~ ^/performance/<%= bucket["path"] %>/upload {
+          rewrite ^/performance/<%= bucket["path"] %>/upload(.*)$ /<%= bucket["name"] %>/upload$1 break;
 
-    proxy_set_header Host <%= @backdropread %>;
-    proxy_set_header X-API-PREFIX performance/licensing/api/application;
+          proxy_set_header Host <%= @backdropwrite %>;
+          proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>/upload;
 
-    proxy_pass http://<%= @backdropread %>;
-  }
-
-<% if @enable_backdrop_government_annotations_bucket %>
-  location ~ ^/performance/government/api/annotations/upload {
-    rewrite ^/performance/government/api/annotations/upload(.*)$ /government_annotations/upload$1 break;
-
-    proxy_set_header Host <%= @backdropwrite %>;
-    proxy_set_header X-API-PREFIX performance/government/api/annotations;
-
-    proxy_pass http://<%= @backdropwrite %>;
-  }
-
-  location ~ ^/performance/government/api/annotations {
-    rewrite ^/performance/government/api/annotations(.*)$ /government_annotations$1 break;
-
-    proxy_set_header Host <%= @backdropread %>;
-    proxy_set_header X-API-PREFIX performance/government/api/annotations;
-
-    proxy_pass http://<%= @backdropread %>;
-  }
-<% end %>
-
-<% if @enable_backdrop_test_bucket %>
-
-  location ~ ^/performance/test/api/test/upload {
-    rewrite ^/performance/test/api/test/upload(.*)$ /test/upload$1 break;
-
-    proxy_set_header Host <%= @backdropwrite %>;
-    proxy_set_header X-API-PREFIX performance/test/api/test;
-
-    proxy_pass http://<%= @backdropwrite %>;
-  }
-
-  location ~ ^/performance/test/api/test {
-    rewrite ^/performance/test/api/test(.*)$ /test$1 break;
-
-    proxy_set_header Host <%= @backdropread %>;
-    proxy_set_header X-API-PREFIX performance/test/api/test;
-
-    proxy_pass http://<%= @backdropread %>;
-  }
-
-<% end %>
+          proxy_pass http://<%= @backdropwrite %>;
+        }
+      <% end %>
+    <% end %>
+  <% end %>
