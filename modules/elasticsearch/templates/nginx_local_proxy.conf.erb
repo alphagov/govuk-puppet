@@ -32,6 +32,6 @@ server {
     # Only accept connnections over loopback.
     allow 127.0.0.1;
     deny all;
-    proxy_pass https://<%= @vhost %>-upstream;
+    proxy_pass http://<%= @vhost %>-upstream;
   }
 }
