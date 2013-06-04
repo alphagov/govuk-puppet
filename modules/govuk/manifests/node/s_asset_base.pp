@@ -19,7 +19,13 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     group   => 'assets',
     mode    => '0755',
     purge   => false,
-    require => [Group['assets'],User['assets']],
+    require => [Group['assets'],User['assets'],Ext4mount['/mnt/uploads']],
+  }
+
+  ext4mount { '/mnt/uploads':
+    mountpoint   => '/mnt/uploads',
+    disk         => '/dev/sdc1',
+    mountoptions => 'defaults',
   }
 
   file { '/etc/exports':
