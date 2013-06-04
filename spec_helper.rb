@@ -94,6 +94,7 @@ RSpec.configure do |c|
       'http_username' => 'test_username',
       'http_password' => 'test_password',
       'internal_tld'  => 'test',
+      'asset_uploads_disk' => '/dev/sdb1',
 
       'google_client_id_datainsight'               => 'example client id',
       'google_client_secret_datainsight'           => 'example client secret',

@@ -24,7 +24,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
 
   ext4mount { '/mnt/uploads':
     mountpoint   => '/mnt/uploads',
-    disk         => '/dev/sdc1',
+    disk         => extlookup('assets_uploads_disk'),
     mountoptions => 'defaults',
   }
 
