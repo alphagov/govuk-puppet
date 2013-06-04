@@ -47,6 +47,7 @@ class govuk::node::s_development {
   include govuk::apps::canary_frontend
   include govuk::apps::efg
   include govuk::apps::errbit
+  include govuk::apps::fact_cave
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
@@ -150,6 +151,10 @@ class govuk::node::s_development {
     ]:
       user     => 'efg',
       password => 'efg';
+
+    ['fact_cave_development', 'fact_cave_test']:
+      user     => 'fact_cave',
+      password => 'fact_cave';
 
     'fco_development':
       user     => 'fco',

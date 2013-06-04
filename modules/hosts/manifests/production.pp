@@ -28,6 +28,7 @@ class hosts::production {
   host { "whitehall-admin.${app_domain}":      ip => '10.54.182.112' } # production backend
   host { "datainsight-frontend.${app_domain}": ip => '10.53.54.49' }
   host { "limelight.${app_domain}":            ip => '10.53.54.49' }
+  host { "fact-cave.${app_domain}":            ip => '10.54.182.112' }
 
   host { "asset-master.${app_domain}":         ip => '10.241.2.112' }
   host { "asset-slave.${app_domain}":          ip => '10.32.20.43' }

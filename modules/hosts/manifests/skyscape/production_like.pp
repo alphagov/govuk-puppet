@@ -282,6 +282,7 @@ class hosts::skyscape::production_like {
       "asset-manager.${app_domain}",
       "canary-backend.${app_domain}",
       "contentapi.${app_domain}",
+      "fact-cave.${app_domain}",
       "govuk-delivery.${app_domain}",
       "imminence.${app_domain}",
       "kibana.${app_domain}",

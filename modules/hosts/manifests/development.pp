@@ -18,6 +18,7 @@ class hosts::development {
   host { 'publicapi.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'publisher.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'www.dev.gov.uk':                                  ip => '127.0.0.1' }
+  host { 'fact-cave.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'frontend.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'private-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'panopticon.dev.gov.uk':                           ip => '127.0.0.1' }

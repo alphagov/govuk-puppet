@@ -22,6 +22,7 @@ class hosts::preview {
   host { 'router.cluster':      ip => '10.58.175.43' }
   host { 'graylog.cluster':     ip => '10.32.31.104' }
 
+  host { "fact-cave.${app_domain}":               ip => '10.228.95.176' }
   host { "signon.${app_domain}":                  ip => '10.228.95.176' }
   host { "panopticon.${app_domain}":              ip => '10.228.95.176' }
   host { "needotron.${app_domain}":               ip => '10.228.95.176' }
