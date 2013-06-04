@@ -28,8 +28,9 @@ class akamai_logs {
   }
 
   ext4mount { 'akamai-mount':
-    mountpoint => '/mnt',
-    disk       => '/dev/sdb1',
+    mountpoint   => '/mnt',
+    disk         => '/dev/sdb1',
+    mountoptions => 'errors=remount-ro',
   }
 
   file { $local_logs_dir:
