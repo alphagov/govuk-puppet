@@ -4,6 +4,7 @@ class govuk::node::s_backend_lb {
 
   $backend_servers = extlookup('lb_nodes_backend')
   $mapit_servers = extlookup('lb_nodes_mapit')
+  $datainsight_servers = ['datainsight-1']
 
   Loadbalancer::Balance {
     servers => $backend_servers,
@@ -44,5 +45,9 @@ class govuk::node::s_backend_lb {
   loadbalancer::balance { 'mapit':
     servers           => $mapit_servers,
     internal_only     => true,
+  }
+
+  loadbalancer::balance { 'backdrop-admin':
+    servers => $datainsight_servers,
   }
 }
