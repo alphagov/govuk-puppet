@@ -1,7 +1,13 @@
 class govuk::node::s_logging inherits govuk::node::s_base {
+  ext4mount {'/srv':
+    disk         => '/dev/sdb1',
+    mountoptions => 'defaults',
+  }
 
   # we want this to be a syslog server.
-  class { 'rsyslog::server': }
+  class { 'rsyslog::server':
+    require => Ext4mount['/srv'],
+  }
   # we also want it to send stuff to logstash
   class { 'rsyslog::logstash': }
 
@@ -20,11 +26,21 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     destination => '/var/tmp/logstash-1.1.9-monolithic.jar',
     require     => Class['java::oracle7::jre'],
   }
+
+  # FIXME 20130605 @philippotter: the current version of the
+  #   electrical/puppet-logstash module we're using (694fa1a) doesn't
+  #   implement the anchor pattern properly. This has been fixed in
+  #   5f104e3774 which is in version 0.3.0 of the module
+  #   onwards. However 0.3.0 needs logstash 1.1.12, while we're
+  #   currently using 1.1.9
+  #
+  # in practice this won't matter for existing machines, only when
+  # provisioning a new machine.
   class { 'logstash':
     provider    => 'custom',
     jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
-    require     => Curl::Fetch['logstash-monolithic'],
+    require     => [Curl::Fetch['logstash-monolithic'],Ext4mount['/srv']],
     initfile    => 'puppet:///modules/govuk/logstash.init.Debian',
   }
 
