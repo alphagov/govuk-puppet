@@ -1,6 +1,14 @@
 class govuk::node::s_backup {
     include govuk::node::s_base
-    include backup::server
+
+    class {'backup::server':
+      require => Ext4mount['/data/backups'],
+    }
+
+    ext4mount {'/data/backups':
+      mountoptions => 'errors=remount-ro',
+      disk         => '/dev/sdb1',
+    }
 
     #To accommodate futzing around with databases, we install a MySQL server
     $root_password = extlookup('mysql_root', '')
