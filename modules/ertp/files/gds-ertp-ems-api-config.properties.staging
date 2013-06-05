@@ -9,3 +9,4 @@ ertp.ems.mark.url=/ems/registration-requests/received
 http.connectionTimeout=180000
 http.soTimeout=180000
 api.mode=ems
+admin.bearerToken=admin_token

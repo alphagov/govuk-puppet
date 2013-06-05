@@ -20,3 +20,4 @@ dwp.match.request.capping.schedule=0 0/5 * * * ?
 dwp.match.response.processing.schedule=0 0/1 * * * ?
 dwp.file.cleanup.schedule=0 0 1-5 * * ?
 dwp.bearerToken=dwp_feed_token
+admin.bearerToken=admin_token
