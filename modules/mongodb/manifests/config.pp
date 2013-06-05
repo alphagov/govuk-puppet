@@ -1,21 +1,16 @@
-class mongodb::config ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
+class mongodb::config (
+  $replicaset = $govuk_platform,
+  $dbpath = '/var/lib/mongodb',
+  $logpath
+) {
 
-  # $dbpath and $replicaset are both used by the templates below
-
-  $mongod_log_file = '/var/log/mongodb/mongod.log'
+  # Class params are used in the templates below.
 
   file { '/etc/mongodb.conf':
     ensure  => present,
     content => template('mongodb/mongodb.conf'),
     owner   => 'root',
     group   => 'root',
-    mode    => '0644',
-  }
-
-  file { '/var/log/mongodb/mongod.log':
-    ensure  => present,
-    owner   => 'mongodb',
-    group   => 'mongodb',
     mode    => '0644',
   }
 

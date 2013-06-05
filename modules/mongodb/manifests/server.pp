@@ -1,5 +1,7 @@
 class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
 
+  $logpath = '/var/log/mongodb/mongod.log'
+
   anchor { 'mongodb::begin':
     before => Class['mongodb::repository'],
     notify => Class['mongodb::service'];
@@ -15,15 +17,23 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
   class { 'mongodb::config':
     replicaset => $replicaset,
     dbpath     => $dbpath,
+    logpath    => $logpath,
     require    => Class['mongodb::package'],
     notify     => Class['mongodb::service'];
+  }
+
+  class { 'mongodb::logging':
+    logpath => $logpath,
+    require => Class['mongodb::config'],
   }
 
   class { 'mongodb::firewall':
     require => Class['mongodb::config'],
   }
 
-  class { 'mongodb::service': }
+  class { 'mongodb::service':
+    require => Class['mongodb::logging'],
+  }
 
   class { 'mongodb::monitoring':
     dbpath  => $dbpath,
@@ -32,12 +42,6 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
 
   class { 'collectd::plugin::mongodb':
     require => Class['mongodb::config'],
-  }
-
-  file { '/etc/logrotate.d/mongodb':
-    ensure  => present,
-    source  => 'puppet:///modules/mongodb/mongodb.logrotate',
-    require => Class['logrotate'],
   }
 
   # We don't need to wait for the monitoring class
