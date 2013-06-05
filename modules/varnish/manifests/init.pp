@@ -17,8 +17,11 @@ class varnish (
     require => Class['varnish::config'],
   }
   class { 'varnish::service': }
+  class { 'varnish::monitoring': }
   anchor { 'varnish::end':
-    require => Class['varnish::service']
+    require => Class[
+      'varnish::service',
+      'varnish::monitoring'
+    ],
   }
-
 }
