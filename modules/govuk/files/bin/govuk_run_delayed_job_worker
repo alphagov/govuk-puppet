@@ -16,7 +16,7 @@ create_app_dirs () {
 # is invoked
 SHIMPATH=
 if which rbenv >/dev/null 2>&1; then
-    SHIMPATH="$(rbenv root)/shims"
+    SHIMPATH="$(rbenv root)/shims:"
 fi
 
 # Ensure that app directories exist and have correct permissions
@@ -24,4 +24,4 @@ create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
 
 cd $GOVUK_APP_ROOT
 # We reset PATH here because `sudo` drops PATH
-exec sudo -u $GOVUK_USER -E sh -c "PATH=$SHIMPATH:\$PATH exec bundle exec rake --trace jobs:work 2>>'${GOVUK_APP_LOGROOT}/delayed_job.err.log' 1>>'${GOVUK_APP_LOGROOT}/delayed_job.out.log'"
+exec sudo -u $GOVUK_USER -E sh -c "PATH=$SHIMPATH\$PATH exec bundle exec rake --trace jobs:work 2>>'${GOVUK_APP_LOGROOT}/delayed_job.err.log' 1>>'${GOVUK_APP_LOGROOT}/delayed_job.out.log'"
