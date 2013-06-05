@@ -71,7 +71,7 @@ class govuk::node::s_logging inherits govuk::node::s_base {
   logstash::filter::date {'syslog':
     type  => 'syslog',
     match => [ 'syslog_timestamp', 'MMM dd HH:mm:ss',
-               'MMM  d HH:mm:ss' ],
+                'MMM  d HH:mm:ss' ],
     order => '13',
   }
   logstash::filter::mutate {'syslog-1':
