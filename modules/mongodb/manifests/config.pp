@@ -1,4 +1,4 @@
-class mongodb::configuration ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
+class mongodb::config ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
 
   # $dbpath and $replicaset are both used by the templates below
 

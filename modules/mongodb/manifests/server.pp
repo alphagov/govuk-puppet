@@ -12,7 +12,7 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
     notify  => Class['mongodb::service'];
   }
 
-  class { 'mongodb::configuration':
+  class { 'mongodb::config':
     replicaset => $replicaset,
     dbpath     => $dbpath,
     require    => Class['mongodb::package'],
@@ -20,7 +20,7 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
   }
 
   class { 'mongodb::firewall':
-    require => Class['mongodb::configuration'],
+    require => Class['mongodb::config'],
   }
 
   class { 'mongodb::service': }
@@ -31,7 +31,7 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
   }
 
   class { 'collectd::plugin::mongodb':
-    require => Class['mongodb::configuration'],
+    require => Class['mongodb::config'],
   }
 
   file { '/etc/logrotate.d/mongodb':
