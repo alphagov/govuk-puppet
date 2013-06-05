@@ -6,10 +6,4 @@ class mongodb::service {
     hasstatus  => true,
   }
 
-  # Log filename is also defined in mongodb::config
-  govuk::logstream { 'mongodb-logstream':
-    logfile => '/var/log/mongodb/mongod.log',
-    fields  => {'application' => 'mongodb'},
-  }
-
 }

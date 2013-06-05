@@ -15,4 +15,9 @@ class mongodb::logging(
     source  => 'puppet:///modules/mongodb/mongodb.logrotate',
     require => Class['logrotate'],
   }
+
+  govuk::logstream { 'mongodb-logstream':
+    logfile => $logpath,
+    fields  => {'application' => 'mongodb'},
+  }
 }
