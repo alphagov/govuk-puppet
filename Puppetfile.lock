@@ -33,7 +33,7 @@ GIT
 GIT
   remote: git://github.com/alphagov/puppet-ext4mount.git
   ref: master
-  sha: bfbc9788f8e1d921bede99bfcdd49aee015a3b7d
+  sha: 97143e5988794660419bb610f3b24aa0cc1e6813
   specs:
     ext4mount (0.0.1)
 
