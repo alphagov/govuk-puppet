@@ -10,15 +10,12 @@ class mongodb::config ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['mongodb20-10gen'],
-    notify  => Service['mongodb'],
   }
 
   file { '/var/log/mongodb/mongod.log':
     ensure  => present,
     owner   => 'mongodb',
     group   => 'mongodb',
-    require => Package['mongodb20-10gen'],
     mode    => '0644',
   }
 
@@ -28,8 +25,6 @@ class mongodb::config ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['mongodb20-10gen'],
-    notify  => Service['mongodb'],
   }
 
 }

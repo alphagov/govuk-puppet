@@ -12,7 +12,7 @@ class mongodb::configure_replica_set($members) {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => File['/etc/mongodb'],
+    require => Class['mongodb::config'],
   }
 
   exec { 'configure-replica-set':
@@ -20,7 +20,7 @@ class mongodb::configure_replica_set($members) {
     unless  => "/usr/bin/mongo --host ${members[0]} --quiet --eval 'rs.status().ok' | grep -q 1",
     require => [
       File['/etc/mongodb/configure-replica-set.js'],
-      Service['mongodb'],
+      Class['mongodb::service'],
     ],
   }
 }
