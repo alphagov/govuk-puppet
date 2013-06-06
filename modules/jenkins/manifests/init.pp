@@ -123,4 +123,7 @@ class jenkins {
   include golang
   include bundler
   include mysql::client
+
+  # Used by govuk::apps::search
+  include aspell
 }
