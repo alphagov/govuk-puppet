@@ -38,6 +38,7 @@ class hosts::development {
   host { 'datainsight-insidegov-recorder.dev.gov.uk':       ip => '127.0.0.1' }
   host { 'read.backdrop.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'write.backdrop.dev.gov.uk':                       ip => '127.0.0.1' }
+  host { 'backdrop-admin.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'support.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'signon.dev.gov.uk':                               ip => '127.0.0.1' }
