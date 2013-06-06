@@ -14,6 +14,13 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include mongodb::server
   include nodejs
 
+  file { '/var/log/ertp':
+    ensure  => directory,
+    owner   => jenkins,
+    group   => jenkins,
+    require => User['jenkins'],
+  }
+
   rbenv::version { '1.9.3-p392':
     bundler_version => '1.3.5'
   }
