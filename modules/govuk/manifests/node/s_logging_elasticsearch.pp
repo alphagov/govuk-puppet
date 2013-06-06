@@ -16,7 +16,12 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     number_of_replicas   => '1',
     minimum_master_nodes => '2',
     host                 => $::fqdn,
-    require              => Class['java::oracle7::jre'],
+    require              => [Class['java::oracle7::jre'],Ext4mount['/mnt/elasticsearch']],
+  }
+
+  ext4mount {'/mnt/elasticsearch':
+    mountoptions => 'defaults',
+    disk         => '/dev/sdb1',
   }
 
   elasticsearch::plugin { 'redis-river':
