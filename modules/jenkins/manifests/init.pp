@@ -123,4 +123,5 @@ class jenkins {
   include golang
   include bundler
   include mysql::client
+  include aspell
 }
