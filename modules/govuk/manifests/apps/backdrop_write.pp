@@ -5,6 +5,7 @@ class govuk::apps::backdrop_write (
   govuk::app { 'write.backdrop':
     app_type        => 'procfile',
     port            => $port,
-    vhost_protected => $vhost_protected
+    vhost_protected => $vhost_protected,
+    vhost_aliases   => ['backdrop-admin']
   }
 }
