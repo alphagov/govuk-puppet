@@ -3,7 +3,10 @@ define govuk::delayed_job::worker (
 ) {
   include govuk::delayed_job
 
-  $enable_service = ($::govuk_platform != 'development')
+  $enable_service = $::govuk_platform ? {
+    'development' => false,
+    default       => true,
+  }
 
   file { "/etc/init/${title}-delayed-job-worker.conf":
     ensure    => present,
