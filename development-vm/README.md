@@ -40,7 +40,7 @@ should be run in the shell on the development VM.
 ## 2. Install dev tools and the VM
 
   1. Decide where you want to check out GOV.UK code repositories. Maybe `~/govuk`?
-  2. Download a copy of [install.sh](https://github.com/alphagov/development/blob/master/install.sh) into this directory.
+  2. Download a copy of [install.sh](https://github.gds/gds/development/blob/master/install.sh) into this directory.
   3. Run the following:
 
         mac$ cd ~/govuk
