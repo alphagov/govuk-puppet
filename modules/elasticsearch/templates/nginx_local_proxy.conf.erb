@@ -24,9 +24,9 @@ server {
   # Don't restrict the size of queries or documents.
   client_max_body_size 4g;
 
-  access_log /var/log/nginx/<%= @vhost %>-access.log timed_combined;
-  access_log /var/log/nginx/<%= @vhost %>-json.event.access.log json_event;
-  error_log /var/log/nginx/<%= @vhost %>-error.log;
+  access_log /var/log/nginx/<%= @log_access %> timed_combined;
+  access_log /var/log/nginx/<%= @log_json %> json_event;
+  error_log /var/log/nginx/<%= @log_error %>;
 
   location / {
     # Only accept connnections over loopback.

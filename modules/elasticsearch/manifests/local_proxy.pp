@@ -30,9 +30,22 @@ class elasticsearch::local_proxy(
   $servers
 ) {
   # Also used within template.
-  $vhost = 'elasticsearch-local-proxy'
+  $vhost      = 'elasticsearch-local-proxy'
+  $log_json   = "${vhost}-json.event.access.log"
+  $log_access = "${vhost}-access.log"
+  $log_error  = "${vhost}-error.log"
 
   nginx::config::site { $vhost:
     content => template('elasticsearch/nginx_local_proxy.conf.erb'),
+  }
+
+  nginx::log {
+    $log_json:
+      json      => true,
+      logstream => true;
+    $log_access:
+      logstream => false;
+    $log_error:
+      logstream => true;
   }
 }
