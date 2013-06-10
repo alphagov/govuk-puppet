@@ -14,7 +14,7 @@ define govuk::app::config (
   $logstream = true,
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
-  $unicorn_herder_timeout = 30,
+  $unicorn_herder_timeout,
 ) {
 
   # Ensure config dir exists
