@@ -1,5 +1,6 @@
 /.env
 /.foreman
+/.ruby-version
 /.vagrant
 /Vagrantfile.local
 /replication/backups/
