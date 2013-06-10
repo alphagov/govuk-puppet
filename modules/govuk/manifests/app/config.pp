@@ -14,6 +14,7 @@ define govuk::app::config (
   $logstream = true,
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
+  $unicorn_herder_timeout = 30,
 ) {
 
   # Ensure config dir exists
@@ -70,6 +71,14 @@ define govuk::app::config (
     "${title}-GOVUK_STATSD_PREFIX":
       varname => 'GOVUK_STATSD_PREFIX',
       value   => "govuk.app.${title}.${::hostname}";
+  }
+
+  if $app_type == 'rack' {
+    govuk::app::envvar {
+      "${title}-UNICORN_HERDER_TIMEOUT":
+        varname => 'UNICORN_HERDER_TIMEOUT',
+        value   => $unicorn_herder_timeout;
+    }
   }
 
   # Used by the upstart config template

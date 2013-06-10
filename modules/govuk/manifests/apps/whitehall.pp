@@ -15,14 +15,15 @@ class govuk::apps::whitehall(
   }
 
   govuk::app { 'whitehall':
-    app_type            => 'rack',
-    vhost               => $vhost,
-    port                => $port,
-    logstream           => true,
-    health_check_path   => '/healthcheck',
-    enable_nginx_vhost  => false,
-    nagios_cpu_warning  => 300,
-    nagios_cpu_critical => 400;
+    app_type               => 'rack',
+    vhost                  => $vhost,
+    port                   => $port,
+    logstream              => true,
+    health_check_path      => '/healthcheck',
+    enable_nginx_vhost     => false,
+    nagios_cpu_warning     => 300,
+    nagios_cpu_critical    => 400,
+    unicorn_herder_timeout => 45;
   }
 
   if $configure_frontend == true {
