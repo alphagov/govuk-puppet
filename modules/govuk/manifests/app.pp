@@ -138,7 +138,7 @@ define govuk::app (
   # Provides a way to override the default wait period for the 'failed to
   # daemonize' error that occurs if an application doesn't load within
   # the timeout period.
-  $unicorn_herder_timeout = 'NOTSET',
+  $unicorn_herder_timeout = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack']) {
