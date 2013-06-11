@@ -33,16 +33,5 @@
 
         proxy_pass http://<%= @backdropread %>;
       }
-
-      <% if bucket["allow_upload"] %>
-        location ~ ^/performance/<%= bucket["path"] %>/upload {
-          rewrite ^/performance/<%= bucket["path"] %>/upload(.*)$ /<%= bucket["name"] %>/upload$1 break;
-
-          proxy_set_header Host <%= @backdropwrite %>;
-          proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>/upload;
-
-          proxy_pass http://<%= @backdropwrite %>;
-        }
-      <% end %>
     <% end %>
   <% end %>
