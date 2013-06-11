@@ -30,6 +30,10 @@ describe 'govuk::app::config', :type => :define do
       it do
         should contain_collectd__plugin__process('app-giraffe')
       end
+
+      it do
+        should_not contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT')
+      end
     end
 
     context 'with aliases' do
@@ -74,6 +78,25 @@ describe 'govuk::app::config', :type => :define do
       it do
         should contain_nginx__config__vhost__proxy('giraffe.example.com')
           .with_intercept_errors(true)
+      end
+    end
+
+    context 'with unicorn_herder_timeout and app_type rack' do
+      let(:params) do
+        {
+          :port => 8000,
+          :app_type => 'rack',
+          :domain => 'example.com',
+          :vhost_full => 'giraffe.example.com',
+          :unicorn_herder_timeout => 60
+        }
+      end
+
+      it do
+        should contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT').with(
+          :varname => 'UNICORN_HERDER_TIMEOUT',
+          :value   => 60
+        )
       end
     end
   end
