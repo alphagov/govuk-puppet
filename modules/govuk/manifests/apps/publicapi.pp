@@ -28,13 +28,11 @@ class govuk::apps::publicapi {
       'path' => 'government/api/annotations',
       'name' => 'government_annotations',
       'enabled' => $enable_backdrop_government_annotations_bucket,
-      'allow_upload' => true,
     },
     {
       'path' => 'test/api/test',
       'name' => 'test',
       'enabled' => $enable_backdrop_test_bucket,
-      'allow_upload' => true,
     },
     {
       'path' => 'pay-legalisation-post/api/journey',
