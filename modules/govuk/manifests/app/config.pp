@@ -14,7 +14,7 @@ define govuk::app::config (
   $logstream = true,
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
-  $unicorn_herder_timeout,
+  $unicorn_herder_timeout = 'NOTSET',
 ) {
 
   # Ensure config dir exists
@@ -73,7 +73,7 @@ define govuk::app::config (
       value   => "govuk.app.${title}.${::hostname}";
   }
 
-  if $app_type == 'rack' {
+  if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {
     govuk::app::envvar {
       "${title}-UNICORN_HERDER_TIMEOUT":
         varname => 'UNICORN_HERDER_TIMEOUT',
