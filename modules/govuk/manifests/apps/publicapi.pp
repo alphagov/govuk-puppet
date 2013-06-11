@@ -4,10 +4,11 @@ class govuk::apps::publicapi {
 
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
+  $factcaveapi = "fact-cave.${app_domain}"
   $backdropread = "read.backdrop.${app_domain}"
   $backdropwrite = "write.backdrop.${app_domain}"
 
-
+  $enable_fact_cave_public_api = str2bool(extlookup('govuk_enable_fact_cave', 'no'))
   $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
   $enable_backdrop_government_annotations_bucket = str2bool(extlookup('govuk_enable_backdrop_government_annotations_bucket', 'no'))
   $enable_fco_journey_buckets = str2bool(extlookup('govuk_enable_backdrop_fco_journey_buckets', 'no'))
@@ -67,7 +68,6 @@ class govuk::apps::publicapi {
       'enabled' => $enable_fco_journey_buckets,
     },
   ]
-
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"
