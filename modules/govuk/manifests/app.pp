@@ -153,14 +153,6 @@ define govuk::app (
   $app_domain = extlookup('app_domain')
   $vhost_full = "${vhost_real}.${app_domain}"
 
-  # The $*_value variable is used here because it's not possible to redefine
-  # a variable in scope like this within Puppet.
-  if $app_type == 'rack' and $unicorn_herder_timeout == 'NOTSET' {
-    $unicorn_herder_timeout_value = 30
-  } elsif $app_type == 'rack' {
-    $unicorn_herder_timeout_value = $unicorn_herder_timeout
-  }
-
   include govuk::deploy
 
   govuk::app::package { $title:
@@ -184,7 +176,7 @@ define govuk::app (
     logstream              => $logstream,
     nagios_cpu_warning     => $nagios_cpu_warning,
     nagios_cpu_critical    => $nagios_cpu_critical,
-    unicorn_herder_timeout => $unicorn_herder_timeout_value,
+    unicorn_herder_timeout => $unicorn_herder_timeout,
   }
 
   govuk::app::service { $title:
