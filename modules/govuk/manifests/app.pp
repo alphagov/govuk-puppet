@@ -132,7 +132,13 @@ define govuk::app (
   # need to be altered.
   $nagios_cpu_critical = 200,
 
-
+  #
+  # unicorn_herder_timeout: the timeout (in seconds) period to wait for
+  #
+  # Provides a way to override the default wait period for the 'failed to
+  # daemonize' error that occurs if an application doesn't load within
+  # the timeout period.
+  $unicorn_herder_timeout = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack']) {
@@ -170,6 +176,7 @@ define govuk::app (
     logstream              => $logstream,
     nagios_cpu_warning     => $nagios_cpu_warning,
     nagios_cpu_critical    => $nagios_cpu_critical,
+    unicorn_herder_timeout => $unicorn_herder_timeout,
   }
 
   govuk::app::service { $title:

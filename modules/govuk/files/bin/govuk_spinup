@@ -44,6 +44,11 @@ case "$GOVUK_APP_TYPE" in
     # Unicorn args
     CMD="${CMD} -- -p \$PORT"
 
+    if [[ $UNICORN_HERDER_TIMEOUT ]]; then
+      # Unicorn herder daemonize timeout
+      CMD="${CMD} -t \$UNICORN_HERDER_TIMEOUT"
+    fi
+
     if [ -e "${GOVUK_APP_ROOT}/config/unicorn.rb" ]; then
       CMD="${CMD} -c '${GOVUK_APP_ROOT}/config/unicorn.rb'"
     else
