@@ -44,7 +44,7 @@ case "$GOVUK_APP_TYPE" in
     # Unicorn args
     CMD="${CMD} -- -p \$PORT"
 
-    if [[ $UNICORN_HERDER_TIMEOUT ]]; then
+    if [ ${UNICORN_HERDER_TIMEOUT:-UNSET} = "UNSET" ]; then
       # Unicorn herder daemonize timeout
       CMD="${CMD} -t \$UNICORN_HERDER_TIMEOUT"
     fi
