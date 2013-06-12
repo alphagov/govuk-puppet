@@ -3,6 +3,11 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
   include mongodb::server
   include java::openjdk6::jre
 
+  ext4mount { '/mnt/encrypted':
+    mountoptions => 'defaults',
+    disk         => '/dev/mapper/encrypted-mongo',
+  }
+
   $internal_tld = extlookup('internal_tld', 'production')
 
   case $::govuk_provider {
