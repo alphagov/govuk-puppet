@@ -22,5 +22,6 @@ class govuk::deploy {
 
   anchor { 'govuk::deploy::end':
     subscribe => Class['govuk::deploy::config'],
+    require   => Class['unicornherder'],
   }
 }
