@@ -5,7 +5,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
 
   ext4mount { '/mnt/encrypted':
     mountoptions => 'defaults',
-    disk         => '/dev/mapper/encrypted-mongo',
+    disk         => '/dev/mapper/encrypted-mongodb',
   }
 
   $internal_tld = extlookup('internal_tld', 'production')
