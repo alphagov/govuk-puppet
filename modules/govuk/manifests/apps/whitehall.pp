@@ -22,8 +22,9 @@ class govuk::apps::whitehall(
     health_check_path      => '/healthcheck',
     enable_nginx_vhost     => false,
     nagios_cpu_warning     => 300,
-    nagios_cpu_critical    => 400,
-    unicorn_herder_timeout => 45;
+    nagios_cpu_critical    => 400;
+    # FIXME: Release a new version of unicornherder.
+    #unicorn_herder_timeout => 45;
   }
 
   if $configure_frontend == true {
