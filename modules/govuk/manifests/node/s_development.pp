@@ -23,6 +23,14 @@ class govuk::node::s_development {
   include govuk::repository
   include govuk::testing_tools
 
+  include rbenv
+  rbenv::version { '1.9.3-p392':
+    bundler_version => '1.3.5'
+  }
+  rbenv::alias { '1.9.3':
+    to_version => '1.9.3-p392'
+  }
+
   class {
     'govuk::apps::businesssupportfinder': vhost_protected => false;
     'govuk::apps::calculators':           vhost_protected => false;
