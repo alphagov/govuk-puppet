@@ -20,7 +20,6 @@ class hosts::preview {
   host { 'monitoring.cluster':  ip => '10.51.62.202', host_aliases => ['nagios.cluster','graphite.cluster'] }
   host { 'cache.cluster':       ip => '10.58.175.43' }
   host { 'router.cluster':      ip => '10.58.175.43' }
-  host { 'graylog.cluster':     ip => '10.32.31.104' }
 
   host { "fact-cave.${app_domain}":               ip => '10.228.95.176' }
   host { "signon.${app_domain}":                  ip => '10.228.95.176' }

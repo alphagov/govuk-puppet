@@ -56,7 +56,6 @@ class hosts::production {
   host { 'monitoring.cluster':  ip => '10.58.86.95' }
   host { 'cache.cluster':       ip => '10.51.39.70' }
   host { 'router.cluster':      ip => '10.51.39.70' }
-  host { 'graylog.cluster':     ip => '10.234.213.245' }
   host { 'whitehall.cluster':   ip => '10.224.50.207' }
 
   host { 'licensify-frontend': ip => '10.229.67.16' }

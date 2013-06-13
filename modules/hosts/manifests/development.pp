@@ -9,7 +9,6 @@ class hosts::development {
   host { 'monitoring.cluster':  ip => '127.0.0.1' }
   host { 'cache.cluster':       ip => '127.0.0.1' }
   host { 'router.cluster':      ip => '127.0.0.1' }
-  host { 'graylog.cluster':     ip => '127.0.0.1' }
   host { 'whitehall.cluster':   ip => '127.0.0.1' }
 
   host { 'static.dev.gov.uk':                               ip => '127.0.0.1' }
