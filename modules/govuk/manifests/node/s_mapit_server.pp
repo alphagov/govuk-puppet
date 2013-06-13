@@ -21,12 +21,13 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
     owner    => 'mapit',
     encoding => 'UTF8',
     template => 'template0',
+    require  => Postgres::User['mapit'],
   }
 
   postgres::exec { 'zcat -f /data/vhost/mapit/data/mapit.sql.gz | psql':
     database => 'mapit',
     unless   => 'psql -Atc "select count(*) from pg_catalog.pg_tables WHERE tablename=\'mapit_area\'" | grep -qvF 0',
-    require  => Curl::Fetch['mapit_dbdump_download'],
+    require  => [Curl::Fetch['mapit_dbdump_download'], Postgres::Database['mapit']],
   }
 
 }
