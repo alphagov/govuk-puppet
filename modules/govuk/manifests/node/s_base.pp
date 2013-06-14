@@ -12,9 +12,17 @@ class govuk::node::s_base {
   include monitoring::client
   include puppet
   include puppet::cronjob
+  include rbenv
   include resolvconf
   include rkhunter
   include users
+
+  rbenv::version { '1.9.3-p392':
+    bundler_version => '1.3.5'
+  }
+  rbenv::alias { '1.9.3':
+    to_version => '1.9.3-p392',
+  }
 
   # Enable management of groups specified in extdata
   $user_groups = extlookup('user_groups', [])

@@ -1,7 +1,6 @@
 class govuk::node::s_management_base inherits govuk::node::s_base {
   include apt
   include ssh
-  include rbenv
 
   include govuk::node::s_ruby_app_server
 
@@ -19,13 +18,6 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
     owner   => jenkins,
     group   => jenkins,
     require => User['jenkins'],
-  }
-
-  rbenv::version { '1.9.3-p392':
-    bundler_version => '1.3.5'
-  }
-  rbenv::alias { '1.9.3':
-    to_version => '1.9.3-p392',
   }
 
   $redis_port = 6379
