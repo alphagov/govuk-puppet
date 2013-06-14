@@ -21,7 +21,6 @@ class hosts::production {
   host { "needotron.${app_domain}":            ip => '10.54.182.112' }
   host { "imminence.${app_domain}":            ip => '10.54.182.112' }
   host { "publisher.${app_domain}":            ip => '10.54.182.112' }
-  host { "reviewomatic.${app_domain}":         ip => '10.54.182.112' }
   host { "private-frontend.${app_domain}":     ip => '10.54.182.112' }
   host { "whitehall-frontend.${app_domain}":   ip => '10.224.50.207' }
   host { "whitehall.${app_domain}":            ip => '10.224.50.207' }

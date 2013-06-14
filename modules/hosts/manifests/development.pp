@@ -27,7 +27,6 @@ class hosts::development {
   host { 'tariff-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'tariff.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }
-  host { 'reviewomatic.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'contentapi.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'datainsight-frontend.dev.gov.uk':                 ip => '127.0.0.1' }

@@ -49,7 +49,6 @@ class hosts::preview {
   host { "tariff.${app_domain}":                 ip => '10.58.253.150' }
   host { "tariff-demo.${app_domain}":            ip => '10.58.253.150' }
   host { "efg.${app_domain}":                    ip => '10.58.253.150' }
-  host { "reviewomatic.${app_domain}":           ip => '10.228.95.176' }
   host { "datainsight-frontend.${app_domain}":   ip => '10.58.253.150' }
   host { "canary-frontend.${app_domain}":        ip => '10.58.253.150' }
   host { "transaction-wrappers.${app_domain}":   ip => '10.58.253.150' }
