@@ -23,12 +23,6 @@ class hosts::skyscape::production_like {
     legacy_aliases  => ['monitoring', "nagios.${app_domain}"],
     service_aliases => ['monitoring', 'nagios'],
   }
-  govuk::host { 'logging':
-    ip              => '10.0.0.21',
-    vdc             => 'management',
-    legacy_aliases  => ['logging'],
-    service_aliases => ['graylog'],
-  }
   govuk::host { 'logs-elasticsearch-1':
     ip              => '10.0.0.29',
     vdc             => 'management',

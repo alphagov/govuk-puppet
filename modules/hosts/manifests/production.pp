@@ -21,7 +21,6 @@ class hosts::production {
   host { "needotron.${app_domain}":            ip => '10.54.182.112' }
   host { "imminence.${app_domain}":            ip => '10.54.182.112' }
   host { "publisher.${app_domain}":            ip => '10.54.182.112' }
-  host { "reviewomatic.${app_domain}":         ip => '10.54.182.112' }
   host { "private-frontend.${app_domain}":     ip => '10.54.182.112' }
   host { "whitehall-frontend.${app_domain}":   ip => '10.224.50.207' }
   host { "whitehall.${app_domain}":            ip => '10.224.50.207' }
@@ -56,7 +55,6 @@ class hosts::production {
   host { 'monitoring.cluster':  ip => '10.58.86.95' }
   host { 'cache.cluster':       ip => '10.51.39.70' }
   host { 'router.cluster':      ip => '10.51.39.70' }
-  host { 'graylog.cluster':     ip => '10.234.213.245' }
   host { 'whitehall.cluster':   ip => '10.224.50.207' }
 
   host { 'licensify-frontend': ip => '10.229.67.16' }
