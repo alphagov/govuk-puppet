@@ -1,7 +1,4 @@
 class govuk::node::s_support inherits govuk::node::s_base {
-  include apt_cacher::server
-  include apt_cacher::client
-
   if $::govuk_platform == 'preview' {
     $mysql_host     = 'rds.cluster'
     $mysql_user     = 'backup'
