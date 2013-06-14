@@ -7,6 +7,9 @@ class ertp_base {
   include users::groups::ertp
   include govuk::deploy
   include govuk::repository
+  package {
+  'openjdk-7-jre-headless': ensure => present
+  }
 }
 
 class ertp_base::mongo_server inherits ertp_base {
