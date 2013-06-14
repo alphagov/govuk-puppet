@@ -40,7 +40,7 @@ limelight:             govuk_setenv limelight ./run_in.sh ../limelight bundle ex
 transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
 # govuk_delivery has port 3042
 # tariff_demo_api: grabbing port 3043 in preview only
-# transition has port 3044?
+transition:            govuk_setenv transition           ./run_in.sh ../transition     ./script/rails s -p 3044
 # tariff_demo: grabbing port 3045 in preview only
 # tariff_admin: grabbing port 3046 in preview only
 calculators:           ./run_in.sh ../calculators ./script/rails s -p 3047

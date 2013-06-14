@@ -36,6 +36,7 @@ process :support
 process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
 process :transaction_wrappers => :static
+process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
 process :whitehall => :static
 
