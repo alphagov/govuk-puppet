@@ -29,3 +29,5 @@ mod 'harden',
   :git => 'git://github.com/alphagov/puppet-harden.git'
 mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
+mod 'resolvconf',
+  :git => 'git://github.com/alphagov/puppet-resolvconf.git'

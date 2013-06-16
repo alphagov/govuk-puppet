@@ -60,6 +60,13 @@ GIT
     rbenv (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-resolvconf.git
+  ref: master
+  sha: 90260673441519cc52677d707b728c15368a5d21
+  specs:
+    resolvconf (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-rsyslog.git
   ref: d897c50
   sha: d897c506dd9454ffdc37d9583025efe1b4cc3a52
@@ -84,6 +91,7 @@ DEPENDENCIES
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   rbenv (>= 0)
+  resolvconf (>= 0)
   ripienaar/concat (>= 0)
   rsyslog (>= 0)
   thomasvandoren/redis (>= 0)

@@ -17,6 +17,10 @@ class govuk::node::s_base {
   include rkhunter
   include users
 
+  class { 'resolvconf':
+    nameservers => extlookup('resolvconf_nameservers', []),
+  }
+
   rbenv::version { '1.9.3-p392':
     bundler_version => '1.3.5'
   }
