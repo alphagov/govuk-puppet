@@ -1,7 +1,13 @@
-class elasticsearch::package {
+class elasticsearch::package (
+  $version = undef,
+) {
+
+  if $version == undef {
+    fail('You must provide an elasticsearch version for package installation')
+  }
 
   package { 'elasticsearch':
-    ensure  => '0.19.8',
+    ensure  => $version,
     notify  => Exec['disable-default-elasticsearch'],
     require => Class['java::set_defaults'],
   }
@@ -9,7 +15,8 @@ class elasticsearch::package {
   # Disable the default elasticsearch setup, as we'll be installing an upstart
   # job to manage elasticsearch in elasticsearch::{config,service}
   exec { 'disable-default-elasticsearch':
-    command     => '/etc/init.d/elasticsearch stop && /bin/rm /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
+    onlyif      => '/usr/bin/test -f /etc/init.d/elasticsearch',
+    command     => '/etc/init.d/elasticsearch stop && /bin/rm -f /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
     refreshonly => true,
   }
 
