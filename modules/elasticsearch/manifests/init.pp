@@ -10,6 +10,7 @@ class elasticsearch (
   $number_of_shards = '5',
   $refresh_interval = '1s',
   $transport_port = '9300',
+  $version = 'present',
 ) {
   include elasticsearch::monitoring
 
@@ -19,7 +20,8 @@ class elasticsearch (
 
   class { 'elasticsearch::package':
     require => Anchor['elasticsearch::begin'],
-    notify  => Class['elasticsearch::service'];
+    notify  => Class['elasticsearch::service'],
+    version => $version;
   }
 
   class { 'elasticsearch::config':
