@@ -29,7 +29,7 @@ class govuk::apps::publicapi {
     {
       'path' => 'licensing/api/realtime',
       'name' => 'licensing_realtime',
-      'enabled' => enable_realtime_buckets,
+      'enabled' => $enable_realtime_buckets,
     },
     {
       'path' => 'government/api/annotations',
