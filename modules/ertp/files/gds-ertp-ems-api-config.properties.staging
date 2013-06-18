@@ -11,3 +11,5 @@ http.soTimeout=180000
 api.mode=ems
 admin.bearerToken=admin_token
 admin.api.url=http://ertp-admin-api:9125/admin-api
+mongo.database.slaveok=false
+mongo.database.read.preference=secondary
