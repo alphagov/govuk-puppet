@@ -202,6 +202,11 @@ class hosts::skyscape::production_like {
     vdc             => 'backend',
     legacy_aliases  => ['elasticsearch-3'],
   }
+  govuk::host { 'feedex-1':
+    ip              => '10.3.0.60',
+    vdc             => 'backend',
+    legacy_aliases  => ['feedex-1'],
+  }
   govuk::host { 'support-1':
     ip              => '10.3.0.5',
     vdc             => 'backend',
