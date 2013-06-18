@@ -27,16 +27,6 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     require     => Class['java::oracle7::jre'],
   }
 
-  include nginx
-  # Local proxy to access ES cluster.
-  class { 'elasticsearch::local_proxy':
-    servers => [
-      'logs-elasticsearch-1.management',
-      'logs-elasticsearch-2.management',
-      'logs-elasticsearch-3.management',
-    ],
-  }
-
   # FIXME 20130605 @philippotter: the current version of the
   #   electrical/puppet-logstash module we're using (694fa1a) doesn't
   #   implement the anchor pattern properly. This has been fixed in
@@ -102,7 +92,7 @@ class govuk::node::s_logging inherits govuk::node::s_base {
   #configure logstash outputs
 
   logstash::output::elasticsearch_http {'syslog':
-    host  => 'localhost',
+    host  => 'logs-elasticsearch.cluster',
     index => 'logs-current',
   }
 
