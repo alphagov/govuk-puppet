@@ -22,3 +22,5 @@ dwp.file.cleanup.schedule=0 0 1-5 * * ?
 dwp.bearerToken=dwp_feed_token
 admin.bearerToken=admin_token
 admin.api.url=http://ertp-admin-api:9125/admin-api
+mongo.database.slaveok=false
+mongo.database.read.preference=secondary
