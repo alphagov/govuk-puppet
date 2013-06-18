@@ -24,7 +24,7 @@ class govuk::apps::publicapi {
     {
       'path' => 'licence_finder/api/monitoring',
       'name' => 'licence_finder_monitoring',
-      'endabled' => true,
+      'enabled' => true,
     },
     {
       'path' => 'licensing/api/journey',
