@@ -11,4 +11,10 @@ class users {
     name => 'admin',
     gid  => '3000',
   }
+
+  # Ignore accounts for Vagrant and VirtualBox.
+  # Prevents them from being purged.
+  user { ['vagrant', 'vboxadd']:
+    ensure => undef,
+  }
 }
