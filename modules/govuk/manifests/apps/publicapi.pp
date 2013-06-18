@@ -17,6 +17,16 @@ class govuk::apps::publicapi {
 
   $backdrop_buckets = [
     {
+      'path' => 'licensing/api/monitoring',
+      'name' => 'licensing_monitoring',
+      'enabled' => true,
+    },
+    {
+      'path' => 'licence_finder/api/monitoring',
+      'name' => 'licence_finder_monitoring',
+      'enabled' => true,
+    },
+    {
       'path' => 'licensing/api/journey',
       'name' => 'licensing_journey',
       'enabled' => true,
