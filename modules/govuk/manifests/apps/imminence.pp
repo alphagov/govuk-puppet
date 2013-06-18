@@ -5,4 +5,6 @@ class govuk::apps::imminence( $port = 3002 ) {
     vhost_ssl_only    => true,
     health_check_path => '/',
   }
+
+  govuk::delayed_job::worker { 'imminence': }
 }
