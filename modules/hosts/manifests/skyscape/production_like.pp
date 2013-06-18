@@ -134,12 +134,6 @@ class hosts::skyscape::production_like {
     vdc            => 'frontend',
     legacy_aliases => ['whitehall-frontend-3']
   }
-  govuk::host { 'whitehall-frontend-4':
-    ip             => '10.2.0.11',
-    vdc            => 'frontend',
-    legacy_aliases => ['whitehall-frontend-4']
-  }
-
 
   #frontend lb vhosts
   govuk::host { 'frontend-lb-1':
