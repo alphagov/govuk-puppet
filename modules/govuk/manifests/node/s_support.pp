@@ -1,4 +1,7 @@
 class govuk::node::s_support inherits govuk::node::s_base {
+  # FIXME: Remove after convergence.
+  include solr::remove
+
   if $::govuk_platform == 'preview' {
     $mysql_host     = 'rds.cluster'
     $mysql_user     = 'backup'
