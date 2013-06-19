@@ -115,6 +115,11 @@ class govuk::apps::publicapi {
       'path' => 'deposit-foreign-marriage/api/realtime',
       'name' => 'deposit_foreign_marriage_realtime',
       'enabled' => $enable_realtime_buckets,
+    }, 
+    {
+      'path' => 'lpa/api/volumes',
+      'name' => 'lpa_volumes',
+      'enabled' => $enable_lpa_buckets,
     },
   ]
 
