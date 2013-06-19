@@ -17,13 +17,15 @@ class mysql::server($root_password='') {
     error_log => $mysql_error_log,
   }
 
+  class { 'mysql::server::logging':
+    error_log => $mysql_error_log,
+  }
+
   class { 'mysql::server::firewall':
     require => Class['mysql::server::config'],
   }
 
-  class { 'mysql::server::service':
-    error_log => $mysql_error_log,
-  }
+  class { 'mysql::server::service': }
 
   class { 'mysql::server::monitoring':
     root_password => $root_password,
