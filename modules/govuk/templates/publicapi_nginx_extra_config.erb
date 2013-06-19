@@ -11,7 +11,6 @@
     proxy_pass http://<%= @whitehallapi %>;
   }
 
-<% if @enable_fact_cave_public_api %>
   location ~ ^/api/facts(/|$) {
     # Remove the prefix before passing through
     # Can't just do this using the proxy_pass URL, because we're
@@ -22,7 +21,6 @@
     proxy_set_header API-PREFIX api;
     proxy_pass http://<%= @factcaveapi %>;
   }
-<% end %>
 
   location ~ ^/api(/|$) {
     # Remove the prefix before passing through

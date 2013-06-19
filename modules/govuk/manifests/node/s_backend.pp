@@ -16,6 +16,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include govuk::apps::asset_manager
   include govuk::apps::canary_backend
+  include govuk::apps::fact_cave
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
@@ -33,9 +34,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   if str2bool(extlookup('govuk_enable_tariff_demo', 'no')) {
     include govuk::apps::tariff_demo_api
-  }
-  if str2bool(extlookup('govuk_enable_fact_cave', 'no')) {
-    include govuk::apps::fact_cave
   }
 
   class { 'govuk::apps::contentapi': vhost_protected => false }
