@@ -18,6 +18,19 @@ class govuk::node::s_cache inherits govuk::node::s_base {
     real_ip_header  => $cache_real_ip_header,
   }
 
+  # the assets-origin stuff here is WIP, will be extracted into a
+  # separate class before finishing the story
+  # -- @philippotter 2013-06-19
+  $app_domain = extlookup('app_domain')
+  if $::govuk_platform == 'preview' {
+    # suspect we want `protected => false` here
+    # once appropriate firewalling is in place?
+    nginx::config::vhost::proxy { 'assets-origin.digital.cabinet-office.gov.uk':
+      to       => ["static.${app_domain}"],
+      ssl_only => true,
+    }
+  }
+
   # Set the varnish storage size to 75% of memory
   $varnish_storage_size = $::memtotalmb / 4 * 3
   class { 'varnish':
