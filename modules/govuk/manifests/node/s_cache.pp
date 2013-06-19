@@ -46,7 +46,6 @@ server {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_redirect off;
 
-  access_log /var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-access.log timed_combined;
   access_log /var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-json.event.access.log json_event;
   error_log /var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-error.log;
 
@@ -57,13 +56,11 @@ server {
     ',
   }
   nginx::log {
-    $json_access_log:
+    '/var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-json.event.access.log':
       json          => true,
       logstream     => true,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.assets-origin.http_%{@fields.status}";
-    $access_log:
-      logstream => false;
-    $error_log:
+    '/var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-error.log':
       logstream => true;
   }
 
