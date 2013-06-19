@@ -22,13 +22,11 @@ class govuk::node::s_cache inherits govuk::node::s_base {
   # separate class before finishing the story
   # -- @philippotter 2013-06-19
   $app_domain = extlookup('app_domain')
-  if $::govuk_platform == 'preview' {
-    # suspect we want `protected => false` here
-    # once appropriate firewalling is in place?
-    nginx::config::vhost::proxy { 'assets-origin.digital.cabinet-office.gov.uk':
-      to       => ["static.${app_domain}"],
-      ssl_only => true,
-    }
+  # suspect we want `protected => false` here
+  # once appropriate firewalling is in place?
+  nginx::config::vhost::proxy { 'assets-origin.digital.cabinet-office.gov.uk':
+    to       => ["static.${app_domain}"],
+    ssl_only => true,
   }
 
   # Set the varnish storage size to 75% of memory
