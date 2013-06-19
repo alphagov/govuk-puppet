@@ -3,6 +3,9 @@ class govuk::node::s_deployment inherits govuk::node::s_base {
   include jenkins::master
   include govuk::ghe_vpn
 
+  # FIXME: Remove after convergence.
+  include solr::remove
+
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
     status         => '444',
