@@ -28,6 +28,8 @@ class govuk::node::s_cache inherits govuk::node::s_base {
     to       => ["static.${app_domain}"],
     ssl_only => true,
   }
+  # TODO: statsd
+  nginx::log { 'assets-origin.digital.cabinet-office.gov.uk': logstream => true, json => true }
 
   # Set the varnish storage size to 75% of memory
   $varnish_storage_size = $::memtotalmb / 4 * 3
