@@ -27,6 +27,8 @@ class router::nginx (
   $vhost_protected,
   $real_ip_header = ''
 ) {
+  include router::assets_origin
+
   $app_domain = extlookup('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
