@@ -35,7 +35,7 @@
   }
 
   <% @backdrop_buckets.each do |bucket| %>
-    <% if bucket["enabled"] %>
+    <% if bucket["enabled"] -%>
       location ~ ^/performance/<%= bucket["path"] %> {
         rewrite ^/performance/<%= bucket["path"] %>(.*)$ /<%= bucket["name"] %>$1 break;
 
@@ -44,5 +44,5 @@
 
         proxy_pass http://<%= @backdropread %>;
       }
-    <% end %>
-  <% end %>
+    <% end -%>
+  <% end -%>
