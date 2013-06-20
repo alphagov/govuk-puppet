@@ -12,6 +12,7 @@ class govuk::apps::publicapi {
   $enable_backdrop_government_annotations_bucket = str2bool(extlookup('govuk_enable_backdrop_government_annotations_bucket', 'no'))
   $enable_fco_journey_buckets = str2bool(extlookup('govuk_enable_backdrop_fco_journey_buckets', 'no'))
   $enable_realtime_buckets = str2bool(extlookup('govuk_enable_realtime_buckets', 'no'))
+  $enable_lpa_buckets = str2bool(extlookup('govuk_enable_lpa_buckets', 'no'))
 
 
   $backdrop_buckets = [
@@ -114,6 +115,11 @@ class govuk::apps::publicapi {
       'path' => 'deposit-foreign-marriage/api/realtime',
       'name' => 'deposit_foreign_marriage_realtime',
       'enabled' => $enable_realtime_buckets,
+    },
+    {
+      'path' => 'lpa/api/volumes',
+      'name' => 'lpa_volumes',
+      'enabled' => $enable_lpa_buckets,
     },
   ]
 
