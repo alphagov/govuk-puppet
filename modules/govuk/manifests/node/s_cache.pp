@@ -55,6 +55,9 @@ server {
 }
     ',
   }
+  nginx::config::ssl { 'assets-origin.digital.cabinet-office.gov.uk':
+    certtype => 'wildcard_alphagov'
+  }
   nginx::log {
     'assets-origin.digital.cabinet-office.gov.uk-json.event.access.log':
       json          => true,
