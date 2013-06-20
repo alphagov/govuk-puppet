@@ -99,7 +99,13 @@ class hosts::skyscape::production_like {
   govuk::host { 'cache':
     ip              => '10.1.1.1',
     vdc             => 'router',
-    legacy_aliases  => ['cache', "www.${app_domain}", "www-origin.${app_domain}", $website_host ],
+    legacy_aliases  => [
+      'cache',
+      $website_host,
+      "www.${app_domain}",
+      "www-origin.${app_domain}",
+      "assets-origin.${app_domain}",
+    ],
     service_aliases => ['cache', 'router'],
   }
 
