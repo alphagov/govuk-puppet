@@ -12,7 +12,7 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
     require     => File['/data/vhost/mapit/data'],
   }
 
-  postgres::user {'mapit':
+  postgres::user { 'mapit':
     password => 'mapit',
   }
 
@@ -29,5 +29,4 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
     unless   => 'psql -Atc "select count(*) from pg_catalog.pg_tables WHERE tablename=\'mapit_area\'" | grep -qvF 0',
     require  => [Curl::Fetch['mapit_dbdump_download'], Postgres::Database['mapit']],
   }
-
 }

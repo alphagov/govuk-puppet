@@ -30,9 +30,19 @@ class mapit::package {
       require => User['mapit'],
   }
 
-  package{['python-django-south','python-yaml','memcached','python-memcache',
-          'python-django','python-psycopg2',
-          'python-flup','python-gdal', 'gdal-bin']:
+  package { [
+            'gdal-bin',
+            'memcached',
+            'python-beautifulsoup',
+            'python-django',
+            'python-django-south',
+            'python-flup',
+            'python-gdal',
+            'python-memcache',
+            'python-psycopg2',
+            'python-shapely',
+            'python-yaml'
+            ]:
     ensure => present,
   }
 
