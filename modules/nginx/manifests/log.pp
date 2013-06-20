@@ -8,6 +8,10 @@ define nginx::log (
   $logname       = regsubst($name, '\.[^.]*$', ''),
   $statsd_metric = undef
   ){
+
+  # Log name should not be absolute. Use $logpath.
+  validate_re($title, '^[^/]')
+
   file { "${logpath}/${name}":
     ensure  => 'present',
     owner   => $logowner,

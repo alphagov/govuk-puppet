@@ -56,11 +56,11 @@ server {
     ',
   }
   nginx::log {
-    '/var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-json.event.access.log':
+    'assets-origin.digital.cabinet-office.gov.uk-json.event.access.log':
       json          => true,
       logstream     => true,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.assets-origin.http_%{@fields.status}";
-    '/var/log/nginx/assets-origin.digital.cabinet-office.gov.uk-error.log':
+    'assets-origin.digital.cabinet-office.gov.uk-error.log':
       logstream => true;
   }
 
