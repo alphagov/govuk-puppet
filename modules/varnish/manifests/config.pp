@@ -46,6 +46,7 @@ class varnish::config {
     'register-a-death',
     'report-a-lost-or-stolen-passport',
     'request-for-flexible-working',
+    'simplified-expenses-checker',
     'student-finance-calculator',
     'student-finance-forms',
     'towing-rules',
