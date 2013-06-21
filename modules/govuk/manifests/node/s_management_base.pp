@@ -19,9 +19,6 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include mongodb::server
   include nodejs
 
-  # FIXME: Remove after convergence.
-  include solr::remove
-
   file { '/var/log/ertp':
     ensure  => directory,
     owner   => jenkins,
