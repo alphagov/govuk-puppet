@@ -26,7 +26,8 @@ mod 'rbenv',
   :git => 'git://github.com/alphagov/puppet-rbenv.git',
   :ref => '0.0.5'
 mod 'harden',
-  :git => 'git://github.com/alphagov/puppet-harden.git'
+  :git => 'git://github.com/alphagov/puppet-harden.git',
+  :ref => 'v0.0.2'
 mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'resolvconf',
