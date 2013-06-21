@@ -109,6 +109,7 @@ class govuk::node::s_development {
   }
 
   class { 'elasticsearch':
+    version            => "0.20.6-ppa1~${::lsbdistcodename}1",
     cluster_name       => 'govuk-development',
     heap_size          => '64m',
     number_of_shards   => '1',
