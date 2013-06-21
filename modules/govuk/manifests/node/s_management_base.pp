@@ -1,4 +1,10 @@
 class govuk::node::s_management_base inherits govuk::node::s_base {
+  $elasticsearch_allow_upgrade = str2bool(extlookup('elasticsearch_allow_upgrade', 'no'))
+  $es_version = $elasticsearch_allow_upgrade ? {
+    true    => "0.20.6-ppa1~${::lsbdistcodename}1",
+    default => undef,
+  }
+
   include apt
   include ssh
 
@@ -31,6 +37,7 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   }
 
   class { 'elasticsearch':
+    version            => $es_version,
     cluster_name       => "govuk-${::govuk_platform}",
     number_of_replicas => '0'
   }
