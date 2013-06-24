@@ -22,6 +22,6 @@ server {
   error_log /var/log/nginx/<%= vhost_name -%>-error.log;
 
   location / {
-    proxy_pass http://static.<%= app_domain -%>;
+    proxy_pass https://static.<%= app_domain -%>;
   }
 }
