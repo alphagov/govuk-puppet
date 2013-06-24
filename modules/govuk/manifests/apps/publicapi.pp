@@ -40,6 +40,7 @@ class govuk::apps::publicapi {
       'path' => 'licensing/api/realtime',
       'name' => 'licensing_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'government/api/annotations',
@@ -50,6 +51,7 @@ class govuk::apps::publicapi {
       'path' => 'government/api/realtime',
       'name' => 'govuk_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'test/api/test',
@@ -65,6 +67,7 @@ class govuk::apps::publicapi {
       'path' => 'pay-legalisation-post/api/realtime',
       'name' => 'pay_legalisation_post_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'pay-legalisation-drop-off/api/journey',
@@ -75,6 +78,7 @@ class govuk::apps::publicapi {
       'path' => 'pay-legalisation-drop-off/api/realtime',
       'name' => 'pay_legalisation_drop_off_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'pay-register-birth-abroad/api/journey',
@@ -85,6 +89,7 @@ class govuk::apps::publicapi {
       'path' => 'pay-register-birth-abroad/api/realtime',
       'name' => 'pay_register_birth_abroad_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'pay-register-death-abroad/api/journey',
@@ -95,6 +100,7 @@ class govuk::apps::publicapi {
       'path' => 'pay-register-death-abroad/api/realtime',
       'name' => 'pay_register_death_abroad_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'pay-foreign-marriage-certificates/api/journey',
@@ -105,6 +111,7 @@ class govuk::apps::publicapi {
       'path' => 'pay-foreign-marriage-certificates/api/realtime',
       'name' => 'pay_foreign_marriage_certificates_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'deposit-foreign-marriage/api/journey',
@@ -115,6 +122,7 @@ class govuk::apps::publicapi {
       'path' => 'deposit-foreign-marriage/api/realtime',
       'name' => 'deposit_foreign_marriage_realtime',
       'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
     },
     {
       'path' => 'lpa/api/volumes',
