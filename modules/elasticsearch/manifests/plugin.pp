@@ -13,6 +13,11 @@
 #   The argument to pass to the elasticsearch plugin installer, e.g.
 #   "mobz/elasticsearch-head", or "leeadkins/elasticsearch-redis-river/0.0.4"
 #
+#   If an HTTP[S] URL is provided then the install command will take the
+#   form of `-install ${plugin_name} -url ${install_from}`. This is
+#   necessary for plugins that aren't published on Maven (Central/Sonatype)
+#   or as GitHub tags.
+#
 define elasticsearch::plugin (
   $install_from,
   $plugin_name = $title
@@ -20,13 +25,19 @@ define elasticsearch::plugin (
 
   $plugin_dir = "/usr/share/elasticsearch/plugins/${plugin_name}"
 
+  $install_args = $install_from ? {
+    /^(?i:https?:\/\/)/ => "'${plugin_name}' -url '${install_from}'",
+    default             => "'${install_from}'",
+  }
+
   # Explicitly manage directory to override resource purging of
   # /usr/share/elasticsearch/plugins
   file { $plugin_dir:
     ensure => 'directory',
   }
 
-  exec { "/usr/share/elasticsearch/bin/plugin -install '${install_from}'":
+  exec { "elasticsearch install plugin ${plugin_name}":
+    command => "/usr/share/elasticsearch/bin/plugin -install ${install_args}",
     unless  => "test -n \"$(ls '${plugin_dir}')\"",
     notify  => Class['elasticsearch::service'],
     require => Package['elasticsearch'],
