@@ -25,7 +25,7 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
   }
 
   elasticsearch::plugin { 'redis-river':
-    install_from => 'leeadkins/elasticsearch-redis-river/0.0.4',
+    install_from => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',
   }
 
   elasticsearch::plugin { 'head':
