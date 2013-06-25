@@ -49,4 +49,5 @@ ln -snf "$DEST" "${MIRROR_ROOT}/current"
 echo "$(date "+%Y%m%dT%H%M%S"): Grabbing the latest error page" >>$LOGFILE
 # Grab the 503 error page
 test -d /var/lib/govuk_mirror/error/ || mkdir /var/lib/govuk_mirror/error/
-curl -sf https://assets.digital.cabinet-office.gov.uk/templates/503.html.erb -o /var/lib/govuk_mirror/error/503.html
+STATIC_HOSTNAME="static.`cat /etc/govuk/env.d/GOVUK_APP_DOMAIN`"
+curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o /var/lib/govuk_mirror/error/503.html
