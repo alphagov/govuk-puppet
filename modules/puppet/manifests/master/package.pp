@@ -19,14 +19,14 @@ class puppet::master::package($puppetdb_version) {
     unless  => 'gem list | grep "rack.*1.0.1"'
   }
   package { 'puppet-common':
-    ensure => '2.7.19-1puppetlabs2',
+    ensure => '2.7.22-1puppetlabs1',
   }
   package { 'puppetdb-terminus':
     ensure  => $puppetdb_version,
     require => Package['puppet-common'],
   }
   package { 'puppet':
-    ensure  => '2.7.19-1puppetlabs2',
+    ensure  => '2.7.22-1puppetlabs1',
     require => Package['puppet-common'],
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
