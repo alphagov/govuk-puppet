@@ -23,8 +23,9 @@ class puppet::master($unicorn_port='9090') {
     notify => Class['puppet::master::service'],
   }
   class{'puppet::master::package':
-    puppetdb_version  => $puppetdb_version,
-    require           => [
+    puppetdb_version => $puppetdb_version,
+    notify           => Class['puppet::master::service'],
+    require          => [
       Class['unicornherder'],
       Anchor['puppet::master::begin'],
     ],
