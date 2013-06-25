@@ -3,7 +3,7 @@
 
 process :asset_manager
 process :backdrop_read
-process :backdrop_write
+process :backdrop_write => [:signon]
 process :businesssupportfinder => [:static, :contentapi, :imminence]
 process :calculators => [:static]
 process :calendars => [:static, :contentapi]
