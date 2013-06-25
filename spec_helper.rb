@@ -1,5 +1,6 @@
 require 'csv'
 require 'rspec-puppet'
+require 'puppet'
 require 'puppet/parser/functions/extlookup'
 
 HERE = File.expand_path(File.dirname(__FILE__))
@@ -12,6 +13,13 @@ RSpec.configure do |c|
   ].join(':')
 
   c.before do
+    # FIXME: We shouldn't need to do this. puppet/face should. See:
+    # - http://projects.puppetlabs.com/issues/15529
+    # - https://groups.google.com/forum/#!topic/puppet-dev/Yk0WC1JZCg8/discussion
+    if (Puppet::PUPPETVERSION.to_i >= 3 && !Puppet.settings.app_defaults_initialized?)
+      Puppet.initialize_settings
+    end
+
     # Mock out extdata for the purposes of testing.
     module Puppet::Parser::Functions
       newfunction(:extlookup, :type => :rvalue) do |args|
