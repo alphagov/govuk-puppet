@@ -43,6 +43,12 @@
         proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>;
 
         proxy_pass http://<%= @backdropread %>;
+
+        <% if bucket["realtime"] %>
+          expires 2m;
+        <% else %>
+          expires 30m;
+        <% end %>
       }
     <% end -%>
   <% end -%>
