@@ -23,7 +23,7 @@ PermitRootLogin                 no
 PasswordAuthentication          no
 ChallengeResponseAuthentication no
 
-<%- if govuk_platform == "development" -%>
+<%- if @govuk_platform == "development" -%>
 X11Forwarding                   yes
 X11DisplayOffset                10
 <%- else -%>
