@@ -125,9 +125,9 @@ This way, commits you make on the VM get your name and email set on them:
 To get production/preview access you will need to add your public key and
 configure a user account for yourself in our `puppet` repository.
 
-Let's say you want the username "friendlygiraffe". Create a puppet manifest file containing 
-your user account settings in `puppet/modules/users/manifests/` and include it in 
-`puppet/modules/users/manifests/groups/govuk.pp`. 
+Let's say you want the username "friendlygiraffe". Create a puppet manifest file containing
+your user account settings in `puppet/modules/users/manifests/` and include it in
+`puppet/modules/users/manifests/groups/govuk.pp`.
 
 Your manifest for the above would be called `friendlygiraffe.pp` and look similar to the following:
 
@@ -159,6 +159,11 @@ have preview access then importing the latest data can be done by running
 the following from `development/replication`.
 
     dev$ ./replicate-data-local.sh -F ../ssh_config -u $USERNAME
+
+NOTE: If you get the error: 'percent_expand: unknown key %r' when running the
+replication script, then you will need to update the ssh_config file. Replace %r
+with your username on the line beginning ProxyCommand. This is a known issue
+with the version of ssh on lucid.
 
 If you do not have preview access, get hold of a mongo and a mysql database
 dump files and place them in a specific directory structure shown below.
