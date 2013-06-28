@@ -1,6 +1,16 @@
 #!/bin/sh
-#
-# This is a thin wrapper around the GOV.UK fabric scripts, assumed to be
-# installed in /usr/local/share/govuk-fabric.
-#
-exec fab -f /usr/local/share/govuk-fabric/fabfile.py "$@"
+cat << EOS
+This method of running Fabric is deprecated because it requires forwarding
+your agent to the jumpbox. Anyone with root access to the jumpbox can re-use
+any of the private keys in your agent.
+
+Please use the local method instead:
+
+    https://github.com/alphagov/fabric-scripts#local-usage
+
+You should also ensure that you do NOT have the following config option
+anywhere in your ~/.ssh/config:
+
+    ForwardAgent yes
+EOS
+exit 1
