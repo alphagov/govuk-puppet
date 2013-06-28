@@ -1,6 +1,10 @@
+# == Class: fabric
+#
+# Transitionary class as we remove fabric-scripts from the jumpboxes.
+#
 class fabric {
   package { 'fabric':
-    ensure   => 'present',
+    ensure   => absent,
     provider => 'pip',
   }
 
