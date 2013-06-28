@@ -16,6 +16,7 @@ class users::groups::govuk {
   include users::alexmuller
   include users::alext
   include users::annashipman
+  include users::amywhitney
   include users::bansalp
   include users::benilovj
   include users::bob
