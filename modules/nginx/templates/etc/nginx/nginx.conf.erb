@@ -58,7 +58,8 @@ http {
                          '"request": "$request", '
                          '"request_method": "$request_method", '
                          '"http_referrer": "$http_referer", '
-                         '"http_user_agent": "$http_user_agent" } }';
+                         '"http_user_agent": "$http_user_agent", '
+                         '"varnish_id": "$http_x_varnish" } }';
 
     access_log  /var/log/nginx/access.log timed_combined;
     access_log  /var/log/nginx/json.event.access.log json_event;
