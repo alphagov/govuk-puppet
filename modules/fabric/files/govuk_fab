@@ -6,6 +6,11 @@ any of the private keys in your agent.
 
 Please use the local method instead:
 
-https://github.com/alphagov/fabric-scripts#local-usage
+    https://github.com/alphagov/fabric-scripts#local-usage
+
+You should also ensure that you do NOT have the following config option
+anywhere in your ~/.ssh/config:
+
+    ForwardAgent yes
 EOS
 exit 1
