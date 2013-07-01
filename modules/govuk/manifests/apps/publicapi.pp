@@ -64,6 +64,11 @@ class govuk::apps::publicapi {
       'enabled' => $enable_fco_journey_buckets,
     },
     {
+      'path' => 'pay-legalisation-post/api/monitoring',
+      'name' => 'pay_legalisation_post_monitoring',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
       'path' => 'pay-legalisation-post/api/realtime',
       'name' => 'pay_legalisation_post_realtime',
       'enabled' => $enable_realtime_buckets,
@@ -72,6 +77,11 @@ class govuk::apps::publicapi {
     {
       'path' => 'pay-legalisation-drop-off/api/journey',
       'name' => 'pay_legalisation_drop_off_journey',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
+      'path' => 'pay-legalisation-drop-off/api/monitoring',
+      'name' => 'pay_legalisation_drop_off_monitoring',
       'enabled' => $enable_fco_journey_buckets,
     },
     {
@@ -86,6 +96,11 @@ class govuk::apps::publicapi {
       'enabled' => $enable_fco_journey_buckets,
     },
     {
+      'path' => 'pay-register-birth-abroad/api/monitoring',
+      'name' => 'pay_register_birth_abroad_monitoring',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
       'path' => 'pay-register-birth-abroad/api/realtime',
       'name' => 'pay_register_birth_abroad_realtime',
       'enabled' => $enable_realtime_buckets,
@@ -94,6 +109,11 @@ class govuk::apps::publicapi {
     {
       'path' => 'pay-register-death-abroad/api/journey',
       'name' => 'pay_register_death_abroad_journey',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
+      'path' => 'pay-register-death-abroad/api/monitoring',
+      'name' => 'pay_register_death_abroad_monitoring',
       'enabled' => $enable_fco_journey_buckets,
     },
     {
@@ -108,6 +128,11 @@ class govuk::apps::publicapi {
       'enabled' => $enable_fco_journey_buckets,
     },
     {
+      'path' => 'pay-foreign-marriage-certificates/api/monitoring',
+      'name' => 'pay_foreign_marriage_certificates_monitoring',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
       'path' => 'pay-foreign-marriage-certificates/api/realtime',
       'name' => 'pay_foreign_marriage_certificates_realtime',
       'enabled' => $enable_realtime_buckets,
@@ -116,6 +141,11 @@ class govuk::apps::publicapi {
     {
       'path' => 'deposit-foreign-marriage/api/journey',
       'name' => 'deposit_foreign_marriage_journey',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
+      'path' => 'deposit-foreign-marriage/api/monitoring',
+      'name' => 'deposit_foreign_marriage_monitoring',
       'enabled' => $enable_fco_journey_buckets,
     },
     {
