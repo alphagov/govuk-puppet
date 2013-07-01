@@ -76,6 +76,12 @@ class hosts::skyscape::production_like {
     legacy_aliases  => ['graphite-1', "graphite.${app_domain}"],
     service_aliases => ['graphite'],
   }
+  govuk::host { 'puppetmaster-1':
+    ip              => '10.0.0.5',
+    vdc             => 'management',
+    legacy_aliases  => ['puppetmaster-1'],
+    service_aliases => ['puppetmaster-1']
+  }
 
   #router vdc machines
   govuk::host { 'cache-1':
