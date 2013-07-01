@@ -1,9 +1,19 @@
+# On Logs Box
+# /home/logkeeper/akamai    - link to /mnt/akamai
+# /mnt                      - mounted
+# /mnt/akamai               - root of logs
+#
+# On Akamai
+# 184928                    - Root of all logs
+#
+# Rsync
+# 184928/ -> /home/logkeeper/akamai
 class akamai_logs {
   $user = 'logkeeper'
   $local_logs_dir = "/home/${user}/akamai"
   $akamai_user = 'sshacs'
   $akamai_host = 'govdigital.upload.akamai.com'
-  $path_to_logs = '184928/logs'
+  $path_to_logs = '184928'
   $backup_host = 'akamai-logs-backup-1'
 
   user { $user:
@@ -21,7 +31,7 @@ class akamai_logs {
     owner   => $user
   }
 
-  file { ['/mnt/akamai', '/mnt/akamai/logs', '/var/log/akamai']:
+  file { ['/mnt/akamai', '/var/log/akamai']:
     ensure  => directory,
     owner   => $user,
     require => Ext4mount['akamai-mount'],
