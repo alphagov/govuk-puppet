@@ -62,7 +62,6 @@ class govuk::node::s_development {
   include govuk::apps::kibana
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
-  include govuk::apps::planner
   include govuk::apps::publicapi
   include govuk::apps::publisher
   include govuk::apps::redirector
