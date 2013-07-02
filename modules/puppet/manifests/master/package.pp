@@ -14,7 +14,7 @@
 #   the puppetdb installation. Passed in by parent class.
 #
 class puppet::master::package(
-  $puppet_version = 'present',
+  $puppet_version = '2.7.22-1puppetlabs1',
   $puppetdb_version = 'present',
 ) {
   package { 'unicorn':

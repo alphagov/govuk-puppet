@@ -15,5 +15,15 @@ describe 'puppet::master', :type => :class do
   it do
     should contain_class('puppet::master::config')
     should contain_file('/etc/puppet/config.ru')
+    should contain_package('puppet-common').with_ensure('2.7.22-1puppetlabs1')
+    should contain_package('puppet').with_ensure('2.7.22-1puppetlabs1')
+  end
+
+  context "pass puppet_version for puppet packages" do
+    let (:params) {{ 'puppet_version' => '1.2.3-puppetlabs-456' }}
+    it do
+      should contain_package('puppet-common').with_ensure('1.2.3-puppetlabs-456')
+      should contain_package('puppet').with_ensure('1.2.3-puppetlabs-456')
+    end
   end
 end

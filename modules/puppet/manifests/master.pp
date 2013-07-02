@@ -13,8 +13,8 @@
 #   listen.
 #
 class puppet::master(
-  $puppet_version='2.7.22-1puppetlabs1',
-  $unicorn_port='9090',
+  $puppet_version = undef,
+  $unicorn_port = '9090',
 ) {
   include puppet::repository
   include unicornherder
