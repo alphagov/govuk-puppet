@@ -82,7 +82,7 @@ Vagrant::Config.run do |config|
 
       # Additional shared folders for Puppet Master nodes.
       # These can't been NFS because OSX won't export overlapping paths.
-      if node_opts["class"] == "puppet"
+      if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
         c.vm.share_folder "pm-puppet",
           "/usr/share/puppet/production/current",
           "../puppet"
