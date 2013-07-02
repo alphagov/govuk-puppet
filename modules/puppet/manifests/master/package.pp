@@ -6,11 +6,17 @@
 #
 # === Parameters
 #
+# [*puppet_version*]
+#   Specify version of puppet-common and puppet
+#
 # [*puppetdb_version*]
 #   Specify the version of puppetdb-terminus to install which should match
 #   the puppetdb installation. Passed in by parent class.
 #
-class puppet::master::package($puppetdb_version) {
+class puppet::master::package(
+  $puppet_version = '2.7.22-1puppetlabs1',
+  $puppetdb_version = 'present',
+) {
   package { 'unicorn':
     provider => gem,
   }
@@ -19,14 +25,14 @@ class puppet::master::package($puppetdb_version) {
     unless  => 'gem list | grep "rack.*1.0.1"'
   }
   package { 'puppet-common':
-    ensure => '2.7.22-1puppetlabs1',
+    ensure => $puppet_version,
   }
   package { 'puppetdb-terminus':
     ensure  => $puppetdb_version,
     require => Package['puppet-common'],
   }
   package { 'puppet':
-    ensure  => '2.7.22-1puppetlabs1',
+    ensure  => $puppet_version,
     require => Package['puppet-common'],
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
