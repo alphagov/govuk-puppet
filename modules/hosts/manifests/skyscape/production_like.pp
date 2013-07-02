@@ -80,7 +80,7 @@ class hosts::skyscape::production_like {
     ip              => '10.0.0.5',
     vdc             => 'management',
     legacy_aliases  => ['puppetmaster-1'],
-    service_aliases => ['puppetmaster-1']
+    service_aliases => ['puppetmaster'],
   }
 
   #router vdc machines
