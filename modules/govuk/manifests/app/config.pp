@@ -113,6 +113,11 @@ define govuk::app::config (
     regex => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
   }
 
+  collectd::plugin::tcpconns { "app-${title_underscore}":
+    incoming => "$port",
+    outgoing => "$port",
+  }
+
   @logrotate::conf { "govuk-${title}":
     matches => "/var/log/${title}/*.log",
   }
