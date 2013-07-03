@@ -147,4 +147,9 @@ define govuk::app::config (
       host_name           => $::fqdn,
     }
   }
+  @@nagios::check { "check_app_${title}_unicornherder_up_${::hostname}":
+    check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder ${title}",
+    service_description => "${title} app unicornherder running",
+    host_name           => $::fqdn,
+  }
 }
