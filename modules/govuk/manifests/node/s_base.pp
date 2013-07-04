@@ -37,6 +37,12 @@ class govuk::node::s_base {
     log_local => true,
   }
 
+  # Enable default tcpconn monitoring for port 22
+  collectd::plugin::tcpconn { 'ssh':
+    incoming => 22,
+    outgoing => 22,
+  }
+
   # Introducing rsyslog::snippet for custom config files
   # for rsyslogs
 
