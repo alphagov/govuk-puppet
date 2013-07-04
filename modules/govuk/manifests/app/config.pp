@@ -114,8 +114,8 @@ define govuk::app::config (
   }
 
   collectd::plugin::tcpconns { "app-${title_underscore}":
-    incoming => "$port",
-    outgoing => "$port",
+    incoming => $port,
+    outgoing => $port,
   }
 
   @logrotate::conf { "govuk-${title}":
