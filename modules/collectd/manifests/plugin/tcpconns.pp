@@ -14,6 +14,6 @@ define collectd::plugin::tcpconns($incoming, $outgoing) {
 
   @collectd::plugin { "tcpconns-${title}":
     content => template('collectd/etc/collectd/conf.d/tcpconns.conf.erb'),
-    require => Collectd::Plugin['load_tcpconns'],
+    require => Collectd::Plugin['tcpconns'],
   }
 }
