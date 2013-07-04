@@ -22,4 +22,5 @@ class collectd::config {
 
   # Always collect basic processlist info.
   include ::collectd::plugin::processes
+  include ::collectd::plugin::tcpconns
 }
