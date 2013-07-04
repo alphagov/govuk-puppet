@@ -27,7 +27,6 @@ mod 'harden',
   :ref => 'v0.0.2'
 mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
-mod 'resolvconf',
-  :git => 'git://github.com/alphagov/puppet-resolvconf.git'
 
 mod 'gdsoperations/rbenv', '1.0.0'
+mod 'gdsoperations/resolvconf', '0.2.0'

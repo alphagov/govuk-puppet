@@ -2,6 +2,8 @@ FORGE
   remote: http://forge.puppetlabs.com
   specs:
     gdsoperations/rbenv (1.0.0)
+    gdsoperations/resolvconf (0.2.0)
+      puppetlabs/stdlib (>= 3.0.0)
     maestrodev/wget (1.0.0)
     puppetlabs/gcc (0.0.3)
     puppetlabs/stdlib (3.2.0)
@@ -54,13 +56,6 @@ GIT
       puppetlabs/stdlib (>= 2.2.1)
 
 GIT
-  remote: git://github.com/alphagov/puppet-resolvconf.git
-  ref: master
-  sha: 90260673441519cc52677d707b728c15368a5d21
-  specs:
-    resolvconf (0.0.1)
-
-GIT
   remote: git://github.com/alphagov/puppet-rsyslog.git
   ref: d897c50
   sha: d897c506dd9454ffdc37d9583025efe1b4cc3a52
@@ -81,11 +76,11 @@ DEPENDENCIES
   curl (>= 0)
   ext4mount (>= 0)
   gdsoperations/rbenv (= 1.0.0)
+  gdsoperations/resolvconf (= 0.2.0)
   harden (>= 0)
   logstash (>= 0)
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
-  resolvconf (>= 0)
   ripienaar/concat (>= 0)
   rsyslog (>= 0)
   thomasvandoren/redis (>= 0)
