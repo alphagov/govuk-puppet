@@ -151,5 +151,6 @@ define govuk::app::config (
     check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder ${title}",
     service_description => "${title} app unicornherder running",
     host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
   }
 }
