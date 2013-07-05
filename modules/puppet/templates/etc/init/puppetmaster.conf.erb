@@ -7,7 +7,13 @@ stop on runlevel [!2345]
 
 env PIDFILE=/var/run/puppetmaster/puppet-unicorn.pid
 env CMD="unicornherder -u unicorn -p $PIDFILE -- -p <%= @unicorn_port %> -c /etc/puppet/unicorn.conf"
-env HOME=/root
+
+# If env HOME not set puppet is throwing the following error
+#   Error: Could not intialize global default settings: couldn't find HOME
+#   environment -- expanding ~
+# See Puppet::Util::RunMode#which_dir which tries to expand ~ regardless of defaults
+#  in config.ru
+env HOME=/home/puppet
 
 respawn
 respawn limit 7 20
