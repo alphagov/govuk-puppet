@@ -44,9 +44,10 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
   }
 
   @@nagios::check { "check_mongod_replication_lag_${::hostname}":
-    check_command       =>'check_nrpe!check_mongodb!replication_lag 150 300',
+    check_command       => 'check_nrpe!check_mongodb!replication_lag 150 300',
     service_description => 'mongod replication lag',
     host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mongod-replication-lag',
   }
 
   @@nagios::check { "check_mongod_connections_${::hostname}":
