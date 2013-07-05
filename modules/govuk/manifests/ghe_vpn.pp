@@ -6,10 +6,10 @@ class govuk::ghe_vpn {
   }
 
   class { '::openconnect':
-    gateway   => extlookup('openconnect_gateway',''),
+    url       => extlookup('openconnect_url',''),
     user      => extlookup('openconnect_user',''),
-    password  => extlookup('openconnect_password',''),
-    dnsupdate => 'no',
+    pass      => extlookup('openconnect_password',''),
+    dnsupdate => false,
   }
 
 }
