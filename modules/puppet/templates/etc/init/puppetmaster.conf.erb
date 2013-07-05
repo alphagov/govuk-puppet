@@ -13,7 +13,7 @@ env CMD="unicornherder -u unicorn -p $PIDFILE -- -p <%= @unicorn_port %> -c /etc
 #   environment -- expanding ~
 # See Puppet::Util::RunMode#which_dir which tries to expand ~ regardless of defaults
 #  in config.ru
-env HOME=/home/puppet
+env HOME=/var/lib/puppet
 
 respawn
 respawn limit 7 20
