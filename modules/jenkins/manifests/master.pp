@@ -9,8 +9,13 @@ class jenkins::master inherits jenkins {
     key  => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
   }
 
+  # FIXME: `ensure => latest` changed because 1.521 broke the envinject
+  # plugin - https://issues.jenkins-ci.org/browse/JENKINS-18614
+  # It's not possible to pin an older version because they get purged from
+  # the repo. Disabled until a) that issue is fixed, b) we switch to the LTS
+  # repo. This will be more stable but may miss any security updates!
   package { 'jenkins':
-    ensure  => 'latest',
+    ensure  => 'present',
     require => User['jenkins'],
   }
 
