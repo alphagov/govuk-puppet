@@ -32,6 +32,7 @@ class govuk::node::s_development {
   }
 
   class {
+    'govuk::apps::bouncer':               vhost_protected => false;
     'govuk::apps::businesssupportfinder': vhost_protected => false;
     'govuk::apps::calculators':           vhost_protected => false;
     'govuk::apps::calendars':             vhost_protected => false;
