@@ -5,12 +5,31 @@ class hosts::skyscape::production_like {
   $app_domain = extlookup('app_domain')
   $internal_tld = extlookup('internal_tld', 'production')
 
+  $new_puppetmaster = str2bool(extlookup('new_puppetmaster', 'no'))
+  if $new_puppetmaster {
+    $puppet_legacy_aliases = ['puppet-1']
+    $puppet_service_aliases = []
+    $puppetmaster_legacy_aliases = ['puppetmaster-1', 'puppet']
+    $puppetmaster_service_aliases = ['puppet', 'puppetdb']
+  } else {
+    $puppet_legacy_aliases = ['puppet-1', 'puppet']
+    $puppet_service_aliases = ['puppet', 'puppetdb']
+    $puppetmaster_legacy_aliases = ['puppetmaster-1']
+    $puppetmaster_service_aliases = []
+  }
+
   #management vdc machines
   govuk::host { 'puppet-1':
     ip              => '10.0.0.2',
     vdc             => 'management',
-    legacy_aliases  => ['puppet-1', 'puppet'],
-    service_aliases => ['puppet', 'puppetdb'],
+    legacy_aliases  => $puppet_legacy_aliases,
+    service_aliases => $puppet_service_aliases,
+  }
+  govuk::host { 'puppetmaster-1':
+    ip              => '10.0.0.5',
+    vdc             => 'management',
+    legacy_aliases  => $puppetmaster_legacy_aliases,
+    service_aliases => $puppetmaster_service_aliases,
   }
   govuk::host { 'jenkins-1':
     ip             => '10.0.0.3',
@@ -75,12 +94,6 @@ class hosts::skyscape::production_like {
     vdc             => 'management',
     legacy_aliases  => ['graphite-1', "graphite.${app_domain}"],
     service_aliases => ['graphite'],
-  }
-  govuk::host { 'puppetmaster-1':
-    ip              => '10.0.0.5',
-    vdc             => 'management',
-    legacy_aliases  => ['puppetmaster-1'],
-    service_aliases => ['puppetmaster'],
   }
 
   #router vdc machines
