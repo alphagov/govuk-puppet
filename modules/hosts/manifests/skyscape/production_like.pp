@@ -451,6 +451,11 @@ class hosts::skyscape::production_like {
     vdc            => 'redirector',
     legacy_aliases => ['redirector-2'],
   }
+  govuk::host { 'bouncer-1':
+    ip             => '10.6.0.4',
+    vdc            => 'redirector',
+    legacy_aliases => ['bouncer-1'],
+  }
 
   # 3rd-party hosts
   host { 'vcd00003.vpn.skyscapecs.net':
