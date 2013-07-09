@@ -13,25 +13,25 @@ describe 'collectd::plugin::raindrops', :type => :define do
   <Page "raindrops-otter">
     URL "http://localhost:3009/_raindrops"
     <Match>
-      Regex "^calling:\\s(\\d+)$"
+      Regex "^calling: ([0-9]+)$"
       DSType "GaugeLast"
       Type "current_connections"
       Instance "calling"
     </Match>
     <Match>
-      Regex "^writing:\\s(\\d+)$"
+      Regex "^writing: ([0-9]+)$"
       DSType "GaugeLast"
       Type "current_connections"
       Instance "writing"
     </Match>
     <Match>
-      Regex ":3009\\s+active:\\s(\\d+)$"
+      Regex ":3009 active: ([0-9]+)$"
       DSType "GaugeLast"
       Type "current_connections"
       Instance "active"
     </Match>
     <Match>
-      Regex ":3009\\s+queued:\\s(\\d+)$"
+      Regex ":3009 queued: ([0-9]+)$"
       DSType "GaugeLast"
       Type "current_connections"
       Instance "queued"
