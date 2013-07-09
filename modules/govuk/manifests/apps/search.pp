@@ -3,7 +3,7 @@ class govuk::apps::search( $port = 3009 ) {
 
   # Enable raindrops monitoring
   collectd::plugin::raindrops { 'search':
-  	port => $port,
+    port => $port,
   }
 
   govuk::app { 'search':
