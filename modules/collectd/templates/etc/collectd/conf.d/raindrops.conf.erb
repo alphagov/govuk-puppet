@@ -1,5 +1,5 @@
 <Plugin curl>
-  <Page "<%= @title -%>-raindrops">
+  <Page "raindrops-<%= @title -%>">
     URL "http://localhost:<%= @port -%>/_raindrops"
     <Match>
       Regex "^calling:\s(\d+)$"
