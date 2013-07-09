@@ -1,0 +1,29 @@
+<Plugin curl>
+  <Page "<%= @title -%>-raindrops">
+    URL "http://localhost:<%= @port -%>/_raindrops"
+    <Match>
+      Regex "^calling:\s(\d+)$"
+      DSType "GaugeLast"
+      Type "current_connections"
+      Instance "calling"
+    </Match>
+    <Match>
+      Regex "^writing:\s(\d+)$"
+      DSType "GaugeLast"
+      Type "current_connections"
+      Instance "writing"
+    </Match>
+    <Match>
+      Regex ":<%= @port -%>\s+active:\s(\d+)$"
+      DSType "GaugeLast"
+      Type "current_connections"
+      Instance "active"
+    </Match>
+    <Match>
+      Regex ":<%= @port -%>\s+queued:\s(\d+)$"
+      DSType "GaugeLast"
+      Type "current_connections"
+      Instance "queued"
+    </Match>
+  </Page>
+</Plugin>
