@@ -159,6 +159,11 @@ class govuk::apps::publicapi {
       'name' => 'lpa_volumes',
       'enabled' => $enable_lpa_buckets,
     },
+    {
+      'path' => 'lpa/api/monitoring',
+      'name' => 'lpa_monitoring',
+      'enabled' => $enable_lpa_buckets,
+    },
   ]
 
   $app_name = 'publicapi'
