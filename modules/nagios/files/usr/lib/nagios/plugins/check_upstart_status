@@ -135,7 +135,7 @@ elsif ($exit_value == 3)
 #Remove trailing comma hack
 $retval =~ s/,$//;
 
-print $retval . ". STATUS: $exit_value_human\n";
+print "UPSTART STATUS $exit_value_human: $retval \n";
 exit $exit_value;
 
 sub show_usage
