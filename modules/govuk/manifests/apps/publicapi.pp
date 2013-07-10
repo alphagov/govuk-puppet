@@ -70,12 +70,12 @@ class govuk::apps::publicapi {
       'realtime' => true,
     },
     {
-      'path' => 'lpa/api/monitoring',
+      'path' => 'lasting-power-of-attorney/api/monitoring',
       'name' => 'lpa_monitoring',
       'enabled' => $enable_lpa_buckets,
     },
     {
-      'path' => 'lpa/api/volumes',
+      'path' => 'lasting-power-of-attorney/api/volumes',
       'name' => 'lpa_volumes',
       'enabled' => $enable_lpa_buckets,
     },
