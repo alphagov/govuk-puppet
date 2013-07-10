@@ -60,6 +60,9 @@ my $cmd = "status $jobName";
 $retval = `$cmd`;
 
 #Get return code
+# $? is the status returned by last backticked command (among other things),
+# which is a 16-bit status word, so the exit value of the subprocess is ($?>>8).
+# http://perldoc.perl.org/perlvar.html
 my $retnum = $?>>8;
 
 #Check return code to see if job was found
