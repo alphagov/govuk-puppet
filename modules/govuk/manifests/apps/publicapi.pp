@@ -17,28 +17,18 @@ class govuk::apps::publicapi {
 
   $backdrop_buckets = [
     {
-      'path' => 'licensing/api/monitoring',
-      'name' => 'licensing_monitoring',
-      'enabled' => true,
+      'path' => 'deposit-foreign-marriage/api/journey',
+      'name' => 'deposit_foreign_marriage_journey',
+      'enabled' => $enable_fco_journey_buckets,
     },
     {
-      'path' => 'licence_finder/api/monitoring',
-      'name' => 'licence_finder_monitoring',
-      'enabled' => true,
+      'path' => 'deposit-foreign-marriage/api/monitoring',
+      'name' => 'deposit_foreign_marriage_monitoring',
+      'enabled' => $enable_fco_journey_buckets,
     },
     {
-      'path' => 'licensing/api/journey',
-      'name' => 'licensing_journey',
-      'enabled' => true,
-    },
-    {
-      'path' => 'licensing/api/application',
-      'name' => 'licensing',
-      'enabled' => true,
-    },
-    {
-      'path' => 'licensing/api/realtime',
-      'name' => 'licensing_realtime',
+      'path' => 'deposit-foreign-marriage/api/realtime',
+      'name' => 'deposit_foreign_marriage_realtime',
       'enabled' => $enable_realtime_buckets,
       'realtime' => true,
     },
@@ -54,23 +44,54 @@ class govuk::apps::publicapi {
       'realtime' => true,
     },
     {
-      'path' => 'test/api/test',
-      'name' => 'test',
-      'enabled' => $enable_backdrop_test_bucket,
+      'path' => 'licence_finder/api/monitoring',
+      'name' => 'licence_finder_monitoring',
+      'enabled' => true,
     },
     {
-      'path' => 'pay-legalisation-post/api/journey',
-      'name' => 'pay_legalisation_post_journey',
+      'path' => 'licensing/api/application',
+      'name' => 'licensing',
+      'enabled' => true,
+    },
+    {
+      'path' => 'licensing/api/journey',
+      'name' => 'licensing_journey',
+      'enabled' => true,
+    },
+    {
+      'path' => 'licensing/api/monitoring',
+      'name' => 'licensing_monitoring',
+      'enabled' => true,
+    },
+    {
+      'path' => 'licensing/api/realtime',
+      'name' => 'licensing_realtime',
+      'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
+    },
+    {
+      'path' => 'lasting-power-of-attorney/api/monitoring',
+      'name' => 'lpa_monitoring',
+      'enabled' => $enable_lpa_buckets,
+    },
+    {
+      'path' => 'lasting-power-of-attorney/api/volumes',
+      'name' => 'lpa_volumes',
+      'enabled' => $enable_lpa_buckets,
+    },
+    {
+      'path' => 'pay-foreign-marriage-certificates/api/journey',
+      'name' => 'pay_foreign_marriage_certificates_journey',
       'enabled' => $enable_fco_journey_buckets,
     },
     {
-      'path' => 'pay-legalisation-post/api/monitoring',
-      'name' => 'pay_legalisation_post_monitoring',
+      'path' => 'pay-foreign-marriage-certificates/api/monitoring',
+      'name' => 'pay_foreign_marriage_certificates_monitoring',
       'enabled' => $enable_fco_journey_buckets,
     },
     {
-      'path' => 'pay-legalisation-post/api/realtime',
-      'name' => 'pay_legalisation_post_realtime',
+      'path' => 'pay-foreign-marriage-certificates/api/realtime',
+      'name' => 'pay_foreign_marriage_certificates_realtime',
       'enabled' => $enable_realtime_buckets,
       'realtime' => true,
     },
@@ -87,6 +108,22 @@ class govuk::apps::publicapi {
     {
       'path' => 'pay-legalisation-drop-off/api/realtime',
       'name' => 'pay_legalisation_drop_off_realtime',
+      'enabled' => $enable_realtime_buckets,
+      'realtime' => true,
+    },
+    {
+      'path' => 'pay-legalisation-post/api/journey',
+      'name' => 'pay_legalisation_post_journey',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
+      'path' => 'pay-legalisation-post/api/monitoring',
+      'name' => 'pay_legalisation_post_monitoring',
+      'enabled' => $enable_fco_journey_buckets,
+    },
+    {
+      'path' => 'pay-legalisation-post/api/realtime',
+      'name' => 'pay_legalisation_post_realtime',
       'enabled' => $enable_realtime_buckets,
       'realtime' => true,
     },
@@ -123,41 +160,9 @@ class govuk::apps::publicapi {
       'realtime' => true,
     },
     {
-      'path' => 'pay-foreign-marriage-certificates/api/journey',
-      'name' => 'pay_foreign_marriage_certificates_journey',
-      'enabled' => $enable_fco_journey_buckets,
-    },
-    {
-      'path' => 'pay-foreign-marriage-certificates/api/monitoring',
-      'name' => 'pay_foreign_marriage_certificates_monitoring',
-      'enabled' => $enable_fco_journey_buckets,
-    },
-    {
-      'path' => 'pay-foreign-marriage-certificates/api/realtime',
-      'name' => 'pay_foreign_marriage_certificates_realtime',
-      'enabled' => $enable_realtime_buckets,
-      'realtime' => true,
-    },
-    {
-      'path' => 'deposit-foreign-marriage/api/journey',
-      'name' => 'deposit_foreign_marriage_journey',
-      'enabled' => $enable_fco_journey_buckets,
-    },
-    {
-      'path' => 'deposit-foreign-marriage/api/monitoring',
-      'name' => 'deposit_foreign_marriage_monitoring',
-      'enabled' => $enable_fco_journey_buckets,
-    },
-    {
-      'path' => 'deposit-foreign-marriage/api/realtime',
-      'name' => 'deposit_foreign_marriage_realtime',
-      'enabled' => $enable_realtime_buckets,
-      'realtime' => true,
-    },
-    {
-      'path' => 'lpa/api/volumes',
-      'name' => 'lpa_volumes',
-      'enabled' => $enable_lpa_buckets,
+      'path' => 'test/api/test',
+      'name' => 'test',
+      'enabled' => $enable_backdrop_test_bucket,
     },
   ]
 
