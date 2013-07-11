@@ -31,7 +31,7 @@ X11Forwarding                   no
 <%- end -%>
 
 <%- if @govuk_class == "jumpbox" -%>
-AllowUsers <%= ssh_allow_users %>
+AllowUsers <%= @ssh_allow_users %>
 <%- end -%>
 
 PrintMotd                       no

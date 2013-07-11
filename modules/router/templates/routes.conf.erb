@@ -472,34 +472,34 @@ location /world/ {
 }
 
 <%- external_redirects.each do |from, to| -%>
-location ~ ^<%= from %>/?$ {
+location ~ ^<%= @from %>/?$ {
   expires 1d;
   add_header cache-control 'public';
-  return 302 <%= to %>;
+  return 302 <%= @to %>;
 }
 <%- end -%>
 
 <%- internal_redirects_case_insensitive.each do |from, to| -%>
-location ~* ^<%= from %>/?$ {
+location ~* ^<%= @from %>/?$ {
   expires 1d;
   add_header cache-control 'public';
-  return 301 <%= to %>;
+  return 301 <%= @to %>;
 }
 <%- end -%>
 
 <%- internal_redirects.each do |from, to| -%>
-location ~ ^<%= from %>/?$ {
+location ~ ^<%= @from %>/?$ {
   expires 1d;
   add_header cache-control 'public';
-  return 301 <%= to %>;
+  return 301 <%= @to %>;
 }
 <%- end -%>
 
 <%- prefix_redirects.each do |from, to| -%>
-location ~ ^<%= from %>($|/.*) {
+location ~ ^<%= @from %>($|/.*) {
   expires 1d;
   add_header cache-control 'public';
-  return 301 <%= to %>$1;
+  return 301 <%= @to %>$1;
 }
 <%- end -%>
 

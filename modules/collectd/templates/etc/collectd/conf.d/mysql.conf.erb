@@ -4,7 +4,7 @@ LoadPlugin mysql
   <Database "">
     Host "localhost"
     User "collectd"
-    Password "<%= collectd_mysql_password -%>"
+    Password "<%= @collectd_mysql_password -%>"
 <% if @master.to_s == 'true' -%>
     MasterStats true
 <% end -%>

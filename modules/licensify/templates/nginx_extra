@@ -1,11 +1,11 @@
 location /apply-for-a-licence/payment/worldpayCallback {
-  proxy_pass http://localhost:<%= port %>/apply-for-a-licence/payment/worldpayCallback;
+  proxy_pass http://localhost:<%= @port %>/apply-for-a-licence/payment/worldpayCallback;
   allow all;
   auth_basic off;
 }
 
 location /api {
-  proxy_pass http://localhost:<%= port %>/api;
+  proxy_pass http://localhost:<%= @port %>/api;
   allow all;
   auth_basic off;
 }
