@@ -13,8 +13,8 @@ class govuk::ghe_vpn {
   }
 
   @@nagios::check { "check_openconnect_upstart_up_${::hostname}":
-    check_command       => "check_nrpe!check_upstart_status!openconnect",
-    service_description => "openconnect upstart up",
+    check_command       => 'check_nrpe!check_upstart_status!openconnect',
+    service_description => 'openconnect upstart up',
     host_name           => $::fqdn,
   }
 }
