@@ -14,7 +14,6 @@ class hosts::skyscape::production_like {
     ip              => '10.0.0.2',
     vdc             => 'management',
     legacy_aliases  => ['puppet-1'],
-    service_aliases => [],
   }
   govuk::host { 'puppetmaster-1':
     ip              => '10.0.0.5',
