@@ -8,6 +8,15 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     disk         => '/dev/mapper/encrypted-mongodb',
   }
 
+  @@nagios::check { "check_mnt_encrypted_disk_space_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /mnt/encrypted',
+    service_description => 'low available disk space on /mnt/encrypted',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+
+
   $internal_tld = extlookup('internal_tld', 'production')
 
   case $::govuk_provider {

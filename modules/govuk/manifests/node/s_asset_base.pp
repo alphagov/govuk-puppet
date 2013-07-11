@@ -27,6 +27,14 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     disk         => extlookup('assets_uploads_disk'),
     mountoptions => 'defaults',
   }
+  @@nagios::check { "check_mnt_uploads_disk_space_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /mnt/uploads',
+    service_description => 'low available disk space on /mnt/uploads',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+
 
   file { '/etc/exports':
     ensure  => present,

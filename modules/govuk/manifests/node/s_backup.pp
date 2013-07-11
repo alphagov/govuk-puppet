@@ -9,6 +9,14 @@ class govuk::node::s_backup {
       mountoptions => 'errors=remount-ro',
       disk         => '/dev/sdb1',
     }
+  @@nagios::check { "check_data_backups_disk_space_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /data/backups',
+    service_description => 'low available disk space on /data/backups',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+
 
     #To accommodate futzing around with databases, we install a MySQL server
     $root_password = extlookup('mysql_root', '')
