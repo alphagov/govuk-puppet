@@ -16,7 +16,7 @@ describe 'fqdn_underscore' do
   }.each do |fqdn, fqdn_underscore|
     describe "fqdn => #{fqdn}" do
       it {
-        Facter.fact(:fqdn).should_receive(:value).and_return(fqdn)
+        Facter.fact(:fqdn).expects(:value).returns(fqdn)
         Facter.fact(:fqdn_underscore).value.should == fqdn_underscore
       }
     end
