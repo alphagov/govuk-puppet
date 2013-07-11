@@ -1,11 +1,11 @@
 # Username to access the MySQL server
-USERNAME='<%= mysql_backup_username %>'
+USERNAME='<%= @mysql_backup_username %>'
 
 # Password to access the MySQL server e.g. password
-PASSWORD='<%= mysql_backup_password %>'
+PASSWORD='<%= @mysql_backup_password %>'
 
 # Host name (or IP address) of MySQL server e.g localhost
-DBHOST=<%= mysql_backup_host %>
+DBHOST=<%= @mysql_backup_host %>
 
 # List of DBNAMES for Daily/Weekly Backup e.g. "DB1 DB2 DB3"
 DBNAMES="all"
@@ -29,7 +29,7 @@ MAILCONTENT="quiet"
 MAXATTSIZE="4000"
 
 # Email Address to send mail to? (user@domain.com)
-MAILADDR="<%= mysql_backup_email %>"
+MAILADDR="<%= @mysql_backup_email %>"
 
 # ============================================================
 # === ADVANCED OPTIONS ( Read the doc's below for details )===
