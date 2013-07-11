@@ -79,6 +79,17 @@ class govuk::node::s_development {
     configure_frontend => true,
     vhost_protected    => false,
   }
+  class { 'govuk::apps::fco_services':
+    vhost_protected => false,
+    vhost_aliases   => [
+      'www.pay-legalisation-post.service',
+      'www.pay-legalisation-drop-off.service',
+      'www.deposit-foreign-marriage.service',
+      'www.pay-foreign-marriage-certificates.service',
+      'www.pay-register-death-abroad.service',
+      'www.pay-register-birth-abroad.service',
+    ],
+  }
 
   include datainsight::config::google_oauth
 
