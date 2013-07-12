@@ -29,6 +29,10 @@ class router::nginx (
 ) {
   include router::assets_origin
 
+  if str2bool(extlookup('govuk_enable_fco_services', 'no')) {
+    include router::fco_services
+  }
+
   $app_domain = extlookup('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
