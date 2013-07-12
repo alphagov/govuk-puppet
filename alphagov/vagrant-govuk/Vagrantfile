@@ -50,6 +50,7 @@ def nodes_from_json
 end
 
 if Vagrant::VERSION < "1.1.0"
+  $stderr.puts "WARNING: Using old Vagrantfile format! Please upgrade to Vagrant >1.1.\n"
   Vagrant::Config.run do |config|
     vagrant_config(config, 1)
   end
