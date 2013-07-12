@@ -1,5 +1,5 @@
 <Plugin curl_json>
-  <URL "http://127.0.0.1:<%= es_port -%>/_cluster/nodes/_local/stats?http=true&process=true&jvm=true&transport=true">
+  <URL "http://127.0.0.1:<%= @es_port -%>/_cluster/nodes/_local/stats?http=true&process=true&jvm=true&transport=true">
     Instance "elasticsearch"
 
 <%
