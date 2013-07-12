@@ -4,6 +4,7 @@
 process :asset_manager
 process :backdrop_read
 process :backdrop_write => [:signon]
+process :bouncer
 process :businesssupportfinder => [:static, :contentapi, :imminence]
 process :calculators => [:static]
 process :calendars => [:static, :contentapi]
