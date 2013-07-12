@@ -4,6 +4,7 @@ asset_host,"http://static.dev.gov.uk"
 asset_root,"http://static.dev.gov.uk"
 assets_uploads_disk,"/dev/sdb1"
 efg_domain,"www.sflg.gov.uk"
+fco_services_domain_prefix,"www-dev"
 govuk_enable_backdrop_test_bucket,true
 govuk_enable_backdrop_government_annotations_bucket,true
 govuk_enable_fco_journey_buckets,true
