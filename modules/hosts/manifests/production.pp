@@ -9,10 +9,11 @@ class hosts::production {
   host { "licencefinder.${app_domain}":        ip => '10.53.54.49' }
   host { "designprinciples.${app_domain}":     ip => '10.53.54.49' }
   host { "transaction-wrappers.${app_domain}": ip => '10.53.54.49' }
+  host { "fco-services.${app_domain}":         ip => '10.53.54.49' }
   host { "frontend.${app_domain}":             ip => '10.236.86.54' } # production-frontend-1
   host { "search.${app_domain}":               ip => '10.236.93.237' } # production-backend-2
   host { "feedback.${app_domain}":             ip => '10.53.54.49' }
-  host { "calculators.${app_domain}":            ip => '10.53.54.49' }
+  host { "calculators.${app_domain}":          ip => '10.53.54.49' }
   host { "calendars.${app_domain}":            ip => '10.53.54.49' }
   host { "tariff.${app_domain}":               ip => '10.53.54.49' }
   host { "tariff-api.${app_domain}":           ip => '10.54.182.112' }

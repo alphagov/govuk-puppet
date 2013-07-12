@@ -172,6 +172,7 @@ class hosts::skyscape::production_like {
       "canary-frontend.${app_domain}",
       "datainsight-frontend.${app_domain}",
       "designprinciples.${app_domain}",
+      "fco-services.${app_domain}",
       "feedback.${app_domain}",
       "frontend.${app_domain}",
       "licencefinder.${app_domain}",

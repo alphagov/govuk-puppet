@@ -26,6 +26,7 @@ class govuk::node::s_frontend_lb {
       'canary-frontend',
       'datainsight-frontend',
       'designprinciples',
+      'fco-services',
       'feedback',
       'licencefinder',
       'limelight',
