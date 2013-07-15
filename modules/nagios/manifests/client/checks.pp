@@ -19,7 +19,7 @@ class nagios::client::checks {
     host_name           => $::fqdn,
   }
 
-  #TODO: remove this check when were happy with the individual checks.
+  # left as a fallback in case someone forgets an individual disk check
   @@nagios::check { "check_disk_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_disk',
     service_description => 'low available disk space',
