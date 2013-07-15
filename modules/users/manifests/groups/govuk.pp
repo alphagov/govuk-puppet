@@ -72,5 +72,5 @@ class users::groups::govuk {
   include users::timpaul
   include users::tombye
   include users::tombyers
-
+  include users::yolinasotirova
 }
