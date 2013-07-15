@@ -30,8 +30,12 @@ Vagrant::Config.run do |config|
   # Example given below to put in Vagrantfile.local if you want to do so.
   # config.vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
 
-  config.dns.tld = "dev.gov.uk"
-  config.dns.patterns = [/^.*dev.gov.uk$/]
+  # vagrant-dns is only supported on OS X
+  # https://github.com/BerlinVagrant/vagrant-dns/blob/master/PLATFORM_SUPPORT.md
+  if RUBY_PLATFORM =~ /darwin/i
+    config.dns.tld = "dev.gov.uk"
+    config.dns.patterns = [/^.*dev.gov.uk$/]
+  end
   config.vm.host_name = ENV['VAGRANT_HOSTNAME'] || 'vm'
 
   config.ssh.forward_agent = true
