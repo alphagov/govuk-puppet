@@ -50,7 +50,7 @@ class nagios::client::checks {
       service_description => 'low available disk space on /boot',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#boot-partition-is-full',
       }
 
   }
