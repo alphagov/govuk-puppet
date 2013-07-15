@@ -7,8 +7,8 @@
 #
 
 latest_box_versions = {
-  'lucid'   => '20130220',
-  'precise' => '20130220',
+  'lucid'   => '20130712',
+  'precise' => '20130712',
 }
 
 Vagrant::Config.run do |config|
