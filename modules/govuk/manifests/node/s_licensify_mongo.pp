@@ -16,6 +16,14 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
+  @@nagios::check { "check_mnt_encrypted_disk_inodes_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_inodes_arg!20% 10% /mnt/encrypted',
+    service_description => 'low available disk inodes on /mnt/encrypted',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
+  }
+
 
   $internal_tld = extlookup('internal_tld', 'production')
 
