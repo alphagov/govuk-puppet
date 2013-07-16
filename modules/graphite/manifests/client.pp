@@ -1,9 +1,13 @@
+# == Class: graphite::client
+#
+# This class installs and sets-up statsd
+#
 class graphite::client {
 
   include nodejs
 
   package { 'statsd':
-    ensure  => present,
+    ensure  => '0.4.0',
     require => Package['nodejs'],
   }
 
