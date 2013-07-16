@@ -70,7 +70,6 @@ class users::groups::govuk {
   include users::ssharpe
   include users::stevelaing
   include users::timpaul
-  include users::tombye
   include users::tombyers
   include users::yolinasotirova
 }
