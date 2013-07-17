@@ -32,4 +32,11 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
     require       => Class['govuk::apps::whitehall::db'],
   }
 
+  mysql::user { 'bouncer':
+    root_password => $root_password,
+    user_password => extlookup('mysql_bouncer', ''),
+    db            => 'transition_production',
+    privileges    => 'SELECT',
+    require       => Class['govuk::apps::transition::db'],
+  }
 }
