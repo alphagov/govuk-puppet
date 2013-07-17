@@ -39,7 +39,7 @@ class hosts::preview {
   host { "govuk-delivery.${app_domain}":          ip => '10.228.95.176' }
 
   host { "search.${app_domain}":                 ip => '10.228.95.176' }
-  host { "calculators.${app_domain}":              ip => '10.58.253.150' }
+  host { "calculators.${app_domain}":            ip => '10.58.253.150' }
   host { "calendars.${app_domain}":              ip => '10.58.253.150' }
   host { "designprinciples.${app_domain}":       ip => '10.58.253.150' }
   host { "smartanswers.${app_domain}":           ip => '10.58.253.150' }
@@ -53,6 +53,7 @@ class hosts::preview {
   host { "canary-frontend.${app_domain}":        ip => '10.58.253.150' }
   host { "transaction-wrappers.${app_domain}":   ip => '10.58.253.150' }
   host { "limelight.${app_domain}":              ip => '10.58.253.150' }
+  host { "fco-services.${app_domain}":           ip => '10.58.253.150' }
 
   host { "datainsight-format-success-recorder.${app_domain}":  ip => '10.32.49.43' }
   host { "datainsight-insidegov-recorder.${app_domain}":       ip => '10.32.49.43' }

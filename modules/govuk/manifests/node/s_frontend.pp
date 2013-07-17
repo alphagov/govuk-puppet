@@ -27,6 +27,11 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
       'govuk::apps::calculators':           vhost_protected => $protect_fe;
     }
   }
+  if str2bool(extlookup('govuk_enable_fco_services', 'no')) {
+    class {
+      'govuk::apps::fco_services':          vhost_protected => $protect_fe;
+    }
+  }
 
   include govuk::apps::canary_frontend
   include govuk::apps::publicapi #FIXME to be removed when we ditch ec2 -- ppotter 2012-10-12

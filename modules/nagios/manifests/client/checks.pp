@@ -1,6 +1,7 @@
 class nagios::client::checks {
 
   include nagios::client::check_rw_rootfs
+  include nagios::client::check_upstart_status
 
   anchor { ['nagios::client::checks::begin', 'nagios::client::checks::end']: }
   Anchor['nagios::client::checks::begin']

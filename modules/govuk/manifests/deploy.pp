@@ -1,6 +1,5 @@
 class govuk::deploy {
   include bundler
-  include fpm
   include govuk::logging
   include harden
   include pip

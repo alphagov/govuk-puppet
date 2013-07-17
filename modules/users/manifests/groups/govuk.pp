@@ -60,6 +60,7 @@ class users::groups::govuk {
   include users::ops01
   include users::ops02
   include users::ops04
+  include users::pauloschneider
   include users::pbadensk
   include users::ppotter
   include users::psd
@@ -69,7 +70,6 @@ class users::groups::govuk {
   include users::ssharpe
   include users::stevelaing
   include users::timpaul
-  include users::tombye
   include users::tombyers
-
+  include users::yolinasotirova
 }

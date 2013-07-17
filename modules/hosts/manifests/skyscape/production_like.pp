@@ -1,35 +1,25 @@
+# == Class: hosts::skyscape::production_like
+#
+# Manage /etc/hosts entries for various machines
+#
+# these are real hosts (1-1 mapping between host and service) anything that
+# ends .cluster is maintained for backwards compatibility with ec2
 class hosts::skyscape::production_like {
-  # these are real hosts (1-1 mapping between host and service) anything that
-  # ends .cluster is maintained for backwards compatibility with ec2
 
   $app_domain = extlookup('app_domain')
   $internal_tld = extlookup('internal_tld', 'production')
-
-  $new_puppetmaster = str2bool(extlookup('new_puppetmaster', 'no'))
-  if $new_puppetmaster {
-    $puppet_legacy_aliases = ['puppet-1']
-    $puppet_service_aliases = []
-    $puppetmaster_legacy_aliases = ['puppetmaster-1', 'puppet']
-    $puppetmaster_service_aliases = ['puppet', 'puppetdb']
-  } else {
-    $puppet_legacy_aliases = ['puppet-1', 'puppet']
-    $puppet_service_aliases = ['puppet', 'puppetdb']
-    $puppetmaster_legacy_aliases = ['puppetmaster-1']
-    $puppetmaster_service_aliases = []
-  }
 
   #management vdc machines
   govuk::host { 'puppet-1':
     ip              => '10.0.0.2',
     vdc             => 'management',
-    legacy_aliases  => $puppet_legacy_aliases,
-    service_aliases => $puppet_service_aliases,
+    legacy_aliases  => ['puppet-1'],
   }
   govuk::host { 'puppetmaster-1':
     ip              => '10.0.0.5',
     vdc             => 'management',
-    legacy_aliases  => $puppetmaster_legacy_aliases,
-    service_aliases => $puppetmaster_service_aliases,
+    legacy_aliases  => ['puppetmaster-1', 'puppet'],
+    service_aliases => ['puppet', 'puppetdb'],
   }
   govuk::host { 'jenkins-1':
     ip             => '10.0.0.3',
@@ -182,6 +172,7 @@ class hosts::skyscape::production_like {
       "canary-frontend.${app_domain}",
       "datainsight-frontend.${app_domain}",
       "designprinciples.${app_domain}",
+      "fco-services.${app_domain}",
       "feedback.${app_domain}",
       "frontend.${app_domain}",
       "licencefinder.${app_domain}",

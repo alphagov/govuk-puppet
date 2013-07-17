@@ -1,4 +1,4 @@
-description "GOV.UK application: <%= title %>"
+description "GOV.UK application: <%= @title %>"
 
 # ideally we'd use the "manual" stanza to disable job startup in
 # development, but this stanza was only added in upstart 0.6.7 and
@@ -16,7 +16,7 @@ respawn limit 5 20
 
 script
 
-  exec govuk_setenv "<%= title %>" govuk_spinup \
-    >>/var/log/<%= title %>/upstart.out.log \
-    2>>/var/log/<%= title %>/upstart.err.log
+  exec govuk_setenv "<%= @title %>" govuk_spinup \
+    >>/var/log/<%= @title %>/upstart.out.log \
+    2>>/var/log/<%= @title %>/upstart.err.log
 end script

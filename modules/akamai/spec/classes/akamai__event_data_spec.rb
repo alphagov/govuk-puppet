@@ -2,6 +2,7 @@ require_relative '../../../../spec_helper'
 
 describe 'akamai::event_data', :type => :class do
   context 'when enabled' do
+    #testing with boolean true and string true
     [true, 'true'].each do |enable_val|
       context "with value #{enable_val.inspect}" do
         let(:params) {{ :enable => enable_val }}
@@ -15,6 +16,7 @@ describe 'akamai::event_data', :type => :class do
   end
 
   context 'when disabled' do
+    #testing with boolean false and string false
     [false, 'false'].each do |enable_val|
       context "with value #{enable_val.inspect}" do
         let(:params) {{ :enable => enable_val }}

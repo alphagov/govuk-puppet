@@ -5,9 +5,9 @@ LC_ALL=en_GB.UTF-8
 # top-scope, from Facter.
 @govuk_vars.each do |key|
   val = scope.lookupvar("::#{key}")
-  unless val == :undefined
+  unless val.nil? || val == :undefined
 -%>
-FACTER_<%= key -%>=<%= val %>
+<%= "FACTER_#{key}=#{val}" %>
 <%
   end
 end
