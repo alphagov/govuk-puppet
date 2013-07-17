@@ -10,7 +10,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
 
   ext4mount { '/var/lib/automongodbbackup':
     mountoptions => 'defaults',
-    disk         => '/dev/mapper/backups-automongodbbackup',
+    disk         => extlookup('mongodb_backup_disk'),
   }
 
   $internal_tld = extlookup('internal_tld', 'production')
