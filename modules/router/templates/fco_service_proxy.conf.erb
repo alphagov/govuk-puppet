@@ -31,4 +31,11 @@ server {
 
     proxy_pass https://fco-services.<%= @app_domain -%>;
   }
+
+  <%- if @enable_auth -%>
+    <%# Don't require auth for the assets because Barclays needs access to the epdq template. %>
+    location /assets/ {
+      proxy_pass https://fco-services.<%= @app_domain -%>;
+    }
+  <%- end -%>
 }
