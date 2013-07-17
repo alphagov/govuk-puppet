@@ -8,6 +8,11 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     disk         => '/dev/mapper/encrypted-mongodb',
   }
 
+  ext4mount { '/var/lib/automongodbbackup':
+    mountoptions => 'defaults',
+    disk         => '/dev/mapper/backups-automongodbbackup',
+  }
+
   $internal_tld = extlookup('internal_tld', 'production')
 
   case $::govuk_provider {
