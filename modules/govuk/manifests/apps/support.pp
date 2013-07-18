@@ -6,4 +6,6 @@ class govuk::apps::support($port = 3031) {
     vhost_ssl_only    => true,
     health_check_path => '/',
   }
+
+  govuk::delayed_job::worker { 'support': }
 }
