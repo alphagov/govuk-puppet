@@ -41,6 +41,8 @@ otherwise, all index files are imported.
 
 OPTIONS:
    -h               Show this message
+   -F file          Use a custom SSH configuration file
+   -u user          SSH user to log in as (overides SSH config)
    -s               Skip fetching new archives
    -n               Don't actually import anything (dry run)
    -d dir           Store archives in a different directory
@@ -49,12 +51,19 @@ OPTIONS:
 EOF
 }
 
-while getopts "hsnd:t:" OPTION
+while getopts "hF:u:snd:t:" OPTION
 do
   case $OPTION in
     h )
       usage
       exit 1
+      ;;
+    F )
+      # Load a custom SSH config file if given
+      SSH_CONFIG=$OPTARG
+      ;;
+    u )
+      SSH_USER=$OPTARG
       ;;
     s )
       # skip fetching new archives
@@ -74,7 +83,6 @@ do
   esac
 done
 shift $(($OPTIND-1))
-
 
 status "Starting search index replication"
 
@@ -103,7 +111,19 @@ if $FETCH_ARCHIVES; then
 
   status "Copying data from ${REMOTE_ES_HOST}"
 
-  scp "${REMOTE_ES_HOST}:${REMOTE_ARCHIVE_PATH}/*.zip" $LOCAL_ARCHIVE_PATH
+  if [ -n "$SSH_CONFIG" ]; then
+    SCP_OPTIONS="-F $SSH_CONFIG"
+  else
+    SCP_OPTIONS=""
+  fi
+
+  if [ -n "$SSH_USER" ]; then
+    SSH_USER="$SSH_USER@"
+  else
+    SSH_USER=""
+  fi
+
+  scp $SCP_OPTIONS "${SSH_USER}${REMOTE_ES_HOST}:${REMOTE_ARCHIVE_PATH}/*.zip" $LOCAL_ARCHIVE_PATH
 else
   status "Skipping fetch of new archives"
 
