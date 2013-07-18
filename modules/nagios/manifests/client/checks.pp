@@ -45,7 +45,6 @@ class nagios::client::checks {
     check_command       => 'check_nrpe_1arg!check_total_procs',
     service_description => 'high total procs',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#ntp-drift-too-high',
   }
 
   @@nagios::check { "check_load_${::hostname}":
