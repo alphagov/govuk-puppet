@@ -121,6 +121,12 @@ class govuk::apps::whitehall(
       ensure => installed,
     }
 
+    # Used to extract text from file attachments when indexing
+    package { 'tika':
+      ensure  => '1.4',
+      require => Class['java::set_defaults'],
+    }
+
     govuk::delayed_job::worker { 'whitehall-admin':
       setenv_as => 'whitehall',
     }
