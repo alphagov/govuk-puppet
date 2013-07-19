@@ -4,7 +4,7 @@ panopticon:            govuk_setenv panopticon            ./run_in.sh ../panopti
 needotron:             ./run_in.sh ../need-o-tron    ./script/rails server -p 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../frontend       ./script/rails server -p 3005
 # planner formerly used port 3007
-rummager:              ./run_in.sh ../rummager       bundle exec shotgun -p 3009
+rummager:              ./run_in.sh ../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
 smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../smart-answers  ./script/rails server -p 3010
 calendars:             govuk_setenv calendars             ./run_in.sh ../calendars      ./script/rails server -p 3011
 static:                govuk_setenv static                ./run_in.sh ../static         ./script/rails server -p 3013
