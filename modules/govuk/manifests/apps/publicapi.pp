@@ -9,6 +9,7 @@ class govuk::apps::publicapi {
   $backdropwrite = "write.backdrop.${app_domain}"
 
   $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
+  $enable_backdrop_hmrc_preview_bucket = str2bool(extlookup('govuk_enable_backdrop_hmrc_buckets', 'no'))
   $enable_backdrop_government_annotations_bucket = str2bool(extlookup('govuk_enable_backdrop_government_annotations_bucket', 'no'))
   $enable_fco_journey_buckets = str2bool(extlookup('govuk_enable_backdrop_fco_journey_buckets', 'no'))
   $enable_realtime_buckets = str2bool(extlookup('govuk_enable_realtime_buckets', 'no'))
@@ -42,6 +43,11 @@ class govuk::apps::publicapi {
       'name' => 'govuk_realtime',
       'enabled' => $enable_realtime_buckets,
       'realtime' => true,
+    },
+    {
+      'path' => 'hmrc_preview/api/volumes',
+      'name' => 'hmrc_preview',
+      'enabled' => $enable_backdrop_hmrc_preview_bucket
     },
     {
       'path' => 'licence_finder/api/monitoring',

@@ -7,6 +7,7 @@ govuk_app_enable_services,false
 govuk_enable_backdrop_test_bucket,true
 govuk_enable_backdrop_government_annotations_bucket,true
 govuk_enable_backdrop_fco_journey_buckets,true
+govuk_enable_backdrop_hmrc_buckets,true
 govuk_enable_lpa_buckets,true
 govuk_enable_realtime_buckets,true
 govuk_env,"development"
