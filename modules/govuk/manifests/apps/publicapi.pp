@@ -75,6 +75,11 @@ class govuk::apps::publicapi {
       'enabled' => $enable_lpa_buckets,
     },
     {
+      'path' => 'lasting-power-of-attorney/api/journey',
+      'name' => 'lpa_journey',
+      'enabled' => $enable_lpa_buckets,
+    },
+    {
       'path' => 'lasting-power-of-attorney/api/volumes',
       'name' => 'lpa_volumes',
       'enabled' => $enable_lpa_buckets,
