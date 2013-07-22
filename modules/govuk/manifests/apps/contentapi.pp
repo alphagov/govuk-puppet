@@ -6,7 +6,7 @@ class govuk::apps::contentapi (
     app_type           => 'rack',
     port               => $port,
     vhost_protected    => $vhost_protected,
-    health_check_path  => '/search.json',
+    health_check_path  => '/search.json?q=tax',
     nginx_extra_config => 'proxy_set_header API-PREFIX $http_api_prefix;',
   }
 }
