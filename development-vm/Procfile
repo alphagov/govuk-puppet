@@ -17,7 +17,7 @@ efg:                   govuk_setenv efg                   ./run_in.sh ../EFG    
 whitehall:             govuk_setenv whitehall    ./run_in.sh ../whitehall      ./script/rails server -p 3020
 reviewomatic:          ./run_in.sh ../review-o-matic ./script/rails server -p 3021
 reviewomaticexplore:   PORT=3023 ./run_in.sh ../review-o-matic-explore npm start
-contentapi:            govuk_setenv contentapi            ./run_in.sh ../govuk_content_api bundle exec shotgun -p 3022 --server thin
+contentapi:            govuk_setenv contentapi            ./run_in.sh ../govuk_content_api bundle exec mr-sparkle --force-polling --pattern "rabl|rb|ru|txt|yml" -- -p 3022
 designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../design-principles ./script/rails server -p 3023
 businesssupportfinder: govuk_setenv businesssupportfinder ./run_in.sh ../business-support-finder ./script/rails server -p 3024
 # whitehall_search: uses port 3025
