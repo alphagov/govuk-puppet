@@ -8,10 +8,4 @@ class nagios::client::package {
     ensure => present
   }
 
-  package { 'json':
-    ensure   => present,
-    provider => gem,
-    require  => Package['build-essential'],
-  }
-
 }
