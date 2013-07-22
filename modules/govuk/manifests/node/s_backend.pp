@@ -1,5 +1,12 @@
 class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
+  include java::oracle7::jdk
+  include java::oracle7::jre
+
+  class { 'java::set_defaults':
+    jdk => 'oracle7',
+    jre => 'oracle7',
+  }
 
   package { 'graphviz':
     ensure => installed
