@@ -8,6 +8,16 @@
 # case it is set to the value 'system'.
 unset RBENV_VERSION
 
+# Also clear the bundler setup. There are a number of environment
+# variables that bundler touches; this wipes them all out although it
+# may have undesirable effects when wiping RUBYOPT. More testing might
+# be able to find a more graceful way of doing this.
+unset BUNDLE_GEMFILE
+unset BUNDLE_BIN_PATH
+unset RUBYOPT
+unset GEM_HOME
+unset GEM_PATH
+
 cd $1
 shift
 exec "$@"
