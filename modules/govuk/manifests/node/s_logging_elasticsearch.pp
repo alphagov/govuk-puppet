@@ -32,9 +32,9 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
-  @@nagios::check { "check_mnt_elasticsearch_disk_indoes_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_indoes_arg!10% 5% /mnt/elasticsearch',
-    service_description => 'low available disk indoes on /mnt/elasticsearch',
+  @@nagios::check { "check_mnt_elasticsearch_disk_inodes_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_inodes_arg!10% 5% /mnt/elasticsearch',
+    service_description => 'low available disk inodes on /mnt/elasticsearch',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
     document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
