@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # Prepend to PATH for when:
-#   - Puppet binstub is in /usr/local/bin
+#   - rbenv ruby shim is in /usr/lib/rbenv/shims/ruby
 #   - Cron runs with `PATH=/usr/bin:bin`
-PATH="/usr/local/bin:${PATH}"
+PATH="/usr/lib/rbenv/shims:${PATH}"
 CMD="puppet agent --onetime --no-daemonize"
 
 if [ "$(id -u)" -eq "0" ]; then
-  RUBYOPT="-W0" exec $CMD "$@"
+  RBENV_VERSION=1.9.3 RUBYOPT="-W0" exec $CMD "$@"
 else
-  exec sudo RUBYOPT="-W0" $CMD "$@"
+  exec sudo RBENV_VERSION=1.9.3 RUBYOPT="-W0" $CMD "$@"
 fi
