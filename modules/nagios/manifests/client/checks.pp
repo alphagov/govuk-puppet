@@ -20,12 +20,40 @@ class nagios::client::checks {
     host_name           => $::fqdn,
   }
 
+  # left as a fallback in case someone forgets an individual disk check
   @@nagios::check { "check_disk_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_disk',
     service_description => 'low available disk space',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
     document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+
+  @@nagios::check { "check_root_disk_space_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /',
+    service_description => 'low available disk space on root',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+  @@nagios::check { "check_root_disk_inodes_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_inode_arg!20% 10% /',
+    service_description => 'low available disk inodes on root',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+
+  if $::lsbdistcodename == 'precise' {
+
+    @@nagios::check { "check_boot_disk_space_${::hostname}":
+      check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /boot',
+      service_description => 'low available disk space on /boot',
+      use                 => 'govuk_high_priority',
+      host_name           => $::fqdn,
+      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#boot-partition-is-full',
+      }
+
   }
 
   @@nagios::check { "check_users_${::hostname}":

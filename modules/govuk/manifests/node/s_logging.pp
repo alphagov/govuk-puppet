@@ -3,6 +3,21 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     disk         => '/dev/sdb1',
     mountoptions => 'defaults',
   }
+  @@nagios::check { "check_srv_disk_space_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_space_arg!10% 5% /srv',
+    service_description => 'low available disk space on /srv',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+  }
+
+  @@nagios::check { "check_srv_disk_indoes_${::hostname}":
+    check_command       => 'check_nrpe!check_disk_indoes_arg!10% 5% /srv',
+    service_description => 'low available disk indoes on /srv',
+    use                 => 'govuk_high_priority',
+    host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
+  }
 
   # we want this to be a syslog server.
   class { 'rsyslog::server':
