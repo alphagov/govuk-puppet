@@ -31,7 +31,7 @@ class akamai_logs {
     owner   => $user
   }
 
-  file { ['/mnt/akamai', '/var/log/akamai']:
+  file { ['/mnt/akamai', '/var/log/akamai', '/mnt/akamai-workspace']:
     ensure  => directory,
     owner   => $user,
     require => Ext4mount['akamai-mount'],
