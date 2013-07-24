@@ -123,7 +123,7 @@ class govuk::apps::whitehall(
 
     # Used to extract text from file attachments when indexing
     package { 'tika':
-      ensure  => '1.4',
+      ensure  => '1.4-gds1',
       require => Class['java::set_defaults'],
     }
 
