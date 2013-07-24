@@ -19,7 +19,7 @@ class puppet::master(
   include puppet::repository
   include unicornherder
 
-  $puppetdb_version = '1.3.0-1puppetlabs1'
+  $puppetdb_version = '1.3.2-1puppetlabs1'
 
   class { '::puppetdb':
     package_ensure => $puppetdb_version,
