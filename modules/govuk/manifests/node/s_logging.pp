@@ -13,7 +13,6 @@ class govuk::node::s_logging inherits govuk::node::s_base {
 
   @@nagios::check { "check_srv_disk_inodes_${::hostname}":
     check_command       => 'check_nrpe!check_disk_inodes_arg!10% 5% /srv',
-
     service_description => 'low available disk inddoes on /srv',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
