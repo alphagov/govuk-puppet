@@ -14,6 +14,13 @@ class govuk::deploy::config {
     value  => '16384',
   }
 
+  harden::limit { 'deploy-nproc':
+    domain => 'deploy',
+    type   => '-',
+    item   => 'nproc',
+    value  => '512',
+  }
+
   file { '/etc/govuk/unicorn.rb':
     ensure  => present,
     source  => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
