@@ -12,7 +12,7 @@ class unattended_upgrades {
 
   file { '/etc/apt/apt.conf.d/50unattended-upgrades':
     ensure  => present,
-    source  => 'puppet:///modules/unattended_upgrades/50unattended-upgrades',
+    source  => template('unattended_upgrades/50unattended-upgrades.erb'),
     require => Package['unattended-upgrades'],
   }
 
