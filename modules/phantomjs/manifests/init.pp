@@ -1,7 +1,7 @@
 class phantomjs {
 
   exec { 'download phantomjs':
-    command => '/usr/bin/curl -o phantomjs-1.9.1-linux-x86_64.tar.bz2 https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2',
+    command => '/usr/bin/curl -o phantomjs-1.9.1-linux-x86_64.tar.bz2 https://gds-public-readable-tarballs.s3.amazonaws.com/phantomjs-1.9.1-linux-x86_64.tar.bz2',
     cwd     => '/usr/local/src',
     creates => '/usr/local/src/phantomjs-1.9.1-linux-x86_64.tar.bz2',
     require => Package['curl'],
