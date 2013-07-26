@@ -123,11 +123,12 @@ class monitoring::checks {
   # END ssl certificate checks
 
   # START support
-  nagios::check::graphite { 'check_support_default_queue_size':
+  @@nagios::check::graphite { 'check_support_default_queue_size':
     target    => 'govuk.app.support.queues.default',
     warning   => 10,
     critical  => 20,
     desc      => 'support app background processing: unexpectedly large default queue size',
+    host_name => $::fqdn,
   }
   # END support
 
