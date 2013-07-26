@@ -122,6 +122,15 @@ class monitoring::checks {
   }
   # END ssl certificate checks
 
+  # START support
+  nagios::check::graphite { 'check_support_default_queue_size':
+    target    => 'govuk.app.support.queues.default',
+    warning   => 10,
+    critical  => 20,
+    desc      => 'support app background processing: unexpectedly large default queue size',
+  }
+  # END support
+
   nagios::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
