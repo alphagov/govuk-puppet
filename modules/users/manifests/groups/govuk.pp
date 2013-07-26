@@ -66,6 +66,7 @@ class users::groups::govuk {
   include users::ppotter
   include users::psd
   include users::robyoung
+  include users::roc
   include users::rthorn
   include users::rujmah
   include users::ssharpe
