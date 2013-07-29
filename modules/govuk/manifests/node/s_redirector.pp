@@ -36,7 +36,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
 
   # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check::graphite { "check_nginx_404_redirector_on_${::hostname}":
-    target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.redirector.http_404)",
+    target    => "${::fqdn_underscore}.nginx_logs.default.http_404",
     warning   => 5,
     critical  => 10,
     from      => '3minutes',
@@ -44,7 +44,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     host_name => $::fqdn,
   }
   @@nagios::check::graphite { "check_nginx_5xx_redirector_on_${::hostname}":
-    target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.redirector.http_5xx)",
+    target    => "stats.${::fqdn_underscore}.nginx_logs.default.http_5xx",
     warning   => 5,
     critical  => 10,
     from      => '3minutes',
