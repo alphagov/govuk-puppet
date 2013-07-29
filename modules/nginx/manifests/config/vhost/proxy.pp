@@ -52,9 +52,8 @@ define nginx::config::vhost::proxy(
     prefix  => "nginx_logs.${title_escaped}",
   }
 
-  # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
-    target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx)",
+    target    => "stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
