@@ -123,7 +123,7 @@ class monitoring::checks {
   # END ssl certificate checks
 
   # START support
-  @@nagios::check::graphite { 'check_support_default_queue_size':
+  nagios::check::graphite { 'check_support_default_queue_size':
     target    => 'stats.gauges.govuk.app.support.queues.default',
     warning   => 10,
     critical  => 20,
