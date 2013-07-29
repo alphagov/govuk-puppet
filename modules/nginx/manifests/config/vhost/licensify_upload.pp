@@ -20,7 +20,6 @@ define nginx::config::vhost::licensify_upload($port='9000') {
     prefix  => "nginx_logs.${vhost_escaped}",
   }
 
-  # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
     target    => "stats.${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx",
     warning   => 0.05,
