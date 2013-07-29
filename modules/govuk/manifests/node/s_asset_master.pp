@@ -15,6 +15,7 @@ class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
   $cron_requires = [
     File[
       '/usr/local/bin/virus_scan.sh',
+      '/usr/local/bin/extract_text_from_files.rb',
       '/var/run/virus_scan'
     ],
     Class['daemontools'],

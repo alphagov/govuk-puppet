@@ -69,6 +69,11 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     ensure => installed,
   }
 
+  package { 'tika':
+    ensure  => '1.4-gds1',
+    require => Class['java::set_defaults'],
+  }
+
   service { 'nfs-kernel-server':
     ensure    => running,
     hasstatus => true,
@@ -86,6 +91,12 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   file { '/usr/local/bin/virus_scan.sh':
     source => 'puppet:///modules/clamav/usr/local/bin/virus_scan.sh',
     mode   => '0755',
+  }
+
+  file { '/usr/local/bin/extract_text_from_files.rb':
+    source    => 'puppet:///modules/clamav/usr/local/bin/extract_text_from_files.rb',
+    mode      => '0755',
+    require   => Package['tika'],
   }
 
   file { '/usr/local/bin/sync_assets_from_master.rb':
