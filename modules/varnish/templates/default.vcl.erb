@@ -65,7 +65,7 @@ sub vcl_recv {
     <%= set_backend('datainsight_frontend') %>
   } else if (req.url ~ "^/performance") {
     <%= set_backend('limelight') %>
-  } else if (req.url ~ "^/government$|^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
+  } else if (req.url ~ "^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
     <%= set_backend('whitehall_frontend') %>
     # Don't waste our internal cache on uploaded assets (large) which are
     # typically cached for a long time at the CDN edge.
