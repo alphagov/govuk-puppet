@@ -25,8 +25,9 @@ class puppet::master::nginx {
     matches => '/var/log/puppetmaster/*.log',
   }
 
+  # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check::graphite { "check_nginx_5xx_puppetmaster_on_${::hostname}":
-    target    => "stats.${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx",
+    target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
