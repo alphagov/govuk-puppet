@@ -85,12 +85,21 @@ try:
         # for each package, attempt to find what time it was installed
         for line in f.readlines():
             package = line.rstrip()
-            # TODO: What happens if there isn't a match?
-            install_date = grep(".*status installed %s.*" % package,dpkg_log)[0].split(' ')[0]
+            log_lines = grep(".*status installed %s.*" % package,dpkg_log)
+            if len(log_lines) >= 1:
+                install_date = log_lines[0].split(' ')[0]
+            else:
+                # This is a nasty nasty hack
+                # If I can't find the install date in the dkpg log, (for whatever reason), I still
+                # want to reboot to install that package, so I will fake the date. Later on I will
+                # check the date and if I find any that are 1970-01-01, I will go UNKNOWN instead.
+                install_date = '1970-01-01'
             full_message += "%s: %s\n" % (install_date,package)
             install_dates.append(install_date)
 
     # Find the age in days of the oldest package install
+    if min(install_dates) == '1970-01-01':
+        nagios_unknown('There are packages requiring reboot that I can find no install date for, so I have assumed 1970-01-01\n\n%s' % full_message)
     oldest_install_date = datetime.strptime(min(install_dates),"%Y-%m-%d")
     today = datetime.today()
     install_age = today - oldest_install_date
