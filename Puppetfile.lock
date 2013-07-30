@@ -3,7 +3,7 @@ FORGE
   specs:
     gdsoperations/openconnect (0.0.5)
       puppetlabs/stdlib (>= 3.0.0)
-    gdsoperations/rbenv (1.0.0)
+    gdsoperations/rbenv (1.0.1)
     gdsoperations/resolvconf (0.2.0)
       puppetlabs/stdlib (>= 3.0.0)
     maestrodev/wget (1.0.0)
@@ -78,7 +78,7 @@ DEPENDENCIES
   curl (>= 0)
   ext4mount (>= 0)
   gdsoperations/openconnect (= 0.0.5)
-  gdsoperations/rbenv (= 1.0.0)
+  gdsoperations/rbenv (= 1.0.1)
   gdsoperations/resolvconf (= 0.2.0)
   harden (>= 0)
   logstash (>= 0)
