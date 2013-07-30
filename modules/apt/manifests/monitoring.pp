@@ -27,7 +27,7 @@ class apt::monitoring {
     require => Package['update-notifier-common'],
   }
   @@nagios::check { "check_reboot_required_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_reboot_required',
+    check_command       => 'check_nrpe!check_reboot_required!30 0',
     service_description => 'reboot required by apt',
     host_name           => $::fqdn,
   }
