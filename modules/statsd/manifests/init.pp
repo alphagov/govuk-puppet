@@ -1,9 +1,8 @@
-# == Class: graphite::client
+# == Class: statsd
 #
 # This class installs and sets-up statsd
 #
-class graphite::client {
-
+class statsd {
   include nodejs
 
   package { 'statsd':
@@ -20,21 +19,8 @@ class graphite::client {
     require => [Package['statsd'], File['/etc/statsd.conf']],
   }
 
-  file { '/etc/statsd/':
-    ensure => directory,
-  }
-
-  file { '/etc/statsd/scripts':
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    force   => true,
-  }
-
   service { 'statsd':
     ensure    => running,
     subscribe => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
   }
-
-  Graphite::Cronjob <| |>
 }
