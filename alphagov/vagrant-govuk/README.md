@@ -14,14 +14,8 @@ You will need access to the repos:
 The above repos should be cloned in parallel to this one. Either
 `alphagov/gds-boxen` or `gds/development:install.sh` can do this for you.
 
-The preferred method of installing Vagrant is through Bundler. This allows us
-to pin specific versions. However if you already have a system-wide
-installation that should also work.
-
-It is recommended that you use Ruby 1.9 through rbenv. `alphagov/gds-boxen`
-can also set this up for you. Alternatively you can read about how to do it
-yourself [here](https://github.com/sstephenson/rbenv/#homebrew-on-mac-os-x)
-and [here](http://dan.carley.co/blog/2012/02/07/rbenv-and-bundler/).
+It is recommended that you use Vagrant > 1.1 from a binary/system install.
+`alphagov/gds-boxen` can set this up for you.
 
 ## Usage
 
