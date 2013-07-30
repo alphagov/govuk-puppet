@@ -1,3 +1,7 @@
+# == Class: statsd
+#
+# This class installs and sets-up statsd
+#
 class statsd {
   include nodejs
 
