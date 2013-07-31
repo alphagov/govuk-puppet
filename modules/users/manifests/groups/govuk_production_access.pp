@@ -15,6 +15,7 @@ class users::groups::govuk_production_access {
   include users::jabley
   include users::james
   include users::jamiec
+  include users::jordan
   include users::kushalp
   include users::mazz
   include users::mwall
