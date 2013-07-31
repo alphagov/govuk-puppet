@@ -1,8 +1,18 @@
 #!/bin/bash
+set -e
+set -o pipefail
+
+function error() {
+  echo "UNKNOWN: Unable to read backup directories"
+  exit 2
+}
+trap error ERR
+
 count=0
 message=""
 
-for backupinfo in `find /data/backups/ -name BACKUPINFO`; do
+dirs=$(find /data/backups/ -name BACKUPINFO)
+for backupinfo in $dirs; do
    directory=${backupinfo%%/BACKUPINFO}
    date=`cat $backupinfo | sed -e 's/Date: //g'`
    today=`date +%s`; 
