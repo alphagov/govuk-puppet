@@ -94,4 +94,4 @@ exec sudo \
   FACTER_govuk_class=${FACTER_govuk_class:-development} \
   FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
   puppet apply manifests/site.pp \
-  --environment development "$@" | egrep -iv "warning:.+storeconfigs"
+  --environment development "$@" 2>&1 | egrep -iv "warning:.+storeconfigs"
