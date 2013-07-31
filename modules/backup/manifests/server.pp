@@ -2,11 +2,19 @@ class backup::server {
 
   include backup::client
 
-  file { ['/data/backups',
-          '/etc/backup',
+  file { ['/etc/backup',
           '/etc/backup/daily',
           '/etc/backup/weekly',
           '/etc/backup/monthly']:
+    ensure  => directory,
+    owner   => 'govuk-backup',
+    mode    => '0700',
+    recurse => true,
+    purge   => true,
+    force   => true,
+  }
+
+  file { '/data/backups':
     ensure  => directory,
     owner   => 'govuk-backup',
     mode    => '0700',
