@@ -11,7 +11,7 @@ trap error ERR
 count=0
 message=""
 
-dirs=$(find /data/backups/ -name BACKUPINFO)
+dirs=$(find /data/backups/ -name 'lost+found' -prune -o -name BACKUPINFO)
 for backupinfo in $dirs; do
    directory=${backupinfo%%/BACKUPINFO}
    date=`cat $backupinfo | sed -e 's/Date: //g'`
