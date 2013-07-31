@@ -7,7 +7,8 @@ define govuk::app::nginx_vhost (
   $logstream = true,
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
-  $intercept_errors = false
+  $intercept_errors = false,
+  $default = false
 ) {
 
   if $protected == undef {
@@ -25,5 +26,6 @@ define govuk::app::nginx_vhost (
     extra_config          => $nginx_extra_config,
     extra_app_config      => $nginx_extra_app_config,
     intercept_errors      => $intercept_errors,
+    default               => $default,
   }
 }
