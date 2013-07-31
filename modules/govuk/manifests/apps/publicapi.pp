@@ -34,11 +34,6 @@ class govuk::apps::publicapi {
       'realtime' => true,
     },
     {
-      'path' => 'electronic-vehicle-licensing/api/monitoring',
-      'name' => 'electronic_vehicle_licensing_monitoring',
-      'enabled' => true,
-    },
-    {
       'path' => 'government/api/annotations',
       'name' => 'government_annotations',
       'enabled' => $enable_backdrop_government_annotations_bucket,
@@ -174,6 +169,16 @@ class govuk::apps::publicapi {
       'name' => 'pay_register_death_abroad_realtime',
       'enabled' => $enable_realtime_buckets,
       'realtime' => true,
+    },
+	{
+      'path' => 'register-sorn-statutory-off-road-notification/api/monitoring',
+      'name' => 'sorn_monitoring',
+      'enabled' => true,
+    },
+	{
+      'path' => 'tax-disc/api/monitoring',
+      'name' => 'tax_disc_monitoring',
+      'enabled' => true,
     },
     {
       'path' => 'test/api/test',
