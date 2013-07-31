@@ -37,7 +37,7 @@ class ssh {
   @@sshkey { $::fqdn:
     type         => 'ssh-rsa',
     key          => $::sshrsakey,
-    host_aliases => [$iqdn],
+    host_aliases => [$iqdn, $::ipaddress],
     require      => Class['ssh::service'],
   }
 
