@@ -17,9 +17,7 @@ class backup::server {
   file { '/data/backups':
     ensure  => directory,
     owner   => 'govuk-backup',
-    group   => 'nagios',
-    mode    => '0750',
-    require => Class['nagios::client']
+    mode    => '0700',
   }
 
   # Parent dir is provided by govuk::user in backup::client.
