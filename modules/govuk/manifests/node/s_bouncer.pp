@@ -9,9 +9,6 @@ class govuk::node::s_bouncer inherits govuk::node::s_base {
 
   include nginx
 
-  # If we miss all the apps, throw a 500 to be caught by the cache nginx
-  nginx::config::vhost::default { 'default': }
-
   @@nagios::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target       => "${::fqdn_underscore}.nginx.nginx_connections-writing",
     warning      => 150,

@@ -22,5 +22,6 @@ class govuk::apps::bouncer(
     aliases                => ["*"],
     app_port               => $port,
     ssl_only               => false,
+    default                => true
   }
 }
