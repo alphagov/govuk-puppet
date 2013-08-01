@@ -32,7 +32,8 @@ define govuk::logstream (
   $enable = true,
   $source_host = $::fqdn,
   $json = false,
-  $statsd_metric = undef
+  $statsd_metric = undef,
+  $statsd_timers = []
 ) {
 
   # TODO: Change the `enable => false` to a more Puppet-esque
