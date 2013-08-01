@@ -15,22 +15,39 @@ class hosts::skyscape::production_like {
     vdc             => 'management',
     legacy_aliases  => ['puppet-1'],
   }
+  govuk::host { 'jenkins-1':
+    ip             => '10.0.0.3',
+    vdc            => 'management',
+    legacy_aliases => ['jenkins-1'],
+  }
+  govuk::host { 'exception-handler-1':
+    ip             => '10.0.0.4',
+    vdc            => 'management',
+    legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
+  }
   govuk::host { 'puppetmaster-1':
     ip              => '10.0.0.5',
     vdc             => 'management',
     legacy_aliases  => ['puppetmaster-1', 'puppet'],
     service_aliases => ['puppet', 'puppetdb'],
   }
-  govuk::host { 'jenkins-1':
-    ip             => '10.0.0.3',
-    vdc            => 'management',
-    legacy_aliases => ['jenkins-1'],
-  }
   govuk::host { 'monitoring':
     ip              => '10.0.0.20',
     vdc             => 'management',
     legacy_aliases  => ['monitoring', "nagios.${app_domain}"],
     service_aliases => ['monitoring', 'nagios'],
+  }
+  govuk::host { 'graphite-1':
+    ip              => '10.0.0.22',
+    vdc             => 'management',
+    legacy_aliases  => ['graphite-1', "graphite.${app_domain}"],
+    service_aliases => ['graphite'],
+  }
+  govuk::host { 'logging-1':
+    ip              => '10.0.0.28',
+    vdc             => 'management',
+    legacy_aliases  => ['logging-1'],
+    service_aliases => ['logging'],
   }
   govuk::host { 'logs-elasticsearch-1':
     ip              => '10.0.0.29',
@@ -48,42 +65,25 @@ class hosts::skyscape::production_like {
     vdc             => 'management',
     legacy_aliases  => ['logs-elasticsearch-3'],
   }
-  govuk::host { 'logging-1':
-    ip              => '10.0.0.28',
+  govuk::host { 'backup-1':
+    ip              => '10.0.0.50',
     vdc             => 'management',
-    legacy_aliases  => ['logging-1'],
-    service_aliases => ['logging'],
+    legacy_aliases  => ['backup-1'],
   }
   govuk::host { 'jumpbox-1':
     ip              => '10.0.0.100',
     vdc             => 'management',
     legacy_aliases  => ['jumpbox-1'],
   }
-  govuk::host { 'jumpbox-2':
-    ip              => '10.0.0.200',
-    vdc             => 'management',
-    legacy_aliases  => ['jumpbox-2'],
-  }
-  govuk::host { 'backup-1':
-    ip              => '10.0.0.50',
-    vdc             => 'management',
-    legacy_aliases  => ['backup-1'],
-  }
-  govuk::host { 'exception-handler-1':
-    ip             => '10.0.0.4',
-    vdc            => 'management',
-    legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
-  }
   govuk::host { 'mirrorer-1':
     ip             => '10.0.0.128',
     vdc            => 'management',
     legacy_aliases => ['mirrorer-1'],
   }
-  govuk::host { 'graphite-1':
-    ip              => '10.0.0.22',
+  govuk::host { 'jumpbox-2':
+    ip              => '10.0.0.200',
     vdc             => 'management',
-    legacy_aliases  => ['graphite-1', "graphite.${app_domain}"],
-    service_aliases => ['graphite'],
+    legacy_aliases  => ['jumpbox-2'],
   }
 
   #router vdc machines
