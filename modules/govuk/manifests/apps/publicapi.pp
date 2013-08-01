@@ -170,12 +170,12 @@ class govuk::apps::publicapi {
       'enabled' => $enable_realtime_buckets,
       'realtime' => true,
     },
-	{
+    {
       'path' => 'register-sorn-statutory-off-road-notification/api/monitoring',
       'name' => 'sorn_monitoring',
       'enabled' => true,
     },
-	{
+    {
       'path' => 'tax-disc/api/monitoring',
       'name' => 'tax_disc_monitoring',
       'enabled' => true,
