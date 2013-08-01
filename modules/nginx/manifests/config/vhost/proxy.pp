@@ -38,7 +38,8 @@ define nginx::config::vhost::proxy(
       json          => true,
       logpath       => $logpath,
       logstream     => $logstream,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.http_%{@fields.status}";
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.time_request", value => "@fields.request_time"}];
     $access_log:
       logpath   => $logpath,
       logstream => false;

@@ -6,7 +6,8 @@ define nginx::log (
   $logstream     = false,
   $json          = false,
   $logname       = regsubst($name, '\.[^.]*$', ''),
-  $statsd_metric = undef
+  $statsd_metric = undef,
+  $statsd_timers = []
   ){
 
   # Log name should not be absolute. Use $logpath.
@@ -29,6 +30,7 @@ define nginx::log (
     enable        => $logstream,
     json          => $json,
     statsd_metric => $statsd_metric,
+    statsd_timers => $statsd_timers
   }
 
 }
