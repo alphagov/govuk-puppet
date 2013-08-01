@@ -42,29 +42,10 @@ class govuk::node::s_logs_redis {
     document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
   }
 
-  @ufw::allow {
-    'allow-redis-from-backend':
-      from => '10.3.0.0/16',
-      port => $redis_port;
-    'allow-redis-from-frontend':
-      from => '10.2.0.0/16',
-      port => $redis_port;
-    'allow-redis-from-management':
-      from => '10.0.0.0/16',
-      port => $redis_port;
-    'allow-redis-from-router':
-      from => '10.1.0.0/16',
-      port => $redis_port;
-    'allow-redis-from-efg':
-      from => '10.4.0.0/16',
-      port => $redis_port;
-    'allow-redis-from-licensify':
-      from => '10.5.0.0/16',
-      port => $redis_port;
-    'allow-redis-from-redirector':
-      from => '10.6.0.0/16',
-      port => $redis_port;
-
+  # tagalog on all nodes forward directly to here.
+  @ufw::allow { 'allow-redis-from-anywhere':
+    from => '10.0.0.0/8',
+    port => $redis_port;
   }
 
   @logrotate::conf { 'redis':
