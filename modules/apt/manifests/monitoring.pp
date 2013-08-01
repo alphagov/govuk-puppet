@@ -30,5 +30,6 @@ class apt::monitoring {
     check_command       => 'check_nrpe!check_reboot_required!30 0',
     service_description => 'reboot required by apt',
     host_name           => $::fqdn,
+    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#reboot-required-by-apt',
   }
 }
