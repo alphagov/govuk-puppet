@@ -1,17 +1,35 @@
 #!/bin/bash
 set -e
+
 STARTEPOCH=$(date +'%s')
 BACKUPROOT="/data/backups"
 CLIENTNAME="<%= @fq_dn %>"
 SOURCEDIR="<%= @directory %>"
+
 # Not currently used here, probably will use it for auto-cleanup later
 FREQUENCY="<%= @frequency %>"
+
+# Defaults, assumed failed.
+NAGIOS_CODE=1
+NAGIOS_MESSAGE="WARNING: Backup failed"
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | send_nsca -H nagios.cluster
+}
+trap nagios_passive EXIT
+
 DATE=`date +"%Y%m%d"`
 logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR started
 mkdir -p ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
+
 rsync -qa -e "ssh -o VisualHostKey=false" --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR}/ ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
-echo "Date: $DATE" > ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}/BACKUPINFO
+if [ $? == 0 ]; then
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: Backup successful"
+fi
+
 FINISHEPOCH=$(date +'%s')
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
 logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR ended in T:$TOTALTIME seconds
-
