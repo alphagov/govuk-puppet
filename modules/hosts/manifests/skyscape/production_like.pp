@@ -65,6 +65,16 @@ class hosts::skyscape::production_like {
     vdc             => 'management',
     legacy_aliases  => ['logs-elasticsearch-3'],
   }
+  govuk::host { 'logs-redis-1':
+    ip             => '10.0.0.40',
+    vdc            => 'management',
+    legacy_aliases => ['logs-redis-1'],
+  }
+  govuk::host { 'logs-redis-2':
+    ip             => '10.0.0.41',
+    vdc            => 'management',
+    legacy_aliases => ['logs-redis-2'],
+  }
   govuk::host { 'backup-1':
     ip              => '10.0.0.50',
     vdc             => 'management',
