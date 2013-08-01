@@ -6,7 +6,6 @@ class monitoring {
 
   include nagios
   include nsca::server
-  include graphite
 
   include govuk::htpasswd
 
