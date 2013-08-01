@@ -28,7 +28,7 @@ filters << (['add_fields'] + @fields.map {|k,v| "#{k}=#{v}"}).join(':') unless @
 -%>
 <%
 shippers = ['redis,$REDIS_SERVERS,key=logs,bulk=true,bulk_index=logs-current']
-shippers << ['statsd', "metric=#{@statsd_metric}"].join(',') if @statsd_metric
+shippers << ['statsd_counter', "metric=#{@statsd_metric}"].join(',') if @statsd_metric
 -%>
 script
     REDIS_SERVERS=$(govuk_node_list -c redis | xargs -IHOST echo redis://HOST | paste -sd ',')
