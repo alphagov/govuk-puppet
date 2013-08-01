@@ -6,7 +6,7 @@ process :backdrop_read
 process :backdrop_write => [:signon]
 process :bouncer
 process :businesssupportfinder => [:static, :contentapi, :imminence]
-process :calculators => [:static]
+process :calculators => [:static, :contentapi]
 process :calendars => [:static, :contentapi]
 process :contentapi => [:imminence, :asset_manager]
 process :'contact-o-tron'
