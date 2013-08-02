@@ -16,17 +16,19 @@ class puppet {
     require => Package['puppet-common'],
   }
 
-  file { '/usr/local/bin/facter':
-    ensure => absent,
-  }
-  file { '/usr/local/bin/puppet':
-    ensure => absent,
-  }
   file { '/usr/bin/puppet':
     ensure  => present,
     source  => 'puppet:///modules/puppet/usr/bin/puppet',
     mode    => '0755',
     require => Package['puppet-common'],
+  }
+  file { '/usr/local/bin/puppet':
+    ensure  => absent,
+    require => File['/usr/bin/puppet'],
+  }
+  file { '/usr/local/bin/facter':
+    ensure  => absent,
+    require => Package['facter'],
   }
 
   group { 'puppet':
