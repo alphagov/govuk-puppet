@@ -36,10 +36,18 @@ def nagios_unknown(message):
 def dpkg_log_lines(log_files):
     """Parse the package install logs into a list of lines"""
     log_lines = []
-    try:
-        return list(FileInput(log_files))
-    except:
-        nagios_unknown("Cannot open log file - %s" % filename)
+    for log_file in log_files:
+        try:
+            with open(log_file) as f: pass
+        except IOError:
+            log_files.remove(log_file)
+    if len(log_files) > 0:
+        try:
+            return list(FileInput(log_files))
+        except:
+            nagios_unknown("Cannot find/open any dpkg log files")
+    else:
+        nagios_unknown("None of the listed dpkg log files are available")
 
 def grep(string,list):
     """Find a string within a list of lines"""
