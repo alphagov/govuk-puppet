@@ -83,7 +83,6 @@ try:
     if not os.path.exists(reboot_required_file):
         nagios_ok("Reboot required file (%s) does not exist" % reboot_required_file)
 
-    # Attempt open the pkgs log, if this fails it will be caught by the except block below
     if not os.path.exists(reboot_required_pkgs_file):
         nagios_ok("No packages listed requiring reboot")
     with open(reboot_required_pkgs_file) as f:
