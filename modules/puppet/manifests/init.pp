@@ -1,23 +1,32 @@
 class puppet {
+  $facter_version = '1.7.2-1puppetlabs1'
   $puppet_version = '3.2.3-1puppetlabs1'
+
   include puppet::repository
 
+  package { 'facter':
+    ensure => $facter_version,
+  }
   package { 'puppet-common':
-    ensure => $puppet_version,
+    ensure  => $puppet_version,
+    require => Package['facter'],
   }
   package { 'puppet':
     ensure  => $puppet_version,
     require => Package['puppet-common'],
   }
 
+  file { '/usr/local/bin/facter':
+    ensure => absent,
+  }
+  file { '/usr/local/bin/puppet':
+    ensure => absent,
+  }
   file { '/usr/bin/puppet':
     ensure  => present,
     source  => 'puppet:///modules/puppet/usr/bin/puppet',
     mode    => '0755',
     require => Package['puppet-common'],
-  }
-  file { '/usr/local/bin/puppet':
-    ensure => absent,
   }
 
   group { 'puppet':
