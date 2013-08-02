@@ -11,7 +11,7 @@ define nginx::config::vhost::proxy(
   $ssl_manage_cert = true, # This is a *horrible* hack to make EFG work.
                            # Please, please, remove when we have a
                            # sensible means of managing SSL certificates.
-  $default = false
+  $is_default_vhost = false
 ) {
   include govuk::htpasswd
 
