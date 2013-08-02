@@ -8,7 +8,9 @@ class nginx::logging {
     'json.event.access.log':
       json          => true,
       logstream     => true,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}";
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.default.time_request",
+                          value => '@fields.request_time'}];
     'access.log':
       logstream => false;
     'error.log':
