@@ -1,19 +1,42 @@
 class puppet {
-  group { 'puppet':
-    ensure  => present,
-    name    => 'puppet';
+  $facter_version = '1.7.2-1puppetlabs1'
+  $puppet_version = '3.2.3-1puppetlabs1'
+
+  include puppet::repository
+
+  package { 'facter':
+    ensure => $facter_version,
+  }
+  package { 'puppet-common':
+    ensure  => $puppet_version,
+    require => Package['facter'],
+  }
+  package { 'puppet':
+    ensure  => $puppet_version,
+    require => Package['puppet-common'],
   }
 
-# Can't manage both apt and gem 'puppet' packages in the same puppet run
-# and we need to manage apt puppet to avoid upgrading to puppet 3 (!)
-# If necessary, we can rewrite this as an exec
-#  package { 'puppet':
-#    ensure   => '2.7.19',
-#    provider => gem,
-#    require  => Group['puppet'];
-#  }
+  file { '/usr/local/bin/facter':
+    ensure => absent,
+  }
+  file { '/usr/local/bin/puppet':
+    ensure => absent,
+  }
+  file { '/usr/bin/puppet':
+    ensure  => present,
+    source  => 'puppet:///modules/puppet/usr/bin/puppet',
+    mode    => '0755',
+    require => Package['puppet-common'],
+  }
+
+  group { 'puppet':
+    ensure  => present,
+    name    => 'puppet',
+    require => Package['puppet-common'],
+  }
 
   # This is required to allow Puppet to set the password hash for the ubuntu user
+  # TODO: Provide this under different rbenv versions?
   package { 'libshadow':
     ensure   => present,
     provider => gem,

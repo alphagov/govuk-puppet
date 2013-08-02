@@ -5,15 +5,11 @@
 #
 # === Parameters
 #
-# [*puppet_version*]
-#   Specify version of pupet-common and puppet
-#
 # [*unicorn_port*]
 #   Specify the port on which unicorn (and hence the puppetmaster) should
 #   listen.
 #
 class puppet::master(
-  $puppet_version = undef,
   $unicorn_port = '9090',
 ) {
   include puppet::repository
@@ -29,7 +25,6 @@ class puppet::master(
     notify => Class['puppet::master::service'],
   }
   class{'puppet::master::package':
-    puppet_version   => $puppet_version,
     puppetdb_version => $puppetdb_version,
     notify           => Class['puppet::master::service'],
     require          => [
