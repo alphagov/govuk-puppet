@@ -65,13 +65,30 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     default: {}
   }
 
-  package { 'nfs-kernel-server':
-    ensure => installed,
+  # Java needed for tika
+  include java::oracle7::jdk
+  include java::oracle7::jre
+
+  class { 'java::set_defaults':
+    jdk => 'oracle7',
+    jre => 'oracle7',
   }
 
+  package { 'libxtst6':
+    ensure => 'latest'
+  }
+
+  # Used to extract text from file attachments when indexing
   package { 'tika':
     ensure  => '1.4-gds1',
-    require => Class['java::set_defaults'],
+    require => [
+      Class['java::set_defaults'],
+      Package['libxtst6']
+    ]
+  }
+
+  package { 'nfs-kernel-server':
+    ensure => installed,
   }
 
   service { 'nfs-kernel-server':
