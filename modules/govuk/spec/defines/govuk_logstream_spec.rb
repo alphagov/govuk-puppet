@@ -82,7 +82,7 @@ describe 'govuk::logstream', :type => :define do
       :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
     } }
 
-    it 'should statsd_counter arg' do
+    it 'should pass statsd_counter arg' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd_counter,metric=tom_jerry.foo.%{@fields.bar}$/,
@@ -99,7 +99,7 @@ describe 'govuk::logstream', :type => :define do
                          {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
     } }
 
-    it 'should statsd_counter arg' do
+    it 'should pass statsd_timer arg' do
       should contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd_timer,metric=tom_jerry.foo,timed_field=@fields.foo statsd_timer,metric=tom_jerry.bar,timed_field=@fields.bar$/,
