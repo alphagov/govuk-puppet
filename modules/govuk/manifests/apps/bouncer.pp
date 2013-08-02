@@ -19,7 +19,7 @@ class govuk::apps::bouncer(
   # Nginx proxy config with wildcard alias
   govuk::app::nginx_vhost { 'bouncer':
     vhost                  => "bouncer.${app_domain}",
-    aliases                => ["*"],
+    aliases                => ['*'],
     app_port               => $port,
     ssl_only               => false,
     is_default_vhost       => true

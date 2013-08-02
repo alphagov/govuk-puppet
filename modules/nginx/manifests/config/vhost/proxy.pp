@@ -8,10 +8,10 @@ define nginx::config::vhost::proxy(
   $root = "/data/vhost/${title}/current/public",
   $ssl_only = false,
   $logstream = true,
-  $ssl_manage_cert = true, # This is a *horrible* hack to make EFG work.
-                           # Please, please, remove when we have a
-                           # sensible means of managing SSL certificates.
-  $is_default_vhost = false
+  $is_default_vhost = false,
+  $ssl_manage_cert = true # This is a *horrible* hack to make EFG work.
+                          # Please, please, remove when we have a
+                          # sensible means of managing SSL certificates.
 ) {
   include govuk::htpasswd
 
