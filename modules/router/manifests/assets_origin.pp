@@ -21,7 +21,8 @@ class router::assets_origin {
       json          => true,
       logstream     => true,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.assets-origin.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.assets-origin.time_request", value => "@fields.request_time"}];
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.assets-origin.time_request",
+                          value => '@fields.request_time'}];
     "${vhost_name}-error.log":
       logstream => true;
   }

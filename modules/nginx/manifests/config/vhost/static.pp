@@ -28,7 +28,8 @@ define nginx::config::vhost::static(
       logpath       => $logpath,
       logstream     => true,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.time_request", value => "@fields.request_time"}];
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.time_request",
+                          value => '@fields.request_time'}];
     $access_log:
       logpath   => $logpath,
       logstream => false;

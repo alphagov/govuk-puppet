@@ -10,7 +10,8 @@ class puppet::master::nginx {
       json          => true,
       logstream     => true,
       statsd_metric => "${$::fqdn_underscore}.nginx_logs.puppetmaster.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.puppetmaster.time_request", value => "@fields.request_time"}];
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.puppetmaster.time_request",
+                          value => '@fields.request_time'}];
     'puppetmaster-access.log':
       logstream => false;
     'puppetmaster-error.log':
