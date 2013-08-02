@@ -5,6 +5,7 @@
 
 from datetime import datetime
 from fileinput import FileInput
+import os
 import re
 import sys
 
@@ -37,15 +38,13 @@ def dpkg_log_lines(log_files):
     """Parse the package install logs into a list of lines"""
     log_lines = []
     for log_file in log_files:
-        try:
-            with open(log_file) as f: pass
-        except IOError:
+        if not os.path.exists(log_file):
             log_files.remove(log_file)
     if len(log_files) > 0:
         try:
             return list(FileInput(log_files))
         except:
-            nagios_unknown("Cannot find/open any dpkg log files")
+            nagios_unknown("Cannot find/open the dpkg log files")
     else:
         nagios_unknown("None of the listed dpkg log files are available")
 
@@ -81,14 +80,12 @@ try:
 
     # Check if the reboot-required flag file exists
     # To silence the check, delete this file
-    try:
-        with open(reboot_required_file) as f: pass
-    except IOError:
+    if not os.path.exists(reboot_required_file):
         nagios_ok("Reboot required file (%s) does not exist" % reboot_required_file)
-    except Exception as e:
-        nagios_unknown("Exception: %s" % e)
 
     # Attempt open the pkgs log, if this fails it will be caught by the except block below
+    if not os.path.exists(reboot_required_pkgs_file):
+        nagios_ok("No packages listed requiring reboot")
     with open(reboot_required_pkgs_file) as f:
         # for each package, attempt to find what time it was installed
         for line in f.readlines():
@@ -120,9 +117,6 @@ try:
     else:
         nagios_ok("Packages requiring reboot, but inside the threshold of %s days\n\n%s" % (warning_days,full_message.rstrip()))
 
-except IOError as e:
-    # This catches the case of the reboot-required.pkgs file not existing
-    nagios_ok("No packages listed requiring reboot")
 except Exception as e:
     # Catching all other exceptions
     nagios_unknown("Exception: %s" % e)
