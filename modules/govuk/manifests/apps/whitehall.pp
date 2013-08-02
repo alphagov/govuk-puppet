@@ -121,10 +121,17 @@ class govuk::apps::whitehall(
       ensure => installed,
     }
 
+    package { 'libxtst6':
+      ensure => 'latest'
+    }
+
     # Used to extract text from file attachments when indexing
     package { 'tika':
       ensure  => '1.4-gds1',
-      require => Class['java::set_defaults'],
+      require => [
+        Class['java::set_defaults'],
+        Package['libxtst6']
+      ]
     }
 
     govuk::delayed_job::worker { 'whitehall-admin':
