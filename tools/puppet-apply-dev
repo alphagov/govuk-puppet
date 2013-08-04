@@ -62,8 +62,10 @@ if [ -z "$NO_PULL" ]; then
     sudo gem install -v "= 2.7.19" puppet --no-ri --no-rdoc
   fi
 
-  safe_git_pull /var/govuk/puppet
-  safe_git_pull /var/govuk/development
+  if [ -z "$NO_GIT_PULL" ]; then
+      safe_git_pull /var/govuk/puppet
+      safe_git_pull /var/govuk/development
+  fi
   # Re-exec myself
   NO_PULL=1 exec "$SELF" "$@"
 fi
