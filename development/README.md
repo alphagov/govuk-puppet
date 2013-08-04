@@ -52,7 +52,7 @@ Assuming your Puppet code is checked out into:
 
 the following commands will boot your VM:
 
-    cd ~/govuk/puppet
+    cd ~/govuk/puppet/development
     sudo vagrant dns --install # Only has to be run once
     vagrant up
 
