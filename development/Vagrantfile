@@ -28,11 +28,11 @@ def virtual_box_config(config)
   }
 
   if (ENV['govuk_dev_dist'].nil?)
-    puts "[info] Environment variable govuk_dev_dist not set, using Ubuntu 10.04"
+    puts "[info] Environment variable govuk_dev_dist not set, using Ubuntu 12.04"
     puts "       please set govuk_dev_dist='lucid' or govuk_dev_dist='precise' in your "
     puts "       environment variables to change versions. e.g.:"
     puts "       #> echo \"export govuk_dev_dist='lucid'\" >> ~/.bash_profile "
-    dist = 'lucid'
+    dist = 'precise'
   else
     dist = ENV['govuk_dev_dist']
   end
