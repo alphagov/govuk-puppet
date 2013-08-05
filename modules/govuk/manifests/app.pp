@@ -206,12 +206,21 @@ define govuk::app (
   }
 
   if $app_type == 'rack' {
+    $title_escaped = regsubst($title, '\.', '_', 'G')
+    $statsd_timer_prefix = "${::fqdn_underscore}.${title_escaped}"
     govuk::logstream { "${title}-production-log":
-      logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
-      tags    => ['stdout', 'application'],
-      fields  => {'application' => $title},
-      enable  => $logstream,
-      json    => $log_format_is_json,
+      logfile       => "/data/vhost/${vhost_full}/shared/log/production.log",
+      tags          => ['stdout', 'application'],
+      fields        => {'application' => $title},
+      enable        => $logstream,
+      json          => $log_format_is_json,
+      statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
+      statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
+                          value => '@fields.duration'},
+                        {metric => "${statsd_timer_prefix}.time_db",
+                          value => '@fields.db'},
+                        {metric => "${statsd_timer_prefix}.time_view",
+                          value => '@fields.view'}]
     }
   }
 
