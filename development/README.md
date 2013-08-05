@@ -50,13 +50,14 @@ Assuming your Puppet code is checked out into:
 
     ~/govuk/puppet
 
-the following commands will boot your VM:
+the following commands will bootstrap your VM:
 
     cd ~/govuk/puppet/development
-    sudo vagrant dns --install # Only has to be run once
-    vagrant up
+    ./bootstrap.sh
 
-wait a few minutes and your VM should be running. You can now SSH into it with:
+and follow the instructions.
+
+Once your VM is running you should be able to SSH into it:
 
     vagrant ssh
 
