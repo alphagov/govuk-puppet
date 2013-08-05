@@ -111,11 +111,11 @@ else
 
     # Use VMWare Fusion native shared folders
     config.vm.provider :vmware_fusion do |vm, override|
-      override.vm.synced_folder "..", "/var/govuk"
+      override.vm.synced_folder "../..", "/var/govuk"
     end
 
     config.vm.provider :virtualbox do |vm, override|
-      override.vm.synced_folder "..", "/var/govuk", :nfs => true
+      override.vm.synced_folder "../..", "/var/govuk", :nfs => true
     end
 
     # You may want to up the memory / CPUs to get better performance in the VM.
