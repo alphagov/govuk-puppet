@@ -2,6 +2,6 @@ class users::timabell {
   govuk::user { 'timabell':
     fullname => 'Tim Abell',
     email    => 'tim.abell@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDa3nwhv6kdAiQBqO8O4nKmwuIcfW3NzcUnfqfRggnNRVfWyuOj8b5ebpA51aModyqiin9gITFJcxWhlQkbefc2ED3r2QdwTCUpnUo3u1wDrVmlE/bX0xFhNzPrF9c8JGvqfgHEmFdd8Er6gpTD/pxFRPPRngjQTnTAfxXPCIxc/QPXqkDT7Yx4wZ/5E+zRklmz6XlA17eFKHx5Kly58zqBlYDnQhzJgiH3A0cWIxeeFohJa+U3FQ2E19JU/lhANgMMYC9ee+KbyPVmq7q0V9diIWCjXiPbvuHqL3mskgb3/9L4A4IeVzOFRznTDrx7bVmbTdp8mUA8tG0IdsEesMON tim@sammy',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9BT7sc13doXwylrLuPE5hUr2uFUi6TlStuE0/q06hUJ30k+mO7wLyM/PUZT13qtNZ6694tKOc31zT5GTsV9pqeJJi3PMnUNoSV8JHcrGvo3b3G9TMvG5DA8o8m6blW7O9ebkTkYpVlknGqDsildCAQqEz/1uFSPeVAhr08BQv1w9xWZrjUtABrFbhXhUucncH4F8TO1VZ5GNvlMCvnIOo97rJLyKe7kORJf38SL1EZNVbDG/mkV2m78ZeCuJyP7XxOilaSb1YdQaaL3RQI6WLjZXTcRx2PbbQAjNlXs5KZcxx5Oz7g9zAvCgJRbGF2aOynyDKb0RQFOiFn6hkXQ4D tim@sammy',
   }
 }
