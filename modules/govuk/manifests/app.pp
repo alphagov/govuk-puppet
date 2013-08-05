@@ -30,6 +30,14 @@ define govuk::app (
   $logstream = true,
 
   #
+  # log_format_is_json: logstream file is logstash JSON format
+  #
+  # If set to true, logstream will consume this as a logstash JSON
+  # event formatted stream.
+  #
+  $log_format_is_json = false,
+
+  #
   # health_check_path: path at which to check the status of the application.
   #
   # This is used to export health checks to ensure the application is running
@@ -203,6 +211,7 @@ define govuk::app (
       tags    => ['stdout', 'application'],
       fields  => {'application' => $title},
       enable  => $logstream,
+      json    => $log_format_is_json,
     }
   }
 
