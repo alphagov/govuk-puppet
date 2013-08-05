@@ -1,5 +1,18 @@
 #!/bin/bash
 # Script to push backups offsite.
+set -e
+set -o pipefail
+
+# Defaults, assumed failed.
+NAGIOS_CODE=1
+NAGIOS_MESSAGE="WARNING: Backup failed"
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | send_nsca -H nagios.cluster >/dev/null
+}
+trap nagios_passive EXIT
 
 STARTEPOCH=$(date +'%s')
 APPNAME=$(basename $0)
@@ -30,6 +43,10 @@ SSH_OPTS="-C -o VisualHostKey=no"
 
 gpg -q --recv-keys $GPG_KEY 2>/dev/null
 tar $TAR_OPTS 2>/dev/null | gpg $GPG_OPTS | ssh $SSH_OPTS $DEST "cat > $FILENAME"
+if [ $? == 0 ]; then
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: Backup successful"
+fi
 
 FINISHEPOCH=$(date +'%s')
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
