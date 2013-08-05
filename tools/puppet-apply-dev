@@ -44,6 +44,8 @@ cd ..
 ROOT="$(pwd)"
 SELF="${ROOT}/tools/puppet-apply-dev"
 
+# Set NO_PULL to not bootstrap the machine with bundler, puppet etc.
+# Set NO_GIT_PULL to not update the puppet and development Git repositories
 if [ -z "$NO_PULL" ]; then
   info "preflight checks"
   # Temporary workaround while dev VMs don't come with git preinstalled
