@@ -16,3 +16,4 @@
 .rvmrc
 # Written by Cap and read by puppet_config_version
 REVISION
+./development/Vagrantfile.localconfig
