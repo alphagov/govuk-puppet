@@ -28,10 +28,12 @@ filters << (['add_fields'] + @fields.map {|k,v| "#{k}=#{v}"}).join(':') unless @
 -%>
 <%
 shippers = ['redis,$REDIS_SERVERS,key=logs,bulk=true,bulk_index=logs-current']
-shippers << ['statsd_counter', "metric=#{@statsd_metric}"].join(',') if @statsd_metric
+if @json.to_s == 'true'
+  shippers << ['statsd_counter', "metric=#{@statsd_metric}"].join(',') if @statsd_metric
 
-@statsd_timers.each do |timer|
+  @statsd_timers.each do |timer|
     shippers << ['statsd_timer', "metric=#{timer['metric']}","timed_field=#{timer['value']}"].join(',')
+  end
 end
 -%>
 script

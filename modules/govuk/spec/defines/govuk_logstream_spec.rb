@@ -106,4 +106,20 @@ describe 'govuk::logstream', :type => :define do
       )
     end
   end
+
+  context 'with json set to false' do
+    let(:params) { {
+      :logfile       => log_file,
+      :enable        => true,
+      :json          => false,
+      :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
+                         {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
+      } }
+    it 'should not pass through statsd values' do
+      should contain_file(upstart_conf).with(
+        :ensure  => 'present',
+        :content => /\| logship -f init_txt,add_timestamp,add_source_host -s #{default_shipper}$/,
+        )
+    end
+  end
 end
