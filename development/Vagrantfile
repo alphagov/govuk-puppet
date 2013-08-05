@@ -80,7 +80,7 @@ if has_old_vagrant
 
     # You may want to up the memory / CPUs to get better performance
     # in the VM.
-    # Example given below to put in Vagrantfile.local if you want to
+    # Example given below to put in Vagrantfile.localconfig if you want to
     # do so.
     # config.vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
 
@@ -119,7 +119,7 @@ else
     end
 
     # You may want to up the memory / CPUs to get better performance in the VM.
-    # Example given below to put in Vagrantfile.local if you want to do so:
+    # Example given below to put in Vagrantfile.localconfig if you want to do so:
     #
     #     config.vm.provider :virtualbox do |vm|
     #       vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
