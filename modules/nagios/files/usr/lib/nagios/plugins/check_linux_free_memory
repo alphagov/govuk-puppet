@@ -37,16 +37,13 @@ my $memory_stats_ref = get_mem();
 my $percentage_free = get_percentage($memory_stats_ref);
 
 if ($percentage_free <= $crit_percent) {
-  print "CRIT: Only $percentage_free% ($memory_stats_ref->{free_cache}M) of
-memory free!\n";
+  print "FREE MEMORY CRITICAL: Only $percentage_free% ($memory_stats_ref->{free_cache}M) free\n";
   exit 2;
 } elsif ($percentage_free <= $warn_percent) {
-  print "WARN: Only $percentage_free% ($memory_stats_ref->{free_cache}M) of
-memory free!\n";
+  print "FREE MEMORY WARNING: Only $percentage_free% ($memory_stats_ref->{free_cache}M) free\n";
   exit 1;
 } else {
-  print "OK: $percentage_free% ($memory_stats_ref->{free_cache}M) free
-memory.\n";
+  print "FREE MEMORY OK: $percentage_free% ($memory_stats_ref->{free_cache}M) free\n";
   exit 0;
 }
 
