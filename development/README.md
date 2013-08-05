@@ -66,3 +66,30 @@ and install the Puppet manifests with:
     govuk_puppet
 
 and that's it. Now you can get to work!
+
+## Extras
+
+* Your VM comes pre-configured with an IP address. This is visible in
+  the [Vagrantfile](./Vagrantfile) (but currently defaults to `10.1.1.254`)
+* If you want to add extra RAM, you can do so in a
+  `Vagrantfile.localconfig` file in this directory, which is
+  automatically read by Vagrant (don't forget to re-run `vagrant
+  up`!):
+
+        $ cat ./Vagrantfile.localconfig
+        config.vm.provider :virtualbox do |vm|
+          vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
+        end
+
+* If you want to be able to SSH into your VM directly, add the
+  following to your `~/.ssh/config`:
+
+        Host dev
+          User vagrant
+          ForwardAgent yes
+          IdentityFile ~/.vagrant.d/insecure_private_key
+          HostName 10.1.1.254
+          StrictHostKeyChecking no
+          UserKnownHostsFile=/dev/null
+
+* To re-run Puppet, just SSH into your VM and run `govuk_puppet`.
