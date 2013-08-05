@@ -96,6 +96,7 @@ else
     config.vm.provider :vmware_fusion do |vm, override|
       override.vm.box = "precise64_vmware_fusion"
       override.vm.box_url = "http://files.vagrantup.com/precise64_vmware_fusion.box"
+      vm.vmx["displayName"] = "devvm"
     end
 
     config.vm.provider :virtualbox do |vm|
