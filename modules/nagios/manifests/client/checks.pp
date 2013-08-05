@@ -1,5 +1,6 @@
 class nagios::client::checks {
 
+  include nagios::client::check_linux_free_memory
   include nagios::client::check_rw_rootfs
   include nagios::client::check_upstart_status
 
