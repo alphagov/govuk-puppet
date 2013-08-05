@@ -208,8 +208,14 @@ define govuk::app (
   if $app_type == 'rack' {
     $title_escaped = regsubst($title, '\.', '_', 'G')
     $statsd_timer_prefix = "${::fqdn_underscore}.${title_escaped}"
+
+    $log_path = $log_format_is_json ? {
+      true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",
+      default => "/data/vhost/${vhost_full}/shared/log/production.log"
+    }
+
     govuk::logstream { "${title}-production-log":
-      logfile       => "/data/vhost/${vhost_full}/shared/log/production.log",
+      logfile       => $log_path,
       tags          => ['stdout', 'application'],
       fields        => {'application' => $title},
       enable        => $logstream,
