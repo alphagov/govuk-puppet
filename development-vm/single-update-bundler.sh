@@ -53,6 +53,7 @@ cd "../$REPO"
 if [ -f lock ]; then
   warn "skipped because 'lock' file exists"
 else
+  echo "Updating $REPO..."
   outputfile=$(mktemp -t update-bundler.XXXXXX)
   trap "rm -f '$outputfile'" EXIT
 

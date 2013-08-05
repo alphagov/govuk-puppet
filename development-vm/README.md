@@ -87,6 +87,12 @@ to install them:
 For many apps, they won't be usable until you create a user by hand in their
 database, or grab a copy of production data (see below).
 
+If you have failures then turn off the multi-process update as follows to allow you
+to see clearly which updates are failing. You may not need every application so may
+be able to ignore some errors.
+
+    dev$ PROC_COUNT=1 ./update-bundler.sh
+
 ## 5. Running the apps
 
 GOV.UK repositories live in `/var/govuk` (a directory which is shared between
