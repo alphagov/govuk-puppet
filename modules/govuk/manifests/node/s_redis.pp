@@ -38,7 +38,7 @@ class govuk::node::s_redis {
     check_command       => "check_nrpe!check_redis!${redis_port} 1,2 80,90 blocked_clients,connected_clients 5,800 10,1000",
     service_description => 'redis server health',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
   }
 
   @ufw::allow {

@@ -18,7 +18,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     service_description => 'low available disk space on /mnt/encrypted',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
   @@nagios::check { "check_mnt_encrypted_disk_inodes_${::hostname}":
@@ -26,7 +26,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     service_description => 'low available disk inodes on /mnt/encrypted',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
   }
 
   @@nagios::check { "check_var_lib_automongodbbackup_disk_space_${::hostname}":
@@ -34,7 +34,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     service_description => 'low available disk space on /var/lib/automongodbbackup',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
   @@nagios::check { "check_var_lib_automongodbbackup_disk_inodes_${::hostname}":
@@ -42,7 +42,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     service_description => 'low available disk inodes on /var/lib/automongodbbackup',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
   }
 
   # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
@@ -51,7 +51,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     service_description => 'low available disk space on /var/lib/mongodb',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
     }
 
   $internal_tld = extlookup('internal_tld', 'production')

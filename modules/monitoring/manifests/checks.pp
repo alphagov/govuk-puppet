@@ -23,7 +23,7 @@ class monitoring::checks {
     service_description => 'overdue publications in Whitehall',
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#overdue-publications-in-whitehall',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#overdue-publications-in-whitehall',
   }
   # END whitehall
 

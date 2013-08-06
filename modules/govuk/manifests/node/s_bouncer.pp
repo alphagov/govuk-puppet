@@ -15,6 +15,6 @@ class govuk::node::s_bouncer inherits govuk::node::s_base {
     critical     => 250,
     desc         => 'nginx high conn writing - upstream indicator',
     host_name    => $::fqdn,
-    document_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
+    notes_url    => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
   }
 }
