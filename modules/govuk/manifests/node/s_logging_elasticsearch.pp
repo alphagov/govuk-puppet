@@ -17,29 +17,18 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     number_of_replicas   => '1',
     minimum_master_nodes => '2',
     host                 => $::fqdn,
-    require              => [Class['java::oracle7::jre'],Ext4mount['/mnt/elasticsearch']],
+    require              => [
+      Class['java::oracle7::jre'],
+      Govuk::Mount['/mnt/elasticsearch']
+    ],
   }
 
-  ext4mount {'/mnt/elasticsearch':
+  govuk::mount { '/mnt/elasticsearch':
+    nagios_warn  => 10,
+    nagios_crit  => 5,
     mountoptions => 'defaults',
     disk         => '/dev/sdb1',
   }
-  @@nagios::check { "check_mnt_elasticsearch_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!10% 5% /mnt/elasticsearch',
-    service_description => 'low available disk space on /mnt/elasticsearch',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
-  }
-
-  @@nagios::check { "check_mnt_elasticsearch_disk_inodes_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_inodes_arg!10% 5% /mnt/elasticsearch',
-    service_description => 'low available disk inodes on /mnt/elasticsearch',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
-  }
-
 
   elasticsearch::plugin { 'redis-river':
     install_from => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',

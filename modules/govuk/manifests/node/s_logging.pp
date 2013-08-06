@@ -1,27 +1,14 @@
 class govuk::node::s_logging inherits govuk::node::s_base {
-  ext4mount {'/srv':
+  govuk::mount { '/srv':
+    nagios_warn  => 10,
+    nagios_crit  => 5,
     disk         => '/dev/sdb1',
     mountoptions => 'defaults',
-  }
-  @@nagios::check { "check_srv_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!10% 5% /srv',
-    service_description => 'low available disk space on /srv',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
-  }
-
-  @@nagios::check { "check_srv_disk_inodes_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_inodes_arg!10% 5% /srv',
-    service_description => 'low available disk inddoes on /srv',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
   }
 
   # we want this to be a syslog server.
   class { 'rsyslog::server':
-    require => Ext4mount['/srv'],
+    require => Govuk::Mount['/srv'],
   }
   # we also want it to send stuff to logstash
   class { 'rsyslog::logstash': }
@@ -55,8 +42,11 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     provider    => 'custom',
     jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
-    require     => [Curl::Fetch['logstash-monolithic'],Ext4mount['/srv']],
     initfile    => 'puppet:///modules/govuk/logstash.init.Debian',
+    require     => [
+      Curl::Fetch['logstash-monolithic'],
+      Govuk::Mount['/srv']
+    ],
   }
 
   #configure logstash inputs

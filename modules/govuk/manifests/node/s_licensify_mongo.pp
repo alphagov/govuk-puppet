@@ -3,46 +3,14 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
   include mongodb::server
   include java::openjdk6::jre
 
-  ext4mount { '/mnt/encrypted':
+  govuk::mount { '/mnt/encrypted':
     mountoptions => 'defaults',
     disk         => '/dev/mapper/encrypted-mongodb',
   }
 
-  ext4mount { '/var/lib/automongodbbackup':
+  govuk::mount { '/var/lib/automongodbbackup':
     mountoptions => 'defaults',
     disk         => extlookup('mongodb_backup_disk'),
-  }
-
-  @@nagios::check { "check_mnt_encrypted_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /mnt/encrypted',
-    service_description => 'low available disk space on /mnt/encrypted',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
-  }
-
-  @@nagios::check { "check_mnt_encrypted_disk_inodes_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_inodes_arg!20% 10% /mnt/encrypted',
-    service_description => 'low available disk inodes on /mnt/encrypted',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
-  }
-
-  @@nagios::check { "check_var_lib_automongodbbackup_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /var/lib/automongodbbackup',
-    service_description => 'low available disk space on /var/lib/automongodbbackup',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
-  }
-
-  @@nagios::check { "check_var_lib_automongodbbackup_disk_inodes_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_inodes_arg!20% 10% /var/lib/automongodbbackup',
-    service_description => 'low available disk inodes on /var/lib/automongodbbackup',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
   }
 
   # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
