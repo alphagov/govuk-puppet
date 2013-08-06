@@ -34,10 +34,10 @@ class akamai_logs {
   file { ['/mnt/akamai', '/var/log/akamai', '/mnt/akamai-workspace']:
     ensure  => directory,
     owner   => $user,
-    require => Ext4mount['akamai-mount'],
+    require => Govuk::Mount['akamai-mount'],
   }
 
-  ext4mount { 'akamai-mount':
+  govuk::mount { 'akamai-mount':
     mountpoint   => '/mnt',
     disk         => '/dev/sdb1',
     mountoptions => 'errors=remount-ro',
