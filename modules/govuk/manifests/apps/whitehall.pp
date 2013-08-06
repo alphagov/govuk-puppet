@@ -30,7 +30,7 @@ class govuk::apps::whitehall(
   if $configure_frontend == true {
 
     $asset_config_in_platform = $::govuk_platform ? {
-      'development' => "",
+      'development' => '',
       default => "location /government/assets {
         expires max;
         add_header Cache-Control public;
