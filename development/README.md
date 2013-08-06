@@ -12,6 +12,10 @@ set you up with a [VirtualBox][2] VM, managed and configured by
 software (such as VMWare) for your development VM, you may find
 instructions for doing so [on the wiki][4].
 
+Either way, you will need virtualisation enabled in your BIOS, otherwise it
+won't work. This tends to be enabled by default on Macs, but is worth
+checking for other manufacturers.
+
 [1]: http://www.12factor.net/dev-prod-parity
 [2]: https://www.virtualbox.org/
 [3]: http://vagrantup.com/
