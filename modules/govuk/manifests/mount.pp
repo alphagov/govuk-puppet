@@ -31,11 +31,14 @@ define govuk::mount(
   $mountpoint = $title
 ) {
   $mountpoint_escaped = regsubst($mountpoint, '/', '_', 'G')
+  $exclude_environments = ['vagrant']
 
-  ext4mount { $title:
-    disk         => $disk,
-    mountoptions => $mountoptions,
-    mountpoint   => $mountpoint,
+  unless $::environment in $exclude_environments {
+    ext4mount { $title:
+      disk         => $disk,
+      mountoptions => $mountoptions,
+      mountpoint   => $mountpoint,
+    }
   }
 
   @@nagios::check { "check${mountpoint_escaped}_disk_space_${::hostname}":
