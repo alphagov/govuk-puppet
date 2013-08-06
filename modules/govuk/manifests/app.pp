@@ -30,6 +30,14 @@ define govuk::app (
   $logstream = true,
 
   #
+  # log_format_is_json: logstream file is logstash JSON format
+  #
+  # If set to true, logstream will consume this as a logstash JSON
+  # event formatted stream.
+  #
+  $log_format_is_json = false,
+
+  #
   # health_check_path: path at which to check the status of the application.
   #
   # This is used to export health checks to ensure the application is running
@@ -198,11 +206,27 @@ define govuk::app (
   }
 
   if $app_type == 'rack' {
+    $title_escaped = regsubst($title, '\.', '_', 'G')
+    $statsd_timer_prefix = "${::fqdn_underscore}.${title_escaped}"
+
+    $log_path = $log_format_is_json ? {
+      true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",
+      default => "/data/vhost/${vhost_full}/shared/log/production.log"
+    }
+
     govuk::logstream { "${title}-production-log":
-      logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
-      tags    => ['stdout', 'application'],
-      fields  => {'application' => $title},
-      enable  => $logstream,
+      logfile       => $log_path,
+      tags          => ['stdout', 'application'],
+      fields        => {'application' => $title},
+      enable        => $logstream,
+      json          => $log_format_is_json,
+      statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
+      statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
+                          value => '@fields.duration'},
+                        {metric => "${statsd_timer_prefix}.time_db",
+                          value => '@fields.db'},
+                        {metric => "${statsd_timer_prefix}.time_view",
+                          value => '@fields.view'}]
     }
   }
 

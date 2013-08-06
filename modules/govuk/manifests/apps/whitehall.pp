@@ -19,6 +19,7 @@ class govuk::apps::whitehall(
     vhost                  => $vhost,
     port                   => $port,
     logstream              => true,
+    log_format_is_json     => true,
     health_check_path      => '/healthcheck',
     enable_nginx_vhost     => false,
     nagios_cpu_warning     => 300,
