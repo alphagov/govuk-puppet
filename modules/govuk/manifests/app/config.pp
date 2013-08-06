@@ -152,7 +152,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
       service_description => "${title} app unicornherder running",
       host_name           => $::fqdn,
-      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
     }
   }
   @@nagios::check { "check_app_${title}_upstart_up_${::hostname}":

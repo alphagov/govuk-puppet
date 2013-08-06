@@ -26,7 +26,7 @@ class nagios::client::checks {
     service_description => 'low available disk space',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
   @@nagios::check { "check_root_disk_space_${::hostname}":
@@ -34,14 +34,14 @@ class nagios::client::checks {
     service_description => 'low available disk space on root',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
   @@nagios::check { "check_root_disk_inodes_${::hostname}":
     check_command       => 'check_nrpe!check_disk_inodes_arg!20% 10% /',
     service_description => 'low available disk inodes on root',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
   if $::lsbdistcodename == 'precise' {
@@ -51,7 +51,7 @@ class nagios::client::checks {
       service_description => 'low available disk space on /boot',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#boot-partition-is-full',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#boot-partition-is-full',
       }
 
   }
@@ -66,7 +66,7 @@ class nagios::client::checks {
     check_command       => 'check_nrpe_1arg!check_zombie_procs',
     service_description => 'high zombie procs',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#high-zombie-procs',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#high-zombie-procs',
   }
 
   @@nagios::check { "check_procs_${::hostname}":

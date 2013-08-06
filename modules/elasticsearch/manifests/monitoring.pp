@@ -6,7 +6,7 @@ class elasticsearch::monitoring {
     warning          => 150,
     critical         => 300,
     host_name        => $::fqdn,
-    document_url     => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
+    notes_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
   }
 
 }

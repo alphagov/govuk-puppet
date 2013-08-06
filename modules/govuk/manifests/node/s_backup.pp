@@ -15,7 +15,7 @@ class govuk::node::s_backup {
       service_description => 'low available disk space on /data/backups',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
     }
 
     @@nagios::check { "check_data_backups_disk_inodes_${::hostname}":
@@ -23,7 +23,7 @@ class govuk::node::s_backup {
       service_description => 'low available disk inodes on /data/backups',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
     }
 
     #To accommodate futzing around with databases, we install a MySQL server

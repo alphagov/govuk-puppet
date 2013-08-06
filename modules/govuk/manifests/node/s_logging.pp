@@ -8,7 +8,7 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     service_description => 'low available disk space on /srv',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
   @@nagios::check { "check_srv_disk_inodes_${::hostname}":
@@ -16,7 +16,7 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     service_description => 'low available disk inddoes on /srv',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-inodes',
   }
 
   # we want this to be a syslog server.

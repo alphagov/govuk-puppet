@@ -39,13 +39,13 @@ class govuk::node::s_logs_redis {
     check_command       => "check_nrpe!check_redis!${redis_port} 1,2 80,90 blocked_clients,connected_clients 5,800 10,1000",
     service_description => 'redis server health',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
   }
   @@nagios::check { "check_redis_list_logs${::hostname}":
     check_command       => "check_nrpe!check_redis_list!${redis_port} LLEN,logs 10000 30000",
     service_description => 'redis list length for logs',
     host_name           => $::fqdn,
-    document_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
   }
 
   # tagalog on all nodes forward directly to here.

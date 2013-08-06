@@ -32,14 +32,17 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
-# [*from*]
-#   Single string representing a time period passed to `check_graphite_args`.
-#   Default: '5minutes'
-#
 # [*args*]
 #   Single string of additional arguments passed to `check_graphite_args`.
 #   Default: ''
 #
+# [*from*]
+#   Single string representing a time period passed to `check_graphite_args`.
+#   Default: '5minutes'
+#
+# [*notes_url*]
+#   Passed to `nagios::check`. See there for documentation.
+#   Default: undef
 #
 define nagios::check::graphite(
   $target,
@@ -49,7 +52,7 @@ define nagios::check::graphite(
   $host_name,
   $args = '',
   $from = '5minutes',
-  $document_url = ''
+  $notes_url = undef
 ) {
   $check_command = 'check_graphite_metric_args'
   $args_real = "-F ${from} ${args}"
@@ -68,7 +71,7 @@ width=${graph_width}&height=${graph_height}&\
 target=${url_encoded_target}&\
 target=alias(dashed(constantLine(${warning})),%22warning%22)&\
 target=alias(dashed(constantLine(${critical})),%22critical%22)",
-    document_url               => $document_url,
+    notes_url                  => $notes_url,
     attempts_before_hard_state => 1,
   }
 }

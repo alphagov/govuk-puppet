@@ -37,9 +37,10 @@
 #   shows very recent trends for the service. This will be included in the
 #   Nagios UI and email alerts.
 #
-# [*document_url*]
-#   Custom URL of documentation to be included in the alert.
-#
+# [*notes_url*]
+#   Documentation URL for more information about how to diagnose the service
+#   and why the alert might exist. Should link to a section of the
+#   "opsmanual". This will be included in the Nagios UI and email alerts.
 #
 define nagios::check (
   $host_name,
@@ -49,7 +50,7 @@ define nagios::check (
   $notification_period        = undef,
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
-  $document_url               = undef,
+  $notes_url                  = undef,
   $attempts_before_hard_state = undef
 ) {
 
