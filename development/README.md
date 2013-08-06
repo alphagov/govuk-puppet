@@ -55,15 +55,12 @@ the following commands will bootstrap your VM:
     cd ~/govuk/puppet/development
     ./bootstrap.sh
 
-and follow the instructions.
+and follow the instructions. Your machine will be automatically
+provisioned so you shouldn't have to do anything once it's finished.
 
 Once your VM is running you should be able to SSH into it:
 
     vagrant ssh
-
-and install the Puppet manifests with:
-
-    govuk_puppet
 
 and that's it. Now you can get to work!
 
