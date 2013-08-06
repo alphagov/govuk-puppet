@@ -13,4 +13,10 @@ class nagios::client::check_linux_free_memory {
   @nagios::nrpe_config { 'check_linux_free_memory':
     source  => 'puppet:///modules/nagios/etc/nagios/nrpe.d/check_linux_free_memory.cfg',
   }
+
+  @@nagios::check { "check_linux_free_memory_${::hostname}":
+    check_command       => 'check_nrpe!check_linux_free_memory',
+    service_description => 'percentage of memory free',
+    host_name           => $::fqdn,
+  }
 }
