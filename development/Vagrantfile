@@ -113,10 +113,12 @@ else
     # Use VMWare Fusion native shared folders
     config.vm.provider :vmware_fusion do |vm, override|
       override.vm.synced_folder "../..", "/var/govuk"
+      override.vm.provision :shell, :inline => "NO_GIT_PULL=1 /var/govuk/puppet/tools/puppet-apply-dev"
     end
 
     config.vm.provider :virtualbox do |vm, override|
       override.vm.synced_folder "../..", "/var/govuk", :nfs => true
+      override.vm.provision :shell, :inline => "NO_GIT_PULL=1 govuk_puppet"
     end
 
     # You may want to up the memory / CPUs to get better performance in the VM.
