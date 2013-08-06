@@ -30,14 +30,11 @@ class govuk::apps::whitehall(
   if $configure_frontend == true {
 
     $asset_config_in_platform = $::govuk_platform ? {
-      'development' => "
-        proxy_set_header Host 'whitehall-admin.${app_domain}';
-        proxy_pass http://whitehall-admin.${app_domain};
-      ",
-      default => "
+      'development' => "",
+      default => "location /government/assets {
         expires max;
         add_header Cache-Control public;
-      ",
+      }",
     }
 
     govuk::app::nginx_vhost { 'whitehall-frontend':
@@ -45,9 +42,8 @@ class govuk::apps::whitehall(
       protected          => $vhost_protected,
       app_port           => $port,
       nginx_extra_config => "
-      location /government/assets {
-        ${asset_config_in_platform}
-      }
+      ${asset_config_in_platform}
+
       location /government/uploads {
         proxy_set_header Host 'whitehall-admin.${app_domain}';
         proxy_pass http://whitehall-admin.${app_domain};
