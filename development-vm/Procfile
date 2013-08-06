@@ -63,3 +63,6 @@ datainsight_insidegov_recorder:       ./run_in.sh ../datainsight-insidegov-recor
 # canary-frontend: doesn't currently use a port. reserved 3200
 # canary-backend: doesn't currently use a port. reserved 3201
 # kibana: reserved 3202
+
+# This should really be a separate App instead of another copy of write, but that change is pending
+backdrop_admin:       ./run_in.sh ../backdrop ./start-app.sh write 3203
