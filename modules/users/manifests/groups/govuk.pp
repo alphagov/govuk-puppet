@@ -43,6 +43,7 @@ class users::groups::govuk {
   include users::henryhadlow
   include users::jabley
   include users::jackfranklin
+  include users::jacobashdown
   include users::james
   include users::jamiec
   include users::jimg
