@@ -39,4 +39,30 @@ describe 'nagios::check', :type => :define do
          with_content(/use\s+govuk_regular_service/)
     }
   end
+
+  [:action_url, :notes_url].each do |param|
+    context param do
+      let(:title) { 'bonus' }
+
+      context "undef (default)" do
+        let(:params) { param_defaults }
+
+        it {
+          should_not contain_file('/etc/nagios3/conf.d/nagios_host_bruce-forsyth/bonus.cfg').
+            with_content(/#{param}/)
+        }
+      end
+
+      context "https://graphite.example.com/render" do
+        let(:params) { param_defaults.merge({
+          param => "https://url.example.com/",
+        })}
+
+        it {
+          should contain_file('/etc/nagios3/conf.d/nagios_host_bruce-forsyth/bonus.cfg').
+            with_content(/^\s*#{param}\s+https:\/\/url\.example\.com\/$/)
+        }
+      end
+    end
+  end
 end
