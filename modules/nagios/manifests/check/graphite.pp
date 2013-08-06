@@ -40,6 +40,10 @@
 #   Single string representing a time period passed to `check_graphite_args`.
 #   Default: '5minutes'
 #
+# [*document_url*]
+#   FIXME: Provide backwards compat when moving to `notes_url`. To be
+#   removed after first deployment.
+#
 # [*notes_url*]
 #   Passed to `nagios::check`. See there for documentation.
 #   Default: undef
@@ -52,6 +56,7 @@ define nagios::check::graphite(
   $host_name,
   $args = '',
   $from = '5minutes',
+  $document_url = 'DEPRECATED',
   $notes_url = undef
 ) {
   $check_command = 'check_graphite_metric_args'

@@ -42,6 +42,14 @@
 #   and why the alert might exist. Should link to a section of the
 #   "opsmanual". This will be included in the Nagios UI and email alerts.
 #
+# [*graph_url*]
+#   FIXME: Provide backwards compat when moving to `action_url`. To be
+#   removed after first deployment.
+#
+# [*document_url*]
+#   FIXME: Provide backwards compat when moving to `notes_url`. To be
+#   removed after first deployment.
+#
 define nagios::check (
   $host_name,
   $ensure                     = 'present',
@@ -51,6 +59,8 @@ define nagios::check (
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
   $notes_url                  = undef,
+  $graph_url                  = 'DEPRECATED',
+  $document_url               = 'DEPRECATED',
   $attempts_before_hard_state = undef
 ) {
 
