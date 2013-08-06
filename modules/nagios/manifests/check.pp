@@ -33,14 +33,13 @@
 #   Default: govuk_regular_service
 #
 # [*action_url*]
-#   Custom URL to be included in the alert.
-#   FIXME: Is this the same as `document_url`?
+#   Additional diagnostics URL. Typically a link to a graph in Graphite that
+#   shows very recent trends for the service. This will be included in the
+#   Nagios UI and email alerts.
 #
 # [*document_url*]
 #   Custom URL of documentation to be included in the alert.
 #
-# [*graph_url*]
-#   Custom URL of a graph to be included in the alert.
 #
 define nagios::check (
   $host_name,
@@ -51,7 +50,6 @@ define nagios::check (
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
   $document_url               = undef,
-  $graph_url                  = undef,
   $attempts_before_hard_state = undef
 ) {
 

@@ -1,8 +1,8 @@
 # == Define: nagios::check::graphite
 #
 # Wrapper for `nagios::check` that references `check_graphite` and creates
-# an alert with the appropriate `graph_url` link containing warning and
-# critical bands.
+# an alert with the appropriate `action_url` link to a graph containing
+# warning and critical bands.
 #
 # It is deliberately quite simple and doesn't take many arguments, which
 # will result in the defaults from `nagios::check`. It can be extended as
@@ -63,7 +63,7 @@ define nagios::check::graphite(
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
-    graph_url                  => "https://graphite.${monitoring_domain_suffix}/render/?\
+    action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
 target=${url_encoded_target}&\
 target=alias(dashed(constantLine(${warning})),%22warning%22)&\
