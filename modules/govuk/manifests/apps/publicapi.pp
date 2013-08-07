@@ -181,6 +181,21 @@ class govuk::apps::publicapi {
       'enabled' => true,
     },
     {
+      'path' => 'vehicle-excise-duty/api/services',
+      'name' => 'evl_services_volumetrics',
+      'enabled' => true,
+    },
+    {
+      'path' => 'vehicle-excise-duty/api/channels',
+      'name' => 'evl_channel_volumetrics',
+      'enabled' => true,
+    },
+    {
+      'path' => 'vehicle-excise-duty/api/failures',
+      'name' => 'evl_services_failures',
+      'enabled' => true,
+    },
+    {
       'path' => 'test/api/test',
       'name' => 'test',
       'enabled' => $enable_backdrop_test_bucket,
