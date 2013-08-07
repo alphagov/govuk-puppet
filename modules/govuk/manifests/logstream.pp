@@ -34,7 +34,9 @@ define govuk::logstream (
 
   # TODO: Change the `enable => false` to a more Puppet-esque
   # `ensure => absent` interface?
-  if ($enable == true and $::govuk_platform != 'development') {
+  if ($::govuk_platform == 'development') {
+    # noop
+  } elsif ($enable == true) {
     file { "/etc/init/logstream-${title}.conf":
       ensure    => present,
       content   => template('govuk/logstream.erb'),
@@ -48,7 +50,6 @@ define govuk::logstream (
       subscribe => Class['govuk::logging'],
     }
   } else {
-
     file { "/etc/init/logstream-${title}.conf":
       ensure  => absent,
       require => Exec["logstream-STOP-${title}"],
