@@ -2,6 +2,7 @@
 
 Defaults env_reset
 Defaults env_keep+="FACTER_govuk_class FACTER_govuk_platform FACTER_govuk_provider FACTER_govuk_java_version"
+Defaults secure_path=/usr/lib/rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 
 # User privilege specification
 root ALL=(ALL) ALL
