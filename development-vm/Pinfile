@@ -2,6 +2,7 @@
 # See https://github.com/JordanHatch/bowler for some more info
 
 process :asset_manager
+process :backdrop_admin
 process :backdrop_read
 process :backdrop_write => [:signon]
 process :bouncer
