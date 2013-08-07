@@ -97,5 +97,6 @@ exec sudo \
   RUBYOPT="-W0" \
   FACTER_govuk_class=${FACTER_govuk_class:-development} \
   FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
+  RBENV_VERSION=1.9.3 \
   puppet apply manifests/site.pp \
   --environment development "$@" 2>&1 | egrep -iv "warning:.+storeconfigs"
