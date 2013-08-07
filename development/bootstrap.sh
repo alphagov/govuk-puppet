@@ -29,7 +29,7 @@ if ! which vagrant > /dev/null 2>&1; then
 fi
 
 if [ "$(uname -s)" != "Darwin" ]; then
-    warning "This script is only tested on OSX, be warned!"
+    warn "This script is only tested on OSX, be warned!"
 else
     if ! $(vagrant --help 2> /dev/null | grep dns > /dev/null); then
         info "Installing vagrant-dns"
