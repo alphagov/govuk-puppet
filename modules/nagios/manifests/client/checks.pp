@@ -116,5 +116,6 @@ class nagios::client::checks {
     check_command       => 'check_nrpe_1arg!check_ntp_time',
     service_description => 'ntp drift too high',
     host_name           => $::fqdn,
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#ntp-drift-too-high',
   }
 }
