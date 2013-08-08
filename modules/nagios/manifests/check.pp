@@ -46,10 +46,6 @@
 #   FIXME: Provide backwards compat when moving to `action_url`. To be
 #   removed after first deployment.
 #
-# [*document_url*]
-#   FIXME: Provide backwards compat when moving to `notes_url`. To be
-#   removed after first deployment.
-#
 define nagios::check (
   $host_name,
   $ensure                     = 'present',
@@ -60,7 +56,6 @@ define nagios::check (
   $action_url                 = undef,
   $notes_url                  = undef,
   $graph_url                  = 'DEPRECATED',
-  $document_url               = 'DEPRECATED',
   $attempts_before_hard_state = undef
 ) {
 
