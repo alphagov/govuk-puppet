@@ -17,7 +17,7 @@ process :errbit
 process :fact_cave
 process :fco
 process :fco_services
-process :feedback => [:static]
+process :feedback => [:static, :support]
 process :frontend => [:static, :contentapi, :rummager]
 process :imminence
 process :jobs
