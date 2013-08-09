@@ -11,6 +11,7 @@ class govuk::apps::frontend(
     vhost_protected        => $vhost_protected,
     vhost_aliases          => ['private-frontend', 'www'], # TODO: Remove the www alias once we're sure it's not being used.
     health_check_path      => '/',
+    log_format_is_json     => true,
     nginx_extra_config     => "location @specialist {
   proxy_set_header Host whitehall-frontend.${app_domain};
   proxy_pass http://whitehall-frontend.${app_domain};
