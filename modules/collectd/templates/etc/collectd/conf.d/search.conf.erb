@@ -1,0 +1,8 @@
+<Plugin curl_json>
+  <URL "http://localhost:<%= @app_port %>/_status">
+    Instance "app-search-queues"
+    <Key "queues/*/*">
+      Type gauge
+    </Key>
+  </URL>
+</Plugin>
