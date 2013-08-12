@@ -127,9 +127,9 @@ class monitoring::checks {
   }
 
   nagios::check { 'check_netstorage_up_to_date':
-    check_command => 'check_netstorage_age',
-    host_name     => $::fqdn,
-    service_description => "netstorage site out of date",
+    check_command       => 'check_netstorage_age',
+    host_name           => $::fqdn,
+    service_description => 'netstorage site out of date',
   }
 
   # START support
