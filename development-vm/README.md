@@ -37,47 +37,18 @@ should be run in the shell on the development VM.
     * GitHub.com (public) and be added to the `alphagov` organisation
     * GitHub Enterprise (private) and be added to the `gds` organisation
   * You should have [generated and registered](https://help.github.com/categories/56/articles) SSH key pairs for your Mac for both your GitHub accounts (later you may need to do this on your vagrant box too).
-  * You should have installed [VirtualBox](https://www.virtualbox.org/) on
-    your machine (**NB**: you don't need to do any more than install
-    VirtualBox. The steps that follow will create your VM.)
 
 ## 2. Install dev tools and the VM
 
-  1. Decide where you want to check out GOV.UK code repositories. Maybe `~/govuk`?
-  2. Download a copy of [install.sh](https://github.gds/gds/development/blob/master/install.sh) into this directory.
-  3. Run the following:
-
-        mac$ cd ~/govuk
-        mac$ sh install.sh
-
-This script will install git, vagrant, and a development virtual machine.
+You probably want
+[GDS Boxen](https://github.com/alphagov/gds-boxen). If you don't want
+that, you just need Git and the information in the next section.
 
 ## 3. Running the VM
 
-### 3.1 Switching between Ubuntu versions
-
-The default VM is currently version 10.04 (lucid). You can switch versions by destroying your current VM and setting an environment variable, then bringing up the VM again.
-
-    mac$ cd development
-    mac$ vagrant destroy
-    mac$ export govuk_dev_dist=lucid; vagrant up
-    mac$ vagrant destroy
-    mac$ export govuk_dev_dist=precise; vagrant up
-
-### 3.2 Starting Vagrant
-
-    mac$ cd development
-    mac$ vagrant up
-    mac$ vagrant ssh
-
-Once on the Virtual Machine, you should provision the development environment
-by running puppet:
-
-    dev$ govuk_puppet
-
-This may take a long time on first run, but *should* exit with no errors.
-
-Note, if you want to pull and push from repos from within of your virtual machine, then you will need to generate and register SSH keys with both Github.com and GitHub Enterprise from within your VM in the normal way.
+See
+[the Puppet development README](https://github.gds/gds/puppet/blob/master/development/README.md)
+for more information.
 
 ## 4. Set up the apps
 
