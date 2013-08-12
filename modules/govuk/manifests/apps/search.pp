@@ -15,5 +15,9 @@ class govuk::apps::search( $port = 3009 ) {
     ',
   }
 
+  class { 'collectd::plugin::search':
+    app_port => $port
+  }
+
   govuk::delayed_job::worker { 'search': }
 }
