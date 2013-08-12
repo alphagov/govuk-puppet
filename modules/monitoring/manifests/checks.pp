@@ -122,6 +122,16 @@ class monitoring::checks {
   }
   # END ssl certificate checks
 
+  nagios::check_config {'http_age':
+    source => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_http_age.cfg',
+  }
+
+  nagios::check { 'check_netstorage_up_to_date':
+    check_command       => 'check_netstorage_age',
+    host_name           => $::fqdn,
+    service_description => 'netstorage site out of date',
+  }
+
   # START support
   nagios::check::graphite { 'check_support_default_queue_size':
     target    => 'stats.gauges.govuk.app.support.queues.default',
