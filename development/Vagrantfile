@@ -101,6 +101,9 @@ else
 
     config.vm.provider :virtualbox do |vm|
       vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+      if config.respond_to? :cache
+        config.cache.auto_detect = true
+      end
     end
 
     # Static IP for NFS and DNS
