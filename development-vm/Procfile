@@ -47,6 +47,7 @@ calculators:           ./run_in.sh ../calculators bundle exec rails s -p 3047
 fact_cave:             ./run_in.sh ../fact-cave bundle exec rails s -p 3048
 bouncer:               ./run_in.sh ../bouncer bundle exec rackup -p 3049
 fco_services:          ./run_in.sh ../fco-services bundle exec rails s -p 3050
+# hmrc_contacts: grabbing port 3051 in preview only
 
 datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
 datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
