@@ -64,7 +64,7 @@ sub vcl_recv {
   } else if (req.url ~ "^/performance/?(\?.*)?$|^/performance/dashboard") {
     <%= set_backend('datainsight_frontend') %>
   } else if (req.url ~ "^/transactions-explorer") {
-    <%= set_backend('transactions_esplorer') %>
+    <%= set_backend('transactions_explorer') %>
   } else if (req.url ~ "^/performance") {
     <%= set_backend('limelight') %>
   } else if (req.url ~ "^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
