@@ -71,6 +71,7 @@ class users::groups::govuk {
   include users::roc
   include users::rthorn
   include users::rujmah
+  include users::snehaso
   include users::ssharpe
   include users::stevelaing
   include users::timpaul
