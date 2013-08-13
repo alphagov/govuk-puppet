@@ -94,3 +94,35 @@ and that's it. Now you can get to work!
           UserKnownHostsFile=/dev/null
 
 * To re-run Puppet, just SSH into your VM and run `govuk_puppet`.
+
+## Troubleshooting
+
+### Errors loading the Vagrantfile
+
+If you're encountering errors loading the `Vagrantfile`, check you're running the right version:
+
+    vagrant --version
+
+if it reports a version below `1.2.x`, you're out of date. This can be
+verified by running `which rbenv`, which will likely report a path
+like `/opt/boxen/rbenv/shims/vagrant`.
+
+This means you're still running the old Gem installed version of
+Vagrant, which can be forcibly removed by running the following
+script (directly on the terminal):
+
+```shell
+for version in `rbenv versions --bare`; do
+    rbenv local $version
+    gem uninstall vagrant
+    gem uninstall vagrant-dns
+done
+```
+
+then run `rbenv rehash` to make sure all the Gem installed shims are
+removed from your `PATH`.
+
+### Errors with NFS
+
+You're likely on the production VPN. Disconnect the VPN and `reload`
+your VM.
