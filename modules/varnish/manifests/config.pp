@@ -72,7 +72,8 @@ class varnish::config {
     'static',
     'tariff',
     'transaction_wrappers',
-    'whitehall_frontend'
+    'transactions_explorer',
+    'whitehall_frontend',
   ]
 
   $app_domain = extlookup('app_domain')
