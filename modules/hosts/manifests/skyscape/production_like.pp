@@ -193,6 +193,7 @@ class hosts::skyscape::production_like {
       "tariff.${app_domain}",
       "tariff-demo.${app_domain}",
       "transaction-wrappers.${app_domain}",
+      "transactions-explorer.${app_domain}",
       "whitehall-frontend.${app_domain}",
     ]
   }
