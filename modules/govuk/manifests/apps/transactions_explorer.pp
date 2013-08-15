@@ -7,9 +7,9 @@ class govuk::apps::transactions_explorer {
   $te_root = "${app_name}.${app_domain}"
 
   $logpath = '/var/log/nginx'
-  $access_log = "${app_name}-access.log"
-  $json_access_log = "${app_name}-json.event.access.log"
-  $error_log = "${app_name}-error.log"
+  $access_log = "${vhost_full}-access.log"
+  $json_access_log = "${vhost_full}-json.event.access.log"
+  $error_log = "${vhost_full}-error.log"
 
   # Whether to enable SSL. Used by template.
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
