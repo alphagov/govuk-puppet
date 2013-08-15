@@ -32,6 +32,7 @@ class govuk::node::s_frontend_lb {
       'limelight',
       'smartanswers',
       'transaction-wrappers',
+      'transactions-explorer',
       'tariff',
       'tariff-demo',
     ]:
