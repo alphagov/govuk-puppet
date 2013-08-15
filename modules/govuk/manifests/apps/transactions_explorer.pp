@@ -22,6 +22,9 @@ class govuk::apps::transactions_explorer {
     vhost_full => $vhost_full,
   }
 
+  nginx::config::ssl {$vhost_full:
+    cert_type => 'wildcard_alphagov',
+  }
   nginx::config::site { $te_root:
     content => template('nginx/transactions-explorer-vhost.conf'),
   }
