@@ -48,6 +48,13 @@ you'll want these things:
     vagrant::plugin { 'vagrant-dns': }
     include projects::puppet
 
+If your profile is based on
+
+    include gds-development
+
+then you will already have these, and will automatically get any
+improvements made in that module. This is the recommended approach.
+
 ## 2. Booting your VM
 
 Assuming your Puppet code is checked out into:
