@@ -54,6 +54,7 @@ class hosts::preview {
   host { "transaction-wrappers.${app_domain}":   ip => '10.58.253.150' }
   host { "limelight.${app_domain}":              ip => '10.58.253.150' }
   host { "fco-services.${app_domain}":           ip => '10.58.253.150' }
+  host { "transactions-explorer.${app_domain}":  ip => '10.58.253.150' }
 
   host { "datainsight-format-success-recorder.${app_domain}":  ip => '10.32.49.43' }
   host { "datainsight-insidegov-recorder.${app_domain}":       ip => '10.32.49.43' }
