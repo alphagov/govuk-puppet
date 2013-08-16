@@ -29,6 +29,7 @@ mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 
 # Our modules on the Forge.
+mod 'gdsoperations/auditd', '0.0.1'
 mod 'gdsoperations/rbenv', '1.0.1'
 mod 'gdsoperations/resolvconf', '0.2.0'
 mod 'gdsoperations/openconnect', '0.0.5'
