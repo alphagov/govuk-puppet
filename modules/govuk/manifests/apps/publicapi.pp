@@ -181,17 +181,17 @@ class govuk::apps::publicapi {
       'enabled' => true,
     },
     {
-      'path' => 'vehicle-excise-duty/api/services',
+      'path' => 'vehicle-licensing/api/services',
       'name' => 'evl_services_volumetrics',
       'enabled' => true,
     },
     {
-      'path' => 'vehicle-excise-duty/api/channels',
+      'path' => vehicle-licensing/api/channels',
       'name' => 'evl_channel_volumetrics',
       'enabled' => true,
     },
     {
-      'path' => 'vehicle-excise-duty/api/failures',
+      'path' => vehicle-licensing/api/failures',
       'name' => 'evl_services_failures',
       'enabled' => true,
     },
