@@ -3,28 +3,29 @@ class backup::assets {
   ensure_packages(['duplicity','python-rackspace-cloudfiles'])
 
   cron { 'backup-clean':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/clean -c /etc/govuk/memstore-credentials',
+    command => "/usr/local/bin/memstore-backup.sh -d
+    /mnt/uploads/whitehall/clean -c /etc/govuk/memstore-credentials -f $fqdn -s $name -n nagios.cluster",
     user    => 'root',
     hour    => 5,
     minute  => 13,
     require => File['/usr/local/bin/memstore-backup.sh'],
   }
   cron { 'backup-asset-manager':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/asset-manager -c /etc/govuk/memstore-credentials',
+    command => "/usr/local/bin/memstore-backup.sh -d /mnt/uploads/asset-manager -c /etc/govuk/memstore-credentials -f $fqdn -s $title -n nagios.cluster",
     user    => 'root',
     hour    => 4,
     minute  => 13,
     require => File['/usr/local/bin/memstore-backup.sh'],
   }
   cron { 'backup-incoming':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/incoming -c /etc/govuk/memstore-credentials',
+    command => "/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/incoming -c /etc/govuk/memstore-credentials -f $fqdn -s $title -n nagios.cluster",
     user    => 'root',
     hour    => 4,
     minute  => 20,
     require => File['/usr/local/bin/memstore-backup.sh'],
   }
   cron { 'backup-draft-clean':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/draft-clean -c /etc/govuk/memstore-credentials',
+    command => "/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/draft-clean -c /etc/govuk/memstore-credentials -f $fqdn -s $title -n nagios.cluster",
     user    => 'root',
     hour    => 4,
     minute  => 31,
@@ -32,7 +33,7 @@ class backup::assets {
   }
 
   cron { 'backup-draft-incoming':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/draft-incoming -c /etc/govuk/memstore-credentials',
+    command => "/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/draft-incoming -c /etc/govuk/memstore-credentials -f $fqdn -s $title -n nagios.cluster",
     user    => 'root',
     hour    => 4,
     minute  => 41,

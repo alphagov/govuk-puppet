@@ -7,8 +7,6 @@
 # export CLOUDFILES_USERNAME=redacted
 # export CLOUDFILES_APIKEY=redacted
 # export PASSPHRASE=redacted
-# 
-# taken from https://github.gds/gds/memstore-backup
 
 
 
@@ -16,11 +14,14 @@
 CREDENTIALS="credentials"
 LOGFILE=/var/log/duplicity.log
 
-while getopts "c:d:l:vh" option
+while getopts "c:d:f:s:n:l:vh" option
 do
   case $option in
    c ) CREDENTIALS=$OPTARG ;; 
    d ) DIRTOBACKUP=$OPTARG ;;
+   f ) FQDN=$OPTARG ;;
+   s ) SERVICE_DESC=$OPTARG ;;
+   n ) NAGIOS_HOST=$OPTARG ;;
    l ) LOGFILE=$OPTARG ;;
    v ) VERBOSE=1 ;; 
    h ) HELP=1 ;;
@@ -63,6 +64,17 @@ UPLOAD_TO_CONTAINER=backup-$DIRNAME
 export CLOUDFILES_AUTHURL=https://auth.storage.memset.com/v1.0
 source $CREDENTIALS
 
+if [ -z $NAGIOS_HOST ]
+then
+NAGIOS_CODE=1
+NAGIOS_MESSAGE="WARNING: Asset backup failed"
+
+function nagios_passive () { 
+printf "$FQDN\t$SERVICE_DESC\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H $NAGIOS_HOST >/dev/null
+}
+trap nagios_passive EXIT
+fi
+
 # make it be very quiet.
 if [  -z $VERBOSE ] 
 then
@@ -87,9 +99,12 @@ then
   then
     echo $MESSAGE
   fi
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE=$MESSAGE
 else
   MESSAGE="$APPNAME: $DIRBACKUP failed in T:$TOTALTIME seconds"
   logger -i -t $APPNAME $MESSAGE
+
   if [ ! -z $VERBOSE ]
   then
     echo $MESSAGE
