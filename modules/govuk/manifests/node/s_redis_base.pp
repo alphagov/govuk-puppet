@@ -44,4 +44,6 @@ class govuk::node::s_redis_base {
   @logrotate::conf { 'redis':
     matches => '/var/log/redis_*.log',
   }
+
+  collectd::plugin::redis { 'redis-collectd': }
 }
