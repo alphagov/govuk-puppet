@@ -1,6 +1,7 @@
 class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
   include assets::user
   include daemontools # provides setlock
+  include backup::assets
 
   cron { 'virus-check':
     ensure => 'absent'
