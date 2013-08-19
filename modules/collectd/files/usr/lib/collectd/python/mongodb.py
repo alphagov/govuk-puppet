@@ -5,7 +5,6 @@
 import collectd
 from pymongo import Connection
 
-
 class MongoDB(object):
 
     def __init__(self):
@@ -63,6 +62,11 @@ class MongoDB(object):
         self.lockTotalTime = server_status['globalLock']['totalTime']
         self.lockTime = server_status['globalLock']['lockTime']
 
+        # Information on flushes to disk. Uses a gauge as we want to
+        # store the raw value rather than a derived (relative delta)
+        # value.
+        for k in ["average_ms", "last_ms"]:
+            self.submit('gauge', "background_flushing." + k, value)
 
         # indexes
         accesses = None
