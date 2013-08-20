@@ -14,7 +14,7 @@
 CREDENTIALS="credentials"
 LOGFILE=/var/log/duplicity.log
 
-while getopts "c:d:f:s:n:l:vh" option
+while getopts "c:d:f:s:n:l:v:h" option
 do
   case $option in
    c ) CREDENTIALS=$OPTARG ;; 
@@ -64,7 +64,7 @@ UPLOAD_TO_CONTAINER=backup-$DIRNAME
 export CLOUDFILES_AUTHURL=https://auth.storage.memset.com/v1.0
 source $CREDENTIALS
 
-if [ -z $NAGIOS_HOST ]
+if [ ! -z $NAGIOS_HOST ]
 then
 NAGIOS_CODE=1
 NAGIOS_MESSAGE="WARNING: Asset backup failed"
