@@ -33,16 +33,29 @@ describe 'nginx::config', :type => :class do
     }
   end
 
-  context 'denied_ip_addresses' do
-    let(:params) { default_params.merge({ 
-      :denied_ip_addresses => [ '127.0.0.1', '127.0.0.2' ] 
-    })}
-    it { should contain_file('/etc/nginx/blockips.conf')
-      .with_content(<<EOS
+  describe 'denied_ip_addresses' do
+    context 'string param' do
+      let(:params) { default_params.merge({ 
+        :denied_ip_addresses => '127.0.0.1' 
+      })}
+      it { should contain_file('/etc/nginx/blockips.conf')
+        .with_content(<<EOS
+deny 127.0.0.1;
+EOS
+      )}
+    end
+    
+    context 'array param' do
+      let(:params) { default_params.merge({ 
+        :denied_ip_addresses => [ '127.0.0.1', '127.0.0.2' ] 
+      })}
+      it { should contain_file('/etc/nginx/blockips.conf')
+        .with_content(<<EOS
 deny 127.0.0.1;
 deny 127.0.0.2;
 EOS
-    )}
+      )}
+    end
   end
     
 end
