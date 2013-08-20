@@ -1,4 +1,7 @@
-class nginx ($server_names_hash_max_size = 512, $variables_hash_max_size = 512) {
+class nginx (
+  $server_names_hash_max_size = 512,
+  $variables_hash_max_size = 512,
+  $denied_ip_addresses = []) {
 
   anchor { 'nginx::begin':
     notify => Class['nginx::service'];
@@ -11,6 +14,7 @@ class nginx ($server_names_hash_max_size = 512, $variables_hash_max_size = 512) 
 
   class { 'nginx::config':
     server_names_hash_max_size => $server_names_hash_max_size,
+    denied_ip_addresses        => $denied_ip_addresses,
     require                    => Class['nginx::package'],
     notify                     => Class['nginx::service'];
   }

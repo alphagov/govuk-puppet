@@ -1,0 +1,3 @@
+<% [@denied_ip_addresses].flatten.each { |ip_address| -%>
+deny <%= ip_address %>;
+<% } -%>
