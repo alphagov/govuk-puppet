@@ -35,11 +35,12 @@ describe 'nginx::config', :type => :class do
 
   context 'denied_ip_addresses' do
     let(:params) { default_params.merge({ 
-      :denied_ip_addresses => [ '127.0.0.1' ] 
+      :denied_ip_addresses => [ '127.0.0.1', '127.0.0.2' ] 
     })}
     it { should contain_file('/etc/nginx/blockips.conf')
       .with_content(<<EOS
 deny 127.0.0.1;
+deny 127.0.0.2;
 EOS
     )}
   end
