@@ -75,6 +75,7 @@ class users::groups::govuk {
   include users::ssharpe
   include users::stevelaing
   include users::timpaul
+  include users::tombooth
   include users::tombyers
   include users::yolinasotirova
 }
