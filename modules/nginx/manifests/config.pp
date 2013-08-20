@@ -1,4 +1,6 @@
-class nginx::config ($server_names_hash_max_size) {
+class nginx::config (
+  $server_names_hash_max_size,
+  $denied_ip_addresses) {
 
   file { '/etc/nginx':
     ensure  => directory,
@@ -9,6 +11,11 @@ class nginx::config ($server_names_hash_max_size) {
   file { '/etc/nginx/nginx.conf':
     ensure  => present,
     content => template('nginx/etc/nginx/nginx.conf.erb'),
+  }
+
+  file { '/etc/nginx/blockips.conf':
+    ensure  => present,
+    content => template('nginx/etc/nginx/blockips.conf.erb'),
   }
 
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
