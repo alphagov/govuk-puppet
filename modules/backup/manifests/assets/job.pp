@@ -14,7 +14,7 @@ define backup::assets::job(
   }
 
   $threshold_secs = 28 * (60 * 60)
-  @@nagios::passive_check { "check_backup-${title}":
+  @@nagios::passive_check { "check_backup-${title}-${::hostname}":
     service_description => $title,
     host_name           => $::fqdn,
     freshness_threshold => $threshold_secs,
