@@ -2,4 +2,10 @@
 set -e
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
-/usr/local/bin/govuk_update_mirror && /usr/local/bin/govuk_upload_mirror
+/usr/local/bin/govuk_update_mirror
+EXIT_STATUS=$?
+if [ $EXIT_STATUS = 0 ]; then
+    /usr/local/bin/govuk_upload_mirror >> /var/log/govuk/govuk_mirrorer.log
+else
+    echo "ERROR: update_mirror run was unsuccessful (exit code: $EXIT_STATUS), abandoning upload" >>/var/log/govuk/govuk_mirrorer.log
+fi
