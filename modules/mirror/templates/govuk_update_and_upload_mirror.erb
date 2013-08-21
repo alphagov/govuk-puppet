@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+# Nagios defaults, assume failed
+NAGIOS_CODE=1
+NAGIOS_MESSAGE="WARNING: Mirrorer failed."
+
+function nagios_passive() {
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H nagios.cluster >/dev/null
+}
+
+trap nagios_passive EXIT
+
+export MIRRORER_SITE_ROOT=https://www.gov.uk
+/usr/local/bin/govuk_update_mirror && /usr/local/bin/govuk_upload_mirror
+
+if [ $? == "0" ]; then
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: Mirrorer successful."
+fi
