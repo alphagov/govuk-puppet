@@ -2,41 +2,34 @@ class backup::assets {
 
   ensure_packages(['duplicity','python-rackspace-cloudfiles'])
 
-  cron { 'backup-clean':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/clean -c /etc/govuk/memstore-credentials',
-    user    => 'root',
-    hour    => 5,
-    minute  => 13,
-    require => File['/usr/local/bin/memstore-backup.sh'],
-  }
-  cron { 'backup-asset-manager':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/asset-manager -c /etc/govuk/memstore-credentials',
-    user    => 'root',
-    hour    => 4,
-    minute  => 13,
-    require => File['/usr/local/bin/memstore-backup.sh'],
-  }
-  cron { 'backup-incoming':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/incoming -c /etc/govuk/memstore-credentials',
-    user    => 'root',
-    hour    => 4,
-    minute  => 20,
-    require => File['/usr/local/bin/memstore-backup.sh'],
-  }
-  cron { 'backup-draft-clean':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/draft-clean -c /etc/govuk/memstore-credentials',
-    user    => 'root',
-    hour    => 4,
-    minute  => 31,
-    require => File['/usr/local/bin/memstore-backup.sh'],
+  backup::assets::job { 'backup-whitehall-clean':
+    asset_path => '/mnt/uploads/whitehall/clean',
+    hour       => 5,
+    minute     => 13,
   }
 
-  cron { 'backup-draft-incoming':
-    command => '/usr/local/bin/memstore-backup.sh -d /mnt/uploads/whitehall/draft-incoming -c /etc/govuk/memstore-credentials',
-    user    => 'root',
-    hour    => 4,
-    minute  => 41,
-    require => File['/usr/local/bin/memstore-backup.sh'],
+  backup::assets::job { 'backup-asset-manager':
+    asset_path => '/mnt/uploads/asset-manager',
+    hour       => 4,
+    minute     => 13,
+  }
+
+  backup::assets::job { 'backup-whitehall-incoming':
+    asset_path => '/mnt/uploads/whitehall/incoming',
+    hour       => 4,
+    minute     => 20,
+  }
+
+  backup::assets::job { 'backup-whitehall-draft-clean':
+    asset_path => '/mnt/uploads/whitehall/draft-clean',
+    hour       => 4,
+    minute     => 31,
+  }
+
+  backup::assets::job { 'backup-whitehall-draft-incoming':
+    asset_path => '/mnt/uploads/whitehall/draft-incoming',
+    hour       => 4,
+    minute     => 41,
   }
 
   file { '/usr/local/bin/memstore-backup.sh':
