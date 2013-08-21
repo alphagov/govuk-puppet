@@ -14,6 +14,7 @@ class govuk::apps::publicapi {
   $enable_fco_journey_buckets = str2bool(extlookup('govuk_enable_backdrop_fco_journey_buckets', 'no'))
   $enable_realtime_buckets = str2bool(extlookup('govuk_enable_realtime_buckets', 'no'))
   $enable_lpa_buckets = str2bool(extlookup('govuk_enable_lpa_buckets', 'no'))
+  $enable_vehicle_licensing_realtime_buckets = str2bool(extlookup('vehicle_licensing_realtime_buckets', 'no'))
 
 
   $backdrop_buckets = [
@@ -194,6 +195,16 @@ class govuk::apps::publicapi {
       'path' => 'vehicle-licensing/api/failures',
       'name' => 'evl_services_failures',
       'enabled' => true,
+    },
+    {
+      'path' => 'vehicle-licensing/api/sorn-realtime',
+      'name' => 'sorn_realtime',
+      'enabled' => $enable_vehicle_licensing_realtime_buckets,
+    },
+    {
+      'path' => 'vehicle-licensing/api/tax-disc-realtime',
+      'name' => 'tax_disc_realtime',
+      'enabled' => $enable_vehicle_licensing_realtime_buckets,
     },
     {
       'path' => 'test/api/test',
