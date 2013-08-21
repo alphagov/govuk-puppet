@@ -106,8 +106,6 @@ def vagrant_config(config, version)
         c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
       end
 
-      c.ssh.forward_agent = true
-
       if version < 2
         c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
         c.vm.share_folder "extdata",
