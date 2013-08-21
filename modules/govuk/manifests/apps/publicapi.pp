@@ -207,6 +207,11 @@ class govuk::apps::publicapi {
       'enabled' => $enable_vehicle_licensing_realtime_buckets,
     },
     {
+      'path' => 'vehicle-licensing/api/customer-satisfaction',
+      'name' => 'evl_customer_satisfaction',
+      'enabled' => true,
+    },
+    {
       'path' => 'test/api/test',
       'name' => 'test',
       'enabled' => $enable_backdrop_test_bucket,
