@@ -34,11 +34,6 @@ class mirror {
     source => 'puppet:///modules/mirror/govuk_update_mirror',
   }
 
-  # TODO: Remove this once it's been rolled out to prod
-  file { '/usr/local/bin/govuk_mirrorer':
-    ensure => absent,
-  }
-
   include ruby::govuk_mirrorer
 
   # script that uploads the mirrored files to net storage
