@@ -4,7 +4,7 @@
 #
 class fabric {
   package { 'fabric':
-    ensure   => absent,
+    ensure   => present,
     provider => 'pip',
   }
 

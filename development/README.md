@@ -23,6 +23,7 @@ checking for other manufacturers.
 
 ## 1. Prerequisites and assumptions
 
+  * You have [OSX GCC tools installed](https://github.com/kennethreitz/osx-gcc-installer) (or via XCode)
   * You have [VirtualBox](https://www.virtualbox.org/) installed
   * You have an account on [GitHub.com](https://github.com)
   * You have an account on

@@ -2,6 +2,13 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
   include assets::user
   include daemontools # provides setlock
 
+  $offsite_backup = extlookup('offsite-backups', 'off')
+
+  case $offsite_backup {
+    'on':    { include backup::assets }
+    default: {}
+  }
+
   cron { 'virus-check':
     ensure => 'absent'
   }
