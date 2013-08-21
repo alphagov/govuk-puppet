@@ -5,6 +5,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
 
   class {
     'govuk::apps::businesssupportfinder': vhost_protected => $protect_fe;
+    'govuk::apps::calculators':           vhost_protected => $protect_fe;
     'govuk::apps::calendars':             vhost_protected => $protect_fe;
     'govuk::apps::datainsight_frontend':  vhost_protected => $protect_fe;
     'govuk::apps::designprinciples':      vhost_protected => $protect_fe;
@@ -20,11 +21,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   if str2bool(extlookup('govuk_enable_tariff_demo', 'no')) {
     class {
       'govuk::apps::tariff_demo':           vhost_protected => $protect_fe;
-    }
-  }
-  if str2bool(extlookup('govuk_enable_calculators', 'no')) {
-    class {
-      'govuk::apps::calculators':           vhost_protected => $protect_fe;
     }
   }
   if str2bool(extlookup('govuk_enable_fco_services', 'no')) {
