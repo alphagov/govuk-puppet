@@ -32,30 +32,6 @@ class backup::assets {
     minute     => 41,
   }
 
-  backup::assets::job { 'backup-asset-manager':
-    asset_path => '/mnt/uploads/asset-manager',
-    hour       => 4,
-    minute     => 13,
-  }
-
-  backup::assets::job { 'backup-whitehall-incoming':
-    asset_path => '/mnt/uploads/whitehall/incoming',
-    hour       => 4,
-    minute     => 20,
-  }
-
-  backup::assets::job { 'backup-whitehall-draft-clean':
-    asset_path => '/mnt/uploads/whitehall/draft-clean',
-    hour       => 4,
-    minute     => 31,
-  }
-
-  backup::assets::job { 'backup-whitehall-draft-incoming':
-    asset_path => '/mnt/uploads/whitehall/draft-incoming',
-    hour       => 4,
-    minute     => 41,
-  }
-
   file { '/usr/local/bin/memstore-backup.sh':
     ensure  => present,
     content => template('backup/usr/local/bin/memstore-backup.sh.erb'),
