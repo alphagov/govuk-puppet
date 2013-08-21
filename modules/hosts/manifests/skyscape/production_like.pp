@@ -311,6 +311,7 @@ class hosts::skyscape::production_like {
       "support.${app_domain}",
       "tariff-api.${app_domain}",
       "tariff-demo-api.${app_domain}",
+      "transition.${app_domain}",
       "travel-advice-publisher.${app_domain}",
       "whitehall-admin.${app_domain}"
       ]
