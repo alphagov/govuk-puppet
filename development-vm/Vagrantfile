@@ -1,0 +1,7 @@
+# This Vagrantfile is dead.
+
+$stderr.puts "[ERROR] This Vagrantfile is no longer current."
+$stderr.puts "        Please see:"
+$stderr.puts "        https://github.gds/gds/puppet/blob/master/development/README.md"
+
+exit 1
