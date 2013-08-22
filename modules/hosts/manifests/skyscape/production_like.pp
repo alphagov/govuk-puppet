@@ -455,6 +455,18 @@ class hosts::skyscape::production_like {
     legacy_aliases => ['bouncer-1'],
   }
 
+  govuk::host { 'bouncer-vse-lb':
+    ip             => extlookup('ip_bouncer','127.0.0.1'),
+    vdc            => 'redirector',
+    legacy_aliases => ["bouncer.${app_domain}"],
+  }
+
+  govuk::host { 'redirector-vse-lb':
+    ip             => extlookup('ip_redirector','127.0.0.1'),
+    vdc            => 'redirector',
+    legacy_aliases => ["redirector.${app_domain}"],
+  }
+
   # 3rd-party hosts
   host { 'vcd00003.vpn.skyscapecs.net':
     ip => '10.202.5.11',
