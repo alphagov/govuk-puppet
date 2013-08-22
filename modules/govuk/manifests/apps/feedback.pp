@@ -9,7 +9,7 @@ class govuk::apps::feedback(
     vhost_protected    => $vhost_protected,
     health_check_path  => '/feedback',
     nginx_extra_config => '
-      location /report-a-problem {
+      location /feedback {
         proxy_intercept_errors off;
       }'
   }
