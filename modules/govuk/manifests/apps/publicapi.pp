@@ -177,9 +177,19 @@ class govuk::apps::publicapi {
       'enabled' => true,
     },
     {
+      'path' => 'register-sorn-statutory-off-road-notification/api/realtime',
+      'name' => 'sorn_realtime',
+      'enabled' => $enable_vehicle_licensing_realtime_buckets,
+    },
+    {
       'path' => 'tax-disc/api/monitoring',
       'name' => 'tax_disc_monitoring',
       'enabled' => true,
+    },
+    {
+      'path' => 'tax-disc/api/realtime',
+      'name' => 'tax_disc_realtime',
+      'enabled' => $enable_vehicle_licensing_realtime_buckets,
     },
     {
       'path' => 'vehicle-licensing/api/services',
@@ -195,16 +205,6 @@ class govuk::apps::publicapi {
       'path' => 'vehicle-licensing/api/failures',
       'name' => 'evl_services_failures',
       'enabled' => true,
-    },
-    {
-      'path' => 'vehicle-licensing/api/sorn-realtime',
-      'name' => 'sorn_realtime',
-      'enabled' => $enable_vehicle_licensing_realtime_buckets,
-    },
-    {
-      'path' => 'vehicle-licensing/api/tax-disc-realtime',
-      'name' => 'tax_disc_realtime',
-      'enabled' => $enable_vehicle_licensing_realtime_buckets,
     },
     {
       'path' => 'vehicle-licensing/api/customer-satisfaction',
