@@ -43,6 +43,8 @@ sub vcl_recv {
     <%= set_backend('calendars') %>
   } else if (req.url ~ "^/(<%= @smartanswers.join("|") %>)([/?.].*)?$") {
     <%= set_backend('smartanswers') %>
+  } else if (req.url ~ "^/child-benefit-tax-calculator([/?.].*)?$") {
+    <%= set_backend('calculators') %>
   } else if (req.url ~ "^/stylesheets|^/javascripts|^/images|^/templates|^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$|^/apple-touch(.*)?\.png$") {
     <%= set_backend('static') %>
   } else if (req.url ~ "^/(designprinciples|service-manual|transformation)([/?.].*)?$") {

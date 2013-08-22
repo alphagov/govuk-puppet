@@ -21,7 +21,6 @@ class varnish::config {
     'calculate-your-maternity-pay',
     'calculate-your-redundancy-pay',
     'can-i-get-a-british-passport',
-    'child-benefit-tax-calculator',
     'childcare-costs-for-tax-credits',
     'claim-a-national-insurance-refund',
     'energy-grants-calculator',
@@ -57,6 +56,7 @@ class varnish::config {
   # List of available backends
   $backends = [
     'businesssupportfinder',
+    'calculators',
     'calendars',
     'canary_frontend',
     'datainsight_frontend',
