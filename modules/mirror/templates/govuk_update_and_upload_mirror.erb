@@ -13,20 +13,24 @@ trap nagios_passive EXIT
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
 
-/usr/local/bin/govuk_update_mirror 
+/usr/local/bin/govuk_update_mirror
+EXIT_CODE=$?
+logger -p user.crit -t mirrorer Exit code from govuk_update_mirror was $EXIT_CODE
 
 # If we successfully ran govuk_update_mirror we need to update
 # the assumed failure message to indicate it would be an
 # upload failure.
-if [ $? == "0" ]; then
+if [ $EXIT_CODE == "0" ]; then
   NAGIOS_MESSAGE="WARNING: Mirrorer upload failed."
 fi
-  
-/usr/local/bin/govuk_upload_mirror
 
-# As both scripts habe succeeded then set the
+/usr/local/bin/govuk_upload_mirror
+EXIT_CODE=$?
+logger -p user.crit -t mirrorer Exit code from govuk_upload_mirror was $EXIT_CODE
+
+# As both scripts have succeeded then set the
 # nagios code and message ot successful
-if [ $? == "0" ]; then
+if [ $EXIT_CODE == "0" ]; then
   NAGIOS_CODE=0
   NAGIOS_MESSAGE="OK: Mirrorer ran successfully."
 fi
