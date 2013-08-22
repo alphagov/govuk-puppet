@@ -74,7 +74,7 @@ if has_old_vagrant
     config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
 
     # Static IP for NFS and DNS
-    config.vm.network :hostonly, ip: "10.1.1.254"
+    config.vm.network :hostonly, :ip => "10.1.1.254"
 
     config.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
 
@@ -107,7 +107,7 @@ else
     end
 
     # Static IP for NFS and DNS
-    config.vm.network :private_network, ip: "10.1.1.254"
+    config.vm.network :private_network, :ip => "10.1.1.254"
 
     config = common_config(config)
 
