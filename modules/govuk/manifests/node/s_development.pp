@@ -127,6 +127,10 @@ class govuk::node::s_development {
     number_of_replicas => '0',
   }
 
+  elasticsearch::plugin { 'head':
+    install_from => 'mobz/elasticsearch-head',
+  }
+
   include nginx
 
   nginx::config::vhost::default { 'default': }
