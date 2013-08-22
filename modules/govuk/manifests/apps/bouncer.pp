@@ -7,7 +7,7 @@ class govuk::apps::bouncer(
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => false,
-    health_check_path  => '/',
+    health_check_path  => '/healthcheck',
     vhost_protected    => false,
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
