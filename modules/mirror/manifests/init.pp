@@ -35,12 +35,12 @@ class mirror {
   }
 
   include ruby::govuk_mirrorer
-
+  $govuk_mirror_targets = extlookup('govuk_mirror_targets', [])
   # script that uploads the mirrored files to net storage
   file { '/usr/local/bin/govuk_upload_mirror':
-    ensure => present,
-    mode   => '0755',
-    source => 'puppet:///modules/mirror/govuk_upload_mirror',
+    ensure  => present,
+    mode    => '0755',
+    content => template('mirror/govuk_upload_mirror.erb'),
   }
 
   $service_desc = 'mirrorer update and upload'
