@@ -1,8 +1,12 @@
 #!/bin/sh
 TARGETS="<%= [@govuk_mirror_targets].flatten.join(' ') -%>"
 
+if [ -z "$TARGETS"]; then
+  logger -t mirrorer empty target received for govuk mirror
+fi
+
 for TARGET in $TARGETS; do
-  logger -t mirrorer Started uploading to TARGET
+  logger -t mirrorer Started uploading to $TARGET
   rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
                $TARGET:/srv/mirror_data/www-origin
   EXITCODE=$?
