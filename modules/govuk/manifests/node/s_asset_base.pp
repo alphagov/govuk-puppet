@@ -5,6 +5,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   $directories = [
     '/mnt/uploads',
     '/mnt/uploads/whitehall',
+    '/mnt/uploads/whitehall/carrierwave-tmp',
     '/mnt/uploads/whitehall/incoming',
     '/mnt/uploads/whitehall/clean',
     '/mnt/uploads/whitehall/infected',
