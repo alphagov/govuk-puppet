@@ -1,5 +1,5 @@
 #!/bin/sh
-TARGETS=<%= [@govuk_mirror_targets].flatten.join(' ') %>
+TARGETS="<%= [@govuk_mirror_targets].flatten.join(' ') -%>"
 
 for TARGET in $TARGETS; do
   logger -t mirrorer Started uploading to TARGET
