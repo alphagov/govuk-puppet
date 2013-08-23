@@ -8,7 +8,7 @@ fco_services_domain_prefix,"www-dev"
 govuk_enable_backdrop_government_annotations_bucket,true
 govuk_enable_backdrop_test_bucket,true
 govuk_enable_fco_journey_buckets,true
-govuk_mirror_targets,'mirror-rsync@172.16.12.10','mirror-rsync@172.16.12.11'
+govuk_mirror_targets,"mirror-rsync@172.16.12.10","mirror-rsync@172.16.12.11"
 internal_tld,"development"
 lb_nodes_backend,"backend-1","backend-2","backend-3"
 lb_nodes_frontend,"frontend-1","frontend-2","frontend-3"
