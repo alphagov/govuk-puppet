@@ -48,6 +48,11 @@ ln -snf "$DEST" "${MIRROR_ROOT}/current"
 
 echo "$(date "+%Y%m%dT%H%M%S"): Grabbing the latest error page" >>$LOGFILE
 # Grab the 503 error page
-test -d /var/lib/govuk_mirror/error/ || mkdir /var/lib/govuk_mirror/error/
 STATIC_HOSTNAME="static.`cat /etc/govuk/env.d/GOVUK_APP_DOMAIN`"
+
+test -d ${DEST}/error || mkdir ${DEST}/error/
+curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o ${DEST}/error/503.html
+
+# This is for Netstorage and will be removed once Netstorage uses the same directory structure as mirror.
+test -d /var/lib/govuk_mirror/error/ || mkdir /var/lib/govuk_mirror/error/
 curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o /var/lib/govuk_mirror/error/503.html

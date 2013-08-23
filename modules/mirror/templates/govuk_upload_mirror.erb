@@ -1,4 +1,18 @@
 #!/bin/sh
+TARGETS=<%= [@govuk_mirror_targets].flatten.join(' ') %>
+
+for TARGET in $TARGETS; do
+  logger -t mirrorer Started uploading to TARGET
+  rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
+               $TARGET:/srv/mirror_data/www-origin
+  EXITCODE=$?
+  if [ "$EXITCODE" != "0" ]; then
+     logger -p user.crit -t mirrorer Uploading mirror $TARGET failed with exit code: $EXITCODE
+  fi
+  logger -t mirrorer Finished uploading to mirror $TARGET
+done
+
+
 logger -t mirrorer Started uploading to NetStorage
 rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
              sshacs@gdscontent.upload.akamai.com:/188296/staticsite/govuk-mirror
