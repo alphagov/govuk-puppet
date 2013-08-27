@@ -212,6 +212,11 @@ class govuk::apps::publicapi {
       'enabled' => true,
     },
     {
+      'path' => 'vehicle-licensing/api/volumetrics',
+      'name' => 'evl_volumetrics',
+      'enabled' => true,
+    },
+    {
       'path' => 'test/api/test',
       'name' => 'test',
       'enabled' => $enable_backdrop_test_bucket,
