@@ -16,4 +16,7 @@ class collectd::package {
     ensure  => $package_version,
     require => Package['collectd'],
   }
+  package { 'libyajl1':
+    ensure => present,
+  }
 }
