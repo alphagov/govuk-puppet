@@ -11,6 +11,7 @@ class elasticsearch (
   $refresh_interval = '1s',
   $transport_port = '9300',
   $version = 'present',
+  $log_index_type_count = {}
 ) {
   include elasticsearch::monitoring
 
@@ -48,7 +49,8 @@ class elasticsearch (
   anchor { 'elasticsearch::end': }
 
   class { 'collectd::plugin::elasticsearch':
-    es_port     => $http_port,
+    es_port              => $http_port,
+    log_index_type_count => $log_index_type_count,
   }
 
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":

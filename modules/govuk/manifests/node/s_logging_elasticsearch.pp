@@ -17,6 +17,9 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     number_of_replicas   => '1',
     minimum_master_nodes => '2',
     host                 => $::fqdn,
+    log_index_type_count => {
+      'logs-current'     => ['syslog']
+    },
     require              => [
       Class['java::oracle7::jre'],
       Govuk::Mount['/mnt/elasticsearch']

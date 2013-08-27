@@ -78,4 +78,21 @@ stats.each do |stat_type, stat_keys|
 end
 -%>
   </URL>
+<% 
+if @log_index_type_count.keys.length > 0
+  @log_index_type_count.each do |index_name, type_names| 
+    type_names.each do |type_name|
+-%>
+  <URL "http://127.0.0.1:<%= @es_port -%>/<%= index_name -%>/<%= type_name %>/_count">
+    Instance "elasticsearch"
+    <Key "count">
+      Type "gauge"
+      Instance "<%= index_name -%>_<%= type_name -%>_count"
+    </Key>
+  </URL>
+<% 
+    end
+  end
+end 
+-%>
 </Plugin>
