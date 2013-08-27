@@ -132,6 +132,12 @@ class monitoring::checks {
     service_description => 'netstorage site out of date',
   }
 
+  nagios::check { 'check_mirror_up_to_date':
+    check_command       => 'check_mirror_age!www-origin.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk',
+    host_name           => $::fqdn,
+    service_description => 'mirror site out of date',
+  }
+
   # START support
   nagios::check::graphite { 'check_support_default_queue_size':
     target    => 'stats.gauges.govuk.app.support.queues.default',
