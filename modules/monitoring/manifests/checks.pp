@@ -127,7 +127,7 @@ class monitoring::checks {
   }
 
   nagios::check { 'check_netstorage_up_to_date':
-    check_command       => 'check_netstorage_age',
+    check_command       => 'check_mirror_age!www.gov.uk.edgekey.net!www.gov.uk',
     host_name           => $::fqdn,
     service_description => 'netstorage site out of date',
   }
