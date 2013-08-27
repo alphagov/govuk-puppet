@@ -22,6 +22,5 @@ release_intercept_errors,false
 shell_prompt_string,"dev"
 signon_intercept_errors,false
 support_intercept_errors,false
-vehicle_licensing_realtime_buckets,true
 website_root,"http://www.dev.gov.uk"
 whitehall_admin_intercept_errors,false
