@@ -170,12 +170,12 @@ class govuk::apps::publicapi {
       'realtime' => true,
     },
     {
-      'path' => 'register-sorn-statutory-off-road-notification/api/monitoring',
+      'path' => 'sorn/api/monitoring',
       'name' => 'sorn_monitoring',
       'enabled' => true,
     },
     {
-      'path' => 'register-sorn-statutory-off-road-notification/api/realtime',
+      'path' => 'sorn/api/realtime',
       'name' => 'sorn_realtime',
       'enabled' => true,
     },
