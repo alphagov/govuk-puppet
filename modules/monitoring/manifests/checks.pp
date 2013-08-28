@@ -132,10 +132,16 @@ class monitoring::checks {
     service_description => 'netstorage site out of date',
   }
 
-  nagios::check { 'check_mirror_up_to_date':
-    check_command       => 'check_mirror_age!www-origin.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk',
+  nagios::check { 'check_mirror0_up_to_date':
+    check_command       => 'check_mirror_age!mirror0.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk',
     host_name           => $::fqdn,
-    service_description => 'mirror site out of date',
+    service_description => 'mirror0 site out of date',
+  }
+
+  nagios::check { 'check_mirror1_up_to_date':
+    check_command       => 'check_mirror_age!mirror1.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk',
+    host_name           => $::fqdn,
+    service_description => 'mirror1 site out of date',
   }
 
   # START support
