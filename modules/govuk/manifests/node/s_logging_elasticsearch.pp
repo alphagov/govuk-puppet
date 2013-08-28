@@ -107,4 +107,13 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     require => Class['elasticsearch'],
   }
 
+  @@nagios::check::graphite { "check_elasticsearch_syslog_input_${::hostname}":
+    target    => "removeBelowValue(derivative(${::fqdn_underscore}.curl_json-elasticsearch.gauge-logs-current_syslog_count),0)",
+    from      => "60seconds",
+    critical  => "@0",
+    warning   => "@0",
+    desc      => "elasticsearch not receiving syslog from logstash",
+    host_name => $::fqdn,
+  }
+
 }
