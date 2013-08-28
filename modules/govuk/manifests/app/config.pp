@@ -15,7 +15,18 @@ define govuk::app::config (
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
   $unicorn_herder_timeout = 'NOTSET',
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
+  $nagios_memory_warning_real = $nagios_memory_warning ? {
+    undef    => 2000000000,
+    default  => $nagios_memory_warning,
+  }
+
+  $nagios_memory_critical_real = $nagios_memory_critical ? {
+    undef    => 3000000000,
+    default  => $nagios_memory_critical,
+  }
 
   # Ensure config dir exists
   file { "/etc/govuk/${title}":
@@ -135,8 +146,8 @@ define govuk::app::config (
   }
   @@nagios::check::graphite { "check_${title}_app_mem_usage${::hostname}":
     target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
-    warning   => 2000000000,
-    critical  => 3000000000,
+    warning   => $nagios_memory_warning_real,
+    critical  => $nagios_memory_critical_real,
     desc      => "high memory for ${title} app",
     host_name => $::fqdn,
   }
