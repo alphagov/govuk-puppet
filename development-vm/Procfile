@@ -45,7 +45,7 @@ transition:            govuk_setenv transition           ./run_in.sh ../transiti
 # tariff_admin: grabbing port 3046 in preview only
 calculators:           ./run_in.sh ../calculators bundle exec rails s -p 3047
 fact_cave:             ./run_in.sh ../fact-cave bundle exec rails s -p 3048
-bouncer:               ./run_in.sh ../bouncer bundle exec rackup -p 3049
+bouncer:               ./run_in.sh ../bouncer bundle exec mr-sparkle --force-polling -- -p 3049
 fco_services:          ./run_in.sh ../fco-services bundle exec rails s -p 3050
 # hmrc_contacts: grabbing port 3051 in preview only
 
