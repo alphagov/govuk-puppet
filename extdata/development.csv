@@ -23,5 +23,5 @@ shell_prompt_string,"dev"
 signon_intercept_errors,false
 support_intercept_errors,false
 website_root,"http://www.dev.gov.uk"
-whitehall_admin_intercept_errors,false      
+whitehall_admin_intercept_errors,false
 limelight_proxy_performance_api,true
