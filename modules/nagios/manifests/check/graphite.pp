@@ -44,6 +44,14 @@
 #   Passed to `nagios::check`. See there for documentation.
 #   Default: undef
 #
+# [*warning_command*]
+#   Used in the url to graphite graph as a command to display the warning bounds
+#   Default: alias(dashed(constantLine(${warning})),%22warning%22)
+#
+# [*critical_command*]
+#   Used in the url to graphite graph as a command to display the critical bounds
+#   Default: alias(dashed(constantLine(${critical})),%22critical%22)
+#
 define nagios::check::graphite(
   $target,
   $desc,
@@ -52,8 +60,11 @@ define nagios::check::graphite(
   $host_name,
   $args = '',
   $from = '5minutes',
-  $notes_url = undef
+  $notes_url = undef,
+  $warning_command = undef,
+  $critical_command = undef,
 ) {
+
   $check_command = 'check_graphite_metric_args'
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
@@ -62,6 +73,18 @@ define nagios::check::graphite(
   $graph_width = 600
   $graph_height = 300
 
+  if $warning_command == undef {
+    $warning_target = "alias(dashed(constantLine(${warning})),%22warning%22)"
+  } else {
+    $warning_target = $warning_command
+  }
+
+  if $critical_command == undef {
+    $critical_target = "alias(dashed(constantLine(${critical})),%22critical%22)"
+  } else {
+    $critical_target = $critical_command
+  }
+
   nagios::check { $title:
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
@@ -69,9 +92,10 @@ define nagios::check::graphite(
     action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
 target=${url_encoded_target}&\
-target=alias(dashed(constantLine(${warning})),%22warning%22)&\
-target=alias(dashed(constantLine(${critical})),%22critical%22)",
+target=${warning_target}&\
+target=${critical_target}",
     notes_url                  => $notes_url,
     attempts_before_hard_state => 1,
   }
+
 }
