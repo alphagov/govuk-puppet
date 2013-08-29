@@ -1,5 +1,6 @@
 class collectd::plugin::elasticsearch(
-  $es_port
+  $es_port,
+  $log_index_type_count = {},
 ) {
   include collectd::plugin::curl_json
 
