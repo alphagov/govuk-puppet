@@ -43,7 +43,7 @@ process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
 process :whitehall => :static
 
-process :datainsight => [:static, :datainsight, :datainsight_weekly_reach_exposer, :datainsight_todays_activity_exposer, :datainsight_format_success_exposer, :datainsight_insidegov_exposer]
+process :datainsight => [:static, :datainsight, :datainsight_weekly_reach_exposer, :datainsight_todays_activity_exposer, :datainsight_format_success_exposer, :datainsight_insidegov_exposer, :backdrop_read]
 process :'datainsight-exposers' => [:datainsight_weekly_reach_exposer, :datainsight_todays_activity_exposer, :datainsight_format_success_exposer, :datainsight_everything_exposer, :datainsight_insidegov_exposer]
 process :'datainsight-recorders' => [:datainsight_weekly_reach_recorder, :datainsight_todays_activity_recorder, :datainsight_format_success_recorder, :datainsight_everything_recorder, :datainsight_insidegov_recorder]
 
