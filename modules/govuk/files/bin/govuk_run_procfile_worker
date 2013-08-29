@@ -1,0 +1,28 @@
+#!/bin/sh
+if [ -z "$GOVUK_APP_ROOT" ]; then
+  echo "Usage: govuk_setenv <APP_NAME> $(basename "$0")"
+fi
+
+create_app_dirs () {
+  mkdir -p "$@"
+  chown "${GOVUK_USER}:${GOVUK_GROUP}" "$@"
+  chmod 755 "$@"
+}
+
+
+# Fix rbenv
+# Because sudo mangles PATH we won't inherit the correct shims
+# directory, so we need to explicitly shove it in the PATH after sudo
+# is invoked
+SHIMPATH=
+if which rbenv >/dev/null 2>&1; then
+    SHIMPATH="$(rbenv root)/shims:"
+fi
+
+# Ensure that app directories exist and have correct permissions
+create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
+
+cd $GOVUK_APP_ROOT
+CMD=`grep '^worker:' Procfile | cut -d':' -f2-`
+# We reset PATH here because `sudo` drops PATH
+exec sudo -u $GOVUK_USER -E sh -c "PATH=$SHIMPATH\$PATH exec $CMD 2>>'${GOVUK_APP_LOGROOT}/procfile_worker.err.log' 1>>'${GOVUK_APP_LOGROOT}/procfile_worker.out.log'"
