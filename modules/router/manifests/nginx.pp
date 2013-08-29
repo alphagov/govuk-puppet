@@ -28,10 +28,7 @@ class router::nginx (
   $real_ip_header = ''
 ) {
   include router::assets_origin
-
-  if str2bool(extlookup('govuk_enable_fco_services', 'no')) {
-    include router::fco_services
-  }
+  include router::fco_services
 
   $app_domain = extlookup('app_domain')
 

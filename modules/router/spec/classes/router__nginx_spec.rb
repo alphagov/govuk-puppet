@@ -1,6 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'router::nginx', :type => :class do
+  before :each do
+    update_extdata("fco_services_domain_prefix" => "www-test")
+  end
+
   let(:routes_path) { '/etc/nginx/router_routes.conf' }
 
   context 'vhost_protected' do
