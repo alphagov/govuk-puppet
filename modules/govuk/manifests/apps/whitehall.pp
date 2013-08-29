@@ -3,7 +3,9 @@ class govuk::apps::whitehall(
   $port = 3020,
   $configure_frontend = false,
   $configure_admin = false,
-  $vhost_protected
+  $vhost_protected,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef
 ) {
 
   $app_domain = extlookup('app_domain')
@@ -24,6 +26,8 @@ class govuk::apps::whitehall(
     enable_nginx_vhost     => false,
     nagios_cpu_warning     => 300,
     nagios_cpu_critical    => 400,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
     unicorn_herder_timeout => 45;
   }
 

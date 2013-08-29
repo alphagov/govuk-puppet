@@ -141,6 +141,24 @@ define govuk::app (
   $nagios_cpu_critical = 200,
 
   #
+  # nagios_memory_warning: memory use at which Nagios should generate a warning
+  #
+  # This parameter is used to change the threshold of the exported nagios
+  # memory check. It defaults to 2GB for a warning and does not generally
+  # need to be altered. Default is `undef` so we can explicitly pass `undef`
+  # to use the default value.
+  $nagios_memory_warning = undef,
+
+  #
+  # nagios_memory_critical: memory use at which Nagios should generate a critical
+  #
+  # This parameter is used to change the threshold of the exported nagios
+  # memory check. It defaults to 3GB for a critical and does not generally
+  # need to be altered. Default is `undef` so we can explicitly pass `undef`
+  # to use the default value.
+  $nagios_memory_critical = undef,
+
+  #
   # unicorn_herder_timeout: the timeout (in seconds) period to wait for
   #
   # Provides a way to override the default wait period for the 'failed to
@@ -184,6 +202,8 @@ define govuk::app (
     logstream              => $logstream,
     nagios_cpu_warning     => $nagios_cpu_warning,
     nagios_cpu_critical    => $nagios_cpu_critical,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
     unicorn_herder_timeout => $unicorn_herder_timeout,
   }
 
