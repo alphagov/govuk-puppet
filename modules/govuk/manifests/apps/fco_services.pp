@@ -5,11 +5,18 @@ class govuk::apps::fco_services(
 ) {
 
   # Set expires headers for assets when not on a dev VM
+  # Assets with a digest (32 char hex string) get max expires
+  # Non-digest assets get 30 mins because the error pages have to reference these.
   $extra_config = $::govuk_platform ? {
     'development' => '',
     default       => '
-  location ^~ /assets/ {
+  location ~ "^/assets/.*-[0-9a-f]{32}\." {
     expires max;
+    add_header Cache-Control public;
+  }
+
+  location ~ ^/assets/ {
+    expires 30m;
     add_header Cache-Control public;
   }',
   }
