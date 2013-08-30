@@ -225,6 +225,13 @@ define govuk::app (
     enable  => $logstream,
   }
 
+  govuk::logstream { "${title}-app-err":
+    logfile => "/var/log/${title}/app.err.log",
+    tags    => ['stderr', 'app'],
+    fields  => {'application' => $title},
+    enable  => $logstream,
+  }
+
   if $app_type == 'rack' {
     $title_escaped = regsubst($title, '\.', '_', 'G')
     $statsd_timer_prefix = "${::fqdn_underscore}.${title_escaped}"
