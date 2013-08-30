@@ -44,7 +44,7 @@ class elasticsearch::package (
   # https://github.com/alphagov/estools), which is used to install templates
   # and rivers, among other things.
   package { 'estools':
-    ensure   => '1.0.3',
+    ensure   => '1.1.0',
     provider => 'pip',
   }
 

@@ -103,7 +103,7 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     user    => 'nobody',
     hour    => '0',
     minute  => '1',
-    command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 21 logs',
+    command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 21 --optimize-old --optimize-maxage 1 logs',
     require => Class['elasticsearch'],
   }
 
