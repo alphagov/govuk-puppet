@@ -71,6 +71,7 @@ class govuk::node::s_development {
   include govuk::apps::signon
   include govuk::apps::static
   include govuk::apps::support
+  include govuk::apps::tariff_admin
   include govuk::apps::tariff_api
   include govuk::apps::transactions_explorer
   include govuk::apps::transition
@@ -201,6 +202,10 @@ class govuk::node::s_development {
     ]:
       user     => 'signonotron2',
       password => '';
+
+    ['tariff_admin_development', 'tariff_admin_test']:
+      user     => 'tariff_admin',
+      password => 'tariff_admin';
 
     ['tariff_development', 'tariff_test']:
       user     => 'tariff',

@@ -28,6 +28,7 @@ class hosts::preview {
   host { "imminence.${app_domain}":               ip => '10.228.95.176' }
   host { "publisher.${app_domain}":               ip => '10.228.95.176' }
   host { "private-frontend.${app_domain}":        ip => '10.228.95.176' }
+  host { "tariff-admin.${app_domain}":            ip => '10.228.95.176' }
   host { "tariff-api.${app_domain}":              ip => '10.228.95.176' }
   host { "tariff-demo-api.${app_domain}":         ip => '10.228.95.176' }
   host { "contentapi.${app_domain}":              ip => '10.228.95.176' }
