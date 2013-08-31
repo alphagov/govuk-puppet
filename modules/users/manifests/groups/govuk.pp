@@ -51,7 +51,6 @@ class users::groups::govuk {
   include users::joshua
   include users::kushalp
   include users::leelongmore
-  include users::maxf
   include users::maxgriff
   include users::mazz
   include users::minglis
