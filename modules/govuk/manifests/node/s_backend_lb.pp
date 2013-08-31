@@ -21,6 +21,7 @@ class govuk::node::s_backend_lb {
       'release',
       'signon',
       'support',
+      'tariff-admin',
       'travel-advice-publisher',
       'transition',
       'whitehall-admin',
@@ -32,7 +33,6 @@ class govuk::node::s_backend_lb {
       'contentapi',
       'govuk-delivery',
       'search',
-      'tariff-admin',
       'tariff-api',
       'tariff-demo-api',
     ]:
