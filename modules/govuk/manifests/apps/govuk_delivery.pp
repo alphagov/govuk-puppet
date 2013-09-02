@@ -11,7 +11,5 @@ class govuk::apps::govuk_delivery( $port = 3042 ) {
     log_format_is_json => true;
   }
 
-  govuk::procfile::worker { 'govuk-delivery':
-    setenv_as => 'govuk-delivery',
-  }
+  govuk::procfile::worker { 'govuk-delivery': }
 }
