@@ -6,4 +6,5 @@ class users::groups::other {
   include users::tekin
   include users::timabell
   include users::tomstuart
+  include users::willtomlins
 }
