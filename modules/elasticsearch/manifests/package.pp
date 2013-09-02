@@ -44,8 +44,15 @@ class elasticsearch::package (
   # https://github.com/alphagov/estools), which is used to install templates
   # and rivers, among other things.
   package { 'estools':
-    ensure   => '1.1.0',
+    ensure   => '1.1.1',
     provider => 'pip',
   }
-
+  if $::lsbdistcodename == 'lucid' {
+    # lucid uses Python 2.6 which doesn't have an implementation of ordereddict
+    # Production is the only ES cluster that is lucid rather than precise!
+    package { 'ordereddict':
+      ensure   => '1.1',
+      provider => 'pip',
+    }
+  }
 }
