@@ -15,7 +15,7 @@ class govuk::apps::publisher( $port = 3000 ) {
     content => template('govuk/local_authority_import_check.erb'),
   }
 
-  @@nagios::passive_check { "check-local-authority-data-importer-${::fqdn}":
+  @@nagios::passive_check { "check-local-authority-data-importer-${::hostname}":
     service_description => $service_desc,
     host_name           => $::fqdn,
     freshness_threshold => 28 * (60 * 60),
