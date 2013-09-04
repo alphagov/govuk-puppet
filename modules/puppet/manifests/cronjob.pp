@@ -1,6 +1,6 @@
 class puppet::cronjob {
 
-  $first = fqdn_rand_fixed(30)
+  $first = fqdn_rand(30)
   $second = $first + 30
 
   cron { 'puppet':
