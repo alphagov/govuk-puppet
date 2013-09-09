@@ -45,6 +45,7 @@ class users::groups::govuk {
   include users::jacobashdown
   include users::james
   include users::jamiec
+  include users::jennyduckett
   include users::jimg
   include users::johngriffin
   include users::jordan
