@@ -36,6 +36,7 @@ class users::groups::govuk {
   include users::francesberriman
   include users::futurefabric
   include users::garethr
+  include users::gkoth
   include users::gma
   include users::grogers
   include users::heathd
