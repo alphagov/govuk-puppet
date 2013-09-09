@@ -12,6 +12,24 @@
 #   Default: yes
 #
 class monitoring::checks::pingdom {
+
+  nagios::check_config::pingdom {
+    'homepage':
+      check_id => 489558;
+    'calendar':
+      check_id => 489561;
+    'quick_answer':
+      check_id => 662431;
+    'search':
+      check_id => 662465;
+    'smart_answer':
+      check_id => 489560;
+    'specialist':
+      check_id => 662460;
+    'mirror':
+      check_id => 944701;
+  }
+
   $pingdom_enable_checks = str2bool(extlookup('pingdom_enable_checks', 'yes'))
 
   if $pingdom_enable_checks {
@@ -48,6 +66,13 @@ class monitoring::checks::pingdom {
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom specialist guides check',
+    }
+
+    nagios::check { 'check_pingdom_mirror':
+      check_command       => 'run_pingdom_mirror_check',
+      use                 => 'govuk_high_priority',
+      host_name           => $::fqdn,
+      service_description => 'Pingdom mirror check',
     }
   }
 }
