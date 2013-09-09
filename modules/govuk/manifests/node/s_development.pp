@@ -175,10 +175,6 @@ class govuk::node::s_development {
       user     => 'efg',
       password => 'efg';
 
-    ['fact_cave_development', 'fact_cave_test']:
-      user     => 'fact_cave',
-      password => 'fact_cave';
-
     'fco_development':
       user     => 'fco',
       password => '';
