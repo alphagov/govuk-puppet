@@ -49,6 +49,7 @@ class varnish::config {
     'student-finance-calculator',
     'student-finance-forms',
     'towing-rules',
+    'uk-benefits-abroad',
     'vehicles-you-can-drive',
     'which-finance-is-right-for-your-business'
   ]
