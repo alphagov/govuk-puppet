@@ -40,4 +40,10 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
     privileges    => 'SELECT',
     require       => Class['govuk::apps::transition::db'],
   }
+
+  collectd::plugin::tcpconn { 'mysql':
+    incoming => 3306,
+    outgoing => 3306,
+  }
+
 }

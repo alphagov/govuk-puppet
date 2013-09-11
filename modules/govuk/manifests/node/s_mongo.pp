@@ -42,4 +42,9 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
       members => $mongo_hosts
     }
   }
+
+  collectd::plugin::tcpconn { 'mongo':
+    incoming => 27017,
+    outgoing => 27017,
+  }
 }
