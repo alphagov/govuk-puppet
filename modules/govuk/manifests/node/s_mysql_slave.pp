@@ -8,4 +8,8 @@ class govuk::node::s_mysql_slave inherits govuk::node::s_base {
   }
   include mysql::server::slave
 
+  collectd::plugin::tcpconn { 'mysql':
+    incoming => 3306,
+    outgoing => 3306,
+  }
 }

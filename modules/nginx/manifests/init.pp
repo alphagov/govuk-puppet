@@ -65,4 +65,14 @@ class nginx (
     service_description => 'nginx http port unresponsive',
     host_name           => $::fqdn,
   }
+
+  collectd::plugin::tcpconn { 'https':
+    incoming => 443,
+    outgoing => 443,
+  }
+
+  collectd::plugin::tcpconn { 'http':
+    incoming => 80,
+    outgoing => 80,
+  }
 }
