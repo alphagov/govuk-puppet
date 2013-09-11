@@ -22,13 +22,21 @@
 #   Limit access to the loadbalanced service to internal IP address only.
 #   Default: false
 #
+# [*vhost*]
+#   Name of the vhost.
+#   Default: $title
+#
+# [*read_timeout*]
+#   Pass to nginx's proxy_read_timeout setting.
+#   Default: 15
+#
 define loadbalancer::balance(
     $servers,
     $aliases = [],
     $https_only = false,
     $internal_only = false,
     $vhost = $title,
-    $read_timeout = 60,
+    $read_timeout = 15,
 ) {
 
   $vhost_suffix = extlookup('app_domain')
