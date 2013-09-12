@@ -24,7 +24,7 @@ DATE=`date +"%Y%m%d"`
 logger -p local3.info -t govuk-backup Backup of $CLIENTNAME:$SOURCEDIR started
 mkdir -p ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 
-rsync -qa -e "ssh -o VisualHostKey=false" --delete govuk-backup@${CLIENTNAME}:${SOURCEDIR}/ ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
+rsync -qa -e "ssh -o VisualHostKey=false" --delete --exclude="lost+found" govuk-backup@${CLIENTNAME}:${SOURCEDIR}/ ${BACKUPROOT}/${CLIENTNAME}${SOURCEDIR}
 if [ $? == 0 ]; then
   NAGIOS_CODE=0
   NAGIOS_MESSAGE="OK: Backup successful"
