@@ -151,6 +151,10 @@ class govuk::node::s_development {
   }
 
   mysql::server::db {
+    ['contacts_development', 'contacts_test']:
+      user     => 'contacts',
+      password => 'contacts';
+
     [
       'datainsights_todays_activity',
       'datainsight_weekly_reach',
