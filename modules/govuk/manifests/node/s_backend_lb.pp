@@ -12,6 +12,7 @@ class govuk::node::s_backend_lb {
 
   loadbalancer::balance {
     [
+      'contacts',
       'fact-cave',
       'imminence',
       'needotron',

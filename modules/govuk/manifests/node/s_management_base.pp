@@ -48,6 +48,10 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   }
 
   mysql::server::db {
+    'contacts_test':
+      user     => 'contacts',
+      password => 'contacts';
+
     [
       'datainsights_todays_activity_test',
       'datainsight_weekly_reach_test',

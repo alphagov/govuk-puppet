@@ -21,6 +21,7 @@ class hosts::preview {
   host { 'cache.cluster':       ip => '10.58.175.43' }
   host { 'router.cluster':      ip => '10.58.175.43' }
 
+  host { "contacts.${app_domain}":               ip => '10.228.95.176' }
   host { "fact-cave.${app_domain}":               ip => '10.228.95.176' }
   host { "signon.${app_domain}":                  ip => '10.228.95.176' }
   host { "panopticon.${app_domain}":              ip => '10.228.95.176' }
