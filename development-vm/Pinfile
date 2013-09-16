@@ -36,6 +36,7 @@ process :signon
 process :smartanswers => [:static, :contentapi, :imminence]
 process :static
 process :support
+process :tariff_admin => [:tradetariffapi]
 process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
 process :transaction_wrappers => :static

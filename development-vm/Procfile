@@ -42,7 +42,7 @@ transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -
 # tariff_demo_api: grabbing port 3043 in preview only
 transition:            govuk_setenv transition           ./run_in.sh ../transition     bundle exec rails s -p 3044
 # tariff_demo: grabbing port 3045 in preview only
-# tariff_admin: grabbing port 3046 in preview only
+tariff_admin:		govuk_setenv tariff-admin ./run_in.sh ../trade-tariff-admin bundle exec rails server -p 3046
 calculators:           ./run_in.sh ../calculators bundle exec rails s -p 3047
 fact_cave:             ./run_in.sh ../fact-cave bundle exec rails s -p 3048
 bouncer:               ./run_in.sh ../bouncer bundle exec mr-sparkle --force-polling -- -p 3049
