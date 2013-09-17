@@ -9,4 +9,5 @@ class users::groups::other {
   include users::timabell
   include users::tomstuart
   include users::willtomlins
+  include users::ysembiranahum
 }
