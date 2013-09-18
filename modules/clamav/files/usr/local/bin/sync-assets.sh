@@ -1,5 +1,6 @@
 #!/bin/bash
 # script to rsync files locally
+set -eu
 
 APPNAME=$(basename $0)
 REMOTEDIR=$1
