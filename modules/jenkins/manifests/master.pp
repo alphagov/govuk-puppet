@@ -2,11 +2,11 @@ class jenkins::master inherits jenkins {
 
   $app_domain = extlookup('app_domain')
 
-  apt::repository { 'jenkins':
-    url  => 'http://pkg.jenkins-ci.org/debian',
-    dist => '',
-    repo => 'binary/',
-    key  => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
+  apt::source { 'jenkins':
+    location => 'http://pkg.jenkins-ci.org/debian',
+    repos    => '',
+    release  => 'binary/',
+    key      => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
   }
 
   # FIXME: `ensure => latest` changed because 1.521 broke the envinject

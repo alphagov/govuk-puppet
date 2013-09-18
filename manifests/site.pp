@@ -12,6 +12,10 @@ Ufw::Allow {
   ip  => 'any',
 }
 
+Apt::Source {
+  include_src => false,
+}
+
 # extdata is parallel to the manifests and modules directories.
 # NB: manifestdir may not be correct if `puppet apply` is used.
 $extlookup_datadir = inline_template('<%=
