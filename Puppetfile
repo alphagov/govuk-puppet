@@ -17,8 +17,7 @@ mod 'logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
 mod 'apparmor',
-  :git => 'git://github.com/alphagov/puppet-apparmor.git',
-  :ref => 'fd0106ccd688a8af4b62e57d420a26e80b484731'
+  :git => 'git://github.com/alphagov/puppet-apparmor.git'
 mod 'curl',
   :git => 'git://github.com/alphagov/puppet-curl.git',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'

@@ -18,7 +18,7 @@ FORGE
 
 GIT
   remote: git://github.com/alphagov/puppet-apparmor.git
-  ref: fd0106ccd688a8af4b62e57d420a26e80b484731
+  ref: master
   sha: fd0106ccd688a8af4b62e57d420a26e80b484731
   specs:
     apparmor (0.0.1)
