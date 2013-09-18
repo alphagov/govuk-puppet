@@ -7,6 +7,7 @@
 # Note: rbenv sets RBENV_VERSION even when using the system ruby, in this
 # case it is set to the value 'system'.
 unset RBENV_VERSION
+unset RBENV_DIR
 
 # Also clear the bundler setup. There are a number of environment
 # variables that bundler touches; this wipes them all out although it
