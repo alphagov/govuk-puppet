@@ -104,7 +104,11 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   }
 
   file { '/usr/local/bin/sync_assets_from_master.rb':
-    source => 'puppet:///modules/clamav/usr/local/bin/sync_assets_from_master.rb',
+    ensure => absent,
+  }
+
+  file { '/usr/local/bin/sync-assets.sh':
+    source => 'puppet:///modules/clamav/usr/local/bin/sync-assets.sh',
     mode   => '0755',
   }
 }

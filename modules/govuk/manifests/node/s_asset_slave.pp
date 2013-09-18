@@ -42,12 +42,12 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
   cron { 'sync-assets-from-master':
     user      => 'assets',
     minute    => '*/30',
-    command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync.lock /usr/local/bin/sync_assets_from_master.rb /data/master-uploads /mnt/uploads whitehall/clean whitehall/incoming whitehall/infected',
+    command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/clean whitehall/incoming whitehall/infected',
   }
 
   cron { 'sync-assets-from-master-draft':
     user      => 'assets',
     minute    => '*/30',
-    command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync-draft.lock /usr/local/bin/sync_assets_from_master.rb /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
+    command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync-draft.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
   }
 }
