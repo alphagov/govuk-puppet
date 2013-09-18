@@ -1,6 +1,9 @@
 require_relative '../../../../spec_helper'
 
 describe 'puppet::master::package', :type => :class do
+  let (:facts) {{
+    :lsbdistcodename => 'Precise',
+  }}
   let(:params) {{
     :puppetdb_version => '2.3.4',
   }}

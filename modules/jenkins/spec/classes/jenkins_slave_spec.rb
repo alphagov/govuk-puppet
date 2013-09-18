@@ -3,6 +3,9 @@ require_relative '../../../../spec_helper'
 describe 'jenkins::slave', :type => :class do
   let(:ssh_dir) { '/home/jenkins/.ssh' }
   let(:ssh_file) { '/home/jenkins/.ssh/authorized_keys' }
+  let(:facts) {{
+    :lsbdistcodename => 'Precise',
+  }}
 
   it { should include_class('jenkins') }
   it { should include_class('jenkins::ssh_key') }

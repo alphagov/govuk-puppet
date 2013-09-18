@@ -1,7 +1,11 @@
 require_relative '../../../../spec_helper'
 
 describe 'puppet', :type => :class do
-  let(:facts) { { :govuk_class => 'test', :govuk_platform => 'production' } }
+  let(:facts) {{
+    :govuk_class => 'test',
+    :govuk_platform => 'production',
+    :lsbdistcodename => 'Precise',
+  }}
 
   it do
     should contain_file('/etc/puppet/puppet.conf')
