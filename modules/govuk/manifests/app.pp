@@ -232,7 +232,7 @@ define govuk::app (
     enable  => $logstream,
   }
 
-  if $app_type == 'rack' {
+  if ($app_type == 'rack' or  $log_format_is_json) {
     $title_escaped = regsubst($title, '\.', '_', 'G')
     $statsd_timer_prefix = "${::fqdn_underscore}.${title_escaped}"
 
