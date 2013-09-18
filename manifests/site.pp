@@ -12,6 +12,7 @@ Ufw::Allow {
   ip  => 'any',
 }
 
+# Many of the 3rd party repos we use don't provide sources.
 Apt::Source {
   include_src => false,
 }
