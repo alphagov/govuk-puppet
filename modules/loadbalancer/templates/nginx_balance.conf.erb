@@ -1,5 +1,5 @@
 upstream <%= @vhost %>-upstream {
-<%- @servers.each do |server| -%>
+<%- [@servers].flatten.each do |server| -%>
   server <%= server %>:443 max_fails=3 fail_timeout=10s;
 <%- end -%>
 }

@@ -19,6 +19,20 @@ describe 'loadbalancer::balance', :type => :define do
     end
   end
 
+  context 'single load balancer' do
+    let(:title) { 'giraffe' }
+    let(:params) {
+      {
+        :servers => 'giraffe-1',
+      }
+    }
+
+    it 'should create nginx config for loadbalancing' do
+      should contain_nginx__config__site('giraffe.test.gov.uk')
+        .with_content(/server giraffe-1:443/)
+    end
+  end
+
   context 'internal load balancer' do
     let(:title) { 'giraffe' }
     let(:params) {
