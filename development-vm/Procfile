@@ -36,7 +36,7 @@ release:               ./run_in.sh ../release bundle exec rails server -p 3036
 asset_manager:         govuk_setenv asset-manager         ./run_in.sh ../asset-manager  bundle exec rails s -p 3037
 backdrop_read:        ./run_in.sh ../backdrop ./start-app.sh read 3038
 backdrop_write:       ./run_in.sh ../backdrop ./start-app.sh write 3039
-limelight:             govuk_setenv limelight ./run_in.sh ../limelight bundle exec unicorn -p 3040
+limelight:             govuk_setenv limelight ./run_in.sh ../limelight bundle exec unicorn -p 3040 -c ./config/unicorn_development.rb
 transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
 # govuk_delivery has port 3042
 # tariff_demo_api: grabbing port 3043 in preview only
