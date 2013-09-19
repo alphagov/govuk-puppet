@@ -1,4 +1,5 @@
 class mysql::server::config ( $error_log ) {
+  $debian_sys_maint_password = extlookup('mysql_debian_sys_maint', '')
 
   file { '/etc/mysql':
     ensure => 'directory',
@@ -13,6 +14,11 @@ class mysql::server::config ( $error_log ) {
     purge   => true,
     recurse => true,
     force   => true,
+  }
+
+  file { '/etc/mysql/debian.cnf':
+    content => template('mysql/etc/mysql/debian.cnf.erb'),
+    mode    => '0600',
   }
 
   # MySQL's server-id MUST be unique for every server in a cluster. That is,
