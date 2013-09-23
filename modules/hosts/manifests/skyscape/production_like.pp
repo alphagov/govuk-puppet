@@ -191,7 +191,6 @@ class hosts::skyscape::production_like {
       "smartanswers.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
-      "tariff-demo.${app_domain}",
       "transaction-wrappers.${app_domain}",
       "transactions-explorer.${app_domain}",
       "whitehall-frontend.${app_domain}",
@@ -311,7 +310,6 @@ class hosts::skyscape::production_like {
       "signon.${app_domain}",
       "support.${app_domain}",
       "tariff-api.${app_domain}",
-      "tariff-demo-api.${app_domain}",
       "transition.${app_domain}",
       "travel-advice-publisher.${app_domain}",
       "whitehall-admin.${app_domain}"

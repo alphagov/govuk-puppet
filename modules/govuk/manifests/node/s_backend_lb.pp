@@ -35,7 +35,6 @@ class govuk::node::s_backend_lb {
       'govuk-delivery',
       'search',
       'tariff-api',
-      'tariff-demo-api',
     ]:
       internal_only => true;
   }

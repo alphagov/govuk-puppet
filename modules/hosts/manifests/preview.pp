@@ -31,7 +31,6 @@ class hosts::preview {
   host { "private-frontend.${app_domain}":        ip => '10.228.95.176' }
   host { "tariff-admin.${app_domain}":            ip => '10.228.95.176' }
   host { "tariff-api.${app_domain}":              ip => '10.228.95.176' }
-  host { "tariff-demo-api.${app_domain}":         ip => '10.228.95.176' }
   host { "contentapi.${app_domain}":              ip => '10.228.95.176' }
   host { "canary-backend.${app_domain}":          ip => '10.228.95.176' }
   host { "travel-advice-publisher.${app_domain}": ip => '10.228.95.176' }
@@ -49,7 +48,6 @@ class hosts::preview {
   host { "frontend.${app_domain}":               ip => '10.58.253.150' }
   host { "feedback.${app_domain}":               ip => '10.58.253.150' }
   host { "tariff.${app_domain}":                 ip => '10.58.253.150' }
-  host { "tariff-demo.${app_domain}":            ip => '10.58.253.150' }
   host { "efg.${app_domain}":                    ip => '10.58.253.150' }
   host { "datainsight-frontend.${app_domain}":   ip => '10.58.253.150' }
   host { "canary-frontend.${app_domain}":        ip => '10.58.253.150' }

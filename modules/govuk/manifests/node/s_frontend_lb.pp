@@ -34,7 +34,6 @@ class govuk::node::s_frontend_lb {
       'transaction-wrappers',
       'transactions-explorer',
       'tariff',
-      'tariff-demo',
     ]:
       internal_only => $hide_frontend_apps;
     'frontend':
