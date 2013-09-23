@@ -61,6 +61,8 @@ datainsight_format_success_recorder:  ./run_in.sh ../datainsight-format-success-
 datainsight_everything_recorder:      ./run_in.sh ../datainsight-everything-recorder bundle exec bin/recorder run
 datainsight_insidegov_recorder:       ./run_in.sh ../datainsight-insidegov-recorder bundle exec bin/recorder run
 
+# Frontend JS test runner uses port 3150
+
 # canary-frontend: doesn't currently use a port. reserved 3200
 # canary-backend: doesn't currently use a port. reserved 3201
 # kibana: reserved 3202
