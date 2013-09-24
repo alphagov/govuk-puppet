@@ -24,6 +24,7 @@ process :jobs
 process :licencefinder => [:static, :contentapi]
 process :limelight => [:static, :limelight]
 process :migratorator
+process :need_api
 process :needotron
 process :panopticon
 process :planner => [:static, :contentapi]
