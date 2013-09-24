@@ -22,7 +22,6 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
   class {'govuk::apps::tariff_admin::db':         require => Class['mysql::server'] }
   class {'govuk::apps::tariff_api::db':           require => Class['mysql::server'] }
   class {'govuk::apps::tariff_api_temporal::db':  require => Class['mysql::server'] }
-  class {'govuk::apps::tariff_demo_api::db':      require => Class['mysql::server'] }
   class {'govuk::apps::transition::db':           require => Class['mysql::server'] }
   class {'govuk::apps::whitehall::db':            require => Class['mysql::server'] }
 
