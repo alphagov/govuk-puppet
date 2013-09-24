@@ -42,7 +42,7 @@ else
     fi
 fi
 
-info "Development environment now boostrapped."
+info "Development environment now bootstrapped."
 
 IP_ADDRESS=$(grep 'ip: ' Vagrantfile | head -n 1 | sed -e 's/.*ip: "\(.*\)".*/\1/')
 
