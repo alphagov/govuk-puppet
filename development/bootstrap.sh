@@ -36,9 +36,9 @@ else
         vagrant plugin install vagrant-dns > /dev/null 2>&1
         info "Installed vagrant-dns"
         info "Starting vagrant-dns - requires sudo"
-        if vagrant dns --install > /dev/null 2>&1; then
-            info "Started vagrant-dns"
-        fi
+    fi
+    if vagrant dns --install > /dev/null 2>&1; then
+        info "Started vagrant-dns"
     fi
 fi
 
