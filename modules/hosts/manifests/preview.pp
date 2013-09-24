@@ -32,6 +32,7 @@ class hosts::preview {
   host { "tariff-admin.${app_domain}":            ip => '10.228.95.176' }
   host { "tariff-api.${app_domain}":              ip => '10.228.95.176' }
   host { "contentapi.${app_domain}":              ip => '10.228.95.176' }
+  host { "need-api.${app_domain}":                ip => '10.228.95.176' }
   host { "canary-backend.${app_domain}":          ip => '10.228.95.176' }
   host { "travel-advice-publisher.${app_domain}": ip => '10.228.95.176' }
   host { "release.${app_domain}":                 ip => '10.228.95.176' }

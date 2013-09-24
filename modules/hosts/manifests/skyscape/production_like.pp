@@ -302,6 +302,7 @@ class hosts::skyscape::production_like {
       "imminence.${app_domain}",
       "kibana.${app_domain}",
       "mapit.${app_domain}",
+      "need-api.${app_domain}",
       "needotron.${app_domain}",
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",

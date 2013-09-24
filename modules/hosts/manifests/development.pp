@@ -54,4 +54,5 @@ class hosts::development {
   host { 'kibana.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'bouncer.dev.gov.uk':                              ip => '127.0.0.1' }
+  host { 'need-api.dev.gov.uk':                             ip => '127.0.0.1' }
 }
