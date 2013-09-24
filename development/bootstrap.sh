@@ -36,13 +36,13 @@ else
         vagrant plugin install vagrant-dns > /dev/null 2>&1
         info "Installed vagrant-dns"
         info "Starting vagrant-dns - requires sudo"
-        if vagrant dns --install > /dev/null 2>&1; then
-            info "Started vagrant-dns"
-        fi
+    fi
+    if vagrant dns --install > /dev/null 2>&1; then
+        info "Started vagrant-dns"
     fi
 fi
 
-info "Development environment now boostrapped."
+info "Development environment now bootstrapped."
 
 IP_ADDRESS=$(grep 'ip: ' Vagrantfile | head -n 1 | sed -e 's/.*ip: "\(.*\)".*/\1/')
 
