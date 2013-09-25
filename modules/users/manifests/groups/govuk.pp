@@ -37,7 +37,6 @@ class users::groups::govuk {
   include users::futurefabric
   include users::garethr
   include users::gma
-  include users::grogers
   include users::heathd
   include users::henryhadlow
   include users::jabley
