@@ -5,6 +5,7 @@ class users::groups::other {
   include users::gkoth
   include users::jolyonpawlyn
   include users::russellgarner
+  include users::stuartgale
   include users::tekin
   include users::timabell
   include users::tomstuart
