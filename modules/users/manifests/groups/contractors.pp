@@ -5,10 +5,13 @@
 #
 class users::groups::contractors {
   include users::ben
+  include users::benilovj
   include users::benparker
+  include users::dabel
   include users::elliot
   include users::futurefabric
   include users::gkoth
+  include users::gma
   include users::jimg
   include users::jolyonpawlyn
   include users::leelongmore
@@ -21,6 +24,6 @@ class users::groups::contractors {
   include users::timabell
   include users::tomstuart
   include users::willtomlins
-  include users::ysembiranahum
   include users::yolinasotirova
+  include users::ysembiranahum
 }

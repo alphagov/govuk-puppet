@@ -19,14 +19,12 @@ class users::groups::govuk {
   include users::amywhitney
   include users::annashipman
   include users::bansalp
-  include users::benilovj
   include users::bob
   include users::bradleyw
   include users::cal
   include users::carlmassa
   include users::chrisheathcote
   include users::cpawar
-  include users::dabel
   include users::dafydd
   include users::dai
   include users::davidillsley
@@ -36,7 +34,6 @@ class users::groups::govuk {
   include users::edhorsford
   include users::francesberriman
   include users::garethr
-  include users::gma
   include users::heathd
   include users::henryhadlow
   include users::jabley
