@@ -144,7 +144,6 @@ class govuk::node::s_development {
   class { 'mysql::server':
     root_password => $mysql_password
   }
-  include mysql::server::development
 
   Mysql::Server::Db {
     root_password => $mysql_password,
