@@ -21,7 +21,6 @@ class users::groups::govuk {
   include users::bansalp
   include users::bob
   include users::bradleyw
-  include users::cal
   include users::carlmassa
   include users::chrisheathcote
   include users::cpawar
@@ -45,22 +44,18 @@ class users::groups::govuk {
   include users::jordan
   include users::joshua
   include users::kushalp
-  include users::maxgriff
   include users::mazz
   include users::minglis
   include users::mwall
   include users::nick
   include users::norm
-  include users::ole
   include users::ops01
   include users::ops02
   include users::ops04
-  include users::pauloschneider
   include users::ppotter
   include users::psd
   include users::robyoung
   include users::roc
-  include users::rthorn
   include users::rujmah
   include users::ssharpe
   include users::timpaul

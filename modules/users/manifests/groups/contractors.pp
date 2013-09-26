@@ -7,6 +7,7 @@ class users::groups::contractors {
   include users::ben
   include users::benilovj
   include users::benparker
+  include users::cal
   include users::dabel
   include users::elliot
   include users::futurefabric
@@ -15,7 +16,11 @@ class users::groups::contractors {
   include users::jimg
   include users::jolyonpawlyn
   include users::leelongmore
+  include users::maxgriff
+  include users::ole
+  include users::pauloschneider
   include users::pbadensk
+  include users::rthorn
   include users::russellgarner
   include users::snehaso
   include users::stevelaing
