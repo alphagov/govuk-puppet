@@ -1,6 +1,7 @@
 # == Class: users::groups::govuk
 #
-# Install and configure SSH access for GDS staff and contractors
+# Install and configure SSH access for GDS staff
+# Contractors should be defined in users::groups::contractors
 #
 class users::groups::govuk {
 
@@ -18,14 +19,12 @@ class users::groups::govuk {
   include users::amywhitney
   include users::annashipman
   include users::bansalp
-  include users::benilovj
   include users::bob
   include users::bradleyw
   include users::cal
   include users::carlmassa
   include users::chrisheathcote
   include users::cpawar
-  include users::dabel
   include users::dafydd
   include users::dai
   include users::davidillsley
@@ -34,9 +33,7 @@ class users::groups::govuk {
   include users::eddsowden
   include users::edhorsford
   include users::francesberriman
-  include users::futurefabric
   include users::garethr
-  include users::gma
   include users::heathd
   include users::henryhadlow
   include users::jabley
@@ -45,11 +42,9 @@ class users::groups::govuk {
   include users::james
   include users::jamiec
   include users::jennyduckett
-  include users::jimg
   include users::jordan
   include users::joshua
   include users::kushalp
-  include users::leelongmore
   include users::maxgriff
   include users::mazz
   include users::minglis
@@ -61,18 +56,14 @@ class users::groups::govuk {
   include users::ops02
   include users::ops04
   include users::pauloschneider
-  include users::pbadensk
   include users::ppotter
   include users::psd
   include users::robyoung
   include users::roc
   include users::rthorn
   include users::rujmah
-  include users::snehaso
   include users::ssharpe
-  include users::stevelaing
   include users::timpaul
   include users::tombooth
   include users::tombyers
-  include users::yolinasotirova
 }
