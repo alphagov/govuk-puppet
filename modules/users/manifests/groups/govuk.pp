@@ -1,7 +1,7 @@
 # == Class: users::groups::govuk
 #
 # Install and configure SSH access for GDS staff
-# Contractors should be defined in users::groups::other
+# Contractors should be defined in users::groups::contractors
 #
 class users::groups::govuk {
 

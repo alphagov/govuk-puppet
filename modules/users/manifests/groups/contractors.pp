@@ -1,9 +1,9 @@
-# == Class: users::groups::other
+# == Class: users::groups::contractors
 #
 # Contractors working at GDS should be added to this list.
 # Please ensure that the list remains sorted alphabetically by username.
 #
-class users::groups::other {
+class users::groups::contractors {
   include users::ben
   include users::benparker
   include users::elliot
