@@ -15,6 +15,7 @@ class users::groups::contractors {
   include users::jimg
   include users::jolyonpawlyn
   include users::leelongmore
+  include users::paulhayes
   include users::pbadensk
   include users::russellgarner
   include users::snehaso
