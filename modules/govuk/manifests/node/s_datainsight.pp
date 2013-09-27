@@ -4,6 +4,7 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
   include rabbitmq
+  include clamav
 
   include datainsight::recorders::weekly_reach
   include datainsight::recorders::todays_activity
