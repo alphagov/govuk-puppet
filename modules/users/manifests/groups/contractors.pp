@@ -27,8 +27,6 @@ class users::groups::contractors {
   include users::stuartgale
   include users::tekin
   include users::timabell
-  include users::tomstuart
   include users::willtomlins
-  include users::yolinasotirova
   include users::ysembiranahum
 }
