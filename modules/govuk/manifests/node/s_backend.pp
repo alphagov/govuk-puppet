@@ -39,6 +39,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     include govuk::apps::need_api
   }
 
+  if str2bool(extlookup('govuk_enable_maslow', 'no')) {
+    include govuk::apps::maslow
+  }
+
   if str2bool(extlookup('govuk_enable_tariff_admin', 'no')) {
     include govuk::apps::tariff_admin
   }

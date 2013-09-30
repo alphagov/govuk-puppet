@@ -15,6 +15,7 @@ class govuk::node::s_backend_lb {
       'contacts',
       'fact-cave',
       'imminence',
+      'maslow',
       'needotron',
       'panopticon',
       'private-frontend',

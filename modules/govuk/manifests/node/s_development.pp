@@ -57,11 +57,12 @@ class govuk::node::s_development {
   include govuk::apps::canary_frontend
   include govuk::apps::efg
   include govuk::apps::errbit
-  include govuk::apps::need_api
   include govuk::apps::fact_cave
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
+  include govuk::apps::maslow
+  include govuk::apps::need_api
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
   include govuk::apps::publicapi

@@ -39,6 +39,7 @@ class hosts::preview {
   host { "asset-manager.${app_domain}":           ip => '10.228.95.176' }
   host { "kibana.${app_domain}":                  ip => '10.228.95.176' }
   host { "govuk-delivery.${app_domain}":          ip => '10.228.95.176' }
+  host { "maslow.${app_domain}":                  ip => '10.228.95.176' }
 
   host { "search.${app_domain}":                 ip => '10.228.95.176' }
   host { "calculators.${app_domain}":            ip => '10.58.253.150' }
