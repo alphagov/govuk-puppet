@@ -6,7 +6,6 @@ class users::groups::govuk_production_access {
   include users::bob
   include users::bradleyw
   include users::carlmassa
-  include users::dafydd
   include users::dai
   include users::davidillsley
   include users::davidt

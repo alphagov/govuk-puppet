@@ -22,7 +22,6 @@ class users::groups::govuk {
   include users::bradleyw
   include users::carlmassa
   include users::chrisheathcote
-  include users::dafydd
   include users::dai
   include users::davidillsley
   include users::davidt
