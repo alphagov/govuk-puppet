@@ -49,6 +49,7 @@ bouncer:               ./run_in.sh ../bouncer bundle exec mr-sparkle --force-pol
 fco_services:          ./run_in.sh ../fco-services bundle exec rails s -p 3050
 # hmrc_contacts: grabbing port 3051 in preview only
 need_api:              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
+maslow:                ./run_in.sh ../maslow bundle exec rails s -p 3053
 
 datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
 datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103

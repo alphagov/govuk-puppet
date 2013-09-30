@@ -23,6 +23,7 @@ process :imminence
 process :jobs
 process :licencefinder => [:static, :contentapi]
 process :limelight => [:static, :limelight]
+process :maslow => :need_api
 process :migratorator
 process :need_api
 process :needotron
