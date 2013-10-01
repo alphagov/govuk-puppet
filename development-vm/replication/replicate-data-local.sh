@@ -61,10 +61,9 @@ do
 done
 shift $(($OPTIND-1))
 
-if [[ -d $DIR && ! $SKIP_DOWNLOAD ]]; then
-  echo 'Download directory already exists: aborting'
-  exit 2
-elif [[ ! -d $DIR && $SKIP_DOWNLOAD ]]; then
+[[ ! $SKIP_DOWNLOAD ]] && mkdir -p $DIR
+
+if [[ ! -d $DIR && $SKIP_DOWNLOAD ]]; then
   echo "Backup directory '$DIR' not found: aborting"
   exit 2
 fi
