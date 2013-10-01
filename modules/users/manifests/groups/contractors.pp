@@ -13,8 +13,8 @@ class users::groups::contractors {
   include users::futurefabric
   include users::gkoth
   include users::gma
+  include users::jacobashdown
   include users::jimg
-  include users::jolyonpawlyn
   include users::leelongmore
   include users::maxgriff
   include users::ole

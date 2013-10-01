@@ -32,7 +32,6 @@ class users::groups::govuk {
   include users::heathd
   include users::henryhadlow
   include users::jabley
-  include users::jacobashdown
   include users::james
   include users::jamiec
   include users::jennyduckett
