@@ -17,21 +17,20 @@ trap cleanup EXIT
 cd "$TMP_ROOT"
 
 DEST="${MIRROR_ROOT}/$(date "+%Y%m%dT%H%M%S")"
-LOGFILE=$DEST.log
-echo "$(date "+%Y%m%dT%H%M%S"): Starting to mirror the site" >>$LOGFILE
+logger -i -p user.info -t govuk_update_mirror "Starting to mirror the site"
 # Mirror the site
 govuk_mirrorer --syslog
 
 if [ ! -d www.gov.uk ] || [ ! "$(du -ks www.gov.uk | awk '{print $1}')" -gt "10000" ]; then
-  echo "ERROR: Mirror appears to have failed (total size <10MB)" >> $LOGFILE
-  echo "ERROR: Not updating 'current' symlink" >> $LOGFILE
+  logger -i -p user.err -t govuk_update_mirror "Mirror appears to have failed (total size < 10MB)"
+  logger -i -p user.err -t govuk_update_mirror "Not updating 'current' symlink"
   exit 1
 fi
 
 mv www.gov.uk "$DEST"
 
-echo "$(date "+%Y%m%dT%H%M%S"): Cleaning up old directories and logs" >>$LOGFILE
 # Clean up all but the last 7 mirror versions
+logger -i -p user.info -t govuk_update_mirror "Cleaning up old directories and logs"
 find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
   sort -r |
   tail -n +8 |
@@ -42,12 +41,12 @@ find "$MIRROR_ROOT" -mindepth 1 -maxdepth 1 -type d |
     fi
   done
 
-echo "$(date "+%Y%m%dT%H%M%S"): Updating symlink to newest version" >>$LOGFILE
 # Update symlink to latest version
+logger -i -p user.info -t govuk_update_mirror "Updating symlink to newest version"
 ln -snf "$DEST" "${MIRROR_ROOT}/current"
 
-echo "$(date "+%Y%m%dT%H%M%S"): Grabbing the latest error page" >>$LOGFILE
 # Grab the 503 error page
+logger -i -p user.info -t govuk_update_mirror "Grabbing the latest error page"
 STATIC_HOSTNAME="static.`cat /etc/govuk/env.d/GOVUK_APP_DOMAIN`"
 
 test -d ${DEST}/error || mkdir ${DEST}/error/
