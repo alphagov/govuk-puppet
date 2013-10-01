@@ -5,6 +5,9 @@ class mysql::server::config ( $error_log ) {
     ensure => 'directory',
   }
 
+  # The proportion of memory used by innodb_buffer_pool_size is configurable using extdata
+  $innodb_buffer_pool_size_proportion = extlookup('mysql_innodb_buffer_pool_size_proportion', '0.25')
+  $innodb_buffer_pool_size = floor($::memtotalmb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
   file { '/etc/mysql/my.cnf':
     content => template('mysql/etc/mysql/my.cnf.erb'),
   }
