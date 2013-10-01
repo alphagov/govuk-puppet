@@ -44,7 +44,7 @@ fi
 
 info "Development environment now bootstrapped."
 
-IP_ADDRESS=$(grep 'ip: ' Vagrantfile | head -n 1 | sed -e 's/.*ip: "\(.*\)".*/\1/')
+IP_ADDRESS=$(grep ':ip ' Vagrantfile | head -n 1 | sed -e 's/.*:ip => "\(.*\)".*/\1/')
 
 info "Your development IP will be $IP_ADDRESS"
 info "Run \`vagrant up\` to begin."

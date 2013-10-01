@@ -19,6 +19,7 @@ class hosts::production {
   host { "tariff-api.${app_domain}":           ip => '10.54.182.112' }
   host { "panopticon.${app_domain}":           ip => '10.54.182.112' }
   host { "contentapi.${app_domain}":           ip => '10.54.182.112' }
+  host { "maslow.${app_domain}":               ip => '10.54.182.112' }
   host { "need-api.${app_domain}":             ip => '10.54.182.112' }
   host { "needotron.${app_domain}":            ip => '10.54.182.112' }
   host { "imminence.${app_domain}":            ip => '10.54.182.112' }

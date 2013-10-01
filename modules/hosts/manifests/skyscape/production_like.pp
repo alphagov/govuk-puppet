@@ -234,6 +234,11 @@ class hosts::skyscape::production_like {
     legacy_aliases  => ['support-1'],
     service_aliases => ['support'],
   }
+  govuk::host { 'support-contacts-1':
+    ip              => '10.3.0.60',
+    vdc             => 'backend',
+    legacy_aliases  => ['support-contacts-1'],
+  }
   govuk::host { 'mongo-1':
     ip              => '10.3.0.6',
     vdc             => 'backend',
@@ -302,6 +307,7 @@ class hosts::skyscape::production_like {
       "imminence.${app_domain}",
       "kibana.${app_domain}",
       "mapit.${app_domain}",
+      "maslow.${app_domain}",
       "need-api.${app_domain}",
       "needotron.${app_domain}",
       "panopticon.${app_domain}",

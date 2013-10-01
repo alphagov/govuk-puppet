@@ -21,6 +21,12 @@ class mysql::server($root_password='') {
     error_log => $mysql_error_log,
   }
 
+  # This needs to *not* be required by anchors so that it can use mysql::user,
+  # which requires mysql::server
+  class { 'mysql::server::debian_sys_maint_user':
+    root_password => $root_password,
+  }
+
   class { 'mysql::server::firewall':
     require => Class['mysql::server::config'],
   }
