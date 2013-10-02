@@ -18,50 +18,38 @@ class users::groups::govuk {
   include users::alext
   include users::amywhitney
   include users::annashipman
-  include users::bansalp
   include users::bob
   include users::bradleyw
-  include users::cal
   include users::carlmassa
   include users::chrisheathcote
-  include users::cpawar
-  include users::dafydd
   include users::dai
   include users::davidillsley
   include users::davidt
   include users::dcarley
   include users::eddsowden
   include users::edhorsford
-  include users::francesberriman
   include users::garethr
   include users::heathd
   include users::henryhadlow
   include users::jabley
-  include users::jackfranklin
-  include users::jacobashdown
   include users::james
   include users::jamiec
   include users::jennyduckett
   include users::jordan
   include users::joshua
   include users::kushalp
-  include users::maxgriff
   include users::mazz
   include users::minglis
   include users::mwall
   include users::nick
   include users::norm
-  include users::ole
   include users::ops01
   include users::ops02
   include users::ops04
-  include users::pauloschneider
   include users::ppotter
   include users::psd
   include users::robyoung
   include users::roc
-  include users::rthorn
-  include users::rujmah
   include users::ssharpe
   include users::timpaul
   include users::tombooth
