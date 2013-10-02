@@ -178,6 +178,7 @@ class govuk::apps::publicapi {
       'path' => 'sorn/api/realtime',
       'name' => 'sorn_realtime',
       'enabled' => true,
+      'realtime' => true,
     },
     {
       'path' => 'tax-disc/api/monitoring',
@@ -188,6 +189,7 @@ class govuk::apps::publicapi {
       'path' => 'tax-disc/api/realtime',
       'name' => 'tax_disc_realtime',
       'enabled' => true,
+      'realtime' => true,
     },
     {
       'path' => 'vehicle-licensing/api/services',
