@@ -5,11 +5,15 @@ GEM
     facter (1.7.2)
     hiera (1.2.1)
       json_pure
-    json (1.7.7)
+    highline (1.6.19)
+    json (1.8.0)
     json_pure (1.8.0)
-    librarian-puppet (0.9.8)
-      json
+    librarian (0.1.1)
+      highline
       thor (~> 0.15)
+    librarian-puppet-maestrodev (0.9.10.1)
+      json
+      librarian (>= 0.1.1)
     metaclass (0.0.1)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
@@ -47,7 +51,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  librarian-puppet
+  librarian-puppet-maestrodev
   parallel
   parallel_tests
   puppet (= 3.2.2)
