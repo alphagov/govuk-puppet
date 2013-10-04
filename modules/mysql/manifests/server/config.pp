@@ -1,4 +1,4 @@
-class mysql::server::config ( $error_log ) {
+class mysql::server::config ( $error_log, $tmp_table_size, $max_heap_table_size) {
   $debian_sys_maint_password = extlookup('mysql_debian_sys_maint', '')
 
   file { '/etc/mysql':

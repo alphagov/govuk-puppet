@@ -23,14 +23,14 @@ innodb_buffer_pool_size = <%= @innodb_buffer_pool_size %>
 key_buffer              = 16M
 max_allowed_packet      = 16M
 max_connections         = 400
-max_heap_table_size     = 128M
+max_heap_table_size     = <%= @max_heap_table_size %>
 myisam-recover          = BACKUP
 myisam_sort_buffer_size = 16M
 table_cache             = 4096
 thread_cache_size       = 8
 #thread_concurrency     = 10
 thread_stack            = 192K
-tmp_table_size          = 128M
+tmp_table_size          = <%= @tmp_table_size %>
 
 #
 # * Query Cache Configuration
