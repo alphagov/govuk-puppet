@@ -120,7 +120,6 @@ class jenkins {
     require => File['/mnt/jenkins'],
   }
 
-  include golang
   include bundler
   include mysql::client
 
