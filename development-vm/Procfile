@@ -64,6 +64,7 @@ datainsight_everything_recorder:      ./run_in.sh ../datainsight-everything-reco
 datainsight_insidegov_recorder:       ./run_in.sh ../datainsight-insidegov-recorder bundle exec bin/recorder run
 
 # Frontend JS test runner uses port 3150
+# Router test suite uses ports 3160-3169
 
 # canary-frontend: doesn't currently use a port. reserved 3200
 # canary-backend: doesn't currently use a port. reserved 3201
