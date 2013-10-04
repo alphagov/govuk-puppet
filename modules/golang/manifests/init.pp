@@ -13,7 +13,7 @@ class golang {
     include govuk::ppa
 
     package { 'golang':
-      ensure  => "2:1.1.2",
+      ensure  => '2:1.1.2-2ubuntu1~ppa1~precise1',
       require => Class['govuk::ppa'],
     }
 
