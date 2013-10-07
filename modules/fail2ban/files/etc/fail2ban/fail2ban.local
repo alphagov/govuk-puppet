@@ -1,0 +1,9 @@
+#
+# Fail2ban local configuration file
+#
+# Changes in here overwrite default settings in fail2ban.conf
+#
+[Definition]
+
+# https://www.pivotaltracker.com/story/show/45066055
+logtarget = SYSLOG
