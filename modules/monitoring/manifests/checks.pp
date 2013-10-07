@@ -1,5 +1,6 @@
 class monitoring::checks {
 
+  include monitoring::checks::fastly
   include monitoring::checks::pingdom
   include monitoring::checks::smokey
 
