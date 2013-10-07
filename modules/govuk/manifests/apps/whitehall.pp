@@ -138,5 +138,9 @@ class govuk::apps::whitehall(
     govuk::delayed_job::worker { 'whitehall-admin':
       setenv_as => 'whitehall',
     }
+
+    govuk::procfile::worker { 'whitehall-admin':
+      setenv_as => 'whitehall'
+    }
   }
 }
