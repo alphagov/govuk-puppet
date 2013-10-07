@@ -25,5 +25,6 @@ class users::groups::govuk_production_access {
   include users::psd
   include users::robyoung
   include users::ssharpe
+  include users::tombooth
 
 }
