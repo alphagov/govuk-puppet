@@ -12,4 +12,8 @@ class fail2ban::config {
     source => 'puppet:///modules/fail2ban/etc/fail2ban/jail.conf',
   }
 
+  file { '/etc/fail2ban/jail.local':
+    source => 'puppet:///modules/fail2ban/etc/fail2ban/jail.local',
+  }
+
 }
