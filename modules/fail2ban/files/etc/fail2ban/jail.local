@@ -5,17 +5,26 @@
 #
 [DEFAULT]
 
-# change was already in initial commit:
 # https://github.gds/gds/puppet/commit/e343f1a
 backend = polling
 
+# ACTIONS
+
+# https://github.gds/gds/puppet/commit/d97af88
+action = %(action_mwl)s
+
+[ssh]
+
+# https://github.gds/gds/puppet/commit/064904
+maxretry = 20
+
 [ssh-ddos]
 
-# change was already in initial commit:
 # https://github.gds/gds/puppet/commit/e343f1a
 enabled = true
+# https://github.gds/gds/puppet/commit/064904
+maxretry = 20
 
-# following three sections had been added in initial commit:
 # https://github.gds/gds/puppet/commit/e343f1a
 [nginx]
 
@@ -27,7 +36,8 @@ maxretry = 6
 
 [nginx-noscript]
 
-enabled = false
+# https://github.gds/gds/puppet/commit/9de8f07
+enabled = true
 port    = http,https
 filter  = apache-noscript
 logpath = /var/log/nginx*/*error.log
@@ -35,7 +45,8 @@ maxretry = 6
 
 [nginx-overflows]
 
-enabled = false
+# https://github.gds/gds/puppet/commit/9de8f07
+enabled = true
 port    = http,https
 filter  = apache-overflows
 logpath = /var/log/nginx*/*error.log
