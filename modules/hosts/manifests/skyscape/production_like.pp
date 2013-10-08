@@ -112,6 +112,21 @@ class hosts::skyscape::production_like {
     vdc             => 'router',
     legacy_aliases  => ['cache-3'],
   }
+  govuk::host { 'router-backend-1':
+    ip             => '10.1.0.10',
+    vdc            => 'router',
+    legacy_aliases => ['router-backend-1'],
+  }
+  govuk::host { 'router-backend-2':
+    ip             => '10.1.0.11',
+    vdc            => 'router',
+    legacy_aliases => ['router-backend-2'],
+  }
+  govuk::host { 'router-backend-3':
+    ip             => '10.1.0.12',
+    vdc            => 'router',
+    legacy_aliases => ['router-backend-3'],
+  }
 
   #router lb vhosts
   $website_host = extlookup('website_host', 'www.gov.uk')
