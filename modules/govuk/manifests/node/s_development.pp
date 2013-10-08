@@ -50,6 +50,7 @@ class govuk::node::s_development {
     'govuk::apps::backdrop_write':        vhost_protected => false;
     'govuk::apps::backdrop_ga_collector': ;
     'govuk::apps::backdrop_ga_realtime_collector': ;
+    'govuk::apps::backdrop_pingdom_collector': ;
   }
 
   include govuk::apps::asset_manager
