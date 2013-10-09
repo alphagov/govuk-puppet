@@ -111,4 +111,11 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     source => 'puppet:///modules/clamav/usr/local/bin/sync-assets.sh',
     mode   => '0755',
   }
+
+  cron { 'tmpreaper-bulk-upload-zip-file-tmp':
+    command => '/usr/sbin/tmpreaper -am 24h /mnt/uploads/whitehall/bulk-upload-zip-file-tmp',
+    user    => 'root',
+    hour    => 5,
+    minute  => 5,
+  }
 }
