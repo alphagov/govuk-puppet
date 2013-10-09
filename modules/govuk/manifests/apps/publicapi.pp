@@ -11,7 +11,6 @@ class govuk::apps::publicapi {
   $backdropread_protocol = extlookup('backdropread_protocol', 'https')
   $backdropread_host = extlookup('backdropread_host', "read.backdrop.${app_domain}")
   $backdropread_url = "${backdropread_protocol}://${backdropread_host}"
-  $backdropwrite = "write.backdrop.${app_domain}"
 
   $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
   $enable_backdrop_hmrc_preview_bucket = str2bool(extlookup('govuk_enable_backdrop_hmrc_buckets', 'no'))
