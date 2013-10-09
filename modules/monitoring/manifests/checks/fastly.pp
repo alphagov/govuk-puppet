@@ -15,7 +15,7 @@ class monitoring::checks::fastly {
         owner  => 'root',
         group  => 'root',
         mode   => '0755',
-        source => 'puppet:///modules/monitoring/files/check_fastly_error_rate'
+        source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_fastly_error_rate'
     }
 
     file{'/etc/nagios3/conf.d/check_fastly_error_rate.cfg':
