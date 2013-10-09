@@ -31,10 +31,10 @@ class monitoring::checks::fastly {
 
     if $fastly_enable_checks {
 
-        $fastly_api_key            = str2bool(extlookup('fastly_api_key', ''))
-        $fastly_assets_service     = str2bool(extlookup('fastly_assets_service', ''))
-        $fastly_govuk_service      = str2bool(extlookup('fastly_govuk_service', ''))
-        $fastly_redirector_service = str2bool(extlookup('fastly_redirector_service', ''))
+        $fastly_api_key            = extlookup('fastly_api_key', '')
+        $fastly_assets_service     = extlookup('fastly_assets_service', '')
+        $fastly_govuk_service      = extlookup('fastly_govuk_service', '')
+        $fastly_redirector_service = extlookup('fastly_redirector_service', '')
 
         nagios::check { 'check_fastly_asset_errors':
             check_command       => "check_fastly_error_rate!${fastly_assets_service}!${fastly_api_key}!0.1!1",
