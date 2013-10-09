@@ -32,6 +32,11 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
+# [*use*]
+#   The title of a `Nagios::Service_template` resource which this service
+#   should inherit.
+#   Default: govuk_regular_service
+#
 # [*args*]
 #   Single string of additional arguments passed to `check_graphite_args`.
 #   Default: ''
@@ -58,6 +63,7 @@ define nagios::check::graphite(
   $warning,
   $critical,
   $host_name,
+  $use  = 'govuk_regular_service',
   $args = '',
   $from = '5minutes',
   $notes_url = undef,
@@ -89,6 +95,7 @@ define nagios::check::graphite(
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
+    use                        => $use,
     action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
 target=${url_encoded_target}&\
