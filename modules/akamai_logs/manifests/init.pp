@@ -83,12 +83,5 @@ class akamai_logs {
     content => 'command[check_akamai_logs]=/usr/lib/nagios/plugins/check_akamai_logs'
   }
 
-  @@nagios::check { "check_akamai_logs_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_akamai_logs',
-    service_description => 'no recently fetched akamai logs',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#no-recently-fetched-akamai-logs',
-  }
-
   include akamai_logs::log_scanner
 }
