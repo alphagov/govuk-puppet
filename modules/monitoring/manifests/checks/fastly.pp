@@ -53,7 +53,7 @@ class monitoring::checks::fastly {
         }
 
         nagios::check { 'check_fastly_redirector_errors':
-            check_command       => "check_fastly_error_rate!${fastly_redirector_service}!${fastly_api_key}!0.1!1",
+            check_command       => "check_fastly_error_rate!${fastly_redirector_service}!${fastly_api_key}!1!2",
             use                 => 'govuk_normal_priority',
             host_name           => $::fqdn,
             service_description => 'Check redirector CDN error rate',
