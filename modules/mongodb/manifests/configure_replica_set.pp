@@ -16,7 +16,7 @@ class mongodb::configure_replica_set($members) {
   }
 
   exec { 'configure-replica-set':
-    command => "/usr/bin/mongo --host ${members[0]} /etc/mongodb/configure-replica-set.js",
+    command => "/usr/bin/mongo --quiet --host ${members[0]} /etc/mongodb/configure-replica-set.js",
     unless  => "/usr/bin/mongo --host ${members[0]} --quiet --eval 'rs.status().ok' | grep -q 1",
     require => [
       File['/etc/mongodb/configure-replica-set.js'],

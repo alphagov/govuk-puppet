@@ -18,4 +18,7 @@ function replicaSetConfig() {
   };
 }
 
-rs.initiate(replicaSetConfig());
+res = rs.initiate(replicaSetConfig());
+if (res.ok != 1) {
+  throw res.errmsg;
+}
