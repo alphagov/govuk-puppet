@@ -113,9 +113,21 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   }
 
   cron { 'tmpreaper-bulk-upload-zip-file-tmp':
-    command => '/usr/sbin/tmpreaper -am 24h /mnt/uploads/whitehall/bulk-upload-zip-file-tmp',
+    command => '/usr/sbin/tmpreaper -am 24h /mnt/uploads/whitehall/bulk-upload-zip-file-tmp/',
     user    => 'root',
     hour    => 5,
     minute  => 5,
+  }
+  cron { 'tmpreaper-carrierwave-tmp':
+    command => '/usr/sbin/tmpreaper -T300 --mtime 7d /mnt/uploads/whitehall/carrierwave-tmp/',
+    user    => 'root',
+    hour    => 5,
+    minute  => 15,
+  }
+  cron { 'tmpreaper-attachment-cache':
+    command => '/usr/sbin/tmpreaper -T300 --mtime 14d /mnt/uploads/whitehall/attachment-cache/',
+    user    => 'root',
+    hour    => 5,
+    minute  => 25,
   }
 }
