@@ -50,8 +50,7 @@ class varnish::config {
     'student-finance-forms',
     'towing-rules',
     'uk-benefits-abroad',
-    'vehicles-you-can-drive',
-    'which-finance-is-right-for-your-business'
+    'vehicles-you-can-drive'
   ]
 
   # List of available backends
