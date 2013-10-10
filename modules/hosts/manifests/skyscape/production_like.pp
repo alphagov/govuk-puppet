@@ -483,12 +483,12 @@ class hosts::skyscape::production_like {
   govuk::host { 'bouncer-2':
     ip             => '10.6.0.5',
     vdc            => 'redirector',
-    legacy_aliases => ['bouncer-1'],
+    legacy_aliases => ['bouncer-2'],
   }
   govuk::host { 'bouncer-3':
     ip             => '10.6.0.6',
     vdc            => 'redirector',
-    legacy_aliases => ['bouncer-1'],
+    legacy_aliases => ['bouncer-3'],
   }
 
   govuk::host { 'bouncer-vse-lb':
