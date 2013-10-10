@@ -50,7 +50,7 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
 
   govuk::mount { '/var/lib/automongodbbackup':
     mountoptions => 'defaults',
-    disk         => '/dev/mappers/backup-mongodb',
+    disk         => '/dev/mapper/backup-mongodb',
   }
 
   govuk::mount { '/var/lib/mongodb':
