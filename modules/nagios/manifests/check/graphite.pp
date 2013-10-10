@@ -34,8 +34,8 @@
 #
 # [*use*]
 #   The title of a `Nagios::Service_template` resource which this service
-#   should inherit.
-#   Default: govuk_regular_service
+#   should inherit. The downstream default is `govuk_regular_service`
+#   Default: undef
 #
 # [*args*]
 #   Single string of additional arguments passed to `check_graphite_args`.
@@ -63,7 +63,7 @@ define nagios::check::graphite(
   $warning,
   $critical,
   $host_name,
-  $use  = 'govuk_regular_service',
+  $use  = undef,
   $args = '',
   $from = '5minutes',
   $notes_url = undef,
