@@ -48,3 +48,14 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
     outgoing => 27017,
   }
 }
+
+  govuk::mount { '/var/lib/automongodbbackup':
+    mountoptions => 'defaults',
+    disk         => '/dev/mappers/backup-mongodb',
+  }
+
+  govuk::mount { '/var/lib/mongodb':
+    mountoptions => 'defaults',
+    disk         => '/dev/mapper/mongodb-data',
+  }
+}
