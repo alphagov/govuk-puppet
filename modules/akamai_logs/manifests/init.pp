@@ -41,6 +41,8 @@ class akamai_logs {
     mountpoint   => '/mnt',
     disk         => '/dev/sdb1',
     mountoptions => 'errors=remount-ro',
+    nagios_warn  => 10,
+    nagios_crit  => 5,
   }
 
   file { $local_logs_dir:
