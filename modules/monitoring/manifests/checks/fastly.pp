@@ -37,7 +37,7 @@ class monitoring::checks::fastly {
         $fastly_redirector_service = extlookup('fastly_redirector_service', '')
 
         nagios::check { 'check_fastly_asset_errors':
-            check_command       => "check_fastly_error_rate!${fastly_assets_service}!${fastly_api_key}!0.1!1",
+            check_command       => "check_fastly_error_rate!${fastly_assets_service}!${fastly_api_key}!1!2",
             use                 => 'govuk_normal_priority',
             host_name           => $::fqdn,
             service_description => 'Check asset CDN error rate',
@@ -53,7 +53,7 @@ class monitoring::checks::fastly {
         }
 
         nagios::check { 'check_fastly_redirector_errors':
-            check_command       => "check_fastly_error_rate!${fastly_redirector_service}!${fastly_api_key}!1!2",
+            check_command       => "check_fastly_error_rate!${fastly_redirector_service}!${fastly_api_key}!2!5",
             use                 => 'govuk_normal_priority',
             host_name           => $::fqdn,
             service_description => 'Check redirector CDN error rate',
