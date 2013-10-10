@@ -480,6 +480,16 @@ class hosts::skyscape::production_like {
     vdc            => 'redirector',
     legacy_aliases => ['bouncer-1'],
   }
+  govuk::host { 'bouncer-2':
+    ip             => '10.6.0.5',
+    vdc            => 'redirector',
+    legacy_aliases => ['bouncer-1'],
+  }
+  govuk::host { 'bouncer-3':
+    ip             => '10.6.0.6',
+    vdc            => 'redirector',
+    legacy_aliases => ['bouncer-1'],
+  }
 
   govuk::host { 'bouncer-vse-lb':
     ip             => extlookup('ip_bouncer','127.0.0.1'),
