@@ -4,7 +4,7 @@ require 'json'
 require 'open-uri'
 require 'optparse'
 
-from_time = '5 minutes ago'
+from_time = '15 minutes ago'
 
 options = {}
 options[:critical_pct] = 2
@@ -55,10 +55,10 @@ stats['data'].each { |stat|
 error_pct = ( errors.to_f * 100 ) / requests.to_f
 
 if error_pct > options[:critical_pct].to_f then
-    puts "CRITICAL: CDN Error rate is over #{options[:critical_pct]}% (5min avg is #{error_pct}%)"
+    puts "CRITICAL: CDN Error rate is over #{options[:critical_pct]}% (15min avg is #{error_pct}%)"
     exit 2
 elsif error_pct > options[:warning_pct].to_f then
-    puts "WARNING: CDN Error rate is over #{options[:warning_pct]}% (5min avg is #{error_pct}%)"
+    puts "WARNING: CDN Error rate is over #{options[:warning_pct]}% (15min avg is #{error_pct}%)"
     exit 1
 else
     puts "OK: CDN Error rate is #{error_pct}%"
