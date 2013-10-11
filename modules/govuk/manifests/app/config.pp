@@ -165,6 +165,12 @@ define govuk::app::config (
       host_name           => $::fqdn,
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
     }
+    include nagios::client::check_unicorn_workers
+    @@nagios::check { "check_app_${title}_unicorn_workers_${::hostname}":
+      check_command       => "check_nrpe!check_unicorn_workers!${title}",
+      service_description => "${title} has the expected number of unicorn workers",
+      host_name           => $::fqdn,
+    }
   }
   @@nagios::check { "check_app_${title}_upstart_up_${::hostname}":
     check_command       => "check_nrpe!check_upstart_status!${title}",
