@@ -3,10 +3,10 @@ APPLICATION=$1
 # Check for the application config
 if [ -e /var/apps/${APPLICATION}/config/unicorn.rb ]; then
     cd /var/apps/${APPLICATION}/
-    EXPECTED_WORKERS=`govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp bundle exec ruby -r unicorn -e 'puts Unicorn::Configurator.new(:config_file => "config/unicorn.rb")[:worker_processes]'`
+    EXPECTED_WORKERS=`govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp bundle exec ruby -r unicorn -e 'puts Unicorn::Configurator.new(:config_file => "config/unicorn.rb")[:worker_processes]' 2>/dev/null`
 elif [ -e /etc/govuk/unicorn.rb ]; then
     cd /var/apps/${APPLICATION}/
-    EXPECTED_WORKERS=`govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp bundle exec ruby -r unicorn -e 'puts Unicorn::Configurator.new(:config_file => "/etc/govuk/unicorn.rb")[:worker_processes]'`
+    EXPECTED_WORKERS=`govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp bundle exec ruby -r unicorn -e 'puts Unicorn::Configurator.new(:config_file => "/etc/govuk/unicorn.rb")[:worker_processes]' 2>/dev/null`
 else
     EXPECTED_WORKERS=4
 fi
