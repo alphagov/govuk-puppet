@@ -112,8 +112,8 @@ class router::nginx (
   # FIXME: keepLastValue() because logster only runs every 2m.
   @@nagios::check::graphite { "check_nginx_5xx_on_${::hostname}":
     target    => "keepLastValue(${::fqdn_underscore}.nginx_logs.http_5xx)",
-    warning   => 1,
-    critical  => 5,
+    warning   => 5,
+    critical  => 15,
     use       => 'govuk_urgent_priority',
     from      => '3minutes',
     desc      => 'router nginx high 5xx rate',
