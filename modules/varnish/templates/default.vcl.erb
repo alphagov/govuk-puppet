@@ -45,7 +45,7 @@ acl purge_acl {
 
 sub vcl_recv {
   # Routing
-  if (req.http.Feature-New-Router) {
+  if (req.http.GOVUK-Feature-New-Router) {
     set req.backend = router;
   } else if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap[^/]*.xml(\?.*)?$") {
     <%= set_backend('search') %>
