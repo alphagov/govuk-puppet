@@ -38,8 +38,8 @@
     location ~ ^/performance/(.*)/api/(.*) {
       rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2
 
-      proxy_set_header Host <%= @backdropread %>;
-      proxy_pass http://<%= @backdropread %>;
+      proxy_set_header Host <%= @backdropread_host %>;
+      proxy_pass <%= @backdropread_url %>;
     }
   <% else -%>
     <% @backdrop_buckets.each do |bucket| %>
@@ -47,10 +47,10 @@
         location ~ ^/performance/<%= bucket["path"] %> {
           rewrite ^/performance/<%= bucket["path"] %>(.*)$ /<%= bucket["name"] %>$1 break;
 
-          proxy_set_header Host <%= @backdropread %>;
+          proxy_set_header Host <%= @backdropread_host %>;
           proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>;
 
-          proxy_pass http://<%= @backdropread %>;
+          proxy_pass <%= @backdropread_url %>;
 
           <% if bucket["realtime"] %>
             expires 2m;

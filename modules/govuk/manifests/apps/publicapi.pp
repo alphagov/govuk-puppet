@@ -5,8 +5,12 @@ class govuk::apps::publicapi {
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
   $factcaveapi = "fact-cave.${app_domain}"
-  $backdropread = "read.backdrop.${app_domain}"
-  $backdropwrite = "write.backdrop.${app_domain}"
+
+  # Backdrop is currently migrating from GOV.UK infrastructure to PP Platform 1
+  # HTTP is only used in development, HTTPS everywhere else
+  $backdropread_protocol = extlookup('backdropread_protocol', 'https')
+  $backdropread_host = extlookup('backdropread_host', "read.backdrop.${app_domain}")
+  $backdropread_url = "${backdropread_protocol}://${backdropread_host}"
 
   $enable_backdrop_test_bucket = str2bool(extlookup('govuk_enable_backdrop_test_bucket', 'no'))
   $enable_backdrop_hmrc_preview_bucket = str2bool(extlookup('govuk_enable_backdrop_hmrc_buckets', 'no'))
