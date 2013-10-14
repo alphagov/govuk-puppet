@@ -15,6 +15,8 @@ class govuk::apps::publicapi {
   $enable_realtime_buckets = str2bool(extlookup('govuk_enable_realtime_buckets', 'no'))
   $enable_lpa_buckets = str2bool(extlookup('govuk_enable_lpa_buckets', 'no'))
 
+  $enable_backdrop_path_handling = str2bool(extlookup('govuk_enable_backdrop_path_handling', 'no'))
+
   $backdrop_buckets = [
     {
       'path' => 'deposit-foreign-marriage/api/journey',
