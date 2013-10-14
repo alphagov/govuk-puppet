@@ -1,4 +1,4 @@
-class apt::monitoring {
+class monitoring::client::apt {
   # Provides `notify-reboot-required` which is referenced in the `postinst`
   # of some packages in order to request that the system be rebooted at a
   # convenient time. Required by the `check_reboot_required` alert, but
@@ -8,10 +8,10 @@ class apt::monitoring {
   }
 
   @nagios::nrpe_config { 'check_apt_updates':
-    source => 'puppet:///modules/apt/etc/nagios/nrpe.d/check_apt_updates.cfg',
+    source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_apt_updates.cfg',
   }
   @nagios::plugin { 'check_apt_updates':
-    source => 'puppet:///modules/apt/usr/lib/nagios/plugins/check_apt_updates',
+    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_apt_updates',
   }
   @@nagios::check { "check_apt_updates_${::hostname}":
     check_command       => 'check_nrpe!check_apt_updates!200 1000',
@@ -20,10 +20,10 @@ class apt::monitoring {
   }
 
   @nagios::nrpe_config { 'check_reboot_required':
-    source => 'puppet:///modules/apt/etc/nagios/nrpe.d/check_reboot_required.cfg',
+    source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_reboot_required.cfg',
   }
   @nagios::plugin { 'check_reboot_required':
-    source  => 'puppet:///modules/apt/usr/lib/nagios/plugins/check_reboot_required',
+    source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_reboot_required',
     require => Package['update-notifier-common'],
   }
   @@nagios::check { "check_reboot_required_${::hostname}":

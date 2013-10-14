@@ -4,6 +4,8 @@ mod 'ripienaar/concat'
 mod 'thomasvandoren/redis'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/stdlib'
+mod 'puppetlabs/apt'
+
 mod 'cpanm',
   :git => 'git://github.com/alphagov/puppet-cpanm.git',
   :ref => '4e3dfca'
