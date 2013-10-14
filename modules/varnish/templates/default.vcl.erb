@@ -23,6 +23,12 @@ end
 -%>
 
 # Backends
+  backend router {
+    .host = "localhost";
+    .port = "8081";
+    .first_byte_timeout = 20s;
+    .between_bytes_timeout = 20s;
+  }
 <% @backends.each do |name| %>
   backend <%= name %> {
     .host = "<%= vhost_for_backend(name) %>";
@@ -39,7 +45,9 @@ acl purge_acl {
 
 sub vcl_recv {
   # Routing
-  if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap[^/]*.xml(\?.*)?$") {
+  if (req.http.Feature-New-Router) {
+    set req.backend = router;
+  } else if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap[^/]*.xml(\?.*)?$") {
     <%= set_backend('search') %>
   } else if (req.url ~ "^/when-do-the-clocks-change([/?.].*)?$|^/bank-holidays([/?.].*)?$|^/gwyliau-banc([/?.].*)?$") {
     <%= set_backend('calendars') %>
