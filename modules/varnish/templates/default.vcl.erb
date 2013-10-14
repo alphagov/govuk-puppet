@@ -23,6 +23,12 @@ end
 -%>
 
 # Backends
+  backend router {
+    .host = "localhost";
+    .port = "8081";
+    .first_byte_timeout = 20s;
+    .between_bytes_timeout = 20s;
+  }
 <% @backends.each do |name| %>
   backend <%= name %> {
     .host = "<%= vhost_for_backend(name) %>";
@@ -39,7 +45,9 @@ acl purge_acl {
 
 sub vcl_recv {
   # Routing
-  if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap[^/]*.xml(\?.*)?$") {
+  if (req.http.GOVUK-Feature-New-Router) {
+    set req.backend = router;
+  } else if (req.url ~ "^/autocomplete(\?.*)?$|^/preload-autocomplete(\?.*)?$|^/sitemap[^/]*.xml(\?.*)?$") {
     <%= set_backend('search') %>
   } else if (req.url ~ "^/when-do-the-clocks-change([/?.].*)?$|^/bank-holidays([/?.].*)?$|^/gwyliau-banc([/?.].*)?$") {
     <%= set_backend('calendars') %>
@@ -73,11 +81,6 @@ sub vcl_recv {
     <%= set_backend('limelight') %>
   } else if (req.url ~ "^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
     <%= set_backend('whitehall_frontend') %>
-    # Don't waste our internal cache on uploaded assets (large) which are
-    # typically cached for a long time at the CDN edge.
-    if (req.url ~ "^/government/uploads/") {
-      return(pass);
-    }
   } else if (req.url ~ "^/__canary__$") {
     <%= set_backend('canary_frontend') %>
   <%# This matches on any subpath of the slugs, the bare slugs should fall through to content in Frontend %>
@@ -109,6 +112,12 @@ sub vcl_recv {
     else {
       remove req.http.Accept-Encoding;
     }
+  }
+
+  # Don't waste our internal cache on uploaded assets (large) which are
+  # typically cached for a long time at the CDN edge.
+  if (req.url ~ "^/government/uploads/") {
+    return(pass);
   }
 
   # Serve stale period. This is the period for which Varnish is *allowed* to
