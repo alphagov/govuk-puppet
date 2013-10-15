@@ -157,7 +157,7 @@ sub vcl_fetch {
 
   if (req.backend == licensify) {
     # Licensify sends custom 500 errors, and we need to send No-Fallback: true
-    # to prevent Akamai from falling back to the static site in NetStorage.
+    # to prevent the CDN from falling back to the mirror site.
     # Unfortunately, with our current build of Nginx we can't use add_headers
     # for an error response, so this will have to live here.
     #
