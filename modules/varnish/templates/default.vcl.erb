@@ -79,7 +79,7 @@ sub vcl_recv {
     <%= set_backend('transactions_explorer') %>
   } else if (req.url ~ "^/performance") {
     <%= set_backend('limelight') %>
-  } else if (req.url ~ "^/government/|^/specialist/|^/(bis|cabinetoffice|dclg|mod|defra|fco|dh|dfid|moj|hmrc)(\?.*)?$") {
+  } else if (req.url ~ "^/government/") {
     <%= set_backend('whitehall_frontend') %>
   } else if (req.url ~ "^/__canary__$") {
     <%= set_backend('canary_frontend') %>
