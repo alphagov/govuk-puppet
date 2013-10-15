@@ -3,6 +3,7 @@ define govuk::app::config (
   $domain,
   $port,
   $vhost_full,
+  $command = 'NOTSET',
   $vhost_aliases = [],
   $vhost_protected = undef,
   $vhost_ssl_only = false,
@@ -85,10 +86,16 @@ define govuk::app::config (
   }
 
   if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {
-    govuk::app::envvar {
-      "${title}-UNICORN_HERDER_TIMEOUT":
-        varname => 'UNICORN_HERDER_TIMEOUT',
-        value   => $unicorn_herder_timeout;
+    govuk::app::envvar { "${title}-UNICORN_HERDER_TIMEOUT":
+      varname => 'UNICORN_HERDER_TIMEOUT',
+      value   => $unicorn_herder_timeout;
+    }
+  }
+
+  if $app_type == 'bare' and $command != 'NOTSET' {
+    govuk::app::envvar { "${title}-GOVUK_APP_CMD":
+      varname => 'GOVUK_APP_CMD',
+      value   => $command,
     }
   }
 

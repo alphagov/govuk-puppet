@@ -63,6 +63,12 @@ case "$GOVUK_APP_TYPE" in
     MAKE_PIDFILE="--make-pidfile"
     ;;
 
+  bare)
+    status "Spawning from GOVUK_APP_CMD"
+    CMD=$GOVUK_APP_CMD
+    MAKE_PIDFILE="--make-pidfile"
+    ;;
+
   *)
     error "unknown app type '${GOVUK_APP_TYPE}'!"
     ;;

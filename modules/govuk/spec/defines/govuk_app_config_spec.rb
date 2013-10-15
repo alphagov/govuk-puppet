@@ -99,6 +99,23 @@ describe 'govuk::app::config', :type => :define do
         )
       end
     end
+
+    context 'with app_type => bare, command => ./launch_zoo' do
+      let(:params) {{
+        :port => 123,
+        :app_type => 'bare',
+        :domain => 'example.com',
+        :vhost_full => 'giraffe.example.com',
+        :command => './launch_zoo',
+      }}
+
+      it do
+        should contain_govuk__app__envvar('giraffe-GOVUK_APP_CMD').with(
+          :varname => 'GOVUK_APP_CMD',
+          :value   => './launch_zoo'
+        )
+      end
+    end
   end
 
   context 'title is big.giraffe' do

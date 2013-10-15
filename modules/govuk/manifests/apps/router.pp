@@ -20,7 +20,8 @@ class govuk::apps::router (
   }
 
   govuk::app { 'router':
-    app_type           => 'procfile',
+    app_type           => 'bare',
+    command            => './router',
     port               => $port,
     enable_nginx_vhost => false,
     logstream          => true,
