@@ -33,7 +33,7 @@ class monitoring::checks::fastly {
         group   => 'root',
         mode    => '0755',
         source  => 'puppet:///modules/monitoring/usr/local/bin/statsd_fastly',
-        require => Package['statsd_ruby'],
+        require => Package['statsd-ruby'],
     }
 
     package{'statsd-ruby':
