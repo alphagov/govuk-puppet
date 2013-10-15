@@ -36,7 +36,7 @@
 
   <% if @enable_backdrop_path_handling -%>
     location ~ ^/performance/(.*)/api/(.*) {
-      rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2
+      rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
 
       proxy_set_header Host <%= @backdropread_host %>;
       proxy_pass <%= @backdropread_url %>;
