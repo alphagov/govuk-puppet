@@ -117,6 +117,12 @@ describe 'govuk::app::config', :type => :define do
           :value   => './launch_zoo'
         )
       end
+
+      it do
+        should contain_collectd__plugin__process('app-giraffe').with(
+          :regex => '^\\./launch_zoo$'
+        )
+      end
     end
   end
 
