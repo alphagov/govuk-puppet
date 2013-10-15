@@ -66,6 +66,7 @@ class akamai_logs {
   }
 
   cron { 'fetch-logs-from-akamai':
+    ensure  => absent,
     command => "/home/${user}/pull_logs.sh >> /var/log/akamai/out.log 2>> /var/log/akamai/error.log",
     user    => $user,
     require => User[$user],

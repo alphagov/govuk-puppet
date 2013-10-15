@@ -610,14 +610,6 @@ location ~ ^/performance/.+\.(json|png)$ {
   proxy_pass http://varnish;
 }
 
-# Akamai CDN test object. This file is used by Akamai's infrastructure to
-# determine optimal routing within their network. It can be any text file
-# 8-12KiB in size.
-location = /__testobj__ {
-  root /var/www;
-  try_files /akamai_test_object.txt =404;
-}
-
 location / {
   root /var/www/fallback;
 
