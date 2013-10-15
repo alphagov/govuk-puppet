@@ -28,7 +28,9 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_collectd__plugin__process('app-giraffe')
+        should contain_collectd__plugin__process('app-giraffe').with(
+          :regex => /^unicorn .* -P \/var\/run\/giraffe\/app\\.pid$/
+        )
       end
 
       it do
