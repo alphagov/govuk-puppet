@@ -27,6 +27,20 @@ class monitoring::checks::fastly {
         require => File['/usr/lib/nagios/plugins/check_fastly_error_rate'],
     }
 
+    file{'/usr/local/bin/statsd_fastly':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        source  => 'puppet:///modules/monitoring/usr/local/bin/statsd_fastly',
+        require => Package['statsd_ruby'],
+    }
+
+    package{'statsd-ruby':
+        ensure   => 'installed',
+        provider => gem,
+    }
+
     $fastly_enable_checks      = str2bool(extlookup('fastly_checks', 'no'))
 
     if $fastly_enable_checks {
@@ -58,6 +72,30 @@ class monitoring::checks::fastly {
             host_name           => $::fqdn,
             service_description => 'Check redirector CDN error rate',
             require             => File['/etc/nagios3/conf.d/check_fastly_error_rate.cfg']
+        }
+
+        cron {'fastly_statsd_assets':
+            ensure  => 'present',
+            command => "/usr/local/bin/statsd_fastly -a ${fastly_api_key} -s ${fastly_assets_service}",
+            user    => 'root',
+            minute  => '*',
+            require => File['/usr/local/bin/statsd_fastly'],
+        }
+
+        cron {'fastly_statsd_govuk':
+            ensure  => 'present',
+            command => "/usr/local/bin/statsd_fastly -a ${fastly_api_key} -s ${fastly_govuk_service}",
+            user    => 'root',
+            minute  => '*',
+            require => File['/usr/local/bin/statsd_fastly'],
+        }
+
+        cron {'fastly_statsd_redirector':
+            ensure  => 'present',
+            command => "/usr/local/bin/statsd_fastly -a ${fastly_api_key} -s ${fastly_redirector_service}",
+            user    => 'root',
+            minute  => '*',
+            require => File['/usr/local/bin/statsd_fastly'],
         }
 
     }
