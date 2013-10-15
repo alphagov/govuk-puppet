@@ -34,6 +34,14 @@ class govuk::node::s_cache inherits govuk::node::s_base {
     default_ttl  => '900',
   }
 
+  class { 'govuk::apps::router':
+    mongodb_nodes => [
+      'router-backend-1.router',
+      'router-backend-2.router',
+      'router-backend-3.router',
+    ],
+  }
+
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
     status         => '444',
