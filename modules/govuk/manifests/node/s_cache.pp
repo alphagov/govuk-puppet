@@ -3,6 +3,7 @@ class govuk::node::s_cache inherits govuk::node::s_base {
   $protect_cache_servers         = str2bool(extlookup('protect_cache_servers', 'no'))
   $extlookup_real_ip_header      = extlookup('cache_real_ip_header', '')
   $extlookup_denied_ip_addresses = extlookup('cache_denied_ip_addresses', '')
+  $govuk_enable_router           = str2bool(extlookup('govuk_enable_router', 'no'))
 
   # FIXME: extlookup() can't return a real `undef` value. So we have to
   # proxy it to preserve the class's own default.
@@ -32,6 +33,16 @@ class govuk::node::s_cache inherits govuk::node::s_base {
   class { 'varnish':
     storage_size => join([$varnish_storage_size,'M'],''),
     default_ttl  => '900',
+  }
+
+  if $govuk_enable_router {
+    class { 'govuk::apps::router':
+      mongodb_nodes => [
+        'router-backend-1.router',
+        'router-backend-2.router',
+        'router-backend-3.router',
+      ],
+    }
   }
 
   # Close connection if vhost not known

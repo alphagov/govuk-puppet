@@ -3,6 +3,7 @@ define govuk::app::config (
   $domain,
   $port,
   $vhost_full,
+  $command = 'NOTSET',
   $vhost_aliases = [],
   $vhost_protected = undef,
   $vhost_ssl_only = false,
@@ -85,10 +86,16 @@ define govuk::app::config (
   }
 
   if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {
-    govuk::app::envvar {
-      "${title}-UNICORN_HERDER_TIMEOUT":
-        varname => 'UNICORN_HERDER_TIMEOUT',
-        value   => $unicorn_herder_timeout;
+    govuk::app::envvar { "${title}-UNICORN_HERDER_TIMEOUT":
+      varname => 'UNICORN_HERDER_TIMEOUT',
+      value   => $unicorn_herder_timeout;
+    }
+  }
+
+  if $app_type == 'bare' and $command != 'NOTSET' {
+    govuk::app::envvar { "${title}-GOVUK_APP_CMD":
+      varname => 'GOVUK_APP_CMD',
+      value   => $command,
     }
   }
 
@@ -120,8 +127,14 @@ define govuk::app::config (
   $title_underscore = regsubst($title, '\.', '_', 'G')
 
   # Set up monitoring
-  collectd::plugin::process { "app-${title_underscore}":
-    regex => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
+  if $app_type in ['rack', 'bare'] {
+    $collectd_process_regex = $app_type ? {
+      'rack' => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
+      'bare' => inline_template('<%= "^" + Regexp.escape(@command) + "$" -%>'),
+    }
+    collectd::plugin::process { "app-${title_underscore}":
+      regex => $collectd_process_regex,
+    }
   }
 
   collectd::plugin::tcpconn { "app-${title_underscore}":

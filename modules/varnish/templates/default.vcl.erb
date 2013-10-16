@@ -25,7 +25,7 @@ end
 # Backends
   backend router {
     .host = "localhost";
-    .port = "8081";
+    .port = "<%= @router_port -%>";
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }

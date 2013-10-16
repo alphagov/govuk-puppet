@@ -30,4 +30,13 @@ describe 'govuk::app', :type => :define do
     end
   end
 
+  context 'app_type => bare, without command' do
+    let(:params) {{
+      :app_type => 'bare',
+      :port     => 123,
+    }}
+
+    it { expect { should }.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
+  end
+
 end

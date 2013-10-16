@@ -1,6 +1,6 @@
 define govuk::app (
   #
-  # app_type: 'rack' or 'procfile'.
+  # app_type: 'rack', 'procfile', or 'bare'.
   #
   # An app_type of 'rack' will assume the presence of a `config.ru` file in
   # the root of the deployed application, and will run the rack up under
@@ -8,6 +8,10 @@ define govuk::app (
   #
   # An app_type of 'procfile' will assume the presence of a `Procfile` in the
   # root of the deployed application, which defines a 'web' process type.
+  #
+  # An app_type of 'bare' will use the string passed to the `command`
+  # parameter to start the application. For cases where a `Procfile` is
+  # unnecessary.
   #
   $app_type,
 
@@ -20,6 +24,14 @@ define govuk::app (
   # variable.
   #
   $port,
+
+  #
+  # command: command to start the application
+  #
+  # Used when `app_type` is 'bare'. This will be passed to a variable called
+  # `GOVUK_APP_CMD` which is used by `govuk_spinup`.
+  #
+  $command = undef,
 
   #
   # logstream: choose whether or not to create a log tailing upstart job
@@ -167,8 +179,11 @@ define govuk::app (
   $unicorn_herder_timeout = undef,
 ) {
 
-  if ! ($app_type in ['procfile', 'rack']) {
-    fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile" or "rack".'
+  if ! ($app_type in ['procfile', 'rack', 'bare']) {
+    fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile", "rack", or "bare"'
+  }
+  if ($app_type == 'bare') and !($command) {
+    fail 'Invalid $command parameter'
   }
 
   $vhost_real = $vhost ? {
@@ -188,6 +203,7 @@ define govuk::app (
   govuk::app::config { $title:
     require                => Govuk::App::Package[$title],
     app_type               => $app_type,
+    command                => $command,
     domain                 => $app_domain,
     port                   => $port,
     vhost_aliases          => $vhost_aliases,

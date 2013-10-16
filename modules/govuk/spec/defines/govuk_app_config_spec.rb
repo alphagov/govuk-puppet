@@ -28,7 +28,9 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_collectd__plugin__process('app-giraffe')
+        should contain_collectd__plugin__process('app-giraffe').with(
+          :regex => /^unicorn .* -P \/var\/run\/giraffe\/app\\.pid$/
+        )
       end
 
       it do
@@ -96,6 +98,29 @@ describe 'govuk::app::config', :type => :define do
         should contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT').with(
           :varname => 'UNICORN_HERDER_TIMEOUT',
           :value   => 60
+        )
+      end
+    end
+
+    context 'with app_type => bare, command => ./launch_zoo' do
+      let(:params) {{
+        :port => 123,
+        :app_type => 'bare',
+        :domain => 'example.com',
+        :vhost_full => 'giraffe.example.com',
+        :command => './launch_zoo',
+      }}
+
+      it do
+        should contain_govuk__app__envvar('giraffe-GOVUK_APP_CMD').with(
+          :varname => 'GOVUK_APP_CMD',
+          :value   => './launch_zoo'
+        )
+      end
+
+      it do
+        should contain_collectd__plugin__process('app-giraffe').with(
+          :regex => '^\\./launch_zoo$'
         )
       end
     end

@@ -77,6 +77,7 @@ class varnish::config {
   ]
 
   $app_domain = extlookup('app_domain')
+  $router_port = '3054'
 
   file { '/etc/default/varnish':
     ensure  => file,
