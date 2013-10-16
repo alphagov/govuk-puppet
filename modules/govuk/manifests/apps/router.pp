@@ -3,6 +3,10 @@ class govuk::apps::router (
   $api_port = 3055,
   $mongodb_nodes
 ) {
+  @ufw::allow { 'allow-router-reload-from-all':
+    port => $api_port,
+  }
+
   Govuk::App::Envvar {
     app => 'router',
   }
