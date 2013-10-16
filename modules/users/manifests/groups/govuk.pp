@@ -40,6 +40,7 @@ class users::groups::govuk {
   include users::joshua
   include users::kushalp
   include users::mazz
+  include users::mikemagarinos
   include users::minglis
   include users::mwall
   include users::norm
