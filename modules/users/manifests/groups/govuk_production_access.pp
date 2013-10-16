@@ -21,7 +21,6 @@ class users::groups::govuk_production_access {
   include users::kushalp
   include users::mazz
   include users::mwall
-  include users::nick
   include users::ppotter
   include users::psd
   include users::robyoung

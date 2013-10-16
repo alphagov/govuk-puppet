@@ -42,7 +42,6 @@ class users::groups::govuk {
   include users::mazz
   include users::minglis
   include users::mwall
-  include users::nick
   include users::norm
   include users::ops01
   include users::ops02
