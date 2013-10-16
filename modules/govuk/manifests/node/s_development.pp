@@ -204,6 +204,13 @@ class govuk::node::s_development {
       user     => 'signonotron2',
       password => '';
 
+    [
+      'support_contacts_development',
+      'support_contacts_test',
+    ]:
+      user     => 'support_contacts',
+      password => 'support_contacts';
+
     ['tariff_admin_development', 'tariff_admin_test']:
       user     => 'tariff_admin',
       password => 'tariff_admin';
