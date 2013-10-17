@@ -135,6 +135,20 @@ define govuk::app::config (
     collectd::plugin::process { "app-${title_underscore}":
       regex => $collectd_process_regex,
     }
+    @@nagios::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
+      target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
+      warning   => $nagios_cpu_warning,
+      critical  => $nagios_cpu_critical,
+      desc      => "high CPU usage for ${title} app",
+      host_name => $::fqdn,
+    }
+    @@nagios::check::graphite { "check_${title}_app_mem_usage${::hostname}":
+      target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
+      warning   => $nagios_memory_warning_real,
+      critical  => $nagios_memory_critical_real,
+      desc      => "high memory for ${title} app",
+      host_name => $::fqdn,
+    }
   }
 
   collectd::plugin::tcpconn { "app-${title_underscore}":
@@ -150,20 +164,6 @@ define govuk::app::config (
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
   }
 
-  @@nagios::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
-    target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
-    warning   => $nagios_cpu_warning,
-    critical  => $nagios_cpu_critical,
-    desc      => "high CPU usage for ${title} app",
-    host_name => $::fqdn,
-  }
-  @@nagios::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-    target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
-    warning   => $nagios_memory_warning_real,
-    critical  => $nagios_memory_critical_real,
-    desc      => "high memory for ${title} app",
-    host_name => $::fqdn,
-  }
   if $health_check_path != 'NOTSET' {
     @@nagios::check { "check_app_${title}_up_on_${::hostname}":
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
