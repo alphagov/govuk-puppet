@@ -5,6 +5,7 @@ mod 'thomasvandoren/redis'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
+mod 'nextrevision/automysqlbackup'
 
 mod 'cpanm',
   :git => 'git://github.com/alphagov/puppet-cpanm.git',
