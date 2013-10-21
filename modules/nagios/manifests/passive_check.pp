@@ -21,10 +21,23 @@
 #   within this time period. Specified in seconds.
 #   Default: none, freshness checks disabled.
 #
+#
+# [*action_url*]
+#   Additional diagnostics URL. Typically a link to a graph in Graphite that
+#   shows very recent trends for the service. This will be included in the
+#   Nagios UI and email alerts.
+#
+# [*notes_url*]
+#   Documentation URL for more information about how to diagnose the service
+#   and why the alert might exist. Should link to a section of the
+#   "opsmanual". This will be included in the Nagios UI and email alerts.
+#
 define nagios::passive_check (
   $service_description,
   $host_name,
-  $freshness_threshold = ''
+  $freshness_threshold = '',
+  $action_url          = undef,
+  $notes_url           = undef
 ){
   $active_message = $freshness_threshold ? {
     ''      => 'Unexpected active check on passive service',
