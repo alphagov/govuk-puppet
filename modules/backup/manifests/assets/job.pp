@@ -18,5 +18,6 @@ define backup::assets::job(
     service_description => $title,
     host_name           => $::fqdn,
     freshness_threshold => $threshold_secs,
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#asset-backup-failed',
   }
 }
