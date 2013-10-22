@@ -56,4 +56,6 @@ class hosts::development {
   host { 'bouncer.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'need-api.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'maslow.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'router.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'router-api.dev.gov.uk':                           ip => '127.0.0.1' }
 }
