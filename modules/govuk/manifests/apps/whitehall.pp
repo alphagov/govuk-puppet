@@ -31,6 +31,11 @@ class govuk::apps::whitehall(
     unicorn_herder_timeout => 45;
   }
 
+  # Enable raindrops monitoring
+  collectd::plugin::raindrops { 'whitehall':
+    port => $port,
+  }
+
   if $configure_frontend == true {
 
     $asset_config_in_platform = $::govuk_platform ? {
