@@ -70,7 +70,11 @@ class govuk::node::s_development {
   include govuk::apps::publisher
   include govuk::apps::redirector
   include govuk::apps::release
-  include govuk::apps::router
+  class { 'govuk::apps::router':
+    mongodb_nodes => [
+      'localhost',
+    ],
+  }
   include govuk::apps::router_api
   include govuk::apps::search
   include govuk::apps::signon
