@@ -142,6 +142,14 @@ class hosts::skyscape::production_like {
     ],
     service_aliases => ['cache', 'router'],
   }
+  govuk::host { 'router-backend-internal-lb':
+    ip              => '10.1.1.2',
+    vdc             => 'router',
+    legacy_aliases  => [
+      'router-backend-internal-lb',
+      "router-api.${app_domain}",
+    ],
+  }
 
   #frontend vdc machines
   govuk::host { 'frontend-1':
