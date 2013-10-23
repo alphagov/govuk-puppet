@@ -10,4 +10,10 @@ define service {
 <% end -%>
   check_command             check_dummy!1!"<%= @active_message -%>"
   max_check_attempts        1
+<%- if @action_url -%>
+  action_url                <%= @action_url %>
+<%- end -%>
+<%- if @notes_url -%>
+  notes_url                 <%= @notes_url %>
+<%- end -%>
 }

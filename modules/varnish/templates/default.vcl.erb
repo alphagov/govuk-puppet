@@ -69,7 +69,7 @@ sub vcl_recv {
     <%= set_backend('tariff') %>
   } else if (req.url ~ "^/api") {
     <%= set_backend('publicapi') %>
-  } else if (req.url ~ "^/feedback") {
+  } else if (req.url ~ "^/(feedback|contact)([/?.].*)?$") {
     <%= set_backend('feedback') %>
   } else if (req.url ~ "^/performance/([a-z_][a-z0-9_-]+)/api/.+$") {
     <%= set_backend('publicapi') %>

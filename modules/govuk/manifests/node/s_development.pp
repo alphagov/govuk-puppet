@@ -70,6 +70,12 @@ class govuk::node::s_development {
   include govuk::apps::publisher
   include govuk::apps::redirector
   include govuk::apps::release
+  class { 'govuk::apps::router':
+    mongodb_nodes => [
+      'localhost',
+    ],
+  }
+  include govuk::apps::router_api
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::static
@@ -204,6 +210,13 @@ class govuk::node::s_development {
     ]:
       user     => 'signonotron2',
       password => '';
+
+    [
+      'support_contacts_development',
+      'support_contacts_test',
+    ]:
+      user     => 'support_contacts',
+      password => 'support_contacts';
 
     ['tariff_admin_development', 'tariff_admin_test']:
       user     => 'tariff_admin',
