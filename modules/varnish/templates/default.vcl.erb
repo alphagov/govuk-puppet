@@ -47,7 +47,7 @@ sub vcl_recv {
   # Routing
   if (req.http.GOVUK-Feature-New-Router) {
     set req.backend = router;
-  } else if (req.url ~ "^/sitemap[^/]*.xml(\?.*)?$") {
+  } else if (req.url ~ "^/sitemap[^/]*.xml(\?.*)?$|^/sitemaps/") {
     <%= set_backend('search') %>
   } else if (req.url ~ "^/when-do-the-clocks-change([/?.].*)?$|^/bank-holidays([/?.].*)?$|^/gwyliau-banc([/?.].*)?$") {
     <%= set_backend('calendars') %>
