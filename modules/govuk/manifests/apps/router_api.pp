@@ -9,6 +9,7 @@ class govuk::apps::router_api( $port = 3056 ) {
   unless $::govuk_platform == 'development' {
     govuk::app::envvar {
       "${title}-ENABLE_ROUTER_RELOADING":
+        app     => 'router-api',
         varname => 'ENABLE_ROUTER_RELOADING',
         value   => '1';
     }
