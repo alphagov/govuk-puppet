@@ -21,6 +21,9 @@ class govuk::apps::router (
     "${title}-ROUTER_MONGO_URL":
       varname => 'ROUTER_MONGO_URL',
       value   => join($mongodb_nodes, ',');
+    "${title}-ROUTER_ERROR_LOG":
+      varname => 'ROUTER_ERROR_LOG',
+      value   => "/var/log/${title}/errors.json.log";
   }
 
   govuk::app { 'router':
@@ -29,5 +32,12 @@ class govuk::apps::router (
     port               => $port,
     enable_nginx_vhost => false,
     logstream          => true,
+  }
+
+  govuk::logstream { "${title}-error-json-log":
+    logfile       => "/var/log/${title}/errors.json.log",
+    tags          => ['error'],
+    fields        => {'application' => $title},
+    json          => true,
   }
 }
