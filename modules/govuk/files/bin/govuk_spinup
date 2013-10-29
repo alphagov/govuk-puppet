@@ -66,6 +66,7 @@ case "$GOVUK_APP_TYPE" in
   bare)
     status "Spawning from GOVUK_APP_CMD"
     CMD=$GOVUK_APP_CMD
+    CMD="${CMD} >>${GOVUK_APP_LOGROOT}/app.out.log 2>>${GOVUK_APP_LOGROOT}/app.err.log"
     MAKE_PIDFILE="--make-pidfile"
     ;;
 
