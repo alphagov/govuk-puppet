@@ -23,7 +23,7 @@ class govuk::apps::router (
       value   => join($mongodb_nodes, ',');
     "${title}-ROUTER_ERROR_LOG":
       varname => 'ROUTER_ERROR_LOG',
-      value   => "/var/log/${title}/errors.json.log";
+      value   => '/var/log/router/errors.json.log';
   }
 
   govuk::app { 'router':
@@ -35,7 +35,7 @@ class govuk::apps::router (
   }
 
   govuk::logstream { "${title}-error-json-log":
-    logfile       => "/var/log/${title}/errors.json.log",
+    logfile       => '/var/log/router/errors.json.log',
     tags          => ['error'],
     fields        => {'application' => $title},
     json          => true,
