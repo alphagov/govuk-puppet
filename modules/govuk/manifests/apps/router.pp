@@ -33,4 +33,11 @@ class govuk::apps::router (
     enable_nginx_vhost => false,
     logstream          => true,
   }
+
+  govuk::logstream { "${title}-error-json-log":
+    logfile       => "/var/log/${title}/errors.json.log",
+    tags          => ['error'],
+    fields        => {'application' => $title},
+    json          => true,
+  }
 }
