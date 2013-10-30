@@ -14,7 +14,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
   }
 
   # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
-  @@nagios::check { "check_var_lib_mongodb_disk_space_${::hostname}":
+  @@icinga::check { "check_var_lib_mongodb_disk_space_${::hostname}":
     check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /var/lib/mongodb',
     service_description => 'low available disk space on /var/lib/mongodb',
     use                 => 'govuk_high_priority',

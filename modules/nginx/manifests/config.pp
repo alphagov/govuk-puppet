@@ -51,7 +51,7 @@ class nginx::config (
     require => File['/var/www'],
   }
 
-  @@nagios::check::graphite { "check_nginx_active_connections_${::hostname}":
+  @@icinga::check::graphite { "check_nginx_active_connections_${::hostname}":
     target    => "${::fqdn_underscore}.nginx.nginx_connections-active",
     warning   => 500,
     critical  => 1000,

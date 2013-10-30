@@ -45,7 +45,7 @@ class monitoring::checks::fastly {
           },
         }
 
-        nagios::check { 'check_fastly_asset_errors':
+        icinga::check { 'check_fastly_asset_errors':
             check_command       => "check_fastly_error_rate!${fastly_assets_service}!${fastly_api_key}!1!2",
             use                 => 'govuk_regular_service',
             host_name           => $::fqdn,
@@ -53,7 +53,7 @@ class monitoring::checks::fastly {
             require             => File['/etc/nagios3/conf.d/check_fastly_error_rate.cfg']
         }
 
-        nagios::check { 'check_fastly_govuk_errors':
+        icinga::check { 'check_fastly_govuk_errors':
             check_command       => "check_fastly_error_rate!${fastly_govuk_service}!${fastly_api_key}!2!5",
             use                 => 'govuk_regular_service',
             host_name           => $::fqdn,
@@ -61,7 +61,7 @@ class monitoring::checks::fastly {
             require             => File['/etc/nagios3/conf.d/check_fastly_error_rate.cfg']
         }
 
-        nagios::check { 'check_fastly_redirector_errors':
+        icinga::check { 'check_fastly_redirector_errors':
             check_command       => "check_fastly_error_rate!${fastly_redirector_service}!${fastly_api_key}!2!5",
             use                 => 'govuk_regular_service',
             host_name           => $::fqdn,

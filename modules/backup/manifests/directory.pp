@@ -22,7 +22,7 @@ define backup::directory (
         mode    => '0755',
     }
 
-    @@nagios::passive_check { "check_backup-${fq_dn}-${sanitised_dir}-${::hostname}":
+    @@icinga::passive_check { "check_backup-${fq_dn}-${sanitised_dir}-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,

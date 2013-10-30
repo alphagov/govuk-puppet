@@ -16,16 +16,16 @@ class govuk::node::s_redis_base {
     provider => 'cpanm',
   }
 
-  @nagios::plugin { 'check_redis':
+  @icinga::plugin { 'check_redis':
     source  => 'puppet:///modules/govuk/node/s_redis/nagios/check_redis.pl',
     require => Package['Redis'],
   }
 
-  @nagios::nrpe_config { 'check_redis':
+  @icinga::nrpe_config { 'check_redis':
     content => template('govuk/node/s_redis/nagios/check_redis.cfg.erb'),
   }
 
-  @@nagios::check { "check_redis_${::hostname}":
+  @@icinga::check { "check_redis_${::hostname}":
     # Full details of arguments to check_redis can be found in
     #   modules/govuk/files/node/s_redis/nagios/check_redis.pl
     #

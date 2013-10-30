@@ -31,7 +31,7 @@ class govuk::apps::efg( $port = 3019 ) {
 ';
   }
 
-  @@nagios::check::graphite { "check_efg_login_failures_${::hostname}":
+  @@icinga::check::graphite { "check_efg_login_failures_${::hostname}":
     target    => 'sumSeries(stats.govuk.app.efg.*.logins.failure)',
     warning   => 10,
     critical  => 15,

@@ -29,7 +29,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     ",
   }
 
-  @@nagios::check::graphite { "check_nginx_404_redirector_on_${::hostname}":
+  @@icinga::check::graphite { "check_nginx_404_redirector_on_${::hostname}":
     target    => "stats.${::fqdn_underscore}.nginx_logs.default.http_404",
     warning   => 5,
     critical  => 10,
@@ -37,7 +37,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     desc      => 'nginx 404 rate for redirector',
     host_name => $::fqdn,
   }
-  @@nagios::check::graphite { "check_nginx_5xx_redirector_on_${::hostname}":
+  @@icinga::check::graphite { "check_nginx_5xx_redirector_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.default.http_5xx,0)",
     warning   => 5,
     critical  => 10,

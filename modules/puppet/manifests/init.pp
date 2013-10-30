@@ -95,11 +95,11 @@ class puppet {
     pattern  => '/usr/bin/puppet agent$';
   }
 
-  @nagios::plugin { 'check_puppet_agent':
+  @icinga::plugin { 'check_puppet_agent':
     source  => 'puppet:///modules/puppet/usr/lib/nagios/plugins/check_puppet_agent',
   }
 
-  @@nagios::passive_check { "check_puppet_${::hostname}":
+  @@icinga::passive_check { "check_puppet_${::hostname}":
     service_description => 'puppet last run errors',
     host_name           => $::fqdn,
     freshness_threshold => 7200,

@@ -3,7 +3,7 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
     slave => true,
   }
 
-  @@nagios::check::graphite { "check_mysql_replication_${::hostname}":
+  @@icinga::check::graphite { "check_mysql_replication_${::hostname}":
     target       => "${::fqdn_underscore}.mysql.time_offset",
     desc         => 'mysql replication lag',
     warning      => 300,
@@ -14,11 +14,11 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
 
   $nagios_mysql_password = extlookup('mysql_nagios')
 
-  @nagios::nrpe_config { 'check_mysql_slave':
+  @icinga::nrpe_config { 'check_mysql_slave':
     content => template('mysql/etc/nagios/nrpe.d/check_mysql_slave.cfg.erb'),
   }
 
-  @@nagios::check { "check_mysql_slave_${::hostname}":
+  @@icinga::check { "check_mysql_slave_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_mysql_slave',
     service_description => 'mysql replication running',
     host_name           => $::fqdn,

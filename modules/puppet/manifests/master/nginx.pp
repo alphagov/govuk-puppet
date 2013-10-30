@@ -22,7 +22,7 @@ class puppet::master::nginx {
     matches => '/var/log/puppetmaster/*.log',
   }
 
-  @@nagios::check::graphite { "check_nginx_5xx_puppetmaster_on_${::hostname}":
+  @@icinga::check::graphite { "check_nginx_5xx_puppetmaster_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,

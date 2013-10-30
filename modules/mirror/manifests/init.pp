@@ -47,7 +47,7 @@ class mirror {
   $threshold_secs = 28 * (60 * 60)
 
   if str2bool(hiera('mirrorer::update_check',true)) {
-    @@nagios::passive_check { "check-mirrorer-${::hostname}":
+    @@icinga::passive_check { "check-mirrorer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,

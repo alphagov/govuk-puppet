@@ -1,5 +1,5 @@
 class nsca::server {
-  include nagios # to set up the 'nagios' user for nsca
+  include icinga # to set up the 'nagios' user for nsca
   include nsca
 
   @ufw::allow { 'allow-nsca-from-all':
@@ -17,6 +17,6 @@ class nsca::server {
     #
     # if you can imagine a better way of doing this, please do it! :)
     # -- ppotter 2013-02-07
-    require   => [Package['nagios3'],Package['nsca']],
+    require   => [Package['icinga'],Package['nsca']],
   }
 }

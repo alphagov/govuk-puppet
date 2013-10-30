@@ -101,7 +101,7 @@ class router::nginx (
     group  => 'deploy',
   }
 
-  @@nagios::check::graphite { "check_nginx_5xx_on_${::hostname}":
+  @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
     warning   => 5,
     critical  => 15,

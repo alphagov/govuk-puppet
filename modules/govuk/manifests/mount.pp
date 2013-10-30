@@ -51,7 +51,7 @@ define govuk::mount(
     }
   }
 
-  @@nagios::check { "check${mountpoint_escaped}_disk_space_${::hostname}":
+  @@icinga::check { "check${mountpoint_escaped}_disk_space_${::hostname}":
     check_command       => "check_nrpe!check_disk_space_arg!${nagios_warn}% ${nagios_crit}% ${mountpoint}",
     service_description => "low available disk space on ${mountpoint}",
     use                 => 'govuk_high_priority',
@@ -59,7 +59,7 @@ define govuk::mount(
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
   }
 
-  @@nagios::check { "check${mountpoint_escaped}_disk_inodes_${::hostname}":
+  @@icinga::check { "check${mountpoint_escaped}_disk_inodes_${::hostname}":
     check_command       => "check_nrpe!check_disk_inodes_arg!${nagios_warn}% ${nagios_crit}% ${mountpoint}",
     service_description => "low available disk inodes on ${mountpoint}",
     use                 => 'govuk_high_priority',

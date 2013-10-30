@@ -10,14 +10,14 @@ class monitoring::client::apt {
     ensure => present,
   }
 
-  @nagios::nrpe_config { 'check_apt_security_updates':
+  @icinga::nrpe_config { 'check_apt_security_updates':
     source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_apt_security_updates.cfg',
   }
-  @nagios::plugin { 'check_apt_security_updates':
+  @icinga::plugin { 'check_apt_security_updates':
     source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_apt_security_updates',
     require => Package['update-notifier-common'],
   }
-  @@nagios::check { "check_apt_security_updates_${::hostname}":
+  @@icinga::check { "check_apt_security_updates_${::hostname}":
     check_command              => 'check_nrpe!check_apt_security_updates!0',
     service_description        => 'outstanding security updates',
     host_name                  => $::fqdn,
@@ -25,14 +25,14 @@ class monitoring::client::apt {
     check_interval             => 60,
   }
 
-  @nagios::nrpe_config { 'check_reboot_required':
+  @icinga::nrpe_config { 'check_reboot_required':
     source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_reboot_required.cfg',
   }
-  @nagios::plugin { 'check_reboot_required':
+  @icinga::plugin { 'check_reboot_required':
     source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_reboot_required',
     require => Package['update-notifier-common'],
   }
-  @@nagios::check { "check_reboot_required_${::hostname}":
+  @@icinga::check { "check_reboot_required_${::hostname}":
     check_command       => 'check_nrpe!check_reboot_required!30 0',
     service_description => 'reboot required by apt',
     host_name           => $::fqdn,

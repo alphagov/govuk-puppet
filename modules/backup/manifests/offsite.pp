@@ -18,7 +18,7 @@ class backup::offsite {
     mode    => '0755',
   }
 
-  @@nagios::passive_check { "check_backup_offsite-${::hostname}":
+  @@icinga::passive_check { "check_backup_offsite-${::hostname}":
     service_description => $service_desc,
     host_name           => $::fqdn,
     freshness_threshold => $threshold_secs,
