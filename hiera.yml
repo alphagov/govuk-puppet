@@ -4,4 +4,4 @@
 :backends:
   - yaml
 :yaml:
-  :datadir: './hieradata'
+  :datadir: '%{::settings::manifestdir}/../hieradata'
