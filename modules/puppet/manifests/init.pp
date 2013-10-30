@@ -31,6 +31,15 @@ class puppet {
     require => Package['facter'],
   }
 
+  user { 'puppet':
+    ensure  => present,
+    name    => 'puppet',
+    home    => '/var/lib/puppet',
+    shell   => '/bin/false',
+    gid     => 'puppet',
+    system  => true,
+  }
+
   group { 'puppet':
     ensure  => present,
     name    => 'puppet',
