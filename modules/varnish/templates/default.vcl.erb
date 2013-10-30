@@ -29,14 +29,16 @@ end
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }
-<% @backends.each do |name| %>
+<% unless @enable_router
+@backends.each do |name| -%>
   backend <%= name %> {
     .host = "<%= vhost_for_backend(name) %>";
     .port = "80";
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }
-<% end -%>
+<% end
+end -%>
 
 acl purge_acl {
   "localhost";
