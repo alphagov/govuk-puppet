@@ -18,6 +18,7 @@ define govuk::app::config (
   $unicorn_herder_timeout = 'NOTSET',
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $upstart_post_start_script = undef,
 ) {
   $nagios_memory_warning_real = $nagios_memory_warning ? {
     undef    => 2000000000,
