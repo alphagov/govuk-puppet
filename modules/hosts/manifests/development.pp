@@ -52,6 +52,7 @@ class hosts::development {
   host { 'tariff-admin.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'tariff-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'tariff.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'transition.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'travel-advice-publisher.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'whitehall-admin.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'whitehall-frontend.dev.gov.uk':                   ip => '127.0.0.1' }

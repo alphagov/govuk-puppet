@@ -21,6 +21,12 @@ class govuk::apps::router (
     "${title}-ROUTER_MONGO_URL":
       varname => 'ROUTER_MONGO_URL',
       value   => join($mongodb_nodes, ',');
+    "${title}-ROUTER_ERROR_LOG":
+      varname => 'ROUTER_ERROR_LOG',
+      value   => '/var/log/router/errors.json.log';
+    "${title}-ROUTER_HEADER_TIMEOUT":
+      varname => 'ROUTER_HEADER_TIMEOUT',
+      value   => '20s';
   }
 
   govuk::app { 'router':
@@ -29,5 +35,12 @@ class govuk::apps::router (
     port               => $port,
     enable_nginx_vhost => false,
     logstream          => true,
+  }
+
+  govuk::logstream { "${title}-error-json-log":
+    logfile       => '/var/log/router/errors.json.log',
+    tags          => ['error'],
+    fields        => {'application' => $title},
+    json          => true,
   }
 }

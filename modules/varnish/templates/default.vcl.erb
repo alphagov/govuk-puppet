@@ -29,14 +29,16 @@ end
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }
-<% @backends.each do |name| %>
+<% unless @enable_router
+@backends.each do |name| -%>
   backend <%= name %> {
     .host = "<%= vhost_for_backend(name) %>";
     .port = "80";
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }
-<% end -%>
+<% end
+end -%>
 
 acl purge_acl {
   "localhost";
@@ -45,9 +47,12 @@ acl purge_acl {
 
 sub vcl_recv {
   # Routing
+<% if @enable_router -%>
+  set req.backend = router;
+<% else -%>
   if (req.http.GOVUK-Feature-New-Router) {
     set req.backend = router;
-  } else if (req.url ~ "^/sitemap[^/]*.xml(\?.*)?$") {
+  } else if (req.url ~ "^/sitemap[^/]*.xml(\?.*)?$|^/sitemaps/") {
     <%= set_backend('search') %>
   } else if (req.url ~ "^/when-do-the-clocks-change([/?.].*)?$|^/bank-holidays([/?.].*)?$|^/gwyliau-banc([/?.].*)?$") {
     <%= set_backend('calendars') %>
@@ -89,6 +94,7 @@ sub vcl_recv {
   } else {
     <%= set_backend('frontend') %>
   }
+<% end -%>
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect

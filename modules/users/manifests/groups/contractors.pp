@@ -12,7 +12,6 @@ class users::groups::contractors {
   include users::dom
   include users::elliot
   include users::futurefabric
-  include users::gkoth
   include users::gma
   include users::jacobashdown
   include users::jimg
@@ -30,5 +29,4 @@ class users::groups::contractors {
   include users::tekin
   include users::timabell
   include users::willtomlins
-  include users::ysembiranahum
 }
