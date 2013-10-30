@@ -45,6 +45,9 @@ acl purge_acl {
 
 sub vcl_recv {
   # Routing
+<% if @enable_router -%>
+  set req.backend = router;
+<% else -%>
   if (req.http.GOVUK-Feature-New-Router) {
     set req.backend = router;
   } else if (req.url ~ "^/sitemap[^/]*.xml(\?.*)?$|^/sitemaps/") {
@@ -89,6 +92,7 @@ sub vcl_recv {
   } else {
     <%= set_backend('frontend') %>
   }
+<% end -%>
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect
