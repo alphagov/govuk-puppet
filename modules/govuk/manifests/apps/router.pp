@@ -24,6 +24,9 @@ class govuk::apps::router (
     "${title}-ROUTER_ERROR_LOG":
       varname => 'ROUTER_ERROR_LOG',
       value   => '/var/log/router/errors.json.log';
+    "${title}-ROUTER_HEADER_TIMEOUT":
+      varname => 'ROUTER_HEADER_TIMEOUT',
+      value   => '20s';
   }
 
   govuk::app { 'router':
