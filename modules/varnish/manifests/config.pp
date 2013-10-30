@@ -76,8 +76,9 @@ class varnish::config {
     'whitehall_frontend',
   ]
 
-  $app_domain = extlookup('app_domain')
-  $router_port = '3054'
+  $app_domain     = extlookup('app_domain')
+  $enable_router  = str2bool(extlookup('govuk_enable_router_varnish', 'no'))
+  $router_port    = '3054'
 
   file { '/etc/default/varnish':
     ensure  => file,
