@@ -38,6 +38,7 @@
     location ~ ^/performance/(.*)/api/(.*) {
       rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
 
+      proxy_ssl_session_reuse off;
       proxy_set_header Host <%= @backdropread_host %>;
       proxy_pass <%= @backdropread_url %>;
     }
@@ -47,6 +48,7 @@
         location ~ ^/performance/<%= bucket["path"] %> {
           rewrite ^/performance/<%= bucket["path"] %>(.*)$ /<%= bucket["name"] %>$1 break;
 
+          proxy_ssl_session_reuse off;
           proxy_set_header Host <%= @backdropread_host %>;
           proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>;
 
