@@ -27,6 +27,8 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
+  include govuk::apps::maslow
+  include govuk::apps::need_api
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
   include govuk::apps::publisher
@@ -34,14 +36,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::support
-
-  if str2bool(extlookup('govuk_enable_need_api', 'no')) {
-    include govuk::apps::need_api
-  }
-
-  if str2bool(extlookup('govuk_enable_maslow', 'no')) {
-    include govuk::apps::maslow
-  }
 
   if str2bool(extlookup('govuk_enable_tariff_admin', 'no')) {
     include govuk::apps::tariff_admin
