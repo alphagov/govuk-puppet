@@ -80,6 +80,7 @@ if [ ! -f /etc/puppet/puppet.conf ]; then
 [main]
 modulepath=/var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
 manifestdir=/var/govuk/puppet/manifests
+hiera_config = /usr/share/puppet/production/current/hiera.yml
 EOM
 fi
 
@@ -99,4 +100,4 @@ exec sudo \
   FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
   RBENV_VERSION=1.9.3 \
   puppet apply manifests/site.pp \
-  --environment development "$@" 2>&1 | egrep -iv "warning:.+storeconfigs"
+  --environment development --hiera_config hiera.yml "$@" 2>&1 | egrep -iv "warning:.+storeconfigs"
