@@ -1,5 +1,7 @@
 require 'json'
 
+min_required_vagrant_version = '1.2.3'
+
 # Construct box name and URL from distro and version.
 def get_box(dist, version)
   dist    ||= "precise"
@@ -49,98 +51,62 @@ def nodes_from_json
   nodes
 end
 
-if Vagrant::VERSION < "1.1.0"
-  $stderr.puts "WARNING: Using old Vagrantfile format! Please upgrade to Vagrant >1.1.\n"
-  Vagrant::Config.run do |config|
-    vagrant_config(config, 1)
-  end
+if Vagrant::VERSION < min_required_vagrant_version
+  $stderr.puts "ERROR: Puppet now requires Vagrant version >=#{min_required_vagrant_version}. Please upgrade.\n"
+  exit 1
 else
   Vagrant.configure("2") do |config|
-    vagrant_config(config, 2)
-  end
-end
-
-def vagrant_config(config, version)
-  nodes_from_json.each do |node_name, node_opts|
-    config.vm.define node_name do |c|
-      box_name, box_url = get_box(
-        node_opts["box_dist"],
-        node_opts["box_version"]
-      )
-      c.vm.box = box_name
-      c.vm.box_url = box_url
-
-      if version < 2
-        c.vm.host_name = node_name
-      else
+    nodes_from_json.each do |node_name, node_opts|
+      config.vm.define node_name do |c|
+        box_name, box_url = get_box(
+          node_opts["box_dist"],
+          node_opts["box_version"]
+        )
+        c.vm.box = box_name
+        c.vm.box_url = box_url
         c.vm.hostname = node_name
-      end
-
-      if version < 2
-        c.vm.network :hostonly,
-          node_opts["ip"],
-          :netmask => "255.255.000.000"
-      else
         c.vm.network :private_network, {
           :ip => node_opts["ip"],
           :netmask => "255.255.000.000"
         }
-      end
 
-      modifyvm_args = ['modifyvm', :id]
+        modifyvm_args = ['modifyvm', :id]
 
-      # Mitigate boot hangs.
-      modifyvm_args << "--rtcuseutc" << "on"
+        # Mitigate boot hangs.
+        modifyvm_args << "--rtcuseutc" << "on"
 
-      # Isolate guests from host networking.
-      modifyvm_args << "--natdnsproxy1" << "on"
-      modifyvm_args << "--natdnshostresolver1" << "on"
+        # Isolate guests from host networking.
+        modifyvm_args << "--natdnsproxy1" << "on"
+        modifyvm_args << "--natdnshostresolver1" << "on"
 
-      if node_opts.has_key?("memory")
-        modifyvm_args << "--memory" << node_opts["memory"]
-      end
+        if node_opts.has_key?("memory")
+          modifyvm_args << "--memory" << node_opts["memory"]
+        end
 
-      if version < 2
-        c.vm.customize(modifyvm_args)
-      else
         c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
-      end
-
-      if version < 2
-        c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
-        c.vm.share_folder "extdata",
-          "/tmp/vagrant-puppet/extdata",
-          "../puppet/extdata"
-      else
         c.vm.synced_folder "..", "/var/govuk", :nfs => true
         c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
-      end
 
-      # Additional shared folders for Puppet Master nodes.
-      # These can't been NFS because OSX won't export overlapping paths.
-      if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
-        if version < 2
-          c.vm.share_folder "pm-puppet",
-            "/usr/share/puppet/production/current",
-            "../puppet"
-        else
+        # Additional shared folders for Puppet Master nodes.
+        # These can't be NFS because OSX won't export overlapping paths.
+        if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
           c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
         end
-      end
 
-      c.vm.provision :puppet do |puppet|
-        puppet.manifest_file = "site.pp"
-        puppet.manifests_path = "../puppet/manifests"
-        puppet.module_path = [
-          "../puppet/modules",
-          "../puppet/vendor/modules",
-        ]
-        puppet.options = ["--environment", "vagrant"]
-        puppet.facter = {
-          :govuk_class => node_opts["class"],
-          :govuk_provider => "sky",
-          :govuk_platform => "staging",
-        }
+        c.vm.provision :puppet do |puppet|
+          puppet.manifest_file = "site.pp"
+          puppet.manifests_path = "../puppet/manifests"
+          puppet.module_path = [
+            "../puppet/modules",
+            "../puppet/vendor/modules",
+          ]
+          puppet.options = ["--environment", "vagrant"]
+          puppet.facter = {
+            :govuk_class => node_opts["class"],
+            :govuk_provider => "sky",
+            :govuk_platform => "staging",
+          }
+        end
       end
     end
   end
