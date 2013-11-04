@@ -131,9 +131,9 @@ sub vcl_recv {
   # origin.
   set req.grace = 6h;
 
-  # remove cookies
+  # remove cookies - except for Licensing.
   # FIXME: Path duplicates logic in Router. See comments in vcl_fetch.
-  if (req.url ~ "^/apply-for-a-licence") {
+  if (req.url !~ "^/apply-for-a-licence") {
     unset req.http.Cookie;
   }
 
