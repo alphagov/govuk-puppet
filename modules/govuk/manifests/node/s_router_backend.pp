@@ -10,9 +10,7 @@ class govuk::node::s_router_backend inherits govuk::node::s_base {
 
   include govuk::node::s_ruby_app_server
 
-  if str2bool(extlookup('govuk_enable_router_api', 'no')) {
-    include govuk::apps::router_api
-  }
+  include govuk::apps::router_api
 
   include nginx
 
