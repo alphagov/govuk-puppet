@@ -36,6 +36,12 @@ describe 'govuk::app::config', :type => :define do
       it do
         should_not contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT')
       end
+
+      it do
+        should_not contain_file('/etc/init/giraffe.conf').with(
+          :content => /post-start script/
+        )
+      end
     end
 
     context 'with aliases' do
