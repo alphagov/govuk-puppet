@@ -5,6 +5,7 @@ class govuk::node::s_backend_lb {
   $backend_servers = extlookup('lb_nodes_backend')
   $mapit_servers = extlookup('lb_nodes_mapit')
   $datainsight_servers = ['datainsight-1']
+  $app_domain = extlookup('app_domain')
 
   Loadbalancer::Balance {
     servers => $backend_servers,
@@ -50,7 +51,12 @@ class govuk::node::s_backend_lb {
     internal_only     => true,
   }
 
-  loadbalancer::balance { 'backdrop-admin':
-    servers => $datainsight_servers,
+  nginx::config::vhost::redirect {
+    "backdrop-admin.${app_domain}" :
+    to => 'admin.performance.service.gov.uk'
   }
+
+
+
+
 }
