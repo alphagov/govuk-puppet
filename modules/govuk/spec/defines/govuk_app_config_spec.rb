@@ -36,6 +36,12 @@ describe 'govuk::app::config', :type => :define do
       it do
         should_not contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT')
       end
+
+      it do
+        should_not contain_file('/etc/init/giraffe.conf').with(
+          :content => /post-start script/
+        )
+      end
     end
 
     context 'with aliases' do
@@ -122,6 +128,22 @@ describe 'govuk::app::config', :type => :define do
         should contain_collectd__plugin__process('app-giraffe').with(
           :regex => '^\\./launch_zoo$'
         )
+      end
+    end
+
+    context 'with an upstart post-start script' do
+      let(:params) do
+        {
+          :port => 8000,
+          :app_type => 'rack',
+          :domain => 'foo.bar.baz',
+          :vhost_full => 'giraffe.foo.bar.baz',
+          :upstart_post_start_script => '/bin/true',
+        }
+      end
+
+      it do
+        should contain_file('/etc/init/giraffe.conf').with(:content => %r{post-start script\s*\n\s*/bin/true\s*\n\s*end script})
       end
     end
   end

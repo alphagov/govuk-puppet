@@ -177,6 +177,11 @@ define govuk::app (
   # daemonize' error that occurs if an application doesn't load within
   # the timeout period.
   $unicorn_herder_timeout = undef,
+
+  #
+  # upstart_post_start_script: an optional script to be added to a post-start
+  # stanza in the upstart config.
+  $upstart_post_start_script = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -201,26 +206,27 @@ define govuk::app (
   }
 
   govuk::app::config { $title:
-    require                => Govuk::App::Package[$title],
-    app_type               => $app_type,
-    command                => $command,
-    domain                 => $app_domain,
-    port                   => $port,
-    vhost_aliases          => $vhost_aliases,
-    vhost_full             => $vhost_full,
-    vhost_protected        => $vhost_protected,
-    vhost_ssl_only         => $vhost_ssl_only,
-    nginx_extra_config     => $nginx_extra_config,
-    nginx_extra_app_config => $nginx_extra_app_config,
-    health_check_path      => $health_check_path,
-    intercept_errors       => $intercept_errors,
-    enable_nginx_vhost     => $enable_nginx_vhost,
-    logstream              => $logstream,
-    nagios_cpu_warning     => $nagios_cpu_warning,
-    nagios_cpu_critical    => $nagios_cpu_critical,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    unicorn_herder_timeout => $unicorn_herder_timeout,
+    require                   => Govuk::App::Package[$title],
+    app_type                  => $app_type,
+    command                   => $command,
+    domain                    => $app_domain,
+    port                      => $port,
+    vhost_aliases             => $vhost_aliases,
+    vhost_full                => $vhost_full,
+    vhost_protected           => $vhost_protected,
+    vhost_ssl_only            => $vhost_ssl_only,
+    nginx_extra_config        => $nginx_extra_config,
+    nginx_extra_app_config    => $nginx_extra_app_config,
+    health_check_path         => $health_check_path,
+    intercept_errors          => $intercept_errors,
+    enable_nginx_vhost        => $enable_nginx_vhost,
+    logstream                 => $logstream,
+    nagios_cpu_warning        => $nagios_cpu_warning,
+    nagios_cpu_critical       => $nagios_cpu_critical,
+    nagios_memory_warning     => $nagios_memory_warning,
+    nagios_memory_critical    => $nagios_memory_critical,
+    unicorn_herder_timeout    => $unicorn_herder_timeout,
+    upstart_post_start_script => $upstart_post_start_script,
   }
 
   govuk::app::service { $title:
