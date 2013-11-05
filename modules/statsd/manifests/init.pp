@@ -2,7 +2,9 @@
 #
 # This class installs and sets-up statsd
 #
-class statsd {
+class statsd(
+  $graphite_hostname
+) {
   include nodejs
 
   package { 'statsd':
@@ -11,11 +13,11 @@ class statsd {
   }
 
   file { '/etc/statsd.conf':
-    source => 'puppet:///modules/graphite/etc/statsd.conf'
+    content => template('statsd/etc/statsd.conf.erb'),
   }
 
   file { '/etc/init/statsd.conf':
-    source  => 'puppet:///modules/graphite/etc/init/statsd.conf',
+    source  => 'puppet:///modules/statsd/etc/init/statsd.conf',
     require => [Package['statsd'], File['/etc/statsd.conf']],
   }
 
