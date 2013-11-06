@@ -5,8 +5,7 @@
 # NB: please don't use ruby 1.9 syntax in this file until the default system
 #     ruby shipping with Mac OS X becomes ruby 1.9
 #
-
-has_old_vagrant = !Vagrant.respond_to?(:configure)
+min_required_vagrant_version = '1.2.3'
 
 def common_config(config)
   # vagrant-dns is only supported on OS X
@@ -59,82 +58,56 @@ def load_local_vagrant_file(config)
   config
 end
 
-if has_old_vagrant
-  $stderr.puts "WARNING: Using old Vagrantfile format! Please upgrade to Vagrant >1.1."
-  $stderr.puts ""
+if Vagrant::VERSION < min_required_vagrant_version
+  $stderr.puts "ERROR: Puppet now requires Vagrant version >=#{min_required_vagrant_version}. Please upgrade.\n"
+  exit 1
+end
 
-  # Vagrant 1.0.x
-  Vagrant::Config.run do |config|
-    config = virtual_box_config(config)
-    config = common_config(config)
+Vagrant.configure("2") do |config|
+  config = virtual_box_config(config)
 
-    # Old Vagrant uses `host_name`
-    config.vm.host_name = ENV['VAGRANT_HOSTNAME'] || 'vm'
-
-    config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
-
-    # Static IP for NFS and DNS
-    config.vm.network :hostonly, :ip => "10.1.1.254"
-
-    config.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
-
-    # You may want to up the memory / CPUs to get better performance
-    # in the VM.
-    # Example given below to put in Vagrantfile.localconfig if you want to
-    # do so.
-    # config.vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
-
-    config = load_local_vagrant_file(config)
+  # TODO: build VMWare base boxes - for now we use a generic precise
+  config.vm.provider :vmware_fusion do |vm, override|
+    override.vm.box = "precise64_vmware_fusion"
+    override.vm.box_url = "http://files.vagrantup.com/precise64_vmware_fusion.box"
+    vm.vmx["displayName"] = "devvm"
   end
-else
 
-  # Vagrant 1.1/1.2
-  Vagrant.configure("2") do |config|
-    config = virtual_box_config(config)
-
-    # TODO: build VMWare base boxes - for now we use a generic precise
-    config.vm.provider :vmware_fusion do |vm, override|
-      override.vm.box = "precise64_vmware_fusion"
-      override.vm.box_url = "http://files.vagrantup.com/precise64_vmware_fusion.box"
-      vm.vmx["displayName"] = "devvm"
+  config.vm.provider :virtualbox do |vm, override|
+    vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+    if override.respond_to? :cache
+      override.cache.auto_detect = true
     end
-
-    config.vm.provider :virtualbox do |vm, override|
-      vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
-      if override.respond_to? :cache
-        override.cache.auto_detect = true
-      end
-    end
-
-    # Static IP for NFS and DNS
-    config.vm.network :private_network, :ip => "10.1.1.254"
-
-    config = common_config(config)
-
-    config.vm.hostname = ENV["VAGRANT_HOSTNAME"] || "vm"
-
-    # Use VMWare Fusion native shared folders
-    config.vm.provider :vmware_fusion do |vm, override|
-      override.vm.synced_folder "../..", "/var/govuk"
-      override.vm.provision :shell, :inline => "NO_GIT_PULL=1 /var/govuk/puppet/tools/puppet-apply-dev"
-    end
-
-    config.vm.provider :virtualbox do |vm, override|
-      override.vm.synced_folder "../..", "/var/govuk", :nfs => true
-      override.vm.provision :shell, :inline => "NO_GIT_PULL=1 govuk_puppet"
-    end
-
-    # You may want to up the memory / CPUs to get better performance in the VM.
-    # Example given below to put in Vagrantfile.localconfig if you want to do so:
-    #
-    #     config.vm.provider :virtualbox do |vm|
-    #       vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
-    #     end
-    #     config.vm.provider :vmware_fusion do |vm|
-    #       vm.vmx["memsize"] = "1024"
-    #       vm.vmx["numvcpus"] = "2"
-    #     end
-
-    config = load_local_vagrant_file(config)
   end
+
+  # Static IP for NFS and DNS
+  config.vm.network :private_network, :ip => "10.1.1.254"
+
+  config = common_config(config)
+
+  config.vm.hostname = ENV["VAGRANT_HOSTNAME"] || "vm"
+
+  # Use VMWare Fusion native shared folders
+  config.vm.provider :vmware_fusion do |vm, override|
+    override.vm.synced_folder "../..", "/var/govuk"
+    override.vm.provision :shell, :inline => "NO_GIT_PULL=1 /var/govuk/puppet/tools/puppet-apply-dev"
+  end
+
+  config.vm.provider :virtualbox do |vm, override|
+    override.vm.synced_folder "../..", "/var/govuk", :nfs => true
+    override.vm.provision :shell, :inline => "NO_GIT_PULL=1 govuk_puppet"
+  end
+
+  # You may want to up the memory / CPUs to get better performance in the VM.
+  # Example given below to put in Vagrantfile.localconfig if you want to do so:
+  #
+  #     config.vm.provider :virtualbox do |vm|
+  #       vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
+  #     end
+  #     config.vm.provider :vmware_fusion do |vm|
+  #       vm.vmx["memsize"] = "1024"
+  #       vm.vmx["numvcpus"] = "2"
+  #     end
+
+  config = load_local_vagrant_file(config)
 end
