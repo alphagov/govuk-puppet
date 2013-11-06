@@ -34,7 +34,6 @@ class govuk::apps::router (
     command            => './router',
     port               => $port,
     enable_nginx_vhost => false,
-    logstream          => true,
   }
 
   govuk::logstream { "${title}-error-json-log":

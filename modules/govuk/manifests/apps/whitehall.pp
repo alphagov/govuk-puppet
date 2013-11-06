@@ -20,7 +20,6 @@ class govuk::apps::whitehall(
     app_type               => 'rack',
     vhost                  => $vhost,
     port                   => $port,
-    logstream              => true,
     log_format_is_json     => true,
     health_check_path      => '/healthcheck',
     enable_nginx_vhost     => false,
