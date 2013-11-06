@@ -54,59 +54,59 @@ end
 if Vagrant::VERSION < min_required_vagrant_version
   $stderr.puts "ERROR: Puppet now requires Vagrant version >=#{min_required_vagrant_version}. Please upgrade.\n"
   exit 1
-else
-  Vagrant.configure("2") do |config|
-    nodes_from_json.each do |node_name, node_opts|
-      config.vm.define node_name do |c|
-        box_name, box_url = get_box(
-          node_opts["box_dist"],
-          node_opts["box_version"]
-        )
-        c.vm.box = box_name
-        c.vm.box_url = box_url
-        c.vm.hostname = node_name
-        c.vm.network :private_network, {
-          :ip => node_opts["ip"],
-          :netmask => "255.255.000.000"
+end
+
+Vagrant.configure("2") do |config|
+  nodes_from_json.each do |node_name, node_opts|
+    config.vm.define node_name do |c|
+      box_name, box_url = get_box(
+        node_opts["box_dist"],
+        node_opts["box_version"]
+      )
+      c.vm.box = box_name
+      c.vm.box_url = box_url
+      c.vm.hostname = node_name
+      c.vm.network :private_network, {
+        :ip => node_opts["ip"],
+        :netmask => "255.255.000.000"
+      }
+
+      modifyvm_args = ['modifyvm', :id]
+
+      # Mitigate boot hangs.
+      modifyvm_args << "--rtcuseutc" << "on"
+
+      # Isolate guests from host networking.
+      modifyvm_args << "--natdnsproxy1" << "on"
+      modifyvm_args << "--natdnshostresolver1" << "on"
+
+      if node_opts.has_key?("memory")
+        modifyvm_args << "--memory" << node_opts["memory"]
+      end
+
+      c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
+      c.vm.synced_folder "..", "/var/govuk", :nfs => true
+      c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
+
+      # Additional shared folders for Puppet Master nodes.
+      # These can't be NFS because OSX won't export overlapping paths.
+      if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
+        c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
+      end
+
+      c.vm.provision :puppet do |puppet|
+        puppet.manifest_file = "site.pp"
+        puppet.manifests_path = "../puppet/manifests"
+        puppet.module_path = [
+          "../puppet/modules",
+          "../puppet/vendor/modules",
+        ]
+        puppet.options = ["--environment", "vagrant"]
+        puppet.facter = {
+          :govuk_class => node_opts["class"],
+          :govuk_provider => "sky",
+          :govuk_platform => "staging",
         }
-
-        modifyvm_args = ['modifyvm', :id]
-
-        # Mitigate boot hangs.
-        modifyvm_args << "--rtcuseutc" << "on"
-
-        # Isolate guests from host networking.
-        modifyvm_args << "--natdnsproxy1" << "on"
-        modifyvm_args << "--natdnshostresolver1" << "on"
-
-        if node_opts.has_key?("memory")
-          modifyvm_args << "--memory" << node_opts["memory"]
-        end
-
-        c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
-        c.vm.synced_folder "..", "/var/govuk", :nfs => true
-        c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
-
-        # Additional shared folders for Puppet Master nodes.
-        # These can't be NFS because OSX won't export overlapping paths.
-        if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
-          c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
-        end
-
-        c.vm.provision :puppet do |puppet|
-          puppet.manifest_file = "site.pp"
-          puppet.manifests_path = "../puppet/manifests"
-          puppet.module_path = [
-            "../puppet/modules",
-            "../puppet/vendor/modules",
-          ]
-          puppet.options = ["--environment", "vagrant"]
-          puppet.facter = {
-            :govuk_class => node_opts["class"],
-            :govuk_provider => "sky",
-            :govuk_platform => "staging",
-          }
-        end
       end
     end
   end
