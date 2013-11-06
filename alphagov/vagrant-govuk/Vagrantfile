@@ -1,5 +1,7 @@
 require 'json'
 
+min_required_vagrant_version = '1.2.3'
+
 # Construct box name and URL from distro and version.
 def get_box(dist, version)
   dist    ||= "precise"
@@ -49,18 +51,12 @@ def nodes_from_json
   nodes
 end
 
-if Vagrant::VERSION < "1.1.0"
-  $stderr.puts "WARNING: Using old Vagrantfile format! Please upgrade to Vagrant >1.1.\n"
-  Vagrant::Config.run do |config|
-    vagrant_config(config, 1)
-  end
-else
-  Vagrant.configure("2") do |config|
-    vagrant_config(config, 2)
-  end
+if Vagrant::VERSION < min_required_vagrant_version
+  $stderr.puts "ERROR: Puppet now requires Vagrant version >=#{min_required_vagrant_version}. Please upgrade.\n"
+  exit 1
 end
 
-def vagrant_config(config, version)
+Vagrant.configure("2") do |config|
   nodes_from_json.each do |node_name, node_opts|
     config.vm.define node_name do |c|
       box_name, box_url = get_box(
@@ -69,23 +65,11 @@ def vagrant_config(config, version)
       )
       c.vm.box = box_name
       c.vm.box_url = box_url
-
-      if version < 2
-        c.vm.host_name = node_name
-      else
-        c.vm.hostname = node_name
-      end
-
-      if version < 2
-        c.vm.network :hostonly,
-          node_opts["ip"],
-          :netmask => "255.255.000.000"
-      else
-        c.vm.network :private_network, {
-          :ip => node_opts["ip"],
-          :netmask => "255.255.000.000"
-        }
-      end
+      c.vm.hostname = node_name
+      c.vm.network :private_network, {
+        :ip => node_opts["ip"],
+        :netmask => "255.255.000.000"
+      }
 
       modifyvm_args = ['modifyvm', :id]
 
@@ -100,32 +84,14 @@ def vagrant_config(config, version)
         modifyvm_args << "--memory" << node_opts["memory"]
       end
 
-      if version < 2
-        c.vm.customize(modifyvm_args)
-      else
-        c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
-      end
-
-      if version < 2
-        c.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
-        c.vm.share_folder "extdata",
-          "/tmp/vagrant-puppet/extdata",
-          "../puppet/extdata"
-      else
-        c.vm.synced_folder "..", "/var/govuk", :nfs => true
-        c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
-      end
+      c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
+      c.vm.synced_folder "..", "/var/govuk", :nfs => true
+      c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
 
       # Additional shared folders for Puppet Master nodes.
-      # These can't been NFS because OSX won't export overlapping paths.
+      # These can't be NFS because OSX won't export overlapping paths.
       if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
-        if version < 2
-          c.vm.share_folder "pm-puppet",
-            "/usr/share/puppet/production/current",
-            "../puppet"
-        else
-          c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
-        end
+        c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
       c.vm.provision :puppet do |puppet|
