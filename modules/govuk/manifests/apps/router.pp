@@ -12,20 +12,15 @@ class govuk::apps::router (
   }
 
   govuk::app::envvar {
-    "${title}-ROUTER_PUBADDR":
-      varname => 'ROUTER_PUBADDR',
+    'ROUTER_PUBADDR':
       value   => "localhost:${port}";
-    "${title}-ROUTER_APIADDR":
-      varname => 'ROUTER_APIADDR',
+    'ROUTER_APIADDR':
       value   => ":${api_port}";
-    "${title}-ROUTER_MONGO_URL":
-      varname => 'ROUTER_MONGO_URL',
+    'ROUTER_MONGO_URL':
       value   => join($mongodb_nodes, ',');
-    "${title}-ROUTER_ERROR_LOG":
-      varname => 'ROUTER_ERROR_LOG',
+    'ROUTER_ERROR_LOG':
       value   => '/var/log/router/errors.json.log';
-    "${title}-ROUTER_HEADER_TIMEOUT":
-      varname => 'ROUTER_HEADER_TIMEOUT',
+    'ROUTER_HEADER_TIMEOUT':
       value   => '20s';
   }
 
