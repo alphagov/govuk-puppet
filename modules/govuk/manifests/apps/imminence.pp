@@ -4,7 +4,6 @@ class govuk::apps::imminence( $port = 3002 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/',
-    logstream          => true,
     log_format_is_json => true,
   }
 

@@ -7,7 +7,6 @@ class govuk::apps::govuk_delivery( $port = 3042 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/_status',
-    logstream          => true,
     log_format_is_json => true;
   }
 
