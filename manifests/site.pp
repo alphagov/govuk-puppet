@@ -32,5 +32,10 @@ $extlookup_precedence = [
   'common'
 ]
 
+# Ensure that hiera is working. Now that we depend on it for config.
+if !hiera('HIERA_SAFETY_CHECK', false) {
+  fail('Hiera does not appear to be working. Update `vagrant-govuk` and/or `vagrant reload` your VM')
+}
+
 import 'classes/**/*'
 import 'nodes.pp'

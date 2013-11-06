@@ -1,4 +1,6 @@
 ---
+HIERA_SAFETY_CHECK: true
+
 apt::always_apt_update: true
 apt::purge_sources_list_d: true
 
