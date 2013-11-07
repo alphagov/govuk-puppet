@@ -51,18 +51,12 @@ class govuk::node::s_backend_lb {
     internal_only     => true,
   }
 
-  $admin_redirect = $app_domain ? {
+  $backdrop_admin_redirect = $app_domain ? {
     'dev.gov.uk'                => 'https://admin.perfplat.dev',
     'preview.alphagov.co.uk'    => 'https://admin.preview.performance.service.gov.uk',
     'production.alphagov.co.uk' => 'https://admin.performance.service.gov.uk',
   }
-
-  nginx::config::vhost::redirect {
-    "backdrop-admin.${app_domain}" :
-    to => $admin_redirect
+  nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
+    to => $backdrop_admin_redirect,
   }
-
-
-
-
 }
