@@ -2,6 +2,7 @@ app_domain,"dev.gov.uk"
 app_domain_suffix,"dev.gov.uk"
 asset_host,"http://static.dev.gov.uk"
 asset_root,"http://static.dev.gov.uk"
+backdropadmin_host,"admin.perfplat.dev"
 backdropread_protocol,"http"
 govuk_app_enable_capistrano_layout,false
 govuk_app_enable_services,false
