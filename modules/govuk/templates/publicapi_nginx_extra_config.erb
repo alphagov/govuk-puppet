@@ -34,32 +34,10 @@
     proxy_pass http://<%= @full_domain %>-proxy;
   }
 
-  <% if @enable_backdrop_path_handling -%>
-    location ~ ^/performance/(.*)/api/(.*) {
-      rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
+  location ~ ^/performance/(.*)/api/(.*) {
+    rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
 
-      proxy_ssl_session_reuse off;
-      proxy_set_header Host <%= @backdropread_host %>;
-      proxy_pass <%= @backdropread_url %>;
-    }
-  <% else -%>
-    <% @backdrop_buckets.each do |bucket| %>
-      <% if bucket["enabled"] -%>
-        location ~ ^/performance/<%= bucket["path"] %> {
-          rewrite ^/performance/<%= bucket["path"] %>(.*)$ /<%= bucket["name"] %>$1 break;
-
-          proxy_ssl_session_reuse off;
-          proxy_set_header Host <%= @backdropread_host %>;
-          proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>;
-
-          proxy_pass <%= @backdropread_url %>;
-
-          <% if bucket["realtime"] %>
-            expires 2m;
-          <% else %>
-            expires 30m;
-          <% end %>
-        }
-      <% end -%>
-    <% end -%>
-  <% end -%>
+    proxy_ssl_session_reuse off;
+    proxy_set_header Host <%= @backdropread_host %>;
+    proxy_pass <%= @backdropread_url %>;
+  }
