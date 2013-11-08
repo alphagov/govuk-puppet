@@ -4,11 +4,12 @@ class base_packages {
     [
       'ack-grep',
       'bzip2',
+      'dnsutils',
+      'dstat',
       'gettext',
       'git-core',
       'htop',
       'iotop',
-      'dstat',
       'iptraf',
       'less',
       'libc6-dev',
