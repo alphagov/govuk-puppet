@@ -27,6 +27,7 @@ access_log /var/log/nginx/lb-json.event.access.log json_event;
 error_log  /var/log/nginx/lb-error.log;
 
 <%
+# TODO: These hashes can be removed with the feature flag `govuk_enable_router_redirects`
 external_redirects = {
   # These redirects to external URLs are a last resort for any given problem.
   # Any additions should be cleared with Etienne. They are recorded here as
@@ -560,6 +561,7 @@ prefix_redirects = {
   '/your-right-to-minimum-wage'                                => '/national-minimum-wage',
 }
 %>
+<% unless @enable_router -%>
 
 # World Location regular expression
 location /world/ {
@@ -597,6 +599,7 @@ location ~ ^<%= from %>($|/.*) {
   return 301 <%= to %>$1;
 }
 <%- end -%>
+<% end # enable_router -%>
 
 location @upstream {
   proxy_pass http://varnish;
