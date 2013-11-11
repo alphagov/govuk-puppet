@@ -21,7 +21,7 @@ class govuk::apps::router (
       value   => join($mongodb_nodes, ',');
     'ROUTER_ERROR_LOG':
       value   => '/var/log/router/errors.json.log';
-    'ROUTER_HEADER_TIMEOUT':
+    'ROUTER_BACKEND_HEADER_TIMEOUT':
       value   => '20s';
   }
 
