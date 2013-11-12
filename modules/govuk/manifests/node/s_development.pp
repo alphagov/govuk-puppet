@@ -229,10 +229,6 @@ class govuk::node::s_development {
       user     => 'tariff',
       password => 'tariff';
 
-    ['tariff_temporal_development', 'tariff_temporal_test']:
-      user     => 'tariff',
-      password => 'tariff';
-
     ['transition_development', 'transition_test']:
       user     => 'transition',
       password => 'transition';
