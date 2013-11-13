@@ -3,25 +3,6 @@
 #
 #   https://www.varnish-cache.org/trac/browser/bin/varnishd/default.vcl?rev=2.0
 
-<%-
-
-def vhost_for_backend(name)
-  first_part = name.gsub('_', '-')
-  "#{first_part}.#{@app_domain}"
-end
-
-def set_backend(name)
-  # Make sure backend "name" exists
-  raise "Backend doesn't exist: '#{name}'!" unless @backends.include? name
-
-  <<-EOM
-    set req.http.Host = "#{vhost_for_backend(name)}";
-    set req.backend = #{name};
-  EOM
-end
-
--%>
-
 # Backends
   backend router {
     .host = "localhost";
@@ -29,16 +10,6 @@ end
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }
-<% unless @enable_router
-@backends.each do |name| -%>
-  backend <%= name %> {
-    .host = "<%= vhost_for_backend(name) %>";
-    .port = "80";
-    .first_byte_timeout = 20s;
-    .between_bytes_timeout = 20s;
-  }
-<% end
-end -%>
 
 acl purge_acl {
   "localhost";
@@ -46,55 +17,7 @@ acl purge_acl {
 }
 
 sub vcl_recv {
-  # Routing
-<% if @enable_router -%>
   set req.backend = router;
-<% else -%>
-  if (req.http.GOVUK-Feature-New-Router) {
-    set req.backend = router;
-  } else if (req.url ~ "^/sitemap[^/]*.xml(\?.*)?$|^/sitemaps/") {
-    <%= set_backend('search') %>
-  } else if (req.url ~ "^/when-do-the-clocks-change([/?.].*)?$|^/bank-holidays([/?.].*)?$|^/gwyliau-banc([/?.].*)?$") {
-    <%= set_backend('calendars') %>
-  } else if (req.url ~ "^/(<%= @smartanswers.join("|") %>)([/?.].*)?$") {
-    <%= set_backend('smartanswers') %>
-  } else if (req.url ~ "^/child-benefit-tax-calculator([/?.].*)?$") {
-    <%= set_backend('calculators') %>
-  } else if (req.url ~ "^/favicon\.ico(\?.*)?$|^/humans\.txt(\?.*)?$|^/robots\.txt(\?.*)?$|^/fonts|^/google[a-f0-9]{16}\.html(\?.*)?$|^/apple-touch(.*)?\.png$") {
-    <%= set_backend('static') %>
-  } else if (req.url ~ "^/(designprinciples|service-manual|transformation)([/?.].*)?$") {
-    <%= set_backend('designprinciples') %>
-  } else if (req.url ~ "^/licence-finder") {
-    <%= set_backend('licencefinder') %>
-  } else if (req.url ~ "^/business-finance-support-finder") {
-    <%= set_backend('businesssupportfinder') %>
-  } else if (req.url ~ "^/apply-for-a-licence") {
-    <%= set_backend('licensify') %>
-  } else if (req.url ~ "^/trade-tariff") {
-    <%= set_backend('tariff') %>
-  } else if (req.url ~ "^/api") {
-    <%= set_backend('publicapi') %>
-  } else if (req.url ~ "^/(feedback|contact)([/?.].*)?$") {
-    <%= set_backend('feedback') %>
-  } else if (req.url ~ "^/performance/([a-z_][a-z0-9_-]+)/api/.+$") {
-    <%= set_backend('publicapi') %>
-  } else if (req.url ~ "^/performance/?(\?.*)?$|^/performance/dashboard") {
-    <%= set_backend('datainsight_frontend') %>
-  } else if (req.url ~ "^/performance/transactions-explorer") {
-    <%= set_backend('transactions_explorer') %>
-  } else if (req.url ~ "^/performance") {
-    <%= set_backend('limelight') %>
-  } else if (req.url ~ "^/government/") {
-    <%= set_backend('whitehall_frontend') %>
-  } else if (req.url ~ "^/__canary__$") {
-    <%= set_backend('canary_frontend') %>
-  <%# This matches on any subpath of the slugs, the bare slugs should fall through to content in Frontend %>
-  } else if (req.url ~ "^/pay-foreign-marriage-certificates/(.+)$|^/deposit-foreign-marriage/(.+)$|^/pay-register-death-abroad/(.+)$|^/pay-register-birth-abroad/(.+)$|^/pay-legalisation-post/(.+)$|^/pay-legalisation-drop-off/(.+)$") {
-    <%= set_backend('transaction_wrappers') %>
-  } else {
-    <%= set_backend('frontend') %>
-  }
-<% end -%>
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect

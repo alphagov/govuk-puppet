@@ -1,84 +1,8 @@
 class varnish::config {
   include varnish::restart
 
-  # A list of smartanswers to make them easy to maintain
-  $smartanswers = [
-    'additional-commodity-code',
-    'am-i-getting-minimum-wage',
-    'apply-for-probate',
-    'auto-enrolled-into-workplace-pension',
-    'become-a-driving-instructor',
-    'become-a-motorcycle-instructor',
-    'benefits-if-you-are-abroad',
-    'calculate-agricultural-holiday-entitlement',
-    'calculate-employee-redundancy-pay',
-    'calculate-married-couples-allowance',
-    'calculate-night-work-hours',
-    'calculate-state-pension',
-    'calculate-statutory-sick-pay',
-    'calculate-your-child-maintenance',
-    'calculate-your-holiday-entitlement',
-    'calculate-your-maternity-pay',
-    'calculate-your-redundancy-pay',
-    'can-i-get-a-british-passport',
-    'childcare-costs-for-tax-credits',
-    'claim-a-national-insurance-refund',
-    'energy-grants-calculator',
-    'estimate-self-assessment-penalties',
-    'exchange-a-foreign-driving-licence',
-    'find-a-british-embassy',
-    'help-if-you-are-arrested-abroad',
-    'inherits-someone-dies-without-will',
-    'legal-right-to-work-in-the-uk',
-    'legalisation-document-checker',
-    'marriage-abroad',
-    'maternity-paternity-calculator',
-    'minimum-wage-calculator-employers',
-    'non-gb-driving-licence',
-    'overseas-passports',
-    'pip-checker',
-    'plan-adoption-leave',
-    'plan-maternity-leave',
-    'plan-paternity-leave',
-    'recognise-a-trade-union',
-    'register-a-birth',
-    'register-a-death',
-    'report-a-lost-or-stolen-passport',
-    'request-for-flexible-working',
-    'simplified-expenses-checker',
-    'student-finance-calculator',
-    'student-finance-forms',
-    'towing-rules',
-    'uk-benefits-abroad',
-    'vehicles-you-can-drive'
-  ]
-
-  # List of available backends
-  $backends = [
-    'businesssupportfinder',
-    'calculators',
-    'calendars',
-    'canary_frontend',
-    'datainsight_frontend',
-    'designprinciples',
-    'feedback',
-    'frontend',
-    'licencefinder',
-    'licensify',
-    'limelight',
-    'publicapi',
-    'search',
-    'smartanswers',
-    'static',
-    'tariff',
-    'transaction_wrappers',
-    'transactions_explorer',
-    'whitehall_frontend',
-  ]
-
-  $app_domain     = extlookup('app_domain')
-  $enable_router  = str2bool(extlookup('govuk_enable_router_varnish', 'no'))
-  $router_port    = '3054'
+  $app_domain  = extlookup('app_domain')
+  $router_port = '3054'
 
   file { '/etc/default/varnish':
     ensure  => file,
