@@ -2,6 +2,7 @@ class govuk::apps::router (
   $port = 3054,
   $api_port = 3055,
   $api_healthcheck = '/healthcheck',
+  $error_log = '/var/log/router/errors.json.log',
   $mongodb_nodes
 ) {
   @ufw::allow { 'allow-router-reload-from-all':
@@ -20,7 +21,7 @@ class govuk::apps::router (
     'ROUTER_MONGO_URL':
       value   => join($mongodb_nodes, ',');
     'ROUTER_ERROR_LOG':
-      value   => '/var/log/router/errors.json.log';
+      value   => $error_log;
     'ROUTER_BACKEND_HEADER_TIMEOUT':
       value   => '20s';
   }
@@ -41,10 +42,10 @@ class govuk::apps::router (
     host_name           => $::fqdn,
   }
 
-  govuk::logstream { "${title}-error-json-log":
-    logfile       => '/var/log/router/errors.json.log',
+  govuk::logstream { 'router-error-json-log':
+    logfile       => $error_log,
     tags          => ['error'],
-    fields        => {'application' => $title},
+    fields        => {'application' => 'router'},
     json          => true,
   }
 }
