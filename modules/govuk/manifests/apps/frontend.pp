@@ -12,15 +12,6 @@ class govuk::apps::frontend(
     vhost_aliases          => ['private-frontend', 'www'], # TODO: Remove the www alias once we're sure it's not being used.
     health_check_path      => '/',
     log_format_is_json     => true,
-    nginx_extra_config     => "location @specialist {
-  proxy_set_header Host whitehall-frontend.${app_domain};
-  proxy_pass http://whitehall-frontend.${app_domain};
-}",
-    # Please note that this routing strategy is *temporary*, until we have a better
-    # solution for router replacement. It should be removed once a proper router
-    # registration API is reinstated. -NS
-    nginx_extra_app_config => "proxy_next_upstream http_404;
-error_page 404 = @specialist;"
   }
 
   # Frontend used to be deployed to /data/vhost/www.${app_domain}. Leave this
