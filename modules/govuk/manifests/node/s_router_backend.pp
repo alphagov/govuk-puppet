@@ -1,5 +1,7 @@
 class govuk::node::s_router_backend inherits govuk::node::s_base {
   include mongodb::server
+  include mongodb::backup
+
   class { 'mongodb::configure_replica_set':
     members => [
       'router-backend-1.router',

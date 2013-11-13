@@ -36,6 +36,12 @@ class govuk::node::s_backup {
         fq_dn     => 'licensify-mongo-1.licensify.production',
     }
 
+    backup::directory {'backup_mongodb_backups_router_backend':
+        directory => '/var/lib/automongodbbackup/',
+        host_name => 'router-backend-1',
+        fq_dn     => 'router-backend-1.router.production',
+    }
+
     backup::directory {'backup_mongodb_backups_exception-handler-1':
         directory => '/var/lib/automongodbbackup/',
         host_name => 'exception-handler-1',
