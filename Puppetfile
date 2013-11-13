@@ -5,7 +5,11 @@ mod 'thomasvandoren/redis'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
-mod 'nextrevision/automysqlbackup'
+
+# using git version because we need 93a1765bc09
+# which isn't in 0.2.2 (current latest, 2013-11-13)
+mod 'nextrevision/automysqlbackup',
+  :git => 'git://github.com/nextrevision/puppet-automysqlbackup.git'
 
 mod 'cpanm',
   :git => 'git://github.com/alphagov/puppet-cpanm.git',
