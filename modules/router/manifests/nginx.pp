@@ -37,6 +37,11 @@ class router::nginx (
     certtype => 'www'
   }
 
+  # FIXME: Remove when deployed to prod.
+  file { '/etc/nginx/router_routes.conf':
+    ensure => absent,
+  }
+
   file { '/etc/nginx/router_include.conf':
     ensure  => present,
     content => template('router/router_include.conf.erb'),
