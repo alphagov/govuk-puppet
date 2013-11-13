@@ -384,9 +384,6 @@ class hosts::skyscape::production_like {
       "datainsight-everything-recorder.${app_domain}",
       "datainsight-format-success-recorder.${app_domain}",
       "datainsight-insidegov-recorder.${app_domain}",
-      "read.backdrop.${app_domain}",
-      "write.backdrop.${app_domain}",
-      "backdrop-admin.${app_domain}"
     ],
   }
   govuk::host { 'akamai-logs-1':
