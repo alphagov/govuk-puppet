@@ -15,7 +15,7 @@ server {
   ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
   include             /etc/nginx/ssl.conf;
 
-  include             /etc/nginx/router_routes.conf;
+  include             /etc/nginx/router_include.conf;
 }
 
 server {
@@ -25,5 +25,5 @@ server {
   ssl_certificate_key /etc/nginx/ssl/www.<%= @app_domain %>.key;
   include             /etc/nginx/ssl.conf;
 
-  include             /etc/nginx/router_routes.conf;
+  include             /etc/nginx/router_include.conf;
 }

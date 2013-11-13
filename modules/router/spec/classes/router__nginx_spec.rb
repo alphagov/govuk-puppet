@@ -5,7 +5,7 @@ describe 'router::nginx', :type => :class do
     update_extdata("fco_services_domain_prefix" => "www-test")
   end
 
-  let(:routes_path) { '/etc/nginx/router_routes.conf' }
+  let(:routes_path) { '/etc/nginx/router_include.conf' }
 
   context 'vhost_protected' do
     context 'set to false' do

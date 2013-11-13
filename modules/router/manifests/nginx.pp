@@ -40,8 +40,14 @@ class router::nginx (
     certtype => 'www'
   }
 
+  file { '/etc/nginx/router_include.conf':
+    ensure  => present,
+    content => template('router/router_include.conf.erb'),
+    notify  => Class['nginx::service'],
+  }
   nginx::config::site { 'www.gov.uk':
-    content         => template('router/base.conf.erb'),
+    content => template('router/base.conf.erb'),
+    require => File['/etc/nginx/router_include.conf'],
   }
 
   @ufw::allow { 'allow-http-8080-from-all':
@@ -57,12 +63,6 @@ class router::nginx (
   $enable_router_redirects = str2bool(extlookup('govuk_enable_router_redirects', 'no'))
   $enable_router_varnish   = str2bool(extlookup('govuk_enable_router_varnish', 'no'))
   $enable_router           = ($enable_router_redirects and $enable_router_varnish)
-
-  file { '/etc/nginx/router_routes.conf':
-    ensure  => present,
-    content => template('router/routes.conf.erb'),
-    notify  => Class['nginx::service'],
-  }
 
   nginx::log {
     'lb-json.event.access.log':
