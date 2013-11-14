@@ -1,17 +1,19 @@
 
-  expires 30m;
-
   # Specify these locations regexfully to avoid quirky Nginx behaviour
   # where a location block with a trailing slash triggers 301 redirects on
   # requests made to that path without a trailing slash, *if* there is a
   # proxy_pass directive in the block.
 
   location ~ ^/api/(organisations|specialist|worldwide-organisations|world-locations)(/|$) {
+    expires 30m;
+
     proxy_set_header Host <%= @whitehallapi %>;
     proxy_pass http://<%= @whitehallapi %>;
   }
 
   location ~ ^/api/facts(/|$) {
+    expires 30m;
+
     # Remove the prefix before passing through
     # Can't just do this using the proxy_pass URL, because we're
     # having to match the incoming path on a regular expression
@@ -23,6 +25,8 @@
   }
 
   location ~ ^/api(/|$) {
+    expires 30m;
+
     # Remove the prefix before passing through
     # Can't just do this using the proxy_pass URL, because we're
     # having to match the incoming path on a regular expression
@@ -34,32 +38,10 @@
     proxy_pass http://<%= @full_domain %>-proxy;
   }
 
-  <% if @enable_backdrop_path_handling -%>
-    location ~ ^/performance/(.*)/api/(.*) {
-      rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
+  location ~ ^/performance/(.*)/api/(.*) {
+    rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
 
-      proxy_ssl_session_reuse off;
-      proxy_set_header Host <%= @backdropread_host %>;
-      proxy_pass <%= @backdropread_url %>;
-    }
-  <% else -%>
-    <% @backdrop_buckets.each do |bucket| %>
-      <% if bucket["enabled"] -%>
-        location ~ ^/performance/<%= bucket["path"] %> {
-          rewrite ^/performance/<%= bucket["path"] %>(.*)$ /<%= bucket["name"] %>$1 break;
-
-          proxy_ssl_session_reuse off;
-          proxy_set_header Host <%= @backdropread_host %>;
-          proxy_set_header X-API-PREFIX performance/<%= bucket["path"] %>;
-
-          proxy_pass <%= @backdropread_url %>;
-
-          <% if bucket["realtime"] %>
-            expires 2m;
-          <% else %>
-            expires 30m;
-          <% end %>
-        }
-      <% end -%>
-    <% end -%>
-  <% end -%>
+    proxy_ssl_session_reuse off;
+    proxy_set_header Host <%= @backdropread_host %>;
+    proxy_pass <%= @backdropread_url %>;
+  }
