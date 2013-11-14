@@ -1,6 +1,7 @@
 class monitoring::checks {
 
   include monitoring::checks::fastly
+  include monitoring::checks::mirror
   include monitoring::checks::pingdom
   include monitoring::checks::smokey
 
@@ -122,22 +123,6 @@ class monitoring::checks {
     service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
   }
   # END ssl certificate checks
-
-  nagios::check_config {'http_age':
-    source => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_http_age.cfg',
-  }
-
-  nagios::check { 'check_mirror0_up_to_date':
-    check_command       => 'check_mirror_age!mirror0.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk',
-    host_name           => $::fqdn,
-    service_description => 'mirror0 site out of date',
-  }
-
-  nagios::check { 'check_mirror1_up_to_date':
-    check_command       => 'check_mirror_age!mirror1.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk',
-    host_name           => $::fqdn,
-    service_description => 'mirror1 site out of date',
-  }
 
   # START support
   nagios::check::graphite { 'check_support_default_queue_size':
