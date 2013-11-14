@@ -15,4 +15,16 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   datainsight::collector { 'insidegov': }
   datainsight::collector { 'nongovuk-reach': }
 
+  # FIXME: Purge files from production
+  # Remove once Puppet has been deployed to production
+  file { '/etc/govuk/backdrop-ga-collector/google_client_secret.json':
+    ensure => absent,
+  }
+  file { '/var/lib/govuk/backdrop-ga-collector':
+    ensure => absent,
+  }
+  file { '/var/lib/govuk/backdrop-ga-collector/google_storage.db':
+    ensure => absent,
+  }
+
 }
