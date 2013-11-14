@@ -56,8 +56,8 @@ class govuk::node::s_backup {
 
     backup::directory {'backup_mysql_backups_mysql_backup_1':
         directory => '/var/lib/automysqlbackup/',
-        host_name => 'mysql-backend-1',
-        fq_dn     => 'mysql-backend-1.backend.production',
+        host_name => 'mysql-backup-1',
+        fq_dn     => 'mysql-backup-1.backend.production',
     }
 
     backup::directory {'backup_mysql_backups_efg_mysql':
