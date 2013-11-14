@@ -4,8 +4,8 @@ set -e
 set -o pipefail
 
 # Defaults, assumed failed.
-NAGIOS_CODE=1
-NAGIOS_MESSAGE="WARNING: Backup failed"
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Backup failed"
 
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
