@@ -43,6 +43,9 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   if str2bool(extlookup('govuk_enable_contacts', 'no')) {
     include govuk::apps::contacts
   }
+  if str2bool(extlookup('govuk_enable_content_planner', 'no')) {
+    include govuk::apps::content_planner
+  }
 
   include govuk::apps::tariff_api
   include govuk::apps::transition

@@ -45,6 +45,10 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
       user     => 'contacts',
       password => 'contacts';
 
+    'content_planner_test':
+      user     => 'content_planner',
+      password => 'content_planner';
+
     [
       'datainsights_todays_activity_test',
       'datainsight_weekly_reach_test',

@@ -14,6 +14,7 @@ class govuk::node::s_backend_lb {
   loadbalancer::balance {
     [
       'contacts',
+      'content-planner',
       'fact-cave',
       'imminence',
       'maslow',
