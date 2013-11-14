@@ -93,12 +93,6 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
-  # TODO: Remove.
-  file { '/var/www/akamai_test_object.txt':
-    ensure => absent,
-    source => 'puppet:///modules/router/akamai_test_object.txt',
-  }
-
   file { '/var/www/fallback':
     ensure => directory,
     owner  => 'deploy',
