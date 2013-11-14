@@ -72,10 +72,4 @@ class mirror {
                 File['/var/run/govuk_update_and_upload_mirror.lock']],
   }
 
-  govuk::logstream { 'govukmirrorer-log':
-    logfile => '/var/log/govuk/govuk_mirrorer.log',
-    tags    => ['stdout', 'mirror'],
-    fields  => {'application' => 'govuk_mirrorer'},
-  }
-
 }
