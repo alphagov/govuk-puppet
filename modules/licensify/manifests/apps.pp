@@ -68,6 +68,16 @@ class licensify::apps::licensify_feed( $port = 9400 ) inherits licensify::apps::
   licensify::build_clean { 'licensify-feed': }
 }
 
+class licensify::apps::licensing_api( $port = 9100 ) inherits licensify::apps::base {
+
+  govuk::app { 'licensing-api':
+    app_type          => 'procfile',
+    port              => $port,
+    vhost_protected   => false,
+    # health_check_path => '/login', TODO
+  }
+}
+
 define licensify::apps::envvars($app) {
   $aws_access_key_id = extlookup('aws_access_key_id', '')
   $aws_secret_key = extlookup('aws_secret_key', '')
