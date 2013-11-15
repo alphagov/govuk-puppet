@@ -131,8 +131,10 @@ sub vcl_recv {
   # origin.
   set req.grace = 6h;
 
-  # remove cookies - except for Licensing.
-  # FIXME: Path duplicates logic in Router. See comments in vcl_fetch.
+  # Strip cookies from inbound requests. Corresponding rule in vcl_fetch{}
+  # For simplicity and security most applications should not use cookies.
+  # With the exception of:
+  #   - Licensing
   if (req.url !~ "^/apply-for-a-licence") {
     unset req.http.Cookie;
   }
@@ -162,22 +164,19 @@ sub vcl_fetch {
   # longer than req.grace in vcl_recv.
   set beresp.grace = 6h;
 
-  if (req.url ~ "^/apply-for-a-licence") {
-    # Licensify sends custom 500 errors, and we need to send No-Fallback: true
-    # to prevent the CDN from falling back to the mirror site.
-    # Unfortunately, with our current build of Nginx we can't use add_headers
-    # for an error response, so this will have to live here.
-    #
-    # FIXME: This should be implemented by either the app or the per-app Nginx
-    # (by compiling Nginx with the more_headers module, for example).
-    # FIXME2: The path duplicates logic in the Router.
-    #
-    # - NS 2012-12-11
-    set beresp.http.No-Fallback = "true";
+  # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
+  if (req.url !~ "^/apply-for-a-licence") {
+    unset beresp.http.Set-Cookie;
+  }
 
-  # Remove cookies for all apps but Licensify
-  } else {
-    unset beresp.http.set-cookie;
+  # Licensify sends custom 500 errors, and we need to send No-Fallback: true
+  # to prevent the CDN from falling back to the mirror site.
+  #
+  # FIXME: This would be better implemented in the app or per-app Nginx
+  # vhost. Require `more_headers` because add_header` can't be used for
+  # error responses.
+  if (req.url ~ "^/apply-for-a-licence") {
+    set beresp.http.No-Fallback = "true";
   }
 
   # Don't cache 5xx errors from backends. Keep retrying and let them present
