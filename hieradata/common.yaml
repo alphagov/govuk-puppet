@@ -1,0 +1,10 @@
+---
+HIERA_SAFETY_CHECK: true
+
+apt::always_apt_update: true
+apt::purge_sources_list_d: true
+
+apt::unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
+apt::unattended_upgrades::origins:
+ - "${::lsbdistid} stable"
+ - "${::lsbdistid} ${::lsbdistcodename}-security"

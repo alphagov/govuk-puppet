@@ -1,5 +1,7 @@
 class base {
   include apparmor
+  include apt
+  include apt::unattended_upgrades
   include base_packages
   include cron
   include gcc
@@ -15,18 +17,6 @@ class base {
   include tmux
   include wget
   include curl
-
-  class { 'apt':
-    always_apt_update    => true,
-    purge_sources_list_d => true,
-  }
-  class { 'apt::unattended_upgrades':
-    mail_to => 'machine.email@digital.cabinet-office.gov.uk',
-    origins => [
-      "${::lsbdistid} stable",
-      "${::lsbdistid} ${::lsbdistcodename}-security",
-    ],
-  }
 
   # Ensure update is always run before any package installs.
   # title conditions prevent a dependency loop within apt module.
