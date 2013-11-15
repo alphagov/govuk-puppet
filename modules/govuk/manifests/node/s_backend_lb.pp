@@ -51,8 +51,8 @@ class govuk::node::s_backend_lb {
     internal_only     => true,
   }
 
-  $backdropadmin_host = extlookup('backdropadmin_host', 'admin.performance.service.gov.uk')
+  $perfplat_app_domain = extlookup('perfplat_app_domain', 'performance.service.gov.uk')
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
-    to => "https://${backdropadmin_host}/",
+    to => "https://admin.${perfplat_app_domain}/",
   }
 }
