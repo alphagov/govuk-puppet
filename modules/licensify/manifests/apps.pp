@@ -73,7 +73,7 @@ class licensify::apps::licensing_api( $port = 9100 ) inherits licensify::apps::b
   govuk::app { 'licensing-api':
     app_type          => 'procfile',
     port              => $port,
-    vhost_protected   => false,
+    vhost_protected   => true,
     # health_check_path => '/login', TODO
   }
 }
