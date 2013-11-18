@@ -34,11 +34,6 @@ class nagios::config {
     content => template('nagios/etc/nagios3/conf.d/check_graphite_metric_args.cfg.erb'),
   }
 
-  # FIXME: Merge references to this into the more generic check_graphite_metric_args
-  file { '/etc/nagios3/conf.d/check_graphite_metric_since.cfg':
-    content => template('nagios/etc/nagios3/conf.d/check_graphite_metric_since.cfg.erb'),
-  }
-
   file { '/etc/nagios3/conf.d/check_http_nagios2.cfg':
     content => template('nagios/etc/nagios3/conf.d/check_http_nagios2.cfg.erb'),
   }

@@ -48,10 +48,4 @@ class govuk::apps::router (
     fields        => {'application' => 'router'},
     json          => true,
   }
-
-  # FIXME: Misnamed. Remove when deployed up to prod.
-  govuk::logstream { 'govuk::apps::router-error-json-log':
-    enable  => false,
-    logfile => '/dev/null',
-  }
 }
