@@ -1,17 +1,7 @@
 class puppetdb::config {
 
   $puppetdb_postgres_password = extlookup('puppetdb_postgres_password', '')
-
-  # This caters for Amazon Preview where puppetmaster is a small instance
-  # When Amazon is dead, we should just make this 1024
-  if $::govuk_provider == 'sky' {
-    $java_args = '-Xmx1024m'
-  } else {
-    $java_args = $::govuk_platform ? {
-      'production'   => '-Xmx1024m',
-      default        => '-Xmx192m',
-    }
-  }
+  $java_args = '-Xmx1024m'
 
   # By default, this script should be run by apt-get install. But if, for
   # whatever reason, it fails on first run, or someone accidentally removes

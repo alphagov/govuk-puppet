@@ -170,16 +170,7 @@ class monitoring::checks {
   }
 
   #TODO: extlookup or hiera for email addresses?
-
-  case $::govuk_provider {
-    sky: {
-      $contact_email = extlookup('monitoring_group', 'root@localhost')
-    }
-    default: {
-      # ugh.
-      $contact_email = 'monitoring-ec2preview@digital.cabinet-office.gov.uk'
-    }
-  }
+  $contact_email = extlookup('monitoring_group', 'root@localhost')
 
   nagios::contact { 'monitoring_google_group':
     email => $contact_email
