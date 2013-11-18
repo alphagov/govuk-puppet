@@ -57,13 +57,8 @@ class govuk::node::s_cache inherits govuk::node::s_base {
     notes_url    => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
   }
 
-  case $::govuk_provider {
-    'sky': {
-        ufw::allow { 'Allow varnish cache bust from backend machines':
-          from => '10.3.0.0/24',
-          port => '7999'
-        }
-    }
-    default: {}
+  ufw::allow { 'Allow varnish cache bust from backend machines':
+    from => '10.3.0.0/24',
+    port => '7999'
   }
 }

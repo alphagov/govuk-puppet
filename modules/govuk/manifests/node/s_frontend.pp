@@ -24,13 +24,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   include govuk::apps::static
   include govuk::apps::transactions_explorer
 
-  case $::govuk_provider {
-    'sky':   {}
-    default: {
-      include govuk::apps::efg
-    }
-  }
-
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx

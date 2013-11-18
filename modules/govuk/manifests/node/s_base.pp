@@ -5,9 +5,11 @@ class govuk::node::s_base {
   include fail2ban
   include govuk::deploy
   include govuk::envsys
+  include govuk::firewall
   include govuk::repository
   include govuk::scripts
   include govuk::sshkeys
+  include harden
   include hosts
   include monitoring::client
   include puppet
@@ -131,13 +133,5 @@ class govuk::node::s_base {
     password => extlookup('ubuntu_pass_hash','!!'),
     groups   => ['admin'],
     require  => Group['admin'];
-  }
-
-  case $::govuk_provider {
-    'sky': {
-      include govuk::firewall
-      include harden
-    }
-    default: {}
   }
 }
