@@ -5,6 +5,7 @@
 # NB: please don't use ruby 1.9 syntax in this file until the default system
 #     ruby shipping with Mac OS X becomes ruby 1.9
 #
+DIST_PREFERRED = 'precise'
 min_required_vagrant_version = '1.2.3'
 
 def common_config(config)
@@ -26,14 +27,14 @@ def virtual_box_config(config)
     'precise' => '20130712',
   }
 
-  if (ENV['govuk_dev_dist'].nil?)
-    puts "[info] Environment variable govuk_dev_dist not set, using Ubuntu 12.04"
-    puts "       please set govuk_dev_dist='lucid' or govuk_dev_dist='precise' in your "
-    puts "       environment variables to change versions. e.g.:"
-    puts "       #> echo \"export govuk_dev_dist='lucid'\" >> ~/.bash_profile "
-    dist = 'precise'
-  else
-    dist = ENV['govuk_dev_dist']
+  dist = ENV['govuk_dev_dist'] || DIST_PREFERRED
+  if dist != DIST_PREFERRED
+    puts <<EOS
+[warn] Ubuntu version has been overridden with the environment variable
+       `govuk_dev_dist` to a version other than "#{DIST_PREFERRED}". Please
+       consider unsetting it.
+
+EOS
   end
 
   virtual_box_box = "govuk_dev_#{dist}64_#{latest_box_versions[dist]}"
