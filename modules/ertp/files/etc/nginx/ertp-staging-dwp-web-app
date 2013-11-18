@@ -1,8 +1,0 @@
-server {
-  server_name  staging-ertp-dwp.alphagov.co.uk;
-  listen *:80;
-
- location /dwp-file-processor {
-    proxy_pass http://127.0.0.1:9600/dwp-file-processor;
-  }
-}
