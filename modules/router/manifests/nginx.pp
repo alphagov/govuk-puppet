@@ -2,10 +2,7 @@
 #
 # Nginx configs for "cache" nodes:
 #
-# - Forwards requests to Varnish over loopback (which subsequently routes to
-#   the correct frontend/backend).
-# - Performs some early redirects and prevents them travelling down the
-#   stack for performance reasons.
+# - Forwards requests to Varnish over loopback.
 # - Intercepts error responses and replaces them with stylised pages. These
 #   are periodically fetched from static/assets and stored locally.
 #
@@ -40,8 +37,19 @@ class router::nginx (
     certtype => 'www'
   }
 
+  # FIXME: Remove when deployed to prod.
+  file { '/etc/nginx/router_routes.conf':
+    ensure => absent,
+  }
+
+  file { '/etc/nginx/router_include.conf':
+    ensure  => present,
+    content => template('router/router_include.conf.erb'),
+    notify  => Class['nginx::service'],
+  }
   nginx::config::site { 'www.gov.uk':
-    content         => template('router/base.conf.erb'),
+    content => template('router/base.conf.erb'),
+    require => File['/etc/nginx/router_include.conf'],
   }
 
   @ufw::allow { 'allow-http-8080-from-all':
@@ -50,18 +58,6 @@ class router::nginx (
 
   nginx::config::site { 'router-replacement-port8080':
     source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
-  }
-
-  # We can't disable Nginx redirects unless Varnish is also passing all
-  # traffic to the Router. So use both feature flags.
-  $enable_router_redirects = str2bool(extlookup('govuk_enable_router_redirects', 'no'))
-  $enable_router_varnish   = str2bool(extlookup('govuk_enable_router_varnish', 'no'))
-  $enable_router           = ($enable_router_redirects and $enable_router_varnish)
-
-  file { '/etc/nginx/router_routes.conf':
-    ensure  => present,
-    content => template('router/routes.conf.erb'),
-    notify  => Class['nginx::service'],
   }
 
   nginx::log {
