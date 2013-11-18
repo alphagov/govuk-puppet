@@ -1,6 +1,8 @@
 ---
 :hierarchy:
-  - common
+  - '%{::environment}_credentials'
+  - '%{::environment}'
+  - 'common'
 :backends:
   - yaml
 :yaml:
