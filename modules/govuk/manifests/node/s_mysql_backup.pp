@@ -11,6 +11,8 @@ class govuk::node::s_mysql_backup inherits govuk::node::s_base {
 
   automysqlbackup::backup { 'automysqlbackup':
     backup_dir                   => '/var/lib',
+    backup_dir_perms             => '0755',
+    backup_file_perms            => '0444',
     db_exclude                   => ['mysql', 'information_schema', 'performance_schema', 'test'],
     do_weekly                    => '6',
     mail_address                 => 'zd-alrt-normal@digital.cabinet-office.gov.uk',

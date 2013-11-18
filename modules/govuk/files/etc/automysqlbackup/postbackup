@@ -1,7 +1,5 @@
 tar -C /var/lib/automysqlbackup -jcf /var/lib/automysqlbackup/tmp.tbz2 latest/
 mv /var/lib/automysqlbackup/tmp.tbz2 /var/lib/automysqlbackup/latest.tbz2
-chmod u=wr,go=r /var/lib/automysqlbackup/latest.tbz2 
-chmod -R go=rx /var/lib/automysqlbackup/
 FINISHEPOCH=`date +%s`
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
 logger -t automysqlbackup "MySQL backed up in T:$TOTALTIME seconds"
