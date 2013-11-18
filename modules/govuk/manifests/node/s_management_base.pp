@@ -13,13 +13,6 @@ class govuk::node::s_management_base inherits govuk::node::s_base {
   include mongodb::server
   include nodejs
 
-  file { '/var/log/ertp':
-    ensure  => directory,
-    owner   => jenkins,
-    group   => jenkins,
-    require => User['jenkins'],
-  }
-
   $redis_port = 6379
   $redis_max_memory = 256
   class { 'redis':

@@ -12,16 +12,6 @@ node default {
       'elms-sky-backend':   { include govuk::node::s_licensify_backend }
       'elms-mongo':         { include govuk::node::s_licensify_mongo }
 
-      'ertp-api-citizen':   { include ertp_base::api_server::citizen }
-      'ertp-api-dwp':       { include ertp_base::api_server::dwp }
-      'ertp-api-ero':       { include ertp_base::api_server::ero }
-      'ertp-api':           { include ertp_base::api_server::all }
-      'ertp-development':   { include ertp_base::development }
-      'ertp-frontend':      { include ertp_base::frontend_server }
-      'ertp-mongo':         { include ertp_base::mongo_server }
-      'places-api':         { include places_base::api_server }
-      'places-mongo':       { include places_base::mongo_server }
-
       default: {
         $underscored_govuk_class = regsubst($::govuk_class, '-', '_')
         $node_class_name = "govuk::node::s_${underscored_govuk_class}"

@@ -1,6 +1,0 @@
-smoke-test-1-ero|smoke_test_ero_1_token|true|81ZZ|F09999981|true
-smoke-test-2-ero|smoke_test_ero_2_token|true|82ZZ|F09999982|true
-smoke-test-3-ero|smoke_test_ero_3_token|true|83ZZ|F09999983|true
-gds-test-ero|gds_test_ero_token|true|70ZZ|F09999970|true
-admin-api|admin_token|true|||false
-dwp-feed|dwp_feed_token|true|||false
