@@ -1,5 +1,6 @@
 ---
 :hierarchy:
+  - 'class/%{::govuk_class}'
   - '%{::environment}_credentials'
   - '%{::environment}'
   - 'common'
