@@ -20,9 +20,10 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   }
 
   include govuk::apps::canary_frontend
-  include govuk::apps::publicapi #FIXME to be removed when we ditch ec2 -- ppotter 2012-10-12
   include govuk::apps::static
   include govuk::apps::transactions_explorer
+
+  include performance_platform::spotlight
 
   include nginx
 
