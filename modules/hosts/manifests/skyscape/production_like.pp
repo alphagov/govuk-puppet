@@ -212,6 +212,7 @@ class hosts::skyscape::production_like {
       "limelight.${app_domain}",
       "publicapi.${app_domain}",
       "smartanswers.${app_domain}",
+      "spotlight.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
       "transaction-wrappers.${app_domain}",
