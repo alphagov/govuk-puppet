@@ -4,7 +4,6 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
   include rabbitmq
-  include clamav
 
   include datainsight::recorders::weekly_reach
   include datainsight::recorders::todays_activity
@@ -12,14 +11,20 @@ class govuk::node::s_datainsight inherits govuk::node::s_base {
   include datainsight::recorders::insidegov
   include datainsight::recorders::everything
 
-  class { 'govuk::apps::backdrop_read':  vhost_protected => false; }
-  class { 'govuk::apps::backdrop_write': vhost_protected => false; }
-  class { 'govuk::apps::backdrop_ga_collector': }
-  class { 'govuk::apps::backdrop_ga_realtime_collector': }
-  class { 'govuk::apps::backdrop_pingdom_collector': }
-
   datainsight::collector { 'ga': }
   datainsight::collector { 'insidegov': }
   datainsight::collector { 'nongovuk-reach': }
+
+  # FIXME: Purge files from production
+  # Remove once Puppet has been deployed to production
+  file { '/etc/govuk/backdrop-ga-collector/google_client_secret.json':
+    ensure => absent,
+  }
+  file { '/var/lib/govuk/backdrop-ga-collector':
+    ensure => absent,
+  }
+  file { '/var/lib/govuk/backdrop-ga-collector/google_storage.db':
+    ensure => absent,
+  }
 
 }

@@ -49,11 +49,6 @@ class govuk::node::s_development {
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::transaction_wrappers':  vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
-    'govuk::apps::backdrop_read':         vhost_protected => true;
-    'govuk::apps::backdrop_write':        vhost_protected => false;
-    'govuk::apps::backdrop_ga_collector': ;
-    'govuk::apps::backdrop_ga_realtime_collector': ;
-    'govuk::apps::backdrop_pingdom_collector': ;
   }
 
   include govuk::apps::asset_manager
@@ -267,6 +262,18 @@ class govuk::node::s_development {
     ensure  => directory,
     owner   => 'vagrant',
     group   => 'vagrant',
+  }
+
+  # FIXME: Purge files from development
+  # Remove once people have probably run Puppet? *hand wavy*
+  file { '/etc/govuk/backdrop-ga-collector/google_client_secret.json':
+    ensure => absent,
+  }
+  file { '/var/lib/govuk/backdrop-ga-collector':
+    ensure => absent,
+  }
+  file { '/var/lib/govuk/backdrop-ga-collector/google_storage.db':
+    ensure => absent,
   }
 
 }

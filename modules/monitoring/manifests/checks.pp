@@ -76,28 +76,11 @@ class monitoring::checks {
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
-  }  # END datainsight
+  }
+  # END datainsight
 
   $warning_time = 5
   $critical_time = 10
-
-  # START backdrop
-  $backdrop_read_hostname = "read.backdrop.${app_domain}"
-  $backdrop_write_hostname = "write.backdrop.${app_domain}"
-
-  nagios::check { 'check_backdrop_read_endpoint':
-    check_command       => "check_https_url!${backdrop_read_hostname}!/_status!${warning_time}!${critical_time}",
-    host_name           => $::fqdn,
-    service_description => 'checks if backdrop.read endpoint is up',
-  }
-
-  nagios::check { 'check_backdrop_write_endpoint':
-    check_command       => "check_https_url!${backdrop_write_hostname}!/_status!${warning_time}!${critical_time}",
-    host_name           => $::fqdn,
-    service_description => 'checks if backdrop.write endpoint is up',
-  }
-
-  # END backdrop
 
   # START limelight
   $limelight_hostname = "limelight.${app_domain}"
@@ -107,7 +90,6 @@ class monitoring::checks {
     host_name           => $::fqdn,
     service_description => 'checks if limelight homepage is up',
   }
-
   # END limelight
 
   nagios::check {'check_mapit_responding':
