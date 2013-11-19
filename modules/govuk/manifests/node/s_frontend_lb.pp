@@ -47,6 +47,7 @@ class govuk::node::s_frontend_lb {
       servers       => $whitehall_frontend_servers;
   }
 
-  # public api
   include govuk::apps::publicapi
+
+  include performance_platform::spotlight
 }
