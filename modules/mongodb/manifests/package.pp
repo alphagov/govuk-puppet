@@ -1,7 +1,10 @@
-class mongodb::package {
+class mongodb::package(
+  $version,
+  $package_name = 'mongodb-10gen',
+) {
   include mongodb::repository
 
-  package { 'mongodb20-10gen':
-    ensure => installed
+  package { $package_name:
+    ensure => $version,
   }
 }

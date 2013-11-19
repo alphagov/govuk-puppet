@@ -1,4 +1,9 @@
-class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongodb') {
+class mongodb::server (
+  $version,
+  $package_name = 'mongodb-10gen',
+  $replicaset = $govuk_platform,
+  $dbpath = '/var/lib/mongodb'
+) {
 
   $logpath = '/var/log/mongodb/mongod.log'
 
@@ -10,8 +15,10 @@ class mongodb::server ($replicaset = $govuk_platform, $dbpath = '/var/lib/mongod
   class { 'mongodb::repository': }
 
   class { 'mongodb::package':
-    require => Class['mongodb::repository'],
-    notify  => Class['mongodb::service'];
+    version      => $version,
+    package_name => $package_name,
+    require      => Class['mongodb::repository'],
+    notify       => Class['mongodb::service'];
   }
 
   class { 'mongodb::config':

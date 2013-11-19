@@ -8,3 +8,6 @@ apt::unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
 apt::unattended_upgrades::origins:
  - "${::lsbdistid} stable"
  - "${::lsbdistid} ${::lsbdistcodename}-security"
+
+mongodb::server::version: '2.0.7'
+mongodb::server::package_name: 'mongodb20-10gen'
