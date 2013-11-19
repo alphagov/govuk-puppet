@@ -59,6 +59,7 @@ class govuk::node::s_development {
   include govuk::apps::asset_manager
   include govuk::apps::canary_backend
   include govuk::apps::canary_frontend
+  include govuk::apps::content_planner
   include govuk::apps::efg
   include govuk::apps::errbit
   include govuk::apps::fact_cave
@@ -165,6 +166,10 @@ class govuk::node::s_development {
     ['contacts_development', 'contacts_test']:
       user     => 'contacts',
       password => 'contacts';
+
+    ['content_planner_development', 'content_planner_test']:
+      user     => 'content_planner',
+      password => 'content_planner';
 
     [
       'datainsights_todays_activity',

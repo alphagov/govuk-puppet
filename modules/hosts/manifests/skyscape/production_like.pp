@@ -329,6 +329,7 @@ class hosts::skyscape::production_like {
       "asset-manager.${app_domain}",
       "canary-backend.${app_domain}",
       "contacts.${app_domain}",
+      "content-planner.${app_domain}",
       "contentapi.${app_domain}",
       "fact-cave.${app_domain}",
       "govuk-delivery.${app_domain}",
