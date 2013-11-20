@@ -1,18 +1,30 @@
-class govuk::node::s_cache (
-  $protect_cache_servers = false,
-  $real_ip_header = undef,
-  $denied_ip_addresses = undef,
-) inherits govuk::node::s_base {
+class govuk::node::s_cache inherits govuk::node::s_base {
+
+  $protect_cache_servers         = str2bool(extlookup('protect_cache_servers', 'no'))
+  $extlookup_real_ip_header      = extlookup('cache_real_ip_header', '')
+  $extlookup_denied_ip_addresses = extlookup('cache_denied_ip_addresses', '')
+
+  # FIXME: extlookup() can't return a real `undef` value. So we have to
+  # proxy it to preserve the class's own default.
+  $cache_real_ip_header = $extlookup_real_ip_header ? {
+    ''      => undef,
+    default => $extlookup_real_ip_header,
+  }
+
+  $cache_denied_ip_addresses = $extlookup_denied_ip_addresses ? {
+    ''      => undef,
+    default => $extlookup_denied_ip_addresses,
+  }
 
   include govuk::htpasswd
 
   class { 'nginx':
-    denied_ip_addresses => $denied_ip_addresses,
+    denied_ip_addresses => $cache_denied_ip_addresses,
   }
 
   class { 'router::nginx':
     vhost_protected => $protect_cache_servers,
-    real_ip_header  => $real_ip_header,
+    real_ip_header  => $cache_real_ip_header,
   }
 
   # Set the varnish storage size to 75% of memory
