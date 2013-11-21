@@ -13,7 +13,6 @@ class elasticsearch (
   $version = 'present',
   $log_index_type_count = {}
 ) {
-  include elasticsearch::monitoring
 
   anchor { 'elasticsearch::begin':
     notify => Class['elasticsearch::service'];
@@ -48,8 +47,8 @@ class elasticsearch (
 
   anchor { 'elasticsearch::end': }
 
-  class { 'collectd::plugin::elasticsearch':
-    es_port              => $http_port,
+  class { 'elasticsearch::monitoring':
+    http_port            => $http_port,
     log_index_type_count => $log_index_type_count,
   }
 
