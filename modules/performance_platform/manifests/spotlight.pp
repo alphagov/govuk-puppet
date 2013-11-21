@@ -5,7 +5,7 @@ class performance_platform::spotlight {
   $app_name = 'spotlight'
 
   $vhost_full = "${app_name}.${app_domain}"
-  $spotlight_url = "https://${app_name}.${perfplat_app_domain}"
+  $spotlight_host = "${app_name}.${perfplat_app_domain}"
 
   # Nginx logs
   $logpath = '/var/log/nginx'
