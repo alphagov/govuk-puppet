@@ -20,6 +20,10 @@ class monitoring::checks {
   # END frontend
 
   # START whitehall
+  # Used in template and nagios::check.
+  $whitehall_hostname    = "whitehall-admin.${app_domain}"
+  $whitehall_overdue_url = '/healthcheck/overdue'
+
   nagios::check_config { 'whitehall_overdue':
     content => template('monitoring/check_whitehall_overdue.cfg.erb'),
   }
@@ -30,6 +34,7 @@ class monitoring::checks {
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#whitehall-scheduled-publishing',
+    action_url          => "https://${whitehall_hostname}${whitehall_overdue_url}",
   }
   # END whitehall
 
