@@ -95,6 +95,7 @@ define nagios::check::graphite(
     host_name                  => $host_name,
     use                        => $use,
     action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
+from=-2hours&\
 width=800&height=400&\
 target=${url_encoded_target}&\
 target=${warning_target}&\
