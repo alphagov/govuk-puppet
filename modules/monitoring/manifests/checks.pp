@@ -20,6 +20,10 @@ class monitoring::checks {
   # END frontend
 
   # START whitehall
+  nagios::check_config { 'whitehall_overdue':
+    content => template('monitoring/check_whitehall_overdue.cfg.erb'),
+  }
+
   nagios::check { "check_whitehall_overdue_from_${::hostname}":
     check_command       => 'check_whitehall_overdue',
     service_description => 'overdue publications in Whitehall',
