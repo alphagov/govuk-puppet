@@ -76,8 +76,6 @@ define nagios::check::graphite(
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
   $monitoring_domain_suffix = extlookup('monitoring_domain_suffix', '')
-  $graph_width = 600
-  $graph_height = 300
 
   if $warning_command == undef {
     $warning_target = "alias(dashed(constantLine(${warning})),%22warning%22)"
@@ -97,7 +95,8 @@ define nagios::check::graphite(
     host_name                  => $host_name,
     use                        => $use,
     action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
-width=${graph_width}&height=${graph_height}&\
+from=-2hours&\
+width=800&height=400&\
 target=${url_encoded_target}&\
 target=${warning_target}&\
 target=${critical_target}",

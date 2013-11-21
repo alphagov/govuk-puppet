@@ -21,7 +21,7 @@ describe 'nagios::check::graphite', :type => :define do
         :check_command              => 'check_graphite_metric_args!sumSeries(zoo.*.tiger)!10!20!-F 5minutes ',
         :service_description        => 'number of animals in the zoo',
         :host_name                  => 'warden.zoo.tld',
-        :action_url                 => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)$/,
+        :action_url                 => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?from=-2hours&width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)$/,
         :attempts_before_hard_state => 1,
       )
     end
@@ -40,7 +40,7 @@ describe 'nagios::check::graphite', :type => :define do
     it 'should contain a nagios_check resource' do
       should contain_nagios__check('count_tigers').with(
         :check_command              => 'check_graphite_metric_args!summarize(zoo.*.tiger,"5minutes","max",true)!10!20!-F 5minutes ',
-        :action_url                 => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=summarize\(zoo\.\*\.tiger,%225minutes%22,%22max%22,true\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)$/,
+        :action_url                 => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?from=-2hours&width=\d+&height=\d+&target=summarize\(zoo\.\*\.tiger,%225minutes%22,%22max%22,true\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)$/,
       )
     end
   end
