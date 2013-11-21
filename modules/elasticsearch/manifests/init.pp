@@ -11,7 +11,8 @@ class elasticsearch (
   $refresh_interval = '1s',
   $transport_port = '9300',
   $version = 'present',
-  $log_index_type_count = {}
+  $log_index_type_count = {},
+  $disable_gc_alerts = false
 ) {
 
   anchor { 'elasticsearch::begin':
@@ -50,6 +51,7 @@ class elasticsearch (
   class { 'elasticsearch::monitoring':
     http_port            => $http_port,
     log_index_type_count => $log_index_type_count,
+    disable_gc_alerts    => $disable_gc_alerts,
   }
 
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
