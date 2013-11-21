@@ -11,9 +11,9 @@ class elasticsearch (
   $refresh_interval = '1s',
   $transport_port = '9300',
   $version = 'present',
-  $log_index_type_count = {}
+  $log_index_type_count = {},
+  $disable_gc_alerts = false
 ) {
-  include elasticsearch::monitoring
 
   anchor { 'elasticsearch::begin':
     notify => Class['elasticsearch::service'];
@@ -48,9 +48,10 @@ class elasticsearch (
 
   anchor { 'elasticsearch::end': }
 
-  class { 'collectd::plugin::elasticsearch':
-    es_port              => $http_port,
+  class { 'elasticsearch::monitoring':
+    http_port            => $http_port,
     log_index_type_count => $log_index_type_count,
+    disable_gc_alerts    => $disable_gc_alerts,
   }
 
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":

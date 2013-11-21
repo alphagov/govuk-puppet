@@ -20,6 +20,7 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     log_index_type_count => {
       'logs-current'     => ['syslog']
     },
+    disable_gc_alerts    => true,
     require              => [
       Class['java::oracle7::jre'],
       Govuk::Mount['/mnt/elasticsearch']
