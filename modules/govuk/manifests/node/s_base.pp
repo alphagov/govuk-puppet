@@ -25,6 +25,9 @@ class govuk::node::s_base {
   rbenv::version { '1.9.3-p392':
     bundler_version => '1.3.5'
   }
+  rbenv::version { '1.9.3-p484':
+    bundler_version => '1.3.5'
+  }
   rbenv::alias { '1.9.3':
     to_version => '1.9.3-p392',
   }
