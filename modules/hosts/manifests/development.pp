@@ -57,9 +57,11 @@ class hosts::development {
   host { 'whitehall.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'www.dev.gov.uk':                                  ip => '127.0.0.1' }
 
+  # The one Performance Platform host, required by publicapi in development only
+  host { 'read.backdrop.dev.gov.uk':                        ip => '127.0.0.1' }
+
   # FIXME: Purge hosts from development
   # Remove once people have probably run Puppet? *hand wavy*
   host { 'backdrop-admin.dev.gov.uk':                       ensure => absent }
-  host { 'read.backdrop.dev.gov.uk':                        ensure => absent }
   host { 'write.backdrop.dev.gov.uk':                       ensure => absent }
 }
