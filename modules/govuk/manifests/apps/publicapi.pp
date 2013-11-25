@@ -16,7 +16,7 @@ class govuk::apps::publicapi {
   $full_domain = "${app_name}.${app_domain}"
 
   nginx::config::vhost::proxy { $full_domain:
-    to               => [$privateapi],
+    to               => ["${privateapi}:443"],
     protected        => false,
     ssl_only         => false,
     extra_app_config => "

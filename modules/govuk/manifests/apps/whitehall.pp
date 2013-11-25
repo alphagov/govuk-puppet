@@ -54,7 +54,7 @@ class govuk::apps::whitehall(
 
       location /government/uploads {
         proxy_set_header Host 'whitehall-admin.${app_domain}';
-        proxy_pass http://whitehall-admin.${app_domain};
+        proxy_pass https://whitehall-admin.${app_domain};
       }
       "
     }
