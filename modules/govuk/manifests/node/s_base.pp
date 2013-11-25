@@ -37,6 +37,9 @@ class govuk::node::s_base {
   rbenv::version { '2.0.0-p353':
     bundler_version => '1.3.5'
   }
+  rbenv::alias { '2.0.0':
+    to_version => '2.0.0-p353',
+  }
 
   # Enable management of groups specified in extdata
   $user_groups = extlookup('user_groups', [])

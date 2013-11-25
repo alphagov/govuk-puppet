@@ -39,6 +39,9 @@ class govuk::node::s_development {
   rbenv::version { '2.0.0-p353':
     bundler_version => '1.3.5'
   }
+  rbenv::alias { '2.0.0':
+    to_version => '2.0.0-p353',
+  }
 
   class {
     'govuk::apps::bouncer':               vhost_protected => false;
