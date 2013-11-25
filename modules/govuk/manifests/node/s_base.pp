@@ -29,13 +29,16 @@ class govuk::node::s_base {
     bundler_version => '1.3.5'
   }
   rbenv::alias { '1.9.3':
-    to_version => '1.9.3-p392',
+    to_version => '1.9.3-p484',
   }
   rbenv::version { '2.0.0-p247':
     bundler_version => '1.3.5'
   }
   rbenv::version { '2.0.0-p353':
     bundler_version => '1.3.5'
+  }
+  rbenv::alias { '2.0.0':
+    to_version => '2.0.0-p353',
   }
 
   # Enable management of groups specified in extdata
