@@ -20,7 +20,7 @@ class nagios::package {
   }
 
   package { 'check_graphite':
-    ensure   => '0.2.0',
+    ensure   => '0.2.2',
     provider => 'gem',
   }
 
