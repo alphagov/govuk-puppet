@@ -13,6 +13,7 @@ class govuk::node::s_backend_lb {
 
   loadbalancer::balance {
     [
+      'business-support-api',
       'contacts',
       'content-planner',
       'fact-cave',

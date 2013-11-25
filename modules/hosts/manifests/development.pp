@@ -13,6 +13,7 @@ class hosts::development {
 
   host { 'asset-manager.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'bouncer.dev.gov.uk':                              ip => '127.0.0.1' }
+  host { 'business-support-api.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'canary-backend.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'canary-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'contentapi.dev.gov.uk':                           ip => '127.0.0.1' }
