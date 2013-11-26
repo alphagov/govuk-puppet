@@ -12,8 +12,9 @@ class govuk::node::s_frontend_lb {
   $asset_host = regsubst($asset_url, 'https?://(.+)', '\1')
 
   Loadbalancer::Balance {
-    internal_only     => true,
-    servers           => $govuk_frontend_servers,
+    https_only    => false, # Varnish/Router can't speak HTTPS.
+    internal_only => true,
+    servers       => $govuk_frontend_servers,
   }
 
   $hide_frontend_apps = !str2bool(extlookup('expose_frontend_apps_directly', 'no'))

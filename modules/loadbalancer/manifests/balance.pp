@@ -16,7 +16,7 @@
 #
 # [*https_only*]
 #   Only serve the loadbalanced service over HTTPS.
-#   Default: false
+#   Default: true
 #
 # [*internal_only*]
 #   Limit access to the loadbalanced service to internal IP address only.
@@ -33,7 +33,7 @@
 define loadbalancer::balance(
     $servers,
     $aliases = [],
-    $https_only = false,
+    $https_only = true,
     $internal_only = false,
     $vhost = $title,
     $read_timeout = 15,

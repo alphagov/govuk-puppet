@@ -11,18 +11,17 @@ class govuk::node::s_licensify_lb {
   loadbalancer::balance {
     # Licensify frontend
     'licensify':
+      https_only    => false,
       servers       => $licensify_frontend_servers,
       internal_only => true;
 
     # Licensify upload pdf public endpoint
     'uploadlicence':
-      https_only    => true,
       internal_only => true,
       servers       => $licensify_frontend_servers;
 
     # Licensify admin interface
     'licensify-admin':
-      https_only    => true,
       internal_only => true,
       servers       => $licensify_backend_servers;
 
@@ -31,7 +30,6 @@ class govuk::node::s_licensify_lb {
     loadbalancer::balance {
       # Licensify feed frontend
       'licensify-feed':
-        https_only    => true,
         internal_only => true,
         servers       => $licensify_backend_servers;
     }
@@ -40,7 +38,6 @@ class govuk::node::s_licensify_lb {
     loadbalancer::balance {
       # Licensing API
       'licensing-api':
-        https_only    => true,
         internal_only => true,
         servers       => $licensify_backend_servers;
     }
