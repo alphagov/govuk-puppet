@@ -11,7 +11,7 @@ class govuk::apps::canary_frontend {
         listen 443 ssl;
         server_name canary-frontend.${app_domain};
         location / {
-          proxy_pass http://canary-backend.${app_domain};
+          proxy_pass https://canary-backend.${app_domain};
         }
       }
     ",

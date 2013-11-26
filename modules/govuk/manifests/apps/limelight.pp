@@ -12,7 +12,7 @@ class govuk::apps::limelight(
     $nginx_extra_config = "
       location ~ ^/performance/[^/]+/api {
         proxy_set_header Host ${publicapi_domain};
-        proxy_pass http://${publicapi_domain};
+        proxy_pass https://${publicapi_domain};
       }"
   } else {
     $nginx_extra_config = ''
