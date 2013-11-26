@@ -1,5 +1,21 @@
+# == Define: nginx::config::vhost::proxy
+#
+# Simple Nginx vhost which reverse proxies to another location.
+#
+# === Parameters
+#
+# [*to*]
+#   Array of upstream servers to reverse proxy to.
+#
+# [*to_ssl*]
+#   Boolean whether the upstream servers are running on HTTPS/443.
+#   Default: false
+#
+# TODO: More docs!
+#
 define nginx::config::vhost::proxy(
   $to,
+  $to_ssl = false,
   $aliases = [],
   $extra_config = '',
   $extra_app_config = '',
@@ -21,6 +37,15 @@ define nginx::config::vhost::proxy(
   $json_access_log = "${name}-json.event.access.log"
   $error_log = "${name}-error.log"
   $title_escaped = regsubst($title, '\.', '_', 'G')
+
+  $to_port = $to_ssl ? {
+    true    => ':443',
+    default => '',
+  }
+  $to_proto = $to_ssl ? {
+    true    => 'https://',
+    default => 'http://',
+  }
 
   # Whether to enable SSL. Used by template.
   $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
