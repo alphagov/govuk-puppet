@@ -152,6 +152,21 @@ class hosts::skyscape::production_like {
   }
 
   #frontend vdc machines
+  govuk::host { 'calculators-frontend-1':
+    ip             => '10.2.0.11',
+    vdc            => 'frontend',
+    legacy_aliases => ['calculators-frontend-1']
+  }
+  govuk::host { 'calculators-frontend-2':
+    ip             => '10.2.0.12',
+    vdc            => 'frontend',
+    legacy_aliases => ['calculators-frontend-2']
+  }
+  govuk::host { 'calculators-frontend-3':
+    ip             => '10.2.0.13',
+    vdc            => 'frontend',
+    legacy_aliases => ['calculators-frontend-3']
+  }
   govuk::host { 'frontend-1':
     ip             => '10.2.0.2',
     vdc            => 'frontend',
