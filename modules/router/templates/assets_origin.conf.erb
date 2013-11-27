@@ -20,6 +20,12 @@ server {
   access_log /var/log/nginx/<%= @vhost_name -%>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_name -%>-error.log;
 
+  location ~ ^/government/(assets|uploads|placeholder$)/ {
+    proxy_set_header Host <%= @whitehall_frontend_host %>;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_pass https://<%= @whitehall_frontend_host %>;
+  }
+
   location / {
     proxy_pass https://static.<%= @app_domain -%>;
   }

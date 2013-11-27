@@ -2,20 +2,6 @@ location /robots.txt {
   expires 1w;
 }
 
-location ~ ^/government/(assets|uploads|placeholder$)/ {
-  proxy_set_header Host <%= @whitehall_frontend_host %>;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-Server $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Forwarded-Host $host;
-  proxy_pass https://<%= @whitehall_frontend_host %>;
-
-  # Explicitly re-include Strict-Transport-Security header, this
-  # forces nginx not to clear Cache-Control headers further up the
-  # stack.
-  include /etc/nginx/sts.conf;
-}
-
 location ~ ^/media/ {
   proxy_set_header Host <%= @asset_manager_host %>;
   proxy_set_header X-Real-IP $remote_addr;
