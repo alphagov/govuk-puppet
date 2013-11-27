@@ -5,6 +5,7 @@
 class router::assets_origin {
   $app_domain = extlookup('app_domain')
   $vhost_name = "assets-origin.${app_domain}"
+  $whitehall_frontend_host = "whitehall-frontend.${app_domain}"
 
   # suspect we want `protected => false` here
   # once appropriate firewalling is in place?
