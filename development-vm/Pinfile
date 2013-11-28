@@ -3,7 +3,7 @@
 
 process :asset_manager
 process :bouncer
-process :business_support_api => [:content_api, :imminence]
+process :business_support_api => [:contentapi, :imminence]
 process :businesssupportfinder => [:static, :contentapi, :imminence]
 process :calculators => [:static, :contentapi]
 process :calendars => [:static, :contentapi]
