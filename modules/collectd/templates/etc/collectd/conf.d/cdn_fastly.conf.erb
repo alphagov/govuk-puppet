@@ -1,0 +1,18 @@
+<LoadPlugin python>
+  Globals true
+</LoadPlugin>
+
+<Plugin python>
+  ModulePath "/usr/lib/collectd/python"
+  Import "cdn_fastly"
+
+  <Module cdn_fastly>
+    ApiKey "<%= @api_key -%>"
+
+<% @services.each_pair do |name, id| -%>
+    <Service "<%= name -%>">
+      Id "<%= id -%>"
+    </Service>
+<% end -%>
+  </Module>
+</Plugin>
