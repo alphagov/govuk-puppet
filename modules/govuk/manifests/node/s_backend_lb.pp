@@ -3,9 +3,16 @@ class govuk::node::s_backend_lb {
   include loadbalancer
 
   $backend_servers = extlookup('lb_nodes_backend')
+  $whitehall_backend_servers = extlookup('lb_nodes_whitehall_backend')
   $mapit_servers = extlookup('lb_nodes_mapit')
   $datainsight_servers = ['datainsight-1']
   $app_domain = extlookup('app_domain')
+
+  if str2bool(extlookup('govuk_enable_whitehall_backend_machines', 'no')) {
+    $whitehall_backend_servers_to_use = $whitehall_backend_servers
+  } else {
+    $whitehall_backend_servers_to_use = $backend_servers
+  }
 
   Loadbalancer::Balance {
     servers => $backend_servers,
@@ -29,7 +36,6 @@ class govuk::node::s_backend_lb {
       'tariff-admin',
       'travel-advice-publisher',
       'transition',
-      'whitehall-admin',
     ]:
       https_only => false; # FIXME: Remove for #51136581
     [
@@ -43,6 +49,9 @@ class govuk::node::s_backend_lb {
     ]:
       https_only    => false, # FIXME: Remove for #51136581
       internal_only => true;
+    'whitehall-admin':
+      https_only => false, # FIXME: Remove for #51136581
+      servers    => $whitehall_backend_servers_to_use;
   }
 
   loadbalancer::balance { 'kibana':
