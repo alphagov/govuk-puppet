@@ -252,6 +252,21 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['backend-3'],
   }
+  govuk::host { 'whitehall-backend-1':
+    ip             => '10.3.0.25',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-backend-1'],
+  }
+  govuk::host { 'whitehall-backend-2':
+    ip             => '10.3.0.26',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-backend-2'],
+  }
+  govuk::host { 'whitehall-backend-3':
+    ip             => '10.3.0.27',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-backend-3'],
+  }
   govuk::host { 'elasticsearch-1':
     ip              => '10.3.0.15',
     vdc             => 'backend',
