@@ -223,7 +223,7 @@ class govuk::node::s_development {
       'signonotron2_integration_test',
     ]:
       user     => 'signonotron2',
-      password => '';
+      password => 'signonotron2';
 
     [
       'support_contacts_development',
