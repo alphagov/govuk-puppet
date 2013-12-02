@@ -56,11 +56,14 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::frontend':   vhost_protected => true  }
-  class { 'govuk::apps::whitehall':
-    configure_admin => true,
-    port            => 3026,
-    vhost_protected => true,
-    vhost           => 'whitehall-admin',
+
+  unless str2bool(extlookup('govuk_disable_whitehall_on_backends', 'no')) {
+    class { 'govuk::apps::whitehall':
+      configure_admin => true,
+      port            => 3026,
+      vhost_protected => true,
+      vhost           => 'whitehall-admin',
+    }
   }
 
   # Remove all trace of apache
