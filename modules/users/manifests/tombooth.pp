@@ -2,6 +2,6 @@ class users::tombooth {
   govuk::user { 'tombooth':
     fullname => 'Tom Booth',
     email    => 'tom.booth@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClJ8bE0B8OKPdCYNUxy28JQIzBVSBED0va9eERQ8I//YPChd/uo7x+736t5o41VNFJQXWOug3AKE8aV1qTPQn+33JUL/6OHtZDdec+lRzRXW4A+/8WMUoPDItygTB8dbMqRlg8rFDrwFKO6qZ3riHcwoj9BHAc4TlTbcq0vXgRRyHzc7uFwJzSd5wIY0nG5O7qbe4CubAij9hVfdHDS8GTMPuuqd7/YzOyjgKg72BDQWTF3u5YFECDtQgps8OZja59IlMM5L0QrZCVsJFlDtKYPRs6LcX6lEvt2ZBTfn6IPNzeNFJ1b8ltpjsEn/Yi70qA0XWq+kfLMccX4hau25kB tombooth@GDS200.local',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNY4EOtJ+6Soa5161UXp3gb83FFEAGf6HIHAwjPCNQ1ivV6ErADW/nc8MGwNswlLsAszdRYkJTb9KQf+TTgqDq5suv5QdAd/H+gTk8sfxMJ6w2Phu9ru7WGIg7BnSGm/WKFtj3uoFRbaRrfAjsXMQUIZ24uuOq4OsjJi3iXerLbOaQm1BjqxFR+CYksdzzI73Kh+quHj8fELey1jvxPtos6zVK7tEJegxJBJPefs6qxG0RgHnQ4uzG9Ual/LITy5mRpNC6TpBMN0GC0SN207Zb84pLTS5aCquy6x3dAvWpINoeeIwgf+PhHXRZU1jCmpWk4lVqMI9NELfQI5u5ZoIR tomhbooth@gmail.com',
   }
 }
