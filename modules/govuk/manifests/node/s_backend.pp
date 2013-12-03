@@ -36,10 +36,8 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::search
   include govuk::apps::signon
   include govuk::apps::support
+  include govuk::apps::tariff_admin
 
-  if str2bool(extlookup('govuk_enable_tariff_admin', 'no')) {
-    include govuk::apps::tariff_admin
-  }
   if str2bool(extlookup('govuk_enable_contacts', 'no')) {
     include govuk::apps::contacts
   }
