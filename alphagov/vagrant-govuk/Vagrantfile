@@ -1,6 +1,6 @@
 require 'json'
 
-min_required_vagrant_version = '1.2.3'
+min_required_vagrant_version = '1.3.0'
 
 # Construct box name and URL from distro and version.
 def get_box(dist, version)
