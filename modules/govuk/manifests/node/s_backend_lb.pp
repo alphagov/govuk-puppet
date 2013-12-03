@@ -8,12 +8,6 @@ class govuk::node::s_backend_lb {
   $datainsight_servers = ['datainsight-1']
   $app_domain = extlookup('app_domain')
 
-  if str2bool(extlookup('govuk_enable_whitehall_backend_machines', 'no')) {
-    $whitehall_backend_servers_to_use = $whitehall_backend_servers
-  } else {
-    $whitehall_backend_servers_to_use = $backend_servers
-  }
-
   Loadbalancer::Balance {
     servers => $backend_servers,
   }
@@ -51,7 +45,7 @@ class govuk::node::s_backend_lb {
       internal_only => true;
     'whitehall-admin':
       https_only => false, # FIXME: Remove for #51136581
-      servers    => $whitehall_backend_servers_to_use;
+      servers    => $whitehall_backend_servers;
   }
 
   loadbalancer::balance { 'kibana':
