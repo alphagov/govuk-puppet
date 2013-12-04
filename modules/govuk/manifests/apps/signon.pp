@@ -7,6 +7,7 @@ class govuk::apps::signon( $port = 3016 ) {
     vhost_aliases     => ['signonotron'],
     vhost_protected   => false,
     logstream         => false,
+    asset_pipeline    => true,
   }
 
   govuk::delayed_job::worker { 'signon': }

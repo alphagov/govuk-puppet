@@ -5,6 +5,7 @@ class govuk::apps::publisher( $port = 3000 ) {
     port              => $port,
     vhost_ssl_only    => true,
     health_check_path => '/',
+    asset_pipeline    => true,
   }
 
   $service_desc = 'publisher local authority data importer error'
