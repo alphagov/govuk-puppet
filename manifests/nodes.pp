@@ -13,7 +13,7 @@ node default {
       'elms-mongo':         { include govuk::node::s_licensify_mongo }
 
       default: {
-        $underscored_govuk_class = regsubst($::govuk_class, '-', '_')
+        $underscored_govuk_class = regsubst($::govuk_class, '-', '_', 'G')
         $node_class_name = "govuk::node::s_${underscored_govuk_class}"
         include $node_class_name
       }
