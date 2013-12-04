@@ -4,8 +4,6 @@
 # Please ensure that the list remains sorted alphabetically by username.
 #
 class users::groups::contractors {
-  include users::nsalvo
-  include users::jbartosiewicz
   include users::ben
   include users::benilovj
   include users::benparker
@@ -18,8 +16,10 @@ class users::groups::contractors {
   include users::gemmaleigh
   include users::gma
   include users::jacobashdown
+  include users::jbartosiewicz
   include users::leelongmore
   include users::maxgriff
+  include users::nsalvo
   include users::ole
   include users::pauloschneider
   include users::paulhayes
