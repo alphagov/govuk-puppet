@@ -182,6 +182,16 @@ define govuk::app (
   # upstart_post_start_script: an optional script to be added to a post-start
   # stanza in the upstart config.
   $upstart_post_start_script = undef,
+
+  #
+  # asset_pipeline: should we enable some asset pipeline specific rules in the
+  # nginx config.
+  $asset_pipeline = false,
+
+  #
+  # asset_pipeline_prefix: the path prefix from which assets are served.  This should
+  # match the application's config.assets.prefix (which defaults to 'assets')
+  $asset_pipeline_prefix = 'assets',
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -227,6 +237,8 @@ define govuk::app (
     nagios_memory_critical    => $nagios_memory_critical,
     unicorn_herder_timeout    => $unicorn_herder_timeout,
     upstart_post_start_script => $upstart_post_start_script,
+    asset_pipeline            => $asset_pipeline,
+    asset_pipeline_prefix     => $asset_pipeline_prefix,
   }
 
   govuk::app::service { $title:
