@@ -3,7 +3,8 @@ class govuk::node::s_whitehall_mysql_master inherits govuk::node::s_base {
   $replica_password = extlookup('mysql_replica_password', '')
 
   class { 'mysql::server':
-    root_password => $root_password,
+    root_password         => $root_password,
+    innodb_file_per_table => true,
   }
   class { 'mysql::server::binlog':
     root_password => $root_password,

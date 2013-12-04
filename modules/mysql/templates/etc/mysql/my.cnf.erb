@@ -19,6 +19,7 @@ tmpdir       = /tmp
 #
 # * Fine Tuning
 #
+<%= 'innodb_file_per_table' if @innodb_file_per_table %>
 innodb_buffer_pool_size = <%= @innodb_buffer_pool_size %>
 key_buffer              = 16M
 max_allowed_packet      = 16M
@@ -40,7 +41,7 @@ query_cache_size  = 128M
 
 #
 # * Logging and Replication
-# 
+#
 expire_logs_days               = 3
 innodb_flush_log_at_trx_commit = 1
 log-queries-not-using-indexes
