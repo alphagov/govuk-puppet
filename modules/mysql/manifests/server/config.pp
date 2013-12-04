@@ -1,4 +1,10 @@
-class mysql::server::config ( $error_log, $tmp_table_size, $max_heap_table_size) {
+class mysql::server::config (
+  $error_log,
+  $tmp_table_size,
+  $max_heap_table_size,
+  $innodb_file_per_table=false
+  ){
+
   $debian_sys_maint_password = extlookup('mysql_debian_sys_maint', '')
 
   file { '/etc/mysql':

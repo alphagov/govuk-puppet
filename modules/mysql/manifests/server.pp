@@ -1,4 +1,9 @@
-class mysql::server($root_password='', $tmp_table_size='128M', $max_heap_table_size='128M') {
+class mysql::server (
+  $root_password='',
+  $tmp_table_size='128M',
+  $max_heap_table_size='128M',
+  $innodb_file_per_table=false
+  ){
 
   $mysql_error_log = '/var/log/mysql/error.log'
 
@@ -12,11 +17,12 @@ class mysql::server($root_password='', $tmp_table_size='128M', $max_heap_table_s
   }
 
   class { 'mysql::server::config':
-    require             => Class['mysql::server::package'],
-    notify              => Class['mysql::server::service'],
-    error_log           => $mysql_error_log,
-    tmp_table_size      => $tmp_table_size,
-    max_heap_table_size => $max_heap_table_size,
+    require               => Class['mysql::server::package'],
+    notify                => Class['mysql::server::service'],
+    error_log             => $mysql_error_log,
+    tmp_table_size        => $tmp_table_size,
+    max_heap_table_size   => $max_heap_table_size,
+    innodb_file_per_table => $innodb_file_per_table,
   }
 
   class { 'mysql::server::logging':
