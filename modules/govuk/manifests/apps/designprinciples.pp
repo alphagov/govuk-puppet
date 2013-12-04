@@ -3,9 +3,11 @@ class govuk::apps::designprinciples(
   $port = 3023
 ) {
   govuk::app { 'designprinciples':
-    app_type          => 'rack',
-    vhost_protected   => $vhost_protected,
-    port              => $port,
-    health_check_path => '/design-principles',
+    app_type              => 'rack',
+    vhost_protected       => $vhost_protected,
+    port                  => $port,
+    health_check_path     => '/design-principles',
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'designprinciples',
   }
 }

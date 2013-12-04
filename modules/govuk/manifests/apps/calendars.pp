@@ -3,9 +3,11 @@ class govuk::apps::calendars(
   $vhost_protected
 ) {
   govuk::app { 'calendars':
-    app_type          => 'rack',
-    port              => $port,
-    vhost_protected   => $vhost_protected,
-    health_check_path => '/bank-holidays',
+    app_type              => 'rack',
+    port                  => $port,
+    vhost_protected       => $vhost_protected,
+    health_check_path     => '/bank-holidays',
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'calendars',
   }
 }

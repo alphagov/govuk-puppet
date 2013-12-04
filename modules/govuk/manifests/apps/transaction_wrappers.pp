@@ -3,9 +3,11 @@ class govuk::apps::transaction_wrappers(
   $vhost_protected
 ) {
   govuk::app { 'transaction-wrappers':
-    app_type          => 'rack',
-    port              => $port,
-    vhost_protected   => $vhost_protected,
-    health_check_path => '/pay-foreign-marriage-certificates/start',
+    app_type              => 'rack',
+    port                  => $port,
+    vhost_protected       => $vhost_protected,
+    health_check_path     => '/pay-foreign-marriage-certificates/start',
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'transaction-wrappers',
   }
 }
