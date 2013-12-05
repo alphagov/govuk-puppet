@@ -159,7 +159,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location ~ \^/assets/})
+        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/})
       end
     end
 
@@ -176,7 +176,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location ~ \^/giraffe_assets/})
+        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /giraffe_assets/})
       end
     end
 
@@ -193,7 +193,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location ~ \^/assets/.*\n\nsome_extra_config}m)
+        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/.*\n\nsome_extra_config}m)
       end
     end
   end

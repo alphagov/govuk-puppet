@@ -1,17 +1,15 @@
 
   # Set expires headers for assets
-  # Assets with a digest (32 char hex string) get max expires
+  # Assets with a digest (32 char hex string in filename) get max expires
   # Non-digest assets get 30 mins
-  location ~ "^/<%= @asset_pipeline_prefix %>/.*-[0-9a-f]{32}\." {
-    expires max;
-    add_header Cache-Control public;
-    gzip_static on;
-  }
-
-  location ~ ^/<%= @asset_pipeline_prefix %>/ {
+  location ^~ /<%= @asset_pipeline_prefix %>/ {
     expires 30m;
     add_header Cache-Control public;
     gzip_static on;
+
+    location ~ "-[0-9a-f]{32}\." {
+      expires max;
+    }
   }
 
 <%= @nginx_extra_config %>
