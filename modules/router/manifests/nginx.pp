@@ -37,6 +37,10 @@ class router::nginx (
     certtype => 'www'
   }
 
+  nginx::conf {'rate-limiting-zone-for-contact-frontend':
+    content => 'limit_req_zone $binary_remote_addr zone=contact:5m rate=6r/m;',
+  }
+
   file { '/etc/nginx/router_include.conf':
     ensure  => present,
     content => template('router/router_include.conf.erb'),

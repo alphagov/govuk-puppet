@@ -54,6 +54,11 @@ location ~ ^/performance/.+\.(json|png)$ {
   proxy_pass http://varnish;
 }
 
+location = /contact/govuk/service-feedback {
+  limit_req zone=contact burst=4 nodelay;
+  proxy_pass http://varnish;
+}
+
 location / {
   root /var/www/fallback;
 
