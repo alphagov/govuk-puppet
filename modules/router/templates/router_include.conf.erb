@@ -69,7 +69,7 @@ location / {
   try_files /fallback.html @upstream;
 }
 
-error_page 400 /400.html
+error_page 400 /400.html;
 error_page 404 401 /404.html;
 error_page 406 /406.html;
 error_page 410 /410.html;
