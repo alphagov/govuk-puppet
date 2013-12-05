@@ -80,7 +80,7 @@ class router::nginx (
     require => File['/usr/share/nginx'];
   }
 
-  router::errorpage {['404','406','410','418','500','503','504']:
+  router::errorpage {['400', '404','406','410','418','500','503','504']:
     require => File['/usr/share/nginx/www'],
   }
 
