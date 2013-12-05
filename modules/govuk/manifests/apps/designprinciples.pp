@@ -6,6 +6,6 @@ class govuk::apps::designprinciples(
     app_type          => 'rack',
     vhost_protected   => $vhost_protected,
     port              => $port,
-    health_check_path => '/designprinciples',
+    health_check_path => '/design-principles',
   }
 }
