@@ -13,4 +13,10 @@ class govuk::apps::frontend(
     health_check_path      => '/',
     log_format_is_json     => true,
   }
+
+  # Remove the symlink that used to exist.
+  # This block can be removed once it has run everywhere.
+  file { "/data/vhost/www.${app_domain}":
+    ensure => absent,
+  }
 }
