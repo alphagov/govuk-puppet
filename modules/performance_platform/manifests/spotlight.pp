@@ -7,6 +7,9 @@ class performance_platform::spotlight {
   $vhost_full = "${app_name}.${app_domain}"
   $spotlight_host = "${app_name}.${perfplat_app_domain}"
 
+  # Nginx access control
+  $enable_basic_auth = str2bool(extlookup('protect_frontend_apps', 'no'))
+
   # Nginx logs
   $logpath = '/var/log/nginx'
   $access_log = "${vhost_full}-access.log"
