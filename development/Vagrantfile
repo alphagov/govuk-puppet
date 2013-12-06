@@ -6,7 +6,7 @@
 #     ruby shipping with Mac OS X becomes ruby 1.9
 #
 DIST_PREFERRED = 'precise'
-min_required_vagrant_version = '1.2.3'
+min_required_vagrant_version = '1.3.0'
 
 def common_config(config)
   # vagrant-dns is only supported on OS X
