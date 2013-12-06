@@ -4,5 +4,6 @@ class govuk::apps::fact_cave( $port = 3048 ) {
     port              => $port,
     vhost_ssl_only    => true,
     health_check_path => '/',
+    asset_pipeline    => true,
   }
 }

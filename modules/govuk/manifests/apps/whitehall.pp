@@ -37,21 +37,13 @@ class govuk::apps::whitehall(
 
   if $configure_frontend == true {
 
-    $asset_config_in_platform = $::govuk_platform ? {
-      'development' => '',
-      default => "location /government/assets {
-        expires max;
-        add_header Cache-Control public;
-      }",
-    }
-
     govuk::app::nginx_vhost { 'whitehall-frontend':
-      vhost              => "whitehall-frontend.${app_domain}",
-      protected          => $vhost_protected,
-      app_port           => $port,
-      nginx_extra_config => "
-      ${asset_config_in_platform}
-
+      vhost                 => "whitehall-frontend.${app_domain}",
+      protected             => $vhost_protected,
+      app_port              => $port,
+      asset_pipeline        => true,
+      asset_pipeline_prefix => 'government/assets',
+      nginx_extra_config    => "
       location /government/uploads {
         proxy_set_header Host 'whitehall-admin.${app_domain}';
         proxy_pass https://whitehall-admin.${app_domain};
@@ -64,10 +56,12 @@ class govuk::apps::whitehall(
     include assets
 
     govuk::app::nginx_vhost { 'whitehall-admin':
-      vhost              => "whitehall-admin.${app_domain}",
-      app_port           => $port,
-      protected          => true,
-      nginx_extra_config => '
+      vhost                 => "whitehall-admin.${app_domain}",
+      app_port              => $port,
+      protected             => true,
+      asset_pipeline        => true,
+      asset_pipeline_prefix => 'government/assets',
+      nginx_extra_config    => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
       proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;
 

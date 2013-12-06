@@ -4,6 +4,7 @@ class govuk::apps::release( $port = 3036 ) {
     port              => $port,
     vhost_ssl_only    => true,
     health_check_path => '/',
-    vhost_protected   => false
+    vhost_protected   => false,
+    asset_pipeline    => true,
   }
 }

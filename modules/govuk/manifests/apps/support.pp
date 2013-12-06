@@ -10,7 +10,8 @@ class govuk::apps::support($port = 3031) {
       location /_status {
         allow   127.0.0.0/8;
         deny    all;
-      }'
+      }',
+    asset_pipeline     => true,
   }
 
   govuk::delayed_job::worker { 'support': }

@@ -19,6 +19,8 @@ define govuk::app::config (
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $upstart_post_start_script = undef,
+  $asset_pipeline = false,
+  $asset_pipeline_prefix = 'assets',
 ) {
   $nagios_memory_warning_real = $nagios_memory_warning ? {
     undef    => 2000000000,
@@ -123,6 +125,8 @@ define govuk::app::config (
       nginx_extra_app_config => $nginx_extra_app_config,
       intercept_errors       => $intercept_errors,
       logstream              => $logstream,
+      asset_pipeline         => $asset_pipeline,
+      asset_pipeline_prefix  => $asset_pipeline_prefix,
     }
   }
   $title_underscore = regsubst($title, '\.', '_', 'G')

@@ -146,6 +146,56 @@ describe 'govuk::app::config', :type => :define do
         should contain_file('/etc/init/giraffe.conf').with(:content => %r{post-start script\s*\n\s*/bin/true\s*\n\s*end script})
       end
     end
+
+    context 'with asset_pipeline => true' do
+      let(:params) do
+        {
+          :port => 8000,
+          :app_type => 'rack',
+          :vhost_full => 'giraffe.example.com',
+          :domain => 'example.com',
+          :asset_pipeline => true,
+        }
+      end
+
+      it do
+        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/})
+      end
+    end
+
+    context 'with asset_pipeline => true, asset_pipeline_prefix => "giraffe_assets"' do
+      let(:params) do
+        {
+          :port => 8000,
+          :app_type => 'rack',
+          :vhost_full => 'giraffe.example.com',
+          :domain => 'example.com',
+          :asset_pipeline => true,
+          :asset_pipeline_prefix => 'giraffe_assets',
+        }
+      end
+
+      it do
+        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /giraffe_assets/})
+      end
+    end
+
+    context 'with asset_pipeline enabled and nginx_extra_config' do
+      let(:params) do
+        {
+          :port => 8000,
+          :app_type => 'rack',
+          :vhost_full => 'giraffe.example.com',
+          :domain => 'example.com',
+          :nginx_extra_config => 'some_extra_config',
+          :asset_pipeline => true,
+        }
+      end
+
+      it do
+        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/.*\n\nsome_extra_config}m)
+      end
+    end
   end
 
   context 'title is big.giraffe' do
