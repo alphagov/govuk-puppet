@@ -19,10 +19,12 @@ class govuk::apps::limelight(
   }
 
   govuk::app { 'limelight':
-    app_type           => 'rack',
-    port               => $port,
-    vhost_protected    => $vhost_protected,
-    nginx_extra_config => $nginx_extra_config
+    app_type              => 'rack',
+    port                  => $port,
+    vhost_protected       => $vhost_protected,
+    nginx_extra_config    => $nginx_extra_config,
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'limelight',
   }
 }
 
