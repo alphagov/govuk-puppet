@@ -5,10 +5,7 @@ describe 'mirror', :type => :class do
     update_extdata({'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/'})
   end
 
-  it do
-    should contain_file('/usr/local/bin/govuk_update_mirror')
-    should_not raise_error(Puppet::ParseError)
-  end
+  it { should contain_file('/usr/local/bin/govuk_update_mirror') }
 
   it {
     # Leaky abstraction? We need to know that govuk::user creates the
