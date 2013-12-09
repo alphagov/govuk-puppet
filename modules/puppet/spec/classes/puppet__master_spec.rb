@@ -17,7 +17,7 @@ describe 'puppet::master', :type => :class do
   it { should contain_class('puppet::master::nginx') }
 
   it do
-    should include_class('puppet')
+    should contain_class('puppet')
     should contain_class('puppet::master::config')
     should contain_file('/etc/puppet/config.ru')
   end

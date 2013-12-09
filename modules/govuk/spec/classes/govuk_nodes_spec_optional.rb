@@ -28,7 +28,7 @@ describe "govuk::node classes" do
         :memtotalmb => "1024",
       }}
 
-      it { should include_class("govuk::node::s_#{govuk_class}") }
+      it { should contain_class("govuk::node::s_#{govuk_class}") }
     end
   end
 end
