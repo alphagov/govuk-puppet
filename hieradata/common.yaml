@@ -11,3 +11,5 @@ apt::unattended_upgrades::origins:
 
 mongodb::server::version: '2.0.7'
 mongodb::server::package_name: 'mongodb20-10gen'
+
+perfplat_internal_app_domain: 'development.performance.service.gov.uk'

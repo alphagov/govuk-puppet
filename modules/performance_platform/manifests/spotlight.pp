@@ -1,11 +1,11 @@
 class performance_platform::spotlight {
   $app_domain = extlookup('app_domain')
-  $perfplat_app_domain = extlookup('perfplat_app_domain', 'perfplat.dev')
+  $perfplat_internal_app_domain = hiera('perfplat_internal_app_domain')
 
   $app_name = 'spotlight'
 
   $vhost_full = "${app_name}.${app_domain}"
-  $spotlight_host = "${app_name}.${perfplat_app_domain}"
+  $spotlight_host = "${app_name}.${perfplat_internal_app_domain}"
 
   # Nginx logs
   $logpath = '/var/log/nginx'
