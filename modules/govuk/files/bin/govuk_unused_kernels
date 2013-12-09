@@ -9,17 +9,28 @@ With careful review this output can be piped to `xargs sudo apt-get purge`.
 
 import os
 import subprocess
+import platform
+
+def check_output(args):
+    if hasattr(subprocess, 'check_output'):
+        return subprocess.check_output(args)
+    else:
+        proc = subprocess.Popen(args, stdout=subprocess.PIPE)
+        return proc.communicate()[0]
+
+def ubuntu_release():
+    return float(platform.linux_distribution()[1])
 
 dpkg_query = ['/usr/bin/dpkg-query', '-Wf', '${Package}\n']
 package_patterns = ["linux-headers-%s", "linux-image-%s"]
-package_wildcard = "*-generic"
+package_wildcard = "*-generic" if ubuntu_release() >= 12 else "*-server"
 
 kernels_installed = set()
 kernels_protected = set()
 
 # All installed versions.
 for package_pattern in package_patterns:
-    out = subprocess.check_output(dpkg_query +
+    out = check_output(dpkg_query +
         [package_pattern % package_wildcard])
     kernels_installed.update(out.split())
 
@@ -30,7 +41,7 @@ for package_pattern in package_patterns:
 
 # Latest version.
 for package_pattern in package_patterns:
-    out = subprocess.check_output(dpkg_query +
+    out = check_output(dpkg_query +
         [package_pattern % package_wildcard])
     kernels_protected.add(out.split()[-1])
 
