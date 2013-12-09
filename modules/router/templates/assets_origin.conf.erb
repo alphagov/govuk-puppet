@@ -15,18 +15,21 @@ server {
 
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-Host $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
   access_log /var/log/nginx/<%= @vhost_name -%>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_name -%>-error.log;
 
-  location ~ ^/government/(assets|uploads|placeholder$)/ {
-    proxy_set_header Host <%= @whitehall_frontend_host %>;
-    proxy_set_header X-Forwarded-Host $host;
-    proxy_pass https://<%= @whitehall_frontend_host %>;
+  <%- @asset_routes.each do |alias_path, vhost_name| -%>
+  location <%= alias_path %> {
+    proxy_set_header Host <%= vhost_name %>.<%= @app_domain %>;
+    proxy_pass https://<%= vhost_name %>.<%= @app_domain %>;
   }
 
+  <%- end -%>
   location / {
-    proxy_pass https://static.<%= @app_domain -%>;
+    proxy_set_header Host static.<%= @app_domain %>;
+    proxy_pass https://static.<%= @app_domain %>;
   }
 }

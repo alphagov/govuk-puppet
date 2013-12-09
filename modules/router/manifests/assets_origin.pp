@@ -1,11 +1,17 @@
 # = Class: router::assets_origin
 #
-# Configure vhost for serving external-facing assets (also known as static).
+# Configure vhost for serving external-facing assets.
 #
-class router::assets_origin {
+# === Parameters
+#
+# [*asset_routes*]
+#   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
+#
+class router::assets_origin(
+  $asset_routes = {},
+) {
   $app_domain = extlookup('app_domain')
   $vhost_name = "assets-origin.${app_domain}"
-  $whitehall_frontend_host = "whitehall-frontend.${app_domain}"
 
   # suspect we want `protected => false` here
   # once appropriate firewalling is in place?
