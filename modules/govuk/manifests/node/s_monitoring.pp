@@ -23,13 +23,13 @@ class govuk::node::s_monitoring inherits govuk::node::s_base {
 
   if extlookup('nagios_is_zendesk_enabled', '') == 'yes' {
     if $campfire == 'on' {
-      $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority', 'campfire_notification']
-      $highprio_members   = ['monitoring_google_group','zendesk_high_priority', 'campfire_notification']
-      $normalprio_members = ['monitoring_google_group','zendesk_normal_priority', 'campfire_notification']
+      $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'campfire_notification']
+      $highprio_members   = ['monitoring_google_group', 'campfire_notification']
+      $normalprio_members = ['monitoring_google_group', 'campfire_notification']
     } else {
-      $urgentprio_members = ['monitoring_google_group','pager_nonworkhours','zendesk_urgent_priority']
-      $highprio_members   = ['monitoring_google_group','zendesk_high_priority']
-      $normalprio_members = ['monitoring_google_group','zendesk_normal_priority',]
+      $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours']
+      $highprio_members   = ['monitoring_google_group']
+      $normalprio_members = ['monitoring_google_group']
     }
   } else {
       $urgentprio_members = ['monitoring_google_group']
