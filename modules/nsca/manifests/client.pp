@@ -1,5 +1,4 @@
 class nsca::client {
-  include icinga
   include nsca
 
   service {'nsca':
@@ -13,6 +12,6 @@ class nsca::client {
     #
     # if you can imagine a better way of doing this, please do it! :)
     # -- ppotter 2013-02-07
-    require   => [Package['icinga'],Package['nsca']],
+    require   => [Package['nsca']],
   }
 }
