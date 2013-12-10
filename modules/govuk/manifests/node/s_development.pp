@@ -17,6 +17,11 @@ class govuk::node::s_development {
   include pip
   include virtualenv
 
+  class { 'memcached':
+    max_memory => 64,
+    listen_ip  => '127.0.0.1',
+  }
+
   include govuk::deploy
   include govuk::envsys
   include govuk::repository

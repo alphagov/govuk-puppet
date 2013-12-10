@@ -71,4 +71,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
       'elasticsearch-3.backend',
     ],
   }
+
+  # Ensure memcached is available to backend nodes
+  class { 'memcached':
+    max_memory => '12%',
+    listen_ip  => '127.0.0.1',
+  }
 }
