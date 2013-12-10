@@ -17,11 +17,8 @@ class nginx::fcgi {
     notify => Class['nginx::service'],
   }
 
-  file { '/etc/nginx/conf.d/fastcgi.conf':
-    ensure  => present,
+  nginx::conf {'fastcgi':
     content => 'upstream fcgiwrap { server unix:/var/run/fcgiwrap.socket; }',
-    require => Class['nginx::package'],
-    notify  => Class['nginx::service'],
   }
 
 }
