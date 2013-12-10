@@ -1,4 +1,5 @@
 class nsca::client {
+  include icinga
   include nsca
 
   service {'nsca':
