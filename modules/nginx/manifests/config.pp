@@ -18,7 +18,7 @@ class nginx::config (
     content => template('nginx/etc/nginx/blockips.conf.erb'),
   }
 
-  file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available']:
+  file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available', '/etc/nginx/conf.d']:
     ensure  => directory,
     recurse => true, # enable recursive directory management
     purge   => true, # purge all unmanaged junk
