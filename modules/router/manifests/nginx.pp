@@ -114,5 +114,6 @@ class router::nginx (
     from      => '3minutes',
     desc      => 'router nginx high 5xx rate',
     host_name => $::fqdn,
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html?highlight=nagios#nginx-5xx-rate-too-high-for-many-apps-boxes',
   }
 }
