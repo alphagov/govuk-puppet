@@ -17,6 +17,18 @@ Apt::Source {
   include_src => false,
 }
 
+# Ensure update is always run before any package installs.
+# title conditions prevent a dependency loop within apt module.
+Class['apt::update'] -> Package <|
+  provider != pip and
+  provider != gem and
+  ensure != absent and
+  ensure != purged and
+  title != 'python-software-properties' and
+  title != 'software-properties-common' and
+  tag != 'no_require_apt_update'
+|>
+
 # extdata is parallel to the manifests and modules directories.
 # NB: manifestdir may not be correct if `puppet apply` is used.
 $extlookup_datadir = inline_template('<%=
@@ -37,5 +49,4 @@ if !hiera('HIERA_SAFETY_CHECK', false) {
   fail('Hiera does not appear to be working. Update `vagrant-govuk` and/or `vagrant reload` your VM')
 }
 
-import 'classes/**/*'
 import 'nodes.pp'
