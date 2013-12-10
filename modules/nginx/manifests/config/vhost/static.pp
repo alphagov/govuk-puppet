@@ -50,5 +50,6 @@ define nginx::config::vhost::static(
     from      => '3minutes',
     desc      => "${title} nginx 5xx rate too high",
     host_name => $::fqdn,
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html?highlight=nagios#nginx-5xx-rate-too-high-for-many-apps-boxes',
   }
 }

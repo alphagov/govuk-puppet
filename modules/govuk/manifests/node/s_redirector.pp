@@ -49,5 +49,6 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     from      => '3minutes',
     desc      => 'nginx 5xx rate for redirector',
     host_name => $::fqdn,
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html?highlight=nagios#nginx-5xx-rate-too-high-for-many-apps-boxes',
   }
 }
