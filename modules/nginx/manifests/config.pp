@@ -18,6 +18,10 @@ class nginx::config (
     content => template('nginx/etc/nginx/blockips.conf.erb'),
   }
 
+  nginx::conf {'nginx-status':
+    source => 'puppet:///modules/nginx/nginx-status.conf',
+  }
+
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available', '/etc/nginx/conf.d']:
     ensure  => directory,
     recurse => true, # enable recursive directory management
