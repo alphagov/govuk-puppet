@@ -7,8 +7,8 @@ describe 'jenkins::slave', :type => :class do
     :lsbdistcodename => 'Precise',
   }}
 
-  it { should include_class('jenkins') }
-  it { should include_class('jenkins::ssh_key') }
+  it { should contain_class('jenkins') }
+  it { should contain_class('jenkins::ssh_key') }
   it { should contain_file(ssh_dir).with_ensure('directory') }
 
   it {
