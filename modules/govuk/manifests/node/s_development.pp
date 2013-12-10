@@ -2,7 +2,6 @@ class govuk::node::s_development {
   include base
 
   include assets::user
-  include base_packages
   include fonts
   include golang
   include hosts::development
