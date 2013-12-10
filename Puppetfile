@@ -5,6 +5,7 @@ mod 'thomasvandoren/redis'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
+mod 'saz/memcached'
 
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)
