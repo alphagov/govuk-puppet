@@ -10,6 +10,13 @@ class govuk::node::s_monitoring (
 
   include monitoring
 
+  harden::limit { 'deploy-nofile':
+    domain => 'deploy',
+    type   => '-', # set both hard and soft limits
+    item   => 'nofile',
+    value  => '16384',
+  }
+
   $offsite_backup = extlookup('offsite-backups', 'off')
   case $offsite_backup {
     'on':    { include backup::offsite::monitoring }
