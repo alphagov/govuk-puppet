@@ -278,17 +278,4 @@ class govuk::node::s_development {
     owner   => 'vagrant',
     group   => 'vagrant',
   }
-
-  # FIXME: Purge files from development
-  # Remove once people have probably run Puppet? *hand wavy*
-  file { '/etc/govuk/backdrop-ga-collector/google_client_secret.json':
-    ensure => absent,
-  }
-  file { '/var/lib/govuk/backdrop-ga-collector':
-    ensure => absent,
-  }
-  file { '/var/lib/govuk/backdrop-ga-collector/google_storage.db':
-    ensure => absent,
-  }
-
 }
