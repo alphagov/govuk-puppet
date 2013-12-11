@@ -3,9 +3,16 @@ class govuk::node::s_frontend_lb {
   include loadbalancer
 
   $govuk_frontend_servers = extlookup('lb_nodes_frontend')
+  $calculators_frontend_servers = extlookup('lb_nodes_calculators_frontend')
   $whitehall_frontend_servers = extlookup('lb_nodes_whitehall_frontend')
 
   $app_domain = extlookup('app_domain')
+
+  if hiera('govuk_enable_calculators_frontend_machines', false) {
+    $calculators_frontend_servers_to_use = $calculators_frontend_servers
+  } else {
+    $calculators_frontend_servers_to_use = $govuk_frontend_servers
+  }
 
   # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
   $asset_url = extlookup('asset_host')
@@ -21,22 +28,26 @@ class govuk::node::s_frontend_lb {
 
   loadbalancer::balance {
     [
-      'businesssupportfinder',
-      'calculators',
-      'calendars',
       'canary-frontend',
       'datainsight-frontend',
       'designprinciples',
-      'fco-services',
       'feedback',
-      'licencefinder',
       'limelight',
-      'smartanswers',
-      'transaction-wrappers',
       'transactions-explorer',
-      'tariff',
     ]:
       internal_only => $hide_frontend_apps;
+    [
+      'businesssupportfinder',
+      'calculators',
+      'calendars',
+      'fco-services',
+      'licencefinder',
+      'smartanswers',
+      'transaction-wrappers',
+      'tariff',
+    ]:
+      internal_only => $hide_frontend_apps,
+      servers       => $calculators_frontend_servers_to_use;
     'frontend':
       internal_only => $hide_frontend_apps,
       aliases       => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
