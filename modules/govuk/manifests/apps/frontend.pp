@@ -5,6 +5,15 @@ class govuk::apps::frontend(
 
   $app_domain = extlookup('app_domain')
 
+  $nginx_extra_config = $::govuk_platform ? {
+    'development' => '',
+    default => '
+  location ^~ /frontend/homepage/no-cache/ {
+    expires epoch;
+  }
+'
+  }
+
   govuk::app { 'frontend':
     app_type               => 'rack',
     port                   => $port,
@@ -14,6 +23,7 @@ class govuk::apps::frontend(
     log_format_is_json     => true,
     asset_pipeline         => true,
     asset_pipeline_prefix  => 'frontend',
+    nginx_extra_config     => $nginx_extra_config,
   }
 
   # Remove the symlink that used to exist.
