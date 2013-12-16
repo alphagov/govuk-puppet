@@ -5,6 +5,7 @@ class govuk::apps::transactions_explorer {
   $app_path = "/data/vhost/${app_name}"
 
   $te_root = "${app_name}.${app_domain}"
+  $website_root = extlookup('website_root')
 
   $logpath = '/var/log/nginx'
   $access_log = "${vhost_full}-access.log"
