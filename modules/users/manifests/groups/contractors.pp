@@ -20,8 +20,6 @@ class users::groups::contractors {
   include users::leelongmore
   include users::maxgriff
   include users::nsalvo
-  include users::ole
-  include users::pauloschneider
   include users::paulhayes
   include users::pbadensk
   include users::rthorn
