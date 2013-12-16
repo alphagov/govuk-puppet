@@ -1,55 +1,62 @@
-class govuk::node::s_monitoring inherits govuk::node::s_base {
+class govuk::node::s_monitoring (
+  $notify_pager = false,
+  $notify_campfire = false,
+  $campfire_token = undef,
+  $campfire_room = undef,
+  $campfire_subdomain = undef,
+) inherits govuk::node::s_base {
+
+  validate_bool($notify_pager, $notify_campfire)
 
   include monitoring
 
   $offsite_backup = extlookup('offsite-backups', 'off')
-
   case $offsite_backup {
     'on':    { include backup::offsite::monitoring }
     default: {}
   }
 
-  $campfire = extlookup('campfire','off')
-  case $campfire {
-    'on':     {
-      nagios::campfire_contact {'campfire_notification':
-        campfire_subdomain => extlookup('campfire_subdomain','unset'),
-        campfire_token     => extlookup('campfire_token','unset'),
-        campfire_room      => extlookup('campfire_room','unset'),
-      }
+  if $notify_campfire and ($campfire_subdomain and $campfire_token and $campfire_room) {
+    nagios::campfire_contact { 'campfire_notification':
+      campfire_token     => $campfire_token,
+      campfire_room      => $campfire_room,
+      campfire_subdomain => $campfire_subdomain,
     }
-    default : {}
+
+    $campfire_members = ['campfire_notification']
+  } else {
+    $campfire_members = []
   }
 
-  if extlookup('nagios_is_zendesk_enabled', '') == 'yes' {
-    if $campfire == 'on' {
-      $urgentprio_members = ['monitoring_google_group', 'pager_nonworkhours', 'zendesk_urgent_priority', 'campfire_notification']
-      $highprio_members   = ['monitoring_google_group','zendesk_high_priority', 'campfire_notification']
-      $normalprio_members = ['monitoring_google_group','zendesk_normal_priority', 'campfire_notification']
-    } else {
-      $urgentprio_members = ['monitoring_google_group','pager_nonworkhours','zendesk_urgent_priority']
-      $highprio_members   = ['monitoring_google_group','zendesk_high_priority']
-      $normalprio_members = ['monitoring_google_group','zendesk_normal_priority',]
-    }
-  } else {
-      $urgentprio_members = ['monitoring_google_group']
-      $highprio_members   = $urgentprio_members
-      $normalprio_members = $urgentprio_members
+  $google_members = 'monitoring_google_group'
+  $pager_members = $notify_pager ? {
+    true    => ['pager_nonworkhours'],
+    default => [],
   }
 
   nagios::contact_group { 'urgent-priority':
     group_alias => 'Contacts for urgent priority alerts',
-    members     => $urgentprio_members,
+    members     => flatten([
+      $google_members,
+      $campfire_members,
+      $pager_members,
+    ])
   }
 
   nagios::contact_group { 'high-priority':
     group_alias => 'Contacts for high priority alerts',
-    members     => $highprio_members,
+    members     => flatten([
+      $google_members,
+      $campfire_members,
+    ])
   }
 
   nagios::contact_group { 'normal-priority':
     group_alias => 'Contacts for normal priority alerts',
-    members     => $normalprio_members,
+    members     => flatten([
+      $google_members,
+      $campfire_members,
+    ])
   }
 
 }
