@@ -43,7 +43,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     host_name => $::fqdn,
   }
   @@nagios::check::graphite { "check_nginx_5xx_redirector_on_${::hostname}":
-    target    => "stats.${::fqdn_underscore}.nginx_logs.default.http_5xx",
+    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.default.http_5xx,0)",
     warning   => 5,
     critical  => 10,
     from      => '3minutes',

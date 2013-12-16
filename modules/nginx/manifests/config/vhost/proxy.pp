@@ -81,7 +81,7 @@ define nginx::config::vhost::proxy(
   }
 
   @@nagios::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
-    target    => "stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx",
+    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
