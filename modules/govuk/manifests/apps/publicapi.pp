@@ -5,7 +5,7 @@ class govuk::apps::publicapi {
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
   $factcaveapi = "fact-cave.${app_domain}"
-  $business_support_api = "business-suppport-api.${app_domain}"
+  $business_support_api = "business-support-api.${app_domain}"
 
   # HTTP is only used in development, HTTPS everywhere else
   $backdropread_protocol = extlookup('backdropread_protocol', 'https')
