@@ -21,7 +21,7 @@ define nginx::config::vhost::licensify_upload($port='9000') {
   }
 
   @@nagios::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
-    target    => "stats.${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx",
+    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',

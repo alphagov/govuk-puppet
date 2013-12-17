@@ -107,7 +107,7 @@ class router::nginx (
   }
 
   @@nagios::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target    => "stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx",
+    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
     warning   => 5,
     critical  => 15,
     use       => 'govuk_urgent_priority',
