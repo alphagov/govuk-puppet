@@ -34,6 +34,8 @@ mod 'harden',
   :ref => 'v0.0.2'
 mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
+mod 'aptmirror',
+  :git => 'git://github.com/alphagov/puppet-aptmirror.git'
 
 # Our modules on the Forge.
 mod 'gdsoperations/auditd', '0.0.1'
