@@ -6,8 +6,6 @@ class govuk::node::s_frontend_lb {
   $calculators_frontend_servers = extlookup('lb_nodes_calculators_frontend')
   $whitehall_frontend_servers = extlookup('lb_nodes_whitehall_frontend')
 
-  $app_domain = extlookup('app_domain')
-
   # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
   $asset_url = extlookup('asset_host')
   $asset_host = regsubst($asset_url, 'https?://(.+)', '\1')
@@ -26,6 +24,7 @@ class govuk::node::s_frontend_lb {
       'datainsight-frontend',
       'designprinciples',
       'feedback',
+      'frontend',
       'limelight',
       'transactions-explorer',
     ]:
@@ -42,9 +41,6 @@ class govuk::node::s_frontend_lb {
     ]:
       internal_only => $hide_frontend_apps,
       servers       => $calculators_frontend_servers;
-    'frontend':
-      internal_only => $hide_frontend_apps,
-      aliases       => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
     'static':
       internal_only => false,
       aliases       => [$asset_host];
