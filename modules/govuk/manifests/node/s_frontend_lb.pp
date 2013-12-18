@@ -6,10 +6,6 @@ class govuk::node::s_frontend_lb {
   $calculators_frontend_servers = extlookup('lb_nodes_calculators_frontend')
   $whitehall_frontend_servers = extlookup('lb_nodes_whitehall_frontend')
 
-  # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
-  $asset_url = extlookup('asset_host')
-  $asset_host = regsubst($asset_url, 'https?://(.+)', '\1')
-
   Loadbalancer::Balance {
     https_only    => false, # Varnish/Router can't speak HTTPS.
     internal_only => true,
@@ -42,8 +38,7 @@ class govuk::node::s_frontend_lb {
       internal_only => $hide_frontend_apps,
       servers       => $calculators_frontend_servers;
     'static':
-      internal_only => false,
-      aliases       => [$asset_host];
+      internal_only => false;
     'whitehall-frontend':
       internal_only => false,
       servers       => $whitehall_frontend_servers;
