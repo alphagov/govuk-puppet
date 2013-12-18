@@ -8,12 +8,6 @@ class govuk::node::s_frontend_lb {
 
   $app_domain = extlookup('app_domain')
 
-  if hiera('govuk_enable_calculators_frontend_machines', false) {
-    $calculators_frontend_servers_to_use = $calculators_frontend_servers
-  } else {
-    $calculators_frontend_servers_to_use = $govuk_frontend_servers
-  }
-
   # Some idiot (Hi!) named something that's a URL 'host'. Sorry. -NS
   $asset_url = extlookup('asset_host')
   $asset_host = regsubst($asset_url, 'https?://(.+)', '\1')
@@ -47,7 +41,7 @@ class govuk::node::s_frontend_lb {
       'tariff',
     ]:
       internal_only => $hide_frontend_apps,
-      servers       => $calculators_frontend_servers_to_use;
+      servers       => $calculators_frontend_servers;
     'frontend':
       internal_only => $hide_frontend_apps,
       aliases       => ["www.${app_domain}"]; # TODO: remove this alias once we're sure it's not being used.
