@@ -24,7 +24,7 @@
     proxy_pass https://<%= @factcaveapi %>;
   }
 
-  location ~ ^/api/business-support-schemes(\.|/.+\.).+?$ {
+  location ~ ^/api/business-support-schemes([/?.].*)?$ {
     expires 30m;
 
     # Remove the prefix before passing through
