@@ -39,7 +39,7 @@ class users::groups::govuk {
   include users::jordan
   include users::joshua
   include users::kushalp
-  include users::matthewbostock
+  include users::mattbostock
   include users::mazz
   include users::mikemagarinos
   include users::minglis
