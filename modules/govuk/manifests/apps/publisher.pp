@@ -1,11 +1,12 @@
 class govuk::apps::publisher( $port = 3000 ) {
 
   govuk::app { 'publisher':
-    app_type          => 'rack',
-    port              => $port,
-    vhost_ssl_only    => true,
-    health_check_path => '/',
-    asset_pipeline    => true,
+    app_type           => 'rack',
+    port               => $port,
+    vhost_ssl_only     => true,
+    health_check_path  => '/',
+    log_format_is_json => hiera('govuk_leverage_json_app_log', false),
+    asset_pipeline     => true,
   }
 
   $service_desc = 'publisher local authority data importer error'

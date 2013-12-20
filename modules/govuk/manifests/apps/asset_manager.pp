@@ -7,6 +7,7 @@ class govuk::apps::asset_manager( $port = 3037 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
+    log_format_is_json => hiera('govuk_leverage_json_app_log', false),
     nginx_extra_config => '
     client_max_body_size 500m;
 
