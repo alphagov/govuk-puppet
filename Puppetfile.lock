@@ -35,6 +35,13 @@ GIT
       puppetlabs/stdlib (>= 3.0.0)
 
 GIT
+  remote: git://github.com/alphagov/puppet-bandersnatch.git
+  ref: master
+  sha: cc4e3b99f4b207fd2824811f33aeb05e17e7014f
+  specs:
+    bandersnatch (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-cpanm.git
   ref: 4e3dfca
   sha: 4e3dfca9b5ca25da71a78412305710e665475698
@@ -96,6 +103,7 @@ GIT
 DEPENDENCIES
   apparmor (>= 0)
   aptmirror (>= 0)
+  bandersnatch (>= 0)
   cpanm (>= 0)
   curl (>= 0)
   ext4mount (>= 0)
