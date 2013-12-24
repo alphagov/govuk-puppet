@@ -11,7 +11,6 @@ class users::groups::contractors {
   include users::dom
   include users::elliot
   include users::futurefabric
-  include users::gemmaleigh
   include users::gma
   include users::jacobashdown
   include users::jbartosiewicz
