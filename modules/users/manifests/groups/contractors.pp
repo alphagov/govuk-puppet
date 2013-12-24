@@ -7,7 +7,6 @@ class users::groups::contractors {
   include users::ben
   include users::benilovj
   include users::benparker
-  include users::dabel
   include users::davidainslie
   include users::dom
   include users::elliot
