@@ -20,7 +20,6 @@ class users::groups::contractors {
   include users::maxgriff
   include users::nsalvo
   include users::paulhayes
-  include users::pbadensk
   include users::rthorn
   include users::russellgarner
   include users::snehaso
