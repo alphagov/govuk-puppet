@@ -97,7 +97,7 @@ Vagrant.configure("2") do |config|
 
       c.vm.provision :puppet do |puppet|
         puppet.manifest_file = "site.pp"
-        puppet.manifests_path = "../puppet/manifests"
+        puppet.manifests_path = ["vm", "/var/govuk/puppet/manifests"]
         puppet.module_path = [
           "../puppet/modules",
           "../puppet/vendor/modules",
