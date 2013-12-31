@@ -4,3 +4,5 @@ root                     <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain 
 deploy@<%= @fqdn %>      <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
 deploy@<%= @hostname %>  <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
 deploy                   <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
+@<%= @fqdn %>            <%= @email_list %>+<%= @fqdn %>@<%= @email_domain %>
+@<%= @hostname %>        <%= @email_list %>+<%= @fqdn %>@<%= @email_domain %>
