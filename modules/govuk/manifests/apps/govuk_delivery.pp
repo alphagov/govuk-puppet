@@ -1,6 +1,5 @@
 class govuk::apps::govuk_delivery( $port = 3042 ) {
-  include pip
-  include virtualenv
+  include govuk::python
 
   govuk::app { 'govuk-delivery':
     app_type           => 'procfile',

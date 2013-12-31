@@ -1,10 +1,8 @@
 class govuk::deploy {
   include bundler
   include govuk::logging
+  include govuk::python
   include harden
-  include pip
-  include python
-  include virtualenv
   include unicornherder
 
   anchor { 'govuk::deploy::begin': }
