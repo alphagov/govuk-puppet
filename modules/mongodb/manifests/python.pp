@@ -1,4 +1,4 @@
-class python::mongodb {
+class mongodb::python {
   package { 'pymongo':
     ensure   => present,
     provider => 'pip';

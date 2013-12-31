@@ -1,5 +1,5 @@
 class collectd::plugin::mongodb {
-  include python::mongodb
+  include mongodb::python
   include collectd::plugin::python
 
   # Attribution: https://github.com/sebest/collectd-mongodb

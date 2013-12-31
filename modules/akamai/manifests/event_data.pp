@@ -22,8 +22,10 @@ class akamai::event_data(
     default   => directory,
   }
 
-  include python::suds
-  include python::pyyaml
+  package { ['suds', 'pyyaml']:
+    ensure   => present,
+    provider => 'pip',
+  }
 
   $akamai_webservice_username = extlookup('akamai_webservice_username', 'UNSET')
   $akamai_webservice_password = extlookup('akamai_webservice_password', 'UNSET')
