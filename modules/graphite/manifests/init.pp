@@ -18,21 +18,11 @@ class graphite {
     notify    => Class['graphite::service'];
   }
 
-  class { 'graphite::firewall':
-    require => Class['graphite::config'],
-  }
-
   class { 'graphite::service':
     notify => Anchor['graphite::end'],
   }
 
-  class { 'graphite::nginx': }
-
   anchor { 'graphite::end':
-    require => Class[
-      'graphite::firewall',
-      'graphite::nginx'
-    ],
   }
 
 }
