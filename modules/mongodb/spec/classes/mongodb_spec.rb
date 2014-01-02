@@ -4,7 +4,6 @@ describe 'mongodb::server', :type => :class do
   let(:facts) {{
     :govuk_class => 'test',
     :govuk_platform => 'test',
-    :lsbdistcodename => 'Precise',
   }}
 
   describe "with the default package name" do

@@ -1,10 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'jenkins', :type => :class do
-  let(:facts) {{
-    :lsbdistcodename => 'Precise',
-  }}
-
   let(:ssh_dir) { '/home/jenkins/.ssh' }
   let(:ssh_file) { '/home/jenkins/.ssh/authorized_keys' }
 

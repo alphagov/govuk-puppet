@@ -4,7 +4,6 @@ describe 'puppet::master', :type => :class do
   let(:facts) {{
     :govuk_class => 'test',
     :govuk_platform => 'production',
-    :lsbdistcodename => 'Precise',
   }}
 
   it do

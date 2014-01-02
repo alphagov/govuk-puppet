@@ -38,6 +38,14 @@ RSpec.configure do |c|
   ].join(':')
   c.include MockExtdata
 
+  # Sensible defaults to satisfy modules that perform OS checking. These
+  # keys can be overridden by more specific `let(:facts)` in spec contexts.
+  c.default_facts = {
+    :osfamily        => 'Debian',
+    :operatingsystem => 'Ubuntu',
+    :lsbdistcodename => 'Precise',
+  }
+
   c.before do
     # FIXME: We shouldn't need to do this. puppet/face should. See:
     # - http://projects.puppetlabs.com/issues/15529
