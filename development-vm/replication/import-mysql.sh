@@ -6,6 +6,8 @@
 # Exit if any subcommand exits with a non-zero status
 set -e
 
+USERNAME=root
+
 function usage {
 cat << EOF
 Usage: $0 [options] <backup-path>
@@ -15,7 +17,7 @@ Restore MySQL from a backup tarball.
 OPTIONS:
    -h   Show this message
    -n   Dry run (do not actually run the database commands)
-   -u   The MySQL user name to use when connecting to the server
+   -u   The MySQL user name to use when connecting to the server. Defaults to root
    -i   Databases to ignore. Can be used multiple times, or as a quoted space-delimited list
 
 EOF
