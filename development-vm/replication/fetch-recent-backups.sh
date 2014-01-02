@@ -29,36 +29,9 @@ do
       usage
       exit 1
       ;;
-    F )
-      # Load a custom SSH config file if given
-      SSH_CONFIG=$OPTARG
-      ;;
-    d )
-      # Put the backups into a custom directory
-      DIR=$OPTARG
-      ;;
-    u )
-      # override the SSH user
-      SSH_USER=$OPTARG
-      ;;
   esac
 done
 shift $(($OPTIND-1))
 
-MYSQL_SRC="mysql-slave-1.backend.preview:/var/lib/automysqlbackup/latest.tbz2"
-MYSQL_DIR="$DIR/mysql"
-
-MONGO_SRC="mongo.backend.preview:/var/lib/automongodbbackup/latest/*.tgz"
-MONGO_DIR="$DIR/mongo"
-
-mkdir -p $MYSQL_DIR $MONGO_DIR
-
-if [[ -n $SSH_CONFIG ]]; then
-  SCP_OPTIONS="-F $SSH_CONFIG"
-fi
-if [[ -n $SSH_USER ]]; then
-  SSH_USER="$SSH_USER@"
-fi
-
-rsync -P -e "ssh $SCP_OPTIONS" $SSH_USER$MYSQL_SRC $MYSQL_DIR
-rsync -P -e "ssh $SCP_OPTIONS" $SSH_USER$MONGO_SRC $MONGO_DIR
+./fetch-recent-mongodb-backups.sh "$@"
+./fetch-recent-mysql-backups.sh "$@"
