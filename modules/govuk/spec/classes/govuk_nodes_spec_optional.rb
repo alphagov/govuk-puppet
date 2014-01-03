@@ -22,9 +22,6 @@ describe "govuk::node classes" do
       let(:facts) {{
         :govuk_class => govuk_class,
         :govuk_platform => "test",
-        :osfamily => "Debian",
-        :operatingsystem => "Ubuntu",
-        :lsbdistcodename => "Precise",
         :memtotalmb => "1024",
       }}
 
