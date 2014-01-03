@@ -3,20 +3,23 @@
 # HEADER: recommended.
 
 define service {
-        use                 <%= @use %>
-        host_name           <%= @host_name %>
-        service_description <%= @service_description %>
-        check_command       <%= @check_command %>
+        use                       <%= @use %>
+        host_name                 <%= @host_name %>
+        service_description       <%= @service_description %>
+        check_command             <%= @check_command %>
+<%- if @first_notification_delay -%>
+        first_notification_delay  <%= @first_notification_delay %>
+<%- end -%>
 <%- if @attempts_before_hard_state -%>
-        max_check_attempts  <%= @attempts_before_hard_state %>
+        max_check_attempts        <%= @attempts_before_hard_state %>
 <%- end -%>
 <%- if @notification_period -%>
-        notification_period <%= @notification_period %>
+        notification_period       <%= @notification_period %>
 <%- end -%>
 <%- if @action_url -%>
-        action_url          <%= @action_url %>
+        action_url                <%= @action_url %>
 <%- end -%>
 <%- if @notes_url -%>
-        notes_url           <%= @notes_url %>
+        notes_url                 <%= @notes_url %>
 <%- end -%>
 }
