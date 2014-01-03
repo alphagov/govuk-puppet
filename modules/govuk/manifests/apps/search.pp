@@ -13,6 +13,15 @@ class govuk::apps::search( $port = 3009 ) {
     log_format_is_json => hiera('govuk_leverage_json_app_log', false),
     nginx_extra_config => '
     client_max_body_size 500m;
+
+    location ^~ /sitemap.xml {
+      expires 1d;
+      add_header Cache-Control public;
+    }
+    location ^~ /sitemaps/ {
+      expires 1d;
+      add_header Cache-Control public;
+    }
     ',
   }
 
