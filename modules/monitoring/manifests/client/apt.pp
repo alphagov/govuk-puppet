@@ -1,8 +1,11 @@
 class monitoring::client::apt {
-  # Provides `notify-reboot-required` which is referenced in the `postinst`
-  # of some packages in order to request that the system be rebooted at a
-  # convenient time. Required by the `check_reboot_required` alert, but
-  # still beneficial to have on nodes that aren't monitored by Nagios.
+  # Provides:
+  # - `notify-reboot-required` which is referenced in the `postinst`
+  #   of some packages in order to request that the system be rebooted at a
+  #   convenient time. Required by the `check_reboot_required` alert, but
+  #   still beneficial to have on nodes that aren't monitored by Nagios.
+  # - `apt-check` which is called by the `check_apt_updates` alert. More
+  #   reliable than the builin Nagios plugin.
   package { 'update-notifier-common':
     ensure => present,
   }
@@ -11,7 +14,8 @@ class monitoring::client::apt {
     source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_apt_updates.cfg',
   }
   @nagios::plugin { 'check_apt_updates':
-    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_apt_updates',
+    source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_apt_updates',
+    require => Package['update-notifier-common'],
   }
   @@nagios::check { "check_apt_updates_${::hostname}":
     check_command       => 'check_nrpe!check_apt_updates!200 1000',
