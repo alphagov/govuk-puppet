@@ -4,19 +4,14 @@
 set -eu
 
 ALLOWED_SEC_UPDATES=$1
-ALLOWED_REG_UPDATES=$2
 
 OUTPUT=$(/usr/lib/update-notifier/apt-check 2>&1)
-REG_UPDATES=$(echo $OUTPUT | cut -d\; -f1)
 SEC_UPDATES=$(echo $OUTPUT | cut -d\; -f2)
 
 if [ $SEC_UPDATES -gt $ALLOWED_SEC_UPDATES ]; then
   echo "CRITICAL: ${SEC_UPDATES} security updates need to be applied with 'apt-get dist-upgrade'"
   exit 2
-elif [ $REG_UPDATES -gt $ALLOWED_REG_UPDATES ]; then
-  echo "WARNING: ${REG_UPDATES} package updates need to be applied with 'apt-get upgrade'"
-  exit 1
 else
-  echo "OK: All packages up to date"
+  echo "OK: All security updates applied"
   exit 0
 fi
