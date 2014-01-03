@@ -10,6 +10,7 @@ class govuk::apps::search( $port = 3009 ) {
     app_type           => 'rack',
     port               => $port,
     health_check_path  => '/mainstream/search?q=search_healthcheck',
+    log_format_is_json => hiera('govuk_leverage_json_app_log', false),
     nginx_extra_config => '
     client_max_body_size 500m;
     ',
