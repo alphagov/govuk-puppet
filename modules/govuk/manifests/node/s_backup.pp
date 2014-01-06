@@ -66,4 +66,9 @@ class govuk::node::s_backup {
         fq_dn     => 'efg-mysql-slave-1.efg.production',
     }
 
+    backup::directory {'backup_mysql_backups_support_contacts_mysql':
+        directory => '/var/lib/automysqlbackup/',
+        host_name => 'support-contacts-1',
+        fq_dn     => 'support-contacts-1.backend.production',
+    }
 }
