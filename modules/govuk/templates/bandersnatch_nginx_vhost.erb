@@ -1,0 +1,7 @@
+server {
+  listen 80;
+  server_name bandersnatch.<%= @app_domain %>;
+  root <%= @document_root %>/web/;
+  autoindex on;
+  charset utf-8;
+}

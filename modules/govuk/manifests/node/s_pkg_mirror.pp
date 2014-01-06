@@ -1,8 +1,11 @@
 class govuk::node::s_pkg_mirror inherits govuk::node::s_base {
   include nginx, pip
 
+  $document_root = '/srv/pypi'
+  $app_domain = extlookup('app_domain')
+
   class { 'bandersnatch':
-    document_root => '/srv/pypi',
+    document_root => $document_root,
   }
 
   nginx::config::site { 'bandersnatch':
