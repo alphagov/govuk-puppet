@@ -4,7 +4,7 @@ class govuk::apps::need_api( $port = 3052 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
-    log_format_is_json => hiera('govuk_leverage_json_app_log', false),
+    log_format_is_json => true,
   }
 
   govuk::logstream { 'need-api-org-import-json-log':

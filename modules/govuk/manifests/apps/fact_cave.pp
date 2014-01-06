@@ -4,7 +4,7 @@ class govuk::apps::fact_cave( $port = 3048 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/',
-    log_format_is_json => hiera('govuk_leverage_json_app_log', false),
+    log_format_is_json => true,
     asset_pipeline     => true,
   }
 }
