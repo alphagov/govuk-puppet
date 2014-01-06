@@ -101,4 +101,13 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     index => 'logs-current',
   }
 
+  # Cronjob to zip old logs
+  cron { 'compress-srv-logs':
+    ensure  => present,
+    user    => 'root',
+    hour    => '1',
+    minute  => '0',
+    command => 'find /srv/log/2??? -mtime +28 -type f -exec gzip -q {} +',
+  }
+
 }
