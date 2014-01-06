@@ -9,7 +9,7 @@ class govuk::node::s_pkg_mirror inherits govuk::node::s_base {
   }
 
   nginx::config::site { 'bandersnatch':
-    content => template('govuk/bandersnatch_nginx_vhost.erb'),
+    content => template('govuk/node/s_pkg_mirror/bandersnatch_nginx_vhost.erb'),
   }
 
   class { 'aptmirror':
@@ -22,6 +22,6 @@ class govuk::node::s_pkg_mirror inherits govuk::node::s_base {
   }
 
   nginx::config::site { 'puppet-aptmirror':
-    content => template('govuk/aptmirror_puppet_vhost.erb'),
+    content => template('govuk/node/s_pkg_mirror/aptmirror_nginx_vhost.erb'),
   }
 }
