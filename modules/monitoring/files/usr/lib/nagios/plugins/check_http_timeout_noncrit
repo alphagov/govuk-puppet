@@ -1,0 +1,16 @@
+#!/bin/bash
+# Wrapper for Nagios check_http plugin which converts CRITICAL alerts for
+# timeouts ("socket" or "abnormal") into UNKNOWN.
+set -u
+
+OUTPUT=$(/usr/lib/nagios/plugins/check_http $@)
+RET=$?
+
+MATCH="^CRITICAL - \w+ timeout after"
+if [ "$RET" == "2" ] && [[ "$OUTPUT" =~ $MATCH ]]; then
+  OUTPUT=${OUTPUT/CRITICAL/UNKNOWN}
+  RET=3
+fi
+
+echo $OUTPUT
+exit $RET

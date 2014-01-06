@@ -19,6 +19,10 @@ class monitoring::checks {
   }
   # END frontend
 
+  @nagios::plugin { 'check_http_timeout_noncrit':
+    source => 'puppet:///modules/monitoring/files/usr/lib/nagios/plugins/check_http_timeout_noncrit',
+  }
+
   # START whitehall
   # Used in template and nagios::check.
   $whitehall_hostname    = "whitehall-admin.${app_domain}"
@@ -26,6 +30,7 @@ class monitoring::checks {
 
   nagios::check_config { 'whitehall_overdue':
     content => template('monitoring/check_whitehall_overdue.cfg.erb'),
+    require => Nagios::Plugin['check_http_timeout_noncrit'],
   }
 
   nagios::check { "check_whitehall_overdue_from_${::hostname}":
