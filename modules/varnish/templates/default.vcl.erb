@@ -17,6 +17,9 @@ acl purge_acl {
 }
 
 sub vcl_recv {
+  unset req.http.GOVUK-Request-Id;
+  set req.http.GOVUK-Request-Id = server.identity + "-" + req.xid;
+
   set req.backend = router;
 
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
