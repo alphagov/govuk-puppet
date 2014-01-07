@@ -51,6 +51,7 @@ define nagios::check (
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
   $notes_url                  = undef,
+  $check_interval             = undef,
   $first_notification_delay   = undef,
   $attempts_before_hard_state = undef
 ) {
