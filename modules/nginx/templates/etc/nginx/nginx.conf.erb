@@ -59,6 +59,7 @@ http {
                          '"request_method": "$request_method", '
                          '"http_referrer": "$http_referer", '
                          '"http_user_agent": "$http_user_agent", '
+                         '"govuk_request_id": "$http_govuk_request_id", '
                          '"varnish_id": "$http_x_varnish" } }';
 
     access_log  /var/log/nginx/access.log timed_combined;
