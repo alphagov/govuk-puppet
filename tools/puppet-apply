@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+# Filter warnings about 'storeconfigs' not being set
+exec sudo \
+  RUBYOPT="-W0" \
+  FACTER_govuk_class=${FACTER_govuk_class:-development} \
+  FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
+  FACTER_govuk_provider=${FACTER_govuk_provider:-development} \
+  RBENV_VERSION=1.9.3 \
+  puppet apply /var/govuk/puppet/manifests/site.pp \
+  --environment ${ENVIRONMENT:-development} \
+  --modulepath /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules \
+  --manifestdir /var/govuk/puppet/manifests \
+  --hiera_config /var/govuk/puppet/hiera.yml "$@" 2>&1 \
+  | egrep -iv "warning:.+storeconfigs"

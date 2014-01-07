@@ -72,18 +72,6 @@ if [ -z "$NO_PULL" ]; then
   NO_PULL=1 exec "$SELF" "$@"
 fi
 
-# Make sure puppet is at least looking in the right place
-if [ ! -f /etc/puppet/puppet.conf ]; then
-  info "installing default /etc/puppet/puppet/conf"
-  sudo mkdir -p /etc/puppet
-  sudo tee /etc/puppet/puppet.conf >/dev/null <<EOM
-[main]
-modulepath=/var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
-manifestdir=/var/govuk/puppet/manifests
-hiera_config = /usr/share/puppet/production/current/hiera.yml
-EOM
-fi
-
 bundle install --quiet
 bundle exec librarian-puppet install --quiet
 
@@ -91,13 +79,5 @@ for dir in `ls vendor/modules`; do
   test -d modules/$dir && info "modules/${dir} conflicts with vendor/modules/${dir}";
 done
 
-# Filter warnings about 'storeconfigs' not being set -- we don't currently
-# attempt to test stored config configuration on the dev vm
 info "running puppet"
-exec sudo \
-  RUBYOPT="-W0" \
-  FACTER_govuk_class=${FACTER_govuk_class:-development} \
-  FACTER_govuk_platform=${FACTER_govuk_platform:-development} \
-  RBENV_VERSION=1.9.3 \
-  puppet apply manifests/site.pp \
-  --environment development --hiera_config hiera.yml "$@" 2>&1 | egrep -iv "warning:.+storeconfigs"
+exec /var/govuk/puppet/tools/puppet-apply "$@"
