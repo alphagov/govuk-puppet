@@ -7,6 +7,9 @@ define service {
         host_name                 <%= @host_name %>
         service_description       <%= @service_description %>
         check_command             <%= @check_command %>
+<%- if @check_interval -%>
+        check_interval            <%= @check_interval %>
+<%- end -%>
 <%- if @first_notification_delay -%>
         first_notification_delay  <%= @first_notification_delay %>
 <%- end -%>
