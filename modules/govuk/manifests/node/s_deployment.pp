@@ -38,4 +38,11 @@ class govuk::node::s_deployment inherits govuk::node::s_base {
       ensure  => present,
       content => $github_ca_cert_content;
   }
+
+  # Deployment machine acting as a local DNS resolver
+  @ufw::allow { 'allow-dns-from-all':
+    port  => 53,
+    proto => 'any',
+  }
+
 }
