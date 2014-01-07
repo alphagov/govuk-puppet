@@ -18,11 +18,11 @@ class monitoring::client::apt {
     require => Package['update-notifier-common'],
   }
   @@nagios::check { "check_apt_security_updates_${::hostname}":
-    check_command             => 'check_nrpe!check_apt_security_updates!0',
-    service_description       => 'outstanding security updates',
-    host_name                 => $::fqdn,
+    check_command              => 'check_nrpe!check_apt_security_updates!0',
+    service_description        => 'outstanding security updates',
+    host_name                  => $::fqdn,
     attempts_before_hard_state => 24, # Wait 24hrs to allow unattended-upgrades to run first
-    check_interval            => 60,
+    check_interval             => 60,
   }
 
   @nagios::nrpe_config { 'check_reboot_required':
