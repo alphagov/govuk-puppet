@@ -5,5 +5,5 @@ class govuk::python {
     virtualenv => true,
   }
 
-  Package['python-pip'] -> Package <| provider == 'pip' and ensure != absent |>
+  Class['python::install'] -> Package <| provider == 'pip' and ensure != absent |>
 }
