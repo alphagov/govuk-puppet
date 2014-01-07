@@ -14,4 +14,4 @@ fi
 if [ "$EXPECTED_WORKERS" == "" ]; then
     EXPECTED_WORKERS=4
 fi
-/usr/lib/nagios/plugins/check_procs -a "unicorn worker" --ereg-argument-array="/var/run/${APPLICATION}/app.pid" -c 1: -w $EXPECTED_WORKERS
+/usr/lib/nagios/plugins/check_procs -a "unicorn worker" --ereg-argument-array="/var/run/${APPLICATION}/app.pid" -c 1: -w ${EXPECTED_WORKERS}:${EXPECTED_WORKERS}
