@@ -51,21 +51,27 @@ class govuk::node::s_cache (
     port => '7999'
   }
 
-  if $enable_gor_to_staging {
-    # Hardcoded, rather than hiera, because I don't want to create the
-    # illusion that you can modify these on the fly. You will need to tidy
-    # up old `host{}` records.
-    $staging_ip   = '217.171.99.81'
-    $staging_host = 'www-origin-staging.production.alphagov.co.uk'
 
-    # FIXME: This host entry serves two purposes:
-    #   1. It ensures that the SSL cert on staging, which thinks it is
-    #   production, matches the hostname that we connect to.
-    #   2. It prevents Gor/Go from performing DNS lookups, which occur once
-    #   for *every* request/goroutine, and can be quite overwhelming.
-    host { $staging_host:
-      ip      => $staging_ip,
-      comment => 'Used by Gor. See comments in s_cache.',
-    }
+  # Hardcoded, rather than hiera, because I don't want to create the
+  # illusion that you can modify these on the fly. You will need to tidy
+  # up old `host{}` records.
+  $staging_ip   = '217.171.99.81'
+  $staging_host = 'www-origin-staging.production.alphagov.co.uk'
+
+  if $enable_gor_to_staging {
+    $gor_hosts_ensure = present
+  } else {
+    $gor_hosts_ensure = absent
+  }
+
+  # FIXME: This host entry serves two purposes:
+  #   1. It ensures that the SSL cert on staging, which thinks it is
+  #   production, matches the hostname that we connect to.
+  #   2. It prevents Gor/Go from performing DNS lookups, which occur once
+  #   for *every* request/goroutine, and can be quite overwhelming.
+  host { $staging_host:
+    ensure  => $gor_hosts_ensure,
+    ip      => $staging_ip,
+    comment => 'Used by Gor. See comments in s_cache.',
   }
 }
