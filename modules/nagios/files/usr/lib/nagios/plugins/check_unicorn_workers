@@ -11,7 +11,7 @@ function exit_unknown() {
 trap exit_unknown ERR
 
 EXPECTED_WORKERS=""
-if [ -f "/var/apps/${APPLICATION}/config/unicorn.rb" ];
+if [ -f "/var/apps/${APPLICATION}/config/unicorn.rb" ]; then
     CONFIG_FILE="config/unicorn.rb"
 else
     CONFIG_FILE="/etc/govuk/unicorn.rb"
