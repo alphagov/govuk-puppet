@@ -1,17 +1,30 @@
 #!/usr/bin/env bash
+set -eu
 APPLICATION=$1
-# Check for the application config
-if [ -e /var/apps/${APPLICATION}/config/unicorn.rb ]; then
-    cd /var/apps/${APPLICATION}/
-    EXPECTED_WORKERS=`govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp bundle exec ruby -r unicorn -e 'puts Unicorn::Configurator.new(:config_file => "config/unicorn.rb")[:worker_processes]' 2>/dev/null`
-elif [ -e /etc/govuk/unicorn.rb ]; then
-    cd /var/apps/${APPLICATION}/
-    EXPECTED_WORKERS=`govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp bundle exec ruby -r unicorn -e 'puts Unicorn::Configurator.new(:config_file => "/etc/govuk/unicorn.rb")[:worker_processes]' 2>/dev/null`
-else
-    EXPECTED_WORKERS=4
-fi
-# Catchall just in case any of the above return no value
-if [ "$EXPECTED_WORKERS" == "" ]; then
-    EXPECTED_WORKERS=4
-fi
+
+function exit_unknown() {
+    echo "UNKNOWN: Unable to determine expected workers"
+    echo
+    echo "Please try running check and subsequent commands manually."
+    exit 3
+}
+trap exit_unknown ERR
+
+CONFIG_FILES="/var/apps/${APPLICATION}/config/unicorn.rb /etc/govuk/unicorn.rb"
+EXPECTED_WORKERS=""
+
+cd /var/apps/${APPLICATION}/
+for CONFIG_FILE in $CONFIG_FILES; do
+    [ -f $CONFIG_FILE ] || continue
+
+    EXPECTED_WORKERS=$(govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp \
+        bundle exec ruby -r unicorn \
+        -e 'puts Unicorn::Configurator.new(:config_file => "'${CONFIG_FILE}'")[:worker_processes]' \
+        2>/dev/null)
+done
+
+# Bail if not an integer.
+[[ $EXPECTED_WORKERS != *[!0-9]* ]] || exit_unknown
+
+set +e
 /usr/lib/nagios/plugins/check_procs -a "unicorn worker" --ereg-argument-array="/var/run/${APPLICATION}/app.pid" -c 1: -w ${EXPECTED_WORKERS}:${EXPECTED_WORKERS}
