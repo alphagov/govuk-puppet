@@ -20,7 +20,7 @@ class monitoring::checks {
   # END frontend
 
   @nagios::plugin { 'check_http_timeout_noncrit':
-    source => 'puppet:///modules/monitoring/files/usr/lib/nagios/plugins/check_http_timeout_noncrit',
+    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_http_timeout_noncrit',
   }
 
   # START whitehall
