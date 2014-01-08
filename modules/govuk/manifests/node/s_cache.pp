@@ -2,6 +2,7 @@ class govuk::node::s_cache (
   $protect_cache_servers = false,
   $real_ip_header = undef,
   $denied_ip_addresses = undef,
+  $enable_gor_to_staging = false,
 ) inherits govuk::node::s_base {
 
   include govuk::htpasswd
@@ -48,5 +49,23 @@ class govuk::node::s_cache (
   ufw::allow { 'Allow varnish cache bust from backend machines':
     from => '10.3.0.0/24',
     port => '7999'
+  }
+
+  if $enable_gor_to_staging {
+    # Hardcoded, rather than hiera, because I don't want to create the
+    # illusion that you can modify these on the fly. You will need to tidy
+    # up old `host{}` records.
+    $staging_ip   = '217.171.99.81'
+    $staging_host = 'www-origin-staging.production.alphagov.co.uk'
+
+    # FIXME: This host entry serves two purposes:
+    #   1. It ensures that the SSL cert on staging, which thinks it is
+    #   production, matches the hostname that we connect to.
+    #   2. It prevents Gor/Go from performing DNS lookups, which occur once
+    #   for *every* request/goroutine, and can be quite overwhelming.
+    host { $staging_host:
+      ip      => $staging_ip,
+      comment => 'Used by Gor. See comments in s_cache.',
+    }
   }
 }
