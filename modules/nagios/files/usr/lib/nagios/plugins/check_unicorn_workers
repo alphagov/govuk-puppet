@@ -18,8 +18,8 @@ for CONFIG_FILE in $CONFIG_FILES; do
     [ -f $CONFIG_FILE ] || continue
 
     EXPECTED_WORKERS=$(govuk_setenv ${APPLICATION} env GOVUK_APP_LOGROOT=/tmp \
-        bundle exec ruby -r unicorn \
-        -e 'puts Unicorn::Configurator.new(:config_file => "'${CONFIG_FILE}'")[:worker_processes]' \
+        bundle exec ruby \
+        -e 'require "unicorn"; puts Unicorn::Configurator.new(:config_file => "'${CONFIG_FILE}'")[:worker_processes]' \
         2>/dev/null)
 done
 
