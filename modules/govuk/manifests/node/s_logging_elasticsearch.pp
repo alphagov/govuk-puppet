@@ -78,7 +78,8 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
               "properties": {
                 "clientip": {
                   "type": "ip"
-                }
+                },
+                "parameters": { "index": "not_analyzed", "type": "object" }
               },
               "type": "object"
             },
