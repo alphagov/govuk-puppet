@@ -13,4 +13,4 @@ exec sudo \
   --modulepath /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules \
   --manifestdir /var/govuk/puppet/manifests \
   --hiera_config /var/govuk/puppet/hiera.yml "$@" 2>&1 \
-  | egrep -iv "warning:.+storeconfigs"
+  | egrep -iv --line-buffered "warning:.+storeconfigs"
