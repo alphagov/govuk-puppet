@@ -31,7 +31,6 @@ do
       ;;
   esac
 done
-shift $(($OPTIND-1))
 
 ./fetch-recent-mongodb-backups.sh "$@"
 ./fetch-recent-mysql-backups.sh "$@"
