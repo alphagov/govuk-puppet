@@ -177,11 +177,6 @@ class monitoring::checks {
     notification_period          => '24x7',
   }
 
-  nagios::contact_group { 'regular':
-    group_alias => 'Contacts for regular alerts',
-    members     => ['monitoring_google_group'],
-  }
-
   # End Zendesk Groups
 
   nagios::service_template { 'govuk_regular_service':
