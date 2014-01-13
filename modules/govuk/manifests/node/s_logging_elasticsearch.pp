@@ -105,7 +105,8 @@ class govuk::node::s_logging_elasticsearch inherits govuk::node::s_base {
     user    => 'nobody',
     hour    => '0',
     minute  => '1',
-    command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 21 --optimize-old --optimize-maxage 1 logs',
+    #FIXME: 2014-01-12 - This should be 21 rather than 8 days - need to fix logstasher gem first
+    command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 8 --optimize-old --optimize-maxage 1 logs',
     require => Class['elasticsearch'],
   }
 
