@@ -12,10 +12,14 @@ class govuk::node::s_whitehall_backend inherits govuk::node::s_base {
   include imagemagick
 
   class { 'govuk::apps::whitehall':
-    configure_admin => true,
-    port            => 3026,
-    vhost_protected => true,
-    vhost           => 'whitehall-admin',
+    configure_admin        => true,
+    port                   => 3026,
+    vhost_protected        => true,
+    vhost                  => 'whitehall-admin',
+    # 5GB for a warning
+    nagios_memory_warning  => 5368709120,
+    # 6GB for a critical
+    nagios_memory_critical => 6442450944,
   }
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx

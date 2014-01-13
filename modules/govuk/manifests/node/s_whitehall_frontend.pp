@@ -21,7 +21,9 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
     configure_frontend     => true,
     vhost_protected        => $protect_fe,
     vhost                  => 'whitehall-frontend',
-    nagios_memory_warning  => 4500000000,
-    nagios_memory_critical => 5500000000,
+    # 10GB for a warning
+    nagios_memory_warning  => 10737418240,
+    # 12GB for a critical
+    nagios_memory_critical => 12884901888,
   }
 }
