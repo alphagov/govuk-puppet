@@ -14,8 +14,6 @@ class govuk::node::s_development {
   include redis
   include tmpreaper
   include users
-  include pip
-  include virtualenv
 
   class { 'memcached':
     max_memory => 64,
@@ -24,6 +22,7 @@ class govuk::node::s_development {
 
   include govuk::deploy
   include govuk::envsys
+  include govuk::python
   include govuk::repository
   include govuk::testing_tools
   include govuk::sshkeys

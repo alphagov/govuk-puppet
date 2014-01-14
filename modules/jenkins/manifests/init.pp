@@ -1,4 +1,5 @@
 class jenkins {
+  include govuk::python
   include jenkins::ssh_key
 
   #TODO:
@@ -59,7 +60,6 @@ class jenkins {
   package { [
     'sqlite3',
     'gnuplot',
-    'python-virtualenv',
     'python-paramiko',
     'ant'
     ]:

@@ -1,6 +1,6 @@
 class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
 
-  include python::mongodb
+  include mongodb::python
 
   @nagios::plugin { 'check_mongodb.py':
     source  => 'puppet:///modules/mongodb/nagios_check_mongodb.py',

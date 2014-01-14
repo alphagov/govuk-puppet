@@ -7,6 +7,9 @@ mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
 mod 'saz/memcached'
 
+# Pinned because of: https://github.com/stankevich/puppet-python/issues/46
+mod 'stankevich/python', '1.2.1'
+
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)
 mod 'nextrevision/automysqlbackup',
@@ -44,3 +47,4 @@ mod 'gdsoperations/auditd', '0.0.1'
 mod 'gdsoperations/rbenv', '1.0.1'
 mod 'gdsoperations/resolvconf', '0.2.0'
 mod 'gdsoperations/openconnect', '0.0.5'
+mod 'gdsoperations/graphite', '1.0.1'

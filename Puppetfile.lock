@@ -3,6 +3,9 @@ FORGE
   specs:
     gdsoperations/auditd (0.0.1)
       puppetlabs/stdlib (>= 3.0.0)
+    gdsoperations/graphite (1.0.1)
+      puppetlabs/stdlib (>= 2.5.0)
+      stankevich/python (>= 1.2.0)
     gdsoperations/openconnect (0.0.5)
       puppetlabs/stdlib (>= 3.0.0)
     gdsoperations/rbenv (1.0.1)
@@ -15,6 +18,7 @@ FORGE
     puppetlabs/stdlib (4.1.0)
     ripienaar/concat (0.2.0)
     saz/memcached (2.2.4)
+    stankevich/python (1.2.1)
     thomasvandoren/redis (0.0.9)
       maestrodev/wget (>= 0.0.0)
       puppetlabs/gcc (>= 0.0.0)
@@ -108,6 +112,7 @@ DEPENDENCIES
   curl (>= 0)
   ext4mount (>= 0)
   gdsoperations/auditd (= 0.0.1)
+  gdsoperations/graphite (= 1.0.1)
   gdsoperations/openconnect (= 0.0.5)
   gdsoperations/rbenv (= 1.0.1)
   gdsoperations/resolvconf (= 0.2.0)
@@ -120,6 +125,7 @@ DEPENDENCIES
   ripienaar/concat (>= 0)
   rsyslog (>= 0)
   saz/memcached (>= 0)
+  stankevich/python (= 1.2.1)
   thomasvandoren/redis (>= 0)
   ufw (>= 0)
 
