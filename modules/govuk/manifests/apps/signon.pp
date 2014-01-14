@@ -11,5 +11,6 @@ class govuk::apps::signon( $port = 3016 ) {
     asset_pipeline     => true,
   }
 
+  govuk::procfile::worker {'signon': }
   govuk::delayed_job::worker { 'signon': }
 }
