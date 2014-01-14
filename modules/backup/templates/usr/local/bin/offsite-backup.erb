@@ -32,9 +32,7 @@ TAR_OPTS="cf -"
 TAR_OPTS="$TAR_OPTS ${BKP_DIR}${MONDB_HOST}${MONGO_BKP}"
 TAR_OPTS="$TAR_OPTS ${BKP_DIR}${MYDB_HOST}${MYSQL_BKP}"
 TAR_OPTS="$TAR_OPTS ${BKP_DIR}${EFGMYDB_HOST}${MYSQL_BKP}"
-# The following line can be uncommented when Tony says it is OK
-# to copy the Licensify Backups offsite
-# TAR_OPTS="$TAR_OPTS ${BKP_DIR}${LIC_HOST}${MONGO_BKP}"
+TAR_OPTS="$TAR_OPTS ${BKP_DIR}${LIC_HOST}${MONGO_BKP}"
 
 GPG_OPTS="-q --yes --batch --trust-model always --cipher-algo AES256 --encrypt -r ${GPG_KEY}"
 DEST="offsite-backup.production.alphagov.co.uk"
