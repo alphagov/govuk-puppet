@@ -34,7 +34,7 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
   }
 
   @@nagios::check { "check_carbon_cache_running_on_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!carbon-cache',
+    check_command       => 'check_nrpe!check_proc_running!carbon-cache.py',
     service_description => 'carbon-cache running',
     host_name           => $::fqdn,
   }
