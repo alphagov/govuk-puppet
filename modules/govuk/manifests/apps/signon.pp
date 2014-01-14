@@ -12,5 +12,15 @@ class govuk::apps::signon( $port = 3016 ) {
   }
 
   govuk::procfile::worker {'signon': }
-  govuk::delayed_job::worker { 'signon': }
+
+  # Clean up old delayed-job worker.
+  # These can be removed once they've run on production
+  exec {'stop_signon_delayed_job_worker':
+    command => 'service signon-delayed-job-worker stop',
+    onlyif  => 'test -f /etc/init/signon-delayed-job-worker.conf',
+  }
+  file { '/etc/init/signon-delayed-job-worker.conf':
+    ensure  => absent,
+    require => Exec['stop_signon_delayed_job_worker'],
+  }
 }
