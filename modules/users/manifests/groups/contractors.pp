@@ -6,15 +6,10 @@
 class users::groups::contractors {
   include users::ben
   include users::benilovj
-  include users::benparker
   include users::davidainslie
   include users::dom
   include users::elliot
   include users::futurefabric
-  include users::jbartosiewicz
-  include users::leelongmore
-  include users::maxgriff
-  include users::nsalvo
   include users::paulhayes
   include users::rthorn
   include users::russellgarner
