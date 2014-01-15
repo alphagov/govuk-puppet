@@ -4,8 +4,17 @@ HIERA_SAFETY_CHECK: true
 apt::always_apt_update: true
 apt::purge_sources_list_d: true
 
+# FIXME: Use regex/glob when we no longer support Lucid.
 apt::unattended_upgrades::blacklist:
- - 'mysql-server.*'
+ - 'mysql-server'
+ - 'mysql-server-4.1'
+ - 'mysql-server-5.0'
+ - 'mysql-server-5.1'
+ - 'mysql-server-5.5'
+ - 'mysql-server-core'
+ - 'mysql-server-core-5.0'
+ - 'mysql-server-core-5.1'
+ - 'mysql-server-core-5.5'
 apt::unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
 apt::unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
