@@ -3,8 +3,8 @@
 # Setup gor traffic replay for GOV.UK
 #
 class govuk::gor(
-  $enable_gor_to_staging = false,
-  $enable_gor_to_plat1prod = false,
+  $enable_staging = false,
+  $enable_plat1prod = false,
 ) {
   # Hardcoded, rather than hiera, because I don't want to create the
   # illusion that you can modify these on the fly. You will need to tidy
@@ -14,7 +14,7 @@ class govuk::gor(
   $plat1prod_ip   = '37.26.90.220'
   $plat1prod_host = 'www-origin-plat1.production.alphagov.co.uk'
 
-  if $enable_gor_to_staging or $enable_gor_to_plat1prod {
+  if $enable_staging or $enable_plat1prod {
     $gor_hosts_ensure = present
   } else {
     $gor_hosts_ensure = absent
