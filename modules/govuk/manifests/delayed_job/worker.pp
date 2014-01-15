@@ -3,19 +3,20 @@ define govuk::delayed_job::worker (
 ) {
   include govuk::delayed_job
 
+  $service_name = "${title}-delayed-job-worker"
   $enable_service = $::govuk_platform ? {
     'development' => false,
     default       => true,
   }
 
-  file { "/etc/init/${title}-delayed-job-worker.conf":
+  file { "/etc/init/${service_name}.conf":
     ensure    => present,
     content   => template('govuk/delayed-job-worker.conf.erb'),
-    notify    => Service["${title}-delayed-job-worker"],
+    notify    => Service[$service_name],
     subscribe => Class['Govuk::Delayed_job'],
   }
 
-  service { "${title}-delayed-job-worker":
+  service { $service_name:
     ensure  => $enable_service,
   }
 }
