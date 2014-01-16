@@ -67,6 +67,14 @@ GIT
     ext4mount (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-gor.git
+  ref: v0.1.2
+  sha: d5e533c64cfa08ea9486f7445cb75dbae54c0b99
+  specs:
+    gor (0.1.2)
+      puppetlabs/stdlib (>= 3.0.0)
+
+GIT
   remote: git://github.com/alphagov/puppet-harden.git
   ref: v0.0.2
   sha: 02243ce7a7cb1fd8c529f76ea38f705ed05581ab
@@ -123,6 +131,7 @@ DEPENDENCIES
   gdsoperations/openconnect (= 0.0.5)
   gdsoperations/rbenv (= 1.0.1)
   gdsoperations/resolvconf (= 0.2.0)
+  gor (>= 0)
   harden (>= 0)
   logstash (>= 0)
   lvm (>= 0)
