@@ -19,6 +19,7 @@ class users::groups::govuk_production_access {
   include users::jennyduckett
   include users::jordan
   include users::kushalp
+  include users::mattbostock
   include users::mwall
   include users::ppotter
   include users::psd
