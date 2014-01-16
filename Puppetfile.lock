@@ -89,6 +89,13 @@ GIT
     rsyslog (1.1.4)
 
 GIT
+  remote: git://github.com/alphagov/puppetlabs-lvm.git
+  ref: master
+  sha: 2082a276093c96e67a676f0c6076c0841f918a17
+  specs:
+    lvm (0.1.2)
+
+GIT
   remote: git://github.com/electrical/puppet-logstash.git
   ref: 694fa1a
   sha: 694fa1afc87e0151ae0a5121c0241cf0b3a1bbbf
@@ -118,6 +125,7 @@ DEPENDENCIES
   gdsoperations/resolvconf (= 0.2.0)
   harden (>= 0)
   logstash (>= 0)
+  lvm (>= 0)
   nextrevision/automysqlbackup (>= 0)
   puppetlabs/apt (>= 0)
   puppetlabs/gcc (>= 0)
