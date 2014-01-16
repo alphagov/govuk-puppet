@@ -41,6 +41,8 @@ mod 'aptmirror',
   :git => 'git://github.com/alphagov/puppet-aptmirror.git'
 mod 'bandersnatch',
   :git => 'git://github.com/alphagov/puppet-bandersnatch.git'
+mod 'lvm',
+  :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 
 # Our modules on the Forge.
 mod 'gdsoperations/auditd', '0.0.1'
