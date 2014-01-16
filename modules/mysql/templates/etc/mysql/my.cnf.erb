@@ -42,7 +42,7 @@ query_cache_size  = 128M
 #
 # * Logging and Replication
 #
-expire_logs_days               = 3
+expire_logs_days               = <%= @expire_log_days %>
 innodb_flush_log_at_trx_commit = 1
 log-queries-not-using-indexes
 log_error                      = <%= @error_log %>

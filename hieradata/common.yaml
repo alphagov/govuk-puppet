@@ -24,6 +24,8 @@ apt::unattended_upgrades::origins:
 mongodb::server::version: '2.0.7'
 mongodb::server::package_name: 'mongodb20-10gen'
 
+mysql::server::expire_log_days: 3
+
 perfplat_internal_app_domain: 'development.performance.service.gov.uk'
 
 router::assets_origin::asset_routes:
