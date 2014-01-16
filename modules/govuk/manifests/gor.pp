@@ -31,9 +31,11 @@ class govuk::gor(
   if $gor_targets == [] {
     $gor_hosts_ensure   = absent
     $gor_service_ensure = stopped
+    $nagios_ensure      = absent
   } else {
     $gor_hosts_ensure   = present
     $gor_service_ensure = running
+    $nagios_ensure      = present
   }
 
   # FIXME: These "fake" host entries serve two purposes:
@@ -61,5 +63,12 @@ class govuk::gor(
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
+  }
+
+  @@nagios::check { "check_gor_running_${::hostname}":
+    ensure              => $nagios_ensure,
+    check_command       => 'check_nrpe!check_proc_running!gor',
+    service_description => 'gor running',
+    host_name           => $::fqdn,
   }
 }
