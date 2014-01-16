@@ -86,8 +86,6 @@ Vagrant.configure("2") do |config|
 
       c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
       c.vm.synced_folder "..", "/var/govuk", :nfs => true
-      c.vm.synced_folder "../puppet/extdata", "/tmp/vagrant-puppet/extdata"
-      c.vm.synced_folder "../puppet/hieradata", "/tmp/vagrant-puppet/hieradata"
 
       # Additional shared folders for Puppet Master nodes.
       # These can't be NFS because OSX won't export overlapping paths.
@@ -95,21 +93,7 @@ Vagrant.configure("2") do |config|
         c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
-      c.vm.provision :puppet do |puppet|
-        puppet.manifest_file = "site.pp"
-        puppet.manifests_path = "../puppet/manifests"
-        puppet.module_path = [
-          "../puppet/modules",
-          "../puppet/vendor/modules",
-        ]
-        puppet.hiera_config_path = "../puppet/hiera.yml"
-        puppet.options = ["--environment", "vagrant"]
-        puppet.facter = {
-          :govuk_class => node_opts["class"],
-          :govuk_provider => "sky",
-          :govuk_platform => "staging",
-        }
-      end
+      c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant FACTER_govuk_class=#{node_opts['class']} FACTER_govuk_provider=sky FACTER_govuk_platform=staging /var/govuk/puppet/tools/puppet-apply"
     end
   end
 end
