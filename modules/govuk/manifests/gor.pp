@@ -32,10 +32,12 @@ class govuk::gor(
     $gor_hosts_ensure   = absent
     $gor_service_ensure = stopped
     $nagios_ensure      = absent
+    $logstream_enable   = false
   } else {
     $gor_hosts_ensure   = present
     $gor_service_ensure = running
     $nagios_ensure      = present
+    $logstream_enable   = true
   }
 
   # FIXME: These "fake" host entries serve two purposes:
@@ -63,6 +65,12 @@ class govuk::gor(
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
+  } ->
+  govuk::logstream { 'gor_upstart_log':
+    enable  => $logstream_enable,
+    logfile => '/var/log/upstart/gor.log',
+    tags    => ['stdout', 'stderr', 'upstart', 'gor'],
+    fields  => {'application' => 'gor'},
   }
 
   @@nagios::check { "check_gor_running_${::hostname}":

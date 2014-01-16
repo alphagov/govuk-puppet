@@ -14,6 +14,7 @@ describe 'govuk::gor', :type => :class do
     it { should contain_host(host_staging).with_ensure('absent') }
     it { should contain_host(host_plat1prod).with_ensure('absent') }
     it { should contain_class('gor').with_service_ensure('stopped') }
+    it { should contain_govuk__logstream('gor_upstart_log').with_enable('false') }
   end
 
   context '#enable_staging' do
@@ -31,6 +32,7 @@ describe 'govuk::gor', :type => :class do
         }),
       )
     }
+    it { should contain_govuk__logstream('gor_upstart_log').with_enable('true') }
   end
 
   context '#enable_plat1prod' do
@@ -48,6 +50,7 @@ describe 'govuk::gor', :type => :class do
         }),
       )
     }
+    it { should contain_govuk__logstream('gor_upstart_log').with_enable('true') }
   end
 
   context '#enable_staging and #enable_plat1prod' do
@@ -66,5 +69,6 @@ describe 'govuk::gor', :type => :class do
         }),
       )
     }
+    it { should contain_govuk__logstream('gor_upstart_log').with_enable('true') }
   end
 end
