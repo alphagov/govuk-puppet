@@ -5,6 +5,7 @@
 class statsd(
   $graphite_hostname
 ) {
+  include govuk::repository
   include nodejs
 
   package { 'statsd':

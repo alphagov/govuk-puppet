@@ -7,6 +7,8 @@
 # `java::set_defaults` in your node/app class before including this class.
 #
 class tika {
+  include govuk::repository
+
   package { 'libxtst6':
     ensure => 'latest'
   }
