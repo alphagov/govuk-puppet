@@ -54,6 +54,7 @@ class govuk::apps::whitehall(
 
   if $configure_admin == true {
     include assets
+    include tika # Used to extract text from file attachments when indexing
 
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost                 => "whitehall-admin.${app_domain}",
@@ -118,19 +119,6 @@ class govuk::apps::whitehall(
     # Needed for pdfinfo, used to count page numbers in uploaded PDFs
     package { 'poppler-utils':
       ensure => installed,
-    }
-
-    package { 'libxtst6':
-      ensure => 'latest'
-    }
-
-    # Used to extract text from file attachments when indexing
-    package { 'tika':
-      ensure  => '1.4-gds1',
-      require => [
-        Class['java::set_defaults'],
-        Package['libxtst6']
-      ]
     }
 
     govuk::delayed_job::worker { 'whitehall-admin':

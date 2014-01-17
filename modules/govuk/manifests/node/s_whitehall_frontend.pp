@@ -1,6 +1,8 @@
 class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
   include nginx
+
+  # Java needed for tika
   include java::oracle7::jdk
   include java::oracle7::jre
 
