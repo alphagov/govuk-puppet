@@ -56,10 +56,6 @@ class mysql::server (
     ],
   }
 
-  cron { 'daily sql tarball':
-    ensure  => absent,
-  }
-
   exec { 'set-mysql-password':
     unless  => "/usr/bin/mysqladmin -uroot -p${root_password} status",
     path    => ['/bin', '/usr/bin'],

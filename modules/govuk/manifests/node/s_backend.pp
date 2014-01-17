@@ -16,11 +16,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   $app_domain = extlookup('app_domain')
 
-  file { "/data/vhost/signonotron.${app_domain}":
-    ensure => absent,
-    force  => true,
-  }
-
   include govuk::apps::asset_manager
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend

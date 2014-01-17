@@ -9,10 +9,6 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
     default: {}
   }
 
-  cron { 'virus-check':
-    ensure => 'absent'
-  }
-
   # Ownership and permissions come from the mount.
   file { '/data/master-uploads':
     ensure  => directory,

@@ -3,10 +3,6 @@ class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
   # Provides setlock
   include daemontools
 
-  cron { 'virus-check':
-    ensure    => 'absent',
-  }
-
   file { '/var/run/virus_scan':
     ensure  => directory,
     owner   => 'assets',
