@@ -3,8 +3,8 @@ class collectd::package {
 
   # Allow this to fail() on unsupported versions of Ubuntu.
   $package_version = $::lsbdistcodename ? {
-    'lucid'   => '5.3.0-ppa8~lucid1',
-    'precise' => '5.3.0-ppa8~precise1',
+    'lucid'   => '5.4.0-ppa1~lucid1',
+    'precise' => '5.4.0-ppa1~precise1',
   }
 
   # collectd contains only configuration files, which we're overriding anyway
