@@ -25,10 +25,4 @@ class govuk::apps::frontend(
     asset_pipeline_prefix  => 'frontend',
     nginx_extra_config     => $nginx_extra_config,
   }
-
-  # Remove the symlink that used to exist.
-  # This block can be removed once it has run everywhere.
-  file { "/data/vhost/www.${app_domain}":
-    ensure => absent,
-  }
 }

@@ -27,15 +27,6 @@ class monitoring::checks::fastly {
         require => File['/usr/lib/nagios/plugins/check_fastly_error_rate'],
     }
 
-    # FIXME: Remove when deployed.
-    file{'/usr/local/bin/statsd_fastly':
-        ensure  => absent,
-    }
-    package{'statsd-ruby':
-        ensure   => absent,
-        provider => gem,
-    }
-
     $fastly_enable_checks      = str2bool(extlookup('fastly_checks', 'no'))
 
     if $fastly_enable_checks {

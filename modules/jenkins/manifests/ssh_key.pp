@@ -14,12 +14,6 @@ class jenkins::ssh_key {
     group  => 'jenkins',
   }
 
-  # SSH debugging has been reverted.  This block can be removed once the Jenkins machines
-  # have been updated
-  file { '/home/jenkins/.ssh/config':
-    ensure  => absent,
-  }
-
   exec { 'Creating key pair for jenkins':
     command => "ssh-keygen -t rsa -C 'Provided by Puppet for jenkins' -N '' -f ${private_key}",
     creates => $private_key,
