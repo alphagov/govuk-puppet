@@ -1,3 +1,8 @@
+# == CLass: akamai_logs
+#
+# DEPRECATED. No longer run from cron. Can be removed when we no longer have
+# the box on Skyscape interim.
+#
 # On Logs Box
 # /home/logkeeper/akamai    - link to /mnt/akamai
 # /mnt                      - mounted
@@ -63,15 +68,6 @@ class akamai_logs {
     ensure => directory,
     owner  => 'deploy',
     group  => 'deploy'
-  }
-
-  cron { 'fetch-logs-from-akamai':
-    ensure  => absent,
-    command => "/home/${user}/pull_logs.sh >> /var/log/akamai/out.log 2>> /var/log/akamai/error.log",
-    user    => $user,
-    require => User[$user],
-    hour    => '*/4',
-    minute  => '1'
   }
 
   @logrotate::conf { 'akamai-logs':

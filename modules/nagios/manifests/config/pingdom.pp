@@ -13,11 +13,4 @@ class nagios::config::pingdom {
     source => 'puppet:///modules/nagios/usr/local/bin/check_pingdom.py',
     mode   => '0755',
   }
-
-  file {[
-    '/usr/local/bin/check_pingdom.sh',
-    '/etc/pingdom.sh'
-    ]:
-    ensure => absent,
-  }
 }

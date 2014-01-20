@@ -1,14 +1,4 @@
 class golang {
-
-  # Purge the gophers version that was installed
-  package { 'golang-stable':
-    ensure => purged,
-  }
-  file {"/etc/apt/sources.list.d/gophers-go-${::lsbdistcodename}.list":
-    ensure => absent,
-    notify => Class['apt::update'],
-  }
-
   if $::lsbdistcodename == 'precise' {
     include govuk::ppa
 

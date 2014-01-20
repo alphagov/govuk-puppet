@@ -6,23 +6,6 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     disk         => '/dev/sdb1',
   }
 
-  # FIXME: Remove tidyup resources.
-  exec { 'stop-old_carbon_aggregator':
-    command => 'stop carbon_aggregator && rm /etc/init/carbon_aggregator.conf',
-    onlyif  => 'test -f /etc/init/carbon_aggregator.conf',
-  } ->
-  exec { 'stop-old-carbon_cache':
-    command => 'stop carbon_cache && rm /etc/init/carbon_cache.conf',
-    onlyif  => 'test -f /etc/init/carbon_cache.conf',
-  } ->
-  exec { 'stop_old_graphite':
-    command => 'stop graphite && rm /etc/init/graphite.conf',
-    onlyif  => 'test -f /etc/init/graphite.conf',
-  } ->
-  package { ['python-whisper', 'python-carbon', 'python-graphite']:
-    ensure => absent,
-  } ->
-
   class { 'graphite':
     port                       => '33333',
     carbon_aggregator          => true,
