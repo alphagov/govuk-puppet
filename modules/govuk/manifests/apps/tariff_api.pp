@@ -5,4 +5,6 @@ class govuk::apps::tariff_api($port = 3018) {
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
   }
+
+  govuk::procfile::worker {'tariff-api': }
 }
