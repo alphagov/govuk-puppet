@@ -60,9 +60,6 @@ if [ -z "$NO_PULL" ]; then
   if ! gem list -i bundler >/dev/null 2>&1; then
     sudo gem install bundler --no-ri --no-rdoc
   fi
-  if ! gem list -i puppet -v "= 2.7.19" >/dev/null 2>&1; then
-    sudo gem install -v "= 2.7.19" puppet --no-ri --no-rdoc
-  fi
 
   if [ -z "$NO_GIT_PULL" ]; then
       safe_git_pull /var/govuk/puppet
