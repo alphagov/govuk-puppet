@@ -60,14 +60,6 @@ For example to increase the amount of RAM on a PuppetMaster:
 
 Some errors that you might encounter..
 
-### Ruby warnings
-```
-/usr/local/lib/site_ruby/1.9.1/rubygems/custom_require.rb:36:in `require': iconv will be deprecated in the future, use String#encode instead.
-/usr/lib/ruby/gems/1.9.1/gems/puppet-2.7.19/lib/puppet/provider/service/bsd.rb:12: warning: class variable access from toplevel
-```
-These are expected because Puppet 2.7 doesn't quite claim to be compatible
-with Ruby 1.9
-
 ### Storeconfigs
 ```
 warning: You cannot collect without storeconfigs being set on line ..
