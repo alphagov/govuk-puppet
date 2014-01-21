@@ -41,7 +41,7 @@ class monitoring::checks::ses (
         group   => 'root',
         mode    => '0755',
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
-        require => Package['python-boto']
+        require => Package['boto']
     }
 
     file{'/etc/nagios3/conf.d/check_aws_quota.cfg':
