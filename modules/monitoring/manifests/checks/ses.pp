@@ -30,8 +30,9 @@ class monitoring::checks::ses (
         $warning = 30,
         $critical = 50 ){
 
-    package {'python-boto':
-        ensure => present,
+    package {'boto':
+        ensure   => '2.23.0',
+        provider => pip,
     }
 
     file{'/usr/lib/nagios/plugins/check_aws_quota':
