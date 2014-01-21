@@ -20,7 +20,7 @@ define nginx::config::vhost::proxy(
   $extra_config = '',
   $extra_app_config = '',
   $intercept_errors = false,
-  $deny_framing = true,
+  $deny_framing = false,
   $protected = true,
   $root = "/data/vhost/${title}/current/public",
   $ssl_only = false,

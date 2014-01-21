@@ -8,7 +8,7 @@ define govuk::app::nginx_vhost (
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
   $intercept_errors = false,
-  $deny_framing = true,
+  $deny_framing = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
