@@ -60,15 +60,6 @@ For example to increase the amount of RAM on a PuppetMaster:
 
 Some errors that you might encounter..
 
-### Storeconfigs
-```
-warning: You cannot collect without storeconfigs being set on line ..
-warning: You cannot collect exported resources without storeconfigs being set; the collection will be ignored on line ..
-```
-These are expected because storeconfigs doesn't work with `puppet apply`. If
-you want to test a manifest that requires storeconfigs you can bring up a
-`puppet-1.management` node and use `puppet agent`.
-
 ### NFS failed mounts
 ```
 [frontend-1.frontend] Mounting NFS shared folders...
