@@ -23,10 +23,10 @@
 #   What percentage usage should trigger a critical? Default:50
 #
 class monitoring::checks::ses (
-        $region,
-        $access_key,
-        $secret_key,
-        $enable  = false,
+        $region = undef,
+        $access_key = undef,
+        $secret_key = undef,
+        $enable  = true,
         $warning = 30,
         $critical = 50 ){
 
