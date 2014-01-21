@@ -26,7 +26,7 @@ class monitoring::checks::ses (
         $region,
         $access_key,
         $secret_key,
-        $enable  = true,
+        $enable  = false,
         $warning = 30,
         $critical = 50 ){
 
