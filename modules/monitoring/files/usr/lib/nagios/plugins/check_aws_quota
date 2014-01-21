@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+
+import argparse
+import boto.ses
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1'], help="AWS region to check")
+parser.add_argument("-a","--access_key", type=str, help="AWS access key")
+parser.add_argument("-s","--secret_key", type=str, help="AWS secret key")
+parser.add_argument("-w","--warning", type=int, help="Percentage at which to raise a warning alert (30)", default=30)
+parser.add_argument("-c","--critical", type=int, help="Percentage at which to raise a critical alert (50)", default=50)
+args = parser.parse_args()
+
+if args.region is None:
+    print "UNKNOWN: You have not supplied a region to connect to!"
+    sys.exit(3)
+
+if args.access_key is None:
+    print "UNKNOWN: You have not supplied an AWS access key"
+    sys.exit(3)
+
+if args.secret_key is None:
+    print "UNKNOWN: You have not supplied an AWS secret key"
+    sys.exit(3)
+
+try:
+    conn = boto.ses.connect_to_region(
+        args.region,
+        aws_access_key_id=args.access_key,
+        aws_secret_access_key=args.secret_key)
+
+    quota = conn.get_send_quota()
+
+    if 'GetSendQuotaResponse' in quota.keys():
+        rate_info = quota['GetSendQuotaResponse']['GetSendQuotaResult']
+        quota_percentage = 100 * float(rate_info['SentLast24Hours']) / float(rate_info['Max24HourSend'])
+        if quota_percentage > args.critical:
+            print "CRITICAL: {0}% of AWS:SES Quota Used".format(args.critical)
+            sys.exit(2)
+        elif quota_percentage > args.warning:
+            print "WARNING: {0}% of AWS:SES Quota Used".format(args.warning)
+            sys.exit(1)
+        else:
+            print "OK: Current AWS:SES quota usage is {0}%".format(quota_percentage)
+    else:
+        print "UNKNOWN: Did not receive quota response from Amazon API"
+        sys.exit(3)
+except Exception as e:
+    print "UNKNOWN: Could not connect to AWS API to retrieve quota: {0}".format(e)
+    sys.exit(3)
+
+sys.exit(0)
+
+
