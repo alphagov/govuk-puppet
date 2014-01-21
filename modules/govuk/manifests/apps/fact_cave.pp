@@ -6,5 +6,6 @@ class govuk::apps::fact_cave( $port = 3048 ) {
     health_check_path  => '/',
     log_format_is_json => true,
     asset_pipeline     => true,
+    deny_framing       => true,
   }
 }

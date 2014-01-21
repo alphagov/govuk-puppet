@@ -6,5 +6,6 @@ class govuk::apps::panopticon( $port = 3003 ) {
     health_check_path  => '/',
     log_format_is_json => true,
     asset_pipeline     => true,
+    deny_framing       => true,
   }
 }

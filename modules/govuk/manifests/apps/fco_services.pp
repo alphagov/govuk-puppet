@@ -12,5 +12,6 @@ class govuk::apps::fco_services(
     log_format_is_json => true,
     vhost_aliases      => $vhost_aliases,
     asset_pipeline     => true,
+    deny_framing       => true,
   }
 }

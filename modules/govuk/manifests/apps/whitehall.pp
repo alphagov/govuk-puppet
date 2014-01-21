@@ -59,6 +59,7 @@ class govuk::apps::whitehall(
       vhost                 => "whitehall-admin.${app_domain}",
       app_port              => $port,
       protected             => true,
+      deny_framing          => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',
       nginx_extra_config    => '
