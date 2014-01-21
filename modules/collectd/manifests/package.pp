@@ -3,7 +3,7 @@ class collectd::package {
 
   # Allow this to fail() on unsupported versions of Ubuntu.
   $package_version = $::lsbdistcodename ? {
-    'lucid'   => '5.4.0-ppa1~lucid1',
+    'lucid'   => '5.4.0-ppa1~lucid2',
     'precise' => '5.4.0-ppa1~precise1',
   }
 
