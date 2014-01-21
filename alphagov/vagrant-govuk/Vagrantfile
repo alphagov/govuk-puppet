@@ -85,7 +85,12 @@ Vagrant.configure("2") do |config|
       end
 
       c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
-      c.vm.synced_folder "..", "/var/govuk", :nfs => true
+
+      if ENV['VAGRANT_GOVUK_NFS'] == "no"
+        c.vm.synced_folder "..", "/var/govuk"
+      else
+        c.vm.synced_folder "..", "/var/govuk", :nfs => true
+      end
 
       # Additional shared folders for Puppet Master nodes.
       # These can't be NFS because OSX won't export overlapping paths.
