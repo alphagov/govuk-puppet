@@ -8,6 +8,7 @@ define govuk::app::nginx_vhost (
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
   $intercept_errors = false,
+  $deny_framing = true,
   $is_default_vhost = false,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
@@ -37,6 +38,7 @@ define govuk::app::nginx_vhost (
     extra_config          => $nginx_extra_config_real,
     extra_app_config      => $nginx_extra_app_config,
     intercept_errors      => $intercept_errors,
+    deny_framing          => $deny_framing,
     is_default_vhost      => $is_default_vhost
   }
 }
