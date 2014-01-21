@@ -14,7 +14,7 @@ You will need access to the repos:
 The above repos should be cloned in parallel to this one. Either
 `alphagov/gds-boxen` or `gds/development:install.sh` can do this for you.
 
-It is recommended that you use Vagrant > 1.1 from a binary/system install.
+It is recommended that you use Vagrant > 1.4 from a binary/system install.
 `alphagov/gds-boxen` can set this up for you.
 
 ## Usage
