@@ -1,6 +1,16 @@
 class govuk::node::s_asset_base inherits govuk::node::s_base {
   include assets::user
   include clamav
+  include tika # Used to extract text from file attachments when indexing
+
+  # Java needed for tika
+  include java::oracle7::jdk
+  include java::oracle7::jre
+
+  class { 'java::set_defaults':
+    jdk => 'oracle7',
+    jre => 'oracle7',
+  }
 
   $directories = [
     '/mnt/uploads',
@@ -47,28 +57,6 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
 
   ufw::allow { 'Allow all access from backend machines':
     from => '10.3.0.0/16',
-  }
-
-  # Java needed for tika
-  include java::oracle7::jdk
-  include java::oracle7::jre
-
-  class { 'java::set_defaults':
-    jdk => 'oracle7',
-    jre => 'oracle7',
-  }
-
-  package { 'libxtst6':
-    ensure => 'latest'
-  }
-
-  # Used to extract text from file attachments when indexing
-  package { 'tika':
-    ensure  => '1.4-gds1',
-    require => [
-      Class['java::set_defaults'],
-      Package['libxtst6']
-    ]
   }
 
   package { 'nfs-kernel-server':
