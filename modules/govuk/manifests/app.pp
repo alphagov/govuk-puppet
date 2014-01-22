@@ -66,6 +66,14 @@ define govuk::app (
   $intercept_errors = false,
 
   #
+  # deny_framing: should we allow this app to be framed
+  #
+  # If set to true, the nginx fronting the app will set the X-Frame-Options
+  # header in such a way as to deny framing in clients that support the header.
+  #
+  $deny_framing = false,
+
+  #
   # platform: the deployment environment to configure
   #
   # You probably don't need to set this explicitly.
@@ -229,6 +237,7 @@ define govuk::app (
     nginx_extra_app_config    => $nginx_extra_app_config,
     health_check_path         => $health_check_path,
     intercept_errors          => $intercept_errors,
+    deny_framing              => $deny_framing,
     enable_nginx_vhost        => $enable_nginx_vhost,
     logstream                 => $logstream,
     nagios_cpu_warning        => $nagios_cpu_warning,

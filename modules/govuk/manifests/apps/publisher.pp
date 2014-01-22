@@ -7,6 +7,7 @@ class govuk::apps::publisher( $port = 3000 ) {
     health_check_path  => '/',
     log_format_is_json => true,
     asset_pipeline     => true,
+    deny_framing       => true,
   }
 
   $service_desc = 'publisher local authority data importer error'

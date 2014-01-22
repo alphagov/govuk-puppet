@@ -9,6 +9,7 @@ class govuk::apps::signon( $port = 3016 ) {
     vhost_protected    => false,
     logstream          => false,
     asset_pipeline     => true,
+    deny_framing       => true,
   }
 
   govuk::procfile::worker {'signon': }

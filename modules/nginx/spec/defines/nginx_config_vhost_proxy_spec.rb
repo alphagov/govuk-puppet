@@ -56,4 +56,18 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'with deny_framing true' do
+    let(:params) do
+      {
+        :to => ['a.internal'],
+        :deny_framing => true,
+      }
+    end
+
+    it 'should add the X-Frame-Options header' do
+      should contain_nginx__config__site('rabbit')
+        .with_content(/add_header X-Frame-Options/)
+    end
+  end
+
 end
