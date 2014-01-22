@@ -7,8 +7,8 @@ shared_examples 'hosts and logstream enabled' do
 end
 
 describe 'govuk::gor', :type => :class do
-  let(:host_staging) { 'www-origin-staging.production.alphagov.co.uk' }
-  let(:host_plat1prod) { 'www-origin-plat1.production.alphagov.co.uk' }
+  let(:host_staging) { 'https://www-origin-staging.production.alphagov.co.uk' }
+  let(:host_plat1prod) { 'https://www-origin-plat1.production.alphagov.co.uk' }
   let(:args_default) {{
     '-input-raw'          => 'localhost:7999',
     '-output-http-method' => %w{GET HEAD OPTIONS},
