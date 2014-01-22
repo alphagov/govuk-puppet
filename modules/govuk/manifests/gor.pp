@@ -13,16 +13,16 @@ class govuk::gor(
   # illusion that you can modify these on the fly. You will need to tidy
   # up old `host{}` records.
   $staging_ip     = '217.171.99.81'
-  $staging_host   = 'https://www-origin-staging.production.alphagov.co.uk'
+  $staging_host   = 'www-origin-staging.production.alphagov.co.uk'
   $plat1prod_ip   = '37.26.90.220'
-  $plat1prod_host = 'https://www-origin-plat1.production.alphagov.co.uk'
+  $plat1prod_host = 'www-origin-plat1.production.alphagov.co.uk'
 
   $gor_target0 = $enable_staging ? {
-    true    => [$staging_host],
+    true    => ["https://${staging_host}"],
     default => [],
   }
   $gor_target1 = $enable_plat1prod ? {
-    true    => [$plat1prod_host],
+    true    => ["https://${plat1prod_host}"],
     default => [],
   }
 

@@ -7,8 +7,8 @@ shared_examples 'hosts and logstream enabled' do
 end
 
 describe 'govuk::gor', :type => :class do
-  let(:host_staging) { 'https://www-origin-staging.production.alphagov.co.uk' }
-  let(:host_plat1prod) { 'https://www-origin-plat1.production.alphagov.co.uk' }
+  let(:host_staging) { 'www-origin-staging.production.alphagov.co.uk' }
+  let(:host_plat1prod) { 'www-origin-plat1.production.alphagov.co.uk' }
   let(:args_default) {{
     '-input-raw'          => 'localhost:7999',
     '-output-http-method' => %w{GET HEAD OPTIONS},
@@ -34,7 +34,7 @@ describe 'govuk::gor', :type => :class do
       should contain_class('gor').with(
         :service_ensure => 'running',
         :args           => args_default.merge({
-          '-output-http' => [host_staging],
+          '-output-http' => ["https://#{host_staging}"],
         }),
       )
     }
@@ -51,7 +51,7 @@ describe 'govuk::gor', :type => :class do
       should contain_class('gor').with(
         :service_ensure => 'running',
         :args           => args_default.merge({
-          '-output-http' => [host_plat1prod],
+          '-output-http' => ["https://#{host_plat1prod}"],
         }),
       )
     }
@@ -69,7 +69,7 @@ describe 'govuk::gor', :type => :class do
       should contain_class('gor').with(
         :service_ensure => 'running',
         :args           => args_default.merge({
-          '-output-http' => [host_staging, host_plat1prod],
+          '-output-http' => ["https://#{host_staging}","https://#{host_plat1prod}"],
         }),
       )
     }
