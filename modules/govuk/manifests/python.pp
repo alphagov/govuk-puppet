@@ -9,7 +9,7 @@ class govuk::python {
       packages   => 'python-pip',
       originator => 'Ubuntu',
       priority   => 1001,
-      before     => Class['::python'],
+      before     => Class['::python::install'],
     }
   }
 
