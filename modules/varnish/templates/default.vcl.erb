@@ -90,6 +90,10 @@ sub vcl_fetch {
   # longer than req.grace in vcl_recv.
   set beresp.grace = 6h;
 
+  # hide some internal headers
+  unset beresp.http.X-Rack-Cache;
+  unset beresp.http.X-Runtime;
+
   # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
   if (req.url !~ "^/apply-for-a-licence") {
     unset beresp.http.Set-Cookie;
@@ -112,10 +116,6 @@ sub vcl_fetch {
     set beresp.ttl = 0s;
     return(hit_for_pass);
   }
-
-  # hide some internal headers
-  unset beresp.http.X-Rack-Cache;
-  unset beresp.http.X-Runtime;
 
   # If the backend says no-cache or no-store, we should not cache
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") {
