@@ -19,4 +19,11 @@ node default {
       }
     }
   }
+
+  if hiera(use_hiera_disks, false) {
+    $lv = hiera('lv',{})
+    create_resources('govuk::lvm', $lv)
+    $mount = hiera('mount',{})
+    create_resources('govuk::mount', $mount)
+  }
 }
