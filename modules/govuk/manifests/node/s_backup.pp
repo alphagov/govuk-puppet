@@ -4,12 +4,12 @@ class govuk::node::s_backup {
     class {'backup::server':
       require => Govuk::Mount['/data/backups'],
     }
-
-    govuk::mount { '/data/backups':
-      mountoptions => 'errors=remount-ro',
-      disk         => '/dev/sdb1',
-    }
-
+  if !hiera(use_hiera_disks,false) {
+      govuk::mount { '/data/backups':
+        mountoptions => 'errors=remount-ro',
+        disk         => '/dev/sdb1',
+      }
+  }
     #To accommodate futzing around with databases, we install a MySQL server
     $root_password = extlookup('mysql_root', '')
     class { 'mysql::server':

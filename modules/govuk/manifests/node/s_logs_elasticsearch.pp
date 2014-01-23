@@ -28,11 +28,13 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     ],
   }
 
-  govuk::mount { '/mnt/elasticsearch':
-    nagios_warn  => 10,
-    nagios_crit  => 5,
-    mountoptions => 'defaults',
-    disk         => '/dev/sdb1',
+  if !hiera(use_hiera_disks,false) {
+    govuk::mount { '/mnt/elasticsearch':
+      nagios_warn  => 10,
+      nagios_crit  => 5,
+      mountoptions => 'defaults',
+      disk         => '/dev/sdb1',
+    }
   }
 
   elasticsearch::plugin { 'redis-river':

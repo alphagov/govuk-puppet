@@ -3,16 +3,17 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
   include mongodb::server
   include java::openjdk6::jre
 
-  govuk::mount { '/mnt/encrypted':
-    mountoptions => 'defaults',
-    disk         => '/dev/mapper/encrypted-mongodb',
-  }
+  if !hiera(use_hiera_disks,false) {
+    govuk::mount { '/mnt/encrypted':
+      mountoptions => 'defaults',
+      disk         => '/dev/mapper/encrypted-mongodb',
+    }
 
-  govuk::mount { '/var/lib/automongodbbackup':
-    mountoptions => 'defaults',
-    disk         => extlookup('mongodb_backup_disk'),
+    govuk::mount { '/var/lib/automongodbbackup':
+      mountoptions => 'defaults',
+      disk         => extlookup('mongodb_backup_disk'),
+    }
   }
-
   # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
   @@icinga::check { "check_var_lib_mongodb_disk_space_${::hostname}":
     check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /var/lib/mongodb',
