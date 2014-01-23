@@ -33,11 +33,15 @@ describe 'govuk::mount', :type => :define do
 
   context 'custom params' do
     let(:title) { 'gruffalo' }
+    let(:pre_condition) { 'govuk::lvm{"elephant": pv => "/dev/africa", vg => "serengeti"}' }
     let(:params) {{
       :disk         => '/dev/mouse',
       :mountoptions => 'snake=1',
       :mountpoint   => '/mnt/cave',
+      :govuk_lvm    => 'elephant',
     }}
+
+    it { should contain_govuk__lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
 
     it {
       should contain_ext4mount('gruffalo').with(
@@ -46,5 +50,6 @@ describe 'govuk::mount', :type => :define do
         :mountpoint   => '/mnt/cave',
       )
     }
+
   end
 end
