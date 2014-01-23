@@ -7,7 +7,7 @@ PATH="/usr/lib/rbenv/shims:${PATH}"
 CMD="puppet agent --onetime --no-daemonize"
 
 if [ "$(id -u)" -eq "0" ]; then
-  RBENV_VERSION=1.9.3 RUBYOPT="-W0" exec $CMD "$@"
+  RBENV_VERSION=1.9.3 exec $CMD "$@"
 else
-  exec sudo RBENV_VERSION=1.9.3 RUBYOPT="-W0" $CMD "$@"
+  exec sudo RBENV_VERSION=1.9.3 $CMD "$@"
 fi
