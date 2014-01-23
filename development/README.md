@@ -30,7 +30,7 @@ checking for other manufacturers.
     [GDS's GitHub Enterprise](https://github.gds) and you can see the
     [Puppet repository](https://github.gds/gds/puppet) (which you can,
     because you're reading this)
-  * You have [Vagrant 1.2](http://downloads.vagrantup.com/) or greater
+  * You have [Vagrant 1.3](http://downloads.vagrantup.com/) or greater
     installed - these instructions may work with older versions, but
     they're not officially supported
   * You have some other repositories from GDS checked out to work on -
@@ -111,7 +111,7 @@ If you're encountering errors loading the `Vagrantfile`, check you're running th
 
     vagrant --version
 
-if it reports a version below `1.2.x`, you're out of date. This can be
+if it reports a version below `1.3.x`, you're out of date. This can be
 verified by running `which rbenv`, which will likely report a path
 like `/opt/boxen/rbenv/shims/vagrant`.
 
@@ -134,3 +134,10 @@ removed from your `PATH`.
 
 You're likely on the production VPN. Disconnect the VPN and `reload`
 your VM.
+
+### Errors with vagrant-dns having updated vagrant
+
+If after updating vagrant, you get errors regarding vagrant-dns when provisioning the VM you will need to reinstall the vagrant-dns plugin:
+
+    vagrant plugin uninstall vagrant-dns
+    vagrant plugin install vagrant-dns
