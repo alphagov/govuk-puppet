@@ -109,8 +109,8 @@ sub vcl_fetch {
     set beresp.http.No-Fallback = "true";
   }
 
-  # Don't cache 5xx errors from backends. Keep retrying and let them present
-  # their own errors pages if necessary.
+  # Don't cache 5xx errors from backends. Let upstreams retry and
+  # downstreams present their own error pages if necessary.
   if (beresp.status >= 500 && beresp.status <= 504) {
     # Don't cache the decision to not cache
     set beresp.ttl = 0s;
@@ -131,14 +131,6 @@ sub vcl_fetch {
   if (!beresp.http.Cache-Control && !beresp.http.Expires) {
     set beresp.http.X-Varnish-Defaulted = "1";
     set beresp.http.Cache-Control = "max-age=<%= scope.lookupvar('varnish::default_ttl') %>";
-  }
-
-  # if we get a 503 error then server stale content
-  if (beresp.status >= 503 && beresp.status <= 504) {
-    set beresp.saintmode = 30s;
-    if (req.restarts > 0) {
-      return(restart);
-    }
   }
 
   # Allow cached authorized requests
