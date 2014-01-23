@@ -139,6 +139,7 @@ sub vcl_fetch {
   }
 
   # Ignore cookies for caching purposes
+  # For URLs that we haven't already stripped the Set-Cookie.
   if (beresp.http.Set-Cookie) {
     return(deliver);
   }
