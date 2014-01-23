@@ -18,6 +18,10 @@
 #   inodes.
 #   Default: 20
 #
+# [*govuk_lvm*]
+#   If you're using govuk::lvm to create a logical volume pass the title so
+#   that it gets run before the ext4mount.
+#
 # See the ext4mount module/define for all other parameters. They are defined
 # as `undef` here so that upstream defaults are respected, except for
 # `mountpoint` which needs to default to `$title`.
@@ -25,6 +29,7 @@
 define govuk::mount(
   $nagios_warn = 20,
   $nagios_crit = 10,
+  $govuk_lvm = undef,
   # Ext4mount[] options (I long for **kwargs)
   $disk = undef,
   $mountoptions = undef,
@@ -34,6 +39,11 @@ define govuk::mount(
   $exclude_environments = ['vagrant']
 
   unless $::environment in $exclude_environments {
+
+    if $govuk_lvm != undef {
+      Govuk::Lvm[$govuk_lvm] -> Ext4mount[$title]
+    }
+
     ext4mount { $title:
       disk         => $disk,
       mountoptions => $mountoptions,
