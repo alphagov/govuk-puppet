@@ -20,15 +20,21 @@ class collectd::plugin::cdn_fastly(
 
   validate_hash($services)
 
-  $plugin_file = '/usr/lib/collectd/python/cdn_fastly.py'
-  file { $plugin_file:
-    ensure  => present,
-    source  => "puppet:///modules/collectd${plugin_file}",
-    tag     => 'collectd::plugin',
+  package { 'collectd-cdn':
+    ensure   => '0.1.0',
+    provider => 'pip',
+  }
+
+  # FIXME: Remove.
+  file { '/usr/lib/collectd/python/cdn_fastly.py':
+    ensure  => absent,
   }
 
   collectd::plugin { 'cdn_fastly':
     content => template('collectd/etc/collectd/conf.d/cdn_fastly.conf.erb'),
-    require => Class['collectd::plugin::python'],
+    require => [
+      Class['collectd::plugin::python'],
+      Package['collectd-cdn']
+    ],
   }
 }

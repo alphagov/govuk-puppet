@@ -3,14 +3,14 @@
 </LoadPlugin>
 
 <Plugin python>
-  ModulePath "/usr/lib/collectd/python"
-  Import "cdn_fastly"
+  Import "collectd_cdn.fastly"
 
-  <Module cdn_fastly>
+  <Module "collectd_cdn.fastly">
     ApiKey "<%= @api_key -%>"
 
 <% @services.each_pair do |name, id| -%>
-    <Service "<%= name -%>">
+    <Service>
+      Name "<%= name -%>"
       Id "<%= id -%>"
     </Service>
 <% end -%>
