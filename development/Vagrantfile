@@ -7,6 +7,10 @@
 #
 DIST_PREFERRED = 'precise'
 min_required_vagrant_version = '1.3.0'
+DEFAULT_VM_PARAMS = {
+  :memory => 1024,
+  :cpus => 2,
+}
 
 def common_config(config)
   # vagrant-dns is only supported on OS X
@@ -90,11 +94,14 @@ Vagrant.configure("2") do |config|
 
   # Use VMWare Fusion native shared folders
   config.vm.provider :vmware_fusion do |vm, override|
+    vm.vmx["memsize"] = DEFAULT_VM_PARAMS[:memory]
+    vm.vmx["numvcpus"] = DEFAULT_VM_PARAMS[:cpus]
     override.vm.synced_folder "../..", "/var/govuk"
     override.vm.provision :shell, :inline => "NO_GIT_PULL=1 /var/govuk/puppet/tools/puppet-apply-dev"
   end
 
   config.vm.provider :virtualbox do |vm, override|
+    vm.customize [ "modifyvm", :id, "--memory", DEFAULT_VM_PARAMS[:memory], "--cpus", DEFAULT_VM_PARAMS[:cpus] ]
     override.vm.synced_folder "../..", "/var/govuk", :nfs => true
     override.vm.provision :shell, :inline => "NO_GIT_PULL=1 govuk_puppet"
   end
@@ -103,11 +110,11 @@ Vagrant.configure("2") do |config|
   # Example given below to put in Vagrantfile.localconfig if you want to do so:
   #
   #     config.vm.provider :virtualbox do |vm|
-  #       vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
+  #       vm.customize [ "modifyvm", :id, "--memory", "2048", "--cpus", "4" ]
   #     end
   #     config.vm.provider :vmware_fusion do |vm|
-  #       vm.vmx["memsize"] = "1024"
-  #       vm.vmx["numvcpus"] = "2"
+  #       vm.vmx["memsize"] = "2048"
+  #       vm.vmx["numvcpus"] = "4"
   #     end
 
   config = load_local_vagrant_file(config)
