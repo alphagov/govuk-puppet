@@ -20,11 +20,6 @@ class hosts::skyscape::production_like {
     vdc            => 'management',
     legacy_aliases => ['jenkins-1'],
   }
-  govuk::host { 'exception-handler-1':
-    ip             => '10.0.0.4',
-    vdc            => 'management',
-    legacy_aliases => ['exception-handler-1', 'exception-handler', "errbit.${app_domain}"]
-  }
   govuk::host { 'puppetmaster-1':
     ip              => '10.0.0.5',
     vdc             => 'management',
@@ -329,6 +324,11 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['mapit-server-2'],
   }
+  govuk::host { 'exception-handler-1':
+    ip             => '10.0.0.4',
+    vdc            => 'management',
+    legacy_aliases => ['exception-handler-1'],
+  }
   govuk::host { 'redis-1':
     ip             => '10.3.0.50',
     vdc            => 'backend',
@@ -373,6 +373,7 @@ class hosts::skyscape::production_like {
       "contacts.${app_domain}",
       "content-planner.${app_domain}",
       "contentapi.${app_domain}",
+      "errbit.${app_domain}",
       "fact-cave.${app_domain}",
       "govuk-delivery.${app_domain}",
       "imminence.${app_domain}",

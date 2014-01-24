@@ -5,6 +5,7 @@ class govuk::node::s_backend_lb {
   $backend_servers = extlookup('lb_nodes_backend')
   $whitehall_backend_servers = extlookup('lb_nodes_whitehall_backend')
   $mapit_servers = extlookup('lb_nodes_mapit')
+  $errbit_servers = ['exception-handler-1']
   $datainsight_servers = ['datainsight-1']
   $app_domain = extlookup('app_domain')
 
@@ -46,6 +47,11 @@ class govuk::node::s_backend_lb {
     'whitehall-admin':
       https_only => false, # FIXME: Remove for #51136581
       servers    => $whitehall_backend_servers;
+  }
+
+  loadbalancer::balance { 'errbit':
+    servers      => $errbit_servers,
+    https_only   => false, # FIXME: Remove for #51136581
   }
 
   loadbalancer::balance { 'kibana':
