@@ -245,9 +245,6 @@
             },
             {
               "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.frontend.all.deploys,0.001))),\"deploys\")"
-            },
-            {
-              "target": "color(alias(dashed(constantLine(1000.0)),\"smokey timeout\"),\"red\")"
             }
           ],
           "aliasColors": {},
@@ -411,9 +408,6 @@
             },
             {
               "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.whitehall.all.deploys,0.001))),\"deploys\")"
-            },
-            {
-              "target": "color(alias(dashed(constantLine(1000)),\"smokey timeout\"),\"red\")"
             }
           ],
           "aliasColors": {},
