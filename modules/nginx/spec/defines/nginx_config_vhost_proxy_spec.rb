@@ -2,7 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'nginx::config::vhost::proxy', :type => :define do
   let(:title) { 'rabbit' }
-  let(:pre_condition) { 'Logster::Cronjob <||>' }
 
   context 'with a list of upstreams' do
     let(:params) {{
@@ -18,9 +17,6 @@ describe 'nginx::config::vhost::proxy', :type => :define do
 
     it { should contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass http:\/\/rabbit-proxy;$/) }
-
-    it { should contain_logster__cronjob('nginx-vhost-rabbit')
-      .with_prefix('nginx_logs.rabbit') }
 
   end
 

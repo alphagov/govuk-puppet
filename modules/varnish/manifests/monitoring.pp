@@ -4,11 +4,6 @@ class varnish::monitoring {
     fields  => {'application' => 'varnish'},
   }
 
-  @logster::cronjob { 'varnish':
-    file   => '/var/log/varnish/varnishncsa.log',
-    prefix => 'varnish_logs',
-  }
-
   @@nagios::check { "check_varnish_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!varnishd',
     service_description => 'varnishd not running',

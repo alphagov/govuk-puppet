@@ -15,11 +15,6 @@ define nginx::config::vhost::licensify_upload($port='9000') {
       logstream => true;
   }
 
-  @logster::cronjob { "nginx-vhost-${vhost_name}":
-    file    => "/var/log/nginx/${vhost_name}-access.log",
-    prefix  => "nginx_logs.${vhost_escaped}",
-  }
-
   @@nagios::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${vhost_escaped}.http_5xx,0)",
     warning   => 0.05,

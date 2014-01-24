@@ -29,11 +29,6 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     ",
   }
 
-  @logster::cronjob { 'nginx-redirector':
-    file    => '/var/log/nginx/access.log',
-    prefix  => 'nginx_logs.redirector',
-  }
-
   @@nagios::check::graphite { "check_nginx_404_redirector_on_${::hostname}":
     target    => "stats.${::fqdn_underscore}.nginx_logs.default.http_404",
     warning   => 5,
