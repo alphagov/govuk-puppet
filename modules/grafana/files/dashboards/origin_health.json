@@ -210,7 +210,7 @@
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "spyable": true,
           "zoomlinks": false,
           "options": false,
