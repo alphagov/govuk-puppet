@@ -26,6 +26,12 @@ mongodb::server::package_name: 'mongodb20-10gen'
 
 mysql::server::expire_log_days: 3
 
+ntp::server_list:
+  - '0.uk.pool.ntp.org'
+  - '1.uk.pool.ntp.org'
+  - '2.uk.pool.ntp.org'
+  - '3.uk.pool.ntp.org'
+
 perfplat_internal_app_domain: 'development.performance.service.gov.uk'
 
 router::assets_origin::asset_routes:
