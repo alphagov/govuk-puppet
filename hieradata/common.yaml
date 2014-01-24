@@ -51,3 +51,5 @@ router::assets_origin::asset_routes:
   '/tariff/': "tariff"
   '/transaction-wrappers/': "transaction-wrappers"
   '/transactions-explorer/': "transactions-explorer"
+
+timezone::timezone: 'UTC'

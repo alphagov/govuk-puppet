@@ -7,6 +7,7 @@ mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
 mod 'saz/memcached'
 mod 'saz/ntp'
+mod 'saz/timezone'
 
 # Pinned because of: https://github.com/stankevich/puppet-python/issues/46
 mod 'stankevich/python', '1.2.1'
