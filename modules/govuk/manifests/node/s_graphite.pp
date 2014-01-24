@@ -39,11 +39,18 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
 
   include ::nginx
 
+  $cors_headers = '
+  add_header "Access-Control-Allow-Origin" "*";
+  add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
+  add_header "Access-Control-Allow-Headers" "origin, authorization, accept";
+'
+
   nginx::config::vhost::proxy { 'graphite':
-    to        => ['localhost:33333'],
-    root      => '/opt/graphite/webapp',
-    aliases   => ['graphite.*'],
-    protected => str2bool(extlookup('monitoring_protected','yes')),
+    to           => ['localhost:33333'],
+    root         => '/opt/graphite/webapp',
+    aliases      => ['graphite.*'],
+    protected    => str2bool(extlookup('monitoring_protected','yes')),
+    extra_config => $cors_headers,
   }
 
   include collectd::server
