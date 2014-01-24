@@ -18,11 +18,6 @@ class puppet::master::nginx {
       logstream => true;
   }
 
-  @logster::cronjob { 'nginx-vhost-puppetmaster':
-    file    => '/var/log/nginx/puppetmaster-access.log',
-    prefix  => 'nginx_logs.puppetmaster',
-  }
-
   @logrotate::conf { 'puppetmaster':
     matches => '/var/log/puppetmaster/*.log',
   }

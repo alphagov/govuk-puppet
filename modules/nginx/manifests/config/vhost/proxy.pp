@@ -76,11 +76,6 @@ define nginx::config::vhost::proxy(
       logstream => $logstream;
   }
 
-  @logster::cronjob { "nginx-vhost-${title}":
-    file    => "${logpath}/${access_log}",
-    prefix  => "nginx_logs.${title_escaped}",
-  }
-
   @@nagios::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx,0)",
     warning   => 0.05,

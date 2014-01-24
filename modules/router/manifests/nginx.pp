@@ -101,11 +101,6 @@ class router::nginx (
     group  => 'deploy',
   }
 
-  @logster::cronjob { 'lb':
-    file    => '/var/log/nginx/lb-access.log',
-    prefix  => 'nginx_logs',
-  }
-
   @@nagios::check::graphite { "check_nginx_5xx_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
     warning   => 5,

@@ -19,9 +19,6 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     it { should contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass http:\/\/rabbit-proxy;$/) }
 
-    it { should contain_logster__cronjob('nginx-vhost-rabbit')
-      .with_prefix('nginx_logs.rabbit') }
-
   end
 
   context 'with to_ssl true' do
