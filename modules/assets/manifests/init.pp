@@ -19,7 +19,7 @@ class assets {
   }
 
   if $::govuk_platform != 'development' {
-    $app_domain = extlookup('app_domain')
+    $app_domain = hiera('app_domain')
 
     mount { '/data/uploads':
       ensure   => 'mounted',

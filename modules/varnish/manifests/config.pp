@@ -1,7 +1,7 @@
 class varnish::config {
   include varnish::restart
 
-  $app_domain  = extlookup('app_domain')
+  $app_domain  = hiera('app_domain')
   $router_port = '3054'
 
   file { '/etc/default/varnish':

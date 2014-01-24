@@ -39,7 +39,7 @@ define loadbalancer::balance(
     $read_timeout = 15,
 ) {
 
-  $vhost_suffix = extlookup('app_domain')
+  $vhost_suffix = hiera('app_domain')
   $vhost_real = "${vhost}.${vhost_suffix}"
 
   nginx::config::ssl { $vhost_real:

@@ -3,7 +3,7 @@ class govuk::apps::frontend(
   $vhost_protected = false
 ) {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   $nginx_extra_config = $::govuk_platform ? {
     'development' => '',

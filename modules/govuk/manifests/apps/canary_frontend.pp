@@ -2,7 +2,7 @@
 # to assert that the origin datacentre is up. It is fetched by Pingdom.
 class govuk::apps::canary_frontend {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   nginx::config::site { "canary-frontend.${app_domain}":
     content => "

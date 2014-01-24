@@ -57,7 +57,7 @@ class govuk::deploy::config {
     require => File['/etc/govuk'],
   }
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   govuk::envvar { 'GOVUK_APP_DOMAIN':
     value => $app_domain,

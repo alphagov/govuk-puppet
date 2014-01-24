@@ -3,7 +3,7 @@ define datainsight::collector (
 ) {
 
   # Variable setup
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $vhost_real = $vhost ? {
     undef   => "datainsight-${title}-collector",
     default => $vhost

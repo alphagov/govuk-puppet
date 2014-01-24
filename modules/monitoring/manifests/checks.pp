@@ -6,7 +6,7 @@ class monitoring::checks {
   include monitoring::checks::ses
   include monitoring::checks::smokey
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $http_username = extlookup('http_username', 'UNSET')
   $http_password = extlookup('http_password', 'UNSET')
 

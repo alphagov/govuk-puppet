@@ -6,7 +6,7 @@ class govuk::node::s_backend_lb {
   $whitehall_backend_servers = extlookup('lb_nodes_whitehall_backend')
   $mapit_servers = extlookup('lb_nodes_mapit')
   $datainsight_servers = ['datainsight-1']
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   Loadbalancer::Balance {
     servers => $backend_servers,

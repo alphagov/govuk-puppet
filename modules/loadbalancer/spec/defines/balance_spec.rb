@@ -1,6 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'loadbalancer::balance', :type => :define do
+  let (:hiera_data) {{
+      'app_domain' => 'test.gov.uk',
+    }}
+
   context 'external load balancer' do
     let(:title) { 'giraffe' }
     let(:params) {

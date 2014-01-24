@@ -1,5 +1,5 @@
 class govuk::apps::transactions_explorer {
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $app_name = 'transactions-explorer'
   $vhost_full = "${app_name}.${app_domain}"
   $app_path = "/data/vhost/${app_name}"

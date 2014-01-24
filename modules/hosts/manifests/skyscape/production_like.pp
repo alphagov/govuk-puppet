@@ -6,7 +6,7 @@
 # ends .cluster is maintained for backwards compatibility with ec2
 class hosts::skyscape::production_like {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $internal_tld = extlookup('internal_tld', 'production')
 
   #management vdc machines

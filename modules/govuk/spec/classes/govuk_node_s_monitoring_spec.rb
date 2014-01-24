@@ -13,6 +13,10 @@ shared_examples 'configured contact groups' do |urgent, high, normal|
 end
 
 describe 'govuk::node::s_monitoring', :type => :class do
+  let (:hiera_data) {{
+      'app_domain' => 'giraffe.biz',
+    }}
+
   context 'param defaults' do
     it { should_not contain_nagios__campfire_contact('campfire_notification') }
 

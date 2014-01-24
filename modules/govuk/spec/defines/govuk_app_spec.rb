@@ -2,6 +2,9 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk::app', :type => :define do
   let(:title) { 'giraffe' }
+  let(:hiera_data) {{
+      'app_domain' => 'test.gov.uk',
+    }}
 
   context 'with no params' do
     it do

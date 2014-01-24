@@ -14,7 +14,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include imagemagick
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   include govuk::apps::asset_manager
   include govuk::apps::business_support_api

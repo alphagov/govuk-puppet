@@ -1,6 +1,6 @@
 class jenkins::master inherits jenkins {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   apt::source { 'jenkins':
     location => 'http://pkg.jenkins-ci.org/debian',

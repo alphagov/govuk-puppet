@@ -14,7 +14,7 @@ class govuk::apps::bouncer(
     enable_nginx_vhost => false
   }
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   # Nginx proxy config with wildcard alias
   govuk::app::nginx_vhost { 'bouncer':

@@ -6,7 +6,7 @@
 # config with an actual application that returns some diagnostics data.
 class govuk::apps::canary_backend {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   nginx::config::site { "canary-backend.${app_domain}":
     content => "

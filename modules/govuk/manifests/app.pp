@@ -214,7 +214,7 @@ define govuk::app (
     default  => $vhost,
   }
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $vhost_full = "${vhost_real}.${app_domain}"
 
   include govuk::deploy
