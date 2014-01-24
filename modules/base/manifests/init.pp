@@ -18,6 +18,7 @@ class base {
   include motd
   include sudo
   include sysctl
+  include timezone
   include tmpreaper
   include tmux
   include wget
