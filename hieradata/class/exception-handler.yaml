@@ -1,0 +1,4 @@
+---
+
+mongodb::server::version: '2.4.9'
+mongodb::server::package_name: 'mongodb-10gen'
