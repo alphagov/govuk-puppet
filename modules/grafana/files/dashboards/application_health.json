@@ -86,9 +86,6 @@
             },
             {
               "target": "groupByNode(stats.timers.backend-?_backend_production.contentapi.time_*.mean,4,\"avg\")"
-            },
-            {
-              "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.contentapi.all.deploys,0.001))),\"deploys\")"
             }
           ],
           "aliasColors": {},
@@ -164,9 +161,6 @@
             },
             {
               "target": "groupByNode(stats.timers.calculators-frontend-?_frontend_production.smartanswers.time_*.mean,4,\"avg\")"
-            },
-            {
-              "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.smartanswers.all.deploys,0.001))),\"deploys\")"
             }
           ],
           "aliasColors": {},
@@ -242,9 +236,6 @@
             },
             {
               "target": "groupByNode(stats.timers.frontend-?_frontend_production.frontend.time_*.mean,4,\"avg\")"
-            },
-            {
-              "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.frontend.all.deploys,0.001))),\"deploys\")"
             }
           ],
           "aliasColors": {},
@@ -330,9 +321,6 @@
             },
             {
               "target": "groupByNode(stats.timers.backend-?_backend_production.search.time_*.mean,4,\"avg\")"
-            },
-            {
-              "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.rummager.all.deploys,0.001))),\"deploys\")"
             }
           ],
           "aliasColors": {},
@@ -405,9 +393,6 @@
           "targets": [
             {
               "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend_production.whitehall.time_*.mean,4,\"avg\")"
-            },
-            {
-              "target": "alias(dashed(drawAsInfinite(removeBelowValue(stats.govuk.app.whitehall.all.deploys,0.001))),\"deploys\")"
             }
           ],
           "aliasColors": {},
