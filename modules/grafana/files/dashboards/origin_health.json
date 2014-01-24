@@ -393,7 +393,7 @@
           },
           "targets": [
             {
-              "target": "highestMax(*production.nginx.nginx_connections-writing,6)"
+              "target": "aliasByNode(highestMax(*production.nginx.nginx_connections-writing,6),0)"
             }
           ],
           "aliasColors": {},
