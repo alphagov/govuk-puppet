@@ -2,7 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'nginx::config::vhost::proxy', :type => :define do
   let(:title) { 'rabbit' }
-  let(:pre_condition) { 'Logster::Cronjob <||>' }
 
   context 'with a list of upstreams' do
     let(:params) {{
