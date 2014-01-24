@@ -349,10 +349,35 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['mysql-slave-1', 'slave.mysql'],
   }
+  govuk::host { 'mysql-slave-2':
+    ip             => '10.3.10.3',
+    vdc            => 'backend',
+    legacy_aliases => ['mysql-slave-2'],
+  }
   govuk::host { 'mysql-backup-1':
     ip             => '10.3.10.2',
     vdc            => 'backend',
     legacy_aliases => ['mysql-backup-1', 'backup.mysql'],
+  }
+  govuk::host { 'whitehall-mysql-master-1':
+    ip             => '10.3.10.30',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-mysql-master-1', 'whitehall-master.mysql', "whitehall-mysql.backend.${internal_tld}"],
+  }
+  govuk::host { 'whitehall-mysql-slave-1':
+    ip             => '10.3.10.31',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-mysql-slave-1', 'whitehall-slave.mysql'],
+  }
+  govuk::host { 'whitehall-mysql-slave-2':
+    ip             => '10.3.10.32',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-mysql-slave-2'],
+  }
+  govuk::host { 'whitehall-mysql-backup-1':
+    ip             => '10.3.10.34',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-mysql-backup-1', 'whitehall-backup.mysql'],
   }
   govuk::host { 'backend-lb-1':
     ip             => '10.3.0.101',
