@@ -28,7 +28,7 @@
           "y_format": "none",
           "y2_format": "none",
           "grid": {
-            "max": null,
+            "max": 300,
             "min": 0
           },
           "annotate": {
