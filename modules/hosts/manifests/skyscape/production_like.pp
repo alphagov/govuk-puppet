@@ -325,8 +325,8 @@ class hosts::skyscape::production_like {
     legacy_aliases => ['mapit-server-2'],
   }
   govuk::host { 'exception-handler-1':
-    ip             => '10.0.0.4',
-    vdc            => 'management',
+    ip             => '10.3.0.40',
+    vdc            => 'backend',
     legacy_aliases => ['exception-handler-1'],
   }
   govuk::host { 'redis-1':
