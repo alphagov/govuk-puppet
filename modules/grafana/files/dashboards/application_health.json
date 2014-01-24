@@ -28,7 +28,7 @@
           "y_format": "none",
           "y2_format": "none",
           "grid": {
-            "max": 300,
+            "max": 1500,
             "min": 0
           },
           "annotate": {
@@ -106,7 +106,7 @@
           "y_format": "none",
           "y2_format": "none",
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0
           },
           "annotate": {
@@ -184,7 +184,7 @@
           "y_format": "none",
           "y2_format": "none",
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0
           },
           "annotate": {
@@ -272,7 +272,7 @@
           "y_format": "none",
           "y2_format": "none",
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0
           },
           "annotate": {
@@ -350,7 +350,7 @@
           "y_format": "none",
           "y2_format": "none",
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0
           },
           "annotate": {
