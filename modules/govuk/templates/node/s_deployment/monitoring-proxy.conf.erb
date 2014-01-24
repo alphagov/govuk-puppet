@@ -45,9 +45,5 @@ server {
   location / {
     proxy_pass http://graphite.cluster/;
     proxy_set_header Host $http_host;
-
-    add_header "Access-Control-Allow-Origin" "*";
-    add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
-    add_header "Access-Control-Allow-Headers" "origin, authorization, accept";
   }
 }
