@@ -349,6 +349,11 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => ['mysql-slave-1', 'slave.mysql'],
   }
+  govuk::host { 'mysql-slave-2':
+    ip             => '10.3.10.3',
+    vdc            => 'backend',
+    legacy_aliases => ['mysql-slave-2'],
+  }
   govuk::host { 'mysql-backup-1':
     ip             => '10.3.10.2',
     vdc            => 'backend',
