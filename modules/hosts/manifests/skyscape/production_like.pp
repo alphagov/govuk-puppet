@@ -9,6 +9,14 @@ class hosts::skyscape::production_like {
   $app_domain = extlookup('app_domain')
   $internal_tld = extlookup('internal_tld', 'production')
 
+  # Remove old exception-handler host entry.
+  # It's now in the backend vDC.  Without this, the exception-handler-1 alias was
+  # present in both host entries
+  # This can be removed when it's run everywhere
+  host { "exception-handler-1.management.${internal_tld}":
+    ensure       => absent,
+  }
+
   #management vdc machines
   govuk::host { 'puppet-1':
     ip              => '10.0.0.2',
