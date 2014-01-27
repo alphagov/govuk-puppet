@@ -46,12 +46,13 @@ class mirror {
   $service_desc = 'mirrorer update and upload'
   $threshold_secs = 28 * (60 * 60)
 
-  @@nagios::passive_check { "check-mirrorer-${::hostname}":
-    service_description => $service_desc,
-    host_name           => $::fqdn,
-    freshness_threshold => $threshold_secs,
+  if str2bool(hiera('mirrorer::update_check'),'true')) {}
+    @@nagios::passive_check { "check-mirrorer-${::hostname}":
+      service_description => $service_desc,
+      host_name           => $::fqdn,
+      freshness_threshold => $threshold_secs,
+    }
   }
-
   # parent script that is called by cron that calls the above scripts to do the mirroring
   file { '/usr/local/bin/govuk_update_and_upload_mirror':
     ensure  => present,
