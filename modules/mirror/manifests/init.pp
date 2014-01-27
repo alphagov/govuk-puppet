@@ -46,7 +46,7 @@ class mirror {
   $service_desc = 'mirrorer update and upload'
   $threshold_secs = 28 * (60 * 60)
 
-  if str2bool(hiera('mirrorer::update_check'),'true') {
+  if str2bool(hiera('mirrorer::update_check','true')) {
     @@nagios::passive_check { "check-mirrorer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
