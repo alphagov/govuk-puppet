@@ -3,44 +3,40 @@
 require 'yaml'
 
 puppet_agent_summary_filename = "/var/lib/puppet/state/last_run_summary.yaml"
-if File.exists?(puppet_agent_summary_filename)
-  begin
-    summary = YAML.load_file(puppet_agent_summary_filename)
+begin
+  summary = YAML.load_file(puppet_agent_summary_filename)
 
-    total_events = summary['events']['total'].to_i
-    total_resources = summary['resources']['total'].to_i
-    total_changes = summary['changes']['total'].to_i
-    config_version = summary['version']['config']
+  total_events = summary['events']['total'].to_i
+  total_resources = summary['resources']['total'].to_i
+  total_changes = summary['changes']['total'].to_i
+  config_version = summary['version']['config']
 
-    if(total_events + total_resources + total_changes == 0)
-      puts "CRITICAL: Puppet run did not have anything, check logs [ver: #{config_version}]"
-      exit 2
-    end
-
-    resource_failures = summary['resources']['failed'].to_i + summary['resources']['failed_to_restart'].to_i
-    events_failures = summary['events']['failure'].to_i
-
-    if(resource_failures + events_failures > 0)
-      puts "WARNING: Puppet run had some failures [ver: #{config_version}]"
-      exit 1
-    end
-  rescue
-    puts "UNKNOWN: Could not parse puppet summary file"
-    exit 3
+  if(total_events + total_resources + total_changes == 0)
+    puts "CRITICAL: Puppet run did not have anything, check logs [ver: #{config_version}]"
+    exit 2
   end
+
+  resource_failures = summary['resources']['failed'].to_i + summary['resources']['failed_to_restart'].to_i
+  events_failures = summary['events']['failure'].to_i
+
+  if(resource_failures + events_failures > 0)
+    puts "WARNING: Puppet run had some failures [ver: #{config_version}]"
+    exit 1
+  end
+rescue
+  puts "UNKNOWN: Could not parse puppet summary file"
+  exit 3
 end
 
 puppet_agent_report_filename = "/var/lib/puppet/state/last_run_report.yaml"
-if File.exists?(puppet_agent_report_filename)
-  begin
-    if File.read(puppet_agent_report_filename) =~ /message: Using cached catalog/
-      puts "WARNING: Puppet used a cached catalog - catalog compilation failure?"
-      exit 1
-    end
-  rescue
-    puts "UNKNOWN: Could not read #{puppet_agent_report_filename}"
-    exit 3
+begin
+  if File.read(puppet_agent_report_filename) =~ /message: Using cached catalog/
+    puts "WARNING: Puppet used a cached catalog - catalog compilation failure?"
+    exit 1
   end
+rescue
+  puts "UNKNOWN: Could not read #{puppet_agent_report_filename}"
+  exit 3
 end
 
 puts "OK: Puppet is doing good [ver: #{config_version}]"
