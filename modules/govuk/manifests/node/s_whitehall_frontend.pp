@@ -11,7 +11,7 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
     jre => 'oracle7',
   }
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $protect_fe = str2bool(extlookup('protect_frontend_apps', 'no'))
 
 

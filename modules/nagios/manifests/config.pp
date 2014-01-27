@@ -4,7 +4,7 @@ class nagios::config {
   include nagios::config::pingdom
   include nagios::config::smokey
 
-  $app_domain = extlookup('app_domain','dev.gov.uk')
+  $app_domain = hiera('app_domain','dev.gov.uk')
 
   # Used by graphite check templates, below
   $http_username = extlookup('http_username', '')

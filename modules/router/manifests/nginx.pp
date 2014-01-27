@@ -27,7 +27,7 @@ class router::nginx (
   include router::assets_origin
   include router::fco_services
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
     certtype => 'wildcard_alphagov'

@@ -10,7 +10,7 @@
 class router::assets_origin(
   $asset_routes = {},
 ) {
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $vhost_name = "assets-origin.${app_domain}"
 
   # suspect we want `protected => false` here

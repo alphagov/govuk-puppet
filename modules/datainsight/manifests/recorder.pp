@@ -1,6 +1,6 @@
 define datainsight::recorder($port) {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   govuk::app { "datainsight-${title}-recorder":
     app_type => 'rack',

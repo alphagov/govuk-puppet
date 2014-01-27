@@ -6,6 +6,9 @@ describe 'router::nginx', :type => :class do
   end
 
   let(:routes_path) { '/etc/nginx/router_include.conf' }
+  let(:hiera_data) {{
+      'app_domain' => 'giraffe.biz',
+    }}
 
   context 'vhost_protected' do
     context 'set to false' do

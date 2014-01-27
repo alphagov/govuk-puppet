@@ -1,6 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'varnish', :type => :class do
+  let(:hiera_data) {{
+      'app_domain' => 'giraffe.biz',
+    }}
+
   context 'Varnish 3.x on Precise' do
     let(:facts) {{
       :lsbdistcodename => 'precise',

@@ -1,5 +1,5 @@
 class performance_platform::spotlight {
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $perfplat_internal_app_domain = hiera('perfplat_internal_app_domain')
 
   $app_name = 'spotlight'

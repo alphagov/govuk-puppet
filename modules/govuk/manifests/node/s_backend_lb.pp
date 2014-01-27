@@ -7,7 +7,7 @@ class govuk::node::s_backend_lb {
   $mapit_servers = extlookup('lb_nodes_mapit')
   $errbit_servers = ['exception-handler-1']
   $datainsight_servers = ['datainsight-1']
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   Loadbalancer::Balance {
     servers => $backend_servers,

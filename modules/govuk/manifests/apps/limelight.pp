@@ -6,7 +6,7 @@ class govuk::apps::limelight(
   $limelight_proxy_performance_api = str2bool(extlookup('limelight_proxy_performance_api', 'no'))
 
   if $limelight_proxy_performance_api {
-    $app_domain = extlookup('app_domain')
+    $app_domain = hiera('app_domain')
     $publicapi_domain = "publicapi.${app_domain}"
 
     $nginx_extra_config = "

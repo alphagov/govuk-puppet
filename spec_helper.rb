@@ -1,9 +1,22 @@
 require 'csv'
 require 'rspec-puppet'
 require 'puppet'
+require 'hiera-puppet-helper'
 require 'puppet/parser/functions/extlookup'
 
 HERE = File.expand_path(File.dirname(__FILE__))
+
+class Puppet::Resource
+  # If you test a class which has a default parameter, but don't
+  # explicitly pass the parameter in, puppet explodes because it tries
+  # to automatically inject parameter values from hiera and gets
+  # confused due to hiera-puppet-helper's antics. This monkey patch
+  # disables automatic parameter injection to stop that happening.
+  # TODO: perhaps push this upstream to hiera-puppet-helper?
+  def lookup_external_default_for(param, scope)
+    nil
+  end
+end
 
 module MockExtdata
   def update_extdata(h)

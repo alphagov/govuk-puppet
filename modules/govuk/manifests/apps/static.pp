@@ -2,7 +2,7 @@
 #
 # The GOV.UK static application -- serves static assets and templates
 class govuk::apps::static( $port = 3013 ) {
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $website_root = extlookup('website_root')
   $asset_manager_host = "asset-manager.${app_domain}"
 

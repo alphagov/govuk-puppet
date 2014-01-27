@@ -1,6 +1,6 @@
 class govuk::apps::publicapi {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"

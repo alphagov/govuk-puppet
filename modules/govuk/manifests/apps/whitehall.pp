@@ -8,7 +8,7 @@ class govuk::apps::whitehall(
   $nagios_memory_critical = undef
 ) {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   if $::govuk_platform != 'development' {
     if $configure_frontend == true and $configure_admin == true {

@@ -17,7 +17,7 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
     mode    => undef,
   }
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
 
   mount { '/data/master-uploads':
     ensure   => 'mounted',

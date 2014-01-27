@@ -1,7 +1,7 @@
 define router::fco_services::service (
   $slug = $title,
 ) {
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $enable_auth = str2bool(extlookup('protect_cache_servers', 'no'))
 
   $domain_prefix = extlookup('fco_services_domain_prefix')

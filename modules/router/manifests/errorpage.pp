@@ -1,6 +1,6 @@
 define router::errorpage () {
 
-  $app_domain = extlookup('app_domain')
+  $app_domain = hiera('app_domain')
   $filename = "/usr/share/nginx/www/${title}.html"
 
   # Only triggers every 6h or if the file doesn't exist.
