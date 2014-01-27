@@ -29,14 +29,16 @@ rescue
 end
 
 puppet_agent_report_filename = "/var/lib/puppet/state/last_run_report.yaml"
-begin
-  if File.read(puppet_agent_report_filename) =~ /message: Using cached catalog/
-    puts "WARNING: Puppet used a cached catalog - catalog compilation failure?"
-    exit 1
+if File.exists?(puppet_agent_report_filename)
+  begin
+    if File.read(puppet_agent_report_filename) =~ /message: Using cached catalog/
+      puts "WARNING: Puppet used a cached catalog - catalog compilation failure?"
+      exit 1
+    end
+  rescue
+    puts "UNKNOWN: Could not read #{puppet_agent_report_filename}"
+    exit 3
   end
-rescue
-  puts "UNKNOWN: Could not read #{puppet_agent_report_filename}"
-  exit 3
 end
 
 puts "OK: Puppet is doing good [ver: #{config_version}]"
