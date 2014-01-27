@@ -42,12 +42,6 @@ class govuk::node::s_backup {
         fq_dn     => 'router-backend-1.router.production',
     }
 
-    backup::directory {'backup_mongodb_backups_exception-handler-1':
-        directory => '/var/lib/automongodbbackup/',
-        host_name => 'exception-handler-1',
-        fq_dn     => 'exception-handler-1.management.production',
-    }
-
     backup::directory {'backup_mysql_backups_mysql_backup_1':
         directory => '/var/lib/automysqlbackup/',
         host_name => 'mysql-backup-1',
