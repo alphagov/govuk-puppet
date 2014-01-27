@@ -80,6 +80,12 @@ http {
     gzip_types          text/css text/xml application/x-javascript application/atom+xml text/plain;
     gzip_vary           on;
 
+    # SSL session cache options moved here as a workaround to Nginx bug:
+    # http://trac.nginx.org/nginx/ticket/235
+    # FIXME: Move back to ssl.conf once bug is fixed
+    ssl_session_cache         shared:SSL:10m;
+    ssl_session_timeout       5m;
+
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
 }
