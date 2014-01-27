@@ -1,4 +1,7 @@
-class govuk::apps::publisher( $port = 3000 ) {
+class govuk::apps::publisher(
+    $port = 3000,
+    $nagios_data_importer_check = true
+  ) {
 
   govuk::app { 'publisher':
     app_type           => 'rack',
@@ -18,10 +21,11 @@ class govuk::apps::publisher( $port = 3000 ) {
     content => template('govuk/local_authority_import_check.erb'),
   }
 
-  @@nagios::passive_check { "check-local-authority-data-importer-${::hostname}":
-    service_description => $service_desc,
-    host_name           => $::fqdn,
-    freshness_threshold => 28 * (60 * 60),
+  if str2bool($nagios_data_importer_check) {
+    @@nagios::passive_check { "check-local-authority-data-importer-${::hostname}":
+      service_description => $service_desc,
+      host_name           => $::fqdn,
+      freshness_threshold => 28 * (60 * 60),
+    }
   }
-
 }
