@@ -11,7 +11,7 @@ class monitoring::checks {
   $http_password = extlookup('http_password', 'UNSET')
 
   # START frontend
-  @@nagios::check::graphite { 'check_frontend_to_exit_404_rejects':
+  nagios::check::graphite { 'check_frontend_to_exit_404_rejects':
     target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),"5minutes")',
     warning   => 50,
     critical  => 100,
@@ -20,7 +20,7 @@ class monitoring::checks {
   }
   # END frontend
 
-  @nagios::plugin { 'check_http_timeout_noncrit':
+  nagios::plugin { 'check_http_timeout_noncrit':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_http_timeout_noncrit',
   }
 
@@ -47,7 +47,7 @@ class monitoring::checks {
   # START datainsight
   $datainsight_base_uri = "https://${http_username}:${http_password}@datainsight-frontend.${app_domain}/performance/dashboard"
 
-  @nagios::plugin { 'check_datainsight_recorder':
+  nagios::plugin { 'check_datainsight_recorder':
     source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_datainsight_recorder.rb',
   }
 
