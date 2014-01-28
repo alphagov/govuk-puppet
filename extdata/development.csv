@@ -1,6 +1,5 @@
 app_domain,"dev.gov.uk"
 app_domain_suffix,"dev.gov.uk"
-asset_host,"http://static.dev.gov.uk"
 asset_root,"http://static.dev.gov.uk"
 backdropread_protocol,"http"
 govuk_app_enable_capistrano_layout,false

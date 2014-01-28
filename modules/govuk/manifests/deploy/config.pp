@@ -65,14 +65,6 @@ class govuk::deploy::config {
 
   $asset_root = extlookup('asset_root', "https://static.${app_domain}")
 
-  # This file is deprecated and will be removed once the transition from
-  # asset_host -> asset_root is completed.
-  file { '/etc/govuk/asset_host.conf':
-    ensure  => present,
-    content => $asset_root,
-    require => File['/etc/govuk'],
-  }
-
   govuk::envvar { 'GOVUK_ASSET_ROOT':
     value => $asset_root,
   }
@@ -82,17 +74,6 @@ class govuk::deploy::config {
   govuk::envvar { 'GOVUK_WEBSITE_ROOT':
     value => $website_root,
   }
-
-  # I don't want to create the following with invalid content, which it would
-  # contain until the asset_host extdata variable is repurposed. Commented out
-  # until the transition from asset_host -> asset_root has occurred in
-  # extdata.
-
-  # $asset_host = extlookup('asset_host', "static.${app_domain}")
-
-  # govuk::envvar { 'GOVUK_ASSET_HOST':
-  #   value => $asset_host,
-  # }
 
   govuk::envvar { 'GOVUK_ASSET_HOST':
     value => $asset_root,
