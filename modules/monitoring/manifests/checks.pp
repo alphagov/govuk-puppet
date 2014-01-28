@@ -10,16 +10,6 @@ class monitoring::checks {
   $http_username = extlookup('http_username', 'UNSET')
   $http_password = extlookup('http_password', 'UNSET')
 
-  # START frontend
-  nagios::check::graphite { 'check_frontend_to_exit_404_rejects':
-    target    => 'hitcount(sumSeries(stats.govuk.app.frontend.*.request.exit.404),"5minutes")',
-    warning   => 50,
-    critical  => 100,
-    desc      => 'check volume of 404 rejects for exit links',
-    host_name => $::fqdn,
-  }
-  # END frontend
-
   nagios::plugin { 'check_http_timeout_noncrit':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_http_timeout_noncrit',
   }
