@@ -33,7 +33,7 @@
 #   the define by the collecting node.
 #
 # [*use*]
-#   The title of a `Nagios::Service_template` resource which this service
+#   The title of a `Icinga::Service_template` resource which this service
 #   should inherit. The downstream default is `govuk_regular_service`
 #   Default: undef
 #

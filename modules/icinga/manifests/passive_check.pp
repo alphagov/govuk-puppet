@@ -9,7 +9,7 @@
 #   Description of the alert.
 #
 # [*host_name*]
-#   The title of a `Nagios::Host` resource. Usually `$::fqdn`.
+#   The title of a `Icinga::Host` resource. Usually `$::fqdn`.
 #
 #   This is a mandatory argument because the type is typically used as an
 #   exported resource. In which case the variable must be eagerly evaluated

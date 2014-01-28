@@ -17,7 +17,7 @@
 #   Command used to check whether the service is healthy.
 #
 # [*host_name*]
-#   The title of a `Nagios::Host` resource. Usually `$::fqdn`.
+#   The title of a `Icinga::Host` resource. Usually `$::fqdn`.
 #
 #   This is a mandatory argument because the type is typically used as an
 #   exported resource. In which case the variable must be eagerly evaluated
@@ -25,10 +25,10 @@
 #   the define by the collecting node.
 #
 # [*notification_period*]
-#   The title of a `Nagios::Timeperiod` resource.
+#   The title of a `Icinga::Timeperiod` resource.
 #
 # [*use*]
-#   The title of a `Nagios::Service_template` resource which this service
+#   The title of a `Icinga::Service_template` resource which this service
 #   should inherit.
 #   Default: govuk_regular_service
 #
