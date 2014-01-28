@@ -1,0 +1,14 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'vhost'
+
+mount:
+  /data/vhost:
+    disk: '/dev/mapper/vhost-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    nagios_crit: 5
+    nagios_warn: 10

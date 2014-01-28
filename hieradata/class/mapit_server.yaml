@@ -1,0 +1,14 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'postgresql'
+
+mount:
+  /var/lib/postgresql:
+    disk: '/dev/mapper/postgresql-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    nagios_crit: 5
+    nagios_warn: 10

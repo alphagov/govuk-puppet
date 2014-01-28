@@ -1,19 +1,17 @@
 ---
 
-mongodb::server::version: '2.0.8'
-
 lv:
   mongodb:
     pv: '/dev/sdb1'
     vg: 'backup'
-  data:
+  encrypted:
     pv: '/dev/sdc1'
     vg: 'mongodb'
 
 mount:
-  /var/lib/mongodb:
-    disk: '/dev/mapper/mongodb-data'
-    govuk_lvm: 'data'
+  /mnt/encrypted:
+    disk: '/dev/mapper/mongodb-encrypted'
+    govuk_lvm: 'encrypted'
     mountoptions: 'defaults'
     nagios_crit: 5
     nagios_warn: 10
