@@ -4,8 +4,6 @@ class govuk::apps::finder_api(
   $enabled = false,
 ) {
 
-  $app_domain = hiera('app_domain')
-
   if str2bool($enabled) {
     govuk::app { 'finder_api':
       app_type               => 'rack',

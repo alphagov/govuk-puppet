@@ -4,8 +4,6 @@ class govuk::apps::specialist_frontend(
   $enabled = false,
 ) {
 
-  $app_domain = hiera('app_domain')
-
   if str2bool($enabled) {
     govuk::app { 'specialist_frontend':
       app_type               => 'rack',
