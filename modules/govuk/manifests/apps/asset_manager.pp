@@ -7,6 +7,7 @@ class govuk::apps::asset_manager( $port = 3037 ) {
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
+    vhost_aliases      => ['private-asset-manager'],
     log_format_is_json => true,
     deny_framing       => true,
     nginx_extra_config => '
