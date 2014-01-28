@@ -59,7 +59,7 @@ class govuk::node::s_monitoring (
     ])
   }
 
-  nagios::contact_group { 'regular':
+  icinga::contact_group { 'regular':
     group_alias => 'Contacts for regular alerts',
     members     => flatten([
       $google_members,

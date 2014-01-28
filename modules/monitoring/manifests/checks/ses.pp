@@ -55,7 +55,7 @@ class monitoring::checks::ses (
 
     if str2bool($enable) {
 
-        nagios::check { 'check_aws_quota':
+        icinga::check { 'check_aws_quota':
             check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",
             use                 => 'govuk_urgent_priority',
             host_name           => $::fqdn,

@@ -10,7 +10,7 @@ class monitoring::checks {
   $http_username = extlookup('http_username', 'UNSET')
   $http_password = extlookup('http_password', 'UNSET')
 
-  nagios::plugin { 'check_http_timeout_noncrit':
+  icinga::plugin { 'check_http_timeout_noncrit':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_http_timeout_noncrit',
   }
 
@@ -163,7 +163,7 @@ class monitoring::checks {
     email => $contact_email
   }
 
-  nagios::pager_contact { 'pager_nonworkhours':
+  icinga::pager_contact { 'pager_nonworkhours':
     service_notification_options => 'c',
     notification_period          => '24x7',
   }
