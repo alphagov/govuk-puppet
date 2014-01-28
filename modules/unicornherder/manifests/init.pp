@@ -1,5 +1,5 @@
 class unicornherder (
-      $version = '0.0.4'
+      $version = 'present'
   ){
   package { 'unicornherder':
     ensure   => $version,
