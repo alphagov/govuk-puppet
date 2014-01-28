@@ -1,13 +1,13 @@
 require_relative '../../../../spec_helper'
 
 shared_examples 'configured contact groups' do |urgent, high, normal|
-  it { should contain_nagios__contact_group('urgent-priority').with(
+  it { should contain_icinga__contact_group('urgent-priority').with(
     :members => urgent
   )}
-  it { should contain_nagios__contact_group('high-priority').with(
+  it { should contain_icinga__contact_group('high-priority').with(
     :members => high
   )}
-  it { should contain_nagios__contact_group('normal-priority').with(
+  it { should contain_icinga__contact_group('normal-priority').with(
     :members => normal
   )}
 end
@@ -20,7 +20,7 @@ describe 'govuk::node::s_monitoring', :type => :class do
     }}
 
   context 'param defaults' do
-    it { should_not contain_nagios__campfire_contact('campfire_notification') }
+    it { should_not contain_icinga__campfire_contact('campfire_notification') }
 
     it_should_behave_like 'configured contact groups',
       ['monitoring_google_group'],
@@ -33,7 +33,7 @@ describe 'govuk::node::s_monitoring', :type => :class do
       :notify_pager => true,
     }}
 
-    it { should_not contain_nagios__campfire_contact('campfire_notification') }
+    it { should_not contain_icinga__campfire_contact('campfire_notification') }
 
     it_should_behave_like 'configured contact groups',
       ['monitoring_google_group', 'pager_nonworkhours'],
@@ -50,7 +50,7 @@ describe 'govuk::node::s_monitoring', :type => :class do
       :campfire_subdomain => 'plum',
     }}
 
-    it { should contain_nagios__campfire_contact('campfire_notification').with(
+    it { should contain_icinga__campfire_contact('campfire_notification').with(
       :campfire_token     => 'peach',
       :campfire_room      => 'pear',
       :campfire_subdomain => 'plum'
