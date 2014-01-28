@@ -35,20 +35,12 @@ class monitoring::checks::ses (
         provider => pip,
     }
 
-    file{'/usr/lib/nagios/plugins/check_aws_quota':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0755',
+    icinga::plugin { 'check_aws_quota':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
         require => Package['boto']
     }
 
-    file{'/etc/nagios3/conf.d/check_aws_quota.cfg':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
+    icinga::check_config { 'check_aws_quota':
         source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_aws_quota.cfg',
         require => File['/usr/lib/nagios/plugins/check_aws_quota'],
     }
@@ -60,7 +52,7 @@ class monitoring::checks::ses (
             use                 => 'govuk_urgent_priority',
             host_name           => $::fqdn,
             service_description => 'Check we are not exceeding our AWS SES email quota',
-            require             => File['/etc/nagios3/conf.d/check_aws_quota.cfg']
+            require             => Icinga::Check_config['check_aws_quota'],
         }
 
     }
