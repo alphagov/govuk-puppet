@@ -132,7 +132,7 @@ class hosts::skyscape::production_like {
   }
 
   #router lb vhosts
-  $website_host = extlookup('website_host', 'www.gov.uk')
+  $website_host = hiera('website_host', 'www.gov.uk')
   govuk::host { 'cache':
     ip              => '10.1.1.1',
     vdc             => 'router',

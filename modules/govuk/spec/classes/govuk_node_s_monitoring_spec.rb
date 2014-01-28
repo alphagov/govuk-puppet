@@ -14,7 +14,8 @@ end
 
 describe 'govuk::node::s_monitoring', :type => :class do
   let (:hiera_data) {{
-      'app_domain' => 'giraffe.biz',
+      'app_domain'   => 'giraffe.biz',
+      'website_root' => 'www.giraffe.biz',
     }}
 
   context 'param defaults' do
