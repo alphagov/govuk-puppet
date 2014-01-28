@@ -1,6 +1,8 @@
-class unicornherder {
+class unicornherder (
+      $version = '0.0.4'
+  ){
   package { 'unicornherder':
-    ensure   => '0.0.8',
+    ensure   => $version,
     provider => 'pip',
   }
 }
