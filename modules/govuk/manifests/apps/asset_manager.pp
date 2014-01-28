@@ -2,6 +2,10 @@ class govuk::apps::asset_manager( $port = 3037 ) {
   include assets
   include clamav
 
+  govuk::envvar { 'PRIVATE_ASSET_MANAGER_HOST':
+    value => "private-asset-manager.${app_domain}",
+  }
+
   govuk::app { 'asset-manager':
     app_type           => 'rack',
     port               => $port,

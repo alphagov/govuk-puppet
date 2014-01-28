@@ -104,8 +104,4 @@ class govuk::deploy::config {
     'RAILS_ENV': value => $govuk_env;
     'RACK_ENV':  value => $govuk_env;
   }
-
-  govuk::envvar { 'PRIVATE_ASSET_MANAGER_HOST':
-    value => "private-asset-manager.${app_domain}",
-  }
 }
