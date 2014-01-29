@@ -69,7 +69,7 @@ class govuk::deploy::config {
     value => $asset_root,
   }
 
-  $website_root = extlookup('website_root')
+  $website_root = hiera('website_root')
 
   govuk::envvar { 'GOVUK_WEBSITE_ROOT':
     value => $website_root,

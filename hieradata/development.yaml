@@ -1,1 +1,3 @@
---- {}
+---
+asset_root: 'http://static.dev.gov.uk'
+website_root: 'http://www.dev.gov.uk'
