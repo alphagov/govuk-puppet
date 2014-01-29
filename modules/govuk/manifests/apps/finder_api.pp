@@ -5,7 +5,7 @@ class govuk::apps::finder_api(
 ) {
 
   if str2bool($enabled) {
-    govuk::app { 'finder_api':
+    govuk::app { 'finder-api':
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,

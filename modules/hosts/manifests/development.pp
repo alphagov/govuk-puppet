@@ -27,6 +27,8 @@ class hosts::development {
   host { 'fact-cave.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'fco-services.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
+  host { 'finder-api.dev.gov.uk':                           ip => '127.0.0.1' }
+  host { 'finder-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'frontend.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'imminence.dev.gov.uk':                            ip => '127.0.0.1' }
@@ -46,6 +48,8 @@ class hosts::development {
   host { 'search.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'signon.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'smartanswers.dev.gov.uk':                         ip => '127.0.0.1' }
+  host { 'specialist-frontend.dev.gov.uk':                  ip => '127.0.0.1' }
+  host { 'specialist-publisher.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'static.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'support.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'tariff-admin.dev.gov.uk':                         ip => '127.0.0.1' }
