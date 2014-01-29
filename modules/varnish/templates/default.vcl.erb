@@ -90,6 +90,10 @@ sub vcl_fetch {
   # longer than req.grace in vcl_recv.
   set beresp.grace = 6h;
 
+  # hide some internal headers
+  unset beresp.http.X-Rack-Cache;
+  unset beresp.http.X-Runtime;
+
   # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
   if (req.url !~ "^/apply-for-a-licence") {
     unset beresp.http.Set-Cookie;
@@ -105,17 +109,13 @@ sub vcl_fetch {
     set beresp.http.No-Fallback = "true";
   }
 
-  # Don't cache 5xx errors from backends. Keep retrying and let them present
-  # their own errors pages if necessary.
+  # Don't cache 5xx errors from backends. Let upstreams retry and
+  # downstreams present their own error pages if necessary.
   if (beresp.status >= 500 && beresp.status <= 504) {
     # Don't cache the decision to not cache
     set beresp.ttl = 0s;
     return(hit_for_pass);
   }
-
-  # hide some internal headers
-  unset beresp.http.X-Rack-Cache;
-  unset beresp.http.X-Runtime;
 
   # If the backend says no-cache or no-store, we should not cache
   if (beresp.http.cache-control ~ "no-cache" || beresp.http.cache-control ~ "no-store") {
@@ -133,20 +133,13 @@ sub vcl_fetch {
     set beresp.http.Cache-Control = "max-age=<%= scope.lookupvar('varnish::default_ttl') %>";
   }
 
-  # if we get a 503 error then server stale content
-  if (beresp.status >= 503 && beresp.status <= 504) {
-    set beresp.saintmode = 30s;
-    if (req.restarts > 0) {
-      return(restart);
-    }
-  }
-
   # Allow cached authorized requests
   if (req.http.Authorization) {
     return(deliver);
   }
 
   # Ignore cookies for caching purposes
+  # For URLs that we haven't already stripped the Set-Cookie.
   if (beresp.http.Set-Cookie) {
     return(deliver);
   }
