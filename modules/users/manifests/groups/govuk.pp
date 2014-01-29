@@ -50,6 +50,7 @@ class users::groups::govuk {
   include users::ops04
   include users::ppotter
   include users::psd
+  include users::richardboulton
   include users::robyoung
   include users::roc
   include users::ssharpe
