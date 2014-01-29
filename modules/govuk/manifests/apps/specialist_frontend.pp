@@ -5,7 +5,7 @@ class govuk::apps::specialist_frontend(
 ) {
 
   if str2bool($enabled) {
-    govuk::app { 'specialist_frontend':
+    govuk::app { 'specialist-frontend':
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,

@@ -1,3 +1,8 @@
 ---
 asset_root: 'http://static.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
+
+govuk::apps::finder_frontend::enabled: true
+govuk::apps::finder_api::enabled: true
+govuk::apps::specialist_frontend::enabled: true
+govuk::apps::specialist_publisher::enabled: true

@@ -5,7 +5,7 @@ class govuk::apps::finder_frontend(
 ) {
 
   if str2bool($enabled) {
-    govuk::app { 'finder_frontend':
+    govuk::app { 'finder-frontend':
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,

@@ -5,7 +5,7 @@ class govuk::apps::specialist_publisher(
 ) {
 
   if str2bool($enabled) {
-    govuk::app { 'specialist_publisher':
+    govuk::app { 'specialist-publisher':
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,

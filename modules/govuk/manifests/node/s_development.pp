@@ -55,10 +55,12 @@ class govuk::node::s_development {
     'govuk::apps::datainsight_frontend':  vhost_protected => false;
     'govuk::apps::designprinciples':      vhost_protected => false;
     'govuk::apps::feedback':              vhost_protected => false;
+    'govuk::apps::finder_frontend':       vhost_protected => false;
     'govuk::apps::frontend':              vhost_protected => false;
     'govuk::apps::licencefinder':         vhost_protected => false;
     'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => false;
+    'govuk::apps::specialist_frontend':   vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::transaction_wrappers':  vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
@@ -72,6 +74,7 @@ class govuk::node::s_development {
   include govuk::apps::efg
   include govuk::apps::errbit
   include govuk::apps::fact_cave
+  include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
@@ -91,6 +94,7 @@ class govuk::node::s_development {
   include govuk::apps::router_api
   include govuk::apps::search
   include govuk::apps::signon
+  include govuk::apps::specialist_publisher
   include govuk::apps::static
   include govuk::apps::support
   include govuk::apps::tariff_admin
