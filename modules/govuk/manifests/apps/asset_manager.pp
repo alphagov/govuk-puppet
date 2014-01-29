@@ -2,8 +2,13 @@ class govuk::apps::asset_manager( $port = 3037 ) {
   include assets
   include clamav
 
-  govuk::envvar { 'PRIVATE_ASSET_MANAGER_HOST':
-    value => "private-asset-manager.${app_domain}",
+  $app_domain = hiera('app_domain')
+
+  govuk::app::envvar {
+    "${title}-PRIVATE_ASSET_MANAGER_HOST":
+      app     => 'asset-manager',
+      varname => 'PRIVATE_ASSET_MANAGER_HOST',
+      value   => "private-asset-manager.${app_domain}";
   }
 
   govuk::app { 'asset-manager':
