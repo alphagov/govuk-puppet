@@ -42,4 +42,8 @@ class govuk::node::s_mysql_backup inherits govuk::node::s_base {
     incoming => 3306,
     outgoing => 3306,
   }
+
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/var/lib/mysql'] -> Class['mysql::server']
+  }
 }
