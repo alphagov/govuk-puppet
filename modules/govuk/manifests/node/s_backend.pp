@@ -20,6 +20,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
   include govuk::apps::fact_cave
+  include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
   include govuk::apps::imminence
   include govuk::apps::kibana
@@ -31,6 +32,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::release
   include govuk::apps::search
   include govuk::apps::signon
+  include govuk::apps::specialist_publisher
   include govuk::apps::support
   include govuk::apps::tariff_admin
 
@@ -49,6 +51,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::frontend':   vhost_protected => true  }
+  class { 'govuk::apps::specialist_frontend':   vhost_protected => true  }
 
   # Remove all trace of apache
   include apache::remove

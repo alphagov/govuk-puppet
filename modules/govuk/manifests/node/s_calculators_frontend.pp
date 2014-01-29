@@ -8,6 +8,7 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     'govuk::apps::calculators':           vhost_protected => $protect_fe;
     'govuk::apps::calendars':             vhost_protected => $protect_fe;
     'govuk::apps::fco_services':          vhost_protected => $protect_fe;
+    'govuk::apps::finder_frontend':       vhost_protected => $protect_fe;
     'govuk::apps::licencefinder':         vhost_protected => $protect_fe;
     'govuk::apps::smartanswers':          vhost_protected => $protect_fe;
     'govuk::apps::tariff':                vhost_protected => $protect_fe;

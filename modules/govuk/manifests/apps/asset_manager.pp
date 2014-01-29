@@ -2,11 +2,21 @@ class govuk::apps::asset_manager( $port = 3037 ) {
   include assets
   include clamav
 
+  $app_domain = hiera('app_domain')
+
+  govuk::app::envvar {
+    "${title}-PRIVATE_ASSET_MANAGER_HOST":
+      app     => 'asset-manager',
+      varname => 'PRIVATE_ASSET_MANAGER_HOST',
+      value   => "private-asset-manager.${app_domain}";
+  }
+
   govuk::app { 'asset-manager':
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
+    vhost_aliases      => ['private-asset-manager'],
     log_format_is_json => true,
     deny_framing       => true,
     nginx_extra_config => '

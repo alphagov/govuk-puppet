@@ -21,6 +21,7 @@ class govuk::node::s_frontend_lb {
       'designprinciples',
       'feedback',
       'frontend',
+      'specialist-frontend',
       'limelight',
       'transactions-explorer',
     ]:
@@ -30,6 +31,7 @@ class govuk::node::s_frontend_lb {
       'calculators',
       'calendars',
       'fco-services',
+      'finder-frontend',
       'licencefinder',
       'smartanswers',
       'transaction-wrappers',
