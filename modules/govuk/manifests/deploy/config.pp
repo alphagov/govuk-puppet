@@ -63,7 +63,7 @@ class govuk::deploy::config {
     value => $app_domain,
   }
 
-  $asset_root = extlookup('asset_root', "https://static.${app_domain}")
+  $asset_root = hiera('asset_root')
 
   govuk::envvar { 'GOVUK_ASSET_ROOT':
     value => $asset_root,
