@@ -246,6 +246,16 @@ class govuk::node::s_development {
       password => 'whitehall';
   }
 
+  $postgresql_password = ''
+  class { 'postgresql::server':
+    postgres_password => $postgresql_password,
+  }
+
+  postgresql::server::db { ['transition_development', 'transition_test']:
+    user     => 'transition',
+    password => postgresql_password('transition', 'transition'),
+  }
+
   package {
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
