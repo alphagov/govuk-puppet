@@ -101,7 +101,7 @@ This way, commits you make on the VM get your name and email set on them:
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
 
-## 7. Create a production user
+## 7. Create a production/preview user
 
 To get production/preview access you will need to add your public key and
 configure a user account for yourself in our `puppet` repository.
@@ -120,12 +120,18 @@ Your manifest for the above would be called `friendlygiraffe.pp` and look simila
       }
     }
 
-It should be included in `puppet/modules/users/manifests/groups/govuk.pp` like so:
+To gain ssh access to preview, it should be included in
+`puppet/modules/users/manifests/groups/govuk.pp` like so:
 
     include users::friendlygiraffe
 
-Once committed and pushed, you'll need to find someone who already has
-production permissions to deploy it for you.
+Make a pull request for it; once merged to master, it will automatically deploy
+within a few minutes.
+
+To gain ssh access to production, the same line should be included in
+`puppet/modules/users/manifests/groups/govuk_production_access.pp`.  Once this
+is committed and pushed, you'll need to find someone who already has production
+permissions to deploy it for you.
 
 ## 8. Import production data
 
