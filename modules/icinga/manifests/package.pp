@@ -73,7 +73,7 @@ class icinga::package {
   # and reads the correct permissions from dpkg.
   #   - NS 2013-01-09
   #
-  exec { 'dpkg-statoverride /var/lib/nagios/rw':
+  exec { 'dpkg-statoverride /var/lib/icinga/rw':
     command => '/usr/sbin/dpkg-statoverride --update --add nagios www-data 2710 /var/lib/icinga/rw',
     unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/icinga/rw',
     require => Package['icinga'],
