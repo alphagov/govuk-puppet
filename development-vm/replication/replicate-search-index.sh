@@ -93,12 +93,8 @@ else
   exit 1
 fi
 
-if gem list -i es_dump_restore -v 0.0.3 >/dev/null; then
-  ok "Found gem es_dump_restore"
-else
-  status "Installing gem es_dump_restore"
-  sudo gem install es_dump_restore -v 0.0.3
-fi
+# Install es_dump_restore and deps
+bundle
 
 if $FETCH_ARCHIVES; then
   if [ -d $LOCAL_ARCHIVE_PATH ]; then
@@ -167,7 +163,7 @@ do
     status "$f (dry run)"
   else
     status $f
-    es_dump_restore restore "$LOCAL_ES_HOST" `basename $f .zip` "$f"
+    bundle exec es_dump_restore restore "$LOCAL_ES_HOST" `basename $f .zip` "$f"
   fi
 done
 
