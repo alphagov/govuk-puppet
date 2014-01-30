@@ -1,12 +1,12 @@
 class icinga::package {
 
+  include govuk::ppa
+
   # icinga3-cgi has apache2 as a `Recommends:` so it may get unintentionally
   # installed. This gets rid of it in that eventually.
   include apache::remove
 
   include nginx::fcgi
-
-  apt::ppa { 'ppa:formorer/icinga': }
 
   package { [
     'icinga',
