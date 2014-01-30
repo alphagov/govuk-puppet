@@ -268,6 +268,8 @@ class govuk::node::s_development {
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
+    # Provides /opt/mawk required by pre-transition-stats
+    'mawk-1.3.4':     ensure => installed;
   }
 
   file { [ '/var/tmp/datainsight-everything-recorder.json' ]:
