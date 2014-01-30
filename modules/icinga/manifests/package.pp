@@ -22,6 +22,11 @@ class icinga::package {
     ensure => present,
   }
 
+  # `nagios-nrpe-plugin` has `Recommends: nagios3`. May be fixed in 14.04
+  # https://bugs.launchpad.net/ubuntu/+source/nagios-nrpe/+bug/927651
+  include nagios::remove
+  Package['nagios-nrpe-plugin'] -> Class['nagios::remove']
+
   package { 'check_graphite':
     ensure   => '0.2.2',
     provider => 'gem',
