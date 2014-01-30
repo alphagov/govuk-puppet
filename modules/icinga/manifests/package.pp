@@ -7,7 +7,6 @@ class icinga::package {
   include nginx::fcgi
 
   apt::ppa { 'ppa:formorer/icinga': }
-  apt::ppa { 'ppa:formorer/icinga-web': }
 
   package { [
     'icinga',
