@@ -267,9 +267,16 @@ class govuk::node::s_development {
     'foreman':        ensure => '0.27.0',    provider => gem;
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
-    'vegeta':         ensure => installed; # vegeta is used by the router test suite
-    # Provides /opt/mawk required by pre-transition-stats
-    'mawk-1.3.4':     ensure => installed;
+  }
+
+  if $::lsbdistcodename != 'lucid' {
+    # These packages aren't available for Lucid
+    package {
+      # vegeta is used by the router test suite
+      'vegeta':     ensure => installed;
+      # Provides /opt/mawk required by pre-transition-stats
+      'mawk-1.3.4': ensure => installed;
+    }
   }
 
   file { [ '/var/tmp/datainsight-everything-recorder.json' ]:
