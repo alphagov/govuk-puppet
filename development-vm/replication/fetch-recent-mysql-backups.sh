@@ -42,7 +42,7 @@ done
 
 shift $(($OPTIND-1))
 
-MYSQL_SRC="mysql-slave-1.backend.preview:/var/lib/automysqlbackup/latest.tbz2"
+MYSQL_SRC="mysql-backup-1.backend.preview:/var/lib/automysqlbackup/latest.tbz2"
 MYSQL_DIR="$DIR/mysql"
 
 mkdir -p $MYSQL_DIR
