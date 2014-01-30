@@ -4,11 +4,11 @@ class icinga::nginx {
 
   include ::nginx
 
-  nginx::config::ssl { 'icinga':
+  nginx::config::ssl { 'nagios':
     certtype => 'wildcard_alphagov',
   }
 
-  nginx::config::site { 'icinga':
+  nginx::config::site { 'nagios':
     content => template('icinga/nginx.conf.erb'),
   }
 
