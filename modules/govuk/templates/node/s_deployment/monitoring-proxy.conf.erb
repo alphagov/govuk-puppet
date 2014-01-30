@@ -1,15 +1,5 @@
 server {
   listen 80;
-  server_name logging.*;
-
-  location / {
-    proxy_pass http://logging.management.production/;
-    proxy_set_header Host $http_host;
-  }
-}
-
-server {
-  listen 80;
   server_name monitoring.*;
 
   location / {
