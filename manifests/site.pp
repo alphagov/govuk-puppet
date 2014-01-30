@@ -17,6 +17,13 @@ Apt::Source {
   include_src => false,
 }
 
+# apt-add-repository(1) on Lucid doesn't support `-y`
+if $::lsbdistcodename == 'lucid' {
+  Apt::Ppa {
+    options => '',
+  }
+}
+
 # Ensure update is always run before any package installs.
 # title conditions prevent a dependency loop within apt module.
 Class['apt::update'] -> Package <|
