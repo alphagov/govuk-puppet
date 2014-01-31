@@ -2,3 +2,5 @@
 asset_root: 'http://static.dev.gov.uk'
 website_host: 'www.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
+
+aws_ses_smtp_host: 'email-smtp.aws.example.com'
