@@ -93,9 +93,6 @@ else
   exit 1
 fi
 
-# Install es_dump_restore and deps
-bundle
-
 if $FETCH_ARCHIVES; then
   if [ -d $LOCAL_ARCHIVE_PATH ]; then
     ok "Download directory ${LOCAL_ARCHIVE_PATH} exists"
