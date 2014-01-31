@@ -57,6 +57,11 @@ if Vagrant::VERSION < min_required_vagrant_version
 end
 
 Vagrant.configure("2") do |config|
+  # Enable vagrant-cachier if available.
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.auto_detect = true
+  end
+
   nodes_from_json.each do |node_name, node_opts|
     config.vm.define node_name do |c|
       box_name, box_url = get_box(
