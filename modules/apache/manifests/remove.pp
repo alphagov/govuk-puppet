@@ -5,11 +5,16 @@
 # another HTTP server, like Nginx.
 #
 class apache::remove {
-  package { 'apache2':
-    ensure => 'purged',
-  }
-
   service { 'apache2':
-    ensure => 'stopped',
+    ensure   => 'stopped',
+    provider => 'base',
+  } ->
+  package { [
+    'apache2',
+    'apache2-utils',
+    'apache2-mpm-worker',
+    'apache2.2-bin',
+    'apache2.2-common']:
+    ensure => 'purged',
   }
 }
