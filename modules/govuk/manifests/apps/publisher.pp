@@ -22,7 +22,7 @@ class govuk::apps::publisher(
   }
 
   if str2bool($nagios_data_importer_check) {
-    @@nagios::passive_check { "check-local-authority-data-importer-${::hostname}":
+    @@icinga::passive_check { "check-local-authority-data-importer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
       freshness_threshold => 28 * (60 * 60),

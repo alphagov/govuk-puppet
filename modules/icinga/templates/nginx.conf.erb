@@ -1,0 +1,57 @@
+# This file is managed by Puppet. Local changes will be clobbered.
+
+<%- if @enable_ssl -%>
+server {
+  server_name nagios nagios.*;
+  listen 80;
+  rewrite ^/(.*) https://$host/$1 permanent;
+}
+<%- end -%>
+
+server {
+  server_name nagios nagios.*;
+
+  <%- if !@enable_ssl -%>
+  listen 80;
+  <%- else -%>
+  listen                    443 ssl;
+  ssl_certificate           /etc/nginx/ssl/nagios.crt;
+  ssl_certificate_key       /etc/nginx/ssl/nagios.key;
+  proxy_set_header          X-Forwarded-Ssl on;
+  ssl_protocols             TLSv1 SSLv3;
+  ssl_ciphers               HIGH:!ADH:!kEDH;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  # max-age=31536000 commits us to using HSTS for one year
+  add_header                Strict-Transport-Security "max-age=31536000";
+  <%- end -%>
+
+  index index.html;
+  root /usr/share/icinga/htdocs;
+
+  access_log /var/log/nginx/nagios-access.log timed_combined;
+  access_log /var/log/nginx/nagios-json.event.access.log json_event;
+  error_log /var/log/nginx/nagios-error.log;
+<%- if @protect_monitoring -%>
+  auth_basic "Nagios Restricted Access";
+  auth_basic_user_file /etc/govuk.htpasswd;
+<%- end -%>
+  location /stylesheets {
+    alias /etc/icinga/stylesheets;
+  }
+
+  location ~ \.cgi$ {
+    root /usr/lib/cgi-bin/icinga;
+    rewrite ^/cgi-bin/icinga/(.*)$ /$1;
+
+    include /etc/nginx/fastcgi_params;
+
+    fastcgi_param AUTH_USER $remote_user;
+    fastcgi_param REMOTE_USER $remote_user;
+    fastcgi_param SCRIPT_FILENAME /usr/lib/cgi-bin/icinga$fastcgi_script_name;
+
+    fastcgi_pass fcgiwrap;
+  }
+
+}

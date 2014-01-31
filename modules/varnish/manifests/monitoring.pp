@@ -4,17 +4,17 @@ class varnish::monitoring {
     fields  => {'application' => 'varnish'},
   }
 
-  @@nagios::check { "check_varnish_running_${::hostname}":
+  @@icinga::check { "check_varnish_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!varnishd',
     service_description => 'varnishd not running',
     host_name           => $::fqdn,
   }
 
-  @nagios::nrpe_config { 'check_varnish_responding':
+  @icinga::nrpe_config { 'check_varnish_responding':
     source => 'puppet:///modules/varnish/nrpe_check_varnish.cfg',
   }
 
-  @@nagios::check { "check_varnish_responding_${::hostname}":
+  @@icinga::check { "check_varnish_responding_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_varnish_responding',
     service_description => 'varnishd port not responding',
     host_name           => $::fqdn,

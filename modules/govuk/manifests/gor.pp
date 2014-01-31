@@ -73,7 +73,7 @@ class govuk::gor(
     fields  => {'application' => 'gor'},
   }
 
-  @@nagios::check { "check_gor_running_${::hostname}":
+  @@icinga::check { "check_gor_running_${::hostname}":
     ensure              => $nagios_ensure,
     check_command       => 'check_nrpe!check_proc_running!gor',
     service_description => 'gor running',

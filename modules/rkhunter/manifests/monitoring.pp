@@ -15,7 +15,7 @@
 # The mirrors database does get updated on every run, so we use it's mtime
 # as an indication whether the cronjob has been running. To avoid using sudo
 # we give the nagios user read permissions on the DB directory so that it
-# can stat() the files within. There is a dependency on nagios::client for
+# can stat() the files within. There is a dependency on icinga::client for
 # the creation of that GID.
 #
 class rkhunter::monitoring {
@@ -24,20 +24,20 @@ class rkhunter::monitoring {
     owner   => 'root',
     group   => 'nagios',
     mode    => '0750',
-    require => Class['nagios::client'],
+    require => Class['icinga::client'],
   }
 
   file { '/var/lib/rkhunter/db/mirrors.dat':
     owner   => root,
     group   => nagios,
     mode    => '0644',
-    require => Class['nagios::client'],
+    require => Class['icinga::client'],
   }
 
   # Convert days to seconds.
   $warning_age = 8 * (24 * 60 * 60)
 
-  @@nagios::check { "check_rkhunter_definitions_${::hostname}":
+  @@icinga::check { "check_rkhunter_definitions_${::hostname}":
     check_command       => "check_nrpe!check_file_age!\"-f /var/lib/rkhunter/db/mirrors.dat -c0 -w${warning_age}\"",
     service_description => 'rkhunter definitions not updated',
     host_name           => $::fqdn,

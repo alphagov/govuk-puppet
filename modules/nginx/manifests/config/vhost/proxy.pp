@@ -76,7 +76,7 @@ define nginx::config::vhost::proxy(
       logstream => $logstream;
   }
 
-  @@nagios::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
+  @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,

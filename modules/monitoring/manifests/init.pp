@@ -4,7 +4,7 @@ class monitoring {
     ensure => 'installed',
   }
 
-  include nagios
+  include icinga
   include nsca::server
 
   include govuk::htpasswd

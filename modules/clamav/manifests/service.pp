@@ -10,7 +10,7 @@ class clamav::service {
   }
 
   if $enable_service {
-    @@nagios::check { "check_clamd_running_${::hostname}":
+    @@icinga::check { "check_clamd_running_${::hostname}":
       check_command       => 'check_nrpe!check_proc_running!clamd',
       service_description => 'clamd not running',
       host_name           => $::fqdn,

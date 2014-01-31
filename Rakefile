@@ -21,6 +21,6 @@ FileList['lib/tasks/*.rake'].each do |rake_file|
 end
 
 desc "Run all tests"
-task :test => [:spec, :nagios_checks, :custom]
+task :test => [:spec, :icinga_checks, :custom]
 
 task :default => [:puppetfile, :syntax, :lint, :test]

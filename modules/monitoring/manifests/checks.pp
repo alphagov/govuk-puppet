@@ -10,21 +10,21 @@ class monitoring::checks {
   $http_username = extlookup('http_username', 'UNSET')
   $http_password = extlookup('http_password', 'UNSET')
 
-  nagios::plugin { 'check_http_timeout_noncrit':
+  icinga::plugin { 'check_http_timeout_noncrit':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_http_timeout_noncrit',
   }
 
   # START whitehall
-  # Used in template and nagios::check.
+  # Used in template and icinga::check.
   $whitehall_hostname    = "whitehall-admin.${app_domain}"
   $whitehall_overdue_url = '/healthcheck/overdue'
 
-  nagios::check_config { 'whitehall_overdue':
+  icinga::check_config { 'whitehall_overdue':
     content => template('monitoring/check_whitehall_overdue.cfg.erb'),
-    require => Nagios::Plugin['check_http_timeout_noncrit'],
+    require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  nagios::check { "check_whitehall_overdue_from_${::hostname}":
+  icinga::check { "check_whitehall_overdue_from_${::hostname}":
     check_command       => 'check_whitehall_overdue',
     service_description => 'overdue publications in Whitehall',
     use                 => 'govuk_urgent_priority',
@@ -37,47 +37,47 @@ class monitoring::checks {
   # START datainsight
   $datainsight_base_uri = "https://${http_username}:${http_password}@datainsight-frontend.${app_domain}/performance/dashboard"
 
-  nagios::plugin { 'check_datainsight_recorder':
-    source  => 'puppet:///modules/nagios/usr/lib/nagios/plugins/check_datainsight_recorder.rb',
+  icinga::plugin { 'check_datainsight_recorder':
+    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_datainsight_recorder.rb',
   }
 
-  nagios::check { 'check_datainsight_hourly_traffic_endpoint':
+  icinga::check { 'check_datainsight_hourly_traffic_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk hourly traffic is updated regularly',
   }
 
-  nagios::check { 'check_datainsight_visits_endpoint':
+  icinga::check { 'check_datainsight_visits_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk visits is updated regularly',
   }
 
-  nagios::check { 'check_datainsight_unique_visitors_endpoint':
+  icinga::check { 'check_datainsight_unique_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk visitors is updated regularly',
   }
 
-  nagios::check { 'check_datainsight_format_success_endpoint':
+  icinga::check { 'check_datainsight_format_success_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/content-engagement.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for gov.uk content engagement is updated regularly',
   }
 
-  nagios::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
+  icinga::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/visitors/weekly.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov visitors is updated regularly',
   }
 
-  nagios::check { 'check_datainsight_insidegov_policies_endpoint':
+  icinga::check { 'check_datainsight_insidegov_policies_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/most-entered-policies.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov most entered policies is updated regularly',
   }
 
-  nagios::check { 'check_datainsight_insidegov_content_engagement_endpoint':
+  icinga::check { 'check_datainsight_insidegov_content_engagement_endpoint':
     check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
     host_name           => $::fqdn,
     service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
@@ -90,21 +90,21 @@ class monitoring::checks {
   # START limelight
   $limelight_hostname = "limelight.${app_domain}"
 
-  nagios::check { 'check_limelight_endpoint':
+  icinga::check { 'check_limelight_endpoint':
     check_command       => "check_https_url!${limelight_hostname}!/_status!${warning_time}!${critical_time}",
     host_name           => $::fqdn,
     service_description => 'checks if limelight homepage is up',
   }
   # END limelight
 
-  nagios::check {'check_mapit_responding':
+  icinga::check {'check_mapit_responding':
     check_command       => 'check_mapit',
     host_name           => $::fqdn,
     service_description => 'mapit not responding to postcode query',
   }
 
   # START ssl certificate checks
-  nagios::check { 'check_wildcard_cert_valid':
+  icinga::check { 'check_wildcard_cert_valid':
     check_command       => "check_ssl_cert!signon.${app_domain}!30",
     host_name           => $::fqdn,
     service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
@@ -112,7 +112,7 @@ class monitoring::checks {
   # END ssl certificate checks
 
   # START support
-  nagios::check::graphite { 'check_support_default_queue_size':
+  icinga::check::graphite { 'check_support_default_queue_size':
     target    => 'stats.gauges.govuk.app.support.queues.default',
     warning   => 10,
     critical  => 20,
@@ -121,7 +121,7 @@ class monitoring::checks {
   }
   # END support
 
-  nagios::timeperiod { '24x7':
+  icinga::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',
     mon              => '00:00-24:00',
@@ -132,7 +132,7 @@ class monitoring::checks {
     sat              => '00:00-24:00',
   }
 
-  nagios::timeperiod { 'workhours':
+  icinga::timeperiod { 'workhours':
     timeperiod_alias => 'Standard Work Hours',
     mon              => '09:00-17:00',
     tue              => '09:00-17:00',
@@ -141,7 +141,7 @@ class monitoring::checks {
     fri              => '09:00-17:00',
   }
 
-  nagios::timeperiod { 'nonworkhours':
+  icinga::timeperiod { 'nonworkhours':
     timeperiod_alias => 'Non-Work Hours',
     sun              => '00:00-24:00',
     mon              => '00:00-09:00,16:00-24:00',
@@ -152,45 +152,45 @@ class monitoring::checks {
     sat              => '00:00-24:00',
   }
 
-  nagios::timeperiod { 'never':
+  icinga::timeperiod { 'never':
     timeperiod_alias => 'Never'
   }
 
   #TODO: extlookup or hiera for email addresses?
   $contact_email = extlookup('monitoring_group', 'root@localhost')
 
-  nagios::contact { 'monitoring_google_group':
+  icinga::contact { 'monitoring_google_group':
     email => $contact_email
   }
 
-  nagios::pager_contact { 'pager_nonworkhours':
+  icinga::pager_contact { 'pager_nonworkhours':
     service_notification_options => 'c',
     notification_period          => '24x7',
   }
 
   # End Zendesk Groups
 
-  nagios::service_template { 'govuk_regular_service':
+  icinga::service_template { 'govuk_regular_service':
     contact_groups => ['regular']
   }
 
-  nagios::service_template { 'govuk_urgent_priority':
+  icinga::service_template { 'govuk_urgent_priority':
     contact_groups => ['urgent-priority']
   }
 
-  nagios::service_template { 'govuk_high_priority':
+  icinga::service_template { 'govuk_high_priority':
     contact_groups => ['high-priority']
   }
 
-  nagios::service_template { 'govuk_normal_priority':
+  icinga::service_template { 'govuk_normal_priority':
     contact_groups => ['normal-priority']
   }
 
-  nagios::service_template { 'govuk_low_priority':
+  icinga::service_template { 'govuk_low_priority':
     contact_groups => ['regular']
   }
 
-  nagios::service_template { 'govuk_unprio_priority':
+  icinga::service_template { 'govuk_unprio_priority':
     contact_groups => ['regular']
   }
 

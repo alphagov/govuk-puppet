@@ -13,7 +13,7 @@
 #
 class monitoring::checks::pingdom {
 
-  nagios::check_config::pingdom {
+  icinga::check_config::pingdom {
     'homepage':
       check_id => 489558;
     'calendar':
@@ -33,42 +33,42 @@ class monitoring::checks::pingdom {
   $pingdom_enable_checks = str2bool(extlookup('pingdom_enable_checks', 'yes'))
 
   if $pingdom_enable_checks {
-    nagios::check { 'check_pingdom':
+    icinga::check { 'check_pingdom':
       check_command       => 'run_pingdom_homepage_check',
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom homepage check',
     }
 
-    nagios::check { 'check_pingdom_calendar':
+    icinga::check { 'check_pingdom_calendar':
       check_command       => 'run_pingdom_calendar_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom calendar check',
     }
 
-    nagios::check { 'check_pingdom_search':
+    icinga::check { 'check_pingdom_search':
       check_command       => 'run_pingdom_search_check',
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom search check',
     }
 
-    nagios::check { 'check_pingdom_smart_answer':
+    icinga::check { 'check_pingdom_smart_answer':
       check_command       => 'run_pingdom_smart_answer_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom smartanswers check',
     }
 
-    nagios::check { 'check_pingdom_specialist':
+    icinga::check { 'check_pingdom_specialist':
       check_command       => 'run_pingdom_specialist_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom specialist guides check',
     }
 
-    nagios::check { 'check_pingdom_mirror':
+    icinga::check { 'check_pingdom_mirror':
       check_command       => 'run_pingdom_mirror_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,

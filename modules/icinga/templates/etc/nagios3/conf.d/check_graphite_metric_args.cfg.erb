@@ -1,0 +1,4 @@
+define command {
+  command_name check_graphite_metric_args
+  command_line /usr/bin/check_graphite -H http://graphite.cluster/render -U '<%= @http_username %>' -P '<%= @http_password %>' -M '$ARG1$' -w $ARG2$ -c $ARG3$ $ARG4$
+}

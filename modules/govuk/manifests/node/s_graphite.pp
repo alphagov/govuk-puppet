@@ -16,13 +16,13 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     require                    => Govuk::Mount['/opt/graphite'],
   }
 
-  @@nagios::check { "check_carbon_cache_running_on_${::hostname}":
+  @@icinga::check { "check_carbon_cache_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-cache.py',
     service_description => 'carbon-cache running',
     host_name           => $::fqdn,
   }
 
-  @@nagios::check { "check_carbon_aggregator_running_on_${::hostname}":
+  @@icinga::check { "check_carbon_aggregator_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-aggregat',
     service_description => 'carbon-aggregator running',
     host_name           => $::fqdn,

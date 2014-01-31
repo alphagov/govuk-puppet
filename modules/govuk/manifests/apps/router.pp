@@ -36,7 +36,7 @@ class govuk::apps::router (
   # We can't pass `health_check_path` to `govuk::app` because it has the
   # reverse proxy port, not the API port. Changing the port would lose us
   # TCP connection stats.
-  @@nagios::check { "check_app_router_up_on_${::hostname}":
+  @@icinga::check { "check_app_router_up_on_${::hostname}":
     check_command       => "check_nrpe!check_app_up!${api_port} ${api_healthcheck}",
     service_description => 'router app running',
     host_name           => $::fqdn,

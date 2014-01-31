@@ -142,14 +142,14 @@ define govuk::app::config (
     collectd::plugin::process { "app-${title_underscore}":
       regex => $collectd_process_regex,
     }
-    @@nagios::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
+    @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
       warning   => $nagios_cpu_warning,
       critical  => $nagios_cpu_critical,
       desc      => "high CPU usage for ${title} app",
       host_name => $::fqdn,
     }
-    @@nagios::check::graphite { "check_${title}_app_mem_usage${::hostname}":
+    @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
       target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
       warning   => $nagios_memory_warning_real,
       critical  => $nagios_memory_critical_real,
@@ -172,27 +172,27 @@ define govuk::app::config (
   }
 
   if $health_check_path != 'NOTSET' {
-    @@nagios::check { "check_app_${title}_up_on_${::hostname}":
+    @@icinga::check { "check_app_${title}_up_on_${::hostname}":
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
       service_description => "${title} app running",
       host_name           => $::fqdn,
     }
   }
   if $app_type == 'rack' {
-    @@nagios::check { "check_app_${title}_unicornherder_up_${::hostname}":
+    @@icinga::check { "check_app_${title}_unicornherder_up_${::hostname}":
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
       service_description => "${title} app unicornherder running",
       host_name           => $::fqdn,
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
     }
-    include nagios::client::check_unicorn_workers
-    @@nagios::check { "check_app_${title}_unicorn_workers_${::hostname}":
+    include icinga::client::check_unicorn_workers
+    @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
       check_command       => "check_nrpe!check_unicorn_workers!${title}",
       service_description => "${title} has the expected number of unicorn workers",
       host_name           => $::fqdn,
     }
   }
-  @@nagios::check { "check_app_${title}_upstart_up_${::hostname}":
+  @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
     check_command       => "check_nrpe!check_upstart_status!${title}",
     service_description => "${title} upstart up",
     host_name           => $::fqdn,

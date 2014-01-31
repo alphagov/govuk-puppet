@@ -4,13 +4,13 @@ class mysql::server::monitoring ($root_password) {
     ensure => installed,
   }
 
-  @@nagios::check { "check_mysqld_running_${::hostname}":
+  @@icinga::check { "check_mysqld_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mysqld',
     service_description => 'mysqld not running',
     host_name           => $::fqdn,
   }
 
-  @@nagios::check::graphite { "check_mysql_connections_${::hostname}":
+  @@icinga::check::graphite { "check_mysql_connections_${::hostname}":
     target    => "${::fqdn_underscore}.mysql.threads-connected",
     warning   => 250,
     critical  => 350,

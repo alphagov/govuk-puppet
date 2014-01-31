@@ -69,21 +69,21 @@ class elasticsearch::config (
     content => template('elasticsearch/upstart.conf.erb'),
   }
 
-  @nagios::nrpe_config { 'check_elasticsearch':
+  @icinga::nrpe_config { 'check_elasticsearch':
     source => 'puppet:///modules/elasticsearch/check_elasticsearch.cfg',
   }
 
-  @@nagios::check { "check_elasticsearch-${cluster_name}_running_on_${::hostname}":
+  @@icinga::check { "check_elasticsearch-${cluster_name}_running_on_${::hostname}":
     check_command       => "check_nrpe!check_elasticsearch!${http_port}",
     service_description => 'elasticsearch not running',
     host_name           => $::fqdn,
   }
 
-  @nagios::nrpe_config { 'check_elasticsearch_cluster_health':
+  @icinga::nrpe_config { 'check_elasticsearch_cluster_health':
     source => 'puppet:///modules/elasticsearch/check_elasticsearch_cluster_health.cfg',
   }
 
-  @@nagios::check { "check_elasticsearch-${cluster_name}_cluster_health_running_on_${::hostname}":
+  @@icinga::check { "check_elasticsearch-${cluster_name}_cluster_health_running_on_${::hostname}":
     check_command       => "check_nrpe!check_elasticsearch_cluster_health!${http_port}",
     service_description => 'elasticsearch cluster is not healthy',
     host_name           => $::fqdn,

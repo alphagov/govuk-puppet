@@ -18,7 +18,7 @@ class monitoring::checks::smokey {
     require   => File['/etc/init/smokey-nagios.conf'],
   }
 
-  nagios::check_feature {
+  icinga::check_feature {
     'check_businesssupportfinder':  feature => 'businesssupportfinder';
     'check_calendars':              feature => 'calendars';
     'check_contractsfinder':        feature => 'contractsfinder';
