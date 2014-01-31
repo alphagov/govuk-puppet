@@ -124,4 +124,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     host_name        => $::fqdn,
   }
 
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch']
+  }
 }
