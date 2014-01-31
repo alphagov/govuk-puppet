@@ -36,7 +36,9 @@ AllowUsers <%= @ssh_allow_users %>
 
 PrintMotd                       no
 PrintLastLog                    yes
-TCPKeepAlive                    yes
+TCPKeepAlive                    no
+ClientAliveInterval             30
+ClientAliveCountMax             4
 
 AcceptEnv                       LANG LC_*
 
