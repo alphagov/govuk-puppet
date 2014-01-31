@@ -2,3 +2,6 @@ source "https://rubygems.org"
 
 gem "foreman", "0.63.0"
 gem "bowler", "1.0.0"
+
+gem "rubyzip", "0.9.9" # es_dump_restore < 0.0.6 is incompatible with rubyzip >= 1.0.0
+gem "es_dump_restore", "0.0.3"
