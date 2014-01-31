@@ -11,7 +11,6 @@ class apache::remove {
   } ->
   package { [
     'apache2',
-    'apache2-utils',
     'apache2-mpm-worker',
     'apache2.2-bin',
     'apache2.2-common']:
