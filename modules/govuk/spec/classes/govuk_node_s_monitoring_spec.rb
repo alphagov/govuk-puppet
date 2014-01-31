@@ -14,9 +14,12 @@ end
 
 describe 'govuk::node::s_monitoring', :type => :class do
   let (:hiera_data) {{
-      'app_domain'   => 'giraffe.biz',
-      'asset_root'   => 'https://static.test.gov.uk',
-      'website_root' => 'www.giraffe.biz',
+      'app_domain'            => 'giraffe.biz',
+      'asset_root'            => 'https://static.test.gov.uk',
+      'website_root'          => 'www.giraffe.biz',
+      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
+      'aws_ses_smtp_username' => 'a_username',
+      'aws_ses_smtp_password' => 'a_password',
     }}
 
   context 'param defaults' do

@@ -1,0 +1,10 @@
+ActionMailer::Base.smtp_settings =  {
+  :address => "<%= @aws_ses_smtp_host %>",
+  :port => 587,
+  :user_name => "<%= @aws_ses_smtp_username %>",
+  :password => "<%= @aws_ses_smtp_password %>",
+  :authentication => :login,
+  :enable_starttls_auto => true
+}
+
+ActionMailer::Base.delivery_method = :smtp
