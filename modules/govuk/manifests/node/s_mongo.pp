@@ -26,4 +26,8 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
       disk         => '/dev/mapper/mongodb-data',
     }
   }
+
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/var/lib/mongodb'] -> Class['mongodb::server']
+  }
 }

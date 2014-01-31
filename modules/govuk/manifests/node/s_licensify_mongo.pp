@@ -44,4 +44,8 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
   class { 'mongodb::configure_replica_set':
     members => $mongo_hosts
   }
+
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
+  }
 }
