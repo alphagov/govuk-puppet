@@ -16,9 +16,7 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
   }
 
   class {'govuk::apps::contacts::db':             require => Class['mysql::server'] }
-  if str2bool(extlookup('govuk_enable_content_planner', 'no')) {
-    class {'govuk::apps::content_planner::db':    require => Class['mysql::server'] }
-  }
+  class {'govuk::apps::content_planner::db':      require => Class['mysql::server'] }
   class {'govuk::apps::need_o_tron::db':          require => Class['mysql::server'] }
   class {'govuk::apps::release::db':              require => Class['mysql::server'] }
   class {'govuk::apps::signon::db':               require => Class['mysql::server'] }
