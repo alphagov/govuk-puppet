@@ -5,7 +5,8 @@ class nsca::client {
   # A horrible thing to remove another horrible thing.
   if !defined(Class['govuk::node::s_monitoring']) {
     service { 'nsca':
-      ensure => stopped,
+      ensure    => stopped,
+      hasstatus => false,
     }
   }
 }
