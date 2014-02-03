@@ -31,7 +31,7 @@ class monitoring::checks::ses (
         $critical = 50 ){
 
     package {'boto':
-        ensure   => '2.23.0',
+        ensure   => '2.24.0',
         provider => pip,
     }
 
