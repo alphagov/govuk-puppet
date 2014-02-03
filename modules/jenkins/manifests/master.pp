@@ -14,9 +14,15 @@ class jenkins::master inherits jenkins {
     require => Class['jenkins'],
   }
 
-  service { 'jenkins':
-    ensure  => 'running',
+  file { '/etc/default/jenkins':
+    ensure  => file,
+    source  => 'puppet:///modules/jenkins/etc/default/jenkins',
     require => Package['jenkins'],
+  }
+
+  service { 'jenkins':
+    ensure    => 'running',
+    subscribe => File['/etc/default/jenkins'],
   }
 
   package { 'keychain':
