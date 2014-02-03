@@ -13,11 +13,7 @@ mount:
     disk: '/dev/mapper/mongodb-encrypted'
     govuk_lvm: 'encrypted'
     mountoptions: 'defaults'
-    nagios_crit: 5
-    nagios_warn: 10
   /var/lib/automongodbackup:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
-    nagios_crit: 5
-    nagios_warn: 10

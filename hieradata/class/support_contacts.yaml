@@ -13,11 +13,7 @@ mount:
     disk: '/dev/mapper/mysql-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
-    nagios_crit: 5
-    nagios_warn: 10
   /var/lib/automysqlbackup:
     disk: '/dev/mapper/backup-mysql'
     govuk_lvm: 'mysql'
     mountoptions: 'defaults'
-    nagios_crit: 5
-    nagios_warn: 10
