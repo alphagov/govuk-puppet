@@ -27,8 +27,8 @@
 # `mountpoint` which needs to default to `$title`.
 #
 define govuk::mount(
-  $nagios_warn = 20,
-  $nagios_crit = 10,
+  $nagios_warn = 10,
+  $nagios_crit = 5,
   $govuk_lvm = undef,
   # Ext4mount[] options (I long for **kwargs)
   $disk = undef,
