@@ -38,6 +38,7 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     content => template('govuk/etc/rsyslog.d/open_udp_port.conf.erb')
   }
 
+  #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
     Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch']
   }

@@ -36,7 +36,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
       Govuk::Mount['/mnt/uploads']
     ],
   }
-
+  #FIXME: remove when moved to platform one
   if !hiera(use_hiera_disks,false) {
     govuk::mount { '/mnt/uploads':
       mountpoint   => '/mnt/uploads',

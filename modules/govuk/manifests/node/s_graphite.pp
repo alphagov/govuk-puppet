@@ -1,5 +1,5 @@
 class govuk::node::s_graphite inherits govuk::node::s_base {
-
+  #FIXME: remove when moved to platform one
   if !hiera(use_hiera_disks,false) {
     govuk::mount { '/opt/graphite':
       nagios_warn  => 10,

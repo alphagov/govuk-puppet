@@ -27,7 +27,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
       Govuk::Mount['/mnt/elasticsearch']
     ],
   }
-
+  #FIXME: remove when we have moved to platform one
   if !hiera(use_hiera_disks,false) {
     govuk::mount { '/mnt/elasticsearch':
       nagios_warn  => 10,
@@ -124,6 +124,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     host_name        => $::fqdn,
   }
 
+  #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
     Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch']
   }

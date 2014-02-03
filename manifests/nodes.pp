@@ -20,6 +20,7 @@ node default {
     }
   }
 
+  #FIXME: when we have moved off interim platform remove the if statement
   if hiera(use_hiera_disks, false) {
     $lv = hiera('lv',{})
     create_resources('govuk::lvm', $lv)

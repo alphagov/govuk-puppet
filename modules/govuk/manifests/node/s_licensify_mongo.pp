@@ -2,7 +2,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
   include ecryptfs
   include mongodb::server
   include java::openjdk6::jre
-
+  #FIXME: remove when we have moved to platform one
   if !hiera(use_hiera_disks,false) {
     govuk::mount { '/mnt/encrypted':
       mountoptions => 'defaults',
@@ -45,6 +45,7 @@ class govuk::node::s_licensify_mongo inherits govuk::node::s_base {
     members => $mongo_hosts
   }
 
+  #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
     Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
   }
