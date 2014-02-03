@@ -16,7 +16,7 @@ class jenkins::master inherits jenkins {
   # repo. This will be more stable but may miss any security updates!
   package { 'jenkins':
     ensure  => 'present',
-    require => User['jenkins'],
+    require => Class['jenkins'],
   }
 
   service { 'jenkins':
