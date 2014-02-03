@@ -56,4 +56,4 @@ router::assets_origin::asset_routes:
   '/transaction-wrappers/': "transaction-wrappers"
   '/transactions-explorer/': "transactions-explorer"
 
-unicornherder::version: '0.0.4'
+unicornherder::version: '0.0.8'
