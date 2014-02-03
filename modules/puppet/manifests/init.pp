@@ -3,6 +3,7 @@ class puppet {
   $puppet_version = '3.2.3-1puppetlabs1'
 
   include puppet::repository
+  include puppet::monitoring
 
   package { 'facter':
     ensure => $facter_version,
@@ -83,25 +84,9 @@ class puppet {
     ],
   }
 
-  file { '/usr/local/bin/puppet_passive_check_update':
-    ensure  => present,
-    mode    => '0755',
-    content => template('puppet/puppet_passive_check_update'),
-  }
-
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
     ensure   => stopped,
     provider => base,
     pattern  => '/usr/bin/puppet agent$';
-  }
-
-  @icinga::plugin { 'check_puppet_agent':
-    source  => 'puppet:///modules/puppet/usr/lib/nagios/plugins/check_puppet_agent',
-  }
-
-  @@icinga::passive_check { "check_puppet_${::hostname}":
-    service_description => 'puppet last run errors',
-    host_name           => $::fqdn,
-    freshness_threshold => 7200,
   }
 }
