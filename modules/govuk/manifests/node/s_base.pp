@@ -12,6 +12,7 @@ class govuk::node::s_base {
   include harden
   include hosts
   include monitoring::client
+  include postfix
   include puppet
   include puppet::cronjob
   include rbenv
@@ -110,12 +111,6 @@ class govuk::node::s_base {
     'rkhunter':
       logfile => '/var/log/rkhunter.log',
       fields  => {'application' => 'rkhunter'};
-  }
-
-  class { 'postfix':
-    smarthost       => extlookup('postfix_smarthost', ''),
-    smarthost_user  => extlookup('postfix_smarthost_user', ''),
-    smarthost_pass  => extlookup('postfix_smarthost_pass', ''),
   }
 
   class { 'ruby::rubygems':
