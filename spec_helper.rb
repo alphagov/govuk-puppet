@@ -4,6 +4,9 @@ require 'puppet'
 require 'hiera-puppet-helper'
 require 'puppet/parser/functions/extlookup'
 
+# For testing functions.
+require 'puppetlabs_spec_helper/module_spec_helper'
+
 HERE = File.expand_path(File.dirname(__FILE__))
 
 class Puppet::Resource
@@ -42,6 +45,8 @@ module MockExtdata
 end
 
 RSpec.configure do |c|
+  c.mock_framework = :rspec
+
   c.manifest    = File.join(HERE, 'manifests', 'site.pp')
   c.module_path = [
     File.join(HERE, 'modules'),

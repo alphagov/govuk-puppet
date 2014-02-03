@@ -1,6 +1,9 @@
 require_relative '../../../../spec_helper'
 
 describe 'puppet::master::package', :type => :class do
+  let (:hiera_data) {{
+    :app_domain => 'giraffe.example.com',
+  }}
   let(:params) {{
     :puppetdb_version => '2.3.4',
   }}
