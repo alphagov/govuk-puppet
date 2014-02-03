@@ -10,4 +10,6 @@ fi
 #   - Cron runs with `PATH=/usr/bin:bin`
 PATH="/usr/lib/rbenv/shims:${PATH}"
 
+# These both need to be run as root.
 RBENV_VERSION=1.9.3 puppet agent --onetime --no-daemonize "$@"
+/usr/local/bin/puppet_passive_check_update >/dev/null
