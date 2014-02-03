@@ -57,3 +57,6 @@ PREFIX=/jenkins
 # --prefix=$PREFIX
 
 JENKINS_ARGS="--webroot=/var/cache/jenkins/war --httpPort=$HTTP_PORT --ajp13Port=$AJP_PORT"
+
+# Raise annoying session timeout.
+JENKINS_ARGS="${JENKINS_ARGS} --sessionTimeout=1440"
