@@ -3,19 +3,14 @@ class jenkins::master inherits jenkins {
   $app_domain = hiera('app_domain')
 
   apt::source { 'jenkins':
-    location => 'http://pkg.jenkins-ci.org/debian',
+    location => 'http://pkg.jenkins-ci.org/debian-stable',
     repos    => '',
     release  => 'binary/',
     key      => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
   }
 
-  # FIXME: `ensure => latest` changed because 1.521 broke the envinject
-  # plugin - https://issues.jenkins-ci.org/browse/JENKINS-18614
-  # It's not possible to pin an older version because they get purged from
-  # the repo. Disabled until a) that issue is fixed, b) we switch to the LTS
-  # repo. This will be more stable but may miss any security updates!
   package { 'jenkins':
-    ensure  => 'present',
+    ensure  => '1.532.1',
     require => Class['jenkins'],
   }
 
