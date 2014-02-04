@@ -1,13 +1,15 @@
-#!/bin/sh
+#!/bin/bash
+
+# Re-exec self with sudo if not root.
+if [ "$(id -u)" -ne "0" ]; then
+  exec sudo "$BASH_SOURCE" "$@"
+fi
 
 # Prepend to PATH for when:
 #   - rbenv ruby shim is in /usr/lib/rbenv/shims/ruby
 #   - Cron runs with `PATH=/usr/bin:bin`
 PATH="/usr/lib/rbenv/shims:${PATH}"
-CMD="puppet agent --onetime --no-daemonize"
 
-if [ "$(id -u)" -eq "0" ]; then
-  RBENV_VERSION=1.9.3 exec $CMD "$@"
-else
-  exec sudo RBENV_VERSION=1.9.3 $CMD "$@"
-fi
+# These both need to be run as root.
+RBENV_VERSION=1.9.3 puppet agent --onetime --no-daemonize "$@"
+/usr/local/bin/puppet_passive_check_update >/dev/null
