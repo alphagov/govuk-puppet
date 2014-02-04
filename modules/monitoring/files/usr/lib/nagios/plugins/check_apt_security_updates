@@ -9,7 +9,7 @@ OUTPUT=$(/usr/lib/update-notifier/apt-check 2>&1)
 SEC_UPDATES=$(echo $OUTPUT | cut -d\; -f2)
 
 if [ $SEC_UPDATES -gt $ALLOWED_SEC_UPDATES ]; then
-  echo "CRITICAL: ${SEC_UPDATES} security updates need to be applied with 'apt-get dist-upgrade'"
+  echo "CRITICAL: ${SEC_UPDATES} security updates need to be applied"
   exit 2
 else
   echo "OK: All security updates applied"

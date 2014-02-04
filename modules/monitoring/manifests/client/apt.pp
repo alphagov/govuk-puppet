@@ -23,6 +23,7 @@ class monitoring::client::apt {
     host_name                  => $::fqdn,
     attempts_before_hard_state => 24, # Wait 24hrs to allow unattended-upgrades to run first
     check_interval             => 60,
+    notes_url                  => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#outstanding-security-updates',
   }
 
   @icinga::nrpe_config { 'check_reboot_required':
