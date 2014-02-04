@@ -425,6 +425,7 @@ class hosts::skyscape::production_like {
       "signon.${app_domain}",
       "specialist-publisher.${app_domain}",
       "support.${app_domain}",
+      "tariff-admin.${app_domain}",
       "tariff-api.${app_domain}",
       "transition.${app_domain}",
       "travel-advice-publisher.${app_domain}",
