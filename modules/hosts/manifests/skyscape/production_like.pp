@@ -444,15 +444,43 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => $backend_aliases,
   }
+  # FIXME: Replaced by entry below.
   govuk::host { 'asset-master':
+    ensure => absent,
+    ip     => '10.3.0.20',
+    vdc    => 'backend',
+  }
+  govuk::host { 'asset-master-1':
     ip             => '10.3.0.20',
     vdc            => 'backend',
-    legacy_aliases => ['asset-master', "asset-master.${app_domain}"],
+    legacy_aliases => [
+      'asset-master-1',
+      "asset-master-1.${app_domain}",
+      # FIXME: Old names used in Skyscape Interim.
+      "asset-master.backend.${internal_tld}",
+      'asset-master.backend',
+      'asset-master',
+      "asset-master.${app_domain}"
+    ],
   }
+  # FIXME: Replaced by entry below.
   govuk::host { 'asset-slave':
+    ensure => absent,
+    ip     => '10.3.0.21',
+    vdc    => 'backend',
+  }
+  govuk::host { 'asset-slave-1':
     ip             => '10.3.0.21',
     vdc            => 'backend',
-    legacy_aliases => ['asset-slave', "asset-slave.${app_domain}"],
+    legacy_aliases => [
+      'asset-slave-1',
+      "asset-slave-1.${app_domain}",
+      # FIXME: Old names used in Skyscape Interim.
+      "asset-slave.backend.${internal_tld}",
+      'asset-slave.backend',
+      'asset-slave',
+      "asset-slave.${app_domain}"
+    ],
   }
   govuk::host { 'datainsight-1':
     ip             => '10.3.0.30',
