@@ -4,7 +4,27 @@
 #
 # these are real hosts (1-1 mapping between host and service) anything that
 # ends .cluster is maintained for backwards compatibility with ec2
-class hosts::skyscape::production_like {
+#
+# === Parameters:
+#
+# [*suffixed_hosts*]
+#   Create all hosts entries with numeric suffixes. Fixes some legacy
+#   machines that were named incorrectly, e.g. `asset-master` vs
+#   `asset-master-1`.
+#   Default: false
+#
+class hosts::skyscape::production_like (
+  $suffixed_hosts = false
+) {
+
+  validate_bool($suffixed_hosts)
+  if $suffixed_hosts {
+    $ensure_with_suffix = present
+    $ensure_without_suffix = absent
+  } else {
+    $ensure_with_suffix = absent
+    $ensure_without_suffix = present
+  }
 
   $app_domain = hiera('app_domain')
   $internal_tld = extlookup('internal_tld', 'production')
@@ -444,44 +464,43 @@ class hosts::skyscape::production_like {
     vdc            => 'backend',
     legacy_aliases => $backend_aliases,
   }
-  # FIXME: Replaced by entry below.
+
   govuk::host { 'asset-master':
-    ensure => absent,
-    ip     => '10.3.0.20',
-    vdc    => 'backend',
+    ensure         => $ensure_without_suffix,
+    ip             => '10.3.0.20',
+    vdc            => 'backend',
+    legacy_aliases => ['asset-master', "asset-master.${app_domain}"],
   }
   govuk::host { 'asset-master-1':
+    ensure         => $ensure_with_suffix,
     ip             => '10.3.0.20',
     vdc            => 'backend',
     legacy_aliases => [
       'asset-master-1',
       "asset-master-1.${app_domain}",
-      # FIXME: Old names used in Skyscape Interim.
-      "asset-master.backend.${internal_tld}",
-      'asset-master.backend',
       'asset-master',
       "asset-master.${app_domain}"
     ],
   }
-  # FIXME: Replaced by entry below.
+
   govuk::host { 'asset-slave':
-    ensure => absent,
-    ip     => '10.3.0.21',
-    vdc    => 'backend',
+    ensure         => $ensure_without_suffix,
+    ip             => '10.3.0.21',
+    vdc            => 'backend',
+    legacy_aliases => ['asset-slave', "asset-slave.${app_domain}"],
   }
   govuk::host { 'asset-slave-1':
+    ensure         => $ensure_with_suffix,
     ip             => '10.3.0.21',
     vdc            => 'backend',
     legacy_aliases => [
       'asset-slave-1',
       "asset-slave-1.${app_domain}",
-      # FIXME: Old names used in Skyscape Interim.
-      "asset-slave.backend.${internal_tld}",
-      'asset-slave.backend',
       'asset-slave',
       "asset-slave.${app_domain}"
     ],
   }
+
   govuk::host { 'datainsight-1':
     ip             => '10.3.0.30',
     vdc            => 'backend',
