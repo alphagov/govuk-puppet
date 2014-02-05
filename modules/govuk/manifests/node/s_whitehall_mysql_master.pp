@@ -31,4 +31,8 @@ class govuk::node::s_whitehall_mysql_master inherits govuk::node::s_base {
     outgoing => 3306,
   }
 
+  #FIXME: remove if when we have moved to platform one
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/var/lib/mysql'] -> Class['mysql::server']
+  }
 }

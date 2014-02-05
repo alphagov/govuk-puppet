@@ -36,13 +36,15 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
       Govuk::Mount['/mnt/uploads']
     ],
   }
-
-  govuk::mount { '/mnt/uploads':
-    mountpoint   => '/mnt/uploads',
-    disk         => extlookup('assets_uploads_disk'),
-    mountoptions => 'defaults',
-    nagios_warn  => 10,
-    nagios_crit  => 5,
+  #FIXME: remove when moved to platform one
+  if !hiera(use_hiera_disks,false) {
+    govuk::mount { '/mnt/uploads':
+      mountpoint   => '/mnt/uploads',
+      disk         => extlookup('assets_uploads_disk'),
+      mountoptions => 'defaults',
+      nagios_warn  => 10,
+      nagios_crit  => 5,
+    }
   }
 
   file { '/etc/exports':

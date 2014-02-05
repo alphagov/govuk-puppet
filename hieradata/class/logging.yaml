@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'logging'
+
+mount:
+  /srv:
+    disk: '/dev/mapper/logging-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'

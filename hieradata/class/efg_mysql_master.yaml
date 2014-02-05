@@ -1,0 +1,19 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'mysql'
+  mysql:
+    pv: '/dev/sdc1'
+    vg: 'backup'
+
+mount:
+  /var/lib/mysql:
+    disk: '/dev/mapper/mysql-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/automysqlbackup:
+    disk: '/dev/mapper/backup-mysql'
+    govuk_lvm: 'mysql'
+    mountoptions: 'defaults'

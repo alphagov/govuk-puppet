@@ -1,9 +1,12 @@
 class govuk::node::s_logging inherits govuk::node::s_base {
-  govuk::mount { '/srv':
-    nagios_warn  => 10,
-    nagios_crit  => 5,
-    disk         => '/dev/sdb1',
-    mountoptions => 'defaults',
+  #FIXME: remove when we have moved to platform one
+  if !hiera(use_hiera_disks,false) {
+    govuk::mount { '/srv':
+      nagios_warn  => 10,
+      nagios_crit  => 5,
+      disk         => '/dev/sdb1',
+      mountoptions => 'defaults',
+    }
   }
 
   # we want this to be a syslog server.

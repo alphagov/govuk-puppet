@@ -1,9 +1,12 @@
 class govuk::node::s_graphite inherits govuk::node::s_base {
-  govuk::mount { '/opt/graphite':
-    nagios_warn  => 10,
-    nagios_crit  => 5,
-    mountoptions => 'defaults',
-    disk         => '/dev/sdb1',
+  #FIXME: remove when moved to platform one
+  if !hiera(use_hiera_disks,false) {
+    govuk::mount { '/opt/graphite':
+      nagios_warn  => 10,
+      nagios_crit  => 5,
+      mountoptions => 'defaults',
+      disk         => '/dev/sdb1',
+    }
   }
 
   class { 'graphite':

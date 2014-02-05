@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'uploads'
+
+mount:
+  /mnt/uplaods:
+    disk: '/dev/mapper/uploads-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'

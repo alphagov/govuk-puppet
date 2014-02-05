@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'elasticsearch'
+
+mount:
+  /mnt/elasticsearch:
+    disk: '/dev/mapper/elasticsearch-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
