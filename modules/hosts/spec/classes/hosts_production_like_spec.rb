@@ -20,4 +20,32 @@ describe 'hosts::skyscape::production_like', :type => :class do
 
     it { should contain_govuk__host('cache').with_legacy_aliases(['cache', "www.doesnt.exist", "www.test.gov.uk", "www-origin.test.gov.uk", "assets-origin.test.gov.uk"]) }
   end
+
+  describe 'suffixed_hosts' do
+    let(:hiera_data) {{
+      'app_domain'   => 'test.gov.uk',
+    }}
+
+    context 'false (default)' do
+      let(:params) {{ }}
+
+      it { should contain_govuk__host('asset-master').with_ensure('present') }
+      it { should contain_govuk__host('asset-master-1').with_ensure('absent') }
+
+      it { should contain_govuk__host('asset-slave').with_ensure('present') }
+      it { should contain_govuk__host('asset-slave-1').with_ensure('absent') }
+    end
+
+    context 'true' do
+      let(:params) {{
+        :suffixed_hosts => true,
+      }}
+
+      it { should contain_govuk__host('asset-master').with_ensure('absent') }
+      it { should contain_govuk__host('asset-master-1').with_ensure('present') }
+
+      it { should contain_govuk__host('asset-slave').with_ensure('absent') }
+      it { should contain_govuk__host('asset-slave-1').with_ensure('present') }
+    end
+  end
 end 
