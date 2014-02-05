@@ -2,6 +2,6 @@ class users::stevelaing {
   govuk::user { 'stevelaing':
     fullname => 'Steve Laing',
     email    => 'steve.laing@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCITXj1PJTD/Z+hv3izC7V2SKFi7LeHAWHjT9LYsgKyzSmBH++jUf7e7SW8oAT73ZG1gyEIavPP9CfKZoBU2yMk4OhB8ipqsSk/C47VkynVgjhuaBIlneiGRI5Q4S350d7n1d4Zxd6afHfbpNs93/BYYp9WxOvnvkexCg3eC8eMh5ldv9rW4S8RtQrDTcmdS2bxehlqz6vYfH7HhCXt/cBJfI5DqLl8ucjQWMQBrtoMaZaX/xyxs5+JsW9WHpPQ6IncLh5kdFr8Wto0cjuAdQz01wzc2DCNWZb/sAG6dgXEyOoTV3Cr8Y3fKC89FB1SrpnnwFZDJbQIt8y73rxEMPZ',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCo2ah4oAUIuo2Btf335wcdTtapgTIX1V/+wpIf70kfRkPHjkIeWWvfAP5058EA9wpi7V6bwHZ195RJD8+UunepRys8XCLn0lJD+kwZoHejYpWu5px0pUNT+ULRX8zoyYEkMDHkvkorzFYafn/14WhmvlBX4wE3ehTdqhHzv1crVV5ua1DxT3kXIf9cYpuOJDpK+AVhv9D6SuIbZF/gi87anWSEZk7tjUN+7qnUDgUGDN1tdqhTbYvRAy01p4v5M6g5XLOk0WLW2KSnhe5ueLVv14HaV973ODPAq0yUGXyeyPnroryHkUx0XWrHLl4h5ziMJV4UDheB/g+EbRRXhSWd',
   }
 }
