@@ -20,6 +20,8 @@ class base::packages {
       'libxml2-dev',
       'libxslt1-dev',
       'logtail',
+      'man-db',
+      'manpages',
       'pv',
       'tar',
       'tree',
