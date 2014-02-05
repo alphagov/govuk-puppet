@@ -34,6 +34,9 @@ describe 'hosts::skyscape::production_like', :type => :class do
 
       it { should contain_govuk__host('asset-slave').with_ensure('present') }
       it { should contain_govuk__host('asset-slave-1').with_ensure('absent') }
+
+      it { should contain_govuk__host('monitoring').with_ensure('present') }
+      it { should contain_govuk__host('monitoring-1').with_ensure('absent') }
     end
 
     context 'true' do
@@ -46,6 +49,9 @@ describe 'hosts::skyscape::production_like', :type => :class do
 
       it { should contain_govuk__host('asset-slave').with_ensure('absent') }
       it { should contain_govuk__host('asset-slave-1').with_ensure('present') }
+
+      it { should contain_govuk__host('monitoring').with_ensure('absent') }
+      it { should contain_govuk__host('monitoring-1').with_ensure('present') }
     end
   end
 end 
