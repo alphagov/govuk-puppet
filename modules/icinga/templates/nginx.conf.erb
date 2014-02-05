@@ -2,7 +2,7 @@
 
 <%- if @enable_ssl -%>
 server {
-  server_name nagios nagios.*;
+  server_name nagios nagios.* icinga icinga.* alert alert.*;
   listen 80;
   rewrite ^/(.*) https://$host/$1 permanent;
 }
