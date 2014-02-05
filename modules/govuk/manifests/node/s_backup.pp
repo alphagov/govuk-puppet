@@ -1,4 +1,6 @@
-class govuk::node::s_backup {
+class govuk::node::s_backup (
+  $backup_efg = true,
+) {
     include govuk::node::s_base
 
     class {'backup::server':
@@ -49,15 +51,17 @@ class govuk::node::s_backup {
         fq_dn     => 'mysql-backup-1.backend.production',
     }
 
-    backup::directory {'backup_mysql_backups_efg_mysql':
-        directory => '/var/lib/automysqlbackup/',
-        host_name => 'efg-mysql-slave-1',
-        fq_dn     => 'efg-mysql-slave-1.efg.production',
-    }
-
     backup::directory {'backup_mysql_backups_support_contacts_mysql':
         directory => '/var/lib/automysqlbackup/',
         host_name => 'support-contacts-1',
         fq_dn     => 'support-contacts-1.backend.production',
+    }
+
+    if $backup_efg {
+      backup::directory {'backup_mysql_backups_efg_mysql':
+          directory => '/var/lib/automysqlbackup/',
+          host_name => 'efg-mysql-slave-1',
+          fq_dn     => 'efg-mysql-slave-1.efg.production',
+      }
     }
 }
