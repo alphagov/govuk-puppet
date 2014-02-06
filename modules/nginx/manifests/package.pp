@@ -2,9 +2,10 @@ class nginx::package {
 
   include govuk::ppa
 
+  #FIXME: in platform one we will be all precise so this can be removed
   case $::lsbdistcodename {
     'precise': {
-      $version = '1.4.1-1ppa0~precise'
+      $version = '1.4.4-1~precise0'
     }
     default: {
       $version = '1.4.1-1ppa1~lucid'
