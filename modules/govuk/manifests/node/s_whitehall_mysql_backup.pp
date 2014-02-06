@@ -30,4 +30,9 @@ class govuk::node::s_whitehall_mysql_backup inherits govuk::node::s_whitehall_my
     rotation_weekly              => extlookup('mysql_backup_rotation_weekly','28'),
     rotation_monthly             => extlookup('mysql_backup_rotation_monthly','95'),
   }
+
+  # FIXME: Remove when moved to platform1.
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/var/lib/automysqlbackup'] -> Automysqlbackup::Backup['automysqlbackup']
+  }
 }
