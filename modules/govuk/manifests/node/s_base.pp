@@ -47,6 +47,10 @@ class govuk::node::s_base {
   $user_groups_real = regsubst($user_groups, '^', 'users::groups::')
   class { $user_groups_real: }
 
+  class { 'rsyslog':
+    purge_rsyslog_d => true,
+  }
+
   class { 'rsyslog::client':
     server        => 'logging.cluster',
     log_local     => true,
