@@ -53,9 +53,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   class { 'govuk::apps::frontend':   vhost_protected => true  }
   class { 'govuk::apps::specialist_frontend':   vhost_protected => true  }
 
-  # Remove all trace of apache
-  include apache::remove
-  # And use nginx instead
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
