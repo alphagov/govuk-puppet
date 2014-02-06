@@ -28,4 +28,9 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     host_name    => $::fqdn,
     notes_url    => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
   }
+
+  # FIXME: Remove when moved to platform1.
+  if hiera(use_hiera_disks,false) {
+    Govuk::Mount['/data/vhost'] -> Class['govuk::apps::calculators']
+  }
 }

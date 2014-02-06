@@ -22,5 +22,6 @@ class govuk::node::s_router_backend inherits govuk::node::s_base {
   #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
     Govuk::Mount['/var/lib/mongodb'] -> Class['mongodb::server']
+    Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
   }
 }
