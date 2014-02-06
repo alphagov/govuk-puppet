@@ -113,6 +113,12 @@ class hosts::skyscape::production_like (
     vdc             => 'management',
     legacy_aliases  => ['backup-1'],
   }
+  govuk::host { 'apt-1':
+    ip              => '10.0.0.75',
+    vdc             => 'management',
+    legacy_aliases  => ['apt-1'],
+    service_aliases => ['apt'],
+  }
   govuk::host { 'jumpbox-1':
     ip              => '10.0.0.100',
     vdc             => 'management',
