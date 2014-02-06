@@ -50,7 +50,7 @@ definitions. The following keys are currently available for customisation:
 For example to increase the amount of RAM on a PuppetMaster:
 ```json
 {
-  "puppet-1.management": {
+  "puppetmaster-1.management": {
     "memory": 768
   }
 }
