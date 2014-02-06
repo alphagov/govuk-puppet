@@ -9,12 +9,11 @@ class govuk::node::s_logging inherits govuk::node::s_base {
     }
   }
 
-  # we want this to be a syslog server.
+  # we want this to be a syslog server which also forwards to logstash
   class { 'rsyslog::server':
-    require => Govuk::Mount['/srv'],
+    custom_config => 'govuk/etc/rsyslog.d/server-logstash.conf.erb',
+    require       => Govuk::Mount['/srv'],
   }
-  # we also want it to send stuff to logstash
-  class { 'rsyslog::logstash': }
 
   # we want all the other machines to be able to send syslog on 514/tcp to this machine
   @ufw::allow {
