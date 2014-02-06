@@ -103,12 +103,14 @@ class icinga::client::checks {
   $disk_time_window_minutes = 5
   $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
 
+  # FIXME This check's warning and critical limits should be halved again
+  # when we move over to Platform One
   @@icinga::check::graphite { "check_disk_time_${::hostname}":
     desc      => 'high disk time',
     target    => "movingMedian(sum(${::fqdn_underscore}.disk-sd?.disk_time.*),${disk_time_window_points})",
     args      => "--from ${disk_time_window_minutes}mins",
-    warning   => 100, # milliseconds
-    critical  => 200, # milliseconds
+    warning   => 200, # milliseconds
+    critical  => 400, # milliseconds
     host_name => $::fqdn,
   }
 
