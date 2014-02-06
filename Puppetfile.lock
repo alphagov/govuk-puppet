@@ -19,6 +19,7 @@ FORGE
     ripienaar/concat (0.2.0)
     saz/memcached (2.2.4)
     saz/ntp (2.1.0)
+    saz/rsyslog (2.2.1)
     saz/timezone (2.0.0)
     stankevich/python (1.2.1)
     thomasvandoren/redis (0.0.9)
@@ -114,13 +115,6 @@ GIT
     nextrevision/automysqlbackup (0.2.2)
       puppetlabs/stdlib (>= 3.0.0)
 
-GIT
-  remote: git://github.com/saz/puppet-rsyslog.git
-  ref: bde75d3
-  sha: bde75d31d8c577b40db56cbe1073915decd85828
-  specs:
-    saz/rsyslog (2.2.0)
-
 DEPENDENCIES
   apparmor (>= 0)
   aptmirror (>= 0)
@@ -144,7 +138,7 @@ DEPENDENCIES
   ripienaar/concat (>= 0)
   saz/memcached (>= 0)
   saz/ntp (>= 0)
-  saz/rsyslog (>= 0)
+  saz/rsyslog (= 2.2.1)
   saz/timezone (>= 0)
   stankevich/python (= 1.2.1)
   thomasvandoren/redis (>= 0)

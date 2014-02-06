@@ -7,15 +7,11 @@ mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
 mod 'saz/memcached'
 mod 'saz/ntp'
+mod 'saz/rsyslog', '2.2.1'
 mod 'saz/timezone'
 
 # Pinned because of: https://github.com/stankevich/puppet-python/issues/46
 mod 'stankevich/python', '1.2.1'
-
-# Pinned to master as at 06/02/2014 pending forge release of version greater than 2.2.0
-mod 'saz/rsyslog',
-  :git => 'git://github.com/saz/puppet-rsyslog.git',
-  :ref => 'bde75d3'
 
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)
