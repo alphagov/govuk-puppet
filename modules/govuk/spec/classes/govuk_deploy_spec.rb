@@ -2,6 +2,11 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk::deploy::setup', :type => :class do
   let(:file_path) { '/home/deploy/.ssh/authorized_keys' }
+  let(:hiera_data) {{
+    'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
+    'aws_ses_smtp_username' => 'a_username',
+    'aws_ses_smtp_password' => 'a_password',
+  }}
 
   context 'with all keys present in extdata' do
     before {

@@ -68,4 +68,16 @@ class govuk::deploy::setup {
     mode    => '0600',
     content => template('govuk/home/deploy/.ssh/authorized_keys.erb'),
   }
+
+  unless $::govuk_platform == 'development' {
+
+    $aws_ses_smtp_host = hiera('aws_ses_smtp_host')
+    $aws_ses_smtp_username = hiera('aws_ses_smtp_username')
+    $aws_ses_smtp_password = hiera('aws_ses_smtp_password')
+    file { '/etc/govuk/actionmailer_ses_smtp_config.rb':
+      ensure  => present,
+      content => template('govuk/etc/govuk/actionmailer_ses_smtp_config.erb'),
+      require => File['/etc/govuk'],
+    }
+  }
 }
