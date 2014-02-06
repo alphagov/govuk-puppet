@@ -6,7 +6,7 @@ lv:
     vg: 'uploads'
 
 mount:
-  /mnt/uplaods:
+  /mnt/uploads:
     disk: '/dev/mapper/uploads-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
