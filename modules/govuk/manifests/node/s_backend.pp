@@ -19,6 +19,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::asset_manager
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
+  include govuk::apps::content_planner
   include govuk::apps::fact_cave
   include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
@@ -38,9 +39,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   if str2bool(extlookup('govuk_enable_contacts', 'no')) {
     include govuk::apps::contacts
-  }
-  if str2bool(extlookup('govuk_enable_content_planner', 'no')) {
-    include govuk::apps::content_planner
   }
 
 
