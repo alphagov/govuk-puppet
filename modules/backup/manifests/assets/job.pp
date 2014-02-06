@@ -6,7 +6,7 @@ define backup::assets::job(
 
 
   cron { $title:
-    command => "/usr/local/bin/memstore-backup.sh -d ${asset_path} -c /etc/govuk/memstore-credentials -f ${::fqdn} -s ${title} -n nagios.cluster",
+    command => "/usr/local/bin/memstore-backup.sh -d ${asset_path} -c /etc/govuk/memstore-credentials -f ${::fqdn} -s ${title} -n alert.cluster",
     user    => 'root',
     hour    => $hour,
     minute  => $minute,
