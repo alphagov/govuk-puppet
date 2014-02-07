@@ -1,0 +1,3 @@
+---
+
+ssh::config::allow_users_enable: true
