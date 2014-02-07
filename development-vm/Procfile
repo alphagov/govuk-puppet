@@ -55,10 +55,10 @@ router_api:            ./run_in.sh ../router-api bundle exec rails s -p 3056
 # alphagov/screenshot-as-a-service uses 3059
 #                                  as well as 3060, but both only on CI (and Performance Platform boxes).
 business_support_api:  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
-finder_frontend: ./run_in.sh ../finder_frontend bundle exec rails s -p 3062
-finder_api: ./run_in.sh ../finder_api bundle exec rails s -p 3063
-specialist_publisher: ./run_in.sh ../specialist_publisher bundle exec rails s -p 3064
-specialist_frontend: ./run_in.sh ../finder_frontend bundle exec rails s -p 3065
+finder-frontend:        ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
+finder-api:             ./run_in.sh ../finder-api bundle exec mr-sparkle --force-polling -- -p 3063
+specialist-publisher:   ./run_in.sh ../specialist-publisher bundle exec rails s -p 3064
+specialist-frontend:    ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
 
 datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
 datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
