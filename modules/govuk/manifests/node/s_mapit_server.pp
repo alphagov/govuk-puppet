@@ -1,4 +1,4 @@
-# TODO: rename the 'mapit_server' govuk_class to simply 'mapit'
+# TODO: rename 'mapit_server' to simply 'mapit'
 class govuk::node::s_mapit_server inherits govuk::node::s_base {
 
   include postgres

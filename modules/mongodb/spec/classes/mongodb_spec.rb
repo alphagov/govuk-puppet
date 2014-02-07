@@ -2,7 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'mongodb::server', :type => :class do
   let(:facts) {{
-    :govuk_class => 'test',
     :govuk_platform => 'test',
   }}
 
