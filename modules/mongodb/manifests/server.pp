@@ -1,9 +1,27 @@
+# == Class: mongodb::server
+#
+# Setup a MongoDB server.
+#
+# === Parameters:
+#
+# [*version*]
+# [*package_name*]
+# [*replicaset*]
+# [*dbpath*]
+#
+# [*development*]
+#   Create a non-replSet node with journalling disabled and query profiling
+#   enabled. Saves space at the expense of data integrity.
+#   Default: false
+#
 class mongodb::server (
   $version,
   $package_name = 'mongodb-10gen',
   $replicaset = $govuk_platform,
-  $dbpath = '/var/lib/mongodb'
+  $dbpath = '/var/lib/mongodb',
+  $development = false
 ) {
+  validate_bool($development)
 
   $logpath = '/var/log/mongodb/mongod.log'
 
@@ -22,11 +40,12 @@ class mongodb::server (
   }
 
   class { 'mongodb::config':
-    replicaset => $replicaset,
-    dbpath     => $dbpath,
-    logpath    => $logpath,
-    require    => Class['mongodb::package'],
-    notify     => Class['mongodb::service'];
+    replicaset  => $replicaset,
+    dbpath      => $dbpath,
+    logpath     => $logpath,
+    development => $development,
+    require     => Class['mongodb::package'],
+    notify      => Class['mongodb::service'];
   }
 
   class { 'mongodb::logging':
