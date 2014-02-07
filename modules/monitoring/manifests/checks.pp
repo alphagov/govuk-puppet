@@ -111,6 +111,17 @@ class monitoring::checks {
   }
   # END ssl certificate checks
 
+  # START signon
+  icinga::check::graphite { 'check_signon_queue_sizes':
+    # Check signon background worker average queue sizes over a 5 min period
+    target    => 'summarize(stats.gauges.govuk.app.signon.workers.*.enqueued,"5mins","avg")',
+    warning   => 30,
+    critical  => 50,
+    desc      => 'signon background worker queue size unexpectedly large',
+    host_name => $::fqdn,
+  }
+  # END signon
+
   # START support
   icinga::check::graphite { 'check_support_default_queue_size':
     target    => 'stats.gauges.govuk.app.support.queues.default',
