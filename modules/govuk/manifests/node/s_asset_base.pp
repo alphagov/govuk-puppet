@@ -28,7 +28,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     ensure  => directory,
     owner   => 'assets',
     group   => 'assets',
-    mode    => '0755',
+    mode    => '0775',
     purge   => false,
     require => [
       Group['assets'],
