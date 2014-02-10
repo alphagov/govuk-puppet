@@ -14,7 +14,7 @@ class monitoring::checks::mirror {
   }
 
   # Not exported resources, so they will be purged when bool is false.
-  $mirror_enable_checks = str2bool(extlookup('mirror_enable_checks', 'no'))
+  $mirror_enable_checks = hiera('mirror::enable_checks', false)
 
   if $mirror_enable_checks {
     $provider0_subdomain = 'mirror.provider0.production.govuk.service.gov.uk'
