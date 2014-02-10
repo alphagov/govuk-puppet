@@ -1,4 +1,4 @@
-class users::bradleyw {
+class users::danielroseman {
   govuk::user { 'danielroseman':
     fullname => 'Daniel Roseman',
     email    => 'daniel.roseman@digital.cabinet-office.gov.uk',
