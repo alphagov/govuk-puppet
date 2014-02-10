@@ -1,4 +1,4 @@
-class govuk::node::s_deployment inherits govuk::node::s_base {
+class govuk::node::s_jenkins inherits govuk::node::s_base {
   include nginx
   include jenkins::master
   include govuk::ghe_vpn

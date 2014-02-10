@@ -1,7 +1,8 @@
 class mongodb::config (
   $replicaset = $govuk_platform,
   $dbpath = '/var/lib/mongodb',
-  $logpath
+  $logpath,
+  $development
 ) {
 
   # Class params are used in the templates below.

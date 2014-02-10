@@ -6,3 +6,7 @@ govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_api::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
+
+mongodb::server::development: true
+
+ssh::config::allow_x11_forwarding: true

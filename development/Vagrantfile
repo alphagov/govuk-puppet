@@ -94,7 +94,7 @@ Vagrant.configure("2") do |config|
 
   config = common_config(config)
 
-  config.vm.hostname = ENV["VAGRANT_HOSTNAME"] || "vm"
+  config.vm.hostname = "development"
 
   # Use VMWare Fusion native shared folders
   config.vm.provider :vmware_fusion do |vm, override|

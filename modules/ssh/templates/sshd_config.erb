@@ -23,15 +23,15 @@ PermitRootLogin                 no
 PasswordAuthentication          no
 ChallengeResponseAuthentication no
 
-<%- if @govuk_platform == "development" -%>
+<%- if @allow_x11_forwarding -%>
 X11Forwarding                   yes
 X11DisplayOffset                10
 <%- else -%>
 X11Forwarding                   no
 <%- end -%>
 
-<%- if @govuk_class == "jumpbox" -%>
-AllowUsers <%= @ssh_allow_users %>
+<%- if @allow_users_enable -%>
+AllowUsers <%= @allow_users.join(' ') %>
 <%- end -%>
 
 PrintMotd                       no
