@@ -60,7 +60,7 @@ class hosts::skyscape::production_like (
     ip              => '10.0.0.20',
     vdc             => 'management',
     legacy_aliases  => ['monitoring', "nagios.${app_domain}"],
-    service_aliases => ['monitoring', 'nagios'],
+    service_aliases => ['monitoring', 'alert'],
   }
   govuk::host { 'monitoring-1':
     ensure          => $ensure_with_suffix,

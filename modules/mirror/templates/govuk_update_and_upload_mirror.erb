@@ -7,7 +7,7 @@ NAGIOS_MESSAGE="WARNING: Mirrorer update failed."
 
 function nagios_passive() {
   logger -p user.info -t mirrorer $NAGIOS_MESSAGE Exit code was $?
-  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H nagios.cluster >/dev/null
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
 trap nagios_passive EXIT
