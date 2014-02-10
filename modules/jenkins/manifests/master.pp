@@ -3,25 +3,26 @@ class jenkins::master inherits jenkins {
   $app_domain = hiera('app_domain')
 
   apt::source { 'jenkins':
-    location => 'http://pkg.jenkins-ci.org/debian',
+    location => 'http://pkg.jenkins-ci.org/debian-stable',
     repos    => '',
     release  => 'binary/',
     key      => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
   }
 
-  # FIXME: `ensure => latest` changed because 1.521 broke the envinject
-  # plugin - https://issues.jenkins-ci.org/browse/JENKINS-18614
-  # It's not possible to pin an older version because they get purged from
-  # the repo. Disabled until a) that issue is fixed, b) we switch to the LTS
-  # repo. This will be more stable but may miss any security updates!
   package { 'jenkins':
-    ensure  => 'present',
-    require => User['jenkins'],
+    ensure  => '1.532.1',
+    require => Class['jenkins'],
+  }
+
+  file { '/etc/default/jenkins':
+    ensure  => file,
+    source  => 'puppet:///modules/jenkins/etc/default/jenkins',
+    require => Package['jenkins'],
   }
 
   service { 'jenkins':
-    ensure  => 'running',
-    require => Package['jenkins'],
+    ensure    => 'running',
+    subscribe => File['/etc/default/jenkins'],
   }
 
   package { 'keychain':
@@ -41,19 +42,5 @@ class jenkins::master inherits jenkins {
     owner   => jenkins,
     group   => jenkins,
     require => User['jenkins'],
-  }
-
-  # Set the session timeout in Jenkins' web.xml file (installed by the
-  # package). This is a bit nasty, as it just searches for the </description>
-  # closing tag and inserts the session timeout customisation on the next
-  # line, but it works...
-
-  $jenkins_web_xml = '/var/cache/jenkins/war/WEB-INF/web.xml'
-  $jenkins_session_timeout_min = 24 * 60
-
-  exec { 'jenkins-set-session-timeout':
-    command => "sed -i '/<\\/description>/a\\\n  <session-config><session-timeout>${jenkins_session_timeout_min}</session-timeout></session-config>' '${jenkins_web_xml}'",
-    unless  => "fgrep -q '<session-timeout>' '${jenkins_web_xml}'",
-    notify  => Service['jenkins'],
   }
 }
