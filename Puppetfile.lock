@@ -79,8 +79,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-harden.git
-  ref: v0.1.0
-  sha: 8c3367b53c4654a53062be077d4440e90f3ab131
+  ref: v0.1.1
+  sha: d21d7e4581f76321c207493f20d4992e5a78bcae
   specs:
     harden (0.0.1)
 

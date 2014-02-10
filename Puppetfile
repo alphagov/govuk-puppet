@@ -34,7 +34,7 @@ mod 'curl',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'
 mod 'harden',
   :git => 'git://github.com/alphagov/puppet-harden.git',
-  :ref => 'v0.1.0'
+  :ref => 'v0.1.1'
 mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'aptmirror',
