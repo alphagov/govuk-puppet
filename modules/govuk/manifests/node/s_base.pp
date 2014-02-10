@@ -47,9 +47,14 @@ class govuk::node::s_base {
   $user_groups_real = regsubst($user_groups, '^', 'users::groups::')
   class { $user_groups_real: }
 
+  class { 'rsyslog':
+    purge_rsyslog_d => true,
+  }
+
   class { 'rsyslog::client':
-    server    => 'logging.cluster',
-    log_local => true,
+    server        => 'logging.cluster',
+    log_local     => true,
+    preserve_fqdn => true,
   }
 
   # Enable default tcpconn monitoring for port 22
@@ -61,20 +66,16 @@ class govuk::node::s_base {
   # Introducing rsyslog::snippet for custom config files
   # for rsyslogs
 
-  rsyslog::snippet { '100-ratelimit':
+  rsyslog::snippet { 'aaa-disable-ratelimit':
     content => '$SystemLogRateLimitInterval 0'
   }
 
-  rsyslog::snippet { '100-preservefqdn':
-    content => '$PreserveFQDN on',
-  }
-
-  rsyslog::snippet { '410-audispd':
+  rsyslog::snippet { 'aaa-disable-remote-audispd':
     content => ':programname, isequal, "audispd"  ~'
   }
 
-  rsyslog::snippet { '490-client-programs':
-    content => template('govuk/etc/rsyslog.d/490-client-programs.conf.erb'),
+  rsyslog::snippet { 'aaa-local3-for-govuk-apps':
+    content => template('govuk/etc/rsyslog.d/local3-for-govuk-apps.conf.erb'),
     require => File['govuk-log-dir'],
   }
 

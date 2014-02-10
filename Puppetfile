@@ -7,6 +7,7 @@ mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
 mod 'saz/memcached'
 mod 'saz/ntp'
+mod 'saz/rsyslog', '2.2.1'
 mod 'saz/timezone'
 
 # Pinned because of: https://github.com/stankevich/puppet-python/issues/46
@@ -23,9 +24,6 @@ mod 'cpanm',
 mod 'ufw',
   :git => 'git://github.com/alphagov/puppet-module-ufw.git',
   :ref => 'dc7ddc2'
-mod 'rsyslog',
-  :git => 'git://github.com/alphagov/puppet-rsyslog.git',
-  :ref => 'd897c50'
 mod 'logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'

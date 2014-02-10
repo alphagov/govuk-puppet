@@ -19,6 +19,7 @@ FORGE
     ripienaar/concat (0.2.0)
     saz/memcached (2.2.4)
     saz/ntp (2.1.0)
+    saz/rsyslog (2.2.1)
     saz/timezone (2.0.0)
     stankevich/python (1.2.1)
     thomasvandoren/redis (0.0.9)
@@ -92,13 +93,6 @@ GIT
       puppetlabs/stdlib (>= 2.2.1)
 
 GIT
-  remote: git://github.com/alphagov/puppet-rsyslog.git
-  ref: d897c50
-  sha: d897c506dd9454ffdc37d9583025efe1b4cc3a52
-  specs:
-    rsyslog (1.1.4)
-
-GIT
   remote: git://github.com/alphagov/puppetlabs-lvm.git
   ref: master
   sha: 2082a276093c96e67a676f0c6076c0841f918a17
@@ -142,9 +136,9 @@ DEPENDENCIES
   puppetlabs/gcc (>= 0)
   puppetlabs/stdlib (>= 0)
   ripienaar/concat (>= 0)
-  rsyslog (>= 0)
   saz/memcached (>= 0)
   saz/ntp (>= 0)
+  saz/rsyslog (= 2.2.1)
   saz/timezone (>= 0)
   stankevich/python (= 1.2.1)
   thomasvandoren/redis (>= 0)

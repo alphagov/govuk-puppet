@@ -1,0 +1,49 @@
+# File is managed by puppet
+
+# Copied from https://github.com/saz/puppet-rsyslog/blob/master/templates/server-hostname.conf.erb
+# - Amended log directory pattern to include date
+# - Added logstash TCP forwarder
+
+<% # Common header across all templates -%>
+<%= scope.function_template(['rsyslog/server/_default-header.conf.erb']) %>
+
+# Log files are stored in directories matching the hostname
+<% if scope.lookupvar('rsyslog::server::enable_onefile') == false -%>
+
+# Templates
+$Template dynAuthLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/auth.log"
+$Template dynSyslog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/syslog"
+$Template dynCronLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/cron.log"
+$Template dynDaemonLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/daemon.log"
+$Template dynKernLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/kern.log"
+$Template dynUserLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/user.log"
+$Template dynMailLog,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/mail.log"
+$Template dynDebug,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/debug"
+$Template dynMessages,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/messages"
+
+# Rules
+auth,authpriv.*         ?dynAuthLog
+*.*;auth,authpriv.none,mail.none,cron.none      -?dynSyslog
+cron.*              ?dynCronLog
+daemon.*            -?dynDaemonLog
+kern.*              -?dynKernLog
+mail.*              -?dynMailLog
+user.*              -?dynUserLog
+*.=info;*.=notice;*.=warn;\
+    auth.none,authpriv.none;\
+    cron.none,daemon.none;\
+    mail.none,news.none     -?dynMessages
+<% else -%>
+# Template
+$Template dynAllMessages,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%/messages"
+
+# Rules
+*.*                 -?dynAllMessages
+<% end -%>
+
+# Forward to logstash over TCP
+*.* @@localhost:5544
+# End logstash
+
+<% # Common footer across all templates -%>
+<%= scope.function_template(['rsyslog/server/_default-footer.conf.erb']) %>
