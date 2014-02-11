@@ -11,7 +11,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
 
   include govuk::repository # Old version of ES.
   class { 'elasticsearch':
-    version              => '0.19.8',
+    version              => "0.20.6-ppa1~${::lsbdistcodename}1",
     cluster_hosts        => ['logs-elasticsearch-1.management:9300', 'logs-elasticsearch-2.management:9300', 'logs-elasticsearch-3.management:9300'],
     cluster_name         => 'logging',
     heap_size            => "${es_heap_size}m",
