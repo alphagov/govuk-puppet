@@ -21,7 +21,6 @@ class monitoring::checks::mirror {
     $provider1_subdomain = 'mirror.provider1.production.govuk.service.gov.uk'
     $provider0_vhost     = "www-origin.${provider0_subdomain}"
     $provider1_vhost     = "www-origin.${provider1_subdomain}"
-  }
 
     icinga::check { 'check_mirror0_provider0_up_to_date':
       check_command       => "check_mirror_age!mirror0.${provider0_subdomain}!${provider0_vhost}",
@@ -47,3 +46,4 @@ class monitoring::checks::mirror {
       service_description => 'mirror1.provider1 site out of date',
     }
   }
+}
