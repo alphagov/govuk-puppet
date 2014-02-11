@@ -13,10 +13,6 @@ describe 'monitoring::checks::mirror', :type => :class do
     before(:each) { update_extdata("mirror_enable_checks" => "yes") }
 
     it { should contain_icinga__check_config('mirror_age') }
-    it { should contain_icinga__check('check_mirror0_provider0_up_to_date') }
-    it { should contain_icinga__check('check_mirror1_provider0_up_to_date') }
-    it { should contain_icinga__check('check_mirror0_provider1_up_to_date') }
-    it { should contain_icinga__check('check_mirror1_provider1_up_to_date') }
   end
 
   context 'checks disabled with extdata (default)' do
