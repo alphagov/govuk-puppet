@@ -4,7 +4,6 @@
 # Please ensure that the list remains sorted alphabetically by username.
 #
 class users::groups::contractors {
-  include users::ben
   include users::benilovj
   include users::davidainslie
   include users::dominicbaggott
