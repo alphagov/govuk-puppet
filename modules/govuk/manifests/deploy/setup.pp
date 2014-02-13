@@ -47,20 +47,14 @@ class govuk::deploy::setup {
     ensure => directory,
   }
 
-  # Referenced by authorized_keys template below.
-  $deploy_ssh_keys = {
-    'jenkins_key'                     => extlookup('jenkins_key', 'NONE_IN_EXTDATA'),
-    'jenkins_skyscape_key'            => extlookup('jenkins_skyscape_key', 'NONE_IN_EXTDATA'),
-    # Production Jenkins sync to other environments.
-    'jenkins_skyscape_production_key' => extlookup('jenkins_skyscape_production_key', 'NONE_IN_EXTDATA'),
-    'deploy_user_data_sync_key'       => extlookup('deploy_user_data_sync_key', 'NONE_IN_EXTDATA'),
-  }
   file { '/home/deploy/.ssh':
     ensure => directory,
     owner  => 'deploy',
     group  => 'deploy',
     mode   => '0700',
   }
+
+  $ssh_keys = hiera('deploy_ssh_keys',{ 'not set in hiera' => 'NONE_IN_HIERA' })
   file { '/home/deploy/.ssh/authorized_keys':
     ensure  => present,
     owner   => 'deploy',

@@ -10,3 +10,6 @@ govuk::apps::specialist_publisher::enabled: true
 mongodb::server::development: true
 
 ssh::config::allow_x11_forwarding: true
+
+deploy_ssh_keys:
+    development_user: SEVIRUhFSEVIIFRoaXMgaXMgbm90IGEgcmVhbCBrZXkgYnV0IEknbSBnb2luZyB0byBtYWtlIGl0IGxvb2sgbGlrZSBpdCdzIG9uZSBqdXN0IHRvIHJlYWxseSBhbm5veSB5b3UhCg==
