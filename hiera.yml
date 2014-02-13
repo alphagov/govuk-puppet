@@ -6,6 +6,7 @@
 # http://projects.puppetlabs.com/issues/19343
 #
 :hierarchy:
+  - 'class/%{::environment}/%{::govuk_node_class}'
   - 'class/%{::govuk_node_class}'
   - '%{::environment}_credentials'
   - '%{::environment}'
