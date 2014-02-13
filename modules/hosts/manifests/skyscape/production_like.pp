@@ -287,6 +287,20 @@ class hosts::skyscape::production_like (
     ]
   }
 
+  # FIXME: Remove when deployed to Platform1.
+  govuk::host { 'whitehall-frontend-lb-1':
+    ensure         => absent,
+    ip             => '10.2.0.111',
+    vdc            => 'frontend',
+    legacy_aliases => ['whitehall-frontend-lb-1']
+  }
+  govuk::host { 'whitehall-frontend-lb-2':
+    ensure         => absent,
+    ip             => '10.2.0.112',
+    vdc            => 'frontend',
+    legacy_aliases => ['whitehall-frontend-lb-2']
+  }
+
   #backend vdc machines
   govuk::host { 'backend-1':
     ip             => '10.3.0.2',
