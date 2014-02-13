@@ -21,20 +21,6 @@ class govuk::deploy::config {
     value  => '1024',
   }
 
-  harden::limit { 'root-nofile':
-    domain => 'deploy',
-    type   => '-', # set both hard and soft limits
-    item   => 'nofile',
-    value  => '16384',
-  }
-
-  harden::limit { 'root-nproc':
-    domain => 'root',
-    type   => '-', # set both hard and soft limits
-    item   => 'nproc',
-    value  => '1024',
-  }
-
   file { '/etc/govuk/unicorn.rb':
     ensure  => present,
     source  => 'puppet:///modules/govuk/etc/govuk/unicorn.rb',
