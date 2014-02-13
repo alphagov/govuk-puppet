@@ -10,8 +10,8 @@ class govuk::node::s_monitoring (
 
   include monitoring
 
-  harden::limit { 'deploy-nofile':
-    domain => 'deploy',
+  harden::limit { 'nagios-nofile':
+    domain => 'nagios',
     type   => '-', # set both hard and soft limits
     item   => 'nofile',
     value  => '16384',
