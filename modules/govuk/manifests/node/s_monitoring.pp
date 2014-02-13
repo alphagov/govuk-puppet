@@ -17,6 +17,12 @@ class govuk::node::s_monitoring (
     value  => '16384',
   }
 
+  file { '/opt/smokey':
+    ensure => 'directory',
+    owner  => 'deploy',
+    group  => 'deploy',
+  }
+
   $offsite_backup = extlookup('offsite-backups', 'off')
   case $offsite_backup {
     'on':    { include backup::offsite::monitoring }
