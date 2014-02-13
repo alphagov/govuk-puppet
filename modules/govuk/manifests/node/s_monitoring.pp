@@ -10,6 +10,19 @@ class govuk::node::s_monitoring (
 
   include monitoring
 
+  harden::limit { 'nagios-nofile':
+    domain => 'nagios',
+    type   => '-', # set both hard and soft limits
+    item   => 'nofile',
+    value  => '16384',
+  }
+
+  file { '/opt/smokey':
+    ensure => 'directory',
+    owner  => 'deploy',
+    group  => 'deploy',
+  }
+
   $offsite_backup = extlookup('offsite-backups', 'off')
   case $offsite_backup {
     'on':    { include backup::offsite::monitoring }

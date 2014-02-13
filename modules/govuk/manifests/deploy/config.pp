@@ -18,7 +18,7 @@ class govuk::deploy::config {
     domain => 'deploy',
     type   => '-',
     item   => 'nproc',
-    value  => '512',
+    value  => '1024',
   }
 
   file { '/etc/govuk/unicorn.rb':

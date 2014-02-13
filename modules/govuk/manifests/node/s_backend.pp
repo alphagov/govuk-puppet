@@ -3,6 +3,20 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include java::oracle7::jdk
   include java::oracle7::jre
 
+  harden::limit { 'root-nofile':
+    domain => 'root',
+    type   => '-', # set both hard and soft limits
+    item   => 'nofile',
+    value  => '16384',
+  }
+
+  harden::limit { 'root-nproc':
+    domain => 'root',
+    type   => '-', # set both hard and soft limits
+    item   => 'nproc',
+    value  => '1024',
+  }
+
   class { 'java::set_defaults':
     jdk => 'oracle7',
     jre => 'oracle7',
