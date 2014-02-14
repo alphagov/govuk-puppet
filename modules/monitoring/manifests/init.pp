@@ -23,11 +23,11 @@ class monitoring {
   nginx::log {
     'monitoring-json.event.access.log':
       json      => true,
-      logstream => true;
+      logstream => present;
     'monitoring-access.log':
-      logstream => false;
+      logstream => absent;
     'monitoring-error.log':
-      logstream => true;
+      logstream => present;
   }
 
   file { '/var/www/monitoring':

@@ -8,11 +8,11 @@ define nginx::config::vhost::licensify_upload($port='9000') {
   nginx::log {
     "${vhost_name}-json.event.access.log":
       json      => true,
-      logstream => true;
+      logstream => present;
     "${vhost_name}-access.log":
-      logstream => false;
+      logstream => absent;
     "${vhost_name}-error.log":
-      logstream => true;
+      logstream => present;
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":

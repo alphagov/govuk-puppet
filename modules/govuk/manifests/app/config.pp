@@ -13,7 +13,7 @@ define govuk::app::config (
   $intercept_errors = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
-  $logstream = true,
+  $logstream = present,
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
   $unicorn_herder_timeout = 'NOTSET',

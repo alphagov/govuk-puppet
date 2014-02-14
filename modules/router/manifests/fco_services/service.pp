@@ -18,11 +18,11 @@ define router::fco_services::service (
   nginx::log {
     "${vhost_name}-json.event.access.log":
       json          => true,
-      logstream     => true,
+      logstream     => present,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.fco_services.${slug}.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.fco_services.${slug}.time_request",
                           value => '@fields.request_time'}];
     "${vhost_name}-error.log":
-      logstream => true;
+      logstream => present;
   }
 }

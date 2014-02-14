@@ -36,10 +36,10 @@ define govuk::app (
   #
   # logstream: choose whether or not to create a log tailing upstart job
   #
-  # If set true, logstream upstart job will be created for a selection of
+  # If set present, logstream upstart job will be created for a selection of
   # logs we care about.
   #
-  $logstream = true,
+  $logstream = present,
 
   #
   # log_format_is_json: logstream file is logstash JSON format
@@ -255,24 +255,24 @@ define govuk::app (
   }
 
   govuk::logstream { "${title}-upstart-out":
+    ensure  => $logstream,
     logfile => "/var/log/${title}/upstart.out.log",
     tags    => ['stdout', 'upstart'],
     fields  => {'application' => $title},
-    enable  => $logstream,
   }
 
   govuk::logstream { "${title}-upstart-err":
+    ensure  => $logstream,
     logfile => "/var/log/${title}/upstart.err.log",
     tags    => ['stderr', 'upstart'],
     fields  => {'application' => $title},
-    enable  => $logstream,
   }
 
   govuk::logstream { "${title}-app-err":
+    ensure  => $logstream,
     logfile => "/var/log/${title}/app.err.log",
     tags    => ['stderr', 'app'],
     fields  => {'application' => $title},
-    enable  => $logstream,
   }
 
   if ($app_type == 'rack' or  $log_format_is_json) {
@@ -285,10 +285,10 @@ define govuk::app (
     }
 
     govuk::logstream { "${title}-production-log":
+      ensure        => $logstream,
       logfile       => $log_path,
       tags          => ['stdout', 'application'],
       fields        => {'application' => $title},
-      enable        => $logstream,
       json          => $log_format_is_json,
       statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
       statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",

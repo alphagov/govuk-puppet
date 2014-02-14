@@ -12,8 +12,8 @@
 # [*fields*]
 #   Optional hash of key=value pairs to add to each request.
 #
-# [*enable*]
-#   If set to false any existing logstream jobs will be removed. Defaults to true.
+# [*ensure*]
+#   If set to absent any existing logstream jobs will be removed. Defaults to present.
 #
 # [*json*]
 #   Whether the log is in json format. Defaults to false.
@@ -24,19 +24,17 @@
 #
 define govuk::logstream (
   $logfile,
+  $ensure = present,
   $tags = [],
   $fields = {},
-  $enable = true,
   $json = false,
   $statsd_metric = undef,
   $statsd_timers = []
 ) {
 
-  # TODO: Change the `enable => false` to a more Puppet-esque
-  # `ensure => absent` interface?
   if ($::govuk_platform == 'development') {
     # noop
-  } elsif ($enable == true) {
+  } elsif ($ensure == present) {
     file { "/etc/init/logstream-${title}.conf":
       ensure    => present,
       content   => template('govuk/logstream.erb'),

@@ -12,13 +12,13 @@ class mapit::nginx {
   nginx::log {
     'mapit.json.event.access.log':
       json          => true,
-      logstream     => true,
+      logstream     => present,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.mapit.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.mapit.time_request",
                           value => '@fields.request_time'}];
     'mapit.access.log':
-      logstream => false;
+      logstream => absent;
     'mapit.error.log':
-      logstream => true;
+      logstream => present;
   }
 }

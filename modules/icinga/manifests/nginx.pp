@@ -15,10 +15,10 @@ class icinga::nginx {
   nginx::log {
     'nagios-json.event.access.log':
       json      => true,
-      logstream => true;
+      logstream => present;
     'nagios-access.log':
-      logstream => false;
+      logstream => absent;
     'nagios-error.log':
-      logstream => true;
+      logstream => present;
   }
 }
