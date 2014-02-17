@@ -99,11 +99,11 @@ Vagrant.configure("2") do |config|
 
       # Additional shared folders for Puppet Master nodes.
       # These can't be NFS because OSX won't export overlapping paths.
-      if node_opts["class"] == "puppetmaster" or node_opts["class"] == "puppet"
+      if node_name =~ /^puppetmaster/
         c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
-      c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant FACTER_govuk_class=#{node_opts['class']} FACTER_govuk_provider=sky FACTER_govuk_platform=staging /var/govuk/puppet/tools/puppet-apply"
+      c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant FACTER_govuk_provider=sky FACTER_govuk_platform=staging /var/govuk/puppet/tools/puppet-apply"
     end
   end
 end
