@@ -22,7 +22,6 @@ class govuk::envsys {
   $govuk_vars = [
     'govuk_class',
     'govuk_platform',
-    'govuk_java_version',
   ]
 
   file { '/etc/environment':
