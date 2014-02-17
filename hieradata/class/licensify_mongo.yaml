@@ -13,7 +13,7 @@ mount:
     disk: '/dev/mapper/mongodb-encrypted'
     govuk_lvm: 'encrypted'
     mountoptions: 'defaults'
-  /var/lib/automongodbackup:
+  /var/lib/automongodbbackup:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
