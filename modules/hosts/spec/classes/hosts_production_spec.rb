@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'hosts::skyscape::production_like', :type => :class do
+describe 'hosts::production', :type => :class do
   context 'with website_host => www.gov.uk (default)' do
     let(:hiera_data) {{
         'app_domain'   => 'test.gov.uk',
