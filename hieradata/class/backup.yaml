@@ -8,5 +8,5 @@ lv:
 mount:
   /data/backups:
     disk: '/dev/mapper/backups-data'
-    govuk_lvm: 'backups'
+    govuk_lvm: 'data'
     mountoptions: 'defaults'
