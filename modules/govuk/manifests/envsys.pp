@@ -20,7 +20,6 @@
 class govuk::envsys {
   # FACTER_govuk_* vars that currently exist.
   $govuk_vars = [
-    'govuk_class',
     'govuk_platform',
   ]
 

@@ -16,8 +16,5 @@ describe 'govuk::envsys', :type => :class do
     }}
 
     it { should contain_file(file_path).with_content(/^FACTER_govuk_platform=foo$/) }
-
-    # We can't test for govuk_class because it's interpreted by manifests/site.pp
-    it { should_not contain_file(file_path).with_content(/^FACTER_govuk_class=baz$/) }
   end
 end
