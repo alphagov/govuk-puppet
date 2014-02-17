@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'backups'
+
+mount:
+  /data/backups:
+    disk: '/dev/mapper/backups-data'
+    govuk_lvm: 'backups'
+    mountoptions: 'defaults'
