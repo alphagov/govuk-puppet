@@ -2,16 +2,16 @@ class govuk::node::s_backup (
   $backup_efg = true,
 ) inherits govuk::node::s_base {
 
-  class {'backup::server':
-    require => Govuk::Mount['/data/backups'],
-  }
-
   #FIXME: remove when we have moved to platform one
   if !hiera(use_hiera_disks,false) {
     govuk::mount { '/data/backups':
       mountoptions => 'errors=remount-ro',
       disk         => '/dev/sdb1',
     }
+  }
+
+  class {'backup::server':
+    require => Govuk::Mount['/data/backups'],
   }
 
   # To accommodate futzing around with databases, we install a MySQL server
