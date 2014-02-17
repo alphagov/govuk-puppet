@@ -2,15 +2,12 @@ require_relative '../../../../spec_helper'
 
 # FIXME: We're unable to test the Nagios exported resources.
 describe 'govuk::mount', :type => :define do
+  let(:title) { '/mnt/gruffalo' }
+
   context 'param defaults (undef)' do
-    let(:title) { '/mnt/gruffalo' }
     let(:params) {{ }}
 
     context 'environment fox' do
-      let(:facts) {{
-        :environment => 'fox',
-      }}
-
       it {
         should contain_ext4mount('/mnt/gruffalo').with(
           :disk         => nil,
@@ -19,16 +16,14 @@ describe 'govuk::mount', :type => :define do
         )
       }
     end
+  end
 
-    %w{vagrant}.each do |environment|
-      context "environment #{environment}" do
-        let(:facts) {{
-          :environment => environment,
-        }}
+  context 'no_op => true' do
+    let(:params) {{
+      :no_op => true,
+    }}
 
-        it { should_not contain_ext4mount('/mnt/gruffalo') }
-      end
-    end
+    it { should_not contain_ext4mount('/mnt/gruffalo') }
   end
 
   context 'custom params' do

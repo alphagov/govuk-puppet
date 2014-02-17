@@ -3,10 +3,14 @@
 # Wrapper for `Ext4mount[]` which will automatically setup new Nagios checks
 # for free space and inodes.
 #
-# It will not create a real `Ext4mount[]` resource for some values of Puppet
-# `$::environment` where additional disks cannot be attached - ie. Vagrant
-#
 # === Parameters
+#
+# [*no_op*]
+#   If `true` the mount won't actually be created/action. This can be used for
+#   localised VMs (e.g. Vagrant) which don't have additional storage
+#   attached, so as not to change/break the relationships of other resources
+#   that depend on the volume.
+#   Default: `false`
 #
 # [*nagios_warn*]
 #   Percentage at which Nagios will raise a WARNING alert for free space and
@@ -27,6 +31,7 @@
 # `mountpoint` which needs to default to `$title`.
 #
 define govuk::mount(
+  $no_op = false,
   $nagios_warn = 10,
   $nagios_crit = 5,
   $govuk_lvm = undef,
@@ -36,10 +41,8 @@ define govuk::mount(
   $mountpoint = $title
 ) {
   $mountpoint_escaped = regsubst($mountpoint, '/', '_', 'G')
-  $exclude_environments = ['vagrant']
 
-  unless $::environment in $exclude_environments {
-
+  unless $no_op {
     if $govuk_lvm != undef {
       Govuk::Lvm[$govuk_lvm] -> Ext4mount[$title]
     }
