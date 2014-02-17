@@ -1,4 +1,4 @@
-# == Class: hosts::skyscape::production_like
+# == Class: hosts::production
 #
 # Manage /etc/hosts entries for various machines
 #
@@ -13,7 +13,7 @@
 #   `asset-master-1`.
 #   Default: false
 #
-class hosts::skyscape::production_like (
+class hosts::production (
   $suffixed_hosts = false
 ) {
 
