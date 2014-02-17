@@ -23,28 +23,12 @@ class jenkins {
     mode    => '0600',
   }
 
-  # This facter fact can be set on slave machines to signal that the slave should install and
-  # use java 7 rather than java 6.
-  if $::govuk_java_version == 'oracle7' {
+  include java::sun6::jdk
+  include java::sun6::jre
 
-    include java::oracle7::jdk
-    include java::oracle7::jre
-
-    class { 'java::set_defaults':
-      jdk => 'oracle7',
-      jre => 'oracle7',
-    }
-
-  } else {
-
-    include java::sun6::jdk
-    include java::sun6::jre
-
-    class { 'java::set_defaults':
-      jdk => 'sun6',
-      jre => 'sun6',
-    }
-
+  class { 'java::set_defaults':
+    jdk => 'sun6',
+    jre => 'sun6',
   }
 
   package { 'brakeman':
