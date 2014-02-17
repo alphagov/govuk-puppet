@@ -1,7 +1,6 @@
 class govuk::node::s_backup (
   $backup_efg = true,
-) {
-  include govuk::node::s_base
+) inherits govuk::node::s_base {
 
   class {'backup::server':
     require => Govuk::Mount['/data/backups'],
