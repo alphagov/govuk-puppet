@@ -5,8 +5,16 @@
 #
 # === Parameters
 #
+# [*no_op*]
+#   If `true` the LVM volume won't actually be created. This can be used for
+#   localised VMs (e.g. Vagrant) which don't have additional storage
+#   attached, so as not to change/break the relationships of other resources
+#   that depend on the volume.
+#   Default: `false`
+#
 # [*pv*]
 #   the physical volume the vg will use
+#
 # [*vg*]
 #   the name of the volume group the logical volume will be created in.
 #
@@ -25,11 +33,10 @@ define govuk::lvm(
   $pv,
   $vg,
   $ensure = present,
-  $fstype = 'ext4'
+  $fstype = 'ext4',
+  $no_op = false,
 ) {
-  $exclude_environments = ['vagrant']
-
-  unless $::environment in $exclude_environments {
+  unless $no_op {
     lvm::volume { $title:
       ensure       => $ensure,
       pv           => $pv,
@@ -37,5 +44,4 @@ define govuk::lvm(
       fstype       => $fstype,
     }
   }
-
 }
