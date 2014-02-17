@@ -9,7 +9,7 @@
 # out to the file. In most cases this won't change. Though it does mean that
 # they can be updated by running:
 #
-#     FACTER_govuk_provider=foo puppet agent -t
+#     FACTER_govuk_platform=foo puppet agent -t
 #
 # These shouldn't always live here. When govuk_platform, govuk_setenv and
 # Plek have stabilised we should consider making /etc/environment a static
@@ -22,7 +22,6 @@ class govuk::envsys {
   $govuk_vars = [
     'govuk_class',
     'govuk_platform',
-    'govuk_provider',
     'govuk_java_version',
   ]
 
