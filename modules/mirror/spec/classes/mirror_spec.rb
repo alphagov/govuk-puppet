@@ -16,29 +16,27 @@ describe 'mirror', :type => :class do
     should contain_file('/home/govuk-netstorage/.ssh/id_rsa').with_ensure('file')
   }
 
-  context "govuk mirror targets" do
-    context "govuk empty mirror targets" do
-      let(:facts) {{ :cache_bust => Time.now }} 
-      it {
-        update_extdata({'govuk_mirror_targets' => [], 'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/' })
-        should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS=""$/)
-      }
+  describe "govuk mirror targets" do
+    context "[] (default)" do
+      let(:params) {{ }}
+
+      it { should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS=""$/) }
     end
 
-     context "should render single string mirror target" do
-      let(:facts) {{ :cache_bust => Time.now }}
-        it  {
-          update_extdata({'govuk_mirror_targets' => 'user102@mirror102', 'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/'})
-          should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS="user102@mirror102"$/)
-        }
+     context "string" do
+       let(:params) {{
+         :targets => 'user102@mirror102',
+       }}
+
+       it { expect { should }.to raise_error(Puppet::Error, /is not an Array/) }
     end
 
-     context "render govuk array mirror targets" do
-      let(:facts) {{ :cache_bust => Time.now }}
-        it {
-          update_extdata({'govuk_mirror_targets' => ['user101@mirror101', 'user102@mirror102'], 'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/'})
-          should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS="user101@mirror101 user102@mirror102"$/)
-        }
+     context "array of items" do
+       let(:params) {{
+         :targets => ['user101@mirror101', 'user102@mirror102'],
+       }}
+
+       it { should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS="user101@mirror101 user102@mirror102"$/) }
      end
   end
 

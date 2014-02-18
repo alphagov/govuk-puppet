@@ -1,5 +1,5 @@
 #!/bin/sh
-TARGETS="<%= [@govuk_mirror_targets].flatten.join(' ') -%>"
+TARGETS="<%= @targets.flatten.join(' ') -%>"
 
 if [ -z "$TARGETS"]; then
   logger -t mirrorer empty target received for govuk mirror
