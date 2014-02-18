@@ -132,6 +132,7 @@ def run(options=None):
         upgrades = upgrades + 1	
         if isSecurityUpgrade(cand_ver):
             security_updates += 1
+            print (pkg.name)
             continue
 
         # now check for security updates that are masked by a 
