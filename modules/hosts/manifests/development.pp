@@ -24,6 +24,7 @@ class hosts::development {
   host { 'datainsight-weekly-reach-recorder.dev.gov.uk':    ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }
+  host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'fact-cave.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'fco-services.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
