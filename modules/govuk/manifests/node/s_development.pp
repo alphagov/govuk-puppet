@@ -166,13 +166,12 @@ class govuk::node::s_development {
     source => 'puppet:///modules/nginx/development',
   }
 
-  $mysql_password = ''
-  class { 'govuk_mysql::server':
-    root_password => $mysql_password
-  }
+  # No `root_password` means that none will be set.
+  # Rather than a hash of an hash empty string.
+  class { 'govuk_mysql::server': }
 
   Govuk_mysql::Server::Db {
-    root_password => $mysql_password,
+    root_password => '',
     remote_host   => 'localhost',
   }
 

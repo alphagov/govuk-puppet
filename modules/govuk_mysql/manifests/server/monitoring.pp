@@ -22,7 +22,7 @@ class govuk_mysql::server::monitoring ($root_password) {
     master        => false,
     slave         => false,
     root_password => $root_password,
-    require       => Exec['set-mysql-password'],
+    require       => Class['mysql::server'],
   }
 
 }

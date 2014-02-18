@@ -1,5 +1,10 @@
+# == Class: govuk_mysql::server
+#
+# This is an abstraction for puppetlabs/mysql to enforce a set of sensible
+# defaults and setup associated monitoring.
+#
 class govuk_mysql::server (
-  $root_password='',
+  $root_password=undef,
   $tmp_table_size='128M',
   $max_heap_table_size='128M',
   $innodb_file_per_table=false,
@@ -8,24 +13,76 @@ class govuk_mysql::server (
 
   $mysql_error_log = '/var/log/mysql/error.log'
 
+  # The proportion of memory used by innodb_buffer_pool_size is configurable using extdata
+  $innodb_buffer_pool_size_proportion = extlookup('mysql_innodb_buffer_pool_size_proportion', '0.25')
+  $innodb_buffer_pool_size = floor($::memtotalmb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
+
+  $mysql_config = {
+    'client'   => {
+      'port'   => 3306,
+      'socket' => '/var/run/mysqld/mysqld.sock',
+    },
+    'mysqld_safe' => {
+      'socket'    => '/var/run/mysqld/mysqld.sock',
+      'nice'      => 0,
+    },
+    'mysqld'                           => {
+      'user'                           => 'mysql',
+      'socket'                         => '/var/run/mysqld/mysqld.sock',
+      'skip-external-locking'          => true,
+      'bind-address'                   => '0.0.0.0',
+      'port'                           => 3306,
+      'basedir'                        => '/usr',
+      'datadir'                        => '/var/lib/mysql',
+      'tmpdir'                         => '/tmp',
+      'server_id'                      => $::mysql_server_id,
+      'innodb_file_per_table'          => $innodb_file_per_table,
+      'innodb_buffer_pool_size'        => $innodb_buffer_pool_size,
+      'key_buffer'                     => '16M',
+      'max_allowed_packet'             => '16M',
+      'max_connections'                => '400',
+      'max_heap_table_size'            => $max_heap_table_size,
+      'myisam-recover'                 => 'BACKUP',
+      'myisam_sort_buffer_size'        => '16M',
+      'table_cache'                    => '4096',
+      'thread_cache_size'              => '8',
+      'thread_stack'                   => '192K',
+      'tmp_table_size'                 => $tmp_table_size,
+      'query_cache_limit'              => '1M',
+      'query_cache_size'               => '128M',
+      'expire_logs_days'               => $expire_log_days,
+      'innodb_flush_log_at_trx_commit' => '1',
+      'log-queries-not-using-indexes'  => true,
+      'log_error'                      => $mysql_error_log,
+      'slow_query_log'                 => 'OFF',
+      'slow_query_log_file'            => '/var/log/mysql/mysql-slow.log',
+      'long_query_time'                => '1',
+      'max_binlog_size'                => '100M',
+      'sync_binlog'                    => '1',
+    },
+    'mysqldump'            => {
+      'quick'              => true,
+      'quote-names'        => true,
+      'max_allowed_packet' => '16M',
+    },
+    'isamchk'      => {
+      'key_buffer' => '16M',
+    },
+  }
+
   anchor { 'govuk_mysql::server::begin':
-    before => Class['govuk_mysql::server::package'],
-    notify => Class['govuk_mysql::server::service'];
+    notify => Class['mysql::server'];
   }
 
-  class { 'govuk_mysql::server::package':
-    notify => Class['govuk_mysql::server::service'];
+  class { 'mysql::server':
+    root_password    => $root_password,
+    override_options => $mysql_config,
+    purge_conf_dir   => true,
+    restart          => true,
   }
 
-  class { 'govuk_mysql::server::config':
-    require               => Class['govuk_mysql::server::package'],
-    notify                => Class['govuk_mysql::server::service'],
-    error_log             => $mysql_error_log,
-    expire_log_days       => $expire_log_days,
-    tmp_table_size        => $tmp_table_size,
-    max_heap_table_size   => $max_heap_table_size,
-    innodb_file_per_table => $innodb_file_per_table,
-  }
+  # FIXME: Remove when deployed to existing machines.
+  class { 'govuk_mysql::server::root_password': }
 
   class { 'govuk_mysql::server::logging':
     error_log => $mysql_error_log,
@@ -33,34 +90,24 @@ class govuk_mysql::server (
 
   # This needs to *not* be required by anchors so that it can use govuk_mysql::user,
   # which requires govuk_mysql::server
-  class { 'govuk_mysql::server::debian_sys_maint_user':
+  class { 'govuk_mysql::server::debian_sys_maint':
     root_password => $root_password,
   }
 
   class { 'govuk_mysql::server::firewall':
-    require => Class['govuk_mysql::server::config'],
+    require => Class['mysql::server'],
   }
-
-  class { 'govuk_mysql::server::service': }
 
   class { 'govuk_mysql::server::monitoring':
     root_password => $root_password,
-    require       => Class['govuk_mysql::server::service'],
   }
 
   # Don't need to wait for monitoring class
   anchor { 'govuk_mysql::server::end':
     require => Class[
       'govuk_mysql::server::firewall',
-      'govuk_mysql::server::service'
+      'mysql::server'
     ],
-  }
-
-  exec { 'set-mysql-password':
-    unless  => "/usr/bin/mysqladmin -uroot -p${root_password} status",
-    path    => ['/bin', '/usr/bin'],
-    command => "mysqladmin -uroot password ${root_password}",
-    require => Class['govuk_mysql::server::service'],
   }
 
 }

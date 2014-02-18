@@ -6,7 +6,7 @@ class govuk_mysql::server::binlog ($root_password) {
 
   file { '/etc/mysql/conf.d/binlog.cnf':
     source => 'puppet:///modules/govuk_mysql/etc/mysql/conf.d/binlog.cnf',
-    notify => Class['govuk_mysql::server::service'],
+    notify => Class['mysql::server::service'],
   }
 
 }
