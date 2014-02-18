@@ -22,38 +22,18 @@ class govuk_mysql::server (
   $pidfile = "/var/lib/mysql/${::hostname}.pid"
 
   $mysql_config = {
-    'client'   => {
-      'port'   => 3306,
-      'socket' => '/var/run/mysqld/mysqld.sock',
-    },
-    'mysqld_safe' => {
-      'socket'    => '/var/run/mysqld/mysqld.sock',
-      'nice'      => 0,
-    },
     'mysqld'                           => {
       'pid-file'                       => $pidfile,
-      'user'                           => 'mysql',
-      'socket'                         => '/var/run/mysqld/mysqld.sock',
-      'skip-external-locking'          => true,
       'bind-address'                   => '0.0.0.0',
-      'port'                           => 3306,
-      'basedir'                        => '/usr',
-      'datadir'                        => '/var/lib/mysql',
-      'tmpdir'                         => '/tmp',
       'server_id'                      => $::mysql_server_id,
       'innodb_file_per_table'          => $innodb_file_per_table,
       'innodb_buffer_pool_size'        => $innodb_buffer_pool_size,
-      'key_buffer'                     => '16M',
-      'max_allowed_packet'             => '16M',
       'max_connections'                => '400',
       'max_heap_table_size'            => $max_heap_table_size,
-      'myisam-recover'                 => 'BACKUP',
       'myisam_sort_buffer_size'        => '16M',
       'table_cache'                    => '4096',
-      'thread_cache_size'              => '8',
       'thread_stack'                   => '192K',
       'tmp_table_size'                 => $tmp_table_size,
-      'query_cache_limit'              => '1M',
       'query_cache_size'               => '128M',
       'expire_logs_days'               => $expire_log_days,
       'innodb_flush_log_at_trx_commit' => '1',
@@ -64,14 +44,6 @@ class govuk_mysql::server (
       'long_query_time'                => '1',
       'max_binlog_size'                => '100M',
       'sync_binlog'                    => '1',
-    },
-    'mysqldump'            => {
-      'quick'              => true,
-      'quote-names'        => true,
-      'max_allowed_packet' => '16M',
-    },
-    'isamchk'      => {
-      'key_buffer' => '16M',
     },
   }
 
