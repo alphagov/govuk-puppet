@@ -170,12 +170,7 @@ class govuk::node::s_development {
   # Rather than a hash of an hash empty string.
   class { 'govuk_mysql::server': }
 
-  Govuk_mysql::Server::Db {
-    root_password => '',
-    remote_host   => 'localhost',
-  }
-
-  govuk_mysql::server::db {
+  mysql::db {
     ['contacts_development', 'contacts_test']:
       user     => 'contacts',
       password => 'contacts';

@@ -11,10 +11,10 @@ class govuk::node::s_support_contacts inherits govuk::node::s_base {
     outgoing => 3306,
   }
 
-  govuk_mysql::server::db {'support_contacts_production':
-    user          => 'support_contacts',
-    password      => $support_password,
-    root_password => $root_password,
+  mysql::db {'support_contacts_production':
+    user     => 'support_contacts',
+    host     => '%',
+    password => $support_password,
   }
 
   file { '/etc/automysqlbackup/prebackup':

@@ -15,16 +15,19 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
     privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
   }
 
-  class {'govuk::apps::contacts::db':             require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::content_planner::db':      require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::need_o_tron::db':          require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::release::db':              require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::signon::db':               require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::tariff_admin::db':         require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::tariff_api::db':           require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::tariff_api_temporal::db':  require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::transition::db':           require => Class['govuk_mysql::server'] }
-  class {'govuk::apps::whitehall::db':            require => Class['govuk_mysql::server'] }
+  class { [
+    'govuk::apps::contacts::db',
+    'govuk::apps::content_planner::db',
+    'govuk::apps::need_o_tron::db',
+    'govuk::apps::release::db',
+    'govuk::apps::signon::db',
+    'govuk::apps::tariff_admin::db',
+    'govuk::apps::tariff_api::db',
+    'govuk::apps::tariff_api_temporal::db',
+    'govuk::apps::transition::db',
+    'govuk::apps::whitehall::db'
+    ]:
+  }
 
   govuk_mysql::user { 'whitehall_fe':
     root_password => $root_password,
