@@ -23,4 +23,24 @@ class govuk::apps::bouncer(
     ssl_only               => false,
     is_default_vhost       => true
   }
+
+  file { '/etc/nginx/sites-available/ukba.homeoffice.gov.uk':
+    ensure  => present,
+    require => Class['nginx::package'],
+    notify  => Class['nginx::service'],
+    source  => 'puppet:///modules/bouncer/www.ukba.homeoffice.gov.uk_nginx.conf',
+  }
+
+  file { '/etc/nginx/sites-enabled/ukba.homeoffice.gov.uk':
+    ensure  => link,
+    target  => '/etc/nginx/sites-available/ukba.homeoffice.gov.uk',
+    require => [Class['nginx::package'], File['/etc/nginx/sites-available/ukba.homeoffice.gov.uk']],
+    notify  => Class['nginx::service']
+  }
+
+  nginx::log {
+    'www.ukba.homeoffice.gov.uk-json.event.access.log':
+      json          => true,
+      logstream     => true,
+  }
 }
