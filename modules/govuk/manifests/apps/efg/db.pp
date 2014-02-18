@@ -3,7 +3,7 @@ class govuk::apps::efg::db {
   $efg_il0_password = extlookup('mysql_efg_il0', '')
   $mysql_password = extlookup('mysql_root', '')
 
-  mysql::server::db {
+  govuk_mysql::server::db {
     'efg_production':
       user          => 'efg',
       password      => $efg_password,

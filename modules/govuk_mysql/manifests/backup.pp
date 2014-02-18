@@ -1,4 +1,4 @@
-class mysql::backup {
+class govuk_mysql::backup {
 
   $mysql_backup_username = 'root'
   $mysql_backup_password = extlookup('mysql_root','')
@@ -11,6 +11,6 @@ class mysql::backup {
     owner   => root,
     group   => root,
     require => Package['automysqlbackup'],
-    content => template('mysql/automysqlbackup')
+    content => template('govuk_mysql/automysqlbackup')
   }
 }

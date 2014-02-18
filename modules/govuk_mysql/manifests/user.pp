@@ -1,4 +1,4 @@
-define mysql::user ($root_password, $user_password, $username=$title, $remote_host='%', $db='*', $privileges='all') {
+define govuk_mysql::user ($root_password, $user_password, $username=$title, $remote_host='%', $db='*', $privileges='all') {
   case $user_password {
     '': {
         $userpassarg = ''
@@ -29,6 +29,6 @@ define mysql::user ($root_password, $user_password, $username=$title, $remote_ho
   exec { "create_mysql_user_${title}":
     unless  => "/usr/bin/mysql -u${username} ${userpassarg} ${dbarg}",
     command => "/usr/bin/mysql -uroot ${rootpassarg} -e 'grant ${privileges} on ${db}.* to \"${username}\"@\"${remote_host}\" identified by \"${user_password}\"; flush privileges;'",
-    require => Class['mysql::server'],
+    require => Class['govuk_mysql::server'],
   }
 }

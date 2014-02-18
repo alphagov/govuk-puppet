@@ -1,4 +1,4 @@
-class mysql::server::config (
+class govuk_mysql::server::config (
   $error_log,
   $tmp_table_size,
   $max_heap_table_size,
@@ -16,7 +16,7 @@ class mysql::server::config (
   $innodb_buffer_pool_size_proportion = extlookup('mysql_innodb_buffer_pool_size_proportion', '0.25')
   $innodb_buffer_pool_size = floor($::memtotalmb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
   file { '/etc/mysql/my.cnf':
-    content => template('mysql/etc/mysql/my.cnf.erb'),
+    content => template('govuk_mysql/etc/mysql/my.cnf.erb'),
   }
 
   file { '/etc/mysql/conf.d':
@@ -27,7 +27,7 @@ class mysql::server::config (
   }
 
   file { '/etc/mysql/debian.cnf':
-    content => template('mysql/etc/mysql/debian.cnf.erb'),
+    content => template('govuk_mysql/etc/mysql/debian.cnf.erb'),
     mode    => '0600',
   }
 

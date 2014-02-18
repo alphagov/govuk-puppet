@@ -1,4 +1,4 @@
-# == Class: mysql::client
+# == Class: govuk_mysql::client
 #
 # Installs packages for both the client binaries and development
 # libraries/headers. The latter of which are for compiling other clients
@@ -8,7 +8,7 @@
 # `mysql-common`. It is often useful to have the `mysql(1)` client to
 # quickly test connectivity or queries, for example.
 #
-class mysql::client {
+class govuk_mysql::client {
   package { ['mysql-client','libmysqlclient-dev']:
     ensure => installed,
   }

@@ -1,4 +1,4 @@
-class mysql::server::package {
+class govuk_mysql::server::package {
 
   package { 'mysql-server':
     ensure  => installed,

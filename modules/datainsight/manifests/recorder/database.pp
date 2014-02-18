@@ -2,7 +2,7 @@ define datainsight::recorder::database($db_name, $db_password, $db_user = 'datai
 
   include datainsight::config::mysql
 
-  mysql::server::db {  "${db_name}_database":
+  govuk_mysql::server::db {  "${db_name}_database":
     user          => $db_user,
     password      => $db_password,
     name          => $db_name,

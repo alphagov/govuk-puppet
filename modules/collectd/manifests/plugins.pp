@@ -8,5 +8,5 @@
 class collectd::plugins {
   Collectd::Plugin  <||>
   File              <| tag == 'collectd::plugin' |>
-  Mysql::User       <| tag == 'collectd::plugin' |>
+  Govuk_mysql::User       <| tag == 'collectd::plugin' |>
 }

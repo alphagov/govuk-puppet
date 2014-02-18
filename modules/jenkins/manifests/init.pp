@@ -105,7 +105,7 @@ class jenkins {
   }
 
   include bundler
-  include mysql::client
+  include govuk_mysql::client
 
   # Used by govuk::apps::search
   include aspell

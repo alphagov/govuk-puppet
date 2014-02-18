@@ -31,7 +31,7 @@ define collectd::plugin::mysql(
   $collectd_mysql_password = 'collectd'
 
   if $slave != true {
-    @mysql::user { 'collectd':
+    @govuk_mysql::user { 'collectd':
       root_password => $root_password,
       user_password => $collectd_mysql_password,
       remote_host   => 'localhost',

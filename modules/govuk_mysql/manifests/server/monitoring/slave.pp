@@ -1,4 +1,4 @@
-class mysql::server::monitoring::slave inherits mysql::server::monitoring {
+class govuk_mysql::server::monitoring::slave inherits govuk_mysql::server::monitoring {
   Collectd::Plugin::Mysql['lazy_eval_workaround'] {
     slave => true,
   }
@@ -15,7 +15,7 @@ class mysql::server::monitoring::slave inherits mysql::server::monitoring {
   $nagios_mysql_password = extlookup('mysql_nagios')
 
   @icinga::nrpe_config { 'check_mysql_slave':
-    content => template('mysql/etc/nagios/nrpe.d/check_mysql_slave.cfg.erb'),
+    content => template('govuk_mysql/etc/nagios/nrpe.d/check_mysql_slave.cfg.erb'),
   }
 
   @@icinga::check { "check_mysql_slave_${::hostname}":

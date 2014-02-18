@@ -1,6 +1,6 @@
 # mysql replication instructions
 
-Puppet can create mysql servers using the mysql::server class. You
+Puppet can create mysql servers using the govuk_mysql::server class. You
 will also want to use replica_user to create a replica user on the
 master; you will then manually tell the slave about the replica user
 credentials (see below).

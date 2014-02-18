@@ -2,7 +2,7 @@ class govuk::node::s_support_contacts inherits govuk::node::s_base {
   $root_password = extlookup('mysql_root_support_contacts')
   $support_password = extlookup('mysql_support_contacts')
 
-  class { 'mysql::server':
+  class { 'govuk_mysql::server':
     root_password => $root_password,
   }
 
@@ -11,7 +11,7 @@ class govuk::node::s_support_contacts inherits govuk::node::s_base {
     outgoing => 3306,
   }
 
-  mysql::server::db {'support_contacts_production':
+  govuk_mysql::server::db {'support_contacts_production':
     user          => 'support_contacts',
     password      => $support_password,
     root_password => $root_password,
@@ -51,7 +51,7 @@ class govuk::node::s_support_contacts inherits govuk::node::s_base {
 
   #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/mysql'] -> Class['mysql::server']
+    Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
     Govuk::Mount['/var/lib/automysqlbackup'] -> Automysqlbackup::Backup['automysqlbackup']
   }
 }

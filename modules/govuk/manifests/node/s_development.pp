@@ -7,7 +7,7 @@ class govuk::node::s_development {
   include hosts::development
   include imagemagick
   include mongodb::server
-  include mysql::client
+  include govuk_mysql::client
   include nodejs
   include puppet
   include rabbitmq
@@ -166,16 +166,16 @@ class govuk::node::s_development {
   }
 
   $mysql_password = ''
-  class { 'mysql::server':
+  class { 'govuk_mysql::server':
     root_password => $mysql_password
   }
 
-  Mysql::Server::Db {
+  Govuk_mysql::Server::Db {
     root_password => $mysql_password,
     remote_host   => 'localhost',
   }
 
-  mysql::server::db {
+  govuk_mysql::server::db {
     ['contacts_development', 'contacts_test']:
       user     => 'contacts',
       password => 'contacts';

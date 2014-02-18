@@ -1,4 +1,4 @@
-class mysql::server::monitoring ($root_password) {
+class govuk_mysql::server::monitoring ($root_password) {
 
   package { 'python-mysqldb':
     ensure => installed,

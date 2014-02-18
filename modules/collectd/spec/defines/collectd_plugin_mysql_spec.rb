@@ -3,7 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'collectd::plugin::mysql', :type => :define do
   let(:pre_condition) { <<EOS
 Collectd::Plugin <||>
-Mysql::User <||>
+Govuk_mysql::User <||>
 EOS
   }
   let(:title) { 'lazy_eval_workaround' }
@@ -16,7 +16,7 @@ EOS
 
     it { should contain_collectd__plugin('mysql').with_content(/^\s+MasterStats true$/) }
     it { should_not contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
-    it { should contain_mysql__user('collectd') }
+    it { should contain_govuk_mysql__user('collectd') }
   end
 
   context 'when slave' do
@@ -27,7 +27,7 @@ EOS
 
     it { should_not contain_collectd__plugin('mysql').with_content(/MasterStats/) }
     it { should contain_collectd__plugin('mysql').with_content(/^\s+SlaveStats true$/) }
-    it { should_not contain_mysql__user('collectd') }
+    it { should_not contain_govuk_mysql__user('collectd') }
   end
 
   context 'when standalone server' do
@@ -37,7 +37,7 @@ EOS
 
     it { should_not contain_collectd__plugin('mysql').with_content(/MasterStats/) }
     it { should_not contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
-    it { should contain_mysql__user('collectd') }
+    it { should contain_govuk_mysql__user('collectd') }
   end
 
   context 'when master and slave' do

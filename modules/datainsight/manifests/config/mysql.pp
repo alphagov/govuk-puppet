@@ -1,7 +1,7 @@
 class datainsight::config::mysql {
-  class { 'mysql::server':
+  class { 'govuk_mysql::server':
     root_password => extlookup('mysql_datainsight', '')
   }
 
-  include mysql::client
+  include govuk_mysql::client
 }
