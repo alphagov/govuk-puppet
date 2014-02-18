@@ -143,6 +143,7 @@ def run(options=None):
                 continue
             if isSecurityUpgrade(ver):
                 security_updates += 1
+                print (pkg.name)
                 break
 
     # print the number of upgrades
