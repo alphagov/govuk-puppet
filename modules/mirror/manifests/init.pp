@@ -1,4 +1,20 @@
-class mirror {
+# == Class: mirror
+#
+# Mirror GOV.UK and upload it to a static failover site.
+#
+# === Parameters
+#
+# [*targets*]
+#   An array of SSH user@host strings to sync the mirrored data to.
+#   If populated then an Icinga passive check will be created.
+#   If empty then no sync will be performed.
+#   Default: []
+#
+class mirror(
+  $targets = []
+) {
+  validate_array($targets)
+
   include daemontools # provides setlock
 
   # set up user that's needed to upload the mirrored site to net storage
@@ -35,7 +51,7 @@ class mirror {
   }
 
   include ruby::govuk_mirrorer
-  $govuk_mirror_targets = extlookup('govuk_mirror_targets', [])
+
   # script that uploads the mirrored files to net storage
   file { '/usr/local/bin/govuk_upload_mirror':
     ensure  => present,
@@ -46,7 +62,7 @@ class mirror {
   $service_desc = 'mirrorer update and upload'
   $threshold_secs = 28 * (60 * 60)
 
-  if str2bool(hiera('mirrorer::update_check',true)) {
+  if $targets {
     @@icinga::passive_check { "check-mirrorer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
