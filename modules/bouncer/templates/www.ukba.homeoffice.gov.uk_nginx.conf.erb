@@ -41,6 +41,18 @@ server {
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
   }
 
+  location /visas-immigration/general-info/processing-times {
+    proxy_pass http://ukba;
+    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
+    proxy_set_header Host www.ukba.homeoffice.gov.uk;
+  }
+
+  location /visas-immigration/general-info/fees {
+    proxy_pass http://ukba;
+    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
+    proxy_set_header Host www.ukba.homeoffice.gov.uk;
+  }
+
   location ~ (/static/biaAssets/*|/images/*) {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
