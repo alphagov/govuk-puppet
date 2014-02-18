@@ -3,5 +3,6 @@ class datainsight::config::mysql {
     root_password => extlookup('mysql_datainsight', '')
   }
 
-  include govuk_mysql::client
+  include govuk_mysql::libdev
+  include mysql::client
 }
