@@ -4,6 +4,11 @@
 #
 # === Parameters
 #
+# [*enable*]
+#   Whether to setup the cronjob. If `false` this will prevent the update
+#   AND upload processes from running, regardless of the `targets` param.
+#   Default: false
+#
 # [*targets*]
 #   An array of SSH user@host strings to sync the mirrored data to.
 #   If populated then an Icinga passive check will be created.
@@ -11,6 +16,7 @@
 #   Default: []
 #
 class mirror(
+  $enable = false,
   $targets = []
 ) {
   validate_array($targets)
@@ -79,8 +85,13 @@ class mirror(
                 File['/var/lib/govuk_mirror']],
   }
 
+  $cron_ensure = $enable ? {
+    true    => present,
+    default => absent,
+  }
+
   cron { 'update-latest-to-mirror':
-    ensure  => present,
+    ensure  => $cron_ensure,
     user    => 'govuk-netstorage',
     hour    => '0',
     minute  => '0',
