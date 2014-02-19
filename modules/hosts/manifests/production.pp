@@ -332,6 +332,11 @@ class hosts::production (
     vdc            => 'backend',
     legacy_aliases => ['whitehall-backend-3'],
   }
+  govuk::host { 'whitehall-backend-4':
+    ip             => '10.3.0.28',
+    vdc            => 'backend',
+    legacy_aliases => ['whitehall-backend-4'],
+  }
   govuk::host { 'elasticsearch-1':
     ip              => '10.3.0.15',
     vdc             => 'backend',
