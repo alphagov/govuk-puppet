@@ -16,7 +16,23 @@ describe 'mirror', :type => :class do
     should contain_file('/home/govuk-netstorage/.ssh/id_rsa').with_ensure('file')
   }
 
-  describe "govuk mirror targets" do
+  describe "#enable" do
+    context "false (default)" do
+      let(:params) {{ }}
+
+      it { should contain_cron('update-latest-to-mirror').with_ensure('absent') }
+    end
+
+    context "true" do
+      let(:params) {{
+        :enable => true,
+      }}
+
+      it { should contain_cron('update-latest-to-mirror').with_ensure('present') }
+    end
+  end
+
+  describe "#targets" do
     context "[] (default)" do
       let(:params) {{ }}
 
