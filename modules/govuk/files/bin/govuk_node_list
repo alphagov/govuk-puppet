@@ -10,9 +10,6 @@ import urllib
 import urllib2
 
 def nodeclass_callback(option, opt, value, parser):
-    # FIXME: Remove backwards compat for gds/alphagov-deployment.
-    value = value.replace('-', '_')
-
     setattr(parser.values, option.dest, value.split(','))
 
 def main():
