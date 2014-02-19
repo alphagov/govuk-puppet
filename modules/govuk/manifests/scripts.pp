@@ -24,4 +24,11 @@ class govuk::scripts {
     mode    => '0755',
   }
 
+  # govuk_check_security_updates list packages which need a security upgrade
+  file { '/usr/local/bin/govuk_check_security_updates':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk/bin/govuk_check_security_updates',
+    mode    => '0755',
+  }
+
 }
