@@ -1,4 +1,4 @@
-class govuk_mysql::server::monitoring ($root_password) {
+class govuk_mysql::server::monitoring {
 
   package { 'python-mysqldb':
     ensure => installed,
@@ -19,10 +19,9 @@ class govuk_mysql::server::monitoring ($root_password) {
   }
 
   collectd::plugin::mysql { 'lazy_eval_workaround':
-    master        => false,
-    slave         => false,
-    root_password => $root_password,
-    require       => Class['mysql::server'],
+    master  => false,
+    slave   => false,
+    require => Class['mysql::server'],
   }
 
 }

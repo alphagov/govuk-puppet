@@ -65,19 +65,13 @@ class govuk_mysql::server (
     error_log => $mysql_error_log,
   }
 
-  # This needs to *not* be required by anchors so that it can use govuk_mysql::user,
-  # which requires govuk_mysql::server
-  class { 'govuk_mysql::server::debian_sys_maint':
-    root_password => $root_password,
-  }
+  class { 'govuk_mysql::server::debian_sys_maint': }
 
   class { 'govuk_mysql::server::firewall':
     require => Class['mysql::server'],
   }
 
-  class { 'govuk_mysql::server::monitoring':
-    root_password => $root_password,
-  }
+  class { 'govuk_mysql::server::monitoring': }
 
   # Don't need to wait for monitoring class
   anchor { 'govuk_mysql::server::end':

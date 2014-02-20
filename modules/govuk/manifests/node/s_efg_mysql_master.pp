@@ -5,14 +5,12 @@ class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
   class { 'govuk_mysql::server':
     root_password => $root_password,
   }
-  class { 'govuk_mysql::server::binlog':
-    root_password => $root_password,
-  }
+  class { 'govuk_mysql::server::binlog': }
 
-  govuk_mysql::user {'replica_user':
-    root_password  => $root_password,
-    user_password  => $replica_password,
-    privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
+  govuk_mysql::user { 'replica_user@%':
+    password_hash => mysql_password($replica_password),
+    table         => '*.*',
+    privileges    => ['SUPER', 'REPLICATION CLIENT', 'REPLICATION SLAVE'],
   }
 
   class {'govuk::apps::efg::db':
