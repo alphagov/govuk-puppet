@@ -14,13 +14,3 @@ root ALL=(ALL) ALL
 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) NOPASSWD:ALL
-
-# ubuntu user is default user in ec2-images, and needs passwordless sudo functionality.
-ubuntu ALL=(ALL) NOPASSWD:ALL
-
-# the deploy user can access initctl
-deploy ALL=NOPASSWD:/sbin/initctl
-# the deploy user can restart varnish
-deploy ALL=NOPASSWD:/etc/init.d/varnish
-# the deploy user can restart nginx
-deploy ALL=NOPASSWD:/etc/init.d/nginx
