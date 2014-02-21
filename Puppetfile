@@ -9,6 +9,7 @@ mod 'puppetlabs/mysql'
 mod 'saz/memcached'
 mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
+mod 'saz/sudo', '3.0.1'
 mod 'saz/timezone'
 
 # Pinned because of: https://github.com/stankevich/puppet-python/issues/46
