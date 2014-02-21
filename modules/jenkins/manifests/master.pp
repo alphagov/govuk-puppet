@@ -10,7 +10,7 @@ class jenkins::master inherits jenkins {
   }
 
   package { 'jenkins':
-    ensure  => '1.532.1',
+    ensure  => '1.532.2',
     require => Class['jenkins'],
   }
 
