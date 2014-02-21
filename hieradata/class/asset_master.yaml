@@ -1,5 +1,9 @@
 ---
 
+govuk_sudo::sudo_conf:
+  deploy_assets_rsync:
+    content: 'deploy ALL=(assets) NOPASSWD:/usr/bin/rsync --server -vlogDtprze.iLsf --delete . /mnt/uploads'
+
 lv:
   data:
     pv: '/dev/sdb1'
