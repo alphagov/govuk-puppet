@@ -35,19 +35,38 @@ server {
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
   }
 
+  # POSTed to by the form at: /aboutus/informationformps/track-correspondence/
   location /view/case_finder.form {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
   }
 
-  location /visas-immigration/general-info/processing-times {
+  # Match URLs like:
+  #   /countries/angola/fees
+  #   /countries/czech-republic/fees
+  location ~ /countries/[a-zA-Z\-]+/fees {
+    proxy_pass http://ukba;
+    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
+    proxy_set_header Host www.ukba.homeoffice.gov.uk;
+  }
+
+  # Match URLs like:
+  #   /countries/japan/fees1/
+  #   /countries/czech-republic/fees1
+  location ~ /countries/[a-zA-Z\-]+/fees {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
   }
 
   location /visas-immigration/general-info/fees {
+    proxy_pass http://ukba;
+    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
+    proxy_set_header Host www.ukba.homeoffice.gov.uk;
+  }
+
+  location /visas-immigration/general-info/processing-times {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
