@@ -103,7 +103,7 @@ Vagrant.configure("2") do |config|
         c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
-      c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant FACTER_govuk_platform=staging /var/govuk/puppet/tools/puppet-apply"
+      c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant FACTER_govuk_platform=staging /var/govuk/puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
     end
   end
 end
