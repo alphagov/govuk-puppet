@@ -21,7 +21,6 @@ class monitoring::checks::smokey {
   icinga::check_feature {
     'check_businesssupportfinder':  feature => 'businesssupportfinder';
     'check_calendars':              feature => 'calendars';
-    'check_contractsfinder':        feature => 'contractsfinder';
     'check_efg':                    feature => 'efg';
     'check_frontend':               feature => 'frontend';
     'check_licencefinder':          feature => 'licencefinder';
