@@ -6,12 +6,8 @@ class govuk::node::s_whitehall_mysql_master inherits govuk::node::s_base {
     root_password         => $root_password,
     innodb_file_per_table => true,
   }
-  class { 'govuk_mysql::server::binlog': }
-
-  govuk_mysql::user { 'replica_user@%':
-    password_hash => mysql_password($replica_password),
-    table         => '*.*',
-    privileges    => ['SUPER', 'REPLICATION CLIENT', 'REPLICATION SLAVE'],
+  class { 'govuk_mysql::server::master':
+    replica_pass => $replica_password,
   }
 
   class {'govuk::apps::whitehall::db': require => Class['govuk_mysql::server'] }

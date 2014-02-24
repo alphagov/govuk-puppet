@@ -5,12 +5,8 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
   class { 'govuk_mysql::server':
     root_password => $root_password,
   }
-  class { 'govuk_mysql::server::binlog': }
-
-  govuk_mysql::user { 'replica_user@%':
-    password_hash => mysql_password($replica_password),
-    table         => '*.*',
-    privileges    => ['SUPER', 'REPLICATION CLIENT', 'REPLICATION SLAVE'],
+  class { 'govuk_mysql::server::master':
+    replica_pass => $replica_password,
   }
 
   class { [
