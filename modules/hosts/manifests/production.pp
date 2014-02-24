@@ -38,7 +38,9 @@ class hosts::production (
   }
 
   #management vdc machines
+  # FIXME: Remove once absent from all machines
   govuk::host { 'puppet-1':
+    ensure          => 'absent',
     ip              => '10.0.0.2',
     vdc             => 'management',
     legacy_aliases  => ['puppet-1'],
