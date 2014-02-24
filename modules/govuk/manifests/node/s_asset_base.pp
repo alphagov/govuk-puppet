@@ -76,18 +76,18 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   }
 
   file { '/usr/local/bin/virus_scan.sh':
-    source => 'puppet:///modules/clamav/usr/local/bin/virus_scan.sh',
+    source => 'puppet:///modules/govuk/node/s_asset_base/virus_scan.sh',
     mode   => '0755',
   }
 
   file { '/usr/local/bin/extract_text_from_files.rb':
-    source    => 'puppet:///modules/clamav/usr/local/bin/extract_text_from_files.rb',
+    source    => 'puppet:///modules/govuk/node/s_asset_base/extract_text_from_files.rb',
     mode      => '0755',
     require   => Package['tika'],
   }
 
   file { '/usr/local/bin/sync-assets.sh':
-    source => 'puppet:///modules/clamav/usr/local/bin/sync-assets.sh',
+    source => 'puppet:///modules/govuk/node/s_asset_base/sync-assets.sh',
     mode   => '0755',
   }
 
