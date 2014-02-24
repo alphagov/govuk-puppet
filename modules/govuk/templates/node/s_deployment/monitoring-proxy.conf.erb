@@ -3,7 +3,7 @@ server {
   server_name monitoring.*;
 
   location / {
-    proxy_pass http://monitoring.management.production/;
+    proxy_pass http://monitoring-1.management.production/;
     proxy_set_header Host $http_host;
   }
 }
@@ -13,7 +13,7 @@ server {
   server_name monitoring.* nagios.*;
 
   location / {
-    proxy_pass https://monitoring.management.production/;
+    proxy_pass https://monitoring-1.management.production/;
     proxy_set_header Host $http_host;
   }
 }
