@@ -45,7 +45,7 @@ server {
   # Match URLs like:
   #   /countries/angola/fees
   #   /countries/czech-republic/fees
-  location ~ /countries/[a-zA-Z\-]+/fees {
+  location ~* /countries/[a-zA-Z\-]+/fees {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
@@ -54,7 +54,7 @@ server {
   # Match URLs like:
   #   /countries/japan/fees1/
   #   /countries/czech-republic/fees1
-  location ~ /countries/[a-zA-Z\-]+/fees {
+  location ~* /countries/[a-zA-Z\-]+/fees {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
@@ -72,7 +72,7 @@ server {
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
   }
 
-  location ~ (/static/biaAssets/*|/images/*) {
+  location ~* (/static/biaAssets/*|/images/*) {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
