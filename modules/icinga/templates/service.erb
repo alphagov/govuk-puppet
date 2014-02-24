@@ -10,6 +10,9 @@ define service {
 <%- if @check_interval -%>
         check_interval            <%= @check_interval %>
 <%- end -%>
+<%- if @retry_interval -%>
+        retry_interval            <%= @retry_interval %>
+<%- end -%>
 <%- if @first_notification_delay -%>
         first_notification_delay  <%= @first_notification_delay %>
 <%- end -%>

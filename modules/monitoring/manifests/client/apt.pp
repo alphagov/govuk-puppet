@@ -22,7 +22,8 @@ class monitoring::client::apt {
     service_description        => 'outstanding security updates',
     host_name                  => $::fqdn,
     attempts_before_hard_state => 24, # Wait 24hrs to allow unattended-upgrades to run first
-    check_interval             => 60,
+    check_interval             => 60, # Save cycles, apt-get update only runs every 30m
+    retry_interval             => 60,
     notes_url                  => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#outstanding-security-updates',
   }
 
