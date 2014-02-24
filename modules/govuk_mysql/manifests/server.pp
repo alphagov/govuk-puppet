@@ -17,6 +17,10 @@ class govuk_mysql::server (
   $innodb_buffer_pool_size_proportion = extlookup('mysql_innodb_buffer_pool_size_proportion', '0.25')
   $innodb_buffer_pool_size = floor($::memtotalmb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
 
+  # This preserves "default" behaviour and prevents us from needing to
+  # restart mysqld. But relying on hostname isn't such a good thing.
+  $pidfile = "/var/lib/mysql/${::hostname}.pid"
+
   $mysql_config = {
     'client'   => {
       'port'   => 3306,
@@ -27,6 +31,7 @@ class govuk_mysql::server (
       'nice'      => 0,
     },
     'mysqld'                           => {
+      'pid-file'                       => $pidfile,
       'user'                           => 'mysql',
       'socket'                         => '/var/run/mysqld/mysqld.sock',
       'skip-external-locking'          => true,
