@@ -2,11 +2,11 @@
 DISKS=`ls /dev/sd? | tail -n +2`
 for disk in ${DISKS}; do
 echo "checking ${disk}"
-if ! parted -a optimal --script  ${disk} -- print
+if ! sudo parted -a optimal --script  ${disk} -- print
 then
 echo "partitioning ${disk}"
-parted -a optimal --script ${disk} -- mklabel msdos
-parted -a optimal --script ${disk} -- mkpart primary 1 100%
-parted -a optimal --script ${disk} -- set 1 lvm on
+sudo parted -a optimal --script ${disk} -- mklabel msdos
+sudo parted -a optimal --script ${disk} -- mkpart primary 1 100%
+sudo parted -a optimal --script ${disk} -- set 1 lvm on
 fi
 done
