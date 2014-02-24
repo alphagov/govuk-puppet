@@ -72,6 +72,11 @@ server {
     proxy_set_header Host www.ukba.homeoffice.gov.uk;
   }
 
+  # We want to proxy page furniture so that the pages don't look broken.
+  # We are also (initially inadvertantly) proxying their RSS feeds at URLs
+  # like:
+  #   /static/biaassets/rss/citizenshiprss.xml
+  #   /static/biaassets/rss/country/afghanistanrss.xml
   location ~* (/static/biaAssets/*|/images/*) {
     proxy_pass http://ukba;
     # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
