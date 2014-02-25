@@ -9,6 +9,11 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     }
   }
 
+  # FIXME: Remove when deployed.
+  package { ['python-whisper', 'python-carbon', 'python-graphite']:
+    ensure => purged,
+  }
+
   class { 'graphite':
     port                       => '33333',
     carbon_aggregator          => true,
