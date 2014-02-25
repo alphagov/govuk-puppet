@@ -52,6 +52,7 @@ define icinga::check (
   $action_url                 = undef,
   $notes_url                  = undef,
   $check_interval             = undef,
+  $retry_interval             = undef,
   $first_notification_delay   = undef,
   $attempts_before_hard_state = undef
 ) {
