@@ -1,10 +1,13 @@
 #!/bin/bash
 
-set -eu
+set -e
 
 INCOMING_DIR="$1"
 INFECTED_DIR="$2"
 CLEAN_DIR="$3"
+
+set -u
+
 CLAMSCAN_CMD="clamscan"
 START_TIME=`date +%s`
 
