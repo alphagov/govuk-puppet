@@ -46,4 +46,10 @@ class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
     command   => '/usr/bin/setlock -n /var/run/virus_scan/clean-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
     require   => $cron_requires,
   }
+
+  # FIXME: Remove when deployed.
+  cron { ['sync-assets-from-master', 'sync-assets-from-master-draft']:
+    ensure  => absent,
+    user    => 'assets',
+  }
 }
