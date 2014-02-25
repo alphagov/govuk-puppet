@@ -58,6 +58,12 @@ class mirror(
 
   include ruby::govuk_mirrorer
 
+  # gem to generate report on pages with suspected bad links
+  package { 'bad_link_finder':
+    ensure   => '0.2.3',
+    provider => gem,
+  }
+
   # script that uploads the mirrored files to net storage
   file { '/usr/local/bin/govuk_upload_mirror':
     ensure  => present,
