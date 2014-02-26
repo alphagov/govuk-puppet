@@ -4,8 +4,7 @@ class govuk_mysql::server::slave {
 
   file { '/etc/mysql/conf.d/slave.cnf':
     source => 'puppet:///modules/govuk_mysql/etc/mysql/conf.d/slave.cnf',
-    # FIXME: Temporarily disabled for rollout.
-    #notify => Class['mysql::server::service'],
+    notify => Class['mysql::server::service'],
   }
 
 }
