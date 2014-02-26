@@ -12,8 +12,7 @@ class govuk_mysql::server::master (
 
   file { '/etc/mysql/conf.d/binlog.cnf':
     source => 'puppet:///modules/govuk_mysql/etc/mysql/conf.d/binlog.cnf',
-    # FIXME: Temporarily disabled for rollout.
-    #notify => Class['mysql::server::service'],
+    notify => Class['mysql::server::service'],
   }
 
 }
