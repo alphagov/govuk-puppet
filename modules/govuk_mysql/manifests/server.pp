@@ -55,7 +55,8 @@ class govuk_mysql::server (
     root_password    => $root_password,
     override_options => $mysql_config,
     purge_conf_dir   => true,
-    restart          => true,
+    # FIXME: Temporarily disabled for rollout.
+    restart          => false,
   }
 
   # FIXME: Remove when deployed to existing machines.
