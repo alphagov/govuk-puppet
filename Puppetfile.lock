@@ -95,6 +95,13 @@ GIT
       puppetlabs/stdlib (>= 2.2.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-tune_ext.git
+  ref: master
+  sha: a500c9a6263712388ea4b052e0cc93d9c11d7644
+  specs:
+    tune_ext (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppetlabs-lvm.git
   ref: master
   sha: 2082a276093c96e67a676f0c6076c0841f918a17
@@ -145,5 +152,6 @@ DEPENDENCIES
   saz/timezone (>= 0)
   stankevich/python (= 1.2.1)
   thomasvandoren/redis (>= 0)
+  tune_ext (>= 0)
   ufw (>= 0)
 

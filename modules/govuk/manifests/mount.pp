@@ -52,6 +52,10 @@ define govuk::mount(
       mountoptions => $mountoptions,
       mountpoint   => $mountpoint,
     }
+
+    tune_ext { $disk:
+      require => Ext4mount[$title],
+    }
   }
 
   @@icinga::check { "check${mountpoint_escaped}_disk_space_${::hostname}":

@@ -38,6 +38,8 @@ describe 'govuk::mount', :type => :define do
 
     it { should contain_govuk__lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
 
+    it { should contain_tune_ext('/dev/mouse').that_requires('Ext4mount[gruffalo]') }
+
     it {
       should contain_ext4mount('gruffalo').with(
         :disk         => '/dev/mouse',
