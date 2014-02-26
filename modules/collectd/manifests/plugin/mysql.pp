@@ -7,9 +7,6 @@
 #
 # === Parameters:
 #
-# [*root_password*]
-#   MySQL root password.
-#
 # [*master*]
 #   Enable `SHOW MASTER STATUS` collection.
 #   Default: false
@@ -20,7 +17,6 @@
 #   Default: false
 #
 define collectd::plugin::mysql(
-  $root_password,
   $master = false,
   $slave = false
 ) {
@@ -31,11 +27,10 @@ define collectd::plugin::mysql(
   $collectd_mysql_password = 'collectd'
 
   if $slave != true {
-    @mysql::user { 'collectd':
-      root_password => $root_password,
-      user_password => $collectd_mysql_password,
-      remote_host   => 'localhost',
-      privileges    => 'REPLICATION CLIENT',
+    @govuk_mysql::user { 'collectd@localhost':
+      password_hash => mysql_password($collectd_mysql_password),
+      table         => '*.*',
+      privileges    => ['REPLICATION CLIENT'],
       tag           => 'collectd::plugin',
       notify        => Collectd::Plugin['mysql'],
     }

@@ -1,4 +1,4 @@
-class mysql::server::logging(
+class govuk_mysql::server::logging(
   $error_log
 ) {
   govuk::logstream { 'mysql-error-logs':
@@ -7,7 +7,7 @@ class mysql::server::logging(
     fields  => {'application' => 'mysql'},
   }
   file {'/etc/logrotate.d/mysql-server':
-    content => template('mysql/etc/logrotate.d/mysql-server.erb'),
+    content => template('govuk_mysql/etc/logrotate.d/mysql-server.erb'),
     mode    => '0644',
     owner   => 'root',
     group   => 'root',

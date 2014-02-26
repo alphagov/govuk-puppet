@@ -2,27 +2,20 @@ class govuk::node::s_whitehall_mysql_master inherits govuk::node::s_base {
   $root_password = extlookup('mysql_root', '')
   $replica_password = extlookup('mysql_replica_password', '')
 
-  class { 'mysql::server':
+  class { 'govuk_mysql::server':
     root_password         => $root_password,
     innodb_file_per_table => true,
   }
-  class { 'mysql::server::binlog':
-    root_password => $root_password,
+  class { 'govuk_mysql::server::master':
+    replica_pass => $replica_password,
   }
 
-  mysql::user { 'replica_user':
-    root_password  => $root_password,
-    user_password  => $replica_password,
-    privileges     => 'SUPER, REPLICATION CLIENT, REPLICATION SLAVE',
-  }
+  class {'govuk::apps::whitehall::db': require => Class['govuk_mysql::server'] }
 
-  class {'govuk::apps::whitehall::db': require => Class['mysql::server'] }
-
-  mysql::user { 'whitehall_fe':
-    root_password => $root_password,
-    user_password => extlookup('mysql_whitehall_frontend', ''),
-    db            => 'whitehall_production',
-    privileges    => 'SELECT',
+  govuk_mysql::user { 'whitehall_fe@%':
+    password_hash => mysql_password(extlookup('mysql_whitehall_frontend', '')),
+    table         => 'whitehall_production.*',
+    privileges    => ['SELECT'],
     require       => Class['govuk::apps::whitehall::db'],
   }
 
@@ -33,6 +26,6 @@ class govuk::node::s_whitehall_mysql_master inherits govuk::node::s_base {
 
   #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/mysql'] -> Class['mysql::server']
+    Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
   }
 }

@@ -4,6 +4,7 @@ class govuk::node::s_development {
   include assets::user
   include fonts
   include golang
+  include govuk_mysql::libdev
   include hosts::development
   include imagemagick
   include mongodb::server
@@ -165,17 +166,11 @@ class govuk::node::s_development {
     source => 'puppet:///modules/nginx/development',
   }
 
-  $mysql_password = ''
-  class { 'mysql::server':
-    root_password => $mysql_password
-  }
+  # No `root_password` means that none will be set.
+  # Rather than a hash of an hash empty string.
+  class { 'govuk_mysql::server': }
 
-  Mysql::Server::Db {
-    root_password => $mysql_password,
-    remote_host   => 'localhost',
-  }
-
-  mysql::server::db {
+  mysql::db {
     ['contacts_development', 'contacts_test']:
       user     => 'contacts',
       password => 'contacts';

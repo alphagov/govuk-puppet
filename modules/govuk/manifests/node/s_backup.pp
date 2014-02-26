@@ -16,11 +16,11 @@ class govuk::node::s_backup (
 
   # To accommodate futzing around with databases, we install a MySQL server
   $root_password = extlookup('mysql_root', '')
-  class { 'mysql::server':
+  class { 'govuk_mysql::server':
     root_password => $root_password,
   }
   class {'govuk::apps::whitehall::db':
-    require => Class['mysql::server'],
+    require => Class['govuk_mysql::server'],
   }
 
   $offsite_backup = extlookup('offsite-backups', 'off')
