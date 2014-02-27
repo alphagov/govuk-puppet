@@ -69,7 +69,9 @@ if [ -z "$NO_PULL" ]; then
   NO_PULL=1 exec "$SELF" "$@"
 fi
 
+info "bundling"
 bundle install --quiet
+info "librarian-puppet"
 bundle exec librarian-puppet install --quiet
 
 for dir in `ls vendor/modules`; do
