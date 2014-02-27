@@ -4,4 +4,4 @@ ALLOWHIDDENDIR=/dev/.initramfs
 ALLOWHIDDENFILE=/dev/.blkid.tab
 USE_SYSLOG=authpriv.notice
 ENABLE_TESTS="all"
-DISABLE_TESTS="filesystem properties suspscan hidden_procs deleted_files packet_cap_apps apps"
+DISABLE_TESTS="filesystem properties suspscan hidden_procs running_procs deleted_files packet_cap_apps apps"
