@@ -1,5 +1,10 @@
 require 'puppet-lint'
 
+# Load custom checks.
+FileList['lib/puppet-lint/plugins/*.rb'].each do |plugin|
+  load plugin
+end
+
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
 
