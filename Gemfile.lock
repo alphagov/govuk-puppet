@@ -9,12 +9,12 @@ GEM
     highline (1.6.19)
     json (1.8.0)
     json_pure (1.8.1)
-    librarian (0.1.1)
+    librarian (0.1.2)
       highline
       thor (~> 0.15)
-    librarian-puppet-maestrodev (0.9.10.1)
+    librarian-puppet (0.9.13)
       json
-      librarian (>= 0.1.1)
+      librarian (>= 0.1.2)
     metaclass (0.0.1)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
@@ -53,7 +53,7 @@ PLATFORMS
 
 DEPENDENCIES
   hiera-puppet-helper
-  librarian-puppet-maestrodev
+  librarian-puppet
   parallel
   parallel_tests
   puppet (= 3.2.2)
