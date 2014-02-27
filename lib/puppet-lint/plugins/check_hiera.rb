@@ -35,7 +35,6 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'aws_ses_smtp_username',
     'aws_ses_smtp_password',
     'deploy_ssh_keys',
-    'licensify_use_java_7',
     'mirror::enable_checks',
     'perfplat_internal_app_domain',
   ]
