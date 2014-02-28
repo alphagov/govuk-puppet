@@ -1,0 +1,17 @@
+# Configure the redis_queues collectd plugin
+
+<LoadPlugin python>
+  Globals true
+</LoadPlugin>
+
+<Plugin python>
+  ModulePath "/usr/lib/collectd/python"
+  Import "redis_queues"
+
+  <Module redis_queues>
+    Host "<%= @host %>"
+    Port <%= @port %>
+    Verbose false
+    Queues <%= @queues.join(' ') %>
+  </Module>
+</Plugin>

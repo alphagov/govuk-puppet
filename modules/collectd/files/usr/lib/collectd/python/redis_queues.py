@@ -1,5 +1,3 @@
-# redis-collectd-plugin - redis_info.py
-#
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
 # Free Software Foundation; only version 2 of the License is applicable.
@@ -12,21 +10,12 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-#
-# Authors:
-#   Garret Heaton <powdahound at gmail.com>
-#
-# About this plugin:
-#   This plugin uses collectd's Python plugin to record Redis information.
-#
-# collectd:
-#   http://collectd.org
-# Redis:
-#   http://redis.googlecode.com
-# collectd-python:
-#   http://collectd.org/documentation/manpages/collectd-python.5.shtml
+
+# This plugin is to monitor queue lengths in Redis. Based on redis_info.py by
+# Garret Heaton <powdahound at gmail.com>, hence the GPL at the top.
 
 import collectd
+from contextlib import closing, contextmanager
 import socket
 
 
@@ -39,62 +28,47 @@ REDIS_PORT = 6379
 # Verbose logging on/off. Override in config by specifying 'Verbose'.
 VERBOSE_LOGGING = False
 
+# Queue names to monitor. Override in config by specifying 'Queues'.
+QUEUE_NAMES = []
 
-def fetch_info():
-    """Connect to Redis server and request info"""
+
+def fetch_queue_lengths(queue_names):
+    """Connect to Redis server and request queue lengths.
+    
+    Return a dictionary from queue names to integers.
+    
+    """
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((REDIS_HOST, REDIS_PORT))
         log_verbose('Connected to Redis at %s:%s' % (REDIS_HOST, REDIS_PORT))
     except socket.error, e:
-        collectd.error('redis_info plugin: Error connecting to %s:%d - %r'
+        collectd.error('redis_queues plugin: Error connecting to %s:%d - %r'
                        % (REDIS_HOST, REDIS_PORT, e))
         return None
-    fp = s.makefile('r')
-    log_verbose('Sending info command')
-    s.sendall('info\r\n')
 
-    status_line = fp.readline()
-    content_length = int(status_line[1:-1]) # status_line looks like: $<content_length>
-    data = fp.read(content_length)
-    log_verbose('Received data: %s' % data)
-    s.close()
+    queue_lengths = {}
 
-    linesep = '\r\n' if '\r\n' in data else '\n'
-    return parse_info(data.split(linesep))
+    with closing(s) as redis_socket:
+        for queue_name in queue_names:
+            log_verbose('Requesting length of queue %s' % queue_name)
+            redis_socket.sendall('llen %s\r\n' % queue_name)
+            with closing(redis_socket.makefile('r')) as response_file:
+                response = response_file.readline()
+            if response.startswith(':'):
+                try:
+                    queue_lengths[queue_name] = int(response[1:-1])
+                except ValueError:
+                    log_verbose('Invalid response: %r' % response)
+            else:
+                log_verbose('Invalid response: %r' % response)
 
-
-def parse_info(info_lines):
-    """Parse info response from Redis"""
-    info = {}
-    for line in info_lines:
-        if "" == line or line.startswith('#'):
-            continue
-
-        if ':' not in line:
-            collectd.warning('redis_info plugin: Bad format for info line: %s'
-                             % line)
-            continue
-
-        key, val = line.split(':')
-
-        # Handle multi-value keys (for dbs).
-        # db lines look like "db0:keys=10,expire=0"
-        if ',' in val:
-            split_val = val.split(',')
-            val = {}
-            for sub_val in split_val:
-                k, _, v = sub_val.rpartition('=')
-                val[k] = v
-
-        info[key] = val
-    info["changes_since_last_save"] = info.get("changes_since_last_save", info.get("rdb_changes_since_last_save"))
-    return info
+    return queue_lengths
 
 
 def configure_callback(conf):
     """Receive configuration block"""
-    global REDIS_HOST, REDIS_PORT, VERBOSE_LOGGING
+    global REDIS_HOST, REDIS_PORT, VERBOSE_LOGGING, QUEUE_NAMES
     for node in conf.children:
         if node.key == 'Host':
             REDIS_HOST = node.values[0]
@@ -102,58 +76,34 @@ def configure_callback(conf):
             REDIS_PORT = int(node.values[0])
         elif node.key == 'Verbose':
             VERBOSE_LOGGING = bool(node.values[0])
+        elif node.key == 'Queues':
+            QUEUE_NAMES = list(node.values)
         else:
-            collectd.warning('redis_info plugin: Unknown config key: %s.'
+            collectd.warning('redis_queues plugin: Unknown config key: %s.'
                              % node.key)
     log_verbose('Configured with host=%s, port=%s' % (REDIS_HOST, REDIS_PORT))
-
-
-def dispatch_value(info, key, type, type_instance=None):
-    """Read a key from info response data and dispatch a value"""
-    if key not in info:
-        collectd.warning('redis_info plugin: Info key not found: %s' % key)
-        return
-
-    if not type_instance:
-        type_instance = key
-
-    value = int(info[key])
-    log_verbose('Sending value: %s=%s' % (type_instance, value))
-
-    val = collectd.Values(plugin='redis_info')
-    val.type = type
-    val.type_instance = type_instance
-    val.values = [value]
-    val.dispatch()
+    for queue in QUEUE_NAMES:
+        log_verbose('Watching queue %s' % queue)
+    if not QUEUE_NAMES:
+        log_verbose('Not watching any queues')
 
 
 def read_callback():
     log_verbose('Read callback called')
-    info = fetch_info()
+    queue_lengths = fetch_queue_lengths(QUEUE_NAMES)
 
-    if not info:
-        collectd.error('redis plugin: No info received')
+    if queue_lengths is None:
+        # An earlier error, reported to collectd by fetch_queue_lengths
         return
 
-    # send high-level values
-    dispatch_value(info, 'uptime_in_seconds','gauge')
-    dispatch_value(info, 'connected_clients', 'gauge')
-    dispatch_value(info, 'connected_slaves', 'gauge')
-    dispatch_value(info, 'blocked_clients', 'gauge')
-    dispatch_value(info, 'evicted_keys', 'gauge')
-    dispatch_value(info, 'used_memory', 'bytes')
-    dispatch_value(info, 'changes_since_last_save', 'gauge')
-    dispatch_value(info, 'total_connections_received', 'counter',
-                   'connections_recieved')
-    dispatch_value(info, 'total_commands_processed', 'counter',
-                   'commands_processed')
+    for queue_name, queue_length in queue_lengths.items():
+        log_verbose('Sending value: %s=%s' % (queue_name, queue_length))
 
-    # database and vm stats
-    for key in info:
-        if key.startswith('vm_stats_'):
-            dispatch_value(info, key, 'gauge')
-        if key.startswith('db'):
-            dispatch_value(info[key], 'keys', 'gauge', '%s-keys' % key)
+        val = collectd.Values(plugin='redis_queues')
+        val.type = 'gauge'
+        val.type_instance = queue_name
+        val.values = [queue_length]
+        val.dispatch()
 
 
 def log_verbose(msg):
