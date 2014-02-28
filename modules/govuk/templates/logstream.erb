@@ -38,5 +38,9 @@ end
 -%>
 script
     REDIS_SERVERS=$(govuk_node_list -c logs_redis | xargs -IHOST echo redis://HOST | paste -sd ',')
+    if [ -z "$REDIS_SERVERS" ]; then
+        echo "No redis servers found from govuk_node_list"
+        exit 1
+    fi
     tail -F <%= @logfile %> | logship -f <%= filters.join(',') %> -s <%= shippers.join(' ') %>
 end script
