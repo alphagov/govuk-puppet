@@ -22,4 +22,8 @@ class govuk::node::s_logs_redis inherits govuk::node::s_redis_base {
     content => template('govuk/redis_river.json.erb'),
     tag     => 'logging',
   }
+
+  collectd::plugin::redis_queues { 'redis-queues-collectd':
+    queues => ['logs'],
+  }
 }
