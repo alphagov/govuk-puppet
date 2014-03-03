@@ -584,7 +584,8 @@
     },
     {
       "type": "annotations",
-      "enable": false
+      "enable": true,
+      "annotations": []
     }
   ],
   "nav": [
