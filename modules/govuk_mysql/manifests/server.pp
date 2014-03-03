@@ -58,6 +58,8 @@ class govuk_mysql::server (
     restart          => true,
   }
 
+  class { 'mysql::server::account_security': }
+
   # FIXME: Remove when deployed to existing machines.
   class { 'govuk_mysql::server::root_password': }
 
