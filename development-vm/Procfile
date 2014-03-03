@@ -45,7 +45,7 @@ calculators:           ./run_in.sh ../calculators bundle exec rails s -p 3047
 fact_cave:             ./run_in.sh ../fact-cave bundle exec rails s -p 3048
 bouncer:               ./run_in.sh ../bouncer bundle exec mr-sparkle --force-polling -- -p 3049
 fco_services:          ./run_in.sh ../fco-services bundle exec rails s -p 3050
-# hmrc_contacts: grabbing port 3051 in preview only
+hmrc_contacts:         ./run_in.sh ../hmrc-contacts bundle exec rails s -p 3051
 need_api:              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
 maslow:                ./run_in.sh ../maslow bundle exec rails s -p 3053
 # router uses 3054 and 3055
