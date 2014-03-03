@@ -27,7 +27,9 @@ describe 'govuk::lvm', :type => :define do
     let(:params) {{
       :pv    => '/dev/black',
       :vg    => 'orange',
-      :no_op => true,
+    }}
+    let(:hiera_data) {{
+      :'govuk::mount::no_op' => true,
     }}
 
     it { should_not contain_ext4mount('purple') }

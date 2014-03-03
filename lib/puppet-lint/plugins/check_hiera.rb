@@ -38,6 +38,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'mirror::enable_checks',
     'perfplat_internal_app_domain',
     'govuk::mount::no_op',
+    'govuk::lvm::no_op',
   ]
 
   check 'hiera_explicit_lookup' do
