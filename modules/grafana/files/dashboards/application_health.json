@@ -25,11 +25,13 @@
           "x-axis": true,
           "y-axis": true,
           "scale": 1,
-          "y_format": "none",
-          "y2_format": "none",
           "grid": {
             "max": 1500,
-            "min": 0
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "annotate": {
             "enable": false,
@@ -68,7 +70,15 @@
           "spyable": true,
           "zoomlinks": false,
           "options": false,
-          "legend": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
           "interactive": true,
           "legend_counts": true,
           "timezone": "browser",
@@ -90,7 +100,13 @@
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "contentapi resp/avg"
+          "title": "contentapi resp/avg",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
         },
         {
           "span": 4,
@@ -100,11 +116,13 @@
           "x-axis": true,
           "y-axis": true,
           "scale": 1,
-          "y_format": "none",
-          "y2_format": "none",
           "grid": {
             "max": 1500,
-            "min": 0
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "annotate": {
             "enable": false,
@@ -143,7 +161,15 @@
           "spyable": true,
           "zoomlinks": false,
           "options": false,
-          "legend": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
           "interactive": true,
           "legend_counts": true,
           "timezone": "browser",
@@ -165,7 +191,13 @@
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "smartanswers resp/avg"
+          "title": "smartanswers resp/avg",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
         },
         {
           "span": 4,
@@ -175,11 +207,13 @@
           "x-axis": true,
           "y-axis": true,
           "scale": 1,
-          "y_format": "none",
-          "y2_format": "none",
           "grid": {
             "max": 1500,
-            "min": 0
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "annotate": {
             "enable": false,
@@ -218,7 +252,15 @@
           "spyable": true,
           "zoomlinks": false,
           "options": false,
-          "legend": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
           "interactive": true,
           "legend_counts": true,
           "timezone": "browser",
@@ -240,7 +282,13 @@
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "frontend resp/avg"
+          "title": "frontend resp/avg",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
         }
       ],
       "notice": false
@@ -260,11 +308,13 @@
           "x-axis": true,
           "y-axis": true,
           "scale": 1,
-          "y_format": "none",
-          "y2_format": "none",
           "grid": {
             "max": 1500,
-            "min": 0
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "annotate": {
             "enable": false,
@@ -303,7 +353,15 @@
           "spyable": true,
           "zoomlinks": false,
           "options": false,
-          "legend": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
           "interactive": true,
           "legend_counts": true,
           "timezone": "browser",
@@ -325,7 +383,13 @@
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "rummager resp/avg"
+          "title": "rummager resp/avg",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
         },
         {
           "span": 4,
@@ -335,11 +399,13 @@
           "x-axis": true,
           "y-axis": true,
           "scale": 1,
-          "y_format": "none",
-          "y2_format": "none",
           "grid": {
             "max": 1500,
-            "min": 0
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "annotate": {
             "enable": false,
@@ -378,7 +444,15 @@
           "spyable": true,
           "zoomlinks": false,
           "options": false,
-          "legend": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
           "interactive": true,
           "legend_counts": true,
           "timezone": "browser",
@@ -397,7 +471,13 @@
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "whitehall fe resp/avg"
+          "title": "whitehall fe resp/avg",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
         },
         {
           "span": 4,
@@ -407,11 +487,13 @@
           "x-axis": true,
           "y-axis": true,
           "scale": 1,
-          "y_format": "none",
-          "y2_format": "none",
           "grid": {
             "max": null,
-            "min": 0
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "annotate": {
             "enable": false,
@@ -450,7 +532,15 @@
           "spyable": true,
           "zoomlinks": false,
           "options": false,
-          "legend": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
           "interactive": true,
           "legend_counts": true,
           "timezone": "browser",
@@ -469,7 +559,13 @@
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "fe HTTP 503/s"
+          "title": "fe HTTP 503/s",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
         }
       ],
       "notice": false
@@ -484,6 +580,10 @@
       "type": "filtering",
       "collapse": false,
       "notice": false,
+      "enable": false
+    },
+    {
+      "type": "annotations",
       "enable": false
     }
   ],
@@ -534,5 +634,7 @@
     "load_local": false,
     "hide": false
   },
-  "refresh": "1m"
+  "refresh": "1m",
+  "tags": [],
+  "timezone": "browser"
 }
