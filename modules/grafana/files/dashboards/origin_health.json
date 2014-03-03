@@ -60,12 +60,12 @@
             "1w",
             "1y"
           ],
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
+          "lines": true,
+          "fill": 10,
+          "linewidth": 0,
           "points": false,
           "pointradius": 5,
-          "bars": true,
+          "bars": false,
           "stack": true,
           "spyable": true,
           "zoomlinks": false,
@@ -236,12 +236,12 @@
             "1w",
             "1y"
           ],
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
+          "lines": true,
+          "fill": 10,
+          "linewidth": 0,
           "points": false,
           "pointradius": 5,
-          "bars": true,
+          "bars": false,
           "stack": false,
           "spyable": true,
           "zoomlinks": false,
@@ -275,9 +275,6 @@
             },
             {
               "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router_production.nginx_logs.www-origin.http_*xx)),1),12),\"cache-3\")"
-            },
-            {
-              "target": "alias(dashed(drawAsInfinite(removeBelowValue(sum(stats.govuk.app.*.all.deploys),0.00001))),\"all deploys\")"
             }
           ],
           "aliasColors": {},
@@ -519,12 +516,12 @@
             "1w",
             "1y"
           ],
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
+          "lines": true,
+          "fill": 10,
+          "linewidth": 0,
           "points": false,
           "pointradius": 5,
-          "bars": true,
+          "bars": false,
           "stack": false,
           "spyable": true,
           "zoomlinks": false,
