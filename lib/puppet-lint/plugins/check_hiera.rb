@@ -30,6 +30,10 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'website_host',
     'website_root',
 
+    # disk noops due to defined classes not doing magical hiera lookups
+    'govuk::mount::no_op',
+    'govuk::lvm::no_op',
+
     # FIXME: Existing violations. These should be refactored.
     'aws_ses_smtp_host',
     'aws_ses_smtp_username',
@@ -37,8 +41,6 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'deploy_ssh_keys',
     'mirror::enable_checks',
     'perfplat_internal_app_domain',
-    'govuk::mount::no_op',
-    'govuk::lvm::no_op',
   ]
 
   check 'hiera_explicit_lookup' do
