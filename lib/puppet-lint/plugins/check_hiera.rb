@@ -37,6 +37,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'deploy_ssh_keys',
     'mirror::enable_checks',
     'perfplat_internal_app_domain',
+    'govuk::mount::no_op',
   ]
 
   check 'hiera_explicit_lookup' do
