@@ -29,59 +29,29 @@ server {
   access_log /var/log/nginx/www.ukba.homeoffice.gov.uk-json.event.access.log json_event;
   error_log /var/log/nginx/www.ukba.homeoffice.gov.uk-error.log;
 
-  location /aboutus/informationformps {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
+  <% $proxied_locations = [
+      '/aboutus/informationformps',
+      '~* /countries/[a-zA-Z\-]+/fees', # eg /countries/angola/fees or /countries/czech-republic/fees or /countries/japan/fees1/
+      '/sitecontent/documents/aboutus/info-fact-sheet-mps',
+      '/sitecontent/documents/aboutus/mps-enquiries',
+      '/sitecontent/documents/aboutus/mps-family-visit',
+      '/sitecontent/documents/aboutus/confirms-mp-enqline/',
+      '/sitecontent/documents/aboutus/example-agenda-mp',
+      '/sitecontent/documents/aboutus/perform-mp-service/',
+      '/view/case_finder.form',         # POSTed to by the form at: /aboutus/informationformps/track-correspondence/
+      '/visas-immigration/general-info/fees',
+      '/visas-immigration/general-info/processing-times',
+      '~* (/static/biaAssets/*|/images/*)', # We want to proxy page furniture so that the pages don't look broken. Includes RSS feeds like: /static/biaassets/rss/citizenshiprss.xml
+    ]
+  %>
 
-  # POSTed to by the form at: /aboutus/informationformps/track-correspondence/
-  location /view/case_finder.form {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
-
-  # Match URLs like:
-  #   /countries/angola/fees
-  #   /countries/czech-republic/fees
-  location ~* /countries/[a-zA-Z\-]+/fees {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
-
-  # Match URLs like:
-  #   /countries/japan/fees1/
-  #   /countries/czech-republic/fees1
-  location ~* /countries/[a-zA-Z\-]+/fees {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
-
-  location /visas-immigration/general-info/fees {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
-
-  location /visas-immigration/general-info/processing-times {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
-
-  # We want to proxy page furniture so that the pages don't look broken.
-  # We are also (initially inadvertantly) proxying their RSS feeds at URLs
-  # like:
-  #   /static/biaassets/rss/citizenshiprss.xml
-  #   /static/biaassets/rss/country/afghanistanrss.xml
-  location ~* (/static/biaAssets/*|/images/*) {
-    proxy_pass http://ukba;
-    # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
-    proxy_set_header Host www.ukba.homeoffice.gov.uk;
-  }
+  <% $proxied_locations.each do |proxied_location| %>
+    location <%= proxied_location %> {
+      proxy_pass http://ukba;
+      # Can't use $http_host as that might be eg aka.ukba.homeoffice.gov.uk
+      proxy_set_header Host www.ukba.homeoffice.gov.uk;
+    }
+  <% end %>
 
   # Fall back to Bouncer
   location / {
