@@ -4,7 +4,9 @@
 # require an app to be restarted. For example, to pick up changes to
 # environment variables or centralised unicorn options.
 #
-class govuk::deploy::config {
+class govuk::deploy::config(
+  $govuk_env = '',
+){
   include daemontools
 
   harden::limit { 'deploy-nofile':
@@ -79,7 +81,6 @@ class govuk::deploy::config {
     value => $asset_root,
   }
 
-  $govuk_env = extlookup('govuk_env', 'production')
   govuk::envvar {
     'GOVUK_ENV': value => $govuk_env;
     'RAILS_ENV': value => $govuk_env;
