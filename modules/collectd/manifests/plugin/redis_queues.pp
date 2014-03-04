@@ -3,6 +3,8 @@ class collectd::plugin::redis_queues(
   $host = 'localhost',
   $port = 6379,
 ) {
+  validate_array($queues)
+
   include collectd::plugin::python
 
   # Adapted from https://github.com/powdahound/redis-collectd-plugin
