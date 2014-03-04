@@ -5,13 +5,6 @@
 #
 # === Parameters
 #
-# [*no_op*]
-#   If `true` the mount won't actually be created/action. This can be used for
-#   localised VMs (e.g. Vagrant) which don't have additional storage
-#   attached, so as not to change/break the relationships of other resources
-#   that depend on the volume.
-#   Default: `false`
-#
 # [*nagios_warn*]
 #   Percentage at which Nagios will raise a WARNING alert for free space and
 #   inodes.
@@ -31,7 +24,6 @@
 # `mountpoint` which needs to default to `$title`.
 #
 define govuk::mount(
-  $no_op = false,
   $nagios_warn = 10,
   $nagios_crit = 5,
   $govuk_lvm = undef,
@@ -42,7 +34,7 @@ define govuk::mount(
 ) {
   $mountpoint_escaped = regsubst($mountpoint, '/', '_', 'G')
 
-  unless $no_op {
+  unless hiera(govuk::mount::no_op, false) {
     if $govuk_lvm != undef {
       Govuk::Lvm[$govuk_lvm] -> Ext4mount[$title]
     }

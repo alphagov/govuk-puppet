@@ -19,8 +19,8 @@ describe 'govuk::mount', :type => :define do
   end
 
   context 'no_op => true' do
-    let(:params) {{
-      :no_op => true,
+    let(:hiera_data) {{
+      :'govuk::mount::no_op' => true,
     }}
 
     it { should_not contain_ext4mount('/mnt/gruffalo') }

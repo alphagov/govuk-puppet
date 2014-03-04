@@ -30,6 +30,10 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'website_host',
     'website_root',
 
+    # disk noops due to defined classes not doing magical hiera lookups
+    'govuk::mount::no_op',
+    'govuk::lvm::no_op',
+
     # FIXME: Existing violations. These should be refactored.
     'aws_ses_smtp_host',
     'aws_ses_smtp_username',

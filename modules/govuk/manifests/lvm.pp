@@ -5,13 +5,6 @@
 #
 # === Parameters
 #
-# [*no_op*]
-#   If `true` the LVM volume won't actually be created. This can be used for
-#   localised VMs (e.g. Vagrant) which don't have additional storage
-#   attached, so as not to change/break the relationships of other resources
-#   that depend on the volume.
-#   Default: `false`
-#
 # [*pv*]
 #   the physical volume the vg will use
 #
@@ -34,9 +27,8 @@ define govuk::lvm(
   $vg,
   $ensure = present,
   $fstype = 'ext4',
-  $no_op = false,
 ) {
-  unless $no_op {
+  unless hiera(govuk::lvm::no_op, false) {
     lvm::volume { $title:
       ensure       => $ensure,
       pv           => $pv,
