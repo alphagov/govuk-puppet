@@ -88,6 +88,11 @@ class govuk::node::s_development {
   include govuk::apps::content_planner
   include govuk::apps::efg
   include govuk::apps::errbit
+  class { 'govuk::apps::external_link_tracker':
+    mongodb_nodes => [
+      'localhost',
+    ]
+  }
   include govuk::apps::fact_cave
   include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
@@ -98,6 +103,7 @@ class govuk::node::s_development {
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
   include govuk::apps::publicapi
+  include govuk::apps::public_link_tracker
   include govuk::apps::publisher
   include govuk::apps::redirector
   include govuk::apps::release

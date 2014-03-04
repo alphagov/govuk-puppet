@@ -34,6 +34,13 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
   include govuk::apps::content_planner
+  class { 'govuk::apps::external_link_tracker':
+    mongodb_nodes => [
+      'mongo-1.backend',
+      'mongo-2.backend',
+      'mongo-3.backend',
+    ]
+  }
   include govuk::apps::fact_cave
   include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
