@@ -106,6 +106,9 @@ Vagrant.configure("2") do |config|
         c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
+      # run a script to partition extra disks for lvm if they exist.
+      c.vm.provision :shell, :inline =>"/var/govuk/puppet/tools/partition-disks"
+
       c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant /var/govuk/puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
     end
   end
