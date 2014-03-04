@@ -1,4 +1,4 @@
-define collectd::plugin::redis_queues(
+class collectd::plugin::redis_queues(
   $queues,
   $host = 'localhost',
   $port = 6379,

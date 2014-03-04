@@ -44,5 +44,5 @@ class govuk::node::s_redis_base {
     matches => '/var/log/redis_*.log',
   }
 
-  collectd::plugin::redis { 'redis-collectd': }
+  class { 'collectd::plugin::redis': }
 }

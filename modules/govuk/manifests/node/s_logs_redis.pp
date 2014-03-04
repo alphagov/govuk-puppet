@@ -23,7 +23,7 @@ class govuk::node::s_logs_redis inherits govuk::node::s_redis_base {
     tag     => 'logging',
   }
 
-  collectd::plugin::redis_queues { 'redis-queues-collectd':
+  class { 'collectd::plugin::redis_queues':
     queues => ['logs'],
   }
 }
