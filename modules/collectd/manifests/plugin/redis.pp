@@ -1,4 +1,4 @@
-define collectd::plugin::redis(
+class collectd::plugin::redis(
   $host = 'localhost',
   $port = 6379,
 ) {
