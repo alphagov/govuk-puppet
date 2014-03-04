@@ -33,7 +33,6 @@ class govuk::node::s_redis_base {
     #   - warns if connection latency >1s, critical if >2s
     #   - warns if using >80% of system memory, critical if >90%
     #   - warns if >800 connected_clients, critical if >1000 connected_clients
-    #   - warns if >10000 list length of logs, critical if >30000 list length of logs
     check_command       => "check_nrpe!check_redis!${redis_port} 1,2 80,90 connected_clients 800 1000",
     service_description => 'redis server health',
     host_name           => $::fqdn,
