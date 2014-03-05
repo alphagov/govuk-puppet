@@ -7,6 +7,10 @@ apt::always_apt_update: true
 apt::purge_preferences_d: true
 apt::purge_sources_list_d: true
 
+resolvconf::nameservers:
+  - 8.8.8.8
+  - 8.8.4.4
+
 # FIXME: Use regex/glob when we no longer support Lucid.
 apt::unattended_upgrades::blacklist:
  - 'mysql-server'
