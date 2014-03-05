@@ -10,6 +10,18 @@ class govuk::node::s_redis_base {
     redis_port       => $redis_port,
   }
 
+  $redis_mem_warn = $redis_max_memory * 0.8
+  $redis_mem_crit = $redis_max_memory * 0.9
+
+  @@icinga::check::graphite { "check_redis_memory_${::hostname}":
+    target    => "${::fqdn_underscore}.redis_info.bytes-used_memory",
+    warning   => to_bytes("${redis_mem_warn}M"),
+    critical  => to_bytes("${redis_mem_crit}M"),
+    desc      => 'redis memory usage',
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
+    host_name => $::fqdn,
+  }
+
   # The check_redis nagios plugin (below) requires this perl module
   package { 'Redis':
     ensure   => present,
@@ -31,10 +43,8 @@ class govuk::node::s_redis_base {
     #
     # In summary, this:
     #   - warns if connection latency >1s, critical if >2s
-    #   - warns if using >80% of system memory, critical if >90%
     #   - warns if >800 connected_clients, critical if >1000 connected_clients
-    #   - warns if >10000 list length of logs, critical if >30000 list length of logs
-    check_command       => "check_nrpe!check_redis!${redis_port} 1,2 80,90 connected_clients 800 1000",
+    check_command       => "check_nrpe!check_redis!${redis_port} 1,2 connected_clients 800 1000",
     service_description => 'redis server health',
     host_name           => $::fqdn,
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
