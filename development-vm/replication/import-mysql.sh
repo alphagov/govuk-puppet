@@ -66,13 +66,8 @@ else
   touch $MYSQL_DIR/.extracted
 fi
 
-if [[ $FACTER_govuk_class = "development" ]]; then
-  echo "On a development box: mapping database names accordingly"
-  SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
-elif [[ $FACTER_govuk_platform = "preview" ]]; then
-  echo "On preview: mapping Signonotron's domain names"
-  SED_ARGUMENTS="-f $(dirname $0)/signon_mappings.regexen"
-fi
+echo "Mapping database names for a development VM"
+SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
@@ -100,11 +95,7 @@ for file in $(find $MYSQL_DIR -name '*production*.sql.bz2'); do
     fi
     echo $PROD_DB_NAME '->' $TARGET_DB_NAME
     mysql $MYSQL_ARGUMENTS -e "drop database if exists $TARGET_DB_NAME"
-    if [[ -n $SED_ARGUMENTS ]]; then
-      $PV_COMMAND $file | bzcat | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
-    else
-      $PV_COMMAND $file | bzcat | mysql $MYSQL_ARGUMENTS
-    fi
+    $PV_COMMAND $file | bzcat | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
   else
     echo "MySQL (not) restoring $(basename $file)"
   fi
