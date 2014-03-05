@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
-DISKS=`ls /dev/sd?`
-for disk in ${DISKS}; do
+for disk in /dev/sd?; do
   echo "checking ${disk}"
   if ! sudo parted -a optimal --script  ${disk} -- print
   then
