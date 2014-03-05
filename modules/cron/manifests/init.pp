@@ -35,4 +35,10 @@ class cron {
     content => template('cron/etc/crontab.erb'),
     notify  => Service['cron'],
   }
+
+  # Drop a cron default file to cause /etc/cron.daily/standard to not run the
+  # lost+found checks. Since we don't seem to care.
+  file { '/etc/default/cron':
+    source => 'puppet:///modules/cron/etc/default/cron',
+  }
 }
