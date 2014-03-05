@@ -2,7 +2,9 @@ require_relative '../../../../spec_helper'
 
 describe 'mirror', :type => :class do
   before :each do
-    update_extdata({'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/'})
+    let(:hiera_data){{
+      :'ruby::govuk_mirrorer::govuk_gemfury_source_url' => https://some_token@gem.fury.io/govuk/,
+    }}
   end
 
   it { should contain_file('/usr/local/bin/govuk_update_mirror') }

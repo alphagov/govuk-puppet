@@ -84,3 +84,5 @@ router::assets_origin::asset_routes:
   '/transactions-explorer/': "transactions-explorer"
 
 unicornherder::version: '0.0.8'
+
+ruby::govuk_mirrorer::govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
