@@ -1,11 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'mirror', :type => :class do
-  before :each do
-    let(:hiera_data){{
-      :'ruby::govuk_mirrorer::govuk_gemfury_source_url' => https://some_token@gem.fury.io/govuk/,
-    }}
-  end
 
   it { should contain_file('/usr/local/bin/govuk_update_mirror') }
 
@@ -21,6 +16,9 @@ describe 'mirror', :type => :class do
   describe "#enable" do
     context "false (default)" do
       let(:params) {{ }}
+      let(:hiera_data) {{
+         'ruby::govuk_mirrorer::govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
+      }}
 
       it { should contain_cron('update-latest-to-mirror').with_ensure('absent') }
     end
@@ -28,6 +26,9 @@ describe 'mirror', :type => :class do
     context "true" do
       let(:params) {{
         :enable => true,
+      }}
+      let(:hiera_data) {{
+         'ruby::govuk_mirrorer::govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
       }}
 
       it { should contain_cron('update-latest-to-mirror').with_ensure('present') }
@@ -37,6 +38,9 @@ describe 'mirror', :type => :class do
   describe "#targets" do
     context "[] (default)" do
       let(:params) {{ }}
+      let(:hiera_data) {{
+         'ruby::govuk_mirrorer::govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
+      }}
 
       it { should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS=""$/) }
     end
@@ -45,6 +49,9 @@ describe 'mirror', :type => :class do
        let(:params) {{
          :targets => 'user102@mirror102',
        }}
+       let(:hiera_data) {{
+          'ruby::govuk_mirrorer::govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
+       }}
 
        it { expect { should }.to raise_error(Puppet::Error, /is not an Array/) }
     end
@@ -52,6 +59,9 @@ describe 'mirror', :type => :class do
      context "array of items" do
        let(:params) {{
          :targets => ['user101@mirror101', 'user102@mirror102'],
+       }}
+       let(:hiera_data) {{
+          'ruby::govuk_mirrorer::govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
        }}
 
        it { should contain_file('/usr/local/bin/govuk_upload_mirror').with_content(/^TARGETS="user101@mirror101 user102@mirror102"$/) }
