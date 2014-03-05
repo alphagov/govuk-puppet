@@ -24,6 +24,11 @@
 # [*shell*]
 #   The user's login shell. Default: "/bin/bash"
 #
+# [*expiry*]
+#   The expiry date for this user. Must be provided in a zero-padded YYYY-MM-DD
+#   format - e.g. 2010-02-19. If you want to make sure the user account never
+#   expires, you can pass the special value `absent` (this is the default).
+#
 # [*ssh_key*]
 #   The user's SSH public key as a string or array thereof, e.g.
 #
@@ -40,6 +45,7 @@ define govuk::user(
   $groups = ['admin', 'deploy', 'adm' ],
   $purgegroups = false,
   $shell = '/bin/bash',
+  $expiry = absent,
   $ssh_key = undef
 ) {
 
@@ -71,6 +77,7 @@ define govuk::user(
   user { $title:
     ensure     => $ensure,
     comment    => "${fullname} <${email}>",
+    expiry     => $expiry,
     home       => $home,
     managehome => true,
     groups     => $groups,
