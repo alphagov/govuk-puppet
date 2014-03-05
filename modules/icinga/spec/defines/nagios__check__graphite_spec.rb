@@ -45,6 +45,24 @@ describe 'icinga::check::graphite', :type => :define do
     end
   end
 
+  context 'when warning is NaN and critical is a float' do
+    let(:title) { 'count_tigers' }
+    let(:params) {{
+      :target    => 'sumSeries(zoo.*.tiger)',
+      :desc      => 'number of animals in the zoo',
+      :warning   => '10:20',
+      :critical  => '10.20',
+      :host_name => 'warden.zoo.tld',
+    }}
+
+    it 'should not contain warning line but should contain critical line in linked graph' do
+      should contain_icinga__check('count_tigers').with(
+        :check_command => 'check_graphite_metric_args!sumSeries(zoo.*.tiger)!10:20!10.20!-F 5minutes ',
+        :action_url    => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&target=sumSeries\(zoo\.\*\.tiger\)&target=alias\(dashed\(constantLine\(10.20\)\),%22critical%22\)$/,
+      )
+    end
+  end
+
   context 'when from and args params are passed' do
     let(:title) { 'count_deer' }
     let(:params) {{

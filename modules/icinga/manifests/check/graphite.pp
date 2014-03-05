@@ -68,6 +68,16 @@ define icinga::check::graphite(
   $graph_width = 600
   $graph_height = 300
 
+  # Only display lines when threshold is an integer or float.
+  $warn_line = $warning ? {
+    /^[0-9.]+$/ => "&target=alias(dashed(constantLine(${warning})),%22warning%22)",
+    default    => '',
+  }
+  $crit_line = $critical ? {
+    /^[0-9.]+$/ => "&target=alias(dashed(constantLine(${critical})),%22critical%22)",
+    default    => '',
+  }
+
   icinga::check { $title:
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
@@ -75,9 +85,8 @@ define icinga::check::graphite(
     use                        => $use,
     action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
 width=${graph_width}&height=${graph_height}&\
-target=${url_encoded_target}&\
-target=alias(dashed(constantLine(${warning})),%22warning%22)&\
-target=alias(dashed(constantLine(${critical})),%22critical%22)",
+target=${url_encoded_target}\
+${warn_line}${crit_line}",
     notes_url                  => $notes_url,
     attempts_before_hard_state => 1,
   }
