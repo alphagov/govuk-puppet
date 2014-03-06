@@ -44,6 +44,7 @@ govuk::ppa::path: preview
 govuk::apps::publicapi::backdropread_protocol: http
 
 govuk_app_enable_capistrano_layout: false
+govuk_app_enable_services: false
 
 mongodb::server::development: true
 

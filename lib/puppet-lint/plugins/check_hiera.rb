@@ -49,6 +49,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'mysql_replica_password',
     'mysql_nagios',
     'govuk_app_enable_capistrano_layout',
+    'govuk_app_enable_services',
   ]
 
   check 'hiera_explicit_lookup' do
