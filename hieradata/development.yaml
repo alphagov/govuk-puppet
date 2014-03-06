@@ -55,6 +55,7 @@ nginx_enable_ssl: false
 nginx_enable_basic_auth: false
 
 govuk_app_enable_capistrano_layout: false
+govuk_app_enable_services: false
 
 mongodb::server::development: true
 
