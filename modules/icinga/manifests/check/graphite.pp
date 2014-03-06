@@ -61,8 +61,11 @@ define icinga::check::graphite(
   $warning_command = undef, #FIXME: remove once 9e17b79 is deployed everywhere
   $critical_command = undef, #FIXME: remove once 9e17b79 is deployed everywhere
   $action_url = undef,
-  $notes_url = undef
+  $notes_url = undef,
+  $ensure = 'present',
 ) {
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   $check_command = 'check_graphite_metric_args'
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
@@ -91,6 +94,7 @@ ${warn_line}${crit_line}"
   }
 
   icinga::check { $title:
+    ensure                     => $ensure,
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,

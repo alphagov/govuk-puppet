@@ -81,4 +81,56 @@ describe 'icinga::check::graphite', :type => :define do
       )
     end
   end
+
+  context 'when ensure is passed' do
+    context 'ensure => absent' do
+      let(:title) { 'count_nothing' }
+      let(:params) {{
+        :target    => 'sumSeries(zoo.*.nothing)',
+        :desc      => 'number of meals in the zoo',
+        :warning   => 30,
+        :critical  => 40,
+        :host_name => 'warden.zoo.tld',
+        :from      => '23minutes',
+        :args      => '--droplast 1',
+        :ensure    => 'absent',
+      }}
+
+      it do
+        should contain_icinga__check('count_nothing').with_ensure('absent')
+      end
+    end
+
+    context 'ensure => false' do
+      let(:title) { 'count_nothing' }
+      let(:params) {{
+        :target    => 'sumSeries(zoo.*.nothing)',
+        :desc      => 'number of meals in the zoo',
+        :warning   => 30,
+        :critical  => 40,
+        :host_name => 'warden.zoo.tld',
+        :from      => '23minutes',
+        :args      => '--droplast 1',
+        :ensure    => 'false',
+      }}
+
+      it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+    end
+    
+    context 'ensure => true' do
+      let(:title) { 'count_nothing' }
+      let(:params) {{
+        :target    => 'sumSeries(zoo.*.nothing)',
+        :desc      => 'number of meals in the zoo',
+        :warning   => 30,
+        :critical  => 40,
+        :host_name => 'warden.zoo.tld',
+        :from      => '23minutes',
+        :args      => '--droplast 1',
+        :ensure    => 'true',
+      }}
+
+      it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+    end
+  end
 end
