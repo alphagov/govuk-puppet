@@ -19,7 +19,7 @@ class puppet::monitoring {
   # FIXME: Use `fqdn` instead of `hostname`.
   # https://www.pivotaltracker.com/story/show/47708141
   $kibana_search = {
-    'search'    => "@fields.syslog_program:\"puppet-agent\" AND @source_host:\"${::hostname}\"",
+    'search'    => "@fields.syslog_program:\"puppet-agent\" AND @source_host:${::hostname}*",
     'timeframe' => 14400,
   }
 
