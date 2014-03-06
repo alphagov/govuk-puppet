@@ -26,10 +26,13 @@ define nginx::config::vhost::proxy(
   $ssl_only = false,
   $logstream = present,
   $is_default_vhost = false,
-  $ssl_manage_cert = true # This is a *horrible* hack to make EFG work.
-                          # Please, please, remove when we have a
-                          # sensible means of managing SSL certificates.
+  $ssl_manage_cert = true,  # This is a *horrible* hack to make EFG work.
+                            # Please, please, remove when we have a
+                            # sensible means of managing SSL certificates.
+  $ensure = 'present',
 ) {
+  validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
+
   include govuk::htpasswd
 
   $proxy_vhost_template = 'nginx/proxy-vhost.conf'
@@ -57,11 +60,13 @@ define nginx::config::vhost::proxy(
     nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
   }
   nginx::config::site { $name:
+    ensure  => $ensure,
     content => template($proxy_vhost_template),
   }
 
   nginx::log {
     $json_access_log:
+      ensure        => $ensure,
       json          => true,
       logpath       => $logpath,
       logstream     => $logstream,
@@ -69,14 +74,17 @@ define nginx::config::vhost::proxy(
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.time_request",
                           value => '@fields.request_time'}];
     $access_log:
+      ensure    => $ensure,
       logpath   => $logpath,
       logstream => absent;
     $error_log:
+      ensure    => $ensure,
       logpath   => $logpath,
       logstream => $logstream;
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
+    ensure    => $ensure,
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,

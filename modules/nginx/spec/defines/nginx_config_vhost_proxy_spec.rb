@@ -66,4 +66,50 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'with ensure' do
+    context 'absent' do
+      let(:params) do
+        {
+          :to => ['a.internal'],
+          :ensure => 'absent',
+        }
+      end
+
+      it do
+        should contain_nginx__config__site('rabbit')
+          .with_ensure('absent')
+      end
+    end
+
+    context 'true' do
+      let(:params) do
+        {
+          :to => ['a.internal'],
+          :ensure => 'true',
+        }
+      end
+
+      it do
+        expect {
+          should contain_nginx__config__site('rabbit')
+        }.to raise_error(Puppet::Error, /Invalid ensure value/)
+      end
+    end
+
+    context 'false' do
+      let(:params) do
+        {
+          :to => ['a.internal'],
+          :ensure => 'false',
+        }
+      end
+
+      it do
+        expect {
+          should contain_nginx__config__site('rabbit')
+        }.to raise_error(Puppet::Error, /Invalid ensure value/)
+      end
+    end
+  end
+
 end
