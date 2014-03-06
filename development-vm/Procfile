@@ -51,7 +51,7 @@ maslow:                ./run_in.sh ../maslow bundle exec rails s -p 3053
 # router uses 3054 and 3055
 router_api:            ./run_in.sh ../router-api bundle exec rails s -p 3056
 # alphagov/spotlight uses 3057 on CI ONLY (rest is Performance Platform infrastructure)
-# content_planner: grabbing port 3058 in preview only
+content_planner:       ./run_in.sh ../content-planner bundle exec rails s -p 3058
 # alphagov/screenshot-as-a-service uses 3059
 #                                  as well as 3060, but both only on CI (and Performance Platform boxes).
 business_support_api:  ./run_in.sh ../business-support-api bundle exec rails s -p 3061

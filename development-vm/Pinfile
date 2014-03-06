@@ -8,6 +8,7 @@ process :businesssupportfinder => [:static, :contentapi, :business_support_api]
 process :calculators => [:static, :contentapi]
 process :calendars => [:static, :contentapi]
 process :contentapi => [:imminence, :asset_manager]
+process :content_planner => [:need_api, :whitehall]
 process :'contact-o-tron'
 process :designprinciples => :static
 process :efg
