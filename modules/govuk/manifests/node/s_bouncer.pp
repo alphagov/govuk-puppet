@@ -20,8 +20,8 @@ class govuk::node::s_bouncer inherits govuk::node::s_base {
 
   @@icinga::check::graphite { "check_bouncer_501s_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.bouncer_*.http_501,0)",
-    warning   => 0.001,
-    critical  => 0.002,
+    warning   => 0.000001,
+    critical  => 0.000002,
     from      => '1hour',
     desc      => 'bouncer 501s: indicates bouncer misconfiguration',
     host_name => $::fqdn,
