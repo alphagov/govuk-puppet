@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+for disk in /dev/sd?; do
+  echo "checking ${disk}"
+  if ! sudo parted -a optimal --script  ${disk} -- print
+  then
+    echo "partitioning ${disk}"
+    sudo parted -a optimal --script ${disk} -- mklabel msdos
+    sudo parted -a optimal --script ${disk} -- mkpart primary 1 100%
+    sudo parted -a optimal --script ${disk} -- set 1 lvm on
+  fi
+done
