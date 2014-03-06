@@ -43,13 +43,8 @@ govuk::logstream::disabled: true
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
-<<<<<<< HEAD
 govuk::ppa::path: preview
-govuk::apps::publicapi::backdropread_protocol: http
-=======
 govuk::apps::publicapi::backdropread_protocol: 'http'
->>>>>>> Improve hiera data with quotes
-
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
