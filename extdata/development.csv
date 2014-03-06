@@ -1,6 +1,5 @@
 app_domain,"dev.gov.uk"
 govuk_app_enable_services,false
-govuk_env,"development"
 imminence_intercept_errors,false
 internal_tld,"development"
 needotron_intercept_errors,false
