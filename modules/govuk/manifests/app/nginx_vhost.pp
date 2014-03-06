@@ -12,6 +12,7 @@ define govuk::app::nginx_vhost (
   $is_default_vhost = false,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
+  $ensure = 'present',
 ) {
 
   if $protected == undef {
@@ -30,6 +31,7 @@ define govuk::app::nginx_vhost (
   }
 
   nginx::config::vhost::proxy { $vhost:
+    ensure                => $ensure,
     to                    => ["localhost:${app_port}"],
     aliases               => $aliases,
     protected             => $protected_real,
@@ -39,6 +41,6 @@ define govuk::app::nginx_vhost (
     extra_app_config      => $nginx_extra_app_config,
     intercept_errors      => $intercept_errors,
     deny_framing          => $deny_framing,
-    is_default_vhost      => $is_default_vhost
+    is_default_vhost      => $is_default_vhost,
   }
 }

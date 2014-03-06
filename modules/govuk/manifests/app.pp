@@ -200,6 +200,10 @@ define govuk::app (
   # asset_pipeline_prefix: the path prefix from which assets are served.  This should
   # match the application's config.assets.prefix (which defaults to 'assets')
   $asset_pipeline_prefix = 'assets',
+
+  #
+  # ensure: allow govuk app to be removed.
+  $ensure = 'present',
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -208,6 +212,7 @@ define govuk::app (
   if ($app_type == 'bare') and !($command) {
     fail 'Invalid $command parameter'
   }
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   $vhost_real = $vhost ? {
     undef    => $title,
@@ -220,10 +225,12 @@ define govuk::app (
   include govuk::deploy
 
   govuk::app::package { $title:
+    ensure     => $ensure,
     vhost_full => $vhost_full,
   }
 
   govuk::app::config { $title:
+    ensure                    => $ensure,
     require                   => Govuk::App::Package[$title],
     app_type                  => $app_type,
     command                   => $command,
@@ -251,25 +258,31 @@ define govuk::app (
   }
 
   govuk::app::service { $title:
+    ensure    => $ensure,
     subscribe => Class['govuk::deploy'],
   }
 
+  $logstream_ensure = $ensure ? {
+    'present' => $logstream,
+    'absent'  => 'absent',
+  }
+
   govuk::logstream { "${title}-upstart-out":
-    ensure  => $logstream,
+    ensure  => $logstream_ensure,
     logfile => "/var/log/${title}/upstart.out.log",
     tags    => ['stdout', 'upstart'],
     fields  => {'application' => $title},
   }
 
   govuk::logstream { "${title}-upstart-err":
-    ensure  => $logstream,
+    ensure  => $logstream_ensure,
     logfile => "/var/log/${title}/upstart.err.log",
     tags    => ['stderr', 'upstart'],
     fields  => {'application' => $title},
   }
 
   govuk::logstream { "${title}-app-err":
-    ensure  => $logstream,
+    ensure  => $logstream_ensure,
     logfile => "/var/log/${title}/app.err.log",
     tags    => ['stderr', 'app'],
     fields  => {'application' => $title},
@@ -285,7 +298,7 @@ define govuk::app (
     }
 
     govuk::logstream { "${title}-production-log":
-      ensure        => $logstream,
+      ensure        => $logstream_ensure,
       logfile       => $log_path,
       tags          => ['stdout', 'application'],
       fields        => {'application' => $title},
