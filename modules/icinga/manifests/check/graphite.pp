@@ -58,6 +58,8 @@ define icinga::check::graphite(
   $use  = undef,
   $args = '',
   $from = '5minutes',
+  $warning_command = undef, #FIXME: remove once 9e17b79 is deployed everywhere
+  $critical_command = undef, #FIXME: remove once 9e17b79 is deployed everywhere
   $notes_url = undef
 ) {
   $check_command = 'check_graphite_metric_args'
