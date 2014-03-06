@@ -25,7 +25,6 @@ class govuk::node::s_bouncer inherits govuk::node::s_base {
     from      => '1hour',
     desc      => 'bouncer 501s: indicates bouncer misconfiguration',
     host_name => $::fqdn,
-# FIXME write opsmanual content for this (2014-03-04)
-#    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-501-bouncer',
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#bouncer-501s',
   }
 }
