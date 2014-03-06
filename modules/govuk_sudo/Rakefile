@@ -1,6 +1,6 @@
 desc "Test sudoers syntax"
 task :sudoers do
-  sh 'visudo -c -f files/sudoers'
+  sh 'if [ "`uname -s`" != Darwin ]; then visudo -c -f files/sudoers; fi'
 end
 
 task :default => :sudoers
