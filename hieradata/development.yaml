@@ -41,6 +41,7 @@ govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
 govuk::ppa::path: preview
+govuk::apps::publicapi::backdropread_protocol: http
 
 mongodb::server::development: true
 
