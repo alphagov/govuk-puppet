@@ -31,7 +31,7 @@ define govuk::app::package (
     require => File["/var/log/${title}"],
   }
 
-  $enable_capistrano_layout = str2bool(extlookup('govuk_app_enable_capistrano_layout', 'yes'))
+  $enable_capistrano_layout = str2bool(hiera('govuk_app_enable_capistrano_layout','yes'))
 
   # If $enable_capistrano_layout is true, we're talking about a deployment
   # environment. Cap should deploy to /var/govuk/APPNAME/release_XXX and

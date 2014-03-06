@@ -43,6 +43,8 @@ govuk::mount::no_op: true
 govuk::ppa::path: preview
 govuk::apps::publicapi::backdropread_protocol: http
 
+govuk_app_enable_capistrano_layout: false
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false

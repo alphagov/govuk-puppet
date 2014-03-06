@@ -1,5 +1,4 @@
 app_domain,"dev.gov.uk"
-govuk_app_enable_capistrano_layout,false
 govuk_app_enable_services,false
 govuk_env,"development"
 imminence_intercept_errors,false
