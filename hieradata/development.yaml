@@ -54,6 +54,8 @@ internal_tld: 'development'
 nginx_enable_ssl: false
 nginx_enable_basic_auth: false
 
+govuk_app_enable_capistrano_layout: false
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false
