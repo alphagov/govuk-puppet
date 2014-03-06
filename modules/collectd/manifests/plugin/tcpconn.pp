@@ -9,10 +9,16 @@
 #
 # [*incoming*]
 # [*outgoing*]
+# [*ensure*]
 #
-define collectd::plugin::tcpconn($incoming, $outgoing) {
+define collectd::plugin::tcpconn(
+  $incoming,
+  $outgoing,
+  $ensure = 'present',
+) {
 
   @collectd::plugin { "tcpconn-${title}":
+    ensure  => $ensure,
     content => template('collectd/etc/collectd/conf.d/tcpconn.conf.erb'),
     require => Collectd::Plugin['tcpconns'],
   }
