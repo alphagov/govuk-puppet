@@ -62,14 +62,14 @@ class router::nginx (
   nginx::log {
     'lb-json.event.access.log':
       json          => true,
-      logstream     => true,
+      logstream     => present,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.www-origin.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.www-origin.time_request",
                           value => '@fields.request_time'}];
     'lb-access.log':
-      logstream => false;
+      logstream => absent;
     'lb-error.log':
-      logstream => true;
+      logstream => present;
   }
 
   file { '/usr/share/nginx':

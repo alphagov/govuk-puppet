@@ -9,10 +9,10 @@ describe 'govuk::logstream', :type => :define do
   let(:log_file) { '/var/log/elephant.log' }
   let(:upstart_conf) { '/etc/init/logstream-giraffe.conf' }
 
-  context 'with default args, enable => true' do
+  context 'with default args, ensure => present' do
     let(:params) { {
       :logfile => log_file,
-      :enable  => true,
+      :ensure  => 'present',
     } }
 
     it 'should tail correct logfile' do
@@ -32,7 +32,7 @@ describe 'govuk::logstream', :type => :define do
   context 'with tags => Array' do
     let(:params) { {
       :logfile => log_file,
-      :enable  => true,
+      :ensure  => 'present',
       :tags    => ['zebra', 'llama'],
     } }
 
@@ -47,7 +47,7 @@ describe 'govuk::logstream', :type => :define do
   context 'with fields => Hash' do
     let(:params) { {
       :logfile => log_file,
-      :enable  => true,
+      :ensure  => 'present',
       :fields  => {'zebra' => 'stripey', 'llama' => 'fluffy'},
     } }
 
@@ -62,7 +62,7 @@ describe 'govuk::logstream', :type => :define do
   context 'with json => true' do
     let(:params) { {
       :logfile => log_file,
-      :enable  => true,
+      :ensure  => 'present',
       :json    => true,
     } }
 
@@ -77,7 +77,7 @@ describe 'govuk::logstream', :type => :define do
   context 'with statsd counter shipper specified' do
     let(:params) { {
       :logfile       => log_file,
-      :enable        => true,
+      :ensure        => 'present',
       :json          => true,
       :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
     } }
@@ -93,7 +93,7 @@ describe 'govuk::logstream', :type => :define do
   context 'with statsd timers specified' do
     let(:params) { {
       :logfile       => log_file,
-      :enable        => true,
+      :ensure        => 'present',
       :json          => true,
       :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
                          {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
@@ -110,7 +110,7 @@ describe 'govuk::logstream', :type => :define do
   context 'with json set to false' do
     let(:params) { {
       :logfile       => log_file,
-      :enable        => true,
+      :ensure        => 'present',
       :json          => false,
       :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
                          {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],

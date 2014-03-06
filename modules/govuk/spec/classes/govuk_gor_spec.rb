@@ -3,7 +3,7 @@ require_relative '../../../../spec_helper'
 shared_examples 'hosts and logstream enabled' do
   it { should contain_host(host_staging).with_ensure('present') }
   it { should contain_host(host_plat1prod).with_ensure('present') }
-  it { should contain_govuk__logstream('gor_upstart_log').with_enable('true') }
+  it { should contain_govuk__logstream('gor_upstart_log').with_ensure('present') }
 end
 
 describe 'govuk::gor', :type => :class do
@@ -20,7 +20,7 @@ describe 'govuk::gor', :type => :class do
     it { should contain_host(host_staging).with_ensure('absent') }
     it { should contain_host(host_plat1prod).with_ensure('absent') }
     it { should contain_class('gor').with_service_ensure('stopped') }
-    it { should contain_govuk__logstream('gor_upstart_log').with_enable('false') }
+    it { should contain_govuk__logstream('gor_upstart_log').with_ensure('absent') }
   end
 
   context '#enable_staging' do

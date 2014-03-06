@@ -3,7 +3,7 @@ define nginx::log (
   $logowner      = 'www-data',
   $loggroup      = 'adm',
   $logmode       = '0640',
-  $logstream     = false,
+  $logstream     = absent,
   $json          = false,
   $logname       = regsubst($name, '\.[^.]*$', ''),
   $statsd_metric = undef,
@@ -24,10 +24,10 @@ define nginx::log (
   }
 
   govuk::logstream { $name:
+    ensure        => $logstream,
     logfile       => "${logpath}/${name}",
     tags          => ['nginx'],
     fields        => {'application' => $logname},
-    enable        => $logstream,
     json          => $json,
     statsd_metric => $statsd_metric,
     statsd_timers => $statsd_timers

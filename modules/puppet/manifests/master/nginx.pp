@@ -8,14 +8,14 @@ class puppet::master::nginx {
   nginx::log {
     'puppetmaster-json.event.access.log':
       json          => true,
-      logstream     => true,
+      logstream     => present,
       statsd_metric => "${$::fqdn_underscore}.nginx_logs.puppetmaster.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.puppetmaster.time_request",
                           value => '@fields.request_time'}];
     'puppetmaster-access.log':
-      logstream => false;
+      logstream => absent;
     'puppetmaster-error.log':
-      logstream => true;
+      logstream => present;
   }
 
   @logrotate::conf { 'puppetmaster':

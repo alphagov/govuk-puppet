@@ -7,7 +7,7 @@ class govuk::apps::signon( $port = 3016 ) {
     log_format_is_json => true,
     vhost_aliases      => ['signonotron'],
     vhost_protected    => false,
-    logstream          => false,
+    logstream          => absent,
     asset_pipeline     => true,
     deny_framing       => true,
   }

@@ -53,10 +53,10 @@ define loadbalancer::balance(
   nginx::log {
     "${vhost_real}-json.event.access.log":
       json      => true,
-      logstream => true;
+      logstream => present;
     "${vhost_real}-access.log":
-      logstream => false;
+      logstream => absent;
     "${vhost_real}-error.log":
-      logstream => true;
+      logstream => present;
   }
 }

@@ -42,10 +42,10 @@ class elasticsearch::local_proxy(
   nginx::log {
     $log_json:
       json      => true,
-      logstream => true;
+      logstream => present;
     $log_access:
-      logstream => false;
+      logstream => absent;
     $log_error:
-      logstream => true;
+      logstream => present;
   }
 }
