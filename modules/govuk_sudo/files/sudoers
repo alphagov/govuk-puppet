@@ -14,3 +14,7 @@ root ALL=(ALL) ALL
 
 # Members of the admin group may gain root privileges
 %admin ALL=(ALL) NOPASSWD:ALL
+
+# Include additional sudoers files in /etc/sudoers.d
+# The '#' below does not indicate a comment
+#includedir /etc/sudoers.d
