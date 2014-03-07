@@ -1,5 +1,5 @@
 class icinga::nginx {
-  $enable_ssl = str2bool(extlookup('nginx_enable_ssl', 'yes'))
+  $enable_ssl = str2bool(hiera('nginx_enable_ssl', 'yes'))
   $protect_monitoring = str2bool(extlookup('monitoring_protected','yes'))
 
   include ::nginx
