@@ -34,6 +34,28 @@ class monitoring::checks {
   }
   # END whitehall
 
+  # START bouncer
+
+  $kibana_url = "https://kibana.${app_domain}"
+
+  $kibana_search = {
+    'search'    => '@fields.status:501 AND @source_host:bouncer*',
+    'timeframe' => 14400,
+  }
+
+  icinga::check::graphite { "check_bouncer_501s_${::hostname}":
+    target     => 'sumSeries(stats.bouncer*.nginx_logs.*.http_501)',
+    warning    => 0.000001,
+    critical   => 0.000002,
+    from       => '1hour',
+    desc       => 'bouncer 501s: indicates bouncer misconfiguration',
+    host_name  => $::fqdn,
+    notes_url  => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#bouncer-501s',
+    action_url => kibana2_url($kibana_url, $kibana_search),
+  }
+
+  # END bouncer
+
   # START datainsight
   $datainsight_base_uri = "https://${http_username}:${http_password}@datainsight-frontend.${app_domain}/performance/dashboard"
 
