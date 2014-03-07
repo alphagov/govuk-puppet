@@ -44,7 +44,7 @@ class monitoring::checks {
     'timeframe' => 14400,
   }
 
-  icinga::check::graphite { "check_bouncer_501s_${::hostname}":
+  icinga::check::graphite { 'check_bouncer_501s':
     target     => 'sumSeries(stats.bouncer*.nginx_logs.*.http_501)',
     warning    => 0.000001,
     critical   => 0.000002,
