@@ -20,6 +20,7 @@ Craft a URL for a Kibana 2 search. Takes two positional arguments:
 
     search_defaults = {
       'fields' => [],
+      'offset' => 0,
     }
 
     base_url.chomp!('/')
