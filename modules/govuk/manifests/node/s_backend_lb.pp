@@ -35,9 +35,11 @@ class govuk::node::s_backend_lb {
     ]:
       https_only => false; # FIXME: Remove for #51136581
     [
+      'api-external-link-tracker',
       'asset-manager',
       'canary-backend',
       'contentapi',
+      'external-link-tracker',
       'finder-api',
       'need-api',
       'govuk-delivery',

@@ -47,6 +47,7 @@ class govuk::node::s_frontend_lb {
   }
 
   include govuk::apps::publicapi
+  include govuk::apps::public_link_tracker
 
   include performance_platform::spotlight
 }

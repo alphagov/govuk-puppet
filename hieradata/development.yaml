@@ -2,6 +2,8 @@
 asset_root: 'http://static.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
 
+govuk::apps::public_link_tracker::enabled: true
+govuk::apps::external_link_tracker::enabled: true
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_api::enabled: true
 govuk::apps::specialist_frontend::enabled: true

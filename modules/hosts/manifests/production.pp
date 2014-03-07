@@ -278,6 +278,7 @@ class hosts::production (
       "licencefinder.${app_domain}",
       "limelight.${app_domain}",
       "publicapi.${app_domain}",
+      "public-link-tracker.${app_domain}",
       "smartanswers.${app_domain}",
       "spotlight.${app_domain}",
       "specialist-frontend.${app_domain}",
@@ -459,6 +460,7 @@ class hosts::production (
 
   $backend_aliases_orig = [
       'backend-internal-lb',
+      "api-external-link-tracker.${app_domain}",
       "asset-manager.${app_domain}",
       "business-support-api.${app_domain}",
       "canary-backend.${app_domain}",
@@ -466,6 +468,7 @@ class hosts::production (
       "content-planner.${app_domain}",
       "contentapi.${app_domain}",
       "errbit.${app_domain}",
+      "external-link-tracker.${app_domain}",
       "fact-cave.${app_domain}",
       "finder-api.${app_domain}",
       "govuk-delivery.${app_domain}",
