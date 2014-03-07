@@ -6,25 +6,31 @@ from __future__ import print_function
 # to avoid the need to depend on any other packages.
 from optparse import OptionParser
 import json
+import string
 import urllib
 import urllib2
 
-def nodeclass_callback(option, opt, value, parser):
+def commasep_callback(option, opt, value, parser):
     setattr(parser.values, option.dest, value.split(','))
 
 def main():
     opts, args = parser.parse_args()
 
-    if opts.node_class:
+    if opts.node_class or opts.puppet_class:
         endpoint = 'resources'
         host_key = 'certname'
 
-        node_classes = [
-            '["=", "title", "Govuk::Node::S_{0}"]'.format(c)
-            for c in opts.node_class
+        if opts.node_class:
+            classes = ["Govuk::Node::S_{0}".format(c) for c in opts.node_class]
+        else:
+            classes = [string.capwords(c, '::') for c in opts.puppet_class]
+
+        classes = [
+            '["=", "title", "{0}"]'.format(c)
+            for c in classes
         ]
-        node_class_query = '["or", {0}]'.format(', '.join(node_classes))
-        query = '["and", ["=", "type", "Class"], {0}]'.format(node_class_query)
+        class_query = '["or", {0}]'.format(', '.join(classes))
+        query = '["and", ["=", "type", "Class"], {0}]'.format(class_query)
 
     else:
         endpoint = 'nodes'
@@ -40,15 +46,24 @@ def main():
         print(host[host_key])
 
 
-parser = OptionParser(description='List local nodes of a specified class')
+parser = OptionParser(description='List nodes in this environment from PuppetDB')
 
 parser.add_option(
-    '-c', '--class',
+    '-c', '--node-class',
+    '--class',
     dest='node_class',
     type='str',
-    help='Restrict the output to nodes of the specified class. (e.g. "frontend,backend")',
+    help='Restrict the output to nodes of the specified govuk_node_class. (e.g. "frontend,backend")',
     action='callback',
-    callback=nodeclass_callback
+    callback=commasep_callback
+)
+parser.add_option(
+    '-C', '--puppet-class',
+    dest='puppet_class',
+    type='str',
+    help='Restrict the output to nodes of the specified Puppet class. (e.g. "nginx,ssh")',
+    action='callback',
+    callback=commasep_callback
 )
 
 if __name__ == '__main__':
