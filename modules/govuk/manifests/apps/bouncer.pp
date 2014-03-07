@@ -41,6 +41,6 @@ class govuk::apps::bouncer(
   nginx::log {
     'www.ukba.homeoffice.gov.uk-json.event.access.log':
       json          => true,
-      logstream     => true,
+      logstream     => present,
   }
 }

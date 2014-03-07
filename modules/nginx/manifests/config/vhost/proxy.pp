@@ -70,7 +70,7 @@ define nginx::config::vhost::proxy(
                           value => '@fields.request_time'}];
     $access_log:
       logpath   => $logpath,
-      logstream => false;
+      logstream => absent;
     $error_log:
       logpath   => $logpath,
       logstream => $logstream;
