@@ -19,7 +19,8 @@ Craft a URL for a Kibana 2 search. Takes two positional arguments:
     require 'base64'
 
     search_defaults = {
-      :fields    => [],
+      'fields' => [],
+      'offset' => 0,
     }
 
     base_url.chomp!('/')
