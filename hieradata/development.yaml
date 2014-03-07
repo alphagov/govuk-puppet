@@ -57,6 +57,8 @@ nginx_enable_basic_auth: false
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
+internal_tld: 'development'
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false
