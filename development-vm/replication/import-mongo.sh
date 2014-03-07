@@ -57,10 +57,8 @@ fi
 
 tar -zxf $MONGO_DIR/*.tgz -C $MONGO_DIR
 
-if [[ $FACTER_govuk_class = "development" ]]; then
-  echo "On a development box: mapping database names accordingly"
-  SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
-fi
+echo "Mapping database names for a development VM"
+SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
 
 MASTER_HOST=$($(dirname $0)/find-mongo-primary.rb)
 
