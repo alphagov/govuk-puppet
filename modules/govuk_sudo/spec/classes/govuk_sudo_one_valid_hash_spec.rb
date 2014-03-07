@@ -6,6 +6,12 @@ describe 'govuk_sudo' do
   # hiera-puppet-helper's README, otherwise tests will fail
   context 'with valid Hiera data from one Hiera hash' do
 
+    # FIXME: Force rspec-puppet to invalidate the cached Puppet catalog
+    # for this test. This prevents tests from incorrectly failing due to
+    # a race condition. This can be removed once this is addressed by
+    # 'hiera-puppet-helper'.
+    let(:facts) {{ :cache_bust => Time.now }}
+
     let(:hiera_config) do
     {
       :backends => ['yaml'],
