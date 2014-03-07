@@ -17,14 +17,4 @@ class govuk::node::s_bouncer inherits govuk::node::s_base {
     host_name    => $::fqdn,
     notes_url    => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
   }
-
-  @@icinga::check::graphite { "check_bouncer_501s_${::hostname}":
-    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.bouncer_*.http_501,0)",
-    warning   => 0.000001,
-    critical  => 0.000002,
-    from      => '1hour',
-    desc      => 'bouncer 501s: indicates bouncer misconfiguration',
-    host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#bouncer-501s',
-  }
 }

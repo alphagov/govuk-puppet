@@ -60,6 +60,7 @@ define icinga::check::graphite(
   $from = '5minutes',
   $warning_command = undef, #FIXME: remove once 9e17b79 is deployed everywhere
   $critical_command = undef, #FIXME: remove once 9e17b79 is deployed everywhere
+  $action_url = undef,
   $notes_url = undef
 ) {
   $check_command = 'check_graphite_metric_args'
@@ -80,15 +81,21 @@ define icinga::check::graphite(
     default    => '',
   }
 
+  if $action_url == undef {
+    $action_url_real = "https://graphite.${monitoring_domain_suffix}/render/?\
+width=${graph_width}&height=${graph_height}&\
+target=${url_encoded_target}\
+${warn_line}${crit_line}"
+  } else {
+    $action_url_real = $action_url
+  }
+
   icinga::check { $title:
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
     use                        => $use,
-    action_url                 => "https://graphite.${monitoring_domain_suffix}/render/?\
-width=${graph_width}&height=${graph_height}&\
-target=${url_encoded_target}\
-${warn_line}${crit_line}",
+    action_url                 => $action_url_real,
     notes_url                  => $notes_url,
     attempts_before_hard_state => 1,
   }
