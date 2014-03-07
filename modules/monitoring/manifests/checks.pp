@@ -40,6 +40,7 @@ class monitoring::checks {
 
   $kibana_search = {
     'search'    => '@fields.status:501 AND @source_host:bouncer*',
+    'fields'    => ['@fields.http_host', '@fields.request', '@fields.http_referrer'],
     'timeframe' => 14400,
   }
 
