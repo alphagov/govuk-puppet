@@ -32,6 +32,8 @@ define govuk::logstream (
   $statsd_timers = []
 ) {
 
+  validate_re($ensure, ['^present$','^absent$'])
+
   if ($::govuk_platform == 'development') {
     # noop
   } elsif ($ensure == present) {

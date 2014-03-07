@@ -26,7 +26,27 @@ describe 'govuk::logstream', :type => :define do
         :content => /\| logship -f #{default_filters} -s #{default_shipper}$/,
       )
     end
+  end
 
+  context 'with invalid ensure args' do
+    context 'ensure => true' do
+      let(:params) { {
+        :logfile => log_file,
+        :ensure  => 'true',
+      } }
+      it 'should fail validation' do
+        expect {should}.to raise_exception
+      end
+    end
+    context 'ensure => false' do
+      let(:params) { {
+        :logfile => log_file,
+        :ensure  => 'false',
+      } }
+      it 'should fail validation' do
+        expect {should}.to raise_exception
+      end
+    end
   end
 
   context 'with tags => Array' do
