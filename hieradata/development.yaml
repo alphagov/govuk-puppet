@@ -48,6 +48,8 @@ govuk_app_enable_services: false
 
 internal_tld: 'development'
 
+govuk::apps::need_o_tron::needotron_intercept_errors: false
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false
