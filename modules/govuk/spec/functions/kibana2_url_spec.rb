@@ -29,7 +29,7 @@ describe 'kibana2_url' do
     }
 
     res = scope.function_kibana2_url([base_url, in_hash])
-    res.should == 'https://kibana.example.com/#eyJmaWVsZHMiOltdLCJzZWFyY2giOiJAdGFnczp0dXNrcyBBTkQgQGZpZWxkcy5wcmlja2xlczpcInB1cnBsZVwiIiwiZmllbGRzIjpbXSwib2Zmc2V0IjowLCJ0aW1lZnJhbWUiOiI4NjQwMCIsImdyYXBobW9kZSI6ImNvdW50In0='
+    res.should == 'https://kibana.example.com/#eyJmaWVsZHMiOltdLCJzZWFyY2giOiJAdGFnczp0dXNrcyBBTkQgQGZpZWxkcy5wcmlja2xlczpcInB1cnBsZVwiIiwib2Zmc2V0IjowLCJ0aW1lZnJhbWUiOiI4NjQwMCIsImdyYXBobW9kZSI6ImNvdW50In0='
 
     out_b64 = res.gsub(/^#{Regexp.escape(base_url)}\/+#/, "")
     JSON.parse(Base64.decode64(out_b64)).should == in_hash
