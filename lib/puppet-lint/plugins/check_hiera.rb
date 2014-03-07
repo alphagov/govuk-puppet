@@ -50,6 +50,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'mysql_nagios',
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
+    'internal_tld',
   ]
 
   check 'hiera_explicit_lookup' do

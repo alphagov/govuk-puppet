@@ -46,6 +46,8 @@ govuk::apps::publicapi::backdropread_protocol: http
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
+internal_tld: 'development'
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false

@@ -4,7 +4,10 @@ website_host: 'www.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
 
 govuk::apps::search_admin::enabled: true
+
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
+
+internal_tld: 'development'

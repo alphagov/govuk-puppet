@@ -31,7 +31,12 @@ define govuk::host(
   $service_suffix = 'cluster',
 ) {
 
+<<<<<<< HEAD
   $tld = extlookup('internal_tld', 'production')
+=======
+  $tld = hiera('internal_tld', 'production')
+
+>>>>>>> Migrate internal tld extdata to hiera
   $service_aliases_real = regsubst($service_aliases, '$', ".${service_suffix}")
 
   host { "${title}.${vdc}.${tld}":

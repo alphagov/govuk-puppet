@@ -1,7 +1,6 @@
 app_domain,"dev.gov.uk"
 govuk_app_enable_services,false
 imminence_intercept_errors,false
-internal_tld,"development"
 needotron_intercept_errors,false
 nginx_enable_ssl,false
 nginx_enable_basic_auth,false
