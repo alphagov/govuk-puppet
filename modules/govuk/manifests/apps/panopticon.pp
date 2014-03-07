@@ -8,4 +8,10 @@ class govuk::apps::panopticon( $port = 3003 ) {
     asset_pipeline     => true,
     deny_framing       => true,
   }
+
+  govuk::logstream { 'panopticon-org-import-json-log':
+    logfile       => '/var/apps/panopticon/log/organisation_import.json.log',
+    fields        => {'application' => 'panopticon'},
+    json          => true,
+  }
 }
