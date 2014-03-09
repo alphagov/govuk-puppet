@@ -107,7 +107,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |vm, override|
     vm.customize [ "modifyvm", :id, "--memory", DEFAULT_VM_PARAMS[:memory], "--cpus", DEFAULT_VM_PARAMS[:cpus] ]
-    override.vm.synced_folder "../..", "/var/govuk", :nfs => true
+
+    if ENV['VAGRANT_GOVUK_NFS'] == "no"
+      override.vm.synced_folder "../..", "/var/govuk"
+    else
+      override.vm.synced_folder "../..", "/var/govuk", :nfs => true
+    end
   end
 
   # You may want to up the memory / CPUs to get better performance in the VM.
