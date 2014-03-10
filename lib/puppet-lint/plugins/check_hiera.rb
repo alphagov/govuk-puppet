@@ -52,6 +52,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'govuk_app_enable_services',
     'internal_tld',
     'nginx_enable_ssl',
+    'nginx_enable_basic_auth',
   ]
 
   check 'hiera_explicit_lookup' do
