@@ -88,17 +88,12 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
+  # FIXME: Remove when deployed.
   file { '/var/www/fallback':
-    ensure => directory,
-    owner  => 'deploy',
-    group  => 'deploy',
-  }
-
-  file { '/var/www/fallback/fallback_holding.html':
-    ensure => file,
-    source => 'puppet:///modules/router/fallback.html',
-    owner  => 'deploy',
-    group  => 'deploy',
+    ensure  => absent,
+    purge   => true,
+    recurse => true,
+    force   => true,
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
