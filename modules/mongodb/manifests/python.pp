@@ -1,6 +1,6 @@
 class mongodb::python {
   package { 'pymongo':
-    ensure   => present,
+    ensure   => '2.6.3',
     provider => 'pip';
   }
 }
