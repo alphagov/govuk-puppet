@@ -30,6 +30,12 @@ class govuk::node::s_backup (
     default: {}
   }
 
+  backup::directory {'backup_mongodb_backups_exception_handler_1':
+    directory => '/var/lib/automongodbbackup/',
+    host_name => 'exception-handler-1',
+    fq_dn     => 'exception-handler-1.backend.production',
+  }
+
   backup::directory {'backup_mongodb_backups_mongo':
     directory => '/var/lib/automongodbbackup/',
     host_name => 'mongo-1',
