@@ -16,6 +16,7 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
     'govuk::apps::release::db',
     'govuk::apps::signon::db',
     'govuk::apps::tariff_admin::db',
+    # FIXME: tariff_api::db is ensured absent. It can be removed once the DB has gone everywhere
     'govuk::apps::tariff_api::db',
     'govuk::apps::tariff_api_temporal::db',
     'govuk::apps::transition::db',
