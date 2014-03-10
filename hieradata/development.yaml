@@ -62,6 +62,7 @@ internal_tld: 'development'
 govuk::apps::need_o_tron::needotron_intercept_errors: false
 
 nginx_enable_ssl: false
+nginx_enable_basic_auth: false
 
 mongodb::server::development: true
 
