@@ -1,9 +1,8 @@
 class govuk::apps::limelight(
   $port = 3040,
-  $vhost_protected
+  $vhost_protected,
+  $limelight_proxy_performance_api = false
 ) {
-
-  $limelight_proxy_performance_api = str2bool(extlookup('limelight_proxy_performance_api', 'no'))
 
   if $limelight_proxy_performance_api {
     $app_domain = hiera('app_domain')
