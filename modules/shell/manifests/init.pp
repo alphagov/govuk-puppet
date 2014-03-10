@@ -1,8 +1,6 @@
-class shell {
-
-  # A string from extdata used to customise the shell prompt, e.g.
-  # "production", "staging", etc.
-  $shell_prompt_string = extlookup('shell_prompt_string', 'unknown')
+class shell (
+  $shell_prompt_string = 'unknown'
+){
 
   file { '/etc/bash.bashrc':
     content => template('shell/bashrc.erb'),

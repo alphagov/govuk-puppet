@@ -5,6 +5,8 @@ website_root: 'http://www.dev.gov.uk'
 
 govuk::apps::search_admin::enabled: true
 
+shell::shell_prompt_string: 'dev'
+
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 

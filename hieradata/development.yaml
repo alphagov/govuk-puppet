@@ -57,6 +57,8 @@ mongodb::server::development: true
 
 puppet::use_puppetmaster: false
 
+shell::shell_prompt_string: 'dev'
+
 ssh::config::allow_x11_forwarding: true
 
 deploy_ssh_keys:

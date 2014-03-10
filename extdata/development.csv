@@ -2,5 +2,4 @@ app_domain,"dev.gov.uk"
 govuk_app_enable_services,false
 imminence_intercept_errors,false
 needotron_intercept_errors,false
-shell_prompt_string,"dev"
 limelight_proxy_performance_api,true
