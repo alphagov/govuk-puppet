@@ -2,8 +2,13 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
 
   include mongodb::python
 
+  # This plugin is from https://github.com/mzupan/nagios-plugin-mongodb
+  # to update to the latest version, run this giant command:
+  # git subtree pull --prefix=modules/mongodb/files/nagios-plugin-mongodb \
+  #   https://github.com/mzupan/nagios-plugin-mongodb.git \
+  #   -m 'update to latest nagios-plugin-mongodb from github' master --squash
   @icinga::plugin { 'check_mongodb.py':
-    source  => 'puppet:///modules/mongodb/nagios_check_mongodb.py',
+    source  => 'puppet:///modules/mongodb/nagios-plugin-mongodb/check_mongodb.py',
   }
 
   @icinga::nrpe_config { 'check_mongo':
