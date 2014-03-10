@@ -8,6 +8,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether the plugin should be present or absent.
+#
 # [*source*]
 #   Puppet file URI.
 #
@@ -18,11 +21,11 @@
 #   String to prepend the config file name with. This can be set to '00-' to
 #   ensure that a plugin is loaded before any others, since collectd using
 #   globbing.
-#
 define collectd::plugin(
-  $source = undef,
+  $ensure  = 'present',
+  $source  = undef,
   $content = undef,
-  $prefix = ''
+  $prefix  = '',
 ) {
   if !$source and !$content {
     $content_real = "LoadPlugin ${title}\n"
@@ -31,7 +34,7 @@ define collectd::plugin(
   }
 
   @file { "/etc/collectd/conf.d/${prefix}${title}.conf":
-    ensure  => present,
+    ensure  => $ensure,
     content => $content_real,
     source  => $source,
     tag     => 'collectd::plugin',

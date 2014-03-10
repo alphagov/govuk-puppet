@@ -7,14 +7,17 @@ define nginx::log (
   $json          = false,
   $logname       = regsubst($name, '\.[^.]*$', ''),
   $statsd_metric = undef,
-  $statsd_timers = []
+  $statsd_timers = [],
+  $ensure        = 'present',
   ){
 
   # Log name should not be absolute. Use $logpath.
   validate_re($title, '^[^/]')
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   file { "${logpath}/${name}":
-    ensure  => 'present',
+    ensure  => $ensure,
     owner   => $logowner,
     group   => $loggroup,
     mode    => $logmode,
@@ -23,8 +26,13 @@ define nginx::log (
     require => Class['nginx::package'],
   }
 
+  $logstream_ensure = $ensure ? {
+    'present' => $logstream,
+    'absent'  => 'absent',
+  }
+
   govuk::logstream { $name:
-    ensure        => $logstream,
+    ensure        => $logstream_ensure,
     logfile       => "${logpath}/${name}",
     tags          => ['nginx'],
     fields        => {'application' => $logname},

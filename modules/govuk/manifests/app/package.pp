@@ -1,14 +1,31 @@
 define govuk::app::package (
-  $vhost_full
+  $vhost_full,
+  $ensure = 'present',
 ) {
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
+  $ensure_directory = $ensure ? {
+    'present' => 'directory',
+    'absent'  => 'absent',
+  }
+  $ensure_file = $ensure ? {
+    'present' => 'file',
+    'absent'  => 'absent',
+  }
+  $ensure_link = $ensure ? {
+    'present' => 'link',
+    'absent'  => 'absent',
+  }
+
   file { "/var/log/${title}":
-    ensure => directory,
+    ensure => $ensure_directory,
     owner  => 'deploy',
-    group  => 'deploy';
+    group  => 'deploy',
+    force  => true,
   }
 
   file { ["/var/log/${title}/app.out.log", "/var/log/${title}/app.err.log"]:
-    ensure  => file,
+    ensure  => $ensure_file,
     owner   => 'deploy',
     group   => 'deploy',
     require => File["/var/log/${title}"],
@@ -21,19 +38,20 @@ define govuk::app::package (
   # symlink from /var/govuk/APPNAME/current
   if $enable_capistrano_layout {
     file { "/var/apps/${title}":
-      ensure => link,
+      ensure => $ensure_link,
       target => "/data/vhost/${vhost_full}/current";
     }
     file { "/data/vhost/${vhost_full}":
-      ensure => directory,
+      ensure => $ensure_directory,
       owner  => 'deploy',
-      group  => 'deploy';
+      group  => 'deploy',
+      force  => true,
     }
 
   # Otherwise, assume the apps are checked out straight into /var/govuk.
   } else {
     file { "/var/apps/${title}":
-      ensure => link,
+      ensure => $ensure_link,
       target => "/var/govuk/${title}";
     }
   }

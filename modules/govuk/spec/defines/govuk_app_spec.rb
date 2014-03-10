@@ -47,4 +47,37 @@ describe 'govuk::app', :type => :define do
     it { expect { should }.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
   end
 
+  context 'with ensure' do
+    context 'ensure => absent' do
+      let(:params) {{
+        :app_type => 'rack',
+        :port => 8000,
+        :ensure => 'absent',
+      }}
+
+      it do
+        should contain_govuk__app__package('giraffe').with_ensure('absent')
+      end
+    end
+
+    context 'ensure => true' do
+      let(:params) {{
+        :app_type => 'rack',
+        :port => 8000,
+        :ensure => 'true',
+      }}
+
+      it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+    end
+    
+    context 'ensure => false' do
+      let(:params) {{
+        :app_type => 'rack',
+        :port => 8000,
+        :ensure => 'false',
+      }}
+
+      it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+    end
+  end
 end

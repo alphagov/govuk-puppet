@@ -22,7 +22,16 @@ define govuk::app::config (
   $upstart_post_start_script = undef,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
+  $ensure = 'present',
 ) {
+  $ensure_directory = $ensure ? {
+    'present' => 'directory',
+    'absent'  => 'absent',
+  }
+  $ensure_file = $ensure ? {
+    'present' => 'file',
+    'absent'  => 'absent',
+  }
   $nagios_memory_warning_real = $nagios_memory_warning ? {
     undef    => 2000000000,
     default  => $nagios_memory_warning,
@@ -35,7 +44,7 @@ define govuk::app::config (
 
   # Ensure config dir exists
   file { "/etc/govuk/${title}":
-    ensure  => 'directory',
+    ensure  => $ensure_directory,
     purge   => true,
     recurse => true,
     force   => true,
@@ -44,16 +53,17 @@ define govuk::app::config (
 
   # Ensure env dir exists
   file { "/etc/govuk/${title}/env.d":
-    ensure  => 'directory',
+    ensure  => $ensure_directory,
     purge   => true,
     recurse => true,
     force   => true,
     notify  => Govuk::App::Service[$title],
   }
 
-  # This sets the default app for this resource type in the current scope
+  # This sets the default app and ensure for this resource type in the current scope
   Govuk::App::Envvar {
-    app => $title
+    ensure => $ensure,
+    app    => $title
   }
 
   # Used more than once in this class.
@@ -108,6 +118,7 @@ define govuk::app::config (
 
   # Install service
   file { "/etc/init/${title}.conf":
+    ensure  => $ensure_file,
     content => template('govuk/app_upstart.conf.erb'),
     notify  => Service[$title],
   }
@@ -117,6 +128,7 @@ define govuk::app::config (
   if $enable_nginx_vhost {
     # Expose this application from nginx
     govuk::app::nginx_vhost { $title:
+      ensure                 => $ensure,
       vhost                  => $vhost_full,
       aliases                => $vhost_aliases_real,
       protected              => $vhost_protected,
@@ -140,9 +152,11 @@ define govuk::app::config (
       'bare' => inline_template('<%= "^" + Regexp.escape(@command) + "$" -%>'),
     }
     collectd::plugin::process { "app-${title_underscore}":
-      regex => $collectd_process_regex,
+      ensure => $ensure,
+      regex  => $collectd_process_regex,
     }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
+      ensure    => $ensure,
       target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
       warning   => $nagios_cpu_warning,
       critical  => $nagios_cpu_critical,
@@ -150,6 +164,7 @@ define govuk::app::config (
       host_name => $::fqdn,
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
+      ensure    => $ensure,
       target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
       warning   => $nagios_memory_warning_real,
       critical  => $nagios_memory_critical_real,
@@ -159,20 +174,24 @@ define govuk::app::config (
   }
 
   collectd::plugin::tcpconn { "app-${title_underscore}":
+    ensure   => $ensure,
     incoming => $port,
     outgoing => $port,
   }
 
   @logrotate::conf { "govuk-${title}":
+    ensure  => $ensure,
     matches => "/var/log/${title}/*.log",
   }
 
   @logrotate::conf { "govuk-${title}-rack":
+    ensure  => $ensure,
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
   }
 
   if $health_check_path != 'NOTSET' {
     @@icinga::check { "check_app_${title}_up_on_${::hostname}":
+      ensure              => $ensure,
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
       service_description => "${title} app running",
       host_name           => $::fqdn,
@@ -180,6 +199,7 @@ define govuk::app::config (
   }
   if $app_type == 'rack' {
     @@icinga::check { "check_app_${title}_unicornherder_up_${::hostname}":
+      ensure              => $ensure,
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
       service_description => "${title} app unicornherder running",
       host_name           => $::fqdn,
@@ -187,12 +207,14 @@ define govuk::app::config (
     }
     include icinga::client::check_unicorn_workers
     @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
+      ensure              => $ensure,
       check_command       => "check_nrpe!check_unicorn_workers!${title}",
       service_description => "${title} has the expected number of unicorn workers",
       host_name           => $::fqdn,
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
+    ensure              => $ensure,
     check_command       => "check_nrpe!check_upstart_status!${title}",
     service_description => "${title} upstart up",
     host_name           => $::fqdn,
