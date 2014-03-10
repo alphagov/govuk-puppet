@@ -35,12 +35,6 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
     host_name           => $::fqdn,
   }
 
-  @@icinga::check { "check_mongod_lock_percentage_${::hostname}":
-    check_command       => 'check_nrpe!check_mongodb!lock 5 10',
-    service_description => 'mongod high lock pct',
-    host_name           => $::fqdn,
-  }
-
   @@icinga::check { "check_mongod_rollbacks_${::hostname}":
     check_command       => "check_nrpe!check_dir_empty!${dbpath}/rollback",
     service_description => 'mongod rollback dir should be nonexistent',
