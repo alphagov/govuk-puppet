@@ -71,5 +71,3 @@ router::assets_origin::asset_routes:
   '/transactions-explorer/': "transactions-explorer"
 
 unicornherder::version: '0.0.8'
-
-govuk::deploy::config::govuk_env: production

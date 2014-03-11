@@ -5,7 +5,7 @@
 # environment variables or centralised unicorn options.
 #
 class govuk::deploy::config(
-  $govuk_env = '',
+  $govuk_env = 'production',
 ){
   include daemontools
 
