@@ -1,5 +1,4 @@
 class govuk::node::s_redis_base {
-  include cpanm::install
   include govuk::node::s_base
 
   $redis_port = 6379
@@ -23,6 +22,9 @@ class govuk::node::s_redis_base {
   }
 
   # FIXME: Remove when deployed.
+  package { ['cpanminus', 'perl-doc']:
+    ensure => purged,
+  }
   @icinga::plugin { 'check_redis':
     ensure  => absent,
   }
