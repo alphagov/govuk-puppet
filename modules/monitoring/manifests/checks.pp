@@ -1,4 +1,6 @@
-class monitoring::checks {
+class monitoring::checks (
+  $contact_email = 'root@localhost'
+){
 
   include monitoring::checks::fastly
   include monitoring::checks::mirror
