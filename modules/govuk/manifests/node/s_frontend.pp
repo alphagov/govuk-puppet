@@ -4,12 +4,16 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
   class {
-    'govuk::apps::datainsight_frontend':  vhost_protected => $protect_fe;
     'govuk::apps::designprinciples':      vhost_protected => $protect_fe;
     'govuk::apps::feedback':              vhost_protected => $protect_fe;
     'govuk::apps::frontend':              vhost_protected => $protect_fe;
     'govuk::apps::limelight':             vhost_protected => $protect_fe;
     'govuk::apps::specialist_frontend':   vhost_protected => $protect_fe;
+  }
+
+  class { 'govuk::apps::datainsight_frontend':
+    ensure          => absent,
+    vhost_protected => $protect_fe,
   }
 
   include govuk::apps::canary_frontend
