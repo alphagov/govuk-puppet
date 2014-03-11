@@ -67,7 +67,6 @@ class govuk::node::s_development {
     'govuk::apps::businesssupportfinder': vhost_protected => false;
     'govuk::apps::calculators':           vhost_protected => false;
     'govuk::apps::calendars':             vhost_protected => false;
-    'govuk::apps::datainsight_frontend':  vhost_protected => false;
     'govuk::apps::designprinciples':      vhost_protected => false;
     'govuk::apps::feedback':              vhost_protected => false;
     'govuk::apps::finder_frontend':       vhost_protected => false;
@@ -140,8 +139,6 @@ class govuk::node::s_development {
     ],
   }
 
-  include datainsight::config::google_oauth
-
   # Java 6 is deprecated in precise, so use Oracle's Java 7
   case $::lsbdistcodename {
     'lucid': {
@@ -198,18 +195,6 @@ class govuk::node::s_development {
     ['content_planner_development', 'content_planner_test']:
       user     => 'content_planner',
       password => 'content_planner';
-
-    [
-      'datainsights_todays_activity',
-      'datainsight_weekly_reach',
-      'datainsight_weekly_reach_test',
-      'datainsights_format_success',
-      'datainsights_format_success_test',
-      'datainsight_insidegov',
-      'datainsight_insidegov_test',
-    ]:
-      user     => 'datainsight',
-      password => '';
 
     [
       'efg_development',
@@ -292,17 +277,5 @@ class govuk::node::s_development {
       # Provides /opt/mawk required by pre-transition-stats
       'mawk-1.3.4': ensure => installed;
     }
-  }
-
-  file { [ '/var/tmp/datainsight-everything-recorder.json' ]:
-    ensure  => present,
-    owner   => 'vagrant',
-    group   => 'vagrant',
-  }
-
-  file { [ '/var/data', '/var/data/datainsight', '/var/data/datainsight/everything' ]:
-    ensure  => directory,
-    owner   => 'vagrant',
-    group   => 'vagrant',
   }
 }

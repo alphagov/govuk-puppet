@@ -54,7 +54,6 @@ router::assets_origin::asset_routes:
   '/businesssupportfinder/': "businesssupportfinder"
   '/calculators/': "calculators"
   '/calendars/': "calendars"
-  '/datainsight-frontend/': "datainsight-frontend"
   '/designprinciples/': "designprinciples"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"

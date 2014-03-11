@@ -269,7 +269,6 @@ class hosts::production (
       "calculators.${app_domain}",
       "calendars.${app_domain}",
       "canary-frontend.${app_domain}",
-      "datainsight-frontend.${app_domain}",
       "designprinciples.${app_domain}",
       "fco-services.${app_domain}",
       "feedback.${app_domain}",
@@ -541,19 +540,6 @@ class hosts::production (
     ],
   }
 
-  govuk::host { 'datainsight-1':
-    ip             => '10.3.0.30',
-    vdc            => 'backend',
-    legacy_aliases => [
-      'datainsight-1',
-      "datainsight.${app_domain}",
-      "datainsight-weekly-reach-recorder.${app_domain}",
-      "datainsight-todays-activity-recorder.${app_domain}",
-      "datainsight-everything-recorder.${app_domain}",
-      "datainsight-format-success-recorder.${app_domain}",
-      "datainsight-insidegov-recorder.${app_domain}",
-    ],
-  }
   govuk::host { 'akamai-logs-1':
     ip             => '10.3.0.11',
     vdc            => 'backend',

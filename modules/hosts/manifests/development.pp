@@ -18,11 +18,6 @@ class hosts::development {
   host { 'canary-backend.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'canary-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'contentapi.dev.gov.uk':                           ip => '127.0.0.1' }
-  host { 'datainsight-format-success-recorder.dev.gov.uk':  ip => '127.0.0.1' }
-  host { 'datainsight-frontend.dev.gov.uk':                 ip => '127.0.0.1' }
-  host { 'datainsight-insidegov-recorder.dev.gov.uk':       ip => '127.0.0.1' }
-  host { 'datainsight-todays-activity-recorder.dev.gov.uk': ip => '127.0.0.1' }
-  host { 'datainsight-weekly-reach-recorder.dev.gov.uk':    ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }
   host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }

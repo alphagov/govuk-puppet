@@ -31,11 +31,6 @@ module MockExtdata
         'http_username' => 'test_username',
         'http_password' => 'test_password',
         'internal_tld'  => 'test',
-
-        'google_client_id_datainsight'               => 'example client id',
-        'google_client_secret_datainsight'           => 'example client secret',
-        'google_analytics_refresh_token_datainsight' => 'example refresh token',
-        'google_drive_refresh_token_datainsight'     => 'example refresh token'
       }.merge!(h)
 
       key, default = args

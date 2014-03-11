@@ -17,7 +17,6 @@ class govuk::node::s_frontend_lb {
   loadbalancer::balance {
     [
       'canary-frontend',
-      'datainsight-frontend',
       'designprinciples',
       'feedback',
       'frontend',

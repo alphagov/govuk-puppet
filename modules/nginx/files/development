@@ -5,39 +5,3 @@ server {
   server_name  _;  #default
   return 444;
 }
-
-server {
-  server_name datainsight-weekly-reach-recorder.dev.gov.uk;
-  listen *:80;
-  location / {
-    proxy_pass http://127.0.0.1:3102;
-    proxy_set_header   Host   $host;
-  }
-}
-
-server {
-  server_name datainsight-todays-activity-recorder.dev.gov.uk;
-  listen *:80;
-  location / {
-    proxy_pass http://127.0.0.1:3103;
-    proxy_set_header   Host   $host;
-  }
-}
-
-server {
-  server_name datainsight-format-success-recorder.dev.gov.uk;
-  listen *:80;
-  location / {
-    proxy_pass http://127.0.0.1:3104;
-    proxy_set_header   Host   $host;
-  }
-}
-
-server {
-  server_name datainsight-insidegov-recorder.dev.gov.uk;
-  listen *:80;
-  location / {
-    proxy_pass http://127.0.0.1:3106;
-    proxy_set_header   Host   $host;
-  }
-}
