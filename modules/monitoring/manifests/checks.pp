@@ -57,56 +57,6 @@ class monitoring::checks {
 
   # END bouncer
 
-  # START datainsight
-  $datainsight_base_uri = "https://${http_username}:${http_password}@datainsight-frontend.${app_domain}/performance/dashboard"
-
-  icinga::plugin { 'check_datainsight_recorder':
-    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_datainsight_recorder.rb',
-  }
-
-  icinga::check { 'check_datainsight_hourly_traffic_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/hourly-traffic.json 60",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for gov.uk hourly traffic is updated regularly',
-  }
-
-  icinga::check { 'check_datainsight_visits_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/visits.json 10080",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for gov.uk visits is updated regularly',
-  }
-
-  icinga::check { 'check_datainsight_unique_visitors_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/unique-visitors.json 10080",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for gov.uk visitors is updated regularly',
-  }
-
-  icinga::check { 'check_datainsight_format_success_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/content-engagement.json 10080",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for gov.uk content engagement is updated regularly',
-  }
-
-  icinga::check { 'check_datainsight_insidegov_weekly_visitors_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/visitors/weekly.json 10080",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for insidegov visitors is updated regularly',
-  }
-
-  icinga::check { 'check_datainsight_insidegov_policies_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/most-entered-policies.json 10080",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for insidegov most entered policies is updated regularly',
-  }
-
-  icinga::check { 'check_datainsight_insidegov_content_engagement_endpoint':
-    check_command       => "check_nrpe!check_datainsight_recorder!${datainsight_base_uri}/government/content-engagement.json 10080",
-    host_name           => $::fqdn,
-    service_description => 'checks if datainsight endpoint for insidegov content engagement is updated regularly',
-  }
-  # END datainsight
-
   $warning_time = 5
   $critical_time = 10
 
