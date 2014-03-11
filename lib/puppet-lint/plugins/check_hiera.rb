@@ -45,7 +45,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
 
   check 'hiera_explicit_lookup' do
     tokens.select { |t| t.type == :NAME and t.value == 'hiera' }.each do |func_token|
-      continue unless func_token.next_code_token.type == :LPAREN
+      next unless func_token.next_code_token.type == :LPAREN
       key_token = func_token.next_code_token.next_code_token
 
       notify :error, {
