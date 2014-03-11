@@ -53,6 +53,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'internal_tld',
     'nginx_enable_ssl',
     'nginx_enable_basic_auth',
+    'monitoring_protected',
   ]
 
   check 'hiera_explicit_lookup' do

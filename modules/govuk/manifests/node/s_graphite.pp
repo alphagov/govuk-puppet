@@ -77,7 +77,7 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     to           => ['localhost:33333'],
     root         => '/opt/graphite/webapp',
     aliases      => ['graphite.*'],
-    protected    => str2bool(extlookup('monitoring_protected','yes')),
+    protected    => str2bool(hiera('monitoring_protected','yes')),
     extra_config => $cors_headers,
   }
 
