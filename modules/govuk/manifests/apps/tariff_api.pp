@@ -1,6 +1,6 @@
 class govuk::apps::tariff_api(
     $port = 3018,
-    $enable_procfile_worker = true
+    $enable_procfile_worker = false
   ) {
   govuk::app { 'tariff-api':
     app_type               => 'rack',
