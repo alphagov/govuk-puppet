@@ -45,7 +45,7 @@ class monitoring::checks {
   }
 
   icinga::check::graphite { 'check_bouncer_501s':
-    target     => 'sumSeries(stats.bouncer*.nginx_logs.*.http_501)',
+    target     => 'sumSeries(transformNull(stats.bouncer*.nginx_logs.*.http_501,0))',
     warning    => 0.000001,
     critical   => 0.000002,
     from       => '1hour',
