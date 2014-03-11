@@ -1,10 +1,10 @@
-class govuk::node::s_frontend_lb {
+class govuk::node::s_frontend_lb (
+  $govuk_frontend_servers,
+  $whitehall_frontend_servers,
+  $calculators_frontend_servers
+){
   include govuk::node::s_base
   include loadbalancer
-
-  $govuk_frontend_servers = extlookup('lb_nodes_frontend')
-  $calculators_frontend_servers = extlookup('lb_nodes_calculators_frontend')
-  $whitehall_frontend_servers = extlookup('lb_nodes_whitehall_frontend')
 
   $hide_frontend_apps = !str2bool(extlookup('expose_frontend_apps_directly', 'no'))
 
