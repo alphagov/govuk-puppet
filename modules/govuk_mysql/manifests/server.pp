@@ -60,9 +60,6 @@ class govuk_mysql::server (
 
   class { 'mysql::server::account_security': }
 
-  # FIXME: Remove when deployed to existing machines.
-  class { 'govuk_mysql::server::root_password': }
-
   class { 'govuk_mysql::server::logging':
     error_log => $mysql_error_log,
   }
