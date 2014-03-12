@@ -9,7 +9,7 @@ class govuk::apps::finder_api(
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,
-      health_check_path      => '/',
+      health_check_path      => '/cma-cases.json',
       log_format_is_json     => true,
     }
   }
