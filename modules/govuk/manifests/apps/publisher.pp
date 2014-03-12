@@ -1,6 +1,7 @@
 class govuk::apps::publisher(
     $port = 3000,
-    $nagios_data_importer_check = true
+    $nagios_data_importer_check = true,
+    $enable_procfile_worker = false
   ) {
 
   govuk::app { 'publisher':
@@ -27,5 +28,9 @@ class govuk::apps::publisher(
       host_name           => $::fqdn,
       freshness_threshold => 28 * (60 * 60),
     }
+  }
+
+  if $enable_procfile_worker {
+    govuk::procfile::worker {'publisher': }
   }
 }
