@@ -84,6 +84,7 @@ class govuk::node::s_development {
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
   include govuk::apps::canary_frontend
+  include govuk::apps::contacts
   include govuk::apps::content_planner
   include govuk::apps::efg
   include govuk::apps::errbit
