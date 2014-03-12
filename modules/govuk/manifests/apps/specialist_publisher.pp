@@ -9,7 +9,7 @@ class govuk::apps::specialist_publisher(
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,
-      health_check_path      => '/',
+      health_check_path      => '/specialist-documents',
       log_format_is_json     => true,
     }
   }
