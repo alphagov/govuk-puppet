@@ -8,6 +8,7 @@ class users::groups::govuk_production_access {
   include users::bradleyw
   include users::carlmassa
   include users::dai
+  include users::danielroseman
   include users::davidillsley
   include users::davidt
   include users::dcarley
