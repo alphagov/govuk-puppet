@@ -46,4 +46,10 @@ class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
     minute    => '*/30',
     command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync-draft.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
   }
+
+  cron { 'sync-asset-manager-from-master':
+    user    => 'assets',
+    minute  => '*/10',
+    command => '/usr/bin/setlock -n /var/tmp/asset-manager.lock /usr/bin/rsync -a --delete /data/master-uploads/asset-manager/ /mnt/uploads/asset-manager',
+  }
 }
