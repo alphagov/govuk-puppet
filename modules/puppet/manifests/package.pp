@@ -4,14 +4,18 @@
 #
 class puppet::package (
   $facter_version = '1.7.2-1puppetlabs1',
+  $hiera_version = '1.3.1-1puppetlabs1',
   $puppet_version = '3.2.3-1puppetlabs1',
 ) {
   package { 'facter':
     ensure => $facter_version,
   }
+  package { 'hiera':
+    ensure => $hiera_version,
+  }
   package { 'puppet-common':
     ensure  => $puppet_version,
-    require => Package['facter'],
+    require => Package['facter', 'hiera'],
   }
   package { 'puppet':
     ensure  => $puppet_version,
