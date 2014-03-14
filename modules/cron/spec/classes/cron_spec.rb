@@ -4,8 +4,8 @@ shared_examples 'cron splay' do |fqdn|
   it 'should set cron.hourly to **:01-**:15' do
     should contain_file('/etc/crontab').with_content(/^([1-9]|1[0-5])\s+\*\s+.*cron\.hourly$/)
   end
-  it 'should set cron.daily to 06:11-06:25' do
-    should contain_file('/etc/crontab').with_content(/^(1[1-9]|2[0-5])\s+6\s+.*cron\.daily \)$/)
+  it 'should set cron.daily to 05:01-05:59' do
+    should contain_file('/etc/crontab').with_content(/^([0-9]|[1-5][0-9])\s+5\s+.*cron\.daily \)$/)
   end
   it 'should set cron.weekly to 06:26-06:40' do
     should contain_file('/etc/crontab').with_content(/^(2[6-9]|3[0-9]|40)\s+6\s+.*cron\.weekly \)$/)
