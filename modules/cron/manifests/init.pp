@@ -18,15 +18,11 @@ class cron {
 
   # set the timings of the scheduled tasks at different times
   # for each machine, but at predicable times for the various
-  # schedules.
-  # Hourly:  01 -> 15 minutes past the hour
-  $hourly_time  = fqdn_rand(15) + 1
-  # Daily:   11 -> 25 minutes past the hour
-  $daily_time   = $hourly_time + 10
-  # Weekly:  26 -> 40 minutes past the hour
-  $weekly_time  = $hourly_time + 25
-  # Monthly: 41 -> 55 minutes past the hour
-  $monthly_time = $hourly_time + 40
+  # schedules. See spec tests for what ranges these equate to.
+  $hourly_min  = fqdn_rand(15) + 1
+  $daily_min   = fqdn_rand(59)
+  $weekly_min  = $hourly_min + 25
+  $monthly_min = $hourly_min + 40
   file {'/etc/crontab':
     ensure  => present,
     owner   => 'root',
