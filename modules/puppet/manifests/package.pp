@@ -13,13 +13,13 @@ class puppet::package (
   package { 'hiera':
     ensure => $hiera_version,
   }
-  package { 'puppet-common':
+  package { 'puppet':
     ensure  => $puppet_version,
     require => Package['facter', 'hiera'],
   }
-  package { 'puppet':
+  package { 'puppet-common':
     ensure  => $puppet_version,
-    require => Package['puppet-common'],
+    require => Package['puppet'],
   }
 
   # FIXME: Remove when we no longer bootstrap Vagrant and vCloud with gems.
