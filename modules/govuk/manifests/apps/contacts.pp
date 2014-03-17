@@ -4,6 +4,10 @@ class govuk::apps::contacts(
   $vhost_protected = undef,
 ) {
 
+  if $::govuk_platform == 'development' {
+    $aliases = ['contacts-frontend', 'contacts-admin']
+  }
+
   govuk::app { 'contacts':
     app_type              => 'rack',
     vhost                 => $vhost,
@@ -12,5 +16,6 @@ class govuk::apps::contacts(
     vhost_protected       => $vhost_protected,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'contacts-assets',
+    vhost_aliases         => $aliases,
   }
 }
