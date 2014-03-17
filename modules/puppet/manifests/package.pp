@@ -18,6 +18,23 @@ class puppet::package {
     require => Package['puppet-common'],
   }
 
+  # FIXME: Remove when we no longer bootstrap Vagrant and vCloud with gems.
+  exec { 'remove_puppet_gem':
+    command => '/usr/bin/gem uninstall --no-executables puppet',
+    onlyif  => '/usr/bin/gem list -i puppet',
+    require => Package['puppet-common'],
+  }
+  exec { 'remove_hiera_gem':
+    command => '/usr/bin/gem uninstall --no-executables hiera',
+    onlyif  => '/usr/bin/gem list -i hiera',
+    require => Exec['remove_puppet_gem'],
+  }
+  exec { 'remove_facter_gem':
+    command => '/usr/bin/gem uninstall --no-executables facter',
+    onlyif  => '/usr/bin/gem list -i facter',
+    require => Exec['remove_puppet_gem'],
+  }
+
   # Pin the desired Puppet version so that Puppet doesn't update
   # without us having tested the new version first. If Puppet breaks,
   # it won't be able to downgrade itself to the correct version.
