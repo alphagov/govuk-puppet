@@ -50,7 +50,10 @@ class puppet::master(
     # This subscribe is here because /etc/puppet/puppet.conf is currently
     # provided by a manifest separate from puppet::master::*. TODO: move
     # master puppet.conf into the configuration of the puppetmaster.
-    subscribe => File['/etc/puppet/puppet.conf'],
+    subscribe => [
+      File['/etc/puppet/puppet.conf'],
+      Class['puppet::package'],
+    ],
     require   => Class['puppet::master::generate_cert'],
   }
 
