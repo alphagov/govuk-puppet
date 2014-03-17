@@ -70,7 +70,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::frontend':   vhost_protected => true  }
-  class { 'govuk::apps::specialist_frontend':   vhost_protected => true  }
 
   include nginx
 
