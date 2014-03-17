@@ -14,7 +14,8 @@
 #   Default: false
 #
 class hosts::production (
-  $suffixed_hosts = false
+  $suffixed_hosts         = false,
+  $whitehall_shares_mysql = true,
 ) {
 
   validate_bool($suffixed_hosts)
@@ -24,6 +25,28 @@ class hosts::production (
   } else {
     $ensure_with_suffix = absent
     $ensure_without_suffix = present
+  }
+
+  # FIXME: Can be removed after platform1 migration
+  # - To match interim-platform behaviour, this should be 'true'
+  # - To match platform-one behaviour, this should be 'false'
+  #
+  # When removing this, remember to flatten the 'false' parameters below into their
+  # respective hosts aliases, to reverse the default in the class parameters and to
+  # remove the hieradata from the deployment repo.
+  #
+  if $whitehall_shares_mysql {
+    # whitehall-mysql.master and whitehall-mysql.slave point to shared mysql servers
+    $mysql_master_1_legacy_aliases           = ['mysql-master-1', 'master.mysql', "mysql.backend.${internal_tld}", 'whitehall-master.mysql' ]
+    $mysql_slave_1_legacy_aliases            = ['mysql-slave-1', 'slave.mysql', 'whitehall-slave.mysql' ]
+    $whitehall_mysql_master_1_legacy_aliases = ['whitehall-mysql-master-1', "whitehall-mysql.backend.${internal_tld}"]
+    $whitehall_mysql_slave_1_legacy_aliases  = ['whitehall-mysql-slave-1']
+  } else {
+    $mysql_master_1_legacy_aliases           = ['mysql-master-1', 'master.mysql', "mysql.backend.${internal_tld}"]
+    $mysql_slave_1_legacy_aliases            = ['mysql-slave-1', 'slave.mysql' ]
+    # whitehall-mysql.master and whitehall-mysql.slave point to their respective servers
+    $whitehall_mysql_master_1_legacy_aliases = ['whitehall-mysql-master-1', 'whitehall-master.mysql', "whitehall-mysql.backend.${internal_tld}"]
+    $whitehall_mysql_slave_1_legacy_aliases  = ['whitehall-mysql-slave-1', 'whitehall-slave.mysql']
   }
 
   $app_domain = hiera('app_domain')
@@ -409,12 +432,14 @@ class hosts::production (
   govuk::host { 'mysql-master-1':
     ip             => '10.3.10.0',
     vdc            => 'backend',
-    legacy_aliases => ['mysql-master-1', 'master.mysql', "mysql.backend.${internal_tld}"],
+    # FIXME: See comments at top of file regarding post-migration removal
+    legacy_aliases => $mysql_master_1_legacy_aliases,
   }
   govuk::host { 'mysql-slave-1':
     ip             => '10.3.10.1',
     vdc            => 'backend',
-    legacy_aliases => ['mysql-slave-1', 'slave.mysql'],
+    # FIXME: See comments at top of file regarding post-migration removal
+    legacy_aliases => $mysql_slave_1_legacy_aliases,
   }
   govuk::host { 'mysql-slave-2':
     ip             => '10.3.10.3',
@@ -429,12 +454,14 @@ class hosts::production (
   govuk::host { 'whitehall-mysql-master-1':
     ip             => '10.3.10.30',
     vdc            => 'backend',
-    legacy_aliases => ['whitehall-mysql-master-1', 'whitehall-master.mysql', "whitehall-mysql.backend.${internal_tld}"],
+    # FIXME: See comments at top of file regarding post-migration removal
+    legacy_aliases => $whitehall_mysql_master_1_legacy_aliases,
   }
   govuk::host { 'whitehall-mysql-slave-1':
     ip             => '10.3.10.31',
     vdc            => 'backend',
-    legacy_aliases => ['whitehall-mysql-slave-1', 'whitehall-slave.mysql'],
+    # FIXME: See comments at top of file regarding post-migration removal
+    legacy_aliases => $whitehall_mysql_slave_1_legacy_aliases,
   }
   govuk::host { 'whitehall-mysql-slave-2':
     ip             => '10.3.10.32',
