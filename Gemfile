@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rake"
 gem "puppet-syntax"
 gem "puppet-lint"
-gem "puppet", "3.2.2"
+gem "puppet", "~> 3.4.0"
 gem "hiera", "1.3.1"
 gem "rspec-puppet"
 # FIXME: There is some confusion about who should require who.
