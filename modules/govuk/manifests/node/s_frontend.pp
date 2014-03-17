@@ -16,6 +16,13 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     vhost_protected => $protect_fe,
   }
 
+  if str2bool(extlookup('govuk_enable_contacts', 'no')) {
+    class { 'govuk::apps::contacts':
+      vhost_protected => $protect_fe,
+      vhost           => 'contacts-frontend',
+    }
+  }
+
   include govuk::apps::canary_frontend
   include govuk::apps::static
   include govuk::apps::transactions_explorer
