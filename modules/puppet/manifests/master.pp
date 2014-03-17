@@ -28,6 +28,7 @@ class puppet::master(
     puppetdb_version => $puppetdb_version,
     notify           => Class['puppet::master::service'],
     require          => [
+      Class['puppet::package'],
       Class['unicornherder'],
       Anchor['puppet::master::begin'],
     ],

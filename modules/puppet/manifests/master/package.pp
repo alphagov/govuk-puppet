@@ -22,20 +22,17 @@ class puppet::master::package(
   }
   package { 'puppetdb-terminus':
     ensure  => $puppetdb_version,
-    require => Class['puppet'],
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
     ensure  => directory,
     owner   => 'puppet',
     group   => 'puppet',
-    require => Class['puppet'],
   }
   file { '/var/lib/puppet/log':
     ensure  => directory,
     mode    => '0750',
     owner   => 'puppet',
     group   => 'puppet',
-    require => Class['puppet'],
   }
   file { '/etc/init/puppetmaster.conf':
     content => template('puppet/etc/init/puppetmaster.conf.erb'),
