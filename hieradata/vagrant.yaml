@@ -4,6 +4,9 @@ website_host: 'www.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
 
 govuk::apps::search_admin::enabled: true
+app_domain: 'dev.gov.uk'
+
+internal_tld: 'development'
 
 shell::shell_prompt_string: 'dev'
 
