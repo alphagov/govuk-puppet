@@ -5,7 +5,7 @@ class puppetdb::package($package_ensure) {
 
   package { 'puppetdb':
     ensure  => $package_ensure,
-    require => [Package['puppet-common'],Package['puppet']],
+    require => Class['puppet::package'],
   }
 
 }
