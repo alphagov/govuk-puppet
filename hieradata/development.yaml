@@ -7,7 +7,7 @@ assets::mount_asset_master: false
 
 clamav::use_service: false
 
-govuk::deploy::config::govuk_env: development
+govuk::deploy::config::govuk_env: 'development'
 govuk::deploy::setup_actionmailer_ses_config: false
 
 govuk::app::nginx_vhost::asset_pipeline_enabled: false
@@ -43,8 +43,12 @@ govuk::logstream::disabled: true
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
+<<<<<<< HEAD
 govuk::ppa::path: preview
 govuk::apps::publicapi::backdropread_protocol: http
+=======
+govuk::apps::publicapi::backdropread_protocol: 'http'
+>>>>>>> Improve hiera data with quotes
 
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
