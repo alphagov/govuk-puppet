@@ -43,10 +43,11 @@ mongodb::server::version: '2.0.7'
 mongodb::server::package_name: 'mongodb20-10gen'
 
 ntp::server_list:
+  - 'ntp.ubuntu.com'
+  - 'time.euro.apple.com'
   - '0.uk.pool.ntp.org'
   - '1.uk.pool.ntp.org'
   - '2.uk.pool.ntp.org'
-  - '3.uk.pool.ntp.org'
 
 perfplat_internal_app_domain: 'development.performance.service.gov.uk'
 
