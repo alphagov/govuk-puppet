@@ -20,9 +20,6 @@ mod 'stankevich/python', '1.2.1'
 mod 'nextrevision/automysqlbackup',
   :git => 'git://github.com/nextrevision/puppet-automysqlbackup.git'
 
-mod 'cpanm',
-  :git => 'git://github.com/alphagov/puppet-cpanm.git',
-  :ref => '4e3dfca'
 mod 'ufw',
   :git => 'git://github.com/alphagov/puppet-module-ufw.git',
   :ref => 'dc7ddc2'

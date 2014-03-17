@@ -53,13 +53,6 @@ GIT
     bandersnatch (0.0.1)
 
 GIT
-  remote: git://github.com/alphagov/puppet-cpanm.git
-  ref: 4e3dfca
-  sha: 4e3dfca9b5ca25da71a78412305710e665475698
-  specs:
-    cpanm (0.0.1)
-
-GIT
   remote: git://github.com/alphagov/puppet-curl.git
   ref: f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48
   sha: f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48
@@ -130,7 +123,6 @@ DEPENDENCIES
   apparmor (>= 0)
   aptmirror (>= 0)
   bandersnatch (>= 0)
-  cpanm (>= 0)
   curl (>= 0)
   ext4mount (>= 0)
   gdsoperations/auditd (= 0.0.1)
