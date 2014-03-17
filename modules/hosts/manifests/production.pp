@@ -27,6 +27,9 @@ class hosts::production (
     $ensure_without_suffix = present
   }
 
+  $app_domain = hiera('app_domain')
+  $internal_tld = extlookup('internal_tld', 'production')
+
   # FIXME: Can be removed after platform1 migration
   # - To match interim-platform behaviour, this should be 'true'
   # - To match platform-one behaviour, this should be 'false'
@@ -48,9 +51,6 @@ class hosts::production (
     $whitehall_mysql_master_1_legacy_aliases = ['whitehall-mysql-master-1', 'whitehall-master.mysql', "whitehall-mysql.backend.${internal_tld}"]
     $whitehall_mysql_slave_1_legacy_aliases  = ['whitehall-mysql-slave-1', 'whitehall-slave.mysql']
   }
-
-  $app_domain = hiera('app_domain')
-  $internal_tld = extlookup('internal_tld', 'production')
 
   # Remove old exception-handler host entry.
   # It's now in the backend vDC.  Without this, the exception-handler-1 alias was
