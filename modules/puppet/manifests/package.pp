@@ -2,10 +2,10 @@
 #
 # Install packages for Puppet and various fixups that we require.
 #
-class puppet::package {
-  $facter_version = '1.7.2-1puppetlabs1'
-  $puppet_version = '3.2.3-1puppetlabs1'
-
+class puppet::package (
+  $facter_version = '1.7.2-1puppetlabs1',
+  $puppet_version = '3.2.3-1puppetlabs1',
+) {
   package { 'facter':
     ensure => $facter_version,
   }
