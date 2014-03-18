@@ -11,7 +11,6 @@ nginx_enable_ssl,false
 nginx_enable_basic_auth,false
 panopticon_intercept_errors,false
 publisher_intercept_errors,false
-release_intercept_errors,false
 shell_prompt_string,"dev"
 signon_intercept_errors,false
 support_intercept_errors,false
