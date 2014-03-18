@@ -5,21 +5,39 @@
 class puppet::package (
   $facter_version = '1.7.2-1puppetlabs1',
   $hiera_version = '1.3.1-1puppetlabs1',
-  $puppet_version = '3.2.3-1puppetlabs1',
+  $puppet_version = '3.4.3-1puppetlabs1',
 ) {
+  # Pin the desired Puppet version so that Puppet doesn't update
+  # without us having tested the new version first. If Puppet breaks,
+  # it won't be able to downgrade itself to the correct version.
+  apt::pin { 'prevent_puppet_breakage':
+    packages   => 'puppet-common puppet',
+    version    => $puppet_version,
+    priority   => 1001, # 1001 will cause a downgrade if necessary
+  }
+  apt::pin { 'prevent_facter_upgrade':
+    packages  => 'facter',
+    version   => $facter_version,
+    priority  => 1001,
+  }
+
   package { 'facter':
-    ensure => $facter_version,
+    ensure  => $facter_version,
+    require => Apt::Pin['prevent_facter_upgrade'],
   }
   package { 'hiera':
     ensure => $hiera_version,
   }
-  package { 'puppet-common':
-    ensure  => $puppet_version,
-    require => Package['facter', 'hiera'],
-  }
   package { 'puppet':
     ensure  => $puppet_version,
-    require => Package['puppet-common'],
+    require => [
+      Apt::Pin['prevent_puppet_breakage'],
+      Package['facter', 'hiera'],
+    ],
+  }
+  package { 'puppet-common':
+    ensure  => $puppet_version,
+    require => Package['puppet'],
   }
 
   # FIXME: Remove when we no longer bootstrap Vagrant and vCloud with gems.
@@ -37,20 +55,6 @@ class puppet::package (
     command => '/usr/bin/gem uninstall --all --no-executables facter',
     onlyif  => '/usr/bin/gem list -i facter',
     require => Exec['remove_puppet_gem'],
-  }
-
-  # Pin the desired Puppet version so that Puppet doesn't update
-  # without us having tested the new version first. If Puppet breaks,
-  # it won't be able to downgrade itself to the correct version.
-  apt::pin { 'prevent_puppet_breakage':
-    packages   => 'puppet-common puppet',
-    version    => $puppet_version,
-    priority   => 1001, # 1001 will cause a downgrade if necessary
-  }
-  apt::pin { 'prevent_facter_upgrade':
-    packages  => 'facter',
-    version   => $facter_version,
-    priority  => 1001,
   }
 
   file { '/usr/bin/puppet':
