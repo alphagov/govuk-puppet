@@ -57,7 +57,9 @@ class puppet::master(
     require   => Class['puppet::master::generate_cert'],
   }
 
-  class { 'puppet::master::nginx': }
+  class { 'puppet::master::nginx':
+    require => Class['puppet::master::generate_cert'],
+  }
 
   anchor {'puppet::master::end':
     subscribe => Class['puppet::master::service'],
