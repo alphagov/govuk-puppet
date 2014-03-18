@@ -17,6 +17,8 @@ class hosts::development {
   host { 'business-support-api.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'canary-backend.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'canary-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
+  host { 'contacts-admin.dev.gov.uk':                       ip => '127.0.0.1' }
+  host { 'contacts-frontend.dev.gov.uk':                    ip => '127.0.0.1' }
   host { 'contentapi.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }
