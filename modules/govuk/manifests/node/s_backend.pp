@@ -33,6 +33,12 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::asset_manager
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
+  if str2bool(extlookup('govuk_enable_contacts', 'no')) {
+    class { 'govuk::apps::contacts':
+      vhost_protected => true,
+      vhost           => 'contacts-admin',
+    }
+  }
   include govuk::apps::content_planner
   class { 'govuk::apps::external_link_tracker':
     mongodb_nodes => [
@@ -57,13 +63,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::specialist_publisher
   include govuk::apps::support
   include govuk::apps::tariff_admin
-
-  if str2bool(extlookup('govuk_enable_contacts', 'no')) {
-    include govuk::apps::contacts
-  }
-
-
-
   include govuk::apps::tariff_api
   include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
