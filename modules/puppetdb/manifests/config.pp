@@ -9,6 +9,7 @@ class puppetdb::config {
   # config file in /etc/puppetdb/conf.d updated.
   exec { '/usr/sbin/puppetdb-ssl-setup':
     creates => '/etc/puppetdb/ssl/keystore.jks',
+    require => Class['puppet::master::generate_cert'],
   }
 
   # This kills off the SysV puppetdb script.
