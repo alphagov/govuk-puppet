@@ -5,7 +5,7 @@ min_required_vagrant_version = '1.3.0'
 # Construct box name and URL from distro and version.
 def get_box(dist, version)
   dist    ||= "precise"
-  version ||= "20130712"
+  version ||= "20140318"
 
   name  = "govuk_dev_#{dist}64_#{version}"
   url   = "http://gds-boxes.s3.amazonaws.com/#{name}.box"
