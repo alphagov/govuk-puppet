@@ -171,7 +171,7 @@ copy of the production search index on your local vm, run the following from
 
 Then run this from `development/replication`:
 
-    dev$ ./replicate-search-index.sh
+    dev$ ./replicate-search-index.sh -F ../ssh_config -u $USERNAME
 
 If you have an existing search index you need to remove, run the following from the
 Rummager repository before the replication script.
