@@ -3,10 +3,11 @@
 
 # es_dump
 # -------
-# export all Elasticsearch indexes which have aliases to zip archives
+# export all Elasticsearch indexes which have aliases or
+# are passed as `additional_indexes` parameter to zip archives.
 #
 # USAGE:
-# es_dump <instance url> <save path>
+# es_dump <instance url> <save path> <comma-separated list of additional indexes>
 #
 
 require 'rubygems'
@@ -19,6 +20,7 @@ logger = Logger.new(STDOUT)
 
 host = ARGV[0]
 directory = ARGV[1] || "/var/es_dump"
+additional_indexes = ARGV[2]
 
 uri = URI.join(host, "/_aliases")
 
@@ -28,12 +30,20 @@ res = Net::HTTP.get_response(uri)
 raise "Could not connect to Elasticsearch on #{uri}. Status code: #{res.code}" unless res.code == '200'
 
 indexes = JSON.parse(res.body)
-aliases = indexes.map {|k,i| i['aliases'].keys }.flatten
+exports_list = indexes.map {|k,i| i['aliases'].keys }.flatten
 
-logger.info "Discovered #{aliases.size} aliases from #{host}"
+logger.info "Discovered #{exports_list.size} aliases from #{host}"
 
-aliases.each_with_index do |index_name,i|
-  logger.info "Requesting #{host}/#{index_name} (#{i+1} of #{aliases.size})"
+if additional_indexes
+  additional_indexes = additional_indexes.split(',').map(&:strip)
+  exports_list += additional_indexes
+  exports_list.uniq!
+
+  logger.info "#{additional_indexes.size} additional indexes to be exported: #{additional_indexes.join(', ')}"
+end
+
+exports_list.each_with_index do |index_name,i|
+  logger.info "Requesting #{host}/#{index_name} (#{i+1} of #{exports_list.size})"
   file_path = File.join(directory, "#{index_name}.zip")
 
   EsDumpRestore::App.new.dump(host, index_name, file_path)
