@@ -31,8 +31,8 @@ end
 
 def virtual_box_config(config)
   latest_box_versions = {
-    'lucid'   => '20130712',
-    'precise' => '20130712',
+    'lucid'   => '20140318',
+    'precise' => '20140318',
   }
 
   dist = ENV['govuk_dev_dist'] || DIST_PREFERRED
