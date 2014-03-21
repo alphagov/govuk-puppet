@@ -15,6 +15,7 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
   }
 
   class { 'graphite':
+    version                    => '0.9.12',
     port                       => '33333',
     carbon_aggregator          => true,
     aggregation_rules_source   => 'puppet:///modules/govuk/node/s_graphite/aggregation-rules.conf',
@@ -22,6 +23,25 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     storage_schemas_source     => 'puppet:///modules/govuk/node/s_graphite/storage-schemas.conf',
     carbon_source              => 'puppet:///modules/govuk/node/s_graphite/carbon.conf',
     require                    => Govuk::Mount['/opt/graphite'],
+  }
+
+  # Remove this fix when upgrading from 0.9.12:
+  # https://github.com/graphite-project/graphite-web/issues/423
+  $util_py          = '/opt/graphite/webapp/graphite/util.py'
+  $util_patch       = '/opt/graphite/graphite_util.patch'
+  $util_patched_md5 = 'aa6b5e9234dfc705fa01cb871f8eec38'
+  file { $util_patch:
+    ensure => file,
+    source => 'puppet:///modules/govuk/node/s_graphite/graphite_carbonlink.patch',
+  }
+  exec { 'patch graphite 0.9.12':
+    command => "/usr/bin/patch -b ${util_py} ${util_patch}",
+    unless  => "/usr/bin/md5sum ${util_py} | /bin/grep -qsw ${util_patched_md5}",
+    notify  => Class['graphite::service'],
+    require => [
+      Class['graphite::install'],
+      File[$util_patch],
+    ],
   }
 
   @@icinga::check { "check_carbon_cache_running_on_${::hostname}":

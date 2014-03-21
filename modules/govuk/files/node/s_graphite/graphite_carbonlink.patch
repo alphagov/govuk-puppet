@@ -1,0 +1,61 @@
+From 06193935274e68e3a537f479296ee6cc7e7b892f Mon Sep 17 00:00:00 2001
+From: Michael Leinartas <mleinartas@twitter.com>
+Date: Sat, 24 Aug 2013 23:23:32 -0500
+Subject: [PATCH] explicitly import sys here
+
+---
+ webapp/graphite/util.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/webapp/graphite/util.py b/webapp/graphite/util.py
+index 89709d8..e85a88a 100644
+--- a/webapp/graphite/util.py
++++ b/webapp/graphite/util.py
+@@ -12,6 +12,8 @@
+ See the License for the specific language governing permissions and
+ limitations under the License."""
+ 
++import sys
++
+ try:
+   import cPickle as pickle
+   USING_CPICKLE = True
+-- 
+1.8.5.5
+
+From 1c10ac092eee185bdf853309c7b759d48550a359 Mon Sep 17 00:00:00 2001
+From: Dieter Plaetinck <dieter@vimeo.com>
+Date: Wed, 11 Dec 2013 10:00:10 -0500
+Subject: [PATCH] add missing things to PICKLE_SAFE. fixes #423
+
+include graphite.intervals and collections.deque so that carbonlink
+works
+---
+ webapp/graphite/util.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/webapp/graphite/util.py b/webapp/graphite/util.py
+index e85a88a..454c2c5 100644
+--- a/webapp/graphite/util.py
++++ b/webapp/graphite/util.py
+@@ -91,6 +91,8 @@ class SafeUnpickler(object):
+     PICKLE_SAFE = {
+       'copy_reg': set(['_reconstructor']),
+       '__builtin__': set(['object']),
++      'graphite.intervals': set(['Interval', 'IntervalSet']),
++      'collections': set(['deque']),
+     }
+ 
+     @classmethod
+@@ -114,6 +116,8 @@ class SafeUnpickler(pickle.Unpickler):
+     PICKLE_SAFE = {
+       'copy_reg': set(['_reconstructor']),
+       '__builtin__': set(['object']),
++      'graphite.intervals': set(['Interval', 'IntervalSet']),
++      'collections': set(['deque']),
+     }
+ 
+     def find_class(self, module, name):
+-- 
+1.8.5.5
+
