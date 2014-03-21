@@ -75,10 +75,9 @@ end
 Vagrant.configure("2") do |config|
   config = virtual_box_config(config)
 
-  # TODO: build VMWare base boxes - for now we use a generic precise
   config.vm.provider :vmware_fusion do |vm, override|
-    override.vm.box = "precise64_vmware_fusion"
-    override.vm.box_url = "http://files.vagrantup.com/precise64_vmware_fusion.box"
+    override.vm.box = "govuk_dev_precise64_vmware_fusion"
+    override.vm.box_url = "http://gds-boxes.s3.amazonaws.com/govuk_dev_precise64_vmware_fusion.box"
     vm.vmx["displayName"] = "devvm"
   end
 
