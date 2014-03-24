@@ -18,8 +18,9 @@ acl purge_acl {
 
 sub vcl_recv {
   # Use the error keyword here as serving a synthetic response isn't supported in vcl_recv
+  # 668 is a custom HTTP error code
   if (req.url == "/__varnish_check__") {
-    error 200 "OK";
+    error 668 "OK";
   }
 
   unset req.http.GOVUK-Request-Id;
@@ -173,9 +174,11 @@ sub vcl_error {
     return(deliver);
   }
 
-  # Output simple 'OK' message for 200 'errors' for /__varnish_check__ endpoint
-  if (obj.status == 200) {
+  # 668 errors are our internal 'errors' for the /__varnish_check__ health
+  # check. They're raised in vcl_recv because vcl_recv can't provide synthetic content.
+  if (obj.status == 668) {
     set obj.http.Content-Type = "text/plain";
+    set obj.status = 200;
     synthetic obj.response + {"
 "}; # Add newline to end of response
     return(deliver);
