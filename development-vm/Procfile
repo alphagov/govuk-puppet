@@ -60,6 +60,8 @@ finder-api:             ./run_in.sh ../finder-api bundle exec mr-sparkle --force
 specialist-publisher:   ./run_in.sh ../specialist-publisher bundle exec rails s -p 3064
 specialist-frontend:    ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
 # external-link-tracker uses 3066 and 3067
+content-store:          ./run_in.sh ../content-store bundle exec rails s -p 3068
+# content-store will also uses 3069
 
 datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
 datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
