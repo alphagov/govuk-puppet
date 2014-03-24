@@ -17,6 +17,11 @@ acl purge_acl {
 }
 
 sub vcl_recv {
+  # Use the error keyword here as serving a synthetic response isn't supported in vcl_recv
+  if (req.url == "/__varnish_check__") {
+    error 200 "OK";
+  }
+
   unset req.http.GOVUK-Request-Id;
   set req.http.GOVUK-Request-Id = server.identity + "-" + req.xid;
 
@@ -165,6 +170,14 @@ sub vcl_error {
   if (obj.status == 667) {
     set obj.http.Location = obj.response;
     set obj.status = 301;
+    return(deliver);
+  }
+
+  # Output simple 'OK' message for 200 'errors' for /__varnish_check__ endpoint
+  if (obj.status == 200) {
+    set obj.http.Content-Type = "text/plain";
+    synthetic obj.response + {"
+"}; # Add newline to end of response
     return(deliver);
   }
 }
