@@ -32,13 +32,12 @@ define govuk::host(
 ) {
 
   $tld = extlookup('internal_tld', 'production')
-
   $service_aliases_real = regsubst($service_aliases, '$', ".${service_suffix}")
 
   host { "${title}.${vdc}.${tld}":
     ensure       => $ensure,
     ip           => $ip,
-    host_aliases => unique(flatten(["${title}.${vdc}", $service_aliases_real, $legacy_aliases])),
+    host_aliases => unique(flatten(["${title}.${vdc}", $service_aliases_real, $title, $legacy_aliases])),
   }
 
 }
