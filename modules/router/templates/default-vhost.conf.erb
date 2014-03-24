@@ -1,0 +1,28 @@
+server {
+  listen 80 default_server;
+
+  location /__varnish_check__ {
+    # This is the varnish upstream defined in the www.gov.uk vhost
+    proxy_pass http://varnish;
+  }
+
+  location / {
+    return 444;
+  }
+}
+
+server {
+  listen              443 default_server ssl;
+  ssl_certificate     /etc/nginx/ssl/www.gov.uk.crt;
+  ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
+  include             /etc/nginx/ssl.conf;
+
+  location /__varnish_check__ {
+    # This is the varnish upstream defined in the www.gov.uk vhost
+    proxy_pass http://varnish;
+  }
+
+  location / {
+    return 444;
+  }
+}

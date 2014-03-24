@@ -41,6 +41,13 @@ class router::nginx (
     content => 'limit_req_zone $binary_remote_addr zone=contact:5m rate=6r/m;',
   }
 
+  # Set default vhost that immediately closes the connection if no
+  # HTTP Host header is specified, with the exception of the /__varnish_check__
+  # endpoint which is required for load balancer health checks
+  nginx::config::site { 'default':
+    content => template('router/default-vhost.conf.erb'),
+  }
+
   file { '/etc/nginx/router_include.conf':
     ensure  => present,
     content => template('router/router_include.conf.erb'),
