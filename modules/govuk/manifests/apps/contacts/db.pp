@@ -1,11 +1,12 @@
-class govuk::apps::contacts::db {
-  $contacts_admin_password = extlookup('mysql_contacts_admin', '')
+class govuk::apps::contacts::db (
+  $mysql_contacts_admin = '',
+){
   $contacts_frontend_password = extlookup('mysql_contacts_frontend', '')
 
   mysql::db { 'contacts_production':
     user     => 'contacts',
     host     => '%',
-    password => $contacts_admin_password,
+    password => $mysql_contacts_admin,
   }
 
   govuk_mysql::user { 'contacts_fe@%':
