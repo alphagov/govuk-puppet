@@ -11,7 +11,6 @@ nginx_enable_ssl,false
 nginx_enable_basic_auth,false
 publisher_intercept_errors,false
 shell_prompt_string,"dev"
-signon_intercept_errors,false
 support_intercept_errors,false
 whitehall_admin_intercept_errors,false
 limelight_proxy_performance_api,true
