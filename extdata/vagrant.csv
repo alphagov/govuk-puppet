@@ -1,5 +1,4 @@
 app_domain,"dev.gov.uk"
-app_domain_suffix,"dev.gov.uk"
 assets_uploads_disk,"/dev/sdb1"
 efg_domain,"www.sflg.gov.uk"
 fco_services_domain_prefix,"www-dev"
