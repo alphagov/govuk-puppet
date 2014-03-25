@@ -1,10 +1,4 @@
 ---
-# *** WARNING ***
-#
-# Changes to this file, particulary the hierachy, won't be recognised until
-# the puppetmaster process is manually restarted. See bug:
-# http://projects.puppetlabs.com/issues/19343
-#
 :hierarchy:
   - 'class/%{::environment}/%{::govuk_node_class}'
   - 'class/%{::govuk_node_class}'
