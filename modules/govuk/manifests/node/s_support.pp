@@ -1,4 +1,4 @@
-class govuk::node::s_support inherits govuk::node::s_base {
+class govuk::node::s_support ( $mysql_preview_backup = '', ) inherits govuk::node::s_base {
 
   include govuk_java::openjdk6::jre
   include govuk_java::openjdk6::jdk
