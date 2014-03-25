@@ -1,3 +1,4 @@
+class govuk::node::s_mysql_master ( $mysql_bouncer = '', )inherits govuk::node::s_base {
 class govuk::node::s_mysql_master (
   $dump_password
 ) inherits govuk::node::s_base {
@@ -35,7 +36,7 @@ class govuk::node::s_mysql_master (
   }
 
   govuk_mysql::user { 'bouncer@%':
-    password_hash => mysql_password(extlookup('mysql_bouncer', '')),
+    password_hash => mysql_password($mysql_bouncer),
     table         => 'transition_production.*',
     privileges    => ['SELECT'],
     require       => Class['govuk::apps::transition::db'],
