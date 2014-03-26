@@ -10,6 +10,7 @@ describe 'mongodb::server', :type => :class do
     it do
       should contain_package('mongodb-10gen').with_ensure('2.4.6')
       should contain_file('/etc/mongodb.conf')
+      should contain_package('mongodb20-10gen').with_ensure('absent')
     end
   end
 
