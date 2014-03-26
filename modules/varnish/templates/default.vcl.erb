@@ -22,6 +22,12 @@ sub vcl_recv {
 
   set req.backend = router;
 
+  # Use the error keyword here as serving a synthetic response isn't supported in vcl_recv
+  # 668 is a custom HTTP error code
+  if (req.url == "/__varnish_check__") {
+    error 668 "OK";
+  }
+
   # https://www.gov.uk/foo/ -> https://www.gov.uk/foo
   # vcl_error completes the redirect
   # Don't redirect "/" to "".
@@ -165,6 +171,16 @@ sub vcl_error {
   if (obj.status == 667) {
     set obj.http.Location = obj.response;
     set obj.status = 301;
+    return(deliver);
+  }
+
+  # 668 errors are our internal 'errors' for the /__varnish_check__ health
+  # check. They're raised in vcl_recv because vcl_recv can't provide synthetic content.
+  if (obj.status == 668) {
+    set obj.http.Content-Type = "text/plain";
+    set obj.status = 200;
+    synthetic obj.response + {"
+"}; # Add newline to end of response
     return(deliver);
   }
 }

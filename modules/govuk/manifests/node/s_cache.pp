@@ -31,12 +31,6 @@ class govuk::node::s_cache (
     ],
   }
 
-  # Close connection if vhost not known
-  nginx::config::vhost::default { 'default':
-    status         => '444',
-    status_message => '',
-  }
-
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target       => "${::fqdn_underscore}.nginx.nginx_connections-writing",
     warning      => 150,
