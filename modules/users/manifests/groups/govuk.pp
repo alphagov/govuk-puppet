@@ -46,7 +46,6 @@ class users::groups::govuk {
   include users::mikemagarinos
   include users::minglis
   include users::mwall
-  include users::norm
   include users::ops01
   include users::ops02
   include users::ops04
