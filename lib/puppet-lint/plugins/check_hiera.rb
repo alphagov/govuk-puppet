@@ -43,6 +43,8 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     # FIXME: Existing violations. These should be refactored.
     'deploy_ssh_keys',
     'mirror::enable_checks',
+    'perfplat_internal_app_domain',
+    'mysql_nagios',
   ]
 
   check 'hiera_explicit_lookup' do
