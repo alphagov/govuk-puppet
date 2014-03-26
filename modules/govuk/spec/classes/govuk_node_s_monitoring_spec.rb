@@ -12,7 +12,14 @@ shared_examples 'configured contact groups' do |urgent, high, normal|
   )}
 end
 
+# NB: The reason these tests are more likley to fail than any other is
+# because they include a node class, which in turn includes `s_base` and
+# *everything* else. Because `govuk_nodes_spec_optional` is currently broken
+# this is our only canary for ensures that modules play nicely together.
 describe 'govuk::node::s_monitoring', :type => :class do
+  # Set FQDN to satisfy other tests, like the `hosts` module
+  let(:node) { 'monitoring-1.management.somethingsomething' }
+
   let (:hiera_data) {{
       'app_domain'            => 'giraffe.biz',
       'asset_root'            => 'https://static.test.gov.uk',
