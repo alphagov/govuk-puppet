@@ -15,8 +15,6 @@ govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
 mongodb::server::development: true
-mongodb::server::version: '2.4.9'
-mongodb::server::package_name: 'mongodb-10gen'
 
 ssh::config::allow_x11_forwarding: true
 
