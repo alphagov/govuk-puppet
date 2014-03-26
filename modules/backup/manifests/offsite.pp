@@ -1,11 +1,14 @@
-class backup::offsite {
+class backup::offsite(
+  $dest_host,
+  $dest_host_key,
+) {
 
-  cron { 'offsite-backup':
-    command => '/usr/local/bin/offsite-backup',
-    user    => 'govuk-backup',
-    hour    => 8,
-    minute  => 13,
-    require => File['/usr/local/bin/offsite-backup'],
+  include backup::client
+
+  sshkey { $dest_host:
+    ensure => present,
+    type   => 'ssh-rsa',
+    key    => $dest_host_key,
   }
 
   $threshold_secs = 28 * (60 * 60)
@@ -16,6 +19,15 @@ class backup::offsite {
     ensure  => present,
     content => template('backup/usr/local/bin/offsite-backup.erb'),
     mode    => '0755',
+    require => Sshkey[$dest_host],
+  }
+
+  cron { 'offsite-backup':
+    command => '/usr/local/bin/offsite-backup',
+    user    => 'govuk-backup',
+    hour    => 8,
+    minute  => 13,
+    require => File['/usr/local/bin/offsite-backup'],
   }
 
   @@icinga::passive_check { "check_backup_offsite-${::hostname}":
