@@ -42,8 +42,8 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
       mountpoint   => '/mnt/uploads',
       disk         => extlookup('assets_uploads_disk'),
       mountoptions => 'defaults',
-      nagios_warn  => 2,
-      nagios_crit  => 1,
+      nagios_warn  => 10,
+      nagios_crit  => 5,
     }
   }
 
