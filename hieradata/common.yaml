@@ -27,6 +27,9 @@ apt::unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
+backup::offsite::dest_host: 'offsite-backup.production.alphagov.co.uk'
+backup::offsite::dest_host_key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAulzNJZj+KQH5acxqgaoN8BW7f89P1rPC82NVQxi5AjSd8VdDaT81vFkGEQbODFOBJvVoExPXww6wSNXzL195W3hb8aVhM85MUS4EANUwtk/xupgvMSz5ivTtzSkO4tOzk94Lljs4uX5T3VpzZgmJzvze8V2GbeihJT2iu9JgWLDobJxZSh7LDvtaKJwCnqrzt5kPkwG6ZLzXHSBPmzvU2qNppaMBLcbETIWR2adUFgA5oXETREgsaftWalJWhJCl7iHulmoSdRPyPS/aCoaXJiBW+VrXf6rZ6vlcC+9RNbcIlRgYf8qZaENL+093S4yx1hPp2knQ3DO9V845ZRAOJw=='
+
 govuk_mysql::server::expire_log_days: 3
 
 govuk_sudo::sudo_conf:
