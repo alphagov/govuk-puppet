@@ -44,6 +44,7 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'deploy_ssh_keys',
     'mirror::enable_checks',
     'perfplat_internal_app_domain',
+    'mysql_replica_password',
     'mysql_nagios',
   ]
 
