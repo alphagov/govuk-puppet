@@ -17,14 +17,7 @@ server {
   listen                    443 ssl;
   ssl_certificate           /etc/nginx/ssl/nagios.crt;
   ssl_certificate_key       /etc/nginx/ssl/nagios.key;
-  proxy_set_header          X-Forwarded-Ssl on;
-  ssl_protocols             TLSv1 SSLv3;
-  ssl_ciphers               HIGH:!ADH:!kEDH;
-  ssl_prefer_server_ciphers on;
-  ssl_session_cache         shared:SSL:10m;
-  ssl_session_timeout       5m;
-  # max-age=31536000 commits us to using HSTS for one year
-  add_header                Strict-Transport-Security "max-age=31536000";
+  include                   /etc/nginx/ssl.conf;
   <%- end -%>
 
   index index.html;
