@@ -44,7 +44,7 @@ mod 'lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 mod 'gor',
   :git => 'git://github.com/alphagov/puppet-gor.git',
-  :ref => 'v0.1.2'
+  :ref => 'v0.2.0'
 mod 'tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
 
