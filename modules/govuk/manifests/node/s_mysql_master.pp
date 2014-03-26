@@ -32,7 +32,7 @@ class govuk::node::s_mysql_master inherits govuk::node::s_base {
   }
 
   govuk_mysql::user { 'whitehall_fe@%':
-    password_hash => mysql_password(extlookup('mysql_whitehall_frontend', '')),
+    password_hash => mysql_password(hiera('mysql_whitehall_frontend', '')),
     table         => 'whitehall_production.*',
     privileges    => ['SELECT'],
     require       => Class['govuk::apps::whitehall::db'],
