@@ -1,5 +1,5 @@
 class govuk::node::s_mysql_backup inherits govuk::node::s_base {
-  $root_password = extlookup('mysql_root', '')
+  $root_password = hiera('mysql_root', '')
 
   file { '/etc/automysqlbackup/prebackup':
     source => 'puppet:///modules/govuk/etc/automysqlbackup/prebackup',
@@ -20,7 +20,7 @@ class govuk::node::s_mysql_backup inherits govuk::node::s_base {
     mailcontent                  => 'quiet',
     mail_maxattsize              => '4000',
     mysql_dump_username          => 'root',
-    mysql_dump_password          => extlookup('mysql_root',''),
+    mysql_dump_password          => hiera('mysql_root',''),
     mysql_dump_host              => 'localhost',
     mysql_dump_create_database   => 'yes',
     mysql_dump_use_separate_dirs => 'yes',

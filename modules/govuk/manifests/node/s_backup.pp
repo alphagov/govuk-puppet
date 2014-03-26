@@ -15,7 +15,7 @@ class govuk::node::s_backup (
   }
 
   # To accommodate futzing around with databases, we install a MySQL server
-  $root_password = extlookup('mysql_root', '')
+  $root_password = hiera('mysql_root', '')
   class { 'govuk_mysql::server':
     root_password => $root_password,
   }

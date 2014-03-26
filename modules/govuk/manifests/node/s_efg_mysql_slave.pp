@@ -18,7 +18,7 @@ class govuk::node::s_efg_mysql_slave inherits govuk::node::s_mysql_slave {
     mailcontent                  => 'quiet',
     mail_maxattsize              => '4000',
     mysql_dump_username          => 'root',
-    mysql_dump_password          => extlookup('mysql_root',''),
+    mysql_dump_password          => hiera('mysql_root',''),
     mysql_dump_host              => 'localhost',
     mysql_dump_create_database   => 'yes',
     mysql_dump_use_separate_dirs => 'yes',

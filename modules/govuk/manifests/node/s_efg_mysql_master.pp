@@ -1,3 +1,6 @@
+class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
+  $root_password = hiera('mysql_root', '')
+  $replica_password = extlookup('mysql_replica_password', '')
 class govuk::node::s_efg_mysql_master (
   $dump_password
 ) inherits govuk::node::s_base {
