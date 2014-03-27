@@ -15,16 +15,16 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   $directories = [
     '/mnt/uploads',
     '/mnt/uploads/whitehall',
-    '/mnt/uploads/whitehall/carrierwave-tmp',
-    '/mnt/uploads/whitehall/incoming',
-    '/mnt/uploads/whitehall/clean',
-    '/mnt/uploads/whitehall/infected',
-    '/mnt/uploads/whitehall/draft-incoming',
-    '/mnt/uploads/whitehall/draft-clean',
-    '/mnt/uploads/whitehall/draft-infected',
-    '/mnt/uploads/whitehall/bulk-upload-zip-file-tmp',
     '/mnt/uploads/whitehall/attachment-cache',
+    '/mnt/uploads/whitehall/bulk-upload-zip-file-tmp',
+    '/mnt/uploads/whitehall/carrierwave-tmp',
+    '/mnt/uploads/whitehall/clean',
+    '/mnt/uploads/whitehall/draft-clean',
+    '/mnt/uploads/whitehall/draft-incoming',
+    '/mnt/uploads/whitehall/draft-infected',
     '/mnt/uploads/whitehall/fatality_notices',
+    '/mnt/uploads/whitehall/incoming',
+    '/mnt/uploads/whitehall/infected',
   ]
 
   file { $directories:
