@@ -4,6 +4,7 @@
 #
 # needs a credentials file which should contain the following
 #
+# export CLOUDFILES_AUTHURL=https://example.com/v1.0
 # export CLOUDFILES_USERNAME=redacted
 # export CLOUDFILES_APIKEY=redacted
 # export PASSPHRASE=redacted
@@ -61,7 +62,6 @@ LOG=$LOGFILE
 # duplicity will create that container for you
 UPLOAD_TO_CONTAINER=backup-$DIRNAME
 
-export CLOUDFILES_AUTHURL=https://auth.storage.memset.com/v1.0
 source $CREDENTIALS
 
 if [ ! -z $NAGIOS_HOST ]
