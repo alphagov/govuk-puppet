@@ -1,3 +1,4 @@
+class govuk::node::s_support_contacts ($mysql_root_support_contacts, $mysql_support_contacts) inherits govuk::node::s_base {
 class govuk::node::s_support_contacts ( $mysql_support_contacts )inherits govuk::node::s_base {
 class govuk::node::s_support_contacts ($mysql_root_support_contacts) inherits govuk::node::s_base {
 class govuk::node::s_support_contacts (
