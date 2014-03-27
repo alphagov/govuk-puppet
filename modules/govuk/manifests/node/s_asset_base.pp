@@ -22,6 +22,9 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
     '/mnt/uploads/whitehall/draft-incoming',
     '/mnt/uploads/whitehall/draft-clean',
     '/mnt/uploads/whitehall/draft-infected',
+    '/mnt/uploads/whitehall/bulk-upload-zip-file-tmp',
+    '/mnt/uploads/whitehall/attachment-cache',
+    '/mnt/uploads/whitehall/fatality_notices',
   ]
 
   file { $directories:
