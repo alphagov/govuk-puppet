@@ -11,10 +11,39 @@ describe 'govuk_node_class' do
     expect { scope.function_govuk_node_class([:gruffalo]) }.to raise_error(Puppet::ParseError, /given 1 for 0/)
   end
 
-  context 'clientcert not set' do
+  context '$::trusted not set' do
     it 'should raise an error' do
-      scope.should_receive(:lookupvar).with('::clientcert').and_return()
-      expect { scope.function_govuk_node_class([]) }.to raise_error(Puppet::ParseError, /Unable to lookup \$::clientcert/)
+      scope.should_receive(:lookupvar).with('::trusted').and_return(nil)
+      expect { scope.function_govuk_node_class([]) }.to raise_error(
+        Puppet::ParseError,
+        /Unable to lookup \$::trusted/
+      )
+    end
+  end
+
+  context '$::trusted["certname"] nil' do
+    it 'should raise an error' do
+      scope.should_receive(:lookupvar).with('::trusted').and_return({
+        'authenticated' => false,
+        'certname'      => nil,
+      })
+      expect { scope.function_govuk_node_class([]) }.to raise_error(
+        Puppet::ParseError,
+        /Unable to lookup \$::trusted\['certname'\]/
+      )
+    end
+  end
+
+  context '$::trusted["certname"] empty' do
+    it 'should raise an error' do
+      scope.should_receive(:lookupvar).with('::trusted').and_return({
+        'authenticated' => false,
+        'certname'      => '',
+      })
+      expect { scope.function_govuk_node_class([]) }.to raise_error(
+        Puppet::ParseError,
+        /Unable to lookup \$::trusted\['certname'\]/
+      )
     end
   end
 
@@ -24,10 +53,15 @@ describe 'govuk_node_class' do
     'gruffalo-1.example'                     => 'gruffalo',
     'gruffalo-cave-1.example.com'            => 'gruffalo_cave',
     'gruffalo-terrible-tusks-99.example.com' => 'gruffalo_terrible_tusks',
-  }.each do |clientcert, result|
-    context "clientcert #{clientcert}" do
+  }.each do |certname, result|
+    context "certname #{certname}" do
+      let(:trusted_hash) {{
+        'authenticated' => true,
+        'certname'      => certname,
+      }}
+
       it {
-        scope.should_receive(:lookupvar).with('::clientcert').and_return(clientcert)
+        scope.should_receive(:lookupvar).with('::trusted').and_return(trusted_hash)
         scope.function_govuk_node_class([]).should == result
       }
     end

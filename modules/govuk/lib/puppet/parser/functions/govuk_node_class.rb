@@ -1,13 +1,14 @@
 module Puppet::Parser::Functions
   newfunction(:govuk_node_class, :type => :rvalue, :doc => <<EOS
-Return the name to construct a `govuk::node::s_` class based on a client's
-`$::clientcert` fact. Takes no arguments.
+Return the name to construct a `govuk::node::s_` class based on the variable
+`$::trusted['certname']`. Requires `trusted_node_data` to be enabled. Takes
+no arguments.
 
 For `puppet agent` this fact will be the FQDN on the certificate signed by
-the master. However it is currently spoofable; see FIXME below.
+the master. It cannot be spoofed to obtain the catalog/class of another node.
 
-For `puppet apply` the fact will just be the machine's FQDN, but will always
-be spoofable.
+For `puppet apply` the fact will just be the machine's FQDN. It will always
+be spoofable because there is no SSL involved.
 
 It does so by taking the first part (the unqualified hostname), stripping
 any numeric suffixes, and replacing hyphens (valid for DNS) with underscores
@@ -20,16 +21,20 @@ EOS
       "govuk_node_class: Wrong number of arguments given #{args.size} for 0."
     ) unless args.size == 0
 
-    # FIXME: Use $trusted variable in Puppet 3.4 to prevent spoofing:
-    # http://docs.puppetlabs.com/puppet/latest/reference/lang_variables.html#trusted-node-data
-    clientcert = lookupvar('::clientcert')
-
+    # http://docs.puppetlabs.com/puppet/3/reference/lang_variables.html#trusted-node-data
+    trusted_hash = lookupvar('::trusted')
     raise(
       Puppet::ParseError,
-      "govuk_node_class: Unable to lookup $::clientcert"
-    ) if clientcert.nil?
+      "govuk_node_class: Unable to lookup $::trusted - is trusted_node_data enabled?"
+    ) if trusted_hash.nil? or trusted_hash.empty?
 
-    hostname = clientcert.split('.').first
+    certname = trusted_hash['certname']
+    raise(
+      Puppet::ParseError,
+      "govuk_node_class: Unable to lookup $::trusted['certname']"
+    ) if certname.nil? or certname.empty?
+
+    hostname = certname.split('.').first
     class_name = hostname.gsub(/-\d+$/, '')
     class_name.gsub!('-', '_')
 
