@@ -2,6 +2,7 @@
 pluginsync = true
 lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
 usecacheonfailure = false
+trusted_node_data = true
 environment = <%= scope.lookupvar("::environment") %>
 <%- if @govuk_platform == 'development' -%>
 modulepath = /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
