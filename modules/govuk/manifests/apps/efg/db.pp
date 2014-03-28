@@ -1,11 +1,7 @@
 class govuk::apps::efg::db (
   $mysql_efg = '',
-){
-  $efg_il0_password = extlookup('mysql_efg_il0', '')
-class govuk::apps::efg::db (
   $mysql_efg_il0 = ''
 ){
-  $efg_password = extlookup('mysql_efg', '')
 
   mysql::db { 'efg_production':
     user     => 'efg',

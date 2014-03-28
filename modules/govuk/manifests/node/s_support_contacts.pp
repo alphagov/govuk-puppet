@@ -1,10 +1,8 @@
-class govuk::node::s_support_contacts ($mysql_root_support_contacts, $mysql_support_contacts) inherits govuk::node::s_base {
-class govuk::node::s_support_contacts ( $mysql_support_contacts )inherits govuk::node::s_base {
-class govuk::node::s_support_contacts ($mysql_root_support_contacts) inherits govuk::node::s_base {
 class govuk::node::s_support_contacts (
-  $dump_password
+  $dump_password,
+  $mysql_root_support_contacts,
+  $mysql_support_contacts
 ) inherits govuk::node::s_base {
-  $root_password = extlookup('mysql_root_support_contacts')
 
   class { 'govuk_mysql::server':
     root_password => $mysql_root_support_contacts,

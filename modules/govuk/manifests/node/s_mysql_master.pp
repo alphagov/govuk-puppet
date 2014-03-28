@@ -1,8 +1,7 @@
-class govuk::node::s_mysql_master ( $mysql_bouncer = '', )inherits govuk::node::s_base {
 class govuk::node::s_mysql_master (
+  $mysql_bouncer = '',
   $dump_password
 ) inherits govuk::node::s_base {
-  $root_password = extlookup('mysql_root', '')
   $replica_password = hiera('mysql_replica_password', '')
   $root_password = hiera('mysql_root', '')
 
