@@ -12,7 +12,7 @@ FORGE
     gdsoperations/resolvconf (0.2.0)
       puppetlabs/stdlib (>= 3.0.0)
     maestrodev/wget (1.2.3)
-    puppetlabs/apt (1.4.0)
+    puppetlabs/apt (1.4.2)
       puppetlabs/stdlib (>= 2.2.1)
     puppetlabs/gcc (0.1.0)
     puppetlabs/mysql (2.2.1)
