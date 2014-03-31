@@ -47,6 +47,9 @@ mod 'gor',
   :ref => 'v0.2.0'
 mod 'tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
+mod 'aptly',
+  :git => 'git://github.com/alphagov/puppet-aptly.git',
+  :ref => 'v0.0.1'
 
 # Our modules on the Forge.
 mod 'gdsoperations/auditd', '0.0.1'

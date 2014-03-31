@@ -1,5 +1,7 @@
 ---
 
+govuk::node::s_apt::root_dir: '/mnt/apt'
+
 lv:
   data:
     pv: '/dev/sdb1'

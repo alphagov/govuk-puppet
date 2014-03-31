@@ -38,6 +38,15 @@ GIT
     apparmor (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-aptly.git
+  ref: v0.0.1
+  sha: b1e8f7af5072a7305e7f92f4e7737ef71cfe6eed
+  specs:
+    aptly (0.0.1)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/stdlib (>= 3.0.0)
+
+GIT
   remote: git://github.com/alphagov/puppet-aptmirror.git
   ref: master
   sha: 66f8915dd61953be1d745e81f492a2534deb4b9b
@@ -121,6 +130,7 @@ GIT
 
 DEPENDENCIES
   apparmor (>= 0)
+  aptly (>= 0)
   aptmirror (>= 0)
   bandersnatch (>= 0)
   curl (>= 0)
