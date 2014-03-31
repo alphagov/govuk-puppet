@@ -1,9 +1,0 @@
-server {
-  listen 80;
-  root /var/spool/apt-mirror/mirror/apt.puppetlabs.com;
-  server_name aptmirror.<%= @app_domain %>;
-  location / {
-    autoindex on;
-    try_files $uri $uri/ =404;
-  }
-}
