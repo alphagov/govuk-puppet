@@ -38,8 +38,6 @@ mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'aptmirror',
   :git => 'git://github.com/alphagov/puppet-aptmirror.git'
-mod 'bandersnatch',
-  :git => 'git://github.com/alphagov/puppet-bandersnatch.git'
 mod 'lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 mod 'gor',

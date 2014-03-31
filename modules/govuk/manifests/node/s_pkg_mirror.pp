@@ -1,16 +1,7 @@
 class govuk::node::s_pkg_mirror inherits govuk::node::s_base {
-  include nginx, pip
+  include nginx
 
-  $document_root = '/srv/pypi'
   $app_domain = hiera('app_domain')
-
-  class { 'bandersnatch':
-    document_root => $document_root,
-  }
-
-  nginx::config::site { 'bandersnatch':
-    content => template('govuk/node/s_pkg_mirror/bandersnatch_nginx_vhost.erb'),
-  }
 
   class { 'aptmirror':
     servers => {
