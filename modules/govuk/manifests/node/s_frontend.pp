@@ -11,11 +11,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     'govuk::apps::specialist_frontend':   vhost_protected => $protect_fe;
   }
 
-  class { 'govuk::apps::datainsight_frontend':
-    ensure          => absent,
-    vhost_protected => $protect_fe,
-  }
-
   if str2bool(extlookup('govuk_enable_contacts', 'no')) {
     class { 'govuk::apps::contacts':
       vhost_protected => $protect_fe,
