@@ -13,9 +13,15 @@
 #   `asset-master-1`.
 #   Default: false
 #
+# [*apt_mirror_internal*]
+#   Point `apt.production.alphagov.co.uk` to `apt-1` within this
+#   environment. Instead of going to the Production VSE.
+#   Default: false
+#
 class hosts::production (
   $suffixed_hosts         = false,
   $whitehall_shares_mysql = true,
+  $apt_mirror_internal    = false,
 ) {
 
   validate_bool($suffixed_hosts)
@@ -29,6 +35,12 @@ class hosts::production (
 
   $app_domain = hiera('app_domain')
   $internal_tld = extlookup('internal_tld', 'production')
+
+  validate_bool($apt_mirror_internal)
+  $apt_aliases = $apt_mirror_internal ? {
+    true    => ['apt.production.alphagov.co.uk'],
+    default => undef,
+  }
 
   # FIXME: Can be removed after platform1 migration
   # - To match interim-platform behaviour, this should be 'true'
@@ -132,6 +144,7 @@ class hosts::production (
   govuk::host { 'apt-1':
     ip              => '10.0.0.75',
     vdc             => 'management',
+    legacy_aliases  => $apt_aliases,
     service_aliases => ['apt'],
   }
   govuk::host { 'jumpbox-1':
