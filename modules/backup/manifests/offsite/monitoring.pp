@@ -1,7 +1,7 @@
 class backup::offsite::monitoring {
 
-  $offsite_fqdn = 'offsite-backup.production.alphagov.co.uk'
-  $offsite_hostname = 'offsite-backup'
+  $offsite_fqdn = 'backup0.backup.provider1.production.govuk.service.gov.uk'
+  $offsite_hostname = 'backup0.provider1'
 
   icinga::host { $offsite_fqdn:
     hostalias => $offsite_fqdn,
