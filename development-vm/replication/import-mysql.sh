@@ -75,7 +75,7 @@ else
   PV_COMMAND="cat"
 fi
 
-for file in $(find $MYSQL_DIR -name '*production*.sql.bz2'); do
+for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
   if [[ ! $DRY_RUN -gt 0 ]]; then
     PROD_DB_NAME=$(bzgrep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
     if [[ -n $SED_ARGUMENTS ]]; then
