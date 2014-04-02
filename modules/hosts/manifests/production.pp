@@ -521,15 +521,6 @@ class hosts::production (
     ],
   }
 
-  govuk::host { 'akamai-logs-1':
-    ip             => '10.3.0.11',
-    vdc            => 'backend',
-  }
-  govuk::host { 'akamai-logs-backup-1':
-    ip             => '10.3.0.12',
-    vdc            => 'backend',
-  }
-
   # elms (licence finder) vdc machines
   govuk::host { 'licensify-frontend-1':
     ip             => '10.5.0.2',
