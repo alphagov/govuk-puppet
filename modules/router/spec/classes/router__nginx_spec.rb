@@ -1,10 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'router::nginx', :type => :class do
-  before :each do
-    update_extdata("fco_services_domain_prefix" => "www-test")
-  end
-
   let(:routes_path) { '/etc/nginx/router_include.conf' }
   let(:hiera_data) {{
       'app_domain' => 'giraffe.biz',

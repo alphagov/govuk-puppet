@@ -30,7 +30,6 @@ class govuk::node::s_frontend_lb {
       'businesssupportfinder',
       'calculators',
       'calendars',
-      'fco-services',
       'finder-frontend',
       'licencefinder',
       'smartanswers',

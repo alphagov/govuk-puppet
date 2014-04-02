@@ -271,7 +271,6 @@ class hosts::production (
       "canary-frontend.${app_domain}",
       "contacts-frontend.${app_domain}",
       "designprinciples.${app_domain}",
-      "fco-services.${app_domain}",
       "feedback.${app_domain}",
       "finder-frontend.${app_domain}",
       "frontend.${app_domain}",

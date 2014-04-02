@@ -25,7 +25,6 @@ class router::nginx (
   $real_ip_header = ''
 ) {
   include router::assets_origin
-  include router::fco_services
 
   $app_domain = hiera('app_domain')
 
