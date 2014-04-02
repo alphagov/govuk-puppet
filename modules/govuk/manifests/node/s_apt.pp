@@ -33,6 +33,14 @@ class govuk::node::s_apt (
       repos    => ['main', 'dependencies'],
       release  => 'stable',
       key      => '4BD6EC30';
+    'govuk-ppa-precise':
+      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
+      release  => 'precise',
+      key      => '914D5813';
+    'govuk-ppa-lucid':
+      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
+      release  => 'lucid',
+      key      => '914D5813';
   }
 
   include nginx
