@@ -7,6 +7,7 @@ class govuk::node::s_whitehall_mysql_backup inherits govuk::node::s_whitehall_my
   }
   ensure_packages(['mailutils'])
 
+  include automysqlbackup
   automysqlbackup::backup { 'automysqlbackup':
     backup_dir                   => '/var/lib',
     backup_dir_perms             => '0755',
