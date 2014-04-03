@@ -25,6 +25,7 @@ class govuk::node::s_support_contacts inherits govuk::node::s_base {
   }
   ensure_packages(['mailutils'])
 
+  include automysqlbackup
   automysqlbackup::backup { 'automysqlbackup':
     backup_dir                   => '/var/lib',
     backup_dir_perms             => '0755',

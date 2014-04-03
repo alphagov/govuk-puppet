@@ -7,6 +7,7 @@ class govuk::node::s_efg_mysql_slave inherits govuk::node::s_mysql_slave {
   }
   ensure_packages(['mailutils'])
 
+  include automysqlbackup
   automysqlbackup::backup { 'automysqlbackup':
     backup_dir                   => '/var/lib',
     backup_dir_perms             => '0755',
