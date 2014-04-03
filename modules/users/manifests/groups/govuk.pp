@@ -22,6 +22,7 @@ class users::groups::govuk {
   include users::annashipman
   include users::bob
   include users::bradleyw
+  include users::calpaterson
   include users::carlmassa
   include users::chrisheathcote
   include users::dai
