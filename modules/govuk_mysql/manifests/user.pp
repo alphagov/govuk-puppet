@@ -34,6 +34,7 @@ define govuk_mysql::user (
   mysql_user { $name:
     ensure        => $ensure,
     password_hash => $password_hash,
+    require       => Class['govuk_mysql::server'],
   }
 
   mysql_grant { "${name}/${table}":
@@ -41,5 +42,6 @@ define govuk_mysql::user (
     user       => $name,
     table      => $table,
     privileges => $privileges,
+    require    => Class['govuk_mysql::server'],
   }
 }
