@@ -13,7 +13,7 @@ describe 'nginx::config::ssl', :type => :define do
     }
 
     it { should contain_file('/etc/nginx/ssl/foobar.crt').with_content('WWW_CRT') }
-    it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('WWW_KEY') }
+    it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('WWW_KEY').with_mode('0640') }
   end
 
   context 'certtype => wildcard_alphagov_mgmt' do
@@ -29,7 +29,7 @@ describe 'nginx::config::ssl', :type => :define do
       let(:facts) {{ :cache_bust => Time.now }}
 
       it { should contain_file('/etc/nginx/ssl/foobar.crt').with_content('MGMT_CRT') }
-      it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('MGMT_KEY') }
+      it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('MGMT_KEY').with_mode('0640') }
     end
 
     context 'values absent fallback to wildcard_alphagov' do
@@ -40,7 +40,7 @@ describe 'nginx::config::ssl', :type => :define do
       let(:facts) {{ :cache_bust => Time.now }}
 
       it { should contain_file('/etc/nginx/ssl/foobar.crt').with_content('FALLBACK_CRT') }
-      it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('FALLBACK_KEY') }
+      it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('FALLBACK_KEY').with_mode('0640') }
     end
   end
 end

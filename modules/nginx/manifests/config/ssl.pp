@@ -53,5 +53,6 @@ define nginx::config::ssl( $certtype ) {
     content => $key,
     require => Class['nginx::package'],
     notify  => Class['nginx::service'],
+    mode    => '0640',
   }
 }
