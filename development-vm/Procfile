@@ -22,7 +22,7 @@ designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../design-
 businesssupportfinder: govuk_setenv businesssupportfinder ./run_in.sh ../business-support-finder bundle exec rails server -p 3024
 # whitehall_search: uses port 3025
 # whitehall_admin: uses port 3026
-datainsight:           govuk_setenv datainsight-frontend  ./run_in.sh ../datainsight-frontend bundle exec unicorn -p 3027
+# datainsight-frontend used to use port 3027 but is no longer running in any environment
 feedback:              govuk_setenv feedback              ./run_in.sh ../feedback       bundle exec rails server -p 3028
 errbit:                ./run_in.sh ../errbit      bundle exec rails server -p 3029
 private-frontend:      ./run_in.sh ../frontend       bundle exec rails server -p 3030
@@ -63,17 +63,11 @@ specialist-frontend:    ./run_in.sh ../specialist-frontend bundle exec rails s -
 content-store:          ./run_in.sh ../content-store bundle exec rails s -p 3068
 # content-store will also uses 3069
 
-datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
-datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
-datainsight_format_success_exposer:  ./run_in.sh ../datainsight-format-success-recorder bundle exec unicorn -p 3104
-datainsight_everything_exposer:      ./run_in.sh ../datainsight-everything-recorder bundle exec unicorn -p 3105
-datainsight_insidegov_exposer:       ./run_in.sh ../datainsight-insidegov-recorder bundle exec unicorn -p 3106
-
-datainsight_weekly_reach_recorder:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec bin/recorder run
-datainsight_todays_activity_recorder: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec bin/recorder run
-datainsight_format_success_recorder:  ./run_in.sh ../datainsight-format-success-recorder bundle exec bin/recorder run
-datainsight_everything_recorder:      ./run_in.sh ../datainsight-everything-recorder bundle exec bin/recorder run
-datainsight_insidegov_recorder:       ./run_in.sh ../datainsight-insidegov-recorder bundle exec bin/recorder run
+# datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
+# datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
+# datainsight-format-success-recorder used to use port 3104, but is no longer running in any environment
+# datainsight-everything-recorder used to use port 3105, but is no longer running in any environment
+# datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
