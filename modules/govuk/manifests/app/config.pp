@@ -23,6 +23,7 @@ define govuk::app::config (
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
+  $depends_on_nfs = false,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',

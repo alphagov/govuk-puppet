@@ -204,6 +204,12 @@ define govuk::app (
   #
   # ensure: allow govuk app to be removed.
   $ensure = 'present',
+
+  #
+  # depends_on_nfs: Start the application after mounted filesystems. Some applications
+  # depend on NFS shares for functionality. They should not start until the mounted
+  # filesystem has been connected. The default for this is false.
+  $depends_on_nfs = false,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -255,6 +261,7 @@ define govuk::app (
     upstart_post_start_script => $upstart_post_start_script,
     asset_pipeline            => $asset_pipeline,
     asset_pipeline_prefix     => $asset_pipeline_prefix,
+    depends_on_nfs            => $depends_on_nfs,
   }
 
   govuk::app::service { $title:
