@@ -23,13 +23,7 @@ define nginx::config::ssl( $certtype ) {
       'www',
       'ci_alphagov',
       'wildcard_alphagov',
-      'wildcard_alphagov_mgmt',
-      'fco_services_pay-legalisation-post',
-      'fco_services_pay-legalisation-drop-off',
-      'fco_services_deposit-foreign-marriage',
-      'fco_services_pay-foreign-marriage-certificates',
-      'fco_services_pay-register-death-abroad',
-      'fco_services_pay-register-birth-abroad',
+      'wildcard_alphagov_mgmt'
     ]) {
     fail "${certtype} is not a valid certtype"
   }
