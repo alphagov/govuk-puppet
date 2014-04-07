@@ -1,4 +1,5 @@
 class backup::offsite(
+  $dest_folder = '',
   $dest_host,
   $dest_host_key,
 ) {

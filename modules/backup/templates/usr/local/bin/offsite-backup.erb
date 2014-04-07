@@ -9,6 +9,7 @@ NAGIOS_MESSAGE="CRITICAL: Backup failed"
 
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
+
 function nagios_passive () {
   printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
@@ -37,10 +38,14 @@ TAR_OPTS="$TAR_OPTS ${BKP_DIR}${LIC_HOST}${MONGO_BKP}"
 GPG_OPTS="-q --yes --batch --trust-model always --cipher-algo AES256 --encrypt -r ${GPG_KEY}"
 DEST="<%= @dest_host -%>"
 FILENAME="govuk-backup-$(date +%Y%m%d).tar.gpg"
-SSH_OPTS="-C -o VisualHostKey=no"
+SSH_OPTS="-Cp -o VisualHostKey=no"
+TEMP_FILE="$("mktemp --tempdir /data/backups")"
 
 gpg -q --recv-keys $GPG_KEY 2>/dev/null
-tar $TAR_OPTS 2>/dev/null | gpg $GPG_OPTS | ssh $SSH_OPTS $DEST "cat > $FILENAME"
+tar $TAR_OPTS 2>/dev/null | gpg $GPG_OPTS > $TEMP_FILE
+scp $SSH_OPTS $TEMP_FILE ${DEST}:<%= @dest_folder -%>${FILENAME}
+rm -f $TEMP_FILE
+
 if [ $? == 0 ]; then
   NAGIOS_CODE=0
   NAGIOS_MESSAGE="OK: Backup successful"

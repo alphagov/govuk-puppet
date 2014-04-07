@@ -18,7 +18,22 @@ describe 'backup::offsite', :type => :class do
     }
 
     it {
+      should contain_file('/usr/local/bin/offsite-backup').with_content(/^scp \$SSH_OPTS \$TEMP_FILE \${DEST}:\${FILENAME}$/)
+    }
+
+    it {
       should contain_file('/usr/local/bin/offsite-backup').with_content(/^DEST="ice.cream"$/)
+    }
+  end
+  context 'hostname => ice.cream, hostkey => pickle' do
+    let(:params) {{
+      :dest_folder   => 'cheesecake/',
+      :dest_host     => 'ice.cream',
+      :dest_host_key => 'pickle',
+    }}
+
+    it {
+      should contain_file('/usr/local/bin/offsite-backup').with_content(/^scp \$SSH_OPTS \$TEMP_FILE \${DEST}:cheesecake\/\${FILENAME}$/)
     }
   end
 end
