@@ -11,7 +11,7 @@ class govuk::gor(
   # Hardcoded, rather than hiera, because I don't want to create the
   # illusion that you can modify these on the fly. You will need to tidy
   # up old `host{}` records.
-  $staging_ip     = '37.26.90.220'
+  $staging_ip     = '37.26.91.14'
   $staging_host   = 'www-origin-staging.production.alphagov.co.uk'
 
   $gor_target0 = $enable_staging ? {
