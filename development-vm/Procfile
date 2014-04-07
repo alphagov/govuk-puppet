@@ -62,6 +62,7 @@ specialist-frontend:    ./run_in.sh ../specialist-frontend bundle exec rails s -
 # external-link-tracker uses 3066 and 3067
 content-store:          ./run_in.sh ../content-store bundle exec rails s -p 3068
 # content-store will also uses 3069
+collections:            ./run_in.sh ../collections bundle exec rails s -p 3070
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
