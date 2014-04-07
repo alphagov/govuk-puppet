@@ -4,7 +4,11 @@ description "GOV.UK application: <%= @title %>"
 # development, but this stanza was only added in upstart 0.6.7 and
 # lucid runs upstart 0.6.5.
 <%- if @enable_service -%>
+<%- if @depends_on_nfs -%>
+start on stopped mountall-net
+<%- else -%>
 start on runlevel [2345]
+<%- end -%>
 <%- end -%>
 stop on runlevel [!2345]
 
