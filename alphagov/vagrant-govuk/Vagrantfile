@@ -1,3 +1,6 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
 require 'json'
 
 min_required_vagrant_version = '1.3.0'
