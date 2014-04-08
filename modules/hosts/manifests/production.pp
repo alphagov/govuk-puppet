@@ -269,6 +269,7 @@ class hosts::production (
       "calculators.${app_domain}",
       "calendars.${app_domain}",
       "canary-frontend.${app_domain}",
+      "collections.${app_domain}",
       "contacts-frontend.${app_domain}",
       "designprinciples.${app_domain}",
       "feedback.${app_domain}",
