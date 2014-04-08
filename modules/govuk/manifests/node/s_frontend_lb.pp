@@ -17,6 +17,7 @@ class govuk::node::s_frontend_lb {
   loadbalancer::balance {
     [
       'canary-frontend',
+      'collections',
       'contacts-frontend',
       'designprinciples',
       'feedback',

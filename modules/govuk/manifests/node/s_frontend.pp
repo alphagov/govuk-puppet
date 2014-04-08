@@ -4,6 +4,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
   class {
+    'govuk::apps::collections':           vhost_protected => $protect_fe;
     'govuk::apps::designprinciples':      vhost_protected => $protect_fe;
     'govuk::apps::feedback':              vhost_protected => $protect_fe;
     'govuk::apps::frontend':              vhost_protected => $protect_fe;
