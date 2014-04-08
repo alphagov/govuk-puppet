@@ -9,4 +9,4 @@ mount:
   /opt/graphite:
     disk: '/dev/mapper/graphite-data'
     govuk_lvm: 'data'
-    mountoptions: 'defaults'
+    mountoptions: 'defaults,noatime'
