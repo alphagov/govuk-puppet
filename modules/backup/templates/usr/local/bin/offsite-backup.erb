@@ -39,7 +39,7 @@ GPG_OPTS="-q --yes --batch --trust-model always --cipher-algo AES256 --encrypt -
 DEST="<%= @dest_host -%>"
 FILENAME="govuk-backup-$(date +%Y%m%d).tar.gpg"
 SSH_OPTS="-Cp -o VisualHostKey=no"
-TEMP_FILE="$("mktemp --tempdir /data/backups")"
+TEMP_FILE="$(mktemp --tmpdir /data/backups)"
 
 gpg -q --recv-keys $GPG_KEY 2>/dev/null
 tar $TAR_OPTS 2>/dev/null | gpg $GPG_OPTS > $TEMP_FILE
