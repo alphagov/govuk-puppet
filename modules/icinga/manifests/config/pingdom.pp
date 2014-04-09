@@ -1,7 +1,8 @@
-class icinga::config::pingdom {
-  $pingdom_user     = extlookup('pingdom_user', 'UNSET')
-  $pingdom_password = extlookup('pingdom_password', 'UNSET')
-  $pingdom_key      = extlookup('pingdom_key', 'UNSET')
+class icinga::config::pingdom (
+  $username = 'UNSET',
+  $password = 'UNSET',
+  $key = 'UNSET'
+) {
 
   file { '/etc/pingdom.ini':
     content => template('icinga/etc/pingdom.ini.erb'),
