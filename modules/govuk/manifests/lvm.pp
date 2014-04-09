@@ -29,11 +29,26 @@ define govuk::lvm(
   $fstype = 'ext4',
 ) {
   unless hiera(govuk::lvm::no_op, false) {
-    lvm::volume { $title:
+
+  $filesystem = "/dev/${vg}/${title}"
+
+    physical_volume { $pv:
+      ensure => $ensure,
+    }
+
+    volume_group { $vg:
+      ensure           => $ensure,
+      physical_volumes => $pv,
+    }
+
+    logical_volume { $title:
       ensure       => $ensure,
-      pv           => $pv,
-      vg           => $vg,
-      fstype       => $fstype,
+      volume_group => $vg,
+    }
+
+    filesystem { $filesystem:
+      ensure  => $ensure,
+      fs_type => $fstype,
     }
   }
 }

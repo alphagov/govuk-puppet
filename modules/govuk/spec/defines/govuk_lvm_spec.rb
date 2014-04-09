@@ -14,11 +14,20 @@ describe 'govuk::lvm', :type => :define do
     }}
 
     it {
-      should contain_lvm__volume('purple').with(
+      should contain_filesystem('/dev/orange/purple').with(
         :ensure => 'present',
-        :pv     => '/dev/black',
-        :vg     => 'orange',
-        :fstype => 'ext4',
+        :fs_type => 'ext4',
+      )
+      should contain_logical_volume('purple').with(
+        :ensure => 'present',
+        :volume_group => 'orange',
+      )
+      should contain_volume_group('orange').with(
+        :ensure => 'present',
+        :physical_volumes => '/dev/black',
+      )
+      should contain_physical_volume('/dev/black').with(
+        :ensure => 'present',
       )
     }
   end
@@ -44,11 +53,20 @@ describe 'govuk::lvm', :type => :define do
     }}
 
     it {
-      should contain_lvm__volume('purple').with(
+      should contain_filesystem('/dev/orange/purple').with(
         :ensure => 'absent',
-        :pv     => '/dev/black',
-        :vg     => 'orange',
-        :fstype => 'zfs',
+        :fs_type => 'zfs',
+      )
+      should contain_logical_volume('purple').with(
+        :ensure => 'absent',
+        :volume_group => 'orange',
+      )
+      should contain_volume_group('orange').with(
+        :ensure => 'absent',
+        :physical_volumes => '/dev/black',
+      )
+      should contain_physical_volume('/dev/black').with(
+        :ensure => 'absent',
       )
     }
   end
