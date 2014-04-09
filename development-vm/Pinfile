@@ -21,7 +21,7 @@ process :fco_services
 process :feedback => [:static, :support]
 process :'finder-frontend' => [:static, :'finder-api']
 process :'finder-api'
-process :frontend => [:static, :contentapi, :rummager]
+process :frontend => [:static, :contentapi, :rummager, :fact_cave]
 process :imminence
 process :hmrc_contacts => [:rummager]
 process :'hmrc-manuals-api'
