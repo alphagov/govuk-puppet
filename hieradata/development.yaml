@@ -5,7 +5,6 @@ website_root: 'http://www.dev.gov.uk'
 govuk::deploy::config::govuk_env: development
 
 govuk::apps::public_link_tracker::enabled: true
-govuk::apps::collections::enabled: true
 govuk::apps::external_link_tracker::enabled: true
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_api::enabled: true
