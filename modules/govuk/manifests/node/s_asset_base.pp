@@ -4,10 +4,10 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   include tika # Used to extract text from file attachments when indexing
 
   # Java needed for tika
-  include java::oracle7::jdk
-  include java::oracle7::jre
+  include govuk_java::oracle7::jdk
+  include govuk_java::oracle7::jre
 
-  class { 'java::set_defaults':
+  class { 'govuk_java::set_defaults':
     jdk => 'oracle7',
     jre => 'oracle7',
   }

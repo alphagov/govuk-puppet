@@ -1,7 +1,7 @@
 class govuk::node::s_licensify_backend inherits govuk::node::s_base {
   include clamav
 
-  include java::oracle7::jdk
+  include govuk_java::oracle7::jdk
 
   class { 'nginx': }
   class { 'licensify::apps::licensify_admin': }

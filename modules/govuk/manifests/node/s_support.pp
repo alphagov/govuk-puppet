@@ -19,10 +19,10 @@ password=${mysql_password}
     }
   }
 
-  include java::openjdk6::jre
-  include java::openjdk6::jdk
+  include govuk_java::openjdk6::jre
+  include govuk_java::openjdk6::jdk
 
-  class { 'java::set_defaults':
+  class { 'govuk_java::set_defaults':
     jdk => 'openjdk6',
     jre => 'openjdk6',
   }

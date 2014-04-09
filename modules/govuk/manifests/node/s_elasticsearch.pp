@@ -1,7 +1,7 @@
 class govuk::node::s_elasticsearch inherits govuk::node::s_base {
-  include java::oracle7::jre
+  include govuk_java::oracle7::jre
 
-  class { 'java::set_defaults':
+  class { 'govuk_java::set_defaults':
     jdk => 'oracle7',
     jre => 'oracle7',
   }
@@ -18,7 +18,7 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     number_of_replicas   => '1',
     minimum_master_nodes => '2',
     host                 => $::fqdn,
-    require              => Class['java::oracle7::jre'],
+    require              => Class['govuk_java::oracle7::jre'],
   }
 
   elasticsearch::plugin { 'head':

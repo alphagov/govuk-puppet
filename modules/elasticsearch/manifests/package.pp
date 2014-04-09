@@ -9,7 +9,7 @@ class elasticsearch::package (
   package { 'elasticsearch':
     ensure  => $version,
     notify  => Exec['disable-default-elasticsearch'],
-    require => Class['java::set_defaults'],
+    require => Class['govuk_java::set_defaults'],
   }
 
   # Disable the default elasticsearch setup, as we'll be installing an upstart

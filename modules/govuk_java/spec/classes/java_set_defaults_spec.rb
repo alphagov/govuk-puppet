@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'java::set_defaults', :type => :class do
+describe 'govuk_java::set_defaults', :type => :class do
 
   context 'with no params' do
     it do

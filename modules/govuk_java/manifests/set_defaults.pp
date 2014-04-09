@@ -1,4 +1,4 @@
-class java::set_defaults (
+class govuk_java::set_defaults (
   $jdk = 'sun6',
   $jre = 'openjdk6'
 ) {
@@ -43,13 +43,13 @@ class java::set_defaults (
   exec { 'java-set-default-jdk':
     command => "update-java-alternatives --set '${jdk_real}' || :",
     unless  => "readlink /etc/alternatives/javac | grep -Fq '${path_javac}'",
-    require => Class["java::${jdk}::jdk"],
+    require => Class["govuk_java::${jdk}::jdk"],
   }
 
   exec { 'java-set-default-jre':
     command => "update-java-alternatives --jre --set '${jre_real}' || :",
     unless  => "readlink /etc/alternatives/java | grep -Fq '${path_java}'",
-    require => [Class["java::${jre}::jre"], Exec['java-set-default-jdk']],
+    require => [Class["govuk_java::${jre}::jre"], Exec['java-set-default-jdk']],
   }
 
 }
