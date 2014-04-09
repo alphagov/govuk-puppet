@@ -2,8 +2,10 @@
 
 lv:
   data:
-    pv: '/dev/sdb1'
-    vg: 'graphite'
+    pv:
+      - /dev/sdb1
+      - /dev/sdc1
+    vg: graphite
 
 mount:
   /opt/graphite:

@@ -27,10 +27,10 @@ define govuk::lvm(
   $vg,
   $ensure = present,
   $fstype = 'ext4',
-) {
+  ) {
   unless hiera(govuk::lvm::no_op, false) {
 
-  $filesystem = "/dev/${vg}/${title}"
+    $filesystem = "/dev/${vg}/${title}"
 
     physical_volume { $pv:
       ensure => $ensure,
