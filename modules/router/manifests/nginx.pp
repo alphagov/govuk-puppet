@@ -104,8 +104,8 @@ class router::nginx (
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
-    warning   => 5,
-    critical  => 15,
+    warning   => 0.3,
+    critical  => 0.6,
     use       => 'govuk_urgent_priority',
     from      => '3minutes',
     desc      => 'router nginx high 5xx rate',
