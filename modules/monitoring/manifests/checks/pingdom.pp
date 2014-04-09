@@ -2,16 +2,17 @@
 #
 # Nagios alerts for Pingdom checks.
 #
-# === Variables:
+# === Parameters:
 #
-# [*pingdom_enable_checks*]
+# [*enable*]
 #   Can be used to disable checks/alerts for a given environment. Because
 #   the URLs for the checks are configured at Pingdom's side, it is not
-#   desirable to have Production and Preview send an alert for the same
+#   desirable to have production and preview send an alert for the same
 #   thing.
-#   Default: yes
 #
-class monitoring::checks::pingdom {
+class monitoring::checks::pingdom (
+  $enable = true,
+) {
 
   icinga::check_config::pingdom {
     'homepage':
@@ -30,9 +31,7 @@ class monitoring::checks::pingdom {
       check_id => 944701;
   }
 
-  $pingdom_enable_checks = str2bool(extlookup('pingdom_enable_checks', 'yes'))
-
-  if $pingdom_enable_checks {
+  if $enable {
     icinga::check { 'check_pingdom':
       check_command       => 'run_pingdom_homepage_check',
       use                 => 'govuk_urgent_priority',
