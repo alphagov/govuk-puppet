@@ -2,9 +2,9 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
 
   $es_heap_size = $::memtotalmb / 4 * 3
 
-  include java::oracle7::jre
+  include govuk_java::oracle7::jre
 
-  class { 'java::set_defaults':
+  class { 'govuk_java::set_defaults':
     jdk => 'oracle7',
     jre => 'oracle7',
   }
@@ -23,7 +23,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     },
     disable_gc_alerts    => true,
     require              => [
-      Class['java::oracle7::jre'],
+      Class['govuk_java::oracle7::jre'],
       Govuk::Mount['/mnt/elasticsearch']
     ],
   }

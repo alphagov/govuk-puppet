@@ -1,4 +1,4 @@
-class java::openjdk6::jdk ( $ensure = present ) {
+class govuk_java::openjdk6::jdk ( $ensure = present ) {
 
   package { 'openjdk-6-jdk':
     ensure => $ensure,

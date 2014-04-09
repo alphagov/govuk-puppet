@@ -1,4 +1,4 @@
-class java::sun6::jre ( $ensure = present ) {
+class govuk_java::sun6::jre ( $ensure = present ) {
 
   if $ensure != absent {
     include govuk::ppa

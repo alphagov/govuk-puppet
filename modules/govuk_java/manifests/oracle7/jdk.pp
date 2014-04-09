@@ -1,4 +1,4 @@
-class java::oracle7::jdk ( $ensure = present ) {
+class govuk_java::oracle7::jdk ( $ensure = present ) {
 
   if $ensure != absent {
     include govuk::ppa

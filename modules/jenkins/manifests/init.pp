@@ -23,10 +23,10 @@ class jenkins {
     mode    => '0600',
   }
 
-  include java::sun6::jdk
-  include java::sun6::jre
+  include govuk_java::sun6::jdk
+  include govuk_java::sun6::jre
 
-  class { 'java::set_defaults':
+  class { 'govuk_java::set_defaults':
     jdk => 'sun6',
     jre => 'sun6',
   }

@@ -4,7 +4,7 @@
 # text from file attachments.
 #
 # You will need to include a JRE/JDK and reference them using
-# `java::set_defaults` in your node/app class before including this class.
+# `govuk_java::set_defaults` in your node/app class before including this class.
 #
 class tika {
   include govuk::repository
@@ -17,7 +17,7 @@ class tika {
     ensure  => '1.4-gds1',
     require => [
       Package['libxtst6'],
-      Class['java::set_defaults']
+      Class['govuk_java::set_defaults']
     ]
   }
 }
