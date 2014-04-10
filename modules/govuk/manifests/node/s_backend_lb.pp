@@ -1,4 +1,6 @@
-class govuk::node::s_backend_lb {
+class govuk::node::s_backend_lb (
+  $perfplat_public_app_domain = 'performance.service.gov.uk',
+) {
   include govuk::node::s_base
   include loadbalancer
 
@@ -68,8 +70,7 @@ class govuk::node::s_backend_lb {
     https_only        => false, # FIXME: Remove for #51136581
   }
 
-  $perfplat_app_domain = extlookup('perfplat_app_domain', 'performance.service.gov.uk')
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
-    to => "https://admin.${perfplat_app_domain}/",
+    to => "https://admin.${perfplat_public_app_domain}/",
   }
 }
