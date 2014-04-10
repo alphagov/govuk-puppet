@@ -58,6 +58,7 @@ router::assets_origin::asset_routes:
   '/businesssupportfinder/': "businesssupportfinder"
   '/calculators/': "calculators"
   '/calendars/': "calendars"
+  '/collections/': "collections"
   '/contacts-assets/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
   '/feedback/': "feedback"
