@@ -52,8 +52,6 @@ ntp::server_list:
   - '1.uk.pool.ntp.org'
   - '2.uk.pool.ntp.org'
 
-perfplat_internal_app_domain: 'development.performance.service.gov.uk'
-
 router::assets_origin::asset_routes:
   '/businesssupportfinder/': "businesssupportfinder"
   '/calculators/': "calculators"
