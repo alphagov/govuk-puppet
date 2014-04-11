@@ -5,10 +5,8 @@ class govuk::ghe_vpn {
     comment => 'Ignore VPN DNS and set static host for GHE',
   }
 
+  # Other params come from hiera.
   class { '::openconnect':
-    url       => extlookup('openconnect_url',''),
-    user      => extlookup('openconnect_user',''),
-    pass      => extlookup('openconnect_password',''),
     dnsupdate => false,
   }
 
