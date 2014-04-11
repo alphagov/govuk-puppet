@@ -51,5 +51,5 @@ mod 'aptly',
 mod 'gdsoperations/auditd', '0.0.1'
 mod 'gdsoperations/rbenv', '1.0.1'
 mod 'gdsoperations/resolvconf', '0.2.0'
-mod 'gdsoperations/openconnect', '0.0.5'
+mod 'gdsoperations/openconnect'
 mod 'gdsoperations/graphite', '1.0.1'
