@@ -37,6 +37,26 @@
     proxy_pass https://<%= @business_support_api %>;
   }
 
+  location ~ ^/api/search.json {
+    expires 30m;
+
+    # If the '?type=unified' query parameter is present in the
+    # request, rewrite the path to use the new unified_search endpoint
+    # in Rummager.
+    if ($args ~ "type=unified") {
+      rewrite ^/api/search.json?(.*) /unified_search.json$1 break;
+    }
+
+    # If the parameter isn't present, rewrite to point at the
+    # existing 'combined' search endpoint.
+    if ($args !~ "type=unified") {
+      rewrite ^/api/search.json?(.*) /govuk/search.json$1 break;
+    }
+
+    proxy_set_header Host <%= @rummager_api %>;
+    proxy_set_header API-PREFIX api;
+    proxy_pass http://<%= @rummager_api %>;
+  }
 
   location ~ ^/api(/|$) {
     expires 30m;
