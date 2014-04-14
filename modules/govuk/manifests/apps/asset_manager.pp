@@ -19,6 +19,7 @@ class govuk::apps::asset_manager( $port = 3037 ) {
     vhost_aliases      => ['private-asset-manager'],
     log_format_is_json => true,
     deny_framing       => true,
+    depends_on_nfs     => true,
     nginx_extra_config => '
     client_max_body_size 500m;
 
