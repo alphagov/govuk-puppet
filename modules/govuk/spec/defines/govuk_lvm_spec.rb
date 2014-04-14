@@ -32,6 +32,34 @@ describe 'govuk::lvm', :type => :define do
     }
   end
 
+  context 'required params with multiple physical volumes' do
+    let(:params) {{
+      :pv     => ['/dev/black','/dev/blue'],
+      :vg     => 'orange',
+    }}
+
+    it {
+      should contain_filesystem('/dev/orange/purple').with(
+        :ensure => 'present',
+        :fs_type => 'ext4',
+      )
+      should contain_logical_volume('purple').with(
+        :ensure => 'present',
+        :volume_group => 'orange',
+      )
+      should contain_volume_group('orange').with(
+        :ensure => 'present',
+        :physical_volumes => ['/dev/black','/dev/blue'],
+      )
+      should contain_physical_volume('/dev/black').with(
+        :ensure => 'present',
+      )
+      should contain_physical_volume('/dev/blue').with(
+        :ensure => 'present',
+      )
+    }
+  end
+
   context 'no_op => true' do
     let(:params) {{
       :pv    => '/dev/black',
