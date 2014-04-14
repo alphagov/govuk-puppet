@@ -6,6 +6,7 @@ class base::packages {
       'bzip2',
       'dnsutils',
       'dstat',
+      'fish',
       'gettext',
       'git-core',
       'htop',
