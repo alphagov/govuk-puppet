@@ -22,6 +22,7 @@ class govuk::apps::whitehall(
     port                   => $port,
     log_format_is_json     => true,
     health_check_path      => '/healthcheck',
+    depends_on_nfs         => true,
     enable_nginx_vhost     => false,
     nagios_cpu_warning     => 300,
     nagios_cpu_critical    => 400,
