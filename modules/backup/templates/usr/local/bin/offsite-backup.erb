@@ -41,7 +41,11 @@ FILENAME="govuk-backup-$(date +%Y%m%d).tar.gpg"
 SSH_OPTS="-Cp -o VisualHostKey=no"
 TEMP_FILE="$(mktemp --tmpdir=/data/backups)"
 
-gpg -q --recv-keys $GPG_KEY 2>/dev/null
+if ! gpg -q --list-keys $GPG_KEY > /dev/null 2>&1
+then
+  gpg -q --recv-keys $GPG_KEY > /dev/null 2>&1
+fi
+
 tar $TAR_OPTS 2>/dev/null | gpg $GPG_OPTS > $TEMP_FILE
 scp $SSH_OPTS $TEMP_FILE ${DEST}:<%= @dest_folder -%>${FILENAME}
 rm -f $TEMP_FILE
