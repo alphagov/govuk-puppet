@@ -1,15 +1,9 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'optparse'
-begin
-  if Gem.available?('tinder')
-    require 'tinder'
-  else
-    puts "tinder not installed, please \"gem install tinder\""
-    exit 1
-  end
-end
- 
+require 'ostruct'
+require 'tinder'
+
 options = OpenStruct.new
 options.message   = ""
 options.room      = ""

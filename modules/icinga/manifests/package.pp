@@ -53,9 +53,14 @@ class icinga::package {
   }
 
   # campfire stuff
+  package { 'tinder':
+    ensure   => present,
+    provider => gem,
+  }
   file { '/usr/local/bin/campfire_icinga':
-    source => 'puppet:///modules/icinga/usr/local/bin/campfire_icinga',
-    mode   => '0755',
+    source  => 'puppet:///modules/icinga/usr/local/bin/campfire_icinga',
+    mode    => '0755',
+    require => Package['tinder'],
   }
 
   file { '/var/log/sendEmail':
