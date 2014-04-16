@@ -37,6 +37,25 @@
     proxy_pass https://<%= @business_support_api %>;
   }
 
+  location ~ ^/api/search.json {
+    expires 30m;
+
+    rewrite ^/api/search.json(.*) /unified_search.json$1 break;
+
+    proxy_set_header Host <%= @rummager_api %>;
+    proxy_set_header API-PREFIX api;
+    proxy_pass http://<%= @rummager_api %>;
+  }
+
+  location ~ ^/api/search/(govuk|mainstream|detailed|government)/search.json {
+    expires 30m;
+
+    rewrite ^/api/search/(.*) /$1 break;
+
+    proxy_set_header Host <%= @rummager_api %>;
+    proxy_set_header API-PREFIX api;
+    proxy_pass http://<%= @rummager_api %>;
+  }
 
   location ~ ^/api(/|$) {
     expires 30m;
