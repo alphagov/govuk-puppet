@@ -5,7 +5,7 @@ set -ex
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 
 # Install librarian-puppet managed puppet modules
-bundle exec librarian-puppet install --strip-dot-git
+bundle exec rake librarian:install
 
 bundle exec rake puppetfile syntax test
 RESULT=$?
