@@ -7,7 +7,7 @@
 /.bundle/
 /.gems/
 /build/
-/vendor/
+/vendor/modules/
 .DS_Store
 # Ignore config from the "pt" gem for CLI access to PT
 .pt

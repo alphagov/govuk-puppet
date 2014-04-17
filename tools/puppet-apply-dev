@@ -72,7 +72,7 @@ fi
 info "bundling"
 bundle install --quiet
 info "librarian-puppet"
-bundle exec librarian-puppet install --quiet
+bundle exec rake librarian:install
 
 for dir in `ls vendor/modules`; do
   test -d modules/$dir && info "modules/${dir} conflicts with vendor/modules/${dir}";

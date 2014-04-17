@@ -31,15 +31,54 @@ contributing to this repository.
 
 Pay particular attention to the section **Things that should not be in the Puppet Repo**
 
-## Testing
+## Dependencies
 
-If you haven't already run `puppet-apply-dev` you'll need to ensure that the
-manifest dependencies are up to date:
+All modules from librarian-puppet are cached in this repo under
+`vendor/puppet/` in order to ensure that third-party code doesn't change
+underneath us, protect us from downtime, and improve build times.
+
+### Installing
+
+If you're using this repo for the first time or the contents of
+`Gemfile[.lock]` or `Puppetfile[.lock]` have recently changed then you'll
+need to run:
 
     $ bundle install
-    $ bundle exec librarian-puppet install
+    $ bundle exec rake librarian:install
 
-Run the tests:
+Please avoid using `librarian-puppet` directly because it's not very good at
+respecting or maintaining it's own config file.
+
+Running these commands will often be the solution to Puppet errors about
+unknown classes or functions such as:
+
+`Unknown function validate_bool at …`
+`Could not find class apt for …`
+`Puppet::Parser::AST::Resource failed with error ArgumentError: Invalid resource type apt::source …`
+
+### Updating
+
+If you need to add a new module to the `Puppetfile` then you will need to
+run the following to install it and update the cache:
+
+    $ bundle exec rake librarian:package
+
+If you need to update an existing module to a newer version, you'll need to
+run two commands and ignore the warning:
+
+    $ bundle exec librarian-puppet update foo/bar
+    Could not find a local copy of foo/bar at …
+    $ bundle exec rake librarian:package
+
+Afterwards you should commit the `Puppetfile`, `Puppetfile.lock` and any new
+files in `vendor/puppet/`. If updating a module then you will need to
+manually delete the old tarball from the cache directory.
+
+NB: There should *never* be any changes to `.librarian/puppet/config`.
+
+## Testing
+
+Assuming that your dependencies are installed, run all the tests:
 
     $ bundle exec rake
 
