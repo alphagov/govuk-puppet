@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 # Re-exec self with sudo if not root.
 if [ "$(id -u)" -ne "0" ]; then
@@ -10,6 +11,8 @@ fi
 #   - Cron runs with `PATH=/usr/bin:bin`
 PATH="/usr/lib/rbenv/shims:${PATH}"
 
-# These both need to be run as root.
-RBENV_VERSION=1.9.3 puppet agent --onetime --no-daemonize "$@"
+# Allow return code 2 in case -v/--detailed-exitcodes is passed.
+RBENV_VERSION=1.9.3 puppet agent --onetime --no-daemonize "$@" || [ $? -eq 2 ]
+
+# We should only reach here if a last_run_summary was written.
 /usr/local/bin/puppet_passive_check_update >/dev/null
