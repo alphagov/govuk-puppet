@@ -71,12 +71,4 @@ class puppet::package (
     ensure  => absent,
     require => Package['facter'],
   }
-
-  # This is required to allow Puppet to set the password hash for the ubuntu user
-  # TODO: Provide this under different rbenv versions?
-  package { 'libshadow':
-    ensure   => present,
-    provider => gem,
-    require  => Package['build-essential'],
-  }
 }
