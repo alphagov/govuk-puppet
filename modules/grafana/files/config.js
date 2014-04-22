@@ -3,6 +3,21 @@
  * config.js is where you will find the core Grafana configuration. This file contains parameter that
  * must be set before Grafana is run for the first time.
  */
+
+/**
+ * Use graphite from same domain.
+ * grafana.example.com -> graphite.example.com
+ */
+function graphiteUrl_same_domain() {
+  pathArray = window.location.hostname.split('.');
+  if (pathArray[0] != 'grafana') {
+    document.write("ERROR: Expected first component of 'window.location.hostname' to be 'grafana'");
+    return;
+  }
+  pathArray[0] = 'graphite';
+  return pathArray.join('.');
+}
+
 define(['settings'],
 function (Settings) {
   
@@ -24,7 +39,7 @@ function (Settings) {
      * in nginx or apache for cross origin domain sharing to work (CORS).
      * Check install documentation on github
      */
-    graphiteUrl: "http://"+window.location.hostname+":8080",
+    graphiteUrl: "https://"+graphiteUrl_same_domain(),
 
     /**
      * Multiple graphite servers? Comment out graphiteUrl and replace with
