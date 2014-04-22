@@ -12,8 +12,10 @@ function (Settings) {
     /**
      * elasticsearch url:
      * For Basic authentication use: http://username:password@domain.com:9200
+     *
+     * dcarley: Broken because we don't have an openly accessible ES cluster.
      */
-    elasticsearch: "http://"+window.location.hostname+":9200",
+    elasticsearch: "http://localhost:9200",
 
     /**
      * graphite-web url:
