@@ -82,4 +82,5 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
   }
 
   include collectd::server
+  include grafana
 }
