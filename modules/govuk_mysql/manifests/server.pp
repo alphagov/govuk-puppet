@@ -8,6 +8,9 @@ class govuk_mysql::server (
   $tmp_table_size='128M',
   $max_heap_table_size='128M',
   $innodb_file_per_table=false,
+  $key_buffer_size='16M',
+  $query_cache_limit='1M',
+  $query_cache_size='128M',
   $expire_log_days=3
   ){
 
@@ -28,13 +31,15 @@ class govuk_mysql::server (
       'server_id'                      => $::mysql_server_id,
       'innodb_file_per_table'          => $innodb_file_per_table,
       'innodb_buffer_pool_size'        => $innodb_buffer_pool_size,
+      'key_buffer_size'                => $key_buffer_size,
       'max_connections'                => '400',
       'max_heap_table_size'            => $max_heap_table_size,
       'myisam_sort_buffer_size'        => '16M',
       'table_cache'                    => '4096',
       'thread_stack'                   => '192K',
       'tmp_table_size'                 => $tmp_table_size,
-      'query_cache_size'               => '128M',
+      'query_cache_size'               => $query_cache_size,
+      'query_cache_limit'              => $query_cache_limit,
       'expire_logs_days'               => $expire_log_days,
       'innodb_flush_log_at_trx_commit' => '1',
       'log-queries-not-using-indexes'  => true,
