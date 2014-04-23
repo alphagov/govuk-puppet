@@ -50,7 +50,7 @@ function (Settings) {
      *  }
      */
 
-    default_route: '/dashboard/file/default.json',
+    default_route: '/dashboard/file/origin_health.json',
 
     /**
      * If your graphite server has another timezone than you & users browsers specify the offset here
