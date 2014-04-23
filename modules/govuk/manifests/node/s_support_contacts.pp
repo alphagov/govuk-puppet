@@ -1,4 +1,6 @@
-class govuk::node::s_support_contacts inherits govuk::node::s_base {
+class govuk::node::s_support_contacts (
+  $dump_password
+) inherits govuk::node::s_base {
   $root_password = extlookup('mysql_root_support_contacts')
   $support_password = extlookup('mysql_support_contacts')
 
@@ -15,6 +17,12 @@ class govuk::node::s_support_contacts inherits govuk::node::s_base {
     user     => 'support_contacts',
     host     => '%',
     password => $support_password,
+  }
+
+  govuk_mysql::user { 'dump@%':
+    password_hash => mysql_password($dump_password),
+    table         => '*.*',
+    privileges    => ['SELECT', 'LOCK TABLES'],
   }
 
   file { '/etc/automysqlbackup/prebackup':
