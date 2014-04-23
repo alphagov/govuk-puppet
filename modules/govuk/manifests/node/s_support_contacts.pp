@@ -19,10 +19,10 @@ class govuk::node::s_support_contacts (
     password => $support_password,
   }
 
-  govuk_mysql::user { 'dump@%':
+  govuk_mysql::user { 'dump@localhost':
     password_hash => mysql_password($dump_password),
     table         => '*.*',
-    privileges    => ['SELECT', 'LOCK TABLES'],
+    privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
   file { '/etc/automysqlbackup/prebackup':

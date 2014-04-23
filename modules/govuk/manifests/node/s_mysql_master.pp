@@ -40,10 +40,10 @@ class govuk::node::s_mysql_master (
     require       => Class['govuk::apps::transition::db'],
   }
 
-  govuk_mysql::user { 'dump@%':
+  govuk_mysql::user { 'dump@localhost':
     password_hash => mysql_password($dump_password),
     table         => '*.*',
-    privileges    => ['SELECT', 'LOCK TABLES'],
+    privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
   collectd::plugin::tcpconn { 'mysql':

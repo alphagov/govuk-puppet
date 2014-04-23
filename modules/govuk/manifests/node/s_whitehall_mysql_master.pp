@@ -21,7 +21,7 @@ class govuk::node::s_whitehall_mysql_master (
     require       => Class['govuk::apps::whitehall::db'],
   }
 
-  govuk_mysql::user { 'dump@%':
+  govuk_mysql::user { 'dump@localhost':
     password_hash => mysql_password($dump_password),
     table         => '*.*',
     privileges    => ['SELECT', 'LOCK TABLES'],

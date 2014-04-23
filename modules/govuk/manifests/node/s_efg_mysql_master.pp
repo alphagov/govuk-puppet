@@ -15,10 +15,10 @@ class govuk::node::s_efg_mysql_master (
     require => Class['govuk_mysql::server']
   }
 
-  govuk_mysql::user { 'dump@%':
+  govuk_mysql::user { 'dump@localhost':
     password_hash => mysql_password($dump_password),
     table         => '*.*',
-    privileges    => ['SELECT', 'LOCK TABLES'],
+    privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
   #FIXME: remove if when we have moved to platform one
