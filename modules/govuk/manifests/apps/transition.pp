@@ -8,4 +8,6 @@ class govuk::apps::transition( $port = 3044 ) {
     vhost_protected    => false,
     deny_framing       => true,
   }
+
+  govuk::procfile::worker {'transition': }
 }
