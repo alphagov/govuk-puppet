@@ -41,10 +41,6 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'lucid',
       key      => '914D5813';
-    'govuk-s3deprecated':
-      location => 'http://gds-packages.s3-website-us-east-1.amazonaws.com',
-      release  => 'current',
-      key      => '24B253BC';
   }
 
   include nginx
