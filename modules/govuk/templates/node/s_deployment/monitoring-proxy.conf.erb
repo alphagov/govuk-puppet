@@ -20,7 +20,7 @@ server {
 
 server {
   listen 443;
-  server_name graphite.*;
+  server_name graphite.* grafana.*;
 
   location / {
     proxy_pass http://graphite.cluster/;
