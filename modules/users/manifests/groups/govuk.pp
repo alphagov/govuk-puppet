@@ -28,6 +28,7 @@ class users::groups::govuk {
   include users::dai
   include users::danielroseman
   include users::davidillsley
+  include users::davidsingleton
   include users::davidt
   include users::dcarley
   include users::eddsowden
