@@ -61,7 +61,7 @@ class mirror(
   # gem to generate report on pages with suspected bad links
   package { 'bad_link_finder':
     ensure   => '0.2.3',
-    provider => gem,
+    provider => system_gem,
   }
 
   # script that uploads the mirrored files to net storage

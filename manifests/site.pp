@@ -22,6 +22,7 @@ Apt::Source {
 Class['apt::update'] -> Package <|
   provider != pip and
   provider != gem and
+  provider != system_gem and
   ensure != absent and
   ensure != purged and
   title != 'python-software-properties' and

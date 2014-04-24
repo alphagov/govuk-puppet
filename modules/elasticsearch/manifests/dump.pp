@@ -1,7 +1,7 @@
 class elasticsearch::dump {
   package { 'es_dump_restore':
     ensure   => '0.0.3',
-    provider => 'gem',
+    provider => 'system_gem',
   }
 
   file { '/var/es_dump':
