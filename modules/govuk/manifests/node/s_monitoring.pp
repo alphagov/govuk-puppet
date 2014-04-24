@@ -10,6 +10,13 @@ class govuk::node::s_monitoring (
 
   include monitoring
 
+  nginx::config::vhost::proxy { 'graphite':
+    to       => ['graphite.cluster'],
+    aliases  => ['graphite.*', 'grafana', 'grafana.*'],
+    ssl_only => true,
+    root     => '/dev/null',
+  }
+
   harden::limit { 'nagios-nofile':
     domain => 'nagios',
     type   => '-', # set both hard and soft limits
