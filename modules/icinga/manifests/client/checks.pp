@@ -129,9 +129,11 @@ class icinga::client::checks {
   }
 
   @@icinga::check { "check_ntp_peer_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_ntp_peer',
-    service_description => 'ntp self-reported failure',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#ntp-drift-too-high',
+    check_command              => 'check_nrpe_1arg!check_ntp_peer',
+    service_description        => 'ntp self-reported failure',
+    host_name                  => $::fqdn,
+    notes_url                  => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#ntp-drift-too-high',
+    retry_interval             => 5,
+    attempts_before_hard_state => 3,
   }
 }
