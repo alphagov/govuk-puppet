@@ -37,4 +37,11 @@ Puppet::Type.type(:package).provide :system_gem, :parent => :gem, :source => :ge
       super
     end
   end
+
+  # set PATH when calling gemcmd() directly
+  def self.gemcmd(*args)
+    with_clean_rbenv_environment do
+      super
+    end
+  end
 end
