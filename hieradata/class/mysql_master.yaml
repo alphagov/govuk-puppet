@@ -1,5 +1,11 @@
 ---
 
+govuk_mysql::server::key_buffer_size: '1024M'
+govuk_mysql::server::query_cache_limit: '4M'
+govuk_mysql::server::query_cache_size: '256M'
+govuk_mysql::server::tmp_table_size: '512M'
+govuk_mysql::server::max_heap_table_size: '512M'
+
 lv:
   data:
     pv: '/dev/sdb1'
