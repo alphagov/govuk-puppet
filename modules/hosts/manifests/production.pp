@@ -111,6 +111,10 @@ class hosts::production (
     legacy_aliases  => ["graphite.${app_domain}"],
     service_aliases => ['graphite'],
   }
+  govuk::host { 'logs-cdn-1':
+    ip              => '10.0.0.27',
+    vdc             => 'management',
+  }
   govuk::host { 'logging-1':
     ip              => '10.0.0.28',
     vdc             => 'management',
