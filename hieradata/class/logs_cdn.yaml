@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'logs_cdn'
+
+mount:
+  /mnt/logs_cdn:
+    disk: '/dev/mapper/logs_cdn-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
