@@ -1,4 +1,6 @@
-class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
+class govuk::node::s_efg_mysql_master (
+  $dump_password
+) inherits govuk::node::s_base {
   $root_password = extlookup('mysql_root', '')
   $replica_password = extlookup('mysql_replica_password', '')
 
@@ -11,6 +13,12 @@ class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
 
   class {'govuk::apps::efg::db':
     require => Class['govuk_mysql::server']
+  }
+
+  govuk_mysql::user { 'dump@localhost':
+    password_hash => mysql_password($dump_password),
+    table         => '*.*',
+    privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
   #FIXME: remove if when we have moved to platform one
