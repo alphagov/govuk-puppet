@@ -18,17 +18,6 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
     require => Nginx::Config::Ssl['jenkins'],
   }
 
-  # FIXME: Remove when the following hostnames no longer resolve to the same
-  #        external IP as `deploy.${app_domain}`:
-  #
-  #   - nagios.${app_domain}
-  #   - graphite.${app_domain}
-  #   - grafana.${app_domain}
-  #
-  nginx::config::site { 'monitoring-proxy':
-    content => template('govuk/node/s_jenkins/monitoring-proxy.conf.erb'),
-  }
-
   File {
     owner => jenkins,
     group => jenkins,
