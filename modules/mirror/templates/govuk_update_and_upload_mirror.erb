@@ -13,12 +13,17 @@ function nagios_passive() {
 trap nagios_passive EXIT
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
+START=$(($(date +%s%N)/1000000))
 
 logger -p user.info -t mirrorer Starting to mirror GOV.UK
 /usr/local/bin/govuk_update_mirror
 EXIT_CODE=$?
 logger -p user.crit -t mirrorer Exit code from govuk_update_mirror was $EXIT_CODE
 logger -p user.info -t mirrorer Finished the mirror of GOV.UK
+
+STOP=$(($(date +%s%N)/1000000))
+DURATION=$(expr $STOP - $START)
+echo "govuk.app.mirrorer.duration:$DURATION|ms" | nc -w 1 -u localhost 8125
 
 # If we successfully ran govuk_update_mirror we need to update
 # the assumed failure message to indicate it would be an
