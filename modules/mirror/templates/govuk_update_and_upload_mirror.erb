@@ -13,7 +13,7 @@ function nagios_passive() {
 trap nagios_passive EXIT
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
-START=$(($(date +%s%N)/1000000))
+START_CRAWL=$(($(date +%s%N)/1000000))
 
 logger -p user.info -t mirrorer Starting to mirror GOV.UK
 /usr/local/bin/govuk_update_mirror
@@ -21,9 +21,9 @@ EXIT_CODE=$?
 logger -p user.crit -t mirrorer Exit code from govuk_update_mirror was $EXIT_CODE
 logger -p user.info -t mirrorer Finished the mirror of GOV.UK
 
-STOP=$(($(date +%s%N)/1000000))
-DURATION=$(expr $STOP - $START)
-echo "govuk.app.mirrorer.duration:$DURATION|ms" | nc -w 1 -u localhost 8125
+STOP_CRAWL=$(($(date +%s%N)/1000000))
+DURATION_CRAWL=$(expr $STOP_CRAWL - $START_CRAWL)
+echo "govuk.app.mirrorer.crawl_duration:$DURATION_CRAWL|ms" | nc -w 1 -u localhost 8125
 
 # If we successfully ran govuk_update_mirror we need to update
 # the assumed failure message to indicate it would be an
@@ -32,11 +32,17 @@ if [ $EXIT_CODE == "0" ]; then
   NAGIOS_MESSAGE="WARNING: Mirrorer upload failed."
 fi
 
+START_UPLOAD=$(($(date +%s%N)/1000000))
+
 logger -p user.info -t mirrorer Starting to upload GOV.UK to mirror targets
 /usr/local/bin/govuk_upload_mirror
 EXIT_CODE=$?
 logger -p user.crit -t mirrorer Exit code from govuk_upload_mirror was $EXIT_CODE
 logger -p user.info -t mirrorer Finished uploading GOV.UK to mirror targets
+
+STOP_UPLOAD=$(($(date +%s%N)/1000000))
+DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
+echo "govuk.app.mirrorer.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u localhost 8125
 
 # As both scripts have succeeded then set the
 # nagios code and message ot successful
