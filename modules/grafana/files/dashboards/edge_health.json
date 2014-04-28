@@ -12,7 +12,7 @@
   "rows": [
     {
       "title": "one",
-      "height": "400px",
+      "height": "375px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
@@ -205,7 +205,7 @@
     },
     {
       "title": "two",
-      "height": "400px",
+      "height": "375px",
       "editable": true,
       "collapse": false,
       "collapsable": true,
