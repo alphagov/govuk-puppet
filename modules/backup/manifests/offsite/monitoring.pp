@@ -9,7 +9,7 @@ class backup::offsite::monitoring {
   }
 
   icinga::check { "check_disk_${offsite_hostname}":
-    check_command       => 'check_nrpe_1arg!check_xvda1',
+    check_command       => 'check_nrpe_1arg!check_disk',
     service_description => 'high disk usage',
     use                 => 'govuk_high_priority',
     host_name           => $offsite_fqdn,
