@@ -1,16 +1,16 @@
 forge "http://forge.puppetlabs.com"
 
-mod 'ripienaar/concat'
-mod 'thomasvandoren/redis'
-mod 'puppetlabs/gcc'
-mod 'puppetlabs/stdlib'
 mod 'puppetlabs/apt'
+mod 'puppetlabs/gcc'
 mod 'puppetlabs/mysql'
+mod 'puppetlabs/stdlib'
+mod 'ripienaar/concat'
 mod 'saz/memcached'
 mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
 mod 'saz/sudo', '3.0.1'
 mod 'saz/timezone'
+mod 'thomasvandoren/redis'
 
 # Pinned because of: https://github.com/stankevich/puppet-python/issues/46
 mod 'stankevich/python', '1.2.1'
@@ -49,7 +49,7 @@ mod 'aptly',
 
 # Our modules on the Forge.
 mod 'gdsoperations/auditd', '0.0.1'
+mod 'gdsoperations/graphite', '1.0.1'
+mod 'gdsoperations/openconnect'
 mod 'gdsoperations/rbenv', '1.0.1'
 mod 'gdsoperations/resolvconf', '0.2.0'
-mod 'gdsoperations/openconnect'
-mod 'gdsoperations/graphite', '1.0.1'
