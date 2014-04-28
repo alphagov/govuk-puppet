@@ -33,7 +33,7 @@ class jenkins {
 
   package { 'brakeman':
     ensure   => 'installed',
-    provider => gem,
+    provider => system_gem,
   }
 
   package { 'ghtools':

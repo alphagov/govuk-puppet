@@ -14,7 +14,7 @@ class puppet::master::package(
   include ::puppet
 
   package { 'unicorn':
-    provider => gem,
+    provider => system_gem,
   }
   exec {'install rack 1.0.1':
     command => 'gem install rack --no-rdoc --no-ri --version 1.0.1',

@@ -28,7 +28,7 @@ class icinga::package {
 
   package { 'check_graphite':
     ensure   => '0.2.2',
-    provider => 'gem',
+    provider => 'system_gem',
   }
 
   package { 'NagAconda':
@@ -55,7 +55,7 @@ class icinga::package {
   # campfire stuff
   package { 'tinder':
     ensure   => present,
-    provider => gem,
+    provider => system_gem,
   }
   file { '/usr/local/bin/campfire_icinga':
     source  => 'puppet:///modules/icinga/usr/local/bin/campfire_icinga',
