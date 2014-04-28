@@ -119,13 +119,8 @@ class icinga::client::checks {
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#ntp-drift-too-high',
   }
 
-  # lucid doesn't support the -m and -n options to alert on number of truechimers
-  $ntp_peer_cmd = $::lsbdistcodename ? {
-    'lucid'   => '/usr/lib/nagios/plugins/check_ntp_peer -H 127.0.0.1 -w 0.5 -c 1',
-    'precise' => '/usr/lib/nagios/plugins/check_ntp_peer -H 127.0.0.1 -w 0.5 -c 1 -m @1 -n @0',
-  }
   @icinga::nrpe_config { 'check_ntp_peer':
-    content => "command[check_ntp_peer]=${ntp_peer_cmd}\n",
+    content => "command[check_ntp_peer]=/usr/lib/nagios/plugins/check_ntp_peer -H 127.0.0.1 -w 0.5 -c 1\n",
   }
 
   @@icinga::check { "check_ntp_peer_${::hostname}":
