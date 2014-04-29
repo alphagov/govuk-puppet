@@ -24,6 +24,7 @@ class govuk_cdnlogs (
   $service_port_map,
 ) {
   validate_hash($service_port_map)
+  $ports = join(values($service_port_map), ',')
 
   $key_file = '/etc/ssl/rsyslog.key'
   $crt_file = '/etc/ssl/rsyslog.crt'
@@ -41,6 +42,12 @@ class govuk_cdnlogs (
     owner   => 'root',
     content => $server_crt,
     notify  => Class['rsyslog::service'],
+  }
+
+  if !empty($ports) {
+    @ufw::allow { 'rsyslog-cdn-logs':
+      port => $ports,
+    }
   }
 
   rsyslog::snippet { 'ccc-cdnlogs':

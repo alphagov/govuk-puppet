@@ -23,6 +23,11 @@ describe 'govuk_cdnlogs', :type => :class do
   end
 
   describe 'service_port_map' do
+    let(:pre_condition) { <<-EOS
+      Ufw::Allow <||>
+      EOS
+    }
+
     context 'empty service_port_map' do
       let(:params) {{
         :log_dir          => '/tmp/logs',
@@ -31,6 +36,7 @@ describe 'govuk_cdnlogs', :type => :class do
         :service_port_map => {},
       }}
 
+      it { should_not contain_ufw__allow('rsyslog-cdn-logs') }
       it { should contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
     end
 
@@ -44,6 +50,10 @@ describe 'govuk_cdnlogs', :type => :class do
           'giraffe'  => 456,
         },
       }}
+
+      it 'should open two firewall ports' do
+        should contain_ufw__allow('rsyslog-cdn-logs').with_port('123,456')
+      end
 
       it 'should create two rulesets, bind against ports, and use log_dir' do
         should contain_rsyslog__snippet('ccc-cdnlogs').with_content(/
