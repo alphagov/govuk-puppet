@@ -9,6 +9,9 @@ govuk::apps::finder_api::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 
+govuk::apps::publicapi::backdrop_protocol: 'http'
+govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
+
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 

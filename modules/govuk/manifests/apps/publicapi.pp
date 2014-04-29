@@ -1,4 +1,7 @@
-class govuk::apps::publicapi {
+class govuk::apps::publicapi (
+  $backdrop_protocol = 'https',
+  $backdrop_host = 'www.performance.service.gov.uk',
+) {
 
   $app_domain = hiera('app_domain')
 
@@ -8,11 +11,7 @@ class govuk::apps::publicapi {
   $business_support_api = "business-support-api.${app_domain}"
   $rummager_api = "search.${app_domain}"
 
-  # HTTP is only used in development, HTTPS everywhere else
-  $backdropread_protocol = extlookup('backdropread_protocol', 'https')
-  $backdropread_host = extlookup('backdropread_host', "read.backdrop.${app_domain}")
-  $backdropread_url = "${backdropread_protocol}://${backdropread_host}"
-
+  $backdrop_url = "${backdrop_protocol}://${backdrop_host}"
 
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"

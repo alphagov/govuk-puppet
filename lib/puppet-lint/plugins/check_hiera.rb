@@ -40,7 +40,6 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'aws_ses_smtp_password',
     'deploy_ssh_keys',
     'mirror::enable_checks',
-    'perfplat_internal_app_domain',
   ]
 
   check 'hiera_explicit_lookup' do
