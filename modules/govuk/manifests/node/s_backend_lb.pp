@@ -1,4 +1,4 @@
-lass govuk::node::s_backend_lb (
+class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
   $mapit_servers,
