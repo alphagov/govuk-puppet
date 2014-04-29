@@ -26,3 +26,5 @@ rabbitmq:
     - 'rabbitmq-1'
     - 'rabbitmq-2'
     - 'rabbitmq-3'
+  service_ensure: true
+  service_manage: true
