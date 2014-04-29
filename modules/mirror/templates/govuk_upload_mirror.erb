@@ -5,6 +5,8 @@ if [ -z "$TARGETS"]; then
   logger -t mirrorer empty target received for govuk mirror
 fi
 
+START_UPLOAD=$(($(date +%s%N)/1000000))
+
 for TARGET in $TARGETS; do
   logger -t mirrorer Started uploading to $TARGET
   rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
@@ -15,3 +17,7 @@ for TARGET in $TARGETS; do
   fi
   logger -t mirrorer Finished uploading to mirror $TARGET
 done
+
+STOP_UPLOAD=$(($(date +%s%N)/1000000))
+DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
+echo "govuk.app.mirrorer.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u localhost 8125
