@@ -72,7 +72,7 @@ class mirror(
   }
 
   $service_desc = 'mirrorer update and upload'
-  $threshold_secs = 28 * (60 * 60)
+  $threshold_secs = 48 * (60 * 60)
 
   if !empty($targets) {
     @@icinga::passive_check { "check-mirrorer-${::hostname}":
