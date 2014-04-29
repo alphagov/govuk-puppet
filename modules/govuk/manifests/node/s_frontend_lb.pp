@@ -6,13 +6,12 @@ class govuk::node::s_frontend_lb {
   $calculators_frontend_servers = extlookup('lb_nodes_calculators_frontend')
   $whitehall_frontend_servers = extlookup('lb_nodes_whitehall_frontend')
 
+  $hide_frontend_apps = !str2bool(extlookup('expose_frontend_apps_directly', 'no'))
+
   Loadbalancer::Balance {
     https_only    => false, # Varnish/Router can't speak HTTPS.
-    internal_only => true,
-    servers       => $govuk_frontend_servers,
+    internal_only => $hide_frontend_apps,
   }
-
-  $hide_frontend_apps = !str2bool(extlookup('expose_frontend_apps_directly', 'no'))
 
   loadbalancer::balance {
     [
@@ -23,10 +22,11 @@ class govuk::node::s_frontend_lb {
       'feedback',
       'frontend',
       'specialist-frontend',
+      'static',
       'limelight',
       'transactions-explorer',
     ]:
-      internal_only => $hide_frontend_apps;
+      servers       => $govuk_frontend_servers;
     [
       'businesssupportfinder',
       'calculators',
@@ -37,12 +37,8 @@ class govuk::node::s_frontend_lb {
       'transaction-wrappers',
       'tariff',
     ]:
-      internal_only => $hide_frontend_apps,
       servers       => $calculators_frontend_servers;
-    'static':
-      internal_only => false;
     'whitehall-frontend':
-      internal_only => false,
       servers       => $whitehall_frontend_servers;
   }
 
