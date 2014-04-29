@@ -12,6 +12,7 @@ FORGE
     gdsoperations/resolvconf (0.2.0)
       puppetlabs/stdlib (>= 3.0.0)
     maestrodev/wget (1.2.3)
+    nanliu/staging (0.4.0)
     puppetlabs/apt (1.4.2)
       puppetlabs/stdlib (>= 2.2.1)
     puppetlabs/gcc (0.1.0)
@@ -113,6 +114,16 @@ GIT
     nextrevision/automysqlbackup (0.2.4)
       puppetlabs/stdlib (>= 3.0.0)
 
+GIT
+  remote: git://github.com/puppetlabs/puppetlabs-rabbitmq.git
+  ref: 544fb745c94c72de48f40d5522fa09dc58ea14ba
+  sha: 544fb745c94c72de48f40d5522fa09dc58ea14ba
+  specs:
+    rabbitmq (3.1.0)
+      nanliu/staging (>= 0.3.1)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.0.0)
+
 DEPENDENCIES
   apparmor (>= 0)
   aptly (>= 0)
@@ -132,6 +143,7 @@ DEPENDENCIES
   puppetlabs/gcc (>= 0)
   puppetlabs/mysql (>= 0)
   puppetlabs/stdlib (>= 0)
+  rabbitmq (>= 0)
   ripienaar/concat (>= 0)
   saz/memcached (>= 0)
   saz/ntp (>= 0)
