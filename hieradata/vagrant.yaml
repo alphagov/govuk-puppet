@@ -50,4 +50,3 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 
 monitoring::checks::contact_email: 'root@localhost'
 monitoring_protected: 'no'
-monitoring_group: "root@localhost"
