@@ -1,5 +1,7 @@
 ---
 
+govuk_cdnlogs::log_dir: '/mnt/logs_cdn'
+
 lv:
   data:
     pv: '/dev/sdb1'
