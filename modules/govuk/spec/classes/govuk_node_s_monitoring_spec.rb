@@ -29,6 +29,8 @@ describe 'govuk::node::s_monitoring', :type => :class do
       'aws_ses_smtp_password' => 'a_password',
     }}
 
+  let(:facts) {{ :concat_basedir => '/var/lib/puppet/concat/'}}
+
   context 'param defaults' do
     it { should_not contain_icinga__campfire_contact('campfire_notification') }
 
