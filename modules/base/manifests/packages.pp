@@ -34,22 +34,11 @@ class base::packages {
     ensure => installed
   }
 
-  case $::lsbdistcodename {
-    'precise': {
-        package{
-          [
-            'ruby1.9.1-dev',
-          ]:
-            ensure => installed,
-        }
-        include nodejs
+  if $::lsbdistcodename == 'precise' {
+    package { 'ruby1.9.1-dev':
+      ensure => installed,
     }
-    default: {
-      # see pivotaltracker 42952267
-      package {'dpkg':
-        ensure => '1.15.5.6ubuntu4.6',
-      }
-    }
-  }
 
+    include nodejs
+  }
 }
