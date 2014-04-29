@@ -1,0 +1,36 @@
+# Use the same max-line-length as Fastly
+$MaxMessageSize 16k
+
+# Listen on TCP.
+$ModLoad imtcp
+
+# Server side SSL.
+$DefaultNetstreamDriver gtls
+
+# Self-signed, CA == Cert.
+$DefaultNetstreamDriverCAFile <%= @crt_file %>
+$DefaultNetstreamDriverCertFile <%= @crt_file %>
+$DefaultNetstreamDriverKeyFile <%= @key_file %>
+
+# Verify server, not client.
+$InputTCPServerStreamDriverMode 1
+$InputTCPServerStreamDriverAuthMode anon
+
+# Temporarily disable message de-dupe.
+$RepeatedMsgReduction off
+
+# Record raw message content without leading space.
+$template NoFormat,"%msg:2:$:%\n"
+
+<% @service_port_map.each do |name, port| -%>
+$RuleSet cdn-<%= name %>
+*.* -<%= @log_dir -%>/cdn-<%= name -%>.log;NoFormat
+$InputTCPServerBindRuleset cdn-<%= name %>
+$InputTCPServerRun <%= port %>
+
+<% end -%>
+# Switch back to default ruleset
+$RuleSet RSYSLOG_DefaultRuleset
+
+# Restore message de-dupe.
+$RepeatedMsgReduction on
