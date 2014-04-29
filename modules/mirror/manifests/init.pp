@@ -97,13 +97,13 @@ class mirror(
   }
 
   cron { 'update-latest-to-mirror':
-    ensure  => $cron_ensure,
-    user    => 'govuk-netstorage',
-    hour    => '0',
-    minute  => '0',
-    command => '/usr/bin/setlock -n /var/run/govuk_update_and_upload_mirror.lock /usr/local/bin/govuk_update_and_upload_mirror',
-    require => [File['/usr/local/bin/govuk_update_and_upload_mirror'],
-                File['/var/run/govuk_update_and_upload_mirror.lock']],
+    ensure      => $cron_ensure,
+    user        => 'govuk-netstorage',
+    minute      => '0',
+    environment => 'MAILTO=""',
+    command     => '/usr/bin/setlock -n /var/run/govuk_update_and_upload_mirror.lock /usr/local/bin/govuk_update_and_upload_mirror',
+    require     => [File['/usr/local/bin/govuk_update_and_upload_mirror'],
+                    File['/var/run/govuk_update_and_upload_mirror.lock']],
   }
 
 }
