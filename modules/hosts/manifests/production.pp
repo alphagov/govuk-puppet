@@ -385,6 +385,18 @@ class hosts::production (
     ip             => '10.3.0.40',
     vdc            => 'backend',
   }
+  govuk::host { 'rabbitmq-1':
+    ip             => '10.3.0.70',
+    vdc            => 'backend',
+  }
+  govuk::host { 'rabbitmq-2':
+    ip             => '10.3.0.71',
+    vdc            => 'backend',
+  }
+  govuk::host { 'rabbitmq-3':
+    ip             => '10.3.0.72',
+    vdc            => 'backend',
+  }
   govuk::host { 'redis-1':
     ip             => '10.3.0.50',
     vdc            => 'backend',

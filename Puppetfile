@@ -20,6 +20,12 @@ mod 'stankevich/python', '1.2.1'
 mod 'nextrevision/automysqlbackup',
   :git => 'git://github.com/nextrevision/puppet-automysqlbackup.git'
 
+# Pinned so we can pick up the config_kernel_variables functionality
+# that hasn't been released yet to the forge.
+mod 'rabbitmq',
+  :git => 'git://github.com/puppetlabs/puppetlabs-rabbitmq.git',
+  :ref => '544fb745c94c72de48f40d5522fa09dc58ea14ba'
+
 mod 'apparmor',
   :git => 'git://github.com/alphagov/puppet-apparmor.git'
 mod 'aptly',
