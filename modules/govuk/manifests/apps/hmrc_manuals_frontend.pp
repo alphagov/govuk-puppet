@@ -6,7 +6,6 @@ class govuk::apps::hmrc_manuals_frontend(
     app_type               => 'rack',
     port                   => $port,
     vhost_protected        => $vhost_protected,
-    health_check_path      => '/healthcheck',
     asset_pipeline         => true,
     asset_pipeline_prefix  => 'hmrc-manuals-frontend',
   }
