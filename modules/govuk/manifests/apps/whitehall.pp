@@ -123,17 +123,6 @@ class govuk::apps::whitehall(
       ensure => installed,
     }
 
-    # Clean up old delayed-job worker and config.
-    # These can be removed once this is pushed out to production
-    exec {'stop_whitehall_admin_delayed_job_worker':
-      command => 'initctl stop whitehall-admin-delayed-job-worker || /bin/true',
-      onlyif  => 'test -f /etc/init/whitehall-admin-delayed-job-worker.conf',
-    }
-    file { '/etc/init/whitehall-admin-delayed-job-worker.conf':
-      ensure  => absent,
-      require => Exec['stop_whitehall_admin_delayed_job_worker'],
-    }
-
     govuk::procfile::worker { 'whitehall-admin':
       setenv_as => 'whitehall'
     }
