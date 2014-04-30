@@ -118,6 +118,12 @@ class govuk::apps::whitehall(
     '
     }
 
+    govuk::logstream { 'whitehall_scheduled_publishing_json_log':
+      logfile => '/var/apps/whitehall/log/production_scheduled_publishing.json.log',
+      fields  => {'application' => 'whitehall'},
+      json    => true,
+    }
+
     # Needed for pdfinfo, used to count page numbers in uploaded PDFs
     package { 'poppler-utils':
       ensure => installed,
