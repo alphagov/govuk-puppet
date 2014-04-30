@@ -100,6 +100,7 @@ class mirror(
     ensure      => $cron_ensure,
     user        => 'govuk-netstorage',
     minute      => '0',
+    hour        => 'absent', # FIXME: Remove once absent everywhere
     environment => 'MAILTO=""',
     command     => '/usr/bin/setlock -n /var/run/govuk_update_and_upload_mirror.lock /usr/local/bin/govuk_update_and_upload_mirror',
     require     => [File['/usr/local/bin/govuk_update_and_upload_mirror'],
