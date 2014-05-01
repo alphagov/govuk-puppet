@@ -11,6 +11,10 @@ DEFAULT_VM_PARAMS = {
   :memory => 1024,
   :cpus => 2,
 }
+LATEST_BOX_VERSIONS = {
+  'lucid'   => '20140430',
+  'precise' => '20140430',
+}
 
 def common_config(config)
   # vagrant-dns is only supported on OS X
@@ -30,11 +34,6 @@ def common_config(config)
 end
 
 def virtual_box_config(config)
-  latest_box_versions = {
-    'lucid'   => '20140430',
-    'precise' => '20140430',
-  }
-
   dist = ENV['govuk_dev_dist'] || DIST_PREFERRED
   if dist != DIST_PREFERRED
     puts <<EOS
@@ -45,7 +44,7 @@ def virtual_box_config(config)
 EOS
   end
 
-  virtual_box_box = "govuk_dev_#{dist}64_#{latest_box_versions[dist]}"
+  virtual_box_box = "govuk_dev_#{dist}64_#{LATEST_BOX_VERSIONS[dist]}"
 
   config.vm.box = virtual_box_box
   config.vm.box_url = "http://gds-boxes.s3.amazonaws.com/#{virtual_box_box}.box"
@@ -76,8 +75,10 @@ Vagrant.configure("2") do |config|
   config = virtual_box_config(config)
 
   config.vm.provider :vmware_fusion do |vm, override|
-    override.vm.box = "govuk_dev_precise64_vmware_fusion"
-    override.vm.box_url = "http://gds-boxes.s3.amazonaws.com/govuk_dev_precise64_vmware_fusion.box"
+    latest_version = LATEST_BOX_VERSIONS['precise']
+    box_name = "govuk_dev_precise64_vmware_fusion_#{latest_version}"
+    override.vm.box = box_name
+    override.vm.box_url = "http://gds-boxes.s3.amazonaws.com/#{box_name}.box"
     vm.vmx["displayName"] = "devvm"
   end
 
