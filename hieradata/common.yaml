@@ -69,7 +69,7 @@ router::assets_origin::asset_routes:
   '/government/assets/': "whitehall-frontend"
   '/government/uploads/': "whitehall-frontend"
   '/government/placeholder': "whitehall-frontend"
-  '/hrmc-manuals-frontend/': "hrmc-manuals-frontend"
+  '/hmrc-manuals-frontend/': "hmrc-manuals-frontend"
   '/licencefinder/': "licencefinder"
   '/limelight/': "limelight"
   '/smartanswers/': "smartanswers"
