@@ -2,6 +2,6 @@ class users::dai {
   govuk::user { 'dai':
     fullname => 'Dafydd Vaughan',
     email    => 'dafydd.vaughan@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6PiNMw+35MX5JsLcBAJdEWwL+FARJOBtnsc+MK6KrNxI/xRmtPkB7mGQfVsbYthctGcJj4vy+Xt7mfI4h+FZqajTuSzU3a0mBYkEAyVGNOIJKe49zshewUDIHjJjHdpGI+lpgZxseW2I78S0EjRYA9Uqas63UJTkFXgO35RymHnv3sI8K1MLBYJZvoKxV9GbUZQMELVlwg2BHEVH6OKX1zcQocqaAM8SCS/wNvMqydh0osg/WPUzItq4RLjRi4DoSSL2NJSQuVXILZWnHceWYOsl2wN/vCVMaW3BeQjfhti+vyAm8t7kV6KB4l8G3dXSqSop9qvRXiLO9mYNnI41Z',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJ5mN5A49vc8GlsX/2EOmWi+wCowxdlsb8ni8NuRWCG0exaPU6pvo2/onpfRairyqiSPq/Y2yW0nL+WX3/2RZSWKN6Fh8UlOp/1HBY8phRnSoSPbCiI8L+Stc54sUPGyyDOscbrX1FppWRLN83itBoCDqyZBCmnK6n0VlalOkrnX87SObkr29thAx7a5+fG6OnziTf62O8uiLO4lDeERt2OgodJgRFW2rHRiy9WEwDda1cW0RlTuya0rp2jABK+oHehI1urWFxRtZU6xfAOUnIRHGWQh1CKLNaNpCJ2e9XRUSwc7quXlMIAmxbciIW2MyoGX1PiZ3xUkjtd2pE9v7b',
   }
 }
