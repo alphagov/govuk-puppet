@@ -9,8 +9,8 @@ class monitoring::checks (
   include monitoring::checks::smokey
 
   $app_domain = hiera('app_domain')
-  $http_username = extlookup('http_username', 'UNSET')
-  $http_password = extlookup('http_password', 'UNSET')
+  $http_username = hiera('http_username', 'UNSET')
+  $http_password = hiera('http_password', 'UNSET')
 
   icinga::plugin { 'check_http_timeout_noncrit':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_http_timeout_noncrit',

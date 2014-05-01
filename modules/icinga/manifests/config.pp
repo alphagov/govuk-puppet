@@ -7,8 +7,8 @@ class icinga::config {
   $app_domain = hiera('app_domain','dev.gov.uk')
 
   # Used by graphite check templates, below
-  $http_username = extlookup('http_username', '')
-  $http_password = extlookup('http_password', '')
+  $http_username = hiera('http_username', '')
+  $http_password = hiera('http_password', '')
 
   file { '/etc/icinga':
     ensure  => directory,

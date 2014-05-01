@@ -4,6 +4,10 @@ describe 'icinga::config::smokey', :type => :class do
   let(:file_path) { '/etc/smokey.sh' }
 
   context 'with only http_username and http_password from extdata' do
+    let (:hiera_data) {{ 
+      'http_username' => 'test_username',
+      'http_password' => 'test_password' 
+    }}
     it { should contain_file('/etc/smokey.sh').with_content(<<EOS
 #!/bin/bash
 export AUTH_PASSWORD="test_password"
@@ -13,6 +17,10 @@ EOS
   end
 
   context 'with only http_username and http_password from extdata' do
+    let (:hiera_data) {{ 
+      'http_username' => 'test_username',
+      'http_password' => 'test_password' 
+    }}
     before {
       update_extdata({
         'smokey_efg_domain' => 'bear',
