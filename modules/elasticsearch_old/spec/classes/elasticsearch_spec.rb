@@ -66,17 +66,4 @@ describe 'elasticsearch_old', :type => :class do
     end
   end
 
-  context "with http_port set to 9999" do
-    let(:params) do
-      {
-        :cluster_name => 'foocluster',
-        :http_port => 9999,
-      }
-    end
-
-    it { should contain_class('collectd::plugin::elasticsearch').with(
-      :es_port => 9999
-    )}
-  end
-
 end
