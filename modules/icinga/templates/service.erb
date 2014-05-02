@@ -29,8 +29,6 @@ define service {
         notes_url                 <%= @notes_url %>
 <%- end -%>
 <%- if @contact_groups -%>
-        contact_groups            +<%= @contact_groups.join(',') %>
+        contact_groups            +<%= [@contact_groups].flatten.join(',') %>
 <%- end -%>
 }
-
-

@@ -43,12 +43,13 @@ describe 'icinga::check', :type => :define do
   context "should get in touch with a contact group" do
     let(:title) { 'default_service' }
     let(:params) { param_defaults.merge({
-      :contact_group => "hot_boys",
+      :contact_groups => "wildlings",
     })}
 
-    it { should contain_file('/etc/icinga/conf.d/icinga_contact_groups-hot_boys/contact_groups.cfg').
-         with_content(/use\s+hot_boys/)
+    it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/default_service.cfg').
+         with_content(/contact_groups\s+\+wildlings/)
     }
+
   end
 
   [:action_url, :notes_url].each do |param|
