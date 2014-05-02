@@ -159,6 +159,7 @@ class govuk::node::s_development {
     heap_size          => '64m',
     number_of_shards   => '1',
     number_of_replicas => '0',
+    require            => Class['govuk_java::set_defaults'],
   }
 
   elasticsearch::plugin { 'head':

@@ -24,6 +24,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     disable_gc_alerts    => true,
     require              => [
       Class['govuk_java::oracle7::jre'],
+      Class['govuk_java::set_defaults'],
       Govuk::Mount['/mnt/elasticsearch']
     ],
   }

@@ -32,6 +32,7 @@ password=${mysql_password}
     cluster_name       => "govuk-${::govuk_platform}",
     heap_size          => '2g',
     number_of_replicas => '0',
+    require            => Class['govuk_java::set_defaults'],
   }
 
 }
