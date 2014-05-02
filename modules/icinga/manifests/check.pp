@@ -42,6 +42,11 @@
 #   and why the alert might exist. Should link to a section of the
 #   "opsmanual". This will be included in the Nagios UI and email alerts.
 #
+# [*contact_groups*]
+#   Convenience method to use in addition to the service
+#   templates. This is so you can pass a group to a check without
+#   having to define a new service template
+#
 define icinga::check (
   $host_name,
   $ensure                     = 'present',
@@ -54,7 +59,8 @@ define icinga::check (
   $check_interval             = undef,
   $retry_interval             = undef,
   $first_notification_delay   = undef,
-  $attempts_before_hard_state = undef
+  $attempts_before_hard_state = undef,
+  $contact_groups             = undef,
 ) {
 
   $check_filename = "/etc/icinga/conf.d/icinga_host_${host_name}/${title}.cfg"
