@@ -40,6 +40,18 @@ describe 'icinga::check', :type => :define do
     }
   end
 
+  context "should get in touch with a contact group" do
+    let(:title) { 'default_service' }
+    let(:params) { param_defaults.merge({
+      :contact_groups => "wildlings",
+    })}
+
+    it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/default_service.cfg').
+         with_content(/contact_groups\s+\+wildlings/)
+    }
+
+  end
+
   [:action_url, :notes_url].each do |param|
     context param do
       let(:title) { 'bonus' }

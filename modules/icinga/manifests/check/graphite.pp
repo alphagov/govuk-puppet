@@ -49,6 +49,10 @@
 #   Passed to `icinga::check`. See there for documentation.
 #   Default: undef
 #
+# [*contact_groups*]
+#   Passed to `icinga::check`. See there for documentation.
+#   Default: undef
+#
 define icinga::check::graphite(
   $target,
   $desc,
@@ -63,6 +67,7 @@ define icinga::check::graphite(
   $action_url = undef,
   $notes_url = undef,
   $ensure = 'present',
+  $contact_groups = undef,
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
@@ -102,5 +107,6 @@ ${warn_line}${crit_line}"
     action_url                 => $action_url_real,
     notes_url                  => $notes_url,
     attempts_before_hard_state => 1,
+    contact_groups             => $contact_groups,
   }
 }
