@@ -49,6 +49,8 @@ class elasticsearch (
   anchor { 'elasticsearch::end': }
 
   class { 'elasticsearch::monitoring':
+    host_count           => size($cluster_hosts),
+    cluster_name         => $cluster_name,
     http_port            => $http_port,
     log_index_type_count => $log_index_type_count,
     disable_gc_alerts    => $disable_gc_alerts,

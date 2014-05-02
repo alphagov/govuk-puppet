@@ -68,19 +68,4 @@ class elasticsearch::config (
   file { "/etc/init/elasticsearch-${cluster_name}.conf":
     content => template('elasticsearch/upstart.conf.erb'),
   }
-
-  @icinga::nrpe_config { 'check_elasticsearch_cluster_health':
-    source => 'puppet:///modules/elasticsearch/check_elasticsearch_cluster_health.cfg',
-  }
-
-  # Check against the total number of hosts, not the minimum, else the alert
-  # won't fire correctly
-  $host_count = size($cluster_hosts)
-  @@icinga::check { "check_elasticsearch-${cluster_name}_cluster_health_running_on_${::hostname}":
-    check_command       => "check_nrpe!check_elasticsearch_cluster_health!${host_count}",
-    service_description => 'elasticsearch cluster is not healthy',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#elasticsearch-cluster-health',
-  }
-
 }
