@@ -31,7 +31,6 @@ server {
 
   <% $proxied_locations = [
       '/aboutus/informationformps',
-      '~* /countries/[a-zA-Z\-]+/fees', # eg /countries/angola/fees or /countries/czech-republic/fees or /countries/japan/fees1/
       '/sitecontent/documents/aboutus/info-fact-sheet-mps',
       '/sitecontent/documents/aboutus/mps-enquiries',
       '/sitecontent/documents/aboutus/mps-family-visit',
@@ -39,8 +38,6 @@ server {
       '/sitecontent/documents/aboutus/example-agenda-mp',
       '/sitecontent/documents/aboutus/perform-mp-service/',
       '/view/case_finder.form',         # POSTed to by the form at: /aboutus/informationformps/track-correspondence/
-      '/visas-immigration/general-info/fees',
-      '/visas-immigration/general-info/processing-times',
       '~* (/static/biaAssets/*|/images/*)', # We want to proxy page furniture so that the pages don't look broken. Includes RSS feeds like: /static/biaassets/rss/citizenshiprss.xml
     ]
   %>
