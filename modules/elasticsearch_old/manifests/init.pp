@@ -12,7 +12,6 @@ class elasticsearch_old (
   $transport_port = '9300',
   $version = 'present',
   $log_index_type_count = {},
-  $disable_gc_alerts = false
 ) {
 
   anchor { 'elasticsearch_old::begin':

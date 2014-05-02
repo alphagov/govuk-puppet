@@ -27,7 +27,6 @@ class govuk_elasticsearch (
     host                 => $host,
     transport_port       => $transport_port,
     log_index_type_count => $log_index_type_count,
-    disable_gc_alerts    => $disable_gc_alerts,
     require              => Anchor['govuk_elasticsearch::begin'],
     before               => Anchor['govuk_elasticsearch::end'],
   }
