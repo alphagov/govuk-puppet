@@ -1,4 +1,4 @@
-class elasticsearch::package (
+class elasticsearch_old::package (
   $version = undef,
 ) {
 
@@ -12,14 +12,14 @@ class elasticsearch::package (
   }
 
   # Disable the default elasticsearch setup, as we'll be installing an upstart
-  # job to manage elasticsearch in elasticsearch::{config,service}
+  # job to manage elasticsearch in elasticsearch_old::{config,service}
   exec { 'disable-default-elasticsearch':
     onlyif      => '/usr/bin/test -f /etc/init.d/elasticsearch',
     command     => '/etc/init.d/elasticsearch stop && /bin/rm -f /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
     refreshonly => true,
   }
 
-  # Manage elasticsearch plugins, which are installed by elasticsearch::plugin
+  # Manage elasticsearch plugins, which are installed by elasticsearch_old::plugin
   file { '/usr/share/elasticsearch/plugins':
     ensure  => directory,
     purge   => true,

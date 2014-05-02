@@ -1,4 +1,4 @@
-class elasticsearch (
+class elasticsearch_old (
   $cluster_hosts = ['localhost'],
   $cluster_name = 'elasticsearch',
   $heap_size = '512m',
@@ -15,17 +15,17 @@ class elasticsearch (
   $disable_gc_alerts = false
 ) {
 
-  anchor { 'elasticsearch::begin':
-    notify => Class['elasticsearch::service'];
+  anchor { 'elasticsearch_old::begin':
+    notify => Class['elasticsearch_old::service'];
   }
 
-  class { 'elasticsearch::package':
-    require => Anchor['elasticsearch::begin'],
-    notify  => Class['elasticsearch::service'],
+  class { 'elasticsearch_old::package':
+    require => Anchor['elasticsearch_old::begin'],
+    notify  => Class['elasticsearch_old::service'],
     version => $version;
   }
 
-  class { 'elasticsearch::config':
+  class { 'elasticsearch_old::config':
     cluster_hosts        => $cluster_hosts,
     cluster_name         => $cluster_name,
     heap_size            => $heap_size,
@@ -37,18 +37,18 @@ class elasticsearch (
     transport_port       => $transport_port,
     minimum_master_nodes => $minimum_master_nodes,
     host                 => $host,
-    require              => Class['elasticsearch::package'],
-    notify               => Class['elasticsearch::service'];
+    require              => Class['elasticsearch_old::package'],
+    notify               => Class['elasticsearch_old::service'];
   }
 
-  class { 'elasticsearch::service':
+  class { 'elasticsearch_old::service':
     cluster_name => $cluster_name,
-    notify       => Anchor['elasticsearch::end'],
+    notify       => Anchor['elasticsearch_old::end'],
   }
 
-  anchor { 'elasticsearch::end': }
+  anchor { 'elasticsearch_old::end': }
 
-  class { 'elasticsearch::monitoring':
+  class { 'govuk_elasticsearch::monitoring':
     host_count           => size($cluster_hosts),
     cluster_name         => $cluster_name,
     http_port            => $http_port,

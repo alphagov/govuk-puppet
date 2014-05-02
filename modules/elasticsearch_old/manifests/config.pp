@@ -1,5 +1,5 @@
 # FIXME: make the file paths not depend on $cluster_name
-class elasticsearch::config (
+class elasticsearch_old::config (
   $cluster_hosts,
   $cluster_name,
   $heap_size,
@@ -27,12 +27,12 @@ class elasticsearch::config (
 
   file { "${es_home}/config/elasticsearch.yml":
     ensure  => present,
-    content => template('elasticsearch/elasticsearch.yml.erb'),
+    content => template('elasticsearch_old/elasticsearch.yml.erb'),
   }
 
   file { "${es_home}/config/logging.yml":
     ensure  => present,
-    content => template('elasticsearch/logging.yml.erb'),
+    content => template('elasticsearch_old/logging.yml.erb'),
   }
 
   file { "${es_home}/bin":
@@ -66,6 +66,6 @@ class elasticsearch::config (
   }
 
   file { "/etc/init/elasticsearch-${cluster_name}.conf":
-    content => template('elasticsearch/upstart.conf.erb'),
+    content => template('elasticsearch_old/upstart.conf.erb'),
   }
 }

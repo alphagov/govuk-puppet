@@ -1,4 +1,4 @@
-# == Type: elasticsearch::plugin
+# == Type: elasticsearch_old::plugin
 #
 # Install an elasticsearch plugin on the current host.
 #
@@ -18,7 +18,7 @@
 #   necessary for plugins that aren't published on Maven (Central/Sonatype)
 #   or as GitHub tags.
 #
-define elasticsearch::plugin (
+define elasticsearch_old::plugin (
   $install_from,
   $plugin_name = $title
 ) {
@@ -39,7 +39,7 @@ define elasticsearch::plugin (
   exec { "elasticsearch install plugin ${plugin_name}":
     command => "/usr/share/elasticsearch/bin/plugin -install ${install_args}",
     unless  => "test -n \"$(ls '${plugin_dir}')\"",
-    notify  => Class['elasticsearch::service'],
+    notify  => Class['elasticsearch_old::service'],
     require => Package['elasticsearch'],
   }
 

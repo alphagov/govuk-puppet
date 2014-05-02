@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'elasticsearch', :type => :class do
+describe 'elasticsearch_old', :type => :class do
   let(:params) do
     { :cluster_name => 'foocluster' }
   end

@@ -1,4 +1,4 @@
-class elasticsearch::monitoring (
+class govuk_elasticsearch::monitoring (
   $host_count,
   $cluster_name,
   $http_port,
@@ -25,7 +25,7 @@ class elasticsearch::monitoring (
   }
 
   @icinga::nrpe_config { 'check_elasticsearch_cluster_health':
-    source => 'puppet:///modules/elasticsearch/check_elasticsearch_cluster_health.cfg',
+    source => 'puppet:///modules/govuk_elasticsearch/check_elasticsearch_cluster_health.cfg',
   }
 
   # Check against the total number of hosts, not the minimum, else the alert

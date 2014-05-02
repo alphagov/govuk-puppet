@@ -153,7 +153,7 @@ class govuk::node::s_development {
     }
   }
 
-  class { 'elasticsearch':
+  class { 'elasticsearch_old':
     version            => "0.20.6-ppa1~${::lsbdistcodename}1",
     cluster_name       => 'govuk-development',
     heap_size          => '64m',
@@ -162,7 +162,7 @@ class govuk::node::s_development {
     require            => Class['govuk_java::set_defaults'],
   }
 
-  elasticsearch::plugin { 'head':
+  elasticsearch_old::plugin { 'head':
     install_from => 'mobz/elasticsearch-head',
   }
 

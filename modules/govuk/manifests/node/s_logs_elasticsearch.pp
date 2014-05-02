@@ -10,7 +10,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
   }
 
   include govuk::repository # Old version of ES.
-  class { 'elasticsearch':
+  class { 'elasticsearch_old':
     version              => "0.20.6-ppa1~${::lsbdistcodename}1",
     cluster_hosts        => ['logs-elasticsearch-1.management:9300', 'logs-elasticsearch-2.management:9300', 'logs-elasticsearch-3.management:9300'],
     cluster_name         => 'logging',
@@ -38,11 +38,11 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     }
   }
 
-  elasticsearch::plugin { 'redis-river':
+  elasticsearch_old::plugin { 'redis-river':
     install_from => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',
   }
 
-  elasticsearch::plugin { 'head':
+  elasticsearch_old::plugin { 'head':
     install_from => 'mobz/elasticsearch-head',
   }
 
@@ -56,7 +56,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
   # mappings._default_.properties.@fields.properties.clientip:
   #   an example of how to configure analyzers for a specific field
   #
-  elasticsearch::template { 'wildcard':
+  elasticsearch_old::template { 'wildcard':
     content => '
     {
       "template": "*",
@@ -96,9 +96,9 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     }'
   }
 
-  # Collect all elasticsearch::river resources exported by the environment's
+  # Collect all elasticsearch_old::river resources exported by the environment's
   # redis machines.
-  Elasticsearch::River <<| tag == 'logging' |>>
+  Elasticsearch_old::River <<| tag == 'logging' |>>
 
   cron { 'elasticsearch-rotate-indices':
     ensure  => present,
@@ -107,7 +107,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     minute  => '1',
     #FIXME: 2014-01-12 - This should be 21 rather than 8 days - need to fix logstasher gem first
     command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 8 --optimize-old --optimize-maxage 1 logs',
-    require => Class['elasticsearch'],
+    require => Class['elasticsearch_old'],
   }
 
   @@icinga::check::graphite { "check_elasticsearch_syslog_input_${::hostname}":
@@ -120,6 +120,6 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
 
   #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch']
+    Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch_old']
   }
 }

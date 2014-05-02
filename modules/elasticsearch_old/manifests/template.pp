@@ -1,4 +1,4 @@
-# == Type: elasticsearch::template
+# == Type: elasticsearch_old::template
 #
 # Create an elasticsearch index template
 #
@@ -11,14 +11,14 @@
 #   The content to use to create the template. This should be a valid JSON
 #   document.
 #
-define elasticsearch::template (
+define elasticsearch_old::template (
   $content,
   $ensure = 'present',
   $template_name = $title
 ) {
 
   # Install a template using the es-template tool installed as part of
-  # `estools` by the elasticsearch::package class.
+  # `estools` by the elasticsearch_old::package class.
   case $ensure {
 
     'present': {
@@ -34,7 +34,7 @@ EOS",
         # This is required to ensure the correct interpolation of variables in
         # the above commands.
         provider  => 'shell',
-        require   => Class['elasticsearch::service'],
+        require   => Class['elasticsearch_old::service'],
       }
     }
 
@@ -42,12 +42,12 @@ EOS",
       exec { "delete-elasticsearch-template-${template_name}":
         command => "es-template delete '${template_name}'",
         onlyif  => "es-template get '${template_name}'",
-        require => Class['elasticsearch::service'],
+        require => Class['elasticsearch_old::service'],
       }
     }
 
     default: {
-      fail("Invalid 'ensure' value '${ensure}' for elasticsearch::template")
+      fail("Invalid 'ensure' value '${ensure}' for elasticsearch_old::template")
     }
 
   }

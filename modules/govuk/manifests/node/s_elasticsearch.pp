@@ -8,9 +8,11 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
 
   $es_heap_size = $::memtotalmb / 4 * 3
 
-  include elasticsearch::dump
+  class { 'govuk_elasticsearch::dump':
+    require => Class['elasticsearch_old'], # required for elasticsearch user to exist
+  }
 
-  class { 'elasticsearch':
+  class { 'elasticsearch_old':
     version              => "0.20.6-ppa1~${::lsbdistcodename}1",
     cluster_hosts        => ['elasticsearch-1.backend:9300', 'elasticsearch-2.backend:9300', 'elasticsearch-3.backend:9300'],
     cluster_name         => "govuk-${::govuk_platform}",
@@ -21,7 +23,7 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     require              => [Class['govuk_java::oracle7::jre'],Class['govuk_java::set_defaults']],
   }
 
-  elasticsearch::plugin { 'head':
+  elasticsearch_old::plugin { 'head':
     install_from => 'mobz/elasticsearch-head',
   }
 
@@ -36,6 +38,6 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
 
   #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch']
+    Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch_old']
   }
 }
