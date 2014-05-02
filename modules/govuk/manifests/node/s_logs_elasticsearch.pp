@@ -10,7 +10,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
   }
 
   include govuk::repository # Old version of ES.
-  class { 'elasticsearch_old':
+  class { 'govuk_elasticsearch':
     version              => "0.20.6-ppa1~${::lsbdistcodename}1",
     cluster_hosts        => ['logs-elasticsearch-1.management:9300', 'logs-elasticsearch-2.management:9300', 'logs-elasticsearch-3.management:9300'],
     cluster_name         => 'logging',
@@ -107,7 +107,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     minute  => '1',
     #FIXME: 2014-01-12 - This should be 21 rather than 8 days - need to fix logstasher gem first
     command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 8 --optimize-old --optimize-maxage 1 logs',
-    require => Class['elasticsearch_old'],
+    require => Class['govuk_elasticsearch'],
   }
 
   @@icinga::check::graphite { "check_elasticsearch_syslog_input_${::hostname}":
@@ -120,6 +120,6 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
 
   #FIXME: remove if when we have moved to platform one
   if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/mnt/elasticsearch'] -> Class['elasticsearch_old']
+    Govuk::Mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
   }
 }

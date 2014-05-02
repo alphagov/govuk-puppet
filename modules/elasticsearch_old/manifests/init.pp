@@ -48,20 +48,4 @@ class elasticsearch_old (
 
   anchor { 'elasticsearch_old::end': }
 
-  class { 'govuk_elasticsearch::monitoring':
-    host_count           => size($cluster_hosts),
-    cluster_name         => $cluster_name,
-    http_port            => $http_port,
-    log_index_type_count => $log_index_type_count,
-    disable_gc_alerts    => $disable_gc_alerts,
-  }
-
-  @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
-    port => $http_port,
-  }
-
-  @ufw::allow { "allow-elasticsearch-transport-${transport_port}-from-all":
-    port => $transport_port;
-  }
-
 }
