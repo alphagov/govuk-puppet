@@ -481,6 +481,7 @@ class hosts::production (
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
       "search.${app_domain}",
+      "search-admin.${app_domain}",
       "signon.${app_domain}",
       "specialist-publisher.${app_domain}",
       "support.${app_domain}",

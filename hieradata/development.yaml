@@ -7,6 +7,7 @@ govuk::deploy::config::govuk_env: development
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_api::enabled: true
 govuk::apps::hmrc_manuals_frontend::enabled: true
+govuk::apps::search_admin::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 
