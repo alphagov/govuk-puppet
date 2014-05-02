@@ -16,6 +16,7 @@ class govuk::node::s_mysql_master (
     'govuk::apps::content_planner::db',
     'govuk::apps::need_o_tron::db',
     'govuk::apps::release::db',
+    'govuk::apps::search_admin::db',
     'govuk::apps::signon::db',
     'govuk::apps::tariff_admin::db',
     # FIXME: tariff_api::db is ensured absent. It can be removed once the DB has gone everywhere

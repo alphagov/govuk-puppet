@@ -3,6 +3,7 @@ asset_root: 'http://static.dev.gov.uk'
 website_host: 'www.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
 
+govuk::apps::search_admin::enabled: true
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 

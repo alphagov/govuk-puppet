@@ -113,6 +113,7 @@ class govuk::node::s_development {
   }
   include govuk::apps::router_api
   include govuk::apps::search
+  include govuk::apps::search_admin
   include govuk::apps::signon
   include govuk::apps::specialist_publisher
   include govuk::apps::static
@@ -212,6 +213,10 @@ class govuk::node::s_development {
     ['release_development', 'release_test']:
       user     => 'release',
       password => 'release';
+
+    ['search_admin_development', 'search_admin_test']:
+      user     => 'search_admin',
+      password => 'search_admin';
 
     [
       'signonotron2_development',

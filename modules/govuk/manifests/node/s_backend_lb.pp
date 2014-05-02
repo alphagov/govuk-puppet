@@ -27,6 +27,7 @@ class govuk::node::s_backend_lb (
       'private-frontend',
       'publisher',
       'release',
+      'search-admin',
       'signon',
       'specialist-publisher',
       'support',
