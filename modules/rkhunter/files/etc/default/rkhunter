@@ -8,7 +8,7 @@ CRON_DB_UPDATE="yes"
 DB_UPDATE_EMAIL="no"
 
 # Set this to yes to enable rkhunter daily runs
-CRON_DAILY_RUN="yes"
+CRON_DAILY_RUN="no"
 
 # Nicenesses range from -20 (most favorable scheduling) to 19 (least favorable).
 NICE="10"
