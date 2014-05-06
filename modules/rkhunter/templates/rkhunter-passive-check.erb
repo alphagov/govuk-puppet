@@ -1,0 +1,10 @@
+#!/bin/bash
+. /etc/default/rkhunter
+OUTPUT=`/usr/bin/nice -n 19 /usr/bin/rkhunter --cronjob --report-warnings-only`
+CODE=$?
+# Force everything that isn't OK to be a WARNING
+if [ $CODE -gt 0 ]; then
+  CODE=1
+fi
+printf "<%= @fqdn %>\trkhunter warnings\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster
+exit $?
