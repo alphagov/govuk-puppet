@@ -23,19 +23,4 @@ class govuk::apps::bouncer(
     ssl_only               => false,
     is_default_vhost       => true
   }
-
-  nginx::config::site {'ukba.homeoffice.gov.uk':
-    content => template('bouncer/www.ukba.homeoffice.gov.uk_nginx.conf.erb'),
-  }
-
-  nginx::log {
-    'www.ukba.homeoffice.gov.uk-json.event.access.log':
-      json          => true,
-      logstream     => present,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.ukba_proxy.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.ukba_proxy.time_request",
-                          value => '@fields.request_time'}];
-    'www.ukba.homeoffice.gov.uk-error.log':
-      logstream     => present;
-  }
 }
