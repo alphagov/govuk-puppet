@@ -9,5 +9,5 @@ CODE=$?
 if [ $CODE -gt 0 ]; then
   CODE=1
 fi
-printf "<%= @fqdn %>\trkhunter warnings\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster
+printf "<%= @fqdn %>\trkhunter warnings\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 exit $?
