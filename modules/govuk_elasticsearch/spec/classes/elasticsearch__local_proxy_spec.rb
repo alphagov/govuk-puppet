@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'elasticsearch::local_proxy', :type => :class do
+describe 'govuk_elasticsearch::local_proxy', :type => :class do
   let(:vhost_name) { 'elasticsearch-local-proxy' }
   let(:default_port) { '9200' }
   let(:default_timeout) { '5' }

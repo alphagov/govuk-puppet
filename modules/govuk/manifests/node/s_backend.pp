@@ -77,7 +77,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   nginx::config::vhost::default { 'default': }
 
   # Local proxy for Rummager to access ES cluster.
-  class { 'elasticsearch::local_proxy':
+  class { 'govuk_elasticsearch::local_proxy':
     servers => [
       'elasticsearch-1.backend',
       'elasticsearch-2.backend',

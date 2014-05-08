@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'elasticsearch::plugin', :type => :define do
+describe 'elasticsearch_old::plugin', :type => :define do
   let(:title) { 'giraffe' }
   let(:exec_title) { 'elasticsearch install plugin giraffe' }
 

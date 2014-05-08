@@ -1,4 +1,4 @@
-# == Class: elasticsearch::local_proxy
+# == Class: govuk_elasticsearch::local_proxy
 #
 # Load balance connections to Elasticsearch by creating a loopback-only
 # vhost in Nginx which will forward to a set of Elasticsearch servers.
@@ -24,7 +24,7 @@
 # [*servers*]
 #   Array of servers to load balance requests to.
 #
-class elasticsearch::local_proxy(
+class govuk_elasticsearch::local_proxy(
   $read_timeout = 5,
   $port = 9200,
   $servers
@@ -36,7 +36,7 @@ class elasticsearch::local_proxy(
   $log_error  = "${vhost}-error.log"
 
   nginx::config::site { $vhost:
-    content => template('elasticsearch/nginx_local_proxy.conf.erb'),
+    content => template('govuk_elasticsearch/nginx_local_proxy.conf.erb'),
   }
 
   nginx::log {

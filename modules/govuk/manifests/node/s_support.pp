@@ -27,11 +27,12 @@ password=${mysql_password}
     jre => 'openjdk6',
   }
 
-  class { 'elasticsearch':
+  class { 'govuk_elasticsearch':
     version            => '0.19.8',
     cluster_name       => "govuk-${::govuk_platform}",
     heap_size          => '2g',
     number_of_replicas => '0',
+    require            => Class['govuk_java::set_defaults'],
   }
 
 }

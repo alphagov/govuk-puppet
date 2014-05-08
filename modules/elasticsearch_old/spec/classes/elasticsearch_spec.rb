@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'elasticsearch', :type => :class do
+describe 'elasticsearch_old', :type => :class do
   let(:params) do
     { :cluster_name => 'foocluster' }
   end
@@ -64,19 +64,6 @@ describe 'elasticsearch', :type => :class do
       should contain_file("/etc/init/elasticsearch-foocluster.conf")
         .with_content(/ES_HEAP_SIZE="4g"/)
     end
-  end
-
-  context "with http_port set to 9999" do
-    let(:params) do
-      {
-        :cluster_name => 'foocluster',
-        :http_port => 9999,
-      }
-    end
-
-    it { should contain_class('collectd::plugin::elasticsearch').with(
-      :es_port => 9999
-    )}
   end
 
 end

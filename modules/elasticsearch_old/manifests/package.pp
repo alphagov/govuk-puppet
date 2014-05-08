@@ -1,4 +1,4 @@
-class elasticsearch::package (
+class elasticsearch_old::package (
   $version = undef,
 ) {
 
@@ -9,18 +9,17 @@ class elasticsearch::package (
   package { 'elasticsearch':
     ensure  => $version,
     notify  => Exec['disable-default-elasticsearch'],
-    require => Class['govuk_java::set_defaults'],
   }
 
   # Disable the default elasticsearch setup, as we'll be installing an upstart
-  # job to manage elasticsearch in elasticsearch::{config,service}
+  # job to manage elasticsearch in elasticsearch_old::{config,service}
   exec { 'disable-default-elasticsearch':
     onlyif      => '/usr/bin/test -f /etc/init.d/elasticsearch',
     command     => '/etc/init.d/elasticsearch stop && /bin/rm -f /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
     refreshonly => true,
   }
 
-  # Manage elasticsearch plugins, which are installed by elasticsearch::plugin
+  # Manage elasticsearch plugins, which are installed by elasticsearch_old::plugin
   file { '/usr/share/elasticsearch/plugins':
     ensure  => directory,
     purge   => true,
@@ -49,7 +48,7 @@ class elasticsearch::package (
   }
   if $::lsbdistcodename == 'lucid' {
     # lucid uses Python 2.6 which doesn't have an implementation of ordereddict
-    # Production is the only ES cluster that is lucid rather than precise!
+    # support-1.backend.preview is the only ES cluster that is lucid rather than precise!
     package { 'ordereddict':
       ensure   => '1.1',
       provider => 'pip',
