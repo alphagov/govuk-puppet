@@ -1,5 +1,7 @@
 ---
 
+govuk_elasticsearch::version: '0.19.8'
+
 lv:
   data:
     pv: '/dev/sdb1'
