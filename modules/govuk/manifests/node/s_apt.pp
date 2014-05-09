@@ -41,6 +41,10 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'lucid',
       key      => '914D5813';
+    'elasticsearch-0.90':
+      location => 'http://packages.elasticsearch.org/elasticsearch/0.90/debian',
+      release  => 'stable',
+      key      => 'D88E42B4';
   }
 
   include nginx
