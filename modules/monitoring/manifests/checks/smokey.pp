@@ -33,6 +33,7 @@ class monitoring::checks::smokey {
     'check_signon':                 feature => 'signon';
     'check_smartanswers':           feature => 'smartanswers';
     'check_spotlight':              feature => 'spotlight';
+    'check_static_mirrors':         feature => 'mirror';
     'check_tariff':                 feature => 'tariff';
     'check_whitehall':              feature => 'whitehall';
   }
