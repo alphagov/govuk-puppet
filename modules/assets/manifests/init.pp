@@ -1,4 +1,6 @@
-class assets {
+class assets (
+  $mount_asset_master = true,
+  ) {
   include assets::user
 
   package { 'nfs-common':
@@ -18,7 +20,8 @@ class assets {
     require => Class['assets::user'],
   }
 
-  if $::govuk_platform != 'development' {
+  validate_bool($mount_asset_master)
+  if $mount_asset_master {
     $app_domain = hiera('app_domain')
 
     mount { '/data/uploads':
