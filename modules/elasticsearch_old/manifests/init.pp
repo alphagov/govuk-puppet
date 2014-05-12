@@ -12,10 +12,15 @@ class elasticsearch_old (
   $transport_port = '9300',
   $version = 'present',
   $log_index_type_count = {},
+  $manage_repo = false,
 ) {
 
   anchor { 'elasticsearch_old::begin':
     notify => Class['elasticsearch_old::service'];
+  }
+
+  if $manage_repo {
+    class { 'elasticsearch_old::repo': }
   }
 
   class { 'elasticsearch_old::package':

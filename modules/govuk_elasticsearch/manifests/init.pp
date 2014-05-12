@@ -1,3 +1,16 @@
+# == Class: govuk_elasticsearch
+#
+# GOV.UK specific class to configure what is currently an in-house ES
+# module, but will in future be elasticsearch/puppet-elasticsearch.
+#
+# === Parameters
+#
+# Lots missing!
+#
+# [*use_mirror*]
+#   Whether to use our own mirror of the Elasticsearch repo.
+#   Default: true
+#
 class govuk_elasticsearch (
   $version = 'present',
   $cluster_hosts = ['localhost'],
@@ -8,12 +21,22 @@ class govuk_elasticsearch (
   $minimum_master_nodes = '1',
   $host = 'localhost',
   $log_index_type_count = {},
-  $disable_gc_alerts = false
+  $disable_gc_alerts = false,
+  $use_mirror = true,
 ) {
+  validate_bool($use_mirror)
+
   anchor { 'govuk_elasticsearch::begin': }
 
   $http_port = '9200'
   $transport_port = '9300'
+
+  if $use_mirror {
+    class { 'govuk_elasticsearch::repo': }
+    $manage_repo = false
+  } else {
+    $manage_repo = true
+  }
 
   class { 'elasticsearch_old':
     version              => $version,
@@ -27,6 +50,7 @@ class govuk_elasticsearch (
     host                 => $host,
     transport_port       => $transport_port,
     log_index_type_count => $log_index_type_count,
+    manage_repo          => $manage_repo,
     require              => Anchor['govuk_elasticsearch::begin'],
     before               => Anchor['govuk_elasticsearch::end'],
   }

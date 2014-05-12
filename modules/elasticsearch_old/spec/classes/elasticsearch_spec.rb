@@ -66,4 +66,23 @@ describe 'elasticsearch_old', :type => :class do
     end
   end
 
+  describe '#manage_repo' do
+    context 'false (default)' do
+      let(:params) {{
+        :cluster_name => 'foocluster',
+      }}
+
+      it { should_not contain_apt__source('elasticsearch-0.90') }
+    end
+
+    context 'true' do
+      let(:params) {{
+        :cluster_name => 'foocluster',
+        :manage_repo  => true,
+      }}
+
+      it { should contain_apt__source('elasticsearch-0.90') }
+    end
+  end
+
 end
