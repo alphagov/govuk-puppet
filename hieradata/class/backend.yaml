@@ -1,5 +1,10 @@
 ---
 
+govuk_elasticsearch::local_proxy::servers:
+  - 'elasticsearch-1.backend'
+  - 'elasticsearch-2.backend'
+  - 'elasticsearch-3.backend'
+
 lv:
   data:
     pv: '/dev/sdb1'
