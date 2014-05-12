@@ -4,7 +4,7 @@ lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
 usecacheonfailure = false
 trusted_node_data = true
 environment = <%= scope.lookupvar("::environment") %>
-<%- if @govuk_platform == 'development' -%>
+<%- if @use_puppetmaster == false -%>
 modulepath = /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
 manifestdir = /var/govuk/puppet/manifests
 <%- end -%>
@@ -15,7 +15,7 @@ storeconfigs = true
 storeconfigs_backend = puppetdb
 config_version = /usr/local/bin/puppet_config_version /usr/share/puppet/production/current
 hiera_config = /usr/share/puppet/production/current/hiera.yml
-<%- if @govuk_platform != 'development' -%>
+<%- if @use_puppetmaster == true -%>
 modulepath = /usr/share/puppet/production/current/modules:/usr/share/puppet/production/current/vendor/modules
 manifestdir = /usr/share/puppet/production/current/manifests
 <%- end -%>

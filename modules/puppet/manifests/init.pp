@@ -1,4 +1,10 @@
-class puppet {
+class puppet (
+    $use_puppetmaster = true
+  ) {
+
+  # Be absolutely certain we have a bool as strings are weird
+  validate_bool($use_puppetmaster)
+
   include puppet::repository
   include puppet::package
   include puppet::monitoring
@@ -26,13 +32,16 @@ class puppet {
     require => Class['puppet::package'],
   }
 
+  if $use_puppetmaster {
+    $govuk_puppet_source = 'puppet:///modules/puppet/govuk_puppet'
+  } else {
+    $govuk_puppet_source = 'puppet:///modules/puppet/govuk_puppet_development'
+  }
+
   file { '/usr/local/bin/govuk_puppet':
     ensure => present,
     mode   => '0755',
-    source => [
-      "puppet:///modules/puppet/govuk_puppet_${::govuk_platform}",
-      'puppet:///modules/puppet/govuk_puppet'
-    ],
+    source => $govuk_puppet_source,
   }
 
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent

@@ -4,9 +4,6 @@ describe 'puppet::master', :type => :class do
   let (:hiera_data) {{
     :app_domain => 'giraffe.example.com',
   }}
-  let(:facts) {{
-    :govuk_platform => 'production',
-  }}
 
   it do
     should contain_file('/etc/init/puppetmaster.conf').

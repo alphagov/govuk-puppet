@@ -21,6 +21,8 @@ govuk::mount::no_op: true
 
 mongodb::server::development: true
 
+puppet::use_puppetmaster: false
+
 ssh::config::allow_x11_forwarding: true
 
 deploy_ssh_keys:
