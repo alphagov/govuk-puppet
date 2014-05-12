@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'mirror'
+
+mount:
+  /var/lib/govuk_mirror:
+    disk: '/dev/mapper/mirror-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
