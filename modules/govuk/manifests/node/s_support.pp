@@ -28,7 +28,6 @@ password=${mysql_password}
   }
 
   class { 'govuk_elasticsearch':
-    version            => '0.19.8',
     cluster_name       => "govuk-${::govuk_platform}",
     heap_size          => '2g',
     number_of_replicas => '0',

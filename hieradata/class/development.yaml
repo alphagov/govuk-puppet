@@ -1,0 +1,3 @@
+---
+
+govuk_elasticsearch::version: "0.20.6-ppa1~%{::lsbdistcodename}1"
