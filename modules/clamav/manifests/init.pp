@@ -1,14 +1,20 @@
-class clamav {
+class clamav (
+    $use_service = true
+  ) {
+
+  validate_bool($use_service)
+
   anchor { 'clamav::begin':
     notify  => Class['clamav::service'],
   }
 
   class { 'clamav::package':
-    notify  => Class[
+    notify      => Class[
       'clamav::config',
       'clamav::run_freshclam'
     ],
-    require => Anchor['clamav::begin'],
+    use_service => $use_service,
+    require     => Anchor['clamav::begin'],
   }
 
   class { 'clamav::config':
@@ -21,7 +27,8 @@ class clamav {
   }
 
   class { 'clamav::service':
-    require => Class['clamav::run_freshclam'],
+    use_service => $use_service,
+    require     => Class['clamav::run_freshclam'],
   }
 
   class { 'clamav::monitoring':
