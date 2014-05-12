@@ -2,6 +2,8 @@
 asset_root: 'http://static.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
 
+assets::mount_asset_master: false
+
 clamav::use_service: false
 
 govuk::deploy::config::govuk_env: development
