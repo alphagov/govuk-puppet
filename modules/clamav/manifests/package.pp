@@ -6,9 +6,9 @@ class clamav::package (
   }
 
   if $use_service {
-    $symlink_target = '/usr/bin/clamscan'
-  } else {
     $symlink_target = '/usr/bin/clamdscan'
+  } else {
+    $symlink_target = '/usr/bin/clamscan'
   }
 
   file { '/usr/local/bin/govuk_clamscan':
