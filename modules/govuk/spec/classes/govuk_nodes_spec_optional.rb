@@ -26,7 +26,6 @@ describe "govuk::node classes" do
       let(:node) { fqdn }
       let(:facts) {{
         :clientcert     => fqdn,
-        :govuk_platform => "test",
         :memtotalmb     => "1024",
       }}
 

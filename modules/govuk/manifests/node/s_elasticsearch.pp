@@ -14,7 +14,7 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
 
   class { 'govuk_elasticsearch':
     cluster_hosts        => ['elasticsearch-1.backend:9300', 'elasticsearch-2.backend:9300', 'elasticsearch-3.backend:9300'],
-    cluster_name         => "govuk-${::govuk_platform}",
+    cluster_name         => 'govuk-production',
     heap_size            => "${es_heap_size}m",
     number_of_replicas   => '1',
     minimum_master_nodes => '2',
