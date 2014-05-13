@@ -13,7 +13,7 @@ function replicaSetMembers() {
 
 function replicaSetConfig() {
   return {
-    _id: "<%= @govuk_platform %>",
+    _id: "production",
     members: replicaSetMembers()
   };
 }
