@@ -1,3 +1,6 @@
+#
+# [$prevent_single_host] - This manifest will deliberately fail if the frontend and admin are on the same machine
+#                          and this flag is not set in hiera
 class govuk::apps::whitehall(
   $vhost = 'whitehall',
   $port = 3020,
@@ -5,12 +8,15 @@ class govuk::apps::whitehall(
   $configure_admin = false,
   $vhost_protected,
   $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef
+  $nagios_memory_critical = undef,
+  $prevent_single_host = true,
 ) {
 
   $app_domain = hiera('app_domain')
 
-  if $::govuk_platform != 'development' {
+  validate_bool($prevent_single_host)
+
+  if $prevent_single_host {
     if $configure_frontend == true and $configure_admin == true {
       fail('You should not be configuring whitehall-frontend and whitehall-admin on the same node')
     }
