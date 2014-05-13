@@ -1,10 +1,15 @@
 class mongodb::config (
-  $replicaset = $govuk_platform,
   $dbpath = '/var/lib/mongodb',
   $logpath,
   $development
 ) {
+  validate_bool($development)
 
+  if $development {
+    $replicaset = 'development'
+  } else {
+    $replicaset = 'production'
+  }
   # Class params are used in the templates below.
 
   file { '/etc/mongodb.conf':

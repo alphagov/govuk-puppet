@@ -6,7 +6,6 @@
 #
 # [*version*]
 # [*package_name*]
-# [*replicaset*]
 # [*dbpath*]
 #
 # [*development*]
@@ -17,7 +16,6 @@
 class mongodb::server (
   $version,
   $package_name = 'mongodb-10gen',
-  $replicaset = $govuk_platform,
   $dbpath = '/var/lib/mongodb',
   $development = false
 ) {
@@ -40,7 +38,6 @@ class mongodb::server (
   }
 
   class { 'mongodb::config':
-    replicaset  => $replicaset,
     dbpath      => $dbpath,
     logpath     => $logpath,
     development => $development,
