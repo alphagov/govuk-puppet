@@ -1,4 +1,4 @@
-class govuk::apps::govuk_delivery( $port = 3042 ) {
+class govuk::apps::govuk_delivery( $port = 3042, $enable_procfile_worker = true) {
   include govuk::python
 
   govuk::app { 'govuk-delivery':
@@ -9,5 +9,7 @@ class govuk::apps::govuk_delivery( $port = 3042 ) {
     log_format_is_json => true;
   }
 
-  govuk::procfile::worker { 'govuk-delivery': }
+  govuk::procfile::worker { 'govuk-delivery':
+    enable_service => $enable_procfile_worker,
+  }
 }

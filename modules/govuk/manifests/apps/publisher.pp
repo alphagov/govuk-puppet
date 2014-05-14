@@ -1,6 +1,7 @@
 class govuk::apps::publisher(
     $port = 3000,
-    $nagios_data_importer_check = true
+    $nagios_data_importer_check = true,
+    $enable_procfile_worker = true
   ) {
 
   govuk::app { 'publisher':
@@ -29,5 +30,7 @@ class govuk::apps::publisher(
     }
   }
 
-  govuk::procfile::worker {'publisher': }
+  govuk::procfile::worker {'publisher':
+    enable_service => $enable_procfile_worker,
+  }
 }

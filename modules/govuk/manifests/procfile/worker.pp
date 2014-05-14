@@ -1,13 +1,10 @@
 define govuk::procfile::worker (
-  $setenv_as = $title
+  $setenv_as = $title,
+  $enable_service = true
 ) {
   include govuk::procfile
 
   $service_name = "${title}-procfile-worker"
-  $enable_service = $::govuk_platform ? {
-    'development' => false,
-    default       => true,
-  }
 
   file { "/etc/init/${service_name}.conf":
     ensure    => present,

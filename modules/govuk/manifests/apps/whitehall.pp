@@ -10,6 +10,7 @@ class govuk::apps::whitehall(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $prevent_single_host = true,
+  $enable_procfile_worker = true,
 ) {
 
   $app_domain = hiera('app_domain')
@@ -136,7 +137,8 @@ class govuk::apps::whitehall(
     }
 
     govuk::procfile::worker { 'whitehall-admin':
-      setenv_as => 'whitehall'
+      setenv_as      => 'whitehall',
+      enable_service => $enable_procfile_worker,
     }
   }
 }

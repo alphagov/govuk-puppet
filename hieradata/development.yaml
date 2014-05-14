@@ -9,17 +9,26 @@ clamav::use_service: false
 govuk::deploy::config::govuk_env: development
 
 govuk::apps::content_store::enabled: true
+govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_api::enabled: true
 govuk::apps::hmrc_manuals_frontend::enabled: true
 govuk::apps::search_admin::enabled: true
+govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 
+govuk::apps::publisher::enable_procfile_worker: false
+
+govuk::apps::tariff_api::enable_procfile_worker: false
+
+govuk::apps::transition::enable_procfile_worker: false
+
 govuk::apps::whitehall::prevent_single_host: false
+govuk::apps::whitehall::enable_procfile_worker: false
 
 govuk::lvm::no_op: true
 govuk::mount::no_op: true

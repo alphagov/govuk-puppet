@@ -1,4 +1,4 @@
-class govuk::apps::transition( $port = 3044 ) {
+class govuk::apps::transition( $port = 3044, $enable_procfile_worker = true ) {
   govuk::app { 'transition':
     app_type           => 'rack',
     port               => $port,
@@ -9,5 +9,7 @@ class govuk::apps::transition( $port = 3044 ) {
     deny_framing       => true,
   }
 
-  govuk::procfile::worker {'transition': }
+  govuk::procfile::worker {'transition':
+    enable_service => $enable_procfile_worker,
+  }
 }

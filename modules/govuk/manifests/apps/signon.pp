@@ -1,4 +1,4 @@
-class govuk::apps::signon( $port = 3016 ) {
+class govuk::apps::signon( $port = 3016, $enable_procfile_worker = true) {
   govuk::app { 'signon':
     app_type           => 'rack',
     port               => $port,
@@ -12,5 +12,7 @@ class govuk::apps::signon( $port = 3016 ) {
     deny_framing       => true,
   }
 
-  govuk::procfile::worker {'signon': }
+  govuk::procfile::worker {'signon':
+    enable_service => $enable_procfile_worker,
+  }
 }
