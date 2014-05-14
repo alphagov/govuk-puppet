@@ -8,6 +8,7 @@ clamav::use_service: false
 
 govuk::deploy::config::govuk_env: development
 
+govuk::apps::content_store::enabled: true
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_api::enabled: true
 govuk::apps::hmrc_manuals_frontend::enabled: true
