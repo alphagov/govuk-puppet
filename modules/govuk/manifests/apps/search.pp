@@ -9,7 +9,7 @@ class govuk::apps::search( $port = 3009 ) {
   govuk::app { 'search':
     app_type           => 'rack',
     port               => $port,
-    health_check_path  => '/mainstream/search?q=search_healthcheck',
+    health_check_path  => '/unified_search?q=search_healthcheck',
     log_format_is_json => true,
     nginx_extra_config => '
     client_max_body_size 500m;
