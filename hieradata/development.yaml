@@ -7,6 +7,7 @@ assets::mount_asset_master: false
 clamav::use_service: false
 
 govuk::deploy::config::govuk_env: development
+govuk::deploy::setup_actionmailer_ses_config: false
 
 govuk::apps::content_store::enabled: true
 govuk::apps::finder_frontend::enabled: true

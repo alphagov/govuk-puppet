@@ -3,7 +3,12 @@
 # Setup resources required by apps. The variation of these resources should
 # not require an app to be restarted. Compared to `govuk::deploy::config`.
 #
-class govuk::deploy::setup {
+class govuk::deploy::setup (
+    $setup_actionmailer_ses_config,
+    $aws_ses_smtp_host,
+    $aws_ses_smtp_username,
+    $aws_ses_smtp_password,
+){
   include assets::user
 
   group { 'deploy':
@@ -63,11 +68,7 @@ class govuk::deploy::setup {
     content => template('govuk/home/deploy/.ssh/authorized_keys.erb'),
   }
 
-  unless $::govuk_platform == 'development' {
-
-    $aws_ses_smtp_host = hiera('aws_ses_smtp_host')
-    $aws_ses_smtp_username = hiera('aws_ses_smtp_username')
-    $aws_ses_smtp_password = hiera('aws_ses_smtp_password')
+  if ($setup_actionmailer_ses_config) {
     file { '/etc/govuk/actionmailer_ses_smtp_config.rb':
       ensure  => present,
       content => template('govuk/etc/govuk/actionmailer_ses_smtp_config.erb'),

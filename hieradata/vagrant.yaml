@@ -7,4 +7,4 @@ govuk::apps::search_admin::enabled: true
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
-aws_ses_smtp_host: 'email-smtp.aws.example.com'
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
