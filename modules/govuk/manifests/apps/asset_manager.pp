@@ -1,4 +1,4 @@
-class govuk::apps::asset_manager( $port = 3037 ) {
+class govuk::apps::asset_manager( $port = 3037, $enable_delayed_job_worker = true ) {
   include assets
   include clamav
 
@@ -35,6 +35,8 @@ class govuk::apps::asset_manager( $port = 3037 ) {
     }'
   }
 
-  govuk::delayed_job::worker { 'asset-manager': }
+  govuk::delayed_job::worker { 'asset-manager':
+    enable_service => $enable_delayed_job_worker,
+  }
 
 }

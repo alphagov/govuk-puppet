@@ -1,13 +1,10 @@
 define govuk::delayed_job::worker (
-  $setenv_as = $title
+  $setenv_as = $title,
+  $enable_service = true,
 ) {
   include govuk::delayed_job
 
   $service_name = "${title}-delayed-job-worker"
-  $enable_service = $::govuk_platform ? {
-    'development' => false,
-    default       => true,
-  }
 
   file { "/etc/init/${service_name}.conf":
     ensure    => present,
