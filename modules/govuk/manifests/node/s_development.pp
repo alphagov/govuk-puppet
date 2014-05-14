@@ -85,6 +85,7 @@ class govuk::node::s_development {
   include govuk::apps::canary_frontend
   include govuk::apps::contacts
   include govuk::apps::content_planner
+  include govuk::apps::content_store
   include govuk::apps::efg
   include govuk::apps::errbit
   class { 'govuk::apps::external_link_tracker':
