@@ -34,6 +34,9 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'govuk::mount::no_op',
     'govuk::lvm::no_op',
 
+    # logstream defined type needs a global disable flag for dev vm
+    'govuk::logstream::disabled',
+
     # FIXME: Existing violations. These should be refactored.
     'aws_ses_smtp_host',
     'aws_ses_smtp_username',

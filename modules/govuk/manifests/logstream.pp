@@ -34,7 +34,12 @@ define govuk::logstream (
 
   validate_re($ensure, ['^present$','^absent$'])
 
-  if ($::govuk_platform == 'development') {
+  # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
+  # this is necessary because it is a global override in a defined type
+  $disable_logstreams = hiera('govuk::logstream::disabled', false)
+  validate_bool($disable_logstreams)
+
+  if ($disable_logstreams) {
     # noop
   } elsif ($ensure == present) {
     file { "/etc/init/logstream-${title}.conf":
