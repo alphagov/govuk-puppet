@@ -124,11 +124,6 @@ class govuk::apps::whitehall(
       json    => true,
     }
 
-    # Needed for pdfinfo, used to count page numbers in uploaded PDFs
-    package { 'poppler-utils':
-      ensure => installed,
-    }
-
     govuk::procfile::worker { 'whitehall-admin':
       setenv_as => 'whitehall'
     }
