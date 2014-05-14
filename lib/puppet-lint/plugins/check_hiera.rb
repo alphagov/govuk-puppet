@@ -38,9 +38,6 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'govuk::logstream::disabled',
 
     # FIXME: Existing violations. These should be refactored.
-    'aws_ses_smtp_host',
-    'aws_ses_smtp_username',
-    'aws_ses_smtp_password',
     'deploy_ssh_keys',
     'mirror::enable_checks',
   ]
