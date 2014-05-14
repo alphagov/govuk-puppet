@@ -5,14 +5,17 @@ describe 'govuk::deploy::setup', :type => :class do
 
   context 'with all keys present in extdata' do
     let(:hiera_data) {{
-      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
-      'aws_ses_smtp_username' => 'a_username',
-      'aws_ses_smtp_password' => 'a_password',
       'deploy_ssh_keys' => {
         'foo' => 'oneapple',
         'bar' => 'twopears',
         'baz' => 'threeplums',
       }
+    }}
+    let(:params) {{
+      'setup_actionmailer_ses_config' => true,
+      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
+      'aws_ses_smtp_username' => 'a_username',
+      'aws_ses_smtp_password' => 'a_password',
     }}
     # FIXME: Hack to refresh extdata.
     let(:facts) {{ :cache_bust => Time.now }}
@@ -28,10 +31,11 @@ EOS
   end
 
   context 'with no keys present in extdata' do
-    let(:hiera_data) {{
-      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
-      'aws_ses_smtp_username' => 'a_username',
-      'aws_ses_smtp_password' => 'a_password',
+    let(:params) {{
+      'setup_actionmailer_ses_config' => false,
+      'aws_ses_smtp_host'     => 'UNSET',
+      'aws_ses_smtp_username' => 'UNSET',
+      'aws_ses_smtp_password' => 'UNSET',
     }}
     # FIXME: Hack to refresh extdata.
     let(:facts) {{ :cache_bust => Time.now }}
