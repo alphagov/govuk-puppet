@@ -1,17 +1,21 @@
 class govuk::apps::frontend(
   $port = 3005,
-  $vhost_protected = false
+  $vhost_protected = false,
+  $enable_homepage_nocache_location = true
 ) {
 
   $app_domain = hiera('app_domain')
 
-  $nginx_extra_config = $::govuk_platform ? {
-    'development' => '',
-    default => '
+  validate_bool($enable_homepage_nocache_location)
+
+  if ($enable_homepage_nocache_location) {
+    $nginx_extra_config = '
   location ^~ /frontend/homepage/no-cache/ {
     expires epoch;
   }
 '
+  } else {
+    $nginx_extra_config = ''
   }
 
   govuk::app { 'frontend':
