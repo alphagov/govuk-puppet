@@ -21,6 +21,7 @@ govuk::apps::imminence::enable_delayed_job_worker: false
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publisher::enable_procfile_worker: false
+govuk::apps::router_api::enable_router_reloading: false
 govuk::apps::search::enable_delayed_job_worker: false
 govuk::apps::search_admin::enabled: true
 govuk::apps::signon::enable_procfile_worker: false
