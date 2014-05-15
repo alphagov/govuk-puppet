@@ -2,11 +2,10 @@ class govuk::apps::contacts(
   $vhost = 'contacts',
   $port = 3051,
   $vhost_protected = undef,
+  $extra_aliases = []
 ) {
 
-  if $::govuk_platform == 'development' {
-    $aliases = ['contacts-frontend', 'contacts-admin']
-  }
+  validate_array($extra_aliases)
 
   govuk::app { 'contacts':
     app_type              => 'rack',
@@ -16,6 +15,6 @@ class govuk::apps::contacts(
     vhost_protected       => $vhost_protected,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'contacts-assets',
-    vhost_aliases         => $aliases,
+    vhost_aliases         => $extra_aliases,
   }
 }

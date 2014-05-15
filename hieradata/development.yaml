@@ -11,6 +11,7 @@ govuk::deploy::setup_actionmailer_ses_config: false
 
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::content_store::enabled: true
+govuk::apps::contacts::extra_aliases: ['contacts-frontend', 'contacts-admin']
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::finder_api::enabled: true
 govuk::apps::finder_frontend::enabled: true
