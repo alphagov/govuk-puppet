@@ -320,6 +320,18 @@ class hosts::production (
     ip             => '10.7.0.3',
     vdc            => 'api',
   }
+  govuk::host { 'api-mongo-1':
+    ip             => '10.7.0.21',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-mongo-2':
+    ip             => '10.7.0.22',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-mongo-3':
+    ip             => '10.7.0.23',
+    vdc            => 'api',
+  }
   #api lb vhosts
   govuk::host { 'api-lb-1':
     ip             => '10.7.0.101',
