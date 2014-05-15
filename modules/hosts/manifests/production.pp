@@ -307,6 +307,20 @@ class hosts::production (
     vdc            => 'frontend',
   }
 
+  #api vdc machines
+  govuk::host { 'content-store-1':
+    ip             => '10.7.0.1',
+    vdc            => 'api',
+  }
+  govuk::host { 'content-store-2':
+    ip             => '10.7.0.2',
+    vdc            => 'api',
+  }
+  govuk::host { 'content-store-3':
+    ip             => '10.7.0.3',
+    vdc            => 'api',
+  }
+
   #backend vdc machines
   govuk::host { 'backend-1':
     ip             => '10.3.0.2',
