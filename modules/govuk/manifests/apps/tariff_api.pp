@@ -1,6 +1,6 @@
 class govuk::apps::tariff_api(
     $port = 3018,
-    $enable_procfile_worker = false
+    $enable_procfile_worker = true
   ) {
   govuk::app { 'tariff-api':
     app_type               => 'rack',
@@ -10,8 +10,7 @@ class govuk::apps::tariff_api(
     #2.5GB for a warning
     nagios_memory_warning  => 2684354560,
   }
-  # This feature flag can go when Procfile worker is deployed everywhere
-  if str2bool($enable_procfile_worker) {
-    govuk::procfile::worker {'tariff-api': }
+  govuk::procfile::worker {'tariff-api':
+    enable_service => $enable_procfile_worker,
   }
 }

@@ -1,4 +1,4 @@
-class govuk::apps::search( $port = 3009 ) {
+class govuk::apps::search( $port = 3009, $enable_delayed_job_worker = true ) {
   include aspell
 
   # Enable raindrops monitoring
@@ -29,5 +29,7 @@ class govuk::apps::search( $port = 3009 ) {
     app_port => $port
   }
 
-  govuk::delayed_job::worker { 'search': }
+  govuk::delayed_job::worker { 'search':
+    enable_service => $enable_delayed_job_worker,
+  }
 }

@@ -1,4 +1,4 @@
-class govuk::apps::imminence( $port = 3002 ) {
+class govuk::apps::imminence( $port = 3002, $enable_delayed_job_worker = true ) {
   govuk::app { 'imminence':
     app_type           => 'rack',
     port               => $port,
@@ -8,5 +8,7 @@ class govuk::apps::imminence( $port = 3002 ) {
     asset_pipeline     => true,
   }
 
-  govuk::delayed_job::worker { 'imminence': }
+  govuk::delayed_job::worker { 'imminence':
+    enable_service => $enable_delayed_job_worker,
+  }
 }

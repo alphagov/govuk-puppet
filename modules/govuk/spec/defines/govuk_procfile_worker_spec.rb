@@ -15,7 +15,7 @@ describe 'govuk::procfile::worker', :type => :define do
   end
 
   context "in development environments" do
-    let(:facts) { {:govuk_platform => "development"} }
+    let(:params) { {:enable_service => false} }
 
     it do
       should contain_file("/etc/init/giraffe-procfile-worker.conf")

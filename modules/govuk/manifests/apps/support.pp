@@ -1,4 +1,4 @@
-class govuk::apps::support($port = 3031) {
+class govuk::apps::support($port = 3031, $enable_delayed_job_worker = true) {
 
   govuk::app { 'support':
     app_type           => 'rack',
@@ -14,5 +14,7 @@ class govuk::apps::support($port = 3031) {
     asset_pipeline     => true,
   }
 
-  govuk::delayed_job::worker { 'support': }
+  govuk::delayed_job::worker { 'support':
+    enable_service => $enable_delayed_job_worker,
+  }
 }
