@@ -74,13 +74,6 @@ define govuk::app (
   $deny_framing = false,
 
   #
-  # platform: the deployment environment to configure
-  #
-  # You probably don't need to set this explicitly.
-  #
-  $platform = $::govuk_platform,
-
-  #
   # enable_nginx_vhost: should this app be fronted by nginx?
   #
   # Boolean: true or false
@@ -92,7 +85,7 @@ define govuk::app (
   #
   # Defaults to $title, the name of your application.
   #
-  # The app will be served at "$vhost.$platform.alphagov.co.uk" in production
+  # The app will be served at "$vhost.$app_domain" in production
   # and preview environments.
   #
   $vhost = undef,

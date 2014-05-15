@@ -9,16 +9,21 @@ clamav::use_service: false
 govuk::deploy::config::govuk_env: development
 govuk::deploy::setup_actionmailer_ses_config: false
 
+govuk::app::nginx_vhost:asset_pipeline_enabled: false
+
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::content_store::enabled: true
+govuk::apps::contacts::extra_aliases: ['contacts-frontend', 'contacts-admin']
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::finder_api::enabled: true
 govuk::apps::finder_frontend::enabled: true
+govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_frontend::enabled: true
 govuk::apps::imminence::enable_delayed_job_worker: false
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publisher::enable_procfile_worker: false
+govuk::apps::router_api::enable_router_reloading: false
 govuk::apps::search::enable_delayed_job_worker: false
 govuk::apps::search_admin::enabled: true
 govuk::apps::signon::enable_procfile_worker: false

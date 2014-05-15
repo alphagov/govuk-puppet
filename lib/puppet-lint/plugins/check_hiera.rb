@@ -36,6 +36,9 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
 
     # logstream defined type needs a global disable flag for dev vm
     'govuk::logstream::disabled',
+    # govuk::app::nginx_vhost defined type needs a global disable flag for
+    # asset pipeline on dev vm
+    'govuk::app::nginx_vhost::asset_pipeline_enabled',
 
     # FIXME: Existing violations. These should be refactored.
     'deploy_ssh_keys',

@@ -1,4 +1,4 @@
-class govuk::apps::router_api( $port = 3056 ) {
+class govuk::apps::router_api( $port = 3056, $enable_router_reloading = true ) {
   govuk::app { 'router-api':
     app_type           => 'rack',
     port               => $port,
@@ -7,7 +7,9 @@ class govuk::apps::router_api( $port = 3056 ) {
     log_format_is_json => true,
   }
 
-  unless $::govuk_platform == 'development' {
+  validate_bool($enable_router_reloading)
+
+  if ($enable_router_reloading) {
     govuk::app::envvar {
       "${title}-ENABLE_ROUTER_RELOADING":
         app     => 'router-api',
