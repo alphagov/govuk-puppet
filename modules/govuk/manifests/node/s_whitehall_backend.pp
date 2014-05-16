@@ -1,4 +1,7 @@
-class govuk::node::s_whitehall_backend inherits govuk::node::s_base {
+class govuk::node::s_whitehall_backend (
+  $sync_mirror = false
+) inherits govuk::node::s_base {
+
   include govuk::node::s_ruby_app_server
   include nginx
   include govuk_java::oracle7::jdk
@@ -24,4 +27,20 @@ class govuk::node::s_whitehall_backend inherits govuk::node::s_base {
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
+
+  if $sync_mirror {
+    file { '/var/lib/govuk_mirror':
+      ensure  => 'directory',
+      owner   => 'deploy',
+      group   => 'deploy',
+      mode    => '0770',
+    }
+    file { '/var/lib/govuk_mirror/current':
+      ensure  => 'directory',
+      owner   => 'deploy',
+      group   => 'deploy',
+      mode    => '0770',
+      require => File['/var/lib/govuk_mirror'],
+    }
+  }
 }
