@@ -56,4 +56,45 @@ describe 'mirror', :type => :class do
      end
   end
 
+  describe "#sshkeys" do
+    context "{} (default)" do
+      let(:params) {{ }}
+
+      it { should have_sshkey_resource_count(0)  }
+    end
+
+    context "string" do
+      let(:params) {{
+        :sshkeys => 'mirror102',
+      }}
+
+      it { expect { should }.to raise_error(Puppet::Error, /is not a Hash/) }
+    end
+
+    context "hash of keys" do
+      let(:params) {{
+        :sshkeys => {
+         'mirror101' => { 'type' => 'ssh-rsa',
+                          'key'  => 'testkey1',
+                        },
+         'mirror102' => { 'type' => 'ssh-rsa',
+                          'key'  => 'testkey2',
+                        },
+        }
+      }}
+
+      it {
+        should have_sshkey_resource_count(2)
+        should contain_sshkey('mirror101').with(
+          :type => 'ssh-rsa',
+          :key  => 'testkey1',
+        )
+        should contain_sshkey('mirror102').with(
+          :type => 'ssh-rsa',
+          :key  => 'testkey2',
+        )
+      }
+    end
+  end
+
 end

@@ -15,11 +15,16 @@
 #   If empty then no sync will be performed.
 #   Default: []
 #
+# [*sshkeys*]
+#   A hash of hostnames with ssh host keys and type of ssh host key.
+#  Default: {}
 class mirror(
   $enable = false,
-  $targets = []
+  $targets = [],
+  $sshkeys = {}
 ) {
   validate_array($targets)
+  validate_hash($sshkeys)
 
   include daemontools # provides setlock
 
@@ -70,6 +75,9 @@ class mirror(
     mode    => '0755',
     content => template('mirror/govuk_upload_mirror.erb'),
   }
+
+  # add ssh host keys of mirror targets.
+  create_resources('sshkey',$sshkeys)
 
   $service_desc = 'mirrorer update and upload'
   $threshold_secs = 48 * (60 * 60)
