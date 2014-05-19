@@ -40,6 +40,8 @@ govuk::logstream::disabled: true
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
+govuk::ppa::path: preview
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false
