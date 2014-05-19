@@ -5,5 +5,6 @@ class govuk::apps::transition::db {
     user     => 'transition',
     host     => '%',
     password => $transition_password,
+    collate  => 'utf8_unicode_ci',
   }
 }
