@@ -46,8 +46,11 @@ class govuk::node::s_base {
     to_version => '2.0.0-p451',
   }
 
-  package { 'rbenv-ruby-2.1.1':
-    ensure => absent,
+  rbenv::version { '2.1.2':
+    bundler_version => '1.6.2'
+  }
+  rbenv::alias { '2.1':
+    to_version => '2.1.2'
   }
 
   # Enable management of groups specified in extdata
