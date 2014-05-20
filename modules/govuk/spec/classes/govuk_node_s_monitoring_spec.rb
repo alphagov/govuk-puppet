@@ -32,7 +32,7 @@ describe 'govuk::node::s_monitoring', :type => :class do
   let(:facts) {{ :concat_basedir => '/var/lib/puppet/concat/'}}
 
   context 'param defaults' do
-    it { should_not contain_icinga__campfire_contact('campfire_notification') }
+    it { should_not contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
       ['monitoring_google_group'],
@@ -45,7 +45,7 @@ describe 'govuk::node::s_monitoring', :type => :class do
       :notify_pager => true,
     }}
 
-    it { should_not contain_icinga__campfire_contact('campfire_notification') }
+    it { should_not contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
       ['monitoring_google_group', 'pager_nonworkhours'],
@@ -53,24 +53,24 @@ describe 'govuk::node::s_monitoring', :type => :class do
       ['monitoring_google_group']
   end
 
-  context 'notify_pager => true, notify_campfire => true, campfire creds' do
+  context 'notify_pager => true, notify_slack => true, slack creds' do
     let(:params) {{
       :notify_pager       => true,
-      :notify_campfire    => true,
-      :campfire_token     => 'peach',
-      :campfire_room      => 'pear',
-      :campfire_subdomain => 'plum',
+      :notify_slack       => true,
+      :slack_token        => 'peach',
+      :slack_channel      => 'pear',
+      :slack_subdomain    => 'plum',
     }}
 
-    it { should contain_icinga__campfire_contact('campfire_notification').with(
-      :campfire_token     => 'peach',
-      :campfire_room      => 'pear',
-      :campfire_subdomain => 'plum'
+    it { should contain_icinga__slack_contact('slack_notification').with(
+      :slack_token     => 'peach',
+      :slack_channel   => 'pear',
+      :slack_subdomain => 'plum'
     )}
 
     it_should_behave_like 'configured contact groups',
-      ['monitoring_google_group', 'campfire_notification', 'pager_nonworkhours'],
-      ['monitoring_google_group', 'campfire_notification'],
-      ['monitoring_google_group', 'campfire_notification']
+      ['monitoring_google_group', 'slack_notification', 'pager_nonworkhours'],
+      ['monitoring_google_group', 'slack_notification'],
+      ['monitoring_google_group', 'slack_notification']
   end
 end
