@@ -309,15 +309,15 @@ class hosts::production (
 
   #api vdc machines
   govuk::host { 'content-store-1':
-    ip             => '10.7.0.1',
+    ip             => '10.7.0.11',
     vdc            => 'api',
   }
   govuk::host { 'content-store-2':
-    ip             => '10.7.0.2',
+    ip             => '10.7.0.12',
     vdc            => 'api',
   }
   govuk::host { 'content-store-3':
-    ip             => '10.7.0.3',
+    ip             => '10.7.0.13',
     vdc            => 'api',
   }
   govuk::host { 'api-mongo-1':
