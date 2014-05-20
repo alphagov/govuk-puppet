@@ -1,0 +1,22 @@
+define contact {
+       contact_name                             <%= @name %>
+       alias                                    <%= @slack_subdomain %>.slack.com/<%= @slack_channel %>
+       service_notification_period              24x7
+       host_notification_period                 24x7
+       service_notification_options             w,c,r,f
+       host_notification_options                d,r,u,f,s
+       service_notification_commands            notify-service-by-slack
+       host_notification_commands               notify-host-by-slack
+}
+
+# 'notify-host-by-slack' command definition
+define command{
+    command_name    notify-host-by-slack
+    command_line    /usr/local/bin/icinga_slack_webhook_notify -s <%= @slack_subdomain %> -t <%= @slack_token %> -r '<%= @slack_channel %>' -U '<%= @slack_username %>' -m '$HOSTDISPLAYNAME$ is $HOSTSTATE$' -H '$HOSTDISPLAYNAME$' -A '$HOSTACTIONURL$' -N '$HOSTNOTESURL$' -S '<%= @nagios_cgi_url %>'
+}
+
+# 'notify-service-by-slack' command definition
+define command{
+    command_name    notify-service-by-slack
+    command_line    /usr/local/bin/icinga_slack_webhook_notify -s <%= @slack_subdomain %> -t <%= @slack_token %> -r '<%= @slack_channel %>' -U '<%= @slack_username %>' -m '$SERVICEDESC$ on $HOSTALIAS$ is $SERVICESTATE$' -H '$HOSTDISPLAYNAME$' -A '$SERVICEACTIONURL$' -N '$SERVICENOTESURL$' -L $SERVICESTATE$ -S '<%= @nagios_cgi_url %>'
+}
