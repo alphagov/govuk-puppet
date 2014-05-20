@@ -35,6 +35,11 @@ govuk_cdnlogs::service_port_map:
   govuk: 6514
   assets: 6515
 
+govuk::node::s_api_lb::content_store_backend_servers:
+  - "content-store-1.api"
+  - "content-store-2.api"
+  - "content-store-3.api"
+
 govuk_mysql::server::expire_log_days: 3
 
 govuk_sudo::sudo_conf:

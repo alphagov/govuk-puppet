@@ -307,6 +307,48 @@ class hosts::production (
     vdc            => 'frontend',
   }
 
+  #api vdc machines
+  govuk::host { 'content-store-1':
+    ip             => '10.7.0.1',
+    vdc            => 'api',
+  }
+  govuk::host { 'content-store-2':
+    ip             => '10.7.0.2',
+    vdc            => 'api',
+  }
+  govuk::host { 'content-store-3':
+    ip             => '10.7.0.3',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-mongo-1':
+    ip             => '10.7.0.21',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-mongo-2':
+    ip             => '10.7.0.22',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-mongo-3':
+    ip             => '10.7.0.23',
+    vdc            => 'api',
+  }
+  #api lb vhosts
+  govuk::host { 'api-lb-1':
+    ip             => '10.7.0.101',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-lb-2':
+    ip             => '10.7.0.102',
+    vdc            => 'api',
+  }
+  govuk::host { 'api-internal-lb':
+    ip             => '10.7.1.2',
+    vdc            => 'api',
+    legacy_aliases => [
+      "content-store.${app_domain}",
+    ]
+  }
+
   #backend vdc machines
   govuk::host { 'backend-1':
     ip             => '10.3.0.2',
