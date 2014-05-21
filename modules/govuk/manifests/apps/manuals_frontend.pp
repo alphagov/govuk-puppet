@@ -1,15 +1,15 @@
-class govuk::apps::hmrc_manuals_frontend(
+class govuk::apps::manuals_frontend(
   $port = 3072,
   $vhost_protected = false,
   $enabled = false,
 ) {
   if $enabled {
-    govuk::app { 'hmrc-manuals-frontend':
+    govuk::app { 'manuals-frontend':
       app_type               => 'rack',
       port                   => $port,
       vhost_protected        => $vhost_protected,
       asset_pipeline         => true,
-      asset_pipeline_prefix  => 'hmrc-manuals-frontend',
+      asset_pipeline_prefix  => 'manuals-frontend',
     }
   }
 }

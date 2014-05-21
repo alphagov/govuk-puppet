@@ -72,7 +72,7 @@ class govuk::node::s_development {
     'govuk::apps::feedback':              vhost_protected => false;
     'govuk::apps::finder_frontend':       vhost_protected => false;
     'govuk::apps::frontend':              vhost_protected => false;
-    'govuk::apps::hmrc_manuals_frontend': vhost_protected => false;
+    'govuk::apps::manuals_frontend':      vhost_protected => false;
     'govuk::apps::licencefinder':         vhost_protected => false;
     'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => false;

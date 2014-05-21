@@ -32,7 +32,7 @@ class hosts::development {
   host { 'finder-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'frontend.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
-  host { 'hmrc-manuals-frontend.dev.gov.uk':                ip => '127.0.0.1' }
+  host { 'manuals-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'imminence.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'kibana.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'licencefinder.dev.gov.uk':                        ip => '127.0.0.1' }

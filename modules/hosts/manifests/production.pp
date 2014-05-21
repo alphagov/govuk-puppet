@@ -279,7 +279,7 @@ class hosts::production (
       "feedback.${app_domain}",
       "finder-frontend.${app_domain}",
       "frontend.${app_domain}",
-      "hmrc-manuals-frontend.${app_domain}",
+      "manuals-frontend.${app_domain}",
       "licencefinder.${app_domain}",
       "limelight.${app_domain}",
       "publicapi.${app_domain}",
