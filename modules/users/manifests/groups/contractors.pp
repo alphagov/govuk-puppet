@@ -14,7 +14,6 @@ class users::groups::contractors {
   include users::paulhayes
   include users::rthorn
   include users::russellgarner
-  include users::snehaso
   include users::stephenbest
   include users::stevelaing
   include users::stuartgale
