@@ -9,7 +9,7 @@ clamav::use_service: false
 govuk::deploy::config::govuk_env: development
 govuk::deploy::setup_actionmailer_ses_config: false
 
-govuk::app::nginx_vhost:asset_pipeline_enabled: false
+govuk::app::nginx_vhost::asset_pipeline_enabled: false
 
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::content_store::enabled: true
