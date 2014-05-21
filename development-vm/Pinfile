@@ -42,7 +42,7 @@ process :rummager
 process :'search-admin' => :rummager
 process :signon
 process :smartanswers => [:static, :contentapi, :imminence]
-process :'specialist-publisher' => [:static, :panopticon]
+process :'specialist-publisher' => [:static, :panopticon, :asset_manager]
 process :'specialist-frontend' => [:static, :contentapi]
 process :static
 process :support
