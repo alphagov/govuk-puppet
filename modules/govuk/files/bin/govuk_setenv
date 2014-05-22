@@ -16,9 +16,8 @@ fi
 APPNAME="$1"
 shift
 
-# TODO: remove these when Plek/apps no longer use FACTER_govuk_platform
+# Source Timezone and Locale information
 [ -f /etc/environment ] && . /etc/environment
-export FACTER_govuk_platform
 
 # Initialize rbenv
 if which rbenv >/dev/null 2>&1; then
