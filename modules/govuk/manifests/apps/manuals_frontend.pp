@@ -11,5 +11,9 @@ class govuk::apps::manuals_frontend(
       asset_pipeline         => true,
       asset_pipeline_prefix  => 'manuals-frontend',
     }
+
+    govuk::app { 'hmrc-manuals-frontend':
+      ensure => absent,
+    }
   }
 }
