@@ -64,7 +64,7 @@ content-store:          ./run_in.sh ../content-store bundle exec rails s -p 3068
 # content-store will also uses 3069
 collections:            ./run_in.sh ../collections bundle exec rails s -p 3070
 hmrc-manuals-api:       ./run_in.sh ../hmrc-manuals-api bundle exec mr-sparkle --force-polling -- -p 3071
-hmrc-manuals-frontend:  ./run_in.sh ../hmrc-manuals-frontend bundle exec rails s -p 3072
+manuals-frontend:       ./run_in.sh ../manuals-frontend bundle exec rails s -p 3072
 search-admin:           ./run_in.sh ../search-admin bundle exec rails s -p 3073
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
