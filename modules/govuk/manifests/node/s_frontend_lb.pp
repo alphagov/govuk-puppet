@@ -21,7 +21,7 @@ class govuk::node::s_frontend_lb {
       'designprinciples',
       'feedback',
       'frontend',
-      'hmrc-manuals-frontend',
+      'manuals-frontend',
       'specialist-frontend',
       'static',
       'limelight',
