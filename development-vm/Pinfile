@@ -25,7 +25,7 @@ process :frontend => [:static, :contentapi, :rummager]
 process :imminence
 process :hmrc_contacts => [:rummager]
 process :'hmrc-manuals-api'
-process :'hmrc-manuals-frontend' => [:static, :'hmrc-manuals-api']
+process :'manuals-frontend' => [:static, :'hmrc-manuals-api']
 process :jobs
 process :licencefinder => [:static, :contentapi]
 process :maslow => :need_api
