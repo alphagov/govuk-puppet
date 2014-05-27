@@ -13,7 +13,9 @@ class govuk::apps::manuals_frontend(
     }
 
     govuk::app { 'hmrc-manuals-frontend':
-      ensure => absent,
+      ensure   => absent,
+      app_type => 'rack',
+      port     => $port,
     }
   }
 }
