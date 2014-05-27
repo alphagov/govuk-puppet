@@ -42,6 +42,8 @@ govuk::mount::no_op: true
 
 govuk::ppa::path: preview
 
+govuk_mysql::server::slow_query_log: true
+
 mongodb::server::development: true
 
 puppet::use_puppetmaster: false
