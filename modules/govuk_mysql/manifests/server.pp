@@ -11,7 +11,8 @@ class govuk_mysql::server (
   $key_buffer_size='16M',
   $query_cache_limit='1M',
   $query_cache_size='128M',
-  $expire_log_days=3
+  $expire_log_days=3,
+  $slow_query_log=false,
   ){
 
   $mysql_error_log = '/var/log/mysql/error.log'
@@ -23,6 +24,11 @@ class govuk_mysql::server (
   # This preserves "default" behaviour and prevents us from needing to
   # restart mysqld. But relying on hostname isn't such a good thing.
   $pidfile = "/var/lib/mysql/${::hostname}.pid"
+
+  $slow_query_log_value = $slow_query_log ? {
+    true  => 'ON',
+    false => 'OFF',
+  }
 
   $mysql_config = {
     'mysqld'                           => {
@@ -44,7 +50,7 @@ class govuk_mysql::server (
       'innodb_flush_log_at_trx_commit' => '1',
       'log-queries-not-using-indexes'  => true,
       'log_error'                      => $mysql_error_log,
-      'slow_query_log'                 => 'OFF',
+      'slow_query_log'                 => $slow_query_log_value,
       'slow_query_log_file'            => '/var/log/mysql/mysql-slow.log',
       'long_query_time'                => '1',
       'max_binlog_size'                => '100M',
