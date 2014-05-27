@@ -1,11 +1,12 @@
-class govuk::apps::efg::db {
-  $efg_password = extlookup('mysql_efg', '')
-  $efg_il0_password = extlookup('mysql_efg_il0', '')
+class govuk::apps::efg::db (
+  $mysql_efg = '',
+  $mysql_efg_il0 = ''
+){
 
   mysql::db { 'efg_production':
     user     => 'efg',
     host     => '%',
-    password => $efg_password
+    password => $mysql_efg,
   }
 
   # Previously in 9c8eff3 we were creating two mysql::db with the same user (efg@%) but two different passwords.

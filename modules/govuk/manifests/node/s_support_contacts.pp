@@ -1,11 +1,11 @@
 class govuk::node::s_support_contacts (
-  $dump_password
+  $dump_password,
+  $mysql_root_support_contacts,
+  $mysql_support_contacts
 ) inherits govuk::node::s_base {
-  $root_password = extlookup('mysql_root_support_contacts')
-  $support_password = extlookup('mysql_support_contacts')
 
   class { 'govuk_mysql::server':
-    root_password => $root_password,
+    root_password => $mysql_root_support_contacts,
   }
 
   collectd::plugin::tcpconn { 'mysql':
@@ -16,7 +16,7 @@ class govuk::node::s_support_contacts (
   mysql::db {'support_contacts_production':
     user     => 'support_contacts',
     host     => '%',
-    password => $support_password,
+    password => $mysql_support_contacts,
   }
 
   govuk_mysql::user { 'dump@localhost':
@@ -44,7 +44,7 @@ class govuk::node::s_support_contacts (
     mailcontent                  => 'quiet',
     mail_maxattsize              => '4000',
     mysql_dump_username          => 'root',
-    mysql_dump_password          => $root_password,
+    mysql_dump_password          => $mysql_root_support_contacts,
     mysql_dump_host              => 'localhost',
     mysql_dump_create_database   => 'yes',
     mysql_dump_use_separate_dirs => 'yes',

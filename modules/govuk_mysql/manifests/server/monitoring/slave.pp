@@ -12,7 +12,7 @@ class govuk_mysql::server::monitoring::slave inherits govuk_mysql::server::monit
     notes_url    => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-lag',
   }
 
-  $nagios_mysql_password = extlookup('mysql_nagios')
+  $nagios_mysql_password = hiera('mysql_nagios')
 
   @icinga::nrpe_config { 'check_mysql_slave':
     content => template('govuk_mysql/etc/nagios/nrpe.d/check_mysql_slave.cfg.erb'),

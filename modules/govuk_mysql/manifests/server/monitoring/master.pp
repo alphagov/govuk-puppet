@@ -3,7 +3,7 @@ class govuk_mysql::server::monitoring::master inherits govuk_mysql::server::moni
     master => true,
   }
 
-  $nagios_mysql_password = extlookup('mysql_nagios')
+  $nagios_mysql_password = hiera('mysql_nagios')
 
   govuk_mysql::user { 'nagios@localhost':
     password_hash => mysql_password($nagios_mysql_password),

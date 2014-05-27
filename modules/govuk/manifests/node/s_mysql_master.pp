@@ -1,8 +1,9 @@
 class govuk::node::s_mysql_master (
+  $mysql_bouncer = '',
   $dump_password
 ) inherits govuk::node::s_base {
-  $root_password = extlookup('mysql_root', '')
-  $replica_password = extlookup('mysql_replica_password', '')
+  $replica_password = hiera('mysql_replica_password', '')
+  $root_password = hiera('mysql_root', '')
 
   class { 'govuk_mysql::server':
     root_password => $root_password,
@@ -28,14 +29,14 @@ class govuk::node::s_mysql_master (
   }
 
   govuk_mysql::user { 'whitehall_fe@%':
-    password_hash => mysql_password(extlookup('mysql_whitehall_frontend', '')),
+    password_hash => mysql_password(hiera('mysql_whitehall_frontend', '')),
     table         => 'whitehall_production.*',
     privileges    => ['SELECT'],
     require       => Class['govuk::apps::whitehall::db'],
   }
 
   govuk_mysql::user { 'bouncer@%':
-    password_hash => mysql_password(extlookup('mysql_bouncer', '')),
+    password_hash => mysql_password($mysql_bouncer),
     table         => 'transition_production.*',
     privileges    => ['SELECT'],
     require       => Class['govuk::apps::transition::db'],

@@ -1,8 +1,8 @@
-class govuk_mysql::server::debian_sys_maint {
-  $debian_sys_maint_password = extlookup('mysql_debian_sys_maint', '')
-
+class govuk_mysql::server::debian_sys_maint (
+  $mysql_debian_sys_maint = '',
+){
   govuk_mysql::user { 'debian-sys-maint@localhost':
-    password_hash => mysql_password($debian_sys_maint_password),
+    password_hash => mysql_password($mysql_debian_sys_maint),
     table         => '*.*',
     privileges    => 'ALL',
   } ->

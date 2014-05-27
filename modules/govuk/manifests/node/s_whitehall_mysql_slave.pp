@@ -1,5 +1,5 @@
 class govuk::node::s_whitehall_mysql_slave inherits govuk::node::s_base {
-  $root_password = extlookup('mysql_root', '')
+  $root_password = hiera('mysql_root', '')
 
   class { 'govuk_mysql::server':
     root_password         => $root_password,
