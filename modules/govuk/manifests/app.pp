@@ -205,13 +205,14 @@ define govuk::app (
   $depends_on_nfs = false,
 ) {
 
-  if ! ($app_type in ['procfile', 'rack', 'bare']) {
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
+  if ($ensure == present) and ! ($app_type in ['procfile', 'rack', 'bare']) {
     fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile", "rack", or "bare"'
   }
   if ($app_type == 'bare') and !($command) {
     fail 'Invalid $command parameter'
   }
-  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   $vhost_real = $vhost ? {
     undef    => $title,
