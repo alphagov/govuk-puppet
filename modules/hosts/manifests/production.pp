@@ -34,7 +34,7 @@ class hosts::production (
   }
 
   $app_domain = hiera('app_domain')
-  $internal_tld = extlookup('internal_tld', 'production')
+  $internal_tld = hiera('internal_tld', 'production')
 
   validate_bool($apt_mirror_internal)
   $apt_aliases = $apt_mirror_internal ? {

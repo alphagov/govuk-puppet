@@ -1,12 +1,12 @@
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
-) {
+  $backend_servers,
+  $mapit_servers,
+  $whitehall_backend_servers
+){
   include govuk::node::s_base
   include loadbalancer
 
-  $backend_servers = extlookup('lb_nodes_backend')
-  $whitehall_backend_servers = extlookup('lb_nodes_whitehall_backend')
-  $mapit_servers = extlookup('lb_nodes_mapit')
   $errbit_servers = ['exception-handler-1']
   $app_domain = hiera('app_domain')
 

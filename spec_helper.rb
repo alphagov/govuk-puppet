@@ -30,7 +30,6 @@ module MockExtdata
       extdata = {
         'http_username' => 'test_username',
         'http_password' => 'test_password',
-        'internal_tld'  => 'test',
       }.merge!(h)
 
       key, default = args

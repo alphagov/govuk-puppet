@@ -3,6 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'govuk::host', :type => :define do
   let(:title) { 'giraffe' }
   let(:params) { { :ip => '1.2.3.4', :vdc => 'foobar' } }
+  let(:hiera_data){{ 'internal_tld' => 'test' }}
 
   it do
     should contain_host('giraffe.foobar.test')

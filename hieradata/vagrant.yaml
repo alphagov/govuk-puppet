@@ -4,7 +4,49 @@ website_host: 'www.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'
 
 govuk::apps::search_admin::enabled: true
+app_domain: 'dev.gov.uk'
+
+internal_tld: 'development'
+
+shell::shell_prompt_string: 'dev'
+
 govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
+govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdb1'
+
+internal_tld: 'development'
+
+govuk::node::s_backend_lb::backend_servers:
+  - 'backend-1'
+  - 'backend-2'
+  - 'backend-3'
+govuk::node::s_backend_lb::whitehall_backend_servers:
+  - 'whitehall-backend-1'
+  - 'whitehall-backend-2'
+govuk::node::s_backend_lb::mapit_servers:
+  - 'mapit-server-1'
+  - 'mapit-server-2'
+govuk::node::s_frontend_lb::calculators_frontend_servers:
+  - 'calculators-frontend-1'
+  - 'calculators-frontend-2'
+govuk::node::s_frontend_lb::govuk_frontend_servers:
+  - 'frontend-1'
+  - 'frontend-2'
+  - 'frontend-3'
+govuk::node::s_frontend_lb::whitehall_frontend_servers:
+  - 'whitehall-frontend-1'
+  - 'whitehall-frontend-2'
+govuk::node::s_licensify_lb::licensify_backend_servers:
+  - 'licensify-backend-1'
+  - 'licensify-backend-2'
+govuk::node::s_licensify_lb::licensify_frontend_servers:
+  - 'licensify-frontend-1'
+  - 'licensify-frontend-2'
+
+govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
+govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
+
+monitoring::checks::contact_email: 'root@localhost'
+monitoring_protected: 'no'

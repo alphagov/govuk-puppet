@@ -31,7 +31,8 @@ define govuk::host(
   $service_suffix = 'cluster',
 ) {
 
-  $tld = extlookup('internal_tld', 'production')
+  $tld = hiera('internal_tld', 'production')
+
   $service_aliases_real = regsubst($service_aliases, '$', ".${service_suffix}")
 
   host { "${title}.${vdc}.${tld}":

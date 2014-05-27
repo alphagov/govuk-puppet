@@ -1,4 +1,4 @@
-class govuk::node::s_asset_base inherits govuk::node::s_base {
+class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk::node::s_base{
   include assets::user
   include clamav
   include tika # Used to extract text from file attachments when indexing
@@ -43,7 +43,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base {
   if !hiera(use_hiera_disks,false) {
     govuk::mount { '/mnt/uploads':
       mountpoint   => '/mnt/uploads',
-      disk         => extlookup('assets_uploads_disk'),
+      disk         => $assets_uploads_disk,
       mountoptions => 'defaults',
       nagios_warn  => 10,
       nagios_crit  => 5,
