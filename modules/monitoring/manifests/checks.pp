@@ -144,7 +144,6 @@ class monitoring::checks (
   }
 
   #TODO: extlookup or hiera for email addresses?
-  $contact_email = extlookup('monitoring_group', 'root@localhost')
   $transition_group_email = extlookup('transition_members', 'root@localhost')
 
   icinga::contact { 'monitoring_google_group':
