@@ -85,4 +85,4 @@ router::assets_origin::asset_routes:
 
 unicornherder::version: '0.0.8'
 
-ruby::govuk_mirrorer::govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
+govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
