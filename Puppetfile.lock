@@ -11,21 +11,25 @@ FORGE
     gdsoperations/rbenv (1.0.1)
     gdsoperations/resolvconf (0.2.0)
       puppetlabs/stdlib (>= 3.0.0)
-    maestrodev/wget (1.2.3)
+    maestrodev/wget (1.4.1)
     nanliu/staging (0.4.0)
     puppetlabs/apt (1.4.2)
       puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/firewall (1.0.2)
     puppetlabs/gcc (0.1.0)
-    puppetlabs/mysql (2.2.1)
+    puppetlabs/mysql (2.2.3)
       puppetlabs/stdlib (>= 3.2.0)
     puppetlabs/stdlib (4.1.0)
     ripienaar/concat (0.2.0)
-    saz/memcached (2.2.4)
-    saz/ntp (2.1.0)
+    saz/memcached (2.4.0)
+      puppetlabs/firewall (>= 0.1.0)
+      puppetlabs/stdlib (>= 3.2.0)
+    saz/ntp (2.2.0)
     saz/rsyslog (2.2.1)
     saz/sudo (3.0.1)
       puppetlabs/stdlib (>= 2.3.0)
-    saz/timezone (2.0.0)
+    saz/timezone (3.0.1)
+      puppetlabs/stdlib (>= 2.3.0)
     stankevich/python (1.2.1)
     thomasvandoren/redis (0.0.9)
       maestrodev/wget (>= 0.0.0)
@@ -109,7 +113,7 @@ GIT
 GIT
   remote: git://github.com/nextrevision/puppet-automysqlbackup.git
   ref: master
-  sha: 752b8b9d95725112e97b5b3faa15ac369399c4b0
+  sha: f7083566f6b76674f50a986cae96568a1b44283b
   specs:
     nextrevision/automysqlbackup (0.2.4)
       puppetlabs/stdlib (>= 3.0.0)
