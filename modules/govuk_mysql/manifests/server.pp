@@ -30,6 +30,12 @@ class govuk_mysql::server (
     false => 'OFF',
   }
 
+  $slow_query_log_file = '/var/log/mysql/mysql-slow.log'
+  $slow_query_logstream_file = $slow_query_log ? {
+    true  => $slow_query_log_file,
+    false => false,
+  }
+
   $mysql_config = {
     'mysqld'                           => {
       'pid-file'                       => $pidfile,
@@ -51,7 +57,7 @@ class govuk_mysql::server (
       'log-queries-not-using-indexes'  => true,
       'log_error'                      => $mysql_error_log,
       'slow_query_log'                 => $slow_query_log_value,
-      'slow_query_log_file'            => '/var/log/mysql/mysql-slow.log',
+      'slow_query_log_file'            => $slow_query_log_file,
       'long_query_time'                => '1',
       'max_binlog_size'                => '100M',
       'sync_binlog'                    => '1',
@@ -72,7 +78,8 @@ class govuk_mysql::server (
   class { 'mysql::server::account_security': }
 
   class { 'govuk_mysql::server::logging':
-    error_log => $mysql_error_log,
+    error_log      => $mysql_error_log,
+    slow_query_log => $slow_query_logstream_file,
   }
 
   class { 'govuk_mysql::server::debian_sys_maint': }
