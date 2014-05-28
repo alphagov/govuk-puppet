@@ -14,6 +14,7 @@ govuk::lvm::no_op: true
 govuk::mount::no_op: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
+
 govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdb1'
 
 internal_tld: 'development'
@@ -50,3 +51,5 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 
 monitoring::checks::contact_email: 'root@localhost'
 monitoring_protected: 'no'
+
+efg_domain: "www.sflg.gov.uk"

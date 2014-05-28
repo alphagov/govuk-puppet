@@ -1,6 +1,6 @@
 class govuk::apps::efg( $port = 3019 ) {
 
-  $vhost_name = extlookup('efg_domain', 'efg.dev.gov.uk')
+  $vhost_name = hiera('efg_domain', 'efg.dev.gov.uk')
 
   govuk::app { 'efg':
     app_type           => 'rack',

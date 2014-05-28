@@ -633,7 +633,7 @@ class hosts::production (
     legacy_aliases => ['efg.master.mysql'],
   }
 
-  $efg_domain = extlookup('efg_domain',"efg.${app_domain}")
+  $efg_domain = hiera('efg_domain',"efg.${app_domain}")
   govuk::host { 'efg-frontend-1':
     ip             => '10.4.0.2',
     vdc            => 'efg',
