@@ -30,6 +30,9 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'website_host',
     'website_root',
 
+    # global var for gemfury, could do better
+    'govuk_gemfury_source_url',
+
     # disk noops due to defined classes not doing magical hiera lookups
     'govuk::mount::no_op',
     'govuk::lvm::no_op',

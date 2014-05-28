@@ -61,7 +61,10 @@ class mirror(
     source => 'puppet:///modules/mirror/govuk_update_mirror',
   }
 
-  include ruby::govuk_mirrorer
+  $govuk_gemfury_source_url = hiera('govuk_gemfury_source_url')
+  class {'ruby::govuk_mirrorer':
+    govuk_gemfury_source_url => $govuk_gemfury_source_url,
+  }
 
   # gem to generate report on pages with suspected bad links
   package { 'bad_link_finder':
