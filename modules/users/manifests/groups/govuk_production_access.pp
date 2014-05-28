@@ -1,5 +1,6 @@
 class users::groups::govuk_production_access {
 
+  include users::aaronkeogh
   include users::ajlanghorn
   include users::alexmuller
   include users::alext
