@@ -28,8 +28,7 @@ module MockExtdata
     # hiera
     Puppet::Parser::Functions.newfunction(:extlookup, :type => :rvalue) do |args|
       extdata = {
-        'http_username' => 'test_username',
-        'http_password' => 'test_password',
+        'FIXME'  => 'FIXME',
       }.merge!(h)
 
       key, default = args

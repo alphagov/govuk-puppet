@@ -58,6 +58,8 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'nginx_enable_basic_auth',
     'monitoring_protected',
     'efg_domain',
+    'http_username',
+    'http_password',
   ]
 
   check 'hiera_explicit_lookup' do

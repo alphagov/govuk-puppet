@@ -1,7 +1,7 @@
 class icinga::config::smokey {
   $smokey_vars = {
-    'AUTH_USERNAME'   => extlookup('http_username', 'UNSET'),
-    'AUTH_PASSWORD'   => extlookup('http_password', 'UNSET'),
+    'AUTH_USERNAME'   => hiera('http_username', 'UNSET'),
+    'AUTH_PASSWORD'   => hiera('http_password', 'UNSET'),
     'EFG_DOMAIN'      => extlookup('smokey_efg_domain', 'UNSET'),
     'EFG_USERNAME'    => extlookup('smokey_efg_username', 'UNSET'),
     'EFG_PASSWORD'    => extlookup('smokey_efg_password', 'UNSET'),
