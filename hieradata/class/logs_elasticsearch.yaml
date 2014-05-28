@@ -1,6 +1,6 @@
 ---
 
-govuk_elasticsearch::version: "0.20.6-ppa1~%{::lsbdistcodename}1"
+govuk_elasticsearch::version: '0.90.12'
 
 lv:
   data:
