@@ -684,7 +684,7 @@ class hosts::production (
     ip => '10.202.5.11',
   }
   host { 'gds01prod.aptosolutions.co.uk':
-    ip => '185.40.10.139',
+    ip => '217.171.99.28',
   }
 
 }
