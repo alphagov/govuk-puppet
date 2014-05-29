@@ -1,16 +1,19 @@
 ---
-asset_root: 'http://static.dev.gov.uk'
-website_root: 'http://www.dev.gov.uk'
-
 app_domain: 'dev.gov.uk'
+
+asset_root: 'http://static.dev.gov.uk'
+
 assets::mount_asset_master: false
 
 clamav::use_service: false
 
-govuk::deploy::config::govuk_env: 'development'
-govuk::deploy::setup_actionmailer_ses_config: false
+deploy_ssh_keys:
+    development_user: SEVIRUhFSEVIIFRoaXMgaXMgbm90IGEgcmVhbCBrZXkgYnV0IEknbSBnb2luZyB0byBtYWtlIGl0IGxvb2sgbGlrZSBpdCdzIG9uZSBqdXN0IHRvIHJlYWxseSBhbm5veSB5b3UhCg==
 
 govuk::app::nginx_vhost::asset_pipeline_enabled: false
+
+govuk_app_enable_capistrano_layout: false
+govuk_app_enable_services: false
 
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::content_store::enabled: true
@@ -25,6 +28,7 @@ govuk::apps::manuals_frontend::enabled: true
 govuk::apps::need_o_tron::needotron_intercept_errors: false
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
+govuk::apps::publicapi::backdropread_protocol: 'http'
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::router_api::enable_router_reloading: false
 govuk::apps::search::enable_delayed_job_worker: false
@@ -38,35 +42,25 @@ govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::whitehall::enable_procfile_worker: false
 govuk::apps::whitehall::prevent_single_host: false
 
-govuk::logstream::disabled: true
+govuk::deploy::config::govuk_env: 'development'
+govuk::deploy::setup_actionmailer_ses_config: false
 
 govuk::lvm::no_op: true
+
+govuk::logstream::disabled: true
+
 govuk::mount::no_op: true
-
-govuk::ppa::path: preview
-govuk::apps::publicapi::backdropread_protocol: 'http'
-govuk_app_enable_capistrano_layout: false
-govuk_app_enable_services: false
-
-internal_tld: 'development'
-
-
-nginx_enable_ssl: false
-nginx_enable_basic_auth: false
-govuk::apps::publicapi::backdropread_protocol: 'http'
-
-govuk_app_enable_capistrano_layout: false
-govuk_app_enable_services: false
-
-internal_tld: 'development'
-
-
-nginx_enable_ssl: false
-nginx_enable_basic_auth: false
 
 govuk_mysql::server::slow_query_log: true
 
+govuk::ppa::path: preview
+
+internal_tld: 'development'
+
 mongodb::server::development: true
+
+nginx_enable_ssl: false
+nginx_enable_basic_auth: false
 
 puppet::use_puppetmaster: false
 
@@ -74,5 +68,4 @@ shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_x11_forwarding: true
 
-deploy_ssh_keys:
-    development_user: SEVIRUhFSEVIIFRoaXMgaXMgbm90IGEgcmVhbCBrZXkgYnV0IEknbSBnb2luZyB0byBtYWtlIGl0IGxvb2sgbGlrZSBpdCdzIG9uZSBqdXN0IHRvIHJlYWxseSBhbm5veSB5b3UhCg==
+website_root: 'http://www.dev.gov.uk'
