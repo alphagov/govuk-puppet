@@ -85,7 +85,14 @@ class jenkins {
   # This is required for the gov.uk spider job
   package { 'scrapy':
     ensure   => '0.14.4',
+    require  => Package['libffi-dev'],
     provider => 'pip',
+  }
+
+  # Scrapy depends on the 'cryptography' pip package which requires this to
+  # build
+  package { 'libffi-dev':
+    ensure   => present,
   }
 
   package { 'twisted':
