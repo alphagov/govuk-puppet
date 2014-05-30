@@ -4,7 +4,6 @@
 # Please ensure that the list remains sorted alphabetically by username.
 #
 class users::groups::contractors {
-  include users::benilovj
   include users::brendanbutler
   include users::camillebaldock
   include users::davidainslie
@@ -13,7 +12,6 @@ class users::groups::contractors {
   include users::futurefabric
   include users::leonderks
   include users::paulhayes
-  include users::rthorn
   include users::russellgarner
   include users::stephenbest
   include users::stevelaing
