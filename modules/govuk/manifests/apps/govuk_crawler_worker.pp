@@ -1,6 +1,7 @@
 class govuk::apps::govuk_crawler_worker (
   $enabled   = false,
   $amqp_pass = 'guest',
+  $port = 3074,
 ) {
   if $enabled {
     Govuk::App::Envvar {
@@ -24,6 +25,7 @@ class govuk::apps::govuk_crawler_worker (
 
     govuk::app { 'govuk_crawler_worker':
       app_type => 'bare',
+      port     => $port,
       command  => './govuk_crawler_worker',
     }
 
