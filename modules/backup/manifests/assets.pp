@@ -1,4 +1,8 @@
-class backup::assets {
+class backup::assets (
+  $memstore_admin_apikey,
+  $memstore_admin_user,
+  $memstore_backup_passphrase,
+){
 
   ensure_packages(['duplicity','python-rackspace-cloudfiles'])
 
@@ -38,11 +42,6 @@ class backup::assets {
     mode    => '0755',
     require => [Package['duplicity','python-rackspace-cloudfiles'],File['/etc/govuk/memstore-credentials']],
   }
-
-
-  $memstore_admin_apikey = extlookup('memstore_admin_apikey')
-  $memstore_admin_user = extlookup('memstore_admin_user')
-  $memstore_backup_passphrase = extlookup('memstore_backup_passphrase')
 
   file { '/etc/govuk/memstore-credentials':
     ensure  => present,
