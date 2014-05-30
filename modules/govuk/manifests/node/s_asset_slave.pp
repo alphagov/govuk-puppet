@@ -1,12 +1,15 @@
-class govuk::node::s_asset_slave inherits govuk::node::s_asset_base {
+class govuk::node::s_asset_slave (
+  $offsite_backups = false,
+) inherits govuk::node::s_asset_base {
+
+  validate_bool($offsite_backups)
+
   include assets::user
   include daemontools # provides setlock
 
-  $offsite_backup = extlookup('offsite-backups', 'off')
 
-  case $offsite_backup {
-    'on':    { include backup::assets }
-    default: {}
+  if $offsite_backups {
+    include backup::assets
   }
 
   # Ownership and permissions come from the mount.

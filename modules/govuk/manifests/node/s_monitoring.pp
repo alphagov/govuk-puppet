@@ -1,6 +1,7 @@
 class govuk::node::s_monitoring (
   $notify_pager = false,
   $notify_slack = false,
+  $offsite_backups = false,
   $slack_token = undef,
   $slack_channel = undef,
   $slack_subdomain = undef,
@@ -8,7 +9,7 @@ class govuk::node::s_monitoring (
   $nagios_cgi_url = 'https://example.com/cgi-bin/icinga/status.cgi'
 ) inherits govuk::node::s_base {
 
-  validate_bool($notify_pager, $notify_slack)
+  validate_bool($notify_pager, $notify_slack, $offsite_backups)
 
   include monitoring
 
@@ -33,10 +34,8 @@ class govuk::node::s_monitoring (
     group  => 'deploy',
   }
 
-  $offsite_backup = extlookup('offsite-backups', 'off')
-  case $offsite_backup {
-    'on':    { include backup::offsite::monitoring }
-    default: {}
+  if $offsite_backups {
+    include backup::offsite::monitoring
   }
 
   if $notify_slack and ($slack_subdomain and $slack_token and $slack_channel) {
