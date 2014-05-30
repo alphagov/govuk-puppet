@@ -5,6 +5,7 @@
 #
 class users::groups::contractors {
   include users::benilovj
+  include users::brendanbutler
   include users::camillebaldock
   include users::davidainslie
   include users::dominicbaggott
