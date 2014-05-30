@@ -20,6 +20,7 @@ class users::groups::govuk {
   include users::alicebartlett
   include users::amywhitney
   include users::annashipman
+  include users::benilovj
   include users::bob
   include users::bradleyw
   include users::calpaterson
@@ -56,6 +57,7 @@ class users::groups::govuk {
   include users::richardboulton
   include users::robyoung
   include users::roc
+  include users::rthorn
   include users::ssharpe
   include users::timpaul
   include users::tombooth
