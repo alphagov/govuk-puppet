@@ -1,4 +1,8 @@
-class govuk::node::s_efg_mysql_slave inherits govuk::node::s_mysql_slave {
+class govuk::node::s_efg_mysql_slave (
+  $rotation_daily   = '6',
+  $rotation_monthly = '95',
+  $rotation_weekly  = '28',
+) inherits govuk::node::s_mysql_slave {
   file { '/etc/automysqlbackup/prebackup':
     source => 'puppet:///modules/govuk/etc/automysqlbackup/prebackup',
   }
@@ -27,8 +31,8 @@ class govuk::node::s_efg_mysql_slave inherits govuk::node::s_mysql_slave {
     mysql_dump_latest            => 'yes',
     prebackup                    => '/etc/automysqlbackup/prebackup',
     postbackup                   => '/etc/automysqlbackup/postbackup',
-    rotation_daily               => extlookup('mysql_backup_rotation_daily','6'),
-    rotation_weekly              => extlookup('mysql_backup_rotation_weekly','28'),
-    rotation_monthly             => extlookup('mysql_backup_rotation_monthly','95'),
+    rotation_daily               => $rotation_daily,
+    rotation_weekly              => $rotation_weekly,
+    rotation_monthly             => $rotation_monthly,
   }
 }
