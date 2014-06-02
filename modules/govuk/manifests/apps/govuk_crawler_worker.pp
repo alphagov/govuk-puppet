@@ -16,7 +16,7 @@ class govuk::apps::govuk_crawler_worker (
       'AMQP_MESSAGE_QUEUE':
         value => 'govuk_crawler_queue';
       'REDIS_ADDRESS':
-        value => 'redis-1';
+        value => 'redis-1:6379';
       'REDIS_KEY_PREFIX':
         value => 'govuk_crawler_worker';
       'ROOT_URL':
