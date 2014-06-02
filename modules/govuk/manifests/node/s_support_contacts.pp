@@ -1,7 +1,10 @@
 class govuk::node::s_support_contacts (
   $dump_password,
   $mysql_root_support_contacts,
-  $mysql_support_contacts
+  $mysql_support_contacts,
+  $rotation_daily   = '6',
+  $rotation_monthly = '95',
+  $rotation_weekly  = '28',
 ) inherits govuk::node::s_base {
 
   class { 'govuk_mysql::server':
@@ -53,9 +56,9 @@ class govuk::node::s_support_contacts (
     mysql_dump_latest            => 'yes',
     prebackup                    => '/etc/automysqlbackup/prebackup',
     postbackup                   => '/etc/automysqlbackup/postbackup',
-    rotation_daily               => extlookup('mysql_backup_rotation_daily','6'),
-    rotation_weekly              => extlookup('mysql_backup_rotation_weekly','28'),
-    rotation_monthly             => extlookup('mysql_backup_rotation_monthly','95'),
+    rotation_daily               => $rotation_daily,
+    rotation_weekly              => $rotation_weekly,
+    rotation_monthly             => $rotation_monthly,
   }
 
   #FIXME: remove if when we have moved to platform one
