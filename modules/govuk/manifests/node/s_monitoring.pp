@@ -1,4 +1,5 @@
 class govuk::node::s_monitoring (
+  $enable_fastly_metrics = false,
   $notify_pager = false,
   $notify_slack = false,
   $offsite_backups = false,
@@ -9,9 +10,13 @@ class govuk::node::s_monitoring (
   $nagios_cgi_url = 'https://example.com/cgi-bin/icinga/status.cgi'
 ) inherits govuk::node::s_base {
 
-  validate_bool($notify_pager, $notify_slack, $offsite_backups)
+  validate_bool($enable_fastly_metrics, $notify_pager, $notify_slack, $offsite_backups)
 
   include monitoring
+
+  if $enable_fastly_metrics {
+    include collectd::plugin::cdn_fastly
+  }
 
   nginx::config::vhost::proxy { 'graphite':
     to        => ['graphite.cluster'],
