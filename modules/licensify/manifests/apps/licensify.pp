@@ -1,4 +1,8 @@
-class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base {
+class licensify::apps::licensify(
+  $port = 9000,
+  $aws_ses_access_key = '',
+  $aws_ses_secret_key = '',
+) inherits licensify::apps::base {
 
   $protect_licensify_frontend = str2bool(extlookup('protect_frontend_apps', 'no'))
 
@@ -12,7 +16,9 @@ class licensify::apps::licensify( $port = 9000 ) inherits licensify::apps::base 
   }
 
   licensify::apps::envvars { 'licensify':
-    app => 'licensify',
+    app                => 'licensify',
+    aws_ses_access_key => $aws_ses_access_key,
+    aws_ses_secret_key => $aws_ses_secret_key,
   }
 
   nginx::config::vhost::licensify_upload{ 'licensify':}

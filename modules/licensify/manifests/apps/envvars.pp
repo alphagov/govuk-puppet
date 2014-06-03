@@ -1,6 +1,8 @@
-define licensify::apps::envvars($app) {
-  $aws_access_key_id = extlookup('aws_access_key_id', '')
-  $aws_secret_key = extlookup('aws_secret_key', '')
+define licensify::apps::envvars(
+  $app,
+  $aws_ses_access_key,
+  $aws_ses_secret_key,
+) {
 
   Govuk::App::Envvar {
     app => $app,
@@ -11,10 +13,10 @@ define licensify::apps::envvars($app) {
   }
   govuk::app::envvar { "${app}-AWS_ACCESS_KEY_ID":
     varname => 'AWS_ACCESS_KEY_ID',
-    value   => $aws_access_key_id,
+    value   => $aws_ses_access_key,
   }
   govuk::app::envvar { "${app}-AWS_SECRET_KEY":
     varname => 'AWS_SECRET_KEY',
-    value   => $aws_secret_key,
+    value   => $aws_ses_secret_key,
   }
 }
