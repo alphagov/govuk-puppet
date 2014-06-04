@@ -8,6 +8,11 @@ class govuk::apps::govuk_crawler_worker (
       app => 'govuk_crawler_worker',
     }
 
+    $blacklist_paths = ['/trade-tariff', '/licence-finder',
+      '/business-finance-support-finder', '/government/uploads',
+      '/apply-for-a-licence', '/search', '/government/announcements.atom',
+      '/government/publications.atom']
+
     govuk::app::envvar {
       'AMQP_ADDRESS':
         value => "amqp://govuk_crawler_worker:${amqp_pass}@rabbitmq-1:5672/govuk_crawler_worker";
@@ -15,6 +20,8 @@ class govuk::apps::govuk_crawler_worker (
         value => 'govuk_crawler_exchange';
       'AMQP_MESSAGE_QUEUE':
         value => 'govuk_crawler_queue';
+      'BLACKLIST_PATHS':
+        value => join($blacklist_paths, ',');
       'REDIS_ADDRESS':
         value => 'redis-1:6379';
       'REDIS_KEY_PREFIX':
