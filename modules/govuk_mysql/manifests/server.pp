@@ -7,7 +7,7 @@ class govuk_mysql::server (
   $root_password=undef,
   $tmp_table_size='128M',
   $max_heap_table_size='128M',
-  $innodb_file_per_table=false,
+  $innodb_file_per_table=true,
   $key_buffer_size='16M',
   $query_cache_limit='1M',
   $query_cache_size='128M',
