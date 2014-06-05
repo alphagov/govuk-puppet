@@ -1,4 +1,6 @@
-class backup::server {
+class backup::server (
+  $backup_private_key = '',
+) {
 
   include backup::client
 
@@ -25,7 +27,7 @@ class backup::server {
     ensure  => file,
     owner   => 'govuk-backup',
     mode    => '0600',
-    content => extlookup('govuk-backup_key_private', ''),
+    content => $backup_private_key,
     require => Class['backup::client'],
   }
 
