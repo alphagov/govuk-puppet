@@ -1,0 +1,19 @@
+---
+
+lv:
+  mongodb:
+    pv: '/dev/sdb1'
+    vg: 'backup'
+  data:
+    pv: '/dev/sdc1'
+    vg: 'mongodb'
+
+mount:
+  /var/lib/mongodb:
+    disk: '/dev/mapper/mongodb-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/automongodbbackup:
+    disk: '/dev/mapper/backup-mongodb'
+    govuk_lvm: 'mongodb'
+    mountoptions: 'defaults'
