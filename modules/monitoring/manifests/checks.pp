@@ -118,15 +118,8 @@ class monitoring::checks (
     timeperiod_alias => 'Never'
   }
 
-  #TODO: extlookup or hiera for email addresses?
-  $transition_group_email = extlookup('transition_members', 'root@localhost')
-
   icinga::contact { 'monitoring_google_group':
     email => $contact_email
-  }
-
-  icinga::contact { 'transition_members':
-    email => $transition_group_email
   }
 
   icinga::pager_contact { 'pager_nonworkhours':
