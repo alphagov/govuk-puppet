@@ -22,6 +22,8 @@ class hosts::production (
   $suffixed_hosts         = false,
   $whitehall_shares_mysql = true,
   $apt_mirror_internal    = false,
+  $ip_bouncer             = '127.0.0.1',
+  $ip_redirector          = '127.0.0.1',
 ) {
 
   validate_bool($suffixed_hosts)
@@ -668,13 +670,13 @@ class hosts::production (
   }
 
   govuk::host { 'bouncer-vse-lb':
-    ip             => extlookup('ip_bouncer','127.0.0.1'),
+    ip             => $ip_bouncer,
     vdc            => 'redirector',
     legacy_aliases => ["bouncer.${app_domain}"],
   }
 
   govuk::host { 'redirector-vse-lb':
-    ip             => extlookup('ip_redirector','127.0.0.1'),
+    ip             => $ip_redirector,
     vdc            => 'redirector',
     legacy_aliases => ["redirector.${app_domain}"],
   }
