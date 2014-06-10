@@ -58,7 +58,6 @@ class govuk::node::s_monitoring (
   }
 
   $google_members = 'monitoring_google_group'
-  $transition_members = 'transition_members'
   $pager_members = $notify_pager ? {
     true    => ['pager_nonworkhours'],
     default => [],
@@ -97,10 +96,4 @@ class govuk::node::s_monitoring (
     ])
   }
 
-  icinga::contact_group { 'transition_members':
-    group_alias => 'Contacts for transition issues',
-    members     => flatten([
-      $transition_members
-    ])
-  }
 }
