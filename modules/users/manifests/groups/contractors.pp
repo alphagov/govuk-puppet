@@ -19,6 +19,7 @@ class users::groups::contractors {
   include users::stevelaing
   include users::stuartgale
   include users::tekin
+  include users::tomrussell
   include users::vinayvinay
   include users::willtomlins
 }
