@@ -22,6 +22,7 @@ class hosts::production (
   $suffixed_hosts         = false,
   $whitehall_shares_mysql = true,
   $apt_mirror_internal    = false,
+  $releaseapp_host_org    = false,
   $ip_bouncer             = '127.0.0.1',
   $ip_redirector          = '127.0.0.1',
 ) {
@@ -536,7 +537,8 @@ class hosts::production (
       "whitehall-admin.${app_domain}"
       ]
 
-  if str2bool(extlookup('releaseapp_host_org', 'no')) {
+  validate_bool($releaseapp_host_org)
+  if $releaseapp_host_org {
     $backend_aliases = flatten([$backend_aliases_orig, ["release.${app_domain}"]])
   } else {
     $backend_aliases = $backend_aliases_orig
