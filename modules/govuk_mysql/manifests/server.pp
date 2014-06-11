@@ -13,12 +13,12 @@ class govuk_mysql::server (
   $query_cache_size='128M',
   $expire_log_days=3,
   $slow_query_log=false,
+  $innodb_buffer_pool_size_proportion='0.25',
   ){
 
   $mysql_error_log = '/var/log/mysql/error.log'
 
-  # The proportion of memory used by innodb_buffer_pool_size is configurable using extdata
-  $innodb_buffer_pool_size_proportion = extlookup('mysql_innodb_buffer_pool_size_proportion', '0.25')
+  # The proportion of memory used by innodb_buffer_pool_size is configurable using hiera
   $innodb_buffer_pool_size = floor($::memtotalmb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
 
   # This preserves "default" behaviour and prevents us from needing to
