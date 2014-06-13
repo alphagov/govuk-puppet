@@ -278,6 +278,7 @@ class hosts::production (
       "canary-frontend.${app_domain}",
       "collections.${app_domain}",
       "contacts-frontend.${app_domain}",
+      "contacts-frontend-old.${app_domain}",
       "designprinciples.${app_domain}",
       "feedback.${app_domain}",
       "finder-frontend.${app_domain}",
