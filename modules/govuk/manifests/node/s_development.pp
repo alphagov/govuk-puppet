@@ -68,6 +68,7 @@ class govuk::node::s_development {
     'govuk::apps::calculators':           vhost_protected => false;
     'govuk::apps::calendars':             vhost_protected => false;
     'govuk::apps::collections':           vhost_protected => false;
+    'govuk::apps::contacts_frontend':     vhost_protected => false;
     'govuk::apps::designprinciples':      vhost_protected => false;
     'govuk::apps::feedback':              vhost_protected => false;
     'govuk::apps::finder_frontend':       vhost_protected => false;
