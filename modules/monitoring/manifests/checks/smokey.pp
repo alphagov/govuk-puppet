@@ -22,6 +22,7 @@ class monitoring::checks::smokey {
     'check_backdrop':               feature => 'backdrop';
     'check_businesssupportfinder':  feature => 'businesssupportfinder';
     'check_calendars':              feature => 'calendars';
+    'check_contacts':               feature => 'contacts';
     'check_efg':                    feature => 'efg';
     'check_external_link_tracker':  feature => 'external_link_tracker';
     'check_frontend':               feature => 'frontend';
