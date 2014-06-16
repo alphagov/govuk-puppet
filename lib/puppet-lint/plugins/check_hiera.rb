@@ -44,6 +44,8 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'govuk::app::nginx_vhost::asset_pipeline_enabled',
 
     # FIXME: Existing violations. These should be refactored.
+    'ci_alphagov_crt',
+    'ci_alphagov_key',
     'deploy_ssh_keys',
     'efg_domain',
     'govuk_app_enable_capistrano_layout',
@@ -60,6 +62,12 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'mysql_whitehall_frontend',
     'nginx_enable_basic_auth',
     'nginx_enable_ssl',
+    'wildcard_alphagov_crt',
+    'wildcard_alphagov_key',
+    'wildcard_alphagov_mgmt_crt',
+    'wildcard_alphagov_mgmt_key',
+    'www_crt',
+    'www_key',
   ]
 
   check 'hiera_explicit_lookup' do
