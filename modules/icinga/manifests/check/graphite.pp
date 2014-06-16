@@ -75,7 +75,7 @@ define icinga::check::graphite(
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
-  $monitoring_domain_suffix = extlookup('monitoring_domain_suffix', '')
+  $monitoring_domain_suffix = hiera('monitoring_domain_suffix', '')
   $graph_width = 600
   $graph_height = 300
 

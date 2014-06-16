@@ -45,20 +45,21 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
 
     # FIXME: Existing violations. These should be refactored.
     'deploy_ssh_keys',
-    'mirror::enable_checks',
-    'mysql_whitehall_frontend',
-    'mysql_root',
-    'mysql_replica_password',
-    'mysql_nagios',
+    'efg_domain',
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
-    'internal_tld',
-    'nginx_enable_ssl',
-    'nginx_enable_basic_auth',
-    'monitoring_protected',
-    'efg_domain',
-    'http_username',
     'http_password',
+    'http_username',
+    'internal_tld',
+    'monitoring_domain_suffix',
+    'monitoring_protected',
+    'mirror::enable_checks',
+    'mysql_nagios',
+    'mysql_replica_password',
+    'mysql_root',
+    'mysql_whitehall_frontend',
+    'nginx_enable_basic_auth',
+    'nginx_enable_ssl',
   ]
 
   check 'hiera_explicit_lookup' do
