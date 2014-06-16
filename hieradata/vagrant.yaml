@@ -51,5 +51,8 @@ monitoring_protected: 'no'
 
 shell::shell_prompt_string: 'dev'
 
+users::user_groups:
+    - 'none'
+
 website_host: 'www.dev.gov.uk'
 website_root: 'http://www.dev.gov.uk'

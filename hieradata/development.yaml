@@ -69,4 +69,7 @@ shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_x11_forwarding: true
 
+users::user_groups:
+    - 'none'
+
 website_root: 'http://www.dev.gov.uk'
