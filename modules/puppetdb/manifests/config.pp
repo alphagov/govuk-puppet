@@ -1,6 +1,6 @@
 class puppetdb::config {
 
-  $puppetdb_postgres_password = extlookup('puppetdb_postgres_password', '')
+  $puppetdb_postgres_password = ''
   $java_args = '-Xmx1024m'
 
   # By default, this script should be run by apt-get install. But if, for
