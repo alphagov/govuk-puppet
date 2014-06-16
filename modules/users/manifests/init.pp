@@ -1,4 +1,6 @@
-class users {
+class users (
+    $user_groups = []
+  ) {
   # Remove unmanaged UIDs >= 500 (users, not system accounts).
   resources { 'user':
     purge              => true,
@@ -15,4 +17,7 @@ class users {
   user { ['vagrant', 'vboxadd']:
     ensure => undef,
   }
+
+  $user_groups_real = regsubst($user_groups, '^', 'users::groups::')
+  class { $user_groups_real: }
 }
