@@ -29,11 +29,15 @@ define nginx::config::ssl( $certtype ) {
   }
 
   if $certtype == 'wildcard_alphagov_mgmt' {
-    $cert = extlookup("${certtype}_crt", extlookup('wildcard_alphagov_crt', ''))
-    $key = extlookup("${certtype}_key", extlookup('wildcard_alphagov_key', ''))
+    # The below two lines are hard to mentally parse, but if the certtype is set to
+    # 'wildcard_alphagov_mgmt' then it will first look for certs and keys for that.
+    # If they don't exist in hiera, it will fall back to looking for 'wildcard_alphagov'
+    # and if that fails, will return the empty string.
+    $cert = hiera("${certtype}_crt", hiera('wildcard_alphagov_crt', ''))
+    $key = hiera("${certtype}_key", hiera('wildcard_alphagov_key', ''))
   } else {
-    $cert = extlookup("${certtype}_crt", '')
-    $key = extlookup("${certtype}_key", '')
+    $cert = hiera("${certtype}_crt", '')
+    $key = hiera("${certtype}_key", '')
   }
 
   file { "/etc/nginx/ssl/${name}.crt":
