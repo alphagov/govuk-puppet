@@ -53,11 +53,6 @@ class govuk::node::s_base {
     to_version => '2.1.2'
   }
 
-  # Enable management of groups specified in extdata
-  $user_groups = extlookup('user_groups', [])
-  $user_groups_real = regsubst($user_groups, '^', 'users::groups::')
-  class { $user_groups_real: }
-
   class { 'rsyslog':
     purge_rsyslog_d => true,
   }
