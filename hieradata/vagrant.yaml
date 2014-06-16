@@ -47,6 +47,7 @@ internal_tld: 'development'
 
 monitoring::checks::contact_email: 'root@localhost'
 
+monitoring_domain_suffix: 'dev.alphagov.co.uk'
 monitoring_protected: 'no'
 
 shell::shell_prompt_string: 'dev'

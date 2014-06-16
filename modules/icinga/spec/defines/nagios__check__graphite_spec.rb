@@ -1,10 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'icinga::check::graphite', :type => :define do
-  before { update_extdata({ 'monitoring_domain_suffix' => 'monitoring.zoo.tld' }) }
 
   let(:facts) {{ :fqdn => 'warden.zoo.tld' }}
   let(:pre_condition) { 'icinga::host { "warden.zoo.tld": }' }
+  let(:hiera_data) { { 'monitoring_domain_suffix' => 'monitoring.zoo.tld' } }
 
   context 'when required params are passed' do
     let(:title) { 'count_tigers' }
