@@ -7,7 +7,11 @@ class govuk::apps::collections(
 
   validate_bool($proxy_content_api)
   if ($proxy_content_api) {
-    # So that AJAX requests are handled by the same application in development as production
+    # In order that we can approximate the behaviour of https://www.gov.uk/api when developing
+    # new AJAX browse functionality (as development does not currently have a functional router),
+    # we need to ensure that /api on the collections app hostname routes to the contentapi as it
+    # would via publicapi in other environments.
+    # FIXME: Can be removed if we have a functioning router in development
     $nginx_extra_config = "
       location /api {
         rewrite ^/api/?(.*) /\$1 break;
