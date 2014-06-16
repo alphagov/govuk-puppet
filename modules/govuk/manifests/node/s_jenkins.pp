@@ -26,7 +26,7 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
     group => jenkins,
   }
 
-  $github_ca_cert_content = extlookup('github_ca_cert')
+  $github_ca_cert_content = hiera('github_ca_cert')
 
   file {
     '/home/jenkins/govuk':
