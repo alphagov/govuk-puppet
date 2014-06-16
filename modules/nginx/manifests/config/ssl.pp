@@ -33,11 +33,12 @@ define nginx::config::ssl( $certtype ) {
     # 'wildcard_alphagov_mgmt' then it will first look for certs and keys for that.
     # If they don't exist in hiera, it will fall back to looking for 'wildcard_alphagov'
     # and if that fails, will return the empty string.
-    $cert = hiera("${certtype}_crt", hiera('wildcard_alphagov_crt', ''))
-    $key = hiera("${certtype}_key", hiera('wildcard_alphagov_key', ''))
+    #FIXME: chomp() is to maintain md5 between previous extlookup - can be removed once deployed
+    $cert = chomp(hiera("${certtype}_crt", hiera('wildcard_alphagov_crt', '')))
+    $key = chomp(hiera("${certtype}_key", hiera('wildcard_alphagov_key', '')))
   } else {
-    $cert = hiera("${certtype}_crt", '')
-    $key = hiera("${certtype}_key", '')
+    $cert = chomp(hiera("${certtype}_crt", ''))
+    $key = chomp(hiera("${certtype}_key", ''))
   }
 
   file { "/etc/nginx/ssl/${name}.crt":
