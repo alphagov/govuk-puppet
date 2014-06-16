@@ -68,6 +68,7 @@ router::assets_origin::asset_routes:
   '/calendars/': "calendars"
   '/collections/': "collections"
   '/contacts-assets/': "contacts-frontend-old"
+  '/contacts-frontend/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"
