@@ -16,7 +16,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   class { 'govuk::apps::contacts':
     vhost_protected => $protect_fe,
     vhost           => 'contacts-frontend-old',
-    extra_aliases   => ['contacts-frontend'],
   }
 
   include govuk::apps::canary_frontend
