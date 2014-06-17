@@ -12,9 +12,11 @@ describe 'postfix::config', :type => :class do
   }}
   # This essentially mocks the defaults of the parent class.
   let(:default_params) {{
-    :smarthost          => '',
-    :smarthost_user     => '',
-    :smarthost_pass     => '',
+    :smarthost           => '',
+    :smarthost_user      => '',
+    :smarthost_pass      => '',
+    :rewrite_mail_domain => 'localhost',
+    :rewrite_mail_list   => 'noemail'
   }}
 
   describe 'when default params, no smarthosting' do

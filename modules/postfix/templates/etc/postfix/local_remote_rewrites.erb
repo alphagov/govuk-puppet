@@ -1,8 +1,8 @@
-root@<%= @fqdn %>        <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain %>
-root@<%= @hostname %>    <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain %>
-root                     <%= @email_list %>+<%= @fqdn %>.root@<%= @email_domain %>
-deploy@<%= @fqdn %>      <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
-deploy@<%= @hostname %>  <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
-deploy                   <%= @email_list %>+<%= @fqdn %>.deploy@<%= @email_domain %>
-@<%= @fqdn %>            <%= @email_list %>+<%= @fqdn %>@<%= @email_domain %>
-@<%= @hostname %>        <%= @email_list %>+<%= @fqdn %>@<%= @email_domain %>
+root@<%= @fqdn %>        <%= @rewrite_mail_list %>+<%= @fqdn %>.root@<%= @rewrite_mail_domain %>
+root@<%= @hostname %>    <%= @rewrite_mail_list %>+<%= @fqdn %>.root@<%= @rewrite_mail_domain %>
+root                     <%= @rewrite_mail_list %>+<%= @fqdn %>.root@<%= @rewrite_mail_domain %>
+deploy@<%= @fqdn %>      <%= @rewrite_mail_list %>+<%= @fqdn %>.deploy@<%= @rewrite_mail_domain %>
+deploy@<%= @hostname %>  <%= @rewrite_mail_list %>+<%= @fqdn %>.deploy@<%= @rewrite_mail_domain %>
+deploy                   <%= @rewrite_mail_list %>+<%= @fqdn %>.deploy@<%= @rewrite_mail_domain %>
+@<%= @fqdn %>            <%= @rewrite_mail_list %>+<%= @fqdn %>@<%= @rewrite_mail_domain %>
+@<%= @hostname %>        <%= @rewrite_mail_list %>+<%= @fqdn %>@<%= @rewrite_mail_domain %>
