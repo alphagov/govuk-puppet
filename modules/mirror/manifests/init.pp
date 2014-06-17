@@ -20,6 +20,7 @@
 #  Default: {}
 class mirror(
   $enable = false,
+  $ssh_private_key = '',
   $targets = [],
   $sshkeys = {}
 ) {
@@ -37,7 +38,7 @@ class mirror(
     ensure  => file,
     owner   => 'govuk-netstorage',
     mode    => '0600',
-    content => extlookup('govuk-netstorage_key_private', ''),
+    content => $ssh_private_key,
     require => Govuk::User['govuk-netstorage'],
   }
 
