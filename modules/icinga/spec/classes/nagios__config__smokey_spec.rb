@@ -3,7 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'icinga::config::smokey', :type => :class do
   let(:file_path) { '/etc/smokey.sh' }
 
-  context 'with only http_username and http_password from extdata' do
+  context 'with only http_username and http_password from hiera' do
     let (:hiera_data) {{ 
       'http_username' => 'test_username',
       'http_password' => 'test_password' 
@@ -16,21 +16,17 @@ EOS
     )}
   end
 
-  context 'with only http_username and http_password from extdata' do
+  context 'with all variables set in hiera' do
     let (:hiera_data) {{ 
       'http_username' => 'test_username',
-      'http_password' => 'test_password' 
+      'http_password' => 'test_password',
+      'smokey_efg_domain' => 'bear',
+      'smokey_efg_username' => 'snake',
+      'smokey_efg_password' => 'hippo',
+      'smokey_signon_email' => 'crocodile',
+      'smokey_signon_password' => 'monkey',
+      'smokey_bearer_token' => 'tortoise'
     }}
-    before {
-      update_extdata({
-        'smokey_efg_domain' => 'bear',
-        'smokey_efg_username' => 'snake',
-        'smokey_efg_password' => 'hippo',
-        'smokey_signon_email' => 'crocodile',
-        'smokey_signon_password' => 'monkey',
-        'smokey_bearer_token' => 'tortoise',
-      })
-    }
     # FIXME: Hack to refresh extdata.
     let(:facts) {{ :cache_bust => Time.now }}
 
