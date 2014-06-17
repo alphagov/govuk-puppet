@@ -25,7 +25,9 @@
 class postfix (
   $smarthost = '',
   $smarthost_user = '',
-  $smarthost_pass = ''
+  $smarthost_pass = '',
+  $rewrite_mail_domain = 'localhost',
+  $rewrite_mail_list = 'noemail'
 ) {
 
   anchor { 'postfix::begin':
@@ -36,11 +38,13 @@ class postfix (
     notify  => Class['postfix::service'];
   }
   class { 'postfix::config':
-    smarthost       => $smarthost,
-    smarthost_user  => $smarthost_user,
-    smarthost_pass  => $smarthost_pass,
-    require         => Class['postfix::package'],
-    notify          => Class['postfix::service'];
+    smarthost           => $smarthost,
+    smarthost_user      => $smarthost_user,
+    smarthost_pass      => $smarthost_pass,
+    rewrite_mail_domain => $rewrite_mail_domain,
+    rewrite_mail_list   => $rewrite_mail_list,
+    require             => Class['postfix::package'],
+    notify              => Class['postfix::service'];
   }
   class { 'postfix::service': }
   anchor { 'postfix::end':

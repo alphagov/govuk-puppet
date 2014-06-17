@@ -1,7 +1,9 @@
 class postfix::config(
   $smarthost,
   $smarthost_user,
-  $smarthost_pass
+  $smarthost_pass,
+  $rewrite_mail_domain,
+  $rewrite_mail_list
 ) {
 
   file { '/etc/mailname':
@@ -16,8 +18,6 @@ class postfix::config(
   }
 
   if $smarthost {
-    $email_list   = extlookup('email_list', 'noemail')
-    $email_domain = extlookup('email_domain', 'localhost')
 
     postfix::postmapfile { 'outbound_rewrites':     name => 'outbound_rewrites' }
     postfix::postmapfile { 'local_remote_rewrites': name => 'local_remote_rewrites' }
