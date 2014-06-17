@@ -7,6 +7,7 @@ describe 'govuk::node::s_whitehall_backend', :type => :class do
     'asset_root'            => 'https://static.test.gov.uk',
     'website_root'          => 'www.giraffe.biz',
   }}
+  let(:facts) {{ :concat_basedir => '/var/lib/puppet/concat/'}}
   context 'sync_mirror is true' do
     let(:params) {{ :sync_mirror => true }}
     it { should contain_file('/var/lib/govuk_mirror').with(
