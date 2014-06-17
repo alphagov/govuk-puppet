@@ -1,9 +1,7 @@
-class govuk::apps::tariff_admin::db {
-  $tariff_admin_password = extlookup('mysql_tariff_admin', '')
-
+class govuk::apps::tariff_admin::db ( $mysql_password = '' ){
   mysql::db { 'tariff_admin_production':
     user     => 'tariff_admin',
     host     => '%',
-    password => $tariff_admin_password,
+    password => $mysql_password,
   }
 }

@@ -1,10 +1,8 @@
-class govuk::apps::transition::db {
-  $transition_password = extlookup('mysql_transition', '')
-
+class govuk::apps::transition::db ( $mysql_password = '' ){
   mysql::db { 'transition_production':
     user     => 'transition',
     host     => '%',
-    password => $transition_password,
+    password => $mysql_password,
     collate  => 'utf8_unicode_ci',
   }
 }
