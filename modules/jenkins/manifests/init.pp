@@ -15,7 +15,6 @@ class jenkins {
   }
 
   # Parents created in `jenkins::ssh_key`.
-  # Contents overridden in `jenkins::slave`.
   file { "${jenkins_home}/.ssh/authorized_keys":
     ensure  => absent,
     owner   => 'jenkins',
