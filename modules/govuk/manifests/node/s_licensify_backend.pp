@@ -1,4 +1,6 @@
-class govuk::node::s_licensify_backend inherits govuk::node::s_base {
+class govuk::node::s_licensify_backend (
+  $enable_licensing_api = false
+) inherits govuk::node::s_base {
   include clamav
 
   include govuk_java::oracle7::jdk
@@ -6,7 +8,7 @@ class govuk::node::s_licensify_backend inherits govuk::node::s_base {
   class { 'nginx': }
   class { 'licensify::apps::licensify_admin': }
   class { 'licensify::apps::licensify_feed': }
-  if str2bool(extlookup('govuk_enable_licensing_api','no')) {
+  if ($enable_licensing_api) {
     class { 'licensify::apps::licensing_api': }
   }
 }
