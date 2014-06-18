@@ -2,6 +2,6 @@ class users::jacobashdown {
   govuk::user { 'jacobashdown':
     fullname => 'Jacob Ashdown',
     email    => 'jacob.ashdown@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6JyuVYcNdZtPtX8oy8Q99E04e5u+Orv4YsWleWieLX2ETAVPry99yHmM6sDH+TMUxDEqWybFjkImb268Qh3CQKTl0lwWKkMHCUnfQnrnERmeAocNFC9XBfM0ZW/KUETp9bit2hs3jLAtL+eqcEThr7peq7PUkz1j4FekQSLyMv5HpvTxMWZCvKoL/sh8qx6J22ntfYCg1SRUU6sHx5Lykp1X4L74EoTSVohynirch+fTvV219zwdpjnbe+XrkE9u5TdVVEOtcSJat8upzBE30MQcvbTeXhlhZbCghm8GEFw3gYsvHBXl+DYjTiQYwHiCI/x2Z+quRBwMYzDsAVqA7'
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDM95amYidz2LjxoyAyuHQL/lZbOjPR7aqDDFb1D9bgDDNiszuNmMCdMTfDM8PXAbwVbOEjFVU2PYY+ktN26+VzAHJi5nYoKMfH9vedpau1bhg1/Wt49XYQ8hFpRt6YTU7/jftb9xPtywcI4m9qeWK6He+vHKEHo/O4kMWZN8KtY3xRr1JyMH27yh6jx6lVBIsiicTmzmKmzL1MfSzWOBGbUxXOnPbXTSAmlSVD264EaA35Q0fbzEBD2Pc+6GXCHLSp3jZa1+RcBmrhh8L+sFwoJSmp6ES85GfyRiWSUiD289tclOU2Dc6gBCcXjXiGYFCHDzdH7xKHnpOPoGLH9rNT'
   }
 }
