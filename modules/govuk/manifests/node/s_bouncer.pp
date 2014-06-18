@@ -1,12 +1,8 @@
-class govuk::node::s_bouncer (
-  $app_basic_auth = false
-) inherits govuk::node::s_base {
+class govuk::node::s_bouncer inherits govuk::node::s_base {
 
   include govuk::node::s_ruby_app_server
 
-  class {
-    'govuk::apps::bouncer':               vhost_protected => $app_basic_auth;
-  }
+  include govuk::apps::bouncer
 
   include nginx
 
