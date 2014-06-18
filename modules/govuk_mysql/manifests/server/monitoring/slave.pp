@@ -5,7 +5,7 @@ class govuk_mysql::server::monitoring::slave inherits govuk_mysql::server::monit
 
   @@icinga::check::graphite { "check_mysql_replication_${::hostname}":
     target       => "${::fqdn_underscore}.mysql.time_offset",
-    desc         => 'mysql replication lag',
+    desc         => 'mysql replication lag (in seconds)',
     warning      => 300,
     critical     => 600,
     host_name    => $::fqdn,
