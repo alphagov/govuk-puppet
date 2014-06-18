@@ -1,13 +1,12 @@
 class govuk::node::s_licensify_lb (
   $licensify_frontend_servers,
-  $licensify_backend_servers
+  $licensify_backend_servers,
+  $enable_feed_console = false,
+  $enable_licensing_api = false
 ){
   include govuk::node::s_base
 
   include loadbalancer
-
-  $enable_feed_console = str2bool(extlookup('govuk_enable_licensify_feed_console','no'))
-  $enable_licensing_api = str2bool(extlookup('govuk_enable_licensing_api','no'))
 
   loadbalancer::balance {
     # Licensify frontend
