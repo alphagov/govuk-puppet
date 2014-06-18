@@ -1,17 +1,19 @@
-class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
-  $protect_fe = str2bool(extlookup('protect_frontend_apps', 'no'))
-
+class govuk::node::s_calculators_frontend (
+  #FIXME #73421574: remove when we are off old preview and it is no longer possible
+  #       to access apps directly from the internet
+  $app_basic_auth = false
+) inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
   class {
-    'govuk::apps::businesssupportfinder': vhost_protected => $protect_fe;
-    'govuk::apps::calculators':           vhost_protected => $protect_fe;
-    'govuk::apps::calendars':             vhost_protected => $protect_fe;
-    'govuk::apps::finder_frontend':       vhost_protected => $protect_fe;
-    'govuk::apps::licencefinder':         vhost_protected => $protect_fe;
-    'govuk::apps::smartanswers':          vhost_protected => $protect_fe;
-    'govuk::apps::tariff':                vhost_protected => $protect_fe;
-    'govuk::apps::transaction_wrappers':  vhost_protected => $protect_fe;
+    'govuk::apps::businesssupportfinder': vhost_protected => $app_basic_auth;
+    'govuk::apps::calculators':           vhost_protected => $app_basic_auth;
+    'govuk::apps::calendars':             vhost_protected => $app_basic_auth;
+    'govuk::apps::finder_frontend':       vhost_protected => $app_basic_auth;
+    'govuk::apps::licencefinder':         vhost_protected => $app_basic_auth;
+    'govuk::apps::smartanswers':          vhost_protected => $app_basic_auth;
+    'govuk::apps::tariff':                vhost_protected => $app_basic_auth;
+    'govuk::apps::transaction_wrappers':  vhost_protected => $app_basic_auth;
   }
 
   include nginx

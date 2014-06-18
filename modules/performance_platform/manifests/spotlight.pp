@@ -1,5 +1,8 @@
 class performance_platform::spotlight (
   $perfplat_internal_app_domain = 'production.performance.service.gov.uk',
+  #FIXME #73421574: remove when we are off old preview and it is no longer possible
+  #       to access apps directly from the internet
+  $vhost_protected = false
 ) {
   $app_domain = hiera('app_domain')
 
@@ -7,9 +10,6 @@ class performance_platform::spotlight (
 
   $vhost_full = "${app_name}.${app_domain}"
   $spotlight_host = "${app_name}.${perfplat_internal_app_domain}"
-
-  # Nginx access control
-  $enable_basic_auth = str2bool(extlookup('protect_frontend_apps', 'no'))
 
   # Nginx logs
   $logpath = '/var/log/nginx'
@@ -21,6 +21,7 @@ class performance_platform::spotlight (
     certtype => 'wildcard_alphagov',
   }
   nginx::config::site { $vhost_full:
+    # This template is the consumer of vhost_protected
     content => template('performance_platform/spotlight-vhost.conf'),
   }
 }

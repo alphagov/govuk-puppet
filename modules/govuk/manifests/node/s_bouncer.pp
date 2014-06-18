@@ -1,11 +1,8 @@
 class govuk::node::s_bouncer inherits govuk::node::s_base {
-  $protect_fe = str2bool(extlookup('protect_frontend_apps', 'no'))
 
   include govuk::node::s_ruby_app_server
 
-  class {
-    'govuk::apps::bouncer':               vhost_protected => $protect_fe;
-  }
+  include govuk::apps::bouncer
 
   include nginx
 
