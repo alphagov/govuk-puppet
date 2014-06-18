@@ -68,6 +68,8 @@ define icinga::check (
   $contact_groups             = undef,
 ) {
 
+  validate_re($service_description, '^(\w|\s|\-|:|\.)*$', "Icinga check ${service_description} contains invalid characters")
+
   $app_domain = hiera('app_domain')
   $graph_width = 600
   $graph_height = 300
