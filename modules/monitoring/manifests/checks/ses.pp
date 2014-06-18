@@ -51,7 +51,7 @@ class monitoring::checks::ses (
             check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",
             use                 => 'govuk_urgent_priority',
             host_name           => $::fqdn,
-            service_description => 'Check we are not exceeding our AWS SES email quota',
+            service_description => 'AWS SES quota usage higher than expected',
             notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#aws-ses-email-quota',
             require             => Icinga::Check_config['check_aws_quota'],
         }
