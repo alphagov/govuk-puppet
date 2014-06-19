@@ -3,7 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'govuk::deploy::setup', :type => :class do
   let(:file_path) { '/home/deploy/.ssh/authorized_keys' }
 
-  context 'with all keys present in extdata' do
+  context 'with all keys present in hiera' do
     let(:hiera_data) {{
       'deploy_ssh_keys' => {
         'foo' => 'oneapple',
@@ -17,7 +17,7 @@ describe 'govuk::deploy::setup', :type => :class do
       'aws_ses_smtp_username' => 'a_username',
       'aws_ses_smtp_password' => 'a_password',
     }}
-    # FIXME: Hack to refresh extdata.
+    # FIXME: Hack to refresh hieradata.
     let(:facts) {{ :cache_bust => Time.now }}
 
     it 'authorized_keys should have all keys active and sorted by comment' do
@@ -30,14 +30,14 @@ EOS
     end
   end
 
-  context 'with no keys present in extdata' do
+  context 'with no keys present in hiera' do
     let(:params) {{
       'setup_actionmailer_ses_config' => false,
       'aws_ses_smtp_host'     => 'UNSET',
       'aws_ses_smtp_username' => 'UNSET',
       'aws_ses_smtp_password' => 'UNSET',
     }}
-    # FIXME: Hack to refresh extdata.
+    # FIXME: Hack to refresh hieradata.
     let(:facts) {{ :cache_bust => Time.now }}
 
     it 'authorized_keys should only contain commented keys' do

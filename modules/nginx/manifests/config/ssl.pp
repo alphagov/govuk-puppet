@@ -1,7 +1,7 @@
 # == Define: nginx::config::ssl
 #
 # Create Nginx certificate and private key file resources from content
-# defined in extdata.
+# defined in hiera.
 #
 # === Parameters
 #
@@ -16,7 +16,7 @@
 #
 #   wildcard_alphagov_mgmt is a special case for hostnames not bypassed by
 #   govuk_select_organisation. It will fallback to wildcard_alphagov for
-#   environments where the key is not present in extdata.
+#   environments where the key is not present in hiera data.
 #
 define nginx::config::ssl( $certtype ) {
   case $certtype {
@@ -33,7 +33,7 @@ define nginx::config::ssl( $certtype ) {
         # 'wildcard_alphagov_mgmt' then it will first look for certs and keys for that.
         # If they don't exist in hiera, it will fall back to looking for 'wildcard_alphagov'
         # and if that fails, will return the empty string.
-        #FIXME: chomp() is to maintain md5 between previous key from extdata - can be removed once deployed
+        #FIXME: chomp() is to maintain md5 between previous key. Removing it will cause nginx restart
         $cert = chomp(hiera('wildcard_alphagov_mgmt_crt', hiera('wildcard_alphagov_crt', '')))
         $key = chomp(hiera('wildcard_alphagov_mgmt_key', hiera('wildcard_alphagov_key', '')))
     }

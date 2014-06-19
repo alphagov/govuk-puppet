@@ -27,7 +27,7 @@ EOS
       'smokey_signon_password' => 'monkey',
       'smokey_bearer_token' => 'tortoise'
     }}
-    # FIXME: Hack to refresh extdata.
+    # FIXME: Hack to refresh hieradata.
     let(:facts) {{ :cache_bust => Time.now }}
 
     it { should contain_file('/etc/smokey.sh').with_content(<<EOS
