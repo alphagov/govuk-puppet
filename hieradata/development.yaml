@@ -39,6 +39,7 @@ govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::support::enable_delayed_job_worker: false
+govuk::apps::support_api::enabled: true
 govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::whitehall::enable_procfile_worker: false
