@@ -15,7 +15,7 @@ describe 'hosts::production', :type => :class do
         'website_host' => 'www.doesnt.exist',
       }}
 
-    #force refresh of the extdata - yes its a hack
+    #force refresh of the hieradata - yes its a hack
     let(:facts) {{ :foo => "bar" }}
 
     it { should contain_govuk__host('cache').with_legacy_aliases(['cache', "www.doesnt.exist", "www.test.gov.uk", "www-origin.test.gov.uk", "assets-origin.test.gov.uk"]) }

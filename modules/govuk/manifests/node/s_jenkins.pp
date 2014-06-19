@@ -25,7 +25,7 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
     owner => jenkins,
     group => jenkins,
   }
-  #FIXME: chomp() is to maintain md5 between previous extdata - can be removed once deployed
+  #FIXME: chomp() is to maintain md5 between previous version. Removing it will cause nginx restart
   $github_ca_cert_content = chomp(hiera('github_ca_cert'))
 
   file {

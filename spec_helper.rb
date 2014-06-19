@@ -2,7 +2,6 @@ require 'csv'
 require 'rspec-puppet'
 require 'puppet'
 require 'hiera-puppet-helper'
-require 'puppet/parser/functions/extlookup'
 
 # For testing functions.
 require 'puppetlabs_spec_helper/module_spec_helper'
@@ -21,22 +20,6 @@ class Puppet::Resource
   end
 end
 
-module MockExtdata
-  def update_extdata(h)
-    # FIXME: Currently update_extdata on each call overrides puppet extlookup
-    # function, which is inefficient. This should be removed once we move to
-    # hiera
-    Puppet::Parser::Functions.newfunction(:extlookup, :type => :rvalue) do |args|
-      extdata = {
-        'FIXME'  => 'FIXME',
-      }.merge!(h)
-
-      key, default = args
-      extdata[key] || default or raise Puppet::ParseError, "No match found for '#{key}' in any data file during extlookup()"
-    end
-  end
-end
-
 RSpec.configure do |c|
   c.mock_framework = :rspec
 
@@ -45,7 +28,6 @@ RSpec.configure do |c|
     File.join(HERE, 'modules'),
     File.join(HERE, 'vendor', 'modules')
   ].join(':')
-  c.include MockExtdata
 
   # Sensible defaults to satisfy modules that perform OS checking. These
   # keys can be overridden by more specific `let(:facts)` in spec contexts.
@@ -63,7 +45,5 @@ RSpec.configure do |c|
     if (Puppet::PUPPETVERSION.to_i >= 3 && !Puppet.settings.app_defaults_initialized?)
       Puppet.initialize_settings
     end
-
-    update_extdata({})
   end
 end

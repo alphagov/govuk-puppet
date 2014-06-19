@@ -30,21 +30,6 @@ Class['apt::update'] -> Package <|
   tag != 'no_require_apt_update'
 |>
 
-# extdata is parallel to the manifests and modules directories.
-# NB: manifestdir may not be correct if `puppet apply` is used.
-$extlookup_datadir = inline_template('<%=
-  File.expand_path(
-    "../extdata",
-    File.dirname(scope.lookupvar("::settings::manifest"))
-  )
--%>')
-
-$extlookup_precedence = [
-  '%{environment}_credentials',
-  '%{environment}',
-  'common'
-]
-
 # Ensure that hiera is working. Now that we depend on it for config.
 if !hiera('HIERA_SAFETY_CHECK', false) {
   fail('Hiera does not appear to be working. Update `vagrant-govuk` and/or `vagrant reload` your VM')
