@@ -5,6 +5,7 @@ class users::groups::govuk_production_access {
   include users::alexmuller
   include users::alext
   include users::annashipman
+  include users::benilovj
   include users::bob
   include users::bradleyw
   include users::calpaterson
