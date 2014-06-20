@@ -48,9 +48,6 @@ class users::groups::govuk {
   include users::mattbostock
   include users::minglis
   include users::mwall
-  include users::ops01
-  include users::ops02
-  include users::ops04
   include users::ppotter
   include users::psd
   include users::richardboulton
