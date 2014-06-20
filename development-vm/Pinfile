@@ -52,6 +52,7 @@ process :'specialist-publisher' => [:static, :panopticon, :asset_manager]
 process :'specialist-frontend' => [:static, :contentapi]
 process :static
 process :support
+process :'support-api'
 process :tariff_admin => [:tradetariffapi]
 process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
