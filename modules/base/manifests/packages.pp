@@ -21,6 +21,7 @@ class base::packages {
       'libxml2-dev',
       'libxslt1-dev',
       'logtail',
+      'mailutils',
       'man-db',
       'manpages',
       'pv',
