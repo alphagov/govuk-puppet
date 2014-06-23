@@ -14,17 +14,6 @@ class govuk::apps::support($port = 3031, $enable_procfile_worker = true) {
     asset_pipeline     => true,
   }
 
-  # Clean up old delayed-job worker and config.
-  # These can be removed once this is pushed out to production
-  exec {'stop_support_delayed_job_worker':
-    command => 'initctl stop support-delayed-job-worker || /bin/true',
-    onlyif  => 'test -f /etc/init/support-delayed-job-worker.conf',
-  }
-  file { '/etc/init/support-delayed-job-worker.conf':
-    ensure  => absent,
-    require => Exec['stop_support_delayed_job_worker'],
-  }
-
   govuk::procfile::worker { 'support':
     enable_service => $enable_procfile_worker,
   }
