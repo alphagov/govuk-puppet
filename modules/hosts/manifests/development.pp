@@ -57,6 +57,7 @@ class hosts::development {
   host { 'specialist-publisher.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'static.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'support.dev.gov.uk':                              ip => '127.0.0.1' }
+  host { 'support-api.dev.gov.uk':                          ip => '127.0.0.1' }
   host { 'tariff-admin.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'tariff-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'tariff.dev.gov.uk':                               ip => '127.0.0.1' }

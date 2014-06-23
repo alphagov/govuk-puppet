@@ -123,6 +123,7 @@ class govuk::node::s_development {
   include govuk::apps::specialist_publisher
   include govuk::apps::static
   include govuk::apps::support
+  include govuk::apps::support_api
   include govuk::apps::tariff_admin
   include govuk::apps::tariff_api
   include govuk::apps::transactions_explorer
