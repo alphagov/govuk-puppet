@@ -1,7 +1,6 @@
 class base::packages {
 
-  package {
-    [
+  ensure_packages([
       'ack-grep',
       'bzip2',
       'dnsutils',
@@ -31,9 +30,7 @@ class base::packages {
       'vim-nox',
       'xz-utils',
       'zip'
-    ]:
-    ensure => installed
-  }
+    ])
 
   if $::lsbdistcodename == 'precise' {
     package { 'ruby1.9.1-dev':
