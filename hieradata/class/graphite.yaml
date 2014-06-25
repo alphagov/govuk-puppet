@@ -1,5 +1,9 @@
 ---
 
+icinga::client::checks:
+  disk_time_warn: 200 # milliseconds
+  disk_time_critical: 400 # milliseconds
+
 lv:
   data:
     pv:
