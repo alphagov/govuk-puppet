@@ -30,6 +30,7 @@ govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::backdropread_protocol: 'http'
 govuk::apps::publisher::enable_procfile_worker: false
+govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
 govuk::apps::router::vhost_aliases: ["www"]
 govuk::apps::router_api::enable_router_reloading: false
