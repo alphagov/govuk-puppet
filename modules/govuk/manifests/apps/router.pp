@@ -3,7 +3,11 @@ class govuk::apps::router (
   $api_port = 3055,
   $api_healthcheck = '/healthcheck',
   $error_log = '/var/log/router/errors.json.log',
-  $mongodb_nodes
+  $mongodb_nodes,
+
+  # These are only overridden in the dev VM to allow www.dev.gov.uk to go through the router.
+  $enable_nginx_vhost = false,
+  $vhost_aliases = [],
 ) {
   @ufw::allow { 'allow-router-reload-from-all':
     port => $api_port,
@@ -30,7 +34,8 @@ class govuk::apps::router (
     app_type           => 'bare',
     command            => './router',
     port               => $port,
-    enable_nginx_vhost => false,
+    enable_nginx_vhost => $enable_nginx_vhost,
+    vhost_aliases      => $vhost_aliases,
   }
 
   # We can't pass `health_check_path` to `govuk::app` because it has the
