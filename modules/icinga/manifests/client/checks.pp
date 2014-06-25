@@ -1,4 +1,7 @@
-class icinga::client::checks {
+class icinga::client::checks (
+  $disk_time_warn = 100, # milliseconds
+  $disk_time_critical = 200 # milliseconds
+) {
 
   include icinga::client::check_linux_free_memory
   include icinga::client::check_rw_rootfs
@@ -107,8 +110,8 @@ class icinga::client::checks {
     desc      => 'high disk time',
     target    => "movingMedian(sum(${::fqdn_underscore}.disk-sd?.disk_time.*),${disk_time_window_points})",
     args      => "--from ${disk_time_window_minutes}mins",
-    warning   => 100, # milliseconds
-    critical  => 200, # milliseconds
+    warning   => $disk_time_warn,
+    critical  => $disk_time_critical,
     host_name => $::fqdn,
   }
 
