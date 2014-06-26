@@ -86,14 +86,3 @@ for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
     echo "MongoDB (not) restoring $(basename $dir)"
   fi
 done
-
-if [ "$FACTER_govuk_platform" = "preview" ]; then
-  echo "Updating backend URLs in collection: router-dev.applications"
-  echo `mongo $MASTER_HOST/router-dev --eval "
-          var cursor = db.applications.find();
-          while (cursor.hasNext()) {
-            var a = cursor.next();
-            a.backend_url = a.backend_url.replace(/production/, 'preview');
-            db.applications.save(a);
-          }"`
-fi
