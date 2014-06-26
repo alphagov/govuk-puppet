@@ -21,7 +21,7 @@ SRC_HOSTNAME=$1
 MONGO_SRC="${SRC_HOSTNAME}:/var/lib/automongodbbackup/latest/*.tgz"
 MONGO_DIR="${DIR}/mongo/${SRC_HOSTNAME}"
 
-if [ $SKIP_DOWNLOAD = 0 ]; then
+if ! $SKIP_DOWNLOAD; then
   mkdir -p $MONGO_DIR
 
   echo "Downloading latest mongo backup from ${SRC_HOSTNAME}"

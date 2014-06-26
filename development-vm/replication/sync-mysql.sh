@@ -21,7 +21,7 @@ SRC_HOSTNAME=$1
 MYSQL_SRC="${SRC_HOSTNAME}:/var/lib/automysqlbackup/latest.tbz2"
 MYSQL_DIR="${DIR}/mysql/${SRC_HOSTNAME}"
 
-if [ $SKIP_DOWNLOAD = 0 ]; then
+if ! $SKIP_DOWNLOAD; then
   mkdir -p $MYSQL_DIR
 
   echo "Downloading latest mysql backup from ${SRC_HOSTNAME}"

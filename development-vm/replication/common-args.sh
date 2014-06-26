@@ -2,6 +2,24 @@
 #
 set -eu
 
+ANSI_GREEN="\033[32m"
+ANSI_RED="\033[31m"
+ANSI_YELLOW="\033[33m"
+ANSI_RESET="\033[0m"
+ANSI_BOLD="\033[1m"
+
+status () {
+  echo "---> ${@}" >&2
+}
+
+ok () {
+  echo "${ANSI_GREEN}${ANSI_BOLD}OK:${ANSI_RESET} ${ANSI_GREEN}${@}${ANSI_RESET}" >&2
+}
+
+error () {
+  echo "${ANSI_RED}${ANSI_BOLD}ERROR:${ANSI_RESET} ${ANSI_RED}${@}${ANSI_RESET}" >&2
+}
+
 usage()
 {
     cat <<EOF
@@ -17,18 +35,19 @@ OPTIONS:
     -s       Skip downloading the backups
     -r       Reset ignore list. This overrides any default ignores.
     -i       Databases to ignore. Can be used multiple times, or as a quoted space-delimited list
+    -n       Don't actually import anything (dry run)
 
 
 EOF
 }
 
 DIR="backups/$(date +%Y-%m-%d)"
-SKIP_DOWNLOAD=0
-DRY_RUN=0
+SKIP_DOWNLOAD=false
+DRY_RUN=false
 # By default, ignore the trade tariff databases
 IGNORE="tariff tariff_temporal tariff_demo"
 
-while getopts "hF:u:d:sri:" OPTION
+while getopts "hF:u:d:sri:n" OPTION
 do
   case $OPTION in
     h )
@@ -45,13 +64,16 @@ do
       DIR=$OPTARG
       ;;
     s )
-      SKIP_DOWNLOAD=1
+      SKIP_DOWNLOAD=true
       ;;
     r )
       IGNORE=""
       ;;
     i )
       IGNORE="$IGNORE $OPTARG"
+      ;;
+    n )
+      DRY_RUN=true
       ;;
   esac
 done
