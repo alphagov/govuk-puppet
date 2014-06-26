@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /usr/bin/env bash
 
 set -eu
 
@@ -10,7 +10,7 @@ otherwise, all index files are imported."
 . ./common-args.sh
 
 if [ $# -lt 1 ]; then
-  echo "A source hostname is required"
+  error "A source hostname is required"
   echo
   usage
   exit 2
