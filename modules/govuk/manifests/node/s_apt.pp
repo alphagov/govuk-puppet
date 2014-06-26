@@ -45,6 +45,10 @@ class govuk::node::s_apt (
       location => 'http://packages.elasticsearch.org/elasticsearch/0.90/debian',
       release  => 'stable',
       key      => 'D88E42B4';
+    'rabbitmq':
+      location => 'http://www.rabbitmq.com/debian',
+      release  => 'testing',
+      key      => '056E8E56';
   }
 
   include nginx
