@@ -31,10 +31,55 @@ if ! $SKIP_DOWNLOAD; then
 fi
 
 status "Importing mysql backup from ${SRC_HOSTNAME}"
-$DRY_RUN && OPTS="-n" || OPTS=""
-if [ -n "$IGNORE" ]; then
-  $(dirname $0)/import-mysql.sh $OPTS -i "$IGNORE" $MYSQL_DIR
-else
-  $(dirname $0)/import-mysql.sh $OPTS $MYSQL_DIR
+
+if [ ! -d $MYSQL_DIR ]; then
+  error "No such directory $MYSQL_DIR"
+  exit 1
 fi
+if [ ! -e $MYSQL_DIR/latest.tbz2 ]; then
+  error "No tarballs found in $MYSQL_DIR"
+  exit 1
+fi
+
+if [ -e $MYSQL_DIR/.extracted ]; then
+  status "MySQL dump has already been extracted."
+else
+  status "Extracting compressed SQL files..."
+  tar -jxvf $MYSQL_DIR/latest.tbz2 -C $MYSQL_DIR
+  touch $MYSQL_DIR/.extracted
+fi
+
+echo "Mapping database names for a development VM"
+SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
+
+if which pv >/dev/null 2>&1; then
+  PV_COMMAND="pv"
+else
+  PV_COMMAND="cat"
+fi
+
+for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
+  if $DRY_RUN; then
+    status "MySQL (not) restoring $(basename $file)"
+  else
+    PROD_DB_NAME=$(bzgrep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
+    if [[ -n $SED_ARGUMENTS ]]; then
+      TARGET_DB_NAME=$(echo $PROD_DB_NAME | sed $SED_ARGUMENTS)
+    else
+      TARGET_DB_NAME=$PROD_DB_NAME
+    fi
+    for ignore_match in $IGNORE; do
+      if [[ "${PROD_DB_NAME}" == "${ignore_match}" || "${TARGET_DB_NAME}" == "${ignore_match}" || "${PROD_DB_NAME}" == "${ignore_match}_production" ]]; then
+        status "Skipping ${PROD_DB_NAME}"
+        continue 2
+      fi
+    done
+
+    MYSQL_ARGUMENTS="-u root"
+    status $PROD_DB_NAME '->' $TARGET_DB_NAME
+    mysql $MYSQL_ARGUMENTS -e "drop database if exists $TARGET_DB_NAME"
+    $PV_COMMAND $file | bzcat | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
+  fi
+done
+
 ok "MySQL replication from ${SRC_HOSTNAME} complete."
