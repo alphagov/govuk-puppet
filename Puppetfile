@@ -28,9 +28,6 @@ mod 'rabbitmq',
 
 mod 'apparmor',
   :git => 'git://github.com/alphagov/puppet-apparmor.git'
-mod 'aptly',
-  :git => 'git://github.com/alphagov/puppet-aptly.git',
-  :ref => 'v0.0.1'
 mod 'curl',
   :git => 'git://github.com/alphagov/puppet-curl.git',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'
@@ -54,6 +51,7 @@ mod 'ufw',
   :ref => 'dc7ddc2'
 
 # Our modules on the Forge.
+mod 'gdsoperations/aptly'
 mod 'gdsoperations/auditd', '0.0.1'
 mod 'gdsoperations/graphite', '1.0.1'
 mod 'gdsoperations/openconnect'
