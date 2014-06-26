@@ -2,7 +2,7 @@ define govuk::app::service (
   $ensure = 'present',
 ) {
 
-  $enable_service = str2bool(hiera('govuk_app_enable_services', 'yes'))
+  $enable_service = hiera('govuk_app_enable_services', true)
 
   if $ensure == 'absent' {
     service { $title:

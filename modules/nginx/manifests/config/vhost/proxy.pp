@@ -52,9 +52,9 @@ define nginx::config::vhost::proxy(
   }
 
   # Whether to enable SSL. Used by template.
-  $enable_ssl = str2bool(hiera('nginx_enable_ssl', 'yes'))
+  $enable_ssl = hiera('nginx_enable_ssl', true)
   # Whether to enable basic auth protection. Used by template.
-  $enable_basic_auth = str2bool(hiera('nginx_enable_basic_auth', 'yes'))
+  $enable_basic_auth = hiera('nginx_enable_basic_auth', true)
 
   if $ssl_manage_cert {
     nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }

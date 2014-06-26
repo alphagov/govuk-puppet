@@ -33,7 +33,7 @@ define nginx::config::vhost::default(
 ) {
 
   # Whether to enable SSL. Used by template.
-  $enable_ssl = str2bool(hiera('nginx_enable_ssl', 'yes'))
+  $enable_ssl = hiera('nginx_enable_ssl', true)
 
   nginx::config::ssl { $title:
     certtype => $ssl_certtype,
