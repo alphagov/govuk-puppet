@@ -5,6 +5,7 @@ class govuk::apps::static( $port = 3013 ) {
   $app_domain = hiera('app_domain')
   $website_root = hiera('website_root')
   $asset_manager_host = "asset-manager.${app_domain}"
+  $enable_ssl = hiera('nginx_enable_ssl', true)
 
   govuk::app { 'static':
     app_type              => 'rack',
