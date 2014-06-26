@@ -29,8 +29,9 @@ if ! $SKIP_DOWNLOAD; then
 fi
 
 echo "Importing mysql backup from ${SRC_HOSTNAME}"
+$DRY_RUN && OPTS="-n" || OPTS=""
 if [ -n "$IGNORE" ]; then
-  $(dirname $0)/import-mysql.sh -i "$IGNORE" $MYSQL_DIR
+  $(dirname $0)/import-mysql.sh $OPTS -i "$IGNORE" $MYSQL_DIR
 else
-  $(dirname $0)/import-mysql.sh $MYSQL_DIR
+  $(dirname $0)/import-mysql.sh $OPTS $MYSQL_DIR
 fi
