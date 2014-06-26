@@ -13,9 +13,9 @@ class govuk::apps::transactions_explorer {
   $error_log = "${vhost_full}-error.log"
 
   # Whether to enable SSL. Used by template.
-  $enable_ssl = str2bool(hiera('nginx_enable_ssl', 'yes'))
+  $enable_ssl = hiera('nginx_enable_ssl', true)
   # Whether to enable basic auth protection. Used by template.
-  $enable_basic_auth = str2bool(hiera('nginx_enable_basic_auth', 'yes'))
+  $enable_basic_auth = hiera('nginx_enable_basic_auth', true)
 
   include govuk::deploy
 

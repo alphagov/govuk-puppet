@@ -115,7 +115,7 @@ define govuk::app::config (
   }
 
   # Used by the upstart config template
-  $enable_service = str2bool(hiera('govuk_app_enable_services', 'yes'))
+  $enable_service = hiera('govuk_app_enable_services', true)
 
   # Install service
   file { "/etc/init/${title}.conf":
