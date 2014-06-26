@@ -1,7 +1,7 @@
 ---
 app_domain: 'dev.gov.uk'
 
-asset_root: 'http://static.dev.gov.uk'
+asset_root: 'http://assets-origin.dev.gov.uk'
 
 assets::mount_asset_master: false
 
@@ -30,6 +30,9 @@ govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::backdropread_protocol: 'http'
 govuk::apps::publisher::enable_procfile_worker: false
+govuk::apps::router::error_log: STDERR
+govuk::apps::router::enable_nginx_vhost: true
+govuk::apps::router::vhost_aliases: ["www"]
 govuk::apps::router_api::enable_router_reloading: false
 govuk::apps::search::enable_delayed_job_worker: false
 govuk::apps::search_admin::enabled: true

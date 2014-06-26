@@ -15,6 +15,9 @@ class hosts::development {
   host { 'asset-manager.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'bouncer.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'business-support-api.dev.gov.uk':                 ip => '127.0.0.1' }
+  host { 'businesssupportfinder.dev.gov.uk':                ip => '127.0.0.1' }
+  host { 'calculators.dev.gov.uk':                          ip => '127.0.0.1' }
+  host { 'calendars.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'canary-backend.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'canary-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'collections.dev.gov.uk':                          ip => '127.0.0.1' }
@@ -33,11 +36,11 @@ class hosts::development {
   host { 'finder-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'frontend.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
-  host { 'manuals-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'imminence.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'kibana.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'licencefinder.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'limelight.dev.gov.uk':                            ip => '127.0.0.1' }
+  host { 'manuals-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'maslow.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'need-api.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'needotron.dev.gov.uk':                            ip => '127.0.0.1' }
@@ -61,6 +64,8 @@ class hosts::development {
   host { 'tariff-admin.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'tariff-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'tariff.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'transaction-wrappers.dev.gov.uk':                 ip => '127.0.0.1' }
+  host { 'transactions-explorer.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'transition.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'travel-advice-publisher.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'whitehall-admin.dev.gov.uk':                      ip => '127.0.0.1' }

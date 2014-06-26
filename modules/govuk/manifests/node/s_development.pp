@@ -62,6 +62,8 @@ class govuk::node::s_development {
     to_version => '2.1.2'
   }
 
+  include router::assets_origin
+
   class {
     'govuk::apps::bouncer':               vhost_protected => false;
     'govuk::apps::businesssupportfinder': vhost_protected => false;
