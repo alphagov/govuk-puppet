@@ -1,7 +1,7 @@
 ---
 app_domain: 'dev.gov.uk'
 
-asset_root: 'http://static.dev.gov.uk'
+asset_root: 'http://assets-origin.dev.gov.uk'
 
 assets::mount_asset_master: false
 
