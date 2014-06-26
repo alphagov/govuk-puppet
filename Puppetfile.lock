@@ -1,6 +1,9 @@
 FORGE
   remote: http://forge.puppetlabs.com
   specs:
+    gdsoperations/aptly (0.2.0)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/stdlib (>= 3.0.0)
     gdsoperations/auditd (0.0.1)
       puppetlabs/stdlib (>= 3.0.0)
     gdsoperations/graphite (1.0.1)
@@ -41,15 +44,6 @@ GIT
   sha: fd0106ccd688a8af4b62e57d420a26e80b484731
   specs:
     apparmor (0.0.1)
-
-GIT
-  remote: git://github.com/alphagov/puppet-aptly.git
-  ref: v0.0.1
-  sha: b1e8f7af5072a7305e7f92f4e7737ef71cfe6eed
-  specs:
-    aptly (0.0.1)
-      puppetlabs/apt (>= 1.0.0)
-      puppetlabs/stdlib (>= 3.0.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-curl.git
@@ -130,9 +124,9 @@ GIT
 
 DEPENDENCIES
   apparmor (>= 0)
-  aptly (>= 0)
   curl (>= 0)
   ext4mount (>= 0)
+  gdsoperations/aptly (>= 0)
   gdsoperations/auditd (= 0.0.1)
   gdsoperations/graphite (= 1.0.1)
   gdsoperations/openconnect (>= 0)
