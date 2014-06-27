@@ -31,12 +31,6 @@ if ! $SKIP_DOWNLOAD; then
 fi
 
 status "Importing mongo backup from ${SRC_HOSTNAME}"
-#$DRY_RUN && OPTS="-n" || OPTS=""
-#if [ -n "$IGNORE" ]; then
-  #$(dirname $0)/import-mongo.sh $OPTS -i "$IGNORE" $MONGO_DIR
-#else
-  #$(dirname $0)/import-mongo.sh $OPTS $MONGO_DIR
-#fi
 
 if [ ! -d $MONGO_DIR ]; then
   error "No such directory $MONGO_DIR"
