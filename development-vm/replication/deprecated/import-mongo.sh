@@ -21,6 +21,7 @@ OPTIONS:
 EOF
 }
 
+DRY_RUN=false
 while getopts "hni:" OPTION
 do
   case $OPTION in
@@ -29,7 +30,7 @@ do
       exit 1
       ;;
     n )
-      DRY_RUN=1
+      DRY_RUN=true
       ;;
     i )
       IGNORE="$IGNORE $OPTARG"
@@ -63,7 +64,9 @@ SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
 MASTER_HOST=$($(dirname $0)/find-mongo-primary.rb)
 
 for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
-  if [[ ! $DRY_RUN -gt 0 ]]; then
+  if $DRY_RUN; then
+    echo "MongoDB (not) restoring $(basename $dir)"
+  else
     PROD_DB_NAME=$(basename $dir)
     if [[ -n $SED_ARGUMENTS ]]; then
       TARGET_DB_NAME=$(basename $dir | sed $SED_ARGUMENTS)
@@ -82,7 +85,5 @@ for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
     else
       mongorestore --host $MASTER_HOST --drop -d $PROD_DB_NAME $dir
     fi
-  else
-    echo "MongoDB (not) restoring $(basename $dir)"
   fi
 done

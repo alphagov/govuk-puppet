@@ -7,6 +7,7 @@
 set -e
 
 USERNAME=root
+DRY_RUN=false
 
 function usage {
 cat << EOF
@@ -30,7 +31,7 @@ while getopts "hnu:i:" OPTION; do
       exit 1
       ;;
     n )
-      DRY_RUN=1
+      DRY_RUN=true
       ;;
     u )
       USERNAME=$OPTARG
@@ -76,7 +77,9 @@ else
 fi
 
 for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
-  if [[ ! $DRY_RUN -gt 0 ]]; then
+  if $DRY_RUN; then
+    echo "MySQL (not) restoring $(basename $file)"
+  else
     PROD_DB_NAME=$(bzgrep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
     if [[ -n $SED_ARGUMENTS ]]; then
       TARGET_DB_NAME=$(echo $PROD_DB_NAME | sed $SED_ARGUMENTS)
@@ -96,7 +99,5 @@ for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
     echo $PROD_DB_NAME '->' $TARGET_DB_NAME
     mysql $MYSQL_ARGUMENTS -e "drop database if exists $TARGET_DB_NAME"
     $PV_COMMAND $file | bzcat | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
-  else
-    echo "MySQL (not) restoring $(basename $file)"
   fi
 done
