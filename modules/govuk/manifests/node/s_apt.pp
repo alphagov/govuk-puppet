@@ -50,6 +50,10 @@ class govuk::node::s_apt (
       location => 'http://www.rabbitmq.com/debian',
       release  => 'testing',
       key      => '056E8E56';
+    'mongodb':
+      location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
+      release  => 'dist',
+      key      => '7F0CEB10';
   }
 
   include nginx
