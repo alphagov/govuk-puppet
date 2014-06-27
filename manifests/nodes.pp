@@ -3,6 +3,8 @@
 $govuk_node_class = govuk_node_class()
 
 node default {
+  govuk_check_hostname_facts()
+
   # This will fail with an error if the node class doesn't exist.
   class { "govuk::node::s_${::govuk_node_class}": }
 
