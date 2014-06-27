@@ -4,11 +4,11 @@ GEM
     bowler (1.0.0)
       foreman (>= 0.35.0)
     dotenv (0.9.0)
-    es_dump_restore (0.0.3)
+    es_dump_restore (0.0.7)
       httpclient
       multi_json
       progress_bar
-      rubyzip
+      rubyzip (>= 1.0.0)
       thor
     fattr (2.2.1)
     foreman (0.63.0)
@@ -22,7 +22,7 @@ GEM
     progress_bar (1.0.0)
       highline (~> 1.6.1)
       options (~> 2.3.0)
-    rubyzip (0.9.9)
+    rubyzip (1.1.4)
     thor (0.18.1)
 
 PLATFORMS
@@ -30,6 +30,5 @@ PLATFORMS
 
 DEPENDENCIES
   bowler (= 1.0.0)
-  es_dump_restore (= 0.0.3)
+  es_dump_restore (~> 0.0.7)
   foreman (= 0.63.0)
-  rubyzip (= 0.9.9)
