@@ -54,6 +54,10 @@ class govuk::node::s_apt (
       location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
       release  => 'dist',
       key      => '7F0CEB10';
+    'jenkins':
+      location => 'http://pkg.jenkins-ci.org/debian-stable',
+      release  => 'binary/', # Trailing slash is significant.
+      key      => 'D50582E6';
   }
 
   include nginx
