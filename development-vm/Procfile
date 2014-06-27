@@ -1,10 +1,10 @@
 publisher:             govuk_setenv publisher             ./run_in.sh ../publisher      bundle exec rails server -p 3000
 imminence:             govuk_setenv imminence             ./run_in.sh ../imminence      bundle exec rails server -p 3002
 panopticon:            govuk_setenv panopticon            ./run_in.sh ../panopticon     bundle exec rails server -p 3003
-needotron:             ./run_in.sh ../need-o-tron    bundle exec rails server -p 3004
+needotron:             govuk_setenv needotron             ./run_in.sh ../need-o-tron    bundle exec rails server -p 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../frontend       bundle exec rails server -p 3005
 # planner formerly used port 3007
-rummager:              ./run_in.sh ../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
+rummager:              govuk_setenv search                ./run_in.sh ../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
 smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../smart-answers  bundle exec rails server -p 3010
 calendars:             govuk_setenv calendars             ./run_in.sh ../calendars      bundle exec rails server -p 3011
 static:                govuk_setenv static                ./run_in.sh ../static         bundle exec rails server -p 3013
@@ -24,51 +24,51 @@ businesssupportfinder: govuk_setenv businesssupportfinder ./run_in.sh ../busines
 # whitehall_admin: uses port 3026
 # datainsight-frontend used to use port 3027 but is no longer running in any environment
 feedback:              govuk_setenv feedback              ./run_in.sh ../feedback       bundle exec rails server -p 3028
-errbit:                ./run_in.sh ../errbit      bundle exec rails server -p 3029
-private-frontend:      ./run_in.sh ../frontend       bundle exec rails server -p 3030
+errbit:                govuk_setenv errbit                ./run_in.sh ../errbit         bundle exec rails server -p 3029
+private-frontend:      govuk_setenv frontend              ./run_in.sh ../frontend       bundle exec rails server -p 3030
 support:               govuk_setenv support               ./run_in.sh ../support        bundle exec rails s -p 3031
 # publicapi:uses port 3032
 # This will probably be renamed?
 contracts-finder:      ./run_in.sh ../contracts-finder bundle exec rails server -p 3033
 # travel_advice_frontend formerly used port 3034 (briefly)
 travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../travel-advice-publisher bundle exec rails s -p 3035
-release:               ./run_in.sh ../release bundle exec rails server -p 3036
+release:               govuk_setenv release               ./run_in.sh ../release        bundle exec rails server -p 3036
 asset_manager:         govuk_setenv asset-manager         ./run_in.sh ../asset-manager  bundle exec rails s -p 3037
-limelight:             govuk_setenv limelight ./run_in.sh ../limelight bundle exec unicorn -p 3040 -c ./config/unicorn_development.rb
-transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
+limelight:             govuk_setenv limelight             ./run_in.sh ../limelight      bundle exec unicorn -p 3040 -c ./config/unicorn_development.rb
+transaction_wrappers:  govuk_setenv transaction-wrappers  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
 # govuk_delivery has port 3042
 # tariff_demo_api: grabbing port 3043 in preview only
-transition:            govuk_setenv transition           ./run_in.sh ../transition     bundle exec rails s -p 3044
+transition:            govuk_setenv transition            ./run_in.sh ../transition     bundle exec rails s -p 3044
 # tariff_demo: grabbing port 3045 in preview only
-tariff_admin:		govuk_setenv tariff-admin ./run_in.sh ../trade-tariff-admin bundle exec rails server -p 3046
-calculators:           ./run_in.sh ../calculators bundle exec rails s -p 3047
-fact_cave:             ./run_in.sh ../fact-cave bundle exec rails s -p 3048
-bouncer:               ./run_in.sh ../bouncer bundle exec mr-sparkle --force-polling -- -p 3049
+tariff_admin:          govuk_setenv tariff-admin          ./run_in.sh ../trade-tariff-admin bundle exec rails server -p 3046
+calculators:           govuk_setenv calculators           ./run_in.sh ../calculators    bundle exec rails s -p 3047
+fact_cave:             govuk_setenv fact_cave             ./run_in.sh ../fact-cave      bundle exec rails s -p 3048
+bouncer:               govuk_setenv bouncer               ./run_in.sh ../bouncer        bundle exec mr-sparkle --force-polling -- -p 3049
 fco_services:          ./run_in.sh ../fco-services bundle exec rails s -p 3050
-hmrc_contacts:         ./run_in.sh ../hmrc-contacts bundle exec rails s -p 3051
-need_api:              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
-maslow:                ./run_in.sh ../maslow bundle exec rails s -p 3053
+hmrc_contacts:         govuk_setenv contacts              ./run_in.sh ../hmrc-contacts  bundle exec rails s -p 3051
+need_api:              govuk_setenv need-api              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
+maslow:                govuk_setenv maslow                ./run_in.sh ../maslow         bundle exec rails s -p 3053
 # router uses 3054 and 3055
-router:                ./run_in.sh ../router govuk_setenv router ./run_router.sh
-router-api:            ./run_in.sh ../router-api bundle exec rails s -p 3056
+router:                govuk_setenv router                ./run_in.sh ../router         ./run_router.sh
+router-api:            govuk_setenv router-api            ./run_in.sh ../router-api     bundle exec rails s -p 3056
 # alphagov/spotlight uses 3057 on CI ONLY (rest is Performance Platform infrastructure)
-content_planner:       ./run_in.sh ../content-planner bundle exec rails s -p 3058
+content_planner:       govuk_setenv content-planner       ./run_in.sh ../content-planner bundle exec rails s -p 3058
 # alphagov/screenshot-as-a-service uses 3059
 #                                  as well as 3060, but both only on CI (and Performance Platform boxes).
-business_support_api:  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
-finder-frontend:        ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
-finder-api:             ./run_in.sh ../finder-api bundle exec mr-sparkle --force-polling -- -p 3063
-specialist-publisher:   ./run_in.sh ../specialist-publisher bundle exec rails s -p 3064
-specialist-frontend:    ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
+business_support_api:  govuk_setenv business-support-api  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
+finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
+finder-api:            govuk_setenv finder-api            ./run_in.sh ../finder-api     bundle exec mr-sparkle --force-polling -- -p 3063
+specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../specialist-publisher bundle exec rails s -p 3064
+specialist-frontend:   govuk_setenv specialist-frontend   ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
 # external-link-tracker uses 3066 and 3067
-content-store:          ./run_in.sh ../content-store bundle exec rails s -p 3068
+content-store:         govuk_setenv content-store         ./run_in.sh ../content-store  bundle exec rails s -p 3068
 # content-store will also uses 3069
-collections:            ./run_in.sh ../collections bundle exec rails s -p 3070
+collections:           govuk_setenv collections           ./run_in.sh ../collections    bundle exec rails s -p 3070
 hmrc-manuals-api:       ./run_in.sh ../hmrc-manuals-api bundle exec mr-sparkle --force-polling -- -p 3071
-manuals-frontend:       ./run_in.sh ../manuals-frontend bundle exec rails s -p 3072
-search-admin:           ./run_in.sh ../search-admin bundle exec rails s -p 3073
-contacts-frontend:      govuk_setenv contacts-frontend ./run_in.sh ../contacts-frontend bundle exec rails s -p 3074
-support-api:            ./run_in.sh ../support-api bundle exec rails s -p 3075
+manuals-frontend:      govuk_setenv maunals-frontend      ./run_in.sh ../manuals-frontend bundle exec rails s -p 3072
+search-admin:          govuk_setenv search-admin          ./run_in.sh ../search-admin   bundle exec rails s -p 3073
+contacts-frontend:     govuk_setenv contacts-frontend     ./run_in.sh ../contacts-frontend bundle exec rails s -p 3074
+support-api:           govuk_setenv support-api           ./run_in.sh ../support-api    bundle exec rails s -p 3075
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
