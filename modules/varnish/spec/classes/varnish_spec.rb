@@ -2,28 +2,14 @@ require_relative '../../../../spec_helper'
 
 describe 'varnish', :type => :class do
   let(:hiera_data) {{
-      'app_domain' => 'giraffe.biz',
-    }}
+    'app_domain' => 'giraffe.biz',
+  }}
+  let(:facts) {{
+    :cache_bust => Time.now,
+  }}
 
-  context 'Varnish 3.x on Precise' do
-    let(:facts) {{
-      :lsbdistcodename => 'precise',
-      :cache_bust      => Time.now
-    }}
-
-    it { should contain_file('/etc/varnish/default.vcl') }
-    it { should contain_file('/etc/default/varnish') }
-    it { should contain_package('varnish').with_ensure('installed') }
-    it { should contain_service('varnish') }
-  end
-
-  context 'Varnish 2.x on Lucid' do
-    let(:facts) {{
-      :lsbdistcodename => 'lucid',
-    }}
-
-    it do
-      expect { should }.to raise_error(Puppet::Error, /not supported/)
-    end
-  end
+  it { should contain_file('/etc/varnish/default.vcl') }
+  it { should contain_file('/etc/default/varnish') }
+  it { should contain_package('varnish').with_ensure('installed') }
+  it { should contain_service('varnish') }
 end

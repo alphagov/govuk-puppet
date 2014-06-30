@@ -22,28 +22,12 @@ class jenkins {
     mode    => '0600',
   }
 
-  case $::lsbdistcodename {
-    'lucid': {
-      include govuk_java::sun6::jdk
-      include govuk_java::sun6::jre
+  include govuk_java::oracle7::jdk
+  include govuk_java::oracle7::jre
 
-      class { 'govuk_java::set_defaults':
-        jdk => 'sun6',
-        jre => 'sun6',
-      }
-    }
-    'precise': {
-      include govuk_java::oracle7::jdk
-      include govuk_java::oracle7::jre
-
-      class { 'govuk_java::set_defaults':
-        jdk => 'oracle7',
-        jre => 'oracle7',
-      }
-    }
-    default: {
-      fail("Unknown distribution: ${::lsbdistcodename}. Can't install Java.")
-    }
+  class { 'govuk_java::set_defaults':
+    jdk => 'oracle7',
+    jre => 'oracle7',
   }
 
   package { 'brakeman':

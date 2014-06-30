@@ -8,7 +8,6 @@
 # our mirror goes down then the repo should just be disabled temporarily.
 #
 class govuk::repository {
-
   apt::source { 'govuk-s3deprecated-current':
     location     => 'http://apt.production.alphagov.co.uk/govuk/s3deprecated/current',
     release      => 'current',
@@ -16,16 +15,4 @@ class govuk::repository {
     architecture => $::architecture,
     key          => '37E3ACBB',
   }
-
-  # Legacy backports for Lucid only.
-  if $::lsbdistcodename == 'lucid' {
-    apt::source { 'govuk-s3deprecated-lucid':
-      location     => 'http://apt.production.alphagov.co.uk/govuk/s3deprecated/lucid',
-      release      => 'lucid',
-      repos        => 'main',
-      architecture => $::architecture,
-      key          => '37E3ACBB',
-    }
-  }
-
 }
