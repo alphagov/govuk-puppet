@@ -15,24 +15,6 @@ describe 'nginx::config', :type => :class do
     it { should contain_file(file_path).with_content(/server_names_hash_max_size 1024;/) }
   end
 
-  context 'Ubuntu lucid' do
-    let(:params) { default_params }
-    let(:facts) {{ :lsbdistcodename => 'lucid' }}
-
-    it { should contain_file(file_path)
-      .with_content(/^pid\s+\/var\/run\/nginx.pid;$/)
-    }
-  end
-
-  context 'Ubuntu precise' do
-    let(:params) { default_params }
-    let(:facts) {{ :lsbdistcodename => 'precise' }}
-
-    it { should contain_file(file_path)
-      .with_content(/^pid\s+\/run\/nginx.pid;$/)
-    }
-  end
-
   describe 'denied_ip_addresses' do
     context 'string param' do
       let(:params) { default_params.merge({ 

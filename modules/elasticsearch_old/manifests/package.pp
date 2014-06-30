@@ -46,12 +46,4 @@ class elasticsearch_old::package (
     ensure   => '1.1.1',
     provider => 'pip',
   }
-  if $::lsbdistcodename == 'lucid' {
-    # lucid uses Python 2.6 which doesn't have an implementation of ordereddict
-    # support-1.backend.preview is the only ES cluster that is lucid rather than precise!
-    package { 'ordereddict':
-      ensure   => '1.1',
-      provider => 'pip',
-    }
-  }
 }

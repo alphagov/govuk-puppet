@@ -137,29 +137,12 @@ class govuk::node::s_development {
     vhost_protected    => false,
   }
 
-  # Java 6 is deprecated in precise, so use Oracle's Java 7
-  case $::lsbdistcodename {
-    'lucid': {
-      include govuk_java::sun6::jdk
-      include govuk_java::sun6::jre
+  include govuk_java::oracle7::jdk
+  include govuk_java::oracle7::jre
 
-      class { 'govuk_java::set_defaults':
-        jdk => 'sun6',
-        jre => 'sun6',
-      }
-    }
-    'precise': {
-      include govuk_java::oracle7::jdk
-      include govuk_java::oracle7::jre
-
-      class { 'govuk_java::set_defaults':
-        jdk => 'oracle7',
-        jre => 'oracle7',
-      }
-    }
-    default: {
-      fail("Unknown distribution: ${::lsbdistcodename}. Can't install java")
-    }
+  class { 'govuk_java::set_defaults':
+    jdk => 'oracle7',
+    jre => 'oracle7',
   }
 
   class { 'govuk_elasticsearch':
@@ -269,15 +252,7 @@ class govuk::node::s_development {
     'foreman':        ensure => '0.27.0',    provider => system_gem;
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
-  }
-
-  if $::lsbdistcodename != 'lucid' {
-    # These packages aren't available for Lucid
-    package {
-      # vegeta is used by the router test suite
-      'vegeta':     ensure => installed;
-      # Provides /opt/mawk required by pre-transition-stats
-      'mawk-1.3.4': ensure => installed;
-    }
+    'vegeta':         ensure => installed; # vegeta is used by the router test suite
+    'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
   }
 }

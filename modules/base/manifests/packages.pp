@@ -32,11 +32,9 @@ class base::packages {
       'zip'
     ])
 
-  if $::lsbdistcodename == 'precise' {
-    package { 'ruby1.9.1-dev':
-      ensure => installed,
-    }
-
-    include nodejs
+  package { 'ruby1.9.1-dev':
+    ensure => installed,
   }
+
+  include nodejs
 }
