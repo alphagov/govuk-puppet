@@ -14,10 +14,10 @@ $(dirname $0)/sync-mongo.sh "$@" mongo-1.backend.preview
 $(dirname $0)/sync-mongo.sh "$@" api-mongo-1.api.preview
 $(dirname $0)/sync-mongo.sh "$@" router-backend-1.router.preview
 
-$(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.preview
-
 status "Munging router backend hostnames for dev VM"
 mongo --quiet --eval 'db = db.getSiblingDB("router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".preview.alphagov.co.uk", ".dev.gov.uk"); db.backends.save(b); } );'
+
+$(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.preview
 
 status "Munging Signon db tokens for dev VM"
 if [[ -d $(dirname $0)/../../signonotron2 ]]; then
