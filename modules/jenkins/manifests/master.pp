@@ -3,14 +3,14 @@ class jenkins::master inherits jenkins {
   $app_domain = hiera('app_domain')
 
   apt::source { 'jenkins':
-    location => 'http://pkg.jenkins-ci.org/debian-stable',
-    repos    => '',
-    release  => 'binary/',
-    key      => 'D50582E6', # Kohsuke Kawaguchi <kk@kohsuke.org>
+    location     => 'http://apt.production.alphagov.co.uk/jenkins',
+    release      => 'binary',
+    architecture => $::architecture,
+    key          => '37E3ACBB',
   }
 
   package { 'jenkins':
-    ensure  => 'latest',
+    ensure  => '1.554.2',
     require => Class['jenkins'],
   }
 
