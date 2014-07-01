@@ -39,16 +39,6 @@ class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk:
       Govuk::Mount['/mnt/uploads']
     ],
   }
-  #FIXME: remove when moved to platform one
-  if !hiera(use_hiera_disks,false) {
-    govuk::mount { '/mnt/uploads':
-      mountpoint   => '/mnt/uploads',
-      disk         => $assets_uploads_disk,
-      mountoptions => 'defaults',
-      nagios_warn  => 10,
-      nagios_crit  => 5,
-    }
-  }
 
   file { '/etc/exports':
     ensure  => present,

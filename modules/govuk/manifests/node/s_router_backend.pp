@@ -19,9 +19,6 @@ class govuk::node::s_router_backend inherits govuk::node::s_base {
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/mongodb'] -> Class['mongodb::server']
-    Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
-  }
+  Govuk::Mount['/var/lib/mongodb'] -> Class['mongodb::server']
+  Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
 }

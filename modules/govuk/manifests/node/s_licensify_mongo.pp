@@ -2,18 +2,7 @@ class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_en
   include ecryptfs
   include mongodb::server
   include govuk_java::openjdk6::jre
-  #FIXME: remove when we have moved to platform one
-  if !hiera(use_hiera_disks,false) {
-    govuk::mount { '/mnt/encrypted':
-      mountoptions => 'defaults',
-      disk         => '/dev/mapper/encrypted-mongodb',
-    }
 
-    govuk::mount { '/var/lib/automongodbbackup':
-      mountoptions => 'defaults',
-      disk         => $mongodb_backup_disk,
-    }
-  }
   # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
   @@icinga::check { "check_var_lib_mongodb_disk_space_${::hostname}":
     check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /var/lib/mongodb',
@@ -45,9 +34,6 @@ class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_en
     members => $mongo_hosts
   }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
-    Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
-  }
+  Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
+  Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
 }
