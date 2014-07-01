@@ -5,14 +5,6 @@ class govuk::node::s_backup (
 
   validate_bool($backup_efg, $offsite_backups)
 
-  #FIXME: remove when we have moved to platform one
-  if !hiera(use_hiera_disks,false) {
-    govuk::mount { '/data/backups':
-      mountoptions => 'errors=remount-ro',
-      disk         => '/dev/sdb1',
-    }
-  }
-
   class {'backup::server':
     require => Govuk::Mount['/data/backups'],
   }

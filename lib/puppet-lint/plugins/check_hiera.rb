@@ -22,7 +22,6 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'HIERA_SAFETY_CHECK',
     'lv',
     'mount',
-    'use_hiera_disks',
 
     # Legacy, used everywhere.
     'app_domain',

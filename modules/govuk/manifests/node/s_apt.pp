@@ -19,10 +19,7 @@ class govuk::node::s_apt (
     },
   }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount[$root_dir] -> Class['aptly']
-  }
+  Govuk::Mount[$root_dir] -> Class['aptly']
 
   aptly::mirror {
     'aptly':

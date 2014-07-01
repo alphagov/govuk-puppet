@@ -12,11 +12,11 @@ node default {
   # This will fail with an error if the node class doesn't exist.
   class { "govuk::node::s_${::govuk_node_class}": }
 
-  #FIXME: when we have moved off interim platform remove the if statement
-  if hiera(use_hiera_disks, false) {
-    $lv = hiera('lv',{})
-    create_resources('govuk::lvm', $lv)
-    $mount = hiera('mount',{})
-    create_resources('govuk::mount', $mount)
-  }
+
+  # Create logical volumes from hiera
+  $lv = hiera('lv',{})
+  create_resources('govuk::lvm', $lv)
+  # Create mounts from hiera
+  $mount = hiera('mount',{})
+  create_resources('govuk::mount', $mount)
 }

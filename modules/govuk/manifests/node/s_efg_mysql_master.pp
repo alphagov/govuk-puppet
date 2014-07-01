@@ -21,8 +21,5 @@ class govuk::node::s_efg_mysql_master (
     privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
-  }
+  Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
 }

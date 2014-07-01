@@ -30,8 +30,5 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
     require  => [Curl::Fetch['mapit_dbdump_download'], Postgres::Database['mapit']],
   }
 
-  # FIXME: Remove when moved to platform1.
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/postgresql'] -> Class['postgres']
-  }
+  Govuk::Mount['/var/lib/postgresql'] -> Class['postgres']
 }

@@ -61,9 +61,6 @@ class govuk::node::s_support_contacts (
     rotation_monthly             => $rotation_monthly,
   }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
-    Govuk::Mount['/var/lib/automysqlbackup'] -> Automysqlbackup::Backup['automysqlbackup']
-  }
+  Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
+  Govuk::Mount['/var/lib/automysqlbackup'] -> Automysqlbackup::Backup['automysqlbackup']
 }

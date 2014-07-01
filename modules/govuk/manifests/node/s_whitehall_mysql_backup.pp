@@ -36,8 +36,5 @@ class govuk::node::s_whitehall_mysql_backup (
     rotation_monthly             => $rotation_monthly,
   }
 
-  # FIXME: Remove when moved to platform1.
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/automysqlbackup'] -> Automysqlbackup::Backup['automysqlbackup']
-  }
+  Govuk::Mount['/var/lib/automysqlbackup'] -> Automysqlbackup::Backup['automysqlbackup']
 }

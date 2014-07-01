@@ -27,15 +27,6 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
       Govuk::Mount['/mnt/elasticsearch']
     ],
   }
-  #FIXME: remove when we have moved to platform one
-  if !hiera(use_hiera_disks,false) {
-    govuk::mount { '/mnt/elasticsearch':
-      nagios_warn  => 10,
-      nagios_crit  => 5,
-      mountoptions => 'defaults',
-      disk         => '/dev/sdb1',
-    }
-  }
 
   elasticsearch_old::plugin { 'redis-river':
     install_from => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',
@@ -117,8 +108,5 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     host_name => $::fqdn,
   }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
-  }
+  Govuk::Mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
 }

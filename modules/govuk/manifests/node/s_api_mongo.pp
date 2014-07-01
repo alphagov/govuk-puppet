@@ -15,9 +15,6 @@ class govuk::node::s_api_mongo inherits govuk::node::s_base {
     outgoing => 27017,
   }
 
-  #FIXME: remove if when we have moved to platform one
-  if hiera(use_hiera_disks,false) {
-    Govuk::Mount['/var/lib/mongodb'] -> Class['mongodb::server']
-    Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
-  }
+  Govuk::Mount['/var/lib/mongodb'] -> Class['mongodb::server']
+  Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
 }
