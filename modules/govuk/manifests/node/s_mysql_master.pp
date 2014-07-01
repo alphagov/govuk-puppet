@@ -24,15 +24,7 @@ class govuk::node::s_mysql_master (
     'govuk::apps::tariff_api::db',
     'govuk::apps::tariff_api_temporal::db',
     'govuk::apps::transition::db',
-    'govuk::apps::whitehall::db'
     ]:
-  }
-
-  govuk_mysql::user { 'whitehall_fe@%':
-    password_hash => mysql_password(hiera('mysql_whitehall_frontend', '')),
-    table         => 'whitehall_production.*',
-    privileges    => ['SELECT'],
-    require       => Class['govuk::apps::whitehall::db'],
   }
 
   govuk_mysql::user { 'bouncer@%':
