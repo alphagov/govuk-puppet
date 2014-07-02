@@ -20,6 +20,7 @@ class govuk::node::s_backend_lb (
       'contacts-admin',
       'content-planner',
       'fact-cave',
+      'hmrc-manuals-api',
       'imminence',
       'maslow',
       'needotron',
