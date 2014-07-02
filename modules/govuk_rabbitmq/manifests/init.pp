@@ -9,5 +9,9 @@ class govuk_rabbitmq {
     ensure => present,
   }
 
+  rabbitmq_plugin {'rabbitmq_management':
+    ensure => present,
+  }
+
   class { 'collectd::plugin::rabbitmq': }
 }
