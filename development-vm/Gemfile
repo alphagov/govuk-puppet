@@ -5,6 +5,7 @@ gem "bowler", "1.0.0"
 
 gem "es_dump_restore", "~> 0.0.7"
 
-# Pinning because rubyzip 1.1.1 - 1.1.4 have significant performance issues with es_dump_restore
-# with 1.1.0 es_dump_restore imports in the region of 1000 docs/s, with 1.1.1+ it's more like 2 docs/s
-gem "rubyzip", "1.1.0"
+# rubyzip 1.1.1 - 1.1.4 have a significant performance issue.
+# Add version constraint to ensure we're not using one of the bad versions
+# but to otherwise let es_dump_restore's requirements apply.
+gem "rubyzip", ">= 1.1.5"
