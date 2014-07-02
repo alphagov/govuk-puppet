@@ -517,6 +517,7 @@ class hosts::production (
       "fact-cave.${app_domain}",
       "finder-api.${app_domain}",
       "govuk-delivery.${app_domain}",
+      "hmrc-manuals-api.${app_domain}",
       "imminence.${app_domain}",
       "kibana.${app_domain}",
       "mapit.${app_domain}",
