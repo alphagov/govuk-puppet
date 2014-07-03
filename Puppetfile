@@ -13,8 +13,8 @@ mod 'saz/sudo', '3.0.1'
 mod 'saz/timezone'
 mod 'thomasvandoren/redis'
 
-# Pinned because of: https://github.com/stankevich/puppet-python/issues/46
-mod 'stankevich/python', '1.2.1'
+# 1.6.4 has https://github.com/stankevich/puppet-python/pull/49
+mod 'stankevich/python', '>= 1.6.4'
 
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)
