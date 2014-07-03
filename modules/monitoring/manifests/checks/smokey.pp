@@ -26,7 +26,7 @@ class monitoring::checks::smokey {
     'check_efg':                    feature => 'efg';
     'check_external_link_tracker':  feature => 'external_link_tracker';
     'check_frontend':               feature => 'frontend';
-    'check_licencefinder':          feature => 'licencefinder', notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-tests';
+    'check_licencefinder':          feature => 'licencefinder', notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks';
     'check_licensing':              feature => 'licensing';
     'check_limelight':              feature => 'limelight';
     'check_publishing':             feature => 'mainstream_publishing_tools';
