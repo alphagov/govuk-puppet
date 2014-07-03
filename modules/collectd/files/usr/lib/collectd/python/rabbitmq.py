@@ -28,7 +28,7 @@ HOST = 'localhost'
 PORT = '15672'
 USER = 'guest'
 PASS = 'guest'
-VERBOSE = True
+VERBOSE = False
 
 # Get all statistics with rabbitmqctl
 def get_rabbitmqctl_status():
@@ -51,9 +51,12 @@ def get_rabbitmqctl_status():
     nodes = json.load(urllib2.urlopen(url_nodes))
 
     # Message Stats
-    stats['ack_rate'] = int(overview['message_stats']['ack_details']['rate'])
-    stats['deliver_rate'] = int(overview['message_stats']['deliver_details']['rate'])
-    stats['publish_rate'] = int(overview['message_stats']['publish_details']['rate'])
+    try:
+        stats['ack_rate'] = int(overview['message_stats']['ack_details']['rate'])
+        stats['deliver_rate'] = int(overview['message_stats']['deliver_details']['rate'])
+        stats['publish_rate'] = int(overview['message_stats']['publish_details']['rate'])
+    except KeyError:
+        log("warn", "no message stats available")
 
     # Queue Totals
     stats['messages_total'] = int(overview['queue_totals']['messages'])
@@ -82,6 +85,7 @@ def get_rabbitmqctl_status():
 # Config data from collectd
 def configure_callback(conf):
     log('verb', 'configure_callback Running')
+    global NAME, HOST, PORT, USER, PASS, VERBOSE
     for node in conf.children:
         if node.key == 'Name':
             NAME = node.values[0]
