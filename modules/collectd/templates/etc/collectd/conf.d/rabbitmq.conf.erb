@@ -1,0 +1,15 @@
+# Configuration for rabbitmq-collectd-plugin
+
+<LoadPlugin python>
+    Globals true
+</LoadPlugin>
+
+<Plugin python>
+    ModulePath "/usr/lib/collectd/python/"
+    Import rabbitmq
+
+    <Module rabbitmq>
+        User monitoring
+        Pass <%= @monitoring_password %>
+    </Module>
+</Plugin>
