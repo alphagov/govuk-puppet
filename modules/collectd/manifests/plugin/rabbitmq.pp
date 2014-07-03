@@ -1,20 +1,22 @@
-class collectd::plugin::rabbitmq {
+class collectd::plugin::rabbitmq (
+  $monitoring_password,
+  ){
   include collectd::plugin::python
 
-  @file { '/usr/lib/collectd/python/rabbitmq_info.py':
+  @file { '/usr/lib/collectd/python/rabbitmq.py':
     ensure  => present,
-    source  => 'puppet:///modules/collectd/usr/lib/collectd/python/rabbitmq_info.py',
+    source  => 'puppet:///modules/collectd/usr/lib/collectd/python/rabbitmq.py',
     tag     => 'collectd::plugin',
-    notify  => File['/etc/collectd/conf.d/rabbitmq_info.conf'],
+    notify  => File['/etc/collectd/conf.d/rabbitmq.conf'],
   }
 
-  @file { '/usr/lib/collectd/python/rabbitmq_info.pyc':
+  @file { '/usr/lib/collectd/python/rabbitmq.pyc':
     ensure  => undef,
     tag     => 'collectd::plugin',
   }
 
-  @collectd::plugin { 'rabbitmq_info':
-    source  => 'puppet:///modules/collectd/etc/collectd/conf.d/rabbitmq_info.conf',
-    require => Class['collectd::plugin::python'],
+  @collectd::plugin { 'rabbitmq':
+    content  => template('collectd/etc/collectd/conf.d/rabbitmq.conf.erb'),
+    require  => Class['collectd::plugin::python'],
   }
 }
