@@ -28,6 +28,8 @@ class govuk::apps::govuk_crawler_worker (
         value => 'govuk_crawler_worker';
       'ROOT_URL':
         value => 'https://www.gov.uk/';
+      'MIRROR_ROOT':
+        value => '/mnt/crawler_worker';
     }
 
     govuk::app { 'govuk_crawler_worker':
