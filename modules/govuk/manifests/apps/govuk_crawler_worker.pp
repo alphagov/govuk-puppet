@@ -22,6 +22,8 @@ class govuk::apps::govuk_crawler_worker (
         value => 'govuk_crawler_queue';
       'BLACKLIST_PATHS':
         value => join($blacklist_paths, ',');
+      'HTTP_PORT':
+        value => $port;
       'REDIS_ADDRESS':
         value => 'redis-1:6379';
       'REDIS_KEY_PREFIX':
@@ -33,9 +35,10 @@ class govuk::apps::govuk_crawler_worker (
     }
 
     govuk::app { 'govuk_crawler_worker':
-      app_type => 'bare',
-      port     => $port,
-      command  => './govuk_crawler_worker',
+      app_type           => 'bare',
+      port               => $port,
+      command            => './govuk_crawler_worker',
+      health_check_path  => '/healthcheck',
     }
 
     govuk::logstream { 'govuk_crawler_worker-error-log':
