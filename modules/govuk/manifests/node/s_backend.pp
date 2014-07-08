@@ -64,6 +64,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::signon
   include govuk::apps::specialist_publisher
   include govuk::apps::support
+  include govuk::apps::support_api
   include govuk::apps::tariff_admin
   include govuk::apps::tariff_api
   include govuk::apps::transition
