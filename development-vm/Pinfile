@@ -24,7 +24,7 @@ process :fact_cave
 process :fco
 process :fco_services
 process :feedback => [:static, :support]
-process :'finder-frontend' => [:static, :'finder-api']
+process :'finder-frontend' => [:static, :'finder-api', :contentapi]
 process :'finder-api'
 process :frontend => [:static, :contentapi, :rummager]
 process :imminence
