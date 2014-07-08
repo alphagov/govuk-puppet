@@ -13,6 +13,7 @@ class users::groups::govuk_production_access {
   include users::dai
   include users::danielroseman
   include users::davidillsley
+  include users::davidsingleton
   include users::davidt
   include users::dcarley
   include users::dominicbaggott
