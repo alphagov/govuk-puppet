@@ -5,7 +5,6 @@ class base::packages {
       'bzip2',
       'dnsutils',
       'dstat',
-      'fish',
       'gettext',
       'git-core',
       'htop',
@@ -31,6 +30,11 @@ class base::packages {
       'xz-utils',
       'zip'
     ])
+
+  # FIXME: Remove once Fish is purged from all machines
+  package { 'fish':
+    ensure => purged,
+  }
 
   package { 'ruby1.9.1-dev':
     ensure => installed,
