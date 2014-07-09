@@ -11,7 +11,7 @@ class govuk::node::s_development {
   include mysql::client
   include nodejs
   include puppet
-  include rabbitmq
+  include govuk_rabbitmq
   include redis
   include tmpreaper
   include users
