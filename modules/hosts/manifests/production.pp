@@ -505,6 +505,7 @@ class hosts::production (
       "signon.${app_domain}",
       "specialist-publisher.${app_domain}",
       "support.${app_domain}",
+      "support-api.${app_domain}",
       "tariff-admin.${app_domain}",
       "tariff-api.${app_domain}",
       "transition.${app_domain}",

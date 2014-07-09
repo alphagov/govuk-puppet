@@ -47,6 +47,7 @@ class govuk::node::s_backend_lb (
       'need-api',
       'govuk-delivery',
       'search',
+      'support-api',
       'tariff-api',
     ]:
       https_only    => false, # FIXME: Remove for #51136581
