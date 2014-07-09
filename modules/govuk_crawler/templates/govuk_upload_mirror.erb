@@ -9,7 +9,7 @@ START_UPLOAD=$(($(date +%s%N)/1000000))
 
 for TARGET in $TARGETS; do
   logger -t mirrorer Started uploading to $TARGET
-  rsync -rLptgoD -z --delete /var/lib/govuk_mirror/current/. \
+  rsync -rLptgoD -z /var/lib/govuk_mirror/current/. \
                $TARGET:/srv/mirror_data/www-origin
   EXITCODE=$?
   if [ "$EXITCODE" != "0" ]; then
