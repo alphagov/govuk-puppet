@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require 'json'
+require_relative 'load_nodes'
 
 min_required_vagrant_version = '1.3.0'
 
@@ -16,44 +16,6 @@ def get_box(dist, version)
   return name, url
 end
 
-# Load node definitions from the JSON in the vcloud-templates repo parallel
-# to this.
-def nodes_from_json
-  json_dir = File.expand_path("../../vcloud-templates/machines", __FILE__)
-  json_local = File.expand_path("../nodes.local.json", __FILE__)
-
-  unless File.exists?(json_dir)
-    puts "Unable to find nodes in 'vcloud-templates' repo"
-    puts
-    return {}
-  end
-
-  json_files = Dir.glob(
-    File.join(json_dir, "**", "*.json")
-  )
-
-  nodes = Hash[
-    json_files.map { |json_file|
-      node = JSON.parse(File.read(json_file))
-      name = node["vm_name"] + "." + node["zone"]
-
-      # Ignore physical attributes.
-      node.delete("memory")
-      node.delete("num_cores")
-
-      [name, node]
-    }
-  ]
-
-  # Local JSON file can override node properties like "memory".
-  if File.exists?(json_local)
-    nodes_local = JSON.parse(File.read(json_local))
-    nodes_local.each { |k,v| nodes[k].merge!(v) if nodes.has_key?(k) }
-  end
-
-  nodes
-end
-
 if Vagrant::VERSION < min_required_vagrant_version
   $stderr.puts "ERROR: Puppet now requires Vagrant version >=#{min_required_vagrant_version}. Please upgrade.\n"
   exit 1
@@ -65,7 +27,8 @@ Vagrant.configure("2") do |config|
     config.cache.auto_detect = true
   end
 
-  nodes_from_json.each do |node_name, node_opts|
+  nodes = load_nodes()
+  nodes.each do |node_name, node_opts|
     config.vm.define node_name do |c|
       box_name, box_url = get_box(
         node_opts["box_dist"],
