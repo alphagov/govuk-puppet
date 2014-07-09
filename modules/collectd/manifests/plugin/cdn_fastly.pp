@@ -4,16 +4,19 @@
 #
 # === Parameters
 #
-# [*api_key*]
-#   Fastly API key.
-#   FIXME: Replace with user/pass.
+# [*username*]
+#   Fastly username.
+#
+# [*password*]
+#   Fastly password.
 #
 # [*services*]
 #   A hash of services. In the format:
 #   `{ 'friendly_name' => 'service_id', }`
 #
 class collectd::plugin::cdn_fastly(
-  $api_key,
+  $username,
+  $password,
   $services,
 ) {
   include collectd::plugin::python
