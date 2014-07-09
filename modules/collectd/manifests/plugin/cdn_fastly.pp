@@ -24,7 +24,7 @@ class collectd::plugin::cdn_fastly(
   validate_hash($services)
 
   package { 'collectd-cdn':
-    ensure   => '0.1.0',
+    ensure   => '0.2.0',
     provider => 'pip',
   }
 
