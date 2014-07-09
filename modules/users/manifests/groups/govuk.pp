@@ -23,7 +23,6 @@ class users::groups::govuk {
   include users::benilovj
   include users::bob
   include users::bradleyw
-  include users::calpaterson
   include users::carlmassa
   include users::chrisheathcote
   include users::dai
