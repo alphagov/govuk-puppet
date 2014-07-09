@@ -58,6 +58,8 @@ ntp::server_list:
   - '1.uk.pool.ntp.org'
   - '2.uk.pool.ntp.org'
 
+rabbitmq::delete_guest_user: true
+rabbitmq::config_stomp: true
 # Always use our mirror because they only provide the latest package.
 rabbitmq::package_ensure: '3.3.4-1'
 rabbitmq::manage_repos: false
