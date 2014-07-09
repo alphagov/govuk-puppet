@@ -36,7 +36,7 @@ def load_nodes
 
         name = "#{name}.#{vdc}"
         config = {
-          :ip => network.fetch('ip_address'),
+          'ip' => network.fetch('ip_address'),
         }
 
         [name, config]
