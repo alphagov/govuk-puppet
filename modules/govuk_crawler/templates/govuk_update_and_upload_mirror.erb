@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+
+# Nagios defaults, assume failed
+NAGIOS_CODE=1
+NAGIOS_MESSAGE="WARNING: Mirrorer update failed."
+
+function nagios_passive() {
+  logger -p user.info -t mirrorer $NAGIOS_MESSAGE Exit code was $?
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
+
+trap nagios_passive EXIT
+
+export MIRRORER_SITE_ROOT=https://www.gov.uk
+
+logger -p user.info -t mirrorer Starting to mirror GOV.UK
+/usr/local/bin/govuk_update_mirror
+EXIT_CODE=$?
+logger -p user.crit -t mirrorer Exit code from govuk_update_mirror was $EXIT_CODE
+logger -p user.info -t mirrorer Finished the mirror of GOV.UK
+
+# If we successfully ran govuk_update_mirror we need to update
+# the assumed failure message to indicate it would be an
+# upload failure.
+if [ $EXIT_CODE == "0" ]; then
+  NAGIOS_MESSAGE="WARNING: Mirrorer upload failed."
+fi
+
+logger -p user.info -t mirrorer Starting to upload GOV.UK to mirror targets
+/usr/local/bin/govuk_upload_mirror
+EXIT_CODE=$?
+logger -p user.crit -t mirrorer Exit code from govuk_upload_mirror was $EXIT_CODE
+logger -p user.info -t mirrorer Finished uploading GOV.UK to mirror targets
+
+# As both scripts have succeeded then set the
+# nagios code and message ot successful
+if [ $EXIT_CODE == "0" ]; then
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: Mirrorer ran successfully."
+fi
