@@ -39,16 +39,19 @@ define govuk::lvm(
     volume_group { $vg:
       ensure           => $ensure,
       physical_volumes => $pv,
+      require          => Physical_volume[$pv],
     }
 
     logical_volume { $title:
       ensure       => $ensure,
       volume_group => $vg,
+      require      => Volume_group[$vg],
     }
 
     filesystem { $filesystem:
       ensure  => $ensure,
       fs_type => $fstype,
+      require => Logical_volume[$title],
     }
   }
 }
