@@ -27,43 +27,50 @@ class govuk_crawler(
   validate_array($targets)
   validate_hash($ssh_keys)
 
+  $crawler_user = 'govuk-crawler'
+  $crawler_lock_path = '/var/run/govuk_sync_mirror.lock'
+  $sync_script_name = 'govuk_sync_mirror'
+  $sync_script_path = "/usr/local/bin/${sync_script_name}"
+  $mirror_root = '/mnt/crawler-worker'
 
   include daemontools # provides setlock
 
   # add ssh host keys of mirror targets.
   create_resources('sshkey', $ssh_keys)
 
-  # set up user that's needed to upload the mirrored site to net storage
-  govuk::user { 'govuk-netstorage':
-    fullname => 'Netstorage Upload User',
+  # User used to rsync crawled content to the remote mirror
+  govuk::user { $crawler_user:
+    fullname => 'GOV.UK Crawler',
     email    => 'webops@digital.cabinet-office.gov.uk',
   }
-  file { '/home/govuk-netstorage/.ssh/id_rsa':
+  file { "/home/${crawler_user}/.ssh/id_rsa":
     ensure  => file,
-    owner   => 'govuk-netstorage',
+    owner   => $crawler_user,
     mode    => '0600',
     content => $ssh_private_key,
-    require => Govuk::User['govuk-netstorage'],
+    require => Govuk::User[$crawler_user],
   }
 
   #create cron lock file writable by user
-  file { '/var/run/govuk_update_and_upload_mirror.lock':
+  file { $crawler_lock_path:
     ensure => present,
     mode   => '0700',
-    owner  => 'govuk-netstorage',
+    owner  => $crawler_user,
   }
 
-  # directory that we put the mirrored content into locally
-  file { '/var/lib/govuk_mirror':
+  # directory used by GOV.UK Crawler Worker to store crawled content
+  file { $mirror_root:
     ensure => directory,
-    owner  => 'govuk-netstorage',
+    mode   => '0750',
+    owner  => $crawler_user,
   }
 
-  # script to mirror the site locally
-  file { '/usr/local/bin/govuk_update_mirror':
-    ensure => present,
-    mode   => '0755',
-    source => 'puppet:///modules/mirror/govuk_update_mirror',
+  # sync crawled content to remote mirror
+  file { $sync_script_path:
+    ensure  => present,
+    mode    => '0750',
+    content => template("${module_name}/${sync_script_name}.erb"),
+    owner   => $crawler_user,
   }
 
   $govuk_gemfury_source_url = hiera('govuk_gemfury_source_url')
@@ -77,13 +84,6 @@ class govuk_crawler(
     provider => system_gem,
   }
 
-  # script that uploads the mirrored files to net storage
-  file { '/usr/local/bin/govuk_upload_mirror':
-    ensure  => present,
-    mode    => '0755',
-    content => template('mirror/govuk_upload_mirror.erb'),
-  }
-
   $service_desc = 'mirrorer update and upload'
   $threshold_secs = 48 * (60 * 60)
 
@@ -94,15 +94,6 @@ class govuk_crawler(
       freshness_threshold => $threshold_secs,
     }
   }
-  # parent script that is called by cron that calls the above scripts to do the mirroring
-  file { '/usr/local/bin/govuk_update_and_upload_mirror':
-    ensure  => present,
-    mode    => '0755',
-    content => template('mirror/govuk_update_and_upload_mirror.erb'),
-    require => [File['/usr/local/bin/govuk_upload_mirror'],
-                File['/usr/local/bin/govuk_update_mirror'],
-                File['/var/lib/govuk_mirror']],
-  }
 
   $cron_ensure = $enable ? {
     true    => present,
@@ -111,12 +102,11 @@ class govuk_crawler(
 
   cron { 'sync-to-mirror':
     ensure      => $cron_ensure,
-    user        => 'govuk-netstorage',
+    user        => $crawler_user,
     minute      => '0',
     environment => 'MAILTO=""',
-    command     => '/usr/bin/setlock -n /var/run/govuk_update_and_upload_mirror.lock /usr/local/bin/govuk_update_and_upload_mirror',
-    require     => [File['/usr/local/bin/govuk_update_and_upload_mirror'],
-                    File['/var/run/govuk_update_and_upload_mirror.lock']],
+    command     => "/usr/bin/setlock -n ${$crawler_lock_path} ${sync_script_path}",
+    require     => [File[$sync_script_path], File[$crawler_lock_path]]
   }
 
 }
