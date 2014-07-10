@@ -13,6 +13,11 @@
 #   A hash of hostnames with ssh host keys and type of ssh host key.
 #   Default: {}
 #
+# [*ssh_private_key*]
+#   SSH private key for the user that syncs crawled content to the
+#   remote mirrors.
+#   Default: ''
+#
 # [*targets*]
 #   An array of SSH user@host strings to sync the mirrored data to.
 #   If populated then an Icinga passive check will be created.
