@@ -44,6 +44,7 @@ describe 'govuk_crawler', :type => :class do
        let(:params) {{
          :targets => 'user102@mirror102',
        }}
+
        it { expect { should }.to raise_error(Puppet::Error, /is not an Array/) }
     end
 
@@ -97,5 +98,4 @@ describe 'govuk_crawler', :type => :class do
       }
     end
   end
-
 end
