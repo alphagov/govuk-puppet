@@ -9,20 +9,21 @@
 #   AND upload processes from running, regardless of the `targets` param.
 #   Default: false
 #
+# [*sshkeys*]
+#   A hash of hostnames with ssh host keys and type of ssh host key.
+#   Default: {}
+#
 # [*targets*]
 #   An array of SSH user@host strings to sync the mirrored data to.
 #   If populated then an Icinga passive check will be created.
 #   If empty then no sync will be performed.
 #   Default: []
 #
-# [*sshkeys*]
-#   A hash of hostnames with ssh host keys and type of ssh host key.
-#  Default: {}
 class govuk_crawler(
   $enable = false,
+  $ssh_keys = {}
   $ssh_private_key = '',
   $targets = [],
-  $ssh_keys = {}
 ) {
   validate_array($targets)
   validate_hash($ssh_keys)
