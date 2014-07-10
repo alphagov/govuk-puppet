@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*crawler_user*]
+#   User that the synchronisation cron job runs as.
+#   Default: 'govuk-crawler'
+#
 # [*enable*]
 #   Whether to setup the cronjob. If `false` this will prevent the update
 #   AND upload processes from running, regardless of the `targets` param.
@@ -25,6 +29,7 @@
 #   Default: []
 #
 class govuk_crawler(
+  $crawler_user = 'govuk-crawler',
   $enable = false,
   $ssh_keys = {}
   $ssh_private_key = '',
@@ -33,7 +38,6 @@ class govuk_crawler(
   validate_array($targets)
   validate_hash($ssh_keys)
 
-  $crawler_user = 'govuk-crawler'
   $crawler_lock_path = '/var/run/govuk_sync_mirror.lock'
   $sync_script_name = 'govuk_sync_mirror'
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
