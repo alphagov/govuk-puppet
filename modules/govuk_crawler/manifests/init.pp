@@ -84,8 +84,8 @@ class govuk_crawler(
     provider => system_gem,
   }
 
-  $service_desc = 'mirrorer update and upload'
-  $threshold_secs = 48 * (60 * 60)
+  $service_desc = 'Mirror sync'
+  $threshold_secs = 24 * (60 * 60)
 
   if !empty($targets) {
     @@icinga::passive_check { "check-mirror-sync-${::hostname}":
