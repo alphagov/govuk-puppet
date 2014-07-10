@@ -1,16 +1,35 @@
 #!/usr/bin/env bash
 set -e
 
+TARGETS="<%= @targets.flatten.join(' ') -%>"
+MIRROR_ROOT="<%= @mirror_root -%>"
+GOVUK_APP_DOMAIN=$(cat /etc/govuk/env.d/GOVUK_APP_DOMAIN)
+STATIC_HOSTNAME="static.${GOVUK_APP_DOMAIN}"
+PROGRAM_NAME=$(basename $0)
+
 # Nagios defaults, assume failed
 NAGIOS_CODE=1
-NAGIOS_MESSAGE="WARNING: Mirrorer update failed."
+NAGIOS_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
+
+trap nagios_passive EXIT
+
+if [ -z "${TARGETS}" ]; then
+  log "user.info" "No mirror targets received"
+fi
+
+if [ ! -d "${MIRROR_ROOT}" ]; then
+  log "user.info" "No mirror root specified or directory does not exist: ${MIRROR_ROOT}"
+fi
+
+if [ -z "${GOVUK_APP_DOMAIN}" ]; then
+  log "user.info" "Couldn't find GOVUK_APP_DOMAIN"
+fi
 
 function nagios_passive() {
   logger -p user.info -t mirrorer $NAGIOS_MESSAGE Exit code was $?
   printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
-trap nagios_passive EXIT
 function get_error_page() {
   # Grab the 503 error page
   log "user.info" "Grabbing the latest error page"
