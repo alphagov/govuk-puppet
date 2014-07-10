@@ -243,7 +243,6 @@ class govuk::node::s_development {
   }
 
   package {
-    'foreman':        ensure => '0.27.0',    provider => system_gem;
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
