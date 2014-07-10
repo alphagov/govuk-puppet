@@ -1,6 +1,7 @@
 FORGE
   remote: http://forge.puppetlabs.com
   specs:
+    adrien/alternatives (0.1.1)
     gdsoperations/aptly (0.2.0)
       puppetlabs/apt (>= 1.0.0)
       puppetlabs/stdlib (>= 3.0.0)
@@ -117,6 +118,7 @@ GIT
       puppetlabs/stdlib (>= 3.0.0)
 
 DEPENDENCIES
+  adrien/alternatives (>= 0)
   apparmor (>= 0)
   curl (>= 0)
   ext4mount (>= 0)
