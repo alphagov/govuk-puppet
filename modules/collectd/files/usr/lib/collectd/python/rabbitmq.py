@@ -122,8 +122,9 @@ def log(t, message):
         collectd.error('%s: %s' %(NAME, message))
     elif t == 'warn':
         collectd.warning('%s: %s' %(NAME, message))
-    elif t == 'verb' and VERBOSE == True:
-        collectd.info('%s: %s' %(NAME, message))
+    elif t == 'verb':
+        if VERBOSE == True:
+            collectd.info('%s: %s' %(NAME, message))
     else:
         collectd.info('%s: %s' %(NAME, message))
 
