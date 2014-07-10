@@ -133,4 +133,8 @@ class govuk::node::s_base {
   user { 'ubuntu':
     ensure => absent,
   }
+
+  alternatives { 'ruby':
+    path => '/usr/bin/ruby1.9.1'
+  }
 }

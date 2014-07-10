@@ -1,5 +1,6 @@
 forge "http://forge.puppetlabs.com"
 
+mod 'adrien/alternatives'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/mysql'
