@@ -36,7 +36,7 @@ class govuk_crawler(
   $crawler_user = 'govuk-crawler',
   $enable = false,
   $mirror_root = '/mnt/crawler-worker',
-  $ssh_keys = {}
+  $ssh_keys = {},
   $ssh_private_key = '',
   $targets = [],
 ) {
