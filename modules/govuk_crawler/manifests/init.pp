@@ -74,7 +74,7 @@ class govuk_crawler(
   }
 
   $govuk_gemfury_source_url = hiera('govuk_gemfury_source_url')
-  class {'ruby::govuk_mirrorer':
+  class {'ruby::govuk_seed_crawler':
     govuk_gemfury_source_url => $govuk_gemfury_source_url,
   }
 
