@@ -1,4 +1,4 @@
-class base::packages {
+class base::packages ($ruby_version=installed){
 
   ensure_packages([
       'ack-grep',
@@ -37,16 +37,16 @@ class base::packages {
   }
 
   package { 'libruby1.9.1':
-    ensure => '1:1.9.3.194-0~51~precise1',
+    ensure => $ruby_version,
   }
 
   package { 'ruby1.9.1-dev':
-    ensure  => '1:1.9.3.194-0~51~precise1',
+    ensure  => $ruby_version,
     require => Package['libruby1.9.1', 'ruby1.9.1'],
   }
 
   package { 'ruby1.9.1':
-    ensure  => '1:1.9.3.194-0~51~precise1',
+    ensure  => $ruby_version,
     require => Package['libruby1.9.1'],
   }
 
