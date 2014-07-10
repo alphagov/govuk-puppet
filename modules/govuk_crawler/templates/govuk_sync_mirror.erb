@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -e
+
+TARGETS="<%= @targets.flatten.join(' ') -%>"
+MIRROR_ROOT="<%= @mirror_root -%>"
+GOVUK_APP_DOMAIN=$(cat /etc/govuk/env.d/GOVUK_APP_DOMAIN)
+STATIC_HOSTNAME="static.${GOVUK_APP_DOMAIN}"
+PROGRAM_NAME=$(basename $0)
+
+# Nagios defaults, assume failed
+NAGIOS_CODE=1
+NAGIOS_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
+
+trap nagios_passive EXIT
+
+if [ -z "${TARGETS}" ]; then
+  log "user.info" "No mirror targets received"
+fi
+
+if [ ! -d "${MIRROR_ROOT}" ]; then
+  log "user.info" "No mirror root specified or directory does not exist: ${MIRROR_ROOT}"
+fi
+
+if [ -z "${GOVUK_APP_DOMAIN}" ]; then
+  log "user.info" "Couldn't find GOVUK_APP_DOMAIN"
+fi
+
+function nagios_passive() {
+  log "user.info" "$NAGIOS_MESSAGE Exit code was $?"
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
+
+function get_error_page() {
+  # Grab the 503 error page
+  log "user.info" "Grabbing the latest error page"
+
+  test -d ${MIRROR_ROOT}/error || mkdir ${MIRROR_ROOT}/error/
+  curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o ${MIRROR_ROOT}/error/503.html
+}
+
+function log() {
+  logger -p ${1} -t ${PROGRAM_NAME} "${2}"
+}
+
+log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
+
+get_error_page
+
+START_UPLOAD=$($(date +%s%3N))
+
+for TARGET in ${TARGETS}; do
+  log "user.info" "Started uploading to ${TARGET}"
+
+  rsync -rLptgoD -z ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data/www-origin
+
+  EXITCODE=$?
+
+  if [ "$EXITCODE" != "0" ]; then
+     log "user.crit" "Uploading mirror ${TARGET} failed with exit code: $EXITCODE"
+  fi
+
+  log "user.info" "Finished uploading to mirror ${TARGET}"
+done
+
+STOP_UPLOAD=$($(date +%s%3N))
+DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
+
+echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u localhost 8125
+
+log "user.info" "Finished synchronising to GOV.UK mirrors"
+
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully"
