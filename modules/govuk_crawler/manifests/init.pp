@@ -9,7 +9,7 @@
 #   AND upload processes from running, regardless of the `targets` param.
 #   Default: false
 #
-# [*sshkeys*]
+# [*ssh_keys*]
 #   A hash of hostnames with ssh host keys and type of ssh host key.
 #   Default: {}
 #
