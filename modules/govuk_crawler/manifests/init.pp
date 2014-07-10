@@ -38,8 +38,8 @@ class govuk_crawler(
   validate_array($targets)
   validate_hash($ssh_keys)
 
-  $crawler_lock_path = '/var/run/govuk_sync_mirror.lock'
   $sync_script_name = 'govuk_sync_mirror'
+  $crawler_lock_path = "/var/run/${sync_script_name}.lock"
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
   $mirror_root = '/mnt/crawler-worker'
 
