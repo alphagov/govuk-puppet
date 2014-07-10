@@ -13,6 +13,10 @@
 #   AND upload processes from running, regardless of the `targets` param.
 #   Default: false
 #
+# [*mirror_root*]
+#   The directory where crawled content is stored.
+#   Default: '/mnt/crawler-worker'
+#
 # [*ssh_keys*]
 #   A hash of hostnames with ssh host keys and type of ssh host key.
 #   Default: {}
@@ -31,6 +35,7 @@
 class govuk_crawler(
   $crawler_user = 'govuk-crawler',
   $enable = false,
+  $mirror_root = '/mnt/crawler-worker',
   $ssh_keys = {}
   $ssh_private_key = '',
   $targets = [],
@@ -41,7 +46,6 @@ class govuk_crawler(
   $sync_script_name = 'govuk_sync_mirror'
   $crawler_lock_path = "/var/run/${sync_script_name}.lock"
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
-  $mirror_root = '/mnt/crawler-worker'
 
   include daemontools # provides setlock
 
