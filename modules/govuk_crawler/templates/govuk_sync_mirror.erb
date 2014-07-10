@@ -11,6 +11,13 @@ function nagios_passive() {
 }
 
 trap nagios_passive EXIT
+function get_error_page() {
+  # Grab the 503 error page
+  log "user.info" "Grabbing the latest error page"
+
+  test -d ${MIRROR_ROOT}/error || mkdir ${MIRROR_ROOT}/error/
+  curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o ${MIRROR_ROOT}/error/503.html
+}
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
 
@@ -26,6 +33,7 @@ logger -p user.info -t mirrorer Finished the mirror of GOV.UK
 if [ $EXIT_CODE == "0" ]; then
   NAGIOS_MESSAGE="WARNING: Mirrorer upload failed."
 fi
+get_error_page
 
 logger -p user.info -t mirrorer Starting to upload GOV.UK to mirror targets
 /usr/local/bin/govuk_upload_mirror
