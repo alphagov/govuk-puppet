@@ -26,7 +26,7 @@ if [ -z "${GOVUK_APP_DOMAIN}" ]; then
 fi
 
 function nagios_passive() {
-  logger -p user.info -t mirrorer $NAGIOS_MESSAGE Exit code was $?
+  log "user.info" "$NAGIOS_MESSAGE Exit code was $?"
   printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
@@ -39,12 +39,16 @@ function get_error_page() {
 }
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
+function log() {
+  logger -p ${1} -t ${PROGRAM_NAME} "${2}"
+}
 
 logger -p user.info -t mirrorer Starting to mirror GOV.UK
 /usr/local/bin/govuk_update_mirror
 EXIT_CODE=$?
 logger -p user.crit -t mirrorer Exit code from govuk_update_mirror was $EXIT_CODE
 logger -p user.info -t mirrorer Finished the mirror of GOV.UK
+log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
 
 # If we successfully ran govuk_update_mirror we need to update
 # the assumed failure message to indicate it would be an
