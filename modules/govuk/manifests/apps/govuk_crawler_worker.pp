@@ -1,6 +1,6 @@
 class govuk::apps::govuk_crawler_worker (
-  $enabled   = false,
   $amqp_pass = 'guest',
+  $enabled   = false,
   $port = 3074,
 ) {
   if $enabled {
