@@ -191,10 +191,6 @@ class govuk::node::s_development {
       user     => 'efg',
       password => 'efg';
 
-    'fco_development':
-      user     => 'fco',
-      password => '';
-
     'needotron_development':
       user     => 'needotron',
       password => '';
