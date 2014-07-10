@@ -195,10 +195,6 @@ class govuk::node::s_development {
       user     => 'needotron',
       password => '';
 
-    ['panopticon_development', 'panopticon_test']:
-      user     => 'panopticon',
-      password => 'panopticon';
-
     ['release_development', 'release_test']:
       user     => 'release',
       password => 'release';
