@@ -327,6 +327,7 @@ class hosts::production (
     vdc            => 'api',
     legacy_aliases => [
       "content-store.${app_domain}",
+      "publishing-api.${app_domain}",
     ]
   }
 

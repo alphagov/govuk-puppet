@@ -9,6 +9,7 @@ class govuk::node::s_api_lb (
   loadbalancer::balance {
     [
       'content-store',
+      'publishing-api',
     ]:
       servers       => $content_store_backend_servers,
       internal_only => true;
