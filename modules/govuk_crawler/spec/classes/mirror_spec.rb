@@ -1,6 +1,7 @@
 require_relative '../../../../spec_helper'
 
-describe 'mirror', :type => :class do
+describe 'govuk_crawler', :type => :class do
+
   let(:hiera_data) {{
     'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
   }}

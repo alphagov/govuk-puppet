@@ -1,6 +1,6 @@
-# == Class: mirror
+# == Class: GOV.UK Crawler
 #
-# Mirror GOV.UK and upload it to a static failover site.
+# Crawl GOV.UK and upload it to a remote static mirror for failover purposes.
 #
 # === Parameters
 #
@@ -18,7 +18,7 @@
 # [*sshkeys*]
 #   A hash of hostnames with ssh host keys and type of ssh host key.
 #  Default: {}
-class mirror(
+class govuk_crawler(
   $enable = false,
   $ssh_private_key = '',
   $targets = [],
@@ -87,7 +87,7 @@ class mirror(
   $threshold_secs = 48 * (60 * 60)
 
   if !empty($targets) {
-    @@icinga::passive_check { "check-mirrorer-${::hostname}":
+    @@icinga::passive_check { "check-mirror-sync-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,
@@ -108,7 +108,7 @@ class mirror(
     default => absent,
   }
 
-  cron { 'update-latest-to-mirror':
+  cron { 'sync-to-mirror':
     ensure      => $cron_ensure,
     user        => 'govuk-netstorage',
     minute      => '0',
