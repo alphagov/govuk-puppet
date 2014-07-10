@@ -52,7 +52,7 @@ describe 'govuk_crawler', :type => :class do
      end
   end
 
-  describe "#sshkeys" do
+  describe "#ssh_keys" do
     context "{} (default)" do
       let(:params) {{ }}
 
@@ -61,7 +61,7 @@ describe 'govuk_crawler', :type => :class do
 
     context "string" do
       let(:params) {{
-        :sshkeys => 'mirror102',
+        :ssh_keys => 'mirror102',
       }}
 
       it { expect { should }.to raise_error(Puppet::Error, /is not a Hash/) }
@@ -69,14 +69,16 @@ describe 'govuk_crawler', :type => :class do
 
     context "hash of keys" do
       let(:params) {{
-        :sshkeys => {
-         'mirror101' => { 'type' => 'ssh-rsa',
-                          'key'  => 'testkey1',
-                        },
-         'mirror102' => { 'type' => 'ssh-rsa',
-                          'key'  => 'testkey2',
-                        },
-        }
+          :ssh_keys => {
+            'mirror101' => {
+              'type' => 'ssh-rsa',
+              'key'  => 'testkey1',
+            },
+            'mirror102' => {
+              'type' => 'ssh-rsa',
+              'key'  => 'testkey2',
+            },
+          }
       }}
 
       it {

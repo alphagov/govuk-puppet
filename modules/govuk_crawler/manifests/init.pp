@@ -22,12 +22,16 @@ class govuk_crawler(
   $enable = false,
   $ssh_private_key = '',
   $targets = [],
-  $sshkeys = {}
+  $ssh_keys = {}
 ) {
   validate_array($targets)
-  validate_hash($sshkeys)
+  validate_hash($ssh_keys)
+
 
   include daemontools # provides setlock
+
+  # add ssh host keys of mirror targets.
+  create_resources('sshkey', $ssh_keys)
 
   # set up user that's needed to upload the mirrored site to net storage
   govuk::user { 'govuk-netstorage':
@@ -79,9 +83,6 @@ class govuk_crawler(
     mode    => '0755',
     content => template('mirror/govuk_upload_mirror.erb'),
   }
-
-  # add ssh host keys of mirror targets.
-  create_resources('sshkey',$sshkeys)
 
   $service_desc = 'mirrorer update and upload'
   $threshold_secs = 48 * (60 * 60)
