@@ -18,7 +18,7 @@ describe 'govuk_crawler', :type => :class do
     should contain_file('/home/govuk-crawler/.ssh/id_rsa').with_ensure('file')
   }
 
-  describe "#enable" do
+  describe "enable" do
     context "false (default)" do
       let(:params) {{ }}
       it { should contain_cron('sync-to-mirror').with_ensure('absent') }
@@ -33,7 +33,7 @@ describe 'govuk_crawler', :type => :class do
     end
   end
 
-  describe "#targets" do
+  describe "targets" do
     context "[] (default)" do
       let(:params) {{ }}
 
@@ -55,7 +55,7 @@ describe 'govuk_crawler', :type => :class do
      end
   end
 
-  describe "#ssh_keys" do
+  describe "ssh_keys" do
     context "{} (default)" do
       let(:params) {{ }}
 
