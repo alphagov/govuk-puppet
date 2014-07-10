@@ -1,6 +1,7 @@
 class govuk::apps::govuk_crawler_worker (
   $amqp_pass = 'guest',
   $enabled   = false,
+  $mirror_root = '/mnt/crawler_worker',
   $port = 3074,
 ) {
   if $enabled {
@@ -31,7 +32,7 @@ class govuk::apps::govuk_crawler_worker (
       'ROOT_URL':
         value => 'https://www.gov.uk/';
       'MIRROR_ROOT':
-        value => '/mnt/crawler_worker';
+        value => $mirror_root;
     }
 
     govuk::app { 'govuk_crawler_worker':
