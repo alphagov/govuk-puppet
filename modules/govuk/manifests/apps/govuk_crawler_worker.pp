@@ -35,6 +35,13 @@ class govuk::apps::govuk_crawler_worker (
         value => $mirror_root;
     }
 
+    file { $mirror_root:
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'deploy',
+      group  => 'deploy',
+    }
+
     govuk::app { 'govuk_crawler_worker':
       app_type           => 'bare',
       port               => $port,

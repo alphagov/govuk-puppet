@@ -72,13 +72,6 @@ class govuk_crawler(
     owner  => $crawler_user,
   }
 
-  # directory used by GOV.UK Crawler Worker to store crawled content
-  file { $mirror_root:
-    ensure => directory,
-    mode   => '0750',
-    owner  => $crawler_user,
-  }
-
   # sync crawled content to remote mirror
   file { $sync_script_path:
     ensure  => present,
