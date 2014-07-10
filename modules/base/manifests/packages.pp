@@ -36,8 +36,18 @@ class base::packages {
     ensure => purged,
   }
 
+  package { 'libruby1.9.1':
+    ensure => '1:1.9.3.194-0~51~precise1',
+  }
+
   package { 'ruby1.9.1-dev':
-    ensure => installed,
+    ensure  => '1:1.9.3.194-0~51~precise1',
+    require => Package['libruby1.9.1', 'ruby1.9.1'],
+  }
+
+  package { 'ruby1.9.1':
+    ensure  => '1:1.9.3.194-0~51~precise1',
+    require => Package['libruby1.9.1'],
   }
 
   include nodejs
