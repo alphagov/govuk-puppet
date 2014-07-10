@@ -38,35 +38,36 @@ function get_error_page() {
   curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o ${MIRROR_ROOT}/error/503.html
 }
 
-export MIRRORER_SITE_ROOT=https://www.gov.uk
 function log() {
   logger -p ${1} -t ${PROGRAM_NAME} "${2}"
 }
 
-logger -p user.info -t mirrorer Starting to mirror GOV.UK
-/usr/local/bin/govuk_update_mirror
-EXIT_CODE=$?
-logger -p user.crit -t mirrorer Exit code from govuk_update_mirror was $EXIT_CODE
-logger -p user.info -t mirrorer Finished the mirror of GOV.UK
 log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
 
-# If we successfully ran govuk_update_mirror we need to update
-# the assumed failure message to indicate it would be an
-# upload failure.
-if [ $EXIT_CODE == "0" ]; then
-  NAGIOS_MESSAGE="WARNING: Mirrorer upload failed."
-fi
 get_error_page
 
-logger -p user.info -t mirrorer Starting to upload GOV.UK to mirror targets
-/usr/local/bin/govuk_upload_mirror
-EXIT_CODE=$?
-logger -p user.crit -t mirrorer Exit code from govuk_upload_mirror was $EXIT_CODE
-logger -p user.info -t mirrorer Finished uploading GOV.UK to mirror targets
+START_UPLOAD=$($(date +%s%3N))
 
-# As both scripts have succeeded then set the
-# nagios code and message ot successful
-if [ $EXIT_CODE == "0" ]; then
-  NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK: Mirrorer ran successfully."
-fi
+for TARGET in ${TARGETS}; do
+  log "user.info" "Started uploading to ${TARGET}"
+
+  rsync -rLptgoD -z ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data/www-origin
+
+  EXITCODE=$?
+
+  if [ "$EXITCODE" != "0" ]; then
+     log "user.crit" "Uploading mirror ${TARGET} failed with exit code: $EXITCODE"
+  fi
+
+  log "user.info" "Finished uploading to mirror ${TARGET}"
+done
+
+STOP_UPLOAD=$($(date +%s%3N))
+DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
+
+echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u localhost 8125
+
+log "user.info" "Finished synchronising to GOV.UK mirrors"
+
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully"
