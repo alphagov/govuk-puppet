@@ -43,6 +43,10 @@ class govuk_crawler(
   validate_array($targets)
   validate_hash($ssh_keys)
 
+  $seeder_script_name = 'seed-crawler'
+  $seeder_lock_path = "/var/run/${seeder_script_name}.lock"
+  $seeder_script_path = "/usr/local/bin/${seeder_script_name}"
+
   $sync_script_name = 'govuk_sync_mirror'
   $crawler_lock_path = "/var/run/${sync_script_name}.lock"
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
@@ -65,8 +69,13 @@ class govuk_crawler(
     require => Govuk::User[$crawler_user],
   }
 
-  #create cron lock file writable by user
   file { $crawler_lock_path:
+    ensure => present,
+    mode   => '0700',
+    owner  => $crawler_user,
+  }
+
+  file { $seeder_lock_path:
     ensure => present,
     mode   => '0700',
     owner  => $crawler_user,
@@ -110,4 +119,13 @@ class govuk_crawler(
     require     => [File[$sync_script_path], File[$crawler_lock_path]]
   }
 
+  cron { 'seed-mirror':
+    ensure      => $cron_ensure,
+    user        => $crawler_user,
+    hour        => 2,
+    minute      => 0,
+    environment => 'MAILTO=""',
+    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_path}",
+    require     => File[$seeder_lock_path]
+  }
 }
