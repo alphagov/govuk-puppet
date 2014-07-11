@@ -17,6 +17,7 @@ class govuk::node::s_base {
   include puppet::cronjob
   include rbenv
   include rkhunter
+  include ruby::rubygems
   include users
   include resolvconf
 
@@ -117,10 +118,6 @@ class govuk::node::s_base {
     'rkhunter':
       logfile => '/var/log/rkhunter.log',
       fields  => {'application' => 'rkhunter'};
-  }
-
-  class { 'ruby::rubygems':
-    version => '1.8.24',
   }
 
   # whoopsie is the ubuntu crash reporter. We don't want to be running any
