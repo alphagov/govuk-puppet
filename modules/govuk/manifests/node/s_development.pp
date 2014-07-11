@@ -4,6 +4,7 @@ class govuk::node::s_development {
   include assets::user
   include fonts
   include golang
+  include govuk_apt::disable_pipelining
   include govuk_mysql::libdev
   include hosts::development
   include imagemagick
