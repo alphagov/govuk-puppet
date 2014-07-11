@@ -3,6 +3,8 @@ asset_root: 'http://static.dev.gov.uk'
 
 app_domain: 'dev.gov.uk'
 
+base::packages::ruby_version: '1:1.9.3.194-0~51~precise1'
+
 efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::search_admin::enabled: true
