@@ -85,12 +85,6 @@ class govuk_crawler(
     govuk_gemfury_source_url => $govuk_gemfury_source_url,
   }
 
-  # gem to generate report on pages with suspected bad links
-  package { 'bad_link_finder':
-    ensure   => '0.2.3',
-    provider => system_gem,
-  }
-
   $service_desc = 'Mirror sync'
   $threshold_secs = 24 * (60 * 60)
 
