@@ -12,7 +12,7 @@ mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
 mod 'saz/sudo', '3.0.1'
 mod 'saz/timezone'
-mod 'thomasvandoren/redis'
+mod 'thomasvandoren/redis', '0.10.0'
 
 # 1.6.4 has https://github.com/stankevich/puppet-python/pull/49
 mod 'stankevich/python', '>= 1.6.4'

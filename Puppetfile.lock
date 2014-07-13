@@ -15,7 +15,7 @@ FORGE
     gdsoperations/rbenv (1.0.1)
     gdsoperations/resolvconf (0.2.0)
       puppetlabs/stdlib (>= 3.0.0)
-    maestrodev/wget (1.4.1)
+    maestrodev/wget (1.4.4)
     nanliu/staging (0.4.0)
     puppetlabs/apt (1.4.2)
       puppetlabs/stdlib (>= 2.2.1)
@@ -39,9 +39,9 @@ FORGE
     saz/timezone (3.0.1)
       puppetlabs/stdlib (>= 2.3.0)
     stankevich/python (1.7.4)
-    thomasvandoren/redis (0.0.9)
-      maestrodev/wget (>= 0.0.0)
-      puppetlabs/gcc (>= 0.0.0)
+    thomasvandoren/redis (0.10.0)
+      maestrodev/wget (>= 1.1.0)
+      puppetlabs/gcc (>= 0.0.3)
 
 GIT
   remote: git://github.com/alphagov/puppet-apparmor.git
@@ -145,7 +145,7 @@ DEPENDENCIES
   saz/sudo (= 3.0.1)
   saz/timezone (>= 0)
   stankevich/python (>= 1.6.4)
-  thomasvandoren/redis (>= 0)
+  thomasvandoren/redis (= 0.10.0)
   tune_ext (>= 0)
   ufw (>= 0)
 
