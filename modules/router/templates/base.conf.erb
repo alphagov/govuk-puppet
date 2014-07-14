@@ -8,6 +8,8 @@ server {
   rewrite ^/(.*) https://$host/$1 permanent;
 }
 
+# CDN preserves the Host header from original client request and always hits
+# this vhost instead of www-origin below.
 server {
   server_name         www.gov.uk;
   listen              443 ssl;
