@@ -64,6 +64,8 @@ rabbitmq::config_stomp: true
 rabbitmq::package_ensure: '3.3.4-1'
 rabbitmq::manage_repos: false
 
+redis::version: 2.4.13
+
 resolvconf::nameservers:
   - 8.8.8.8
   - 8.8.4.4
