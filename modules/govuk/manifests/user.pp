@@ -13,6 +13,14 @@
 # [*email*]
 #   The user's email address, e.g. "joe.bloggs@digital.cabinet-office.gov.uk"
 #
+# [*groups*]
+#   An array of group names that the user should belong to
+#   Default: ['admin', 'deploy']
+#
+# [*purgegroups*]
+#   Whether to remove the user from non-listed groups
+#   Default: false
+#
 # [*shell*]
 #   The user's login shell. Default: "/bin/bash"
 #
@@ -29,6 +37,8 @@ define govuk::user(
   $ensure = present,
   $fullname = 'No Name',
   $email = 'no.name@digital.cabinet-office.gov.uk',
+  $groups = ['admin', 'deploy'],
+  $purgegroups = false,
   $shell = '/bin/bash',
   $ssh_key = undef
 ) {
@@ -51,12 +61,20 @@ define govuk::user(
     $key_ensure = absent
   }
 
+  validate_bool($purgegroups)
+  if ($purgegroups) {
+    $membership = 'inclusive'
+  } else {
+    $membership = 'minimum'
+  }
+
   user { $title:
     ensure     => $ensure,
     comment    => "${fullname} <${email}>",
     home       => $home,
     managehome => true,
-    groups     => ['admin', 'deploy'],
+    groups     => $groups,
+    membership => $membership,
     require    => Class['shell'],
     shell      => $shell,
   }
