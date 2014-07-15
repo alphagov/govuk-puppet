@@ -6,6 +6,11 @@ describe 'govuk::user', :type => :define do
   let(:ssh_file) { '/home/hungrycaterpillar/.ssh/authorized_keys' }
 
   context 'default params' do
+    let(:params) {{
+      :fullname => 'Hungry Caterpillar',
+      :email    => 'hungry.caterpillar@example.com',
+    }}
+
     it { should contain_user('hungrycaterpillar').with_ensure('present') }
     it { should contain_file(ssh_dir).with_ensure('directory') }
     it {
@@ -18,8 +23,10 @@ describe 'govuk::user', :type => :define do
 
   context 'ensure absent' do
     let(:params) {{
-      :ensure => 'absent',
-      :ssh_key => 'should be ignored',
+      :ensure   => 'absent',
+      :fullname => 'Hungry Caterpillar',
+      :email    => 'hungry.caterpillar@example.com',
+      :ssh_key  => 'should be ignored',
     }}
 
     it { should contain_user('hungrycaterpillar').with_ensure('absent') }
@@ -34,7 +41,9 @@ describe 'govuk::user', :type => :define do
 
   context 'ssh_key as string' do
     let(:params) {{
-      :ssh_key => 'ssh-rsa cupcake',
+      :ssh_key  => 'ssh-rsa cupcake',
+      :fullname => 'Hungry Caterpillar',
+      :email    => 'hungry.caterpillar@example.com',
     }}
 
     it {
@@ -47,7 +56,9 @@ describe 'govuk::user', :type => :define do
 
   context 'ssh_key as array in non-alphabetical order' do
     let(:params) {{
-      :ssh_key => ['ssh-rsa watermelon', 'ssh-dss pickle', 'ssh-rsa lollipop'],
+      :ssh_key  => ['ssh-rsa watermelon', 'ssh-dss pickle', 'ssh-rsa lollipop'],
+      :fullname => 'Hungry Caterpillar',
+      :email    => 'hungry.caterpillar@example.com',
     }}
 
     it {
