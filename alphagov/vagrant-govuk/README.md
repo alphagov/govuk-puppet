@@ -7,7 +7,7 @@ Vagrant node definitions for GOV.UK
 You will need access to the repos:
 
 - `puppet` obviously
-- `vcloud-templates` for node definitions
+- `govuk-provisioning` for node definitions
 
 ## Setup
 
