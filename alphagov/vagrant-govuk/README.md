@@ -37,7 +37,7 @@ described below.
 
 ## Customisation
 
-Node definitions can be overridden with a `nodes.local.json` file in the
+Node definitions can be overridden with a `nodes.local.yaml` file in the
 vagrant-govuk directory. This is merged on top of all other node
 definitions. The following keys are currently available for customisation:
 
@@ -48,12 +48,10 @@ definitions. The following keys are currently available for customisation:
 - `class` Name of the Puppet class/role.
 
 For example to increase the amount of RAM on a PuppetMaster:
-```json
-{
-  "puppetmaster-1.management": {
-    "memory": 768
-  }
-}
+```yaml
+---
+puppetmaster-1.management:
+  memory: 768
 ```
 
 ## Errors
