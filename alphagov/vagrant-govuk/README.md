@@ -2,7 +2,7 @@
 
 Vagrant node definitions for GOV.UK
 
-## Prereq
+## Prerequisites
 
 You will need access to the repos:
 
