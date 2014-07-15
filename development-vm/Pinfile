@@ -50,6 +50,7 @@ process :rummager
 process :'search-admin' => :rummager
 process :signon
 process :smartanswers => [:static, :contentapi, :imminence]
+process :'smartdown-frontend' => [:static, :contentapi, :imminence]
 process :'specialist-publisher' => [:static, :panopticon, :asset_manager, :rummager, :'finder-api']
 process :'specialist-frontend' => [:static, :contentapi]
 process :static
