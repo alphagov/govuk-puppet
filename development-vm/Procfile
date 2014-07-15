@@ -70,6 +70,7 @@ search-admin:          govuk_setenv search-admin          ./run_in.sh ../search-
 contacts-frontend:     govuk_setenv contacts-frontend     ./run_in.sh ../contacts-frontend bundle exec rails s -p 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../support-api    bundle exec rails s -p 3075
 furl-manager:          govuk_setenv furl-manager          ./run_in.sh ../furl-manager   bundle exec rails s -p 3076
+smartdown-frontend:    govuk_setenv smartdown-frontend    ./run_in.sh ../smartdown-frontend   bundle exec rails s -p 3077
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
