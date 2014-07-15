@@ -18,7 +18,22 @@ describe 'govuk_crawler', :type => :class do
     should contain_file('/home/govuk-crawler/.ssh/id_rsa').with_ensure('file')
   }
 
-  describe "enable" do
+  describe "seed_enable" do
+    context "false (default)" do
+      let(:params) {{ }}
+      it { should contain_cron('seed-crawler').with_ensure('absent') }
+    end
+
+    context "true" do
+      let(:params) {{
+        :seed_enable => true,
+      }}
+
+      it { should contain_cron('seed-crawler').with_ensure('present') }
+    end
+  end
+
+  describe "sync_enable" do
     context "false (default)" do
       let(:params) {{ }}
       it { should contain_cron('sync-to-mirror').with_ensure('absent') }
@@ -26,7 +41,7 @@ describe 'govuk_crawler', :type => :class do
 
     context "true" do
       let(:params) {{
-        :enable => true,
+        :sync_enable => true,
       }}
 
       it { should contain_cron('sync-to-mirror').with_ensure('present') }
