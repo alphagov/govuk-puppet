@@ -230,7 +230,8 @@ class govuk::node::s_development {
 
     ['transition_development', 'transition_test']:
       user     => 'transition',
-      password => 'transition';
+      password => 'transition',
+      collate  => 'utf8_unicode_ci';
 
     [
       'whitehall_development',
