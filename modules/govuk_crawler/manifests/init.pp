@@ -8,14 +8,17 @@
 #   User that the synchronisation cron job runs as.
 #   Default: 'govuk-crawler'
 #
-# [*enable*]
-#   Whether to setup the cronjob. If `false` this will prevent the update
-#   AND upload processes from running, regardless of the `targets` param.
-#   Default: false
-#
 # [*mirror_root*]
 #   The directory where crawled content is stored.
 #   Default: '/mnt/crawler-worker'
+#
+# [*seed_enable*]
+#   Whether to enable the cron job that seeds the crawler.
+#   Default: false
+#
+# [*site_root*]
+#   The web site to be crawled, e.g. https://www.gov.uk
+#   Default: ''
 #
 # [*ssh_keys*]
 #   A hash of hostnames with ssh host keys and type of ssh host key.
@@ -26,6 +29,10 @@
 #   remote mirrors.
 #   Default: ''
 #
+# [*sync_enable*]
+#   Whether to enable the cron job that synchronises crawled content to the mirrors.
+#   Default: false
+#
 # [*targets*]
 #   An array of SSH user@host strings to sync the mirrored data to.
 #   If populated then an Icinga passive check will be created.
@@ -34,10 +41,12 @@
 #
 class govuk_crawler(
   $crawler_user = 'govuk-crawler',
-  $enable = false,
   $mirror_root = '/mnt/crawler-worker',
+  $seed_enable = false,
+  $site_root = '',
   $ssh_keys = {},
   $ssh_private_key = '',
+  $sync_enable = false,
   $targets = [],
 ) {
   validate_array($targets)
@@ -48,7 +57,7 @@ class govuk_crawler(
   $seeder_script_path = "/usr/local/bin/${seeder_script_name}"
 
   $sync_script_name = 'govuk_sync_mirror'
-  $crawler_lock_path = "/var/run/${sync_script_name}.lock"
+  $sync_lock_path = "/var/run/${sync_script_name}.lock"
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
 
   include daemontools # provides setlock
@@ -69,13 +78,13 @@ class govuk_crawler(
     require => Govuk::User[$crawler_user],
   }
 
-  file { $crawler_lock_path:
+  file { $seeder_lock_path:
     ensure => present,
     mode   => '0700',
     owner  => $crawler_user,
   }
 
-  file { $seeder_lock_path:
+  file { $sync_lock_path:
     ensure => present,
     mode   => '0700',
     owner  => $crawler_user,
@@ -105,27 +114,32 @@ class govuk_crawler(
     }
   }
 
-  $cron_ensure = $enable ? {
+  $seed_ensure = $seed_enable ? {
+    true    => present,
+    default => absent,
+  }
+
+  cron { 'seed-crawler':
+    ensure      => $seed_ensure,
+    user        => $crawler_user,
+    hour        => 2,
+    minute      => 0,
+    environment => 'MAILTO=""',
+    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_path} '${site_root}'",
+    require     => File[$seeder_lock_path]
+  }
+
+  $sync_ensure = $sync_enable ? {
     true    => present,
     default => absent,
   }
 
   cron { 'sync-to-mirror':
-    ensure      => $cron_ensure,
+    ensure      => $sync_ensure,
     user        => $crawler_user,
     minute      => '0',
     environment => 'MAILTO=""',
-    command     => "/usr/bin/setlock -n ${$crawler_lock_path} ${sync_script_path}",
-    require     => [File[$sync_script_path], File[$crawler_lock_path]]
-  }
-
-  cron { 'seed-mirror':
-    ensure      => $cron_ensure,
-    user        => $crawler_user,
-    hour        => 2,
-    minute      => 0,
-    environment => 'MAILTO=""',
-    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_path}",
-    require     => File[$seeder_lock_path]
+    command     => "/usr/bin/setlock -n ${$sync_lock_path} ${sync_script_path}",
+    require     => [File[$sync_script_path], File[$sync_lock_path]]
   }
 }
