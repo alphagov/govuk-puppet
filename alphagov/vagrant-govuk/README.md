@@ -2,12 +2,12 @@
 
 Vagrant node definitions for GOV.UK
 
-## Prereq
+## Prerequisites
 
 You will need access to the repos:
 
 - `puppet` obviously
-- `vcloud-templates` for node definitions
+- `govuk-provisioning` for node definitions
 
 ## Setup
 
@@ -37,23 +37,21 @@ described below.
 
 ## Customisation
 
-Node definitions can be overridden with a `nodes.local.json` file in the
+Node definitions can be overridden with a `nodes.local.yaml` file in the
 vagrant-govuk directory. This is merged on top of all other node
 definitions. The following keys are currently available for customisation:
 
-- `box_dist` Ubuntu distribution. Currently "precise" (default) or "lucid".
+- `box_dist` Ubuntu distribution. Currently "precise".
 - `box_version` Internal version number of the GDS basebox.
 - `memory` Amount of RAM. Default is "384".
 - `ip` IP address for hostonly networking. Currently all subnets are /16.
 - `class` Name of the Puppet class/role.
 
 For example to increase the amount of RAM on a PuppetMaster:
-```json
-{
-  "puppetmaster-1.management": {
-    "memory": 768
-  }
-}
+```yaml
+---
+puppetmaster-1.management:
+  memory: 768
 ```
 
 ## Errors
