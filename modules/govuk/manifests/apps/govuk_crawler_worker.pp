@@ -16,7 +16,7 @@ class govuk::apps::govuk_crawler_worker (
 
     govuk::app::envvar {
       'AMQP_ADDRESS':
-        value => "amqp://govuk_crawler_worker:${amqp_pass}@rabbitmq-1:5672/govuk_crawler_worker";
+        value => "amqp://govuk_crawler_worker:${amqp_pass}@rabbitmq-1:5672/";
       'AMQP_EXCHANGE':
         value => 'govuk_crawler_exchange';
       'AMQP_MESSAGE_QUEUE':
