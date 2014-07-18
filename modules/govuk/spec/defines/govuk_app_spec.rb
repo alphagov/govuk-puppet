@@ -36,6 +36,12 @@ describe 'govuk::app', :type => :define do
       )
       should contain_service('giraffe').with_provider('upstart')
     end
+
+    it "should hide the Raindrops endpoint" do
+      should contain_govuk__app__nginx_vhost('giraffe').with(
+        'hidden_paths' => ['/_raindrops']
+      )
+    end
   end
 
   context 'app_type => bare, without command' do

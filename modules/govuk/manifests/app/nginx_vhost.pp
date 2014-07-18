@@ -12,6 +12,7 @@ define govuk::app::nginx_vhost (
   $is_default_vhost = false,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
+  $hidden_paths = undef,
   $ensure = 'present',
 ) {
 
@@ -47,5 +48,6 @@ define govuk::app::nginx_vhost (
     intercept_errors      => $intercept_errors,
     deny_framing          => $deny_framing,
     is_default_vhost      => $is_default_vhost,
+    hidden_paths          => $hidden_paths,
   }
 }

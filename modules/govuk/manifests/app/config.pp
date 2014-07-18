@@ -142,6 +142,7 @@ define govuk::app::config (
       logstream              => $logstream,
       asset_pipeline         => $asset_pipeline,
       asset_pipeline_prefix  => $asset_pipeline_prefix,
+      hidden_paths           => ['/_raindrops'],
     }
   }
   $title_underscore = regsubst($title, '\.', '_', 'G')
