@@ -29,6 +29,8 @@ RSpec.configure do |c|
     File.join(HERE, 'vendor', 'modules')
   ].join(':')
 
+  c.order = 'rand'
+
   # Sensible defaults to satisfy modules that perform OS checking. These
   # keys can be overridden by more specific `let(:facts)` in spec contexts.
   c.default_facts = {
