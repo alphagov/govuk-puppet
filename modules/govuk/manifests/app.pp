@@ -58,6 +58,16 @@ define govuk::app (
   $health_check_path = 'NOTSET',
 
   #
+  # expose_health_check: whether to expose the health check to the proxy.
+  #
+  # In some apps, such as redirector and bouncer, this must be exposed so load
+  # balancers know whether to send requests to a particular server; in other
+  # apps, such as publisher, this must not be exposed, because then it would
+  # provide an uncached, unauthenticated, publicly accessible point of access
+  # into the state of our admin systems.
+  $expose_health_check = true,
+
+  #
   # intercept_errors: should nginx intercept application errors
   #
   # If set to true, the nginx fronting the application will intercept
@@ -242,6 +252,7 @@ define govuk::app (
     nginx_extra_config        => $nginx_extra_config,
     nginx_extra_app_config    => $nginx_extra_app_config,
     health_check_path         => $health_check_path,
+    expose_health_check       => $expose_health_check,
     intercept_errors          => $intercept_errors,
     deny_framing              => $deny_framing,
     enable_nginx_vhost        => $enable_nginx_vhost,

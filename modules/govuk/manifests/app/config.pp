@@ -10,6 +10,7 @@ define govuk::app::config (
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
   $health_check_path = 'NOTSET',
+  $expose_health_check = true,
   $intercept_errors = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
@@ -127,6 +128,16 @@ define govuk::app::config (
   $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
 
   if $enable_nginx_vhost {
+
+    if $expose_health_check {
+      $hidden_paths = ['/_raindrops']
+    } else {
+      if $health_check_path == 'NOTSET' {
+        fail('Cannot hide an unset health check path')
+      }
+      $hidden_paths = ['/_raindrops', $health_check_path]
+    }
+
     # Expose this application from nginx
     govuk::app::nginx_vhost { $title:
       ensure                 => $ensure,
@@ -142,7 +153,7 @@ define govuk::app::config (
       logstream              => $logstream,
       asset_pipeline         => $asset_pipeline,
       asset_pipeline_prefix  => $asset_pipeline_prefix,
-      hidden_paths           => ['/_raindrops'],
+      hidden_paths           => $hidden_paths,
     }
   }
   $title_underscore = regsubst($title, '\.', '_', 'G')
