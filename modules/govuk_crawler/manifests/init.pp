@@ -142,4 +142,8 @@ class govuk_crawler(
     command     => "/usr/bin/setlock -n ${$sync_lock_path} ${sync_script_path}",
     require     => [File[$sync_script_path], File[$sync_lock_path]]
   }
+
+  collectd::plugin::file_count { 'mirror root':
+    directory => $mirror_root,
+  }
 }
