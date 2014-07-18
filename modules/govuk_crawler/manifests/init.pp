@@ -4,6 +4,30 @@
 #
 # === Parameters
 #
+# [*amqp_exchange*]
+#   The RabbitMQ exchange that the seed URLs are published to
+#   Default: 'govuk_crawler_exchange'
+#
+# [*amqp_host*]
+#   The hostname of the RabbitMQ instance the seed URLs are published to
+#   Default: ''
+#
+# [*amqp_pass*]
+#   The password used to publish the seed URLs to RabbitMQ
+#   Default: ''
+#
+# [*amqp_topic*]
+#   The RabbitMQ topic that the seed URLs are published to
+#   Default: '#'
+#
+# [*amqp_user*]
+#   The username used to publish the seed URLs to RabbitMQ
+#   Default: 'govuk_crawler_worker'
+#
+# [*amqp_vhost*]
+#   The RabbitMQ virtual host that the seed URLs are published to
+#   Default: '/'
+#
 # [*crawler_user*]
 #   User that the synchronisation cron job runs as.
 #   Default: 'govuk-crawler'
@@ -40,6 +64,12 @@
 #   Default: []
 #
 class govuk_crawler(
+  $amqp_exchange = 'govuk_crawler_exchange',
+  $amqp_host = '',
+  $amqp_pass = '',
+  $amqp_topic = '#',
+  $amqp_user = 'govuk_crawler_worker',
+  $amqp_vhost = '/',
   $crawler_user = 'govuk-crawler',
   $mirror_root = '/mnt/crawler-worker',
   $seed_enable = false,
@@ -53,6 +83,7 @@ class govuk_crawler(
   validate_hash($ssh_keys)
 
   $seeder_script_name = 'seed-crawler'
+  $seeder_script_args = "'${site_root}' --host '${amqp_host}' --username '${amqp_user}' --exchange '${amqp_exchange}' --topic '${amqp_topic}' --vhost '${amqp_vhost}'"
   $seeder_lock_path = "/var/run/${seeder_script_name}.lock"
   $seeder_script_path = "/usr/local/bin/${seeder_script_name}"
 
@@ -124,8 +155,8 @@ class govuk_crawler(
     user        => $crawler_user,
     hour        => 2,
     minute      => 0,
-    environment => 'MAILTO=""',
-    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_path} '${site_root}'",
+    environment => "MAILTO='' GOVUK_CRAWLER_AMQP_PASS='${amqp_pass}'",
+    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_path} ${seeder_script_args}",
     require     => File[$seeder_lock_path]
   }
 
