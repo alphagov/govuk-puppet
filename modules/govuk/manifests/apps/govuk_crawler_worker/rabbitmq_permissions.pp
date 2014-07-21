@@ -3,10 +3,10 @@ class govuk::apps::govuk_crawler_worker::rabbitmq_permissions (
 ) {
 
   $amqp_user  = 'govuk_crawler_worker'
-  $amqp_vhost = 'govuk_crawler_worker'
 
-  rabbitmq_vhost { $amqp_vhost:
-    ensure => present,
+  # TODO: Remove this once deployed across all environments.
+  rabbitmq_vhost { 'govuk_crawler_worker':
+    ensure => purged,
   }
 
   rabbitmq_user { $amqp_user:
@@ -14,9 +14,10 @@ class govuk::apps::govuk_crawler_worker::rabbitmq_permissions (
     password => $amqp_pass,
   }
 
-  rabbitmq_user_permissions { "${amqp_user}@${amqp_vhost}":
-    configure_permission => '.*',
-    read_permission      => '.*',
-    write_permission     => '.*',
+  $govuk_crawler_regex = '^(govuk_crawler.*)$'
+  rabbitmq_user_permissions { "${amqp_user}@$/":
+    configure_permission => $govuk_crawler_regex,
+    read_permission      => $govuk_crawler_regex,
+    write_permission     => $govuk_crawler_regex,
   }
 }
