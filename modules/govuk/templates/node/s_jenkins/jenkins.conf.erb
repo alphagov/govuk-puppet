@@ -14,6 +14,8 @@ server {
   location / {
     proxy_pass http://localhost:8080;
 
+    add_header "Strict-Transport-Security" "max-age=31536000";
+
     location /api/json {
       proxy_pass http://localhost:8080;
 
@@ -21,7 +23,6 @@ server {
       add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS";
       add_header "Access-Control-Allow-Headers" "origin, authorization, cookie, accept";
       add_header "Access-Control-Allow-Credentials" "true";
-      add_header "Strict-Transport-Security" "max-age=31536000";
     }
 
   }
