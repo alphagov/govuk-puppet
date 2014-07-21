@@ -6,7 +6,7 @@ class govuk::apps::govuk_crawler_worker::rabbitmq_permissions (
 
   # TODO: Remove this once deployed across all environments.
   rabbitmq_vhost { 'govuk_crawler_worker':
-    ensure => purged,
+    ensure => absent,
   }
 
   rabbitmq_user { $amqp_user:
