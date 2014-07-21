@@ -15,7 +15,7 @@ class govuk::apps::govuk_crawler_worker::rabbitmq_permissions (
   }
 
   $govuk_crawler_regex = '^(govuk_crawler.*)$'
-  rabbitmq_user_permissions { "${amqp_user}@$/":
+  rabbitmq_user_permissions { "${amqp_user}@/":
     configure_permission => $govuk_crawler_regex,
     read_permission      => $govuk_crawler_regex,
     write_permission     => $govuk_crawler_regex,
