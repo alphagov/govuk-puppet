@@ -66,6 +66,22 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'with hidden_paths' do
+    let(:params) do
+      {
+        :to => ['a.internal'],
+        :hidden_paths => ['/secret', '/supersecret'],
+      }
+    end
+
+    it 'should respond with a 404 for hidden paths' do
+      should contain_nginx__config__site('rabbit')
+        .with_content(%r"location /secret {\s+return 404;\s+}")
+      should contain_nginx__config__site('rabbit')
+        .with_content(%r"location /supersecret {\s+return 404;\s+}")
+    end
+  end
+
   context 'with ensure' do
     context 'absent' do
       let(:params) do

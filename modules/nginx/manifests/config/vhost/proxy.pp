@@ -29,6 +29,7 @@ define nginx::config::vhost::proxy(
   $ssl_manage_cert = true,  # This is a *horrible* hack to make EFG work.
                             # Please, please, remove when we have a
                             # sensible means of managing SSL certificates.
+  $hidden_paths = [],
   $ensure = 'present',
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
