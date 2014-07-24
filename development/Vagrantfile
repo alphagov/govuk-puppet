@@ -66,7 +66,11 @@ def load_local_vagrant_file(config)
   config
 end
 
-if Vagrant::VERSION < min_required_vagrant_version
+def vagrant_version_at_least?(min_required_version)
+  Gem::Version.new(Vagrant::VERSION) >= Gem::Version.new(min_required_version)
+end
+
+unless vagrant_version_at_least?(min_required_vagrant_version)
   $stderr.puts "ERROR: Puppet now requires Vagrant version >=#{min_required_vagrant_version}. Please upgrade.\n"
   exit 1
 end
