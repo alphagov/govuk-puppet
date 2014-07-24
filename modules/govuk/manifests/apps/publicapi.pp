@@ -1,6 +1,7 @@
 class govuk::apps::publicapi (
   $backdrop_protocol = 'https',
   $backdrop_host = 'www.performance.service.gov.uk',
+  $privateapi_ssl = true,
 ) {
 
   $app_domain = hiera('app_domain')
@@ -13,12 +14,18 @@ class govuk::apps::publicapi (
 
   $backdrop_url = "${backdrop_protocol}://${backdrop_host}"
 
+  if ($privateapi_ssl) {
+    $privateapi_protocol = 'https'
+  } else {
+    $privateapi_protocol = 'http'
+  }
+
   $app_name = 'publicapi'
   $full_domain = "${app_name}.${app_domain}"
 
   nginx::config::vhost::proxy { $full_domain:
     to               => [$privateapi],
-    to_ssl           => true,
+    to_ssl           => $privateapi_ssl,
     protected        => false,
     ssl_only         => false,
     extra_app_config => "

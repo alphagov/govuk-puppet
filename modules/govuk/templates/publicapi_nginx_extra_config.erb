@@ -8,7 +8,7 @@
     expires 30m;
 
     proxy_set_header Host <%= @whitehallapi %>;
-    proxy_pass https://<%= @whitehallapi %>;
+    proxy_pass <%= @privateapi_protocol %>://<%= @whitehallapi %>;
   }
 
   location ~ ^/api/facts(/|$) {
@@ -21,7 +21,7 @@
 
     proxy_set_header Host <%= @factcaveapi %>;
     proxy_set_header API-PREFIX api;
-    proxy_pass https://<%= @factcaveapi %>;
+    proxy_pass <%= @privateapi_protocol %>://<%= @factcaveapi %>;
   }
 
   location ~ ^/api/business-support-schemes([/?.].*)?$ {
@@ -34,7 +34,7 @@
 
     proxy_set_header Host <%= @business_support_api %>;
     proxy_set_header API-PREFIX api;
-    proxy_pass https://<%= @business_support_api %>;
+    proxy_pass <%= @privateapi_protocol %>://<%= @business_support_api %>;
   }
 
   location ~ ^/api/search.json {
@@ -68,7 +68,7 @@
     proxy_set_header Host <%= @privateapi %>;
     proxy_set_header API-PREFIX api;
     proxy_set_header Authorization  "";
-    proxy_pass https://<%= @full_domain %>-proxy;
+    proxy_pass <%= @privateapi_protocol %>://<%= @full_domain %>-proxy;
   }
 
   location ~ ^/performance/(.*)/api/(.*) {

@@ -30,6 +30,7 @@ govuk::apps::need_o_tron::needotron_intercept_errors: false
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::backdropread_protocol: 'http'
+govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
