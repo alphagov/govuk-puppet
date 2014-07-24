@@ -36,7 +36,7 @@ class govuk_rabbitmq (
   $pattern = '.*'
   $definition = '{"ha-mode":"all","ha-sync-mode":"automatic"}'
   exec { "rabbitmq policy: ${ha_name}":
-    command => "rabbitmqctl set_policy -p ${root_vhost} '${ha_name}' '${pattern}' '${definition}' 0",
+    command => "rabbitmqctl set_policy -p ${root_vhost} '${ha_name}' '${pattern}' '${definition}'",
     unless  => "rabbitmqctl list_policies | grep -qE '^${root_vhost}\\s+${ha_name}\\s+${pattern}\\s+${definition}\\s+0$'",
     path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
     require => Class['rabbitmq::service'],
