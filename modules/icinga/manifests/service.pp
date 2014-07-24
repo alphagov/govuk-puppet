@@ -6,10 +6,4 @@ class icinga::service {
     hasrestart => true
   }
 
-#  service { 'icinga-web':
-#    ensure     => running,
-#    hasstatus  => true,
-#    hasrestart => true
-# }
-
 }
