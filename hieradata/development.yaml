@@ -70,6 +70,8 @@ nginx_enable_basic_auth: false
 
 puppet::use_puppetmaster: false
 
+rabbitmq::delete_guest_user: false
+
 shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_x11_forwarding: true
