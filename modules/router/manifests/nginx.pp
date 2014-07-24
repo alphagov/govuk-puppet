@@ -94,14 +94,6 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
-  # FIXME: Remove when deployed.
-  file { '/var/www/fallback':
-    ensure  => absent,
-    purge   => true,
-    recurse => true,
-    force   => true,
-  }
-
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
     target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
     warning   => 0.3,
