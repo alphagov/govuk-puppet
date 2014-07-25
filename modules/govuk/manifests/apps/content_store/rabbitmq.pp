@@ -1,30 +1,34 @@
 class govuk::apps::content_store::rabbitmq (
-  $amqp_pass  = 'guest',
+  $amqp_user  = 'content_store',
+  $amqp_pass  = 'content_store',
+  $amqp_exchange = 'published_documents',
+  $configure_test_exchange = false,
 ) {
 
-  $amqp_user  = 'content_store'
-  $amqp_exchange = 'published_documents'
-  $amqp_vhost = '/'
-
-  rabbitmq_vhost { $amqp_vhost:
-    ensure => present,
-  }
 
   rabbitmq_user { $amqp_user:
-    admin    => true,
     password => $amqp_pass,
   }
 
-  rabbitmq_exchange { "${amqp_exchange}@${amqp_vhost}":
-    ensure   => present,
-    user     => $amqp_user,
-    password => $amqp_pass,
+  $permissions_regex_fragment = $configure_test_exchange ? {
+    true    => "${amqp_exchange}|${amqp_exchange}_test",
+    default => $amqp_exchange
+  }
+
+  rabbitmq_user_permissions { "${amqp_user}@/":
+    configure_permission => '^amq\.gen.*$',
+    read_permission      => "^(amq\\.gen.*|${permissions_regex_fragment})$",
+    write_permission     => "^(amq\\.gen.*|${permissions_regex_fragment})$",
+  }
+
+  govuk_rabbitmq::exchange { "${amqp_exchange}@/":
     type     => 'topic',
   }
 
-  rabbitmq_user_permissions { "${amqp_user}@${amqp_vhost}":
-    configure_permission => '.*',
-    read_permission      => '.*',
-    write_permission     => '.*',
+  if $configure_test_exchange {
+    # Used for running integration tests.
+    govuk_rabbitmq::exchange { "${amqp_exchange}_test@/":
+      type     => 'topic',
+    }
   }
 }
