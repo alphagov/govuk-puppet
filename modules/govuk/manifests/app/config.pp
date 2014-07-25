@@ -11,6 +11,7 @@ define govuk::app::config (
   $nginx_extra_app_config = '',
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
+  $json_health_check = false,
   $intercept_errors = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
@@ -208,6 +209,15 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
       service_description => "${title} app running",
       host_name           => $::fqdn,
+    }
+    if $json_health_check {
+      include icinga::client::check_json_healthcheck
+      @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
+        ensure              => $ensure,
+        check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path}",
+        service_description => "${title} app health check ok",
+        host_name           => $::fqdn,
+      }
     }
   }
   if $app_type == 'rack' {

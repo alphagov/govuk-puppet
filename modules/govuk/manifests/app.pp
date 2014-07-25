@@ -68,6 +68,16 @@ define govuk::app (
   $expose_health_check = true,
 
   #
+  # json_health_check: whether the app's health check is exposed as JSON.
+  #
+  # Some of our apps are adopting a JSON-based healthcheck convention, where
+  # there is an overall `status` field that summarises the health of the app,
+  # and a `checks` dictionary with the results of individual app-level checks.
+  # Setting this to true will add a monitoring check that the healthcheck
+  # reports the app's status as OK.
+  $json_health_check = false,
+
+  #
   # intercept_errors: should nginx intercept application errors
   #
   # If set to true, the nginx fronting the application will intercept
@@ -253,6 +263,7 @@ define govuk::app (
     nginx_extra_app_config    => $nginx_extra_app_config,
     health_check_path         => $health_check_path,
     expose_health_check       => $expose_health_check,
+    json_health_check         => $json_health_check,
     intercept_errors          => $intercept_errors,
     deny_framing              => $deny_framing,
     enable_nginx_vhost        => $enable_nginx_vhost,
