@@ -1,5 +1,6 @@
 class govuk_rabbitmq (
-  $monitoring_password
+  $monitoring_password,
+  $root_password,
 ) {
   include govuk_rabbitmq::firewalls
   include govuk_rabbitmq::logging
@@ -12,6 +13,16 @@ class govuk_rabbitmq (
 
   rabbitmq_plugin { 'rabbitmq_stomp':
     ensure => present,
+  }
+
+  rabbitmq_user { 'root':
+    admin    => true,
+    password => $root_password,
+  }
+  rabbitmq_user_permissions { 'root@/':
+    configure_permission => '.*',
+    read_permission      => '.*',
+    write_permission     => '.*',
   }
 
   # FIXME: Consider using a normal user with a "monitoring" user tag.  Not
