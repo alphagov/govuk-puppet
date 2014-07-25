@@ -14,6 +14,13 @@ class puppetdb($package_ensure) {
     notify => Class['puppetdb::service'];
   }
 
+  class { 'postgresql::globals':
+    version             => '9.1',
+  } ->
+  class { 'postgresql::server':
+    notify => Class['puppetdb::package'],
+  }
+
   class { 'puppetdb::package':
     package_ensure  => $package_ensure,
     require         => Anchor['puppetdb::begin'],
