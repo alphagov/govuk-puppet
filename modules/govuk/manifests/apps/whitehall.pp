@@ -15,6 +15,8 @@ class govuk::apps::whitehall(
 
   $app_domain = hiera('app_domain')
 
+  $health_check_path = '/healthcheck'
+
   validate_bool($prevent_single_host)
 
   if $prevent_single_host {
@@ -28,7 +30,8 @@ class govuk::apps::whitehall(
     vhost                  => $vhost,
     port                   => $port,
     log_format_is_json     => true,
-    health_check_path      => '/healthcheck',
+    health_check_path      => $health_check_path,
+    expose_health_check    => false,
     depends_on_nfs         => true,
     enable_nginx_vhost     => false,
     nagios_cpu_warning     => 300,
@@ -71,6 +74,7 @@ class govuk::apps::whitehall(
       deny_framing          => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',
+      hidden_paths          => ['/_raindrops', $health_check_path],
       nginx_extra_config    => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
       proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;
