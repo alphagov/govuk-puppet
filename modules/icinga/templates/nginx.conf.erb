@@ -1,24 +1,12 @@
 # This file is managed by Puppet. Local changes will be clobbered.
 
-<%- if @enable_ssl -%>
-server {
-  server_name nagios nagios.* icinga icinga.* alert alert.*;
-  listen 80;
-  rewrite ^/(.*) https://$host/$1 permanent;
-}
-<%- end -%>
-
 server {
   server_name nagios nagios.*;
 
-  <%- if !@enable_ssl -%>
-  listen 80;
-  <%- else -%>
   listen                    443 ssl;
   ssl_certificate           /etc/nginx/ssl/nagios.crt;
   ssl_certificate_key       /etc/nginx/ssl/nagios.key;
   include                   /etc/nginx/ssl.conf;
-  <%- end -%>
 
   index index.html;
   root /usr/share/icinga/htdocs;
