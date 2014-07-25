@@ -90,6 +90,38 @@ def json_request(request_url):
                    headers={"Accept": "application/json"})
 
 
+class HealthCheckInfo(object):
+    """Store and encapsulate a healthcheck data structure.
+
+    See this module's docstring for an example of such a data structure.
+
+    """
+
+    def __init__(self, healthcheck_dict):
+        if "status" not in healthcheck_dict:
+            raise ValueError("Missing overall status value")
+
+        self._dict = healthcheck_dict
+
+    @property
+    def overall_status(self):
+        return self._dict["status"]
+
+    @property
+    def overall_status_code(self):
+        try:
+            return STATUSES.index(self.overall_status)
+        except ValueError:
+            raise ValueError("unrecognised overall status: '%s'" %
+                             (self.overall_status,))
+
+    @property
+    def check_statuses(self):
+        checks = self._dict.get("checks", {})
+        return [(check_name, check_value["status"])
+                for (check_name, check_value) in checks.items()]
+
+
 if __name__ == "__main__":
     sys.excepthook = handle_exception
 
@@ -98,31 +130,19 @@ if __name__ == "__main__":
 
     try:
         with closing(urlopen(json_request(check_url), timeout=1)) as response:
-            healthcheck_info = json.load(response)
+            healthcheck_info = HealthCheckInfo(json.load(response))
     except HTTPError as e:
         report_error("healthcheck returned HTTP error %d" % (e.code,))
     except timeout:
         report_error("healthcheck timed out")
 
-    try:
-        overall_status = healthcheck_info["status"]
-    except KeyError:
-        report_error("status key missing from healthcheck")
-
-    try:
-        status_code = STATUSES.index(overall_status)
-    except ValueError:
-        report_error("unrecognised overall status: '%s'" % (overall_status,))
-
-    checks = healthcheck_info.get("checks", {})
-    check_statuses = [
-        (check_name, check_value["status"])
-        for (check_name, check_value) in checks.items()
-    ]
-    if check_statuses:
-        check_lines = map(": ".join, check_statuses)  # e.g. "foo_working: ok"
+    if healthcheck_info.check_statuses:
+        # Each status formatted as, for example, "foo_working: ok"
+        check_lines = map(": ".join, healthcheck_info.check_statuses)
         detail_message = "\n".join(["Checks:"] + check_lines)
     else:
         detail_message = None
 
-    report(status_code, "overall status %s" % (overall_status,), detail_message)
+    report(healthcheck_info.overall_status_code,
+           "overall status %s" % (healthcheck_info.overall_status,),
+           detail_message)
