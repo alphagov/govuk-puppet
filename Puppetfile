@@ -2,11 +2,12 @@ forge "http://forge.puppetlabs.com"
 
 mod 'adrien/alternatives'
 mod 'puppetlabs/apt'
+mod 'puppetlabs/concat'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/mysql'
+mod 'puppetlabs/postgresql'
 mod 'puppetlabs/rabbitmq'
 mod 'puppetlabs/stdlib'
-mod 'ripienaar/concat'
 mod 'saz/memcached'
 mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
