@@ -32,6 +32,7 @@ class govuk::apps::whitehall(
     log_format_is_json     => true,
     health_check_path      => $health_check_path,
     expose_health_check    => false,
+    json_health_check      => true,
     depends_on_nfs         => true,
     enable_nginx_vhost     => false,
     nagios_cpu_warning     => 300,
