@@ -31,11 +31,6 @@ class base::packages ($ruby_version=installed){
       'zip'
     ])
 
-  # FIXME: Remove once Fish is purged from all machines
-  package { 'fish':
-    ensure => purged,
-  }
-
   package { 'libruby1.9.1':
     ensure => $ruby_version,
   }
