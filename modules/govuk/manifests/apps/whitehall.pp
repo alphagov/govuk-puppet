@@ -127,6 +127,13 @@ class govuk::apps::whitehall(
         auth_basic off;
         try_files $uri @app;
       }
+
+      # Don\'t block access to the overdue healthcheck page.  Icinga needs to be
+      # able to access this from the monitoring machine.
+      # This is necessary because "/healthcheck*" is blocked by the hidden_paths option above.
+      location /healthcheck/overdue {
+        try_files $uri @app;
+      }
     '
     }
 
