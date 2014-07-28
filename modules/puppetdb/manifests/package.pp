@@ -1,6 +1,5 @@
 class puppetdb::package($package_ensure) {
 
-  include postgres
   include puppet::repository
 
   package { 'puppetdb':

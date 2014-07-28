@@ -42,12 +42,9 @@ class puppetdb::config {
     content => template('puppetdb/upstart.conf.erb'),
   }
 
-  postgres::user { 'puppetdb':
-    password => $puppetdb_postgres_password,
-  }
-
-  postgres::database { 'puppetdb':
-    owner => 'puppetdb',
+  postgresql::server::db { 'puppetdb':
+    user     => 'puppetdb',
+    password => postgresql_password('puppetdb', $puppetdb_postgres_password),
   }
 
   @logrotate::conf { 'puppetdb':
