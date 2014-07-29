@@ -10,5 +10,6 @@
 class govuk_apt::disable_pipelining {
   apt::conf { 'disable_http_pipelining':
     content => "Acquire::http::Pipeline-Depth 0;\n",
+    before  => Class['apt::update'],
   }
 }
