@@ -37,9 +37,9 @@ describe 'govuk::app', :type => :define do
       should contain_service('giraffe').with_provider('upstart')
     end
 
-    it "should hide the Raindrops endpoint" do
+    it "should hide the Raindrops and Sidekiq monitoring endpoint" do
       should contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/_raindrops']
+        'hidden_paths' => ['/_raindrops', '/sidekiq']
       )
     end
   end
@@ -63,9 +63,9 @@ describe 'govuk::app', :type => :define do
       }
     end
 
-    it "should hide the Raindrops and healthcheck paths" do
+    it "should hide the Raindrops, Sidekiq monitoring and healthcheck paths" do
       should contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/_raindrops', '/healthcheck']
+        'hidden_paths' => ['/_raindrops', '/sidekiq', '/healthcheck']
       )
     end
   end
