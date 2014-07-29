@@ -53,7 +53,19 @@ class TestHealthCheckInfo(unittest.TestCase):
         hc = HealthCheckInfo(
             {"status": "ok", "checks": {"foo": {"status": "ok"}}}
         )
-        self.assertEqual(hc.check_statuses, ["foo: ok"])
+        self.assertEqual(hc.check_statuses, ["foo - ok"])
+
+    def test_includes_check_message(self):
+        hc = HealthCheckInfo(
+            {
+                "status": "warning",
+                "checks": {
+                    "foo": {"status": "ok", "message": "All 12 foos look good"}
+                }
+            }
+        )
+        self.assertEqual(hc.check_statuses,
+                         ["foo - ok - All 12 foos look good"])
 
 
 if __name__ == "__main__":
