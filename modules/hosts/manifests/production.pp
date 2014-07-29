@@ -44,21 +44,7 @@ class hosts::production (
     default => undef,
   }
 
-  # Remove old exception-handler host entry.
-  # It's now in the backend vDC.  Without this, the exception-handler-1 alias was
-  # present in both host entries
-  # This can be removed when it's run everywhere
-  host { "exception-handler-1.management.${internal_tld}":
-    ensure       => absent,
-  }
-
   #management vdc machines
-  # FIXME: Remove once absent from all machines
-  govuk::host { 'puppet-1':
-    ensure          => 'absent',
-    ip              => '10.0.0.2',
-    vdc             => 'management',
-  }
   govuk::host { 'jenkins-1':
     ip             => '10.0.0.3',
     vdc            => 'management',
@@ -274,18 +260,6 @@ class hosts::production (
       "transactions-explorer.${app_domain}",
       "whitehall-frontend.${app_domain}",
     ]
-  }
-
-  # FIXME: Remove when deployed to Platform1.
-  govuk::host { 'whitehall-frontend-lb-1':
-    ensure         => absent,
-    ip             => '10.2.0.111',
-    vdc            => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-lb-2':
-    ensure         => absent,
-    ip             => '10.2.0.112',
-    vdc            => 'frontend',
   }
 
   #api vdc machines
