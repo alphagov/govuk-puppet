@@ -53,7 +53,7 @@ class TestHealthCheckInfo(unittest.TestCase):
         hc = HealthCheckInfo(
             {"status": "ok", "checks": {"foo": {"status": "ok"}}}
         )
-        self.assertEqual(hc.check_statuses, [("foo", "ok")])
+        self.assertEqual(hc.check_statuses, ["foo: ok"])
 
 
 if __name__ == "__main__":
