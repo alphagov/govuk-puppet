@@ -7,33 +7,17 @@
 #
 # === Parameters:
 #
-# [*suffixed_hosts*]
-#   Create all hosts entries with numeric suffixes. Fixes some legacy
-#   machines that were named incorrectly, e.g. `asset-master` vs
-#   `asset-master-1`.
-#   Default: false
-#
 # [*apt_mirror_internal*]
 #   Point `apt.production.alphagov.co.uk` to `apt-1` within this
 #   environment. Instead of going to the Production VSE.
 #   Default: false
 #
 class hosts::production (
-  $suffixed_hosts         = false,
   $apt_mirror_internal    = false,
   $releaseapp_host_org    = false,
   $ip_bouncer             = '127.0.0.1',
   $ip_redirector          = '127.0.0.1',
 ) {
-
-  validate_bool($suffixed_hosts)
-  if $suffixed_hosts {
-    $ensure_with_suffix = present
-    $ensure_without_suffix = absent
-  } else {
-    $ensure_with_suffix = absent
-    $ensure_without_suffix = present
-  }
 
   $app_domain = hiera('app_domain')
   $internal_tld = hiera('internal_tld', 'production')
@@ -56,15 +40,7 @@ class hosts::production (
     service_aliases => ['puppet', 'puppetdb'],
   }
 
-  govuk::host { 'monitoring':
-    ensure          => $ensure_without_suffix,
-    ip              => '10.0.0.20',
-    vdc             => 'management',
-    legacy_aliases  => ["nagios.${app_domain}"],
-    service_aliases => ['monitoring', 'alert'],
-  }
   govuk::host { 'monitoring-1':
-    ensure          => $ensure_with_suffix,
     ip              => '10.0.0.20',
     vdc             => 'management',
     legacy_aliases  => ['monitoring', "nagios.${app_domain}"],
@@ -502,14 +478,7 @@ class hosts::production (
     legacy_aliases => $backend_aliases,
   }
 
-  govuk::host { 'asset-master':
-    ensure         => $ensure_without_suffix,
-    ip             => '10.3.0.20',
-    vdc            => 'backend',
-    legacy_aliases => ["asset-master.${app_domain}"],
-  }
   govuk::host { 'asset-master-1':
-    ensure         => $ensure_with_suffix,
     ip             => '10.3.0.20',
     vdc            => 'backend',
     legacy_aliases => [
@@ -519,14 +488,7 @@ class hosts::production (
     ],
   }
 
-  govuk::host { 'asset-slave':
-    ensure         => $ensure_without_suffix,
-    ip             => '10.3.0.21',
-    vdc            => 'backend',
-    legacy_aliases => ["asset-slave.${app_domain}"],
-  }
   govuk::host { 'asset-slave-1':
-    ensure         => $ensure_with_suffix,
     ip             => '10.3.0.21',
     vdc            => 'backend',
     legacy_aliases => [
