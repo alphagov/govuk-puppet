@@ -10,15 +10,15 @@ EOS
     uname, fname, email = args
     return if user_in_whitelist?(uname)
 
-    uname_from_email = email.split('@').first.split('.').join.gsub(/[^a-z]/i, '')
     uname_from_full = fname.downcase.split(' ').join.gsub(/[^a-z]/i, '')
+    uname_from_email = email.split('@').first.split('.').join.gsub(/[^a-z]/i, '')
 
-    unless uname == uname_from_full
-      raise(Puppet::Error, "govuk_check_user_naming: expected username '#{uname}' to be '#{uname_from_full}' based on fullname")
+    unless uname_from_full == uname_from_email
+      raise(Puppet::Error, "govuk_check_user_naming: name in fullname must match name in email")
     end
 
-    unless uname == uname_from_email
-      raise(Puppet::Error, "govuk_check_user_naming: expected username '#{uname}' to be '#{uname_from_email}' based on email")
+    unless uname == uname_from_full && uname == uname_from_email
+      raise(Puppet::Error, "govuk_check_user_naming: expected username '#{uname}' to be '#{uname_from_full}' based on fullname and email")
     end
   end
 end

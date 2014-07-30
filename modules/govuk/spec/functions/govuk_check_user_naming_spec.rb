@@ -24,29 +24,29 @@ describe 'govuk_check_user_naming' do
   end
 
   describe 'invalid' do
-    describe 'username does not match fullname' do
+    describe 'fullname does not match email' do
       it 'should raise an exception' do
         args = [
-          'jsmith',
-          'John Smith',
+          'anything',
+          'John S',
           'j.smith@example.com',
         ]
         expect {
           scope.function_govuk_check_user_naming(args)
-        }.to raise_error(Puppet::Error, /username 'jsmith' to be 'johnsmith' based on fullname/)
+        }.to raise_error(Puppet::Error, /name in fullname must match name in email/)
       end
     end
 
-    describe 'username does not match email' do
+    describe 'username does not match fullname and email' do
       it 'should raise an exception' do
         args = [
           'jsmith',
-          'J Smith',
+          'John Smith',
           'john.smith@example.com',
         ]
         expect {
           scope.function_govuk_check_user_naming(args)
-        }.to raise_error(Puppet::Error, /username 'jsmith' to be 'johnsmith' based on email/)
+        }.to raise_error(Puppet::Error, /username 'jsmith' to be 'johnsmith' based on fullname and email/)
       end
     end
   end
