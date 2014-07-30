@@ -33,6 +33,7 @@ class users::groups::govuk_production_access {
   include users::robyoung
   include users::roc
   include users::ssharpe
+  include users::timothymower
   include users::tombooth
 
 }
