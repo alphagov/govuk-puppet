@@ -55,6 +55,7 @@ class users::groups::govuk {
   include users::rthorn
   include users::ssharpe
   include users::timpaul
+  include users::timothymower
   include users::tombooth
   include users::tombyers
   include users::tommypalmer
