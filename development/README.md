@@ -141,3 +141,11 @@ If after updating vagrant, you get errors regarding vagrant-dns when provisionin
 
     vagrant plugin uninstall vagrant-dns
     vagrant plugin install vagrant-dns
+
+### Errors fetching packages
+
+GDS have an apt repository at http://apt.production.alphagov.co.uk/ This is not accessible on the internet, so if you're trying to provision the virtual machine outside of the GDS office, you have a little bit of work to do. The prerequisites talk about needing an LDAP account to access GDS Github Enterprise, so you should have an account which lets you access the VPN.
+
+#. [Install openconnect](https://github.com/alphagov/gds-boxen/blob/1ba02125e0/modules/people/manifests/jabley.pp#L31)
+#. [Connect to the Aviation House VPN](https://github.com/jabley/homedir/commit/2682f094024524cb7e31ca447694bdf81b1239a2)
+#. `vagrant provision` should now be able to download packages when running apt
