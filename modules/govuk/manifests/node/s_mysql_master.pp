@@ -13,6 +13,7 @@ class govuk::node::s_mysql_master (
   }
 
   class { [
+    'govuk::apps::collections_publisher::db',
     'govuk::apps::contacts::db',
     'govuk::apps::content_planner::db',
     'govuk::apps::need_o_tron::db',

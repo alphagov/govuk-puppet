@@ -91,6 +91,7 @@ class govuk::node::s_development {
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
   include govuk::apps::canary_frontend
+  include govuk::apps::collections_publisher
   include govuk::apps::contacts
   include govuk::apps::content_planner
   include govuk::apps::content_store
@@ -174,6 +175,10 @@ class govuk::node::s_development {
   class { 'govuk_mysql::server': }
 
   mysql::db {
+    ['collections_publisher_development', 'collections_publisher_test']:
+      user     => 'collections_pub',
+      password => 'collections_publisher';
+
     ['contacts_development', 'contacts_test']:
       user     => 'contacts',
       password => 'contacts';

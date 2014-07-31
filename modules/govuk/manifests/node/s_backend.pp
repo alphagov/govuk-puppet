@@ -33,6 +33,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::asset_manager
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
+  include govuk::apps::collections_publisher
 
   class { 'govuk::apps::contacts':
     vhost_protected => true,
