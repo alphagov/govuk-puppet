@@ -597,10 +597,6 @@ class hosts::production (
   }
 
   # 3rd-party hosts
-  # FIXME: can be removed once it is absent from production
-  host { 'vcd00003.vpn.skyscapecs.net':
-    ensure => absent,
-  }
   host { 'gds01prod.aptosolutions.co.uk':
     ip => '185.40.10.139',
   }
