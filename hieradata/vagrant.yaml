@@ -1,4 +1,6 @@
 ---
+# These credentials apply only to vagrant machines created with https://github.com/alphagov/vagrant-govuk
+
 asset_root: 'http://static.dev.gov.uk'
 
 app_domain: 'dev.gov.uk'
