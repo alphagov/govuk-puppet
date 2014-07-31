@@ -30,7 +30,7 @@ process :frontend => [:static, :contentapi, :rummager]
 process :'furl-manager'
 process :imminence
 process :hmrc_contacts => [:rummager, :'content-store-write']
-process :'hmrc-manuals-api'
+process :'hmrc-manuals-api' => [:'content-store-write']
 process :'manuals-frontend' => [:static, :contentapi]
 process :jobs
 process :licencefinder => [:static, :contentapi]
