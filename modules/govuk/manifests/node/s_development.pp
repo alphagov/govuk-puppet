@@ -261,6 +261,5 @@ class govuk::node::s_development {
     'wbritish-small': ensure => installed;
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
     'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
-    'libpq-dev':      ensure => installed; # needed to install postgres gem 'pg'
   }
 }

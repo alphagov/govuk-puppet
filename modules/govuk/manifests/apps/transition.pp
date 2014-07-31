@@ -1,4 +1,5 @@
 class govuk::apps::transition( $port = 3044, $enable_procfile_worker = true ) {
+  include postgresql::lib::devel #installs libpq-dev package needed for pg gem
   govuk::app { 'transition':
     app_type           => 'rack',
     port               => $port,
