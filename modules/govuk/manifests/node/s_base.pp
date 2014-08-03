@@ -129,12 +129,4 @@ class govuk::node::s_base {
   user { 'ubuntu':
     ensure => absent,
   }
-
-  alternatives { 'ruby':
-    path => '/usr/bin/ruby1.9.1'
-  }
-
-  alternatives { 'editor':
-    path => '/usr/bin/vim.nox'
-  }
 }
