@@ -51,7 +51,7 @@ define govuk_postgresql::db (
     } else {
         $db_owner = $owner
     }
-    $password_hash = postgresql_password($user, $password),
+    $password_hash = postgresql_password($user, $password)
     if ! defined(Postgresql::Server::Role[$user]) {
         postgresql::server::role { $user:
             password_hash => $password_hash,
