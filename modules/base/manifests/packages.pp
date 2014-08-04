@@ -31,6 +31,11 @@ class base::packages ($ruby_version=installed){
       'zip'
     ])
 
+  alternatives { 'editor':
+    path    => '/usr/bin/vim.nox',
+    require => Package['vim-nox'],
+  }
+
   package { 'libruby1.9.1':
     ensure => $ruby_version,
   }
@@ -43,6 +48,11 @@ class base::packages ($ruby_version=installed){
   package { 'ruby1.9.1':
     ensure  => $ruby_version,
     require => Package['libruby1.9.1'],
+  }
+
+  alternatives { 'ruby':
+    path    => '/usr/bin/ruby1.9.1',
+    require => Package['ruby1.9.1'],
   }
 
   include nodejs
