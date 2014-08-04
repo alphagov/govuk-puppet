@@ -46,7 +46,7 @@ log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.
 
 get_error_page
 
-START_UPLOAD=$($(date +%s%3N))
+START_UPLOAD=$(date +%s%3N)
 
 for TARGET in ${TARGETS}; do
   log "user.info" "Started uploading to ${TARGET}"
@@ -62,7 +62,7 @@ for TARGET in ${TARGETS}; do
   log "user.info" "Finished uploading to mirror ${TARGET}"
 done
 
-STOP_UPLOAD=$($(date +%s%3N))
+STOP_UPLOAD=$(date +%s%3N)
 DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
 
 echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u localhost 8125
