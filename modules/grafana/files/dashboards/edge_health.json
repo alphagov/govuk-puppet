@@ -69,7 +69,7 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-govuk.requests-{errors,hits,miss}"
+              "target": "monitoring-1_management_production.cdn_fastly-govuk.requests-{errors,hits,miss,pass}"
             }
           ],
           "aliasColors": {
@@ -130,7 +130,7 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-assets.requests-{errors,hits,miss}"
+              "target": "monitoring-1_management_production.cdn_fastly-assets.requests-{errors,hits,miss,pass}"
             }
           ],
           "aliasColors": {
@@ -191,7 +191,7 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-redirector.requests-{errors,hits,miss}"
+              "target": "monitoring-1_management_production.cdn_fastly-redirector.requests-{errors,hits,miss,pass}"
             }
           ],
           "aliasColors": {
