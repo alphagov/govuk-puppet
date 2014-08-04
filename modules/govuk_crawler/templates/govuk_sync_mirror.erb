@@ -11,6 +11,10 @@ PROGRAM_NAME=$(basename $0)
 NAGIOS_CODE=1
 NAGIOS_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
 
+function log() {
+  logger -p ${1} -t ${PROGRAM_NAME} "${2}"
+}
+
 trap nagios_passive EXIT
 
 if [ -z "${TARGETS}" ]; then
@@ -36,10 +40,6 @@ function get_error_page() {
 
   test -d ${MIRROR_ROOT}/error || mkdir ${MIRROR_ROOT}/error/
   curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o ${MIRROR_ROOT}/error/503.html
-}
-
-function log() {
-  logger -p ${1} -t ${PROGRAM_NAME} "${2}"
 }
 
 log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
