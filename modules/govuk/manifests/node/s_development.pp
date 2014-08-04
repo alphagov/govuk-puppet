@@ -251,14 +251,12 @@ class govuk::node::s_development {
       password => 'whitehall';
   }
 
-  $postgresql_password = ''
-  class { 'postgresql::server':
-    postgres_password => $postgresql_password,
-  }
-
-  postgresql::server::db { ['transition_development', 'transition_test']:
-    user     => 'transition',
-    password => postgresql_password('transition', 'transition'),
+  include govuk_postgresql::server
+  include govuk_postgresql::client
+  govuk_postgresql::db { ['transition_development', 'transition_test']:
+    user       => 'transition',
+    password   => 'transition',
+    extensions => ['plpgsql', 'pgcrypto'],
   }
 
   package {
