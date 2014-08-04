@@ -399,6 +399,11 @@ class hosts::production (
     vdc            => 'backend',
     legacy_aliases => ['backup.mysql'],
   }
+  govuk::host { 'transition-postgresql-master-1':
+    ip             => '10.3.20.1',
+    vdc            => 'backend',
+    legacy_aliases => ['transition-master.postgresql', "transition-postgresql.backend.${internal_tld}"],
+  }
   govuk::host { 'whitehall-mysql-master-1':
     ip             => '10.3.10.30',
     vdc            => 'backend',
