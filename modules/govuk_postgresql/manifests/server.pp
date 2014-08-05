@@ -12,7 +12,7 @@ class govuk_postgresql::server (
         listen_addresses => $listen_addresses,
         require          => Class['postgresql::globals'],
     }
-    if ($listen_addresses == '*') {}
+    if ($listen_addresses == '*') {
         @ufw::allow { 'allow-postgresql-from-all':
             port => 5432,
         }
