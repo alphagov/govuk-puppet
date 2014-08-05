@@ -60,6 +60,8 @@ govuk::mount::no_op: true
 
 govuk_mysql::server::slow_query_log: true
 
+govuk_postgresql::server::backup: false
+
 govuk::ppa::path: preview
 
 internal_tld: 'development'
