@@ -71,4 +71,12 @@ define govuk_postgresql::db (
         $temp_extensions = prefix($extensions,"${db_name}:")
         govuk_postgresql::extension { $temp_extensions: }
     }
+
+    postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database":
+      type        => 'host',
+      database    => $db_name,
+      user        => $user,
+      address     => '10.3.0.0/16',
+      auth_method => 'md5',
+    }
 }
