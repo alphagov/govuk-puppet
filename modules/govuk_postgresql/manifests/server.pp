@@ -7,4 +7,9 @@ class govuk_postgresql::server {
     @ufw::allow { 'allow-postgresql-from-all':
         port => 5432,
     }
+    include collectd::plugin::postgresql
+    collectd::plugin::tcpconn { 'postgresql':
+      incoming => 5432,
+      outgoing => 5432,
+    }
 }
