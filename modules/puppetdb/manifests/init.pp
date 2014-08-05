@@ -14,11 +14,9 @@ class puppetdb($package_ensure) {
     notify => Class['puppetdb::service'];
   }
 
-  class { 'postgresql::globals':
-    version             => '9.1',
-  } ->
-  class { 'postgresql::server':
-    notify => Class['puppetdb::package'],
+  class { 'govuk_postgresql::server':
+    listen_addresses => 'localhost',
+    notify           => Class['puppetdb::package'],
   }
 
   class { 'puppetdb::package':
