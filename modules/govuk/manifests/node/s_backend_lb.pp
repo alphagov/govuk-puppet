@@ -21,6 +21,7 @@ class govuk::node::s_backend_lb (
       'contacts-admin',
       'content-planner',
       'fact-cave',
+      'furl-manager',
       'hmrc-manuals-api',
       'imminence',
       'maslow',
