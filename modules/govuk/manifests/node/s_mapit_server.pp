@@ -15,7 +15,7 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
   }
   class { 'postgresql::server::postgis':
   }
-  ->
+
   govuk_postgresql::db { 'mapit':
     user     => 'mapit',
     password => 'mapit',
@@ -33,6 +33,7 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
     environment => ['PGDATABASE=mapit'],
     command     => 'zcat -f /data/vhost/mapit/data/mapit.sql.gz | psql',
     unless      => 'psql -Atc "select count(*) from pg_catalog.pg_tables WHERE tablename=\'mapit_area\'" | grep -qvF 0',
+    notify      => Class['mapit::service'],
   }
 
 }
