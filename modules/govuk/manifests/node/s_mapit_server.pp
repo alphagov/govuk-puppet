@@ -6,10 +6,9 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
 
   Govuk::Mount['/var/lib/postgresql']
   ->
-  class { 'postgresql::globals':
-    version => '9.1',
-  }
-  class { 'postgresql::server':
+  class { 'govuk_postgresql::server':
+    listen_addresses => 'localhost',
+    backup           => false,
   }
   postgresql::server::config_entry { 'standard_conforming_strings':
     value => 'off',
@@ -17,9 +16,9 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
   class { 'postgresql::server::postgis':
   }
   ->
-  postgresql::server::db { 'mapit':
+  govuk_postgresql::db { 'mapit':
     user     => 'mapit',
-    password => postgresql_password('mapit', 'mapit'),
+    password => 'mapit',
     encoding => 'UTF8',
   }
   ->
