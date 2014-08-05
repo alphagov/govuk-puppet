@@ -72,7 +72,7 @@ define govuk_postgresql::db (
         govuk_postgresql::extension { $temp_extensions: }
     }
 
-    postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database":
+    postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
       type        => 'host',
       database    => $db_name,
       user        => $user,
