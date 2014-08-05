@@ -6,20 +6,19 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
 
   Govuk::Mount['/var/lib/postgresql']
   ->
-  class { 'postgresql::globals':
-    version => '9.1',
-  }
-  class { 'postgresql::server':
+  class { 'govuk_postgresql::server':
+    listen_addresses => 'localhost',
+    backup           => false,
   }
   postgresql::server::config_entry { 'standard_conforming_strings':
     value => 'off',
   }
   class { 'postgresql::server::postgis':
   }
-  ->
-  postgresql::server::db { 'mapit':
+
+  govuk_postgresql::db { 'mapit':
     user     => 'mapit',
-    password => postgresql_password('mapit', 'mapit'),
+    password => 'mapit',
     encoding => 'UTF8',
   }
   ->
@@ -34,6 +33,7 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
     environment => ['PGDATABASE=mapit'],
     command     => 'zcat -f /data/vhost/mapit/data/mapit.sql.gz | psql',
     unless      => 'psql -Atc "select count(*) from pg_catalog.pg_tables WHERE tablename=\'mapit_area\'" | grep -qvF 0',
+    notify      => Class['mapit::service'],
   }
 
 }

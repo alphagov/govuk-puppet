@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Set all the backups to be owned by the govuk-backup user
+find /var/lib/autopostgresqlbackup -exec chown govuk-backup \{\} \;
+
+# Allow others to download the latest backups
+find /var/lib/autopostgresqlbackup/latest -exec chmod go+rw \{\} \;
+
+# Create a handy tarball of latest backups
+cd /var/lib/autopostgresqlbackup
+tar -cjvf tmp.tbz2 latest/
+mv tmp.tbz2 latest.tbz2
+chmod u=wr,go=r latest.tbz2
+
+# Log the time we finished
+logger -t autopostgresqlbackup autopostgresqlbackup finished"

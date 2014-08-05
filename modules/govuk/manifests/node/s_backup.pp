@@ -58,6 +58,12 @@ class govuk::node::s_backup (
     fq_dn     => 'support-contacts-1.backend.production',
   }
 
+  backup::directory {'backup_postgresql_backups_puppetmaster_postgresql':
+    directory => '/var/lib/autopostgresqlbackup/',
+    host_name => 'puppetmaster-1',
+    fq_dn     => 'puppetmaster-1.management.production',
+  }
+
   if $backup_efg {
     backup::directory {'backup_mysql_backups_efg_mysql':
       directory => '/var/lib/automysqlbackup/',
