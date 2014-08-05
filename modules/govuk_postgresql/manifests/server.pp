@@ -3,8 +3,14 @@ class govuk_postgresql::server (
     $backup = true,
     $listen_addresses = '*',
 ) {
+    if ! defined(Class['postgresql::globals']) {
+      class {'postgresql::globals':
+        version => '9.1',
+      }
+    }
     class {'postgresql::server':
         listen_addresses => $listen_addresses,
+        require          => Class['postgresql::globals'],
     }
 
     @ufw::allow { 'allow-postgresql-from-all':
