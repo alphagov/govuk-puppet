@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Log the time we started
+logger -t autopostgresqlbackup autopostgresqlbackup started"

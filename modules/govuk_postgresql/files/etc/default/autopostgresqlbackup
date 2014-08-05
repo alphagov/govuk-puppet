@@ -78,7 +78,7 @@ COMMCOMP=0
 LATEST=yes
 
 # Command to run before backups (uncomment to use)
-#PREBACKUP="/etc/postgresql-backup-pre"
+PREBACKUP="/etc/postgresql-backup-pre"
 
 # Command run after backups (uncomment to use)
 POSTBACKUP="/etc/postgresql-backup-post"
