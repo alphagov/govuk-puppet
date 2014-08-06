@@ -79,4 +79,5 @@ define govuk_postgresql::db (
       address     => '10.3.0.0/16',
       auth_method => 'md5',
     }
+    collectd::plugin::postgresql_db{$db_name:}
 }

@@ -21,4 +21,9 @@ class govuk_postgresql::server (
     if ($backup) {
         include govuk_postgresql::backup
     }
+    include collectd::plugin::postgresql
+    collectd::plugin::tcpconn { 'postgresql':
+      incoming => 5432,
+      outgoing => 5432,
+    }
 }
