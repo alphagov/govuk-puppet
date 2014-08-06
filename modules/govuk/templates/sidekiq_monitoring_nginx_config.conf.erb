@@ -1,0 +1,33 @@
+# This file is managed by Puppet. Local changes will be clobbered.
+
+server {
+  server_name <%= @full_domain %>;
+
+  listen localhost:80;
+
+  proxy_connect_timeout 1s;
+  proxy_read_timeout 15s;
+
+  access_log /var/log/nginx/<%= @full_domain %>-access.log timed_combined;
+  access_log /var/log/nginx/<%= @full_domain %>-json.event.access.log json_event;
+  error_log /var/log/nginx/<%= @full_domain %>-error.log;
+
+  location / {
+    try_files $uri/index.html $uri.html $uri @app;
+  }
+
+  location /publisher {
+    proxy_pass http://localhost:3079;
+  }
+
+  location /signon {
+    proxy_pass http://localhost:3080;
+  }
+
+  location /whitehall {
+    proxy_pass http://localhost:3081;
+  }
+
+  root /data/vhost/<%= @full_domain %>/current/public;
+
+}
