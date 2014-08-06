@@ -1,6 +1,14 @@
-limit_req_zone $binary_remote_addr zone=rate:30m rate=10r/s;
-limit_req_zone $binary_remote_addr zone=contact:5m rate=6r/m;
-limit_conn_zone $binary_remote_addr zone=connections:10m;
+# Bypass rate limiting with `Rate-Limit-Token` headers.
+map $http_Rate_Limit_Token $limit_req {
+  default $binary_remote_addr;
+<%- @rate_limit_tokens.each do |token| -%>
+  <%= token -%> "";
+<%- end -%>
+}
+
+limit_req_zone $limit_req zone=rate:30m rate=10r/s;
+limit_req_zone $limit_req zone=contact:5m rate=6r/m;
+limit_conn_zone $limit_req zone=connections:10m;
 
 # Return 429 (Too Many Requests) instead of the default 503.
 limit_req_status 429;
