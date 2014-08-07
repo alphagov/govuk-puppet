@@ -22,6 +22,7 @@ class govuk::node::s_frontend_lb (
       'feedback',
       'frontend',
       'manuals-frontend',
+      'service-manual',
       'specialist-frontend',
       'static',
       'limelight',

@@ -228,6 +228,7 @@ class hosts::production (
       "limelight.${app_domain}",
       "publicapi.${app_domain}",
       "public-link-tracker.${app_domain}",
+      "service-manual.${app_domain}",
       "smartanswers.${app_domain}",
       "spotlight.${app_domain}",
       "specialist-frontend.${app_domain}",
