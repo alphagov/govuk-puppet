@@ -19,6 +19,11 @@ describe 'govuk_postgresql::db', :type => :define do
                 :password => 'md54b965058299a9d34979e4e88b0909678',
             )
         }
+        it {
+            should_not contain_postgresql__server__pg_hba_rule(
+                "Allow access for monkey role to giraffe database from backend network"
+            )
+        }
     end
 
     context 'set an owner' do
@@ -44,6 +49,19 @@ describe 'govuk_postgresql::db', :type => :define do
         it {
             should contain_postgresql__server__db('giraffe').with(
                 :encoding     => 'ROT13',
+            )
+        }
+    end
+
+    context 'create pg_hba.conf rule allowing authentication from backend network' do
+        let(:params) {{
+          :user                    => 'monkey',
+          :password                => 'gibbon',
+          :allow_auth_from_backend => true
+        }}
+        it {
+            should contain_postgresql__server__pg_hba_rule(
+                'Allow access for monkey role to giraffe database from backend network'
             )
         }
     end

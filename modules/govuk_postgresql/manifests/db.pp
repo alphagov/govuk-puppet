@@ -32,13 +32,19 @@
 # [*extensions*]
 # An optional array of Postgresql Extensions to load for this database.
 # Default: []
+#
+# [*allow_auth_from_backend*]
+# Whether to create a pg_hba.conf rule to allow this user to authenticate for
+# this database from the backend network using its password.
+# Default: false
 define govuk_postgresql::db (
     $user,
     $password,
-    $database   = undef,
-    $owner      = undef,
-    $encoding   = 'UTF8',
-    $extensions = [],
+    $database                = undef,
+    $owner                   = undef,
+    $encoding                = 'UTF8',
+    $extensions              = [],
+    $allow_auth_from_backend = false,
 ) {
 
     if ($database == undef) {
@@ -72,12 +78,15 @@ define govuk_postgresql::db (
         govuk_postgresql::extension { $temp_extensions: }
     }
 
-    postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
-      type        => 'host',
-      database    => $db_name,
-      user        => $user,
-      address     => '10.3.0.0/16',
-      auth_method => 'md5',
+    if $allow_auth_from_backend {
+        postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
+          type        => 'host',
+          database    => $db_name,
+          user        => $user,
+          address     => '10.3.0.0/16',
+          auth_method => 'md5',
+        }
     }
+
     collectd::plugin::postgresql_db{$db_name:}
 }
