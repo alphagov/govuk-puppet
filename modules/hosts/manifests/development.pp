@@ -60,7 +60,6 @@ class hosts::development {
   host { 'search-admin.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'signon.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'smartanswers.dev.gov.uk':                         ip => '127.0.0.1' }
-  host { 'smartdown-frontend.dev.gov.uk':                   ip => '127.0.0.1' }
   host { 'specialist-frontend.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'specialist-publisher.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'static.dev.gov.uk':                               ip => '127.0.0.1' }

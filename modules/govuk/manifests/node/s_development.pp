@@ -80,7 +80,6 @@ class govuk::node::s_development {
     'govuk::apps::licencefinder':         vhost_protected => false;
     'govuk::apps::limelight':             vhost_protected => true;
     'govuk::apps::smartanswers':          vhost_protected => false;
-    'govuk::apps::smartdown_frontend':    vhost_protected => false;
     'govuk::apps::specialist_frontend':   vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
     'govuk::apps::transaction_wrappers':  vhost_protected => false;
