@@ -20,10 +20,18 @@
 #
 #   Default: '', which will disable this functionality.
 #
+# [*rate_limit_tokens*]
+#   Array of token strings that can be passed in the header Rate-Limit-Token
+#   to bypass rate limiting. Each application should have its own token.
+#   Default: []
+#
 class router::nginx (
   $vhost_protected,
-  $real_ip_header = ''
+  $real_ip_header = '',
+  $rate_limit_tokens = [],
 ) {
+  validate_array($rate_limit_tokens)
+
   include router::assets_origin
 
   $app_domain = hiera('app_domain')
@@ -36,8 +44,8 @@ class router::nginx (
     certtype => 'www'
   }
 
-  nginx::conf {'rate-limiting-zone-for-contact-frontend':
-    content => 'limit_req_zone $binary_remote_addr zone=contact:5m rate=6r/m;',
+  nginx::conf { 'rate-limiting':
+    content => template('router/rate-limiting.conf.erb'),
   }
 
   # Set default vhost that immediately closes the connection if no

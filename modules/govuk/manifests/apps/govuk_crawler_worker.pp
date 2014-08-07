@@ -3,6 +3,7 @@ class govuk::apps::govuk_crawler_worker (
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
   $port = 3074,
+  $rate_limit_token = 'UNSET',
 ) {
   if $enabled {
     Govuk::App::Envvar {
@@ -25,6 +26,8 @@ class govuk::apps::govuk_crawler_worker (
         value => join($blacklist_paths, ',');
       'HTTP_PORT':
         value => $port;
+      'RATE_LIMIT_TOKEN':
+        value => $rate_limit_token;
       'REDIS_ADDRESS':
         value => 'redis-1:6379';
       'REDIS_KEY_PREFIX':

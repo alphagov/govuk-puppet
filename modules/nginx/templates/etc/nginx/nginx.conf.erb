@@ -16,13 +16,6 @@ http {
     proxy_cache_path  /var/www/cache levels=1:2 keys_zone=cache:8m max_size=1000m inactive=600m;
     proxy_temp_path /var/www/cache/tmp;
 
-    limit_req_zone $binary_remote_addr zone=rate:30m rate=10r/s;
-    limit_conn_zone $binary_remote_addr zone=connections:10m;
-
-    # Return 429 (Too Many Requests) instead of the default 503.
-    limit_req_status 429;
-    limit_conn_status 429;
-
     server_names_hash_max_size <%= @server_names_hash_max_size -%>;
     server_names_hash_bucket_size 128;
     variables_hash_max_size <%= @variables_hash_max_size -%>;
