@@ -53,16 +53,6 @@ class icinga::package {
     mode   => '0755',
   }
 
-  # FIXME: Remove this once Campfire changes are deployed everywhere in Puppet.
-  package { 'tinder':
-    ensure   => absent,
-    provider => system_gem,
-  }
-  file { '/usr/local/bin/campfire_icinga':
-    ensure  => absent,
-  }
-  # End Campfire
-
   file { '/var/log/sendEmail':
     ensure  => present,
     owner   => nagios,
