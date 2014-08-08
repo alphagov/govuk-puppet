@@ -20,12 +20,14 @@ EOS
     let (:hiera_data) {{ 
       'http_username' => 'test_username',
       'http_password' => 'test_password',
-      'smokey_efg_domain' => 'bear',
-      'smokey_efg_username' => 'snake',
-      'smokey_efg_password' => 'hippo',
       'smokey_signon_email' => 'crocodile',
       'smokey_signon_password' => 'monkey',
-      'smokey_bearer_token' => 'tortoise'
+      'smokey_bearer_token' => 'tortoise',
+    }}
+    let(:params) {{
+      'efg_domain' => 'bear',
+      'efg_username' => 'snake',
+      'efg_password' => 'hippo',
     }}
     # FIXME: Hack to refresh hieradata.
     let(:facts) {{ :cache_bust => Time.now }}
