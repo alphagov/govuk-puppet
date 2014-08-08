@@ -254,15 +254,11 @@ class govuk::node::s_development {
 
   include govuk_postgresql::server
   include govuk_postgresql::client
-  govuk_postgresql::db {
-    ['transition_development', 'transition_test']:
-      user       => 'transition',
-      password   => 'transition',
-      extensions => ['plpgsql', 'pgcrypto'];
 
-    ['url-arbiter_development', 'url-arbiter_test']:
-      user       => 'url-arbiter',
-      password   => 'url-arbiter';
+  postgresql::server::role {
+    'vagrant':
+      password_hash => postgresql_password('vagrant', 'vagrant'),
+      createdb      => true;
   }
 
   package {
