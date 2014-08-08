@@ -17,18 +17,12 @@
 #
 # [*sshkeys*]
 #   A hash of hostnames with ssh host keys and type of ssh host key.
-#   Default: {}
-#
-# [*rate_limit_token*]
-#   Value for RATE_LIMIT_TOKEN environment variable.
-#   Default: 'UNSET'
-#
+#  Default: {}
 class mirror(
   $enable = false,
   $ssh_private_key = '',
   $targets = [],
-  $sshkeys = {},
-  $rate_limit_token = 'UNSET',
+  $sshkeys = {}
 ) {
   validate_array($targets)
   validate_hash($sshkeys)

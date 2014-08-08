@@ -92,25 +92,4 @@ describe 'mirror', :type => :class do
     end
   end
 
-  describe "rate_limit_token" do
-    context "UNSET (default)" do
-      let(:params) {{ }}
-
-      it {
-        should contain_file('/usr/local/bin/govuk_update_and_upload_mirror').
-          with_content(/^export RATE_LIMIT_TOKEN='UNSET'$/)
-      }
-    end
-
-    context "a.n.token" do
-      let(:params) {{
-        :rate_limit_token => 'a.n.token',
-      }}
-
-      it {
-        should contain_file('/usr/local/bin/govuk_update_and_upload_mirror').
-          with_content(/^export RATE_LIMIT_TOKEN='a.n.token'$/)
-      }
-    end
-  end
 end
