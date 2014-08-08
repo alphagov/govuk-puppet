@@ -136,6 +136,7 @@ class govuk::node::s_development {
   include govuk::apps::transactions_explorer
   include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
+  include govuk::apps::url_arbiter
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
     configure_frontend => true,
@@ -252,10 +253,15 @@ class govuk::node::s_development {
 
   include govuk_postgresql::server
   include govuk_postgresql::client
-  govuk_postgresql::db { ['transition_development', 'transition_test']:
-    user       => 'transition',
-    password   => 'transition',
-    extensions => ['plpgsql', 'pgcrypto'],
+  govuk_postgresql::db {
+    ['transition_development', 'transition_test']:
+      user       => 'transition',
+      password   => 'transition',
+      extensions => ['plpgsql', 'pgcrypto'];
+
+    ['url-arbiter_development', 'url-arbiter_test']:
+      user       => 'url-arbiter',
+      password   => 'url-arbiter';
   }
 
   package {
