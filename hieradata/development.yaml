@@ -47,6 +47,7 @@ govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enabled: true
 govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
+govuk::apps::url_arbiter::enabled: true
 govuk::apps::whitehall::enable_procfile_worker: false
 govuk::apps::whitehall::prevent_single_host: false
 

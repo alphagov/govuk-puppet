@@ -469,6 +469,7 @@ class hosts::production (
       "tariff-api.${app_domain}",
       "transition.${app_domain}",
       "travel-advice-publisher.${app_domain}",
+      "url-arbiter.${app_domain}",
       "whitehall-admin.${app_domain}"
       ]
 
