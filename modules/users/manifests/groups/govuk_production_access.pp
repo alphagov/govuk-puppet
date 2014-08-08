@@ -16,7 +16,6 @@ class users::groups::govuk_production_access {
   include users::davidt
   include users::dcarley
   include users::dominicbaggott
-  include users::garethr
   include users::heathd
   include users::jabley
   include users::jacobashdown
