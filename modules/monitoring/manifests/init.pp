@@ -15,6 +15,7 @@ class monitoring {
   # FIXME: Remove when deployed.
   file { '/var/www/monitoring':
     ensure  => absent,
+    force   => true,
     recurse => true,
     purge   => true,
     backup  => false,
