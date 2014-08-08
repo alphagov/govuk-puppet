@@ -13,7 +13,6 @@ function nagios_passive() {
 trap nagios_passive EXIT
 
 export MIRRORER_SITE_ROOT=https://www.gov.uk
-export RATE_LIMIT_TOKEN='<%= @rate_limit_token %>'
 
 logger -p user.info -t mirrorer Starting to mirror GOV.UK
 /usr/local/bin/govuk_update_mirror
