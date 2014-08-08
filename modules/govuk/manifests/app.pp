@@ -23,7 +23,9 @@ define govuk::app (
   # the Procfile MUST listen on the port defined by the 'PORT' environment
   # variable.
   #
-  $port,
+  # Optional, if the `app_type` is 'bare'.
+  #
+  $port = 'NOTSET',
 
   #
   # command: command to start the application
@@ -227,6 +229,9 @@ define govuk::app (
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
     fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile", "rack", or "bare"'
+  }
+  if ($app_type in ['procfile', 'rack']) and ($port == 'NOTSET') {
+    fail 'Must pass port when $app_type is "procfile" or "rack"'
   }
   if ($app_type == 'bare') and !($command) {
     fail 'Invalid $command parameter'
