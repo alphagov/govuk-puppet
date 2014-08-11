@@ -5,9 +5,32 @@ class govuk::node::s_redis_base {
   $redis_max_memory = $::memtotalmb / 4 * 3
 
   class { 'redis':
-    redis_max_memory => "${redis_max_memory}mb",
-    redis_port       => $redis_port,
+    # conf_dir is needed for compatibility with previous redis module
+    conf_dir                           => "/var/lib/redis/${redis_port}/",
+    conf_maxmemory                     => "${redis_max_memory}mb",
+    conf_port                          => $redis_port,
+    # conf_slowlog_max_len is for compatibility with previous redis module
+    conf_slowlog_max_len               => '1024',
+    # TODO: These don't work in 2.6.6 so setting to false
+    # consider changing if we update redis version
+    conf_aof_rewrite_incremental_fsync => false,
+    conf_hz                            => false,
+    conf_repl_disable_tcp_nodelay      => false,
+    conf_tcp_keepalive                 => false,
+    # end TODO
   }
+
+  #TODO: Once migrated to redis class above, remove old files
+  #file {[
+  #    '/var/run/redis_6379.pid',
+  #    '/opt/redis',
+  #    '/opt/redis-src',
+  #    '/var/log/redis_6379.log',
+  #    '/etc/redis/6379.conf'
+  #]:
+  #    ensure  => absent,
+  #    recurse => true,
+  #}
 
   $redis_mem_warn = $redis_max_memory * 0.8
   $redis_mem_crit = $redis_max_memory * 0.9
@@ -27,10 +50,6 @@ class govuk::node::s_redis_base {
   }
   @icinga::plugin { 'check_redis':
     ensure  => absent,
-  }
-
-  @logrotate::conf { 'redis':
-    matches => '/var/log/redis_*.log',
   }
 
   class { 'collectd::plugin::redis': }
