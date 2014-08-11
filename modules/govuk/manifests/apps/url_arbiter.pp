@@ -12,6 +12,6 @@ class govuk::apps::url_arbiter(
       log_format_is_json => true,
     }
 
-    include postgresql::lib::devel #installs libpq-dev package needed for pg gem
+    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
   }
 }
