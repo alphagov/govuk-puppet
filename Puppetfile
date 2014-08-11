@@ -8,7 +8,9 @@ mod 'puppetlabs/concat'
 mod 'puppetlabs/gcc'
 mod 'puppetlabs/mysql'
 mod 'puppetlabs/postgresql'
-mod 'puppetlabs/rabbitmq'
+mod 'puppetlabs/rabbitmq',
+  :git => 'git://github.com/alphagov/puppetlabs-rabbitmq.git',
+  :ref => 'strip-backslashes'
 mod 'puppetlabs/stdlib'
 mod 'saz/memcached'
 mod 'saz/ntp'
