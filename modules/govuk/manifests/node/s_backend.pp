@@ -71,6 +71,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::tariff_admin
   include govuk::apps::tariff_api
   include govuk::apps::transition
+  include govuk::apps::transition_postgres
   include govuk::apps::travel_advice_publisher
   include govuk::apps::url_arbiter
 

@@ -72,6 +72,7 @@ class hosts::development {
   host { 'transaction-wrappers.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'transactions-explorer.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'transition.dev.gov.uk':                           ip => '127.0.0.1' }
+  host { 'transition-postgres.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'travel-advice-publisher.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'url-arbiter.dev.gov.uk':                          ip => '127.0.0.1' }
   host { 'whitehall-admin.dev.gov.uk':                      ip => '127.0.0.1' }
