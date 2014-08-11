@@ -37,6 +37,7 @@ class govuk::node::s_backend_lb (
       'tariff-admin',
       'travel-advice-publisher',
       'transition',
+      'url-arbiter',
     ]:
       https_only => false; # FIXME: Remove for #51136581
     [
