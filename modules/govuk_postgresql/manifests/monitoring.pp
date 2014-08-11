@@ -16,4 +16,8 @@ class govuk_postgresql::monitoring {
     host_name           => $::fqdn,
   }
 
+  @icinga::nrpe_config { 'check_postgresql_database':
+    source => 'puppet:///modules/govuk_postgresql/check_postgresql_database.cfg',
+  }
+
 }
