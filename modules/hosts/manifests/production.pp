@@ -133,13 +133,11 @@ class hosts::production (
   }
 
   #router lb vhosts
-  $website_host = hiera('website_host', 'www.gov.uk')
   govuk::host { 'cache':
     ip              => '10.1.1.1',
     vdc             => 'router',
     legacy_aliases  => [
       'cache',
-      $website_host,
       "www.${app_domain}",
       "www-origin.${app_domain}",
       "assets-origin.${app_domain}",

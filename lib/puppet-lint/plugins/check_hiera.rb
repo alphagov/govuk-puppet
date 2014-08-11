@@ -26,7 +26,6 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     # Legacy, used everywhere.
     'app_domain',
     'asset_root',
-    'website_host',
     'website_root',
 
     # global var for gemfury, could do better
