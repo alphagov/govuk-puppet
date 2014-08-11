@@ -10,4 +10,10 @@ define govuk_postgresql::monitoring::db () {
     role      => 'nagios',
   }
 
+  @@icinga::check { "check_posgresql_database_connection_${title}_${::hostname}":
+    check_command       => "check_nrpe!check_posgresql_database_connection!${title}",
+    service_description => "Connection to ${title} postgresql database",
+    host_name           => $::fqdn,
+  }
+
 }
