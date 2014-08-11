@@ -45,7 +45,8 @@ class govuk::apps::govuk_crawler_worker (
     govuk::app { 'govuk_crawler_worker':
       app_type           => 'bare',
       port               => $port,
-      command            => './govuk_crawler_worker',
+      # FIXME: Remove verbose flag before deploying to Production
+      command            => './govuk_crawler_worker -verbose',
       health_check_path  => '/healthcheck',
     }
 
