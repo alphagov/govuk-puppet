@@ -136,6 +136,7 @@ class govuk::node::s_development {
   include govuk::apps::tariff_api
   include govuk::apps::transactions_explorer
   include govuk::apps::transition
+  include govuk::apps::transition_postgres
   include govuk::apps::travel_advice_publisher
   include govuk::apps::url_arbiter
   class { 'govuk::apps::whitehall':
