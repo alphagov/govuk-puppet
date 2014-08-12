@@ -19,6 +19,7 @@
 #
 class govuk_cdnlogs (
   $log_dir,
+  $monitoring_enabled = false,
   $server_key,
   $server_crt,
   $service_port_map,
@@ -59,4 +60,17 @@ class govuk_cdnlogs (
     ensure  => file,
     content => template('govuk_cdnlogs/etc/logrotate.d/cdnlogs.erb'),
   }
+
+  if $monitoring_enabled {
+    if !has_key($service_port_map, 'govuk') {
+      fail('Unable to monitor GOV.UK CDN logs, key not present in service_port_map.')
+    }
+
+    @@icinga::check { "check_cdn_logs_being_streamed_${::hostname}":
+      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c7200 -w3600\"",
+      service_description => 'Logs are not being received from the CDN',
+      host_name           => $::fqdn,
+    }
+  }
+
 }
