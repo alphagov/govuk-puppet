@@ -86,6 +86,8 @@ class govuk_crawler(
   $seeder_script_args = "'${site_root}' --host '${amqp_host}' --username '${amqp_user}' --exchange '${amqp_exchange}' --topic '${amqp_topic}' --vhost '${amqp_vhost}'"
   $seeder_lock_path = "/var/run/${seeder_script_name}.lock"
   $seeder_script_path = "/usr/local/bin/${seeder_script_name}"
+  $seeder_wrapper_name = "${seeder_script_name}-wrapper"
+  $seeder_script_wrapper_path = "/usr/local/bin/${seeder_wrapper_name}"
 
   $sync_script_name = 'govuk_sync_mirror'
   $sync_lock_path = "/var/run/${sync_script_name}.lock"
@@ -121,7 +123,24 @@ class govuk_crawler(
     owner  => $crawler_user,
   }
 
+  $govuk_gemfury_source_url = hiera('govuk_gemfury_source_url')
+  class {'ruby::govuk_seed_crawler':
+    govuk_gemfury_source_url => $govuk_gemfury_source_url,
+  }
+
+  $sync_service_desc = 'Mirror sync'
+  $threshold_secs = 24 * (60 * 60)
+
+  if !empty($targets) {
+    @@icinga::passive_check { "check-mirror-sync-${::hostname}":
+      service_description => $sync_service_desc,
+      host_name           => $::fqdn,
+      freshness_threshold => $threshold_secs,
+    }
+  }
+
   # sync crawled content to remote mirror
+  # relies on $sync_service_desc so must appear after in file
   file { $sync_script_path:
     ensure  => present,
     mode    => '0750',
@@ -129,25 +148,30 @@ class govuk_crawler(
     owner   => $crawler_user,
   }
 
-  $govuk_gemfury_source_url = hiera('govuk_gemfury_source_url')
-  class {'ruby::govuk_seed_crawler':
-    govuk_gemfury_source_url => $govuk_gemfury_source_url,
-  }
-
-  $service_desc = 'Mirror sync'
-  $threshold_secs = 24 * (60 * 60)
-
-  if !empty($targets) {
-    @@icinga::passive_check { "check-mirror-sync-${::hostname}":
-      service_description => $service_desc,
-      host_name           => $::fqdn,
-      freshness_threshold => $threshold_secs,
-    }
-  }
-
   $seed_ensure = $seed_enable ? {
     true    => present,
     default => absent,
+  }
+
+  # Needed for the wrapper script and also the icinga passive check.
+  $seed_service_desc = 'seed_crawler last run status'
+
+  # relies on $seed_service_desc so must appear after in file
+  file { $seeder_script_wrapper_path:
+    ensure  => present,
+    mode    => '0750',
+    owner   => $crawler_user,
+    source  => template("${module_name}/${seeder_wrapper_name}.erb"),
+    require => File[$seeder_lock_path],
+  }
+
+  if ($seed_enable) {
+    @@icinga::passive_check { "check_seed_crawler_${::hostname}":
+      service_description => $seed_service_desc,
+      host_name           => $::fqdn,
+      # cron runs every 2 hours, 15000 is slightly over 4 hours (14400)
+      freshness_threshold => 15000,
+    }
   }
 
   cron { 'seed-crawler':
@@ -156,8 +180,8 @@ class govuk_crawler(
     hour        => 2,
     minute      => 0,
     environment => ['MAILTO=""', "GOVUK_CRAWLER_AMQP_PASS='${amqp_pass}'"],
-    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_path} ${seeder_script_args}",
-    require     => File[$seeder_lock_path]
+    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path} ${seeder_script_args}",
+    require     => File[$seeder_script_wrapper_path],
   }
 
   $sync_ensure = $sync_enable ? {

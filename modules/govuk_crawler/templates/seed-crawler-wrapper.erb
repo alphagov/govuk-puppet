@@ -1,0 +1,13 @@
+#!/bin/bash
+
+OUTPUT=`<%= @seeder_script_path %> $@`
+CODE=$?
+if [ "$OUTPUT" == "" ]; then
+  OUTPUT="Seeder script exited ok"
+fi
+# Force everything that isn't OK to be a WARNING
+if [ $CODE -gt 0 ]; then
+  CODE=1
+fi
+printf "<%= @fqdn %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null"
+exit $?
