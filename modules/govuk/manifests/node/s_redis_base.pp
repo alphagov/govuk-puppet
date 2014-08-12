@@ -31,6 +31,7 @@ class govuk::node::s_redis_base {
   ]:
       ensure  => absent,
       recurse => true,
+      force   => true,
   }
 
   $redis_mem_warn = $redis_max_memory * 0.8
