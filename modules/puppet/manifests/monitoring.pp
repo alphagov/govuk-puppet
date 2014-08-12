@@ -19,14 +19,14 @@ class puppet::monitoring {
   # FIXME: Use `fqdn` instead of `hostname`.
   # https://www.pivotaltracker.com/story/show/47708141
   $kibana_search = {
-    'search'    => "@fields.syslog_program:\"puppet-agent\" AND @source_host:${::hostname}*",
-    'timeframe' => 14400,
+    'query' => "@fields.syslog_program:'puppet-agent' AND @source_host:${::hostname}*",
+    'from'  => '4h',
   }
 
   @@icinga::passive_check { "check_puppet_${::hostname}":
     service_description => 'puppet last run errors',
     host_name           => $::fqdn,
     freshness_threshold => 7200,
-    action_url          => kibana2_url($kibana_url, $kibana_search),
+    action_url          => kibana3_url($kibana_url, $kibana_search),
   }
 }
