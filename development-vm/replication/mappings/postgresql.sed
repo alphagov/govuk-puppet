@@ -1,1 +1,1 @@
-s/\(ALTER DATABASE .* OWNER TO\) .*/\1 "vagrant";/
+s/\(ALTER [A-Z][A-Z ]* .* OWNER TO\) .*/\1 "vagrant";/
