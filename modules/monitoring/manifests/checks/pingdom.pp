@@ -27,8 +27,10 @@ class monitoring::checks::pingdom (
       check_id => 489560;
     'specialist':
       check_id => 662460;
-    'mirror':
+    'mirror_provider0':
       check_id => 944701;
+    'mirror_provider1':
+      check_id => 1297462;
   }
 
   if $enable {
@@ -67,11 +69,18 @@ class monitoring::checks::pingdom (
       service_description => 'Pingdom specialist guides check',
     }
 
-    icinga::check { 'check_pingdom_mirror':
-      check_command       => 'run_pingdom_mirror_check',
+    icinga::check { 'check_pingdom_mirror_provider0':
+      check_command       => 'run_pingdom_mirror_provider0_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      service_description => 'Pingdom mirror check',
+      service_description => 'Pingdom mirror provider0 check',
+    }
+
+    icinga::check { 'check_pingdom_mirror_provider1':
+      check_command       => 'run_pingdom_mirror_provider1_check',
+      use                 => 'govuk_high_priority',
+      host_name           => $::fqdn,
+      service_description => 'Pingdom mirror provider1 check',
     }
   }
 }
