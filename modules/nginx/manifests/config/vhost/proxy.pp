@@ -65,14 +65,16 @@ define nginx::config::vhost::proxy(
     content => template($proxy_vhost_template),
   }
 
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.${title_escaped}"
+
   nginx::log {
     $json_access_log:
       ensure        => $ensure,
       json          => true,
       logpath       => $logpath,
       logstream     => $logstream,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title_escaped}.time_request",
+      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
     $access_log:
       ensure    => $ensure,
@@ -84,9 +86,14 @@ define nginx::config::vhost::proxy(
       logstream => $logstream;
   }
 
+  exec {"${title}: ensure http_500 counter exists":
+    command => "/bin/echo -n '${counter_basename}.http_500:0|c > /dev/udp/localhost/8125",
+    unless  => "/bin/echo counters | /bin/nc localhost 8126 | /bin/grep -qF ${counter_basename}.http_500",
+  }
+
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
     ensure    => $ensure,
-    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.${title_escaped}.http_5xx,0)",
+    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
