@@ -2,6 +2,6 @@ class users::chrisheathcote {
   govuk::user { 'chrisheathcote':
     fullname => 'Chris Heathcote',
     email    => 'chris.heathcote@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA9KolxDUqEoD+0CFvQCsUm4PZ/MbD4H8uUVOlgatbPAXVp2bSkvyBbmcodwuYoxmZET+vUC3EYeEWnsZVRFi+nxweOKxBwYDBz67iO/wj/V9WyP6VEhOw/45JNzkGLHKi84IcwYSrS+O2Y7xtFXNKTqiIJFjb+a9XLFwTdS5sMAzXi8Jhw8Yu6X6IU2+Ub+Zj1SYOgdu2MsbHxRFi0iDqCd3MPIGPwznWSMfP5TkqqPlG9cX0+92E8P3I52cSDgej+FEv8gMkX6li2xWUb1f1ruG0YWbmDtyb3BtWHhzhq+UE3C0wleHWVbWcOq+gP7WccZbk6d0HS7wXy1T0ouuktw==',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIQ6tftq8RVFCw7As995DdBoxvftFMZGVCfltSmTINMXBP3eOZGWbYrvDqUykocS1FDoK5aE+toRxj21HQiVkbwLY07ks0o4bqIZBroP7tQer4j7PpWHqvwEYvw7P/8GUSTIDcD0qWodb4WqojV4YEFoGR1G3YxxBBB0fsNele/pkMl20Xkq25Y7CmsL+lNDQOw7Rynf0TJKl7qYO5ZULWwR4v5sioXeiPy9sw15sLLjyJRC4H4kuNYh6XsxsgYFV62N7u1CPNHPDJ7i/KGWZM4fI69FV8W1egVBKQH75K6gQznP5sPpqsD4Sgwn4tWcUWb+tUpeBsgPKxMsW7A9BZ',
   }
 }
