@@ -53,6 +53,17 @@ describe 'govuk::app', :type => :define do
     it { expect { should }.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
   end
 
+  describe 'app_type => bare, which logs JSON to STDERR' do
+    let(:params) {{
+      :app_type           => 'bare',
+      :port               => 123,
+      :command            => '/bin/yes',
+      :log_format_is_json => true,
+    }}
+
+    it { should contain_govuk__logstream("#{title}-app-err").with("json" => true) }
+  end
+
   context 'health check hidden' do
     let(:params) do
       {

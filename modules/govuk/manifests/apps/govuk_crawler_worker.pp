@@ -44,17 +44,11 @@ class govuk::apps::govuk_crawler_worker (
 
     govuk::app { 'govuk_crawler_worker':
       app_type           => 'bare',
+      log_format_is_json => true,
       port               => $port,
       # FIXME: Remove verbose flag before deploying to Production
       command            => './govuk_crawler_worker -json -verbose',
       health_check_path  => '/healthcheck',
-    }
-
-    govuk::logstream { 'govuk_crawler_worker-error-log':
-      logfile => '/var/log/govuk_crawler_worker/default.log',
-      json    => true,
-      tags    => ['error'],
-      fields  => {'application' => 'govuk_crawler_worker'},
     }
   }
 }
