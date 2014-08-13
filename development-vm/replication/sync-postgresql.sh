@@ -49,7 +49,8 @@ else
   touch $POSTGRESQL_DIR/.extracted
 fi
 
-SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
+NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+DUMP_MUNGE_COMMAND="${NAME_MUNGE_COMMAND} -f $(dirname $0)/mappings/postgresql.sed"
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
@@ -62,7 +63,7 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*.sql.gz'); do
     status "PostgreSQL (not) restoring $(basename $file)"
   else
     PROD_DB_NAME=$(zgrep -m 1 -o '\\connect \(.*\)' < $file | sed 's/\\connect \("\?\)\(.*\)\1/\2/')
-    TARGET_DB_NAME=$(echo $PROD_DB_NAME | sed $SED_ARGUMENTS)
+    TARGET_DB_NAME=$(echo $PROD_DB_NAME | $NAME_MUNGE_COMMAND)
 
     for ignore_match in $IGNORE; do
       if [[ "${PROD_DB_NAME}" == "${ignore_match}" || "${TARGET_DB_NAME}" == "${ignore_match}" || "${PROD_DB_NAME}" == "${ignore_match}_production" ]]; then
@@ -75,7 +76,7 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*.sql.gz'); do
 
     PSQL_COMMAND="sudo -u postgres psql -q"
     $PSQL_COMMAND -c "DROP DATABASE IF EXISTS \"${TARGET_DB_NAME}\""
-    $PV_COMMAND $file | zcat | sed $SED_ARGUMENTS | $PSQL_COMMAND
+    $PV_COMMAND $file | zcat | $DUMP_MUNGE_COMMAND | $PSQL_COMMAND
   fi
 done
 
