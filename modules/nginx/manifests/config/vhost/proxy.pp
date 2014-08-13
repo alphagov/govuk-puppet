@@ -88,7 +88,7 @@ define nginx::config::vhost::proxy(
 
   exec {"${title}: ensure http_500 counter exists":
     command => "/bin/echo -n '${counter_basename}.http_500:0|c > /dev/udp/localhost/8125",
-    unless  => "/bin/echo counters | /bin/nc localhost 8126 | /bin/grep -q ${counter_basename}.http_500",
+    unless  => "/bin/echo counters | /bin/nc localhost 8126 | /bin/grep -qF ${counter_basename}.http_500",
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
