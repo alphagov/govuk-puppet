@@ -18,6 +18,7 @@ status "Munging router backend hostnames for dev VM"
 mongo --quiet --eval 'db = db.getSiblingDB("router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".preview.alphagov.co.uk", ".dev.gov.uk"); db.backends.save(b); } );'
 
 $(dirname $0)/sync-postgresql.sh "$@" postgresql-master-1.backend.preview
+$(dirname $0)/sync-postgresql.sh "$@" transition-postgresql-master-1.backend.preview
 
 $(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.preview
 
