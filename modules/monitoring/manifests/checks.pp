@@ -83,6 +83,21 @@ class monitoring::checks (
   }
   # END support
 
+  icinga::plugin { 'check_hsts_headers':
+    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_hsts_headers',
+  }
+
+  icinga::check_config { 'check_hsts_headers':
+    content => template('monitoring/check_hsts_headers.cfg.erb'),
+    require => Icinga::Plugin['check_hsts_headers'],
+  }
+
+  icinga::check { "check_hsts_headers_from_${::hostname}":
+    check_command       => 'check_hsts_headers',
+    service_description => 'Strict-Transport-Security headers',
+    host_name           => $::fqdn,
+  }
+
   icinga::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',

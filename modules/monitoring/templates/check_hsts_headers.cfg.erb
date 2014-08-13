@@ -1,0 +1,4 @@
+define command {
+  command_name check_hsts_headers
+  command_line /usr/lib/nagios/plugins/check_hsts_headers --url="https://www-origin.<%= @app_domain %>/" --username=<%= @http_username %> --password=<%= @http_password %>
+}
