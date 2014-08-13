@@ -50,7 +50,8 @@ else
 fi
 
 echo "Mapping database names for a development VM"
-SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
+NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+DUMP_MUNGE_COMMAND="${NAME_MUNGE_COMMAND} -f $(dirname $0)/mappings/mysql.sed"
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
@@ -63,11 +64,7 @@ for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
     status "MySQL (not) restoring $(basename $file)"
   else
     PROD_DB_NAME=$(bzgrep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
-    if [[ -n $SED_ARGUMENTS ]]; then
-      TARGET_DB_NAME=$(echo $PROD_DB_NAME | sed $SED_ARGUMENTS)
-    else
-      TARGET_DB_NAME=$PROD_DB_NAME
-    fi
+    TARGET_DB_NAME=$(echo $PROD_DB_NAME | $NAME_MUNGE_COMMAND)
     for ignore_match in $IGNORE; do
       if [[ "${PROD_DB_NAME}" == "${ignore_match}" || "${TARGET_DB_NAME}" == "${ignore_match}" || "${PROD_DB_NAME}" == "${ignore_match}_production" ]]; then
         status "Skipping ${PROD_DB_NAME}"
@@ -78,7 +75,7 @@ for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
     MYSQL_ARGUMENTS="-u root"
     status $PROD_DB_NAME '->' $TARGET_DB_NAME
     mysql $MYSQL_ARGUMENTS -e "drop database if exists $TARGET_DB_NAME"
-    $PV_COMMAND $file | bzcat | sed $SED_ARGUMENTS | mysql $MYSQL_ARGUMENTS
+    $PV_COMMAND $file | bzcat | $DUMP_MUNGE_COMMAND | mysql $MYSQL_ARGUMENTS
   fi
 done
 

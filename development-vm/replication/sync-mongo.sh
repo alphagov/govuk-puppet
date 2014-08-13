@@ -44,18 +44,14 @@ fi
 tar -zxf $MONGO_DIR/*.tgz -C $MONGO_DIR
 
 echo "Mapping database names for a development VM"
-SED_ARGUMENTS="-f $(dirname $0)/name_mappings.regexen"
+NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
 
 for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
   if $DRY_RUN; then
     status "MongoDB (not) restoring $(basename $dir)"
   else
     PROD_DB_NAME=$(basename $dir)
-    if [[ -n $SED_ARGUMENTS ]]; then
-      TARGET_DB_NAME=$(basename $dir | sed $SED_ARGUMENTS)
-    else
-      TARGET_DB_NAME=$PROD_DB_NAME
-    fi
+    TARGET_DB_NAME=$(basename $dir | $NAME_MUNGE_COMMAND)
     for ignore_match in $IGNORE; do
       if [[ "${dir}" == "${ignore_match}" || "${TARGET_DB_NAME}" == "${ignore_match}" || "${PROD_DB_NAME}" == "${ignore_match}_production" ]]; then
         status "Skipping ${PROD_DB_NAME}"
