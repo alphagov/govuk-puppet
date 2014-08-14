@@ -308,10 +308,17 @@ define govuk::app (
     fields  => {'application' => $title},
   }
 
+  if ($app_type == 'bare' and $log_format_is_json) {
+    $err_log_json = true
+  } else {
+    $err_log_json = undef
+  }
+
   govuk::logstream { "${title}-app-err":
     ensure  => $logstream_ensure,
     logfile => "/var/log/${title}/app.err.log",
     tags    => ['stderr', 'app'],
+    json    => $err_log_json,
     fields  => {'application' => $title},
   }
 
