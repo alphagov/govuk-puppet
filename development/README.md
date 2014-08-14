@@ -149,3 +149,14 @@ GDS have an apt repository at http://apt.production.alphagov.co.uk/ This is not 
 #. [Install openconnect](https://github.com/alphagov/gds-boxen/blob/1ba02125e0/modules/people/manifests/jabley.pp#L31)
 #. [Connect to the Aviation House VPN](https://github.com/jabley/homedir/commit/2682f094024524cb7e31ca447694bdf81b1239a2)
 #. `vagrant provision` should now be able to download packages when running apt
+
+
+### Errors running `govuk_puppet` on VM
+
+Generally, you might want to try `vagrant provision` on your host machine, which does the same thing as `govuk_puppet`, but in a more reliable fashion.
+
+#### `librarian:install` fails due to permission errors
+
+Seeing `chown` / `OperationNotPermitted` errors during the `librarian:install` rake task?
+
+Try `vagrant provision` on your host machine, as above.
