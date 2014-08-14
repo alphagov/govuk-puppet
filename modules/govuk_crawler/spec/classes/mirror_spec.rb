@@ -6,6 +6,10 @@ describe 'govuk_crawler', :type => :class do
     'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
   }}
 
+  let(:params) {{
+    :mirror_root => '/foo',
+  }}
+
   it { should contain_file('/usr/local/bin/govuk_sync_mirror') }
 
   it {
@@ -20,12 +24,12 @@ describe 'govuk_crawler', :type => :class do
 
   describe "seed_enable" do
     context "false (default)" do
-      let(:params) {{ }}
       it { should contain_cron('seed-crawler').with_ensure('absent') }
     end
 
     context "true" do
       let(:params) {{
+        :mirror_root => '/foo',
         :seed_enable => true,
       }}
 
@@ -35,12 +39,12 @@ describe 'govuk_crawler', :type => :class do
 
   describe "sync_enable" do
     context "false (default)" do
-      let(:params) {{ }}
       it { should contain_cron('sync-to-mirror').with_ensure('absent') }
     end
 
     context "true" do
       let(:params) {{
+        :mirror_root => '/foo',
         :sync_enable => true,
       }}
 
@@ -50,13 +54,12 @@ describe 'govuk_crawler', :type => :class do
 
   describe "targets" do
     context "[] (default)" do
-      let(:params) {{ }}
-
       it { should contain_file('/usr/local/bin/govuk_sync_mirror').with_content(/^TARGETS=""$/) }
     end
 
      context "string" do
        let(:params) {{
+         :mirror_root => '/foo',
          :targets => 'user102@mirror102',
        }}
 
@@ -65,6 +68,7 @@ describe 'govuk_crawler', :type => :class do
 
      context "array of items" do
        let(:params) {{
+         :mirror_root => '/foo',
          :targets => ['user101@mirror101', 'user102@mirror102'],
        }}
        it { should contain_file('/usr/local/bin/govuk_sync_mirror').with_content(/^TARGETS="user101@mirror101 user102@mirror102"$/) }
@@ -73,13 +77,12 @@ describe 'govuk_crawler', :type => :class do
 
   describe "ssh_keys" do
     context "{} (default)" do
-      let(:params) {{ }}
-
       it { should have_sshkey_resource_count(0)  }
     end
 
     context "string" do
       let(:params) {{
+        :mirror_root => '/foo',
         :ssh_keys => 'mirror102',
       }}
 
@@ -88,16 +91,17 @@ describe 'govuk_crawler', :type => :class do
 
     context "hash of keys" do
       let(:params) {{
-          :ssh_keys => {
-            'mirror101' => {
-              'type' => 'ssh-rsa',
-              'key'  => 'testkey1',
-            },
-            'mirror102' => {
-              'type' => 'ssh-rsa',
-              'key'  => 'testkey2',
-            },
-          }
+        :mirror_root => '/foo',
+        :ssh_keys => {
+          'mirror101' => {
+            'type' => 'ssh-rsa',
+            'key'  => 'testkey1',
+          },
+          'mirror102' => {
+            'type' => 'ssh-rsa',
+            'key'  => 'testkey2',
+          },
+        }
       }}
 
       it {

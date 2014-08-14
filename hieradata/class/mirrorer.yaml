@@ -1,4 +1,5 @@
 ---
+govuk_crawler::mirror_root: '/mnt/crawler_worker'
 
 lv:
   data:
