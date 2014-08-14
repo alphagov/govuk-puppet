@@ -92,7 +92,7 @@ class govuk::apps::whitehall(
         add_header Cache-Control public;
         # Explicitly reinclude Strict-Transport-Security header, as calling
         # add_header above will have reset the set of headers sent by nginx.
-        include /etc/nginx/sts.conf;
+        include /etc/nginx/add-sts.conf;
         try_files $uri @app;
       }
 
@@ -103,7 +103,7 @@ class govuk::apps::whitehall(
         add_header Cache-Control public;
         # Explicitly reinclude Strict-Transport-Security header, as calling
         # add_header above will have reset the set of headers sent by nginx.
-        include /etc/nginx/sts.conf;
+        include /etc/nginx/add-sts.conf;
         # Needs to be an alias otherwise it appends the path wrongly.
         alias /data/uploads/whitehall/clean/uploaded;
 

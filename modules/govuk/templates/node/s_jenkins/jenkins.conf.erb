@@ -8,7 +8,7 @@ server {
   location / {
     proxy_pass http://localhost:8080;
 
-    add_header "Strict-Transport-Security" "max-age=31536000";
+    include /etc/nginx/add-sts.conf;
 
     location /api/json {
       proxy_pass http://localhost:8080;

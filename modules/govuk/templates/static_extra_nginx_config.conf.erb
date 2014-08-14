@@ -13,7 +13,7 @@ location ~ ^/media/ {
   # Explicitly re-include Strict-Transport-Security header, this
   # forces nginx not to clear Cache-Control headers further up the
   # stack.
-  include /etc/nginx/sts.conf;
+  include /etc/nginx/add-sts.conf;
 }
 
 location /static/overseas-passport/OS_Payment_Instruction.pdf {
