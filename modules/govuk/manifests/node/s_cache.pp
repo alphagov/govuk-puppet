@@ -8,7 +8,8 @@ class govuk::node::s_cache (
   include govuk::htpasswd
 
   class { 'nginx':
-    denied_ip_addresses => $denied_ip_addresses,
+    denied_ip_addresses     => $denied_ip_addresses,
+    variables_hash_max_size => '768',
   }
 
   class { 'router::nginx':
