@@ -169,8 +169,8 @@ class govuk_crawler(
     @@icinga::passive_check { "check_seed_crawler_${::hostname}":
       service_description => $seed_service_desc,
       host_name           => $::fqdn,
-      # cron runs every 2 hours, 15000 is slightly over 4 hours (14400)
-      freshness_threshold => 15000,
+      # cron daily at 2am, 90000 is slightly over 24 hours (86400)
+      freshness_threshold => 90000,
     }
   }
 
