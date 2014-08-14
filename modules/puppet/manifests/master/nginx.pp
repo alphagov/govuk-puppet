@@ -5,12 +5,14 @@ class puppet::master::nginx {
     content => template('puppet/puppetmaster-vhost.conf'),
   }
 
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.puppetmaster"
+
   nginx::log {
     'puppetmaster-json.event.access.log':
       json          => true,
       logstream     => present,
-      statsd_metric => "${$::fqdn_underscore}.nginx_logs.puppetmaster.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.puppetmaster.time_request",
+      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
     'puppetmaster-access.log':
       logstream => absent;
@@ -22,8 +24,10 @@ class puppet::master::nginx {
     matches => '/var/log/puppetmaster/*.log',
   }
 
+  statsd::counter { "${counter_basename}.http_500": }
+
   @@icinga::check::graphite { "check_nginx_5xx_puppetmaster_on_${::hostname}":
-    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.puppetmaster.http_5xx,0)",
+    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
