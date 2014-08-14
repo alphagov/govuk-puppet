@@ -1,4 +1,4 @@
-class licensify::apps::licensing_web_forms( $port = 9001, $enabled = false ) inherits licensify::apps::base {
+class licensify::apps::licensing_web_forms( $port = 9200, $enabled = false ) inherits licensify::apps::base {
   if $enabled {
     govuk::app { 'licensing-web-forms':
       app_type            => 'procfile',
