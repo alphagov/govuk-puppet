@@ -28,6 +28,7 @@ class govuk::node::s_development {
   include govuk::repository
   include govuk::testing_tools
   include govuk::sshkeys
+  include govuk::sshkeys::from_hiera
 
   include rbenv
   rbenv::version { '1.9.3-p392':
