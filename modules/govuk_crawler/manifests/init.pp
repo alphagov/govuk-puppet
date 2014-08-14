@@ -161,7 +161,7 @@ class govuk_crawler(
     ensure  => present,
     mode    => '0750',
     owner   => $crawler_user,
-    source  => template("${module_name}/${seeder_wrapper_name}.erb"),
+    content => template("${module_name}/${seeder_wrapper_name}.erb"),
     require => File[$seeder_lock_path],
   }
 
