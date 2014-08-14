@@ -29,8 +29,12 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     ",
   }
 
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.default"
+
+  statsd::counter { ["${counter_basename}.http_404","${counter_basename}.http_500"]: }
+
   @@icinga::check::graphite { "check_nginx_404_redirector_on_${::hostname}":
-    target    => "stats.${::fqdn_underscore}.nginx_logs.default.http_404",
+    target    => "stats.${counter_basename}.http_404",
     warning   => 5,
     critical  => 10,
     from      => '3minutes',
@@ -38,7 +42,7 @@ class govuk::node::s_redirector inherits govuk::node::s_base {
     host_name => $::fqdn,
   }
   @@icinga::check::graphite { "check_nginx_5xx_redirector_on_${::hostname}":
-    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.default.http_5xx,0)",
+    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
     warning   => 5,
     critical  => 10,
     from      => '3minutes',
