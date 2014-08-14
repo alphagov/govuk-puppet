@@ -1,13 +1,30 @@
 #!/bin/bash
 
-OUTPUT=`<%= @seeder_script_path %> $@`
+set -eu
+
+function send_ncsa {
+    # handle the case of not getting as far as running the seeder
+    if [ -z $CODE ]; then
+        CODE=3
+        OUTPUT="UNKNOWN: seeder-wrapper-script exited before seeder returned an exit code"
+    fi
+    if [ -z $OUTPUT ]; then
+        CODE=3
+        OUTPUT="UNKNOWN: seeder-wrapper exited before setting OUTPUT - this should never happen"
+    fi
+    printf "<%= @fqdn %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+    exit $?
+}
+trap send_ncsa EXIT
+
+GOVUK_CRAWLER_AMQP_PASS=<%= @amqp_pass %>
+
+OUTPUT=`<%= @seeder_script_path %> <%= @seeder_script_args %>`
 CODE=$?
 if [ "$OUTPUT" == "" ]; then
-  OUTPUT="Seeder script exited ok"
+  OUTPUT="Seeder script exited with no output"
 fi
 # Force everything that isn't OK to be a WARNING
 if [ $CODE -gt 0 ]; then
   CODE=1
 fi
-printf "<%= @fqdn %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null"
-exit $?

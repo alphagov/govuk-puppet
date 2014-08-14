@@ -179,8 +179,8 @@ class govuk_crawler(
     user        => $crawler_user,
     hour        => 2,
     minute      => 0,
-    environment => ['MAILTO=""', "GOVUK_CRAWLER_AMQP_PASS='${amqp_pass}'"],
-    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path} ${seeder_script_args}",
+    environment => ['MAILTO=""'],
+    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path}",
     require     => File[$seeder_script_wrapper_path],
   }
 
