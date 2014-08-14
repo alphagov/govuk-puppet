@@ -12,7 +12,6 @@ DEFAULT_VM_PARAMS = {
   :cpus => 2,
 }
 LATEST_BOX_VERSIONS = {
-  'lucid'   => '20140430',
   'precise' => '20140430',
 }
 

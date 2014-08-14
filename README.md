@@ -11,11 +11,6 @@ Dependencies are managed with [Bundler](http://gembundler.com/) and
 [librarian-puppet](http://librarian-puppet.com/), but hopefully this should be
 transparent unless you need to update the dependencies yourself.
 
-If you wish to apply the Puppet manifests on the current machine (currently
-only advisable if you're on an Ubuntu 10.04 machine) you can run
-
-    $ ./tools/puppet-apply-dev
-
 If you're on a GOV.UK development VM, you should be able to run
 
     $ govuk_puppet
