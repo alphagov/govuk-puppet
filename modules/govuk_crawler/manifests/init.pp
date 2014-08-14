@@ -34,7 +34,7 @@
 #
 # [*mirror_root*]
 #   The directory where crawled content is stored.
-#   Default: '/mnt/crawler-worker'
+#   Default: '/mnt/crawler_worker'
 #
 # [*seed_enable*]
 #   Whether to enable the cron job that seeds the crawler.
@@ -71,7 +71,7 @@ class govuk_crawler(
   $amqp_user = 'govuk_crawler_worker',
   $amqp_vhost = '/',
   $crawler_user = 'govuk-crawler',
-  $mirror_root = '/mnt/crawler-worker',
+  $mirror_root = '/mnt/crawler_worker',
   $seed_enable = false,
   $site_root = '',
   $ssh_keys = {},
