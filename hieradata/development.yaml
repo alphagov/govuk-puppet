@@ -44,6 +44,7 @@ govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::support::enable_procfile_worker: false
+govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::transition_postgres::enabled: true
