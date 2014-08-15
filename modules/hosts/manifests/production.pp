@@ -604,7 +604,7 @@ class hosts::production (
   govuk::host { 'licensify-internal-lb':
     ip             => '10.5.1.2',
     vdc            => 'licensify',
-    legacy_aliases => ["licensify.${app_domain}", "uploadlicence.${app_domain}", "licensify-admin.${app_domain}", "licensing.${app_domain}"],
+    legacy_aliases => ["licensify.${app_domain}", "uploadlicence.${app_domain}", "licensify-admin.${app_domain}", "licensing-web-forms.${app_domain}"],
   }
 
   #efg vdc machines
