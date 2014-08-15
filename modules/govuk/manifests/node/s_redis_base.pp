@@ -32,13 +32,5 @@ class govuk::node::s_redis_base {
     host_name => $::fqdn,
   }
 
-  # FIXME: Remove when deployed.
-  package { ['cpanminus', 'perl-doc']:
-    ensure => purged,
-  }
-  @icinga::plugin { 'check_redis':
-    ensure  => absent,
-  }
-
   class { 'collectd::plugin::redis': }
 }
