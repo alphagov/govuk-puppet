@@ -21,25 +21,24 @@
 define nginx::config::ssl( $certtype ) {
   case $certtype {
     'ci_alphagov': {
-        $cert = chomp(hiera('ci_alphagov_crt', ''))
-        $key = chomp(hiera('ci_alphagov_key', ''))
+        $cert = hiera('ci_alphagov_crt', '')
+        $key = hiera('ci_alphagov_key', '')
     }
     'wildcard_alphagov': {
-        $cert = chomp(hiera('wildcard_alphagov_crt', ''))
-        $key = chomp(hiera('wildcard_alphagov_key', ''))
+        $cert = hiera('wildcard_alphagov_crt', '')
+        $key = hiera('wildcard_alphagov_key', '')
     }
     'wildcard_alphagov_mgmt': {
         # The below two lines are hard to mentally parse, but if the certtype is set to
         # 'wildcard_alphagov_mgmt' then it will first look for certs and keys for that.
         # If they don't exist in hiera, it will fall back to looking for 'wildcard_alphagov'
         # and if that fails, will return the empty string.
-        #FIXME: chomp() is to maintain md5 between previous key. Removing it will cause nginx restart
-        $cert = chomp(hiera('wildcard_alphagov_mgmt_crt', hiera('wildcard_alphagov_crt', '')))
-        $key = chomp(hiera('wildcard_alphagov_mgmt_key', hiera('wildcard_alphagov_key', '')))
+        $cert = hiera('wildcard_alphagov_mgmt_crt', hiera('wildcard_alphagov_crt', ''))
+        $key = hiera('wildcard_alphagov_mgmt_key', hiera('wildcard_alphagov_key', ''))
     }
     'www': {
-        $cert = chomp(hiera('www_crt', ''))
-        $key = chomp(hiera('www_key', ''))
+        $cert = hiera('www_crt', '')
+        $key = hiera('www_key', '')
     }
     default: {
         fail "${certtype} is not a valid certtype"
