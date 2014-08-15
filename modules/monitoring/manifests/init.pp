@@ -12,13 +12,4 @@ class monitoring {
   # Include monitoring-server-only checks
   include monitoring::checks
 
-  # FIXME: Remove when deployed.
-  file { '/var/www/monitoring':
-    ensure  => absent,
-    force   => true,
-    recurse => true,
-    purge   => true,
-    backup  => false,
-  }
-
 }
