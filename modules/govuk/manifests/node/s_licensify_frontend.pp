@@ -11,4 +11,5 @@ class govuk::node::s_licensify_frontend (
   class { 'licensify::apps::licensify':
     vhost_protected => $app_basic_auth;
   }
+  class { 'licensify::apps::licensing_web_forms': }
 }
