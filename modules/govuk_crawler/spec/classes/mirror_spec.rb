@@ -6,9 +6,13 @@ describe 'govuk_crawler', :type => :class do
     'govuk_gemfury_source_url' => 'https://some_token@gem.fury.io/govuk/',
   }}
 
-  let(:params) {{
+  let(:default_params) {{
     :mirror_root => '/foo',
   }}
+
+  let(:params) {
+    default_params
+  }
 
   it { should contain_file('/usr/local/bin/govuk_sync_mirror') }
 
@@ -30,10 +34,11 @@ describe 'govuk_crawler', :type => :class do
     end
 
     context "true" do
-      let(:params) {{
-        :mirror_root => '/foo',
-        :seed_enable => true,
-      }}
+      let(:params) {
+        default_params.merge({
+          :seed_enable => true,
+        })
+      }
 
       it { should contain_cron('seed-crawler').with_ensure('present') }
     end
@@ -45,10 +50,11 @@ describe 'govuk_crawler', :type => :class do
     end
 
     context "true" do
-      let(:params) {{
-        :mirror_root => '/foo',
-        :sync_enable => true,
-      }}
+      let(:params) {
+        default_params.merge({
+          :sync_enable => true,
+        })
+      }
 
       it { should contain_cron('sync-to-mirror').with_ensure('present') }
     end
@@ -60,19 +66,21 @@ describe 'govuk_crawler', :type => :class do
     end
 
      context "string" do
-       let(:params) {{
-         :mirror_root => '/foo',
-         :targets => 'user102@mirror102',
-       }}
+       let(:params) {
+         default_params.merge({
+           :targets => 'user102@mirror102',
+         })
+       }
 
        it { expect { should }.to raise_error(Puppet::Error, /is not an Array/) }
     end
 
      context "array of items" do
-       let(:params) {{
-         :mirror_root => '/foo',
-         :targets => ['user101@mirror101', 'user102@mirror102'],
-       }}
+       let(:params) {
+         default_params.merge({
+           :targets => ['user101@mirror101', 'user102@mirror102'],
+         })
+       }
        it { should contain_file('/usr/local/bin/govuk_sync_mirror').with_content(/^TARGETS="user101@mirror101 user102@mirror102"$/) }
      end
   end
@@ -83,28 +91,30 @@ describe 'govuk_crawler', :type => :class do
     end
 
     context "string" do
-      let(:params) {{
-        :mirror_root => '/foo',
-        :ssh_keys => 'mirror102',
-      }}
+      let(:params) {
+        default_params.merge({
+          :ssh_keys => 'mirror102',
+        })
+      }
 
       it { expect { should }.to raise_error(Puppet::Error, /is not a Hash/) }
     end
 
     context "hash of keys" do
-      let(:params) {{
-        :mirror_root => '/foo',
-        :ssh_keys => {
-          'mirror101' => {
-            'type' => 'ssh-rsa',
-            'key'  => 'testkey1',
-          },
-          'mirror102' => {
-            'type' => 'ssh-rsa',
-            'key'  => 'testkey2',
-          },
-        }
-      }}
+      let(:params) {
+        default_params.merge({
+          :ssh_keys => {
+            'mirror101' => {
+              'type' => 'ssh-rsa',
+              'key'  => 'testkey1',
+            },
+            'mirror102' => {
+              'type' => 'ssh-rsa',
+              'key'  => 'testkey2',
+            },
+          }
+        })
+      }
 
       it {
         should have_sshkey_resource_count(2)
