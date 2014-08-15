@@ -12,6 +12,8 @@ describe 'govuk_crawler', :type => :class do
 
   it { should contain_file('/usr/local/bin/govuk_sync_mirror') }
 
+  it { should contain_file('/foo/error') }
+
   it {
     # Leaky abstraction? We need to know that govuk::user creates the
     # parent directory for our file.

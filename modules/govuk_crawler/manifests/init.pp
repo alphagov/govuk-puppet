@@ -92,6 +92,7 @@ class govuk_crawler(
   $sync_script_name = 'govuk_sync_mirror'
   $sync_lock_path = "/var/run/${sync_script_name}.lock"
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
+  $sync_error_dir = "${mirror_root}/error"
 
   include daemontools # provides setlock
 
@@ -195,7 +196,13 @@ class govuk_crawler(
     minute      => '0',
     environment => 'MAILTO=""',
     command     => "/usr/bin/setlock -n ${$sync_lock_path} ${sync_script_path}",
-    require     => [File[$sync_script_path], File[$sync_lock_path]]
+    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path]]
+  }
+
+  file { $sync_error_dir:
+    ensure  => directory,
+    mode    => '0755',
+    owner   => $crawler_user,
   }
 
   collectd::plugin::file_count { 'mirror root':
