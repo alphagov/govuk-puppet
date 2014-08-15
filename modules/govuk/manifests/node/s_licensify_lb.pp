@@ -25,9 +25,9 @@ class govuk::node::s_licensify_lb (
       internal_only => true,
       servers       => $licensify_backend_servers;
 
-    # Licensify frontend
-    'licensify':
-      https_only    => false,
+    # Licensing web forms
+    'licensing':
+      https_only    => true,
       servers       => $licensify_frontend_servers,
       internal_only => true;
 
