@@ -232,7 +232,6 @@ class hosts::production (
       "specialist-frontend.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
-      "transaction-wrappers.${app_domain}",
       "transactions-explorer.${app_domain}",
       "whitehall-frontend.${app_domain}",
     ]
