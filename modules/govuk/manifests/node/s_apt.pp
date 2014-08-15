@@ -35,10 +35,6 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'precise',
       key      => '914D5813';
-    'govuk-ppa-lucid':
-      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
-      release  => 'lucid',
-      key      => '914D5813';
     'elasticsearch-0.90':
       location => 'http://packages.elasticsearch.org/elasticsearch/0.90/debian',
       release  => 'stable',
