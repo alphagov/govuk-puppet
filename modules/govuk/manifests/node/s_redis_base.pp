@@ -20,20 +20,6 @@ class govuk::node::s_redis_base {
     # end TODO
   }
 
-  # FIXME: Can be removed once removed everywhere
-  file {[
-      '/var/run/redis_6379.pid',
-      '/opt/redis',
-      '/opt/redis-src',
-      '/var/log/redis_6379.log',
-      '/etc/redis/6379.conf',
-      '/usr/local/bin/redis-cli'
-  ]:
-      ensure  => absent,
-      recurse => true,
-      force   => true,
-  }
-
   $redis_mem_warn = $redis_max_memory * 0.8
   $redis_mem_crit = $redis_max_memory * 0.9
 
