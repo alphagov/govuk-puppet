@@ -17,7 +17,7 @@ function send_ncsa {
 }
 trap send_ncsa EXIT
 
-GOVUK_CRAWLER_AMQP_PASS=<%= @amqp_pass %>
+export GOVUK_CRAWLER_AMQP_PASS='<%= @amqp_pass %>'
 
 OUTPUT=`<%= @seeder_script_path %> <%= @seeder_script_args %>`
 CODE=$?
