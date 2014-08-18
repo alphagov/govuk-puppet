@@ -3,6 +3,7 @@ class govuk::apps::transaction_wrappers(
   $vhost_protected
 ) {
   govuk::app { 'transaction-wrappers':
+    ensure                => absent,
     app_type              => 'rack',
     port                  => $port,
     vhost_protected       => $vhost_protected,
