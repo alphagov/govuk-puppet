@@ -30,7 +30,7 @@ class base {
   # This is purely to reset the stub, it doesn't seem to affect versioning
   exec { 'reinstall correct ruby1.9.1 package':
     user    => 'root',
-    command => 'apt-get --reinstall install ruby1.9.1=1.9.3.0-1ubuntu2.8 libruby1.9.1=1.9.3.0-1ubuntu2.8 ruby1.9.1-dev=1.9.3.0-1ubuntu2.8',
+    command => 'apt-get -y --reinstall install ruby1.9.1=1.9.3.0-1ubuntu2.8 libruby1.9.1=1.9.3.0-1ubuntu2.8 ruby1.9.1-dev=1.9.3.0-1ubuntu2.8',
     unless  => 'echo "3afb14dbac5fb97eb505fa4f74469c19  /usr/bin/gem1.9.1" | /usr/bin/md5sum -c --status',
     require => Exec['apt_update'],
   }
