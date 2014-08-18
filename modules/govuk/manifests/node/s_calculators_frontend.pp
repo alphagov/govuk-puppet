@@ -13,8 +13,6 @@ class govuk::node::s_calculators_frontend (
     'govuk::apps::licencefinder':         vhost_protected => $app_basic_auth;
     'govuk::apps::smartanswers':          vhost_protected => $app_basic_auth;
     'govuk::apps::tariff':                vhost_protected => $app_basic_auth;
-    # TODO: remove once app is absent
-    'govuk::apps::transaction_wrappers':  vhost_protected => $app_basic_auth;
   }
 
   include nginx

@@ -84,8 +84,6 @@ class govuk::node::s_development {
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::specialist_frontend':   vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
-    # TODO: remove once app is absent
-    'govuk::apps::transaction_wrappers':  vhost_protected => false;
     'govuk::apps::contentapi':            vhost_protected => false;
   }
 
