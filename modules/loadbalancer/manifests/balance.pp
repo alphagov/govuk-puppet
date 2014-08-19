@@ -41,6 +41,7 @@ define loadbalancer::balance(
 
   $vhost_suffix = hiera('app_domain')
   $vhost_real = "${vhost}.${vhost_suffix}"
+  $retry_timeouts = hiera('loadbalancer::balance::retry_timeouts', true)
 
   nginx::config::ssl { $vhost_real:
     certtype => 'wildcard_alphagov',
