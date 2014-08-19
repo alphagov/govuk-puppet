@@ -35,7 +35,7 @@ task :lint do
   manifests_to_lint.each do |puppet_file|
     linter.file = puppet_file
     linter.run
+    linter.print_problems
   end
-
   fail if linter.errors? or linter.warnings?
 end

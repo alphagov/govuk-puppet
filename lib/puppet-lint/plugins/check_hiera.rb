@@ -15,7 +15,7 @@
 #
 # http://docs.puppetlabs.com/hiera/1/puppet.html#limitations
 #
-class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
+PuppetLint.new_check(:hiera_explicit_lookup) do
   # Do NOT add to this whitelist without good reason.
   HIERA_WHITELIST = [
     # Used outside of module classes.
@@ -74,15 +74,14 @@ class PuppetLint::Plugins::CheckHiera < PuppetLint::CheckPlugin
     'www_crt',
     'www_key',
   ]
-
-  check 'hiera_explicit_lookup' do
+  def check
     tokens.select { |t| t.type == :NAME and t.value == 'hiera' }.each do |func_token|
       next unless func_token.next_code_token.type == :LPAREN
       key_token = func_token.next_code_token.next_code_token
 
       notify :error, {
         :message    => "explicit hiera() lookup for '#{key_token.value}'",
-        :linenumber => key_token.line,
+        :line       => key_token.line,
         :column     => key_token.column,
       } unless HIERA_WHITELIST.include?(key_token.value)
     end
