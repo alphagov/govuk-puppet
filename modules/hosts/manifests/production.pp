@@ -441,6 +441,7 @@ class hosts::production (
       "asset-manager.${app_domain}",
       "business-support-api.${app_domain}",
       "canary-backend.${app_domain}",
+      "collections-api.${app_domain}",
       "collections-publisher.${app_domain}",
       "contacts-admin.${app_domain}",
       "content-planner.${app_domain}",
