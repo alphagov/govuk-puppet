@@ -39,4 +39,13 @@ class govuk::apps::efg( $port = 3019 ) {
     host_name => $::fqdn,
   }
 
+  ramdisk { 'efg_sqlite':
+    ensure => present,
+    path   => '/var/efg-data',
+    atboot => true,
+    size   => '512M',
+    mode   => '0733',
+    owner  => 'deploy',
+    group  => 'deploy',
+  }
 }
