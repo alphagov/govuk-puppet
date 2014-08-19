@@ -15,20 +15,20 @@ class govuk_elasticsearch::monitoring (
 
   unless $disable_gc_alerts {
     @@icinga::check::graphite { "check_elasticsearch_jvm_gc_old_collection_time_in_millis-${::hostname}":
-      target           => "summarize(${::fqdn_underscore}.curl_json-elasticsearch.counter-jvm_gc_collectors_old_collection_time_in_millis,\"5minutes\",\"max\",true)",
-      desc             => 'Prolonged GC collection times: old',
-      warning          => 150,
-      critical         => 300,
-      host_name        => $::fqdn,
-      notes_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
+      target    => "summarize(${::fqdn_underscore}.curl_json-elasticsearch.counter-jvm_gc_collectors_old_collection_time_in_millis,\"5minutes\",\"max\",true)",
+      desc      => 'Prolonged GC collection times: old',
+      warning   => 150,
+      critical  => 300,
+      host_name => $::fqdn,
+      notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
     }
     @@icinga::check::graphite { "check_elasticsearch_jvm_gc_young_collection_time_in_millis-${::hostname}":
-      target           => "summarize(${::fqdn_underscore}.curl_json-elasticsearch.counter-jvm_gc_collectors_young_collection_time_in_millis,\"5minutes\",\"max\",true)",
-      desc             => 'Prolonged GC collection times: young',
-      warning          => 150,
-      critical         => 300,
-      host_name        => $::fqdn,
-      notes_url        => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
+      target    => "summarize(${::fqdn_underscore}.curl_json-elasticsearch.counter-jvm_gc_collectors_young_collection_time_in_millis,\"5minutes\",\"max\",true)",
+      desc      => 'Prolonged GC collection times: young',
+      warning   => 150,
+      critical  => 300,
+      host_name => $::fqdn,
+      notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
     }
   }
 

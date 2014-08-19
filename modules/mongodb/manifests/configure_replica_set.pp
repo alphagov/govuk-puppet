@@ -1,9 +1,9 @@
 class mongodb::configure_replica_set($members) {
   file { '/etc/mongodb':
-    ensure  => 'directory',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   file { '/etc/mongodb/configure-replica-set.js':

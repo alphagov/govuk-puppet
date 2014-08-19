@@ -9,10 +9,10 @@ class collectd::plugin::redis_queues(
 
   # Adapted from https://github.com/powdahound/redis-collectd-plugin
   file { '/usr/lib/collectd/python/redis_queues.py':
-    ensure  => present,
-    source  => 'puppet:///modules/collectd/usr/lib/collectd/python/redis_queues.py',
-    tag     => 'collectd::plugin',
-    notify  => File['/etc/collectd/conf.d/redis_queues.conf'],
+    ensure => present,
+    source => 'puppet:///modules/collectd/usr/lib/collectd/python/redis_queues.py',
+    tag    => 'collectd::plugin',
+    notify => File['/etc/collectd/conf.d/redis_queues.conf'],
   }
 
   collectd::plugin { 'redis_queues':

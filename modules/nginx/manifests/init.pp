@@ -45,8 +45,8 @@ class nginx (
   include nginx::restart
 
   class { 'collectd::plugin::nginx':
-    status_url  => 'http://127.0.0.234/nginx_status',
-    require     => Class['nginx::config'],
+    status_url => 'http://127.0.0.234/nginx_status',
+    require    => Class['nginx::config'],
   }
 
   # Monitoring of NginX

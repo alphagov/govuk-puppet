@@ -5,15 +5,15 @@ class govuk_elasticsearch::dump {
   }
 
   file { '/var/es_dump':
-    ensure  => directory,
-    owner   => 'elasticsearch',
-    group   => 'elasticsearch',
+    ensure => directory,
+    owner  => 'elasticsearch',
+    group  => 'elasticsearch',
   }
 
   file { '/usr/bin/es_dump':
-    ensure  => file,
-    source  => 'puppet:///modules/govuk_elasticsearch/es_dump',
-    mode    => '0755',
+    ensure => file,
+    source => 'puppet:///modules/govuk_elasticsearch/es_dump',
+    mode   => '0755',
   }
 
   cron { 'dump-elasticsearch-indexes':

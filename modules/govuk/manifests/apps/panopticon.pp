@@ -10,8 +10,8 @@ class govuk::apps::panopticon( $port = 3003 ) {
   }
 
   govuk::logstream { 'panopticon-org-import-json-log':
-    logfile       => '/var/apps/panopticon/log/organisation_import.json.log',
-    fields        => {'application' => 'panopticon'},
-    json          => true,
+    logfile => '/var/apps/panopticon/log/organisation_import.json.log',
+    fields  => {'application' => 'panopticon'},
+    json    => true,
   }
 }

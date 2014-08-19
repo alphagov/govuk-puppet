@@ -29,9 +29,9 @@ class govuk::apps::external_link_tracker (
   $full_domain = "api-external-link-tracker.${app_domain}"
 
   nginx::config::vhost::proxy { $full_domain:
-    to               => ["localhost:${api_port}"],
-    protected        => false,
-    ssl_only         => false,
+    to        => ["localhost:${api_port}"],
+    protected => false,
+    ssl_only  => false,
   }
 
   # We can't pass `health_check_path` to `govuk::app` because it has the
@@ -44,9 +44,9 @@ class govuk::apps::external_link_tracker (
   }
 
   govuk::logstream { 'external-link-tracker-error-json-log':
-    logfile       => $error_log,
-    tags          => ['error'],
-    fields        => {'application' => 'external-link-tracker'},
-    json          => true,
+    logfile => $error_log,
+    tags    => ['error'],
+    fields  => {'application' => 'external-link-tracker'},
+    json    => true,
   }
 }

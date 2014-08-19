@@ -24,15 +24,15 @@ class puppet::master::package(
     ensure  => $puppetdb_version,
   }
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:
-    ensure  => directory,
-    owner   => 'puppet',
-    group   => 'puppet',
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
   }
   file { '/var/lib/puppet/log':
-    ensure  => directory,
-    mode    => '0750',
-    owner   => 'puppet',
-    group   => 'puppet',
+    ensure => directory,
+    mode   => '0750',
+    owner  => 'puppet',
+    group  => 'puppet',
   }
   file { '/etc/init/puppetmaster.conf':
     content => template('puppet/etc/init/puppetmaster.conf.erb'),

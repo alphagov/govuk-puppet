@@ -34,9 +34,9 @@ class govuk::deploy::config(
   # Rails/A. N. Other Application Framework, and starts up either
   # Procfile-based or unicorn applications.
   file { '/usr/local/bin/govuk_spinup':
-    ensure  => present,
-    source  => 'puppet:///modules/govuk/bin/govuk_spinup',
-    mode    => '0755',
+    ensure => present,
+    source => 'puppet:///modules/govuk/bin/govuk_spinup',
+    mode   => '0755',
   }
 
   # govuk_setenv is a simple script that loads the environment for a GOV.UK

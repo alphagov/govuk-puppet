@@ -10,8 +10,8 @@ class govuk::testing_tools {
   }
 
   file { '/etc/init/xvfb.conf':
-    ensure  => present,
-    source  => 'puppet:///modules/govuk/xvfb.conf',
+    ensure => present,
+    source => 'puppet:///modules/govuk/xvfb.conf',
   }
 
   service { 'xvfb':

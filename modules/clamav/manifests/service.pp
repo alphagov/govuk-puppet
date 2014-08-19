@@ -3,8 +3,8 @@ class clamav::service (
   ) {
 
   service { ['clamav-freshclam', 'clamav-daemon']:
-    ensure  => $use_service,
-    enable  => $use_service,
+    ensure => $use_service,
+    enable => $use_service,
   }
 
   if $use_service {

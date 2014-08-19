@@ -6,10 +6,10 @@ class govuk::apps::service_manual (
 
   if $enabled {
     govuk::app { 'service-manual':
-      app_type              => 'rack',
-      port                  => $port,
-      vhost_protected       => $vhost_protected,
-      health_check_path     => '/',
+      app_type          => 'rack',
+      port              => $port,
+      vhost_protected   => $vhost_protected,
+      health_check_path => '/',
     }
   }
 

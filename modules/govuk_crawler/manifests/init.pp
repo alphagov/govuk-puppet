@@ -200,9 +200,9 @@ class govuk_crawler(
   }
 
   file { $sync_error_dir:
-    ensure  => directory,
-    mode    => '0755',
-    owner   => $crawler_user,
+    ensure => directory,
+    mode   => '0755',
+    owner  => $crawler_user,
   }
 
   collectd::plugin::file_count { 'mirror root':

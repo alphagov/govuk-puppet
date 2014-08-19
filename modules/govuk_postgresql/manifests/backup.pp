@@ -19,8 +19,8 @@ class govuk_postgresql::backup {
         require => Class['backup::client'],
     }
     file {'/etc/postgresql-backup-pre':
-        mode    => '0755',
-        source  => 'puppet:///modules/govuk_postgresql/etc/postgresql-backup-pre',
+        mode   => '0755',
+        source => 'puppet:///modules/govuk_postgresql/etc/postgresql-backup-pre',
     }
 
 }
