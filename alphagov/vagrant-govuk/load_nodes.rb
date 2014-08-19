@@ -4,7 +4,7 @@ require 'yaml'
 # govuk-provisioning repo parallel to this.
 def load_nodes
   yaml_dir = File.expand_path(
-    "../../govuk-provisioning/vcloud-launcher/production_skyscape/",
+    "../../govuk-provisioning/vcloud-launcher/preview_carrenza/",
     __FILE__
   )
   yaml_local = File.expand_path("../nodes.local.yaml", __FILE__)
