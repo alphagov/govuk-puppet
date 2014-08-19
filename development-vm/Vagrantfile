@@ -1,6 +1,9 @@
 # This Vagrantfile is dead.
 
 $stderr.puts "[ERROR] This Vagrantfile is no longer current."
+$stderr.puts ""
+$stderr.puts "        You should run `vagrant up` in `../puppet/development` instead"
+$stderr.puts ""
 $stderr.puts "        Please see:"
 $stderr.puts "        https://github.gds/gds/puppet/blob/master/development/README.md"
 
