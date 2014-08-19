@@ -3,12 +3,13 @@
 set -eu
 
 function send_ncsa {
-    # handle the case of not getting as far as running the seeder
-    if [ -z $CODE ]; then
+    # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
+    if [ -z ${CODE+x} ]; then
         CODE=3
         OUTPUT="UNKNOWN: seeder-wrapper-script exited before seeder returned an exit code"
     fi
-    if [ -z $OUTPUT ]; then
+    # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
+    if [ -z ${OUTPUT+x} ]; then
         CODE=3
         OUTPUT="UNKNOWN: seeder-wrapper exited before setting OUTPUT - this should never happen"
     fi
