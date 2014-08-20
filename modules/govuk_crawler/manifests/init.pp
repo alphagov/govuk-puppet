@@ -195,7 +195,7 @@ class govuk_crawler(
     user        => $crawler_user,
     minute      => '0',
     environment => 'MAILTO=""',
-    command     => "/usr/bin/setlock -n ${$sync_lock_path} ${sync_script_path}",
+    command     => "/usr/bin/setlock -n ${sync_lock_path} ${sync_script_path}",
     require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path]]
   }
 
