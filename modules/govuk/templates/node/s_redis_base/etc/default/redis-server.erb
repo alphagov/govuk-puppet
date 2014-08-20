@@ -5,8 +5,8 @@
 # alter its limits as it is not being run as root. (default: do not call
 # ulimit)
 #
-<% if @ulimit %>
+<% if @ulimit -%>
 ULIMIT=<%= @ulimit %>
-<% else %>
+<% else -%>
 # ULIMIT=65536
-<% end %>
+<% end -%>
