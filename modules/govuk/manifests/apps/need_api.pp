@@ -8,8 +8,8 @@ class govuk::apps::need_api( $port = 3052 ) {
   }
 
   govuk::logstream { 'need-api-org-import-json-log':
-    logfile       => '/var/apps/need-api/log/organisation_import.json.log',
-    fields        => {'application' => 'need-api'},
-    json          => true,
+    logfile => '/var/apps/need-api/log/organisation_import.json.log',
+    fields  => {'application' => 'need-api'},
+    json    => true,
   }
 }

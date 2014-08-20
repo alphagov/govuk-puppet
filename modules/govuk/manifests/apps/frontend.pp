@@ -19,14 +19,14 @@ class govuk::apps::frontend(
   }
 
   govuk::app { 'frontend':
-    app_type               => 'rack',
-    port                   => $port,
-    vhost_protected        => $vhost_protected,
-    vhost_aliases          => ['private-frontend'],
-    health_check_path      => '/',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    asset_pipeline_prefix  => 'frontend',
-    nginx_extra_config     => $nginx_extra_config,
+    app_type              => 'rack',
+    port                  => $port,
+    vhost_protected       => $vhost_protected,
+    vhost_aliases         => ['private-frontend'],
+    health_check_path     => '/',
+    log_format_is_json    => true,
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'frontend',
+    nginx_extra_config    => $nginx_extra_config,
   }
 }

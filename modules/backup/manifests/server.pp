@@ -17,9 +17,9 @@ class backup::server (
   }
 
   file { '/data/backups':
-    ensure  => directory,
-    owner   => 'govuk-backup',
-    mode    => '0700',
+    ensure => directory,
+    owner  => 'govuk-backup',
+    mode   => '0700',
   }
 
   # Parent dir is provided by govuk::user in backup::client.

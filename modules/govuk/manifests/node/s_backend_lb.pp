@@ -63,8 +63,8 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { 'errbit':
-    servers      => $errbit_servers,
-    https_only   => false, # FIXME: Remove for #51136581
+    servers    => $errbit_servers,
+    https_only => false, # FIXME: Remove for #51136581
   }
 
   loadbalancer::balance { 'kibana':
@@ -73,9 +73,9 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { 'mapit':
-    servers           => $mapit_servers,
-    internal_only     => true,
-    https_only        => false, # FIXME: Remove for #51136581
+    servers       => $mapit_servers,
+    internal_only => true,
+    https_only    => false, # FIXME: Remove for #51136581
   }
 
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :

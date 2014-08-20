@@ -7,11 +7,11 @@ class govuk::apps::specialist_publisher(
 
   if str2bool($enabled) {
     govuk::app { 'specialist-publisher':
-      app_type               => 'rack',
-      port                   => $port,
-      vhost_protected        => $vhost_protected,
-      health_check_path      => '/specialist-documents',
-      log_format_is_json     => true,
+      app_type           => 'rack',
+      port               => $port,
+      vhost_protected    => $vhost_protected,
+      health_check_path  => '/specialist-documents',
+      log_format_is_json => true,
     }
 
     govuk::procfile::worker { 'specialist-publisher':

@@ -7,8 +7,8 @@ class elasticsearch_old::package (
   }
 
   package { 'elasticsearch':
-    ensure  => $version,
-    notify  => Exec['disable-default-elasticsearch'],
+    ensure => $version,
+    notify => Exec['disable-default-elasticsearch'],
   }
 
   # Disable the default elasticsearch setup, as we'll be installing an upstart

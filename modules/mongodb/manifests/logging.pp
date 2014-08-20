@@ -4,10 +4,10 @@ class mongodb::logging(
   include logrotate
 
   file { $logpath:
-    ensure  => present,
-    owner   => 'mongodb',
-    group   => 'mongodb',
-    mode    => '0644',
+    ensure => present,
+    owner  => 'mongodb',
+    group  => 'mongodb',
+    mode   => '0644',
   }
 
   file { '/etc/logrotate.d/mongodb':

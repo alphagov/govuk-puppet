@@ -14,10 +14,10 @@ class govuk::node::s_asset_slave (
 
   # Ownership and permissions come from the mount.
   file { '/data/master-uploads':
-    ensure  => directory,
-    owner   => undef,
-    group   => undef,
-    mode    => undef,
+    ensure => directory,
+    owner  => undef,
+    group  => undef,
+    mode   => undef,
   }
 
   $app_domain = hiera('app_domain')
@@ -39,15 +39,15 @@ class govuk::node::s_asset_slave (
   }
 
   cron { 'sync-assets-from-master':
-    user      => 'assets',
-    minute    => '*/30',
-    command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/clean whitehall/incoming whitehall/infected',
+    user    => 'assets',
+    minute  => '*/30',
+    command => '/usr/bin/setlock -n /var/run/whitehall-assets/sync.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/clean whitehall/incoming whitehall/infected',
   }
 
   cron { 'sync-assets-from-master-draft':
-    user      => 'assets',
-    minute    => '*/30',
-    command   => '/usr/bin/setlock -n /var/run/whitehall-assets/sync-draft.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
+    user    => 'assets',
+    minute  => '*/30',
+    command => '/usr/bin/setlock -n /var/run/whitehall-assets/sync-draft.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
   }
 
   cron { 'sync-asset-manager-from-master':

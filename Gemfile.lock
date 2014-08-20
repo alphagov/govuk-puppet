@@ -31,7 +31,7 @@ GEM
       facter (~> 1.6)
       hiera (~> 1.0)
       rgen (~> 0.6.5)
-    puppet-lint (0.3.2)
+    puppet-lint (1.0.1)
     puppet-syntax (1.1.1)
       puppet (>= 2.7.0)
       rake

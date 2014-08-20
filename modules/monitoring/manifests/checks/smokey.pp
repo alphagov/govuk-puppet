@@ -8,14 +8,14 @@ class monitoring::checks::smokey {
 
   # TODO: Should this really run as root?
   file { '/etc/init/smokey-nagios.conf':
-    ensure  => present,
-    source  => 'puppet:///modules/monitoring/etc/init/smokey-nagios.conf',
+    ensure => present,
+    source => 'puppet:///modules/monitoring/etc/init/smokey-nagios.conf',
   }
 
   service { 'smokey-nagios':
-    ensure    => running,
-    provider  => 'upstart',
-    require   => File['/etc/init/smokey-nagios.conf'],
+    ensure   => running,
+    provider => 'upstart',
+    require  => File['/etc/init/smokey-nagios.conf'],
   }
 
   icinga::check_feature {

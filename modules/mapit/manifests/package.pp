@@ -1,17 +1,17 @@
 class mapit::package {
 
   group { 'mapit':
-      ensure      => present,
-      name        => 'mapit',
+      ensure => present,
+      name   => 'mapit',
   }
 
   user { 'mapit':
-      ensure      => present,
-      home        => '/home/mapit',
-      managehome  => true,
-      shell       => '/bin/bash',
-      gid         => 'mapit',
-      require     => Group['mapit'],
+      ensure     => present,
+      home       => '/home/mapit',
+      managehome => true,
+      shell      => '/bin/bash',
+      gid        => 'mapit',
+      require    => Group['mapit'],
   }
 
   file { '/data/vhost/mapit':
@@ -47,9 +47,9 @@ class mapit::package {
   }
 
   file { '/data/vhost/mapit/data/mapit.tar.gz':
-    ensure  => file,
-    source  => 'puppet:///modules/mapit/mapit.tar.gz',
-    before  => Exec['unzip_mapit'],
+    ensure => file,
+    source => 'puppet:///modules/mapit/mapit.tar.gz',
+    before => Exec['unzip_mapit'],
   }
 
   exec {'unzip_mapit':

@@ -30,10 +30,10 @@ class govuk::node::s_whitehall_backend (
 
   if $sync_mirror {
     file { '/var/lib/govuk_mirror':
-      ensure  => 'directory',
-      owner   => 'deploy',
-      group   => 'deploy',
-      mode    => '0770',
+      ensure => 'directory',
+      owner  => 'deploy',
+      group  => 'deploy',
+      mode   => '0770',
     }
     file { '/var/lib/govuk_mirror/current':
       ensure  => 'directory',

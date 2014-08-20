@@ -11,14 +11,14 @@ class puppet::package (
   # without us having tested the new version first. If Puppet breaks,
   # it won't be able to downgrade itself to the correct version.
   apt::pin { 'prevent_puppet_breakage':
-    packages   => 'puppet-common puppet',
-    version    => $puppet_version,
-    priority   => 1001, # 1001 will cause a downgrade if necessary
+    packages => 'puppet-common puppet',
+    version  => $puppet_version,
+    priority => 1001, # 1001 will cause a downgrade if necessary
   }
   apt::pin { 'prevent_facter_upgrade':
-    packages  => 'facter',
-    version   => $facter_version,
-    priority  => 1001,
+    packages => 'facter',
+    version  => $facter_version,
+    priority => 1001,
   }
 
   package { 'facter':

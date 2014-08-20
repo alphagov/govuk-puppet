@@ -48,9 +48,9 @@ class govuk::apps::router (
   }
 
   govuk::logstream { 'router-error-json-log':
-    logfile       => $error_log,
-    tags          => ['error'],
-    fields        => {'application' => 'router'},
-    json          => true,
+    logfile => $error_log,
+    tags    => ['error'],
+    fields  => {'application' => 'router'},
+    json    => true,
   }
 }

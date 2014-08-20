@@ -12,8 +12,8 @@ class govuk::deploy::setup (
   include assets::user
 
   group { 'deploy':
-    ensure  => 'present',
-    name    => 'deploy',
+    ensure => 'present',
+    name   => 'deploy',
   }
 
   user { 'deploy':

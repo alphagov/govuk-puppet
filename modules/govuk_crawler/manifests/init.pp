@@ -195,14 +195,14 @@ class govuk_crawler(
     user        => $crawler_user,
     minute      => '0',
     environment => 'MAILTO=""',
-    command     => "/usr/bin/setlock -n ${$sync_lock_path} ${sync_script_path}",
+    command     => "/usr/bin/setlock -n ${sync_lock_path} ${sync_script_path}",
     require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path]]
   }
 
   file { $sync_error_dir:
-    ensure  => directory,
-    mode    => '0755',
-    owner   => $crawler_user,
+    ensure => directory,
+    mode   => '0755',
+    owner  => $crawler_user,
   }
 
   collectd::plugin::file_count { 'mirror root':

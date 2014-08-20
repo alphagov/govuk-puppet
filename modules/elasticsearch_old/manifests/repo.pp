@@ -5,8 +5,8 @@
 #
 class elasticsearch_old::repo {
   apt::source { 'elasticsearch-0.90':
-    location  => 'http://packages.elasticsearch.org/elasticsearch/0.90/debian',
-    release   => 'stable',
-    key       => 'D88E42B4',
+    location => 'http://packages.elasticsearch.org/elasticsearch/0.90/debian',
+    release  => 'stable',
+    key      => 'D88E42B4',
   }
 }

@@ -4,7 +4,7 @@ class collectd::server::config inherits collectd::config {
   }
 
   file { '/etc/collectd/conf.d/graphite.conf':
-    ensure  => present,
-    source  => 'puppet:///modules/collectd/etc/collectd/conf.d/graphite.conf',
+    ensure => present,
+    source => 'puppet:///modules/collectd/etc/collectd/conf.d/graphite.conf',
   }
 }

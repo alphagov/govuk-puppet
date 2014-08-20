@@ -8,8 +8,8 @@
 # We don't currently have a need to install gems into rbenv. In the unlikely
 # event that we do in the future then we may need to change this.
 #
-class PuppetLint::Plugins::CheckGemProvider < PuppetLint::CheckPlugin
-  check 'gem_provider' do
+PuppetLint.new_check(:gem_provider) do
+  def check
     resource_indexes.each do |resource|
       resource_tokens = tokens[resource[:start]..resource[:end]]
       prev_tokens = tokens[0..resource[:start]]
@@ -26,7 +26,7 @@ class PuppetLint::Plugins::CheckGemProvider < PuppetLint::CheckPlugin
           value_token = resource_token.next_code_token.next_code_token
           notify :error, {
             :message    => "Use 'system_gem' provider instead of 'gem'",
-            :linenumber => value_token.line,
+            :line       => value_token.line,
             :column     => value_token.column,
           } if value_token.value == 'gem'
         end

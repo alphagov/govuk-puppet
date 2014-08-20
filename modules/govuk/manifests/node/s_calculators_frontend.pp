@@ -23,12 +23,12 @@ class govuk::node::s_calculators_frontend (
   nginx::config::vhost::default { 'default': }
 
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
-    target       => "${::fqdn_underscore}.nginx.nginx_connections-writing",
-    warning      => 150,
-    critical     => 250,
-    desc         => 'nginx high conn writing - upstream indicator',
-    host_name    => $::fqdn,
-    notes_url    => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
+    target    => "${::fqdn_underscore}.nginx.nginx_connections-writing",
+    warning   => 150,
+    critical  => 250,
+    desc      => 'nginx high conn writing - upstream indicator',
+    host_name => $::fqdn,
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
   }
 
   Govuk::Mount['/data/vhost'] -> Class['govuk::apps::calculators']

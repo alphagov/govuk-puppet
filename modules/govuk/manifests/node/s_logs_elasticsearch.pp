@@ -18,7 +18,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     minimum_master_nodes => '2',
     host                 => $::fqdn,
     log_index_type_count => {
-      'logs-current'     => ['syslog']
+      'logs-current' => ['syslog']
     },
     disable_gc_alerts    => true,
     require              => [

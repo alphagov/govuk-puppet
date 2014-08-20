@@ -6,10 +6,10 @@ class collectd::plugin::redis(
 
   # Attribution: https://github.com/powdahound/redis-collectd-plugin
   file { '/usr/lib/collectd/python/redis_info.py':
-    ensure  => present,
-    source  => 'puppet:///modules/collectd/usr/lib/collectd/python/redis_info.py',
-    tag     => 'collectd::plugin',
-    notify  => File['/etc/collectd/conf.d/redis.conf'],
+    ensure => present,
+    source => 'puppet:///modules/collectd/usr/lib/collectd/python/redis_info.py',
+    tag    => 'collectd::plugin',
+    notify => File['/etc/collectd/conf.d/redis.conf'],
   }
 
   collectd::plugin { 'redis':

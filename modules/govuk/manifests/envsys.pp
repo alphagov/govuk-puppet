@@ -5,7 +5,7 @@
 #
 class govuk::envsys {
   file { '/etc/environment':
-    ensure  => present,
-    source  => 'puppet:///modules/govuk/etc/environment',
+    ensure => present,
+    source => 'puppet:///modules/govuk/etc/environment',
   }
 }

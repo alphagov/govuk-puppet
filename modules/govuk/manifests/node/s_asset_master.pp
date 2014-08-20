@@ -4,8 +4,8 @@ class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
   include daemontools
 
   file { '/var/run/virus_scan':
-    ensure  => directory,
-    owner   => 'assets',
+    ensure => directory,
+    owner  => 'assets',
   }
 
   $cron_requires = [
@@ -18,38 +18,38 @@ class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
   ]
 
   cron { 'virus-scan-incoming':
-    user      => 'assets',
-    minute    => '*/2',
-    command   => '/usr/bin/setlock -n /var/run/virus_scan/incoming.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/incoming /mnt/uploads/whitehall/infected /mnt/uploads/whitehall/clean',
-    require   => $cron_requires,
+    user    => 'assets',
+    minute  => '*/2',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/incoming.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/incoming /mnt/uploads/whitehall/infected /mnt/uploads/whitehall/clean',
+    require => $cron_requires,
   }
 
   cron { 'virus-scan-clean':
-    user      => 'assets',
-    hour      => '4',
-    minute    => '18',
-    command   => '/usr/bin/setlock -n /var/run/virus_scan/clean.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
-    require   => $cron_requires,
+    user    => 'assets',
+    hour    => '4',
+    minute  => '18',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/clean.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
+    require => $cron_requires,
   }
 
   cron { 'virus-scan-incoming-draft':
-    user      => 'assets',
-    minute    => '*/2',
-    command   => '/usr/bin/setlock -n /var/run/virus_scan/incoming-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-incoming /mnt/uploads/whitehall/draft-infected /mnt/uploads/whitehall/draft-clean',
-    require   => $cron_requires,
+    user    => 'assets',
+    minute  => '*/2',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/incoming-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-incoming /mnt/uploads/whitehall/draft-infected /mnt/uploads/whitehall/draft-clean',
+    require => $cron_requires,
   }
 
   cron { 'virus-scan-clean-draft':
-    user      => 'assets',
-    hour      => '4',
-    minute    => '48',
-    command   => '/usr/bin/setlock -n /var/run/virus_scan/clean-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
-    require   => $cron_requires,
+    user    => 'assets',
+    hour    => '4',
+    minute  => '48',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/clean-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
+    require => $cron_requires,
   }
 
   # FIXME: Remove when deployed.
   cron { ['sync-assets-from-master', 'sync-assets-from-master-draft']:
-    ensure  => absent,
-    user    => 'assets',
+    ensure => absent,
+    user   => 'assets',
   }
 }
