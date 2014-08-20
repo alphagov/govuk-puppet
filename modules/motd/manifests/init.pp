@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class motd {
     # This package creates a dynamic motd generated on ssh login
     package { 'update-motd': ensure => installed}

@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::deploy (
     $setup_actionmailer_ses_config = true,
     $aws_ses_smtp_host = 'UNSET',

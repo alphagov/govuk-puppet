@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class icinga::nginx {
   $protect_monitoring = str2bool(hiera('monitoring_protected','yes'))
 

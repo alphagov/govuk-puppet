@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::scripts {
 
   # govuk_node_list is a simple script that lists nodes of specified classes

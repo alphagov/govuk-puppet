@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class jenkins::ssh_key {
   $private_key = '/home/jenkins/.ssh/id_rsa'
   $public_key = '/home/jenkins/.ssh/id_rsa.pub'

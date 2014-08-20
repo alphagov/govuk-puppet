@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class nginx::config (
   $server_names_hash_max_size,
   $denied_ip_addresses) {

@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_rabbitmq::logging {
   govuk::logstream { 'rabbitmq_startup_log':
     logfile => '/var/log/rabbitmq/startup_log',

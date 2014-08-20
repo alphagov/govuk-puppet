@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::need_o_tron(
   $port = '3004',
   $needotron_intercept_errors = true

@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::efg( $port = 3019 ) {
 
   $vhost_name = hiera('efg_domain', 'efg.dev.gov.uk')

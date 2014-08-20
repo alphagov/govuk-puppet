@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class tmpreaper($days_to_keep = 7) {
 
   # Ensure TMPTIME is set in /etc/default/rcS

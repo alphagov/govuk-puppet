@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class backup::offsite::monitoring {
 
   $offsite_fqdn = 'backup0.backup.provider1.production.govuk.service.gov.uk'

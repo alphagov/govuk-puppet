@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define icinga::contact_group ($group_alias, $members) {
 
   $group_name = $name
