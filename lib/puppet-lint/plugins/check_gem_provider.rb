@@ -11,16 +11,8 @@
 PuppetLint.new_check(:gem_provider) do
   def check
     resource_indexes.each do |resource|
-      resource_tokens = tokens[resource[:start]..resource[:end]]
-      prev_tokens = tokens[0..resource[:start]]
-
-      lbrace_idx = prev_tokens.rindex { |r|
-        r.type == :LBRACE
-      }
-
-      resource_type_token = tokens[lbrace_idx].prev_code_token
-      if resource_type_token.value == 'package'
-        resource_tokens.select { |resource_token|
+      if resource[:type].value == 'package'
+        resource[:param_tokens].select{ |resource_token|
           resource_token.type == :NAME and resource_token.value == 'provider'
         }.each do |resource_token|
           value_token = resource_token.next_code_token.next_code_token
