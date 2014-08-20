@@ -12,7 +12,6 @@ PuppetLint.configuration.send("disable_80chars")
 # temporarily disabling the following checks but will bring them back bit by
 # bit.
 PuppetLint.configuration.send("disable_documentation")
-PuppetLint.configuration.send("disable_autoloader_layout")
 PuppetLint.configuration.send("disable_class_parameter_defaults")
 
 desc "Run puppet-lint on one or more modules"
