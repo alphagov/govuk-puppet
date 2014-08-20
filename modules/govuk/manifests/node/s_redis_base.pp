@@ -20,6 +20,16 @@ class govuk::node::s_redis_base {
     # end TODO
   }
 
+  # FIXME: Remove when deployed to production.
+  $old_sysvinit = 'redis_6379'
+  file { "/etc/init.d/${old_sysvinit}":
+    ensure => absent,
+  }
+  exec { 'remove_old_redis_sysvinit':
+    command => "/usr/sbin/update-rc.d -f ${old_sysvinit} remove",
+    onlyif  => "test -f /etc/rc0.d/K20${old_sysvinit} -o -f /etc/rc5.d/S20${old_sysvinit}",
+  }
+
   $redis_mem_warn = $redis_max_memory * 0.8
   $redis_mem_crit = $redis_max_memory * 0.9
 
