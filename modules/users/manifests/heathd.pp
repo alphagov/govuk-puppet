@@ -1,3 +1,4 @@
+# Creates the heathd user
 class users::heathd {
   govuk::user { 'heathd':
     fullname => 'David Heath',

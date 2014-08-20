@@ -1,4 +1,4 @@
-import re
+# Creates the extract.py user
 import sys
 import textwrap
 

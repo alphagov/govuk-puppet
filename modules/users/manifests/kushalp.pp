@@ -1,3 +1,4 @@
+# Creates the kushalp user
 class users::kushalp {
   govuk::user { 'kushalp':
     fullname => 'Kushal Pisavadia',

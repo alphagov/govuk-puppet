@@ -1,3 +1,4 @@
+# Creates the tombooth user
 class users::tombooth {
   govuk::user { 'tombooth':
     fullname => 'Tom Booth',

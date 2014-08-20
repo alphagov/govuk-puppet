@@ -1,3 +1,4 @@
+# Creates the alex_tea user
 class users::alex_tea {
   govuk::user { 'alex_tea':
     fullname => 'Alex Torrance',

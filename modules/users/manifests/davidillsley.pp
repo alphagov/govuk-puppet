@@ -1,3 +1,4 @@
+# Creates the davidillsley user
 class users::davidillsley {
   govuk::user { 'davidillsley':
     fullname => 'David Illsley',

@@ -1,3 +1,4 @@
+# Creates the bob user
 class users::bob {
   govuk::user { 'bob':
     fullname => 'bob walker',

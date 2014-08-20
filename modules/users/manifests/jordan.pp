@@ -1,3 +1,4 @@
+# Creates the jordan user
 class users::jordan {
   govuk::user { 'jordan':
     fullname => 'Jordan Hatch',

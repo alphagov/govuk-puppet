@@ -1,3 +1,4 @@
+# Creates the ppotter user
 class users::ppotter {
   govuk::user { 'ppotter':
     fullname => 'Philip Potter',

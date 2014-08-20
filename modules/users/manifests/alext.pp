@@ -1,3 +1,4 @@
+# Creates the alext user
 class users::alext {
   govuk::user { 'alext':
     fullname => 'Alex Tomlins',

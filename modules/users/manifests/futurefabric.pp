@@ -1,3 +1,4 @@
+# Creates the futurefabric user
 class users::futurefabric {
   govuk::user { 'futurefabric':
     fullname => 'Guy Moorhouse',

@@ -1,3 +1,4 @@
+# Creates the leonderks user
 class users::leonderks {
   govuk::user { 'leonderks':
     fullname => 'Leon Derks',

@@ -1,3 +1,4 @@
+# Creates the benilovj user
 class users::benilovj {
   govuk::user { 'benilovj':
       fullname => 'Jake Benilov',

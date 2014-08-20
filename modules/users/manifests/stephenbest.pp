@@ -1,3 +1,4 @@
+# Creates the stephenbest user
 class users::stephenbest {
   govuk::user { 'stephenbest':
     fullname => 'Stephen Best',

@@ -1,3 +1,4 @@
+# Creates the dai user
 class users::dai {
   govuk::user { 'dai':
     fullname => 'Dafydd Vaughan',

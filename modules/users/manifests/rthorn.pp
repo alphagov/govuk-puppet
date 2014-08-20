@@ -1,3 +1,4 @@
+# Creates the rthorn user
 class users::rthorn {
   govuk::user { 'rthorn':
     fullname => 'Russell Thorn',

@@ -1,3 +1,4 @@
+# Creates the jabley user
 class users::jabley {
   govuk::user { 'jabley':
     fullname => 'James Abley',

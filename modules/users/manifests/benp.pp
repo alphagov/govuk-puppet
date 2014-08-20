@@ -1,3 +1,4 @@
+# Creates the benp user
 class users::benp {
   govuk::user { 'benp':
     fullname => 'Ben Pickles',

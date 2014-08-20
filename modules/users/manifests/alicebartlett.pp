@@ -1,3 +1,4 @@
+# Creates the alicebartlett user
 class users::alicebartlett {
   govuk::user { 'alicebartlett':
     fullname => 'Alice Bartlett',

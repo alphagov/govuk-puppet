@@ -1,3 +1,4 @@
+# Creates the carlmassa user
 class users::carlmassa {
   govuk::user { 'carlmassa':
     fullname => 'Carl Massa',

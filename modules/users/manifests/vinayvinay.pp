@@ -1,3 +1,4 @@
+# Creates the vinayvinay user
 class users::vinayvinay {
   govuk::user { 'vinayvinay':
     fullname => 'Vinay Patel',
