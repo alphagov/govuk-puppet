@@ -8,18 +8,10 @@ end
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
 
-# FIXME: this is disabled not because it's a bad idea for a check, but because
-# we have a temporary workaround in place for the UFW module (see 6b0f870)
-# which triggers this error. When this workaround is removed, please remove
-# this line too.
-PuppetLint.configuration.send("disable_inherits_across_namespaces")
-
 # puppet-lint has got a lot stricter (but a lot faster) recently. I'm
 # temporarily disabling the following checks but will bring them back bit by
 # bit.
 PuppetLint.configuration.send("disable_documentation")
-PuppetLint.configuration.send("disable_autoloader_layout")
-PuppetLint.configuration.send("disable_class_parameter_defaults")
 
 desc "Run puppet-lint on one or more modules"
 task :lint do

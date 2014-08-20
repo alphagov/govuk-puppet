@@ -1,2 +1,2 @@
-class mysql {
+class govuk_mysql {
 }
