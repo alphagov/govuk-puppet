@@ -1,5 +1,14 @@
-class govuk::node::s_redis_base {
+class govuk::node::s_redis_base(
+  $ulimit = undef,
+) {
   include govuk::node::s_base
+
+  # TODO: Move to upstream module.
+  file { '/etc/default/redis-server':
+    ensure  => present,
+    content => template('govuk/node/s_redis_base/etc/default/redis-server.erb'),
+    notify  => Class['redis'],
+  }
 
   $redis_port = 6379
   $redis_max_memory = $::memtotalmb / 4 * 3
