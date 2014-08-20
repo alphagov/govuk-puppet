@@ -17,6 +17,7 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance {
     [
       'business-support-api',
+      'collections-api',
       'collections-publisher',
       'contacts-admin',
       'content-planner',
