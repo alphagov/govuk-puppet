@@ -2,6 +2,7 @@ FORGE
   remote: http://forge.puppetlabs.com
   specs:
     adrien/alternatives (0.1.1)
+    benjamin/ramdisk (0.0.1)
     fsalum/redis (1.0.0)
       thias/sysctl (>= 0.3.0)
     gdsoperations/aptly (0.2.0)
@@ -132,6 +133,7 @@ GIT
 DEPENDENCIES
   adrien/alternatives (>= 0)
   apparmor (>= 0)
+  benjamin/ramdisk (= 0.0.1)
   curl (>= 0)
   ext4mount (>= 0)
   fsalum/redis (>= 0)

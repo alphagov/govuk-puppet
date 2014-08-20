@@ -1,6 +1,7 @@
 forge "http://forge.puppetlabs.com"
 
 mod 'adrien/alternatives'
+mod 'benjamin/ramdisk', '0.0.1'
 mod 'fsalum/redis'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
