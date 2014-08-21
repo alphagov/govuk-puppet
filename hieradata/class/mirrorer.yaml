@@ -2,18 +2,11 @@
 govuk_crawler::mirror_root: '/mnt/crawler_worker'
 
 lv:
-  data:
-    pv: '/dev/sdb1'
-    vg: 'mirror'
   worker:
     pv: '/dev/sdc1'
     vg: 'crawler'
 
 mount:
-  /var/lib/govuk_mirror:
-    disk: '/dev/mapper/mirror-data'
-    govuk_lvm: 'data'
-    mountoptions: 'defaults'
   /mnt/crawler_worker:
     disk: '/dev/mapper/crawler-worker'
     govuk_lvm: 'worker'
