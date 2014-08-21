@@ -5,6 +5,8 @@ asset_root: 'http://static.dev.gov.uk'
 
 app_domain: 'dev.gov.uk'
 
+base::supported_kernel::enabled: true
+
 efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::search_admin::enabled: true

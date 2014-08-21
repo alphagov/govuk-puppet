@@ -5,6 +5,8 @@ asset_root: 'http://assets-origin.dev.gov.uk'
 
 assets::mount_asset_master: false
 
+base::supported_kernel::enabled: true
+
 clamav::use_service: false
 
 deploy_ssh_keys:
