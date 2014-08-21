@@ -23,4 +23,19 @@ class govuk::apps::bouncer(
     ssl_only         => false,
     is_default_vhost => true
   }
+
+  nginx::config::site {'businesslink':
+    content => template('bouncer/businesslink.conf.erb'),
+  }
+
+  nginx::log {
+    'businesslink-json.event.access.log':
+      json          => true,
+      logstream     => present,
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.businesslink.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.businesslink.time_request",
+                          value => '@fields.request_time'}];
+    'businesslink-error.log':
+      logstream     => present;
+  }
 }
