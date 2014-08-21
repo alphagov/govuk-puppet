@@ -1,0 +1,4 @@
+---
+
+# Allow higher `maxclients` for logship clients.
+govuk::node::s_redis_base::ulimit: 8096
