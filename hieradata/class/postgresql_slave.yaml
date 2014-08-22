@@ -17,3 +17,5 @@ mount:
     disk: '/dev/mapper/backups-postgresql'
     govuk_lvm: 'postgresql'
     mountoptions: 'defaults'
+
+govuk_postgresql::server::slave::master_host: 'postgresql-master-1.backend'

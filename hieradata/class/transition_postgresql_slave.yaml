@@ -10,3 +10,5 @@ mount:
     disk: '/dev/mapper/postgresql-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+
+govuk_postgresql::server::slave::master_host: 'transition-postgresql-master-1.backend'
