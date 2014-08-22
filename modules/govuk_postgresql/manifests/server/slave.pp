@@ -3,7 +3,10 @@
 # PostgreSQL binary replication slave.
 #
 class govuk_postgresql::server::slave {
-  postgresql::server::config_entry { 'wal_level':
-    value => 'hot_standby',
+  postgresql::server::config_entry {
+    'wal_level':
+      value => 'hot_standby';
+    'hot_standby':
+      value => 'on';
   }
 }
