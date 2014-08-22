@@ -17,3 +17,5 @@ mount:
     disk: '/dev/mapper/backups-postgresql'
     govuk_lvm: 'postgresql'
     mountoptions: 'defaults'
+
+govuk_postgresql::server::master::slave_address: '10.3.20.11/32'
