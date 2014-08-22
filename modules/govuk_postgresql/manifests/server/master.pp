@@ -17,6 +17,10 @@ class govuk_postgresql::server::master (
 ) {
   $username = 'replication'
 
+  postgresql::server::config_entry { 'wal_level':
+    value => 'hot_standby',
+  }
+
   postgresql::server::role { $username:
     replication   => true,
     password_hash => postgresql_password($username, $slave_password),
