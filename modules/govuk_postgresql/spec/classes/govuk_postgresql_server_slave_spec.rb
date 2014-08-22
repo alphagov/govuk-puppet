@@ -7,7 +7,10 @@ describe 'govuk_postgresql::server::slave', :type => :class do
   let(:pg_version) { '9.2' }
   let(:pg_user) { 'pg_user' }
   let(:pg_group) { 'pg_group' }
-  let(:recovery_conf) { "/var/lib/postgresql/#{pg_version}/main/recovery.conf" }
+
+  let(:datadir) { "/var/lib/postgresql/#{pg_version}/main" }
+  let(:recovery_conf) { "#{datadir}/recovery.conf" }
+  let(:pg_resync_slave) { '/usr/local/bin/pg_resync_slave' }
 
   let(:facts) {{
     :concat_basedir => '/tmp/concat',
@@ -45,6 +48,20 @@ standby_mode     = 'on'
 primary_conninfo = 'host=#{param_host} user=replication password=#{param_pass}'
       EOS
       )
+    end
+  end
+
+  describe 'pg_resync_slave' do
+    it 'should reference $datadir' do
+      should contain_file(pg_resync_slave).with_content(/^DATADIR="#{datadir}"$/)
+    end
+
+    it 'should reference $user' do
+      should contain_file(pg_resync_slave).with_content(/^sudo -u #{pg_user} /)
+    end
+
+    it 'should reference host' do
+      should contain_file(pg_resync_slave).with_content(/ -h #{param_host} -U replication/)
     end
   end
 end

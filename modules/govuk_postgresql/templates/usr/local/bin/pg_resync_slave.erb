@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -eu
+
+DATADIR="<%= @pg_datadir %>"
+SYNCDIR="${DATADIR}.sync"
+if [ -z ${DATADIR} ]; then
+  echo "DATADIR variable is empty"
+  exit 1
+fi
+
+if [ "$(id -u)" -ne "0" ]; then
+  echo "Please run with sudo"
+  exit 1
+fi
+
+sudo -u <%= @pg_user %> rm -rf ${SYNCDIR}
+sudo -u <%= @pg_user %> pg_basebackup -vP \
+  -h <%= @master_host %> -U <%= @username %> \
+  -D ${SYNCDIR}
+
+service postgresql stop
+rsync -ca --inplace --delete --links \
+  --exclude=*pg_xlog* \
+  --exclude=recovery.conf \
+  --exclude=postmaster.opts \
+  --exclude=server.crt --exclude=server.key \
+  ${SYNCDIR}/ ${DATADIR}/
+service postgresql start

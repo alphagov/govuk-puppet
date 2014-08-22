@@ -34,4 +34,10 @@ class govuk_postgresql::server::slave (
     content => template('govuk_postgresql/var/lib/postgresql/x.x/main/recovery.conf.erb'),
     notify  => Class['postgresql::server::reload'],
   }
+
+  file { '/usr/local/bin/pg_resync_slave':
+    ensure  => present,
+    mode    => '0755',
+    content => template('govuk_postgresql/usr/local/bin/pg_resync_slave.erb'),
+  }
 }
