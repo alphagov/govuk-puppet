@@ -3,7 +3,7 @@ govuk_crawler::mirror_root: '/mnt/crawler_worker'
 
 lv:
   worker:
-    pv: '/dev/sdc1'
+    pv: '/dev/sdb1'
     vg: 'crawler'
 
 mount:
