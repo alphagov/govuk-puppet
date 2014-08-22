@@ -1,0 +1,39 @@
+server {
+  server_name www.businesslink.gov.uk
+              aka.businesslink.gov.uk
+              businesslink.gov.uk
+              online.businesslink.gov.uk
+              www.online.businesslink.gov.uk
+              www.businesslink.co.uk
+              www.businesslink.org
+              www.business.gov.uk
+              alliance-leicestercommercialbank.businesslink.gov.uk
+              aol.businesslink.gov.uk
+              msn.businesslink.gov.uk
+              sagestartup.businesslink.gov.uk
+              simplybusiness.businesslink.gov.uk
+              businesslink.redirector.dev.alphagov.co.uk
+              businesslink.redirector.preview.alphagov.co.uk
+              businesslink.redirector.production.alphagov.co.uk;
+
+  access_log /var/log/nginx/businesslink-access.log timed_combined;
+  access_log /var/log/nginx/businesslink-json.event.access.log json_event;
+  error_log /var/log/nginx/businesslink-error.log;
+
+  root /var/apps/bouncer/assets-businesslink/businesslink;
+
+  location / {
+    # Cache all requests to these domains for 1 hour, to make sure that legacy
+    # assets are cached. Bouncer will also set this header to 1 hour for
+    # requests which fall through to it.
+    add_header 'cache-control' 'public, max-age=3600';
+    # Try to serve the files from the directory inside Bouncer, otherwise
+    # fallthrough to the app (bouncer).
+    try_files $uri @app;
+  }
+
+  location @app {
+    proxy_pass http://<%= "bouncer.#{@app_domain}-proxy" %>;
+    proxy_set_header Host $http_host;
+  }
+}
