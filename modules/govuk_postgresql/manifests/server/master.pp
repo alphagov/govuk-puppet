@@ -17,8 +17,11 @@ class govuk_postgresql::server::master (
 ) {
   $username = 'replication'
 
-  postgresql::server::config_entry { 'wal_level':
-    value => 'hot_standby',
+  postgresql::server::config_entry {
+    'wal_level':
+      value => 'hot_standby';
+    'max_wal_senders':
+      value => 3;
   }
 
   postgresql::server::role { $username:
