@@ -27,9 +27,9 @@ server {
     # assets are cached. Bouncer will also set this header to 1 hour for
     # requests which fall through to it.
     add_header 'cache-control' 'public, max-age=3600';
-    # Try to serve the files from the directory inside Bouncer, otherwise
-    # fallthrough to the app (bouncer).
-    try_files $uri @app;
+    # Try to serve the files from the directory inside Bouncer, then try again
+    # with ".html" appended, then fallback to the app (bouncer).
+    try_files $uri $uri.html @app;
   }
 
   location @app {
