@@ -21,8 +21,10 @@ sudo -u <%= @pg_user %> pg_basebackup -vP \
 service postgresql stop
 rsync -ca --inplace --delete --links \
   --exclude=*pg_xlog* \
-  --exclude=recovery.conf \
+  --exclude=recovery.tmp \
   --exclude=postmaster.opts \
   --exclude=server.crt --exclude=server.key \
   ${SYNCDIR}/ ${DATADIR}/
+
+sudo -u <%= @pg_user %> cp -a ${DATADIR}/recovery.tmp ${DATADIR}/recovery.conf
 service postgresql start

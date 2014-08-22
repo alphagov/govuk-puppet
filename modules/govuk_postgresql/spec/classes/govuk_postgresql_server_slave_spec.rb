@@ -9,7 +9,7 @@ describe 'govuk_postgresql::server::slave', :type => :class do
   let(:pg_group) { 'pg_group' }
 
   let(:datadir) { "/var/lib/postgresql/#{pg_version}/main" }
-  let(:recovery_conf) { "#{datadir}/recovery.conf" }
+  let(:recovery_conf) { "#{datadir}/recovery.tmp" }
   let(:pg_resync_slave) { '/usr/local/bin/pg_resync_slave' }
 
   let(:facts) {{

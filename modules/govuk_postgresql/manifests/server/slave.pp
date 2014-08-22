@@ -27,12 +27,18 @@ class govuk_postgresql::server::slave (
   }
 
   file { "${pg_datadir}/recovery.conf":
+    ensure => undef,
+    owner  => $pg_user,
+    group  => $pg_group,
+    mode   => '0600',
+  }
+
+  file { "${pg_datadir}/recovery.tmp":
     ensure  => present,
     owner   => $pg_user,
     group   => $pg_group,
     mode    => '0600',
-    content => template('govuk_postgresql/var/lib/postgresql/x.x/main/recovery.conf.erb'),
-    notify  => Class['postgresql::server::reload'],
+    content => template('govuk_postgresql/var/lib/postgresql/x.x/main/recovery.tmp.erb'),
   }
 
   file { '/usr/local/bin/pg_resync_slave':
