@@ -1,0 +1,30 @@
+server {
+  server_name <%= @server_names.join("\n") %>;
+
+  access_log /var/log/nginx/<%= @title %>-access.log timed_combined;
+  access_log /var/log/nginx/<%= @title %>-json.event.access.log json_event;
+  error_log /var/log/nginx/<%= @title %>-error.log;
+
+  root <%= @document_root %>;
+
+  <% @custom_location_rules.each do |uri, directive| %>
+    location <%= uri %> {
+      <%= directive %>;
+    }
+  <% end %>
+
+  location / {
+    # Cache all requests to these domains for 1 hour, to make sure that legacy
+    # assets are cached. Bouncer will also set this header to 1 hour for
+    # requests which fall through to it.
+    add_header 'cache-control' 'public, max-age=3600';
+    # Try to serve the files from the document_root, then try again
+    # with ".html" appended, then fallback to the app (bouncer).
+    try_files $uri $uri.html @app;
+  }
+
+  location @app {
+    proxy_pass http://<%= "bouncer.#{@app_domain}-proxy" %>;
+    proxy_set_header Host $http_host;
+  }
+}
