@@ -22,6 +22,10 @@ class govuk_postgresql::server::master (
       value => 'hot_standby';
     'max_wal_senders':
       value => 3;
+    'checkpoint_segments':
+      value => 8;
+    'wal_keep_segments':
+      value => 8;
   }
 
   postgresql::server::role { $username:
