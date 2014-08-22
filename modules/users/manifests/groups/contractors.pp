@@ -7,7 +7,6 @@ class users::groups::contractors {
   include users::andrewmitchell
   include users::brendanbutler
   include users::camillebaldock
-  include users::davidainslie
   include users::dominicbaggott
   include users::elliot
   include users::futurefabric
