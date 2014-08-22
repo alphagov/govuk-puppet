@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_whitehall_frontend (
   #FIXME #73421574: remove when we are off old preview and it is no longer possible
   #       to access apps directly from the internet

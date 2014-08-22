@@ -1,3 +1,4 @@
+# Creates the james user
 class users::james {
   govuk::user { 'james':
     fullname => 'James Stewart',

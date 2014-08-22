@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::content_planner($port = 3058) {
   govuk::app { 'content-planner':
     app_type           => 'rack',

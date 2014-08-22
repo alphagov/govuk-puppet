@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::panopticon( $port = 3003 ) {
   govuk::app { 'panopticon':
     app_type           => 'rack',

@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class performance_platform::spotlight (
   $perfplat_internal_app_domain = 'production.performance.service.gov.uk',
   #FIXME #73421574: remove when we are off old preview and it is no longer possible

@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::sidekiq_monitoring () {
   $app_name = 'sidekiq-monitoring'
   $app_domain = hiera('app_domain')

@@ -1,3 +1,4 @@
+# Creates the bradleyw user
 class users::bradleyw {
   govuk::user { 'bradleyw':
     fullname => 'Bradley Wright',

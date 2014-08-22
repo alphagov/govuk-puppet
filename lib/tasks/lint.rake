@@ -8,11 +8,6 @@ end
 PuppetLint.configuration.with_filename = true
 PuppetLint.configuration.send("disable_80chars")
 
-# puppet-lint has got a lot stricter (but a lot faster) recently. I'm
-# temporarily disabling the following checks but will bring them back bit by
-# bit.
-PuppetLint.configuration.send("disable_documentation")
-
 desc "Run puppet-lint on one or more modules"
 task :lint do
   manifests_to_lint = FileList[*get_modules.map { |x| "#{x}/**/*.pp" }]

@@ -1,3 +1,4 @@
+# Creates the niallm user
 class users::niallm {
   govuk::user { 'niallm':
     fullname => 'Niall Mullally',

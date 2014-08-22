@@ -1,3 +1,4 @@
+# Creates the roc user
 class users::roc {
   govuk::user { 'roc':
     fullname => 'Ralph Cowling',

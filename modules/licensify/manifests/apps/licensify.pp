@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class licensify::apps::licensify (
   $port = 9000,
   $aws_ses_access_key = '',

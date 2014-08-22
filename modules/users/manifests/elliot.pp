@@ -1,3 +1,4 @@
+# Creates the elliot user
 class users::elliot {
   govuk::user { 'elliot':
     fullname => 'Elliot Crosby-McCullough',

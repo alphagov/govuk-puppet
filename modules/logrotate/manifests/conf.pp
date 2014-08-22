@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define logrotate::conf (
   $matches,
   $days_to_keep = '31',

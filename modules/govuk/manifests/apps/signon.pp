@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::signon( $port = 3016, $enable_procfile_worker = true) {
   govuk::app { 'signon':
     app_type           => 'rack',

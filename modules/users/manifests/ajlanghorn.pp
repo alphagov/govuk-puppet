@@ -1,3 +1,4 @@
+# Creates the ajlanghorn user
 class users::ajlanghorn {
   govuk::user { 'ajlanghorn':
     fullname => 'Andrew Langhorn',

@@ -1,3 +1,4 @@
+# Creates the ssharpe user
 class users::ssharpe {
   govuk::user { 'ssharpe':
     fullname => 'Sam Sharpe',

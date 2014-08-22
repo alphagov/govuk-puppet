@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::need_api( $port = 3052 ) {
   govuk::app { 'need-api':
     app_type           => 'rack',

@@ -1,3 +1,4 @@
+# Creates the pedromoreira user
 class users::pedromoreira {
   govuk::user { 'pedromoreira':
     fullname => 'Pedro Moreira',

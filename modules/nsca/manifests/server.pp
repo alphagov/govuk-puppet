@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class nsca::server {
   include icinga # to set up the 'nagios' user for nsca
   include nsca

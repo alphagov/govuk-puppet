@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_elasticsearch::dump {
   package { 'es_dump_restore':
     ensure   => '0.0.3',

@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::router_api( $port = 3056, $enable_router_reloading = true ) {
   govuk::app { 'router-api':
     app_type           => 'rack',

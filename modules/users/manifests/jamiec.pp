@@ -1,3 +1,4 @@
+# Creates the jamiec user
 class users::jamiec {
   govuk::user { 'jamiec':
     fullname => 'Jamie Cobbett',

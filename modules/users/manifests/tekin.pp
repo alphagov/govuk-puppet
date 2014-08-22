@@ -1,3 +1,4 @@
+# Creates the tekin user
 class users::tekin {
   govuk::user { 'tekin':
     fullname => 'Tekin Suleyman',

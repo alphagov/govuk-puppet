@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::transition_postgres(
   $port = 3083,
   $enable_procfile_worker = true,

@@ -1,3 +1,4 @@
+# Creates the mwall user
 class users::mwall {
   govuk::user { 'mwall':
     fullname => 'Mat Wall',

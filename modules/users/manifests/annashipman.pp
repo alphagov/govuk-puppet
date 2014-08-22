@@ -1,3 +1,4 @@
+# Creates the annashipman user
 class users::annashipman {
   govuk::user { 'annashipman':
     fullname => 'Anna Shipman',

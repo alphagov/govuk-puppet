@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class ruby::govuk_seed_crawler (
   $govuk_gemfury_source_url
 ){

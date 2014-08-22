@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define nginx::config::vhost::licensify_upload($port='9000') {
   $app_domain = hiera('app_domain')
   $vhost_name = "uploadlicence.${app_domain}"

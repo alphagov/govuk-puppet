@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class hosts::development {
   host { 'alert.cluster':       ip => '127.0.0.1' }
   host { 'backend.cluster':     ip => '127.0.0.1' }

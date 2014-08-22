@@ -1,3 +1,4 @@
+# Creates the tombyers user
 class users::tombyers {
   govuk::user { 'tombyers':
     fullname => 'Tom Byers',

@@ -1,3 +1,4 @@
+# Creates the minglis user
 class users::minglis {
   govuk::user { 'minglis':
     fullname => 'Martyn Inglis',

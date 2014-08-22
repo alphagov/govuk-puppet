@@ -1,3 +1,4 @@
+# Creates the ollyl user
 class users::ollyl {
   govuk::user { 'ollyl':
     fullname => 'Olly Legg',

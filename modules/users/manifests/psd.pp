@@ -1,3 +1,4 @@
+# Creates the psd user
 class users::psd {
   govuk::user { 'psd':
     fullname => 'Paul Downey',

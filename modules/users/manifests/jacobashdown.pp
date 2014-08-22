@@ -1,3 +1,4 @@
+# Creates the jacobashdown user
 class users::jacobashdown {
   govuk::user { 'jacobashdown':
     fullname => 'Jacob Ashdown',

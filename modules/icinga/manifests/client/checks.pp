@@ -1,3 +1,4 @@
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class icinga::client::checks (
   $disk_time_warn = 100, # milliseconds
   $disk_time_critical = 200 # milliseconds
