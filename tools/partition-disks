@@ -2,7 +2,7 @@
 set -e
 for disk in /dev/sd?; do
   echo "checking ${disk}"
-  if ! sudo parted -a optimal --script  ${disk} -- print
+  if ! sudo parted -a optimal --script  ${disk} -- print >/dev/null
   then
     echo "partitioning ${disk}"
     sudo parted -a optimal --script ${disk} -- mklabel msdos
