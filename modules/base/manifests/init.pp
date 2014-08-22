@@ -8,6 +8,7 @@ class base {
   include apt
   include apt::unattended_upgrades
   include base::packages
+  include base::supported_kernel
   include cron
   include gcc
   include logrotate
