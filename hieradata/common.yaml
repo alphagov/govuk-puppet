@@ -91,7 +91,6 @@ router::assets_origin::asset_routes:
   '/smartanswers/': "smartanswers"
   '/specialist-frontend/': "specialist-frontend"
   '/tariff/': "tariff"
-  '/transaction-wrappers/': "transaction-wrappers"
   '/transactions-explorer/': "transactions-explorer"
 
 unicornherder::version: '0.0.8'
