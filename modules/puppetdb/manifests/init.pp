@@ -14,7 +14,7 @@ class puppetdb($package_ensure) {
     notify => Class['puppetdb::service'];
   }
 
-  class { 'govuk_postgresql::server':
+  class { 'govuk_postgresql::server::standalone':
     notify => Class['puppetdb::package'],
   }
 

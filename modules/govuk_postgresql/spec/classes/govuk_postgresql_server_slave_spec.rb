@@ -16,16 +16,15 @@ describe 'govuk_postgresql::server::slave', :type => :class do
     :concat_basedir => '/tmp/concat',
   }}
   let(:params) {{
-    :host     => param_host,
-    :password => param_pass,
+    :master_host     => param_host,
+    :master_password => param_pass,
   }}
   let(:pre_condition) { <<-EOS
     class {
       'postgresql::globals':
         user    => #{pg_user},
         group   => #{pg_group},
-        version => #{pg_version};
-      'postgresql::server': ;
+        version => #{pg_version},
     }
     EOS
   }

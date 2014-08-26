@@ -15,6 +15,8 @@ class govuk_postgresql::server::master (
   $slave_password,
   $slave_address,
 ) {
+  include govuk_postgresql::server
+
   $username = 'replication'
 
   postgresql::server::config_entry {

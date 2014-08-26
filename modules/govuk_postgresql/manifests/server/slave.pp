@@ -14,6 +14,8 @@ class govuk_postgresql::server::slave (
   $master_host,
   $master_password,
 ) {
+  include govuk_postgresql::server
+
   $username = 'replication'
   $pg_datadir = $::postgresql::server::datadir
   $pg_user = $::postgresql::server::user
