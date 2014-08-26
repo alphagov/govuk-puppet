@@ -12,8 +12,9 @@ class govuk::node::s_frontend (
     'govuk::apps::designprinciples':      vhost_protected => $app_basic_auth;
     'govuk::apps::feedback':              vhost_protected => $app_basic_auth;
     'govuk::apps::frontend':              vhost_protected => $app_basic_auth;
-    'govuk::apps::manuals_frontend':      vhost_protected => $app_basic_auth;
+    'govuk::apps::info_frontend':         vhost_protected => $app_basic_auth;
     'govuk::apps::limelight':             vhost_protected => $app_basic_auth;
+    'govuk::apps::manuals_frontend':      vhost_protected => $app_basic_auth;
     'govuk::apps::service_manual':        vhost_protected => $app_basic_auth;
     'govuk::apps::specialist_frontend':   vhost_protected => $app_basic_auth;
   }

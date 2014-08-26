@@ -74,18 +74,19 @@ class govuk::node::s_development {
     'govuk::apps::calendars':             vhost_protected => false;
     'govuk::apps::collections':           vhost_protected => false;
     'govuk::apps::contacts_frontend':     vhost_protected => false;
+    'govuk::apps::contentapi':            vhost_protected => false;
     'govuk::apps::designprinciples':      vhost_protected => false;
     'govuk::apps::feedback':              vhost_protected => false;
     'govuk::apps::finder_frontend':       vhost_protected => false;
     'govuk::apps::frontend':              vhost_protected => false;
-    'govuk::apps::manuals_frontend':      vhost_protected => false;
+    'govuk::apps::info_frontend':         vhost_protected => false;
     'govuk::apps::licencefinder':         vhost_protected => false;
     'govuk::apps::limelight':             vhost_protected => true;
+    'govuk::apps::manuals_frontend':      vhost_protected => false;
     'govuk::apps::service_manual':        vhost_protected => false;
     'govuk::apps::smartanswers':          vhost_protected => false;
     'govuk::apps::specialist_frontend':   vhost_protected => false;
     'govuk::apps::tariff':                vhost_protected => false;
-    'govuk::apps::contentapi':            vhost_protected => false;
   }
 
   include govuk::apps::asset_manager
