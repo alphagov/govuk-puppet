@@ -27,6 +27,7 @@ govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::hmrc_manuals_api::enabled: true
 govuk::apps::imminence::enable_delayed_job_worker: false
+govuk::apps::info_frontend::enabled: true
 govuk::apps::limelight::limelight_proxy_performance_api: true
 govuk::apps::manuals_frontend::enabled: true
 govuk::apps::need_o_tron::needotron_intercept_errors: false
