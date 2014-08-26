@@ -10,3 +10,6 @@ mount:
     disk: '/dev/mapper/postgresql-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+
+govuk_postgresql::server::listen_addresses: localhost
+govuk_postgresql::server::backup: false

@@ -15,8 +15,7 @@ class puppetdb($package_ensure) {
   }
 
   class { 'govuk_postgresql::server':
-    listen_addresses => 'localhost',
-    notify           => Class['puppetdb::package'],
+    notify => Class['puppetdb::package'],
   }
 
   class { 'puppetdb::package':
