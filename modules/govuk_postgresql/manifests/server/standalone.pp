@@ -4,4 +4,5 @@
 #
 class govuk_postgresql::server::standalone {
   include govuk_postgresql::server
+  include govuk_postgresql::server::not_slave
 }

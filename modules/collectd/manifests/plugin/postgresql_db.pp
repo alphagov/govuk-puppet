@@ -7,9 +7,10 @@ define collectd::plugin::postgresql_db() {
   @collectd::plugin { "postgresql-${title}":
     content => template('collectd/etc/collectd/conf.d/postgresql.conf.erb'),
   }
-  postgresql::server::database_grant { "${title}-collectd-CONNECT":
+  @postgresql::server::database_grant { "${title}-collectd-CONNECT":
     privilege => 'CONNECT',
     db        => $title,
     role      => 'collectd',
+    tag       => 'govuk_postgresql::server::not_slave',
   }
 }
