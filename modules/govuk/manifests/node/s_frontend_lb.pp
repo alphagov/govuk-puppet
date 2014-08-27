@@ -37,7 +37,6 @@ class govuk::node::s_frontend_lb (
       'finder-frontend',
       'licencefinder',
       'smartanswers',
-      'transaction-wrappers',
       'tariff',
     ]:
       servers       => $calculators_frontend_servers;
