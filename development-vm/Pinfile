@@ -28,6 +28,7 @@ process :'finder-frontend' => [:static, :'finder-api', :contentapi]
 process :'finder-api'
 process :frontend => [:static, :contentapi, :rummager]
 process :'furl-manager'
+process :'info-frontend' => [:static]
 process :imminence
 process :hmrc_contacts => [:rummager, :'content-store-write']
 process :'hmrc-manuals-api' => [:'content-store-write']
