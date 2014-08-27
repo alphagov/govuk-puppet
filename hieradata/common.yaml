@@ -37,6 +37,7 @@ govuk_cdnlogs::service_port_map:
 
 govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_crawler::amqp_host: 'rabbitmq-1.backend'
+govuk_crawler::govuk_gemfury_source_url: "%{hiera('govuk_gemfury_source_url')}"
 
 govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
