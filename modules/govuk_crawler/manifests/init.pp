@@ -125,8 +125,10 @@ class govuk_crawler(
   }
 
   $govuk_gemfury_source_url = hiera('govuk_gemfury_source_url')
-  class {'ruby::govuk_seed_crawler':
-    govuk_gemfury_source_url => $govuk_gemfury_source_url,
+  package { 'govuk_seed_crawler':
+        ensure   => '0.4.0',
+        provider => system_gem,
+        source   => $govuk_gemfury_source_url,
   }
 
   $sync_service_desc = 'Mirror sync'
