@@ -74,9 +74,10 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*.sql.gz'); do
 
     status $PROD_DB_NAME '->' $TARGET_DB_NAME
 
-    PSQL_COMMAND="sudo -u postgres psql -q"
+    export PGOPTIONS='-c client_min_messages=WARNING'
+    PSQL_COMMAND="sudo -E -u postgres psql -q"
     $PSQL_COMMAND -c "DROP DATABASE IF EXISTS \"${TARGET_DB_NAME}\""
-    $PV_COMMAND $file | zcat | $DUMP_MUNGE_COMMAND | $PSQL_COMMAND
+    $PV_COMMAND $file | zcat | $DUMP_MUNGE_COMMAND | ($PSQL_COMMAND > /dev/null)
   fi
 done
 
