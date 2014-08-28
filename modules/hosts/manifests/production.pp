@@ -402,6 +402,10 @@ class hosts::production (
     ip  => '10.3.20.10',
     vdc => 'backend',
   }
+  govuk::host { 'postgresql-slave-1':
+    ip  => '10.3.20.11',
+    vdc => 'backend',
+  }
   govuk::host { 'transition-postgresql-master-1':
     ip             => '10.3.20.1',
     vdc            => 'backend',
