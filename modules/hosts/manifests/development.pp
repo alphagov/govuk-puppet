@@ -47,6 +47,7 @@ class hosts::development {
   host { 'limelight.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'manuals-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'maslow.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'metadata-api.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'need-api.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'needotron.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'panopticon.dev.gov.uk':                           ip => '127.0.0.1' }
