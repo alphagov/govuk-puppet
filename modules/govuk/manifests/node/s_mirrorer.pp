@@ -44,4 +44,10 @@ class govuk::node::s_mirrorer inherits govuk::node::s_base {
     recurse => true,
   }
 
+  # FIXME: Remove once absent
+  package { 'govuk_mirrorer':
+    ensure   => absent,
+    provider => system_gem,
+  }
+
 }
