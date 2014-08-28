@@ -1,14 +1,21 @@
 ---
 
 lv:
-  data:
+  postgresql:
     pv: '/dev/sdb1'
+    vg: 'backups'
+  data:
+    pv: '/dev/sdc1'
     vg: 'postgresql'
 
 mount:
   /var/lib/postgresql:
     disk: '/dev/mapper/postgresql-data'
     govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/autopostgresqlbackup:
+    disk: '/dev/mapper/backups-postgresql'
+    govuk_lvm: 'postgresql'
     mountoptions: 'defaults'
 
 govuk_postgresql::server::slave::master_host: 'transition-postgresql-master-1.backend'
