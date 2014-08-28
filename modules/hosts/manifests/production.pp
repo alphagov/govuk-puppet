@@ -250,6 +250,14 @@ class hosts::production (
     ip  => '10.7.0.13',
     vdc => 'api',
   }
+  govuk::host { 'api-1':
+    ip  => '10.7.0.16',
+    vdc => 'api',
+  }
+  govuk::host { 'api-2':
+    ip  => '10.7.0.17',
+    vdc => 'api',
+  }
   govuk::host { 'api-mongo-1':
     ip  => '10.7.0.21',
     vdc => 'api',
@@ -276,6 +284,7 @@ class hosts::production (
     vdc            => 'api',
     legacy_aliases => [
       "content-store.${app_domain}",
+      "metadata-api.${app_domain}",
       "publishing-api.${app_domain}",
     ]
   }
