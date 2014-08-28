@@ -2,6 +2,16 @@
 #
 # PostgreSQL slave node for main cluster.
 #
-class govuk::node::s_postgresql_slave inherits govuk::node::s_postgresql_base {
-  include govuk_postgresql::server::slave
+# === Parameters:
+#
+# [*master_password*]
+#   Proxied to `govuk_postgresql::server::slave` so that we can set
+#   per-cluster passwords in a single hiera credentials file.
+#
+class govuk::node::s_postgresql_slave (
+  $master_password,
+) inherits govuk::node::s_postgresql_base {
+  class { 'govuk_postgresql::server::slave':
+    master_password => $master_password,
+  }
 }
