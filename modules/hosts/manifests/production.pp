@@ -411,10 +411,19 @@ class hosts::production (
     ip  => '10.3.20.10',
     vdc => 'backend',
   }
+  govuk::host { 'postgresql-slave-1':
+    ip  => '10.3.20.11',
+    vdc => 'backend',
+  }
   govuk::host { 'transition-postgresql-master-1':
     ip             => '10.3.20.1',
     vdc            => 'backend',
     legacy_aliases => ['transition-master.postgresql', "transition-postgresql.backend.${internal_tld}"],
+  }
+  govuk::host { 'transition-postgresql-slave-1':
+    ip             => '10.3.20.2',
+    vdc            => 'backend',
+    legacy_aliases => ['transition-slave.postgresql'],
   }
   govuk::host { 'whitehall-mysql-master-1':
     ip             => '10.3.10.30',

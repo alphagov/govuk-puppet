@@ -1,8 +1,17 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_postgresql_master inherits govuk::node::s_base {
-  include govuk_postgresql::server
-
-  include govuk::apps::url_arbiter::db
-
-  Govuk::Mount['/var/lib/postgresql'] -> Class['govuk_postgresql::server']
+# == Class: govuk::node::s_postgresql_master
+#
+# PostgreSQL master node for main cluster.
+#
+# === Parameters:
+#
+# [*slave_password*]
+#   Proxied to `govuk_postgresql::server::master` so that we can set
+#   per-cluster passwords in a single hiera credentials file.
+#
+class govuk::node::s_postgresql_master (
+  $slave_password,
+) inherits govuk::node::s_postgresql_base {
+  class { 'govuk_postgresql::server::master':
+    slave_password => $slave_password,
+  }
 }

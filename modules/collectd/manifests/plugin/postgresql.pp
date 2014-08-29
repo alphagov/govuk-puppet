@@ -10,7 +10,8 @@ class collectd::plugin::postgresql {
   }
   $user = 'collectd'
   $password = 'collectd'
-  postgresql::server::role { $user:
+  @postgresql::server::role { $user:
     password_hash => postgresql_password($user, $password),
+    tag           => 'govuk_postgresql::server::not_slave',
   }
 }

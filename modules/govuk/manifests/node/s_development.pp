@@ -257,7 +257,7 @@ class govuk::node::s_development {
       password => 'whitehall';
   }
 
-  include govuk_postgresql::server
+  include govuk_postgresql::server::standalone
   include govuk_postgresql::client
 
   postgresql::server::role {

@@ -1,8 +1,20 @@
-# Wrapper for all the things needed for a postgres server
+# == Class: govuk_postgresql::server
+#
+# Wrapper for all the things needed for a postgres server. This class cannot
+# be used directly - please use one of the sub-classes.
+#
 class govuk_postgresql::server (
     $backup = true,
     $listen_addresses = '*',
 ) {
+  if !(
+    defined(Class["${name}::standalone"]) or
+    defined(Class["${name}::master"]) or
+    defined(Class["${name}::slave"])
+  ) {
+    fail("Class ${name} cannot be used directly. Please use standalone/master/slave")
+  }
+
     if ! defined(Class['postgresql::globals']) {
       class {'postgresql::globals':
         version => '9.1',

@@ -1,0 +1,46 @@
+# == Class: govuk_postgresql::server::master
+#
+# PostgreSQL binary replication master.
+#
+# === Parameters:
+#
+# [*slave_password*]
+#   Password the slave can authenticate with.
+#
+# [*slave_address*]
+#   Address (CIDR) the slave can connect from. Ideally this should be a /32
+#   to make access as restrictive as possible.
+#
+class govuk_postgresql::server::master (
+  $slave_password,
+  $slave_address,
+) {
+  include govuk_postgresql::server
+  include govuk_postgresql::server::not_slave
+
+  $username = 'replication'
+
+  postgresql::server::config_entry {
+    'wal_level':
+      value => 'hot_standby';
+    'max_wal_senders':
+      value => 3;
+    'checkpoint_segments':
+      value => 8;
+    'wal_keep_segments':
+      value => 8;
+  }
+
+  postgresql::server::role { $username:
+    replication   => true,
+    password_hash => postgresql_password($username, $slave_password),
+  }
+
+  postgresql::server::pg_hba_rule { $username:
+    type        => 'host',
+    database    => $username,
+    user        => $username,
+    address     => $slave_address,
+    auth_method => 'md5',
+  }
+}

@@ -5,6 +5,10 @@ describe 'govuk_postgresql::db', :type => :define do
     let(:facts) {{
         :concat_basedir => '/tmp/concat',
     }}
+    let(:pre_condition) { <<-EOS
+      include govuk_postgresql::server::not_slave
+      EOS
+    }
 
     context 'minimum info' do
         let(:params) {{

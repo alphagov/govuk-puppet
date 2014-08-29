@@ -59,15 +59,17 @@ define govuk_postgresql::db (
     }
     $password_hash = postgresql_password($user, $password)
     if ! defined(Postgresql::Server::Role[$user]) {
-        postgresql::server::role { $user:
+        @postgresql::server::role { $user:
             password_hash => $password_hash,
+            tag           => 'govuk_postgresql::server::not_slave',
         }
     }
-    postgresql::server::db {$db_name:
+    @postgresql::server::db {$db_name:
         encoding => $encoding,
         owner    => $db_owner,
         password => $password_hash,
         user     => $user,
+        tag      => 'govuk_postgresql::server::not_slave',
         require  => [Class['govuk_postgresql::server'], Postgresql::Server::Role[$user]],
     }
 
@@ -75,7 +77,9 @@ define govuk_postgresql::db (
     validate_array($extensions)
     if (!empty($extensions)) {
         $temp_extensions = prefix($extensions,"${db_name}:")
-        govuk_postgresql::extension { $temp_extensions: }
+        @govuk_postgresql::extension { $temp_extensions:
+          tag  => 'govuk_postgresql::server::not_slave',
+        }
     }
 
     if $allow_auth_from_backend {
