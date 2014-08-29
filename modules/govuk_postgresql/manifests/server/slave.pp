@@ -5,7 +5,8 @@
 # === Parameters:
 #
 # [*master_host*]
-#   Host of the master.
+#   Hostname of the master. This will also be used for an Icinga/Graphite
+#   check, so it must be fully or partially qualified.
 #
 # [*master_password*]
 #   Password to authenticate against the master.
@@ -15,6 +16,9 @@ class govuk_postgresql::server::slave (
   $master_password,
 ) {
   include govuk_postgresql::server
+
+  validate_re($master_host, '\.')
+  $master_host_underscore = regsubst($master_host, '\.', '_', 'G')
 
   $username = 'replication'
   $pg_datadir = $::postgresql::server::datadir
@@ -47,5 +51,20 @@ class govuk_postgresql::server::slave (
     ensure  => present,
     mode    => '0755',
     content => template('govuk_postgresql/usr/local/bin/pg_resync_slave.erb'),
+  }
+
+  $metric_suffix = 'postgresql-postgres.bytes-xlog_position'
+  # Wildcard to account for us not having the FQDN.
+  $master_metric = "${master_host_underscore}*.${metric_suffix}"
+  $slave_metric  = "${::fqdn_underscore}.${metric_suffix}"
+
+  @@icinga::check::graphite { "check_postgres_replication_lag_${::hostname}":
+    target    => "diffSeries(${master_metric},${slave_metric})",
+    desc      => 'postgres replication lag in bytes',
+    warning   => to_bytes('8 MB'),
+    critical  => to_bytes('16 MB'),
+    args      => '--droplast 1',
+    host_name => $::fqdn,
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#postgres-replication-lag-in-bytes',
   }
 }
