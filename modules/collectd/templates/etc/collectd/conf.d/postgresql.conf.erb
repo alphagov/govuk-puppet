@@ -1,0 +1,37 @@
+LoadPlugin postgresql
+
+<Plugin postgresql>
+  <Query xlog_position>
+    # Obtain xlog position of a master or slave. On the slave we use replay
+    # instead of receive because we care about data that is committed and
+    # available. For details about this monstrous query:
+    # http://www.databasesoup.com/2012/10/determining-furthest-ahead-replica.html
+    # http://eulerto.blogspot.co.uk/2011/11/understanding-wal-nomenclature.html
+    Statement "SELECT (
+          ('x' || lpad(position_array[1], 8, '0'))::bit(32)::bigint *
+          x'ff000000'::int8::numeric +
+          ('x' || lpad(position_array[2], 8, '0'))::bit(32)::bigint
+        ) AS xlog_numeric
+      FROM (
+        SELECT regexp_split_to_array(
+          CASE WHEN pg_is_in_recovery()
+            THEN pg_last_xlog_replay_location()
+            ELSE pg_current_xlog_location()
+          END, '\/') AS position_array
+      ) AS _;"
+
+    <Result>
+      Type bytes
+      ValuesFrom "xlog_numeric"
+      InstancePrefix "xlog_position"
+    </Result>
+  </Query>
+
+  <Database postgres>
+    Host "localhost"
+    User "<%= @user %>"
+    Password "<%= @password %>"
+    SSLMode "prefer"
+    Query xlog_position
+  </Database>
+</Plugin>
