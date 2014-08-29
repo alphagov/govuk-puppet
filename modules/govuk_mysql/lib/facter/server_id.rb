@@ -1,6 +1,6 @@
 # Converts IP address to integer for MySQL server id
 def get_mysql_id
-  Facter.ipaddress.split('.').inject(0) { |total,value| (total << 8) + value.to_i }
+  Facter.value(:ipaddress).split('.').inject(0) { |total,value| (total << 8) + value.to_i }
 end
 
 Facter.add("mysql_server_id") do
