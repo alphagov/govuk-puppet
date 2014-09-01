@@ -16,18 +16,11 @@ class govuk::node::s_redis_base(
 
   class { 'redis':
     # conf_dir is needed for compatibility with previous redis module
-    conf_dir                           => "/var/lib/redis/${redis_port}/",
-    conf_maxmemory                     => "${redis_max_memory}mb",
-    conf_port                          => $redis_port,
+    conf_dir             => "/var/lib/redis/${redis_port}/",
+    conf_maxmemory       => "${redis_max_memory}mb",
+    conf_port            => $redis_port,
     # conf_slowlog_max_len is for compatibility with previous redis module
-    conf_slowlog_max_len               => '1024',
-    # TODO: These don't work in 2.6.6 so setting to false
-    # consider changing if we update redis version
-    conf_aof_rewrite_incremental_fsync => false,
-    conf_hz                            => false,
-    conf_repl_disable_tcp_nodelay      => false,
-    conf_tcp_keepalive                 => false,
-    # end TODO
+    conf_slowlog_max_len => '1024',
   }
 
   # FIXME: Remove when deployed to production.

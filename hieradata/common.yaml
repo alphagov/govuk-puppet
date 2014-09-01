@@ -71,6 +71,14 @@ rabbitmq::config_stomp: true
 rabbitmq::package_ensure: '3.3.4-1'
 rabbitmq::manage_repos: false
 
+# TODO: These don't work in 2.6.6 so setting to false
+# consider changing if we update redis version
+redis::conf_aof_rewrite_incremental_fsync: false
+redis::conf_hz: false
+redis::conf_repl_disable_tcp_nodelay: false
+redis::conf_tcp_keepalive: false
+# end TODO
+
 resolvconf::nameservers:
   - 8.8.8.8
   - 8.8.4.4
