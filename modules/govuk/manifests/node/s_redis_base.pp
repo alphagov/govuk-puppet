@@ -45,5 +45,14 @@ class govuk::node::s_redis_base(
     host_name => $::fqdn,
   }
 
+  @@icinga::check::graphite { "check_redis_connected_clients_${::hostname}":
+    target    => "${::fqdn_underscore}.redis_info.gauge-connected_clients",
+    warning   => 1000,
+    critical  => 2000,
+    desc      => 'redis connected clients',
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-server-check',
+    host_name => $::fqdn,
+  }
+
   class { 'collectd::plugin::redis': }
 }
