@@ -18,7 +18,7 @@ class base {
   include ssh
   include motd
   include govuk_sudo
-  include sysctl
+  include govuk_sysctl
   include timezone
   include tmpreaper
   include tmux
