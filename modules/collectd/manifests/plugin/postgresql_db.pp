@@ -5,7 +5,7 @@
 define collectd::plugin::postgresql_db() {
   include collectd::plugin::postgresql
   @collectd::plugin { "postgresql-${title}":
-    content => template('collectd/etc/collectd/conf.d/postgresql.conf.erb'),
+    content => template('collectd/etc/collectd/conf.d/postgresql_db.conf.erb'),
   }
   @postgresql::server::database_grant { "${title}-collectd-CONNECT":
     privilege => 'CONNECT',
