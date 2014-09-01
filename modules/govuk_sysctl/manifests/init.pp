@@ -1,8 +1,14 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_sysctl
+#
+# FIXME: This entire class can be removed once deployed to production.
+#
 class govuk_sysctl {
-  file { '/etc/sysctl.d/10-disable-timestamps.conf':
-    source => 'puppet:///modules/sysctl/10-disable-timestamps.conf',
-    owner  => root,
-    group  => root,
+  sysctl {
+    'disable-timestamps':
+      ensure  => absent,
+      prefix  => 10;
+    'net.ipv4.tcp_timestamps':
+      value   => 1,
+      comment => ['Restore default Ubuntu setting of `1`'];
   }
 }
