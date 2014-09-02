@@ -99,6 +99,19 @@ class monitoring::checks (
     host_name           => $::fqdn,
   }
 
+  icinga::check_config { 'check_puppetdb_ssh_host_keys':
+    source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_puppetdb_ssh_host_keys.cfg',
+    require => Class['monitoring::client'],
+  }
+
+  icinga::check { "check_puppetdb_ssh_host_keys_from_${::hostname}":
+    check_command       => 'check_puppetdb_ssh_host_keys',
+    service_description => 'duplicate SSH host keys',
+    host_name           => $::fqdn,
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#duplicate-ssh-host-keys',
+    require             => Icinga::Check_config['check_puppetdb_ssh_host_keys'],
+  }
+
   icinga::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
     sun              => '00:00-24:00',

@@ -17,7 +17,7 @@ class monitoring::client {
   package {'update-notifier-common': }
 
   package {'gds-nagios-plugins':
-    ensure   => '1.2.2',
+    ensure   => '1.3.0',
     provider => 'pip',
     require  => Package['update-notifier-common']
   }
