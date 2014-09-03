@@ -1,3 +1,5 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_mysql
+#
+# A bare class. You probably want govuk_mysql::server or govuk_mysql::user
 class govuk_mysql {
 }

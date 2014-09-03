@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_mysql::server::master
+#
+# Class to set up a mysql master.
+#
+# === Parameters
+#
+# [*replica_pass*]
+#
+#   A password for the replication user. REQUIRED
+#
 class govuk_mysql::server::master (
   $replica_pass
 ) {

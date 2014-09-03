@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_mysql::server::monitoring
+#
+# Set up basic monitoring of mysql
+#
 class govuk_mysql::server::monitoring {
 
   package { 'python-mysqldb':
