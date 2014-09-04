@@ -11,8 +11,9 @@ class govuk_rabbitmq::monitoring {
   }
 
   @@icinga::check { "check_rabbitmq_network_partitions_${::hostname}":
-    check_command       => 'check_nrpe!check_rabbitmq_network_partition',
+    check_command       => 'check_nrpe_1arg!check_rabbitmq_network_partition',
     service_description => 'RabbitMQ network partition has occurred',
     host_name           => $::fqdn,
+    require             => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 }
