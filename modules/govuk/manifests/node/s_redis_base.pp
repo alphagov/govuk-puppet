@@ -1,10 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_redis_base(
-  $ulimit = undef,
-) {
+class govuk::node::s_redis_base {
   include govuk::node::s_base
 
-  # TODO: Move to upstream module.
+  # FIXME: Reinstates default. Remove when deployed to production.
   file { '/etc/default/redis-server':
     ensure  => present,
     content => template('govuk/node/s_redis_base/etc/default/redis-server.erb'),
