@@ -195,6 +195,14 @@ class hosts::production (
     ip  => '10.2.0.15',
     vdc => 'frontend',
   }
+  govuk::host { 'whitehall-frontend-6':
+    ip  => '10.2.0.16',
+    vdc => 'frontend',
+  }
+  govuk::host { 'whitehall-frontend-7':
+    ip  => '10.2.0.17',
+    vdc => 'frontend',
+  }
 
   #frontend lb vhosts
   govuk::host { 'frontend-lb-1':
