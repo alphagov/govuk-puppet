@@ -3,14 +3,14 @@ class govuk_rabbitmq (
   $monitoring_password,
   $root_password,
 ) {
+  $root_vhost = '/'
+  $monitoring_user = 'monitoring'
+
   include govuk_rabbitmq::firewalls
   include govuk_rabbitmq::logging
   include govuk_rabbitmq::monitoring
   include govuk_rabbitmq::repo
   include '::rabbitmq'
-
-  $root_vhost = '/'
-  $monitoring_user = 'monitoring'
 
   rabbitmq_plugin { 'rabbitmq_stomp':
     ensure => present,
