@@ -28,11 +28,6 @@ class collectd::plugin::cdn_fastly(
     provider => 'pip',
   }
 
-  # FIXME: Remove.
-  file { '/usr/lib/collectd/python/cdn_fastly.py':
-    ensure  => absent,
-  }
-
   collectd::plugin { 'cdn_fastly':
     content => template('collectd/etc/collectd/conf.d/cdn_fastly.conf.erb'),
     require => [
