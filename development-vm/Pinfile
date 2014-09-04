@@ -15,7 +15,7 @@ process :content_planner => [:need_api, :whitehall]
 # to capture the fact that the write parts of the content-store
 # have more dependencies than the read parts.
 process :'content-store'
-process :'content-store-write' => [:'content-store', :'router-api']
+process :'content-store-write' => [:'content-store', :'router-api', :'url-arbiter']
 process :'contact-o-tron'
 process :designprinciples => :static
 process :efg
@@ -62,6 +62,7 @@ process :tradetariffapi
 process :transaction_wrappers => :static
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
+process :'url-arbiter'
 process :whitehall => :static
 
 # pseudo process to reflect what's needed for www.dev.gov.uk to work at all
