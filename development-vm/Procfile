@@ -72,11 +72,12 @@ support-api:           govuk_setenv support-api           ./run_in.sh ../support
 short-url-manager:     govuk_setenv furl-manager          ./run_in.sh ../furl-manager   bundle exec rails s -p 3076
 # smartdown-frontend used to use port 3077, but is no longer running in any environment
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../collections-publisher bundle exec rails s -p 3078
-# sidekiq-monitoring uses 3079-3081
+# sidekiq-monitoring uses 3079-3081 and 3086
 service-manual:        govuk_setenv service-manual        ./run_in.sh ../government-service-design-manual  bundle exec unicorn -p 3082
 transition-postgres:   govuk_setenv transition-postgres   ./run_in.sh ../transition-postgres bundle exec rails s -p 3083
 collections-api:       govuk_setenv collections-api       ./run_in.sh ../collections-api bundle exec rails s -p 3084
 info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../info-frontend bundle exec rails s -p 3085
+# sidekiq-monitoring for transition uses 3086
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
