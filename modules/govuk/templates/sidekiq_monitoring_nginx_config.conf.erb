@@ -28,6 +28,10 @@ server {
     proxy_pass http://localhost:3081;
   }
 
+  location /transition {
+    proxy_pass http://localhost:3086;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }
