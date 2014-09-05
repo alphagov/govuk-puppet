@@ -78,6 +78,8 @@ redis::conf_hz: false
 redis::conf_repl_disable_tcp_nodelay: false
 redis::conf_tcp_keepalive: false
 # end TODO
+# TODO: Replace this with `conf_tcp_keepalive`.
+redis::conf_timeout: 300
 
 resolvconf::nameservers:
   - 8.8.8.8
