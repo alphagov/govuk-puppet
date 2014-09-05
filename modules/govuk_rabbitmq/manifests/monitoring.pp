@@ -5,7 +5,7 @@ class govuk_rabbitmq::monitoring {
 
   @icinga::nrpe_config { 'check_rabbitmq_network_partition':
     content => template('govuk_rabbitmq/check_rabbitmq_network_partition.cfg.erb'),
-    require             => Icinga::Plugin['check_http_timeout_noncrit'],
+    require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
   @@icinga::check { "check_rabbitmq_running_${::hostname}":
