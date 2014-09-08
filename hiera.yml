@@ -6,6 +6,9 @@
   - '%{::environment}'
   - 'common'
 :backends:
+  - eyaml
   - yaml
+:eyaml:
+  :datadir: '%{::settings::manifestdir}/../hieradata'
 :yaml:
   :datadir: '%{::settings::manifestdir}/../hieradata'
