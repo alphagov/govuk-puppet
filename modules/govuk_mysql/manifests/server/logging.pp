@@ -1,4 +1,19 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_mysql::server::logging
+#
+# Send logs to elasticsearch and rotate them
+#
+# === Parameters
+#
+# [*error_log*]
+#
+#   Where mysql is logging errors to so that they can be sent to elasticsearch 
+#   Mandatory.
+#
+# [*slow_query_log*]
+#
+#   Where mysql is logging slow queries to so that they can be sent to elasticsearch 
+#   Default: undef
+#
 class govuk_mysql::server::logging(
   $error_log,
   $slow_query_log=undef,

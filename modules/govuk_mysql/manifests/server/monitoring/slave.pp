@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_mysql::server::monitoring::slave
+#
+# Monitor a mysql slave
+#
 class govuk_mysql::server::monitoring::slave inherits govuk_mysql::server::monitoring {
   Collectd::Plugin::Mysql['lazy_eval_workaround'] {
     slave => true,
