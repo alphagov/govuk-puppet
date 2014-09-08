@@ -260,6 +260,7 @@ class govuk::node::s_development {
 
   include govuk_postgresql::server::standalone
   include govuk_postgresql::client
+  include postgresql::server::contrib
 
   postgresql::server::role {
     'vagrant':
