@@ -7,7 +7,7 @@ class govuk::apps::collections_api(
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
-    health_check_path  => '/',
+    health_check_path  => '/healthcheck',
     log_format_is_json => true,
     deny_framing       => true,
   }
