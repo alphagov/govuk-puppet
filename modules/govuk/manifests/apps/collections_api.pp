@@ -8,6 +8,7 @@ class govuk::apps::collections_api(
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
+    json_health_check  => true,
     log_format_is_json => true,
     deny_framing       => true,
   }
