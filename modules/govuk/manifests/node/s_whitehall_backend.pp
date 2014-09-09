@@ -44,4 +44,10 @@ class govuk::node::s_whitehall_backend (
       require => File['/var/lib/govuk_mirror'],
     }
   }
+
+  include collectd::plugin::memcached
+  class { 'memcached':
+    max_memory => '12%',
+    listen_ip  => '127.0.0.1',
+  }
 }
