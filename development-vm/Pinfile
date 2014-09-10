@@ -28,7 +28,7 @@ process :'finder-frontend' => [:static, :'finder-api', :contentapi, :rummager]
 process :'finder-api'
 process :frontend => [:static, :contentapi, :rummager]
 process :'short-url-manager' => [:'publishing-api']
-process :'info-frontend' => [:static]
+process :'info-frontend' => [:static, :'metadata-api']
 process :imminence
 process :hmrc_contacts => [:rummager, :'publishing-api']
 process :'hmrc-manuals-api' => [:'publishing-api']
