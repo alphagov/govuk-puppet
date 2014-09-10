@@ -42,7 +42,6 @@ govuk::apps::router::vhost_aliases: ["www"]
 govuk::apps::router_api::enable_router_reloading: false
 govuk::apps::search::enable_delayed_job_worker: false
 govuk::apps::search_admin::enabled: true
-govuk::apps::short_url_manager::enabled: true
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enable_procfile_worker: false
