@@ -5,7 +5,7 @@ class govuk::apps::metadata_api (
   $enabled = false,
 
   # The default port that the application will start on.
-  $port = 3086,
+  $port = 3087,
 ) {
   if $enabled {
     $app_name = 'metadata-api'
