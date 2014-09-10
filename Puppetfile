@@ -54,6 +54,7 @@ mod 'ufw',
 # Our modules on the Forge.
 mod 'gdsoperations/aptly'
 mod 'gdsoperations/auditd', '0.0.1'
+mod 'gdsoperations/goenv', '0.0.1'
 mod 'gdsoperations/graphite', '1.0.1'
 mod 'gdsoperations/openconnect'
 mod 'gdsoperations/rbenv', '1.0.1'

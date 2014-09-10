@@ -1,11 +1,20 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: golang
+#
+# Installs goenv, along with a number of Go versions.  This is mainly intended
+# for use on a dev VM.
+#
 class golang {
   include govuk::ppa
 
-  package { 'golang':
-    ensure  => '2:1.2.2-0~ppa1~precise1',
-    require => Class['govuk::ppa'],
+  class { 'goenv':
+    global_version => '1.2.2',
   }
+  goenv::version { ['1.2.2', '1.3.1']: }
 
   ensure_packages(['bzr'])
+
+  # FIXME remove once cleaned up everywhere.
+  package { ['golang', 'golang-doc', 'golang-go', 'golang-go-linux-amd64', 'golang-src']:
+    ensure => purged,
+  }
 }
