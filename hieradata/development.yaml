@@ -30,6 +30,7 @@ govuk::apps::imminence::enable_delayed_job_worker: false
 govuk::apps::info_frontend::enabled: true
 govuk::apps::limelight::limelight_proxy_performance_api: true
 govuk::apps::manuals_frontend::enabled: true
+govuk::apps::metadata_api::enabled: true
 govuk::apps::need_o_tron::needotron_intercept_errors: false
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'

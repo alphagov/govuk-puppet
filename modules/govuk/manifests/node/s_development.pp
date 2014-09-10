@@ -114,6 +114,7 @@ class govuk::node::s_development {
   include govuk::apps::imminence
   include govuk::apps::kibana
   include govuk::apps::maslow
+  include govuk::apps::metadata_api
   include govuk::apps::need_api
   include govuk::apps::need_o_tron
   include govuk::apps::panopticon
