@@ -109,7 +109,6 @@ class govuk::node::s_development {
   }
   include govuk::apps::fact_cave
   include govuk::apps::finder_api
-  include govuk::apps::furl_manager # FIXME remove once it's been cleaned up
   include govuk::apps::govuk_delivery
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence
