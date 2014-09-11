@@ -58,7 +58,8 @@ $CLAMSCAN_CMD --no-summary --stdout -r . > "$RESULTFILE" || true
 
 grep 'FOUND$' "$RESULTFILE" | sed 's/: [^:]* FOUND$//' | rsync --remove-source-files --files-from=- . "$INFECTED_DIR/."
 if [ -n "$CLEAN_DIR" ]; then
-  grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | /usr/local/bin/extract_text_from_files.rb | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
+  # FIXME either re-enable or remove this once we decide what to do with text extraction.
+  # grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | /usr/local/bin/extract_text_from_files.rb | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
 fi
 
