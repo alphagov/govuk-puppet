@@ -482,7 +482,6 @@ class hosts::production (
       "mapit.${app_domain}",
       "maslow.${app_domain}",
       "need-api.${app_domain}",
-      "needotron.${app_domain}",
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",

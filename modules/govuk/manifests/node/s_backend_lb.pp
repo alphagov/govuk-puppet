@@ -26,7 +26,6 @@ class govuk::node::s_backend_lb (
       'hmrc-manuals-api',
       'imminence',
       'maslow',
-      'needotron',
       'panopticon',
       'private-frontend',
       'publisher',
