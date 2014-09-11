@@ -24,6 +24,14 @@ if which rbenv >/dev/null 2>&1; then
   export RBENV_ROOT=/usr/lib/rbenv
   export PATH="${RBENV_ROOT}/shims:${PATH}"
 fi
+<% if @govuk_env == 'development' -%>
+
+# Initialize goenv
+if which goenv >/dev/null 2>&1; then
+  export GOENV_ROOT=/usr/lib/goenv
+  export PATH="${GOENV_ROOT}/shims:${PATH}"
+fi
+<% end -%>
 
 if [ "$APPNAME" = "default" ]; then
   exec envdir "${GOVUK_CONF_ROOT}/${ENVDIR_NAME}" "$@"
