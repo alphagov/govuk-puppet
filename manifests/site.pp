@@ -30,9 +30,9 @@ Class['apt::update'] -> Package <|
   tag != 'no_require_apt_update'
 |>
 
-# Ensure that hiera is working. Now that we depend on it for config.
-if !hiera('HIERA_SAFETY_CHECK', false) {
-  fail('Hiera does not appear to be working. Update `vagrant-govuk` and/or `vagrant reload` your VM')
+# Check for explicit true; otherwise an undecrypted value would not trigger fail()
+if hiera('HIERA_EYAML_GPG_CHECK') != true {
+  fail('Hiera eYAML GPG encryption backend is not working; check that Puppet has a valid GPG key')
 }
 
 import 'nodes.pp'
