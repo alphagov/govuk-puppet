@@ -17,7 +17,7 @@ class govuk::node::s_mysql_master (
     'govuk::apps::collections_publisher::db',
     'govuk::apps::contacts::db',
     'govuk::apps::content_planner::db',
-    'govuk::apps::need_o_tron::db',
+    'govuk::apps::need_o_tron::db', # FIXME: need_o_tron::db is ensured absent.  Remove once its gone everywhere
     'govuk::apps::release::db',
     'govuk::apps::search_admin::db',
     'govuk::apps::signon::db',

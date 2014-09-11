@@ -4,6 +4,7 @@ class govuk::apps::need_o_tron::db (
 ){
 
   mysql::db { 'need_o_tron_production':
+    ensure   => absent,
     user     => 'need_o_tron',
     host     => '%',
     password => $mysql_need_o_tron_new,

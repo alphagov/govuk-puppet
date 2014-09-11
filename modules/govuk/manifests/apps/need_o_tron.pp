@@ -4,6 +4,7 @@ class govuk::apps::need_o_tron(
   $needotron_intercept_errors = true
 ) {
   govuk::app { 'needotron':
+    ensure            => absent,
     app_type          => 'rack',
     vhost_ssl_only    => true,
     port              => $port,
