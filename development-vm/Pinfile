@@ -36,6 +36,7 @@ process :'manuals-frontend' => [:static, :contentapi, :'content-store']
 process :jobs
 process :licencefinder => [:static, :contentapi]
 process :maslow => :need_api
+process :'metadata-api' => [:contentapi, :need_api]
 process :migratorator
 process :need_api
 process :needotron
