@@ -10,5 +10,6 @@
   - yaml
 :eyaml:
   :datadir: '%{::settings::manifestdir}/../hieradata'
+  :gpg_gnupghome: '/etc/puppet/gpg'
 :yaml:
   :datadir: '%{::settings::manifestdir}/../hieradata'
