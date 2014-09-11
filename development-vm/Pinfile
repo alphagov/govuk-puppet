@@ -39,7 +39,6 @@ process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
 process :migratorator
 process :need_api
-process :needotron
 process :panopticon => :'url-arbiter'
 process :planner => [:static, :contentapi]
 process :publisher => :panopticon
