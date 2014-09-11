@@ -44,7 +44,7 @@ class govuk::deploy::config(
   # daemontools provides envdir, used by govuk_setenv
   file { '/usr/local/bin/govuk_setenv':
     ensure  => present,
-    source  => 'puppet:///modules/govuk/bin/govuk_setenv',
+    content => template('govuk/bin/govuk_setenv'),
     mode    => '0755',
     require => Class['daemontools'],
   }
