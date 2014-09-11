@@ -1,4 +1,16 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == backup::assets::job
+#
+#   A class to run a Duplicity back-up job for an asset path passed in to
+#   it, and then update a Nagios check
+#
+# == Parameters
+#
+#   $asset_path   Path of asset(s) to be backed-up
+#   $hour         Hour at which to begin back-up
+#   $minute       Minute at which to begin back-up
+#   $pubkey_id    GPG key fingerprint to encrypt backups with
+#   $target       Destination
+#
 define backup::assets::job(
   $asset_path,
   $hour,
@@ -11,10 +23,10 @@ $post_command = file('backup/post_command.sh')
 
   duplicity { $title:
     directory    => $asset_path,
-    target       => "${target}",
+    target       => $target,
     hour         => $hour,
     minute       => $minute,
-    pubkey_id    => "${pubkey_id}",
+    pubkey_id    => $pubkey_id,
     post_command => $post_command
   }
 

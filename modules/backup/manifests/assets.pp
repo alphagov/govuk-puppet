@@ -18,20 +18,20 @@ class backup::assets(
   $pubkey_id,
 ) {
 
-  duplicity { 'whitehall':
-    directory => '/mnt/uploads/whitehall',
-    target    => "${target}/whitehall",
-    hour      => 4,
-    minute    => 20,
-    pubkey_id => "${pubkey_id}",
+  backup::assets::job { 'whitehall':
+    asset_path => '/mnt/uploads/whitehall',
+    target     => "${target}/whitehall",
+    hour       => 4,
+    minute     => 20,
+    pubkey_id  => $pubkey_id,
   }
 
-  duplicity { 'asset-manager':
-    directory => '/mnt/uploads/asset-manager',
-    target    => "${target}/asset-manager",
-    hour      => 4,
-    minute    => 13,
-    pubkey_id => "${pubkey_id}",
+  backup::assets::job { 'asset-manager':
+    asset_path => '/mnt/uploads/asset-manager',
+    target     => "${target}/asset-manager",
+    hour       => 4,
+    minute     => 13,
+    pubkey_id  => $pubkey_id,
   }
 
   # FIXME: Remove me once deployed

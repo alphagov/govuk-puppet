@@ -34,7 +34,7 @@ mod 'curl',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'
 mod 'duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
-  :ref => 'port_80_keyserver'
+  :ref => 'postcommand-hook'
 mod 'ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gor',
