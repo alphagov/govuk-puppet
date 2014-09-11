@@ -35,6 +35,12 @@ class govuk::node::s_backup (
     fq_dn     => 'mongo-1.backend.production',
   }
 
+  backup::directory {'backup_mongodb_backups_api_mongo':
+    directory => '/var/lib/automongodbbackup/',
+    host_name => 'api-mongo-1',
+    fq_dn     => 'api-mongo-1.api.production',
+  }
+
   backup::directory {'backup_mongodb_backups_licensify_mongo':
     directory => '/var/lib/automongodbbackup/',
     host_name => 'licensify-mongo-1',
