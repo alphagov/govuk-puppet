@@ -65,11 +65,31 @@ class govuk::node::s_backup (
     fq_dn     => 'support-contacts-1.backend.production',
   }
 
+  backup::directory {'backup_mysql_backups_whitehall_mysql_backup_1':
+    directory => '/var/lib/automysqlbackup/',
+    host_name => 'whitehall-mysql-backup-1',
+    fq_dn     => 'whitehall-mysql-backup-1.backend.production',
+  }
+
+  # Machine does not currently exist in Production
+  # backup::directory {'backup_postgresql_backups_postgresql_slave_1':
+  #   directory => '/var/lib/autopostgresqlbackup/',
+  #   host_name => 'postgresql-slave-1',
+  #   fq_dn     => 'postgresql-slave-1.backend.production',
+  # }
+
   backup::directory {'backup_postgresql_backups_puppetmaster_postgresql':
     directory => '/var/lib/autopostgresqlbackup/',
     host_name => 'puppetmaster-1',
     fq_dn     => 'puppetmaster-1.management.production',
   }
+
+  # Machine does not currently exist in Production
+  # backup::directory {'backup_postgresql_backups_transition_postgresql_slave_1':
+  #   directory => '/var/lib/autopostgresqlbackup/',
+  #   host_name => 'transition-postgresql-slave-1',
+  #   fq_dn     => 'transition-postgresql-slave-1.backend.production',
+  # }
 
   if $backup_efg {
     backup::directory {'backup_mysql_backups_efg_mysql':
