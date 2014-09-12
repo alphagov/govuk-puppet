@@ -12,7 +12,8 @@ class golang {
   }
   goenv::version { ['1.2.2', '1.3.1']: }
 
-  ensure_packages(['bzr'])
+  # Ensure that scm tools used by `go get` are present.
+  ensure_packages(['bzr', 'git', 'mercurial'])
 
   # FIXME remove once cleaned up everywhere.
   package { ['golang', 'golang-doc', 'golang-go', 'golang-go-linux-amd64', 'golang-src']:
