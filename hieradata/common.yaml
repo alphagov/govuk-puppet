@@ -99,6 +99,7 @@ router::assets_origin::asset_routes:
   '/government/assets/': "whitehall-frontend"
   '/government/uploads/': "whitehall-frontend"
   '/government/placeholder': "whitehall-frontend"
+  '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"
   '/licencefinder/': "licencefinder"
   '/limelight/': "limelight"

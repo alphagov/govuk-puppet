@@ -22,6 +22,7 @@ class govuk::node::s_frontend_lb (
       'designprinciples',
       'feedback',
       'frontend',
+      'info-frontend',
       'manuals-frontend',
       'service-manual',
       'specialist-frontend',

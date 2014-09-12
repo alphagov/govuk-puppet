@@ -41,6 +41,7 @@ class hosts::development {
   host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'hmrc-manuals-api.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'imminence.dev.gov.uk':                            ip => '127.0.0.1' }
+  host { 'info-frontend.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'kibana.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'licencefinder.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'limelight.dev.gov.uk':                            ip => '127.0.0.1' }
