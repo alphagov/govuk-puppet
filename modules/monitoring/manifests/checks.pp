@@ -1,6 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class monitoring::checks (
-  $contact_email = 'root@localhost'
+  $contact_email = 'root@localhost',
+  $pagerduty_apikey = '',
 ){
 
   include monitoring::checks::mirror
@@ -149,9 +150,12 @@ class monitoring::checks (
     email => $contact_email
   }
 
-  icinga::pager_contact { 'pager_nonworkhours':
-    service_notification_options => 'c',
-    notification_period          => '24x7',
+  if ($pagerduty_apikey != '') {
+    icinga::pager_contact { 'pager_nonworkhours':
+      service_notification_options => 'c',
+      notification_period          => '24x7',
+      pagerduty_apikey             => $pagerduty_apikey,
+    }
   }
 
   # End Zendesk Groups
