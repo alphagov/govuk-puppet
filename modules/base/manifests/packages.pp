@@ -7,7 +7,7 @@ class base::packages ($ruby_version=installed){
       'dnsutils',
       'dstat',
       'gettext',
-      'git-core',
+      'git',
       'htop',
       'iotop',
       'iptraf',
