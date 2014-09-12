@@ -12,6 +12,11 @@ class golang {
   }
   goenv::version { ['1.2.2', '1.3.1']: }
 
+  package { 'godep':
+    ensure  => latest,
+    require => Class['govuk::ppa'],
+  }
+
   # Ensure that scm tools used by `go get` are present.
   ensure_packages(['bzr', 'git', 'mercurial'])
 
