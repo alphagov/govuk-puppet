@@ -58,7 +58,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::kibana
   include govuk::apps::maslow
   include govuk::apps::need_api
-  include govuk::apps::need_o_tron # FIXME remove once this has been removed everywhere.
   include govuk::apps::panopticon
   include govuk::apps::publisher
   include govuk::apps::release

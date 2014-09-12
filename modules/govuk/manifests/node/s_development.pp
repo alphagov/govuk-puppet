@@ -116,7 +116,6 @@ class govuk::node::s_development {
   include govuk::apps::maslow
   include govuk::apps::metadata_api
   include govuk::apps::need_api
-  include govuk::apps::need_o_tron # FIXME remove once this has been removed everywhere.
   include govuk::apps::panopticon
   include govuk::apps::publicapi
   include govuk::apps::public_link_tracker
