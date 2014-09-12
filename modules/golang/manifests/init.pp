@@ -8,6 +8,7 @@ class golang {
 
   class { 'goenv':
     global_version => '1.2.2',
+    require        => Class['govuk::ppa'],
   }
   goenv::version { ['1.2.2', '1.3.1']: }
 
