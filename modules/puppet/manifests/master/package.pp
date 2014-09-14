@@ -13,6 +13,10 @@ class puppet::master::package(
 ) {
   include ::puppet
 
+  package { 'ruby-hiera-eyaml-gpg':
+    ensure => installed,
+  }
+
   package { 'unicorn':
     provider => system_gem,
   }
