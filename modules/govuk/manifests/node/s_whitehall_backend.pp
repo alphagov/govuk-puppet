@@ -5,12 +5,10 @@ class govuk::node::s_whitehall_backend (
 
   include govuk::node::s_ruby_app_server
   include nginx
-  include govuk_java::oracle7::jdk
-  include govuk_java::oracle7::jre
 
-  class { 'govuk_java::set_defaults':
-    jdk => 'oracle7',
-    jre => 'oracle7',
+  # FIXME remove once cleaned up
+  class { 'govuk_java::oracle7::jdk':
+    ensure => absent,
   }
 
   include imagemagick

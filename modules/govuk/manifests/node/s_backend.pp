@@ -1,8 +1,11 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
-  include govuk_java::oracle7::jdk
-  include govuk_java::oracle7::jre
+
+  # FIXME remove once cleaned up
+  class { 'govuk_java::oracle7::jdk':
+    ensure => absent,
+  }
 
   harden::limit { 'root-nofile':
     domain => 'root',
