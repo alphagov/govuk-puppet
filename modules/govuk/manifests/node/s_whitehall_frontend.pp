@@ -7,13 +7,9 @@ class govuk::node::s_whitehall_frontend (
   include govuk::node::s_ruby_app_server
   include nginx
 
-  # Java needed for tika
-  include govuk_java::oracle7::jdk
-  include govuk_java::oracle7::jre
-
-  class { 'govuk_java::set_defaults':
-    jdk => 'oracle7',
-    jre => 'oracle7',
+  # FIXME remove once cleaned up
+  class { 'govuk_java::oracle7::jdk':
+    ensure => absent,
   }
 
   $app_domain = hiera('app_domain')

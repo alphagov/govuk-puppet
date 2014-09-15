@@ -2,15 +2,13 @@
 class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk::node::s_base{
   include assets::user
   include clamav
-  include tika # Used to extract text from file attachments when indexing
 
-  # Java needed for tika
-  include govuk_java::oracle7::jdk
-  include govuk_java::oracle7::jre
-
-  class { 'govuk_java::set_defaults':
-    jdk => 'oracle7',
-    jre => 'oracle7',
+  # FIXME remove once cleaned up everywhere
+  package { 'tika':
+    ensure => purged,
+  }
+  class { 'govuk_java::oracle7::jdk':
+    ensure => absent,
   }
 
   $directories = [
@@ -74,10 +72,9 @@ class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk:
     mode   => '0755',
   }
 
+  # FIXME remove once cleaned up.
   file { '/usr/local/bin/extract_text_from_files.rb':
-    source  => 'puppet:///modules/govuk/node/s_asset_base/extract_text_from_files.rb',
-    mode    => '0755',
-    require => Package['tika'],
+    ensure => absent,
   }
 
   file { '/usr/local/bin/sync-assets.sh':

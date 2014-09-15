@@ -16,7 +16,7 @@ usage() {
   echo
   echo "Purpose:"
   echo "Scans <incoming_dir> and moves infected files to <infected_dir>. Optionally"
-  echo "moves clean files to <clean_dir> and extracts a text version of the files using tika."
+  echo "moves clean files to <clean_dir>."
   echo
   exit 1
 }
@@ -58,8 +58,6 @@ $CLAMSCAN_CMD --no-summary --stdout -r . > "$RESULTFILE" || true
 
 grep 'FOUND$' "$RESULTFILE" | sed 's/: [^:]* FOUND$//' | rsync --remove-source-files --files-from=- . "$INFECTED_DIR/."
 if [ -n "$CLEAN_DIR" ]; then
-  # FIXME either re-enable or remove this once we decide what to do with text extraction.
-  # grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | /usr/local/bin/extract_text_from_files.rb | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
 fi
 
