@@ -67,7 +67,11 @@ class govuk::apps::whitehall(
 
   if $configure_admin == true {
     include assets
-    include tika # Used to extract text from file attachments when indexing
+
+    # FIXME remove once cleaned up
+    package { 'tika':
+      ensure => 'purged',
+    }
 
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost                 => "whitehall-admin.${app_domain}",
