@@ -17,7 +17,8 @@ class backup::server (
     force   => true,
   }
 
-  file { '/data/backups':
+  file { ['/data/backups',
+          '/data/backups/archived']:
     ensure => directory,
     owner  => 'govuk-backup',
     mode   => '0700',
