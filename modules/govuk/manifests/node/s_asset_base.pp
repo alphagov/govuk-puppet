@@ -74,10 +74,9 @@ class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk:
     mode   => '0755',
   }
 
+  # FIXME remove once cleaned up.
   file { '/usr/local/bin/extract_text_from_files.rb':
-    source  => 'puppet:///modules/govuk/node/s_asset_base/extract_text_from_files.rb',
-    mode    => '0755',
-    require => Package['tika'],
+    ensure => absent,
   }
 
   file { '/usr/local/bin/sync-assets.sh':
