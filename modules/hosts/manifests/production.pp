@@ -12,8 +12,14 @@
 #   environment. Instead of going to the Production VSE.
 #   Default: false
 #
+# [*carrenza_vcloud*]
+#   Creates an /etc/hosts entry to access the vCloud API from a
+#   whitelisted IP without requiring a VPN connection.
+#   Default: false
+#
 class hosts::production (
   $apt_mirror_internal    = false,
+  $carrenza_vcloud        = false,
   $releaseapp_host_org    = false,
   $ip_bouncer             = '127.0.0.1',
   $ip_redirector          = '127.0.0.1',
@@ -27,6 +33,8 @@ class hosts::production (
     true    => ['apt.production.alphagov.co.uk'],
     default => undef,
   }
+
+  validate_bool($carrenza_vcloud)
 
   #management vdc machines
   govuk::host { 'jenkins-1':
@@ -637,6 +645,12 @@ class hosts::production (
   # 3rd-party hosts
   host { 'gds01prod.aptosolutions.co.uk':
     ip => '185.40.10.139',
+  }
+
+  if $carrenza_vcloud{
+    host { 'vcloud-no-vpn.carrenza.com':
+      ip => '31.210.240.69',
+    }
   }
 
 }
