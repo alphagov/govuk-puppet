@@ -12,6 +12,10 @@
 #   environment. Instead of going to the Production VSE.
 #   Default: false
 #
+# [*carrenza_vcloud*]
+#   Does this environment run on Carrenza's IL2 vCloud environment?
+#   Set to false by default, change to true in Hiera, if required.
+#
 class hosts::production (
   $apt_mirror_internal    = false,
   $carrenza_vcloud        = false,
