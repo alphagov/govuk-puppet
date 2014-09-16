@@ -13,8 +13,9 @@
 #   Default: false
 #
 # [*carrenza_vcloud*]
-#   Does this environment run on Carrenza's IL2 vCloud environment?
-#   Set to false by default, change to true in Hiera, if required.
+#   Creates an /etc/hosts entry to access the vCloud API from a
+#   whitelisted IP without requiring a VPN connection.
+#   Default: false
 #
 class hosts::production (
   $apt_mirror_internal    = false,
