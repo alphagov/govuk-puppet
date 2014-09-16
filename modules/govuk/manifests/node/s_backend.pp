@@ -21,11 +21,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     value  => '1024',
   }
 
-  class { 'govuk_java::set_defaults':
-    jdk => 'oracle7',
-    jre => 'oracle7',
-  }
-
   package { 'graphviz':
     ensure => installed
   }
