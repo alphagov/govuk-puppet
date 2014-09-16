@@ -647,7 +647,7 @@ class hosts::production (
   }
 
   if $carrenza_vcloud{
-    host { 'vcloud.carrenza.com':
+    host { 'vcloud-no-vpn.carrenza.com':
       ip => '31.210.240.69',
     }
   }
