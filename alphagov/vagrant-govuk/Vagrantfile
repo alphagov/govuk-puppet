@@ -80,15 +80,15 @@ Vagrant.configure("2") do |config|
         c.vm.synced_folder "..", "/var/govuk", :nfs => true
       end
 
-      # Additional shared folders for Puppet Master nodes.
       # These can't be NFS because OSX won't export overlapping paths.
+      c.vm.synced_folder "../puppet/gpg", "/etc/puppet/gpg"
+      # Additional shared folders for Puppet Master nodes.
       if node_name =~ /^puppetmaster/
         c.vm.synced_folder "../puppet", "/usr/share/puppet/production/current"
       end
 
       # run a script to partition extra disks for lvm if they exist.
-      c.vm.provision :shell, :inline =>"/var/govuk/puppet/tools/partition-disks"
-
+      c.vm.provision :shell, :inline => "/var/govuk/puppet/tools/partition-disks"
       c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant /var/govuk/puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
     end
   end
