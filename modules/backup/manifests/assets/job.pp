@@ -9,6 +9,7 @@
 #   $hour         Hour at which to begin back-up
 #   $minute       Minute at which to begin back-up
 #   $pubkey_id    GPG key fingerprint to encrypt backups with
+#   $ssh_id       SSH key filepath to use to connect to remote host
 #   $target       Destination
 #
 define backup::assets::job(
@@ -16,6 +17,7 @@ define backup::assets::job(
   $hour,
   $minute,
   $pubkey_id,
+  $ssh_id,
   $target,
 ){
 
@@ -27,6 +29,7 @@ $post_command = file('backup/post_command.sh')
     hour         => $hour,
     minute       => $minute,
     pubkey_id    => $pubkey_id,
+    ssh_id       => $ssh_id,
     post_command => $post_command
   }
 
