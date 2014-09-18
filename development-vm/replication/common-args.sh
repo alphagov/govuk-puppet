@@ -28,8 +28,8 @@ EOF
 DIR="backups/$(date +%Y-%m-%d)"
 SKIP_DOWNLOAD=false
 DRY_RUN=false
-# By default, ignore the trade tariff databases
-IGNORE="tariff tariff_temporal tariff_demo"
+# By default, ignore the trade tariff and external_link_tracker databases
+IGNORE="tariff tariff_temporal tariff_demo external_link_tracker"
 
 while getopts "hF:u:d:sri:n" OPTION
 do
