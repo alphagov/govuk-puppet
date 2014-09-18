@@ -63,6 +63,10 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*.sql.gz'); do
     status "PostgreSQL (not) restoring $(basename $file)"
   else
     PROD_DB_NAME=$(zgrep -m 1 -o '\\connect \(.*\)' < $file | sed 's/\\connect \("\?\)\(.*\)\1/\2/')
+    if [ -z "${PROD_DB_NAME}" ]; then
+      warning "Failed to find database name in ${file}. Skipping..."
+      continue
+    fi
     TARGET_DB_NAME=$(echo $PROD_DB_NAME | $NAME_MUNGE_COMMAND)
 
     for ignore_match in $IGNORE; do
