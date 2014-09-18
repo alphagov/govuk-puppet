@@ -20,7 +20,8 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
   }
   ->
   curl::fetch { 'mapit_dbdump_download':
-    source      => 'http://gds-public-readable-tarballs.s3.amazonaws.com/mapit.sql.gz',
+    # See modules/mapit/manifests/README.md for instructions to update this dump
+    source      => 'http://gds-public-readable-tarballs.s3.amazonaws.com/mapit-May2014.sql.gz',
     destination => '/data/vhost/mapit/data/mapit.sql.gz',
     require     => File['/data/vhost/mapit/data'],
   }
