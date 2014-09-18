@@ -18,7 +18,7 @@ respawn
 respawn limit 5 20
 
 pre-start script
-  echo "govuk.app.<%= @title %>.restarts:1|c" | nc -w 1 -u localhost 8125
+  /bin/bash -c '/bin/echo -n "govuk.app.<%= @title %>.restarts:1|c" > /dev/udp/localhost/8125'
 end script
 
 script
