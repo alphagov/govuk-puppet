@@ -41,7 +41,13 @@ if [ ! -e $MONGO_DIR/*.tgz ]; then
   exit 1
 fi
 
-tar -zxf $MONGO_DIR/*.tgz -C $MONGO_DIR
+if [ -e $MONGO_DIR/.extracted ]; then
+  status "Mongo dump has already been extracted."
+else
+  status "Extracting compressed files..."
+  tar -zxf $MONGO_DIR/*.tgz -C $MONGO_DIR
+  touch $MONGO_DIR/.extracted
+fi
 
 echo "Mapping database names for a development VM"
 NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
