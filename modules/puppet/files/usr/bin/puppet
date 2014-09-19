@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 
 # Allow system package to be used with non-system Ruby.
-$LOAD_PATH.unshift('/usr/lib/ruby/vendor_ruby')
+$LOAD_PATH.unshift(
+  '/usr/lib/ruby/vendor_ruby',
+  "/usr/lib/ruby/vendor_ruby/#{RbConfig::CONFIG["ruby_version"]}/#{RbConfig::CONFIG["arch"]}",
+)
 
 require 'puppet/util/command_line'
 Puppet::Util::CommandLine.new.execute
