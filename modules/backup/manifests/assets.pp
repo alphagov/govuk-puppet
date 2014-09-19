@@ -16,10 +16,19 @@
 #    $backup_private_key
 #      Private key of the off-site backup box. Used in the deployment repo,
 #      drawn in here
+#
+#    $dest_host
+#      Back-up target's hostname
+#
+#    $dest_host_key
+#      SSH hostkey for $dest_host
+#
 class backup::assets(
   $target,
   $pubkey_id,
   $backup_private_key,
+  $dest_host,
+  $dest_host_key
 ) {
 
   $sshkey_file = '/root/.ssh/id_rsa'
@@ -33,6 +42,17 @@ class backup::assets(
     ensure  => present,
     mode    => '0600',
     content => $backup_private_key,
+  }
+
+  sshkey { $dest_host :
+    ensure => present,
+    type   => 'ssh-rsa',
+    key    => $dest_host_key
+  }
+
+  exec { 'assets-gpgkey':
+    command => "gpg -q --recv-keys ${::gpgkey}",
+    unless  => "gpg -q --list-keys ${::gpgkey}"
   }
 
   backup::assets::job { 'whitehall':
