@@ -17,6 +17,10 @@ respawn
 # and should be killed off.
 respawn limit 5 20
 
+pre-start script
+  /bin/bash -c '/bin/echo -n "govuk.app.<%= @title %>.restarts:1|c" > /dev/udp/localhost/8125'
+end script
+
 script
 
   exec govuk_setenv "<%= @title %>" govuk_spinup \

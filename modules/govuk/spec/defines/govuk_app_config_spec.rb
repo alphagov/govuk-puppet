@@ -41,6 +41,7 @@ describe 'govuk::app::config', :type => :define do
         should_not contain_file('/etc/init/giraffe.conf').with(
           :content => /post-start script/
         )
+        should contain_file('/etc/init/giraffe.conf').with(:content => /pre-start script/ )
       end
     end
 
