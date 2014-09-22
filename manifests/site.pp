@@ -30,8 +30,7 @@ Class['apt::update'] -> Package <|
   tag != 'no_require_apt_update'
 |>
 
-# Check for explicit true; otherwise an undecrypted value would not trigger fail()
-if hiera('HIERA_EYAML_GPG_CHECK') != true {
+if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
   fail('Hiera eYAML GPG encryption backend is not working; check that Puppet has a valid GPG key')
 }
 
