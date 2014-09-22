@@ -211,22 +211,6 @@ class hosts::production (
     ip  => '10.2.0.17',
     vdc => 'frontend',
   }
-  govuk::host { 'whitehall-frontend-8':
-    ip  => '10.2.0.18',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-9':
-    ip  => '10.2.0.19',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-10':
-    ip  => '10.2.0.20',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-11':
-    ip  => '10.2.0.21',
-    vdc => 'frontend',
-  }
 
   #frontend lb vhosts
   govuk::host { 'frontend-lb-1':
