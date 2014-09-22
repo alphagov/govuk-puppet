@@ -579,7 +579,18 @@
     {
       "type": "annotations",
       "enable": true,
-      "annotations": []
+      "annotations": [
+        {
+          "name": "all restarts",
+          "type": "graphite metric",
+          "showLine": true,
+          "iconColor": "#FF2020",
+          "lineColor": "rgba(255, 32, 32, 0.592157)",
+          "iconSize": 13,
+          "enable": true,
+          "target": "substr(stats.govuk.app.*.restarts,3,5)"
+        }
+      ]
     }
   ],
   "nav": [
