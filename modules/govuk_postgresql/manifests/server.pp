@@ -6,6 +6,7 @@
 class govuk_postgresql::server (
     $backup = true,
     $listen_addresses = '*',
+    $configure_env_sync_user = false,
 ) {
   if !(
     defined(Class["${name}::standalone"]) or
@@ -28,6 +29,10 @@ class govuk_postgresql::server (
     @ufw::allow { 'allow-postgresql-from-all':
       port => 5432,
     }
+  }
+
+  if $configure_env_sync_user {
+    include govuk_postgresql::env_sync_user
   }
 
   if ($backup) {
