@@ -3,7 +3,7 @@ server {
   server_name <%= @vhost_name -%>;
   listen 80;
 <% if @enable_ssl -%>
-  rewrite ^/(.*) https://$server_name/$1 permanent;
+  rewrite ^/(.*) https://$host/$1 permanent;
 }
 
 server {
