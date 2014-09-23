@@ -23,7 +23,7 @@ class govuk::apps::efg( $port = 3019 ) {
     ssl_manage_cert       => false,
     extra_config          => '
   location /sflg/ {
-    rewrite ^ https://$server_name/? permanent;
+    rewrite ^ https://$host/? permanent;
   }
 
   location /training/ {

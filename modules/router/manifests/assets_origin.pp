@@ -11,8 +11,10 @@ class router::assets_origin(
   $asset_routes = {},
 ) {
   $app_domain = hiera('app_domain')
-  $vhost_name = "assets-origin.${app_domain}"
   $enable_ssl = hiera('nginx_enable_ssl', true)
+
+  $vhost_name = "assets-origin.${app_domain}"
+  $vhost_alias = 'assets.digital.cabinet-office.gov.uk'
 
   # suspect we want `protected => false` here
   # once appropriate firewalling is in place?
