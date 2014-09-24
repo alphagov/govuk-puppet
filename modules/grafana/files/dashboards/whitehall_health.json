@@ -277,7 +277,10 @@
           "title": "Frontend Unicorn Connection Queue",
           "targets": [
             {
-              "target": "aliasSub(aliasByNode(whitehall-frontend-?_frontend_production.curl-raindrops-whitehall.current_connections-queued,0),\"_frontend_production\",\"\")"
+              "target": "alias(sum(whitehall-frontend-?_frontend_production.curl-raindrops-whitehall.current_connections-queued),\"Queued\")"
+            },
+            {
+              "target": "alias(sum(whitehall-frontend-?_frontend_production.curl-raindrops-whitehall.current_connections-active),\"Active\")"
             }
           ],
           "datasource": null,
@@ -380,7 +383,10 @@
           },
           "targets": [
             {
-              "target": "aliasSub(aliasByNode(whitehall-backend-?_backend_production.curl-raindrops-whitehall.current_connections-queued,0),\"_backend_production\",\"\")"
+              "target": "alias(sum(whitehall-backend-?_backend_production.curl-raindrops-whitehall.current_connections-queued),\"Queued\")"
+            },
+            {
+              "target": "alias(sum(whitehall-backend-?_backend_production.curl-raindrops-whitehall.current_connections-active),\"Active\")"
             }
           ],
           "aliasColors": {},
