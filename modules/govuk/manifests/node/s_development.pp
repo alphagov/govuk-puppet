@@ -46,8 +46,9 @@ class govuk::node::s_development {
     to_version => '1.9.3-p545',
   }
 
-  rbenv::version { '2.0.0-p247':
-    bundler_version => '1.6.5'
+  # FIXME remove once cleaned up everywhere
+  package { 'rbenv-ruby-2.0.0-p247':
+    ensure => purged,
   }
   rbenv::version { '2.0.0-p353':
     bundler_version => '1.6.5'
