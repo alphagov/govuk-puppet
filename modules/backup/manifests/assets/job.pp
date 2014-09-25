@@ -1,20 +1,40 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == backup::assets::job
+#
+#   A class to run a Duplicity back-up job for an asset path passed in to
+#   it, and then update a Nagios check
+#
+# == Parameters
+#
+#   $asset_path   Path of asset(s) to be backed-up
+#   $hour         Hour at which to begin back-up
+#   $minute       Minute at which to begin back-up
+#   $pubkey_id    GPG key fingerprint to encrypt backups with
+#   $ssh_id       SSH key filepath to use to connect to remote host
+#   $target       Destination
+#
 define backup::assets::job(
   $asset_path,
   $hour,
-  $minute
+  $minute,
+  $pubkey_id,
+  $ssh_id,
+  $target,
 ){
 
+$post_command = file('backup/post_command.sh')
 
-  cron { $title:
-    command => "/usr/local/bin/memstore-backup.sh -d ${asset_path} -c /etc/govuk/memstore-credentials -f ${::fqdn} -s ${title} -n alert.cluster",
-    user    => 'root',
-    hour    => $hour,
-    minute  => $minute,
-    require => File['/usr/local/bin/memstore-backup.sh'],
+  duplicity { $title:
+    directory    => $asset_path,
+    target       => $target,
+    hour         => $hour,
+    minute       => $minute,
+    pubkey_id    => $pubkey_id,
+    ssh_id       => $ssh_id,
+    post_command => $post_command
   }
 
-  $threshold_secs = 28 * (60 * 60)
+  $threshold_secs = 28 * (60 * 60)        # 28 hours, in seconds
+
   @@icinga::passive_check { "check_backup-${title}-${::hostname}":
     service_description => $title,
     host_name           => $::fqdn,

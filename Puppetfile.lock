@@ -63,6 +63,13 @@ GIT
     curl (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-duplicity.git
+  ref: postcommand-hook
+  sha: 4fb2f6b732e19c9e60ab84e35de3ce759724e543
+  specs:
+    duplicity (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-ext4mount.git
   ref: master
   sha: d97f99cc2801b83152b905d1285fa34e689cb499
@@ -137,6 +144,7 @@ DEPENDENCIES
   apparmor (>= 0)
   benjamin/ramdisk (= 0.0.1)
   curl (>= 0)
+  duplicity (>= 0)
   ext4mount (>= 0)
   fsalum/redis (>= 0)
   gdsoperations/aptly (>= 0)
