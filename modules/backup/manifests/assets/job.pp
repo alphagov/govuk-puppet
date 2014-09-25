@@ -21,7 +21,7 @@ define backup::assets::job(
   $target,
 ){
 
-$post_command = file('backup/post_command.sh')
+$post_command = template('backup/post_command.sh.erb')
 
   duplicity { $title:
     directory    => $asset_path,
