@@ -20,6 +20,7 @@ process :'contact-o-tron'
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'
+process :'email-alert-service'
 process :errbit
 process :fact_cave
 process :fco

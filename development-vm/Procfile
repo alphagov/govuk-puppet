@@ -81,6 +81,7 @@ info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../info-fr
 # metadata-api uses 3087
 metadata-api:          govuk_setenv metadata-api          ./run_in.sh ../metadata-api make run
 email-alert-api:       govuk_setenv email-alert-api       ./run_in.sh ../email-alert-api bundle exec mr-sparkle --force-polling -- -p 3088
+email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../email-alert-service bundle exec bin/email_alert_service
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
