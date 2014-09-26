@@ -480,6 +480,7 @@ class hosts::production (
       "contacts-admin.${app_domain}",
       "content-planner.${app_domain}",
       "contentapi.${app_domain}",
+      "email-alert-api.${app_domain}",
       "errbit.${app_domain}",
       "external-link-tracker.${app_domain}",
       "fact-cave.${app_domain}",
