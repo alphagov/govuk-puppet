@@ -102,6 +102,7 @@ class govuk::node::s_development {
   include govuk::apps::content_store
   include govuk::apps::content_store::rabbitmq
   include govuk::apps::efg
+  include govuk::apps::email_alert_api
   include govuk::apps::errbit
   class { 'govuk::apps::external_link_tracker':
     mongodb_nodes => [

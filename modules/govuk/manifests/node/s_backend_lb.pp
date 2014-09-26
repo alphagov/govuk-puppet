@@ -47,6 +47,7 @@ class govuk::node::s_backend_lb (
       'asset-manager',
       'canary-backend',
       'contentapi',
+      'email-alert-api',
       'external-link-tracker',
       'finder-api',
       'need-api',
