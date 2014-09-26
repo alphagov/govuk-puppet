@@ -22,7 +22,7 @@ apt::unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
-backup::assets::target: "scp://govuk-assets@%{hiera('backup::offsite::dest_host')}//srv/backup-assets"
+backup::assets::target: "rsync://govuk-assets@%{hiera('backup::offsite::dest_host')}//srv/backup-assets"
 backup::assets::pubkey_id: '13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
 backup::assets::dest_host: "%{hiera('backup::offsite::dest_host')}"
 backup::assets::dest_host_key: "%{hiera('backup::offsite::dest_host_key')}"
