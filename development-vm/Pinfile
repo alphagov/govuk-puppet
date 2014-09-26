@@ -19,6 +19,7 @@ process :'publishing-api' => [:'content-store', :'router-api', :'url-arbiter']
 process :'contact-o-tron'
 process :designprinciples => :static
 process :efg
+process :'email-alert-api'
 process :errbit
 process :fact_cave
 process :fco
