@@ -25,7 +25,7 @@ process :errbit
 process :fact_cave
 process :fco
 process :fco_services
-process :feedback => [:static, :support]
+process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :'finder-api', :contentapi, :rummager]
 process :'finder-api'
 process :frontend => [:static, :contentapi, :rummager]
