@@ -5,6 +5,7 @@ gem "puppet-syntax"
 gem "puppet-lint"
 gem "puppet", "~> 3.4.0"
 gem "hiera", "1.3.2"
+gem "hiera-eyaml-gpg"
 gem "rspec-puppet"
 # FIXME: There is some confusion about who should require who.
 # https://github.com/rodjek/rspec-puppet/issues/56

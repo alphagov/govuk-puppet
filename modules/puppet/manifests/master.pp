@@ -61,11 +61,21 @@ class puppet::master(
     require => Class['puppet::master::generate_cert'],
   }
 
+  file { '/etc/puppet/gpg':
+    ensure => directory,
+    mode   => '0700',
+    owner  => 'puppet',
+    group  => 'puppet',
+  }
+
   anchor {'puppet::master::end':
-    subscribe => Class['puppet::master::service'],
-    require   => Class[
-      'puppet::master::firewall',
-      'puppet::master::nginx'
-    ],
+    subscribe =>  Class['puppet::master::service'],
+    require   =>  [
+                    Class[
+                      'puppet::master::firewall',
+                      'puppet::master::nginx'
+                    ],
+                    File['/etc/puppet/gpg'],
+                  ]
   }
 }

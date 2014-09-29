@@ -6,6 +6,11 @@
   - '%{::environment}'
   - 'common'
 :backends:
+  - eyaml
   - yaml
+:eyaml:
+  :datadir: '%{::settings::manifestdir}/../hieradata'
+  :gpg_gnupghome: '/etc/puppet/gpg'
+  :extension: 'yaml'
 :yaml:
   :datadir: '%{::settings::manifestdir}/../hieradata'

@@ -20,6 +20,7 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
   HIERA_WHITELIST = [
     # Used outside of module classes.
     'HIERA_SAFETY_CHECK',
+    'HIERA_EYAML_GPG_CHECK',
     'lv',
     'mount',
 

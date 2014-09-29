@@ -30,9 +30,9 @@ Class['apt::update'] -> Package <|
   tag != 'no_require_apt_update'
 |>
 
-# Ensure that hiera is working. Now that we depend on it for config.
-if !hiera('HIERA_SAFETY_CHECK', false) {
-  fail('Hiera does not appear to be working. Update `vagrant-govuk` and/or `vagrant reload` your VM')
+if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
+  fail("Hiera eYAML GPG encryption backend is not working; you should read: \
+https://github.gds/pages/gds/opsmanual/infrastructure/howto/encrypted-hiera-data.html?#puppet-fails-because-my-it-can-t-find-a-usable-gpg-key")
 }
 
 import 'nodes.pp'
