@@ -23,6 +23,13 @@ class backup::offsite::monitoring {
     host_name           => $offsite_fqdn,
   }
 
+  icinga::check { "check_disk_backup-assets_${offsite_hostname}":
+    check_command       => 'check_nrpe_1arg!check_disk_backup-assets',
+    service_description => 'high disk usage',
+    use                 => 'govuk_high_priority',
+    host_name           => $offsite_fqdn,
+  }
+
   icinga::check { "check_disk_logs-backup_${offsite_hostname}":
     check_command       => 'check_nrpe_1arg!check_disk_logs-backup',
     service_description => 'high disk usage',
