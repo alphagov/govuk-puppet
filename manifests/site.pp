@@ -31,7 +31,8 @@ Class['apt::update'] -> Package <|
 |>
 
 if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
-  fail('Hiera eYAML GPG encryption backend is not working; check that Puppet has a valid GPG key')
+  fail("Hiera eYAML GPG encryption backend is not working; you should read: \
+https://github.gds/pages/gds/opsmanual/infrastructure/howto/encrypted-hiera-data.html?#puppet-fails-because-my-it-can-t-find-a-usable-gpg-key")
 }
 
 import 'nodes.pp'
