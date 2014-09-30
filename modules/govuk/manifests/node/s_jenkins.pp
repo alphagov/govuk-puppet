@@ -23,16 +23,13 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
     owner => jenkins,
     group => jenkins,
   }
-  $github_ca_cert_content = hiera('github_ca_cert')
 
-  file {
-    '/home/jenkins/govuk':
-      ensure  => directory;
-    '/home/jenkins/govuk/cert':
-      ensure  => directory;
-    '/home/jenkins/govuk/cert/github.gds.pem':
-      ensure  => present,
-      content => $github_ca_cert_content;
+  # FIXME: Remove when deployed.
+  file { '/home/jenkins/govuk':
+    ensure  => absent,
+    recurse => true,
+    force   => true,
+    backup  => false,
   }
 
   # Deployment machine acting as a local DNS resolver
