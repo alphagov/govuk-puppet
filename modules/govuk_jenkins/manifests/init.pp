@@ -46,6 +46,32 @@ class govuk_jenkins {
     require => File['/mnt/jenkins'],
   }
 
+  apt::source { 'jenkins':
+    location     => 'http://apt.production.alphagov.co.uk/jenkins',
+    release      => 'binary',
+    architecture => $::architecture,
+    key          => '37E3ACBB',
+  }
+
+  package { 'jenkins':
+    ensure  => '1.554.2',
+    require => [
+      Class['govuk_java::set_defaults'],
+      File['/var/lib/jenkins'],
+    ],
+  }
+
+  file { '/etc/default/jenkins':
+    ensure  => file,
+    source  => 'puppet:///modules/govuk_jenkins/etc/default/jenkins',
+    require => Package['jenkins'],
+  }
+
+  service { 'jenkins':
+    ensure    => 'running',
+    subscribe => File['/etc/default/jenkins'],
+  }
+
   include bundler
   include govuk_mysql::libdev
   include mysql::client
@@ -84,5 +110,11 @@ class govuk_jenkins {
   ]:
     ensure   => absent,
     provider => pip,
+  }
+
+  # FIXME: Remove when deployed.
+  file { '/var/govuk-archive':
+    ensure => absent,
+    force  => true,
   }
 }
