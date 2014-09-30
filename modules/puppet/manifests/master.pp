@@ -64,6 +64,7 @@ class puppet::master(
   file { '/etc/puppet/gpg':
     ensure => directory,
     mode   => '0700',
+    recurse => true,
     owner  => 'puppet',
     group  => 'puppet',
   }
