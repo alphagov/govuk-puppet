@@ -32,18 +32,17 @@ class govuk_jenkins {
     require => User['jenkins'],
   }
 
-  file { '/mnt/jenkins':
-    ensure  => directory,
-    owner   => jenkins,
-    group   => jenkins,
-    mode    => '0644',
-    require => User['jenkins'],
+  # FIXME: Remove when deployed.
+  exec { 'restore_default_jenkins_datadir':
+    command => 'service jenkins stop; rm /var/lib/jenkins; mv /mnt/jenkins /var/lib/jenkins',
+    onlyif  => '/usr/bin/test -L /var/lib/jenkins',
+    notify  => Class['jenkins::service'],
   }
-
-  file { '/var/lib/jenkins':
-    ensure  => link,
-    target  => '/mnt/jenkins',
-    require => File['/mnt/jenkins'],
+  # FIXME: Remove when deployed.
+  file { '/mnt/jenkins':
+    ensure  => absent,
+    force   => true,
+    require => Exec['restore_default_jenkins_datadir'],
   }
 
   apt::source { 'jenkins':
@@ -58,10 +57,7 @@ class govuk_jenkins {
     repo               => false,
     install_java       => false,
     configure_firewall => false,
-    require            => [
-      Class['govuk_java::set_defaults'],
-      File['/var/lib/jenkins'],
-    ],
+    require            => Class['govuk_java::set_defaults'],
   }
 
   # FIXME: Replace with `config_hash` param to set `sessionTimeout`.
