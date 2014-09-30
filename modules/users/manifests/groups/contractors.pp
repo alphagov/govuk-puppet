@@ -11,6 +11,7 @@ class users::groups::contractors {
   include users::elliot
   include users::futurefabric
   include users::jackscotti
+  include users::karlentwistle
   include users::paulhayes
   include users::pedromoreira
   include users::russellgarner
