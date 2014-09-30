@@ -26,18 +26,6 @@ class govuk_jenkins::master inherits govuk_jenkins {
     subscribe => File['/etc/default/jenkins'],
   }
 
-  package { 'keychain':
-    ensure => 'installed'
-  }
-
-  file { '/home/jenkins/.bashrc':
-    source  => 'puppet:///modules/govuk_jenkins/dot-bashrc',
-    owner   => jenkins,
-    group   => jenkins,
-    mode    => '0700',
-    require => Package['keychain'],
-  }
-
   # FIXME: Remove when deployed.
   file { '/var/govuk-archive':
     ensure => absent,

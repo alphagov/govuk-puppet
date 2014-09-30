@@ -24,4 +24,16 @@ class govuk_jenkins::ssh_key {
     ],
     user    => 'jenkins',
   }
+
+  package { 'keychain':
+    ensure => 'installed'
+  }
+
+  file { '/home/jenkins/.bashrc':
+    source  => 'puppet:///modules/govuk_jenkins/dot-bashrc',
+    owner   => jenkins,
+    group   => jenkins,
+    mode    => '0700',
+    require => Package['keychain'],
+  }
 }
