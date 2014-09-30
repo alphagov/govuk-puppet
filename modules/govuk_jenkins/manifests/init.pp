@@ -1,9 +1,22 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_jenkins {
+# == Class: govuk_jenkins
+#
+# Configure a standalone instance of Jenkins with GitHub oAuth for
+# deployment tasks (not CI).
+#
+# === Parameters:
+#
+# [*github_enterprise_cert*]
+#   PEM certificate for GitHub Enterprise.
+#
+class govuk_jenkins (
+  $github_enterprise_cert,
+) {
   include govuk::python
   include govuk_jenkins::ssh_key
 
   $jenkins_home = '/var/lib/jenkins'
+  $github_enterprise_hostname = 'github.gds'
+  $github_enterprise_filename = "${jenkins_home}/${github_enterprise_hostname}.pem"
 
   # FIXME: Remove when deployed.
   exec { 'restore_default_jenkins_homedir':
@@ -33,6 +46,21 @@ class govuk_jenkins {
   class { 'govuk_java::set_defaults':
     jdk => 'oracle7',
     jre => 'oracle7',
+  }
+
+  file { $github_enterprise_filename:
+    ensure  => file,
+    content => $github_enterprise_cert,
+  }
+
+  java_ks { "${$github_enterprise_hostname}:cacerts":
+    ensure       => latest,
+    certificate  => $github_enterprise_filename,
+    target       => '/usr/lib/jvm/java-7-oracle/jre/lib/security/cacerts',
+    password     => 'changeit',
+    trustcacerts => true,
+    notify       => Class['jenkins::service'],
+    require      => Class['govuk_java::oracle7::jre'],
   }
 
   package { 'brakeman':

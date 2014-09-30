@@ -7,6 +7,7 @@ mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'
 mod 'puppetlabs/gcc'
+mod 'puppetlabs/java_ks'
 mod 'puppetlabs/mysql'
 mod 'puppetlabs/postgresql'
 mod 'puppetlabs/rabbitmq',
