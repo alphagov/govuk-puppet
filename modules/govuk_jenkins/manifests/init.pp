@@ -3,10 +3,6 @@ class govuk_jenkins {
   include govuk::python
   include govuk_jenkins::ssh_key
 
-  #TODO:
-  # also need to install fabric and cloth which are needed by private-utils,
-  # possibly this would be better done in the private-utils/jenkins.sh
-
   $jenkins_home = '/home/jenkins'
   user { 'jenkins':
     ensure     => present,
