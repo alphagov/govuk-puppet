@@ -26,7 +26,7 @@ describe 'backup::offsite', :type => :class do
     }
 
     it {
-      should_not contain_file('/usr/local/bin/offsite-backup').with_content(/^exit 0$/)
+      should contain_file('/usr/local/bin/offsite-backup').with_content(/^exit 0$/)
     }
   end
   context 'hostname => ice.cream, hostkey => pickle' do
@@ -40,16 +40,16 @@ describe 'backup::offsite', :type => :class do
       should contain_file('/usr/local/bin/offsite-backup').with_content(/^scp \$SSH_OPTS \$TEMP_FILE \${DEST}:cheesecake\/\${FILENAME}$/)
     }
   end
-  context 'enable => false' do
+  context 'enable => true' do
     let(:params) {{
       :dest_folder   => 'lemon/tart',
       :dest_host     => 'apple.turnover',
       :dest_host_key => 'cinnamonbun',
-      :enable        => false,
+      :enable        => true,
     }}
 
     it {
-      should contain_file('/usr/local/bin/offsite-backup').with_content(/^exit 0$/)
+      should_not contain_file('/usr/local/bin/offsite-backup').with_content(/^exit 0$/)
     }
   end
 end

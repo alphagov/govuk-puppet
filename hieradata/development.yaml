@@ -5,8 +5,6 @@ asset_root: 'http://assets-origin.dev.gov.uk'
 
 assets::mount_asset_master: false
 
-backup::offsite::enable: false
-
 base::supported_kernel::enabled: true
 
 clamav::use_service: false

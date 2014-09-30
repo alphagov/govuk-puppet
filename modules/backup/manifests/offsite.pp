@@ -19,13 +19,13 @@
 #
 # [*enable*]
 #    Whether to enable the generation and sending of encrypted backups
-#    Default: True
+#    Default: False
 #
 class backup::offsite(
   $dest_folder = '',
   $dest_host,
   $dest_host_key,
-  $enable = true,
+  $enable = false,
 ) {
 
   include backup::client
