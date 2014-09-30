@@ -31,11 +31,18 @@ class govuk_jenkins::ssh_key {
     ensure => 'installed'
   }
 
+  # FIXME: Remove when deployed.
   file { "${home_dir}/.bashrc":
-    source  => 'puppet:///modules/govuk_jenkins/dot-bashrc',
+    ensure => absent,
+  }
+
+  file { "${home_dir}/.profile":
+    ensure  => file,
+    source  => 'puppet:///modules/govuk_jenkins/dot-profile',
     owner   => jenkins,
     group   => jenkins,
     mode    => '0700',
+    notify  => Class['jenkins::service'],
     require => Package['keychain'],
   }
 }
