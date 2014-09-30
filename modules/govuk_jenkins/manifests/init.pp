@@ -41,7 +41,6 @@ class govuk_jenkins {
     'sqlite3',
     'gnuplot',
     'python-paramiko',
-    'ant'
     ]:
       ensure => installed,
   }
@@ -92,6 +91,7 @@ class govuk_jenkins {
   package { [
     'libffi-dev',
     'aspell',
+    'ant',
   ]:
     ensure   => absent,
   }
