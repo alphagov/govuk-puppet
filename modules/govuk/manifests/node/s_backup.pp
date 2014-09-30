@@ -19,9 +19,7 @@ class govuk::node::s_backup (
     require => Class['govuk_mysql::server'],
   }
 
-  if $offsite_backups {
-    include backup::offsite
-  }
+  include backup::offsite
 
   backup::directory {'backup_mongodb_backups_exception_handler_1':
     directory => '/var/lib/automongodbbackup/',
