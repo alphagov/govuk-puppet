@@ -66,24 +66,6 @@ class govuk_jenkins {
     ensure => installed,
   }
 
-  # This is required for the gov.uk spider job
-  package { 'scrapy':
-    ensure   => '0.14.4',
-    require  => Package['libffi-dev'],
-    provider => 'pip',
-  }
-
-  # Scrapy depends on the 'cryptography' pip package which requires this to
-  # build
-  package { 'libffi-dev':
-    ensure   => present,
-  }
-
-  package { 'twisted':
-    ensure   => '10.0.0',
-    provider => 'pip',
-  }
-
   file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
     owner   => jenkins,
@@ -112,4 +94,26 @@ class govuk_jenkins {
 
   # Used by govuk::apps::search
   include aspell
+
+  # FIXME: Remove when deployed.
+  package { 'libffi-dev':
+    ensure   => absent,
+  }
+
+  # FIXME: Remove when deployed.
+  package { [
+    'scrapy',
+    'twisted',
+    'w3lib',
+    'pyOpenSSL',
+    'lxml',
+    'zope.interface',
+    'six',
+    'cryptography',
+    'cffi',
+    'pycparser',
+  ]:
+    ensure   => absent,
+    provider => pip,
+  }
 }
