@@ -107,6 +107,7 @@ class govuk_jenkins (
       'git-client'    => { 'version' => '1.10.2' },
       'github-api'    => { 'version' => '1.58' },
       'github-oauth'  => { 'version' => '0.19' },
+      'role-strategy' => { 'version' => '2.2.0' },
     },
     require            => Class['govuk_java::set_defaults'],
   }
