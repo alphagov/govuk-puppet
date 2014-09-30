@@ -3,12 +3,28 @@ class govuk_jenkins {
   include govuk::python
   include govuk_jenkins::ssh_key
 
-  $jenkins_home = '/home/jenkins'
+  $jenkins_home = '/var/lib/jenkins'
+
+  # FIXME: Remove when deployed.
+  exec { 'restore_default_jenkins_homedir':
+    command => 'service jenkins stop; pkill -u jenkins; usermod -d /var/lib/jenkins jenkins',
+    unless  => 'awk -F: \'$1 == "jenkins" && $6 != "/var/lib/jenkins" { exit(1) }\' /etc/passwd',
+  }
+  # FIXME: Remove when deployed.
+  file { '/home/jenkins':
+    ensure  => absent,
+    recurse => true,
+    force   => true,
+    backup  => false,
+    require => Exec['restore_default_jenkins_homedir'],
+  }
+
   user { 'jenkins':
     ensure     => present,
     home       => $jenkins_home,
     managehome => true,
-    shell      => '/bin/bash'
+    shell      => '/bin/bash',
+    require    => Exec['restore_default_jenkins_homedir'],
   }
 
   include govuk_java::oracle7::jdk
@@ -24,7 +40,7 @@ class govuk_jenkins {
     provider => system_gem,
   }
 
-  file { '/home/jenkins/.gitconfig':
+  file { "${jenkins_home}/.gitconfig":
     source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
     owner   => jenkins,
     group   => jenkins,

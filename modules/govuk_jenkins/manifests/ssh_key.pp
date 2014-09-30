@@ -1,14 +1,16 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_jenkins::ssh_key {
-  $private_key = '/home/jenkins/.ssh/id_rsa'
-  $public_key = '/home/jenkins/.ssh/id_rsa.pub'
+  $home_dir = '/var/lib/jenkins'
+  $ssh_dir = "${home_dir}/.ssh"
+  $private_key = "${ssh_dir}/id_rsa"
+  $public_key = "${ssh_dir}/id_rsa.pub"
 
   file { $public_key:
     checksum => md5,
-    require  => [ User['jenkins'], File['/home/jenkins/.ssh'] ],
+    require  => [ User['jenkins'], File[$ssh_dir] ],
   }
 
-  file { '/home/jenkins/.ssh':
+  file { $ssh_dir:
     ensure => directory,
     mode   => '0600',
     owner  => 'jenkins',
@@ -20,7 +22,7 @@ class govuk_jenkins::ssh_key {
     creates => $private_key,
     require => [
       User['jenkins'],
-      File['/home/jenkins/.ssh']
+      File[$ssh_dir],
     ],
     user    => 'jenkins',
   }
@@ -29,7 +31,7 @@ class govuk_jenkins::ssh_key {
     ensure => 'installed'
   }
 
-  file { '/home/jenkins/.bashrc':
+  file { "${home_dir}/.bashrc":
     source  => 'puppet:///modules/govuk_jenkins/dot-bashrc',
     owner   => jenkins,
     group   => jenkins,
