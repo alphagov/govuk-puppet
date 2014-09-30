@@ -1,3 +1,4 @@
+# Class to create Jack Bracewell's user on GOV.UK
 class users::jackbracewell {
   govuk::user { 'jackbracewell':
     fullname => 'Jack Bracewell',

@@ -1,3 +1,4 @@
+# Class to create Karl Entwistle's user on GOV.UK
 class users::karlentwistle {
   govuk::user { 'karlentwistle':
     fullname => 'Karl Entwistle',
