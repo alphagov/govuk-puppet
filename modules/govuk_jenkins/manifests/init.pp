@@ -88,11 +88,11 @@ class govuk_jenkins {
   include govuk_mysql::libdev
   include mysql::client
 
-  # Used by govuk::apps::search
-  include aspell
-
   # FIXME: Remove when deployed.
-  package { 'libffi-dev':
+  package { [
+    'libffi-dev',
+    'aspell',
+  ]:
     ensure   => absent,
   }
 
