@@ -53,23 +53,21 @@ class govuk_jenkins {
     key          => '37E3ACBB',
   }
 
-  package { 'jenkins':
-    ensure  => '1.554.2',
-    require => [
+  class { 'jenkins':
+    version            => '1.554.2',
+    repo               => false,
+    install_java       => false,
+    configure_firewall => false,
+    require            => [
       Class['govuk_java::set_defaults'],
       File['/var/lib/jenkins'],
     ],
   }
 
   file { '/etc/default/jenkins':
-    ensure  => file,
-    source  => 'puppet:///modules/govuk_jenkins/etc/default/jenkins',
-    require => Package['jenkins'],
-  }
-
-  service { 'jenkins':
-    ensure    => 'running',
-    subscribe => File['/etc/default/jenkins'],
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/etc/default/jenkins',
+    notify => Class['jenkins::service'],
   }
 
   include bundler
