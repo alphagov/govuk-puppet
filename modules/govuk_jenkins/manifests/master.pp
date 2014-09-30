@@ -1,8 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_jenkins::master inherits govuk_jenkins {
 
-  $app_domain = hiera('app_domain')
-
   apt::source { 'jenkins':
     location     => 'http://apt.production.alphagov.co.uk/jenkins',
     release      => 'binary',
