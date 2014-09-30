@@ -64,6 +64,7 @@ class govuk_jenkins {
     ],
   }
 
+  # FIXME: Replace with `config_hash` param to set `sessionTimeout`.
   file { '/etc/default/jenkins':
     ensure => file,
     source => 'puppet:///modules/govuk_jenkins/etc/default/jenkins',
