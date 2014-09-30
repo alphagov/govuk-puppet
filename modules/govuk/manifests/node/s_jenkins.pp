@@ -19,11 +19,6 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
     require => Nginx::Config::Ssl['jenkins'],
   }
 
-  File {
-    owner => jenkins,
-    group => jenkins,
-  }
-
   # FIXME: Remove when deployed.
   file { '/home/jenkins/govuk':
     ensure  => absent,
