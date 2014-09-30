@@ -24,22 +24,6 @@ class govuk_jenkins {
     provider => system_gem,
   }
 
-  # Required for redirector-deploy
-  package { 's3cmd':
-    ensure   => 'installed',
-    provider => 'pip',
-  }
-
-  # This is required for the redirector-deploy job
-  package { 'libtext-csv-perl':
-    ensure => installed,
-  }
-
-  # This is required for the redirector-integration job
-  package { 'libcrypt-ssleay-perl':
-    ensure => installed,
-  }
-
   file { '/home/jenkins/.gitconfig':
     source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
     owner   => jenkins,
@@ -74,12 +58,18 @@ class govuk_jenkins {
     'sqlite3',
     'gnuplot',
     'python-paramiko',
+    'libtext-csv-perl',
+    'libtext-csv-xs-perl',
+    'libcrypt-ssleay-perl',
+    'liburi-perl',
+    'libwww-perl',
   ]:
     ensure   => absent,
   }
 
   # FIXME: Remove when deployed.
   package { [
+    's3cmd',
     'ghtools',
     'scrapy',
     'twisted',

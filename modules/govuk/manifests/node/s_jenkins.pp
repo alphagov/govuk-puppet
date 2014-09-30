@@ -4,9 +4,6 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
   include govuk_jenkins::master
   include govuk::ghe_vpn
 
-  # alphagov/redirector needs this library to run smoke tests
-  include ::perl::libwww
-
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
     status         => '444',
