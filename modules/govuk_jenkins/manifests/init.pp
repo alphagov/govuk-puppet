@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class jenkins {
+class govuk_jenkins {
   include govuk::python
-  include jenkins::ssh_key
+  include govuk_jenkins::ssh_key
 
   #TODO:
   # also need to install fabric and cloth which are needed by private-utils,
@@ -85,7 +85,7 @@ class jenkins {
   }
 
   file { '/home/jenkins/.gitconfig':
-    source  => 'puppet:///modules/jenkins/dot-gitconfig',
+    source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
     owner   => jenkins,
     group   => jenkins,
     mode    => '0644',

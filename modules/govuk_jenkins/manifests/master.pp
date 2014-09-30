@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class jenkins::master inherits jenkins {
+class govuk_jenkins::master inherits govuk_jenkins {
 
   $app_domain = hiera('app_domain')
 
@@ -12,12 +12,12 @@ class jenkins::master inherits jenkins {
 
   package { 'jenkins':
     ensure  => '1.554.2',
-    require => Class['jenkins'],
+    require => Class['govuk_jenkins'],
   }
 
   file { '/etc/default/jenkins':
     ensure  => file,
-    source  => 'puppet:///modules/jenkins/etc/default/jenkins',
+    source  => 'puppet:///modules/govuk_jenkins/etc/default/jenkins',
     require => Package['jenkins'],
   }
 
@@ -31,7 +31,7 @@ class jenkins::master inherits jenkins {
   }
 
   file { '/home/jenkins/.bashrc':
-    source  => 'puppet:///modules/jenkins/dot-bashrc',
+    source  => 'puppet:///modules/govuk_jenkins/dot-bashrc',
     owner   => jenkins,
     group   => jenkins,
     mode    => '0700',
