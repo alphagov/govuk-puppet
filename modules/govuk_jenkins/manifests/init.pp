@@ -11,14 +11,6 @@ class govuk_jenkins {
     shell      => '/bin/bash'
   }
 
-  # Parents created in `jenkins::ssh_key`.
-  file { "${jenkins_home}/.ssh/authorized_keys":
-    ensure => absent,
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    mode   => '0600',
-  }
-
   include govuk_java::oracle7::jdk
   include govuk_java::oracle7::jre
 
