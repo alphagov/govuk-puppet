@@ -101,6 +101,13 @@ class govuk_jenkins (
     repo               => false,
     install_java       => false,
     configure_firewall => false,
+    plugin_hash        => {
+      'scm-api'       => { 'version' => '0.2' },
+      'git'           => { 'version' => '2.2.6' },
+      'git-client'    => { 'version' => '1.10.2' },
+      'github-api'    => { 'version' => '1.58' },
+      'github-oauth'  => { 'version' => '0.19' },
+    },
     require            => Class['govuk_java::set_defaults'],
   }
 
