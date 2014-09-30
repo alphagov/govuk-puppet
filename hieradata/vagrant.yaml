@@ -5,6 +5,8 @@ asset_root: 'http://static.dev.gov.uk'
 
 app_domain: 'dev.gov.uk'
 
+backup::offsite::enable: false
+
 base::supported_kernel::enabled: true
 
 efg_domain: "www.sflg.gov.uk"
