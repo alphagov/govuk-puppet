@@ -13,6 +13,7 @@ mod 'puppetlabs/rabbitmq',
   :git => 'git://github.com/alphagov/puppetlabs-rabbitmq.git',
   :ref => 'strip-backslashes'
 mod 'puppetlabs/stdlib'
+mod 'rtyler/jenkins'
 mod 'saz/memcached'
 mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
