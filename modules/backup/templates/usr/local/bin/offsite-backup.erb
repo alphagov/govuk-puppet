@@ -18,6 +18,8 @@ trap nagios_passive EXIT
 <%- if !@enable -%>
 # This script is disabled in Puppet. Setting backup::offsite::enable: true will
 # remove this early exit
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: Backups are disabled"
 exit 0
 
 <%- end -%>
