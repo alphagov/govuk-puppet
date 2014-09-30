@@ -38,10 +38,9 @@ class govuk_jenkins::master inherits govuk_jenkins {
     require => Package['keychain'],
   }
 
+  # FIXME: Remove when deployed.
   file { '/var/govuk-archive':
-    ensure  => directory,
-    owner   => jenkins,
-    group   => jenkins,
-    require => User['jenkins'],
+    ensure => absent,
+    force  => true,
   }
 }
