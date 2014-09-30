@@ -32,11 +32,6 @@ class govuk_jenkins {
     provider => system_gem,
   }
 
-  package { 'ghtools':
-    ensure   => '0.20.0',
-    provider => pip,
-  }
-
   # Required for redirector-deploy
   package { 's3cmd':
     ensure   => 'installed',
@@ -93,6 +88,7 @@ class govuk_jenkins {
 
   # FIXME: Remove when deployed.
   package { [
+    'ghtools',
     'scrapy',
     'twisted',
     'w3lib',
