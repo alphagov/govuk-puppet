@@ -37,14 +37,6 @@ class govuk_jenkins {
     provider => pip,
   }
 
-  package { [
-    'sqlite3',
-    'gnuplot',
-    'python-paramiko',
-    ]:
-      ensure => installed,
-  }
-
   # Required for redirector-deploy
   package { 's3cmd':
     ensure   => 'installed',
@@ -92,6 +84,9 @@ class govuk_jenkins {
     'libffi-dev',
     'aspell',
     'ant',
+    'sqlite3',
+    'gnuplot',
+    'python-paramiko',
   ]:
     ensure   => absent,
   }
