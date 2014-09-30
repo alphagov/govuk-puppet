@@ -15,6 +15,12 @@ function nagios_passive () {
 }
 trap nagios_passive EXIT
 
+<%- if !@enable -%>
+# This script is disabled in Puppet. Setting backup::offsite::enable: true will
+# remove this early exit
+exit 0
+
+<%- end -%>
 STARTEPOCH=$(date +'%s')
 APPNAME=$(basename $0)
 
