@@ -30,10 +30,9 @@ Class['apt::update'] -> Package <|
   tag != 'no_require_apt_update'
 |>
 
-# FIXME: Uncomment once deployed
-#if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
-#  fail("Hiera eYAML GPG encryption backend is not working; you should read: \
-#https://github.gds/pages/gds/opsmanual/infrastructure/howto/encrypted-hiera-data.html?#puppet-fails-because-my-it-can-t-find-a-usable-gpg-key")
-#}
+if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
+  fail("Hiera eYAML GPG encryption backend is not working; you should read: \
+https://github.gds/pages/gds/opsmanual/infrastructure/howto/encrypted-hiera-data.html?#puppet-fails-because-my-it-can-t-find-a-usable-gpg-key")
+}
 
 import 'nodes.pp'

@@ -6,8 +6,7 @@
   - '%{::environment}'
   - 'common'
 :backends:
-# FIXME: Uncomment once deployed
-#  - eyaml
+  - eyaml
   - yaml
 :eyaml:
   :datadir: '%{::settings::manifestdir}/../hieradata'
