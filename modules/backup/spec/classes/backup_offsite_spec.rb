@@ -49,7 +49,7 @@ describe 'backup::offsite', :type => :class do
     }}
 
     it {
-      should_not contain_file('/usr/local/bin/offsite-backup').with_content(/^exit 0$/)
+      should contain_file('/usr/local/bin/offsite-backup').without_content(/^exit 0$/)
     }
   end
 end
