@@ -21,6 +21,7 @@ define backup::assets::job(
   $target,
 ){
 
+$service_description = "Off-site asset backups: ${title}"
 $post_command = template('backup/post_command.sh.erb')
 
   duplicity { $title:
@@ -36,7 +37,7 @@ $post_command = template('backup/post_command.sh.erb')
   $threshold_secs = 28 * (60 * 60)        # 28 hours, in seconds
 
   @@icinga::passive_check { "check_backup-${title}-${::hostname}":
-    service_description => $title,
+    service_description => $service_description,
     host_name           => $::fqdn,
     freshness_threshold => $threshold_secs,
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#asset-backup-failed',
