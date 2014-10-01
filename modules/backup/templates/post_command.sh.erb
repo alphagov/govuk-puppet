@@ -6,4 +6,4 @@ else
   NAGIOS_MESSAGE=\"CRITICAL\"
 fi
 
-printf \"<%= @fqdn -%>\t<%= @title -%>\t\${NAGIOS_CODE}\t\${NAGIOS_MESSAGE}\\n\" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+printf \"<%= @fqdn -%>\t<%= @service_description -%>\t\${NAGIOS_CODE}\t\${NAGIOS_MESSAGE}\\n\" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
