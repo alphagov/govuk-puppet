@@ -110,6 +110,7 @@ class govuk::node::s_development {
   include govuk::apps::email_alert_api
   include govuk::apps::email_alert_service
   include govuk::apps::email_alert_service::rabbitmq_permissions
+  include govuk::apps::email_alert_service::rabbitmq_test_permissions
   include govuk::apps::errbit
   class { 'govuk::apps::external_link_tracker':
     mongodb_nodes => [
