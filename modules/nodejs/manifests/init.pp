@@ -1,6 +1,24 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class nodejs {
+# == Class: nodejs
+#
+# installs nodejs
+#
+# === Parameters:
+#
+# [*version*]
+#   Version to install.  Leave `undef` to install any version that's available
+#   Default: `undef`
+#
+class nodejs(
+  $version = undef
+) {
+
+  if $version == undef {
+    $ensure = 'present'
+  } else {
+    $ensure = $version
+  }
+
   package { 'nodejs':
-    ensure  => '0.6.12~dfsg1-1ubuntu1',
+    ensure  => $ensure,
   }
 }
