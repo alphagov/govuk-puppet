@@ -18,31 +18,11 @@ class govuk_jenkins (
   $github_enterprise_hostname = 'github.gds'
   $github_enterprise_filename = "${jenkins_home}/${github_enterprise_hostname}.pem"
 
-  # FIXME: Remove when deployed.
-  exec { 'restore_default_jenkins_homedir':
-    command => 'service jenkins stop; pkill -u jenkins; sleep 5; usermod -d /var/lib/jenkins jenkins',
-    unless  => 'awk -F: \'$1 == "jenkins" && $6 != "/var/lib/jenkins" { exit(1) }\' /etc/passwd',
-    notify  => Class['jenkins::service'],
-  }
-  # FIXME: Remove when deployed.
-  exec { 'restore_existing_jenkins_sshkeys':
-    command => 'mv /home/jenkins/.ssh /var/lib/jenkins/',
-    onlyif  => 'test -d /home/jenkins/.ssh -a \! -d /var/lib/jenkins/.ssh',
-    before  => Class['govuk_jenkins::ssh_key'],
-    notify  => Class['jenkins::service'],
-  }
-  # FIXME: Remove when deployed.
-  exec { 'restore_existing_jenkins_bundles':
-    command => 'mv /home/jenkins/bundles /var/lib/jenkins/',
-    onlyif  => 'test -d /home/jenkins/bundles -a \! -d /var/lib/jenkins/bundles',
-  }
-
   user { 'jenkins':
     ensure     => present,
     home       => $jenkins_home,
     managehome => true,
     shell      => '/bin/bash',
-    require    => Exec['restore_default_jenkins_homedir'],
   }
 
   include govuk_java::oracle7::jdk
@@ -81,19 +61,6 @@ class govuk_jenkins (
     require => User['jenkins'],
   }
 
-  # FIXME: Remove when deployed.
-  exec { 'restore_default_jenkins_datadir':
-    command => 'service jenkins stop; rm /var/lib/jenkins; mv /mnt/jenkins /var/lib/jenkins',
-    onlyif  => '/usr/bin/test -L /var/lib/jenkins',
-    notify  => Class['jenkins::service'],
-  }
-  # FIXME: Remove when deployed.
-  file { '/mnt/jenkins':
-    ensure  => absent,
-    force   => true,
-    require => Exec['restore_default_jenkins_datadir'],
-  }
-
   apt::source { 'jenkins':
     location     => 'http://apt.production.alphagov.co.uk/jenkins',
     release      => 'binary',
@@ -127,46 +94,4 @@ class govuk_jenkins (
   include bundler
   include govuk_mysql::libdev
   include mysql::client
-
-  # FIXME: Remove when deployed.
-  package { [
-    'libffi-dev',
-    'aspell',
-    'ant',
-    'sqlite3',
-    'gnuplot',
-    'python-paramiko',
-    'libtext-csv-perl',
-    'libtext-csv-xs-perl',
-    'libcrypt-ssleay-perl',
-    'liburi-perl',
-    'libwww-perl',
-  ]:
-    ensure   => absent,
-  }
-
-  # FIXME: Remove when deployed.
-  package { [
-    's3cmd',
-    'ghtools',
-    'scrapy',
-    'twisted',
-    'w3lib',
-    'pyOpenSSL',
-    'lxml',
-    'zope.interface',
-    'six',
-    'cryptography',
-    'cffi',
-    'pycparser',
-  ]:
-    ensure   => absent,
-    provider => pip,
-  }
-
-  # FIXME: Remove when deployed.
-  file { '/var/govuk-archive':
-    ensure => absent,
-    force  => true,
-  }
 }
