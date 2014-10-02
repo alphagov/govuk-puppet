@@ -1,11 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_jenkins inherits govuk::node::s_base {
   include nginx
-  include jenkins::master
+  include govuk_jenkins
   include govuk::ghe_vpn
-
-  # alphagov/redirector needs this library to run smoke tests
-  include ::perl::libwww
 
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':
@@ -22,20 +19,12 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
     require => Nginx::Config::Ssl['jenkins'],
   }
 
-  File {
-    owner => jenkins,
-    group => jenkins,
-  }
-  $github_ca_cert_content = hiera('github_ca_cert')
-
-  file {
-    '/home/jenkins/govuk':
-      ensure  => directory;
-    '/home/jenkins/govuk/cert':
-      ensure  => directory;
-    '/home/jenkins/govuk/cert/github.gds.pem':
-      ensure  => present,
-      content => $github_ca_cert_content;
+  # FIXME: Remove when deployed.
+  file { '/home/jenkins/govuk':
+    ensure  => absent,
+    recurse => true,
+    force   => true,
+    backup  => false,
   }
 
   # Deployment machine acting as a local DNS resolver

@@ -47,7 +47,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'ci_alphagov_key',
     'deploy_ssh_keys',
     'efg_domain',
-    'github_ca_cert',
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
     'http_password',

@@ -48,6 +48,34 @@ govuk_crawler::site_root: 'https://www.gov.uk'
 
 govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
+govuk_jenkins::github_enterprise_cert: |
+    -----BEGIN CERTIFICATE-----
+    MIIEdDCCA1ygAwIBAgIJAKt4YiHj0+tVMA0GCSqGSIb3DQEBBQUAMIGCMQswCQYD
+    VQQGEwJHQjEPMA0GA1UECBMGTG9uZG9uMQ8wDQYDVQQHEwZMb25kb24xFzAVBgNV
+    BAoTDkNhYmluZXQgT2ZmaWNlMSMwIQYDVQQLExpHb3Zlcm5tZW50IERpZ2l0YWwg
+    U2VydmljZTETMBEGA1UEAxMKZ2l0aHViLmdkczAeFw0xMzAxMDcxNTE5MjhaFw0x
+    ODAxMDYxNTE5MjhaMIGCMQswCQYDVQQGEwJHQjEPMA0GA1UECBMGTG9uZG9uMQ8w
+    DQYDVQQHEwZMb25kb24xFzAVBgNVBAoTDkNhYmluZXQgT2ZmaWNlMSMwIQYDVQQL
+    ExpHb3Zlcm5tZW50IERpZ2l0YWwgU2VydmljZTETMBEGA1UEAxMKZ2l0aHViLmdk
+    czCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANiLTHwolRWmRZeIeboY
+    4L4VUoMv6zg0rovpzX1hdzdJ5Gn6OoxaADO78Al85/9jRXIYyun6d9iRAknb1ZrG
+    yxLQ8mmMl8rqbHa/mBK42G5NVL703712NslcNfeY/FvvdtVBjUI1EIRbehDYMYET
+    aqX88HAvohyIoe1LJ4+6t2hF+P1dP7DQvxcu4eBlaywssbvt+FVnYIY87X6CdrVe
+    bkMWh0C7J32uY4lEyamcl/M//KjJWFDBkFTbdguZW+KeFwfecVh+OpsdNRKzI3vX
+    zriHE7icrJWw5jssE2ZMregLfc1bZ5zpPljEFVxDzyIuseUuVxYQSr1GNwrzr1ix
+    LIECAwEAAaOB6jCB5zAdBgNVHQ4EFgQUxjT7A9kz7MecUpg6QCMWteDYF7wwgbcG
+    A1UdIwSBrzCBrIAUxjT7A9kz7MecUpg6QCMWteDYF7yhgYikgYUwgYIxCzAJBgNV
+    BAYTAkdCMQ8wDQYDVQQIEwZMb25kb24xDzANBgNVBAcTBkxvbmRvbjEXMBUGA1UE
+    ChMOQ2FiaW5ldCBPZmZpY2UxIzAhBgNVBAsTGkdvdmVybm1lbnQgRGlnaXRhbCBT
+    ZXJ2aWNlMRMwEQYDVQQDEwpnaXRodWIuZ2RzggkAq3hiIePT61UwDAYDVR0TBAUw
+    AwEB/zANBgkqhkiG9w0BAQUFAAOCAQEASTEwAV+wKUbQcBOKAWsZpPAxw168uRU/
+    KVp7XRE7XyOZUPL2OJ9RLRZz1hCgOuwx304DVLfQVeDp+uhsQzmkdxbBto23ejyh
+    8gXdHEnbjf2FN1dVomcDo7jqAqBU7Ji/c7sCLU/2z3ILt0fzwrEj3WQOl7dqYxY1
+    qruyrjFTQOclWUJKzHqlIKr3iBFVE0Z1EVywWKeV1CwKkikYhTjZGs0goCy0LHrj
+    LG8Mr4r1mOsqtUPYYjCN77EOwkRUucvIt1zNPoiD21OXzzxdOIUOUq6l/kERSfba
+    LWIWJn/KXkog8bU776IixxWlO8l1TwiCUoDS9YsLIKIRCT74QE48qA==
+    -----END CERTIFICATE-----
+
 govuk_mysql::server::expire_log_days: 3
 
 govuk_postgresql::server::configure_env_sync_user: true
