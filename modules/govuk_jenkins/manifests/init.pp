@@ -20,16 +20,21 @@ class govuk_jenkins (
 
   # FIXME: Remove when deployed.
   exec { 'restore_default_jenkins_homedir':
-    command => 'service jenkins stop; pkill -u jenkins; usermod -d /var/lib/jenkins jenkins',
+    command => 'service jenkins stop; pkill -u jenkins; sleep 5; usermod -d /var/lib/jenkins jenkins',
     unless  => 'awk -F: \'$1 == "jenkins" && $6 != "/var/lib/jenkins" { exit(1) }\' /etc/passwd',
+    notify  => Class['jenkins::service'],
   }
   # FIXME: Remove when deployed.
-  file { '/home/jenkins':
-    ensure  => absent,
-    recurse => true,
-    force   => true,
-    backup  => false,
-    require => Exec['restore_default_jenkins_homedir'],
+  exec { 'restore_existing_jenkins_sshkeys':
+    command => 'mv /home/jenkins/.ssh /var/lib/jenkins/',
+    onlyif  => 'test -d /home/jenkins/.ssh -a \! -d /var/lib/jenkins/.ssh',
+    before  => Class['govuk_jenkins::ssh_key'],
+    notify  => Class['jenkins::service'],
+  }
+  # FIXME: Remove when deployed.
+  exec { 'restore_existing_jenkins_bundles':
+    command => 'mv /home/jenkins/bundles /var/lib/jenkins/',
+    onlyif  => 'test -d /home/jenkins/bundles -a \! -d /var/lib/jenkins/bundles',
   }
 
   user { 'jenkins':
