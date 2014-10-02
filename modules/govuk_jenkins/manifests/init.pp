@@ -24,6 +24,13 @@ class govuk_jenkins (
     unless  => 'awk -F: \'$1 == "jenkins" && $6 != "/var/lib/jenkins" { exit(1) }\' /etc/passwd',
     notify  => Class['jenkins::service'],
   }
+  # FIXME: Remove when deployed.
+  exec { 'restore_existing_jenkins_sshkeys':
+    command => 'mv /home/jenkins/.ssh /var/lib/jenkins/',
+    onlyif  => 'test -d /home/jenkins/.ssh -a \! -d /var/lib/jenkins/.ssh',
+    before  => Class['govuk_jenkins::ssh_key'],
+    notify  => Class['jenkins::service'],
+  }
 
   user { 'jenkins':
     ensure     => present,
