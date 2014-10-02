@@ -23,14 +23,6 @@ class govuk_jenkins (
     command => 'service jenkins stop; pkill -u jenkins; usermod -d /var/lib/jenkins jenkins',
     unless  => 'awk -F: \'$1 == "jenkins" && $6 != "/var/lib/jenkins" { exit(1) }\' /etc/passwd',
   }
-  # FIXME: Remove when deployed.
-  file { '/home/jenkins':
-    ensure  => absent,
-    recurse => true,
-    force   => true,
-    backup  => false,
-    require => Exec['restore_default_jenkins_homedir'],
-  }
 
   user { 'jenkins':
     ensure     => present,
