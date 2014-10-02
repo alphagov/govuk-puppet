@@ -4,6 +4,7 @@
   - 'class/%{::govuk_node_class}'
   - '%{::environment}_credentials'
   - '%{::environment}'
+  - 'common.%{::lsbdistcodename}'
   - 'common'
 :backends:
   - eyaml
