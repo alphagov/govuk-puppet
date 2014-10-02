@@ -22,6 +22,7 @@ class govuk_jenkins (
   exec { 'restore_default_jenkins_homedir':
     command => 'service jenkins stop; pkill -u jenkins; sleep 5; usermod -d /var/lib/jenkins jenkins',
     unless  => 'awk -F: \'$1 == "jenkins" && $6 != "/var/lib/jenkins" { exit(1) }\' /etc/passwd',
+    notify  => Class['jenkins::service'],
   }
 
   user { 'jenkins':
