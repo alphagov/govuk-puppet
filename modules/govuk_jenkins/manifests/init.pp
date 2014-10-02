@@ -31,6 +31,11 @@ class govuk_jenkins (
     before  => Class['govuk_jenkins::ssh_key'],
     notify  => Class['jenkins::service'],
   }
+  # FIXME: Remove when deployed.
+  exec { 'restore_existing_jenkins_bundles':
+    command => 'mv /home/jenkins/bundles /var/lib/jenkins/',
+    onlyif  => 'test -d /home/jenkins/bundles -a \! -d /var/lib/jenkins/bundles',
+  }
 
   user { 'jenkins':
     ensure     => present,
