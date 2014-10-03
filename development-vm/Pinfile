@@ -34,7 +34,7 @@ process :'info-frontend' => [:static, :'metadata-api']
 process :imminence
 process :hmrc_contacts => [:rummager, :'publishing-api']
 process :'hmrc-manuals-api' => [:'publishing-api']
-process :'manuals-frontend' => [:static, :contentapi, :'content-store']
+process :'manuals-frontend' => [:static, :'content-store']
 process :jobs
 process :licencefinder => [:static, :contentapi]
 process :maslow => :need_api
