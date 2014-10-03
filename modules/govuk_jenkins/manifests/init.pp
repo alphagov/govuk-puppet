@@ -48,6 +48,11 @@ class govuk_jenkins (
     require      => Class['govuk_java::oracle7::jre'],
   }
 
+  package { 'ghtools':
+    ensure   => '0.20.0',
+    provider => pip,
+  }
+
   package { 'brakeman':
     ensure   => 'installed',
     provider => system_gem,
