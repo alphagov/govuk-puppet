@@ -10,6 +10,7 @@ define router::errorpage () {
     unless  => "find ${filename} -mmin -360 -print 2>/dev/null | grep -Eqs '^${filename}$'",
     user    => 'deploy',
     group   => 'deploy',
+    require => Class['curl'],
   }
 
 }
