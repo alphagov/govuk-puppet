@@ -33,6 +33,9 @@ class govuk_jenkins (
     jre => 'oracle7',
   }
 
+  # In addition to the keystore below, this path is also referenced by the
+  # `GITHUB_GDS_CA_BUNDLE` environment variable in Jenkins which is used by
+  # ghtools during GitHub.com -> GitHub Enterprise repo backups.
   file { $github_enterprise_filename:
     ensure  => file,
     content => $github_enterprise_cert,
