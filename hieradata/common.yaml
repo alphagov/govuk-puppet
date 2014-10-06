@@ -92,6 +92,8 @@ govuk_sudo::sudo_conf:
 
 mongodb::server::version: '2.4.9'
 
+nodejs::version: '0.10.25~dfsg2-2ubuntu1'
+
 ntp::server_list:
   - 'ntp.ubuntu.com'
   - 'time.euro.apple.com'
