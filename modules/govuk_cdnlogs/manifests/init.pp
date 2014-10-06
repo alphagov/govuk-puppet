@@ -70,6 +70,7 @@ class govuk_cdnlogs (
       check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c7200 -w3600\"",
       service_description => 'Logs are not being received from the CDN',
       host_name           => $::fqdn,
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
     }
   }
 
