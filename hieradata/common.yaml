@@ -92,6 +92,8 @@ govuk_sudo::sudo_conf:
 
 mongodb::server::version: '2.4.9'
 
+nginx::package::version: '1.4.6-1ubuntu3.1'
+
 nodejs::version: '0.10.25~dfsg2-2ubuntu1'
 
 ntp::server_list:
