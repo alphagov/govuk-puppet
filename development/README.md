@@ -80,10 +80,11 @@ and that's it. Now you can get to work!
 
 * Your VM comes pre-configured with an IP address. This is visible in
   the [Vagrantfile](./Vagrantfile) (but currently defaults to `10.1.1.254`)
-* If you want to add extra RAM, you can do so in a
-  `Vagrantfile.localconfig` file in this directory, which is
-  automatically read by Vagrant (don't forget to re-run `vagrant
-  up`!):
+* If you have < 8GB of RAM on your host machine, you will need to reduce the
+  RAM available to the VM. You can also add extra RAM if you require more.
+  You can do both of these things in a `Vagrantfile.localconfig` file in this
+  directory, which is automatically read by Vagrant (don't forget to re-run
+  `vagrant up`!):
 
         $ cat ./Vagrantfile.localconfig
         config.vm.provider :virtualbox do |vm|
