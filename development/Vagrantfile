@@ -117,8 +117,9 @@ Vagrant.configure("2") do |config|
 
   config = common_config(config)
 
-  # You may want to up the memory / CPUs to get better performance in the VM.
-  # Example given below to put in Vagrantfile.localconfig if you want to do so:
+  # You may want to change the memory or CPU number in the VM. Example given
+  # below to put in Vagrantfile.localconfig if you want to do so - this sets
+  # memory to 2048MB and the number of CPUs to 4.
   #
   #     config.vm.provider :virtualbox do |vm|
   #       vm.customize [ "modifyvm", :id, "--memory", "2048", "--cpus", "4" ]
