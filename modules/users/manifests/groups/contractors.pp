@@ -13,6 +13,7 @@ class users::groups::contractors {
   include users::jackbracewell
   include users::jackscotti
   include users::karlentwistle
+  include users::patrickdavenport
   include users::paulhayes
   include users::pedromoreira
   include users::russellgarner
