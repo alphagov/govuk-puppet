@@ -87,6 +87,12 @@ class govuk::node::s_backup (
     fq_dn     => 'transition-postgresql-slave-1.backend.production',
   }
 
+  backup::directory {'backup_graphite_storage_whisper_graphite-1':
+    directory => '/opt/graphite/backup',
+    host_name => 'graphite-1',
+    fq_dn     => 'graphite-1.management.production',
+  }
+
   if $backup_efg {
     backup::directory {'backup_mysql_backups_efg_mysql':
       directory => '/var/lib/automysqlbackup/',
