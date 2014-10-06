@@ -12,6 +12,9 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     require                    => Govuk::Mount['/opt/graphite'],
   }
 
+  # Create a nightly tarball of graphite metrics
+  include backup::graphite::tarball
+
   # Remove this fix when upgrading from 0.9.12:
   # https://github.com/graphite-project/graphite-web/issues/423
   $util_py          = '/opt/graphite/webapp/graphite/util.py'
