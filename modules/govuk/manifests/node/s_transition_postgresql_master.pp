@@ -43,6 +43,8 @@ class govuk::node::s_transition_postgresql_master (
   # doesn't exist in Puppet, so use floor + 1 instead.
   $kernel_shmall_pages        = floor($kernel_shmmax_bytes / 4096 ) + 1
 
+  # FIXME: change these kernel settings to `ensure => absent` once we are on
+  # PostgreSQL 9.3:
   sysctl { 'kernel.shmmax':
     value  => $kernel_shmmax_bytes,
     notify => Class['postgresql::server::service']
