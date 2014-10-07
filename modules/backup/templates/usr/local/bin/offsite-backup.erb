@@ -58,6 +58,8 @@ fi
 
 FINISHEPOCH=$(date +'%s')
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
+MILLISECONDS=$(expr $TOTALTIME * 1000)
 
 MESSAGE="Offsite backups completed in T:$TOTALTIME seconds"
+/bin/echo -n "govuk.backup.offsite_backup:${MILLISECONDS}|ms" > /dev/udp/localhost/8125
 logger -t $APPNAME $MESSAGE
