@@ -18,3 +18,4 @@
 REVISION
 .vagrant
 /development/Vagrantfile.localconfig
+/gpg/random_seed
