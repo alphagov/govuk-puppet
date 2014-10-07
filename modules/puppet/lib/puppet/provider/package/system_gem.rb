@@ -10,7 +10,7 @@ Puppet::Type.type(:package).provide :system_gem, :parent => :gem, :source => :ge
     ENV.delete 'RBENV_VERSION'
     ENV['PATH'] = ENV['PATH'].
       split(File::PATH_SEPARATOR).
-      reject{|x| x =~ %r{rbenv/versions}}.
+      reject{|x| x =~ %r{rbenv/}}.
       join(File::PATH_SEPARATOR)
     yield
   ensure
