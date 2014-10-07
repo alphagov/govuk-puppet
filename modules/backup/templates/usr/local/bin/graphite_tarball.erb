@@ -44,6 +44,8 @@ fi
 
 FINISHEPOCH=$(date +'%s')
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
+MILLISECONDS=$(expr $TOTALTIME * 1000)
 
 MESSAGE="Graphite tarball backup completed in T:$TOTALTIME seconds with exit($NAGIOS_CODE)"
+/bin/echo -n "govuk.backup.graphite_tarball:${MILLISECONDS}|ms" > /dev/udp/localhost/8125
 logger -t $APPNAME $MESSAGE
