@@ -1,4 +1,4 @@
-# == Class: govuk::repository
+# == Class: govuk::deprecated_repository
 #
 # Please see the following page in the opsmanual:
 #
@@ -7,7 +7,7 @@
 # No feature flag is provided to switch this back to the old S3 source. If
 # our mirror goes down then the repo should just be disabled temporarily.
 #
-class govuk::repository {
+class govuk::deprecated_repository {
   apt::source { 'govuk-s3deprecated-current':
     location     => 'http://apt.production.alphagov.co.uk/govuk/s3deprecated/current',
     release      => 'current',

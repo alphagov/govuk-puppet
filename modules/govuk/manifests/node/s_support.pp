@@ -9,6 +9,7 @@ class govuk::node::s_support ( $mysql_preview_backup = '', ) inherits govuk::nod
     jre => 'openjdk6',
   }
 
+  include govuk::deprecated_repository # Needed for old ES version
   class { 'govuk_elasticsearch':
     cluster_name       => 'govuk-production',
     heap_size          => '2g',

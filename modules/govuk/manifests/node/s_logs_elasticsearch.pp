@@ -10,7 +10,6 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     jre => 'oracle7',
   }
 
-  include govuk::repository # Old version of ES.
   class { 'govuk_elasticsearch':
     cluster_hosts        => ['logs-elasticsearch-1.management:9300', 'logs-elasticsearch-2.management:9300', 'logs-elasticsearch-3.management:9300'],
     cluster_name         => 'logging',

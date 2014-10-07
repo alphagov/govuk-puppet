@@ -7,7 +7,6 @@ class govuk::node::s_base {
   include govuk::deploy
   include govuk::envsys
   include govuk::firewall
-  include govuk::repository
   include govuk::scripts
   include govuk::sshkeys
   include harden
