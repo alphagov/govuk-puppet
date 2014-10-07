@@ -104,7 +104,6 @@ class govuk_jenkins (
     notify => Class['jenkins::service'],
   }
 
-  include bundler
   include govuk_mysql::libdev
   include mysql::client
 }
