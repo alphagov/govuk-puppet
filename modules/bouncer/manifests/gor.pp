@@ -28,14 +28,13 @@ class bouncer::gor (
   }
 
   class { 'govuk::gor':
-    args    => {
+    args   => {
       '-input-raw'          => 'localhost:80',
       '-output-http'        => $gor_targets,
       '-output-http-method' => [
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
-    enable  => $gor_enable,
-    version => '0.7.0-9026155~ppa1~precise',
+    enable => $gor_enable,
   }
 }

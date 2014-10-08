@@ -38,14 +38,13 @@ class router::gor (
       comment => 'Used by Gor. See comments in router::gor.';
   } ~>
   class { 'govuk::gor':
-    args    => {
+    args   => {
       '-input-raw'          => 'localhost:7999',
       '-output-http'        => $gor_targets,
       '-output-http-method' => [
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
-    enable  => $enable_staging,
-    version => '0.7.0-9026155~ppa1~precise',
+    enable => $enable_staging,
   }
 }

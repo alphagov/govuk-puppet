@@ -16,7 +16,7 @@
 class govuk::gor(
   $args = {},
   $enable = false,
-  $version = '0.7.0-9026155~ppa1~precise',
+  $version = 'latest',
 ) {
   include govuk::ppa
 
