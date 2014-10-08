@@ -39,7 +39,7 @@ class govuk::node::s_transition_postgresql_master (
   $kernel_shmmax_bytes        = floor($shared_buffers_mb * 1024 * 1024
                                       * $magical_mystery_multiplier)
   # Units for kernel.shmall are pages instead of bytes, and page size as
-  # reported by `getconf PAGESIZE` in Preview is 4096. The `ceil` function
+  # reported by `getconf PAGESIZE` in Preview is 4096. The `ceil` function
   # doesn't exist in Puppet, so use floor + 1 instead.
   $kernel_shmall_pages        = floor($kernel_shmmax_bytes / 4096 ) + 1
 
