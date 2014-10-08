@@ -21,8 +21,5 @@ class govuk::node::s_redis inherits govuk::node::s_redis_base {
     'allow-redis-from-licensify':
       from => '10.5.0.0/16',
       port => $redis_port;
-    'allow-redis-from-redirector':
-      from => '10.6.0.0/16',
-      port => $redis_port;
   }
 }
