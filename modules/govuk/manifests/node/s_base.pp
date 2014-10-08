@@ -34,15 +34,6 @@ class govuk::node::s_base {
     to_version => '1.9.3-p545',
   }
 
-  # FIXME remove once cleaned up everywhere
-  package { 'rbenv-ruby-2.0.0-p247':
-    ensure => purged,
-  }
-  file { '/usr/lib/rbenv/versions/2.0.0-p247':
-    ensure => absent,
-    force  => true,
-  }
-
   rbenv::version { '2.0.0-p353':
     bundler_version => '1.6.5'
   }
