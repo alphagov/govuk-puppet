@@ -3,14 +3,6 @@ class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk:
   include assets::user
   include clamav
 
-  # FIXME remove once cleaned up everywhere
-  package { 'tika':
-    ensure => purged,
-  }
-  class { 'govuk_java::oracle7::jdk':
-    ensure => absent,
-  }
-
   $directories = [
     '/mnt/uploads',
     '/mnt/uploads/whitehall',
@@ -70,11 +62,6 @@ class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk:
   file { '/usr/local/bin/virus_scan.sh':
     source => 'puppet:///modules/govuk/node/s_asset_base/virus_scan.sh',
     mode   => '0755',
-  }
-
-  # FIXME remove once cleaned up.
-  file { '/usr/local/bin/extract_text_from_files.rb':
-    ensure => absent,
   }
 
   file { '/usr/local/bin/sync-assets.sh':

@@ -6,11 +6,6 @@ class govuk::node::s_whitehall_backend (
   include govuk::node::s_ruby_app_server
   include nginx
 
-  # FIXME remove once cleaned up
-  class { 'govuk_java::oracle7::jdk':
-    ensure => absent,
-  }
-
   include imagemagick
 
   class { 'govuk::apps::whitehall':

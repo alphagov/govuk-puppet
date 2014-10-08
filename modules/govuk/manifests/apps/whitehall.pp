@@ -68,11 +68,6 @@ class govuk::apps::whitehall(
   if $configure_admin == true {
     include assets
 
-    # FIXME remove once cleaned up
-    package { 'tika':
-      ensure => 'purged',
-    }
-
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost                 => "whitehall-admin.${app_domain}",
       app_port              => $port,

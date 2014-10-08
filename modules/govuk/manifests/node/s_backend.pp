@@ -2,11 +2,6 @@
 class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
-  # FIXME remove once cleaned up
-  class { 'govuk_java::oracle7::jdk':
-    ensure => absent,
-  }
-
   harden::limit { 'root-nofile':
     domain => 'root',
     type   => '-', # set both hard and soft limits
