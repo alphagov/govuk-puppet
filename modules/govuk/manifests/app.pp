@@ -63,11 +63,11 @@ define govuk::app (
   #
   # expose_health_check: whether to expose the health check to the proxy.
   #
-  # In some apps, such as redirector and bouncer, this must be exposed so load
-  # balancers know whether to send requests to a particular server; in other
-  # apps, such as publisher, this must not be exposed, because then it would
-  # provide an uncached, unauthenticated, publicly accessible point of access
-  # into the state of our admin systems.
+  # In some apps, such as bouncer, this must be exposed so load balancers know
+  # whether to send requests to a particular server; in other apps, such as
+  # publisher, this must not be exposed, because then it would provide an
+  # uncached, unauthenticated, publicly accessible point of access into the
+  # state of our admin systems.
   $expose_health_check = true,
 
   #

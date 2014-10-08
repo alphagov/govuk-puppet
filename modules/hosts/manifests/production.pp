@@ -22,7 +22,6 @@ class hosts::production (
   $carrenza_vcloud        = false,
   $releaseapp_host_org    = false,
   $ip_bouncer             = '127.0.0.1',
-  $ip_redirector          = '127.0.0.1',
 ) {
 
   $app_domain = hiera('app_domain')
@@ -610,14 +609,6 @@ class hosts::production (
   }
 
   # redirector vdc machines
-  govuk::host { 'redirector-1':
-    ip  => '10.6.0.2',
-    vdc => 'redirector',
-  }
-  govuk::host { 'redirector-2':
-    ip  => '10.6.0.3',
-    vdc => 'redirector',
-  }
   govuk::host { 'bouncer-1':
     ip  => '10.6.0.4',
     vdc => 'redirector',
@@ -635,12 +626,6 @@ class hosts::production (
     ip             => $ip_bouncer,
     vdc            => 'redirector',
     legacy_aliases => ["bouncer.${app_domain}"],
-  }
-
-  govuk::host { 'redirector-vse-lb':
-    ip             => $ip_redirector,
-    vdc            => 'redirector',
-    legacy_aliases => ["redirector.${app_domain}"],
   }
 
   # 3rd-party hosts

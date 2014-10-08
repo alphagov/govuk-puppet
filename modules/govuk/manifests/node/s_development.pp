@@ -121,7 +121,6 @@ class govuk::node::s_development {
   include govuk::apps::publicapi
   include govuk::apps::public_link_tracker
   include govuk::apps::publisher
-  include govuk::apps::redirector
   include govuk::apps::release
   class { 'govuk::apps::router':
     mongodb_nodes => [
