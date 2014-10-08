@@ -1,6 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_bouncer inherits govuk::node::s_base {
 
+  include bouncer::gor
   include govuk::apps::bouncer
   include govuk::node::s_ruby_app_server
   include nginx
