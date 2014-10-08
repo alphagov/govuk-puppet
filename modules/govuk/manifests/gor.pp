@@ -3,8 +3,8 @@
 # Setup gor traffic replay for GOV.UK
 #
 class govuk::gor(
-  $version = '0.7.0-9026155~ppa1~precise',
   $enable_staging = false,
+  $version = '0.7.0-9026155~ppa1~precise',
 ) {
   include govuk::ppa
 
