@@ -5,25 +5,36 @@
 class statsd(
   $graphite_hostname
 ) {
-  include govuk::repository
-  include nodejs
+  include govuk::ppa
+
+  # FIXME remove once statsd is updated everywhere.
+  #
+  # This is necessary to allow the package to install it's version.
+  # puppet calls apt with the --force-confold option which means that this
+  # would not otherwise be overwritten.
+  exec {'stop statsd running under old upstart script':
+    command => 'service statsd stop || /bin/true',
+    onlyif  => 'grep -q "Web ops team" /etc/init/statsd.conf',
+    before  => Exec['rm -f /etc/init/statsd.conf'],
+  }
+  exec {'rm -f /etc/init/statsd.conf':
+    onlyif => 'grep -q "Web ops team" /etc/init/statsd.conf',
+    before => Package['statsd'],
+    notify => Service['statsd'],
+  }
 
   package { 'statsd':
-    ensure  => '0.4.0',
-    require => Package['nodejs'],
+    ensure  => 'latest',
   }
 
   file { '/etc/statsd.conf':
     content => template('statsd/etc/statsd.conf.erb'),
-  }
-
-  file { '/etc/init/statsd.conf':
-    source  => 'puppet:///modules/statsd/etc/init/statsd.conf',
-    require => [Package['statsd'], File['/etc/statsd.conf']],
+    require => Package['statsd'],
+    notify  => Service['statsd'],
   }
 
   service { 'statsd':
-    ensure    => running,
-    subscribe => [File['/etc/init/statsd.conf'], File['/etc/statsd.conf']],
+    ensure  => running,
+    require => [Package['statsd'], File['/etc/statsd.conf']],
   }
 }
