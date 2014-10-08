@@ -72,25 +72,4 @@ class backup::assets(
     pubkey_id  => $pubkey_id,
     ssh_id     => $sshkey_file
   }
-
-  # FIXME: Remove me once deployed
-  file { '/usr/local/bin/memstore-backup.sh':
-    ensure  => absent,
-  }
-
-  # FIXME: Remove me once deployed
-  file { '/etc/govuk/memstore-credentials':
-    ensure  => absent,
-  }
-
-  # FIXME: Remove me once deployed
-  cron {[
-    'backup-asset-manager',
-    'backup-whitehall-draft-incoming',
-    'backup-whitehall-draft-clean',
-    'backup-whitehall-incoming',
-    'backup-whitehall-clean'
-    ]:
-    ensure => absent
-  }
 }

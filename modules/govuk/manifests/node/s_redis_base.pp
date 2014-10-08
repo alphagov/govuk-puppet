@@ -2,13 +2,6 @@
 class govuk::node::s_redis_base {
   include govuk::node::s_base
 
-  # FIXME: Reinstates default. Remove when deployed to production.
-  file { '/etc/default/redis-server':
-    ensure  => present,
-    content => template('govuk/node/s_redis_base/etc/default/redis-server.erb'),
-    notify  => Class['redis'],
-  }
-
   $redis_port = 6379
   $redis_max_memory = $::memtotalmb / 4 * 3
 
@@ -19,16 +12,6 @@ class govuk::node::s_redis_base {
     conf_port            => $redis_port,
     # conf_slowlog_max_len is for compatibility with previous redis module
     conf_slowlog_max_len => '1024',
-  }
-
-  # FIXME: Remove when deployed to production.
-  $old_sysvinit = 'redis_6379'
-  file { "/etc/init.d/${old_sysvinit}":
-    ensure => absent,
-  }
-  exec { 'remove_old_redis_sysvinit':
-    command => "/usr/sbin/update-rc.d -f ${old_sysvinit} remove",
-    onlyif  => "test -f /etc/rc0.d/K20${old_sysvinit} -o -f /etc/rc5.d/S20${old_sysvinit}",
   }
 
   $redis_mem_warn = $redis_max_memory * 0.8
