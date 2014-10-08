@@ -1,7 +1,7 @@
 FORGE
   remote: http://forge.puppetlabs.com
   specs:
-    adrien/alternatives (0.1.1)
+    adrien/alternatives (0.2.0)
     benjamin/ramdisk (0.0.1)
     darin/zypprepo (1.0.1)
     fsalum/redis (1.0.0)
