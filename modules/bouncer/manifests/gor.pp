@@ -12,13 +12,12 @@
 #
 class bouncer::gor (
   $enable_staging = false,
+  $staging_ip = undef,
 ) {
-
-  $staging_ip     = '37.26.91.5'
 
   validate_bool($enable_staging)
 
-  if $enable_staging {
+  if $enable_staging and is_ip_address($staging_ip) {
     $gor_enable         = true
     # Bouncer only receives traffic over HTTP (port 80)
     $gor_targets        = ["http://${staging_ip}"]
