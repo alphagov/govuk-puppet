@@ -7,11 +7,6 @@ class govuk::node::s_whitehall_frontend (
   include govuk::node::s_ruby_app_server
   include nginx
 
-  # FIXME remove once cleaned up
-  class { 'govuk_java::oracle7::jdk':
-    ensure => absent,
-  }
-
   $app_domain = hiera('app_domain')
 
   nginx::config::vhost::redirect { "whitehall.${app_domain}":
