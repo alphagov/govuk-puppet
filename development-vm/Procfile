@@ -69,7 +69,7 @@ manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../manuals
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../search-admin   bundle exec rails s -p 3073
 contacts-frontend:     govuk_setenv contacts-frontend     ./run_in.sh ../contacts-frontend bundle exec rails s -p 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../support-api    bundle exec rails s -p 3075
-short-url-manager:     govuk_setenv furl-manager          ./run_in.sh ../furl-manager   bundle exec rails s -p 3076
+short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../short-url-manager   bundle exec rails s -p 3076
 # smartdown-frontend used to use port 3077, but is no longer running in any environment
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../collections-publisher bundle exec rails s -p 3078
 # sidekiq-monitoring uses 3079-3081 and 3086
