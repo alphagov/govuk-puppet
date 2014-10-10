@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'no'
+govuk::safe_to_reboot::reason: 'There is only one EFG frontend'
+
 lv:
   data:
     pv: '/dev/sdb1'

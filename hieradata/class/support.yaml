@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'no'
+govuk::safe_to_reboot::reason: 'Single point of failure for LicenceFinder elasticsearch'
+
 govuk_elasticsearch::version: '0.19.8'
 # These GC alerts don't work on ES 0.19.8, so disable them
 govuk_elasticsearch::disable_gc_alerts: true

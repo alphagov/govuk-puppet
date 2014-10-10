@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'Check that offsite sync job is not running before rebooting'
+
 lv:
   data:
     pv: '/dev/sdb1'

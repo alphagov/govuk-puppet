@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'no'
+govuk::safe_to_reboot::reason: 'Single master database, applications not resilient'
+
 lv:
   data:
     pv: '/dev/sdb1'
