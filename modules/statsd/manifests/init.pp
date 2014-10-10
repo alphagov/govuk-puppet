@@ -6,6 +6,7 @@ class statsd(
   $graphite_hostname
 ) {
   include govuk::ppa
+  include nodejs
 
   # FIXME remove once statsd is updated everywhere.
   #
@@ -25,6 +26,7 @@ class statsd(
 
   package { 'statsd':
     ensure  => 'latest',
+    require => Class['nodejs'],
   }
 
   file { '/etc/statsd.conf':
