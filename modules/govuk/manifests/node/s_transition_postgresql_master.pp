@@ -15,6 +15,8 @@ class govuk::node::s_transition_postgresql_master (
     slave_password => $slave_password,
   }
 
+  include govuk::apps::bouncer::postgresql_role
+
   $effective_cache_size_mb = floor($::memtotalmb * 0.5)
   $shared_buffers_mb       = floor($::memtotalmb * 0.25)
 
