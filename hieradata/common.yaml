@@ -103,6 +103,8 @@ ntp::server_list:
   - '1.uk.pool.ntp.org'
   - '2.uk.pool.ntp.org'
 
+postgresql::globals::version: '9.3'
+
 rabbitmq::delete_guest_user: true
 rabbitmq::config_stomp: true
 # Always use our mirror because they only provide the latest package.
