@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'rabbitmq-1 is a single point of failure for content-store, apps not resilient'
+
 lv:
   data:
     pv: '/dev/sdb1'
