@@ -1,7 +1,11 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# Configure a MySQL Master server for GOV.UK
+#
+# [*mysql_bouncer*]
+#   Password for the bouncer user which grants read-only
+#   access to the transition_production database
+#
 class govuk::node::s_mysql_master (
-  $mysql_bouncer = '',
-  $dump_password
+  $mysql_bouncer = ''
 ) inherits govuk::node::s_base {
   $replica_password = hiera('mysql_replica_password', '')
   $root_password = hiera('mysql_root', '')
@@ -33,12 +37,6 @@ class govuk::node::s_mysql_master (
     table         => 'transition_production.*',
     privileges    => ['SELECT'],
     require       => Class['govuk::apps::transition::db'],
-  }
-
-  govuk_mysql::user { 'dump@localhost':
-    password_hash => mysql_password($dump_password),
-    table         => '*.*',
-    privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
   collectd::plugin::tcpconn { 'mysql':
