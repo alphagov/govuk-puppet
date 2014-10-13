@@ -1,6 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_support_contacts (
-  $dump_password,
   $mysql_root_support_contacts,
   $mysql_support_contacts,
   $rotation_daily   = '6',
@@ -21,12 +20,6 @@ class govuk::node::s_support_contacts (
     user     => 'support_contacts',
     host     => '%',
     password => $mysql_support_contacts,
-  }
-
-  govuk_mysql::user { 'dump@localhost':
-    password_hash => mysql_password($dump_password),
-    table         => '*.*',
-    privileges    => ['SELECT', 'LOCK TABLES', 'SHOW DATABASES'],
   }
 
   file { '/etc/automysqlbackup/prebackup':
