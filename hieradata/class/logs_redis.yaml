@@ -1,0 +1,4 @@
+---
+
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'Check queue is empty first with: redis-cli llen logs '

@@ -1,3 +1,6 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'Warn connected users before rebooting'
+
 ssh::config::allow_users_enable: true

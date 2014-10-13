@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'Whitehall normally reads from slave-1 and should be switched before rebooting slave-1'
+
 lv:
   data:
     pv: '/dev/sdb1'

@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'Whitehall application is slow to start, recommend rebooting a single node at a time'
+
 lv:
   data:
     pv: '/dev/sdb1'
