@@ -52,7 +52,6 @@ def user_in_whitelist?(username)
     james
     jamiec
     jordan
-    joshua
     kushalp
     minglis
     mwall
