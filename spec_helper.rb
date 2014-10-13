@@ -34,10 +34,11 @@ RSpec.configure do |c|
   # Sensible defaults to satisfy modules that perform OS checking. These
   # keys can be overridden by more specific `let(:facts)` in spec contexts.
   c.default_facts = {
-    :osfamily        => 'Debian',
-    :operatingsystem => 'Ubuntu',
-    :lsbdistid       => 'Debian',
-    :lsbdistcodename => 'Precise',
+    :osfamily                => 'Debian',
+    :operatingsystem         => 'Ubuntu',
+    :operatingsystemrelease  => '12.04',
+    :lsbdistid               => 'Debian',
+    :lsbdistcodename         => 'Precise',
   }
 
 end
