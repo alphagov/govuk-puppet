@@ -1,0 +1,4 @@
+---
+
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'We lose alerting while this is down'
