@@ -15,6 +15,8 @@ class govuk::apps::bouncer(
     enable_nginx_vhost => false
   }
 
+  include postgresql::lib::devel #installs libpq-dev package needed for pg gem
+
   $app_domain = hiera('app_domain')
 
   # Nginx proxy config with wildcard alias
