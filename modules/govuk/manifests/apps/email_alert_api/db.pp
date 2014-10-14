@@ -15,6 +15,7 @@ class govuk::apps::email_alert_api::db (
   govuk_postgresql::db { 'email-alert-api_production':
     user                    => 'email-alert-api',
     password                => $password,
+    extensions              => ['hstore'],
     allow_auth_from_backend => true,
   }
 }
