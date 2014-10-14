@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::reason: 'We take backups from this slave; rebooting during backup will cause it to fail'
+
 lv:
   postgresql:
     pv: '/dev/sdb1'
