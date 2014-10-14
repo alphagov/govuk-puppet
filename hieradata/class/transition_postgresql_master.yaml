@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'no'
+govuk::safe_to_reboot::reason: 'Single point of failure for Transition when it moves to Postgres'
+
 lv:
   data:
     pv: '/dev/sdb1'

@@ -1,5 +1,8 @@
 ---
 
+govuk::safe_to_reboot::can_reboot: 'no'
+govuk::safe_to_reboot::reason: 'Single point of failure for any Postgres-writing apps'
+
 lv:
   postgresql:
     pv: '/dev/sdb1'
