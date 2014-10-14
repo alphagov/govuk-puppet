@@ -51,9 +51,12 @@ class base::packages ($ruby_version=installed){
     require => Package['libruby1.9.1'],
   }
 
-  alternatives { 'ruby':
-    path    => '/usr/bin/ruby1.9.1',
-    require => Package['ruby1.9.1'],
+  # FIXME: Remove `alternatives` resource once we've stopped using Precise
+  if $::lsbdistcodename == 'precise' {
+    alternatives { 'ruby':
+      path    => '/usr/bin/ruby1.9.1',
+      require => Package['ruby1.9.1'],
+    }
   }
 
   include nodejs
