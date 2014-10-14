@@ -5,8 +5,8 @@ class govuk::node::s_cache (
   $denied_ip_addresses = undef,
 ) inherits govuk::node::s_base {
 
-  include govuk::gor
   include govuk::htpasswd
+  include router::gor
 
   class { 'nginx':
     denied_ip_addresses     => $denied_ip_addresses,
