@@ -28,7 +28,7 @@ class bouncer::gor (
 
   class { 'govuk::gor':
     args   => {
-      '-input-raw'          => 'localhost:80',
+      '-input-raw'          => ':80',
       '-output-http'        => $gor_targets,
       '-output-http-method' => [
         'GET', 'HEAD', 'OPTIONS'
