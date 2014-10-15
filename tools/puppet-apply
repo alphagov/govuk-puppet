@@ -4,7 +4,7 @@ set -e
 # Filter warnings about 'storeconfigs' not being set
 exec sudo \
   RBENV_VERSION=1.9.3 \
-  puppet apply /var/govuk/puppet/manifests \
+  puppet apply /var/govuk/puppet/manifests/site.pp \
   --trusted_node_data \
   --environment ${ENVIRONMENT:-development} \
   --modulepath /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules \
