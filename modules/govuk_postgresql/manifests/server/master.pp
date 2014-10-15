@@ -28,7 +28,7 @@ class govuk_postgresql::server::master (
     'checkpoint_segments':
       value => 8;
     'wal_keep_segments':
-      value => 8;
+      value => 64;
   }
 
   postgresql::server::role { $username:
