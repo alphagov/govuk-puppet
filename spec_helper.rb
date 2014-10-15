@@ -22,8 +22,7 @@ end
 
 RSpec.configure do |c|
   c.mock_framework = :rspec
-
-  c.manifest    = File.join(HERE, 'manifests', 'site.pp')
+  c.manifest    = File.join(HERE, 'manifests')
   c.module_path = [
     File.join(HERE, 'modules'),
     File.join(HERE, 'vendor', 'modules')

@@ -22,14 +22,14 @@ class puppet::repository(
   if $use_mirror {
     apt::source { 'puppetlabs':
       location     => 'http://apt.production.alphagov.co.uk/puppetlabs',
-      release      => 'stable',
+      release      => $::lsbdistcodename,
       architecture => $::architecture,
       key          => '37E3ACBB',
     }
   } else {
     apt::source {'puppetlabs':
       location => 'http://apt.puppetlabs.com',
-      release  => 'stable',
+      release  => $::lsbdistcodename,
       repos    => 'main dependencies',
       key      => '4BD6EC30', # Puppet Labs Release Key (Puppet Labs Release Key) <info@puppetlabs.com>
     }

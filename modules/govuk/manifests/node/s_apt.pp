@@ -26,10 +26,15 @@ class govuk::node::s_apt (
       location => 'http://repo.aptly.info',
       release  => 'squeeze',
       key      => '2A194991';
-    'puppetlabs':
+    'puppetlabs-precise':
       location => 'http://apt.puppetlabs.com/',
       repos    => ['main', 'dependencies'],
-      release  => 'stable',
+      release  => 'precise',
+      key      => '4BD6EC30';
+    'puppetlabs-trusty':
+      location => 'http://apt.puppetlabs.com/',
+      repos    => ['main', 'dependencies'],
+      release  => 'trusty',
       key      => '4BD6EC30';
     'govuk-ppa-precise':
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
