@@ -9,12 +9,13 @@
 #   the puppetdb installation. Passed in by parent class.
 #
 class puppet::master::package(
+  $hiera_eyaml_gpg_version = 'latest',
   $puppetdb_version = 'present',
 ) {
   include ::puppet
 
   package { 'ruby-hiera-eyaml-gpg':
-    ensure => installed,
+    ensure => $hiera_eyaml_gpg_version,
   }
 
   package { 'unicorn':
