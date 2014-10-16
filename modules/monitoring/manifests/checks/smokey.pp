@@ -27,12 +27,12 @@ class monitoring::checks::smokey {
     'check_frontend':               feature => 'frontend';
     'check_licencefinder':          feature => 'licencefinder', notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks';
     'check_licensing':              feature => 'licensing';
+    'check_performance_platform':   feature => 'performance_platform';
     'check_publishing':             feature => 'mainstream_publishing_tools';
     'check_router':                 feature => 'router';
     'check_search':                 feature => 'search';
     'check_signon':                 feature => 'signon';
     'check_smartanswers':           feature => 'smartanswers';
-    'check_spotlight':              feature => 'spotlight';
     'check_static_mirrors':         feature => 'mirror';
     'check_tariff':                 feature => 'tariff';
     'check_whitehall':              feature => 'whitehall';
