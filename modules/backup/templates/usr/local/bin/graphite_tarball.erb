@@ -21,7 +21,7 @@ APPNAME=$(basename $0)
 
 set +e
 
-tar -cj --ignore-failed-read -f <%= @backup_directory %>/graphite-storage-whisper-inprogress.tar.bz2 <%= @whisper_directory %> >/dev/null 2>&1
+tar -cj --ignore-failed-read -f <%= @backup_directory %>/../graphite-storage-whisper-inprogress.tar.bz2 <%= @whisper_directory %> >/dev/null 2>&1
 TAR_EXIT=$?
 # gnu tar uses an exit status of 1 to mean "some files differ" which we expect as they might
 # be updated as we are reading them. We should catch that to prevent early exit
@@ -32,7 +32,7 @@ fi
 
 set -e
 
-mv -f <%= @backup_directory %>/graphite-storage-whisper-inprogress.tar.bz2 <%= @backup_directory %>/graphite-storage-whisper.tar.bz2
+mv -f <%= @backup_directory %>/../graphite-storage-whisper-inprogress.tar.bz2 <%= @backup_directory %>/graphite-storage-whisper.tar.bz2
 
 <%- if @icinga_check -%>
 if [ $? == 0 ]; then
