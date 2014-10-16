@@ -1,9 +1,6 @@
 ---
 HIERA_SAFETY_CHECK: true
 
-# FIXME: Remove once Puppet 3.6 is deployed to Production
-puppet::repository::use_mirror: false
-
 app_domain: 'dev.gov.uk'
 
 apt::always_apt_update: true
