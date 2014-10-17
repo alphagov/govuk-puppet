@@ -13,8 +13,8 @@
 #   it must be set.
 #
 # [*development*]
-#   Create a non-replSet node with journalling disabled and query profiling
-#   enabled. Saves space at the expense of data integrity.
+#   Disable journalling and endable query profiling.
+#   Saves space at the expense of data integrity.
 #   Default: false
 #
 class mongodb::server (

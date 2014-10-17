@@ -34,7 +34,7 @@ describe 'mongodb::config', :type => :class do
         :development => true,
       }}
 
-      it { should contain_file('/etc/mongodb.conf').without_content(/replSet/) }
+      it { should contain_file('/etc/mongodb.conf').with_content(/replSet = development$/) }
       it { should contain_file('/etc/mongodb.conf').with_content(/^profile = 2$/) }
       it { should contain_file('/etc/mongodb.conf').with_content(/noprealloc|journal|nojournal/) }
     end

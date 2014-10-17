@@ -96,6 +96,8 @@ govuk::sshkeys::from_hiera::keys:
 internal_tld: 'development'
 
 mongodb::server::development: true
+mongodb::server::replicaset_members:
+ - 'localhost'
 
 nginx_enable_ssl: false
 nginx_enable_basic_auth: false
