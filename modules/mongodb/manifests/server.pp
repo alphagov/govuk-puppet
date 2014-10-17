@@ -7,6 +7,10 @@
 # [*version*]
 # [*package_name*]
 # [*dbpath*]
+# [*replicaset_members*]
+#   An array of the members for the replica set.
+#   Defaults to empty, which throws an error, so
+#   it must be set.
 #
 # [*development*]
 #   Create a non-replSet node with journalling disabled and query profiling
@@ -17,9 +21,14 @@ class mongodb::server (
   $version,
   $package_name = 'mongodb-10gen',
   $dbpath = '/var/lib/mongodb',
-  $development = false
+  $replicaset_members = [],
+  $development = false,
 ) {
   validate_bool($development)
+  validate_array($replicaset_members)
+  if empty($replicaset_members) {
+    fail("Replica set can't have no members")
+  }
 
   $logpath = '/var/log/mongodb/mongod.log'
 
