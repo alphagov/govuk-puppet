@@ -18,5 +18,6 @@ class icinga::client::check_linux_free_memory {
     check_command       => 'check_nrpe_1arg!check_linux_free_memory',
     service_description => 'percentage of memory free',
     host_name           => $::fqdn,
+    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#free-memory-warning-on-backend',
   }
 }
