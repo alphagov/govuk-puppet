@@ -1,4 +1,4 @@
 .vagrant
 .bundle/
 vendor/
-nodes.local.json
+nodes.local.yaml
