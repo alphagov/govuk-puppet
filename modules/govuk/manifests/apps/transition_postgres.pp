@@ -5,7 +5,7 @@ class govuk::apps::transition_postgres(
   $enabled = false,
 ) {
   if $enabled {
-    include postgresql::lib::devel #installs libpq-dev package needed for pg gem
+    include govuk_postgresql::client
     govuk::app { 'transition-postgres':
       app_type           => 'rack',
       port               => $port,
