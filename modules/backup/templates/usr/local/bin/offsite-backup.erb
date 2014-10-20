@@ -11,9 +11,12 @@ NAGIOS_MESSAGE="CRITICAL: Backup failed"
 # of CODE/MESSAGE will be taken from that point in time.
 
 function nagios_passive () {
-  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  LASTLINE="$1"
+  LASTERR="$2"
+  LASTCMD="$3"
+  printf "<%= @fqdn %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE} Line: ${LASTLINE}, Exitcode: ${LASTERR}, CMD: ${LASTCMD}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
-trap nagios_passive EXIT
+trap 'nagios_passive ${LINENO} $? ${BASH_COMMAND}' EXIT
 
 <%- if !@enable -%>
 # This script is disabled in Puppet. Setting backup::offsite::enable: true will
