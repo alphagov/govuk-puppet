@@ -12,8 +12,8 @@ DEFAULT_VM_PARAMS = {
   :cpus => 2,
 }
 LATEST_BOX_VERSIONS = {
-  'precise' => '20140919',
-  'trusty'  => '20140919',
+  'precise' => '20141013',
+  'trusty'  => '20141013',
 }
 
 def common_config(config)
