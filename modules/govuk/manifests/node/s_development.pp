@@ -58,8 +58,11 @@ class govuk::node::s_development {
   rbenv::version { '2.1.2':
     bundler_version => '1.6.5'
   }
+  rbenv::version { '2.1.3':
+    bundler_version => '1.7.3'
+  }
   rbenv::alias { '2.1':
-    to_version => '2.1.2'
+    to_version => '2.1.3'
   }
 
   include router::assets_origin
