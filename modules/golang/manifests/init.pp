@@ -19,9 +19,4 @@ class golang {
 
   # Ensure that scm tools used by `go get` are present.
   ensure_packages(['bzr', 'git', 'mercurial'])
-
-  # FIXME remove once cleaned up everywhere.
-  package { ['golang', 'golang-doc', 'golang-go', 'golang-go-linux-amd64', 'golang-src']:
-    ensure => purged,
-  }
 }
