@@ -21,7 +21,7 @@ class puppet::repository(
   validate_bool($use_mirror)
   if $use_mirror {
     apt::source { 'puppetlabs':
-      location     => 'http://apt.production.alphagov.co.uk/puppetlabs',
+      location     => "http://apt.production.alphagov.co.uk/puppetlabs-${::lsbdistcodename}",
       release      => $::lsbdistcodename,
       architecture => $::architecture,
       key          => '37E3ACBB',
