@@ -110,7 +110,6 @@ class govuk::node::s_development {
       'localhost',
     ]
   }
-  include govuk::apps::fact_cave # FIXME: remove once cleaned up
   include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
   include govuk::apps::hmrc_manuals_api
