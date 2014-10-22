@@ -482,7 +482,6 @@ class hosts::production (
       "email-alert-api.${app_domain}",
       "errbit.${app_domain}",
       "external-link-tracker.${app_domain}",
-      "fact-cave.${app_domain}",
       "finder-api.${app_domain}",
       "govuk-delivery.${app_domain}",
       "hmrc-manuals-api.${app_domain}",

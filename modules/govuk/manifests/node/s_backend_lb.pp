@@ -22,7 +22,6 @@ class govuk::node::s_backend_lb (
       'collections-publisher',
       'contacts-admin',
       'content-planner',
-      'fact-cave',
       'hmrc-manuals-api',
       'imminence',
       'maslow',
