@@ -67,8 +67,8 @@ class backup::graphite::tarball (
     ensure  => $graphite_backup,
     command => '/usr/local/bin/graphite_tarball',
     user    => 'root',
-    hour    => 3,
-    minute  => 42,
+    hour    => 20,
+    minute  => 10,
     require => File['/usr/local/bin/graphite_tarball'],
   }
 }
