@@ -10,7 +10,6 @@ class users::groups::contractors {
   include users::elliot
   include users::futurefabric
   include users::jackbracewell
-  include users::jackscotti
   include users::jamesdarling
   include users::karlentwistle
   include users::patrickdavenport
