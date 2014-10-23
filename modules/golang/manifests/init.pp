@@ -12,7 +12,7 @@ class golang {
   }
   goenv::version { ['1.2.2', '1.3.1', '1.3.3']: }
 
-  package { 'godep':
+  package { ['golang-gom', 'godep']:
     ensure  => latest,
     require => Class['govuk::ppa'],
   }
