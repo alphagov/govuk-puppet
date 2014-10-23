@@ -54,6 +54,11 @@ class mongodb::server (
     notify      => Class['mongodb::service'];
   }
 
+  class { 'mongodb::configure_replica_set':
+    members      => $replicaset_members,
+    require      => Class['mongodb::service'];
+  }
+
   class { 'mongodb::logging':
     logpath => $logpath,
     require => Class['mongodb::config'],
@@ -80,7 +85,8 @@ class mongodb::server (
   anchor { 'mongodb::end':
     require => Class[
       'mongodb::firewall',
-      'mongodb::service'
+      'mongodb::service',
+      'mongodb::configure_replica_set'
     ],
   }
 }

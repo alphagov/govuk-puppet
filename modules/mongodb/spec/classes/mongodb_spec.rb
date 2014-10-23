@@ -46,6 +46,7 @@ describe 'mongodb::server', :type => :class do
 
     it do
       should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/)
+      should contain_class('mongodb::configure_replica_set').with_members('mongo-box-1')
     end
   end
 
@@ -58,6 +59,8 @@ describe 'mongodb::server', :type => :class do
 
     it do
       should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/)
+      should contain_class('mongodb::configure_replica_set')
+        .with_members(['mongo-box-1', 'mongo-box-2', 'mongo-box-3'])
     end
   end
 end
