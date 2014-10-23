@@ -20,5 +20,4 @@ class users::groups::contractors {
   include users::tekin
   include users::tomrussell
   include users::vinayvinay
-  include users::willtomlins
 }
