@@ -70,14 +70,14 @@ class icinga::package {
   #   - NS 2013-01-09
   #
   exec { 'dpkg-statoverride /var/lib/icinga/rw':
-    command => '/usr/sbin/dpkg-statoverride --update --add nagios www-data 2710 /var/lib/icinga/rw',
-    unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/icinga/rw',
+    command => 'dpkg-statoverride --update --add nagios www-data 2710 /var/lib/icinga/rw',
+    unless  => 'dpkg-statoverride --list /var/lib/icinga/rw',
     require => Package['icinga'],
   }
 
   exec { 'dpkg-statoverride /var/lib/icinga':
-    command => '/usr/sbin/dpkg-statoverride --update --add nagios nagios 751 /var/lib/icinga',
-    unless  => '/usr/sbin/dpkg-statoverride --list /var/lib/icinga',
+    command => 'dpkg-statoverride --update --add nagios nagios 751 /var/lib/icinga',
+    unless  => 'dpkg-statoverride --list /var/lib/icinga',
     require => Package['icinga'],
     }
 }
