@@ -26,10 +26,14 @@ service postgresql stop
 # slave's original data directory.
 sudo -u <%= @pg_user %> mv -t ${SYNCDIR}/ \
   ${DATADIR}/pg_xlog \
-  ${DATADIR}/server.crt \
-  ${DATADIR}/server.key \
   ${DATADIR}/recovery.tmp \
   ${DATADIR}/postmaster.opts
+
+# These exist on Precise/9.1 but not Trusty/9.3
+sudo -u <%= @pg_user %> mv -t ${SYNCDIR}/ \
+  ${DATADIR}/server.crt \
+  ${DATADIR}/server.key \
+  || true
 
 # Delay deletion and move instead of copy so that the service is down for
 # the minimal amount of time possible.
