@@ -11,12 +11,18 @@
 #
 class govuk::apps::email_alert_service (
   $enabled = false,
+  $enable_procfile_worker = true
 ) {
+
   if $enabled {
     govuk::app { 'email-alert-service':
       app_type           => 'bare',
       enable_nginx_vhost => false,
       command            => './bin/email_alert_service',
+    }
+
+    govuk::procfile::worker {'email-alert-service':
+      enable_service => $enable_procfile_worker,
     }
   }
 }
