@@ -1,9 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class monitoring::checks (
-  $contact_email = 'root@localhost',
-  $pagerduty_apikey = '',
-){
-
+class monitoring::checks {
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
   include monitoring::checks::ses
@@ -110,78 +106,4 @@ class monitoring::checks (
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#duplicate-ssh-host-keys',
     require             => Icinga::Check_config['check_puppetdb_ssh_host_keys'],
   }
-
-  icinga::timeperiod { '24x7':
-    timeperiod_alias => '24 Hours A Day, 7 Days A Week',
-    sun              => '00:00-24:00',
-    mon              => '00:00-24:00',
-    tue              => '00:00-24:00',
-    wed              => '00:00-24:00',
-    thu              => '00:00-24:00',
-    fri              => '00:00-24:00',
-    sat              => '00:00-24:00',
-  }
-
-  icinga::timeperiod { 'workhours':
-    timeperiod_alias => 'Standard Work Hours',
-    mon              => '09:00-17:00',
-    tue              => '09:00-17:00',
-    wed              => '09:00-17:00',
-    thu              => '09:00-17:00',
-    fri              => '09:00-17:00',
-  }
-
-  icinga::timeperiod { 'nonworkhours':
-    timeperiod_alias => 'Non-Work Hours',
-    sun              => '00:00-24:00',
-    mon              => '00:00-09:00,16:00-24:00',
-    tue              => '00:00-09:00,16:00-24:00',
-    wed              => '00:00-09:00,16:00-24:00',
-    thu              => '00:00-09:00,16:00-24:00',
-    fri              => '00:00-09:00,17:00-24:00',
-    sat              => '00:00-24:00',
-  }
-
-  icinga::timeperiod { 'never':
-    timeperiod_alias => 'Never'
-  }
-
-  icinga::contact { 'monitoring_google_group':
-    email => $contact_email
-  }
-
-  if ($pagerduty_apikey != '') {
-    icinga::pager_contact { 'pager_nonworkhours':
-      service_notification_options => 'c',
-      notification_period          => '24x7',
-      pagerduty_apikey             => $pagerduty_apikey,
-    }
-  }
-
-  # End Zendesk Groups
-
-  icinga::service_template { 'govuk_regular_service':
-    contact_groups => ['regular']
-  }
-
-  icinga::service_template { 'govuk_urgent_priority':
-    contact_groups => ['urgent-priority']
-  }
-
-  icinga::service_template { 'govuk_high_priority':
-    contact_groups => ['high-priority']
-  }
-
-  icinga::service_template { 'govuk_normal_priority':
-    contact_groups => ['normal-priority']
-  }
-
-  icinga::service_template { 'govuk_low_priority':
-    contact_groups => ['regular']
-  }
-
-  icinga::service_template { 'govuk_unprio_priority':
-    contact_groups => ['regular']
-  }
-
 }
