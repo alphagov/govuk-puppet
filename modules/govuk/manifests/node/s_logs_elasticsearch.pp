@@ -106,7 +106,6 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     warning   => '0.000001:',
     desc      => 'elasticsearch not receiving syslog from logstash',
     host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html?highlight=river#redis-rivers-for-elasticsearch',
   }
 
   Govuk::Mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
