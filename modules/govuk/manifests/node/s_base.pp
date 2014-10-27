@@ -58,7 +58,18 @@ class govuk::node::s_base {
     purge_rsyslog_d => true,
   }
 
+  # FIXME: Disable central syslog on Trusty
+  # See https://www.pivotaltracker.com/story/show/81359288 for details
+  case $::lsbdistcodename {
+    'trusty': {
+      $remote_syslog = false
+    }
+    default: {
+      $remote_syslog = true
+    }
+  }
   class { 'rsyslog::client':
+    log_remote    => $remote_syslog,
     server        => 'logging.cluster',
     log_local     => true,
     preserve_fqdn => true,
