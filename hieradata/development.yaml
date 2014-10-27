@@ -51,8 +51,6 @@ govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
-govuk::apps::transition_postgres::enabled: true
-govuk::apps::transition_postgres::enable_procfile_worker: false
 govuk::apps::whitehall::enable_procfile_worker: false
 govuk::apps::whitehall::prevent_single_host: false
 
