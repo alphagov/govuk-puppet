@@ -503,7 +503,6 @@ class hosts::production (
       "tariff-admin.${app_domain}",
       "tariff-api.${app_domain}",
       "transition.${app_domain}",
-      "transition-postgres.${app_domain}",
       "travel-advice-publisher.${app_domain}",
       "url-arbiter.${app_domain}",
       "whitehall-admin.${app_domain}"
