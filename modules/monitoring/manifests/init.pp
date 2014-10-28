@@ -10,7 +10,8 @@ class monitoring {
 
   include govuk::htpasswd
 
-  # Include monitoring-server-only checks
+  # Monitoring server only.
+  include monitoring::contacts
   include monitoring::checks
 
 }

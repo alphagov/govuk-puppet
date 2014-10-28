@@ -12,25 +12,7 @@ shared_examples 'configured contact groups' do |urgent, high, normal|
   )}
 end
 
-# NB: The reason these tests are more likley to fail than any other is
-# because they include a node class, which in turn includes `s_base` and
-# *everything* else. Because `govuk_nodes_spec_optional` is currently broken
-# this is our only canary for ensures that modules play nicely together.
-describe 'govuk::node::s_monitoring', :type => :class do
-  # Set FQDN to satisfy other tests, like the `hosts` module
-  let(:node) { 'monitoring-1.management.somethingsomething' }
-
-  let (:hiera_data) {{
-      'app_domain'            => 'giraffe.biz',
-      'asset_root'            => 'https://static.test.gov.uk',
-      'website_root'          => 'www.giraffe.biz',
-      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
-      'aws_ses_smtp_username' => 'a_username',
-      'aws_ses_smtp_password' => 'a_password',
-    }}
-
-  let(:facts) {{ :concat_basedir => '/var/lib/puppet/concat/'}}
-
+describe 'monitoring::contacts', :type => :class do
   context 'param defaults' do
     it { should_not contain_icinga__slack_contact('slack_notification') }
 
