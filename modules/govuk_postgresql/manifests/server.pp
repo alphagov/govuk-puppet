@@ -25,6 +25,8 @@ class govuk_postgresql::server (
     }
   }
 
+  include postgresql::server::contrib
+
   if $configure_env_sync_user {
     include govuk_postgresql::env_sync_user
   }

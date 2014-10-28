@@ -12,7 +12,6 @@
 # The database to install the extension for
 #
 define govuk_postgresql::extension {
-    include postgresql::server::contrib
     $extracted_title = split($title,':')
     if (size($extracted_title) < 2) {
         fail("Could not extract db_name:extension from ${title}")
