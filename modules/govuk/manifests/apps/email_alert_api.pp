@@ -34,6 +34,8 @@ class govuk::apps::email_alert_api(
       log_format_is_json => true,
     }
 
+    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
     govuk::procfile::worker {'email-alert-api':
       enable_service => $enable_procfile_worker,
     }
