@@ -3,9 +3,8 @@
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'We lose stats and some alerting when this machine is down'
 
-icinga::client::checks:
-  disk_time_warn: 200 # milliseconds
-  disk_time_critical: 400 # milliseconds
+icinga::client::checks::disk_time_warn: 200 # milliseconds
+icinga::client::checks::disk_time_critical: 400 # milliseconds
 
 lv:
   data:
