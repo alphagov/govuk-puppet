@@ -1,3 +1,7 @@
+location /__canary__ {
+  add_header cache-control \"max-age=0, no-store, no-cache\";
+}
+
 location /robots.txt {
   expires 1w;
 }
