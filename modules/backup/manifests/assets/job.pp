@@ -20,7 +20,7 @@ define backup::assets::job(
   $pubkey_id,
   $ssh_id,
   $target,
-  $archive_directory = unset,
+  $archive_directory = undef,
 ){
 
 $service_description = "Off-site asset backups: ${title}"
