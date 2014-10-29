@@ -23,12 +23,16 @@
 #    $dest_host_key
 #      SSH hostkey for $dest_host
 #
+#    $archive_directory
+#      Place to store the Duplicity cache - the default is ~/.cache/duplicity
+#
 class backup::assets(
   $target,
   $pubkey_id,
   $backup_private_key,
   $dest_host,
-  $dest_host_key
+  $dest_host_key,
+  $archive_directory = unset,
 ) {
 
   $sshkey_file = '/root/.ssh/id_rsa'
@@ -56,20 +60,22 @@ class backup::assets(
   }
 
   backup::assets::job { 'whitehall':
-    asset_path => '/mnt/uploads/whitehall',
-    target     => "${target}/whitehall",
-    hour       => 4,
-    minute     => 20,
-    pubkey_id  => $pubkey_id,
-    ssh_id     => $sshkey_file
+    asset_path        => '/mnt/uploads/whitehall',
+    target            => "${target}/whitehall",
+    hour              => 4,
+    minute            => 20,
+    pubkey_id         => $pubkey_id,
+    ssh_id            => $sshkey_file,
+    archive_directory => $archive_directory,
   }
 
   backup::assets::job { 'asset-manager':
-    asset_path => '/mnt/uploads/asset-manager',
-    target     => "${target}/asset-manager",
-    hour       => 4,
-    minute     => 13,
-    pubkey_id  => $pubkey_id,
-    ssh_id     => $sshkey_file
+    asset_path        => '/mnt/uploads/asset-manager',
+    target            => "${target}/asset-manager",
+    hour              => 4,
+    minute            => 13,
+    pubkey_id         => $pubkey_id,
+    ssh_id            => $sshkey_file,
+    archive_directory => $archive_directory,
   }
 }

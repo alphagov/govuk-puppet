@@ -5,12 +5,13 @@
 #
 # == Parameters
 #
-#   $asset_path   Path of asset(s) to be backed-up
-#   $hour         Hour at which to begin back-up
-#   $minute       Minute at which to begin back-up
-#   $pubkey_id    GPG key fingerprint to encrypt backups with
-#   $ssh_id       SSH key filepath to use to connect to remote host
-#   $target       Destination
+#   $asset_path         Path of asset(s) to be backed-up
+#   $hour               Hour at which to begin back-up
+#   $minute             Minute at which to begin back-up
+#   $pubkey_id          GPG key fingerprint to encrypt backups with
+#   $ssh_id             SSH key filepath to use to connect to remote host
+#   $target             Destination
+#   $archive_directory  Place to store the duplicity cache - default is ~/.cache/duplicity
 #
 define backup::assets::job(
   $asset_path,
@@ -19,19 +20,21 @@ define backup::assets::job(
   $pubkey_id,
   $ssh_id,
   $target,
+  $archive_directory = unset,
 ){
 
 $service_description = "Off-site asset backups: ${title}"
 $post_command = template('backup/post_command.sh.erb')
 
   duplicity { $title:
-    directory    => $asset_path,
-    target       => $target,
-    hour         => $hour,
-    minute       => $minute,
-    pubkey_id    => $pubkey_id,
-    ssh_id       => $ssh_id,
-    post_command => $post_command
+    directory         => $asset_path,
+    target            => $target,
+    hour              => $hour,
+    minute            => $minute,
+    pubkey_id         => $pubkey_id,
+    ssh_id            => $ssh_id,
+    post_command      => $post_command,
+    archive_directory => $archive_directory,
   }
 
   $threshold_secs = 28 * (60 * 60)        # 28 hours, in seconds

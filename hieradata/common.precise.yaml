@@ -1,5 +1,7 @@
 ---
 
+duplicity::packages::version: '0.6.18-0ubuntu3.5'
+
 nginx::package::version: '1.4.4-1~precise0'
 
 nodejs::version: '0.6.12~dfsg1-1ubuntu1'
