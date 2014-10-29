@@ -97,6 +97,7 @@ class govuk::node::s_development {
   include govuk::apps::collections_publisher
   include govuk::apps::contacts
   include govuk::apps::content_planner
+  include govuk::apps::content_register::rabbitmq
   include govuk::apps::content_store
   include govuk::apps::content_store::rabbitmq
   include govuk::apps::efg
