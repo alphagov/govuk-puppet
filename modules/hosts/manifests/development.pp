@@ -28,6 +28,7 @@ class hosts::development {
   host { 'contacts-frontend.dev.gov.uk':                    ip => '127.0.0.1' }
   host { 'contacts-frontend-old.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'contentapi.dev.gov.uk':                           ip => '127.0.0.1' }
+  host { 'content-register.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'content-store.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }

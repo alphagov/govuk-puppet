@@ -22,6 +22,7 @@ class govuk::node::s_backend_lb (
       'collections-publisher',
       'contacts-admin',
       'content-planner',
+      'content-register',
       'hmrc-manuals-api',
       'imminence',
       'maslow',
