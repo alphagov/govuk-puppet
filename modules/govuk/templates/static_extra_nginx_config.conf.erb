@@ -1,5 +1,7 @@
 location /__canary__ {
+  default_type application/json;
   add_header cache-control "max-age=0, no-store, no-cache";
+  return 200 '{"message": "Tweet tweet"}\n';
 }
 
 location /robots.txt {
