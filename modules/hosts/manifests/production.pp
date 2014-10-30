@@ -478,6 +478,7 @@ class hosts::production (
       "collections-publisher.${app_domain}",
       "contacts-admin.${app_domain}",
       "content-planner.${app_domain}",
+      "content-register.${app_domain}",
       "contentapi.${app_domain}",
       "email-alert-api.${app_domain}",
       "errbit.${app_domain}",
