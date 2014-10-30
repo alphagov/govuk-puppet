@@ -5,14 +5,17 @@ class govuk::apps::bouncer(
 ) {
 
   govuk::app { 'bouncer':
-    app_type           => 'rack',
-    port               => $port,
-    vhost_ssl_only     => false,
-    health_check_path  => '/healthcheck',
-    vhost_protected    => false,
+    app_type               => 'rack',
+    port                   => $port,
+    vhost_ssl_only         => false,
+    health_check_path      => '/healthcheck',
+    vhost_protected        => false,
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
-    enable_nginx_vhost => false
+    enable_nginx_vhost     => false,
+    # The limits below are 4*2^30 (4GB) and 6*2^30 (6GB) respectively
+    nagios_memory_warning  => 4 << 30,
+    nagios_memory_critical => 6 << 30,
   }
 
   include govuk_postgresql::client
