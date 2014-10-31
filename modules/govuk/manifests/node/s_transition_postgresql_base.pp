@@ -15,17 +15,6 @@ class govuk::node::s_transition_postgresql_base inherits govuk::node::s_base {
   }
   postgresql::server::config_entry { 'shared_buffers':
     value   => "${$shared_buffers_mb}MB",
-    require => Sysctl['kernel.shmmax', 'kernel.shmall'],
   }
 
-  # FIXME: remove these kernel settings entirely after this has been deployed
-  # and tested by rebooting the machines:
-  sysctl { 'kernel.shmmax':
-    ensure => absent,
-    notify => Class['postgresql::server::service']
-  }
-  sysctl { 'kernel.shmall':
-    ensure => absent,
-    notify => Class['postgresql::server::service']
-  }
 }
