@@ -1,10 +1,9 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_backup (
   $backup_efg = true,
-  $offsite_backups = false,
 ) inherits govuk::node::s_base {
 
-  validate_bool($backup_efg, $offsite_backups)
+  validate_bool($backup_efg)
 
   class {'backup::server':
     require => Govuk::Mount['/data/backups'],
