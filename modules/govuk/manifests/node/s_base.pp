@@ -30,8 +30,11 @@ class govuk::node::s_base {
   rbenv::version { '1.9.3-p545':
     bundler_version => '1.6.5'
   }
+  rbenv::version { '1.9.3-p550':
+    bundler_version => '1.7.4'
+  }
   rbenv::alias { '1.9.3':
-    to_version => '1.9.3-p545',
+    to_version => '1.9.3-p550',
   }
 
   rbenv::version { '2.0.0-p353':
@@ -40,18 +43,31 @@ class govuk::node::s_base {
   rbenv::version { '2.0.0-p451':
     bundler_version => '1.6.5'
   }
+  rbenv::version { '2.0.0-p594':
+    bundler_version => '1.7.4'
+  }
   rbenv::alias { '2.0.0':
-    to_version => '2.0.0-p451',
+    to_version => '2.0.0-p594',
   }
 
   rbenv::version { '2.1.2':
     bundler_version => '1.6.5'
   }
-  rbenv::version { '2.1.3':
-    bundler_version => '1.7.3'
+  rbenv::version { '2.1.4':
+    bundler_version => '1.7.4'
   }
   rbenv::alias { '2.1':
-    to_version => '2.1.3'
+    to_version => '2.1.4'
+  }
+
+  # FIXME: remove once this is cleaned up everywhere
+  package { 'rbenv-ruby-2.1.3':
+    ensure => purged,
+  }
+  file { '/usr/lib/rbenv/versions/2.1.3':
+    ensure  => absent,
+    force   => true,
+    require => Package['rbenv-ruby-2.1.3'],
   }
 
   class { 'rsyslog':
