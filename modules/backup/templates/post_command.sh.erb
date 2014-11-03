@@ -1,9 +1,9 @@
 if [[ $? = 0 ]]; then
   NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK"
+  NAGIOS_MESSAGE="OK: Duplicity backup was successful"
 else
   NAGIOS_CODE=2
-  NAGIOS_MESSAGE="CRITICAL"
+  NAGIOS_MESSAGE="CRITICAL: Duplicity backup failed, non-zero exit code"
 fi
 
 printf "<%= @fqdn -%>\t<%= @service_description -%>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
