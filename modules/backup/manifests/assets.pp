@@ -54,11 +54,6 @@ class backup::assets(
     key    => $dest_host_key
   }
 
-  exec { 'assets-gpgkey':
-    command => "gpg -q --recv-keys ${::gpgkey}",
-    unless  => "gpg -q --list-keys ${::gpgkey}"
-  }
-
   backup::assets::job { 'whitehall':
     asset_path        => '/mnt/uploads/whitehall',
     target            => "${target}/whitehall",
