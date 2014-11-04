@@ -39,4 +39,10 @@ class statsd(
     ensure  => running,
     require => [Package['statsd'], File['/etc/statsd.conf']],
   }
+
+  @@icinga::check { "check_statsd_upstart_up_${::hostname}":
+    check_command       => 'check_nrpe!check_upstart_status!statsd',
+    service_description => 'statsd upstart up',
+    host_name           => $::fqdn,
+  }
 }
