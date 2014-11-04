@@ -35,14 +35,12 @@ class backup::assets(
   $archive_directory = unset,
 ) {
 
-  $sshkey_file = '/root/.ssh/id_rsa'
-
   file { '/root/.ssh' :
     ensure => directory,
     mode   => '0700',
   }
 
-  file { $sshkey_file :
+  file { '/root/.ssh/id_rsa':
     ensure  => present,
     mode    => '0600',
     content => $backup_private_key,
@@ -65,7 +63,6 @@ class backup::assets(
     hour              => 4,
     minute            => 20,
     pubkey_id         => $pubkey_id,
-    ssh_id            => $sshkey_file,
     archive_directory => $archive_directory,
   }
 
@@ -75,7 +72,6 @@ class backup::assets(
     hour              => 4,
     minute            => 13,
     pubkey_id         => $pubkey_id,
-    ssh_id            => $sshkey_file,
     archive_directory => $archive_directory,
   }
 }
