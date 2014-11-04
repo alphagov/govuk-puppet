@@ -12,6 +12,7 @@
 class govuk::apps::content_register(
   $port = 3077,
   $enabled = false,
+  $enable_procfile_worker = true,
 ) {
   if $enabled {
     govuk::app { 'content-register':
@@ -23,5 +24,9 @@ class govuk::apps::content_register(
     }
 
     include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
+    govuk::procfile::worker {'content-register':
+      enable_service => $enable_procfile_worker,
+    }
   }
 }
