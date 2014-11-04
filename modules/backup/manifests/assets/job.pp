@@ -35,6 +35,7 @@ $post_command = template('backup/post_command.sh.erb')
     ssh_id            => $ssh_id,
     post_command      => $post_command,
     archive_directory => $archive_directory,
+    remove_older_than => '30D',
   }
 
   $threshold_secs = 28 * (60 * 60)        # 28 hours, in seconds
