@@ -34,17 +34,6 @@ class monitoring::checks {
   $warning_time = 5
   $critical_time = 10
 
-  # START limelight
-  $limelight_hostname = "limelight.${app_domain}"
-
-  icinga::check { 'check_limelight_endpoint':
-    ensure              => absent,
-    check_command       => "check_https_url!${limelight_hostname}!/_status!${warning_time}!${critical_time}",
-    host_name           => $::fqdn,
-    service_description => 'checks if limelight homepage is up',
-  }
-  # END limelight
-
   icinga::check {'check_mapit_responding':
     check_command       => 'check_mapit',
     host_name           => $::fqdn,
