@@ -27,7 +27,6 @@ class govuk::node::s_frontend_lb (
       'service-manual',
       'specialist-frontend',
       'static',
-      'limelight',
       'transactions-explorer',
     ]:
       servers       => $govuk_frontend_servers;
