@@ -19,6 +19,7 @@ class govuk::apps::limelight(
   }
 
   govuk::app { 'limelight':
+    ensure                => absent,
     app_type              => 'rack',
     port                  => $port,
     vhost_protected       => $vhost_protected,
@@ -27,4 +28,3 @@ class govuk::apps::limelight(
     asset_pipeline_prefix => 'limelight',
   }
 }
-

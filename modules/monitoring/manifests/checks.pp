@@ -38,6 +38,7 @@ class monitoring::checks {
   $limelight_hostname = "limelight.${app_domain}"
 
   icinga::check { 'check_limelight_endpoint':
+    ensure              => absent,
     check_command       => "check_https_url!${limelight_hostname}!/_status!${warning_time}!${critical_time}",
     host_name           => $::fqdn,
     service_description => 'checks if limelight homepage is up',

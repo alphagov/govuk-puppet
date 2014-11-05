@@ -97,7 +97,7 @@ class govuk::node::s_development {
     'govuk::apps::frontend':              vhost_protected => false;
     'govuk::apps::info_frontend':         vhost_protected => false;
     'govuk::apps::licencefinder':         vhost_protected => false;
-    'govuk::apps::limelight':             vhost_protected => true;
+    'govuk::apps::limelight':             vhost_protected => true; # FIXME: remove once cleaned up.
     'govuk::apps::manuals_frontend':      vhost_protected => false;
     'govuk::apps::service_manual':        vhost_protected => false;
     'govuk::apps::smartanswers':          vhost_protected => false;

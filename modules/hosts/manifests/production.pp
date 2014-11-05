@@ -238,7 +238,6 @@ class hosts::production (
       "info-frontend.${app_domain}",
       "manuals-frontend.${app_domain}",
       "licencefinder.${app_domain}",
-      "limelight.${app_domain}",
       "publicapi.${app_domain}",
       "public-link-tracker.${app_domain}",
       "service-manual.${app_domain}",
