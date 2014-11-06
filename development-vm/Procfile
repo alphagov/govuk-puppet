@@ -49,7 +49,7 @@ hmrc_contacts:         govuk_setenv contacts              ./run_in.sh ../hmrc-co
 need_api:              govuk_setenv need-api              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
 maslow:                govuk_setenv maslow                ./run_in.sh ../maslow         bundle exec rails s -p 3053
 # router uses 3054 and 3055
-router:                govuk_setenv router                ./run_in.sh ../router         ./run_router.sh
+router:                govuk_setenv router                ./run_in.sh ../router         make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../router-api     bundle exec rails s -p 3056
 # alphagov/spotlight uses 3057 on CI ONLY (rest is Performance Platform infrastructure)
 content_planner:       govuk_setenv content-planner       ./run_in.sh ../content-planner bundle exec rails s -p 3058
