@@ -17,3 +17,6 @@ mount:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
+
+mongodb::server::replicaset_members:
+  - 'localhost'
