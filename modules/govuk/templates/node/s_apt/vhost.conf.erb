@@ -2,7 +2,7 @@ server {
   # This serves:
   #   - `apt.cluster` internally.
   #   - `apt.production.alphagov.co.uk` externally.
-  server_name apt.*;
+  server_name apt.* apt-origin.*;
   root <%= @root_dir -%>/public;
 
   access_log /var/log/nginx/apt-access.log timed_combined;
