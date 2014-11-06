@@ -32,8 +32,6 @@ class govuk::apps::email_alert_api(
       port               => $port,
       vhost_protected    => $vhost_protected,
       log_format_is_json => true,
-      health_check_path  => '/healthcheck',
-      json_health_check  => true,
     }
 
     include govuk_postgresql::client #installs libpq-dev package needed for pg gem
