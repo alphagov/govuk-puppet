@@ -11,22 +11,19 @@
 #
 class govuk::apps::content_register(
   $port = 3077,
-  $enabled = false,
   $enable_procfile_worker = true,
 ) {
-  if $enabled {
-    govuk::app { 'content-register':
-      app_type           => 'rack',
-      port               => $port,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
-      log_format_is_json => true,
-    }
+  govuk::app { 'content-register':
+    app_type           => 'rack',
+    port               => $port,
+    vhost_ssl_only     => true,
+    health_check_path  => '/healthcheck',
+    log_format_is_json => true,
+  }
 
-    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
-    govuk::procfile::worker {'content-register':
-      enable_service => $enable_procfile_worker,
-    }
+  govuk::procfile::worker {'content-register':
+    enable_service => $enable_procfile_worker,
   }
 }
