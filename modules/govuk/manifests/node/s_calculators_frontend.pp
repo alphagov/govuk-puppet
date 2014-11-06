@@ -16,6 +16,9 @@ class govuk::node::s_calculators_frontend (
     'govuk::apps::tariff':                vhost_protected => $app_basic_auth;
   }
 
+  # FIXME: Remove once cleaned up from servers
+  include govuk::apps::fco_services
+
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
