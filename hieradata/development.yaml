@@ -55,7 +55,6 @@ govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::whitehall::enable_procfile_worker: false
 govuk::apps::whitehall::prevent_single_host: false
-govuk::apps::content_register::enabled: true
 
 govuk::deploy::config::govuk_env: 'development'
 govuk::deploy::setup_actionmailer_ses_config: false
