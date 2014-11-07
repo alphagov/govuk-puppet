@@ -10,10 +10,14 @@ class govuk::apps::govuk_crawler_worker (
       app => 'govuk_crawler_worker',
     }
 
+    # /performance is temporarily (2014-11-07) blacklisted while we
+    # do something anout the PNG endpoint crawling it. Before taking
+    # /performance out of the list, please check with James Abley or
+    # Alex Muller
     $blacklist_paths = ['/trade-tariff', '/licence-finder',
       '/business-finance-support-finder', '/government/uploads',
       '/apply-for-a-licence', '/search', '/government/announcements.atom',
-      '/government/publications.atom']
+      '/government/publications.atom', '/performance']
 
     govuk::app::envvar {
       'AMQP_ADDRESS':
