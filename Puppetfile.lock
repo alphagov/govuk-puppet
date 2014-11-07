@@ -75,7 +75,7 @@ GIT
 GIT
   remote: git://github.com/alphagov/puppet-duplicity.git
   ref: postcommand-hook
-  sha: 73db2dc81f49ffc5b4aeb0c99879f7ae05de9cc4
+  sha: 13cfd2c8a89b089a4e1c481df31fa1b0ebc7464c
   specs:
     duplicity (0.0.1)
 
