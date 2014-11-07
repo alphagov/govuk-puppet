@@ -9,7 +9,6 @@
 #   $hour               Hour at which to begin back-up
 #   $minute             Minute at which to begin back-up
 #   $pubkey_id          GPG key fingerprint to encrypt backups with
-#   $ssh_id             SSH key filepath to use to connect to remote host
 #   $target             Destination
 #   $archive_directory  Place to store the duplicity cache - default is ~/.cache/duplicity
 #
@@ -18,7 +17,6 @@ define backup::assets::job(
   $hour,
   $minute,
   $pubkey_id,
-  $ssh_id,
   $target,
   $archive_directory = undef,
 ){
@@ -32,7 +30,6 @@ $post_command = template('backup/post_command.sh.erb')
     hour              => $hour,
     minute            => $minute,
     pubkey_id         => $pubkey_id,
-    ssh_id            => $ssh_id,
     post_command      => $post_command,
     archive_directory => $archive_directory,
     remove_older_than => '30D',
