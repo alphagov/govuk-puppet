@@ -16,5 +16,7 @@ class govuk::node::s_transition_postgresql_base inherits govuk::node::s_base {
   postgresql::server::config_entry { 'shared_buffers':
     value   => "${$shared_buffers_mb}MB",
   }
-
+  postgresql::server::config_entry { 'random_page_cost':
+    value => 2.5,
+  }
 }
