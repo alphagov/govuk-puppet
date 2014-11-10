@@ -28,10 +28,10 @@ backup::assets::dest_host: "%{hiera('backup::offsite::dest_host')}"
 backup::assets::dest_host_key: "%{hiera('backup::offsite::dest_host_key')}"
 
 backup::offsite::src_dirs:
-  - '/data/backup/*/var/lib/automongodbbackup/latest'
-  - '/data/backup/*/var/lib/automysqlbackup/latest.tbz2'
-  - '/data/backup/*/var/lib/autopostgresqlbackup/latest.tbz2'
-  - '/data/backup/archived'
+  - '/data/backups/*/var/lib/automongodbbackup/latest'
+  - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
+  - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
+  - '/data/backups/archived'
 backup::offsite::gpg_key_id: '13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
 backup::offsite::dest_folder: '/srv/backup-data/'
 backup::offsite::dest_host: 'backup0.backup.provider1.production.govuk.service.gov.uk'
