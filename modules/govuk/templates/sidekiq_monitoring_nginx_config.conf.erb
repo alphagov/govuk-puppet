@@ -32,6 +32,10 @@ server {
     proxy_pass http://localhost:3086;
   }
 
+  location /email-alert-api {
+    proxy_pass http://localhost:3089;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }
