@@ -82,6 +82,10 @@ error_page 504 /504.html;
 # FIXME: Mainstream to provide a new page for this.
 error_page 429 /503.html;
 
+# Set Cache-Control headers on 404 pages since we overide those set by apps.
+# So that we dont fall through to the default provided by the CDN.
+more_set_headers -s 404 "Cache-Control: public, max-age=<%= @error_page_ttl -%>";
+
 location /400.html {
   root /usr/share/nginx/www;
   internal;
