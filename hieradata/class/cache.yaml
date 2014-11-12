@@ -1,0 +1,2 @@
+---
+nginx::package::nginx_package: 'nginx-extras'
