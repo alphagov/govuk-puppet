@@ -12,6 +12,11 @@
 #   Mandatory boolean value. Whether to enable BasicAuth or not. Used in
 #   environments where origin is not firewalled.
 #
+# [*error_page_ttl*]
+#   Number of seconds to cache error pages.
+#
+#   Default: '300'
+#
 # [*real_ip_header*]
 #   Invokes [real_ip](http://wiki.nginx.org/HttpRealipModule) to replace
 #   `$remote_addr` with an address from the named header. The header must be
@@ -27,6 +32,7 @@
 #
 class router::nginx (
   $vhost_protected,
+  $error_page_ttl = '300',
   $real_ip_header = '',
   $rate_limit_tokens = [],
 ) {
