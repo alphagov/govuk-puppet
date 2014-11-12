@@ -5,7 +5,8 @@
 #   - have something that we can point Vagrant and smaller environments to
 #
 class govuk::node::s_apt (
-  $root_dir
+  $root_dir,
+  $real_ip_header = undef,
 ) inherits govuk::node::s_base {
 
   # Only mirror our current arch to save space. This means that some
