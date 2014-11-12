@@ -5,12 +5,12 @@ server {
   server_name apt.* apt-origin.*;
   root <%= @root_dir -%>/public;
 
-  <% if @real_ip_header != '' -%>
-    # Use an unspoofable header from an upstream CDN or L7 load balancer
-    real_ip_header <%= @real_ip_header -%>;
-    set_real_ip_from 0.0.0.0/0;
-  <% end -%>
+<% if @real_ip_header -%>
+  # Use an unspoofable header from an upstream CDN or L7 load balancer
+  real_ip_header <%= @real_ip_header -%>;
+  set_real_ip_from 0.0.0.0/0;
 
+<% end -%>
   access_log /var/log/nginx/apt-access.log timed_combined;
   access_log /var/log/nginx/apt-json.event.access.log json_event;
   error_log /var/log/nginx/apt-error.log;
