@@ -60,16 +60,6 @@ class govuk::node::s_base {
     to_version => '2.1.4'
   }
 
-  # FIXME: remove once this is cleaned up everywhere
-  package { 'rbenv-ruby-2.1.3':
-    ensure => purged,
-  }
-  file { '/usr/lib/rbenv/versions/2.1.3':
-    ensure  => absent,
-    force   => true,
-    require => Package['rbenv-ruby-2.1.3'],
-  }
-
   class { 'rsyslog':
     purge_rsyslog_d => true,
   }
