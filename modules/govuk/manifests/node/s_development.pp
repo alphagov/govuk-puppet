@@ -79,6 +79,7 @@ class govuk::node::s_development {
     'govuk::apps::feedback':              vhost_protected => false;
     'govuk::apps::finder_frontend':       vhost_protected => false;
     'govuk::apps::frontend':              vhost_protected => false;
+    'govuk::apps::government_frontend':   vhost_protected => false;
     'govuk::apps::info_frontend':         vhost_protected => false;
     'govuk::apps::licencefinder':         vhost_protected => false;
     'govuk::apps::manuals_frontend':      vhost_protected => false;

@@ -29,6 +29,7 @@ govuk::apps::email_alert_service::enable_procfile_worker: false
 govuk::apps::finder_api::enabled: true
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::frontend::enable_homepage_nocache_location: false
+govuk::apps::government_frontend::enabled: true
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::hmrc_manuals_api::enabled: true
 govuk::apps::imminence::enable_procfile_worker: false
