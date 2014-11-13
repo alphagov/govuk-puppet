@@ -2,10 +2,13 @@ require_relative '../../../../spec_helper'
 
 describe 'backup::offsite', :type => :class do
   let(:default_params) {{
-    :src_dirs      => ['/unused'],
-    :gpg_key_id    => 'unused',
-    :dest_host     => 'unused',
-    :dest_host_key => 'unused',
+    :datastores_srcdirs => ['/unused'],
+    :graphite_srcdir    => '/unused',
+    :gpg_key_id         => 'unused',
+    :datastores_destdir => 'unused',
+    :graphite_destdir   => 'unused',
+    :dest_host          => 'unused',
+    :dest_host_key      => 'unused',
   }}
 
   describe 'enable' do
@@ -13,6 +16,9 @@ describe 'backup::offsite', :type => :class do
       let(:params) { default_params }
 
       it { should contain_backup__offsite__job('govuk-datastores').with(
+        :ensure => 'absent',
+      )}
+      it { should contain_backup__offsite__job('govuk-graphite').with(
         :ensure => 'absent',
       )}
     end
@@ -25,18 +31,25 @@ describe 'backup::offsite', :type => :class do
       it { should contain_backup__offsite__job('govuk-datastores').with(
         :ensure => 'present',
       )}
+      it { should contain_backup__offsite__job('govuk-graphite').with(
+        :ensure => 'present',
+      )}
     end
   end
 
-  describe 'dest_folder' do
+  describe 'datastores_destdir graphite_destdir' do
     context 'relative path' do
       let(:params) { default_params.merge({
-        :dest_folder   => 'some/path',
-        :dest_host     => 'backup.example.com',
+        :datastores_destdir => 'some/path',
+        :graphite_destdir   => 'some/path',
+        :dest_host          => 'backup.example.com',
       })}
 
       it 'should include a single slash between host and path' do
         should contain_backup__offsite__job('govuk-datastores').with(
+          :destination => 'rsync://backup.example.com/some/path',
+        )
+        should contain_backup__offsite__job('govuk-graphite').with(
           :destination => 'rsync://backup.example.com/some/path',
         )
       end
@@ -44,12 +57,16 @@ describe 'backup::offsite', :type => :class do
 
     context 'absolute path' do
       let(:params) { default_params.merge({
-        :dest_folder   => '/srv/some/path',
-        :dest_host     => 'backup.example.com',
+        :datastores_destdir => '/srv/some/path',
+        :graphite_destdir   => '/srv/some/path',
+        :dest_host          => 'backup.example.com',
       })}
 
       it 'should include an "extra" slash between host and path' do
         should contain_backup__offsite__job('govuk-datastores').with(
+          :destination => 'rsync://backup.example.com//srv/some/path',
+        )
+        should contain_backup__offsite__job('govuk-graphite').with(
           :destination => 'rsync://backup.example.com//srv/some/path',
         )
       end

@@ -13,9 +13,6 @@
 # [*destination*]
 #   Remote URL to backup to.
 #
-# [*gpg_key_id*]
-#   GPG key fingerprint to encrypt backups with.
-#
 # [*hour*]
 #   Hour at which to begin back-up
 #
@@ -26,6 +23,10 @@
 #   User to run the backup as.
 #   Default: govuk-backup
 #
+# [*gpg_key_id*]
+#   GPG key fingerprint to encrypt backups with.
+#   Default: undef, upstream default of no encryption
+#
 # [*archive_directory*]
 #   Duplicity cache directory.
 #   Default: undef, upstream default of `~/.cache`
@@ -33,11 +34,11 @@
 define backup::offsite::job(
   $sources,
   $destination,
-  $gpg_key_id,
   $hour,
   $minute,
   $ensure = 'present',
   $user = 'govuk-backup',
+  $gpg_key_id = undef,
   $archive_directory = undef,
 ){
   validate_re($ensure, '^(present|absent)$')
