@@ -50,16 +50,6 @@ class backup::offsite(
     key    => $dest_host_key,
   }
 
-  # FIXME: Remove when deployed.
-  file { '/usr/local/bin/offsite-backup':
-    ensure  => absent,
-  }
-
-  # FIXME: Remove when deployed.
-  cron { 'offsite-backup':
-    ensure => absent,
-  }
-
   $threshold_secs = 28 * (60 * 60)
   # Also used in `post_command`
   $service_description = 'offsite backup govuk datastores'
