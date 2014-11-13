@@ -73,7 +73,3 @@ process :whitehall => [:static, :'publishing-api']
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
 # started, because always starting them all would kill the dev VM.
 process :www => :router
-
-# Performance Platform
-process :limelight => [:static, :limelight]
-process :performance => [:limelight]
