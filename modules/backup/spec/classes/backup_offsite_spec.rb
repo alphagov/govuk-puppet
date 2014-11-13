@@ -12,7 +12,7 @@ describe 'backup::offsite', :type => :class do
     context 'false (default)' do
       let(:params) { default_params }
 
-      it { should contain_duplicity('offsite-govuk-datastores').with(
+      it { should contain_backup__offsite__job('govuk-datastores').with(
         :ensure => 'absent',
       )}
     end
@@ -22,7 +22,7 @@ describe 'backup::offsite', :type => :class do
         :enable        => true,
       })}
 
-      it { should contain_duplicity('offsite-govuk-datastores').with(
+      it { should contain_backup__offsite__job('govuk-datastores').with(
         :ensure => 'present',
       )}
     end
@@ -36,8 +36,8 @@ describe 'backup::offsite', :type => :class do
       })}
 
       it 'should include a single slash between host and path' do
-        should contain_duplicity('offsite-govuk-datastores').with(
-          :target => 'rsync://backup.example.com/some/path',
+        should contain_backup__offsite__job('govuk-datastores').with(
+          :destination => 'rsync://backup.example.com/some/path',
         )
       end
     end
@@ -49,8 +49,8 @@ describe 'backup::offsite', :type => :class do
       })}
 
       it 'should include an "extra" slash between host and path' do
-        should contain_duplicity('offsite-govuk-datastores').with(
-          :target => 'rsync://backup.example.com//srv/some/path',
+        should contain_backup__offsite__job('govuk-datastores').with(
+          :destination => 'rsync://backup.example.com//srv/some/path',
         )
       end
     end
@@ -65,16 +65,6 @@ describe 'backup::offsite', :type => :class do
     it {
       should contain_sshkey('ice.cream').with_key('pickle')
     }
-  end
-
-  describe 'misc' do
-    let(:params) { default_params }
-
-    it 'should include service description in NRPE command' do
-      should contain_duplicity('offsite-govuk-datastores').with(
-        :post_command => /\\toffsite backup govuk datastores\\t/,
-      )
-    end
 
     it {
       # Leaky abstraction? We need to know that govuk::user creates the

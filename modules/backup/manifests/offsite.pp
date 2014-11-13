@@ -50,27 +50,23 @@ class backup::offsite(
     key    => $dest_host_key,
   }
 
-  $threshold_secs = 28 * (60 * 60)
-  # Also used in `post_command`
-  $service_description = 'offsite backup govuk datastores'
-
-  duplicity { 'offsite-govuk-datastores':
-    ensure            => $ensure_backup,
-    directory         => $src_dirs,
-    target            => "rsync://${dest_host}/${dest_folder}",
-    hour              => 8,
-    minute            => 13,
-    pubkey_id         => $gpg_key_id,
-    user              => 'govuk-backup',
-    post_command      => template('backup/post_command.sh.erb'),
-    remove_older_than => '30D',
+  # FIXME: Remove when deployed.
+  backup::offsite::job { 'offsite-govuk-datastores':
+    ensure      => absent,
+    sources     => '',
+    destination => '',
+    hour        => 0,
+    minute      => 0,
+    user        => '',
+    gpg_key_id  => '',
   }
 
-  if $enable {
-    @@icinga::passive_check { "check_backup_offsite-${::hostname}":
-      service_description => $service_description,
-      host_name           => $::fqdn,
-      freshness_threshold => $threshold_secs,
-    }
+  backup::offsite::job { 'govuk-datastores':
+    ensure      => $ensure_backup,
+    sources     => $src_dirs,
+    destination => "rsync://${dest_host}/${dest_folder}",
+    hour        => 8,
+    minute      => 13,
+    gpg_key_id  => $gpg_key_id,
   }
 }
