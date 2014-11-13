@@ -1,10 +1,8 @@
 # == Class: backup::offsite
 #
-# This class arranges for backups on disk in /data/backups to be encrypted
-# with a supplied public key (the private key is not needed) and sent via
-# rsync to a destination host. Backups can be retrieved from this
-# destination host and decrypted with the private key (which is not stored
-# on the destination machine either)
+# Transfer onsite backups to an offsite machine. Some are encrypted against
+# a public GPG key, for which the private key to retrieve them can be found
+# in the creds store.
 #
 # === Parameters
 #
@@ -12,14 +10,20 @@
 #   Whether to enable the generation and sending of encrypted backups
 #   Default: False
 #
-# [*src_dirs*]
-#   Array of source directories to backup.
+# [*datastores_srcdirs*]
+#   Array of source directories for datastore backups.
+#
+# [*graphite_srcdir*]
+#   String of ource directory for Graphite backups.
 #
 # [*gpg_key_id*]
 #   GPG public key ID to encrypt the backup with.
 #
-# [*dest_folder*]
-#    The folder on the destination machine to send the backups to.
+# [*datastores_destdir*]
+#   Destination directory for datastore backups.
+#
+# [*graphite_destdir*]
+#   Destination directory for Graphite backups.
 #
 # [*dest_host*]
 #    Hostname or IP of the machine to send the backups to.
@@ -29,13 +33,16 @@
 #
 class backup::offsite(
   $enable = false,
-  $src_dirs,
+  $datastores_srcdirs,
+  $graphite_srcdir,
   $gpg_key_id,
-  $dest_folder = '',
+  $datastores_destdir,
+  $graphite_destdir,
   $dest_host,
   $dest_host_key,
 ) {
-  validate_array($src_dirs)
+  validate_array($datastores_srcdirs)
+  validate_string($graphite_srcdir, $datastores_destdir, $graphite_destdir)
   validate_bool($enable)
   $ensure_backup = $enable ? {
     true    => present,
@@ -63,10 +70,19 @@ class backup::offsite(
 
   backup::offsite::job { 'govuk-datastores':
     ensure      => $ensure_backup,
-    sources     => $src_dirs,
-    destination => "rsync://${dest_host}/${dest_folder}",
+    sources     => $datastores_srcdirs,
+    destination => "rsync://${dest_host}/${datastores_destdir}",
     hour        => 8,
     minute      => 13,
     gpg_key_id  => $gpg_key_id,
+  }
+
+  backup::offsite::job { 'govuk-graphite':
+    ensure      => $ensure_backup,
+    sources     => $graphite_srcdir,
+    destination => "rsync://${dest_host}/${graphite_destdir}",
+    hour        => 8,
+    minute      => 13,
+    # No encryption because of size and sensitivity
   }
 }
