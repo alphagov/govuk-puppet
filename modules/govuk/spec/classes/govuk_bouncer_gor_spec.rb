@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'bouncer::gor', :type => :class do
+describe 'govuk_bouncer::gor', :type => :class do
   let(:staging_ip) { '127.0.0.1' }
   let(:args_default) {{
     '-input-raw'          => ':80',
