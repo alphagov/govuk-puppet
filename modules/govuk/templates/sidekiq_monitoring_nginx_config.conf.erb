@@ -36,6 +36,10 @@ server {
     proxy_pass http://localhost:3089;
   }
 
+  location /rummager {
+    proxy_pass http://localhost:3091;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }
