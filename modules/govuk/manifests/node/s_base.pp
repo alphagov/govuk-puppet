@@ -21,17 +21,6 @@ class govuk::node::s_base {
   include users
   include resolvconf
 
-  # FIXME: remove these once they've run everywhere.
-  rbenv::version { '1.9.3-p392':
-    ensure => absent,
-  }
-  rbenv::version { '1.9.3-p545':
-    ensure => absent,
-  }
-  rbenv::version { '2.1.1':
-    ensure => absent,
-  }
-
   rbenv::version { '1.9.3-p484':
     bundler_version => '1.6.5'
   }
