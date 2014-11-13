@@ -31,11 +31,6 @@ class govuk_jenkins::ssh_key {
     ensure => 'installed'
   }
 
-  # FIXME: Remove when deployed.
-  file { "${home_dir}/.bashrc":
-    ensure => absent,
-  }
-
   file { "${home_dir}/.profile":
     ensure  => file,
     source  => 'puppet:///modules/govuk_jenkins/dot-profile',
