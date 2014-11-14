@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_exception_handler
+#
+# Base node for exception-handler machines
+#
 class govuk::node::s_exception_handler inherits govuk::node::s_base {
   include mongodb::server
   include mongodb::backup

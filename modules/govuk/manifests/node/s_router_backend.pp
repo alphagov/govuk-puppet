@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_router_backend
+#
+# Base node for router backend machines
+#
 class govuk::node::s_router_backend inherits govuk::node::s_base {
   include mongodb::server
   include mongodb::backup
