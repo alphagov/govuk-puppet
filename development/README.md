@@ -30,7 +30,7 @@ checking for other manufacturers.
     [GDS's GitHub Enterprise](https://github.gds) and you can see the
     [Puppet repository](https://github.gds/gds/puppet) (which you can,
     because you're reading this)
-  * You have [Vagrant 1.3](http://downloads.vagrantup.com/) or greater
+  * You have a recent version of [Vagrant](https://www.vagrantup.com/downloads.html)
     installed - these instructions may work with older versions, but
     they're not officially supported
   * You have some other repositories from GDS checked out to work on -
