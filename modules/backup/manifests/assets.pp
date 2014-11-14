@@ -27,7 +27,7 @@ class backup::assets(
   $dest_host,
   $dest_host_key,
   $jobs,
-  $archive_directory = unset,
+  $archive_directory,
 ) {
   validate_hash($jobs)
 

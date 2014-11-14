@@ -5,6 +5,7 @@ describe 'backup::assets', :type => :class do
     :dest_host          => 'unused',
     :dest_host_key      => 'unused',
     :backup_private_key => '',
+    :archive_directory  => '/srv/.cache',
     :jobs               => {
       'hungry' => {
         'sources'     => ['/srv/strawberry', '/srv/apple'],
@@ -27,44 +28,20 @@ describe 'backup::assets', :type => :class do
     let(:params) { default_params }
 
     it { should contain_backup__offsite__job('hungry').with(
-      :sources     => ['/srv/strawberry', '/srv/apple'],
-      :destination => 'rsync://backup.example.com//srv/backup',
-      :hour        => '1',
-      :minute      => '0',
-      :gpg_key_id  => '',
+      :sources           => ['/srv/strawberry', '/srv/apple'],
+      :destination       => 'rsync://backup.example.com//srv/backup',
+      :hour              => '1',
+      :minute            => '0',
+      :gpg_key_id        => '',
+      :archive_directory => '/srv/.cache',
     )}
     it { should contain_backup__offsite__job('caterpillar').with(
-      :sources     => '/srv/orange',
-      :destination => 'rsync://backup.example.com//srv/backup',
-      :hour        => '2',
-      :minute      => '30',
+      :sources           => '/srv/orange',
+      :destination       => 'rsync://backup.example.com//srv/backup',
+      :hour              => '2',
+      :minute            => '30',
+      :archive_directory => '/srv/.cache',
     )}
-  end
-
-  describe 'archive_directory' do
-    context 'unspecified (default)' do
-      let(:params) { default_params }
-
-      it { should contain_backup__offsite__job('hungry').with(
-        :archive_directory => 'unset',
-      )}
-      it { should contain_backup__offsite__job('caterpillar').with(
-        :archive_directory => 'unset',
-      )}
-    end
-
-    context 'true' do
-      let(:params) { default_params.merge({
-        :archive_directory => '/srv/.cache',
-      })}
-
-      it { should contain_backup__offsite__job('hungry').with(
-        :archive_directory => '/srv/.cache',
-      )}
-      it { should contain_backup__offsite__job('caterpillar').with(
-        :archive_directory => '/srv/.cache',
-      )}
-    end
   end
 
   describe 'dest_host_key' do
