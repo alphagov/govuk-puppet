@@ -1,6 +1,6 @@
 # == Class: govuk::node::s_api_mongo
 #
-# Base node for api-mongo
+# api-mongo node
 #
 class govuk::node::s_api_mongo inherits govuk::node::s_base {
   include mongodb::server

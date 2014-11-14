@@ -1,6 +1,6 @@
 # == Class: govuk::node::s_router_backend
 #
-# Base node for router backend machines
+# router backend node
 #
 class govuk::node::s_router_backend inherits govuk::node::s_base {
   include mongodb::server

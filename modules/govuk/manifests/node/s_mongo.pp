@@ -1,6 +1,6 @@
 # == Class: govuk::node::s_mongo
 #
-# Base node for mongo machines
+# mongo node
 #
 class govuk::node::s_mongo inherits govuk::node::s_base {
   include mongodb::server

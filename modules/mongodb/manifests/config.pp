@@ -7,10 +7,12 @@
 # [*dbpath*]
 # [*logpath*]
 # [*dbpath*]
+#
 # [*development*]
-#   Disable journalling and endable query profiling.
+#   Disable journalling and enable query profiling.
 #   Saves space at the expense of data integrity.
 #   Default: false
+#
 # [*replicaset_name*]
 #   A string for the name of the replicaset.
 #   Passed in by `mongodb::server` which sets it to

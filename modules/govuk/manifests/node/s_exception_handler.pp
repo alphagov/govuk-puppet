@@ -1,6 +1,6 @@
 # == Class: govuk::node::s_exception_handler
 #
-# Base node for exception-handler machines
+# exception-handler node
 #
 class govuk::node::s_exception_handler inherits govuk::node::s_base {
   include mongodb::server

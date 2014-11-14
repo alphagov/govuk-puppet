@@ -1,12 +1,12 @@
 # == Class: mongodb::configure_replica_set
 #
-# Configures a MongoDB replicaset
+# Configures a MongoDB replica set
 #
 # === Parameters:
 #
 # [*members*]
 # [*replicaset_name*]
-#   A string for the name of the replicaset.
+#   A string for the name of the replica set.
 #   Passed in by `mongodb::server` which sets it to
 #   'production' unless $development is true, in which
 #   case it is set to 'development'.

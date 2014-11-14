@@ -1,6 +1,6 @@
 # == Class: govuk::node::s_licensify_mongo
 #
-# Base node for licensify mongo machines
+# licensify mongo node
 #
 class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_encrypted = false) inherits govuk::node::s_base {
   include ecryptfs
