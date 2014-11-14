@@ -5,14 +5,6 @@
 #
 # === Parameters
 #
-# [*target*]
-#   Destination target prefix for backed-up data. Will append individual
-#   back-up directories to this.
-#
-# [*pubkey_id*]
-#   Fingerprint of the public GPG key used for encrypting the back-ups
-#   against
-#
 # [*backup_private_key*]
 #   Private key of the off-site backup box. Used in the deployment repo,
 #   drawn in here
@@ -23,17 +15,21 @@
 # [*dest_host_key*]
 #   SSH hostkey for $dest_host
 #
+# [*jobs*]
+#   Hash of `backup::offsite::job` resources. `ensure` parameter will be
+#   added.
+#
 # [*archive_directory*]
 #   Place to store the Duplicity cache - the default is ~/.cache/duplicity
 #
 class backup::assets(
-  $target,
-  $pubkey_id,
   $backup_private_key,
   $dest_host,
   $dest_host_key,
+  $jobs,
   $archive_directory = unset,
 ) {
+  validate_hash($jobs)
 
   file { '/root/.ssh' :
     ensure => directory,
@@ -52,6 +48,10 @@ class backup::assets(
     key    => $dest_host_key
   }
 
+  create_resources('backup::offsite::job', $jobs, {
+    'archive_directory' => $archive_directory,
+  })
+
   # FIXME: Remove when deployed.
   backup::offsite::job { 'whitehall':
     ensure      => absent,
@@ -61,25 +61,5 @@ class backup::assets(
     minute      => 0,
     user        => '',
     gpg_key_id  => '',
-  }
-
-  backup::offsite::job { 'assets-whitehall':
-    sources           => '/mnt/uploads/whitehall',
-    destination       => "${target}/whitehall",
-    hour              => 4,
-    minute            => 20,
-    user              => 'root',
-    gpg_key_id        => $pubkey_id,
-    archive_directory => $archive_directory,
-  }
-
-  backup::offsite::job { 'asset-manager':
-    sources           => '/mnt/uploads/asset-manager',
-    destination       => "${target}/asset-manager",
-    hour              => 4,
-    minute            => 13,
-    user              => 'root',
-    gpg_key_id        => $pubkey_id,
-    archive_directory => $archive_directory,
   }
 }
