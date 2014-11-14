@@ -48,6 +48,10 @@ define govuk::app::package (
       group  => 'deploy',
       force  => true,
     }
+    file { "/data/apps/${title}":
+      ensure => $ensure_link,
+      target => "/data/vhost/${vhost_full}",
+    }
 
   # Otherwise, assume the apps are checked out straight into /var/govuk.
   } else {

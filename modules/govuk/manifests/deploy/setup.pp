@@ -48,6 +48,13 @@ class govuk::deploy::setup (
     require => File['/data'],
   }
 
+  file { '/data/apps':
+    ensure  => directory,
+    owner   => 'deploy',
+    group   => 'deploy',
+    require => File['/data'],
+  }
+
   file { '/var/apps':
     ensure => directory,
   }
