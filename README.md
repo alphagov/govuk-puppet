@@ -42,7 +42,7 @@ need to run:
     $ bundle exec rake librarian:install
 
 Please avoid using `librarian-puppet` directly because it's not very good at
-respecting or maintaining it's own config file.
+respecting or maintaining its own config file.
 
 Running these commands will often be the solution to Puppet errors about
 unknown classes or functions such as:
