@@ -357,20 +357,26 @@ class hosts::production (
   govuk::host { 'mongo-1':
     ip              => '10.3.0.6',
     vdc             => 'backend',
-    # FIXME may be possible to remove this legacy alias
+    # FIXME this legacy alias is now not used anywhere in Puppet
+    # However, before it is removed, We'll need to reconfigure
+    # the mongo cluster to use the mongo-n.backend
     legacy_aliases  => ["mongo.backend.${internal_tld}", 'backend-1.mongo'],
     service_aliases => ['mongodb'],
   }
   govuk::host { 'mongo-2':
     ip             => '10.3.0.7',
     vdc            => 'backend',
-    # FIXME may be possible to remove this legacy alias
+    # FIXME this legacy alias is now not used anywhere in Puppet
+    # However, before it is removed, We'll need to reconfigure
+    # the mongo cluster to use the mongo-n.backend
     legacy_aliases => ['backend-2.mongo'],
   }
   govuk::host { 'mongo-3':
     ip             => '10.3.0.8',
     vdc            => 'backend',
-    # FIXME may be possible to remove this legacy alias
+    # FIXME this legacy alias is now not used anywhere in Puppet
+    # However, before it is removed, We'll need to reconfigure
+    # the mongo cluster to use the mongo-n.backend
     legacy_aliases => ['backend-3.mongo'],
   }
   govuk::host { 'mapit-server-1':
