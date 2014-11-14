@@ -8,7 +8,6 @@ class licensify::apps::licensify_admin(
   govuk::app { 'licensify-admin':
     app_type          => 'procfile',
     port              => $port,
-    vhost_protected   => false,
     health_check_path => '/login',
     require           => File['/etc/licensing'],
   }

@@ -37,6 +37,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include govuk::apps::content_planner
   include govuk::apps::content_register
+  include govuk::apps::contentapi
   include govuk::apps::email_alert_api
   include govuk::apps::email_alert_service
   class { 'govuk::apps::external_link_tracker':
@@ -70,7 +71,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::travel_advice_publisher
   include govuk::apps::url_arbiter
 
-  class { 'govuk::apps::contentapi': vhost_protected => false }
   class { 'govuk::apps::frontend':   vhost_protected => true  }
 
   include nginx

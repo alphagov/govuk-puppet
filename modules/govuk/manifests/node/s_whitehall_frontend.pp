@@ -1,9 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_whitehall_frontend (
-  #FIXME #73421574: remove when we are off old preview and it is no longer possible
-  #       to access apps directly from the internet
-  $app_basic_auth = false
-) inherits govuk::node::s_base {
+class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
   include nginx
 
@@ -15,7 +11,6 @@ class govuk::node::s_whitehall_frontend (
 
   class { 'govuk::apps::whitehall':
     configure_frontend     => true,
-    vhost_protected        => $app_basic_auth,
     vhost                  => 'whitehall-frontend',
     # 10GB for a warning
     nagios_memory_warning  => 10737418240,

@@ -1,7 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::finder_frontend(
   $port = 3062,
-  $vhost_protected = false,
   $enabled = false,
 ) {
 
@@ -9,7 +8,6 @@ class govuk::apps::finder_frontend(
     govuk::app { 'finder-frontend':
       app_type              => 'rack',
       port                  => $port,
-      vhost_protected       => $vhost_protected,
       health_check_path     => '/cma-cases',
       log_format_is_json    => true,
       asset_pipeline        => true,

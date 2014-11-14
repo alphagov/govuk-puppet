@@ -1,7 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::frontend(
   $port = 3005,
-  $vhost_protected = false,
   $enable_homepage_nocache_location = true
 ) {
 
@@ -22,7 +21,6 @@ class govuk::apps::frontend(
   govuk::app { 'frontend':
     app_type              => 'rack',
     port                  => $port,
-    vhost_protected       => $vhost_protected,
     vhost_aliases         => ['private-frontend'],
     health_check_path     => '/',
     log_format_is_json    => true,
