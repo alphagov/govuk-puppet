@@ -2,74 +2,67 @@ require_relative '../../../../spec_helper'
 
 describe 'backup::offsite', :type => :class do
   let(:default_params) {{
-    :datastores_srcdirs => ['/unused'],
-    :graphite_srcdir    => '/unused',
-    :gpg_key_id         => 'unused',
-    :datastores_destdir => 'unused',
-    :graphite_destdir   => 'unused',
-    :dest_host          => 'unused',
-    :dest_host_key      => 'unused',
+    :dest_host     => 'unused',
+    :dest_host_key => 'unused',
+    :jobs          => {
+      'hungry' => {
+        'sources'     => ['/srv/strawberry', '/srv/apple'],
+        'destination' => 'rsync://backup.example.com//srv/backup',
+        'hour'        => 1,
+        'minute'      => 0,
+        'gpg_key_id'  => '',
+      },
+      'caterpillar' => {
+        'sources'     => '/srv/orange',
+        'destination' => 'rsync://backup.example.com//srv/backup',
+        'hour'        => 1,
+        'hour'        => 2,
+        'minute'      => 30,
+      },
+    },
   }}
+
+  describe 'jobs' do
+    let(:params) { default_params }
+
+    it { should contain_backup__offsite__job('hungry').with(
+      :sources     => ['/srv/strawberry', '/srv/apple'],
+      :destination => 'rsync://backup.example.com//srv/backup',
+      :hour        => '1',
+      :minute      => '0',
+      :gpg_key_id  => '',
+    )}
+    it { should contain_backup__offsite__job('caterpillar').with(
+      :sources     => '/srv/orange',
+      :destination => 'rsync://backup.example.com//srv/backup',
+      :hour        => '2',
+      :minute      => '30',
+    )}
+  end
 
   describe 'enable' do
     context 'false (default)' do
       let(:params) { default_params }
 
-      it { should contain_backup__offsite__job('govuk-datastores').with(
+      it { should contain_backup__offsite__job('hungry').with(
         :ensure => 'absent',
       )}
-      it { should contain_backup__offsite__job('govuk-graphite').with(
+      it { should contain_backup__offsite__job('caterpillar').with(
         :ensure => 'absent',
       )}
     end
 
     context 'true' do
       let(:params) { default_params.merge({
-        :enable        => true,
+        :enable => true,
       })}
 
-      it { should contain_backup__offsite__job('govuk-datastores').with(
+      it { should contain_backup__offsite__job('hungry').with(
         :ensure => 'present',
       )}
-      it { should contain_backup__offsite__job('govuk-graphite').with(
+      it { should contain_backup__offsite__job('caterpillar').with(
         :ensure => 'present',
       )}
-    end
-  end
-
-  describe 'datastores_destdir graphite_destdir' do
-    context 'relative path' do
-      let(:params) { default_params.merge({
-        :datastores_destdir => 'some/path',
-        :graphite_destdir   => 'some/path',
-        :dest_host          => 'backup.example.com',
-      })}
-
-      it 'should include a single slash between host and path' do
-        should contain_backup__offsite__job('govuk-datastores').with(
-          :destination => 'rsync://backup.example.com/some/path',
-        )
-        should contain_backup__offsite__job('govuk-graphite').with(
-          :destination => 'rsync://backup.example.com/some/path',
-        )
-      end
-    end
-
-    context 'absolute path' do
-      let(:params) { default_params.merge({
-        :datastores_destdir => '/srv/some/path',
-        :graphite_destdir   => '/srv/some/path',
-        :dest_host          => 'backup.example.com',
-      })}
-
-      it 'should include an "extra" slash between host and path' do
-        should contain_backup__offsite__job('govuk-datastores').with(
-          :destination => 'rsync://backup.example.com//srv/some/path',
-        )
-        should contain_backup__offsite__job('govuk-graphite').with(
-          :destination => 'rsync://backup.example.com//srv/some/path',
-        )
-      end
     end
   end
 
