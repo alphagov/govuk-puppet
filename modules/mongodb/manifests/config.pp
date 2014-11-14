@@ -2,15 +2,11 @@
 class mongodb::config (
   $dbpath = '/var/lib/mongodb',
   $logpath,
-  $development
+  $development,
+  $replicaset,
 ) {
   validate_bool($development)
 
-  if $development {
-    $replicaset = 'development'
-  } else {
-    $replicaset = 'production'
-  }
   # Class params are used in the templates below.
 
   file { '/etc/mongodb.conf':

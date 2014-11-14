@@ -32,6 +32,12 @@ class mongodb::server (
 
   $logpath = '/var/log/mongodb/mongod.log'
 
+  if $development {
+    $replicaset_name = 'development'
+  } else {
+    $replicaset_name = 'production'
+  }
+
   anchor { 'mongodb::begin':
     before => Class['mongodb::repository'],
     notify => Class['mongodb::service'];
@@ -50,11 +56,13 @@ class mongodb::server (
     dbpath      => $dbpath,
     logpath     => $logpath,
     development => $development,
+    replicaset  => $replicaset_name,
     require     => Class['mongodb::package'],
     notify      => Class['mongodb::service'];
   }
 
   class { 'mongodb::configure_replica_set':
+    replicaset   => $replicaset_name,
     members      => $replicaset_members,
     require      => Class['mongodb::service'];
   }

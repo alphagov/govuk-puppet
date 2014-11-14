@@ -5,6 +5,7 @@ describe 'mongodb::config', :type => :class do
     let(:params) {{
       :logpath     => '/this/is/a/path',
       :development => false,
+      :replicaset  => 'development',
     }}
 
     it {
@@ -21,6 +22,7 @@ describe 'mongodb::config', :type => :class do
       let(:params) {{
         :logpath     => '/unused',
         :development => false,
+        :replicaset  => 'production',
       }}
 
       it { should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/) }
@@ -32,6 +34,7 @@ describe 'mongodb::config', :type => :class do
       let(:params) {{
         :logpath     => '/unused',
         :development => true,
+        :replicaset  => 'development',
       }}
 
       it { should contain_file('/etc/mongodb.conf').with_content(/replSet = development$/) }
