@@ -3,7 +3,7 @@ class mongodb::config (
   $dbpath = '/var/lib/mongodb',
   $logpath,
   $development,
-  $replicaset,
+  $replicaset_name,
 ) {
   validate_bool($development)
 

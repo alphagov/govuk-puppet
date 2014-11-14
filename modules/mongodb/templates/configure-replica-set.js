@@ -13,7 +13,7 @@ function replicaSetMembers() {
 
 function replicaSetConfig() {
   return {
-    _id: "<%= @replicaset %>",
+    _id: "<%= @replicaset_name %>",
     members: replicaSetMembers()
   };
 }

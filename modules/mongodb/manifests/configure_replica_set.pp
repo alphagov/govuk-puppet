@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class mongodb::configure_replica_set($members, $replicaset) {
+class mongodb::configure_replica_set($members, $replicaset_name) {
   file { '/etc/mongodb':
     ensure => 'directory',
     owner  => 'root',

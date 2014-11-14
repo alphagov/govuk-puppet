@@ -53,18 +53,18 @@ class mongodb::server (
   }
 
   class { 'mongodb::config':
-    dbpath      => $dbpath,
-    logpath     => $logpath,
-    development => $development,
-    replicaset  => $replicaset_name,
-    require     => Class['mongodb::package'],
-    notify      => Class['mongodb::service'];
+    dbpath            => $dbpath,
+    logpath           => $logpath,
+    development       => $development,
+    replicaset_name   => $replicaset_name,
+    require           => Class['mongodb::package'],
+    notify            => Class['mongodb::service'];
   }
 
   class { 'mongodb::configure_replica_set':
-    replicaset   => $replicaset_name,
-    members      => $replicaset_members,
-    require      => Class['mongodb::service'];
+    replicaset_name   => $replicaset_name,
+    members           => $replicaset_members,
+    require           => Class['mongodb::service'];
   }
 
   class { 'mongodb::logging':
