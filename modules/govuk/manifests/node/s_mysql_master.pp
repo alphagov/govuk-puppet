@@ -33,10 +33,10 @@ class govuk::node::s_mysql_master (
   }
 
   govuk_mysql::user { 'bouncer@%':
+    ensure        => absent,
     password_hash => mysql_password($mysql_bouncer),
     table         => 'transition_production.*',
     privileges    => ['SELECT'],
-    require       => Class['govuk::apps::transition::db'],
   }
 
   collectd::plugin::tcpconn { 'mysql':

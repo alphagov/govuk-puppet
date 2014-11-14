@@ -239,6 +239,7 @@ class govuk::node::s_development {
       password => 'tariff';
 
     ['transition_development', 'transition_test']:
+      ensure   => 'absent',
       user     => 'transition',
       password => 'transition',
       collate  => 'utf8_unicode_ci';
