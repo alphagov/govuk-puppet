@@ -6,7 +6,7 @@ define govuk::app::config (
   $vhost_full,
   $command = 'NOTSET',
   $vhost_aliases = [],
-  $vhost_protected = undef,
+  $vhost_protected = false,
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',

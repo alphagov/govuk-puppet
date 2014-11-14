@@ -128,10 +128,9 @@ define govuk::app (
   #
   # Boolean: true or false
   #
-  # Default: undef, which will result in $vhost_protected == false in Skyscape
-  # and SCC, true otherwise.
+  # Default: false
   #
-  $vhost_protected = undef,
+  $vhost_protected = false,
 
   #
   # vhost_ssl_only: should this app be served exclusively over HTTPS
