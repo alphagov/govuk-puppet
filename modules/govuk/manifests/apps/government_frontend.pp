@@ -16,19 +16,16 @@
 #
 class govuk::apps::government_frontend(
   $port = 3090,
-  $enabled = false,
   $vhost_protected = false,
 ) {
-  if $enabled {
-    govuk::app { 'government-frontend':
-      app_type              => 'rack',
-      port                  => $port,
-      vhost_ssl_only        => true,
-      vhost_protected       => $vhost_protected,
-      health_check_path     => '/healthcheck',
-      log_format_is_json    => true,
-      asset_pipeline        => true,
-      asset_pipeline_prefix => 'government-frontend',
-    }
+  govuk::app { 'government-frontend':
+    app_type              => 'rack',
+    port                  => $port,
+    vhost_ssl_only        => true,
+    vhost_protected       => $vhost_protected,
+    health_check_path     => '/healthcheck',
+    log_format_is_json    => true,
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'government-frontend',
   }
 }
