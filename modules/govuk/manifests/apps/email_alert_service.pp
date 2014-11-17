@@ -9,17 +9,10 @@
 #   Should the application should be enabled. Set in hiera data for each
 #   environment.
 #
-class govuk::apps::email_alert_service (
-  $enable_procfile_worker = true
-) {
-
+class govuk::apps::email_alert_service {
   govuk::app { 'email-alert-service':
     app_type           => 'bare',
     enable_nginx_vhost => false,
     command            => './bin/email_alert_service',
-  }
-
-  govuk::procfile::worker {'email-alert-service':
-    enable_service => $enable_procfile_worker,
   }
 }
