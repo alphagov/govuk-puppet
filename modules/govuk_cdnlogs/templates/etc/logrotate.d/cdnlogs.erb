@@ -1,4 +1,12 @@
-<%= @log_dir -%>/*.log
+<%
+to_rotate_daily = @service_port_map.keys.reject do |name|
+  @rotate_logs_hourly.include? name
+end
+%>
+<%=
+to_rotate_daily.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join(' ')
+-%>
+
 {
   rotate 365
   daily

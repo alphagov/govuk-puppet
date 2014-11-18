@@ -6,7 +6,7 @@ describe 'govuk_cdnlogs', :type => :class do
       :log_dir          => '/tmp/logs',
       :server_key       => 'my key',
       :server_crt       => 'my crt',
-      :service_port_map => {},
+      :service_port_map => { 'elephant' => 123 },
     }}
 
     describe 'server_key' do
@@ -18,7 +18,8 @@ describe 'govuk_cdnlogs', :type => :class do
     end
 
     describe 'log_dir' do
-      it { should contain_file('/etc/logrotate.d/cdnlogs').with_content(/^\/tmp\/logs\/\*\.log$/) }
+      it { should contain_file('/etc/logrotate.d/cdnlogs')
+                  .with_content(/^\/tmp\/logs\/cdn-elephant\.log$/) }
     end
   end
 
@@ -71,6 +72,29 @@ describe 'govuk_cdnlogs', :type => :class do
 
 # Switch back to default ruleset
 /)
+      end
+
+      it 'should rotate both logs in the daily conf file' do
+        should contain_file('/etc/logrotate.d/cdnlogs').with_content(
+          /^\/tmp\/logs\/cdn-elephant\.log \/tmp\/logs\/cdn-giraffe\.log$/
+        )
+      end
+      it 'should rotate daily' do
+        should contain_file('/etc/logrotate.d/cdnlogs').with_content(
+          /rotate 365$/
+        )
+      end
+
+      context 'the elephant logs should be rotated hourly' do
+        before { params[:rotate_logs_hourly] = ['elephant'] }
+
+        it 'should rotate only giraffe logs in the daily conf file' do
+          should contain_file('/etc/logrotate.d/cdnlogs').with_content(
+            /^\/tmp\/logs\/cdn-giraffe\.log$/
+          ).without_content(
+            /elephant/
+          )
+        end
       end
     end
   end

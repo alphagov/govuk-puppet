@@ -64,6 +64,7 @@ backup::offsite::jobs:
     minute: 13,
     # No encryption because of size and sensitivity
 
+govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
   govuk: 6514
   assets: 6515

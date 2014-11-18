@@ -7,6 +7,10 @@
 # [*log_dir*]
 #   Directory to store CDN logs.
 #
+# [*rotate_logs_hourly*]
+#   Array of service names for which logs should be rotated hourly. Other
+#   services will have their logs rotated daily.
+#
 # [*server_key*]
 #   Private key string for rsyslog to use.
 #
@@ -20,6 +24,7 @@
 class govuk_cdnlogs (
   $log_dir,
   $monitoring_enabled = false,
+  $rotate_logs_hourly = [],
   $server_key,
   $server_crt,
   $service_port_map,
