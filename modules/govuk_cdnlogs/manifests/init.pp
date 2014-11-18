@@ -66,9 +66,25 @@ class govuk_cdnlogs (
       fail('Unable to monitor GOV.UK CDN logs, key not present in service_port_map.')
     }
 
+    if !has_key($service_port_map, 'bouncer') {
+      fail('Unable to monitor Bouncer CDN logs, key not present in service_port_map.')
+    }
+
+    # FIXME: remove this once it has been deployed
     @@icinga::check { "check_cdn_logs_being_streamed_${::hostname}":
+      ensure => absent
+    }
+
+    @@icinga::check { "check_govuk_cdn_logs_being_streamed_${::hostname}":
       check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c7200 -w3600\"",
-      service_description => 'Logs are not being received from the CDN',
+      service_description => 'GOV.UK logs are not being received from the CDN',
+      host_name           => $::fqdn,
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
+    }
+
+    @@icinga::check { "check_bouncer_cdn_logs_being_streamed_${::hostname}":
+      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-bouncer.log -c7200 -w3600\"",
+      service_description => 'Bouncer logs are not being received from the CDN',
       host_name           => $::fqdn,
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
     }
