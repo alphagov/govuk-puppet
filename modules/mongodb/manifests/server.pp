@@ -7,21 +7,36 @@
 # [*version*]
 # [*package_name*]
 # [*dbpath*]
+# [*replicaset_members*]
+#   An array of the members for the replica set.
+#   Defaults to empty, which throws an error, so
+#   it must be set.
 #
 # [*development*]
-#   Create a non-replSet node with journalling disabled and query profiling
-#   enabled. Saves space at the expense of data integrity.
+#   Disable journalling and endable query profiling.
+#   Saves space at the expense of data integrity.
 #   Default: false
 #
 class mongodb::server (
   $version,
   $package_name = 'mongodb-10gen',
   $dbpath = '/var/lib/mongodb',
-  $development = false
+  $replicaset_members = [],
+  $development = false,
 ) {
   validate_bool($development)
+  validate_array($replicaset_members)
+  if empty($replicaset_members) {
+    fail("Replica set can't have no members")
+  }
 
   $logpath = '/var/log/mongodb/mongod.log'
+
+  if $development {
+    $replicaset_name = 'development'
+  } else {
+    $replicaset_name = 'production'
+  }
 
   anchor { 'mongodb::begin':
     before => Class['mongodb::repository'],
@@ -38,11 +53,18 @@ class mongodb::server (
   }
 
   class { 'mongodb::config':
-    dbpath      => $dbpath,
-    logpath     => $logpath,
-    development => $development,
-    require     => Class['mongodb::package'],
-    notify      => Class['mongodb::service'];
+    dbpath            => $dbpath,
+    logpath           => $logpath,
+    development       => $development,
+    replicaset_name   => $replicaset_name,
+    require           => Class['mongodb::package'],
+    notify            => Class['mongodb::service'];
+  }
+
+  class { 'mongodb::configure_replica_set':
+    replicaset_name   => $replicaset_name,
+    members           => $replicaset_members,
+    require           => Class['mongodb::service'];
   }
 
   class { 'mongodb::logging':
@@ -71,7 +93,8 @@ class mongodb::server (
   anchor { 'mongodb::end':
     require => Class[
       'mongodb::firewall',
-      'mongodb::service'
+      'mongodb::service',
+      'mongodb::configure_replica_set'
     ],
   }
 }

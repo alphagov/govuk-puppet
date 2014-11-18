@@ -1,5 +1,17 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class mongodb::configure_replica_set($members) {
+# == Class: mongodb::configure_replica_set
+#
+# Configures a MongoDB replica set
+#
+# === Parameters:
+#
+# [*members*]
+# [*replicaset_name*]
+#   A string for the name of the replica set.
+#   Passed in by `mongodb::server` which sets it to
+#   'production' unless $development is true, in which
+#   case it is set to 'development'.
+#
+class mongodb::configure_replica_set($members, $replicaset_name) {
   file { '/etc/mongodb':
     ensure => 'directory',
     owner  => 'root',

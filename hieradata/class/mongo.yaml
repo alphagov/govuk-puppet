@@ -20,3 +20,8 @@ mount:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
+
+mongodb::server::replicaset_members:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'

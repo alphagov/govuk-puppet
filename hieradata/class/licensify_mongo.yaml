@@ -20,3 +20,8 @@ mount:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
+
+mongodb::server::replicaset_members:
+ - "licensify-mongo-1.licensify"
+ - "licensify-mongo-2.licensify"
+ - "licensify-mongo-3.licensify"

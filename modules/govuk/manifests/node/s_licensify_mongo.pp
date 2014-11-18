@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_licensify_mongo
+#
+# licensify mongo node
+#
 class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_encrypted = false) inherits govuk::node::s_base {
   include ecryptfs
   include mongodb::server
@@ -13,14 +16,6 @@ class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_en
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
     }
 
-  $internal_tld = hiera('internal_tld', 'production')
-
-  $mongo_hosts = [
-    "licensify-mongo-1.licensify.${internal_tld}",
-    "licensify-mongo-2.licensify.${internal_tld}",
-    "licensify-mongo-3.licensify.${internal_tld}"
-  ]
-
   $mongodb_encrypted = $licensify_mongo_encrypted
   if $mongodb_encrypted {
     motd::snippet {'01-encrypted-licensify': }
@@ -29,10 +24,6 @@ class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_en
   # Disable monthly backups to limit the retention of IL3 data.
   class { 'mongodb::backup':
     domonthly => false
-  }
-
-  class { 'mongodb::configure_replica_set':
-    members => $mongo_hosts
   }
 
   Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']

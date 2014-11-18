@@ -3,8 +3,9 @@ require_relative '../../../../spec_helper'
 describe 'mongodb::config', :type => :class do
   describe 'upstart config' do
     let(:params) {{
-      :logpath     => '/this/is/a/path',
-      :development => false,
+      :logpath          => '/this/is/a/path',
+      :development      => false,
+      :replicaset_name  => 'development',
     }}
 
     it {
@@ -21,6 +22,7 @@ describe 'mongodb::config', :type => :class do
       let(:params) {{
         :logpath     => '/unused',
         :development => false,
+        :replicaset_name  => 'production',
       }}
 
       it { should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/) }
@@ -30,11 +32,12 @@ describe 'mongodb::config', :type => :class do
 
     context 'development => true' do
       let(:params) {{
-        :logpath     => '/unused',
-        :development => true,
+        :logpath          => '/unused',
+        :development      => true,
+        :replicaset_name  => 'development',
       }}
 
-      it { should contain_file('/etc/mongodb.conf').without_content(/replSet/) }
+      it { should contain_file('/etc/mongodb.conf').with_content(/replSet = development$/) }
       it { should contain_file('/etc/mongodb.conf').with_content(/^profile = 2$/) }
       it { should contain_file('/etc/mongodb.conf').with_content(/noprealloc|journal|nojournal/) }
     end
