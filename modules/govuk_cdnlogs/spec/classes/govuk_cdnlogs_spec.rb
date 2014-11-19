@@ -39,6 +39,7 @@ describe 'govuk_cdnlogs', :type => :class do
 
       it { should_not contain_ufw__allow('rsyslog-cdn-logs') }
       it { should contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
+      it { should contain_file('/etc/logrotate.d/cdnlogs').without_content(/rotate/) }
     end
 
     context 'two entries in service_port_map and log_dir' do
