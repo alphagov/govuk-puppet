@@ -1,0 +1,5 @@
+#!/bin/sh
+# managed by puppet
+# cron job to rotate cdn logs.
+
+/usr/sbin/logrotate /etc/logrotate.cdn_logs_hourly.conf

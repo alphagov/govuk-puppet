@@ -85,6 +85,8 @@ describe 'govuk_cdnlogs', :type => :class do
           /rotate 365$/
         )
       end
+      it { should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+                  .without_content(/rotate/) }
 
       context 'the elephant logs should be rotated hourly' do
         before { params[:rotate_logs_hourly] = ['elephant'] }
@@ -95,6 +97,12 @@ describe 'govuk_cdnlogs', :type => :class do
           ).without_content(
             /elephant/
           )
+        end
+
+        it 'should rotate the elephant logs hourly' do
+          should contain_file('/etc/logrotate.cdn_logs_hourly.conf').with_content(
+            /^\/tmp\/logs\/cdn-elephant\.log$/
+          ).with_content(/rotate 8760/)
         end
       end
     end

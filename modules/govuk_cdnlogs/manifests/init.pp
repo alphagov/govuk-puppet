@@ -66,6 +66,18 @@ class govuk_cdnlogs (
     content => template('govuk_cdnlogs/etc/logrotate.d/cdnlogs.erb'),
   }
 
+  file { '/etc/logrotate.cdn_logs_hourly.conf':
+    ensure  => file,
+    content => template('govuk_cdnlogs/etc/logrotate.cdn_logs_hourly.conf.erb'),
+  }
+
+  file { '/etc/cron.hourly/cdn_logs_rotate':
+    ensure  => file,
+    content => template('govuk_cdnlogs/etc/cron.hourly/cdn_logs_rotate'),
+    mode    => '0744',
+    require => File['/etc/logrotate.cdn_logs_hourly.conf'],
+  }
+
   if $monitoring_enabled {
     if !has_key($service_port_map, 'govuk') {
       fail('Unable to monitor GOV.UK CDN logs, key not present in service_port_map.')
