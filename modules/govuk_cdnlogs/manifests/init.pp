@@ -73,7 +73,7 @@ class govuk_cdnlogs (
 
   file { '/etc/cron.hourly/cdn_logs_rotate':
     ensure  => file,
-    content => template('govuk_cdnlogs/etc/cron.hourly/cdn_logs_rotate'),
+    source  => 'puppet:///modules/govuk_cdnlogs/etc/cron.hourly/cdn_logs_rotate',
     mode    => '0744',
     require => File['/etc/logrotate.cdn_logs_hourly.conf'],
   }
