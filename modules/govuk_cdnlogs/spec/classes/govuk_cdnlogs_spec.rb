@@ -77,7 +77,8 @@ describe 'govuk_cdnlogs', :type => :class do
 
       it 'should rotate both logs in the daily conf file' do
         should contain_file('/etc/logrotate.d/cdnlogs')
-          .with_content(%r{^/tmp/logs/cdn-elephant\.log /tmp/logs/cdn-giraffe\.log$})
+          .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
+          .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
       end
       it 'should rotate daily' do
         should contain_file('/etc/logrotate.d/cdnlogs')

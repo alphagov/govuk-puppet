@@ -1,6 +1,6 @@
 <% unless @rotate_logs_hourly.empty? %>
 <%=
-@rotate_logs_hourly.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join(' ')
+@rotate_logs_hourly.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
 -%>
 
 {

@@ -5,7 +5,7 @@ end
 unless to_rotate_daily.empty?
 %>
 <%=
-to_rotate_daily.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join(' ')
+to_rotate_daily.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
 -%>
 
 {
