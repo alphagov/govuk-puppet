@@ -19,7 +19,7 @@ describe 'govuk_cdnlogs', :type => :class do
 
     describe 'log_dir' do
       it { should contain_file('/etc/logrotate.d/cdnlogs')
-                  .with_content(/^\/tmp\/logs\/cdn-elephant\.log$/) }
+            .with_content(/^\/tmp\/logs\/cdn-elephant\.log$/) }
     end
   end
 
@@ -76,33 +76,29 @@ describe 'govuk_cdnlogs', :type => :class do
       end
 
       it 'should rotate both logs in the daily conf file' do
-        should contain_file('/etc/logrotate.d/cdnlogs').with_content(
-          /^\/tmp\/logs\/cdn-elephant\.log \/tmp\/logs\/cdn-giraffe\.log$/
-        )
+        should contain_file('/etc/logrotate.d/cdnlogs')
+          .with_content(/^\/tmp\/logs\/cdn-elephant\.log \/tmp\/logs\/cdn-giraffe\.log$/)
       end
       it 'should rotate daily' do
-        should contain_file('/etc/logrotate.d/cdnlogs').with_content(
-          /rotate 365$/
-        )
+        should contain_file('/etc/logrotate.d/cdnlogs')
+          .with_content(/rotate 365$/)
       end
       it { should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
-                  .without_content(/rotate/) }
+            .without_content(/rotate/) }
 
       context 'the elephant logs should be rotated hourly' do
         before { params[:rotate_logs_hourly] = ['elephant'] }
 
         it 'should rotate only giraffe logs in the daily conf file' do
-          should contain_file('/etc/logrotate.d/cdnlogs').with_content(
-            /^\/tmp\/logs\/cdn-giraffe\.log$/
-          ).without_content(
-            /elephant/
-          )
+          should contain_file('/etc/logrotate.d/cdnlogs')
+            .with_content(/^\/tmp\/logs\/cdn-giraffe\.log$/)
+            .without_content(/elephant/)
         end
 
         it 'should rotate the elephant logs hourly' do
-          should contain_file('/etc/logrotate.cdn_logs_hourly.conf').with_content(
-            /^\/tmp\/logs\/cdn-elephant\.log$/
-          ).with_content(/rotate 8760/)
+          should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+            .with_content(/^\/tmp\/logs\/cdn-elephant\.log$/)
+            .with_content(/rotate 8760/)
         end
       end
     end
