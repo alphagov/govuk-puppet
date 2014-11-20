@@ -19,7 +19,7 @@ describe 'govuk_cdnlogs', :type => :class do
 
     describe 'log_dir' do
       it { should contain_file('/etc/logrotate.d/cdnlogs')
-            .with_content(/^\/tmp\/logs\/cdn-elephant\.log$/) }
+            .with_content(%r{^/tmp/logs/cdn-elephant\.log$}) }
     end
   end
 
@@ -58,26 +58,26 @@ describe 'govuk_cdnlogs', :type => :class do
       end
 
       it 'should create two rulesets, bind against ports, and use log_dir' do
-        should contain_rsyslog__snippet('ccc-cdnlogs').with_content(/
+        should contain_rsyslog__snippet('ccc-cdnlogs').with_content(%r{
 \$template .*
 
 \$RuleSet cdn-elephant
-\*\.\* -\/tmp\/logs\/cdn-elephant\.log;NoFormat
+\*\.\* -/tmp/logs/cdn-elephant\.log;NoFormat
 \$InputTCPServerBindRuleset cdn-elephant
 \$InputTCPServerRun 123
 
 \$RuleSet cdn-giraffe
-\*\.\* -\/tmp\/logs\/cdn-giraffe\.log;NoFormat
+\*\.\* -/tmp/logs/cdn-giraffe\.log;NoFormat
 \$InputTCPServerBindRuleset cdn-giraffe
 \$InputTCPServerRun 456
 
 # Switch back to default ruleset
-/)
+})
       end
 
       it 'should rotate both logs in the daily conf file' do
         should contain_file('/etc/logrotate.d/cdnlogs')
-          .with_content(/^\/tmp\/logs\/cdn-elephant\.log \/tmp\/logs\/cdn-giraffe\.log$/)
+          .with_content(%r{^/tmp/logs/cdn-elephant\.log /tmp/logs/cdn-giraffe\.log$})
       end
       it 'should rotate daily' do
         should contain_file('/etc/logrotate.d/cdnlogs')
@@ -91,13 +91,13 @@ describe 'govuk_cdnlogs', :type => :class do
 
         it 'should rotate only giraffe logs in the daily conf file' do
           should contain_file('/etc/logrotate.d/cdnlogs')
-            .with_content(/^\/tmp\/logs\/cdn-giraffe\.log$/)
+            .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
             .without_content(/elephant/)
         end
 
         it 'should rotate the elephant logs hourly' do
           should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
-            .with_content(/^\/tmp\/logs\/cdn-elephant\.log$/)
+            .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
             .with_content(/rotate 8760/)
         end
       end
