@@ -11,4 +11,6 @@ class govuk_rabbitmq::firewalls {
   @ufw::allow { 'allow-rabbitmq-9103-cluster-from-all': port => 9103 }
   @ufw::allow { 'allow-rabbitmq-9104-cluster-from-all': port => 9104 }
   @ufw::allow { 'allow-rabbitmq-9105-cluster-from-all': port => 9105 }
+
+  @ufw::allow { 'allow-admin-port-from-all': port => 15672 }
 }
