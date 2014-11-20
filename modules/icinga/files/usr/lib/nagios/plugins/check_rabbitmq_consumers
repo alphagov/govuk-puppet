@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
-Check whether the RabbitMQ consumers for email-alert-service have been active
-within the last 5 minutes.
+Check whether the RabbitMQ consumers for a queue have been active within the
+last 5 minutes.
 
 (Heartbeats will be sent at least once per minute, so being idle for more than
 5 minutes will be enough to check the consumer is active.)
