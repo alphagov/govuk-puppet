@@ -1,0 +1,138 @@
+#!/usr/bin/env python
+"""
+Check whether the RabbitMQ consumers for a queue have been active within the
+last 5 minutes.
+
+(Heartbeats will be sent at least once per minute, so being idle for more than
+5 minutes will be enough to check the consumer is active.)
+
+"""
+
+import datetime
+import dateutil.parser
+import json
+import requests
+import sys
+import urllib
+
+OK, WARNING, CRITICAL, UNKNOWN = 0, 1, 2, 3
+STATUSES = ["ok", "warning", "critical", "unknown"]
+
+
+def report(exit_code, message):
+    """Report the check's result to STDOUT, then exit."""
+    prefix = STATUSES[exit_code].upper()
+    print('%s: %s' % (prefix, message))
+    exit(exit_code)
+
+
+def handle_exception(exc_type, exception, traceback):
+    """Report uncaught exceptions to Nagios as UNKNOWN (exit code 3)."""
+    report(UNKNOWN, "unhandled exception: %s" % (exception,))
+
+
+class RabbitMQCheck:
+    def __init__(self, host, port, queue, username, password):
+        self._queue = queue
+        self._base_uri = "http://%s:%s/api/" % (host, port)
+        self._auth = (username, password)
+        self.allowed_max_idle_time = datetime.timedelta(seconds = 5 * 60)
+
+    def error_message(self, response):
+        msg = "HTTP %s error" % (response.status_code)
+        try:
+            json_body = json.loads(response.content)
+        except ValueError:
+            return msg
+        return "%s: %s: %s" % (
+            msg,
+            json_body.get("error", ""),
+            json_body.get("reason", ""),
+        )
+
+    def rabbit_request(self, path):
+        """Make a request to the rabbit API at the given path."""
+        uri = self._base_uri + path
+        response = requests.get(uri, auth=self._auth)
+
+        if response.status_code != 200:
+            raise Exception(self.error_message(response))
+        return json.loads(response.content)
+
+    def consumer_details_for_queue(self):
+        """Fetch the names of the channels listnening to the queue.
+
+        Will raise various HTTP errors if rabbit isn't responding properly.
+        Will raise KeyError if the response didn't include the expected structure.
+
+        Returns a list of dicts containing details of the consumers, where each dict looks like:
+
+        {
+           "channel_details": {
+               "name": <name of channel>,
+               ...
+            }
+            ...
+        }
+
+        """
+        response_json = self.rabbit_request("queues/%2F/" + self._queue)
+        return response_json["consumer_details"]
+
+    def channels_listening_to_queue(self):
+        return [
+            details["channel_details"]["name"]
+            for details in self.consumer_details_for_queue()
+        ]
+
+    def channel_idle_times(self):
+        now = datetime.datetime.now()
+        return [
+            now - dateutil.parser.parse(
+                self.rabbit_request("channels/" + urllib.quote(channel))["idle_since"]
+            )
+            for channel in self.channels_listening_to_queue()
+        ]
+
+    def check_latest_idle_time(self, idle_times):
+        """Check that at least one consumer isn't too idle.
+
+        We'd like to check that all consumers are active, but rabbit could
+        validly decide to route all the messages to one consumer, so this could
+        cause false alerts.  For now, we'll therefore just fire alerts if no
+        consumers are active.
+
+        """
+        min_idle_time = min(idle_times)
+        idle_time_info = ', '.join([str(t) for t in idle_times])
+
+        if min_idle_time < self.allowed_max_idle_time:
+            return OK, "Most recent activity %d seconds ago: idle times are %s" % (
+                min_idle_time.total_seconds(),
+                idle_time_info
+            )
+        else:
+            return CRITICAL, "No activity for %d seconds: idle times are %s" % (
+                min_idle_time.total_seconds(),
+                idle_time_info
+            )
+
+    def check(self):
+        idle_times = self.channel_idle_times()
+        if not idle_times:
+            return CRITICAL, "No consumers listening to queue"
+        return self.check_latest_idle_time(idle_times)
+
+
+if __name__ == "__main__":
+    sys.excepthook = handle_exception
+
+    host = sys.argv[1]
+    port = sys.argv[2]
+    queue = sys.argv[3]
+    username = sys.argv[4]
+    password = sys.argv[5]
+
+    rabbitmq_check = RabbitMQCheck(host, port, queue, username, password)
+
+    report(*rabbitmq_check.check())
