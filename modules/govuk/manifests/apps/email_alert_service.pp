@@ -16,6 +16,6 @@ class govuk::apps::email_alert_service {
     command            => './bin/email_alert_service',
   }
   govuk_rabbitmq::monitor_consumers {'email-alert-service_rabbitmq-consumers':
-    rabbitmq_queue     => 'email-alert-service',
+    rabbitmq_queue     => 'email_alert_service',
   }
 }
