@@ -12,4 +12,6 @@ class icinga::plugin::check_rabbitmq_consumers ($monitoring_password = ''){
   @icinga::nrpe_config { 'check_rabbitmq_consumers':
     content  => template('icinga/etc/nagios/nrpe.d/check_rabbitmq_consumers.cfg.erb'),
   }
+
+  ensure_packages(['python-requests','python-dateutil'])
 }
