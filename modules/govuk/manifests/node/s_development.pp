@@ -125,11 +125,7 @@ class govuk::node::s_development {
   include govuk::apps::public_link_tracker
   include govuk::apps::publisher
   include govuk::apps::release
-  class { 'govuk::apps::router':
-    mongodb_nodes => [
-      'localhost',
-    ],
-  }
+  include govuk::apps::router
   include govuk::apps::router_api
   include govuk::apps::search
   include govuk::apps::search_admin

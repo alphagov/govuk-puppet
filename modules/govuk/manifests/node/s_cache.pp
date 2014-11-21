@@ -25,13 +25,7 @@ class govuk::node::s_cache (
     default_ttl  => '900',
   }
 
-  class { 'govuk::apps::router':
-    mongodb_nodes => [
-      'router-backend-1.router',
-      'router-backend-2.router',
-      'router-backend-3.router',
-    ],
-  }
+  include govuk::apps::router
 
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target    => "${::fqdn_underscore}.nginx.nginx_connections-writing",
