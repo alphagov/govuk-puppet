@@ -26,4 +26,7 @@ class govuk::apps::content_register(
   govuk::procfile::worker {'content-register':
     enable_service => $enable_procfile_worker,
   }
+  govuk_rabbitmq::monitor_consumers {'content-register_rabbitmq-consumers':
+    rabbitmq_queue => 'content_register',
+  }
 }
