@@ -1,4 +1,4 @@
-# == Class: bouncer::gor
+# == Class: govuk_bouncer::gor
 #
 # Setup gor traffic replay for the Bouncer application
 #
@@ -10,7 +10,7 @@
 # [*staging_ip*]
 #   IP address of the Bouncer application in Staging; defaults to undef.
 #
-class bouncer::gor (
+class govuk_bouncer::gor (
   $enable_staging = false,
   $staging_ip = undef,
 ) {
