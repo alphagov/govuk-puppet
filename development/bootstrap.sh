@@ -24,7 +24,7 @@ info "Installing development environment dependencies..."
 
 if ! which vagrant > /dev/null 2>&1; then
     error "Vagrant not installed"
-    error "Please download from http://downloads.vagrantup.com/"
+    error "Please download from http://www.vagrantup.com/downloads.html"
     exit 1
 fi
 
