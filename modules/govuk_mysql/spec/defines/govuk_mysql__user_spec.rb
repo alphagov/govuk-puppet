@@ -36,7 +36,7 @@ describe 'govuk_mysql::user', :type => :define do
       }}
 
       it { should contain_mysql_user('root@localhost').with_ensure('absent') }
-      it { should contain_mysql_grant('root@localhost/*.*').with_ensure('absent') }
+      it { should_not contain_mysql_grant('root@localhost/*.*').with_ensure('absent') }
     end
   end
 

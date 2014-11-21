@@ -37,11 +37,13 @@ define govuk_mysql::user (
     require       => Class['govuk_mysql::server'],
   }
 
-  mysql_grant { "${name}/${table}":
-    ensure     => $ensure,
-    user       => $name,
-    table      => $table,
-    privileges => $privileges,
-    require    => Class['govuk_mysql::server'],
+  if $ensure == 'present' {
+    mysql_grant { "${name}/${table}":
+      ensure     => $ensure,
+      user       => $name,
+      table      => $table,
+      privileges => $privileges,
+      require    => Class['govuk_mysql::server'],
+    }
   }
 }
