@@ -42,7 +42,7 @@ define govuk::apps::bouncer::vhost(
 ) {
 
   nginx::config::site { $title:
-    content => template('bouncer/vhost.conf.erb'),
+    content => template('govuk/bouncer_nginx_vhost.conf.erb'),
   }
 
   nginx::log {
