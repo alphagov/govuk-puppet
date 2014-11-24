@@ -142,6 +142,7 @@ class govuk::node::s_development {
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
     configure_frontend => true,
+    vhost_protected    => false,
   }
 
   include govuk_java::oracle7::jdk
