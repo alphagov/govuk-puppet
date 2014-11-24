@@ -64,9 +64,11 @@ backup::offsite::jobs:
     minute: 13,
     # No encryption because of size and sensitivity
 
+govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
   govuk: 6514
   assets: 6515
+  bouncer: 6516
 
 govuk_crawler::amqp_host: 'rabbitmq-1.backend'
 govuk_crawler::govuk_gemfury_source_url: "%{hiera('govuk_gemfury_source_url')}"

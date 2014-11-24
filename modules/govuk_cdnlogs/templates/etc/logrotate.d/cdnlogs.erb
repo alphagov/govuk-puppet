@@ -1,4 +1,13 @@
-<%= @log_dir -%>/*.log
+<%
+to_rotate_daily = @service_port_map.keys.reject do |name|
+  @rotate_logs_hourly.include? name
+end
+unless to_rotate_daily.empty?
+%>
+<%=
+to_rotate_daily.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
+-%>
+
 {
   rotate 365
   daily
@@ -11,3 +20,4 @@
     invoke-rc.d rsyslog reload >/dev/null 2>&1 || true
   endscript
 }
+<% end %>

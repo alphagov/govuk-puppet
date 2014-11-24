@@ -1,0 +1,18 @@
+<% unless @rotate_logs_hourly.empty? %>
+<%=
+@rotate_logs_hourly.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
+-%>
+
+{
+  rotate 8760
+  dateext
+  dateformat -%Y%m%d-%s
+  compress
+  size 1
+  missingok
+  postrotate
+    invoke-rc.d rsyslog reload >/dev/null 2>&1 || true
+    sleep 10
+  endscript
+}
+<% end %>

@@ -6,7 +6,7 @@ describe 'govuk_cdnlogs', :type => :class do
       :log_dir          => '/tmp/logs',
       :server_key       => 'my key',
       :server_crt       => 'my crt',
-      :service_port_map => {},
+      :service_port_map => { 'elephant' => 123 },
     }}
 
     describe 'server_key' do
@@ -18,7 +18,8 @@ describe 'govuk_cdnlogs', :type => :class do
     end
 
     describe 'log_dir' do
-      it { should contain_file('/etc/logrotate.d/cdnlogs').with_content(/^\/tmp\/logs\/\*\.log$/) }
+      it { should contain_file('/etc/logrotate.d/cdnlogs')
+            .with_content(%r{^/tmp/logs/cdn-elephant\.log$}) }
     end
   end
 
@@ -38,6 +39,7 @@ describe 'govuk_cdnlogs', :type => :class do
 
       it { should_not contain_ufw__allow('rsyslog-cdn-logs') }
       it { should contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
+      it { should contain_file('/etc/logrotate.d/cdnlogs').without_content(/rotate/) }
     end
 
     context 'two entries in service_port_map and log_dir' do
@@ -56,21 +58,49 @@ describe 'govuk_cdnlogs', :type => :class do
       end
 
       it 'should create two rulesets, bind against ports, and use log_dir' do
-        should contain_rsyslog__snippet('ccc-cdnlogs').with_content(/
+        should contain_rsyslog__snippet('ccc-cdnlogs').with_content(%r{
 \$template .*
 
 \$RuleSet cdn-elephant
-\*\.\* -\/tmp\/logs\/cdn-elephant\.log;NoFormat
+\*\.\* -/tmp/logs/cdn-elephant\.log;NoFormat
 \$InputTCPServerBindRuleset cdn-elephant
 \$InputTCPServerRun 123
 
 \$RuleSet cdn-giraffe
-\*\.\* -\/tmp\/logs\/cdn-giraffe\.log;NoFormat
+\*\.\* -/tmp/logs/cdn-giraffe\.log;NoFormat
 \$InputTCPServerBindRuleset cdn-giraffe
 \$InputTCPServerRun 456
 
 # Switch back to default ruleset
-/)
+})
+      end
+
+      it 'should rotate both logs in the daily conf file' do
+        should contain_file('/etc/logrotate.d/cdnlogs')
+          .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
+          .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
+      end
+      it 'should rotate daily' do
+        should contain_file('/etc/logrotate.d/cdnlogs')
+          .with_content(/rotate 365$/)
+      end
+      it { should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+            .without_content(/rotate/) }
+
+      context 'the elephant logs should be rotated hourly' do
+        before { params[:rotate_logs_hourly] = ['elephant'] }
+
+        it 'should rotate only giraffe logs in the daily conf file' do
+          should contain_file('/etc/logrotate.d/cdnlogs')
+            .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
+            .without_content(/elephant/)
+        end
+
+        it 'should rotate the elephant logs hourly' do
+          should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+            .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
+            .with_content(/rotate 8760/)
+        end
       end
     end
   end
