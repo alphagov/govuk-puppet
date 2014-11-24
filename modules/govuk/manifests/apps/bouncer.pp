@@ -1,7 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::bouncer(
   $port = 3049,
-  $vhost_protected = false
 ) {
 
   govuk::app { 'bouncer':
@@ -9,7 +8,6 @@ class govuk::apps::bouncer(
     port                   => $port,
     vhost_ssl_only         => false,
     health_check_path      => '/healthcheck',
-    vhost_protected        => false,
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
     enable_nginx_vhost     => false,

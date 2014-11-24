@@ -1,26 +1,19 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_frontend (
-  #FIXME #73421574: remove when we are off old preview and it is no longer possible
-  #       to access apps directly from the internet
-  $app_basic_auth = false
-) inherits govuk::node::s_base {
+class govuk::node::s_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
-  class {
-    'govuk::apps::collections':           vhost_protected => $app_basic_auth;
-    'govuk::apps::contacts_frontend':     vhost_protected => $app_basic_auth;
-    'govuk::apps::designprinciples':      vhost_protected => $app_basic_auth;
-    'govuk::apps::feedback':              vhost_protected => $app_basic_auth;
-    'govuk::apps::frontend':              vhost_protected => $app_basic_auth;
-    'govuk::apps::government_frontend':   vhost_protected => $app_basic_auth;
-    'govuk::apps::info_frontend':         vhost_protected => $app_basic_auth;
-    'govuk::apps::manuals_frontend':      vhost_protected => $app_basic_auth;
-    'govuk::apps::service_manual':        vhost_protected => $app_basic_auth;
-    'govuk::apps::specialist_frontend':   vhost_protected => $app_basic_auth;
-  }
+  include govuk::apps::collections
+  include govuk::apps::contacts_frontend
+  include govuk::apps::designprinciples
+  include govuk::apps::feedback
+  include govuk::apps::frontend
+  include govuk::apps::government_frontend
+  include govuk::apps::info_frontend
+  include govuk::apps::manuals_frontend
+  include govuk::apps::service_manual
+  include govuk::apps::specialist_frontend
 
   class { 'govuk::apps::contacts':
-    vhost_protected => $app_basic_auth,
     vhost           => 'contacts-frontend-old',
   }
 

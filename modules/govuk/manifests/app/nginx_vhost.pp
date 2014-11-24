@@ -3,7 +3,7 @@ define govuk::app::nginx_vhost (
   $vhost,
   $app_port,
   $aliases = [],
-  $protected = undef,
+  $protected = false,
   $ssl_only = false,
   $logstream = present,
   $nginx_extra_config = '',
@@ -16,12 +16,6 @@ define govuk::app::nginx_vhost (
   $hidden_paths = undef,
   $ensure = 'present',
 ) {
-
-  if $protected == undef {
-    $protected_real = false
-  } else {
-    $protected_real = $protected
-  }
 
   # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
   # this is necessary because it is a global override in a defined type
@@ -41,7 +35,7 @@ define govuk::app::nginx_vhost (
     ensure           => $ensure,
     to               => ["localhost:${app_port}"],
     aliases          => $aliases,
-    protected        => $protected_real,
+    protected        => $protected,
     ssl_only         => $ssl_only,
     logstream        => $logstream,
     extra_config     => $nginx_extra_config_real,

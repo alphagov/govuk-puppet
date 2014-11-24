@@ -67,27 +67,25 @@ class govuk::node::s_development {
 
   include router::assets_origin
 
-  class {
-    'govuk::apps::bouncer':               vhost_protected => false;
-    'govuk::apps::businesssupportfinder': vhost_protected => false;
-    'govuk::apps::calculators':           vhost_protected => false;
-    'govuk::apps::calendars':             vhost_protected => false;
-    'govuk::apps::collections':           vhost_protected => false;
-    'govuk::apps::contacts_frontend':     vhost_protected => false;
-    'govuk::apps::contentapi':            vhost_protected => false;
-    'govuk::apps::designprinciples':      vhost_protected => false;
-    'govuk::apps::feedback':              vhost_protected => false;
-    'govuk::apps::finder_frontend':       vhost_protected => false;
-    'govuk::apps::frontend':              vhost_protected => false;
-    'govuk::apps::government_frontend':   vhost_protected => false;
-    'govuk::apps::info_frontend':         vhost_protected => false;
-    'govuk::apps::licencefinder':         vhost_protected => false;
-    'govuk::apps::manuals_frontend':      vhost_protected => false;
-    'govuk::apps::service_manual':        vhost_protected => false;
-    'govuk::apps::smartanswers':          vhost_protected => false;
-    'govuk::apps::specialist_frontend':   vhost_protected => false;
-    'govuk::apps::tariff':                vhost_protected => false;
-  }
+  include govuk::apps::bouncer
+  include govuk::apps::businesssupportfinder
+  include govuk::apps::calculators
+  include govuk::apps::calendars
+  include govuk::apps::collections
+  include govuk::apps::contacts_frontend
+  include govuk::apps::contentapi
+  include govuk::apps::designprinciples
+  include govuk::apps::feedback
+  include govuk::apps::finder_frontend
+  include govuk::apps::frontend
+  include govuk::apps::government_frontend
+  include govuk::apps::info_frontend
+  include govuk::apps::licencefinder
+  include govuk::apps::manuals_frontend
+  include govuk::apps::service_manual
+  include govuk::apps::smartanswers
+  include govuk::apps::specialist_frontend
+  include govuk::apps::tariff
 
   include govuk::apps::asset_manager
   include govuk::apps::business_support_api
@@ -148,7 +146,6 @@ class govuk::node::s_development {
   class { 'govuk::apps::whitehall':
     configure_admin    => true,
     configure_frontend => true,
-    vhost_protected    => false,
   }
 
   include govuk_java::oracle7::jdk
