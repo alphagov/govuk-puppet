@@ -1,2 +1,8 @@
 ---
+
+govuk::apps::router::mongodb_nodes:
+  - 'router-backend-1.router'
+  - 'router-backend-2.router'
+  - 'router-backend-3.router'
+
 nginx::package::nginx_package: 'nginx-extras'
