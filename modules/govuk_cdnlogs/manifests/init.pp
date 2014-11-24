@@ -89,7 +89,8 @@ class govuk_cdnlogs (
 
     # FIXME: remove this once it has been deployed
     @@icinga::check { "check_cdn_logs_being_streamed_${::hostname}":
-      ensure => absent
+      ensure    => absent,
+      host_name => $::fqdn,
     }
 
     @@icinga::check { "check_govuk_cdn_logs_being_streamed_${::hostname}":
