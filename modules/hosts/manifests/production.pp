@@ -17,6 +17,13 @@
 #   whitelisted IP without requiring a VPN connection.
 #   Default: false
 #
+# [*releaseapp_host_org*]
+#   Whether to create the `release.$app_domain` vhost alias within this environment.
+#   Default: false
+#
+# [*ip_bouncer*]
+#   The IP address of the bouncer vse load-balancer
+#
 class hosts::production (
   $apt_mirror_internal    = false,
   $carrenza_vcloud        = false,
@@ -25,576 +32,45 @@ class hosts::production (
 ) {
 
   $app_domain = hiera('app_domain')
-  $internal_tld = hiera('internal_tld', 'production')
-
-  validate_bool($apt_mirror_internal)
-  $apt_aliases = $apt_mirror_internal ? {
-    true    => ['apt.production.alphagov.co.uk'],
-    default => undef,
-  }
 
   validate_bool($carrenza_vcloud)
 
   #management vdc machines
-  govuk::host { 'jenkins-1':
-    ip  => '10.0.0.3',
-    vdc => 'management',
-  }
-  govuk::host { 'puppetmaster-1':
-    ip              => '10.0.0.5',
-    vdc             => 'management',
-    legacy_aliases  => ['puppet'],
-    service_aliases => ['puppet', 'puppetdb'],
-  }
-
-  govuk::host { 'monitoring-1':
-    ip              => '10.0.0.20',
-    vdc             => 'management',
-    legacy_aliases  => ['monitoring', "nagios.${app_domain}"],
-    service_aliases => ['alert', 'monitoring', 'nagios'],
-  }
-
-  govuk::host { 'graphite-1':
-    ip              => '10.0.0.22',
-    vdc             => 'management',
-    legacy_aliases  => ["graphite.${app_domain}"],
-    service_aliases => ['graphite'],
-  }
-  govuk::host { 'logs-cdn-1':
-    ip  => '10.0.0.27',
-    vdc => 'management',
-  }
-  govuk::host { 'logging-1':
-    ip              => '10.0.0.28',
-    vdc             => 'management',
-    service_aliases => ['logging'],
-  }
-  govuk::host { 'logs-elasticsearch-1':
-    ip              => '10.0.0.29',
-    vdc             => 'management',
-    service_aliases => ['logs-elasticsearch'],
-  }
-  govuk::host { 'logs-elasticsearch-2':
-    ip  => '10.0.0.30',
-    vdc => 'management',
-  }
-  govuk::host { 'logs-elasticsearch-3':
-    ip  => '10.0.0.31',
-    vdc => 'management',
-  }
-  govuk::host { 'logs-redis-1':
-    ip  => '10.0.0.40',
-    vdc => 'management',
-  }
-  govuk::host { 'logs-redis-2':
-    ip  => '10.0.0.41',
-    vdc => 'management',
-  }
-  govuk::host { 'backup-1':
-    ip  => '10.0.0.50',
-    vdc => 'management',
-  }
-  govuk::host { 'apt-1':
-    ip              => '10.0.0.75',
-    vdc             => 'management',
-    legacy_aliases  => $apt_aliases,
-    service_aliases => ['apt'],
-  }
-  govuk::host { 'jumpbox-1':
-    ip  => '10.0.0.100',
-    vdc => 'management',
-  }
-  govuk::host { 'mirrorer-1':
-    ip  => '10.0.0.128',
-    vdc => 'management',
-  }
-  govuk::host { 'jumpbox-2':
-    ip  => '10.0.0.200',
-    vdc => 'management',
+  class { 'hosts::production::management':
+    app_domain          => $app_domain,
+    apt_mirror_internal => $apt_mirror_internal,
   }
 
   #router vdc machines
-  govuk::host { 'cache-1':
-    ip  => '10.1.0.2',
-    vdc => 'router',
-  }
-  govuk::host { 'cache-2':
-    ip  => '10.1.0.3',
-    vdc => 'router',
-  }
-  govuk::host { 'cache-3':
-    ip  => '10.1.0.4',
-    vdc => 'router',
-  }
-  govuk::host { 'router-backend-1':
-    ip  => '10.1.0.10',
-    vdc => 'router',
-  }
-  govuk::host { 'router-backend-2':
-    ip  => '10.1.0.11',
-    vdc => 'router',
-  }
-  govuk::host { 'router-backend-3':
-    ip  => '10.1.0.12',
-    vdc => 'router',
-  }
-
-  #router lb vhosts
-  govuk::host { 'cache':
-    ip              => '10.1.1.1',
-    vdc             => 'router',
-    legacy_aliases  => [
-      'cache',
-      "www.${app_domain}",
-      "www-origin.${app_domain}",
-      "assets-origin.${app_domain}",
-    ],
-    service_aliases => ['cache', 'router'],
-  }
-  govuk::host { 'router-backend-internal-lb':
-    ip             => '10.1.1.2',
-    vdc            => 'router',
-    legacy_aliases => ["router-api.${app_domain}"],
+  class { 'hosts::production::router':
+    app_domain => $app_domain,
   }
 
   #frontend vdc machines
-  govuk::host { 'calculators-frontend-1':
-    ip  => '10.2.0.11',
-    vdc => 'frontend',
-  }
-  govuk::host { 'calculators-frontend-2':
-    ip  => '10.2.0.12',
-    vdc => 'frontend',
-  }
-  govuk::host { 'calculators-frontend-3':
-    ip  => '10.2.0.13',
-    vdc => 'frontend',
-  }
-  govuk::host { 'frontend-1':
-    ip  => '10.2.0.2',
-    vdc => 'frontend',
-  }
-  govuk::host { 'frontend-2':
-    ip  => '10.2.0.3',
-    vdc => 'frontend',
-  }
-  govuk::host { 'frontend-3':
-    ip  => '10.2.0.4',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-1':
-    ip  => '10.2.0.5',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-2':
-    ip  => '10.2.0.6',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-3':
-    ip  => '10.2.0.10',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-4':
-    ip  => '10.2.0.14',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-5':
-    ip  => '10.2.0.15',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-6':
-    ip  => '10.2.0.16',
-    vdc => 'frontend',
-  }
-  govuk::host { 'whitehall-frontend-7':
-    ip  => '10.2.0.17',
-    vdc => 'frontend',
-  }
-
-  #frontend lb vhosts
-  govuk::host { 'frontend-lb-1':
-    ip  => '10.2.0.101',
-    vdc => 'frontend',
-  }
-  govuk::host { 'frontend-lb-2':
-    ip  => '10.2.0.102',
-    vdc => 'frontend',
-  }
-  govuk::host { 'frontend-internal-lb':
-    ip             => '10.2.1.2',
-    vdc            => 'frontend',
-    legacy_aliases => [
-      "businesssupportfinder.${app_domain}",
-      "calculators.${app_domain}",
-      "calendars.${app_domain}",
-      "canary-frontend.${app_domain}",
-      "collections.${app_domain}",
-      "contacts-frontend.${app_domain}",
-      "contacts-frontend-old.${app_domain}",
-      "designprinciples.${app_domain}",
-      "feedback.${app_domain}",
-      "finder-frontend.${app_domain}",
-      "frontend.${app_domain}",
-      "government-frontend.${app_domain}",
-      "info-frontend.${app_domain}",
-      "manuals-frontend.${app_domain}",
-      "licencefinder.${app_domain}",
-      "publicapi.${app_domain}",
-      "public-link-tracker.${app_domain}",
-      "service-manual.${app_domain}",
-      "smartanswers.${app_domain}",
-      "spotlight.${app_domain}",
-      "specialist-frontend.${app_domain}",
-      "static.${app_domain}",
-      "tariff.${app_domain}",
-      "transactions-explorer.${app_domain}",
-      "whitehall-frontend.${app_domain}",
-    ]
+  class { 'hosts::production::frontend':
+    app_domain => $app_domain,
   }
 
   #api vdc machines
-  govuk::host { 'content-store-1':
-    ip  => '10.7.0.11',
-    vdc => 'api',
-  }
-  govuk::host { 'content-store-2':
-    ip  => '10.7.0.12',
-    vdc => 'api',
-  }
-  govuk::host { 'content-store-3':
-    ip  => '10.7.0.13',
-    vdc => 'api',
-  }
-  govuk::host { 'api-1':
-    ip  => '10.7.0.16',
-    vdc => 'api',
-  }
-  govuk::host { 'api-2':
-    ip  => '10.7.0.17',
-    vdc => 'api',
-  }
-  govuk::host { 'api-mongo-1':
-    ip  => '10.7.0.21',
-    vdc => 'api',
-  }
-  govuk::host { 'api-mongo-2':
-    ip  => '10.7.0.22',
-    vdc => 'api',
-  }
-  govuk::host { 'api-mongo-3':
-    ip  => '10.7.0.23',
-    vdc => 'api',
-  }
-  #api lb vhosts
-  govuk::host { 'api-lb-1':
-    ip  => '10.7.0.101',
-    vdc => 'api',
-  }
-  govuk::host { 'api-lb-2':
-    ip  => '10.7.0.102',
-    vdc => 'api',
-  }
-  govuk::host { 'api-internal-lb':
-    ip             => '10.7.1.2',
-    vdc            => 'api',
-    legacy_aliases => [
-      "content-store.${app_domain}",
-      "metadata-api.${app_domain}",
-      "publishing-api.${app_domain}",
-    ]
+  class { 'hosts::production::api':
+    app_domain => $app_domain,
   }
 
   #backend vdc machines
-  govuk::host { 'backend-1':
-    ip  => '10.3.0.2',
-    vdc => 'backend',
-  }
-  govuk::host { 'backend-2':
-    ip  => '10.3.0.3',
-    vdc => 'backend',
-  }
-  govuk::host { 'backend-3':
-    ip  => '10.3.0.4',
-    vdc => 'backend',
-  }
-  govuk::host { 'whitehall-backend-1':
-    ip  => '10.3.0.25',
-    vdc => 'backend',
-  }
-  govuk::host { 'whitehall-backend-2':
-    ip  => '10.3.0.26',
-    vdc => 'backend',
-  }
-  govuk::host { 'whitehall-backend-3':
-    ip  => '10.3.0.27',
-    vdc => 'backend',
-  }
-  govuk::host { 'whitehall-backend-4':
-    ip  => '10.3.0.28',
-    vdc => 'backend',
-  }
-  govuk::host { 'elasticsearch-1':
-    ip  => '10.3.0.15',
-    vdc => 'backend',
-  }
-  govuk::host { 'elasticsearch-2':
-    ip  => '10.3.0.16',
-    vdc => 'backend',
-  }
-  govuk::host { 'elasticsearch-3':
-    ip  => '10.3.0.17',
-    vdc => 'backend',
-  }
-  govuk::host { 'support-1':
-    ip              => '10.3.0.5',
-    vdc             => 'backend',
-    service_aliases => ['support'],
-  }
-  govuk::host { 'support-contacts-1':
-    ip  => '10.3.0.60',
-    vdc => 'backend',
-  }
-  govuk::host { 'mongo-1':
-    ip              => '10.3.0.6',
-    vdc             => 'backend',
-    # FIXME this legacy alias is now not used anywhere in Puppet
-    # However, before it is removed, We'll need to reconfigure
-    # the mongo cluster to use the mongo-n.backend
-    legacy_aliases  => ["mongo.backend.${internal_tld}", 'backend-1.mongo'],
-    service_aliases => ['mongodb'],
-  }
-  govuk::host { 'mongo-2':
-    ip             => '10.3.0.7',
-    vdc            => 'backend',
-    # FIXME this legacy alias is now not used anywhere in Puppet
-    # However, before it is removed, We'll need to reconfigure
-    # the mongo cluster to use the mongo-n.backend
-    legacy_aliases => ['backend-2.mongo'],
-  }
-  govuk::host { 'mongo-3':
-    ip             => '10.3.0.8',
-    vdc            => 'backend',
-    # FIXME this legacy alias is now not used anywhere in Puppet
-    # However, before it is removed, We'll need to reconfigure
-    # the mongo cluster to use the mongo-n.backend
-    legacy_aliases => ['backend-3.mongo'],
-  }
-  govuk::host { 'mapit-server-1':
-    ip             => '10.3.0.9',
-    vdc            => 'backend',
-    legacy_aliases => ['mapit.alpha.gov.uk']
-  }
-  govuk::host { 'mapit-server-2':
-    ip  => '10.3.0.10',
-    vdc => 'backend',
-  }
-  govuk::host { 'exception-handler-1':
-    ip  => '10.3.0.40',
-    vdc => 'backend',
-  }
-  govuk::host { 'rabbitmq-1':
-    ip  => '10.3.0.70',
-    vdc => 'backend',
-  }
-  govuk::host { 'rabbitmq-2':
-    ip  => '10.3.0.71',
-    vdc => 'backend',
-  }
-  govuk::host { 'rabbitmq-3':
-    ip  => '10.3.0.72',
-    vdc => 'backend',
-  }
-  govuk::host { 'redis-1':
-    ip  => '10.3.0.50',
-    vdc => 'backend',
-  }
-  govuk::host { 'redis-2':
-    ip  => '10.3.0.51',
-    vdc => 'backend',
-  }
-  govuk::host { 'mysql-master-1':
-    ip             => '10.3.10.0',
-    vdc            => 'backend',
-    legacy_aliases => ['master.mysql', "mysql.backend.${internal_tld}"],
-  }
-  govuk::host { 'mysql-slave-1':
-    ip             => '10.3.10.1',
-    vdc            => 'backend',
-    legacy_aliases => ['slave.mysql' ],
-  }
-  govuk::host { 'mysql-slave-2':
-    ip  => '10.3.10.3',
-    vdc => 'backend',
-  }
-  govuk::host { 'mysql-backup-1':
-    ip             => '10.3.10.2',
-    vdc            => 'backend',
-    legacy_aliases => ['backup.mysql'],
-  }
-  govuk::host { 'postgresql-master-1':
-    ip  => '10.3.20.10',
-    vdc => 'backend',
-  }
-  govuk::host { 'postgresql-slave-1':
-    ip  => '10.3.20.11',
-    vdc => 'backend',
-  }
-  govuk::host { 'transition-postgresql-master-1':
-    ip             => '10.3.20.1',
-    vdc            => 'backend',
-    legacy_aliases => ['transition-master.postgresql', "transition-postgresql.backend.${internal_tld}"],
-  }
-  govuk::host { 'transition-postgresql-slave-1':
-    ip             => '10.3.20.2',
-    vdc            => 'backend',
-    legacy_aliases => ['transition-slave.postgresql'],
-  }
-  govuk::host { 'whitehall-mysql-master-1':
-    ip             => '10.3.10.30',
-    vdc            => 'backend',
-    legacy_aliases => ['whitehall-master.mysql', "whitehall-mysql.backend.${internal_tld}"],
-  }
-  govuk::host { 'whitehall-mysql-slave-1':
-    ip             => '10.3.10.31',
-    vdc            => 'backend',
-    legacy_aliases => ['whitehall-slave.mysql'],
-  }
-  govuk::host { 'whitehall-mysql-slave-2':
-    ip  => '10.3.10.32',
-    vdc => 'backend',
-  }
-  govuk::host { 'whitehall-mysql-backup-1':
-    ip             => '10.3.10.34',
-    vdc            => 'backend',
-    legacy_aliases => ['whitehall-backup.mysql'],
-  }
-  govuk::host { 'backend-lb-1':
-    ip  => '10.3.0.101',
-    vdc => 'backend',
-  }
-  govuk::host { 'backend-lb-2':
-    ip  => '10.3.0.102',
-    vdc => 'backend',
+  class { 'hosts::production::backend':
+    app_domain          => $app_domain,
+    releaseapp_host_org => $releaseapp_host_org,
   }
 
-  $backend_aliases_orig = [
-      'backend-internal-lb',
-      "api-external-link-tracker.${app_domain}",
-      "asset-manager.${app_domain}",
-      "business-support-api.${app_domain}",
-      "canary-backend.${app_domain}",
-      "collections-api.${app_domain}",
-      "collections-publisher.${app_domain}",
-      "contacts-admin.${app_domain}",
-      "content-planner.${app_domain}",
-      "content-register.${app_domain}",
-      "contentapi.${app_domain}",
-      "email-alert-api.${app_domain}",
-      "errbit.${app_domain}",
-      "external-link-tracker.${app_domain}",
-      "finder-api.${app_domain}",
-      "govuk-delivery.${app_domain}",
-      "hmrc-manuals-api.${app_domain}",
-      "imminence.${app_domain}",
-      "kibana.${app_domain}",
-      "mapit.${app_domain}",
-      "maslow.${app_domain}",
-      "need-api.${app_domain}",
-      "panopticon.${app_domain}",
-      "private-frontend.${app_domain}",
-      "publisher.${app_domain}",
-      "search.${app_domain}",
-      "search-admin.${app_domain}",
-      "short-url-manager.${app_domain}",
-      "signon.${app_domain}",
-      "specialist-publisher.${app_domain}",
-      "support.${app_domain}",
-      "support-api.${app_domain}",
-      "tariff-admin.${app_domain}",
-      "tariff-api.${app_domain}",
-      "transition.${app_domain}",
-      "travel-advice-publisher.${app_domain}",
-      "url-arbiter.${app_domain}",
-      "whitehall-admin.${app_domain}"
-      ]
-
-  validate_bool($releaseapp_host_org)
-  if $releaseapp_host_org {
-    $backend_aliases = flatten([$backend_aliases_orig, ["release.${app_domain}"]])
-  } else {
-    $backend_aliases = $backend_aliases_orig
-  }
-
-
-  govuk::host { 'backend-internal-lb':
-    ip             => '10.3.1.2',
-    vdc            => 'backend',
-    legacy_aliases => $backend_aliases,
-  }
-
-  govuk::host { 'asset-master-1':
-    ip             => '10.3.0.20',
-    vdc            => 'backend',
-    legacy_aliases => [
-      "asset-master-1.${app_domain}",
-      'asset-master',
-      "asset-master.${app_domain}"
-    ],
-  }
-
-  govuk::host { 'asset-slave-1':
-    ip             => '10.3.0.21',
-    vdc            => 'backend',
-    legacy_aliases => [
-      "asset-slave-1.${app_domain}",
-      'asset-slave',
-      "asset-slave.${app_domain}"
-    ],
+  # redirector vdc machines
+  class { 'hosts::production::redirector':
+    app_domain => $app_domain,
+    ip_bouncer => $ip_bouncer,
   }
 
   # elms (licence finder) vdc machines
-  govuk::host { 'licensify-frontend-1':
-    ip  => '10.5.0.2',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-frontend-2':
-    ip  => '10.5.0.3',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-backend-1':
-    ip  => '10.5.0.4',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-backend-2':
-    ip  => '10.5.0.5',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-mongo-1':
-    ip  => '10.5.0.6',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-mongo-2':
-    ip  => '10.5.0.7',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-mongo-3':
-    ip  => '10.5.0.8',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-lb-1':
-    ip  => '10.5.0.101',
-    vdc => 'licensify',
-  }
-  govuk::host { 'licensify-lb-2':
-    ip  => '10.5.0.102',
-    vdc => 'licensify',
-  }
-
-  #licensify load balancer v-shield edge
-  govuk::host { 'licensify-internal-lb':
-    ip             => '10.5.1.2',
-    vdc            => 'licensify',
-    legacy_aliases => ["licensify.${app_domain}", "uploadlicence.${app_domain}", "licensify-admin.${app_domain}", "licensing-web-forms.${app_domain}"],
+  class { 'hosts::production::licensify':
+    app_domain => $app_domain,
   }
 
   #efg vdc machines
@@ -614,26 +90,6 @@ class hosts::production (
     ip             => '10.4.0.11',
     vdc            => 'efg',
     legacy_aliases => ['efg.slave.mysql'],
-  }
-
-  # redirector vdc machines
-  govuk::host { 'bouncer-1':
-    ip  => '10.6.0.4',
-    vdc => 'redirector',
-  }
-  govuk::host { 'bouncer-2':
-    ip  => '10.6.0.5',
-    vdc => 'redirector',
-  }
-  govuk::host { 'bouncer-3':
-    ip  => '10.6.0.6',
-    vdc => 'redirector',
-  }
-
-  govuk::host { 'bouncer-vse-lb':
-    ip             => $ip_bouncer,
-    vdc            => 'redirector',
-    legacy_aliases => ["bouncer.${app_domain}"],
   }
 
   # 3rd-party hosts
