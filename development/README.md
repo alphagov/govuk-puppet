@@ -131,6 +131,17 @@ done
 then run `rbenv rehash` to make sure all the Gem installed shims are
 removed from your `PATH`.
 
+### Permission denied (publickey).
+
+You need to forward your publickey to the vm. Run `ssh-add` from the host machine, then attempt to provision your machine again.
+
+To confirm your key has been forwarded to the development vm you can run
+
+```
+vagrant ssh # ssh onto vm
+ssh-add -L  # list key and location on host machine
+```
+
 ### Errors with NFS
 
 You're likely on the production VPN. Disconnect the VPN and `reload`
