@@ -3,24 +3,18 @@ require_relative '../../../../spec_helper'
 describe 'mongodb::config', :type => :class do
   describe 'upstart config' do
     let(:params) {{
-      :logpath          => '/this/is/a/path',
       :development      => false,
       :replicaset_name  => 'development',
     }}
 
     it {
-      should contain_file('/etc/init/mongodb.conf').with_content(
-/^\s*exec start-stop-daemon --start --quiet --chuid mongodb \
--p \/var\/lib\/mongodb\/mongod.lock --startas \/usr\/bin\/mongod -- \
---logpath "\/this\/is\/a\/path" --logappend --config "\/etc\/mongodb.conf"$/
-      )
+      should contain_file('/etc/init/mongodb.conf').with_source('puppet:///modules/mongodb/upstart-pkg-default.conf')
     }
   end
 
   describe 'mongodb.conf' do
     context 'defaults' do
       let(:params) {{
-        :logpath     => '/unused',
         :development => false,
         :replicaset_name  => 'production',
       }}
@@ -32,7 +26,6 @@ describe 'mongodb::config', :type => :class do
 
     context 'development => true' do
       let(:params) {{
-        :logpath          => '/unused',
         :development      => true,
         :replicaset_name  => 'development',
       }}
