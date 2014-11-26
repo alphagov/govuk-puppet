@@ -2,7 +2,9 @@
 
 lv:
   data:
-    pv: '/dev/sdb1'
+    pv:
+      - '/dev/sdb1'
+      - '/dev/sdc1'
     vg: 'backups'
 
 mount:
