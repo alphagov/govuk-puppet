@@ -133,15 +133,14 @@ removed from your `PATH`.
 
 ### Permission denied (publickey).
 
-You need to forward your publickey to the vm.
+You need to forward your publickey to the vm. Run `ssh-add` from the host machine, then attempt to provision your machine again.
 
-Run:
+To confirm your key has been forwarded to the development vm you can run
 
-```bash
-ssh-add
 ```
-
-Then attempt to provision your machine again
+vagrant ssh # ssh onto vm
+ssh-add -L  # list key and location on host machine
+```
 
 ### Errors with NFS
 
