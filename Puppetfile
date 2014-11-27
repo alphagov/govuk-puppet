@@ -1,4 +1,4 @@
-forge "http://forge.puppetlabs.com"
+forge "https://forgeapi.puppetlabs.com"
 
 mod 'adrien/alternatives'
 mod 'benjamin/ramdisk', '0.0.1'
