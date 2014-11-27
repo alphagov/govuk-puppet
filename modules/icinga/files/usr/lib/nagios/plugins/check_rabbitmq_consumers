@@ -123,7 +123,7 @@ class RabbitMQCheck:
             )
 
     def check(self):
-        idle_times = self.channel_idle_times()
+        idle_times = self.all_channel_idle_times()
         if not idle_times:
             return CRITICAL, "No consumers listening to queue"
         return self.check_latest_idle_time(idle_times)
