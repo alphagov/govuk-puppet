@@ -85,12 +85,17 @@ class RabbitMQCheck:
             for details in self.consumer_details_for_queue()
         ]
 
-    def channel_idle_times(self):
+    def channel_idle_time(self, channel):
         now = datetime.datetime.now()
+        channel_info = self.rabbit_request("channels/" + urllib.quote(channel))
+        if channel_info["state"] == "running":
+            return datetime.timedelta(seconds=0)
+        else:
+            return now - dateutil.parser.parse(channel_info["idle_since"])
+
+    def all_channel_idle_times(self):
         return [
-            now - dateutil.parser.parse(
-                self.rabbit_request("channels/" + urllib.quote(channel))["idle_since"]
-            )
+            self.channel_idle_time(channel)
             for channel in self.channels_listening_to_queue()
         ]
 
