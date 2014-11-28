@@ -29,30 +29,30 @@ mod 'stankevich/python', '>= 1.6.4'
 mod 'nextrevision/automysqlbackup',
   :git => 'git://github.com/nextrevision/puppet-automysqlbackup.git'
 
-mod 'apparmor',
+mod 'alphagov/apparmor',
   :git => 'git://github.com/alphagov/puppet-apparmor.git'
-mod 'curl',
+mod 'alphagov/curl',
   :git => 'git://github.com/alphagov/puppet-curl.git',
   :ref => 'f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48'
-mod 'duplicity',
+mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
   :ref => 'postcommand-hook'
-mod 'ext4mount',
+mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
-mod 'gor',
+mod 'gdsoperations/gor',
   :git => 'git://github.com/alphagov/puppet-gor.git',
   :ref => 'v0.2.0'
-mod 'harden',
+mod 'alphagov/harden',
   :git => 'git://github.com/alphagov/puppet-harden.git',
   :ref => 'v0.1.1'
-mod 'logstash',
+mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
-mod 'lvm',
+mod 'puppetlabs/lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
-mod 'tune_ext',
+mod 'alphagov/tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
-mod 'ufw',
+mod 'attachmentgenie/ufw',
   :git => 'git://github.com/alphagov/puppet-module-ufw.git',
   :ref => 'dc7ddc2'
 

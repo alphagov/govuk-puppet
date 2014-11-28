@@ -1,190 +1,190 @@
 FORGE
-  remote: http://forge.puppetlabs.com
+  remote: https://forgeapi.puppetlabs.com
   specs:
-    adrien/alternatives (0.2.0)
-    benjamin/ramdisk (0.0.1)
-    darin/zypprepo (1.0.1)
-    fsalum/redis (1.0.0)
-      thias/sysctl (>= 0.3.0)
-    gdsoperations/aptly (0.2.0)
-      puppetlabs/apt (>= 1.0.0)
-      puppetlabs/stdlib (>= 3.0.0)
-    gdsoperations/auditd (0.2.0)
-      puppetlabs/concat (>= 1.0.0)
-      puppetlabs/stdlib (>= 3.0.0)
-    gdsoperations/goenv (0.0.2)
-      puppetlabs/stdlib (>= 3.0.0)
-    gdsoperations/graphite (1.0.1)
-      puppetlabs/stdlib (>= 2.5.0)
-      stankevich/python (>= 1.2.0)
-    gdsoperations/openconnect (1.0.0)
-      puppetlabs/stdlib (>= 3.0.0)
-    gdsoperations/rbenv (1.2.0)
-    gdsoperations/resolvconf (0.2.0)
-      puppetlabs/stdlib (>= 3.0.0)
-    maestrodev/wget (1.5.0)
-    nanliu/staging (0.4.1)
-    puppetlabs/apt (1.4.2)
-      puppetlabs/stdlib (>= 2.2.1)
-    puppetlabs/concat (1.1.0)
-      puppetlabs/stdlib (>= 4.0.0)
-    puppetlabs/firewall (1.0.2)
-    puppetlabs/gcc (0.1.0)
-    puppetlabs/java (1.1.2)
-      puppetlabs/stdlib (>= 2.4.0)
-    puppetlabs/java_ks (1.2.5)
-    puppetlabs/mysql (2.2.3)
-      puppetlabs/stdlib (>= 3.2.0)
-    puppetlabs/postgresql (3.4.1)
-      puppetlabs/apt (< 2.0.0, >= 1.1.0)
-      puppetlabs/concat (< 2.0.0, >= 1.0.0)
-      puppetlabs/firewall (>= 0.0.4)
-      puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
-    puppetlabs/stdlib (4.1.0)
-    rtyler/jenkins (1.2.0)
-      darin/zypprepo (>= 1.0.1)
-      puppetlabs/apt (>= 0.0.3)
-      puppetlabs/java (>= 1.0.1)
-      puppetlabs/stdlib (>= 2.0.0)
-    saz/memcached (2.4.0)
-      puppetlabs/firewall (>= 0.1.0)
-      puppetlabs/stdlib (>= 3.2.0)
-    saz/ntp (2.2.0)
-    saz/rsyslog (2.2.1)
-    saz/sudo (3.0.1)
-      puppetlabs/stdlib (>= 2.3.0)
-    saz/timezone (3.0.1)
-      puppetlabs/stdlib (>= 2.3.0)
-    stankevich/python (1.7.4)
-    thias/sysctl (0.3.2)
+    adrien-alternatives (0.2.0)
+    benjamin-ramdisk (0.0.1)
+    darin-zypprepo (1.0.1)
+    fsalum-redis (1.0.0)
+      thias-sysctl (>= 0.3.0)
+    gdsoperations-aptly (0.2.0)
+      puppetlabs-apt (>= 1.0.0)
+      puppetlabs-stdlib (>= 3.0.0)
+    gdsoperations-auditd (0.2.0)
+      puppetlabs-concat (>= 1.0.0)
+      puppetlabs-stdlib (>= 3.0.0)
+    gdsoperations-goenv (0.0.2)
+      puppetlabs-stdlib (>= 3.0.0)
+    gdsoperations-graphite (1.0.1)
+      puppetlabs-stdlib (>= 2.5.0)
+      stankevich-python (>= 1.2.0)
+    gdsoperations-openconnect (1.0.0)
+      puppetlabs-stdlib (>= 3.0.0)
+    gdsoperations-rbenv (1.2.0)
+    gdsoperations-resolvconf (0.2.0)
+      puppetlabs-stdlib (>= 3.0.0)
+    maestrodev-wget (1.5.0)
+    nanliu-staging (0.4.1)
+    puppetlabs-apt (1.4.2)
+      puppetlabs-stdlib (>= 2.2.1)
+    puppetlabs-concat (1.1.0)
+      puppetlabs-stdlib (>= 4.0.0)
+    puppetlabs-firewall (1.0.2)
+    puppetlabs-gcc (0.1.0)
+    puppetlabs-java (1.1.2)
+      puppetlabs-stdlib (>= 2.4.0)
+    puppetlabs-java_ks (1.2.5)
+    puppetlabs-mysql (2.2.3)
+      puppetlabs-stdlib (>= 3.2.0)
+    puppetlabs-postgresql (3.4.1)
+      puppetlabs-apt (< 2.0.0, >= 1.1.0)
+      puppetlabs-concat (< 2.0.0, >= 1.0.0)
+      puppetlabs-firewall (>= 0.0.4)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs-stdlib (4.1.0)
+    rtyler-jenkins (1.2.0)
+      darin-zypprepo (>= 1.0.1)
+      puppetlabs-apt (>= 0.0.3)
+      puppetlabs-java (>= 1.0.1)
+      puppetlabs-stdlib (>= 2.0.0)
+    saz-memcached (2.4.0)
+      puppetlabs-firewall (>= 0.1.0)
+      puppetlabs-stdlib (>= 3.2.0)
+    saz-ntp (2.2.0)
+    saz-rsyslog (2.2.1)
+    saz-sudo (3.0.1)
+      puppetlabs-stdlib (>= 2.3.0)
+    saz-timezone (3.0.1)
+      puppetlabs-stdlib (>= 2.3.0)
+    stankevich-python (1.7.4)
+    thias-sysctl (0.3.2)
 
 GIT
   remote: git://github.com/alphagov/puppet-apparmor.git
   ref: master
   sha: fd0106ccd688a8af4b62e57d420a26e80b484731
   specs:
-    apparmor (0.0.1)
+    alphagov-apparmor (0.0.1)
 
 GIT
   remote: git://github.com/alphagov/puppet-curl.git
   ref: f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48
   sha: f4c6d175bdc6cbd71f71fbaa2544ef8f70c4ce48
   specs:
-    curl (0.0.1)
+    alphagov-curl (0.0.1)
 
 GIT
   remote: git://github.com/alphagov/puppet-duplicity.git
   ref: postcommand-hook
   sha: 13cfd2c8a89b089a4e1c481df31fa1b0ebc7464c
   specs:
-    duplicity (0.0.1)
+    alphagov-duplicity (0.0.1)
 
 GIT
   remote: git://github.com/alphagov/puppet-ext4mount.git
   ref: master
   sha: d97f99cc2801b83152b905d1285fa34e689cb499
   specs:
-    ext4mount (0.0.1)
+    puppet-ext4mount (0.0.1)
 
 GIT
   remote: git://github.com/alphagov/puppet-gor.git
   ref: v0.2.0
   sha: 9c14ec8013242e954b4c7182ac758f3416e385a0
   specs:
-    gor (0.2.0)
-      puppetlabs/stdlib (>= 3.0.0)
+    gdsoperations-gor (0.2.0)
+      puppetlabs-stdlib (>= 3.0.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-harden.git
   ref: v0.1.1
   sha: d21d7e4581f76321c207493f20d4992e5a78bcae
   specs:
-    harden (0.0.1)
+    alphagov-harden (0.0.1)
 
 GIT
   remote: git://github.com/alphagov/puppet-module-ufw.git
   ref: dc7ddc2
   sha: dc7ddc2d976baf7a50a78d3f02b45a175e86cb41
   specs:
-    ufw (1.0.2)
-      puppetlabs/stdlib (>= 2.2.1)
+    attachmentgenie-ufw (1.0.1)
+      puppetlabs-stdlib (>= 2.2.1)
 
 GIT
   remote: git://github.com/alphagov/puppet-tune_ext.git
   ref: master
   sha: a500c9a6263712388ea4b052e0cc93d9c11d7644
   specs:
-    tune_ext (0.0.1)
+    alphagov-tune_ext (0.0.1)
 
 GIT
   remote: git://github.com/alphagov/puppetlabs-lvm.git
   ref: master
   sha: 2082a276093c96e67a676f0c6076c0841f918a17
   specs:
-    lvm (0.1.2)
+    puppetlabs-lvm (0.1.2)
 
 GIT
   remote: git://github.com/alphagov/puppetlabs-rabbitmq.git
   ref: strip-backslashes
   sha: 72785de752337ef050f0ec5462f96d21ac8e8ce6
   specs:
-    puppetlabs/rabbitmq (4.0.0)
-      nanliu/staging (>= 0.3.1)
-      puppetlabs/apt (>= 1.0.0)
-      puppetlabs/stdlib (>= 2.0.0)
+    puppetlabs-rabbitmq (4.0.0)
+      nanliu-staging (>= 0.3.1)
+      puppetlabs-apt (>= 1.0.0)
+      puppetlabs-stdlib (>= 2.0.0)
 
 GIT
   remote: git://github.com/electrical/puppet-logstash.git
   ref: 694fa1a
   sha: 694fa1afc87e0151ae0a5121c0241cf0b3a1bbbf
   specs:
-    logstash (0.0.4)
-      puppetlabs/stdlib (>= 3.0.0)
+    elasticsearch-logstash (0.0.4)
+      puppetlabs-stdlib (>= 3.0.0)
 
 GIT
   remote: git://github.com/nextrevision/puppet-automysqlbackup.git
   ref: master
   sha: f7083566f6b76674f50a986cae96568a1b44283b
   specs:
-    nextrevision/automysqlbackup (0.2.4)
-      puppetlabs/stdlib (>= 3.0.0)
+    nextrevision-automysqlbackup (0.2.4)
+      puppetlabs-stdlib (>= 3.0.0)
 
 DEPENDENCIES
-  adrien/alternatives (>= 0)
-  apparmor (>= 0)
-  benjamin/ramdisk (= 0.0.1)
-  curl (>= 0)
-  duplicity (>= 0)
-  ext4mount (>= 0)
-  fsalum/redis (>= 0)
-  gdsoperations/aptly (>= 0)
-  gdsoperations/auditd (= 0.2.0)
-  gdsoperations/goenv (= 0.0.2)
-  gdsoperations/graphite (= 1.0.1)
-  gdsoperations/openconnect (>= 0)
-  gdsoperations/rbenv (= 1.2.0)
-  gdsoperations/resolvconf (= 0.2.0)
-  gor (>= 0)
-  harden (>= 0)
-  logstash (>= 0)
-  lvm (>= 0)
-  maestrodev/wget (>= 1.1.0)
-  nextrevision/automysqlbackup (>= 0)
-  puppetlabs/apt (>= 0)
-  puppetlabs/concat (>= 0)
-  puppetlabs/gcc (>= 0)
-  puppetlabs/java_ks (>= 0)
-  puppetlabs/mysql (>= 0)
-  puppetlabs/postgresql (>= 0)
-  puppetlabs/rabbitmq (>= 0)
-  puppetlabs/stdlib (>= 0)
-  rtyler/jenkins (>= 0)
-  saz/memcached (>= 0)
-  saz/ntp (>= 0)
-  saz/rsyslog (= 2.2.1)
-  saz/sudo (= 3.0.1)
-  saz/timezone (>= 0)
-  stankevich/python (>= 1.6.4)
-  tune_ext (>= 0)
-  ufw (>= 0)
+  adrien-alternatives (>= 0)
+  alphagov-apparmor (>= 0)
+  alphagov-curl (>= 0)
+  alphagov-duplicity (>= 0)
+  alphagov-harden (>= 0)
+  alphagov-tune_ext (>= 0)
+  attachmentgenie-ufw (>= 0)
+  benjamin-ramdisk (= 0.0.1)
+  elasticsearch-logstash (>= 0)
+  fsalum-redis (>= 0)
+  gdsoperations-aptly (>= 0)
+  gdsoperations-auditd (= 0.2.0)
+  gdsoperations-goenv (= 0.0.2)
+  gdsoperations-gor (>= 0)
+  gdsoperations-graphite (= 1.0.1)
+  gdsoperations-openconnect (>= 0)
+  gdsoperations-rbenv (= 1.2.0)
+  gdsoperations-resolvconf (= 0.2.0)
+  maestrodev-wget (>= 1.1.0)
+  nextrevision-automysqlbackup (>= 0)
+  puppet-ext4mount (>= 0)
+  puppetlabs-apt (>= 0)
+  puppetlabs-concat (>= 0)
+  puppetlabs-gcc (>= 0)
+  puppetlabs-java_ks (>= 0)
+  puppetlabs-lvm (>= 0)
+  puppetlabs-mysql (>= 0)
+  puppetlabs-postgresql (>= 0)
+  puppetlabs-rabbitmq (>= 0)
+  puppetlabs-stdlib (>= 0)
+  rtyler-jenkins (>= 0)
+  saz-memcached (>= 0)
+  saz-ntp (>= 0)
+  saz-rsyslog (= 2.2.1)
+  saz-sudo (= 3.0.1)
+  saz-timezone (>= 0)
+  stankevich-python (>= 1.6.4)
 
