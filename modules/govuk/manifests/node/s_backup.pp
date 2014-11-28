@@ -87,7 +87,7 @@ class govuk::node::s_backup (
   }
 
   backup::directory {'backup_graphite_storage_whisper_graphite-1':
-    directory => '/opt/graphite/backup',
+    directory => '/opt/graphite/storage/whisper',
     host_name => 'graphite-1',
     fq_dn     => 'graphite-1.management.production',
   }

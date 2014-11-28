@@ -58,7 +58,7 @@ backup::offsite::jobs:
     minute: 13,
     gpg_key_id: *offsite_gpg_key
   'govuk-graphite':
-    sources: '/data/backups/*/opt/graphite/backup/graphite-storage-whisper.tar.bz2'
+    sources: '/data/backups/*/opt/graphite/storage/whisper'
     destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-graphite/"
     hour: 8,
     minute: 13,
