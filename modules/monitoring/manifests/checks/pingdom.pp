@@ -39,6 +39,7 @@ class monitoring::checks::pingdom (
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom homepage check',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#pingdom-homepage-check',
     }
 
     icinga::check { 'check_pingdom_calendar':
@@ -53,6 +54,7 @@ class monitoring::checks::pingdom (
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
       service_description => 'Pingdom search check',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#pingdom-search-check',
     }
 
     icinga::check { 'check_pingdom_smart_answer':
