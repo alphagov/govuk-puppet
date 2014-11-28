@@ -120,6 +120,10 @@ class govuk::apps::whitehall(
         auth_basic off;
         try_files $uri @app;
       }
+      location /government/admin/api {
+        auth_basic off;
+        try_files $uri @app;
+      }
 
       # Don\'t ask for basic auth on SSO API pages so we can sync
       # permissions.
