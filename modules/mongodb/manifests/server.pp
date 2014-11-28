@@ -30,8 +30,6 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
-  $logpath = '/var/log/mongodb/mongod.log'
-
   if $development {
     $replicaset_name = 'development'
   } else {
@@ -54,7 +52,6 @@ class mongodb::server (
 
   class { 'mongodb::config':
     dbpath            => $dbpath,
-    logpath           => $logpath,
     development       => $development,
     replicaset_name   => $replicaset_name,
     require           => Class['mongodb::package'],
@@ -68,7 +65,6 @@ class mongodb::server (
   }
 
   class { 'mongodb::logging':
-    logpath => $logpath,
     require => Class['mongodb::config'],
   }
 
