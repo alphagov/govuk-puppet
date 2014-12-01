@@ -9,7 +9,7 @@ lv:
     vg: 'rabbitmq'
 
 mount:
-  /mnt/apt:
+  /var/lib/rabbitmq:
     disk: '/dev/mapper/rabbitmq-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
