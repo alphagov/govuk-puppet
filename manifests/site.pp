@@ -56,4 +56,7 @@ node default {
   # Create mounts from hiera
   $mount = hiera('mount',{})
   create_resources('govuk::mount', $mount)
+
+  # FIXME: remove this when everything has been cleaned up.
+  include govuk_rbenv::cleanup
 }
