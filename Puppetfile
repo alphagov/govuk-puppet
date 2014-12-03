@@ -3,6 +3,7 @@ forge "https://forgeapi.puppetlabs.com"
 mod 'adrien/alternatives'
 mod 'arioch/keepalived'
 mod 'benjamin/ramdisk', '0.0.1'
+mod 'elasticsearch/elasticsearch'
 mod 'fsalum/redis'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
