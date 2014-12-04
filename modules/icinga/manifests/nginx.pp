@@ -16,8 +16,6 @@ class icinga::nginx {
     'nagios-json.event.access.log':
       json      => true,
       logstream => present;
-    'nagios-access.log':
-      logstream => absent;
     'nagios-error.log':
       logstream => present;
   }

@@ -15,8 +15,6 @@ define nginx::config::vhost::licensify_upload($port='9000') {
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
-    "${vhost_name}-access.log":
-      logstream => absent;
     "${vhost_name}-error.log":
       logstream => present;
   }

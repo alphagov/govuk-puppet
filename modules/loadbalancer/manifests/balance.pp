@@ -55,8 +55,6 @@ define loadbalancer::balance(
     "${vhost_real}-json.event.access.log":
       json      => true,
       logstream => present;
-    "${vhost_real}-access.log":
-      logstream => absent;
     "${vhost_real}-error.log":
       logstream => present;
   }

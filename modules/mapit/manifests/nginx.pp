@@ -17,8 +17,6 @@ class mapit::nginx {
       statsd_metric => "${::fqdn_underscore}.nginx_logs.mapit.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.mapit.time_request",
                           value => '@fields.request_time'}];
-    'mapit.access.log':
-      logstream => absent;
     'mapit.error.log':
       logstream => present;
   }
