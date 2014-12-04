@@ -67,19 +67,22 @@ define nginx::config::vhost::proxy(
 
   $counter_basename = "${::fqdn_underscore}.nginx_logs.${title_escaped}"
 
+  $logstream_ensure = $ensure ? {
+    'present' => $logstream,
+    default   => $ensure,
+  }
+
   nginx::log {
     $json_access_log:
-      ensure        => $ensure,
       json          => true,
       logpath       => $logpath,
-      logstream     => $logstream,
+      logstream     => $logstream_ensure,
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
     $error_log:
-      ensure    => $ensure,
       logpath   => $logpath,
-      logstream => $logstream;
+      logstream => $logstream_ensure;
   }
 
   statsd::counter { "${counter_basename}.http_500": }

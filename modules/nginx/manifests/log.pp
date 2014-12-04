@@ -6,21 +6,13 @@ define nginx::log (
   $logname       = regsubst($name, '\.[^.]*$', ''),
   $statsd_metric = undef,
   $statsd_timers = [],
-  $ensure        = 'present',
   ){
 
   # Log name should not be absolute. Use $logpath.
   validate_re($title, '^[^/]')
 
-  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
-
-  $logstream_ensure = $ensure ? {
-    'present' => $logstream,
-    'absent'  => 'absent',
-  }
-
   govuk::logstream { $name:
-    ensure        => $logstream_ensure,
+    ensure        => $logstream,
     logfile       => "${logpath}/${name}",
     tags          => ['nginx'],
     fields        => {'application' => $logname},
