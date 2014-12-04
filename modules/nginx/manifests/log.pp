@@ -1,9 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define nginx::log (
   $logpath       = '/var/log/nginx',
-  $logowner      = 'www-data',
-  $loggroup      = 'adm',
-  $logmode       = '0640',
   $logstream     = absent,
   $json          = false,
   $logname       = regsubst($name, '\.[^.]*$', ''),
@@ -16,16 +13,6 @@ define nginx::log (
   validate_re($title, '^[^/]')
 
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
-
-  file { "${logpath}/${name}":
-    ensure  => $ensure,
-    owner   => $logowner,
-    group   => $loggroup,
-    mode    => $logmode,
-    content => '',
-    replace => false,
-    require => Class['nginx::package'],
-  }
 
   $logstream_ensure = $ensure ? {
     'present' => $logstream,

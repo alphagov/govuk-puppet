@@ -43,8 +43,6 @@ class govuk_elasticsearch::local_proxy(
     $log_json:
       json      => true,
       logstream => present;
-    $log_access:
-      logstream => absent;
     $log_error:
       logstream => present;
   }

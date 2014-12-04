@@ -15,8 +15,6 @@ class puppet::master::nginx {
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
-    'puppetmaster-access.log':
-      logstream => absent;
     'puppetmaster-error.log':
       logstream => present;
   }

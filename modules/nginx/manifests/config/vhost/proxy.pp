@@ -76,10 +76,6 @@ define nginx::config::vhost::proxy(
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
-    $access_log:
-      ensure    => $ensure,
-      logpath   => $logpath,
-      logstream => absent;
     $error_log:
       ensure    => $ensure,
       logpath   => $logpath,

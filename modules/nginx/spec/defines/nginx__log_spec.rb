@@ -9,14 +9,6 @@ describe 'nginx::log', :type => :define do
   context 'with ensure' do
     let(:title) { 'rabbit' }
 
-    context 'absent' do
-      let(:params) {{ :ensure => 'absent' }}
-
-      it do
-        expect { should contain_file('/var/log/nginx/rabbit').with_ensure('absent') }
-      end
-    end
-
     context 'true' do
       let(:params) {{ :ensure => 'true' }}
 
