@@ -1,27 +1,30 @@
 require 'csv'
 require 'rspec-puppet'
 require 'puppet'
-require 'hiera-puppet-helper'
-
-# For testing functions.
 require 'puppetlabs_spec_helper/module_spec_helper'
+require 'hiera-puppet-helper'
 
 HERE = File.expand_path(File.dirname(__FILE__))
 
-class Puppet::Resource
-  # If you test a class which has a default parameter, but don't
-  # explicitly pass the parameter in, puppet explodes because it tries
-  # to automatically inject parameter values from hiera and gets
-  # confused due to hiera-puppet-helper's antics. This monkey patch
-  # disables automatic parameter injection to stop that happening.
-  # TODO: perhaps push this upstream to hiera-puppet-helper?
-  def lookup_external_default_for(param, scope)
-    nil
-  end
+module GovukHieraDefaults
+  extend RSpec::SharedContext
+  HIERA_DEFAULT_DATA = {
+    'app_domain'   => 'environment.example.com',
+    'asset_root'   => 'http://assets.example.com',
+    'website_root' => 'http://www.example.com',
+    'internal_tld' => 'example',
+  }
+
+  let(:hiera_config) {{
+    :backends => ['rspec'],
+    :rspec => respond_to?(:hiera_data) ? HIERA_DEFAULT_DATA.merge(hiera_data) : HIERA_DEFAULT_DATA
+  }}
 end
 
 RSpec.configure do |c|
   c.mock_framework = :rspec
+  c.include(GovukHieraDefaults)
+
   c.manifest    = File.join(HERE, 'manifests')
   c.module_path = [
     File.join(HERE, 'modules'),
