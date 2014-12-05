@@ -183,6 +183,9 @@ class hosts::production::backend (
       "panopticon.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
+      # TODO: change this over to publishing-api once the application
+      # correct forwards requests across.
+      "publishing-api-test.${app_domain}",
       "search.${app_domain}",
       "search-admin.${app_domain}",
       "short-url-manager.${app_domain}",

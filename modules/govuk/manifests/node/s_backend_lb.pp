@@ -51,6 +51,9 @@ class govuk::node::s_backend_lb (
       'finder-api',
       'govuk-delivery',
       'need-api',
+      # TODO: change this over to publishing-api once the application
+      # correct forwards requests across.
+      'publishing-api-test',
       'search',
       'support-api',
       'tariff-api',
