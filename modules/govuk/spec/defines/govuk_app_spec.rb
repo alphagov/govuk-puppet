@@ -3,13 +3,8 @@ require_relative '../../../../spec_helper'
 describe 'govuk::app', :type => :define do
   let(:title) { 'giraffe' }
   let(:hiera_data) {{
-      'app_domain'            => 'test.gov.uk',
-      'asset_root'            => 'https://static.test.gov.uk',
-      'website_root'          => 'foo.test.gov.uk',
-      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
-      'aws_ses_smtp_username' => 'a_username',
-      'aws_ses_smtp_password' => 'a_password',
-    }}
+    'app_domain' => 'test.gov.uk',
+  }}
 
   context 'with no params' do
     it do

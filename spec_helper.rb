@@ -6,8 +6,25 @@ require 'hiera-puppet-helper'
 
 HERE = File.expand_path(File.dirname(__FILE__))
 
+module GovukHieraDefaults
+  extend RSpec::SharedContext
+  HIERA_DEFAULT_DATA = {
+    'app_domain'   => 'environment.example.com',
+    'asset_root'   => 'http://assets.example.com',
+    'website_root' => 'http://www.example.com',
+    'internal_tld' => 'example',
+  }
+
+  let(:hiera_config) {{
+    :backends => ['rspec'],
+    :rspec => respond_to?(:hiera_data) ? HIERA_DEFAULT_DATA.merge(hiera_data) : HIERA_DEFAULT_DATA
+  }}
+end
+
 RSpec.configure do |c|
   c.mock_framework = :rspec
+  c.include(GovukHieraDefaults)
+
   c.manifest    = File.join(HERE, 'manifests')
   c.module_path = [
     File.join(HERE, 'modules'),

@@ -4,11 +4,6 @@ describe 'govuk::node::s_apt' do
   let(:facts) {{
     :concat_basedir => '/var/lib/puppet/concat/',
   }}
-  let(:hiera_data) {{
-    'app_domain'   => 'app.domain',
-    'asset_root'   => 'asset.root',
-    'website_root' => 'website.root',
-  }}
   let(:node) { 'apt-1.management.somethingsomething' }
   let(:pre_condition) { 'govuk::mount { "/root/dir": }' }
 

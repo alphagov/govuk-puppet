@@ -1,10 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'hosts', :type => :class do
-  let(:hiera_data) {{
-    'app_domain' => 'test.gov.uk',
-  }}
-
   context 'node jumpbox-1 exists in hosts::production' do
     let(:node) { 'jumpbox-1' }
 

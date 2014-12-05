@@ -1,10 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'puppet', :type => :class do
-  let (:hiera_data) {{
-    :app_domain => 'giraffe.example.com',
-  }}
-
   context 'with $use_puppetmaster = false' do
     let (:params) {{
       :use_puppetmaster => false,

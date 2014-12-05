@@ -2,11 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk::node::s_whitehall_backend', :type => :class do
   let(:node) { 'whitehall-backend-1.backend.somethingsomething' }
-  let(:hiera_data) {{
-    'app_domain'            => 'giraffe.biz',
-    'asset_root'            => 'https://static.test.gov.uk',
-    'website_root'          => 'www.giraffe.biz',
-  }}
   let(:facts) {{
     :concat_basedir => '/var/lib/puppet/concat/',
     :memorysize =>  '15.95 GB',
