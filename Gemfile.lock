@@ -1,9 +1,8 @@
 GIT
-  remote: git://github.com/alphagov/hiera-puppet-helper.git
-  revision: d846d956dc456b8324f6d11fba5ca6959ce38cbf
-  branch: v1.0.1-empty-hash-cherrypick
+  remote: git://github.com/bobtfish/hiera-puppet-helper.git
+  revision: 2853187c6553ee292793292c852a9e57c58da167
   specs:
-    hiera-puppet-helper (1.0.1)
+    hiera-puppet-helper (2.0.1)
 
 GIT
   remote: git@github.com:alphagov/hiera-eyaml-gpg.git
