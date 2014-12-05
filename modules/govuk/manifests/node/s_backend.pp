@@ -38,6 +38,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::content_planner
   include govuk::apps::content_register
   include govuk::apps::contentapi
+  include govuk::apps::courts_api
   include govuk::apps::email_alert_api
   include govuk::apps::email_alert_service
   class { 'govuk::apps::external_link_tracker':
