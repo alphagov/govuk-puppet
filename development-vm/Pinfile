@@ -19,6 +19,7 @@ process :'content-store'
 # have more dependencies than the read parts.
 process :'publishing-api' => [:'content-store', :'router-api', :'url-arbiter']
 process :'contact-o-tron'
+process :'courts-api'
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'
