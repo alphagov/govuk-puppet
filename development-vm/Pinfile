@@ -14,10 +14,6 @@ process :contentapi => [:imminence, :asset_manager]
 process :content_planner => [:need_api, :whitehall]
 process :'content-register'
 process :'content-store'
-# The publishing-api process is a pseudo application
-# to capture the fact that the write parts of the content-store
-# have more dependencies than the read parts.
-process :'publishing-api' => [:'content-store', :'router-api', :'url-arbiter']
 process :'contact-o-tron'
 process :'courts-api'
 process :designprinciples => :static
@@ -46,6 +42,7 @@ process :need_api
 process :panopticon => :'url-arbiter'
 process :planner => [:static, :contentapi]
 process :publisher => [:panopticon, :contentapi]
+process :'publishing-api' => [:'content-store', :'router-api', :'url-arbiter']
 process :release
 process :reviewomatic => :migratorator
 process :reviewomaticexplore => :reviewomatic
