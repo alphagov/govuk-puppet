@@ -44,6 +44,7 @@ class govuk_jenkins (
                   Class['govuk_java::openjdk7::jdk'],
                   Class['govuk_java::openjdk7::jre'],
                 ],
+    notify  => Class['jenkins::service'],
   }
 
   # In addition to the keystore below, this path is also referenced by the
