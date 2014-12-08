@@ -47,13 +47,13 @@ respecting or maintaining its own config file.
 Running these commands will often be the solution to Puppet errors about
 unknown classes or functions such as:
 
-`Unknown function validate_bool at …`
-`Could not find class apt for …`
-`Puppet::Parser::AST::Resource failed with error ArgumentError: Invalid resource type apt::source …`
+- `Unknown function validate_bool at …`
+- `Could not find class apt for …`
+- `Puppet::Parser::AST::Resource failed with error ArgumentError: Invalid resource type apt::source …`
 
 This should also fix errors while trying to run `govuk_puppet`, of the form:
 
-`chown: changing ownership of '/home/vagrant/.puppet/[…]': Operation not permitted`
+- `chown: changing ownership of '/home/vagrant/.puppet/[…]': Operation not permitted`
 
 ### Updating
 
@@ -63,11 +63,9 @@ run the following to install it and update the cache:
     $ bundle exec rake librarian:package
 
 If you need to update an existing module to a newer version, you'll need to
-run two commands and ignore the warning:
+run the following:
 
-    $ bundle exec librarian-puppet update foo/bar
-    Could not find a local copy of foo/bar at …
-    $ bundle exec rake librarian:package
+    $ bundle exec rake 'librarian:update[alphagov/heka]'
 
 Afterwards you should commit the `Puppetfile`, `Puppetfile.lock` and any new
 files in `vendor/puppet/`. If updating a module then you will need to
