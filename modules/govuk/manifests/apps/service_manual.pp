@@ -6,10 +6,10 @@ class govuk::apps::service_manual (
 
   if $enabled {
     govuk::app { 'service-manual':
+      ensure            => absent,
       app_type          => 'rack',
       port              => $port,
       health_check_path => '/',
-      ensure            => absent,
     }
   }
 
