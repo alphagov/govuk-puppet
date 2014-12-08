@@ -8,13 +8,22 @@ class govuk::apps::publishing_api(
   $port = 3093
 ) {
   if $enabled {
-    govuk::app { 'publishing-api':
-      app_type           => 'rack',
-      port               => $port,
-      vhost_ssl_only     => true,
-      vhost_aliases      => ['publishing-api-test'],
-      health_check_path  => '/healthcheck',
+    $app_name = 'publishing-api'
+
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
+
+    govuk::app::envvar {
+      'PORT': value => $port;
+    }
+
+    govuk::app { $app_name:
+      app_type           => 'bare',
       log_format_is_json => true,
+      port               => $port,
+      command            => "./${app_name}",
+      health_check_path  => '/healthcheck',
     }
   }
 }
