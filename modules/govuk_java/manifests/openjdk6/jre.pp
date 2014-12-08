@@ -1,4 +1,11 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# = govuk_java::openjdk6::jre =
+#
+# Installs (and removes) the openjdk-6-jre package
+#
+# [*ensure*]
+#   Passed directly to the `ensure` parameter of the package resource
+#   Default: present
+#
 class govuk_java::openjdk6::jre ( $ensure = present ) {
 
   package { 'openjdk-6-jre-headless':

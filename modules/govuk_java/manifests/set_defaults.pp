@@ -1,4 +1,14 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# = govuk_java::set_defaults
+#
+# Sets the debian `alternatives` for the `java` and similar symlinks to
+# point to the requested version of the JDK or JRE
+#
+# [*jdk*]
+# The version of the JDK to use. Default: 'sun6'
+#
+# [*jre*]
+# The version of the JRE to use. Default: 'openjdk6'
+#
 class govuk_java::set_defaults (
   $jdk = 'sun6',
   $jre = 'openjdk6'
