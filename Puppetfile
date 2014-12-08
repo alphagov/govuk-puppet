@@ -3,6 +3,7 @@ forge "https://forgeapi.puppetlabs.com"
 mod 'adrien/alternatives'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'fsalum/redis'
+mod 'KyleAnderson/etcd'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'

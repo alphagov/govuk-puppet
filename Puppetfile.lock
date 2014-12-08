@@ -1,6 +1,8 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    KyleAnderson-etcd (0.4.1)
+      puppetlabs-stdlib (>= 0.1.6)
     adrien-alternatives (0.2.0)
     benjamin-ramdisk (0.0.1)
     darin-zypprepo (1.0.1)
@@ -150,6 +152,7 @@ GIT
       puppetlabs-stdlib (>= 3.0.0)
 
 DEPENDENCIES
+  KyleAnderson-etcd (>= 0)
   adrien-alternatives (>= 0)
   alphagov-apparmor (>= 0)
   alphagov-curl (>= 0)
