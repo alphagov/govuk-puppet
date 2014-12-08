@@ -1,4 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::hmrc_manuals_api
+#
+# An API to allow HMRC to publish tax manuals to GOV.UK.
+# Read more: https://github.com/alphagov/hmrc-manuals-api
+#
+# === Parameters
+#
+# [*port*]
+#   The port that courts-api is served on.
+#   Default: 3071
+#
+# [*enabled*]
+#   Feature flag to allow the app to be deployed to an environment.
+#   Default: false
+#
 class govuk::apps::hmrc_manuals_api(
   $port = 3071,
   $enabled = false
