@@ -3,12 +3,25 @@
 # Setup resources required by apps. The variation of these resources should
 # not require an app to be restarted. Compared to `govuk::deploy::config`.
 #
+# === Parameters
+#
+# [*setup_actionmailer_ses_config*]
+# [*aws_ses_smtp_host*]
+# [*aws_ses_smtp_username*]
+# [*aws_ses_smtp_host*]
+#
+# [*ssh_keys*]
+#   Hash of SSH authorized_keys entries to allow deployments from.
+#
 class govuk::deploy::setup (
     $setup_actionmailer_ses_config,
     $aws_ses_smtp_host,
     $aws_ses_smtp_username,
     $aws_ses_smtp_password,
+    $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
 ){
+  validate_hash($ssh_keys)
+
   include assets::user
 
   group { 'deploy':
@@ -66,7 +79,6 @@ class govuk::deploy::setup (
     mode   => '0700',
   }
 
-  $ssh_keys = hiera('deploy_ssh_keys',{ 'not set in hiera' => 'NONE_IN_HIERA' })
   file { '/home/deploy/.ssh/authorized_keys':
     ensure  => present,
     owner   => 'deploy',
