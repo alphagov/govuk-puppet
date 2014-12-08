@@ -9,7 +9,7 @@ base::supported_kernel::enabled: true
 
 clamav::use_service: false
 
-deploy_ssh_keys:
+govuk::deploy::setup::ssh_keys:
     development_user: SEVIRUhFSEVIIFRoaXMgaXMgbm90IGEgcmVhbCBrZXkgYnV0IEknbSBnb2luZyB0byBtYWtlIGl0IGxvb2sgbGlrZSBpdCdzIG9uZSBqdXN0IHRvIHJlYWxseSBhbm5veSB5b3UhCg==
 
 govuk::app::nginx_vhost::asset_pipeline_enabled: false
