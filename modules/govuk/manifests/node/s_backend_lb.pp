@@ -23,6 +23,7 @@ class govuk::node::s_backend_lb (
       'contacts-admin',
       'content-planner',
       'content-register',
+      'courts-api',
       'hmrc-manuals-api',
       'imminence',
       'maslow',
