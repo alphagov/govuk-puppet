@@ -1,4 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::courts_api
+#
+# An API to allow MoJ to publish courts and tribunals information to GOV.UK.
+# Read more: https://github.com/alphagov/courts-api
+#
+# === Parameters
+#
+# [*port*]
+#   The port that courts-api is served on.
+#   Default: 3092
+#
+# [*enabled*]
+#   Feature flag to allow the app to be deployed to an environment.
+#   Default: false
+#
 class govuk::apps::courts_api(
   $port = 3092,
   $enabled = false
