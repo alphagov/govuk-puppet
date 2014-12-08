@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# = govuk_java::oracle7::jdk =
+#
+# Installs (and removes) the oracle-java7-installer package with a preseed
+# answer to accept the licence
+#
+# [*ensure*]
+#   Passed directly to the `ensure` parameter of the package resource
+#   Default: present
+#
 class govuk_java::oracle7::jdk ( $ensure = present ) {
 
   if $ensure != absent {

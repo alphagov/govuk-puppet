@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# = govuk_java::sun6::jre =
+#
+# Installs (and removes) the sun-java6-jre package and installs a preseed
+# answer to accept the licence.
+#
+# [*ensure*]
+#   Passed directly to the `ensure` parameter of the package resource
+#   Default: present
+#
 class govuk_java::sun6::jre ( $ensure = present ) {
 
   if $ensure != absent {

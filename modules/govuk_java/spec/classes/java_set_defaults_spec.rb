@@ -13,7 +13,7 @@ describe 'govuk_java::set_defaults', :type => :class do
     end
   end
 
-  context 'with java7 jdk/jre' do
+  context 'with oracle java7 jdk/jre' do
     let(:params) do
       {
         :jdk => 'oracle7',
@@ -30,5 +30,23 @@ describe 'govuk_java::set_defaults', :type => :class do
         .with_unless(/java-7-oracle/)
     end
   end
-  
+
+  context 'with openjdk7 java7 jdk/jre' do
+    let(:params) do
+      {
+        :jdk => 'openjdk7',
+        :jre => 'openjdk7'
+      }
+    end
+
+    it do
+      should contain_exec('java-set-default-jdk')
+        .with_command(/java-1\.7\.0-openjdk/)
+        .with_unless(/java-7-openjdk/)
+      should contain_exec('java-set-default-jre')
+        .with_command(/java-1\.7\.0-openjdk/)
+        .with_unless(/java-7-openjdk/)
+    end
+  end
+
 end

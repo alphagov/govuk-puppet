@@ -25,12 +25,26 @@ class govuk_jenkins (
     shell      => '/bin/bash',
   }
 
-  include govuk_java::oracle7::jdk
-  include govuk_java::oracle7::jre
+  include govuk_java::openjdk7::jdk
+  include govuk_java::openjdk7::jre
+
+  #FIXME: can be removed when the packages have been removed everywhere
+  class {[
+          'govuk_java::oracle7::jdk',
+          'govuk_java::oracle7::jre',
+          ]:
+            ensure  => 'absent',
+            require => Class['govuk_java::set_defaults']
+  }
 
   class { 'govuk_java::set_defaults':
-    jdk => 'oracle7',
-    jre => 'oracle7',
+    jdk     => 'openjdk7',
+    jre     => 'openjdk7',
+    require => [
+                  Class['govuk_java::openjdk7::jdk'],
+                  Class['govuk_java::openjdk7::jre'],
+                ],
+    notify  => Class['jenkins::service'],
   }
 
   # In addition to the keystore below, this path is also referenced by the
@@ -44,11 +58,11 @@ class govuk_jenkins (
   java_ks { "${$github_enterprise_hostname}:cacerts":
     ensure       => latest,
     certificate  => $github_enterprise_filename,
-    target       => '/usr/lib/jvm/java-7-oracle/jre/lib/security/cacerts',
+    target       => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/cacerts',
     password     => 'changeit',
     trustcacerts => true,
     notify       => Class['jenkins::service'],
-    require      => Class['govuk_java::oracle7::jre'],
+    require      => Class['govuk_java::openjdk7::jre'],
   }
 
   package { 'ghtools':
