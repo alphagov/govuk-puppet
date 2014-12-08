@@ -9,6 +9,7 @@ class govuk::apps::service_manual (
       app_type          => 'rack',
       port              => $port,
       health_check_path => '/',
+      ensure            => absent,
     }
   }
 
