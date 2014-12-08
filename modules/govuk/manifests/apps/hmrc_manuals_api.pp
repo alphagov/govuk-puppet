@@ -6,7 +6,7 @@
 # === Parameters
 #
 # [*port*]
-#   The port that courts-api is served on.
+#   The port that hmrc-manuals-api is served on.
 #   Default: 3071
 #
 # [*enabled*]
