@@ -8,17 +8,7 @@ class govuk::apps::publishing_api(
   $port = 3093
 ) {
   if $enabled {
-    $app_name = 'publishing-api'
-
-    Govuk::App::Envvar {
-      app => $app_name,
-    }
-
-    govuk::app::envvar {
-      'PORT': value => $port;
-    }
-
-    govuk::app { $app_name:
+    govuk::app { 'publishing-api':
       app_type           => 'bare',
       log_format_is_json => true,
       port               => $port,
