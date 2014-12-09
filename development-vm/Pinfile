@@ -20,6 +20,7 @@ process :designprinciples => :static
 process :efg
 process :'email-alert-api'
 process :'email-alert-service'
+process :'email-alert-monitor'
 process :errbit
 process :fco
 process :fco_services
