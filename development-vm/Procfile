@@ -90,6 +90,7 @@ courts-api:            govuk_setenv courts-api            ./run_in.sh ../courts-
 # publishing-api uses port 3093
 # Will be renamed to publishing-api when the app is ready to take over.
 publishing-api-temp:        govuk_setenv publishing-api        ./run_in.sh ../publishing-api make run
+email-alert-monitor:   govuk_setenv email-alert-monitor   ./run_in.sh ../email-alert-monitor bundle exec rails s -p 3094
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
