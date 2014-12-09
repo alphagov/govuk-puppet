@@ -40,6 +40,7 @@ govuk::apps::publicapi::backdropread_protocol: 'http'
 govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::enabled: true
+govuk::apps::publishing_api::vhost: 'publishing-api-temp'
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
 govuk::apps::router::mongodb_nodes: ['localhost']
