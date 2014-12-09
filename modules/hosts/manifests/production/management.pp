@@ -73,6 +73,15 @@ class hosts::production::management (
   govuk::host { 'backup-1':
     ip  => '10.0.0.50',
   }
+  govuk::host { 'etcd-1':
+    ip  => '10.0.0.60',
+  }
+  govuk::host { 'etcd-2':
+    ip  => '10.0.0.61',
+  }
+  govuk::host { 'etcd-3':
+    ip  => '10.0.0.62',
+  }
   govuk::host { 'apt-1':
     ip              => '10.0.0.75',
     legacy_aliases  => $apt_aliases,
