@@ -87,7 +87,9 @@ email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../email-a
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../government-frontend bundle exec rails s -p 3090
 # sidekiq-monitoring for rummager uses 3091
 courts-api:            govuk_setenv courts-api            ./run_in.sh ../courts-api bundle exec rails s -p 3092
-publishing-api:        govuk_setenv publishing-api        ./run_in.sh ../publishing-api bundle exec rails s -p 3093
+# publishing-api uses port 3093
+# Will be renamed to publishing-api when the app is ready to take over.
+publishing-api-temp:        govuk_setenv publishing-api        ./run_in.sh ../publishing-api make run
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
