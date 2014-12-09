@@ -40,14 +40,14 @@ class govuk_java::set_defaults (
 
   $path_javac = $jdk ? {
     'openjdk6' => '/usr/lib/jvm/java-6-openjdk/bin/javac',
-    'openjdk7' => '/usr/lib/jvm/java-7-openjdk/bin/javac',
+    'openjdk7' => '/usr/lib/jvm/java-7-openjdk-amd64/bin/javac',
     'oracle7'  => '/usr/lib/jvm/java-7-oracle/bin/javac',
     'sun6'     => '/usr/lib/jvm/java-6-sun/bin/javac'
   }
 
   $path_java = $jre ? {
     'openjdk6' => '/usr/lib/jvm/java-6-openjdk/jre/bin/java',
-    'openjdk7' => '/usr/lib/jvm/java-7-openjdk/jre/bin/java',
+    'openjdk7' => '/usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java',
     'oracle7'  => '/usr/lib/jvm/java-7-oracle/jre/bin/java',
     'sun6'     => '/usr/lib/jvm/java-6-sun/jre/bin/java',
   }
