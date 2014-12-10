@@ -24,6 +24,7 @@ class govuk::node::s_backend_lb (
       'content-planner',
       'content-register',
       'courts-api',
+      'email-alert-monitor',
       'hmrc-manuals-api',
       'imminence',
       'maslow',

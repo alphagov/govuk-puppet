@@ -171,6 +171,7 @@ class hosts::production::backend (
       "contentapi.${app_domain}",
       "courts-api.${app_domain}",
       "email-alert-api.${app_domain}",
+      "email-alert-monitor.${app_domain}",
       "errbit.${app_domain}",
       "external-link-tracker.${app_domain}",
       "finder-api.${app_domain}",

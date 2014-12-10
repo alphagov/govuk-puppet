@@ -40,6 +40,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::contentapi
   include govuk::apps::courts_api
   include govuk::apps::email_alert_api
+  include govuk::apps::email_alert_monitor
   include govuk::apps::email_alert_service
   class { 'govuk::apps::external_link_tracker':
     mongodb_nodes => [
