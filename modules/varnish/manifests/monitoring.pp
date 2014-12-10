@@ -15,13 +15,20 @@ class varnish::monitoring {
     source => 'puppet:///modules/varnish/nrpe_check_varnish.cfg',
   }
 
-  $monitoring_domain_suffix = hiera('monitoring_domain_suffix', '')
+  $app_domain = hiera('app_domain')
+  $kibana_url = "https://kibana.${app_domain}"
+  $hostname_prefix = split($::hostname, '-')
+  $kibana_search = {
+    'query' => "@source_host:${hostname_prefix[0]}* AND status:[500 TO 599]",
+    'from'  => '4h',
+  }
+
   @@icinga::check { "check_varnish_responding_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_varnish_responding',
     service_description => 'varnishd port not responding',
     host_name           => $::fqdn,
     use                 => 'govuk_urgent_priority',
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#varnish-port-not-responding',
-    action_url          => "https://graphite.${monitoring_domain_suffix}/render?from=-8hours&until=now&width=800&height=600&target=alias%28stats.cache-1_router_production.nginx_logs.www-origin.http_5xx,%27cache-1%20HTTP%205xx%20Errors%27%29&target=alias%28stats.cache-2_router_production.nginx_logs.www-origin.http_5xx,%27cache-2%20HTTP%205xx%20Errors%27%29&target=alias%28stats.cache-3_router_production.nginx_logs.www-origin.http_5xx,%27cache-3%20HTTP%205xx%20Errors%27%29&title=Error%20Rates%20at%20Caches",
+    action_url          => kibana3_url($kibana_url, $kibana_search),
   }
 }
