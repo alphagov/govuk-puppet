@@ -34,6 +34,7 @@ class hosts::development {
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }
   host { 'email-alert-api.dev.gov.uk':                      ip => '127.0.0.1' }
+  host { 'email-alert-monitor.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'external-link-tracker.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
