@@ -1,3 +1,31 @@
+[nginx_access-default]
+type = "LogstreamerInput"
+parser_type = "token"
+log_directory = "/var/log/nginx"
+file_match = 'json\.event\.access\.log\.?(?P<Index>\d+)?(\.gz)?'
+differentiator = ["default"]
+priority = ["^Index"]
+decoder = "nginx_access_decoder"
+hostname = "<%= @fqdn_underscore -%>"
+
+[nginx_access-vhosts]
+type = "LogstreamerInput"
+parser_type = "token"
+log_directory = "/var/log/nginx"
+file_match = '(?P<LogBasename>.+)-json\.event\.access\.log\.?(?P<Index>\d+)?(\.gz)?'
+differentiator = ["LogBasename"]
+priority = ["^Index"]
+decoder = "nginx_access_decoder"
+hostname = "<%= @fqdn_underscore -%>"
+
+[nginx_access_decoder]
+type = "SandboxDecoder"
+filename = "lua_decoders/json_event.lua"
+
+[nginx_access_decoder.config]
+type = "nginx.access"
+
+
 [nginx_error-default]
 type = "LogstreamerInput"
 parser_type = "token"
