@@ -41,6 +41,9 @@ class router::nginx (
   include router::assets_origin
 
   $app_domain = hiera('app_domain')
+  $log_basename = 'lb'
+
+  # FIXME: Remove with tagalog.
   $counter_basename = "${::fqdn_underscore}.nginx_logs.www-origin"
 
   nginx::config::ssl { "www.${app_domain}":
@@ -109,7 +112,7 @@ class router::nginx (
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
+    target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",
     warning   => 0.3,
     critical  => 0.6,
     use       => 'govuk_urgent_priority',

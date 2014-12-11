@@ -38,10 +38,14 @@ define nginx::config::vhost::proxy(
 
   $proxy_vhost_template = 'nginx/proxy-vhost.conf'
   $logpath = '/var/log/nginx'
-  $access_log = "${name}-access.log"
-  $json_access_log = "${name}-json.event.access.log"
-  $error_log = "${name}-error.log"
+  $log_basename = $name
+  $access_log = "${log_basename}-access.log"
+  $json_access_log = "${log_basename}-json.event.access.log"
+  $error_log = "${log_basename}-error.log"
+
+  # FIXME: Remove with tagalog.
   $title_escaped = regsubst($title, '\.', '_', 'G')
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.${title_escaped}"
 
   $to_port = $to_ssl ? {
     true    => ':443',
@@ -65,8 +69,6 @@ define nginx::config::vhost::proxy(
     content => template($proxy_vhost_template),
   }
 
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.${title_escaped}"
-
   $logstream_ensure = $ensure ? {
     'present' => $logstream,
     default   => $ensure,
@@ -86,11 +88,9 @@ define nginx::config::vhost::proxy(
       logstream => absent;
   }
 
-  statsd::counter { "${counter_basename}.http_500": }
-
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
     ensure    => $ensure,
-    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
+    target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
