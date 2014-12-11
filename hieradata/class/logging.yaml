@@ -10,3 +10,9 @@ mount:
     disk: '/dev/mapper/logging-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+
+govuk::node::s_logging::heka_port: "%{hiera('heka::plugin::tcp_input::port')}"
+
+heka::plugin::elasticsearch::url: 'http://logs-elasticsearch.cluster:9200'
+heka::plugin::elasticsearch::logstash_v0: true
+heka::plugin::tcp_input::port: 5565
