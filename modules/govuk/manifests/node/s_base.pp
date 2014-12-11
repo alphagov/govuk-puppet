@@ -13,6 +13,7 @@ class govuk::node::s_base {
   include govuk_heka::repo
   include govuk_unattended_reboot
   include harden
+  include heka::plugin::dashboard
   include heka::plugin::tcp_output
   include hosts
   include monitoring::client
