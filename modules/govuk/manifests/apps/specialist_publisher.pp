@@ -11,6 +11,9 @@ class govuk::apps::specialist_publisher(
       port               => $port,
       health_check_path  => '/specialist-documents',
       log_format_is_json => true,
+      nginx_extra_config => '
+client_max_body_size 500m;
+',
     }
 
     govuk::procfile::worker { 'specialist-publisher':
