@@ -15,7 +15,7 @@ process :content_planner => [:need_api, :whitehall]
 process :'content-register'
 process :'content-store'
 process :'contact-o-tron'
-process :'courts-api'
+process :'courts-api' => [:'publishing-api']
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'
