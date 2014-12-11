@@ -13,6 +13,9 @@ module GovukHieraDefaults
     'asset_root'   => 'http://assets.example.com',
     'website_root' => 'http://www.example.com',
     'internal_tld' => 'example',
+
+    'heka::plugin::tcp_output::host' => 'heka.example.com',
+    'heka::plugin::tcp_output::port' => 123,
   }
 
   let(:hiera_config) {{
