@@ -33,7 +33,8 @@ class router::assets_origin(
       statsd_metric => "${::fqdn_underscore}.nginx_logs.assets-origin.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.assets-origin.time_request",
                           value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
     "${vhost_name}-error.log":
-      logstream => present;
+      logstream => absent;
   }
 }

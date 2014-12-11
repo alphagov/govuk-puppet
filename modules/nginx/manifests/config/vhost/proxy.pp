@@ -80,9 +80,10 @@ define nginx::config::vhost::proxy(
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
     $error_log:
       logpath   => $logpath,
-      logstream => $logstream_ensure;
+      logstream => absent;
   }
 
   statsd::counter { "${counter_basename}.http_500": }

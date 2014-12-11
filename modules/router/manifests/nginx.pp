@@ -87,8 +87,9 @@ class router::nginx (
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
     'lb-error.log':
-      logstream => present;
+      logstream => absent;
   }
 
   file { '/usr/share/nginx':
