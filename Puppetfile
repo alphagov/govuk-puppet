@@ -61,7 +61,7 @@ mod 'attachmentgenie/ufw',
 mod 'gdsoperations/aptly'
 mod 'gdsoperations/auditd', '0.2.0'
 mod 'gdsoperations/goenv', '0.0.2'
-mod 'gdsoperations/graphite', '1.0.1'
+mod 'gdsoperations/graphite', '2.0.0'
 mod 'gdsoperations/openconnect'
 mod 'gdsoperations/rbenv', '1.2.0'
 mod 'gdsoperations/resolvconf', '0.2.0'
