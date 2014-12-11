@@ -44,6 +44,7 @@ RSpec.configure do |c|
     :operatingsystemrelease  => '12.04',
     :lsbdistid               => 'Debian',
     :lsbdistcodename         => 'Precise',
+    :fqdn_underscore         => 'test_example_com',
   }
 
 end

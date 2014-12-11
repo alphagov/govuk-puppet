@@ -1,0 +1,26 @@
+[nginx_error-default]
+type = "LogstreamerInput"
+parser_type = "token"
+log_directory = "/var/log/nginx"
+file_match = 'error\.log\.?(?P<Index>\d+)?(\.gz)?'
+differentiator = ["default"]
+priority = ["^Index"]
+decoder = "nginx_error_decoder"
+hostname = "<%= @fqdn_underscore -%>"
+
+[nginx_error-vhosts]
+type = "LogstreamerInput"
+parser_type = "token"
+log_directory = "/var/log/nginx"
+file_match = '(?P<LogBasename>.+)-error\.log\.?(?P<Index>\d+)?(\.gz)?'
+differentiator = ["LogBasename"]
+priority = ["^Index"]
+decoder = "nginx_error_decoder"
+hostname = "<%= @fqdn_underscore -%>"
+
+[nginx_error_decoder]
+type = "SandboxDecoder"
+filename = "lua_decoders/nginx_error.lua"
+
+[nginx_error_decoder.config]
+type = "nginx.error"
