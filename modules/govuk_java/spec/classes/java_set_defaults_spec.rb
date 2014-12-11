@@ -5,8 +5,8 @@ describe 'govuk_java::set_defaults', :type => :class do
   context 'with no params' do
     it do
       should contain_exec('java-set-default-jdk')
-        .with_command(/java-6-sun/)
-        .with_unless(/java-6-sun/)
+        .with_command(/java-1.6.0-openjdk/)
+        .with_unless(/java-6-openjdk/)
       should contain_exec('java-set-default-jre')
         .with_command(/java-1.6.0-openjdk/)
         .with_unless(/java-6-openjdk/)
