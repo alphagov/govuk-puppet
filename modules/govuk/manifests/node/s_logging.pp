@@ -11,6 +11,8 @@ class govuk::node::s_logging (
   $heka_port,
 ) inherits govuk::node::s_base {
 
+  include nginx
+  include govuk_elasticsearch::local_proxy
   include heka::plugin::elasticsearch
   include heka::plugin::tcp_input
 
