@@ -14,6 +14,7 @@ module GovukHieraDefaults
     'website_root' => 'http://www.example.com',
     'internal_tld' => 'example',
 
+    'heka::plugin::graphite::host'   => 'graphite.example.com',
     'heka::plugin::tcp_output::host' => 'heka.example.com',
     'heka::plugin::tcp_output::port' => 123,
   }

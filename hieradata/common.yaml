@@ -123,6 +123,7 @@ govuk_unattended_reboot::etcd_endpoints:
   - "http://etcd-2.management:4001"
   - "http://etcd-3.management:4001"
 
+heka::plugin::graphite::host: 'graphite.cluster'
 heka::plugin::tcp_output::host: 'logging.cluster'
 heka::plugin::tcp_output::port: 5565
 
