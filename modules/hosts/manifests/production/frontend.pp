@@ -72,6 +72,7 @@ class hosts::production::frontend (
       "collections.${app_domain}",
       "contacts-frontend.${app_domain}",
       "contacts-frontend-old.${app_domain}",
+      "courts-frontend.${app_domain}",
       "designprinciples.${app_domain}",
       "feedback.${app_domain}",
       "finder-frontend.${app_domain}",

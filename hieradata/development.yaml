@@ -24,6 +24,7 @@ govuk::apps::content_register::enable_procfile_worker: false
 govuk::apps::content_register::rabbitmq::configure_test_details: true
 govuk::apps::content_store::rabbitmq::configure_test_exchange: true
 govuk::apps::courts_api::enabled: true
+govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_monitor::enabled: true
