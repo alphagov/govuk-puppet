@@ -20,11 +20,15 @@
 # [*dest_host_key*]
 #    The SSH key to use to authenticate to the destination machine.
 #
+# [*archive_directory*]
+#    Place to store the Duplicity cache - the default is ~/.cache/duplicity
+#
 class backup::offsite(
   $enable = false,
   $jobs,
   $dest_host,
   $dest_host_key,
+  $archive_directory,
 ) {
   validate_hash($jobs)
   validate_bool($enable)
@@ -42,7 +46,8 @@ class backup::offsite(
   }
 
   create_resources('backup::offsite::job', $jobs, {
-    'ensure' => $ensure_backup,
+    'ensure'            => $ensure_backup,
+    'archive_directory' => $archive_directory,
   })
 
   # FIXME: Remove when deployed.
