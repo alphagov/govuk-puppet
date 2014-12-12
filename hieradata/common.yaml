@@ -124,6 +124,8 @@ govuk_unattended_reboot::etcd_endpoints:
   - "http://etcd-3.management:4001"
 
 heka::plugin::graphite::host: 'graphite.cluster'
+# FIXME: Remove when CarbonOutput supports `use_buffering`.
+heka::plugin::graphite::protocol: 'udp'
 heka::plugin::tcp_output::host: 'logging.cluster'
 heka::plugin::tcp_output::port: 5565
 

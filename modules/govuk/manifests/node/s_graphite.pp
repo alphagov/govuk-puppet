@@ -54,6 +54,10 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
   @ufw::allow {
     'allow-graphite-2003-from-all':
       port => 2003;
+    # FIXME: Remove when Heka can do buffering with TCP.
+    'allow-graphite-UDP-2003-from-all':
+      proto => 'udp',
+      port  => 2003;
     'allow-graphite-2004-from-all':
       port => 2004;
     'allow-graphite-7002-from-all':
