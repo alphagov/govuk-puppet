@@ -1,5 +1,7 @@
 ---
 
+backup::offsite::archive_directory: '/data/backups/.cache/duplicity'
+
 lv:
   data:
     pv:

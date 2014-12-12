@@ -2,9 +2,10 @@ require_relative '../../../../spec_helper'
 
 describe 'backup::offsite', :type => :class do
   let(:default_params) {{
-    :dest_host     => 'unused',
-    :dest_host_key => 'unused',
-    :jobs          => {
+    :archive_directory => '/foo/bar',
+    :dest_host         => 'unused',
+    :dest_host_key     => 'unused',
+    :jobs              => {
       'hungry' => {
         'sources'     => ['/srv/strawberry', '/srv/apple'],
         'destination' => 'rsync://backup.example.com//srv/backup',
@@ -26,17 +27,19 @@ describe 'backup::offsite', :type => :class do
     let(:params) { default_params }
 
     it { should contain_backup__offsite__job('hungry').with(
-      :sources     => ['/srv/strawberry', '/srv/apple'],
-      :destination => 'rsync://backup.example.com//srv/backup',
-      :hour        => '1',
-      :minute      => '0',
-      :gpg_key_id  => '',
+      :archive_directory => '/foo/bar',
+      :sources           => ['/srv/strawberry', '/srv/apple'],
+      :destination       => 'rsync://backup.example.com//srv/backup',
+      :hour              => '1',
+      :minute            => '0',
+      :gpg_key_id        => '',
     )}
     it { should contain_backup__offsite__job('caterpillar').with(
-      :sources     => '/srv/orange',
-      :destination => 'rsync://backup.example.com//srv/backup',
-      :hour        => '2',
-      :minute      => '30',
+      :archive_directory => '/foo/bar',
+      :sources           => '/srv/orange',
+      :destination       => 'rsync://backup.example.com//srv/backup',
+      :hour              => '2',
+      :minute            => '30',
     )}
   end
 
