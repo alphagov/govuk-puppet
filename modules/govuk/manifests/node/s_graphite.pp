@@ -18,7 +18,7 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
   # Remove this fix when upgrading from 0.9.12:
   # https://github.com/graphite-project/graphite-web/issues/423
   $util_py          = '/opt/graphite/webapp/graphite/util.py'
-  $util_patch       = '/opt/graphite/graphite_util.patch'
+  $util_patch       = '/tmp/graphite_util.patch'
   $util_patched_md5 = 'aa6b5e9234dfc705fa01cb871f8eec38'
   file { $util_patch:
     ensure => file,
