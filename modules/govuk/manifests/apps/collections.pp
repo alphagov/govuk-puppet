@@ -2,8 +2,6 @@
 class govuk::apps::collections(
   $port = 3070,
 ) {
-  $app_domain = hiera('app_domain')
-
   govuk::app { 'collections':
     app_type              => 'rack',
     port                  => $port,

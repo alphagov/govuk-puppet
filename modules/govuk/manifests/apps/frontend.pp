@@ -4,9 +4,6 @@ class govuk::apps::frontend(
   $enable_homepage_nocache_location = true,
   $vhost_protected = false,
 ) {
-
-  $app_domain = hiera('app_domain')
-
   validate_bool($enable_homepage_nocache_location)
 
   if ($enable_homepage_nocache_location) {
