@@ -12,6 +12,14 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     require                    => Govuk::Mount['/opt/graphite'],
   }
 
+  harden::limit { 'www-data-nofile':
+    domain => 'www-data',
+    type   => '-', # set both hard and soft limits
+    item   => 'nofile',
+    value  => '16384',
+    notify => Class['graphite::service'],
+  }
+
   # Create a nightly tarball of graphite metrics
   include backup::graphite::tarball
 
