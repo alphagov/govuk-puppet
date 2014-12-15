@@ -19,6 +19,7 @@ class govuk::node::s_frontend_lb (
       'collections',
       'contacts-frontend',
       'contacts-frontend-old',
+      'courts-frontend',
       'designprinciples',
       'feedback',
       'frontend',
