@@ -1,4 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: users::groups::govuk_production_access {
+#
+# Configure SSH access to production environments for GDS staff
+# and contractors who have been cleared to have production access.
+#
+# The process and policy for those requiring production access is listed at
+# https://sites.google.com/a/digital.cabinet-office.gov.uk/gds-technology/production-access-and-support
+#
+# Define staff in users::groups::govuk, and contractors in
+# users::groups::contractors.
+#
+
 class users::groups::govuk_production_access {
 
   include users::aaronkeogh
