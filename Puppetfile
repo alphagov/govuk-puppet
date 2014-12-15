@@ -3,7 +3,6 @@ forge "https://forgeapi.puppetlabs.com"
 mod 'adrien/alternatives'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'fsalum/redis'
-mod 'KyleAnderson/etcd'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'
@@ -49,6 +48,9 @@ mod 'alphagov/harden',
 mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
+mod 'KyleAnderson/etcd',
+  :git => 'git://github.com/solarkennedy/puppet-etcd.git',
+  :ref => 'e053368'
 mod 'puppetlabs/lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 mod 'alphagov/tune_ext',

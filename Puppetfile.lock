@@ -1,8 +1,6 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
-    KyleAnderson-etcd (0.4.1)
-      puppetlabs-stdlib (>= 0.1.6)
     adrien-alternatives (0.2.0)
     benjamin-ramdisk (0.0.1)
     darin-zypprepo (1.0.1)
@@ -150,6 +148,14 @@ GIT
   specs:
     nextrevision-automysqlbackup (0.2.4)
       puppetlabs-stdlib (>= 3.0.0)
+
+GIT
+  remote: git://github.com/solarkennedy/puppet-etcd.git
+  ref: e053368
+  sha: e0533682739be582a11c12f68d5415b6326d131d
+  specs:
+    KyleAnderson-etcd (0.4.2)
+      puppetlabs-stdlib (>= 3.2.0)
 
 DEPENDENCIES
   KyleAnderson-etcd (>= 0)
