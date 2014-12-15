@@ -1,4 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: users::groups::newbamboo
+#
+# Configure SSH access to environments where New Bamboo staff require
+# access.
+#
 class users::groups::newbamboo {
 
   include users::benp
