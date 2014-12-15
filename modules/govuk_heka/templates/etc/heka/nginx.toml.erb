@@ -61,7 +61,7 @@ ticker_interval = 5
 [nginx_access_stat]
 type = "StatFilter"
 stat_accum_name = "nginx_access_stats"
-message_matcher = 'Type == "nginx.access" && Fields[request_time] != NIL && Fields[status] > 0'
+message_matcher = 'Hostname == "<%= @fqdn_underscore -%>" && Type == "nginx.access" && Fields[request_time] != NIL && Fields[status] > 0'
 
 [nginx_access_stat.Metric.status_code]
 type = "Counter"
