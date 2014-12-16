@@ -24,6 +24,8 @@ class govuk_elasticsearch (
   $disable_gc_alerts = false,
   $use_mirror = true,
 ) {
+
+  include augeas
   validate_bool($use_mirror)
 
   anchor { 'govuk_elasticsearch::begin': }
