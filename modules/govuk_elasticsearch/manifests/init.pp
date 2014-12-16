@@ -19,6 +19,7 @@ class govuk_elasticsearch (
   $number_of_shards = '5',
   $number_of_replicas = '1',
   $minimum_master_nodes = '1',
+  $refresh_interval = '1s',
   $host = 'localhost',
   $log_index_type_count = {},
   $disable_gc_alerts = false,
@@ -58,6 +59,11 @@ class govuk_elasticsearch (
   exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
     creates => "/var/apps/${cluster_name}",
     before  => Service[$cluster_name],
+    config  => {
+                'cluster.name' => $cluster_name,
+              },
+    require => Anchor['govuk_elasticsearch::begin'],
+    before  => Anchor['govuk_elasticsearch::end'],
   }
 
   elasticsearch::instance { $::fqdn:
