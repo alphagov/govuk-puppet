@@ -40,21 +40,48 @@ class govuk_elasticsearch (
     $manage_repo = true
   }
 
-  class { 'elasticsearch_old':
-    version              => $version,
-    cluster_hosts        => $cluster_hosts,
-    cluster_name         => $cluster_name,
-    heap_size            => $heap_size,
-    http_port            => $http_port,
-    number_of_shards     => $number_of_shards,
-    number_of_replicas   => $number_of_replicas,
-    minimum_master_nodes => $minimum_master_nodes,
-    host                 => $host,
-    transport_port       => $transport_port,
-    log_index_type_count => $log_index_type_count,
-    manage_repo          => $manage_repo,
-    require              => Anchor['govuk_elasticsearch::begin'],
-    before               => Anchor['govuk_elasticsearch::end'],
+  class { 'elasticsearch':
+    version      => $version,
+    manage_repo  => $manage_repo,
+    repo_version => $repo_version,
+    require      => Anchor['govuk_elasticsearch::begin'],
+    before       => Anchor['govuk_elasticsearch::end'],
+  }
+
+  # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
+  service { $cluster_name:
+    ensure => 'stopped',
+    before => Elasticsearch::Instance[$::fqdn],
+  }
+
+  # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
+  exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
+    creates => "/var/apps/${cluster_name}",
+    before  => Service[$cluster_name],
+  }
+
+  elasticsearch::instance { $::fqdn:
+    config  => {
+      'cluster.name'           => $cluster_name,
+      'number_of_replicas'     => $number_of_replicas,
+      'number_of_shards'       => $number_of_shards,
+      'heap_size'              => $heap_size,
+      'index.refresh_interval' => $refresh_interval,
+      'transport.tcp.port'     => $transport_port,
+      'network.publish_host'   => $::fqdn,
+      'node.name'              => $::fqdn,
+      'http.port'              => $http_port,
+      'discovery'              => {
+        'zen' => {
+          'minimum_master_nodes' => $minimum_master_nodes,
+          'ping'                 => {
+            'multicast.enabled' => false,
+            'unicast.hosts'     => $cluster_hosts,
+          },
+        },
+      },
+    },
+    datadir => '/mnt/elasticsearch',
   }
 
   class { 'govuk_elasticsearch::monitoring':
