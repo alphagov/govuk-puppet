@@ -9,9 +9,7 @@ class users::groups::contractors {
   include users::dominicbaggott
   include users::elliot
   include users::futurefabric
-  include users::jackbracewell
   include users::jamesdarling
-  include users::karlentwistle
   include users::patrickdavenport
   include users::paulhayes
   include users::pedromoreira
