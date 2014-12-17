@@ -39,7 +39,6 @@ define elasticsearch_old::plugin (
   exec { "elasticsearch install plugin ${plugin_name}":
     command => "/usr/share/elasticsearch/bin/plugin -install ${install_args}",
     unless  => "test -n \"$(ls '${plugin_dir}')\"",
-    notify  => Class['elasticsearch_old::service'],
     require => Package['elasticsearch'],
   }
 
