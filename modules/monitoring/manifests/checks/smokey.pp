@@ -19,6 +19,7 @@ class monitoring::checks::smokey {
   }
 
   icinga::check_feature {
+    'check_bouncer':                feature => 'bouncer';
     'check_businesssupportfinder':  feature => 'businesssupportfinder';
     'check_calendars':              feature => 'calendars';
     'check_contacts':               feature => 'contacts';
