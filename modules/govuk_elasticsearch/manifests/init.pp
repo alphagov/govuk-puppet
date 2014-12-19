@@ -37,8 +37,10 @@ class govuk_elasticsearch (
   if $use_mirror {
     class { 'govuk_elasticsearch::repo': }
     $manage_repo = false
+    $repo_version = undef
   } else {
     $manage_repo = true
+    $repo_version = '0.90'
   }
 
   class { 'elasticsearch':
@@ -59,11 +61,6 @@ class govuk_elasticsearch (
   exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
     creates => "/var/apps/${cluster_name}",
     before  => Service[$cluster_name],
-    config  => {
-                'cluster.name' => $cluster_name,
-              },
-    require => Anchor['govuk_elasticsearch::begin'],
-    before  => Anchor['govuk_elasticsearch::end'],
   }
 
   elasticsearch::instance { $::fqdn:
