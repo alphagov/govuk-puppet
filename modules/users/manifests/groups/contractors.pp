@@ -4,18 +4,14 @@
 # Please ensure that the list remains sorted alphabetically by username.
 #
 class users::groups::contractors {
-  include users::andrewmitchell
   include users::camillebaldock
   include users::dominicbaggott
   include users::elliot
   include users::futurefabric
   include users::jamesdarling
-  include users::patrickdavenport
   include users::paulhayes
-  include users::pedromoreira
   include users::russellgarner
   include users::stevelaing
   include users::tekin
-  include users::tomrussell
   include users::vinayvinay
 }
