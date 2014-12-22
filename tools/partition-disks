@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+shopt -s nullglob
+
 for disk in /dev/sd?; do
   echo "checking ${disk}"
   if ! sudo parted -a optimal --script  ${disk} -- print >/dev/null
