@@ -4,6 +4,13 @@ set -eu
 DATADIR="<%= @pg_datadir %>"
 SYNCDIR="${DATADIR}.sync"
 DATADIR_DELETE="${DATADIR}.todelete"
+FILES_TO_KEEP="
+  ${DATADIR}/pg_xlog
+  ${DATADIR}/recovery.tmp
+  ${DATADIR}/postmaster.opts
+  ${DATADIR}/server.crt
+  ${DATADIR}/server.key
+"
 
 if [ -z ${DATADIR} ]; then
   echo "DATADIR variable is empty"
@@ -24,16 +31,9 @@ service postgresql stop
 
 # Files that don't exist in the basebackup and must be retained from the
 # slave's original data directory.
-sudo -u <%= @pg_user %> mv -t ${SYNCDIR}/ \
-  ${DATADIR}/pg_xlog \
-  ${DATADIR}/recovery.tmp \
-  ${DATADIR}/postmaster.opts
-
-# These exist on Precise/9.1 but not Trusty/9.3
-sudo -u <%= @pg_user %> mv -t ${SYNCDIR}/ \
-  ${DATADIR}/server.crt \
-  ${DATADIR}/server.key \
-  || true
+for FILE in $FILES_TO_KEEP; do
+  [ -f $FILE ] && sudo -u postgres mv -t ${SYNCDIR}/ $FILE
+done
 
 # Delay deletion and move instead of copy so that the service is down for
 # the minimal amount of time possible.
