@@ -3,5 +3,6 @@ class mongodb::logging {
   govuk::logstream { 'mongodb-logstream':
     logfile => '/var/log/upstart/mongodb.log',
     fields  => {'application' => 'mongodb'},
+    tags    => ['stdout', 'stderr', 'upstart', 'mongodb'],
   }
 }
