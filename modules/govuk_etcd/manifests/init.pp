@@ -23,6 +23,8 @@ class govuk_etcd ($peers) {
     $actual_peers = $peers
   }
 
+  include govuk_etcd::monitoring
+
   class { 'etcd':
     peers => $actual_peers
   }
