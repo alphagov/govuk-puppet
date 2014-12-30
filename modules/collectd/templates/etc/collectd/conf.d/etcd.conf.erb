@@ -1,0 +1,93 @@
+<Plugin curl_json>
+  <URL "http://<%= @peer_endpoint -%>/v2/admin/config">
+    Instance "etcd_config"
+<%
+
+admin_config = {
+  "gauge" => [
+    "activeSize",
+    "removeDelay",
+    "syncInterval",
+  ],
+}
+
+admin_config.each do |stat_type, stat_keys|
+  stat_keys.each do |stat_key|
+-%>
+    <Key "<%= stat_key -%>">
+      Type "<%= stat_type -%>"
+    </Key>
+<%
+  end
+end
+-%>
+  </URL>
+
+  <URL "http://<%= @client_endpoint -%>/v2/stats/store">
+    Instance "etcd_store"
+<%
+# NB: Some of these metrics are scoped to the cluster, whereas some apply only
+# the peer being queried.
+#
+# See: https://coreos.com/docs/distributed-configuration/etcd-api/#statistics
+
+stats_store = {
+  "counter" => [
+    "compareAndSwapFail",
+    "compareAndSwapSuccess",
+    "createFail",
+    "createSuccess",
+    "deleteFail",
+    "deleteSuccess",
+    "expireCount",
+    "getsFail",
+    "getsSuccess",
+    "setsFail",
+    "setsSuccess",
+    "updateFail",
+    "updateSuccess",
+    "watchers",
+  ],
+}
+
+stats_store.each do |stat_type, stat_keys|
+  stat_keys.each do |stat_key|
+-%>
+    <Key "<%= stat_key -%>">
+      Type "<%= stat_type -%>"
+    </Key>
+<%
+  end
+end
+-%>
+  </URL>
+
+<%
+stats_self = {
+  "counter" => [
+    "recvAppendRequestCnt",
+    "sendAppendRequestCnt",
+  ],
+  "gauge" => [
+    "recvBandwidthRate", # followers only
+    "recvPkgRate",       # followers only
+    "sendBandwidthRate", # leader only
+    "sendPkgRate",       # leader only
+  ],
+}
+-%>
+  <URL "<%= @client_endpoint -%>/v2/stats/self">
+    Instance "etcd_self"
+<%
+stats_self.each do |stat_type, stat_keys|
+  stat_keys.each do |stat_key|
+-%>
+    <Key "<%= stat_key -%>">
+      Type "<%= stat_type -%>"
+    </Key>
+<%
+  end
+end
+-%>
+  </URL>
+</Plugin>
