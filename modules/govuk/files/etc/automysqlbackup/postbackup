@@ -3,3 +3,6 @@ mv /var/lib/automysqlbackup/tmp.tbz2 /var/lib/automysqlbackup/latest.tbz2
 FINISHEPOCH=`date +%s`
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
 logger -t automysqlbackup "MySQL backed up in T:$TOTALTIME seconds"
+
+# Remove the temporary file added by the prebackup
+rm /var/lock/mysql-backup.lock
