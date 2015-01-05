@@ -49,15 +49,4 @@ class backup::offsite(
     'ensure'            => $ensure_backup,
     'archive_directory' => $archive_directory,
   })
-
-  # FIXME: Remove when deployed.
-  backup::offsite::job { 'offsite-govuk-datastores':
-    ensure      => absent,
-    sources     => '',
-    destination => '',
-    hour        => 0,
-    minute      => 0,
-    user        => 'govuk-backup',
-    gpg_key_id  => '',
-  }
 }

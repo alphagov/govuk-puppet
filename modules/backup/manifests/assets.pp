@@ -51,15 +51,4 @@ class backup::assets(
   create_resources('backup::offsite::job', $jobs, {
     'archive_directory' => $archive_directory,
   })
-
-  # FIXME: Remove when deployed.
-  backup::offsite::job { 'whitehall':
-    ensure      => absent,
-    sources     => '',
-    destination => '',
-    hour        => 0,
-    minute      => 0,
-    user        => '',
-    gpg_key_id  => '',
-  }
 }
