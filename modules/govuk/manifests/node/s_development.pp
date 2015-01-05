@@ -6,7 +6,7 @@ class govuk::node::s_development {
   include golang
   include govuk_apt::disable_pipelining
   include govuk_apt::use_uk_ubuntu_mirror
-  include govuk_heka::repo
+  include govuk_heka
   include govuk_mysql::libdev
   include hosts::development
   include imagemagick
