@@ -28,15 +28,6 @@ class govuk_jenkins (
   include govuk_java::openjdk7::jdk
   include govuk_java::openjdk7::jre
 
-  #FIXME: can be removed when the packages have been removed everywhere
-  class {[
-          'govuk_java::oracle7::jdk',
-          'govuk_java::oracle7::jre',
-          ]:
-            ensure  => 'absent',
-            require => Class['govuk_java::set_defaults']
-  }
-
   class { 'govuk_java::set_defaults':
     jdk     => 'openjdk7',
     jre     => 'openjdk7',

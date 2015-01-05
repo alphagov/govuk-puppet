@@ -87,12 +87,6 @@ class govuk_cdnlogs (
       fail('Unable to monitor Bouncer CDN logs, key not present in service_port_map.')
     }
 
-    # FIXME: remove this once it has been deployed
-    @@icinga::check { "check_cdn_logs_being_streamed_${::hostname}":
-      ensure    => absent,
-      host_name => $::fqdn,
-    }
-
     @@icinga::check { "check_govuk_cdn_logs_being_streamed_${::hostname}":
       check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c7200 -w3600\"",
       service_description => 'GOV.UK logs are not being received from the CDN',
