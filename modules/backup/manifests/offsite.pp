@@ -57,7 +57,7 @@ class backup::offsite(
     destination => '',
     hour        => 0,
     minute      => 0,
-    user        => '',
+    user        => 'govuk-backup',
     gpg_key_id  => '',
   }
 }
