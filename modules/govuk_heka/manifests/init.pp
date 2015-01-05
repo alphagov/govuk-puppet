@@ -3,6 +3,7 @@
 # Base classes for all Heka nodes.
 #
 class govuk_heka {
+  include govuk_heka::global
   include govuk_heka::repo
 
   include heka
