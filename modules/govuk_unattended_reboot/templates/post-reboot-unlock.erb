@@ -1,0 +1,15 @@
+# post-reboot-unlock
+#
+description "Release the distributed reboot mutex on boot"
+start on started networking
+
+task
+console log
+
+# Tell Upstart that an exit code of 0 or 1 is OK
+# locksmithctl will return exit code 1 if no lock exists
+normal exit 0 1
+
+script
+  exec locksmithctl -endpoint='<%= @etcd_endpoint %>' unlock '<%= @fqdn %>'
+end script

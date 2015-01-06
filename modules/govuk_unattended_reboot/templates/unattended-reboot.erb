@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -u
+
+ICINGA_URL='https://monitoring.cluster/cgi-bin/icinga/status.cgi?search_string=<%= @node_class_search_phrase %>&allunhandledproblems&jsonoutput'
+
+if ! [ -f /var/run/reboot-required ]; then
+  # No reboot required
+  exit 0
+fi
+
+# Check that this machine is safe to reboot
+if [ "$(govuk_setenv default printenv SAFE_TO_REBOOT)" != "yes" ]; then
+  # Machine marked as not safe to reboot
+  exit 0
+fi
+
+# Check for 'down' and 'unreachable' host alerts; 'critical' and 'warning' service alerts
+curl -H 'Host: nagios' -k ${ICINGA_URL} 2&>/dev/null | grep -q -e 'CRITICAL' -e 'WARNING' -e 'DOWN' -e 'UNREACHABLE'
+
+if [ $? -eq 0 ]; then
+  echo 'Host or service alerts exist for node class, or Icinga unavailable'
+  exit 1
+fi
+
+locksmithctl -endpoint='<%= @etcd_endpoint %>' lock '<%= @fqdn %>'
+
+if [ $? -ne 0 ]; then
+  echo "Couldn't obtain lock"
+  exit 1
+fi
+
+reboot
+
+if [ $? -ne 0 ]; then
+  echo 'Reboot failed'
+  exit 1
+fi
