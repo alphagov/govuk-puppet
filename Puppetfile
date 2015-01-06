@@ -16,7 +16,7 @@ mod 'puppetlabs/postgresql'
 mod 'puppetlabs/rabbitmq',
   :git => 'git://github.com/alphagov/puppetlabs-rabbitmq.git',
   :ref => 'strip-backslashes'
-mod 'puppetlabs/stdlib'
+mod 'puppetlabs/stdlib', '>= 4.2.0'
 mod 'rtyler/jenkins'
 mod 'saz/memcached'
 mod 'saz/ntp'
