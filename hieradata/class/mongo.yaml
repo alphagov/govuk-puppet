@@ -5,7 +5,7 @@ govuk::safe_to_reboot::reason: 'Check for primary, reboot secondaries, step down
 
 lv:
   mongodb:
-    pv: '/dev/sdb1'
+    pv: '/dev/sdd1'
     vg: 'backup'
   data:
     pv: '/dev/sdc1'
