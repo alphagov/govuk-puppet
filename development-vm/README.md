@@ -178,15 +178,10 @@ Rummager repository before the replication script.
 
     dev$ RUMMAGER_INDEX=all rake rummager:switch_to_empty_index
 
-## 9. Accessing Skyscape Preview
-
-The Skyscape Preview environment is not behind a VPN but still remains less open
-than legacy preview (which was on AWS). The following documents access during the
-migration period from the AWS Preview environment. It will be updated again after
-this migration is complete.
+## 9. Accessing Preview
 
 ### 9.1 Access to Web apps and services
-Skyscape Preview Web services and applications are available via the public Internet,
+Preview Web services and applications are available via the public Internet,
 and are presented on URLs of the following form:
 
     www.preview.alphagov.co.uk
@@ -196,27 +191,17 @@ These web pages are generally protected via HTTP basic authentication, which
 requires a shared username and password to be provided. This shared username and
 password should be well known by members of the development team, so just ask.
 
-During the migration to Skyscape Preview, access to these URLs requires some
-additional host entries, to override the public DNS entries for the AWS legacy
-environment. After the migration the public DNS will be updated to point to
-Skyscape Preview, but until then a script is available to add the required
-host aliases to your Mac.
-
-See Script:
-https://github.com/alphagov/private-utils/blob/master/script/govuk_select_preview
-
 ### 9.2 Access to servers via SSH
 
 Note: This assumes that you have followed Step 6, and have your machine's Public
-key added to the Puppet repositary, and this has been deployed to the Skyscape
-preview environment.
+key added to the Puppet repositary, and this has been deployed to the preview environment.
 
 While the load balanced endpoints are available directly via the public
 Internet, SSH access to the boxes which comprise the environment is brokered via
 a "jumpbox". You will need to configure your machine to use this jumpbox. See
 the [instructions in the Ops
 Manual](https://github.gds/pages/gds/opsmanual/2nd-line/technical-setup.html#ssh-config)
-for adding the relevant lines to your ~/.ssh/config.
+for adding the relevant lines to your `~/.ssh/config`.
 
 Note: if the user name you added to puppet is different to the user name you
 have on your laptop, then pay particular attention to the note at the bottom of the
