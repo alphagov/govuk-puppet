@@ -1,1 +1,4 @@
 STARTEPOCH=`date +%s`
+
+# Put a temporary file on disk to indicate that MySQL is currently backing up
+touch /var/lock/mysql-backup.lock
