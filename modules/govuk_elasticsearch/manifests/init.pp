@@ -59,8 +59,9 @@ class govuk_elasticsearch (
 
   # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
   exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
-    creates => "/var/apps/${cluster_name}",
+    creates => '/mnt/elasticsearch',
     before  => Service[$cluster_name],
+    onlyif  => "/usr/bin/test -d /var/apps/${cluster_name}"
   }
 
   elasticsearch::instance { $::fqdn:
