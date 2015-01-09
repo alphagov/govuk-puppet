@@ -32,7 +32,7 @@ process :frontend => [:static, :contentapi, :rummager]
 process :'government-frontend' => [:'content-store', :static]
 process :'info-frontend' => [:static, :'metadata-api']
 process :imminence
-process :hmrc_contacts => [:rummager, :'publishing-api', :whitehall]
+process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
 process :jobs
