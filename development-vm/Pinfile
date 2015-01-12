@@ -26,7 +26,7 @@ process :errbit
 process :fco
 process :fco_services
 process :feedback => [:static, :support, :'support-api']
-process :'finder-frontend' => [:static, :'finder-api', :rummager, :'content-store']
+process :'finder-frontend' => [:static, :rummager, :'content-store']
 process :'finder-api'
 process :frontend => [:static, :contentapi, :rummager]
 process :'government-frontend' => [:'content-store', :static]
