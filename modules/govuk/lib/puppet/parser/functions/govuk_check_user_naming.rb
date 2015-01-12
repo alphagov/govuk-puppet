@@ -59,7 +59,6 @@ def user_in_whitelist?(username)
     ollyl
     ppotter
     psd
-    roc
     rthorn
     ssharpe
     tekin
