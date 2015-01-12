@@ -10,6 +10,7 @@ class govuk::node::s_base {
   include govuk::safe_to_reboot
   include govuk::scripts
   include govuk::sshkeys
+  include govuk_heka
   include govuk_unattended_reboot
   include harden
   include hosts

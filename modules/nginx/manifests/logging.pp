@@ -1,5 +1,10 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: nginx::logging
+#
+# Nginx log centralisation and rotation.
+#
 class nginx::logging {
+  include govuk_heka::nginx
+
   file { '/etc/logrotate.d/nginx':
     ensure => present,
     source => 'puppet:///modules/nginx/etc/logrotate.d/nginx',
@@ -12,7 +17,8 @@ class nginx::logging {
       statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.default.time_request",
                           value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
     'error.log':
-      logstream => present;
+      logstream => absent;
   }
 }

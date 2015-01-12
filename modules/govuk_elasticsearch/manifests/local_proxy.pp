@@ -43,7 +43,8 @@ class govuk_elasticsearch::local_proxy(
     $log_json:
       json      => true,
       logstream => present;
+    # FIXME: Remove when stopped.
     $log_error:
-      logstream => present;
+      logstream => absent;
   }
 }

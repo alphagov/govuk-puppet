@@ -41,6 +41,10 @@ class router::nginx (
   include router::assets_origin
 
   $app_domain = hiera('app_domain')
+  $log_basename = 'lb'
+
+  # FIXME: Remove with tagalog.
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.www-origin"
 
   nginx::config::ssl { "www.${app_domain}":
     certtype => 'wildcard_alphagov'
@@ -83,11 +87,12 @@ class router::nginx (
     'lb-json.event.access.log':
       json          => true,
       logstream     => present,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.www-origin.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.www-origin.time_request",
+      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
     'lb-error.log':
-      logstream => present;
+      logstream => absent;
   }
 
   file { '/usr/share/nginx':
@@ -107,7 +112,7 @@ class router::nginx (
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
+    target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",
     warning   => 0.3,
     critical  => 0.6,
     use       => 'govuk_urgent_priority',

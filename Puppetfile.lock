@@ -102,6 +102,14 @@ GIT
     alphagov-harden (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-heka.git
+  ref: master
+  sha: 7977be654a0940a9561dd04c78d14133e54a2927
+  specs:
+    alphagov-heka (0.2.0)
+      puppetlabs-stdlib (>= 3.0.0)
+
+GIT
   remote: git://github.com/alphagov/puppet-module-ufw.git
   ref: dc7ddc2
   sha: dc7ddc2d976baf7a50a78d3f02b45a175e86cb41
@@ -164,6 +172,7 @@ DEPENDENCIES
   alphagov-curl (>= 0)
   alphagov-duplicity (>= 0)
   alphagov-harden (>= 0)
+  alphagov-heka (>= 0)
   alphagov-tune_ext (>= 0)
   attachmentgenie-ufw (>= 0)
   benjamin-ramdisk (= 0.0.1)
