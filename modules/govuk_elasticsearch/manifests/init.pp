@@ -52,15 +52,17 @@ class govuk_elasticsearch (
   }
 
   # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
-  service { $cluster_name:
-    ensure => 'stopped',
-    before => Elasticsearch::Instance[$::fqdn],
+  service { "elasticsearch-${cluster_name}":
+    ensure   => 'stopped',
+    stop     => "service elasticsearch-${cluster_name} stop",
+    provider => 'base',
+    before   => Elasticsearch::Instance[$::fqdn],
   }
 
   # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
   exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
     creates => '/mnt/elasticsearch',
-    before  => Service[$cluster_name],
+    before  => Service["elasticsearch-${cluster_name}"],
     onlyif  => "/usr/bin/test -d /var/apps/${cluster_name}"
   }
 
