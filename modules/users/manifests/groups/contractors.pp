@@ -5,14 +5,12 @@
 #
 class users::groups::contractors {
   include users::annapowellsmith
-  include users::camillebaldock
   include users::dominicbaggott
   include users::elliot
   include users::futurefabric
   include users::jamesdarling
   include users::paulhayes
   include users::russellgarner
-  include users::stevelaing
   include users::tekin
   include users::vinayvinay
 }
