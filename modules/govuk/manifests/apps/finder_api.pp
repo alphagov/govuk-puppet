@@ -6,6 +6,7 @@ class govuk::apps::finder_api(
 
   if str2bool($enabled) {
     govuk::app { 'finder-api':
+      ensure             => absent,
       app_type           => 'rack',
       port               => $port,
       health_check_path  => '/finders/cma-cases/schema.json',
