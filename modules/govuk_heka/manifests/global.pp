@@ -3,7 +3,9 @@
 # Global settings for Heka.
 #
 class govuk_heka::global {
+  $heka_maxprocs = $::processorcount
+
   heka::plugin { 'global':
-    source => 'puppet:///modules/govuk_heka/etc/heka/global.toml',
+    content => template('govuk_heka/etc/heka/global.toml.erb'),
   }
 }
