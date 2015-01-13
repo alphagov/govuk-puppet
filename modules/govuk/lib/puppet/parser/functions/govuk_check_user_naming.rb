@@ -45,7 +45,6 @@ def user_in_whitelist?(username)
     dcarley
     elliot
     futurefabric
-    garethr
     heathd
     jabley
     jackscotti
