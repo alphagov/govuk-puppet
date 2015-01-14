@@ -65,7 +65,7 @@ define backup::offsite::job(
       host_name           => $::fqdn,
       freshness_threshold => 28 * (60 * 60), # Hours to seconds
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#offsite-backups',
-      action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/${::hostname}\$20duplicity",
+      action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/${::hostname}\$20duplicity%7Csort:date",
     }
   }
 }
