@@ -50,4 +50,15 @@ class govuk_rbenv::cleanup {
       ensure => absent,
     }
   }
+
+  if ! defined(Rbenv::Version['2.2.0']) {
+    rbenv::version { '2.2.0':
+      ensure => absent,
+    }
+  }
+  if ! defined(Rbenv::Alias['2.2']) {
+    file { "${rbenv::params::rbenv_root}/versions/2.2":
+      ensure => absent,
+    }
+  }
 }
