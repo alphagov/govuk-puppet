@@ -18,8 +18,16 @@ class govuk::node::s_cache (
     real_ip_header  => $real_ip_header,
   }
 
-  # Set the varnish storage size to 75% of memory
-  $varnish_storage_size = $::memtotalmb / 4 * 3
+  # Set the varnish storage size to 75% of memory - 500
+  $varnish_storage_size_pre = $::memtotalmb / 4 * 3 - 500
+
+  # Ensure that there's some varnish storage in small environments (eg, vagrant).
+  if $varnish_storage_size_pre < 100 {
+    $varnish_storage_size = 100
+  } else {
+    $varnish_storage_size = $varnish_storage_size_pre
+  }
+
   class { 'varnish':
     storage_size => join([$varnish_storage_size,'M'],''),
     default_ttl  => '900',
