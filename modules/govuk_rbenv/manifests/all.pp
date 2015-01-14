@@ -13,9 +13,6 @@ class govuk_rbenv::all {
   rbenv::version { '2.0.0-p353':
     bundler_version => '1.6.5'
   }
-  rbenv::version { '2.0.0-p451':
-    bundler_version => '1.6.5'
-  }
   rbenv::version { '2.0.0-p594':
     bundler_version => '1.7.4'
   }
