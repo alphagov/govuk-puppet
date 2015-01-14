@@ -5,8 +5,6 @@
 # This must be used with care.  Due to the way the `defined` function works,
 # this has to come last in the parse/evaluation order.  This can be achieved by
 # including it as the last item in the node definition.
-#
-# FIXME: remove this class when everything has been cleaned up.
 class govuk_rbenv::cleanup {
   include rbenv
 
