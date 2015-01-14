@@ -11,6 +11,7 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
+govuk_elasticsearch::local_proxy::disable_access_log: true
 govuk_elasticsearch::local_proxy::servers:
   - 'logs-elasticsearch-1.management'
   - 'logs-elasticsearch-2.management'

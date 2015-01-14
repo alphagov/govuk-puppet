@@ -24,8 +24,12 @@ server {
   # Don't restrict the size of queries or documents.
   client_max_body_size 4g;
 
+<% if @disable_access_log -%>
+  access_log off;
+<% else -%>
   access_log /var/log/nginx/<%= @log_access %> timed_combined;
   access_log /var/log/nginx/<%= @log_json %> json_event;
+<% end -%>
   error_log /var/log/nginx/<%= @log_error %>;
 
   location / {
