@@ -46,6 +46,7 @@ govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::router::vhost_aliases: ["www"]
+govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::search::enable_delayed_job_worker: false
 govuk::apps::search_admin::enabled: true
 govuk::apps::signon::enable_procfile_worker: false
