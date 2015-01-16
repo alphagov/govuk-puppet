@@ -68,10 +68,10 @@ class govuk::node::s_backup (
     fq_dn     => 'whitehall-mysql-backup-1.backend.production',
   }
 
-  backup::directory {'backup_postgresql_backups_postgresql_slave_1':
+  backup::directory {'backup_postgresql_backups_postgresql_master_1':
     directory => '/var/lib/autopostgresqlbackup/',
-    host_name => 'postgresql-slave-1',
-    fq_dn     => 'postgresql-slave-1.backend.production',
+    host_name => 'postgresql-master-1',
+    fq_dn     => 'postgresql-master-1.backend.production',
   }
 
   backup::directory {'backup_postgresql_backups_puppetmaster_postgresql':
@@ -80,10 +80,10 @@ class govuk::node::s_backup (
     fq_dn     => 'puppetmaster-1.management.production',
   }
 
-  backup::directory {'backup_postgresql_backups_transition_postgresql_slave_1':
+  backup::directory {'backup_postgresql_backups_transition_postgresql_master_1':
     directory => '/var/lib/autopostgresqlbackup/',
-    host_name => 'transition-postgresql-slave-1',
-    fq_dn     => 'transition-postgresql-slave-1.backend.production',
+    host_name => 'transition-postgresql-master-1',
+    fq_dn     => 'transition-postgresql-master-1.backend.production',
   }
 
   backup::directory {'backup_graphite_storage_whisper_graphite-1':
