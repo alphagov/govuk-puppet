@@ -49,7 +49,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
       'mongo-3.backend',
     ]
   }
-  include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence

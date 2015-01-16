@@ -81,7 +81,6 @@ class govuk::node::s_development {
       'localhost',
     ]
   }
-  include govuk::apps::finder_api
   include govuk::apps::govuk_delivery
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence

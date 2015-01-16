@@ -39,7 +39,6 @@ class hosts::development {
   host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'external-link-tracker.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
-  host { 'finder-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'finder-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'frontend.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'govuk-delivery.dev.gov.uk':                       ip => '127.0.0.1' }
