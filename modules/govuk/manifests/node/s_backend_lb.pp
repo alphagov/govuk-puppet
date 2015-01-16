@@ -50,7 +50,6 @@ class govuk::node::s_backend_lb (
       'contentapi',
       'email-alert-api',
       'external-link-tracker',
-      'finder-api',
       'govuk-delivery',
       'need-api',
       # TODO: change this over to publishing-api once the application
