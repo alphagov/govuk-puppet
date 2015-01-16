@@ -4,6 +4,10 @@ govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-1.router'
   - 'router-backend-2.router'
   - 'router-backend-3.router'
+govuk::apps::router_api::router_nodes:
+  - 'cache-1.router:3055'
+  - 'cache-2.router:3055'
+  - 'cache-3.router:3055'
 
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'Check for primary, reboot secondaries, step down primary, reboot primary'

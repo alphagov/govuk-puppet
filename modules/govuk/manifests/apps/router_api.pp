@@ -2,10 +2,12 @@
 class govuk::apps::router_api(
   $port = 3056,
   $mongodb_nodes,
+  $router_nodes,
   $secret_key_base = undef,
 ) {
 
   validate_array($mongodb_nodes)
+  validate_array($router_nodes)
 
   govuk::app { 'router-api':
     app_type           => 'rack',
@@ -32,6 +34,13 @@ class govuk::apps::router_api(
     govuk::app::envvar { "${title}-MONGODB_URI":
       varname => 'MONGODB_URI',
       value   => "mongodb://${mongodb_nodes_string}/router",
+    }
+  }
+
+  if $router_nodes != [] {
+    govuk::app::envvar { "${title}-ROUTER_NODES":
+      varname => 'ROUTER_NODES',
+      value   => join($router_nodes, ','),
     }
   }
 }
