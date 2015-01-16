@@ -16,7 +16,8 @@ class govuk::apps::router_api(
   }
 
   Govuk::App::Envvar {
-    app => 'router-api',
+    app            => 'router-api',
+    notify_service => false, # FIXME: Remove this once we've completed rolling this change out.
   }
 
   if $secret_key_base != undef {
