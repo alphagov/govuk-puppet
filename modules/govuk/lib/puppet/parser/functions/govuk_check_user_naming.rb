@@ -50,7 +50,6 @@ def user_in_whitelist?(username)
     jackscotti
     james
     jamiec
-    jordan
     kushalp
     minglis
     mwall
