@@ -21,6 +21,7 @@ rabbitmq::config_kernel_variables:
 rabbitmq::config_mirrored_queues: true
 rabbitmq::config_variables:
   'vm_memory_high_watermark': '0.8'
+  'cluster_partition_handling': 'pause_minority'
 rabbitmq::cluster_node_type: 'disc'
 rabbitmq::cluster_nodes:
   - 'rabbitmq-1'
