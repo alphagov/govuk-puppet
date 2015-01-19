@@ -45,6 +45,7 @@ class govuk::node::s_development {
   include govuk::apps::courts_api
   include govuk::apps::courts_frontend
   include govuk::apps::designprinciples
+  include govuk::apps::entity_extractor
   include govuk::apps::feedback
   include govuk::apps::finder_frontend
   include govuk::apps::frontend
