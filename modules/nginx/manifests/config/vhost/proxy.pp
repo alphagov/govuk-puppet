@@ -69,16 +69,11 @@ define nginx::config::vhost::proxy(
     content => template($proxy_vhost_template),
   }
 
-  $logstream_ensure = $ensure ? {
-    'present' => $logstream,
-    default   => $ensure,
-  }
-
   nginx::log {
     $json_access_log:
       json          => true,
       logpath       => $logpath,
-      logstream     => $logstream_ensure,
+      logstream     => absent,
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
