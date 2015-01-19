@@ -48,7 +48,7 @@ define govuk::apps::bouncer::vhost(
   nginx::log {
     "${title}-json.event.access.log":
       json          => true,
-      logstream     => present,
+      logstream     => absent,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.${title}.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title}.time_request",
                           value => '@fields.request_time'}];
