@@ -5,15 +5,8 @@
 # === Parameters
 #
 # [*port*]
-#   The port that publishing API is served on.
+#   The port that entity-extractor service listens on.
 #   Default: 3096
-#
-# [*vhost*]
-#   The primary vhost for the application.  This is necessary to allow this to
-#   be overridden on the dev VM where both this and the content-store are on
-#   the same machine (content-store currently has a vhost alias of
-#   publishing-api).  Once this has implemented the full API, content-store's
-#   alias will be repointed here, and this param will no longer be needed.
 #
 class govuk::apps::entity_extractor(
   $enabled = false,
