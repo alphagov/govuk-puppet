@@ -50,6 +50,7 @@ class govuk::node::s_backend_lb (
       'contentapi',
       'email-alert-api',
       'entity-extractor',
+      'event-store',
       'external-link-tracker',
       'govuk-delivery',
       'need-api',

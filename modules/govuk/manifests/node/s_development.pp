@@ -77,6 +77,7 @@ class govuk::node::s_development {
   include govuk::apps::email_alert_service::rabbitmq_permissions
   include govuk::apps::email_alert_service::rabbitmq_test_permissions
   include govuk::apps::errbit
+  include govuk::apps::event_store
   class { 'govuk::apps::external_link_tracker':
     mongodb_nodes => [
       'localhost',
@@ -91,6 +92,7 @@ class govuk::node::s_development {
   include govuk::apps::need_api
   include govuk::apps::panopticon
   include govuk::apps::publicapi
+  include govuk::apps::public_event_store
   include govuk::apps::public_link_tracker
   include govuk::apps::publisher
   include govuk::apps::publishing_api

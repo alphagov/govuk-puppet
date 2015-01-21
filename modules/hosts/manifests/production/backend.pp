@@ -174,6 +174,7 @@ class hosts::production::backend (
       "email-alert-monitor.${app_domain}",
       "entity-extractor.${app_domain}",
       "errbit.${app_domain}",
+      "event-store.${app_domain}",
       "external-link-tracker.${app_domain}",
       "govuk-delivery.${app_domain}",
       "hmrc-manuals-api.${app_domain}",
