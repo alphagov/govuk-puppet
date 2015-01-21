@@ -9,16 +9,4 @@ class nginx::logging {
     ensure => present,
     source => 'puppet:///modules/nginx/etc/logrotate.d/nginx',
   }
-
-  nginx::log {
-    'json.event.access.log':
-      json          => true,
-      logstream     => absent,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.default.time_request",
-                          value => '@fields.request_time'}];
-    # FIXME: Remove when stopped.
-    'error.log':
-      logstream => absent;
-  }
 }

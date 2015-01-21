@@ -43,9 +43,6 @@ class router::nginx (
   $app_domain = hiera('app_domain')
   $log_basename = 'lb'
 
-  # FIXME: Remove with tagalog.
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.www-origin"
-
   nginx::config::ssl { "www.${app_domain}":
     certtype => 'wildcard_alphagov'
   }
@@ -81,18 +78,6 @@ class router::nginx (
 
   nginx::config::site { 'router-replacement-port8080':
     source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
-  }
-
-  nginx::log {
-    'lb-json.event.access.log':
-      json          => true,
-      logstream     => absent,
-      statsd_metric => "${counter_basename}.http_%{@fields.status}",
-      statsd_timers => [{metric => "${counter_basename}.time_request",
-                          value => '@fields.request_time'}];
-    # FIXME: Remove when stopped.
-    'lb-error.log':
-      logstream => absent;
   }
 
   file { '/usr/share/nginx':
