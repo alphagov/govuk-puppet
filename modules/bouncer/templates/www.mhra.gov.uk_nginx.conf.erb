@@ -1,0 +1,75 @@
+upstream mhra {
+  server www.wip.mhra.gov.uk:80;
+}
+
+server {
+  server_name www.mhra.gov.uk;
+  server_name aka.mhra.gov.uk;
+  listen 80;
+
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_connect_timeout 10s;
+  proxy_read_timeout 15s;
+
+  access_log /var/log/nginx/www.mhra.gov.uk-access.log timed_combined;
+  access_log /var/log/nginx/www.mhra.gov.uk-json.event.access.log json_event;
+  error_log /var/log/nginx/www.mhra.gov.uk-error.log;
+
+  <% proxied_locations = [
+      # Furniture: needed for all other proxied pages
+      '/home/groups/comms-ic/documents/websiteresources/',
+      '/home/groups/jsp/documents/technicalfiles/',
+      '/home/images/',
+      '/home/resources/',
+      '/home/websites/',
+
+      # Drug Analysis Prints content
+      # New location for Drug Analysis Prints index:
+      '/drug-analysis-prints/',
+      # Drug Analysis Prints PDFs are under here:
+      '/home/groups/public/documents/sentineldocuments/',
+
+      # Summaries of Product Characteristics (SPCs) and patient information leaflets (PILs)
+      '/home/groups/spcpil/documents/spcpil/', # PDFs
+      '/spc-pil/', # New location for SPCs and PILs
+
+      # Public Assessment Reports (PARs)
+      # The more recent PARs PDFs are served from under here:
+      '/home/groups/par/documents/websiteresources/',
+      # New location for PARs:
+      '/public-assessment-reports/',
+
+      # Safety Public Assessment Reports (Safety PARs)
+      # PDFs for Safety PARs are served from under here:
+      '/home/groups/comms-ic/documents/drugsafetymessage/',
+      # New location for Safety PARs:
+      '/safety-public-assessment-reports/',
+      # This is in the most recent list from MHRA as the location for some
+      # Safety PARs PDFs:
+      '/home/groups/s-par/documents/websiteresources/',
+
+      # Learning modules
+      # New locations:
+      '/antipsychotics-learning-module/',
+      '/benzodiazepines-learning-module/',
+      '/opioids-learning-module/',
+      '/ssri-learning-module/',
+    ]
+  %>
+
+  <% proxied_locations.each do |proxied_location| %>
+    location <%= proxied_location %> {
+      proxy_pass http://mhra;
+      # Can't use $http_host as that might be eg aka.mhra.gov.uk
+      proxy_set_header Host www.mhra.gov.uk;
+    }
+  <% end %>
+
+  # Fall back to Bouncer
+  location / {
+    proxy_pass http://<%= "bouncer.#{@app_domain}-proxy" %>;
+    proxy_set_header Host $http_host;
+  }
+}
