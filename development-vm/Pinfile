@@ -23,6 +23,7 @@ process :'email-alert-api'
 process :'email-alert-service'
 process :'email-alert-monitor'
 process :errbit
+process :'event-store'
 process :fco
 process :fco_services
 process :feedback => [:static, :support, :'support-api']
