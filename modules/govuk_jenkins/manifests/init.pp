@@ -99,6 +99,7 @@ class govuk_jenkins (
       'github-oauth'          => { 'version' => '0.19' },
       'role-strategy'         => { 'version' => '2.2.0' },
       'build-with-parameters' => { 'version' => '1.3' },
+      'rebuild'               => { 'version' => '1.22' },
     },
     require            => Class['govuk_java::set_defaults'],
   }
