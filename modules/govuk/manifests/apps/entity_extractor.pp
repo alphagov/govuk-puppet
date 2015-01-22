@@ -31,7 +31,7 @@ class govuk::apps::entity_extractor(
 
     govuk::app::envvar {'EXTRACTOR_DB_CONNECTION_STRING':
       app   => 'entity-extractor',
-      value => "host=postgresql-master-1 username=${app_name} password=${db_password} dbname=entity-extractor_production sslmode=disable"
+      value => "host=postgresql-master-1.backend username=${app_name} password=${db_password} dbname=entity-extractor_production sslmode=disable"
     }
 
     govuk::app::envvar {'EXTRACTOR_LOG_PATH':
