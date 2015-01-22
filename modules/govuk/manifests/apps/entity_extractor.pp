@@ -8,6 +8,9 @@
 #   The port that entity-extractor service listens on.
 #   Default: 3096
 #
+# [*db_password*]
+#   Password used by the application to connect to the database.
+#
 class govuk::apps::entity_extractor(
   $enabled = false,
   $port = 3096,
