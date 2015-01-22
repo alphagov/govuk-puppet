@@ -10,6 +10,8 @@ base::supported_kernel::enabled: true
 efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::search_admin::enabled: true
+govuk::apps::entity_extractor::enabled: true
+govuk::apps::entity_extractor::db::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 
