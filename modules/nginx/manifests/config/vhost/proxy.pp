@@ -43,10 +43,6 @@ define nginx::config::vhost::proxy(
   $json_access_log = "${log_basename}-json.event.access.log"
   $error_log = "${log_basename}-error.log"
 
-  # FIXME: Remove with tagalog.
-  $title_escaped = regsubst($title, '\.', '_', 'G')
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.${title_escaped}"
-
   $to_port = $to_ssl ? {
     true    => ':443',
     default => '',
@@ -67,20 +63,6 @@ define nginx::config::vhost::proxy(
   nginx::config::site { $name:
     ensure  => $ensure,
     content => template($proxy_vhost_template),
-  }
-
-  nginx::log {
-    $json_access_log:
-      json          => true,
-      logpath       => $logpath,
-      logstream     => absent,
-      statsd_metric => "${counter_basename}.http_%{@fields.status}",
-      statsd_timers => [{metric => "${counter_basename}.time_request",
-                          value => '@fields.request_time'}];
-    # FIXME: Remove when stopped.
-    $error_log:
-      logpath   => $logpath,
-      logstream => absent;
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
