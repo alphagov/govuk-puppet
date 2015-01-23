@@ -38,6 +38,7 @@ class hosts::development {
   host { 'email-alert-monitor.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'entity-extractor.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }
+  host { 'event-store.dev.gov.uk':                          ip => '127.0.0.1' }
   host { 'external-link-tracker.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'finder-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
@@ -56,6 +57,7 @@ class hosts::development {
   host { 'panopticon.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'private-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'publicapi.dev.gov.uk':                            ip => '127.0.0.1' }
+  host { 'public-event-store.dev.gov.uk':                   ip => '127.0.0.1' }
   host { 'public-link-tracker.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'publisher.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'publishing-api.dev.gov.uk':                       ip => '127.0.0.1' }

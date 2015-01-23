@@ -1,5 +1,10 @@
 ---
 
+govuk::apps::event_store::mongodb_servers:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
 govuk_elasticsearch::local_proxy::servers:
   - 'elasticsearch-1.backend'
   - 'elasticsearch-2.backend'

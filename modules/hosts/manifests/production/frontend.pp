@@ -82,6 +82,7 @@ class hosts::production::frontend (
       "manuals-frontend.${app_domain}",
       "licencefinder.${app_domain}",
       "publicapi.${app_domain}",
+      "public-event-store.${app_domain}",
       "public-link-tracker.${app_domain}",
       "service-manual.${app_domain}",
       "smartanswers.${app_domain}",
