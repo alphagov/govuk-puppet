@@ -53,11 +53,12 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 
 govuk_postgresql::server::backup: false
 
+icinga::check::graphite::monitoring_domain_suffix: 'dev.alphagov.co.uk'
+
 internal_tld: 'development'
 
 monitoring::checks::contact_email: 'root@localhost'
 
-monitoring_domain_suffix: 'dev.alphagov.co.uk'
 monitoring_protected: 'no'
 
 shell::shell_prompt_string: 'dev'

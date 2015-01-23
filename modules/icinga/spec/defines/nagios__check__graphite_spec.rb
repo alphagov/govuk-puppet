@@ -4,7 +4,6 @@ describe 'icinga::check::graphite', :type => :define do
 
   let(:facts) {{ :fqdn => 'warden.zoo.tld' }}
   let(:pre_condition) { 'icinga::host { "warden.zoo.tld": }' }
-  let(:hiera_data) { { 'monitoring_domain_suffix' => 'monitoring.zoo.tld' } }
 
   context 'when required params are passed' do
     let(:title) { 'count_tigers' }
@@ -14,6 +13,7 @@ describe 'icinga::check::graphite', :type => :define do
       :warning   => 10,
       :critical  => 20,
       :host_name => 'warden.zoo.tld',
+      :monitoring_domain_suffix => 'monitoring.zoo.tld',
     }}
 
     it 'should contain a nagios_check resource' do
@@ -35,6 +35,7 @@ describe 'icinga::check::graphite', :type => :define do
       :warning   => 10,
       :critical  => 20,
       :host_name => 'warden.zoo.tld',
+      :monitoring_domain_suffix => 'monitoring.zoo.tld',
     }}
 
     it 'should contain a nagios_check resource' do
@@ -53,6 +54,7 @@ describe 'icinga::check::graphite', :type => :define do
       :warning   => '10:20',
       :critical  => '10.20',
       :host_name => 'warden.zoo.tld',
+      :monitoring_domain_suffix => 'monitoring.zoo.tld',
     }}
 
     it 'should not contain warning line but should contain critical line in linked graph' do
