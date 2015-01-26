@@ -2,6 +2,9 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     adrien-alternatives (0.2.0)
+    arioch-keepalived (1.1.0)
+      puppetlabs-concat (>= 1.0.2)
+      puppetlabs-stdlib (>= 4.1.0)
     benjamin-ramdisk (0.0.1)
     darin-zypprepo (1.0.1)
     fsalum-redis (1.0.0)
@@ -174,6 +177,7 @@ DEPENDENCIES
   alphagov-harden (>= 0)
   alphagov-heka (>= 0)
   alphagov-tune_ext (>= 0)
+  arioch-keepalived (>= 0)
   attachmentgenie-ufw (>= 0)
   benjamin-ramdisk (= 0.0.1)
   elasticsearch-logstash (>= 0)
