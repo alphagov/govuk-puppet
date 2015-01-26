@@ -19,6 +19,7 @@ class govuk_keepalived (
   include keepalived
 
   $track_script = 'check_nginx'
+  $min_num_procs = 3
 
   keepalived::vrrp::script { $track_script:
     script => 'curl --max-time 1 -H "Host: monitoring-vhost.test" localhost 2>/dev/null | grep -q "nginx is ok"',
@@ -35,4 +36,10 @@ class govuk_keepalived (
   }
 
   create_resources(keepalived::vrrp::instance, $instances, $defaults)
+
+  @@icinga::check { "check_keepalived_running_${::hostname}":
+    check_command       => "check_nrpe!check_proc_number!keepalived ${min_num_procs}",
+    service_description => "keepalived has ${min_num_procs} or more processes",
+    host_name           => $::fqdn,
+  }
 }
