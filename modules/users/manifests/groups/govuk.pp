@@ -26,7 +26,6 @@ class users::groups::govuk {
   include users::carlmassa
   include users::chrisheathcote
   include users::danielroseman
-  include users::davidillsley
   include users::davidsingleton
   include users::davidt
   include users::dcarley
@@ -44,7 +43,6 @@ class users::groups::govuk {
   include users::marksheldon
   include users::mattbostock
   include users::minglis
-  include users::ppotter
   include users::richardboulton
   include users::robyoung
   include users::rthorn
