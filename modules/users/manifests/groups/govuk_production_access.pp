@@ -21,7 +21,6 @@ class users::groups::govuk_production_access {
   include users::bob
   include users::bradleyw
   include users::carlmassa
-  include users::dai
   include users::danielroseman
   include users::davidillsley
   include users::davidsingleton
@@ -36,9 +35,7 @@ class users::groups::govuk_production_access {
   include users::jennyduckett
   include users::kushalp
   include users::mattbostock
-  include users::mwall
   include users::ppotter
-  include users::psd
   include users::richardboulton
   include users::robyoung
   include users::ssharpe
