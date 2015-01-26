@@ -167,6 +167,15 @@ GDS have an apt repository at http://apt.production.alphagov.co.uk/ This is not 
 
 Generally, you might want to try `vagrant provision` on your host machine, which does the same thing as `govuk_puppet`, but in a more reliable fashion.
 
+### Can't connect to Mongo
+
+This is probably happening because your VM didn't shut down cleanly. You should be running `vagrant halt` or `vagrant suspend` but if you had to kill your VM or restart your machine mongo won't be able to connect. You can fix this by deleting your `mongod.lock` and restarting mongodb.
+
+```
+sudo rm /var/lib/mongodb/mongod.lock
+sudo service mongodb start
+```
+
 #### `librarian:install` fails due to permission errors
 
 Seeing `chown` / `OperationNotPermitted` errors during the `librarian:install` rake task?
