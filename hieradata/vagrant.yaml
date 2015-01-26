@@ -55,6 +55,8 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 
 govuk_postgresql::server::backup: false
 
+govuk_keepalived::interface: 'eth1'
+
 icinga::check::graphite::monitoring_domain_suffix: 'dev.alphagov.co.uk'
 
 internal_tld: 'development'
