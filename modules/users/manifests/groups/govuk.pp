@@ -12,7 +12,6 @@ class users::groups::govuk {
   #                                                                 #
   ###################################################################
 
-  include users::aaronkeogh
   include users::ajlanghorn
   include users::alex_tea
   include users::alexmuller
