@@ -147,11 +147,6 @@ the following from `development/replication`.
 
     dev$ ./replicate-data-local.sh -F ../ssh_config -u $USERNAME
 
-NOTE: If you get the error: 'percent_expand: unknown key %r' when running the
-replication script, then you will need to update the ssh_config file. Replace %r
-with your username on the line beginning ProxyCommand. This is a known issue
-with the version of ssh on lucid.
-
 If you do not have preview access, get hold of a mongo and a mysql database
 dump files and place them in a specific directory structure shown below.
 
