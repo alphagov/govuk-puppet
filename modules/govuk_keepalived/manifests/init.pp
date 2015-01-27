@@ -42,4 +42,8 @@ class govuk_keepalived (
     service_description => "keepalived has ${min_num_procs} or more processes",
     host_name           => $::fqdn,
   }
+
+  ufw::allow { 'Allow VRRP multicast advertisements':
+    ip => '224.0.0.18',
+  }
 }
