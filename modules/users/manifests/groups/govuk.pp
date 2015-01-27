@@ -12,7 +12,6 @@ class users::groups::govuk {
   #                                                                 #
   ###################################################################
 
-  include users::aaronkeogh
   include users::ajlanghorn
   include users::alex_tea
   include users::alexmuller
@@ -25,9 +24,7 @@ class users::groups::govuk {
   include users::bradleyw
   include users::carlmassa
   include users::chrisheathcote
-  include users::dai
   include users::danielroseman
-  include users::davidillsley
   include users::davidsingleton
   include users::davidt
   include users::dcarley
@@ -44,15 +41,10 @@ class users::groups::govuk {
   include users::kushalp
   include users::marksheldon
   include users::mattbostock
-  include users::minglis
-  include users::mwall
-  include users::ppotter
-  include users::psd
   include users::richardboulton
   include users::robyoung
   include users::rthorn
   include users::ssharpe
-  include users::timpaul
   include users::timothymower
   include users::tombooth
   include users::tombyers
