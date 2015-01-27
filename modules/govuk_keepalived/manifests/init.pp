@@ -44,6 +44,7 @@ class govuk_keepalived (
   }
 
   ufw::allow { 'Allow VRRP multicast advertisements':
-    ip => '224.0.0.18',
+    ip    => '224.0.0.18',
+    proto => 'any',
   }
 }
