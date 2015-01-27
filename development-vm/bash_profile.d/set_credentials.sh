@@ -1,7 +1,7 @@
-# Purpose: Handy way to store AWS credentials securely. 
+# Purpose: Handy way to store credentials securely.
 # Usage:
 #
-# 1. Create a credentials.sh file containing the following, filling in the ? appropriately: 
+# 1. Create a credentials.sh file containing the following, filling in the ? appropriately:
 #   export AWS_ACCESS_KEY_ID=? AWS_EC2_REGION=? AWS_SECRET_ACCESS_KEY=? DYNECT_PASS=? DYNECT_USER=?
 # 2. Encrypt this file using gpg symmetric encryption and a STRONG passphrase
 #   $ gpg -c credentials.sh
