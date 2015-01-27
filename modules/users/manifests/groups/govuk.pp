@@ -41,12 +41,10 @@ class users::groups::govuk {
   include users::kushalp
   include users::marksheldon
   include users::mattbostock
-  include users::minglis
   include users::richardboulton
   include users::robyoung
   include users::rthorn
   include users::ssharpe
-  include users::timpaul
   include users::timothymower
   include users::tombooth
   include users::tombyers
