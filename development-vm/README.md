@@ -189,7 +189,7 @@ password should be well known by members of the development team, so just ask.
 ### 9.2 Access to servers via SSH
 
 Note: This assumes that you have followed Step 6, and have your machine's Public
-key added to the Puppet repositary, and this has been deployed to the preview environment.
+key added to the Puppet repository, and this has been deployed to the preview environment.
 
 While the load balanced endpoints are available directly via the public
 Internet, SSH access to the boxes which comprise the environment is brokered via
