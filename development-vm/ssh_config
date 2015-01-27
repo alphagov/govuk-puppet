@@ -1,73 +1,16 @@
-# Skyscape Preview
+# Preview SSH config
 
 Host jumpbox.preview.alphagov.co.uk
   ProxyCommand none
 
-Host jumpbox-1.management.preview skyscape-dev-jumpbox1
+Host jumpbox-1.management.preview
   Hostname jumpbox.preview.alphagov.co.uk
   ProxyCommand none
 
-Host jumpbox-2.management.preview skyscape-dev-jumpbox2
+Host jumpbox-2.management.preview
   Hostname jumpbox.preview.alphagov.co.uk
   Port     1022
   ProxyCommand none
 
 Host *.preview
-  # If you get an error 'percent_expand: unknown key %r' then replace %r with your username
-  # This is a known issue with the version of ssh on lucid.
   ProxyCommand ssh -e none %r@jumpbox.preview.alphagov.co.uk exec nc $(echo %h | sed 's/\.preview$/\.production/') %p
-
-# Beta hosts
-
-Host preview-mongo-0
-	Hostname preview-mongo-client-20111213143425-01-external.hosts.alphagov.co.uk
-	user deploy
-
-Host preview-mongo-1
-	Hostname preview-mongo-client-20111213125804-01-external.hosts.alphagov.co.uk
-	user deploy
-
-Host preview-mongo-2
-	Hostname preview-mongo-client-20111213124811-01-external.hosts.alphagov.co.uk
-	user deploy
-
-Host preview-monitoring
-  Hostname ec2-176-34-194-237.eu-west-1.compute.amazonaws.com
-  User ubuntu
-  IdentityFile ~/.ssh/beta.pem
-
-Host preview-puppet
-  Hostname ec2-46-137-32-56.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-frontend
-  Hostname ec2-46-51-151-203.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-backend
-  Hostname ec2-46-137-19-107.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-support
-  Hostname ec2-46-137-134-73.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-data
-  Hostname ec2-46-137-133-120.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-cache
-  Hostname ec2-176-34-205-133.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-cache-1
-  Hostname ec2-176-34-223-80.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-cache-2
-  Hostname ec2-46-137-49-54.eu-west-1.compute.amazonaws.com
-  User deploy
-
-Host preview-whitehall
-  Hostname ec2-46-137-37-127.eu-west-1.compute.amazonaws.com
-  User deploy
