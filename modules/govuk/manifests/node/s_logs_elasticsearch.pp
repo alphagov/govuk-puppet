@@ -28,12 +28,15 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     ],
   }
 
-  elasticsearch_old::plugin { 'redis-river':
-    install_from => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',
+  elasticsearch::plugin { 'mobz/elasticsearch-head':
+    module_dir => 'head',
+    instances  => $::fqdn,
   }
 
-  elasticsearch_old::plugin { 'head':
-    install_from => 'mobz/elasticsearch-head',
+  elasticsearch::plugin { 'redis-river':
+    module_dir => 'redis-river',
+    url        => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',
+    instances  => $::fqdn,
   }
 
   # Install a template for *ALL* indices on this elasticsearch node which sets
