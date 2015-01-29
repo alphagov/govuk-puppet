@@ -1,7 +1,3 @@
-upstream mhra {
-  server www.wip.mhra.gov.uk:80;
-}
-
 server {
   server_name www.mhra.gov.uk;
   server_name aka.mhra.gov.uk;
@@ -61,7 +57,10 @@ server {
 
   <% proxied_locations.each do |proxied_location| %>
     location <%= proxied_location %> {
-      proxy_pass http://mhra;
+      # Use Google to resolve www.wip.mhra.gov.uk
+      resolver 8.8.8.8;
+      set $backend "http://www.wip.mhra.gov.uk:80";
+      proxy_pass $backend;
       # Can't use $http_host as that might be eg aka.mhra.gov.uk
       proxy_set_header Host www.mhra.gov.uk;
     }
