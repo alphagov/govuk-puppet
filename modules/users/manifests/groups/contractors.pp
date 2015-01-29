@@ -8,7 +8,6 @@ class users::groups::contractors {
   include users::dominicbaggott
   include users::elliot
   include users::futurefabric
-  include users::jamesdarling
   include users::paulhayes
   include users::tekin
   include users::vinayvinay
