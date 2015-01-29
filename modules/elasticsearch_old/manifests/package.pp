@@ -39,12 +39,4 @@ class elasticsearch_old::package (
     group   => 'elasticsearch',
     require => Package['elasticsearch'], # need to wait for package to create ES user.
   }
-
-  # Install the estools package (which we maintain, see
-  # https://github.com/alphagov/estools), which is used to install templates
-  # and rivers, among other things.
-  package { 'estools':
-    ensure   => '1.1.1',
-    provider => 'pip',
-  }
 }

@@ -106,5 +106,7 @@ class govuk_elasticsearch (
     port => $transport_port;
   }
 
+  include govuk_elasticsearch::estools
+
   anchor { 'govuk_elasticsearch::end': }
 }

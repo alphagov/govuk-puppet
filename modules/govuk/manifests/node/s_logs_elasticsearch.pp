@@ -45,9 +45,9 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     require => Class['govuk_elasticsearch'],
   }
 
-  # Collect all elasticsearch_old::river resources exported by the environment's
+  # Collect all govuk_elasticsearch::river resources exported by the environment's
   # redis machines.
-  Elasticsearch_old::River <<| tag == 'logging' |>>
+  Govuk_elasticsearch::River <<| tag == 'logging' |>>
 
   cron { 'elasticsearch-rotate-indices':
     ensure  => present,
@@ -56,7 +56,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     minute  => '1',
     #FIXME: 2014-01-12 - Ideally this should be 21 days - need to fix logstasher gem first
     command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 15 --optimize-old --optimize-maxage 1 logs',
-    require => Class['govuk_elasticsearch'],
+    require => Class['govuk_elasticsearch::estools'],
   }
 
   @@icinga::check::graphite { "check_elasticsearch_syslog_input_${::hostname}":
