@@ -3,13 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'govuk_elasticsearch', :type => :class do
   describe '#use_mirror' do
     let(:facts) {{
-      :kernel      => 'Linux',
-      :configdir   => '/woody',
-      :package_dir => '/rex',
-      :installpath => '/slinky/dog',
-      :plugindir   => '/mr/potato/head',
-      :plugintool  => 'bopeep',
-      :datadir     => '/buzz/lightyear',
+      :kernel => 'Linux',
     }}
 
     context 'true (default)' do
