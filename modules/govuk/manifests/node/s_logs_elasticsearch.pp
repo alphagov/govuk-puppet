@@ -39,54 +39,10 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     instances  => $::fqdn,
   }
 
-  # Install a template for *ALL* indices on this elasticsearch node which sets
-  # up some favourable settings for storing logging data. Of note:
-  #
-  # settings.store.compress.stored:
-  #   compress logs on disk
-  # mappings._default_._all.enabled:
-  #   disable indexing of full documents
-  # mappings._default_.properties.@fields.properties.clientip:
-  #   an example of how to configure analyzers for a specific field
-  #
-  elasticsearch_old::template { 'wildcard':
-    content => '
-    {
-      "template": "*",
-      "order": 0,
-      "settings": {
-        "index.query.default_field": "@message",
-        "index.store.compress.stored": "true",
-        "index.number_of_shards": "5",
-        "index.cache.field.type": "soft",
-        "index.refresh_interval": "5s"
-      },
-      "mappings": {
-        "_default_": {
-          "_all": { "enabled": false },
-          "properties": {
-            "@fields": {
-              "path": "full",
-              "dynamic": true,
-              "properties": {
-                "clientip": {
-                  "type": "ip"
-                },
-                "parameters": { "index": "not_analyzed", "type": "object" }
-              },
-              "type": "object"
-            },
-            "@message":     { "index": "analyzed", "type": "string" },
-            "@source":      { "index": "not_analyzed", "type": "string" },
-            "@source_host": { "index": "not_analyzed", "type": "string" },
-            "@source_path": { "index": "not_analyzed", "type": "string" },
-            "@tags":        { "index": "not_analyzed", "type": "string" },
-            "@timestamp":   { "index": "not_analyzed", "type": "date" },
-            "@type":        { "index": "not_analyzed", "type": "string" }
-          }
-        }
-      }
-    }'
+  # Install a template with some favourable settings for storing logging data.
+  elasticsearch::template { 'wildcard':
+    file    => 'puppet:///modules/govuk/node/s_logs_elasticsearch/wildcard-template.json',
+    require => Class['govuk_elasticsearch'],
   }
 
   # Collect all elasticsearch_old::river resources exported by the environment's
