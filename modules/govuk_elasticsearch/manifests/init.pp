@@ -90,6 +90,8 @@ class govuk_elasticsearch (
     datadir => '/mnt/elasticsearch',
   }
 
+  Class['elasticsearch'] -> Elasticsearch::Instance[$::fqdn] -> Anchor['govuk_elasticsearch::end']
+
   class { 'govuk_elasticsearch::monitoring':
     host_count           => size($cluster_hosts),
     cluster_name         => $cluster_name,
