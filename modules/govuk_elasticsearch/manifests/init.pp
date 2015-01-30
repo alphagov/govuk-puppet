@@ -51,6 +51,16 @@ class govuk_elasticsearch (
     before       => Anchor['govuk_elasticsearch::end'],
   }
 
+  exec { 'disable-default-elasticsearch':
+    onlyif      => '/usr/bin/test -f /etc/init.d/elasticsearch',
+    command     => '/etc/init.d/elasticsearch stop && /bin/rm -f /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
+    before      => Elasticsearch::Instance[$::fqdn],
+    subscribe   => Package['elasticsearch'],
+    refreshonly => true,
+  }
+
+  Package['elasticsearch'] ~> Exec['disable-default-elasticsearch']
+
   # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
   service { "elasticsearch-${cluster_name}":
     ensure   => 'stopped',
