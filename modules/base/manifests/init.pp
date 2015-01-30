@@ -24,5 +24,4 @@ class base {
   include tmux
   include wget
   include curl
-
 }
