@@ -111,11 +111,11 @@ class hosts::production::backend (
     legacy_aliases => ['master.mysql', "mysql.backend.${internal_tld}"],
   }
   govuk::host { 'mysql-slave-1':
-    ip => '10.3.10.1',
+    ip             => '10.3.10.1',
+    legacy_aliases => ['slave.mysql' ],
   }
   govuk::host { 'mysql-slave-2':
-    ip             => '10.3.10.3',
-    legacy_aliases => ['slave.mysql' ],
+    ip  => '10.3.10.3',
   }
   govuk::host { 'mysql-backup-1':
     ip             => '10.3.10.2',
@@ -140,11 +140,11 @@ class hosts::production::backend (
     legacy_aliases => ['whitehall-master.mysql', "whitehall-mysql.backend.${internal_tld}"],
   }
   govuk::host { 'whitehall-mysql-slave-1':
-    ip => '10.3.10.31',
+    ip             => '10.3.10.31',
+    legacy_aliases => ['whitehall-slave.mysql'],
   }
   govuk::host { 'whitehall-mysql-slave-2':
-    ip             => '10.3.10.32',
-    legacy_aliases => ['whitehall-slave.mysql'],
+    ip  => '10.3.10.32',
   }
   govuk::host { 'whitehall-mysql-backup-1':
     ip             => '10.3.10.34',
