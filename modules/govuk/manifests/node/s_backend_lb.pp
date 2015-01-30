@@ -49,7 +49,6 @@ class govuk::node::s_backend_lb (
       'canary-backend',
       'contentapi',
       'email-alert-api',
-      'entity-extractor',
       'event-store',
       'external-link-tracker',
       'govuk-delivery',
