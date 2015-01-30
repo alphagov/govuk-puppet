@@ -95,7 +95,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     user    => 'nobody',
     hour    => '0',
     minute  => '1',
-    #FIXME: 2014-01-12 - This should be 21 rather than 8 days - need to fix logstasher gem first
+    #FIXME: 2014-01-12 - Ideally this should be 21 days - need to fix logstasher gem first
     command => '/usr/local/bin/es-rotate --delete-old --delete-maxage 15 --optimize-old --optimize-maxage 1 logs',
     require => Class['govuk_elasticsearch'],
   }
