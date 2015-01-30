@@ -1,7 +1,17 @@
 LoadPlugin postgresql
 
 <Plugin postgresql>
-  <Query xlog_position>
+  <Query global_backends>
+        Statement "SELECT count(*) AS count \
+                FROM pg_stat_activity;"
+
+        <Result>
+                Type "pg_numbackends"
+                ValuesFrom "count"
+        </Result>
+  </Query>
+
+  <Query global_xlog_position>
     # Obtain xlog position of a master or slave. On the slave we use replay
     # instead of receive because we care about data that is committed and
     # available. For details about this monstrous query:
@@ -28,10 +38,22 @@ LoadPlugin postgresql
   </Query>
 
   <Database postgres>
+    Instance "global"
     Host "localhost"
     User "<%= @user %>"
     Password "<%= @password %>"
     SSLMode "prefer"
-    Query xlog_position
+    # These metrics are global to the PostgreSQL server
+    Query global_backends
+    Query global_xlog_position
+  </Database>
+
+  <Database postgres>
+    Host "localhost"
+    User "<%= @user %>"
+    Password "<%= @password %>"
+    SSLMode "prefer"
+    # By not specifying a specific query, we pull in the defaults
+    # which are specific to the `postgres` database
   </Database>
 </Plugin>
