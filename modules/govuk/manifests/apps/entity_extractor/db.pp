@@ -14,6 +14,7 @@ class govuk::apps::entity_extractor::db (
 ) {
   if $enabled {
     govuk_postgresql::db { 'entity-extractor_production':
+      ensure                  => absent,
       user                    => 'entity-extractor',
       password                => $password,
       allow_auth_from_backend => true,
