@@ -1,0 +1,22 @@
+if [ "$E" == "0" ]; then
+  NAGIOS_CODE=1
+  NAGIOS_MESSAGE="OK: automysqlbackup succeeded"
+elif [ -n "$E" ]; then
+  NAGIOS_CODE=2
+  NAGIOS_MESSAGE="CRITICAL: automysqlbackup encountered errors"
+else
+  NAGIOS_CODE=2
+  NAGIOS_MESSAGE="CRITICAL: unable to determine automysqlbackup status"
+fi
+
+printf "<%= @fqdn %>\t<%= @service_desc %>\t$NAGIOS_CODE\t$NAGIOS_MESSAGE\n" \
+  | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+
+tar -C /var/lib/automysqlbackup -jcf /var/lib/automysqlbackup/tmp.tbz2 latest/
+mv /var/lib/automysqlbackup/tmp.tbz2 /var/lib/automysqlbackup/latest.tbz2
+FINISHEPOCH=`date +%s`
+TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
+logger -t automysqlbackup "MySQL backed up in T:$TOTALTIME seconds"
+
+# Remove the temporary file added by the prebackup
+rm /var/lock/mysql-backup.lock
