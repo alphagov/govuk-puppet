@@ -172,7 +172,6 @@ class hosts::production::backend (
       "courts-api.${app_domain}",
       "email-alert-api.${app_domain}",
       "email-alert-monitor.${app_domain}",
-      "entity-extractor.${app_domain}",
       "errbit.${app_domain}",
       "event-store.${app_domain}",
       "external-link-tracker.${app_domain}",

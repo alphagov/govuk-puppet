@@ -19,6 +19,7 @@ class govuk::apps::entity_extractor(
   if $enabled {
     $app_name = 'entity-extractor'
     govuk::app { $app_name:
+      ensure             => absent,
       app_type           => 'bare',
       log_format_is_json => true,
       port               => $port,
@@ -28,18 +29,21 @@ class govuk::apps::entity_extractor(
     }
 
     govuk::app::envvar {'EXTRACTOR_EXTRACT_ADDR':
-      app   => 'entity-extractor',
-      value => ":${port}",
+      ensure => absent,
+      app    => 'entity-extractor',
+      value  => ":${port}",
     }
 
     govuk::app::envvar {'EXTRACTOR_DB_CONNECTION_STRING':
-      app   => 'entity-extractor',
-      value => "host=postgresql-master-1.backend user=${app_name} password=${db_password} dbname=entity-extractor_production sslmode=disable"
+      ensure => absent,
+      app    => 'entity-extractor',
+      value  => "host=postgresql-master-1.backend user=${app_name} password=${db_password} dbname=entity-extractor_production sslmode=disable"
     }
 
     govuk::app::envvar {'EXTRACTOR_LOG_PATH':
-      app   => 'entity-extractor',
-      value => 'STDERR'
+      ensure => absent,
+      app    => 'entity-extractor',
+      value  => 'STDERR',
     }
   }
 }
