@@ -53,7 +53,7 @@ class govuk_postgresql::server::slave (
     content => template('govuk_postgresql/usr/local/bin/pg_resync_slave.erb'),
   }
 
-  $metric_suffix = 'postgresql-postgres.bytes-xlog_position'
+  $metric_suffix = 'postgresql-global.bytes-xlog_position'
   # Wildcard to account for us not having the FQDN.
   $master_metric = "${master_host_underscore}*.${metric_suffix}"
   $slave_metric  = "${::fqdn_underscore}.${metric_suffix}"
