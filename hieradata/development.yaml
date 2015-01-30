@@ -28,8 +28,6 @@ govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_monitor::enabled: true
-govuk::apps::entity_extractor::enabled: true
-govuk::apps::entity_extractor::db::enabled: true
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::finder_frontend::enabled: true

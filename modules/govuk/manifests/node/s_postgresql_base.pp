@@ -4,7 +4,6 @@
 #
 class govuk::node::s_postgresql_base inherits govuk::node::s_base {
   include govuk::apps::content_register::db
-  include govuk::apps::entity_extractor::db
   include govuk::apps::email_alert_api::db
   include govuk::apps::email_alert_monitor::db
   include govuk::apps::url_arbiter::db
