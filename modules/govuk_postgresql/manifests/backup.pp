@@ -1,7 +1,12 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_postgresql::backup {
+    file {'/usr/local/sbin/autopostgresqlbackup':
+        source  => 'puppet:///modules/govuk_postgresql/usr/local/sbin/autopostgresqlbackup',
+    }
+
+    # FIXME: Remove when the autopostgresqlbackup has been removed from all environments
     package {'autopostgresqlbackup':
-        ensure => present,
+        ensure => absent,
     }
 
     # Changes from upstream:
@@ -10,7 +15,7 @@ class govuk_postgresql::backup {
     #    PREBACKUP="/etc/postgresql-backup-pre"
     file {'/etc/default/autopostgresqlbackup':
         source  => 'puppet:///modules/govuk_postgresql/etc/default/autopostgresqlbackup',
-        require => Package['autopostgresqlbackup'],
+        require => File['/usr/local/sbin/autopostgresqlbackup'],
     }
 
     include backup::client
