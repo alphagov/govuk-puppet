@@ -7,7 +7,8 @@ class icinga {
   }
 
   class { 'icinga::package':
-    notify => Class['icinga::service'];
+    require => Class['nginx'],
+    notify  => Class['icinga::service'];
   }
 
   class { 'icinga::config':
