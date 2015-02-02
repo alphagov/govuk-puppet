@@ -17,6 +17,7 @@ class govuk_heka::monitoring (
     host_name           => $::fqdn,
   }
 
+  collectd::plugin::process { 'hekad': }
   collectd::plugin::tcpconn { 'heka':
     incoming => $tcp_port,
     outgoing => $tcp_port,
