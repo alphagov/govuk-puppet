@@ -22,11 +22,20 @@ class backup::mysql (
   $rotation_weekly = 28,
   $rotation_monthly = 95,
 ) {
+  $threshold_secs = 28 * (60 * 60)
+  $service_desc   = 'automysqlbackup'
+
   file { '/etc/automysqlbackup/prebackup':
     source => 'puppet:///modules/backup/etc/automysqlbackup/prebackup',
   }
   file { '/etc/automysqlbackup/postbackup':
-    source => 'puppet:///modules/backup/etc/automysqlbackup/postbackup',
+    content => template('backup/etc/automysqlbackup/postbackup.erb'),
+  }
+
+  @@icinga::passive_check { "check_automysqlbackup-${::hostname}":
+    service_description => $service_desc,
+    freshness_threshold => $threshold_secs,
+    host_name           => $::fqdn,
   }
 
   ensure_packages(['mailutils'])
