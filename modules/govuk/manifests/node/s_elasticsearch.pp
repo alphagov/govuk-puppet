@@ -23,8 +23,9 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     require              => [Class['govuk_java::oracle7::jre'],Class['govuk_java::set_defaults']],
   }
 
-  elasticsearch_old::plugin { 'head':
-    install_from => 'mobz/elasticsearch-head',
+  elasticsearch::plugin { 'mobz/elasticsearch-head':
+    module_dir => 'head',
+    instances  => $::fqdn,
   }
 
   collectd::plugin::tcpconn { 'es-9200':

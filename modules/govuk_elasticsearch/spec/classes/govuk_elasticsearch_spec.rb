@@ -2,13 +2,17 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk_elasticsearch', :type => :class do
   describe '#use_mirror' do
+    let(:facts) {{
+      :kernel => 'Linux',
+    }}
+
     context 'true (default)' do
       let(:params) {{
         :version => '1.2.3',
       }}
 
       it { should contain_class('govuk_elasticsearch::repo') }
-      it { should contain_class('elasticsearch_old').with_manage_repo(false) }
+      it { should contain_class('elasticsearch').with_manage_repo(false) }
     end
 
     context 'false' do
@@ -18,7 +22,7 @@ describe 'govuk_elasticsearch', :type => :class do
       }}
 
       it { should_not contain_class('govuk_elasticsearch::repo') }
-      it { should contain_class('elasticsearch_old').with_manage_repo(true) }
+      it { should contain_class('elasticsearch').with_manage_repo(true) }
     end
   end
 end

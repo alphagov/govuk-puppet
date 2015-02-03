@@ -3,6 +3,8 @@ forge "https://forgeapi.puppetlabs.com"
 mod 'adrien/alternatives'
 mod 'arioch/keepalived'
 mod 'benjamin/ramdisk', '0.0.1'
+mod 'camptocamp/augeas', '1.1.0'
+mod 'elasticsearch/elasticsearch'
 mod 'fsalum/redis'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
@@ -14,7 +16,7 @@ mod 'puppetlabs/postgresql'
 mod 'puppetlabs/rabbitmq',
   :git => 'git://github.com/alphagov/puppetlabs-rabbitmq.git',
   :ref => 'strip-backslashes'
-mod 'puppetlabs/stdlib'
+mod 'puppetlabs/stdlib', '>= 4.2.0'
 mod 'rtyler/jenkins'
 mod 'saz/memcached'
 mod 'saz/ntp'

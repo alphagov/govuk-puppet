@@ -4,6 +4,8 @@
 $LOAD_PATH.unshift(
   '/usr/lib/ruby/vendor_ruby',
   "/usr/lib/ruby/vendor_ruby/#{RbConfig::CONFIG["ruby_version"]}/#{RbConfig::CONFIG["arch"]}",
+  "/usr/lib/ruby/#{RbConfig::CONFIG["ruby_version"]}",
+  "/usr/lib/ruby/#{RbConfig::CONFIG["ruby_version"]}/#{RbConfig::CONFIG["arch"]}",
 )
 
 require 'puppet/util/command_line'

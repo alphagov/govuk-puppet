@@ -1,4 +1,4 @@
-# == Type: elasticsearch_old::river
+# == Type: govuk_elasticsearch::river
 #
 # Create an elasticsearch river
 #
@@ -6,19 +6,17 @@
 #
 # [*river_name*]
 #   The name of the river.
-
+#
 # [*content*]
 #   The content to use to create the river. This should be a valid JSON
 #   document.
 #
-define elasticsearch_old::river (
+define govuk_elasticsearch::river (
   $content,
   $ensure = 'present',
   $river_name = $title
 ) {
 
-  # Install a river using the es-river tool installed as part of
-  # `estools` by the elasticsearch_old::package class.
   case $ensure {
 
     'present': {
@@ -32,7 +30,7 @@ EOS",
         # This is required to ensure the correct interpolation of variables in
         # the above commands.
         provider => 'shell',
-        require  => Class['elasticsearch_old::service'],
+        require  => Class['govuk_elasticsearch::estools'],
       }
     }
 
@@ -40,12 +38,12 @@ EOS",
       exec { "delete-elasticsearch-river-${river_name}":
         command => "es-river delete '${river_name}'",
         onlyif  => "es-river get '${river_name}'",
-        require => Class['elasticsearch_old::service'],
+        require => Class['govuk_elasticsearch::estools'],
       }
     }
 
     default: {
-      fail("Invalid 'ensure' value '${ensure}' for elasticsearch_old::river")
+      fail("Invalid 'ensure' value '${ensure}' for govuk_elasticsearch::river")
     }
 
   }
