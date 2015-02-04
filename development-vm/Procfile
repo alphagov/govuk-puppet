@@ -94,6 +94,7 @@ email-alert-monitor:   govuk_setenv email-alert-monitor   ./run_in.sh ../email-a
 courts-frontend:       govuk_setenv courts-frontend       ./run_in.sh ../courts-frontend bundle exec rails s -p 3095
 # entity-extractor used 3096, service is now retired
 event-store:           govuk_setenv event-store           ./run_in.sh ../event-store make run # port 3097
+policy-publisher:      govuk_setenv policy-publisher      ./run_in.sh ../policy-publisher bundle exec rails s -p 3098
 
 # datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
 # datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
