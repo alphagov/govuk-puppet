@@ -36,6 +36,7 @@ class backup::mysql (
     service_description => $service_desc,
     freshness_threshold => $threshold_secs,
     host_name           => $::fqdn,
+    action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/${::hostname}\$20duplicity%7Csort:date",
   }
 
   ensure_packages(['mailutils'])
@@ -47,7 +48,7 @@ class backup::mysql (
     backup_file_perms            => '0444',
     db_exclude                   => ['mysql', 'information_schema', 'performance_schema', 'test'],
     do_weekly                    => '6',
-    mail_address                 => 'zd-alrt-normal@digital.cabinet-office.gov.uk',
+    mail_address                 => 'root',
     mailcontent                  => 'quiet',
     mail_maxattsize              => '4000',
     mysql_dump_username          => 'root',
