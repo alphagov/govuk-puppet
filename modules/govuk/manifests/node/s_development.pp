@@ -89,6 +89,7 @@ class govuk::node::s_development {
   include govuk::apps::metadata_api
   include govuk::apps::need_api
   include govuk::apps::panopticon
+  include govuk::apps::policy_publisher
   include govuk::apps::publicapi
   include govuk::apps::public_event_store
   include govuk::apps::public_link_tracker
