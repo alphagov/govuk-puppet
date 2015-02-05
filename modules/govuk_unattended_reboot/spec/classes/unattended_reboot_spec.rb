@@ -14,6 +14,7 @@ describe 'govuk_unattended_reboot', :type => :class do
 
     it { should contain_file('/etc/init/post-reboot-unlock.conf').with_ensure('present') }
     it { should contain_file('/usr/local/bin/unattended-reboot').with_ensure('present') }
+    it { should contain_file('/usr/local/bin/check_icinga').with_ensure('present') }
     it { should contain_file('/etc/logrotate.d/unattended_reboot').with_ensure('present') }
 
     it { should contain_cron('unattended-reboot').with_ensure('present') }
@@ -38,6 +39,7 @@ describe 'govuk_unattended_reboot', :type => :class do
 
     it { should contain_file('/etc/init/post-reboot-unlock.conf').with_ensure('absent') }
     it { should contain_file('/usr/local/bin/unattended-reboot').with_ensure('absent') }
+    it { should contain_file('/usr/local/bin/check_icinga').with_ensure('absent') }
     it { should contain_file('/etc/logrotate.d/unattended_reboot').with_ensure('absent') }
 
     it { should contain_cron('unattended-reboot').with_ensure('absent') }

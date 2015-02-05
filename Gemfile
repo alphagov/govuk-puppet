@@ -11,6 +11,7 @@ gem "hiera-puppet-helper", :git => 'git://github.com/bobtfish/hiera-puppet-helpe
 # FIXME: There is some confusion about who should require who.
 # https://github.com/rodjek/rspec-puppet/issues/56
 gem "puppetlabs_spec_helper"
+gem "webmock", "~> 1.20.0"
 
 gem "parallel_tests"
 gem "parallel"

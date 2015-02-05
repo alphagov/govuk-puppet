@@ -74,6 +74,13 @@ class govuk_unattended_reboot (
     require => Package['locksmithctl'],
     content => template('govuk_unattended_reboot/unattended-reboot.erb'),
   } ->
+  file { '/usr/local/bin/check_icinga':
+    ensure => $file_ensure,
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/govuk_unattended_reboot/usr/local/bin/check_icinga.rb',
+  } ->
   file { '/var/log/unattended-reboot':
     ensure => directory,
     mode   => '0755',
