@@ -29,6 +29,7 @@ class govuk::node::s_backend_lb (
       'imminence',
       'maslow',
       'panopticon',
+      'policy-publisher',
       'private-frontend',
       'publisher',
       'release',

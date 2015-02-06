@@ -183,6 +183,7 @@ class hosts::production::backend (
       "maslow.${app_domain}",
       "need-api.${app_domain}",
       "panopticon.${app_domain}",
+      "policy-publisher.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
       # TODO: change this over to publishing-api once the application

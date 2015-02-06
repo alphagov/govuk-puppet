@@ -57,6 +57,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::maslow
   include govuk::apps::need_api
   include govuk::apps::panopticon
+  include govuk::apps::policy_publisher
   include govuk::apps::publisher
   include govuk::apps::publishing_api
   include govuk::apps::release
