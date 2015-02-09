@@ -40,7 +40,7 @@ class govuk::apps::external_link_tracker (
   # TCP connection stats.
   @@icinga::check { "check_app_external_link_tracker_up_on_${::hostname}":
     check_command       => "check_nrpe!check_app_up!${api_port} ${api_healthcheck}",
-    service_description => 'external-link-tracker app running',
+    service_description => 'external-link-tracker app not running',
     host_name           => $::fqdn,
   }
 

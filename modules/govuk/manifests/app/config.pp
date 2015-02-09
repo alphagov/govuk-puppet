@@ -206,7 +206,7 @@ define govuk::app::config (
     @@icinga::check { "check_app_${title}_up_on_${::hostname}":
       ensure              => $ensure,
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
-      service_description => "${title} app running",
+      service_description => "${title} app not running",
       host_name           => $::fqdn,
     }
     if $json_health_check {
@@ -214,7 +214,7 @@ define govuk::app::config (
       @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
         ensure              => $ensure,
         check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path}",
-        service_description => "${title} app health check ok",
+        service_description => "${title} app health check not ok",
         host_name           => $::fqdn,
       }
     }
@@ -223,7 +223,7 @@ define govuk::app::config (
     @@icinga::check { "check_app_${title}_unicornherder_up_${::hostname}":
       ensure              => $ensure,
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
-      service_description => "${title} app unicornherder running",
+      service_description => "${title} app unicornherder not running",
       host_name           => $::fqdn,
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
     }
@@ -231,14 +231,14 @@ define govuk::app::config (
     @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
       ensure              => $ensure,
       check_command       => "check_nrpe!check_unicorn_workers!${title}",
-      service_description => "${title} has the expected number of unicorn workers",
+      service_description => "${title} does not have the expected number of unicorn workers",
       host_name           => $::fqdn,
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
     ensure              => $ensure,
     check_command       => "check_nrpe!check_upstart_status!${title}",
-    service_description => "${title} upstart up",
+    service_description => "${title} upstart not up",
     host_name           => $::fqdn,
   }
 }

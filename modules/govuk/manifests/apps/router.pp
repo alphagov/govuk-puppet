@@ -44,7 +44,7 @@ class govuk::apps::router (
   # TCP connection stats.
   @@icinga::check { "check_app_router_up_on_${::hostname}":
     check_command       => "check_nrpe!check_app_up!${api_port} ${api_healthcheck}",
-    service_description => 'router app running',
+    service_description => 'router app not running',
     host_name           => $::fqdn,
   }
 
