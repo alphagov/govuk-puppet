@@ -68,7 +68,7 @@ class govuk_unattended_reboot (
   } ->
   file { '/usr/local/bin/unattended-reboot':
     ensure  => $file_ensure,
-    mode    => '0700',
+    mode    => '0744',
     owner   => 'root',
     group   => 'root',
     require => Package['locksmithctl'],
