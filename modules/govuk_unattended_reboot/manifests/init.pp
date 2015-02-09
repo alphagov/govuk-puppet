@@ -97,7 +97,7 @@ class govuk_unattended_reboot (
 
   file { '/etc/logrotate.d/unattended_reboot':
     ensure  => $file_ensure,
-    source  => 'puppet:///modules/govuk_unattended_reboot/logrotate',
+    source  => 'puppet:///modules/govuk_unattended_reboot/etc/logrotate.d/unattended_reboot',
     require => Class['logrotate'],
   }
 }
