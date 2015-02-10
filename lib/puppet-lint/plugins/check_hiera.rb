@@ -51,6 +51,7 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'http_password',
     'http_username',
     'internal_tld',
+    'monitoring_domain_suffix',
     'monitoring_protected',
     'mirror::enable_checks',
     'mysql_nagios',
