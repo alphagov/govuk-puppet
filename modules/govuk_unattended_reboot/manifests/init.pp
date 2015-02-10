@@ -68,11 +68,18 @@ class govuk_unattended_reboot (
   } ->
   file { '/usr/local/bin/unattended-reboot':
     ensure  => $file_ensure,
-    mode    => '0700',
+    mode    => '0744',
     owner   => 'root',
     group   => 'root',
     require => Package['locksmithctl'],
     content => template('govuk_unattended_reboot/unattended-reboot.erb'),
+  } ->
+  file { '/usr/local/bin/check_icinga':
+    ensure => $file_ensure,
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/govuk_unattended_reboot/usr/local/bin/check_icinga.rb',
   } ->
   file { '/var/log/unattended-reboot':
     ensure => directory,
@@ -90,7 +97,7 @@ class govuk_unattended_reboot (
 
   file { '/etc/logrotate.d/unattended_reboot':
     ensure  => $file_ensure,
-    source  => 'puppet:///modules/govuk_unattended_reboot/logrotate',
+    source  => 'puppet:///modules/govuk_unattended_reboot/etc/logrotate.d/unattended_reboot',
     require => Class['logrotate'],
   }
 }

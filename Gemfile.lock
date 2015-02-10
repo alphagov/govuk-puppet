@@ -26,7 +26,10 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.7)
     builder (3.2.2)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     facter (2.2.0)
       CFPropertyList (~> 2.2.6)
@@ -94,11 +97,15 @@ GEM
     rspec-puppet (1.0.1)
       rspec
     rsync (1.0.9)
+    safe_yaml (1.0.4)
     thor (0.19.1)
     thread_safe (0.3.4)
     trollop (2.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    webmock (1.20.4)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
@@ -116,3 +123,4 @@ DEPENDENCIES
   puppetlabs_spec_helper
   rake
   rspec-puppet
+  webmock (~> 1.20.0)

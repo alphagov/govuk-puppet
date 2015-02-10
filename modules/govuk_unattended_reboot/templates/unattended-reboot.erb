@@ -15,9 +15,10 @@ if [ "$(govuk_setenv default printenv SAFE_TO_REBOOT)" != "yes" ]; then
 fi
 
 # Check for 'down' and 'unreachable' host alerts; 'critical' and 'warning' service alerts
-curl -H 'Host: nagios' -k ${ICINGA_URL} 2&>/dev/null | grep -q -e 'CRITICAL' -e 'WARNING' -e 'DOWN' -e 'UNREACHABLE'
 
-if [ $? -eq 0 ]; then
+check_icinga $ICINGA_URL
+
+if [ $? -ne 0 ]; then
   echo 'Host or service alerts exist for node class, or Icinga unavailable'
   exit 1
 fi
