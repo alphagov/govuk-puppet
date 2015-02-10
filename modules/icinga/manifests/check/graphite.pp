@@ -53,10 +53,6 @@
 #   Passed to `icinga::check`. See there for documentation.
 #   Default: undef
 #
-# [*monitoring_domain_suffix*]
-#   The suffix of the monitoring domain, used to create an action URL for the alert.
-#   Default: undef
-#
 define icinga::check::graphite(
   $target,
   $desc,
@@ -70,7 +66,6 @@ define icinga::check::graphite(
   $notes_url = undef,
   $ensure = 'present',
   $contact_groups = undef,
-  $monitoring_domain_suffix = undef,
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
@@ -78,6 +73,7 @@ define icinga::check::graphite(
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
+  $monitoring_domain_suffix = hiera('monitoring_domain_suffix', '')
   $graph_width = 600
   $graph_height = 300
 
