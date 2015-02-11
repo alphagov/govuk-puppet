@@ -14,6 +14,7 @@ class govuk::node::s_support ( $mysql_preview_backup = '', ) inherits govuk::nod
     cluster_name       => 'govuk-production',
     heap_size          => '2g',
     number_of_replicas => '0',
+    manage_repo        => false, # We're using the version from the deprecated_repository above.
     require            => Class['govuk_java::set_defaults'],
   }
 

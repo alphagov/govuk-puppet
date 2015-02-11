@@ -16,7 +16,7 @@ describe 'govuk_elasticsearch', :type => :class do
     end
   end
 
-  describe '#use_mirror' do
+  describe '#manage_repo' do
     let(:facts) {{
       :kernel => 'Linux',
     }}
@@ -32,12 +32,12 @@ describe 'govuk_elasticsearch', :type => :class do
 
     context 'false' do
       let(:params) {{
-        :version    => '1.2.3',
-        :use_mirror => false,
+        :version     => '1.2.3',
+        :manage_repo => false,
       }}
 
       it { should_not contain_class('govuk_elasticsearch::repo') }
-      it { should contain_class('elasticsearch').with_manage_repo(true) }
+      it { should contain_class('elasticsearch').with_manage_repo(false) }
     end
   end
 end
