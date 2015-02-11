@@ -2,7 +2,9 @@
 
 lv:
   mongodb:
-    pv: '/dev/sdb1'
+    pv:
+      - '/dev/sdb1'
+      - '/dev/sdd1'
     vg: 'backup'
   data:
     pv: '/dev/sdc1'
