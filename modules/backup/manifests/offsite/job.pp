@@ -47,16 +47,17 @@ define backup::offsite::job(
   $service_description = "offsite backups: ${title}"
 
   duplicity { $title:
-    ensure            => $ensure,
-    directory         => $sources,
-    target            => $destination,
-    hour              => $hour,
-    minute            => $minute,
-    user              => $user,
-    pubkey_id         => $gpg_key_id,
-    post_command      => template('backup/post_command.sh.erb'),
-    archive_directory => $archive_directory,
-    remove_older_than => '30D',
+    ensure                => $ensure,
+    directory             => $sources,
+    target                => $destination,
+    hour                  => $hour,
+    minute                => $minute,
+    user                  => $user,
+    pubkey_id             => $gpg_key_id,
+    post_command          => template('backup/post_command.sh.erb'),
+    archive_directory     => $archive_directory,
+    remove_all_but_n_full => 2,
+    full_if_older_than    => '7D',
   }
 
   if $ensure == 'present' {
