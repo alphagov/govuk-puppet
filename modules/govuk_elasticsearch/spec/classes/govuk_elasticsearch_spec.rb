@@ -1,6 +1,21 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_elasticsearch', :type => :class do
+  describe '#version' do
+
+    context "when not set" do
+      it { expect { should }.to raise_error(Puppet::Error, /Must pass version/) }
+    end
+
+    context "when set to 'present'" do
+      let(:params) {{
+        :version => 'present',
+      }}
+
+      it { expect { should }.to raise_error(Puppet::Error, /must be in the form x\.y\.z/) }
+    end
+  end
+
   describe '#use_mirror' do
     let(:facts) {{
       :kernel => 'Linux',

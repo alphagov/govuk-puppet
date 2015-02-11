@@ -7,12 +7,16 @@
 #
 # Lots missing!
 #
+# [*version*]
+#   The version of elasticsearch to install.  This must specify an exact
+#   version (eg 1.4.2)
+#
 # [*use_mirror*]
 #   Whether to use our own mirror of the Elasticsearch repo.
 #   Default: true
 #
 class govuk_elasticsearch (
-  $version = 'present',
+  $version,
   $cluster_hosts = ['localhost'],
   $cluster_name = 'elasticsearch',
   $heap_size = '512m',
@@ -26,6 +30,7 @@ class govuk_elasticsearch (
   $use_mirror = true,
 ) {
 
+  validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
   include augeas
   validate_bool($use_mirror)
 
