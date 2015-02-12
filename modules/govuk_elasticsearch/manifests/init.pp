@@ -7,12 +7,17 @@
 #
 # Lots missing!
 #
-# [*use_mirror*]
-#   Whether to use our own mirror of the Elasticsearch repo.
+# [*version*]
+#   The version of elasticsearch to install.  This must specify an exact
+#   version (eg 1.4.2)
+#
+# [*manage_repo*]
+#   Whether to configure an apt source for our mirror of the elasticsearch
+#   repo. Disable to install elasticsearch from a separately configured repo.
 #   Default: true
 #
 class govuk_elasticsearch (
-  $version = 'present',
+  $version,
   $cluster_hosts = ['localhost'],
   $cluster_name = 'elasticsearch',
   $heap_size = '512m',
@@ -23,32 +28,30 @@ class govuk_elasticsearch (
   $host = 'localhost',
   $log_index_type_count = {},
   $disable_gc_alerts = false,
-  $use_mirror = true,
+  $manage_repo = true,
 ) {
 
+  validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
   include augeas
-  validate_bool($use_mirror)
+  validate_bool($manage_repo)
 
   anchor { 'govuk_elasticsearch::begin': }
 
   $http_port = '9200'
   $transport_port = '9300'
 
-  if $use_mirror {
-    class { 'govuk_elasticsearch::repo': }
-    $manage_repo = false
-    $repo_version = undef
-  } else {
-    $manage_repo = true
-    $repo_version = '0.90'
+  if $manage_repo {
+    $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
+    class { 'govuk_elasticsearch::repo':
+      repo_version => $repo_version,
+    }
   }
 
   class { 'elasticsearch':
-    version      => $version,
-    manage_repo  => $manage_repo,
-    repo_version => $repo_version,
-    require      => Anchor['govuk_elasticsearch::begin'],
-    before       => Anchor['govuk_elasticsearch::end'],
+    version     => $version,
+    manage_repo => false,
+    require     => Anchor['govuk_elasticsearch::begin'],
+    before      => Anchor['govuk_elasticsearch::end'],
   }
 
   exec { 'disable-default-elasticsearch':
