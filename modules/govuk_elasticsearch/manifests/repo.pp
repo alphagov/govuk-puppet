@@ -7,9 +7,17 @@
 # caused by a relationship between govuk_elasticsearch,
 # govuk_java::oracle7::jdk, and apt::source.
 #
-class govuk_elasticsearch::repo {
-  apt::source { 'elasticsearch-0.90':
-    location     => 'http://apt.production.alphagov.co.uk/elasticsearch-0.90',
+#
+# === Parameters
+#
+# [*repo_version*]
+#   The Version series to add the repo for (0.90, 1.4 etc...)
+#
+class govuk_elasticsearch::repo(
+  $repo_version,
+) {
+  apt::source { "elasticsearch-${repo_version}":
+    location     => "http://apt.production.alphagov.co.uk/elasticsearch-${repo_version}",
     release      => 'stable',
     architecture => $::architecture,
     key          => '37E3ACBB',

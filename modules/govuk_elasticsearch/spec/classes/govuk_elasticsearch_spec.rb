@@ -20,21 +20,30 @@ describe 'govuk_elasticsearch', :type => :class do
     let(:facts) {{
       :kernel => 'Linux',
     }}
+    let(:params) {{
+      :version => '1.2.3',
+    }}
 
     context 'true (default)' do
-      let(:params) {{
-        :version => '1.2.3',
-      }}
+      it { should contain_class('govuk_elasticsearch::repo').with_repo_version('1.2') }
 
-      it { should contain_class('govuk_elasticsearch::repo') }
+      it "should handle the repo for 0.90.x" do
+        params[:version] = '0.90.3'
+        should contain_class('govuk_elasticsearch::repo').with_repo_version('0.90')
+      end
+
+      it "should handle the repo for 1.4.x" do
+        params[:version] = '1.4.2'
+        should contain_class('govuk_elasticsearch::repo').with_repo_version('1.4')
+      end
+
       it { should contain_class('elasticsearch').with_manage_repo(false) }
     end
 
     context 'false' do
-      let(:params) {{
-        :version     => '1.2.3',
-        :manage_repo => false,
-      }}
+      before :each do
+        params[:manage_repo] = false
+      end
 
       it { should_not contain_class('govuk_elasticsearch::repo') }
       it { should contain_class('elasticsearch').with_manage_repo(false) }

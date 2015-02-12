@@ -41,7 +41,10 @@ class govuk_elasticsearch (
   $transport_port = '9300'
 
   if $manage_repo {
-    class { 'govuk_elasticsearch::repo': }
+    $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
+    class { 'govuk_elasticsearch::repo':
+      repo_version => $repo_version,
+    }
   }
 
   class { 'elasticsearch':
