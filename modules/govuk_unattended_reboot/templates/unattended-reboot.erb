@@ -9,28 +9,28 @@ if ! [ -f /var/run/reboot-required ]; then
 fi
 
 # Check that this machine is safe to reboot
-if [ "$(/usr/local/bin/govuk_setenv default printenv SAFE_TO_REBOOT)" != "yes" ]; then
+if [ "$(/usr/local/bin/govuk_setenv default /usr/bin/printenv SAFE_TO_REBOOT)" != "yes" ]; then
   # Machine marked as not safe to reboot
   exit 0
 fi
 
 # Check for 'down' and 'unreachable' host alerts; 'critical' and 'warning' service alerts
 
-check_icinga $ICINGA_URL
+/usr/local/bin/check_icinga $ICINGA_URL
 
 if [ $? -ne 0 ]; then
   echo 'Host or service alerts exist for node class, or Icinga unavailable'
   exit 1
 fi
 
-locksmithctl -endpoint='<%= @etcd_endpoint %>' lock '<%= @fqdn %>'
+/usr/bin/locksmithctl -endpoint='<%= @etcd_endpoint %>' lock '<%= @fqdn %>'
 
 if [ $? -ne 0 ]; then
   echo "Couldn't obtain lock"
   exit 1
 fi
 
-reboot
+/sbin/reboot
 
 if [ $? -ne 0 ]; then
   echo 'Reboot failed'
