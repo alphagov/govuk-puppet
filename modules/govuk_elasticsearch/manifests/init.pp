@@ -80,11 +80,10 @@ class govuk_elasticsearch (
   }
 
   elasticsearch::instance { $::fqdn:
-    config  => {
+    config        => {
       'cluster.name'           => $cluster_name,
       'number_of_replicas'     => $number_of_replicas,
       'number_of_shards'       => $number_of_shards,
-      'heap_size'              => $heap_size,
       'index.refresh_interval' => $refresh_interval,
       'transport.tcp.port'     => $transport_port,
       'network.publish_host'   => $::fqdn,
@@ -100,7 +99,10 @@ class govuk_elasticsearch (
         },
       },
     },
-    datadir => '/mnt/elasticsearch',
+    datadir       => '/mnt/elasticsearch',
+    init_defaults => {
+      'ES_HEAP_SIZE' => $heap_size,
+    },
   }
 
   Class['elasticsearch'] -> Elasticsearch::Instance[$::fqdn] -> Anchor['govuk_elasticsearch::end']
