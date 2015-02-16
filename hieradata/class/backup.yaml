@@ -2,6 +2,9 @@
 
 backup::offsite::archive_directory: '/data/backups/.cache/duplicity'
 
+icinga::client::checks::disk_time_warn: 200 # milliseconds
+icinga::client::checks::disk_time_critical: 300 # milliseconds
+
 lv:
   data:
     pv:
