@@ -30,6 +30,10 @@ describe 'govuk_unattended_reboot', :type => :class do
     it "uses the correct FQDN when obtaining the reboot mutex" do
       should contain_file('/usr/local/bin/unattended-reboot').with_content(/locksmithctl.*lock 'foo\.example\.com'/)
     end
+
+    it "includes all etcd endpoints when unlocking after a reboot" do
+      should contain_file('/etc/init/post-reboot-unlock.conf').with_content(/locksmithctl -endpoint='http:\/\/etcd-1\.foo:4001,http:\/\/etcd-2\.foo:4001' unlock/)
+    end
   end
 
   describe "disabled" do
