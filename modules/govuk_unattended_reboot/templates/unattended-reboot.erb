@@ -9,7 +9,7 @@ if ! [ -f /var/run/reboot-required ]; then
 fi
 
 # Check that this machine is safe to reboot
-if [ "$(/usr/local/bin/govuk_setenv default /usr/bin/printenv SAFE_TO_REBOOT)" != "yes" ]; then
+if ! [[ "$(/usr/local/bin/govuk_setenv default /usr/bin/printenv SAFE_TO_REBOOT)" =~ ^(yes|overnight)$ ]]; then
   # Machine marked as not safe to reboot
   exit 0
 fi
