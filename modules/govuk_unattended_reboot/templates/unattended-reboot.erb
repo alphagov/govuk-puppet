@@ -23,7 +23,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-/usr/bin/locksmithctl -endpoint='<%= @etcd_endpoint %>' lock '<%= @fqdn %>'
+/usr/bin/locksmithctl -endpoint='<%= @etcd_endpoints.join(',') %>' lock '<%= @fqdn %>'
 
 if [ $? -ne 0 ]; then
   echo "Couldn't obtain lock"
