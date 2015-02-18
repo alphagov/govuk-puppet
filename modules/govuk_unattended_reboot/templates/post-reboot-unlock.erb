@@ -11,5 +11,5 @@ console log
 normal exit 0 1
 
 script
-  exec locksmithctl -endpoint='<%= @etcd_endpoint %>' unlock '<%= @fqdn %>'
+  exec locksmithctl -endpoint='<%= @etcd_endpoints.join(',') %>' unlock '<%= @fqdn %>'
 end script

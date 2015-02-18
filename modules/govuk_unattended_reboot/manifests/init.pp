@@ -39,7 +39,6 @@ class govuk_unattended_reboot (
   }
 
   $node_class_search_phrase = regsubst($::govuk_node_class, '_', '-')
-  $etcd_endpoint = $etcd_endpoints[0]
 
   include logrotate
 
