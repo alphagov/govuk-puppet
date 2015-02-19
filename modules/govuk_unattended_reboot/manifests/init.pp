@@ -60,6 +60,7 @@ class govuk_unattended_reboot (
   cron { 'unattended-reboot':
     ensure      => $cron_ensure,
     hour        => '0-8',
+    minute      => '*/5',
     user        => 'root',
     environment => ['MAILTO=""'],
     command     => '/usr/local/bin/unattended-reboot >> /var/log/unattended-reboot/unattended-reboot.log 2>&1',
