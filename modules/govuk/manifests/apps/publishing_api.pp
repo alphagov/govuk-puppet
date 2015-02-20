@@ -17,21 +17,18 @@
 #   alias will be repointed here, and this param will no longer be needed.
 #
 class govuk::apps::publishing_api(
-  $enabled = false,
   $port = 3093,
   $vhost = 'publishing-api',
 ) {
-  if $enabled {
-    $app_name = 'publishing-api'
-    govuk::app { $app_name:
-      app_type           => 'bare',
-      log_format_is_json => true,
-      port               => $port,
-      command            => "./${app_name}",
-      health_check_path  => '/healthcheck',
-      vhost_ssl_only     => true,
-      vhost              => $vhost,
-      vhost_aliases      => ['publishing-api-test'],
-    }
+  $app_name = 'publishing-api'
+  govuk::app { $app_name:
+    app_type           => 'bare',
+    log_format_is_json => true,
+    port               => $port,
+    command            => "./${app_name}",
+    health_check_path  => '/healthcheck',
+    vhost_ssl_only     => true,
+    vhost              => $vhost,
+    vhost_aliases      => ['publishing-api-test'],
   }
 }
