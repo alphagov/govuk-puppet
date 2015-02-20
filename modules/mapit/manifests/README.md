@@ -211,16 +211,70 @@ gds-public-readable-tarballs S3 bucket. You can then adjust the URL for the
 `mapit_dbdump_download` resource in `govuk/manifests/node/s_mapit_server.pp` and test
 that you can bring up a new mapit node from scratch.
 
+You can now submit a PR and allow it to be merged. The live mapit servers will not update
+without manual intervention, even if Puppet is run after your merge.
+
+## Updating a server (deploying a new version of Mapit)
+
+NB: THIS REQUIRES ACCESS TO GOV.UK PRODUCTION
+
 Once you have tested that a new mapit node works as expected, you can simply turn off NginX
 on the existing MapIt servers one by one, import the new SQL dump into the server and then
 start up NginX. We can happily survive with one mapit-server in an environment while this is
 done.
 
 ```
+# Stop NginX so that no requests reach this machine
 sudo service nginx stop
+# Stop mapit and collectd which are using the Mapit database
 sudo service mapit stop
 sudo service collectd stop
+# Delete the old sql dump to force a new download
 sudo rm /data/vhost/mapit/data/mapit.sql.gz
+# Drop the existing mapit database
 sudo -iu postgres psql -c 'DROP DATABASE mapit;'
+# Run puppet, which will download the database dump, recreate the Mapit database using the 
+# dump and start the services which were stopped earlier
 sudo govuk_puppet -v
 ```
+
+## Testing a server
+
+We have two expectations for an updated Mapit database:
+
+1. It returns a 200 OK status for all requests that previously returned 200 OK. Postcodes do
+   not get delete from Mapit, so if a request for a postcode previously succeeded, it should still
+   succeed.
+2. It returns either a 404 or a 200 for all requests that previously returned 404 Not Found.
+   As postcodes are released every 3 months, people may have searched for one that did not exist
+   previously that is in our new dataset (now 200 OK). However if they searched for a bad
+   postcode, or something that is not a postcode at all, we would still expect that to 404.
+
+### Generating some test data
+
+The best source of testing data for postcode lookups is Production, so let's grab all the 200
+and 404 responses from yesterday's log.
+
+```
+your laptop> ssh mapit-server-1.backend.production
+mapit-server-1> sudo awk '$9==200 {print "http://localhost" $7}' /var/log/nginx/mapit.access.log.1 >mapit-200s
+mapit-server-1> sudo awk '$9==404 {print "http://localhost" $7}' /var/log/nginx/mapit.access.log.1 >mapit-404s
+```
+
+Copy the mapit-200s and mapit-404s file to the server you want to test.
+
+### Testing a new server
+
+```
+# Test that all the 200s are still 200s:
+
+$ while read line; do curl -sI $line | grep HTTP/1.1 ; done <mapit-200s | sort | uniq -c
+   1000 HTTP/1.1 200 OK
+
+# Test that all the old 404s are either 200s or 404s:
+
+$ while read line; do curl -sI $line | grep HTTP/1.1 ; done <mapit-404s | sort | uniq -c
+     43 HTTP/1.1 200 OK
+    384 HTTP/1.1 404 NOT FOUND
+```
+
