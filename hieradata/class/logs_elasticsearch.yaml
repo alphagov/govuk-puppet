@@ -7,7 +7,9 @@ govuk_elasticsearch::version: '0.90.12'
 
 lv:
   data:
-    pv: '/dev/sdb1'
+    pv:
+        - '/dev/sdb1'
+        - '/dev/sdc1'
     vg: 'elasticsearch'
 
 mount:
