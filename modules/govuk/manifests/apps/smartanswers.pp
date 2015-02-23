@@ -5,7 +5,7 @@ class govuk::apps::smartanswers(
   govuk::app { 'smartanswers':
     app_type              => 'rack',
     port                  => $port,
-    health_check_path     => '/calculate-your-maternity-pay',
+    health_check_path     => '/pay-leave-for-parents',
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'smartanswers',
