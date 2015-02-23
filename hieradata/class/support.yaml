@@ -1,6 +1,6 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'no'
+govuk::safe_to_reboot::can_reboot: 'overnight'
 govuk::safe_to_reboot::reason: 'Single point of failure for LicenceFinder elasticsearch'
 
 govuk_elasticsearch::version: '0.19.8'
