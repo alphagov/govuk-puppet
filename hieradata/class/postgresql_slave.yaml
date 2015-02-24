@@ -22,4 +22,3 @@ mount:
     mountoptions: 'defaults'
 
 govuk_postgresql::server::slave::master_host: 'postgresql-master-1.backend'
-govuk_postgresql::server::backup: false

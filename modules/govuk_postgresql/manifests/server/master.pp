@@ -15,6 +15,7 @@ class govuk_postgresql::server::master (
   $slave_password,
   $slave_address,
 ) {
+  include govuk_postgresql::backup
   include govuk_postgresql::server
   include govuk_postgresql::server::not_slave
 
