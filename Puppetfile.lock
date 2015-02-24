@@ -30,7 +30,7 @@ FORGE
     gdsoperations-resolvconf (0.2.0)
       puppetlabs-stdlib (>= 3.0.0)
     maestrodev-wget (1.5.0)
-    nanliu-staging (0.4.1)
+    nanliu-staging (1.0.3)
     puppetlabs-apt (1.7.0)
       puppetlabs-stdlib (>= 2.2.1)
     puppetlabs-concat (1.1.0)
@@ -139,16 +139,6 @@ GIT
     puppetlabs-lvm (0.1.2)
 
 GIT
-  remote: git://github.com/alphagov/puppetlabs-rabbitmq.git
-  ref: strip-backslashes
-  sha: 72785de752337ef050f0ec5462f96d21ac8e8ce6
-  specs:
-    puppetlabs-rabbitmq (4.0.0)
-      nanliu-staging (>= 0.3.1)
-      puppetlabs-apt (>= 1.0.0)
-      puppetlabs-stdlib (>= 2.0.0)
-
-GIT
   remote: git://github.com/electrical/puppet-logstash.git
   ref: 694fa1a
   sha: 694fa1afc87e0151ae0a5121c0241cf0b3a1bbbf
@@ -163,6 +153,16 @@ GIT
   specs:
     nextrevision-automysqlbackup (0.2.4)
       puppetlabs-stdlib (>= 3.0.0)
+
+GIT
+  remote: git://github.com/puppetlabs/puppetlabs-rabbitmq.git
+  ref: master
+  sha: eb3d5460f6ba163b31f6659888c7f109475af487
+  specs:
+    puppetlabs-rabbitmq (5.0.0)
+      nanliu-staging (< 2.0.0, >= 0.3.1)
+      puppetlabs-apt (< 2.0.0, >= 1.0.0)
+      puppetlabs-stdlib (< 5.0.0, >= 2.0.0)
 
 GIT
   remote: git://github.com/solarkennedy/puppet-etcd.git
