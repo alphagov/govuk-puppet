@@ -15,6 +15,14 @@ class govuk::node::s_transition_postgresql_slave (
     master_password => $master_password,
   }
 
+  # FIXME: Remove after AutoPostgreSQLBackup script has been removed from these machines
+  file { ['/etc/cron.daily/autopostgresqlbackup',
+          '/etc/default/autopostgresqlbackup',
+          '/etc/postgresql-backup-post',
+          '/etc/postgresql-backup-pre', ]:
+        ensure => absent,
+  }
+
   postgresql::server::pg_hba_rule { 'Allow access for bouncer role to transition_production database from redirector vDC':
     type        => 'host',
     database    => 'transition_production',
