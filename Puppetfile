@@ -13,9 +13,6 @@ mod 'puppetlabs/gcc'
 mod 'puppetlabs/java_ks'
 mod 'puppetlabs/mysql'
 mod 'puppetlabs/postgresql'
-mod 'puppetlabs/rabbitmq',
-  :git => 'git://github.com/alphagov/puppetlabs-rabbitmq.git',
-  :ref => 'strip-backslashes'
 mod 'puppetlabs/stdlib', '>= 4.2.0'
 mod 'rtyler/jenkins'
 mod 'saz/memcached'
@@ -59,6 +56,8 @@ mod 'KyleAnderson/etcd',
   :ref => 'e053368'
 mod 'puppetlabs/lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
+mod 'puppetlabs/rabbitmq',
+  :git => 'git://github.com/puppetlabs/puppetlabs-rabbitmq.git'
 mod 'alphagov/tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
 mod 'attachmentgenie/ufw',
