@@ -31,4 +31,12 @@ class govuk::apps::publishing_api(
     vhost              => $vhost,
     vhost_aliases      => ['publishing-api-test'],
   }
+
+  govuk::logstream { "${app_name}-app-out":
+    ensure  => true,
+    logfile => "/var/log/${app_name}/app.out.log",
+    tags    => ['stdout', 'app'],
+    json    => true,
+    fields  => {'application' => $app_name},
+  }
 }
