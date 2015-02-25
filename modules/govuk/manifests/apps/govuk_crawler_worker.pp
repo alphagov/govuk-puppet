@@ -30,8 +30,8 @@ class govuk::apps::govuk_crawler_worker (
         value => 'redis-1:6379';
       'REDIS_KEY_PREFIX':
         value => 'govuk_crawler_worker';
-      'ROOT_URL':
-        value => 'https://www.gov.uk/';
+      'ROOT_URLS':
+        value => 'https://www.gov.uk/,https://assets.digital.cabinet-office.gov.uk/';
       'MIRROR_ROOT':
         value => $mirror_root;
     }
