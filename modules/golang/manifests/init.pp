@@ -10,13 +10,7 @@ class golang {
     global_version => '1.4.1',
     require        => Class['govuk::ppa'],
   }
-  goenv::version { ['1.2.2', '1.3.1', '1.3.3', '1.4.1']: }
-
-  # FIXME: remove once run everywhere.
-  package { 'goenv-go-1.4':
-    ensure => purged
-  }
-
+  goenv::version { ['1.2.2', '1.3.1', '1.3.3', '1.4.1', '1.4.2']: }
 
   package { ['golang-gom', 'godep']:
     ensure  => latest,
