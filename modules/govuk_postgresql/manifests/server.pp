@@ -4,7 +4,6 @@
 # be used directly - please use one of the sub-classes.
 #
 class govuk_postgresql::server (
-    $backup = true,
     $listen_addresses = '*',
     $configure_env_sync_user = false,
 ) {
@@ -31,9 +30,6 @@ class govuk_postgresql::server (
     include govuk_postgresql::env_sync_user
   }
 
-  if ($backup) {
-    include govuk_postgresql::backup
-  }
   include collectd::plugin::postgresql
   collectd::plugin::tcpconn { 'postgresql':
     incoming => 5432,

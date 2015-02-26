@@ -14,4 +14,13 @@ class govuk::node::s_postgresql_slave (
   class { 'govuk_postgresql::server::slave':
     master_password => $master_password,
   }
+
+  # FIXME: Remove after AutoPostgreSQLBackup script has been removed from these machines
+  file { ['/etc/cron.daily/autopostgresqlbackup',
+          '/etc/default/autopostgresqlbackup',
+          '/etc/postgresql-backup-post',
+          '/etc/postgresql-backup-pre', ]:
+        ensure => absent,
+  }
+
 }
