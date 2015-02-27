@@ -70,6 +70,19 @@ EOF
 EOF
     end
 
+    let(:json_body_service_reboot_needed) do
+<<EOF
+{
+  "status": {
+    "host_status": [],
+    "service_status": [
+      { "host_name": "planet.earth.milky-way", "host_display_name": "planet.earth", "service_description": "#{CheckIcinga::REBOOT_REQUIRED_SERVICE_DESCRIPTION}", "service_display_name": "#{CheckIcinga::REBOOT_REQUIRED_SERVICE_DESCRIPTION}", "status": "WARNING", "state_type": "HARD", "status_information": "WARNING: Packages requiring reboot outstanding for longer than 0 days:"}
+    ]
+  }
+}
+EOF
+    end
+
     let(:json_body_host_critical_soft) do
 <<EOF
 {
@@ -114,6 +127,11 @@ EOF
 
       it 'raises an exception for a soft critical host alert' do
         expect{ CheckIcinga.parse_for_alerts!(json_body_host_critical_soft) }.to raise_error(IcingaError, /1 host alerts found/)
+      end
+
+      it "ignores 'reboot required by apt' alerts" do
+
+        expect { CheckIcinga.parse_for_alerts!(json_body_service_reboot_needed) }.not_to raise_error
       end
     end
   end
