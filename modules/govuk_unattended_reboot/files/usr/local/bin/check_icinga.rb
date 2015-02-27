@@ -9,6 +9,8 @@ class IcingaError < RuntimeError
 end
 
 module CheckIcinga
+  REBOOT_REQUIRED_SERVICE_DESCRIPTION = "reboot required by apt"
+
   def self.request(url)
     uri = URI.parse(url)
 
@@ -39,7 +41,8 @@ module CheckIcinga
     end
 
     service_issues = icinga_status["status"]["service_status"].select do |status|
-      ['WARNING', 'CRITICAL'].include? status["status"]
+      ['WARNING', 'CRITICAL'].include?(status["status"]) &&
+        status["service_description"] != REBOOT_REQUIRED_SERVICE_DESCRIPTION
     end
 
     if host_issues.any?

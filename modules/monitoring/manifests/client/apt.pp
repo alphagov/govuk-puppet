@@ -24,7 +24,7 @@ class monitoring::client::apt {
   }
   @@icinga::check { "check_reboot_required_${::hostname}":
     check_command       => 'check_nrpe!check_reboot_required!30 0',
-    service_description => 'reboot required by apt',
+    service_description => 'reboot required by apt', # This description must be kept in sync with check_icinga.rb in the govuk_unattended_reboot module.
     host_name           => $::fqdn,
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#reboot-required-by-apt',
   }
