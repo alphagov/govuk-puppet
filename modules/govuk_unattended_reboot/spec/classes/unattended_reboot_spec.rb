@@ -24,7 +24,7 @@ describe 'govuk_unattended_reboot', :type => :class do
     end
 
     it "correctly formats the node class when querying Icinga" do
-      should contain_file('/usr/local/bin/unattended-reboot').with_content(/status.cgi\?search_string=chocolate-factory&/)
+      should contain_file('/usr/local/bin/unattended-reboot').with_content(/status.cgi\?search_string=\^chocolate-factory-\[0-9\]&/)
     end
 
     it "uses the correct FQDN when obtaining the reboot mutex" do

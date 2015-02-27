@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -u
 
-ICINGA_URL='https://nagios.cluster/cgi-bin/icinga/status.cgi?search_string=<%= @node_class_search_phrase %>&allunhandledproblems&jsonoutput'
+ICINGA_URL='https://nagios.cluster/cgi-bin/icinga/status.cgi?search_string=^<%= @node_class_search_phrase %>-[0-9]&allunhandledproblems&jsonoutput'
 
 if ! [ -f /var/run/reboot-required ]; then
   # No reboot required
