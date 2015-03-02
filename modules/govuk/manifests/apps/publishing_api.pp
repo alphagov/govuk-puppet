@@ -33,7 +33,7 @@ class govuk::apps::publishing_api(
   }
 
   govuk::logstream { "${app_name}-app-out":
-    ensure  => true,
+    ensure  => present,
     logfile => "/var/log/${app_name}/app.out.log",
     tags    => ['stdout', 'app'],
     json    => true,
