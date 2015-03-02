@@ -9,6 +9,7 @@ class base::packages ($ruby_version=installed){
       'gettext',
       'git',
       'htop',
+      'iftop',
       'iotop',
       'iptraf',
       'less',
