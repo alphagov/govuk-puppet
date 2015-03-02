@@ -19,6 +19,8 @@
 class govuk::apps::publishing_api(
   $port = 3093,
   $vhost = 'publishing-api',
+  $content_store = '',
+  $draft_content_store = '',
 ) {
   $app_name = 'publishing-api'
   govuk::app { $app_name:
@@ -38,5 +40,16 @@ class govuk::apps::publishing_api(
     tags    => ['stdout', 'app'],
     json    => true,
     fields  => {'application' => $app_name},
+  }
+
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
+
+  govuk::app::envvar {
+    'CONTENT_STORE':
+      value => $content_store;
+    'DRAFT_CONTENT_STORE':
+      value => $draft_content_store;
   }
 }
