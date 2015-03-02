@@ -26,6 +26,7 @@ class base::packages ($ruby_version=installed){
       'pv',
       'strace',
       'tar',
+      'tcpdump',
       'tree',
       'unzip',
       'vim-nox',
