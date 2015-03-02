@@ -24,6 +24,7 @@ class base::packages ($ruby_version=installed){
       'man-db',
       'manpages',
       'pv',
+      'strace',
       'tar',
       'tree',
       'unzip',
