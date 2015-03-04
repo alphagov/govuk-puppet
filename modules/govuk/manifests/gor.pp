@@ -22,7 +22,7 @@ class govuk::gor(
 
   validate_bool($enable)
 
-  if $enable {
+  if $enable and ! $::data_sync_in_progress {
     $gor_service_ensure = running
     $nagios_ensure      = present
     $logstream_ensure   = present
