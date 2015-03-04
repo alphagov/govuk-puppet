@@ -29,7 +29,7 @@ res = Net::HTTP.get_response(uri)
 raise "Could not connect to Elasticsearch on #{uri}. Status code: #{res.code}" unless res.code == '200'
 
 indexes = JSON.parse(res.body)
-exports_list = indexes.map {|k,i| i['aliases'].keys }.flatten
+exports_list = indexes.map {|k,i| i.fetch('aliases', {}).keys }.flatten
 
 logger.info "Discovered #{exports_list.size} aliases from #{host}"
 
