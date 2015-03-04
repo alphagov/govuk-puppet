@@ -30,6 +30,7 @@ def load_nodes
     yaml_files.flat_map { |yaml_file|
       YAML::load_file(yaml_file).fetch('vapps').map { |vapp|
         name    = vapp.fetch('name')
+        template = vapp.fetch('vapp_template_name')
         vm      = vapp.fetch('vm')
         network = vm.fetch('network_connections').first
         vdc     = network.fetch('name').downcase
@@ -38,6 +39,7 @@ def load_nodes
         config = {
           'ip' => network.fetch('ip_address'),
         }
+        config['box_dist'] = 'trusty' if template =~ /trusty/
 
         [name, config]
       }
