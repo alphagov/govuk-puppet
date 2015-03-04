@@ -22,6 +22,12 @@ class govuk::gor(
 
   validate_bool($enable)
 
+  file { '/etc/govuk/env.d/FACTER_data_sync_in_progress':
+    ensure  => present,
+    owner   => 'deploy',
+    require => Class['govuk::deploy'],
+  }
+
   if $enable and ! $::data_sync_in_progress {
     $gor_service_ensure = running
     $nagios_ensure      = present
