@@ -81,15 +81,15 @@ class govuk_elasticsearch (
 
   elasticsearch::instance { $::fqdn:
     config        => {
-      'cluster.name'           => $cluster_name,
-      'number_of_replicas'     => $number_of_replicas,
-      'number_of_shards'       => $number_of_shards,
-      'index.refresh_interval' => $refresh_interval,
-      'transport.tcp.port'     => $transport_port,
-      'network.publish_host'   => $::fqdn,
-      'node.name'              => $::fqdn,
-      'http.port'              => $http_port,
-      'discovery'              => {
+      'cluster.name'             => $cluster_name,
+      'index.number_of_replicas' => $number_of_replicas,
+      'index.number_of_shards'   => $number_of_shards,
+      'index.refresh_interval'   => $refresh_interval,
+      'transport.tcp.port'       => $transport_port,
+      'network.publish_host'     => $::fqdn,
+      'node.name'                => $::fqdn,
+      'http.port'                => $http_port,
+      'discovery'                => {
         'zen' => {
           'minimum_master_nodes' => $minimum_master_nodes,
           'ping'                 => {
