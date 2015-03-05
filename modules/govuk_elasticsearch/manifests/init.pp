@@ -79,7 +79,7 @@ class govuk_elasticsearch (
   # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
   exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
     creates => '/mnt/elasticsearch',
-    before  => Service["elasticsearch-${cluster_name}"],
+    require => Exec["stop_old_elasticsearch-${cluster_name}_service"],
     onlyif  => "/usr/bin/test -d /var/apps/${cluster_name}"
   }
 
