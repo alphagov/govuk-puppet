@@ -27,7 +27,7 @@ class monitoring::checks::smokey {
     'check_frontend':               feature => 'frontend';
     'check_licencefinder':          feature => 'licencefinder', notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks';
     'check_licensing':              feature => 'licensing';
-    'check_performance_platform':   feature => 'performance_platform';
+    'check_performance_platform':   feature => 'performance_platform', notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#performanceplatform-smokey-checks';
     'check_publishing':             feature => 'mainstream_publishing_tools';
     'check_router':                 feature => 'router';
     'check_search':                 feature => 'search';
