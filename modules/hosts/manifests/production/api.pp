@@ -30,6 +30,15 @@ class hosts::production::api (
   govuk::host { 'api-2':
     ip  => '10.7.0.17',
   }
+  govuk::host { 'api-elasticsearch-1':
+    ip  => '10.7.0.25',
+  }
+  govuk::host { 'api-elasticsearch-2':
+    ip  => '10.7.0.26',
+  }
+  govuk::host { 'api-elasticsearch-3':
+    ip  => '10.7.0.27',
+  }
   govuk::host { 'api-mongo-1':
     ip  => '10.7.0.21',
   }
