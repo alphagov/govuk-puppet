@@ -1,5 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::govuk_crawler_worker (
+  $airbrake_api_key = '',
+  $airbrake_endpoint = '',
+  $airbrake_env = '',
   $amqp_pass = 'guest',
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
@@ -16,6 +19,12 @@ class govuk::apps::govuk_crawler_worker (
       '/government/publications.atom']
 
     govuk::app::envvar {
+      'AIRBRAKE_API_KEY':
+        value => $airbrake_api_key;
+      'AIRBRAKE_ENDPOINT':
+        value => $airbrake_endpoint;
+      'AIRBRAKE_ENV':
+        value => $airbrake_env;
       'AMQP_ADDRESS':
         value => "amqp://govuk_crawler_worker:${amqp_pass}@rabbitmq-1:5672/";
       'AMQP_EXCHANGE':
