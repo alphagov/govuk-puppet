@@ -54,9 +54,7 @@ class govuk::node::s_backend_lb (
       'external-link-tracker',
       'govuk-delivery',
       'need-api',
-      # TODO: change this over to publishing-api once the application
-      # correct forwards requests across.
-      'publishing-api-test',
+      'publishing-api',
       'search',
       'support-api',
       'tariff-api',
