@@ -31,7 +31,6 @@ class govuk::apps::publishing_api(
     health_check_path  => '/healthcheck',
     vhost_ssl_only     => true,
     vhost              => $vhost,
-    vhost_aliases      => ['publishing-api-test'],
   }
 
   govuk::logstream { "${app_name}-app-out":
