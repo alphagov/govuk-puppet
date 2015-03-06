@@ -78,6 +78,18 @@ class govuk_cdnlogs (
     require => File['/etc/logrotate.cdn_logs_hourly.conf'],
   }
 
+  file { '/usr/local/bin/check_rsyslog_status_bouncer':
+    ensure => present,
+    mode   => '0755',
+    source => 'puppet:///modules/govuk_cdnlogs/usr/local/bin/check_rsyslog_status_bouncer.sh',
+  }
+
+  cron { 'check_rsyslog_status_bouncer':
+    ensure  => present,
+    minute  => '*/5',
+    command => '/usr/local/bin/check_rsyslog_status_bouncer',
+  }
+
   if $monitoring_enabled {
     if !has_key($service_port_map, 'govuk') {
       fail('Unable to monitor GOV.UK CDN logs, key not present in service_port_map.')
@@ -88,14 +100,14 @@ class govuk_cdnlogs (
     }
 
     @@icinga::check { "check_govuk_cdn_logs_being_streamed_${::hostname}":
-      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c7200 -w3600\"",
+      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c3600 -w1800\"",
       service_description => 'GOV.UK logs are not being received from the CDN',
       host_name           => $::fqdn,
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
     }
 
     @@icinga::check { "check_bouncer_cdn_logs_being_streamed_${::hostname}":
-      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-bouncer.log -c7200 -w3600\"",
+      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-bouncer.log -c3600 -w1800\"",
       service_description => 'Bouncer logs are not being received from the CDN',
       host_name           => $::fqdn,
       notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
