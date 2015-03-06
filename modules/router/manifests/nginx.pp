@@ -38,7 +38,9 @@ class router::nginx (
 ) {
   validate_array($rate_limit_tokens)
 
-  include router::assets_origin
+  class { 'router::assets_origin':
+    real_ip_header => $real_ip_header,
+  }
 
   $app_domain = hiera('app_domain')
   $log_basename = 'lb'

@@ -1,6 +1,7 @@
 require_relative '../../../../spec_helper'
 
 describe 'router::nginx', :type => :class do
+  let(:assets_config) { '/etc/nginx/sites-available/assets-origin.environment.example.com' }
   let(:router_config) { '/etc/nginx/router_include.conf' }
 
   context 'vhost_protected' do
@@ -27,6 +28,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
+      it { should_not contain_file(assets_config).with_content(/^\s*real_ip_header/) }
       it { should_not contain_file(router_config).with_content(/^\s*real_ip_header/) }
     end
 
@@ -36,6 +38,7 @@ describe 'router::nginx', :type => :class do
         :real_ip_header  => 'X-Some-Address-Header',
       }}
 
+      it { should contain_file(assets_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
       it { should contain_file(router_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
     end
   end

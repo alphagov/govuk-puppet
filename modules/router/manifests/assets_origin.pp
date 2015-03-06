@@ -9,6 +9,7 @@
 #
 class router::assets_origin(
   $asset_routes = {},
+  $real_ip_header = '',
 ) {
   $app_domain = hiera('app_domain')
   $enable_ssl = hiera('nginx_enable_ssl', true)
