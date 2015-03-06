@@ -85,9 +85,10 @@ class govuk_cdnlogs (
   }
 
   cron { 'check_rsyslog_status_bouncer':
-    ensure  => present,
-    minute  => '*/5',
-    command => '/usr/local/bin/check_rsyslog_status_bouncer',
+    ensure      => present,
+    environment => ["MAILTO=''"],
+    minute      => '*/5',
+    command     => '/usr/local/bin/check_rsyslog_status_bouncer',
   }
 
   if $monitoring_enabled {
