@@ -1,7 +1,7 @@
 require_relative '../../../../spec_helper'
 
 describe 'router::nginx', :type => :class do
-  let(:routes_path) { '/etc/nginx/router_include.conf' }
+  let(:router_config) { '/etc/nginx/router_include.conf' }
 
   context 'vhost_protected' do
     context 'set to false' do
@@ -9,7 +9,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should_not contain_file(routes_path).with_content(/^\s*auth_basic\s+/) }
+      it { should_not contain_file(router_config).with_content(/^\s*auth_basic\s+/) }
     end
 
     context 'set to true' do
@@ -17,7 +17,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => true,
       }}
 
-      it { should contain_file(routes_path).with_content(/^\s*auth_basic\s+/) }
+      it { should contain_file(router_config).with_content(/^\s*auth_basic\s+/) }
     end
   end
 
@@ -27,7 +27,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should_not contain_file(routes_path).with_content(/^\s*real_ip_header/) }
+      it { should_not contain_file(router_config).with_content(/^\s*real_ip_header/) }
     end
 
     context 'set to X-Some-Address-Header' do
@@ -36,7 +36,7 @@ describe 'router::nginx', :type => :class do
         :real_ip_header  => 'X-Some-Address-Header',
       }}
 
-      it { should contain_file(routes_path).with_content(/^real_ip_header X-Some-Address-Header;$/) }
+      it { should contain_file(router_config).with_content(/^real_ip_header X-Some-Address-Header;$/) }
     end
   end
 
@@ -80,7 +80,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should contain_file(routes_path).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=300";/) }
+      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=300";/) }
     end
 
     context 'a different number' do
@@ -89,7 +89,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should contain_file(routes_path).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=668";/) }
+      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=668";/) }
     end
   end
 end
