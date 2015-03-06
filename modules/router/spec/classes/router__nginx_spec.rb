@@ -36,7 +36,7 @@ describe 'router::nginx', :type => :class do
         :real_ip_header  => 'X-Some-Address-Header',
       }}
 
-      it { should contain_file(router_config).with_content(/^real_ip_header X-Some-Address-Header;$/) }
+      it { should contain_file(router_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
     end
   end
 
