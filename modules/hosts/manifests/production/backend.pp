@@ -52,10 +52,6 @@ class hosts::production::backend (
   govuk::host { 'elasticsearch-3':
     ip  => '10.3.0.17',
   }
-  govuk::host { 'support-1':
-    ip              => '10.3.0.5',
-    service_aliases => ['support'],
-  }
   govuk::host { 'support-contacts-1':
     ip  => '10.3.0.60',
   }
