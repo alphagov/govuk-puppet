@@ -1,3 +1,4 @@
+# Creates the tadast user
 class users::tadast {
   govuk::user { 'tadast':
     fullname => 'Tadas Tamosauskas',
