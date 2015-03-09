@@ -42,7 +42,6 @@ define govuk::user(
   $shell = '/bin/bash',
   $ssh_key = undef
 ) {
-  govuk_check_user_naming($title, $fullname, $email)
 
   $home = "/home/${title}"
 
