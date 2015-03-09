@@ -58,6 +58,7 @@ def user_in_whitelist?(username)
     ppotter
     rthorn
     ssharpe
+    tadast
     tekin
     vinayvinay
   }.include?(username)
