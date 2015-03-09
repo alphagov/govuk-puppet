@@ -1,7 +1,8 @@
 # == Class: users::groups::contractors
 #
 # Contractors working at GDS should be added to this list.
-# Please ensure that the list remains sorted alphabetically by username.
+# Please ensure that the list remains sorted alphabetically by username
+# and that the username is consistent with your LDAP username.
 #
 class users::groups::contractors {
   include users::benjanecke
