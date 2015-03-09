@@ -117,6 +117,7 @@ class govuk_elasticsearch (
     http_port            => $http_port,
     log_index_type_count => $log_index_type_count,
     disable_gc_alerts    => $disable_gc_alerts,
+    legacy_elasticsearch => versioncmp($version, '1.0.0') < 0, # version 0.x has different stats URLs etc.
   }
 
   @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":

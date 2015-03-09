@@ -1,6 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_elasticsearch', :type => :class do
+  let(:facts) {{
+    :kernel => 'Linux',
+  }}
+
   describe '#version' do
 
     context "when not set" do
@@ -17,9 +21,6 @@ describe 'govuk_elasticsearch', :type => :class do
   end
 
   describe '#manage_repo' do
-    let(:facts) {{
-      :kernel => 'Linux',
-    }}
     let(:params) {{
       :version => '1.2.3',
     }}
@@ -47,6 +48,22 @@ describe 'govuk_elasticsearch', :type => :class do
 
       it { should_not contain_class('govuk_elasticsearch::repo') }
       it { should contain_class('elasticsearch').with_manage_repo(false) }
+    end
+  end
+
+  describe "monitoring legacy_elasticsearch" do
+    let(:params) {{
+      "version" => "1.4.2",
+    }}
+
+    it "is true for pre-1.x versions" do
+      params["version"] = "0.90.2"
+
+      subject.should contain_class('govuk_elasticsearch::monitoring').with_legacy_elasticsearch(true)
+    end
+
+    it "is false for later versions" do
+      subject.should contain_class('govuk_elasticsearch::monitoring').with_legacy_elasticsearch(false)
     end
   end
 end
