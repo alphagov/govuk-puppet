@@ -61,7 +61,6 @@ class hosts::development {
   host { 'public-link-tracker.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'publisher.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'publishing-api.dev.gov.uk':                       ip => '127.0.0.1' }
-  host { 'publishing-api-test.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'release.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'router-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'router.dev.gov.uk':                               ip => '127.0.0.1' }
