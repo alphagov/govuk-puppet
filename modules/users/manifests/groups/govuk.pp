@@ -8,7 +8,8 @@ class users::groups::govuk {
   ###################################################################
   #                                                                 #
   # When adding yourself to this list, please ensure that the list  #
-  # remains sorted alphabetically by username.                      #
+  # remains sorted alphabetically by username and that the username #
+  # is consistent with your LDAP username.                          #
   #                                                                 #
   ###################################################################
 
