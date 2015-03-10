@@ -212,3 +212,5 @@ and your SSH config is upto date, you can connect to `backend-1.backend.preview`
 There are a few scripts that should be run regularly to keep your VM up to date. In the
 `development` there is `update-git.sh` and `update-bundler.sh` to keep your projects up
 to date. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
+
+All of the above can be run at once with a single command `update-all.sh`.
