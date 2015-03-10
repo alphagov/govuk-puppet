@@ -60,7 +60,6 @@ class hosts::production::api (
     legacy_aliases => [
       "content-store.${app_domain}",
       "metadata-api.${app_domain}",
-      "publishing-api.${app_domain}",
     ]
   }
 }
