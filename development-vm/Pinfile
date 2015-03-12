@@ -44,7 +44,7 @@ process :migratorator
 process :need_api
 process :panopticon => :'url-arbiter'
 process :planner => [:static, :contentapi]
-process :'policy-publisher' => [:'publishing-api', :rummager]
+process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
 process :publisher => [:panopticon, :contentapi]
 process :'publishing-api' => [:'content-store', :'router-api', :'url-arbiter']
 process :release
