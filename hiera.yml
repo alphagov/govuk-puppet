@@ -2,6 +2,8 @@
 :hierarchy:
   - 'class/%{::environment}/%{::govuk_node_class}'
   - 'class/%{::govuk_node_class}'
+  - '%{::environment}_draft_credentials'
+  - '%{::environment}_draft'
   - '%{::environment}_credentials'
   - '%{::environment}'
   - 'common.%{::lsbdistcodename}'
