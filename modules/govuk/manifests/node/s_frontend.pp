@@ -6,6 +6,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
   include govuk::apps::contacts_frontend
   include govuk::apps::courts_frontend
   include govuk::apps::designprinciples
+  include govuk::apps::email_alert_frontend
   include govuk::apps::feedback
   include govuk::apps::frontend
   include govuk::apps::government_frontend
