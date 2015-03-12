@@ -48,6 +48,15 @@ class hosts::production::api (
   govuk::host { 'api-mongo-3':
     ip  => '10.7.0.23',
   }
+  govuk::host { 'search-1':
+    ip  => '10.7.0.4',
+  }
+  govuk::host { 'search-2':
+    ip  => '10.7.0.5',
+  }
+  govuk::host { 'search-3':
+    ip  => '10.7.0.6',
+  }
   #api lb vhosts
   govuk::host { 'api-lb-1':
     ip  => '10.7.0.101',
@@ -60,6 +69,7 @@ class hosts::production::api (
     legacy_aliases => [
       "content-store.${app_domain}",
       "metadata-api.${app_domain}",
+      "rummager.${app_domain}",
     ]
   }
 }
