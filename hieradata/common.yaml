@@ -142,6 +142,7 @@ govuk_sudo::sudo_conf:
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
+govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::etcd_endpoints:
   - "http://etcd-1.management:4001"
   - "http://etcd-2.management:4001"
