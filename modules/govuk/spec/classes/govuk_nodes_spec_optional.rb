@@ -7,7 +7,7 @@ require_relative '../../../../spec_helper'
 
 # Don't attempt to instantiate these classes as they aren't concrete
 # machine classes, and therefore aren't intended to be instantiated directly.
-blacklist_classes = %w(
+$nodes_spec_blacklist_classes = %w(
   asset_base
   base
   postgresql_base
@@ -17,15 +17,25 @@ blacklist_classes = %w(
   transition_postgresql_base
 )
 
+# get the list of machine classes
+def class_list
+  if ENV["classes"]
+    ENV["classes"].split(",")
+  else
+    class_dir = File.expand_path("../../../manifests/node", __FILE__)
+    all_class_name = Dir.glob("#{class_dir}/s_*.pp").map { |filepath|
+      File.basename(filepath, ".pp")[2..-1] # Strip leading s_
+    }
+    all_class_name.reject {|c| $nodes_spec_blacklist_classes.include?(c) }
+  end
+end
+
 hiera_conf = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
 hiera_conf[:yaml][:datadir] = File.expand_path("../../../../../hieradata", __FILE__)
 hiera_conf[:eyaml][:datadir] = hiera_conf[:yaml][:datadir]
 hiera_conf[:eyaml][:gpg_gnupghome] = File.expand_path("../../../../../gpg", __FILE__)
 
-Dir.glob(File.expand_path("../../../manifests/node/s_*.pp", __FILE__)).each do |filepath|
-  class_name = File.basename(filepath, ".pp")[2..-1] # Strip leading s_
-  next if blacklist_classes.include?(class_name)
-
+class_list.each do |class_name|
   node_hostname = class_name.tr("_", "-")
 
   describe "govuk::node::s_#{class_name}", :type => :class do

@@ -1,4 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class govuk::apps::search
+#
+# This app is rummager deployed to the backend servers (with the vhost search).
+#
+# In time, this will be replaced by govuk::apps::rummager running in the API vDC
 class govuk::apps::search( $port = 3009, $enable_delayed_job_worker = true ) {
   include aspell
 
