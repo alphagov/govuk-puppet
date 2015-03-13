@@ -73,9 +73,6 @@ BACKUPDIR="/var/lib/automongodbbackup"
 MAILCONTENT="log"
 MAILADDR="zd-alrt-normal@digital.cabinet-office.gov.uk"
 
-# Set the maximum allowed email size in k. (4000 = approx 5MB email [see docs])
-MAXATTSIZE="4000"
-
 # Email Address to send mail to? (user@domain.com)
 # MAILADDR=""
 
