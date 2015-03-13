@@ -65,18 +65,6 @@ DBPORT="27017"
 # Backup directory location e.g /backups
 BACKUPDIR="/var/lib/automongodbbackup"
 
-# Mail setup
-# What would you like to be mailed to you?
-# - log   : send only log file
-# - files : send log file and sql files as attachments (see docs)
-# - stdout : will simply output the log to the screen if run manually.
-# - quiet : Only send logs if an error occurs to the MAILADDR.
-MAILCONTENT="log"
-MAILADDR="zd-alrt-normal@digital.cabinet-office.gov.uk"
-
-# Email Address to send mail to? (user@domain.com)
-# MAILADDR=""
-
 # ============================================================
 # === ADVANCED OPTIONS ( Read the doc's below for details )===
 #=============================================================
@@ -131,17 +119,6 @@ REPLICAONSLAVE="yes"
 #
 # You can change the backup storage location from /backups to anything
 # you like by using the BACKUPDIR setting..
-#
-# The MAILCONTENT and MAILADDR options and pretty self explanatory, use
-# these to have the backup log mailed to you at any email address or multiple
-# email addresses in a space seperated list.
-#
-# (If you set mail content to "log" you will require access to the "mail" program
-# on your server. If you set this to "files" you will have to have mutt installed
-# on your server. If you set it to "stdout" it will log to the screen if run from
-# the console or to the cron job owner if run through cron. If you set it to "quiet"
-# logs will only be mailed if there are errors reported. )
-#
 #
 # Finally copy automongobackup.sh to anywhere on your server and make sure
 # to set executable permission. You can also copy the script to
@@ -269,8 +246,6 @@ DOM=`date +%d`						# Date of the Month e.g. 27
 M=`date +%B`						# Month e.g January
 W=`date +%V`						# Week Number e.g 37
 VER=0.9							    # Version Number
-LOGFILE=$BACKUPDIR/logs/$DBHOST-`date +%N`.log		# Logfile Name
-LOGERR=$BACKUPDIR/logs/ERRORS_$DBHOST-`date +%N`.log		# Logfile Name
 BACKUPFILES=""
 OPT=""							# OPT string for use with mongodump
 
@@ -327,20 +302,6 @@ then
 
 	eval rm -f "$BACKUPDIR/latest/*"
 fi
-
-# IO redirection for logging.
-touch $LOGFILE
-exec 6>&1           # Link file descriptor #6 with stdout.
-                    # Saves stdout.
-exec > $LOGFILE     # stdout replaced with file $LOGFILE.
-
-touch $LOGERR
-exec 7>&2           # Link file descriptor #7 with stderr.
-                    # Saves stderr.
-exec 2> $LOGERR     # stderr replaced with file $LOGERR.
-
-# When a desire is to receive log via e-mail then we close stdout and stderr.
-[ "x$MAILCONTENT" == "xlog" ] && exec 6>&- 7>&-
 
 # Functions
 
@@ -528,58 +489,10 @@ if [ "$POSTBACKUP" ]
 	echo ======================================================================
 fi
 
-# Clean up IO redirection if we plan not to deliver log via e-mail.
-[ ! "x$MAILCONTENT" == "xlog" ] && exec 1>&6 2>&7 6>&- 7>&-
 
-if [ "$MAILCONTENT" = "log" ]
-then
-        cat "$LOGFILE" | mail -s "Mongo Backup Log for $HOST - $DATE" $MAILADDR
-
-        if [ -s "$LOGERR" ]
-                then
-                        sed -i "/^connected/d" "$LOGERR"
-        fi
-
-        if [ -s "$LOGERR" ]
-                then
-                        if [ -s "$LOGERR" ]
-                                then
-                                        cat "$LOGERR"
-                                        cat "$LOGERR" | mail -s "ERRORS REPORTED: Mongo Backup error Log for $HOST - $DATE" $MAILADDR
-                        fi
-        fi
-else
-        if [ -s "$LOGERR" ]
-                then
-                        sed -i "/^connected/d" "$LOGERR"
-        fi
-
-        if [ -s "$LOGERR" ]
-                then
-                        cat "$LOGFILE"
-                        echo
-                        echo "###### WARNING ######"
-                        echo "STDERR written to during mongodump execution."
-                        echo "The backup probably succeeded, as mongodump sometimes writes to STDERR, but you may wish to scan the error log below:"
-                        cat "$LOGERR"
-        fi
-fi
-
-STATUS=0
-ERRORS=`wc -l $LOGERR | awk '{print $1}'`
 FINISHEPOCH=$(date +'%s')
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
-if [ $ERRORS -gt 0 ];
-then
-  STATUS=1
-fi
 
-if [ $STATUS -gt 0 ];
-then
-  logger -t $APPNAME "$APPNAME wrote to STDERR. This may indicate an issue. Completed in T:$TOTALTIME seconds"
-else
-  NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK: MongoDB backup succeeded"
-  logger -t $APPNAME "$APPNAME completed in T:$TOTALTIME seconds"
-fi
-exit $STATUS
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: MongoDB backup succeeded"
+logger -t $APPNAME "$APPNAME completed in T:$TOTALTIME seconds"
