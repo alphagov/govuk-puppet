@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+set -o pipefail
 
 # The default Icinga passive alert assumes that the script failed
 NAGIOS_CODE=2
