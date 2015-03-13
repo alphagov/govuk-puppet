@@ -3,6 +3,6 @@ class users::benilovj {
   govuk::user { 'benilovj':
       fullname => 'Jake Benilov',
       email    => 'jake.benilov@digital.cabinet-office.gov.uk',
-      ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArCY6wWXNDgQnanfWtGs0wRVzHcBApLyJ5MWVGVZL+aLbRlgoNj2vqaGTNCXkWHbfpRZ1BRNCuLhuF0xMNI17nsj2qaUohXqbOsYAyycZ3GSE5n5fkrflOrk8bAsfavr8WjZq2tGHniGYol+bQYw61+RzSjKQ0GX+KSVzQ/sdKiUPnIG7MoZ0PA58CSxbPhd1OLOMa8YR5aK/7ildABcYqMV8Pbr1hVyJ7DIkJMpt9PwoFVketzBdIUo/fqNez3LMxwNnijlcIfhHrlkCvLQgeC92oinEFfRKcLFWPy3k6Z/u0UddG67XAiZvfDdZu7NxrOw2mE5keiHWrKaoIBIlZw==',
+      ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPIo5R4UkyrgC9DHG1FucwrCXs3UjL1bWLzQtx/wbmx8JKSkVzW0Y5urMx3m087aHzin8ySc0oYltEVCPix0sBaHLH+QHL60yjohgRecmX//PGE0y4mVaB6e8ntLzv8vVApc1Uyz0PiaX2H1nbW6neWm0eagTr92gDvX4U5I2pTMC05qjXS09xFd/nPb4Z7G7BYLYiBa9yy1qkJvRyhKf3htOHGLoHwAgtJepKJMe1xTz8YOWHumcxn2e2j5Z16/wwcvaSGrhzwQgsZ2uWULWNvlKuC2nRJe+ZZjNcKxpHLKUcc68sW5yZgLHMJ7u0ebUX+rGWlMt6pyEiOBnm3nG3',
     }
 }
