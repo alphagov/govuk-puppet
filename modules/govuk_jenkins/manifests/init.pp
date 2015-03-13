@@ -92,14 +92,14 @@ class govuk_jenkins (
     install_java       => false,
     configure_firewall => false,
     plugin_hash        => {
-      'scm-api'               => { 'version' => '0.2' },
+      'build-with-parameters' => { 'version' => '1.3' },
       'git'                   => { 'version' => '2.2.6' },
       'git-client'            => { 'version' => '1.10.2' },
       'github-api'            => { 'version' => '1.58' },
       'github-oauth'          => { 'version' => '0.19' },
-      'role-strategy'         => { 'version' => '2.2.0' },
-      'build-with-parameters' => { 'version' => '1.3' },
       'rebuild'               => { 'version' => '1.22' },
+      'role-strategy'         => { 'version' => '2.2.0' },
+      'scm-api'               => { 'version' => '0.2' },
     },
     require            => Class['govuk_java::set_defaults'],
   }
