@@ -25,8 +25,23 @@ class licensify::apps::licensify (
   $vhost_name = "uploadlicence.${app_domain}"
   $log_basename = $vhost_name
 
+  # FIXME: Remove with tagalog.
+  $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.${vhost_escaped}"
+
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost_name: content => template('licensify/licensify-upload-vhost.conf') }
+  nginx::log {
+    "${vhost_name}-json.event.access.log":
+      json          => true,
+      logstream     => absent,
+      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${counter_basename}.time_request",
+                          value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
+    "${vhost_name}-error.log":
+      logstream => absent;
+  }
 
   @@icinga::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
     target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",

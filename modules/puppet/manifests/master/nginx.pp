@@ -3,9 +3,23 @@ class puppet::master::nginx {
   include ::nginx
 
   $log_basename = 'puppetmaster'
+  # FIXME: Remove with tagalog.
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.puppetmaster"
 
   nginx::config::site { 'puppetmaster':
     content => template('puppet/puppetmaster-vhost.conf'),
+  }
+
+  nginx::log {
+    'puppetmaster-json.event.access.log':
+      json          => true,
+      logstream     => absent,
+      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${counter_basename}.time_request",
+                          value => '@fields.request_time'}];
+    # FIXME: Remove when stopped.
+    'puppetmaster-error.log':
+      logstream => absent;
   }
 
   @logrotate::conf { 'puppetmaster':

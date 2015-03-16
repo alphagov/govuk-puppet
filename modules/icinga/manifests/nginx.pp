@@ -11,4 +11,13 @@ class icinga::nginx {
   nginx::config::site { 'nagios':
     content => template('icinga/nginx.conf.erb'),
   }
+
+  nginx::log {
+    'nagios-json.event.access.log':
+      json      => true,
+      logstream => absent;
+    # FIXME: Remove when stopped.
+    'nagios-error.log':
+      logstream => absent;
+  }
 }

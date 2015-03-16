@@ -43,4 +43,13 @@ class govuk_elasticsearch::local_proxy(
   nginx::config::site { $vhost:
     content => template('govuk_elasticsearch/nginx_local_proxy.conf.erb'),
   }
+
+  nginx::log {
+    $log_json:
+      json      => true,
+      logstream => absent;
+    # FIXME: Remove when stopped.
+    $log_error:
+      logstream => absent;
+  }
 }
