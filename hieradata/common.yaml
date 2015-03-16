@@ -152,6 +152,8 @@ heka::package_ensure: '0.8.3'
 heka::plugin::graphite::host: 'graphite.cluster'
 # FIXME: Remove when CarbonOutput supports `use_buffering`.
 heka::plugin::graphite::protocol: 'udp'
+# FIXME: Temporarily disable TCP output to help debug Heka issues
+heka::plugin::tcp_output::enable: false
 heka::plugin::tcp_output::host: 'logging.cluster'
 heka::plugin::tcp_output::port: 5565
 
