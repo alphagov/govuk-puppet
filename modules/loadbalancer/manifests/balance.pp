@@ -54,7 +54,7 @@ define loadbalancer::balance(
   nginx::log {
     "${vhost_real}-json.event.access.log":
       json      => true,
-      logstream => absent;
+      logstream => present;
     # FIXME: Remove when stopped.
     "${vhost_real}-error.log":
       logstream => absent;

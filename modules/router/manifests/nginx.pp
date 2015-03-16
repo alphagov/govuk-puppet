@@ -88,7 +88,7 @@ class router::nginx (
   nginx::log {
     'lb-json.event.access.log':
       json          => true,
-      logstream     => absent,
+      logstream     => present,
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];

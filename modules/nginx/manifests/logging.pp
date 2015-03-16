@@ -13,7 +13,7 @@ class nginx::logging {
   nginx::log {
     'json.event.access.log':
       json          => true,
-      logstream     => absent,
+      logstream     => present,
       statsd_metric => "${::fqdn_underscore}.nginx_logs.default.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.default.time_request",
                           value => '@fields.request_time'}];

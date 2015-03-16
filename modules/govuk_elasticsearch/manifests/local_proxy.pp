@@ -47,7 +47,7 @@ class govuk_elasticsearch::local_proxy(
   nginx::log {
     $log_json:
       json      => true,
-      logstream => absent;
+      logstream => present;
     # FIXME: Remove when stopped.
     $log_error:
       logstream => absent;
