@@ -75,38 +75,4 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
       should contain_nginx__config__site(vhost_name).with_content(/^\s+listen localhost:999;$/)
     end
   end
-
-  describe 'disable_access_log' do
-    context 'false (default)' do
-      let(:params) {{
-        :servers => ['es0.example.com'],
-      }}
-
-      it 'should keep access logs' do
-        should contain_nginx__config__site(vhost_name).with_content(
-%r{
-\s+access_log .+ timed_combined;
-\s+access_log .+ json_event;
-\s+error_log .+
-}
-        )
-      end
-    end
-
-    context 'true' do
-      let(:params) {{
-        :servers            => ['es0.example.com'],
-        :disable_access_log => true,
-      }}
-
-      it 'should not keep access logs' do
-        should contain_nginx__config__site(vhost_name).with_content(
-%r{
-\s+access_log off;
-\s+error_log .+;
-}
-        )
-      end
-    end
-  end
 end
