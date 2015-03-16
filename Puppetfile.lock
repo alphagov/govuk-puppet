@@ -109,10 +109,10 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-heka.git
-  ref: v0.4.0
-  sha: de4e0aadd89b082bff958ed0a43224d49e6c0921
+  ref: master
+  sha: 7977be654a0940a9561dd04c78d14133e54a2927
   specs:
-    alphagov-heka (0.4.0)
+    alphagov-heka (0.2.0)
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
