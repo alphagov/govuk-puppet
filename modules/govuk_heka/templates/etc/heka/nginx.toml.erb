@@ -1,5 +1,6 @@
 [nginx_access-default]
 type = "LogstreamerInput"
+parser_type = "token"
 log_directory = "/var/log/nginx"
 file_match = 'json\.event\.access\.log\.?(?P<Index>\d+)?(\.gz)?'
 differentiator = ["default"]
@@ -9,6 +10,7 @@ hostname = "<%= @fqdn_underscore -%>"
 
 [nginx_access-vhosts]
 type = "LogstreamerInput"
+parser_type = "token"
 log_directory = "/var/log/nginx"
 file_match = '(?P<LogBasename>.+)-json\.event\.access\.log\.?(?P<Index>\d+)?(\.gz)?'
 differentiator = ["LogBasename"]
@@ -26,6 +28,7 @@ type = "nginx.access"
 
 [nginx_error-default]
 type = "LogstreamerInput"
+parser_type = "token"
 log_directory = "/var/log/nginx"
 file_match = 'error\.log\.?(?P<Index>\d+)?(\.gz)?'
 differentiator = ["default", "-error"]
@@ -35,6 +38,7 @@ hostname = "<%= @fqdn_underscore -%>"
 
 [nginx_error-vhosts]
 type = "LogstreamerInput"
+parser_type = "token"
 log_directory = "/var/log/nginx"
 file_match = '(?P<LogBasename>.+)-error\.log\.?(?P<Index>\d+)?(\.gz)?'
 differentiator = ["LogBasename", "-error"]
