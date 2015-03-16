@@ -100,8 +100,6 @@ govuk::sshkeys::from_hiera::keys:
   whitehall-mysql-backup-1.backend.preview:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDP8FUYvGOzV5a7RjaVMwYf5Ec9FsKHWEyhpX61D5jVpd3+WQUDOLT4gG0TyWZtDoa7WKCL9xiGsnsswCGxrOD10l9Y7XMMbi3xKa3hdCrOQjm1aRHUgezef/JSYVNRSjFUQWnWSSBZn87hecD573GWULDBaFUIVb2yr3oayfLcz7TRbAlBHnsXssGeuU5PrcL2xrYcFInKV12nYuK7/JXWEJ0+JhP3n1prmKxkIVYX60mNRBTefgzfNTG4aCCMqCEFj/7u4fbVu3LEztTCkROrmIYfm2WP0NJjuFRJm7Qv30X5gTUwCl04sO9YYrS6aeoQeS2ybr8tBj3s0BaHTYQL"
 
-heka::service_ensure: stopped
-
 internal_tld: 'development'
 
 mongodb::server::development: true

@@ -2,13 +2,11 @@
 class puppet::master::nginx {
   include ::nginx
 
-  $log_basename = 'puppetmaster'
-  # FIXME: Remove with tagalog.
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.puppetmaster"
-
   nginx::config::site { 'puppetmaster':
     content => template('puppet/puppetmaster-vhost.conf'),
   }
+
+  $counter_basename = "${::fqdn_underscore}.nginx_logs.puppetmaster"
 
   nginx::log {
     'puppetmaster-json.event.access.log':
@@ -17,17 +15,18 @@ class puppet::master::nginx {
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
-    # FIXME: Remove when stopped.
     'puppetmaster-error.log':
-      logstream => absent;
+      logstream => present;
   }
 
   @logrotate::conf { 'puppetmaster':
     matches => '/var/log/puppetmaster/*.log',
   }
 
+  statsd::counter { "${counter_basename}.http_500": }
+
   @@icinga::check::graphite { "check_nginx_5xx_puppetmaster_on_${::hostname}":
-    target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",
+    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',

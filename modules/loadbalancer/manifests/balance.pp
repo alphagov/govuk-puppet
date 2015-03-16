@@ -55,8 +55,7 @@ define loadbalancer::balance(
     "${vhost_real}-json.event.access.log":
       json      => true,
       logstream => present;
-    # FIXME: Remove when stopped.
     "${vhost_real}-error.log":
-      logstream => absent;
+      logstream => present;
   }
 }

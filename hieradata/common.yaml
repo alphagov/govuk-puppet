@@ -146,13 +146,6 @@ govuk_unattended_reboot::etcd_endpoints:
   - "http://etcd-2.management:4001"
   - "http://etcd-3.management:4001"
 
-heka::package_ensure: '0.8.1'
-heka::plugin::graphite::host: 'graphite.cluster'
-# FIXME: Remove when CarbonOutput supports `use_buffering`.
-heka::plugin::graphite::protocol: 'udp'
-heka::plugin::tcp_output::host: 'logging.cluster'
-heka::plugin::tcp_output::port: 5565
-
 mongodb::server::version: '2.4.9'
 
 nginx::package::version: '1.4.6-1ubuntu3.1'

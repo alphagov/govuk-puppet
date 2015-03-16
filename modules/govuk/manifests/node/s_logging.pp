@@ -1,24 +1,5 @@
-# == Class: govuk::node::s_logging
-#
-# Node class for logging centralisation and parsing machine.
-#
-# === Parameters
-#
-# [*heka_port*]
-#   Port on which to receive logs from other Heka nodes.
-#
-class govuk::node::s_logging (
-  $heka_port,
-) inherits govuk::node::s_base {
-
-  include nginx
-  include govuk_elasticsearch::local_proxy
-  include heka::plugin::elasticsearch
-  include heka::plugin::tcp_input
-
-  @ufw::allow { 'heka_tcp_input':
-    port => $heka_port,
-  }
+# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+class govuk::node::s_logging inherits govuk::node::s_base {
 
   # we want this to be a syslog server which also forwards to logstash
   class { 'rsyslog::server':

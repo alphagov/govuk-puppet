@@ -52,8 +52,7 @@ define govuk::apps::bouncer::vhost(
       statsd_metric => "${::fqdn_underscore}.nginx_logs.${title}.http_%{@fields.status}",
       statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title}.time_request",
                           value => '@fields.request_time'}];
-    # FIXME: Remove when stopped.
     "${title}-error.log":
-      logstream     => absent;
+      logstream     => present;
   }
 }

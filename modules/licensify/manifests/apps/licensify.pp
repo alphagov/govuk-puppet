@@ -23,9 +23,6 @@ class licensify::apps::licensify (
 
   $app_domain = hiera('app_domain')
   $vhost_name = "uploadlicence.${app_domain}"
-  $log_basename = $vhost_name
-
-  # FIXME: Remove with tagalog.
   $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')
   $counter_basename = "${::fqdn_underscore}.nginx_logs.${vhost_escaped}"
 
@@ -38,13 +35,14 @@ class licensify::apps::licensify (
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
-    # FIXME: Remove when stopped.
     "${vhost_name}-error.log":
-      logstream => absent;
+      logstream => present;
   }
 
+  statsd::counter { "${counter_basename}.http_500": }
+
   @@icinga::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
-    target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",
+    target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
     warning   => 0.05,
     critical  => 0.1,
     from      => '3minutes',
