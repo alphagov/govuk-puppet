@@ -91,7 +91,7 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx.contentapi.*.alphagov.co.uk.request_time.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")"
             },
             {
               "target": "groupByNode(stats.timers.backend-?_backend_production.contentapi.time_*.mean,4,\"avg\")"
@@ -181,7 +181,7 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend_production.nginx.smartanswers.*.alphagov.co.uk.request_time.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend_production.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")"
             },
             {
               "target": "groupByNode(stats.timers.calculators-frontend-?_frontend_production.smartanswers.time_*.mean,4,\"avg\")"
@@ -271,7 +271,7 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend_production.nginx.frontend.*.alphagov.co.uk.request_time.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend_production.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")"
             },
             {
               "target": "groupByNode(stats.timers.frontend-?_frontend_production.frontend.time_*.mean,4,\"avg\")"
@@ -371,7 +371,7 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx.search.*.alphagov.co.uk.request_time.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx_logs.search_*.time_request.mean),1000),\"nginx\")"
             },
             {
               "target": "groupByNode(stats.timers.backend-?_backend_production.search.time_*.mean,4,\"avg\")"
@@ -548,7 +548,7 @@
           },
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.counters.*_frontend_production.nginx.*.*.alphagov.co.uk.http_503.rate,4,\"sum\"),\"_.*\",\"\")"
+              "target": "aliasSub(groupByNode(stats.*_frontend_production.nginx_logs.*_production_alphagov_co_uk.http_503,3,\"sum\"),\"_.*\",\"\")"
             }
           ],
           "aliasColors": {},

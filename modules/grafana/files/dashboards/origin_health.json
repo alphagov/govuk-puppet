@@ -91,7 +91,7 @@
           },
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.counters.cache-*_router_production.nginx.lb.http_5??.rate, 2, \"sum\"),\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "aliasSub(stats.cache-*_router_production.nginx_logs.www-origin.http_5xx,\".*(cache-\\d+).*\", \"\\1\")"
             }
           ],
           "aliasColors": {},
@@ -265,13 +265,13 @@
           },
           "targets": [
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(sum(stats.counters.cache-1_router_production.nginx.lb.http_5??.rate),sum(stats.counters.cache-1_router_production.nginx.lb.http_*.rate)),1), 12),\"cache-1\")"
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router_production.nginx_logs.www-origin.http_*xx)),1), 12),\"cache-1\")"
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(sum(stats.counters.cache-2_router_production.nginx.lb.http_5??.rate),sum(stats.counters.cache-2_router_production.nginx.lb.http_*.rate)),1), 12),\"cache-2\")"
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router_production.nginx_logs.www-origin.http_*xx)),1),12),\"cache-2\")"
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(sum(stats.counters.cache-3_router_production.nginx.lb.http_5??.rate),sum(stats.counters.cache-3_router_production.nginx.lb.http_*.rate)),1), 12),\"cache-3\")"
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router_production.nginx_logs.www-origin.http_*xx)),1),12),\"cache-3\")"
             }
           ],
           "aliasColors": {},
@@ -368,7 +368,7 @@
           },
           "targets": [
             {
-              "target": "aliasSub(stats.timers.cache-*_router_production.nginx.lb.request_time.mean,\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "aliasSub(stats.timers.cache-*_router_production.nginx_logs.www-origin.time_request.mean,\".*(cache-\\d+).*\", \"\\1\")"
             }
           ],
           "aliasColors": {},
@@ -542,7 +542,7 @@
           },
           "targets": [
             {
-              "target": "maximumAbove(aliasSub(groupByNode(stats.counters.*_frontend_production.nginx.*.*.alphagov.co.uk.http_5??.rate, 4, \"sum\"),\"_.*\",\"\"),0)"
+              "target": "maximumAbove(aliasSub(groupByNode(stats.*_frontend_production.nginx_logs.*_production_alphagov_co_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)"
             }
           ],
           "aliasColors": {},
