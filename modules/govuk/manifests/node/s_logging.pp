@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_logging
+#
+# Node class for logging centralisation and parsing machine.
+#
 class govuk::node::s_logging inherits govuk::node::s_base {
 
   # we want this to be a syslog server which also forwards to logstash
