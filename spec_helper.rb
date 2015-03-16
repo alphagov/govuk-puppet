@@ -14,10 +14,9 @@ module GovukHieraDefaults
     'website_root' => 'http://www.example.com',
     'internal_tld' => 'example',
 
-    'govuk_heka::monitoring::tcp_port' => 5565,
-    'heka::plugin::graphite::host'     => 'graphite.example.com',
-    'heka::plugin::tcp_output::host'   => 'heka.example.com',
-    'heka::plugin::tcp_output::port'   => 123,
+    'heka::plugin::graphite::host'   => 'graphite.example.com',
+    'heka::plugin::tcp_output::host' => 'heka.example.com',
+    'heka::plugin::tcp_output::port' => 123,
   }
 
   let(:hiera_config) {{
