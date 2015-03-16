@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: nginx::logging
+#
+# Nginx log centralisation and rotation.
+#
 class nginx::logging {
   file { '/etc/logrotate.d/nginx':
     ensure => present,
