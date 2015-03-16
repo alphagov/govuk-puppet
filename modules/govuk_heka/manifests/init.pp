@@ -4,7 +4,6 @@
 #
 class govuk_heka {
   include govuk_heka::global
-  include govuk_heka::monitoring
   include govuk_heka::repo
 
   include heka
