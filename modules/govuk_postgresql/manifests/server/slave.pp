@@ -60,7 +60,7 @@ class govuk_postgresql::server::slave (
 
   @@icinga::check::graphite { "check_postgres_replication_lag_${::hostname}":
     target    => "movingMedian(removeBelowValue(diffSeries(${master_metric},${slave_metric}), 0),5)",
-    desc      => 'replication on the postgres slave is too far behind master (value in bytes)',
+    desc      => 'postgres replication lag in bytes',
     warning   => to_bytes('8 MB'),
     critical  => to_bytes('16 MB'),
     args      => '--droplast 1',
