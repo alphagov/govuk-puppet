@@ -5,6 +5,8 @@ class mongodb::backup(
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
 
+  include logrotate
+
   file { '/etc/cron.daily/automongodbbackup-replicaset':
     ensure  => present,
     content => template('mongodb/automongodbbackup'),
@@ -12,6 +14,25 @@ class mongodb::backup(
     group   => 'root',
     mode    => '0744',
     require => Class['mongodb::package'],
+  } ->
+  file { '/var/log/automongodbbackup':
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+  }
+
+  govuk::logstream { 'automongodbbackup':
+    ensure  => present,
+    fields  => {'application' => 'automongodbbackup'},
+    logfile => '/var/log/automongodbbackup/backup.log',
+    tags    => ['backup', 'automongodbbackup', 'mongo'],
+  }
+
+  file { '/etc/logrotate.d/automongodbbackup':
+    ensure  => present,
+    source  => 'puppet:///modules/mongodb/etc/logrotate.d/automongodbbackup',
+    require => Class['logrotate'],
   }
 
   @@icinga::passive_check { "check_automongodbbackup-${::hostname}":

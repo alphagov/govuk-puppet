@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+exec 2>&1 > /var/log/automongodbbackup/backup.log
+
 set -e
 set -o pipefail
 
@@ -496,4 +498,4 @@ TOTALTIME=$(($FINISHEPOCH - $STARTEPOCH))
 
 NAGIOS_CODE=0
 NAGIOS_MESSAGE="OK: MongoDB backup succeeded"
-logger -t $APPNAME "$APPNAME completed in T:$TOTALTIME seconds"
+echo "$APPNAME completed in T:$TOTALTIME seconds"
