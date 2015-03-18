@@ -67,7 +67,7 @@ mod 'attachmentgenie/ufw',
 # Our modules on the Forge.
 mod 'gdsoperations/aptly'
 mod 'gdsoperations/auditd', '0.2.0'
-mod 'gdsoperations/goenv', '0.0.2'
+mod 'gdsoperations/goenv', '0.0.3'
 mod 'gdsoperations/graphite', '2.0.1'
 mod 'gdsoperations/openconnect'
 mod 'gdsoperations/rbenv', '1.2.0'
