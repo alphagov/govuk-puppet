@@ -15,8 +15,8 @@ OPTIONS:
     -h       Show this message
     -F file  Use a custom SSH configuration file
     -u user  SSH user to log in as (overrides SSH config)
-    -d dir   Store the backups in a different directory
-    -s       Skip downloading the backups
+    -d dir   Use named directory to store and load backups
+    -s       Skip downloading the backups (use with -d to load old backups)
     -r       Reset ignore list. This overrides any default ignores.
     -i       Databases to ignore. Can be used multiple times, or as a quoted space-delimited list
     -n       Don't actually import anything (dry run)
