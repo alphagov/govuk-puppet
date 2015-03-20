@@ -59,7 +59,7 @@ process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :contentapi, :imminence]
 process :'specialist-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
-process :'specialist-frontend' => [:static, :contentapi]
+process :'specialist-frontend' => [:static, :contentapi, :'content-store']
 process :static
 process :support
 process :'support-api'
