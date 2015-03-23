@@ -31,7 +31,7 @@ class base::supported_kernel (
             ])
         @@icinga::check { "check_supported_kernel_${::hostname}":
             check_command       => 'check_nrpe_1arg!check_supported_kernel',
-            service_description => 'running a supported kernel',
+            service_description => 'machine is not running a supported kernel',
             host_name           => $::fqdn,
             notes_url           => 'https://wiki.ubuntu.com/1204_HWE_EOL',
         }
