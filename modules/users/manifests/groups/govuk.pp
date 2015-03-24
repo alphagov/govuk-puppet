@@ -46,6 +46,7 @@ class users::groups::govuk {
   include users::robyoung
   include users::rthorn
   include users::ssharpe
+  include users::tatianasoukiassian
   include users::timothymower
   include users::tombooth
   include users::tombyers
