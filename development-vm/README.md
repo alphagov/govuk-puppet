@@ -108,7 +108,9 @@ configure a user account for yourself in our `puppet` repository.
 
 Let's say you want the username "friendlygiraffe". Create a puppet manifest file containing
 your user account settings in `puppet/modules/users/manifests/` and include it in
-`puppet/modules/users/manifests/groups/govuk.pp`.
+`puppet/modules/users/manifests/groups/govuk.pp`. New starters should
+fork their own copy of this repo and submit a pull request to add
+their manifest - they don't automatically get write access.
 
 Your manifest for the above would be called `friendlygiraffe.pp` and look similar to the following:
 
@@ -131,7 +133,9 @@ within a few minutes.
 To gain ssh access to production, the same line should be included in
 `puppet/modules/users/manifests/groups/govuk_production_access.pp`.  Once this
 is committed and pushed, you'll need to find someone who already has production
-permissions to deploy it for you.
+permissions to deploy it for you. It is worth noting that production
+access is not automatically given to new starters either - it requires a
+rotation on second-line support and some knowledge of the GOV.UK stack.
 
 ## 8. Import production data
 
