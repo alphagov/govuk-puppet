@@ -65,6 +65,6 @@ class govuk_postgresql::server::slave (
     critical  => to_bytes('16 MB'),
     args      => '--droplast 1',
     host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#postgres-replication-lag-in-bytes',
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#replication-on-the-postgres-slave-is-too-far-behind-master-value-in-bytes',
   }
 }
