@@ -28,9 +28,7 @@ class hosts::production::redirector (
   govuk::host { 'bouncer-3':
     ip  => '10.6.0.6',
   }
-
   govuk::host { 'bouncer-vse-lb':
-    ip             => $ip_bouncer,
-    legacy_aliases => ["bouncer.${app_domain}"],
+    ip  => $ip_bouncer,
   }
 }
