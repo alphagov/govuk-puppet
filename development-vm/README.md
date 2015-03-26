@@ -106,7 +106,7 @@ This way, commits you make on the VM get your name and email set on them:
 To get production/preview access you will need to add your public key and
 configure a user account for yourself in our `puppet` repository.
 
-Let's say you want the username "friendlygiraffe". Create a puppet manifest file containing
+Let's say your LDAP username is "friendlygiraffe". Create a puppet manifest file containing
 your user account settings in `puppet/modules/users/manifests/` and include it in
 `puppet/modules/users/manifests/groups/govuk.pp`. New starters should
 fork their own copy of this repo and submit a pull request to add
