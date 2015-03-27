@@ -6,6 +6,7 @@ class govuk::apps::whitehall(
   $port = 3020,
   $configure_frontend = false,
   $configure_admin = false,
+  $enable_future_policies = false,
   $vhost_protected,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -17,8 +18,17 @@ class govuk::apps::whitehall(
 
   $health_check_path = '/healthcheck'
 
-  validate_bool($prevent_single_host)
+  validate_bool($enable_future_policies)
+  if ($enable_future_policies) {
+    govuk::app::envvar {
+      "${title}-ENABLE_FUTURE_POLICIES":
+        app     => 'whitehall',
+        varname => 'ENABLE_FUTURE_POLICIES',
+        value   => '1';
+    }
+  }
 
+  validate_bool($prevent_single_host)
   if $prevent_single_host {
     if $configure_frontend == true and $configure_admin == true {
       fail('You should not be configuring whitehall-frontend and whitehall-admin on the same node')
