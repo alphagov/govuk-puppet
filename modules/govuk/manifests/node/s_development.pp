@@ -146,7 +146,7 @@ class govuk::node::s_development {
         jre => 'openjdk7',
       }
 
-      $es_version = '1.4.2'
+      $es_version = '1.4.4'
     }
   }
 

@@ -3,7 +3,7 @@
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'Reboot a single node at time and check that the cluster goes green between reboots'
 
-govuk_elasticsearch::version: '1.4.2'
+govuk_elasticsearch::version: '1.4.4'
 
 lv:
   data:
