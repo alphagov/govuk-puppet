@@ -33,6 +33,7 @@ class hosts::development {
   host { 'courts-api.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'courts-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'designprinciples.dev.gov.uk':                     ip => '127.0.0.1' }
+  host { 'draft-content-store.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'efg.dev.gov.uk':                                  ip => '127.0.0.1' }
   host { 'email-alert-api.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'email-alert-monitor.dev.gov.uk':                  ip => '127.0.0.1' }
