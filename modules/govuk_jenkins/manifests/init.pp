@@ -101,7 +101,7 @@ class govuk_jenkins (
       'description-setter'     => { 'version' => '1.9' },
       'downstream-buildview'   => { 'version' => '1.9' },
       'envinject'              => { 'version' => '1.91.1' },
-      'external-monitor-job'   => { 'version' => '1.4' },
+      'external-monitor-job'   => { 'version' => '1.2' },
       'git'                    => { 'version' => '2.2.6' },
       'git-client'             => { 'version' => '1.10.2' },
       'github-api'             => { 'version' => '1.58' },
