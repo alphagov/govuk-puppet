@@ -14,6 +14,7 @@ process :contentapi => [:imminence, :asset_manager]
 process :content_planner => [:need_api, :whitehall]
 process :'content-register'
 process :'content-store'
+process :'draft-content-store'
 process :'contact-o-tron'
 process :'courts-api' => [:'publishing-api']
 process :'courts-frontend' => [:static, :'content-store']
