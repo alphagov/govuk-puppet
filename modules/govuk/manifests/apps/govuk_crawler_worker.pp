@@ -43,6 +43,8 @@ class govuk::apps::govuk_crawler_worker (
         value => 'https://www.gov.uk/,https://assets.digital.cabinet-office.gov.uk/';
       'MIRROR_ROOT':
         value => $mirror_root;
+      'TTL_EXPIRE_TIME':
+        value => '24h';
     }
 
     file { $mirror_root:
