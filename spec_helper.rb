@@ -38,14 +38,23 @@ RSpec.configure do |c|
 
   c.order = 'rand'
 
+  possible_releases = {
+    'precise' => '12.04',
+    'trusty'  => '14.04',
+  }
+
   dist_preferred = ENV.fetch('DIST_PREFERRED', 'precise')
+
+  unless possible_releases.has_key?(dist_preferred)
+    raise "DIST_PREFERRED must be one of " + possible_releases.keys.join(', ')
+  end
 
   # Sensible defaults to satisfy modules that perform OS checking. These
   # keys can be overridden by more specific `let(:facts)` in spec contexts.
   c.default_facts = {
     :osfamily                => 'Debian',
     :operatingsystem         => 'Ubuntu',
-    :operatingsystemrelease  => dist_preferred == 'precise' ? '12.04' : '14.04',
+    :operatingsystemrelease  => possible_releases[dist_preferred],
     :lsbdistid               => 'Debian',
     :lsbdistcodename         => dist_preferred.capitalize,
     :fqdn_underscore         => 'test_example_com',
