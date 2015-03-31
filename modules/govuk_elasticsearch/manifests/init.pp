@@ -83,26 +83,35 @@ class govuk_elasticsearch (
     onlyif  => "/usr/bin/test -d /var/apps/${cluster_name}"
   }
 
-  elasticsearch::instance { $::fqdn:
-    config        => {
-      'cluster.name'             => $cluster_name,
-      'index.number_of_replicas' => $number_of_replicas,
-      'index.number_of_shards'   => $number_of_shards,
-      'index.refresh_interval'   => $refresh_interval,
-      'transport.tcp.port'       => $transport_port,
-      'network.publish_host'     => $::fqdn,
-      'node.name'                => $::fqdn,
-      'http.port'                => $http_port,
-      'discovery'                => {
-        'zen' => {
-          'minimum_master_nodes' => $minimum_master_nodes,
-          'ping'                 => {
-            'multicast.enabled' => false,
-            'unicast.hosts'     => $cluster_hosts,
-          },
+  $instance_config = {
+    'cluster.name'             => $cluster_name,
+    'index.number_of_replicas' => $number_of_replicas,
+    'index.number_of_shards'   => $number_of_shards,
+    'index.refresh_interval'   => $refresh_interval,
+    'transport.tcp.port'       => $transport_port,
+    'network.publish_host'     => $::fqdn,
+    'node.name'                => $::fqdn,
+    'http.port'                => $http_port,
+    'discovery'                => {
+      'zen' => {
+        'minimum_master_nodes' => $minimum_master_nodes,
+        'ping'                 => {
+          'multicast.enabled' => false,
+          'unicast.hosts'     => $cluster_hosts,
         },
       },
     },
+  }
+  if versioncmp($version, '1.4.3') >= 0 {
+    # 1.4.3 introduced this setting and set it to false by default
+    # http://www.elastic.co/guide/en/elasticsearch/reference/1.x/modules-scripting.html
+    $instance_config_real = merge($instance_config, {'script.groovy.sandbox.enabled' => true})
+  } else {
+    $instance_config_real = $instance_config
+  }
+
+  elasticsearch::instance { $::fqdn:
+    config        => $instance_config_real,
     datadir       => '/mnt/elasticsearch',
     init_defaults => {
       'ES_HEAP_SIZE' => $heap_size,
