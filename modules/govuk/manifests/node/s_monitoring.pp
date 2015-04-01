@@ -13,11 +13,12 @@ class govuk::node::s_monitoring (
   }
 
   nginx::config::vhost::proxy { 'graphite':
-    to        => ['graphite.cluster'],
-    aliases   => ['graphite.*', 'grafana', 'grafana.*'],
-    ssl_only  => true,
-    protected => false,
-    root      => '/dev/null',
+    to           => ['graphite.cluster'],
+    aliases      => ['graphite.*', 'grafana', 'grafana.*'],
+    ssl_only     => true,
+    ssl_certtype => 'wildcard_alphagov_mgmt',
+    protected    => false,
+    root         => '/dev/null',
   }
 
   harden::limit { 'nagios-nofile':
