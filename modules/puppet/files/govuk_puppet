@@ -6,8 +6,14 @@ if [ "$(id -u)" -ne "0" ]; then
   exec sudo "$BASH_SOURCE" "$@"
 fi
 
+START_TIME=`date +%s`
+
 # Allow return code 2 in case -v/--detailed-exitcodes is passed.
 RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@" || [ $? -eq 2 ]
+
+TIME_TOOK=$((`date +%s`-START_TIME))
+HOSTNAME=$(hostname -A | tr '.' '_')
+echo "${HOSTNAME}.puppet.run_duration:${TIME_TOOK}|s" | nc -w 1 -u localhost 8125
 
 # We should only reach here if a last_run_summary was written.
 /usr/local/bin/puppet_passive_check_update >/dev/null
