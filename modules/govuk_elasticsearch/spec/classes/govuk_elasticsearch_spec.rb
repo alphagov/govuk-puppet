@@ -77,6 +77,65 @@ describe 'govuk_elasticsearch', :type => :class do
     end
   end
 
+  describe "setting transport firewall rules" do
+    let(:params) {{
+      :version => '1.2.3',
+    }}
+
+    let(:pre_condition) {
+      <<-EOT
+      # Realise the virtual resources so they get added to the catalogue
+      Ufw::Allow <| |>
+
+      govuk::host { 'test-1':
+        ip  => '10.0.0.1',
+        vdc => 'foo',
+      }
+      govuk::host { 'test-2':
+        ip  => '10.0.0.2',
+        vdc => 'foo',
+      }
+      EOT
+    }
+
+    it "should not create any rules by default" do
+      expect(subject).to have_ufw__allow_resource_count(0)
+    end
+
+    it "should create an allow rule for each cluster host" do
+      params[:cluster_hosts] = ["test-1", "test-2"]
+
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9300-from-test-1')
+        .with_from('10.0.0.1')
+        .with_port('9300')
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9300-from-test-2')
+        .with_from('10.0.0.2')
+        .with_port('9300')
+    end
+
+    it "should support host:port style cluster hosts" do
+      params[:cluster_hosts] = ["test-1:9300", "test-2:9301"]
+
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9300-from-test-1')
+        .with_from('10.0.0.1')
+        .with_port('9300')
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9301-from-test-2')
+        .with_from('10.0.0.2')
+        .with_port('9301')
+    end
+
+    it "should support hostname.vdc style hosts" do
+      params[:cluster_hosts] = ["test-1.foo", "test-2.foo:9301"]
+
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9300-from-test-1')
+        .with_from('10.0.0.1')
+        .with_port('9300')
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9301-from-test-2')
+        .with_from('10.0.0.2')
+        .with_port('9301')
+    end
+  end
+
   describe "monitoring legacy_elasticsearch" do
     let(:params) {{
       "version" => "1.4.2",

@@ -114,8 +114,14 @@ class govuk_elasticsearch (
     port => $http_port,
   }
 
-  @ufw::allow { "allow-elasticsearch-transport-${transport_port}-from-all":
-    port => $transport_port;
+  govuk_elasticsearch::firewall_transport_rule { $cluster_hosts:
+    before => Exec["remove-allow-elasticsearch-transport-${transport_port}-from-all"],
+  }
+
+  # FIXME: remove this once it's applied everywhere.
+  exec { "remove-allow-elasticsearch-transport-${transport_port}-from-all":
+    command => "ufw delete allow ${transport_port}/tcp",
+    onlyif  => "ufw status | grep -E '${transport_port}/tcp\s+ALLOW\s+Anywhere'",
   }
 
   include govuk_elasticsearch::estools
