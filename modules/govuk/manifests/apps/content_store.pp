@@ -39,9 +39,18 @@ class govuk::apps::content_store(
       app_port => $draft_content_store_port,
     }
 
+    # Necessary because we're not creating a govuk::app instance for this.
+    file { ["/etc/govuk/${app_name}", "/etc/govuk/${app_name}/env.d"]:
+      ensure  => directory,
+      purge   => true,
+      recurse => true,
+      force   => true,
+    }
+
     Govuk::App::Envvar {
       app            => $app_name,
       notify_service => false,
+      require        => File["/etc/govuk/${app_name}/env.d"],
     }
 
     govuk::app::envvar {
