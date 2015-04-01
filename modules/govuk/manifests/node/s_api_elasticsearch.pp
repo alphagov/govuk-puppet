@@ -12,13 +12,30 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
   }
 
   class { 'govuk_elasticsearch':
-    cluster_hosts        => ['api-elasticsearch-1.api:9300', 'api-elasticsearch-2.api:9300', 'api-elasticsearch-3.api:9300'],
-    cluster_name         => 'govuk-content',
-    heap_size            => "${es_heap_size}m",
-    number_of_replicas   => '1',
-    minimum_master_nodes => '2',
-    host                 => $::fqdn,
-    require              => Class['govuk_java::openjdk7::jre'],
+    cluster_hosts          => ['api-elasticsearch-1.api:9300', 'api-elasticsearch-2.api:9300', 'api-elasticsearch-3.api:9300'],
+    cluster_name           => 'govuk-content',
+    heap_size              => "${es_heap_size}m",
+    number_of_replicas     => '1',
+    minimum_master_nodes   => '2',
+    host                   => $::fqdn,
+    open_firewall_from_all => false,
+    require                => Class['govuk_java::openjdk7::jre'],
+  }
+
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-search-1':
+    port    => 9200,
+    from    => getparam(Govuk::Host['search-1'], 'ip'),
+    require => Govuk::Host['search-1'],
+  }
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-search-2':
+    port    => 9200,
+    from    => getparam(Govuk::Host['search-2'], 'ip'),
+    require => Govuk::Host['search-2'],
+  }
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-search-3':
+    port    => 9200,
+    from    => getparam(Govuk::Host['search-3'], 'ip'),
+    require => Govuk::Host['search-3'],
   }
 
   elasticsearch::plugin { 'mobz/elasticsearch-head':

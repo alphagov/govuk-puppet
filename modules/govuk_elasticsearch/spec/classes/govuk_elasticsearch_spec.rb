@@ -80,6 +80,7 @@ describe 'govuk_elasticsearch', :type => :class do
   describe "setting transport firewall rules" do
     let(:params) {{
       :version => '1.2.3',
+      :open_firewall_from_all => false,
     }}
 
     let(:pre_condition) {
@@ -133,6 +134,27 @@ describe 'govuk_elasticsearch', :type => :class do
       expect(subject).to contain_ufw__allow('allow-elasticsearch-transport-9301-from-test-2')
         .with_from('10.0.0.2')
         .with_port('9301')
+    end
+  end
+
+  describe "disabling default http 9200 firewall rule" do
+    let(:params) {{
+      :version => '1.2.3',
+    }}
+
+    let(:pre_condition) {
+      # Realise the virtual resources so they get added to the catalogue
+      "Ufw::Allow <| |>"
+    }
+
+    it "should create the firewall by default" do
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-http-9200-from-all')
+    end
+
+    it "should not create it when requested" do
+      params[:open_firewall_from_all] = false
+
+      expect(subject).to have_ufw__allow_resource_count(0)
     end
   end
 
