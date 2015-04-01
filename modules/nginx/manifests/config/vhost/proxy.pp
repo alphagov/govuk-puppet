@@ -11,6 +11,10 @@
 #   Boolean whether the upstream servers are running on HTTPS/443.
 #   Default: false
 #
+# [*ssl_certtype*]
+#   Type of certificate from the predefined list in `nginx::config::ssl`.
+#   Default: 'wildcard_alphagov'
+#
 # TODO: More docs!
 #
 define nginx::config::vhost::proxy(
@@ -26,6 +30,7 @@ define nginx::config::vhost::proxy(
   $ssl_only = false,
   $logstream = present,
   $is_default_vhost = false,
+  $ssl_certtype = 'wildcard_alphagov',
   $ssl_manage_cert = true,  # This is a *horrible* hack to make EFG work.
                             # Please, please, remove when we have a
                             # sensible means of managing SSL certificates.
@@ -58,7 +63,9 @@ define nginx::config::vhost::proxy(
   $enable_basic_auth = hiera('nginx_enable_basic_auth', true)
 
   if $ssl_manage_cert {
-    nginx::config::ssl { $name: certtype => 'wildcard_alphagov' }
+    nginx::config::ssl { $name:
+      certtype => $ssl_certtype,
+    }
   }
   nginx::config::site { $name:
     ensure  => $ensure,

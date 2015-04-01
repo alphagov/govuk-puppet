@@ -82,6 +82,33 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'with ssl_certtype' do
+    context 'wildcard_alphagov (default)' do
+      let(:params) do
+        {
+          :to => ['a.internal'],
+        }
+      end
+
+      it {
+        should contain_nginx__config__ssl('rabbit').with_certtype('wildcard_alphagov')
+      }
+    end
+
+    context 'wildcard_alphagov_mgmt' do
+      let(:params) do
+        {
+          :to => ['a.internal'],
+          :ssl_certtype => 'wildcard_alphagov_mgmt',
+        }
+      end
+
+      it {
+        should contain_nginx__config__ssl('rabbit').with_certtype('wildcard_alphagov_mgmt')
+      }
+    end
+  end
+
   context 'with ensure' do
     context 'absent' do
       let(:params) do
