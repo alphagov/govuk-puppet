@@ -64,25 +64,6 @@ class govuk_elasticsearch (
 
   Package['elasticsearch'] ~> Exec['disable-default-elasticsearch']
 
-  # FIXME: Remove this once it's run on production
-  exec {"stop_old_elasticsearch-${cluster_name}_service":
-    command => "service elasticsearch-${cluster_name} stop || /bin/true",
-    onlyif  => "test -f /etc/init/elasticsearch-${cluster_name}.conf",
-  }
-  # FIXME: Remove this once it's run on production
-  file { "/etc/init/elasticsearch-${cluster_name}.conf":
-    ensure  => absent,
-    require => Exec["stop_old_elasticsearch-${cluster_name}_service"],
-    before  => Elasticsearch::Instance[$::fqdn],
-  }
-
-  # FIXME: Remove this when we're no longer relying on the elasticsearch_old module
-  exec { "/bin/mv /var/apps/${cluster_name} /mnt/elasticsearch":
-    creates => '/mnt/elasticsearch',
-    require => Exec["stop_old_elasticsearch-${cluster_name}_service"],
-    onlyif  => "/usr/bin/test -d /var/apps/${cluster_name}"
-  }
-
   $instance_config = {
     'cluster.name'             => $cluster_name,
     'index.number_of_replicas' => $number_of_replicas,
