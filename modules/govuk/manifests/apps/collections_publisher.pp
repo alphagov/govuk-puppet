@@ -1,4 +1,14 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::collections_publisher
+#
+# Publishes certain collection and tag formats requiring
+# complicated UIs.
+#
+# === Parameters
+#
+# [*port*]
+#   The port that publishing API is served on.
+#   Default: 3078
+#
 class govuk::apps::collections_publisher(
   $port = 3078,
 ) {
