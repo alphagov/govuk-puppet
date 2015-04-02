@@ -26,7 +26,6 @@ class users::groups::govuk {
   include users::chrisheathcote
   include users::danielroseman
   include users::davidsingleton
-  include users::davidt
   include users::dcarley
   include users::eddsowden
   include users::heathd

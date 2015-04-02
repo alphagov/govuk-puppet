@@ -41,7 +41,6 @@ def user_in_whitelist?(username)
     bob
     bradleyw
     dai
-    davidt
     dcarley
     elliot
     futurefabric
