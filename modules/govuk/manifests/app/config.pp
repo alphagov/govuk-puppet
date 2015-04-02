@@ -211,11 +211,16 @@ define govuk::app::config (
     }
     if $json_health_check {
       include icinga::client::check_json_healthcheck
+
+      $healthcheck_desc      = "${title} app health check not ok"
+      $healthcheck_opsmanual = regsubst($healthcheck_desc, ' ', '-', 'G')
+
       @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
         ensure              => $ensure,
         check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path}",
-        service_description => "${title} app health check not ok",
+        service_description => $healthcheck_desc,
         host_name           => $::fqdn,
+        notes_url           => "https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#${healthcheck_opsmanual}",
       }
     }
   }
