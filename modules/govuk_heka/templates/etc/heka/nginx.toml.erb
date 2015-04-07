@@ -49,22 +49,18 @@ filename = "lua_decoders/nginx_error.lua"
 [nginx_error_decoder.config]
 type = "nginx.error"
 
-
-[nginx_access_stats]
-type = "StatAccumInput"
+[NginxReqStats]
+type = "SandboxFilter"
+filename = "/usr/share/heka/lua_filters/http_req_stat_filter.lua"
+message_matcher = 'Hostname == "<%= @fqdn_underscore -%>" && Type == "nginx.access" && Fields[request_time] != NIL && Fields[status] > 0'
 ticker_interval = 5
 
-[nginx_access_stat]
-type = "StatFilter"
-stat_accum_name = "nginx_access_stats"
-message_matcher = 'Hostname == "<%= @fqdn_underscore -%>" && Type == "nginx.access" && Fields[request_time] != NIL && Fields[status] > 0'
+[NginxReqStats.config]
+# Yes, you have to put the same ticker_interval value in both places
+ticker_interval = 5
 
-[nginx_access_stat.Metric.status_code]
-type = "Counter"
-name = "%Hostname%.nginx.%Logger%.http_%status%"
-value = "1"
-
-[nginx_access_stat.Metric.request_time]
-type = "Timer"
-name = "%Hostname%.nginx.%Logger%.request_time"
-value = "%request_time%"
+# Log a useful error when a sandbox plugin crashes
+[PayloadEncoder]
+[LogOutput]
+message_matcher = "Type == 'heka.sandbox-terminated'"
+encoder = "PayloadEncoder"

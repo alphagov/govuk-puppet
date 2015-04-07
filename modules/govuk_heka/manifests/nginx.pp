@@ -16,6 +16,13 @@ class govuk_heka::nginx {
     fail('Unable to load `fqdn_underscore` fact')
   }
 
+  file { '/usr/share/heka/lua_filters/http_req_stat_filter.lua':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk_heka/usr/share/heka/lua_filters/http_req_stat_filter.lua',
+    notify  => Class['heka::service'],
+    require => Class['heka::install'],
+  }
+
   heka::plugin { 'nginx':
     content => template('govuk_heka/etc/heka/nginx.toml.erb'),
   }
