@@ -8,7 +8,6 @@
 # log file on disk.
 #
 class govuk_heka::nginx {
-  include heka::plugin::graphite
   include heka::plugin::json_event_decoder
 
   # FIXME: Move this to a global config option in heka >=0.9

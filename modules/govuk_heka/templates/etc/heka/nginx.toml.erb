@@ -59,6 +59,12 @@ ticker_interval = 5
 # Yes, you have to put the same ticker_interval value in both places
 ticker_interval = 5
 
+# FIXME: Remove this if Nginx request packs can have type 'statmetric' rather than relying on payload name
+[CarbonOutput]
+address = "graphite.cluster:2003"
+protocol = "udp"
+message_matcher = "Fields[payload_name] == 'statmetric'"
+
 # Log a useful error when a sandbox plugin crashes
 [PayloadEncoder]
 [LogOutput]
