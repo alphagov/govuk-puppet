@@ -9,10 +9,26 @@
 #   The port that publishing API is served on.
 #   Default: 3093
 #
+# [*content_store*]
+#   Is a URL that tells publishing API which content store to save
+#   published content in.
+#
+# [*draft_content_store*]
+#   Is a URL that tells publishing API which content store to save
+#   draft content in.
+#
+# [*suppress_draft_store_502_error*]
+#   Suppresses "502 Bad Gateway" returned by nginx when publishing API
+#   attempts to store draft content. This is intended to be used only
+#   during development so that we're not forced to keep draft content
+#   store running while testing unrelated features.
+#   Default: false
+#
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
   $draft_content_store = '',
+  $suppress_draft_store_502_error = false,
 ) {
   $app_name = 'publishing-api'
   govuk::app { $app_name:
@@ -41,5 +57,7 @@ class govuk::apps::publishing_api(
       value => $content_store;
     'DRAFT_CONTENT_STORE':
       value => $draft_content_store;
+    'SUPPRESS_DRAFT_STORE_502_ERROR':
+      value => $suppress_draft_store_502_error;
   }
 }
