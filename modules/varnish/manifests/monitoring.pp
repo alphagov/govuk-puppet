@@ -1,5 +1,13 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class varnish::monitoring {
+
+  file { '/var/log/varnish':
+    mode    => '0755',
+    owner   => 'varnishlog',
+    group   => 'varnishlog',
+    require => Package['varnish'],
+  }
+
   govuk::logstream { 'varnishncsa':
     logfile => '/var/log/varnish/varnishncsa.log',
     fields  => {'application' => 'varnish'},
