@@ -43,6 +43,8 @@ govuk::apps::publicapi::backdropread_protocol: 'http'
 govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
+govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.dev.gov.uk'
+govuk::apps::publishing_api::suppress_draft_store_502_error: true
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
 govuk::apps::router::mongodb_nodes: ['localhost']
