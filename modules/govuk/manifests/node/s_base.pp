@@ -10,7 +10,6 @@ class govuk::node::s_base {
   include govuk::safe_to_reboot
   include govuk::scripts
   include govuk::sshkeys
-  include govuk_heka
   include govuk_unattended_reboot
   include harden
   include hosts
@@ -25,6 +24,20 @@ class govuk::node::s_base {
 
   class { 'rsyslog':
     purge_rsyslog_d => true,
+  }
+
+  # FIXME: Remove once deployed everywhere
+  package { 'heka':
+    ensure => purged,
+  } ->
+  service { 'heka':
+    ensure   => stopped,
+    provider => 'base',
+    pattern  => 'hekad',
+  } ->
+  file { ['/etc/heka', '/var/cache/hekad', '/etc/init/heka.conf']:
+    ensure => absent,
+    force  => true,
   }
 
   # FIXME: Disable central syslog on Trusty

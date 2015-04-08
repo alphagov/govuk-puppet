@@ -65,7 +65,7 @@ run the following to install it and update the cache:
 If you need to update an existing module to a newer version, you'll need to
 run the following:
 
-    $ bundle exec rake 'librarian:update[alphagov/heka]'
+    $ bundle exec rake 'librarian:update[alphagov/tune_ext]'
 
 Afterwards you should commit the `Puppetfile`, `Puppetfile.lock` and any new
 files in `vendor/puppet/`. If updating a module then you will need to

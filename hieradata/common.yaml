@@ -96,8 +96,6 @@ govuk_crawler::amqp_host: 'rabbitmq-1.backend'
 govuk_crawler::govuk_gemfury_source_url: "%{hiera('govuk_gemfury_source_url')}"
 govuk_crawler::site_root: 'https://www.gov.uk'
 
-govuk_heka::monitoring::tcp_port: "%{hiera('heka::plugin::tcp_output::port')}"
-
 govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 govuk_jenkins::github_enterprise_cert: |
@@ -147,13 +145,6 @@ govuk_unattended_reboot::etcd_endpoints:
   - "http://etcd-1.management:4001"
   - "http://etcd-2.management:4001"
   - "http://etcd-3.management:4001"
-
-heka::package_ensure: '0.8.3'
-heka::plugin::graphite::host: 'graphite.cluster'
-# FIXME: Remove when CarbonOutput supports `use_buffering`.
-heka::plugin::graphite::protocol: 'udp'
-heka::plugin::tcp_output::host: 'logging.cluster'
-heka::plugin::tcp_output::port: 5565
 
 mongodb::server::version: '2.4.9'
 

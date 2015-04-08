@@ -272,6 +272,7 @@ define govuk::app (
     intercept_errors          => $intercept_errors,
     deny_framing              => $deny_framing,
     enable_nginx_vhost        => $enable_nginx_vhost,
+    logstream                 => $logstream,
     nagios_cpu_warning        => $nagios_cpu_warning,
     nagios_cpu_critical       => $nagios_cpu_critical,
     nagios_memory_warning     => $nagios_memory_warning,

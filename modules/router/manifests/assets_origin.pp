@@ -26,4 +26,15 @@ class router::assets_origin(
   nginx::config::ssl { $vhost_name:
     certtype => 'wildcard_alphagov'
   }
+
+  nginx::log {
+    "${vhost_name}-json.event.access.log":
+      json          => true,
+      logstream     => present,
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.assets-origin.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.assets-origin.time_request",
+                          value => '@fields.request_time'}];
+    "${vhost_name}-error.log":
+      logstream => present;
+  }
 }

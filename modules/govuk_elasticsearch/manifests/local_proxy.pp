@@ -21,17 +21,12 @@
 #   Nginx `proxy_read_timeout` value.
 #   Default: 5
 #
-# [*disable_access_log*]
-#   Disable access logging for this vhost. May be useful for high volume
-#   Elasticsearch servers.
-#
 # [*servers*]
 #   Array of servers to load balance requests to.
 #
 class govuk_elasticsearch::local_proxy(
   $read_timeout = 5,
   $port = 9200,
-  $disable_access_log = false,
   $servers
 ) {
   # Also used within template.
@@ -42,5 +37,13 @@ class govuk_elasticsearch::local_proxy(
 
   nginx::config::site { $vhost:
     content => template('govuk_elasticsearch/nginx_local_proxy.conf.erb'),
+  }
+
+  nginx::log {
+    $log_json:
+      json      => true,
+      logstream => present;
+    $log_error:
+      logstream => present;
   }
 }

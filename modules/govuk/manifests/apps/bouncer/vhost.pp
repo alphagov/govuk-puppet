@@ -40,7 +40,19 @@ define govuk::apps::bouncer::vhost(
   $document_root,
   $custom_location_rules = {},
 ) {
+
   nginx::config::site { $title:
     content => template('govuk/bouncer_nginx_vhost.conf.erb'),
+  }
+
+  nginx::log {
+    "${title}-json.event.access.log":
+      json          => true,
+      logstream     => present,
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.${title}.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.${title}.time_request",
+                          value => '@fields.request_time'}];
+    "${title}-error.log":
+      logstream     => present;
   }
 }

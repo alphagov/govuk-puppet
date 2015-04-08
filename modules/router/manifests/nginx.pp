@@ -43,7 +43,6 @@ class router::nginx (
   }
 
   $app_domain = hiera('app_domain')
-  $log_basename = 'lb'
 
   nginx::config::ssl { "www.${app_domain}":
     certtype => 'wildcard_alphagov'
@@ -82,6 +81,17 @@ class router::nginx (
     source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
   }
 
+  nginx::log {
+    'lb-json.event.access.log':
+      json          => true,
+      logstream     => present,
+      statsd_metric => "${::fqdn_underscore}.nginx_logs.www-origin.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.www-origin.time_request",
+                          value => '@fields.request_time'}];
+    'lb-error.log':
+      logstream => present;
+  }
+
   file { '/usr/share/nginx':
     ensure  => directory,
   }
@@ -99,7 +109,7 @@ class router::nginx (
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target    => "sumSeries(transformNull(stats.counters.${::fqdn_underscore}.nginx.${log_basename}.http_5??.rate,0))",
+    target    => "transformNull(stats.${::fqdn_underscore}.nginx_logs.www-origin.http_5xx,0)",
     warning   => 0.3,
     critical  => 0.6,
     use       => 'govuk_urgent_priority',

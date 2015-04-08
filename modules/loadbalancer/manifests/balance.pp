@@ -50,4 +50,12 @@ define loadbalancer::balance(
   nginx::config::site { $vhost_real:
     content => template('loadbalancer/nginx_balance.conf.erb'),
   }
+
+  nginx::log {
+    "${vhost_real}-json.event.access.log":
+      json      => true,
+      logstream => present;
+    "${vhost_real}-error.log":
+      logstream => present;
+  }
 }

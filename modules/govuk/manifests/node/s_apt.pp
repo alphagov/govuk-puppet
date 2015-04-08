@@ -22,7 +22,6 @@ class govuk::node::s_apt (
 
   Govuk::Mount[$root_dir] -> Class['aptly']
 
-  aptly::repo { 'heka': }
   aptly::mirror {
     'aptly':
       location => 'http://repo.aptly.info',

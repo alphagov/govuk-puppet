@@ -20,5 +20,3 @@ mount:
     disk: '/dev/mapper/vhost-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
-
-heka::plugin::tcp_output::matcher_additional: "Fields[http_host] != 'signon.%{hiera('app_domain')}'"

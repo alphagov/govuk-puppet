@@ -13,11 +13,6 @@ module GovukHieraDefaults
     'asset_root'   => 'http://assets.example.com',
     'website_root' => 'http://www.example.com',
     'internal_tld' => 'example',
-
-    'govuk_heka::monitoring::tcp_port' => 5565,
-    'heka::plugin::graphite::host'     => 'graphite.example.com',
-    'heka::plugin::tcp_output::host'   => 'heka.example.com',
-    'heka::plugin::tcp_output::port'   => 123,
   }
 
   let(:hiera_config) {{
@@ -57,6 +52,5 @@ RSpec.configure do |c|
     :operatingsystemrelease  => possible_releases[dist_preferred],
     :lsbdistid               => 'Debian',
     :lsbdistcodename         => dist_preferred.capitalize,
-    :fqdn_underscore         => 'test_example_com',
   }
 end

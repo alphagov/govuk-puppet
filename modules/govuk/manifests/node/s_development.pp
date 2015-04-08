@@ -5,7 +5,6 @@ class govuk::node::s_development {
   include assets::user
   include golang
   include govuk_apt::disable_pipelining
-  include govuk_heka
   include govuk_mysql::libdev
   include hosts::development
   include imagemagick
