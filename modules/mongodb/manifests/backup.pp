@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: mongodb::backup
+#
+# Backup MongoDB databases using automongodbbackup
+#
+# === Parameters:
+#
+# [*domonthly*]
+#   Whether monthly backups should be enabled or disabled
+#
 class mongodb::backup(
   $domonthly = true
 ) {
