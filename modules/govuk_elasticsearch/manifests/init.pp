@@ -16,6 +16,12 @@
 #   repo. Disable to install elasticsearch from a separately configured repo.
 #   Default: true
 #
+# [*open_firewall_from_all*]
+#   Whether to add a firewall allow rule allowing all access to port 9200 (the
+#   main http port). Typically set to false to allow restricting access to
+#   specific machines.
+#   Default: true
+#
 class govuk_elasticsearch (
   $version,
   $cluster_hosts = ['localhost'],
@@ -29,6 +35,7 @@ class govuk_elasticsearch (
   $log_index_type_count = {},
   $disable_gc_alerts = false,
   $manage_repo = true,
+  $open_firewall_from_all = true,
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -110,12 +117,25 @@ class govuk_elasticsearch (
     legacy_elasticsearch => versioncmp($version, '1.0.0') < 0, # version 0.x has different stats URLs etc.
   }
 
-  @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
-    port => $http_port,
+  if $open_firewall_from_all {
+    @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
+      port => $http_port,
+    }
+  } else {
+    exec { "remove-allow-elasticsearch-http-${http_port}-from-all":
+      command => "ufw delete allow ${http_port}/tcp",
+      onlyif  => "ufw status | grep -E '${http_port}/tcp\s+ALLOW\s+Anywhere'",
+    }
   }
 
-  @ufw::allow { "allow-elasticsearch-transport-${transport_port}-from-all":
-    port => $transport_port;
+  govuk_elasticsearch::firewall_transport_rule { $cluster_hosts:
+    before => Exec["remove-allow-elasticsearch-transport-${transport_port}-from-all"],
+  }
+
+  # FIXME: remove this once it's applied everywhere.
+  exec { "remove-allow-elasticsearch-transport-${transport_port}-from-all":
+    command => "ufw delete allow ${transport_port}/tcp",
+    onlyif  => "ufw status | grep -E '${transport_port}/tcp\s+ALLOW\s+Anywhere'",
   }
 
   include govuk_elasticsearch::estools
