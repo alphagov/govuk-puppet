@@ -22,13 +22,13 @@
 #   attempts to store draft content. This is intended to be used only
 #   during development so that we're not forced to keep draft content
 #   store running while testing unrelated features.
-#   Default: false
+#   Default: ''
 #
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
   $draft_content_store = '',
-  $suppress_draft_store_502_error = false,
+  $suppress_draft_store_502_error = '',
 ) {
   $app_name = 'publishing-api'
   govuk::app { $app_name:
