@@ -28,6 +28,10 @@ class govuk::node::s_api_lb (
   loadbalancer::balance {
     [
       'rummager',
+
+      # support search as an alias for ease of migration from old
+      # cluster running in backend VDC.
+      'search',
     ]:
       servers       => $search_backend_servers,
       internal_only => true;
