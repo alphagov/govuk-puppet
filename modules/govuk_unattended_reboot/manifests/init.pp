@@ -69,7 +69,7 @@ class govuk_unattended_reboot (
   # Do this overnight only to prevent reboots during the day.
   cron { 'unattended-reboot':
     ensure      => $cron_ensure,
-    hour        => '0-8',
+    hour        => '0-7',
     minute      => '*/5',
     user        => 'root',
     environment => ['MAILTO=""'],
