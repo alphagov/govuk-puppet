@@ -48,11 +48,59 @@ class_list.each do |group_class|
   end
 end
 
+# Pre-existing accounts that don't follow the standard username form.
+#
+# We shouldn't be adding users to this list unless their username does not
+# follow the standard form AND is their LDAP username
+username_whitelist = %w{
+  ajlanghorn
+  alex_tea
+  alext
+  benilovj
+  benp
+  bob
+  bradleyw
+  dai
+  dcarley
+  elliot
+  futurefabric
+  heathd
+  jabley
+  jackscotti
+  james
+  jamiec
+  kushalp
+  minglis
+  mwall
+  niallm
+  ollyl
+  ppotter
+  rthorn
+  ssharpe
+  tadast
+  tekin
+  vinayvinay
+}
+
 # Using the list of all manifests, make sure they're included
 # in at least one group
 group_list = users_in_groups
+
 user_list.each do |username|
-  describe username do
+  describe "users::#{username}", :type => "class" do
+    it 'should have a username of the correct form' do
+      user = subject.resource('govuk::user', username)
+      expect(user).not_to be_nil
+
+      unless username_whitelist.include?(username)
+        uname_from_full = user[:fullname].downcase.gsub(/[^a-z]/i, '')
+        uname_from_email = user[:email].split('@').first.gsub(/[^a-z]/i, '')
+
+        expect(uname_from_full).to eq(uname_from_email), "name in fullname(#{user[:fullname]}) must match name in email(#{user[:email]})"
+        expect(user[:name]).to eq(uname_from_full), "expected username '#{user[:name]}' to be '#{uname_from_full}' based on fullname and email"
+      end
+    end
+
     it 'should be in at least one group' do
       group_list.should include(username)
     end
