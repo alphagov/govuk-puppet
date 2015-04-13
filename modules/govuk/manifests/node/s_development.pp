@@ -98,7 +98,8 @@ class govuk::node::s_development {
   include govuk::apps::release
   include govuk::apps::router
   include govuk::apps::router_api
-  include govuk::apps::search
+  include govuk::apps::rummager
+  include govuk::apps::search # FIXME: remove once cleaned up...
   include govuk::apps::search_admin
   include govuk::apps::short_url_manager
   include govuk::apps::signon
