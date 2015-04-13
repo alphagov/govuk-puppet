@@ -34,6 +34,7 @@ class govuk::node::s_api_lb (
       'search',
     ]:
       servers       => $search_backend_servers,
+      https_only    => false, # Necessary for the router to fetch sitemaps.
       internal_only => true;
   }
 }
