@@ -25,6 +25,11 @@ class govuk::apps::rummager(
     app_type           => 'rack',
     port               => $port,
     health_check_path  => '/unified_search?q=search_healthcheck',
+
+    # support search as an alias for ease of migration from old
+    # cluster running in backend VDC.
+    vhost_aliases      => ['search'],
+
     log_format_is_json => true,
     nginx_extra_config => '
     client_max_body_size 500m;
