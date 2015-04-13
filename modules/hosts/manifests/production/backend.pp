@@ -183,7 +183,6 @@ class hosts::production::backend (
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
       "publishing-api.${app_domain}",
-      "search.${app_domain}",
       "search-admin.${app_domain}",
       "short-url-manager.${app_domain}",
       "signon.${app_domain}",

@@ -73,6 +73,7 @@ class hosts::production::api (
       "content-store.${app_domain}",
       "metadata-api.${app_domain}",
       "rummager.${app_domain}",
+      "search.${app_domain}",
     ]
   }
 }
