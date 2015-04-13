@@ -21,6 +21,7 @@ $(dirname $0)/sync-postgresql.sh "$@" postgresql-master-1.backend.preview
 $(dirname $0)/sync-postgresql.sh "$@" transition-postgresql-master-1.backend.preview
 
 $(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.preview
+$(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.preview
 
 status "Munging Signon db tokens for dev VM"
 if [[ -d $(dirname $0)/../../signonotron2 ]]; then
