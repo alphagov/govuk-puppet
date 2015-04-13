@@ -2,16 +2,15 @@
 #
 # This app is rummager deployed to the backend servers (with the vhost search).
 #
-# In time, this will be replaced by govuk::apps::rummager running in the API vDC
+# This has now been replaced by govuk::apps::rummager running in the API vDC,
+# so this now cleans up the old app from the backend servers
+#
+# FIXME: Remove this class when it's been cleaned up everywhere.
+#
 class govuk::apps::search( $port = 3009, $enable_delayed_job_worker = true ) {
-  include aspell
-
-  # Enable raindrops monitoring
-  collectd::plugin::raindrops { 'search':
-    port => $port,
-  }
 
   govuk::app { 'search':
+    ensure             => absent,
     app_type           => 'rack',
     port               => $port,
     health_check_path  => '/unified_search?q=search_healthcheck',
@@ -30,11 +29,13 @@ class govuk::apps::search( $port = 3009, $enable_delayed_job_worker = true ) {
     ',
   }
 
-  class { 'collectd::plugin::search':
-    app_port => $port
+  # Clean up old delayed-job worker.
+  exec {'stop_search_delayed_job_worker':
+    command => 'service search-delayed-job-worker stop || /bin/true',
+    onlyif  => 'test -f /etc/init/search-delayed-job-worker.conf',
   }
-
-  govuk::delayed_job::worker { 'search':
-    enable_service => $enable_delayed_job_worker,
+  file { '/etc/init/search-delayed-job-worker.conf':
+    ensure  => absent,
+    require => Exec['stop_search_delayed_job_worker'],
   }
 }

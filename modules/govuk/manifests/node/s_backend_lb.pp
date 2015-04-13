@@ -55,7 +55,6 @@ class govuk::node::s_backend_lb (
       'govuk-delivery',
       'need-api',
       'publishing-api',
-      'search',
       'support-api',
       'tariff-api',
     ]:
