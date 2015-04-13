@@ -6,9 +6,11 @@
 #
 class users::groups::contractors {
   include users::benjanecke
+  include users::chrisroos
   include users::dominicbaggott
   include users::elliot
   include users::futurefabric
+  include users::jamesmead
   include users::paulbowsher
   include users::paulhayes
   include users::tadast
