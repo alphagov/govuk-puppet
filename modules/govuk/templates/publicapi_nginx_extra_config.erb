@@ -31,7 +31,7 @@
 
     proxy_set_header Host <%= @rummager_api %>;
     proxy_set_header API-PREFIX api;
-    proxy_pass http://<%= @rummager_api %>;
+    proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
   }
 
   location ~ ^/api/search/(govuk|mainstream|detailed|government)/search.json {
@@ -41,7 +41,7 @@
 
     proxy_set_header Host <%= @rummager_api %>;
     proxy_set_header API-PREFIX api;
-    proxy_pass http://<%= @rummager_api %>;
+    proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
   }
 
   location ~ ^/api(/|$) {
