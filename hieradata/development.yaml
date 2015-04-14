@@ -74,6 +74,8 @@ govuk::logstream::disabled: true
 
 govuk::mount::no_op: true
 
+govuk_elasticsearch::version: '1.4.4'
+
 govuk_mysql::server::slow_query_log: true
 
 govuk_postgresql::server::backup: false

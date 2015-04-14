@@ -119,39 +119,20 @@ class govuk::node::s_development {
     vhost_protected    => false,
   }
 
-  case $::lsbdistcodename {
-    'precise': {
-      include govuk_java::oracle7::jdk
-      include govuk_java::oracle7::jre
+  include govuk_java::openjdk7::jdk
+  include govuk_java::openjdk7::jre
+  class { 'govuk_java::set_defaults':
+    jdk => 'openjdk7',
+    jre => 'openjdk7',
+  }
 
-      class { 'govuk_java::set_defaults':
-        jdk => 'oracle7',
-        jre => 'oracle7',
-      }
-
-      $es_version = '0.90.12'
-    }
-    default: {
-      include govuk_java::openjdk7::jdk
-      include govuk_java::openjdk7::jre
-
-      # FIXME: Remove once cleaned up everywhere.
-      class { 'govuk_java::oracle7::jdk':
-        ensure => absent,
-        before => Class['govuk_elasticsearch'],
-      }
-
-      class { 'govuk_java::set_defaults':
-        jdk => 'openjdk7',
-        jre => 'openjdk7',
-      }
-
-      $es_version = '1.4.4'
-    }
+  # FIXME: Remove once cleaned up everywhere.
+  class { 'govuk_java::oracle7::jdk':
+    ensure => absent,
+    before => Class['govuk_elasticsearch'],
   }
 
   class { 'govuk_elasticsearch':
-    version            => $es_version,
     cluster_name       => 'govuk-development',
     heap_size          => '256m',
     number_of_shards   => '1',
