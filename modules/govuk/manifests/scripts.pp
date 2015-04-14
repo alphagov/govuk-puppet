@@ -17,12 +17,9 @@ class govuk::scripts {
     mode   => '0755',
   }
 
-  # govuk_unused_kernels identifies unused kernel packages than can be
-  # uninstalled
+  # FIXME: Remove when deployed.
   file { '/usr/local/bin/govuk_unused_kernels':
-    ensure => present,
-    source => 'puppet:///modules/govuk/bin/govuk_unused_kernels',
-    mode   => '0755',
+    ensure => absent,
   }
 
   # govuk_check_security_upgrades list packages which need a security upgrade

@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e -o pipefail
+
+PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ubuntu-unused-kernels | xargs -r apt-get -y purge

@@ -54,8 +54,7 @@ class icinga::client::checks (
     service_description => 'low available disk space on /boot',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#boot-partition-is-full',
-    }
+  }
 
   @@icinga::check { "check_users_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_users',

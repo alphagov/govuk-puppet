@@ -17,6 +17,7 @@ class base {
   include shell
   include ssh
   include motd
+  include govuk_apt::unused_kernels
   include govuk_sudo
   include govuk_sysctl
   include timezone
