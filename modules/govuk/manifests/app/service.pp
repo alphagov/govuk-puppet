@@ -6,10 +6,13 @@ define govuk::app::service (
   $enable_service = hiera('govuk_app_enable_services', true)
 
   if $ensure == 'absent' {
-    service { $title:
-      ensure   => stopped,
-      provider => 'base',
-      pattern  => $title,
+    # Stop the app if it's running.
+    # The before will ensure that this gets stopped before the upstart script
+    # is removed. And the onlyif prevents this from erroring on future runs.
+    exec { "stop-service-${title}":
+      command => "service ${title} stop || /bin/true",
+      onlyif  => "test -f /etc/init/${title}.conf",
+      before  => File["/etc/init/${title}.conf"],
     }
   } else {
     service { $title:
