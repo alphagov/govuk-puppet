@@ -64,12 +64,11 @@ class govuk_unattended_reboot (
     require => Package['unattended-upgrades'],
   }
 
-  # Check if a reboot is required every minute from midnight to 8am
-  # and attempt to grab the reboot mutex.
+  # Check if a reboot is required and attempt to grab the reboot mutex.
   # Do this overnight only to prevent reboots during the day.
   cron { 'unattended-reboot':
     ensure      => $cron_ensure,
-    hour        => '0-7',
+    hour        => '0-5',
     minute      => '*/5',
     user        => 'root',
     environment => ['MAILTO=""'],
