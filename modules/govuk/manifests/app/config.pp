@@ -124,7 +124,12 @@ define govuk::app::config (
   file { "/etc/init/${title}.conf":
     ensure  => $ensure_file,
     content => template('govuk/app_upstart.conf.erb'),
-    notify  => Service[$title],
+  }
+  # The service instance won't exist when we're removing the app
+  if $ensure_file != 'absent' {
+    File["/etc/init/${title}.conf"] {
+      notify => Service[$title],
+    }
   }
 
   $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
