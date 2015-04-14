@@ -61,7 +61,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::apps::publisher
   include govuk::apps::publishing_api
   include govuk::apps::release
-  include govuk::apps::search
   include govuk::apps::search_admin
   include govuk::apps::short_url_manager
   include govuk::apps::sidekiq_monitoring
