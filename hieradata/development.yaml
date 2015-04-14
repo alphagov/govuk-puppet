@@ -85,6 +85,8 @@ govuk::sshkeys::from_hiera::keys:
   jumpbox.preview.alphagov.co.uk:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDszQ/ewOfnIRuFtJm79O+67XNAtVZt1x/mVr+jixYNj8gQRCfXlOTymggT9QrTqxCFOmqg6Hz4x0E7EMpXrrWjXV6/5au/Ztgt5O6AbCtJb0ldhdPTEhbDFoctnzag3GL/TyXq579+9e23KShYtwP/QtI7qTiakNk6XrGcymX1fjd5BrwZa5rXDsa2k/e5NnpzjzGmmTZy4tLy+ceArVKbqj8DjITCj7xQIjUqioDbi4yJZ6t89dZFbBUk9dEODLxYmzNS1biK5zPlGd9+hpIC1Rl2FdMVH40OQAhieMuxdQN9umVfCAPsy+kkn2do1hLnqXsiXOZZgfqqlx61Vgf/"
     host_aliases: "31.210.240.198"
+  api-elasticsearch-1.api.preview:
+    key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDCt29hOrs/L/UxqD+pl5L0TkBJVcr+q6WBX/qC4tJXremnBXv2bpiWrTw/SA1eiWc9iCZxQxbJO2h9lp3t/HB5I8JWYiamDj/pXGC138XIUbm4oEvRfpEMn5a5LYIr01bv1zjXbqVbwSmKJBG4MDFENOyIhv4oAeXNMxEM/UtuKtgwdux2tkEsVlKnI8nbn6oVIJ/n83eCIorBF+7fiO3MO3yHY11w1vpm1oBmHSq6jGGzN+ge75DCbiDv5ZgbCDRZD3HN+zrAyOnbtM/2Un34Tp/0FF9t1TQRO2VjR7TdfJpMj4fSVuKbb1GRrfz8Vrv/O8MHpK5motTPjsl+MK21"
   api-mongo-1.api.preview:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQC9G68UD9EXz12K34fB39E2dP58yMRWzKUq8ZnsooIO1/fhd/BgVdQPNk1mVOBIvjRZBEEB7bukzgMqj8mDRSmwOyoRU3RVjP+Zt5Hcx0JtKtqRe5s+R/IVJomX+8YVxCJwvDUk8n5RySoDAST6DkIqzwwMW/d6IbVDMVa0IUi7raGiKHQM0p6fpjA2AyBHotnIBGHSNrtmftcLwJJ/rIHqecHFq8Y6khJjHFRWwqre0SBHHrHekv20BEY0K1aZnDoY8AyCTB4nHmibavO0SSHYfi7BEeO2+0WxGwUPhynYAHQZCW7lnbNgnKmHPmOVwn2sJsBO/EtKZpQFdcAzJlXb"
   elasticsearch-1.backend.preview:
