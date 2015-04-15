@@ -39,7 +39,10 @@ class govuk_rbenv::all {
   rbenv::version { '2.2.1':
     bundler_version => '1.8.3'
   }
+  rbenv::version { '2.2.2':
+    bundler_version => '1.9.4',
+  }
   rbenv::alias { '2.2':
-    to_version => '2.2.1'
+    to_version => '2.2.2'
   }
 }
