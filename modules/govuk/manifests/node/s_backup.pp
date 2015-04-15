@@ -30,48 +30,56 @@ class govuk::node::s_backup (
     directory => '/var/lib/automongodbbackup/',
     host_name => 'mongo-1',
     fq_dn     => 'mongo-1.backend.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_mongodb_backups_api_mongo':
     directory => '/var/lib/automongodbbackup/',
     host_name => 'api-mongo-1',
     fq_dn     => 'api-mongo-1.api.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_mongodb_backups_licensify_mongo':
     directory => '/var/lib/automongodbbackup/',
     host_name => 'licensify-mongo-1',
     fq_dn     => 'licensify-mongo-1.licensify.production',
+    priority  => '002',
   }
 
   backup::directory {'backup_mongodb_backups_router_backend':
     directory => '/var/lib/automongodbbackup/',
     host_name => 'router-backend-1',
     fq_dn     => 'router-backend-1.router.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_mysql_backups_mysql_backup_1':
     directory => '/var/lib/automysqlbackup/',
     host_name => 'mysql-backup-1',
     fq_dn     => 'mysql-backup-1.backend.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_mysql_backups_support_contacts_mysql':
     directory => '/var/lib/automysqlbackup/',
     host_name => 'support-contacts-1',
     fq_dn     => 'support-contacts-1.backend.production',
+    priority  => '002',
   }
 
   backup::directory {'backup_mysql_backups_whitehall_mysql_backup_1':
     directory => '/var/lib/automysqlbackup/',
     host_name => 'whitehall-mysql-backup-1',
     fq_dn     => 'whitehall-mysql-backup-1.backend.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_postgresql_backups_postgresql_master_1':
     directory => '/var/lib/autopostgresqlbackup/',
     host_name => 'postgresql-master-1',
     fq_dn     => 'postgresql-master-1.backend.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_postgresql_backups_puppetmaster_postgresql':
@@ -84,6 +92,7 @@ class govuk::node::s_backup (
     directory => '/var/lib/autopostgresqlbackup/',
     host_name => 'transition-postgresql-master-1',
     fq_dn     => 'transition-postgresql-master-1.backend.production',
+    priority  => '001',
   }
 
   backup::directory {'backup_graphite_storage_whisper_graphite-1':
@@ -97,6 +106,7 @@ class govuk::node::s_backup (
       directory => '/var/lib/automysqlbackup/',
       host_name => 'efg-mysql-slave-1',
       fq_dn     => 'efg-mysql-slave-1.efg.production',
+      priority  => '002',
     }
   }
 }
