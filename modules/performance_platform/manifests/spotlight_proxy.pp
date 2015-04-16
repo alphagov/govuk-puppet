@@ -25,7 +25,7 @@ class performance_platform::spotlight_proxy (
   $app_name = 'spotlight-proxy'
 
   $vhost_full = "${app_name}.${app_domain}"
-  $spotlight_host = "spotlight.${perfplat_internal_app_domain}"
+  $spotlight_host = "${app_name}.${perfplat_internal_app_domain}"
 
   # Nginx logs
   $logpath = '/var/log/nginx'
