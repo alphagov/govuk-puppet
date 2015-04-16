@@ -52,4 +52,5 @@ class govuk::node::s_frontend_lb (
   include govuk::apps::public_link_tracker
 
   include performance_platform::spotlight
+  include performance_platform::spotlight_proxy
 }
