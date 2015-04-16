@@ -24,11 +24,26 @@
 #   store running while testing unrelated features.
 #   Default: ''
 #
+# [*errbit_host*]
+#   Errbit host to be used by gobrake to notify errors
+#   Default: ''
+#
+# [*errbit_api_key*]
+#   Errbit API key used by gobrake
+#   Default: ''
+#
+# [*errbit_environment_name*]
+#   Errbit environment name, one of preview or production
+#   Default: ''
+#
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
   $draft_content_store = '',
   $suppress_draft_store_502_error = '',
+  $errbit_host = '',
+  $errbit_api_key = '',
+  $errbit_environment_name = '',
 ) {
   $app_name = 'publishing-api'
   govuk::app { $app_name:
@@ -59,5 +74,11 @@ class govuk::apps::publishing_api(
       value => $draft_content_store;
     'SUPPRESS_DRAFT_STORE_502_ERROR':
       value => $suppress_draft_store_502_error;
+    'ERRBIT_HOST':
+      value => $errbit_host;
+    'ERRBIT_API_KEY':
+      value => $errbit_api_key;
+    'ERRBIT_ENVIRONMENT_NAME':
+      value => $errbit_environment_name;
   }
 }
