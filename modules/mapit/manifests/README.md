@@ -207,7 +207,7 @@ pg_dump mapit | gzip > mapit-May2014.sql.gz
 ```
 
 You now need to copy this SQL dump off your VM and arrange to put it onto the
-gds-public-readable-tarballs S3 bucket. You can then adjust the URL for the
+gds-public-readable-tarballs S3 bucket. You can then adjust the URL and checksum for the
 `mapit_dbdump_download` resource in `govuk/manifests/node/s_mapit_server.pp` and test
 that you can bring up a new mapit node from scratch.
 

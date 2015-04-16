@@ -1,5 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class mapit::package {
+# == Class: mapit::package
+#
+# Install mapit dependencies.
+#
+class mapit::package () {
 
   group { 'mapit':
       ensure => present,
@@ -34,18 +37,39 @@ class mapit::package {
   package { [
             'gdal-bin',
             'memcached',
-            'python-beautifulsoup',
-            'python-django',
-            'python-django-south',
-            'python-flup',
             'python-gdal',
-            'python-memcache',
             'python-psycopg2',
-            'python-shapely',
-            'python-yaml'
             ]:
     ensure => present,
   }
+
+  # FIXME: Remove once these packages are absent in production
+  package {
+    [
+      'python-beautifulsoup',
+      'python-django',
+      'python-django-south',
+      'python-flup',
+      'python-memcache',
+      'python-shapely',
+      'python-yaml'
+    ]:
+    ensure => absent,
+  }
+
+  $pip_packages = {
+    'BeautifulSoup'    => {'ensure' => '3.2.0'},
+    'Django'           => {'ensure' => '1.3.1'},
+    'flup'             => {'ensure' => '1.0.2'},
+    'python_memcached' => {'ensure' => '1.48'},
+    'PyYAML'           => {'ensure' => '3.10'},
+    'Shapely'          => {'ensure' => '1.2.14'},
+    'South'            => {'ensure' => '0.7.3'},
+  }
+
+  create_resources('package', $pip_packages, {
+    provider => 'pip',
+  })
 
   file { '/data/vhost/mapit/data/mapit.tar.gz':
     ensure => file,
