@@ -21,7 +21,7 @@ process :'courts-frontend' => [:static, :'content-store']
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'
-process :'email-alert-frontend' => [:'email-alert-api', :static]
+process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
 process :'email-alert-monitor'
 process :errbit
