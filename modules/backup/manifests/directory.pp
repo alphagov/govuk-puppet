@@ -4,6 +4,7 @@ define backup::directory (
     $host_name,
     $fq_dn,
     $frequency = 'daily',
+    $priority = undef,
     $versioned = false
     ) {
 
@@ -18,7 +19,14 @@ define backup::directory (
     # Also used in template.
     $service_desc   = "backup ${fq_dn}:${directory}"
 
-    file { "/etc/backup/${frequency}/directory_${name}":
+    if $priority {
+      $filename = "/etc/backup/${frequency}/${priority}_directory_${name}"
+    }
+    else {
+      $filename = "/etc/backup/${frequency}/directory_${name}"
+    }
+
+    file { $filename:
         content => template('backup/directory.erb'),
         mode    => '0755',
     }
