@@ -3,6 +3,8 @@ class govuk::node::s_frontend_lb (
   $govuk_frontend_servers,
   $whitehall_frontend_servers,
   $calculators_frontend_servers,
+  $performance_frontend_servers = [],
+  $performance_frontend_apps = [],
   $hide_frontend_apps = true,
 ){
   include govuk::node::s_base
@@ -45,12 +47,16 @@ class govuk::node::s_frontend_lb (
       servers       => $calculators_frontend_servers;
     'whitehall-frontend':
       servers       => $whitehall_frontend_servers;
+    $performance_frontend_apps:
+      servers       => $performance_frontend_servers;
   }
 
   include govuk::apps::publicapi
   include govuk::apps::public_event_store
   include govuk::apps::public_link_tracker
 
-  include performance_platform::spotlight
+  if (!('spotlight' in $performance_frontend_apps)) {
+    include performance_platform::spotlight
+  }
   include performance_platform::spotlight_proxy
 }
