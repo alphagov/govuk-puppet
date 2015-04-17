@@ -19,7 +19,6 @@ class base {
   include motd
   include govuk_apt::unused_kernels
   include govuk_sudo
-  include govuk_sysctl
   include timezone
   include tmpreaper
   include tmux

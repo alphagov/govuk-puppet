@@ -26,20 +26,6 @@ class govuk::node::s_base {
     purge_rsyslog_d => true,
   }
 
-  # FIXME: Remove once deployed everywhere
-  package { 'heka':
-    ensure => purged,
-  } ->
-  service { 'heka':
-    ensure   => stopped,
-    provider => 'base',
-    pattern  => 'hekad',
-  } ->
-  file { ['/etc/heka', '/var/cache/hekad', '/etc/init/heka.conf']:
-    ensure => absent,
-    force  => true,
-  }
-
   # FIXME: Disable central syslog on Trusty
   # See https://www.pivotaltracker.com/story/show/81359288 for details
   case $::lsbdistcodename {
