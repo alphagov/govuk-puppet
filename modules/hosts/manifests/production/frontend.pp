@@ -93,6 +93,7 @@ class hosts::production::frontend (
       "service-manual.${app_domain}",
       "smartanswers.${app_domain}",
       "spotlight.${app_domain}",
+      "spotlight-proxy.${app_domain}",
       "specialist-frontend.${app_domain}",
       "static.${app_domain}",
       "tariff.${app_domain}",
