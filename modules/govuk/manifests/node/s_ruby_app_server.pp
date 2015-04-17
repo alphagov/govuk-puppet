@@ -3,6 +3,9 @@ class govuk::node::s_ruby_app_server {
   include govuk_mysql::libdev
   include govuk_rbenv::all
   include mysql::client
+
+  # sprockets-rails, the library which compiles assets, depends on Uglifier,
+  # which depends on ExecJS, depends on Node.js
   include nodejs
 
   package {
