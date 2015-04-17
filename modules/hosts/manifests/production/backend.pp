@@ -31,6 +31,12 @@ class hosts::production::backend (
   govuk::host { 'backend-3':
     ip  => '10.3.0.4',
   }
+  govuk::host { 'performance-backend-1':
+    ip  => '10.3.0.80'
+  }
+  govuk::host { 'performance-backend-2':
+    ip  => '10.3.0.81'
+  }
   govuk::host { 'whitehall-backend-1':
     ip  => '10.3.0.25',
   }
