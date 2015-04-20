@@ -18,10 +18,11 @@ class govuk::apps::performanceplatform_big_screen_view (
       vhost_full => $vhost_full,
     }
     govuk::app::nginx_vhost { $app_name:
-      ensure   => present,
-      vhost    => $vhost_full,
-      ssl_only => true,
-      app_port => 3058,
+      ensure     => present,
+      static_app => true,
+      vhost      => $vhost_full,
+      ssl_only   => true,
+      app_port   => 3058,
     }
   }
 }

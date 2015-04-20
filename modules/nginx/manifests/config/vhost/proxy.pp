@@ -35,6 +35,7 @@ define nginx::config::vhost::proxy(
                             # Please, please, remove when we have a
                             # sensible means of managing SSL certificates.
   $hidden_paths = [],
+  $static_app = false,
   $ensure = 'present',
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
