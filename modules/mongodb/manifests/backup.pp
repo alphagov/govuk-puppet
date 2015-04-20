@@ -18,35 +18,42 @@ class mongodb::backup(
   $service_desc = 'AutoMongoDB backup'
 
   if $enabled {
+    $present = 'present'
+  }
+  else {
+    $present = 'absent'
+  }
+
+  file { '/etc/cron.daily/automongodbbackup-replicaset':
+    ensure  => $present,
+    content => template('mongodb/automongodbbackup'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0744',
+    require => Class['mongodb::package'],
+  } ->
+  file { '/var/log/automongodbbackup':
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+  }
+
+  govuk::logstream { 'automongodbbackup':
+    ensure  => $present,
+    fields  => {'application' => 'automongodbbackup'},
+    logfile => '/var/log/automongodbbackup/backup.log',
+    tags    => ['backup', 'automongodbbackup', 'mongo'],
+  }
+
+  file { '/etc/logrotate.d/automongodbbackup':
+    ensure  => $present,
+    source  => 'puppet:///modules/mongodb/etc/logrotate.d/automongodbbackup',
+    require => Class['logrotate'],
+  }
+
+  if $enabled {
     include logrotate
-
-    file { '/etc/cron.daily/automongodbbackup-replicaset':
-      ensure  => present,
-      content => template('mongodb/automongodbbackup'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0744',
-      require => Class['mongodb::package'],
-    } ->
-    file { '/var/log/automongodbbackup':
-      ensure => directory,
-      mode   => '0755',
-      owner  => 'root',
-      group  => 'root',
-    }
-
-    govuk::logstream { 'automongodbbackup':
-      ensure  => present,
-      fields  => {'application' => 'automongodbbackup'},
-      logfile => '/var/log/automongodbbackup/backup.log',
-      tags    => ['backup', 'automongodbbackup', 'mongo'],
-    }
-
-    file { '/etc/logrotate.d/automongodbbackup':
-      ensure  => present,
-      source  => 'puppet:///modules/mongodb/etc/logrotate.d/automongodbbackup',
-      require => Class['logrotate'],
-    }
 
     @@icinga::passive_check { "check_automongodbbackup-${::hostname}":
       service_description => $service_desc,
