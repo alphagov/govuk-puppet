@@ -56,6 +56,7 @@ class govuk_rbenv::cleanup {
     }
   }
 
+  # FIXME: remove this version once cleaned up from all servers.
   if ! defined(Rbenv::Version['2.2.0']) {
     rbenv::version { '2.2.0':
       ensure => absent,
