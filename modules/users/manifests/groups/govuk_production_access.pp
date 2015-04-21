@@ -24,6 +24,7 @@ class users::groups::govuk_production_access {
   include users::davidsingleton
   include users::dcarley
   include users::dominicbaggott
+  include users::eddsowden
   include users::elliot
   include users::heathd
   include users::jabley
