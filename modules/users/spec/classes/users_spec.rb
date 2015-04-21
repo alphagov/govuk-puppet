@@ -30,8 +30,8 @@ def users_in_groups
   group_files.each do |group_filename|
     File.open(group_filename) do |file|
       file.each_line do |line|
-        if line.match(/^  include/)
-          users_in_classes_list << line.gsub(/^  include users::(.+)\n$/, '\1')
+        if line.match(/^ +include/)
+          users_in_classes_list << line.gsub(/^ +include users::(.+)\n$/, '\1')
         end
       end
     end
