@@ -51,7 +51,7 @@ EOS
   # Static IP for NFS and DNS
   config.vm.network :private_network, :ip => "10.1.1.254"
   config.vm.hostname = "development.development"
-  config.vm.provision :shell, :inline => "NO_GIT_PULL=1 /var/govuk/puppet/tools/puppet-apply-dev"
+  config.vm.provision :shell, :privileged => false, :inline => "NO_GIT_PULL=1 /var/govuk/puppet/tools/puppet-apply-dev"
 
   config
 end
