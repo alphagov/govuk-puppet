@@ -87,6 +87,7 @@ class hosts::production::frontend (
       "info-frontend.${app_domain}",
       "manuals-frontend.${app_domain}",
       "licencefinder.${app_domain}",
+      "performanceplatform-big-screen-view.${app_domain}",
       "publicapi.${app_domain}",
       "public-event-store.${app_domain}",
       "public-link-tracker.${app_domain}",
