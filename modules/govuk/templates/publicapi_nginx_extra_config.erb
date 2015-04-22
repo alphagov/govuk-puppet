@@ -34,6 +34,13 @@
     proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
   }
 
+  location ~ ^/api/content/.*?$ {
+    expires 30m;
+
+    proxy_set_header Host <%= @content_store_api %>;
+    proxy_pass <%= @privateapi_protocol %>://<%= @content_store_api %>;
+  }
+
   location ~ ^/api(/|$) {
     expires 30m;
 
