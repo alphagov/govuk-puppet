@@ -24,6 +24,7 @@ class govuk::node::s_backup (
     directory => '/var/lib/automongodbbackup/',
     host_name => 'exception-handler-1',
     fq_dn     => 'exception-handler-1.backend.production',
+    priority  => '003',
   }
 
   backup::directory {'backup_mongodb_backups_mongo':
@@ -86,6 +87,7 @@ class govuk::node::s_backup (
     directory => '/var/lib/autopostgresqlbackup/',
     host_name => 'puppetmaster-1',
     fq_dn     => 'puppetmaster-1.management.production',
+    priority  => '003',
   }
 
   backup::directory {'backup_postgresql_backups_transition_postgresql_master_1':
@@ -99,6 +101,7 @@ class govuk::node::s_backup (
     directory => '/opt/graphite/storage/whisper',
     host_name => 'graphite-1',
     fq_dn     => 'graphite-1.management.production',
+    priority  => '004',
   }
 
   if $backup_efg {
