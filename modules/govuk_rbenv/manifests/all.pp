@@ -36,9 +36,6 @@ class govuk_rbenv::all {
     to_version => '2.1.6'
   }
 
-  rbenv::version { '2.2.0':
-    bundler_version => '1.7.11'
-  }
   rbenv::version { '2.2.1':
     bundler_version => '1.8.3'
   }

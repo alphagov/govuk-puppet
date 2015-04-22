@@ -19,12 +19,6 @@ class govuk_rbenv::cleanup {
       ensure => absent,
     }
   }
-  # FIXME: remove this version once cleaned up from all servers.
-  if ! defined(Rbenv::Version['2.0.0-p451']) {
-    rbenv::version { '2.0.0-p451':
-      ensure => absent,
-    }
-  }
   if ! defined(Rbenv::Version['2.0.0-p594']) {
     rbenv::version { '2.0.0-p594':
       ensure => absent,
@@ -46,14 +40,35 @@ class govuk_rbenv::cleanup {
       ensure => absent,
     }
   }
+  if ! defined(Rbenv::Version['2.1.5']) {
+    rbenv::version { '2.1.5':
+      ensure => absent,
+    }
+  }
+  if ! defined(Rbenv::Version['2.1.6']) {
+    rbenv::version { '2.1.6':
+      ensure => absent,
+    }
+  }
   if ! defined(Rbenv::Alias['2.1']) {
     file { "${rbenv::params::rbenv_root}/versions/2.1":
       ensure => absent,
     }
   }
 
+  # FIXME: remove this version once cleaned up from all servers.
   if ! defined(Rbenv::Version['2.2.0']) {
     rbenv::version { '2.2.0':
+      ensure => absent,
+    }
+  }
+  if ! defined(Rbenv::Version['2.2.1']) {
+    rbenv::version { '2.2.1':
+      ensure => absent,
+    }
+  }
+  if ! defined(Rbenv::Version['2.2.2']) {
+    rbenv::version { '2.2.2':
       ensure => absent,
     }
   }
