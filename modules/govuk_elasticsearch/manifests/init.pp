@@ -93,7 +93,14 @@ class govuk_elasticsearch (
   if versioncmp($version, '1.4.3') >= 0 {
     # 1.4.3 introduced this setting and set it to false by default
     # http://www.elastic.co/guide/en/elasticsearch/reference/1.x/modules-scripting.html
-    $instance_config_real = merge($instance_config, {'script.groovy.sandbox.enabled' => true})
+    $instance_config_real = merge($instance_config,{
+      'action.destructive_requires_name' => true,
+      'script.groovy.sandbox.enabled' => true
+    })
+  } elsif versioncmp($version, '0.90.12') >= 0 {
+      $instance_config_real = merge($instance_config,{
+        'action.disable_delete_all_indices' => true
+    })
   } else {
     $instance_config_real = $instance_config
   }
