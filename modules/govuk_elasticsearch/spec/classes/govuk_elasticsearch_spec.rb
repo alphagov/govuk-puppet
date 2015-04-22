@@ -52,6 +52,42 @@ describe 'govuk_elasticsearch', :type => :class do
     end
   end
 
+  describe "destructive actions require name to be used explicitly" do
+    let (:params) {{}}
+
+    it "should not be added to 0.90.12" do
+      params[:version] = '0.90.12'
+
+      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      expect(instance[:config]).not_to have_key('action.destructive_requires_name')
+    end
+
+    it "should be added to 1.4.4" do
+      params[:version] = '1.4.4'
+
+      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      expect(instance[:config]).to have_key('action.destructive_requires_name')
+    end
+  end
+
+  describe "disable deletion of all indicies by default" do
+    let (:params) {{}}
+
+    it "should be added to 0.90.12" do
+      params[:version] = '0.90.12'
+
+      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      expect(instance[:config]).to have_key('action.disable_delete_all_indices')
+    end
+
+    it "should not be added to 1.4.4" do
+     params[:version] = '1.4.4'
+
+      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      expect(instance[:config]).not_to have_key('action.disable_delete_all_indices')
+    end
+  end
+
   describe "enabling dynamic scripting" do
     let(:params) {{}}
 
