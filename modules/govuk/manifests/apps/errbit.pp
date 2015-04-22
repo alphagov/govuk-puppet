@@ -28,8 +28,12 @@ class govuk::apps::errbit(
     app => 'errbit',
   }
 
+  $app_domain = hiera('app_domain')
+
   govuk::app::envvar {
     'ERRBIT_EMAIL_FROM':
       value => $errbit_email_from;
+    'ERRBIT_HOST':
+      value => "errbit.${app_domain}";
   }
 }
