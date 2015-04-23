@@ -34,7 +34,11 @@
     proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
   }
 
-  location ~ ^/api/content/.*?$ {
+  location ~ ^/api/content/ {
+    limit_except GET {
+      deny all;
+    }
+
     expires 30m;
 
     proxy_set_header Host <%= @content_store_api %>;
