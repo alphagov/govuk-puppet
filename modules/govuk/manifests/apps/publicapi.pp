@@ -11,6 +11,7 @@ class govuk::apps::publicapi (
   $whitehallapi = "whitehall-frontend.${app_domain}"
   $business_support_api = "business-support-api.${app_domain}"
   $rummager_api = "search.${app_domain}"
+  $content_store_api = "content-store.${app_domain}"
 
   $backdrop_url = "${backdrop_protocol}://${backdrop_host}"
 
