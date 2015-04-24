@@ -14,7 +14,7 @@
 #
 class govuk::apps::screenshot_as_a_service (
   $enabled = false,
-  $port = 3059,
+  $port = 3060,
 ) {
 
   if $enabled {
@@ -23,7 +23,7 @@ class govuk::apps::screenshot_as_a_service (
       command           => '/usr/bin/node app',
       port              => $port,
       vhost_ssl_only    => true,
-      health_check_path => '/',
+      health_check_path => '/usage.html',
     }
 
     package { ['libcairo2-dev', 'libjpeg8-dev', 'libpango1.0-dev', 'libgif-dev']:
