@@ -14,7 +14,7 @@
 #
 class govuk::apps::screenshot_as_a_service (
   $enabled = false,
-  $port = 3059,
+  $port = 3060,
 ) {
 
   if $enabled {
