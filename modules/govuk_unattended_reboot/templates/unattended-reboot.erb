@@ -4,10 +4,7 @@ set -u
 ICINGA_URL='https://nagios.cluster/cgi-bin/icinga/status.cgi?search_string=%5E<%= @node_class_search_phrase %>-[0-9]&allunhandledproblems&jsonoutput'
 
 # Release the lock if this machine has it.
-if /usr/bin/locksmithctl -endpoint='<%= @etcd_endpoints.join(',') %>' status | grep -q '<%= @fqdn %>'
-then
-  /usr/bin/locksmithctl -endpoint='<%= @etcd_endpoints.join(',') %>' unlock '<%= @fqdn %>'
-fi
+/usr/bin/locksmithctl -endpoint='<%= @etcd_endpoints.join(',') %>' unlock '<%= @fqdn %>'
 
 if ! [ -f /var/run/reboot-required ]; then
   # No reboot required
