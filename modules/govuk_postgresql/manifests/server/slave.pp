@@ -55,12 +55,12 @@ class govuk_postgresql::server::slave (
 
   $metric_suffix = 'postgresql-global.bytes-xlog_position'
   # Wildcard to account for us not having the FQDN.
-  $master_metric = "${master_host_underscore}*.${metric_suffix}"
+  $primary_metric = "${master_host_underscore}*.${metric_suffix}"
   $slave_metric  = "${::fqdn_underscore}.${metric_suffix}"
 
   @@icinga::check::graphite { "check_postgres_replication_lag_${::hostname}":
-    target    => "movingMedian(removeBelowValue(diffSeries(${master_metric},${slave_metric}), 0),5)",
-    desc      => 'replication on the postgres slave is too far behind master [value in bytes]',
+    target    => "movingMedian(removeBelowValue(diffSeries(${primary_metric},${slave_metric}), 0),5)",
+    desc      => 'replication on the postgres slave is too far behind primary [value in bytes]',
     warning   => to_bytes('8 MB'),
     critical  => to_bytes('16 MB'),
     args      => '--droplast 1',

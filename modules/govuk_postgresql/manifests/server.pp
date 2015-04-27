@@ -9,10 +9,10 @@ class govuk_postgresql::server (
 ) {
   if !(
     defined(Class["${name}::standalone"]) or
-    defined(Class["${name}::master"]) or
+    defined(Class["${name}::primary"]) or
     defined(Class["${name}::slave"])
   ) {
-    fail("Class ${name} cannot be used directly. Please use standalone/master/slave")
+    fail("Class ${name} cannot be used directly. Please use standalone/primary/slave")
   }
 
   class {'postgresql::server':

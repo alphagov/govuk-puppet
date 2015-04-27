@@ -15,9 +15,9 @@ describe 'govuk_postgresql::server', :type => :class do
       it { should contain_class('govuk_postgresql::server') }
     end
 
-    context 'master sub-class is loaded' do
+    context 'primary sub-class is loaded' do
       let(:pre_condition) { <<-EOS
-        class { 'govuk_postgresql::server::master':
+        class { 'govuk_postgresql::server::primary':
           slave_password => 'password',
           slave_address  => '0.0.0.0/0',
         }
