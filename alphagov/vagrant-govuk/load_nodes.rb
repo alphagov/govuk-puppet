@@ -39,6 +39,12 @@ def load_nodes
           'ip' => network.fetch('ip_address'),
         }
 
+        ['precise', 'trusty'].each do |dist|
+          if vapp['vapp_template_name'].include? dist
+            config['box_dist'] = dist
+          end
+        end
+
         [name, config]
       }
     }
