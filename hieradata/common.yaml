@@ -28,17 +28,8 @@ apt::sources:
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}-security'
     repos: 'main restricted universe multiverse'
-# FIXME: Use regex/glob when we no longer support Lucid.
 apt::unattended_upgrades::blacklist:
- - 'mysql-server'
- - 'mysql-server-4.1'
- - 'mysql-server-5.0'
- - 'mysql-server-5.1'
- - 'mysql-server-5.5'
- - 'mysql-server-core'
- - 'mysql-server-core-5.0'
- - 'mysql-server-core-5.1'
- - 'mysql-server-core-5.5'
+ - 'mysql-server.*'
 apt::unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
 apt::unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
