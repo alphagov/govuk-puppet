@@ -51,10 +51,10 @@ maslow:                govuk_setenv maslow                ./run_in.sh ../maslow 
 # router uses 3054 and 3055
 router:                govuk_setenv router                ./run_in.sh ../router         make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../router-api     bundle exec rails s -p 3056
-# alphagov/spotlight uses 3057 on CI ONLY (rest is Performance Platform infrastructure)
+# alphagov/spotlight uses port 3057
 content_planner:       govuk_setenv content-planner       ./run_in.sh ../content-planner bundle exec rails s -p 3058
 # alphagov/screenshot-as-a-service uses 3059
-#                                  as well as 3060, but both only on CI (and Performance Platform boxes).
+#                                  as well as 3060
 business_support_api:  govuk_setenv business-support-api  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
 finder-api:            govuk_setenv finder-api            ./run_in.sh ../finder-api     bundle exec mr-sparkle --force-polling -- -p 3063
@@ -96,10 +96,10 @@ event-store:           govuk_setenv event-store           ./run_in.sh ../event-s
 policy-publisher:      govuk_setenv policy-publisher      ./run_in.sh ../policy-publisher bundle exec rails s -p 3098
 email-alert-frontend:  govuk_setenv email-alert-frontend  ./run_in.sh ../email-alert-frontend bundle exec rails s -p 3099
 draft-content-store:   govuk_setenv draft-content-store   ./run_in.sh ../content-store bundle exec rails s -p 3100 -P tmp/pids/draft-server.pid
-
-# datainsight-weekly-reach-recorder used to use port 3102, but is no longer running in any environment
-# datainsight-todays-activity-recorder used to use port 3103, but is no longer running in any environment
-# datainsight-format-success-recorder used to use port 3104, but is no longer running in any environment
+# backdrop's read API uses 3101
+# backdrop's write API uses 3102
+# stagecraft uses 3103
+# performanceplatform-admin uses 3104
 # datainsight-everything-recorder used to use port 3105, but is no longer running in any environment
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
 
