@@ -74,6 +74,7 @@ class hosts::production::api (
       "metadata-api.${app_domain}",
       "rummager.${app_domain}",
       "search.${app_domain}",
+      "stagecraft.${app_domain}",
     ]
   }
 }
