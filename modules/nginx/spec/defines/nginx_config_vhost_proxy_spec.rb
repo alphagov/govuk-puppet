@@ -15,9 +15,26 @@ describe 'nginx::config::vhost::proxy', :type => :define do
         .with_content(/server c\.internal;/)
     end
 
+    it 'should try some options before falling through to the default' do
+      should contain_nginx__config__site('rabbit')
+        .with_content(/try_files \$uri\/index.html \$uri.html \$uri @app;/)
+    end
+
     it { should contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass http:\/\/rabbit-proxy;$/) }
 
+  end
+
+  context 'with @single_page_app set' do
+    let(:params) {{
+      :to              => ['a.internal'],
+      :single_page_app => "/example-path"
+    }}
+
+    it 'should only proxy to the single_page_app path' do
+      should contain_nginx__config__site('rabbit')
+        .with_content(/try_files \$uri\/index.html \$uri.html \$uri \/example-path;/)
+    end
   end
 
   context 'with to_ssl true' do
