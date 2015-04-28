@@ -39,13 +39,8 @@ def load_nodes
         config = {
           'ip' => network.fetch('ip_address'),
         }
-        config['box_dist'] = 'trusty' if template =~ /trusty/
 
-        ['precise', 'trusty'].each do |dist|
-          if vapp['vapp_template_name'].include? dist
-            config['box_dist'] = dist
-          end
-        end
+        config['box_dist'] = ['precise', 'trusty'].find { |dist| vapp['vapp_template_name'].include? dist }
 
         [name, config]
       }
