@@ -15,6 +15,11 @@ describe 'nginx::config::vhost::proxy', :type => :define do
         .with_content(/server c\.internal;/)
     end
 
+    it 'should try some options before falling through to the default' do
+      should contain_nginx__config__site('rabbit')
+        .with_content(/try_files \$uri\/index.html \$uri.html \$uri @app;/)
+    end
+
     it { should contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass http:\/\/rabbit-proxy;$/) }
 
