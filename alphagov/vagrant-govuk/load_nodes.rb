@@ -41,6 +41,12 @@ def load_nodes
         }
         config['box_dist'] = 'trusty' if template =~ /trusty/
 
+        ['precise', 'trusty'].each do |dist|
+          if vapp['vapp_template_name'].include? dist
+            config['box_dist'] = dist
+          end
+        end
+
         [name, config]
       }
     }
