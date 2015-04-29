@@ -40,9 +40,11 @@ class govuk::apps::need_api(
     app => 'need-api',
   }
   govuk::app::envvar {
-    'ERRBIT_API_KEY':
-      value => $errbit_api_key;
-    'ERRBIT_ENVIRONMENT_NAME':
-      value => $errbit_environment_name;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-ERRBIT_ENVIRONMENT_NAME":
+      varname => 'ERRBIT_ENVIRONMENT_NAME',
+      value   => $errbit_environment_name;
   }
 }

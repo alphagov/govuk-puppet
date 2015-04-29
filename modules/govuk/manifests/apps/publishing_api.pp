@@ -69,9 +69,11 @@ class govuk::apps::publishing_api(
       value => $draft_content_store;
     'SUPPRESS_DRAFT_STORE_502_ERROR':
       value => $suppress_draft_store_502_error;
-    'ERRBIT_API_KEY':
-      value => $errbit_api_key;
-    'ERRBIT_ENVIRONMENT_NAME':
-      value => $errbit_environment_name;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-ERRBIT_ENVIRONMENT_NAME":
+      varname => 'ERRBIT_ENVIRONMENT_NAME',
+      value   => $errbit_environment_name;
   }
 }
