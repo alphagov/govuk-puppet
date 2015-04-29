@@ -129,6 +129,12 @@ class hosts::production::backend (
   govuk::host { 'postgresql-slave-1':
     ip  => '10.3.20.11',
   }
+  govuk::host { 'postgresql-primary-1':
+    ip  => '10.3.20.12',
+  }
+  govuk::host { 'postgresql-standby-1':
+    ip  => '10.3.20.13',
+  }
   govuk::host { 'transition-postgresql-master-1':
     ip             => '10.3.20.1',
     legacy_aliases => ['transition-master.postgresql', "transition-postgresql.backend.${internal_tld}"],
