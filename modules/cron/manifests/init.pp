@@ -7,7 +7,19 @@
 #     Failed to generate additional resources using 'generate': Title or
 #     name must be provided
 #
-class cron {
+# === Parameters:
+#
+# [*weekly_dow*]
+#   The day of the week to run cron.weekly jobs on in cron parlance (ie an
+#   integer between 0 and 7 inclusive - 1 is Monday, 2 is Tuesday etc.)
+#   Default: 7 (Sunday)
+#
+class cron (
+  $weekly_dow = 7,
+) {
+
+  validate_integer($weekly_dow, 7, 0)
+
   resources { 'cron':
     purge => true,
   }
