@@ -35,15 +35,20 @@ class govuk::apps::content_store::enable_running_in_draft_mode() {
   }
 
   govuk::app::envvar {
-    'GOVUK_APP_NAME':
-      value => $app_name;
-    'GOVUK_APP_LOGROOT':
-      value => "/var/log/${app_name}";
-    'DRAFT':
-      value => '1';
-    'PORT':
-      value => $draft_content_store_port;
-    'MONGODB_URI':
-      value => 'mongodb://localhost/draft_content_store_development';
+    "${title}-GOVUK_APP_NAME":
+      varname => 'GOVUK_APP_NAME',
+      value   => $app_name;
+    "${title}-GOVUK_APP_LOGROOT":
+      varname => 'GOVUK_APP_LOGROOT',
+      value   => "/var/log/${app_name}";
+    "${title}-DRAFT":
+      varname => 'DRAFT',
+      value   => '1';
+    "${title}-PORT":
+      varname => 'PORT',
+      value   => $draft_content_store_port;
+    "${title}-MONGODB_URI":
+      varname => 'MONGODB_URI',
+      value   => 'mongodb://localhost/draft_content_store_development';
   }
 }
