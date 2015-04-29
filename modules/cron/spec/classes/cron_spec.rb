@@ -25,4 +25,37 @@ describe 'cron', :type => :class do
       it_should_behave_like 'cron splay', fqdn
     end
   end
+
+  describe "Setting cron.weekly day" do
+    let(:params) {{}}
+
+    it "defaults to 7 (sunday)" do
+      expect(subject).to contain_file('/etc/crontab')
+        .with_content(/^(\S+\s+){4}7\s.*cron\.weekly/)
+    end
+
+    it "can be overridden" do
+      params[:weekly_dow] = 1
+      expect(subject).to contain_file('/etc/crontab')
+        .with_content(/^(\S+\s+){4}1\s.*cron\.weekly/)
+    end
+
+    it "raises an error with an invalid value" do
+      params[:weekly_dow] = 8
+
+      expect {
+        subject
+      }.to raise_error(Puppet::Error, /Expected 8 to be smaller or equal to 7/)
+
+      params[:weekly_dow] = -1
+      expect {
+        subject
+      }.to raise_error(Puppet::Error, /Expected -1 to be greater or equal to 0/)
+
+      params[:weekly_dow] = "foo"
+      expect {
+        subject
+      }.to raise_error(Puppet::Error, /Expected first argument to be an Integer/)
+    end
+  end
 end
