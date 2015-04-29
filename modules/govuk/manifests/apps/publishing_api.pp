@@ -63,15 +63,20 @@ class govuk::apps::publishing_api(
   }
 
   govuk::app::envvar {
-    'CONTENT_STORE':
-      value => $content_store;
-    'DRAFT_CONTENT_STORE':
-      value => $draft_content_store;
-    'SUPPRESS_DRAFT_STORE_502_ERROR':
-      value => $suppress_draft_store_502_error;
-    'ERRBIT_API_KEY':
-      value => $errbit_api_key;
-    'ERRBIT_ENVIRONMENT_NAME':
-      value => $errbit_environment_name;
+    "${title}-CONTENT_STORE":
+      varname => 'CONTENT_STORE',
+      value   => $content_store;
+    "${title}-DRAFT_CONTENT_STORE":
+      varname => 'DRAFT_CONTENT_STORE',
+      value   => $draft_content_store;
+    "${title}-SUPPRESS_DRAFT_STORE_502_ERROR":
+      varname => 'SUPPRESS_DRAFT_STORE_502_ERROR',
+      value   => $suppress_draft_store_502_error;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-ERRBIT_ENVIRONMENT_NAME":
+      varname => 'ERRBIT_ENVIRONMENT_NAME',
+      value   => $errbit_environment_name;
   }
 }
