@@ -15,10 +15,14 @@
 #   to be 'content_store_development'.
 #   Default: 'content_store_production'
 #
+# [*default_ttl*]
+#   The default cache timeout in seconds.
+
 class govuk::apps::content_store(
   $port = 3068,
   $mongodb_nodes,
   $mongodb_name = 'content_store_production',
+  $default_ttl = '1800'
 ) {
   govuk::app { 'content-store':
     app_type           => 'rack',
@@ -30,12 +34,20 @@ class govuk::apps::content_store(
 
   validate_array($mongodb_nodes)
 
+  Govuk::App::Envvar {
+    app => 'content-store',
+  }
+
   if $mongodb_nodes != [] {
     $mongodb_nodes_string = join($mongodb_nodes, ',')
     govuk::app::envvar { "${title}-MONGODB_URI":
-      app     => 'content-store',
       varname => 'MONGODB_URI',
       value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
     }
+  }
+
+  govuk::app::envvar { "${title}-DEFAULT_TTL":
+      varname => 'DEFAULT_TTL',
+      value   => $default_ttl,
   }
 }
