@@ -24,6 +24,7 @@ class govuk::node::s_frontend_lb (
       'contacts-frontend-old',
       'courts-frontend',
       'designprinciples',
+      'email-alert-frontend',
       'feedback',
       'frontend',
       'government-frontend',
