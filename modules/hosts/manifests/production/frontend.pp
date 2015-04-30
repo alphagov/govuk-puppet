@@ -80,6 +80,7 @@ class hosts::production::frontend (
       "contacts-frontend-old.${app_domain}",
       "courts-frontend.${app_domain}",
       "designprinciples.${app_domain}",
+      "email-alert-frontend.${app_domain}",
       "feedback.${app_domain}",
       "finder-frontend.${app_domain}",
       "frontend.${app_domain}",
