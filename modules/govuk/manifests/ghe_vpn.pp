@@ -16,4 +16,14 @@ class govuk::ghe_vpn {
     service_description => 'openconnect upstart up',
     host_name           => $::fqdn,
   }
+
+  @icinga::nrpe_config { 'check_ghe_responding':
+    source => 'puppet:///modules/govuk/ghe_vpn/nrpe_check_ghe.cfg',
+  }
+
+  @@icinga::check { "check_ghe_connection_on_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_ghe_responding',
+    service_description => 'connection to github.gds failing',
+    host_name           => $::fqdn,
+  }
 }
