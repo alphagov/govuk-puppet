@@ -3,7 +3,7 @@
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'We take backups from this slave; rebooting during backup will cause it to fail'
 
-govuk_postgresql::server::slave::master_host: 'postgresql-primary-1.backend'
+govuk_postgresql::server::standby::master_host: 'postgresql-primary-1.backend'
 
 lv:
   postgresql:
