@@ -1,6 +1,6 @@
-# == Class: govuk_postgresql::server::master
+# == Class: govuk_postgresql::server::primary
 #
-# PostgreSQL binary replication master.
+# PostgreSQL binary replication primary.
 #
 # === Parameters:
 #
@@ -11,7 +11,7 @@
 #   Address (CIDR) the slave can connect from. Ideally this should be a /32
 #   to make access as restrictive as possible.
 #
-class govuk_postgresql::server::master (
+class govuk_postgresql::server::primary (
   $slave_password,
   $slave_address,
 ) {

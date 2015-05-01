@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk_postgresql::server::slave', :type => :class do
+describe 'govuk_postgresql::server::standby', :type => :class do
   let(:param_host) { 'master.example.com' }
   let(:param_pass) { 'supersekret' }
 
