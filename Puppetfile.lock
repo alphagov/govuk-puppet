@@ -52,7 +52,7 @@ FORGE
       puppetlabs-apt (>= 0.0.3)
       puppetlabs-java (>= 1.0.1)
       puppetlabs-stdlib (>= 2.0.0)
-    saz-memcached (2.4.0)
+    saz-memcached (2.7.1)
       puppetlabs-firewall (>= 0.1.0)
       puppetlabs-stdlib (>= 3.2.0)
     saz-ntp (2.2.0)
