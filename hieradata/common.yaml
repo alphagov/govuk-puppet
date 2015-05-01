@@ -181,6 +181,7 @@ router::assets_origin::asset_routes:
   '/contacts-assets/': "contacts-frontend-old"
   '/contacts-frontend/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
+  '/email-alert-frontend/': "email-alert-frontend"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"
   '/frontend/': "frontend"
