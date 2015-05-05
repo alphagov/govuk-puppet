@@ -21,5 +21,9 @@ class govuk::apps::backdrop_write (
       vhost_ssl_only    => true,
       health_check_path => '/_status',
     }
+
+    govuk::procfile::worker { 'backdrop-transformer':
+      setenv_as => 'backdrop-write',
+    }
   }
 }
