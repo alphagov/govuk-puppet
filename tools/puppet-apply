@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
 
+
+TMPFILE=$(mktemp /tmp/hiera-temp-XXXXXX.yml)
+echo "Creating temporary hiera config as $TMPFILE"
+sed -e "s;^  :datadir: .*$;  :datadir: '/var/govuk/puppet/hieradata';g" /var/govuk/puppet/hiera.yml > $TMPFILE
+
 # Filter warnings about 'storeconfigs' not being set
 exec sudo \
   RBENV_VERSION=1.9.3 \
@@ -8,5 +13,7 @@ exec sudo \
   --trusted_node_data \
   --environment ${ENVIRONMENT:-development} \
   --modulepath /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules \
-  --hiera_config /var/govuk/puppet/hiera-puppetapply.yml "$@" 2>&1 \
+  --hiera_config $TMPFILE "$@" 2>&1 \
   | egrep -iv --line-buffered "warning:.+storeconfigs"
+
+rm $TMPFILE
