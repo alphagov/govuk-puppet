@@ -12,7 +12,12 @@ class govuk::node::s_api_lb (
   validate_array($search_backend_servers)
 
   loadbalancer::balance {
-    ['metadata-api']:
+    [
+      'backdrop-read',
+      'backdrop-write',
+      'metadata-api',
+      'stagecraft',
+    ]:
       servers       => $api_backend_servers,
       internal_only => true;
   }
