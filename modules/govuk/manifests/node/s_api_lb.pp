@@ -13,6 +13,8 @@ class govuk::node::s_api_lb (
 
   loadbalancer::balance {
     [
+      'backdrop-read',
+      'backdrop-write',
       'metadata-api',
       'stagecraft',
     ]:

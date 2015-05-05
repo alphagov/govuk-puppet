@@ -70,6 +70,8 @@ class hosts::production::api (
   govuk::host { 'api-internal-lb':
     ip             => '10.7.1.2',
     legacy_aliases => [
+      "backdrop-read.${app_domain}",
+      "backdrop-write.${app_domain}",
       "content-store.${app_domain}",
       "metadata-api.${app_domain}",
       "rummager.${app_domain}",
