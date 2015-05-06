@@ -3,6 +3,7 @@ class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
   $mapit_servers,
+  $performance_backend_servers,
   $whitehall_backend_servers
 ){
   include govuk::node::s_base
@@ -79,6 +80,14 @@ class govuk::node::s_backend_lb (
     servers       => $mapit_servers,
     internal_only => true,
     https_only    => false, # FIXME: Remove for #51136581
+  }
+
+  if !empty($performance_backend_servers) {
+    loadbalancer::balance { 'performanceplatform-admin':
+      servers       => $performance_backend_servers,
+      internal_only => false,
+      https_only    => true,
+    }
   }
 
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
