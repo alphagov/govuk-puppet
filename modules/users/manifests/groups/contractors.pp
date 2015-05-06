@@ -17,5 +17,4 @@ class users::groups::contractors {
   include users::tadast
   include users::tekin
   include users::tijmenbrommet
-  include users::vinayvinay
 }
