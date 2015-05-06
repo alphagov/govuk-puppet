@@ -6,4 +6,5 @@ class govuk::node::s_performance_backend inherits govuk::node::s_base {
   include nginx
 
   include govuk::apps::performanceplatform_admin
+  include govuk::apps::performanceplatform_collectors
 }
