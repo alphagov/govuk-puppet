@@ -79,7 +79,6 @@ username_whitelist = %w{
   ssharpe
   tadast
   tekin
-  vinayvinay
 }
 
 # Using the list of all manifests, make sure they're included
