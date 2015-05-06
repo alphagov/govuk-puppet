@@ -5,19 +5,16 @@ usecacheonfailure = false
 trusted_node_data = true
 environment = <%= scope.lookupvar("::environment") %>
 <%- if @use_puppetmaster == false -%>
-modulepath = /var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
-manifestdir = /var/govuk/puppet/manifests
+environmentpath = /var/govuk/puppet/environments
 <%- end -%>
 
 [master]
 reports = store
 storeconfigs = true
 storeconfigs_backend = puppetdb
-config_version = /usr/local/bin/puppet_config_version /usr/share/puppet/production/current
 hiera_config = /usr/share/puppet/production/current/hiera.yml
 <%- if @use_puppetmaster == true -%>
-modulepath = /usr/share/puppet/production/current/modules:/usr/share/puppet/production/current/vendor/modules
-manifestdir = /usr/share/puppet/production/current/manifests
+environmentpath = /usr/share/puppet/production/current/environments
 <%- end -%>
 
 [agent]
