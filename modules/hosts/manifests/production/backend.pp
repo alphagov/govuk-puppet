@@ -191,6 +191,7 @@ class hosts::production::backend (
       "maslow.${app_domain}",
       "need-api.${app_domain}",
       "panopticon.${app_domain}",
+      "performanceplatform-admin.${app_domain}",
       "policy-publisher.${app_domain}",
       "private-frontend.${app_domain}",
       "publisher.${app_domain}",
