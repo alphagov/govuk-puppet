@@ -48,6 +48,12 @@ class hosts::production::api (
   govuk::host { 'api-mongo-3':
     ip  => '10.7.0.23',
   }
+  govuk::host { 'api-postgresql-primary-1':
+    ip  => '10.7.0.40',
+  }
+  govuk::host { 'api-postgresql-standby-1':
+    ip  => '10.7.0.41',
+  }
   govuk::host { 'api-redis-1':
     ip  => '10.7.0.29',
   }
