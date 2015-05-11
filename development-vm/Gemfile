@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "foreman", "0.75.0"
 gem "bowler", "1.2.0"
 
-gem "es_dump_restore", "~> 0.0.7"
+gem "es_dump_restore", "~> 1.0.0"
 
 # rubyzip 1.1.1 - 1.1.4 have a significant performance issue.
 # Add version constraint to ensure we're not using one of the bad versions

@@ -90,8 +90,12 @@ do
   if $DRY_RUN; then
     status "$f (dry run)"
   else
-    status $f
-    bundle exec es_dump_restore restore "$LOCAL_ES_HOST" `basename $f .zip` "$f"
+    alias_name=$(basename $f .zip)
+    iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr [:upper:] [:lower:])z"
+    real_name="$alias_name-$iso_date-00000000-0000-0000-000000000000"
+
+    status "Importing $f to $alias_name (real name $real_name)"
+    bundle exec es_dump_restore restore_alias "$LOCAL_ES_HOST" "$alias_name" "$real_name" "$f"
   fi
 done
 
