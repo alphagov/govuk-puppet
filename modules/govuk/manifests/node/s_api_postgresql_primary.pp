@@ -10,7 +10,7 @@
 #
 class govuk::node::s_api_postgresql_primary (
   $standby_password,
-) inherits govuk::node::s_postgresql_base {
+) inherits govuk::node::s_api_postgresql_base {
   class { 'govuk_postgresql::server::primary':
     slave_password => $standby_password,
   }
