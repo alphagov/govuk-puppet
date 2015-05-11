@@ -33,6 +33,11 @@
 # An optional array of Postgresql Extensions to load for this database.
 # Default: []
 #
+# [*allow_auth_from_api*]
+# Whether to create a pg_hba.conf rule to allow this user to authenticate
+# for this database from the API network using its password.
+# Default: false
+#
 # [*allow_auth_from_backend*]
 # Whether to create a pg_hba.conf rule to allow this user to authenticate for
 # this database from the backend network using its password.
@@ -44,6 +49,7 @@ define govuk_postgresql::db (
     $owner                   = undef,
     $encoding                = 'UTF8',
     $extensions              = [],
+    $allow_auth_from_api     = false,
     $allow_auth_from_backend = false,
 ) {
 
@@ -79,6 +85,16 @@ define govuk_postgresql::db (
         $temp_extensions = prefix($extensions,"${db_name}:")
         @govuk_postgresql::extension { $temp_extensions:
           tag  => 'govuk_postgresql::server::not_slave',
+        }
+    }
+
+    if $allow_auth_from_api {
+        postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from API network":
+          type        => 'host',
+          database    => $db_name,
+          user        => $user,
+          address     => '10.7.0.0/16',
+          auth_method => 'md5',
         }
     }
 
