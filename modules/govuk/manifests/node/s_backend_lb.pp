@@ -3,7 +3,7 @@ class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
   $mapit_servers,
-  $performance_backend_servers,
+  $performance_backend_servers = [],
   $whitehall_backend_servers
 ){
   include govuk::node::s_base
