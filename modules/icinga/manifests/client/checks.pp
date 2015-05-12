@@ -109,6 +109,7 @@ class icinga::client::checks (
     warning   => $disk_time_warn,
     critical  => $disk_time_critical,
     host_name => $::fqdn,
+    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#high-disk-time',
   }
 
   @@icinga::check { "check_ntp_time_${::hostname}":
