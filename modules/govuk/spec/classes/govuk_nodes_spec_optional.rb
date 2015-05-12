@@ -8,6 +8,7 @@ require_relative '../../../../spec_helper'
 # Don't attempt to instantiate these classes as they aren't concrete
 # machine classes, and therefore aren't intended to be instantiated directly.
 $nodes_spec_blacklist_classes = %w(
+  api_postgresql_base
   asset_base
   base
   postgresql_base
