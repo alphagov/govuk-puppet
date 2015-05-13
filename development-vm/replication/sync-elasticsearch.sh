@@ -95,7 +95,7 @@ do
     real_name="$alias_name-$iso_date-00000000-0000-0000-000000000000"
 
     status "Importing $f to $alias_name (real name $real_name)"
-    bundle exec es_dump_restore restore_alias "$LOCAL_ES_HOST" "$alias_name" "$real_name" "$f"
+    bundle exec es_dump_restore restore_alias "$LOCAL_ES_HOST" "$alias_name" "$real_name" "$f" '{"settings":{"index":{"number_of_replicas":"0","number_of_shards":"1"}}}'
   fi
 done
 
