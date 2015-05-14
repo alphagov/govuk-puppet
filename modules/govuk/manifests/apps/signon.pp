@@ -22,6 +22,7 @@ class govuk::apps::signon(
 
   if $devise_secret_key != undef {
     govuk::app::envvar { "${title}-DEVISE_SECRET_KEY":
+      app     => 'signon',
       varname => 'DEVISE_SECRET_KEY',
       value   => $devise_secret_key,
     }
