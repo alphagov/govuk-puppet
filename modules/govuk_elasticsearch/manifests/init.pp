@@ -27,7 +27,7 @@ class govuk_elasticsearch (
   $cluster_hosts = ['localhost'],
   $cluster_name = 'elasticsearch',
   $heap_size = '512m',
-  $number_of_shards = '5',
+  $number_of_shards = '3',
   $number_of_replicas = '1',
   $minimum_master_nodes = '1',
   $refresh_interval = '1s',
