@@ -12,7 +12,7 @@
 #   Mandatory boolean value. Whether to enable BasicAuth or not. Used in
 #   environments where origin is not firewalled.
 #
-# [*error_page_ttl*]
+# [*page_ttl_404*]
 #   Number of seconds to cache error pages.
 #
 #   Default: '30'
@@ -32,7 +32,7 @@
 #
 class router::nginx (
   $vhost_protected,
-  $error_page_ttl = '30',
+  $page_ttl_404 = '30',
   $real_ip_header = '',
   $rate_limit_tokens = [],
 ) {
