@@ -77,18 +77,18 @@ describe 'router::nginx', :type => :class do
     end
   end
 
-  describe 'error_page_ttl' do
+  describe 'page_ttl_404' do
     context 'default' do
       let(:params) {{
         :vhost_protected => false,
       }}
 
-      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=300";/) }
+      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=30";/) }
     end
 
     context 'a different number' do
       let(:params) {{
-        :error_page_ttl  => '668',
+        :page_ttl_404  => '668',
         :vhost_protected => false,
       }}
 
