@@ -9,7 +9,7 @@ CLEAN_DIR="$3"
 set -u
 
 CLAMSCAN_CMD="clamscan"
-START_TIME=`date +%s`
+START_TIME=$(date +%s)
 
 usage() {
   echo "USAGE: $0 <incoming_dir> <infected_dir> [<clean_dir>]"
@@ -27,9 +27,9 @@ fi
 
 make_result_file() {
   if which tempfile >/dev/null 2>&1; then
-    RESULTFILE=`tempfile -p CLAM-`
+    RESULTFILE=$(tempfile -p CLAM-)
   elif which mktemp >/dev/null 2>&1; then
-    RESULTFILE=`mktemp -t CLAM-`
+    RESULTFILE=$(mktemp -t CLAM-)
   else
     echo "ERROR: no mktemp or tempname command"
     exit 1
@@ -45,10 +45,10 @@ check_dir_exists() {
 
 logger -t virus_scan "virus scan in '${INCOMING_DIR}' starting"
 
-check_dir_exists $INCOMING_DIR
-check_dir_exists $INFECTED_DIR
+check_dir_exists "$INCOMING_DIR"
+check_dir_exists "$INFECTED_DIR"
 if [ -n "$CLEAN_DIR" ]; then
-  check_dir_exists $CLEAN_DIR
+  check_dir_exists "$CLEAN_DIR"
 fi
 
 pushd "$INCOMING_DIR" > /dev/null 2>&1
@@ -63,8 +63,8 @@ fi
 
 COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE" || true)
 COUNT_CLEAN=$(grep -c ': OK$' "$RESULTFILE" || true)
-TIME_TOOK=$((`date +%s`-START_TIME))
-rm $RESULTFILE
+TIME_TOOK=$(($(date +%s)-START_TIME))
+rm "$RESULTFILE"
 
 logger -t virus_scan "virus scan in '${INCOMING_DIR}' took: ${TIME_TOOK}s, found: ${COUNT_FOUND}, clean: ${COUNT_CLEAN}"
 
