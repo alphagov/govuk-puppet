@@ -1,6 +1,7 @@
 # == Class: users::groups::performanceplatform
 #
 # Install and configure SSH access for performance platform users
+# FIXME remove once ppdeploy user is removed
 #
 class users::groups::performanceplatform {
 
