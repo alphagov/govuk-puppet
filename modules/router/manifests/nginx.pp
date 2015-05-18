@@ -15,7 +15,7 @@
 # [*error_page_ttl*]
 #   Number of seconds to cache error pages.
 #
-#   Default: '300'
+#   Default: '30'
 #
 # [*real_ip_header*]
 #   Invokes [real_ip](http://wiki.nginx.org/HttpRealipModule) to replace
@@ -32,7 +32,7 @@
 #
 class router::nginx (
   $vhost_protected,
-  $error_page_ttl = '300',
+  $error_page_ttl = '30',
   $real_ip_header = '',
   $rate_limit_tokens = [],
 ) {

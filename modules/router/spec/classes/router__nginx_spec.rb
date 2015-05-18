@@ -83,7 +83,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=300";/) }
+      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=30";/) }
     end
 
     context 'a different number' do
