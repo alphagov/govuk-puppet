@@ -15,5 +15,6 @@ class govuk::apps::content_register::db (
     user                    => 'content-register',
     password                => $password,
     allow_auth_from_backend => true,
+    extensions              => ['hstore'],
   }
 }
