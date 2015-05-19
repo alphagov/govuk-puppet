@@ -240,6 +240,13 @@ class govuk::node::s_development {
       createdb      => true;
   }
 
+  govuk_postgresql::db { 'content-register_development':
+    user                    => 'vagrant',
+    password                => 'vagrant',
+    extensions              => ['hstore'],
+    allow_auth_from_backend => true,
+  }
+
   package {
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
