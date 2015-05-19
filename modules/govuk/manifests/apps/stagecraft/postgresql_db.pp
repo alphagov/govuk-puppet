@@ -3,7 +3,7 @@
 class govuk::apps::stagecraft::postgresql_db(
   $password,
 ){
-  govuk_postgresql::db { 'stagecraft_production':
+  govuk_postgresql::db { 'stagecraft':
     user                => 'stagecraft',
     password            => $password,
     allow_auth_from_api => true,
