@@ -63,7 +63,7 @@ process :smartanswers => [:static, :contentapi, :imminence]
 process :'specialist-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-frontend' => [:static, :contentapi, :'content-store']
 process :static
-process :support
+process :support => [:'support-api']
 process :'support-api'
 process :tariff_admin => [:tradetariffapi]
 process :tradetariff => [:tradetariffapi, :static, :contentapi]
