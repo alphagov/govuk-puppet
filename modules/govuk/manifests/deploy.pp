@@ -29,7 +29,8 @@ class govuk::deploy (
   }
 
   anchor { 'govuk::deploy::end':
-    subscribe => Class['govuk::deploy::config'],
+    # FIXME: Uncomment this subscribe line once deployed to all environments
+    #subscribe => Class['govuk::deploy::config'],
     require   => Class['unicornherder'],
   }
 }
