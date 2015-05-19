@@ -71,34 +71,18 @@ class govuk::deploy::config(
   }
 
   $app_domain = hiera('app_domain')
-
-  govuk::envvar { 'GOVUK_APP_DOMAIN':
-    value => $app_domain,
-  }
-
   $asset_root = hiera('asset_root')
-
-  govuk::envvar { 'GOVUK_ASSET_ROOT':
-    value => $asset_root,
-  }
-
   $website_root = hiera('website_root')
-
-  govuk::envvar { 'GOVUK_WEBSITE_ROOT':
-    value => $website_root,
-  }
-
-  govuk::envvar { 'GOVUK_ASSET_HOST':
-    value => $asset_root,
-  }
-
-  govuk::envvar { 'ERRBIT_ENVIRONMENT_PREFIX':
-    value => $errbit_environment_prefix;
-  }
 
   govuk::envvar {
     'GOVUK_ENV': value => $govuk_env;
-    'RAILS_ENV': value => $govuk_env;
     'RACK_ENV':  value => $govuk_env;
+    'RAILS_ENV': value => $govuk_env;
+
+    'ERRBIT_ENVIRONMENT_PREFIX': value => $errbit_environment_prefix;
+    'GOVUK_APP_DOMAIN': value => $app_domain;
+    'GOVUK_ASSET_HOST': value => $asset_root;
+    'GOVUK_ASSET_ROOT': value => $asset_root;
+    'GOVUK_WEBSITE_ROOT': value => $website_root;
   }
 }
