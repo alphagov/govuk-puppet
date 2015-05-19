@@ -167,5 +167,13 @@ class govuk::apps::whitehall(
       setenv_as      => 'whitehall',
       enable_service => $enable_procfile_worker,
     }
+
+    # FIXME: Remove this when Whitehall is using Rack 1.7
+    govuk::app::envvar {
+      "${title}-RACK_MULTIPART_PART_LIMIT":
+          app     => 'whitehall',
+          varname => 'RACK_MULTIPART_PART_LIMIT',
+          value   => '0';
+    }
   }
 }
