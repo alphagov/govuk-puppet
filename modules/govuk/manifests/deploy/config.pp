@@ -4,7 +4,18 @@
 # require an app to be restarted. For example, to pick up changes to
 # environment variables or centralised unicorn options.
 #
+# === Parameters
+#
+# [*errbit_environment_prefix*]
+#   Prefix for Errbit environment
+#   Default: ''
+#
+# [*govuk_env*]
+#   GOV.UK environment
+#   Default: 'production'
+#
 class govuk::deploy::config(
+  $errbit_environment_prefix = '',
   $govuk_env = 'production',
 ){
   include daemontools
@@ -79,6 +90,10 @@ class govuk::deploy::config(
 
   govuk::envvar { 'GOVUK_ASSET_HOST':
     value => $asset_root,
+  }
+
+  govuk::envvar { 'ERRBIT_ENVIRONMENT_PREFIX':
+    value => $errbit_environment_prefix;
   }
 
   govuk::envvar {
