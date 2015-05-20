@@ -7,8 +7,18 @@
 # [*app_domain*]
 #   Domain to be used in vhost aliases
 #
+# [*performanceplatform_public_app_domain*]
+#   Domain to be used in vhost aliases to point at Performance Platform.
+#   In production, this is the hostname without the `production` part,
+#   eg www.performance.service.gov.uk
+#
+# [*performanceplatform_full_app_domain*]
+#   Domain to be used in vhost aliases to point at Performance Platform.
+#
 class hosts::production::api (
   $app_domain,
+  $performanceplatform_public_app_domain = '',
+  $performanceplatform_full_app_domain = '',
 ) {
 
   Govuk::Host {
@@ -83,6 +93,16 @@ class hosts::production::api (
       "rummager.${app_domain}",
       "search.${app_domain}",
       "stagecraft.${app_domain}",
+    ]
+  }
+  # FIXME remove this host when testing of performance platform migration is
+  # completed. Added to enable testing without updating existing performance
+  # platform dns. IP is a fastly ip
+  govuk::host { 'performanceplatform-fastly-hack':
+    ip             => '185.31.19.249',
+    legacy_aliases => [
+      "www.${performanceplatform_public_app_domain}",
+      "stagecraft.${performanceplatform_full_app_domain}",
     ]
   }
 }
