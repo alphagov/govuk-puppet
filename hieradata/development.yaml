@@ -39,7 +39,6 @@ govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::manuals_frontend::enabled: true
 govuk::apps::performanceplatform_notifier::enabled: true
-govuk::apps::policy_publisher::enable_future_policies: true
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::backdropread_protocol: 'http'
@@ -66,7 +65,6 @@ govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
-govuk::apps::whitehall::enable_future_policies: true
 govuk::apps::whitehall::enable_procfile_worker: false
 govuk::apps::whitehall::prevent_single_host: false
 
