@@ -193,6 +193,8 @@ router::assets_origin::asset_routes:
   '/licencefinder/': "licencefinder"
   '/smartanswers/': "smartanswers"
   '/specialist-frontend/': "specialist-frontend"
+  '/spotlight/': "spotlight"
+  '/stagecraft/': "stagecraft"
   '/tariff/': "tariff"
   '/transactions-explorer/': "transactions-explorer"
 
