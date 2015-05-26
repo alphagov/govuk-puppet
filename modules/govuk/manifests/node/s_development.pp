@@ -212,12 +212,6 @@ class govuk::node::s_development {
       user     => 'tariff',
       password => 'tariff';
 
-    ['transition_development', 'transition_test']:
-      ensure   => 'absent',
-      user     => 'transition',
-      password => 'transition',
-      collate  => 'utf8_unicode_ci';
-
     [
       'whitehall_development',
       'whitehall_test',
