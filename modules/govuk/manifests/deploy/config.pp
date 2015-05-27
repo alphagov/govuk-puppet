@@ -76,6 +76,7 @@ class govuk::deploy::config(
 
   govuk::envvar {
     'GOVUK_ENV': value => $govuk_env;
+    'NODE_ENV': value => $govuk_env;
     'RACK_ENV':  value => $govuk_env;
     'RAILS_ENV': value => $govuk_env;
 
