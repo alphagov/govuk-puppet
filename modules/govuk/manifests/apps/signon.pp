@@ -3,7 +3,13 @@ class govuk::apps::signon(
   $port = 3016,
   $enable_procfile_worker = true,
   $devise_secret_key = undef,
+  $enable_logstream = false,
 ) {
+  $ensure_logstream = $enable_logstream ? {
+    true  => 'present',
+    false => 'absent'
+  }
+
   govuk::app { 'signon':
     app_type           => 'rack',
     port               => $port,
@@ -11,7 +17,7 @@ class govuk::apps::signon(
     health_check_path  => '/users/sign_in',
     log_format_is_json => true,
     vhost_aliases      => ['signonotron'],
-    logstream          => absent,
+    logstream          => $ensure_logstream,
     asset_pipeline     => true,
     deny_framing       => true,
   }
