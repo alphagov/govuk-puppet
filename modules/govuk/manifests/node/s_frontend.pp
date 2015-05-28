@@ -1,27 +1,21 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_frontend inherits govuk::node::s_base {
+# == Class: govuk::node::s_frontend
+#
+# Frontend machine definition. Frontend machines run applications
+# which serve web pages to users.
+#
+# === Parameters
+#
+# [*apps*]
+#   An array of which applications should be running on the machine.
+#
+class govuk::node::s_frontend (
+  $apps = [],
+) inherits govuk::node::s_base {
+  validate_array($apps)
+
   include govuk::node::s_ruby_app_server
 
-  include govuk::apps::collections
-  include govuk::apps::contacts_frontend
-  include govuk::apps::courts_frontend
-  include govuk::apps::designprinciples
-  include govuk::apps::email_alert_frontend
-  include govuk::apps::feedback
-  include govuk::apps::frontend
-  include govuk::apps::government_frontend
-  include govuk::apps::info_frontend
-  include govuk::apps::manuals_frontend
-  include govuk::apps::service_manual
-  include govuk::apps::specialist_frontend
-
-  class { 'govuk::apps::contacts':
-    vhost           => 'contacts-frontend-old',
-  }
-
-  include govuk::apps::canary_frontend
-  include govuk::apps::static
-  include govuk::apps::transactions_explorer
+  include $apps
 
   include nginx
 

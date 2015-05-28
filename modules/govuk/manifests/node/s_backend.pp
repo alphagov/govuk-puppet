@@ -1,5 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_backend inherits govuk::node::s_base {
+# == Class: govuk::node::s_backend
+#
+# Backend machine definition. Backend machines are used for running
+# publishing, administration and management applications.
+#
+# === Parameters
+#
+# [*apps*]
+#   An array of which applications should be running on the machine.
+#
+class govuk::node::s_backend (
+  $apps = [],
+) inherits govuk::node::s_base {
+  validate_array($apps)
+
   include govuk::node::s_ruby_app_server
 
   harden::limit { 'root-nofile':
@@ -24,57 +37,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   $app_domain = hiera('app_domain')
 
-  include govuk::apps::asset_manager
-  include govuk::apps::business_support_api
-  include govuk::apps::canary_backend
-  include govuk::apps::collections_api
-  include govuk::apps::collections_publisher
-
-  class { 'govuk::apps::contacts':
-    vhost_protected => true,
-    vhost           => 'contacts-admin',
-  }
-
-  include govuk::apps::content_planner
-  include govuk::apps::content_register
-  include govuk::apps::contentapi
-  include govuk::apps::courts_api
-  include govuk::apps::email_alert_api
-  include govuk::apps::email_alert_monitor
-  include govuk::apps::email_alert_service
-  include govuk::apps::event_store
-  class { 'govuk::apps::external_link_tracker':
-    mongodb_nodes => [
-      'mongo-1.backend',
-      'mongo-2.backend',
-      'mongo-3.backend',
-    ]
-  }
-  include govuk::apps::govuk_delivery
-  include govuk::apps::hmrc_manuals_api
-  include govuk::apps::imminence
-  include govuk::apps::kibana
-  include govuk::apps::maslow
-  include govuk::apps::need_api
-  include govuk::apps::panopticon
-  include govuk::apps::policy_publisher
-  include govuk::apps::publisher
-  include govuk::apps::publishing_api
-  include govuk::apps::release
-  include govuk::apps::search_admin
-  include govuk::apps::short_url_manager
-  include govuk::apps::sidekiq_monitoring
-  include govuk::apps::signon
-  include govuk::apps::specialist_publisher
-  include govuk::apps::support
-  include govuk::apps::support_api
-  include govuk::apps::tariff_admin
-  include govuk::apps::tariff_api
-  include govuk::apps::transition
-  include govuk::apps::travel_advice_publisher
-  include govuk::apps::url_arbiter
-
-  class { 'govuk::apps::frontend':   vhost_protected => true  }
+  include $apps
 
   include nginx
 

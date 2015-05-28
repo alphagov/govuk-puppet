@@ -77,6 +77,65 @@ backup::offsite::jobs:
     minute: 13,
     # No encryption because of size and sensitivity
 
+govuk::node::s_backend::apps:
+  - govuk::apps::asset_manager
+  - govuk::apps::business_support_api
+  - govuk::apps::canary_backend
+  - govuk::apps::collections_api
+  - govuk::apps::collections_publisher
+  - govuk::apps::contacts
+  - govuk::apps::content_planner
+  - govuk::apps::content_register
+  - govuk::apps::contentapi
+  - govuk::apps::courts_api
+  - govuk::apps::email_alert_api
+  - govuk::apps::email_alert_monitor
+  - govuk::apps::email_alert_service
+  - govuk::apps::event_store
+  - govuk::apps::external_link_tracker
+  - govuk::apps::frontend
+  - govuk::apps::govuk_delivery
+  - govuk::apps::hmrc_manuals_api
+  - govuk::apps::imminence
+  - govuk::apps::kibana
+  - govuk::apps::maslow
+  - govuk::apps::need_api
+  - govuk::apps::panopticon
+  - govuk::apps::policy_publisher
+  - govuk::apps::publisher
+  - govuk::apps::publishing_api
+  - govuk::apps::release
+  - govuk::apps::search_admin
+  - govuk::apps::short_url_manager
+  - govuk::apps::sidekiq_monitoring
+  - govuk::apps::signon
+  - govuk::apps::specialist_publisher
+  - govuk::apps::support
+  - govuk::apps::support_api
+  - govuk::apps::tariff_admin
+  - govuk::apps::tariff_api
+  - govuk::apps::transition
+  - govuk::apps::travel_advice_publisher
+  - govuk::apps::url_arbiter
+
+govuk::node::s_frontend::apps:
+  - govuk::apps::canary_frontend
+  - govuk::apps::collections
+  - govuk::apps::contacts
+  - govuk::apps::contacts_frontend
+  - govuk::apps::courts_frontend
+  - govuk::apps::designprinciples
+  - govuk::apps::email_alert_frontend
+  - govuk::apps::feedback
+  - govuk::apps::frontend
+  - govuk::apps::government_frontend
+  - govuk::apps::info_frontend
+  - govuk::apps::manuals_frontend
+  - govuk::apps::service_manual
+  - govuk::apps::specialist_frontend
+  - govuk::apps::static
+  - govuk::apps::transactions_explorer
+
 govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
   govuk: 6514

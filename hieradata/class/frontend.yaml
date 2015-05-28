@@ -1,5 +1,7 @@
 ---
 
+govuk::apps::contacts::vhost: contacts-frontend-old
+
 lv:
   data:
     pv: '/dev/sdb1'
