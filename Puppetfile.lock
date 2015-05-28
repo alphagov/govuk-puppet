@@ -5,6 +5,8 @@ FORGE
     arioch-keepalived (1.1.0)
       puppetlabs-concat (>= 1.0.2)
       puppetlabs-stdlib (>= 4.1.0)
+    attachmentgenie-ufw (1.0.3)
+      puppetlabs-stdlib (>= 2.2.1)
     benjamin-ramdisk (0.0.1)
     camptocamp-augeas (1.1.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
@@ -108,14 +110,6 @@ GIT
     alphagov-harden (0.0.1)
 
 GIT
-  remote: git://github.com/alphagov/puppet-module-ufw.git
-  ref: dc7ddc2
-  sha: dc7ddc2d976baf7a50a78d3f02b45a175e86cb41
-  specs:
-    attachmentgenie-ufw (1.0.1)
-      puppetlabs-stdlib (>= 2.2.1)
-
-GIT
   remote: git://github.com/alphagov/puppet-tune_ext.git
   ref: master
   sha: a500c9a6263712388ea4b052e0cc93d9c11d7644
@@ -172,7 +166,7 @@ DEPENDENCIES
   alphagov-harden (>= 0)
   alphagov-tune_ext (>= 0)
   arioch-keepalived (>= 0)
-  attachmentgenie-ufw (>= 0)
+  attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)
   camptocamp-augeas (= 1.1.0)
   elasticsearch-elasticsearch (>= 0)
