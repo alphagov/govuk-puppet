@@ -2,6 +2,7 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'adrien/alternatives'
 mod 'arioch/keepalived'
+mod 'attachmentgenie/ufw', '1.0.3'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
 mod 'elasticsearch/elasticsearch'
@@ -57,9 +58,6 @@ mod 'puppetlabs/rabbitmq',
   :git => 'git://github.com/puppetlabs/puppetlabs-rabbitmq.git'
 mod 'alphagov/tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
-mod 'attachmentgenie/ufw',
-  :git => 'git://github.com/alphagov/puppet-module-ufw.git',
-  :ref => 'dc7ddc2'
 
 # Our modules on the Forge.
 mod 'gdsoperations/aptly'
