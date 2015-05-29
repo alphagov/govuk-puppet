@@ -35,8 +35,6 @@ class govuk::node::s_backend (
 
   include imagemagick
 
-  $app_domain = hiera('app_domain')
-
   include $apps
 
   include nginx
