@@ -8,6 +8,7 @@ class govuk::node::s_development {
   include govuk_mysql::libdev
   include hosts::development
   include imagemagick
+  include memcached
   include mongodb::server
   include mysql::client
   include nodejs
@@ -16,11 +17,6 @@ class govuk::node::s_development {
   include redis
   include tmpreaper
   include users
-
-  class { 'memcached':
-    max_memory => 64,
-    listen_ip  => '127.0.0.1',
-  }
 
   include govuk::deploy
   include govuk::envsys
@@ -77,11 +73,7 @@ class govuk::node::s_development {
   include govuk::apps::email_alert_service::rabbitmq_test_permissions
   include govuk::apps::errbit
   include govuk::apps::event_store
-  class { 'govuk::apps::external_link_tracker':
-    mongodb_nodes => [
-      'localhost',
-    ]
-  }
+  include govuk::apps::external_link_tracker
   include govuk::apps::govuk_delivery
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence
@@ -113,11 +105,7 @@ class govuk::node::s_development {
   include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
   include govuk::apps::url_arbiter
-  class { 'govuk::apps::whitehall':
-    configure_admin    => true,
-    configure_frontend => true,
-    vhost_protected    => false,
-  }
+  include govuk::apps::whitehall
 
   include govuk_java::openjdk7::jdk
   include govuk_java::openjdk7::jre
