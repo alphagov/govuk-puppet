@@ -12,21 +12,10 @@
 #   Default: 3098
 #
 class govuk::apps::policy_publisher(
-  $enable_future_policies = false,
   $port = 3098,
 ) {
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
-
-  validate_bool($enable_future_policies)
-  if ($enable_future_policies) {
-    govuk::app::envvar {
-      "${title}-ENABLE_FUTURE_POLICIES":
-        app     => 'policy-publisher',
-        varname => 'ENABLE_FUTURE_POLICIES',
-        value   => '1';
-    }
-  }
 
   govuk::app { 'policy-publisher':
     app_type           => 'rack',

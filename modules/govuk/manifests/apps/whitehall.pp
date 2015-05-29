@@ -6,7 +6,6 @@ class govuk::apps::whitehall(
   $port = 3020,
   $configure_frontend = false,
   $configure_admin = false,
-  $enable_future_policies = false,
   $vhost_protected,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -17,16 +16,6 @@ class govuk::apps::whitehall(
   $app_domain = hiera('app_domain')
 
   $health_check_path = '/healthcheck'
-
-  validate_bool($enable_future_policies)
-  if ($enable_future_policies) {
-    govuk::app::envvar {
-      "${title}-ENABLE_FUTURE_POLICIES":
-        app     => 'whitehall',
-        varname => 'ENABLE_FUTURE_POLICIES',
-        value   => '1';
-    }
-  }
 
   validate_bool($prevent_single_host)
   if $prevent_single_host {
