@@ -66,7 +66,6 @@ define govuk::app::config (
 
   # This sets the default app and ensure for this resource type in the current scope
   Govuk::App::Envvar {
-    ensure => $ensure,
     app    => $title
   }
 
