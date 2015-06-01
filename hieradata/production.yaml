@@ -195,7 +195,35 @@ ssh::config::allow_users:
   - 'timothymower'
   - 'tombooth'
 
-users::user_groups:
-    - 'govuk_production_access'
+users::usernames:
+  - ajlanghorn
+  - alexmuller
+  - alext
+  - annashipman
+  - benilovj
+  - bob
+  - bradleyw
+  - carlmassa
+  - danielroseman
+  - davidsingleton
+  - dcarley
+  - dominicbaggott
+  - eddsowden
+  - elliot
+  - heathd
+  - jabley
+  - jacobashdown
+  - james
+  - jamiec
+  - jennyduckett
+  - joshmyers
+  - kushalp
+  - mattbostock
+  - paulmartin
+  - richardboulton
+  - robyoung
+  - ssharpe
+  - timothymower
+  - tombooth
 
 website_root: 'https://www.gov.uk'
