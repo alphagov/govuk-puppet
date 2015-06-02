@@ -11,6 +11,14 @@ class govuk::apps::support($port = 3031, $enable_procfile_worker = true) {
       location /_status {
         allow   127.0.0.0/8;
         deny    all;
+      }
+
+      proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+      proxy_set_header X-Accel-Mapping /data/uploads/support-api/csvs/=/csvs/;
+
+      location /csvs/ {
+        internal;
+        root /data/uploads/support-api;
       }',
     asset_pipeline     => true,
   }
