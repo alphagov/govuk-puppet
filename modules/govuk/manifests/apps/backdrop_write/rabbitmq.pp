@@ -33,13 +33,19 @@ class govuk::apps::backdrop_write::rabbitmq (
     password => $amqp_pass,
   }
 
+  $celery_event_view_exchange = 'celeryev'
+
   rabbitmq_user_permissions { "${amqp_user}@/":
     configure_permission => "^(amq\\.gen.*|${amqp_queue})$",
-    read_permission      => "^(amq\\.gen.*|${amqp_exchange}|${amqp_queue})$",
-    write_permission     => "^(amq\\.gen.*|${amqp_exchange}|${amqp_queue})$",
+    read_permission      => "^(amq\\.gen.*|${amqp_exchange}|${celery_event_view_exchange}|${amqp_queue})$",
+    write_permission     => "^(amq\\.gen.*|${amqp_exchange}|${celery_event_view_exchange}|${amqp_queue})$",
   }
 
   govuk_rabbitmq::exchange { "${amqp_exchange}@/":
+    type     => 'topic',
+  }
+
+  govuk_rabbitmq::exchange { "${celery_event_view_exchange}@/":
     type     => 'topic',
   }
 
