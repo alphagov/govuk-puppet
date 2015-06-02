@@ -231,6 +231,8 @@ resolvconf::nameservers:
   - 8.8.8.8
   - 8.8.4.4
 
+# Note: it's important that all targets here have matching host entries both in
+# production, and on the dev VM, otherwise nginx will fail to start.
 router::assets_origin::asset_routes:
   '/businesssupportfinder/': "businesssupportfinder"
   '/calculators/': "calculators"

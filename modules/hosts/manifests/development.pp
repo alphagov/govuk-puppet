@@ -75,6 +75,8 @@ class hosts::development {
   host { 'smartanswers.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'specialist-frontend.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'specialist-publisher.dev.gov.uk':                 ip => '127.0.0.1' }
+  host { 'spotlight.dev.gov.uk':                            ip => '127.0.0.1' }
+  host { 'stagecraft.dev.gov.uk':                           ip => '127.0.0.1' }
   host { 'static.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'support.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'support-api.dev.gov.uk':                          ip => '127.0.0.1' }
