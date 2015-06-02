@@ -15,9 +15,9 @@ class users::groups::govuk {
 
   include users::ajlanghorn
   include users::aleksandrdrozdov
-  include users::alex_tea
   include users::alexmuller
   include users::alext
+  include users::alextorrance
   include users::alicebartlett
   include users::annashipman
   include users::benilovj
