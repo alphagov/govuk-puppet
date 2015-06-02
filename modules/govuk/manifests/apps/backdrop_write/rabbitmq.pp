@@ -13,40 +13,34 @@
 #   The password for the RabbitMQ user
 #   Default: backdrop_write
 #
-# [*amqp_exchange*]
-#   The exchange that this application will publish to
-#   Default: backdrop_write
-#
 # [*amqp_queue*]
 #   The queue that this application will read from
+#   Default: backdrop_write
+#
+# [*amqp_vhost*]
+#   The virtual host that this application is restricted to
 #   Default: backdrop_write
 #
 class govuk::apps::backdrop_write::rabbitmq (
   $amqp_user  = 'backdrop_write',
   $amqp_pass  = 'backdrop_write',
-  $amqp_exchange = 'backdrop_write',
   $amqp_queue = 'backdrop_write',
+  $amqp_vhost = 'backdrop_write',
 ) {
+
+  rabbitmq_vhost { "/${amqp_vhost}":
+    ensure   => present,
+  }
 
   rabbitmq_user { $amqp_user:
     admin    => false,
     password => $amqp_pass,
   }
 
-  $celery_event_view_exchange = 'celeryev'
-
-  rabbitmq_user_permissions { "${amqp_user}@/":
-    configure_permission => "^(amq\\.gen.*|${amqp_queue})$",
-    read_permission      => "^(amq\\.gen.*|${amqp_exchange}|${celery_event_view_exchange}|${amqp_queue})$",
-    write_permission     => "^(amq\\.gen.*|${amqp_exchange}|${celery_event_view_exchange}|${amqp_queue})$",
-  }
-
-  govuk_rabbitmq::exchange { "${amqp_exchange}@/":
-    type     => 'topic',
-  }
-
-  govuk_rabbitmq::exchange { "${celery_event_view_exchange}@/":
-    type     => 'topic',
+  rabbitmq_user_permissions { "${amqp_user}@/${amqp_vhost}":
+    configure_permission => '.*',
+    read_permission      => '.*',
+    write_permission     => '.*',
   }
 
 }
