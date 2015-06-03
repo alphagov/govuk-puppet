@@ -8,6 +8,13 @@ class govuk::apps::support_api($port = 3075, $enable_procfile_worker = true) {
     log_format_is_json => true,
   }
 
+  file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'deploy',
+    group  => 'deploy',
+  }
+
   govuk::procfile::worker { 'support-api':
     enable_service => $enable_procfile_worker,
   }
