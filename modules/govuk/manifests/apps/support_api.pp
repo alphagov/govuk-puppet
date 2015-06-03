@@ -11,6 +11,8 @@ class govuk::apps::support_api($port = 3075, $enable_procfile_worker = true) {
   file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
     ensure => directory,
     mode   => '0775',
+    owner  => 'assets',
+    group  => 'assets',
   }
 
   govuk::procfile::worker { 'support-api':
