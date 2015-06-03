@@ -36,5 +36,6 @@ define backup::directory (
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,
       action_url          => 'https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/backup-1$20run-parts$20$2Fetc$2Fbackup$2Fdaily%7Csort:date',
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html?highlight=backup#offsite-backups'
     }
 }
