@@ -4,10 +4,26 @@
 # the rabbitmq module's defined type that adds the 'root' user
 # creds.
 #
+# === Parameters
+#
+# [*ensure*]
+#   Ensure the presence state of this RabbitMQ exchange
+#   Default: present
+#
+# [*type*]
+#   Type of RabbitMQ exchange to create
+#   Default: undef
+#
 define govuk_rabbitmq::exchange (
-  $type,
   $ensure = present,
+  $type = undef,
 ) {
+
+  if $ensure == 'present' {
+    if $type == undef {
+      fail('Must provide type when ensuring exchange is present.')
+    }
+  }
 
   rabbitmq_exchange { $name:
     ensure   => $ensure,
