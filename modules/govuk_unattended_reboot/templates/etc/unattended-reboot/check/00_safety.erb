@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+if ! [[ "$(/usr/local/bin/govuk_setenv default /usr/bin/printenv SAFE_TO_REBOOT)" =~ ^(yes|overnight)$ ]]; then
+  exit 1
+fi
