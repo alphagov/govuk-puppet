@@ -15,21 +15,16 @@ define govuk::app::envvar (
   $envdir  = "/etc/govuk/${app}/env.d",
   $varname = $title,
   $notify_service  = true,
-  $ensure  = 'present',
 ) {
-  $ensure_file = $ensure ? {
-    'present' => 'file',
-    'absent'  => 'absent',
-  }
   if $notify_service {
     file { "${envdir}/${varname}":
-      ensure  => $ensure_file,
+      ensure  => present,
       content => $value,
       notify  => Govuk::App::Service[$app],
     }
   } else {
     file { "${envdir}/${varname}":
-      ensure  => $ensure_file,
+      ensure  => present,
       content => $value,
     }
   }
