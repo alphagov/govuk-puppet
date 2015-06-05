@@ -35,9 +35,6 @@ case "$GOVUK_APP_TYPE" in
   rack)
     status "Spawning rack app under unicorn"
 
-    export RAILS_ENV="$GOVUK_ENV"
-    export RACK_ENV="$GOVUK_ENV"
-
     CMD="bundle exec"
     # Unicorn Herder args
     CMD="${CMD} unicornherder -u unicorn -p '${GOVUK_APP_RUN}/app.pid'"
