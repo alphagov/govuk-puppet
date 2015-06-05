@@ -1,4 +1,5 @@
 require_relative '../../../../spec_helper'
+require 'sshkey'
 
 # get the list of groups
 def class_list
@@ -97,6 +98,21 @@ user_list.each do |username|
 
     it 'should be in at least one group' do
       group_list.should include(username)
+    end
+
+    it 'should have a strong SSH key' do
+      user = subject.resource('govuk::user', username)
+      ssh_keys = user[:ssh_key]
+
+      # Support for multiple SSH keys
+      unless ssh_keys.is_a? Array
+        ssh_keys = [ssh_keys].compact
+      end
+
+      ssh_keys.each do |key|
+        key_strength = SSHKey.ssh_public_key_bits key
+        expect(key_strength).to be >= 1024, "SSH key for #{user[:name]} is only #{key_strength} bits and must be stronger"
+      end
     end
   end
 end
