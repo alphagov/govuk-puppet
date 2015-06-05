@@ -198,6 +198,43 @@ govuk_unattended_reboot::etcd_endpoints:
 
 mongodb::server::version: '2.4.9'
 
+monitoring::checks::smokey::features:
+  check_bouncer:
+    feature: bouncer
+  check_businesssupportfinder:
+    feature: businesssupportfinder
+  check_calendars:
+    feature: calendars
+  check_contacts:
+    feature: contacts
+  check_efg:
+    feature: efg
+  check_external_link_tracker:
+    feature: external_link_tracker
+  check_frontend:
+    feature: frontend
+  check_licencefinder:
+    feature: licencefinder
+    notes_url: "https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks"
+  check_licensing:
+    feature: licensing
+  check_publishing:
+    feature: mainstream_publishing_tools
+  check_router:
+    feature: router
+  check_search:
+    feature: search
+  check_signon:
+    feature: signon
+  check_smartanswers:
+    feature: smartanswers
+  check_static_mirrors:
+    feature: mirror
+  check_tariff:
+    feature: tariff
+  check_whitehall:
+    feature: whitehall
+
 nginx::package::version: '1.4.6-1ubuntu3.1'
 
 nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
