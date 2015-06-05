@@ -54,13 +54,11 @@ end
 # follow the standard form AND is their LDAP username
 username_whitelist = %w{
   ajlanghorn
-  alex_tea
   alext
   benilovj
   benp
   bob
   bradleyw
-  dai
   dcarley
   elliot
   futurefabric
@@ -70,11 +68,8 @@ username_whitelist = %w{
   james
   jamiec
   kushalp
-  minglis
-  mwall
   niallm
   ollyl
-  ppotter
   rthorn
   ssharpe
   tadast
