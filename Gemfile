@@ -12,6 +12,7 @@ gem "hiera-puppet-helper", :git => 'git://github.com/bobtfish/hiera-puppet-helpe
 # https://github.com/rodjek/rspec-puppet/issues/56
 gem "puppetlabs_spec_helper"
 gem "webmock", "~> 1.20.0"
+gem "sshkey", "1.7.0"
 
 gem "parallel_tests"
 gem "parallel"
