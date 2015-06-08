@@ -44,7 +44,8 @@ class govuk::apps::whitehall(
 
   # Enable raindrops monitoring
   collectd::plugin::raindrops { 'whitehall':
-    port => $port,
+    ensure => 'absent',
+    port   => $port,
   }
 
   if $configure_frontend == true {
