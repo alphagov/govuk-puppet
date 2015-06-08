@@ -8,6 +8,7 @@ set -eu
 USAGE_LINE="$0 [options] SRC_HOSTNAME"
 USAGE_DESCRIPTION="Load the most recent MongoDB dump files from the given host."
 . ./common-args.sh
+shift $(($OPTIND-1))
 
 if [ $# -ne 1 ]; then
   error "A source hostname is required"
