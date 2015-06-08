@@ -42,12 +42,6 @@ class govuk::apps::whitehall(
     require                => Package['unzip'],
   }
 
-  # Enable raindrops monitoring
-  collectd::plugin::raindrops { 'whitehall':
-    ensure => 'absent',
-    port   => $port,
-  }
-
   if $configure_frontend == true {
 
     govuk::app::nginx_vhost { 'whitehall-frontend':
@@ -75,7 +69,7 @@ class govuk::apps::whitehall(
       deny_framing          => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',
-      hidden_paths          => ['/_raindrops', $health_check_path],
+      hidden_paths          => [$health_check_path],
       nginx_extra_config    => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
       proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;

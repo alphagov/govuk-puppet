@@ -32,9 +32,9 @@ describe 'govuk::app', :type => :define do
       should contain_service('giraffe').with_provider('upstart')
     end
 
-    it "should hide the Raindrops and Sidekiq monitoring endpoint" do
+    it "should hide the Sidekiq monitoring endpoint" do
       should contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/_raindrops', '/sidekiq']
+        'hidden_paths' => ['/sidekiq']
       )
     end
   end
@@ -69,9 +69,9 @@ describe 'govuk::app', :type => :define do
       }
     end
 
-    it "should hide the Raindrops, Sidekiq monitoring and healthcheck paths" do
+    it "should hide the Sidekiq monitoring and healthcheck paths" do
       should contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/_raindrops', '/sidekiq', '/healthcheck']
+        'hidden_paths' => ['/sidekiq', '/healthcheck']
       )
     end
   end
@@ -112,7 +112,7 @@ describe 'govuk::app', :type => :define do
 
       it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
-    
+
     context 'ensure => false' do
       let(:params) {{
         :app_type => 'rack',
