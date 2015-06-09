@@ -29,7 +29,18 @@ DIR="backups/$(date +%Y-%m-%d)"
 SKIP_DOWNLOAD=false
 DRY_RUN=false
 # By default, ignore large databases which are not useful when replicated.
-IGNORE="tariff tariff_temporal tariff_demo event_store external_link_tracker"
+IGNORE="tariff tariff_temporal tariff_demo event_store external_link_tracker transition"
+
+# Test whether the given value is in the ignore list.
+function ignored() {
+  local value=$1
+  for ignore_match in $IGNORE; do
+    if [ $ignore_match == $value ]; then
+      return 0
+    fi
+  done
+  return 1
+}
 
 while getopts "hF:u:d:sri:n" OPTION
 do
@@ -61,5 +72,3 @@ do
       ;;
   esac
 done
-
-shift $(($OPTIND-1))

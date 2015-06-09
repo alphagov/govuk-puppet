@@ -8,6 +8,7 @@ USAGE_DESCRIPTION="Download Elasticsearch index archives and import into another
 If one or more index names are given, only those index files are imported;
 otherwise, all index files are imported."
 . ./common-args.sh
+shift $(($OPTIND-1))
 
 if [ $# -lt 1 ]; then
   error "A source hostname is required"
