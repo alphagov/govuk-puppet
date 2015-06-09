@@ -46,9 +46,12 @@ module CheckIcinga
     end
 
     if host_issues.any?
-      raise IcingaError, sprintf("Error: %d host alerts found. Exiting with 1.", host_issues.length)
+      raise IcingaError, sprintf("Error: %d host alerts found.", host_issues.length)
     elsif service_issues.any?
-      raise IcingaError, sprintf("Error: %d service alerts found. Exiting with 1.", service_issues.length)
+      service_issues.each do |issue|
+        STDERR.puts("service_issue: #{issue['host_name']} #{issue['service_description']}")
+      end
+      raise IcingaError, sprintf("Error: %d service alerts found.", service_issues.length)
     end
   end
 
