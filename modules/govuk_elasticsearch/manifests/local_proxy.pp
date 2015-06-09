@@ -19,13 +19,13 @@
 #
 # [*read_timeout*]
 #   Nginx `proxy_read_timeout` value.
-#   Default: 5
+#   Default: 60
 #
 # [*servers*]
 #   Array of servers to load balance requests to.
 #
 class govuk_elasticsearch::local_proxy(
-  $read_timeout = 5,
+  $read_timeout = 60,
   $port = 9200,
   $servers
 ) {

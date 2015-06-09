@@ -3,7 +3,6 @@ require_relative '../../../../spec_helper'
 describe 'govuk_elasticsearch::local_proxy', :type => :class do
   let(:vhost_name) { 'elasticsearch-local-proxy' }
   let(:default_port) { '9200' }
-  let(:default_timeout) { '5' }
 
   context 'default params, three servers' do
     let(:params) {{
@@ -26,8 +25,8 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
       )
     end
 
-    it 'should default to read_timeout 5' do
-      should contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 5;$/)
+    it 'should default to read_timeout 60' do
+      should contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 60;$/)
     end
 
     it 'should default to port 9200' do
