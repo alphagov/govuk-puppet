@@ -1,6 +1,7 @@
 # This allows you to turn-on processes in Foreman instead of turning them off when running only part of the stack
 # See https://github.com/JordanHatch/bowler for some more info
 
+process :'authenticating-proxy' => [:'draft-content-store']
 process :asset_manager
 process :bouncer
 process :business_support_api => [:contentapi]
