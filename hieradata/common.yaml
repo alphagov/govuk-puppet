@@ -198,6 +198,8 @@ govuk_unattended_reboot::etcd_endpoints:
   - "http://etcd-2.management:4001"
   - "http://etcd-3.management:4001"
 
+grub2::recordfail_timeout: 5
+
 mongodb::server::version: '2.4.9'
 
 monitoring::checks::smokey::features:
