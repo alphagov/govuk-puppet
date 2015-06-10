@@ -19,6 +19,7 @@ class govuk_rbenv::cleanup {
       ensure => absent,
     }
   }
+  # FIXME: remove this version once cleaned up from all servers.
   if ! defined(Rbenv::Version['2.0.0-p594']) {
     rbenv::version { '2.0.0-p594':
       ensure => absent,
@@ -57,11 +58,6 @@ class govuk_rbenv::cleanup {
   }
 
   # FIXME: remove this version once cleaned up from all servers.
-  if ! defined(Rbenv::Version['2.2.0']) {
-    rbenv::version { '2.2.0':
-      ensure => absent,
-    }
-  }
   if ! defined(Rbenv::Version['2.2.1']) {
     rbenv::version { '2.2.1':
       ensure => absent,
