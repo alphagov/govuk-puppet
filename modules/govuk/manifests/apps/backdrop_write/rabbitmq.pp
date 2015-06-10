@@ -13,10 +13,6 @@
 #   The password for the RabbitMQ user
 #   Default: backdrop_write
 #
-# [*amqp_queue*]
-#   The queue that this application will read from
-#   Default: backdrop_write
-#
 # [*amqp_vhost*]
 #   The virtual host that this application is restricted to
 #   Default: backdrop_write
@@ -24,7 +20,6 @@
 class govuk::apps::backdrop_write::rabbitmq (
   $amqp_user  = 'backdrop_write',
   $amqp_pass  = 'backdrop_write',
-  $amqp_queue = 'backdrop_write',
   $amqp_vhost = 'backdrop_write',
 ) {
 
