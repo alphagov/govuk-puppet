@@ -123,12 +123,6 @@ class hosts::production::backend (
     ip             => '10.3.10.2',
     legacy_aliases => ['backup.mysql'],
   }
-  govuk::host { 'postgresql-master-1':
-    ip  => '10.3.20.10',
-  }
-  govuk::host { 'postgresql-slave-1':
-    ip  => '10.3.20.11',
-  }
   govuk::host { 'postgresql-primary-1':
     ip  => '10.3.20.12',
   }
