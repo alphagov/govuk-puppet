@@ -1,9 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class varnish::config {
+class varnish::config($upstream_port = 3054) {
   include varnish::restart
 
   $app_domain  = hiera('app_domain')
-  $router_port = '3054'
 
   file { '/etc/default/varnish':
     ensure  => file,
