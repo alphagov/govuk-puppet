@@ -12,6 +12,8 @@
 define contactgroup{
         contactgroup_name       <%= @group_name %>
         alias                   <%= @group_alias %>
+        <%- if @group_members.any? -%>
         members                 <%= @group_members.join(',') %>
+        <%- end -%>
         }
 
