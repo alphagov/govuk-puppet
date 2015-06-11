@@ -17,7 +17,7 @@ $(dirname $0)/sync-mongo.sh "$@" router-backend-1.router.preview
 status "Munging router backend hostnames for dev VM"
 mongo --quiet --eval 'db = db.getSiblingDB("router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".preview.alphagov.co.uk", ".dev.gov.uk"); db.backends.save(b); } );'
 
-$(dirname $0)/sync-postgresql.sh "$@" postgresql-master-1.backend.preview
+$(dirname $0)/sync-postgresql.sh "$@" postgresql-primary-1.backend.preview
 if ignored "transition"; then
   status "Skipping transition"
 else
