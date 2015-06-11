@@ -52,6 +52,7 @@ class govuk::node::s_development {
   include govuk::apps::tariff
 
   include govuk::apps::asset_manager
+  include govuk::apps::authenticating_proxy
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
   include govuk::apps::canary_frontend
