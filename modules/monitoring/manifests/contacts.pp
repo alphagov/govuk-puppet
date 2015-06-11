@@ -4,10 +4,6 @@
 #
 # === Parameters
 #
-# [*email*]
-#   Email address to send all alerts to. Typically a Google Group.
-#   Default: 'root@localhost'
-#
 # [*pagerduty_apikey*]
 #   PagerDuty API key.
 #   Default: ''
@@ -41,7 +37,6 @@
 #   Default: 'https://example.com/cgi-bin/icinga/status.cgi'
 #
 class monitoring::contacts (
-  $email = 'root@localhost',
   $pagerduty_apikey = '',
   $notify_pager = false,
   $notify_slack = false,
@@ -89,9 +84,10 @@ class monitoring::contacts (
   }
 
 
-  $google_members = 'monitoring_google_group'
-  icinga::contact { $google_members:
-    email => $email,
+  # FIXME: Remove this resource once it has been made absent in production.
+  icinga::contact { 'monitoring_google_group':
+    ensure => absent,
+    email  => 'root@localhost',
   }
 
   if $notify_slack and ($slack_subdomain and $slack_token and $slack_channel) {
@@ -125,7 +121,6 @@ class monitoring::contacts (
   icinga::contact_group { 'urgent-priority':
     group_alias => 'Contacts for urgent priority alerts',
     members     => flatten([
-      $google_members,
       $slack_members,
       $pager_members,
     ])
@@ -138,7 +133,6 @@ class monitoring::contacts (
   icinga::contact_group { 'high-priority':
     group_alias => 'Contacts for high priority alerts',
     members     => flatten([
-      $google_members,
       $slack_members,
     ])
   }
@@ -150,7 +144,6 @@ class monitoring::contacts (
   icinga::contact_group { 'normal-priority':
     group_alias => 'Contacts for normal priority alerts',
     members     => flatten([
-      $google_members,
       $slack_members,
     ])
   }
@@ -162,7 +155,6 @@ class monitoring::contacts (
   icinga::contact_group { 'regular':
     group_alias => 'Contacts for regular alerts',
     members     => flatten([
-      $google_members,
       $slack_members,
     ])
   }
