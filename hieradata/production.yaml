@@ -1,0 +1,201 @@
+---
+app_domain: 'production.alphagov.co.uk'
+
+asset_root: 'https://assets.digital.cabinet-office.gov.uk'
+
+backup::offsite::enable: true
+
+base::supported_kernel::enabled: true
+
+efg_domain: "www.sflg.gov.uk"
+
+govuk::apps::email_alert_api::enabled: true
+govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
+govuk::apps::finder_frontend::enabled: true
+govuk::apps::govuk_crawler_worker::airbrake_endpoint: 'https://errbit.production.alphagov.co.uk/notifier_api/v2/notices'
+govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
+govuk::apps::govuk_crawler_worker::enabled: true
+govuk::apps::info_frontend::enabled: true
+govuk::apps::need_api::errbit_environment_name: "production"
+govuk::apps::metadata_api::enabled: true
+govuk::apps::publishing_api::content_store: 'https://content-store.production.alphagov.co.uk'
+govuk::apps::publishing_api::errbit_environment_name: "production"
+govuk::apps::sidekiq_monitoring::enabled: true
+govuk::apps::specialist_frontend::enabled: true
+govuk::apps::specialist_publisher::enabled: true
+govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
+
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
+govuk::deploy::setup::ssh_keys:
+    jenkins_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAksVh+OynwACD1/gZwj+s+bmSNiYUAhGpEu+DzhKzt6hg+x8JfaC9Usi1xWOBprCWTpCGQ2b2OK7k4iVRSM4SMYNmSO9njxcYBWmRPFRhusFHmY2x4RqyHmKlo+sPoegFbD8VcTjIyCXfxBbtYJONtrixXO+AaCLf3RlOxiPbrIh4y/EIcOpldzepcg8lqtq0S979n7qWkFUYlMKmy2Wi+q9lEjTdhUo0oGg7bUPKMUdK8m7488iOB5sgvbL0VhVpH4FJZUDSdiTcXCp2TKGVVlDOoT9jsJ9ZwsPnCy2VcRJeJRE4LpV7X0n1SV94Ddel5/gc/TU0Sounx4X4U+TOVw==
+    jenkins_skyscape_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ41opiEUbMk1N3wNQLrsA3bwDWlf77mGiZAUyv8rDqwwUyRgdjXBIl8+/UUUromm3XzWXgeMiQkPSZMXu2U06X05BgW90Hl8lXsL24K0JRjLf6R7erMvqjpr0u5BTRxeKVSM52ckSUiucJHBiV5gTNRTUSwwXudjnlIY5HZRYNUUUtQMwfMObg6W3j+H/87gDx5RAF4JfOplK+pvHh0uGhIUrq48Euz2KJ31YsyO4FyU6z4k66MtJivkbZ/4Z9BpzzONnL1EC5saz7vaJIRGc0kT9NVGQ7b7uMkqlN/Bb/ZDzNJi8KSxJFTh8oNEAoRoMqaSufBlZa/sjqiuWniwL
+    jenkins_skyscape_production_key: AAAAB3NzaC1yc2EAAAABIwAAAQEA225jjIUVC54mWSDroWJJJZFMpzfAGTtQZKUHSqaO4rR1juIir9CfYkPqSQbj4YqWzvTPPSMokrkCBKA1jpsGiW13zqV2xVp3H2iON9RtHjwQuT70IwKeVG+6bAU6YC1KfbdB1WDOAPWsyMkAemkqS2Ana34dbVfIM9uswgB6Q25gGDGvIyc9ug/L5ceMuM0lzmSu2FConBP6gHxSzDRLskOqGNuqE+vs4EYGQWVerPTxwudn6l/+fIkhp4tM8cFG1ogP1MpMehd/YAtGu6w2Jm+Ss0QBxwQujnAeuRoueMwOfknC3CXtm8wS2Y0rpXk5ADTc5iqPJj8FWgquUMUPtQ==
+    ppdeploy_data_sync_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDGee9J6aN6PyPns8aiv2pLKrKPyyflG8LrMnjbIRUzqbqg4h/TXryuKqWTjvuQpb7jbAMV4GzP/aUM94Y8E1vYUKLbyLyG+OjoxNOBHjP7OY2a8iPXq2MmXDTEXQ0DpPsEOqPpMpzgit4P7Tl9yfPDLrKS9GBmQNc7wDfFMXjGfMCL+2ymhuDw4Bn7FIxuhqBDeoABAZPXoD8f1PiwLmWd+G27d3G391CLrD7y0PuySfX9R/EnlYoZJnOWjVyFrbbf3xiKWLn8JL36qTRYRRym8G8T6OvuUER7LBdmWBoTN/HQmQ4O0NcGx3HQZwRvANCBfKVK198TiF6kXn1mtudj
+
+govuk_bouncer::gor::enable_staging: true
+govuk_bouncer::gor::staging_ip: '37.26.91.5'
+
+govuk_cdnlogs::monitoring_enabled: true
+
+govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
+govuk_mysql::server::innodb_file_per_table: true
+
+govuk::node::s_api_lb::api_backend_servers:
+  - "api-1.api"
+  - "api-2.api"
+govuk::node::s_api_lb::content_store_backend_servers:
+  - "content-store-1.api"
+  - "content-store-2.api"
+  - "content-store-3.api"
+govuk::node::s_api_lb::search_backend_servers:
+  - "search-1.api"
+  - "search-2.api"
+  - "search-3.api"
+govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
+govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdc1'
+govuk::node::s_asset_slave::offsite_backups: true
+govuk::node::s_backend_lb::backend_servers:
+  - 'backend-1.backend'
+  - 'backend-2.backend'
+  - 'backend-3.backend'
+govuk::node::s_backend_lb::whitehall_backend_servers:
+  - 'whitehall-backend-1.backend'
+  - 'whitehall-backend-2.backend'
+  - 'whitehall-backend-3.backend'
+  - 'whitehall-backend-4.backend'
+govuk::node::s_backend_lb::mapit_servers:
+  - 'mapit-server-1.backend'
+  - 'mapit-server-2.backend'
+govuk::node::s_backend_lb::perfplat_public_app_domain: 'performance.service.gov.uk'
+govuk::node::s_backup::offsite_backups: true
+govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
+govuk::node::s_cache::denied_ip_addresses:
+  - '82.11.83.49'
+  - '190.17.123.49'
+  - '92.60.127.54'
+  - '82.44.150.236'
+govuk::node::s_frontend_lb::calculators_frontend_servers:
+  - 'calculators-frontend-1.frontend'
+  - 'calculators-frontend-2.frontend'
+  - 'calculators-frontend-3.frontend'
+govuk::node::s_frontend_lb::govuk_frontend_servers:
+  - 'frontend-1.frontend'
+  - 'frontend-2.frontend'
+  - 'frontend-3.frontend'
+govuk::node::s_frontend_lb::whitehall_frontend_servers:
+  - 'whitehall-frontend-1.frontend'
+  - 'whitehall-frontend-2.frontend'
+  - 'whitehall-frontend-3.frontend'
+  - 'whitehall-frontend-4.frontend'
+  - 'whitehall-frontend-5.frontend'
+  - 'whitehall-frontend-6.frontend'
+  - 'whitehall-frontend-7.frontend'
+govuk::node::s_licensify_lb::licensify_backend_servers:
+  - 'licensify-backend-1.licensify'
+  - 'licensify-backend-2.licensify'
+govuk::node::s_licensify_lb::licensify_frontend_servers:
+  - 'licensify-frontend-1.licensify'
+  - 'licensify-frontend-2.licensify'
+govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/mapper/backups-automongodbbackup'
+govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
+govuk::node::s_monitoring::enable_fastly_metrics: true
+
+govuk_crawler::seed_enable: true
+govuk_crawler::sync_enable: true
+govuk_crawler::targets:
+  - 'mirror-rsync@mirror0.mirror.provider0.production.govuk.service.gov.uk'
+  - 'mirror-rsync@mirror1.mirror.provider0.production.govuk.service.gov.uk'
+  - 'mirror-rsync@mirror0.mirror.provider1.production.govuk.service.gov.uk'
+  - 'mirror-rsync@mirror1.mirror.provider1.production.govuk.service.gov.uk'
+govuk_crawler::ssh_keys:
+  mirror0.mirror.provider0.production.govuk.service.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDVmyDpdl3eJSx74GssbsEQpLVuh9XMFGDU0GRj1LRGIKL44PN4FlwpoHGrUI8uw/E2ZV9I6GEJisK8h9GP/njJEsMOTRPfRD3GxkDR5SfrE3bL7uNHdn6QvxdOIFXRLdphTNCbtL3FTqGTBB/jG55N5p2uy/gbLI/fzN7K1ldpe7NKCmBxnFFqFAqwjFaHIjIBs/QxLu3yiaXN2OnyYaRIhN7zQ0NEkvwEpa1X9VtWQbVU7/s3jxssU+BhFIF/7CSevwDMoaVgila8jD4dCbBvpAYPW7ZY1emmzuFSSF3mwq1qe/hI7Xh/G+zBQ+HQ0RoeImGdcK7AGZTkAcoX5GoB'
+    type: 'ssh-rsa'
+  mirror1.mirror.provider0.production.govuk.service.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDkE9M2gzbIHPwjtTj4eDBWt+VWHhA7DZgBH3HzHAAfZqgNvurt1bVQi1w6Pepseq6ZuGaBYBXGhfC+zsLEy0eyzMt4INmQhlGLeVu7/Dl//biGblxXUCtutlksAQ0cszb7IoFhzzEg05wcoUw4Ew6qW/HwS4d7hYgbYyLa/WHMhYIdvzxaqAmGmwyq/IMz+fDpe8WmXqGbSfnPPqP3G1soXsGOUqbbPJGpyWEDefX65nfOMvHhaLbtM9dVcbp7uC6xdelwh3OSPK+RujXuvSHTU0rIxDYULwGn3dZapb5Y7hjJqGEdPstQiQNE8nA1Y4dIM8xhy103oqp/VFbla5EH'
+    type: 'ssh-rsa'
+  mirror0.mirror.provider1.production.govuk.service.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VVHvPeBh8MoAEBTLpO9Xj/s5s+rqe4AN61HTzu4hGpYIB4sv+j8VHzHVHVmhP31gl9xaIiv+7BI8AstuGWPiehOIgTR+ufKyvnr1msHO59dM5Vht5i2ZVVB5WF/MphTfGT4vO3RDAZGvZXUaasBxOqqE6jrp4jF5d8WFV44mzE5PqqhAodiBGyfKDcd0gzuQhGpOsafYAy4+E+OlIbcX3LvTZyZdrC5va0l5LSVxstJjUjTSw85/m1pjSYBPMLc50T0M5SYA79G2yPaPYqux5YpA+D/0qnWlNQfR7MQdo3XO4ZGqRyjSn9/WcYsyn5KVivRd+Id6Jw8x0MwPzIVJ'
+    type: 'ssh-rsa'
+  mirror1.mirror.provider1.production.govuk.service.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b'
+    type: 'ssh-rsa'
+
+hosts::production::apt_mirror_internal: true
+hosts::production::ip_bouncer: '37.26.90.219'
+hosts::production::ip_redirector: '37.26.90.222'
+hosts::production::releaseapp_host_org: true
+hosts::production::suffixed_hosts: true
+
+#Do not enable this without speaking to Brad first
+licensify::apps::licensing_web_forms::enabled: false
+
+loadbalancer::balance::retry_timeouts: false
+
+mirror::enable_checks: true
+
+mongodb::server::version: '2.4.9'
+mongodb::server::package_name: 'mongodb-10gen'
+
+monitoring::checks::ses::enable: true
+monitoring::checks::ses::critical: 50
+monitoring::checks::ses::region: us-east-1
+monitoring::checks::ses::warning: 30
+monitoring::contacts::notify_pager: true
+monitoring::contacts::notify_slack: true
+monitoring::contacts::slack_subdomain: 'govuk'
+monitoring::contacts::slack_channel: '#webops-monitoring'
+monitoring::contacts::slack_username: 'Production Icinga'
+monitoring::contacts::slack_nagios_url: 'https://nagios.production.alphagov.co.uk/cgi-bin/icinga/status.cgi'
+
+monitoring_domain_suffix: 'production.alphagov.co.uk'
+monitoring_protected: no
+
+performance_platform::spotlight::perfplat_internal_app_domain: 'production.performance.service.gov.uk'
+performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'production.performance.service.gov.uk'
+
+postfix::smarthost:
+  - 'email-smtp.us-east-1.amazonaws.com:587'
+  - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
+postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
+postfix::rewrite_mail_list: 'machine.email.plat1'
+
+router::gor::enable_staging: true
+
+shell::shell_prompt_string: 'production'
+
+ssh::config::allow_users:
+  - 'ajlanghorn'
+  - 'alexmuller'
+  - 'alext'
+  - 'annashipman'
+  - 'benilovj'
+  - 'bob'
+  - 'bradleyw'
+  - 'carlmassa'
+  - 'danielroseman'
+  - 'davidsingleton'
+  - 'dcarley'
+  - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
+  - 'dominicbaggott'
+  - 'eddsowden'
+  - 'elliot'
+  - 'heathd'
+  - 'jabley'
+  - 'jacobashdown'
+  - 'james'
+  - 'jamiec'
+  - 'jennyduckett'
+  - 'jordan'
+  - 'kushalp'
+  - 'mattbostock'
+  - 'richardboulton'
+  - 'robyoung'
+  - 'ssharpe'
+  - 'timothymower'
+  - 'tombooth'
+
+users::user_groups:
+    - 'govuk_production_access'
+
+website_root: 'https://www.gov.uk'

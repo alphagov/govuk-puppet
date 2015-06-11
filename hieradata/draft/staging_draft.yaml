@@ -1,0 +1,38 @@
+---
+
+app_domain: 'draft.staging.publishing.service.gov.uk'
+
+asset_root: 'assets-origin.draft.staging.publishing.service.gov.uk'
+
+shell::shell_prompt_string: 'draft-staging'
+
+govuk::apps::content_store::default_ttl: '1'
+govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-draft@digital.cabinet-office.gov.uk'
+govuk::apps::static::global_header_text: GOV.UK (Draft)
+
+govuk::deploy::config::errbit_environment_prefix: 'draft_'
+govuk::deploy::setup::ssh_keys:
+  draft_production_skyscape_jenkins: AAAAB3NzaC1yc2EAAAADAQABAAABAQDQB4mU5iDXC4zqDdg8TtZzBoeKbXJOEVN1tNRQAAjBVD3GnAIDMWf5ChJAnEdchA/32ULkLEIko171NWCJ98nfureIMX8hiG3YqYtt4ydYV0yqTKQHz7/RhvfxvKYFL6omy8RZHEjeZ6Kf8SrELPXutT4oqJDMxaLqyZY8IYxZ/U1SJjhsBm1DCUmeuHxNRlTqEYyFEzQ9fklAR8YnbMcfhP+yBA5A+66yL03gkoDvzSUic5J5OU6J5ejupUTI5AeIu4FOep5UYs8oXf7RpXTL1b+BR6YPRCf0njnMrXauASfKV7VcxvvE0D0JbwVO82Rwls02Ug8WwH5WGJBTZ4YF
+  draft_staging_skyscape_jenkins: AAAAB3NzaC1yc2EAAAADAQABAAABAQDYqafTPxojrROckgfVRftP9PXEL/G3FvdMgDazy+UHW/0xQy3RgGjYNLe7usW30WoIiKlxfxaRbp/TSN7O/1/MQAOLH8NDKwlLp+hcV30A6rVXL8y5Z2xb5CPj5+ICMTzeTU8BrR5tnb5hLH1ncPEPKYQJTEyYLJ+X04GOH7ttzwiW8CaV8OHSTyYmt65mpfR2PdT59DBEhNTvSJ3rZ9H5lnjb9ZEbZx+/dXGsKX1iDJ3JymxhDLnx9dgLuFedlTnw8lrpF7pZkWEiCw34VUoFlnZVVwgt4gxh2Wl+YfqLoHWSF6E5RyKIwksyvWfcI/35s6HvmdkiCAWMhrQaCmnR
+
+govuk::node::s_api_lb::content_store_backend_servers:
+- "content-store-1.api"
+- "content-store-2.api"
+govuk::node::s_cache::protect_cache_servers: true
+govuk::node::s_frontend_lb::govuk_frontend_servers:
+  - 'frontend-1.frontend'
+  - 'frontend-2.frontend'
+govuk::node::s_backend_lb::backend_servers:
+  - 'backend-1.backend'
+  - 'backend-2.backend'
+
+govuk::node::s_backend::apps:
+  - govuk::apps::kibana
+
+govuk::node::s_frontend::apps:
+  - govuk::apps::contacts_frontend
+  - govuk::apps::government_frontend
+  - govuk::apps::manuals_frontend
+  - govuk::apps::static
+
+website_root: 'https://www-origin.draft.production.publishing.service.gov.uk'
