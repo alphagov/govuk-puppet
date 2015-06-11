@@ -159,7 +159,7 @@
           "type": "graphite events",
           "showLine": true,
           "iconColor": "#C0C6BE",
-          "lineColor": "rgba(255, 96, 96, 0.592157)",
+          "lineColor": "rgba(32, 230, 25, 0.592157)",
           "iconSize": 13,
           "enable": true,
           "tags": "deploys"
