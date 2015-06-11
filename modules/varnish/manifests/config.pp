@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class varnish::config($upstream_port = 3054) {
+class varnish::config($upstream_port) {
   include varnish::restart
 
   $app_domain  = hiera('app_domain')

@@ -3,6 +3,7 @@ class govuk::node::s_cache (
   $protect_cache_servers = false,
   $real_ip_header = undef,
   $denied_ip_addresses = undef,
+  $enable_authenticating_proxy = false,
 ) inherits govuk::node::s_base {
 
   include govuk::htpasswd
@@ -29,11 +30,20 @@ class govuk::node::s_cache (
   }
 
   class { 'varnish':
-    storage_size => join([$varnish_storage_size,'M'],''),
-    default_ttl  => '900',
+    storage_size                => join([$varnish_storage_size,'M'],''),
+    default_ttl                 => '900',
+    enable_authenticating_proxy => $enable_authenticating_proxy,
   }
 
   include govuk::apps::router
+
+  if $enable_authenticating_proxy {
+    include govuk::node::s_ruby_app_server
+    class { 'govuk::apps::authenticating_proxy':
+      enabled            => true,
+      govuk_upstream_uri => 'http://localhost:3054',
+    }
+  }
 
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target    => "${::fqdn_underscore}.nginx.nginx_connections-writing",
