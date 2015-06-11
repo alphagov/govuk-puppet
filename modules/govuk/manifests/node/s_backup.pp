@@ -76,10 +76,10 @@ class govuk::node::s_backup (
     priority  => '001',
   }
 
-  backup::directory {'backup_postgresql_backups_postgresql_master_1':
+  backup::directory {'backup_postgresql_backups_postgresql_primary_1':
     directory => '/var/lib/autopostgresqlbackup/',
-    host_name => 'postgresql-master-1',
-    fq_dn     => 'postgresql-master-1.backend.production',
+    host_name => 'postgresql-primary-1',
+    fq_dn     => 'postgresql-primary-1.backend.production',
     priority  => '001',
   }
 
