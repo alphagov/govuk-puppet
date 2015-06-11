@@ -15,6 +15,12 @@ if [ "$#" -lt "1" ] || [ "$1" = "-h" ]; then
   exit 1
 fi
 
+STATUS=$(sudo puppet node status "$@")
+if ! echo "${STATUS}" | grep -qx 'Currently active'; then
+  echo "${STATUS}"
+  exit 1
+fi
+
 sudo puppet node deactivate "$@"
 sudo puppet node clean "$@"
 
