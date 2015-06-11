@@ -17,9 +17,9 @@ describe 'monitoring::contacts', :type => :class do
     it { should_not contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
-      ['monitoring_google_group'],
-      ['monitoring_google_group'],
-      ['monitoring_google_group']
+      [],
+      [],
+      []
   end
 
   context 'notify_pager => true' do
@@ -30,9 +30,9 @@ describe 'monitoring::contacts', :type => :class do
     it { should_not contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
-      ['monitoring_google_group', 'pager_nonworkhours'],
-      ['monitoring_google_group'],
-      ['monitoring_google_group']
+      ['pager_nonworkhours'],
+      [],
+      []
   end
 
   context 'notify_pager => true, notify_slack => true, slack creds' do
@@ -51,8 +51,8 @@ describe 'monitoring::contacts', :type => :class do
     )}
 
     it_should_behave_like 'configured contact groups',
-      ['monitoring_google_group', 'slack_notification', 'pager_nonworkhours'],
-      ['monitoring_google_group', 'slack_notification'],
-      ['monitoring_google_group', 'slack_notification']
+      ['slack_notification', 'pager_nonworkhours'],
+      ['slack_notification'],
+      ['slack_notification']
   end
 end
