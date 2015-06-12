@@ -1,0 +1,2 @@
+resolvconf::options:
+   - 'single-request-reopen'
