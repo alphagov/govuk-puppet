@@ -50,7 +50,7 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
   file { '/usr/local/bin/es-rotate-passive-check':
     ensure  => present,
     mode    => '0755',
-    content => template('usr/local/bin/es-rotate-passive-check.erb'),
+    content => template('govuk/usr/local/bin/es-rotate-passive-check.erb'),
   }
 
   @@icinga::passive_check { "check_es_rotate_${::hostname}":
