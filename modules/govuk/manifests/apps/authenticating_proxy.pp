@@ -32,6 +32,7 @@ class govuk::apps::authenticating_proxy(
   $errbit_api_key = undef,
   $errbit_environment_name = undef,
   $govuk_upstream_uri = undef,
+  $secret_key_base = undef,
 ) {
   if $enabled {
     govuk::app { 'authenticating-proxy':
@@ -59,6 +60,14 @@ class govuk::apps::authenticating_proxy(
       "${title}-ERRBIT_ENVIRONMENT_NAME":
         varname => 'ERRBIT_ENVIRONMENT_NAME',
         value   => $errbit_environment_name;
+      }
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        app     => 'authenticating-proxy',
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
       }
     }
   }
