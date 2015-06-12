@@ -42,6 +42,7 @@ class users::groups::govuk {
   include users::kushalp
   include users::marksheldon
   include users::mattbostock
+  include users::mattcottingham
   include users::michaelpatrick
   include users::paulmartin
   include users::richardboulton
