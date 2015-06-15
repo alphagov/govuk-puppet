@@ -151,31 +151,41 @@ the following from `development/replication`.
 
     dev$ ./replicate-data-local.sh -F ../ssh_config -u $USERNAME
 
-If you do not have preview access, get hold of a mongo and a mysql database
-dump files and place them in a specific directory structure shown below.
+If you do not have preview access, ask someone to give you a copy of their
+dump.  This should be a directory structure similar to:
 
-    dir/
-        mongo/[mongo-dump-file]
-        mysql/[mysql-dump-file]
+    dir
+    ├── elasticsearch
+    │   ├── api-elasticsearch-1.api.preview
+    │   │   ├── detailed.zip
+    │   │   ├── government.zip
+    │   │   ├── mainstream.zip
+    │   │   ├── metasearch.zip
+    │   │   ├── page-traffic.zip
+    │   │   └── service-manual.zip
+    │   └── elasticsearch-1.backend.preview
+    │       └── maslow.zip
+    ├── mongo
+    │   ├── api-mongo-1.api.preview
+    │   │   └── 2015-06-02_05h33m.Tuesday.tgz
+    │   ├── mongo-1.backend.preview
+    │   │   └── 2015-06-02_06h13m.Tuesday.tgz
+    │   └── router-backend-1.router.preview
+    │       └── 2015-06-02_06h19m.Tuesday.tgz
+    ├── mysql
+    │   ├── mysql-backup-1.backend.preview
+    │   │   └── latest.tbz2
+    │   └── whitehall-mysql-backup-1.backend.preview
+    │       └── latest.tbz2
+    └── postgresql
+        ├── postgresql-master-1.backend.preview
+        |   └── latest.tbz2
+        └── transition-postgresql-master-1.backend.preview
+            └── latest.tbz2
 
 Then, from `development/replication` run.
 
-    dev$ ./replicate-data-local.sh -F ../ssh_config -d path/to/dir -s -u $USERNAME
-
-Dumps of the Elasticsearch indexes take place nightly on preview boxes. To get a
-copy of the production search index on your local vm, run the following from
-`rummager`:
-
-    dev$ RUMMAGER_INDEX=all bundle exec rake rummager:migrate_from_unaliased_index
-
-Then run this from `development/replication`:
-
-    dev$ ./replicate-search-index.sh -F ../ssh_config -u $USERNAME
-
-If you have an existing search index you need to remove, run the following from the
-Rummager repository before the replication script.
-
-    dev$ RUMMAGER_INDEX=all rake rummager:switch_to_empty_index
+    dev$ ./replicate-data-local.sh -d path/to/dir -s
 
 ## 9. Accessing Preview
 
