@@ -6,6 +6,8 @@ asset_root: 'assets-origin.draft.preview.publishing.service.gov.uk'
 
 shell::shell_prompt_string: 'draft-preview'
 
+govuk::apps::authenticating_proxy::enabled: true
+govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://localhost:3055'
 govuk::apps::content_store::default_ttl: '1'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-preview-draft@digital.cabinet-office.gov.uk'
 govuk::apps::static::global_header_text: GOV.UK (Draft)
