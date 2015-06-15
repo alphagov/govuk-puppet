@@ -13,6 +13,7 @@ cron::weekly_dow: 1
 
 efg_domain: 'efg.preview.alphagov.co.uk'
 
+govuk::apps::authenticating_proxy::errbit_environment_name: "preview"
 govuk::apps::backdrop_read::enabled: true
 govuk::apps::backdrop_write::enabled: true
 govuk::apps::collections_publisher::enabled: true
