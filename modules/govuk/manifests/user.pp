@@ -77,6 +77,12 @@ define govuk::user(
     membership => $membership,
     require    => Class['shell'],
     shell      => $shell,
+  } ->
+  file { $home:
+    ensure => directory,
+    owner  => $title,
+    group  => $title,
+    mode   => '0750',
   }
 
   # FIXME: Manage group?
