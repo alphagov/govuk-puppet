@@ -24,6 +24,33 @@ class govuk_postgresql::server (
     }
   }
 
+  if $::lsbdistcodename == 'precise' {
+    # Workaround for https://wiki.postgresql.org/wiki/May_2015_Fsync_Permissions_Bug
+    #
+    # FIXME: remove when this is no longer necessary - either when we've
+    # upgraded precise machines to 9.3+, or when Ubuntu have released an
+    # updated package that addresses the issue.
+
+    file { '/var/lib/postgresql/9.1/main/server.crt':
+      ensure  => file,
+      owner   => 'postgres',
+      group   => 'postgres',
+      mode    => '0600',
+      source  => 'puppet:///modules/govuk_postgresql/ssl/ssl-cert-snakeoil.pem',
+      require => Class['postgresql::server::install'],
+      before  => Class['postgresql::server::service'],
+    }
+    file { '/var/lib/postgresql/9.1/main/server.key':
+      ensure  => file,
+      owner   => 'postgres',
+      group   => 'postgres',
+      mode    => '0600',
+      source  => 'puppet:///modules/govuk_postgresql/ssl/ssl-cert-snakeoil.key',
+      require => Class['postgresql::server::install'],
+      before  => Class['postgresql::server::service'],
+    }
+  }
+
   include postgresql::server::contrib
 
   if $configure_env_sync_user {
