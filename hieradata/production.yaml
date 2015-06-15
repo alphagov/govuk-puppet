@@ -188,6 +188,7 @@ ssh::config::allow_users:
   - 'jamiec'
   - 'jennyduckett'
   - 'jordan'
+  - 'joshmyers'
   - 'kushalp'
   - 'mattbostock'
   - 'richardboulton'
