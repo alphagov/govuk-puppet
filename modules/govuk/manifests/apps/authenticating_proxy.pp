@@ -10,10 +10,6 @@
 #   The port that it is served on.
 #   Default: 3107
 #
-# [*enabled*]
-#   Feature flag to allow the app to be deployed to an environment.
-#   Default: false
-#
 # [*govuk_upstream_uri*]
 #   The URI of the upstream service that we proxy to.
 #   Default: undef
@@ -34,47 +30,44 @@
 #
 class govuk::apps::authenticating_proxy(
   $port = 3107,
-  $enabled = false,
   $errbit_api_key = undef,
   $errbit_environment_name = undef,
   $govuk_upstream_uri = undef,
   $secret_key_base = undef,
 ) {
-  if $enabled {
-    govuk::app { 'authenticating-proxy':
-      app_type           => 'rack',
-      port               => $port,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
-      log_format_is_json => true,
-    }
+  govuk::app { 'authenticating-proxy':
+    app_type           => 'rack',
+    port               => $port,
+    vhost_ssl_only     => true,
+    health_check_path  => '/healthcheck',
+    log_format_is_json => true,
+  }
 
-    if $govuk_upstream_uri {
-      govuk::app::envvar {
-        "${title}-GOVUK_UPSTREAM_URI":
-            app     => 'authenticating-proxy',
-            varname => 'GOVUK_UPSTREAM_URI',
-            value   => $govuk_upstream_uri;
-      }
+  if $govuk_upstream_uri {
+    govuk::app::envvar {
+      "${title}-GOVUK_UPSTREAM_URI":
+          app     => 'authenticating-proxy',
+          varname => 'GOVUK_UPSTREAM_URI',
+          value   => $govuk_upstream_uri;
     }
+  }
 
-    if $errbit_api_key {
-      govuk::app::envvar {
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
-      "${title}-ERRBIT_ENVIRONMENT_NAME":
-        varname => 'ERRBIT_ENVIRONMENT_NAME',
-        value   => $errbit_environment_name;
-      }
+  if $errbit_api_key {
+    govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-ERRBIT_ENVIRONMENT_NAME":
+      varname => 'ERRBIT_ENVIRONMENT_NAME',
+      value   => $errbit_environment_name;
     }
+  }
 
-    if $secret_key_base != undef {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        app     => 'authenticating-proxy',
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base,
-      }
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      app     => 'authenticating-proxy',
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
     }
   }
 }

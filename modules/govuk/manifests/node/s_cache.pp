@@ -71,7 +71,6 @@ class govuk::node::s_cache (
   if $enable_authenticating_proxy {
     include govuk::node::s_ruby_app_server
     class { 'govuk::apps::authenticating_proxy':
-      enabled            => true,
       govuk_upstream_uri => 'http://localhost:3054',
     }
   }
