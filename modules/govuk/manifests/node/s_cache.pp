@@ -1,4 +1,35 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_cache
+#
+# Configuration for a cache node. Runs a varnish cache and the router.
+#
+# === Parameters
+#
+# [*protect_cache_servers*]
+#   Whether to protect all servers with basic auth
+#
+#   Default: false
+#
+# [*real_ip_header*]
+#   The name of the upstream header containing the IP address of the user agent.
+#   Nginx will use this to replace `$remote_addr` with the IP from the given header.
+#
+#   See router::nginx for a more detailed explanation
+#
+#   Default: undef
+#
+# [*denied_ip_addresses*]
+#   Blocked IP address(es). Can be a single IP address (string) or list of IP
+#   addresses (array).
+#
+#   Default: undef
+#
+# [*enable_authenticating_proxy*]
+#   Whether to enable the [authenticating proxy](https://github.com/alphagov/authenticating-proxy)
+#   on this node. If enabled, it will be configured to sit between varnish and
+#   the router.
+#
+#   Default: false
+#
 class govuk::node::s_cache (
   $protect_cache_servers = false,
   $real_ip_header = undef,
