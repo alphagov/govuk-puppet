@@ -26,6 +26,12 @@
 #   Errbit environment name, one of preview, staging or production
 #   Default: ''
 #
+# [*secret_key_base*]
+#   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
+#   rails 4.x signed cookie mechanism. If unset the app will be unable to
+#   start.
+#   Default: undef
+#
 class govuk::apps::authenticating_proxy(
   $port = 3107,
   $enabled = false,
