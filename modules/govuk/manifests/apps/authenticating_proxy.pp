@@ -18,9 +18,19 @@
 #   The URI of the upstream service that we proxy to.
 #   Default: undef
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#   Default: ''
+#
+# [*errbit_environment_name*]
+#   Errbit environment name, one of preview, staging or production
+#   Default: ''
+#
 class govuk::apps::authenticating_proxy(
   $port = 3107,
   $enabled = false,
+  $errbit_api_key = undef,
+  $errbit_environment_name = undef,
   $govuk_upstream_uri = undef,
 ) {
   if $enabled {
@@ -38,6 +48,17 @@ class govuk::apps::authenticating_proxy(
             app     => 'authenticating-proxy',
             varname => 'GOVUK_UPSTREAM_URI',
             value   => $govuk_upstream_uri;
+      }
+    }
+
+    if $errbit_api_key {
+      govuk::app::envvar {
+      "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
+      "${title}-ERRBIT_ENVIRONMENT_NAME":
+        varname => 'ERRBIT_ENVIRONMENT_NAME',
+        value   => $errbit_environment_name;
       }
     }
   }
