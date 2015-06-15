@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: varnish::config
+#
+# Configuration for the varnish cache.
+#
+# === Parameters
+#
+# [*upstream_port*]
+#   The port of the upstream service that varnish proxies to (and caches).
+#
 class varnish::config($upstream_port) {
   include varnish::restart
 
