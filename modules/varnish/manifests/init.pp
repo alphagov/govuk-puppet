@@ -18,17 +18,15 @@
 #   For full documentation see https://www.varnish-cache.org/docs/3.0/reference/varnishd.html?highlight=default_ttl#storage-types
 #   Default: '512M'
 #
-# [*enable_authenticating_proxy*]
-#   Whether the [authenticating proxy](https://github.com/alphagov/authenticating-proxy) is enabled. This
-#   determines which service is configured as the upstream from varnish. If the authenticating proxy is enabled, then it
-#   is used as the upstream, if not then the router is used.
+# [*upstream_port*]
+#   The port of the upstream service that varnish proxies to (and caches).
 #
-#   Default: false
+#   Default: 3054 (the router)
 #
 class varnish (
     $default_ttl  = 900,
     $storage_size = '512M',
-    $enable_authenticating_proxy = false,
+    $upstream_port = 3054,
 ) {
   anchor { 'varnish::begin':
     notify => Class['varnish::service'];
@@ -36,11 +34,6 @@ class varnish (
   class { 'varnish::package':
     require => Anchor['varnish::begin'],
     notify  => Class['varnish::service'];
-  }
-
-  $upstream_port = $enable_authenticating_proxy ? {
-    true => 3107,
-    default => 3054,
   }
 
   class { 'varnish::config':

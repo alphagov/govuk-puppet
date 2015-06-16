@@ -60,10 +60,15 @@ class govuk::node::s_cache (
     $varnish_storage_size = $varnish_storage_size_pre
   }
 
+  $varnish_upstream_port = $enable_authenticating_proxy ? {
+    true => 3107,
+    default => 3054,
+  }
+
   class { 'varnish':
-    storage_size                => join([$varnish_storage_size,'M'],''),
-    default_ttl                 => '900',
-    enable_authenticating_proxy => $enable_authenticating_proxy,
+    storage_size  => join([$varnish_storage_size,'M'],''),
+    default_ttl   => '900',
+    upstream_port => $varnish_upstream_port,
   }
 
   include govuk::apps::router
