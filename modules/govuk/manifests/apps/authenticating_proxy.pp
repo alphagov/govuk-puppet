@@ -26,11 +26,12 @@
 #
 class govuk::apps::authenticating_proxy(
   $port = 3107,
+  $app_name = 'authenticating-proxy',
   $errbit_api_key = undef,
   $govuk_upstream_uri = undef,
   $secret_key_base = undef,
 ) {
-  govuk::app { 'authenticating-proxy':
+  govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
@@ -41,7 +42,7 @@ class govuk::apps::authenticating_proxy(
   if $govuk_upstream_uri {
     govuk::app::envvar {
       "${title}-GOVUK_UPSTREAM_URI":
-          app     => 'authenticating-proxy',
+          app     => $app_name,
           varname => 'GOVUK_UPSTREAM_URI',
           value   => $govuk_upstream_uri;
     }
@@ -49,7 +50,7 @@ class govuk::apps::authenticating_proxy(
 
   if $errbit_api_key {
     govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-      app     => 'authenticating-proxy',
+      app     => $app_name,
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key,
     }
@@ -57,7 +58,7 @@ class govuk::apps::authenticating_proxy(
 
   if $secret_key_base != undef {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      app     => 'authenticating-proxy',
+      app     => $app_name,
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
     }
