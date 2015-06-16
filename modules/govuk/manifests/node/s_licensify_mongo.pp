@@ -19,8 +19,7 @@ class govuk::node::s_licensify_mongo (
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
     }
 
-  $mongodb_encrypted = $licensify_mongo_encrypted
-  if $mongodb_encrypted {
+  if $licensify_mongo_encrypted {
     motd::snippet {'01-encrypted-licensify': }
   }
 
