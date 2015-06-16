@@ -45,7 +45,7 @@ mod 'gdsoperations/gor',
   :ref => 'v0.2.0'
 mod 'alphagov/harden',
   :git => 'git://github.com/alphagov/puppet-harden.git',
-  :ref => 'v0.1.1'
+  :ref => 'v0.1.2'
 mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
