@@ -7,6 +7,7 @@ base::supported_kernel::enabled: true
 
 efg_domain: "www.sflg.gov.uk"
 
+govuk::apps::authenticating_proxy::errbit_environment_name: "staging"
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::finder_frontend::enabled: true
