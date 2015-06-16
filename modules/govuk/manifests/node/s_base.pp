@@ -11,6 +11,7 @@ class govuk::node::s_base {
   include govuk::scripts
   include govuk::sshkeys
   include govuk_unattended_reboot
+  include grub2
   include harden
   include hosts
   include monitoring::client
