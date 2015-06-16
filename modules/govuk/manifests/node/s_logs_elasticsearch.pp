@@ -57,7 +57,6 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
     service_description => 'es-rotate',
     host_name           => $::fqdn,
     freshness_threshold => 25 * (60 * 60), # 25 hours
-    require             => File['/usr/local/bin/es-rotate-passive-check'],
   }
 
   cron { 'elasticsearch-rotate-indices':
