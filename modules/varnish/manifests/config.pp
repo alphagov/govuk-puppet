@@ -1,9 +1,16 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class varnish::config {
+# == Class: varnish::config
+#
+# Configuration for the varnish cache.
+#
+# === Parameters
+#
+# [*upstream_port*]
+#   The port of the upstream service that varnish proxies to (and caches).
+#
+class varnish::config($upstream_port) {
   include varnish::restart
 
   $app_domain  = hiera('app_domain')
-  $router_port = '3054'
 
   file { '/etc/default/varnish':
     ensure  => file,

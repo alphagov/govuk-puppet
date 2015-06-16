@@ -4,9 +4,9 @@
 #   https://www.varnish-cache.org/trac/browser/bin/varnishd/default.vcl?rev=2.0
 
 # Backends
-  backend router {
+  backend upstream {
     .host = "127.0.0.1";
-    .port = "<%= @router_port -%>";
+    .port = "<%= @upstream_port -%>";
     .first_byte_timeout = 20s;
     .between_bytes_timeout = 20s;
   }
@@ -20,7 +20,7 @@ sub vcl_recv {
   unset req.http.GOVUK-Request-Id;
   set req.http.GOVUK-Request-Id = server.identity + "-" + req.xid;
 
-  set req.backend = router;
+  set req.backend = upstream;
 
   # Use the error keyword here as serving a synthetic response isn't supported in vcl_recv
   # 668 is a custom HTTP error code
