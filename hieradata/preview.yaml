@@ -39,7 +39,6 @@ govuk::apps::publishing_api::content_store: 'https://content-store.preview.alpha
 govuk::apps::publishing_api::draft_content_store: 'https://content-store.draft.preview.publishing.service.gov.uk'
 govuk::apps::publishing_api::errbit_environment_name: "preview"
 govuk::apps::screenshot_as_a_service::enabled: true
-govuk::apps::service_manual::enabled: true
 govuk::apps::signon::enable_logstream: true
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::specialist_frontend::enabled: true
