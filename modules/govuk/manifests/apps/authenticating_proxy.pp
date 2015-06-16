@@ -18,10 +18,6 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
-# [*errbit_environment_name*]
-#   Errbit environment name, one of preview, staging or production
-#   Default: ''
-#
 # [*secret_key_base*]
 #   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
 #   rails 4.x signed cookie mechanism. If unset the app will be unable to
@@ -31,7 +27,6 @@
 class govuk::apps::authenticating_proxy(
   $port = 3107,
   $errbit_api_key = undef,
-  $errbit_environment_name = undef,
   $govuk_upstream_uri = undef,
   $secret_key_base = undef,
 ) {
@@ -53,13 +48,10 @@ class govuk::apps::authenticating_proxy(
   }
 
   if $errbit_api_key {
-    govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
+    govuk::app::envvar { "${title}-ERRBIT_API_KEY":
+      app     => 'authenticating-proxy',
       varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
-    "${title}-ERRBIT_ENVIRONMENT_NAME":
-      varname => 'ERRBIT_ENVIRONMENT_NAME',
-      value   => $errbit_environment_name;
+      value   => $errbit_api_key,
     }
   }
 

@@ -13,14 +13,9 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
-# [*errbit_environment_name*]
-#   Errbit environment name, one of preview, staging or production
-#   Default: ''
-#
 class govuk::apps::need_api(
   $port = 3052,
   $errbit_api_key = '',
-  $errbit_environment_name = '',
 ) {
   govuk::app { 'need-api':
     app_type           => 'rack',
@@ -43,8 +38,5 @@ class govuk::apps::need_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-ERRBIT_ENVIRONMENT_NAME":
-      varname => 'ERRBIT_ENVIRONMENT_NAME',
-      value   => $errbit_environment_name;
   }
 }
