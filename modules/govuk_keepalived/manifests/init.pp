@@ -22,7 +22,7 @@ class govuk_keepalived (
   $min_num_procs = 3
 
   keepalived::vrrp::script { $track_script:
-    script => 'curl --max-time 1 -H \'Host: monitoring-vhost.test\' localhost 2>/dev/null | grep -q \'nginx is ok\'',
+    script => 'curl --max-time 1 -H "Host: monitoring-vhost.test" localhost 2>/dev/null | grep -q "nginx is ok"',
   }
 
   $defaults = {
