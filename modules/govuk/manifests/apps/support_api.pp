@@ -37,4 +37,6 @@ class govuk::apps::support_api(
   govuk::procfile::worker { 'support-api':
     enable_service => $enable_procfile_worker,
   }
+
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 }
