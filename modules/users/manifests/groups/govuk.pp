@@ -40,6 +40,7 @@ class users::groups::govuk {
   include users::jennyduckett
   include users::joshmyers
   include users::kushalp
+  include users::leenagupte
   include users::marksheldon
   include users::mattbostock
   include users::mattcottingham
