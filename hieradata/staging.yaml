@@ -27,6 +27,7 @@ govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
+govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::setup::ssh_keys:
     jenkins_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAksVh+OynwACD1/gZwj+s+bmSNiYUAhGpEu+DzhKzt6hg+x8JfaC9Usi1xWOBprCWTpCGQ2b2OK7k4iVRSM4SMYNmSO9njxcYBWmRPFRhusFHmY2x4RqyHmKlo+sPoegFbD8VcTjIyCXfxBbtYJONtrixXO+AaCLf3RlOxiPbrIh4y/EIcOpldzepcg8lqtq0S979n7qWkFUYlMKmy2Wi+q9lEjTdhUo0oGg7bUPKMUdK8m7488iOB5sgvbL0VhVpH4FJZUDSdiTcXCp2TKGVVlDOoT9jsJ9ZwsPnCy2VcRJeJRE4LpV7X0n1SV94Ddel5/gc/TU0Sounx4X4U+TOVw==
     jenkins_skyscape_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDOStrf/KtGicl/wHWqfWfAoIYUU3LIReh6xfib17DSlTQAXcrZqnoM7riwAF8ThukTrYkLVE39+v2MGTP0wSK5O3QHRJmqeLHLSCHT135/AeV0m5/SqJ2g1iBLRM8ARucFLv0eKEtQfrdIW5cB2QfeSyj3S/tyChRQYJ/4/SIOb6WHXYDuO0xKiONS0ynOWC3/WUgkmSj67EUgXGyTDVy5cJNLHsdjIrJwpTCl/R9Owxnf6G7wIEqJecpX4xWngvjUUottWmzcvqcW92HQ8TgwPyLY8R4raT8kmyjCat9uwVCwzD67+Fqf6Wlchon2vHRdX4edhUKOrroljGfsDeyd
