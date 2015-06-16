@@ -28,17 +28,12 @@
 #   Errbit API key used by gobrake
 #   Default: ''
 #
-# [*errbit_environment_name*]
-#   Errbit environment name, one of preview or production
-#   Default: ''
-#
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
   $draft_content_store = '',
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
-  $errbit_environment_name = '',
 ) {
   $app_name = 'publishing-api'
   govuk::app { $app_name:
@@ -75,8 +70,5 @@ class govuk::apps::publishing_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-ERRBIT_ENVIRONMENT_NAME":
-      varname => 'ERRBIT_ENVIRONMENT_NAME',
-      value   => $errbit_environment_name;
   }
 }

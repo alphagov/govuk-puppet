@@ -6,16 +6,15 @@
 #
 # === Parameters
 #
-# [*errbit_environment_prefix*]
-#   Prefix for Errbit environment
-#   Default: ''
+# [*errbit_environment_name*]
+#   Name of the environment to be included in Errbit error reports.
 #
 # [*govuk_env*]
 #   GOV.UK environment
 #   Default: 'production'
 #
 class govuk::deploy::config(
-  $errbit_environment_prefix = '',
+  $errbit_environment_name = '',
   $govuk_env = 'production',
 ){
   include daemontools
@@ -80,10 +79,10 @@ class govuk::deploy::config(
     'RACK_ENV':  value => $govuk_env;
     'RAILS_ENV': value => $govuk_env;
 
-    'ERRBIT_ENVIRONMENT_PREFIX': value => $errbit_environment_prefix;
-    'GOVUK_APP_DOMAIN': value => $app_domain;
-    'GOVUK_ASSET_HOST': value => $asset_root;
-    'GOVUK_ASSET_ROOT': value => $asset_root;
-    'GOVUK_WEBSITE_ROOT': value => $website_root;
+    'ERRBIT_ENVIRONMENT_NAME': value   => $errbit_environment_name;
+    'GOVUK_APP_DOMAIN': value          => $app_domain;
+    'GOVUK_ASSET_HOST': value          => $asset_root;
+    'GOVUK_ASSET_ROOT': value          => $asset_root;
+    'GOVUK_WEBSITE_ROOT': value        => $website_root;
   }
 }

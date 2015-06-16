@@ -9,11 +9,10 @@ base::supported_kernel::enabled: true
 
 efg_domain: "www.sflg.gov.uk"
 
-govuk::apps::need_api::errbit_environment_name: 'vagrant'
-govuk::apps::authenticating_proxy::errbit_environment_name: 'vagrant'
 govuk::apps::search_admin::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
+govuk::deploy::config::errbit_environment_name: 'vagrant'
 
 govuk::lvm::no_op: true
 

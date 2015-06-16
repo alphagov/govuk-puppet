@@ -9,7 +9,6 @@ base::supported_kernel::enabled: true
 
 efg_domain: "www.sflg.gov.uk"
 
-govuk::apps::authenticating_proxy::errbit_environment_name: "production"
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::finder_frontend::enabled: true
@@ -17,17 +16,16 @@ govuk::apps::govuk_crawler_worker::airbrake_endpoint: 'https://errbit.production
 govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
 govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::info_frontend::enabled: true
-govuk::apps::need_api::errbit_environment_name: "production"
 govuk::apps::metadata_api::enabled: true
 govuk::apps::publishing_api::content_store: 'https://content-store.production.alphagov.co.uk'
 govuk::apps::publishing_api::draft_content_store: 'https://content-store.draft.production.publishing.service.gov.uk'
-govuk::apps::publishing_api::errbit_environment_name: "production"
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
+govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::setup::ssh_keys:
     jenkins_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAksVh+OynwACD1/gZwj+s+bmSNiYUAhGpEu+DzhKzt6hg+x8JfaC9Usi1xWOBprCWTpCGQ2b2OK7k4iVRSM4SMYNmSO9njxcYBWmRPFRhusFHmY2x4RqyHmKlo+sPoegFbD8VcTjIyCXfxBbtYJONtrixXO+AaCLf3RlOxiPbrIh4y/EIcOpldzepcg8lqtq0S979n7qWkFUYlMKmy2Wi+q9lEjTdhUo0oGg7bUPKMUdK8m7488iOB5sgvbL0VhVpH4FJZUDSdiTcXCp2TKGVVlDOoT9jsJ9ZwsPnCy2VcRJeJRE4LpV7X0n1SV94Ddel5/gc/TU0Sounx4X4U+TOVw==
     jenkins_skyscape_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ41opiEUbMk1N3wNQLrsA3bwDWlf77mGiZAUyv8rDqwwUyRgdjXBIl8+/UUUromm3XzWXgeMiQkPSZMXu2U06X05BgW90Hl8lXsL24K0JRjLf6R7erMvqjpr0u5BTRxeKVSM52ckSUiucJHBiV5gTNRTUSwwXudjnlIY5HZRYNUUUtQMwfMObg6W3j+H/87gDx5RAF4JfOplK+pvHh0uGhIUrq48Euz2KJ31YsyO4FyU6z4k66MtJivkbZ/4Z9BpzzONnL1EC5saz7vaJIRGc0kT9NVGQ7b7uMkqlN/Bb/ZDzNJi8KSxJFTh8oNEAoRoMqaSufBlZa/sjqiuWniwL
