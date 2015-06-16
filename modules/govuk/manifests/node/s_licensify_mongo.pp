@@ -2,7 +2,18 @@
 #
 # licensify mongo node
 #
-class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_encrypted = false) inherits govuk::node::s_base {
+# === Parameters
+#
+# [*mongo_backup_disk*]
+#   The backup disk for MongoDB.
+#
+# [*licensify_mongo_encrypted*]
+#   If true, MongoDB data will be stored on a partition that is encrypted at rest.
+#
+class govuk::node::s_licensify_mongo (
+  $mongodb_backup_disk,
+  $licensify_mongo_encrypted = false
+) inherits govuk::node::s_base {
   include ecryptfs
   include mongodb::server
   include govuk_java::openjdk6::jre
@@ -16,8 +27,7 @@ class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_en
     notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
     }
 
-  $mongodb_encrypted = $licensify_mongo_encrypted
-  if $mongodb_encrypted {
+  if $licensify_mongo_encrypted {
     motd::snippet {'01-encrypted-licensify': }
   }
 
