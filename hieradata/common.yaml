@@ -134,7 +134,6 @@ govuk::node::s_frontend::apps:
   - govuk::apps::government_frontend
   - govuk::apps::info_frontend
   - govuk::apps::manuals_frontend
-  - govuk::apps::service_manual
   - govuk::apps::specialist_frontend
   - govuk::apps::static
   - govuk::apps::transactions_explorer
