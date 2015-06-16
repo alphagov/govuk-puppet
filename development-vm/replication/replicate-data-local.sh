@@ -7,6 +7,9 @@ set -eu
 
 . $(dirname $0)/common-args.sh
 
+status "Running `bundle install`"
+bundle install --quiet
+
 $(dirname $0)/sync-mysql.sh "$@" mysql-backup-1.backend.preview
 $(dirname $0)/sync-mysql.sh "$@" whitehall-mysql-backup-1.backend.preview
 
