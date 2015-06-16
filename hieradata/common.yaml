@@ -3,7 +3,7 @@ HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
 
-apt::always_apt_update: true
+apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
 apt::purge_sources_list: true
 apt::purge_sources_list_d: true
