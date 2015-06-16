@@ -2,7 +2,10 @@
 #
 # licensify mongo node
 #
-class govuk::node::s_licensify_mongo ( $mongodb_backup_disk, $licensify_mongo_encrypted = false) inherits govuk::node::s_base {
+class govuk::node::s_licensify_mongo (
+  $mongodb_backup_disk,
+  $licensify_mongo_encrypted = false
+) inherits govuk::node::s_base {
   include ecryptfs
   include mongodb::server
   include govuk_java::openjdk6::jre
