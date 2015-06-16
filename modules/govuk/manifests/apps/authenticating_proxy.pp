@@ -30,6 +30,7 @@ class govuk::apps::authenticating_proxy(
   $govuk_upstream_uri = undef,
   $secret_key_base = undef,
 ) {
+  $app_name = 'authenticating-proxy'
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
@@ -37,7 +38,6 @@ class govuk::apps::authenticating_proxy(
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
   }
-  $app_name = 'authenticating-proxy'
 
   if $govuk_upstream_uri {
     govuk::app::envvar {
