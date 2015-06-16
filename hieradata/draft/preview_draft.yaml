@@ -10,7 +10,7 @@ govuk::apps::content_store::default_ttl: '1'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-preview-draft@digital.cabinet-office.gov.uk'
 govuk::apps::static::global_header_text: GOV.UK (Draft)
 
-govuk::deploy::config::errbit_environment_prefix: 'draft_'
+govuk::deploy::config::errbit_environment_name: 'draft_preview'
 govuk::deploy::setup::ssh_keys:
   draft_preview_carrenza_jenkins: AAAAB3NzaC1yc2EAAAADAQABAAABAQDJndCZYLvK3L6ubH+59MZpPBKosf/a8RteJQKCR+K3x8LhyajuOyg0vC4rKJaZmplEpk5e2QBYD0ZXvinbqhPacoNK3JPuBX3RVqtIjL47/JT2XV/Tr659TnSkxl3gmybATrg1XL657KGyo9aGXvAaqYE4FoUxMZA6goq2X9knD1vTsIH/osVuGTyWti0U3dOrPkxS5hEmu70umJcdgr7IjdGcVX1ZsmX/mLEejw/oMlWCmyU56bf4/TXrLnyTOAJ+7ibiBjS0ZFcoFLJ6PtR3LsUzMZWd8etGg5knGnpZCWx2K43rnXPuaYN32uKgCWxQYfEmuSPoQymn69gRtMLN
   draft_production_skyscape_jenkins: AAAAB3NzaC1yc2EAAAADAQABAAABAQDQB4mU5iDXC4zqDdg8TtZzBoeKbXJOEVN1tNRQAAjBVD3GnAIDMWf5ChJAnEdchA/32ULkLEIko171NWCJ98nfureIMX8hiG3YqYtt4ydYV0yqTKQHz7/RhvfxvKYFL6omy8RZHEjeZ6Kf8SrELPXutT4oqJDMxaLqyZY8IYxZ/U1SJjhsBm1DCUmeuHxNRlTqEYyFEzQ9fklAR8YnbMcfhP+yBA5A+66yL03gkoDvzSUic5J5OU6J5ejupUTI5AeIu4FOep5UYs8oXf7RpXTL1b+BR6YPRCf0njnMrXauASfKV7VcxvvE0D0JbwVO82Rwls02Ug8WwH5WGJBTZ4YF

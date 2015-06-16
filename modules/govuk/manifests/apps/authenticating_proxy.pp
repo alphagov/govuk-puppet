@@ -26,7 +26,6 @@
 #
 class govuk::apps::authenticating_proxy(
   $port = 3107,
-  $app_name = 'authenticating-proxy',
   $errbit_api_key = undef,
   $govuk_upstream_uri = undef,
   $secret_key_base = undef,
@@ -38,6 +37,7 @@ class govuk::apps::authenticating_proxy(
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
   }
+  $app_name = 'authenticating-proxy'
 
   if $govuk_upstream_uri {
     govuk::app::envvar {
