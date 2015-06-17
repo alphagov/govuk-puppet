@@ -298,6 +298,7 @@ router::assets_origin::asset_routes:
 
 unattended_reboot::cron_env_vars:
   - 'MAILTO=""'
+unattended_reboot::cron_hour: '0-5'
 unattended_reboot::etcd_endpoints:
   - "http://etcd-1.management:4001"
   - "http://etcd-2.management:4001"
