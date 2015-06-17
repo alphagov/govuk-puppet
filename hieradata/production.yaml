@@ -18,7 +18,6 @@ govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
 govuk::apps::publishing_api::content_store: 'https://content-store.production.alphagov.co.uk'
-govuk::apps::publishing_api::draft_content_store: 'https://content-store.draft.production.publishing.service.gov.uk'
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
