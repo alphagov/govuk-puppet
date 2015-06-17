@@ -4,7 +4,7 @@
 find /var/lib/autopostgresqlbackup -exec chown govuk-backup \{\} \;
 
 # Allow others to download the latest backups
-find /var/lib/autopostgresqlbackup/latest -exec chmod go+rw \{\} \;
+find /var/lib/autopostgresqlbackup/latest -exec chmod go+r \{\} \;
 
 # Create a handy tarball of latest backups
 cd /var/lib/autopostgresqlbackup
