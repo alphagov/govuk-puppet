@@ -14,7 +14,6 @@ class govuk::node::s_licensify_mongo (
   $mongodb_backup_disk,
   $licensify_mongo_encrypted = false
 ) inherits govuk::node::s_base {
-  include ecryptfs
   include mongodb::server
   include govuk_java::openjdk6::jre
 
@@ -28,7 +27,9 @@ class govuk::node::s_licensify_mongo (
     }
 
   if $licensify_mongo_encrypted {
+    include ecryptfs
     motd::snippet {'01-encrypted-licensify': }
+    Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
   }
 
   # Disable monthly backups to limit the retention of IL3 data.
@@ -36,6 +37,5 @@ class govuk::node::s_licensify_mongo (
     domonthly => false
   }
 
-  Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
   Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
 }
