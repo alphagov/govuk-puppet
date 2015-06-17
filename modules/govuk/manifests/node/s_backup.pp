@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_backup
+#
+# Node definition for a backup machine.
+#
+# === Parameters
+#
+# [*backup_efg*]
+#   Boolean indicating whether or not the EFG MySQL database should
+#   be backed up.
+#
 class govuk::node::s_backup (
   $backup_efg = true,
 ) inherits govuk::node::s_base {
