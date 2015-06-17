@@ -3,19 +3,22 @@ set -eu
 APPLICATION=$1
 
 function exit_unknown() {
-    echo "UNKNOWN: Unable to determine expected ruby version"
+    local message=${1-"Unable to determine expected ruby version"}
+    echo "UNKNOWN: ${message}"
     echo
     echo "Please try running check and subsequent commands manually."
     exit 3
 }
 trap exit_unknown ERR
 
-cd /var/apps/${APPLICATION}/
-EXPECTED_RUBY=$(rbenv which ruby)
+RUBY_VERSION_FILE=/var/apps/${APPLICATION}/.ruby-version
+[ -f $RUBY_VERSION_FILE ] || exit_unknown "${RUBY_VERSION_FILE} not found"
+
+EXPECTED_RUBY=/usr/lib/rbenv/versions/$(cat ${RUBY_VERSION_FILE})/bin/ruby
 
 UNICORN_PID=$(cat /var/run/${APPLICATION}/app.pid)
 # Bail if not an integer.
-[[ $UNICORN_PID != *[!0-9]* ]] || exit_unknown
+[[ $UNICORN_PID != *[!0-9]* ]] || exit_unknown "Couldn't read application PID"
 
 UNICORN_RUBY=$(readlink /proc/${UNICORN_PID}/exe)
 
