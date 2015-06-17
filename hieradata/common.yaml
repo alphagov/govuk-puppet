@@ -193,10 +193,6 @@ govuk_sudo::sudo_conf:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
 govuk_unattended_reboot::enabled: true
-govuk_unattended_reboot::etcd_endpoints:
-  - "http://etcd-1.management:4001"
-  - "http://etcd-2.management:4001"
-  - "http://etcd-3.management:4001"
 
 grub2::recordfail_timeout: 5
 
@@ -299,5 +295,12 @@ router::assets_origin::asset_routes:
   '/stagecraft/': "stagecraft"
   '/tariff/': "tariff"
   '/transactions-explorer/': "transactions-explorer"
+
+unattended_reboot::cron_env_vars:
+  - 'MAILTO=""'
+unattended_reboot::etcd_endpoints:
+  - "http://etcd-1.management:4001"
+  - "http://etcd-2.management:4001"
+  - "http://etcd-3.management:4001"
 
 unicornherder::version: '0.0.8'

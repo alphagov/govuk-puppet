@@ -59,6 +59,8 @@ mod 'puppetlabs/rabbitmq',
   :git => 'git://github.com/puppetlabs/puppetlabs-rabbitmq.git'
 mod 'alphagov/tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
+mod 'alphagov/unattended_reboot',
+  :git => 'git://github.com/alphagov/puppet-unattended_reboot.git'
 
 # Our modules on the Forge.
 mod 'gdsoperations/aptly'

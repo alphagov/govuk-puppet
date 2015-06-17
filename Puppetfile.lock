@@ -119,6 +119,14 @@ GIT
     alphagov-tune_ext (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-unattended_reboot.git
+  ref: master
+  sha: 5209ca18677bfc47456b719c60c3303e8a899972
+  specs:
+    alphagov-unattended_reboot (0.1.0)
+      puppetlabs-stdlib (>= 1.0.0)
+
+GIT
   remote: git://github.com/alphagov/puppetlabs-lvm.git
   ref: master
   sha: 2082a276093c96e67a676f0c6076c0841f918a17
@@ -167,6 +175,7 @@ DEPENDENCIES
   alphagov-duplicity (>= 0)
   alphagov-harden (>= 0)
   alphagov-tune_ext (>= 0)
+  alphagov-unattended_reboot (>= 0)
   arioch-keepalived (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)
