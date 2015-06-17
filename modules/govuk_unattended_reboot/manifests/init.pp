@@ -42,7 +42,6 @@ class govuk_unattended_reboot (
     owner   => 'root',
     group   => 'root',
     content => template("govuk_unattended_reboot${check_scripts_directory}/00_safety.erb"),
-    require => File[$check_scripts_directory],
   }
 
   file { "${check_scripts_directory}/01_alerts":
@@ -51,7 +50,7 @@ class govuk_unattended_reboot (
     owner   => 'root',
     group   => 'root',
     content => template("govuk_unattended_reboot${check_scripts_directory}/01_alerts.erb"),
-    require => [ File[$check_scripts_directory], File['/usr/local/bin/check_icinga'] ],
+    require => File['/usr/local/bin/check_icinga'],
   }
 
   file { '/usr/local/bin/check_icinga':
