@@ -66,7 +66,6 @@ govuk::node::s_backend_lb::mapit_servers:
   - 'mapit-server-1.backend'
   - 'mapit-server-2.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'performance.service.gov.uk'
-govuk::node::s_backup::offsite_backups: true
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_cache::denied_ip_addresses:
   - '82.11.83.49'
