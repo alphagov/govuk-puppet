@@ -23,7 +23,8 @@ class govuk_unattended_reboot (
     $directory_ensure = absent
   }
 
-  $check_scripts_directory = '/etc/unattended-reboot/check'
+  $config_directory = '/etc/unattended-reboot'
+  $check_scripts_directory = "${config_directory}/check"
 
   $node_class_search_phrase = regsubst($::govuk_node_class, '_', '-')
   $icinga_url = "https://nagios.cluster/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
@@ -35,7 +36,7 @@ class govuk_unattended_reboot (
     group  => 'root',
     source => 'puppet:///modules/govuk_unattended_reboot/usr/local/bin/check_icinga.rb',
   } ->
-  file { $check_scripts_directory:
+  file { [ $config_directory, $check_scripts_directory ]:
     ensure => $directory_ensure,
     mode   => '0755',
     owner  => 'root',
