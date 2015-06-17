@@ -5,6 +5,10 @@
 #
 class icinga::client::check_unicorn_ruby_version {
 
+  sudo::conf { 'nrpe_check_unicorn_ruby_version':
+    content => 'nagios ALL=NOPASSWD:/usr/lib/nagios/plugins/check_unicorn_ruby_version',
+  }
+
   @icinga::plugin { 'check_unicorn_ruby_version':
     source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_unicorn_ruby_version',
   }
