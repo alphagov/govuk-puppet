@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -eu
+APPLICATION=$1
+
+function exit_unknown() {
+    echo "UNKNOWN: Unable to determine expected ruby version"
+    echo
+    echo "Please try running check and subsequent commands manually."
+    exit 3
+}
+trap exit_unknown ERR
+
+cd /var/apps/${APPLICATION}/
+EXPECTED_RUBY=$(rbenv which ruby)
+
+UNICORN_PID=$(cat /var/run/${APPLICATION}/app.pid)
+# Bail if not an integer.
+[[ $UNICORN_PID != *[!0-9]* ]] || exit_unknown
+
+UNICORN_RUBY=$(readlink /proc/${UNICORN_PID}/exe)
+
+if [ $UNICORN_RUBY == $EXPECTED_RUBY ]; then
+  echo "OK"
+  exit 0
+else
+  echo "WARNING: Ruby version mismatch: got ${UNICORN_RUBY}, expected ${EXPECTED_RUBY}"
+  exit 1
+fi
