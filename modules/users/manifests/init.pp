@@ -1,13 +1,18 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class users (
-    $usernames = [],
-  ) {
+  $pentest_machines = [],
+  $pentest_usernames = [],
+  $usernames = [],
+) {
+
+  validate_array($pentest_machines, $pentest_usernames, $usernames)
+
   # Remove unmanaged UIDs >= 500 (users, not system accounts),
   # In order to have no user accounts defined and purge existing accounts, you *must*
   # have usernames => ['null_user'] set via hiera or otherwise during class instantiation.
   # This is a safety check to prevent accidentally passing a blank list of users and
   # then removing all accounts
-  if !empty($usernames) {
+  if (!empty($usernames) or !empty($pentest_usernames)) {
     resources { 'user':
       purge              => true,
       unless_system_user => 500,
@@ -32,4 +37,9 @@ class users (
   $usernames_classes = regsubst($usernames, '^', 'users::')
 
   include $usernames_classes
+
+  if ($::fqdn in $pentest_machines) {
+    $pentest_user_classes = regsubst($pentest_usernames, '^', 'users::')
+    include $pentest_user_classes
+  }
 }
