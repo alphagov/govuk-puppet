@@ -35,6 +35,7 @@ class users::groups::govuk_production_access {
   include users::joshmyers
   include users::kushalp
   include users::mattbostock
+  include users::paulmartin
   include users::richardboulton
   include users::robyoung
   include users::ssharpe

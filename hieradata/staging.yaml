@@ -128,8 +128,8 @@ ssh::config::allow_users:
   - 'danielroseman'
   - 'davidsingleton'
   - 'dcarley'
-  - 'deploy@37.26.90.227' # deploy user from Production for data sync
   - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
+  - 'deploy@37.26.90.227' # deploy user from Production for data sync
   - 'dominicbaggott'
   - 'eddsowden'
   - 'elliot'
@@ -143,6 +143,7 @@ ssh::config::allow_users:
   - 'joshmyers'
   - 'kushalp'
   - 'mattbostock'
+  - 'paulmartin'
   - 'richardboulton'
   - 'robyoung'
   - 'ssharpe'
