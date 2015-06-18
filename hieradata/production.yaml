@@ -188,6 +188,7 @@ ssh::config::allow_users:
   - 'joshmyers'
   - 'kushalp'
   - 'mattbostock'
+  - 'paulmartin'
   - 'richardboulton'
   - 'robyoung'
   - 'ssharpe'
