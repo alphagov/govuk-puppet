@@ -1,4 +1,21 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: users
+#
+# Manages user accounts
+#
+# === Parameters
+#
+# [*pentest_machines*]
+#   List of machines which pentesters require access to.
+#   Default: []
+#
+# [*pentest_usernames*]
+#   List of pentest user accounts to add.
+#   Default: []
+#
+# [*usernames*]
+#   Users to add to all servers
+#   Default: '[]'
+#
 class users (
   $pentest_machines = [],
   $pentest_usernames = [],
