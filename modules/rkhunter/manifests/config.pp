@@ -7,6 +7,7 @@ class rkhunter::config {
     'filesystem',
     'hidden_procs',
     'packet_cap_apps',
+    'passwd_changes',
     'properties',
     'running_procs',
     'suspscan',
