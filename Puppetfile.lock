@@ -30,6 +30,8 @@ FORGE
     gdsoperations-rbenv (1.2.0)
     gdsoperations-resolvconf (0.2.0)
       puppetlabs-stdlib (>= 3.0.0)
+    gdsoperations-unattended_reboot (0.1.0)
+      puppetlabs-stdlib (>= 1.0.0)
     goldyfruit-grub2 (0.0.6)
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
     maestrodev-wget (1.5.0)
@@ -119,14 +121,6 @@ GIT
     alphagov-tune_ext (0.0.1)
 
 GIT
-  remote: git://github.com/alphagov/puppet-unattended_reboot.git
-  ref: master
-  sha: 5209ca18677bfc47456b719c60c3303e8a899972
-  specs:
-    alphagov-unattended_reboot (0.1.0)
-      puppetlabs-stdlib (>= 1.0.0)
-
-GIT
   remote: git://github.com/alphagov/puppetlabs-lvm.git
   ref: master
   sha: 2082a276093c96e67a676f0c6076c0841f918a17
@@ -175,7 +169,6 @@ DEPENDENCIES
   alphagov-duplicity (>= 0)
   alphagov-harden (>= 0)
   alphagov-tune_ext (>= 0)
-  alphagov-unattended_reboot (>= 0)
   arioch-keepalived (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)
@@ -191,6 +184,7 @@ DEPENDENCIES
   gdsoperations-openconnect (>= 0)
   gdsoperations-rbenv (= 1.2.0)
   gdsoperations-resolvconf (= 0.2.0)
+  gdsoperations-unattended_reboot (>= 0)
   goldyfruit-grub2 (>= 0)
   maestrodev-wget (>= 1.1.0)
   nextrevision-automysqlbackup (>= 0)
