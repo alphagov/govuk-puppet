@@ -144,8 +144,17 @@ sub vcl_fetch {
     return(deliver);
   }
 
-  # Ignore cookies for caching purposes
-  # For URLs that we haven't already stripped the Set-Cookie.
+  # Explicitly return to prevent falling through to Varnish's default behaviour
+  # for handling Set-Cookie, which marks them hit_for_pass (prevents caching).
+  # See:
+  # https://www.varnish-cache.org/trac/browser/bin/varnishd/default.vcl?rev=varnish-3.0.2#L103
+  #
+  # See the last paragraph of section 8 of RFC 7234; using Set-Cookie does not
+  # prohibit caching. Instead, we rely on the application to set an appropriate
+  # Cache-Control header.
+  # http://tools.ietf.org/html/rfc7234#section-8
+  #
+  # Note that we strip out Set-Cookie using a whilelist above.
   if (beresp.http.Set-Cookie) {
     return(deliver);
   }
