@@ -1,5 +1,5 @@
 #!/bin/bash
-LOGFILE='/var/log/elasticsearch/es-rotate.log'
+LOGFILE='<%= @rotation_log_file %>'
 
 #FIXME: 2014-01-12 - Ideally this should be 21 days - need to fix logstasher gem first
 ARGS='--delete-old --delete-maxage 15 --optimize-old --optimize-maxage 1 logs'
