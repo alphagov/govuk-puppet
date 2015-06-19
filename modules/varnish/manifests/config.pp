@@ -7,7 +7,10 @@
 # [*upstream_port*]
 #   The port of the upstream service that varnish proxies to (and caches).
 #
-class varnish::config($upstream_port) {
+# [*strip_cookies*]
+#   See varnish/manifests/init.pp.
+#
+class varnish::config($upstream_port, $strip_cookies) {
   include varnish::restart
 
   $app_domain  = hiera('app_domain')

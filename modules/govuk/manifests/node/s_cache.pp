@@ -65,10 +65,16 @@ class govuk::node::s_cache (
     default => 3054,
   }
 
+  $strip_cookies = $enable_authenticating_proxy ? {
+    true    => false,
+    default => true,
+  }
+
   class { 'varnish':
     storage_size  => join([$varnish_storage_size,'M'],''),
     default_ttl   => '900',
     upstream_port => $varnish_upstream_port,
+    strip_cookies => $strip_cookies,
   }
 
   include govuk::apps::router

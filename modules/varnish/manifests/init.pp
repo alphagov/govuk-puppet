@@ -13,6 +13,13 @@
 #
 #   Default: 900
 #
+# [*strip_cookies*]
+#   Whether cookies should be stripped from inbound requests and outbound responses.
+#   Note that even when cookies are allowed, responses will still be cached by varnish
+#   unless the upstream response contains explicit cache control headers saying not to.
+#
+#   Default: true
+#
 # [*storage_size*]
 #   The amount of memory that `varnishd` will allocate using the memory-based `malloc` storage backend.
 #   For full documentation see https://www.varnish-cache.org/docs/3.0/reference/varnishd.html?highlight=default_ttl#storage-types
@@ -25,6 +32,7 @@
 #
 class varnish (
     $default_ttl  = 900,
+    $strip_cookies = true,
     $storage_size = '512M',
     $upstream_port = 3054,
 ) {
@@ -37,6 +45,7 @@ class varnish (
   }
 
   class { 'varnish::config':
+    strip_cookies => $strip_cookies,
     upstream_port => $upstream_port,
     require => Class['varnish::package'],
     notify  => Class['varnish::service'];
