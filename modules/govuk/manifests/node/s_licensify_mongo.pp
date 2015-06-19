@@ -17,19 +17,20 @@ class govuk::node::s_licensify_mongo (
   include mongodb::server
   include govuk_java::openjdk6::jre
 
-  # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
-  @@icinga::check { "check_var_lib_mongodb_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /var/lib/mongodb',
-    service_description => 'low available disk space on /var/lib/mongodb',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
-    }
-
   if $licensify_mongo_encrypted {
     include ecryptfs
     motd::snippet {'01-encrypted-licensify': }
     Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
+
+    # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
+    # Only check if MongoDB's data is on an encrypted filesystem; otherwise /var/lib/mongodb is not used as a mountpoint.
+    @@icinga::check { "check_var_lib_mongodb_disk_space_${::hostname}":
+      check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /var/lib/mongodb',
+      service_description => 'low available disk space on /var/lib/mongodb',
+      use                 => 'govuk_high_priority',
+      host_name           => $::fqdn,
+      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    }
   }
 
   # Disable monthly backups to limit the retention of IL3 data.
