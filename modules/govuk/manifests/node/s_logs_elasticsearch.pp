@@ -47,10 +47,20 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
   # redis machines.
   Govuk_elasticsearch::River <<| tag == 'logging' |>>
 
+  $rotation_log_file = '/var/log/elasticsearch/es-rotate.log'
+
+  file { $rotation_log_file:
+    ensure  => present,
+    owner   => 'nobody',
+    mode    => '0644',
+    require => Class['govuk_elasticsearch'],
+  }
+
   file { '/usr/local/bin/es-rotate-passive-check':
     ensure  => present,
     mode    => '0755',
     content => template('govuk/usr/local/bin/es-rotate-passive-check.erb'),
+    require => File[$rotation_log_file],
   }
 
   @@icinga::passive_check { "check_es_rotate_${::hostname}":
