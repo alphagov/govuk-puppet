@@ -63,6 +63,7 @@ sub vcl_recv {
   # origin.
   set req.grace = 6h;
 
+  <% if @strip_cookies %>
   # Strip cookies from inbound requests. Corresponding rule in vcl_fetch{}
   # For simplicity and security most applications should not use cookies.
   # With the exception of:
@@ -70,6 +71,7 @@ sub vcl_recv {
   if (req.url !~ "^/apply-for-a-licence") {
     unset req.http.Cookie;
   }
+  <% end %>
 
   # purge individual URLs from the cache
   if (req.request == "PURGE") {
@@ -100,10 +102,12 @@ sub vcl_fetch {
   unset beresp.http.X-Rack-Cache;
   unset beresp.http.X-Runtime;
 
+  <% if @strip_cookies %>
   # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
   if (req.url !~ "^/apply-for-a-licence") {
     unset beresp.http.Set-Cookie;
   }
+  <% end %>
 
   # Licensify sends custom 500 errors, and we need to send No-Fallback: true
   # to prevent the CDN from falling back to the mirror site.
