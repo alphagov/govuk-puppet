@@ -33,6 +33,12 @@ class hosts::production::frontend (
   govuk::host { 'frontend-3':
     ip  => '10.2.0.4',
   }
+  govuk::host { 'draft-frontend-1':
+    ip  => '10.2.2.2',
+  }
+  govuk::host { 'draft-frontend-2':
+    ip  => '10.2.2.3',
+  }
   govuk::host { 'performance-frontend-1':
     ip  => '10.2.0.20',
   }
