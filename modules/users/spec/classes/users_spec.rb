@@ -1,6 +1,30 @@
 require_relative '../../../../spec_helper'
 require 'sshkey'
 
+describe "users", :type => "class" do
+  context 'on whitelisted node pentest user should be created' do
+    let(:facts) {{ :fqdn => 'foo' }}
+    let(:pre_condition) { 'class users::andre_the_giant { govuk::user { "andre_the_giant": } }' }
+    let(:hiera_data) {{
+      'users::pentest_machines' => %w{ foo },
+      'users::pentest_usernames' => %w{ andre_the_giant }
+    }}
+
+    it { should contain_govuk__user('andre_the_giant') }
+  end
+
+  context 'on non-whitelisted node pentest user should not be created' do
+    let(:facts) {{ :fqdn => 'bar' }}
+    let(:hiera_data) {{
+      'users::pentest_machines' => %w{ foo },
+      'users::pentest_usernames' => %w{ andre_the_giant }
+    }}
+
+    it { should_not contain_govuk__user('andre_the_giant') }
+  end
+end
+
+
 # Get a list of valid users from their manifest files
 def user_list
   class_dir = File.expand_path("../../../manifests", __FILE__)
