@@ -28,6 +28,8 @@ class govuk::apps::authenticating_proxy(
   $port = 3107,
   $errbit_api_key = undef,
   $govuk_upstream_uri = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $secret_key_base = undef,
 ) {
   $app_name = 'authenticating-proxy'
@@ -53,6 +55,22 @@ class govuk::apps::authenticating_proxy(
       app     => $app_name,
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key,
+    }
+  }
+
+  if $oauth_id != undef {
+    govuk::app::envvar { "${title}-OAUTH_ID":
+      app     => $app_name,
+      varname => 'OAUTH_ID',
+      value   => $oauth_id,
+    }
+  }
+
+  if $oauth_secret != undef {
+    govuk::app::envvar { "${title}-OAUTH_SECRET":
+      app     => $app_name,
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret,
     }
   }
 
