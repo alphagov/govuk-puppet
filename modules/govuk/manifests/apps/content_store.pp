@@ -13,7 +13,6 @@
 # [*mongodb_name*]
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
-#   Default: 'content_store_production'
 #
 # [*default_ttl*]
 #   The default cache timeout in seconds.
@@ -21,7 +20,7 @@
 class govuk::apps::content_store(
   $port = 3068,
   $mongodb_nodes,
-  $mongodb_name = 'content_store_production',
+  $mongodb_name,
   $default_ttl = '1800'
 ) {
   govuk::app { 'content-store':
