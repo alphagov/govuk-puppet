@@ -8,6 +8,9 @@
 #   The port that router-api listens on.
 #   Default: 3056
 #
+# [*mongodb_name*]
+#   The Mongo database to be used.
+#
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
@@ -20,6 +23,7 @@
 #
 class govuk::apps::router_api(
   $port = 3056,
+  $mongodb_name,
   $mongodb_nodes,
   $router_nodes,
   $secret_key_base = undef,
@@ -51,7 +55,7 @@ class govuk::apps::router_api(
     $mongodb_nodes_string = join($mongodb_nodes, ',')
     govuk::app::envvar { "${title}-MONGODB_URI":
       varname => 'MONGODB_URI',
-      value   => "mongodb://${mongodb_nodes_string}/router",
+      value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
     }
   }
 
