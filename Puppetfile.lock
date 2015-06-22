@@ -83,8 +83,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-duplicity.git
-  ref: use-remove-all-but-n-full-option
-  sha: 155053ca56ba8516fd7ab45db6a03e216fbf216d
+  ref: accept-day-of-week-for-cron-timing
+  sha: 7cf8177a2e1bf01a4706c64ae020704f8a49d6b6
   specs:
     alphagov-duplicity (0.0.1)
 
