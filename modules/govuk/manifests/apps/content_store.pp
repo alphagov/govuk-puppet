@@ -14,13 +14,17 @@
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
 #
+# [*vhost*]
+#   Virtual host for this application.
+#
 # [*default_ttl*]
 #   The default cache timeout in seconds.
-
+#
 class govuk::apps::content_store(
   $port = 3068,
   $mongodb_nodes,
   $mongodb_name,
+  $vhost,
   $default_ttl = '1800'
 ) {
   govuk::app { 'content-store':
@@ -29,6 +33,7 @@ class govuk::apps::content_store(
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
+    vhost              => $vhost,
   }
 
   validate_array($mongodb_nodes)
