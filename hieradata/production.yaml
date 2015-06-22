@@ -76,6 +76,9 @@ govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
   - 'calculators-frontend-2.frontend'
   - 'calculators-frontend-3.frontend'
+govuk::node::s_frontend_lb::draft_frontend_servers:
+  - 'draft-frontend-1.frontend'
+  - 'draft-frontend-2.frontend'
 govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'

@@ -1,6 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_frontend_lb (
   $calculators_frontend_servers,
+  $draft_frontend_servers,
   $frontend_servers,
   $whitehall_frontend_servers,
   $hide_frontend_apps = true,
@@ -17,6 +18,13 @@ class govuk::node::s_frontend_lb (
   }
 
   loadbalancer::balance {
+    [
+      'draft-contacts-frontend',
+      'draft-government-frontend',
+      'draft-manuals-frontend',
+      'draft-static',
+    ]:
+      servers       => $draft_frontend_servers;
     [
       'canary-frontend',
       'collections',
