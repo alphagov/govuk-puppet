@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_frontend_lb (
-  $govuk_frontend_servers,
+  $frontend_servers,
   $whitehall_frontend_servers,
   $calculators_frontend_servers,
   $performance_frontend_servers = [],
@@ -35,7 +35,7 @@ class govuk::node::s_frontend_lb (
       'static',
       'transactions-explorer',
     ]:
-      servers       => $govuk_frontend_servers;
+      servers       => $frontend_servers;
     [
       'businesssupportfinder',
       'calculators',

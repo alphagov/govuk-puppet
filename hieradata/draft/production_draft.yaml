@@ -20,7 +20,7 @@ govuk::node::s_api_lb::content_store_backend_servers:
 - "content-store-1.api"
 - "content-store-2.api"
 govuk::node::s_cache::protect_cache_servers: true
-govuk::node::s_frontend_lb::govuk_frontend_servers:
+govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'
 govuk::node::s_backend_lb::backend_servers:
