@@ -1,0 +1,24 @@
+---
+
+govuk::apps::authenticating_proxy::mongodb_nodes:
+  - 'router-backend-1.router'
+  - 'router-backend-2.router'
+  - 'router-backend-3.router'
+
+govuk::apps::router::mongodb_nodes:
+  - 'router-backend-1.router'
+  - 'router-backend-2.router'
+  - 'router-backend-3.router'
+
+govuk::apps::router_api::mongodb_nodes:
+  - 'router-backend-1.router'
+  - 'router-backend-2.router'
+  - 'router-backend-3.router'
+govuk::apps::router_api::router_nodes:
+  - 'draft-cache-1.router:3055'
+  - 'draft-cache-2.router:3055'
+  - 'draft-cache-3.router:3055'
+
+govuk::node::s_cache::enable_authenticating_proxy: true
+
+nginx::package::nginx_package: 'nginx-extras'

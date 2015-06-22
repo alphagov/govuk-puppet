@@ -24,6 +24,12 @@ class hosts::production::router (
   govuk::host { 'cache-3':
     ip => '10.1.0.4',
   }
+  govuk::host { 'draft-cache-1':
+    ip => '10.1.2.2',
+  }
+  govuk::host { 'draft-cache-2':
+    ip => '10.1.2.3',
+  }
   govuk::host { 'router-backend-1':
     ip => '10.1.0.10',
   }
