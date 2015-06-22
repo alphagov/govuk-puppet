@@ -1,11 +1,11 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_frontend_lb (
+  $calculators_frontend_servers,
   $frontend_servers,
   $whitehall_frontend_servers,
-  $calculators_frontend_servers,
-  $performance_frontend_servers = [],
-  $performance_frontend_apps = [],
   $hide_frontend_apps = true,
+  $performance_frontend_apps = [],
+  $performance_frontend_servers = [],
 ){
   include govuk::node::s_base
   include loadbalancer
