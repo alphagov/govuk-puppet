@@ -2,8 +2,13 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk::node::s_cache', :type => :class do
   let(:node) { 'cache-1.router.somethingsomething' }
-  let (:pre_condition) { '$concat_basedir = "/tmp"' }
-  let(:hiera_data) { {"govuk::apps::router::mongodb_nodes" => ['localhost'] } }
+  let(:pre_condition) { '$concat_basedir = "/tmp"' }
+  let(:hiera_data) {
+    {
+      "govuk::apps::router::mongodb_nodes" => ['localhost'],
+      "govuk::apps::authenticating_proxy::mongodb_nodes" => ['localhost'],
+    }
+  }
   let(:facts) { { :memtotalmb => 3953 } }
 
   context 'by default' do

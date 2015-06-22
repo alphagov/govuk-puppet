@@ -6,6 +6,9 @@
 #
 # === Parameters
 #
+# [*mongodb_nodes*]
+#   Array of mongo cluster hostnames for the application to connect to.
+#
 # [*port*]
 #   The port that it is served on.
 #   Default: 3107
@@ -25,6 +28,7 @@
 #   Default: undef
 #
 class govuk::apps::authenticating_proxy(
+  $mongodb_nodes,
   $port = 3107,
   $errbit_api_key = undef,
   $govuk_upstream_uri = undef,
@@ -33,6 +37,18 @@ class govuk::apps::authenticating_proxy(
   $secret_key_base = undef,
 ) {
   $app_name = 'authenticating-proxy'
+
+  validate_array($mongodb_nodes)
+
+  if $mongodb_nodes != [] {
+    $mongodb_nodes_string = join($mongodb_nodes, ',')
+    govuk::app::envvar { "${title}-MONGODB_URI":
+      app     => $app_name,
+      varname => 'MONGODB_URI',
+      value   => "mongodb://${mongodb_nodes_string}/authenticating_proxy_production",
+    }
+  }
+
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
