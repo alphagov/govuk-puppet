@@ -10,6 +10,7 @@ govuk::apps::router::mongodb_nodes:
   - 'router-backend-2.router'
   - 'router-backend-3.router'
 
+govuk::apps::router_api::mongodb_name: 'draft_router'
 govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-1.router'
   - 'router-backend-2.router'
