@@ -103,39 +103,36 @@ This way, commits you make on the VM get your name and email set on them:
 
 ## 7. Create a production/preview user
 
-To get production/preview access you will need to add your public key and
-configure a user account for yourself in our `puppet` repository.
+To get access to connect to machines in our environments you'll need to make
+a pull request against the Puppet repository to create a user account and add
+your public key.
 
-Let's say your LDAP username is "friendlygiraffe". Create a puppet manifest file containing
-your user account settings in `puppet/modules/users/manifests/` and include it in
-`puppet/modules/users/manifests/groups/govuk.pp`. New starters should
-fork their own copy of this repo and submit a pull request to add
-their manifest - they don't automatically get write access.
+Create yourself a manifest in `puppet/modules/users/manifests/`. If your LDAP username
+is `friendlygiraffe` the manifest will be called `friendlygiraffe.pp` and will look
+like this:
 
-Your manifest for the above would be called `friendlygiraffe.pp` and look similar to the following:
+```
+# Creates the friendlygiraffe user
+class users::friendlygiraffe {
+  govuk::user { 'friendlygiraffe':
+    fullname => 'Friendly Giraffe',
+    email    => 'friendly.giraffe@digital.cabinet-office.gov.uk',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAA... friendlygiraffe-laptop-20130101',
+  }
+}
+```
 
-    class users::friendlygiraffe {
-      govuk::user { 'friendlygiraffe':
-        fullname => 'Friendly Giraffe',
-        email    => 'friendly.giraffe@digital.cabinet-office.gov.uk',
-        ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAA... friendlygiraffe-laptop-20130101',
-      }
-    }
+To get access to preview, add your username to `hieradata/preview.yaml` under
+the section `users::usernames`.
 
-To gain ssh access to preview, it should be included in
-`puppet/modules/users/manifests/groups/govuk.pp` like so:
+Once you've made a pull request and somebody has merged it to master, it will
+automatically deploy to preview within a few minutes.
 
-    include users::friendlygiraffe
-
-Make a pull request for it; once merged to master, it will automatically deploy
-within a few minutes.
-
-To gain ssh access to production, the same line should be included in
-`puppet/modules/users/manifests/groups/govuk_production_access.pp`.  Once this
-is committed and pushed, you'll need to find someone who already has production
-permissions to deploy it for you. It is worth noting that production
-access is not automatically given to new starters either - it requires a
-rotation on second-line support and some knowledge of the GOV.UK stack.
+Production access isn't automatically granted to new starters - it requires
+being on the 2nd line support rotation and some knowledge of the GOV.UK stack.
+To get access to staging and production, make a pull request to add your
+username to `hieradata/staging.yaml` and `hieradata/production.yaml` under
+`ssh::config::allow_users` and `users::usernames`.
 
 ## 8. Import production data
 
