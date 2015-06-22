@@ -5,6 +5,7 @@ class govuk::apps::collections_api(
 ) {
   if $enabled {
     govuk::app { 'collections-api':
+      ensure             => absent,
       app_type           => 'rack',
       port               => $port,
       vhost_ssl_only     => true,
