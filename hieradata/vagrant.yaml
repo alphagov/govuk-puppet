@@ -18,13 +18,13 @@ govuk::lvm::no_op: true
 
 govuk::mount::no_op: true
 
-govuk::node::s_api_lb::api_backend_servers:
+govuk::node::s_api_lb::api_servers:
   - "api-1.api"
   - "api-2.api"
-govuk::node::s_api_lb::content_store_backend_servers:
+govuk::node::s_api_lb::content_store_servers:
   - "content-store-1.api"
   - "content-store-2.api"
-govuk::node::s_api_lb::search_backend_servers:
+govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
 govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdb1'
