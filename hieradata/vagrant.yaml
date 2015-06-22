@@ -24,6 +24,9 @@ govuk::node::s_api_lb::api_servers:
 govuk::node::s_api_lb::content_store_servers:
   - "content-store-1.api"
   - "content-store-2.api"
+govuk::node::s_api_lb::draft_content_store_servers:
+- "draft-content-store-1.api"
+- "draft-content-store-2.api"
 govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
