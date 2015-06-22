@@ -147,9 +147,64 @@ postfix::smarthost:
 
 shell::shell_prompt_string: 'preview'
 
-users::user_groups:
-    - 'contractors'
-    - 'govuk'
-    - 'newbamboo'
+users::usernames:
+  - ajlanghorn
+  - aleksandrdrozdov
+  - alexmuller
+  - alext
+  - alextorrance
+  - alicebartlett
+  - annashipman
+  - benilovj
+  - benjanecke
+  - benp
+  - bob
+  - bradleyw
+  - carlmassa
+  - carolinegreen
+  - chrisheathcote
+  - chrisroos
+  - danielroseman
+  - davidsingleton
+  - dcarley
+  - dominicbaggott
+  - eddsowden
+  - elliot
+  - futurefabric
+  - heathd
+  - henryhadlow
+  - isabelllong
+  - jabley
+  - jackscotti
+  - jacobashdown
+  - james
+  - jamesmead
+  - jamiec
+  - jennyduckett
+  - joshmyers
+  - kushalp
+  - leenagupte
+  - marksheldon
+  - mattbostock
+  - mattcottingham
+  - michaelpatrick
+  - niallm
+  - ollyl
+  - paulbowsher
+  - paulhayes
+  - paulmartin
+  - richardboulton
+  - robyoung
+  - rthorn
+  - ssharpe
+  - stuartgale
+  - tadast
+  - tatianasoukiassian
+  - tekin
+  - tijmenbrommet
+  - timothymower
+  - tombooth
+  - tombyers
+  - tommypalmer
 
 website_root: 'https://www.preview.alphagov.co.uk'

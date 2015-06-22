@@ -79,7 +79,7 @@ monitoring_protected: 'no'
 
 shell::shell_prompt_string: 'dev'
 
-users::user_groups:
-    - 'none'
+users::usernames:
+  - null_user
 
 website_root: 'http://www.dev.gov.uk'
