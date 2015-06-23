@@ -175,6 +175,7 @@ ssh::config::allow_users:
   - 'davidsingleton'
   - 'dcarley'
   - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
+  - 'digitalassurancetester'
   - 'dominicbaggott'
   - 'eddsowden'
   - 'elliot'

@@ -130,6 +130,7 @@ ssh::config::allow_users:
   - 'dcarley'
   - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
   - 'deploy@37.26.90.227' # deploy user from Production for data sync
+  - 'digitalassurancetester'
   - 'dominicbaggott'
   - 'eddsowden'
   - 'elliot'

@@ -296,6 +296,8 @@ router::assets_origin::asset_routes:
   '/tariff/': "tariff"
   '/transactions-explorer/': "transactions-explorer"
 
+ssh::config::allow_users_enable: true
+
 unattended_reboot::cron_env_vars:
   - 'MAILTO=""'
 unattended_reboot::cron_hour: '0-5'
