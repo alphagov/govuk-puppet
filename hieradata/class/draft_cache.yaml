@@ -21,6 +21,8 @@ govuk::apps::router_api::router_nodes:
   - 'draft-cache-3.router:3055'
 govuk::apps::router_api::vhost: 'draft-router-api'
 
+govuk::node::s_draft_cache::router_mongodb_name: "%{hiera('govuk::apps::router_api::mongodb_name')}"
+
 govuk::node::s_cache::enable_authenticating_proxy: true
 
 nginx::package::nginx_package: 'nginx-extras'
