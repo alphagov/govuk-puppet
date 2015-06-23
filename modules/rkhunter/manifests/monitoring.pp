@@ -44,7 +44,7 @@ class rkhunter::monitoring {
   }
 
   # Script to run rkhunter as a passive check
-  file { '/usr/local/bin/rkhunter-passive-check':
+  file { '/etc/cron.daily/rkhunter-passive-check':
     ensure  => present,
     mode    => '0755',
     content => template('rkhunter/rkhunter-passive-check.erb'),
@@ -54,15 +54,6 @@ class rkhunter::monitoring {
     host_name           => $::fqdn,
     # 86400 seconds in a day, so 90000 seconds in 25 hours (cron should run daily)
     freshness_threshold => 90000,
-    require             => File['/usr/local/bin/rkhunter-passive-check'],
-  }
-  cron { 'rkhunter':
-    ensure  => present,
-    user    => 'root',
-    # randomise rkhunter runs for IO reasons
-    minute  => fqdn_rand(50),
-    hour    => 5,
-    command => '/usr/local/bin/rkhunter-passive-check',
-    require => File['/usr/local/bin/rkhunter-passive-check'],
+    require             => File['/etc/cron.daily/rkhunter-passive-check'],
   }
 }

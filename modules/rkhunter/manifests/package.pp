@@ -5,4 +5,10 @@ class rkhunter::package {
     ensure => installed,
   }
 
+  # The rkhunter package adds an entry to cron.daily by default,
+  # but we write our own which integrates with our monitoring.
+  file { '/etc/cron.daily/rkhunter':
+    ensure => absent,
+  }
+
 }
