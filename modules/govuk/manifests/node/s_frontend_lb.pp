@@ -9,7 +9,6 @@ class govuk::node::s_frontend_lb (
 ){
   include govuk::node::s_base
   include loadbalancer
-  include govuk_keepalived
 
   Loadbalancer::Balance {
     https_only    => false, # Varnish/Router can't speak HTTPS.

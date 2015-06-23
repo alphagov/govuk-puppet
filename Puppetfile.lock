@@ -2,9 +2,6 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     adrien-alternatives (0.2.0)
-    arioch-keepalived (1.1.0)
-      puppetlabs-concat (>= 1.0.2)
-      puppetlabs-stdlib (>= 4.1.0)
     attachmentgenie-ufw (1.0.3)
       puppetlabs-stdlib (>= 2.2.1)
     benjamin-ramdisk (0.0.1)
@@ -169,7 +166,6 @@ DEPENDENCIES
   alphagov-duplicity (>= 0)
   alphagov-harden (>= 0)
   alphagov-tune_ext (>= 0)
-  arioch-keepalived (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)
   camptocamp-augeas (= 1.1.0)
