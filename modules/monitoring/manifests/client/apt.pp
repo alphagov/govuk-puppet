@@ -13,7 +13,7 @@ class monitoring::client::apt {
     attempts_before_hard_state => 24, # Wait 24hrs to allow unattended-upgrades to run first
     check_interval             => 60, # Save cycles, apt-get update only runs every 30m
     retry_interval             => 60,
-    notes_url                  => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#outstanding-security-updates',
+    notes_url                  => monitoring_docs_url(outstanding-security-updates),
   }
 
   @icinga::nrpe_config { 'check_reboot_required':
@@ -26,6 +26,6 @@ class monitoring::client::apt {
     check_command       => 'check_nrpe!check_reboot_required!365 1',
     service_description => 'reboot required by apt', # This description must be kept in sync with check_icinga.rb in the govuk_unattended_reboot module.
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#reboot-required-by-apt',
+    notes_url           => monitoring_docs_url(reboot-required-by-apt),
   }
 }

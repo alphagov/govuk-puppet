@@ -55,7 +55,7 @@ define govuk::mount(
     service_description => "low available disk space on ${mountpoint}",
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => monitoring_docs_url(low-available-disk-space),
   }
 
   @@icinga::check { "check${mountpoint_escaped}_disk_inodes_${::hostname}":

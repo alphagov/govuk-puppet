@@ -228,7 +228,7 @@ define govuk::app::config (
         check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path}",
         service_description => $healthcheck_desc,
         host_name           => $::fqdn,
-        notes_url           => "https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#${healthcheck_opsmanual}",
+        notes_url           => monitoring_docs_url($healthcheck_opsmanual),
       }
     }
   }
@@ -238,7 +238,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
       service_description => "${title} app unicornherder not running",
       host_name           => $::fqdn,
-      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#app-unicornherder-running',
+      notes_url           => monitoring_docs_url(app-unicornherder-running),
     }
     include icinga::client::check_unicorn_workers
     @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":

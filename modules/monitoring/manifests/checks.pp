@@ -26,7 +26,7 @@ class monitoring::checks {
     service_description => 'overdue publications in Whitehall',
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#whitehall-scheduled-publishing',
+    notes_url           => monitoring_docs_url(whitehall-scheduled-publishing),
     action_url          => "https://${whitehall_hostname}${whitehall_overdue_url}",
   }
   # END whitehall
@@ -103,7 +103,7 @@ class monitoring::checks {
     check_command       => 'check_puppetdb_ssh_host_keys',
     service_description => 'duplicate SSH host keys',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#duplicate-ssh-host-keys',
+    notes_url           => monitoring_docs_url(duplicate-ssh-host-keys),
     require             => Icinga::Check_config['check_puppetdb_ssh_host_keys'],
   }
 }

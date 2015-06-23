@@ -13,7 +13,7 @@ class govuk_mysql::server::monitoring::slave inherits govuk_mysql::server::monit
     warning   => 300,
     critical  => 600,
     host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-lag',
+    notes_url => monitoring_docs_url(mysql-replication-lag),
   }
 
   $nagios_mysql_password = hiera('mysql_nagios')
@@ -26,6 +26,6 @@ class govuk_mysql::server::monitoring::slave inherits govuk_mysql::server::monit
     check_command       => 'check_nrpe_1arg!check_mysql_slave',
     service_description => 'mysql replication running',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#mysql-replication-running',
+    notes_url           => monitoring_docs_url(mysql-replication-running),
   }
 }

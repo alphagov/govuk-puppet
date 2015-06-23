@@ -15,6 +15,6 @@ class icinga::client::check_rw_rootfs {
     check_command       => 'check_nrpe_1arg!check_rw_rootfs',
     service_description => 'root filesystem is readonly',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#root-filesystem-is-readonly',
+    notes_url           => monitoring_docs_url(root-filesystem-is-readonly),
   }
 }

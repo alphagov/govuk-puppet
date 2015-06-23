@@ -48,6 +48,6 @@ class licensify::apps::licensify (
     from      => '3minutes',
     desc      => "${vhost_name} high nginx 5xx rate",
     host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html?highlight=nagios#nginx-5xx-rate-too-high-for-many-apps-boxes',
+    notes_url => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
   }
 }

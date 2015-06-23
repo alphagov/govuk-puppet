@@ -31,7 +31,7 @@ class icinga::client::checks (
     service_description => 'low available disk space',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => monitoring_docs_url(low-available-disk-space),
   }
 
   @@icinga::check { "check_root_disk_space_${::hostname}":
@@ -39,14 +39,14 @@ class icinga::client::checks (
     service_description => 'low available disk space on root',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => monitoring_docs_url(low-available-disk-space),
   }
   @@icinga::check { "check_root_disk_inodes_${::hostname}":
     check_command       => 'check_nrpe!check_disk_inodes_arg!20% 10% /',
     service_description => 'low available disk inodes on root',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+    notes_url           => monitoring_docs_url(low-available-disk-space),
   }
 
   @@icinga::check { "check_boot_disk_space_${::hostname}":
@@ -66,7 +66,7 @@ class icinga::client::checks (
     check_command       => 'check_nrpe_1arg!check_zombie_procs',
     service_description => 'high zombie procs',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#high-zombie-procs',
+    notes_url           => monitoring_docs_url(high-zombie-procs),
   }
 
   @@icinga::check { "check_procs_${::hostname}":
@@ -109,13 +109,13 @@ class icinga::client::checks (
     warning   => $disk_time_warn,
     critical  => $disk_time_critical,
     host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#high-disk-time',
+    notes_url => monitoring_docs_url(high-disk-time),
   }
 
   @@icinga::check { "check_ntp_time_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_ntp_time',
     service_description => 'ntp drift too high',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#ntp-drift-too-high',
+    notes_url           => monitoring_docs_url(ntp-drift-too-high),
   }
 }

@@ -36,7 +36,7 @@ class varnish::monitoring {
     service_description => 'varnishd port not responding',
     host_name           => $::fqdn,
     use                 => 'govuk_urgent_priority',
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#varnish-port-not-responding',
+    notes_url           => monitoring_docs_url(varnish-port-not-responding),
     action_url          => kibana3_url($kibana_url, $kibana_search),
   }
 }
