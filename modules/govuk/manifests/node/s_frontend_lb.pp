@@ -1,11 +1,12 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_frontend_lb (
-  $govuk_frontend_servers,
-  $whitehall_frontend_servers,
   $calculators_frontend_servers,
-  $performance_frontend_servers = [],
-  $performance_frontend_apps = [],
+  $draft_frontend_servers,
+  $frontend_servers,
+  $whitehall_frontend_servers,
   $hide_frontend_apps = true,
+  $performance_frontend_apps = [],
+  $performance_frontend_servers = [],
 ){
   include govuk::node::s_base
   include loadbalancer
@@ -16,6 +17,13 @@ class govuk::node::s_frontend_lb (
   }
 
   loadbalancer::balance {
+    [
+      'draft-contacts-frontend',
+      'draft-government-frontend',
+      'draft-manuals-frontend',
+      'draft-static',
+    ]:
+      servers       => $draft_frontend_servers;
     [
       'canary-frontend',
       'collections',
@@ -34,7 +42,7 @@ class govuk::node::s_frontend_lb (
       'static',
       'transactions-explorer',
     ]:
-      servers       => $govuk_frontend_servers;
+      servers       => $frontend_servers;
     [
       'businesssupportfinder',
       'calculators',
