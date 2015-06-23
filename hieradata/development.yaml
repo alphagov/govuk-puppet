@@ -40,6 +40,7 @@ govuk::apps::external_link_tracker::mongodb_nodes: ['localhost']
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::government_frontend::enabled: true
+govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::manuals_frontend::enabled: true
