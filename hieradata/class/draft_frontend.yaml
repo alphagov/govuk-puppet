@@ -1,0 +1,26 @@
+---
+
+govuk::apps::contacts_frontend::vhost: 'draft-contacts-frontend'
+
+govuk::apps::government_frontend::vhost: 'draft-government-frontend'
+
+govuk::apps::manuals_frontend::vhost: 'draft-manuals-frontend'
+
+govuk::apps::static::vhost: 'draft-static'
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'vhost'
+
+mount:
+  /data/vhost:
+    disk: '/dev/mapper/vhost-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+
+govuk::node::s_frontend::apps:
+ - govuk::apps::contacts_frontend
+ - govuk::apps::government_frontend
+ - govuk::apps::manuals_frontend
+ - govuk::apps::static

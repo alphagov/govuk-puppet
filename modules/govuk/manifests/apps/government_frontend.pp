@@ -4,10 +4,14 @@
 #
 # === Parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#
 # [*port*]
 #   What port should the app run on?
 #
 class govuk::apps::government_frontend(
+  $vhost,
   $port = 3090,
 ) {
   govuk::app { 'government-frontend':
@@ -18,5 +22,6 @@ class govuk::apps::government_frontend(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'government-frontend',
+    vhost                 => $vhost,
   }
 }

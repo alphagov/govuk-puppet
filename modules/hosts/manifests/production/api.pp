@@ -24,6 +24,12 @@ class hosts::production::api (
   govuk::host { 'content-store-3':
     ip  => '10.7.0.13',
   }
+  govuk::host { 'draft-content-store-1':
+    ip  => '10.7.2.11',
+  }
+  govuk::host { 'draft-content-store-2':
+    ip  => '10.7.2.12',
+  }
   govuk::host { 'api-1':
     ip  => '10.7.0.16',
   }

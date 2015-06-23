@@ -22,11 +22,13 @@ govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-frontend.dev.gov.uk'
 govuk::apps::collections_api::enabled: true
 govuk::apps::contacts::extra_aliases: ['contacts-frontend-old', 'contacts-admin']
+govuk::apps::contacts_frontend::vhost: 'contacts-frontend'
 govuk::apps::content_register::enable_procfile_worker: false
 govuk::apps::content_register::rabbitmq::configure_test_details: true
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_store::rabbitmq::configure_test_exchange: true
+govuk::apps::content_store::vhost: 'content-store'
 govuk::apps::courts_api::enabled: true
 govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_api::enabled: true
@@ -38,9 +40,11 @@ govuk::apps::external_link_tracker::mongodb_nodes: ['localhost']
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::government_frontend::enabled: true
+govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::manuals_frontend::enabled: true
+govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::performanceplatform_notifier::enabled: true
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
@@ -65,6 +69,7 @@ govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::spotlight::enabled: true
+govuk::apps::static::vhost: 'static'
 govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
