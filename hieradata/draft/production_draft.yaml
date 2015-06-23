@@ -11,8 +11,6 @@ hosts::production::apt_mirror_internal: false
 govuk::apps::content_store::default_ttl: '1'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production-draft@digital.cabinet-office.gov.uk'
 govuk::apps::static::global_header_text: GOV.UK (Draft)
-govuk::apps::authenticating_proxy::signon_uri: 'https://signon.production.alphagov.co.uk'
-govuk::apps::authenticating_proxy::errbit_uri: 'https://errbit.production.alphagov.co.uk'
 
 govuk::deploy::config::errbit_environment_name: 'draft_production'
 govuk::deploy::setup::ssh_keys:
