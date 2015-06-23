@@ -8,6 +8,9 @@
 #   The port that router-api listens on.
 #   Default: 3056
 #
+# [*mongodb_name*]
+#   The Mongo database to be used.
+#
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
@@ -15,13 +18,18 @@
 #   Array of hostname:port pairs for the router instances.  These will be used
 #   when reloading routes in the router.
 #
+# [*vhost*]
+#   Virtual host to be used by the application.
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::router_api(
   $port = 3056,
+  $mongodb_name,
   $mongodb_nodes,
   $router_nodes,
+  $vhost,
   $secret_key_base = undef,
 ) {
 
@@ -34,6 +42,7 @@ class govuk::apps::router_api(
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
+    vhost              => $vhost,
   }
 
   Govuk::App::Envvar {
@@ -51,7 +60,7 @@ class govuk::apps::router_api(
     $mongodb_nodes_string = join($mongodb_nodes, ',')
     govuk::app::envvar { "${title}-MONGODB_URI":
       varname => 'MONGODB_URI',
-      value   => "mongodb://${mongodb_nodes_string}/router",
+      value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
     }
   }
 
