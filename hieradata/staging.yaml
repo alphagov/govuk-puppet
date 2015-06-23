@@ -140,6 +140,7 @@ ssh::config::allow_users:
   - 'dominicbaggott'
   - 'eddsowden'
   - 'elliot'
+  - 'govuk-backup'
   - 'heathd'
   - 'jabley'
   - 'jacobashdown'
