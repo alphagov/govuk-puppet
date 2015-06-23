@@ -1,0 +1,11 @@
+---
+
+app_domain: 'staging.publishing.service.gov.uk'
+
+asset_root: 'assets-origin.staging.publishing.service.gov.uk'
+
+shell::shell_prompt_string: 'migration-staging'
+
+govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-migration@digital.cabinet-office.gov.uk'
+
+website_root: 'https://www-origin.staging.publishing.service.gov.uk'
