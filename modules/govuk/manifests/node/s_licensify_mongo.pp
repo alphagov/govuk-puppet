@@ -29,7 +29,7 @@ class govuk::node::s_licensify_mongo (
       service_description => 'low available disk space on /var/lib/mongodb',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#low-available-disk-space',
+      notes_url           => monitoring_docs_url(low-available-disk-space),
     }
   }
 

@@ -12,6 +12,6 @@ class clamav::monitoring {
     check_command       => "check_nrpe!check_file_age!\"-f /var/lib/clamav/daily.cld -c0 -w${warning_age}\"",
     service_description => 'clamav definitions out of date',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#clamav-definitions-out-of-date',
+    notes_url           => monitoring_docs_url(clamav-definitions-out-of-date),
   }
 }

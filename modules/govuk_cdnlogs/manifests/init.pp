@@ -104,14 +104,14 @@ class govuk_cdnlogs (
       check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c3600 -w1800\"",
       service_description => 'GOV.UK logs are not being received from the CDN',
       host_name           => $::fqdn,
-      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
+      notes_url           => monitoring_docs_url(logs-are-not-being-received-from-the-cdn),
     }
 
     @@icinga::check { "check_bouncer_cdn_logs_being_streamed_${::hostname}":
       check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-bouncer.log -c3600 -w1800\"",
       service_description => 'Bouncer logs are not being received from the CDN',
       host_name           => $::fqdn,
-      notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#logs-are-not-being-received-from-the-cdn',
+      notes_url           => monitoring_docs_url(logs-are-not-being-received-from-the-cdn),
     }
   }
 

@@ -33,7 +33,7 @@ class govuk_elasticsearch::monitoring (
       warning   => 150,
       critical  => 300,
       host_name => $::fqdn,
-      notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
+      notes_url => monitoring_docs_url(prolonged-gc-collection-times-check),
     }
     @@icinga::check::graphite { "check_elasticsearch_jvm_gc_young_collection_time_in_millis-${::hostname}":
       target    => "summarize(${::fqdn_underscore}.curl_json-elasticsearch.counter-jvm_gc_collectors_young_collection_time_in_millis,\"5minutes\",\"max\",true)",
@@ -41,7 +41,7 @@ class govuk_elasticsearch::monitoring (
       warning   => 150,
       critical  => 300,
       host_name => $::fqdn,
-      notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#prolonged-gc-collection-times-check',
+      notes_url => monitoring_docs_url(prolonged-gc-collection-times-check),
     }
   }
 
@@ -55,6 +55,6 @@ class govuk_elasticsearch::monitoring (
     check_command       => "check_nrpe!check_elasticsearch_cluster_health!${host_count}",
     service_description => 'elasticsearch cluster is not healthy',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#elasticsearch-cluster-health',
+    notes_url           => monitoring_docs_url(elasticsearch-cluster-health),
   }
 }

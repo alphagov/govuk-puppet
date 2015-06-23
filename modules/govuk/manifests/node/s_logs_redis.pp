@@ -7,7 +7,7 @@ class govuk::node::s_logs_redis inherits govuk::node::s_redis_base {
     warning   => 10000,
     critical  => 30000,
     desc      => 'redis list length for logs',
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#redis-rivers-for-elasticsearch',
+    notes_url => monitoring_docs_url(redis-rivers-for-elasticsearch),
     host_name => $::fqdn,
   }
 

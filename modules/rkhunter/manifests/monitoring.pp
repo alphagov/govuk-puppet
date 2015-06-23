@@ -54,6 +54,7 @@ class rkhunter::monitoring {
     host_name           => $::fqdn,
     # 86400 seconds in a day, so 90000 seconds in 25 hours (cron should run daily)
     freshness_threshold => 90000,
+    notes_url           => monitoring_docs_url(rkhunter-warnings),
     require             => File['/etc/cron.daily/rkhunter-passive-check'],
   }
 }

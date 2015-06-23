@@ -24,7 +24,7 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     critical  => 250,
     desc      => 'nginx high conn writing - upstream indicator',
     host_name => $::fqdn,
-    notes_url => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-high-conn-writing-upstream-indicator-check',
+    notes_url => monitoring_docs_url(nginx-high-conn-writing-upstream-indicator-check),
   }
 
   Govuk::Mount['/data/vhost'] -> Class['govuk::apps::calculators']
