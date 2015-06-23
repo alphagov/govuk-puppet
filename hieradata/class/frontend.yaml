@@ -8,6 +8,8 @@ govuk::apps::government_frontend::vhost: 'government-frontend'
 
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 
+govuk::apps::static::vhost: 'static'
+
 lv:
   data:
     pv: '/dev/sdb1'

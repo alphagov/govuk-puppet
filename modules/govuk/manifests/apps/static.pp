@@ -4,12 +4,16 @@
 #
 # === Parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#
 # [*global_header_text*]
 #   A string to display in the header instead of "GOV.UK". Used for the draft
 #   environment.
 #   Default: ''
 #
 class govuk::apps::static(
+  $vhost,
   $port = 3013,
   $global_header_text = ''
 ) {
@@ -26,6 +30,7 @@ class govuk::apps::static(
     nginx_extra_config    => template('govuk/static_extra_nginx_config.conf.erb'),
     asset_pipeline        => true,
     asset_pipeline_prefix => 'static',
+    vhost                 => $vhost,
   }
 
   Govuk::App::Envvar {
