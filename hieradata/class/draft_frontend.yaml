@@ -4,6 +4,8 @@ govuk::apps::contacts_frontend::vhost: 'draft-contacts-frontend'
 
 govuk::apps::government_frontend::vhost: 'draft-government-frontend'
 
+govuk::apps::manuals_frontend::vhost: 'draft-manuals-frontend'
+
 lv:
   data:
     pv: '/dev/sdb1'
