@@ -1,5 +1,7 @@
 ---
 
+govuk::apps::contacts_frontend::vhost: 'draft-contacts-frontend'
+
 lv:
   data:
     pv: '/dev/sdb1'
