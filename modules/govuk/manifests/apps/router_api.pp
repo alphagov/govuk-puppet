@@ -18,6 +18,9 @@
 #   Array of hostname:port pairs for the router instances.  These will be used
 #   when reloading routes in the router.
 #
+# [*vhost*]
+#   Virtual host to be used by the application.
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -26,6 +29,7 @@ class govuk::apps::router_api(
   $mongodb_name,
   $mongodb_nodes,
   $router_nodes,
+  $vhost,
   $secret_key_base = undef,
 ) {
 
@@ -38,6 +42,7 @@ class govuk::apps::router_api(
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
+    vhost              => $vhost,
   }
 
   Govuk::App::Envvar {
