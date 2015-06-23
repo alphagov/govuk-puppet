@@ -26,7 +26,7 @@
 # [*enable_authenticating_proxy*]
 #   Whether to enable the [authenticating proxy](https://github.com/alphagov/authenticating-proxy)
 #   on this node. If enabled, it will be configured to sit between varnish and
-#   the router.
+#   the router and basic authentication will be disabled (i.e. protect_cache_servers is ignored)
 #
 #   Default: false
 #
@@ -45,8 +45,15 @@ class govuk::node::s_cache (
     variables_hash_max_size => '768',
   }
 
+  # Ensure basic auth is off if authenticating-proxy is enabled
+  if $enable_authenticating_proxy {
+    $vhost_protected = false
+  } else {
+    $vhost_protected = $protect_cache_servers
+  }
+
   class { 'router::nginx':
-    vhost_protected => $protect_cache_servers,
+    vhost_protected => $vhost_protected,
     real_ip_header  => $real_ip_header,
   }
 
