@@ -73,6 +73,7 @@ backup::offsite::jobs:
   'govuk-graphite':
     sources: '/data/backups/*/opt/graphite/storage/whisper'
     destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-graphite/"
+    weekday: 6
     hour: 8,
     minute: 13,
     # No encryption because of size and sensitivity

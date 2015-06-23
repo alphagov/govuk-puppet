@@ -37,7 +37,7 @@ mod 'alphagov/curl',
   :ref => '4f657d5cbbb617dd6b1c6a9a371b1f3d667b3922'
 mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
-  :ref => 'use-remove-all-but-n-full-option'
+  :ref => 'accept-day-of-week-for-cron-timing'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gdsoperations/gor',
