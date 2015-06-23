@@ -79,6 +79,9 @@ monitoring_protected: 'no'
 
 shell::shell_prompt_string: 'dev'
 
+ssh::config::allow_users:
+  - 'vagrant'
+
 users::usernames:
   - null_user
 
