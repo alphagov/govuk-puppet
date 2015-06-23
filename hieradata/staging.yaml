@@ -157,7 +157,7 @@ users::pentest_machines:
   - 'frontend-1.frontend.production'
   - 'jumpbox-1.management.production'
   - 'mysql-master-1.backend.production'
-  - 'postgresql-master-1.backend.production'
+  - 'postgresql-primary-1.backend.production'
 
 users::pentest_usernames:
   - digitalassurancetester
