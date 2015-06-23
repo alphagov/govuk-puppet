@@ -18,7 +18,6 @@ govuk::deploy::setup::ssh_keys:
   draft_production_skyscape_jenkins: AAAAB3NzaC1yc2EAAAADAQABAAABAQDQB4mU5iDXC4zqDdg8TtZzBoeKbXJOEVN1tNRQAAjBVD3GnAIDMWf5ChJAnEdchA/32ULkLEIko171NWCJ98nfureIMX8hiG3YqYtt4ydYV0yqTKQHz7/RhvfxvKYFL6omy8RZHEjeZ6Kf8SrELPXutT4oqJDMxaLqyZY8IYxZ/U1SJjhsBm1DCUmeuHxNRlTqEYyFEzQ9fklAR8YnbMcfhP+yBA5A+66yL03gkoDvzSUic5J5OU6J5ejupUTI5AeIu4FOep5UYs8oXf7RpXTL1b+BR6YPRCf0njnMrXauASfKV7VcxvvE0D0JbwVO82Rwls02Ug8WwH5WGJBTZ4YF
 
 govuk::node::s_cache::enable_authenticating_proxy: true
-govuk::node::s_cache::protect_cache_servers: false
 
 govuk::node::s_backend::apps:
   - govuk::apps::kibana
