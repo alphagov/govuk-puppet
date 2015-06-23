@@ -5,7 +5,17 @@
 #
 # Includes `govuk::node::s_frontend`, upon which this node definition is based.
 #
+# === Parameters
 #
-class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
+# [*draft_content_store_uri*]
+#   URI of the content-store instance used to serve draft content.
+#
+class govuk::node::s_draft_frontend(
+  $draft_content_store_uri,
+) inherits govuk::node::s_base {
   include govuk::node::s_frontend
+
+  govuk::envvar { 'PLEK_SERVICE_CONTENT_STORE_URI':
+    value => $draft_content_store_uri,
+  }
 }
