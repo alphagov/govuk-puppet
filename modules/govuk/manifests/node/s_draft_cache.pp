@@ -17,8 +17,9 @@ class govuk::node::s_draft_cache(
 
   include govuk::apps::router_api
 
-  govuk::app::envvar { 'ROUTER_MONGO_DB':
-    app   => 'router',
-    value => $router_mongodb_name,
+  govuk::app::envvar { "${title}-ROUTER_MONGO_DB":
+    app     => 'router',
+    value   => $router_mongodb_name,
+    varname => 'ROUTER_MONGO_DB',
   }
 }
