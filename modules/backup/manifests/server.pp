@@ -33,8 +33,7 @@ class backup::server (
   cron { 'cron_govuk-backup_daily':
     command => 'run-parts /etc/backup/daily',
     user    => 'govuk-backup',
-    # Every day at 0300
-    hour    => '3',
+    hour    => '7',
     minute  => '0',
   }
 
