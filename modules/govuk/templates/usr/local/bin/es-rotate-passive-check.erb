@@ -23,6 +23,8 @@ if [ -e "${CMD}" ]; then
     send_to_monitoring "es-rotate OK" 0
   else
     send_to_monitoring "es-rotate exited abnormally" 1
+    echo "es-rotate exited abnormally"
+    exit $CODE
   fi
 
   echo "Finished at `date`"
