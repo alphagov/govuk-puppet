@@ -5,6 +5,7 @@ class rkhunter::config {
     'apps',
     'deleted_files',
     'filesystem',
+    'group_changes',
     'hidden_procs',
     'packet_cap_apps',
     'passwd_changes',
