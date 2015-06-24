@@ -1,5 +1,7 @@
 #!/bin/bash
-LOGFILE='<%= @rotation_log_file %>'
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 #FIXME: 2014-01-12 - Ideally this should be 21 days - need to fix logstasher gem first
 ARGS='--delete-old --delete-maxage 15 --optimize-old --optimize-maxage 1 logs'
@@ -12,18 +14,20 @@ function send_to_monitoring() {
   printf "<%= @fqdn %>\tes-rotate\t${CODE}\t${MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
-echo "Running es-rotate at `date`" > ${LOGFILE}
+echo "Running es-rotate at `date`"
 
 if [ -e "${CMD}" ]; then
-  ${CMD} ${ARGS} 2>&1 > ${LOGFILE}
+  ${CMD} ${ARGS}
   CODE=$?
   if [ "${CODE}" -eq 0 ]; then
     send_to_monitoring "es-rotate OK" 0
   else
     send_to_monitoring "es-rotate exited abnormally" 1
+    echo "es-rotate exited abnormally"
+    exit $CODE
   fi
 
-  echo "Finished at `date`" >> ${LOGFILE}
+  echo "Finished at `date`"
 
   exit $CODE
 else
