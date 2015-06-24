@@ -5,6 +5,9 @@ govuk::safe_to_reboot::reason: 'Reboot a single node at time and check that the 
 
 govuk_elasticsearch::version: '1.4.4'
 
+icinga::client::checks::disk_time_warn: 200 # milliseconds
+icinga::client::checks::disk_time_critical: 300 # milliseconds
+
 lv:
   data:
     pv:
