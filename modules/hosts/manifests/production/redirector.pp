@@ -10,8 +10,12 @@
 # [*ip_bouncer*]
 #   The IP address of the bouncer vse load-balancer
 #
+# [*hosts*]
+#   Hosts used to create govuk::host resources (hostfile entries).
+#
 class hosts::production::redirector (
   $app_domain,
+  $hosts = {},
   $ip_bouncer,
 ) {
 
@@ -19,16 +23,9 @@ class hosts::production::redirector (
     vdc => 'redirector',
   }
 
-  govuk::host { 'bouncer-1':
-    ip  => '10.6.0.4',
-  }
-  govuk::host { 'bouncer-2':
-    ip  => '10.6.0.5',
-  }
-  govuk::host { 'bouncer-3':
-    ip  => '10.6.0.6',
-  }
   govuk::host { 'bouncer-vse-lb':
     ip  => $ip_bouncer,
   }
+
+  create_resources('govuk::host', $hosts)
 }

@@ -13,15 +13,17 @@ describe "router::assets_origin", :type => :class do
       end.flatten.compact
     }
 
+    hiera_conf = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
+    hiera_conf[:yaml][:datadir] = File.expand_path("../../../../../hieradata", __FILE__)
+
     context "in a production-like environment" do
-      let(:hiera_data) {{
-        'app_domain' => 'production.alphagov.co.uk',
-      }}
+      let(:hiera_config) { hiera_conf }
+      let(:facts) {{ :environment => 'production' }}
       let(:pre_condition) { "include hosts::production" }
 
       it "should have host entries for each route target" do
         asset_routes.each do |_, target|
-          hostname = "#{target}.#{hiera_data['app_domain']}"
+          hostname = "#{target}.production.alphagov.co.uk"
           message = "asset_routes point at non-existent host '#{hostname}' in production"
           expect(all_hostnames).to include(hostname), message
         end
