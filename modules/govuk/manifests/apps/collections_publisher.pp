@@ -8,13 +8,19 @@
 # [*panopticon_bearer_token*]
 #   The bearer token to use when communicating with Panopticon.
 #   Default: example
+#
 # [*port*]
 #   The port that publishing API is served on.
 #   Default: 3078
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: false
+#
 class govuk::apps::collections_publisher(
   $panopticon_bearer_token = 'example',
   $port = 3078,
+  $enable_procfile_worker = false,
 ) {
 
   govuk::app::envvar { "${title}-PANOPTICON_BEARER_TOKEN":
@@ -31,5 +37,9 @@ class govuk::apps::collections_publisher(
     log_format_is_json => true,
     asset_pipeline     => true,
     deny_framing       => true,
+  }
+
+  govuk::procfile::worker {'collections-publisher':
+    enable_service => $enable_procfile_worker,
   }
 }
