@@ -32,9 +32,9 @@ describe 'govuk::app', :type => :define do
       should contain_service('giraffe').with_provider('upstart')
     end
 
-    it "should hide the Sidekiq monitoring endpoint" do
+    it "should not hide any paths" do
       should contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/sidekiq']
+        'hidden_paths' => []
       )
     end
   end
@@ -69,9 +69,9 @@ describe 'govuk::app', :type => :define do
       }
     end
 
-    it "should hide the Sidekiq monitoring and healthcheck paths" do
+    it "should hide the healthcheck paths" do
       should contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/sidekiq', '/healthcheck']
+        'hidden_paths' => ['/healthcheck']
       )
     end
   end
