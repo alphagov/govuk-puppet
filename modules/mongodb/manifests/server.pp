@@ -36,6 +36,7 @@ class mongodb::server (
   }
 
   include mongodb::backup
+  include mongodb::repository
 
   if $development {
     $replicaset_name = 'development'
@@ -48,7 +49,6 @@ class mongodb::server (
     notify => Class['mongodb::service'];
   }
 
-  class { 'mongodb::repository': }
 
   class { 'mongodb::package':
     version      => $version,
