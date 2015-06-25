@@ -17,13 +17,10 @@ class govuk::apps::collections_publisher(
   $port = 3078,
 ) {
 
-  Govuk::App::Envvar {
-    app => 'collections-publisher',
-  }
-
-  govuk::app::envvar {
-    'PANOPTICON_BEARER_TOKEN':
-      value => $panopticon_bearer_token;
+  govuk::app::envvar { "${title}-PANOPTICON_BEARER_TOKEN":
+    app     => 'collections-publisher',
+    varname => 'PANOPTICON_BEARER_TOKEN',
+    value   => $panopticon_bearer_token,
   }
 
   govuk::app { 'collections-publisher':
