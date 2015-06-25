@@ -35,7 +35,10 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
-  include mongodb::backup
+  class { 'mongodb::backup':
+    replicaset_members => $replicaset_members,
+  }
+
   include mongodb::repository
 
   if $development {

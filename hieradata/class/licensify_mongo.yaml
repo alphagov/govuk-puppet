@@ -22,9 +22,9 @@ mount:
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
- - "licensify-mongo-1.licensify"
- - "licensify-mongo-2.licensify"
- - "licensify-mongo-3.licensify"
+ - "licensify-mongo-1"
+ - "licensify-mongo-2"
+ - "licensify-mongo-3"
 
 # Disable monthly backups to limit the retention of IL3 data.
 mongodb::backup::domonthly: false
