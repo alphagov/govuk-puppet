@@ -88,7 +88,6 @@ govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
   - govuk::apps::business_support_api
   - govuk::apps::canary_backend
-  - govuk::apps::collections_api
   - govuk::apps::collections_publisher
   - govuk::apps::contacts
   - govuk::apps::content_planner
