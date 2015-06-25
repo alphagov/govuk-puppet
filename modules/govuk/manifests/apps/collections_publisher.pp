@@ -5,8 +5,6 @@
 #
 # === Parameters
 #
-# [*enabled*]
-#   Whether the application should be setup for deployment.
 # [*panopticon_bearer_token*]
 #   The bearer token to use when communicating with Panopticon.
 #   Default: example
@@ -15,30 +13,26 @@
 #   Default: 3078
 #
 class govuk::apps::collections_publisher(
-  $enabled = true,
   $panopticon_bearer_token = 'example',
   $port = 3078,
 ) {
 
-  if $enabled {
-    Govuk::App::Envvar {
-      app => 'collections-publisher',
-    }
-
-    govuk::app::envvar {
-      'PANOPTICON_BEARER_TOKEN':
-        value => $panopticon_bearer_token;
-    }
-
-    govuk::app { 'collections-publisher':
-      app_type           => 'rack',
-      port               => $port,
-      vhost_ssl_only     => true,
-      health_check_path  => '/',
-      log_format_is_json => true,
-      asset_pipeline     => true,
-      deny_framing       => true,
-    }
+  Govuk::App::Envvar {
+    app => 'collections-publisher',
   }
 
+  govuk::app::envvar {
+    'PANOPTICON_BEARER_TOKEN':
+      value => $panopticon_bearer_token;
+  }
+
+  govuk::app { 'collections-publisher':
+    app_type           => 'rack',
+    port               => $port,
+    vhost_ssl_only     => true,
+    health_check_path  => '/',
+    log_format_is_json => true,
+    asset_pipeline     => true,
+    deny_framing       => true,
+  }
 }

@@ -17,7 +17,6 @@ govuk::apps::authenticating_proxy::signon_uri: 'https://signon.preview.alphagov.
 govuk::apps::authenticating_proxy::errbit_uri: 'https://errbit.preview.alphagov.co.uk'
 govuk::apps::backdrop_read::enabled: true
 govuk::apps::backdrop_write::enabled: true
-govuk::apps::collections_publisher::enabled: true
 govuk::apps::courts_api::enabled: true
 govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_api::enabled: true
