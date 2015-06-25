@@ -5,40 +5,41 @@
 #
 # === Parameters
 #
-# [*enabled*]
-#   Whether the application should be setup for deployment.
 # [*panopticon_bearer_token*]
 #   The bearer token to use when communicating with Panopticon.
 #   Default: example
+#
 # [*port*]
 #   The port that publishing API is served on.
 #   Default: 3078
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: false
+#
 class govuk::apps::collections_publisher(
-  $enabled = true,
   $panopticon_bearer_token = 'example',
   $port = 3078,
+  $enable_procfile_worker = false,
 ) {
 
-  if $enabled {
-    Govuk::App::Envvar {
-      app => 'collections-publisher',
-    }
-
-    govuk::app::envvar {
-      'PANOPTICON_BEARER_TOKEN':
-        value => $panopticon_bearer_token;
-    }
-
-    govuk::app { 'collections-publisher':
-      app_type           => 'rack',
-      port               => $port,
-      vhost_ssl_only     => true,
-      health_check_path  => '/',
-      log_format_is_json => true,
-      asset_pipeline     => true,
-      deny_framing       => true,
-    }
+  govuk::app::envvar { "${title}-PANOPTICON_BEARER_TOKEN":
+    app     => 'collections-publisher',
+    varname => 'PANOPTICON_BEARER_TOKEN',
+    value   => $panopticon_bearer_token,
   }
 
+  govuk::app { 'collections-publisher':
+    app_type           => 'rack',
+    port               => $port,
+    vhost_ssl_only     => true,
+    health_check_path  => '/',
+    log_format_is_json => true,
+    asset_pipeline     => true,
+    deny_framing       => true,
+  }
+
+  govuk::procfile::worker {'collections-publisher':
+    enable_service => $enable_procfile_worker,
+  }
 }
