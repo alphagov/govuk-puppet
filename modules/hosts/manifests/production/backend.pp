@@ -85,7 +85,6 @@ class hosts::production::backend (
   }
   govuk::host { 'mapit-server-1':
     ip             => '10.3.0.9',
-    legacy_aliases => ['mapit.alpha.gov.uk']
   }
   govuk::host { 'mapit-server-2':
     ip  => '10.3.0.10',
