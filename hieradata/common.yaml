@@ -81,6 +81,9 @@ backup::offsite::jobs:
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
+# FIXME: Remove this once the draft stack has stabilised.
+govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
+
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
   - govuk::apps::business_support_api
