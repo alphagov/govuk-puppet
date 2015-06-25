@@ -4,7 +4,6 @@
 #
 class govuk::node::s_router_backend inherits govuk::node::s_base {
   include mongodb::server
-  include mongodb::backup
 
   include govuk::node::s_ruby_app_server
 

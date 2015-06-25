@@ -35,6 +35,8 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
+  include mongodb::backup
+
   if $development {
     $replicaset_name = 'development'
   } else {
