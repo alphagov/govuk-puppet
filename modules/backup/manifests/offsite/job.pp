@@ -66,11 +66,17 @@ define backup::offsite::job(
     full_if_older_than    => '7D',
   }
 
+  if $weekday == undef { # duplicity job runs daily
+    $freshness_threshold = 28 * 60 * 60 # one day plus 4 hours
+  } else { # duplicity runs weekly
+    $freshness_threshold = (4 + (7 * 24)) * 60 * 60 # one week plus 4 hours
+  }
+
   if $ensure == 'present' {
     @@icinga::passive_check { "check_backup_offsite-${title}-${::hostname}":
       service_description => $service_description,
       host_name           => $::fqdn,
-      freshness_threshold => 28 * (60 * 60), # Hours to seconds
+      freshness_threshold => $freshness_threshold,
       notes_url           => monitoring_docs_url(offsite-backups),
       action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/${::hostname}\$20duplicity%7Csort:date",
     }
