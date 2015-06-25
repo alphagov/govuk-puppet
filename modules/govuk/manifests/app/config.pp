@@ -138,12 +138,12 @@ define govuk::app::config (
   if $enable_nginx_vhost {
 
     if $expose_health_check {
-      $hidden_paths = ['/sidekiq']
+      $hidden_paths = []
     } else {
       if $health_check_path == 'NOTSET' {
         fail('Cannot hide an unset health check path')
       }
-      $hidden_paths = ['/sidekiq', $health_check_path]
+      $hidden_paths = [$health_check_path]
     }
 
     # Expose this application from nginx
