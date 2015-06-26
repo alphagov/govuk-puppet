@@ -132,7 +132,6 @@ ssh::config::allow_users:
   - 'benilovj'
   - 'bob'
   - 'bradleyw'
-  - 'carlmassa'
   - 'danielroseman'
   - 'davidsingleton'
   - 'dcarley'
@@ -181,7 +180,6 @@ users::usernames:
   - benilovj
   - bob
   - bradleyw
-  - carlmassa
   - danielroseman
   - davidsingleton
   - dcarley
