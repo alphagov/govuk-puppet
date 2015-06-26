@@ -25,6 +25,13 @@ class govuk::apps::publisher(
     content => template('govuk/local_authority_import_check.erb'),
   }
 
+  file { ['/data/uploads/publisher', '/data/uploads/publisher/reports']:
+    ensure => directory,
+    mode   => '0775',
+    owner  => 'assets',
+    group  => 'assets',
+  }
+
   if str2bool($nagios_data_importer_check) {
     @@icinga::passive_check { "check-local-authority-data-importer-${::hostname}":
       service_description => $service_desc,
