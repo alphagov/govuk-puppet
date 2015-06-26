@@ -24,6 +24,7 @@ define govuk_elasticsearch::river (
         command  => "es-river create '${river_name}' <<EOS
 ${content}
 EOS",
+        onlyif   => 'curl --silent "http://localhost:9200/_aliases" | grep --quiet logs-current',
         unless   => "es-river compare '${river_name}' <<EOS
 ${content}
 EOS",
