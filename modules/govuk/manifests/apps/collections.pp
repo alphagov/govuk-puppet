@@ -5,7 +5,7 @@ class govuk::apps::collections(
   govuk::app { 'collections':
     app_type              => 'rack',
     port                  => $port,
-    health_check_path     => '/oil-and-gas',
+    health_check_path     => '/topic/oil-and-gas',
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'collections',
