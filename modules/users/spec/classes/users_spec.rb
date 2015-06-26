@@ -52,7 +52,6 @@ username_whitelist = %w{
   heathd
   jabley
   jackscotti
-  james
   jamiec
   kushalp
   niallm
