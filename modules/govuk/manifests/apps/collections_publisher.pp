@@ -15,12 +15,12 @@
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
-#   Default: false
+#   Default: true
 #
 class govuk::apps::collections_publisher(
   $panopticon_bearer_token = 'example',
   $port = 3078,
-  $enable_procfile_worker = false,
+  $enable_procfile_worker = true,
 ) {
 
   govuk::app::envvar { "${title}-PANOPTICON_BEARER_TOKEN":
