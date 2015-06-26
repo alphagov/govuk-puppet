@@ -190,7 +190,6 @@ ssh::config::allow_users:
   - 'heathd'
   - 'jabley'
   - 'jacobashdown'
-  - 'james'
   - 'jamiec'
   - 'jennyduckett'
   - 'jordan'
@@ -221,7 +220,6 @@ users::usernames:
   - heathd
   - jabley
   - jacobashdown
-  - james
   - jamiec
   - jennyduckett
   - joshmyers
