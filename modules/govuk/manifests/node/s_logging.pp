@@ -95,7 +95,7 @@ class govuk::node::s_logging inherits govuk::node::s_base {
 
   logstash::output::elasticsearch_http {'syslog':
     host  => 'logs-elasticsearch.cluster',
-    index => 'logs-current',
+    index => 'logs-%{+YYYY.MM.dd}',
   }
 
   # Cronjob to zip old logs
