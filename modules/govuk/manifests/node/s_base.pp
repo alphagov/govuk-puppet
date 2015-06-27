@@ -19,6 +19,7 @@ class govuk::node::s_base {
   include puppet
   include puppet::cronjob
   include govuk_rbenv
+  include rcs
   include rkhunter
   include users
   include resolvconf
