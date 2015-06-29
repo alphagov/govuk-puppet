@@ -5,8 +5,7 @@ define backup::directory (
     $fq_dn,
     $priority = undef,
     $versioned = false
-    ) {
-
+) {
     $sanitised_dir  = regsubst($directory, '/', '_', 'G')
     $threshold_secs = 28 * (60 * 60)
     # Also used in template.
@@ -14,8 +13,7 @@ define backup::directory (
 
     if $priority {
       $filename = "/etc/backup/${priority}_directory_${name}"
-    }
-    else {
+    } else {
       $filename = "/etc/backup/directory_${name}"
     }
 
