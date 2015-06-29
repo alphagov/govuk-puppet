@@ -183,7 +183,6 @@ ssh::config::allow_users:
   - 'dcarley'
   - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
   - 'digitalassurancetester'
-  - 'dominicbaggott'
   - 'eddsowden'
   - 'elliot'
   - 'govuk-backup@10.0.0.50' # govuk-backup from backup-1 within this environment
@@ -214,7 +213,6 @@ users::usernames:
   - danielroseman
   - davidsingleton
   - dcarley
-  - dominicbaggott
   - eddsowden
   - elliot
   - heathd
