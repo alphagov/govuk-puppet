@@ -61,5 +61,5 @@ def load_nodes
     nodes_local.each { |k,v| nodes[k].merge!(v) if nodes.has_key?(k) }
   end
 
-  nodes
+  Hash[nodes.sort]
 end
