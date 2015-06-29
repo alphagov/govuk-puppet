@@ -3,16 +3,9 @@ define backup::directory (
     $directory,
     $host_name,
     $fq_dn,
-    $frequency = 'daily',
     $priority = undef,
     $versioned = false
     ) {
-
-    # TODO: Requires threshold logic for other frequency periods. We don't
-    # currently use these, so deferring this work.
-    if $frequency != 'daily' {
-      fail('"daily" is currently the only supported frequency')
-    }
 
     $sanitised_dir  = regsubst($directory, '/', '_', 'G')
     $threshold_secs = 28 * (60 * 60)
@@ -20,10 +13,10 @@ define backup::directory (
     $service_desc   = "backup ${fq_dn}:${directory}"
 
     if $priority {
-      $filename = "/etc/backup/${frequency}/${priority}_directory_${name}"
+      $filename = "/etc/backup/${priority}_directory_${name}"
     }
     else {
-      $filename = "/etc/backup/${frequency}/directory_${name}"
+      $filename = "/etc/backup/directory_${name}"
     }
 
     file { $filename:

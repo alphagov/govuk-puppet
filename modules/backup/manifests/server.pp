@@ -5,7 +5,7 @@ class backup::server (
 
   include backup::client
 
-  file { [ '/etc/backup', '/etc/backup/daily' ]:
+  file { '/etc/backup':
     ensure  => directory,
     owner   => 'govuk-backup',
     mode    => '0700',
@@ -31,7 +31,7 @@ class backup::server (
   }
 
   cron { 'cron_govuk-backup_daily':
-    command => 'run-parts /etc/backup/daily',
+    command => 'run-parts /etc/backup',
     user    => 'govuk-backup',
     hour    => '7',
     minute  => '0',
