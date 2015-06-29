@@ -87,7 +87,7 @@ user_list.each do |username|
 
       ssh_keys.each do |key|
         key_strength = SSHKey.ssh_public_key_bits key
-        expect(key_strength).to be >= 1024, "SSH key for #{user[:name]} is only #{key_strength} bits and must be stronger"
+        expect(key_strength).to be >= 2048, "SSH key for #{user[:name]} is only #{key_strength} bits and must be stronger"
       end
     end
   end
