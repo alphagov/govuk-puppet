@@ -59,7 +59,6 @@ username_whitelist = %w{
   rthorn
   ssharpe
   tadast
-  tekin
 }
 
 user_list.each do |username|
