@@ -139,7 +139,6 @@ ssh::config::allow_users:
   - 'deploy@10.0.0.100' # deploy user from jumpbox-1 within this environment
   - 'deploy@37.26.90.227' # deploy user from Production for data sync
   - 'digitalassurancetester'
-  - 'dominicbaggott'
   - 'eddsowden'
   - 'elliot'
   - 'govuk-backup@10.0.0.50' # govuk-backup from backup-1 within this environment
@@ -182,7 +181,6 @@ users::usernames:
   - danielroseman
   - davidsingleton
   - dcarley
-  - dominicbaggott
   - eddsowden
   - elliot
   - heathd
