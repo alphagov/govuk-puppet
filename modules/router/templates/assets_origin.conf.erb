@@ -35,6 +35,10 @@ server {
   access_log /var/log/nginx/<%= @vhost_name -%>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_name -%>-error.log;
 
+  add_header "Access-Control-Allow-Origin" "*";
+  add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
+  add_header "Access-Control-Allow-Headers" "origin, authorization";
+
   <%- @asset_routes.each do |alias_path, vhost_name| -%>
   location <%= alias_path %> {
     proxy_set_header Host <%= vhost_name %>.<%= @app_domain %>;
