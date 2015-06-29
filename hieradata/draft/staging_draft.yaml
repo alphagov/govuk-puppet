@@ -8,7 +8,7 @@ shell::shell_prompt_string: 'draft-staging'
 
 govuk::apps::content_store::default_ttl: '1'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-draft@digital.cabinet-office.gov.uk'
-govuk::apps::static::global_header_text: GOV.UK (Draft)
+govuk::apps::static::global_header_text: GOV.UK (Content Preview)
 
 govuk::deploy::config::errbit_environment_name: 'draft_staging'
 govuk::deploy::setup::ssh_keys:
