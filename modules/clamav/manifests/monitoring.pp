@@ -9,7 +9,7 @@ class clamav::monitoring {
   $warning_age = 2 * (24 * 60 * 60)
 
   @@icinga::check { "check_clamav_definitions_${::hostname}":
-    check_command       => "check_nrpe!check_file_age!\"-f /var/lib/clamav/daily.cld -c0 -w${warning_age}\"",
+    check_command       => "check_nrpe!check_file_age!\"-f /var/lib/clamav/daily.cvd -c0 -w${warning_age}\"",
     service_description => 'clamav definitions out of date',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(clamav-definitions-out-of-date),
