@@ -7,6 +7,7 @@ from __future__ import print_function
 from optparse import OptionParser
 import json
 import string
+import sys
 import urllib
 import urllib2
 
@@ -16,14 +17,24 @@ def commasep_callback(option, opt, value, parser):
 def main():
     opts, args = parser.parse_args()
 
-    if opts.node_class or opts.puppet_class:
+    if opts.node_class:
+        endpoint = 'nodes'
+        host_key = 'name'
+
+        if any('-' in c for c in opts.node_class):
+            parser.error('Node classes should not use hyphens. Hint: Try an underscore')
+
+        classes = [
+            '["~", ["fact", "fqdn"], "^{0}-\\\d+\\\\."]'.format(string.replace(c, '_', '-'))
+            for c in opts.node_class
+        ]
+        query = '["or", {0}]'.format(', '.join(classes))
+
+    elif opts.puppet_class:
         endpoint = 'resources'
         host_key = 'certname'
 
-        if opts.node_class:
-            classes = ["Govuk::Node::S_{0}".format(c) for c in opts.node_class]
-        else:
-            classes = [string.capwords(c, '::') for c in opts.puppet_class]
+        classes = [string.capwords(c, '::') for c in opts.puppet_class]
 
         classes = [
             '["=", "title", "{0}"]'.format(c)
