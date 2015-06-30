@@ -1,7 +1,7 @@
 # == Class: clamav::monitoring
 #
 # Nagios check to ensure that the daily definitions have been updated by the
-# hourly crontab. As the name suggests, these should update at least every
+# freshclam daemon. As the name suggests, these should update at least every
 # day. There are other definition files but this is a good canary.
 #
 class clamav::monitoring {
