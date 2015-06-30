@@ -182,6 +182,7 @@ ssh::config::allow_users:
   - 'davidsingleton'
   - 'dcarley'
   - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
+  - 'deploy@37.26.93.163' # deploy user from Performance Platform Production for data sync
   - 'digitalassurancetester'
   - 'eddsowden'
   - 'elliot'
