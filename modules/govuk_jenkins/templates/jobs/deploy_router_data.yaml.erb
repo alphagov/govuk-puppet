@@ -1,0 +1,34 @@
+---
+- scm:
+    name: router-data_deploy_router_data
+    scm:
+        - git:
+            url: git@github.gds:gds/router-data.git
+            branches:
+              - $TAG
+
+- job:
+    name: deploy_router_data
+    display-name: deploy_router_data
+    project-type: freestyle
+    description: "<a href=\"http://www.flickr.com/photos/fatty/9158066939/\">\r\n  <img src=\"https://farm3.staticflickr.com/2835      /9158066939_374360ed56_n.jpg\">\r\n</a>\r\n"
+    logrotate:
+      artifactNumToKeep: 20
+    scm:
+      - router-data_deploy_router_data
+    builders:
+        - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            export RATE_LIMIT_TOKEN="9U1pVWs5dJc2RWTWbYdgJaYhzwBzKR9fU3Uow5aOiCa4mQyE4hqmIQXLurbNOeLP"
+            govuk_setenv default ./bin/clean-all.sh
+            govuk_setenv default ./bin/register-all.sh
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: 'Build #${BUILD_NUMBER} with tag ${ENV,var="TAG"}'
+    parameters:
+        - string:
+            name: TAG
+            description: Git tag/committish to deploy.
+            default: release

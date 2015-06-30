@@ -1,0 +1,28 @@
+---
+- scm:
+    name: alphagov-deployment_GDS_Production_Backup
+    scm:
+        - git:
+            url: git@github.gds:gds/alphagov-deployment.git
+            branches:
+              - release
+
+- job:
+    name: GDS_Production_Backup
+    display-name: GDS_Production_Backup
+    project-type: freestyle
+    description: "After a production deployment, this job pushes the state of the deployed repository to the gds-production-backu      p organisation in GitHub Enterprise. "
+    scm:
+      - alphagov-deployment_GDS_Production_Backup
+    builders:
+        - shell: |
+            sh sync_to_ghe.sh
+    publishers:
+        - email:
+            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+            send-to-individuals: true
+    parameters:
+        - string:
+            name: TARGET_APPLICATION_GIT_REPO
+            description: The path to the git repository to back up to GitHub Enterprise. (This is usually populated by the upstre              am deployment job.)
+            default: false

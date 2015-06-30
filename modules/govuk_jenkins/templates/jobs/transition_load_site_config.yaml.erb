@@ -1,0 +1,31 @@
+---
+- scm:
+    name: transition-config_Transition_load_site_config
+    scm:
+        - git:
+            url: git@github.com:alphagov/transition-config.git
+            branches:
+              - release
+
+- job:
+    name: Transition_load_site_config
+    display-name: Transition_load_site_config
+    project-type: freestyle
+    description: "<p>Loads site configuration into Transition/Bouncer from the release branch.</p>"
+    scm:
+      - transition-config_Transition_load_site_config
+    logrotate:
+      artifactNumToKeep: 30
+    builders:
+        - shell: |
+            rsync --delete -avz -e ssh ./ deploy@backend-1.backend.production:/var/apps/transition/data/transition-config
+            ssh deploy@backend-1.backend.production "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all:orgs_sites_hosts"
+    triggers:
+        - timed: '00 09-19 * * 1-5'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Production_Redirector_CDN
+              condition: 'SUCCESS'

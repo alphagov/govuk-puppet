@@ -1,0 +1,33 @@
+---
+- job:
+    name: Transition_load_all_data
+    display-name: Transition_load_all_data
+    project-type: freestyle
+    description: "<p>Loads mapping data and statistics into Transition/Bouncer.</p>"
+    logrotate:
+      artifactNumToKeep: 30
+    builders:
+        - shell: |
+            rm -rf data
+            mkdir data
+            git clone --branch release --depth 1 git@github.com:alphagov/transition-config.git data/transition-config
+            git clone --depth 1 git@github.com:alphagov/transition-stats.git data/transition-stats
+            git clone --depth 1 git@github.com:alphagov/pre-transition-stats.git data/pre-transition-stats
+            rsync --delete -avz -e ssh data/transition-config deploy@backend-1.backend.production:/var/apps/transition/data
+            rsync --delete -avz -e ssh data/transition-stats deploy@backend-1.backend.production:/var/apps/transition/data
+            rsync --delete -avz -e ssh data/pre-transition-stats deploy@backend-1.backend.production:/var/apps/transition/data
+            ssh deploy@backend-1.backend.production "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all"
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Production_Redirector_CDN
+              condition: 'SUCCESS'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - string:
+            name: artefact_number
+            description: 'Passed on down a chain to the Redirector Smokey job'
+            default: false
+    triggers:
+        - timed: '@midnight'

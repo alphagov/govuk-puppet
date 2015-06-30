@@ -1,0 +1,63 @@
+---
+- scm:
+    name: env-sync-and-backup_Copy_Data_to_Preview
+    scm:
+        - git:
+            url: git@github.gds:gds/env-sync-and-backup.git
+            branches:
+              - master
+
+- job:
+    name: Copy_Data_to_Preview
+    display-name: Copy_Data_to_Preview
+    project-type: freestyle
+    description: "This job currently copies all MongoDB databases from Backend. For MySQL, only whitelisted apps have
+      their databases copied because several have sensitive data (eg Signonotron, Licensify and ERG)."
+    properties:
+        - github:
+            url: https://github.gds/gds/env-sync-and-backup/
+    scm:
+      - env-sync-and-backup_Copy_Data_to_Preview
+    logrotate:
+        artifactNumToKeep: 10
+    triggers:
+        - timed: 'H 5 * * *'
+    builders:
+        - shell: |
+            set -eux
+            cd "${WORKSPACE}"
+            export SUPPORT_CONTACTS_ROOT_PW="<%= @support_contracts_root_pw %>"
+            export SUPPORT_CONTRACTS_SRC_ROOT_PW="<%= @support_contracts_src_root_pw %>"
+            export SUPPORT_CONTRACTS_DST_ROOT_PW="<%= @support_contracts_dst_root_pw %>"
+            echo "Putting in the real MySQL root password"
+            sed -i.bak "s/MYSQL_SRC_ROOT_PW=PLACEHOLDER/MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>'/g" scripts/sync-mysql.sh
+            sed -i "s/MYSQL_DST_ROOT_PW=PLACEHOLDER/MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>'/g" scripts/sync-mysql.sh
+            echo "Putting in the real Postgresql env-sync password"
+            sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
+            sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
+            echo "Running Data Sync"
+            bash sync production preview
+            echo "Triggering post-sync job on deploy.preview.alphagov.co.uk"
+            curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.preview.alphagov.co.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: JOBLIST
+            description: 'Choose the thing to sync. All is the default, but some jobs may run but not do anything due to your config for the destination environment.'
+            choices:
+                - PLEASE CHOOSE ONE
+                - all
+                - assets
+                - elasticsearch-api
+                - elasticsearch-backend
+                - mysql-efg
+                - mysql-normal
+                - mysql-support_contacts
+                - mysql-whitehall
+                - mongo-exceptions
+                - mongo-licensify
+                - mongo-normal
+                - mongo-router
+                - postgresql-backend

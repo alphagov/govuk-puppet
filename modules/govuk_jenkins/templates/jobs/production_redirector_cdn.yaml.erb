@@ -1,0 +1,34 @@
+---
+- scm:
+    name: cdn-configs_Production_Redirector_CDN
+    scm:
+        - git:
+            url: git@github.gds:gds/cdn-configs.git
+            branches:
+              - master
+
+- job:
+    name: Production_Redirector_CDN
+    display-name: Production_Redirector_CDN
+    project-type: freestyle
+    description: "After a loading new site config into the Transition app, this job will make sure that the traffic hitting the C      DN for those domains is routed to Bouncer."
+    properties:
+        - github:
+            url: https://github.gds/gds/cdn-configs/
+    scm:
+        - cdn-configs_Production_Redirector_CDN
+    logrotate:
+        artifactNumToKeep: 20
+    builders:
+        - shell: |
+            cd fastly
+            export FASTLY_USER=webops+redirector.cdn@digital.cabinet-office.gov.uk
+            export FASTLY_SERVICE_ID=3deosa3b6uKT8IimBYcAv
+            FASTLY_DEBUG=TRUE ./jenkins.sh
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - password:
+            name: FASTLY_PASS
+            default: false

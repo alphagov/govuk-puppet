@@ -1,0 +1,34 @@
+---
+- scm:
+    name: govuk-provisioning_Check_CDN_IP_Ranges
+    scm:
+        - git:
+            url: git@github.gds:gds/govuk-provisioning.git
+            branches:
+              - master
+
+- job:
+    name: Check_CDN_IP_Ranges
+    display-name: Check_CDN_IP_Ranges
+    project-type: freestyle
+    description: "This job compares the published IP ranges of our Cloudflare and Fastly IPs against the ranges configured in gov      uk-provisioning and errors if they don't match"
+    properties:
+        - github:
+            url: https://github.gds/gds/govuk-provisioning/
+    scm:
+      - govuk-provisioning_Check_CDN_IP_Ranges
+    builders:
+        - shell: |
+            export FASTLY_USER=webops+redirector.cdn@digital.cabinet-office.gov.uk
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            bundle exec ./tools/cdn_ips.rb
+    publishers:
+        - email:
+            recipients: webops@digital.cabinet-office.gov.uk
+    triggers:
+        - timed: 'H 3 * * *'
+    parameters:
+        - password:
+            name: FASTLY_PASS
+            description: FASTLY_PASS
+            default: false

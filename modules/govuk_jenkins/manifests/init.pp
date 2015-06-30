@@ -12,6 +12,7 @@ class govuk_jenkins (
   $github_enterprise_cert,
 ) {
   include govuk::python
+  include govuk_jenkins::job_builder
   include govuk_jenkins::ssh_key
 
   $jenkins_home = '/var/lib/jenkins'
