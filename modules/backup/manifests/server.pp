@@ -5,10 +5,7 @@ class backup::server (
 
   include backup::client
 
-  file { ['/etc/backup',
-          '/etc/backup/daily',
-          '/etc/backup/weekly',
-          '/etc/backup/monthly']:
+  file { '/etc/backup':
     ensure  => directory,
     owner   => 'govuk-backup',
     mode    => '0700',
@@ -34,29 +31,10 @@ class backup::server (
   }
 
   cron { 'cron_govuk-backup_daily':
-    command => 'run-parts /etc/backup/daily',
+    command => 'run-parts /etc/backup',
     user    => 'govuk-backup',
-    # Every day at 0300
-    hour    => '3',
+    hour    => '7',
     minute  => '0',
-  }
-
-  cron { 'cron_govuk-backup_weekly':
-    command => 'run-parts /etc/backup/weekly',
-    user    => 'govuk-backup',
-    # Sunday morning at 0400
-    weekday => '0',
-    hour    => '4',
-    minute  => '0',
-  }
-
-  cron { 'cron_govuk-backup_monthly':
-    command  => 'run-parts /etc/backup/monthly',
-    user     => 'govuk-backup',
-    # 1st day of the month at 0500
-    monthday => '1',
-    hour     => '5',
-    minute   => '0',
   }
 
   Backup::Directory   <<||>> { }
