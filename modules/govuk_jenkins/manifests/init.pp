@@ -8,9 +8,15 @@
 # [*github_enterprise_cert*]
 #   PEM certificate for GitHub Enterprise.
 #
+# [*plugins*]
+#   A hash of Jenkins plugins that should be installed
+#
 class govuk_jenkins (
   $github_enterprise_cert,
+  $plugins = {},
 ) {
+  validate_hash($plugins)
+
   include govuk::python
   include govuk_jenkins::ssh_key
 
@@ -91,40 +97,7 @@ class govuk_jenkins (
     repo               => false,
     install_java       => false,
     configure_firewall => false,
-    plugin_hash        => {
-      'ansicolor'              => { 'version' => '0.3.1' },
-      'build-name-setter'      => { 'version' => '1.3' },
-      'build-pipeline-plugin'  => { 'version' => '1.4.5' },
-      'build-with-parameters'  => { 'version' => '1.3' },
-      'conditional-buildstep'  => { 'version' => '1.3.3' },
-      'copyartifact'           => { 'version' => '1.35' },
-      'description-setter'     => { 'version' => '1.9' },
-      'downstream-buildview'   => { 'version' => '1.9' },
-      'envinject'              => { 'version' => '1.91.1' },
-      'external-monitor-job'   => { 'version' => '1.2' },
-      'git'                    => { 'version' => '2.2.6' },
-      'git-client'             => { 'version' => '1.10.2' },
-      'github-api'             => { 'version' => '1.58' },
-      'github-oauth'           => { 'version' => '0.19' },
-      'gradle'                 => { 'version' => '1.24' },
-      'greenballs'             => { 'version' => '1.14' },
-      'groovy-postbuild'       => { 'version' => '2.2' },
-      'instant-messaging'      => { 'version' => '1.33' },
-      'ircbot'                 => { 'version' => '2.26' },
-      'jquery'                 => { 'version' => '1.7.2-1' },
-      'nodelabelparameter'     => { 'version' => '1.5.1' },
-      'parameterized-trigger'  => { 'version' => '2.26' },
-      'rake'                   => { 'version' => '1.8.0' },
-      'rebuild'                => { 'version' => '1.22' },
-      'role-strategy'          => { 'version' => '2.2.0' },
-      'run-condition'          => { 'version' => '1.0' },
-      'sbt'                    => { 'version' => '1.5' },
-      'scm-api'                => { 'version' => '0.2' },
-      'scm-sync-configuration' => { 'version' => '0.0.8' },
-      'show-build-parameters'  => { 'version' => '1.0' },
-      'versionnumber'          => { 'version' => '1.5' },
-      'ws-cleanup'             => { 'version' => '0.25' },
-    },
+    plugin_hash        => $plugins,
     require            => Class['govuk_java::set_defaults'],
   }
 
