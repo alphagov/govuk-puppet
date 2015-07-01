@@ -5,6 +5,11 @@ describe 'govuk::node::s_cache', :type => :class do
   let(:pre_condition) { '$concat_basedir = "/tmp"' }
   let(:hiera_data) {
     {
+      "hosts::production::management::hosts" => {
+        "cache-1" => {
+          "ip" => "10.1.0.2",
+        }
+      },
       "govuk::apps::router::mongodb_nodes" => ['localhost'],
       "govuk::apps::authenticating_proxy::mongodb_nodes" => ['localhost'],
     }

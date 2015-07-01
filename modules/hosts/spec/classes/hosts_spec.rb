@@ -3,6 +3,13 @@ require_relative '../../../../spec_helper'
 describe 'hosts', :type => :class do
   context 'node jumpbox-1 exists in hosts::production' do
     let(:node) { 'jumpbox-1' }
+    let(:hiera_data) {{
+      "hosts::production::management::hosts" => {
+        "jumpbox-1" => {
+          "ip" => "10.1.0.100",
+        }
+      }
+    }}
 
     it 'should purge unmanaged hosts entries' do
       should contain_govuk__host('jumpbox-1')

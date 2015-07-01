@@ -24,11 +24,27 @@
 # [*ip_bouncer*]
 #   The IP address of the bouncer vse load-balancer
 #
+# [*ip_api_lb*]
+#   The IP address of the API load-balancer
+#
+# [*ip_backend_lb*]
+#   The IP address of the backend load-balancer
+#
+# [*ip_frontend_lb*]
+#   The IP address of the frontend load-balancer
+#
+# [*ip_licensify_lb*]
+#   The IP address of the licensify load-balancer
+#
 class hosts::production (
   $apt_mirror_internal    = false,
   $carrenza_vcloud        = false,
   $releaseapp_host_org    = false,
   $ip_bouncer             = '127.0.0.1',
+  $ip_api_lb              = '127.0.0.1',
+  $ip_backend_lb          = '127.0.0.1',
+  $ip_frontend_lb         = '127.0.0.1',
+  $ip_licensify_lb        = '127.0.0.1',
 ) {
 
   $app_domain = hiera('app_domain')
@@ -47,30 +63,42 @@ class hosts::production (
   }
 
   #frontend vdc machines
-  class { 'hosts::production::frontend':
-    app_domain => $app_domain,
+  if is_ip_address($ip_frontend_lb) {
+    class { 'hosts::production::frontend':
+      app_domain     => $app_domain,
+      internal_lb_ip => $ip_frontend_lb,
+    }
   }
 
   #api vdc machines
-  class { 'hosts::production::api':
-    app_domain => $app_domain,
+  if is_ip_address($ip_api_lb) {
+    class { 'hosts::production::api':
+      app_domain     => $app_domain,
+      internal_lb_ip => $ip_api_lb,
+    }
   }
 
   #backend vdc machines
   class { 'hosts::production::backend':
     app_domain          => $app_domain,
     releaseapp_host_org => $releaseapp_host_org,
+    internal_lb_ip      => $ip_backend_lb,
   }
 
   # redirector vdc machines
-  class { 'hosts::production::redirector':
-    app_domain => $app_domain,
-    ip_bouncer => $ip_bouncer,
+  if is_ip_address($ip_bouncer) {
+    class { 'hosts::production::redirector':
+      app_domain => $app_domain,
+      ip_bouncer => $ip_bouncer,
+    }
   }
 
   # elms (licence finder) vdc machines
-  class { 'hosts::production::licensify':
-    app_domain => $app_domain,
+  if is_ip_address($ip_licensify_lb) {
+    class { 'hosts::production::licensify':
+      app_domain     => $app_domain,
+      internal_lb_ip => $ip_licensify_lb,
+    }
   }
 
   #efg vdc machines

@@ -6,6 +6,15 @@ describe 'govuk::node::s_whitehall_backend', :type => :class do
     :concat_basedir => '/var/lib/puppet/concat/',
     :memorysize =>  '15.95 GB',
   }}
+  let(:hiera_data) {
+    {
+      "hosts::production::backend::hosts" => {
+        "whitehall-backend-1" => {
+          "ip" => "10.3.0.25",
+        }
+      }
+    }
+  }
   context 'sync_mirror is true' do
     let(:params) {{ :sync_mirror => true }}
     it { should contain_file('/var/lib/govuk_mirror').with(
