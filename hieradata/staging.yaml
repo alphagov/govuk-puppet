@@ -9,6 +9,8 @@ efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::authenticating_proxy::signon_uri: 'https://signon.staging.alphagov.co.uk'
 govuk::apps::authenticating_proxy::errbit_uri: 'https://errbit.staging.alphagov.co.uk'
+govuk::apps::backdrop_read::enabled: true
+govuk::apps::backdrop_write::enabled: true
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::finder_frontend::enabled: true
@@ -17,12 +19,19 @@ govuk::apps::govuk_crawler_worker::airbrake_env: 'staging'
 govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
+govuk::apps::performanceplatform_admin::enabled: true
+govuk::apps::performanceplatform_big_screen_view::enabled: true
+govuk::apps::performanceplatform_collectors::enabled: true
+govuk::apps::performanceplatform_notifier::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publisher::nagios_data_importer_check: false
 govuk::apps::publishing_api::content_store: 'https://content-store.production.alphagov.co.uk'
+govuk::apps::screenshot_as_a_service::enabled: true
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
+govuk::apps::spotlight::enabled: true
+govuk::apps::stagecraft::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
@@ -55,6 +64,9 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
   - 'backend-3.backend'
+govuk::node::s_backend_lb::performance_backend_servers:
+  - 'performance-backend-1.backend'
+  - 'performance-backend-2.backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
@@ -76,6 +88,12 @@ govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'
   - 'frontend-3.frontend'
+govuk::node::s_frontend_lb::performance_frontend_servers:
+  - 'performance-frontend-1.frontend'
+  - 'performance-frontend-2.frontend'
+govuk::node::s_frontend_lb::performance_frontend_apps:
+  - 'spotlight'
+  - 'performanceplatform-big-screen-view'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
