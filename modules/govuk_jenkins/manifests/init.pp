@@ -8,14 +8,18 @@
 # [*github_enterprise_cert*]
 #   PEM certificate for GitHub Enterprise.
 #
+# [*config*]
+#   A hash of Jenkins config options to set
+#
 # [*plugins*]
 #   A hash of Jenkins plugins that should be installed
 #
 class govuk_jenkins (
   $github_enterprise_cert,
+  $config = {},
   $plugins = {},
 ) {
-  validate_hash($plugins)
+  validate_hash($config, $plugins)
 
   include govuk::python
   include govuk_jenkins::ssh_key
@@ -97,14 +101,13 @@ class govuk_jenkins (
     repo               => false,
     install_java       => false,
     configure_firewall => false,
+    config_hash        => $config,
     plugin_hash        => $plugins,
     require            => Class['govuk_java::set_defaults'],
   }
 
-  # FIXME: Replace with `config_hash` param to set `sessionTimeout`.
   file { '/etc/default/jenkins':
     ensure => file,
-    source => 'puppet:///modules/govuk_jenkins/etc/default/jenkins',
     notify => Class['jenkins::service'],
   }
 

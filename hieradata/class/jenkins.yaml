@@ -1,5 +1,37 @@
 ---
 
+govuk_jenkins::config:
+  NAME:
+    value: jenkins
+  JAVA:
+    value: govuk_setenv default /usr/bin/java
+  PIDFILE:
+    value: /var/run/jenkins/jenkins.pid
+  JENKINS_USER:
+    value: jenkins
+  JENKINS_WAR:
+    value: /usr/share/jenkins/jenkins.war
+  JENKINS_HOME:
+    value: /var/lib/jenkins
+  RUN_STANDALONE:
+    value: true
+  JENKINS_LOG:
+    value: /var/log/jenkins/$NAME.log
+  MAXOPENFILES:
+    value: 8192
+  HTTP_PORT:
+    value: 8080
+  AJP_PORT:
+    value: -1
+  PREFIX:
+    value: /jenkins
+  JENKINS_ARGS:
+    value: >-
+      --webroot=/var/cache/jenkins/war
+      --httpPort=$HTTP_PORT
+      --ajp13Port=$AJP_PORT
+      --sessionTimeout=1440
+
 govuk_jenkins::plugins:
   ansicolor:
     version: '0.3.1'
