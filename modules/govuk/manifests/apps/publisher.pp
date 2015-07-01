@@ -15,6 +15,17 @@ class govuk::apps::publisher(
     log_format_is_json  => true,
     asset_pipeline      => true,
     deny_framing        => true,
+    nginx_extra_config  => '
+    proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+    proxy_set_header X-Accel-Mapping /var/apps/publisher/reports/=/raw/;
+
+    # /raw/(.*) is the path mapping sent from the rails application to
+    # nginx and is immediately picked up. /raw/(.*) is not available
+    # publicly as it is an internal path mapping.
+    location ~ /raw/(.*) {
+      internal;
+      alias /var/apps/publisher/reports/$1;
+    }'
   }
 
   $service_desc = 'publisher local authority data importer error'
