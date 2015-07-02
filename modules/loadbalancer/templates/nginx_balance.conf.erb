@@ -10,7 +10,7 @@ server {
   <%- unless @https_only -%>
   listen              80;
   <%- end -%>
-  listen              443 ssl;
+  listen              <%= @https_port %> ssl;
   ssl_certificate     /etc/nginx/ssl/<%= @vhost_real %>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= @vhost_real %>.key;
   include             /etc/nginx/ssl.conf;
