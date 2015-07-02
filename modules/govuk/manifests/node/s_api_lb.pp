@@ -37,7 +37,9 @@ class govuk::node::s_api_lb (
       'draft-content-store',
     ]:
       servers       => $draft_content_store_servers,
-      internal_only => true;
+      internal_only => true,
+      https_only    => true,
+      https_port    => 8443,
   }
 
   loadbalancer::balance {
