@@ -54,6 +54,9 @@ class hosts::production (
   if !is_ip_address($ip_api_lb) {
     fail("ip_api_lb is not a valid IP address: ${ip_api_lb}")
   }
+  if !is_ip_address($ip_backend_lb) {
+    fail("ip_backend_lb is not a valid IP address: ${ip_backend_lb}")
+  }
   if !is_ip_address($ip_bouncer) {
     fail("ip_bouncer is not a valid IP address: ${ip_bouncer}")
   }
