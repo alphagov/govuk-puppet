@@ -30,6 +30,9 @@
 # [*ip_backend_lb*]
 #   The IP address of the backend load-balancer
 #
+# [*ip_draft_api_lb*]
+#   The IP address of the Draft API load-balancer
+#
 # [*ip_frontend_lb*]
 #   The IP address of the frontend load-balancer
 #
@@ -43,6 +46,7 @@ class hosts::production (
   $ip_bouncer             = '127.0.0.1',
   $ip_api_lb              = '127.0.0.1',
   $ip_backend_lb          = '127.0.0.1',
+  $ip_draft_api_lb        = '127.0.0.1',
   $ip_frontend_lb         = '127.0.0.1',
   $ip_licensify_lb        = '127.0.0.1',
 ) {
@@ -59,6 +63,9 @@ class hosts::production (
   }
   if !is_ip_address($ip_bouncer) {
     fail("ip_bouncer is not a valid IP address: ${ip_bouncer}")
+  }
+  if !is_ip_address($ip_draft_api_lb) {
+    fail("ip_draft_api_lb is not a valid IP address: ${ip_draft_api_lb}")
   }
   if !is_ip_address($ip_frontend_lb) {
     fail("ip_frontend_lb is not a valid IP address: ${ip_frontend_lb}")
@@ -86,8 +93,9 @@ class hosts::production (
 
   #api vdc machines
   class { 'hosts::production::api':
-    app_domain     => $app_domain,
-    internal_lb_ip => $ip_api_lb,
+    app_domain           => $app_domain,
+    draft_internal_lb_ip => $ip_draft_api_lb,
+    internal_lb_ip       => $ip_api_lb,
   }
 
   #backend vdc machines
