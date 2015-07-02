@@ -41,9 +41,8 @@ class govuk::node::s_api_lb (
       https_only    => true,
       https_port    => 8443,
   }
-  @ufw::allow { 'allow-https-8443-from-draft-api-internal-lb':
+  @ufw::allow { 'allow-https-8443-from-any':
     port => 8443,
-    from => '10.7.2.2',
   }
 
   loadbalancer::balance {
