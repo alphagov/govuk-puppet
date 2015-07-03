@@ -81,6 +81,7 @@ backup::offsite::jobs:
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
+govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 # FIXME: Remove this once the draft stack has stabilised.
 govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 
