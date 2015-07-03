@@ -1,5 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
+class govuk::node::s_logs_elasticsearch(
+  $rotate_hour = 00,
+  $rotate_minute = 01,
+) inherits govuk::node::s_base {
 
   $es_heap_size = $::memtotalmb / 2
 
@@ -62,8 +65,8 @@ class govuk::node::s_logs_elasticsearch inherits govuk::node::s_base {
   cron { 'elasticsearch-rotate-indices':
     ensure  => present,
     user    => 'nobody',
-    hour    => '0',
-    minute  => '1',
+    hour    => $rotate_hour,
+    minute  => $rotate_minute,
     command => '/usr/local/bin/es-rotate-passive-check',
     require => [
       Class['govuk_elasticsearch::estools'],
