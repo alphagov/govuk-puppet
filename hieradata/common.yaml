@@ -625,6 +625,10 @@ hosts::production::router::hosts:
     ip: '10.1.1.2'
     legacy_aliases:
       - "router-api.%{hiera('app_domain')}"
+  draft-cache-internal-lb:
+    ip: '10.1.2.1'
+    legacy_aliases:
+      - "draft-router-api.%{hiera('app_domain')}"
 
 internal_tld: 'production'
 
