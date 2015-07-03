@@ -1,5 +1,24 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_draft_content_store inherits govuk::node::s_base {
+# == Class: govuk::node::s_draft_content_store
+#
+# Draft content store machine definition. These machines run an instance of the
+# content-store application which serves draft (i.e. unpublished) content to
+# users.
+#
+# Includes `govuk::node::s_content_store`, upon which this node definition is based.
+#
+# === Parameters
+#
+# [*draft_router_api_uri*]
+#   URI of the router-api application used to register routes for draft
+#   content.
+#
+class govuk::node::s_draft_content_store(
+  $draft_router_api_uri,
+) inherits govuk::node::s_base {
   include govuk::node::s_content_store
+
+  govuk::envvar { 'PLEK_SERVICE_ROUTER_API_URI':
+    value => $draft_router_api_uri,
+  }
 }
 
