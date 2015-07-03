@@ -77,10 +77,6 @@ class router::nginx (
     port => 8080,
   }
 
-  nginx::config::site { 'router-replacement-port8080':
-    source  => 'puppet:///modules/router/etc/nginx/router-replacement-port8080.conf',
-  }
-
   nginx::log {
     'lb-json.event.access.log':
       json          => true,
