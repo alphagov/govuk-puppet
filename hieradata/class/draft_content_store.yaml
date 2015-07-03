@@ -7,6 +7,8 @@ govuk::apps::content_store::mongodb_nodes:
   - 'api-mongo-3.api'
 govuk::apps::content_store::vhost: 'draft-content-store'
 
+govuk::node::s_draft_content_store::draft_router_api_uri: "https://draft-router-api.%{hiera('app_domain')}"
+
 lv:
   data:
     pv: '/dev/sdb1'
