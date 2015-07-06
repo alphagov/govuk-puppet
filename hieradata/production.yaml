@@ -14,7 +14,6 @@ govuk::apps::backdrop_write::enabled: true
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::finder_frontend::enabled: true
-govuk::apps::govuk_crawler_worker::airbrake_endpoint: 'https://errbit.production.alphagov.co.uk/notifier_api/v2/notices'
 govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
 govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::info_frontend::enabled: true
