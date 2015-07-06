@@ -14,11 +14,6 @@ class govuk_postgresql::backup {
         host_name           => $::fqdn,
     }
 
-    # FIXME: Remove when the autopostgresqlbackup has been removed from all environments
-    package {'autopostgresqlbackup':
-        ensure => absent,
-    }
-
     # Changes from upstream:
     #    LATEST=yes
     #    POSTBACKUP="/etc/postgresql-backup-post"
