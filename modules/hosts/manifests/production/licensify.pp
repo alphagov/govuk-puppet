@@ -33,6 +33,6 @@ class hosts::production::licensify (
     ip             => $internal_lb_ip,
     legacy_aliases => $licensify_aliases,
   }
-  
+
   create_resources('govuk::host', $hosts)
 }
