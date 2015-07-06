@@ -43,9 +43,9 @@ class icinga::package {
     mode   => '0755',
   }
 
+  # FIXME: Remove when this file has been purged from production
   file { '/usr/local/bin/reversedns.py':
-    source => 'puppet:///modules/icinga/usr/local/bin/reversedns.py',
-    mode   => '0755',
+    ensure => 'absent',
   }
 
   # pagerduty stuff
