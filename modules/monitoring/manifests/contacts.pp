@@ -83,13 +83,6 @@ class monitoring::contacts (
     timeperiod_alias => 'Never',
   }
 
-
-  # FIXME: Remove this resource once it has been made absent in production.
-  icinga::contact { 'monitoring_google_group':
-    ensure => absent,
-    email  => 'root@localhost',
-  }
-
   if $notify_slack and ($slack_subdomain and $slack_token and $slack_channel) {
     icinga::slack_contact { 'slack_notification':
       slack_token     => $slack_token,
