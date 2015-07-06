@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: assets::user
+#
+# Configures the 'assets' user and group.
+#
 class assets::user {
   group { 'assets':
     ensure => 'present',
