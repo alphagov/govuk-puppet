@@ -17,6 +17,10 @@ class govuk::node::s_draft_cache(
 
   include govuk::apps::router_api
 
+  govuk::envvar { 'PLEK_HOSTNAME_PREFIX':
+    value => 'draft-',
+  }
+
   govuk::app::envvar { "${title}-ROUTER_MONGO_DB":
     app     => 'router',
     value   => $router_mongodb_name,
