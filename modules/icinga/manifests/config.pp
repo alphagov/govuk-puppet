@@ -11,11 +11,7 @@ class icinga::config {
   $http_username = hiera('http_username', '')
   $http_password = hiera('http_password', '')
 
-  # FIXME: Remove this conditional when all monitoring machines are running Trusty
-  $check_graphite_command = $::lsbdistcodename ? {
-    'precise' => '/usr/bin/check_graphite',
-    default   => '/usr/local/bin/check_graphite',
-  }
+  $check_graphite_command = '/usr/local/bin/check_graphite'
 
   file { '/etc/icinga':
     ensure  => directory,
