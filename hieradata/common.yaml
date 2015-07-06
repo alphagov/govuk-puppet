@@ -84,6 +84,7 @@ etcd::peer_election_timeout: 500
 govuk::apps::authenticating_proxy::signon_uri: "https://signon.%{hiera('app_domain')}"
 govuk::apps::authenticating_proxy::errbit_uri: "https://errbit.%{hiera('app_domain')}"
 
+govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 # FIXME: Remove this once the draft stack has stabilised.
 govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
