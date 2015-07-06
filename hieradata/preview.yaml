@@ -1,7 +1,7 @@
 ---
 app_domain: 'preview.alphagov.co.uk'
 
-asset_root: 'https://assets-origin.preview.alphagov.co.uk'
+asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
 backup::automysqlbackup::rotation_daily: 2
 backup::automysqlbackup::rotation_weekly: 6
@@ -210,4 +210,4 @@ users::usernames:
   - tombyers
   - tommypalmer
 
-website_root: 'https://www.preview.alphagov.co.uk'
+website_root: "https://www.%{hiera('app_domain')}"

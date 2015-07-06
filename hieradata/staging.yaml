@@ -1,7 +1,7 @@
 ---
 app_domain: 'production.alphagov.co.uk'
 
-asset_root: 'https://assets-origin.production.alphagov.co.uk'
+asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
 base::supported_kernel::enabled: true
 
@@ -216,4 +216,4 @@ users::usernames:
   - tombooth
   - tommypalmer
 
-website_root: 'https://www-origin.production.alphagov.co.uk'
+website_root: "https://www-origin.%{hiera('app_domain')}"
