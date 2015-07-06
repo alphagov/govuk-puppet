@@ -1,4 +1,21 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Define: backup::directory
+#
+# Configures a directory to be backed up to the on-site backup server.
+#
+# === Parameters
+#
+# [*directory*]
+#   The directory to be backed up.
+#
+# [*fq_dn*]
+#   The fully-qualified domain name of the machine where the directory resides.
+#
+# [*priority*]
+#   Determines the prority in which the backups should be taken.
+#   Lowest numbers indicate highest priority.
+#
+#   Default: undef
+#
 define backup::directory (
     $directory,
     $fq_dn,
