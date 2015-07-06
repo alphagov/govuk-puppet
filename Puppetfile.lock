@@ -111,6 +111,14 @@ GIT
     alphagov-harden (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppet-rcs.git
+  ref: master
+  sha: 397fb457c0bc7fc3771bfd20bfa6dfd2647d01b7
+  specs:
+    alphagov-puppet-rcs (0.1.1)
+      puppetlabs-stdlib (>= 4.0.0)
+
+GIT
   remote: git://github.com/alphagov/puppet-tune_ext.git
   ref: master
   sha: a500c9a6263712388ea4b052e0cc93d9c11d7644
@@ -165,6 +173,7 @@ DEPENDENCIES
   alphagov-curl (>= 0)
   alphagov-duplicity (>= 0)
   alphagov-harden (>= 0)
+  alphagov-puppet-rcs (>= 0)
   alphagov-tune_ext (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)

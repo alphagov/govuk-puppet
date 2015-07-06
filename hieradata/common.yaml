@@ -693,6 +693,8 @@ rabbitmq::config_stomp: true
 rabbitmq::package_ensure: '3.4.3-1'
 rabbitmq::manage_repos: false
 
+rcs::fsckfix: 'YES'
+
 # TODO: These don't work in 2.6.6 so setting to false
 # consider changing if we update redis version
 redis::conf_aof_rewrite_incremental_fsync: false
