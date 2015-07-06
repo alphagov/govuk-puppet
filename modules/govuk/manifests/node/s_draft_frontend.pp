@@ -19,10 +19,16 @@ class govuk::node::s_draft_frontend(
 ) inherits govuk::node::s_base {
   include govuk::node::s_frontend
 
+  govuk::envvar { 'PLEK_HOSTNAME_PREFIX':
+    value => 'draft-',
+  }
+
+  # FIXME Remove these once all apps deployed to these nodes support Plek
+  # v1.11.0 or later
+  # See: https://github.com/alphagov/plek/pull/34
   govuk::envvar { 'PLEK_SERVICE_CONTENT_STORE_URI':
     value => $draft_content_store_uri,
   }
-
   govuk::envvar { 'PLEK_SERVICE_STATIC_URI':
     value => $draft_static_uri,
   }
