@@ -4,6 +4,7 @@ describe 'govuk_jenkins', :type => :class do
   let(:ssh_dir) { '/var/lib/jenkins/.ssh' }
 
   let(:params) {{
+    :apt_mirror_hostname => 'apt.example.com',
     :github_enterprise_cert => 'certcertcert',
   }}
 

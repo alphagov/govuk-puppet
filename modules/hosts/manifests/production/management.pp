@@ -7,6 +7,9 @@
 # [*app_domain*]
 #   Domain to be used in vhost aliases
 #
+# [*apt_mirror_hostname*]
+#   Hostname to use for the APT mirror.
+#
 # [*apt_mirror_internal*]
 #   Point `apt.production.alphagov.co.uk` to `apt-1` within this
 #   environment. Instead of going to the Production VSE.
@@ -17,6 +20,7 @@
 #
 class hosts::production::management (
   $app_domain,
+  $apt_mirror_hostname,
   $apt_mirror_internal = false,
   $apt_host_ip = '10.0.0.75',
   $hosts = {},
@@ -24,7 +28,7 @@ class hosts::production::management (
 
   validate_bool($apt_mirror_internal)
   $apt_aliases = $apt_mirror_internal ? {
-    true    => ['apt.production.alphagov.co.uk'],
+    true    => [$apt_mirror_hostname],
     default => undef,
   }
 

@@ -10,10 +10,11 @@ describe 'hosts::production', :type => :class do
 
     context 'true' do
       let(:params) {{
+        :apt_mirror_hostname => 'apt.example.com',
         :apt_mirror_internal => true,
       }}
 
-      it { should contain_govuk__host('apt-1').with_legacy_aliases('apt.production.alphagov.co.uk') }
+      it { should contain_govuk__host('apt-1').with_legacy_aliases('apt.example.com') }
     end
   end
 end 
