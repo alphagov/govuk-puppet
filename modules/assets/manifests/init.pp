@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: assets
+#
+# Configures a machine ready to serve assets.
+#
+# === Parameters
+#
+# [*mount_asset_master*]
+#   Determines whether to mount the asset master's NFS share.
+#   Default: true
+#
 class assets (
   $mount_asset_master = true,
   ) {
