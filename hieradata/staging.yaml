@@ -23,7 +23,6 @@ govuk::apps::performanceplatform_collectors::enabled: true
 govuk::apps::performanceplatform_notifier::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publisher::nagios_data_importer_check: false
-govuk::apps::publishing_api::content_store: 'https://content-store.production.alphagov.co.uk'
 govuk::apps::screenshot_as_a_service::enabled: true
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::specialist_frontend::enabled: true
