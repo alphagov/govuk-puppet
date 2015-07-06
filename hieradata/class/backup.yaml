@@ -33,11 +33,6 @@ govuk::node::s_backup::directories:
     host_name: mysql-backup-1
     fq_dn: mysql-backup-1.backend.production
     priority: '001'
-  backup_mysql_backups_support_contacts_mysql:
-    directory: /var/lib/automysqlbackup/
-    host_name: support-contacts-1
-    fq_dn: support-contacts-1.backend.production
-    priority: '002'
   backup_mysql_backups_whitehall_mysql_backup_1:
     directory: /var/lib/automysqlbackup/
     host_name: whitehall-mysql-backup-1
