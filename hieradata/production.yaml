@@ -24,6 +24,8 @@ govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
+# Draft content store not running in production yet
+govuk::apps::publishing_api::draft_content_store: ""
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
