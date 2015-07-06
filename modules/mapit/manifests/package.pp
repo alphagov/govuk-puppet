@@ -43,20 +43,6 @@ class mapit::package () {
     ensure => present,
   }
 
-  # FIXME: Remove once these packages are absent in production
-  package {
-    [
-      'python-beautifulsoup',
-      'python-django',
-      'python-django-south',
-      'python-flup',
-      'python-memcache',
-      'python-shapely',
-      'python-yaml'
-    ]:
-    ensure => absent,
-  }
-
   $pip_packages = {
     'BeautifulSoup'    => {'ensure' => '3.2.0'},
     'Django'           => {'ensure' => '1.3.1'},
