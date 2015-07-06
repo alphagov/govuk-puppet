@@ -3,7 +3,6 @@ define backup::directory (
     $directory,
     $fq_dn,
     $priority = undef,
-    $versioned = false
 ) {
     $sanitised_dir  = regsubst($directory, '/', '_', 'G')
     $threshold_secs = 28 * (60 * 60)
