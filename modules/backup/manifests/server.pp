@@ -1,4 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: backup::server
+#
+# Configures the on-site backup server.
+#
+# === Parameters
+#
+# [*backup_private_key*]
+#   SSH RSA private key for use by client machines when pushing backups to the
+#   on-site backup server.
+#
+#   Default: ''
+#
 class backup::server (
   $backup_private_key = '',
 ) {
