@@ -114,12 +114,6 @@ class govuk::node::s_development {
     jre => 'openjdk7',
   }
 
-  # FIXME: Remove once cleaned up everywhere.
-  class { 'govuk_java::oracle7::jdk':
-    ensure => absent,
-    before => Class['govuk_elasticsearch'],
-  }
-
   class { 'govuk_elasticsearch':
     cluster_name       => 'govuk-development',
     heap_size          => '256m',
