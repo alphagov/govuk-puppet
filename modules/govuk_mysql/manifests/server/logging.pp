@@ -6,12 +6,12 @@
 #
 # [*error_log*]
 #
-#   Where mysql is logging errors to so that they can be sent to elasticsearch 
+#   Where mysql is logging errors to so that they can be sent to elasticsearch
 #   Mandatory.
 #
 # [*slow_query_log*]
 #
-#   Where mysql is logging slow queries to so that they can be sent to elasticsearch 
+#   Where mysql is logging slow queries to so that they can be sent to elasticsearch
 #   Default: undef
 #
 class govuk_mysql::server::logging(
