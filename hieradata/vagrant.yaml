@@ -69,17 +69,19 @@ govuk::node::s_frontend_lb::performance_frontend_servers:
   - 'performance-frontend-2.frontend'
 govuk::node::s_frontend_lb::performance_frontend_apps:
   - 'spotlight'
+govuk::node::s_graphite::enable_basic_auth: false
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 
 govuk_postgresql::server::backup: false
+
+icinga::nginx::enable_basic_auth: false
 
 internal_tld: 'development'
 
 monitoring::checks::contact_email: 'root@localhost'
 
 monitoring_domain_suffix: 'dev.alphagov.co.uk'
-monitoring_protected: 'no'
 
 shell::shell_prompt_string: 'dev'
 

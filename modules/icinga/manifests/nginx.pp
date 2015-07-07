@@ -1,6 +1,16 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class icinga::nginx {
-  $protect_monitoring = str2bool(hiera('monitoring_protected','yes'))
+# == Class: icinga::nginx
+#
+# Sets up nginx for Icinga
+#
+# === Parameters:
+#
+# [*enable_basic_auth*]
+#   Boolean. Whether basic auth should be enabled or disabled.
+#
+class icinga::nginx (
+  $enable_basic_auth = true,
+) {
+  validate_bool($enable_basic_auth)
 
   include ::nginx
 

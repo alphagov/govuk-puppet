@@ -98,6 +98,7 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-5.frontend'
   - 'whitehall-frontend-6.frontend'
   - 'whitehall-frontend-7.frontend'
+govuk::node::s_graphite::enable_basic_auth: false
 govuk::node::s_licensify_lb::licensify_backend_servers:
   - 'licensify-backend-1.licensify'
   - 'licensify-backend-2.licensify'
@@ -110,6 +111,8 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 hosts::production::ip_bouncer: '37.26.91.5'
 hosts::production::ip_redirector: '37.26.91.9'
 hosts::production::suffixed_hosts: true
+
+icinga::nginx::enable_basic_auth: false
 
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
@@ -127,7 +130,6 @@ monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
 
 monitoring_domain_suffix: 'staging.alphagov.co.uk'
-monitoring_protected: no
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'staging.performance.service.gov.uk'
 performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'staging.performance.service.gov.uk'
