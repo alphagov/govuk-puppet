@@ -17,11 +17,6 @@ class govuk::scripts {
     mode   => '0755',
   }
 
-  # FIXME: Remove when deployed.
-  file { '/usr/local/bin/govuk_unused_kernels':
-    ensure => absent,
-  }
-
   # govuk_check_security_upgrades list packages which need a security upgrade
   file { '/usr/local/bin/govuk_check_security_upgrades':
     ensure => present,

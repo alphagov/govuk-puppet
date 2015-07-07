@@ -34,14 +34,4 @@ class mongodb::config (
     group   => 'root',
     mode    => '0644',
   }
-
-  # FIXME: Can be removed once deployed everywhere - is setting config to the package default
-  file { '/etc/init/mongodb.conf':
-    ensure => present,
-    source => 'puppet:///modules/mongodb/upstart-pkg-default.conf',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
-
 }

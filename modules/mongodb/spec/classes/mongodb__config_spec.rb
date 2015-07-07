@@ -1,17 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'mongodb::config', :type => :class do
-  describe 'upstart config' do
-    let(:params) {{
-      :development      => false,
-      :replicaset_name  => 'development',
-    }}
-
-    it {
-      should contain_file('/etc/init/mongodb.conf').with_source('puppet:///modules/mongodb/upstart-pkg-default.conf')
-    }
-  end
-
   describe 'mongodb.conf' do
     context 'defaults' do
       let(:params) {{
