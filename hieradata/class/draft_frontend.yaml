@@ -20,8 +20,6 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
-govuk::node::s_draft_frontend::draft_content_store_uri: "https://draft-content-store.%{hiera('app_domain')}"
-govuk::node::s_draft_frontend::draft_static_uri: "https://draft-static.%{hiera('app_domain')}"
 govuk::node::s_frontend::apps:
  - govuk::apps::contacts_frontend
  - govuk::apps::government_frontend
