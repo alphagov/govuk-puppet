@@ -1,5 +1,16 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_graphite inherits govuk::node::s_base {
+# == Class: govuk::node::s_graphite
+#
+# Class to specify a machine for gathering and storing metrics.
+#
+# === Parameters:
+#
+# [*enable_basic_auth*]
+#   Boolean. Whether basic auth should be enabled or disabled.
+#
+class govuk::node::s_graphite (
+  $enable_basic_auth = true,
+) inherits govuk::node::s_base {
+  validate_bool($enable_basic_auth)
 
   class { 'graphite':
     version                    => '0.9.12',
@@ -72,7 +83,7 @@ class govuk::node::s_graphite inherits govuk::node::s_base {
     to           => ['localhost:33333'],
     root         => '/opt/graphite/webapp',
     aliases      => ['graphite.*'],
-    protected    => str2bool(hiera('monitoring_protected','yes')),
+    protected    => $enable_basic_auth,
     extra_config => $cors_headers,
   }
 

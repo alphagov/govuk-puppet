@@ -112,6 +112,7 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-5.frontend'
   - 'whitehall-frontend-6.frontend'
   - 'whitehall-frontend-7.frontend'
+govuk::node::s_graphite::enable_basic_auth: false
 govuk::node::s_licensify_lb::licensify_backend_servers:
   - 'licensify-backend-1.licensify'
   - 'licensify-backend-2.licensify'
@@ -149,6 +150,8 @@ hosts::production::ip_redirector: '37.26.90.222'
 hosts::production::releaseapp_host_org: true
 hosts::production::suffixed_hosts: true
 
+icinga::nginx::enable_basic_auth: false
+
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 
@@ -171,7 +174,6 @@ monitoring::contacts::slack_username: 'Production Icinga'
 monitoring::contacts::slack_nagios_url: 'https://nagios.production.alphagov.co.uk/cgi-bin/icinga/status.cgi'
 
 monitoring_domain_suffix: 'production.alphagov.co.uk'
-monitoring_protected: no
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'production.performance.service.gov.uk'
 performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'production.performance.service.gov.uk'
