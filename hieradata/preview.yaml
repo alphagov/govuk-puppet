@@ -146,7 +146,7 @@ monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
 
-monitoring_domain_suffix: 'preview.alphagov.co.uk'
+monitoring_domain_suffix: "%{hiera('app_domain')}"
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'preview.performance.service.gov.uk'
 performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'preview.performance.service.gov.uk'
