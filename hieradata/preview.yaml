@@ -101,8 +101,8 @@ govuk::node::s_frontend_lb::performance_frontend_apps:
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
-govuk::node::s_logs_elasticsearch::rotatehour: 06
-govuk::node::s_logs_elasticsearch::rotateminute: 00
+govuk::node::s_logs_elasticsearch::rotate_hour: 06
+govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_frontend::app_basic_auth: true
 # to enable/disable licensing_api next two flags are necessary (yes I know this breaks the alphabet)
 govuk::node::s_licensify_backend::enable_licensing_api: true
