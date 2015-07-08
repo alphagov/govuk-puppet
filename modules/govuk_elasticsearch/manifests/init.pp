@@ -135,9 +135,7 @@ class govuk_elasticsearch (
     }
   }
 
-  govuk_elasticsearch::firewall_transport_rule { $cluster_hosts:
-    before => Exec["remove-allow-elasticsearch-transport-${transport_port}-from-all"],
-  }
+  govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
 
   include govuk_elasticsearch::estools
 
