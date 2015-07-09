@@ -88,8 +88,6 @@ govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('a
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
-# FIXME: Remove this once the draft stack has stabilised.
-govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
