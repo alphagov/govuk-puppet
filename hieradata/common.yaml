@@ -700,6 +700,7 @@ rabbitmq::package_ensure: '3.4.3-1'
 rabbitmq::manage_repos: false
 
 rcs::fsckfix: 'YES'
+rcs::tmptime: '7'
 
 # TODO: These don't work in 2.6.6 so setting to false
 # consider changing if we update redis version
