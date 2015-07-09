@@ -16,13 +16,18 @@
 #   Hosts used to create govuk::host resources (hostfile entries).
 #
 class hosts::production::management (
-  $apt_mirror_hostname,
+  $apt_mirror_hostname = undef,
   $apt_mirror_internal = false,
   $apt_host_ip = '10.0.0.75',
   $hosts = {},
 ) {
 
   validate_bool($apt_mirror_internal)
+
+  if ($apt_mirror_internal == true) and ($apt_mirror_hostname == undef) {
+    fail('Host alias for APT mirror was requested but not defined')
+  }
+
   $apt_aliases = $apt_mirror_internal ? {
     true    => [$apt_mirror_hostname],
     default => undef,
