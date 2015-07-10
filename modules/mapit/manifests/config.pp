@@ -11,7 +11,7 @@ class mapit::config {
 
   file { '/data/vhost/mapit/mapit/conf/general.yml':
     ensure  =>  file,
-    source  =>  'puppet:///modules/mapit/general.yml',
+    content =>  template('mapit/general.yml.erb'),
     require =>  [
                   User['mapit'],
                   Exec['unzip_mapit'],
