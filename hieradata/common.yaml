@@ -91,6 +91,8 @@ govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%
 
 govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16 
 
+govuk::node::s_asset_base::firewall_allowed_ip_range: 10.3.0.0/16
+
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
   - govuk::apps::business_support_api

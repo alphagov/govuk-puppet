@@ -1,5 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_asset_base inherits govuk::node::s_base{
+# == Class govuk::node::s_asset_base
+#
+# Base node class for asset servers.
+#
+# === Parameters
+#
+# [*firewall_allow_ip_range*]
+#   The IP range that is allowed to access asset machines
+#
+class govuk::node::s_asset_base (
+  $firewall_allow_ip_range,
+) inherits govuk::node::s_base{
   include assets::user
   include clamav
 
@@ -42,7 +52,7 @@ class govuk::node::s_asset_base inherits govuk::node::s_base{
   }
 
   ufw::allow { 'Allow all access from backend machines':
-    from => '10.3.0.0/16',
+    from => $firewall_allow_ip_range,
   }
 
   package { 'nfs-kernel-server':
