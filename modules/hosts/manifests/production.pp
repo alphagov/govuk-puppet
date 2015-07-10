@@ -122,7 +122,6 @@ class hosts::production (
 
   #management vdc machines
   class { 'hosts::production::management':
-    app_domain          => $app_domain,
     apt_mirror_hostname => $apt_mirror_hostname,
     apt_mirror_internal => $apt_mirror_internal,
   }

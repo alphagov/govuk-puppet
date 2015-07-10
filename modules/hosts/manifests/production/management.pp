@@ -4,9 +4,6 @@
 #
 # === Parameters:
 #
-# [*app_domain*]
-#   Domain to be used in vhost aliases
-#
 # [*apt_mirror_hostname*]
 #   Hostname to use for the APT mirror.
 #
@@ -19,7 +16,6 @@
 #   Hosts used to create govuk::host resources (hostfile entries).
 #
 class hosts::production::management (
-  $app_domain,
   $apt_mirror_hostname,
   $apt_mirror_internal = false,
   $apt_host_ip = '10.0.0.75',
