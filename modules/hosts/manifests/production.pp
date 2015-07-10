@@ -127,14 +127,11 @@ class hosts::production (
 
   # redirector vdc machines
   class { 'hosts::production::redirector':
-    app_domain => $app_domain,
     ip_bouncer => $ip_bouncer,
   }
 
   #router vdc machines
-  class { 'hosts::production::router':
-    app_domain => $app_domain,
-  }
+  class { 'hosts::production::router': }
 
   # 3rd-party hosts
   host { 'gds01prod.aptosolutions.co.uk':
