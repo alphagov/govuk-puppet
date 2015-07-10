@@ -7,15 +7,16 @@
 # [*vhost*]
 #   Virtual host used by the application.
 #
-# [*global_header_text*]
-#   A string to display in the header instead of "GOV.UK". Used for the draft
-#   environment.
-#   Default: ''
+# [*draft_environment*]
+#   A boolean to indicate whether we are in the draft environment.
+#   Sets the environment variable DRAFT_ENVIRONMENT to 'true' if
+#   true, does not set it if false.
+#   Default: false
 #
 class govuk::apps::static(
   $vhost,
   $port = 3013,
-  $global_header_text = ''
+  $draft_environment = false
 ) {
   $app_domain = hiera('app_domain')
   $website_root = hiera('website_root')
@@ -37,9 +38,11 @@ class govuk::apps::static(
     app => 'static',
   }
 
-  govuk::app::envvar {
-    "${title}-GLOBAL_HEADER_TEXT":
-      varname => 'GLOBAL_HEADER_TEXT',
-      value   => $global_header_text;
+  if $draft_environment {
+    govuk::app::envvar {
+      "${title}-DRAFT_ENVIRONMENT":
+        varname => 'DRAFT_ENVIRONMENT',
+        value   => $draft_environment;
+    }
   }
 }
