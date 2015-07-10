@@ -4,6 +4,11 @@ app_domain: 'staging.publishing.service.gov.uk'
 
 asset_root: 'assets-origin.staging.publishing.service.gov.uk'
 
+# FIXME: Once the migration to a `service.gov.uk` domain is complete
+#        we can remove `monitoring_domain_suffix` entirely and just lookup
+#        `app_domain` instead.
+monitoring_domain_suffix: "%{hiera('app_domain')}"
+
 shell::shell_prompt_string: 'migration-staging'
 
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-migration@digital.cabinet-office.gov.uk'
