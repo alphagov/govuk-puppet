@@ -89,6 +89,8 @@ govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('a
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 
+govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16 
+
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
   - govuk::apps::business_support_api

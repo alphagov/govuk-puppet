@@ -13,6 +13,8 @@ shell::shell_prompt_string: 'migration-staging'
 
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-migration@digital.cabinet-office.gov.uk'
 
+govuk::node::s_api_redis::allowed_ip_range: '10.2.4.0/24'
+
 website_root: 'https://www-origin.staging.publishing.service.gov.uk'
 
 govuk_jenkins::job_builder::manage_jobs: true
