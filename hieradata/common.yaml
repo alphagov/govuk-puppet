@@ -703,6 +703,11 @@ ntp::server_list:
 
 postgresql::globals::version: '9.3'
 
+# FIXME: For migration we need to parameterise these to override the individual class hieradata
+postgresql_api_slave_address: '10.7.0.41/32'
+postgresql_slave_address: '10.3.20.13/32'
+postgresql_transition_slave_address: '10.3.20.2/32'
+
 rabbitmq::delete_guest_user: true
 rabbitmq::config_stomp: true
 # Always use our mirror because they only provide the latest package.

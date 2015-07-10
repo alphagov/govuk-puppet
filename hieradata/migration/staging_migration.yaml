@@ -43,3 +43,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::transition_load_transition_stats_hits
   - govuk_jenkins::job::whitehall_rebuild_elasticsearch_index
   - govuk_jenkins::job::whitehall_run_broken_link_checker
+
+postgresql_api_slave_address: '10.2.4.41/32'
+postgresql_slave_address: '10.2.3.13/32'
+postgresql_transition_slave_address: '10.2.3.31/32'
