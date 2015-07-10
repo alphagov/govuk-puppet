@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_asset_base ( $assets_uploads_disk = undef ) inherits govuk::node::s_base{
+class govuk::node::s_asset_base inherits govuk::node::s_base{
   include assets::user
   include clamav
 

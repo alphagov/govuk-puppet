@@ -61,7 +61,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-2.api"
   - "search-3.api"
 govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
-govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdc1'
 govuk::node::s_asset_slave::offsite_backups: true
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
