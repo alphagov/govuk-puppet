@@ -15,7 +15,7 @@ class govuk::node::s_logging (
   # we want all the other machines to be able to send syslog on 514/tcp to this machine
   @ufw::allow {
     'allow-syslog-from-anywhere':
-      from => '10.0.0.0/8',
+      from => 'any',
       port => 514;
   }
 

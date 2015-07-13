@@ -13,7 +13,7 @@ class govuk::node::s_logs_redis inherits govuk::node::s_redis_base {
 
   # tagalog on all nodes forward directly to here.
   @ufw::allow { 'allow-redis-from-anywhere':
-    from => '10.0.0.0/8',
+    from => 'any',
     port => $redis_port;
   }
 
