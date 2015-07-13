@@ -18,6 +18,7 @@
 class hosts::production::management (
   $app_domain,
   $apt_mirror_internal = false,
+  $apt_host_ip = '10.0.0.75',
   $hosts = {},
 ) {
 
@@ -34,7 +35,7 @@ class hosts::production::management (
   create_resources('govuk::host', $hosts)
 
   govuk::host { 'apt-1':
-    ip              => '10.0.0.75',
+    ip              => $apt_host_ip,
     legacy_aliases  => $apt_aliases,
     service_aliases => ['apt'],
   }
