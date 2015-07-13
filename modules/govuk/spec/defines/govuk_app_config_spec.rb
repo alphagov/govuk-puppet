@@ -197,6 +197,31 @@ describe 'govuk::app::config', :type => :define do
         should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/.*\n\nsome_extra_config}m)
       end
     end
+
+    context 'when govuk_app_enable_services is false' do
+      # FIXME: Force rspec-puppet to invalidate the cached Puppet catalog
+      # for this test. This prevents tests from incorrectly failing due to
+      # a race condition. This can be removed once this is addressed by
+      # 'hiera-puppet-helper'.
+      let(:facts) {{ :cache_bust => Time.now }}
+
+      let(:hiera_data) {{
+        'govuk_app_enable_services' => false,
+      }}
+      let(:params) {{
+        :port => 8000,
+        :app_type => 'rack',
+        :domain => 'foo.bar.baz',
+        :vhost_full => 'giraffe.foo.bar.baz',
+      }}
+
+      it "should set the upstart job to manual" do
+        should contain_file('/etc/init/giraffe.conf').with(
+          # 'manual' stanza has to come after 'start on'
+          :content => /start on.*^manual/m
+        )
+      end
+    end
   end
 
   context 'title is big.giraffe' do
