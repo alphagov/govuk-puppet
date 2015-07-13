@@ -42,7 +42,7 @@ class govuk::apps::static(
     govuk::app::envvar {
       "${title}-DRAFT_ENVIRONMENT":
         varname => 'DRAFT_ENVIRONMENT',
-        value   => $draft_environment;
+        value   => '1';
     }
   }
 }
