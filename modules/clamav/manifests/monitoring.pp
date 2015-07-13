@@ -10,8 +10,21 @@ class clamav::monitoring {
   # Convert days to seconds.
   $warning_age = 2 * (24 * 60 * 60)
 
+  file { '/usr/local/bin/check_clamav_definitions':
+    ensure => present,
+    source => 'puppet:///modules/clamav/usr/local/bin/check_clamav_definitions',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  @icinga::nrpe_config { 'check_clamav_definitions':
+    source  => 'puppet:///modules/clamav/etc/nagios/nrpe.d/check_clamav_definitions.cfg',
+    require => File['/usr/local/bin/check_clamav_definitions'],
+  }
+
   @@icinga::check { "check_clamav_definitions_${::hostname}":
-    check_command       => "check_nrpe!check_file_age!\"-f /var/lib/clamav/daily.cld -c0 -w${warning_age}\"",
+    check_command       => "check_nrpe!check_clamav_definitions!${warning_age} 0",
     service_description => 'clamav definitions out of date',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(clamav-definitions-out-of-date),
