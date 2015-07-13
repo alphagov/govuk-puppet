@@ -18,9 +18,12 @@ class govuk::node::s_frontend_lb (
 
   loadbalancer::balance {
     [
+      'draft-collections',
       'draft-contacts-frontend',
+      'draft-email-alert-frontend',
       'draft-government-frontend',
       'draft-manuals-frontend',
+      'draft-specialist-frontend',
       'draft-static',
     ]:
       servers       => $draft_frontend_servers;
