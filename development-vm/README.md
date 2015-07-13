@@ -187,6 +187,12 @@ Then, from `development/replication` run.
 
     dev$ ./replicate-data-local.sh -d path/to/dir -s
 
+After replicating data a few times, your machine might be running low
+on disk space. This is because the old database dumps aren't cleaned
+up once newer ones have been downloaded. To get over this, it is
+advised to periodically `rm -r` older directories in
+`development/replication/backups`.
+
 ## 9. Accessing Preview
 
 ### 9.1 Access to Web apps and services
