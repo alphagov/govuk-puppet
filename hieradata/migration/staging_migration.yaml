@@ -17,6 +17,8 @@ govuk::node::s_api_redis::allowed_ip_range: '10.2.4.0/24'
 
 govuk::node::s_asset_base::firewall_allowed_ip_range: '10.2.3.0/24'
 
+govuk::node:s_transition_postgresql_slave: '10.2.5.0/24'
+
 website_root: 'https://www-origin.staging.publishing.service.gov.uk'
 
 govuk_jenkins::job_builder::manage_jobs: true

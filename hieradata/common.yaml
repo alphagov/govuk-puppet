@@ -150,6 +150,8 @@ govuk::node::s_frontend::apps:
   - govuk::apps::static
   - govuk::apps::transactions_explorer
 
+govuk::node:s_transition_postgresql_slave: 10.6.0.1/16
+
 govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
   govuk: 6514
