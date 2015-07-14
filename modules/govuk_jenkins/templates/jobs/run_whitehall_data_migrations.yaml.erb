@@ -1,0 +1,12 @@
+---
+- job:
+    name: Run_Whitehall_Data_Migrations
+    display-name: Run_Whitehall_Data_Migrations
+    project-type: freestyle
+    description: "This job SSHes to whitehall-backend-2.backend.production and runs 'cd /var/apps/whitehall ; RAILS_ENV=production       bundle exec rake db:data:migrate'"
+    builders:
+        - shell: |
+           "ssh deploy@whitehall-backend-2.backend.production 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake db:data:migrate'"
+    wrappers:
+        - ansicolor:
+            colormap: xterm

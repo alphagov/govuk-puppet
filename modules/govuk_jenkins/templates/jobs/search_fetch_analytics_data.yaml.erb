@@ -1,0 +1,42 @@
+---
+- scm:
+    name: search-analytics_search-fetch-analytics-data
+    scm:
+        - git:
+            url: git@github.com:alphagov/search-analytics.git
+            branches:
+              - master
+
+- job:
+    name: search-fetch-analytics-data
+    display-name: search-fetch-analytics-data
+    project-type: freestyle
+    description: "<p>Fetch analytics data from Google Analytics and index in search</p>
+      <p>This is run nightly to update the information used by search to return more popular pages first.</p>"
+    scm:
+      - search-analytics_search-fetch-analytics-data
+    builders:
+        - shell: |
+            if [ \! -d ENV ]; then virtualenv ENV; fi
+            . ENV/bin/activate
+            pip install -r requirements.txt
+            rm -f page-traffic.dump
+            PYTHONPATH=. python scripts/fetch.py page-traffic.dump 14
+            ssh deploy@search-1.api.production '(cd /var/apps/rummager; govuk_setenv rummager bundle exec ./bin/bulk_load page-traffic)' < page-traffic.dump
+            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=mainstream govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=detailed govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=government govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=service-manual govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=all govuk_setenv rummager bundle exec rake rummager:clean)'
+    triggers:
+        - timed: '5 4 * * *'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+                - name: GAAUTH
+                  password:
+                    '<%= @ga_auth_password %>'
