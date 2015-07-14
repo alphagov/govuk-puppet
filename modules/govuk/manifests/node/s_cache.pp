@@ -100,10 +100,6 @@ class govuk::node::s_cache (
     desc      => 'nginx high conn writing - upstream indicator',
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(nginx-high-conn-writing-upstream-indicator-check),
-  }
 
-  ufw::allow { 'Allow varnish cache bust from backend machines':
-    from => '10.3.0.0/24',
-    port => '7999'
   }
 }
