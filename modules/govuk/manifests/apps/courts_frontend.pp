@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#
 # [*port*]
 #   The port that courts-frontend is served on.
 #   Default: 3095
@@ -14,6 +17,7 @@
 #   Default: false
 #
 class govuk::apps::courts_frontend(
+  $vhost,
   $port = 3095,
   $enabled = false
 ) {
@@ -25,6 +29,7 @@ class govuk::apps::courts_frontend(
       asset_pipeline_prefix => 'courts-frontend',
       health_check_path     => '/healthcheck',
       log_format_is_json    => true,
+      vhost                 => $vhost,
     }
   }
 }
