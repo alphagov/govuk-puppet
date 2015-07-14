@@ -51,6 +51,8 @@ govuk::deploy::setup::ssh_keys:
 
 govuk_crawler::seed_enable: true
 
+govuk_elasticsearch::dump::run_es_dump_hour: '9'
+
 govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
 
