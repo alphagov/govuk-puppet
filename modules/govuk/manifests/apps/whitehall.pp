@@ -89,6 +89,9 @@ class govuk::apps::whitehall(
         # that header.
         add_header Link $upstream_http_link;
 
+        # Respect X-Frame-Options from Rails application
+        add_header X-Frame-Options $upstream_http_x_frame_options;
+
         alias /data/uploads/whitehall/clean/$1;
       }
 
