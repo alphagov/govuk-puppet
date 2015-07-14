@@ -78,6 +78,17 @@ class govuk::apps::whitehall(
 
       location ~ /clean/(.*) {
         internal;
+
+        # Whitehall sets a `Link:` header to let upstream clients know how
+        # to find the cover page for the attachment:
+        # https://github.com/alphagov/whitehall/blob/6c72de9390adcf9b23e90bd37686ce6fb940a41d/app/controllers/attachments_controller.rb#L45
+        # but Nginx strips those headers because X-Accel-Redirect is an
+        # internal redirect: http://stackoverflow.com/a/24509358/61435
+        #
+        # In order for the functionality to work correctly, we should restore
+        # that header.
+        add_header Link $upstream_http_link;
+
         alias /data/uploads/whitehall/clean/$1;
       }
 
