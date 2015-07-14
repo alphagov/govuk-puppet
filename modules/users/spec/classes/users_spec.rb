@@ -48,7 +48,6 @@ username_whitelist = %w{
   bradleyw
   dcarley
   elliot
-  futurefabric
   heathd
   jabley
   jackscotti
