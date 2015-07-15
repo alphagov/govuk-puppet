@@ -13,7 +13,7 @@
 # [*nagios_crit*]
 #   Percentage at which Nagios will raise a CRITICAL alert for free space and
 #   inodes.
-#   Default: 20
+#   Default: 5
 #
 # [*govuk_lvm*]
 #   If you're using govuk::lvm to create a logical volume pass the title so
