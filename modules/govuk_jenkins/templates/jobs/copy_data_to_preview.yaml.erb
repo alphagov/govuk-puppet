@@ -26,9 +26,6 @@
         - shell: |
             set -eux
             cd "${WORKSPACE}"
-            export SUPPORT_CONTACTS_ROOT_PW="<%= @support_contracts_root_pw %>"
-            export SUPPORT_CONTRACTS_SRC_ROOT_PW="<%= @support_contracts_src_root_pw %>"
-            export SUPPORT_CONTRACTS_DST_ROOT_PW="<%= @support_contracts_dst_root_pw %>"
             echo "Putting in the real MySQL root password"
             sed -i.bak "s/MYSQL_SRC_ROOT_PW=PLACEHOLDER/MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>'/g" scripts/sync-mysql.sh
             sed -i "s/MYSQL_DST_ROOT_PW=PLACEHOLDER/MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>'/g" scripts/sync-mysql.sh
@@ -54,7 +51,6 @@
                 - elasticsearch-backend
                 - mysql-efg
                 - mysql-normal
-                - mysql-support_contacts
                 - mysql-whitehall
                 - mongo-exceptions
                 - mongo-licensify
