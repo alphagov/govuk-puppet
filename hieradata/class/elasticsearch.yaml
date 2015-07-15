@@ -15,3 +15,6 @@ mount:
     disk: '/dev/mapper/elasticsearch-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+    #FIXME: Adjust these values when elasticsearch is upgraded to 1.4
+    nagios_warn: 31
+    nagios_crit: 16
