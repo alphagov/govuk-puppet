@@ -247,6 +247,8 @@ hosts::production::api::hosts:
     ip: '10.7.2.11'
   draft-content-store-2:
     ip: '10.7.2.12'
+  mapit-1:
+    ip: '10.7.0.51'
   performance-mongo-1:
     ip: '10.7.0.31'
   performance-mongo-2:
