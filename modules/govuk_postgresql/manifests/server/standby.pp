@@ -59,7 +59,7 @@ class govuk_postgresql::server::standby (
   $standby_metric  = "${::fqdn_underscore}.${metric_suffix}"
 
   @@icinga::check::graphite { "check_postgres_replication_lag_${::hostname}":
-    target    => "movingMedian(removeBelowValue(diffSeries(${primary_metric},${standby_metric}), 0),5)",
+    target    => "movingMedian(transformNull(removeBelowValue(diffSeries(${primary_metric},${standby_metric}),0),0),5)",
     desc      => 'replication on the postgres standby is too far behind primary [value in bytes]',
     warning   => to_bytes('8 MB'),
     critical  => to_bytes('16 MB'),
