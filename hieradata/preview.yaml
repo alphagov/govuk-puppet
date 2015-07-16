@@ -51,6 +51,8 @@ govuk::deploy::setup::ssh_keys:
 
 govuk_crawler::seed_enable: true
 
+govuk_elasticsearch::dump::run_es_dump_hour: '9'
+
 govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
 
@@ -67,6 +69,7 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
 govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdb1'
+govuk::node::s_asset_master::run_virus_scan_clean_hour: '9'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
@@ -116,6 +119,7 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-2.licensify'
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
+govuk::node::s_logging::compress_srv_logs_hour: '9'
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::ppa::path: 'preview'

@@ -1,5 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_elasticsearch::dump {
+class govuk_elasticsearch::dump (
+  $run_es_dump_hour = '3',
+) {
   package { 'es_dump_restore':
     ensure   => '2.0.0',
     provider => 'system_gem',
@@ -24,7 +26,7 @@ class govuk_elasticsearch::dump {
       File['/var/es_dump'],
       File['/usr/bin/es_dump'],
     ],
-    hour    => '3',
+    hour    => $run_es_dump_hour,
     minute  => '0',
   }
 }

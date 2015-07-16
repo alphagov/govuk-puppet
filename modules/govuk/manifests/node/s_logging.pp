@@ -2,7 +2,9 @@
 #
 # Node class for logging centralisation and parsing machine.
 #
-class govuk::node::s_logging inherits govuk::node::s_base {
+class govuk::node::s_logging (
+  $compress_srv_logs_hour = '1',
+) inherits govuk::node::s_base {
 
   # we want this to be a syslog server which also forwards to logstash
   class { 'rsyslog::server':
@@ -102,7 +104,7 @@ class govuk::node::s_logging inherits govuk::node::s_base {
   cron { 'compress-srv-logs':
     ensure  => present,
     user    => 'root',
-    hour    => '1',
+    hour    => $compress_srv_logs_hour,
     minute  => '0',
     command => 'find /srv/log/2??? -mtime +28 -type f -exec gzip -q {} +',
   }
