@@ -144,7 +144,6 @@ govuk::node::s_frontend::apps:
   - govuk::apps::manuals_frontend
   - govuk::apps::specialist_frontend
   - govuk::apps::static
-  - govuk::apps::transactions_explorer
 
 govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
