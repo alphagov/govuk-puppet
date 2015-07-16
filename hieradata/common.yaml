@@ -518,7 +518,6 @@ hosts::production::frontend::app_hostnames:
   - 'specialist-frontend'
   - 'static'
   - 'tariff'
-  - 'transactions-explorer'
   - 'whitehall-frontend'
 
 hosts::production::licensify::hosts:
@@ -752,7 +751,6 @@ router::assets_origin::asset_routes:
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
   '/tariff/': "tariff"
-  '/transactions-explorer/': "transactions-explorer"
 
 ssh::config::allow_users_enable: true
 
