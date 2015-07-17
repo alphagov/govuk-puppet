@@ -9,13 +9,15 @@
 #   Specify the port on which unicorn (and hence the puppetmaster) should
 #   listen.
 #
+# [*puppetdb_version*]
+#   Specify the version of puppetdb to be installed
+
 class puppet::master(
   $unicorn_port = '9090',
+  $puppetdb_version = '1.3.2-1puppetlabs1',
 ) {
   include puppet::repository
   include unicornherder
-
-  $puppetdb_version = '1.3.2-1puppetlabs1'
 
   class { '::puppetdb':
     package_ensure => $puppetdb_version,
