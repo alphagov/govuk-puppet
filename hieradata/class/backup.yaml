@@ -79,3 +79,5 @@ mount:
     disk: '/dev/mapper/backups-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+    nagios_warn: 2
+    nagios_crit: 1
