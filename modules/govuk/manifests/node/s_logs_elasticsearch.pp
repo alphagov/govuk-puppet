@@ -12,8 +12,14 @@ class govuk::node::s_logs_elasticsearch(
     ensure => absent,
   }
 
+  $cluster_hostnames = [
+    'logs-elasticsearch-1',
+    'logs-elasticsearch-2',
+    'logs-elasticsearch-3',
+  ]
+
   class { 'govuk_elasticsearch':
-    cluster_hosts        => ['logs-elasticsearch-1.management:9300', 'logs-elasticsearch-2.management:9300', 'logs-elasticsearch-3.management:9300'],
+    cluster_hosts        => regsubst($cluster_hostnames, '^.*$', '\0.management:9300'),
     cluster_name         => 'logging',
     heap_size            => "${es_heap_size}m",
     number_of_replicas   => '1',
@@ -56,22 +62,30 @@ class govuk::node::s_logs_elasticsearch(
     content => template('govuk/usr/local/bin/es-rotate-passive-check.erb'),
   }
 
-  @@icinga::passive_check { "check_es_rotate_${::hostname}":
-    service_description => 'es-rotate',
-    host_name           => $::fqdn,
-    freshness_threshold => 25 * (60 * 60), # 25 hours
-  }
+  # We only want to trigger a rotate once
+  if $::hostname == $cluster_hostnames[0] {
+    @@icinga::passive_check { "check_es_rotate_${::hostname}":
+      service_description => 'es-rotate',
+      host_name           => $::fqdn,
+      freshness_threshold => 25 * (60 * 60), # 25 hours
+    }
 
-  cron { 'elasticsearch-rotate-indices':
-    ensure  => present,
-    user    => 'nobody',
-    hour    => $rotate_hour,
-    minute  => $rotate_minute,
-    command => '/usr/local/bin/es-rotate-passive-check',
-    require => [
-      Class['govuk_elasticsearch::estools'],
-      File['/usr/local/bin/es-rotate-passive-check'],
-    ]
+    cron { 'elasticsearch-rotate-indices':
+      ensure  => present,
+      user    => 'nobody',
+      hour    => $rotate_hour,
+      minute  => $rotate_minute,
+      command => '/usr/local/bin/es-rotate-passive-check',
+      require => [
+        Class['govuk_elasticsearch::estools'],
+        File['/usr/local/bin/es-rotate-passive-check'],
+      ]
+    }
+  } else {
+    cron { 'elasticsearch-rotate-indices':
+      ensure => absent,
+      user   => 'nobody',
+    }
   }
 
   @@icinga::check::graphite { "check_elasticsearch_syslog_input_${::hostname}":
