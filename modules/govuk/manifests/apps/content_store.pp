@@ -22,7 +22,7 @@
 #
 # [*disable_rabbitmq_publishing*]
 #   Whether to disable publishing updates to RabbitMQ.  When set, content-store
-#   will continue to accept updates, they just won't be broadcase on the
+#   will continue to accept updates, they just won't be broadcast on the
 #   rabbitmq exchange.
 #   Default: false
 #
