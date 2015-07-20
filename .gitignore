@@ -9,11 +9,8 @@
 /build/
 /vendor/modules/
 .DS_Store
-# Ignore config from the "pt" gem for CLI access to PT
-.pt
 # Put "--profile" in a file called .rspec to get per-test timing results
 .rspec
-.rvmrc
 # Written by Cap and read by puppet_config_version
 REVISION
 .vagrant
