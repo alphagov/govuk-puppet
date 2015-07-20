@@ -61,6 +61,8 @@ postgresql_api_slave_address: '10.2.4.41/32'
 postgresql_slave_address: '10.2.3.13/32'
 postgresql_transition_slave_address: '10.2.3.31/32'
 
+hosts::production::carrenza_vcloud: true
+
 hosts::production::ip_api_lb: '10.2.4.254'
 hosts::production::ip_backend_lb: '10.2.3.254'
 hosts::production::ip_draft_api_lb: '10.2.4.253'
