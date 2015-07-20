@@ -18,10 +18,10 @@
             url: https://github.gds/gds/alphagov-deployment/
         - inject:
             properties-content: |
-              VCLOUD_ORG=4-3-62-0a9bbb
-              VCLOUD_ENV=production_skyscape
+              VCLOUD_ORG=<%= @vcloud_org %>
+              VCLOUD_ENV=<%= @vcloud_env %>
               VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
-              VCLOUD_HOST=api.vcd.portal.skyscapecloud.com
+              VCLOUD_HOST=<%= @vcloud_host %>
     scm:
       - govuk-provisioning_Production_Launch_VMs
     builders:

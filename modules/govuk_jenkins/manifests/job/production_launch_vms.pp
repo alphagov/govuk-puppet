@@ -2,7 +2,11 @@
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production_launch_vms {
+class govuk_jenkins::job::production_launch_vms (
+  $vcloud_org = undef,
+  $vcloud_env = undef,
+  $vcloud_host = undef,
+) {
   file { '/etc/jenkins_jobs/jobs/production_launch_vms.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production_launch_vms.yaml.erb'),
