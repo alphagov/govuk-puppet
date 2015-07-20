@@ -63,9 +63,9 @@ describe 'nginx::config::vhost::proxy', :type => :define do
       }
     end
 
-    it 'should install simple_error_pages' do
+    it 'should intercept errors' do
       should contain_nginx__config__site('rabbit')
-        .with_content(/include \/etc\/nginx\/simple_error_pages\.conf;/)
+        .with_content(/proxy_intercept_errors on;/)
     end
   end
 

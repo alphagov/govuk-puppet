@@ -51,13 +51,9 @@ class nginx::config (
     owner  => 'www-data',
   }
 
+  # FIXME: Remove once this directory is no longer in production
   file { '/var/www/error':
-    ensure  => directory,
-    source  => 'puppet:///modules/nginx/error',
-    purge   => true,
-    recurse => true,
-    force   => true,
-    require => File['/var/www'],
+    ensure  => absent,
   }
 
   @@icinga::check::graphite { "check_nginx_active_connections_${::hostname}":
