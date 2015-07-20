@@ -11,7 +11,18 @@ monitoring_domain_suffix: "%{hiera('app_domain')}"
 
 shell::shell_prompt_string: 'migration-staging'
 
+govuk_postgresql::db::api_ip_range: '10.2.4.0/24'
+govuk_postgresql::db::backend_ip_range: '10.2.3.0/24'
+
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-migration@digital.cabinet-office.gov.uk'
+
+govuk::node::s_api_redis::allowed_ip_range: '10.2.4.0/24'
+
+govuk::node::s_asset_base::firewall_allowed_ip_range: '10.2.3.0/24'
+
+govuk::node:s_transition_postgresql_slave: '10.2.5.0/24'
+
+hosts::production::management::apt_host_ip: '10.2.0.75'
 
 website_root: 'https://www-origin.staging.publishing.service.gov.uk'
 
@@ -43,3 +54,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::transition_load_transition_stats_hits
   - govuk_jenkins::job::whitehall_rebuild_elasticsearch_index
   - govuk_jenkins::job::whitehall_run_broken_link_checker
+
+postgresql_api_slave_address: '10.2.4.41/32'
+postgresql_slave_address: '10.2.3.13/32'
+postgresql_transition_slave_address: '10.2.3.31/32'

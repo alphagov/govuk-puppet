@@ -89,6 +89,10 @@ govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('a
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 
+govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16 
+
+govuk::node::s_asset_base::firewall_allowed_ip_range: 10.3.0.0/16
+
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
   - govuk::apps::business_support_api
@@ -145,6 +149,8 @@ govuk::node::s_frontend::apps:
   - govuk::apps::specialist_frontend
   - govuk::apps::static
   - govuk::apps::transactions_explorer
+
+govuk::node:s_transition_postgresql_slave: 10.6.0.1/16
 
 govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
@@ -701,6 +707,11 @@ ntp::server_list:
   - '2.uk.pool.ntp.org'
 
 postgresql::globals::version: '9.3'
+
+# FIXME: For migration we need to parameterise these to override the individual class hieradata
+postgresql_api_slave_address: '10.7.0.41/32'
+postgresql_slave_address: '10.3.20.13/32'
+postgresql_transition_slave_address: '10.3.20.2/32'
 
 rabbitmq::delete_guest_user: true
 rabbitmq::config_stomp: true

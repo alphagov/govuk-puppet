@@ -63,6 +63,9 @@ describe 'govuk_postgresql::db', :type => :define do
           :password                => 'gibbon',
           :allow_auth_from_backend => true
         }}
+        let(:hiera_data) {{
+          'govuk_postgresql'       => '10.3.0.0/24'
+        }}
         it {
             should contain_postgresql__server__pg_hba_rule(
                 'Allow access for monkey role to giraffe database from backend network'

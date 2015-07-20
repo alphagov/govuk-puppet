@@ -2,12 +2,19 @@
 #
 # Node class for redis servers in the API vDC.
 #
-class govuk::node::s_api_redis inherits govuk::node::s_redis_base {
+# === Parameters
+#
+# [*allowed_ip_range*]
+#   Range of IP addresses that is allowed to access API redis
+#
+class govuk::node::s_api_redis (
+  $allowed_ip_range,
+) inherits govuk::node::s_redis_base {
   $redis_port = 6379
 
   @ufw::allow {
     'allow-redis-from-api':
-      from => '10.7.0.0/16',
+      from => $allowed_ip_range,
       port => $redis_port;
   }
 }

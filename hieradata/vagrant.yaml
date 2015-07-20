@@ -30,7 +30,6 @@ govuk::node::s_api_lb::draft_content_store_servers:
 govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
-govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdb1'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'

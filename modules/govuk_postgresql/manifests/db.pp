@@ -42,6 +42,13 @@
 # Whether to create a pg_hba.conf rule to allow this user to authenticate for
 # this database from the backend network using its password.
 # Default: false
+#
+# [*api_ip_range*]
+# Network range for API.
+#
+# [*backend_ip_range*]
+# Network range for Backend.
+#
 define govuk_postgresql::db (
     $user,
     $password,
@@ -51,6 +58,8 @@ define govuk_postgresql::db (
     $extensions              = [],
     $allow_auth_from_api     = false,
     $allow_auth_from_backend = false,
+    $api_ip_range            = '10.7.0.0/24',
+    $backend_ip_range        = '10.3.0.0/24',
 ) {
 
     if ($database == undef) {
@@ -93,7 +102,7 @@ define govuk_postgresql::db (
           type        => 'host',
           database    => $db_name,
           user        => $user,
-          address     => '10.7.0.0/16',
+          address     => $api_ip_range,
           auth_method => 'md5',
         }
     }
@@ -103,7 +112,7 @@ define govuk_postgresql::db (
           type        => 'host',
           database    => $db_name,
           user        => $user,
-          address     => '10.3.0.0/16',
+          address     => $backend_ip_range,
           auth_method => 'md5',
         }
     }
