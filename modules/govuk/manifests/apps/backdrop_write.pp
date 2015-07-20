@@ -15,11 +15,12 @@ class govuk::apps::backdrop_write (
     $port = 3102
 
     govuk::app { 'backdrop-write':
-      app_type          => 'bare',
-      port              => $port,
-      command           => "./venv/bin/gunicorn backdrop.write.api:app --bind 127.0.0.1:${port} --workers 4",
-      vhost_ssl_only    => true,
-      health_check_path => '/_status',
+      app_type           => 'bare',
+      port               => $port,
+      command            => "./venv/bin/gunicorn backdrop.write.api:app --bind 127.0.0.1:${port} --workers 4 --timeout 60",
+      vhost_ssl_only     => true,
+      health_check_path  => '/_status',
+      nginx_extra_config => 'client_max_body_size 50m;',
     }
 
     govuk::procfile::worker { 'backdrop-transformer':
