@@ -43,7 +43,6 @@ class govuk::node::s_frontend_lb (
       'service-manual',
       'specialist-frontend',
       'static',
-      'transactions-explorer',
     ]:
       servers       => $frontend_servers;
     [

@@ -21,13 +21,16 @@ class govuk::apps::transactions_explorer {
   include govuk::deploy
 
   govuk::app::package { $app_name:
+    ensure     => 'absent',
     vhost_full => $vhost_full,
   }
 
   nginx::config::ssl {$vhost_full:
+    ensure   => 'absent',
     certtype => 'wildcard_alphagov',
   }
   nginx::config::site { $te_root:
+    ensure  => 'absent',
     content => template('govuk/transactions-explorer-vhost.conf'),
   }
 }

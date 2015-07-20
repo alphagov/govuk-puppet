@@ -18,7 +18,7 @@
 #   govuk_select_organisation. It will fallback to wildcard_alphagov for
 #   environments where the key is not present in hiera data.
 #
-define nginx::config::ssl( $certtype ) {
+define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
     'ci_alphagov': {
         $cert = hiera('ci_alphagov_crt', '')
@@ -46,13 +46,13 @@ define nginx::config::ssl( $certtype ) {
   }
 
   file { "/etc/nginx/ssl/${name}.crt":
-    ensure  => present,
+    ensure  => $ensure,
     content => $cert,
     require => Class['nginx::package'],
     notify  => Class['nginx::service'],
   }
   file { "/etc/nginx/ssl/${name}.key":
-    ensure  => present,
+    ensure  => $ensure,
     content => $key,
     require => Class['nginx::package'],
     notify  => Class['nginx::service'],

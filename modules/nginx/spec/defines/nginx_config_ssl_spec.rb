@@ -10,8 +10,8 @@ describe 'nginx::config::ssl', :type => :define do
         'www_key' => 'WWW_KEY',
     }}
 
-    it { should contain_file('/etc/nginx/ssl/foobar.crt').with_content('WWW_CRT') }
-    it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('WWW_KEY').with_mode('0640') }
+    it { should contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('present').with_content('WWW_CRT') }
+    it { should contain_file('/etc/nginx/ssl/foobar.key').with_ensure('present').with_content('WWW_KEY').with_mode('0640') }
   end
 
   context 'certtype => wildcard_alphagov_mgmt' do
@@ -26,8 +26,8 @@ describe 'nginx::config::ssl', :type => :define do
       }}
       let(:facts) {{ :cache_bust => Time.now }}
 
-      it { should contain_file('/etc/nginx/ssl/foobar.crt').with_content('MGMT_CRT') }
-      it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('MGMT_KEY').with_mode('0640') }
+      it { should contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('present').with_content('MGMT_CRT') }
+      it { should contain_file('/etc/nginx/ssl/foobar.key').with_ensure('present').with_content('MGMT_KEY').with_mode('0640') }
     end
 
     context 'values absent fallback to wildcard_alphagov' do
@@ -37,8 +37,20 @@ describe 'nginx::config::ssl', :type => :define do
       }}
       let(:facts) {{ :cache_bust => Time.now }}
 
-      it { should contain_file('/etc/nginx/ssl/foobar.crt').with_content('FALLBACK_CRT') }
-      it { should contain_file('/etc/nginx/ssl/foobar.key').with_content('FALLBACK_KEY').with_mode('0640') }
+      it { should contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('present').with_content('FALLBACK_CRT') }
+      it { should contain_file('/etc/nginx/ssl/foobar.key').with_ensure('present').with_content('FALLBACK_KEY').with_mode('0640') }
     end
+  end
+
+  context 'ensure => absent' do
+    let(:params) {{ :certtype => 'www', :ensure => 'absent' }}
+
+    let(:hiera_data) {{
+        'www_crt' => 'WWW_CRT',
+        'www_key' => 'WWW_KEY',
+    }}
+
+    it { should contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('absent') }
+    it { should contain_file('/etc/nginx/ssl/foobar.key').with_ensure('absent') }
   end
 end
