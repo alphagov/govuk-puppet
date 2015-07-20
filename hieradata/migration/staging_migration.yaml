@@ -4,6 +4,8 @@ app_domain: 'staging.publishing.service.gov.uk'
 
 asset_root: 'assets-origin.staging.publishing.service.gov.uk'
 
+internal_tld: 'staging.publishing.service.gov.uk'
+
 # FIXME: Once the migration to a `service.gov.uk` domain is complete
 #        we can remove `monitoring_domain_suffix` entirely and just lookup
 #        `app_domain` instead.
