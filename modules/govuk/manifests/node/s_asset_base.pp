@@ -10,6 +10,8 @@
 class govuk::node::s_asset_base (
   $firewall_allow_ip_range,
 ) inherits govuk::node::s_base{
+  validate_string($firewall_allow_ip_range)
+
   include assets::user
   include clamav
 

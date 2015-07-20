@@ -15,6 +15,8 @@ class govuk::node::s_transition_postgresql_slave (
   $master_password,
   $redirector_ip_range,
 ) inherits govuk::node::s_transition_postgresql_base {
+  validate_string($redirector_ip_range)
+
   class { 'govuk_postgresql::server::standby':
     master_password => $master_password,
   }
