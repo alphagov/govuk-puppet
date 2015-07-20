@@ -10,6 +10,7 @@ describe 'govuk_jenkins', :type => :class do
   let(:hiera_data) {{
     'govuk_jenkins::config::github_client_id' => %w{ foo },
     'govuk_jenkins::config::github_client_secret' => %w{ bar },
+    'govuk_jenkins::job_builder::environment' => %w{ mushroom },
   }}
 
   it { should contain_class('govuk_jenkins::ssh_key') }

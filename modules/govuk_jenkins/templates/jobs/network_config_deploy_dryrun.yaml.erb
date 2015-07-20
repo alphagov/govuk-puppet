@@ -1,0 +1,44 @@
+---
+- scm:
+    name: govuk-provisioning_Network_Config_Deploy_DryRun
+    scm:
+        - git:
+            url: git@github.gds:gds/govuk-provisioning.git
+            branches:
+              - master
+
+- job:
+    name: Network_Config_Deploy_DryRun
+    display-name: Network_Config_Deploy_DryRun
+    project-type: freestyle
+    description: "Dry run only. Use this to observe the diff output before deploying for real. Accepts a branch so that you can test pull requests."
+    properties:
+        - github:
+            url: https://github.gds/gds/govuk-provisioning/
+    scm:
+      - govuk-provisioning_Network_Config_Deploy_DryRun
+    builders:
+        - shell: |
+            ./vcloud-edge_gateway/jenkins.sh <%= @environment -%> --dry-run
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '#${BUILD_NUMBER} ${ENV,var="component"}'
+    parameters:
+        - choice:
+            name: COMPONENT
+            description: Which part of the networking config do you wish to update?
+            choices:
+                - PLEASE CHOOSE ONE
+                - lb
+                - nat
+                - firewall
+        - string:
+            name: TAG
+            description: Git tag/committish to deploy.
+            default: release
+        - password:
+            name: VCLOUD_PASSWORD
+            description: Vcloud Password
+            default: false

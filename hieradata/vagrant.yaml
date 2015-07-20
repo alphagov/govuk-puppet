@@ -77,6 +77,20 @@ govuk::node::s_transition_postgresql_slave::redirector_ip_range: '127.0.0.1'
 
 govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jenkins_api_token: deploy_user_jenkins_api_token
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::staging::data_sync_complete
+  - govuk_jenkins::job::deploy_router_data
+  - govuk_jenkins::job::run_whitehall_data_migrations
+  - govuk_jenkins::job::service_manual_rebuild_search_index
+  - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_cdn
+  - govuk_jenkins::job::deploy_puppet
+  - govuk_jenkins::job::launch_vms
+  - govuk_jenkins::job::network_config_deploy
+  - govuk_jenkins::job::network_config_deploy_dryrun
+  - govuk_jenkins::job::smokey
+  - govuk_jenkins::job::smokey_deploy
+govuk_jenkins::job_builder::environment: 'dev'
 
 govuk_postgresql::server::backup: false
 

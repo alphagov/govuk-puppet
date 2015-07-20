@@ -1,0 +1,34 @@
+---
+- scm:
+    name: smokey_Smokey
+    scm:
+        - git:
+            url: git@github.com:alphagov/smokey.git
+            branches:
+              - master
+
+- job:
+    name: Smokey
+    display-name: Smokey
+    project-type: freestyle
+    scm:
+      - smokey_Smokey
+    builders:
+        - shell: |
+            set +x
+            export TARGET_PLATFORM=<%= @environment -%>
+            export AUTH_USERNAME=betademo
+            export AUTH_PASSWORD=nottobesharedout
+            export MYSQL_USERNAME=panopticon
+            export EFG_DOMAIN='https://www.sflg.gov.uk'
+            export EFG_USERNAME='support@alphagov.co.uk'
+            export EFG_PASSWORD='<%= @efg_password %>'
+            export SIGNON_EMAIL='<%= @signon_email %>'
+            export SIGNON_PASSWORD='The Quick Brown Fox1!'
+            export BEARER_TOKEN=<%= @smokey_bearer_token %>
+            export RATE_LIMIT_TOKEN=<%= @smokey_rate_limit_token %>
+            set -x
+            ./jenkins.sh
+    wrappers:
+        - ansicolor:
+            colormap: xterm

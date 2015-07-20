@@ -1,0 +1,26 @@
+---
+- job:
+    name: Data_Sync_Complete
+    display-name: Data_Sync_Complete
+    project-type: freestyle
+    description: "Run after data is synced from production."
+    logrotate:
+      artifactNumToKeep: 10
+    builders:
+       - shell: |
+           # Queue up any whitehall scheduled editions that have been transferred across.
+           ssh deploy@whitehall-backend-2.backend.<%= @environment -%> 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
+           # Queue up any publisher scheduled editions that have been transferred across.
+           ssh deploy@backend-2.backend.<%= @environment -%> 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Deploy_App
+              predefined-parameters: |
+                TARGET_APPLICATION=url-arbiter
+                DEPLOY_TASK=deploy:hard_restart
+            - project: Deploy_App
+              predefined-parameters: |
+                TARGET_APPLICATION=content-register
+                DEPLOY_TASK=deploy:hard_restart
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk

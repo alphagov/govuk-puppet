@@ -1,0 +1,38 @@
+---
+- scm:
+    name: deployment_Deploy_Puppet
+    scm:
+        - git:
+            url: git@github.gds:gds/deployment.git
+            branches:
+              - master
+
+- job:
+    name: Deploy_Puppet
+    display-name: Deploy_Puppet
+    project-type: freestyle
+    description: "<a href=\"http://www.flickr.com/photos/fatty/9158066939/\">\r\n  <img src=\"https://farm3.staticflickr.com/2835      /9158066939_374360ed56_n.jpg\">\r\n</a>\r\n <p> This job deploys the HEAD of the puppet release branch by default. To promote something that has been deployed to Preview into the release branch so it can be deployed to <%= @environment -%>, see the instructions on the Promote_Puppet_To_Release_Ready job </p>"
+    properties:
+        - github:
+            url: https://github.gds/gds/deployment/
+    scm:
+      - deployment_Deploy_Puppet
+    builders:
+        - shell: |
+           sh -eu puppet/deploy.sh
+    publishers:
+        - description-setter:
+            regexp: 'Deployed ([^ ]+) \(resolved'
+        - trigger-parameterized-builds:
+            - project: Smokey
+              condition: 'SUCCESS'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '#${BUILD_NUMBER} ${ENV,var="TAG"}'
+    parameters:
+        - string:
+            name: TAG
+            description: Git tag/committish to deploy.
+            default: release
