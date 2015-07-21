@@ -96,13 +96,14 @@ event-store:           govuk_setenv event-store           ./run_in.sh ../event-s
 policy-publisher:      govuk_setenv policy-publisher      ./run_in.sh ../policy-publisher bundle exec rails s -p 3098
 email-alert-frontend:  govuk_setenv email-alert-frontend  ./run_in.sh ../email-alert-frontend bundle exec rails s -p 3099
 draft-content-store:   govuk_setenv draft-content-store   ./run_in.sh ../content-store bundle exec rails s -p 3100 -P tmp/pids/draft-server.pid
-authenticating-proxy:  govuk_setenv authenticating-proxy   ./run_in.sh ../authenticating-proxy bundle exec rails s -p 3107
 # backdrop's read API uses 3101
 # backdrop's write API uses 3102
 # stagecraft uses 3103
 # performanceplatform-admin uses 3104
 # datainsight-everything-recorder used to use port 3105, but is no longer running in any environment
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
+authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../authenticating-proxy bundle exec rails s -p 3107
+# mapit uses port 3108
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
