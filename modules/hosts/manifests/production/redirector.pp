@@ -4,9 +4,6 @@
 #
 # === Parameters:
 #
-# [*app_domain*]
-#   Domain to be used in vhost aliases
-#
 # [*ip_bouncer*]
 #   The IP address of the bouncer vse load-balancer
 #
@@ -14,7 +11,6 @@
 #   Hosts used to create govuk::host resources (hostfile entries).
 #
 class hosts::production::redirector (
-  $app_domain,
   $hosts = {},
   $ip_bouncer,
 ) {
