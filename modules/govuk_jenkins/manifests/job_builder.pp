@@ -57,9 +57,8 @@ class govuk_jenkins::job_builder (
     include $jobs
 
     exec { 'jenkins_jobs_update':
-      command     => 'jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
-      refreshonly => true,
-      require     => [
+      command => 'jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
+      require => [
         File['/etc/jenkins_jobs/jenkins_jobs.ini'],
         Package['jenkins-job-builder'],
       ],
