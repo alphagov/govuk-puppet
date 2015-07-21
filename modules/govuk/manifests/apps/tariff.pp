@@ -9,7 +9,7 @@ class govuk::apps::tariff(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'tariff',
-    # The tariff frontend regularly goes above 2GB, but doesn't hit 2.5GB
-    nagios_memory_warning => 2560 << 20,
+    # The tariff frontend levels off at around 2.7G memory used.
+    nagios_memory_warning => 2800000000,
   }
 }
