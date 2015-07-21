@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ $# -ne 2 ]]
+then
+  echo "Usage: check_clamav_definitions [warning] [critical]"
+  exit 1
+fi
+
+WARNING_THRESHOLD=$1
+CRITICAL_THRESHOLD=$2
+
+if [ -f "/var/lib/clamav/daily.cld" ]
+then
+  CLAM_FILE="/var/lib/clamav/daily.cld"
+elif [ -f "/var/lib/clamav/daily.cvd" ]
+then
+  CLAM_FILE="/var/lib/clamav/daily.cvd"
+else
+  echo "Neither daily.cld nor daily.cvd exist, so exiting with critical."
+  exit 2
+fi
+
+/usr/lib/nagios/plugins/check_file_age -f "${CLAM_FILE}" \
+  -w${WARNING_THRESHOLD} -c${CRITICAL_THRESHOLD}
