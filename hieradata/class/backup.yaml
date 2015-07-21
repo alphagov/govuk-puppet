@@ -21,7 +21,6 @@ govuk::node::s_backup::directories:
     priority: '002'
   backup_mongodb_backups_performance_mongo:
     directory: /var/lib/automongodbbackup/
-    host_name: performance-mongo-1
     fq_dn: performance-mongo-1.api.production
     priority: '001'
   backup_mongodb_backups_router_backend:
