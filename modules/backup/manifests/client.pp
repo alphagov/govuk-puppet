@@ -1,4 +1,14 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: backup::client
+#
+# Configures a machine so that it can push backups to the on-site backup
+# server.
+#
+# === Parameters
+#
+# [*backup_public_key*]
+#   The public SSH RSA key used by the backup user.
+#   Default: ''
+#
 class backup::client (
   $backup_public_key = '',
 ) {

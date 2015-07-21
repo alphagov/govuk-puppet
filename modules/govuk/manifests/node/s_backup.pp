@@ -38,7 +38,6 @@ class govuk::node::s_backup (
   if $backup_efg {
     backup::directory {'backup_mysql_backups_efg_mysql':
       directory => '/var/lib/automysqlbackup/',
-      host_name => 'efg-mysql-slave-1',
       fq_dn     => 'efg-mysql-slave-1.efg.production',
       priority  => '002',
     }
