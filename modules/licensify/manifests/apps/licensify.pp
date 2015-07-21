@@ -43,8 +43,8 @@ class licensify::apps::licensify (
 
   @@icinga::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
     target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
-    warning   => 0.1,
-    critical  => 0.15,
+    warning   => 0.05,
+    critical  => 0.1,
     from      => '3minutes',
     desc      => "${vhost_name} high nginx 5xx rate",
     host_name => $::fqdn,
