@@ -24,6 +24,7 @@ class govuk_jenkins (
   include govuk::python
   include govuk_jenkins::job_builder
   include govuk_jenkins::ssh_key
+  include govuk_jenkins::config
 
   $jenkins_home = '/var/lib/jenkins'
   $github_enterprise_hostname = 'github.gds'

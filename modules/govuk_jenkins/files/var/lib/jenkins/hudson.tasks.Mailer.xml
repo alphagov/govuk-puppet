@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.tasks.Mailer_-DescriptorImpl plugin="mailer@1.6">
+  <hudsonUrl>http://deploy.staging.alphagov.co.uk/</hudsonUrl>
+  <smtpAuthUsername>AKIAJN43W4WHYUWNM7HA</smtpAuthUsername>
+  <smtpAuthPassword>GGXFNjMDRaDrnHOf1YUPV412vG6QtUrS6+1GZju6MyEfT7wa+TyYpDAoMtiLFsrVBHXGwvFirJs1zAL+TJxfEw==</smtpAuthPassword>
+  <adminAddress>ben@alphagov.co.uk</adminAddress>
+  <replyToAddress>noreply@digital.cabinet-office.gov.uk</replyToAddress>
+  <smtpHost>email-smtp.us-east-1.amazonaws.com</smtpHost>
+  <useSsl>true</useSsl>
+  <charset>UTF-8</charset>
+</hudson.tasks.Mailer_-DescriptorImpl>

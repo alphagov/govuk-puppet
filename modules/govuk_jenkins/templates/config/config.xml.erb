@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
+    <string>hudson.diagnosis.TooManyJobsButNoView</string>
+    <string>OldData</string>
+    <string>jenkins.security.RekeySecretAdminMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>1.554.2</version>
+  <numExecutors>4</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy">
+    <roleMap type="globalRoles">
+      <role name="Anonymouse" pattern=".*">
+        <permissions>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>hudson.model.Item.Discover</permission>
+        </permissions>
+        <assignedSIDs>
+          <sid>anonymous</sid>
+        </assignedSIDs>
+      </role>
+      <role name="admin" pattern=".*">
+        <permissions>
+          <permission>hudson.model.Item.Read</permission>
+          <permission>hudson.model.Item.Create</permission>
+          <permission>hudson.model.Computer.Connect</permission>
+          <permission>hudson.model.Item.Workspace</permission>
+          <permission>hudson.model.Item.Delete</permission>
+          <permission>hudson.model.View.Create</permission>
+          <permission>hudson.scm.SCM.Tag</permission>
+          <permission>hudson.model.Computer.Configure</permission>
+          <permission>hudson.model.Run.Delete</permission>
+          <permission>hudson.model.Hudson.RunScripts</permission>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>hudson.model.Item.Configure</permission>
+          <permission>hudson.model.Computer.Delete</permission>
+          <permission>hudson.model.View.Configure</permission>
+          <permission>hudson.model.Computer.Create</permission>
+          <permission>hudson.model.View.Delete</permission>
+          <permission>hudson.model.Hudson.Administer</permission>
+          <permission>hudson.model.Run.Update</permission>
+          <permission>hudson.model.Computer.Disconnect</permission>
+          <permission>hudson.model.Item.Build</permission>
+        </permissions>
+        <assignedSIDs>
+          <% @admins.each do |a| -%>
+          !<sid><%= a %></sid>
+          <% end -%>
+        </assignedSIDs>
+      </role>
+      <role name="2ndline" pattern=".*">
+        <permissions>
+          <permission>hudson.model.View.Configure</permission>
+          <permission>hudson.model.Hudson.Administer</permission>
+          <permission>hudson.model.Item.Create</permission>
+          <permission>hudson.model.View.Delete</permission>
+          <permission>hudson.model.Hudson.RunScripts</permission>
+          <permission>hudson.model.Item.Workspace</permission>
+          <permission>hudson.model.View.Create</permission>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>hudson.model.Item.Cancel</permission>
+          <permission>hudson.model.Run.Update</permission>
+          <permission>hudson.model.Run.Delete</permission>
+          <permission>hudson.model.Item.Delete</permission>
+          <permission>hudson.model.Item.Read</permission>
+          <permission>hudson.scm.SCM.Tag</permission>
+          <permission>hudson.model.Item.Build</permission>
+          <permission>hudson.model.Item.Discover</permission>
+          <permission>hudson.model.Item.Configure</permission>
+          <permission>hudson.model.View.Read</permission>
+        </permissions>
+        <assignedSIDs>
+          <% @users.each do |u| -%>
+          <sid><%= u -%></sid>
+          <% end -%>
+        </assignedSIDs>
+      </role>
+      <role name="github" pattern=".*">
+        <permissions>
+          <permission>hudson.model.Item.Read</permission>
+          <permission>hudson.model.Item.Build</permission>
+        </permissions>
+        <assignedSIDs>
+          <sid>github</sid>
+        </assignedSIDs>
+      </role>
+      <role name="read_only" pattern=".*">
+        <permissions>
+          <permission>hudson.model.Hudson.Read</permission>
+          <permission>hudson.model.Item.Read</permission>
+        </permissions>
+        <assignedSIDs/>
+      </role>
+    </roleMap>
+    <roleMap type="slaveRoles"/>
+    <roleMap type="projectRoles"/>
+  </authorizationStrategy>
+  <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
+    <githubWebUri><%= @github_web_uri -%></githubWebUri>
+    <githubApiUri><%= @github_api_uri -%></githubApiUri>
+    <clientID><%= @github_client_id -%></clientID>
+    <clientSecret><%= @github_client_secret -%></clientSecret>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$PatternProjectNamingStrategy">
+    <namePattern>[A-Za-z0-9{}()_-]*</namePattern>
+    <description>Please ensure that the job name comprises only of alphanumeric characters, curly braces, parentheses, underscores and hyphens. No spaces are permitted.</description>
+    <forceExistingJobs>true</forceExistingJobs>
+  </projectNamingStrategy>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <systemMessage>&lt;h2 style=&quot;background-color: #3B66E5; color: white; padding: 0.5em; font-weight: normal;&quot;&gt;Carrenza &lt;strong&gt;PREVIEW&lt;/strong&gt;&lt;/h2&gt;</systemMessage>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@1.3">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <slaves/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>11</int>
+          <string>AWS_ACCESS_KEY_ID</string>
+          <string>AKIAJQLVXRLJKXXWELVA</string>
+          <string>AWS_SECRET_ACCESS_KEY</string>
+          <string>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</string>
+          <string>GRAPHITE_PASSWORD</string>
+          <string>nottobes</string>
+          <string>GRAPHITE_USER</string>
+          <string>betademo</string>
+          <string>ORGANISATION</string>
+          <string><%= scope.lookupvar('shell::shell_prompt_string') -%></string>
+          <string>RELEASE_APP_NOTIFICATION_BEARER_TOKEN</string>
+          <string>3caac2b2fefb4304d3026eecb3aa85467bd0ff984414b7799fa88ca87641ac91</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+</hudson>
