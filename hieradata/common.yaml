@@ -81,9 +81,6 @@ backup::offsite::jobs:
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
-govuk::apps::authenticating_proxy::signon_uri: "https://signon.%{hiera('app_domain')}"
-govuk::apps::authenticating_proxy::errbit_uri: "https://errbit.%{hiera('app_domain')}"
-
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"

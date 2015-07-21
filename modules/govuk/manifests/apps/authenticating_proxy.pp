@@ -21,32 +21,20 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
-# [*errbit_uri*]
-#   Used to set the environment variable override for the location of the
-#   errbit service.
-#   Default: undef
-#
 # [*secret_key_base*]
 #   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
 #   rails 4.x signed cookie mechanism. If unset the app will be unable to
 #   start.
 #   Default: undef
 #
-# [*signon_uri*]
-#   Used to set the environment variable override for the location of the
-#   signon service.
-#   Default: undef
-#
 class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
   $port = 3107,
   $errbit_api_key = undef,
-  $errbit_uri = undef,
   $govuk_upstream_uri = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
-  $signon_uri = undef,
 ) {
   $app_name = 'authenticating-proxy'
 
@@ -83,22 +71,6 @@ class govuk::apps::authenticating_proxy(
       app     => $app_name,
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key,
-    }
-  }
-
-  if $errbit_uri != undef {
-    govuk::app::envvar { "${title}-PLEK_SERVICE_ERRBIT_URI":
-      app     => $app_name,
-      varname => 'PLEK_SERVICE_ERRBIT_URI',
-      value   => $errbit_uri,
-    }
-  }
-
-  if $signon_uri != undef {
-    govuk::app::envvar { "${title}-PLEK_SERVICE_SIGNON_URI":
-      app     => $app_name,
-      varname => 'PLEK_SERVICE_SIGNON_URI',
-      value   => $signon_uri,
     }
   }
 
