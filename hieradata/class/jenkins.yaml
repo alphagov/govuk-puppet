@@ -21,15 +21,13 @@ govuk_jenkins::config:
     value: 8192
   HTTP_PORT:
     value: 8080
-  AJP_PORT:
-    value: -1
   PREFIX:
     value: /jenkins
   JENKINS_ARGS:
     value: >-
       --webroot=/var/cache/jenkins/war
       --httpPort=$HTTP_PORT
-      --ajp13Port=$AJP_PORT
+      --ajp13Port=-1
       --sessionTimeout=1440
 
 govuk_jenkins::plugins:
