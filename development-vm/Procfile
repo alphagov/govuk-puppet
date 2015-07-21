@@ -103,6 +103,7 @@ authenticating-proxy:  govuk_setenv authenticating-proxy   ./run_in.sh ../authen
 # performanceplatform-admin uses 3104
 # datainsight-everything-recorder used to use port 3105, but is no longer running in any environment
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
+# mapit uses port 3108
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
