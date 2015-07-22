@@ -90,7 +90,7 @@ govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%
 
 govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16 
 
-govuk::node::s_asset_base::firewall_allowed_ip_range: 10.3.0.0/16
+govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
 
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
@@ -148,7 +148,7 @@ govuk::node::s_frontend::apps:
   - govuk::apps::specialist_frontend
   - govuk::apps::static
 
-govuk::node:s_transition_postgresql_slave: 10.6.0.1/16
+govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 
 govuk::ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

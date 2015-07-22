@@ -24,9 +24,9 @@ govuk::deploy::setup::ssh_keys:
 
 govuk::node::s_api_redis::allowed_ip_range: '10.2.4.0/24'
 
-govuk::node::s_asset_base::firewall_allowed_ip_range: '10.2.3.0/24'
+govuk::node::s_asset_base::firewall_allow_ip_range: '10.2.3.0/24'
 
-govuk::node:s_transition_postgresql_slave: '10.2.5.0/24'
+govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
 hosts::production::management::apt_host_ip: '10.2.0.75'
 
