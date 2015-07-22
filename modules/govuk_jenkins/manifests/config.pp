@@ -41,7 +41,7 @@ class govuk_jenkins::config (
   $github_client_secret,
   $users = [],
   $admins = [],
-  $manage_config = true,
+  $manage_config = false,
   ) {
 
       if $manage_config {
