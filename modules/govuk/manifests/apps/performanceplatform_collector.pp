@@ -9,7 +9,7 @@
 # [*enabled*]
 #   Should the app exist?
 #
-class govuk::apps::performanceplatform_collectors (
+class govuk::apps::performanceplatform_collector (
   $enabled = false,
 ) {
 
@@ -20,8 +20,8 @@ class govuk::apps::performanceplatform_collectors (
 
     # vhost_full is a confusingly-named parameter. It's used to create
     # the /data/vhost/{$appname} directory at deploy time.
-    govuk::app::package { 'performanceplatform-collectors':
-      vhost_full => "performanceplatform-collectors.${app_domain}",
+    govuk::app::package { 'performanceplatform-collector':
+      vhost_full => "performanceplatform-collector.${app_domain}",
     }
   }
 }
