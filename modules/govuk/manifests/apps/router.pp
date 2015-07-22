@@ -20,18 +20,24 @@ class govuk::apps::router (
   }
 
   govuk::app::envvar {
-    'ROUTER_PUBADDR':
-      value   => "localhost:${port}";
-    'ROUTER_APIADDR':
-      value   => ":${api_port}";
-    'ROUTER_MONGO_DB':
-      value   => $mongodb_name;
-    'ROUTER_MONGO_URL':
-      value   => join($mongodb_nodes, ',');
-    'ROUTER_ERROR_LOG':
-      value   => $error_log;
-    'ROUTER_BACKEND_HEADER_TIMEOUT':
-      value   => '20s';
+    "${title}-ROUTER_PUBADDR":
+      value   => "localhost:${port}",
+      varname => 'ROUTER_PUBADDR';
+    "${title}-ROUTER_APIADDR":
+      value   => ":${api_port}",
+      varname => 'ROUTER_APIADDR';
+    "${title}-ROUTER_MONGO_DB":
+      value   => $mongodb_name,
+      varname => 'ROUTER_MONGO_DB';
+    "${title}-ROUTER_MONGO_URL":
+      value   => join($mongodb_nodes, ','),
+      varname => 'ROUTER_MONGO_URL';
+    "${title}-ROUTER_ERROR_LOG":
+      value   => $error_log,
+      varname => 'ROUTER_ERROR_LOG';
+    "${title}-ROUTER_BACKEND_HEADER_TIMEOUT":
+      value   => '20s',
+      varname => 'ROUTER_BACKEND_HEADER_TIMEOUT';
   }
 
   govuk::app { 'router':
