@@ -145,7 +145,6 @@ govuk::node::s_frontend::apps:
   - govuk::apps::manuals_frontend
   - govuk::apps::specialist_frontend
   - govuk::apps::static
-  - govuk::apps::transactions_explorer
 
 govuk::node:s_transition_postgresql_slave: 10.6.0.1/16
 

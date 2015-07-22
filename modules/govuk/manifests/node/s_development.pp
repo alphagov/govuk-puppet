@@ -102,7 +102,6 @@ class govuk::node::s_development {
   include govuk::apps::support_api
   include govuk::apps::tariff_admin
   include govuk::apps::tariff_api
-  include govuk::apps::transactions_explorer
   include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
   include govuk::apps::url_arbiter
