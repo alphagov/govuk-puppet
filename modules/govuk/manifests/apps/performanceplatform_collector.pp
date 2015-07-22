@@ -1,6 +1,6 @@
-# == Class: govuk::apps::performanceplatform_collectors
+# == Class: govuk::apps::performanceplatform_collector
 #
-# Performance Platform collectors is an application which doesn't run
+# Performance Platform collector is an application which doesn't run
 # as a service. It's triggered by cron periodically to push data to
 # Backdrop.
 #
