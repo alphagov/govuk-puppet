@@ -11,3 +11,6 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-3.router'
 
 nginx::package::nginx_package: 'nginx-extras'
+
+router::gor::staging_host: 'www-origin-staging.production.alphagov.co.uk'
+router::gor::staging_ip: '37.26.91.14'

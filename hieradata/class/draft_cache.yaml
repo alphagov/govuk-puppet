@@ -25,3 +25,6 @@ govuk::node::s_draft_cache::router_mongodb_name: "%{hiera('govuk::apps::router_a
 govuk::node::s_cache::enable_authenticating_proxy: true
 
 nginx::package::nginx_package: 'nginx-extras'
+
+router::gor::staging_host: 'draft-origin-staging.production.alphagov.co.uk'
+router::gor::staging_ip: '37.26.91.9'
