@@ -128,7 +128,6 @@ govuk::ppa::path: 'preview'
 
 hosts::production::carrenza_vcloud: true
 hosts::production::ip_bouncer: '10.133.0.40'
-hosts::production::ip_redirector: '10.133.0.30'
 hosts::production::suffixed_hosts: true
 
 licensify::apps::licensing_web_forms::enabled: true
