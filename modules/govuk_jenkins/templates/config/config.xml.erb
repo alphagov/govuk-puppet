@@ -111,7 +111,7 @@
   </projectNamingStrategy>
   <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
-  <systemMessage>&lt;h2 style=&quot;background-color: #3B66E5; color: white; padding: 0.5em; font-weight: normal;&quot;&gt;Carrenza &lt;strong&gt;PREVIEW&lt;/strong&gt;&lt;/h2&gt;</systemMessage>
+  <systemMessage>&lt;h2 style=&quot;background-color: <%= @banner_colour_background -%>; color: <%= @banner_colour_text -%>; padding: 0.5em;&quot;&gt;<%= @banner_string -%>&lt;/h2&gt;</systemMessage>
   <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@1.3">
     <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
   </markupFormatter>

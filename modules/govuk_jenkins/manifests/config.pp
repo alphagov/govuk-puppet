@@ -11,6 +11,15 @@
 #   The full domain for this environment. This is specifically used
 #   within Location Configuration template.
 #
+# [*banner_colour_background*]
+#   The background colour of the banner to display in the Jenkins web interface.
+#
+# [*banner_colour_text*]
+#   The colour of the banner text to display in the Jenkins web interface.
+#
+# [*banner_string*]
+#   The string to be displayed inside the banner in the Jenkins web interface.
+#
 # [*github_web_uri*]
 #   Set the Github Web URI as required by the Github Oauth Plugin.
 #
@@ -35,6 +44,9 @@
 #
 class govuk_jenkins::config (
   $app_domain = hiera('app_domain'),
+  $banner_colour_background = 'black',
+  $banner_colour_text = 'white',
+  $banner_string = 'Jenkins',
   $github_web_uri = 'https://github.gds',
   $github_api_uri = 'https://github.gds/api/v3',
   $github_client_id,

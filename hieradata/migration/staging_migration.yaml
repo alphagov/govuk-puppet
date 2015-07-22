@@ -28,6 +28,10 @@ hosts::production::management::apt_host_ip: '10.2.0.75'
 
 website_root: 'https://www-origin.staging.publishing.service.gov.uk'
 
+govuk_jenkins::config::banner_colour_background: '#ffbf47'
+govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_string: 'Carrenza STAGING'
+
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
