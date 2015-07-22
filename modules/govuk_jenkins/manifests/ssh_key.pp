@@ -5,11 +5,6 @@ class govuk_jenkins::ssh_key {
   $private_key = "${ssh_dir}/id_rsa"
   $public_key = "${ssh_dir}/id_rsa.pub"
 
-  file { $public_key:
-    checksum => md5,
-    require  => [ User['jenkins'], File[$ssh_dir] ],
-  }
-
   file { $ssh_dir:
     ensure => directory,
     mode   => '0600',
