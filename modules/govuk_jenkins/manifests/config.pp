@@ -50,12 +50,11 @@ class govuk_jenkins::config (
         validate_array($admins)
 
         file { '/var/lib/jenkins':
-          ensure  => directory,
-          recurse => true,
-          source  => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
-          owner   => 'jenkins',
-          group   => 'jenkins',
-          notify  => Service['jenkins'],
+          ensure => directory,
+          source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
+          owner  => 'jenkins',
+          group  => 'jenkins',
+          notify => Service['jenkins'],
         }
 
         file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
