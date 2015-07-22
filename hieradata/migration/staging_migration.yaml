@@ -18,6 +18,9 @@ govuk_postgresql::db::backend_ip_range: '10.2.3.0/24'
 
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-migration@digital.cabinet-office.gov.uk'
 
+govuk::deploy::setup::ssh_keys:
+  jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7aWtyeQTBcNav3RwyFDacYaO8Ab9wX5rqXKqgd3JlWzr95i7IlCsXSovboqHw3h1J6FrCDxafbhLWJ0lFHlNdGLgX9AysZgMLJCfaJ88RTbWnCyXvTcJBHKHhRkdCrfdXGobeiIOFTOCR2zm9E7EiUXLivgBDfWulo6on4wiyQcGzsMret8SbqUYDi+BBvOGUqun01L/dMIa5DIrPSe9mJ96jXk41x8PI96jZa0XlAkZuiUP2RnZDFBDYIOiN1MaPdcgtBp81Tjo9m41GdfTztZ8hJ+9HicBjCZFH14/zK8Hk9UNZafG6mGtTvn45InF3w2z5qtXamV7s9b/V3xr9'
+
 govuk::node::s_api_redis::allowed_ip_range: '10.2.4.0/24'
 
 govuk::node::s_asset_base::firewall_allowed_ip_range: '10.2.3.0/24'
