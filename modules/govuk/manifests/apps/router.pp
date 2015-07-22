@@ -4,6 +4,7 @@ class govuk::apps::router (
   $api_port = 3055,
   $api_healthcheck = '/healthcheck',
   $error_log = '/var/log/router/errors.json.log',
+  $mongodb_name,
   $mongodb_nodes,
 
   # These are only overridden in the dev VM to allow www.dev.gov.uk to go through the router.
@@ -23,6 +24,8 @@ class govuk::apps::router (
       value   => "localhost:${port}";
     'ROUTER_APIADDR':
       value   => ":${api_port}";
+    'ROUTER_MONGO_DB':
+      value   => $mongodb_name;
     'ROUTER_MONGO_URL':
       value   => join($mongodb_nodes, ',');
     'ROUTER_ERROR_LOG':

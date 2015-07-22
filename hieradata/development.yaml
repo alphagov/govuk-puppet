@@ -59,6 +59,7 @@ govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.de
 govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
+govuk::apps::router::mongodb_name: "%{hiera('govuk::apps::router_api::mongodb_name')}"
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::router::vhost_aliases: ["www"]
 govuk::apps::router_api::mongodb_name: 'router'
