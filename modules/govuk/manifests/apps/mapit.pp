@@ -30,5 +30,23 @@ class govuk::apps::mapit (
       password   => $db_password,
       extensions => ['plpgsql', 'postgis'],
     }
+
+    package {
+      [
+        # These three packages are recommended when installing geospatial
+        # support for Django:
+        # https://docs.djangoproject.com/en/1.8/ref/contrib/gis/install/geolibs/
+        'binutils',
+        'libproj-dev',
+        'gdal-bin',
+        # This is also needed to be able to install python GDAL packages:
+        'libgdal-dev',
+        # MapIt uses this:
+        'memcached',
+      ]:
+      ensure => present,
+    }
+
+    include collectd::plugin::memcached
   }
 }
