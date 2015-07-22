@@ -143,7 +143,6 @@ govuk_crawler::ssh_keys:
 
 hosts::production::apt_mirror_internal: true
 hosts::production::ip_bouncer: '37.26.90.219'
-hosts::production::ip_redirector: '37.26.90.222'
 hosts::production::releaseapp_host_org: true
 hosts::production::suffixed_hosts: true
 

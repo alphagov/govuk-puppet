@@ -108,7 +108,6 @@ govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 
 hosts::production::ip_bouncer: '37.26.91.5'
-hosts::production::ip_redirector: '37.26.91.9'
 hosts::production::suffixed_hosts: true
 
 icinga::nginx::enable_basic_auth: false
