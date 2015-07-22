@@ -82,6 +82,25 @@ describe 'icinga::check::graphite', :type => :define do
     end
   end
 
+  context 'when passing inverse crit/warn are passed' do
+    let(:title) { 'count_inverse_deer' }
+     let(:params) {{
+      :target    => 'sumSeries(zoo.*.deer)',
+      :desc      => 'number of meals in the zoo',
+      :warning   => '@30',
+      :critical  => '@40',
+      :host_name => 'warden.zoo.tld',
+      :from      => '23minutes',
+      :args      => '--droplast 1',
+    }}
+
+    it 'should modify check_command' do
+      should contain_icinga__check('count_inverse_deer').with(
+        :check_command => 'check_graphite_metric_args!sumSeries(zoo.*.deer)!@30!@40!-F 23minutes --droplast 1',
+      )
+    end
+  end
+
   context 'when ensure is passed' do
     context 'ensure => absent' do
       let(:title) { 'count_nothing' }
