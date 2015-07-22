@@ -1,6 +1,6 @@
-# == Class: govuk::apps::performanceplatform_collectors
+# == Class: govuk::apps::performanceplatform_collector
 #
-# Performance Platform collectors is an application which doesn't run
+# Performance Platform collector is an application which doesn't run
 # as a service. It's triggered by cron periodically to push data to
 # Backdrop.
 #
@@ -17,6 +17,11 @@ class govuk::apps::performanceplatform_collector (
     include govuk::deploy
 
     $app_domain = hiera('app_domain')
+
+    # FIXME: remove once deployed to production
+    govuk::app::package { 'performanceplatform-collectors':
+      ensure => absent,
+    }
 
     # vhost_full is a confusingly-named parameter. It's used to create
     # the /data/vhost/{$appname} directory at deploy time.
