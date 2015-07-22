@@ -11,6 +11,10 @@ class govuk::apps::stagecraft (
   $enabled = false,
 ) {
   if $enabled {
+    package { 'libffi-dev':
+      ensure => present,
+    }
+
     govuk::app { 'stagecraft':
       app_type           => 'procfile',
       port               => 3103,
