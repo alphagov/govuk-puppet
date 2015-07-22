@@ -10,6 +10,7 @@ describe 'govuk::node::s_cache', :type => :class do
           "ip" => "10.1.0.2",
         }
       },
+      "govuk::apps::router::mongodb_name" => ['router'],
       "govuk::apps::router::mongodb_nodes" => ['localhost'],
       "govuk::apps::authenticating_proxy::mongodb_nodes" => ['localhost'],
     }
