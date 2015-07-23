@@ -77,7 +77,6 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '127.0.0.1'
 
 govuk_jenkins::job_builder::manage_jobs: true
-govuk_jenkins::job_builder::jenkins_api_token: deploy_user_jenkins_api_token
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::staging::data_sync_complete
   - govuk_jenkins::job::deploy_router_data
