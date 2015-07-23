@@ -18,7 +18,7 @@
       - smokey_Smokey_Deploy
     builders:
         - shell: |
-            export DEPLOY_TO=monitoring-1.management.<%= @environment -%>
+            export DEPLOY_TO=monitoring-1
             sh -x deploy.sh
     triggers:
         - timed: 'H 9 * * *'
