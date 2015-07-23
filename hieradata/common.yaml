@@ -3,6 +3,8 @@ HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
 
+apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
 apt::purge_sources_list: true
@@ -148,6 +150,8 @@ govuk::node::s_frontend::apps:
 
 govuk::node:s_transition_postgresql_slave: 10.6.0.1/16
 
+govuk::ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
 govuk_cdnlogs::service_port_map:
   govuk: 6514
@@ -158,8 +162,11 @@ govuk_crawler::amqp_host: 'rabbitmq-1.backend'
 govuk_crawler::govuk_gemfury_source_url: "%{hiera('govuk_gemfury_source_url')}"
 govuk_crawler::site_root: 'https://www.gov.uk'
 
+govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_gemfury_source_url: 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
+govuk_jenkins::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::github_enterprise_cert: |
     -----BEGIN CERTIFICATE-----
     MIIEdDCCA1ygAwIBAgIJAKt4YiHj0+tVMA0GCSqGSIb3DQEBBQUAMIGCMQswCQYD
@@ -192,6 +199,8 @@ govuk_mysql::server::expire_log_days: 3
 
 govuk_postgresql::server::configure_env_sync_user: true
 
+govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_sudo::sudo_conf:
   deploy_init_ctl:
     content: 'deploy ALL=NOPASSWD:/sbin/initctl'
@@ -206,6 +215,7 @@ govuk_unattended_reboot::enabled: true
 
 grub2::recordfail_timeout: 5
 
+hosts::production::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 hosts::production::ip_api_lb: '10.7.1.2'
 hosts::production::ip_backend_lb: '10.3.1.2'
 hosts::production::ip_draft_api_lb: '10.7.2.2'
@@ -652,6 +662,7 @@ hosts::production::router::hosts:
 
 internal_tld: 'production'
 
+mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
 
 monitoring::checks::smokey::features:

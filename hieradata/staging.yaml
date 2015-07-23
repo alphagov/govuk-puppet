@@ -1,7 +1,7 @@
 ---
 app_domain: 'production.alphagov.co.uk'
 
-asset_root: 'https://assets-origin.production.alphagov.co.uk'
+asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
 base::supported_kernel::enabled: true
 
@@ -127,6 +127,9 @@ monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
 
+# FIXME: This is the only environment in which `monitoring_domain_suffix` is not set to `app_domain`.
+#        Once we've moved to a `service.gov.uk` domain and start setting staging's `app_domain` to be
+#        staging, remove `monitoring_domain_suffix` and replace it with `app_domain`.
 monitoring_domain_suffix: 'staging.alphagov.co.uk'
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'staging.performance.service.gov.uk'
@@ -215,4 +218,4 @@ users::usernames:
   - tombooth
   - tommypalmer
 
-website_root: 'https://www-origin.production.alphagov.co.uk'
+website_root: "https://www-origin.%{hiera('app_domain')}"

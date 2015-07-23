@@ -3,17 +3,20 @@ require_relative '../../../../spec_helper'
 describe 'govuk::ppa', :type => :class do
   describe '#path' do
     context 'production (default)' do
-      let(:params) {{ }}
+      let(:params) {{
+        :apt_mirror_hostname => 'apt.example.com',
+      }}
 
-      it { should contain_apt__source('govuk-ppa').with_location('http://apt.production.alphagov.co.uk/govuk/ppa/production') }
+      it { should contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/production') }
     end
 
     context 'preview' do
       let(:params) {{
+        :apt_mirror_hostname => 'apt.example.com',
         :path => 'preview',
       }}
 
-      it { should contain_apt__source('govuk-ppa').with_location('http://apt.production.alphagov.co.uk/govuk/ppa/preview') }
+      it { should contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/preview') }
     end
   end
 

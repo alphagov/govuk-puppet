@@ -10,14 +10,18 @@
 #
 # === Parameters
 #
+# [*apt_mirror_hostname*]
+#   Hostname to use for the APT mirror.
+#
 # [*repo_version*]
 #   The Version series to add the repo for (0.90, 1.4 etc...)
 #
 class govuk_elasticsearch::repo(
+  $apt_mirror_hostname = undef,
   $repo_version,
 ) {
   apt::source { "elasticsearch-${repo_version}":
-    location     => "http://apt.production.alphagov.co.uk/elasticsearch-${repo_version}",
+    location     => "http://${apt_mirror_hostname}/elasticsearch-${repo_version}",
     release      => 'stable',
     architecture => $::architecture,
     key          => '37E3ACBB',

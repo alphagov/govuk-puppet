@@ -40,6 +40,7 @@
 #   Default: false
 #
 class hosts::production (
+  $apt_mirror_hostname    = undef,
   $apt_mirror_internal    = false,
   $carrenza_vcloud        = false,
   $ip_api_lb              = '127.0.0.1',
@@ -121,7 +122,7 @@ class hosts::production (
 
   #management vdc machines
   class { 'hosts::production::management':
-    app_domain          => $app_domain,
+    apt_mirror_hostname => $apt_mirror_hostname,
     apt_mirror_internal => $apt_mirror_internal,
   }
 

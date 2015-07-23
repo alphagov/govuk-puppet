@@ -169,7 +169,7 @@ monitoring::contacts::slack_channel: '#webops-monitoring'
 monitoring::contacts::slack_username: 'Production Icinga'
 monitoring::contacts::slack_nagios_url: 'https://nagios.production.alphagov.co.uk/cgi-bin/icinga/status.cgi'
 
-monitoring_domain_suffix: 'production.alphagov.co.uk'
+monitoring_domain_suffix: "%{hiera('app_domain')}"
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'production.performance.service.gov.uk'
 performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'production.performance.service.gov.uk'

@@ -4,8 +4,8 @@
 #
 # === Parameters:
 #
-# [*app_domain*]
-#   Domain to be used in vhost aliases
+# [*apt_mirror_hostname*]
+#   Hostname to use for the APT mirror.
 #
 # [*apt_mirror_internal*]
 #   Point `apt.production.alphagov.co.uk` to `apt-1` within this
@@ -16,15 +16,20 @@
 #   Hosts used to create govuk::host resources (hostfile entries).
 #
 class hosts::production::management (
-  $app_domain,
+  $apt_mirror_hostname = undef,
   $apt_mirror_internal = false,
   $apt_host_ip = '10.0.0.75',
   $hosts = {},
 ) {
 
   validate_bool($apt_mirror_internal)
+
+  if ($apt_mirror_internal == true) and ($apt_mirror_hostname == undef) {
+    fail('Host alias for APT mirror was requested but not defined')
+  }
+
   $apt_aliases = $apt_mirror_internal ? {
-    true    => ['apt.production.alphagov.co.uk'],
+    true    => [$apt_mirror_hostname],
     default => undef,
   }
 

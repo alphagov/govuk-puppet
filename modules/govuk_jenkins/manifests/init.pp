@@ -5,6 +5,9 @@
 #
 # === Parameters:
 #
+# [*apt_mirror_hostname*]
+#   Hostname to use for the APT mirror.
+#
 # [*github_enterprise_cert*]
 #   PEM certificate for GitHub Enterprise.
 #
@@ -15,6 +18,7 @@
 #   A hash of Jenkins plugins that should be installed
 #
 class govuk_jenkins (
+  $apt_mirror_hostname,
   $github_enterprise_cert,
   $config = {},
   $plugins = {},
@@ -92,7 +96,7 @@ class govuk_jenkins (
   }
 
   apt::source { 'jenkins':
-    location     => 'http://apt.production.alphagov.co.uk/jenkins',
+    location     => "http://${apt_mirror_hostname}/jenkins",
     release      => 'binary',
     architecture => $::architecture,
     key          => '37E3ACBB',
