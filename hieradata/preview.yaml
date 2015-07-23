@@ -25,7 +25,6 @@ govuk::apps::finder_frontend::enabled: true
 govuk::apps::govuk_crawler_worker::airbrake_env: 'preview'
 govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::info_frontend::enabled: true
-govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
