@@ -4,19 +4,27 @@
 #
 # === Parameters
 #
+# [*staging_host*]
+#   Hostname to replay traffic against
+#
+# [*staging_ip*]
+#   IP address for `staging_host` hostname
+#
 # [*enable_staging*]
 #   Boolean to determine if traffic will be replayed against Staging.
 #
 class router::gor (
+  $staging_host,
+  $staging_ip,
   $enable_staging = false,
 ) {
-  # Hardcoded, rather than hiera, because I don't want to create the
-  # illusion that you can modify these on the fly. You will need to tidy
-  # up old `host{}` records.
-  $staging_ip     = '37.26.91.14'
-  $staging_host   = 'www-origin-staging.production.alphagov.co.uk'
-
   validate_bool($enable_staging)
+  validate_string($staging_host)
+  validate_string($staging_ip)
+
+  if $enable_staging and !is_ip_address($staging_ip) {
+    fail("Invalid IP address: ${staging_ip}")
+  }
 
   if $enable_staging {
     $gor_targets        = ["https://${staging_host}"]

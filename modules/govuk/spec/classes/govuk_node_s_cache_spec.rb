@@ -13,6 +13,8 @@ describe 'govuk::node::s_cache', :type => :class do
       "govuk::apps::router::mongodb_name" => ['router'],
       "govuk::apps::router::mongodb_nodes" => ['localhost'],
       "govuk::apps::authenticating_proxy::mongodb_nodes" => ['localhost'],
+      "router::gor::staging_host" => 'replay-target',
+      "router::gor::staging_ip" => '127.0.0.1',
     }
   }
   let(:facts) { { :memtotalmb => 3953 } }
