@@ -1,0 +1,46 @@
+---
+- scm:
+    name: cdn-configs_Deploy_CDN
+    scm:
+        - git:
+            url: git@github.gds:gds/cdn-configs
+            branches:
+              - master
+
+- job:
+    name: Deploy_CDN
+    display-name: Deploy_CDN
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.gds/gds/cdn-configs/
+    scm:
+      - cdn-configs_Deploy_CDN
+    builders:
+        - shell: |
+            cd fastly
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec ./deploy_vcl ${vhost} <%= @environment %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '#${BUILD_NUMBER} ${ENV,var="vhost"}'
+    parameters:
+        - choice:
+            name: vhost
+            choices:
+                - PLEASE CHOOSE ONE
+                - www
+                - assets
+                - apt
+                - tldredirect
+                - performanceplatform
+                - performanceplatform_admin
+                - performanceplatform_stagecraft
+        - password:
+            name: FASTLY_PASS
+            default: false
+        - string:
+            name: FASTLY_USER
+            default: false

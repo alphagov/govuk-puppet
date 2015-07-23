@@ -1,0 +1,42 @@
+---
+- scm:
+    name: govuk-provisioning_Launch_VMs
+    scm:
+        - git:
+            url: git@github.gds:gds/govuk-provisioning.git
+            branches:
+              - master
+- job:
+    name: Launch_VMs
+    display-name: Launch_VMs
+    project-type: freestyle
+    description: "Job to launch VMs in <%= @environment -%>.\r\nIf you are running this to bring
+      up a new machine you will need to be signing certs on the puppetmaster.\r\nA oneliner
+      to do this: while true; do sudo puppet cert sign --all; sleep 10; done"
+    properties:
+        - github:
+            url: https://github.gds/gds/alphagov-deployment/
+        - inject:
+            properties-content: |
+              VCLOUD_ORG=<%= @vcloud_org %>
+              VCLOUD_ENV=<%= @vcloud_env %>
+              VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
+              VCLOUD_HOST=<%= @vcloud_host %>
+    scm:
+      - govuk-provisioning_Launch_VMs
+    builders:
+        - shell: |
+            ./vcloud-launcher/jenkins.sh
+    parameters:
+        - string:
+            name: USERNAME
+            description: your vcloud username. probably in the form of 12.3.45a6b7
+            default: false
+        - string:
+            name: CONFIG_GLOB
+            description: glob for config files.
+            default: "*.yaml"
+        - password:
+            name: VCLOUD_PASSWORD
+            description: your vcloud password
+            default: false

@@ -5,6 +5,12 @@
 #
 # === Parameters:
 #
+# [*app_domain*]
+#   The domain that is set across the platform.
+#
+# [*environment*]
+#   Specify the environment ({production,staging,preview}). Required by some jobs.
+#
 # [*jenkins_user*]
 #   A username of a user on Jenkins who has permission to create and modify jobs
 #
@@ -21,6 +27,8 @@
 #   An Array of jobs which creates `govuk_jenkins::job` resources
 #
 class govuk_jenkins::job_builder (
+  $app_domain = hiera('app_domain'),
+  $environment = 'development',
   $jenkins_user = 'deploy',
   $jenkins_api_token = '',
   $jenkins_url = 'http://localhost:8080/',

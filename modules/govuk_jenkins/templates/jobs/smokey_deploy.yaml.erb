@@ -1,0 +1,24 @@
+---
+- scm:
+    name: smokey_Smokey_Deploy
+    scm:
+        - git:
+            url: git@github.com:alphagov/smokey.git
+            branches:
+              - release
+
+- job:
+    name: Smokey_Deploy
+    display-name: Smokey_Deploy
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.com/alphagov/smokey/
+    scm:
+      - smokey_Smokey_Deploy
+    builders:
+        - shell: |
+            export DEPLOY_TO=monitoring-1.management.<%= @environment -%>
+            sh -x deploy.sh
+    triggers:
+        - timed: 'H 9 * * *'
