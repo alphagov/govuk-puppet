@@ -19,22 +19,23 @@
       - alphagov-deployment_Deploy_App
     builders:
         - shell: |
-           export FROM_JENKINS=true
-           export DEPLOY_TO=<%= @environment -%>
-           export DEPLOY_TASK="$DEPLOY_TASK"
-           export TAG="$TAG"
-           export ORGANISATION="<%= @environment -%>"
-           export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
-           mkdir -p "$WORKSPACE/$TARGET_APPLICATION/"
-           cd "$WORKSPACE/$TARGET_APPLICATION/"
-           logger -p INFO -t jenkins "DEPLOYMENT: ${JOB_NAME} ${BUILD_NUMBER} ${TARGET_APPLICATION} ${TAG} (${BUILD_URL})"
-           if [ -e "deploy.sh" ]; then
-             echo "---> Found deploy.sh, running 'sh -e deploy.sh'" >&2
-             exec sh -e deploy.sh
-           else
-             echo "---> No deploy.sh found, running 'bundle exec cap \"${DEPLOY_TASK}\"'" >&2
-             exec bundle exec cap "$DEPLOY_TASK"
-           fi
+            ./jenkins.sh
+            export FROM_JENKINS=true
+            export DEPLOY_TO=<%= @environment -%>
+            export DEPLOY_TASK="$DEPLOY_TASK"
+            export TAG="$TAG"
+            export ORGANISATION="<%= @environment -%>"
+            export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
+            mkdir -p "$WORKSPACE/$TARGET_APPLICATION/"
+            cd "$WORKSPACE/$TARGET_APPLICATION/"
+            logger -p INFO -t jenkins "DEPLOYMENT: ${JOB_NAME} ${BUILD_NUMBER} ${TARGET_APPLICATION} ${TAG} (${BUILD_URL})"
+            if [ -e "deploy.sh" ]; then
+              echo "---> Found deploy.sh, running 'sh -e deploy.sh'" >&2
+              exec sh -e deploy.sh
+            else
+              echo "---> No deploy.sh found, running 'bundle exec cap \"${DEPLOY_TASK}\"'" >&2
+              exec bundle exec cap "$DEPLOY_TASK"
+            fi
     publishers:
         - trigger:
             project: Smokey
