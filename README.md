@@ -1,13 +1,13 @@
-# Puppet manifests
+# GOV.UK Puppet
 
-This repository contains the puppet modules and manifests for GOV.UK related projects.
+This repository contains the puppet modules and manifests for GOV.UK.
 
 ## Getting started
 
 In order to run/test the Puppet manifests you will need Ruby 1.9.x and
 Bundler.
 
-Dependencies are managed with [Bundler](http://gembundler.com/) and
+Dependencies are managed with [Bundler](http://bundler.io/) and
 [librarian-puppet](http://librarian-puppet.com/), but hopefully this should be
 transparent unless you need to update the dependencies yourself.
 
@@ -81,8 +81,7 @@ Assuming that your dependencies are installed, run all the tests:
 
 The module tests are located in `modules/<module>/spec`. See the [RSpec
 Puppet](https://github.com/rodjek/rspec-puppet) documentation for more
-details. The specs are run in parallel, so PLEASE SPLIT YOUR TESTS INTO ONE
-TEST PER FILE.
+details. The specs are run in parallel by default.
 
 [Puppet-lint][pl] is a tool that checks various syntax and style rules common
 to well written Puppet code. It can be run with:
