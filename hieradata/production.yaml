@@ -195,9 +195,7 @@ ssh::config::allow_users:
   - 'danielroseman'
   - 'davidsingleton'
   - 'dcarley'
-  - 'deploy@10.0.0.3' # deploy user from Jenkins within this environment
-  - 'deploy@10.0.0.100' # FIXME - remove after pp migration complete deploy user from jumpbox within this environment
-  - 'deploy@37.26.93.163' # deploy user from Performance Platform Production for data sync
+  - 'deploy'
   - 'digitalassurancetester'
   - 'eddsowden'
   - 'elliot'
