@@ -2,6 +2,7 @@
 #
 class govuk::node::s_mapit inherits govuk::node::s_base {
 
+  include govuk::apps::mapit
   include nginx
 
   Govuk::Mount['/var/lib/postgresql']
@@ -10,4 +11,9 @@ class govuk::node::s_mapit inherits govuk::node::s_base {
 
   class { 'postgresql::server::postgis': }
 
+  include collectd::plugin::memcached
+  class { 'memcached':
+    max_memory => '12%',
+    listen_ip  => '127.0.0.1',
+  }
 }
