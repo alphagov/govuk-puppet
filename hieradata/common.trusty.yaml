@@ -1,3 +1,6 @@
+duplicity::packages::version: '0.6.23-1ubuntu4.1'
+
 puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
+
 resolvconf::options:
    - 'single-request-reopen'
