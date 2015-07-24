@@ -13,5 +13,6 @@ class monitoring {
   # Monitoring server only.
   include monitoring::contacts
   include monitoring::checks
+  include monitoring::pagerduty_drill
 
 }
