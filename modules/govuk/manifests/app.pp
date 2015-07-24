@@ -225,6 +225,11 @@ define govuk::app (
   # depend on NFS shares for functionality. They should not start until the mounted
   # filesystem has been connected. The default for this is false.
   $depends_on_nfs = false,
+
+  #
+  # read_timeout: Configure the amount of time the nginx proxy vhost will wait for the
+  # backing app before it sends the client a 504. It defaults to 15 seconds.
+  $read_timeout = 15,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -282,6 +287,7 @@ define govuk::app (
     asset_pipeline            => $asset_pipeline,
     asset_pipeline_prefix     => $asset_pipeline_prefix,
     depends_on_nfs            => $depends_on_nfs,
+    read_timeout              => $read_timeout,
   }
 
   govuk::app::service { $title:

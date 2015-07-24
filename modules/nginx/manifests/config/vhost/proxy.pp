@@ -14,10 +14,14 @@
 # [*ssl_certtype*]
 #   Type of certificate from the predefined list in `nginx::config::ssl`.
 #   Default: 'wildcard_alphagov'
-
-# [*single_page_app]
+#
+# [*single_page_app*]
 #   Direct all requests that are not static files to the file specified by
 #   the parameter
+#
+# [*read_timeout*]
+#   Configure the amount of time the proxy vhost will wait before returning
+#   a 504 to the client
 #
 # TODO: More docs!
 #
@@ -41,6 +45,7 @@ define nginx::config::vhost::proxy(
   $hidden_paths = [],
   $static_app = false,
   $single_page_app = false,
+  $read_timeout = 15,
   $ensure = 'present',
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
