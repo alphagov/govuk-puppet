@@ -21,6 +21,7 @@ class govuk::apps::backdrop_write (
       vhost_ssl_only     => true,
       health_check_path  => '/_status',
       nginx_extra_config => 'client_max_body_size 50m;',
+      read_timeout       => 60,
     }
 
     govuk::procfile::worker { 'backdrop-transformer':

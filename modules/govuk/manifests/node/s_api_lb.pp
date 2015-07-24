@@ -16,11 +16,19 @@ class govuk::node::s_api_lb (
   loadbalancer::balance {
     [
       'backdrop-read',
-      'backdrop-write',
       'metadata-api',
       'stagecraft',
     ]:
       servers       => $api_servers,
+      internal_only => true;
+  }
+
+  loadbalancer::balance {
+    [
+      'backdrop-write',
+    ]:
+      servers       => $api_servers,
+      read_timeout  => 60,
       internal_only => true;
   }
 
