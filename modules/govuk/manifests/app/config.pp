@@ -27,6 +27,7 @@ define govuk::app::config (
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
   $depends_on_nfs = false,
+  $read_timeout = 15,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -162,6 +163,7 @@ define govuk::app::config (
       asset_pipeline         => $asset_pipeline,
       asset_pipeline_prefix  => $asset_pipeline_prefix,
       hidden_paths           => $hidden_paths,
+      read_timeout           => $read_timeout,
     }
   }
   $title_underscore = regsubst($title, '\.', '_', 'G')

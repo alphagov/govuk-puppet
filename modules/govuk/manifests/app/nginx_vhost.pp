@@ -16,6 +16,7 @@ define govuk::app::nginx_vhost (
   $hidden_paths = undef,
   $static_app = false,
   $single_page_app = false,
+  $read_timeout = 15,
   $ensure = 'present',
 ) {
 
@@ -48,5 +49,6 @@ define govuk::app::nginx_vhost (
     hidden_paths     => $hidden_paths,
     static_app       => $static_app,
     single_page_app  => $single_page_app,
+    read_timeout     => $read_timeout,
   }
 }

@@ -37,6 +37,18 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'with @read_timeout set' do
+    let(:params) {{
+      :to           => ['a.internal'],
+      :read_timeout => '60',
+    }}
+
+    it 'should set the proxies read_timeout to value' do
+      should contain_nginx__config__site('rabbit')
+        .with_content(/proxy_read_timeout 60;/)
+    end
+  end
+
   context 'with to_ssl true' do
     let(:params) {{
       :to     => ['a.internal', 'b.internal', 'c.internal'],
