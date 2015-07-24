@@ -49,14 +49,14 @@ class govuk_jenkins::config (
   $banner_string = 'Jenkins',
   $github_web_uri = 'https://github.gds',
   $github_api_uri = 'https://github.gds/api/v3',
-  $github_client_id,
-  $github_client_secret,
+  $github_client_id = undef,
+  $github_client_secret = undef,
   $users = [],
   $admins = [],
   $manage_config = false,
   ) {
 
-      if $manage_config {
+      if $manage_config and $github_client_id and $github_client_secret {
 
         validate_array($users)
         validate_array($admins)
