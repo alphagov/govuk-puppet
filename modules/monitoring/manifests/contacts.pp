@@ -32,7 +32,7 @@
 #   Slack token to send alerts with.
 #   Default: undef
 #
-# [*slack_nagios_url*]
+# [*slack_alert_url*]
 #   URL to include in Slack alerts.
 #   Default: 'https://example.com/cgi-bin/icinga/status.cgi'
 #
@@ -44,7 +44,7 @@ class monitoring::contacts (
   $slack_channel = undef,
   $slack_username = 'Icinga',
   $slack_token = undef,
-  $slack_nagios_url = 'https://example.com/cgi-bin/icinga/status.cgi',
+  $slack_alert_url = 'https://example.com/cgi-bin/icinga/status.cgi',
 ) {
   validate_bool($notify_pager, $notify_slack)
 
@@ -89,7 +89,7 @@ class monitoring::contacts (
       slack_channel   => $slack_channel,
       slack_subdomain => $slack_subdomain,
       slack_username  => $slack_username,
-      nagios_cgi_url  => $slack_nagios_url,
+      nagios_cgi_url  => $slack_alert_url,
     }
 
     $slack_members = ['slack_notification']
