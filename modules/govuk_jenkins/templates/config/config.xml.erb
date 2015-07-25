@@ -143,19 +143,11 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
-          <int>6</int>
-          <string>AWS_ACCESS_KEY_ID</string>
-          <string>AKIAJQLVXRLJKXXWELVA</string>
-          <string>AWS_SECRET_ACCESS_KEY</string>
-          <string>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</string>
-          <string>GRAPHITE_PASSWORD</string>
-          <string>nottobes</string>
-          <string>GRAPHITE_USER</string>
-          <string>betademo</string>
-          <string>ORGANISATION</string>
-          <string><%= scope.lookupvar('shell::shell_prompt_string') -%></string>
-          <string>RELEASE_APP_NOTIFICATION_BEARER_TOKEN</string>
-          <string>3caac2b2fefb4304d3026eecb3aa85467bd0ff984414b7799fa88ca87641ac91</string>
+          <int><%= @environment_variables.length -%></int>
+          <%- @environment_variables.each do |name, value| -%>
+          <string><%= name -%></string>
+          <string><%= value -%></string>
+          <%- end -%>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
