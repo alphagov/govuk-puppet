@@ -31,5 +31,5 @@ nginx::package::nginx_package: 'nginx-extras'
 #
 # If changed, the old host record must be cleaned up; see the FIXME in
 # router::gor.
-router::gor::staging_host: 'draft-origin-staging.production.alphagov.co.uk'
+router::gor::staging_host: "draft-origin-staging.%{hiera('app_domain')}"
 router::gor::staging_ip: '37.26.91.9'

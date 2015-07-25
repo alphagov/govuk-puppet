@@ -167,7 +167,7 @@ monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_subdomain: 'govuk'
 monitoring::contacts::slack_channel: '#webops-monitoring'
 monitoring::contacts::slack_username: 'Production Icinga'
-monitoring::contacts::slack_nagios_url: 'https://nagios.production.alphagov.co.uk/cgi-bin/icinga/status.cgi'
+monitoring::contacts::slack_nagios_url: "https://nagios.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::pagerduty_drill::enabled: true
 
 monitoring_domain_suffix: "%{hiera('app_domain')}"
