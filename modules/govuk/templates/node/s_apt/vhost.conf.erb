@@ -1,7 +1,7 @@
 server {
   # This serves:
   #   - `apt.cluster` internally.
-  #   - `apt.production.alphagov.co.uk` externally.
+  #   - `apt.APP_DOMAIN` externally.
   server_name apt.* apt-origin.*;
   root <%= @root_dir -%>/public;
 
