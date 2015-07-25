@@ -1,7 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk::gor', :type => :class do
-  let(:host_staging) { 'www-origin-staging.production.alphagov.co.uk' }
   let(:args_default) {{
     '-input-raw'          => 'localhost:7999',
     '-output-http-method' => %w{GET HEAD OPTIONS},
