@@ -1,11 +1,6 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class collectd::plugin::search(
-  $app_port
-) {
-  include collectd::plugin::curl_json
-
+# FIXME: Remove this class once it's been deployed to production
+class collectd::plugin::search {
   @collectd::plugin { 'search':
-    content => template('collectd/etc/collectd/conf.d/search.conf.erb'),
-    require => Class['collectd::plugin::curl_json'],
+    ensure  => absent,
   }
 }
