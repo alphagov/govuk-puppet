@@ -20,6 +20,11 @@ class nginx::config (
     source  => 'puppet:///modules/nginx/etc/nginx';
   }
 
+  file { '/etc/nginx/ssl':
+    ensure  => directory,
+    require => File['/etc/nginx'],
+  }
+
   file { '/etc/nginx/nginx.conf':
     ensure  => present,
     content => template('nginx/etc/nginx/nginx.conf.erb'),
