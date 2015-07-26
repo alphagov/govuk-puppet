@@ -1,4 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: nginx::config
+#
+# This class sets up webserver configuration.
+#
+# === Parameters
+#
+# [*server_names_hash_max_size*]
+#   An integer that sets the maximum size of the server_names_hash_max_size directive.
+#
+# [*denied_ip_addresses*]
+#   An array of IP addresses that Nginx should prevent from accessing this machine.
+#
 class nginx::config (
   $server_names_hash_max_size,
   $denied_ip_addresses) {
@@ -53,7 +64,8 @@ class nginx::config (
 
   # FIXME: Remove once this directory is no longer in production
   file { '/var/www/error':
-    ensure  => absent,
+    ensure => absent,
+    force  => true,
   }
 
   @@icinga::check::graphite { "check_nginx_active_connections_${::hostname}":
