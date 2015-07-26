@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::server
+#
+# Sets up a server to receive collectd metrics.
+#
 class collectd::server {
   include ::collectd
 

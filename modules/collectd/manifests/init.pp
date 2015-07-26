@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd
+#
+# Installs and sets up collectd on a machine.
+#
 class collectd {
   anchor { 'collectd::begin':
     notify => Class['collectd::service'];

@@ -1,4 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::redis
+#
+# Sets up a collectd plugin to monitor Redis.
+#
+# === Parameters
+#
+# [*host*]
+#   The host that Redis runs on.
+#
+# [*port*]
+#   The port that Redis responds on.
+#
 class collectd::plugin::redis(
   $host = 'localhost',
   $port = 6379,

@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::nginx
+#
+# Setup a collectd plugin to monitor Nginx.
+#
+# === Parameters
+#
+# [*status_url*]
+#   A URL which provides the status of Nginx as a response
+#
 class collectd::plugin::nginx(
   $status_url
 ) {

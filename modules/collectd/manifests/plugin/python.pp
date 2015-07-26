@@ -1,4 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::python
+#
+# Setup a collectd plugin to embed a Python interpreter into collectd
+# and allow us to use collectd plugins written in Python.
+#
 class collectd::plugin::python {
   @file { '/usr/lib/collectd/python':
     ensure  => directory,
