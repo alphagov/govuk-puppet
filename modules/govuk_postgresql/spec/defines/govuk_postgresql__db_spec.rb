@@ -67,7 +67,22 @@ describe 'govuk_postgresql::db', :type => :define do
         it {
             should contain_postgresql__server__pg_hba_rule(
                 'Allow access for monkey role to giraffe database from backend network'
-            )
+            ).with_type('host')
+        }
+    end
+
+    context 'create ssl only pg_hba.conf rule allowing authentication from backend network' do
+        let(:params) {{
+          :user                    => 'monkey',
+          :password                => 'gibbon',
+          :allow_auth_from_backend => true,
+          :backend_ip_range        => '10.0.0.0/8',
+          :ssl_only                => true,
+        }}
+        it {
+            should contain_postgresql__server__pg_hba_rule(
+                'Allow access for monkey role to giraffe database from backend network'
+            ).with_type('hostssl')
         }
     end
 
