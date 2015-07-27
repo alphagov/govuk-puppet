@@ -61,10 +61,8 @@ describe 'govuk_postgresql::db', :type => :define do
         let(:params) {{
           :user                    => 'monkey',
           :password                => 'gibbon',
-          :allow_auth_from_backend => true
-        }}
-        let(:hiera_data) {{
-          'govuk_postgresql'       => '10.3.0.0/24'
+          :allow_auth_from_backend => true,
+          :backend_ip_range        => '10.0.0.0/8',
         }}
         it {
             should contain_postgresql__server__pg_hba_rule(

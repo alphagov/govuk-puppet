@@ -58,8 +58,8 @@ define govuk_postgresql::db (
     $extensions              = [],
     $allow_auth_from_api     = false,
     $allow_auth_from_backend = false,
-    $api_ip_range            = '10.7.0.0/24',
-    $backend_ip_range        = '10.3.0.0/24',
+    $api_ip_range            = undef,
+    $backend_ip_range        = undef,
 ) {
 
     if ($database == undef) {
