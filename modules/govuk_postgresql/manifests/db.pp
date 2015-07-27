@@ -49,6 +49,11 @@
 # [*backend_ip_range*]
 # Network range for Backend.
 #
+# [*ssl_only*]
+# Whether to configure the pg_hba.conf rules to only respond to clients who
+# connect over SSL. If it is false it will allow either.
+# Default: false
+#
 define govuk_postgresql::db (
     $user,
     $password,
@@ -60,6 +65,7 @@ define govuk_postgresql::db (
     $allow_auth_from_backend = false,
     $api_ip_range            = undef,
     $backend_ip_range        = undef,
+    $ssl_only                = false,
 ) {
 
     if ($database == undef) {
@@ -97,9 +103,15 @@ define govuk_postgresql::db (
         }
     }
 
+    if $ssl_only {
+      $hba_type = 'hostssl'
+    } else {
+      $hba_type = 'host'
+    }
+
     if $allow_auth_from_api {
         postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from API network":
-          type        => 'host',
+          type        => $hba_type,
           database    => $db_name,
           user        => $user,
           address     => $api_ip_range,
@@ -109,7 +121,7 @@ define govuk_postgresql::db (
 
     if $allow_auth_from_backend {
         postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
-          type        => 'host',
+          type        => $hba_type,
           database    => $db_name,
           user        => $user,
           address     => $backend_ip_range,
