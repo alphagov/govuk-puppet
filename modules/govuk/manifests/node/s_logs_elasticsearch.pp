@@ -52,6 +52,13 @@ class govuk::node::s_logs_elasticsearch(
     require => Class['govuk_elasticsearch'],
   }
 
+  # Install a logstash-specific template which provides some tokenizers for extracting
+  # source and destination application names.
+  elasticsearch::template { 'wildcard':
+    file    => 'puppet:///modules/govuk/node/s_logs_elasticsearch/logstash-template.json',
+    require => Class['govuk_elasticsearch'],
+  }
+
   # Collect all govuk_elasticsearch::river resources exported by the environment's
   # redis machines.
   Govuk_elasticsearch::River <<| tag == 'logging' |>>
