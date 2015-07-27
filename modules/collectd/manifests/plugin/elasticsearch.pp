@@ -4,7 +4,12 @@
 #
 # === Parameters
 #
-# FIXME: Document missing parameters
+# [*es_port*]
+#   The port that the Elasticsearch HTTP interface is available on.
+#
+# [*log_index_type_count*]
+#   A hash where the keys represent Elasticsearch indices and the values
+#   are arrays of Elasticsearch types for that index.
 #
 # [*legacy_elasticsearch*]
 #   Whether this is a pre-1.x elasticsearch installation.  Defaults to false

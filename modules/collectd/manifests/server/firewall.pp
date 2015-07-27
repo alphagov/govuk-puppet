@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::server::firewall
+#
+# Sets up firewall rules for a collectd server.
+#
 class collectd::server::firewall {
   @ufw::allow { 'allow-collectd-from-all':
     port  => 25826,

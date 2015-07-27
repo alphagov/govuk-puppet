@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::service
+#
+# Makes sure that the collectd service is running.
+#
 class collectd::service {
   service { 'collectd':
     ensure  => running,

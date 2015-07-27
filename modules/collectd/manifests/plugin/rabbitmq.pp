@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::rabbitmq
+#
+# Sets up a collectd plugin to monitor RabbitMQ.
+#
+# === Parameters
+#
+# [*monitoring_password*]
+#   The password to a user which can access monitoring information from RabbitMQ.
+#
 class collectd::plugin::rabbitmq (
   $monitoring_password,
   ){

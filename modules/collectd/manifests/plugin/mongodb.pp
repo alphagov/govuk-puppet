@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::mongodb
+#
+# Setup a collectd plugin to monitor MongoDB.
+#
 class collectd::plugin::mongodb {
   include mongodb::python
   include collectd::plugin::python

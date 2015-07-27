@@ -1,4 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::redis_queues
+#
+# Sets up a collectd plugin to monitor Redis queues.
+#
+# === Parameters
+#
+# [*queues*]
+#   An array of queues to monitor.
+#
+# [*host*]
+#   The host that Redis runs on.
+#
+# [*port*]
+#   The port that Redis responds on.
+#
 class collectd::plugin::redis_queues(
   $queues,
   $host = 'localhost',

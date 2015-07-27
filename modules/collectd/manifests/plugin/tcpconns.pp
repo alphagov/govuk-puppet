@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::tcpconns
+#
+# Sets up a collectd plugin to monitor the number of TCP connections.
+#
 class collectd::plugin::tcpconns {
   @collectd::plugin { 'tcpconns':
     prefix  => '00-',

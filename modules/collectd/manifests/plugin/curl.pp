@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: collectd::plugin::curl
+#
+# Setup a collectd plugin to retrieve files with curl.
+#
 class collectd::plugin::curl {
   @collectd::plugin { 'curl':
     prefix  => '00-',
