@@ -20,6 +20,9 @@
 # [*banner_string*]
 #   The string to be displayed inside the banner in the Jenkins web interface.
 #
+# [*environment_variables*]
+#   A hash of environment variables that should be set for all Jenkins jobs.
+#
 # [*github_web_uri*]
 #   Set the Github Web URI as required by the Github Oauth Plugin.
 #
@@ -47,6 +50,7 @@ class govuk_jenkins::config (
   $banner_colour_background = 'black',
   $banner_colour_text = 'white',
   $banner_string = 'Jenkins',
+  $environment_variables = {},
   $github_web_uri = 'https://github.gds',
   $github_api_uri = 'https://github.gds/api/v3',
   $github_client_id = undef,
