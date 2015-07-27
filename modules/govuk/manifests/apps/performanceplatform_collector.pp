@@ -20,7 +20,8 @@ class govuk::apps::performanceplatform_collector (
 
     # FIXME: remove once deployed to production
     govuk::app::package { 'performanceplatform-collectors':
-      ensure => absent,
+      ensure     => absent,
+      vhost_full => "performanceplatform-collectors.${app_domain}",
     }
 
     # vhost_full is a confusingly-named parameter. It's used to create
