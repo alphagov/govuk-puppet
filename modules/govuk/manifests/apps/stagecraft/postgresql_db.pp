@@ -17,5 +17,6 @@ class govuk::apps::stagecraft::postgresql_db(
     password            => $password,
     allow_auth_from_api => true,
     api_ip_range        => $api_ip_range,
+    ssl_only            => true,
   }
 }
