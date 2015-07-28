@@ -24,12 +24,3 @@ govuk::apps::router_api::vhost: 'draft-router-api'
 govuk::node::s_cache::enable_authenticating_proxy: true
 
 nginx::package::nginx_package: 'nginx-extras'
-
-
-# NOTE: These values should not be changed lightly once traffic replay is
-# enabled using router::gor::enable_staging.
-#
-# If changed, the old host record must be cleaned up; see the FIXME in
-# router::gor.
-router::gor::staging_host: "draft-origin-staging.%{hiera('app_domain')}"
-router::gor::staging_ip: '37.26.91.9'
