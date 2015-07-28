@@ -54,7 +54,7 @@ class govuk::node::s_logs_elasticsearch(
 
   # Install a logstash-specific template which provides some tokenizers for extracting
   # source and destination application names.
-  elasticsearch::template { 'wildcard':
+  elasticsearch::template { 'logstash':
     file    => 'puppet:///modules/govuk/node/s_logs_elasticsearch/logstash-template.json',
     require => Class['govuk_elasticsearch'],
   }
