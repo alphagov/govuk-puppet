@@ -25,7 +25,7 @@ class govuk::node::s_transition_postgresql_slave (
     type        => 'host',
     database    => 'transition_production',
     user        => 'bouncer',
-    address     => '$redirector_ip_range',
+    address     => $redirector_ip_range,
     auth_method => 'md5',
   }
 }
