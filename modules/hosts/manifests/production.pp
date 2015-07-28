@@ -8,7 +8,7 @@
 # === Parameters:
 #
 # [*apt_mirror_internal*]
-#   Point `apt.production.alphagov.co.uk` to `apt-1` within this
+#   Point `apt.#{app_domain}` to `apt-1` within this
 #   environment. Instead of going to the Production VSE.
 #   Default: false
 #
