@@ -13,7 +13,7 @@ function send_ncsa {
         CODE=3
         OUTPUT="UNKNOWN: seeder-wrapper exited before setting OUTPUT - this should never happen"
     fi
-    printf "<%= @fqdn %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+    printf "<%= @ipaddress %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
     exit $?
 }
 trap send_ncsa EXIT
