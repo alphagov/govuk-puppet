@@ -13,8 +13,13 @@
 #   Feature flag to allow the app to be deployed to an environment.
 #   Default: false
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 class govuk::apps::hmrc_manuals_api(
   $port = 3071,
+  $enable_procfile_worker = true,
 ) {
   govuk::app { 'hmrc-manuals-api':
     app_type           => 'rack',
@@ -22,5 +27,9 @@ class govuk::apps::hmrc_manuals_api(
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
+  }
+
+  govuk::procfile::worker {'hmrc-manuals-api':
+    enable_service => $enable_procfile_worker,
   }
 }
