@@ -181,8 +181,6 @@ postfix::smarthost:
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.plat1'
 
-router::gor::enable_staging: true
-
 shell::shell_prompt_string: 'production'
 
 ssh::config::allow_users:
