@@ -29,6 +29,7 @@ govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
+govuk::apps::performanceplatform_collector::enabled: true
 govuk::apps::performanceplatform_notifier::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publisher::nagios_data_importer_check: false
