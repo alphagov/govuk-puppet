@@ -4,26 +4,20 @@
 #
 # === Parameters
 #
-# [*enable_staging*]
-#   Boolean to determine if traffic will be replayed against Staging.
+# [*replay_targets*]
+#   Hash of targets to replay traffic against.
 #
 class router::gor (
-  $enable_staging = false,
+  $replay_targets = {},
 ) {
-  # Hardcoded, rather than hiera, because I don't want to create the
-  # illusion that you can modify these on the fly. You will need to tidy
-  # up old `host{}` records.
-  $staging_ip     = '37.26.91.14'
-  $staging_host   = 'www-origin-staging.production.alphagov.co.uk'
+  validate_hash($replay_targets)
 
-  validate_bool($enable_staging)
-
-  if $enable_staging {
-    $gor_targets        = ["https://${staging_host}"]
-    $gor_hosts_ensure   = present
+  if $replay_targets == {} {
+    $enabled = false
+    $gor_hosts_ensure = absent
   } else {
-    $gor_targets        = []
-    $gor_hosts_ensure   = absent
+    $enabled = true
+    $gor_hosts_ensure = present
   }
 
   # FIXME: These "fake" host entries serve two purposes:
@@ -31,20 +25,22 @@ class router::gor (
   #   production, matches the hostname that we connect to.
   #   2. Prevents Gor/Go from performing DNS lookups, which occur once
   #   for *every* request/goroutine, and can be quite overwhelming.
-  host {
-    $staging_host:
-      ensure  => $gor_hosts_ensure,
-      ip      => $staging_ip,
-      comment => 'Used by Gor. See comments in router::gor.';
-  } ~>
+  $host_defaults = {
+    'ensure'  => $gor_hosts_ensure,
+    'before'  => 'Class[Govuk::Gor]',
+    'comment' => 'Used by Gor. See comments in router::gor.',
+  }
+
+  create_resources('host', $replay_targets, $host_defaults)
+
   class { 'govuk::gor':
     args   => {
       '-input-raw'          => 'localhost:7999',
-      '-output-http'        => $gor_targets,
+      '-output-http'        => prefix(keys($replay_targets), 'https://'),
       '-output-http-method' => [
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
-    enable => $enable_staging,
+    enable => $enabled,
   }
 }
