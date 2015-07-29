@@ -33,8 +33,16 @@ define nginx::config::ssl( $certtype, $ensure = 'present' ) {
         # 'wildcard_alphagov_mgmt' then it will first look for certs and keys for that.
         # If they don't exist in hiera, it will fall back to looking for 'wildcard_alphagov'
         # and if that fails, will return the empty string.
-        $cert = hiera('wildcard_alphagov_mgmt_crt', hiera('wildcard_alphagov_crt', ''))
-        $key = hiera('wildcard_alphagov_mgmt_key', hiera('wildcard_alphagov_key', ''))
+        #
+        # FIXME: When the migration to a `publishing.service.gov.uk` domain is complete,
+        #        the wildcard_alphagov_mgmt certificate and key are no longer needed.
+        if hiera('wildcard_alphagov_mgmt_crt', '') == 'UNSET' {
+            $cert = hiera('wildcard_alphagov_crt', '')
+            $key = hiera('wildcard_alphagov_key', '')
+        } else {
+            $cert = hiera('wildcard_alphagov_mgmt_crt', hiera('wildcard_alphagov_crt', ''))
+            $key = hiera('wildcard_alphagov_mgmt_key', hiera('wildcard_alphagov_key', ''))
+        }
     }
     'www': {
         $cert = hiera('www_crt', '')
