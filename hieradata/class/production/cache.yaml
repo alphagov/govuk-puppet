@@ -7,3 +7,5 @@
 router::gor::replay_targets:
   'www-origin-staging.production.alphagov.co.uk':
     ip: '37.26.91.14'
+  'www-origin.staging.publishing.service.gov.uk':
+    ip: '31.210.245.66'
