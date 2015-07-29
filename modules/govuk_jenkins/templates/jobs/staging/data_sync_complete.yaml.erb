@@ -8,6 +8,10 @@
       artifactNumToKeep: 10
     builders:
        - shell: |
+           <%- if @signon_domain_old and @signon_domain_new -%>
+           # Fix signon application hostnames
+           ssh deploy@backend-2.backend 'cd /var/apps/signon && OLD_DOMAIN=<%= @signon_domain_old -%> NEW_DOMAIN=<%= @signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
+           <%- end -%>
            # Queue up any whitehall scheduled editions that have been transferred across.
            ssh deploy@whitehall-backend-2.backend 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
            # Queue up any publisher scheduled editions that have been transferred across.
