@@ -9,9 +9,9 @@
     builders:
        - shell: |
            # Queue up any whitehall scheduled editions that have been transferred across.
-           ssh deploy@whitehall-backend-2.backend.<%= @environment -%> 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
+           ssh deploy@whitehall-backend-2.backend 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
            # Queue up any publisher scheduled editions that have been transferred across.
-           ssh deploy@backend-2.backend.<%= @environment -%> 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+           ssh deploy@backend-2.backend 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
     publishers:
         - trigger-parameterized-builds:
             - project: Deploy_App
