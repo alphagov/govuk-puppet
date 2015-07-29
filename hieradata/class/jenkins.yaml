@@ -92,7 +92,7 @@ govuk_jenkins::plugins:
   show-build-parameters:
     version: '1.0'
   token-macro:
-    version: '0.9'
+    version: '1.9'
   versionnumber:
     version: '1.5'
   ws-cleanup:
