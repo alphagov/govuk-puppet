@@ -18,6 +18,11 @@ monitoring_domain_suffix: "%{hiera('app_domain')}"
 
 shell::shell_prompt_string: 'migration-production'
 
+# FIXME: Remove once these are disabled in Skyscape Production
+govuk_crawler::seed_enable: false
+govuk_crawler::sync_enable: false
+# END FIXME
+
 govuk_postgresql::db::api_ip_range: '10.3.4.0/24'
 govuk_postgresql::db::backend_ip_range: '10.3.3.0/24'
 
