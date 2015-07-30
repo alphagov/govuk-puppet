@@ -2,7 +2,7 @@
 
 app_domain: 'publishing.service.gov.uk'
 
-asset_root: 'assets-origin.publishing.service.gov.uk'
+asset_root: 'https://assets-origin.publishing.service.gov.uk'
 
 internal_tld: 'publishing.service.gov.uk'
 
