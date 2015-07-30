@@ -330,7 +330,7 @@ define govuk::app (
 
   if ($app_type == 'rack' or  $log_format_is_json) {
     $title_escaped = regsubst($title, '\.', '_', 'G')
-    $statsd_timer_prefix = "${::fqdn_underscore}.${title_escaped}"
+    $statsd_timer_prefix = "${::fqdn_metrics}.${title_escaped}"
 
     $log_path = $log_format_is_json ? {
       true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",

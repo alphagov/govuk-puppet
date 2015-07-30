@@ -83,7 +83,7 @@ define nginx::config::vhost::proxy(
     content => template($proxy_vhost_template),
   }
 
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.${title_escaped}"
+  $counter_basename = "${::fqdn_metrics}.nginx_logs.${title_escaped}"
 
   $logstream_ensure = $ensure ? {
     'present' => $logstream,

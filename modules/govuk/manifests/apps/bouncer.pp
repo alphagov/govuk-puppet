@@ -128,8 +128,8 @@ class govuk::apps::bouncer(
     'www.mhra.gov.uk-json.event.access.log':
       json          => true,
       logstream     => present,
-      statsd_metric => "${::fqdn_underscore}.nginx_logs.mhra_proxy.http_%{@fields.status}",
-      statsd_timers => [{metric => "${::fqdn_underscore}.nginx_logs.mhra_proxy.time_request",
+      statsd_metric => "${::fqdn_metrics}.nginx_logs.mhra_proxy.http_%{@fields.status}",
+      statsd_timers => [{metric => "${::fqdn_metrics}.nginx_logs.mhra_proxy.time_request",
                           value => '@fields.request_time'}];
     'www.mhra.gov.uk-error.log':
       logstream     => present;

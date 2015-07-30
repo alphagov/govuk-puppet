@@ -15,7 +15,7 @@ class govuk_mysql::server::monitoring {
   }
 
   @@icinga::check::graphite { "check_mysql_connections_${::hostname}":
-    target    => "${::fqdn_underscore}.mysql.threads-connected",
+    target    => "${::fqdn_metrics}.mysql.threads-connected",
     warning   => 250,
     critical  => 350,
     desc      => 'mysql high cur conn',

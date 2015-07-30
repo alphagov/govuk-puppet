@@ -56,7 +56,7 @@ class govuk_postgresql::server::standby (
   $metric_suffix = 'postgresql-global.bytes-xlog_position'
   # Wildcard to account for us not having the FQDN.
   $primary_metric = "${master_host_underscore}*.${metric_suffix}"
-  $standby_metric  = "${::fqdn_underscore}.${metric_suffix}"
+  $standby_metric  = "${::fqdn_metrics}.${metric_suffix}"
 
   @@icinga::check::graphite { "check_postgres_replication_lag_${::hostname}":
     target    => "movingMedian(transformNull(removeBelowValue(diffSeries(${primary_metric},${standby_metric}),0),0),5)",

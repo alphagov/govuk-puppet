@@ -18,7 +18,7 @@ class govuk::node::s_redis_base {
   $redis_mem_crit = $redis_max_memory * 0.9
 
   @@icinga::check::graphite { "check_redis_memory_${::hostname}":
-    target    => "${::fqdn_underscore}.redis_info.bytes-used_memory",
+    target    => "${::fqdn_metrics}.redis_info.bytes-used_memory",
     warning   => to_bytes("${redis_mem_warn}M"),
     critical  => to_bytes("${redis_mem_crit}M"),
     desc      => 'redis memory usage',
@@ -27,7 +27,7 @@ class govuk::node::s_redis_base {
   }
 
   @@icinga::check::graphite { "check_redis_connected_clients_${::hostname}":
-    target    => "${::fqdn_underscore}.redis_info.gauge-connected_clients",
+    target    => "${::fqdn_metrics}.redis_info.gauge-connected_clients",
     warning   => 1000,
     critical  => 2000,
     desc      => 'redis connected clients',
