@@ -24,7 +24,7 @@ class licensify::apps::licensify (
   $app_domain = hiera('app_domain')
   $vhost_name = "uploadlicence.${app_domain}"
   $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.${vhost_escaped}"
+  $counter_basename = "${::fqdn_metrics}.nginx_logs.${vhost_escaped}"
 
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
   nginx::config::site { $vhost_name: content => template('licensify/licensify-upload-vhost.conf') }

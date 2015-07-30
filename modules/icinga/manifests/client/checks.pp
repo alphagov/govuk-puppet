@@ -104,7 +104,7 @@ class icinga::client::checks (
 
   @@icinga::check::graphite { "check_disk_time_${::hostname}":
     desc      => 'high disk time',
-    target    => "movingMedian(sum(${::fqdn_underscore}.disk-sd?.disk_time.*),${disk_time_window_points})",
+    target    => "movingMedian(sum(${::fqdn_metrics}.disk-sd?.disk_time.*),${disk_time_window_points})",
     args      => "--from ${disk_time_window_minutes}mins",
     warning   => $disk_time_warn,
     critical  => $disk_time_critical,

@@ -6,7 +6,7 @@ class puppet::master::nginx {
     content => template('puppet/puppetmaster-vhost.conf'),
   }
 
-  $counter_basename = "${::fqdn_underscore}.nginx_logs.puppetmaster"
+  $counter_basename = "${::fqdn_metrics}.nginx_logs.puppetmaster"
 
   nginx::log {
     'puppetmaster-json.event.access.log':

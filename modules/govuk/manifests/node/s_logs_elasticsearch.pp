@@ -96,7 +96,7 @@ class govuk::node::s_logs_elasticsearch(
   }
 
   @@icinga::check::graphite { "check_elasticsearch_syslog_input_${::hostname}":
-    target    => "removeBelowValue(derivative(${::fqdn_underscore}.curl_json-elasticsearch.gauge-logs-current_syslog_count),0)",
+    target    => "removeBelowValue(derivative(${::fqdn_metrics}.curl_json-elasticsearch.gauge-logs-current_syslog_count),0)",
     critical  => '0.000001:',
     warning   => '0.000001:',
     desc      => 'elasticsearch not receiving syslog from logstash',

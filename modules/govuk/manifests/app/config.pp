@@ -180,7 +180,7 @@ define govuk::app::config (
     }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure    => $ensure,
-      target    => "scale(sumSeries(${::fqdn_underscore}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
+      target    => "scale(sumSeries(${::fqdn_metrics}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
       warning   => $nagios_cpu_warning,
       critical  => $nagios_cpu_critical,
       desc      => "high CPU usage for ${title} app",
@@ -188,7 +188,7 @@ define govuk::app::config (
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
       ensure    => $ensure,
-      target    => "${::fqdn_underscore}.processes-app-${title_underscore}.ps_rss",
+      target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
       warning   => $nagios_memory_warning_real,
       critical  => $nagios_memory_critical_real,
       desc      => "high memory for ${title} app",

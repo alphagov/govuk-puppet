@@ -3,7 +3,7 @@ class govuk::node::s_logs_redis inherits govuk::node::s_redis_base {
   $redis_port = 6379
 
   @@icinga::check::graphite { "check_redis_list_logs${::hostname}":
-    target    => "${::fqdn_underscore}.redis_queues.gauge-logs",
+    target    => "${::fqdn_metrics}.redis_queues.gauge-logs",
     warning   => 10000,
     critical  => 30000,
     desc      => 'redis list length for logs',
