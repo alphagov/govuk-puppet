@@ -34,23 +34,41 @@ class govuk::apps::publishing_api(
   $draft_content_store = '',
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
+  $rails = false,
 ) {
   $app_name = 'publishing-api'
-  govuk::app { $app_name:
-    app_type           => 'bare',
-    log_format_is_json => true,
-    port               => $port,
-    command            => "./${app_name}",
-    health_check_path  => '/healthcheck',
-    vhost_ssl_only     => true,
-  }
 
-  govuk::logstream { "${app_name}-app-out":
-    ensure  => present,
-    logfile => "/var/log/${app_name}/app.out.log",
-    tags    => ['stdout', 'app'],
-    json    => true,
-    fields  => {'application' => $app_name},
+  if $rails {
+    govuk::app { $app_name:
+      app_type           => 'rack',
+      port               => $port,
+      vhost_ssl_only     => true,
+      health_check_path  => '/healthcheck',
+      log_format_is_json => true,
+      asset_pipeline     => false,
+      deny_framing       => true,
+    }
+
+    govuk::logstream { "${app_name}-app-out":
+      ensure  => absent,
+    }
+  } else {
+    govuk::app { $app_name:
+      app_type           => 'bare',
+      log_format_is_json => true,
+      port               => $port,
+      command            => "./${app_name}",
+      health_check_path  => '/healthcheck',
+      vhost_ssl_only     => true,
+    }
+
+    govuk::logstream { "${app_name}-app-out":
+      ensure  => present,
+      logfile => "/var/log/${app_name}/app.out.log",
+      tags    => ['stdout', 'app'],
+      json    => true,
+      fields  => {'application' => $app_name},
+    }
   }
 
   Govuk::App::Envvar {
