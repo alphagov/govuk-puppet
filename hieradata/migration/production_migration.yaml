@@ -1,8 +1,13 @@
 ---
 
+_: &offsite_host 'backup0.backup.provider0.production.govuk.service.gov.uk'
+
 app_domain: 'publishing.service.gov.uk'
 
 asset_root: 'assets-origin.publishing.service.gov.uk'
+
+backup::assets::dest_host: *offsite_host
+backup::offsite::dest_host: *offsite_host
 
 internal_tld: 'publishing.service.gov.uk'
 
