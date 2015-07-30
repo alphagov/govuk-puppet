@@ -2,7 +2,7 @@
 
 app_domain: 'staging.publishing.service.gov.uk'
 
-asset_root: 'assets-origin.staging.publishing.service.gov.uk'
+asset_root: 'https://assets-origin.staging.publishing.service.gov.uk'
 
 internal_tld: 'staging.publishing.service.gov.uk'
 
