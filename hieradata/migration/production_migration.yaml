@@ -46,6 +46,7 @@ govuk::node::s_asset_base::firewall_allowed_ip_range: '10.3.3.0/24'
 
 govuk::node:s_transition_postgresql_slave: '10.3.5.0/24'
 
+hosts::production::apt_mirror_internal: false
 hosts::production::management::apt_host_ip: '10.3.0.75'
 
 website_root: 'https://www-origin.publishing.service.gov.uk'
