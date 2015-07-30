@@ -91,10 +91,10 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")"
             },
             {
-              "target": "groupByNode(stats.timers.backend-?_backend_production.contentapi.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.contentapi.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
@@ -181,10 +181,10 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend_production.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend<%= @machine_suffix_metrics -%>.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")"
             },
             {
-              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend_production.smartanswers.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend<%= @machine_suffix_metrics -%>.smartanswers.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
@@ -271,10 +271,10 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend_production.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend<%= @machine_suffix_metrics -%>.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")"
             },
             {
-              "target": "groupByNode(stats.timers.frontend-?_frontend_production.frontend.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.frontend-?_frontend<%= @machine_suffix_metrics -%>.frontend.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
@@ -371,10 +371,10 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx_logs.search_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.nginx_logs.search_*.time_request.mean),1000),\"nginx\")"
             },
             {
-              "target": "groupByNode(stats.timers.backend-?_backend_production.search.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.search.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
@@ -461,7 +461,7 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend_production.whitehall.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend<%= @machine_suffix_metrics -%>.whitehall.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
@@ -548,7 +548,7 @@
           },
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.*_frontend_production.nginx_logs.*_<%= @app_domain_metrics -%>.http_503,3,\"sum\"),\"_.*\",\"\")"
+              "target": "aliasSub(groupByNode(stats.*_frontend<%= @machine_suffix_metrics -%>.nginx_logs.*_<%= @app_domain_metrics -%>.http_503,3,\"sum\"),\"_.*\",\"\")"
             }
           ],
           "aliasColors": {},

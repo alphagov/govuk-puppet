@@ -7,10 +7,14 @@
 # [*app_domain*]
 #   The suffix that applications use for their domain names.
 #
+# [*machine_suffix_metrics*]
+#   The machine hostname suffix for Graphite metrics.
+#
 class grafana::dashboards (
   $app_domain = undef,
+  $machine_suffix_metrics = undef,
 ) {
-  validate_string($app_domain)
+  validate_string($app_domain, $machine_suffix_metrics)
 
   $dashboard_directory = '/etc/grafana/dashboards'
 
@@ -24,7 +28,9 @@ class grafana::dashboards (
   }
 
   file {
+    "${dashboard_directory}/2ndline_health.json": content => template('grafana/dashboards/2ndline_health.json.erb');
     "${dashboard_directory}/application_health.json": content => template('grafana/dashboards/application_health.json.erb');
+    "${dashboard_directory}/edge_health.json": content => template('grafana/dashboards/edge_health.json.erb');
     "${dashboard_directory}/origin_health.json": content => template('grafana/dashboards/origin_health.json.erb');
     "${dashboard_directory}/whitehall_health.json": content => template('grafana/dashboards/whitehall_health.json.erb');
   }

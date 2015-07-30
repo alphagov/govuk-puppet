@@ -69,11 +69,11 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-govuk.requests-{errors,hits,miss,pass}"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-{errors,hits,miss,pass}"
             }
           ],
           "aliasColors": {
-            "monitoring-1_management_production.cdn_fastly-govuk.requests-errors": "#890F02"
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-errors": "#890F02"
           },
           "aliasYAxis": {},
           "title": "www.gov edge cache func"
@@ -130,11 +130,11 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-assets.requests-{errors,hits,miss,pass}"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-{errors,hits,miss,pass}"
             }
           ],
           "aliasColors": {
-            "monitoring-1_management_production.cdn_fastly-assets.requests-errors": "#890F02"
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-errors": "#890F02"
           },
           "aliasYAxis": {},
           "title": "assets.digital edge cache func"
@@ -191,11 +191,11 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-redirector.requests-{errors,hits,miss,pass}"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-{errors,hits,miss,pass}"
             }
           ],
           "aliasColors": {
-            "monitoring-1_management_production.cdn_fastly-redirector.requests-errors": "#890F02"
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-errors": "#890F02"
           },
           "aliasYAxis": {},
           "title": "bouncer/redirector edge cache func"
@@ -262,14 +262,14 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-govuk.requests-status_{5,4,3,2}xx"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_{5,4,3,2}xx"
             }
           ],
           "aliasColors": {
-            "monitoring-1_management_production.cdn_fastly-govuk.requests-status_5xx": "#E24D42",
-            "monitoring-1_management_production.cdn_fastly-govuk.requests-status_4xx": "#EAB839",
-            "monitoring-1_management_production.cdn_fastly-govuk.requests-status_3xx": "#6ED0E0",
-            "monitoring-1_management_production.cdn_fastly-govuk.requests-status_2xx": "#7EB26D"
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_5xx": "#E24D42",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_4xx": "#EAB839",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_3xx": "#6ED0E0",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_2xx": "#7EB26D"
           },
           "aliasYAxis": {},
           "title": "www.gov edge status code"
@@ -326,14 +326,14 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-assets.requests-status_{5,4,3,2}xx"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_{5,4,3,2}xx"
             }
           ],
           "aliasColors": {
-            "monitoring-1_management_production.cdn_fastly-assets.requests-status_5xx": "#E24D42",
-            "monitoring-1_management_production.cdn_fastly-assets.requests-status_4xx": "#EAB839",
-            "monitoring-1_management_production.cdn_fastly-assets.requests-status_3xx": "#6ED0E0",
-            "monitoring-1_management_production.cdn_fastly-assets.requests-status_2xx": "#7EB26D"
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_5xx": "#E24D42",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_4xx": "#EAB839",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_3xx": "#6ED0E0",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_2xx": "#7EB26D"
           },
           "aliasYAxis": {},
           "title": "assets.digital edge status code"
@@ -390,14 +390,14 @@
           },
           "targets": [
             {
-              "target": "monitoring-1_management_production.cdn_fastly-redirector.requests-status_{5,4,3,2}xx"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_{5,4,3,2}xx"
             }
           ],
           "aliasColors": {
-            "monitoring-1_management_production.cdn_fastly-redirector.requests-status_5xx": "#E24D42",
-            "monitoring-1_management_production.cdn_fastly-redirector.requests-status_4xx": "#EAB839",
-            "monitoring-1_management_production.cdn_fastly-redirector.requests-status_3xx": "#6ED0E0",
-            "monitoring-1_management_production.cdn_fastly-redirector.requests-status_2xx": "#7EB26D"
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_5xx": "#E24D42",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_4xx": "#EAB839",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_3xx": "#6ED0E0",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_2xx": "#7EB26D"
           },
           "aliasYAxis": {},
           "title": "redirector/bouncer edge status code"

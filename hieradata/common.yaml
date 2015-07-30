@@ -214,6 +214,7 @@ govuk_sudo::sudo_conf:
 govuk_unattended_reboot::enabled: true
 
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
+grafana::dashboards::machine_suffix_metrics: '_production'
 
 grub2::recordfail_timeout: 5
 

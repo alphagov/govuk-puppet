@@ -65,7 +65,7 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-frontend-?_frontend_production.nginx_logs.whitehall-frontend_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
+              "target": "groupByNode(stats.whitehall-frontend-?_frontend<%= @machine_suffix_metrics -%>.nginx_logs.whitehall-frontend_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
             }
           ],
           "aliasColors": {},
@@ -124,7 +124,7 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-backend-?_backend_production.nginx_logs.whitehall-admin_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
+              "target": "groupByNode(stats.whitehall-backend-?_backend<%= @machine_suffix_metrics -%>.nginx_logs.whitehall-admin_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
             }
           ],
           "aliasColors": {},
@@ -147,10 +147,10 @@
           "title": "Frontend Nginx Connections",
           "targets": [
             {
-              "target": "groupByNode(whitehall-frontend-*_frontend_production.nginx.nginx_connections-writing,-1,\"sum\")"
+              "target": "groupByNode(whitehall-frontend-*_frontend<%= @machine_suffix_metrics -%>.nginx.nginx_connections-writing,-1,\"sum\")"
             },
             {
-              "target": "groupByNode(whitehall-frontend-*_frontend_production.nginx.nginx_requests,-1,\"sum\")"
+              "target": "groupByNode(whitehall-frontend-*_frontend<%= @machine_suffix_metrics -%>.nginx.nginx_requests,-1,\"sum\")"
             }
           ],
           "datasource": null,
@@ -207,10 +207,10 @@
           "title": "Backend Nginx Connections",
           "targets": [
             {
-              "target": "groupByNode(whitehall-backend-*_backend_production.nginx.nginx_connections-writing,-1,\"sum\")"
+              "target": "groupByNode(whitehall-backend-*_backend<%= @machine_suffix_metrics -%>.nginx.nginx_connections-writing,-1,\"sum\")"
             },
             {
-              "target": "groupByNode(whitehall-backend-*_backend_production.nginx.nginx_requests,-1,\"sum\")"
+              "target": "groupByNode(whitehall-backend-*_backend<%= @machine_suffix_metrics -%>.nginx.nginx_requests,-1,\"sum\")"
             }
           ],
           "datasource": null,
@@ -277,13 +277,13 @@
           "title": "MySQL CPU Usage",
           "targets": [
             {
-              "target": "alias(sumSeries(whitehall-mysql-master-1_backend_production.cpu-*.cpu-user),\"Master CPU Usage\")"
+              "target": "alias(sumSeries(whitehall-mysql-master-1_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user),\"Master CPU Usage\")"
             },
             {
-              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend_production.cpu-*.cpu-user),\"Slave-1 CPU Usage\")"
+              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user),\"Slave-1 CPU Usage\")"
             },
             {
-              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend_production.cpu-*.cpu-user),\"Slave-2 CPU Usage\")"
+              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user),\"Slave-2 CPU Usage\")"
             }
           ],
           "datasource": null,
@@ -340,7 +340,7 @@
           "title": "ElasticSearch CPU Usage",
           "targets": [
             {
-              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend_production.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend_production\",\"\")"
+              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend<%= @machine_suffix_metrics -%>\",\"\")"
             }
           ],
           "datasource": null,

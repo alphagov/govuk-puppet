@@ -91,10 +91,10 @@
           },
           "targets": [
             {
-              "target": "alias(sumSeries(stats.cache-*_router_production.nginx_logs.www-origin.http_5xx),'5xx')"
+              "target": "alias(sumSeries(stats.cache-*_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx),'5xx')"
             },
             {
-              "target": "alias(sumSeries(stats.cache-*_router_production.nginx_logs.www-origin.http_4xx),'4xx')",
+              "target": "alias(sumSeries(stats.cache-*_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_4xx),'4xx')",
               "hide": false
             }
           ],
@@ -176,10 +176,10 @@
           },
           "targets": [
             {
-              "target": "alias(monitoring-1_management_production.cdn_fastly-govuk.requests-status_5xx,'5xx')"
+              "target": "alias(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_5xx,'5xx')"
             },
             {
-              "target": "alias(monitoring-1_management_production.cdn_fastly-govuk.requests-status_4xx,'4xx')"
+              "target": "alias(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_4xx,'4xx')"
             }
           ],
           "aliasColors": {
