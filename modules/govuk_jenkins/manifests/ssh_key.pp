@@ -28,7 +28,7 @@ class govuk_jenkins::ssh_key (
 
   if $private_key and $public_key {
     file { $public_key_filename:
-      content => $public_key,
+      content => "ssh-rsa ${public_key}",
       mode    => '0644',
       owner   => 'jenkins',
       group   => 'jenkins',

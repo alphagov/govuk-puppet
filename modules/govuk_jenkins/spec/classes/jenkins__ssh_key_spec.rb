@@ -10,7 +10,7 @@ describe 'govuk_jenkins::ssh_key', :type => :class do
   context 'when a keypair is provided' do
     let(:params) {{
       :private_key => '-----BEGIN KEY-----',
-      :public_key  => 'ssh-rsa AAAA',
+      :public_key  => 'AAAA',
     }}
 
     it { should contain_file(private_key_filename).with_content('-----BEGIN KEY-----') }
