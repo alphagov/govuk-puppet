@@ -51,6 +51,10 @@ class govuk::apps::publishing_api(
 
     govuk::logstream { "${app_name}-app-out":
       ensure  => absent,
+      logfile => "/var/log/${app_name}/app.out.log",
+      tags    => ['stdout', 'app'],
+      json    => true,
+      fields  => {'application' => $app_name},
     }
   } else {
     govuk::app { $app_name:
