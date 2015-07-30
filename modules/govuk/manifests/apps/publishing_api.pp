@@ -37,20 +37,17 @@ class govuk::apps::publishing_api(
 ) {
   $app_name = 'publishing-api'
   govuk::app { $app_name:
-    app_type           => 'bare',
-    log_format_is_json => true,
+    app_type           => 'rack',
     port               => $port,
-    command            => "./${app_name}",
-    health_check_path  => '/healthcheck',
     vhost_ssl_only     => true,
+    health_check_path  => '/healthcheck',
+    log_format_is_json => true,
+    asset_pipeline     => false,
+    deny_framing       => true,
   }
 
   govuk::logstream { "${app_name}-app-out":
-    ensure  => present,
-    logfile => "/var/log/${app_name}/app.out.log",
-    tags    => ['stdout', 'app'],
-    json    => true,
-    fields  => {'application' => $app_name},
+    ensure  => absent,
   }
 
   Govuk::App::Envvar {
