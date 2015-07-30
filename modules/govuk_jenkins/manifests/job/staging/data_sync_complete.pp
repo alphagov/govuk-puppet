@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*auth_token*]
+#   Token to allow this job to be triggered remotely
+#
 # [*signon_domain_old*]
 #   Optional param which will run signon's rake task for
 #   applications:migrate_domain if both this and `$signon_domain_new` are set.
@@ -12,6 +15,7 @@
 #   See docs for `$signon_domain_old`.
 #
 class govuk_jenkins::job::staging::data_sync_complete (
+  $auth_token = undef,
   $signon_domain_old = undef,
   $signon_domain_new = undef,
 ) {
