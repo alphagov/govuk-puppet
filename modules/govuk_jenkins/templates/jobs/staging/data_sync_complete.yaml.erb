@@ -4,6 +4,9 @@
     display-name: Data_Sync_Complete
     project-type: freestyle
     description: "Run after data is synced from production."
+    <%- if @auth_token -%>
+    auth-token: <%= @auth_token %>
+    <%- end -%>
     logrotate:
       artifactNumToKeep: 10
     builders:
