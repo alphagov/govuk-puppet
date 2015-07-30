@@ -65,7 +65,7 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-frontend-?_frontend_production.nginx_logs.whitehall-frontend_production_alphagov_co_uk.http_5xx,4,\"sumSeries\")"
+              "target": "groupByNode(stats.whitehall-frontend-?_frontend_production.nginx_logs.whitehall-frontend_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
             }
           ],
           "aliasColors": {},
@@ -124,7 +124,7 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-backend-?_backend_production.nginx_logs.whitehall-admin_production_alphagov_co_uk.http_5xx,4,\"sumSeries\")"
+              "target": "groupByNode(stats.whitehall-backend-?_backend_production.nginx_logs.whitehall-admin_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
             }
           ],
           "aliasColors": {},

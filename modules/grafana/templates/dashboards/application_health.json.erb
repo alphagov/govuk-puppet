@@ -1,5 +1,5 @@
 {
-  "title": "origin health",
+  "title": "application health",
   "services": {
     "filter": {
       "list": [],
@@ -26,94 +26,7 @@
           "y-axis": true,
           "scale": 1,
           "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false,
-            "query": "*",
-            "size": 20,
-            "field": "_type",
-            "sort": [
-              "_score",
-              "desc"
-            ]
-          },
-          "auto_int": true,
-          "resolution": 100,
-          "interval": "5m",
-          "intervals": [
-            "auto",
-            "1s",
-            "1m",
-            "5m",
-            "10m",
-            "30m",
-            "1h",
-            "3h",
-            "12h",
-            "1d",
-            "1w",
-            "1y"
-          ],
-          "lines": true,
-          "fill": 10,
-          "linewidth": 0,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": true,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "interactive": true,
-          "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "targets": [
-            {
-              "target": "aliasSub(stats.cache-*_router_production.nginx_logs.www-origin.http_5xx,\".*(cache-\\d+).*\", \"\\1\")"
-            }
-          ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "HTTP 5xx/s",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
-        },
-        {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0,
             "threshold1": null,
             "threshold2": null,
@@ -153,7 +66,7 @@
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": true,
+          "stack": false,
           "spyable": true,
           "zoomlinks": false,
           "options": false,
@@ -178,12 +91,15 @@
           },
           "targets": [
             {
-              "target": "aliasSub(movingMedian(cache-*_router_production.nginx.nginx_requests,12),\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")"
+            },
+            {
+              "target": "groupByNode(stats.timers.backend-?_backend_production.contentapi.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "HTTP total/s",
+          "title": "contentapi resp/avg",
           "datasource": null,
           "renderer": "flot",
           "y_formats": [
@@ -200,7 +116,7 @@
           "y-axis": true,
           "scale": 1,
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0,
             "threshold1": null,
             "threshold2": null,
@@ -235,8 +151,8 @@
             "1y"
           ],
           "lines": true,
-          "fill": 10,
-          "linewidth": 0,
+          "fill": 0,
+          "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
@@ -265,18 +181,105 @@
           },
           "targets": [
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router_production.nginx_logs.www-origin.http_*xx)),1), 12),\"cache-1\")"
+              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend_production.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")"
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router_production.nginx_logs.www-origin.http_*xx)),1),12),\"cache-2\")"
-            },
-            {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router_production.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router_production.nginx_logs.www-origin.http_*xx)),1),12),\"cache-3\")"
+              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend_production.smartanswers.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "HTTP error/pc",
+          "title": "smartanswers resp/avg",
+          "datasource": null,
+          "renderer": "flot",
+          "y_formats": [
+            "none",
+            "none"
+          ]
+        },
+        {
+          "span": 4,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "grid": {
+            "max": 1500,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false,
+            "query": "*",
+            "size": 20,
+            "field": "_type",
+            "sort": [
+              "_score",
+              "desc"
+            ]
+          },
+          "auto_int": true,
+          "resolution": 100,
+          "interval": "5m",
+          "intervals": [
+            "auto",
+            "1s",
+            "1m",
+            "5m",
+            "10m",
+            "30m",
+            "1h",
+            "3h",
+            "12h",
+            "1d",
+            "1w",
+            "1y"
+          ],
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "spyable": true,
+          "zoomlinks": false,
+          "options": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "interactive": true,
+          "legend_counts": true,
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend_production.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")"
+            },
+            {
+              "target": "groupByNode(stats.timers.frontend-?_frontend_production.frontend.time_*.mean,4,\"avg\")"
+            }
+          ],
+          "aliasColors": {},
+          "aliasYAxis": {},
+          "title": "frontend resp/avg",
           "datasource": null,
           "renderer": "flot",
           "y_formats": [
@@ -303,7 +306,7 @@
           "y-axis": true,
           "scale": 1,
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0,
             "threshold1": null,
             "threshold2": null,
@@ -368,12 +371,15 @@
           },
           "targets": [
             {
-              "target": "aliasSub(stats.timers.cache-*_router_production.nginx_logs.www-origin.time_request.mean,\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend_production.nginx_logs.search_*.time_request.mean),1000),\"nginx\")"
+            },
+            {
+              "target": "groupByNode(stats.timers.backend-?_backend_production.search.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "Cache resp/avg",
+          "title": "rummager resp/avg",
           "datasource": null,
           "renderer": "flot",
           "y_formats": [
@@ -390,7 +396,7 @@
           "y-axis": true,
           "scale": 1,
           "grid": {
-            "max": null,
+            "max": 1500,
             "min": 0,
             "threshold1": null,
             "threshold2": null,
@@ -455,12 +461,12 @@
           },
           "targets": [
             {
-              "target": "aliasByNode(highestMax(*production.nginx.nginx_connections-writing,6),0)"
+              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend_production.whitehall.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "Nginx cnx writing/top6",
+          "title": "whitehall fe resp/avg",
           "datasource": null,
           "renderer": "flot",
           "y_formats": [
@@ -542,12 +548,12 @@
           },
           "targets": [
             {
-              "target": "maximumAbove(aliasSub(groupByNode(stats.*_frontend_production.nginx_logs.*_production_alphagov_co_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)"
+              "target": "aliasSub(groupByNode(stats.*_frontend_production.nginx_logs.*_<%= @app_domain_metrics -%>.http_503,3,\"sum\"),\"_.*\",\"\")"
             }
           ],
           "aliasColors": {},
           "aliasYAxis": {},
-          "title": "HTTP 5xx/app",
+          "title": "fe HTTP 503/s",
           "datasource": null,
           "renderer": "flot",
           "y_formats": [
@@ -632,16 +638,16 @@
   ],
   "loader": {
     "save_gist": false,
-    "save_elasticsearch": false,
+    "save_elasticsearch": true,
     "save_local": true,
     "save_default": true,
     "save_temp": true,
     "save_temp_ttl_enable": true,
     "save_temp_ttl": "30d",
     "load_gist": false,
-    "load_elasticsearch": false,
+    "load_elasticsearch": true,
     "load_elasticsearch_size": 20,
-    "load_local": true,
+    "load_local": false,
     "hide": false
   },
   "refresh": "1m",

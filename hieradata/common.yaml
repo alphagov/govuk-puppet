@@ -213,6 +213,8 @@ govuk_sudo::sudo_conf:
 
 govuk_unattended_reboot::enabled: true
 
+grafana::dashboards::app_domain: "%{hiera('app_domain')}"
+
 grub2::recordfail_timeout: 5
 
 hosts::production::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

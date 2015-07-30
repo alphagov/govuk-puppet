@@ -2,13 +2,30 @@
 #
 # Set up monitoring dashboards for grafana.
 #
-class grafana::dashboards {
+# === Parameters
+#
+# [*app_domain*]
+#   The suffix that applications use for their domain names.
+#
+class grafana::dashboards (
+  $app_domain = undef,
+) {
+  validate_string($app_domain)
+
   $dashboard_directory = '/etc/grafana/dashboards'
+
+  $app_domain_metrics = regsubst($app_domain, '\.', '_', 'G')
 
   file { $dashboard_directory:
     ensure  => directory,
     recurse => true,
     purge   => true,
     source  => 'puppet:///modules/grafana/dashboards',
+  }
+
+  file {
+    "${dashboard_directory}/application_health.json": content => template('grafana/dashboards/application_health.json.erb');
+    "${dashboard_directory}/origin_health.json": content => template('grafana/dashboards/origin_health.json.erb');
+    "${dashboard_directory}/whitehall_health.json": content => template('grafana/dashboards/whitehall_health.json.erb');
   }
 }
