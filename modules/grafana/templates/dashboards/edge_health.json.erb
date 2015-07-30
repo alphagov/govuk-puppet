@@ -1,5 +1,5 @@
 {
-  "title": "whitehall",
+  "title": "edge health",
   "services": {
     "filter": {
       "list": [],
@@ -11,10 +11,14 @@
   },
   "rows": [
     {
-      "title": "HTTP Status Codes",
+      "title": "one",
+      "height": "375px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
       "panels": [
         {
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "graphite",
           "loadingEditor": false,
@@ -40,12 +44,12 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
+          "fill": 5,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": false,
+          "stack": true,
           "legend": {
             "show": true,
             "values": false,
@@ -60,20 +64,22 @@
           "nullPointMode": "connected",
           "steppedLine": false,
           "tooltip": {
-            "value_type": "cumulative",
+            "value_type": "individual",
             "query_as_alias": true
           },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-frontend-?_frontend_production.nginx_logs.whitehall-frontend_production_alphagov_co_uk.http_5xx,4,\"sumSeries\")"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-{errors,hits,miss,pass}"
             }
           ],
-          "aliasColors": {},
+          "aliasColors": {
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-errors": "#890F02"
+          },
           "aliasYAxis": {},
-          "title": "Frontend 5xx Errors"
+          "title": "www.gov edge cache func"
         },
         {
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "graphite",
           "loadingEditor": false,
@@ -99,12 +105,12 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
+          "fill": 5,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": false,
+          "stack": true,
           "legend": {
             "show": true,
             "values": false,
@@ -119,173 +125,96 @@
           "nullPointMode": "connected",
           "steppedLine": false,
           "tooltip": {
-            "value_type": "cumulative",
+            "value_type": "individual",
             "query_as_alias": true
           },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-backend-?_backend_production.nginx_logs.whitehall-admin_production_alphagov_co_uk.http_5xx,4,\"sumSeries\")"
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-{errors,hits,miss,pass}"
             }
           ],
-          "aliasColors": {},
+          "aliasColors": {
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-errors": "#890F02"
+          },
           "aliasYAxis": {},
-          "title": "Backend 5xx Errors"
+          "title": "assets.digital edge cache func"
+        },
+        {
+          "span": 4,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 5,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-{errors,hits,miss,pass}"
+            }
+          ],
+          "aliasColors": {
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-errors": "#890F02"
+          },
+          "aliasYAxis": {},
+          "title": "bouncer/redirector edge cache func"
         }
       ],
-      "height": "80",
-      "collapse": false,
-      "collapsable": true,
-      "editable": true,
       "notice": false
     },
     {
-      "title": "NginX Status",
-      "panels": [
-        {
-          "type": "graphite",
-          "span": 6,
-          "title": "Frontend Nginx Connections",
-          "targets": [
-            {
-              "target": "groupByNode(whitehall-frontend-*_frontend_production.nginx.nginx_connections-writing,-1,\"sum\")"
-            },
-            {
-              "target": "groupByNode(whitehall-frontend-*_frontend_production.nginx.nginx_requests,-1,\"sum\")"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "aliasColors": {},
-          "aliasYAxis": {}
-        },
-        {
-          "type": "graphite",
-          "span": 6,
-          "title": "Backend Nginx Connections",
-          "targets": [
-            {
-              "target": "groupByNode(whitehall-backend-*_backend_production.nginx.nginx_connections-writing,-1,\"sum\")"
-            },
-            {
-              "target": "groupByNode(whitehall-backend-*_backend_production.nginx.nginx_requests,-1,\"sum\")"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "aliasColors": {},
-          "aliasYAxis": {}
-        }
-      ],
-      "height": "80",
+      "title": "two",
+      "height": "375px",
+      "editable": true,
       "collapse": false,
       "collapsable": true,
-      "editable": true,
-      "notice": false
-    },
-    {
-      "title": "ES & MySQL CPU",
       "panels": [
         {
+          "span": 4,
+          "editable": true,
           "type": "graphite",
-          "span": 6,
-          "title": "MySQL CPU Usage",
-          "targets": [
-            {
-              "target": "alias(sumSeries(whitehall-mysql-master-1_backend_production.cpu-*.cpu-user),\"Master CPU Usage\")"
-            },
-            {
-              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend_production.cpu-*.cpu-user),\"Slave-1 CPU Usage\")"
-            },
-            {
-              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend_production.cpu-*.cpu-user),\"Slave-2 CPU Usage\")"
-            }
-          ],
+          "loadingEditor": false,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -308,12 +237,12 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
+          "fill": 5,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": false,
+          "stack": true,
           "legend": {
             "show": true,
             "values": false,
@@ -328,21 +257,28 @@
           "nullPointMode": "connected",
           "steppedLine": false,
           "tooltip": {
-            "value_type": "cumulative",
+            "value_type": "individual",
             "query_as_alias": true
           },
-          "aliasColors": {},
-          "aliasYAxis": {}
+          "targets": [
+            {
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_{5,4,3,2}xx"
+            }
+          ],
+          "aliasColors": {
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_5xx": "#E24D42",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_4xx": "#EAB839",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_3xx": "#6ED0E0",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_2xx": "#7EB26D"
+          },
+          "aliasYAxis": {},
+          "title": "www.gov edge status code"
         },
         {
+          "span": 4,
+          "editable": true,
           "type": "graphite",
-          "span": 6,
-          "title": "ElasticSearch CPU Usage",
-          "targets": [
-            {
-              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend_production.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend_production\",\"\")"
-            }
-          ],
+          "loadingEditor": false,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -365,12 +301,12 @@
           },
           "resolution": 100,
           "lines": true,
-          "fill": 0,
+          "fill": 5,
           "linewidth": 1,
           "points": false,
           "pointradius": 5,
           "bars": false,
-          "stack": false,
+          "stack": true,
           "legend": {
             "show": true,
             "values": false,
@@ -385,17 +321,88 @@
           "nullPointMode": "connected",
           "steppedLine": false,
           "tooltip": {
-            "value_type": "cumulative",
+            "value_type": "individual",
             "query_as_alias": true
           },
-          "aliasColors": {},
-          "aliasYAxis": {}
+          "targets": [
+            {
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_{5,4,3,2}xx"
+            }
+          ],
+          "aliasColors": {
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_5xx": "#E24D42",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_4xx": "#EAB839",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_3xx": "#6ED0E0",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-assets.requests-status_2xx": "#7EB26D"
+          },
+          "aliasYAxis": {},
+          "title": "assets.digital edge status code"
+        },
+        {
+          "span": 4,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 5,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": true,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "individual",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_{5,4,3,2}xx"
+            }
+          ],
+          "aliasColors": {
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_5xx": "#E24D42",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_4xx": "#EAB839",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_3xx": "#6ED0E0",
+            "monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-redirector.requests-status_2xx": "#7EB26D"
+          },
+          "aliasYAxis": {},
+          "title": "redirector/bouncer edge status code"
         }
       ],
-      "height": "80",
-      "collapse": false,
-      "collapsable": true,
-      "editable": true,
       "notice": false
     }
   ],
@@ -412,29 +419,8 @@
     },
     {
       "type": "annotations",
-      "enable": true,
-      "annotations": [
-        {
-          "name": "whitehall deploys",
-          "type": "graphite events",
-          "showLine": true,
-          "iconColor": "#C0C6BE",
-          "lineColor": "rgba(32, 230, 25, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "tags": "whitehall"
-        },
-        {
-          "name": "whitehall restarts",
-          "type": "graphite metric",
-          "showLine": true,
-          "iconColor": "#FF2020",
-          "lineColor": "rgba(255, 32, 32, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "target": "substr(stats.govuk.app.whitehall.restarts,3,5)"
-        }
-      ]
+      "enable": false,
+      "annotations": []
     }
   ],
   "nav": [

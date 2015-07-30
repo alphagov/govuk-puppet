@@ -36,6 +36,8 @@ govuk::node::s_asset_base::firewall_allow_ip_range: '10.2.3.0/24'
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
+grafana::dashboards::machine_suffix_metrics: '_staging_publishing_service_gov_uk'
+
 hosts::production::management::apt_host_ip: '10.2.0.75'
 
 website_root: 'https://www-origin.staging.publishing.service.gov.uk'

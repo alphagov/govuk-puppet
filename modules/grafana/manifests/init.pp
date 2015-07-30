@@ -1,6 +1,11 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: grafana
+#
+# Set up grafana.
+#
 class grafana {
   include govuk::ppa
+
+  include grafana::dashboards
 
   package { 'grafana':
     ensure => latest,
@@ -13,13 +18,6 @@ class grafana {
   file { '/etc/grafana/config.js':
     ensure => file,
     source => 'puppet:///modules/grafana/config.js',
-  }
-
-  file { '/etc/grafana/dashboards':
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    source  => 'puppet:///modules/grafana/dashboards',
   }
 
   nginx::config::site { 'grafana':
