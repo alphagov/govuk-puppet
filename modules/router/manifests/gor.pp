@@ -27,7 +27,7 @@ class router::gor (
   #   for *every* request/goroutine, and can be quite overwhelming.
   $host_defaults = {
     'ensure'  => $gor_hosts_ensure,
-    'before'  => 'Class[Govuk::Gor]',
+    'notify'  => 'Class[Govuk::Gor]',
     'comment' => 'Used by Gor. See comments in router::gor.',
   }
 
