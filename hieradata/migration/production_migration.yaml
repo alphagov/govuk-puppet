@@ -467,3 +467,5 @@ hosts::production::router::hosts:
     ip: '10.3.1.252'
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
+
+postfix::rewrite_mail_list: 'machine.email.carrenza'
