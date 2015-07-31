@@ -1,7 +1,7 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk::deploy::setup', :type => :class do
-  let(:file_path) { '/home/deploy/.ssh/authorized_keys' }
+  let(:authorized_keys_path) { '/home/deploy/.ssh/authorized_keys' }
 
   context 'keys provided' do
     let(:params) {{
@@ -18,7 +18,7 @@ describe 'govuk::deploy::setup', :type => :class do
     }}
 
     it 'authorized_keys should have all keys active and sorted by comment' do
-      should contain_file(file_path).with_content(<<eos
+      should contain_file(authorized_keys_path).with_content(<<eos
 ssh-rsa twopears bar
 ssh-rsa threeplums baz
 ssh-rsa oneapple foo
@@ -37,8 +37,8 @@ eos
     }}
 
     it 'authorized_keys should only contain commented keys' do
-      should contain_file(file_path).with_content(/ NONE_IN_HIERA /)
-      should contain_file(file_path).without_content(/^[^#]/)
+      should contain_file(authorized_keys_path).with_content(/ NONE_IN_HIERA /)
+      should contain_file(authorized_keys_path).without_content(/^[^#]/)
     end
   end
 
