@@ -158,7 +158,7 @@ ssh::config::allow_users:
   - 'digitalassurancetester'
   - 'eddsowden'
   - 'elliot'
-  - 'govuk-backup@10.0.0.50' # govuk-backup from backup-1 within this environment
+  - 'govuk-backup'
   - 'heathd'
   - 'jabley'
   - 'jacobashdown'
