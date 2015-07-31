@@ -12,10 +12,10 @@ define contact {
 
 define command {
        command_name     notify-service-by-pagerduty
-       command_line     /usr/local/bin/pagerduty_nagios.pl enqueue -f pd_nagios_object=service
+       command_line     /usr/local/bin/pagerduty_icinga.pl enqueue -f pd_nagios_object=service
 }
 
 define command {
        command_name     notify-host-by-pagerduty
-       command_line     /usr/local/bin/pagerduty_nagios.pl enqueue -f pd_nagios_object=host
+       command_line     /usr/local/bin/pagerduty_icinga.pl enqueue -f pd_nagios_object=host
 }
