@@ -4,7 +4,7 @@
 #
 # === Parameters
 #
-# [*pagerduty_apikey*]
+# [*pagerduty_servicekey*]
 #   PagerDuty API key.
 #   Default: ''
 #
@@ -37,7 +37,7 @@
 #   Default: 'https://example.com/cgi-bin/icinga/status.cgi'
 #
 class monitoring::contacts (
-  $pagerduty_apikey = '',
+  $pagerduty_servicekey = '',
   $notify_pager = false,
   $notify_slack = false,
   $slack_subdomain = undef,
@@ -97,11 +97,11 @@ class monitoring::contacts (
     $slack_members = []
   }
 
-  if ($pagerduty_apikey != '') {
+  if ($pagerduty_servicekey != '') {
     icinga::pager_contact { 'pager_nonworkhours':
       service_notification_options => 'c',
       notification_period          => '24x7',
-      pagerduty_apikey             => $pagerduty_apikey,
+      pagerduty_servicekey         => $pagerduty_servicekey,
     }
   }
   $pager_members = $notify_pager ? {
