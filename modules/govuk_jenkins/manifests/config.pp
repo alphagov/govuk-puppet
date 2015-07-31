@@ -73,6 +73,11 @@ class govuk_jenkins::config (
           notify => Service['jenkins'],
         }
 
+        # FIXME: Remove when deployed to production.
+        file { '/var/lib/jenkins/hudson.tasks.Mailer.xml':
+          ensure => absent,
+        }
+
         file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
           ensure  => present,
           content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
