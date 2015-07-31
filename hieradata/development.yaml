@@ -28,7 +28,6 @@ govuk::apps::content_register::enable_procfile_worker: false
 govuk::apps::content_register::rabbitmq::configure_test_details: true
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
-govuk::apps::content_store::rabbitmq::configure_test_exchange: true
 govuk::apps::content_store::vhost: 'content-store'
 govuk::apps::courts_api::enabled: true
 govuk::apps::courts_frontend::enabled: true
@@ -56,6 +55,7 @@ govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
 govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.dev.gov.uk'
+govuk::apps::publishing_api::rabbitmq::configure_test_exchange: true
 govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
