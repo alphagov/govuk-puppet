@@ -88,6 +88,7 @@ class govuk::node::s_development {
   include govuk::apps::public_link_tracker
   include govuk::apps::publisher
   include govuk::apps::publishing_api
+  include govuk::apps::publishing_api::rabbitmq
   include govuk::apps::release
   include govuk::apps::router
   include govuk::apps::router_api
