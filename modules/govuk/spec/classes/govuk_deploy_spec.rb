@@ -2,6 +2,7 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk::deploy::setup', :type => :class do
   let(:authorized_keys_path) { '/home/deploy/.ssh/authorized_keys' }
+  let(:actionmailer_config_path) { '/etc/govuk/actionmailer_ses_smtp_config.rb' }
 
   context 'keys provided' do
     let(:params) {{
@@ -52,7 +53,7 @@ eos
     }}
 
     it 'does not disable email delivery in ActionMailer' do
-      should contain_file('/etc/govuk/actionmailer_ses_smtp_config.rb').without_content(/^ActionMailer::Base.perform_deliveries = false$/)
+      should contain_file(actionmailer_config_path).without_content(/^ActionMailer::Base.perform_deliveries = false$/)
     end
   end
 
@@ -66,7 +67,7 @@ eos
     }}
 
     it 'does not disable email delivery in ActionMailer' do
-      should contain_file('/etc/govuk/actionmailer_ses_smtp_config.rb').with_content(/^ActionMailer::Base.perform_deliveries = false$/)
+      should contain_file(actionmailer_config_path).with_content(/^ActionMailer::Base.perform_deliveries = false$/)
     end
   end
 end
