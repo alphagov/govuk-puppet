@@ -17,6 +17,10 @@
 #   whitelisted IP without requiring a VPN connection.
 #   Default: false
 #
+# [*external_licensify_location*]
+#   IP address of Licensify if it is hosted externally to this
+#   environment. Only creates a host entry if defined.
+#
 # [*ip_api_lb*]
 #   The IP address of the API load-balancer
 #
@@ -40,16 +44,17 @@
 #   Default: false
 #
 class hosts::production (
-  $apt_mirror_hostname    = undef,
-  $apt_mirror_internal    = false,
-  $carrenza_vcloud        = false,
-  $ip_api_lb              = '127.0.0.1',
-  $ip_backend_lb          = '127.0.0.1',
-  $ip_bouncer             = '127.0.0.1',
-  $ip_draft_api_lb        = '127.0.0.1',
-  $ip_frontend_lb         = '127.0.0.1',
-  $ip_licensify_lb        = '127.0.0.1',
-  $releaseapp_host_org    = false,
+  $apt_mirror_hostname         = undef,
+  $apt_mirror_internal         = false,
+  $carrenza_vcloud             = false,
+  $external_licensify_location = undef,
+  $ip_api_lb                   = '127.0.0.1',
+  $ip_backend_lb               = '127.0.0.1',
+  $ip_bouncer                  = '127.0.0.1',
+  $ip_draft_api_lb             = '127.0.0.1',
+  $ip_frontend_lb              = '127.0.0.1',
+  $ip_licensify_lb             = '127.0.0.1',
+  $releaseapp_host_org         = false,
 ) {
 
   $app_domain = hiera('app_domain')
@@ -145,4 +150,9 @@ class hosts::production (
     }
   }
 
+  if $external_licensify_location {
+    host { 'licensify.production.alphagov.co.uk':
+      ip => $external_licensify_location,
+    }
+  }
 }
