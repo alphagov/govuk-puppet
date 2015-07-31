@@ -57,7 +57,7 @@ hosts::production::management::apt_host_ip: '10.3.0.75'
 website_root: 'https://www-origin.publishing.service.gov.uk'
 
 govuk_jenkins::config::banner_colour_background: '#ff3300'
-govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
 
 govuk_jenkins::config::manage_config: true
