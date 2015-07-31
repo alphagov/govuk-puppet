@@ -28,6 +28,9 @@
 #   Errbit API key used by gobrake
 #   Default: ''
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
@@ -35,6 +38,7 @@ class govuk::apps::publishing_api(
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
   $rails = false,
+  $secret_key_base = undef,
 ) {
   $app_name = 'publishing-api'
 
@@ -55,6 +59,13 @@ class govuk::apps::publishing_api(
       tags    => ['stdout', 'app'],
       json    => true,
       fields  => {'application' => $app_name},
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
     }
   } else {
     govuk::app { $app_name:
