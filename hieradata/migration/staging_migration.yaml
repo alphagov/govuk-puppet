@@ -43,6 +43,7 @@ govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
 grafana::dashboards::machine_suffix_metrics: '_staging'
 
+hosts::production::efg_domains: []
 hosts::production::external_licensify_location: '37.26.91.8'
 
 hosts::production::management::apt_host_ip: '10.2.0.75'

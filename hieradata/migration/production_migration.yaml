@@ -54,6 +54,7 @@ govuk::node:s_transition_postgresql_slave: '10.3.5.0/24'
 grafana::dashboards::machine_suffix_metrics: ''
 
 hosts::production::apt_mirror_internal: false
+hosts::production::efg_domains: []
 hosts::production::external_licensify_location: '37.26.90.230'
 hosts::production::management::apt_host_ip: '10.3.0.75'
 
