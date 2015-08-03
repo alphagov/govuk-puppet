@@ -6,7 +6,7 @@
     description: "This job SSHes to whitehall-backend-2.backend.<%= @environment -%> and runs 'cd /var/apps/whitehall ; RAILS_ENV=production       bundle exec rake db:data:migrate'"
     builders:
         - shell: |
-            "ssh deploy@whitehall-backend-2.backend.<%= @environment -%> 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake db:data:migrate'"
+            ssh deploy@whitehall-backend-2.backend.<%= @environment -%> 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake db:data:migrate'
     wrappers:
         - ansicolor:
             colormap: xterm
