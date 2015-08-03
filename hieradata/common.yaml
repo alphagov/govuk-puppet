@@ -83,6 +83,8 @@ backup::offsite::jobs:
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
+govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
+
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
@@ -219,6 +221,8 @@ grafana::dashboards::machine_suffix_metrics: '_production'
 grub2::recordfail_timeout: 5
 
 hosts::production::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+hosts::production::efg_domains:
+  - "%{hiera('efg_domain')}"
 hosts::production::ip_api_lb: '10.7.1.2'
 hosts::production::ip_backend_lb: '10.3.1.2'
 hosts::production::ip_draft_api_lb: '10.7.2.2'
