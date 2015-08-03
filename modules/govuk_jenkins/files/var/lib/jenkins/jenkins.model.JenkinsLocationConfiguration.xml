@@ -1,5 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<jenkins.model.JenkinsLocationConfiguration>
-  <adminAddress>webops@digital.cabinet-office.gov.uk</adminAddress>
-  <jenkinsUrl>https://deploy.staging.alphagov.co.uk/</jenkinsUrl>
-</jenkins.model.JenkinsLocationConfiguration>
