@@ -4,6 +4,7 @@ class icinga::client::checks (
   $disk_time_critical = 200 # milliseconds
 ) {
 
+  include icinga::client::check_file_not_exists
   include icinga::client::check_linux_free_memory
   include icinga::client::check_rw_rootfs
   include icinga::client::check_upstart_status
