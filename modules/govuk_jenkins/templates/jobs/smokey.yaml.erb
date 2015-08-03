@@ -16,15 +16,15 @@
     builders:
         - shell: |
             set +x
-            export TARGET_PLATFORM=<%= @environment -%>
-            export AUTH_USERNAME=betademo
-            export AUTH_PASSWORD=nottobesharedout
+            export TARGET_PLATFORM=<%= @environment %>
+            export AUTH_USERNAME='<%= @auth_username %>'
+            export AUTH_PASSWORD='<%= @auth_password %>'
             export MYSQL_USERNAME=panopticon
             export EFG_DOMAIN='https://www.sflg.gov.uk'
-            export EFG_USERNAME='support@alphagov.co.uk'
+            export EFG_USERNAME='<%= @efg_username %>'
             export EFG_PASSWORD='<%= @efg_password %>'
             export SIGNON_EMAIL='<%= @signon_email %>'
-            export SIGNON_PASSWORD='The Quick Brown Fox1!'
+            export SIGNON_PASSWORD='<%= @signon_password %>'
             export BEARER_TOKEN=<%= @smokey_bearer_token %>
             export RATE_LIMIT_TOKEN=<%= @smokey_rate_limit_token %>
             set -x
