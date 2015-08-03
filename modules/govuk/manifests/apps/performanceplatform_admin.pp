@@ -19,11 +19,12 @@ class govuk::apps::performanceplatform_admin (
     }
 
     govuk::app { 'performanceplatform-admin':
-      app_type          => 'bare',
-      port              => $port,
-      command           => "./venv/bin/gunicorn application:app --bind 127.0.0.1:${port} --workers 4",
-      vhost_ssl_only    => true,
-      health_check_path => '/_status',
+      app_type           => 'bare',
+      port               => $port,
+      command            => "./venv/bin/gunicorn application:app --bind 127.0.0.1:${port} --workers 4",
+      vhost_ssl_only     => true,
+      health_check_path  => '/_status',
+      log_format_is_json => true,
     }
   }
 }
