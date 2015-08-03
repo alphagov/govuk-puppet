@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Desc : Plugin to verify a file does not exist
+
+PROGNAME=`basename $0`
+
+if [ "$1" = "" ]
+then
+  echo -e " Use : $PROGNAME <file_name> -- Ex : $PROGNAME /etc/hosts \n "
+  exit 3
+fi
+
+if [ -f $1 ]
+then
+  echo "CRITICAL : $1 exists"
+  exit 2
+else
+  echo "OK - File $1 does not exist"
+  exit 0
+fi
