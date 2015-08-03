@@ -17,6 +17,9 @@
 #   whitelisted IP without requiring a VPN connection.
 #   Default: false
 #
+# [*efg_domains*]
+#   Array of external domain names that EFG should be available on.
+#
 # [*external_licensify_location*]
 #   IP address of Licensify if it is hosted externally to this
 #   environment. Only creates a host entry if defined.
@@ -47,6 +50,7 @@ class hosts::production (
   $apt_mirror_hostname         = undef,
   $apt_mirror_internal         = false,
   $carrenza_vcloud             = false,
+  $efg_domains                 = [],
   $external_licensify_location = undef,
   $ip_api_lb                   = '127.0.0.1',
   $ip_backend_lb               = '127.0.0.1',
@@ -59,6 +63,7 @@ class hosts::production (
 
   $app_domain = hiera('app_domain')
 
+  validate_array($efg_domains)
   validate_bool($carrenza_vcloud)
 
   if !is_ip_address($ip_api_lb) {
@@ -101,11 +106,10 @@ class hosts::production (
     legacy_aliases => ['efg.master.mysql'],
   }
 
-  $efg_domain = hiera('efg_domain',"efg.${app_domain}")
   govuk::host { 'efg-frontend-1':
     ip             => '10.4.0.2',
     vdc            => 'efg',
-    legacy_aliases => [$efg_domain],
+    legacy_aliases => $efg_domains,
   }
   govuk::host { 'efg-mysql-slave-1':
     ip             => '10.4.0.11',

@@ -1,7 +1,20 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::apps::efg( $port = 3019 ) {
-
-  $vhost_name = hiera('efg_domain', 'efg.dev.gov.uk')
+# == Class: govuk::apps::efg
+#
+# Set up the EFG app
+#
+# === Parameters
+#
+# [*port*]
+#   Port the app runs on
+#
+# [*vhost_name*]
+#   External domain name that EFG should be available on
+#
+class govuk::apps::efg (
+  $port = 3019,
+  $vhost_name = 'efg.dev.gov.uk',
+) {
+  validate_string($vhost_name)
 
   govuk::app { 'efg':
     app_type           => 'rack',
