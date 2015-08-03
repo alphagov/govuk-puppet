@@ -22,6 +22,9 @@ govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging-migration@
 
 govuk::deploy::config::external_licensify: true
 
+# FIXME: Remove this line during migration to Carrenza
+govuk::deploy::actionmailer_enable_delivery: false
+
 govuk::deploy::setup::ssh_keys:
   jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7aWtyeQTBcNav3RwyFDacYaO8Ab9wX5rqXKqgd3JlWzr95i7IlCsXSovboqHw3h1J6FrCDxafbhLWJ0lFHlNdGLgX9AysZgMLJCfaJ88RTbWnCyXvTcJBHKHhRkdCrfdXGobeiIOFTOCR2zm9E7EiUXLivgBDfWulo6on4wiyQcGzsMret8SbqUYDi+BBvOGUqun01L/dMIa5DIrPSe9mJ96jXk41x8PI96jZa0XlAkZuiUP2RnZDFBDYIOiN1MaPdcgtBp81Tjo9m41GdfTztZ8hJ+9HicBjCZFH14/zK8Hk9UNZafG6mGtTvn45InF3w2z5qtXamV7s9b/V3xr9'
   jenkins_skyscape_production_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ41opiEUbMk1N3wNQLrsA3bwDWlf77mGiZAUyv8rDqwwUyRgdjXBIl8+/UUUromm3XzWXgeMiQkPSZMXu2U06X05BgW90Hl8lXsL24K0JRjLf6R7erMvqjpr0u5BTRxeKVSM52ckSUiucJHBiV5gTNRTUSwwXudjnlIY5HZRYNUUUtQMwfMObg6W3j+H/87gDx5RAF4JfOplK+pvHh0uGhIUrq48Euz2KJ31YsyO4FyU6z4k66MtJivkbZ/4Z9BpzzONnL1EC5saz7vaJIRGc0kT9NVGQ7b7uMkqlN/Bb/ZDzNJi8KSxJFTh8oNEAoRoMqaSufBlZa/sjqiuWniwL'
@@ -440,3 +443,5 @@ hosts::production::router::hosts:
     ip: '10.2.1.252'
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
+
+postfix::rewrite_mail_list: 'machine.email.carrenza'

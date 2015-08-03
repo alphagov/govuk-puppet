@@ -6,6 +6,9 @@
 # === Parameters
 #
 # [*setup_actionmailer_ses_config*]
+# [*actionmailer_enable_delivery*]
+#   Determines whether email deliveries are enabled in the ActionMailer config.
+#
 # [*aws_ses_smtp_host*]
 # [*aws_ses_smtp_username*]
 # [*aws_ses_smtp_host*]
@@ -15,6 +18,7 @@
 #
 class govuk::deploy::setup (
     $setup_actionmailer_ses_config,
+    $actionmailer_enable_delivery,
     $aws_ses_smtp_host,
     $aws_ses_smtp_username,
     $aws_ses_smtp_password,

@@ -8,3 +8,7 @@ ActionMailer::Base.smtp_settings =  {
 }
 
 ActionMailer::Base.delivery_method = :smtp
+
+<%- unless @actionmailer_enable_delivery -%>
+ActionMailer::Base.perform_deliveries = false
+<%- end -%>
