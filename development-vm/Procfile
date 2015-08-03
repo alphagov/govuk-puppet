@@ -87,8 +87,7 @@ email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../email-a
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../government-frontend bundle exec rails s -p 3090
 # sidekiq-monitoring for rummager uses 3091
 courts-api:            govuk_setenv courts-api            ./run_in.sh ../courts-api bundle exec rails s -p 3092
-# publishing-api uses port 3093
-publishing-api:        govuk_setenv publishing-api        ./run_in.sh ../publishing-api make run
+publishing-api:        govuk_setenv publishing-api        ./run_in.sh ../publishing-api bundle exec rails s -p 3093
 email-alert-monitor:   govuk_setenv email-alert-monitor   ./run_in.sh ../email-alert-monitor bundle exec rails s -p 3094
 courts-frontend:       govuk_setenv courts-frontend       ./run_in.sh ../courts-frontend bundle exec rails s -p 3095
 # entity-extractor used 3096, service is now retired
