@@ -1,7 +1,9 @@
 #!/bin/sh
 if [ -z "$GOVUK_APP_ROOT" ]; then
-  echo "Usage: govuk_setenv <APP_NAME> $(basename "$0")"
+  echo "Usage: govuk_setenv <APP_NAME> $(basename "$0") <PROCCESS_TYPE:worker>"
 fi
+
+PROCESS_TYPE=${1-"worker"}
 
 create_app_dirs () {
   mkdir -p "$@"
@@ -23,6 +25,6 @@ fi
 create_app_dirs "$GOVUK_APP_RUN" "$GOVUK_APP_LOGROOT"
 
 cd $GOVUK_APP_ROOT
-CMD=`grep '^worker:' Procfile | cut -d':' -f2-`
+CMD=`grep "^${PROCESS_TYPE}:" Procfile | cut -d':' -f2-`
 # We reset PATH here because `sudo` drops PATH
-exec sudo -u $GOVUK_USER -E sh -c "PATH=$SHIMPATH\$PATH exec $CMD 2>>'${GOVUK_APP_LOGROOT}/procfile_worker.err.log' 1>>'${GOVUK_APP_LOGROOT}/procfile_worker.out.log'"
+exec sudo -u $GOVUK_USER -E sh -c "PATH=$SHIMPATH\$PATH exec $CMD 2>>'${GOVUK_APP_LOGROOT}/procfile_${PROCESS_TYPE}.err.log' 1>>'${GOVUK_APP_LOGROOT}/procfile_${PROCESS_TYPE}.out.log'"
