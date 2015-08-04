@@ -39,7 +39,7 @@ govuk::deploy::setup::ssh_keys:
     ppdeploy_data_sync_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDGee9J6aN6PyPns8aiv2pLKrKPyyflG8LrMnjbIRUzqbqg4h/TXryuKqWTjvuQpb7jbAMV4GzP/aUM94Y8E1vYUKLbyLyG+OjoxNOBHjP7OY2a8iPXq2MmXDTEXQ0DpPsEOqPpMpzgit4P7Tl9yfPDLrKS9GBmQNc7wDfFMXjGfMCL+2ymhuDw4Bn7FIxuhqBDeoABAZPXoD8f1PiwLmWd+G27d3G391CLrD7y0PuySfX9R/EnlYoZJnOWjVyFrbbf3xiKWLn8JL36qTRYRRym8G8T6OvuUER7LBdmWBoTN/HQmQ4O0NcGx3HQZwRvANCBfKVK198TiF6kXn1mtudj
 
 govuk_bouncer::gor::enable_staging: true
-govuk_bouncer::gor::staging_ip: '37.26.91.5'
+govuk_bouncer::gor::staging_ip: '31.210.245.69'
 
 govuk_cdnlogs::monitoring_enabled: true
 
