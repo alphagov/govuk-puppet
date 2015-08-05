@@ -11,6 +11,10 @@ efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::mapit::enabled: true
 govuk::apps::search_admin::enabled: true
+govuk::apps::stagecraft::enabled: true
+govuk::apps::stagecraft::worker::enabled: true
+govuk::apps::stagecraft::beat::enabled: true
+govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
