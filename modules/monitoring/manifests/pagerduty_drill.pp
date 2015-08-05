@@ -16,30 +16,29 @@ class monitoring::pagerduty_drill (
 ) {
   if $enabled {
     $filename = '/var/run/pagerduty_drill'
-    $file_age = 86400 * 8 # 8 days in seconds
 
-    cron { 'pagerduty_drill_remove':
+    cron { 'pagerduty_drill_run':
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
       hour    => 10,
       minute  => 0,
-      command => "rm -f ${filename}",
-    }
-
-    cron { 'pagerduty_drill_reinstate':
-      ensure  => present,
-      user    => 'root',
-      weekday => 'wednesday',
-      hour    => 10,
-      minute  => 15,
       command => "touch ${filename}",
     }
 
-    @@icinga::check { "pagerduty_drill_file_removed_on_${::hostname}":
-      check_command       => "check_nrpe!check_file_age!\"-f ${filename} -w ${file_age} -c ${file_age}\"",
+    cron { 'pagerduty_drill_stop':
+      ensure  => present,
+      user    => 'root',
+      weekday => 'wednesday',
+      hour    => 11,
+      minute  => 15,
+      command => "rm -f ${filename}",
+    }
+
+    @@icinga::check { "pagerduty_drill_on_${::hostname}":
+      check_command       => "check_nrpe!check_file_not_exists!${filename}",
       use                 => 'govuk_urgent_priority',
-      service_description => 'PagerDuty dry run in progress',
+      service_description => 'PagerDuty test drill in progress',
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(pagerduty-dry-run),
     }
