@@ -20,9 +20,8 @@
 # [*efg_domains*]
 #   Array of external domain names that EFG should be available on.
 #
-# [*external_licensify_location*]
-#   IP address of Licensify if it is hosted externally to this
-#   environment. Only creates a host entry if defined.
+# [*external_licensify*]
+#   Boolean indicating whether Licensify is hosted externally to this environment.
 #
 # [*ip_api_lb*]
 #   The IP address of the API load-balancer
@@ -42,6 +41,10 @@
 # [*ip_licensify_lb*]
 #   The IP address of the licensify load-balancer
 #
+# [*licensify_hosts*]
+#   Hash of host entries which should be created for Licensify if it's
+#   hosted externally.
+#
 # [*releaseapp_host_org*]
 #   Whether to create the `release.$app_domain` vhost alias within this environment.
 #   Default: false
@@ -51,13 +54,14 @@ class hosts::production (
   $apt_mirror_internal         = false,
   $carrenza_vcloud             = false,
   $efg_domains                 = [],
-  $external_licensify_location = undef,
+  $external_licensify          = false,
   $ip_api_lb                   = '127.0.0.1',
   $ip_backend_lb               = '127.0.0.1',
   $ip_bouncer                  = '127.0.0.1',
   $ip_draft_api_lb             = '127.0.0.1',
   $ip_frontend_lb              = '127.0.0.1',
   $ip_licensify_lb             = '127.0.0.1',
+  $licensify_hosts             = {},
   $releaseapp_host_org         = false,
 ) {
 
@@ -154,9 +158,7 @@ class hosts::production (
     }
   }
 
-  if $external_licensify_location {
-    host { 'licensify.production.alphagov.co.uk':
-      ip => $external_licensify_location,
-    }
+  if $external_licensify {
+    create_resources('host', $licensify_hosts)
   }
 }
