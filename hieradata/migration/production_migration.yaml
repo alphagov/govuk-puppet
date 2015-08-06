@@ -117,7 +117,10 @@ govuk_jenkins::config::users:
   - tommypalmer
 
 govuk_jenkins::job_builder::manage_jobs: true
+# FIXME: The data_sync_complete job is only in this list during migration to Carrenza
+#        because Carrenza Production is being treated as a Staging environment.
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::staging::data_sync_complete
   - govuk_jenkins::job::production::build_offsite_backup
   - govuk_jenkins::job::production::check_cdn_ip_ranges
   - govuk_jenkins::job::production::ci_network_config

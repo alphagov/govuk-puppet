@@ -43,6 +43,10 @@ govuk_bouncer::gor::staging_ip: '31.210.245.69'
 
 govuk_cdnlogs::monitoring_enabled: true
 
+# FIXME: Remove once the migration to Carrenza is complete
+govuk_jenkins::job::staging::data_sync_complete::signon_domain_old: production.alphagov.co.uk
+govuk_jenkins::job::staging::data_sync_complete::signon_domain_new: publishing.service.gov.uk
+
 govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
 govuk_mysql::server::innodb_file_per_table: true
 
