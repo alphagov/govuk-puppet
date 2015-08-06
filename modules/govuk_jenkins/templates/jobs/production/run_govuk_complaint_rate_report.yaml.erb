@@ -19,7 +19,9 @@
     builders:
         - shell: |
             export PP_DATA_DOMAIN="https://www.performance.service.gov.uk/data"
-            export PP_DATASET_TOKEN="qzd4w2vkchrymrpqf6nyc9psk9fvesn8tgedu8bu8ppvw9wxrnksug9kbbrpat7p"
+            <%- if @performanceplatform_dataset_token -%>
+            export PP_DATASET_TOKEN="<%= @performanceplatform_dataset_token -%>"
+            <%- end -%>
             export LOG_LEVEL=debug
             cd "${WORKSPACE}"
             ./run.sh
