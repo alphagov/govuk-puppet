@@ -1,8 +1,15 @@
 # == Class: govuk_jenkins::job::deploy_router_data
 #
-# Create a file on disk that can be parsed by jenkins-job-builder
+# Create a Jenkins job to deploy router-data
 #
-class govuk_jenkins::job::deploy_router_data {
+# === Parameters
+#
+# [*rate_limit_token*]
+#   A token that can bypass HTTP rate limiting
+#
+class govuk_jenkins::job::deploy_router_data (
+  $rate_limit_token = undef,
+) {
   file { '/etc/jenkins_jobs/jobs/deploy_router_data.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/deploy_router_data.yaml.erb'),
