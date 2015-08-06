@@ -58,9 +58,7 @@ govuk_bouncer::gor::enabled: true
 govuk_bouncer::gor::ip_address: '31.210.245.69'
 
 govuk_crawler::seed_enable: true
-# FIXME: Enable sync once sync is disabled in Skyscape Production
-govuk_crawler::sync_enable: false
-# END FIXME
+govuk_crawler::sync_enable: true
 
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 

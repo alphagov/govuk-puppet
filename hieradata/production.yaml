@@ -118,8 +118,11 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/mapper/backups-automo
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::enable_fastly_metrics: true
 
-govuk_crawler::seed_enable: true
-govuk_crawler::sync_enable: true
+# FIXME: These are disabled to prevent Skyscape Production from fighting with Carrenza Production
+govuk_crawler::seed_enable: false
+govuk_crawler::sync_enable: false
+# END FIXME
+
 govuk_crawler::targets:
   - 'mirror-rsync@mirror0.mirror.provider0.production.govuk.service.gov.uk'
   - 'mirror-rsync@mirror1.mirror.provider0.production.govuk.service.gov.uk'
