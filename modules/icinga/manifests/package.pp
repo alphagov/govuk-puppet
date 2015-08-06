@@ -49,13 +49,13 @@ class icinga::package {
   }
 
   # pagerduty stuff
-  file { '/usr/local/bin/pagerduty_nagios.pl':
-    source => 'puppet:///modules/icinga/usr/local/bin/pagerduty_nagios.pl',
+  file { '/usr/local/bin/pagerduty_icinga.pl':
+    source => 'puppet:///modules/icinga/usr/local/bin/pagerduty_icinga.pl',
     mode   => '0755',
   }
 
   # FIXME: Remove once deployed to production
-  file { '/usr/local/bin/pagerduty_icinga.pl':
+  file { '/usr/local/bin/pagerduty_nagios.pl':
     ensure => absent,
   }
 

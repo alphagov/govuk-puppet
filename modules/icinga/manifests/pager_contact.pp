@@ -2,7 +2,7 @@
 define icinga::pager_contact (
   $service_notification_options = 'w,u,c,r',
   $notification_period          = '24x7',
-  $pagerduty_apikey             = ''
+  $pagerduty_servicekey         = ''
 ) {
 
   file {"/etc/icinga/conf.d/contact_${name}.cfg":

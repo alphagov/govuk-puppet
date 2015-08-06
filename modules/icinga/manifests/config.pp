@@ -70,7 +70,7 @@ class icinga::config {
   }
 
   cron { 'pagerduty':
-    command => '/usr/local/bin/pagerduty_nagios.pl flush',
+    command => '/usr/local/bin/pagerduty_icinga.pl flush',
     user    => 'nagios',
     minute  => '*',
   }
