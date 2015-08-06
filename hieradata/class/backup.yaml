@@ -5,51 +5,51 @@ backup::offsite::archive_directory: '/data/backups/.cache/duplicity'
 govuk::node::s_backup::directories:
   backup_mongodb_backups_exception_handler_1:
     directory: /var/lib/automongodbbackup/
-    fq_dn: exception-handler-1.backend.production
+    fq_dn: exception-handler-1.backend.%{hiera('internal_tld')}
     priority: '003'
   backup_mongodb_backups_mongo:
     directory: /var/lib/automongodbbackup/
-    fq_dn: mongo-1.backend.production
+    fq_dn: mongo-1.backend.%{hiera('internal_tld')}
     priority: '001'
   backup_mongodb_backups_api_mongo:
     directory: /var/lib/automongodbbackup/
-    fq_dn: api-mongo-1.api.production
+    fq_dn: api-mongo-1.api.%{hiera('internal_tld')}
     priority: '001'
   backup_mongodb_backups_licensify_mongo:
     directory: /var/lib/automongodbbackup/
-    fq_dn: licensify-mongo-1.licensify.production
+    fq_dn: licensify-mongo-1.licensify.%{hiera('internal_tld')}
     priority: '002'
   backup_mongodb_backups_performance_mongo:
     directory: /var/lib/automongodbbackup/
-    fq_dn: performance-mongo-1.api.production
+    fq_dn: performance-mongo-1.api.%{hiera('internal_tld')}
     priority: '001'
   backup_mongodb_backups_router_backend:
     directory: /var/lib/automongodbbackup/
-    fq_dn: router-backend-1.router.production
+    fq_dn: router-backend-1.router.%{hiera('internal_tld')}
     priority: '001'
   backup_mysql_backups_mysql_backup_1:
     directory: /var/lib/automysqlbackup/
-    fq_dn: mysql-backup-1.backend.production
+    fq_dn: mysql-backup-1.backend.%{hiera('internal_tld')}
     priority: '001'
   backup_mysql_backups_whitehall_mysql_backup_1:
     directory: /var/lib/automysqlbackup/
-    fq_dn: whitehall-mysql-backup-1.backend.production
+    fq_dn: whitehall-mysql-backup-1.backend.%{hiera('internal_tld')}
     priority: '001'
   backup_postgresql_backups_postgresql_primary_1:
     directory: /var/lib/autopostgresqlbackup/
-    fq_dn: postgresql-primary-1.backend.production
+    fq_dn: postgresql-primary-1.backend.%{hiera('internal_tld')}
     priority: '001'
   backup_postgresql_backups_puppetmaster_postgresql:
     directory: /var/lib/autopostgresqlbackup/
-    fq_dn: puppetmaster-1.management.production
+    fq_dn: puppetmaster-1.management.%{hiera('internal_tld')}
     priority: '003'
   backup_postgresql_backups_transition_postgresql_master_1:
     directory: /var/lib/autopostgresqlbackup/
-    fq_dn: transition-postgresql-master-1.backend.production
+    fq_dn: transition-postgresql-master-1.backend.%{hiera('internal_tld')}
     priority: '001'
   backup_graphite_storage_whisper_graphite-1:
     directory: /opt/graphite/storage/whisper
-    fq_dn: graphite-1.management.production
+    fq_dn: graphite-1.management.%{hiera('internal_tld')}
     priority: '004'
 
 icinga::client::checks::disk_time_warn: 750 # milliseconds
