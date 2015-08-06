@@ -30,11 +30,23 @@
 #   to bypass rate limiting. Each application should have its own token.
 #   Default: []
 #
+# [*check_requests_warning*]
+#   Minimum number of requests before triggering a warning alert in Icinga.
+#
+#  Default: @25 (below 25)
+#
+# [*check_requests_critical*]
+#   Minimum number of requests before triggering a warning alert in Icinga.
+#
+#   Default: @10 (below 10)
+#
 class router::nginx (
   $vhost_protected,
   $page_ttl_404 = '30',
   $real_ip_header = '',
   $rate_limit_tokens = [],
+  $check_requests_warning = '@25',
+  $check_requests_critical = '@10',
 ) {
   validate_array($rate_limit_tokens)
 
@@ -113,5 +125,15 @@ class router::nginx (
     desc      => 'router nginx high 5xx rate',
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
+  }
+
+  @@icinga::check::graphite { "check_nginx_requests_${::hostname}":
+    target              => "${::fqdn_underscore}.nginx.nginx_requests",
+    warning             => $check_requests_warning,
+    critical            => $check_requests_critical,
+    desc                => 'nginx requests - too low',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(nginx-requests-too-low),
+    notification_period => 'workhours',
   }
 }
