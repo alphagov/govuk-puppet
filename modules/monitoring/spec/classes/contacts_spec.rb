@@ -30,7 +30,7 @@ describe 'monitoring::contacts', :type => :class do
     it { should_not contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
-      ['pager_nonworkhours'],
+      ['pager_24x7'],
       [],
       []
   end
@@ -51,7 +51,7 @@ describe 'monitoring::contacts', :type => :class do
     )}
 
     it_should_behave_like 'configured contact groups',
-      ['slack_notification', 'pager_nonworkhours'],
+      ['slack_notification', 'pager_24x7'],
       ['slack_notification'],
       ['slack_notification']
   end

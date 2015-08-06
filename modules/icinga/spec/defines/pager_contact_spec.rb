@@ -1,12 +1,11 @@
 require_relative '../../../../spec_helper'
 
-
 describe 'icinga::pager_contact', :type => :define do
-  let(:title) { 'pager_nonworkhours' }
+  let(:title) { 'pager_24x7' }
   let(:params) {{
     :pagerduty_servicekey => '1234554321',
   }}
-  it { should contain_file('/etc/icinga/conf.d/contact_pager_nonworkhours.cfg').
+  it { should contain_file('/etc/icinga/conf.d/contact_pager_24x7.cfg').
     with_content(/command_name\s+notify-host-by-pagerduty/).
     with_content(/command_line\s+\/usr\/local\/bin\/pagerduty_icinga.pl\senqueue\s-f\spd_nagios_object=host/).
     with_content(/command_name\s+notify-service-by-pagerduty/).
