@@ -133,7 +133,7 @@ class router::nginx (
     critical            => $check_requests_critical,
     desc                => 'nginx requests - too low',
     host_name           => $::fqdn,
-    notes_url           => 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#nginx-requests-too-low',
+    notes_url           => monitoring_docs_url(nginx-requests-too-low),
     notification_period => 'workhours',
   }
 }
