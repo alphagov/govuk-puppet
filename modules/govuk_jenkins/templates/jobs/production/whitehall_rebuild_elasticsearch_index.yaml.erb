@@ -3,15 +3,15 @@
     name: Whitehall_rebuild_elasticsearch_index
     display-name: Whitehall_rebuild_elasticsearch_index
     project-type: freestyle
-    description: "<p>Rebuild the whitehall elasticsearch indexes (both the \"government\" and the \"detailed\" index). This works by exporting the index data in json bulk format, copying      it to a machine running Rummager, and then running the Rummager <code>bulk_load</code> script. It locks the index at the start of the process so that incoming index jobs will queue      up until the re-index is complete. This avoids losing any updates during the re-index, but does mean that updates wont be reflected in the search index while the process runs.</p><      p> The bulk_load also loads the data into an un-connected index and switches the alias at the end of the indexing job this means that there's no down time during re-indexing.  Howe      ver, the whitehall and detailed indexes contain a few documents from the \"recommended-links\" application, which will be lost by this process.  Therefore, this triggers a redeploy      of the recommended-links application after this script has run to re-populate the recommended links documents.</p><p> Note: If you look closely, you'll see that we ssh onto <code><      b>whitehall-backend-1.backend.production</b></code>. This is intentional because jenkins is part of the staging network and in that network, all machines have the <code><b>.product      ion</b></code> suffix even though it really is refering to the staging machine.</p>"
+    description: "<p>Rebuild the whitehall elasticsearch indexes (both the \"government\" and the \"detailed\" index). This works by exporting the index data in json bulk format, copying      it to a machine running Rummager, and then running the Rummager <code>bulk_load</code> script. It locks the index at the start of the process so that incoming index jobs will queue      up until the re-index is complete. This avoids losing any updates during the re-index, but does mean that updates wont be reflected in the search index while the process runs.</p><      p> The bulk_load also loads the data into an un-connected index and switches the alias at the end of the indexing job this means that there's no down time during re-indexing.  Howe      ver, the whitehall and detailed indexes contain a few documents from the \"recommended-links\" application, which will be lost by this process.  Therefore, this triggers a redeploy      of the recommended-links application after this script has run to re-populate the recommended links documents.</p>"
     builders:
         - shell: |
-            ssh deploy@search-1.api.production '
+            ssh deploy@search-1.api '
             cd /var/apps/rummager &&
             govuk_setenv rummager bundle exec ./bin/lock_updates government lock &&
             govuk_setenv rummager bundle exec ./bin/lock_updates detailed lock
             ' &&
-            ssh deploy@whitehall-frontend-1.frontend.production '
+            ssh deploy@whitehall-frontend-1.frontend '
             cd /var/apps/whitehall &&
             rm -rf /tmp/rummager_dump_government &&
             rm -rf /tmp/rummager_dump_detailed &&
@@ -20,24 +20,24 @@
             cat /tmp/rummager_dump_government/*.esdump > /tmp/rummager_dump_government.jsonl &&
             cat /tmp/rummager_dump_detailed/*.esdump > /tmp/rummager_dump_detailed.jsonl
             ' &&
-            scp deploy@whitehall-frontend-1.frontend.production:/tmp/rummager_dump_government.jsonl /tmp/rummager_dump_government.jsonl &&
-            scp /tmp/rummager_dump_government.jsonl deploy@search-1.api.production:/tmp/rummager_dump_government.jsonl &&
-            scp deploy@whitehall-frontend-1.frontend.production:/tmp/rummager_dump_detailed.jsonl /tmp/rummager_dump_detailed.jsonl &&
-            scp /tmp/rummager_dump_detailed.jsonl deploy@search-1.api.production:/tmp/rummager_dump_detailed.jsonl &&
-            ssh deploy@search-1.api.production '
+            scp deploy@whitehall-frontend-1.frontend:/tmp/rummager_dump_government.jsonl /tmp/rummager_dump_government.jsonl &&
+            scp /tmp/rummager_dump_government.jsonl deploy@search-1.api:/tmp/rummager_dump_government.jsonl &&
+            scp deploy@whitehall-frontend-1.frontend:/tmp/rummager_dump_detailed.jsonl /tmp/rummager_dump_detailed.jsonl &&
+            scp /tmp/rummager_dump_detailed.jsonl deploy@search-1.api:/tmp/rummager_dump_detailed.jsonl &&
+            ssh deploy@search-1.api '
             cd /var/apps/rummager &&
             govuk_setenv rummager bundle exec ./bin/bulk_load government < /tmp/rummager_dump_government.jsonl &&
             govuk_setenv rummager bundle exec ./bin/bulk_load detailed < /tmp/rummager_dump_detailed.jsonl
             ' &&
-            ssh deploy@search-1.api.production '
+            ssh deploy@search-1.api '
             cd /var/apps/rummager &&
             govuk_setenv rummager bundle exec ./bin/lock_updates government unlock &&
             govuk_setenv rummager bundle exec ./bin/lock_updates detailed unlock
             ' &&
-            ssh deploy@search-1.api.production '
+            ssh deploy@search-1.api '
             rm -f /tmp/rummager_dump_government.jsonl /tmp/rummager_dump_detailed.jsonl
             ' &&
-            ssh deploy@whitehall-frontend-1.frontend.production '
+            ssh deploy@whitehall-frontend-1.frontend '
             rm -f /tmp/rummager_dump_government.jsonl /tmp/rummager_dump_detailed.jsonl
             ' &&
             rm -f /tmp/rummager_dump_government.jsonl /tmp/rummager_dump_detailed.jsonl
