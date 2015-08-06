@@ -12,7 +12,7 @@
 #
 class govuk::apps::efg (
   $port = 3019,
-  $vhost_name = 'efg.dev.gov.uk',
+  $vhost_name,
 ) {
   validate_string($vhost_name)
 
