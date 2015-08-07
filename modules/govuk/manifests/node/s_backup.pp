@@ -11,6 +11,10 @@
 #   Boolean indicating whether or not the EFG MySQL database should
 #   be backed up.
 #
+# [*backup_licensify*]
+#   Boolean indicating whether or not the Licensify Mongo database
+#   should be backed up.
+#
 class govuk::node::s_backup (
   $directories = {},
   $backup_efg = true,
