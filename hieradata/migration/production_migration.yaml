@@ -49,6 +49,9 @@ govuk::node::s_api_redis::allowed_ip_range: '10.3.4.0/24'
 
 govuk::node::s_asset_base::firewall_allowed_ip_range: '10.3.3.0/24'
 
+govuk::node::s_backup::backup_efg: false
+govuk::node::s_backup::backup_licensify: false
+
 govuk::node:s_transition_postgresql_slave: '10.3.5.0/24'
 
 grafana::dashboards::machine_suffix_metrics: ''
