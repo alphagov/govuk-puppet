@@ -27,7 +27,7 @@ class govuk_unattended_reboot (
   $check_scripts_directory = "${config_directory}/check"
 
   $node_class_search_phrase = regsubst($::govuk_node_class, '_', '-')
-  $icinga_url = "https://nagios.cluster/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
+  $icinga_url = "https://alert.cluster/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
 
   file { [ $config_directory, $check_scripts_directory ]:
     ensure => $directory_ensure,
