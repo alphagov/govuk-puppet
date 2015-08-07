@@ -78,20 +78,18 @@ define icinga::check::graphite(
   $check_command = 'check_graphite_metric_args'
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
-  $url_encoded_warning = regsubst($warning, '@', '')
-  $url_encoded_critical = regsubst($critical, '@', '')
 
   $monitoring_domain_suffix = hiera('monitoring_domain_suffix', '')
   $graph_width = 600
   $graph_height = 300
 
   # Only display lines when threshold is an integer or float.
-  $warn_line = $url_encoded_warning ? {
-    /^[0-9.]+$/ => "&target=alias(dashed(constantLine(${url_encoded_warning})),%22warning%22)",
+  $warn_line = $warning ? {
+    /^[0-9.]+$/ => "&target=alias(dashed(constantLine(${warning})),%22warning%22)",
     default    => '',
   }
-  $crit_line = $url_encoded_critical ? {
-    /^[0-9.]+$/ => "&target=alias(dashed(constantLine(${url_encoded_critical})),%22critical%22)",
+  $crit_line = $critical ? {
+    /^[0-9.]+$/ => "&target=alias(dashed(constantLine(${critical})),%22critical%22)",
     default    => '',
   }
 
