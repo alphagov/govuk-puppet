@@ -44,7 +44,7 @@ class govuk::node::s_backup (
   if $backup_efg {
     backup::directory {'backup_mysql_backups_efg_mysql':
       directory => '/var/lib/automysqlbackup/',
-      fq_dn     => 'efg-mysql-slave-1.efg.production',
+      fq_dn     => "efg-mysql-slave-1.efg.%{hiera('internal_tld')}",
       priority  => '002',
     }
   }
@@ -52,7 +52,7 @@ class govuk::node::s_backup (
   if $backup_licensify {
     backup::directory {'backup_mongodb_backups_licensify_mongo':
       directory => '/var/lib/automongodbbackup/',
-      fq_dn     => 'licensify-mongo-1.licensify.production',
+      fq_dn     => "licensify-mongo-1.licensify.%{hiera('internal_tld')}",
       priority  => '002',
     }
   }
