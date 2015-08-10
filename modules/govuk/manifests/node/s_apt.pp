@@ -22,6 +22,15 @@ class govuk::node::s_apt (
 
   Govuk::Mount[$root_dir] -> Class['aptly']
 
+  file { $root_dir:
+    ensure  => directory,
+    owner   => 'deploy',
+    group   => 'root',
+    mode    => '0775',
+    purge   => false,
+    require => User['deploy'],
+  }
+
   aptly::mirror {
     'aptly':
       location => 'http://repo.aptly.info',
