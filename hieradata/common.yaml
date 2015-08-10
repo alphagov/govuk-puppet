@@ -709,6 +709,8 @@ monitoring::checks::smokey::features:
     feature: tariff
   check_whitehall:
     feature: whitehall
+  check_draft_environment:
+    feature: draft_environment
 
 nginx::package::version: '1.4.6-1ubuntu3.1'
 
