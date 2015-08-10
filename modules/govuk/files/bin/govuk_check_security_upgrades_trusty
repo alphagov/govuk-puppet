@@ -32,29 +32,29 @@ def clean(cache,depcache):
     # mvo: looping is too inefficient with the new auto-mark code
     #for pkg in cache.Packages:
     #    depcache.MarkKeep(pkg)
-    depcache.Init()
+    depcache.init()
 
 def saveDistUpgrade(cache,depcache):
     """ this functions mimics a upgrade but will never remove anything """
-    depcache.Upgrade(True)
-    if depcache.DelCount > 0:
+    depcache.upgrade(True)
+    if depcache.del_count > 0:
         clean(cache,depcache)
-    depcache.Upgrade()
+    depcache.upgrade()
 
 def isSecurityUpgrade(ver):
     " check if the given version is a security update (or masks one) "
     security_pocket = "%s-security" % DISTRO
-    for (file, index) in ver.FileList:
-        if (file.Archive == security_pocket and file.Origin == "Ubuntu"):
+    for (file, index) in ver.file_list:
+        if (file.archive == security_pocket and file.origin == "Ubuntu"):
             return True
     return False
 
 def write_package_names(outstream, cache, depcache):
     " write out package names that change to outstream "
     pkgs = filter(lambda pkg:
-                  depcache.MarkedInstall(pkg) or depcache.MarkedUpgrade(pkg),
-                  cache.Packages)
-    outstream.write("\n".join(map(lambda p: p.Name, pkgs)))
+                  depcache.marked_install(pkg) or depcache.marked_upgrade(pkg),
+                  cache.packages)
+    outstream.write("\n".join(map(lambda p: p.name, pkgs)))
 
 def write_human_readable_summary(outstream, upgrades, security_updates):
     " write out human summary summary to outstream "
@@ -75,35 +75,36 @@ def init():
     apt_pkg.init()
     # force apt to build its caches in memory for now to make sure
     # that there is no race when the pkgcache file gets re-generated
-    apt_pkg.Config.Set("Dir::Cache::pkgcache","")
+    apt_pkg.config.set("Dir::Cache::pkgcache","")
     
 def run(options=None):
 
     # we are run in "are security updates installed automatically?"
     # question mode
     if options.security_updates_unattended:
-        res = apt_pkg.Config.FindI("APT::Periodic::Unattended-Upgrade", 0)
+        res = apt_pkg.config.find_i("APT::Periodic::Unattended-Upgrade", 0)
         #print res
         sys.exit(res)
 
     # get caches
     try:
-        cache = apt_pkg.GetCache(OpNullProgress())
+	cache = apt_pkg.Cache()
+
     except SystemError, e:
         sys.stderr.write("E: "+ _("Error: Opening the cache (%s)") % e)
         sys.exit(-1)
-    depcache = apt_pkg.GetDepCache(cache)
+    depcache = apt_pkg.DepCache(cache)
 
     # read the pin files
-    depcache.ReadPinFile()
+    depcache.read_pinfile()
     # read the synaptic pins too
     if os.path.exists(SYNAPTIC_PINFILE):
-        depcache.ReadPinFile(SYNAPTIC_PINFILE)
+        depcache.read_pinfile(SYNAPTIC_PINFILE)
 
     # init the depcache
-    depcache.Init()
+    depcache.init()
 
-    if depcache.BrokenCount > 0:
+    if depcache.broken_count > 0:
         sys.stderr.write("E: "+ _("Error: BrokenCount > 0"))
         sys.exit(-1)
 
@@ -117,14 +118,14 @@ def run(options=None):
     # analyze the upgrade
     upgrades = 0
     security_updates = 0
-    for pkg in cache.Packages:
+    for pkg in cache.packages:
         # skip packages that are not marked upgraded/installed
-        if not (depcache.MarkedInstall(pkg) or depcache.MarkedUpgrade(pkg)):
+        if not (depcache.marked_install(pkg) or depcache.marked_upgrade(pkg)):
             continue
         # check if this is really a upgrade or a false positive
         # (workaround for ubuntu #7907)
-        inst_ver = pkg.CurrentVer
-        cand_ver = depcache.GetCandidateVer(pkg)
+        inst_ver = pkg.current_ver
+        cand_ver = depcache.get_candidate_ver(pkg)
         if cand_ver == inst_ver:
             continue
 
@@ -137,8 +138,8 @@ def run(options=None):
 
         # now check for security updates that are masked by a 
         # canidate version from another repo (-proposed or -updates)
-        for ver in pkg.VersionList:
-            if (inst_ver and apt_pkg.VersionCompare(ver.VerStr, inst_ver.VerStr) <= 0):
+        for ver in pkg.version_list:
+            if (inst_ver and apt_pkg.version_compare(ver.ver_str, inst_ver.ver_str) <= 0):
                 #print "skipping '%s' " % ver.VerStr
                 continue
             if isSecurityUpgrade(ver):
