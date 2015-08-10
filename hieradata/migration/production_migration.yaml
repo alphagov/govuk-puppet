@@ -156,7 +156,7 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEB
 
 postgresql_api_slave_address: '10.3.4.41/32'
 postgresql_slave_address: '10.3.3.13/32'
-postgresql_transition_slave_address: '10.3.3.31/32'
+postgresql_transition_slave_address: '10.3.3.61/32'
 
 hosts::production::carrenza_vcloud: true
 
