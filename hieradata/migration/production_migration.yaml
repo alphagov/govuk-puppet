@@ -52,7 +52,7 @@ govuk::node::s_asset_base::firewall_allowed_ip_range: '10.3.3.0/24'
 govuk::node::s_backup::backup_efg: false
 govuk::node::s_backup::backup_licensify: false
 
-govuk::node:s_transition_postgresql_slave: '10.3.5.0/24'
+govuk::node:s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
 
 grafana::dashboards::machine_suffix_metrics: ''
 
@@ -156,7 +156,7 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEB
 
 postgresql_api_slave_address: '10.3.4.41/32'
 postgresql_slave_address: '10.3.3.13/32'
-postgresql_transition_slave_address: '10.3.3.31/32'
+postgresql_transition_slave_address: '10.3.3.61/32'
 
 hosts::production::carrenza_vcloud: true
 
