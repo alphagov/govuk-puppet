@@ -1,5 +1,7 @@
 # == Class: performance_platform::spotlight_proxy
 #
+# FIXME: Remove this entire class once it has been deployed to production.
+#
 # This class provides an nginx virtual host which listens for requests to
 # spotlight from the GOV.UK router and sends them to Performance Platform
 # infrastructure using proxy_pass.
@@ -34,9 +36,11 @@ class performance_platform::spotlight_proxy (
   $error_log = "${vhost_full}-error.log"
 
   nginx::config::ssl { $vhost_full:
+    ensure   => absent,
     certtype => 'wildcard_alphagov',
   }
   nginx::config::site { $vhost_full:
+    ensure  => absent,
     content => template('performance_platform/spotlight-vhost.conf'),
   }
 }
