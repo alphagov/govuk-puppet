@@ -1,0 +1,59 @@
+---
+- scm:
+    name: env-sync-and-backup_Copy_Data_to_Staging
+    scm:
+        - git:
+            url: git@github.gds:gds/env-sync-and-backup.git
+            branches:
+              - master
+
+- job:
+    name: Copy_Data_to_Staging
+    display-name: Copy_Data_to_Staging
+    project-type: freestyle
+    description: "This job currently copies all MongoDB databases from Backend. For MySQL, only whitelisted apps have
+      their databases copied because several have sensitive data."
+    properties:
+        - github:
+            url: https://github.gds/gds/env-sync-and-backup/
+    scm:
+      - env-sync-and-backup_Copy_Data_to_Staging
+    logrotate:
+        artifactNumToKeep: 10
+    triggers:
+        - timed: 'H 1 * * *'
+    builders:
+        - shell: |
+            set -eu
+            cd "${WORKSPACE}"
+            echo "Putting in the real MySQL root password"
+            sed -i.bak "s/MYSQL_SRC_ROOT_PW=PLACEHOLDER/MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>'/g" scripts/sync-mysql.sh
+            sed -i "s/MYSQL_DST_ROOT_PW=PLACEHOLDER/MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>'/g" scripts/sync-mysql.sh
+            echo "Putting in the real Postgresql env-sync password"
+            sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
+            sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
+            echo "Running Data Sync"
+            bash sync carrenza_production carrenza_staging
+            echo "Triggering post-sync job on deploy.staging.publishing.service.gov.uk"
+            curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.staging.publishing.service.gov.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: JOBLIST
+            description: 'Choose the thing to sync. All is the default, but some jobs may run but not do anything due to your config for the destination environment.'
+            choices:
+                - PLEASE CHOOSE ONE
+                - all
+                - assets
+                - elasticsearch-api
+                - elasticsearch-backend
+                - mysql-efg
+                - mysql-normal
+                - mysql-whitehall
+                - mongo-exceptions
+                - mongo-licensify
+                - mongo-normal
+                - mongo-router
+                - postgresql-backend
