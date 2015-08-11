@@ -24,6 +24,7 @@ class base::packages ($ruby_version=installed){
       'mailutils',
       'man-db',
       'manpages',
+      'ncdu',
       'pv',
       'strace',
       'tar',
