@@ -3,9 +3,9 @@ app_domain: 'preview.alphagov.co.uk'
 
 asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
-backup::automysqlbackup::rotation_daily: 2
-backup::automysqlbackup::rotation_weekly: 6
-backup::automysqlbackup::rotation_monthly: 28
+backup::mysql::rotation_daily: 2
+backup::mysql::rotation_weekly: 6
+backup::mysql::rotation_monthly: 28
 
 base::supported_kernel::enabled: true
 
