@@ -9,26 +9,10 @@ base::supported_kernel::enabled: true
 
 efg_domain: "www.sflg.gov.uk"
 
-govuk::apps::backdrop_read::enabled: true
-govuk::apps::backdrop_write::enabled: true
-govuk::apps::email_alert_api::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
-govuk::apps::finder_frontend::enabled: true
 govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
-govuk::apps::govuk_crawler_worker::enabled: true
-govuk::apps::info_frontend::enabled: true
-govuk::apps::metadata_api::enabled: true
-govuk::apps::performanceplatform_admin::enabled: true
-govuk::apps::performanceplatform_big_screen_view::enabled: true
-govuk::apps::performanceplatform_collector::enabled: true
-govuk::apps::performanceplatform_notifier::enabled: true
-govuk::apps::screenshot_as_a_service::enabled: true
 govuk::apps::sidekiq_monitoring::enabled: true
-govuk::apps::specialist_frontend::enabled: true
-govuk::apps::specialist_publisher::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
-govuk::apps::spotlight::enabled: true
-govuk::apps::stagecraft::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'

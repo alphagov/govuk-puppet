@@ -83,12 +83,32 @@ backup::offsite::jobs:
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
+govuk::apps::backdrop_read::enabled: true
+govuk::apps::backdrop_write::enabled: true
+
 govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
 
+govuk::apps::email_alert_api::enabled: true
+govuk::apps::finder_frontend::enabled: true
+
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
+govuk::apps::govuk_crawler_worker::enabled: true
+
+govuk::apps::info_frontend::enabled: true
+govuk::apps::metadata_api::enabled: true
+govuk::apps::performanceplatform_admin::enabled: true
+govuk::apps::performanceplatform_big_screen_view::enabled: true
+govuk::apps::performanceplatform_collector::enabled: true
+govuk::apps::performanceplatform_notifier::enabled: true
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
+
+govuk::apps::screenshot_as_a_service::enabled: true
+govuk::apps::specialist_frontend::enabled: true
+govuk::apps::specialist_publisher::enabled: true
+govuk::apps::spotlight::enabled: true
+govuk::apps::stagecraft::enabled: true
 
 govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16 
 
