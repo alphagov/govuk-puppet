@@ -252,28 +252,12 @@ hosts::production::backend::hosts:
     ip: '10.3.3.10'
   mongo-1:
     ip: '10.3.3.6'
-    # FIXME this legacy alias is now not used anywhere in Puppet
-    # However, before it is removed, We'll need to reconfigure
-    # the mongo cluster to use the mongo-n.backend
-    legacy_aliases:
-      - "mongo.backend.%{hiera('internal_tld')}"
-      - 'backend-1.mongo'
     service_aliases:
       - 'mongodb'
   mongo-2:
     ip: '10.3.3.7'
-    # FIXME this legacy alias is now not used anywhere in Puppet
-    # However, before it is removed, We'll need to reconfigure
-    # the mongo cluster to use the mongo-n.backend
-    legacy_aliases:
-      - 'backend-2.mongo'
   mongo-3:
     ip: '10.3.3.8'
-    # FIXME this legacy alias is now not used anywhere in Puppet
-    # However, before it is removed, We'll need to reconfigure
-    # the mongo cluster to use the mongo-n.backend
-    legacy_aliases:
-      - 'backend-3.mongo'
   mysql-backup-1:
     ip: '10.3.3.93'
     legacy_aliases:
