@@ -5,6 +5,7 @@ class govuk::apps::content_planner(
 ) {
   if $enabled {
     govuk::app { 'content-planner':
+      ensure             => absent,
       app_type           => 'rack',
       port               => $port,
       health_check_path  => '/healthcheck',

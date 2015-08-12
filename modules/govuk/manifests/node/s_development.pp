@@ -148,10 +148,6 @@ class govuk::node::s_development {
       user     => 'contacts',
       password => 'contacts';
 
-    ['content_planner_development', 'content_planner_test']:
-      user     => 'content_planner',
-      password => 'content_planner';
-
     [
       'efg_development',
       'efg_test',
