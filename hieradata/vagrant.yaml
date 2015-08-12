@@ -10,7 +10,6 @@ base::supported_kernel::enabled: true
 efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::mapit::enabled: true
-govuk::apps::search_admin::enabled: true
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
@@ -96,13 +95,9 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::smokey_deploy
 govuk_jenkins::job_builder::environment: 'dev'
 
-govuk_postgresql::server::backup: false
-
 icinga::nginx::enable_basic_auth: false
 
 internal_tld: 'development'
-
-monitoring::checks::contact_email: 'root@localhost'
 
 monitoring_domain_suffix: 'dev.alphagov.co.uk'
 
