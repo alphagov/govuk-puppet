@@ -155,6 +155,9 @@ postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
 
+router::nginx::check_requests_warning: '@0.5'
+router::nginx::check_requests_critical: '@0.25'
+
 shell::shell_prompt_string: 'preview'
 
 users::usernames:
