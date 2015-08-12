@@ -199,7 +199,6 @@ ssh::config::allow_users:
   - 'davidsingleton'
   - 'dcarley'
   - 'deploy'
-  - 'digitalassurancetester'
   - 'eddsowden'
   - 'elliot'
   - 'govuk-backup'
