@@ -26,3 +26,4 @@ govuk::node::s_cache::enable_authenticating_proxy: true
 nginx::package::nginx_package: 'nginx-extras'
 
 router::nginx::check_requests_warning: '@0'
+router::nginx::check_requests_critical: '@0'
