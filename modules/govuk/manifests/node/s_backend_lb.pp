@@ -21,7 +21,6 @@ class govuk::node::s_backend_lb (
       'business-support-api',
       'collections-publisher',
       'contacts-admin',
-      'content-planner',
       'content-register',
       'courts-api',
       'email-alert-monitor',
