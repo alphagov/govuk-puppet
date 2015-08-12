@@ -26,4 +26,21 @@ describe 'govuk::procfile::worker', :type => :define do
 
     it { should contain_service("giraffe-procfile-worker").with(:ensure => false) }
   end
+
+  context "default process_type" do
+    it do
+      should contain_file("/etc/init/giraffe-procfile-worker.conf").with(
+        :content => /govuk_run_procfile_worker worker/
+      )
+    end
+  end
+
+  context "process_type is foo" do
+    let(:params) { {:process_type => 'foo'} }
+    it do
+      should contain_file("/etc/init/giraffe-procfile-worker.conf").with(
+        :content => /govuk_run_procfile_worker foo/
+      )
+    end
+  end
 end

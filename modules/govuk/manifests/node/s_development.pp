@@ -98,6 +98,7 @@ class govuk::node::s_development {
   include govuk::apps::signon
   include govuk::apps::specialist_publisher
   include govuk::apps::stagecraft
+  include govuk::apps::stagecraft::rabbitmq
   include govuk::apps::static
   include govuk::apps::support
   include govuk::apps::support_api
