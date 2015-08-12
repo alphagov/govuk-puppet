@@ -70,5 +70,4 @@ class govuk::node::s_frontend_lb (
   if (!('spotlight' in $performance_frontend_apps)) {
     include performance_platform::spotlight
   }
-  include performance_platform::spotlight_proxy
 }

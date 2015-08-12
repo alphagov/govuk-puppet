@@ -532,7 +532,6 @@ hosts::production::frontend::app_hostnames:
   - 'service-manual'
   - 'smartanswers'
   - 'spotlight'
-  - 'spotlight-proxy'
   - 'specialist-frontend'
   - 'static'
   - 'tariff'

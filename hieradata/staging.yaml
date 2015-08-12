@@ -136,7 +136,6 @@ monitoring::checks::ses::warning: 30
 monitoring_domain_suffix: 'staging.alphagov.co.uk'
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'staging.performance.service.gov.uk'
-performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'staging.performance.service.gov.uk'
 
 postfix::smarthost:
 - 'email-smtp.us-east-1.amazonaws.com:587'

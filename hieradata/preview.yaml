@@ -149,7 +149,6 @@ monitoring::checks::ses::warning: 30
 monitoring_domain_suffix: "%{hiera('app_domain')}"
 
 performance_platform::spotlight::perfplat_internal_app_domain: 'preview.performance.service.gov.uk'
-performance_platform::spotlight_proxy::perfplat_internal_app_domain: 'preview.performance.service.gov.uk'
 
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
