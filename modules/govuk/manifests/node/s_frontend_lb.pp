@@ -64,11 +64,4 @@ class govuk::node::s_frontend_lb (
   include govuk::apps::publicapi
   include govuk::apps::public_event_store
   include govuk::apps::public_link_tracker
-
-  # FIXME: Remove these 4 lines once Spotlight is running in production.
-  #        You might also want to ensure that the vhost is removed from disk.
-  if (!('spotlight' in $performance_frontend_apps)) {
-    include performance_platform::spotlight
-  }
-  include performance_platform::spotlight_proxy
 }
