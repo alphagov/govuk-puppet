@@ -128,7 +128,7 @@ class router::nginx (
   }
 
   @@icinga::check::graphite { "check_nginx_requests_${::hostname}":
-    target              => "${::fqdn_underscore}.nginx.nginx_requests",
+    target              => "${::fqdn_metrics}.nginx.nginx_requests",
     warning             => $check_requests_warning,
     critical            => $check_requests_critical,
     desc                => 'nginx requests - too low',
