@@ -43,8 +43,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'loadbalancer::balance::retry_timeouts',
 
     # FIXME: Existing violations. These should be refactored.
-    'ci_alphagov_crt',
-    'ci_alphagov_key',
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
     'http_password',
