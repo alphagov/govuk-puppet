@@ -6,7 +6,7 @@
     description: '<p>Drops and rebuilds the search index</p>'
     builders:
         - shell: |
-           "ssh deploy@backend-1.backend 'cd /var/apps/tariff-api && govuk_setenv tariff-api bundle exec rake tariff:rei      ndex'"
+           "ssh deploy@backend-1.backend 'cd /var/apps/tariff-api && govuk_setenv tariff-api bundle exec rake tariff:reindex'"
     publishers:
         - trigger:
             project: Smokey_Production
