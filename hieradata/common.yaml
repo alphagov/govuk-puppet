@@ -800,8 +800,8 @@ router::assets_origin::asset_routes:
   '/stagecraft/': "stagecraft"
   '/tariff/': "tariff"
 
-router::nginx::check_requests_warning: '@25'
-router::nginx::check_requests_critical: '@10'
+router::nginx::check_requests_warning: '@10'
+router::nginx::check_requests_critical: '@8'
 
 ssh::config::allow_users_enable: true
 
