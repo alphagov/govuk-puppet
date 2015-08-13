@@ -11,7 +11,7 @@
     name: Network_Config_Deploy
     display-name: Network_Config_Deploy
     project-type: freestyle
-    description: "This job configures the edge gateway in *<%= @environment -%>*. It uses the configuration in the govuk-provisioning repo."
+    description: "This job configures the edge gateway in *<%= @environment_script_parameter -%>*. It uses the configuration in the govuk-provisioning repo."
     properties:
         - github:
             url: https://github.gds/gds/govuk-provisioning/
@@ -19,7 +19,7 @@
       - govuk-provisioning_Network_Config_Deploy
     builders:
         - shell: |
-            ./vcloud-edge_gateway/jenkins.sh <%= @environment %>
+            ./vcloud-edge_gateway/jenkins.sh <%= @environment_script_parameter %>
     publishers:
         - trigger:
             project: Smokey
