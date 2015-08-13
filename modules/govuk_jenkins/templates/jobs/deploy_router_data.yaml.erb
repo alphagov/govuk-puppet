@@ -18,7 +18,9 @@
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-            export RATE_LIMIT_TOKEN="9U1pVWs5dJc2RWTWbYdgJaYhzwBzKR9fU3Uow5aOiCa4mQyE4hqmIQXLurbNOeLP"
+            <%- if @rate_limit_token -%>
+            export RATE_LIMIT_TOKEN="<%= @rate_limit_token -%>"
+            <%- end -%>
             PLEK_SERVICE_ROUTER_API_URI=https://router-api.<%= @app_domain -%> govuk_setenv default ./bin/clean-all.sh
             PLEK_SERVICE_ROUTER_API_URI=https://router-api.<%= @app_domain -%> govuk_setenv default ./bin/register-all.sh
             PLEK_SERVICE_ROUTER_API_URI=https://draft-router-api.<%= @app_domain -%> govuk_setenv default ./bin/clean-all.sh
