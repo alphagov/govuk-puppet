@@ -120,7 +120,6 @@ govuk::node::s_backend::apps:
   - govuk::apps::canary_backend
   - govuk::apps::collections_publisher
   - govuk::apps::contacts
-  - govuk::apps::content_planner
   - govuk::apps::content_register
   - govuk::apps::contentapi
   - govuk::apps::courts_api

@@ -58,7 +58,6 @@ class govuk::node::s_development {
   include govuk::apps::canary_frontend
   include govuk::apps::collections_publisher
   include govuk::apps::contacts
-  include govuk::apps::content_planner
   include govuk::apps::content_register
   include govuk::apps::content_register::rabbitmq
   include govuk::apps::content_store
