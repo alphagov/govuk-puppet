@@ -10,8 +10,8 @@ describe 'monitoring::checks::mirror', :type => :class do
   }}
 
   context 'checks enabled with hiera' do
-    let(:hiera_data) {{
-      'mirror::enable_checks' => true,
+    let(:params) {{
+      'enabled' => true,
     }}
     it { should contain_icinga__check_config('mirror_age') }
     it { should contain_icinga__check('check_mirror0_provider0_up_to_date') }
@@ -21,8 +21,8 @@ describe 'monitoring::checks::mirror', :type => :class do
 end
 
   context 'checks disabled with hiera (default)' do
-    let(:hiera_data) {{
-      'mirror::enable_checks' => false,
+    let(:params) {{
+      'enabled' => false,
     }}
     it { should contain_icinga__check_config('mirror_age') }
     it { should_not contain_icinga__check('check_mirror0_provider0_up_to_date') }

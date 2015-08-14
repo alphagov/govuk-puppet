@@ -4,19 +4,18 @@
 #
 # === Variables:
 #
-# [*mirror_enable_checks*]
+# [*enabled*]
 #   Can be used to disable checks/alerts for a given environment.
-#   Default: no
+#   Default: false
 #
-class monitoring::checks::mirror {
+class monitoring::checks::mirror (
+  $enabled = false,
+) {
   icinga::check_config { 'mirror_age':
     source => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_mirror_age.cfg',
   }
 
-  # Not exported resources, so they will be purged when bool is false.
-  $mirror_enable_checks = hiera('mirror::enable_checks', false)
-
-  if $mirror_enable_checks {
+  if $enabled {
     $provider0_subdomain = 'mirror.provider0.production.govuk.service.gov.uk'
     $provider1_subdomain = 'mirror.provider1.production.govuk.service.gov.uk'
     $provider0_vhost     = "www-origin.${provider0_subdomain}"
