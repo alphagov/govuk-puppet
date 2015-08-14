@@ -39,9 +39,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # asset pipeline on dev vm
     'govuk::app::nginx_vhost::asset_pipeline_enabled',
 
-    # temp feature flag for disabling retry-on-timeout
-    'loadbalancer::balance::retry_timeouts',
-
     # FIXME: Existing violations. These should be refactored.
     'ci_alphagov_crt',
     'ci_alphagov_key',
