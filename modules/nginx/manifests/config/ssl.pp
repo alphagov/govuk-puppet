@@ -10,7 +10,6 @@
 #   magic. Permitted values:
 #
 #     - www
-#     - ci_alphagov
 #     - wildcard_alphagov
 #     - wildcard_alphagov_mgmt
 #
@@ -20,10 +19,6 @@
 #
 define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
-    'ci_alphagov': {
-        $cert = hiera('ci_alphagov_crt', '')
-        $key = hiera('ci_alphagov_key', '')
-    }
     'wildcard_alphagov': {
         $cert = hiera('wildcard_alphagov_crt', '')
         $key = hiera('wildcard_alphagov_key', '')

@@ -40,8 +40,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'govuk::app::nginx_vhost::asset_pipeline_enabled',
 
     # FIXME: Existing violations. These should be refactored.
-    'ci_alphagov_crt',
-    'ci_alphagov_key',
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
     'http_password',
