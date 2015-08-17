@@ -11,9 +11,8 @@ class govuk::apps::stagecraft (
   $enabled = false,
 ) {
   if $enabled {
-    package { 'libffi-dev':
-      ensure => present,
-    }
+
+    include libffi
 
     govuk::app { 'stagecraft':
       app_type           => 'procfile',
