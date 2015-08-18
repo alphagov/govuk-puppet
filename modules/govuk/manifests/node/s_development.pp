@@ -53,6 +53,8 @@ class govuk::node::s_development {
 
   include govuk::apps::asset_manager
   include govuk::apps::authenticating_proxy
+  include govuk::apps::backdrop_read
+  include govuk::apps::backdrop_write
   include govuk::apps::business_support_api
   include govuk::apps::canary_backend
   include govuk::apps::canary_frontend
@@ -81,6 +83,7 @@ class govuk::node::s_development {
   include govuk::apps::metadata_api
   include govuk::apps::need_api
   include govuk::apps::panopticon
+  include govuk::apps::performanceplatform_admin
   include govuk::apps::policy_publisher
   include govuk::apps::publicapi
   include govuk::apps::public_event_store
