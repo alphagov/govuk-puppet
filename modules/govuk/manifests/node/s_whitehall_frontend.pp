@@ -18,4 +18,10 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
     # 12GB for a critical
     nagios_memory_critical => 12884901888,
   }
+
+  include collectd::plugin::memcached
+  class { 'memcached':
+    max_memory => '12%',
+    listen_ip  => '127.0.0.1',
+  }
 }
