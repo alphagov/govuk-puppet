@@ -1,5 +1,5 @@
 {
-  "title": "Application 4XX codes",
+  "title": "Application 4XX and 5XX codes",
   "services": {
     "filter": {
       "list": [],
@@ -77,6 +77,77 @@
           ],
           "aliasYAxis": {},
           "title": "4XX by Application"
+        }
+      ],
+      "notice": false
+    },
+    {
+      "title": "123",
+      "height": "600px",
+      "editable": true,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "span": 12,
+          "editable": true,
+          "type": "graphite",
+          "loadingEditor": false,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "scale": 1,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "resolution": 100,
+          "lines": true,
+          "fill": 0,
+          "linewidth": 1,
+          "points": false,
+          "pointradius": 5,
+          "bars": false,
+          "stack": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "percentage": false,
+          "zerofill": true,
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "query_as_alias": true
+          },
+          "targets": [
+            {
+              "target": "groupByNode(stats.frontend-?_frontend_production.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
+            },
+            {
+              "target": "groupByNode(stats.*-frontend-?_frontend_production.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
+            }
+          ],
+          "aliasYAxis": {},
+          "title": "5XX by Application"
         }
       ],
       "notice": false
