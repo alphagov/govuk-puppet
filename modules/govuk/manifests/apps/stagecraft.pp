@@ -14,9 +14,12 @@ class govuk::apps::stagecraft (
 
     include libffi
 
+    $port = 3103
+
     govuk::app { 'stagecraft':
-      app_type           => 'procfile',
+      app_type           => 'bare',
       port               => 3103,
+      command            => "./venv/bin/gunicorn stagecraft.wsgi:application --bind 127.0.0.1:${port} --workers 4",
       vhost_ssl_only     => true,
       health_check_path  => '/_status',
       log_format_is_json => true;
