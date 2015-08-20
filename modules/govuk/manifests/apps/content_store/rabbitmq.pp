@@ -10,6 +10,9 @@
 # and the publishing API to write to these queues during the transitional
 # period.  This permission can be removed once the deploy is complete.
 #
+# FIXME: This class should be removed completely once the perms have been
+# purged.
+#
 # === Parameters
 #
 # [*amqp_user*]
@@ -27,12 +30,10 @@ class govuk::apps::content_store::rabbitmq (
   $amqp_exchange = 'published_documents',
 ) {
   rabbitmq_user { $amqp_user:
-    password => $amqp_pass,
+    ensure => absent
   }
 
   rabbitmq_user_permissions { "${amqp_user}@/":
-    configure_permission => '^amq\.gen.*$',
-    read_permission      => "^(amq\\.gen.*|${amqp_exchange})$",
-    write_permission     => "^(amq\\.gen.*|${amqp_exchange})$",
+    ensure => absent
   }
 }
