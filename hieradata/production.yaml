@@ -183,7 +183,6 @@ ssh::config::allow_users:
   - 'elliot'
   - 'govuk-backup'
   - 'heathd'
-  - 'jabley'
   - 'jacobashdown'
   - 'jamiec'
   - 'jennyduckett'
@@ -212,7 +211,6 @@ users::usernames:
   - eddsowden
   - elliot
   - heathd
-  - jabley
   - jacobashdown
   - jamiec
   - jennyduckett

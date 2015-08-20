@@ -49,7 +49,6 @@ username_whitelist = %w{
   dcarley
   elliot
   heathd
-  jabley
   jackscotti
   jamiec
   kushalp
