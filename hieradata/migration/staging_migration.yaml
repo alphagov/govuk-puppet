@@ -73,7 +73,6 @@ govuk_jenkins::config::admins:
   - mattbostock
   - paulmartin
   - philippotter
-  - samsharpe
 
 govuk_jenkins::config::users:
   - aaronkeogh
@@ -92,19 +91,15 @@ govuk_jenkins::config::users:
   - elliotcrosbymccullough
   - jacobashdown
   - jakebenilov
-  - jamesabley
   - jamiecobbett
   - jennyduckett
   - joshmyers
   - kushalpisavadia
   - mattbostock
-  - matwall
-  - pauldowney
   - paulmartin
   - philippotter
   - richardboulton
   - robyoung
-  - samsharpe
   - timothymower
   - tombooth
   - tommypalmer
