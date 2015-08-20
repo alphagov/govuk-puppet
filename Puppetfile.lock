@@ -113,7 +113,7 @@ GIT
 GIT
   remote: git://github.com/alphagov/puppet-rcs.git
   ref: master
-  sha: 397fb457c0bc7fc3771bfd20bfa6dfd2647d01b7
+  sha: 6391e388dee071487ee58090495613fbcc579d80
   specs:
     alphagov-puppet-rcs (0.1.1)
       puppetlabs-stdlib (>= 4.0.0)
