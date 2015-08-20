@@ -56,7 +56,6 @@ username_whitelist = %w{
   niallm
   ollyl
   rthorn
-  ssharpe
   tadast
 }
 

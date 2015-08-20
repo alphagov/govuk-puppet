@@ -121,7 +121,6 @@ govuk_jenkins::config::admins:
   - mattbostock
   - paulmartin
   - philippotter
-  - samsharpe
 
 govuk_jenkins::config::users:
   - aaronkeogh
@@ -152,7 +151,6 @@ govuk_jenkins::config::users:
   - philippotter
   - richardboulton
   - robyoung
-  - samsharpe
   - timothymower
   - tombooth
   - tommypalmer

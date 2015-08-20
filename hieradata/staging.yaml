@@ -151,7 +151,6 @@ ssh::config::allow_users:
   - 'paulmartin'
   - 'richardboulton'
   - 'robyoung'
-  - 'ssharpe'
   - 'timothymower'
   - 'tombooth'
   - 'tommypalmer'
@@ -192,7 +191,6 @@ users::usernames:
   - paulmartin
   - richardboulton
   - robyoung
-  - ssharpe
   - timothymower
   - tombooth
   - tommypalmer
