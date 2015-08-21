@@ -155,6 +155,7 @@ monitoring::contacts::slack_subdomain: 'govuk'
 monitoring::contacts::slack_channel: '#webops-monitoring'
 monitoring::contacts::slack_username: 'Production Icinga'
 monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
+monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
 
 monitoring_domain_suffix: "%{hiera('app_domain')}"
