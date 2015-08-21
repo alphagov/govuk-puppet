@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: monitoring
+#
+# Sets up monitoring.
+#
 class monitoring {
 
   package { 'python-rrdtool':
@@ -13,6 +16,7 @@ class monitoring {
   # Monitoring server only.
   include monitoring::contacts
   include monitoring::checks
+  include monitoring::edge
   include monitoring::pagerduty_drill
 
 }
