@@ -32,8 +32,4 @@ class govuk::apps::content_store::rabbitmq (
   rabbitmq_user { $amqp_user:
     ensure => absent
   }
-
-  rabbitmq_user_permissions { "${amqp_user}@/":
-    ensure => absent
-  }
 }
