@@ -16,7 +16,7 @@ class govuk::apps::performanceplatform_collector (
     $app = 'performanceplatform-collector'
     govuk::logstream { "${app}-production-log":
       ensure  => present,
-      logfile => "/data/apps/${app}/shared/log/production.log.json",
+      logfile => "/data/apps/${app}/shared/log/production.json.log",
       tags    => ['stdout', 'application'],
       fields  => {'application' => $app},
       json    => true,
