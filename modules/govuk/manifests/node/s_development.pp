@@ -64,7 +64,6 @@ class govuk::node::s_development {
   include govuk::apps::content_register::rabbitmq
   include govuk::apps::content_store
   include govuk::apps::content_store::enable_running_in_draft_mode
-  include govuk::apps::content_store::rabbitmq
   include govuk::apps::efg
   include govuk::apps::email_alert_api
   include govuk::apps::email_alert_frontend
