@@ -98,14 +98,14 @@ class monitoring::contacts (
   }
 
   if ($pagerduty_servicekey != '') {
-    icinga::pager_contact { 'pager_24x7':
-      service_notification_options => 'c',
-      notification_period          => '24x7',
-      pagerduty_servicekey         => $pagerduty_servicekey,
+    icinga::pagerduty_contact { '24x7':
+      notify_when          => ['critical'],
+      notification_period  => '24x7',
+      pagerduty_servicekey => $pagerduty_servicekey,
     }
   }
   $pager_members = $notify_pager ? {
-    true    => ['pager_24x7'],
+    true    => ['pagerduty_24x7'],
     default => [],
   }
 
