@@ -59,23 +59,23 @@ class monitoring::contacts (
     sat              => '00:00-24:00',
   }
 
-  icinga::timeperiod { 'workhours':
-    timeperiod_alias => 'Standard Work Hours',
-    mon              => '09:00-17:00',
-    tue              => '09:00-17:00',
-    wed              => '09:00-17:00',
-    thu              => '09:00-17:00',
-    fri              => '09:00-17:00',
+  icinga::timeperiod { 'inoffice':
+    timeperiod_alias => '2nd line in-office hours',
+    mon              => '09:30-17:30',
+    tue              => '09:30-17:30',
+    wed              => '09:30-17:30',
+    thu              => '09:30-17:30',
+    fri              => '09:30-17:30',
   }
 
-  icinga::timeperiod { 'nonworkhours':
-    timeperiod_alias => 'Non-Work Hours',
+  icinga::timeperiod { 'oncall':
+    timeperiod_alias => '2nd line out of hours',
     sun              => '00:00-24:00',
-    mon              => '00:00-09:00,16:00-24:00',
-    tue              => '00:00-09:00,16:00-24:00',
-    wed              => '00:00-09:00,16:00-24:00',
-    thu              => '00:00-09:00,16:00-24:00',
-    fri              => '00:00-09:00,17:00-24:00',
+    mon              => '00:00-09:30,17:30-24:00',
+    tue              => '00:00-09:30,17:30-24:00',
+    wed              => '00:00-09:30,17:30-24:00',
+    thu              => '00:00-09:30,17:30-24:00',
+    fri              => '00:00-09:30,17:30-24:00',
     sat              => '00:00-24:00',
   }
 
