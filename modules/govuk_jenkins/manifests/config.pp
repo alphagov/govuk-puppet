@@ -58,41 +58,40 @@ class govuk_jenkins::config (
   $users = [],
   $admins = [],
   $manage_config = false,
-  ) {
+) {
+  if $manage_config and $github_client_id and $github_client_secret {
 
-      if $manage_config and $github_client_id and $github_client_secret {
+    validate_array($users)
+    validate_array($admins)
 
-        validate_array($users)
-        validate_array($admins)
-
-        file { '/var/lib/jenkins':
-          ensure => directory,
-          source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
-          owner  => 'jenkins',
-          group  => 'jenkins',
-          notify => Service['jenkins'],
-        }
-
-        # FIXME: Remove when deployed to production.
-        file { '/var/lib/jenkins/hudson.tasks.Mailer.xml':
-          ensure => absent,
-        }
-
-        file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
-          ensure  => present,
-          content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
-          owner   => 'jenkins',
-          group   => 'jenkins',
-          notify  => Service['jenkins'],
-        }
-
-        file { '/var/lib/jenkins/config.xml':
-          ensure  => present,
-          content => template('govuk_jenkins/config/config.xml.erb'),
-          require => File['/var/lib/jenkins'],
-          owner   => 'jenkins',
-          group   => 'jenkins',
-          notify  => Service['jenkins']
-        }
-      }
+    file { '/var/lib/jenkins':
+      ensure => directory,
+      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
+      owner  => 'jenkins',
+      group  => 'jenkins',
+      notify => Service['jenkins'],
     }
+
+    # FIXME: Remove when deployed to production.
+    file { '/var/lib/jenkins/hudson.tasks.Mailer.xml':
+      ensure => absent,
+    }
+
+    file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
+      ensure  => present,
+      content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
+      owner   => 'jenkins',
+      group   => 'jenkins',
+      notify  => Service['jenkins'],
+    }
+
+    file { '/var/lib/jenkins/config.xml':
+      ensure  => present,
+      content => template('govuk_jenkins/config/config.xml.erb'),
+      require => File['/var/lib/jenkins'],
+      owner   => 'jenkins',
+      group   => 'jenkins',
+      notify  => Service['jenkins']
+    }
+  }
+}
