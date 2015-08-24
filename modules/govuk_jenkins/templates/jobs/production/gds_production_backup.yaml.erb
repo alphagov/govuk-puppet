@@ -11,7 +11,9 @@
     name: GDS_Production_Backup
     display-name: GDS_Production_Backup
     project-type: freestyle
-    description: "After a production deployment, this job pushes the state of the deployed repository to the gds-production-backu      p organisation in GitHub Enterprise. "
+    description: |
+        After a production deployment, this job pushes the state of the deployed repository to the
+        <a href="https://github.gds/gds-production-backup/">gds-production-backup organisation in GitHub Enterprise</a>.
     scm:
       - alphagov-deployment_GDS_Production_Backup
     builders:
@@ -24,5 +26,7 @@
     parameters:
         - string:
             name: TARGET_APPLICATION_GIT_REPO
-            description: The path to the git repository to back up to GitHub Enterprise. (This is usually populated by the upstre              am deployment job.)
+            description: |
+                The path to the git repository to back up to GitHub Enterprise.
+                (This is usually populated by the upstream deployment job.)
             default: false
