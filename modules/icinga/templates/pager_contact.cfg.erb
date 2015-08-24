@@ -1,21 +1,20 @@
 define contact {
-       contact_name                             <%= @name %>
-       alias                                    PagerDuty Pseudo-Contact
-       service_notification_period              <%= @notification_period %>
-       host_notification_period                 <%= @notification_period %>
-       service_notification_options             <%= @service_notification_options %>
-       host_notification_options                d,r,u
-       service_notification_commands            notify-service-by-pagerduty
-       host_notification_commands               notify-host-by-pagerduty
-       pager                                    <%= @pagerduty_servicekey %>
+        contact_name                         <%= @name %>
+        service_notification_period          <%= @notification_period %>
+        host_notification_period             <%= @notification_period %>
+        service_notification_options         <%= @service_notification_options %>
+        host_notification_options            d,r,u
+        service_notification_commands        notify-service-by-pagerduty
+        host_notification_commands           notify-host-by-pagerduty
+        pager                                <%= @pagerduty_servicekey %>
 }
 
 define command {
-       command_name     notify-service-by-pagerduty
-       command_line     /usr/local/bin/pagerduty_icinga.pl enqueue -f pd_nagios_object=service
+        command_name     notify-service-by-pagerduty
+        command_line     /usr/local/bin/pagerduty_icinga.pl enqueue -f pd_nagios_object=service
 }
 
 define command {
-       command_name     notify-host-by-pagerduty
-       command_line     /usr/local/bin/pagerduty_icinga.pl enqueue -f pd_nagios_object=host
+        command_name     notify-host-by-pagerduty
+        command_line     /usr/local/bin/pagerduty_icinga.pl enqueue -f pd_nagios_object=host
 }
