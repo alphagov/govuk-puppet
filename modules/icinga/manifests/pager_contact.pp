@@ -5,7 +5,7 @@ define icinga::pager_contact (
   $pagerduty_servicekey         = ''
 ) {
 
-  file {"/etc/icinga/conf.d/contact_${name}.cfg":
+  file {"/etc/icinga/conf.d/contact_pager_${name}.cfg":
     content => template('icinga/pager_contact.cfg.erb'),
     require => Class['icinga::package'],
     notify  => Class['icinga::service'],
