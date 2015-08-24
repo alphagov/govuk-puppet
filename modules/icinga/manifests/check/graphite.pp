@@ -95,9 +95,9 @@ define icinga::check::graphite(
 
   if $action_url == undef {
     $action_url_real = "https://graphite.${monitoring_domain_suffix}/render/?\
-width=${graph_width}&height=${graph_height}&\
-target=${url_encoded_target}\
-${warn_line}${crit_line}"
+width=${graph_width}&height=${graph_height}&colorList=red,orange,blue,green,purple,brown\
+${crit_line}${warn_line}\
+&target=${url_encoded_target}"
   } else {
     $action_url_real = $action_url
   }
