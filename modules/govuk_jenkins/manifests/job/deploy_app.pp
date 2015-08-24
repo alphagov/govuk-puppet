@@ -11,6 +11,7 @@
 #   API key to download build artefacts from CI servers
 #
 class govuk_jenkins::job::deploy_app (
+  $app_domain = undef,
   $auth_token = undef,
   $ci_deploy_jenkins_api_key = undef,
 ) {
