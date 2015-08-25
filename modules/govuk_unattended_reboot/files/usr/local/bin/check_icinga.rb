@@ -9,7 +9,7 @@ class IcingaError < RuntimeError
 end
 
 module CheckIcinga
-  REBOOT_REQUIRED_SERVICE_DESCRIPTION = "reboot required by apt"
+  REBOOT_REQUIRED_SERVICE_DESCRIPTION = "At least 1 machine requires reboots due to apt updates"
 
   def self.request(url)
     uri = URI.parse(url)
