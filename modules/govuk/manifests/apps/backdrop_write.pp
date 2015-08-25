@@ -8,8 +8,13 @@
 # [*enabled*]
 #   Should the app exist?
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker. Typically sued to disable the worker
+#   on the dev VM.
+#
 class govuk::apps::backdrop_write (
   $enabled = false,
+  $enable_procfile_worker = true,
 ) {
   if $enabled {
     $port = 3102
@@ -25,7 +30,8 @@ class govuk::apps::backdrop_write (
     }
 
     govuk::procfile::worker { 'backdrop-transformer':
-      setenv_as => 'backdrop-write',
+      setenv_as      => 'backdrop-write',
+      enable_service => $enable_procfile_worker,
     }
   }
 }
