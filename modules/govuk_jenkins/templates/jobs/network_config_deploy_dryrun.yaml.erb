@@ -19,7 +19,7 @@
       - govuk-provisioning_Network_Config_Deploy_DryRun
     builders:
         - shell: |
-            ./vcloud-edge_gateway/jenkins.sh <%= @environment -%> --dry-run
+          ./vcloud-edge_gateway/jenkins.sh <%= @environment_script_parameter %> --dry-run
     wrappers:
         - ansicolor:
             colormap: xterm
