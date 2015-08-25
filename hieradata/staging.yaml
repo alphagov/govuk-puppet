@@ -99,6 +99,24 @@ govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 hosts::production::ip_bouncer: '37.26.91.5'
 hosts::production::suffixed_hosts: true
 
+hosts::production::management::hosts:
+  puppetmaster-1:
+    ip: '10.2.0.5'
+    legacy_aliases:
+      - 'puppet'
+    service_aliases:
+      - 'puppet'
+      - 'puppetdb'
+  monitoring-1:
+    ip: '10.2.0.20'
+    legacy_aliases:
+      - 'monitoring'
+      - "nagios.%{hiera('app_domain')}"
+    service_aliases:
+      - 'alert'
+      - 'monitoring'
+      - 'nagios'
+
 icinga::nginx::enable_basic_auth: false
 
 #Do not enable this without speaking to Brad first
