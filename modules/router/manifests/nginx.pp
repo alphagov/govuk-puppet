@@ -147,6 +147,6 @@ class router::nginx (
     desc                => 'nginx requests - too low',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(nginx-requests-too-low),
-    notification_period => 'workhours',
+    notification_period => 'inoffice',
   }
 }
