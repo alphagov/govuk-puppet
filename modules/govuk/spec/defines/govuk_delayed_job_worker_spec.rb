@@ -6,9 +6,8 @@ describe 'govuk::delayed_job::worker', :type => :define do
   context "in non-development environments" do
 
     it do
-      should contain_file("/etc/init/giraffe-delayed-job-worker.conf").with(
-        :content => /start on runlevel/
-      )
+      should contain_file("/etc/init/giraffe-delayed-job-worker.conf").
+        without_content(/manual/)
     end
 
     it { should contain_service("giraffe-delayed-job-worker").with(:ensure => true) }
@@ -18,10 +17,8 @@ describe 'govuk::delayed_job::worker', :type => :define do
     let(:params) { {:enable_service => false} }
 
     it do
-      should contain_file("/etc/init/giraffe-delayed-job-worker.conf")
-      should_not contain_file("/etc/init/giraffe-delayed-job-worker.conf").with(
-        :content => /start on runlevel/
-      )
+      should contain_file("/etc/init/giraffe-delayed-job-worker.conf").
+        with_content(/^manual$/)
     end
 
     it { should contain_service("giraffe-delayed-job-worker").with(:ensure => false) }
