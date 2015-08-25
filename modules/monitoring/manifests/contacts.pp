@@ -115,27 +115,25 @@ class monitoring::contacts (
     }
   }
 
-  if $notify_pager {
-    icinga::contact_group { 'urgent-priority-inoffice':
-      group_alias => 'Contacts for urgent priority alerts to trigger in office hours',
-      members     => flatten([
-        $slack_members,
-        'pagerduty_inoffice',
-      ])
-    }
-    icinga::contact_group { 'urgent-priority-oncall':
-      group_alias => 'Contacts for urgent priority alerts to trigger on call only',
-      members     => flatten([
-        $slack_members,
-        'pagerduty_oncall',
-      ])
-    }
-    icinga::service_template { 'govuk_urgent_priority_inoffice':
-      contact_groups => ['urgent-priority-inoffice']
-    }
-    icinga::service_template { 'govuk_urgent_priority_oncall':
-      contact_groups => ['urgent-priority-oncall']
-    }
+  icinga::contact_group { 'urgent-priority-inoffice':
+    group_alias => 'Contacts for urgent priority alerts to trigger in office hours',
+    members     => flatten([
+      $slack_members,
+      'pagerduty_inoffice',
+    ])
+  }
+  icinga::contact_group { 'urgent-priority-oncall':
+    group_alias => 'Contacts for urgent priority alerts to trigger on call only',
+    members     => flatten([
+      $slack_members,
+      'pagerduty_oncall',
+    ])
+  }
+  icinga::service_template { 'govuk_urgent_priority_inoffice':
+    contact_groups => ['urgent-priority-inoffice']
+  }
+  icinga::service_template { 'govuk_urgent_priority_oncall':
+    contact_groups => ['urgent-priority-oncall']
   }
 
   # Urgent
