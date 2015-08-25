@@ -20,19 +20,12 @@
 # [*default_ttl*]
 #   The default cache timeout in seconds.
 #
-# [*disable_rabbitmq_publishing*]
-#   Whether to disable publishing updates to RabbitMQ.  When set, content-store
-#   will continue to accept updates, they just won't be broadcast on the
-#   rabbitmq exchange.
-#   Default: false
-#
 class govuk::apps::content_store(
   $port = 3068,
   $mongodb_nodes,
   $mongodb_name,
   $vhost,
   $default_ttl = '1800',
-  $disable_rabbitmq_publishing = false,
 ) {
   govuk::app { 'content-store':
     app_type           => 'rack',
@@ -60,12 +53,5 @@ class govuk::apps::content_store(
   govuk::app::envvar { "${title}-DEFAULT_TTL":
       varname => 'DEFAULT_TTL',
       value   => $default_ttl,
-  }
-
-  if $disable_rabbitmq_publishing {
-    govuk::app::envvar { "${title}-DISABLE_QUEUE_PUBLISHER":
-      varname => 'DISABLE_QUEUE_PUBLISHER',
-      value   => '1',
-    }
   }
 }
