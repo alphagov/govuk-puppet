@@ -11,7 +11,7 @@ internal_tld: 'staging.publishing.service.gov.uk'
 #        `app_domain` instead.
 monitoring_domain_suffix: "%{hiera('app_domain')}"
 
-shell::shell_prompt_string: 'migration-staging'
+shell::shell_prompt_string: 'skyscape-staging'
 
 govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
 
