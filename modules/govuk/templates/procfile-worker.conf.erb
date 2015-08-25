@@ -1,9 +1,11 @@
 description "Procfile background worker for <%= @title %>"
 
-<%- if @enable_service -%>
 start on runlevel [2345]
-<%- end -%>
 stop on runlevel [!2345]
+<%- if !@enable_service -%>
+
+manual
+<%- end -%>
 
 respawn
 
