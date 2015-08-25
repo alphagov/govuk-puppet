@@ -107,6 +107,15 @@ hosts::production::management::hosts:
     service_aliases:
       - 'puppet'
       - 'puppetdb'
+  monitoring-1:
+    ip: '10.2.0.20'
+    legacy_aliases:
+      - 'monitoring'
+      - "nagios.%{hiera('app_domain')}"
+    service_aliases:
+      - 'alert'
+      - 'monitoring'
+      - 'nagios'
 
 icinga::nginx::enable_basic_auth: false
 
