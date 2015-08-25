@@ -7,15 +7,8 @@ class govuk::node::s_transition_postgresql_base inherits govuk::node::s_base {
 
   Govuk::Mount['/var/lib/postgresql'] -> Class['govuk_postgresql::server']
 
-  $effective_cache_size_mb = floor($::memtotalmb * 0.5)
-  $shared_buffers_mb       = floor($::memtotalmb * 0.25)
+  include govuk_postgresql::tuning
 
-  postgresql::server::config_entry { 'effective_cache_size':
-    value => "${$effective_cache_size_mb}MB",
-  }
-  postgresql::server::config_entry { 'shared_buffers':
-    value => "${$shared_buffers_mb}MB",
-  }
   postgresql::server::config_entry { 'random_page_cost':
     value => 2.5,
   }
