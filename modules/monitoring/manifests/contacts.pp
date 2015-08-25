@@ -59,23 +59,23 @@ class monitoring::contacts (
     sat              => '00:00-24:00',
   }
 
-  icinga::timeperiod { 'workhours':
-    timeperiod_alias => 'Standard Work Hours',
-    mon              => '09:00-17:00',
-    tue              => '09:00-17:00',
-    wed              => '09:00-17:00',
-    thu              => '09:00-17:00',
-    fri              => '09:00-17:00',
+  icinga::timeperiod { 'inoffice':
+    timeperiod_alias => '2nd line in-office hours',
+    mon              => '09:30-17:30',
+    tue              => '09:30-17:30',
+    wed              => '09:30-17:30',
+    thu              => '09:30-17:30',
+    fri              => '09:30-17:30',
   }
 
-  icinga::timeperiod { 'nonworkhours':
-    timeperiod_alias => 'Non-Work Hours',
+  icinga::timeperiod { 'oncall':
+    timeperiod_alias => '2nd line out of hours',
     sun              => '00:00-24:00',
-    mon              => '00:00-09:00,16:00-24:00',
-    tue              => '00:00-09:00,16:00-24:00',
-    wed              => '00:00-09:00,16:00-24:00',
-    thu              => '00:00-09:00,16:00-24:00',
-    fri              => '00:00-09:00,17:00-24:00',
+    mon              => '00:00-09:30,17:30-24:00',
+    tue              => '00:00-09:30,17:30-24:00',
+    wed              => '00:00-09:30,17:30-24:00',
+    thu              => '00:00-09:30,17:30-24:00',
+    fri              => '00:00-09:30,17:30-24:00',
     sat              => '00:00-24:00',
   }
 
@@ -98,19 +98,51 @@ class monitoring::contacts (
   }
 
   if ($pagerduty_servicekey != '') {
-    icinga::pager_contact { 'pager_24x7':
-      service_notification_options => 'c',
-      notification_period          => '24x7',
-      pagerduty_servicekey         => $pagerduty_servicekey,
+    icinga::pagerduty_contact { '24x7':
+      notify_when          => ['critical'],
+      notification_period  => '24x7',
+      pagerduty_servicekey => $pagerduty_servicekey,
+    }
+    icinga::pagerduty_contact { 'inoffice':
+      notify_when          => ['critical'],
+      notification_period  => 'inoffice',
+      pagerduty_servicekey => $pagerduty_servicekey,
+    }
+    icinga::pagerduty_contact { 'oncall':
+      notify_when          => ['critical'],
+      notification_period  => 'oncall',
+      pagerduty_servicekey => $pagerduty_servicekey,
     }
   }
-  $pager_members = $notify_pager ? {
-    true    => ['pager_24x7'],
-    default => [],
+
+  if $notify_pager {
+    icinga::contact_group { 'urgent-priority-inoffice':
+      group_alias => 'Contacts for urgent priority alerts to trigger in office hours',
+      members     => flatten([
+        $slack_members,
+        'pagerduty_inoffice',
+      ])
+    }
+    icinga::contact_group { 'urgent-priority-oncall':
+      group_alias => 'Contacts for urgent priority alerts to trigger on call only',
+      members     => flatten([
+        $slack_members,
+        'pagerduty_oncall',
+      ])
+    }
+    icinga::service_template { 'govuk_urgent_priority_inoffice':
+      contact_groups => ['urgent-priority-inoffice']
+    }
+    icinga::service_template { 'govuk_urgent_priority_oncall':
+      contact_groups => ['urgent-priority-oncall']
+    }
   }
 
-
   # Urgent
+  $pager_members = $notify_pager ? {
+    true    => ['pagerduty_24x7'],
+    default => [],
+  }
   icinga::contact_group { 'urgent-priority':
     group_alias => 'Contacts for urgent priority alerts',
     members     => flatten([

@@ -116,13 +116,26 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
+  $graphite_5xx_target = "transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_5xx,0)"
+
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target    => "transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_5xx,0)",
+    target    => $graphite_5xx_target,
     warning   => 0.3,
     critical  => 0.6,
-    use       => 'govuk_urgent_priority',
+    use       => 'govuk_urgent_priority_inoffice',
     from      => '3minutes',
     desc      => 'router nginx high 5xx rate',
+    host_name => $::fqdn,
+    notes_url => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
+  }
+
+  @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}_oncall":
+    target    => $graphite_5xx_target,
+    warning   => 0.5,
+    critical  => 0.8,
+    use       => 'govuk_urgent_priority_oncall',
+    from      => '5minutes',
+    desc      => 'Nginx 5xx rate for www-origin',
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
   }
