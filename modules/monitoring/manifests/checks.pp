@@ -4,6 +4,7 @@ class monitoring::checks {
   include monitoring::checks::pingdom
   include monitoring::checks::ses
   include monitoring::checks::smokey
+  include monitoring::checks::reboots
 
   $app_domain = hiera('app_domain')
   $http_username = hiera('http_username', 'UNSET')

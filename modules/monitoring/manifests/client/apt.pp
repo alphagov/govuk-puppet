@@ -22,10 +22,4 @@ class monitoring::client::apt {
   @icinga::plugin { 'check_reboot_required':
     ensure => absent
   }
-  @@icinga::check { "check_reboot_required_${::hostname}":
-    check_command       => 'check_nrpe!check_reboot_required!365 1',
-    service_description => 'reboot required by apt', # This description must be kept in sync with check_icinga.rb in the govuk_unattended_reboot module.
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(reboot-required-by-apt),
-  }
 }

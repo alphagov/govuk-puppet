@@ -1,0 +1,23 @@
+#!/bin/bash
+
+exitcode=0
+declare -a needing_reboot
+
+for host in $(/usr/local/bin/govuk_node_list); do
+  /usr/lib/nagios/plugins/check_nrpe -H ${host} -t 20 -c check_reboot_required -u > /dev/null 2>&1
+  result=$?
+  if [[ $result -eq 1 || $result -eq 2 ]]; then
+    exitcode=1
+    needing_reboot+=("${host}")
+  fi
+done
+
+if [[ $exitcode -eq 0 ]]; then
+  echo "OK: no hosts needing reboot"
+  exit 0
+else
+  echo "WARNING: ${#needing_reboot[@]} hosts require a reboot."
+  echo "The following hosts are marked as requiring a reboot by apt:"
+  printf "%s\n" "${needing_reboot[@]}"
+  exit 1
+fi
