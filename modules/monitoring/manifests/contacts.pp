@@ -103,37 +103,6 @@ class monitoring::contacts (
       notification_period  => '24x7',
       pagerduty_servicekey => $pagerduty_servicekey,
     }
-    icinga::pagerduty_contact { 'inoffice':
-      notify_when          => ['critical'],
-      notification_period  => 'inoffice',
-      pagerduty_servicekey => $pagerduty_servicekey,
-    }
-    icinga::pagerduty_contact { 'oncall':
-      notify_when          => ['critical'],
-      notification_period  => 'oncall',
-      pagerduty_servicekey => $pagerduty_servicekey,
-    }
-  }
-
-  icinga::contact_group { 'urgent-priority-inoffice':
-    group_alias => 'Contacts for urgent priority alerts to trigger in office hours',
-    members     => flatten([
-      $slack_members,
-      'pagerduty_inoffice',
-    ])
-  }
-  icinga::contact_group { 'urgent-priority-oncall':
-    group_alias => 'Contacts for urgent priority alerts to trigger on call only',
-    members     => flatten([
-      $slack_members,
-      'pagerduty_oncall',
-    ])
-  }
-  icinga::service_template { 'govuk_urgent_priority_inoffice':
-    contact_groups => ['urgent-priority-inoffice']
-  }
-  icinga::service_template { 'govuk_urgent_priority_oncall':
-    contact_groups => ['urgent-priority-oncall']
   }
 
   # Urgent
