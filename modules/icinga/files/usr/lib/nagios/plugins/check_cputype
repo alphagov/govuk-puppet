@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Desc : Plugin to check CPU model type
+
+PROGNAME=$(basename "$0")
+
+if [ "$1" = "" ]
+then
+  echo -e "Use : $PROGNAME <CPU model type> -- Ex : $PROGNAME amd \n "
+  exit 3
+fi
+
+CPUTYPE=$(awk '/model name/ {print tolower($4)}' /proc/cpuinfo | uniq | cut -d"(" -f1)
+
+if [ "$CPUTYPE" != "$1" ]
+then
+  echo "CRITICAL: CPU model does not match defined: $1"
+  exit 2
+else
+  echo "OK: CPU model is correct"
+  exit 0
+fi
