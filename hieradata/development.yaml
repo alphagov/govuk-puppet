@@ -43,15 +43,12 @@ govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::external_link_tracker::mongodb_nodes: ['localhost']
 govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
-govuk::apps::government_frontend::enabled: true
 govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
-govuk::apps::manuals_frontend::enabled: true
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
-govuk::apps::publicapi::backdropread_protocol: 'http'
 govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
@@ -68,7 +65,6 @@ govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::router_api::vhost: 'router-api'
 govuk::apps::rummager::enable_procfile_worker: false
-govuk::apps::search_admin::enabled: true
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
@@ -100,7 +96,6 @@ govuk_elasticsearch::version: '1.4.4'
 
 govuk_mysql::server::slow_query_log: true
 
-govuk_postgresql::server::backup: false
 govuk_postgresql::server::configure_env_sync_user: false
 
 govuk::ppa::path: preview

@@ -3,9 +3,9 @@ app_domain: 'preview.alphagov.co.uk'
 
 asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
-backup::automysqlbackup::rotation_daily: 2
-backup::automysqlbackup::rotation_weekly: 6
-backup::automysqlbackup::rotation_monthly: 28
+backup::mysql::rotation_daily: 2
+backup::mysql::rotation_weekly: 6
+backup::mysql::rotation_monthly: 28
 
 base::supported_kernel::enabled: true
 
@@ -23,7 +23,6 @@ govuk::apps::mapit::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publisher::nagios_data_importer_check: false
 govuk::apps::signon::enable_logstream: true
-govuk::apps::sidekiq_monitoring::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'preview'
@@ -54,7 +53,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
 
-govuk::node::s_asset_base::assets_uploads_disk: '/dev/sdb1'
 govuk::node::s_asset_master::run_virus_scan_clean_hour: '9'
 
 govuk::node::s_backend_lb::backend_servers:
@@ -93,7 +91,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-2.frontend'
 govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
-govuk::node::s_licensify_frontend::app_basic_auth: true
 # to enable/disable licensing_api next two flags are necessary (yes I know this breaks the alphabet)
 govuk::node::s_licensify_backend::enable_licensing_api: true
 govuk::node::s_licensify_lb::enable_licensing_api: true
@@ -113,7 +110,6 @@ govuk::ppa::path: 'preview'
 
 hosts::production::carrenza_vcloud: true
 hosts::production::ip_bouncer: '10.133.0.40'
-hosts::production::suffixed_hosts: true
 
 licensify::apps::licensing_web_forms::enabled: true
 

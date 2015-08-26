@@ -11,7 +11,6 @@ efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
-govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
@@ -134,7 +133,6 @@ govuk_crawler::ssh_keys:
 hosts::production::apt_mirror_internal: true
 hosts::production::ip_bouncer: '37.26.90.219'
 hosts::production::releaseapp_host_org: true
-hosts::production::suffixed_hosts: true
 
 icinga::nginx::enable_basic_auth: false
 
