@@ -8,6 +8,7 @@ class icinga::client::checks (
   include icinga::client::check_linux_free_memory
   include icinga::client::check_rw_rootfs
   include icinga::client::check_upstart_status
+  include icinga::client::check_cputype
 
   anchor { ['icinga::client::checks::begin', 'icinga::client::checks::end']: }
   Anchor['icinga::client::checks::begin']
