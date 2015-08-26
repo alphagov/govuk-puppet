@@ -17,11 +17,12 @@ class govuk::apps::spotlight (
 
   if $enabled {
     govuk::app { 'spotlight':
-      app_type          => 'bare',
-      command           => '/usr/bin/node app/server',
-      port              => $port,
-      vhost_ssl_only    => true,
-      health_check_path => '/_status',
+      app_type           => 'bare',
+      command            => '/usr/bin/node app/server',
+      port               => $port,
+      vhost_ssl_only     => true,
+      health_check_path  => '/_status',
+      log_format_is_json => true,
     }
   }
 }
