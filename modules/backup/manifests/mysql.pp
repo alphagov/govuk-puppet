@@ -18,10 +18,12 @@
 #
 class backup::mysql (
   $mysql_dump_password,
-  $rotation_daily = 6,
-  $rotation_weekly = 28,
-  $rotation_monthly = 95,
+  $rotation_daily = '6',
+  $rotation_weekly = '28',
+  $rotation_monthly = '95',
 ) {
+  validate_string($rotation_daily, $rotation_weekly, $rotation_monthly)
+
   $threshold_secs = 28 * (60 * 60)
   $service_desc   = 'automysqlbackup'
 
