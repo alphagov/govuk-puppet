@@ -109,6 +109,9 @@ govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::spotlight::enabled: true
 govuk::apps::stagecraft::enabled: true
+govuk::apps::stagecraft::worker::enabled: true
+govuk::apps::stagecraft::beat::enabled: true
+govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16 
 
