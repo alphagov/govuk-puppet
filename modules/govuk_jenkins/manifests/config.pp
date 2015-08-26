@@ -53,17 +53,17 @@ class govuk_jenkins::config (
   $environment_variables = {},
   $github_web_uri = 'https://github.gds',
   $github_api_uri = 'https://github.gds/api/v3',
-  $github_client_id = undef,
-  $github_client_secret = undef,
+  $github_client_id,
+  $github_client_secret,
   $users = [],
   $admins = [],
   $manage_config = false,
 ) {
-  if $manage_config and $github_client_id and $github_client_secret {
 
-    validate_array($users)
-    validate_array($admins)
+  validate_array($users)
+  validate_array($admins)
 
+  if $manage_config {
     file { '/var/lib/jenkins':
       ensure => directory,
       source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
