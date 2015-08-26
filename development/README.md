@@ -154,6 +154,10 @@ If after updating vagrant, you get errors regarding vagrant-dns when provisionin
     vagrant plugin uninstall vagrant-dns
     vagrant plugin install vagrant-dns
 
+You may also need to make sure the plugin has been started:
+
+    vagrant dns --start
+
 ### Errors fetching packages
 
 GDS have an apt repository at http://apt.production.alphagov.co.uk/ This is not accessible on the internet, so if you're trying to provision the virtual machine outside of the GDS office, you have a little bit of work to do. The prerequisites talk about needing an LDAP account to access GDS Github Enterprise, so you should have an account which lets you access the VPN.
