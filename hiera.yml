@@ -1,5 +1,6 @@
 ---
 :hierarchy:
+  - 'class/%{::environment}/%{::govuk_node_class}_migration'
   - '%{::environment}_migration_credentials'
   - '%{::environment}_migration'
   - 'class/%{::environment}/%{::govuk_node_class}'
