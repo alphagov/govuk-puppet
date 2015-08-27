@@ -1,7 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_jenkins::config', :type => :class do
-
   describe 'manage config' do
     let(:hiera_data) {{
       'govuk_jenkins::config::github_client_id' => 'bar',
