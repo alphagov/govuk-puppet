@@ -20,6 +20,9 @@
 class govuk_jenkins (
   $apt_mirror_hostname,
   $github_enterprise_cert,
+  $github_enterprise_hostname,
+  $jenkins_home,
+  $github_enterprise_cert_path,
   $config = {},
   $plugins = {},
 ) {
@@ -29,10 +32,6 @@ class govuk_jenkins (
   include govuk_jenkins::job_builder
   include govuk_jenkins::ssh_key
   include govuk_jenkins::config
-
-  $jenkins_home = '/var/lib/jenkins'
-  $github_enterprise_hostname = 'github.gds'
-  $github_enterprise_filename = "${jenkins_home}/${github_enterprise_hostname}.pem"
 
   user { 'jenkins':
     ensure     => present,
@@ -57,14 +56,14 @@ class govuk_jenkins (
   # In addition to the keystore below, this path is also referenced by the
   # `GITHUB_GDS_CA_BUNDLE` environment variable in Jenkins which is used by
   # ghtools during GitHub.com -> GitHub Enterprise repo backups.
-  file { $github_enterprise_filename:
+  file { $github_enterprise_cert_path:
     ensure  => file,
     content => $github_enterprise_cert,
   }
 
   java_ks { "${$github_enterprise_hostname}:cacerts":
     ensure       => latest,
-    certificate  => $github_enterprise_filename,
+    certificate  => $github_enterprise_cert_path,
     target       => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/cacerts',
     password     => 'changeit',
     trustcacerts => true,

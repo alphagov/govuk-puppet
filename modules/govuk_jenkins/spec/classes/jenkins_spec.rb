@@ -2,16 +2,19 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk_jenkins', :type => :class do
   let(:ssh_dir) { '/var/lib/jenkins/.ssh' }
+  let(:hiera_data) {{
+    'govuk_jenkins::config::github_api_uri' => 'foo',
+    'govuk_jenkins::config::github_client_id' => 'bar',
+    'govuk_jenkins::config::github_client_secret' => 'baz',
+    'govuk_jenkins::config::github_web_uri' => 'wibble',
+  }}
 
   let(:params) {{
     :apt_mirror_hostname => 'apt.example.com',
     :github_enterprise_cert => 'certcertcert',
-  }}
-
-  let(:hiera_data) {{
-    'govuk_jenkins::config::github_client_id' => %w{ foo },
-    'govuk_jenkins::config::github_client_secret' => %w{ bar },
-    'govuk_jenkins::job_builder::environment' => %w{ mushroom },
+    :github_enterprise_cert_path => 'wobble',
+    :github_enterprise_hostname => 'dibble',
+    :jenkins_home => 'bibble',
   }}
 
   it { should contain_class('govuk_jenkins::ssh_key') }
