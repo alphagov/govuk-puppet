@@ -28,6 +28,9 @@ govuk_cdnlogs::monitoring_enabled: true
 
 govuk_jenkins::job::network_config_deploy::environment_script_parameter: 'carrenza-production'
 
+govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "production.performance.service.gov.uk"
+govuk_jenkins::job::performance_platform_smokey::pp_auth_domain: "performance.service.gov.uk"
+
 # FIXME: Remove once the migration to Carrenza is complete
 govuk_jenkins::job::staging::data_sync_complete::signon_domain_old: production.alphagov.co.uk
 govuk_jenkins::job::staging::data_sync_complete::signon_domain_new: publishing.service.gov.uk
