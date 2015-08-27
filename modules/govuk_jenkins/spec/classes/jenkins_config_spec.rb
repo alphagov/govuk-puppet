@@ -4,8 +4,8 @@ describe 'govuk_jenkins::config', :type => :class do
 
   describe 'manage config' do
     let(:hiera_data) {{
-      'govuk_jenkins::config::github_client_id' => %w{ foo },
-      'govuk_jenkins::config::github_client_secret' => %w{ bar },
+      'govuk_jenkins::config::github_client_id' => 'bar',
+      'govuk_jenkins::config::github_client_secret' => 'baz',
     }}
 
     context 'false (default)' do
