@@ -20,10 +20,7 @@ describe 'govuk_jenkins::config', :type => :class do
         :manage_config => true,
       }}
 
-      it { should contain_file('/var/lib/jenkins/config.xml')
-          .with_content(/foo/)
-          .with_content(/bar/)
-      }
+      it { should contain_file('/var/lib/jenkins/config.xml') }
     end
   end
 end
