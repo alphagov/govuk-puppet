@@ -111,6 +111,8 @@ govuk::ppa::path: 'preview'
 hosts::production::carrenza_vcloud: true
 hosts::production::ip_bouncer: '10.133.0.40'
 
+icinga::client::check_cputype::cputype: 'amd'
+
 licensify::apps::licensing_web_forms::enabled: true
 
 mongodb::server::package_name: 'mongodb-10gen'
