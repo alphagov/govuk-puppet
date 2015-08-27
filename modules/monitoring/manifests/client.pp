@@ -6,6 +6,7 @@ class monitoring::client {
   include nsca::client
   include auditd
   include collectd
+  include collectd::plugin::tcp
 
   # Provides:
   # - `notify-reboot-required` which is referenced in the `postinst`

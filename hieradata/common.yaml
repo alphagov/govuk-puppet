@@ -80,6 +80,24 @@ backup::offsite::jobs:
     minute: 13,
     # No encryption because of size and sensitivity
 
+collectd::plugin::tcp::metrics:
+  - 'ListenOverflows'
+  - 'ListenDrops'
+  - 'TCPLoss'
+  - 'TCPTimeouts'
+  - 'TCPFastRetrans'
+  - 'TCPLostRetransmit'
+  - 'TCPForwardRetrans'
+  - 'TCPSlowStartRetrans'
+  - 'CurrEstab'
+  - 'TCPAbortOnMemory'
+  - 'TCPBacklogDrop'
+  - 'AttemptFails'
+  - 'EstabResets'
+  - 'InErrs'
+  - 'ActiveOpens'
+  - 'PassiveOpens'
+
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
