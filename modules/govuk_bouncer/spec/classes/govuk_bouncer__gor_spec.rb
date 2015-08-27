@@ -1,7 +1,7 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_bouncer::gor', :type => :class do
-  let(:staging_ip) { '127.0.0.1' }
+  let(:ip_address) { '127.0.0.1' }
   let(:args_default) {{
     '-input-raw'          => ':80',
     '-output-http-method' => %w{GET HEAD OPTIONS},
@@ -17,17 +17,17 @@ describe 'govuk_bouncer::gor', :type => :class do
     }
   end
 
-  context '#enable_staging' do
+  context '#enabled' do
     let(:params) {{
-      :enable_staging => true,
-      :staging_ip => staging_ip,
+      :enabled => true,
+      :ip_address => ip_address,
     }}
 
     it {
       should contain_class('govuk::gor').with(
         :enable => true,
         :args           => args_default.merge({
-          '-output-http' => ["http://#{staging_ip}"],
+          '-output-http' => ["http://#{ip_address}"],
         }),
       )
     }
@@ -35,8 +35,8 @@ describe 'govuk_bouncer::gor', :type => :class do
 
   context 'enabled but no staging IP is invalid' do
     let(:params) {{
-      :enable_staging => true,
-      :staging_ip => 'not.an.ip.address',
+      :enabled => true,
+      :ip_address => 'not.an.ip.address',
     }}
 
     it {
@@ -48,7 +48,7 @@ describe 'govuk_bouncer::gor', :type => :class do
 
   context 'enabled but no staging IP specified' do
     let(:params) {{
-      :enable_staging => true,
+      :enabled => true,
     }}
 
     it {
