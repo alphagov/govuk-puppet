@@ -51,10 +51,9 @@ maslow:                govuk_setenv maslow                ./run_in.sh ../maslow 
 # router uses 3054 and 3055
 router:                govuk_setenv router                ./run_in.sh ../router         make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../router-api     bundle exec rails s -p 3056
-# alphagov/spotlight uses port 3057
+spotlight: ./run_in.sh ../spotlight ./start-app.sh # port 3057
 # content_planner used to use 3058
-# alphagov/screenshot-as-a-service uses 3059
-#                                  as well as 3060
+screenshot_as_a_service: ./run_in.sh ../screenshot-as-a-service ./start-app.sh # port 3059 and 3060
 business-support-api:  govuk_setenv business-support-api  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
 finder-api:            govuk_setenv finder-api            ./run_in.sh ../finder-api     bundle exec mr-sparkle --force-polling -- -p 3063
@@ -96,10 +95,10 @@ event-store:           govuk_setenv event-store           ./run_in.sh ../event-s
 policy-publisher:      govuk_setenv policy-publisher      ./run_in.sh ../policy-publisher bundle exec rails s -p 3098
 email-alert-frontend:  govuk_setenv email-alert-frontend  ./run_in.sh ../email-alert-frontend bundle exec rails s -p 3099
 draft-content-store:   govuk_setenv draft-content-store   ./run_in.sh ../content-store bundle exec rails s -p 3100 -P tmp/pids/draft-server.pid
-# backdrop's read API uses 3101
-# backdrop's write API uses 3102
-# stagecraft uses 3103
-# performanceplatform-admin uses 3104
+backdrop_read: ./run_in.sh ../backdrop ./start-app.sh read 3101
+backdrop_write: ./run_in.sh ../backdrop ./start-app.sh write 3102
+stagecraft: ./run_in.sh ../stagecraft ./start-app.sh 3103
+admin: ./run_in.sh ../performanceplatform-admin ./start-app.sh 3104
 # datainsight-everything-recorder used to use port 3105, but is no longer running in any environment
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../authenticating-proxy bundle exec rails s -p 3107

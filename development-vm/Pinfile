@@ -3,6 +3,9 @@
 
 process :'authenticating-proxy' => [:'government-frontend']
 process :asset_manager
+process :backdrop => [:backdrop_read, :backdrop_write, :stagecraft]
+process :backdrop_read
+process :backdrop_write
 process :bouncer
 process :'business-support-api' => [:contentapi]
 process :businesssupportfinder => [:static, :contentapi, :'business-support-api']
@@ -47,6 +50,7 @@ process :'metadata-api' => [:contentapi, :need_api]
 process :migratorator
 process :need_api
 process :panopticon => [:'url-arbiter', :'router-api', :rummager]
+process :'performanceplatform-admin' => [:stagecraft]
 process :planner => [:static, :contentapi]
 process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
 process :publisher => [:panopticon, :contentapi]
@@ -57,6 +61,7 @@ process :reviewomaticexplore => :reviewomatic
 process :router
 process :'router-api'
 process :rummager
+process :screenshot_as_a_service
 process :'search-admin' => :rummager
 process :'service-manual-publisher' => [:'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
@@ -64,6 +69,8 @@ process :signon
 process :smartanswers => [:static, :contentapi, :imminence]
 process :'specialist-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-frontend' => [:static, :contentapi, :'content-store']
+process :spotlight
+process :stagecraft => [:backdrop_write]
 process :static
 process :support => [:'support-api']
 process :'support-api'
