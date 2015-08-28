@@ -32,7 +32,10 @@ define govuk::mount(
   $mountoptions = undef,
   $mountpoint = $title
 ) {
+  $app_domain = hiera('app_domain')
   $mountpoint_escaped = regsubst($mountpoint, '/', '_', 'G')
+  $mountpoint_graphite = regsubst($mountpoint, '/', '-', 'G')
+  $graphite_target = "${::fqdn_metrics}.df${mountpoint_graphite}.df_complex-free"
 
   unless hiera(govuk::mount::no_op, false) {
     if $govuk_lvm != undef {
@@ -56,6 +59,7 @@ define govuk::mount(
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(low-available-disk-space),
+    action_url          => "https://graphite.${app_domain}/render?from=-14days&until=now&width=600&height=300&target=${graphite_target}",
   }
 
   @@icinga::check { "check${mountpoint_escaped}_disk_inodes_${::hostname}":
