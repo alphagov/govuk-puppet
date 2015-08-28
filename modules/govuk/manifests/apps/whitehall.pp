@@ -174,11 +174,13 @@ class govuk::apps::whitehall(
           value   => '0';
     }
 
+    # Protocal relative URL so assets in admin are on the same domain but work
+    # in production and development. (This is needed for IE8)
     govuk::app::envvar {
       "${title}-GOVUK_ASSET_ROOT":
         app     => 'whitehall',
         varname => 'GOVUK_ASSET_ROOT',
-        value   => '';
+        value   => "//whitehall-admin.${app_domain}";
     }
   }
 }
