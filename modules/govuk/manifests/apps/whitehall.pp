@@ -173,5 +173,12 @@ class govuk::apps::whitehall(
           varname => 'RACK_MULTIPART_PART_LIMIT',
           value   => '0';
     }
+
+    govuk::app::envvar {
+      "${title}-GOVUK_ASSET_ROOT":
+        app     => 'whitehall',
+        varname => 'GOVUK_ASSET_ROOT',
+        value   => '';
+    }
   }
 }
