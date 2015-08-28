@@ -3,7 +3,6 @@ require_relative '../../../../spec_helper'
 describe 'govuk_crawler', :type => :class do
 
   let(:default_params) {{
-    :govuk_gemfury_source_url => 'https://some_token@gem.fury.io/govuk/',
     :mirror_root => '/foo',
   }}
 
