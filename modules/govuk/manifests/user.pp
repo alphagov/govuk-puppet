@@ -37,7 +37,7 @@ define govuk::user(
   $ensure = present,
   $fullname = 'No Name',
   $email = 'no.name@digital.cabinet-office.gov.uk',
-  $groups = ['admin', 'deploy'],
+  $groups = ['admin', 'deploy', 'adm' ],
   $purgegroups = false,
   $shell = '/bin/bash',
   $ssh_key = undef
