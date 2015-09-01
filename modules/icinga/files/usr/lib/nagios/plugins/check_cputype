@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Desc : Plugin to check CPU model type
+
+PROGNAME=$(basename "$0")
+
+if [ "$1" = "" ]
+then
+  echo -e "Use : $PROGNAME <CPU model type> -- Ex : $PROGNAME amd \n "
+  exit 3
+fi
+
+if grep -iq $1 /proc/cpuinfo
+then
+  echo "OK: CPU is $1"
+  exit 0
+else
+  echo "Critical: CPU is not $1"
+  exit 2
+fi

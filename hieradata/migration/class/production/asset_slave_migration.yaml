@@ -1,0 +1,3 @@
+---
+
+icinga::client::check_cputype::cputype: 'amd'
