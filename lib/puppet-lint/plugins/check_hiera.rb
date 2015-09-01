@@ -57,8 +57,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'smokey_signon_password',
     'wildcard_alphagov_crt',
     'wildcard_alphagov_key',
-    'wildcard_alphagov_mgmt_crt',
-    'wildcard_alphagov_mgmt_key',
     'www_crt',
     'www_key',
   ]
