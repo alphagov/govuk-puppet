@@ -4,23 +4,23 @@
 #
 # === Parameters
 #
-# [*enable_staging*]
-#   Boolean to determine if traffic will be replayed against Staging; defaults to false.
+# [*enabled*]
+#   Boolean to determine if Bouncer traffic will be replayed; defaults to false.
 #
-# [*staging_ip*]
-#   IP address of the Bouncer application in Staging; defaults to undef.
+# [*ip_address*]
+#   IP address of the Bouncer application to replay against; defaults to undef.
 #
 class govuk_bouncer::gor (
-  $enable_staging = false,
-  $staging_ip = undef,
+  $enabled = false,
+  $ip_address = undef,
 ) {
 
-  validate_bool($enable_staging)
+  validate_bool($enabled)
 
-  if $enable_staging and is_ip_address($staging_ip) {
+  if $enabled and is_ip_address($ip_address) {
     $gor_enable         = true
     # Bouncer only receives traffic over HTTP (port 80)
-    $gor_targets        = ["http://${staging_ip}"]
+    $gor_targets        = ["http://${ip_address}"]
   } else {
     $gor_enable         = false
     $gor_targets        = []
