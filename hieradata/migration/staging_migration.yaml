@@ -112,6 +112,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::service_manual_rebuild_search_index
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_cdn
+  - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
