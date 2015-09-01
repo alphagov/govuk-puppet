@@ -17,3 +17,5 @@ mount:
     disk: '/dev/mapper/uploads-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+    nagios_warn: 5
+    nagios_crit: 2
