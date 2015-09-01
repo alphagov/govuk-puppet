@@ -133,9 +133,9 @@ class router::nginx (
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}_oncall":
     target              => $graphite_5xx_target,
     warning             => 0.5,
-    critical            => 0.8,
+    critical            => 0.9,
     use                 => 'govuk_urgent_priority',
-    from                => '5minutes',
+    from                => '8minutes',
     desc                => 'Nginx 5xx rate for www-origin',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
