@@ -22,4 +22,9 @@ class icinga::client::check_cputype (
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(defined-cpu-type-does-not-match),
   }
+
+  @icinga::nrpe_config { 'check_cputype':
+    source => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_cputype.cfg',
+  }
+
 }
