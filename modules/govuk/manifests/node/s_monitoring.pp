@@ -16,7 +16,7 @@ class govuk::node::s_monitoring (
     to           => ['graphite.cluster'],
     aliases      => ['graphite.*', 'grafana', 'grafana.*'],
     ssl_only     => true,
-    ssl_certtype => 'wildcard_alphagov_mgmt',
+    ssl_certtype => 'wildcard_alphagov',
     protected    => false,
     root         => '/dev/null',
   }

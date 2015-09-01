@@ -11,20 +11,10 @@
 #
 #     - www
 #     - wildcard_alphagov
-#     - wildcard_alphagov_mgmt
-#
-#   wildcard_alphagov_mgmt is a special case for hostnames not bypassed by
-#   govuk_select_organisation. It will fallback to wildcard_alphagov for
-#   environments where the key is not present in hiera data.
 #
 define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
     'wildcard_alphagov': {
-        $cert = hiera('wildcard_alphagov_crt', '')
-        $key = hiera('wildcard_alphagov_key', '')
-    }
-    # FIXME: wildcard_alphagov_mgmt does the same thing as wildcard_alphagov
-    'wildcard_alphagov_mgmt': {
         $cert = hiera('wildcard_alphagov_crt', '')
         $key = hiera('wildcard_alphagov_key', '')
     }
