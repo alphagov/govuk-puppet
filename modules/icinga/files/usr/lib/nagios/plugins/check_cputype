@@ -10,13 +10,11 @@ then
   exit 3
 fi
 
-CPUTYPE=$(awk '/model name/ {print tolower($4)}' /proc/cpuinfo | uniq | cut -d"(" -f1)
-
-if [ "$CPUTYPE" != "$1" ]
+if grep -iq $1 /proc/cpuinfo
 then
-  echo "CRITICAL: CPU model does not match defined: $1"
-  exit 2
-else
-  echo "OK: CPU model is correct"
+  echo "OK: CPU is $1"
   exit 0
+else
+  echo "Critical: CPU is not $1"
+  exit 2
 fi
