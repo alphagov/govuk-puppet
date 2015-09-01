@@ -49,11 +49,6 @@ backup::offsite::jobs:
 
 internal_tld: 'publishing.service.gov.uk'
 
-# FIXME: Once the migration to a `service.gov.uk` domain is complete
-#        we can remove `monitoring_domain_suffix` entirely and just lookup
-#        `app_domain` instead.
-monitoring_domain_suffix: "%{hiera('app_domain')}"
-
 shell::shell_prompt_string: 'migration-production'
 
 govuk_bouncer::gor::enabled: true

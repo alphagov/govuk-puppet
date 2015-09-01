@@ -4,7 +4,7 @@ describe 'icinga::check::graphite', :type => :define do
 
   let(:facts) {{ :fqdn => 'warden.zoo.tld' }}
   let(:pre_condition) { 'icinga::host { "warden.zoo.tld": }' }
-  let(:hiera_data) { { 'monitoring_domain_suffix' => 'monitoring.zoo.tld' } }
+  let(:hiera_data) { { 'app_domain' => 'monitoring.zoo.tld' } }
 
   context 'when required params are passed' do
     let(:title) { 'count_tigers' }

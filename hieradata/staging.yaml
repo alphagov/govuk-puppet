@@ -507,11 +507,6 @@ monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
 
-# FIXME: Once the migration to a `service.gov.uk` domain is complete
-#        we can remove `monitoring_domain_suffix` entirely and just lookup
-#        `app_domain` instead.
-monitoring_domain_suffix: "%{hiera('app_domain')}"
-
 postfix::smarthost:
 - 'email-smtp.us-east-1.amazonaws.com:587'
 - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'

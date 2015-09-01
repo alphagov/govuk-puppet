@@ -100,8 +100,6 @@ icinga::nginx::enable_basic_auth: false
 
 internal_tld: 'development'
 
-monitoring_domain_suffix: 'dev.alphagov.co.uk'
-
 shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_users:
