@@ -32,10 +32,6 @@
 #   User that the synchronisation cron job runs as.
 #   Default: 'govuk-crawler'
 #
-# [*govuk_gemfury_source_url*]
-#   url for our gemfury source.
-#   Mandatory parameter
-#
 # [*mirror_root*]
 #   The directory where crawled content is stored.
 #   Mandatory parameter
@@ -75,7 +71,6 @@ class govuk_crawler(
   $amqp_user = 'govuk_crawler_worker',
   $amqp_vhost = '/',
   $crawler_user = 'govuk-crawler',
-  $govuk_gemfury_source_url,
   $mirror_root,
   $seed_enable = false,
   $site_root = '',
@@ -132,17 +127,15 @@ class govuk_crawler(
   # TODO: Can be removed when dependency in govuk_seed_crawler has gone:
   #       https://github.gds/gds/govuk_seed_crawler/blob/607f210/lib/govuk_seed_crawler/indexer.rb#L12
   package { 'govuk_mirrorer':
-      ensure   => '1.3.1',
+      ensure   => '1.3.2',
       provider => system_gem,
-      source   => $govuk_gemfury_source_url,
       notify   => Package['govuk_seed_crawler']
   }
   # END TODO
 
   package { 'govuk_seed_crawler':
-        ensure   => '0.4.0',
+        ensure   => '1.0.0',
         provider => system_gem,
-        source   => $govuk_gemfury_source_url,
   }
 
   $sync_service_desc = 'Mirror sync'
