@@ -4,11 +4,11 @@ class icinga::client::checks (
   $disk_time_critical = 200 # milliseconds
 ) {
 
+  include icinga::client::check_cputype
   include icinga::client::check_file_not_exists
   include icinga::client::check_linux_free_memory
   include icinga::client::check_rw_rootfs
   include icinga::client::check_upstart_status
-  include icinga::client::check_cputype
 
   anchor { ['icinga::client::checks::begin', 'icinga::client::checks::end']: }
   Anchor['icinga::client::checks::begin']
