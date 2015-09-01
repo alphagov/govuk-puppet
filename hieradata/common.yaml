@@ -233,6 +233,11 @@ govuk_jenkins::github_enterprise_cert: |
     LG8Mr4r1mOsqtUPYYjCN77EOwkRUucvIt1zNPoiD21OXzzxdOIUOUq6l/kERSfba
     LWIWJn/KXkog8bU776IixxWlO8l1TwiCUoDS9YsLIKIRCT74QE48qA==
     -----END CERTIFICATE-----
+govuk_jenkins::jenkins_home: "/var/lib/jenkins"
+govuk_jenkins::github_enterprise_cert_path: "%{hiera('govuk_jenkins::jenkins_home')}/github.gds.pem"
+govuk_jenkins::github_enterprise_hostname: "github.gds"
+govuk_jenkins::config::github_api_uri: "%{hiera('govuk_jenkins::config::github_web_uri')}/api/v3"
+govuk_jenkins::config::github_web_uri: "https://%{hiera('govuk_jenkins::github_enterprise_hostname')}"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
 
 govuk_mysql::server::expire_log_days: 3
