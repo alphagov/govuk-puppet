@@ -97,7 +97,6 @@ class Tcp(object):
                         self.submit(metric_name, value, 'gauge')
                     else:
                         self.submit(metric_name, value, 'counter')
-                    self.log('verb', 'Sent value: %s %i' %(metric_name, value))
 
 tcp = Tcp()
 collectd.register_read(tcp.collect)
