@@ -36,7 +36,7 @@ process :'government-frontend' => [:'content-store', :static]
 process :'info-frontend' => [:static, :'metadata-api']
 process :imminence
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
-process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
+process :'hmrc-manuals-api' => [:'publishing-api', :rummager, :'content-register']
 process :'manuals-frontend' => [:static, :'content-store']
 process :jobs
 process :licencefinder => [:static, :contentapi]
