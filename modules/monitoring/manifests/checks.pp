@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: monitoring::checks
+#
+# Checks that run only from the monitoring machine
+#
 class monitoring::checks {
   include monitoring::checks::mirror
   include monitoring::checks::pingdom

@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: icinga::config
+#
+# Configuration for Icinga
+#
 class icinga::config {
 
   include govuk::htpasswd
