@@ -66,7 +66,10 @@ govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
 
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production-migration@digital.cabinet-office.gov.uk'
 
-govuk::deploy::config::external_licensify: true
+# FIXME: Set to true as part of Production migration; workaround to prevent
+# traffic replay from hitting Licensify in Skyscape Production.
+# See: https://docs.google.com/document/d/1lsfmEsL8maY77Yf2a-hq1c7P-8oF5PC4MTy59uOxDRI
+govuk::deploy::config::external_licensify: false
 
 # FIXME: Remove this line during migration to Carrenza
 govuk::deploy::actionmailer_enable_delivery: false
@@ -94,7 +97,12 @@ grafana::dashboards::machine_suffix_metrics: ''
 
 hosts::production::apt_mirror_internal: false
 hosts::production::efg_domains: []
-hosts::production::external_licensify: true
+
+# FIXME: Set to true as part of Production migration; workaround to prevent
+# traffic replay from hitting Licensify in Skyscape Production.
+# See: https://docs.google.com/document/d/1lsfmEsL8maY77Yf2a-hq1c7P-8oF5PC4MTy59uOxDRI
+hosts::production::external_licensify: false
+
 hosts::production::licensify_hosts:
   licensify.production.alphagov.co.uk:
     ip: '37.26.90.230'
