@@ -42,8 +42,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # FIXME: Existing violations. These should be refactored.
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
-    'http_password',
-    'http_username',
     'internal_tld',
     'mysql_nagios',
     'mysql_replica_password',
@@ -51,9 +49,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'mysql_whitehall_frontend',
     'nginx_enable_basic_auth',
     'nginx_enable_ssl',
-    'smokey_bearer_token',
-    'smokey_signon_email',
-    'smokey_signon_password',
     'wildcard_alphagov_crt',
     'wildcard_alphagov_key',
     'www_crt',

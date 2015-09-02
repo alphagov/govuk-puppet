@@ -131,6 +131,8 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
+govuk::htpasswd::http_username: "%{hiera('http_username')}"
+
 govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16
 
 govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
@@ -709,10 +711,22 @@ hosts::production::router::hosts:
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
 
+icinga::config::http_username: "%{hiera('http_username')}"
+icinga::config::http_password: "%{hiera('http_password')}"
+
+icinga::config::smokey::http_username: "%{hiera('http_username')}"
+icinga::config::smokey::http_password: "%{hiera('http_password')}"
+icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
+icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
+icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
+
 internal_tld: 'production'
 
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
+
+monitoring::checks::http_username: "%{hiera('http_username')}"
+monitoring::checks::http_password: "%{hiera('http_password')}"
 
 monitoring::checks::smokey::features:
   check_bouncer:

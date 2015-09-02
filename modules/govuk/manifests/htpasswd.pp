@@ -1,9 +1,20 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::htpasswd
+#
+# Create an htpasswd file which can be used for HTTP basic authentication
+#
+# === Parameters
+#
+# [*http_username*]
+#   Basic auth username
+#
+# [*http_passhash*]
+#   Hash of a password created with `htpasswd`
+#
 class govuk::htpasswd (
+  $http_username = 'notset',
   $http_passhash = 'notset',
 ){
 
-  $http_username = hiera('http_username','notset')
   file { '/etc/govuk.htpasswd':
     ensure  => 'present',
     content => "${http_username}:${http_passhash}",

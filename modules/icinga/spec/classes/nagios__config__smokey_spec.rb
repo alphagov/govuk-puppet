@@ -4,7 +4,7 @@ describe 'icinga::config::smokey', :type => :class do
   let(:file_path) { '/etc/smokey.sh' }
 
   context 'with only http_username and http_password from hiera' do
-    let (:hiera_data) {{ 
+    let (:params) {{
       'http_username' => 'test_username',
       'http_password' => 'test_password' 
     }}
@@ -17,17 +17,15 @@ EOS
   end
 
   context 'with all variables set in hiera' do
-    let (:hiera_data) {{ 
+    let(:params) {{
       'http_username' => 'test_username',
       'http_password' => 'test_password',
-      'smokey_signon_email' => 'crocodile',
-      'smokey_signon_password' => 'monkey',
-      'smokey_bearer_token' => 'tortoise',
-    }}
-    let(:params) {{
       'efg_domain' => 'bear',
       'efg_username' => 'snake',
       'efg_password' => 'hippo',
+      'smokey_signon_email' => 'crocodile',
+      'smokey_signon_password' => 'monkey',
+      'smokey_bearer_token' => 'tortoise',
     }}
     # FIXME: Hack to refresh hieradata.
     let(:facts) {{ :cache_bust => Time.now }}

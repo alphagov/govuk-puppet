@@ -1,15 +1,25 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class icinga::config {
+# == Class: icinga::config
+#
+# Configuration for Icinga
+#
+# === Parameters
+#
+# [*http_username*]
+#   Basic auth HTTP username
+#
+# [*http_password*]
+#   Password for $http_username
+#
+class icinga::config (
+  $http_username = '',
+  $http_password = '',
+) {
 
   include govuk::htpasswd
   include icinga::config::pingdom
   include icinga::config::smokey
 
   $app_domain = hiera('app_domain','dev.gov.uk')
-
-  # Used by graphite check templates, below
-  $http_username = hiera('http_username', '')
-  $http_password = hiera('http_password', '')
 
   $check_graphite_command = '/usr/local/bin/check_graphite'
 
