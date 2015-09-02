@@ -13,26 +13,44 @@
 # [*efg_password*]
 #   Password that goes with $efg_username
 #
+# [*http_username*]
+#   Basic auth username
+#
+# [*http_password*]
+#   Password for $http_username
+#
 # [*rate_limit_token*]
 #   Token to bypass our HTTP rate limiting
+#
+# [*smokey_signon_email*]
+#   Email address to login to Signon as a smoke test user
+#
+# [*smokey_signon_password*]
+#   Password for $smokey_signon_email
+#
+# [*smokey_bearer_token*]
+#   Bearer token for something
 #
 class icinga::config::smokey (
   $efg_domain = 'UNSET',
   $efg_username = 'UNSET',
   $efg_password = 'UNSET',
+  $http_username = 'UNSET',
+  $http_password = 'UNSET',
   $rate_limit_token = 'UNSET',
+  $smokey_signon_email = 'UNSET',
+  $smokey_signon_password = 'UNSET',
+  $smokey_bearer_token = 'UNSET',
 ) {
-  #FIXME: This could do with a good refactor to pass these explicitly as
-  #       class parameters, so they can be namespaced in hiera better.
   $smokey_vars = {
-    'AUTH_USERNAME'    => hiera('http_username', 'UNSET'),
-    'AUTH_PASSWORD'    => hiera('http_password', 'UNSET'),
+    'AUTH_USERNAME'    => $http_username,
+    'AUTH_PASSWORD'    => $http_password,
     'EFG_DOMAIN'       => $efg_domain,
     'EFG_USERNAME'     => $efg_username,
     'EFG_PASSWORD'     => $efg_password,
-    'SIGNON_EMAIL'     => hiera('smokey_signon_email', 'UNSET'),
-    'SIGNON_PASSWORD'  => hiera('smokey_signon_password', 'UNSET'),
-    'BEARER_TOKEN'     => hiera('smokey_bearer_token', 'UNSET'),
+    'SIGNON_EMAIL'     => $smokey_signon_email,
+    'SIGNON_PASSWORD'  => $smokey_signon_password,
+    'BEARER_TOKEN'     => $smokey_bearer_token,
     'RATE_LIMIT_TOKEN' => $rate_limit_token,
   }
 
