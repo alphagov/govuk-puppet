@@ -711,6 +711,9 @@ hosts::production::router::hosts:
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
 
+icinga::config::http_username: "%{hiera('http_username')}"
+icinga::config::http_password: "%{hiera('http_password')}"
+
 icinga::config::smokey::http_username: "%{hiera('http_username')}"
 icinga::config::smokey::http_password: "%{hiera('http_password')}"
 icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
@@ -721,6 +724,9 @@ internal_tld: 'production'
 
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
+
+monitoring::checks::http_username: "%{hiera('http_username')}"
+monitoring::checks::http_password: "%{hiera('http_password')}"
 
 monitoring::checks::smokey::features:
   check_bouncer:

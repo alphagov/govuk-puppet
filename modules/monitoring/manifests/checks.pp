@@ -2,7 +2,18 @@
 #
 # Checks that run only from the monitoring machine
 #
-class monitoring::checks {
+# === Parameters
+#
+# [*http_username*]
+#   Basic auth HTTP username
+#
+# [*http_password*]
+#   Password for $http_username
+#
+class monitoring::checks (
+  $http_username = 'UNSET',
+  $http_password = 'UNSET',
+) {
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
   include monitoring::checks::ses
@@ -10,8 +21,6 @@ class monitoring::checks {
   include monitoring::checks::reboots
 
   $app_domain = hiera('app_domain')
-  $http_username = hiera('http_username', 'UNSET')
-  $http_password = hiera('http_password', 'UNSET')
 
   include icinga::plugin::check_http_timeout_noncrit
 
