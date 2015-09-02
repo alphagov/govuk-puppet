@@ -1,4 +1,21 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: icinga::config::smokey
+#
+# Set up smoke tests to run from within Icinga
+#
+# === Parameters
+#
+# [*efg_domain*]
+#   Public-facing domain name that EFG is hosted on
+#
+# [*efg_username*]
+#   Username to login to EFG's web interface
+#
+# [*efg_password*]
+#   Password that goes with $efg_username
+#
+# [*rate_limit_token*]
+#   Token to bypass our HTTP rate limiting
+#
 class icinga::config::smokey (
   $efg_domain = 'UNSET',
   $efg_username = 'UNSET',
