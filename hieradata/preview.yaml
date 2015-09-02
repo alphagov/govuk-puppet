@@ -119,7 +119,6 @@ mongodb::server::package_name: 'mongodb-10gen'
 mongodb::server::version: '2.4.9'
 
 monitoring::checks::pingdom::enable: false
-monitoring::checks::ses::enable: true
 monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
