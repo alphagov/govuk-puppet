@@ -45,7 +45,7 @@ class monitoring::checks::ses (
         require => File['/usr/lib/nagios/plugins/check_aws_quota'],
     }
 
-    if str2bool($enable) {
+    if $enable {
 
         icinga::check { 'check_aws_quota':
             check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",

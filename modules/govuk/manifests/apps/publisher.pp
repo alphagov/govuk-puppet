@@ -43,7 +43,7 @@ class govuk::apps::publisher(
     group  => 'assets',
   }
 
-  if str2bool($nagios_data_importer_check) {
+  if $nagios_data_importer_check {
     @@icinga::passive_check { "check-local-authority-data-importer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
