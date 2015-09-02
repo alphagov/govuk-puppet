@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::htpasswd
+#
+# Create an htpasswd file which can be used for HTTP basic authentication
+#
+# === Parameters
+#
+# [*http_passhash*]
+#   Hash of a password created with `htpasswd`
+#
 class govuk::htpasswd (
   $http_passhash = 'notset',
 ){
