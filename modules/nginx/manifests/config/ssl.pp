@@ -11,33 +11,12 @@
 #
 #     - www
 #     - wildcard_alphagov
-#     - wildcard_alphagov_mgmt
-#
-#   wildcard_alphagov_mgmt is a special case for hostnames not bypassed by
-#   govuk_select_organisation. It will fallback to wildcard_alphagov for
-#   environments where the key is not present in hiera data.
 #
 define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
     'wildcard_alphagov': {
         $cert = hiera('wildcard_alphagov_crt', '')
         $key = hiera('wildcard_alphagov_key', '')
-    }
-    'wildcard_alphagov_mgmt': {
-        # The below two lines are hard to mentally parse, but if the certtype is set to
-        # 'wildcard_alphagov_mgmt' then it will first look for certs and keys for that.
-        # If they don't exist in hiera, it will fall back to looking for 'wildcard_alphagov'
-        # and if that fails, will return the empty string.
-        #
-        # FIXME: When the migration to a `publishing.service.gov.uk` domain is complete,
-        #        the wildcard_alphagov_mgmt certificate and key are no longer needed.
-        if hiera('wildcard_alphagov_mgmt_crt', '') == 'UNSET' {
-            $cert = hiera('wildcard_alphagov_crt', '')
-            $key = hiera('wildcard_alphagov_key', '')
-        } else {
-            $cert = hiera('wildcard_alphagov_mgmt_crt', hiera('wildcard_alphagov_crt', ''))
-            $key = hiera('wildcard_alphagov_mgmt_key', hiera('wildcard_alphagov_key', ''))
-        }
     }
     'www': {
         $cert = hiera('www_crt', '')
