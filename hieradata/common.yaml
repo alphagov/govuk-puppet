@@ -131,6 +131,8 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
+govuk::htpasswd::http_username: "%{hiera('http_username')}"
+
 govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16
 
 govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
