@@ -1,4 +1,19 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::publisher
+#
+# Set up the publisher app
+#
+# === Parameters
+#
+# [*port*]
+#   The port which the app runs on
+#
+# [*nagios_data_importer_check*]
+#   Boolean, whether we should be monitoring publisher's local
+#   authority data import
+#
+# [*enable_procfile_worker*]
+#   Boolean, whether the procfile worker should be enabled
+#
 class govuk::apps::publisher(
     $port = 3000,
     $nagios_data_importer_check = true,
