@@ -79,7 +79,7 @@ define icinga::check::graphite(
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
-  $monitoring_domain_suffix = hiera('monitoring_domain_suffix', '')
+  $app_domain = hiera('app_domain')
   $graph_width = 600
   $graph_height = 300
 
@@ -94,7 +94,7 @@ define icinga::check::graphite(
   }
 
   if $action_url == undef {
-    $action_url_real = "https://graphite.${monitoring_domain_suffix}/render/?\
+    $action_url_real = "https://graphite.${app_domain}/render/?\
 width=${graph_width}&height=${graph_height}&colorList=red,orange,blue,green,purple,brown\
 ${crit_line}${warn_line}\
 &target=${url_encoded_target}"

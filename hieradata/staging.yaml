@@ -1,5 +1,5 @@
 ---
-app_domain: 'production.alphagov.co.uk'
+app_domain: 'staging.publishing.service.gov.uk'
 
 asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
@@ -7,19 +7,89 @@ base::supported_kernel::enabled: true
 
 efg_domain: "www.sflg.gov.uk"
 
+govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::email_alert_monitor::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::govuk_crawler_worker::airbrake_env: 'staging'
+govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publisher::nagios_data_importer_check: false
 govuk::apps::sidekiq_monitoring::enabled: true
+govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.2.4.0/24'
+govuk::apps::support_api::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::transition::postgresql_db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::url_arbiter::db::backend_ip_range: '10.2.3.0/24'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
+govuk::deploy::config::external_licensify: true
 govuk::deploy::setup::ssh_keys:
-    jenkins_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAksVh+OynwACD1/gZwj+s+bmSNiYUAhGpEu+DzhKzt6hg+x8JfaC9Usi1xWOBprCWTpCGQ2b2OK7k4iVRSM4SMYNmSO9njxcYBWmRPFRhusFHmY2x4RqyHmKlo+sPoegFbD8VcTjIyCXfxBbtYJONtrixXO+AaCLf3RlOxiPbrIh4y/EIcOpldzepcg8lqtq0S979n7qWkFUYlMKmy2Wi+q9lEjTdhUo0oGg7bUPKMUdK8m7488iOB5sgvbL0VhVpH4FJZUDSdiTcXCp2TKGVVlDOoT9jsJ9ZwsPnCy2VcRJeJRE4LpV7X0n1SV94Ddel5/gc/TU0Sounx4X4U+TOVw==
-    jenkins_skyscape_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDOStrf/KtGicl/wHWqfWfAoIYUU3LIReh6xfib17DSlTQAXcrZqnoM7riwAF8ThukTrYkLVE39+v2MGTP0wSK5O3QHRJmqeLHLSCHT135/AeV0m5/SqJ2g1iBLRM8ARucFLv0eKEtQfrdIW5cB2QfeSyj3S/tyChRQYJ/4/SIOb6WHXYDuO0xKiONS0ynOWC3/WUgkmSj67EUgXGyTDVy5cJNLHsdjIrJwpTCl/R9Owxnf6G7wIEqJecpX4xWngvjUUottWmzcvqcW92HQ8TgwPyLY8R4raT8kmyjCat9uwVCwzD67+Fqf6Wlchon2vHRdX4edhUKOrroljGfsDeyd
-    jenkins_skyscape_production_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ41opiEUbMk1N3wNQLrsA3bwDWlf77mGiZAUyv8rDqwwUyRgdjXBIl8+/UUUromm3XzWXgeMiQkPSZMXu2U06X05BgW90Hl8lXsL24K0JRjLf6R7erMvqjpr0u5BTRxeKVSM52ckSUiucJHBiV5gTNRTUSwwXudjnlIY5HZRYNUUUtQMwfMObg6W3j+H/87gDx5RAF4JfOplK+pvHh0uGhIUrq48Euz2KJ31YsyO4FyU6z4k66MtJivkbZ/4Z9BpzzONnL1EC5saz7vaJIRGc0kT9NVGQ7b7uMkqlN/Bb/ZDzNJi8KSxJFTh8oNEAoRoMqaSufBlZa/sjqiuWniwL
-    ppdeploy_data_sync_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDGee9J6aN6PyPns8aiv2pLKrKPyyflG8LrMnjbIRUzqbqg4h/TXryuKqWTjvuQpb7jbAMV4GzP/aUM94Y8E1vYUKLbyLyG+OjoxNOBHjP7OY2a8iPXq2MmXDTEXQ0DpPsEOqPpMpzgit4P7Tl9yfPDLrKS9GBmQNc7wDfFMXjGfMCL+2ymhuDw4Bn7FIxuhqBDeoABAZPXoD8f1PiwLmWd+G27d3G391CLrD7y0PuySfX9R/EnlYoZJnOWjVyFrbbf3xiKWLn8JL36qTRYRRym8G8T6OvuUER7LBdmWBoTN/HQmQ4O0NcGx3HQZwRvANCBfKVK198TiF6kXn1mtudj
+    jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7aWtyeQTBcNav3RwyFDacYaO8Ab9wX5rqXKqgd3JlWzr95i7IlCsXSovboqHw3h1J6FrCDxafbhLWJ0lFHlNdGLgX9AysZgMLJCfaJ88RTbWnCyXvTcJBHKHhRkdCrfdXGobeiIOFTOCR2zm9E7EiUXLivgBDfWulo6on4wiyQcGzsMret8SbqUYDi+BBvOGUqun01L/dMIa5DIrPSe9mJ96jXk41x8PI96jZa0XlAkZuiUP2RnZDFBDYIOiN1MaPdcgtBp81Tjo9m41GdfTztZ8hJ+9HicBjCZFH14/zK8Hk9UNZafG6mGtTvn45InF3w2z5qtXamV7s9b/V3xr9'
+    jenkins_skyscape_production_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ41opiEUbMk1N3wNQLrsA3bwDWlf77mGiZAUyv8rDqwwUyRgdjXBIl8+/UUUromm3XzWXgeMiQkPSZMXu2U06X05BgW90Hl8lXsL24K0JRjLf6R7erMvqjpr0u5BTRxeKVSM52ckSUiucJHBiV5gTNRTUSwwXudjnlIY5HZRYNUUUtQMwfMObg6W3j+H/87gDx5RAF4JfOplK+pvHh0uGhIUrq48Euz2KJ31YsyO4FyU6z4k66MtJivkbZ/4Z9BpzzONnL1EC5saz7vaJIRGc0kT9NVGQ7b7uMkqlN/Bb/ZDzNJi8KSxJFTh8oNEAoRoMqaSufBlZa/sjqiuWniwL'
+
+govuk_jenkins::config::banner_colour_background: '#ffbf47'
+govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_string: 'Carrenza STAGING'
+govuk_jenkins::config::manage_config: true
+
+govuk_jenkins::config::admins:
+  - andrewlanghorn
+  - bobwalker
+  - ci_alphagov
+  - dancarley
+  - joshmyers
+  - mattbostock
+  - paulmartin
+  - philippotter
+
+govuk_jenkins::config::users:
+  - aaronkeogh
+  - alexmuller
+  - alextomlins
+  - andrewlanghorn
+  - annashipman
+  - bobwalker
+  - bradleywright
+  - dancarley
+  - danielroseman
+  - davidheath
+  - davidsingleton
+  - deploy
+  - eddsowden
+  - elliotcrosbymccullough
+  - jacobashdown
+  - jakebenilov
+  - jamiecobbett
+  - jennyduckett
+  - joshmyers
+  - kushalpisavadia
+  - mattbostock
+  - paulmartin
+  - philippotter
+  - richardboulton
+  - robyoung
+  - timothymower
+  - tombooth
+  - tommypalmer
+
+govuk_jenkins::job_builder::manage_jobs: true
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::staging::data_sync_complete
+  - govuk_jenkins::job::deploy_router_data
+  - govuk_jenkins::job::run_whitehall_data_migrations
+  - govuk_jenkins::job::service_manual_rebuild_search_index
+  - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_cdn
+  - govuk_jenkins::job::deploy_licensify
+  - govuk_jenkins::job::deploy_puppet
+  - govuk_jenkins::job::launch_vms
+  - govuk_jenkins::job::network_config_deploy
+  - govuk_jenkins::job::network_config_deploy_dryrun
+  - govuk_jenkins::job::performance_platform_smokey
+  - govuk_jenkins::job::smokey
+  - govuk_jenkins::job::smokey_deploy
+govuk_jenkins::job_builder::environment: 'staging'
 
 govuk_jenkins::job::network_config_deploy::environment_script_parameter: 'carrenza-staging'
 
@@ -28,6 +98,8 @@ govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "staging.perform
 
 govuk_jenkins::job::staging::data_sync_complete::signon_domain_old: production.alphagov.co.uk
 govuk_jenkins::job::staging::data_sync_complete::signon_domain_new: staging.publishing.service.gov.uk
+
+govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7aWtyeQTBcNav3RwyFDacYaO8Ab9wX5rqXKqgd3JlWzr95i7IlCsXSovboqHw3h1J6FrCDxafbhLWJ0lFHlNdGLgX9AysZgMLJCfaJ88RTbWnCyXvTcJBHKHhRkdCrfdXGobeiIOFTOCR2zm9E7EiUXLivgBDfWulo6on4wiyQcGzsMret8SbqUYDi+BBvOGUqun01L/dMIa5DIrPSe9mJ96jXk41x8PI96jZa0XlAkZuiUP2RnZDFBDYIOiN1MaPdcgtBp81Tjo9m41GdfTztZ8hJ+9HicBjCZFH14/zK8Hk9UNZafG6mGtTvn45InF3w2z5qtXamV7s9b/V3xr9'
 
 govuk_mysql::server::expire_log_days: 1
 govuk_mysql::server::innodb_file_per_table: true
@@ -47,6 +119,8 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
   - "search-3.api"
+govuk::node::s_api_redis::allowed_ip_range: '10.2.4.0/24'
+govuk::node::s_asset_base::firewall_allow_ip_range: '10.2.3.0/24'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
@@ -63,6 +137,8 @@ govuk::node::s_backend_lb::mapit_servers:
   - 'mapit-server-1.backend'
   - 'mapit-server-2.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'staging.performance.service.gov.uk'
+govuk::node::s_backup::backup_efg: false
+govuk::node::s_backup::backup_licensify: false
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
@@ -98,10 +174,227 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
+govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
+grafana::dashboards::machine_suffix_metrics: '_staging'
+
+hosts::production::carrenza_vcloud: true
+hosts::production::efg_domains: []
+hosts::production::external_licensify: true
+hosts::production::ip_api_lb: '10.2.4.254'
+hosts::production::ip_backend_lb: '10.2.3.254'
 hosts::production::ip_bouncer: '37.26.91.5'
+hosts::production::ip_draft_api_lb: '10.2.4.253'
+hosts::production::ip_frontend_lb: '10.2.2.254'
+hosts::production::licensify_hosts:
+  licensify.production.alphagov.co.uk:
+    ip: '37.26.91.8'
+  licensify-admin.production.alphagov.co.uk:
+    ip: '37.26.91.8'
 
+hosts::production::api::hosts:
+  api-1:
+    ip: '10.2.4.16'
+  api-2:
+    ip: '10.2.4.17'
+  api-elasticsearch-1:
+    ip: '10.2.4.25'
+  api-elasticsearch-2:
+    ip: '10.2.4.26'
+  api-elasticsearch-3:
+    ip: '10.2.4.27'
+  api-lb-1:
+    ip: '10.2.4.101'
+  api-lb-2:
+    ip: '10.2.4.102'
+  api-mongo-1:
+    ip: '10.2.4.21'
+  api-mongo-2:
+    ip: '10.2.4.22'
+  api-mongo-3:
+    ip: '10.2.4.23'
+  api-postgresql-primary-1:
+    ip: '10.2.4.40'
+  api-postgresql-standby-1:
+    ip: '10.2.4.41'
+  api-redis-1:
+    ip: '10.2.4.29'
+  content-store-1:
+    ip: '10.2.4.11'
+  content-store-2:
+    ip: '10.2.4.12'
+  content-store-3:
+    ip: '10.2.4.13'
+  draft-content-store-1:
+    ip: '10.2.4.200'
+  draft-content-store-2:
+    ip: '10.2.4.201'
+  performance-mongo-1:
+    ip: '10.2.4.31'
+  performance-mongo-2:
+    ip: '10.2.4.32'
+  performance-mongo-3:
+    ip: '10.2.4.33'
+  search-1:
+    ip: '10.2.4.4'
+  search-2:
+    ip: '10.2.4.5'
+  search-3:
+    ip: '10.2.4.6'
+
+hosts::production::backend::hosts:
+  asset-master-1:
+    ip: '10.2.3.20'
+    legacy_aliases:
+      - "asset-master-1.%{hiera('app_domain')}"
+      - 'asset-master'
+      - "asset-master.%{hiera('app_domain')}"
+  asset-slave-1:
+    ip: '10.2.3.21'
+    legacy_aliases:
+      - "asset-slave-1.%{hiera('app_domain')}"
+      - 'asset-slave'
+      - "asset-slave.%{hiera('app_domain')}"
+  backend-1:
+    ip: '10.2.3.2'
+  backend-2:
+    ip: '10.2.3.3'
+  backend-3:
+    ip: '10.2.3.4'
+  backend-lb-1:
+    ip: '10.2.3.101'
+  backend-lb-2:
+    ip: '10.2.3.102'
+  elasticsearch-1:
+    ip: '10.2.3.15'
+  elasticsearch-2:
+    ip: '10.2.3.16'
+  elasticsearch-3:
+    ip: '10.2.3.17'
+  exception-handler-1:
+    ip: '10.2.3.40'
+  mapit-server-1:
+    ip: '10.2.3.9'
+  mapit-server-2:
+    ip: '10.2.3.10'
+  mongo-1:
+    ip: '10.2.3.6'
+    service_aliases:
+      - 'mongodb'
+  mongo-2:
+    ip: '10.2.3.7'
+  mongo-3:
+    ip: '10.2.3.8'
+  mysql-backup-1:
+    ip: '10.2.3.93'
+    legacy_aliases:
+      - 'backup.mysql'
+  mysql-master-1:
+    ip: '10.2.3.90'
+    legacy_aliases:
+      - 'master.mysql'
+      - "mysql.backend.%{hiera('internal_tld')}"
+  mysql-slave-1:
+    ip: '10.2.3.91'
+    legacy_aliases:
+      - 'slave.mysql'
+  mysql-slave-2:
+    ip: '10.2.3.92'
+  performance-backend-1:
+    ip: '10.2.3.80'
+  performance-backend-2:
+    ip: '10.2.3.81'
+  postgresql-primary-1:
+    ip: '10.2.3.12'
+  postgresql-standby-1:
+    ip: '10.2.3.13'
+  rabbitmq-1:
+    ip: '10.2.3.70'
+  rabbitmq-2:
+    ip: '10.2.3.71'
+  rabbitmq-3:
+    ip: '10.2.3.72'
+  redis-1:
+    ip: '10.2.3.50'
+  redis-2:
+    ip: '10.2.3.51'
+  transition-postgresql-master-1:
+    ip: '10.2.3.60'
+    legacy_aliases:
+      - 'transition-master.postgresql'
+      - "transition-postgresql.backend.%{hiera('internal_tld')}"
+  transition-postgresql-slave-1:
+    ip: '10.2.3.61'
+    legacy_aliases:
+      - 'transition-slave.postgresql'
+  whitehall-backend-1:
+    ip: '10.2.3.25'
+  whitehall-backend-2:
+    ip: '10.2.3.26'
+  whitehall-backend-3:
+    ip: '10.2.3.27'
+  whitehall-backend-4:
+    ip: '10.2.3.28'
+  whitehall-mysql-backup-1:
+    ip: '10.2.3.34'
+    legacy_aliases:
+      - 'whitehall-backup.mysql'
+  whitehall-mysql-master-1:
+    ip: '10.2.3.30'
+    legacy_aliases:
+      - 'whitehall-master.mysql'
+      - "whitehall-mysql.backend.%{hiera('internal_tld')}"
+  whitehall-mysql-slave-1:
+    ip: '10.2.3.31'
+    legacy_aliases:
+      - 'whitehall-slave.mysql'
+  whitehall-mysql-slave-2:
+    ip: '10.2.3.32'
+
+hosts::production::frontend::hosts:
+  calculators-frontend-1:
+    ip: '10.2.2.11'
+  calculators-frontend-2:
+    ip: '10.2.2.12'
+  calculators-frontend-3:
+    ip: '10.2.2.13'
+  frontend-1:
+    ip: '10.2.2.2'
+  frontend-2:
+    ip: '10.2.2.3'
+  frontend-3:
+    ip: '10.2.2.4'
+  draft-frontend-1:
+    ip: '10.2.2.200'
+  draft-frontend-2:
+    ip: '10.2.2.201'
+  performance-frontend-1:
+    ip: '10.2.2.20'
+  performance-frontend-2:
+    ip: '10.2.2.21'
+  whitehall-frontend-1:
+    ip: '10.2.2.5'
+  whitehall-frontend-2:
+    ip: '10.2.2.6'
+  whitehall-frontend-3:
+    ip: '10.2.2.10'
+  whitehall-frontend-4:
+    ip: '10.2.2.14'
+  whitehall-frontend-5:
+    ip: '10.2.2.15'
+  whitehall-frontend-6:
+    ip: '10.2.2.16'
+  whitehall-frontend-7:
+    ip: '10.2.2.17'
+  frontend-lb-1:
+    ip: '10.2.2.101'
+  frontend-lb-2:
+    ip: '10.2.2.102'
+
+hosts::production::management::apt_host_ip: '10.2.0.75'
 hosts::production::management::hosts:
+  jenkins-1:
+    ip: '10.2.0.3'
   puppetmaster-1:
     ip: '10.2.0.5'
     legacy_aliases:
@@ -113,13 +406,95 @@ hosts::production::management::hosts:
     ip: '10.2.0.20'
     legacy_aliases:
       - 'monitoring'
-      - "nagios.%{hiera('app_domain')}"
     service_aliases:
       - 'alert'
       - 'monitoring'
-      - 'nagios'
+  graphite-1:
+    ip: '10.2.0.22'
+    legacy_aliases:
+      - "graphite.%{hiera('app_domain')}"
+    service_aliases:
+      - 'graphite'
+  logs-cdn-1:
+    ip: '10.2.0.27'
+  logging-1:
+    ip: '10.2.0.28'
+    service_aliases:
+      - 'logging'
+  logs-elasticsearch-1:
+    ip: '10.2.0.29'
+    service_aliases:
+      - 'logs-elasticsearch'
+  logs-elasticsearch-2:
+    ip: '10.2.0.30'
+  logs-elasticsearch-3:
+    ip: '10.2.0.31'
+  logs-redis-1:
+    ip: '10.2.0.40'
+  logs-redis-2:
+    ip: '10.2.0.41'
+  backup-1:
+    ip: '10.2.0.50'
+  etcd-1:
+    ip: '10.2.0.60'
+  etcd-2:
+    ip: '10.2.0.61'
+  etcd-3:
+    ip: '10.2.0.62'
+  jumpbox-1:
+    ip: '10.2.0.100'
+  mirrorer-1:
+    ip: '10.2.0.128'
+  jumpbox-2:
+    ip: '10.2.0.200'
+
+hosts::production::redirector::hosts:
+  bouncer-1:
+    ip: '10.2.5.4'
+  bouncer-2:
+    ip: '10.2.5.5'
+  bouncer-3:
+    ip: '10.2.5.6'
+
+hosts::production::router::hosts:
+  cache-1:
+    ip: '10.2.1.2'
+  cache-2:
+    ip: '10.2.1.3'
+  cache-3:
+    ip: '10.2.1.4'
+  draft-cache-1:
+    ip: '10.2.1.200'
+  draft-cache-2:
+    ip: '10.2.1.201'
+  router-backend-1:
+    ip: '10.2.1.10'
+  router-backend-2:
+    ip: '10.2.1.11'
+  router-backend-3:
+    ip: '10.2.1.12'
+  cache:
+    ip: '10.2.1.254'
+    legacy_aliases:
+      - 'cache'
+      - "www.%{hiera('app_domain')}"
+      - "www-origin.%{hiera('app_domain')}"
+      - "assets-origin.%{hiera('app_domain')}"
+    service_aliases:
+      - 'cache'
+      - 'router'
+  router-backend-internal-lb:
+    ip: '10.2.1.253'
+    legacy_aliases:
+      - "router-api.%{hiera('app_domain')}"
+  draft-cache-internal-lb:
+    ip: '10.2.1.252'
+    legacy_aliases:
+      - "draft-router-api.%{hiera('app_domain')}"
 
 icinga::nginx::enable_basic_auth: false
+
+internal_tld: 'staging.publishing.service.gov.uk'
 
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
@@ -132,14 +507,14 @@ monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
 
-# FIXME: This is the only environment in which `monitoring_domain_suffix` is not set to `app_domain`.
-#        Once we've moved to a `service.gov.uk` domain and start setting staging's `app_domain` to be
-#        staging, remove `monitoring_domain_suffix` and replace it with `app_domain`.
-monitoring_domain_suffix: 'staging.alphagov.co.uk'
-
 postfix::smarthost:
 - 'email-smtp.us-east-1.amazonaws.com:587'
 - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
+postfix::rewrite_mail_list: 'machine.email.carrenza'
+
+postgresql_api_slave_address: '10.2.4.41/32'
+postgresql_slave_address: '10.2.3.13/32'
+postgresql_transition_slave_address: '10.2.3.61/32'
 
 shell::shell_prompt_string: 'staging'
 

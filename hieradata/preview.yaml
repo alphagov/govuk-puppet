@@ -124,8 +124,6 @@ monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30
 
-monitoring_domain_suffix: "%{hiera('app_domain')}"
-
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
