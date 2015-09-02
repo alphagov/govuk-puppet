@@ -103,8 +103,8 @@ JOURNAL="yes"
 # Choose other Server if is Replica-Set Master
 REPLICAONSLAVE="yes"
 
-# Command to run before backups (uncomment to use)
-# PREBACKUP=""
+# Command to run before backups
+PREBACKUP="find ${BACKUPDIR}/monthly/* -mtime +90 -exec rm {} \;"
 
 # Command run after backups (uncomment to use)
 # POSTBACKUP=""
