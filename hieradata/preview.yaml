@@ -21,7 +21,6 @@ govuk::apps::event_store::enabled: true
 govuk::apps::govuk_crawler_worker::airbrake_env: 'preview'
 govuk::apps::mapit::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
-govuk::apps::publisher::nagios_data_importer_check: false
 govuk::apps::signon::enable_logstream: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'

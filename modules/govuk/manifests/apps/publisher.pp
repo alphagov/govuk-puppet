@@ -7,7 +7,7 @@
 # [*port*]
 #   The port which the app runs on
 #
-# [*nagios_data_importer_check*]
+# [*data_import_passive_check*]
 #   Boolean, whether we should be monitoring publisher's local
 #   authority data import
 #
@@ -16,7 +16,7 @@
 #
 class govuk::apps::publisher(
     $port = 3000,
-    $nagios_data_importer_check = true,
+    $data_import_passive_check = false,
     $enable_procfile_worker = true
   ) {
 
@@ -58,7 +58,7 @@ class govuk::apps::publisher(
     group  => 'assets',
   }
 
-  if $nagios_data_importer_check {
+  if $data_import_passive_check {
     @@icinga::passive_check { "check-local-authority-data-importer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,
