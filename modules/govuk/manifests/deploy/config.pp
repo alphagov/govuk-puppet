@@ -95,7 +95,7 @@ class govuk::deploy::config(
 
   if $external_licensify {
     govuk::envvar { 'PLEK_SERVICE_LICENSIFY_URI':
-      value => 'https://licensify.production.alphagov.co.uk/',
+      value => "https://licensify.${app_domain}/",
     }
   }
 }
