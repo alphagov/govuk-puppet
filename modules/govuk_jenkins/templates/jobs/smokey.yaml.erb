@@ -5,7 +5,7 @@
         - git:
             url: git@github.com:alphagov/smokey.git
             branches:
-              - master
+              - <%= @build_branch %>
 
 - job:
     name: Smokey
