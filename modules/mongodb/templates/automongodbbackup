@@ -104,7 +104,9 @@ JOURNAL="yes"
 REPLICAONSLAVE="yes"
 
 # Command to run before backups
-PREBACKUP="find ${BACKUPDIR}/monthly/* -mtime +90 -exec rm {} \;"
+if [ -n "${BACKUPDIR}" ]; then
+    PREBACKUP="find ${BACKUPDIR}/ -type f -mtime +90 -exec rm {} \+;"
+done
 
 # Command run after backups (uncomment to use)
 # POSTBACKUP=""
