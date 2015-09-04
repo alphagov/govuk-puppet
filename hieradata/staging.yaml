@@ -515,7 +515,6 @@ ssh::config::allow_users:
   - 'ajlanghorn'
   - 'alexmuller'
   - 'alext'
-  - 'annashipman'
   - 'benilovj'
   - 'bob'
   - 'bradleyw'
@@ -557,7 +556,6 @@ users::usernames:
   - ajlanghorn
   - alexmuller
   - alext
-  - annashipman
   - benilovj
   - bob
   - bradleyw
