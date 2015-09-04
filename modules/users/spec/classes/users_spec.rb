@@ -46,7 +46,6 @@ username_whitelist = %w{
   benp
   bob
   bradleyw
-  dcarley
   elliot
   heathd
   jackscotti
