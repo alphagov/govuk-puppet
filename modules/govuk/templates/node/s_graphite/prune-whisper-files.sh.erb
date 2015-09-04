@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find <%= @graphite_path -%>/storage/whisper -type f -mtime +90 -exec rm {} +;
+find <%= @graphite_path -%>/storage/whisper -type d -empty -exec rmdir {} +;
