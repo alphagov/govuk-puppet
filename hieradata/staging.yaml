@@ -33,24 +33,21 @@ govuk_jenkins::config::banner_string: 'Carrenza STAGING'
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
+  - alexmuller
   - andrewlanghorn
   - bobwalker
   - ci_alphagov
-  - dancarley
   - joshmyers
   - mattbostock
   - paulmartin
-  - philippotter
 
 govuk_jenkins::config::users:
   - aaronkeogh
   - alexmuller
   - alextomlins
   - andrewlanghorn
-  - annashipman
   - bobwalker
   - bradleywright
-  - dancarley
   - danielroseman
   - davidheath
   - davidsingleton
@@ -65,7 +62,6 @@ govuk_jenkins::config::users:
   - kushalpisavadia
   - mattbostock
   - paulmartin
-  - philippotter
   - richardboulton
   - robyoung
   - timothymower
@@ -519,13 +515,11 @@ ssh::config::allow_users:
   - 'ajlanghorn'
   - 'alexmuller'
   - 'alext'
-  - 'annashipman'
   - 'benilovj'
   - 'bob'
   - 'bradleyw'
   - 'danielroseman'
   - 'davidsingleton'
-  - 'dcarley'
   - 'deploy'
   - 'digitalassurancetester'
   - 'eddsowden'
@@ -561,13 +555,11 @@ users::usernames:
   - ajlanghorn
   - alexmuller
   - alext
-  - annashipman
   - benilovj
   - bob
   - bradleyw
   - danielroseman
   - davidsingleton
-  - dcarley
   - eddsowden
   - elliot
   - heathd
