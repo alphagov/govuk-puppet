@@ -37,21 +37,17 @@ govuk_jenkins::config::admins:
   - andrewlanghorn
   - bobwalker
   - ci_alphagov
-  - dancarley
   - joshmyers
   - mattbostock
   - paulmartin
-  - philippotter
 
 govuk_jenkins::config::users:
   - aaronkeogh
   - alexmuller
   - alextomlins
   - andrewlanghorn
-  - annashipman
   - bobwalker
   - bradleywright
-  - dancarley
   - danielroseman
   - davidheath
   - davidsingleton
@@ -66,7 +62,6 @@ govuk_jenkins::config::users:
   - kushalpisavadia
   - mattbostock
   - paulmartin
-  - philippotter
   - richardboulton
   - robyoung
   - timothymower
