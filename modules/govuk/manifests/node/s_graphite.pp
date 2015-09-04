@@ -35,6 +35,14 @@ class govuk::node::s_graphite (
     notify => Class['graphite::service'],
   }
 
+  file { '/etc/cron.daily/prune-whisper-files.sh':
+    ensure  => present,
+    content => template('govuk/node/s_graphite/prune-whisper-files.sh.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+  }
+
   # Remove this fix when upgrading from 0.9.12:
   # https://github.com/graphite-project/graphite-web/issues/423
   $util_py          = "${graphite_path}/webapp/graphite/util.py"
