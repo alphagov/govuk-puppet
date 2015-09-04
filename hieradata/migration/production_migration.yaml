@@ -116,6 +116,7 @@ govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
+  - alexmuller
   - andrewlanghorn
   - bobwalker
   - ci_alphagov
