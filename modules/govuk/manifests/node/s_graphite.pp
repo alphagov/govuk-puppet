@@ -7,8 +7,12 @@
 # [*enable_basic_auth*]
 #   Boolean. Whether basic auth should be enabled or disabled.
 #
+# [*graphite_path*]
+#   Path to the installation of Graphite.
+#
 class govuk::node::s_graphite (
   $enable_basic_auth = true,
+  $graphite_path = '/opt/graphite',
 ) inherits govuk::node::s_base {
   validate_bool($enable_basic_auth)
 
@@ -20,7 +24,7 @@ class govuk::node::s_graphite (
     storage_aggregation_source => 'puppet:///modules/govuk/node/s_graphite/storage-aggregation.conf',
     storage_schemas_source     => 'puppet:///modules/govuk/node/s_graphite/storage-schemas.conf',
     carbon_source              => 'puppet:///modules/govuk/node/s_graphite/carbon.conf',
-    require                    => Govuk::Mount['/opt/graphite'],
+    require                    => Govuk::Mount[$graphite_path],
   }
 
   harden::limit { 'www-data-nofile':
@@ -33,7 +37,7 @@ class govuk::node::s_graphite (
 
   # Remove this fix when upgrading from 0.9.12:
   # https://github.com/graphite-project/graphite-web/issues/423
-  $util_py          = '/opt/graphite/webapp/graphite/util.py'
+  $util_py          = "${graphite_path}/webapp/graphite/util.py"
   $util_patch       = '/tmp/graphite_util.patch'
   $util_patched_md5 = 'aa6b5e9234dfc705fa01cb871f8eec38'
   file { $util_patch:
@@ -81,7 +85,7 @@ class govuk::node::s_graphite (
 
   nginx::config::vhost::proxy { 'graphite':
     to           => ['localhost:33333'],
-    root         => '/opt/graphite/webapp',
+    root         => "${graphite_path}/webapp",
     aliases      => ['graphite.*'],
     protected    => $enable_basic_auth,
     extra_config => $cors_headers,
