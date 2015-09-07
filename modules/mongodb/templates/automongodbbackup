@@ -105,8 +105,8 @@ REPLICAONSLAVE="yes"
 
 # Command to run before backups
 if [ -n "${BACKUPDIR}" ]; then
-    PREBACKUP="find ${BACKUPDIR}/ -type f -mtime +90 -exec rm {} \+;"
-done
+    PREBACKUP="find ${BACKUPDIR}/ -type f -mtime +90 -exec rm {} \+"
+fi
 
 # Command run after backups (uncomment to use)
 # POSTBACKUP=""
