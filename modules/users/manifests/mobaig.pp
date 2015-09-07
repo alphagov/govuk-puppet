@@ -1,4 +1,4 @@
-# Creates the kushalp user
+# Creates the mobaig user
 class users::mobaig {
   govuk::user { 'mobaig':
     fullname => 'Mo Baig',
