@@ -187,7 +187,7 @@ class govuk_crawler(
   cron { 'seed-crawler':
     ensure      => $seed_ensure,
     user        => $crawler_user,
-    hour        => 2,
+    hour        => 18,
     minute      => 0,
     environment => ['MAILTO=""'],
     command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path}",
