@@ -12,6 +12,7 @@ efg_domain: "www.sflg.gov.uk"
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
+govuk::apps::publisher::data_import_passive_check: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
@@ -146,7 +147,6 @@ mongodb::server::version: '2.4.9'
 mongodb::server::package_name: 'mongodb-10gen'
 
 monitoring::checks::mirror::enabled: true
-monitoring::checks::ses::enable: true
 monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: us-east-1
 monitoring::checks::ses::warning: 30

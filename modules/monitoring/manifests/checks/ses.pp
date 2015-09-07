@@ -13,8 +13,8 @@
 # [*secret_key*]
 #   AWS secret key to use
 #
-# [*enable*]
-#   Should we enable the Nagios check? Default:false
+# [*enabled*]
+#   Should we enable the monitoring check?
 #
 # [*warning*]
 #   What percentage usage should trigger a warning? Default:30
@@ -26,9 +26,10 @@ class monitoring::checks::ses (
         $region = undef,
         $access_key = undef,
         $secret_key = undef,
-        $enable  = true,
+        $enabled = true,
         $warning = 30,
-        $critical = 50 ){
+        $critical = 50,
+    ) {
 
     package {'boto':
         ensure   => '2.24.0',
@@ -45,7 +46,7 @@ class monitoring::checks::ses (
         require => File['/usr/lib/nagios/plugins/check_aws_quota'],
     }
 
-    if str2bool($enable) {
+    if $enabled {
 
         icinga::check { 'check_aws_quota':
             check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",

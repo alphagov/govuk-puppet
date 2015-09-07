@@ -1,7 +1,22 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::publisher
+#
+# Set up the publisher app
+#
+# === Parameters
+#
+# [*port*]
+#   The port which the app runs on
+#
+# [*data_import_passive_check*]
+#   Boolean, whether we should be monitoring publisher's local
+#   authority data import
+#
+# [*enable_procfile_worker*]
+#   Boolean, whether the procfile worker should be enabled
+#
 class govuk::apps::publisher(
     $port = 3000,
-    $nagios_data_importer_check = true,
+    $data_import_passive_check = false,
     $enable_procfile_worker = true
   ) {
 
@@ -43,7 +58,7 @@ class govuk::apps::publisher(
     group  => 'assets',
   }
 
-  if str2bool($nagios_data_importer_check) {
+  if $data_import_passive_check {
     @@icinga::passive_check { "check-local-authority-data-importer-${::hostname}":
       service_description => $service_desc,
       host_name           => $::fqdn,

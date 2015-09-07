@@ -4,7 +4,7 @@ class govuk::apps::finder_frontend(
   $enabled = false,
 ) {
 
-  if str2bool($enabled) {
+  if $enabled {
     govuk::app { 'finder-frontend':
       app_type              => 'rack',
       port                  => $port,

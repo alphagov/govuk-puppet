@@ -5,7 +5,7 @@ class govuk::apps::specialist_publisher(
   $enable_procfile_worker = true,
 ) {
 
-  if str2bool($enabled) {
+  if $enabled {
     govuk::app { 'specialist-publisher':
       app_type           => 'rack',
       port               => $port,
