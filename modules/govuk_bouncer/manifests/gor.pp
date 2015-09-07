@@ -28,9 +28,9 @@ class govuk_bouncer::gor (
 
   class { 'govuk::gor':
     args   => {
-      '-input-raw'          => ':80',
-      '-output-http'        => $gor_targets,
-      '-output-http-method' => [
+      '-input-raw'         => ':80',
+      '-output-http'       => $gor_targets,
+      '-http-allow-method' => [
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
