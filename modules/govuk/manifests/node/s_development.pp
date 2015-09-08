@@ -202,6 +202,11 @@ class govuk::node::s_development {
   include govuk_postgresql::client
   include postgresql::server::contrib
 
+  # Create the vagrant user role with permission to create databases.
+  #
+  # Note: we do not explicitly create the development/test versions of the
+  # databases via puppet, it is expected that databases will be created in
+  # development using the `rake db:create` command.
   postgresql::server::role {
     'vagrant':
       password_hash => postgresql_password('vagrant', 'vagrant'),
