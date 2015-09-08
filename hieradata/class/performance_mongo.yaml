@@ -21,6 +21,8 @@ mount:
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
 
+mongodb::server::oplog_size:
+  - 7168 # 7 * 1024
 mongodb::server::replicaset_members:
   - 'performance-mongo-1.api'
   - 'performance-mongo-2.api'

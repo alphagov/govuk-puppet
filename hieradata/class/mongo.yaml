@@ -23,6 +23,8 @@ mount:
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
 
+mongodb::server::oplog_size:
+  - 7168 # 7 * 1024
 mongodb::server::replicaset_members:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
