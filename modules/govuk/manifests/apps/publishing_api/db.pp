@@ -9,7 +9,7 @@
 #   Backend IP addresses to allow access to the database.
 #
 class govuk::apps::publishing_api::db (
-  $password = '',
+  $password,
   $backend_ip_range = '10.3.0.0/16',
 ) {
   govuk_postgresql::db { 'publishing_api_production':
