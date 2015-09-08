@@ -11,6 +11,7 @@ describe 'mongodb::config', :type => :class do
       it { should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/) }
       it { should contain_file('/etc/mongodb.conf').with_content(/^profile = 1$/) }
       it { should contain_file('/etc/mongodb.conf').without_content(/noprealloc|journal|nojournal/) }
+      it { should contain_file('/etc/mongodb.conf').without_content(/^oplogSize =/) }
     end
 
     context 'development => true' do
