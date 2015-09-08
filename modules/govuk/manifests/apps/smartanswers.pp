@@ -9,22 +9,24 @@
 #   Default: 3010
 #
 # [*expose_govspeak*]
-#   Either 'true' or 'false' indicating if govspeak format should be made
+#   A boolean value indicating if govspeak format should be made
 #   available alongside other formats (e.g. html, json)
-#   Default: 'false'
+#   Default: false
 
 class govuk::apps::smartanswers(
   $port = 3010,
-  $expose_govspeak = 'false',
+  $expose_govspeak = false,
 ) {
-
   Govuk::App::Envvar {
     app => 'smartanswers',
   }
 
-  govuk::app::envvar {
-    'EXPOSE_GOVSPEAK':
-      value => $expose_govspeak;
+  if $expose_govspeak {
+    govuk::app::envvar {
+      "${title}-EXPOSE_GOVSPEAK":
+        varname => 'EXPOSE_GOVSPEAK',
+        value   => 'true';
+    }
   }
 
   govuk::app { 'smartanswers':

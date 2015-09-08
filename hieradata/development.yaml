@@ -66,7 +66,7 @@ govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::router_api::vhost: 'router-api'
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::signon::enable_procfile_worker: false
-govuk::apps::smartanswers::expose_govspeak: 'true'
+govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::stagecraft::worker::enabled: true
