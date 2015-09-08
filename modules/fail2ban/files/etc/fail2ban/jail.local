@@ -24,30 +24,3 @@ maxretry = 20
 enabled = true
 # https://github.gds/gds/puppet/commit/064904
 maxretry = 20
-
-# https://github.gds/gds/puppet/commit/e343f1a
-[nginx]
-
-enabled = true
-port    = http,https
-filter  = apache-auth
-logpath = /var/log/nginx*/*error.log
-maxretry = 6
-
-[nginx-noscript]
-
-# https://github.gds/gds/puppet/commit/9de8f07
-enabled = true
-port    = http,https
-filter  = apache-noscript
-logpath = /var/log/nginx*/*error.log
-maxretry = 6
-
-[nginx-overflows]
-
-# https://github.gds/gds/puppet/commit/9de8f07
-enabled = true
-port    = http,https
-filter  = apache-overflows
-logpath = /var/log/nginx*/*error.log
-maxretry = 2
