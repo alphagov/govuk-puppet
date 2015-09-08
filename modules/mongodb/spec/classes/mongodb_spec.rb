@@ -62,4 +62,17 @@ describe 'mongodb::server', :type => :class do
         .with_members(['mongo-box-1', 'mongo-box-2', 'mongo-box-3'])
     end
   end
+
+  describe "setting the oplog size" do
+    let(:params) {{
+      'version' => '2.0.7',
+      'oplog_size' => '1234',
+      'package_name' => 'mongodb20-10gen',
+      'replicaset_members' => ['mongo-box-1'],
+    }}
+
+    it do
+      should contain_file('/etc/mongodb.conf').with_content(/^oplogSize = 1234$/)
+    end
+  end
 end

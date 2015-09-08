@@ -7,6 +7,10 @@
 # [*version*]
 # [*package_name*]
 # [*dbpath*]
+# [*oplog_size*]
+#   Defines size of the oplog in megabytes.
+#   If undefined, we use MongoDB's default.
+#
 # [*replicaset_members*]
 #   An array of the members for the replica set.
 #   Defaults to empty, which throws an error, so
@@ -21,6 +25,7 @@ class mongodb::server (
   $version,
   $package_name = 'mongodb-10gen',
   $dbpath = '/var/lib/mongodb',
+  $oplog_size = undef,
   $replicaset_members = [],
   $development = false,
 ) {
@@ -51,11 +56,12 @@ class mongodb::server (
   }
 
   class { 'mongodb::config':
-    dbpath            => $dbpath,
-    development       => $development,
-    replicaset_name   => $replicaset_name,
-    require           => Class['mongodb::package'],
-    notify            => Class['mongodb::service'];
+    dbpath          => $dbpath,
+    development     => $development,
+    oplog_size      => $oplog_size,
+    replicaset_name => $replicaset_name,
+    require         => Class['mongodb::package'],
+    notify          => Class['mongodb::service'];
   }
 
   class { 'mongodb::configure_replica_set':

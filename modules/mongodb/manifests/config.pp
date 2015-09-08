@@ -12,6 +12,10 @@
 #   Saves space at the expense of data integrity.
 #   Default: false
 #
+# [*oplog_size*]
+#   Defines size of the oplog in megabytes.
+#   If undefined, we use MongoDB's default.
+#
 # [*replicaset_name*]
 #   A string for the name of the replicaset.
 #   Passed in by `mongodb::server` which sets it to
@@ -21,6 +25,7 @@
 class mongodb::config (
   $dbpath = '/var/lib/mongodb',
   $development,
+  $oplog_size = undef,
   $replicaset_name,
 ) {
   validate_bool($development)
