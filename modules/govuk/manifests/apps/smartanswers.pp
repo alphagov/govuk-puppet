@@ -1,7 +1,34 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::smartanswers
+#
+# Configures Smart Answers application
+#
+# === Parameters
+#
+# [*port*]
+#   The port that Smart Answers is served on.
+#   Default: 3010
+#
+# [*expose_govspeak*]
+#   A boolean value indicating if govspeak format should be made
+#   available alongside other formats (e.g. html, json)
+#   Default: false
+
 class govuk::apps::smartanswers(
   $port = 3010,
+  $expose_govspeak = false,
 ) {
+  Govuk::App::Envvar {
+    app => 'smartanswers',
+  }
+
+  if $expose_govspeak {
+    govuk::app::envvar {
+      "${title}-EXPOSE_GOVSPEAK":
+        varname => 'EXPOSE_GOVSPEAK',
+        value   => 'true';
+    }
+  }
+
   govuk::app { 'smartanswers':
     app_type              => 'rack',
     port                  => $port,
