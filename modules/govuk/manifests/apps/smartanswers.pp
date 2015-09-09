@@ -25,7 +25,7 @@ class govuk::apps::smartanswers(
     govuk::app::envvar {
       "${title}-EXPOSE_GOVSPEAK":
         varname => 'EXPOSE_GOVSPEAK',
-        value   => 'true';
+        value   => '1';
     }
   }
 
