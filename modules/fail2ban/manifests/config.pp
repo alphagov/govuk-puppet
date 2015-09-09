@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: fail2ban::config
+#
+# This class sets up fail2ban configuration.
+#
 class fail2ban::config {
 
   file { '/etc/fail2ban/fail2ban.local':

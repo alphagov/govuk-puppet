@@ -20,6 +20,10 @@ class nginx (
     notify                     => Class['nginx::service'];
   }
 
+  class { 'nginx::fail2ban':
+    require => Class['fail2ban::config'],
+  }
+
   class { 'nginx::logging':
     require => Class['nginx::package'];
   }
