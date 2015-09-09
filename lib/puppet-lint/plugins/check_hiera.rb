@@ -43,7 +43,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
     'internal_tld',
-    'mysql_nagios',
     'mysql_replica_password',
     'mysql_root',
     'mysql_whitehall_frontend',
