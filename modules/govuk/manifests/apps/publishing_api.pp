@@ -31,6 +31,8 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*db_password*]
+#   The password for the database.
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
@@ -38,6 +40,7 @@ class govuk::apps::publishing_api(
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
   $secret_key_base = undef,
+  $db_password,
 ) {
   $app_name = 'publishing-api'
 
@@ -83,5 +86,8 @@ class govuk::apps::publishing_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+    "${title}-DATABASE_PASSWORD":
+      varname => 'DATABASE_PASSWORD',
+      value   => $db_password;
   }
 }
