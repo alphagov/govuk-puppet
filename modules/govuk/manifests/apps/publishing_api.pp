@@ -40,7 +40,10 @@ class govuk::apps::publishing_api(
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
   $secret_key_base = undef,
+  $db_hostname,
+  $db_username = 'publishing_api',
   $db_password,
+  $db_name = 'publishing_api_production',
 ) {
   $app_name = 'publishing-api'
 
@@ -86,8 +89,8 @@ class govuk::apps::publishing_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-DATABASE_PASSWORD":
-      varname => 'DATABASE_PASSWORD',
-      value   => $db_password;
+    "${title}-DATABASE_URL":
+      varname => 'DATABASE_URL',
+      value   => "postgresql://${db_username}:${db_password}@${db_hostname}/${db_name}";
   }
 }

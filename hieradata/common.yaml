@@ -120,6 +120,7 @@ govuk::apps::performanceplatform_collector::enabled: true
 govuk::apps::performanceplatform_notifier::enabled: true
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
+govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 
 govuk::apps::screenshot_as_a_service::enabled: true
