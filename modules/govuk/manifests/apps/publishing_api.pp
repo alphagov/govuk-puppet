@@ -31,8 +31,18 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
 # [*db_password*]
 #   The password for the database.
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
 class govuk::apps::publishing_api(
   $port = 3093,
   $content_store = '',
@@ -40,9 +50,9 @@ class govuk::apps::publishing_api(
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
   $secret_key_base = undef,
-  $db_hostname,
+  $db_hostname = undef,
   $db_username = 'publishing_api',
-  $db_password,
+  $db_password = undef,
   $db_name = 'publishing_api_production',
 ) {
   $app_name = 'publishing-api'
@@ -65,13 +75,6 @@ class govuk::apps::publishing_api(
     fields  => {'application' => $app_name},
   }
 
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
-  }
-
   Govuk::App::Envvar {
     app => $app_name,
   }
@@ -89,8 +92,19 @@ class govuk::apps::publishing_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-DATABASE_URL":
+  }
+
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
+    }
+  }
+
+  if $::govuk_node_class != 'development' {
+    govuk::app::envvar { "${title}-DATABASE_URL":
       varname => 'DATABASE_URL',
-      value   => "postgresql://${db_username}:${db_password}@${db_hostname}/${db_name}";
+      value   => "postgresql://${db_username}:${db_password}@${db_hostname}/${db_name}",
+    }
   }
 }
