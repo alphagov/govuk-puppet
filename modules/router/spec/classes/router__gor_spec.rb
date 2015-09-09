@@ -6,7 +6,7 @@ describe 'router::gor', :type => :class do
   }}
   let(:args_default) {{
     '-input-raw'          => 'localhost:7999',
-    '-http-allow-method' => %w{GET HEAD OPTIONS},
+    '-output-http-method' => %w{GET HEAD OPTIONS},
   }}
 
   context 'no targets defined (disabled)' do

@@ -41,9 +41,9 @@ class router::gor (
 
   class { 'govuk::gor':
     args   => {
-      '-input-raw'         => 'localhost:7999',
-      '-output-http'       => prefix(keys($replay_targets), 'https://'),
-      '-http-allow-method' => [
+      '-input-raw'          => 'localhost:7999',
+      '-output-http'        => prefix(keys($replay_targets), 'https://'),
+      '-output-http-method' => [
         'GET', 'HEAD', 'OPTIONS'
       ],
     },
