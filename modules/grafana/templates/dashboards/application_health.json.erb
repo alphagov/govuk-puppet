@@ -371,10 +371,10 @@
           },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.nginx_logs.search_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.search-?_api<%= @machine_suffix_metrics -%>.nginx_logs.rummager_*.time_request.mean),1000),\"nginx\")"
             },
             {
-              "target": "groupByNode(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.search.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.search-?_api<%= @machine_suffix_metrics -%>.rummager.time_*.mean,4,\"avg\")"
             }
           ],
           "aliasColors": {},
