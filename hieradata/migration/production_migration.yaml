@@ -46,6 +46,8 @@ backup::offsite::jobs:
     hour: 8,
     minute: 13,
     # No encryption because of size and sensitivity
+backup::offsite::monitoring::offsite_fqdn: *offsite_host
+backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 
 internal_tld: 'publishing.service.gov.uk'
 
