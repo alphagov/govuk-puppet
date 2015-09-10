@@ -20,8 +20,8 @@ class nginx (
     notify                     => Class['nginx::service'];
   }
 
-  class { 'nginx::fail2ban':
-    require => Class['fail2ban::config'],
+  @fail2ban::config::jail_snippet { 'nginx':
+    source  => 'puppet:///modules/nginx/etc/fail2ban/jail.d/01_nginx.local',
   }
 
   class { 'nginx::logging':
