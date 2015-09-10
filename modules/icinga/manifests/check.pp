@@ -42,6 +42,10 @@
 #   and why the alert might exist. Should link to a section of the
 #   "opsmanual". This will be included in the Nagios UI and email alerts.
 #
+# [*linked_metric*]
+#   A metric to link to in Graphite as part of the `action_url`. Overrides
+#   the `$action_url` parameter if it's set.
+#
 # [*contact_groups*]
 #   Convenience method to use in addition to the service
 #   templates. This is so you can pass a group to a check without
@@ -56,12 +60,17 @@ define icinga::check (
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
   $notes_url                  = undef,
+  $linked_metric              = undef,
   $check_interval             = undef,
   $retry_interval             = undef,
   $first_notification_delay   = undef,
   $attempts_before_hard_state = undef,
   $contact_groups             = undef,
 ) {
+
+  $app_domain = hiera('app_domain')
+  $graph_width = 600
+  $graph_height = 300
 
   $check_filename = "/etc/icinga/conf.d/icinga_host_${host_name}/${title}.cfg"
 
@@ -73,6 +82,13 @@ define icinga::check (
 
     if $check_command == undef {
       fail("Must provide a \$check_command to icinga::Check[${title}]")
+    }
+
+    if $linked_metric {
+      $action_url_real = "https://graphite.${app_domain}/render/?\
+width=${graph_width}&height=${graph_height}&target=${linked_metric}"
+    } else {
+      $action_url_real = $action_url
     }
 
     $check_content = template('icinga/service.erb')

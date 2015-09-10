@@ -22,8 +22,8 @@ define service {
 <%- if @notification_period -%>
         notification_period       <%= @notification_period %>
 <%- end -%>
-<%- if @action_url -%>
-        action_url                <%= @action_url %>
+<%- if @action_url_real -%>
+        action_url                <%= @action_url_real %>
 <%- end -%>
 <%- if @notes_url -%>
         notes_url                 <%= @notes_url %>
