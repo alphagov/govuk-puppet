@@ -178,7 +178,7 @@
           },
           "targets": [
             {
-              "target": "aliasSub(movingMedian(cache-*_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests,12),\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "aliasSub(movingMedian(cache-*_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests, '1min'),\".*(cache-\\d+).*\", \"\\1\")"
             }
           ],
           "aliasColors": {},
@@ -265,13 +265,13 @@
           },
           "targets": [
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), 12),\"cache-1\")"
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-1\")"
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1),12),\"cache-2\")"
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-2\")"
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1),12),\"cache-3\")"
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-3\")"
             }
           ],
           "aliasColors": {},

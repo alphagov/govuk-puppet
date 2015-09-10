@@ -1,236 +1,375 @@
 {
-  "title": "2ndline health",
-  "services": {
-    "filter": {
-      "list": [],
-      "time": {
-        "from": "now-6h",
-        "to": "now"
-      }
-    }
-  },
+  "id": null,
+  "title": "Second line (rolling avg last 60s; sparklines show last 24hr)",
+  "originalTitle": "Second line (rolling avg last 60s; sparklines show last 24hr)",
+  "tags": [],
+  "style": "dark",
+  "timezone": "utc",
+  "editable": true,
+  "hideControls": true,
+  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "one",
-      "height": "400px",
-      "editable": true,
+      "title": "Origin",
+      "height": "250px",
+      "editable": false,
       "collapse": false,
       "collapsable": true,
       "panels": [
         {
-          "span": 12,
+          "title": "ORIGIN",
+          "error": false,
+          "span": 4,
           "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false,
-            "query": "*",
-            "size": 20,
-            "field": "_type",
-            "sort": [
-              "_score",
-              "desc"
-            ]
-          },
-          "auto_int": true,
-          "resolution": 100,
-          "interval": "5m",
-          "intervals": [
-            "auto",
-            "1s",
-            "1m",
-            "5m",
-            "10m",
-            "30m",
-            "1h",
-            "3h",
-            "12h",
-            "1d",
-            "1w",
-            "1y"
+          "type": "singlestat",
+          "id": 3,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "interactive": true,
-          "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "query_as_alias": true
-          },
+          "maxDataPoints": 100,
+          "interval": null,
           "targets": [
             {
-              "target": "alias(sumSeries(stats.cache-*_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx),'5xx')"
-            },
-            {
-              "target": "alias(sumSeries(stats.cache-*_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_4xx),'4xx')",
+              "target": "movingAverage(sumSeries(cache-?_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests), '1min')",
               "hide": false
             }
           ],
-          "aliasColors": {
-            "5XX": "#890F02",
-            "4xx": "#1F78C1",
-            "5xx": "#EF843C"
-          },
-          "aliasYAxis": {
-            "4xx": 2
-          },
-          "title": "Origin 5xx/s and 4xx/s",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
-        }
-      ],
-      "notice": false
-    },
-    {
-      "title": "two",
-      "height": "400px",
-      "editable": true,
-      "collapse": false,
-      "collapsable": true,
-      "panels": [
-        {
-          "span": 12,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "targets": [
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": " req/s",
+          "nullText": null,
+          "valueMaps": [
             {
-              "target": "alias(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_5xx,'5xx')"
-            },
-            {
-              "target": "alias(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-govuk.requests-status_4xx,'4xx')"
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
             }
           ],
-          "aliasColors": {
-            "4xx": "#1F78C1",
-            "5xx": "#EF843C"
+          "nullPointMode": "null",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,25,35",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
           },
-          "aliasYAxis": {
-            "4xx": 2
-          },
-          "title": "Edge 5xx/s & 4xx/s"
-        }
-      ],
-      "notice": false
-    }
-  ],
-  "editable": true,
-  "failover": false,
-  "panel_hints": true,
-  "style": "dark",
-  "pulldowns": [
-    {
-      "type": "filtering",
-      "collapse": false,
-      "notice": false,
-      "enable": false
-    },
-    {
-      "type": "annotations",
-      "enable": true,
-      "annotations": [
-        {
-          "name": "all deploys",
-          "type": "graphite events",
-          "showLine": true,
-          "iconColor": "#C0C6BE",
-          "lineColor": "rgba(32, 230, 25, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "tags": "deploys"
+          "height": "250"
         },
         {
-          "name": "all restarts",
-          "type": "graphite metric",
-          "showLine": true,
-          "iconColor": "#FF2020",
-          "lineColor": "rgba(255, 32, 32, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "target": "substr(stats.govuk.app.*.restarts,3,5)"
+          "title": "ORIGIN HTTP 4XX",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 8,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,3,5",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "ORIGIN HTTP 5XX",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 7,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,1,2",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
         }
-      ]
+      ],
+      "notice": false,
+      "showTitle": false
+    },
+    {
+      "title": "Edge",
+      "height": "400px",
+      "editable": false,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "EDGE (15 mins' lag)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 5,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "edge_health.json",
+              "title": "Edge health",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "timeShift(movingAverage(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-requests), '1min'), '-15min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": " req/s",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null",
+          "valueName": "current",
+          "prefixFontSize": "80%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,100,150",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "EDGE HTTP 4XX (15 mins' lag)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 10,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "edge_health.json",
+              "title": "Edge health",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_4xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "80%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,1,2",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "EDGE HTTP 5XX (15 mins' lag)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 11,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "edge_health.json",
+              "title": "Edge health",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_5xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "80%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,0.5,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        }
+      ],
+      "showTitle": false
     }
   ],
   "nav": [
@@ -238,13 +377,12 @@
       "type": "timepicker",
       "collapse": false,
       "notice": false,
-      "enable": true,
+      "enable": false,
       "status": "Stable",
       "time_options": [
         "5m",
         "15m",
         "1h",
-        "4h",
         "6h",
         "12h",
         "24h",
@@ -267,22 +405,19 @@
       "now": true
     }
   ],
-  "loader": {
-    "save_gist": false,
-    "save_elasticsearch": false,
-    "save_local": true,
-    "save_default": true,
-    "save_temp": true,
-    "save_temp_ttl_enable": true,
-    "save_temp_ttl": "30d",
-    "load_gist": false,
-    "load_elasticsearch": false,
-    "load_elasticsearch_size": 20,
-    "load_local": true,
-    "hide": false
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "templating": {
+    "list": [],
+    "enable": false
+  },
+  "annotations": {
+    "list": [],
+    "enable": false
   },
   "refresh": "1m",
-  "tags": [],
-  "timezone": "utc",
-  "hideControls": true
+  "version": 6,
+  "hideAllLegends": false
 }
