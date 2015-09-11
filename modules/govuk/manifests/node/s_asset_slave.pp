@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_asset_slave
+#
+# Sets up an asset slave machine to serve assets
+#
+# === Parameters
+#
+# [*offsite_backups*]
+#   Boolean indicating whether assets should be backed up offsite
+#
 class govuk::node::s_asset_slave (
   $offsite_backups = false,
 ) inherits govuk::node::s_asset_base {
@@ -39,15 +47,17 @@ class govuk::node::s_asset_slave (
     group  => 'assets',
   }
 
+  $assets_sync_frequency_minutes = 30
+
   cron { 'sync-assets-from-master':
     user    => 'assets',
-    minute  => '*/30',
+    minute  => "*/${assets_sync_frequency_minutes}",
     command => '/usr/bin/setlock -n /var/run/whitehall-assets/sync.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/clean whitehall/incoming whitehall/infected',
   }
 
   cron { 'sync-assets-from-master-draft':
     user    => 'assets',
-    minute  => '*/30',
+    minute  => "*/${assets_sync_frequency_minutes}",
     command => '/usr/bin/setlock -n /var/run/whitehall-assets/sync-draft.lock /usr/local/bin/sync-assets.sh /data/master-uploads /mnt/uploads whitehall/draft-clean whitehall/draft-incoming whitehall/draft-infected',
   }
 
