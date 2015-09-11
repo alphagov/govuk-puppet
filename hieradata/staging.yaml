@@ -54,7 +54,6 @@ govuk_jenkins::config::users:
   - deploy
   - eddsowden
   - elliotcrosbymccullough
-  - jacobashdown
   - jakebenilov
   - jamiecobbett
   - jennyduckett
@@ -525,7 +524,6 @@ ssh::config::allow_users:
   - 'elliot'
   - 'govuk-backup'
   - 'heathd'
-  - 'jacobashdown'
   - 'jamiec'
   - 'jennyduckett'
   - 'joshmyers'
@@ -562,7 +560,6 @@ users::usernames:
   - eddsowden
   - elliot
   - heathd
-  - jacobashdown
   - jamiec
   - jennyduckett
   - joshmyers
