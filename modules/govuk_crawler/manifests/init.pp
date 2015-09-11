@@ -179,7 +179,7 @@ class govuk_crawler(
     @@icinga::passive_check { "check_seed_crawler_${::hostname}":
       service_description => $seed_service_desc,
       host_name           => $::fqdn,
-      # cron daily at 2am, 90000 is slightly over 24 hours (86400)
+      # 90000 is slightly over 24 hours (86400)
       freshness_threshold => 90000,
     }
   }
@@ -187,7 +187,7 @@ class govuk_crawler(
   cron { 'seed-crawler':
     ensure      => $seed_ensure,
     user        => $crawler_user,
-    hour        => 2,
+    hour        => 18,
     minute      => 0,
     environment => ['MAILTO=""'],
     command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path}",
