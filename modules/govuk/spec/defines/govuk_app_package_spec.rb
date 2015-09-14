@@ -6,7 +6,7 @@ describe 'govuk::app::package', :type => :define do
   context 'with no params' do
     it do
       expect {
-        should contain_file('/var/apps/giraffe')
+        is_expected.to contain_file('/var/apps/giraffe')
       }.to raise_error(Puppet::Error, /Must pass vhost_full/)
     end
   end
@@ -19,9 +19,9 @@ describe 'govuk::app::package', :type => :define do
     end
 
     it do
-      should contain_file('/var/apps/giraffe').with_ensure('link')
-      should contain_file('/var/log/giraffe')
-      should contain_file('/data/vhost/giraffe.example.com')
+      is_expected.to contain_file('/var/apps/giraffe').with_ensure('link')
+      is_expected.to contain_file('/var/log/giraffe')
+      is_expected.to contain_file('/data/vhost/giraffe.example.com')
     end
   end
 
@@ -35,9 +35,9 @@ describe 'govuk::app::package', :type => :define do
       end
 
       it do
-        should contain_file('/var/apps/giraffe').with_ensure('absent')
-        should contain_file('/var/log/giraffe').with_ensure('absent')
-        should contain_file('/data/vhost/giraffe.example.com').with_ensure('absent')
+        is_expected.to contain_file('/var/apps/giraffe').with_ensure('absent')
+        is_expected.to contain_file('/var/log/giraffe').with_ensure('absent')
+        is_expected.to contain_file('/data/vhost/giraffe.example.com').with_ensure('absent')
       end
     end
 
@@ -51,7 +51,7 @@ describe 'govuk::app::package', :type => :define do
 
       it do
         expect {
-          should contain_file('/var/apps/giraffe')
+          is_expected.to contain_file('/var/apps/giraffe')
         }.to raise_error(Puppet::Error, /Invalid ensure value/)
       end
     end

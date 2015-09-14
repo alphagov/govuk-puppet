@@ -14,7 +14,7 @@ describe 'govuk_jenkins::config', :type => :class do
         :manage_config => false,
       }}
 
-      it { should_not contain_file('/var/lib/jenkins/config.xml') }
+      it { is_expected.not_to contain_file('/var/lib/jenkins/config.xml') }
     end
 
     context 'true' do
@@ -22,7 +22,7 @@ describe 'govuk_jenkins::config', :type => :class do
         :manage_config => true,
       }}
 
-      it { should contain_file('/var/lib/jenkins/config.xml') }
+      it { is_expected.to contain_file('/var/lib/jenkins/config.xml') }
     end
   end
 end

@@ -8,7 +8,7 @@ describe 'icinga::config::smokey', :type => :class do
       'http_username' => 'test_username',
       'http_password' => 'test_password' 
     }}
-    it { should contain_file('/etc/smokey.sh').with_content(<<EOS
+    it { is_expected.to contain_file('/etc/smokey.sh').with_content(<<EOS
 #!/bin/bash
 export AUTH_PASSWORD="test_password"
 export AUTH_USERNAME="test_username"
@@ -30,7 +30,7 @@ EOS
     # FIXME: Hack to refresh hieradata.
     let(:facts) {{ :cache_bust => Time.now }}
 
-    it { should contain_file('/etc/smokey.sh').with_content(<<EOS
+    it { is_expected.to contain_file('/etc/smokey.sh').with_content(<<EOS
 #!/bin/bash
 export AUTH_PASSWORD="test_password"
 export AUTH_USERNAME="test_username"

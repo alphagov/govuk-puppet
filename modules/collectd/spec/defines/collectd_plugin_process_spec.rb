@@ -7,7 +7,7 @@ describe 'collectd::plugin::process', :type => :define do
     let(:title) { 'giraffe' }
 
     it {
-        should contain_collectd__plugin('process-giraffe').with_content(<<EOS
+        is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
 <Plugin Processes>
   Process "giraffe"
 </Plugin>
@@ -20,7 +20,7 @@ EOS
       }}
 
       it {
-        should contain_collectd__plugin('process-giraffe').with_content(<<EOS
+        is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
 <Plugin Processes>
   ProcessMatch "giraffe" "^gi.*fe$"
 </Plugin>
@@ -34,7 +34,7 @@ EOS
       }}
 
       it {
-        should contain_collectd__plugin('process-giraffe').with_content(<<EOS
+        is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
 <Plugin Processes>
   ProcessMatch "giraffe" "^giraffe\\\\.giraffe\\\\\\\\$"
 </Plugin>
@@ -48,7 +48,7 @@ EOS
 
     it do
       expect {
-        should contain_collectd__plugin('process-giraffe')
+        is_expected.to contain_collectd__plugin('process-giraffe')
       }.to raise_error(Puppet::Error, /validate_re/)
     end
   end

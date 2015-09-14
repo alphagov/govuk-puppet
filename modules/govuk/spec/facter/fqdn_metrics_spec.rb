@@ -17,8 +17,8 @@ describe 'fqdn_metrics' do
   }.each do |fqdn, fqdn_metrics|
     describe "fqdn => #{fqdn}" do
       it {
-        Facter.fact(:fqdn).should_receive(:value).and_return(fqdn)
-        Facter.fact(:fqdn_metrics).value.should == fqdn_metrics
+        expect(Facter.fact(:fqdn)).to receive(:value).and_return(fqdn)
+        expect(Facter.fact(:fqdn_metrics).value).to eq(fqdn_metrics)
       }
     end
   end

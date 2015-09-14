@@ -8,13 +8,13 @@ describe 'nginx::config::vhost::redirect', :type => :define do
       :to => 'https://mouse.example.com/',
     }}
 
-    it { should contain_nginx__config__site('gruffalo.example.com').with(
+    it { is_expected.to contain_nginx__config__site('gruffalo.example.com').with(
       :content => /^\s+server_name gruffalo\.example\.com;$/
     )}
-    it { should contain_nginx__config__site('gruffalo.example.com').with(
+    it { is_expected.to contain_nginx__config__site('gruffalo.example.com').with(
       :content => /^\s+rewrite \^\/\(\.\*\)\ https:\/\/mouse\.example\.com\/\$1 permanent;$/
     )}
-    it { should contain_nginx__config__ssl('gruffalo.example.com').with(
+    it { is_expected.to contain_nginx__config__ssl('gruffalo.example.com').with(
       :certtype => 'wildcard_alphagov'
     )}
   end

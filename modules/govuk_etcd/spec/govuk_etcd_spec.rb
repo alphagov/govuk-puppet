@@ -14,7 +14,7 @@ describe 'govuk_etcd', :type => :class do
       } }
 
       it {
-        should contain_class('etcd').with_peers([])
+        is_expected.to contain_class('etcd').with_peers([])
       }
     end
 
@@ -26,7 +26,7 @@ describe 'govuk_etcd', :type => :class do
       } }
 
       it {
-        should  contain_class('etcd').with_peers(['foo.example.com:7001', 'bar.example.com:7001', 'not.a.peer.example.com:7001'])
+        is_expected.to  contain_class('etcd').with_peers(['foo.example.com:7001', 'bar.example.com:7001', 'not.a.peer.example.com:7001'])
       }
     end
   end

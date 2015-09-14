@@ -15,19 +15,19 @@ describe 'govuk_postgresql::env_sync_user', :type => :class do
     }}
 
     it {
-      should contain_postgresql__server__role('env-sync')
+      is_expected.to contain_postgresql__server__role('env-sync')
         .with_superuser(true)
     }
 
     it {
       # 'local env-sync' rule must be before the 'local all' rule because the rules are matched
       # in order, and the first match applies.
-      should contain_postgresql__server__pg_hba_rule('local access as env-sync user').with({
+      is_expected.to contain_postgresql__server__pg_hba_rule('local access as env-sync user').with({
         "user" => 'env-sync',
         'type' => 'local',
         'order' => '001',
       })
-      should contain_postgresql__server__pg_hba_rule('local access to database with same name').with({
+      is_expected.to contain_postgresql__server__pg_hba_rule('local access to database with same name').with({
         'user' => 'all',
         'type' => 'local',
         'order' => '002',
@@ -37,7 +37,7 @@ describe 'govuk_postgresql::env_sync_user', :type => :class do
 
   context 'no password provided' do
     it {
-      expect { should }.to raise_error(
+      expect { is_expected.to }.to raise_error(
         Puppet::Error, /^Must pass password to/
       )
     }

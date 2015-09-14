@@ -10,15 +10,15 @@ describe 'govuk_cdnlogs', :type => :class do
     }}
 
     describe 'server_key' do
-      it { should contain_file('/etc/ssl/rsyslog.key').with_content('my key') }
+      it { is_expected.to contain_file('/etc/ssl/rsyslog.key').with_content('my key') }
     end
 
     describe 'server_crt' do
-      it { should contain_file('/etc/ssl/rsyslog.crt').with_content('my crt') }
+      it { is_expected.to contain_file('/etc/ssl/rsyslog.crt').with_content('my crt') }
     end
 
     describe 'log_dir' do
-      it { should contain_file('/etc/logrotate.d/cdnlogs')
+      it { is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
             .with_content(%r{^/tmp/logs/cdn-elephant\.log$}) }
     end
   end
@@ -37,9 +37,9 @@ describe 'govuk_cdnlogs', :type => :class do
         :service_port_map => {},
       }}
 
-      it { should_not contain_ufw__allow('rsyslog-cdn-logs') }
-      it { should contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
-      it { should contain_file('/etc/logrotate.d/cdnlogs').without_content(/rotate/) }
+      it { is_expected.not_to contain_ufw__allow('rsyslog-cdn-logs') }
+      it { is_expected.to contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
+      it { is_expected.to contain_file('/etc/logrotate.d/cdnlogs').without_content(/rotate/) }
     end
 
     context 'two entries in service_port_map and log_dir' do
@@ -54,11 +54,11 @@ describe 'govuk_cdnlogs', :type => :class do
       }}
 
       it 'should open two firewall ports' do
-        should contain_ufw__allow('rsyslog-cdn-logs').with_port('123,456')
+        is_expected.to contain_ufw__allow('rsyslog-cdn-logs').with_port('123,456')
       end
 
       it 'should create two rulesets, bind against ports, and use log_dir' do
-        should contain_rsyslog__snippet('ccc-cdnlogs').with_content(%r{
+        is_expected.to contain_rsyslog__snippet('ccc-cdnlogs').with_content(%r{
 \$template .*
 
 \$RuleSet cdn-elephant
@@ -76,28 +76,28 @@ describe 'govuk_cdnlogs', :type => :class do
       end
 
       it 'should rotate both logs in the daily conf file' do
-        should contain_file('/etc/logrotate.d/cdnlogs')
+        is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
           .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
           .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
       end
       it 'should rotate daily' do
-        should contain_file('/etc/logrotate.d/cdnlogs')
+        is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
           .with_content(/rotate 365$/)
       end
-      it { should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+      it { is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
             .without_content(/rotate/) }
 
       context 'the elephant logs should be rotated hourly' do
         before { params[:rotate_logs_hourly] = ['elephant'] }
 
         it 'should rotate only giraffe logs in the daily conf file' do
-          should contain_file('/etc/logrotate.d/cdnlogs')
+          is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
             .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
             .without_content(/elephant/)
         end
 
         it 'should rotate the elephant logs hourly' do
-          should contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+          is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
             .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
             .with_content(/rotate 8760/)
         end

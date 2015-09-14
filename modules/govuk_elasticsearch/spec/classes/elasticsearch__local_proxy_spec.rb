@@ -16,7 +16,7 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
     let(:allow_args) { '127\.0\.0\.1;$' }
 
     it 'should reference two upstreams with default port' do
-      should contain_nginx__config__site(vhost_name).with_content(
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(
 /^upstream #{vhost_name}-upstream {
   server es0\.example\.com:#{default_port}\s[^\n]+;
   server es1\.example\.com:#{default_port}\s[^\n]+;
@@ -26,26 +26,26 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
     end
 
     it 'should default to read_timeout 60' do
-      should contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 60;$/)
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 60;$/)
     end
 
     it 'should default to port 9200' do
-      should contain_nginx__config__site(vhost_name).with_content(/^\s+listen #{listen_args}/)
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+listen #{listen_args}/)
     end
 
     it 'should not listen on any other interfaces or ports' do
-      should_not contain_nginx__config__site(vhost_name).with_content(/^\s+listen\s+(?!#{listen_args})/)
+      is_expected.not_to contain_nginx__config__site(vhost_name).with_content(/^\s+listen\s+(?!#{listen_args})/)
     end
 
     it 'should only allow connections from loopback' do
-      should contain_nginx__config__site(vhost_name).with_content(
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(
 /^\s+allow #{allow_args}
 \s+deny all;/
       )
     end
 
     it 'should not allow any other client IPs' do
-      should_not contain_nginx__config__site(vhost_name).with_content(/\s+allow\s+(?!#{allow_args})/)
+      is_expected.not_to contain_nginx__config__site(vhost_name).with_content(/\s+allow\s+(?!#{allow_args})/)
     end
   end
 
@@ -59,7 +59,7 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
     }}
 
     it 'should reference one upstream with custom port' do
-      should contain_nginx__config__site(vhost_name).with_content(
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(
 /^upstream #{vhost_name}-upstream {
   server es0\.example\.com:999\s[^\n]+;
 }/
@@ -67,11 +67,11 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
     end
 
     it 'should have proxy_read_timeout 10' do
-      should contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 10;$/)
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 10;$/)
     end
 
     it 'should listen on port 999' do
-      should contain_nginx__config__site(vhost_name).with_content(/^\s+listen localhost:999;$/)
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+listen localhost:999;$/)
     end
   end
 end

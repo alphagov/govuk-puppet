@@ -16,13 +16,13 @@ describe 'govuk::logstream', :type => :define do
     } }
 
     it 'should tail correct logfile' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :content => /^\s+tail -F \/var\/log\/elephant\.log \| logship/,
       )
     end
 
     it 'should pass appropriate CLI args' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :content => /\| logship -f #{default_filters} -s #{default_shipper}$/,
       )
     end
@@ -35,7 +35,7 @@ describe 'govuk::logstream', :type => :define do
         :ensure  => 'true',
       } }
       it 'should fail validation' do
-        expect {should}.to raise_exception
+        expect {is_expected.to}.to raise_exception
       end
     end
     context 'ensure => false' do
@@ -44,7 +44,7 @@ describe 'govuk::logstream', :type => :define do
         :ensure  => 'false',
       } }
       it 'should fail validation' do
-        expect {should}.to raise_exception
+        expect {is_expected.to}.to raise_exception
       end
     end
   end
@@ -57,7 +57,7 @@ describe 'govuk::logstream', :type => :define do
     } }
 
     it 'should pass add_tags with list in filter chain' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f #{default_filters},add_tags:zebra:llama -s #{default_shipper}$/,
       )
@@ -72,7 +72,7 @@ describe 'govuk::logstream', :type => :define do
     } }
 
     it 'should pass --fields with kv pairs' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f #{default_filters},add_fields:zebra=stripey:llama=fluffy -s #{default_shipper}$/,
       )
@@ -87,7 +87,7 @@ describe 'govuk::logstream', :type => :define do
     } }
 
     it 'should pass --json arg' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper}$/,
       )
@@ -103,7 +103,7 @@ describe 'govuk::logstream', :type => :define do
     } }
 
     it 'should pass statsd_counter arg' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd_counter,metric=tom_jerry.foo.%{@fields.bar}$/,
       )
@@ -120,7 +120,7 @@ describe 'govuk::logstream', :type => :define do
     } }
 
     it 'should pass statsd_timer arg' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd_timer,metric=tom_jerry.foo,timed_field=@fields.foo statsd_timer,metric=tom_jerry.bar,timed_field=@fields.bar$/,
       )
@@ -136,7 +136,7 @@ describe 'govuk::logstream', :type => :define do
                          {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
       } }
     it 'should not pass through statsd values' do
-      should contain_file(upstart_conf).with(
+      is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
         :content => /\| logship -f init_txt,add_timestamp,add_source_host -s #{default_shipper}$/,
         )

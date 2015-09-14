@@ -19,7 +19,7 @@ describe 'govuk::deploy::setup', :type => :class do
     }}
 
     it 'authorized_keys should have all keys active and sorted by comment' do
-      should contain_file(authorized_keys_path).with_content(<<eos
+      is_expected.to contain_file(authorized_keys_path).with_content(<<eos
 ssh-rsa twopears bar
 ssh-rsa threeplums baz
 ssh-rsa oneapple foo
@@ -38,8 +38,8 @@ eos
     }}
 
     it 'authorized_keys should only contain commented keys' do
-      should contain_file(authorized_keys_path).with_content(/ NONE_IN_HIERA /)
-      should contain_file(authorized_keys_path).without_content(/^[^#]/)
+      is_expected.to contain_file(authorized_keys_path).with_content(/ NONE_IN_HIERA /)
+      is_expected.to contain_file(authorized_keys_path).without_content(/^[^#]/)
     end
   end
 
@@ -53,7 +53,7 @@ eos
     }}
 
     it 'does not disable email delivery in ActionMailer' do
-      should contain_file(actionmailer_config_path).without_content(/^ActionMailer::Base.perform_deliveries = false$/)
+      is_expected.to contain_file(actionmailer_config_path).without_content(/^ActionMailer::Base.perform_deliveries = false$/)
     end
   end
 
@@ -67,7 +67,7 @@ eos
     }}
 
     it 'does not disable email delivery in ActionMailer' do
-      should contain_file(actionmailer_config_path).with_content(/^ActionMailer::Base.perform_deliveries = false$/)
+      is_expected.to contain_file(actionmailer_config_path).with_content(/^ActionMailer::Base.perform_deliveries = false$/)
     end
   end
 end

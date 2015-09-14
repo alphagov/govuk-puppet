@@ -15,7 +15,7 @@ describe 'backup::offsite::job', :type => :define do
     let(:params) { default_params }
 
     it 'should include service description in NRPE command' do
-      should contain_duplicity('caterpillar').with(
+      is_expected.to contain_duplicity('caterpillar').with(
         :post_command => /\\toffsite backups: caterpillar\\t.*send_nsca/,
       )
     end
@@ -26,7 +26,7 @@ describe 'backup::offsite::job', :type => :define do
       let(:params) { default_params }
 
       it {
-        should contain_duplicity('caterpillar').with_ensure('present')
+        is_expected.to contain_duplicity('caterpillar').with_ensure('present')
       }
     end
 
@@ -36,7 +36,7 @@ describe 'backup::offsite::job', :type => :define do
       })}
 
       it {
-        should contain_duplicity('caterpillar').with_ensure('absent')
+        is_expected.to contain_duplicity('caterpillar').with_ensure('absent')
       }
     end
 
@@ -46,7 +46,7 @@ describe 'backup::offsite::job', :type => :define do
       })}
 
       it {
-        expect { should }.to raise_error(Puppet::Error, /validate_re/)
+        expect { is_expected.to }.to raise_error(Puppet::Error, /validate_re/)
       }
     end
   end

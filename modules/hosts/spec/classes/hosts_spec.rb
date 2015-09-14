@@ -12,8 +12,8 @@ describe 'hosts', :type => :class do
     }}
 
     it 'should purge unmanaged hosts entries' do
-      should contain_govuk__host('jumpbox-1')
-      should contain_resources('host').with_purge('true')
+      is_expected.to contain_govuk__host('jumpbox-1')
+      is_expected.to contain_resources('host').with_purge('true')
     end
   end
 
@@ -21,7 +21,7 @@ describe 'hosts', :type => :class do
     let(:node) { 'foo-bar-wibble' }
 
     it 'should abort catalog so as not to purge hosts entry for self' do
-      expect { should }.to raise_error(Puppet::Error, /Unable to find Govuk::Host\[foo-bar-wibble\]/)
+      expect { is_expected.to }.to raise_error(Puppet::Error, /Unable to find Govuk::Host\[foo-bar-wibble\]/)
     end
   end
 end

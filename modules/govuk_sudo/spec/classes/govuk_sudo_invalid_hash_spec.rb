@@ -24,7 +24,7 @@ describe 'govuk_sudo' do
 
     # Upstream 'puppet-sudo' module should remove any invalid sudoers.d
     # entries
-    it { should_not contain_file('10_gary').with({
+    it { is_expected.not_to contain_file('10_gary').with({
         'ensure'  => 'present',
         'content' => "gary BORKBORKBORK ALL=(ALL) NOPASSWD:ALL\n",
         'owner'   => 'root',

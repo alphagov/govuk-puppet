@@ -31,18 +31,18 @@ describe 'govuk_postgresql::server::standby', :type => :class do
 
   describe 'recovery.conf' do
     it 'should use $datadir, $user and $group from upstream postgres module' do
-      should contain_file(recovery_conf).with(
+      is_expected.to contain_file(recovery_conf).with(
         :owner => pg_user,
         :group => pg_group,
       )
     end
 
     it 'should not be world readable' do
-      should contain_file(recovery_conf).with_mode('0600')
+      is_expected.to contain_file(recovery_conf).with_mode('0600')
     end
 
     it 'should write details of master' do
-      should contain_file(recovery_conf).with_content(<<-EOS
+      is_expected.to contain_file(recovery_conf).with_content(<<-EOS
 standby_mode     = 'on'
 primary_conninfo = 'host=#{param_host} user=replication password=#{param_pass}'
       EOS
@@ -52,15 +52,15 @@ primary_conninfo = 'host=#{param_host} user=replication password=#{param_pass}'
 
   describe 'pg_resync_slave' do
     it 'should reference $datadir' do
-      should contain_file(pg_resync_slave).with_content(/^DATADIR="#{datadir}"$/)
+      is_expected.to contain_file(pg_resync_slave).with_content(/^DATADIR="#{datadir}"$/)
     end
 
     it 'should reference $user' do
-      should contain_file(pg_resync_slave).with_content(/^sudo -u #{pg_user} /)
+      is_expected.to contain_file(pg_resync_slave).with_content(/^sudo -u #{pg_user} /)
     end
 
     it 'should reference host' do
-      should contain_file(pg_resync_slave).with_content(/ -h #{param_host} -U replication/)
+      is_expected.to contain_file(pg_resync_slave).with_content(/ -h #{param_host} -U replication/)
     end
   end
 end

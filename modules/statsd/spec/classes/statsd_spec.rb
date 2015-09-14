@@ -6,9 +6,9 @@ describe 'statsd', :type => :class do
       :graphite_hostname => 'graphite.example.com',
     }}
 
-    it { should contain_package('statsd') }
-    it { should contain_service('statsd') }
+    it { is_expected.to contain_package('statsd') }
+    it { is_expected.to contain_service('statsd') }
 
-    it { should contain_file('/etc/statsd.conf').with_content(/ graphiteHost: "graphite.example.com"$/) }
+    it { is_expected.to contain_file('/etc/statsd.conf').with_content(/ graphiteHost: "graphite.example.com"$/) }
   end
 end

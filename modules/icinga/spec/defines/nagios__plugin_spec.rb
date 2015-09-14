@@ -5,7 +5,7 @@ describe 'icinga::plugin', :type => :define do
   let(:params) { {:content => 'bear content'} }
 
   it do
-    should contain_file('/usr/lib/nagios/plugins/bear.sh')
+    is_expected.to contain_file('/usr/lib/nagios/plugins/bear.sh')
       .with_content('bear content')
       .with_mode('0755')
   end

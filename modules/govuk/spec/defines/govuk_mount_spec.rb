@@ -9,7 +9,7 @@ describe 'govuk::mount', :type => :define do
 
     context 'environment fox' do
       it {
-        should contain_ext4mount('/mnt/gruffalo').with(
+        is_expected.to contain_ext4mount('/mnt/gruffalo').with(
           :disk         => nil,
           :mountoptions => nil,
           :mountpoint   => '/mnt/gruffalo',
@@ -23,7 +23,7 @@ describe 'govuk::mount', :type => :define do
       :'govuk::mount::no_op' => true,
     }}
 
-    it { should_not contain_ext4mount('/mnt/gruffalo') }
+    it { is_expected.not_to contain_ext4mount('/mnt/gruffalo') }
   end
 
   context 'custom params' do
@@ -36,12 +36,12 @@ describe 'govuk::mount', :type => :define do
       :govuk_lvm    => 'elephant',
     }}
 
-    it { should contain_govuk__lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
+    it { is_expected.to contain_govuk__lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
 
-    it { should contain_tune_ext('/dev/mouse').that_requires('Ext4mount[gruffalo]') }
+    it { is_expected.to contain_tune_ext('/dev/mouse').that_requires('Ext4mount[gruffalo]') }
 
     it {
-      should contain_ext4mount('gruffalo').with(
+      is_expected.to contain_ext4mount('gruffalo').with(
         :disk         => '/dev/mouse',
         :mountoptions => 'snake=1',
         :mountpoint   => '/mnt/cave',

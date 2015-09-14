@@ -6,5 +6,5 @@ describe 'icinga::host', :type => :define do
       "hostname"    => "test_host",
       "fqdn"        => "test_host.blah.blah"
   }}
-  it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg') }
+  it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg') }
 end

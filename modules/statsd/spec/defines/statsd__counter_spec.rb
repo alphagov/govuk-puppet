@@ -7,7 +7,7 @@ describe 'statsd::counter', :type => :define do
     }
 
     it {
-      should contain_exec("statsd counter giraffes.seen").
+      is_expected.to contain_exec("statsd counter giraffes.seen").
         with_command(/giraffes\.seen:0|c/)
     }
   end

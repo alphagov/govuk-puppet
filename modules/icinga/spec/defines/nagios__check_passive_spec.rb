@@ -17,19 +17,19 @@ describe 'icinga::passive_check', :type => :define do
     }}
 
     it {
-      should contain_file(file_path)
+      is_expected.to contain_file(file_path)
         .with_content(/^\s+host_name\s+warden.zoo.tld$/)
     }
     it {
-      should contain_file(file_path)
+      is_expected.to contain_file(file_path)
         .with_content(/^\s+service_description\s+where are my giraffes$/)
     }
     it {
-      should contain_file(file_path)
+      is_expected.to contain_file(file_path)
         .with_content(/check_dummy!1!"Unexpected active check on passive service"$/)
     }
     it {
-      should_not contain_file(file_path)
+      is_expected.not_to contain_file(file_path)
         .with_content(/freshness/)
     }
   end
@@ -42,11 +42,11 @@ describe 'icinga::passive_check', :type => :define do
     }}
 
     it {
-      should contain_file(file_path)
+      is_expected.to contain_file(file_path)
         .with_content(/check_dummy!1!"Freshness threshold exceeded"$/)
     }
     it {
-      should contain_file(file_path)
+      is_expected.to contain_file(file_path)
         .with_content(/^\s+check_freshness\s+1\n\s+freshness_threshold\s+300$/)
     }
   end

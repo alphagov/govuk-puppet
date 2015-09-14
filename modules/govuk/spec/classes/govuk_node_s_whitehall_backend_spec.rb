@@ -17,13 +17,13 @@ describe 'govuk::node::s_whitehall_backend', :type => :class do
   }
   context 'sync_mirror is true' do
     let(:params) {{ :sync_mirror => true }}
-    it { should contain_file('/var/lib/govuk_mirror').with(
+    it { is_expected.to contain_file('/var/lib/govuk_mirror').with(
       :ensure  => 'directory',
       :owner   => 'deploy',
       :group   => 'deploy',
       :mode    => '0770',
     )}
-    it { should contain_file('/var/lib/govuk_mirror/current').with(
+    it { is_expected.to contain_file('/var/lib/govuk_mirror/current').with(
       :ensure  => 'directory',
       :owner   => 'deploy',
       :group   => 'deploy',
@@ -33,7 +33,7 @@ describe 'govuk::node::s_whitehall_backend', :type => :class do
 
   context 'defaults' do
     let(:params) {{ }}
-    it { should_not contain_file('/var/lib/govuk_mirror') }
-    it { should_not contain_file('/var/lib/govuk_mirror/current') }
+    it { is_expected.not_to contain_file('/var/lib/govuk_mirror') }
+    it { is_expected.not_to contain_file('/var/lib/govuk_mirror/current') }
   end
 end

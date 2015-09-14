@@ -11,13 +11,13 @@ describe 'icinga::check_feature', :type => :define do
     "feature"   => "test_feature"
   }}
   it {
-    should contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
+    is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
       'check_feature_test_feature_urgent_checker.cfg')
-    should contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
+    is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
       'check_feature_test_feature_high_checker.cfg')
-    should contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
+    is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
       'check_feature_test_feature_normal_checker.cfg')
-    should contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
+    is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
       'check_feature_test_feature_low_checker.cfg')
   }
 end

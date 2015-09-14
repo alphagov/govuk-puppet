@@ -10,7 +10,7 @@ describe "users", :type => "class" do
       'users::pentest_usernames' => %w{ andre_the_giant }
     }}
 
-    it { should contain_govuk__user('andre_the_giant') }
+    it { is_expected.to contain_govuk__user('andre_the_giant') }
   end
 
   context 'on non-whitelisted node pentest user should not be created' do
@@ -20,7 +20,7 @@ describe "users", :type => "class" do
       'users::pentest_usernames' => %w{ andre_the_giant }
     }}
 
-    it { should_not contain_govuk__user('andre_the_giant') }
+    it { is_expected.not_to contain_govuk__user('andre_the_giant') }
   end
 end
 

@@ -19,12 +19,12 @@ describe 'govuk::node::s_cache', :type => :class do
 
   context 'by default' do
     it 'sets the varnish upstream port to the router' do
-      should contain_file('/etc/varnish/default.vcl').
+      is_expected.to contain_file('/etc/varnish/default.vcl').
         with_content(%r(.port = "3054";))
     end
 
     it 'configures varnish to strip cookies' do
-      should contain_file('/etc/varnish/default.vcl').
+      is_expected.to contain_file('/etc/varnish/default.vcl').
         with_content(%r(unset req.http.Cookie;))
     end
   end
@@ -33,12 +33,12 @@ describe 'govuk::node::s_cache', :type => :class do
     let(:params) { { enable_authenticating_proxy: true } }
 
     it 'sets the varnish upstream port to the authenticating_proxy' do
-      should contain_file('/etc/varnish/default.vcl').
+      is_expected.to contain_file('/etc/varnish/default.vcl').
         with_content(%r(.port = "3107";))
     end
 
     it 'configures varnish to NOT strip cookies' do
-      should contain_file('/etc/varnish/default.vcl').
+      is_expected.to contain_file('/etc/varnish/default.vcl').
         without_content(%r(unset req.http.Cookie;))
     end
   end

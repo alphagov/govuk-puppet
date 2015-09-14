@@ -27,7 +27,7 @@ describe 'backup::assets', :type => :class do
   describe 'jobs' do
     let(:params) { default_params }
 
-    it { should contain_backup__offsite__job('hungry').with(
+    it { is_expected.to contain_backup__offsite__job('hungry').with(
       :sources           => ['/srv/strawberry', '/srv/apple'],
       :destination       => 'rsync://backup.example.com//srv/backup',
       :hour              => '1',
@@ -35,7 +35,7 @@ describe 'backup::assets', :type => :class do
       :gpg_key_id        => '',
       :archive_directory => '/srv/.cache',
     )}
-    it { should contain_backup__offsite__job('caterpillar').with(
+    it { is_expected.to contain_backup__offsite__job('caterpillar').with(
       :sources           => '/srv/orange',
       :destination       => 'rsync://backup.example.com//srv/backup',
       :hour              => '2',
@@ -50,7 +50,7 @@ describe 'backup::assets', :type => :class do
       :dest_host_key => 'pickle',
     })}
 
-    it { should contain_sshkey('ice.cream').with_key('pickle') }
+    it { is_expected.to contain_sshkey('ice.cream').with_key('pickle') }
   end
 
   describe 'backup_private_key' do
@@ -58,7 +58,7 @@ describe 'backup::assets', :type => :class do
       :backup_private_key => 'slice of cherry pie',
     })}
 
-    it { should contain_file('/root/.ssh/id_rsa').with({
+    it { is_expected.to contain_file('/root/.ssh/id_rsa').with({
       :mode => '0600',
       :content => 'slice of cherry pie',
     })}

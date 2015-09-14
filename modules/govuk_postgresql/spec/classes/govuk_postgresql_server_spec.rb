@@ -12,7 +12,7 @@ describe 'govuk_postgresql::server', :type => :class do
         EOS
       }
 
-      it { should contain_class('govuk_postgresql::server') }
+      it { is_expected.to contain_class('govuk_postgresql::server') }
     end
 
     context 'primary sub-class is loaded' do
@@ -24,7 +24,7 @@ describe 'govuk_postgresql::server', :type => :class do
         EOS
       }
 
-      it { should contain_class('govuk_postgresql::server') }
+      it { is_expected.to contain_class('govuk_postgresql::server') }
     end
 
     context 'standby sub-class is loaded' do
@@ -36,12 +36,12 @@ describe 'govuk_postgresql::server', :type => :class do
         EOS
       }
 
-      it { should contain_class('govuk_postgresql::server') }
+      it { is_expected.to contain_class('govuk_postgresql::server') }
     end
 
     context 'no sub-classes are loaded' do
       it {
-        expect { should }.to raise_error(
+        expect { is_expected.to }.to raise_error(
           Puppet::Error, /^Class govuk_postgresql::server cannot be used directly/
         )
       }

@@ -8,7 +8,7 @@ describe "collectd::plugin::file_count", :type => :define do
   let(:params) {{ :directory => directory }}
 
   it {
-    should contain_collectd__plugin("file count: #{title}").with_content(<<-EOS
+    is_expected.to contain_collectd__plugin("file count: #{title}").with_content(<<-EOS
 <Plugin "filecount">
   <Directory "#{directory}">
     Instance "#{directory}"

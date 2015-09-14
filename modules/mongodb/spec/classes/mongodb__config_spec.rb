@@ -8,10 +8,10 @@ describe 'mongodb::config', :type => :class do
         :replicaset_name  => 'production',
       }}
 
-      it { should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/) }
-      it { should contain_file('/etc/mongodb.conf').with_content(/^profile = 1$/) }
-      it { should contain_file('/etc/mongodb.conf').without_content(/noprealloc|journal|nojournal/) }
-      it { should contain_file('/etc/mongodb.conf').without_content(/^oplogSize =/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/^profile = 1$/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').without_content(/noprealloc|journal|nojournal/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').without_content(/^oplogSize =/) }
     end
 
     context 'development => true' do
@@ -20,9 +20,9 @@ describe 'mongodb::config', :type => :class do
         :replicaset_name  => 'development',
       }}
 
-      it { should contain_file('/etc/mongodb.conf').with_content(/replSet = development$/) }
-      it { should contain_file('/etc/mongodb.conf').with_content(/^profile = 2$/) }
-      it { should contain_file('/etc/mongodb.conf').with_content(/noprealloc|journal|nojournal/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/replSet = development$/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/^profile = 2$/) }
+      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/noprealloc|journal|nojournal/) }
     end
   end
 end

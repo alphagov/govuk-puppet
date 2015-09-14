@@ -12,13 +12,13 @@ describe 'govuk_mysql::user', :type => :define do
       }}
 
       it {
-        should contain_mysql_user('root@localhost').with(
+        is_expected.to contain_mysql_user('root@localhost').with(
           :ensure        => 'present',
           :password_hash => 'abc'
         )
       }
       it {
-        should contain_mysql_grant('root@localhost/*.*').with(
+        is_expected.to contain_mysql_grant('root@localhost/*.*').with(
           :ensure     => 'present',
           :user       => 'root@localhost',
           :table      => '*.*',
@@ -35,8 +35,8 @@ describe 'govuk_mysql::user', :type => :define do
         :privileges    => ['SELECT'],
       }}
 
-      it { should contain_mysql_user('root@localhost').with_ensure('absent') }
-      it { should_not contain_mysql_grant('root@localhost/*.*').with_ensure('absent') }
+      it { is_expected.to contain_mysql_user('root@localhost').with_ensure('absent') }
+      it { is_expected.not_to contain_mysql_grant('root@localhost/*.*').with_ensure('absent') }
     end
   end
 
@@ -50,13 +50,13 @@ describe 'govuk_mysql::user', :type => :define do
     context 'does not contain host' do
       let(:title) { 'root' }
 
-      it { expect { should }.to raise_error(Puppet::Error, /validate_re/) }
+      it { expect { is_expected.to }.to raise_error(Puppet::Error, /validate_re/) }
     end
 
     context 'contains table' do
       let(:title) { 'root@localhost/*.*' }
 
-      it { expect { should }.to raise_error(Puppet::Error, /validate_re/) }
+      it { expect { is_expected.to }.to raise_error(Puppet::Error, /validate_re/) }
     end
   end
 end

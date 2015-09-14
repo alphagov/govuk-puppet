@@ -4,7 +4,7 @@ describe 'govuk::lvm', :type => :define do
   let(:title) { 'purple' }
 
   context 'with no params' do
-    it { expect { should contain_lvm__volume('purple') }.to raise_error(Puppet::Error, /Must pass pv/) }
+    it { expect { is_expected.to contain_lvm__volume('purple') }.to raise_error(Puppet::Error, /Must pass pv/) }
   end
 
   context 'required params' do
@@ -14,19 +14,19 @@ describe 'govuk::lvm', :type => :define do
     }}
 
     it {
-      should contain_filesystem('/dev/orange/purple').with(
+      is_expected.to contain_filesystem('/dev/orange/purple').with(
         :ensure => 'present',
         :fs_type => 'ext4',
       )
-      should contain_logical_volume('purple').with(
+      is_expected.to contain_logical_volume('purple').with(
         :ensure => 'present',
         :volume_group => 'orange',
       )
-      should contain_volume_group('orange').with(
+      is_expected.to contain_volume_group('orange').with(
         :ensure => 'present',
         :physical_volumes => '/dev/black',
       )
-      should contain_physical_volume('/dev/black').with(
+      is_expected.to contain_physical_volume('/dev/black').with(
         :ensure => 'present',
       )
     }
@@ -39,22 +39,22 @@ describe 'govuk::lvm', :type => :define do
     }}
 
     it {
-      should contain_filesystem('/dev/orange/purple').with(
+      is_expected.to contain_filesystem('/dev/orange/purple').with(
         :ensure => 'present',
         :fs_type => 'ext4',
       )
-      should contain_logical_volume('purple').with(
+      is_expected.to contain_logical_volume('purple').with(
         :ensure => 'present',
         :volume_group => 'orange',
       )
-      should contain_volume_group('orange').with(
+      is_expected.to contain_volume_group('orange').with(
         :ensure => 'present',
         :physical_volumes => ['/dev/black','/dev/blue'],
       )
-      should contain_physical_volume('/dev/black').with(
+      is_expected.to contain_physical_volume('/dev/black').with(
         :ensure => 'present',
       )
-      should contain_physical_volume('/dev/blue').with(
+      is_expected.to contain_physical_volume('/dev/blue').with(
         :ensure => 'present',
       )
     }
@@ -69,7 +69,7 @@ describe 'govuk::lvm', :type => :define do
       :'govuk::mount::no_op' => true,
     }}
 
-    it { should_not contain_ext4mount('purple') }
+    it { is_expected.not_to contain_ext4mount('purple') }
   end
 
   context 'custom params' do
@@ -81,19 +81,19 @@ describe 'govuk::lvm', :type => :define do
     }}
 
     it {
-      should contain_filesystem('/dev/orange/purple').with(
+      is_expected.to contain_filesystem('/dev/orange/purple').with(
         :ensure => 'absent',
         :fs_type => 'zfs',
       )
-      should contain_logical_volume('purple').with(
+      is_expected.to contain_logical_volume('purple').with(
         :ensure => 'absent',
         :volume_group => 'orange',
       )
-      should contain_volume_group('orange').with(
+      is_expected.to contain_volume_group('orange').with(
         :ensure => 'absent',
         :physical_volumes => '/dev/black',
       )
-      should contain_physical_volume('/dev/black').with(
+      is_expected.to contain_physical_volume('/dev/black').with(
         :ensure => 'absent',
       )
     }

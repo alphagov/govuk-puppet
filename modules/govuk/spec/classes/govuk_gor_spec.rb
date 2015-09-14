@@ -11,8 +11,8 @@ describe 'govuk::gor', :type => :class do
       'args' => args_default,
     }}
 
-    it { should contain_class('gor').with_service_ensure('stopped') }
-    it { should contain_govuk__logstream('gor_upstart_log').with_ensure('absent') }
+    it { is_expected.to contain_class('gor').with_service_ensure('stopped') }
+    it { is_expected.to contain_govuk__logstream('gor_upstart_log').with_ensure('absent') }
   end
 
   context '#enable' do
@@ -21,10 +21,10 @@ describe 'govuk::gor', :type => :class do
       :enable => true,
     }}
 
-    it { should contain_govuk__logstream('gor_upstart_log').with_ensure('present') }
+    it { is_expected.to contain_govuk__logstream('gor_upstart_log').with_ensure('present') }
 
     it {
-      should contain_class('gor').with(
+      is_expected.to contain_class('gor').with(
         :service_ensure => 'running',
         :args           => args_default
       )
@@ -40,10 +40,10 @@ describe 'govuk::gor', :type => :class do
       'data_sync_in_progress' => true,
     }}
 
-    it { should contain_govuk__logstream('gor_upstart_log').with_ensure('absent') }
+    it { is_expected.to contain_govuk__logstream('gor_upstart_log').with_ensure('absent') }
 
     it {
-      should contain_class('gor').with(
+      is_expected.to contain_class('gor').with(
         :service_ensure => 'stopped',
       )
     }
@@ -58,10 +58,10 @@ describe 'govuk::gor', :type => :class do
       'data_sync_in_progress' => false,
     }}
 
-    it { should contain_govuk__logstream('gor_upstart_log').with_ensure('present') }
+    it { is_expected.to contain_govuk__logstream('gor_upstart_log').with_ensure('present') }
 
     it {
-      should contain_class('gor').with(
+      is_expected.to contain_class('gor').with(
         :service_ensure => 'running',
       )
     }
