@@ -58,14 +58,14 @@ describe 'govuk_elasticsearch', :type => :class do
     it "should not be added to 0.90.12" do
       params[:version] = '0.90.12'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]).not_to have_key('action.destructive_requires_name')
     end
 
     it "should be added to 1.4.4" do
       params[:version] = '1.4.4'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]).to have_key('action.destructive_requires_name')
     end
   end
@@ -76,14 +76,14 @@ describe 'govuk_elasticsearch', :type => :class do
     it "should be added to 0.90.12" do
       params[:version] = '0.90.12'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]).to have_key('action.disable_delete_all_indices')
     end
 
     it "should not be added to 1.4.4" do
      params[:version] = '1.4.4'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]).not_to have_key('action.disable_delete_all_indices')
     end
   end
@@ -94,21 +94,21 @@ describe 'govuk_elasticsearch', :type => :class do
     it "should not be added to 0.90" do
       params[:version] = '0.90.3'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
     end
 
     it "should not be added for 1.4.2" do
       params[:version] = '1.4.2'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
     end
 
     it "should be added for 1.4.3" do
       params[:version] = '1.4.3'
 
-      instance = subject.resource('elasticsearch::instance', facts[:fqdn])
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]['script.groovy.sandbox.enabled']).to eq(true)
     end
   end

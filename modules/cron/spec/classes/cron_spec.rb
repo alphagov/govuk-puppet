@@ -44,17 +44,17 @@ describe 'cron', :type => :class do
       params[:weekly_dow] = 8
 
       expect {
-        subject
+        subject.call
       }.to raise_error(Puppet::Error, /Expected 8 to be smaller or equal to 7/)
 
       params[:weekly_dow] = -1
       expect {
-        subject
+        subject.call
       }.to raise_error(Puppet::Error, /Expected -1 to be greater or equal to 0/)
 
       params[:weekly_dow] = "foo"
       expect {
-        subject
+        subject.call
       }.to raise_error(Puppet::Error, /Expected first argument to be an Integer/)
     end
   end

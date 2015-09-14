@@ -6,7 +6,7 @@ describe "router::assets_origin", :type => :class do
     let(:asset_routes) { YAML.load_file(File.expand_path("../../../../../hieradata/common.yaml", __FILE__))['router::assets_origin::asset_routes'] }
 
     let(:all_hostnames) {
-      subject.resources.each_with_object([]) do |resource, hostnames|
+      subject.call.resources.each_with_object([]) do |resource, hostnames|
         next unless resource.type == "Host"
         hostnames << resource.title
         hostnames << resource[:host_aliases]

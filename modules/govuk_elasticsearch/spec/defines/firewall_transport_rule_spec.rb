@@ -52,7 +52,7 @@ describe 'govuk_elasticsearch::firewall_transport_rule', :type => :define do
       @title = "non-existent"
 
       expect {
-        subject
+        subject.call
       }.to raise_error(Puppet::Error, /Could not find govuk::host instance for non-existent/)
     end
 
@@ -65,7 +65,7 @@ describe 'govuk_elasticsearch::firewall_transport_rule', :type => :define do
         @title = title
 
         expect {
-          subject
+          subject.call
         }.to raise_error(Puppet::Error, /is not in the form hostname:port/)
       end
     end

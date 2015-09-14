@@ -60,7 +60,7 @@ username_whitelist = %w{
 user_list.each do |username|
   describe "users::#{username}", :type => "class" do
     it 'should have a username of the correct form' do
-      user = subject.resource('govuk::user', username)
+      user = subject.call.resource('govuk::user', username)
       expect(user).not_to be_nil
 
       unless username_whitelist.include?(username)
@@ -73,7 +73,7 @@ user_list.each do |username|
     end
 
     it 'should have a strong SSH key' do
-      user = subject.resource('govuk::user', username)
+      user = subject.call.resource('govuk::user', username)
       ssh_keys = user[:ssh_key]
 
       # Support for multiple SSH keys

@@ -98,7 +98,7 @@ GEM
     rspec-mocks (3.3.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
-    rspec-puppet (1.0.1)
+    rspec-puppet (2.2.0)
       rspec
     rspec-support (3.3.0)
     rsync (1.0.9)
@@ -131,3 +131,6 @@ DEPENDENCIES
   rspec-puppet
   sshkey (= 1.7.0)
   webmock (~> 1.20.0)
+
+BUNDLED WITH
+   1.10.5
