@@ -66,4 +66,10 @@ class govuk::node::s_asset_slave (
     minute  => '*/10',
     command => '/usr/bin/setlock -n /var/tmp/asset-manager.lock /usr/bin/rsync -a --delete /data/master-uploads/asset-manager/ /mnt/uploads/asset-manager',
   }
+
+  @@icinga::passive_check { "sync_assets_from_master_on_${::hostname}":
+    service_description => 'Local assets sync from master to slave',
+    host_name           => $::fqdn,
+    freshness_threshold => ($assets_sync_frequency_minutes * 2) * 60,
+  }
 }
