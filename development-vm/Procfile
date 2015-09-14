@@ -55,7 +55,7 @@ router-api:            govuk_setenv router-api            ./run_in.sh ../router-
 # content_planner used to use 3058
 # alphagov/screenshot-as-a-service uses 3059
 #                                  as well as 3060
-business_support_api:  govuk_setenv business-support-api  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
+business-support-api:  govuk_setenv business-support-api  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
 finder-api:            govuk_setenv finder-api            ./run_in.sh ../finder-api     bundle exec mr-sparkle --force-polling -- -p 3063
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../specialist-publisher bundle exec foreman start

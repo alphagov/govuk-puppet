@@ -4,8 +4,8 @@
 process :'authenticating-proxy' => [:'government-frontend']
 process :asset_manager
 process :bouncer
-process :business_support_api => [:contentapi]
-process :businesssupportfinder => [:static, :contentapi, :business_support_api]
+process :'business-support-api' => [:contentapi]
+process :businesssupportfinder => [:static, :contentapi, :'business-support-api']
 process :calculators => [:static, :contentapi]
 process :calendars => [:static, :contentapi]
 process :collections => [:static, :'content-store', :rummager]
