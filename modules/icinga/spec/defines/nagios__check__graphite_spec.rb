@@ -133,7 +133,7 @@ describe 'icinga::check::graphite', :type => :define do
         :ensure    => 'false',
       }}
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+      it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
     
     context 'ensure => true' do
@@ -149,7 +149,7 @@ describe 'icinga::check::graphite', :type => :define do
         :ensure    => 'true',
       }}
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+      it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
   end
 end

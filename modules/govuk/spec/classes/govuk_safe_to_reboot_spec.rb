@@ -14,7 +14,7 @@ describe 'govuk::safe_to_reboot', :type => :class do
       }}
 
       it 'should fail to compile' do
-        expect { is_expected.to }.to raise_error(Puppet::Error, /Machine is flagged as unsafe to reboot, but no reason supplied/)
+        is_expected.to raise_error(Puppet::Error, /Machine is flagged as unsafe to reboot, but no reason supplied/)
       end
     end
 
@@ -33,7 +33,7 @@ describe 'govuk::safe_to_reboot', :type => :class do
         :reason     => 'bad things will happen'
       }}
       it 'should fail to compile' do
-        expect { is_expected.to }.to raise_error(Puppet::Error, /Invalid value for govuk::safe_to_reboot::can_reboot: never/)
+        is_expected.to raise_error(Puppet::Error, /Invalid value for govuk::safe_to_reboot::can_reboot: never/)
       end
     end
 end

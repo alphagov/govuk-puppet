@@ -10,9 +10,7 @@ describe 'nginx::config::site', :type => :define do
     end
 
     it do
-      expect {
-        is_expected.to 
-      }.to raise_error(Puppet::Error, /You must supply one of \$content or \$source/)
+      is_expected.to raise_error(Puppet::Error, /You must supply one of \$content or \$source/)
     end
   end
 
@@ -39,9 +37,7 @@ describe 'nginx::config::site', :type => :define do
       end
 
       it do
-        expect {
-          is_expected.to
-        }.to raise_error(Puppet::Error, /Invalid ensure value/)
+        is_expected.to raise_error(Puppet::Error, /Invalid ensure value/)
       end
     end
     
@@ -54,9 +50,7 @@ describe 'nginx::config::site', :type => :define do
       end
 
       it do
-        expect {
-          is_expected.to
-        }.to raise_error(Puppet::Error, /Invalid ensure value/)
+        is_expected.to raise_error(Puppet::Error, /Invalid ensure value/)
       end
     end
   end

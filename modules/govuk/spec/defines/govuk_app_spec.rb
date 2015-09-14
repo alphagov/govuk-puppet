@@ -45,7 +45,7 @@ describe 'govuk::app', :type => :define do
       :port     => 123,
     }}
 
-    it { expect { is_expected.to }.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
+    it { is_expected.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
   end
 
   describe 'app_type => bare, which logs JSON to STDERR' do
@@ -86,7 +86,7 @@ describe 'govuk::app', :type => :define do
     end
 
     it "should fail to compile" do
-      expect { is_expected.to }.to raise_error(Puppet::Error, /Cannot hide/)
+      is_expected.to raise_error(Puppet::Error, /Cannot hide/)
     end
   end
 
@@ -110,7 +110,7 @@ describe 'govuk::app', :type => :define do
         :ensure => 'true',
       }}
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+      it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
 
     context 'ensure => false' do
@@ -120,7 +120,7 @@ describe 'govuk::app', :type => :define do
         :ensure => 'false',
       }}
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+      it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
   end
 end

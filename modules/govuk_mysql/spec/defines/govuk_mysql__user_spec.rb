@@ -50,13 +50,13 @@ describe 'govuk_mysql::user', :type => :define do
     context 'does not contain host' do
       let(:title) { 'root' }
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /validate_re/) }
+      it { is_expected.to raise_error(Puppet::Error, /validate_re/) }
     end
 
     context 'contains table' do
       let(:title) { 'root@localhost/*.*' }
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /validate_re/) }
+      it { is_expected.to raise_error(Puppet::Error, /validate_re/) }
     end
   end
 end

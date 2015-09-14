@@ -9,7 +9,7 @@ describe 'govuk_elasticsearch', :type => :class do
   describe '#version' do
 
     context "when not set" do
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /Must pass version/) }
+      it { is_expected.to raise_error(Puppet::Error, /Must pass version/) }
     end
 
     context "when set to 'present'" do
@@ -17,7 +17,7 @@ describe 'govuk_elasticsearch', :type => :class do
         :version => 'present',
       }}
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /must be in the form x\.y\.z/) }
+      it { is_expected.to raise_error(Puppet::Error, /must be in the form x\.y\.z/) }
     end
   end
 

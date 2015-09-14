@@ -21,7 +21,7 @@ describe 'hosts', :type => :class do
     let(:node) { 'foo-bar-wibble' }
 
     it 'should abort catalog so as not to purge hosts entry for self' do
-      expect { is_expected.to }.to raise_error(Puppet::Error, /Unable to find Govuk::Host\[foo-bar-wibble\]/)
+      is_expected.to raise_error(Puppet::Error, /Unable to find Govuk::Host\[foo-bar-wibble\]/)
     end
   end
 end

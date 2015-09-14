@@ -68,7 +68,7 @@ describe 'govuk_crawler', :type => :class do
          })
        }
 
-       it { expect { is_expected.to }.to raise_error(Puppet::Error, /is not an Array/) }
+       it { is_expected.to raise_error(Puppet::Error, /is not an Array/) }
     end
 
      context "array of items" do
@@ -93,7 +93,7 @@ describe 'govuk_crawler', :type => :class do
         })
       }
 
-      it { expect { is_expected.to }.to raise_error(Puppet::Error, /is not a Hash/) }
+      it { is_expected.to raise_error(Puppet::Error, /is not a Hash/) }
     end
 
     context "hash of keys" do

@@ -46,7 +46,7 @@ describe 'backup::offsite::job', :type => :define do
       })}
 
       it {
-        expect { is_expected.to }.to raise_error(Puppet::Error, /validate_re/)
+        is_expected.to raise_error(Puppet::Error, /validate_re/)
       }
     end
   end

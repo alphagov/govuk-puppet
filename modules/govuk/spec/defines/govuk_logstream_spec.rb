@@ -35,7 +35,7 @@ describe 'govuk::logstream', :type => :define do
         :ensure  => 'true',
       } }
       it 'should fail validation' do
-        expect {is_expected.to}.to raise_exception
+        is_expected.to raise_exception
       end
     end
     context 'ensure => false' do
@@ -44,7 +44,7 @@ describe 'govuk::logstream', :type => :define do
         :ensure  => 'false',
       } }
       it 'should fail validation' do
-        expect {is_expected.to}.to raise_exception
+        is_expected.to raise_exception
       end
     end
   end

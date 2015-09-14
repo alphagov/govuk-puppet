@@ -22,9 +22,7 @@ describe 'collectd::package', :type => :class do
     let(:facts) {{ "lsbdistcodename" => "utopic" }}
 
     it do
-      expect {
-        is_expected.to
-      }.to raise_error(Puppet::Error, /Only precise and trusty are supported/)
+      is_expected.to raise_error(Puppet::Error, /Only precise and trusty are supported/)
     end
   end
 end
