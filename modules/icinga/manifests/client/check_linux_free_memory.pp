@@ -19,5 +19,6 @@ class icinga::client::check_linux_free_memory {
     service_description => 'percentage of memory free',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(free-memory-warning-on-backend),
+    linked_metric       => "${::fqdn_metrics}.memory.memory-free",
   }
 }
