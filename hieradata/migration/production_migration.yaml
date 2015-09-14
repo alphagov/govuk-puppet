@@ -26,6 +26,7 @@ backup::assets::jobs:
     user: 'root'
     gpg_key_id: *offsite_gpg_key
 
+backup::offsite::enable: true
 backup::offsite::dest_host: *offsite_host
 backup::offsite::dest_host_key: *offsite_ssh_host_key
 backup::offsite::jobs:
