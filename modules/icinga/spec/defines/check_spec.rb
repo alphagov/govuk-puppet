@@ -15,7 +15,7 @@ describe 'icinga::check', :type => :define do
     let(:title) { 'heartbeat' }
     let(:params) { param_defaults }
 
-    it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/heartbeat.cfg') }
+    it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/heartbeat.cfg') }
   end
 
   context "should add max_check_attempts when attempts_before_hard_state passed in" do
@@ -24,7 +24,7 @@ describe 'icinga::check', :type => :define do
       :attempts_before_hard_state => "1",
     })}
 
-    it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/test_max_check_attempts.cfg').
+    it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/test_max_check_attempts.cfg').
          with_content(/max_check_attempts\s+1/)
     }
   end
@@ -35,7 +35,7 @@ describe 'icinga::check', :type => :define do
       :service_description => "has default service as regular",
     })}
 
-    it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/default_service.cfg').
+    it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/default_service.cfg').
          with_content(/use\s+govuk_regular_service/)
     }
   end
@@ -46,7 +46,7 @@ describe 'icinga::check', :type => :define do
       :contact_groups => "wildlings",
     })}
 
-    it { should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/default_service.cfg').
+    it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/default_service.cfg').
          with_content(/contact_groups\s+\+wildlings/)
     }
 
@@ -60,7 +60,7 @@ describe 'icinga::check', :type => :define do
         let(:params) { param_defaults }
 
         it {
-          should_not contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/bonus.cfg').
+          is_expected.not_to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/bonus.cfg').
             with_content(/#{param}/)
         }
       end
@@ -71,7 +71,7 @@ describe 'icinga::check', :type => :define do
         })}
 
         it {
-          should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/bonus.cfg').
+          is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/bonus.cfg').
             with_content(/^\s*#{param}\s+https:\/\/url\.example\.com\/$/)
         }
       end
@@ -87,7 +87,7 @@ describe 'icinga::check', :type => :define do
     })}
 
     it {
-      should contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/linking_to_metrics.cfg').
+      is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/linking_to_metrics.cfg').
         with_content(/^\s*action_url\s+https:\/\/graphite.gov.uk\/render\/\?width=\d+&height=\d+&target=stats.cache-1.nginx_logs.www-origin.http_200$/)
     }
   end

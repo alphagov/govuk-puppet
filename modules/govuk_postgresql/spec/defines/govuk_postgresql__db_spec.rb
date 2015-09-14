@@ -16,7 +16,7 @@ describe 'govuk_postgresql::db', :type => :define do
           :password => 'gibbon'
         }}
         it {
-            should contain_postgresql__server__db('giraffe').with(
+            is_expected.to contain_postgresql__server__db('giraffe').with(
                 :user     => 'monkey',
                 :encoding => 'UTF8',
                 :owner    => 'monkey',
@@ -24,7 +24,7 @@ describe 'govuk_postgresql::db', :type => :define do
             )
         }
         it {
-            should_not contain_postgresql__server__pg_hba_rule(
+            is_expected.not_to contain_postgresql__server__pg_hba_rule(
                 "Allow access for monkey role to giraffe database from backend network"
             )
         }
@@ -37,7 +37,7 @@ describe 'govuk_postgresql::db', :type => :define do
           :owner    => 'vole'
         }}
         it {
-            should contain_postgresql__server__db('giraffe').with(
+            is_expected.to contain_postgresql__server__db('giraffe').with(
                 :user     => 'monkey',
                 :owner    => 'vole',
             )
@@ -51,7 +51,7 @@ describe 'govuk_postgresql::db', :type => :define do
           :encoding => 'ROT13'
         }}
         it {
-            should contain_postgresql__server__db('giraffe').with(
+            is_expected.to contain_postgresql__server__db('giraffe').with(
                 :encoding     => 'ROT13',
             )
         }
@@ -65,7 +65,7 @@ describe 'govuk_postgresql::db', :type => :define do
           :backend_ip_range        => '10.0.0.0/8',
         }}
         it {
-            should contain_postgresql__server__pg_hba_rule(
+            is_expected.to contain_postgresql__server__pg_hba_rule(
                 'Allow access for monkey role to giraffe database from backend network'
             ).with_type('host')
         }
@@ -80,7 +80,7 @@ describe 'govuk_postgresql::db', :type => :define do
           :ssl_only                => true,
         }}
         it {
-            should contain_postgresql__server__pg_hba_rule(
+            is_expected.to contain_postgresql__server__pg_hba_rule(
                 'Allow access for monkey role to giraffe database from backend network'
             ).with_type('hostssl')
         }

@@ -5,7 +5,7 @@ describe 'icinga::pagerduty_contact', :type => :define do
   let(:params) {{
     :pagerduty_servicekey => '1234554321',
   }}
-  it { should contain_file('/etc/icinga/conf.d/contact_pagerduty_24x7.cfg').
+  it { is_expected.to contain_file('/etc/icinga/conf.d/contact_pagerduty_24x7.cfg').
     with_content(/command_name\s+notify-host-by-pagerduty/).
     with_content(/command_line\s+\/usr\/local\/bin\/pagerduty_icinga.pl\senqueue\s-f\spd_nagios_object=host/).
     with_content(/command_name\s+notify-service-by-pagerduty/).

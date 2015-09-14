@@ -7,7 +7,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with no params' do
       it do
         expect {
-          should contain_file('/var/apps/giraffe')
+          is_expected.to contain_file('/var/apps/giraffe')
         }.to raise_error(Puppet::Error, /Must pass app_type/)
       end
     end
@@ -23,25 +23,25 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_file('/etc/init/giraffe.conf')
-        should contain_nginx__config__vhost__proxy('giraffe.foo.bar.baz')
+        is_expected.to contain_file('/etc/init/giraffe.conf')
+        is_expected.to contain_nginx__config__vhost__proxy('giraffe.foo.bar.baz')
       end
 
       it do
-        should contain_collectd__plugin__process('app-giraffe').with(
+        is_expected.to contain_collectd__plugin__process('app-giraffe').with(
           :regex => /^unicorn .* -P \/var\/run\/giraffe\/app\\.pid$/
         )
       end
 
       it do
-        should_not contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT')
+        is_expected.not_to contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT')
       end
 
       it do
-        should_not contain_file('/etc/init/giraffe.conf').with(
+        is_expected.not_to contain_file('/etc/init/giraffe.conf').with(
           :content => /post-start script/
         )
-        should contain_file('/etc/init/giraffe.conf').with(:content => /pre-start script/ )
+        is_expected.to contain_file('/etc/init/giraffe.conf').with(:content => /pre-start script/ )
       end
     end
 
@@ -56,7 +56,7 @@ describe 'govuk::app::config', :type => :define do
         }
       end
 
-      it { should contain_nginx__config__vhost__proxy('giraffe.example.com').with_aliases(['foo.example.com','bar.example.com']) }
+      it { is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com').with_aliases(['foo.example.com','bar.example.com']) }
     end
 
     context 'without vhost' do
@@ -70,7 +70,7 @@ describe 'govuk::app::config', :type => :define do
         }
       end
 
-      it { should_not contain_nginx__config__vhost__proxy('giraffe.example.com') }
+      it { is_expected.not_to contain_nginx__config__vhost__proxy('giraffe.example.com') }
     end
 
     context 'with intercept_errors true' do
@@ -85,7 +85,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com')
+        is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com')
           .with_intercept_errors(true)
       end
     end
@@ -102,7 +102,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT').with(
+        is_expected.to contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT').with(
           :varname => 'UNICORN_HERDER_TIMEOUT',
           :value   => 60
         )
@@ -119,14 +119,14 @@ describe 'govuk::app::config', :type => :define do
       }}
 
       it do
-        should contain_govuk__app__envvar('giraffe-GOVUK_APP_CMD').with(
+        is_expected.to contain_govuk__app__envvar('giraffe-GOVUK_APP_CMD').with(
           :varname => 'GOVUK_APP_CMD',
           :value   => './launch_zoo'
         )
       end
 
       it do
-        should contain_collectd__plugin__process('app-giraffe').with(
+        is_expected.to contain_collectd__plugin__process('app-giraffe').with(
           :regex => '^\\./launch_zoo$'
         )
       end
@@ -144,7 +144,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_file('/etc/init/giraffe.conf').with(:content => %r{post-start script\s*\n\s*/bin/true\s*\n\s*end script})
+        is_expected.to contain_file('/etc/init/giraffe.conf').with(:content => %r{post-start script\s*\n\s*/bin/true\s*\n\s*end script})
       end
     end
 
@@ -160,7 +160,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/})
+        is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/})
       end
     end
 
@@ -177,7 +177,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /giraffe_assets/})
+        is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /giraffe_assets/})
       end
     end
 
@@ -194,7 +194,7 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/.*\n\nsome_extra_config}m)
+        is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com').with(:extra_config => %r{location \^~ /assets/.*\n\nsome_extra_config}m)
       end
     end
 
@@ -216,7 +216,7 @@ describe 'govuk::app::config', :type => :define do
       }}
 
       it "should set the upstart job to manual" do
-        should contain_file('/etc/init/giraffe.conf').with(
+        is_expected.to contain_file('/etc/init/giraffe.conf').with(
           # 'manual' stanza has to come after 'start on'
           :content => /start on.*^manual/m
         )
@@ -238,12 +238,12 @@ describe 'govuk::app::config', :type => :define do
       end
 
       it do
-        should contain_file('/etc/init/big.giraffe.conf')
-        should contain_nginx__config__vhost__proxy('big.giraffe.foo.bar.baz')
+        is_expected.to contain_file('/etc/init/big.giraffe.conf')
+        is_expected.to contain_nginx__config__vhost__proxy('big.giraffe.foo.bar.baz')
       end
 
       it do
-        should contain_collectd__plugin__process('app-big_giraffe')
+        is_expected.to contain_collectd__plugin__process('app-big_giraffe')
       end
     end
   end

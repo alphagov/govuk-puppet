@@ -26,7 +26,7 @@ describe 'backup::offsite', :type => :class do
   describe 'jobs' do
     let(:params) { default_params }
 
-    it { should contain_backup__offsite__job('hungry').with(
+    it { is_expected.to contain_backup__offsite__job('hungry').with(
       :archive_directory => '/foo/bar',
       :sources           => ['/srv/strawberry', '/srv/apple'],
       :destination       => 'rsync://backup.example.com//srv/backup',
@@ -34,7 +34,7 @@ describe 'backup::offsite', :type => :class do
       :minute            => '0',
       :gpg_key_id        => '',
     )}
-    it { should contain_backup__offsite__job('caterpillar').with(
+    it { is_expected.to contain_backup__offsite__job('caterpillar').with(
       :archive_directory => '/foo/bar',
       :sources           => '/srv/orange',
       :destination       => 'rsync://backup.example.com//srv/backup',
@@ -47,10 +47,10 @@ describe 'backup::offsite', :type => :class do
     context 'false (default)' do
       let(:params) { default_params }
 
-      it { should contain_backup__offsite__job('hungry').with(
+      it { is_expected.to contain_backup__offsite__job('hungry').with(
         :ensure => 'absent',
       )}
-      it { should contain_backup__offsite__job('caterpillar').with(
+      it { is_expected.to contain_backup__offsite__job('caterpillar').with(
         :ensure => 'absent',
       )}
     end
@@ -60,10 +60,10 @@ describe 'backup::offsite', :type => :class do
         :enable => true,
       })}
 
-      it { should contain_backup__offsite__job('hungry').with(
+      it { is_expected.to contain_backup__offsite__job('hungry').with(
         :ensure => 'present',
       )}
-      it { should contain_backup__offsite__job('caterpillar').with(
+      it { is_expected.to contain_backup__offsite__job('caterpillar').with(
         :ensure => 'present',
       )}
     end
@@ -76,13 +76,13 @@ describe 'backup::offsite', :type => :class do
     })}
 
     it {
-      should contain_sshkey('ice.cream').with_key('pickle')
+      is_expected.to contain_sshkey('ice.cream').with_key('pickle')
     }
 
     it {
       # Leaky abstraction? We need to know that govuk::user creates the
       # parent directory for our file.
-      should contain_file('/home/govuk-backup/.ssh').with_ensure('directory')
+      is_expected.to contain_file('/home/govuk-backup/.ssh').with_ensure('directory')
     }
   end
 end

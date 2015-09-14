@@ -5,17 +5,17 @@ describe 'puppet::master', :type => :class do
   let(:facts) {{ :concat_basedir => '/var/lib/puppet/concat/'}}
 
   it do
-    should contain_file('/etc/init/puppetmaster.conf').
+    is_expected.to contain_file('/etc/init/puppetmaster.conf').
       with_content(/unicornherder -u unicorn -p \$PIDFILE -- -p 9090 -c \/etc\/puppet\/unicorn.conf/)
-    should contain_service('puppetmaster').with_provider('upstart').with_ensure('running')
+    is_expected.to contain_service('puppetmaster').with_provider('upstart').with_ensure('running')
   end
 
-  it { should contain_class('puppetdb') }
-  it { should contain_class('puppet::master::nginx') }
+  it { is_expected.to contain_class('puppetdb') }
+  it { is_expected.to contain_class('puppet::master::nginx') }
 
   it do
-    should contain_class('puppet')
-    should contain_class('puppet::master::config')
-    should contain_file('/etc/puppet/config.ru')
+    is_expected.to contain_class('puppet')
+    is_expected.to contain_class('puppet::master::config')
+    is_expected.to contain_file('/etc/puppet/config.ru')
   end
 end

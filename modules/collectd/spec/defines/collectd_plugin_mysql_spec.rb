@@ -13,9 +13,9 @@ EOS
       :master => true,
     }}
 
-    it { should contain_collectd__plugin('mysql').with_content(/^\s+MasterStats true$/) }
-    it { should_not contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
-    it { should contain_govuk_mysql__user('collectd@localhost') }
+    it { is_expected.to contain_collectd__plugin('mysql').with_content(/^\s+MasterStats true$/) }
+    it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
+    it { is_expected.to contain_govuk_mysql__user('collectd@localhost') }
   end
 
   context 'when slave' do
@@ -23,17 +23,17 @@ EOS
       :slave => true,
     }}
 
-    it { should_not contain_collectd__plugin('mysql').with_content(/MasterStats/) }
-    it { should contain_collectd__plugin('mysql').with_content(/^\s+SlaveStats true$/) }
-    it { should_not contain_govuk_mysql__user('collectd@localhost') }
+    it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/MasterStats/) }
+    it { is_expected.to contain_collectd__plugin('mysql').with_content(/^\s+SlaveStats true$/) }
+    it { is_expected.not_to contain_govuk_mysql__user('collectd@localhost') }
   end
 
   context 'when standalone server' do
     let(:params) {{ }}
 
-    it { should_not contain_collectd__plugin('mysql').with_content(/MasterStats/) }
-    it { should_not contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
-    it { should contain_govuk_mysql__user('collectd@localhost') }
+    it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/MasterStats/) }
+    it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
+    it { is_expected.to contain_govuk_mysql__user('collectd@localhost') }
   end
 
   context 'when master and slave' do
@@ -44,7 +44,7 @@ EOS
 
     it do
       expect {
-        should contain_collectd__plugin('mysql')
+        is_expected.to contain_collectd__plugin('mysql')
       }.to raise_error(Puppet::Error, /master and slave are mutually exclusive options/)
     end
   end

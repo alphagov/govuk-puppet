@@ -12,7 +12,7 @@ describe 'nginx::config', :type => :class do
       :server_names_hash_max_size => '1024'
     }) }
 
-    it { should contain_file(file_path).with_content(/server_names_hash_max_size 1024;/) }
+    it { is_expected.to contain_file(file_path).with_content(/server_names_hash_max_size 1024;/) }
   end
 
   describe 'denied_ip_addresses' do
@@ -20,7 +20,7 @@ describe 'nginx::config', :type => :class do
       let(:params) { default_params.merge({ 
         :denied_ip_addresses => '127.0.0.1' 
       })}
-      it { should contain_file('/etc/nginx/blockips.conf')
+      it { is_expected.to contain_file('/etc/nginx/blockips.conf')
         .with_content(<<EOS
 deny 127.0.0.1;
 EOS
@@ -31,7 +31,7 @@ EOS
       let(:params) { default_params.merge({ 
         :denied_ip_addresses => [ '127.0.0.1', '127.0.0.2' ] 
       })}
-      it { should contain_file('/etc/nginx/blockips.conf')
+      it { is_expected.to contain_file('/etc/nginx/blockips.conf')
         .with_content(<<EOS
 deny 127.0.0.1;
 deny 127.0.0.2;

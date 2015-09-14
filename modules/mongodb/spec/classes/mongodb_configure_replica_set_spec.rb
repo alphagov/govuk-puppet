@@ -8,7 +8,7 @@ describe 'mongodb::configure_replica_set', :type => :class do
     }}
 
     it {
-      should contain_file('/etc/mongodb/configure-replica-set.js').with_content(
+      is_expected.to contain_file('/etc/mongodb/configure-replica-set.js').with_content(
         /_id: "production"/)
     }
   end
@@ -20,7 +20,7 @@ describe 'mongodb::configure_replica_set', :type => :class do
     }}
 
     it {
-      should contain_file('/etc/mongodb/configure-replica-set.js').with_content(
+      is_expected.to contain_file('/etc/mongodb/configure-replica-set.js').with_content(
         /_id: "development"/)
     }
   end

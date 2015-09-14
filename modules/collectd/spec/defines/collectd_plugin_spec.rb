@@ -6,7 +6,7 @@ describe 'collectd::plugin', :type => :define do
 
   context 'source param' do
     let(:params) {{ :source => 'puppet:///donkey' }}
-    it { should contain_file('/etc/collectd/conf.d/giraffe.conf').with(
+    it { is_expected.to contain_file('/etc/collectd/conf.d/giraffe.conf').with(
       :source  => 'puppet:///donkey',
       :content => nil,
     )}
@@ -14,7 +14,7 @@ describe 'collectd::plugin', :type => :define do
 
   context 'content param' do
     let(:params) {{ :content => 'donkey' }}
-    it { should contain_file('/etc/collectd/conf.d/giraffe.conf').with(
+    it { is_expected.to contain_file('/etc/collectd/conf.d/giraffe.conf').with(
       :source  => nil,
       :content => 'donkey',
     )}
@@ -22,7 +22,7 @@ describe 'collectd::plugin', :type => :define do
 
   context 'no params' do
     let(:params) {{}}
-    it { should contain_file('/etc/collectd/conf.d/giraffe.conf').with(
+    it { is_expected.to contain_file('/etc/collectd/conf.d/giraffe.conf').with(
       :source  => nil,
       :content => "LoadPlugin giraffe\n",
     )}
@@ -30,6 +30,6 @@ describe 'collectd::plugin', :type => :define do
 
   context 'prefix => 00-' do
     let(:params) {{ :prefix => '00-' }}
-    it { should contain_file('/etc/collectd/conf.d/00-giraffe.conf') }
+    it { is_expected.to contain_file('/etc/collectd/conf.d/00-giraffe.conf') }
   end
 end

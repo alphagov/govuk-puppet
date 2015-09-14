@@ -13,6 +13,6 @@ describe 'monitoring_docs_url' do
 
   it 'should return a URL with the correct anchor' do
     broken_thing_url = 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#broken-thing'
-    scope.function_monitoring_docs_url(['broken-thing']).should == broken_thing_url
+    expect(scope.function_monitoring_docs_url(['broken-thing'])).to eq(broken_thing_url)
   end
 end

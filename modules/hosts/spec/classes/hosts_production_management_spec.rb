@@ -8,9 +8,7 @@ describe 'hosts::production::management', :type => :class do
       }}
 
       it do
-        expect {
-          should compile
-        }.to raise_error(Puppet::Error, /Host alias for APT mirror was requested but not defined/)
+        is_expected.to raise_error(Puppet::Error, /Host alias for APT mirror was requested but not defined/)
       end
     end
   end

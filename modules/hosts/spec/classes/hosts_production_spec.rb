@@ -5,7 +5,7 @@ describe 'hosts::production', :type => :class do
     context 'false (default)' do
       let(:params) {{ }}
 
-      it { should contain_govuk__host('apt-1').with_legacy_aliases([]) }
+      it { is_expected.to contain_govuk__host('apt-1').with_legacy_aliases([]) }
     end
 
     context 'true' do
@@ -14,7 +14,7 @@ describe 'hosts::production', :type => :class do
         :apt_mirror_internal => true,
       }}
 
-      it { should contain_govuk__host('apt-1').with_legacy_aliases('apt.example.com') }
+      it { is_expected.to contain_govuk__host('apt-1').with_legacy_aliases('apt.example.com') }
     end
   end
 end 

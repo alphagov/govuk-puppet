@@ -12,7 +12,7 @@ describe 'router::gor', :type => :class do
   context 'no targets defined (disabled)' do
     let(:replay_targets) {{}}
 
-    it { should contain_class('govuk::gor').with({ :enable => false, }) }
+    it { is_expected.to contain_class('govuk::gor').with({ :enable => false, }) }
   end
 
   context 'a target defined (enabled)' do
@@ -21,10 +21,10 @@ describe 'router::gor', :type => :class do
       target_host => { 'ip' => '127.0.0.1' }
     }}
 
-    it { should contain_host(target_host).with_ensure('present') }
+    it { is_expected.to contain_host(target_host).with_ensure('present') }
 
     it {
-      should contain_class('govuk::gor').with(
+      is_expected.to contain_class('govuk::gor').with(
         :enable => true,
         :args   => args_default.merge({
           '-output-http' => ["https://#{target_host}"],
@@ -42,7 +42,7 @@ describe 'router::gor', :type => :class do
     }}
 
     it {
-      should contain_class('govuk::gor').with(
+      is_expected.to contain_class('govuk::gor').with(
         :enable => true,
         :args   => args_default.merge({
           '-output-http' => ["https://#{target_host_a}", "https://#{target_host_b}"],

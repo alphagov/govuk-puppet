@@ -13,7 +13,7 @@ describe 'govuk_node_class' do
 
   context '$::trusted not set' do
     it 'should raise an error' do
-      scope.should_receive(:lookupvar).with('::trusted').and_return(nil)
+      expect(scope).to receive(:lookupvar).with('::trusted').and_return(nil)
       expect { scope.function_govuk_node_class([]) }.to raise_error(
         Puppet::ParseError,
         /Unable to lookup \$::trusted/
@@ -23,7 +23,7 @@ describe 'govuk_node_class' do
 
   context '$::trusted["certname"] nil' do
     it 'should raise an error' do
-      scope.should_receive(:lookupvar).with('::trusted').and_return({
+      expect(scope).to receive(:lookupvar).with('::trusted').and_return({
         'authenticated' => false,
         'certname'      => nil,
       })
@@ -36,7 +36,7 @@ describe 'govuk_node_class' do
 
   context '$::trusted["certname"] empty' do
     it 'should raise an error' do
-      scope.should_receive(:lookupvar).with('::trusted').and_return({
+      expect(scope).to receive(:lookupvar).with('::trusted').and_return({
         'authenticated' => false,
         'certname'      => '',
       })
@@ -61,8 +61,8 @@ describe 'govuk_node_class' do
       }}
 
       it {
-        scope.should_receive(:lookupvar).with('::trusted').and_return(trusted_hash)
-        scope.function_govuk_node_class([]).should == result
+        expect(scope).to receive(:lookupvar).with('::trusted').and_return(trusted_hash)
+        expect(scope.function_govuk_node_class([])).to eq(result)
       }
     end
   end

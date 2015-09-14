@@ -22,7 +22,7 @@ describe 'govuk_sudo' do
     }
     end
 
-    it { should contain_file('10_spongebob').with({
+    it { is_expected.to contain_file('10_spongebob').with({
         'ensure'  => 'present',
         'content' => "spongebob ALL=(ALL) NOPASSWD:ALL\n",
         'owner'   => 'root',

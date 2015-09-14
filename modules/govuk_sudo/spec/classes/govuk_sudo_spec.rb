@@ -11,13 +11,13 @@ describe 'govuk_sudo' do
     }
     end
 
-    it { should compile.with_all_deps }
+    it { is_expected.to compile.with_all_deps }
 
-    it { should contain_class('govuk_sudo') }
-    it { should contain_class('sudo') }
-    it { should contain_package('sudo') }
+    it { is_expected.to contain_class('govuk_sudo') }
+    it { is_expected.to contain_class('sudo') }
+    it { is_expected.to contain_package('sudo') }
 
-    it { should contain_file('/etc/sudoers').with({
+    it { is_expected.to contain_file('/etc/sudoers').with({
         'ensure' => 'present',
         'path'    => '/etc/sudoers',
         'owner'   => 'root',

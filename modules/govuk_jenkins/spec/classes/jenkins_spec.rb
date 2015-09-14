@@ -17,9 +17,9 @@ describe 'govuk_jenkins', :type => :class do
     :jenkins_home => 'bibble',
   }}
 
-  it { should contain_class('govuk_jenkins::ssh_key') }
-  it { should contain_class('govuk_jenkins::config') }
-  it { should contain_file(ssh_dir).with_ensure('directory') }
+  it { is_expected.to contain_class('govuk_jenkins::ssh_key') }
+  it { is_expected.to contain_class('govuk_jenkins::config') }
+  it { is_expected.to contain_file(ssh_dir).with_ensure('directory') }
 
-  it { should contain_user('jenkins').with_ensure('present') }
+  it { is_expected.to contain_user('jenkins').with_ensure('present') }
 end

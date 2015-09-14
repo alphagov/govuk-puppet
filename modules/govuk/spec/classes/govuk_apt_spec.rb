@@ -13,7 +13,7 @@ describe 'govuk::node::s_apt' do
         :root_dir => '/root/dir',
       }}
       it 'should not configure nginx with real_ip_header directive' do
-        should contain_nginx__config__site('apt.cluster').without_content(/real_ip_header/)
+        is_expected.to contain_nginx__config__site('apt.cluster').without_content(/real_ip_header/)
       end
     end
     context 'when specified with true_client_ip value' do
@@ -22,7 +22,7 @@ describe 'govuk::node::s_apt' do
         :root_dir       => '/root/dir'
       }}
       it 'should configure nginx with real_ip_header directive' do
-        should contain_nginx__config__site('apt.cluster').with_content(/real_ip_header True-Client-IP;$/)
+        is_expected.to contain_nginx__config__site('apt.cluster').with_content(/real_ip_header True-Client-IP;$/)
       end
     end
   end

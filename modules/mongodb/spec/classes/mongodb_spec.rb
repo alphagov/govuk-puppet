@@ -7,8 +7,8 @@ describe 'mongodb::server', :type => :class do
       'replicaset_members' => ['mongo-box-1'],
      } }
     it do
-      should contain_package('mongodb-10gen').with_ensure('2.4.6')
-      should contain_file('/etc/mongodb.conf')
+      is_expected.to contain_package('mongodb-10gen').with_ensure('2.4.6')
+      is_expected.to contain_file('/etc/mongodb.conf')
     end
   end
 
@@ -20,8 +20,8 @@ describe 'mongodb::server', :type => :class do
     } }
 
     it do
-      should contain_package('mongodb20-10gen').with_ensure('2.0.7')
-      should contain_file('/etc/mongodb.conf')
+      is_expected.to contain_package('mongodb20-10gen').with_ensure('2.0.7')
+      is_expected.to contain_file('/etc/mongodb.conf')
     end
   end
 
@@ -32,7 +32,7 @@ describe 'mongodb::server', :type => :class do
     } }
 
     it do
-      expect { should }.to raise_error(Puppet::Error, /^Replica set can't have no members/)
+      is_expected.to raise_error(Puppet::Error, /^Replica set can't have no members/)
     end
   end
 
@@ -44,8 +44,8 @@ describe 'mongodb::server', :type => :class do
     } }
 
     it do
-      should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/)
-      should contain_class('mongodb::configure_replica_set').with_members('mongo-box-1')
+      is_expected.to contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/)
+      is_expected.to contain_class('mongodb::configure_replica_set').with_members('mongo-box-1')
     end
   end
 
@@ -57,8 +57,8 @@ describe 'mongodb::server', :type => :class do
     } }
 
     it do
-      should contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/)
-      should contain_class('mongodb::configure_replica_set')
+      is_expected.to contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/)
+      is_expected.to contain_class('mongodb::configure_replica_set')
         .with_members(['mongo-box-1', 'mongo-box-2', 'mongo-box-3'])
     end
   end
@@ -72,7 +72,7 @@ describe 'mongodb::server', :type => :class do
     }}
 
     it do
-      should contain_file('/etc/mongodb.conf').with_content(/^oplogSize = 1234$/)
+      is_expected.to contain_file('/etc/mongodb.conf').with_content(/^oplogSize = 1234$/)
     end
   end
 end

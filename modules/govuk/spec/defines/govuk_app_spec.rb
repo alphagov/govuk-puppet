@@ -9,7 +9,7 @@ describe 'govuk::app', :type => :define do
   context 'with no params' do
     it do
       expect {
-        should contain_file('/var/apps/giraffe')
+        is_expected.to contain_file('/var/apps/giraffe')
       }.to raise_error(Puppet::Error, /Must pass app_type/)
     end
   end
@@ -23,17 +23,17 @@ describe 'govuk::app', :type => :define do
     end
 
     it do
-      should contain_govuk__app__package('giraffe').with(
+      is_expected.to contain_govuk__app__package('giraffe').with(
         'vhost_full' => 'giraffe.test.gov.uk',
       )
-      should contain_govuk__app__config('giraffe').with(
+      is_expected.to contain_govuk__app__config('giraffe').with(
         'domain' => 'test.gov.uk',
       )
-      should contain_service('giraffe').with_provider('upstart')
+      is_expected.to contain_service('giraffe').with_provider('upstart')
     end
 
     it "should not hide any paths" do
-      should contain_govuk__app__nginx_vhost('giraffe').with(
+      is_expected.to contain_govuk__app__nginx_vhost('giraffe').with(
         'hidden_paths' => []
       )
     end
@@ -45,7 +45,7 @@ describe 'govuk::app', :type => :define do
       :port     => 123,
     }}
 
-    it { expect { should }.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
+    it { is_expected.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
   end
 
   describe 'app_type => bare, which logs JSON to STDERR' do
@@ -56,7 +56,7 @@ describe 'govuk::app', :type => :define do
       :log_format_is_json => true,
     }}
 
-    it { should contain_govuk__logstream("#{title}-app-err").with("json" => true) }
+    it { is_expected.to contain_govuk__logstream("#{title}-app-err").with("json" => true) }
   end
 
   context 'health check hidden' do
@@ -70,7 +70,7 @@ describe 'govuk::app', :type => :define do
     end
 
     it "should hide the healthcheck paths" do
-      should contain_govuk__app__nginx_vhost('giraffe').with(
+      is_expected.to contain_govuk__app__nginx_vhost('giraffe').with(
         'hidden_paths' => ['/healthcheck']
       )
     end
@@ -86,7 +86,7 @@ describe 'govuk::app', :type => :define do
     end
 
     it "should fail to compile" do
-      expect { should }.to raise_error(Puppet::Error, /Cannot hide/)
+      is_expected.to raise_error(Puppet::Error, /Cannot hide/)
     end
   end
 
@@ -99,7 +99,7 @@ describe 'govuk::app', :type => :define do
       }}
 
       it do
-        should contain_govuk__app__package('giraffe').with_ensure('absent')
+        is_expected.to contain_govuk__app__package('giraffe').with_ensure('absent')
       end
     end
 
@@ -110,7 +110,7 @@ describe 'govuk::app', :type => :define do
         :ensure => 'true',
       }}
 
-      it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+      it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
 
     context 'ensure => false' do
@@ -120,7 +120,7 @@ describe 'govuk::app', :type => :define do
         :ensure => 'false',
       }}
 
-      it { expect { should }.to raise_error(Puppet::Error, /Invalid ensure value/) }
+      it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
   end
 end

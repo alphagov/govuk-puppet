@@ -4,7 +4,7 @@ describe 'govuk::safe_to_reboot', :type => :class do
     context '#yes' do
       let(:params) {{ }}
 
-      it { should contain_class('govuk::safe_to_reboot::yes').with_reason('Not flagged specifically so assuming safe to reboot') }
+      it { is_expected.to contain_class('govuk::safe_to_reboot::yes').with_reason('Not flagged specifically so assuming safe to reboot') }
     end
 
     context '#no with blank reason' do
@@ -14,7 +14,7 @@ describe 'govuk::safe_to_reboot', :type => :class do
       }}
 
       it 'should fail to compile' do
-        expect { should }.to raise_error(Puppet::Error, /Machine is flagged as unsafe to reboot, but no reason supplied/)
+        is_expected.to raise_error(Puppet::Error, /Machine is flagged as unsafe to reboot, but no reason supplied/)
       end
     end
 
@@ -24,7 +24,7 @@ describe 'govuk::safe_to_reboot', :type => :class do
         :reason     => 'bad things will happen'
       }}
 
-      it { should contain_class('govuk::safe_to_reboot::careful').with_reason('bad things will happen') }
+      it { is_expected.to contain_class('govuk::safe_to_reboot::careful').with_reason('bad things will happen') }
     end
 
     context '#invalid flag' do
@@ -33,7 +33,7 @@ describe 'govuk::safe_to_reboot', :type => :class do
         :reason     => 'bad things will happen'
       }}
       it 'should fail to compile' do
-        expect { should }.to raise_error(Puppet::Error, /Invalid value for govuk::safe_to_reboot::can_reboot: never/)
+        is_expected.to raise_error(Puppet::Error, /Invalid value for govuk::safe_to_reboot::can_reboot: never/)
       end
     end
 end

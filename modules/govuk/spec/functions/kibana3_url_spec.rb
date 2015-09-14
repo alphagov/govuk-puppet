@@ -31,7 +31,7 @@ describe 'kibana3_url' do
     }
 
     res = scope.function_kibana3_url([base_url, in_hash])
-    res.should == "#{dash_url}?query=%40tags%3Atusks%20AND%20%40fields.prickles%3A%27purple%27"
+    expect(res).to eq("#{dash_url}?query=%40tags%3Atusks%20AND%20%40fields.prickles%3A%27purple%27")
   end
 
   it 'should convert a hash with query and from to a URL' do
@@ -41,6 +41,6 @@ describe 'kibana3_url' do
     }
 
     res = scope.function_kibana3_url([base_url, in_hash])
-    res.should == "#{dash_url}?query=%40fields.eyes%3Aorange&from=24h"
+    expect(res).to eq("#{dash_url}?query=%40fields.eyes%3Aorange&from=24h")
   end
 end

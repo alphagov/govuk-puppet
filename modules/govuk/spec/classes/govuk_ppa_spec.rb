@@ -7,7 +7,7 @@ describe 'govuk::ppa', :type => :class do
         :apt_mirror_hostname => 'apt.example.com',
       }}
 
-      it { should contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/production') }
+      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/production') }
     end
 
     context 'preview' do
@@ -16,7 +16,7 @@ describe 'govuk::ppa', :type => :class do
         :path => 'preview',
       }}
 
-      it { should contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/preview') }
+      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/preview') }
     end
   end
 
@@ -24,7 +24,7 @@ describe 'govuk::ppa', :type => :class do
     context 'true (default)' do
       let(:params) {{ }}
 
-      it { should contain_apt__source('govuk-ppa') }
+      it { is_expected.to contain_apt__source('govuk-ppa') }
     end
 
     context 'false' do
@@ -32,7 +32,7 @@ describe 'govuk::ppa', :type => :class do
         :use_mirror => false,
       }}
 
-      it { should contain_apt__ppa('ppa:gds/govuk') }
+      it { is_expected.to contain_apt__ppa('ppa:gds/govuk') }
     end
   end
 end

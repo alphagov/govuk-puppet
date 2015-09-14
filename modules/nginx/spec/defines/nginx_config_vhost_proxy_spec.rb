@@ -9,18 +9,18 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     }}
 
     it 'should install a proxy vhost' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/server a\.internal;/)
         .with_content(/server b\.internal;/)
         .with_content(/server c\.internal;/)
     end
 
     it 'should try some options before falling through to the default' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/try_files \$uri\/index.html \$uri.html \$uri @app;/)
     end
 
-    it { should contain_nginx__config__site('rabbit')
+    it { is_expected.to contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass http:\/\/rabbit-proxy;$/) }
 
   end
@@ -32,7 +32,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     }}
 
     it 'should only proxy to the single_page_app path' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/try_files \$uri\/index.html \$uri.html \$uri \/example-path;/)
     end
   end
@@ -44,7 +44,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     }}
 
     it 'should set the proxies read_timeout to value' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/proxy_read_timeout 60;/)
     end
   end
@@ -56,13 +56,13 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     }}
 
     it 'should install a proxy vhost' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/server a\.internal:443;/)
         .with_content(/server b\.internal:443;/)
         .with_content(/server c\.internal:443;/)
     end
 
-    it { should contain_nginx__config__site('rabbit')
+    it { is_expected.to contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass https:\/\/rabbit-proxy;$/) }
 
   end
@@ -76,7 +76,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
 
     it 'should intercept errors' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/proxy_intercept_errors on;/)
     end
   end
@@ -90,7 +90,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
 
     it 'should add the X-Frame-Options header' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/add_header X-Frame-Options/)
     end
   end
@@ -104,9 +104,9 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
 
     it 'should respond with a 404 for hidden paths' do
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(%r"location /secret {\s+return 404;\s+}")
-      should contain_nginx__config__site('rabbit')
+      is_expected.to contain_nginx__config__site('rabbit')
         .with_content(%r"location /supersecret {\s+return 404;\s+}")
     end
   end
@@ -119,7 +119,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
 
     it {
-      should contain_nginx__config__ssl('rabbit').with_certtype('wildcard_alphagov')
+      is_expected.to contain_nginx__config__ssl('rabbit').with_certtype('wildcard_alphagov')
     }
   end
 
@@ -133,7 +133,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
       end
 
       it do
-        should contain_nginx__config__site('rabbit')
+        is_expected.to contain_nginx__config__site('rabbit')
           .with_ensure('absent')
       end
     end
@@ -148,7 +148,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
 
       it do
         expect {
-          should contain_nginx__config__site('rabbit')
+          is_expected.to contain_nginx__config__site('rabbit')
         }.to raise_error(Puppet::Error, /Invalid ensure value/)
       end
     end
@@ -163,7 +163,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
 
       it do
         expect {
-          should contain_nginx__config__site('rabbit')
+          is_expected.to contain_nginx__config__site('rabbit')
         }.to raise_error(Puppet::Error, /Invalid ensure value/)
       end
     end

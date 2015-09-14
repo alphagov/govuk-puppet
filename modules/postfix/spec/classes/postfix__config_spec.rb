@@ -22,13 +22,13 @@ describe 'postfix::config', :type => :class do
   describe 'when default params, no smarthosting' do
     let(:params) { default_params }
 
-    it { should contain_file(main_cf).with_content(/^relayhost = $/) }
-    it { should_not contain_file(main_cf).with_content(/^smtp_generic_maps/) }
-    it { should_not contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
+    it { is_expected.to contain_file(main_cf).with_content(/^relayhost = $/) }
+    it { is_expected.not_to contain_file(main_cf).with_content(/^smtp_generic_maps/) }
+    it { is_expected.not_to contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
 
-    it { should contain_file(mailname).with_content("host.example.com\n") }
-    it { should contain_file(main_cf).with_content(/^myhostname = host\.example\.com$/) }
-    it { should contain_file(main_cf).with_content(/^mydestination = host\.example\.com, localhost\.example\.com, , localhost$/) }
+    it { is_expected.to contain_file(mailname).with_content("host.example.com\n") }
+    it { is_expected.to contain_file(main_cf).with_content(/^myhostname = host\.example\.com$/) }
+    it { is_expected.to contain_file(main_cf).with_content(/^mydestination = host\.example\.com, localhost\.example\.com, , localhost$/) }
   end
 
   describe 'when smarthosting' do
@@ -37,10 +37,10 @@ describe 'postfix::config', :type => :class do
         :smarthost => 'mx.example.com:587',
       })}
 
-      it { should contain_file(main_cf).with_content(/^relayhost = mx\.example\.com:587$/) }
-      it { should contain_file(main_cf).with_content(/^smtp_generic_maps/) }
-      it { should_not contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
-      it { should_not contain_file(sasl_passwd) }
+      it { is_expected.to contain_file(main_cf).with_content(/^relayhost = mx\.example\.com:587$/) }
+      it { is_expected.to contain_file(main_cf).with_content(/^smtp_generic_maps/) }
+      it { is_expected.not_to contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
+      it { is_expected.not_to contain_file(sasl_passwd) }
     end
 
     describe 'with auth' do
@@ -50,10 +50,10 @@ describe 'postfix::config', :type => :class do
         :smarthost_pass => 'PASS',
       })}
 
-      it { should contain_file(main_cf).with_content(/^relayhost = mx\.example\.com:587$/) }
-      it { should contain_file(main_cf).with_content(/^smtp_generic_maps/) }
-      it { should contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
-      it { should contain_file(sasl_passwd).with_content("mx.example.com:587 USER:PASS\n") }
+      it { is_expected.to contain_file(main_cf).with_content(/^relayhost = mx\.example\.com:587$/) }
+      it { is_expected.to contain_file(main_cf).with_content(/^smtp_generic_maps/) }
+      it { is_expected.to contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
+      it { is_expected.to contain_file(sasl_passwd).with_content("mx.example.com:587 USER:PASS\n") }
     end
 
     describe 'with auth and smarthost array' do
@@ -63,10 +63,10 @@ describe 'postfix::config', :type => :class do
         :smarthost_pass     => 'PASS',
       })}
 
-      it { should contain_file(main_cf).with_content(/^relayhost = mx\.example\.com:587$/) }
-      it { should contain_file(main_cf).with_content(/^smtp_generic_maps/) }
-      it { should contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
-      it { should contain_file(sasl_passwd).with_content(<<EOS
+      it { is_expected.to contain_file(main_cf).with_content(/^relayhost = mx\.example\.com:587$/) }
+      it { is_expected.to contain_file(main_cf).with_content(/^smtp_generic_maps/) }
+      it { is_expected.to contain_file(main_cf).with_content(/^smtp_sasl_auth_enable/) }
+      it { is_expected.to contain_file(sasl_passwd).with_content(<<EOS
 mx.example.com:587 USER:PASS
 mx1.example.com:587 USER:PASS
 mx2.example.com:587 USER:PASS

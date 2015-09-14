@@ -4,10 +4,10 @@ describe 'govuk_java::set_defaults', :type => :class do
 
   context 'with no params' do
     it do
-      should contain_exec('java-set-default-jdk')
+      is_expected.to contain_exec('java-set-default-jdk')
         .with_command(/java-1.6.0-openjdk/)
         .with_unless(/java-6-openjdk/)
-      should contain_exec('java-set-default-jre')
+      is_expected.to contain_exec('java-set-default-jre')
         .with_command(/java-1.6.0-openjdk/)
         .with_unless(/java-6-openjdk/)
     end
@@ -22,10 +22,10 @@ describe 'govuk_java::set_defaults', :type => :class do
     end
 
     it do
-      should contain_exec('java-set-default-jdk')
+      is_expected.to contain_exec('java-set-default-jdk')
         .with_command(/java-7-oracle/)
         .with_unless(/java-7-oracle/)
-      should contain_exec('java-set-default-jre')
+      is_expected.to contain_exec('java-set-default-jre')
         .with_command(/java-7-oracle/)
         .with_unless(/java-7-oracle/)
     end
@@ -40,10 +40,10 @@ describe 'govuk_java::set_defaults', :type => :class do
     end
 
     it do
-      should contain_exec('java-set-default-jdk')
+      is_expected.to contain_exec('java-set-default-jdk')
         .with_command(/java-1\.7\.0-openjdk/)
         .with_unless(/java-7-openjdk/)
-      should contain_exec('java-set-default-jre')
+      is_expected.to contain_exec('java-set-default-jre')
         .with_command(/java-1\.7\.0-openjdk/)
         .with_unless(/java-7-openjdk/)
     end

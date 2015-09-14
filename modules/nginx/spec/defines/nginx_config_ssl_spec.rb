@@ -10,8 +10,8 @@ describe 'nginx::config::ssl', :type => :define do
         'www_key' => 'WWW_KEY',
     }}
 
-    it { should contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('present').with_content('WWW_CRT') }
-    it { should contain_file('/etc/nginx/ssl/foobar.key').with_ensure('present').with_content('WWW_KEY').with_mode('0640') }
+    it { is_expected.to contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('present').with_content('WWW_CRT') }
+    it { is_expected.to contain_file('/etc/nginx/ssl/foobar.key').with_ensure('present').with_content('WWW_KEY').with_mode('0640') }
   end
 
   context 'ensure => absent' do
@@ -22,7 +22,7 @@ describe 'nginx::config::ssl', :type => :define do
         'www_key' => 'WWW_KEY',
     }}
 
-    it { should contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('absent') }
-    it { should contain_file('/etc/nginx/ssl/foobar.key').with_ensure('absent') }
+    it { is_expected.to contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('absent') }
+    it { is_expected.to contain_file('/etc/nginx/ssl/foobar.key').with_ensure('absent') }
   end
 end

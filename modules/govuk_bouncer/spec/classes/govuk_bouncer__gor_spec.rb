@@ -11,7 +11,7 @@ describe 'govuk_bouncer::gor', :type => :class do
     let(:params) {{ }}
 
     it {
-      should contain_class('govuk::gor').with({
+      is_expected.to contain_class('govuk::gor').with({
         :enable => false,
       })
     }
@@ -24,7 +24,7 @@ describe 'govuk_bouncer::gor', :type => :class do
     }}
 
     it {
-      should contain_class('govuk::gor').with(
+      is_expected.to contain_class('govuk::gor').with(
         :enable => true,
         :args           => args_default.merge({
           '-output-http' => ["http://#{ip_address}"],
@@ -40,7 +40,7 @@ describe 'govuk_bouncer::gor', :type => :class do
     }}
 
     it {
-      should contain_class('govuk::gor').with(
+      is_expected.to contain_class('govuk::gor').with(
         :enable => false,
       )
     }
@@ -52,7 +52,7 @@ describe 'govuk_bouncer::gor', :type => :class do
     }}
 
     it {
-      should contain_class('govuk::gor').with(
+      is_expected.to contain_class('govuk::gor').with(
         :enable => false,
       )
     }

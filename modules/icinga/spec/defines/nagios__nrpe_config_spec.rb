@@ -5,6 +5,6 @@ describe 'icinga::nrpe_config', :type => :define do
   let(:params) { {:content => 'parrot content'} }
 
   it do
-    should contain_file('/etc/nagios/nrpe.d/parrot.cfg').with_content('parrot content')
+    is_expected.to contain_file('/etc/nagios/nrpe.d/parrot.cfg').with_content('parrot content')
   end
 end

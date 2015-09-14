@@ -11,10 +11,10 @@ describe 'govuk::user', :type => :define do
       :email    => 'hungry.caterpillar@example.com',
     }}
 
-    it { should contain_user('hungrycaterpillar').with_ensure('present') }
-    it { should contain_file(ssh_dir).with_ensure('directory') }
+    it { is_expected.to contain_user('hungrycaterpillar').with_ensure('present') }
+    it { is_expected.to contain_file(ssh_dir).with_ensure('directory') }
     it {
-      should contain_file(ssh_file).with(
+      is_expected.to contain_file(ssh_file).with(
         :ensure  => 'absent',
         :content => nil,
       )
@@ -29,10 +29,10 @@ describe 'govuk::user', :type => :define do
       :ssh_key  => 'should be ignored',
     }}
 
-    it { should contain_user('hungrycaterpillar').with_ensure('absent') }
-    it { should contain_file(ssh_dir).with_ensure(nil) }
+    it { is_expected.to contain_user('hungrycaterpillar').with_ensure('absent') }
+    it { is_expected.to contain_file(ssh_dir).with_ensure(nil) }
     it {
-      should contain_file(ssh_file).with(
+      is_expected.to contain_file(ssh_file).with(
         :ensure  => 'absent',
         :content => nil,
       )
@@ -47,7 +47,7 @@ describe 'govuk::user', :type => :define do
     }}
 
     it {
-      should contain_file(ssh_file).with(
+      is_expected.to contain_file(ssh_file).with(
         :ensure => 'present',
         :content => "ssh-rsa cupcake\n",
       )
@@ -62,7 +62,7 @@ describe 'govuk::user', :type => :define do
     }}
 
     it {
-      should contain_file(ssh_file).with(
+      is_expected.to contain_file(ssh_file).with(
         :ensure => 'present',
         :content => <<EOS
 ssh-dss pickle

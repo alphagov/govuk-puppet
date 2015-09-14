@@ -10,7 +10,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should_not contain_file(router_config).with_content(/^\s*auth_basic\s+/) }
+      it { is_expected.not_to contain_file(router_config).with_content(/^\s*auth_basic\s+/) }
     end
 
     context 'set to true' do
@@ -18,7 +18,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => true,
       }}
 
-      it { should contain_file(router_config).with_content(/^\s*auth_basic\s+/) }
+      it { is_expected.to contain_file(router_config).with_content(/^\s*auth_basic\s+/) }
     end
   end
 
@@ -28,8 +28,8 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should_not contain_file(assets_config).with_content(/^\s*real_ip_header/) }
-      it { should_not contain_file(router_config).with_content(/^\s*real_ip_header/) }
+      it { is_expected.not_to contain_file(assets_config).with_content(/^\s*real_ip_header/) }
+      it { is_expected.not_to contain_file(router_config).with_content(/^\s*real_ip_header/) }
     end
 
     context 'set to X-Some-Address-Header' do
@@ -38,8 +38,8 @@ describe 'router::nginx', :type => :class do
         :real_ip_header  => 'X-Some-Address-Header',
       }}
 
-      it { should contain_file(assets_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
-      it { should contain_file(router_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
+      it { is_expected.to contain_file(assets_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
+      it { is_expected.to contain_file(router_config).with_content(/^\s*real_ip_header X-Some-Address-Header;$/) }
     end
   end
 
@@ -49,7 +49,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should contain_nginx__conf('rate-limiting').with_content(/
+      it { is_expected.to contain_nginx__conf('rate-limiting').with_content(/
   default \$binary_remote_addr;
 }
 /
@@ -66,7 +66,7 @@ describe 'router::nginx', :type => :class do
         },
       }}
 
-      it { should contain_nginx__conf('rate-limiting').with_content(/
+      it { is_expected.to contain_nginx__conf('rate-limiting').with_content(/
   default \$binary_remote_addr;
   7D76CF45-12CA-4BD8-934C-F871BD3A3A9C "";
   5FD47B19-13FF-4D54-9981-A55960FDC911 "";
@@ -83,7 +83,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=30";/) }
+      it { is_expected.to contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=30";/) }
     end
 
     context 'a different number' do
@@ -92,7 +92,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { should contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=668";/) }
+      it { is_expected.to contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=668";/) }
     end
   end
 end
