@@ -2,10 +2,18 @@
 #
 # Provides monitoring checks for the offsite backup machine.
 #
-class backup::offsite::monitoring {
-
-  $offsite_fqdn = 'backup0.backup.provider1.production.govuk.service.gov.uk'
-  $offsite_hostname = 'backup0.provider1'
+# === Parameters
+#
+# [*offsite_fqdn*]
+#   FQDN of the off-site backup machine to back data up to
+#
+# [*offsite_hostname*]
+#   Descriptive hostname for use in Icinga check - eg "backup0.provider0"
+#
+class backup::offsite::monitoring(
+  $offsite_fqdn,
+  $offsite_hostname,
+){
 
   icinga::host { $offsite_fqdn:
     hostalias => $offsite_fqdn,
