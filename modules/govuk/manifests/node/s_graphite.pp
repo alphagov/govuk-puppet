@@ -27,6 +27,27 @@ class govuk::node::s_graphite (
     require                    => Govuk::Mount[$graphite_path],
   }
 
+  # FIXME: Remove this patch when Graphite is upgraded past 0.9.13
+  # This patch is https://github.com/graphite-project/carbon/pull/351 - the bug
+  # that this fixes was released as part of 0.9.13 which breaks all of our
+  # carbon-aggregator metrics.
+  $service_py = "${graphite_path}/lib/carbon/service.py"
+  $service_patch = "${graphite_path}/graphite_carbon_service.patch"
+  $service_patched_md5 = '0559bf74463b14f4070e3cf8a2584fff'
+  file { $service_patch:
+    ensure => file,
+    source => 'puppet:///modules/govuk/node/s_graphite/graphite_carbon_service.patch',
+  }
+  exec { 'patch graphite 0.9.13 carbon':
+    command => "/usr/bin/patch -b ${service_py} ${service_patch}",
+    unless  => "/usr/bin/md5sum ${service_py} | /bin/grep -qsw ${service_patched_md5}",
+    notify  => Class['graphite::service'],
+    require => [
+      Class['graphite::install'],
+      File[$service_patch],
+    ],
+  }
+
   harden::limit { 'www-data-nofile':
     domain => 'www-data',
     type   => '-', # set both hard and soft limits
