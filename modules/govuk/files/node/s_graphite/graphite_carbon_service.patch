@@ -1,0 +1,22 @@
+From 2cc77752383288c27c4623a659cd0a76ef95b5a9 Mon Sep 17 00:00:00 2001
+From: Jean Raby <jean@raby.sh>
+Date: Mon, 5 Jan 2015 12:18:32 -0500
+Subject: [PATCH] Wire state.events to events (not state)
+
+---
+ lib/carbon/service.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/carbon/service.py b/lib/carbon/service.py
+index be00876..7124450 100644
+--- a/lib/carbon/service.py
++++ b/lib/carbon/service.py
+@@ -24,7 +24,7 @@
+ from carbon.log import carbonLogObserver
+ from carbon.exceptions import CarbonConfigException
+ 
+-state.events = state
++state.events = events
+ 
+ 
+ class CarbonRootService(MultiService):
