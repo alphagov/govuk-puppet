@@ -72,4 +72,17 @@ class govuk::node::s_asset_slave (
     host_name           => $::fqdn,
     freshness_threshold => ($assets_sync_frequency_minutes * 2) * 60,
   }
+
+  $master_metrics_hostname = regsubst($::fqdn_metrics, 'slave', 'master')
+  $graphite_mnt_uploads_metric = 'df-mnt-uploads.df_complex-used'
+  $master_metric = "${master_metrics_hostname}.${graphite_mnt_uploads_metric}"
+  $slave_metric = "${::fqdn_metrics}.${graphite_mnt_uploads_metric}"
+
+  @@icinga::check::graphite { "asset_master_and_slave_disk_space_similar_from_${::hostname}":
+    target    => "movingMedian(transformNull(removeBelowValue(diffSeries(${master_metric},${slave_metric}),0),0),10)",
+    critical  => to_bytes('256 MB'),
+    warning   => to_bytes('128 MB'),
+    desc      => 'Asset master and slave are using about the same amount of disk space',
+    host_name => $::fqdn,
+  }
 }
