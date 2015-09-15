@@ -6,8 +6,6 @@ _: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNm
 
 app_domain: 'publishing.service.gov.uk'
 
-asset_root: 'https://assets-origin.publishing.service.gov.uk'
-
 backup::assets::dest_host: *offsite_host
 backup::assets::dest_host_key: *offsite_ssh_host_key
 backup::assets::jobs:
