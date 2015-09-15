@@ -1,10 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe 'loadbalancer::balance', :type => :define do
-  let (:hiera_data) {{
-    'app_domain' => 'test.gov.uk',
-  }}
-
   context 'external load balancer' do
     let(:title) { 'giraffe' }
     let(:params) {
@@ -14,11 +10,11 @@ describe 'loadbalancer::balance', :type => :define do
     }
 
     it 'should create nginx config for loadbalancing' do
-      is_expected.to contain_nginx__config__site('giraffe.test.gov.uk')
+      is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
         .with_content(/server giraffe-1:443.*server giraffe-2:443.*server giraffe-3:443/m)
         .with_content(/listen\s+443 ssl/)
-      is_expected.not_to contain_nginx__config__site('giraffe.test.gov.uk').with_content(/deny all/)
-      is_expected.not_to contain_nginx__config__site('giraffe.test.gov.uk').with_content(/listen\s+80/)
+      is_expected.not_to contain_nginx__config__site('giraffe.environment.example.com').with_content(/deny all/)
+      is_expected.not_to contain_nginx__config__site('giraffe.environment.example.com').with_content(/listen\s+80/)
     end
   end
 
@@ -31,7 +27,7 @@ describe 'loadbalancer::balance', :type => :define do
     }
 
     it 'should create nginx config for loadbalancing' do
-      is_expected.to contain_nginx__config__site('giraffe.test.gov.uk')
+      is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
         .with_content(/server giraffe-1:443/)
     end
   end
@@ -46,7 +42,7 @@ describe 'loadbalancer::balance', :type => :define do
     }
 
     it 'should create nginx config for loadbalancing' do
-      is_expected.to contain_nginx__config__site('giraffe.test.gov.uk')
+      is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
         .with_content(/server giraffe-1:443.*server giraffe-2:443.*server giraffe-3:443/m)
         .with_content(/listen\s+443 ssl/)
         .with_content(/deny all/)
@@ -62,7 +58,7 @@ describe 'loadbalancer::balance', :type => :define do
       }
 
       it 'should create nginx config for loadbalancing' do
-        is_expected.to contain_nginx__config__site('giraffe.test.gov.uk')
+        is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
           .with_content(/server giraffe-1:443.*server giraffe-2:443.*server giraffe-3:443/m)
           .with_content(/listen\s+8443 ssl/)
       end
@@ -79,7 +75,7 @@ describe 'loadbalancer::balance', :type => :define do
     }
 
     it 'should create nginx config for loadbalancing' do
-      is_expected.to contain_nginx__config__site('giraffe.test.gov.uk')
+      is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
         .with_content(/server giraffe-1:443.*server giraffe-2:443.*server giraffe-3:443/m)
         .with_content(/listen\s+80/)
         .with_content(/listen\s+443 ssl/)

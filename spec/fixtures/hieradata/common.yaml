@@ -1,0 +1,35 @@
+app_domain: 'environment.example.com'
+
+asset_root: 'http://assets.example.com'
+
+govuk::apps::router::mongodb_name: ['router']
+govuk::apps::router::mongodb_nodes: ['localhost']
+govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
+
+govuk::mount::no_op: false
+
+govuk_app_enable_services: false
+
+govuk_jenkins::config::github_api_uri: foo
+govuk_jenkins::config::github_client_id: bar
+govuk_jenkins::config::github_client_secret: baz
+govuk_jenkins::config::github_web_uri: wibble
+
+hosts::production::backend::hosts:
+  whitehall-backend-1:
+    ip: '10.3.0.25'
+hosts::production::management::hosts:
+  cache-1:
+    ip: '10.1.0.2'
+  jumpbox-1:
+    ip: '10.1.0.100'
+
+internal_tld: 'example'
+
+users::pentest_machines: ['foo']
+users::pentest_usernames: ['andre_the_giant']
+
+website_root: 'http://www.example.com'
+
+www_crt: WWW_CRT
+www_key: WWW_KEY

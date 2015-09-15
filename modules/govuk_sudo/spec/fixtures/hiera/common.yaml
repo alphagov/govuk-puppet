@@ -1,3 +1,0 @@
-govuk_sudo::sudo_conf:
-  spongebob:
-    content: 'spongebob ALL=(ALL) NOPASSWD:ALL'

@@ -13,11 +13,8 @@ describe "router::assets_origin", :type => :class do
       end.flatten.compact
     }
 
-    hiera_conf = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
-    hiera_conf[:yaml][:datadir] = File.expand_path("../../../../../hieradata", __FILE__)
-
     context "in a production-like environment" do
-      let(:hiera_config) { hiera_conf }
+      let(:hiera_config) { File.expand_path("../../../../../spec/fixtures/hiera/real_data.yaml", __FILE__) }
       let(:facts) {{ :environment => 'production' }}
       let(:pre_condition) { "include hosts::production" }
 

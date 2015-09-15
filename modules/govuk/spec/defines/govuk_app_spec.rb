@@ -2,9 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk::app', :type => :define do
   let(:title) { 'giraffe' }
-  let(:hiera_data) {{
-    'app_domain' => 'test.gov.uk',
-  }}
 
   context 'with no params' do
     it do
@@ -24,10 +21,10 @@ describe 'govuk::app', :type => :define do
 
     it do
       is_expected.to contain_govuk__app__package('giraffe').with(
-        'vhost_full' => 'giraffe.test.gov.uk',
+        'vhost_full' => 'giraffe.environment.example.com',
       )
       is_expected.to contain_govuk__app__config('giraffe').with(
-        'domain' => 'test.gov.uk',
+        'domain' => 'environment.example.com',
       )
       is_expected.to contain_service('giraffe').with_provider('upstart')
     end

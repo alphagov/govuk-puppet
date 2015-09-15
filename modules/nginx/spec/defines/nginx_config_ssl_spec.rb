@@ -5,10 +5,6 @@ describe 'nginx::config::ssl', :type => :define do
 
   context 'certtype => www' do
     let(:params) {{ :certtype => 'www' }}
-    let(:hiera_data) {{
-        'www_crt' => 'WWW_CRT',
-        'www_key' => 'WWW_KEY',
-    }}
 
     it { is_expected.to contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('present').with_content('WWW_CRT') }
     it { is_expected.to contain_file('/etc/nginx/ssl/foobar.key').with_ensure('present').with_content('WWW_KEY').with_mode('0640') }
@@ -16,11 +12,6 @@ describe 'nginx::config::ssl', :type => :define do
 
   context 'ensure => absent' do
     let(:params) {{ :certtype => 'www', :ensure => 'absent' }}
-
-    let(:hiera_data) {{
-        'www_crt' => 'WWW_CRT',
-        'www_key' => 'WWW_KEY',
-    }}
 
     it { is_expected.to contain_file('/etc/nginx/ssl/foobar.crt').with_ensure('absent') }
     it { is_expected.to contain_file('/etc/nginx/ssl/foobar.key').with_ensure('absent') }

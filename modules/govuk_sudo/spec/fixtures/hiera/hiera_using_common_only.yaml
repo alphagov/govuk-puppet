@@ -1,0 +1,7 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - common
+:yaml:
+  :datadir: 'modules/govuk_sudo/spec/fixtures/hieradata/'

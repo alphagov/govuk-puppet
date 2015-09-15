@@ -3,10 +3,9 @@ require_relative '../../../../spec_helper'
 describe 'govuk::host', :type => :define do
   let(:title) { 'giraffe' }
   let(:params) { { :ip => '1.2.3.4', :vdc => 'foobar' } }
-  let(:hiera_data){{ 'internal_tld' => 'test' }}
 
   it do
-    is_expected.to contain_host('giraffe.foobar.test')
+    is_expected.to contain_host('giraffe.foobar.example')
       .with_ip('1.2.3.4')
       .with_host_aliases(['giraffe.foobar', 'giraffe'])
   end
@@ -21,7 +20,7 @@ describe 'govuk::host', :type => :define do
     end
 
     it do
-      is_expected.to contain_host('giraffe.foobar.test')
+      is_expected.to contain_host('giraffe.foobar.example')
         .with_ip('1.2.3.4')
         .with_host_aliases(['giraffe.foobar', 'giraffe', 'foo', 'bar', 'baz'])
     end
@@ -38,7 +37,7 @@ describe 'govuk::host', :type => :define do
     end
 
     it do
-      is_expected.to contain_host('giraffe.foobar.test')
+      is_expected.to contain_host('giraffe.foobar.example')
         .with_ip('1.2.3.4')
         .with_host_aliases(['giraffe.foobar', 'foo.donkeys', 'bar.donkeys', 'baz.donkeys', 'giraffe'])
     end

@@ -199,15 +199,6 @@ describe 'govuk::app::config', :type => :define do
     end
 
     context 'when govuk_app_enable_services is false' do
-      # FIXME: Force rspec-puppet to invalidate the cached Puppet catalog
-      # for this test. This prevents tests from incorrectly failing due to
-      # a race condition. This can be removed once this is addressed by
-      # 'hiera-puppet-helper'.
-      let(:facts) {{ :cache_bust => Time.now }}
-
-      let(:hiera_data) {{
-        'govuk_app_enable_services' => false,
-      }}
       let(:params) {{
         :port => 8000,
         :app_type => 'rack',

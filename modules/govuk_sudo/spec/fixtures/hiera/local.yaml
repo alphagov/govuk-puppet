@@ -1,3 +1,0 @@
-govuk_sudo::sudo_conf:
-  patrick:
-    content: 'patrick ALL=(ALL) NOPASSWD:ALL'
