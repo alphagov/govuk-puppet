@@ -38,6 +38,10 @@ server {
   access_log /var/log/nginx/<%= @vhost_real %>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_real %>-error.log;
 
+  location = /maintenance.html {
+    root /usr/share/nginx/html;
+  }
+
   location / {
     <%- if @internal_only -%>
     # Only accept connnections from internal machines
@@ -45,6 +49,11 @@ server {
     allow 127.0.0.1;
     deny all;
     <%- end -%>
+    include includes/maintenance.conf;
+    if ($maintenance = 1) {
+      error_page 503 /maintenance.html;
+      return 503;
+    }
     proxy_pass https://<%= @vhost %>-upstream;
   }
 }
