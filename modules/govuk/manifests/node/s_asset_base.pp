@@ -77,8 +77,8 @@ class govuk::node::s_asset_base (
   }
 
   file { '/usr/local/bin/sync-assets.sh':
-    source => 'puppet:///modules/govuk/node/s_asset_base/sync-assets.sh',
-    mode   => '0755',
+    content => template('govuk/node/s_asset_base/sync-assets.sh.erb'),
+    mode    => '0755',
   }
 
   cron { 'tmpreaper-bulk-upload-zip-file-tmp':

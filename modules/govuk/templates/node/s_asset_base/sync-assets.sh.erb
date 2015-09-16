@@ -2,6 +2,17 @@
 # script to rsync files locally
 set -eu
 
+NCSA_CODE=2
+NCSA_OUTPUT="Assets sync failed"
+
+function send_ncsa {
+  NCSA_CHECK_DESCRIPTION="Local assets sync from master to slave"
+  printf "<%= @ipaddress %>\t$NCSA_CHECK_DESCRIPTION\t$NCSA_CODE\t$NCSA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  exit $?
+}
+
+trap send_ncsa EXIT
+
 APPNAME=$(basename "$0")
 REMOTEDIR=$1
 LOCALDIR=$2
@@ -23,3 +34,6 @@ FINISHEPOCH=$(date +'%s')
 TOTALTIME=$((FINISHEPOCH-STARTEPOCH))
 MESSAGE="$APPNAME: $DIRECTORIES rsynced in T:$TOTALTIME"
 logger -i -t "$APPNAME" "$MESSAGE"
+
+NCSA_CODE=0
+NCSA_OUTPUT="Assets sync completed successfully"
