@@ -13,10 +13,14 @@
 #   true, does not set it if false.
 #   Default: false
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::static(
   $vhost,
   $port = 3013,
-  $draft_environment = false
+  $draft_environment = false,
+  $secret_key_base = undef,
 ) {
   $app_domain = hiera('app_domain')
   $website_root = hiera('website_root')
@@ -43,6 +47,13 @@ class govuk::apps::static(
       "${title}-DRAFT_ENVIRONMENT":
         varname => 'DRAFT_ENVIRONMENT',
         value   => '1';
+    }
+  }
+
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
     }
   }
 }
