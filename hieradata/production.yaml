@@ -182,7 +182,6 @@ ssh::config::allow_users:
   - 'danielroseman'
   - 'davidsingleton'
   - 'deploy'
-  - 'eddsowden'
   - 'elliot'
   - 'govuk-backup'
   - 'heathd'
@@ -207,7 +206,6 @@ users::usernames:
   - bradleyw
   - danielroseman
   - davidsingleton
-  - eddsowden
   - elliot
   - heathd
   - jamiec
