@@ -13,9 +13,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-        expect {
-          should compile
-        }.to raise_error(Puppet::Error, /This machine's hostname was not found in the list of MongoDB replicaset members/)
+          is_expected.to raise_error(Puppet::Error, /This machine's hostname was not found in the list of MongoDB replicaset members/)
       }
     end
 
@@ -25,9 +23,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-        expect {
-          should compile
-        }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
+          is_expected.to_not raise_error
       }
     end
   end
@@ -39,7 +35,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-        should contain_file('/etc/cron.daily/automongodbbackup-replicaset').with_ensure('present')
+        is_expected.to contain_file('/etc/cron.daily/automongodbbackup-replicaset').with_ensure('present')
       }
     end
 
@@ -49,7 +45,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-        should contain_file('/etc/cron.daily/automongodbbackup-replicaset').with_ensure('absent')
+        is_expected.to contain_file('/etc/cron.daily/automongodbbackup-replicaset').with_ensure('absent')
       }
     end
   end
@@ -66,7 +62,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-        should contain_file('/etc/cron.daily/automongodbbackup-replicaset').with_ensure('absent')
+        is_expected.to contain_file('/etc/cron.daily/automongodbbackup-replicaset').with_ensure('absent')
       }
     end
   end
