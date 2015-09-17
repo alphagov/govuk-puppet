@@ -92,8 +92,6 @@ govuk::node::s_backup::backup_licensify: false
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
 
-govuk_jenkins::job::smokey::build_branch: 'smokey-failure-licensing'
-
 grafana::dashboards::machine_suffix_metrics: ''
 
 hosts::production::apt_mirror_internal: false
