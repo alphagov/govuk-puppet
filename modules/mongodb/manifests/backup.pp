@@ -4,6 +4,9 @@
 #
 # === Parameters:
 #
+# [*replicaset_members*]
+#   An array of members of the MongoDB replicaset to be backed up
+#
 # [*enabled*]
 #   Whether mongodb backups should be enabled or disabled
 #
@@ -11,16 +14,30 @@
 #   Whether monthly backups should be enabled or disabled
 #
 class mongodb::backup(
+  $replicaset_members,
   $enabled = true,
-  $domonthly = true
+  $domonthly = true,
 ) {
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
 
-  if $enabled {
-    $present = 'present'
+  # Sanity-check that replicaset members are defined using hostnames
+  unless $::hostname in $replicaset_members {
+    $replicaset_members_string = join($replicaset_members, ', ')
+    fail("This machine\'s hostname was not found in the list of MongoDB replicaset members: ${replicaset_members_string}")
   }
-  else {
+
+  # Backups only needs to run on one member of the replicaset, since the data
+  # is the same on each node
+  if $::hostname == $replicaset_members[0] {
+    $enabled_real = $enabled
+  } else {
+    $enabled_real = false
+  }
+
+  if $enabled_real {
+    $present = 'present'
+  } else {
     $present = 'absent'
   }
 
@@ -52,7 +69,7 @@ class mongodb::backup(
     require => Class['logrotate'],
   }
 
-  if $enabled {
+  if $enabled_real {
     include logrotate
 
     @@icinga::passive_check { "check_automongodbbackup-${::hostname}":

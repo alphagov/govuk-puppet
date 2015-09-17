@@ -1,6 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'mongodb::server', :type => :class do
+  let(:facts) {{
+    'hostname' => 'mongo-box-1'
+  }}
+
   describe "with the default package name" do
     let(:params) { {
       'version' => '2.4.6',

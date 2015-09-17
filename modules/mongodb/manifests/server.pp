@@ -35,6 +35,12 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
+  class { 'mongodb::backup':
+    replicaset_members => $replicaset_members,
+  }
+
+  include mongodb::repository
+
   if $development {
     $replicaset_name = 'development'
   } else {
@@ -46,7 +52,6 @@ class mongodb::server (
     notify => Class['mongodb::service'];
   }
 
-  class { 'mongodb::repository': }
 
   class { 'mongodb::package':
     version      => $version,

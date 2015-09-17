@@ -4,7 +4,6 @@
 #
 class govuk::node::s_mongo inherits govuk::node::s_base {
   include mongodb::server
-  include mongodb::backup
 
   collectd::plugin::tcpconn { 'mongo':
     incoming => 27017,

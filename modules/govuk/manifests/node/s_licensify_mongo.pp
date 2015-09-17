@@ -33,10 +33,5 @@ class govuk::node::s_licensify_mongo (
     }
   }
 
-  # Disable monthly backups to limit the retention of IL3 data.
-  class { 'mongodb::backup':
-    domonthly => false
-  }
-
   Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
 }
