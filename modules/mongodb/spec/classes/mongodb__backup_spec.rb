@@ -13,7 +13,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-          is_expected.to raise_error(Puppet::Error, /This machine's hostname was not found in the list of MongoDB replicaset members/)
+        is_expected.to raise_error(Puppet::Error, /This machine's hostname was not found in the list of MongoDB replicaset members/)
       }
     end
 
@@ -23,7 +23,7 @@ describe 'mongodb::backup', :type => :class do
       }}
 
       it {
-          is_expected.to_not raise_error
+        is_expected.to_not raise_error
       }
     end
   end
