@@ -17,7 +17,7 @@
 #   it must be set.
 #
 # [*development*]
-#   Disable journalling and endable query profiling.
+#   Disable journalling and backups and enable query profiling.
 #   Saves space at the expense of data integrity.
 #   Default: false
 #
@@ -35,8 +35,10 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
-  class { 'mongodb::backup':
-    replicaset_members => $replicaset_members,
+  unless $development {
+    class { 'mongodb::backup':
+      replicaset_members => $replicaset_members,
+    }
   }
 
   include mongodb::repository
