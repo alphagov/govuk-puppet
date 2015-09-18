@@ -104,7 +104,7 @@ etcd::peer_election_timeout: 500
 govuk::apps::backdrop_read::enabled: true
 govuk::apps::backdrop_write::enabled: true
 
-govuk::apps::bouncer::db_hostname: "transition-postgresql-master-1.backend"
+govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 
 govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
 

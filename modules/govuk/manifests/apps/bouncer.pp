@@ -21,7 +21,7 @@
 #   The database name to use in DATABASE_URL.
 #
 class govuk::apps::bouncer(
-  $db_username = 'transition',
+  $db_username = 'bouncer',
   $db_password = '',
   $db_hostname = '',
   $db_name = 'transition_production',
