@@ -9,7 +9,8 @@ class govuk::apps::external_link_tracker (
 ) {
   if $enabled {
     Govuk::App::Envvar {
-      app => 'external-link-tracker',
+      ensure => absent,
+      app    => 'external-link-tracker',
     }
 
     govuk::app::envvar {
@@ -22,6 +23,7 @@ class govuk::apps::external_link_tracker (
     }
 
     govuk::app { 'external-link-tracker':
+      ensure             => absent,
       app_type           => 'bare',
       command            => './external-link-tracker',
       port               => $port,
@@ -32,6 +34,7 @@ class govuk::apps::external_link_tracker (
     $full_domain = "api-external-link-tracker.${app_domain}"
 
     nginx::config::vhost::proxy { $full_domain:
+      ensure    => absent,
       to        => ["localhost:${api_port}"],
       protected => false,
       ssl_only  => false,
@@ -41,12 +44,14 @@ class govuk::apps::external_link_tracker (
     # reverse proxy port, not the API port. Changing the port would lose us
     # TCP connection stats.
     @@icinga::check { "check_app_external_link_tracker_up_on_${::hostname}":
+      ensure              => absent,
       check_command       => "check_nrpe!check_app_up!${api_port} ${api_healthcheck}",
       service_description => 'external-link-tracker app not running',
       host_name           => $::fqdn,
     }
 
     govuk::logstream { 'external-link-tracker-error-json-log':
+      ensure  => absent,
       logfile => $error_log,
       tags    => ['error'],
       fields  => {'application' => 'external-link-tracker'},
