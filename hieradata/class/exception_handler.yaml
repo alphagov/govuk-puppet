@@ -21,4 +21,4 @@ mount:
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
-  - 'localhost'
+  - 'exception-hander-1'
