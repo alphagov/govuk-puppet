@@ -16,5 +16,5 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
     #FIXME: Adjust these values when elasticsearch is upgraded to 1.4
-    nagios_warn: 31
-    nagios_crit: 16
+    percent_threshold_warning: 31
+    percent_threshold_critical: 16

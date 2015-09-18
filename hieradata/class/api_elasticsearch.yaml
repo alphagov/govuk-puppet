@@ -15,5 +15,5 @@ mount:
     disk: '/dev/mapper/elasticsearch-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
-    nagios_warn: 16
-    nagios_crit: 11
+    percent_threshold_warning: 16
+    percent_threshold_critical: 11

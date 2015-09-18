@@ -1,17 +1,17 @@
 # == Define: govuk::mount
 #
-# Wrapper for `Ext4mount[]` which will automatically setup new Nagios checks
+# Wrapper for `Ext4mount[]` which will automatically setup new monitoring checks
 # for free space and inodes.
 #
 # === Parameters
 #
-# [*nagios_warn*]
-#   Percentage at which Nagios will raise a WARNING alert for free space and
+# [*percent_threshold_warning*]
+#   Percentage at which monitoring will raise a WARNING alert for free space and
 #   inodes.
 #   Default: 10
 #
-# [*nagios_crit*]
-#   Percentage at which Nagios will raise a CRITICAL alert for free space and
+# [*percent_threshold_critical*]
+#   Percentage at which monitoring will raise a CRITICAL alert for free space and
 #   inodes.
 #   Default: 5
 #
@@ -24,8 +24,8 @@
 # `mountpoint` which needs to default to `$title`.
 #
 define govuk::mount(
-  $nagios_warn = 10,
-  $nagios_crit = 5,
+  $percent_threshold_warning = 10,
+  $percent_threshold_critical = 5,
   $govuk_lvm = undef,
   # Ext4mount[] options (I long for **kwargs)
   $disk = undef,
@@ -54,7 +54,7 @@ define govuk::mount(
   }
 
   @@icinga::check { "check${mountpoint_escaped}_disk_space_${::hostname}":
-    check_command       => "check_nrpe!check_disk_space_arg!${nagios_warn}% ${nagios_crit}% ${mountpoint}",
+    check_command       => "check_nrpe!check_disk_space_arg!${percent_threshold_warning}% ${percent_threshold_critical}% ${mountpoint}",
     service_description => "low available disk space on ${mountpoint}",
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
@@ -63,7 +63,7 @@ define govuk::mount(
   }
 
   @@icinga::check { "check${mountpoint_escaped}_disk_inodes_${::hostname}":
-    check_command       => "check_nrpe!check_disk_inodes_arg!${nagios_warn}% ${nagios_crit}% ${mountpoint}",
+    check_command       => "check_nrpe!check_disk_inodes_arg!${percent_threshold_warning}% ${percent_threshold_critical}% ${mountpoint}",
     service_description => "low available disk inodes on ${mountpoint}",
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
