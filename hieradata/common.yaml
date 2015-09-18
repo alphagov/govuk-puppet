@@ -479,7 +479,6 @@ hosts::production::backend::hosts:
     ip: '10.3.10.32'
 
 hosts::production::backend::app_hostnames:
-  - 'api-external-link-tracker'
   - 'asset-manager'
   - 'business-support-api'
   - 'canary-backend'
@@ -492,7 +491,6 @@ hosts::production::backend::app_hostnames:
   - 'email-alert-monitor'
   - 'errbit'
   - 'event-store'
-  - 'external-link-tracker'
   - 'govuk-delivery'
   - 'hmrc-manuals-api'
   - 'imminence'
@@ -595,7 +593,6 @@ hosts::production::frontend::app_hostnames:
   - 'performanceplatform-big-screen-view'
   - 'publicapi'
   - 'public-event-store'
-  - 'public-link-tracker'
   - 'service-manual'
   - 'smartanswers'
   - 'spotlight'
@@ -759,8 +756,6 @@ monitoring::checks::smokey::features:
     feature: contacts
   check_efg:
     feature: efg
-  check_external_link_tracker:
-    feature: external_link_tracker
   check_email_campaign:
     feature: email_campaign
   check_frontend:

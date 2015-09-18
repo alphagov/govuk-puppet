@@ -8,11 +8,6 @@ govuk::apps::event_store::mongodb_servers:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::external_link_tracker::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
 govuk::apps::frontend::vhost_protected: true
 
 govuk_elasticsearch::local_proxy::servers:
