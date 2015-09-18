@@ -74,7 +74,7 @@ class govuk::node::s_development {
   include govuk::apps::email_campaign_api
   include govuk::apps::errbit
   include govuk::apps::event_store
-  include govuk::apps::external_link_tracker
+  include govuk::apps::external_link_tracker # FIXME: Remove module inclusion once removed from all boxes
   include govuk::apps::govuk_delivery
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence
@@ -87,7 +87,7 @@ class govuk::node::s_development {
   include govuk::apps::policy_publisher
   include govuk::apps::publicapi
   include govuk::apps::public_event_store
-  include govuk::apps::public_link_tracker
+  include govuk::apps::public_link_tracker # FIXME: Remove module inclusion once removed from all boxes
   include govuk::apps::publisher
   include govuk::apps::publishing_api
   include govuk::apps::publishing_api::rabbitmq

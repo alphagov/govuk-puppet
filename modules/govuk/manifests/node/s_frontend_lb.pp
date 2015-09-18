@@ -66,5 +66,5 @@ class govuk::node::s_frontend_lb (
 
   include govuk::apps::publicapi
   include govuk::apps::public_event_store
-  include govuk::apps::public_link_tracker
+  include govuk::apps::public_link_tracker # FIXME: Remove module inclusion once removed from all boxes
 }

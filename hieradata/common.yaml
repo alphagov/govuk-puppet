@@ -159,7 +159,7 @@ govuk::node::s_backend::apps:
   - govuk::apps::email_alert_monitor
   - govuk::apps::email_alert_service
   - govuk::apps::event_store
-  - govuk::apps::external_link_tracker
+  - govuk::apps::external_link_tracker # FIXME: Remove module inclusion once removed from all boxes
   - govuk::apps::frontend
   - govuk::apps::govuk_delivery
   - govuk::apps::hmrc_manuals_api
