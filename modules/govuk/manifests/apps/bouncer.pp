@@ -1,5 +1,30 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::bouncer
+#
+# A Rack-based redirector for sites which have moved to GOV.UK.
+#
+# == Parameters
+#
+# [*port*]
+#   The port on which Bouncer is served on.
+#   Default: 3049
+#
+# [*db_username*]
+#   The username to use in DATABASE_URL.
+#
+# [*db_password*]
+#   The password to use in DATABASE_URL.
+#
+# [*db_hostname*]
+#   The hostname to use in DATABASE_URL.
+#
+# [*db_name*]
+#   The database name to use in DATABASE_URL.
+#
 class govuk::apps::bouncer(
+  $db_username = 'transition',
+  $db_password = '',
+  $db_hostname = '',
+  $db_name = 'transition_production',
   $port = 3049,
 ) {
 
@@ -133,5 +158,13 @@ class govuk::apps::bouncer(
                           value => '@fields.request_time'}];
     'www.mhra.gov.uk-error.log':
       logstream     => present;
+  }
+
+  if $::govuk_node_class != 'development' {
+    govuk::app::envvar { "${title}-DATABASE_URL":
+      app     => 'bouncer',
+      varname => 'DATABASE_URL',
+      value   => "postgresql://${db_username}:${db_password}@${db_hostname}/${db_name}",
+    }
   }
 }
