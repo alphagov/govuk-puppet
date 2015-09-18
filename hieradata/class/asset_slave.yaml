@@ -15,3 +15,5 @@ mount:
     disk: '/dev/mapper/uploads-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+    percent_threshold_warning: 5
+    percent_threshold_critical: 2
