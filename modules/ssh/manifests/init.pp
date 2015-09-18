@@ -32,7 +32,7 @@ class ssh {
   # FQDN foo-1.bar.production is foo-1.bar. Internal references to other
   # machines which must be unambiguous (e.g. in deployment scripts) should use
   # the IQDN.
-  $iqdn = regsubst($::fqdn, '\.[^\.]+$', '')
+  $iqdn = regsubst($::fqdn, '^([^\.]+\.[^\.]+)\..*$', '\1')
 
   # Export this machine's SSH RSA key to the puppetmaster
   @@sshkey { $::fqdn:
