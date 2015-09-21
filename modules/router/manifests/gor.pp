@@ -33,12 +33,6 @@ class router::gor (
 
   create_resources('host', $replay_targets, $host_defaults)
 
-  # FIXME: Delete once deployed to Production
-  host { 'www-origin-staging.production.alphagov.co.uk':
-    ensure => absent,
-    ip     => '37.26.91.14',
-  }
-
   class { 'govuk::gor':
     args   => {
       '-input-raw'          => 'localhost:7999',
