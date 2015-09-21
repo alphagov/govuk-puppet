@@ -500,6 +500,7 @@ monitoring::checks::ses::warning: 30
 postfix::smarthost:
 - 'email-smtp.us-east-1.amazonaws.com:587'
 - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
+postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 postgresql_api_slave_address: '10.2.4.41/32'
