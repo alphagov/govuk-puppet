@@ -4,7 +4,8 @@ class govuk::node::s_backend_lb (
   $backend_servers,
   $mapit_servers,
   $performance_backend_servers = [],
-  $whitehall_backend_servers
+  $whitehall_backend_servers,
+  $maintenance_mode = false,
 ){
   include govuk::node::s_base
   include loadbalancer
@@ -14,6 +15,7 @@ class govuk::node::s_backend_lb (
 
   Loadbalancer::Balance {
     servers => $backend_servers,
+    maintenance_mode => $maintenance_mode,
   }
 
   loadbalancer::balance {

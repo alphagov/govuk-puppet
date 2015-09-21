@@ -34,6 +34,9 @@
 #   Pass to nginx's proxy_read_timeout setting.
 #   Default: 15
 #
+# [*maintenance_mode*]
+#   Puts balancers into maintenance mode.
+#
 define loadbalancer::balance(
     $servers,
     $aliases = [],
@@ -42,6 +45,7 @@ define loadbalancer::balance(
     $internal_only = false,
     $vhost = $title,
     $read_timeout = 15,
+    $maintenance_mode = false,
 ) {
 
   $vhost_suffix = hiera('app_domain')
@@ -61,5 +65,30 @@ define loadbalancer::balance(
       logstream => present;
     "${vhost_real}-error.log":
       logstream => present;
+  }
+
+  if ! defined(File['/etc/nginx/includes']) {
+    file { '/etc/nginx/includes':
+      ensure => 'directory',
+    }
+  }
+
+  if ! defined(File['/etc/nginx/includes/maintenance.conf']) {
+    file { '/etc/nginx/includes/maintenance.conf':
+      ensure  => present,
+      content => template('govuk/maintenance.conf.erb'),
+      require => File['/etc/nginx/includes'],
+      notify  => Class['nginx::service']
+    }
+  }
+
+  #FIXME - This maintenance page is currently hardcoded with assets etc
+  #        that it shouldn't be. Specific to migration. Should be changed
+  #        after migration is completed.
+  if ! defined(File['/usr/share/nginx/html/maintenance.html']) {
+    file { '/usr/share/nginx/html/maintenance.html':
+      ensure  => present,
+      content => template('govuk/maintenance_page.erb'),
+    }
   }
 }
