@@ -5,19 +5,28 @@
 # === Parameters:
 #
 # [*members*]
+#   A hash of members to add to the replica set.
+#
 # [*replicaset_name*]
 #   A string for the name of the replica set.
 #   Passed in by `mongodb::server` which sets it to
 #   'production' unless $development is true, in which
 #   case it is set to 'development'.
 #
-class mongodb::configure_replica_set($members, $replicaset_name) {
+class mongodb::configure_replica_set (
+  $members,
+  $replicaset_name,
+) {
+  validate_hash($members)
+
   file { '/etc/mongodb':
     ensure => 'directory',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
   }
+
+  $members_hostnames = keys($members)
 
   file { '/etc/mongodb/configure-replica-set.js':
     ensure  => present,
