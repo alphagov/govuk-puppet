@@ -17,13 +17,18 @@ class monitoring::pagerduty_drill (
   if $enabled {
     $filename = '/var/run/pagerduty_drill'
 
-    cron { 'pagerduty_drill_run':
+    cron { 'pagerduty_drill_start':
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
       hour    => 11,
       minute  => 0,
       command => "touch ${filename}",
+    }
+
+    # FIXME: Remove when 8033510 has been deployed
+    cron { 'pagerduty_drill_run':
+      ensure => absent,
     }
 
     cron { 'pagerduty_drill_stop':
