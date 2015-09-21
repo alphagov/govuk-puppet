@@ -45,17 +45,6 @@ describe 'govuk::app', :type => :define do
     it { is_expected.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
   end
 
-  describe 'app_type => bare, which logs JSON to STDERR' do
-    let(:params) {{
-      :app_type           => 'bare',
-      :port               => 123,
-      :command            => '/bin/yes',
-      :log_format_is_json => true,
-    }}
-
-    it { is_expected.to contain_govuk__logstream("#{title}-app-err").with("json" => true) }
-  end
-
   context 'health check hidden' do
     let(:params) do
       {
@@ -118,6 +107,78 @@ describe 'govuk::app', :type => :define do
       }}
 
       it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
+    end
+  end
+
+  describe "logging" do
+    let(:params) {{
+      :app_type => 'rack',
+      :port => 8000,
+    }}
+
+    context "a 12-factor app" do
+      before :each do
+        params[:legacy_logging] = false
+      end
+
+      it "collects stdout logging as JSON" do
+        expect(subject).to contain_govuk__logstream("#{title}-app-out")
+          .with_logfile("/var/log/#{title}/app.out.log")
+          .with_json(true)
+      end
+
+      it "collects stderr logging as plain text" do
+        expect(subject).to contain_govuk__logstream("#{title}-app-err")
+          .with_logfile("/var/log/#{title}/app.err.log")
+          .with_json(false)
+      end
+
+      it "removes collection of the apps production.log" do
+        expect(subject).to contain_govuk__logstream("#{title}-production-log")
+          .with_ensure("absent")
+      end
+    end
+
+    context "a non-12-factor app" do
+      before :each do
+        params[:legacy_logging] = true
+      end
+
+      it "collects stderr logging as plain text" do
+        expect(subject).to contain_govuk__logstream("#{title}-app-err")
+          .with_logfile("/var/log/#{title}/app.err.log")
+          .with_json(false)
+      end
+
+      it "collects the app production.log as plain text by default" do
+        expect(subject).to contain_govuk__logstream("#{title}-production-log")
+          .with_logfile("/data/vhost/#{title}.environment.example.com/shared/log/production.log")
+          .with_json(false)
+      end
+
+      it "collects the app production.json.log as JSON when requested" do
+        params[:log_format_is_json] = true
+
+        expect(subject).to contain_govuk__logstream("#{title}-production-log")
+          .with_logfile("/data/vhost/#{title}.environment.example.com/shared/log/production.json.log")
+          .with_json(true)
+      end
+
+      describe 'app_type => bare, which logs JSON to STDERR' do
+
+        it "collects stderr as JSON" do
+          params.update(
+            :app_type           => 'bare',
+            :command            => '/bin/yes',
+            :log_format_is_json => true,
+          )
+
+          expect(subject).to contain_govuk__logstream("#{title}-app-err")
+            .with_logfile("/var/log/#{title}/app.err.log")
+            .with("json" => true)
+        end
+      end
+
     end
   end
 end
