@@ -63,7 +63,7 @@ create_resources('govuk::mount', $mount)
     }
 
     it "should compile" do
-      expect { subject }.not_to raise_error
+      expect { subject.call }.not_to raise_error
     end
   end
 end
