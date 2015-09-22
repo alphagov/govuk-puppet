@@ -536,13 +536,13 @@ ssh::config::allow_users:
   - 'tommypalmer'
 
 users::pentest_machines:
-  - 'asset-master-1.backend.production'
-  - 'backend-1.backend.production'
-  - 'cache-1.router.production'
-  - 'frontend-1.frontend.production'
-  - 'jumpbox-1.management.production'
-  - 'mysql-master-1.backend.production'
-  - 'postgresql-primary-1.backend.production'
+  - 'asset-master-1'
+  - 'backend-1'
+  - 'cache-1'
+  - 'frontend-1'
+  - 'jumpbox-1'
+  - 'mysql-master-1'
+  - 'postgresql-primary-1'
 
 users::pentest_usernames:
   - digitalassurancetester

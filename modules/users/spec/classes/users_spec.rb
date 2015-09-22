@@ -3,14 +3,14 @@ require 'sshkey'
 
 describe "users", :type => "class" do
   context 'on whitelisted node pentest user should be created' do
-    let(:facts) {{ :fqdn => 'foo' }}
+    let(:facts) {{ :hostname => 'foo' }}
     let(:pre_condition) { 'class users::andre_the_giant { govuk::user { "andre_the_giant": } }' }
 
     it { is_expected.to contain_govuk__user('andre_the_giant') }
   end
 
   context 'on non-whitelisted node pentest user should not be created' do
-    let(:facts) {{ :fqdn => 'bar' }}
+    let(:facts) {{ :hostname => 'bar' }}
 
     it { is_expected.not_to contain_govuk__user('andre_the_giant') }
   end
