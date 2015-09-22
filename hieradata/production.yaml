@@ -19,6 +19,9 @@ govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
 
+# Disables email delivery for Rails apps now that Production has moved to Carrenza
+govuk::deploy::actionmailer_enable_delivery: false
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::setup::ssh_keys:
