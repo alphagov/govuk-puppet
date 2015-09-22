@@ -43,7 +43,6 @@ govuk_jenkins::config::admins:
   - paulmartin
 
 govuk_jenkins::config::users:
-  - aaronkeogh
   - alexmuller
   - alextomlins
   - andrewlanghorn
