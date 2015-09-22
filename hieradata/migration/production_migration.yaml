@@ -99,8 +99,6 @@ hosts::production::licensify_hosts:
     ip: '37.26.90.233'
 hosts::production::management::apt_host_ip: '10.3.0.75'
 
-website_root: 'https://www-origin.publishing.service.gov.uk'
-
 govuk_jenkins::config::banner_colour_background: '#ff3300'
 govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
