@@ -55,7 +55,7 @@ class users (
 
   include $usernames_classes
 
-  if ($::fqdn in $pentest_machines) {
+  if ($::hostname in $pentest_machines) {
     $pentest_user_classes = regsubst($pentest_usernames, '^', 'users::')
     include $pentest_user_classes
   }
