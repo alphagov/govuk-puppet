@@ -7,12 +7,6 @@ GIT
       gpgme (>= 2.0.0)
       hiera-eyaml (>= 1.3.8)
 
-GIT
-  remote: git://github.com/bobtfish/hiera-puppet-helper.git
-  revision: 2853187c6553ee292793292c852a9e57c58da167
-  specs:
-    hiera-puppet-helper (2.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -119,7 +113,6 @@ PLATFORMS
 DEPENDENCIES
   hiera (= 1.3.4)
   hiera-eyaml-gpg!
-  hiera-puppet-helper!
   librarian-puppet
   parallel
   parallel_tests

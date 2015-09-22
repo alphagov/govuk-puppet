@@ -19,10 +19,7 @@ describe 'govuk::mount', :type => :define do
   end
 
   context 'no_op => true' do
-    let(:hiera_data) {{
-      :'govuk::mount::no_op' => true,
-    }}
-
+    let(:hiera_config) { File.expand_path('../../fixtures/hiera/hiera.yaml', __FILE__) }
     it { is_expected.not_to contain_ext4mount('/mnt/gruffalo') }
   end
 

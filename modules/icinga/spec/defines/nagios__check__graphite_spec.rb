@@ -4,7 +4,6 @@ describe 'icinga::check::graphite', :type => :define do
 
   let(:facts) {{ :fqdn => 'warden.zoo.tld' }}
   let(:pre_condition) { 'icinga::host { "warden.zoo.tld": }' }
-  let(:hiera_data) { { 'app_domain' => 'monitoring.zoo.tld' } }
 
   context 'when required params are passed' do
     let(:title) { 'count_tigers' }
@@ -21,7 +20,7 @@ describe 'icinga::check::graphite', :type => :define do
         :check_command              => 'check_graphite_metric_args!sumSeries(zoo.*.tiger)!10!20!-F 5minutes ',
         :service_description        => 'number of animals in the zoo',
         :host_name                  => 'warden.zoo.tld',
-        :action_url                 => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=sumSeries\(zoo\.\*\.tiger\)$/,
+        :action_url                 => /^https:\/\/graphite\.environment\.example\.com\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=sumSeries\(zoo\.\*\.tiger\)$/,
         :attempts_before_hard_state => 1,
       )
     end
@@ -40,7 +39,7 @@ describe 'icinga::check::graphite', :type => :define do
     it 'should contain a nagios_check resource' do
       is_expected.to contain_icinga__check('count_tigers').with(
         :check_command              => 'check_graphite_metric_args!summarize(zoo.*.tiger,"5minutes","max",true)!10!20!-F 5minutes ',
-        :action_url                 => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=summarize\(zoo\.\*\.tiger,%225minutes%22,%22max%22,true\)$/,
+        :action_url                 => /^https:\/\/graphite\.environment\.example\.com\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(20\)\),%22critical%22\)&target=alias\(dashed\(constantLine\(10\)\),%22warning%22\)&target=summarize\(zoo\.\*\.tiger,%225minutes%22,%22max%22,true\)$/,
       )
     end
   end
@@ -58,7 +57,7 @@ describe 'icinga::check::graphite', :type => :define do
     it 'should not contain warning line but should contain critical line in linked graph' do
       is_expected.to contain_icinga__check('count_tigers').with(
         :check_command => 'check_graphite_metric_args!sumSeries(zoo.*.tiger)!10:20!10.20!-F 5minutes ',
-        :action_url    => /^https:\/\/graphite\.monitoring\.zoo\.tld\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(10.20\)\),%22critical%22\)&target=sumSeries\(zoo\.\*\.tiger\)$/,
+        :action_url    => /^https:\/\/graphite\.environment\.example\.com\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(10.20\)\),%22critical%22\)&target=sumSeries\(zoo\.\*\.tiger\)$/,
       )
     end
   end

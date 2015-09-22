@@ -1,3 +1,6 @@
+require 'tempfile'
+require 'yaml'
+
 require_relative '../../../../spec_helper'
 
 # This spec test has been renamed so as not to be caught by the default
@@ -31,10 +34,15 @@ def class_list
   end
 end
 
-hiera_conf = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
-hiera_conf[:yaml][:datadir] = File.expand_path("../../../../../hieradata", __FILE__)
-hiera_conf[:eyaml][:datadir] = hiera_conf[:yaml][:datadir]
-hiera_conf[:eyaml][:gpg_gnupghome] = File.expand_path("../../../../../gpg", __FILE__)
+standard_hiera_config = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
+
+standard_hiera_config[:yaml][:datadir] = 'hieradata'
+standard_hiera_config[:eyaml][:datadir] = 'hieradata'
+standard_hiera_config[:eyaml][:gpg_gnupghome] = 'gpg'
+
+temporary_hiera_file = Tempfile.new('hiera_yml')
+temporary_hiera_file.write(standard_hiera_config.to_yaml)
+temporary_hiera_file.close
 
 class_list.each do |class_name|
   node_hostname = class_name.tr("_", "-")
@@ -49,7 +57,7 @@ class_list.each do |class_name|
       :memtotalmb => 3953,
     }}
 
-    let(:hiera_config) { hiera_conf }
+    let(:hiera_config) { temporary_hiera_file.path }
 
     # Pull in some required bits from top-level site.pp
     let(:pre_condition) { <<-EOT
