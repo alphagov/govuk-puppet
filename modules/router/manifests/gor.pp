@@ -20,11 +20,8 @@ class router::gor (
     $gor_hosts_ensure = present
   }
 
-  # FIXME: These "fake" host entries serve two purposes:
-  #   1. Ensures that the SSL cert on staging, which thinks it is
-  #   production, matches the hostname that we connect to.
-  #   2. Prevents Gor/Go from performing DNS lookups, which occur once
-  #   for *every* request/goroutine, and can be quite overwhelming.
+  # These host entries prevent Gor from performing DNS lookups, which occur
+  # once for *every* request/goroutine, and can be quite overwhelming.
   $host_defaults = {
     'ensure'  => $gor_hosts_ensure,
     'notify'  => 'Class[Govuk::Gor]',
