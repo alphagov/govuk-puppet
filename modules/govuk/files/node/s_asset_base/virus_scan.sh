@@ -59,6 +59,14 @@ $CLAMSCAN_CMD --no-summary --stdout -r . > "$RESULTFILE" || true
 grep 'FOUND$' "$RESULTFILE" | sed 's/: [^:]* FOUND$//' | rsync --remove-source-files --files-from=- . "$INFECTED_DIR/."
 if [ -n "$CLEAN_DIR" ]; then
   grep ': OK$' "$RESULTFILE" | sed 's/: OK$//' | rsync --remove-source-files --files-from=- . "$CLEAN_DIR/."
+
+  # Clean up empty directories if given a clean dir. The presence of a clean dir
+  # indicates that we're scanning an incoming directory, not an exsiting clean
+  # dir.
+  #
+  # -mmin +5 is to avoid deleting directories that have just been created by
+  # whitehall, but not yet populated.
+  find . -depth -type d -mmin +5 -empty -exec rmdir {} +
 fi
 
 COUNT_FOUND=$(grep -c 'FOUND$' "$RESULTFILE" || true)
