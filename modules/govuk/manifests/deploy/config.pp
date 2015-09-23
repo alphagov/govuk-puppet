@@ -94,7 +94,7 @@ class govuk::deploy::config(
   # FIXME: Remove this when Skyscape uses Carrenza Puppetmaster
   if $external_licensify {
     govuk::envvar { 'PLEK_SERVICE_LICENSIFY_URI':
-      value => "https://licensify.production.alphagov.co.uk/",
+      value => 'https://licensify.production.alphagov.co.uk/',
     }
   }
 }
