@@ -41,8 +41,7 @@
             done
 
             echo "Running Data Sync"
-            bash sync carrenza_production staging
-            echo "Triggering post-sync job on deploy.staging.publishing.service.gov.uk"
+            bash sync production staging
             EXITCODE=$?
 
             echo "Re-enabling Gor traffic replay"
@@ -52,6 +51,7 @@
 
             exit $EXITCODE
         - shell: |
+            echo "Triggering post-sync job on deploy.staging.publishing.service.gov.uk"
             curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.staging.publishing.service.gov.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
     wrappers:
         - ansicolor:

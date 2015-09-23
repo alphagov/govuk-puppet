@@ -24,16 +24,22 @@
         - timed: 'H 5 * * *'
     builders:
         - shell: |
-            set -eux
+            set -eu
+
             cd "${WORKSPACE}"
+
             echo "Putting in the real MySQL root password"
             sed -i.bak "s/MYSQL_SRC_ROOT_PW=PLACEHOLDER/MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>'/g" scripts/sync-mysql.sh
             sed -i "s/MYSQL_DST_ROOT_PW=PLACEHOLDER/MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>'/g" scripts/sync-mysql.sh
+
             echo "Putting in the real Postgresql env-sync password"
             sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
             sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
+
             echo "Running Data Sync"
             bash sync production preview
+
+       - shell: |
             echo "Triggering post-sync job on deploy.preview.alphagov.co.uk"
             curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.preview.alphagov.co.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
     wrappers:
