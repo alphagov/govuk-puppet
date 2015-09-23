@@ -9,10 +9,6 @@
 #   The port that hmrc-manuals-api is served on.
 #   Default: 3071
 #
-# [*enabled*]
-#   Feature flag to allow the app to be deployed to an environment.
-#   Default: false
-#
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
