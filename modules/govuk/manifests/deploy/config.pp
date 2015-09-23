@@ -9,12 +9,17 @@
 # [*errbit_environment_name*]
 #   Name of the environment to be included in Errbit error reports.
 #
+# [*external_licensify*]
+#   Boolean indicating whether or not Licensify is hosted externally
+#   to this environment.
+#
 # [*govuk_env*]
 #   GOV.UK environment
 #   Default: 'production'
 #
 class govuk::deploy::config(
   $errbit_environment_name = '',
+  $external_licensify = false,
   $govuk_env = 'production',
 ){
   include daemontools
@@ -84,5 +89,12 @@ class govuk::deploy::config(
     'GOVUK_ASSET_HOST': value          => $asset_root;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
     'GOVUK_WEBSITE_ROOT': value        => $website_root;
+  }
+
+  # FIXME: Remove this when Skyscape uses Carrenza Puppetmaster
+  if $external_licensify {
+    govuk::envvar { 'PLEK_SERVICE_LICENSIFY_URI':
+      value => "https://licensify.production.alphagov.co.uk/",
+    }
   }
 }
