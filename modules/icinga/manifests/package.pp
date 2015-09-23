@@ -43,20 +43,10 @@ class icinga::package {
     mode   => '0755',
   }
 
-  # FIXME: Remove when this file has been purged from production
-  file { '/usr/local/bin/reversedns.py':
-    ensure => 'absent',
-  }
-
   # pagerduty stuff
   file { '/usr/local/bin/pagerduty_icinga.pl':
     source => 'puppet:///modules/icinga/usr/local/bin/pagerduty_icinga.pl',
     mode   => '0755',
-  }
-
-  # FIXME: Remove once deployed to production
-  file { '/usr/local/bin/pagerduty_nagios.pl':
-    ensure => absent,
   }
 
   file { '/var/log/sendEmail':

@@ -67,12 +67,6 @@ class nginx::config (
     owner  => 'www-data',
   }
 
-  # FIXME: Remove once this directory is no longer in production
-  file { '/var/www/error':
-    ensure => absent,
-    force  => true,
-  }
-
   @@icinga::check::graphite { "check_nginx_active_connections_${::hostname}":
     target    => "${::fqdn_metrics}.nginx.nginx_connections-active",
     warning   => 500,

@@ -26,11 +26,6 @@ class monitoring::pagerduty_drill (
       command => "touch ${filename}",
     }
 
-    # FIXME: Remove when 8033510 has been deployed
-    cron { 'pagerduty_drill_run':
-      ensure => absent,
-    }
-
     cron { 'pagerduty_drill_stop':
       ensure  => present,
       user    => 'root',
