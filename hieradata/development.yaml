@@ -69,6 +69,7 @@ govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
+govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true

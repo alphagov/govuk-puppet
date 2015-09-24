@@ -3,6 +3,7 @@ class govuk::apps::specialist_publisher(
   $port = 3064,
   $enabled = false,
   $enable_procfile_worker = true,
+  $publish_pre_production_finders = false,
 ) {
 
   if $enabled {
@@ -14,6 +15,18 @@ class govuk::apps::specialist_publisher(
       nginx_extra_config => '
 client_max_body_size 500m;
 ',
+    }
+
+    Govuk::App::Envvar {
+      app => 'specialist-publisher',
+    }
+
+    if $publish_pre_production_finders {
+      govuk::app::envvar {
+        "${title}-PUBLISH_PRE_PRODUCTION_FINDERS":
+          varname => 'PUBLISH_PRE_PRODUCTION_FINDERS',
+          value => '1';
+      }
     }
 
     govuk::procfile::worker { 'specialist-publisher':
