@@ -25,7 +25,7 @@ class govuk::apps::hmrc_manuals_api(
 ) {
 
   Govuk::App::Envvar {
-    app => 'hmrc_manuals_api',
+    app => 'hmrc-manuals-api',
   }
 
   if $publish_topics {
