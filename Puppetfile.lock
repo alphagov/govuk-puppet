@@ -29,8 +29,6 @@ FORGE
       puppetlabs-stdlib (>= 3.0.0)
     gdsoperations-unattended_reboot (0.1.0)
       puppetlabs-stdlib (>= 1.0.0)
-    goldyfruit-grub2 (0.0.6)
-      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
     maestrodev-wget (1.5.0)
     nanliu-staging (1.0.3)
     puppetlabs-apt (1.7.0)
@@ -142,6 +140,14 @@ GIT
   specs:
     elasticsearch-logstash (0.0.4)
       puppetlabs-stdlib (>= 3.0.0)
+
+GIT
+  remote: git://github.com/goldyfruit/puppet-grub2.git
+  ref: a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73
+  sha: a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73
+  specs:
+    goldyfruit-grub2 (0.0.6)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
   remote: git://github.com/nextrevision/puppet-automysqlbackup.git
