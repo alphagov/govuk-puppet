@@ -1,5 +1,26 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::sshkeys {
+# == Class: govuk::sshkeys
+#
+# Add predefined SSH host keys to a machine. These keys are intended to be for
+# hosts that a machine will almost always have to connect to.
+#
+# === Parameters
+#
+# [*development_keys*]
+#   A hash of host keys to seed the development VM. For example keys from preview to
+#   allow the data replication script to work without prompting to connect
+#   to hosts.
+#
+class govuk::sshkeys (
+  $development_keys = {},
+) {
+  validate_hash($development_keys)
+
+  $ssh_key_defaults = {
+    'type' => 'ssh-rsa',
+  }
+
+  create_resources(sshkey, $development_keys, $ssh_key_defaults)
+
   sshkey { 'github.com':
     ensure => present,
     type   => 'ssh-rsa',
