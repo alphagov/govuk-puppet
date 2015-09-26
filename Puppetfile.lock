@@ -49,7 +49,7 @@ FORGE
       puppetlabs-concat (< 2.0.0, >= 1.0.0)
       puppetlabs-firewall (>= 0.0.4)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
-    puppetlabs-stdlib (4.8.0)
+    puppetlabs-stdlib (4.9.0)
     rtyler-jenkins (1.2.0)
       darin-zypprepo (>= 1.0.1)
       puppetlabs-apt (>= 0.0.3)
@@ -64,7 +64,10 @@ FORGE
       puppetlabs-stdlib (>= 2.3.0)
     saz-timezone (3.0.1)
       puppetlabs-stdlib (>= 2.3.0)
-    stankevich-python (1.7.4)
+    stahnma-epel (1.1.1)
+    stankevich-python (1.9.8)
+      puppetlabs-stdlib (< 6.0.0, >= 4.6.0)
+      stahnma-epel (< 2.0.0, >= 1.0.1)
     thias-sysctl (0.3.2)
 
 GIT
@@ -209,5 +212,5 @@ DEPENDENCIES
   saz-rsyslog (= 2.2.1)
   saz-sudo (= 3.0.1)
   saz-timezone (>= 0)
-  stankevich-python (>= 1.6.4)
+  stankevich-python (= 1.9.8)
 

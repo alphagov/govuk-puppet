@@ -21,9 +21,7 @@ mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
 mod 'saz/sudo', '3.0.1'
 mod 'saz/timezone'
-
-# 1.6.4 has https://github.com/stankevich/puppet-python/pull/49
-mod 'stankevich/python', '>= 1.6.4'
+mod 'stankevich/python', '1.9.8'
 
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)
