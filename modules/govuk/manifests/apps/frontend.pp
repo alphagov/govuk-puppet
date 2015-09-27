@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::frontend(
-  $port = 3005,
+  $port = '3005',
   $enable_homepage_nocache_location = true,
   $vhost_protected = false,
 ) {

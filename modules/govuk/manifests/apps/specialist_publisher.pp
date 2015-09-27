@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::specialist_publisher(
-  $port = 3064,
+  $port = '3064',
   $enabled = false,
   $enable_procfile_worker = true,
 ) {

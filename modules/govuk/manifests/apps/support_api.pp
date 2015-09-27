@@ -16,7 +16,7 @@
 #   Default: true
 #
 class govuk::apps::support_api(
-  $port = 3075,
+  $port = '3075',
   $enable_procfile_worker = true
 ) {
   govuk::app { 'support-api':

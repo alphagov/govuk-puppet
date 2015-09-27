@@ -14,7 +14,7 @@
 #   Default: ''
 #
 class govuk::apps::need_api(
-  $port = 3052,
+  $port = '3052',
   $errbit_api_key = '',
 ) {
   govuk::app { 'need-api':

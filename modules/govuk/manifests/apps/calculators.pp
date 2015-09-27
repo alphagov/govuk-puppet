@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::calculators(
-  $port = 3047,
+  $port = '3047',
 ) {
   govuk::app { 'calculators':
     app_type              => 'rack',

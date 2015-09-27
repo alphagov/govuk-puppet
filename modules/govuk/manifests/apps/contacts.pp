@@ -2,7 +2,7 @@
 class govuk::apps::contacts(
   $enabled = true,
   $vhost = 'contacts',
-  $port = 3051,
+  $port = '3051',
   $vhost_protected = undef,
   $extra_aliases = []
 ) {

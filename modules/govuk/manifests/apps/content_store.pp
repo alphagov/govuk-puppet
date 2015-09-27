@@ -21,7 +21,7 @@
 #   The default cache timeout in seconds.
 #
 class govuk::apps::content_store(
-  $port = 3068,
+  $port = '3068',
   $mongodb_nodes,
   $mongodb_name,
   $vhost,

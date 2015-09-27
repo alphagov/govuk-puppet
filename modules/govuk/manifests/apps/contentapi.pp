@@ -3,7 +3,7 @@
 # Configure the contentapi application - https://github.com/alphagov/govuk_content_api
 #
 class govuk::apps::contentapi (
-  $port = 3022,
+  $port = '3022',
 ) {
 
   govuk::app { 'contentapi':

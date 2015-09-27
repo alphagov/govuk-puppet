@@ -12,7 +12,7 @@
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::feedback(
-  $port = 3028,
+  $port = '3028',
   $errbit_api_key = undef,
   $secret_key_base = undef,
 ) {

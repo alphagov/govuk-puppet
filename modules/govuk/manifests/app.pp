@@ -261,6 +261,7 @@ define govuk::app (
     fail 'Invalid $command parameter'
   }
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+  validate_string($port)
 
   $vhost_real = $vhost ? {
     undef    => $title,

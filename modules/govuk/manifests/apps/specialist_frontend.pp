@@ -16,7 +16,7 @@
 #
 class govuk::apps::specialist_frontend(
   $vhost,
-  $port = 3065,
+  $port = '3065',
   $enabled = false,
 ) {
 

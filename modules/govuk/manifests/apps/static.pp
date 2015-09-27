@@ -22,7 +22,7 @@
 #
 class govuk::apps::static(
   $vhost,
-  $port = 3013,
+  $port = '3013',
   $errbit_api_key = undef,
   $draft_environment = false,
   $secret_key_base = undef,

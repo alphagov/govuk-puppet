@@ -18,7 +18,7 @@
 class govuk::apps::event_store (
   $enabled = false,
   $mongodb_servers = [],
-  $port = 3097,
+  $port = '3097',
 ) {
   if $enabled {
     Govuk::App::Envvar {

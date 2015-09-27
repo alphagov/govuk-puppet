@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::manuals_frontend(
   $vhost,
-  $port = 3072,
+  $port = '3072',
 ) {
   govuk::app { 'manuals-frontend':
     app_type              => 'rack',

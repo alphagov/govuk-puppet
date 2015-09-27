@@ -14,7 +14,7 @@ class govuk::apps::stagecraft (
 
     include libffi
 
-    $port = 3103
+    $port = '3103'
 
     govuk::app { 'stagecraft':
       app_type           => 'bare',

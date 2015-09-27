@@ -12,7 +12,7 @@
 #   Default: 3098
 #
 class govuk::apps::policy_publisher(
-  $port = 3098,
+  $port = '3098',
 ) {
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem

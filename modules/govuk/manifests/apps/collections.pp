@@ -12,7 +12,7 @@
 #
 class govuk::apps::collections(
   $vhost,
-  $port = 3070,
+  $port = '3070',
 ) {
   govuk::app { 'collections':
     app_type              => 'rack',

@@ -44,7 +44,7 @@
 #   The database name to use in the DATABASE_URL.
 #
 class govuk::apps::publishing_api(
-  $port = 3093,
+  $port = '3093',
   $content_store = '',
   $draft_content_store = '',
   $suppress_draft_store_502_error = '',

@@ -12,7 +12,7 @@
 #
 class govuk::apps::spotlight (
   $enabled = false,
-  $port = 3057,
+  $port = '3057',
 ) {
 
   if $enabled {

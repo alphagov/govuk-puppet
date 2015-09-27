@@ -11,7 +11,7 @@
 #   External domain name that EFG should be available on
 #
 class govuk::apps::efg (
-  $port = 3019,
+  $port = '3019',
   $vhost_name,
 ) {
   validate_string($vhost_name)

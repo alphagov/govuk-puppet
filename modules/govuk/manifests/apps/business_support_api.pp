@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::apps::business_support_api( $port = 3061 ) {
+class govuk::apps::business_support_api( $port = '3061' ) {
   govuk::app { 'business-support-api':
     app_type           => 'rack',
     port               => $port,

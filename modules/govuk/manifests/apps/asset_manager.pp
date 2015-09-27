@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::asset_manager(
   $enabled = true,
-  $port = 3037,
+  $port = '3037',
   $enable_delayed_job_worker = true,
 ) {
   if $enabled {

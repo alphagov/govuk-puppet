@@ -10,7 +10,7 @@
 #   Default: 3077
 #
 class govuk::apps::content_register(
-  $port = 3077,
+  $port = '3077',
   $enable_procfile_worker = true,
 ) {
   govuk::app { 'content-register':

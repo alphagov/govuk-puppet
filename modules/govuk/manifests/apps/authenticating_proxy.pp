@@ -29,7 +29,7 @@
 #
 class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
-  $port = 3107,
+  $port = '3107',
   $errbit_api_key = undef,
   $govuk_upstream_uri = undef,
   $oauth_id = undef,

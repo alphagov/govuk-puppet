@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::apps::transition( $port = 3044, $enable_procfile_worker = true ) {
+class govuk::apps::transition( $port = '3044', $enable_procfile_worker = true ) {
   include govuk_postgresql::client
   govuk::app { 'transition':
     app_type           => 'rack',

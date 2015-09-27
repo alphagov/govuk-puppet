@@ -17,7 +17,7 @@
 #   hiera.
 #
 class govuk::apps::email_alert_api(
-  $port = 3088,
+  $port = '3088',
   $enabled = false,
   $enable_procfile_worker = true
 ) {

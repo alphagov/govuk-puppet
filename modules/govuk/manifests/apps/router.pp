@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::router (
-  $port = 3054,
+  $port = '3054',
   $api_port = 3055,
   $api_healthcheck = '/healthcheck',
   $error_log = '/var/log/router/errors.json.log',

@@ -6,7 +6,7 @@ class govuk::apps::govuk_crawler_worker (
   $amqp_pass = 'guest',
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
-  $port = 3074,
+  $port = '3074',
 ) {
   if $enabled {
     Govuk::App::Envvar {
