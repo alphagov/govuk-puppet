@@ -16,4 +16,4 @@ end
 desc "Run all tests"
 task :test => [:spec, :icinga_checks, :custom]
 
-task :default => [:puppetfile, :syntax, :bash_syntax, :lint, :test]
+task :default => [:puppetfile, :syntax, :bash_syntax, :yaml_syntax, :lint, :test]
