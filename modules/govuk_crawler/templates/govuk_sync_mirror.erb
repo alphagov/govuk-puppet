@@ -53,12 +53,6 @@ for TARGET in ${TARGETS}; do
 
   rsync -az --exclude 'lost+found' ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data
 
-  EXITCODE=$?
-
-  if [ "$EXITCODE" != "0" ]; then
-     log "user.crit" "Uploading mirror ${TARGET} failed with exit code: $EXITCODE"
-  fi
-
   log "user.info" "Finished uploading to mirror ${TARGET}"
 done
 
