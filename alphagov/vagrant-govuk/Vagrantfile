@@ -7,7 +7,7 @@ min_required_vagrant_version = '1.3.0'
 
 # Construct box name and URL from distro and version.
 def get_box(dist, version, provider)
-  dist    ||= "precise"
+  dist    ||= "trusty"
   version ||= "20141112"
 
   if provider == "vmware_fusion"
