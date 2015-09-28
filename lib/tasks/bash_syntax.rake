@@ -32,6 +32,7 @@ task :bash_syntax do
 
       Tempfile.open("puppet_bash_check") do |temp_file|
         temp_file << erb.result
+        temp_file.close
 
         result = check_bash_script(temp_file.path)
 
