@@ -39,7 +39,7 @@
             echo "Running Data Sync"
             bash sync production preview
 
-       - shell: |
+        - shell: |
             echo "Triggering post-sync job on deploy.preview.alphagov.co.uk"
             curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.preview.alphagov.co.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
     wrappers:
