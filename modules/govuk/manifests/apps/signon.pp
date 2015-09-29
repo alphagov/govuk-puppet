@@ -5,12 +5,14 @@ class govuk::apps::signon(
   $devise_secret_key = undef,
   $enable_logstream = false,
 ) {
+  $app_name = 'signon'
+
   $ensure_logstream = $enable_logstream ? {
     true  => 'present',
     false => 'absent'
   }
 
-  govuk::app { 'signon':
+  govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
@@ -22,13 +24,13 @@ class govuk::apps::signon(
     deny_framing       => true,
   }
 
-  govuk::procfile::worker {'signon':
+  govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
 
   if $devise_secret_key != undef {
     govuk::app::envvar { "${title}-DEVISE_SECRET_KEY":
-      app     => 'signon',
+      app     => $app_name,
       varname => 'DEVISE_SECRET_KEY',
       value   => $devise_secret_key,
     }
