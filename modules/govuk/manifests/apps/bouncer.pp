@@ -161,10 +161,12 @@ class govuk::apps::bouncer(
   }
 
   if $::govuk_node_class != 'development' {
-    govuk::app::envvar { "${title}-DATABASE_URL":
-      app     => 'bouncer',
-      varname => 'DATABASE_URL',
-      value   => "postgresql://${db_username}:${db_password}@${db_hostname}/${db_name}",
+    govuk::app::envvar::database_url { 'bouncer':
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
     }
   }
 }
