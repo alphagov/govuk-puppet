@@ -1,4 +1,20 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# govuk::apps::signon
+#
+# The GOV.UK Signon application -- single sign-on service for GOV.UK
+#
+# === Parameters
+#
+# [*port*]
+#   The port that it is served on.
+#   Default: 3016
+#
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker. Typically sued to disable the worker
+#   on the dev VM.
+#
+# [*devise_secret_key*]
+#   The secret key used by Devise to generate random tokens.
+#
 class govuk::apps::signon(
   $port = 3016,
   $enable_procfile_worker = true,
