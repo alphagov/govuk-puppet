@@ -21,8 +21,9 @@ class govuk::apps::bouncer::postgresql_role ( $password = '' ){
     require => Postgresql::Server::Database_grant["${bouncer_role} can connect to ${db}"],
   }
 
-  # FIXME: We will be able to do this via the postgres puppet module if this
-  # PR is merged: https://github.com/puppetlabs/puppetlabs-postgresql/pull/405
+  # FIXME: We will be able to do this via the postgres puppet module from version 4.2.0:
+  # https://github.com/puppetlabs/puppetlabs-postgresql/blob/master/CHANGELOG.md#2015-03-10---supported-release-420
+  # https://github.com/puppetlabs/puppetlabs-postgresql/pull/405
   exec { "${bouncer_role} can SELECT from all existing tables in ${db}":
     command => "psql -d ${db} -c 'GRANT SELECT ON ALL TABLES IN SCHEMA public TO ${bouncer_role}'",
     # This only tests that the privilege is set for at least one table, not all of them:

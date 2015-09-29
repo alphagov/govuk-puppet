@@ -24,7 +24,6 @@ class govuk::node::s_development {
   include govuk::python
   include govuk::testing_tools
   include govuk::sshkeys
-  include govuk::sshkeys::from_hiera
 
   include govuk_rbenv::all
 

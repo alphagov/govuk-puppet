@@ -102,7 +102,7 @@ govuk_postgresql::server::configure_env_sync_user: false
 
 govuk::ppa::path: preview
 
-govuk::sshkeys::from_hiera::keys:
+govuk::sshkeys::development_keys:
   jumpbox.preview.alphagov.co.uk:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDszQ/ewOfnIRuFtJm79O+67XNAtVZt1x/mVr+jixYNj8gQRCfXlOTymggT9QrTqxCFOmqg6Hz4x0E7EMpXrrWjXV6/5au/Ztgt5O6AbCtJb0ldhdPTEhbDFoctnzag3GL/TyXq579+9e23KShYtwP/QtI7qTiakNk6XrGcymX1fjd5BrwZa5rXDsa2k/e5NnpzjzGmmTZy4tLy+ceArVKbqj8DjITCj7xQIjUqioDbi4yJZ6t89dZFbBUk9dEODLxYmzNS1biK5zPlGd9+hpIC1Rl2FdMVH40OQAhieMuxdQN9umVfCAPsy+kkn2do1hLnqXsiXOZZgfqqlx61Vgf/"
     host_aliases: "31.210.240.198"
