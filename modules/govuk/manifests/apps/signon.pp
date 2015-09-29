@@ -15,11 +15,15 @@
 # [*devise_secret_key*]
 #   The secret key used by Devise to generate random tokens.
 #
+# [*redis_url*]
+#   The URL used by the Sidekiq queue to connect to the backing Redis instance.
+#
 class govuk::apps::signon(
   $port = 3016,
   $enable_procfile_worker = true,
   $devise_secret_key = undef,
   $enable_logstream = false,
+  $redis_url = undef,
 ) {
   $app_name = 'signon'
 
@@ -52,6 +56,13 @@ class govuk::apps::signon(
     govuk::app::envvar { "${title}-DEVISE_SECRET_KEY":
       varname => 'DEVISE_SECRET_KEY',
       value   => $devise_secret_key,
+    }
+  }
+
+  if $redis_url != undef {
+    govuk::app::envvar { "${title}-REDIS_URL":
+      varname => 'REDIS_URL',
+      value   => $redis_url,
     }
   }
 }
