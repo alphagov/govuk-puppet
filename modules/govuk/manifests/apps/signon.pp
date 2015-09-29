@@ -40,13 +40,16 @@ class govuk::apps::signon(
     deny_framing       => true,
   }
 
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
+
   govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
 
   if $devise_secret_key != undef {
     govuk::app::envvar { "${title}-DEVISE_SECRET_KEY":
-      app     => $app_name,
       varname => 'DEVISE_SECRET_KEY',
       value   => $devise_secret_key,
     }
