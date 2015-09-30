@@ -15,6 +15,10 @@ function log() {
   logger -p ${1} -t ${PROGRAM_NAME} "${2}"
 }
 
+function nagios_passive() {
+  log "user.info" "$NAGIOS_MESSAGE Exit code was $?"
+  printf "<%= @ipaddress %>\t<%= @sync_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
 trap nagios_passive EXIT
 
 if [ -z "${TARGETS}" ]; then
@@ -28,11 +32,6 @@ fi
 if [ -z "${GOVUK_APP_DOMAIN}" ]; then
   log "user.info" "Couldn't find GOVUK_APP_DOMAIN"
 fi
-
-function nagios_passive() {
-  log "user.info" "$NAGIOS_MESSAGE Exit code was $?"
-  printf "<%= @ipaddress %>\t<%= @sync_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
-}
 
 function get_error_page() {
   # Grab the 503 error page
@@ -48,12 +47,16 @@ get_error_page
 
 START_UPLOAD=$(date +%s%3N)
 
+EXITCODE=0
 for TARGET in ${TARGETS}; do
   log "user.info" "Started uploading to ${TARGET}"
 
-  rsync -az --exclude 'lost+found' ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data
-
-  log "user.info" "Finished uploading to mirror ${TARGET}"
+  if rsync -az --exclude 'lost+found' ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data; then
+    log "user.info" "Finished uploading to mirror ${TARGET}"
+  else
+    EXITCODE=1
+    log "user.crit" "Uploading mirror ${TARGET} failed with exit code: $EXITCODE"
+  fi
 done
 
 STOP_UPLOAD=$(date +%s%3N)
@@ -63,5 +66,8 @@ echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u lo
 
 log "user.info" "Finished synchronising to GOV.UK mirrors"
 
-NAGIOS_CODE=0
-NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully"
+if [ $EXITCODE -eq 0 ]; then
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully"
+fi
+exit $EXITCODE
