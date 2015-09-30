@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::apps::imminence( $port = 3002, $enable_procfile_worker = true ) {
+class govuk::apps::imminence( $port = '3002', $enable_procfile_worker = true ) {
   govuk::app { 'imminence':
     app_type           => 'rack',
     port               => $port,

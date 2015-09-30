@@ -2,9 +2,9 @@
 class govuk::python {
 
   class { '::python':
-    pip        => true,
-    dev        => true,
-    virtualenv => true,
+    pip        => 'present',
+    dev        => 'present',
+    virtualenv => 'present',
   }
 
   Class['python::install'] -> Package <| provider == 'pip' and ensure != absent |>

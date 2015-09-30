@@ -2,7 +2,7 @@
 class govuk::apps::external_link_tracker (
   $enabled = true,
   $mongodb_nodes,
-  $port = 3066,
+  $port = '3066',
   $api_port = 3067,
   $api_healthcheck = '/healthcheck',
   $error_log = '/var/log/external-link-tracker/errors.json.log',

@@ -16,7 +16,7 @@
 #
 class govuk::apps::email_alert_frontend(
   $vhost,
-  $port = 3099,
+  $port = '3099',
 ) {
   govuk::app { 'email-alert-frontend':
     app_type              => 'rack',

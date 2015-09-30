@@ -12,7 +12,7 @@
 #   The from address used when errbit notifes us about an error
 #
 class govuk::apps::errbit(
-  $port = 3029,
+  $port = '3029',
   $errbit_email_from = 'errbit@example.com',
   $errbit_secret_key_base = 'f258ed69266dc8ad0ca79363c3d2f945c388a9c5920fc9a1ae99a98fbb619f135001c6434849b625884a9405a60cd3d50fc3e3b07ecd38cbed7406a4fccdb59c', # This is the default in the errbit/errbit repo
 ) {

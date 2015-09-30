@@ -13,7 +13,7 @@
 #
 class govuk::apps::mapit (
   $enabled = false,
-  $port    = 3108,
+  $port    = '3108',
   $db_password,
 ) {
   if $enabled {

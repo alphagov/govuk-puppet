@@ -14,7 +14,7 @@
 #   Default: false
 #
 class govuk::apps::courts_api(
-  $port = 3092,
+  $port = '3092',
   $enabled = false
 ) {
   if $enabled {

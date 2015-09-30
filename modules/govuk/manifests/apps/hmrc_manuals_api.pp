@@ -19,7 +19,7 @@
 #   Default: false
 #
 class govuk::apps::hmrc_manuals_api(
-  $port = 3071,
+  $port = '3071',
   $enable_procfile_worker = true,
   $publish_topics = false,
 ) {

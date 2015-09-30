@@ -15,7 +15,7 @@
 #   Boolean, whether the procfile worker should be enabled
 #
 class govuk::apps::publisher(
-    $port = 3000,
+    $port = '3000',
     $data_import_passive_check = false,
     $enable_procfile_worker = true
   ) {

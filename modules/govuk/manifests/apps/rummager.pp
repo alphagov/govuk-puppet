@@ -16,7 +16,7 @@
 #   Whether to enable the procfile worker service.
 #
 class govuk::apps::rummager(
-  $port = 3009,
+  $port = '3009',
   $enable_procfile_worker = true,
 ) {
   include aspell

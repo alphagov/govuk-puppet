@@ -2,7 +2,7 @@
 #
 class govuk::apps::info_frontend(
   # The default port that the rack application will start on.
-  $port = 3085,
+  $port = '3085',
 
   # Whether the app should be present in a given environment.
   $enabled = false,

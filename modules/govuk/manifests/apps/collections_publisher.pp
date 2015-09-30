@@ -19,7 +19,7 @@
 #
 class govuk::apps::collections_publisher(
   $panopticon_bearer_token = 'example',
-  $port = 3078,
+  $port = '3078',
   $enable_procfile_worker = true,
 ) {
 

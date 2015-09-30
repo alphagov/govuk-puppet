@@ -25,7 +25,7 @@ class govuk::apps::bouncer(
   $db_password = '',
   $db_hostname = '',
   $db_name = 'transition_production',
-  $port = 3049,
+  $port = '3049',
 ) {
 
   govuk::app { 'bouncer':

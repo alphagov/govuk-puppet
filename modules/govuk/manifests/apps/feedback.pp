@@ -15,7 +15,7 @@
 #   The bearer token to allow this app to submit anonymous feedback to the Support API.
 #
 class govuk::apps::feedback(
-  $port = 3028,
+  $port = '3028',
   $errbit_api_key = undef,
   $secret_key_base = undef,
   $support_api_bearer_token = undef,

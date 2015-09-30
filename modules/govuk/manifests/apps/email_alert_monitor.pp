@@ -14,7 +14,7 @@
 #   Default: false
 #
 class govuk::apps::email_alert_monitor(
-  $port = 3094,
+  $port = '3094',
   $enabled = false
 ) {
   if $enabled {

@@ -12,7 +12,7 @@ class govuk::apps::backdrop_read (
   $enabled = false,
 ) {
   if $enabled {
-    $port = 3101
+    $port = '3101'
 
     govuk::app { 'backdrop-read':
       app_type           => 'bare',

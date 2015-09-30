@@ -12,7 +12,7 @@
 #
 class govuk::apps::government_frontend(
   $vhost,
-  $port = 3090,
+  $port = '3090',
 ) {
   govuk::app { 'government-frontend':
     app_type              => 'rack',

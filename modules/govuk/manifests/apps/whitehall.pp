@@ -3,7 +3,7 @@
 #                          and this flag is not set in hiera
 class govuk::apps::whitehall(
   $vhost = 'whitehall',
-  $port = 3020,
+  $port = '3020',
   $configure_frontend = false,
   $configure_admin = false,
   $vhost_protected,

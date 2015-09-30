@@ -14,7 +14,7 @@
 #   Default: false
 
 class govuk::apps::smartanswers(
-  $port = 3010,
+  $port = '3010',
   $expose_govspeak = false,
 ) {
   Govuk::App::Envvar {

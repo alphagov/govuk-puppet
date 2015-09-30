@@ -15,7 +15,7 @@
 #   Default: undef
 #
 class govuk::apps::businesssupportfinder(
-  $port = 3024,
+  $port = '3024',
   $secret_key_base = undef,
 ) {
   $app_name = 'businesssupportfinder'

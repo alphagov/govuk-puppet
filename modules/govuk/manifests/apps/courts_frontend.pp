@@ -18,7 +18,7 @@
 #
 class govuk::apps::courts_frontend(
   $vhost,
-  $port = 3095,
+  $port = '3095',
   $enabled = false
 ) {
   if $enabled {

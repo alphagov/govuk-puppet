@@ -6,7 +6,6 @@ mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
 mod 'elasticsearch/elasticsearch'
 mod 'fsalum/redis'
-mod 'goldyfruit/grub2'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'
@@ -18,12 +17,16 @@ mod 'puppetlabs/stdlib', '>= 4.2.0'
 mod 'rtyler/jenkins'
 mod 'saz/memcached'
 mod 'saz/ntp'
-mod 'saz/rsyslog', '2.2.1'
+mod 'saz/rsyslog', '3.5.1'
 mod 'saz/sudo', '3.0.1'
 mod 'saz/timezone'
+mod 'stankevich/python', '1.9.8'
 
-# 1.6.4 has https://github.com/stankevich/puppet-python/pull/49
-mod 'stankevich/python', '>= 1.6.4'
+# Installing from GitHub because we need this revision
+# which will probably be released as version 0.0.7
+mod 'goldyfruit/grub2',
+  :git => 'git://github.com/goldyfruit/puppet-grub2.git',
+  :ref => 'a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73'
 
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)

@@ -25,7 +25,7 @@
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::router_api(
-  $port = 3056,
+  $port = '3056',
   $mongodb_name,
   $mongodb_nodes,
   $router_nodes,

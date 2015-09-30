@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::licencefinder(
-  $port = 3014,
+  $port = '3014',
 ) {
   govuk::app { 'licencefinder':
     app_type              => 'rack',

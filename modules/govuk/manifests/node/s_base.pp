@@ -26,12 +26,12 @@ class govuk::node::s_base {
 
   class { 'rsyslog':
     purge_rsyslog_d => true,
+    preserve_fqdn   => true,
   }
 
   class { 'rsyslog::client':
-    server        => 'logging.cluster',
-    log_local     => true,
-    preserve_fqdn => true,
+    server    => 'logging.cluster',
+    log_local => true,
   }
 
   # Enable default tcpconn monitoring for port 22

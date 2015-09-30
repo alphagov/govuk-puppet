@@ -12,7 +12,7 @@ class govuk::apps::performanceplatform_admin (
   $enabled = false,
 ) {
   if $enabled {
-    $port = 3104
+    $port = '3104'
 
     include libffi
 

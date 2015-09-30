@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::govuk_delivery(
   $enabled = true,
-  $port = 3042,
+  $port = '3042',
   $enable_procfile_worker = true,
 ) {
   if $enabled {

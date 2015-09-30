@@ -17,7 +17,7 @@ class govuk::apps::backdrop_write (
   $enable_procfile_worker = true,
 ) {
   if $enabled {
-    $port = 3102
+    $port = '3102'
 
     govuk::app { 'backdrop-write':
       app_type           => 'bare',
