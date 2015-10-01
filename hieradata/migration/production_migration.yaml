@@ -1,50 +1,5 @@
 ---
 
-_: &offsite_gpg_key '13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
-_: &offsite_host 'backup0.backup.provider0.production.govuk.service.gov.uk'
-_: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNmgJb4N3LbGc3dm8Grvmx9QTnyG3nWyF1g0j69IvOAIhhZZd62ntzXN8a3PaPhxVPG6rA8D5LHSBBhXC1cwiG9FYKccdwYruNit8OgPuXmsCqXKleW6bqIgARDdj5iVDo1HNkWl05r1vH+RWjZFAB6p4D1RoTFCvbu8OI0nybS1rx2w+zZmCof92w8RcgYt2oaX9+n2enP7aL76Bg88pkElJvDSg8UQ61Dm9hVRb15KBAw0GsfydIRk2SY3SJsn5lRjrUPSmSPfb2VPpprYLNcf3wvINi0zW2Nv0pqnY5jRaHfFvpfgajQznxMDD18u1'
-
-backup::assets::dest_host: *offsite_host
-backup::assets::dest_host_key: *offsite_ssh_host_key
-backup::assets::jobs:
-  'assets-whitehall':
-    sources: '/mnt/uploads/whitehall'
-    destination: "rsync://govuk-assets@%{hiera('backup::assets::dest_host')}//srv/backup-assets/whitehall"
-    hour: 4
-    minute: 20
-    user: 'root'
-    gpg_key_id: *offsite_gpg_key
-  'asset-manager':
-    sources: '/mnt/uploads/asset-manager'
-    destination: "rsync://govuk-assets@%{hiera('backup::assets::dest_host')}//srv/backup-assets/asset-manager"
-    hour: 4
-    minute: 13
-    user: 'root'
-    gpg_key_id: *offsite_gpg_key
-
-backup::offsite::dest_host: *offsite_host
-backup::offsite::dest_host_key: *offsite_ssh_host_key
-backup::offsite::jobs:
-  'govuk-datastores':
-    sources:
-      - '/data/backups/*/var/lib/automongodbbackup/latest'
-      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
-      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
-      - '/data/backups/archived'
-    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-data/"
-    hour: 8,
-    minute: 13,
-    gpg_key_id: *offsite_gpg_key
-  'govuk-graphite':
-    sources: '/data/backups/*/opt/graphite/storage/whisper'
-    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-graphite/"
-    weekday: 6
-    hour: 8,
-    minute: 13,
-    # No encryption because of size and sensitivity
-backup::offsite::monitoring::offsite_fqdn: *offsite_host
-backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
-
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
@@ -60,9 +15,6 @@ govuk::apps::url_arbiter::db::backend_ip_range: '10.3.3.0/24'
 govuk::node::s_api_redis::allowed_ip_range: '10.3.4.0/24'
 
 govuk::node::s_asset_base::firewall_allowed_ip_range: '10.3.3.0/24'
-
-govuk::node::s_backup::backup_efg: false
-govuk::node::s_backup::backup_licensify: false
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
 
