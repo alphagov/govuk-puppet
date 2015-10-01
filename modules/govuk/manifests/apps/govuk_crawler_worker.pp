@@ -16,7 +16,7 @@ class govuk::apps::govuk_crawler_worker (
     $blacklist_paths = ['/trade-tariff', '/licence-finder',
       '/business-finance-support-finder', '/government/uploads',
       '/apply-for-a-licence', '/search', '/government/announcements.atom',
-      '/government/publications.atom']
+      '/government/publications.atom', '/api/content']
 
     govuk::app::envvar {
       'AIRBRAKE_API_KEY':
