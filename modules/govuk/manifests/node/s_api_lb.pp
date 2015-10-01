@@ -16,6 +16,7 @@ class govuk::node::s_api_lb (
   loadbalancer::balance {
     [
       'backdrop-read',
+      'email-campaign-api',
       'metadata-api',
       'stagecraft',
     ]:

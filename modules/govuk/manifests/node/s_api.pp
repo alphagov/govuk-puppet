@@ -7,6 +7,7 @@ class govuk::node::s_api inherits govuk::node::s_base {
 
   include govuk::apps::backdrop_read
   include govuk::apps::backdrop_write
+  include govuk::apps::email_campaign_api
   include govuk::apps::metadata_api
   include govuk::apps::stagecraft
   include govuk::apps::stagecraft::worker

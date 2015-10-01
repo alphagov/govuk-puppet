@@ -71,6 +71,8 @@ class govuk::node::s_development {
   include govuk::apps::email_alert_service
   include govuk::apps::email_alert_service::rabbitmq_permissions
   include govuk::apps::email_alert_service::rabbitmq_test_permissions
+  include govuk::apps::email_campaign_frontend
+  include govuk::apps::email_campaign_api
   include govuk::apps::errbit
   include govuk::apps::event_store
   include govuk::apps::external_link_tracker
