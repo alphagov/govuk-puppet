@@ -104,6 +104,8 @@ draft-content-store:   govuk_setenv draft-content-store   ./run_in.sh ../content
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../authenticating-proxy bundle exec rails s -p 3107
 # mapit uses port 3108
+email-campaign-frontend: govuk_setenv email-campaign-frontend  ./run_in.sh ../email-campaign-frontend bundle exec rails s -p 3109
+email-campaign-api: govuk_setenv email-campaign-api  ./run_in.sh ../email-campaign-api bundle exec rails s -p 3110
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
