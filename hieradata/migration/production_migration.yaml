@@ -97,16 +97,6 @@ hosts::production::licensify_hosts:
     ip: '37.26.90.233'
 hosts::production::management::apt_host_ip: '10.3.0.75'
 
-govuk_jenkins::config::banner_colour_background: '#ff3300'
-govuk_jenkins::config::banner_colour_text: 'white'
-govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
-
-govuk_jenkins::config::manage_config: true
-
-govuk_jenkins::job_builder::manage_jobs: true
-
-govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
-
 postgresql_api_slave_address: '10.3.4.41/32'
 postgresql_slave_address: '10.3.3.13/32'
 postgresql_transition_slave_address: '10.3.3.61/32'
