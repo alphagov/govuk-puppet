@@ -188,6 +188,7 @@ govuk::node::s_frontend::apps:
   - govuk::apps::courts_frontend
   - govuk::apps::designprinciples
   - govuk::apps::email_alert_frontend
+  - govuk::apps::email_campaign_frontend
   - govuk::apps::feedback
   - govuk::apps::frontend
   - govuk::apps::government_frontend
@@ -342,6 +343,7 @@ hosts::production::api::app_hostnames:
   - 'backdrop-read'
   - 'backdrop-write'
   - 'content-store'
+  - 'email-campaign-api'
   - 'metadata-api'
   - 'rummager'
   - 'search'
@@ -558,6 +560,7 @@ hosts::production::frontend::app_hostnames:
   - 'draft-manuals-frontend'
   - 'draft-specialist-frontend'
   - 'draft-static'
+  - 'email-campaign-frontend'
   - 'email-alert-frontend'
   - 'feedback'
   - 'finder-frontend'
@@ -817,6 +820,7 @@ router::assets_origin::asset_routes:
   '/contacts-frontend/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
   '/email-alert-frontend/': "email-alert-frontend"
+  '/email-campaign-frontend/': "email-campaign-frontend"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"
   '/frontend/': "frontend"

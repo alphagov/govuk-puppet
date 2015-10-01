@@ -37,6 +37,8 @@ class hosts::development {
   host { 'email-alert-api.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'email-alert-monitor.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'email-alert-frontend.dev.gov.uk':                 ip => '127.0.0.1' }
+  host { 'email-campaign-api.dev.gov.uk':                   ip => '127.0.0.1' }
+  host { 'email-campaign-frontend.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'event-store.dev.gov.uk':                          ip => '127.0.0.1' }
   host { 'external-link-tracker.dev.gov.uk':                ip => '127.0.0.1' }
