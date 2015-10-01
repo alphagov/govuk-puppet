@@ -20,7 +20,7 @@ describe "router::assets_origin", :type => :class do
 
       it "should have host entries for each route target" do
         asset_routes.each do |_, target|
-          hostname = "#{target}.production.alphagov.co.uk"
+          hostname = "#{target}.publishing.service.gov.uk"
           message = "asset_routes point at non-existent host '#{hostname}' in production"
           expect(all_hostnames).to include(hostname), message
         end

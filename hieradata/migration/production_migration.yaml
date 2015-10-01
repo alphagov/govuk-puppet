@@ -4,8 +4,6 @@ _: &offsite_gpg_key '13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
 _: &offsite_host 'backup0.backup.provider0.production.govuk.service.gov.uk'
 _: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNmgJb4N3LbGc3dm8Grvmx9QTnyG3nWyF1g0j69IvOAIhhZZd62ntzXN8a3PaPhxVPG6rA8D5LHSBBhXC1cwiG9FYKccdwYruNit8OgPuXmsCqXKleW6bqIgARDdj5iVDo1HNkWl05r1vH+RWjZFAB6p4D1RoTFCvbu8OI0nybS1rx2w+zZmCof92w8RcgYt2oaX9+n2enP7aL76Bg88pkElJvDSg8UQ61Dm9hVRb15KBAw0GsfydIRk2SY3SJsn5lRjrUPSmSPfb2VPpprYLNcf3wvINi0zW2Nv0pqnY5jRaHfFvpfgajQznxMDD18u1'
 
-app_domain: 'publishing.service.gov.uk'
-
 backup::assets::dest_host: *offsite_host
 backup::assets::dest_host_key: *offsite_ssh_host_key
 backup::assets::jobs:
@@ -47,23 +45,10 @@ backup::offsite::jobs:
 backup::offsite::monitoring::offsite_fqdn: *offsite_host
 backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 
-internal_tld: 'publishing.service.gov.uk'
-
-govuk_bouncer::gor::enabled: true
-govuk_bouncer::gor::ip_address: '31.210.245.69'
-
-govuk_crawler::seed_enable: true
-govuk_crawler::sync_enable: true
-
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
-
-govuk::deploy::actionmailer_enable_delivery: true
-
-govuk::deploy::setup::ssh_keys:
-  jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
 
 govuk::apps::policy_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::publishing_api::db::backend_ip_range: '10.3.3.0/24'
@@ -80,9 +65,6 @@ govuk::node::s_backup::backup_efg: false
 govuk::node::s_backup::backup_licensify: false
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
-
-grafana::dashboards::machine_suffix_metrics: ''
-
 
 hosts::production::efg_domains: []
 hosts::production::external_licensify: true
@@ -420,5 +402,3 @@ hosts::production::router::hosts:
     ip: '10.3.1.252'
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
-
-postfix::rewrite_mail_list: 'machine.email.carrenza'
