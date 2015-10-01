@@ -49,8 +49,6 @@ backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 
 internal_tld: 'publishing.service.gov.uk'
 
-shell::shell_prompt_string: 'migration-production'
-
 govuk_bouncer::gor::enabled: true
 govuk_bouncer::gor::ip_address: '31.210.245.69'
 
@@ -61,8 +59,6 @@ govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
-
-govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production-migration@digital.cabinet-office.gov.uk'
 
 govuk::deploy::actionmailer_enable_delivery: true
 
