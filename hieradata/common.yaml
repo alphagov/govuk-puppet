@@ -324,6 +324,18 @@ hosts::production::api::hosts:
     ip: '10.7.2.11'
   draft-content-store-2:
     ip: '10.7.2.12'
+  email-campaign-api-1:
+    ip: '10.7.2.30'
+  email-campaign-api-2:
+    ip: '10.7.2.31'
+  email-campaign-api-3:
+    ip: '10.7.2.32'
+  email-campaign-mongo-1:
+    ip: '10.7.2.33'
+  email-campaign-mongo-2:
+    ip: '10.7.2.34'
+  email-campaign-mongo-3:
+    ip: '10.7.2.35'
   mapit-1:
     ip: '10.7.0.51'
   performance-mongo-1:
@@ -519,6 +531,12 @@ hosts::production::frontend::hosts:
     ip: '10.2.2.2'
   draft-frontend-2:
     ip: '10.2.2.3'
+  email-campaign-frontend-1:
+    ip: '10.2.0.30'
+  email-campaign-frontend-2:
+    ip: '10.2.0.31'
+  email-campaign-frontend-3:
+    ip: '10.2.0.32'
   performance-frontend-1:
     ip: '10.2.0.20'
   performance-frontend-2:
