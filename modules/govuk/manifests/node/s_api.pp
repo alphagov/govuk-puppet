@@ -13,15 +13,6 @@ class govuk::node::s_api inherits govuk::node::s_base {
   include govuk::apps::stagecraft
   include govuk::apps::stagecraft::worker
 
-  # FIXME: remove once cleaned up everywhere.
-  govuk::app { 'email-campaign-api':
-    ensure             => absent,
-    app_type           => 'rack',
-    port               => 3110,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-  }
-
   if $::hostname == 'api-1' {
     include govuk::apps::stagecraft::beat
     include govuk::apps::stagecraft::celerycam
