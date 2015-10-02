@@ -332,7 +332,7 @@ hosts::production::api::hosts:
     ip: '10.7.2.50'
   email-campaign-api-2:
     ip: '10.7.2.51'
-  email-campaign-api-2:
+  email-campaign-api-3:
     ip: '10.7.2.52'
   email-campaign-mongo-1:
     ip: '10.7.2.53'
