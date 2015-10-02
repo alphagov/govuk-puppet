@@ -2,6 +2,7 @@
 class govuk::node::s_frontend_lb (
   $calculators_frontend_servers,
   $draft_frontend_servers,
+  $email_campaign_frontend_servers,
   $frontend_servers,
   $whitehall_frontend_servers,
   $hide_frontend_apps = true,
@@ -35,7 +36,6 @@ class govuk::node::s_frontend_lb (
       'courts-frontend',
       'designprinciples',
       'email-alert-frontend',
-      'email-campaign-frontend',
       'feedback',
       'frontend',
       'government-frontend',
@@ -60,6 +60,8 @@ class govuk::node::s_frontend_lb (
       servers       => $whitehall_frontend_servers;
     $performance_frontend_apps:
       servers       => $performance_frontend_servers;
+    'email-campaign-frontend':
+      servers       => $email_campaign_frontend_servers,
   }
 
   include govuk::apps::publicapi
