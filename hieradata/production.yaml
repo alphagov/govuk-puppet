@@ -15,6 +15,7 @@ base::supported_kernel::enabled: true
 efg_domain: "www.sflg.gov.uk"
 
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
+govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
