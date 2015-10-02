@@ -17,15 +17,6 @@ class govuk::node::s_frontend (
 
   include $apps
 
-  # FIXME: remove once cleaned up everywhere.
-  govuk::app { 'email-campaign-frontend':
-    ensure             => absent,
-    app_type           => 'rack',
-    port               => 3109,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-  }
-
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
