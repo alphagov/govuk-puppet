@@ -109,6 +109,11 @@ govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
 
 govuk::apps::email_alert_api::enabled: true
+# These are overridden on preview
+govuk::apps::email_campaign_api::mongodb_nodes:
+  - 'email-campaign-mongo-1.api'
+  - 'email-campaign-mongo-2.api'
+  - 'email-campaign-mongo-3.api'
 govuk::apps::finder_frontend::enabled: true
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"

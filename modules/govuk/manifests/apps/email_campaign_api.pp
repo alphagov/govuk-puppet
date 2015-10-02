@@ -4,6 +4,8 @@ class govuk::apps::email_campaign_api(
   $enabled = false,
   $errbit_api_key = undef,
   $secret_key_base = undef,
+  $mongodb_nodes,
+  $mongodb_name = 'email_campaign_api',
 ) {
   $app_name = 'email-campaign-api'
 
@@ -17,6 +19,15 @@ class govuk::apps::email_campaign_api(
 
     Govuk::App::Envvar {
       app => $app_name,
+    }
+
+    validate_array($mongodb_nodes)
+    if $mongodb_nodes != [] {
+      $mongodb_nodes_string = join($mongodb_nodes, ',')
+      govuk::app::envvar { "${title}-MONGODB_URI":
+        varname => 'MONGODB_URI',
+        value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
+      }
     }
 
     if $errbit_api_key != undef {
