@@ -223,17 +223,17 @@ hosts::production::api::hosts:
   draft-content-store-2:
     ip: '10.2.4.201'
   email-campaign-api-1:
-    ip: '10.2.4.30'
+    ip: '10.2.4.50'
   email-campaign-api-2:
-    ip: '10.2.4.31'
+    ip: '10.2.4.51'
   email-campaign-api-3:
-    ip: '10.2.4.32'
+    ip: '10.2.4.52'
   email-campaign-mongo-1:
-    ip: '10.2.4.33'
+    ip: '10.2.4.53'
   email-campaign-mongo-2:
-    ip: '10.2.4.34'
+    ip: '10.2.4.54'
   email-campaign-mongo-3:
-    ip: '10.2.4.35'
+    ip: '10.2.4.55'
   performance-mongo-1:
     ip: '10.2.4.31'
   performance-mongo-2:
