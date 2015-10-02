@@ -193,7 +193,6 @@ govuk::node::s_frontend::apps:
   - govuk::apps::courts_frontend
   - govuk::apps::designprinciples
   - govuk::apps::email_alert_frontend
-  - govuk::apps::email_campaign_frontend
   - govuk::apps::feedback
   - govuk::apps::frontend
   - govuk::apps::government_frontend
