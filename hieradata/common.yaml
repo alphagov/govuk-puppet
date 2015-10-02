@@ -330,17 +330,9 @@ hosts::production::api::hosts:
   draft-content-store-2:
     ip: '10.7.2.12'
   email-campaign-api-1:
-    ip: '10.7.2.30'
+    ip: '10.7.2.50'
   email-campaign-api-2:
-    ip: '10.7.2.31'
-  email-campaign-api-3:
-    ip: '10.7.2.32'
-  email-campaign-mongo-1:
-    ip: '10.7.2.33'
-  email-campaign-mongo-2:
-    ip: '10.7.2.34'
-  email-campaign-mongo-3:
-    ip: '10.7.2.35'
+    ip: '10.7.2.51'
   mapit-1:
     ip: '10.7.0.51'
   performance-mongo-1:
