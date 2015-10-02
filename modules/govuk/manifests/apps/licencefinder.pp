@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::licencefinder
+#
+# An application for finding licences on gov.uk
+#
+# === Parameters
+#
+# [*port*]
+#   The port that licence finder is served on.
+#   Default: 3093
+#
 class govuk::apps::licencefinder(
   $port = '3014',
 ) {
