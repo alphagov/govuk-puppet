@@ -762,6 +762,8 @@ monitoring::checks::smokey::features:
     feature: efg
   check_external_link_tracker:
     feature: external_link_tracker
+  check_email_campaign:
+    feature: email_campaign
   check_frontend:
     feature: frontend
   check_licencefinder:
