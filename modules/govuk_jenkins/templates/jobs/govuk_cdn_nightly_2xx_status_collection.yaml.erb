@@ -1,0 +1,42 @@
+---
+- scm:
+    name: govuk-cdn-logs-monitor
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-cdn-logs-monitor.git
+            branches:
+              - release
+
+- job:
+    name: govuk_cdn_nightly_2xx_status_collection
+    display-name: GOVUK_CDN_Nightly
+    disabled: false
+    project-type: freestyle
+    description: |
+      Every morning the CDN log for GOV.UK rotates, this job collects all GOV.UK URLs that returned a 2XX status for yesterday's site activity.
+    scm:
+      - govuk-cdn-logs-monitor
+    builders:
+      - shell: |
+          sh nightly_run.sh $GOVUK_CDN_LOG_DIR $GOVUK_CDN_PROCESSED_DATA_DIR
+          sh accumulate.sh $GOVUK_CDN_PROCESSED_DATA_DIR $GOVUK_GOOD_URLS_FILE
+    logrotate:
+      artifactNumToKeep: 14
+    triggers:
+      - timed: 'H 7 * * *'
+    parameters:
+      - string:
+          name: GOVUK_GOOD_URLS_FILE
+          description: |
+            The path to the file that contains the known good URLs on GOV.UK
+          default: "<%= @good_urls_file %>"
+      - string:
+          name: GOVUK_CDN_LOG_DIR
+          description: |
+            The path to the directory where the uncompressed daily log is stored
+          default: "<%= @log_dir %>"
+      - string:
+          name: GOVUK_CDN_PROCESSED_DATA_DIR
+          description: |
+            The path to the directory where the processed data files are stored
+          default: "<%= @processed_data_dir %>"
