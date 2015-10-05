@@ -4,12 +4,12 @@
 #
 # === Parameters
 #
-# [*environment_script_parameter*]
-#   The environment parameter to pass through to the script that this Jenkins job runs:
-#   https://github.gds/gds/govuk-provisioning/blob/master/vcloud-edge_gateway/jenkins.sh
+# [*environments*]
+#   An array of environments where network config can be deployed to. The
+#   possibilities are https://github.gds/gds/govuk-provisioning/blob/master/vcloud-edge_gateway/jenkins.sh
 #
 class govuk_jenkins::job::network_config_deploy (
-  $environment_script_parameter = '',
+  $environments = [],
 ) {
   file { '/etc/jenkins_jobs/jobs/network_config_deploy.yaml':
     ensure  => present,
