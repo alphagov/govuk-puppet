@@ -25,7 +25,7 @@
 #   Default: ''
 #
 # [*errbit_api_key*]
-#   Errbit API key used by gobrake
+#   Errbit API key used by airbrake
 #   Default: ''
 #
 # [*secret_key_base*]
