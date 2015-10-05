@@ -138,7 +138,7 @@ memcached::listen_ip: '127.0.0.1'
 
 mongodb::server::development: true
 mongodb::server::replicaset_members:
- - 'localhost'
+  'localhost':
 
 nginx_enable_ssl: false
 nginx_enable_basic_auth: false

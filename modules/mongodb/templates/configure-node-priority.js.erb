@@ -1,0 +1,29 @@
+var expectedReplicaSetMembers = [
+  <%- @members.each do |host, properties| -%>
+    {
+      host: '<%= host %>:27017',
+      priority: <%= properties ? properties.fetch('priority', 1) : 1 %>,
+    },
+  <%- end -%>
+]
+
+var actualReplicaSetConfig = rs.conf();
+var replicaSetChangesMade = false;
+
+for (var i = 0; i < expectedReplicaSetMembers.length; i++) {
+  expectedMember = expectedReplicaSetMembers[i];
+  thisMember = actualReplicaSetConfig.members.filter(function (value) {
+    return value.host === expectedMember.host
+  })[0];
+  if (!thisMember.priority) {
+    thisMember.priority = 1;
+  }
+  if (thisMember.priority !== expectedMember.priority) {
+    thisMember.priority = expectedMember.priority;
+    replicaSetChangesMade = true;
+  }
+}
+
+if (replicaSetChangesMade) {
+  rs.reconfig(actualReplicaSetConfig);
+}

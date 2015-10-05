@@ -21,4 +21,4 @@ mount:
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
-  - 'exception-handler-1'
+  'exception-handler-1':

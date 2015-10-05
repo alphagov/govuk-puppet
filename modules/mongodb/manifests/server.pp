@@ -12,7 +12,7 @@
 #   If undefined, we use MongoDB's default.
 #
 # [*replicaset_members*]
-#   An array of the members for the replica set.
+#   A hash of the members for the replica set.
 #   Defaults to empty, which throws an error, so
 #   it must be set.
 #
@@ -26,18 +26,18 @@ class mongodb::server (
   $package_name = 'mongodb-10gen',
   $dbpath = '/var/lib/mongodb',
   $oplog_size = undef,
-  $replicaset_members = [],
+  $replicaset_members = {},
   $development = false,
 ) {
   validate_bool($development)
-  validate_array($replicaset_members)
+  validate_hash($replicaset_members)
   if empty($replicaset_members) {
     fail("Replica set can't have no members")
   }
 
   unless $development {
     class { 'mongodb::backup':
-      replicaset_members => $replicaset_members,
+      replicaset_members => keys($replicaset_members),
     }
   }
 

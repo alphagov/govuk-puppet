@@ -1,7 +1,7 @@
 <% require 'json' %>
 
 function replicaSetMembers() {
-  var members = <%= @members.to_json %>;
+  var members = <%= @members_hostnames.to_json %>;
   var i = 0;
   return members.map(function(member) {
     return {
