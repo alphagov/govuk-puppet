@@ -67,7 +67,7 @@ mod 'alphagov/tune_ext',
 # Our modules on the Forge.
 mod 'gdsoperations/aptly'
 mod 'gdsoperations/auditd', '0.2.0'
-mod 'gdsoperations/goenv', '0.0.3'
+mod 'gdsoperations/goenv', '0.0.4'
 mod 'gdsoperations/graphite'
 mod 'gdsoperations/openconnect'
 mod 'gdsoperations/rbenv', '1.2.0'
