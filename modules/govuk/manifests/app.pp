@@ -44,11 +44,19 @@
 # logs we care about.
 #
 #
-# [*log_format_is_json*]
-# logstream file is logstash JSON format
+# [*legacy_logging*]
+# Whether to support the legacy logging scheme where we collect application
+# logs directly, instead of having logs log to stdout/stderr.
+# Default: true
 #
-# If set to true, logstream will consume this as a logstash JSON
-# event formatted stream.
+#
+# [*log_format_is_json*]
+# Whether the legacy application logs are in JSON format. If set to true,
+# logstream will consume this as a logstash JSON event formatted stream.
+#
+# This is ignored unless legacy_logging is set to true.
+#
+# Default: false
 #
 #
 # [*health_check_path*]
@@ -225,6 +233,7 @@ define govuk::app (
   $port = 'NOTSET',
   $command = undef,
   $logstream = present,
+  $legacy_logging = true,
   $log_format_is_json = false,
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
@@ -334,35 +343,54 @@ define govuk::app (
     fields  => {'application' => $title},
   }
 
-  if ($app_type == 'bare' and $log_format_is_json) {
-    $err_log_json = true
-  } else {
-    $err_log_json = undef
-  }
+  $title_escaped = regsubst($title, '\.', '_', 'G')
+  $statsd_timer_prefix = "${::fqdn_metrics}.${title_escaped}"
 
-  govuk::logstream { "${title}-app-err":
-    ensure  => $logstream_ensure,
-    logfile => "/var/log/${title}/app.err.log",
-    tags    => ['stderr', 'app'],
-    json    => $err_log_json,
-    fields  => {'application' => $title},
-  }
-
-  if ($app_type == 'rack' or  $log_format_is_json) {
-    $title_escaped = regsubst($title, '\.', '_', 'G')
-    $statsd_timer_prefix = "${::fqdn_metrics}.${title_escaped}"
-
-    $log_path = $log_format_is_json ? {
-      true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",
-      default => "/data/vhost/${vhost_full}/shared/log/production.log"
+  if $legacy_logging {
+    if ($app_type == 'bare' and $log_format_is_json) {
+      $err_log_json = true
+    } else {
+      $err_log_json = undef
     }
 
-    govuk::logstream { "${title}-production-log":
+    govuk::logstream { "${title}-app-err":
+      ensure  => $logstream_ensure,
+      logfile => "/var/log/${title}/app.err.log",
+      tags    => ['stderr', 'app'],
+      json    => $err_log_json,
+      fields  => {'application' => $title},
+    }
+
+    if ($app_type == 'rack' or  $log_format_is_json) {
+
+      $log_path = $log_format_is_json ? {
+        true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",
+        default => "/data/vhost/${vhost_full}/shared/log/production.log"
+      }
+
+      govuk::logstream { "${title}-production-log":
+        ensure        => $logstream_ensure,
+        logfile       => $log_path,
+        tags          => ['stdout', 'application'],
+        fields        => {'application' => $title},
+        json          => $log_format_is_json,
+        statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
+        statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
+                            value => '@fields.duration'},
+                          {metric => "${statsd_timer_prefix}.time_db",
+                            value => '@fields.db'},
+                          {metric => "${statsd_timer_prefix}.time_view",
+                            value => '@fields.view'}]
+      }
+    }
+
+  } else {
+    govuk::logstream { "${title}-app-out":
       ensure        => $logstream_ensure,
-      logfile       => $log_path,
-      tags          => ['stdout', 'application'],
+      logfile       => "/var/log/${title}/app.out.log",
+      tags          => ['application'],
+      json          => true,
       fields        => {'application' => $title},
-      json          => $log_format_is_json,
       statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
       statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
                           value => '@fields.duration'},
@@ -370,6 +398,19 @@ define govuk::app (
                           value => '@fields.db'},
                         {metric => "${statsd_timer_prefix}.time_view",
                           value => '@fields.view'}]
+    }
+
+    govuk::logstream { "${title}-app-err":
+      ensure  => $logstream_ensure,
+      logfile => "/var/log/${title}/app.err.log",
+      tags    => ['application'],
+      fields  => {'application' => $title},
+    }
+
+    # Support apps transitioning from legacy_logging.
+    govuk::logstream { "${title}-production-log":
+      ensure  => absent,
+      logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
     }
   }
 
