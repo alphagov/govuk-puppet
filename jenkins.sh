@@ -7,7 +7,7 @@ bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 # Install librarian-puppet managed puppet modules
 bundle exec rake librarian:install
 
-bundle exec rake puppetfile syntax test
+bundle exec rake all_but_lint
 RESULT=$?
 
 mkdir -p build
