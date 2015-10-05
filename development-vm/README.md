@@ -101,7 +101,7 @@ This way, commits you make on the VM get your name and email set on them:
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
 
-## 7. Create a production/preview user
+## 7. Create a preview/production user
 
 To get access to connect to machines in our environments you'll need to make
 a pull request against the Puppet repository to create a user account and add
