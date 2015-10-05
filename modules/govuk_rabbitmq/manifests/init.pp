@@ -8,7 +8,10 @@ class govuk_rabbitmq (
 
   include govuk_rabbitmq::firewalls
   include govuk_rabbitmq::logging
-  include govuk_rabbitmq::monitoring
+  class { 'govuk_rabbitmq::monitoring' :
+    monitoring_user     => $monitoring_user,
+    monitoring_password => $monitoring_password,
+  }
   include govuk_rabbitmq::repo
   include '::rabbitmq'
 

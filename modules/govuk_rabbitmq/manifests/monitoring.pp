@@ -1,5 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_rabbitmq::monitoring {
+class govuk_rabbitmq::monitoring (
+  $monitoring_user,
+  $monitoring_password,
+) {
 
   include icinga::plugin::check_http_timeout_noncrit
 
