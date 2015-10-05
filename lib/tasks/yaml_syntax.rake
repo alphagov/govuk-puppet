@@ -1,3 +1,9 @@
+# Note that this task is not intended for Hiera YAML files,
+# which are already checked by the puppet-syntax gem:
+# https://github.com/gds-operations/puppet-syntax/blob/49f7d4d1125cd9c671511fe3e727ff4c2f38fb04/lib/puppet-syntax/hiera.rb
+#
+# Rather, this is intended to check YAML contained in files
+# or templates that we use in our Puppet modules.
 require 'erb'
 require 'yaml'
 
