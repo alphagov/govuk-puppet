@@ -90,6 +90,7 @@ govuk_jenkins::job_builder::environment: 'staging'
 
 govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-staging'
+  - 'carrenza-staging-dr'
   - 'skyscape-staging'
 
 govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "staging.performance.service.gov.uk"
