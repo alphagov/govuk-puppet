@@ -15,7 +15,7 @@
 #    The path to the directory where the processed data files are stored
 #
 class govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection (
-  $good_urls_file = 'good_urls.csv',
+  $good_urls_file = 'processed/good_urls.csv',
   $log_dir = '/mnt/logs_cdn',
   $processed_data_dir = 'processed',
 ) {
