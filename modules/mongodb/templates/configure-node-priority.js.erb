@@ -13,7 +13,15 @@ var replicaSetChangesMade = false;
 for (var i = 0; i < expectedReplicaSetMembers.length; i++) {
   expectedMember = expectedReplicaSetMembers[i];
   thisMember = actualReplicaSetConfig.members.filter(function (value) {
-    return value.host === expectedMember.host
+    // FIXME: This conditional is required to handle the case where the
+    // MongoDB replicaset config is configured on the machines' hostnames
+    // and vDCs but the replicaset config in Puppet specifies hostnames only.
+    if (value.host.indexOf('.') > -1) {
+      hostname = value.host.split('.')[0] + ':27017'
+    } else {
+      hostname = value.host
+    }
+    return hostname === expectedMember.host
   })[0];
   if (!thisMember.priority) {
     thisMember.priority = 1;
