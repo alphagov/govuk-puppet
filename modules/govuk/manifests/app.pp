@@ -190,6 +190,11 @@
 # need to be altered. Default is `undef` so we can explicitly pass `undef`
 # to use the default value.
 #
+# [*alert_5xx_warning_rate*]
+# the 5xx error percentage that should generate a warning
+#
+# [*alert_5xx_critical_rate*]
+# the 5xx error percentage that should generate a critical
 #
 # [*unicorn_herder_timeout*]
 # the timeout (in seconds) period to wait for
@@ -249,6 +254,8 @@ define govuk::app (
   $nginx_extra_app_config = '',
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
+  $alert_5xx_warning_rate = 0.05,
+  $alert_5xx_critical_rate = 0.1,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_herder_timeout = undef,
@@ -311,6 +318,8 @@ define govuk::app (
     nagios_cpu_critical       => $nagios_cpu_critical,
     nagios_memory_warning     => $nagios_memory_warning,
     nagios_memory_critical    => $nagios_memory_critical,
+    alert_5xx_warning_rate    => $alert_5xx_warning_rate,
+    alert_5xx_critical_rate   => $alert_5xx_critical_rate,
     unicorn_herder_timeout    => $unicorn_herder_timeout,
     upstart_post_start_script => $upstart_post_start_script,
     asset_pipeline            => $asset_pipeline,

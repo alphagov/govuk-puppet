@@ -18,6 +18,8 @@ define govuk::app::nginx_vhost (
   $single_page_app = false,
   $read_timeout = 15,
   $ensure = 'present',
+  $alert_5xx_warning_rate = 0.05,
+  $alert_5xx_critical_rate = 0.1,
 ) {
 
   # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
@@ -35,20 +37,22 @@ define govuk::app::nginx_vhost (
   }
 
   nginx::config::vhost::proxy { $vhost:
-    ensure           => $ensure,
-    to               => ["localhost:${app_port}"],
-    aliases          => $aliases,
-    protected        => $protected,
-    ssl_only         => $ssl_only,
-    logstream        => $logstream,
-    extra_config     => $nginx_extra_config_real,
-    extra_app_config => $nginx_extra_app_config,
-    intercept_errors => $intercept_errors,
-    deny_framing     => $deny_framing,
-    is_default_vhost => $is_default_vhost,
-    hidden_paths     => $hidden_paths,
-    static_app       => $static_app,
-    single_page_app  => $single_page_app,
-    read_timeout     => $read_timeout,
+    ensure                  => $ensure,
+    to                      => ["localhost:${app_port}"],
+    aliases                 => $aliases,
+    protected               => $protected,
+    ssl_only                => $ssl_only,
+    logstream               => $logstream,
+    extra_config            => $nginx_extra_config_real,
+    extra_app_config        => $nginx_extra_app_config,
+    intercept_errors        => $intercept_errors,
+    deny_framing            => $deny_framing,
+    is_default_vhost        => $is_default_vhost,
+    hidden_paths            => $hidden_paths,
+    static_app              => $static_app,
+    single_page_app         => $single_page_app,
+    read_timeout            => $read_timeout,
+    alert_5xx_warning_rate  => $alert_5xx_warning_rate,
+    alert_5xx_critical_rate => $alert_5xx_critical_rate,
   }
 }
