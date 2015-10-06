@@ -7,7 +7,9 @@ govuk::safe_to_reboot::reason: 'Check that offsite sync job is not running befor
 
 lv:
   data:
-    pv: '/dev/sdb1'
+    pv:
+        - '/dev/sdb1'
+        - '/dev/sdc1'
     vg: 'uploads'
 
 mount:
