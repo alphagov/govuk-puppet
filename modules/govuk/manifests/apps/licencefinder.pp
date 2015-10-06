@@ -25,12 +25,13 @@ class govuk::apps::licencefinder(
     health_check_path     => '/licence-finder',
     log_format_is_json    => true,
     asset_pipeline        => true,
-    asset_pipeline_prefix => $app_name,
+    asset_pipeline_prefix => 'licencefinder',
   }
 
   if $errbit_api_key {
     govuk::app::envvar {
       "${title}-ERRBIT_API_KEY":
+        app     => $app_name,
         varname => 'ERRBIT_API_KEY',
         value   => $errbit_api_key;
     }
