@@ -39,7 +39,7 @@ class govuk_jenkins::job_builder (
   validate_array($jobs)
 
   package { 'jenkins-job-builder':
-    ensure   => '1.2.0',
+    ensure   => '1.3.0',
     provider => pip,
   }
 
