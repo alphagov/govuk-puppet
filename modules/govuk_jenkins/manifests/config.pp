@@ -67,7 +67,7 @@ class govuk_jenkins::config (
     file { '/var/lib/jenkins':
       ensure  => directory,
       source  => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
-      recurse => true,
+      recurse => 'remote',
       owner   => 'jenkins',
       group   => 'jenkins',
       notify  => Service['jenkins'],
