@@ -21,7 +21,6 @@
             curl -O https://licensify:<%= @ci_new_jenkins_api_key -%>@ci-new.alphagov.co.uk/job/Licensify/${artefact_number}/artifact/backend/dist/backend-${app_version}.zip
             curl -O https://licensify:<%= @ci_new_jenkins_api_key -%>@ci-new.alphagov.co.uk/job/Licensify/${artefact_number}/artifact/feed/dist/feed-${app_version}.zip
             curl -O https://licensify:<%= @ci_new_jenkins_api_key -%>@ci-new.alphagov.co.uk/job/Licensify/${artefact_number}/artifact/frontend/dist/frontend-${app_version}.zip
-            export ORGANISATION=<%= @environment -%>
             logger -p INFO -t jenkins "DEPLOYMENT: ${JOB_NAME} ${artefact_number} (${BUILD_URL})"
             export app_version=${app_version}
             exec bash -e elms/deploy/deploy.sh
