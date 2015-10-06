@@ -68,7 +68,7 @@ mod 'alphagov/tune_ext',
 mod 'gdsoperations/aptly'
 mod 'gdsoperations/auditd', '0.2.0'
 mod 'gdsoperations/goenv', '0.0.4'
-mod 'gdsoperations/graphite'
+mod 'gdsoperations/graphite', '~> 2.0.5'
 mod 'gdsoperations/openconnect'
 mod 'gdsoperations/rbenv', '1.2.0'
 mod 'gdsoperations/resolvconf', '0.2.0'
