@@ -91,16 +91,22 @@ and that's it. Now you can get to work!
           vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
         end
 
-* If you want to be able to SSH into your VM directly, add the
-  following to your `~/.ssh/config`:
+* If you want to be able to SSH into your VM directly, run `vagrant ssh-config --host dev`
+  and paste the output into your `~/.ssh/config`. It should look
+  something like the below, but may be different depending on your
+  version of vagrant:
 
         Host dev
+          HostName 127.0.0.1
           User vagrant
-          ForwardAgent yes
-          IdentityFile ~/.vagrant.d/insecure_private_key
-          HostName 10.1.1.254
+          Port 2222
+          UserKnownHostsFile /dev/null
           StrictHostKeyChecking no
-          UserKnownHostsFile=/dev/null
+          PasswordAuthentication no
+          IdentityFile </path/to/your/puppet/checkout/>/development/.vagrant/machines/default/virtualbox/private_key
+          IdentitiesOnly yes
+          LogLevel FATAL
+          ForwardAgent yes
 
 * To re-run Puppet, just SSH into your VM and run `govuk_puppet`.
 
