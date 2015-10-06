@@ -65,11 +65,12 @@ class govuk_jenkins::config (
 
   if $manage_config {
     file { '/var/lib/jenkins':
-      ensure => directory,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
-      owner  => 'jenkins',
-      group  => 'jenkins',
-      notify => Service['jenkins'],
+      ensure  => directory,
+      source  => 'puppet:///modules/govuk_jenkins/var/lib/jenkins',
+      recurse => true,
+      owner   => 'jenkins',
+      group   => 'jenkins',
+      notify  => Service['jenkins'],
     }
 
     file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
