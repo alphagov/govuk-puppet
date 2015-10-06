@@ -23,6 +23,6 @@ mount:
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
-  - 'email-campaign-mongo-1'
-  - 'email-campaign-mongo-2'
-  - 'email-campaign-mongo-3'
+  'email-campaign-mongo-1':
+  'email-campaign-mongo-2':
+  'email-campaign-mongo-3':
