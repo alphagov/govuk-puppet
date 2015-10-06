@@ -23,6 +23,12 @@
 #   Configure the amount of time the proxy vhost will wait before returning
 #   a 504 to the client
 #
+# [*alert_5xx_warning_rate*]
+#   The error percentage that triggers a warning alert
+#
+# [*alert_5xx_critical_rate*]
+#   The error percentage that triggers a critical alert
+#
 # TODO: More docs!
 #
 define nginx::config::vhost::proxy(
@@ -47,6 +53,9 @@ define nginx::config::vhost::proxy(
   $single_page_app = false,
   $read_timeout = 15,
   $ensure = 'present',
+
+  $alert_5xx_warning_rate = 0.05,
+  $alert_5xx_critical_rate = 0.1,
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
@@ -108,8 +117,8 @@ define nginx::config::vhost::proxy(
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
     ensure    => $ensure,
     target    => "transformNull(stats.${counter_basename}.http_5xx,0)",
-    warning   => 0.05,
-    critical  => 0.1,
+    warning   => $alert_5xx_warning_rate,
+    critical  => $alert_5xx_critical_rate,
     from      => '3minutes',
     desc      => "${title} nginx 5xx rate too high",
     host_name => $::fqdn,
