@@ -278,7 +278,7 @@ govuk_sudo::sudo_conf:
 govuk_unattended_reboot::enabled: true
 
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
-grafana::dashboards::machine_suffix_metrics: '_production'
+grafana::dashboards::machine_suffix_metrics: ''
 
 grub2::recordfail_timeout: 5
 
@@ -741,7 +741,7 @@ icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 
-internal_tld: 'production'
+internal_tld: 'publishing.service.gov.uk'
 
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
