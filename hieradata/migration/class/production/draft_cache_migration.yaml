@@ -1,5 +1,0 @@
----
-
-# FIXME: Work out how to target draft cache machines for traffic reply before enabling
-# https://trello.com/c/ymCuTjvE/230-configure-puppet-to-replay-draft-traffic-against-staging
-router::gor::replay_targets: {}
