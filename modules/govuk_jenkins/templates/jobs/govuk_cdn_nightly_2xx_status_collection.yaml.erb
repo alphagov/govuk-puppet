@@ -18,25 +18,12 @@
       - govuk-cdn-logs-monitor
     builders:
       - shell: |
-          sh nightly_run.sh $GOVUK_CDN_LOG_DIR $GOVUK_CDN_PROCESSED_DATA_DIR
-          sh accumulate.sh $GOVUK_CDN_PROCESSED_DATA_DIR $GOVUK_GOOD_URLS_FILE
+          ssh deploy@logs-cdn-1.management '
+            cd /var/apps/govuk-cdn-logs-monitor &&
+            govuk_setenv govuk-cdn-logs-monitor sh nightly_run.sh &&
+            govuk_setenv govuk-cdn-logs-monitor sh accumulate.sh
+          '
     logrotate:
       artifactNumToKeep: 14
     triggers:
       - timed: 'H 7 * * *'
-    parameters:
-      - string:
-          name: GOVUK_GOOD_URLS_FILE
-          description: |
-            The path to the file that contains the known good URLs on GOV.UK
-          default: "<%= @good_urls_file %>"
-      - string:
-          name: GOVUK_CDN_LOG_DIR
-          description: |
-            The path to the directory where the uncompressed daily log is stored
-          default: "<%= @log_dir %>"
-      - string:
-          name: GOVUK_CDN_PROCESSED_DATA_DIR
-          description: |
-            The path to the directory where the processed data files are stored
-          default: "<%= @processed_data_dir %>"
