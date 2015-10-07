@@ -124,6 +124,12 @@ govuk::ppa::path: 'preview'
 hosts::production::carrenza_vcloud: true
 hosts::production::ip_bouncer: '10.133.0.40'
 
+hosts::production::licensify::app_hostnames:
+  - 'licensify'
+  - 'uploadlicence'
+  - 'licensify-admin'
+  - 'licensing-web-forms'
+
 icinga::client::check_cputype::cputype: 'amd'
 
 internal_tld: 'production'
