@@ -16,4 +16,10 @@ class govuk_jenkins::job::network_config_deploy (
     content => template('govuk_jenkins/jobs/network_config_deploy.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
+
+  file { '/etc/jenkins_jobs/jobs/network_config_deploy_dryrun.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/network_config_deploy_dryrun.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
+  }
 }
