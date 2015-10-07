@@ -93,7 +93,7 @@ govuk_jenkins::job::network_config_deploy_legacy::environment_script_parameter: 
 govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "staging.performance.service.gov.uk"
 govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "staging.performance.service.gov.uk"
 
-govuk_jenkins::job::staging::data_sync_complete::signon_domain_old: production.alphagov.co.uk
+govuk_jenkins::job::staging::data_sync_complete::signon_domain_old: publishing.service.gov.uk
 govuk_jenkins::job::staging::data_sync_complete::signon_domain_new: staging.publishing.service.gov.uk
 
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7aWtyeQTBcNav3RwyFDacYaO8Ab9wX5rqXKqgd3JlWzr95i7IlCsXSovboqHw3h1J6FrCDxafbhLWJ0lFHlNdGLgX9AysZgMLJCfaJ88RTbWnCyXvTcJBHKHhRkdCrfdXGobeiIOFTOCR2zm9E7EiUXLivgBDfWulo6on4wiyQcGzsMret8SbqUYDi+BBvOGUqun01L/dMIa5DIrPSe9mJ96jXk41x8PI96jZa0XlAkZuiUP2RnZDFBDYIOiN1MaPdcgtBp81Tjo9m41GdfTztZ8hJ+9HicBjCZFH14/zK8Hk9UNZafG6mGtTvn45InF3w2z5qtXamV7s9b/V3xr9'
