@@ -96,6 +96,7 @@ class govuk::node::s_development {
   include govuk::apps::router_api
   include govuk::apps::rummager
   include govuk::apps::search_admin
+  include govuk::apps::service_manual_publisher
   include govuk::apps::short_url_manager
   include govuk::apps::signon
   include govuk::apps::specialist_publisher

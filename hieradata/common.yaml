@@ -173,6 +173,7 @@ govuk::node::s_backend::apps:
   - govuk::apps::publishing_api
   - govuk::apps::release
   - govuk::apps::search_admin
+  - govuk::apps::service_manual_publisher
   - govuk::apps::short_url_manager
   - govuk::apps::sidekiq_monitoring
   - govuk::apps::signon
