@@ -52,7 +52,6 @@ govuk_jenkins::config::users:
   - bobwalker
   - bradleywright
   - danielroseman
-  - davidheath
   - davidsingleton
   - deploy
   - elliotcrosbymccullough
@@ -269,7 +268,6 @@ ssh::config::allow_users:
   - 'deploy'
   - 'elliot'
   - 'govuk-backup'
-  - 'heathd'
   - 'jamiec'
   - 'jennyduckett'
   - 'joshmyers'
@@ -292,7 +290,6 @@ users::usernames:
   - danielroseman
   - davidsingleton
   - elliot
-  - heathd
   - jamiec
   - jennyduckett
   - joshmyers

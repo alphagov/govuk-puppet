@@ -39,7 +39,6 @@ username_whitelist = %w{
   bob
   bradleyw
   elliot
-  heathd
   jackscotti
   jamiec
   kushalp
