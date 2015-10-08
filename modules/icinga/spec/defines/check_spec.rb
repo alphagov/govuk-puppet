@@ -11,6 +11,28 @@ describe 'icinga::check', :type => :define do
     :service_description => "to see you nice",
   }}
 
+  context "validating service description" do
+    context "when service description is valid" do
+      let(:title) { 'heartbeat' }
+      let(:params) { param_defaults }
+
+      it "should not raise an error" do
+        expect { subject.call }.to_not raise_error()
+      end
+    end
+
+    context "when service description is invalid" do
+      let(:title) { 'heartbeat' }
+      let(:params) { param_defaults.merge({
+        :service_description => "invalid()nonsense||",
+      })}
+
+      it "should be detected" do
+        expect { subject.call }.to raise_error(Puppet::Error, /invalid characters/)
+      end
+    end
+  end
+
   context "should create file in correct location" do
     let(:title) { 'heartbeat' }
     let(:params) { param_defaults }
