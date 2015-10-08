@@ -14,15 +14,12 @@ class govuk_rbenv::cleanup {
     }
   }
 
-  if ! defined(Rbenv::Version['2.0.0-p353']) {
-    rbenv::version { '2.0.0-p353':
-      ensure => absent,
-    }
+  # FIXME: remove these 2 once cleaned up everywhere.
+  rbenv::version { '2.0.0-p353':
+    ensure => absent,
   }
-  if ! defined(Rbenv::Alias['2.0.0']) {
-    file { "${rbenv::params::rbenv_root}/versions/2.0.0":
-      ensure => absent,
-    }
+  file { "${rbenv::params::rbenv_root}/versions/2.0.0":
+    ensure => absent,
   }
 
   if ! defined(Rbenv::Version['2.1.2']) {
