@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: clamav::service
+#
+# Set up service resources and monitoring for ClamAV.
+#
+# === Parameters
+#
+# [*use_service*]
+#   Boolean indicating whether ClamAV should be set up
+#   with service resources and service monitoring.
+#
 class clamav::service (
     $use_service
   ) {

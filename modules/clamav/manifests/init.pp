@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: clamav
+#
+# Install and setup the ClamAV antivirus on a machine.
+#
+# === Parameters
+#
+# [*use_service*]
+#   Boolean indicating whether or not ClamAV should be set up
+#   as a constantly running service.
+#
 class clamav (
     $use_service = true
   ) {
