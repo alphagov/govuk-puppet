@@ -83,6 +83,7 @@ backup::offsite::jobs:
 base::packages::packages:
   - 'ack-grep'
   - 'bzip2'
+  - 'daemontools'
   - 'dnsutils'
   - 'dstat'
   - 'gettext'

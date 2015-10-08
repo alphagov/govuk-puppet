@@ -94,8 +94,6 @@ class govuk_crawler(
   $sync_script_path = "/usr/local/bin/${sync_script_name}"
   $sync_error_dir = "${mirror_root}/error"
 
-  include daemontools # provides setlock
-
   # add ssh host keys of mirror targets.
   create_resources('sshkey', $ssh_keys)
 
@@ -191,7 +189,7 @@ class govuk_crawler(
     minute      => 0,
     environment => ['MAILTO=""'],
     command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path}",
-    require     => File[$seeder_script_wrapper_path],
+    require     => [File[$seeder_script_wrapper_path], Package['daemontools']],
   }
 
   $sync_ensure = $sync_enable ? {
@@ -205,7 +203,7 @@ class govuk_crawler(
     minute      => '0',
     environment => 'MAILTO=""',
     command     => "/usr/bin/setlock -n ${sync_lock_path} ${sync_script_path}",
-    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path]]
+    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['daemontools']]
   }
 
   file { $sync_error_dir:
