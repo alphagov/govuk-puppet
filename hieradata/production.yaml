@@ -616,6 +616,8 @@ hosts::production::router::hosts:
 
 icinga::nginx::enable_basic_auth: false
 
+internal_tld: 'publishing.service.gov.uk'
+
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 

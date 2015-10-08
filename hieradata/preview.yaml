@@ -125,6 +125,8 @@ hosts::production::ip_bouncer: '10.133.0.40'
 
 icinga::client::check_cputype::cputype: 'amd'
 
+internal_tld: 'production'
+
 licensify::apps::licensing_web_forms::enabled: true
 
 mongodb::server::package_name: 'mongodb-10gen'
