@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: ecryptfs
+#
+# Install dependencies for creating encrypted disk volumes.
+#
 class ecryptfs {
 
   package { 'ecryptfs-utils':

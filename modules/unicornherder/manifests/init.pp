@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: unicornherder
+#
+# Install the unicornherder Python package.
+#
+# === Parameters
+#
+# [*version*]
+#   The version of the package to install
+#
 class unicornherder (
       $version = 'present'
   ){

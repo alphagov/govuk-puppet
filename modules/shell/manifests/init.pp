@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: shell
+#
+# Set up a shell on a machine.
+#
+# === Parameters
+#
+# [*shell_prompt_string*]
+#   The environment name that should appear in the shell prompt
+#
 class shell (
   $shell_prompt_string = 'unknown'
 ){
