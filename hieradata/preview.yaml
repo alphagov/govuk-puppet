@@ -142,6 +142,10 @@ postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
 
+postgresql_api_slave_address: '10.7.0.41/32'
+postgresql_slave_address: '10.3.20.13/32'
+postgresql_transition_slave_address: '10.3.20.2/32'
+
 router::nginx::check_requests_warning: '@0.5'
 router::nginx::check_requests_critical: '@0.25'
 
