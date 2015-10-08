@@ -35,6 +35,7 @@ class govuk::node::s_backend_lb (
       'publisher',
       'release',
       'search-admin',
+      'service-manual-publisher',
       'signon',
       'specialist-publisher',
       'short-url-manager',

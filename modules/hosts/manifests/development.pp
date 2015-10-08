@@ -71,6 +71,7 @@ class hosts::development {
   host { 'search.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'search-admin.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'service-manual.dev.gov.uk':                       ip => '127.0.0.1' }
+  host { 'service-manual-publisher.dev.gov.uk':             ip => '127.0.0.1' }
   host { 'short-url-manager.dev.gov.uk':                    ip => '127.0.0.1' }
   host { 'signon.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'smartanswers.dev.gov.uk':                         ip => '127.0.0.1' }
