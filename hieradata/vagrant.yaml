@@ -108,6 +108,10 @@ icinga::nginx::enable_basic_auth: false
 
 internal_tld: 'development'
 
+postgresql_api_slave_address: '10.7.0.41/32'
+postgresql_slave_address: '10.3.20.13/32'
+postgresql_transition_slave_address: '10.3.20.2/32'
+
 shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_users:

@@ -144,6 +144,10 @@ mongodb::server::replicaset_members:
 nginx_enable_ssl: false
 nginx_enable_basic_auth: false
 
+postgresql_api_slave_address: '127.0.0.1/32'
+postgresql_slave_address: '127.0.0.1/32'
+postgresql_transition_slave_address: '127.0.0.1/32'
+
 puppet::use_puppetmaster: false
 
 shell::shell_prompt_string: 'dev'
