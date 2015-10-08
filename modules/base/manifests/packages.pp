@@ -1,4 +1,12 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: base::packages
+#
+# Installs common packages on a machine.
+#
+# === Parameters
+#
+# [*ruby_version*]
+#   Which version of the `ruby` package to install
+#
 class base::packages ($ruby_version=installed){
 
   ensure_packages([
