@@ -69,10 +69,10 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.frontend-?_frontend_production.nginx_logs.*.http_4xx, 3, \"sumSeries\")"
+              "target": "groupByNode(stats.frontend-?_frontend*.nginx_logs.*.http_4xx, 3, \"sumSeries\")"
             },
             {
-              "target": "groupByNode(stats.*-frontend-?_frontend_production.nginx_logs.*.http_4xx, 3, \"sumSeries\")"
+              "target": "groupByNode(stats.*-frontend-?_frontend*.nginx_logs.*.http_4xx, 3, \"sumSeries\")"
             }
           ],
           "aliasYAxis": {},
@@ -140,10 +140,10 @@
           },
           "targets": [
             {
-              "target": "groupByNode(stats.frontend-?_frontend_production.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
+              "target": "groupByNode(stats.frontend-?_frontend*.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
             },
             {
-              "target": "groupByNode(stats.*-frontend-?_frontend_production.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
+              "target": "groupByNode(stats.*-frontend-?_frontend*.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
             }
           ],
           "aliasYAxis": {},
