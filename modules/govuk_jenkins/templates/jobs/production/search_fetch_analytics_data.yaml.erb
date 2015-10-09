@@ -22,12 +22,12 @@
             pip install -r requirements.txt
             rm -f page-traffic.dump
             PYTHONPATH=. python scripts/fetch.py page-traffic.dump 14
-            ssh deploy@search-1.api.production '(cd /var/apps/rummager; govuk_setenv rummager bundle exec ./bin/bulk_load page-traffic)' < page-traffic.dump
-            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=mainstream govuk_setenv rummager bundle exec rake rummager:migrate_index)'
-            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=detailed govuk_setenv rummager bundle exec rake rummager:migrate_index)'
-            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=government govuk_setenv rummager bundle exec rake rummager:migrate_index)'
-            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=service-manual govuk_setenv rummager bundle exec rake rummager:migrate_index)'
-            ssh deploy@search-1.api.production '(cd /var/apps/rummager; RUMMAGER_INDEX=all govuk_setenv rummager bundle exec rake rummager:clean)'
+            ssh deploy@search-1.api '(cd /var/apps/rummager; govuk_setenv rummager bundle exec ./bin/bulk_load page-traffic)' < page-traffic.dump
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=mainstream govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=detailed govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=government govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=service-manual govuk_setenv rummager bundle exec rake rummager:migrate_index)'
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=all govuk_setenv rummager bundle exec rake rummager:clean)'
     triggers:
         - timed: '5 4 * * *'
     wrappers:
