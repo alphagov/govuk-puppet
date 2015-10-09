@@ -73,6 +73,7 @@ govuk::apps::router_api::vhost: 'router-api'
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::service_manual_publisher::enabled: true
 govuk::apps::signon::enable_procfile_worker: false
+govuk::apps::signon::redis_url: redis://localhost:6379/0
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
