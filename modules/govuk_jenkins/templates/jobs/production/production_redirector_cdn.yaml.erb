@@ -22,8 +22,8 @@
     builders:
         - shell: |
             cd fastly
-            export FASTLY_USER=webops+redirector.cdn@digital.cabinet-office.gov.uk
-            export FASTLY_SERVICE_ID=3deosa3b6uKT8IimBYcAv
+            export FASTLY_USER=<%= @cdn_username %>
+            export FASTLY_SERVICE_ID=<%= @cdn_service_id %>
             FASTLY_DEBUG=TRUE ./jenkins.sh
     wrappers:
         - ansicolor:
@@ -31,4 +31,7 @@
     parameters:
         - password:
             name: FASTLY_PASS
-            default: false
+            description: Password for an account with our CDN provider
+            <%- if @cdn_password_encrypted -%>
+            default: <%= @cdn_password_encrypted %>
+            <%- end -%>
