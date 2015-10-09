@@ -16,6 +16,8 @@ class govuk::apps::service_manual_publisher(
 ) {
 
   if $enabled {
+    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
     govuk::app { 'service-manual-publisher':
       app_type          => 'rack',
       port              => $port,
