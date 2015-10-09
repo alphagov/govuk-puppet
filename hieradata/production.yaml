@@ -67,6 +67,7 @@ govuk::apps::policy_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
 govuk::apps::publishing_api::db::backend_ip_range: '10.3.3.0/24'
+govuk::apps::service_manual_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.3.4.0/24'
 govuk::apps::support_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::transition::postgresql_db::backend_ip_range: '10.3.3.0/24'
