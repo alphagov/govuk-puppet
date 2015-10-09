@@ -152,7 +152,6 @@ router::nginx::check_requests_critical: '@0.25'
 shell::shell_prompt_string: 'preview'
 
 users::usernames:
-  - ajlanghorn
   - aleksandrdrozdov
   - alexmuller
   - alext

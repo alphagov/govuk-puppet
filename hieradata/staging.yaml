@@ -38,7 +38,6 @@ govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
   - alexmuller
-  - andrewlanghorn
   - bobwalker
   - ci_alphagov
   - joshmyers
@@ -48,7 +47,6 @@ govuk_jenkins::config::admins:
 govuk_jenkins::config::users:
   - alexmuller
   - alextomlins
-  - andrewlanghorn
   - bobwalker
   - bradleywright
   - danielroseman
@@ -540,7 +538,6 @@ postgresql_transition_slave_address: '10.2.3.61/32'
 shell::shell_prompt_string: 'staging'
 
 ssh::config::allow_users:
-  - 'ajlanghorn'
   - 'alexmuller'
   - 'alext'
   - 'benilovj'
@@ -578,7 +575,6 @@ users::pentest_usernames:
   - digitalassurancetester
 
 users::usernames:
-  - ajlanghorn
   - alexmuller
   - alext
   - benilovj

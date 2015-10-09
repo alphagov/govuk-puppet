@@ -91,7 +91,6 @@ govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
   - alexmuller
-  - andrewlanghorn
   - bobwalker
   - ci_alphagov
   - joshmyers
@@ -101,7 +100,6 @@ govuk_jenkins::config::admins:
 govuk_jenkins::config::users:
   - alexmuller
   - alextomlins
-  - andrewlanghorn
   - bobwalker
   - bradleywright
   - danielroseman
@@ -650,7 +648,6 @@ postgresql_transition_slave_address: '10.3.3.61/32'
 shell::shell_prompt_string: 'production'
 
 ssh::config::allow_users:
-  - 'ajlanghorn'
   - 'alexmuller'
   - 'alext'
   - 'benilovj'
@@ -675,7 +672,6 @@ ssh::config::allow_users:
   - 'tommypalmer'
 
 users::usernames:
-  - ajlanghorn
   - alexmuller
   - alext
   - benilovj
