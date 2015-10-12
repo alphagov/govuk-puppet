@@ -17,6 +17,9 @@
 # [*amqp_pass*]
 #   Password for the app to use to connect to a message queue exchange
 #
+# [*blacklist_paths*]
+#   A list of paths that the crawler worker should not crawl
+#
 # [*enabled*]
 #   Whether the app should be enabled
 #
@@ -31,20 +34,17 @@ class govuk::apps::govuk_crawler_worker (
   $airbrake_endpoint = '',
   $airbrake_env = '',
   $amqp_pass = 'guest',
+  $blacklist_paths = [],
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
   $port = '3074',
 ) {
+  validate_array($blacklist_paths)
+
   if $enabled {
     Govuk::App::Envvar {
       app => 'govuk_crawler_worker',
     }
-
-    $blacklist_paths = ['/trade-tariff', '/licence-finder',
-      '/business-finance-support-finder', '/government/uploads',
-      '/apply-for-a-licence', '/search', '/government/announcements.atom',
-      '/government/publications.atom', '/api/content']
-    # FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
 
     govuk::app::envvar {
       'AIRBRAKE_API_KEY':

@@ -112,6 +112,18 @@ govuk::apps::email_alert_api::enabled: true
 govuk::apps::finder_frontend::enabled: true
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
+# FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
+govuk::apps::govuk_crawler_worker::blacklist_paths:
+  - '/api/content'
+  - '/apply-for-a-licence'
+  - '/business-finance-support-finder'
+  - '/government/announcements.atom'
+  - '/government/publications.atom'
+  - '/government/uploads'
+  - '/licence-finder'
+  - '/search'
+  - '/trade-tariff'
+
 govuk::apps::govuk_crawler_worker::enabled: true
 
 govuk::apps::info_frontend::enabled: true
