@@ -4,6 +4,18 @@
 #
 # === Parameters
 #
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
 # [*enabled*]
 #   Whether to enable the app
 #
@@ -15,6 +27,10 @@
 #   The port that the app is served on.
 #
 class govuk::apps::service_manual_publisher(
+  $db_hostname = 'postgresql-primary-1.backend',
+  $db_name = 'service-manual-publisher_production',
+  $db_password = undef,
+  $db_username = 'service_manual_publisher',
   $enabled = false,
   $errbit_api_key = '',
   $port = 3111,
@@ -40,6 +56,16 @@ class govuk::apps::service_manual_publisher(
       "${title}-ERRBIT_API_KEY":
         varname => 'ERRBIT_API_KEY',
         value   => $errbit_api_key;
+    }
+
+    if $::govuk_node_class != 'development' {
+      govuk::app::envvar::database_url { $app_name:
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        database => $db_name,
+      }
     }
   }
 }
