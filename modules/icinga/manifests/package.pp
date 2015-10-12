@@ -38,22 +38,10 @@ class icinga::package {
     provider => 'pip',
   }
 
-  file { '/usr/local/bin/sendEmail':
-    source => 'puppet:///modules/icinga/usr/local/bin/sendEmail',
-    mode   => '0755',
-  }
-
   # pagerduty stuff
   file { '/usr/local/bin/pagerduty_icinga.pl':
     source => 'puppet:///modules/icinga/usr/local/bin/pagerduty_icinga.pl',
     mode   => '0755',
-  }
-
-  file { '/var/log/sendEmail':
-    ensure  => present,
-    owner   => nagios,
-    group   => nagios,
-    require => Package['icinga']
   }
 
   #
