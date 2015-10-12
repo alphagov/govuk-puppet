@@ -1,4 +1,31 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::govuk_crawler_worker
+#
+# Sets up the GOV.UK Crawler Worker app.
+# https://github.com/alphagov/govuk_crawler_worker
+#
+# === Parameters
+#
+# [*airbrake_api_key*]
+#   API key to use to connect to the exception notification service
+#
+# [*airbrake_endpoint*]
+#   Location to send exception notifications to over HTTP
+#
+# [*airbrake_env*]
+#   Environment to set for exception notification
+#
+# [*amqp_pass*]
+#   Password for the app to use to connect to a message queue exchange
+#
+# [*enabled*]
+#   Whether the app should be enabled
+#
+# [*mirror_root*]
+#   The path on disk where the crawler should save files to
+#
+# [*port*]
+#   The port the app listens on
+#
 class govuk::apps::govuk_crawler_worker (
   $airbrake_api_key = '',
   $airbrake_endpoint = '',
