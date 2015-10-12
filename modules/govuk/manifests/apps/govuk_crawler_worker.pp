@@ -17,6 +17,7 @@ class govuk::apps::govuk_crawler_worker (
       '/business-finance-support-finder', '/government/uploads',
       '/apply-for-a-licence', '/search', '/government/announcements.atom',
       '/government/publications.atom', '/api/content']
+    # FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
 
     govuk::app::envvar {
       'AIRBRAKE_API_KEY':
