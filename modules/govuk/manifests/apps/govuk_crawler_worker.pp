@@ -29,6 +29,9 @@
 # [*port*]
 #   The port the app listens on
 #
+# [*root_urls*]
+#   A list of hostnames that the crawler should crawl
+#
 class govuk::apps::govuk_crawler_worker (
   $airbrake_api_key = '',
   $airbrake_endpoint = '',
@@ -38,8 +41,9 @@ class govuk::apps::govuk_crawler_worker (
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
   $port = '3074',
+  $root_urls = [],
 ) {
-  validate_array($blacklist_paths)
+  validate_array($blacklist_paths, $root_urls)
 
   if $enabled {
     Govuk::App::Envvar {
@@ -68,7 +72,7 @@ class govuk::apps::govuk_crawler_worker (
       'REDIS_KEY_PREFIX':
         value => 'govuk_crawler_worker';
       'ROOT_URLS':
-        value => 'https://www.gov.uk/,https://assets.digital.cabinet-office.gov.uk/';
+        value => join($root_urls, ',');
       'MIRROR_ROOT':
         value => $mirror_root;
       'TTL_EXPIRE_TIME':

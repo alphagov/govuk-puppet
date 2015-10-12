@@ -125,6 +125,9 @@ govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/trade-tariff'
 
 govuk::apps::govuk_crawler_worker::enabled: true
+govuk::apps::govuk_crawler_worker::root_urls:
+  - 'https://assets.digital.cabinet-office.gov.uk/'
+  - 'https://www.gov.uk/'
 
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
