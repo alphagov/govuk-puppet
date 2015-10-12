@@ -23,6 +23,12 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
+#
 # [*port*]
 #   The port that the app is served on.
 #
@@ -33,6 +39,8 @@ class govuk::apps::service_manual_publisher(
   $db_username = 'service_manual_publisher',
   $enabled = false,
   $errbit_api_key = '',
+  $oauth_id = '',
+  $oauth_secret = '',
   $port = 3111,
 ) {
 
@@ -56,6 +64,12 @@ class govuk::apps::service_manual_publisher(
       "${title}-ERRBIT_API_KEY":
         varname => 'ERRBIT_API_KEY',
         value   => $errbit_api_key;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
     }
 
     if $::govuk_node_class != 'development' {
