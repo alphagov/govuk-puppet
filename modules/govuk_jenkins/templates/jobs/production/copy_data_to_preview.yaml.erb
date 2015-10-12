@@ -21,7 +21,7 @@
     logrotate:
         artifactNumToKeep: 10
     triggers:
-        - timed: 'H 5 * * *'
+        - timed: 'H 5 * * 1-5'
     builders:
         - shell: |
             set -eu
