@@ -13,6 +13,11 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*allow_unknown_hmrc_manual_slugs*]
+#   Feature flag to allow publishing manuals (and their sections) with
+#   non-whitelisted manual slugs.
+#   Default: false
+#
 # [*publish_topics*]
 #   Feature flag to allow publishing of manual topics to the Publishing
 #   API and Rummager.
@@ -21,11 +26,20 @@
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
+  $allow_unknown_hmrc_manual_slugs = false,
   $publish_topics = false,
 ) {
 
   Govuk::App::Envvar {
     app => 'hmrc-manuals-api',
+  }
+
+  if $allow_unknown_hmrc_manual_slugs {
+    govuk::app::envvar {
+      "${title}-ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS":
+        varname => 'ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS',
+        value => '1';
+    }
   }
 
   if $publish_topics {

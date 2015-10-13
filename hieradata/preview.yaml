@@ -26,6 +26,7 @@ govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-preview@digital.ca
 govuk::apps::event_store::enabled: true
 govuk::apps::govuk_cdn_logs_monitor::enabled: true
 govuk::apps::govuk_crawler_worker::airbrake_env: 'preview'
+govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::mapit::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'

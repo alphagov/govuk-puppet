@@ -46,6 +46,7 @@ govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::external_link_tracker::mongodb_nodes: ['localhost']
 govuk::apps::frontend::enable_homepage_nocache_location: false
+govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::government_frontend::vhost: 'government-frontend'
