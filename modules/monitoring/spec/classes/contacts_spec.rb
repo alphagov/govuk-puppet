@@ -55,4 +55,17 @@ describe 'monitoring::contacts', :type => :class do
       ['slack_notification'],
       ['slack_notification']
   end
+
+  context 'notify_graphite => true' do
+    let(:params) {{
+      :notify_graphite => true,
+    }}
+
+    it { is_expected.to contain_icinga__graphite_contact('graphite_notification') }
+
+    it_should_behave_like 'configured contact groups',
+      ['graphite_notification'],
+      ['graphite_notification'],
+      ['graphite_notification']
+  end
 end

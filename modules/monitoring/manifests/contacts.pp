@@ -40,13 +40,14 @@ class monitoring::contacts (
   $pagerduty_servicekey = '',
   $notify_pager = false,
   $notify_slack = false,
+  $notify_graphite = false,
   $slack_subdomain = undef,
   $slack_channel = undef,
   $slack_username = 'Icinga',
   $slack_token = undef,
   $slack_alert_url = 'https://example.com/cgi-bin/icinga/status.cgi',
 ) {
-  validate_bool($notify_pager, $notify_slack)
+  validate_bool($notify_pager, $notify_slack, $notify_graphite)
 
   icinga::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
@@ -97,6 +98,13 @@ class monitoring::contacts (
     $slack_members = []
   }
 
+  if $notify_graphite {
+    icinga::graphite_contact { 'graphite_notification': }
+    $graphite_members = ['graphite_notification']
+  } else {
+    $graphite_members = []
+  }
+
   if ($pagerduty_servicekey != '') {
     icinga::pagerduty_contact { '24x7':
       notify_when          => ['critical'],
@@ -113,6 +121,7 @@ class monitoring::contacts (
   icinga::contact_group { 'urgent-priority':
     group_alias => 'Contacts for urgent priority alerts',
     members     => flatten([
+      $graphite_members,
       $slack_members,
       $pager_members,
     ])
@@ -125,6 +134,7 @@ class monitoring::contacts (
   icinga::contact_group { 'high-priority':
     group_alias => 'Contacts for high priority alerts',
     members     => flatten([
+      $graphite_members,
       $slack_members,
     ])
   }
@@ -136,6 +146,7 @@ class monitoring::contacts (
   icinga::contact_group { 'normal-priority':
     group_alias => 'Contacts for normal priority alerts',
     members     => flatten([
+      $graphite_members,
       $slack_members,
     ])
   }
@@ -147,6 +158,7 @@ class monitoring::contacts (
   icinga::contact_group { 'regular':
     group_alias => 'Contacts for regular alerts',
     members     => flatten([
+      $graphite_members,
       $slack_members,
     ])
   }
