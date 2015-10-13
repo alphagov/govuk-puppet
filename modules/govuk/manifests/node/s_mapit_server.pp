@@ -21,9 +21,9 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
   ->
   curl::fetch { 'mapit_dbdump_download':
     # See modules/mapit/manifests/README.md for instructions to update this dump
-    source      => 'https://gds-public-readable-tarballs.s3.amazonaws.com/mapit-July2015-add-missing-snacs.sql.gz',
+    source      => 'https://gds-public-readable-tarballs.s3.amazonaws.com/mapit-October2015-add-gss-code-for-northern-ireland-EUR.sql.gz',
     destination => '/data/vhost/mapit/data/mapit.sql.gz',
-    sha         => 'a4c9c51c92cba813d2184becf0273b3a0d275f93',
+    sha         => 'abb2b28ca6cd296cef3e2309affd0179070396f3',
     require     => File['/data/vhost/mapit/data'],
   }
   ->
