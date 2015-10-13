@@ -18,6 +18,7 @@ backup::assets::jobs:
     minute: 20
     user: 'root'
     gpg_key_id: *offsite_gpg_key
+    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
   'asset-manager':
     sources: '/mnt/uploads/asset-manager'
     destination: "rsync://govuk-assets@%{hiera('backup::assets::dest_host')}//srv/backup-assets/asset-manager"

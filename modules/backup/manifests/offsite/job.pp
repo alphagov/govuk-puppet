@@ -35,6 +35,9 @@
 #   Duplicity cache directory.
 #   Default: undef, upstream default of `~/.cache`
 #
+# [*pre_command*]
+#   Duplicity command to run before backup
+#
 define backup::offsite::job(
   $sources,
   $destination,
@@ -45,6 +48,7 @@ define backup::offsite::job(
   $user = 'govuk-backup',
   $gpg_key_id = undef,
   $archive_directory = undef,
+  $pre_command = undef,
 ){
   validate_re($ensure, '^(present|absent)$')
 
@@ -60,6 +64,7 @@ define backup::offsite::job(
     minute                => $minute,
     user                  => $user,
     pubkey_id             => $gpg_key_id,
+    pre_command           => $pre_command,
     post_command          => template('backup/post_command.sh.erb'),
     archive_directory     => $archive_directory,
     remove_all_but_n_full => 2,
