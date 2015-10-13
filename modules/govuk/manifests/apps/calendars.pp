@@ -1,13 +1,41 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::publishing_api
+#
+# Serves calendars in a clear and accessible format, along with JSON and iCal
+# exports of the data.
+#
+# === Parameters
+#
+# [*port*]
+#   The port that Calendars is served on.
+#   Default: 3011
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::calendars(
   $port = '3011',
+  $secret_key_base = undef,
 ) {
-  govuk::app { 'calendars':
+  $app_name = 'calendars'
+
+  govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
     health_check_path     => '/bank-holidays',
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'calendars',
+  }
+
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
+
+  if $secret_key_base {
+    govuk::app::envvar {
+      "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+    }
   }
 }
