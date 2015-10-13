@@ -1,4 +1,4 @@
-# MapIt - postcode and boundary lookup 
+# MapIt - postcode and boundary lookup
 
 ## Introduction
 
