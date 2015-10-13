@@ -15,6 +15,8 @@ class hosts::development {
   host { 'api-external-link-tracker.dev.gov.uk':            ip => '127.0.0.1' }
   host { 'asset-manager.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'bouncer.dev.gov.uk':                              ip => '127.0.0.1' }
+  host { 'backdrop-write.dev.gov.uk':                       ip => '127.0.0.1' }
+  host { 'backdrop-read.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'business-support-api.dev.gov.uk':                 ip => '127.0.0.1' }
   host { 'businesssupportfinder.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'calculators.dev.gov.uk':                          ip => '127.0.0.1' }
@@ -57,6 +59,7 @@ class hosts::development {
   host { 'metadata-api.dev.gov.uk':                         ip => '127.0.0.1' }
   host { 'need-api.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'panopticon.dev.gov.uk':                           ip => '127.0.0.1' }
+  host { 'performanceplatform-admin.dev.gov.uk':            ip => '127.0.0.1' }
   host { 'policy-publisher.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'private-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'publicapi.dev.gov.uk':                            ip => '127.0.0.1' }
