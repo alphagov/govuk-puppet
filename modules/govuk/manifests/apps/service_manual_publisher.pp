@@ -32,6 +32,9 @@
 # [*port*]
 #   The port that the app is served on.
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
   $db_name = 'service-manual-publisher_production',
@@ -42,6 +45,7 @@ class govuk::apps::service_manual_publisher(
   $oauth_id = '',
   $oauth_secret = '',
   $port = 3111,
+  $secret_key_base = undef,
 ) {
 
   if $enabled {
@@ -70,6 +74,13 @@ class govuk::apps::service_manual_publisher(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
     }
 
     if $::govuk_node_class != 'development' {
