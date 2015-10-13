@@ -55,10 +55,6 @@ class icinga::config (
     content => template('icinga/check_mapit.cfg.erb'),
   }
 
-  # Used by resource.cfg to insert links to correct monitoring instance into
-  # emails.
-  $monitoring_url = "https://icinga.${app_domain}/"
-
   file { '/etc/icinga/resource.cfg':
     content  => template('icinga/resource.cfg.erb'),
   }
