@@ -41,3 +41,10 @@
         - password:
             name: VCLOUD_PASSWORD
             description: Vcloud Password
+        - choice:
+            name: TARGET_ENVIRONMENT
+            description: The environment to deploy network configuration to
+            choices:
+                <%- @environments.each do |env| -%>
+                - <%= env %>
+                <%- end -%>
