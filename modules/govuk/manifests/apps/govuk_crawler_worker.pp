@@ -1,22 +1,54 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::govuk_crawler_worker
+#
+# Sets up the GOV.UK Crawler Worker app.
+# https://github.com/alphagov/govuk_crawler_worker
+#
+# === Parameters
+#
+# [*airbrake_api_key*]
+#   API key to use to connect to the exception notification service
+#
+# [*airbrake_endpoint*]
+#   Location to send exception notifications to over HTTP
+#
+# [*airbrake_env*]
+#   Environment to set for exception notification
+#
+# [*amqp_pass*]
+#   Password for the app to use to connect to a message queue exchange
+#
+# [*blacklist_paths*]
+#   A list of paths that the crawler worker should not crawl
+#
+# [*enabled*]
+#   Whether the app should be enabled
+#
+# [*mirror_root*]
+#   The path on disk where the crawler should save files to
+#
+# [*port*]
+#   The port the app listens on
+#
+# [*root_urls*]
+#   A list of hostnames that the crawler should crawl
+#
 class govuk::apps::govuk_crawler_worker (
   $airbrake_api_key = '',
   $airbrake_endpoint = '',
   $airbrake_env = '',
   $amqp_pass = 'guest',
+  $blacklist_paths = [],
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
   $port = '3074',
+  $root_urls = [],
 ) {
+  validate_array($blacklist_paths, $root_urls)
+
   if $enabled {
     Govuk::App::Envvar {
       app => 'govuk_crawler_worker',
     }
-
-    $blacklist_paths = ['/trade-tariff', '/licence-finder',
-      '/business-finance-support-finder', '/government/uploads',
-      '/apply-for-a-licence', '/search', '/government/announcements.atom',
-      '/government/publications.atom']
 
     govuk::app::envvar {
       'AIRBRAKE_API_KEY':
@@ -40,7 +72,7 @@ class govuk::apps::govuk_crawler_worker (
       'REDIS_KEY_PREFIX':
         value => 'govuk_crawler_worker';
       'ROOT_URLS':
-        value => 'https://www.gov.uk/,https://assets.digital.cabinet-office.gov.uk/';
+        value => join($root_urls, ',');
       'MIRROR_ROOT':
         value => $mirror_root;
       'TTL_EXPIRE_TIME':
