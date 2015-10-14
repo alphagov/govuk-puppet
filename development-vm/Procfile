@@ -106,6 +106,7 @@ authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../authent
 email-campaign-frontend: govuk_setenv email-campaign-frontend  ./run_in.sh ../email-campaign-frontend bundle exec rails s -p 3109
 email-campaign-api: govuk_setenv email-campaign-api  ./run_in.sh ../email-campaign-api bundle exec rails s -p 3110
 service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../service-manual-publisher bundle exec rails s -p 3111
+# govuk-pact-broker uses port 3112
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
