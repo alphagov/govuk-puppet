@@ -29,10 +29,10 @@
             cd "${WORKSPACE}"
 
             echo "Running Data Sync"
-            MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>' \
-            MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>' \
-            PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>' \
-            PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>' \
+            export MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>' \
+            export MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>' \
+            export PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>' \
+            export PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>' \
             bash sync production preview
 
         - shell: |
