@@ -522,6 +522,7 @@ hosts::production::backend::app_hostnames:
   - 'publisher'
   - 'publishing-api'
   - 'search-admin'
+  - 'service-manual-publisher'
   - 'short-url-manager'
   - 'signon'
   - 'specialist-publisher'
