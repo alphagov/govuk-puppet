@@ -20,7 +20,7 @@
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-            bundle exec ./tools/cdn_ips.rb
+            bundle exec ./tools/cdn_ips.rb production_carrenza
     publishers:
         - email:
             recipients: webops@digital.cabinet-office.gov.uk
