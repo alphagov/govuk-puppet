@@ -1,4 +1,4 @@
-# == Class: govuk::apps::publishing_api
+# == Class: govuk::apps::calendars
 #
 # Serves calendars in a clear and accessible format, along with JSON and iCal
 # exports of the data.
