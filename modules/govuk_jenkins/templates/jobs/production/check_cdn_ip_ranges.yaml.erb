@@ -19,7 +19,6 @@
       - govuk-provisioning_Check_CDN_IP_Ranges
     builders:
         - shell: |
-            export FASTLY_USER=<%= @cdn_username %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec ./tools/cdn_ips.rb
     publishers:
@@ -27,10 +26,3 @@
             recipients: webops@digital.cabinet-office.gov.uk
     triggers:
         - timed: 'H 3 * * *'
-    parameters:
-        - password:
-            name: FASTLY_PASS
-            description: Password for an account with our CDN provider
-            <%- if @cdn_password_encrypted -%>
-            default: <%= @cdn_password_encrypted %>
-            <%- end -%>
