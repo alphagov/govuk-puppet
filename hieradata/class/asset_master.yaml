@@ -5,7 +5,7 @@ govuk::safe_to_reboot::reason: 'Mounted by backend machines, causes attachment d
 
 govuk_sudo::sudo_conf:
   deploy_assets_rsync:
-    content: 'deploy ALL=(assets) NOPASSWD:/usr/bin/rsync --server -vlogDtprze.iLsf --delete . /mnt/uploads'
+    content: 'deploy ALL=(assets) NOPASSWD:/usr/bin/rsync --server -vlogDtprze.iLs --delete . /mnt/uploads'
 
 lv:
   data:
