@@ -1,4 +1,4 @@
-# MapIt - postcode and boundary lookup 
+# MapIt - postcode and boundary lookup
 
 ## Introduction
 
@@ -207,36 +207,26 @@ pg_dump mapit | gzip > mapit-May2014.sql.gz
 ```
 
 You now need to copy this SQL dump off your VM and arrange to put it onto the
-gds-public-readable-tarballs S3 bucket. You can then adjust the URL and checksum for the
-`mapit_dbdump_download` resource in `govuk/manifests/node/s_mapit_server.pp` and test
-that you can bring up a new mapit node from scratch.
+gds-public-readable-tarballs S3 bucket. You can then adjust the URL and checksum
+(using `sha1sum <file>`) for the `mapit_dbdump_download` resource in
+`govuk/manifests/node/s_mapit_server.pp` and test that you can bring up a new
+mapit node from scratch.
 
 You can now submit a PR and allow it to be merged. The live mapit servers will not update
-without manual intervention, even if Puppet is run after your merge.
+without manual intervention, even if Puppet is run after your merge (although Puppet
+will error on the committed checksum not matching that for the previously-downloaded dump).
 
 ## Updating a server (deploying a new version of Mapit)
 
 NB: THIS REQUIRES ACCESS TO GOV.UK PRODUCTION
 
-Once you have tested that a new mapit node works as expected, you can simply turn off NginX
-on the existing MapIt servers one by one, import the new SQL dump into the server and then
-start up NginX. We can happily survive with one mapit-server in an environment while this is
-done.
+Once you have tested that a new mapit node works as expected, you can update each mapit
+node in turn using a Fabric script:
 
-```
-# Stop NginX so that no requests reach this machine
-sudo service nginx stop
-# Stop mapit and collectd which are using the Mapit database
-sudo service mapit stop
-sudo service collectd stop
-# Delete the old sql dump to force a new download
-sudo rm /data/vhost/mapit/data/mapit.sql.gz
-# Drop the existing mapit database
-sudo -iu postgres psql -c 'DROP DATABASE mapit;'
-# Run puppet, which will download the database dump, recreate the Mapit database using the 
-# dump and start the services which were stopped earlier
-sudo govuk_puppet -v
-```
+    fab preview -H mapit-server-1.backend mapit.update_database
+
+We can happily survive with one mapit-server in an environment while this is
+done.
 
 ## Testing a server
 
