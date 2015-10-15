@@ -5,13 +5,13 @@ set -eu
 NCSA_CODE=2
 NCSA_OUTPUT="Assets sync failed"
 
-function send_ncsa {
+function send_nsca {
   NCSA_CHECK_DESCRIPTION="Local assets sync from master to slave"
   printf "<%= @ipaddress %>\t$NCSA_CHECK_DESCRIPTION\t$NCSA_CODE\t$NCSA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
   exit $?
 }
 
-trap send_ncsa EXIT
+trap send_nsca EXIT
 
 APPNAME=$(basename "$0")
 REMOTEDIR=$1

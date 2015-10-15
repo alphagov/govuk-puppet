@@ -2,7 +2,7 @@
 
 set -u
 
-function send_ncsa {
+function send_nsca {
     # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
     if [ -z ${CODE+x} ]; then
         CODE=3
@@ -16,7 +16,7 @@ function send_ncsa {
     printf "<%= @ipaddress %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
     exit $?
 }
-trap send_ncsa EXIT
+trap send_nsca EXIT
 
 export GOVUK_CRAWLER_AMQP_PASS='<%= @amqp_pass %>'
 
