@@ -1,9 +1,28 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# class: govuk::apps::asset_manager
+#
+# Asset Manager manages uploaded assets (images, PDFs, etc.) for
+# various applications, as an API and an asset-serving mechanism.
+#
+# === Parameters
+#
+# [*port*]
+#   The port that Asset Manager is served on.
+#   Default: 3037
+# [*enable_delayed_job_worker*]
+#   Whether or not to enable the background worker for Delayed Job.
+#   Boolean value.
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
   $enable_delayed_job_worker = true,
+  $secret_key_base = undef,
 ) {
+
+  $app_name = 'asset-manager'
+
   if $enabled {
     include assets
     include clamav
@@ -17,7 +36,11 @@ class govuk::apps::asset_manager(
         value   => "private-asset-manager.${app_domain}";
     }
 
-    govuk::app { 'asset-manager':
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
+
+    govuk::app { $app_name:
       app_type           => 'rack',
       port               => $port,
       vhost_ssl_only     => true,
@@ -41,9 +64,16 @@ class govuk::apps::asset_manager(
       }'
     }
 
+    if $secret_key_base {
+      govuk::app::envvar {
+        "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+      }
+    }
+
     govuk::delayed_job::worker { 'asset-manager':
       enable_service => $enable_delayed_job_worker,
     }
   }
-
 }
