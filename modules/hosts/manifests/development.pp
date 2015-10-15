@@ -12,7 +12,6 @@ class hosts::development {
   host { 'support.cluster':     ip => '127.0.0.1' }
   host { 'whitehall.cluster':   ip => '127.0.0.1' }
 
-  host { 'api-external-link-tracker.dev.gov.uk':            ip => '127.0.0.1' }
   host { 'asset-manager.dev.gov.uk':                        ip => '127.0.0.1' }
   host { 'bouncer.dev.gov.uk':                              ip => '127.0.0.1' }
   host { 'backdrop-write.dev.gov.uk':                       ip => '127.0.0.1' }
@@ -43,7 +42,6 @@ class hosts::development {
   host { 'email-campaign-frontend.dev.gov.uk':              ip => '127.0.0.1' }
   host { 'errbit.dev.gov.uk':                               ip => '127.0.0.1' }
   host { 'event-store.dev.gov.uk':                          ip => '127.0.0.1' }
-  host { 'external-link-tracker.dev.gov.uk':                ip => '127.0.0.1' }
   host { 'feedback.dev.gov.uk':                             ip => '127.0.0.1' }
   host { 'finder-frontend.dev.gov.uk':                      ip => '127.0.0.1' }
   host { 'frontend.dev.gov.uk':                             ip => '127.0.0.1' }
@@ -64,7 +62,6 @@ class hosts::development {
   host { 'private-frontend.dev.gov.uk':                     ip => '127.0.0.1' }
   host { 'publicapi.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'public-event-store.dev.gov.uk':                   ip => '127.0.0.1' }
-  host { 'public-link-tracker.dev.gov.uk':                  ip => '127.0.0.1' }
   host { 'publisher.dev.gov.uk':                            ip => '127.0.0.1' }
   host { 'publishing-api.dev.gov.uk':                       ip => '127.0.0.1' }
   host { 'release.dev.gov.uk':                              ip => '127.0.0.1' }

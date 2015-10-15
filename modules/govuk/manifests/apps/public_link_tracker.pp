@@ -8,6 +8,7 @@ class govuk::apps::public_link_tracker {
   $full_domain = "${app_name}.${app_domain}"
 
   nginx::config::vhost::proxy { $full_domain:
+    ensure    => absent,
     to        => [$private_external_link_tracker],
     to_ssl    => true,
     protected => false,
