@@ -1,7 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::external_link_tracker (
   $enabled = true,
-  $mongodb_nodes,
   $port = '3066',
   $api_port = 3067,
   $api_healthcheck = '/healthcheck',
