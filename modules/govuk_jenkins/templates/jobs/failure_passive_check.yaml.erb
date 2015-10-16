@@ -1,0 +1,22 @@
+---
+- job:
+    name: Failure_Passive_Check
+    display-name: Failure_Passive_Check
+    project-type: freestyle
+    description: "This job should be used to send a passive check to Icinga with a FAILED
+      status. As such this should only be used as a triggered build for a FAILED (or unstable)       condition."
+    builders:
+      - shell: |
+          IPADDRESS=$(facter ipaddress)
+          NSCA_CODE=2
+          printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - string:
+            name: NSCA_CHECK_DESCRIPTION
+            description: 'Descriptive name of job triggering this alert'
+        - string:
+            name: NSCA_OUTPUT
+            description: 'Description for the condition of the failure'

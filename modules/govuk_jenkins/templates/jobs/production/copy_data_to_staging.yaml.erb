@@ -55,6 +55,18 @@
         - shell: |
             echo "Triggering post-sync job on deploy.staging.publishing.service.gov.uk"
             curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.staging.publishing.service.gov.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION="Data sync to Staging"
+            NSCA_OUTPUT="Data sync to Staging successful"
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION="Data sync to Staging"
+            NSCA_OUTPUT="Data sync to Staging failed"
     wrappers:
         - ansicolor:
             colormap: xterm
