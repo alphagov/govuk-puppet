@@ -34,15 +34,12 @@ end
 username_whitelist = %w{
   alext
   benilovj
-  benp
   bob
   bradleyw
   elliot
   jackscotti
   jamiec
   kushalp
-  niallm
-  ollyl
   rthorn
   tadast
 }
