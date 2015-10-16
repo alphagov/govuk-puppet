@@ -3,6 +3,6 @@ class users::tombooth {
   govuk::user { 'tombooth':
     fullname => 'Tom Booth',
     email    => 'tom.booth@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNY4EOtJ+6Soa5161UXp3gb83FFEAGf6HIHAwjPCNQ1ivV6ErADW/nc8MGwNswlLsAszdRYkJTb9KQf+TTgqDq5suv5QdAd/H+gTk8sfxMJ6w2Phu9ru7WGIg7BnSGm/WKFtj3uoFRbaRrfAjsXMQUIZ24uuOq4OsjJi3iXerLbOaQm1BjqxFR+CYksdzzI73Kh+quHj8fELey1jvxPtos6zVK7tEJegxJBJPefs6qxG0RgHnQ4uzG9Ual/LITy5mRpNC6TpBMN0GC0SN207Zb84pLTS5aCquy6x3dAvWpINoeeIwgf+PhHXRZU1jCmpWk4lVqMI9NELfQI5u5ZoIR tomhbooth@gmail.com',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCxk09iuHGNTgYMMuda2SKjvKaVsq7y2KRk446UuYqTePrBYRGa3wqkiCskyOO1DyKDQFVvHRXxGYCAfE1WEpUYHDL7ihrFG0FUfndA3cn/mGS/UEiIq1Lyo2kwr+Yk3SjlWSbe4DnjnxO5S+5LjsMCuN4Ojla5CqRrf3uQ+4KLvriQBJvA3obF34WQ7IuPQYrKvO8aJaEuQrZ9kUY4q97BJ4iJUCtia8z/S5N0xpyrjBTxbb+dzUxb3/QxRUpOG8lPVMTzeHhRcoDXpj3olHOPgzVqH2r8dIPGwUla+8kBBjow6JnxWiBNbyv6bNA30tstvnt7TrbM889IFdAwTAAuJysRP+NU4eDTm4zdRCyWP3WFTDxAre7n20sIBkc4wLwc5ujvFDbT1QUEGoCg0EjwtRMmBgsZUmqinb2glsJRFezxaHQPq4g5k16uTRcdLNTD6fK05PkGXhdyb02DTw3jH+xkCKTG/nndP770yyb8rLM27V7/u8nhaxreGJegAe1DJ+IPsYRyRn5G/ZNUPQX7Wc9RrsGw5xNk7kCheFCcDB4/ZnyiGtOIoe0a8VMRDswp9Nw4ixwU8ehtPnWTmB79jnMV6gkz8MhUkqGqeJO7U0joekZdOzeGFEvePx/wKM+rgfbCd1qY+thtwERvWr6v7pQ+NLGuyuQEp8TvMwFVbQ== tom.booth@digital.cabinet-office.gov.uk',
   }
 }
