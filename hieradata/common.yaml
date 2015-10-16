@@ -139,7 +139,6 @@ govuk::apps::metadata_api::enabled: true
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
 govuk::apps::performanceplatform_collector::enabled: true
-govuk::apps::performanceplatform_notifier::enabled: true
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
