@@ -143,6 +143,7 @@ govuk::apps::performanceplatform_collector::enabled: true
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
+govuk::apps::publishing_api::redis_host: 'redis-1.backend'
 
 govuk::apps::screenshot_as_a_service::enabled: true
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"

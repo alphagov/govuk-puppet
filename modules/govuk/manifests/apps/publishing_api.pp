@@ -43,6 +43,13 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: 6379
+#
 class govuk::apps::publishing_api(
   $port = '3093',
   $content_store = '',
@@ -54,6 +61,8 @@ class govuk::apps::publishing_api(
   $db_username = 'publishing_api',
   $db_password = undef,
   $db_name = 'publishing_api_production',
+  $redis_host = undef,
+  $redis_port = '6379',
 ) {
   $app_name = 'publishing-api'
 
@@ -92,6 +101,12 @@ class govuk::apps::publishing_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+    "${title}-REDIS_HOST":
+      varname => 'REDIS_HOST',
+      value   => $redis_host;
+    "${title}-REDIS_PORT":
+      varname => 'REDIS_PORT',
+      value   => $redis_port;
   }
 
   if $secret_key_base != undef {
