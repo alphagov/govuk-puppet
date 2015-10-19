@@ -54,7 +54,7 @@ class_list.each do |class_name|
       :concat_basedir => '/var/lib/puppet/concat/',
       :kernel => 'Linux',
       :memorysize =>  '3.86 GB',
-      :memtotalmb => 3953,
+      :memorysize_mb => 3953.43,
     }}
 
     let(:hiera_config) { temporary_hiera_file.path }

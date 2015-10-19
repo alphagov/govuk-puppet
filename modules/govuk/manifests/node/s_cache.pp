@@ -58,7 +58,7 @@ class govuk::node::s_cache (
   }
 
   # Set the varnish storage size to 75% of memory - 1024
-  $varnish_storage_size_pre = $::memtotalmb / 4 * 3 - 1024
+  $varnish_storage_size_pre = floor($::memorysize_mb / 4 * 3 - 1024)
 
   # Ensure that there's some varnish storage in small environments (eg, vagrant).
   if $varnish_storage_size_pre < 100 {

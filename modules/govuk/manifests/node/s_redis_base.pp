@@ -3,7 +3,7 @@ class govuk::node::s_redis_base {
   include govuk::node::s_base
 
   $redis_port = 6379
-  $redis_max_memory = $::memtotalmb / 4 * 3
+  $redis_max_memory = floor($::memorysize_mb / 4 * 3)
 
   class { 'redis':
     # conf_dir is needed for compatibility with previous redis module

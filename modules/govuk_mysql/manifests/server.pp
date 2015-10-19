@@ -19,7 +19,7 @@ class govuk_mysql::server (
   $mysql_error_log = '/var/log/mysql/error.log'
 
   # The proportion of memory used by innodb_buffer_pool_size is configurable using hiera
-  $innodb_buffer_pool_size = floor($::memtotalmb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
+  $innodb_buffer_pool_size = floor($::memorysize_mb * $innodb_buffer_pool_size_proportion * 1024 * 1024)
 
   # This preserves "default" behaviour and prevents us from needing to
   # restart mysqld. But relying on hostname isn't such a good thing.
