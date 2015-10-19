@@ -60,7 +60,7 @@ process :reviewomatic => :migratorator
 process :reviewomaticexplore => :reviewomatic
 process :router
 process :'router-api'
-process :rummager
+process :rummager => [:contentapi]
 process :screenshot_as_a_service
 process :'search-admin' => :rummager
 process :'service-manual-publisher' => [:'publishing-api']
