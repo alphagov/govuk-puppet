@@ -5,7 +5,7 @@
 class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
   include govuk_java::openjdk7::jre
 
-  $es_heap_size = $::memtotalmb / 2
+  $es_heap_size = floor($::memorysize_mb / 2)
 
   class { 'govuk_elasticsearch::dump':
     require => Class['govuk_elasticsearch'], # required for elasticsearch user to exist

@@ -7,7 +7,7 @@ class govuk::node::s_elasticsearch inherits govuk::node::s_base {
     jre => 'oracle7',
   }
 
-  $es_heap_size = $::memtotalmb / 2
+  $es_heap_size = floor($::memorysize_mb / 2)
 
   class { 'govuk_elasticsearch::dump':
     require => Class['govuk_elasticsearch'], # required for elasticsearch user to exist

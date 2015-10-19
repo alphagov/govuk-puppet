@@ -4,7 +4,7 @@ class govuk::node::s_logs_elasticsearch(
   $rotate_minute = 01,
 ) inherits govuk::node::s_base {
 
-  $es_heap_size = $::memtotalmb / 2
+  $es_heap_size = floor($::memorysize_mb / 2)
 
   include govuk_java::openjdk7::jre
 
