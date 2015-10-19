@@ -9,7 +9,7 @@
 #   Default: 3016
 #
 # [*enable_procfile_worker*]
-#   Whether to enable the procfile worker. Typically sued to disable the worker
+#   Whether to enable the procfile worker. Typically used to disable the worker
 #   on the dev VM.
 #
 # [*devise_secret_key*]
