@@ -23,8 +23,19 @@ $RepeatedMsgReduction off
 $template NoFormat,"%msg:2:$:%\n"
 
 <% @service_port_map.each do |name, port| -%>
-$RuleSet cdn-<%= name %>
-*.* -<%= @log_dir -%>/cdn-<%= name -%>.log;NoFormat
+ruleset(name="cdn-<%= name %>") {
+    action(
+        type="omfile"
+        file="<%= @log_dir %>/cdn-<%= name %>.log"
+        template="NoFormat"
+        fileOwner="root"
+        fileGroup="deploy" # Create with this group so that they can be read by apps
+        fileCreateMode="0640"
+        dirOwner="root"
+        dirGroup="adm"
+        dirCreateMode="0755"
+    )
+}
 $InputTCPServerBindRuleset cdn-<%= name %>
 $InputTCPServerRun <%= port %>
 

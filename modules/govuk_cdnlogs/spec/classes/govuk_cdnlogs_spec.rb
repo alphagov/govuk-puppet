@@ -61,13 +61,35 @@ describe 'govuk_cdnlogs', :type => :class do
         is_expected.to contain_rsyslog__snippet('ccc-cdnlogs').with_content(%r{
 \$template .*
 
-\$RuleSet cdn-elephant
-\*\.\* -/tmp/logs/cdn-elephant\.log;NoFormat
+ruleset\(name="cdn-elephant"\) \{
+    action\(
+        type="omfile"
+        file="\/tmp\/logs\/cdn-elephant.log"
+        template="NoFormat"
+        fileOwner="root"
+        fileGroup="deploy" # Create with this group so that they can be read by apps
+        fileCreateMode="0640"
+        dirOwner="root"
+        dirGroup="adm"
+        dirCreateMode="0755"
+    \)
+\}
 \$InputTCPServerBindRuleset cdn-elephant
 \$InputTCPServerRun 123
 
-\$RuleSet cdn-giraffe
-\*\.\* -/tmp/logs/cdn-giraffe\.log;NoFormat
+ruleset\(name="cdn-giraffe"\) \{
+    action\(
+        type="omfile"
+        file="\/tmp\/logs\/cdn-giraffe.log"
+        template="NoFormat"
+        fileOwner="root"
+        fileGroup="deploy" # Create with this group so that they can be read by apps
+        fileCreateMode="0640"
+        dirOwner="root"
+        dirGroup="adm"
+        dirCreateMode="0755"
+    \)
+\}
 \$InputTCPServerBindRuleset cdn-giraffe
 \$InputTCPServerRun 456
 
