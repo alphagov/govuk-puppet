@@ -82,6 +82,7 @@ class govuk::node::s_development {
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence
   include govuk::apps::kibana
+  include govuk::apps::mapit
   include govuk::apps::maslow
   include govuk::apps::metadata_api
   include govuk::apps::need_api

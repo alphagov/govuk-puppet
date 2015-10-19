@@ -55,6 +55,7 @@ govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
+govuk::apps::mapit::enabled: true
 govuk::apps::panopticon::rabbitmq::configure_test_details: true
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
