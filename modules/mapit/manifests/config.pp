@@ -7,8 +7,12 @@
 # [*django_secret_key*]
 #   Secret key to use in Mapit's Django app.
 #
+# [*postgresql_password*]
+#   Password for the `mapit` PostgreSQL user.
+#
 class mapit::config (
   $django_secret_key,
+  $postgresql_password,
 ) {
   file { '/etc/init/mapit.conf':
     ensure  =>  file,
