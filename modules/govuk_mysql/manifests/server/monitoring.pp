@@ -2,7 +2,14 @@
 #
 # Set up basic monitoring of mysql
 #
-class govuk_mysql::server::monitoring {
+# === Parameters
+#
+# [*collectd_mysql_password*]
+#   MySQL password for the collectd MySQL plugin to use
+#
+class govuk_mysql::server::monitoring (
+  $collectd_mysql_password
+) {
 
   package { 'python-mysqldb':
     ensure => installed,
@@ -23,9 +30,10 @@ class govuk_mysql::server::monitoring {
   }
 
   collectd::plugin::mysql { 'lazy_eval_workaround':
-    master  => false,
-    slave   => false,
-    require => Class['mysql::server'],
+    collectd_mysql_password => $collectd_mysql_password,
+    master                  => false,
+    slave                   => false,
+    require                 => Class['mysql::server'],
   }
 
 }
