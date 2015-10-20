@@ -43,7 +43,7 @@
             rm -f /tmp/rummager_dump_government.jsonl /tmp/rummager_dump_detailed.jsonl
     publishers:
         - trigger-parameterized-builds:
-            - project: Production_Deploy
+            - project: Deploy_App
               condition: 'SUCCESS'
               predefined-parameters: |
                 TARGET_APPLICATION=recommended-links
