@@ -1,0 +1,68 @@
+---
+- scm:
+    name: env-sync-and-backup_Copy_Licensify_Data_to_Staging
+    scm:
+        - git:
+            url: git@github.gds:gds/env-sync-and-backup.git
+            branches:
+              - master
+
+- job:
+    name: Copy_Licensify_Data_to_Staging
+    display-name: Copy_Licensify_Data_to_Staging
+    project-type: freestyle
+    description: "This job currently copies Licensify MongoDB databases from production to staging"
+    properties:
+        - github:
+            url: https://github.gds/gds/env-sync-and-backup/
+    scm:
+      - env-sync-and-backup_Copy_Licensify_Data_to_Staging
+    logrotate:
+        artifactNumToKeep: 10
+    triggers:
+        - timed: 'H 1 * * 6'
+    builders:
+        - shell: |
+            set +x
+            cd "${WORKSPACE}"
+
+            set +e
+
+            echo "Disabling Gor traffic replay"
+            for box in $(govuk_node_list -C 'govuk::gor'); do
+              ssh deploy@${box} 'echo "true" > /etc/govuk/env.d/FACTER_data_sync_in_progress; sudo initctl stop gor';
+            done
+
+            echo "Running Data Sync"
+            bash sync production staging
+            EXITCODE=$?
+
+            echo "Re-enabling Gor traffic replay"
+            for box in $(govuk_node_list -C 'govuk::gor'); do
+              ssh deploy@${box} 'echo "" > /etc/govuk/env.d/FACTER_data_sync_in_progress; sudo initctl start gor';
+            done
+
+            exit $EXITCODE
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION="<%= @service_description -%>"
+            NSCA_OUTPUT="<%= @service_description -%> success"
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION="<%= @service_description -%>"
+            NSCA_OUTPUT="<%= @service_description -%> failed"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject:
+            script-content: PARALLEL_JOBS=2
+    parameters:
+        - choice:
+            name: JOBLIST
+            description: 'Choose the thing to sync'
+            choices:
+                - mongo-licensify
