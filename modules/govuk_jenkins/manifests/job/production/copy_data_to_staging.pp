@@ -17,13 +17,14 @@ class govuk_jenkins::job::production::copy_data_to_staging (
     notify  => Exec['jenkins_jobs_update'],
   }
 
-  $service_description = regsubst($title,'_',' ')
-  $job_url = "https://deploy.${app_domain}/job/${title}"
+  $check_name = 'copy_data_to_staging'
+  $service_description = 'Copy Data to Staging'
+  $job_url = "https://deploy.${app_domain}/job/copy_data_to_staging/"
 
-  @@icinga::passive_check { "${title}_${::hostname}":
+  @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 7200,
+    freshness_threshold => 115200,
     action_url          => $job_url,
   }
 }

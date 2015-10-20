@@ -9,7 +9,7 @@ class govuk_jenkins::job::production::copy_data_to_preview (
   $pg_dst_env_sync_pw = undef,
   $ci_alphagov_api_key = undef,
   $ci_alphagov_api_token = undef,
-  $app_domain = hiera('app_domain')
+  $app_domain = hiera('app_domain'),
 ) {
   file { '/etc/jenkins_jobs/jobs/copy_data_to_preview.yaml':
     ensure  => present,
@@ -17,13 +17,14 @@ class govuk_jenkins::job::production::copy_data_to_preview (
     notify  => Exec['jenkins_jobs_update'],
   }
 
-  $service_description = regsubst($title,'_',' ')
-  $job_url = "https://deploy.${app_domain}/job/${title}"
+  $check_name = 'copy_data_to_preview'
+  $service_description = 'Copy Data to Preview'
+  $job_url = "https://deploy.${app_domain}/job/copy_data_to_preview"
 
-  @@icinga::passive_check { "${title}_${::hostname}":
+  @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 7200,
+    freshness_threshold => 115200,
     action_url          => $job_url,
   }
 }
