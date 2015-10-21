@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: clamav::config
+#
+# Create configuration files to run ClamAV antivirus.
+#
 class clamav::config {
   file { '/etc/clamav/clamd.conf':
     ensure => present,

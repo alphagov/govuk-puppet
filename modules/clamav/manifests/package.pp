@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: clamav::package
+#
+# Install the packages required to run ClamAV.
+#
+# === Parameters
+#
+# [*use_service*]
+#   Boolean indicating whether ClamAV should be set up
+#   as a service, and if so use the ClamAV daemon client.
+#
 class clamav::package (
     $use_service
   ) {

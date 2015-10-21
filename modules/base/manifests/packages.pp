@@ -1,40 +1,22 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class base::packages ($ruby_version=installed){
+# == Class: base::packages
+#
+# Installs common packages on a machine.
+#
+# === Parameters
+#
+# [*packages*]
+#   An array of packages to install.
+#
+# [*ruby_version*]
+#   Which version of the `ruby` package to install
+#
+class base::packages (
+  $packages = [],
+  $ruby_version = installed,
+) {
+  validate_array($packages)
 
-  ensure_packages([
-      'ack-grep',
-      'bzip2',
-      'dnsutils',
-      'dstat',
-      'gettext',
-      'git',
-      'htop',
-      'iftop',
-      'iotop',
-      'iptraf',
-      'less',
-      'libc6-dev',
-      'libcurl4-openssl-dev',
-      'libreadline-dev',
-      'libreadline5',
-      'libsqlite3-dev',
-      'libxml2-dev',
-      'libxslt1-dev',
-      'logtail',
-      'mailutils',
-      'man-db',
-      'manpages',
-      'ncdu',
-      'pv',
-      'strace',
-      'tar',
-      'tcpdump',
-      'tree',
-      'unzip',
-      'vim-nox',
-      'xz-utils',
-      'zip'
-    ])
+  ensure_packages($packages)
 
   alternatives { 'editor':
     path    => '/usr/bin/vim.nox',

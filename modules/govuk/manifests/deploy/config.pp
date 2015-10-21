@@ -17,8 +17,6 @@ class govuk::deploy::config(
   $errbit_environment_name = '',
   $govuk_env = 'production',
 ){
-  include daemontools
-
   harden::limit { 'deploy-nofile':
     domain => 'deploy',
     type   => '-', # set both hard and soft limits
@@ -56,7 +54,7 @@ class govuk::deploy::config(
     ensure  => present,
     content => template('govuk/bin/govuk_setenv'),
     mode    => '0755',
-    require => Class['daemontools'],
+    require => Package['daemontools'],
   }
 
   # /etc/govuk/env.d is an envdir. Each file and its contents should denote

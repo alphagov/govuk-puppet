@@ -3,20 +3,18 @@ class govuk::node::s_asset_master (
   $run_virus_scan_clean_hour = '4',
 ) inherits govuk::node::s_asset_base {
 
-  # Provides setlock
-  include daemontools
-
   file { '/var/run/virus_scan':
     ensure => directory,
     owner  => 'assets',
   }
 
+  # daemontools provides setlock
   $cron_requires = [
     File[
       '/usr/local/bin/virus_scan.sh',
       '/var/run/virus_scan'
     ],
-    Class['daemontools'],
+    Package['daemontools'],
   ]
 
   cron { 'virus-scan-incoming':
