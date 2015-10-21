@@ -1,6 +1,17 @@
+# == Class: govuk::node::s_mapit_server
+#
+# Node definition for a Mapit server.
+#
 # TODO: rename 'mapit_server' to simply 'mapit'
-class govuk::node::s_mapit_server inherits govuk::node::s_base {
-
+#
+# === Parameters
+#
+# [*postgresql_password*]
+#   Password for the `mapit` PostgreSQL user.
+#
+class govuk::node::s_mapit_server (
+  $postgresql_password,
+) inherits govuk::node::s_base {
 
   include mapit
 
@@ -15,7 +26,7 @@ class govuk::node::s_mapit_server inherits govuk::node::s_base {
 
   govuk_postgresql::db { 'mapit':
     user     => 'mapit',
-    password => 'mapit',
+    password => $postgresql_password,
     encoding => 'UTF8',
   }
   ->

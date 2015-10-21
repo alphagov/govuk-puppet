@@ -6,12 +6,15 @@ Collectd::Plugin <||>
 Govuk_mysql::User <||>
 EOS
   }
+  let(:param_defaults) {{
+    :collectd_mysql_password => 'password',
+  }}
   let(:title) { 'lazy_eval_workaround' }
 
   context 'when master' do
-    let(:params) {{
+    let(:params) { param_defaults.merge({
       :master => true,
-    }}
+    })}
 
     it { is_expected.to contain_collectd__plugin('mysql').with_content(/^\s+MasterStats true$/) }
     it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
@@ -19,9 +22,9 @@ EOS
   end
 
   context 'when slave' do
-    let(:params) {{
+    let(:params) { param_defaults.merge({
       :slave => true,
-    }}
+    })}
 
     it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/MasterStats/) }
     it { is_expected.to contain_collectd__plugin('mysql').with_content(/^\s+SlaveStats true$/) }
@@ -29,7 +32,7 @@ EOS
   end
 
   context 'when standalone server' do
-    let(:params) {{ }}
+    let(:params) { param_defaults }
 
     it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/MasterStats/) }
     it { is_expected.not_to contain_collectd__plugin('mysql').with_content(/SlaveStats/) }
@@ -37,10 +40,10 @@ EOS
   end
 
   context 'when master and slave' do
-    let(:params) {{
+    let(:params) { param_defaults.merge({
       :master => true,
       :slave => true,
-    }}
+    })}
 
     it do
       expect {

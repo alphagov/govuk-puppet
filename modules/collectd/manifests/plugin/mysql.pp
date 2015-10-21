@@ -7,6 +7,9 @@
 #
 # === Parameters:
 #
+# [*collectd_mysql_password*]
+#   Password for the 'collectd' MySQL user.
+#
 # [*master*]
 #   Enable `SHOW MASTER STATUS` collection.
 #   Default: false
@@ -17,14 +20,13 @@
 #   Default: false
 #
 define collectd::plugin::mysql(
+  $collectd_mysql_password,
   $master = false,
   $slave = false
 ) {
   if $master and $slave {
     fail('collectd::plugin::mysql: master and slave are mutually exclusive options')
   }
-
-  $collectd_mysql_password = 'collectd'
 
   if $slave != true {
     @govuk_mysql::user { 'collectd@localhost':

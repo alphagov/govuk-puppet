@@ -5,9 +5,15 @@
 # This is a class to load the collectd plugin - to monitor a specific database
 # use collectd::plugin::postgresql_db
 #
-class collectd::plugin::postgresql {
+# === Parameters
+#
+# [*password*]
+#   PostgreSQL password for the collectd user.
+#
+class collectd::plugin::postgresql (
+  $password,
+) {
   $user = 'collectd'
-  $password = 'collectd'
 
   @collectd::plugin { 'postgresql':
     prefix  => '00-',
