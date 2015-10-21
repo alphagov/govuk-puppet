@@ -8,32 +8,6 @@ require_relative '../../../../spec_helper'
 # filtering was not appropriate because the glob and loop below get
 # eagerly evaluated.
 
-# Don't attempt to instantiate these classes as they aren't concrete
-# machine classes, and therefore aren't intended to be instantiated directly.
-$nodes_spec_blacklist_classes = %w(
-  api_postgresql_base
-  asset_base
-  base
-  postgresql_base
-  redis_base
-  ruby_app_server
-  test
-  transition_postgresql_base
-)
-
-# get the list of machine classes
-def class_list
-  if ENV["classes"]
-    ENV["classes"].split(",")
-  else
-    class_dir = File.expand_path("../../../manifests/node", __FILE__)
-    all_class_name = Dir.glob("#{class_dir}/s_*.pp").map { |filepath|
-      File.basename(filepath, ".pp")[2..-1] # Strip leading s_
-    }
-    all_class_name.reject {|c| $nodes_spec_blacklist_classes.include?(c) }
-  end
-end
-
 standard_hiera_config = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
 
 standard_hiera_config[:yaml][:datadir] = 'hieradata'
@@ -44,7 +18,7 @@ temporary_hiera_file = Tempfile.new('hiera_yml')
 temporary_hiera_file.write(standard_hiera_config.to_yaml)
 temporary_hiera_file.close
 
-class_list.each do |class_name|
+ENV.fetch('classes').split(",").each do |class_name|
   node_hostname = class_name.tr("_", "-")
 
   describe "govuk::node::s_#{class_name}", :type => :class do
