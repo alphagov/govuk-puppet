@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: phantomjs
+#
+# Install PhantomJS <http://phantomjs.org/> from the GOV.UK package archive.
+#
 class phantomjs {
   include govuk::ppa
 

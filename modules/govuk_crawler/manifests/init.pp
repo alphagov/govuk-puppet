@@ -123,7 +123,7 @@ class govuk_crawler(
   }
 
   # TODO: Can be removed when dependency in govuk_seed_crawler has gone:
-  #       https://github.gds/gds/govuk_seed_crawler/blob/607f210/lib/govuk_seed_crawler/indexer.rb#L12
+  #       https://github.com/alphagov/govuk_seed_crawler/blob/v1.0.0/lib/govuk_seed_crawler/indexer.rb#L12
   package { 'govuk_mirrorer':
       ensure   => '1.3.2',
       provider => system_gem,

@@ -21,7 +21,6 @@ class base {
   include govuk_sudo
   include timezone
   include tmpreaper
-  include tmux
   include wget
   include curl
 }

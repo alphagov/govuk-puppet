@@ -28,8 +28,8 @@ class ssh {
   }
 
   # The "internally-qualified domain name" of a machine is the first two
-  # components of its three-component name. i.e. the IQDN of a machine with
-  # FQDN foo-1.bar.production is foo-1.bar. Internal references to other
+  # components of its fully-qualified domain name. i.e. the IQDN of a machine with
+  # FQDN foo-1.bar.publishing.example.com is foo-1.bar. Internal references to other
   # machines which must be unambiguous (e.g. in deployment scripts) should use
   # the IQDN.
   $iqdn = regsubst($::fqdn, '^([^\.]+\.[^\.]+)\..*$', '\1')
