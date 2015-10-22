@@ -30,8 +30,6 @@ class govuk::apps::screenshot_as_a_service (
       ensure => 'latest',
     }
 
-    package { 'phantomjs':
-      ensure => '1.9.7-0~ppa1',
-    }
+    include phantomjs
   }
 }
