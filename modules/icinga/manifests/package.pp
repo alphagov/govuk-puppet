@@ -9,8 +9,6 @@ class icinga::package {
 
   include nginx::fcgi
 
-  include ::perl::libwww
-
   package { [
     'icinga',
     'nagios-images',
@@ -18,6 +16,7 @@ class icinga::package {
     'libcrypt-ssleay-perl',
     'libnet-ssleay-perl',
     'libio-socket-ssl-perl',
+    'libwww-perl',
     'nagios-nrpe-plugin',
   ]:
     ensure => present,
