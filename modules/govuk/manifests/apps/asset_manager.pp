@@ -13,12 +13,18 @@
 #   Boolean value.
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
+# [*mongodb_nodes*]
+#   An array of MongoDB instance hostnames
+# [*mongodb_name*]
+#   The name of the MongoDB database to use
 #
 class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
   $enable_delayed_job_worker = true,
   $secret_key_base = undef,
+  $mongodb_nodes,
+  $mongodb_name = 'govuk_assets_production',
 ) {
 
   $app_name = 'asset-manager'
@@ -69,6 +75,15 @@ class govuk::apps::asset_manager(
         "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
+      }
+    }
+
+    validate_array($mongodb_nodes)
+    if $mongodb_nodes != [] {
+      $mongodb_nodes_string = join($mongodb_nodes, ',')
+      govuk::app::envvar { "${title}-MONGODB_URI":
+        varname => 'MONGODB_URI',
+        value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
       }
     }
 
