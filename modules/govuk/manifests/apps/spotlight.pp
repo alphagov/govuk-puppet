@@ -4,6 +4,12 @@
 #
 # === Parameters
 #
+# [*alert_5xx_warning_rate*]
+#   The 5xx error percentage that should generate a warning
+#
+# [*alert_5xx_critical_rate*]
+#   The 5xx error percentage that should generate a critical
+#
 # [*enabled*]
 #   Should the app exist?
 #
@@ -11,18 +17,22 @@
 #   What port should the app run on?
 #
 class govuk::apps::spotlight (
+  $alert_5xx_warning_rate,
+  $alert_5xx_critical_rate,
   $enabled = false,
   $port = '3057',
 ) {
 
   if $enabled {
     govuk::app { 'spotlight':
-      app_type           => 'bare',
-      command            => '/usr/bin/node app/server',
-      port               => $port,
-      vhost_ssl_only     => true,
-      health_check_path  => '/_status',
-      log_format_is_json => true,
+      alert_5xx_warning_rate  => $alert_5xx_warning_rate,
+      alert_5xx_critical_rate => $alert_5xx_critical_rate,
+      app_type                => 'bare',
+      command                 => '/usr/bin/node app/server',
+      port                    => $port,
+      vhost_ssl_only          => true,
+      health_check_path       => '/_status',
+      log_format_is_json      => true,
     }
   }
 }
