@@ -22,8 +22,3 @@ mount:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
-
-mongodb::server::replicaset_members:
-  'api-mongo-1':
-  'api-mongo-2':
-  'api-mongo-3':

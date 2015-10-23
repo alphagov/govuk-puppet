@@ -1,0 +1,7 @@
+---
+
+mongodb::server::replicaset_members:
+  'api-mongo-1':
+  'api-mongo-2':
+  'api-mongo-3':
+  'api-mongo-4':
