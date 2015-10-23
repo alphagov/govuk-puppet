@@ -83,18 +83,3 @@ alias l='ls -CF'
 
 # Use xvfb for DISPLAY, so that some integration tests can run
 export DISPLAY=:99
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
-
-# Load any user-specific customisations. This allows this file to be
-# managed by puppet without preventing the ability to customise your
-# shell. TODO: remove this now that we use /etc/bash.bashrc sensibly.
-if [ -f ~/.bash.user ]; then
-  . ~/.bash.user
-fi
