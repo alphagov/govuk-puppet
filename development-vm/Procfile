@@ -102,7 +102,7 @@ admin: ./run_in.sh ../performanceplatform-admin ./start-app.sh 3104
 # datainsight-everything-recorder used to use port 3105, but is no longer running in any environment
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../authenticating-proxy bundle exec rails s -p 3107
-# mapit uses port 3108
+mapit:                 govuk_setenv mapit                 ./run_in.sh ../mapit ./startup.sh # mapit uses port 3108
 email-campaign-frontend: govuk_setenv email-campaign-frontend  ./run_in.sh ../email-campaign-frontend bundle exec rails s -p 3109
 email-campaign-api: govuk_setenv email-campaign-api  ./run_in.sh ../email-campaign-api bundle exec rails s -p 3110
 service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../service-manual-publisher bundle exec rails s -p 3111
