@@ -22,7 +22,7 @@ RSpec.configure do |c|
     'trusty'  => '14.04',
   }
 
-  dist_preferred = ENV.fetch('DIST_PREFERRED', 'precise')
+  dist_preferred = ENV.fetch('DIST_PREFERRED', 'trusty')
 
   unless possible_releases.has_key?(dist_preferred)
     raise "DIST_PREFERRED must be one of " + possible_releases.keys.join(', ')
