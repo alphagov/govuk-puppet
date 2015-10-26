@@ -198,6 +198,11 @@ govuk::apps::panopticon::rabbitmq_hosts:
   - rabbitmq-2.backend
   - rabbitmq-3.backend
 
+govuk::apps::licencefinder::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
 
