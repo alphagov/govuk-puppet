@@ -6,6 +6,7 @@
 #    You must have an /etc/pingdom.ini which looks like templates/etc/pingdom.ini.erb
 #
 
+import base64
 import sys
 import ConfigParser
 import json
@@ -85,7 +86,7 @@ def parse_pingdom_result(json_result):
 
 def get_pingdom_result(config,check_id):
     try:
-        basic_auth_token = "Basic " + (config.pingdom_user + ":" + config.pingdom_pass).encode("base64").rstrip()
+        basic_auth_token = "Basic " + base64.b64encode("{0}:{1}".format(config.pingdom_user, config.pingdom_pass))
         pingdom_url = "https://%s/api/2.0/checks/%s" % (pingdom_api_host, check_id)
         req = Request(pingdom_url)
         req.add_header("App-Key", config.pingdom_key)
