@@ -13,8 +13,9 @@ describe "router::assets_origin", :type => :class do
       end.flatten.compact
     }
 
+    let(:hiera_config) { File.expand_path("../../../../../spec/fixtures/hiera/real_data.yaml", __FILE__) }
+
     context "in a production-like environment" do
-      let(:hiera_config) { File.expand_path("../../../../../spec/fixtures/hiera/real_data.yaml", __FILE__) }
       let(:facts) {{ :environment => 'production' }}
       let(:pre_condition) { "include hosts::production" }
 
@@ -28,6 +29,7 @@ describe "router::assets_origin", :type => :class do
     end
 
     context "on the dev VM" do
+      let(:facts) {{ :environment => 'development' }}
       let(:pre_condition) { "include hosts::development" }
 
       it "should have host entries for each route target" do
