@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_development
+#
+# GOV.UK development VM.
+#
 class govuk::node::s_development {
   include base
   include resolvconf
@@ -83,6 +86,7 @@ class govuk::node::s_development {
   include govuk::apps::metadata_api
   include govuk::apps::need_api
   include govuk::apps::panopticon
+  include govuk::apps::panopticon::rabbitmq
   include govuk::apps::performanceplatform_admin
   include govuk::apps::policy_publisher
   include govuk::apps::publicapi
