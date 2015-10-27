@@ -61,5 +61,20 @@ describe 'mongodb::configure_replica_set', :type => :class do
         /\{\n      host: '1.2.3.4:27017',\n      priority: 0.5,\n    \},/)
       }
     end
+
+    context 'should run after the replica set is bootstrapped' do
+      let(:params) {{
+        'members' => {
+          '1.2.3.4' => {},
+          '5.6.7.8' => {},
+        },
+        'replicaset_name' => 'production',
+      }}
+
+      it {
+        is_expected.to contain_exec('configure-node-priority')
+          .that_requires('Exec[configure-replica-set]')
+      }
+    end
   end
 end

@@ -61,6 +61,7 @@ class mongodb::configure_replica_set (
     command => "/usr/bin/mongo --quiet ${configure_node_priority_file}",
     onlyif  => '/usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | grep -q true',
     require => [
+      Exec['configure-replica-set'],
       File[$configure_node_priority_file],
       Class['mongodb::service'],
     ],
