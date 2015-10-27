@@ -5,3 +5,4 @@ mongodb::server::replicaset_members:
   'api-mongo-2':
   'api-mongo-3':
   'api-mongo-4':
+    priority: 0
