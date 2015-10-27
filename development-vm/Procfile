@@ -59,7 +59,6 @@ finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-
 finder-api:            govuk_setenv finder-api            ./run_in.sh ../finder-api     bundle exec mr-sparkle --force-polling -- -p 3063
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../specialist-publisher bundle exec foreman start
 specialist-frontend:   govuk_setenv specialist-frontend   ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
-# external-link-tracker uses 3066 and 3067
 content-store:         govuk_setenv content-store         ./run_in.sh ../content-store  bundle exec rails s -p 3068
 # content-store will also uses 3069
 collections:           govuk_setenv collections           ./run_in.sh ../collections    bundle exec rails s -p 3070
