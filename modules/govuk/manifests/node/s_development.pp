@@ -219,6 +219,14 @@ class govuk::node::s_development {
       createdb      => true;
   }
 
+  # The mapit role needs to be a superuser in order to load the PostGIS
+  # extension for the test database.
+  postgresql::server::role {
+    'mapit':
+      superuser     => true,
+      password_hash => postgresql_password('mapit', 'mapit');
+  }
+
   package {
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'wbritish-small': ensure => installed;
