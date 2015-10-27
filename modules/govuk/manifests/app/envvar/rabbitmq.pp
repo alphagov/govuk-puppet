@@ -26,7 +26,7 @@ define govuk::app::envvar::rabbitmq (
 
   validate_array($hosts)
   if ($hosts == []) {
-    fail "must pass hosts"
+    fail 'must pass hosts'
   }
 
   Govuk::App::Envvar {

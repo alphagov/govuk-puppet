@@ -23,7 +23,7 @@
 #
 class govuk::apps::panopticon(
   $port = '3003',
-  $rabbitmq_hosts = 'localhost',
+  $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'panopticon',
   $rabbitmq_password = 'panopticon',
 ) {
@@ -41,19 +41,10 @@ class govuk::apps::panopticon(
     app => 'panopticon',
   }
 
-  govuk::app::envvar {
-    "${title}-RABBITMQ_HOSTS":
-      varname => 'RABBITMQ_HOSTS',
-      value   => $rabbitmq_hosts;
-    "${title}-RABBITMQ_VHOST":
-      varname => 'RABBITMQ_VHOST',
-      value   => '/';
-    "${title}-RABBITMQ_USER":
-      varname => 'RABBITMQ_USER',
-      value   => $rabbitmq_user;
-    "${title}-RABBITMQ_PASSWORD":
-      varname => 'RABBITMQ_PASSWORD',
-      value => $rabbitmq_password;
+  govuk::app::envvar::rabbitmq { 'panopticon':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
   }
 
   govuk::logstream { 'panopticon-org-import-json-log':
