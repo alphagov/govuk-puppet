@@ -22,7 +22,7 @@
 #   Default: email_alert_service
 #
 class govuk::apps::email_alert_service(
-  $rabbitmq_hosts = 'localhost',
+  $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'email_alert_service',
   $rabbitmq_password = 'email_alert_service',
 ) {
@@ -39,18 +39,9 @@ class govuk::apps::email_alert_service(
     app => 'email-alert-service',
   }
 
-  govuk::app::envvar {
-    "${title}-RABBITMQ_HOSTS":
-      varname => 'RABBITMQ_HOSTS',
-      value   => $rabbitmq_hosts;
-    "${title}-RABBITMQ_VHOST":
-      varname => 'RABBITMQ_VHOST',
-      value   => '/';
-    "${title}-RABBITMQ_USER":
-      varname => 'RABBITMQ_USER',
-      value   => $rabbitmq_user;
-    "${title}-RABBITMQ_PASSWORD":
-      varname => 'RABBITMQ_PASSWORD',
-      value => $rabbitmq_password;
+  govuk::app::envvar::rabbitmq { 'email-alert-service':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
   }
 }

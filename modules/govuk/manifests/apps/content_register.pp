@@ -24,7 +24,7 @@
 class govuk::apps::content_register(
   $port = '3077',
   $enable_procfile_worker = true,
-  $rabbitmq_hosts = 'localhost',
+  $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'content_register',
   $rabbitmq_password = 'content_register',
 ) {
@@ -42,19 +42,10 @@ class govuk::apps::content_register(
     app => 'content-register',
   }
 
-  govuk::app::envvar {
-    "${title}-RABBITMQ_HOSTS":
-      varname => 'RABBITMQ_HOSTS',
-      value   => $rabbitmq_hosts;
-    "${title}-RABBITMQ_VHOST":
-      varname => 'RABBITMQ_VHOST',
-      value   => '/';
-    "${title}-RABBITMQ_USER":
-      varname => 'RABBITMQ_USER',
-      value   => $rabbitmq_user;
-    "${title}-RABBITMQ_PASSWORD":
-      varname => 'RABBITMQ_PASSWORD',
-      value => $rabbitmq_password;
+  govuk::app::envvar::rabbitmq { 'content-register':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
   }
 
   govuk::procfile::worker {'content-register':

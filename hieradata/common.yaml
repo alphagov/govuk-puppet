@@ -147,6 +147,11 @@ govuk::apps::backdrop_write::enabled: true
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 
+govuk::apps::content_register::rabbitmq_hosts:
+  - rabbitmq-1.backend
+  - rabbitmq-2.backend
+  - rabbitmq-3.backend
+
 govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
 
 govuk::apps::email_alert_api::enabled: true
@@ -155,6 +160,12 @@ govuk::apps::email_campaign_api::mongodb_nodes:
   - 'email-campaign-mongo-1.api'
   - 'email-campaign-mongo-2.api'
   - 'email-campaign-mongo-3.api'
+
+govuk::apps::email_alert_service::rabbitmq_hosts:
+  - rabbitmq-1.backend
+  - rabbitmq-2.backend
+  - rabbitmq-3.backend
+
 govuk::apps::finder_frontend::enabled: true
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
@@ -177,6 +188,12 @@ govuk::apps::govuk_crawler_worker::root_urls:
 
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
+
+govuk::apps::panopticon::rabbitmq_hosts:
+  - rabbitmq-1.backend
+  - rabbitmq-2.backend
+  - rabbitmq-3.backend
+
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
 
