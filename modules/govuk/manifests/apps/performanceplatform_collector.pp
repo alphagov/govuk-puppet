@@ -15,14 +15,14 @@ class govuk::apps::performanceplatform_collector (
   if $enabled {
     $app = 'performanceplatform-collector'
     govuk::logstream { "${app}-production-log":
-      ensure  => present,
+      ensure  => absent,
       logfile => "/data/apps/${app}/shared/log/production.json.log",
       tags    => ['stdout', 'application'],
       fields  => {'application' => $app},
       json    => true,
     }
     logrotate::conf { "govuk-${app}":
-      ensure  => present,
+      ensure  => absent,
       matches => "/data/apps/${app}/shared/log/*.log",
     }
   }
