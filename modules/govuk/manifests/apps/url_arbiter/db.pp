@@ -14,6 +14,7 @@ class govuk::apps::url_arbiter::db (
 ) {
 
   govuk_postgresql::db { 'url-arbiter_production':
+    ensure                  => absent,
     user                    => 'url-arbiter',
     password                => $password,
     allow_auth_from_backend => true,

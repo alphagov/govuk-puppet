@@ -4,6 +4,7 @@ class govuk::apps::url_arbiter(
 ) {
 
   govuk::app { 'url-arbiter':
+    ensure             => absent,
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
