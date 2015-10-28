@@ -25,7 +25,7 @@ EOS
 
   context 'types logged' do
     let(:params) { default_params.merge({
-      :log_index_type_count => { "index": ['type1', 'type2'] }
+      :log_index_type_count => { "index" => ['type1', 'type2'] }
     })
 
     it { should contain_collectd__plugin('elasticsearch')
