@@ -2,8 +2,8 @@
 #
 # Set up a weekly check that PagerDuty is working.
 #
-# The cron resource removes the `pagerduty_drill` file.
-# The file not existing triggers the Icinga alert
+# The cron resource creates the `pagerduty_drill` file.
+# The file existing triggers the Icinga alert
 # which notifies PagerDuty and calls the on-call phone.
 #
 # === Parameters
