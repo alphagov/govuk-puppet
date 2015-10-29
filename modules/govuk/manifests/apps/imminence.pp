@@ -12,12 +12,18 @@
 #   Default: 3002
 # [*enable_procfile_worker*]
 #   Whether to enable the Procfile worker.
+# [*mongodb_nodes*]
+#   An array of MongoDB instance hostnames
+# [*mongodb_name*]
+#   The name of the MongoDB database to use
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::imminence(
   $port = '3002',
   $enable_procfile_worker = true,
+  $mongodb_nodes = undef,
+  $mongodb_name = 'imminence_production',
   $secret_key_base = undef,
 ) {
 
@@ -41,6 +47,13 @@ class govuk::apps::imminence(
       "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    }
+  }
+
+  if $::govuk_node_class != 'development' {
+    govuk::app::envvar::mongodb_uri { $app_name:
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
     }
   }
 
