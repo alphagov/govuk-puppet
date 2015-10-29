@@ -52,6 +52,7 @@ govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
 govuk::apps::hmrc_manuals_api::publish_topics: true
+govuk::apps::government_frontend::enable_service_manual: true
 govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
