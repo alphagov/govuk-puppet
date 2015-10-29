@@ -24,6 +24,7 @@ govuk::apps::email_campaign_api::mongodb_nodes:
 govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-preview@digital.cabinet-office.gov.uk'
 govuk::apps::event_store::enabled: true
+govuk::apps::government_frontend::enable_service_manual: true
 govuk::apps::govuk_cdn_logs_monitor::enabled: true
 govuk::apps::govuk_crawler_worker::airbrake_env: 'preview'
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
