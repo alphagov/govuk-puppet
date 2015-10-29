@@ -50,6 +50,10 @@
 #   Redis port for sidekiq.
 #   Default: 6379
 #
+# [*enable_procfile_worker*]
+#   Enables the sidekiq background worker.
+#   Default: false
+#
 class govuk::apps::publishing_api(
   $port = '3093',
   $content_store = '',
@@ -63,6 +67,7 @@ class govuk::apps::publishing_api(
   $db_name = 'publishing_api_production',
   $redis_host = undef,
   $redis_port = '6379',
+  $enable_procfile_worker = false,
 ) {
   $app_name = 'publishing-api'
 
@@ -74,6 +79,10 @@ class govuk::apps::publishing_api(
     log_format_is_json => true,
     asset_pipeline     => false,
     deny_framing       => true,
+  }
+
+  govuk::procfile::worker {'publishing-api':
+    enable_service => $enable_procfile_worker,
   }
 
   govuk::logstream { "${app_name}-app-out":
