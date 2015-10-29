@@ -17,8 +17,8 @@ govuk::apps::govuk_cdn_logs_monitor::enabled: true
 govuk::apps::govuk_crawler_worker::airbrake_env: 'staging'
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::publishing_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
+govuk::apps::publishing_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::service_manual_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.2.4.0/24'
