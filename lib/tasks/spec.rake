@@ -78,4 +78,4 @@ namespace :spec do
 end
 
 desc "Run rspec"
-task :spec => 'spec:normal'
+task :spec => ['spec:normal', 'spec:nodes']
