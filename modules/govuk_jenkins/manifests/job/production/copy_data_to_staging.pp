@@ -8,7 +8,7 @@ class govuk_jenkins::job::production::copy_data_to_staging (
   $pg_src_env_sync_pw = undef,
   $pg_dst_env_sync_pw = undef,
   $ci_alphagov_api_key = undef,
-  $ci_alphagov_api_token = undef,
+  $auth_token = undef,
   $app_domain = hiera('app_domain'),
 ) {
   file { '/etc/jenkins_jobs/jobs/copy_data_to_staging.yaml':
