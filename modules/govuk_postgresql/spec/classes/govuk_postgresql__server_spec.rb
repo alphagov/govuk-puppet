@@ -19,7 +19,15 @@ describe 'govuk_postgresql::server', :type => :class do
       let(:pre_condition) { <<-EOS
         class { 'govuk_postgresql::server::primary':
           slave_password => 'password',
-          slave_address  => '0.0.0.0/0',
+          slave_addresses  => {
+            live => {
+              address     => '0.0.0.0/0',
+              auth_method => 'md5',
+              database    => 'replication',
+              type        => 'host',
+              user        => 'replication',
+            }
+          }
         }
         EOS
       }
