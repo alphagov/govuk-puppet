@@ -72,24 +72,16 @@ class govuk::apps::publishing_api(
   $app_name = 'publishing-api'
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-    deny_framing       => true,
+    app_type          => 'rack',
+    port              => $port,
+    vhost_ssl_only    => true,
+    health_check_path => '/healthcheck',
+    legacy_logging    => false,
+    deny_framing      => true,
   }
 
   govuk::procfile::worker {'publishing-api':
     enable_service => $enable_procfile_worker,
-  }
-
-  govuk::logstream { "${app_name}-app-out":
-    ensure  => absent,
-    logfile => "/var/log/${app_name}/app.out.log",
-    tags    => ['stdout', 'app'],
-    json    => true,
-    fields  => {'application' => $app_name},
   }
 
   Govuk::App::Envvar {
