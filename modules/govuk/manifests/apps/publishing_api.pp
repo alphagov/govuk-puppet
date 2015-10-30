@@ -77,7 +77,6 @@ class govuk::apps::publishing_api(
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
-    asset_pipeline     => false,
     deny_framing       => true,
   }
 
