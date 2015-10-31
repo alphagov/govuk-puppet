@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*enable_event_handlers*]
+#   Determines if event handlers are enabled
+#
 # [*http_username*]
 #   Basic auth HTTP username
 #
@@ -11,9 +14,12 @@
 #   Password for $http_username
 #
 class icinga::config (
+  $enable_event_handlers = false,
   $http_username = '',
   $http_password = '',
 ) {
+
+  validate_bool($enable_event_handlers)
 
   include govuk::htpasswd
   include icinga::config::pingdom
@@ -32,6 +38,10 @@ class icinga::config (
   # FIXME: Remove once this file has been purged in production
   file { '/etc/icinga/htpasswd.users':
     ensure  => absent,
+  }
+
+  file { '/etc/icinga/icinga.cfg':
+    content  => template('icinga/etc/icinga/icinga.cfg.erb'),
   }
 
   file { '/etc/icinga/conf.d':
