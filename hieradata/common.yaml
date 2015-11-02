@@ -186,6 +186,11 @@ govuk::apps::govuk_crawler_worker::root_urls:
   - 'https://assets.digital.cabinet-office.gov.uk/'
   - 'https://www.gov.uk/'
 
+govuk::apps::imminence::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
 
