@@ -1,0 +1,28 @@
+---
+- job:
+    name: trigger_data_sync_complete
+    display-name: trigger_data_sync_complete
+    project-type: freestyle
+    description: "This job triggers the Data_Sync_Complete jobs in Preview or Staging, depending on parameters."
+    logrotate:
+        artifactNumToKeep: 10
+    builders:
+        - shell: |
+            echo "Triggering post-sync job on $HOSTNAME"
+            curl -f -XPOST https://ci_alphagov:$API_KEY@$HOSTNAME/job/Data_Sync_Complete/build -d token=$AUTH_TOKEN --data-urlencode json="{}"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - string:
+            name: HOSTNAME
+            description: 'The hostname of the Jenkins instance to trigger the Data_Sync_Complete job on'
+            default: false
+        - password:
+            name: API_KEY
+            description: 'The ci_alphagov API key'
+            default: false
+        - password:
+            name: AUTH_TOKEN
+            description: 'The authentication token defined in the job to be triggered'
+            default: false

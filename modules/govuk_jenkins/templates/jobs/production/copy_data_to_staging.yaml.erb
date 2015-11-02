@@ -52,9 +52,6 @@
             done
 
             exit $EXITCODE
-        - shell: |
-            echo "Triggering post-sync job on deploy.staging.publishing.service.gov.uk"
-            curl -f -XPOST https://ci_alphagov:<%= @ci_alphagov_api_key %>@deploy.staging.publishing.service.gov.uk/job/Data_Sync_Complete/build -d token=<%= @ci_alphagov_api_token %> --data-urlencode json="{}"
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
@@ -67,6 +64,12 @@
           predefined-parameters: |
             NSCA_CHECK_DESCRIPTION="<%= @service_description -%>"
             NSCA_OUTPUT="<%= @service_description -%> failed"
+        - project: trigger_data_sync_complete
+          condition: 'ALWAYS'
+          predefined-parameters: |
+            HOSTNAME="deploy.staging.publishing.service.gov.uk"
+            API_KEY="<%= @ci_alphagov_api_key %>"
+            AUTH_TOKEN="<%= @auth_token %>"
     wrappers:
         - ansicolor:
             colormap: xterm
