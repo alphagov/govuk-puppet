@@ -9,6 +9,9 @@
 # [*mongodb_nodes*]
 #   Array of mongo cluster hostnames for the application to connect to.
 #
+# [*mongodb_name*]
+#   The name of the MongoDB database to use
+#
 # [*port*]
 #   The port that it is served on.
 #   Default: 3107
@@ -29,6 +32,7 @@
 #
 class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
+  $mongodb_name = 'authenticating_proxy_production',
   $port = '3107',
   $errbit_api_key = undef,
   $govuk_upstream_uri = undef,
@@ -40,7 +44,7 @@ class govuk::apps::authenticating_proxy(
 
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
-    database => 'authenticating_proxy_production',
+    database => $mongodb_name,
   }
 
   govuk::app { $app_name:

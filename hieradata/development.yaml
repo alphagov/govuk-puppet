@@ -22,6 +22,7 @@ govuk_app_enable_services: false
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::asset_manager::mongodb_name: 'govuk_assets_development'
 govuk::apps::asset_manager::mongodb_nodes: ['localhost']
+govuk::apps::authenticating_proxy::mongodb_name: 'authenticating_proxy_development'
 govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-frontend.dev.gov.uk'
 govuk::apps::backdrop_write::enable_procfile_worker: false
