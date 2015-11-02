@@ -3,7 +3,9 @@
 govuk::safe_to_reboot::can_reboot: 'no'
 govuk::safe_to_reboot::reason: 'Single point of failure for any Postgres-writing apps'
 
-govuk_postgresql::server::primary::slave_address: "%{hiera('postgresql_slave_address')}"
+govuk_postgresql::server::primary::slave_addresses:
+  live:
+    address: "%{hiera('postgresql_slave_addresses_live')}"
 
 lv:
   postgresql:

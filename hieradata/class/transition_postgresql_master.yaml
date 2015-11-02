@@ -14,4 +14,8 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
-govuk_postgresql::server::primary::slave_address: "%{hiera('postgresql_transition_slave_address')}"
+govuk_postgresql::server::primary::slave_addresses:
+  live:
+    address: "%{hiera('postgresql_transition_slave_addresses_live')}"
+  dr:
+    address: "%{hiera('postgresql_transition_slave_addresses_dr')}"
