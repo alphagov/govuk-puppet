@@ -38,15 +38,9 @@ class govuk::apps::authenticating_proxy(
 ) {
   $app_name = 'authenticating-proxy'
 
-  validate_array($mongodb_nodes)
-
-  if $mongodb_nodes != [] {
-    $mongodb_nodes_string = join($mongodb_nodes, ',')
-    govuk::app::envvar { "${title}-MONGODB_URI":
-      app     => $app_name,
-      varname => 'MONGODB_URI',
-      value   => "mongodb://${mongodb_nodes_string}/authenticating_proxy_production",
-    }
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => 'authenticating_proxy_production',
   }
 
   govuk::app { $app_name:

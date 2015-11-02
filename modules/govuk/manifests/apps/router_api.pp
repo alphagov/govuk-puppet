@@ -34,7 +34,6 @@ class govuk::apps::router_api(
 ) {
   $app_name = 'router-api'
 
-  validate_array($mongodb_nodes)
   validate_array($router_nodes)
 
   govuk::app { $app_name:
@@ -57,12 +56,9 @@ class govuk::apps::router_api(
     }
   }
 
-  if $mongodb_nodes != [] {
-    $mongodb_nodes_string = join($mongodb_nodes, ',')
-    govuk::app::envvar { "${title}-MONGODB_URI":
-      varname => 'MONGODB_URI',
-      value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
-    }
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
   }
 
   if $router_nodes != [] {

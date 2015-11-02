@@ -38,18 +38,13 @@ class govuk::apps::content_store(
     vhost              => $vhost,
   }
 
-  validate_array($mongodb_nodes)
-
   Govuk::App::Envvar {
     app => $app_name,
   }
 
-  if $mongodb_nodes != [] {
-    $mongodb_nodes_string = join($mongodb_nodes, ',')
-    govuk::app::envvar { "${title}-MONGODB_URI":
-      varname => 'MONGODB_URI',
-      value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
-    }
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
   }
 
   govuk::app::envvar { "${title}-DEFAULT_TTL":

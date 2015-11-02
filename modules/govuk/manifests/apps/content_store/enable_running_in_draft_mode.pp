@@ -47,8 +47,10 @@ class govuk::apps::content_store::enable_running_in_draft_mode() {
     "${title}-PORT":
       varname => 'PORT',
       value   => $draft_content_store_port;
-    "${title}-MONGODB_URI":
-      varname => 'MONGODB_URI',
-      value   => 'mongodb://localhost/draft_content_store_development';
+  }
+
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => ['localhost'],
+    database => 'draft_content_store_development',
   }
 }
