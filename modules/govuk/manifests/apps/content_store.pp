@@ -27,7 +27,9 @@ class govuk::apps::content_store(
   $vhost,
   $default_ttl = '1800',
 ) {
-  govuk::app { 'content-store':
+  $app_name = 'content-store'
+
+  govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
@@ -39,7 +41,7 @@ class govuk::apps::content_store(
   validate_array($mongodb_nodes)
 
   Govuk::App::Envvar {
-    app => 'content-store',
+    app => $app_name,
   }
 
   if $mongodb_nodes != [] {

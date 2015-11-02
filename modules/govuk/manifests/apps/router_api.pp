@@ -32,11 +32,12 @@ class govuk::apps::router_api(
   $vhost,
   $secret_key_base = undef,
 ) {
+  $app_name = 'router-api'
 
   validate_array($mongodb_nodes)
   validate_array($router_nodes)
 
-  govuk::app { 'router-api':
+  govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
@@ -46,7 +47,7 @@ class govuk::apps::router_api(
   }
 
   Govuk::App::Envvar {
-    app            => 'router-api',
+    app            => $app_name,
   }
 
   if $secret_key_base != undef {
