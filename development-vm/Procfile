@@ -35,7 +35,7 @@ travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../tra
 release:               govuk_setenv release               ./run_in.sh ../release        bundle exec rails server -p 3036
 asset_manager:         govuk_setenv asset-manager         ./run_in.sh ../asset-manager  bundle exec rails s -p 3037
 # limelight used port 3040 but was retired in November 2014
-transaction_wrappers:  govuk_setenv transaction-wrappers  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
+# transaction_wrappers used to use port 3041
 # govuk_delivery has port 3042
 # tariff_demo_api: grabbing port 3043 in preview only
 transition:            govuk_setenv transition            ./run_in.sh ../transition     bundle exec rails s -p 3044
@@ -44,7 +44,7 @@ tariff_admin:          govuk_setenv tariff-admin          ./run_in.sh ../trade-t
 calculators:           govuk_setenv calculators           ./run_in.sh ../calculators    bundle exec rails s -p 3047
 # fact-cave used to use port 3048
 bouncer:               govuk_setenv bouncer               ./run_in.sh ../bouncer        bundle exec mr-sparkle --force-polling -- -p 3049
-fco_services:          ./run_in.sh ../fco-services bundle exec rails s -p 3050
+# fco-services used to use port 3050
 contacts-admin:        govuk_setenv contacts              ./run_in.sh ../contacts-admin bundle exec rails s -p 3051
 need_api:              govuk_setenv need-api              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
 maslow:                govuk_setenv maslow                ./run_in.sh ../maslow         bundle exec rails s -p 3053

@@ -31,8 +31,6 @@ process :'email-campaign-api'
 process :'email-campaign-frontend' => [:'email-campaign-api', :static]
 process :errbit
 process :'event-store'
-process :fco
-process :fco_services
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']
 process :'finder-api'
@@ -43,7 +41,6 @@ process :imminence
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager, :'content-register']
 process :'manuals-frontend' => [:static, :'content-store']
-process :jobs
 process :licencefinder => [:static, :contentapi]
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
@@ -77,7 +74,6 @@ process :'support-api'
 process :tariff_admin => [:tradetariffapi]
 process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
-process :transaction_wrappers => :static
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
 process :'url-arbiter'
