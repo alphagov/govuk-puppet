@@ -19,6 +19,7 @@ class govuk::apps::screenshot_as_a_service (
 
   if $enabled {
     govuk::app { 'screenshot-as-a-service':
+      ensure            => 'absent',
       app_type          => 'bare',
       command           => '/usr/bin/node app',
       port              => $port,
@@ -27,9 +28,7 @@ class govuk::apps::screenshot_as_a_service (
     }
 
     package { ['libcairo2-dev', 'libjpeg8-dev', 'libpango1.0-dev', 'libgif-dev']:
-      ensure => 'latest',
+      ensure => 'absent',
     }
-
-    include phantomjs
   }
 }
