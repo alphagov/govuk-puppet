@@ -31,6 +31,8 @@ class govuk::apps::mapit (
       extensions => ['plpgsql', 'postgis'],
     }
 
+    class { 'postgresql::server::postgis': }
+
     package {
       [
         # These three packages are recommended when installing geospatial
