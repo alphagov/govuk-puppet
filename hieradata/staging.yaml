@@ -481,6 +481,12 @@ hosts::production::redirector::hosts:
     ip: '10.2.5.5'
   bouncer-3:
     ip: '10.2.5.6'
+  bouncer-4:
+    ip: '10.2.13.4'
+  bouncer-5:
+    ip: '10.2.13.5'
+  bouncer-6:
+    ip: '10.2.13.6'
 
 hosts::production::router::hosts:
   cache-1:
