@@ -21,13 +21,9 @@ class govuk::apps::email_campaign_api(
       app => $app_name,
     }
 
-    validate_array($mongodb_nodes)
-    if $mongodb_nodes != [] {
-      $mongodb_nodes_string = join($mongodb_nodes, ',')
-      govuk::app::envvar { "${title}-MONGODB_URI":
-        varname => 'MONGODB_URI',
-        value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
-      }
+    govuk::app::envvar::mongodb_uri { $app_name:
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
     }
 
     if $errbit_api_key != undef {

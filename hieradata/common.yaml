@@ -137,7 +137,6 @@ collectd::plugin::tcp::metrics:
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
-# These are overridden on preview
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
