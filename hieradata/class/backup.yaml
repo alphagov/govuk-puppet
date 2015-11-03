@@ -15,10 +15,6 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automongodbbackup/
     fq_dn: api-mongo-1.api.%{hiera('internal_tld')}
     priority: '001'
-  backup_mongodb_backups_email_campaign_mongo:
-    directory: /var/lib/automongodbbackup/
-    fq_dn: email-campaign-mongo-1.api.%{hiera('internal_tld')}
-    priority: '001'
   backup_mongodb_backups_performance_mongo:
     directory: /var/lib/automongodbbackup/
     fq_dn: performance-mongo-1.api.%{hiera('internal_tld')}
