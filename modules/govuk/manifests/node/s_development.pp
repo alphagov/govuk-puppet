@@ -82,6 +82,7 @@ class govuk::node::s_development {
   include govuk::apps::hmrc_manuals_api
   include govuk::apps::imminence
   include govuk::apps::kibana
+  include govuk::apps::mapit
   include govuk::apps::maslow
   include govuk::apps::metadata_api
   include govuk::apps::need_api
@@ -216,6 +217,14 @@ class govuk::node::s_development {
     'vagrant':
       password_hash => postgresql_password('vagrant', 'vagrant'),
       createdb      => true;
+  }
+
+  # The mapit role needs to be a superuser in order to load the PostGIS
+  # extension for the test database.
+  postgresql::server::role {
+    'mapit':
+      superuser     => true,
+      password_hash => postgresql_password('mapit', 'mapit');
   }
 
   package {
