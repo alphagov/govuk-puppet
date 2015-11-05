@@ -57,6 +57,9 @@
 #   Passed to `icinga::check`. See there for documentation.
 #   Default: undef
 #
+# [*event_handler*]
+#   A command to run when the check changes state
+#
 
 define icinga::check::graphite(
   $target,
@@ -72,6 +75,7 @@ define icinga::check::graphite(
   $ensure = 'present',
   $contact_groups = undef,
   $notification_period = undef,
+  $event_handler = undef,
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
@@ -113,5 +117,6 @@ ${crit_line}${warn_line}\
     attempts_before_hard_state => 1,
     contact_groups             => $contact_groups,
     notification_period        => $notification_period,
+    event_handler              => $event_handler,
   }
 }
