@@ -191,12 +191,13 @@ define govuk::app::config (
       host_name => $::fqdn,
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-      ensure    => $ensure,
-      target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
-      warning   => $nagios_memory_warning_real,
-      critical  => $nagios_memory_critical_real,
-      desc      => "high memory for ${title} app",
-      host_name => $::fqdn,
+      ensure        => $ensure,
+      target        => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
+      warning       => $nagios_memory_warning_real,
+      critical      => $nagios_memory_critical_real,
+      desc          => "high memory for ${title} app",
+      host_name     => $::fqdn,
+      event_handler => "govuk_app_high_memory!${title}",
     }
   }
 

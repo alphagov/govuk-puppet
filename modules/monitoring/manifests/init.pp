@@ -17,6 +17,7 @@ class monitoring {
   include monitoring::contacts
   include monitoring::checks
   include monitoring::edge
+  include monitoring::event_handlers
   include monitoring::pagerduty_drill
 
 }
