@@ -41,7 +41,7 @@ define backup::directory (
       service_description => $service_desc,
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,
-      action_url          => 'https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/backup-1$20run-parts$20$2Fetc$2Fbackup$2Fdaily%7Csort:date',
+      action_url          => 'https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.carrenza/backup-1$20run-parts$20$2Fetc$2Fbackup$2Fdaily%7Csort:date',
       notes_url           => monitoring_docs_url(offsite-backups),
     }
 }

@@ -78,7 +78,7 @@ define backup::offsite::job(
       host_name           => $::fqdn,
       freshness_threshold => $freshness_threshold,
       notes_url           => monitoring_docs_url(offsite-backups),
-      action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.plat1/${::hostname}\$20duplicity%7Csort:date",
+      action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.carrenza/${::hostname}\$20duplicity%7Csort:date",
     }
   }
 }
