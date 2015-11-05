@@ -318,6 +318,8 @@ hosts::production::backend::hosts:
       - 'slave.mysql'
   mysql-slave-2:
     ip: '10.2.3.92'
+  mysql-slave-3:
+    ip: '10.2.11.91'
   performance-backend-1:
     ip: '10.2.3.80'
   performance-backend-2:
@@ -370,6 +372,8 @@ hosts::production::backend::hosts:
       - 'whitehall-slave.mysql'
   whitehall-mysql-slave-2:
     ip: '10.2.3.32'
+  whitehall-mysql-slave-3:
+    ip: '10.2.11.31'
 
 hosts::production::frontend::hosts:
   calculators-frontend-1:
