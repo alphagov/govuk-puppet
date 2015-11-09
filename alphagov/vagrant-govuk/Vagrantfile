@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
       c.vm.hostname = "#{node_name}.development"
       c.vm.network :private_network, {
         :ip => node_opts["ip"],
-        :netmask => "255.255.000.000"
+        :netmask => "255.000.000.000"
       }
 
       modifyvm_args = ['modifyvm', :id]
