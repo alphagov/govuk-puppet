@@ -306,6 +306,8 @@ hosts::production::backend::hosts:
     ip: '10.2.3.7'
   mongo-3:
     ip: '10.2.3.8'
+  mongo-4:
+    ip: '10.2.11.6'
   mysql-backup-1:
     ip: '10.2.3.93'
     legacy_aliases:
