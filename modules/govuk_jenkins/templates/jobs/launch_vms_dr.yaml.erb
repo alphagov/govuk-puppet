@@ -11,9 +11,9 @@
     display-name: Launch VMs for disaster recovery
     project-type: freestyle
     description: |
-      Job to launch disaster recovery VMs in <%= @environment -%>.\n
-      If you are running this to bring up a new machine you will need to be signing certs on the puppetmaster.\n
-      A oneliner to do this: while true; do sudo puppet cert sign --all; sleep 10; done
+      Job to launch disaster recovery virtual machines in <%= @environment -%>.
+      If you are running this to bring up a new machine you will need to be signing certs on the puppetmaster
+      with `fab <%= @environment -%> puppet.sign_certificates`
     properties:
         - github:
             url: https://github.gds/gds/alphagov-deployment/

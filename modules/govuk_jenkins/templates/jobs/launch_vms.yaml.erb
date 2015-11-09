@@ -10,9 +10,10 @@
     name: Launch_VMs
     display-name: Launch_VMs
     project-type: freestyle
-    description: "Job to launch VMs in <%= @environment -%>.\r\nIf you are running this to bring
-      up a new machine you will need to be signing certs on the puppetmaster.\r\nA oneliner
-      to do this: while true; do sudo puppet cert sign --all; sleep 10; done"
+    description: |
+      Job to launch virtual machines in <%= @environment -%>.
+      If you are running this to bring up a new machine you will need to be signing certs on the puppetmaster
+      with `fab <%= @environment -%> puppet.sign_certificates`
     properties:
         - github:
             url: https://github.gds/gds/alphagov-deployment/
