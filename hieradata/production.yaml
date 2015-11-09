@@ -649,6 +649,7 @@ postfix::rewrite_mail_list: 'machine.email.carrenza'
 postgresql_api_slave_addresses_live: '10.3.4.41/32'
 postgresql_slave_addresses_live: '10.3.3.13/32'
 postgresql_transition_slave_addresses_live: '10.3.3.61/32'
+postgresql_transition_slave_addresses_dr: '10.3.11.61/32'
 
 shell::shell_prompt_string: 'production'
 
