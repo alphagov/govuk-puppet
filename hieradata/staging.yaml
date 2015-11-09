@@ -226,6 +226,8 @@ hosts::production::api::hosts:
     ip: '10.2.4.40'
   api-postgresql-standby-1:
     ip: '10.2.4.41'
+  api-postgresql-standby-2:
+    ip: '10.2.12.41'
   api-redis-1:
     ip: '10.2.4.29'
   content-store-1:
