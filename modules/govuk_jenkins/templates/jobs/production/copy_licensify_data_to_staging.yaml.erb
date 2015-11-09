@@ -48,13 +48,13 @@
         - project: Success_Passive_Check
           condition: 'SUCCESS'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION="<%= @service_description -%>"
-            NSCA_OUTPUT="<%= @service_description -%> success"
+            NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
+            NSCA_OUTPUT=<%= @service_description -%> success
         - project: Failure_Passive_Check
           condition: 'FAILED'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION="<%= @service_description -%>"
-            NSCA_OUTPUT="<%= @service_description -%> failed"
+            NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
+            NSCA_OUTPUT=<%= @service_description -%> failed
     wrappers:
         - ansicolor:
             colormap: xterm
