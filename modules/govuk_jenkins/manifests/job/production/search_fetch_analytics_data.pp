@@ -4,10 +4,21 @@
 #
 class govuk_jenkins::job::production::search_fetch_analytics_data (
   $ga_auth_password = undef,
+  $app_domain = hiera('app_domain'),
 ) {
   file { '/etc/jenkins_jobs/jobs/search_fetch_analytics_data.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production/search_fetch_analytics_data.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
+  }
+  $check_name = 'search-fetch-analytics-data'
+  $service_description = 'Fetch analytics data for search'
+  $job_url = "https://deploy.${app_domain}/job/search-fetch-analytics-data/"
+
+  @@icinga::passive_check { "${check_name}_${::hostname}":
+    service_description => $service_description,
+    host_name           => $::fqdn,
+    freshness_threshold => 104400,
+    action_url          => $job_url,
   }
 }
