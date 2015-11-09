@@ -514,6 +514,8 @@ hosts::production::router::hosts:
     ip: '10.2.1.11'
   router-backend-3:
     ip: '10.2.1.12'
+  router-backend-4:
+    ip: '10.2.9.10'
   cache:
     ip: '10.2.1.254'
     legacy_aliases:
