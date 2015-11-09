@@ -1,0 +1,8 @@
+---
+
+mongodb::server::replicaset_members:
+  'router-backend-1':
+  'router-backend-2':
+  'router-backend-3':
+  'router-backend-4':
+    priority: 0
