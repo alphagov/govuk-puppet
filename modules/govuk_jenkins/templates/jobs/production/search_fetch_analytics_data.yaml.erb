@@ -30,6 +30,18 @@
             ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=all govuk_setenv rummager bundle exec rake rummager:clean)'
     triggers:
         - timed: '5 4 * * *'
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
+                  NSCA_OUTPUT=<%= @service_description -%> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
+                  NSCA_OUTPUT=<%= @service_description -%> failed
     wrappers:
         - ansicolor:
             colormap: xterm
