@@ -116,6 +116,7 @@ govuk_jenkins::config::users:
   - paulmartin
   - richardboulton
   - robyoung
+  - stevelaing
   - timothymower
   - tombooth
   - tommypalmer
@@ -672,6 +673,7 @@ ssh::config::allow_users:
   - 'paulmartin'
   - 'richardboulton'
   - 'robyoung'
+  - 'stevelaing'
   - 'timothymower'
   - 'tombooth'
   - 'tommypalmer'
@@ -693,6 +695,7 @@ users::usernames:
   - paulmartin
   - richardboulton
   - robyoung
+  - stevelaing
   - timothymower
   - tombooth
   - tommypalmer
