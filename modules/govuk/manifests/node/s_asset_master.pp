@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class govuk::node::s_asset_master
+#
+# Node class for asset master servers.
+#
 class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
 
   file { '/var/run/virus_scan':
