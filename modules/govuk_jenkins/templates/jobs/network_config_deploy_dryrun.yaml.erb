@@ -26,15 +26,6 @@
         - build-name:
             name: '#${BUILD_NUMBER} ${ENV,var="component"}'
     parameters:
-        - choice:
-            name: COMPONENT
-            description: Which part of the networking config do you wish to update?
-            choices:
-                - PLEASE CHOOSE ONE
-                - lb
-                - nat
-                - firewall
-                - vpn
         - string:
             name: USERNAME
             description: Vcloud username
