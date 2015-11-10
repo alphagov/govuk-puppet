@@ -38,6 +38,10 @@ server {
     proxy_pass http://localhost:3091;
   }
 
+  location /publishing-api {
+    proxy_pass http://localhost:3114;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }
