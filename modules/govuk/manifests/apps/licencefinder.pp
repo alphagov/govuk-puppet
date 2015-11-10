@@ -12,9 +12,21 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
+# [*mongodb_nodes*]
+#   An array of MongoDB instance hostnames
+#
+# [*mongodb_name*]
+#   The name of the MongoDB database to use
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::licencefinder(
   $port = '3014',
   $errbit_api_key = undef,
+  $mongodb_nodes,
+  $mongodb_name = 'licence_finder_production',
+  $secret_key_base = undef,
 ) {
 
   $app_name = 'licencefinder'
@@ -34,6 +46,21 @@ class govuk::apps::licencefinder(
         app     => $app_name,
         varname => 'ERRBIT_API_KEY',
         value   => $errbit_api_key;
+    }
+  }
+
+  if $::govuk_node_class != 'development' {
+    govuk::app::envvar::mongodb_uri { $app_name:
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
+    }
+  }
+
+  if $secret_key_base {
+    govuk::app::envvar {
+      "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
     }
   }
 }
