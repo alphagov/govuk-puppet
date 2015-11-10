@@ -59,8 +59,9 @@ class govuk::apps::licencefinder(
   if $secret_key_base {
     govuk::app::envvar {
       "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
+        app     => $app_name,
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
     }
   }
 }
