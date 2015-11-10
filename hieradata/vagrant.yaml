@@ -104,6 +104,9 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::smokey_deploy
 govuk_jenkins::job_builder::environment: 'dev'
 
+govuk_jenkins::job::network_config_deploy::environments:
+  - foo
+
 icinga::nginx::enable_basic_auth: false
 
 internal_tld: 'development'
