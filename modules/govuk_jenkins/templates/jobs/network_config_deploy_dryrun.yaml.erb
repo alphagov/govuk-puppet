@@ -6,6 +6,9 @@
             url: git@github.gds:gds/govuk-provisioning.git
             branches:
               - master
+            wipe-workspace: false
+            clean:
+                after: true
 
 - job:
     name: Network_Config_Deploy_DryRun
