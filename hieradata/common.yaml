@@ -224,7 +224,8 @@ govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::htpasswd::http_username: "%{hiera('http_username')}"
 
-govuk::node::s_api_redis::allowed_ip_range: 10.7.0.0/16
+govuk::node::s_api_redis::allowed_api_ip_range: 10.7.0.0/16
+govuk::node::s_api_redis::allowed_backend_ip_range: 10.3.0.0/24
 
 govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
 
