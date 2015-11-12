@@ -220,7 +220,7 @@ define govuk::app::config (
     @@icinga::check { "check_app_${title}_up_on_${::hostname}":
       ensure              => $ensure,
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
-      service_description => "${title} app not running",
+      service_description => "${title} app healthcheck",
       host_name           => $::fqdn,
     }
     if $json_health_check {
