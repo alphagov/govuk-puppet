@@ -1,0 +1,5 @@
+---
+
+govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.13.0/24'
+
+icinga::client::check_cputype::cputype: 'amd'

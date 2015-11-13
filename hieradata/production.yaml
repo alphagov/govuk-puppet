@@ -327,6 +327,8 @@ hosts::production::api::hosts:
     ip: '10.3.4.40'
   api-postgresql-standby-1:
     ip: '10.3.4.41'
+  api-postgresql-standby-2:
+    ip: '10.3.12.41'
   api-redis-1:
     ip: '10.3.4.29'
   content-store-1:
@@ -357,6 +359,8 @@ hosts::production::api::hosts:
     ip: '10.3.4.32'
   performance-mongo-3:
     ip: '10.3.4.33'
+  performance-mongo-4:
+    ip: '10.3.12.31'
   search-1:
     ip: '10.3.4.4'
   search-2:
@@ -407,6 +411,8 @@ hosts::production::backend::hosts:
     ip: '10.3.3.7'
   mongo-3:
     ip: '10.3.3.8'
+  mongo-4:
+    ip: '10.3.11.6'
   mysql-backup-1:
     ip: '10.3.3.93'
     legacy_aliases:
@@ -422,6 +428,8 @@ hosts::production::backend::hosts:
       - 'slave.mysql'
   mysql-slave-2:
     ip: '10.3.3.92'
+  mysql-slave-3:
+    ip: '10.3.11.91'
   performance-backend-1:
     ip: '10.3.3.80'
   performance-backend-2:
@@ -430,6 +438,8 @@ hosts::production::backend::hosts:
     ip: '10.3.3.12'
   postgresql-standby-1:
     ip: '10.3.3.13'
+  postgresql-standby-2:
+    ip: '10.3.11.13'
   rabbitmq-1:
     ip: '10.3.3.70'
   rabbitmq-2:
@@ -449,6 +459,8 @@ hosts::production::backend::hosts:
     ip: '10.3.3.61'
     legacy_aliases:
       - 'transition-slave.postgresql'
+  transition-postgresql-slave-2:
+    ip: '10.3.11.61'
   whitehall-backend-1:
     ip: '10.3.3.25'
   whitehall-backend-2:
@@ -472,6 +484,8 @@ hosts::production::backend::hosts:
       - 'whitehall-slave.mysql'
   whitehall-mysql-slave-2:
     ip: '10.3.3.32'
+  whitehall-mysql-slave-3:
+    ip: '10.3.11.31'
 
 hosts::production::frontend::hosts:
   calculators-frontend-1:
@@ -582,6 +596,12 @@ hosts::production::redirector::hosts:
     ip: '10.3.5.5'
   bouncer-3:
     ip: '10.3.5.6'
+  bouncer-4:
+    ip: '10.3.13.4'
+  bouncer-5:
+    ip: '10.3.13.5'
+  bouncer-6:
+    ip: '10.3.13.6'
 
 hosts::production::router::hosts:
   cache-1:
@@ -600,6 +620,8 @@ hosts::production::router::hosts:
     ip: '10.3.1.11'
   router-backend-3:
     ip: '10.3.1.12'
+  router-backend-4:
+    ip: '10.3.9.10'
   cache:
     ip: '10.3.1.254'
     legacy_aliases:
