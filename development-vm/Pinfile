@@ -77,6 +77,7 @@ process :tradetariffapi
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
 process :whitehall => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
+process :'whitehall-admin-tagging-test' => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
 
 # pseudo process to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
