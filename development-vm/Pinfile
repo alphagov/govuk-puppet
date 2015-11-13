@@ -51,7 +51,7 @@ process :'performanceplatform-admin' => [:stagecraft]
 process :planner => [:static, :contentapi]
 process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
 process :publisher => [:panopticon, :contentapi]
-process :'publishing-api' => [:'content-store', :'router-api', :'publishing-api-worker']
+process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
 process :reviewomatic => :migratorator
