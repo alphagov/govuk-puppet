@@ -1,7 +1,6 @@
 ---
 
 govuk::apps::contacts::vhost: contacts-admin
-govuk::apps::contacts::vhost_protected: true
 
 govuk::apps::event_store::mongodb_servers:
   - 'mongo-1.backend'
