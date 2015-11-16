@@ -1,13 +1,12 @@
 app_domain: 'environment.example.com'
 
-asset_root: 'http://assets.example.com'
-
 collectd::plugin::postgresql::password: 'password'
 
 govuk::apps::router::mongodb_name: ['router']
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 
+govuk::deploy::config::asset_root: 'http://assets.example.com'
 govuk::deploy::config::website_root: 'http://www.example.com'
 
 govuk::mount::no_op: false

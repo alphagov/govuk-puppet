@@ -1,8 +1,6 @@
 ---
 # These credentials apply only to vagrant machines created with https://github.com/alphagov/vagrant-govuk
 
-asset_root: 'http://static.dev.gov.uk'
-
 app_domain: 'dev.gov.uk'
 
 base::supported_kernel::enabled: true
@@ -18,6 +16,7 @@ govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
+govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
 govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 
 govuk::lvm::no_op: true

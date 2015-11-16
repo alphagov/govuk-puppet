@@ -26,7 +26,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
 
     # Legacy, used everywhere.
     'app_domain',
-    'asset_root',
 
     # disk noops due to defined classes not doing magical hiera lookups
     'govuk::mount::no_op',

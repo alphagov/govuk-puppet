@@ -6,8 +6,6 @@ _: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNm
 
 app_domain: 'publishing.service.gov.uk'
 
-asset_root: 'https://assets.digital.cabinet-office.gov.uk'
-
 backup::assets::dest_host: *offsite_host
 backup::assets::dest_host_key: *offsite_ssh_host_key
 backup::assets::jobs:
@@ -74,6 +72,7 @@ govuk::deploy::actionmailer_enable_delivery: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
+govuk::deploy::config::asset_root: 'https://assets.digital.cabinet-office.gov.uk'
 govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
