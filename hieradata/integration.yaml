@@ -1,0 +1,511 @@
+---
+app_domain: 'integration.publishing.service.gov.uk'
+
+asset_root: "https://assets-origin.%{hiera('app_domain')}"
+
+backup::mysql::rotation_daily: '2'
+backup::mysql::rotation_weekly: '6'
+backup::mysql::rotation_monthly: '28'
+
+base::supported_kernel::enabled: true
+
+cron::weekly_dow: 1
+
+govuk::apps::courts_api::enabled: true
+govuk::apps::courts_frontend::enabled: true
+govuk::apps::email_alert_monitor::enabled: true
+govuk::apps::content_register::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::email_alert_api::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::email_alert_monitor::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::email_campaign_api::enabled: true
+govuk::apps::email_campaign_api::mongodb_nodes:
+  - 'api-mongo-1.api'
+  - 'api-mongo-2.api'
+  - 'api-mongo-3.api'
+govuk::apps::email_campaign_frontend::enabled: true
+govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-integration@digital.cabinet-office.gov.uk'
+govuk::apps::event_store::enabled: true
+govuk::apps::government_frontend::enable_service_manual: true
+govuk::apps::govuk_cdn_logs_monitor::enabled: true
+govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
+govuk::apps::hmrc_manuals_api::publish_topics: true
+govuk::apps::mapit::enabled: true
+govuk::apps::policy_publisher::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
+govuk::apps::publishing_api::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::service_manual_publisher::enabled: true
+govuk::apps::signon::enable_logstream: true
+govuk::apps::smartanswers::expose_govspeak: true
+govuk::apps::specialist_publisher::publish_pre_production_finders: true
+govuk::apps::service_manual_publisher::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::sidekiq_monitoring::enabled: true
+govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.1.4.0/24'
+govuk::apps::support_api::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::transition::postgresql_db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
+
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
+govuk::deploy::config::errbit_environment_name: 'integration'
+govuk::deploy::setup::ssh_keys:
+  jenkins_key: FIXME-add-key-when-generated
+  jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
+
+govuk_crawler::seed_enable: true
+
+govuk_elasticsearch::dump::run_es_dump_hour: '9'
+
+govuk_jenkins::ssh_key::public_key: 'FIXME-add-key-when-generated'
+
+govuk_mysql::server::innodb_file_per_table: true
+govuk_mysql::server::slow_query_log: true
+
+govuk::node::s_api_lb::api_servers:
+  - "api-1.api"
+  - "api-2.api"
+govuk::node::s_api_lb::content_store_servers:
+  - "content-store-1.api"
+  - "content-store-2.api"
+govuk::node::s_api_lb::draft_content_store_servers:
+- "draft-content-store-1.api"
+- "draft-content-store-2.api"
+govuk::node::s_api_lb::email_campaign_api_servers:
+  - "email-campaign-api-1.api"
+  - "email-campaign-api-2.api"
+govuk::node::s_api_lb::search_servers:
+  - "search-1.api"
+  - "search-2.api"
+govuk::node::s_api_redis::allowed_api_ip_range: '10.1.4.0/24'
+govuk::node::s_api_redis::allowed_backend_ip_range: '10.1.3.0/24'
+
+govuk::node::s_asset_master::run_virus_scan_clean_hour: '9'
+
+govuk::node::s_asset_base::firewall_allow_ip_range: '10.1.3.0/24'
+govuk::node::s_backend_lb::backend_servers:
+  - 'backend-1.backend'
+  - 'backend-2.backend'
+govuk::node::s_backend_lb::performance_backend_servers:
+  - 'performance-backend-1.backend'
+  - 'performance-backend-2.backend'
+govuk::node::s_backend_lb::whitehall_backend_servers:
+  - 'whitehall-backend-1.backend'
+  - 'whitehall-backend-2.backend'
+govuk::node::s_backend_lb::mapit_servers:
+  - 'mapit-server-1.backend'
+  - 'mapit-server-2.backend'
+govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
+govuk::node::s_backup::backup_efg: false
+govuk::node::s_backup::backup_email_campaign: false
+govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
+govuk::node::s_cache::protect_cache_servers: true
+govuk::node::s_frontend_lb::calculators_frontend_servers:
+  - 'calculators-frontend-1.frontend'
+  - 'calculators-frontend-2.frontend'
+govuk::node::s_frontend_lb::draft_frontend_servers:
+  - 'draft-frontend-1.frontend'
+  - 'draft-frontend-2.frontend'
+govuk::node::s_frontend_lb::email_campaign_frontend_servers:
+  - "email-campaign-frontend-1.frontend"
+  - "email-campaign-frontend-2.frontend"
+govuk::node::s_frontend_lb::frontend_servers:
+  - 'frontend-1.frontend'
+  - 'frontend-2.frontend'
+govuk::node::s_frontend_lb::performance_frontend_servers:
+  - 'performance-frontend-1.frontend'
+  - 'performance-frontend-2.frontend'
+govuk::node::s_frontend_lb::performance_frontend_apps:
+  - 'spotlight'
+  - 'performanceplatform-big-screen-view'
+govuk::node::s_frontend_lb::whitehall_frontend_servers:
+  - 'whitehall-frontend-1.frontend'
+  - 'whitehall-frontend-2.frontend'
+govuk::node::s_logs_elasticsearch::rotate_hour: 06
+govuk::node::s_logs_elasticsearch::rotate_minute: 00
+# to enable/disable licensing_api next two flags are necessary (yes I know this breaks the alphabet)
+govuk::node::s_licensify_backend::enable_licensing_api: true
+govuk::node::s_licensify_lb::enable_licensing_api: true
+govuk::node::s_licensify_lb::enable_feed_console: true
+govuk::node::s_licensify_lb::licensify_backend_servers:
+  - 'licensify-backend-1.licensify'
+  - 'licensify-backend-2.licensify'
+govuk::node::s_licensify_lb::licensify_frontend_servers:
+  - 'licensify-frontend-1.licensify'
+  - 'licensify-frontend-2.licensify'
+govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
+govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
+govuk::node::s_logging::compress_srv_logs_hour: '9'
+govuk::node::s_whitehall_backend::sync_mirror: true
+govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
+
+# FIXME: This PPA should be renamed 'integration'
+govuk::ppa::path: 'preview'
+
+grafana::dashboards::machine_suffix_metrics: '_integration'
+
+hosts::production::carrenza_vcloud: true
+hosts::production::external_licensify: true
+hosts::production::ip_api_lb: '10.1.4.254'
+hosts::production::ip_backend_lb: '10.1.3.254'
+hosts::production::ip_bouncer: '31.210.245.101'
+hosts::production::ip_draft_api_lb: '10.1.4.253'
+hosts::production::ip_frontend_lb: '10.1.2.254'
+# FIXME: Add host entries here similar to staging when we have a public IP address to point to.
+hosts::production::licensify_hosts: []
+
+hosts::production::api::hosts:
+  api-1:
+    ip: '10.1.4.16'
+  api-2:
+    ip: '10.1.4.17'
+  api-elasticsearch-1:
+    ip: '10.1.4.25'
+  api-elasticsearch-2:
+    ip: '10.1.4.26'
+  api-elasticsearch-3:
+    ip: '10.1.4.27'
+  api-lb-1:
+    ip: '10.1.4.101'
+  api-lb-2:
+    ip: '10.1.4.102'
+  api-mongo-1:
+    ip: '10.1.4.21'
+  api-mongo-2:
+    ip: '10.1.4.22'
+  api-mongo-3:
+    ip: '10.1.4.23'
+  api-postgresql-primary-1:
+    ip: '10.1.4.40'
+  api-postgresql-standby-1:
+    ip: '10.1.4.41'
+  api-redis-1:
+    ip: '10.1.4.29'
+  content-store-1:
+    ip: '10.1.4.11'
+  content-store-2:
+    ip: '10.1.4.12'
+  draft-content-store-1:
+    ip: '10.1.4.200'
+  draft-content-store-2:
+    ip: '10.1.4.201'
+  email-campaign-api-1:
+    ip: '10.1.4.50'
+  email-campaign-api-2:
+    ip: '10.1.4.51'
+  mapit-1:
+    ip: '10.1.4.60'
+  performance-mongo-1:
+    ip: '10.1.4.31'
+  performance-mongo-2:
+    ip: '10.1.4.32'
+  performance-mongo-3:
+    ip: '10.1.4.33'
+  search-1:
+    ip: '10.1.4.4'
+  search-2:
+    ip: '10.1.4.5'
+
+hosts::production::backend::hosts:
+  asset-master-1:
+    ip: '10.1.3.20'
+    legacy_aliases:
+      - "asset-master-1.%{hiera('app_domain')}"
+      - 'asset-master'
+      - "asset-master.%{hiera('app_domain')}"
+  asset-slave-1:
+    ip: '10.1.3.21'
+    legacy_aliases:
+      - "asset-slave-1.%{hiera('app_domain')}"
+      - 'asset-slave'
+      - "asset-slave.%{hiera('app_domain')}"
+  backend-1:
+    ip: '10.1.3.2'
+  backend-2:
+    ip: '10.1.3.3'
+  backend-lb-1:
+    ip: '10.1.3.101'
+  backend-lb-2:
+    ip: '10.1.3.102'
+  elasticsearch-1:
+    ip: '10.1.3.15'
+  elasticsearch-2:
+    ip: '10.1.3.16'
+  elasticsearch-3:
+    ip: '10.1.3.17'
+  exception-handler-1:
+    ip: '10.1.3.40'
+  mapit-server-1:
+    ip: '10.1.3.9'
+  mapit-server-2:
+    ip: '10.1.3.10'
+  mongo-1:
+    ip: '10.1.3.6'
+    service_aliases:
+      - 'mongodb'
+  mongo-2:
+    ip: '10.1.3.7'
+  mongo-3:
+    ip: '10.1.3.8'
+  mysql-backup-1:
+    ip: '10.1.3.93'
+    legacy_aliases:
+      - 'backup.mysql'
+  mysql-master-1:
+    ip: '10.1.3.90'
+    legacy_aliases:
+      - 'master.mysql'
+      - "mysql.backend.%{hiera('internal_tld')}"
+  mysql-slave-1:
+    ip: '10.1.3.91'
+    legacy_aliases:
+      - 'slave.mysql'
+  performance-backend-1:
+    ip: '10.1.3.80'
+  performance-backend-2:
+    ip: '10.1.3.81'
+  postgresql-primary-1:
+    ip: '10.1.3.12'
+  postgresql-standby-1:
+    ip: '10.1.3.13'
+  rabbitmq-1:
+    ip: '10.1.3.70'
+  rabbitmq-2:
+    ip: '10.1.3.71'
+  rabbitmq-3:
+    ip: '10.1.3.72'
+  redis-1:
+    ip: '10.1.3.50'
+  redis-2:
+    ip: '10.1.3.51'
+  transition-postgresql-master-1:
+    ip: '10.1.3.60'
+    legacy_aliases:
+      - 'transition-master.postgresql'
+      - "transition-postgresql.backend.%{hiera('internal_tld')}"
+  transition-postgresql-slave-1:
+    ip: '10.1.3.61'
+    legacy_aliases:
+      - 'transition-slave.postgresql'
+  whitehall-backend-1:
+    ip: '10.1.3.25'
+  whitehall-backend-2:
+    ip: '10.1.3.26'
+  whitehall-mysql-backup-1:
+    ip: '10.1.3.34'
+    legacy_aliases:
+      - 'whitehall-backup.mysql'
+  whitehall-mysql-master-1:
+    ip: '10.1.3.30'
+    legacy_aliases:
+      - 'whitehall-master.mysql'
+      - "whitehall-mysql.backend.%{hiera('internal_tld')}"
+  whitehall-mysql-slave-1:
+    ip: '10.1.3.31'
+    legacy_aliases:
+      - 'whitehall-slave.mysql'
+
+hosts::production::frontend::hosts:
+  calculators-frontend-1:
+    ip: '10.1.2.11'
+  calculators-frontend-2:
+    ip: '10.1.2.12'
+  frontend-1:
+    ip: '10.1.2.2'
+  frontend-2:
+    ip: '10.1.2.3'
+  draft-frontend-1:
+    ip: '10.1.2.200'
+  draft-frontend-2:
+    ip: '10.1.2.201'
+  email-campaign-frontend-1:
+    ip: '10.1.2.30'
+  email-campaign-frontend-2:
+    ip: '10.1.2.31'
+  performance-frontend-1:
+    ip: '10.1.2.20'
+  performance-frontend-2:
+    ip: '10.1.2.21'
+  whitehall-frontend-1:
+    ip: '10.1.2.5'
+  whitehall-frontend-2:
+    ip: '10.1.2.6'
+  frontend-lb-1:
+    ip: '10.1.2.101'
+  frontend-lb-2:
+    ip: '10.1.2.102'
+
+hosts::production::management::hosts:
+  jenkins-1:
+    ip: '10.1.0.3'
+  puppetmaster-1:
+    ip: '10.1.0.5'
+    legacy_aliases:
+      - 'puppet'
+    service_aliases:
+      - 'puppet'
+      - 'puppetdb'
+  monitoring-1:
+    ip: '10.1.0.20'
+    legacy_aliases:
+      - 'monitoring'
+    service_aliases:
+      - 'alert'
+      - 'monitoring'
+  graphite-1:
+    ip: '10.1.0.22'
+    legacy_aliases:
+      - "graphite.%{hiera('app_domain')}"
+    service_aliases:
+      - 'graphite'
+  logs-cdn-1:
+    ip: '10.1.0.27'
+  logging-1:
+    ip: '10.1.0.28'
+    service_aliases:
+      - 'logging'
+  logs-elasticsearch-1:
+    ip: '10.1.0.29'
+    service_aliases:
+      - 'logs-elasticsearch'
+  logs-elasticsearch-2:
+    ip: '10.1.0.30'
+  logs-elasticsearch-3:
+    ip: '10.1.0.31'
+  logs-redis-1:
+    ip: '10.1.0.40'
+  logs-redis-2:
+    ip: '10.1.0.41'
+  backup-1:
+    ip: '10.1.0.50'
+  etcd-1:
+    ip: '10.1.0.60'
+  etcd-2:
+    ip: '10.1.0.61'
+  etcd-3:
+    ip: '10.1.0.62'
+  apt-1:
+    ip: '10.1.0.75'
+    service_aliases:
+      - 'apt'
+  jumpbox-1:
+    ip: '10.1.0.100'
+  jumpbox-2:
+    ip: '10.1.0.200'
+  mirrorer-1:
+    ip: '10.1.0.128'
+
+hosts::production::redirector::hosts:
+  bouncer-1:
+    ip: '10.1.5.4'
+  bouncer-2:
+    ip: '10.1.5.5'
+
+hosts::production::licensify::app_hostnames:
+  - 'licensify'
+  - 'uploadlicence'
+  - 'licensify-admin'
+  - 'licensing-web-forms'
+
+hosts::production::router::hosts:
+  cache-1:
+    ip: '10.1.1.2'
+  cache-2:
+    ip: '10.1.1.3'
+  draft-cache-1:
+    ip: '10.1.1.200'
+  draft-cache-2:
+    ip: '10.1.1.201'
+  router-backend-1:
+    ip: '10.1.1.10'
+  router-backend-2:
+    ip: '10.1.1.11'
+  router-backend-3:
+    ip: '10.1.1.12'
+  cache:
+    ip: '10.1.1.254'
+    legacy_aliases:
+      - 'cache'
+      - "www.%{hiera('app_domain')}"
+      - "www-origin.%{hiera('app_domain')}"
+      - "assets-origin.%{hiera('app_domain')}"
+    service_aliases:
+      - 'cache'
+      - 'router'
+  router-backend-internal-lb:
+    ip: '10.1.1.253'
+    legacy_aliases:
+      - "router-api.%{hiera('app_domain')}"
+  draft-cache-internal-lb:
+    ip: '10.1.1.252'
+    legacy_aliases:
+      - "draft-router-api.%{hiera('app_domain')}"
+
+icinga::client::check_cputype::cputype: 'amd'
+
+internal_tld: 'integration.publishing.service.gov.uk'
+
+licensify::apps::licensing_web_forms::enabled: true
+
+monitoring::checks::pingdom::enable: false
+monitoring::checks::ses::critical: 50
+monitoring::checks::ses::region: eu-west-1
+monitoring::checks::ses::warning: 30
+
+postfix::smarthost:
+  - 'email-smtp.eu-west-1.amazonaws.com:587'
+  - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
+
+postgresql_api_slave_addresses_live: '10.1.4.41/32'
+postgresql_slave_addresses_live: '10.1.3.13/32'
+postgresql_transition_slave_addresses_live: '10.1.3.61/32'
+postgresql_transition_slave_addresses_dr: '10.1.11.61/32'
+
+router::nginx::check_requests_warning: '@0.5'
+router::nginx::check_requests_critical: '@0.25'
+
+shell::shell_prompt_string: 'integration'
+
+users::usernames:
+  - alexmuller
+  - alext
+  - alextorrance
+  - andrewvos
+  - benilovj
+  - benlovell
+  - bob
+  - bradleyw
+  - chrispatuzzo
+  - chrisroos
+  - danielroseman
+  - davidbasalla
+  - davidsingleton
+  - elliot
+  - gemmaleigh
+  - isabelllong
+  - jackscotti
+  - jamesmead
+  - jamiec
+  - jennyduckett
+  - joshmyers
+  - kushalp
+  - leelongmore
+  - leenagupte
+  - marksheldon
+  - mattbostock
+  - mobaig
+  - murraysteele
+  - paulbowsher
+  - paulhayes
+  - paulmartin
+  - richardboulton
+  - robinwhittleton
+  - robyoung
+  - stephenrichards
+  - stevelaing
+  - stuartgale
+  - tadast
+  - tatianasoukiassian
+  - tijmenbrommet
+  - timothymower
+  - tombooth
+  - tommypalmer
+
+website_root: "https://www-origin.%{hiera('app_domain')}"
