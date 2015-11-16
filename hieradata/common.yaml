@@ -944,3 +944,5 @@ unattended_reboot::etcd_endpoints:
   - "http://etcd-3.management:4001"
 
 unicornherder::version: '0.0.8'
+
+website_root: "https://www-origin.%{hiera('app_domain')}"

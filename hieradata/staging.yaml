@@ -625,5 +625,3 @@ users::usernames:
   - timothymower
   - tombooth
   - tommypalmer
-
-website_root: "https://www-origin.%{hiera('app_domain')}"
