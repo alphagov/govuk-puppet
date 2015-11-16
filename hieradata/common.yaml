@@ -366,7 +366,6 @@ grafana::dashboards::machine_suffix_metrics: ''
 
 grub2::recordfail_timeout: 5
 
-hosts::production::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 hosts::production::efg_domains:
   - "%{hiera('efg_domain')}"
 hosts::production::ip_api_lb: '10.7.1.2'
@@ -705,7 +704,6 @@ hosts::production::licensify::hosts:
   licensify-lb-2:
     ip: '10.5.0.102'
 
-hosts::production::management::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 hosts::production::management::hosts:
   jenkins-1:
     ip: '10.0.0.3'
@@ -757,6 +755,10 @@ hosts::production::management::hosts:
     ip: '10.0.0.61'
   etcd-3:
     ip: '10.0.0.62'
+  apt-1:
+    ip: '10.0.0.75'
+    service_aliases:
+      - 'apt'
   jumpbox-1:
     ip: '10.0.0.100'
   mirrorer-1:

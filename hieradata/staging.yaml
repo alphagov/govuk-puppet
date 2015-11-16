@@ -434,7 +434,6 @@ hosts::production::frontend::hosts:
   frontend-lb-2:
     ip: '10.2.2.102'
 
-hosts::production::management::apt_host_ip: '10.2.0.75'
 hosts::production::management::hosts:
   jenkins-1:
     ip: '10.2.0.3'
@@ -484,6 +483,10 @@ hosts::production::management::hosts:
     ip: '10.2.0.61'
   etcd-3:
     ip: '10.2.0.62'
+  apt-1:
+    ip: '10.2.0.75'
+    service_aliases:
+      - 'apt'
   jumpbox-1:
     ip: '10.2.0.100'
   mirrorer-1:

@@ -282,7 +282,6 @@ govuk_crawler::ssh_keys:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b'
     type: 'ssh-rsa'
 
-hosts::production::apt_mirror_internal: true
 hosts::production::carrenza_vcloud: true
 hosts::production::efg_domains: []
 hosts::production::external_licensify: true
@@ -296,7 +295,6 @@ hosts::production::licensify_hosts:
     ip: '37.26.90.230'
   licensify-admin.publishing.service.gov.uk:
     ip: '37.26.90.233'
-hosts::production::management::apt_host_ip: '10.3.0.75'
 hosts::production::releaseapp_host_org: true
 
 hosts::production::api::hosts:
@@ -581,6 +579,12 @@ hosts::production::management::hosts:
     ip: '10.3.0.61'
   etcd-3:
     ip: '10.3.0.62'
+  apt-1:
+    ip: '10.3.0.75'
+    legacy_aliases:
+      - "%{hiera('apt_mirror_hostname')}"
+    service_aliases:
+      - 'apt'
   jumpbox-1:
     ip: '10.3.0.100'
   mirrorer-1:

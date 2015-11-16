@@ -7,11 +7,6 @@
 #
 # === Parameters:
 #
-# [*apt_mirror_internal*]
-#   Point `apt.#{app_domain}` to `apt-1` within this
-#   environment. Instead of going to the Production VSE.
-#   Default: false
-#
 # [*carrenza_vcloud*]
 #   Creates an /etc/hosts entry to access the vCloud API from a
 #   whitelisted IP without requiring a VPN connection.
@@ -50,8 +45,6 @@
 #   Default: false
 #
 class hosts::production (
-  $apt_mirror_hostname         = undef,
-  $apt_mirror_internal         = false,
   $carrenza_vcloud             = false,
   $efg_domains                 = [],
   $external_licensify          = false,
@@ -134,10 +127,7 @@ class hosts::production (
   }
 
   #management vdc machines
-  class { 'hosts::production::management':
-    apt_mirror_hostname => $apt_mirror_hostname,
-    apt_mirror_internal => $apt_mirror_internal,
-  }
+  class { 'hosts::production::management': }
 
   # redirector vdc machines
   class { 'hosts::production::redirector':
