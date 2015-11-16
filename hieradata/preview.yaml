@@ -11,8 +11,6 @@ base::supported_kernel::enabled: true
 
 cron::weekly_dow: 1
 
-efg_domain: 'efg.preview.alphagov.co.uk'
-
 govuk::apps::courts_api::enabled: true
 govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_monitor::enabled: true

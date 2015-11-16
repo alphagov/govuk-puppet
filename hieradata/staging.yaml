@@ -5,8 +5,6 @@ asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
 base::supported_kernel::enabled: true
 
-efg_domain: "www.sflg.gov.uk"
-
 govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.2.3.0/24'

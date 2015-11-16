@@ -52,8 +52,6 @@ backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 
 base::supported_kernel::enabled: true
 
-efg_domain: "www.sflg.gov.uk"
-
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'

@@ -151,7 +151,7 @@ govuk::apps::content_register::rabbitmq_hosts:
   - rabbitmq-2.backend
   - rabbitmq-3.backend
 
-govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
+govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 
 govuk::apps::email_alert_api::enabled: true
 # These are overridden on preview
