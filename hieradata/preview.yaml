@@ -161,7 +161,6 @@ router::nginx::check_requests_critical: '@0.25'
 shell::shell_prompt_string: 'preview'
 
 users::usernames:
-  - aleksandrdrozdov
   - alexmuller
   - alext
   - alextorrance
@@ -170,7 +169,6 @@ users::usernames:
   - benlovell
   - bob
   - bradleyw
-  - carolinegreen
   - chrispatuzzo
   - chrisroos
   - danielroseman
@@ -197,7 +195,6 @@ users::usernames:
   - richardboulton
   - robinwhittleton
   - robyoung
-  - rthorn
   - stephenrichards
   - stevelaing
   - stuartgale
@@ -206,7 +203,6 @@ users::usernames:
   - tijmenbrommet
   - timothymower
   - tombooth
-  - tombyers
   - tommypalmer
 
 website_root: "https://www.%{hiera('app_domain')}"
