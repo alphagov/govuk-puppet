@@ -366,8 +366,6 @@ grafana::dashboards::machine_suffix_metrics: ''
 
 grub2::recordfail_timeout: 5
 
-hosts::production::efg_domains:
-  - "%{hiera('efg_domain')}"
 hosts::production::ip_api_lb: '10.7.1.2'
 hosts::production::ip_backend_lb: '10.3.1.2'
 hosts::production::ip_draft_api_lb: '10.7.2.2'

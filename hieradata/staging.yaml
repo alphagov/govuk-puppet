@@ -188,7 +188,6 @@ govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 grafana::dashboards::machine_suffix_metrics: '_staging'
 
 hosts::production::carrenza_vcloud: true
-hosts::production::efg_domains: []
 hosts::production::external_licensify: true
 hosts::production::ip_api_lb: '10.2.4.254'
 hosts::production::ip_backend_lb: '10.2.3.254'
