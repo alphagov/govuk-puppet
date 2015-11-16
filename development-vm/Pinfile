@@ -46,7 +46,7 @@ process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
 process :migratorator
 process :need_api
-process :panopticon => [:'url-arbiter', :'router-api', :rummager]
+process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
 process :planner => [:static, :contentapi]
 process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
@@ -77,7 +77,6 @@ process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
-process :'url-arbiter'
 process :whitehall => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
 
 # pseudo process to reflect what's needed for www.dev.gov.uk to work at all
