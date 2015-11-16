@@ -645,9 +645,7 @@ internal_tld: 'publishing.service.gov.uk'
 licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::mirror::enabled: true
-monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: us-east-1
-monitoring::checks::ses::warning: 30
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true

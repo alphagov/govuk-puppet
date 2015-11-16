@@ -439,9 +439,7 @@ internal_tld: 'integration.publishing.service.gov.uk'
 licensify::apps::licensing_web_forms::enabled: true
 
 monitoring::checks::pingdom::enable: false
-monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
-monitoring::checks::ses::warning: 30
 
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
