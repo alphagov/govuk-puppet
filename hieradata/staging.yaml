@@ -5,8 +5,6 @@ asset_root: "https://assets-origin.%{hiera('app_domain')}"
 
 base::supported_kernel::enabled: true
 
-efg_domain: "www.sflg.gov.uk"
-
 govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.2.3.0/24'
@@ -14,7 +12,6 @@ govuk::apps::email_campaign_api::enabled: true
 govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::govuk_cdn_logs_monitor::enabled: true
-govuk::apps::govuk_crawler_worker::airbrake_env: 'staging'
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
@@ -189,7 +186,6 @@ govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 grafana::dashboards::machine_suffix_metrics: '_staging'
 
 hosts::production::carrenza_vcloud: true
-hosts::production::efg_domains: []
 hosts::production::external_licensify: true
 hosts::production::ip_api_lb: '10.2.4.254'
 hosts::production::ip_backend_lb: '10.2.3.254'
@@ -435,7 +431,6 @@ hosts::production::frontend::hosts:
   frontend-lb-2:
     ip: '10.2.2.102'
 
-hosts::production::management::apt_host_ip: '10.2.0.75'
 hosts::production::management::hosts:
   jenkins-1:
     ip: '10.2.0.3'
@@ -485,6 +480,10 @@ hosts::production::management::hosts:
     ip: '10.2.0.61'
   etcd-3:
     ip: '10.2.0.62'
+  apt-1:
+    ip: '10.2.0.75'
+    service_aliases:
+      - 'apt'
   jumpbox-1:
     ip: '10.2.0.100'
   mirrorer-1:
@@ -550,9 +549,6 @@ internal_tld: 'staging.publishing.service.gov.uk'
 
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
-
-mongodb::server::version: '2.4.9'
-mongodb::server::package_name: 'mongodb-10gen'
 
 monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1

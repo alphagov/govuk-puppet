@@ -11,8 +11,6 @@ base::supported_kernel::enabled: true
 
 cron::weekly_dow: 1
 
-efg_domain: 'efg.preview.alphagov.co.uk'
-
 govuk::apps::courts_api::enabled: true
 govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_monitor::enabled: true
@@ -26,7 +24,6 @@ govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-preview@digital.ca
 govuk::apps::event_store::enabled: true
 govuk::apps::government_frontend::enable_service_manual: true
 govuk::apps::govuk_cdn_logs_monitor::enabled: true
-govuk::apps::govuk_crawler_worker::airbrake_env: 'preview'
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::mapit::enabled: true
@@ -138,9 +135,6 @@ icinga::client::check_cputype::cputype: 'amd'
 internal_tld: 'production'
 
 licensify::apps::licensing_web_forms::enabled: true
-
-mongodb::server::package_name: 'mongodb-10gen'
-mongodb::server::version: '2.4.9'
 
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::critical: 50
