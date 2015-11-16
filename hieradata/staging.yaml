@@ -550,9 +550,6 @@ internal_tld: 'staging.publishing.service.gov.uk'
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 
-mongodb::server::version: '2.4.9'
-mongodb::server::package_name: 'mongodb-10gen'
-
 monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::ses::warning: 30

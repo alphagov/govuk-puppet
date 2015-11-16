@@ -138,9 +138,6 @@ internal_tld: 'production'
 
 licensify::apps::licensing_web_forms::enabled: true
 
-mongodb::server::package_name: 'mongodb-10gen'
-mongodb::server::version: '2.4.9'
-
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
