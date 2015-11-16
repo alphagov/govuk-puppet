@@ -40,7 +40,6 @@ username_whitelist = %w{
   jackscotti
   jamiec
   kushalp
-  rthorn
   tadast
 }
 
