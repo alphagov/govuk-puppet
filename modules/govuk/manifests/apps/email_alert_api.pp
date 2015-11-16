@@ -19,7 +19,13 @@
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
-  $enable_procfile_worker = true
+  $enable_procfile_worker = true,
+  $sidekiq_retry_critical = '20',
+  $sidekiq_retry_warning = '10',
+  $sidekiq_queue_size_critical = '5',
+  $sidekiq_queue_size_warning = '2',
+  $sidekiq_queue_latency_critical = '60',
+  $sidekiq_queue_latency_warning = '30',
 ) {
 
   if $enabled {
@@ -47,6 +53,40 @@ class govuk::apps::email_alert_api(
       logfile => '/var/apps/email-alert-api/log/govdelivery.log',
       fields  => {'application' => 'email-alert-api-govdelivery'},
       json    => true,
+    }
+
+    Govuk::App::Envvar {
+      app => 'email-alert-api',
+    }
+
+    govuk::app::envvar { "${title}-SIDEKIQ_RETRY_CRITICAL_THRESHOLD":
+      varname => 'SIDEKIQ_RETRY_SIZE_CRITICAL',
+      value   => $sidekiq_retry_critical;
+    }
+
+    govuk::app::envvar { "${title}-SIDEKIQ_RETRY_WARNING_THRESHOLD":
+      varname => 'SIDEKIQ_RETRY_SIZE_WARNING',
+      value   => $sidekiq_retry_warning;
+    }
+
+    govuk::app::envvar { "${title}-SIDEKIQ_QUEUE_SIZE_CRITICAL_THRESHOLD":
+      varname => 'SIDEKIQ_QUEUE_SIZE_CRITICAL',
+      value   => $sidekiq_queue_size_critical;
+    }
+
+    govuk::app::envvar { "${title}-SIDEKIQ_QUEUE_SIZE_WARNING_THRESHOLD":
+      varname => 'SIDEKIQ_QUEUE_SIZE_WARNING',
+      value   => $sidekiq_queue_size_warning;
+    }
+
+    govuk::app::envvar { "${title}-SIDEKIQ_QUEUE_LATENCY_CRITICAL_THRESHOLD":
+      varname => 'SIDEKIQ_QUEUE_LATENCY_CRITICAL',
+      value   => $sidekiq_queue_latency_critical;
+    }
+
+    govuk::app::envvar { "${title}-SIDEKIQ_QUEUE_LATENCY_WARNING_THRESHOLD":
+      varname => 'SIDEKIQ_QUEUE_LATENCY_WARNING',
+      value   => $sidekiq_queue_latency_warning;
     }
   }
 }
