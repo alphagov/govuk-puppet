@@ -1,8 +1,6 @@
 ---
 app_domain: 'integration.publishing.service.gov.uk'
 
-asset_root: "https://assets-origin.%{hiera('app_domain')}"
-
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
 backup::mysql::rotation_monthly: '28'

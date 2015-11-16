@@ -1,8 +1,6 @@
 ---
 app_domain: 'staging.publishing.service.gov.uk'
 
-asset_root: "https://assets-origin.%{hiera('app_domain')}"
-
 base::supported_kernel::enabled: true
 
 govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
