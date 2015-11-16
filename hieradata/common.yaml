@@ -568,7 +568,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-register'
   - 'contentapi'
-  - 'courts-api'
   - 'email-alert-api'
   - 'email-alert-monitor'
   - 'errbit'

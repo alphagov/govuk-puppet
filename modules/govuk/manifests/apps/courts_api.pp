@@ -19,6 +19,8 @@ class govuk::apps::courts_api(
 ) {
   if $enabled {
     govuk::app { 'courts-api':
+      # FIXME: delete this class and remove it from hieradata when this has been deployed
+      ensure             => absent,
       app_type           => 'rack',
       port               => $port,
       vhost_ssl_only     => true,
