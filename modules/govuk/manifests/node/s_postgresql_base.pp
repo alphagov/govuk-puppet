@@ -10,7 +10,6 @@ class govuk::node::s_postgresql_base inherits govuk::node::s_base {
   include govuk::apps::publishing_api::db
   include govuk::apps::service_manual_publisher::db
   include govuk::apps::support_api::db
-  include govuk::apps::url_arbiter::db # FIXME: url_arbiter::db is ensured absent.  Remove once its gone everywhere
 
   Govuk::Mount['/var/lib/postgresql'] -> Class['govuk_postgresql::server']
 }
