@@ -14,7 +14,6 @@ govuk::apps::email_campaign_api::enabled: true
 govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::govuk_cdn_logs_monitor::enabled: true
-govuk::apps::govuk_crawler_worker::airbrake_env: 'staging'
 govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
