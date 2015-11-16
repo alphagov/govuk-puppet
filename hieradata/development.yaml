@@ -221,7 +221,6 @@ hosts::development::apps:
   - 'tariff'
   - 'transition'
   - 'travel-advice-publisher'
-  - 'url-arbiter'
   - 'whitehall-admin'
   - 'whitehall-frontend'
   - 'whitehall'

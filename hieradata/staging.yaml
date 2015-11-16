@@ -24,7 +24,6 @@ govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.2.4.0/24'
 govuk::apps::support_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::transition::postgresql_db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::url_arbiter::db::backend_ip_range: '10.2.3.0/24'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'

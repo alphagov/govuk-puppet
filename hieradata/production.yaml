@@ -71,7 +71,6 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.3.4.0/24'
 govuk::apps::support_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::transition::postgresql_db::backend_ip_range: '10.3.3.0/24'
-govuk::apps::url_arbiter::db::backend_ip_range: '10.3.3.0/24'
 
 govuk::deploy::actionmailer_enable_delivery: true
 

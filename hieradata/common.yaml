@@ -266,7 +266,6 @@ govuk::node::s_backend::apps:
   - govuk::apps::tariff_api
   - govuk::apps::transition
   - govuk::apps::travel_advice_publisher
-  - govuk::apps::url_arbiter
 
 govuk::node::s_frontend::apps:
   - govuk::apps::canary_frontend
@@ -597,7 +596,6 @@ hosts::production::backend::app_hostnames:
   - 'tariff-api'
   - 'transition'
   - 'travel-advice-publisher'
-  - 'url-arbiter'
   - 'whitehall-admin'
 
 hosts::production::frontend::hosts:
