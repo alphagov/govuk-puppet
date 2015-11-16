@@ -18,6 +18,7 @@ govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
+govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 
 govuk::lvm::no_op: true
 
@@ -121,5 +122,3 @@ ssh::config::allow_users:
 
 users::usernames:
   - null_user
-
-website_root: 'http://www.dev.gov.uk'

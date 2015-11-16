@@ -223,6 +223,8 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
+govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
+
 govuk::htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: 10.7.0.0/16
@@ -944,5 +946,3 @@ unattended_reboot::etcd_endpoints:
   - "http://etcd-3.management:4001"
 
 unicornherder::version: '0.0.8'
-
-website_root: "https://www-origin.%{hiera('app_domain')}"

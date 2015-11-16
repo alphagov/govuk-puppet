@@ -8,6 +8,8 @@ govuk::apps::router::mongodb_name: ['router']
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 
+govuk::deploy::config::website_root: 'http://www.example.com'
+
 govuk::mount::no_op: false
 
 govuk_app_enable_services: false
@@ -32,8 +34,6 @@ internal_tld: 'example'
 
 users::pentest_machines: ['foo']
 users::pentest_usernames: ['andre_the_giant']
-
-website_root: 'http://www.example.com'
 
 www_crt: WWW_CRT
 www_key: WWW_KEY

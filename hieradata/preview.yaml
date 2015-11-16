@@ -35,6 +35,7 @@ govuk::apps::specialist_publisher::publish_pre_production_finders: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'preview'
+govuk::deploy::config::website_root: "https://www.%{hiera('app_domain')}"
 govuk::deploy::setup::ssh_keys:
   jenkins_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDa9RlyGmK0r/JOL2rRdJA1e64vr1pJ6fv2PaqfuuvxtIWwG+VRV6PO2FbahJF9vRNZPWVAJY32olkvE5jHT5hYP9VULhQNfOMzyFwgx8D/g/ofp6Iu+t5UltES3ER4r6id7kwB7AskgMaFXuiOq5n2l08+w+n9P/7I0k4Ptr2eMDL3KTgZ9V9pc2iriULdflRrdmiY0CFzpRfopVXQHxzVM1Ko9ytdxCFHbdTnnMyueQm3bNC6uuwHs2Hcecq1LB1OtfUBS5OHeR6uES3tPpQ1MzP9/DTmwYhsDZUMRIEwy4gB4S+Jb9e81U9BmZgrDdfgW//wXy534GqUSYcANjID
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
@@ -198,5 +199,3 @@ users::usernames:
   - timothymower
   - tombooth
   - tommypalmer
-
-website_root: "https://www.%{hiera('app_domain')}"
