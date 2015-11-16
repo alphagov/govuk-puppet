@@ -5,10 +5,7 @@ app_domain: 'dev.gov.uk'
 
 base::supported_kernel::enabled: true
 
-govuk::apps::email_campaign_api::enabled: true
-govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::mapit::enabled: true
-govuk::apps::govuk_cdn_logs_monitor::enabled: true
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
