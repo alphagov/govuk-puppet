@@ -19,7 +19,6 @@ process :'content-register'
 process :'content-store'
 process :'draft-content-store'
 process :'contact-o-tron'
-process :'courts-frontend' => [:static, :'content-store']
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'
