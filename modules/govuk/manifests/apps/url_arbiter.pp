@@ -4,12 +4,11 @@ class govuk::apps::url_arbiter(
 ) {
 
   govuk::app { 'url-arbiter':
+    ensure             => absent,
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
   }
-
-  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 }
