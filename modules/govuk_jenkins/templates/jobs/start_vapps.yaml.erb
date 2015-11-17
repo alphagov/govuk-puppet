@@ -1,0 +1,42 @@
+---
+- scm:
+    name: govuk-provisioning_start_vapps
+    scm:
+        - git:
+            url: git@github.gds:gds/govuk-provisioning.git
+            branches:
+                - master
+            skip-tag: true
+            wipe-workspace: false
+
+- job:
+    name: start_vapps
+    display-name: Start vApps
+    description: |
+        Starts all vApps in vCloud Director.
+        Requires vApps to be owned by the vCloud user that this script runs under,
+        otherwise the vApps are not visible to the script.
+    project-type: freestyle
+    properties:
+        - inject:
+            properties-content: |
+              USERNAME=<%= @vcloud_properties['username'] %>
+              VCLOUD_ORG=<%= @vcloud_properties['org'] %>
+              VCLOUD_ENV=<%= @vcloud_properties['env'] %>
+              VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
+              VCLOUD_HOST=<%= @vcloud_properties['host'] %>
+    scm:
+        - govuk-provisioning_start_vapps
+    wrappers:
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+                - name: VCLOUD_PASSWORD
+                  password: '<%= @vcloud_properties['password'] -%>'
+    builders:
+        - shell: |
+            cd tools/start_stop_vapps/
+            ./run.sh ./start_stop_all_vapps.rb start
+    triggers:
+        - timed: '30 4 * * 1-5'
