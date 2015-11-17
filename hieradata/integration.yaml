@@ -54,6 +54,54 @@ govuk_crawler::seed_enable: true
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
+govuk_jenkins::config::banner_colour_background: '#0000ff'
+govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_string: 'Carrenza INTEGRATION'
+govuk_jenkins::config::manage_config: true
+
+govuk_jenkins::config::admins:
+  - alexmuller
+  - bobwalker
+  - ci_alphagov
+  - joshmyers
+  - mattbostock
+  - paulmartin
+
+govuk_jenkins::config::users:
+  - alexmuller
+  - alextomlins
+  - bobwalker
+  - bradleywright
+  - danielroseman
+  - davidsingleton
+  - deploy
+  - elliotcrosbymccullough
+  - jakebenilov
+  - jamiecobbett
+  - jennyduckett
+  - joshmyers
+  - kushalpisavadia
+  - mattbostock
+  - paulmartin
+  - richardboulton
+  - robyoung
+  - stevelaing
+  - timothymower
+  - tombooth
+  - tommypalmer
+
+govuk_jenkins::job_builder::manage_jobs: true
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::launch_vms
+  - govuk_jenkins::job::network_config_deploy
+govuk_jenkins::job_builder::environment: 'integration'
+
+govuk_jenkins::job::network_config_deploy::environments:
+  - 'carrenza-integration'
+  - 'carrenza-integration-dr'
+  - 'skyscape-integration'
+
 govuk_jenkins::ssh_key::public_key: 'FIXME-add-key-when-generated'
 
 govuk_mysql::server::innodb_file_per_table: true
