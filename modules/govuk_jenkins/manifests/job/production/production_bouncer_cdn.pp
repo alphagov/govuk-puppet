@@ -21,10 +21,23 @@ class govuk_jenkins::job::production::production_bouncer_cdn (
   $cdn_password_encrypted = undef,
   $cdn_service_id = undef,
   $cdn_username = undef,
+  $app_domain = hiera('app_domain'),
 ) {
+
+  $check_name = 'production-bouncer-cdn-configuration'
+  $service_description = "Configure Bouncer's CDN service with transitioning sites"
+  $job_url = "https://deploy.${app_domain}/job/Production_Bouncer_CDN/"
+
   file { '/etc/jenkins_jobs/jobs/production_bouncer_cdn.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production/production_bouncer_cdn.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
+  }
+
+  @@icinga::passive_check { "${check_name}_${::hostname}":
+    service_description => $service_description,
+    host_name           => $::fqdn,
+    freshness_threshold => 104400,
+    action_url          => $job_url,
   }
 }
