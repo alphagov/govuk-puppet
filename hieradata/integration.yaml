@@ -98,6 +98,9 @@ govuk_jenkins::job::network_config_deploy::environments:
 
 govuk_jenkins::ssh_key::public_key: 'FIXME-add-key-when-generated'
 
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::vapps
+
 govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
 
