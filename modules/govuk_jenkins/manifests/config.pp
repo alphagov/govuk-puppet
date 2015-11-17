@@ -35,9 +35,6 @@
 # [*github_client_secret*]
 #   The Github client secret is used to authenticate against Github.
 #
-# [*users*]
-#   List of users that have "2ndline" permissions in Jenkins.
-#
 # [*admins*]
 #   List of admins that have "admin" permissions in Jenkins.
 #
@@ -55,12 +52,10 @@ class govuk_jenkins::config (
   $github_api_uri,
   $github_client_id,
   $github_client_secret,
-  $users = [],
   $admins = [],
   $manage_config = false,
 ) {
 
-  validate_array($users)
   validate_array($admins)
 
   if $manage_config {
