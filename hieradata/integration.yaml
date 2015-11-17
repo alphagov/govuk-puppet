@@ -64,7 +64,6 @@ govuk_jenkins::config::admins:
   - danielroseman
   - davidbasalla
   - davidsingleton
-  - deploy
   - elliotcrosbymccullough
   - isabelllong
   - jackscotti

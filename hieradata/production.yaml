@@ -91,7 +91,6 @@ govuk_jenkins::config::admins:
   - ci_alphagov
   - danielroseman
   - davidsingleton
-  - deploy
   - elliotcrosbymccullough
   - jakebenilov
   - jamiecobbett
