@@ -26,10 +26,6 @@
         - trigger-parameterized-builds:
             - project: Deploy_App
               predefined-parameters: |
-                TARGET_APPLICATION=url-arbiter
-                DEPLOY_TASK=deploy:hard_restart
-            - project: Deploy_App
-              predefined-parameters: |
                 TARGET_APPLICATION=content-register
                 DEPLOY_TASK=deploy:hard_restart
         - email:
