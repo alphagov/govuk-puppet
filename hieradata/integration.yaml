@@ -250,6 +250,10 @@ hosts::production::api::hosts:
     ip: '10.1.4.4'
   search-2:
     ip: '10.1.4.5'
+  # FIXME: This machine doesn't exist, but this host entry
+  # is depended upon by s_api_elasticsearch. We should fix that.
+  search-3:
+    ip: '10.1.4.6'
 
 hosts::production::backend::hosts:
   asset-master-1:
