@@ -41,7 +41,7 @@ govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'integration'
 govuk::deploy::setup::ssh_keys:
-  jenkins_key: FIXME-add-key-when-generated
+  jenkins_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZExXUh13K5XALJlqfQEYzVzUd6PC7P2mpcebMX9paV/r9UU0CXu6s7kGEspLlI5dxO5m5MRdcBdq2BjlMMWWO9jQ/JlEMD06UKsAQB8qWm3D8Zy7p93/JvBctVFZNJ6C8HXblktFvR6QniJ4uteGh5Nu75vratniEQ0FyLxND+zDKE1zO/N8CPTvpDeL8uKY0S1igaRjlN63B1rO1JrLVao/Dk6xVy+NDWlCriHlGOVH91OEj+6oYLJAQJ/L41z8VJGFq7pvZYvVy0iiI0daUWhvLNK9KqMl3qKujdG6S6HU7wsrNZlm2pa7qm135YYMt+z18hGwC3t'
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
 
 govuk_crawler::seed_enable: true
@@ -96,7 +96,7 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-integration-dr'
   - 'skyscape-integration'
 
-govuk_jenkins::ssh_key::public_key: 'FIXME-add-key-when-generated'
+govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZExXUh13K5XALJlqfQEYzVzUd6PC7P2mpcebMX9paV/r9UU0CXu6s7kGEspLlI5dxO5m5MRdcBdq2BjlMMWWO9jQ/JlEMD06UKsAQB8qWm3D8Zy7p93/JvBctVFZNJ6C8HXblktFvR6QniJ4uteGh5Nu75vratniEQ0FyLxND+zDKE1zO/N8CPTvpDeL8uKY0S1igaRjlN63B1rO1JrLVao/Dk6xVy+NDWlCriHlGOVH91OEj+6oYLJAQJ/L41z8VJGFq7pvZYvVy0iiI0daUWhvLNK9KqMl3qKujdG6S6HU7wsrNZlm2pa7qm135YYMt+z18hGwC3t'
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::vapps
