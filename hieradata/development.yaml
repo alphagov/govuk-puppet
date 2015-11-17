@@ -56,6 +56,7 @@ govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::mapit::enabled: true
+govuk::apps::panopticon::enable_procfile_worker: false
 govuk::apps::panopticon::rabbitmq::configure_test_details: true
 govuk::apps::panopticon::rabbitmq_hosts: ['localhost']
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
