@@ -142,8 +142,11 @@ hosts::production::ip_backend_lb: '10.1.3.254'
 hosts::production::ip_bouncer: '31.210.245.101'
 hosts::production::ip_draft_api_lb: '10.1.4.253'
 hosts::production::ip_frontend_lb: '10.1.2.254'
-# FIXME: Add host entries here similar to staging when we have a public IP address to point to.
-hosts::production::licensify_hosts: []
+hosts::production::licensify_hosts:
+  licensify.integration.publishing.service.gov.uk:
+    ip: '31.210.245.104'
+  licensify-admin.integration.publishing.service.gov.uk:
+    ip: '31.210.245.104'
 
 hosts::production::api::hosts:
   api-1:
