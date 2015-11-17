@@ -235,8 +235,6 @@ hosts::development::services:
   - support
   - whitehall
 
-internal_tld: 'development'
-
 memcached::max_memory: 64
 memcached::listen_ip: '127.0.0.1'
 

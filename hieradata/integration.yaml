@@ -434,8 +434,6 @@ hosts::production::router::hosts:
 
 icinga::client::check_cputype::cputype: 'amd'
 
-internal_tld: 'integration.publishing.service.gov.uk'
-
 licensify::apps::licensing_web_forms::enabled: true
 
 monitoring::checks::pingdom::enable: false

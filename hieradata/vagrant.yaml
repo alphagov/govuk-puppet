@@ -104,8 +104,6 @@ govuk_jenkins::job::network_config_deploy::environments:
 
 icinga::nginx::enable_basic_auth: false
 
-internal_tld: 'development'
-
 postgresql_api_slave_addresses_live: '10.7.0.41/32'
 postgresql_slave_addresses_live: '10.3.20.13/32'
 postgresql_transition_slave_addresses_live: '10.3.20.2/32'

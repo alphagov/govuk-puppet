@@ -820,6 +820,8 @@ icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 
+internal_tld: "%{hiera('app_domain')}"
+
 mapit::config::postgresql_password: "%{hiera('govuk::node::s_mapit_server::postgresql_password')}"
 
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
