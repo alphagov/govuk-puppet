@@ -21,13 +21,13 @@
 # [*publish_topics*]
 #   Feature flag to allow publishing of manual topics to the Publishing
 #   API and Rummager.
-#   Default: false
+#   Default: true
 #
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
   $allow_unknown_hmrc_manual_slugs = false,
-  $publish_topics = false,
+  $publish_topics = true,
 ) {
 
   Govuk::App::Envvar {

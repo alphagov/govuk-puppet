@@ -6,8 +6,6 @@ _: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNm
 
 app_domain: 'publishing.service.gov.uk'
 
-asset_root: 'https://assets.digital.cabinet-office.gov.uk'
-
 backup::assets::dest_host: *offsite_host
 backup::assets::dest_host_key: *offsite_ssh_host_key
 backup::assets::jobs:
@@ -55,11 +53,7 @@ base::supported_kernel::enabled: true
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
-govuk::apps::email_campaign_api::enabled: true
-govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
-govuk::apps::govuk_cdn_logs_monitor::enabled: true
-govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::policy_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
@@ -74,6 +68,8 @@ govuk::deploy::actionmailer_enable_delivery: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
+govuk::deploy::config::asset_root: 'https://assets.digital.cabinet-office.gov.uk'
+govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
 
@@ -643,15 +639,11 @@ hosts::production::router::hosts:
 
 icinga::nginx::enable_basic_auth: false
 
-internal_tld: 'publishing.service.gov.uk'
-
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::mirror::enabled: true
-monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: us-east-1
-monitoring::checks::ses::warning: 30
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
@@ -720,5 +712,3 @@ users::usernames:
   - timothymower
   - tombooth
   - tommypalmer
-
-website_root: 'https://www.gov.uk'

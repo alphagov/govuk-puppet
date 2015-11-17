@@ -1,18 +1,12 @@
 ---
 app_domain: 'staging.publishing.service.gov.uk'
 
-asset_root: "https://assets-origin.%{hiera('app_domain')}"
-
 base::supported_kernel::enabled: true
 
 govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::email_campaign_api::enabled: true
-govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
-govuk::apps::govuk_cdn_logs_monitor::enabled: true
-govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publishing_api::db::backend_ip_range: '10.2.3.0/24'
@@ -545,14 +539,10 @@ hosts::production::router::hosts:
 
 icinga::nginx::enable_basic_auth: false
 
-internal_tld: 'staging.publishing.service.gov.uk'
-
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 
-monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
-monitoring::checks::ses::warning: 30
 
 postfix::smarthost:
 - 'email-smtp.us-east-1.amazonaws.com:587'
@@ -625,5 +615,3 @@ users::usernames:
   - timothymower
   - tombooth
   - tommypalmer
-
-website_root: "https://www-origin.%{hiera('app_domain')}"

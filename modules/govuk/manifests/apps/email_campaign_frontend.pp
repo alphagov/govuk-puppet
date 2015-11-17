@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::email_campaign_frontend(
   $port = 3109,
-  $enabled = false,
+  $enabled = true,
   $errbit_api_key = undef,
   $secret_key_base = undef,
 ) {

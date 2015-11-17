@@ -1,8 +1,6 @@
 ---
 app_domain: 'preview.alphagov.co.uk'
 
-asset_root: "https://assets-origin.%{hiera('app_domain')}"
-
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
 backup::mysql::rotation_monthly: '28'
@@ -14,18 +12,14 @@ cron::weekly_dow: 1
 govuk::apps::courts_api::enabled: true
 govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_monitor::enabled: true
-govuk::apps::email_campaign_api::enabled: true
 govuk::apps::email_campaign_api::mongodb_nodes:
   - 'api-mongo-1.api'
   - 'api-mongo-2.api'
   - 'api-mongo-3.api'
-govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-preview@digital.cabinet-office.gov.uk'
 govuk::apps::event_store::enabled: true
 govuk::apps::government_frontend::enable_service_manual: true
-govuk::apps::govuk_cdn_logs_monitor::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
-govuk::apps::hmrc_manuals_api::publish_topics: true
 govuk::apps::mapit::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::service_manual_publisher::enabled: true
@@ -35,6 +29,7 @@ govuk::apps::specialist_publisher::publish_pre_production_finders: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'preview'
+govuk::deploy::config::website_root: "https://www.%{hiera('app_domain')}"
 govuk::deploy::setup::ssh_keys:
   jenkins_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDa9RlyGmK0r/JOL2rRdJA1e64vr1pJ6fv2PaqfuuvxtIWwG+VRV6PO2FbahJF9vRNZPWVAJY32olkvE5jHT5hYP9VULhQNfOMzyFwgx8D/g/ofp6Iu+t5UltES3ER4r6id7kwB7AskgMaFXuiOq5n2l08+w+n9P/7I0k4Ptr2eMDL3KTgZ9V9pc2iriULdflRrdmiY0CFzpRfopVXQHxzVM1Ko9ytdxCFHbdTnnMyueQm3bNC6uuwHs2Hcecq1LB1OtfUBS5OHeR6uES3tPpQ1MzP9/DTmwYhsDZUMRIEwy4gB4S+Jb9e81U9BmZgrDdfgW//wXy534GqUSYcANjID
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
@@ -137,9 +132,7 @@ internal_tld: 'production'
 licensify::apps::licensing_web_forms::enabled: true
 
 monitoring::checks::pingdom::enable: false
-monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: eu-west-1
-monitoring::checks::ses::warning: 30
 
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
@@ -198,5 +191,3 @@ users::usernames:
   - timothymower
   - tombooth
   - tommypalmer
-
-website_root: "https://www.%{hiera('app_domain')}"

@@ -223,6 +223,9 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
+govuk::deploy::config::asset_root: "https://assets-origin.%{hiera('app_domain')}"
+govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
+
 govuk::htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: 10.7.0.0/16
@@ -816,6 +819,8 @@ icinga::config::smokey::http_password: "%{hiera('http_password')}"
 icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
+
+internal_tld: "%{hiera('app_domain')}"
 
 mapit::config::postgresql_password: "%{hiera('govuk::node::s_mapit_server::postgresql_password')}"
 

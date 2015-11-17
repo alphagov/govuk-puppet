@@ -6,6 +6,9 @@
 #
 # === Parameters
 #
+# [*asset_root*]
+#   The location that the site's assets are served from, including protocol.
+#
 # [*errbit_environment_name*]
 #   Name of the environment to be included in Errbit error reports.
 #
@@ -13,9 +16,14 @@
 #   GOV.UK environment
 #   Default: 'production'
 #
+# [*website_root*]
+#   The location that the website is served from, including protocol.
+#
 class govuk::deploy::config(
+  $asset_root,
   $errbit_environment_name = '',
   $govuk_env = 'production',
+  $website_root,
 ){
   harden::limit { 'deploy-nofile':
     domain => 'deploy',
@@ -68,8 +76,6 @@ class govuk::deploy::config(
   }
 
   $app_domain = hiera('app_domain')
-  $asset_root = hiera('asset_root')
-  $website_root = hiera('website_root')
 
   govuk::envvar {
     'GOVUK_ENV': value => $govuk_env;
