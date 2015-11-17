@@ -102,6 +102,9 @@ govuk_jenkins::job_builder::environment: 'dev'
 govuk_jenkins::job::network_config_deploy::environments:
   - foo
 
+govuk_postgresql::server::snakeoil_ssl_certificate: certificate
+govuk_postgresql::server::snakeoil_ssl_key: key
+
 icinga::nginx::enable_basic_auth: false
 
 postgresql_api_slave_addresses_live: '10.7.0.41/32'

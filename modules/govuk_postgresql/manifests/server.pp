@@ -3,7 +3,24 @@
 # Wrapper for all the things needed for a postgres server. This class cannot
 # be used directly - please use one of the sub-classes.
 #
+# === Parameters
+#
+# [*snakeoil_ssl_certificate*]
+#   SSL certificate which is unused to workaround a PostgreSQL bug.
+#
+# [*snakeoil_ssl_key*]
+#   Key for SSL certificate which is unused to workaround a PostgreSQL bug.
+#
+# [*listen_addresses*]
+#   Machines which are allowed to connect to PostgreSQL. See the postgresql Puppet
+#   module for more details.
+#
+# [*configure_env_sync_user*]
+#   Whether a user for syncing data across environments should be created.
+#
 class govuk_postgresql::server (
+    $snakeoil_ssl_certificate,
+    $snakeoil_ssl_key,
     $listen_addresses = '*',
     $configure_env_sync_user = false,
 ) {
@@ -36,7 +53,7 @@ class govuk_postgresql::server (
       owner   => 'postgres',
       group   => 'postgres',
       mode    => '0600',
-      source  => 'puppet:///modules/govuk_postgresql/ssl/ssl-cert-snakeoil.pem',
+      content => $snakeoil_ssl_certificate,
       require => Class['postgresql::server::install'],
       before  => Class['postgresql::server::service'],
     }
@@ -45,7 +62,7 @@ class govuk_postgresql::server (
       owner   => 'postgres',
       group   => 'postgres',
       mode    => '0600',
-      source  => 'puppet:///modules/govuk_postgresql/ssl/ssl-cert-snakeoil.key',
+      content => $snakeoil_ssl_key,
       require => Class['postgresql::server::install'],
       before  => Class['postgresql::server::service'],
     }
