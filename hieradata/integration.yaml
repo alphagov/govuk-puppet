@@ -56,22 +56,36 @@ govuk_jenkins::config::manage_config: true
 govuk_jenkins::config::admins:
   - alexmuller
   - alextomlins
+  - alextorrance
   - bobwalker
   - bradleywright
+  - chrisroos
   - ci_alphagov
   - danielroseman
+  - davidbasalla
   - davidsingleton
   - deploy
   - elliotcrosbymccullough
+  - isabelllong
+  - jackscotti
   - jakebenilov
+  - jamesmead
   - jamiecobbett
   - jennyduckett
   - joshmyers
+  - leenagupte
   - mattbostock
+  - murraysteele
+  - paulbowsher
+  - paulhayes
   - paulmartin
   - richardboulton
   - robyoung
   - stevelaing
+  - stuartgale
+  - tadast
+  - tatianasoukiassian
+  - tijmenbrommet
   - timothymower
   - tombooth
   - tommypalmer
