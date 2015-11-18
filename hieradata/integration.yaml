@@ -87,8 +87,11 @@ govuk_jenkins::config::users:
 govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
+  - govuk_jenkins::job::smokey
+  - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::vapps
 govuk_jenkins::job_builder::environment: 'integration'
 
