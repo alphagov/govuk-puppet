@@ -48,7 +48,6 @@ govuk_jenkins::config::users:
   - jamiecobbett
   - jennyduckett
   - joshmyers
-  - kushalpisavadia
   - mattbostock
   - paulmartin
   - richardboulton
@@ -571,7 +570,6 @@ ssh::config::allow_users:
   - 'jamiec'
   - 'jennyduckett'
   - 'joshmyers'
-  - 'kushalp'
   - 'mattbostock'
   - 'paulmartin'
   - 'richardboulton'
@@ -605,7 +603,6 @@ users::usernames:
   - jamiec
   - jennyduckett
   - joshmyers
-  - kushalp
   - mattbostock
   - paulmartin
   - richardboulton
