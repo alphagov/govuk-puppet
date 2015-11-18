@@ -74,7 +74,6 @@ govuk_jenkins::config::users:
   - jamiecobbett
   - jennyduckett
   - joshmyers
-  - kushalpisavadia
   - mattbostock
   - paulmartin
   - richardboulton
@@ -534,7 +533,6 @@ users::usernames:
   - jamiec
   - jennyduckett
   - joshmyers
-  - kushalp
   - leelongmore
   - leenagupte
   - marksheldon
