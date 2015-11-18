@@ -87,8 +87,12 @@ govuk_jenkins::config::users:
 govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
+  - govuk_jenkins::job::smokey
+  - govuk_jenkins::job::smokey_deploy
+  - govuk_jenkins::job::vapps
 govuk_jenkins::job_builder::environment: 'integration'
 
 govuk_jenkins::job::network_config_deploy::environments:
@@ -97,9 +101,6 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'skyscape-integration'
 
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZExXUh13K5XALJlqfQEYzVzUd6PC7P2mpcebMX9paV/r9UU0CXu6s7kGEspLlI5dxO5m5MRdcBdq2BjlMMWWO9jQ/JlEMD06UKsAQB8qWm3D8Zy7p93/JvBctVFZNJ6C8HXblktFvR6QniJ4uteGh5Nu75vratniEQ0FyLxND+zDKE1zO/N8CPTvpDeL8uKY0S1igaRjlN63B1rO1JrLVao/Dk6xVy+NDWlCriHlGOVH91OEj+6oYLJAQJ/L41z8VJGFq7pvZYvVy0iiI0daUWhvLNK9KqMl3qKujdG6S6HU7wsrNZlm2pa7qm135YYMt+z18hGwC3t'
-
-govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::job::vapps
 
 govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
