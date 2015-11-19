@@ -86,6 +86,7 @@ govuk_jenkins::config::users:
 govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::production::transition_load_transition_stats_hits
+  - govuk_jenkins::job::integration::data_sync_complete
   - govuk_jenkins::job::deploy_router_data
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::service_manual_rebuild_search_index
@@ -112,6 +113,12 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZE
 
 govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "preview.performance.service.gov.uk"
 govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "preview.performance.service.gov.uk"
+
+govuk_jenkins::job::integration::data_sync_complete::signon_domain_old: publishing.service.gov.uk
+govuk_jenkins::job::integration::data_sync_complete::signon_domain_new: integration.publishing.service.gov.uk
+govuk_jenkins::job::integration::data_sync_complete::pp_signon_domain_old: performance.service.gov.uk
+govuk_jenkins::job::integration::data_sync_complete::pp_signon_domain_new: preview.performance.service.gov.uk
+
 govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
 
