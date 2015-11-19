@@ -1,0 +1,14 @@
+---
+- job:
+    name: whitehall_update_integration_data
+    display-name: whitehall_update_integration_data
+    project-type: freestyle
+    description: 'Copies down latest sanitised backup from production'
+    logrotate:
+        artifactNumToKeep: 10
+    builders:
+        - shell: |
+            export WHITEHALL_MYSQL_PASSWORD="<%= @whitehall_mysql_password -%>"
+            ./whitehall/update-data.sh
+    triggers:
+        - timed: '45 6 * * *'
