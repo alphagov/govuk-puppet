@@ -88,6 +88,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::production::transition_load_transition_stats_hits
   - govuk_jenkins::job::integration::data_sync_complete
   - govuk_jenkins::job::integration::govuk_delivery_configure_integration_catchall_feed
+  - govuk_jenkins::job::integration::transition_run_database_migrations
   - govuk_jenkins::job::deploy_router_data
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::service_manual_rebuild_search_index
