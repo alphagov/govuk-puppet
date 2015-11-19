@@ -85,6 +85,7 @@ govuk_jenkins::config::users:
 
 govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::production::transition_load_transition_stats_hits
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::launch_vms
