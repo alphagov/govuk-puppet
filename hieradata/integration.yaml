@@ -86,10 +86,18 @@ govuk_jenkins::config::users:
 govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::production::transition_load_transition_stats_hits
+  - govuk_jenkins::job::deploy_router_data
+  - govuk_jenkins::job::run_whitehall_data_migrations
+  - govuk_jenkins::job::service_manual_rebuild_search_index
   - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_cdn
+  - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
+  - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
+  - govuk_jenkins::job::passive_checks
+  - govuk_jenkins::job::performance_platform_smokey
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::vapps
@@ -102,6 +110,8 @@ govuk_jenkins::job::network_config_deploy::environments:
 
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZExXUh13K5XALJlqfQEYzVzUd6PC7P2mpcebMX9paV/r9UU0CXu6s7kGEspLlI5dxO5m5MRdcBdq2BjlMMWWO9jQ/JlEMD06UKsAQB8qWm3D8Zy7p93/JvBctVFZNJ6C8HXblktFvR6QniJ4uteGh5Nu75vratniEQ0FyLxND+zDKE1zO/N8CPTvpDeL8uKY0S1igaRjlN63B1rO1JrLVao/Dk6xVy+NDWlCriHlGOVH91OEj+6oYLJAQJ/L41z8VJGFq7pvZYvVy0iiI0daUWhvLNK9KqMl3qKujdG6S6HU7wsrNZlm2pa7qm135YYMt+z18hGwC3t'
 
+govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "preview.performance.service.gov.uk"
+govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "preview.performance.service.gov.uk"
 govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
 
