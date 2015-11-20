@@ -109,6 +109,7 @@ service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../
 # govuk-pact-broker uses port 3112
 # govuk-component-guide uses port 3113
 # sidekiq-monitoring for publishing-api uses 3114
+whitehall-admin-tagging-test: govuk_setenv whitehall-admin-tagging-test ./run_in.sh ../whitehall bin/tagging_test 3115
 content-tagger: govuk_setenv content-tagger  ./run_in.sh ../content-tagger bundle exec rails s -p 3116
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
