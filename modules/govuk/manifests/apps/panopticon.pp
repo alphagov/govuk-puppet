@@ -21,11 +21,16 @@
 #   RabbitMQ password.
 #   Default: panopticon
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 class govuk::apps::panopticon(
   $port = '3003',
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'panopticon',
   $rabbitmq_password = 'panopticon',
+  $enable_procfile_worker = true,
 ) {
   govuk::app { 'panopticon':
     app_type           => 'rack',
@@ -45,6 +50,10 @@ class govuk::apps::panopticon(
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+  }
+
+  govuk::procfile::worker { 'panopticon':
+    enable_service => $enable_procfile_worker,
   }
 
   govuk::logstream { 'panopticon-org-import-json-log':
