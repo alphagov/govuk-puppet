@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: cdn-configs_Production_Redirector_CDN
+    name: cdn-configs_Production_Bouncer_CDN
     scm:
         - git:
             url: git@github.gds:gds/cdn-configs.git
@@ -8,15 +8,15 @@
               - master
 
 - job:
-    name: Production_Redirector_CDN
-    display-name: Production_Redirector_CDN
+    name: Production_Bouncer_CDN
+    display-name: Production_Bouncer_CDN
     project-type: freestyle
     description: "After a loading new site config into the Transition app, this job will make sure that the traffic hitting the CDN for those domains is routed to Bouncer."
     properties:
         - github:
             url: https://github.gds/gds/cdn-configs/
     scm:
-        - cdn-configs_Production_Redirector_CDN
+        - cdn-configs_Production_Bouncer_CDN
     logrotate:
         artifactNumToKeep: 20
     builders:
@@ -25,6 +25,18 @@
             export FASTLY_USER=<%= @cdn_username %>
             export FASTLY_SERVICE_ID=<%= @cdn_service_id %>
             FASTLY_DEBUG=TRUE ./jenkins.sh
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
     wrappers:
         - ansicolor:
             colormap: xterm
