@@ -6,8 +6,6 @@ _: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNm
 
 app_domain: 'publishing.service.gov.uk'
 
-asset_root: 'https://assets.digital.cabinet-office.gov.uk'
-
 backup::assets::dest_host: *offsite_host
 backup::assets::dest_host_key: *offsite_ssh_host_key
 backup::assets::jobs:
@@ -52,17 +50,11 @@ backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 
 base::supported_kernel::enabled: true
 
-efg_domain: "www.sflg.gov.uk"
-
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
-govuk::apps::email_campaign_api::enabled: true
-govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
-govuk::apps::govuk_cdn_logs_monitor::enabled: true
-govuk::apps::govuk_crawler_worker::airbrake_env: 'production'
-govuk::apps::hmrc_manuals_api::publish_topics: true
+govuk::apps::panopticon::enable_procfile_worker: false
 govuk::apps::policy_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
@@ -71,12 +63,13 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.3.4.0/24'
 govuk::apps::support_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::transition::postgresql_db::backend_ip_range: '10.3.3.0/24'
-govuk::apps::url_arbiter::db::backend_ip_range: '10.3.3.0/24'
 
 govuk::deploy::actionmailer_enable_delivery: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
+govuk::deploy::config::asset_root: 'https://assets.digital.cabinet-office.gov.uk'
+govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
 
@@ -111,7 +104,6 @@ govuk_jenkins::config::users:
   - jamiecobbett
   - jennyduckett
   - joshmyers
-  - kushalpisavadia
   - mattbostock
   - paulmartin
   - richardboulton
@@ -283,9 +275,7 @@ govuk_crawler::ssh_keys:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b'
     type: 'ssh-rsa'
 
-hosts::production::apt_mirror_internal: true
 hosts::production::carrenza_vcloud: true
-hosts::production::efg_domains: []
 hosts::production::external_licensify: true
 hosts::production::ip_api_lb: '10.3.4.254'
 hosts::production::ip_backend_lb: '10.3.3.254'
@@ -297,7 +287,6 @@ hosts::production::licensify_hosts:
     ip: '37.26.90.230'
   licensify-admin.publishing.service.gov.uk:
     ip: '37.26.90.233'
-hosts::production::management::apt_host_ip: '10.3.0.75'
 hosts::production::releaseapp_host_org: true
 
 hosts::production::api::hosts:
@@ -582,6 +571,12 @@ hosts::production::management::hosts:
     ip: '10.3.0.61'
   etcd-3:
     ip: '10.3.0.62'
+  apt-1:
+    ip: '10.3.0.75'
+    legacy_aliases:
+      - "%{hiera('apt_mirror_hostname')}"
+    service_aliases:
+      - 'apt'
   jumpbox-1:
     ip: '10.3.0.100'
   mirrorer-1:
@@ -643,18 +638,11 @@ hosts::production::router::hosts:
 
 icinga::nginx::enable_basic_auth: false
 
-internal_tld: 'publishing.service.gov.uk'
-
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 
-mongodb::server::version: '2.4.9'
-mongodb::server::package_name: 'mongodb-10gen'
-
 monitoring::checks::mirror::enabled: true
-monitoring::checks::ses::critical: 50
 monitoring::checks::ses::region: us-east-1
-monitoring::checks::ses::warning: 30
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
@@ -692,7 +680,6 @@ ssh::config::allow_users:
   - 'jamiec'
   - 'jennyduckett'
   - 'joshmyers'
-  - 'kushalp'
   - 'mattbostock'
   - 'paulmartin'
   - 'richardboulton'
@@ -714,7 +701,6 @@ users::usernames:
   - jamiec
   - jennyduckett
   - joshmyers
-  - kushalp
   - mattbostock
   - paulmartin
   - richardboulton
@@ -723,5 +709,3 @@ users::usernames:
   - timothymower
   - tombooth
   - tommypalmer
-
-website_root: 'https://www.gov.uk'

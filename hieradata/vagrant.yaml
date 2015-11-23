@@ -1,18 +1,11 @@
 ---
 # These credentials apply only to vagrant machines created with https://github.com/alphagov/vagrant-govuk
 
-asset_root: 'http://static.dev.gov.uk'
-
 app_domain: 'dev.gov.uk'
 
 base::supported_kernel::enabled: true
 
-efg_domain: "www.sflg.gov.uk"
-
-govuk::apps::email_campaign_api::enabled: true
-govuk::apps::email_campaign_frontend::enabled: true
 govuk::apps::mapit::enabled: true
-govuk::apps::govuk_cdn_logs_monitor::enabled: true
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
@@ -20,6 +13,8 @@ govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
+govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
+govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 
 govuk::lvm::no_op: true
 
@@ -109,8 +104,6 @@ govuk_jenkins::job::network_config_deploy::environments:
 
 icinga::nginx::enable_basic_auth: false
 
-internal_tld: 'development'
-
 postgresql_api_slave_addresses_live: '10.7.0.41/32'
 postgresql_slave_addresses_live: '10.3.20.13/32'
 postgresql_transition_slave_addresses_live: '10.3.20.2/32'
@@ -123,5 +116,3 @@ ssh::config::allow_users:
 
 users::usernames:
   - null_user
-
-website_root: 'http://www.dev.gov.uk'

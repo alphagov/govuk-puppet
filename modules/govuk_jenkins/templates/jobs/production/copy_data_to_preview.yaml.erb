@@ -43,13 +43,13 @@
         - project: Success_Passive_Check
           condition: 'SUCCESS'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
-            NSCA_OUTPUT=<%= @service_description -%> success
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
         - project: Failure_Passive_Check
           condition: 'FAILED'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
-            NSCA_OUTPUT=<%= @service_description -%> failed
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
         - project: trigger_data_sync_complete
           condition: 'ALWAYS'
           predefined-parameters: |
@@ -70,11 +70,12 @@
                 - assets
                 - elasticsearch-api
                 - elasticsearch-backend
-                - mysql-efg
-                - mysql-normal
-                - mysql-whitehall
                 - mongo-exceptions
                 - mongo-licensify
                 - mongo-normal
+                - mongo-pp
                 - mongo-router
+                - mysql-efg
+                - mysql-normal
+                - mysql-whitehall
                 - postgresql-backend

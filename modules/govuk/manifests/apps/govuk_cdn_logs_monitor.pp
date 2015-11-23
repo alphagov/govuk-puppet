@@ -28,7 +28,7 @@
 #   Default: good_urls.csv
 #
 class govuk::apps::govuk_cdn_logs_monitor (
-  $enabled = false,
+  $enabled = true,
   $cdn_log_dir = '/mnt/logs_cdn',
   $cdn_log_filename = 'cdn-govuk.log',
   $processed_data_dir = 'processed',

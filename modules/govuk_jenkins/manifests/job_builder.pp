@@ -9,7 +9,7 @@
 #   The domain that is set across the platform.
 #
 # [*environment*]
-#   Specify the environment ({production,staging,preview}). Required by some jobs.
+#   Specify the environment ({production,staging,integration}). Required by some jobs.
 #
 # [*jenkins_user*]
 #   A username of a user on Jenkins who has permission to create and modify jobs

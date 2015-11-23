@@ -151,7 +151,7 @@ govuk::apps::content_register::rabbitmq_hosts:
   - rabbitmq-2.backend
   - rabbitmq-3.backend
 
-govuk::apps::efg::vhost_name: "%{hiera('efg_domain')}"
+govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 
 govuk::apps::email_alert_api::enabled: true
 # These are overridden on preview
@@ -168,6 +168,7 @@ govuk::apps::email_alert_service::rabbitmq_hosts:
 govuk::apps::finder_frontend::enabled: true
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
+govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
 # FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
 govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/api/content'
@@ -222,6 +223,9 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
+govuk::deploy::config::asset_root: "https://assets-origin.%{hiera('app_domain')}"
+govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
+
 govuk::htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: 10.7.0.0/16
@@ -266,7 +270,6 @@ govuk::node::s_backend::apps:
   - govuk::apps::tariff_api
   - govuk::apps::transition
   - govuk::apps::travel_advice_publisher
-  - govuk::apps::url_arbiter
 
 govuk::node::s_frontend::apps:
   - govuk::apps::canary_frontend
@@ -365,9 +368,6 @@ grafana::dashboards::machine_suffix_metrics: ''
 
 grub2::recordfail_timeout: 5
 
-hosts::production::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-hosts::production::efg_domains:
-  - "%{hiera('efg_domain')}"
 hosts::production::ip_api_lb: '10.7.1.2'
 hosts::production::ip_backend_lb: '10.3.1.2'
 hosts::production::ip_draft_api_lb: '10.7.2.2'
@@ -597,7 +597,6 @@ hosts::production::backend::app_hostnames:
   - 'tariff-api'
   - 'transition'
   - 'travel-advice-publisher'
-  - 'url-arbiter'
   - 'whitehall-admin'
 
 hosts::production::frontend::hosts:
@@ -704,7 +703,6 @@ hosts::production::licensify::hosts:
   licensify-lb-2:
     ip: '10.5.0.102'
 
-hosts::production::management::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 hosts::production::management::hosts:
   jenkins-1:
     ip: '10.0.0.3'
@@ -756,6 +754,10 @@ hosts::production::management::hosts:
     ip: '10.0.0.61'
   etcd-3:
     ip: '10.0.0.62'
+  apt-1:
+    ip: '10.0.0.75'
+    service_aliases:
+      - 'apt'
   jumpbox-1:
     ip: '10.0.0.100'
   mirrorer-1:
@@ -815,6 +817,8 @@ icinga::config::smokey::http_password: "%{hiera('http_password')}"
 icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
+
+internal_tld: "%{hiera('app_domain')}"
 
 mapit::config::postgresql_password: "%{hiera('govuk::node::s_mapit_server::postgresql_password')}"
 

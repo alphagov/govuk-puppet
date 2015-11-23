@@ -113,7 +113,6 @@ class govuk::node::s_development {
   include govuk::apps::tariff_api
   include govuk::apps::transition
   include govuk::apps::travel_advice_publisher
-  include govuk::apps::url_arbiter
   include govuk::apps::whitehall
 
   include govuk_java::openjdk7::jdk

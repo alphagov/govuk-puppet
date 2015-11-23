@@ -52,7 +52,7 @@
 #
 # [*enable_procfile_worker*]
 #   Enables the sidekiq background worker.
-#   Default: false
+#   Default: true
 #
 class govuk::apps::publishing_api(
   $port = '3093',
@@ -67,7 +67,7 @@ class govuk::apps::publishing_api(
   $db_name = 'publishing_api_production',
   $redis_host = undef,
   $redis_port = '6379',
-  $enable_procfile_worker = false,
+  $enable_procfile_worker = true,
 ) {
   $app_name = 'publishing-api'
 
