@@ -14,7 +14,7 @@ trap exit_unknown ERR
 RUBY_VERSION_FILE=/var/apps/${APPLICATION}/.ruby-version
 [ -f $RUBY_VERSION_FILE ] || exit_unknown "${RUBY_VERSION_FILE} not found"
 
-EXPECTED_RUBY=/usr/lib/rbenv/versions/$(cat ${RUBY_VERSION_FILE})/bin/ruby
+EXPECTED_RUBY=/usr/lib/rbenv/versions/$(grep "^[^#]" ${RUBY_VERSION_FILE})/bin/ruby
 
 UNICORN_PID=$(cat /var/run/${APPLICATION}/app.pid)
 # Bail if not an integer.
