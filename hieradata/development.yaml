@@ -182,6 +182,7 @@ hosts::development::apps:
   - 'kibana'
   - 'licencefinder'
   - 'manuals-frontend'
+  - 'mapit'
   - 'maslow'
   - 'metadata-api'
   - 'need-api'
