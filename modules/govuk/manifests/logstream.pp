@@ -39,30 +39,33 @@ define govuk::logstream (
   $disable_logstreams = hiera('govuk::logstream::disabled', false)
   validate_bool($disable_logstreams)
 
+  $app_domain = hiera('app_domain')
+  $upstart_name = regsubst($title, "\\.${app_domain}", '')
+
   if ($disable_logstreams) {
     # noop
   } elsif ($ensure == present) {
-    file { "/etc/init/logstream-${title}.conf":
+    file { "/etc/init/logstream-${upstart_name}.conf":
       ensure    => present,
       content   => template('govuk/logstream.erb'),
-      notify    => Service["logstream-${title}"],
+      notify    => Service["logstream-${upstart_name}"],
       subscribe => Class['govuk::logging'],
     }
 
-    service { "logstream-${title}":
+    service { "logstream-${upstart_name}":
       ensure    => running,
       provider  => 'upstart',
       subscribe => Class['govuk::logging'],
     }
   } else {
-    file { "/etc/init/logstream-${title}.conf":
+    file { "/etc/init/logstream-${upstart_name}.conf":
       ensure  => absent,
-      require => Exec["logstream-STOP-${title}"],
+      require => Exec["logstream-STOP-${upstart_name}"],
     }
 
-    exec { "logstream-STOP-${title}" :
-      command => "initctl stop logstream-${title}",
-      onlyif  => "initctl status logstream-${title}",
+    exec { "logstream-STOP-${upstart_name}" :
+      command => "initctl stop logstream-${upstart_name}",
+      onlyif  => "initctl status logstream-${upstart_name}",
     }
   }
 
