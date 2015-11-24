@@ -18,6 +18,12 @@ govuk_jenkins::config::github_client_id: bar
 govuk_jenkins::config::github_client_secret: baz
 govuk_jenkins::config::github_web_uri: wibble
 
+govuk_postgresql::server::snakeoil_ssl_certificate: certificate
+govuk_postgresql::server::snakeoil_ssl_key: key
+
+govuk_postgresql::monitoring::user: username
+govuk_postgresql::monitoring::password: password
+
 hosts::production::backend::hosts:
   whitehall-backend-1:
     ip: '10.3.0.25'

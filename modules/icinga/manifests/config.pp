@@ -29,6 +29,11 @@ class icinga::config (
     source  => 'puppet:///modules/icinga/etc/icinga',
   }
 
+  # FIXME: Remove once this file has been purged in production
+  file { '/etc/icinga/htpasswd.users':
+    ensure  => absent,
+  }
+
   file { '/etc/icinga/conf.d':
     ensure  => directory,
     purge   => true,
