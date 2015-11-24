@@ -23,6 +23,8 @@ class govuk::apps::courts_frontend(
 ) {
   if $enabled {
     govuk::app { 'courts-frontend':
+      # FIXME: delete this class and remove it from hieradata when this has been deployed
+      ensure                => absent,
       app_type              => 'rack',
       port                  => $port,
       asset_pipeline        => true,

@@ -163,8 +163,6 @@ hosts::development::apps:
   - 'contentapi'
   - 'content-register'
   - 'content-store'
-  - 'courts-api'
-  - 'courts-frontend'
   - 'designprinciples'
   - 'draft-content-store'
   - 'efg'
