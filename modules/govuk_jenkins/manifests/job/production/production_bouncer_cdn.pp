@@ -25,7 +25,7 @@ class govuk_jenkins::job::production::production_bouncer_cdn (
 ) {
 
   $check_name = 'production-bouncer-cdn-configuration'
-  $service_description = "Configure Bouncer's CDN service with transitioning sites"
+  $service_description = 'Configure Bouncer CDN service with transitioning sites'
   $job_url = "https://deploy.${app_domain}/job/Production_Bouncer_CDN/"
 
   file { '/etc/jenkins_jobs/jobs/production_bouncer_cdn.yaml':

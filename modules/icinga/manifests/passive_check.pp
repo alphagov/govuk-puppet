@@ -39,6 +39,9 @@ define icinga::passive_check (
   $action_url          = undef,
   $notes_url           = undef
 ){
+
+  validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
+
   $active_message = $freshness_threshold ? {
     ''      => 'Unexpected active check on passive service',
     default => 'Freshness threshold exceeded',
