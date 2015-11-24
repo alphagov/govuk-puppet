@@ -1,0 +1,45 @@
+---
+- job:
+    name: TaggingMigrationCheck
+    display-name: TaggingMigrationCheck
+    project-type: freestyle
+    description: "This job checks if taggings are in sync between contentapi and content-store"
+    properties:
+        - github:
+            url: https://github.com/alphagov/tagging-migration-verifier.git
+    scm:
+      - tagging-migration-verifier
+    logrotate:
+        artifactNumToKeep: 10
+    triggers:
+        - timed: '0 * * * *' # every hour
+    builders:
+        - shell: |
+            set +x
+            cd "${WORKSPACE}"
+
+            set +e
+
+            git clone https://github.com/alphagov/tagging-migration-verifier.git
+            cd tagging-migration-verifier
+            bin/verify_migrated_apps
+            EXITCODE=$?
+
+            exit $EXITCODE
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
+            NSCA_OUTPUT=<%= @service_description -%> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description -%>
+            NSCA_OUTPUT=<%= @service_description -%> failed
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject:
+            script-content: PARALLEL_JOBS=2
