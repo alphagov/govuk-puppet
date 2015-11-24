@@ -13,7 +13,7 @@ describe CheckIcinga do
     end
 
     it 'returns the response body' do
-      stub_request(:get, "http://betademo:nottobes@thing.com/").
+      stub_request(:get, "http://thing.com/").
         with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
         to_return(:status => 200, :body => '{"icinga": "working"}', :headers => {})
 
@@ -21,7 +21,7 @@ describe CheckIcinga do
     end
 
     it 'raises an error for a non-200 status code' do
-      stub_request(:get, "https://betademo:nottobes@example.com/").
+      stub_request(:get, "https://example.com/").
         with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
         to_return(:status => 500, :headers => {})
 
@@ -30,7 +30,7 @@ describe CheckIcinga do
     end
 
     it 'does not verify the TLS certficate when using TLS' do
-      stub_request(:get, "https://betademo:nottobes@example.com:443/").
+      stub_request(:get, "https://example.com:443/").
         with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
         to_return(:status => 200, :body => "", :headers => {})
 

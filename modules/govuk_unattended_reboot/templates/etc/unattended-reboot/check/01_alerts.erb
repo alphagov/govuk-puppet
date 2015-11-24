@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+export BASIC_AUTH_USERNAME='<%= @monitoring_basic_auth['username'] %>'
+export BASIC_AUTH_PASSWORD='<%= @monitoring_basic_auth['password'] %>'
 exec /usr/local/bin/check_icinga '<%= @icinga_url %>'
