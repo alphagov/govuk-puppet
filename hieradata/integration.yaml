@@ -48,37 +48,43 @@ govuk_crawler::seed_enable: true
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
-govuk_jenkins::config::banner_colour_background: '#0000ff'
+govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza INTEGRATION'
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
   - alexmuller
-  - bobwalker
-  - ci_alphagov
-  - joshmyers
-  - mattbostock
-  - paulmartin
-
-govuk_jenkins::config::users:
-  - alexmuller
   - alextomlins
+  - alextorrance
   - bobwalker
   - bradleywright
+  - chrisroos
+  - ci_alphagov
   - danielroseman
+  - davidbasalla
   - davidsingleton
-  - deploy
   - elliotcrosbymccullough
+  - isabelllong
+  - jackscotti
   - jakebenilov
+  - jamesmead
   - jamiecobbett
   - jennyduckett
   - joshmyers
+  - leenagupte
   - mattbostock
+  - murraysteele
+  - paulbowsher
+  - paulhayes
   - paulmartin
   - richardboulton
   - robyoung
   - stevelaing
+  - stuartgale
+  - tadast
+  - tatianasoukiassian
+  - tijmenbrommet
   - timothymower
   - tombooth
   - tommypalmer
@@ -110,7 +116,7 @@ govuk_jenkins::job_builder::environment: 'integration'
 govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-integration'
   - 'carrenza-integration-dr'
-  - 'skyscape-integration'
+  - 'carrenza-integration-licensify'
 
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZExXUh13K5XALJlqfQEYzVzUd6PC7P2mpcebMX9paV/r9UU0CXu6s7kGEspLlI5dxO5m5MRdcBdq2BjlMMWWO9jQ/JlEMD06UKsAQB8qWm3D8Zy7p93/JvBctVFZNJ6C8HXblktFvR6QniJ4uteGh5Nu75vratniEQ0FyLxND+zDKE1zO/N8CPTvpDeL8uKY0S1igaRjlN63B1rO1JrLVao/Dk6xVy+NDWlCriHlGOVH91OEj+6oYLJAQJ/L41z8VJGFq7pvZYvVy0iiI0daUWhvLNK9KqMl3qKujdG6S6HU7wsrNZlm2pa7qm135YYMt+z18hGwC3t'
 

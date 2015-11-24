@@ -85,20 +85,12 @@ govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
   - alexmuller
-  - bobwalker
-  - ci_alphagov
-  - joshmyers
-  - mattbostock
-  - paulmartin
-
-govuk_jenkins::config::users:
-  - alexmuller
   - alextomlins
   - bobwalker
   - bradleywright
+  - ci_alphagov
   - danielroseman
   - davidsingleton
-  - deploy
   - elliotcrosbymccullough
   - jakebenilov
   - jamiecobbett

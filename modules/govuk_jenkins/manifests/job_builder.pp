@@ -66,6 +66,7 @@ class govuk_jenkins::job_builder (
 
     exec { 'jenkins_jobs_update':
       command => 'jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
+      onlyif  => "curl ${jenkins_url}",
       require => [
         File['/etc/jenkins_jobs/jenkins_jobs.ini'],
         Package['jenkins-job-builder'],
