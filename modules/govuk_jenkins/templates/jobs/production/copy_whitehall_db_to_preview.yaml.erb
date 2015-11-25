@@ -25,7 +25,7 @@
         - shell: |
             cd "$WORKSPACE/whitehall/"
             echo "Sanitising Whitehall DB"
-            ./sanitise-db.sh "<%= @whitehall_mysql_password %>"
+            ./sanitise-db.sh "<%= @whitehall_mysql_password %>" "jumpbox.preview.alphagov.co.uk"
     wrappers:
         - ansicolor:
             colormap: xterm
