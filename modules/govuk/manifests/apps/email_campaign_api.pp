@@ -1,9 +1,42 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::email_campaign_api
+#
+# Email Campaign API is an internal API for posting captured emails 
+# (ones interested in buying Lloyds shares) to gov_delivery.
+#
+# === Parameters
+#
+# [*gov_delivery_endpoint*]
+#   URL for gov delivery to post email in xml format.
+# 
+# [*gov_delivery_code*]
+#   gov_delivery has a topic under which all these subcribers (emails) will be stored. 
+#   This code corresponds to that topic.
+#
+# [*gov_delivery_username*]
+#   gov_delivery basic authentication username.
+#
+# [*gov_delivery_password*]
+#   gov_delivery basic authentication password.
+#
+# [*redis_host*]    
+#   Redis host.
+#
+# [*redis_port*] 
+#   Redis port.
+#
 class govuk::apps::email_campaign_api(
   $port = 3110,
   $enabled = true,
   $errbit_api_key = undef,
+  $errbit_environment_name='email-campaign-api',
+  $errbit_host=undef,
   $secret_key_base = undef,
+  $gov_delivery_endpoint = undef, 
+  $gov_delivery_code = undef,
+  $gov_delivery_username = undef,
+  $gov_delivery_password = undef,
+  $redis_host=undef,
+  $redis_port='6379',
   $mongodb_nodes,
   $mongodb_name = 'email_campaign_api',
 ) {
@@ -26,18 +59,37 @@ class govuk::apps::email_campaign_api(
       database => $mongodb_name,
     }
 
-    if $errbit_api_key != undef {
-      govuk::app::envvar {
-        "${title}-ERRBIT_API_KEY":
+    govuk::app::envvar {
+      "${title}-ERRBIT_API_KEY":
           varname => 'ERRBIT_API_KEY',
           value   => $errbit_api_key;
-      }
-    }
-
-    if $secret_key_base != undef {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base,
+      "${title}-ERRBIT_ENVIRONMENT_NAME":
+          varname => 'ERRBIT_ENVIRONMENT_NAME',
+          value   => $errbit_environment_name;
+      "${title}-ERRBIT_HOST":
+          varname => 'ERRBIT_HOST',
+          value   => $errbit_host;
+      "${title}-SECRET_KEY_BASE":
+          varname => 'SECRET_KEY_BASE',
+          value   => $secret_key_base;
+      "${title}-GOV_DELIVERY_ENDPOINT":
+          varname => 'GOV_DELIVERY_ENDPOINT',
+          value   => $gov_delivery_endpoint;
+      "${title}-GOV_DELIVERY_CODE":
+          varname => 'GOV_DELIVERY_CODE',
+          value   => $gov_delivery_code;
+      "${title}-GOV_DELIVERY_USERNAME":
+          varname => 'GOV_DELIVERY_USERNAME',
+          value   => $gov_delivery_username;
+      "${title}-GOV_DELIVERY_PASSWORD":
+          varname => 'GOV_DELIVERY_PASSWORD',
+          value   => $gov_delivery_password;
+      "${title}-REDIS_HOST":
+          varname => 'REDIS_HOST',
+          value   => $redis_host;
+      "${title}-REDIS_PORT":
+          varname => 'REDIS_PORT',
+          value   => $redis_port;
       }
     }
   }
