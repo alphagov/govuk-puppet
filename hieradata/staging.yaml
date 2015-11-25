@@ -557,7 +557,6 @@ ssh::config::allow_users:
   - 'danielroseman'
   - 'davidsingleton'
   - 'deploy'
-  - 'digitalassurancetester'
   - 'elliot'
   - 'govuk-backup'
   - 'jamiec'
@@ -580,9 +579,6 @@ users::pentest_machines:
   - 'jumpbox-1'
   - 'mysql-master-1'
   - 'postgresql-primary-1'
-
-users::pentest_usernames:
-  - digitalassurancetester
 
 users::usernames:
   - alexmuller
