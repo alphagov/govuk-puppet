@@ -19,7 +19,6 @@ process :'content-register'
 process :'content-store'
 process :'content-tagger' => [:'draft-content-store', :'publishing-api']
 process :'draft-content-store'
-process :'contact-o-tron'
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'
@@ -47,7 +46,6 @@ process :migratorator
 process :need_api
 process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
-process :planner => [:static, :contentapi]
 process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
 process :publisher => [:panopticon, :contentapi]
 process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
