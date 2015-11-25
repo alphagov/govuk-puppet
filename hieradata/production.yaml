@@ -129,6 +129,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::production::trigger_data_sync_complete
   - govuk_jenkins::job::production::whitehall_rebuild_elasticsearch_index
   - govuk_jenkins::job::production::whitehall_run_broken_link_checker
+  - govuk_jenkins::job::copy_data_to_integration
+  - govuk_jenkins::job::copy_whitehall_data_to_integration
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_cdn
   - govuk_jenkins::job::deploy_licensify
