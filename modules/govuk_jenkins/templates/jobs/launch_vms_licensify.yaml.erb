@@ -1,0 +1,43 @@
+---
+- scm:
+    name: govuk-provisioning_Launch_VMs_Licensify
+    scm:
+        - git:
+            url: git@github.gds:gds/govuk-provisioning.git
+            branches:
+              - master
+- job:
+    name: Launch_VMs_Licensify
+    display-name: Launch VMs for Licensify
+    project-type: freestyle
+    description: |
+      Job to launch Licensify virtual machines in <%= @environment -%>.
+      If you are running this to bring up a new machine you will need to be signing certs on the puppetmaster
+      with `fab <%= @environment -%> puppet.sign_certificates`
+    properties:
+        - github:
+            url: https://github.gds/gds/alphagov-deployment/
+        - inject:
+            properties-content: |
+              VCLOUD_ORG=<%= @vcloud_properties_licensify['organisation'] %>
+              VCLOUD_ENV=<%= @vcloud_properties_licensify['environment'] %>
+              VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
+              VCLOUD_HOST=<%= @vcloud_host %>
+    scm:
+      - govuk-provisioning_Launch_VMs_Licensify
+    builders:
+        - shell: |
+            ./vcloud-launcher/jenkins.sh
+    parameters:
+        - string:
+            name: USERNAME
+            description: your vcloud username
+            default: false
+        - string:
+            name: CONFIG_GLOB
+            description: glob for config files.
+            default: "licensify.yaml"
+        - password:
+            name: VCLOUD_PASSWORD
+            description: your vcloud password
+            default: false
