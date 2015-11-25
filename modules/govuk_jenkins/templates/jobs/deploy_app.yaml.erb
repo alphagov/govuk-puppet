@@ -24,7 +24,6 @@
     builders:
         - shell: |
             ./jenkins.sh
-            export FROM_JENKINS=true
             export DEPLOY_TO=<%= @environment -%>
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
