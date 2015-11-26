@@ -54,6 +54,17 @@ class monitoring::checks (
   }
 
   # START ssl certificate checks
+  icinga::check { 'check_www_cert_valid_at_origin':
+    # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
+    check_command       => "check_ssl_cert!www-origin.${app_domain}!www.gov.uk!30",
+    host_name           => $::fqdn,
+    service_description => 'check the www.gov.uk SSL certificate at ORIGIN is valid and not due to expire',
+  }
+  icinga::check { 'check_www_cert_valid_at_edge':
+    check_command       => 'check_ssl_cert!www.gov.uk!www.gov.uk!30',
+    host_name           => $::fqdn,
+    service_description => 'check the www.gov.uk SSL certificate at EDGE is valid and not due to expire',
+  }
   icinga::check { 'check_wildcard_cert_valid':
     check_command       => "check_ssl_cert!signon.${app_domain}!signon.${app_domain}!30",
     host_name           => $::fqdn,
