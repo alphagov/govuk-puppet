@@ -7,9 +7,9 @@ class govuk_postgresql::tuning {
   $shared_buffers_mb       = floor($::memorysize_mb * 0.25)
 
   postgresql::server::config_entry { 'effective_cache_size':
-    value => "${$effective_cache_size_mb}MB",
+    value => "${effective_cache_size_mb}MB",
   }
   postgresql::server::config_entry { 'shared_buffers':
-    value => "${$shared_buffers_mb}MB",
+    value => "${shared_buffers_mb}MB",
   }
 }

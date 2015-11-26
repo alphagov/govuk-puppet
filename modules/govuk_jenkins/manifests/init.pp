@@ -61,7 +61,7 @@ class govuk_jenkins (
     content => $github_enterprise_cert,
   }
 
-  java_ks { "${$github_enterprise_hostname}:cacerts":
+  java_ks { "${github_enterprise_hostname}:cacerts":
     ensure       => latest,
     certificate  => $github_enterprise_cert_path,
     target       => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/cacerts',
