@@ -7,11 +7,15 @@
 # [*server_names_hash_max_size*]
 #   An integer that sets the maximum size of the server_names_hash_max_size directive.
 #
+# [*variables_hash_max_size*]
+#   An integer that sets the maximum size of the Nginx variables hash table.
+#
 # [*denied_ip_addresses*]
 #   An array of IP addresses that Nginx should prevent from accessing this machine.
 #
 class nginx::config (
   $server_names_hash_max_size,
+  $variables_hash_max_size = 512,
   $denied_ip_addresses) {
 
   file { '/etc/nginx':

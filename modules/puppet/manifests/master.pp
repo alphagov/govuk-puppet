@@ -60,7 +60,8 @@ class puppet::master(
   }
 
   class { 'puppet::master::nginx':
-    require => Class['puppet::master::generate_cert'],
+    unicorn_port => $unicorn_port,
+    require      => Class['puppet::master::generate_cert'],
   }
 
   file { '/etc/puppet/gpg':

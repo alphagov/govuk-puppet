@@ -1,5 +1,16 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class puppet::master::nginx {
+# == Class: puppet::master::nginx
+#
+# Install Nginx and set up configuration for a Puppetmaster.
+#
+# === Parameters
+#
+# [*unicorn_port*]
+#   Specify the port on which unicorn (and hence the puppetmaster) should
+#   listen.
+#
+class puppet::master::nginx (
+  $unicorn_port,
+) {
   include ::nginx
 
   nginx::config::site { 'puppetmaster':
