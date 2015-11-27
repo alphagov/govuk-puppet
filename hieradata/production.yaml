@@ -83,28 +83,6 @@ govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
 govuk_jenkins::config::manage_config: true
 
-govuk_jenkins::config::admins:
-  - alexmuller
-  - alextomlins
-  - bobwalker
-  - bradleywright
-  - ci_alphagov
-  - danielroseman
-  - davidsingleton
-  - elliotcrosbymccullough
-  - jakebenilov
-  - jamiecobbett
-  - jennyduckett
-  - joshmyers
-  - mattbostock
-  - paulmartin
-  - richardboulton
-  - robyoung
-  - stevelaing
-  - timothymower
-  - tombooth
-  - tommypalmer
-
 govuk_jenkins::job_builder::environment: 'production'
 govuk_jenkins::job_builder::manage_jobs: true
 
@@ -659,47 +637,3 @@ postgresql_transition_slave_addresses_live: '10.3.3.61/32'
 postgresql_transition_slave_addresses_dr: '10.3.11.61/32'
 
 shell::shell_prompt_string: 'production'
-
-ssh::config::allow_users:
-  - 'alexmuller'
-  - 'alext'
-  - 'benilovj'
-  - 'bob'
-  - 'bradleyw'
-  - 'danielroseman'
-  - 'davidsingleton'
-  - 'deploy'
-  - 'elliot'
-  - 'govuk-backup'
-  - 'jamiec'
-  - 'jennyduckett'
-  - 'joshmyers'
-  - 'mattbostock'
-  - 'paulmartin'
-  - 'richardboulton'
-  - 'robyoung'
-  - 'stevelaing'
-  - 'timothymower'
-  - 'tombooth'
-  - 'tommypalmer'
-
-users::usernames:
-  - alexmuller
-  - alext
-  - benilovj
-  - bob
-  - bradleyw
-  - danielroseman
-  - davidsingleton
-  - elliot
-  - jamiec
-  - jennyduckett
-  - joshmyers
-  - mattbostock
-  - paulmartin
-  - richardboulton
-  - robyoung
-  - stevelaing
-  - timothymower
-  - tombooth
-  - tommypalmer
