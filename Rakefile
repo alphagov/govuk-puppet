@@ -17,4 +17,4 @@ desc "Run all tests except lint" # used by jenkins.sh
 task :all_but_lint => [:puppetfile, :syntax, :bash_syntax, :yaml_syntax, :spec, :icinga_checks, :custom]
 
 desc "Run all tests"
-task :default => [:all_but_lint, :lint]
+task :default => [:lint, :all_but_lint]
