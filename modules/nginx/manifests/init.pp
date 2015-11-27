@@ -1,4 +1,14 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: nginx
+#
+# Sets up Nginx on a machine
+#
+# === Parameters
+#
+# [*server_names_hash_max_size*]
+# [*variables_hash_max_size*]
+# [*denied_ip_addresses*]
+#   Passed through to `nginx::config`, see the documentation there.
+#
 class nginx (
   $server_names_hash_max_size = 512,
   $variables_hash_max_size = 512,
@@ -15,6 +25,7 @@ class nginx (
 
   class { 'nginx::config':
     server_names_hash_max_size => $server_names_hash_max_size,
+    variables_hash_max_size    => $variables_hash_max_size,
     denied_ip_addresses        => $denied_ip_addresses,
     require                    => Class['nginx::package'],
     notify                     => Class['nginx::service'];
