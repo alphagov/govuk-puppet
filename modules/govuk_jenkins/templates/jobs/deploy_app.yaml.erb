@@ -24,7 +24,6 @@
     builders:
         - shell: |
             ./jenkins.sh
-            export FROM_JENKINS=true
             export DEPLOY_TO=<%= @environment -%>
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
@@ -110,8 +109,6 @@
                 - publishing-api
                 - recommended-links
                 - release
-                - review-o-matic
-                - review-o-matic-explore
                 - router
                 - router-api
                 - rummager
@@ -131,7 +128,6 @@
                 - trade-tariff-admin
                 - trade-tariff-backend
                 - trade-tariff-frontend
-                - transaction-wrappers
                 - transition
                 - travel-advice-publisher
                 - whitehall
@@ -142,7 +138,6 @@
             choices:
                 - deploy
                 - deploy:migrations
-                - deploy:setup
                 - deploy:hard_restart
         - string:
             name: TAG
