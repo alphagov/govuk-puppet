@@ -163,6 +163,7 @@ hosts::development::apps:
   - 'contentapi'
   - 'content-register'
   - 'content-store'
+  - 'content-tagger'
   - 'designprinciples'
   - 'draft-content-store'
   - 'efg'
