@@ -1,15 +1,15 @@
 # == Class: govuk::apps::email_campaign_api
 #
-# Email Campaign API is an internal API for posting captured emails 
+# Email Campaign API is an internal API for posting captured emails
 # (ones interested in buying Lloyds shares) to gov_delivery.
 #
 # === Parameters
 #
 # [*gov_delivery_endpoint*]
 #   URL for gov delivery to post email in xml format.
-# 
+#
 # [*gov_delivery_code*]
-#   gov_delivery has a topic under which all these subcribers (emails) will be stored. 
+#   gov_delivery has a topic under which all these subcribers (emails) will be stored.
 #   This code corresponds to that topic.
 #
 # [*gov_delivery_username*]
@@ -21,7 +21,7 @@
 # [*redis_host*]    
 #   Redis host.
 #
-# [*redis_port*] 
+# [*redis_port*]
 #   Redis port.
 #
 class govuk::apps::email_campaign_api(
@@ -31,7 +31,7 @@ class govuk::apps::email_campaign_api(
   $errbit_environment_name='email-campaign-api',
   $errbit_host=undef,
   $secret_key_base = undef,
-  $gov_delivery_endpoint = undef, 
+  $gov_delivery_endpoint = undef,
   $gov_delivery_code = undef,
   $gov_delivery_username = undef,
   $gov_delivery_password = undef,
@@ -90,7 +90,6 @@ class govuk::apps::email_campaign_api(
       "${title}-REDIS_PORT":
           varname => 'REDIS_PORT',
           value   => $redis_port;
-      }
     }
   }
 }
