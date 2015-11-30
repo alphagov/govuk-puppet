@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::build_offsite_backup
+# == Class: govuk_jenkins::job::build_offsite_backup
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::build_offsite_backup {
+class govuk_jenkins::job::build_offsite_backup {
   file { '/etc/jenkins_jobs/jobs/build_offsite_backup.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production/build_offsite_backup.yaml.erb'),

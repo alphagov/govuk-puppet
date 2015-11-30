@@ -1,4 +1,4 @@
-# == Class: govuk_jenkins::job::production::production_bouncer_cdn
+# == Class: govuk_jenkins::job::production_bouncer_cdn
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
@@ -17,7 +17,7 @@
 # [*cdn_username*]
 #   Username for an account with our CDN provider.
 #
-class govuk_jenkins::job::production::production_bouncer_cdn (
+class govuk_jenkins::job::production_bouncer_cdn (
   $cdn_password_encrypted = undef,
   $cdn_service_id = undef,
   $cdn_username = undef,

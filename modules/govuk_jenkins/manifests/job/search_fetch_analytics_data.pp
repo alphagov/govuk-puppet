@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::search-fetch-analytics-data
+# == Class: govuk_jenkins::job::search-fetch-analytics-data
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::search_fetch_analytics_data (
+class govuk_jenkins::job::search_fetch_analytics_data (
   $ga_auth_password = undef,
   $app_domain = hiera('app_domain'),
 ) {

@@ -1,6 +1,7 @@
-# == Class: govuk_jenkins::job::staging::data_sync_complete
+# == Class: govuk_jenkins::job::data_sync_complete_staging
 #
 # Create a Jenkins job that is triggered when the data sync from production finishes.
+# This is specific to the Staging environment.
 #
 # === Parameters
 #
@@ -21,7 +22,7 @@
 # [*pp_signon_domain_new*]
 #   See docs for `$pp_signon_domain_old`.
 #
-class govuk_jenkins::job::staging::data_sync_complete (
+class govuk_jenkins::job::data_sync_complete_staging (
   $auth_token = undef,
   $signon_domain_old = undef,
   $signon_domain_new = undef,
@@ -30,7 +31,7 @@ class govuk_jenkins::job::staging::data_sync_complete (
 ) {
   file { '/etc/jenkins_jobs/jobs/data_sync_complete.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/staging/data_sync_complete.yaml.erb'),
+    content => template('govuk_jenkins/jobs/data_sync_complete_staging.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }

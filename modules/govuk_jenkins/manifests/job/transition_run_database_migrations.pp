@@ -1,11 +1,11 @@
-# == Class: govuk_jenkins::job::integration::transition_run_database_migrations
+# == Class: govuk_jenkins::job::transition_run_database_migrations
 #
 # === Parameters
 #
 # [*auth_token*]
 #   Token to allow this job to be triggered remotely
 #
-class govuk_jenkins::job::integration::transition_run_database_migrations (
+class govuk_jenkins::job::transition_run_database_migrations (
   $auth_token = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/transition_run_database_migrations.yaml':
