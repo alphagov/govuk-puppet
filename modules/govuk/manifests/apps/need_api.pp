@@ -19,11 +19,15 @@
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::need_api(
   $port = '3052',
   $errbit_api_key = '',
   $mongodb_nodes,
   $mongodb_name = 'govuk_needs_production',
+  $secret_key_base = undef,
 ) {
   govuk::app { 'need-api':
     app_type           => 'rack',
@@ -54,6 +58,11 @@ class govuk::apps::need_api(
     govuk::app::envvar { "${title}-MONGODB_URI":
       varname => 'MONGODB_URI',
       value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
+
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
     }
   }
 }
