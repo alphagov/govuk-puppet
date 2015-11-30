@@ -4,4 +4,4 @@ govuk_postgresql::server::primary::slave_addresses:
   live:
     address: "%{hiera('postgresql_api_slave_addresses_live')}"
   dr:
-    address: "10.2.12.41/32"
+    address: "10.3.12.41/32"
