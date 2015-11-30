@@ -59,6 +59,7 @@ govuk_jenkins::config::admins:
   - alextorrance
   - bobwalker
   - bradleywright
+  - chrispatuzzo
   - chrisroos
   - ci_alphagov
   - danielroseman
