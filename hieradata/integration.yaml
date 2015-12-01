@@ -55,7 +55,6 @@ govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:
   - alexmuller
-  - alextomlins
   - alextorrance
   - bobwalker
   - bradleywright
@@ -544,7 +543,6 @@ shell::shell_prompt_string: 'integration'
 
 users::usernames:
   - alexmuller
-  - alext
   - alextorrance
   - andrewvos
   - benilovj
