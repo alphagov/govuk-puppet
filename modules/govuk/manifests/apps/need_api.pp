@@ -13,9 +13,17 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
+# [*mongodb_nodes*]
+#   An array of MongoDB instance hostnames
+#
+# [*mongodb_name*]
+#   The name of the MongoDB database to use
+#
 class govuk::apps::need_api(
   $port = '3052',
   $errbit_api_key = '',
+  $mongodb_nodes,
+  $mongodb_name = 'govuk_needs_production',
 ) {
   govuk::app { 'need-api':
     app_type           => 'rack',
@@ -38,5 +46,14 @@ class govuk::apps::need_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+  }
+
+  validate_array($mongodb_nodes)
+  if $mongodb_nodes != [] {
+    $mongodb_nodes_string = join($mongodb_nodes, ',')
+    govuk::app::envvar { "${title}-MONGODB_URI":
+      varname => 'MONGODB_URI',
+      value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
+    }
   }
 }

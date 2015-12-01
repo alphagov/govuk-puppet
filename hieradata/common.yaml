@@ -194,6 +194,12 @@ govuk::apps::imminence::mongodb_nodes:
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
 
+# These are overridden on preview
+govuk::apps::need_api::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
 govuk::apps::panopticon::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
