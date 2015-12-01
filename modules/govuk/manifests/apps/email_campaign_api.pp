@@ -18,7 +18,7 @@
 # [*gov_delivery_password*]
 #   gov_delivery basic authentication password.
 #
-# [*redis_host*]    
+# [*redis_host*]
 #   Redis host.
 #
 # [*redis_port*]
