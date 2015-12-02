@@ -135,9 +135,10 @@
                 - whitehall-rummager
         - choice:
             name: DEPLOY_TASK
-            description: Task to run (available as $DEPLOY_TASK to deploy.sh and passed
+            description: Capistrano task to run (also available as $DEPLOY_TASK in deploy.sh)
             choices:
                 - deploy
+                - deploy:migrate_and_hard_restart
                 - deploy:migrations
                 - deploy:hard_restart
         - string:
