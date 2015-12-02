@@ -371,6 +371,9 @@ govuk_sudo::sudo_conf:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
 govuk_unattended_reboot::enabled: true
+govuk_unattended_reboot::monitoring_basic_auth:
+  username: "%{hiera('http_username')}"
+  password: "%{hiera('http_password')}"
 
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''

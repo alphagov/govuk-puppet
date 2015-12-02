@@ -22,7 +22,9 @@ module CheckIcinga
     end
 
     req = Net::HTTP::Get.new(uri.request_uri)
-    req.basic_auth "betademo", "nottobes"
+    if ENV['BASIC_AUTH_USERNAME'] and ENV['BASIC_AUTH_PASSWORD']
+      req.basic_auth ENV['BASIC_AUTH_USERNAME'], ENV['BASIC_AUTH_PASSWORD']
+    end
 
     response = http.start { |http| http.request(req) }
 

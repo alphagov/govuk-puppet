@@ -9,11 +9,17 @@
 #   Whether to enable unattended reboots.
 #   Default: false
 #
+# [*monitoring_basic_auth*]
+#   A hash containing a `username` and a `password` to access monitoring
+#   which is protected by basic authentication.
+#
 class govuk_unattended_reboot (
   $enabled = false,
+  $monitoring_basic_auth = {},
 ) {
 
   validate_bool($enabled)
+  validate_hash($monitoring_basic_auth)
 
   if ($enabled) {
     $file_ensure = present
