@@ -1,0 +1,36 @@
+---
+- scm:
+    name: env-sync-and-backup_copy_sanitised_whitehall_database
+    scm:
+        - git:
+            url: git@github.gds:gds/env-sync-and-backup.git
+            branches:
+              - master
+
+- job:
+    name: copy_sanitised_whitehall_database
+    display-name: Copy sanitised whitehall database
+    project-type: freestyle
+    description: |
+        This job sanitises the whitehall database and synchronises it
+        to other environments periodically to keep them up to date.
+    properties:
+        - github:
+            url: https://github.gds/gds/env-sync-and-backup/
+    scm:
+      - env-sync-and-backup_copy_sanitised_whitehall_database
+    logrotate:
+        artifactNumToKeep: 10
+    triggers:
+        - timed: '15 5 * * 1-5'
+    builders:
+        - shell: |
+            cd "$WORKSPACE/whitehall/"
+            echo "Sanitising whitehall database"
+            ./sanitise-db.sh "<%= @whitehall_mysql_password %>"
+            echo "Syncing sanitised database"
+            ./copy-sanitised-database.sh "jumpbox.preview.alphagov.co.uk"
+            ./copy-sanitised-database.sh "jumpbox.integration.publishing.service.gov.uk"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
