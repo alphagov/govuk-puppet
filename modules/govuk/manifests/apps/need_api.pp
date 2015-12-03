@@ -58,6 +58,8 @@ class govuk::apps::need_api(
     govuk::app::envvar { "${title}-MONGODB_URI":
       varname => 'MONGODB_URI',
       value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
+    }
+  }
 
   if $secret_key_base != undef {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
