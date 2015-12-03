@@ -45,11 +45,6 @@ class govuk::apps::rummager(
     ',
   }
 
-  govuk::app::envvar { "${title}-TAXON_IMPORT_FILE":
-    varname => 'TAXON_IMPORT_FILE',
-    value   => "/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv",
-  }
-
   govuk::procfile::worker { 'rummager':
     enable_service => $enable_procfile_worker,
   }
