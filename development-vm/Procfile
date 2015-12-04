@@ -9,14 +9,14 @@ smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../smart-a
 calendars:             govuk_setenv calendars             ./run_in.sh ../calendars      bundle exec rails server -p 3011
 static:                govuk_setenv static                ./run_in.sh ../static         bundle exec rails server -p 3013
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../licence-finder bundle exec rails server -p 3014
-migratorator:          govuk_setenv migratorator          ./run_in.sh ../migratorator   bundle exec unicorn -p 3015
+# migratorator used 3015
 signon:                govuk_setenv signon                ./run_in.sh ../signonotron2   bundle exec rails server -p 3016
 tradetariff:           govuk_setenv tariff                ./run_in.sh ../trade-tariff-frontend   bundle exec rails server -p 3017
 tradetariffapi:        govuk_setenv tariff-api            ./run_in.sh ../trade-tariff-backend  bundle exec rails server -p 3018
 efg:                   govuk_setenv efg                   ./run_in.sh ../EFG            bundle exec rails server -p 3019
 whitehall:             govuk_setenv whitehall    ./run_in.sh ../whitehall      bundle exec rails server -p 3020
-reviewomatic:          ./run_in.sh ../review-o-matic bundle exec rails server -p 3021
-reviewomaticexplore:   PORT=3023 ./run_in.sh ../review-o-matic-explore npm start
+# reviewomatic used 3021
+# reviewomaticexplore used 3023
 contentapi:            govuk_setenv contentapi            ./run_in.sh ../govuk_content_api bundle exec mr-sparkle --force-polling --pattern "rabl|rb|ru|txt|yml" -- -p 3022
 designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../design-principles bundle exec rails server -p 3023
 businesssupportfinder: govuk_setenv businesssupportfinder ./run_in.sh ../business-support-finder bundle exec rails server -p 3024
