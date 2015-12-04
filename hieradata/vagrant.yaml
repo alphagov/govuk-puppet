@@ -6,6 +6,21 @@ app_domain: 'dev.gov.uk'
 backup::offsite::monitoring::offsite_fqdn: backup.gov.uk
 backup::offsite::monitoring::offsite_hostname: backup0.provider0
 
+assets::ssh_authorized_key::key: 'AAAAB3NzaC1yc2EAAAADAQABAAAAYQDCIfGHdqJj9IMkdwXtieDW15ZnR9GAqcnUwjQOMvySEst54705ekxcKwjRFTaYmawlifQTOgFDPkMwp72s2Zd+0ZiR7lfSzBQctbCptS/SgTNNltvplVt8nUbz9H0jLy8='
+assets::ssh_private_key::key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIBygIBAAJhAMIh8Yd2omP0gyR3Be2J4NbXlmdH0YCpydTCNA4y/JISy3njvTl6
+  TFwrCNEVNpiZrCWJ9BM6AUM+QzCnvazZl37RmJHuV9LMFBy1sKm1L9KBM02W2+mV
+  W3ydRvP0fSMvLwIDAQABAmBJXgqp52v32rC1V0YmP7V5fICbB8lllsVwYvTJaPuL
+  OQ8tQaSB1HaHXrw2SI4ZnfmIszZjgn6vMkX6sJ3ZJ24GjEwMnLQerkLjvQRVLkDz
+  akBdiSIEELnOKBb11MJ9QAECMQDhJk6Y8ijOaY8bPollNE/+Srlp4HT+/QkS+Os1
+  5GSQyjxbgwJ0hKNZ5+K/ktNjsoECMQDcu6KYyHv+k/0Lle64tRTAwDrY6ihVG24T
+  qSx1Rvk2rycnj43o9vFd5KK83B6lqa8CMDXHVqLFxOV45UvWpi7cTfcplhwqFwgJ
+  HK/BcT1QLo0/ISeipWV7gSEqeEjWI1P/AQIwRQgpgb6xiJyfts/dKMb5Bo8X2F7i
+  3jsF4gA2dzcLGZ8Nj8HFj+Yq9kJa4tW0f/rhAjEA2RpJoFDSBgqOrQlWvbv0emGC
+  /LeZ4erY43uylcslv0IdeARWGNLw7x8dq++QO530
+  -----END RSA PRIVATE KEY-----
+
 base::supported_kernel::enabled: true
 
 govuk::apps::mapit::enabled: true
@@ -142,6 +157,7 @@ icinga::nginx::enable_basic_auth: false
 shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_users:
+  - 'assets'
   - 'vagrant'
 
 users::usernames:

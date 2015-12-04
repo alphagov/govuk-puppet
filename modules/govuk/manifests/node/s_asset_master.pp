@@ -4,6 +4,8 @@
 #
 class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
 
+  include assets::ssh_private_key
+
   file { '/var/run/virus_scan':
     ensure => directory,
     owner  => 'assets',

@@ -13,6 +13,8 @@ class govuk::node::s_asset_slave (
 
   validate_bool($offsite_backups)
 
+  include assets::ssh_authorized_key
+
   if $offsite_backups {
     include backup::assets
   }
