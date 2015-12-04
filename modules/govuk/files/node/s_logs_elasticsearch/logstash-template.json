@@ -54,6 +54,7 @@
               "analyzer": "user_agent_analyzer"
             },
             "application": {
+              "index": "not_analyzed",
               "type": "string",
               "copy_to": "@fields.destination_application"
             },
