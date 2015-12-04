@@ -42,7 +42,6 @@ process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi]
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
-process :migratorator
 process :need_api
 process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
@@ -51,8 +50,6 @@ process :publisher => [:panopticon, :contentapi]
 process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
-process :reviewomatic => :migratorator
-process :reviewomaticexplore => :reviewomatic
 process :router
 process :'router-api'
 process :rummager => [:contentapi]
