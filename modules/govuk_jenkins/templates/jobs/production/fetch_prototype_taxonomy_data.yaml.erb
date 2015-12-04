@@ -21,10 +21,11 @@
             ssh deploy@search-3.api '(cd /var/apps/rummager/shared; mkdir -p alpha_taxonomy)'
             ssh deploy@search-2.api '(cd /var/apps/rummager/shared; mkdir -p alpha_taxonomy)'
             ssh deploy@search-1.api '(cd /var/apps/rummager/shared; mkdir -p alpha_taxonomy)'
-            ssh deploy@search-1.api '(cd /var/apps/rummager; TAXON_IMPORT_FILE=/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv bundle exec taxonomy_prototype:download_data)'
+            ssh deploy@search-1.api '(cd /var/apps/rummager; TAXON_IMPORT_FILE=/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv govuk_setenv rummager bundle exec rake taxonomy_prototype:download_data)'
             ssh -A deploy@search-1.api '(scp /data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv deploy@search-2.api:/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv)'
             ssh -A deploy@search-1.api '(scp /data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv deploy@search-3.api:/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv)'
-
+    triggers:
+      - timed: 'H 2 * * *'
     publishers:
         - trigger-parameterized-builds:
             - project: Success_Passive_Check
