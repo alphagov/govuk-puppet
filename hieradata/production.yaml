@@ -51,6 +51,7 @@ backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 base::supported_kernel::enabled: true
 
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
+govuk::apps::content_tagger::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
