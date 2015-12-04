@@ -13,15 +13,17 @@
     disabled: false
     project-type: freestyle
     description: |
-      Every morning the CDN log for GOV.UK rotates, this job collects all GOV.UK URLs that returned a 2XX status for yesterday's site activity.
+      Process any new completed log files from the CDN for GOV.UK.  This
+      involves producing a count of the accesses that happened each hour, and
+      then processing that to produce a list of "known good" urls.  This is run
+      nightly, at a later time than log rotation typically happens.
     scm:
       - govuk-cdn-logs-monitor
     builders:
       - shell: |
           ssh deploy@logs-cdn-1.management '
             cd /var/apps/govuk-cdn-logs-monitor &&
-            govuk_setenv govuk-cdn-logs-monitor sh nightly_run.sh &&
-            govuk_setenv govuk-cdn-logs-monitor sh accumulate.sh
+            govuk_setenv govuk-cdn-logs-monitor ./nightly_run.sh
           '
     logrotate:
       artifactNumToKeep: 14
