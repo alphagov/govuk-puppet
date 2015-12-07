@@ -75,6 +75,11 @@ class govuk::node::s_asset_base (
     require   => Package['nfs-kernel-server'],
   }
 
+  file { '/usr/local/bin/copy-attachments.sh':
+    source => 'puppet:///modules/govuk/node/s_asset_base/copy-attachments.sh',
+    mode   => '0755',
+  }
+
   file { '/usr/local/bin/process-uploaded-attachment.sh':
     source => 'puppet:///modules/govuk/node/s_asset_base/process-uploaded-attachment.sh',
     mode   => '0755',

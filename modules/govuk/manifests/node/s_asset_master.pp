@@ -4,10 +4,15 @@
 #
 # === Parameters
 #
+# [*copy_attachments_hour*]
+#   This specifies the hour at which the full daily sync should
+#   occur.
+#
 # [*flag_new_whitehall_attachment_processing*]
 #   Feature flag for whether the new attachment processing should be used
 #
 class govuk::node::s_asset_master (
+  $copy_attachments_hour = 4,
   $flag_new_whitehall_attachment_processing = false,
 ) inherits govuk::node::s_asset_base {
 
@@ -21,6 +26,7 @@ class govuk::node::s_asset_master (
   # daemontools provides setlock
   $cron_requires = [
     File[
+      '/usr/local/bin/copy-attachments.sh',
       '/usr/local/bin/process-uploaded-attachments.sh',
       '/usr/local/bin/virus_scan.sh',
       '/usr/local/bin/virus-scan-file.sh',
@@ -52,6 +58,22 @@ class govuk::node::s_asset_master (
     cron { 'virus-scan-incoming-draft':
       ensure => absent,
       user   => 'assets',
+    }
+
+    cron { 'rsync-clean':
+      user    => 'assets',
+      hour    => $copy_attachments_hour,
+      minute  => '18',
+      command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/clean',
+      require => $cron_requires,
+    }
+
+    cron { 'rsync-clean-draft':
+      user    => 'assets',
+      hour    => $copy_attachments_hour,
+      minute  => '18',
+      command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/draft-clean',
+      require => $cron_requires,
     }
   } else {
     cron { 'virus-scan-incoming':
