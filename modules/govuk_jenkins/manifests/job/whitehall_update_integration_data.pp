@@ -1,4 +1,4 @@
-# == Class: govuk_jenkins::job::integration::whitehall_update_integration_data
+# == Class: govuk_jenkins::job::whitehall_update_integration_data
 #
 # === Parameters
 #
@@ -8,7 +8,7 @@
 # [*whitehall_update_integration_data*]
 #   Whitehall MySQL password
 #
-class govuk_jenkins::job::integration::whitehall_update_integration_data (
+class govuk_jenkins::job::whitehall_update_integration_data (
   $auth_token = undef,
   $whitehall_mysql_password,
 ) {

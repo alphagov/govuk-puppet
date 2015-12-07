@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::copy_data_to_staging
+# == Class: govuk_jenkins::job::copy_data_to_staging
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::copy_data_to_staging (
+class govuk_jenkins::job::copy_data_to_staging (
   $mysql_src_root_pw = undef,
   $mysql_dst_root_pw = undef,
   $pg_src_env_sync_pw = undef,

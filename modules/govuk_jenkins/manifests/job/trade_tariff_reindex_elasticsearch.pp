@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::trade_tariff_reindex_elasticsearch
+# == Class: govuk_jenkins::job::trade_tariff_reindex_elasticsearch
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::trade_tariff_reindex_elasticsearch {
+class govuk_jenkins::job::trade_tariff_reindex_elasticsearch {
   file { '/etc/jenkins_jobs/jobs/trade_tariff_reindex_elasticsearch.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production/trade_tariff_reindex_elasticsearch.yaml.erb'),

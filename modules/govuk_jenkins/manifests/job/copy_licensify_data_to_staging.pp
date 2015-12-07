@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::copy_licensify_data_to_staging
+# == Class: govuk_jenkins::job::copy_licensify_data_to_staging
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::copy_licensify_data_to_staging (
+class govuk_jenkins::job::copy_licensify_data_to_staging (
   $app_domain = hiera('app_domain'),
 ) {
 

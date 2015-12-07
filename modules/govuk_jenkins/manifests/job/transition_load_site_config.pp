@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::transition_load_site_config
+# == Class: govuk_jenkins::job::transition_load_site_config
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::transition_load_site_config {
+class govuk_jenkins::job::transition_load_site_config {
   file { '/etc/jenkins_jobs/jobs/transition_load_site_config.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production/transition_load_site_config.yaml.erb'),

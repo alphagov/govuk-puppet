@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::transition_load_transition_stats_hits
+# == Class: govuk_jenkins::job::transition_load_transition_stats_hits
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::transition_load_transition_stats_hits {
+class govuk_jenkins::job::transition_load_transition_stats_hits {
   file { '/etc/jenkins_jobs/jobs/transition_load_transition_stats_hits.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/production/transition_load_transition_stats_hits.yaml.erb'),

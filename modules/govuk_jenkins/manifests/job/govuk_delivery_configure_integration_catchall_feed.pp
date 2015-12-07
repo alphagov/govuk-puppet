@@ -1,12 +1,12 @@
 # == Class:
-# govuk_jenkins::job::integration::govuk_delivery_configure_integration_catchall_feed
+# govuk_jenkins::job::govuk_delivery_configure_integration_catchall_feed
 #
 # === Parameters
 #
 # [*auth_token*]
 #   Token to allow this job to be triggered remotely
 #
-class govuk_jenkins::job::integration::govuk_delivery_configure_integration_catchall_feed (
+class govuk_jenkins::job::govuk_delivery_configure_integration_catchall_feed (
   $auth_token = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/govuk_delivery_configure_integration_catchall_feed.yaml':
