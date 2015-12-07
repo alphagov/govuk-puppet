@@ -12,7 +12,7 @@ class govuk_jenkins::job::tagging_migration_check (
 
   file { '/etc/jenkins_jobs/jobs/tagging_migration_check.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/tagging_migration_check.yaml.erb'),
+    content => template('govuk_jenkins/jobs/tagging_migration_check.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 
