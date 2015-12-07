@@ -71,8 +71,18 @@ class govuk::node::s_asset_base (
     require   => Package['nfs-kernel-server'],
   }
 
+  file { '/usr/local/bin/process-uploaded-attachment.sh':
+    source => 'puppet:///modules/govuk/node/s_asset_base/process-uploaded-attachment.sh',
+    mode   => '0755',
+  }
+
   file { '/usr/local/bin/virus_scan.sh':
     source => 'puppet:///modules/govuk/node/s_asset_base/virus_scan.sh',
+    mode   => '0755',
+  }
+
+  file { '/usr/local/bin/virus-scan-file.sh':
+    source => 'puppet:///modules/govuk/node/s_asset_base/virus-scan-file.sh',
     mode   => '0755',
   }
 
