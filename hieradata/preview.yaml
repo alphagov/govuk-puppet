@@ -116,14 +116,339 @@ govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::ppa::path: 'preview'
 
+hosts::production::api::hosts:
+  api-1:
+    ip: '10.7.0.16'
+  api-2:
+    ip: '10.7.0.17'
+  api-elasticsearch-1:
+    ip: '10.7.0.25'
+  api-elasticsearch-2:
+    ip: '10.7.0.26'
+  api-elasticsearch-3:
+    ip: '10.7.0.27'
+  api-lb-1:
+    ip: '10.7.0.101'
+  api-lb-2:
+    ip: '10.7.0.102'
+  api-mongo-1:
+    ip: '10.7.0.21'
+  api-mongo-2:
+    ip: '10.7.0.22'
+  api-mongo-3:
+    ip: '10.7.0.23'
+  api-postgresql-primary-1:
+    ip: '10.7.0.40'
+  api-postgresql-standby-1:
+    ip: '10.7.0.41'
+  api-redis-1:
+    ip: '10.7.0.29'
+  content-store-1:
+    ip: '10.7.0.11'
+  content-store-2:
+    ip: '10.7.0.12'
+  content-store-3:
+    ip: '10.7.0.13'
+  draft-content-store-1:
+    ip: '10.7.2.11'
+  draft-content-store-2:
+    ip: '10.7.2.12'
+  email-campaign-api-1:
+    ip: '10.7.2.50'
+  email-campaign-api-2:
+    ip: '10.7.2.51'
+  email-campaign-api-3:
+    ip: '10.7.2.52'
+  email-campaign-mongo-1:
+    ip: '10.7.2.53'
+  email-campaign-mongo-2:
+    ip: '10.7.2.54'
+  email-campaign-mongo-3:
+    ip: '10.7.2.55'
+  mapit-1:
+    ip: '10.7.0.51'
+  performance-mongo-1:
+    ip: '10.7.0.31'
+  performance-mongo-2:
+    ip: '10.7.0.32'
+  performance-mongo-3:
+    ip: '10.7.0.33'
+  search-1:
+    ip: '10.7.0.4'
+  search-2:
+    ip: '10.7.0.5'
+  search-3:
+    ip: '10.7.0.6'
+
+hosts::production::backend::hosts:
+  asset-master-1:
+    ip: '10.3.0.20'
+    legacy_aliases:
+      - "asset-master-1.%{hiera('app_domain')}"
+      - 'asset-master'
+      - "asset-master.%{hiera('app_domain')}"
+  asset-slave-1:
+    ip: '10.3.0.21'
+    legacy_aliases:
+      - "asset-slave-1.%{hiera('app_domain')}"
+      - 'asset-slave'
+      - "asset-slave.%{hiera('app_domain')}"
+  backend-1:
+    ip: '10.3.0.2'
+  backend-2:
+    ip: '10.3.0.3'
+  backend-3:
+    ip: '10.3.0.4'
+  backend-lb-1:
+    ip: '10.3.0.101'
+  backend-lb-2:
+    ip: '10.3.0.102'
+  elasticsearch-1:
+    ip: '10.3.0.15'
+  elasticsearch-2:
+    ip: '10.3.0.16'
+  elasticsearch-3:
+    ip: '10.3.0.17'
+  exception-handler-1:
+    ip: '10.3.0.40'
+  mapit-server-1:
+    ip: '10.3.0.9'
+  mapit-server-2:
+    ip: '10.3.0.10'
+  mongo-1:
+    ip: '10.3.0.6'
+    service_aliases:
+      - 'mongodb'
+  mongo-2:
+    ip: '10.3.0.7'
+  mongo-3:
+    ip: '10.3.0.8'
+  mysql-backup-1:
+    ip: '10.3.10.2'
+    legacy_aliases:
+      - 'backup.mysql'
+  mysql-master-1:
+    ip: '10.3.10.0'
+    legacy_aliases:
+      - 'master.mysql'
+      - "mysql.backend.%{hiera('internal_tld')}"
+  mysql-slave-1:
+    ip: '10.3.10.1'
+    legacy_aliases:
+      - 'slave.mysql'
+  mysql-slave-2:
+    ip: '10.3.10.3'
+  performance-backend-1:
+    ip: '10.3.0.80'
+  performance-backend-2:
+    ip: '10.3.0.81'
+  postgresql-primary-1:
+    ip: '10.3.20.12'
+  postgresql-standby-1:
+    ip: '10.3.20.13'
+  rabbitmq-1:
+    ip: '10.3.0.70'
+  rabbitmq-2:
+    ip: '10.3.0.71'
+  rabbitmq-3:
+    ip: '10.3.0.72'
+  redis-1:
+    ip: '10.3.0.50'
+  redis-2:
+    ip: '10.3.0.51'
+  transition-postgresql-master-1:
+    ip: '10.3.20.1'
+    legacy_aliases:
+      - 'transition-master.postgresql'
+      - "transition-postgresql.backend.%{hiera('internal_tld')}"
+  transition-postgresql-slave-1:
+    ip: '10.3.20.2'
+    legacy_aliases:
+      - 'transition-slave.postgresql'
+  whitehall-backend-1:
+    ip: '10.3.0.25'
+  whitehall-backend-2:
+    ip: '10.3.0.26'
+  whitehall-backend-3:
+    ip: '10.3.0.27'
+  whitehall-backend-4:
+    ip: '10.3.0.28'
+  whitehall-mysql-backup-1:
+    ip: '10.3.10.34'
+    legacy_aliases:
+      - 'whitehall-backup.mysql'
+  whitehall-mysql-master-1:
+    ip: '10.3.10.30'
+    legacy_aliases:
+      - 'whitehall-master.mysql'
+      - "whitehall-mysql.backend.%{hiera('internal_tld')}"
+  whitehall-mysql-slave-1:
+    ip: '10.3.10.31'
+    legacy_aliases:
+      - 'whitehall-slave.mysql'
+  whitehall-mysql-slave-2:
+    ip: '10.3.10.32'
+
 hosts::production::carrenza_vcloud: true
 hosts::production::ip_bouncer: '10.133.0.40'
+
+hosts::production::frontend::hosts:
+  calculators-frontend-1:
+    ip: '10.2.0.11'
+  calculators-frontend-2:
+    ip: '10.2.0.12'
+  calculators-frontend-3:
+    ip: '10.2.0.13'
+  frontend-1:
+    ip: '10.2.0.2'
+  frontend-2:
+    ip: '10.2.0.3'
+  frontend-3:
+    ip: '10.2.0.4'
+  draft-frontend-1:
+    ip: '10.2.2.2'
+  draft-frontend-2:
+    ip: '10.2.2.3'
+  email-campaign-frontend-1:
+    ip: '10.2.0.30'
+  email-campaign-frontend-2:
+    ip: '10.2.0.31'
+  email-campaign-frontend-3:
+    ip: '10.2.0.32'
+  performance-frontend-1:
+    ip: '10.2.0.20'
+  performance-frontend-2:
+    ip: '10.2.0.21'
+  whitehall-frontend-1:
+    ip: '10.2.0.5'
+  whitehall-frontend-2:
+    ip: '10.2.0.6'
+  whitehall-frontend-3:
+    ip: '10.2.0.10'
+  whitehall-frontend-4:
+    ip: '10.2.0.14'
+  whitehall-frontend-5:
+    ip: '10.2.0.15'
+  whitehall-frontend-6:
+    ip: '10.2.0.16'
+  whitehall-frontend-7:
+    ip: '10.2.0.17'
+  frontend-lb-1:
+    ip: '10.2.0.101'
+  frontend-lb-2:
+    ip: '10.2.0.102'
 
 hosts::production::licensify::app_hostnames:
   - 'licensify'
   - 'uploadlicence'
   - 'licensify-admin'
   - 'licensing-web-forms'
+
+hosts::production::management::hosts:
+  jenkins-1:
+    ip: '10.0.0.3'
+  puppetmaster-1:
+    ip: '10.0.0.5'
+    legacy_aliases:
+      - 'puppet'
+    service_aliases:
+      - 'puppet'
+      - 'puppetdb'
+  monitoring-1:
+    ip: '10.0.0.20'
+    legacy_aliases:
+      - 'monitoring'
+      - "nagios.%{hiera('app_domain')}"
+    service_aliases:
+      - 'alert'
+      - 'monitoring'
+      - 'nagios'
+  graphite-1:
+    ip: '10.0.0.22'
+    legacy_aliases:
+      - "graphite.%{hiera('app_domain')}"
+    service_aliases:
+      - 'graphite'
+  logs-cdn-1:
+    ip: '10.0.0.27'
+  logging-1:
+    ip: '10.0.0.28'
+    service_aliases:
+      - 'logging'
+  logs-elasticsearch-1:
+    ip: '10.0.0.29'
+    service_aliases:
+      - 'logs-elasticsearch'
+  logs-elasticsearch-2:
+    ip: '10.0.0.30'
+  logs-elasticsearch-3:
+    ip: '10.0.0.31'
+  logs-redis-1:
+    ip: '10.0.0.40'
+  logs-redis-2:
+    ip: '10.0.0.41'
+  backup-1:
+    ip: '10.0.0.50'
+  etcd-1:
+    ip: '10.0.0.60'
+  etcd-2:
+    ip: '10.0.0.61'
+  etcd-3:
+    ip: '10.0.0.62'
+  apt-1:
+    ip: '10.0.0.75'
+    service_aliases:
+      - 'apt'
+  jumpbox-1:
+    ip: '10.0.0.100'
+  mirrorer-1:
+    ip: '10.0.0.128'
+  jumpbox-2:
+    ip: '10.0.0.200'
+
+hosts::production::redirector::hosts:
+  bouncer-1:
+    ip: '10.6.0.4'
+  bouncer-2:
+    ip: '10.6.0.5'
+  bouncer-3:
+    ip: '10.6.0.6'
+
+hosts::production::router::hosts:
+  cache-1:
+    ip: '10.1.0.2'
+  cache-2:
+    ip: '10.1.0.3'
+  cache-3:
+    ip: '10.1.0.4'
+  draft-cache-1:
+    ip: '10.1.2.2'
+  draft-cache-2:
+    ip: '10.1.2.3'
+  router-backend-1:
+    ip: '10.1.0.10'
+  router-backend-2:
+    ip: '10.1.0.11'
+  router-backend-3:
+    ip: '10.1.0.12'
+  cache:
+    ip: '10.1.1.1'
+    legacy_aliases:
+      - 'cache'
+      - "www.%{hiera('app_domain')}"
+      - "www-origin.%{hiera('app_domain')}"
+      - "assets-origin.%{hiera('app_domain')}"
+    service_aliases:
+      - 'cache'
+      - 'router'
+  router-backend-internal-lb:
+    ip: '10.1.1.2'
+    legacy_aliases:
+      - "router-api.%{hiera('app_domain')}"
+  draft-cache-internal-lb:
+    ip: '10.1.2.1'
+    legacy_aliases:
+      - "draft-router-api.%{hiera('app_domain')}"
 
 icinga::client::check_cputype::cputype: 'amd'
 
