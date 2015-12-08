@@ -31,7 +31,7 @@ class govuk_jenkins::job::data_sync_complete_integration (
 ) {
   file { '/etc/jenkins_jobs/jobs/data_sync_complete.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/integration/data_sync_complete.yaml_integration.erb'),
+    content => template('govuk_jenkins/jobs/integration/data_sync_complete_integration.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }
