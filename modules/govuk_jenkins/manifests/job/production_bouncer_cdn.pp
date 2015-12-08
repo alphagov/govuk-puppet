@@ -30,7 +30,7 @@ class govuk_jenkins::job::production_bouncer_cdn (
 
   file { '/etc/jenkins_jobs/jobs/production_bouncer_cdn.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/production_bouncer_cdn.yaml.erb'),
+    content => template('govuk_jenkins/jobs/production_bouncer_cdn.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 

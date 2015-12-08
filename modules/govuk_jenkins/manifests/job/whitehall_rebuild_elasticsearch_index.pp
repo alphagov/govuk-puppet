@@ -5,7 +5,7 @@
 class govuk_jenkins::job::whitehall_rebuild_elasticsearch_index {
   file { '/etc/jenkins_jobs/jobs/whitehall_rebuild_elasticsearch_index.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/whitehall_rebuild_elasticsearch_index.yaml.erb'),
+    content => template('govuk_jenkins/jobs/whitehall_rebuild_elasticsearch_index.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }

@@ -18,7 +18,7 @@ class govuk_jenkins::job::copy_data_to_preview (
 
   file { '/etc/jenkins_jobs/jobs/copy_data_to_preview.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/copy_data_to_preview.yaml.erb'),
+    content => template('govuk_jenkins/jobs/copy_data_to_preview.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 

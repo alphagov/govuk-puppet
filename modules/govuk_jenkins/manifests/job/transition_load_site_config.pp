@@ -5,7 +5,7 @@
 class govuk_jenkins::job::transition_load_site_config {
   file { '/etc/jenkins_jobs/jobs/transition_load_site_config.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/transition_load_site_config.yaml.erb'),
+    content => template('govuk_jenkins/jobs/transition_load_site_config.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }

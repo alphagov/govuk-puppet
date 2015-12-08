@@ -5,7 +5,7 @@
 class govuk_jenkins::job::trigger_data_sync_complete () {
   file { '/etc/jenkins_jobs/jobs/trigger_data_sync_complete.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/trigger_data_sync_complete.yaml.erb'),
+    content => template('govuk_jenkins/jobs/trigger_data_sync_complete.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }

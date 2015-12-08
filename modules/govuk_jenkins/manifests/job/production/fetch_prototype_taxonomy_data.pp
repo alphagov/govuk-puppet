@@ -12,7 +12,7 @@ class govuk_jenkins::job::production::fetch_prototype_taxonomy_data(
 
   file { '/etc/jenkins_jobs/jobs/fetch_prototype_taxonomy_data.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/fetch_prototype_taxonomy_data.yaml.erb'),
+    content => template('govuk_jenkins/jobs/fetch_prototype_taxonomy_data.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 

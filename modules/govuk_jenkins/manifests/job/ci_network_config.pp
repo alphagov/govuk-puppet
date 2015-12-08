@@ -5,7 +5,7 @@
 class govuk_jenkins::job::ci_network_config {
   file { '/etc/jenkins_jobs/jobs/ci_network_config.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/ci_network_config.yaml.erb'),
+    content => template('govuk_jenkins/jobs/ci_network_config.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }
