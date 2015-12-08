@@ -46,6 +46,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::service_manual_rebuild_search_index
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
+  - govuk_jenkins::job::tagging_migration_check
 
 govuk_jenkins::job_builder::environment: 'staging'
 
