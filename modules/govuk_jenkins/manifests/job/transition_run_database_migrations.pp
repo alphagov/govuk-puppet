@@ -10,7 +10,7 @@ class govuk_jenkins::job::transition_run_database_migrations (
 ) {
   file { '/etc/jenkins_jobs/jobs/transition_run_database_migrations.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/integration/transition_run_database_migrations.yaml.erb'),
+    content => template('govuk_jenkins/jobs/transition_run_database_migrations.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }
