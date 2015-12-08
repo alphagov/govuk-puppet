@@ -35,6 +35,14 @@ sub vcl_recv {
     error 667 req.http.x-Redir-Url;
   }
 
+  # https://www.gov.uk/foo. -> https://www.gov.uk/foo
+  # Ignores URLs with query strings
+  # vcl_error completes the redirect
+  if (req.url ~ "^[^?]+\.$") {
+    set req.http.x-Redir-Url = regsub(req.url, "^(.*)\.$", "\1");
+    error 667 req.http.x-Redir-Url;
+  }
+
   # normalize Accept-Encoding header
   if (req.http.Accept-Encoding) {
     if (req.url ~ "\.(jpeg|jpg|png|gif|gz|tgz|bz2|tbz|zip|flv|pdf|mp3|ogg)$") {
