@@ -57,8 +57,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
 
-govuk::node::s_asset_master::run_virus_scan_clean_hour: '9'
-
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
