@@ -5,7 +5,7 @@
 # [*port*]
 #  Port that Kibana listens on
 #
-class govuk::apps::kibana( $port = '3202' ) {
+class govuk::apps::kibana($port = '3202') {
   govuk::app { 'kibana':
     app_type => 'rack',
     port     => $port,
