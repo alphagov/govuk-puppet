@@ -1,31 +1,26 @@
 ---
+- scm:
+    name: tagging-migration-verifier
+    scm:
+        - git:
+            url: git@github.com:alphagov/tagging-migration-verifier.git
+            branches:
+              - master
+
 - job:
-    name: TaggingMigrationCheck
+    name: tagging-migration-verifier
     display-name: TaggingMigrationCheck
     project-type: freestyle
     description: "This job checks if taggings are in sync between contentapi and content-store"
-    properties:
-        - github:
-            url: https://github.com/alphagov/tagging-migration-verifier.git
     scm:
       - tagging-migration-verifier
     logrotate:
-        artifactNumToKeep: 10
+        artifactNumToKeep: 100
     triggers:
         - timed: '0 * * * *' # every hour
     builders:
         - shell: |
-            set +x
-            cd "${WORKSPACE}"
-
-            set +e
-
-            git clone https://github.com/alphagov/tagging-migration-verifier.git
-            cd tagging-migration-verifier
             bin/verify_migrated_apps
-            EXITCODE=$?
-
-            exit $EXITCODE
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
@@ -41,5 +36,3 @@
     wrappers:
         - ansicolor:
             colormap: xterm
-        - inject:
-            script-content: PARALLEL_JOBS=2
