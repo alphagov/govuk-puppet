@@ -1,8 +1,8 @@
-# == Class: govuk_jenkins::job::production::fetch-prototype-taxonomy-data
+# == Class: govuk_jenkins::job::fetch-prototype-taxonomy-data
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
-class govuk_jenkins::job::production::fetch_prototype_taxonomy_data(
+class govuk_jenkins::job::fetch_prototype_taxonomy_data(
   $app_domain = hiera('app_domain'),
 ) {
 
