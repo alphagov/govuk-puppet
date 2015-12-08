@@ -12,7 +12,7 @@ class govuk_jenkins::job::copy_licensify_data_to_staging (
 
   file { '/etc/jenkins_jobs/jobs/copy_licensify_data_to_staging.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/copy_licensify_data_to_staging.yaml.erb'),
+    content => template('govuk_jenkins/jobs/copy_licensify_data_to_staging.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 

@@ -5,7 +5,7 @@
 class govuk_jenkins::job::trade_tariff_reindex_elasticsearch {
   file { '/etc/jenkins_jobs/jobs/trade_tariff_reindex_elasticsearch.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/trade_tariff_reindex_elasticsearch.yaml.erb'),
+    content => template('govuk_jenkins/jobs/trade_tariff_reindex_elasticsearch.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }

@@ -13,7 +13,7 @@ class govuk_jenkins::job::search_fetch_analytics_data (
 
   file { '/etc/jenkins_jobs/jobs/search_fetch_analytics_data.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/search_fetch_analytics_data.yaml.erb'),
+    content => template('govuk_jenkins/jobs/search_fetch_analytics_data.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 

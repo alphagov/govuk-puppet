@@ -5,7 +5,7 @@
 class govuk_jenkins::job::build_offsite_backup {
   file { '/etc/jenkins_jobs/jobs/build_offsite_backup.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/production/build_offsite_backup.yaml.erb'),
+    content => template('govuk_jenkins/jobs/build_offsite_backup.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }
