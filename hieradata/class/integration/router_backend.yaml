@@ -3,3 +3,10 @@
 govuk::apps::router_api::router_nodes:
   - 'cache-1.router:3055'
   - 'cache-2.router:3055'
+
+mongodb::server::replicaset_members:
+  'router-backend-1':
+  'router-backend-2':
+  'router-backend-3':
+  'router-backend-4':
+    priority: 0

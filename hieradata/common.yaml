@@ -521,7 +521,7 @@ hosts::production::backend::hosts:
     ip: '10.1.3.91'
     legacy_aliases:
       - 'slave.mysql'
-  myql-slave-2:
+  mysql-slave-2:
     ip: '10.1.11.91'
   performance-backend-1:
     ip: '10.1.3.80'
