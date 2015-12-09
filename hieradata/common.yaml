@@ -154,6 +154,7 @@ govuk::apps::backdrop_write::enabled: true
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 
+govuk::apps::content_register::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_register::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
@@ -165,12 +166,16 @@ govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_pref
 govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 
 govuk::apps::email_alert_api::enabled: true
+govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
 govuk::apps::email_campaign_api::errbit_environment_name: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
 govuk::apps::email_campaign_api::errbit_host: "https://errbit.%{hiera('app_domain')}"
 govuk::apps::email_campaign_api::mongodb_nodes:
   - 'email-campaign-mongo-1.api'
   - 'email-campaign-mongo-2.api'
   - 'email-campaign-mongo-3.api'
+
+govuk::apps::email_alert_monitor::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
@@ -224,10 +229,15 @@ govuk::apps::licencefinder::mongodb_nodes:
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
 
+govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::redis_host: 'redis-1.backend'
+govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
 govuk::apps::specialist_frontend::enabled: true
@@ -239,6 +249,11 @@ govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
+govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
+
+govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
