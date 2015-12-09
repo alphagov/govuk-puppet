@@ -86,8 +86,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
   - "search-3.api"
-govuk::node::s_api_redis::allowed_api_ip_range: '10.2.4.0/24'
-govuk::node::s_api_redis::allowed_backend_ip_range: '10.2.3.0/24'
 
 govuk::node::s_asset_base::firewall_allow_ip_range: '10.2.3.0/24'
 govuk::node::s_backend_lb::backend_servers:
