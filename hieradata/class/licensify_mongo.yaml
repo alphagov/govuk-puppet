@@ -3,6 +3,8 @@
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'Has an encrypted partition that must be mounted manually after reboot'
 
+hosts::production::external_licensify: false
+
 lv:
   mongodb:
     pv: '/dev/sdb1'
