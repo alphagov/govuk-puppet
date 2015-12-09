@@ -134,6 +134,8 @@ collectd::plugin::tcp::metrics:
   - 'ActiveOpens'
   - 'PassiveOpens'
 
+environment_ip_prefix: '10.1'
+
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
@@ -874,6 +876,11 @@ ntp::server_list:
   - '0.uk.pool.ntp.org'
   - '1.uk.pool.ntp.org'
   - '2.uk.pool.ntp.org'
+
+postgresql_api_slave_addresses_live: "%{hiera('environment_ip_prefix')}.4.41/32"
+postgresql_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.13/32"
+postgresql_transition_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.61/32"
+postgresql_transition_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.61/32"
 
 postgresql::globals::version: '9.3'
 
