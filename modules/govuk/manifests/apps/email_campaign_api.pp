@@ -35,7 +35,7 @@ class govuk::apps::email_campaign_api(
   $gov_delivery_code = undef,
   $gov_delivery_username = undef,
   $gov_delivery_password = undef,
-  $redis_host=undef,
+  $redis_host='api-redis-1.api',
   $redis_port='6379',
   $mongodb_nodes,
   $mongodb_name = 'email_campaign_api',
