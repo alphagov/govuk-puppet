@@ -28,7 +28,7 @@ class govuk::apps::email_campaign_api(
   $port = 3110,
   $enabled = true,
   $errbit_api_key = undef,
-  $errbit_environment_name='email-campaign-api',
+  $errbit_environment_name,
   $errbit_host=undef,
   $secret_key_base = undef,
   $gov_delivery_endpoint = undef,
