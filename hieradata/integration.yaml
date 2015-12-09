@@ -227,12 +227,6 @@ hosts::production::licensify_hosts:
   licensify-admin.integration.publishing.service.gov.uk:
     ip: '31.210.245.104'
 
-hosts::production::licensify::app_hostnames:
-  - 'licensify'
-  - 'uploadlicence'
-  - 'licensify-admin'
-  - 'licensing-web-forms'
-
 icinga::client::check_cputype::cputype: 'amd'
 
 licensify::apps::licensing_web_forms::enabled: true

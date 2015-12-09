@@ -5,6 +5,12 @@ govuk::safe_to_reboot::reason: 'Has an encrypted partition that must be mounted 
 
 hosts::production::external_licensify: false
 
+hosts::production::licensify::app_hostnames:
+  - 'licensify'
+  - 'uploadlicence'
+  - 'licensify-admin'
+  - 'licensing-web-forms'
+
 lv:
   mongodb:
     pv: '/dev/sdb1'

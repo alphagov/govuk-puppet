@@ -1,7 +1,0 @@
----
-
-hosts::production::licensify::app_hostnames:
-  - 'licensify'
-  - 'uploadlicence'
-  - 'licensify-admin'
-  - 'licensing-web-forms'
