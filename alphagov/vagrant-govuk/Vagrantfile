@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
       )
       c.vm.box = box_name
       c.vm.box_url = box_url
-      c.vm.hostname = "#{node_name}.development"
+      c.vm.hostname = "#{node_name}.dev.gov.uk"
       c.vm.network :private_network, {
         :ip => node_opts["ip"],
         :netmask => "255.000.000.000"
