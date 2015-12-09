@@ -23,8 +23,10 @@ mount:
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
 
-# Replicaset config can be overriden in the class-specific hieradata for each environment.
 mongodb::server::replicaset_members:
   'api-mongo-1':
   'api-mongo-2':
   'api-mongo-3':
+  'api-mongo-4':
+    hidden: true
+    priority: 0

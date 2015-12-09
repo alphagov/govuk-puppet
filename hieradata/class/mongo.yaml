@@ -28,3 +28,6 @@ mongodb::server::replicaset_members:
   'mongo-1':
   'mongo-2':
   'mongo-3':
+  'mongo-4':
+    hidden: true
+    priority: 0

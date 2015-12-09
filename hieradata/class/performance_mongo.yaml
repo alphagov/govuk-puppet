@@ -26,3 +26,6 @@ mongodb::server::replicaset_members:
   'performance-mongo-1':
   'performance-mongo-2':
   'performance-mongo-3':
+  'performance-mongo-4':
+    hidden: true
+    priority: 0
