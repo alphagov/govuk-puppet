@@ -47,5 +47,11 @@ while IFS= read -r -d '' FILE
     fi
 done < <(find "$INCOMING_DIR" -type f -print0)
 
+CODE=0
+OUTPUT="Last run status processing $INCOMING_DIR"
+
+# Send a passive check to check the freshness threshold
+printf "<%= @ipaddress %>\tprocess attachments last run\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+
 # Clean up empty directories in `incoming` which have not been modified recently.
 find "$INCOMING_DIR" -mindepth 1 -type d -mmin +10 -empty -delete

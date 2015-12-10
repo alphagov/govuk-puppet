@@ -75,6 +75,13 @@ class govuk::node::s_asset_master (
       command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/draft-clean',
       require => $cron_requires,
     }
+
+    @@icinga::passive_check { "check_process_attachments_${::hostname}":
+      service_description => 'Process attachments last run',
+      host_name           => $::fqdn,
+      freshness_threshold => 1800,
+      notes_url           => monitoring_docs_url(asset-master-attachment-processing),
+    }
   } else {
     cron { 'virus-scan-incoming':
       user    => 'assets',

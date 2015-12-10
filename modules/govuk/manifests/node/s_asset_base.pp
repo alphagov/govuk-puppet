@@ -80,9 +80,9 @@ class govuk::node::s_asset_base (
     mode   => '0755',
   }
 
-  file { '/usr/local/bin/process-uploaded-attachment.sh':
-    source => 'puppet:///modules/govuk/node/s_asset_base/process-uploaded-attachment.sh',
-    mode   => '0755',
+  file { '/usr/local/bin/process-uploaded-attachments.sh':
+    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh'),
+    mode    => '0755',
   }
 
   file { '/usr/local/bin/virus_scan.sh':
