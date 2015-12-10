@@ -4,6 +4,11 @@
 # intermediary onsite backup, because of their size.
 #
 # === Parameters
+# [*backup_private_gpg_key*]
+#   GPG private key needed to decrypt offsite backups
+#
+# [*backup_private_gpg_key_fingerprint*]
+#   GPG private key fingerprint
 #
 # [*backup_private_key*]
 #   Private key of the off-site backup box. Used in the deployment repo,
@@ -23,6 +28,8 @@
 #   Place to store the Duplicity cache - the default is ~/.cache/duplicity
 #
 class backup::assets(
+  $backup_private_gpg_key = undef,
+  $backup_private_gpg_key_fingerprint = undef,
   $backup_private_key,
   $dest_host,
   $dest_host_key,
@@ -40,6 +47,28 @@ class backup::assets(
     ensure  => present,
     mode    => '0600',
     content => $backup_private_key,
+  }
+
+  if $backup_private_gpg_key and $backup_private_gpg_key_fingerprint {
+    file { '/root/.gnupg':
+      ensure => directory,
+      mode   => '0700',
+    }
+
+    file { "/root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc":
+      ensure  => present,
+      mode    => '0600',
+      content => $backup_private_gpg_key,
+    }
+
+    exec { 'import_gpg_secret_key':
+      command     => "gpg --allow-secret-key-import --import /root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc",
+      unless      => "gpg --list-secret-keys | grep -Eqs ${backup_private_gpg_key_fingerprint}",
+      user        => 'root',
+      group       => 'root',
+      subscribe   => File["/root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc"],
+      refreshonly => true,
+    }
   }
 
   sshkey { $dest_host :
