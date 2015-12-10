@@ -22,7 +22,7 @@
 class govuk::apps::govuk_cdn_logs_monitor (
   $enabled = true,
   $cdn_log_dir = '/mnt/logs_cdn',
-  $processed_data_dir = 'processed',
+  $processed_data_dir = '/mnt/logs_cdn/processed',
 ) {
   if $enabled {
     Govuk::App::Envvar {
