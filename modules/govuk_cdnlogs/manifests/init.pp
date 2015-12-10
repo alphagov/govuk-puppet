@@ -50,6 +50,13 @@ class govuk_cdnlogs (
     notify  => Class['rsyslog::service'],
   }
 
+  file { "${log_dir}/processed":
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'deploy',
+    group  => 'deploy',
+  }
+
   if !empty($ports) {
     @ufw::allow { 'rsyslog-cdn-logs':
       port => $ports,
