@@ -23,7 +23,7 @@
       - shell: |
           ssh deploy@logs-cdn-1.management '
             cd /var/apps/govuk-cdn-logs-monitor &&
-            govuk_setenv govuk-cdn-logs-monitor ./nightly_run.sh
+            govuk_setenv govuk-cdn-logs-monitor bundle exec ruby scripts/process_completed_logs.rb
           '
     logrotate:
       artifactNumToKeep: 14
