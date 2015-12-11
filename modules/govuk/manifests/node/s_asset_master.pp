@@ -1,7 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_asset_master (
-  $run_virus_scan_clean_hour = '4',
-) inherits govuk::node::s_asset_base {
+class govuk::node::s_asset_master inherits govuk::node::s_asset_base {
 
   file { '/var/run/virus_scan':
     ensure => directory,
@@ -26,7 +24,7 @@ class govuk::node::s_asset_master (
 
   cron { 'virus-scan-clean':
     user    => 'assets',
-    hour    => $run_virus_scan_clean_hour,
+    hour    => '*',
     minute  => '18',
     command => '/usr/bin/setlock -n /var/run/virus_scan/clean.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
     require => $cron_requires,
@@ -41,7 +39,7 @@ class govuk::node::s_asset_master (
 
   cron { 'virus-scan-clean-draft':
     user    => 'assets',
-    hour    => $run_virus_scan_clean_hour,
+    hour    => '*',
     minute  => '48',
     command => '/usr/bin/setlock -n /var/run/virus_scan/clean-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
     require => $cron_requires,
