@@ -346,6 +346,8 @@ hosts::production::backend::hosts:
       - "asset-slave-1.%{hiera('app_domain')}"
       - 'asset-slave'
       - "asset-slave.%{hiera('app_domain')}"
+  asset-slave-2:
+    ip: '10.3.11.21'
   backend-1:
     ip: '10.3.3.2'
   backend-2:
