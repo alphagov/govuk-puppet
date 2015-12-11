@@ -156,6 +156,8 @@ govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 
 govuk::apps::email_alert_api::enabled: true
+govuk::apps::email_campaign_api::errbit_environment_name: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
+govuk::apps::email_campaign_api::errbit_host: "https://errbit.%{hiera('app_domain')}"
 # These are overridden on preview
 govuk::apps::email_campaign_api::mongodb_nodes:
   - 'email-campaign-mongo-1.api'
