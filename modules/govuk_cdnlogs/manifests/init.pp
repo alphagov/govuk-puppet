@@ -50,7 +50,7 @@ class govuk_cdnlogs (
     notify  => Class['rsyslog::service'],
   }
 
-  file { "${log_dir}/processed":
+  file { '/mnt/logs_cdn_processed/data':
     ensure => directory,
     mode   => '0755',
     owner  => 'deploy',
