@@ -35,6 +35,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*disable_publishing*]
+#   Disable publishing actions for documents.
+#
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
   $db_name = 'service-manual-publisher_production',
@@ -46,6 +49,7 @@ class govuk::apps::service_manual_publisher(
   $oauth_secret = '',
   $port = 3111,
   $secret_key_base = undef,
+  $disable_publishing = false,
 ) {
 
   if $enabled {
@@ -74,6 +78,14 @@ class govuk::apps::service_manual_publisher(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
+    }
+
+    if $disable_publishing {
+      govuk::app::envvar {
+        "${title}-DISABLE_PUBLISHING":
+          varname => 'DISABLE_PUBLISHING',
+          value   => '1';
+      }
     }
 
     if $secret_key_base != undef {
