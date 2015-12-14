@@ -11,8 +11,8 @@
 #   Uses the Nginx realip module (http://nginx.org/en/docs/http/ngx_http_realip_module.html)
 #   to change the client IP address to the one in the specified HTTP header.
 #
-# [*vhost_alias*]
-#   Other vhosts that assets should be served on at origin
+# [*vhost_aliases*]
+#   Array of other vhosts that assets should be served on at origin
 #
 # [*vhost_name*]
 #   Primary vhost that assets should be served on at origin
@@ -20,9 +20,11 @@
 class router::assets_origin(
   $asset_routes = {},
   $real_ip_header = '',
-  $vhost_alias,
+  $vhost_aliases = [],
   $vhost_name,
 ) {
+  validate_array($vhost_aliases)
+
   $app_domain = hiera('app_domain')
   $enable_ssl = hiera('nginx_enable_ssl', true)
 

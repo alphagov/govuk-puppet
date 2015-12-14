@@ -930,7 +930,10 @@ router::assets_origin::asset_routes:
   '/stagecraft/': "stagecraft"
   '/tariff/': "tariff"
 
-router::assets_origin::vhost_alias: 'assets.digital.cabinet-office.gov.uk'
+router::assets_origin::vhost_aliases:
+  - 'assets.digital.cabinet-office.gov.uk'
+  - 'assets.publishing.service.gov.uk'
+
 router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
 
 router::nginx::check_requests_warning: '@10'
