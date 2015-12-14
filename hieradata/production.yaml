@@ -51,6 +51,8 @@ backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
 
 base::supported_kernel::enabled: true
 
+environment_ip_prefix: '10.3'
+
 govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::content_tagger::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
@@ -634,10 +636,5 @@ postfix::smarthost:
   - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
-
-postgresql_api_slave_addresses_live: '10.3.4.41/32'
-postgresql_slave_addresses_live: '10.3.3.13/32'
-postgresql_transition_slave_addresses_live: '10.3.3.61/32'
-postgresql_transition_slave_addresses_dr: '10.3.11.61/32'
 
 shell::shell_prompt_string: 'production'

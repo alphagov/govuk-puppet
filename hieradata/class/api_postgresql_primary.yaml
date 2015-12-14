@@ -6,6 +6,8 @@ govuk::safe_to_reboot::reason: 'Single point of failure for any Postgres-writing
 govuk_postgresql::server::primary::slave_addresses:
   live:
     address: "%{hiera('postgresql_api_slave_addresses_live')}"
+  dr:
+    address: "%{hiera('postgresql_api_slave_addresses_dr')}"
 
 lv:
   postgresql:
