@@ -27,6 +27,7 @@
 class govuk::apps::email_campaign_api(
   $port = 3110,
   $enabled = true,
+  $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $errbit_environment_name,
   $errbit_host=undef,
@@ -57,6 +58,16 @@ class govuk::apps::email_campaign_api(
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
+    }
+
+    govuk::procfile::worker {'email-campaign-api':
+      enable_service => $enable_procfile_worker,
+    }
+
+    govuk::logstream { 'email_campaign_api_sidekiq_json_log':
+      logfile => '/var/apps/email-campaign-api/log/sidekiq.json.log',
+      fields  => {'application' => 'email-campaign-api-sidekiq'},
+      json    => true,
     }
 
     govuk::app::envvar {
