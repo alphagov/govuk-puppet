@@ -10,12 +10,14 @@ govuk::apps::content_tagger::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
+govuk::apps::government_frontend::enable_service_manual: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::panopticon::enable_procfile_worker: false
 govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publishing_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::service_manual_publisher::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::service_manual_publisher::enabled: true
 govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.2.4.0/24'
 govuk::apps::support_api::db::backend_ip_range: '10.2.3.0/24'
