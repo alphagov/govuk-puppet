@@ -18,4 +18,10 @@ class govuk::apps::publishing_api::db (
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
   }
+  govuk_postgresql::db { 'publishing_api_import':
+    user                    => 'publishing_api',
+    password                => $password,
+    allow_auth_from_backend => true,
+    backend_ip_range        => $backend_ip_range,
+  }
 }
