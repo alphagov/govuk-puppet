@@ -111,6 +111,7 @@ service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../
 # sidekiq-monitoring for publishing-api uses 3114
 whitehall-admin-tagging-test: govuk_setenv whitehall-admin-tagging-test ./run_in.sh ../whitehall bin/tagging_test 3115
 content-tagger: govuk_setenv content-tagger  ./run_in.sh ../content-tagger bundle exec rails s -p 3116
+# sidekiq-monitoring for email-campaign-api uses 3117
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
 # Firewall block rule on port 3170 (for testing connect timeouts)
