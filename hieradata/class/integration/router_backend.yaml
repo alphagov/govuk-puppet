@@ -9,4 +9,5 @@ mongodb::server::replicaset_members:
   'router-backend-2':
   'router-backend-3':
   'router-backend-4':
+    hidden: true
     priority: 0

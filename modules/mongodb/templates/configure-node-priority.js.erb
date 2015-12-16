@@ -3,6 +3,7 @@ var expectedReplicaSetMembers = [
     {
       host: '<%= host %>:27017',
       priority: <%= properties ? properties.fetch('priority', 1) : 1 %>,
+      hidden: <%= properties ? properties.fetch('hidden', false) : false %>,
     },
   <%- end -%>
 ]
@@ -28,6 +29,13 @@ for (var i = 0; i < expectedReplicaSetMembers.length; i++) {
   }
   if (thisMember.priority !== expectedMember.priority) {
     thisMember.priority = expectedMember.priority;
+    replicaSetChangesMade = true;
+  }
+  if (!thisMember.hidden) {
+    thisMember.hidden = false;
+  }
+  if (thisMember.hidden !== expectedMember.hidden) {
+    thisMember.hidden = expectedMember.hidden;
     replicaSetChangesMade = true;
   }
 }
