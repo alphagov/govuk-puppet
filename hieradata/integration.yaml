@@ -25,7 +25,6 @@ govuk::apps::mapit::enabled: true
 govuk::apps::policy_publisher::db::backend_ip_range: '10.1.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publishing_api::db::backend_ip_range: '10.1.3.0/24'
-govuk::apps::service_manual_publisher::enabled: true
 govuk::apps::signon::enable_logstream: true
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::publish_pre_production_finders: true

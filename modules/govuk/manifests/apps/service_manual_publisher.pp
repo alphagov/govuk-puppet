@@ -16,9 +16,6 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
-# [*enabled*]
-#   Whether to enable the app
-#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -43,7 +40,6 @@ class govuk::apps::service_manual_publisher(
   $db_name = 'service-manual-publisher_production',
   $db_password = undef,
   $db_username = 'service_manual_publisher',
-  $enabled = false,
   $errbit_api_key = '',
   $oauth_id = '',
   $oauth_secret = '',
@@ -52,57 +48,55 @@ class govuk::apps::service_manual_publisher(
   $disable_publishing = false,
 ) {
 
-  if $enabled {
-    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
-    $app_name = 'service-manual-publisher'
+  $app_name = 'service-manual-publisher'
 
-    govuk::app { $app_name:
-      app_type          => 'rack',
-      port              => $port,
-      vhost_ssl_only    => true,
-      health_check_path => '/healthcheck',
-    }
+  govuk::app { $app_name:
+    app_type          => 'rack',
+    port              => $port,
+    vhost_ssl_only    => true,
+    health_check_path => '/healthcheck',
+  }
 
-    Govuk::App::Envvar {
-      app => $app_name,
-    }
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
 
+  govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+  }
+
+  if $disable_publishing {
     govuk::app::envvar {
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
+      "${title}-DISABLE_PUBLISHING":
+        varname => 'DISABLE_PUBLISHING',
+        value   => '1';
     }
+  }
 
-    if $disable_publishing {
-      govuk::app::envvar {
-        "${title}-DISABLE_PUBLISHING":
-          varname => 'DISABLE_PUBLISHING',
-          value   => '1';
-      }
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
     }
+  }
 
-    if $secret_key_base != undef {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base,
-      }
-    }
-
-    if $::govuk_node_class != 'development' {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'postgresql',
-        username => $db_username,
-        password => $db_password,
-        host     => $db_hostname,
-        database => $db_name,
-      }
+  if $::govuk_node_class != 'development' {
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
     }
   }
 }
