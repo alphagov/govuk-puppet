@@ -9,8 +9,6 @@ base::supported_kernel::enabled: true
 
 cron::weekly_dow: 1
 
-govuk::apps::courts_api::enabled: true
-govuk::apps::courts_frontend::enabled: true
 govuk::apps::email_alert_monitor::enabled: true
 govuk::apps::content_register::db::backend_ip_range: '10.1.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.1.3.0/24'

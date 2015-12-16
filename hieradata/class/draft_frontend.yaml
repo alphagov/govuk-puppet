@@ -1,7 +1,6 @@
 ---
 
 govuk::apps::collections::vhost: 'draft-collections'
-govuk::apps::courts_frontend::vhost: 'draft-courts-frontend'
 govuk::apps::contacts_frontend::vhost: 'draft-contacts-frontend'
 govuk::apps::email_alert_frontend::vhost: 'draft-email-alert-frontend'
 govuk::apps::government_frontend::vhost: 'draft-government-frontend'
@@ -24,7 +23,6 @@ mount:
 
 govuk::node::s_frontend::apps:
  - govuk::apps::collections
- - govuk::apps::courts_frontend
  - govuk::apps::contacts_frontend
  - govuk::apps::email_alert_frontend
  - govuk::apps::government_frontend
