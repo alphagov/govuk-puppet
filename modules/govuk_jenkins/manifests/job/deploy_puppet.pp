@@ -7,8 +7,12 @@
 # [*auth_token*]
 #   Token which will allow this job to be triggered remotely
 #
+# [*commitish*]
+#   The commitish that the job should deploy by default. Defaults to 'release'
+#
 class govuk_jenkins::job::deploy_puppet (
   $auth_token = undef,
+  $commitish   = 'release',
 ) {
   file { '/etc/jenkins_jobs/jobs/deploy_puppet.yaml':
     ensure  => present,
