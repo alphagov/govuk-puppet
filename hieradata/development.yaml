@@ -34,9 +34,6 @@ govuk::apps::content_register::rabbitmq_hosts: ['localhost']
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_store::vhost: 'content-store'
-govuk::apps::courts_api::enabled: true
-govuk::apps::courts_frontend::enabled: true
-govuk::apps::courts_frontend::vhost: 'courts-frontend'
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 govuk::apps::email_alert_monitor::enabled: true

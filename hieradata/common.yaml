@@ -254,7 +254,6 @@ govuk::node::s_backend::apps:
   - govuk::apps::content_register
   - govuk::apps::content_tagger
   - govuk::apps::contentapi
-  - govuk::apps::courts_api
   - govuk::apps::email_alert_api
   - govuk::apps::email_alert_monitor
   - govuk::apps::email_alert_service
@@ -289,7 +288,6 @@ govuk::node::s_frontend::apps:
   - govuk::apps::collections
   - govuk::apps::contacts
   - govuk::apps::contacts_frontend
-  - govuk::apps::courts_frontend
   - govuk::apps::designprinciples
   - govuk::apps::email_alert_frontend
   - govuk::apps::feedback
