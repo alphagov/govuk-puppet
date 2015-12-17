@@ -19,7 +19,7 @@
             ssh deploy@backend-1.backend "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all"
     publishers:
         - trigger-parameterized-builds:
-            - project: Production_Bouncer_CDN
+            - project: Bouncer_CDN
               condition: 'SUCCESS'
               trigger-with-no-params: true
     wrappers:
