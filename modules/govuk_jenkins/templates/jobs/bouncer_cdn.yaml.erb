@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: cdn-configs_Production_Bouncer_CDN
+    name: cdn-configs_Bouncer_CDN
     scm:
         - git:
             url: git@github.gds:gds/cdn-configs.git
@@ -8,15 +8,15 @@
               - master
 
 - job:
-    name: Production_Bouncer_CDN
-    display-name: Production_Bouncer_CDN
+    name: Bouncer_CDN
+    display-name: Bouncer_CDN
     project-type: freestyle
     description: "After a loading new site config into the Transition app, this job will make sure that the traffic hitting the CDN for those domains is routed to Bouncer."
     properties:
         - github:
             url: https://github.gds/gds/cdn-configs/
     scm:
-        - cdn-configs_Production_Bouncer_CDN
+        - cdn-configs_Bouncer_CDN
     logrotate:
         artifactNumToKeep: 20
     builders:
