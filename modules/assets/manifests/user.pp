@@ -3,10 +3,7 @@
 # Configures the 'assets' user and group.
 #
 class assets::user {
-  group { 'assets':
-    ensure => 'present',
-    gid    => '2900',
-  }
+  include assets::group
 
   user { 'assets':
     ensure  => 'present',

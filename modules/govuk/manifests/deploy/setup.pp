@@ -26,7 +26,7 @@ class govuk::deploy::setup (
 ){
   validate_hash($ssh_keys)
 
-  include assets::user
+  include assets::group
 
   group { 'deploy':
     ensure => 'present',

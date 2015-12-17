@@ -1,6 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_base
+#
+# Base node definition. Every machine inherits from this.
+#
 class govuk::node::s_base {
-  include assets::user
   include backup::client
   include base
   include fail2ban

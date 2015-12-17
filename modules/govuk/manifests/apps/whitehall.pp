@@ -42,6 +42,8 @@ class govuk::apps::whitehall(
     require                => Package['unzip'],
   }
 
+  include assets
+
   if $configure_frontend == true {
 
     govuk::app::nginx_vhost { 'whitehall-frontend':
@@ -60,7 +62,6 @@ class govuk::apps::whitehall(
   }
 
   if $configure_admin == true {
-    include assets
 
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost                 => "whitehall-admin.${app_domain}",
