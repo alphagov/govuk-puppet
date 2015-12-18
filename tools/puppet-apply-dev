@@ -62,7 +62,7 @@ if [ -z "$NO_PULL" ]; then
   fi
 
   if [ -z "$NO_GIT_PULL" ]; then
-      safe_git_pull /var/govuk/puppet
+      safe_git_pull /var/govuk/govuk-puppet
   fi
   # Re-exec myself
   NO_PULL=1 exec "$SELF" "$@"
@@ -78,4 +78,4 @@ for dir in `ls vendor/modules`; do
 done
 
 info "running puppet"
-exec /var/govuk/puppet/tools/puppet-apply "$@"
+exec /var/govuk/govuk-puppet/tools/puppet-apply "$@"

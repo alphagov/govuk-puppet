@@ -28,14 +28,14 @@ checking for other manufacturers.
   * You have an account on [GitHub.com](https://github.com)
   * You have an account on
     [GDS's GitHub Enterprise](https://github.gds) and you can see the
-    [Puppet repository](https://github.gds/gds/puppet) (which you can,
+    [Puppet repository](https://github.com/alphagov/govuk-puppet) (which you can,
     because you're reading this)
   * You have a recent version of [Vagrant](https://www.vagrantup.com/downloads.html)
     installed - these instructions may work with older versions, but
     they're not officially supported
   * You have some other repositories from GDS checked out to work on -
     these should be located alongside the `puppet` repository we're in
-    now (e.g `~/govuk/puppet:~/govuk/frontend`)
+    now (e.g `~/govuk/govuk-puppet:~/govuk/frontend`)
 
 ### A note on Boxen
 
@@ -60,11 +60,11 @@ improvements made in that module. This is the recommended approach.
 
 Assuming your Puppet code is checked out into:
 
-    ~/govuk/puppet
+    ~/govuk/govuk-puppet
 
 the following commands will bootstrap your VM:
 
-    cd ~/govuk/puppet/development
+    cd ~/govuk/govuk-puppet/development
     ./bootstrap.sh
 
 and follow the instructions. Your machine will be automatically
