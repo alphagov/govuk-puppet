@@ -5,22 +5,22 @@
 #
 [DEFAULT]
 
-# https://github.gds/gds/puppet/commit/e343f1a
+# https://github.com/alphagov/govuk-puppet/commit/e343f1a
 backend = polling
 
 # ACTIONS
 
-# https://github.gds/gds/puppet/commit/d97af88
+# https://github.com/alphagov/govuk-puppet/commit/d97af88
 action = %(action_mwl)s
 
 [ssh]
 
-# https://github.gds/gds/puppet/commit/064904
+# https://github.com/alphagov/govuk-puppet/commit/064904
 maxretry = 20
 
 [ssh-ddos]
 
-# https://github.gds/gds/puppet/commit/e343f1a
+# https://github.com/alphagov/govuk-puppet/commit/e343f1a
 enabled = true
-# https://github.gds/gds/puppet/commit/064904
+# https://github.com/alphagov/govuk-puppet/commit/064904
 maxretry = 20

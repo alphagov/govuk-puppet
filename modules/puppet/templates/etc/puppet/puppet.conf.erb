@@ -5,7 +5,7 @@ usecacheonfailure = false
 trusted_node_data = true
 environment = <%= scope.lookupvar("::environment") %>
 <%- if @use_puppetmaster == false -%>
-environmentpath = /var/govuk/puppet/environments
+environmentpath = /var/govuk/govuk-puppet/environments
 <%- end -%>
 
 [master]

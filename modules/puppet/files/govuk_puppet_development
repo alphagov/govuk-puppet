@@ -1,2 +1,2 @@
 #!/bin/sh
-exec sh /var/govuk/puppet/tools/puppet-apply-dev "$@"
+exec sh /var/govuk/govuk-puppet/tools/puppet-apply-dev "$@"
