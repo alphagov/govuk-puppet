@@ -70,7 +70,6 @@ def write_human_readable_summary(outstream, upgrades, security_updates):
     outstream.write("\n")
 def init():
     " init the system, be nice "
-    # FIXME: do a ionice here too?
     os.nice(19)
     apt_pkg.init()
     # force apt to build its caches in memory for now to make sure
