@@ -1,0 +1,10 @@
+language: ruby
+sudo: true
+rvm:
+  - 1.9.3
+install:
+  - bundle install
+  - bundle exec rake librarian:install
+script:
+  - bundle exec rake lint
+  - bundle exec rake all_but_lint
