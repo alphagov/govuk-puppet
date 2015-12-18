@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: logrotate
+#
+# Installs the logrotate package.
+#
 class logrotate {
   package { 'logrotate':
     ensure => installed
