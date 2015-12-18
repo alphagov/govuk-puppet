@@ -47,7 +47,7 @@ that, you just need Git and the information in the next section.
 ## 3. Running the VM
 
 See
-[the Puppet development README](https://github.gds/gds/puppet/blob/master/development/README.md)
+[the Puppet development README](https://github.com/alphagov/govuk-puppet/blob/master/development/README.md)
 for more information.
 
 ## 4. Set up the apps
@@ -107,7 +107,7 @@ To get access to connect to machines in our environments you'll need to make
 a pull request against the Puppet repository to create a user account and add
 your public key.
 
-Create yourself a manifest in `puppet/modules/users/manifests/`. If your LDAP username
+Create yourself a manifest in `govuk-puppet/modules/users/manifests/`. If your LDAP username
 is `friendlygiraffe` the manifest will be called `friendlygiraffe.pp` and will look
 like this:
 
