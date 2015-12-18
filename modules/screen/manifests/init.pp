@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: screen
+#
+# Installs the screen package and manages the global config file
+#
 class screen {
 
   package { 'screen':

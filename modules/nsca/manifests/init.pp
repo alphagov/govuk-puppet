@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: nsca
+#
+# Installs the nsca package.
+#
 class nsca {
   package {'nsca':
     ensure => installed,
