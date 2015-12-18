@@ -23,14 +23,14 @@ class mongodb::repository(
       release      => 'dist',
       repos        => '10gen',
       architecture => $::architecture,
-      key          => '37E3ACBB',
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
     }
   } else {
     apt::source { 'mongodb':
       location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
       release  => 'dist',
       repos    => '10gen',
-      key      => '7F0CEB10', # Richard Kreuter <richard@10gen.com>
+      key      => '492EAFE8CD016A07919F1D2B9ECBEC467F0CEB10', # Richard Kreuter <richard@10gen.com>
     }
   }
 }

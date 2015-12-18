@@ -29,14 +29,14 @@ class puppet::repository(
       location     => "http://${apt_mirror_hostname}/puppetlabs-${::lsbdistcodename}",
       release      => $::lsbdistcodename,
       architecture => $::architecture,
-      key          => '37E3ACBB',
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
     }
   } else {
     apt::source {'puppetlabs':
       location => 'http://apt.puppetlabs.com',
       release  => $::lsbdistcodename,
       repos    => 'main dependencies',
-      key      => '4BD6EC30', # Puppet Labs Release Key (Puppet Labs Release Key) <info@puppetlabs.com>
+      key      => '47B320EB4C7C375AA9DAE1A01054B7A24BD6EC30', # Puppet Labs Release Key (Puppet Labs Release Key) <info@puppetlabs.com>
     }
   }
 }
