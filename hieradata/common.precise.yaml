@@ -1,5 +1,8 @@
 ---
 
+collectd::package::collectd_version: '5.4.0-ppa1~precise1'
+collectd::package::yajl_package: 'libyajl1'
+
 duplicity::packages::version: '0.6.18-0ubuntu3.5'
 
 nginx::package::version: '1.4.4-1~precise0'

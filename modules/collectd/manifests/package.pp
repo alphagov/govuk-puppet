@@ -2,22 +2,19 @@
 #
 # Installs the specific collectd package that we want.
 #
-class collectd::package {
+# === Parameters
+#
+# [*collectd_version*]
+#   The version of the `collectd-core` package to install.
+#
+# [*yajl_package*]
+#   The libyajl (Yet Another JSON Library) package to install.
+#
+class collectd::package (
+  $collectd_version = '5.4.0-3ubuntu2',
+  $yajl_package = 'libyajl2',
+) {
   include govuk::ppa
-
-  case $::lsbdistcodename {
-    'precise': {
-      $collectd_version = '5.4.0-ppa1~precise1'
-      $yajl_package = 'libyajl1'
-    }
-    'trusty': {
-      $collectd_version = '5.4.0-3ubuntu2'
-      $yajl_package = 'libyajl2'
-    }
-    default: {
-      fail('Only precise and trusty are supported')
-    }
-  }
 
   # collectd contains only configuration files, which we're overriding anyway
   package { 'collectd':
