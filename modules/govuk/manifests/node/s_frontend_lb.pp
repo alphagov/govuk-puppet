@@ -24,6 +24,7 @@ class govuk::node::s_frontend_lb (
       'draft-email-alert-frontend',
       'draft-government-frontend',
       'draft-manuals-frontend',
+      'draft-multipart-frontend',
       'draft-specialist-frontend',
       'draft-static',
     ]:
@@ -40,6 +41,7 @@ class govuk::node::s_frontend_lb (
       'government-frontend',
       'info-frontend',
       'manuals-frontend',
+      'multipart-frontend',
       'service-manual',
       'specialist-frontend',
       'static',
