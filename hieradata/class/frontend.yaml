@@ -6,6 +6,7 @@ govuk::apps::contacts_frontend::vhost: 'contacts-frontend'
 govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
+govuk::apps::multipage_frontend::vhost: 'multipage-frontend'
 govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::static::vhost: 'static'
 
