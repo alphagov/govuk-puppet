@@ -134,6 +134,8 @@ collectd::plugin::tcp::metrics:
   - 'ActiveOpens'
   - 'PassiveOpens'
 
+duplicity::packages::version: '0.6.23-1ubuntu4.1'
+
 environment_ip_prefix: '10.1'
 
 etcd::peer_heartbeat_interval: 100
@@ -886,6 +888,8 @@ postgresql_transition_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.
 
 postgresql::globals::version: '9.3'
 
+puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
+
 puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 rabbitmq::delete_guest_user: true
@@ -910,6 +914,9 @@ redis::conf_timeout: 300
 resolvconf::nameservers:
   - 8.8.8.8
   - 8.8.4.4
+
+resolvconf::options:
+   - 'single-request-reopen'
 
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
