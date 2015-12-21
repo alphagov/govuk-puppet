@@ -12,6 +12,6 @@ class govuk::apps::multipart_frontend(
     asset_pipeline        => true,
     asset_pipeline_prefix => 'multipart-frontend',
     vhost                 => $vhost,
-    health_check_path     => '/',
+    health_check_path     => '/healthcheck',
   }
 }
