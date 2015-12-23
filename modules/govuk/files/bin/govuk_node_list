@@ -49,13 +49,25 @@ def main():
 
         query = '["=", ["node", "active"], true]'
 
+    if opts.dr_nodes is True:
+        if opts.puppet_class:
+           # Querying for resources cannot directly query for facts in the same request
+           parser.error('Cannot list DR nodes with puppet classes')
+        else:
+           query = '["and", ["=", ["fact", "dr_node"], true], '+ query + ']'
+    elif opts.dr_nodes is False:
+        if opts.puppet_class:
+           # Querying for resources cannot directly query for facts in the same request
+           parser.error('Cannot list DR nodes with puppet classes')
+        else:
+           query = '["and", ["=", ["fact", "dr_node"], false], '+ query + ']'
+
     qs = urllib.urlencode({'query': query})
     res = urllib2.urlopen('http://puppetdb.cluster/v2/{0}?{1}'.format(endpoint, qs))
     hosts = json.load(res)
 
     for host in hosts:
         print(host[host_key])
-
 
 parser = OptionParser(description='List nodes in this environment from PuppetDB')
 
@@ -75,6 +87,20 @@ parser.add_option(
     help='Restrict the output to nodes of the specified Puppet class. (e.g. "nginx,ssh")',
     action='callback',
     callback=commasep_callback
+)
+
+parser.add_option(
+    '-d', '--dr-only',
+    help='Show only DR nodes',
+    action="store_true",
+    dest='dr_nodes',
+)
+
+parser.add_option(
+    '-n', '--only-non-dr-nodes',
+    help='Do not show DR nodes',
+    action="store_false",
+    dest='dr_nodes',
 )
 
 if __name__ == '__main__':
