@@ -620,6 +620,8 @@ monitoring::contacts::slack_username: 'Production Icinga'
 monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
+# FIXME: Remove this line after testing completed
+monitoring::checks::vpn_tunnels::enabled: false
 
 postfix::smarthost:
   - 'email-smtp.us-east-1.amazonaws.com:587'
