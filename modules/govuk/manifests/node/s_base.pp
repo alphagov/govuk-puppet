@@ -17,6 +17,7 @@ class govuk::node::s_base {
   include harden
   include hosts
   include monitoring::client
+  include nano
   include postfix
   include puppet
   include puppet::cronjob
