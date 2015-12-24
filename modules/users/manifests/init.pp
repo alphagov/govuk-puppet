@@ -12,6 +12,10 @@
 #   List of pentest user accounts to add.
 #   Default: []
 #
+# [*root_password_encrypted*]
+#   A string which is in the format that the operating system requires passwords
+#   (eg a SHA-512 hash on Ubuntu).
+#
 # [*usernames*]
 #   Users to add to all servers
 #   Default: '[]'
@@ -19,10 +23,17 @@
 class users (
   $pentest_machines = [],
   $pentest_usernames = [],
+  $root_password_encrypted,
   $usernames = [],
 ) {
 
   validate_array($pentest_machines, $pentest_usernames, $usernames)
+
+  user { 'root':
+    ensure   => present,
+    password => $root_password_encrypted,
+    require  => Package['ruby-shadow'],
+  }
 
   # Remove unmanaged UIDs >= 500 (users, not system accounts),
   # In order to have no user accounts defined and purge existing accounts, you *must*

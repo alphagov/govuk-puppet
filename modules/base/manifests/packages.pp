@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*gems*]
+#   A hash of gems to install.
+#
 # [*packages*]
 #   An array of packages to install.
 #
@@ -11,6 +14,7 @@
 #   Which version of the `ruby` package to install
 #
 class base::packages (
+  $gems = {},
   $packages = [],
   $ruby_version = installed,
 ) {
@@ -36,6 +40,8 @@ class base::packages (
     ensure  => $ruby_version,
     require => Package['libruby1.9.1'],
   }
+
+  create_resources('package', $gems, { provider => 'gem' })
 
   # FIXME: Remove `alternatives` resource once we've stopped using Precise
   if $::lsbdistcodename == 'precise' {

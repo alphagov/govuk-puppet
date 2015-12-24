@@ -80,6 +80,10 @@ backup::offsite::jobs:
     minute: 13,
     # No encryption because of size and sensitivity
 
+base::packages::gems:
+  ruby-shadow:
+    ensure: 2.5.0
+
 base::packages::packages:
   - 'ack-grep'
   - 'bzip2'
