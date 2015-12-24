@@ -3,6 +3,9 @@
 
 app_domain: 'dev.gov.uk'
 
+backup::offsite::monitoring::offsite_fqdn: backup.gov.uk
+backup::offsite::monitoring::offsite_hostname: backup0.provider0
+
 base::supported_kernel::enabled: true
 
 govuk::apps::mapit::enabled: true

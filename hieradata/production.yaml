@@ -82,8 +82,6 @@ govuk::deploy::setup::ssh_keys:
 govuk_bouncer::gor::enabled: true
 govuk_bouncer::gor::ip_address: '31.210.245.69'
 
-govuk_cdnlogs::monitoring_enabled: true
-
 govuk_jenkins::config::banner_colour_background: '#ff3300'
 govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
@@ -230,7 +228,6 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/mapper/backups-automongodbbackup'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::enable_fastly_metrics: true
-govuk::node::s_monitoring::offsite_backups: true
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
 
 govuk_crawler::seed_enable: true

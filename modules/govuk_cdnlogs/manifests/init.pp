@@ -7,6 +7,9 @@
 # [*log_dir*]
 #   Directory to store CDN logs.
 #
+# [*monitoring_enabled*]
+#   Whether checks should be set up to ensure that CDN logs are being received.
+#
 # [*rotate_logs_hourly*]
 #   Array of service names for which logs should be rotated hourly. Other
 #   services will have their logs rotated daily.
@@ -23,7 +26,7 @@
 #
 class govuk_cdnlogs (
   $log_dir,
-  $monitoring_enabled = false,
+  $monitoring_enabled = true,
   $rotate_logs_hourly = [],
   $server_key,
   $server_crt,
