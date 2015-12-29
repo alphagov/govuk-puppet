@@ -1,13 +1,15 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_cdnlogs', :type => :class do
+  let(:default_params) {{
+    :log_dir          => '/tmp/logs',
+    :server_key       => 'my key',
+    :server_crt       => 'my crt',
+    :service_port_map => { 'elephant' => 123 },
+  }}
+
   context 'all params' do
-    let(:params) {{
-      :log_dir          => '/tmp/logs',
-      :server_key       => 'my key',
-      :server_crt       => 'my crt',
-      :service_port_map => { 'elephant' => 123 },
-    }}
+    let(:params) { default_params }
 
     describe 'server_key' do
       it { is_expected.to contain_file('/etc/ssl/rsyslog.key').with_content('my key') }
@@ -30,12 +32,9 @@ describe 'govuk_cdnlogs', :type => :class do
     }
 
     context 'empty service_port_map' do
-      let(:params) {{
-        :log_dir          => '/tmp/logs',
-        :server_key       => 'key',
-        :server_crt       => 'crt',
+      let(:params) { default_params.merge({
         :service_port_map => {},
-      }}
+      })}
 
       it { is_expected.not_to contain_ufw__allow('rsyslog-cdn-logs') }
       it { is_expected.to contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
@@ -43,15 +42,12 @@ describe 'govuk_cdnlogs', :type => :class do
     end
 
     context 'two entries in service_port_map and log_dir' do
-      let(:params) {{
-        :log_dir          => '/tmp/logs',
-        :server_key       => '',
-        :server_crt       => '',
+      let(:params) { default_params.merge({
         :service_port_map => {
           'elephant' => 123,
           'giraffe'  => 456,
         },
-      }}
+      })}
 
       it 'should open two firewall ports' do
         is_expected.to contain_ufw__allow('rsyslog-cdn-logs').with_port('123,456')
