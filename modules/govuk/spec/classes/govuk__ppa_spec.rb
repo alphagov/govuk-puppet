@@ -10,13 +10,13 @@ describe 'govuk::ppa', :type => :class do
       it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/production') }
     end
 
-    context 'preview' do
+    context 'another environment' do
       let(:params) {{
         :apt_mirror_hostname => 'apt.example.com',
-        :path => 'preview',
+        :path => 'another-environment',
       }}
 
-      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/preview') }
+      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/another-environment') }
     end
   end
 

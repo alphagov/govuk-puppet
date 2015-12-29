@@ -9,7 +9,7 @@
 #   A hash of host keys that are used for deploying software from source control.
 #
 # [*development_keys*]
-#   A hash of host keys to seed the development VM. For example keys from preview to
+#   A hash of host keys to seed the development VM. For example keys from a live environment to
 #   allow the data replication script to work without prompting to connect
 #   to hosts.
 #
