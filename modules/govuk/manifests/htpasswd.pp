@@ -4,20 +4,18 @@
 #
 # === Parameters
 #
-# [*http_username*]
-#   Basic auth username
-#
-# [*http_passhash*]
-#   Hash of a password created with `htpasswd`
+# [*http_users*]
+#   Array of users with a password hash.
 #
 class govuk::htpasswd (
-  $http_username = 'notset',
-  $http_passhash = 'notset',
+  $http_users = {},
 ){
+
+  validate_hash($http_users)
 
   file { '/etc/govuk.htpasswd':
     ensure  => 'present',
-    content => "${http_username}:${http_passhash}",
+    content => template('govuk/etc/govuk.htpasswd.erb'),
   }
 
 }
