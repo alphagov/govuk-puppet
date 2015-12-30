@@ -41,6 +41,8 @@ govuk::deploy::setup::ssh_keys:
   jenkins_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDTAadBGP2ULZExXUh13K5XALJlqfQEYzVzUd6PC7P2mpcebMX9paV/r9UU0CXu6s7kGEspLlI5dxO5m5MRdcBdq2BjlMMWWO9jQ/JlEMD06UKsAQB8qWm3D8Zy7p93/JvBctVFZNJ6C8HXblktFvR6QniJ4uteGh5Nu75vratniEQ0FyLxND+zDKE1zO/N8CPTvpDeL8uKY0S1igaRjlN63B1rO1JrLVao/Dk6xVy+NDWlCriHlGOVH91OEj+6oYLJAQJ/L41z8VJGFq7pvZYvVy0iiI0daUWhvLNK9KqMl3qKujdG6S6HU7wsrNZlm2pa7qm135YYMt+z18hGwC3t'
   jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
 
+govuk_cdnlogs::monitoring_enabled: false
+
 govuk_crawler::seed_enable: true
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
@@ -206,6 +208,7 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
 govuk::node::s_logging::compress_srv_logs_hour: '9'
+govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_whitehall_backend::sync_mirror: true
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
 

@@ -1,7 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_monitoring
+#
+# This class sets up a monitoring machine.
+#
+# === Parameters
+#
+# [*enable_fastly_metrics*]
+#   Boolean, whether collectd should pull metrics using Fastly's API
+#
+# [*offsite_backups*]
+#   Boolean, whether the offsite backup machines should be monitored
+#
 class govuk::node::s_monitoring (
   $enable_fastly_metrics = false,
-  $offsite_backups = false,
+  $offsite_backups = true,
 ) inherits govuk::node::s_base {
 
   validate_bool($enable_fastly_metrics, $offsite_backups)

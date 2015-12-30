@@ -26,6 +26,8 @@ govuk::deploy::setup::ssh_keys:
     jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7aWtyeQTBcNav3RwyFDacYaO8Ab9wX5rqXKqgd3JlWzr95i7IlCsXSovboqHw3h1J6FrCDxafbhLWJ0lFHlNdGLgX9AysZgMLJCfaJ88RTbWnCyXvTcJBHKHhRkdCrfdXGobeiIOFTOCR2zm9E7EiUXLivgBDfWulo6on4wiyQcGzsMret8SbqUYDi+BBvOGUqun01L/dMIa5DIrPSe9mJ96jXk41x8PI96jZa0XlAkZuiUP2RnZDFBDYIOiN1MaPdcgtBp81Tjo9m41GdfTztZ8hJ+9HicBjCZFH14/zK8Hk9UNZafG6mGtTvn45InF3w2z5qtXamV7s9b/V3xr9'
     jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDvfe5R+1OKwEBQqQIECW4k4LaFrTZedFWK5pzSAM6QxpQtCbKau4ZnD1ToPLX/IGYnW9m/2QfTQoBUtJvERjJvvGs7Wy6I+nKpr4gBVuDiFWilaXZ0rhdlnfU+r/DvFwRR5qjt7pewAlzdcDKp/NAa9BPIYL+YSX4XAZE0b8YMGxeJFQ4sd4CloTJxiUF2F1t2OObXhdQfp2BKtjHMwqClxW6ZthjKcqT4tBkZfo/gzd0TG0FmykNH+tG5q9Y7oxxe52TfJudIobSLgbmXOoEuSNjlwgktb6B+K3J08txo7dG0HrDdamSDTQxXVhn1K1re3cMJokV0N59hazHh7+vx'
 
+govuk_cdnlogs::monitoring_enabled: false
+
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza STAGING'
@@ -149,6 +151,7 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
+govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
 grafana::dashboards::machine_suffix_metrics: '_staging'
