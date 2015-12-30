@@ -238,7 +238,7 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
-govuk::deploy::config::asset_root: "https://assets-origin.%{hiera('app_domain')}"
+govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 
 govuk::htpasswd::http_username: "%{hiera('http_username')}"
@@ -946,6 +946,12 @@ router::assets_origin::asset_routes:
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
   '/tariff/': "tariff"
+
+router::assets_origin::vhost_aliases:
+  - 'assets.digital.cabinet-office.gov.uk'
+  - 'assets.publishing.service.gov.uk'
+
+router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'

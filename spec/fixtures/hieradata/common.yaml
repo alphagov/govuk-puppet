@@ -39,6 +39,8 @@ hosts::production::management::hosts:
 
 internal_tld: "%{hiera('app_domain')}"
 
+router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
+
 users::pentest_machines: ['foo']
 users::pentest_usernames: ['andre_the_giant']
 
