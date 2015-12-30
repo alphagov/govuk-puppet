@@ -3,7 +3,6 @@ class govuk::node::s_licensify_lb (
   $licensify_frontend_servers,
   $licensify_backend_servers,
   $enable_feed_console = false,
-  $enable_licensing_api = false
 ){
   include govuk::node::s_base
 
@@ -37,14 +36,6 @@ class govuk::node::s_licensify_lb (
     loadbalancer::balance {
       # Licensify feed frontend
       'licensify-feed':
-        internal_only => true,
-        servers       => $licensify_backend_servers;
-    }
-  }
-  if ($enable_licensing_api) {
-    loadbalancer::balance {
-      # Licensing API
-      'licensing-api':
         internal_only => true,
         servers       => $licensify_backend_servers;
     }
