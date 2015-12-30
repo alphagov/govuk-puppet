@@ -8,7 +8,7 @@
 #
 # [*path*]
 #   Path that constitutes the last part of the repository. This can be used
-#   to present a different snapshot to an environment, e.g. `preview`
+#   to present a different snapshot to an environment, e.g. `integration`
 #   Default: `production`
 #
 # [*use_mirror*]

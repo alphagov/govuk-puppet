@@ -111,8 +111,7 @@
 #
 # Defaults to $title, the name of your application.
 #
-# The app will be served at "$vhost.$app_domain" in production
-# and preview environments.
+# The app will be served at "$vhost.$app_domain".
 #
 #
 # [*vhost_aliases*]

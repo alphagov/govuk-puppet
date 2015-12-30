@@ -7,7 +7,7 @@
 # [*enable*]
 #   Can be used to disable checks/alerts for a given environment. Because
 #   the URLs for the checks are configured at Pingdom's side, it is not
-#   desirable to have production and preview send an alert for the same
+#   desirable to have more than one environment send an alert for the same
 #   thing.
 #
 class monitoring::checks::pingdom (
