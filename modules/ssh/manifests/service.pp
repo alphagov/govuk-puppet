@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: ssh::service
+#
+# Set up and run the SSH service.
+#
 class ssh::service {
 
   service { 'ssh':
