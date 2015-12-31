@@ -84,8 +84,6 @@ class govuk::node::s_cache (
     strip_cookies => $strip_cookies,
   }
 
-  include govuk::apps::router
-
   if $enable_authenticating_proxy {
     include govuk::node::s_ruby_app_server
     class { 'govuk::apps::authenticating_proxy':

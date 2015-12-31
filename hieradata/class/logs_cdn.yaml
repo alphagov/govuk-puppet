@@ -2,6 +2,9 @@
 
 govuk_cdnlogs::log_dir: '/mnt/logs_cdn'
 
+govuk::node::s_base::apps:
+  - govuk_cdn_logs_monitor
+
 lv:
   data:
     pv: '/dev/sdb1'

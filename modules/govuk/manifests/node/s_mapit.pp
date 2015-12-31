@@ -2,7 +2,6 @@
 #
 class govuk::node::s_mapit inherits govuk::node::s_base {
 
-  include govuk::apps::mapit
   include nginx
 
   Govuk::Mount['/var/lib/postgresql']

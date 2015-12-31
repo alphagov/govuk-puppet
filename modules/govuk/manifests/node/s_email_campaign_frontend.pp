@@ -2,15 +2,8 @@
 #
 # Frontend machines for email campaigns.
 #
-# === Parameters
-#
-# [*apps*]
-#   An array of which applications should be running on the machine.
-#
 class govuk::node::s_email_campaign_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
-
-  include govuk::apps::email_campaign_frontend
 
   include nginx
 

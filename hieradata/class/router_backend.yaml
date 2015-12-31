@@ -11,6 +11,9 @@ govuk::apps::router_api::router_nodes:
   - 'cache-3.router:3055'
 govuk::apps::router_api::vhost: 'router-api'
 
+govuk::node::s_base::apps:
+  - router_api
+
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'Check for primary, reboot secondaries, step down primary, reboot primary'
 

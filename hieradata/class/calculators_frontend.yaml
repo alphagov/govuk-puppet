@@ -5,6 +5,15 @@ govuk_elasticsearch::local_proxy::servers:
   - 'elasticsearch-2.backend'
   - 'elasticsearch-3.backend'
 
+govuk::node::s_base::apps:
+  - businesssupportfinder
+  - calculators
+  - calendars
+  - finder_frontend
+  - licencefinder
+  - smartanswers
+  - tariff
+
 lv:
   data:
     pv: '/dev/sdb1'

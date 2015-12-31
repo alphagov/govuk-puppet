@@ -5,7 +5,4 @@
 class govuk::node::s_performance_frontend inherits govuk::node::s_base {
   include nginx
   include nodejs
-
-  include govuk::apps::performanceplatform_big_screen_view
-  include govuk::apps::spotlight
 }

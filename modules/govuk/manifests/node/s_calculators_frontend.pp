@@ -2,14 +2,6 @@
 class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
-  include govuk::apps::businesssupportfinder
-  include govuk::apps::calculators
-  include govuk::apps::calendars
-  include govuk::apps::finder_frontend
-  include govuk::apps::licencefinder
-  include govuk::apps::smartanswers
-  include govuk::apps::tariff
-
   include nginx
 
   # Local proxy for licence-finder to access ES cluster.
