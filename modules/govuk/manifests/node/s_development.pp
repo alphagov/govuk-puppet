@@ -2,7 +2,14 @@
 #
 # GOV.UK development VM.
 #
-class govuk::node::s_development {
+# === Parameters
+#
+# [*apps*]
+#   An array of applications that should be included on this machine.
+#
+class govuk::node::s_development (
+  $apps = [],
+) {
   include base
   include resolvconf
 
@@ -32,88 +39,8 @@ class govuk::node::s_development {
 
   include router::assets_origin
 
-  include govuk::apps::bouncer
-  include govuk::apps::businesssupportfinder
-  include govuk::apps::calculators
-  include govuk::apps::calendars
-  include govuk::apps::collections
-  include govuk::apps::contacts_frontend
-  include govuk::apps::contentapi
-  include govuk::apps::designprinciples
-  include govuk::apps::feedback
-  include govuk::apps::finder_frontend
-  include govuk::apps::frontend
-  include govuk::apps::government_frontend
-  include govuk::apps::info_frontend
-  include govuk::apps::licencefinder
-  include govuk::apps::manuals_frontend
-  include govuk::apps::multipage_frontend
-  include govuk::apps::smartanswers
-  include govuk::apps::specialist_frontend
-  include govuk::apps::tariff
-
-  include govuk::apps::asset_manager
-  include govuk::apps::authenticating_proxy
-  include govuk::apps::backdrop_read
-  include govuk::apps::backdrop_write
-  include govuk::apps::backdrop_write::rabbitmq
-  include govuk::apps::business_support_api
-  include govuk::apps::canary_backend
-  include govuk::apps::canary_frontend
-  include govuk::apps::collections_publisher
-  include govuk::apps::contacts
-  include govuk::apps::content_register
-  include govuk::apps::content_register::rabbitmq
-  include govuk::apps::content_store
-  include govuk::apps::content_store::enable_running_in_draft_mode
-  include govuk::apps::content_tagger
-  include govuk::apps::efg
-  include govuk::apps::email_alert_api
-  include govuk::apps::email_alert_frontend
-  include govuk::apps::email_alert_monitor
-  include govuk::apps::email_alert_service
-  include govuk::apps::email_alert_service::rabbitmq_permissions
-  include govuk::apps::email_alert_service::rabbitmq_test_permissions
-  include govuk::apps::email_campaign_frontend
-  include govuk::apps::email_campaign_api
-  include govuk::apps::errbit
-  include govuk::apps::event_store
-  include govuk::apps::govuk_delivery
-  include govuk::apps::hmrc_manuals_api
-  include govuk::apps::imminence
-  include govuk::apps::kibana
-  include govuk::apps::mapit
-  include govuk::apps::maslow
-  include govuk::apps::metadata_api
-  include govuk::apps::need_api
-  include govuk::apps::panopticon
-  include govuk::apps::panopticon::rabbitmq
-  include govuk::apps::performanceplatform_admin
-  include govuk::apps::policy_publisher
-  include govuk::apps::publicapi
-  include govuk::apps::public_event_store
-  include govuk::apps::publisher
-  include govuk::apps::publishing_api
-  include govuk::apps::publishing_api::rabbitmq
-  include govuk::apps::release
-  include govuk::apps::router
-  include govuk::apps::router_api
-  include govuk::apps::rummager
-  include govuk::apps::search_admin
-  include govuk::apps::service_manual_publisher
-  include govuk::apps::short_url_manager
-  include govuk::apps::signon
-  include govuk::apps::specialist_publisher
-  include govuk::apps::stagecraft
-  include govuk::apps::stagecraft::rabbitmq
-  include govuk::apps::static
-  include govuk::apps::support
-  include govuk::apps::support_api
-  include govuk::apps::tariff_admin
-  include govuk::apps::tariff_api
-  include govuk::apps::transition
-  include govuk::apps::travel_advice_publisher
-  include govuk::apps::whitehall
+  $app_classes = regsubst($apps, '^', 'govuk::apps::')
+  include $app_classes
 
   include govuk_java::openjdk7::jdk
   include govuk_java::openjdk7::jre
