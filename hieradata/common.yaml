@@ -245,6 +245,8 @@ govuk::node::s_api_redis::allowed_api_ip_range: 10.7.0.0/16
 govuk::node::s_api_redis::allowed_backend_ip_range: 10.3.0.0/24
 
 govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
+govuk::node::s_asset_base::flag_new_whitehall_attachment_processing: "%{hiera('govuk::node::s_asset_master::flag_new_whitehall_attachment_processing')}"
+govuk::node::s_asset_slave::flag_new_whitehall_attachment_processing: "%{hiera('govuk::node::s_asset_master::flag_new_whitehall_attachment_processing')}"
 
 govuk::node::s_backend::apps:
   - govuk::apps::asset_manager
