@@ -3,16 +3,7 @@
 # Backend machine definition. Backend machines are used for running
 # publishing, administration and management applications.
 #
-# === Parameters
-#
-# [*apps*]
-#   An array of which applications should be running on the machine.
-#
-class govuk::node::s_backend (
-  $apps = [],
-) inherits govuk::node::s_base {
-  validate_array($apps)
-
+class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
   harden::limit { 'root-nofile':
@@ -34,8 +25,6 @@ class govuk::node::s_backend (
   }
 
   include imagemagick
-
-  include $apps
 
   include nginx
 

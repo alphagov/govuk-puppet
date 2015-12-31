@@ -10,6 +10,22 @@ govuk::apps::multipage_frontend::vhost: 'multipage-frontend'
 govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::static::vhost: 'static'
 
+govuk::node::s_base::apps:
+  - canary_frontend
+  - collections
+  - contacts
+  - contacts_frontend
+  - designprinciples
+  - email_alert_frontend
+  - feedback
+  - frontend
+  - government_frontend
+  - info_frontend
+  - manuals_frontend
+  - multipage_frontend
+  - specialist_frontend
+  - static
+
 lv:
   data:
     pv: '/dev/sdb1'

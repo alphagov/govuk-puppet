@@ -3,19 +3,9 @@
 # Frontend machine definition. Frontend machines run applications
 # which serve web pages to users.
 #
-# === Parameters
-#
-# [*apps*]
-#   An array of which applications should be running on the machine.
-#
-class govuk::node::s_frontend (
-  $apps = [],
-) inherits govuk::node::s_base {
-  validate_array($apps)
+class govuk::node::s_frontend inherits govuk::node::s_base {
 
   include govuk::node::s_ruby_app_server
-
-  include $apps
 
   include nginx
 

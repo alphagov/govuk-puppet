@@ -22,12 +22,12 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
-govuk::node::s_frontend::apps:
- - govuk::apps::collections
- - govuk::apps::contacts_frontend
- - govuk::apps::email_alert_frontend
- - govuk::apps::government_frontend
- - govuk::apps::manuals_frontend
- - govuk::apps::multipage_frontend
- - govuk::apps::specialist_frontend
- - govuk::apps::static
+govuk::node::s_base::apps:
+ - collections
+ - contacts_frontend
+ - email_alert_frontend
+ - government_frontend
+ - manuals_frontend
+ - multipage_frontend
+ - specialist_frontend
+ - static
