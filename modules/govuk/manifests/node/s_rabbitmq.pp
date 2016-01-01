@@ -2,13 +2,18 @@
 #
 # Machines running RabbitMQ.
 #
-class govuk::node::s_rabbitmq inherits govuk::node::s_base {
+# === Parameters
+#
+# [*apps_using_rabbitmq*]
+#   A list of GOV.UK applications which use RabbitMQ
+#
+class govuk::node::s_rabbitmq (
+  $apps_using_rabbitmq = [],
+) inherits govuk::node::s_base {
+  validate_array($apps_using_rabbitmq)
+
   include govuk_rabbitmq
-  include govuk::apps::govuk_crawler_worker::rabbitmq_permissions
-  include govuk::apps::backdrop_write::rabbitmq
-  include govuk::apps::content_register::rabbitmq
-  include govuk::apps::panopticon::rabbitmq
-  include govuk::apps::email_alert_service::rabbitmq_permissions
-  include govuk::apps::publishing_api::rabbitmq
-  include govuk::apps::stagecraft::rabbitmq
+
+  $app_rabbitmq_classes = regsubst(regsubst($apps_using_rabbitmq, '^', 'govuk::apps::'), '$', '::rabbitmq')
+  include $app_rabbitmq_classes
 }

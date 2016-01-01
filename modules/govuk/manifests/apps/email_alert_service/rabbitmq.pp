@@ -1,4 +1,4 @@
-# == Class: govuk::apps::email_alert_service::rabbitmq_permissions
+# == Class: govuk::apps::email_alert_service::rabbitmq
 #
 # Permissions for the email_alert_service to read messages from
 # the publishing API's AMQP exchange.
@@ -21,7 +21,7 @@
 #   The RabbitMQ queue to set up for workers of this type to read from
 #   (default: 'email_alert_service')
 #
-class govuk::apps::email_alert_service::rabbitmq_permissions (
+class govuk::apps::email_alert_service::rabbitmq (
   $amqp_user  = 'email_alert_service',
   $amqp_pass  = 'email_alert_service',
   $amqp_exchange = 'published_documents',

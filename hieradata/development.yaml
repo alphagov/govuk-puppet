@@ -43,7 +43,7 @@ govuk::node::s_development::apps:
   - 'email_alert_frontend'
   - 'email_alert_monitor'
   - 'email_alert_service'
-  - 'email_alert_service::rabbitmq_permissions'
+  - 'email_alert_service::rabbitmq'
   - 'email_alert_service::rabbitmq_test_permissions'
   - 'email_campaign_api'
   - 'email_campaign_frontend'
