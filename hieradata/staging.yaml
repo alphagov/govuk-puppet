@@ -283,7 +283,7 @@ hosts::production::backend::hosts:
     ip: '10.2.3.90'
     legacy_aliases:
       - 'master.mysql'
-      - "mysql.backend.%{hiera('internal_tld')}"
+      - "mysql.backend.%{hiera('app_domain')}"
   mysql-slave-1:
     ip: '10.2.3.91'
     legacy_aliases:
@@ -316,7 +316,7 @@ hosts::production::backend::hosts:
     ip: '10.2.3.60'
     legacy_aliases:
       - 'transition-master.postgresql'
-      - "transition-postgresql.backend.%{hiera('internal_tld')}"
+      - "transition-postgresql.backend.%{hiera('app_domain')}"
   transition-postgresql-slave-1:
     ip: '10.2.3.61'
     legacy_aliases:
@@ -339,7 +339,7 @@ hosts::production::backend::hosts:
     ip: '10.2.3.30'
     legacy_aliases:
       - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('internal_tld')}"
+      - "whitehall-mysql.backend.%{hiera('app_domain')}"
   whitehall-mysql-slave-1:
     ip: '10.2.3.31'
     legacy_aliases:

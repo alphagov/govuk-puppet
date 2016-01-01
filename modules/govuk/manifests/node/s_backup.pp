@@ -46,12 +46,12 @@ class govuk::node::s_backup (
 
   create_resources('backup::directory', $directories)
 
-  $internal_tld = hiera('internal_tld')
+  $app_domain = hiera('app_domain')
 
   if $backup_efg {
     backup::directory {'backup_mysql_backups_efg_mysql':
       directory => '/var/lib/automysqlbackup/',
-      fq_dn     => "efg-mysql-slave-1.efg.${internal_tld}",
+      fq_dn     => "efg-mysql-slave-1.efg.${app_domain}",
       priority  => '002',
     }
   }
@@ -59,7 +59,7 @@ class govuk::node::s_backup (
   if $backup_licensify {
     backup::directory {'backup_mongodb_backups_licensify_mongo':
       directory => '/var/lib/automongodbbackup/',
-      fq_dn     => "licensify-mongo-1.licensify.${internal_tld}",
+      fq_dn     => "licensify-mongo-1.licensify.${app_domain}",
       priority  => '002',
     }
   }
@@ -67,7 +67,7 @@ class govuk::node::s_backup (
   if $backup_email_campaign {
     backup::directory {'backup_mongodb_backups_email_campaign_mongo':
       directory => '/var/lib/automongodbbackup/',
-      fq_dn     => "email-campaign-mongo-1.api.${internal_tld}",
+      fq_dn     => "email-campaign-mongo-1.api.${app_domain}",
       priority  => '001',
     }
   }
