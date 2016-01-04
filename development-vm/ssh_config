@@ -16,4 +16,4 @@ Host jumpbox-2.management.integration
   ProxyCommand none
 
 Host *.integration
-  ProxyCommand ssh -e none %r@jumpbox-1.management.integration -W $(echo %h | sed 's/\.integration$//'):%p
+  ProxyCommand ssh -e none %r@jumpbox.integration.publishing.service.gov.uk -W $(echo %h | sed 's/\.integration$//'):%p
