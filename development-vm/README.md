@@ -137,9 +137,16 @@ username to `hieradata/staging.yaml` and `hieradata/production.yaml` under
 ## 8. Import production data
 
 These dumps are generated from production data in the early hours each day,
-and are then downloaded from integration. Some databases can't yet be copied onto
-integration (or Dev VMs) because of security concerns. Those databases include:
-Signon, Licensify and EFG.
+and are then downloaded from integration.
+
+Some databases aren't synced out of production because of security concerns.
+Those databases include:
+
+- Licensify
+- Signon
+
+EFG isn't synced out of production because GOV.UK doesn't host the non-production
+instance of that application.
 
 To get production data on to your local vm you will need to either have access
 to integration or a mongo and a mysql export from someone that does. If you
@@ -190,27 +197,29 @@ up once newer ones have been downloaded. To get over this, it is
 advised to periodically `rm -r` older directories in
 `development/replication/backups`.
 
-## 9. Accessing integration
+## 9. Accessing remote environments
 
-### 9.1 Access to Web apps and services
-Integration web services and applications are available via the public Internet,
-and are presented on URLs of the following form:
+### 9.1 Access to the web frontend
 
-    www-origin.integration.publishing.service.gov.uk
-    deploy.integration.publishing.service.gov.uk
+Most GOV.UK web applications and services are available via the public Internet,
+on URLs of the following form:
 
-These web pages are generally protected via HTTP basic authentication, which
-requires a shared username and password to be provided. This shared username and
-password should be well known by members of the development team, so just ask.
+- https://www-origin.integration.publishing.service.gov.uk (integration, HTTP basic auth)
+- https://deploy.staging.publishing.service.gov.uk (staging, restricted to GDS office IP addresses)
+- https://alert.publishing.service.gov.uk (production, restricted to GDS office IPs addresses)
+
+The basic authentication username and password is widely known, so just ask somebody
+on your team if you don't know it.
 
 ### 9.2 Access to servers via SSH
 
-Note: This assumes that you have followed Step 6, and have your machine's Public
-key added to the Puppet repository, and this has been deployed to the integration environment.
+Note: This assumes that you have followed the previous steps, and have your machine's public
+key added to the Puppet repository, and this has been deployed to the environment
+you're trying to access.
 
-While the load balanced endpoints are available directly via the public
-Internet, SSH access to the boxes which comprise the environment is brokered via
-a "jumpbox". You will need to configure your machine to use this jumpbox. See
+While the applications are available directly via the public
+Internet, SSH access to the environment is via a "jumpbox".
+You will need to configure your machine to use this jumpbox. See
 the [instructions in the Ops
 Manual](https://github.gds/pages/gds/opsmanual/2nd-line/technical-setup.html#ssh-config)
 for adding the relevant lines to your `~/.ssh/config`.
@@ -219,10 +228,12 @@ Note: if the user name you added to puppet is different to the user name you
 have on your laptop, then pay particular attention to the note at the bottom of the
 Ops Manual page. You will need to add the User directive to both Host stanzas.
 
-Assuming you have created an ssh key-pair and the public key has been distributed,
-and your SSH config is upto date, you can connect to `backend-1.backend.integration` by:
+Assuming you have created an SSH keypair and the public key has been distributed,
+and your SSH config is up-to-date, you can connect to machines with:
 
     $ ssh backend-1.backend.integration
+    $ ssh backend-1.backend.staging
+    $ ssh backend-1.backend.production
 
 ## 10. Keeping your VM up to date
 
