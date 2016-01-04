@@ -47,3 +47,9 @@
             <%- if @cdn_password_encrypted -%>
             default: <%= @cdn_password_encrypted %>
             <%- end -%>
+        - hostname:
+            name: BOUNCER_HOSTNAME
+            description: The bouncer origin hostname.
+            <%- if @app_domain -%>
+            default: bouncer.<%= @app_domain %>
+            <%- end -%>
