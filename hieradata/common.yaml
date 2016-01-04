@@ -302,6 +302,7 @@ govuk::node::s_frontend::apps:
   - govuk::apps::government_frontend
   - govuk::apps::info_frontend
   - govuk::apps::manuals_frontend
+  - govuk::apps::multipart_frontend
   - govuk::apps::specialist_frontend
   - govuk::apps::static
 
@@ -677,6 +678,7 @@ hosts::production::frontend::app_hostnames:
   - 'government-frontend'
   - 'info-frontend'
   - 'manuals-frontend'
+  - 'multipart-frontend'
   - 'licencefinder'
   - 'performanceplatform-big-screen-view'
   - 'publicapi'
@@ -944,6 +946,7 @@ router::assets_origin::asset_routes:
   '/government-frontend/': "government-frontend"
   '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"
+  '/multipart-frontend/': "multipart-frontend"
   '/licencefinder/': "licencefinder"
   '/smartanswers/': "smartanswers"
   '/specialist-frontend/': "specialist-frontend"

@@ -52,6 +52,8 @@ govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::mapit::enabled: true
+govuk::apps::multipart_frontend::vhost: 'multipart-frontend'
+govuk::apps::multipart_frontend::enabled: true
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
 govuk::apps::panopticon::enable_procfile_worker: false
@@ -184,6 +186,7 @@ hosts::development::apps:
   - 'licencefinder'
   - 'manuals-frontend'
   - 'mapit'
+  - 'multipart-frontend'
   - 'maslow'
   - 'metadata-api'
   - 'need-api'
