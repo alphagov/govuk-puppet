@@ -5,7 +5,7 @@
         - git:
             url: git@github.gds:gds/alphagov-deployment.git
             branches:
-              - release
+              - <%= @alphagov_deployment_branch %>
             wipe-workspace: false
 
 - job:
