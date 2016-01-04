@@ -101,7 +101,7 @@ This way, commits you make on the VM get your name and email set on them:
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
 
-## 7. Create a preview/production user
+## 7. Create a user account on our remote servers
 
 To get access to connect to machines in our environments you'll need to make
 a pull request against the Puppet repository to create a user account and add
@@ -122,11 +122,11 @@ class users::friendlygiraffe {
 }
 ```
 
-To get access to preview, add your username to `hieradata/preview.yaml` under
+To get access to integration, add your username to `hieradata/integration.yaml` under
 the section `users::usernames`.
 
 Once you've made a pull request and somebody has merged it to master, it will
-automatically deploy to preview within a few minutes.
+automatically deploy to integration within a few minutes.
 
 Production access isn't automatically granted to new starters - it requires
 being on the 2nd line support rotation and some knowledge of the GOV.UK stack.
@@ -137,47 +137,47 @@ username to `hieradata/staging.yaml` and `hieradata/production.yaml` under
 ## 8. Import production data
 
 These dumps are generated from production data in the early hours each day,
-and are then downloaded from preview. Some databases can't yet be copied onto
-preview (or Dev VMs) because of security concerns. Those databases include:
+and are then downloaded from integration. Some databases can't yet be copied onto
+integration (or Dev VMs) because of security concerns. Those databases include:
 Signon, Licensify and EFG.
 
 To get production data on to your local vm you will need to either have access
-to preview or a mongo and a mysql export from someone that does. If you
-have preview access then importing the latest data can be done by running
+to integration or a mongo and a mysql export from someone that does. If you
+have integration access then importing the latest data can be done by running
 the following from `development/replication`.
 
     dev$ ./replicate-data-local.sh -F ../ssh_config -u $USERNAME
 
-If you do not have preview access, ask someone to give you a copy of their
+If you do not have integration access, ask someone to give you a copy of their
 dump.  This should be a directory structure similar to:
 
     dir
     ├── elasticsearch
-    │   ├── api-elasticsearch-1.api.preview
+    │   ├── api-elasticsearch-1.api.integration
     │   │   ├── detailed.zip
     │   │   ├── government.zip
     │   │   ├── mainstream.zip
     │   │   ├── metasearch.zip
     │   │   ├── page-traffic.zip
     │   │   └── service-manual.zip
-    │   └── elasticsearch-1.backend.preview
+    │   └── elasticsearch-1.backend.integration
     │       └── maslow.zip
     ├── mongo
-    │   ├── api-mongo-1.api.preview
+    │   ├── api-mongo-1.api.integration
     │   │   └── 2015-06-02_05h33m.Tuesday.tgz
-    │   ├── mongo-1.backend.preview
+    │   ├── mongo-1.backend.integration
     │   │   └── 2015-06-02_06h13m.Tuesday.tgz
-    │   └── router-backend-1.router.preview
+    │   └── router-backend-1.router.integration
     │       └── 2015-06-02_06h19m.Tuesday.tgz
     ├── mysql
-    │   ├── mysql-backup-1.backend.preview
+    │   ├── mysql-backup-1.backend.integration
     │   │   └── latest.tbz2
-    │   └── whitehall-mysql-backup-1.backend.preview
+    │   └── whitehall-mysql-backup-1.backend.integration
     │       └── latest.tbz2
     └── postgresql
-        ├── postgresql-master-1.backend.preview
+        ├── postgresql-master-1.backend.integration
         |   └── latest.tbz2
-        └── transition-postgresql-master-1.backend.preview
+        └── transition-postgresql-master-1.backend.integration
             └── latest.tbz2
 
 Then, from `development/replication` run.
@@ -190,14 +190,14 @@ up once newer ones have been downloaded. To get over this, it is
 advised to periodically `rm -r` older directories in
 `development/replication/backups`.
 
-## 9. Accessing Preview
+## 9. Accessing integration
 
 ### 9.1 Access to Web apps and services
-Preview Web services and applications are available via the public Internet,
+Integration web services and applications are available via the public Internet,
 and are presented on URLs of the following form:
 
-    www.preview.alphagov.co.uk
-    nagios.preview.alphagov.co.uk
+    www-origin.integration.publishing.service.gov.uk
+    deploy.integration.publishing.service.gov.uk
 
 These web pages are generally protected via HTTP basic authentication, which
 requires a shared username and password to be provided. This shared username and
@@ -206,7 +206,7 @@ password should be well known by members of the development team, so just ask.
 ### 9.2 Access to servers via SSH
 
 Note: This assumes that you have followed Step 6, and have your machine's Public
-key added to the Puppet repository, and this has been deployed to the preview environment.
+key added to the Puppet repository, and this has been deployed to the integration environment.
 
 While the load balanced endpoints are available directly via the public
 Internet, SSH access to the boxes which comprise the environment is brokered via
@@ -220,9 +220,9 @@ have on your laptop, then pay particular attention to the note at the bottom of 
 Ops Manual page. You will need to add the User directive to both Host stanzas.
 
 Assuming you have created an ssh key-pair and the public key has been distributed,
-and your SSH config is upto date, you can connect to `backend-1.backend.preview` by:
+and your SSH config is upto date, you can connect to `backend-1.backend.integration` by:
 
-    $ ssh backend-1.backend.preview
+    $ ssh backend-1.backend.integration
 
 ## 10. Keeping your VM up to date
 

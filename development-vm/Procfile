@@ -37,9 +37,9 @@ asset_manager:         govuk_setenv asset-manager         ./run_in.sh ../asset-m
 # limelight used port 3040 but was retired in November 2014
 # transaction_wrappers used to use port 3041
 # govuk_delivery has port 3042
-# tariff_demo_api: grabbing port 3043 in preview only
+# tariff_demo_api: grabbing port 3043 in integration only
 transition:            govuk_setenv transition            ./run_in.sh ../transition     bundle exec rails s -p 3044
-# tariff_demo: grabbing port 3045 in preview only
+# tariff_demo: grabbing port 3045 in integration only
 tariff_admin:          govuk_setenv tariff-admin          ./run_in.sh ../trade-tariff-admin bundle exec rails server -p 3046
 calculators:           govuk_setenv calculators           ./run_in.sh ../calculators    bundle exec rails s -p 3047
 # fact-cave used to use port 3048
