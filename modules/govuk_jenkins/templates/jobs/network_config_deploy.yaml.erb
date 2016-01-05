@@ -22,7 +22,12 @@
       - govuk-provisioning_Network_Config_Deploy
     builders:
         - shell: |
-            ./vcloud-edge_gateway/jenkins.sh ${TARGET_ENVIRONMENT}
+            if [ "$DRY_RUN" = true ]; then
+              DRY_RUN_FLAG='--dry-run'
+            else
+              DRY_RUN_FLAG=''
+            fi
+            ./vcloud-edge_gateway/jenkins.sh ${TARGET_ENVIRONMENT} ${DRY_RUN_FLAG}
     publishers:
         - trigger:
             project: Smokey
@@ -38,6 +43,10 @@
         - password:
             name: VCLOUD_PASSWORD
             description: Vcloud Password
+        - bool:
+            name: DRY_RUN
+            default: true
+            description: Whether the deployment of network configuration should be a dry run for testing
         - choice:
             name: TARGET_ENVIRONMENT
             description: The environment to deploy network configuration to
