@@ -34,15 +34,15 @@ class puppet (
   }
 
   if $use_puppetmaster {
-    $govuk_puppet_source = 'puppet:///modules/puppet/govuk_puppet'
+    $govuk_puppet_template = 'puppet/govuk_puppet'
   } else {
-    $govuk_puppet_source = 'puppet:///modules/puppet/govuk_puppet_development'
+    $govuk_puppet_template = 'puppet/govuk_puppet_development'
   }
 
   file { '/usr/local/bin/govuk_puppet':
-    ensure => present,
-    mode   => '0755',
-    source => $govuk_puppet_source,
+    ensure  => present,
+    mode    => '0755',
+    content => template($govuk_puppet_template),
   }
 
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
