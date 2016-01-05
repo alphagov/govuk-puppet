@@ -47,6 +47,7 @@ class govuk::node::s_development {
   include govuk::apps::info_frontend
   include govuk::apps::licencefinder
   include govuk::apps::manuals_frontend
+  include govuk::apps::multipage_frontend
   include govuk::apps::smartanswers
   include govuk::apps::specialist_frontend
   include govuk::apps::tariff
