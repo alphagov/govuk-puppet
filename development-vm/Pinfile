@@ -43,6 +43,7 @@ process :licencefinder => [:static, :contentapi]
 process :mapit
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
+process :'multipage-frontend' => [:static, :'content-store']
 process :need_api
 process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
