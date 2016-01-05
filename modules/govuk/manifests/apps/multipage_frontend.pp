@@ -3,7 +3,7 @@
 #
 class govuk::apps::multipage_frontend(
   $vhost,
-  $port = '3112',
+  $port = '3118',
   $enabled = false,
 ) {
   govuk::app { 'multipage-frontend':
