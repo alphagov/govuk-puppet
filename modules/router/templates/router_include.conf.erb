@@ -80,6 +80,10 @@ error_page 429 /503.html;
 # So that we dont fall through to the default provided by the CDN.
 more_set_headers -s 404 "Cache-Control: public, max-age=<%= @page_ttl_404 -%>";
 
+# Set the Content-Type to UTF-8 on the static pages, since they contain UTF-8
+# characters like the copyright symbol
+charset utf-8;
+
 location /400.html {
   root /usr/share/nginx/www;
   internal;
