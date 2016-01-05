@@ -12,8 +12,7 @@ START_TIME=`date +%s%3N`
 RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@" || [ $? -eq 2 ]
 
 TIME_TOOK=$((`date +%s%3N`-START_TIME))
-HOSTNAME=$(hostname --fqdn | tr '.' '_')
-echo "${HOSTNAME}.puppet.run_duration:${TIME_TOOK}|ms" | nc -w 1 -u localhost 8125
+echo "<%= @fqdn_metrics %>.puppet.run_duration:${TIME_TOOK}|ms" | nc -w 1 -u localhost 8125
 
 # We should only reach here if a last_run_summary was written.
 /usr/local/bin/puppet_passive_check_update >/dev/null
