@@ -56,6 +56,7 @@ govuk_jenkins::config::admins:
   - alextorrance
   - bobwalker
   - bradleywright
+  - brendanbutler
   - chrispatuzzo
   - chrisroos
   - ci_alphagov
@@ -258,6 +259,7 @@ users::usernames:
   - benlovell
   - bob
   - bradleyw
+  - brendanbutler
   - chrispatuzzo
   - chrisroos
   - christophwong
