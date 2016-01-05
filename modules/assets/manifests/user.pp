@@ -5,12 +5,21 @@
 class assets::user {
   include assets::group
 
-  user { 'assets':
+  $home = '/home/assets'
+  $user = 'assets'
+
+  user { $user:
     ensure  => 'present',
-    home    => '/home/assets',
-    shell   => '/bin/false',
+    home    => $home,
+    shell   => '/bin/bash',
     uid     => '2900',
     gid     => 'assets',
     require => [Group['assets']],
+  } ->
+  file { $home:
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0750',
   }
 }
