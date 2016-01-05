@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    bowler (2.0.0)
+    bowler (2.0.1)
       foreman (>= 0.35.0)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
@@ -31,7 +31,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bowler (= 2.0.0)
+  bowler (= 2.0.1)
   es_dump_restore (~> 2.0.0)
   foreman (= 0.75.0)
   rubyzip (>= 1.1.5)
