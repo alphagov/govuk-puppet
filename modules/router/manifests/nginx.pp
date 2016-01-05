@@ -40,6 +40,12 @@
 #
 #   Default: @10 (below 10)
 #
+# [*robotstxt*]
+#
+#  text to put in a robots.txt file
+#
+# Default: ''
+#
 class router::nginx (
   $vhost_protected,
   $page_ttl_404 = '30',
@@ -47,6 +53,7 @@ class router::nginx (
   $rate_limit_tokens = [],
   $check_requests_warning = '@25',
   $check_requests_critical = '@10',
+  $robotstxt = '',
 ) {
   validate_array($rate_limit_tokens)
 
@@ -110,6 +117,12 @@ class router::nginx (
     owner   => 'deploy',
     group   => 'deploy',
     require => File['/usr/share/nginx'];
+  }
+
+  file { '/usr/share/nginx/www/robots.txt':
+    ensure  => present,
+    content => $robotstxt,
+    require => File['/usr/share/nginx/www'],
   }
 
   router::errorpage {['400', '403', '404','406','410','500','503','504']:
