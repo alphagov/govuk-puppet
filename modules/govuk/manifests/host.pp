@@ -31,11 +31,11 @@ define govuk::host(
   $service_suffix = 'cluster',
 ) {
 
-  $tld = hiera('internal_tld', 'production')
+  $app_domain = hiera('app_domain')
 
   $service_aliases_real = regsubst($service_aliases, '$', ".${service_suffix}")
 
-  host { "${title}.${vdc}.${tld}":
+  host { "${title}.${vdc}.${app_domain}":
     ensure       => $ensure,
     ip           => $ip,
     host_aliases => unique(flatten(["${title}.${vdc}", $service_aliases_real, $title, $legacy_aliases])),

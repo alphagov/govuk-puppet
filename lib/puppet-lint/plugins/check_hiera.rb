@@ -40,7 +40,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # FIXME: Existing violations. These should be refactored.
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
-    'internal_tld',
     'mysql_replica_password',
     'mysql_root',
     'nginx_enable_basic_auth',

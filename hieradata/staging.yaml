@@ -11,14 +11,8 @@ govuk::apps::email_alert_monitor::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::panopticon::enable_procfile_worker: false
-govuk::apps::policy_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
-govuk::apps::publishing_api::db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::service_manual_publisher::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::sidekiq_monitoring::enabled: true
-govuk::apps::stagecraft::postgresql_db::api_ip_range: '10.2.4.0/24'
-govuk::apps::support_api::db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::transition::postgresql_db::backend_ip_range: '10.2.3.0/24'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
@@ -92,8 +86,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
   - "search-3.api"
-govuk::node::s_api_redis::allowed_api_ip_range: '10.2.4.0/24'
-govuk::node::s_api_redis::allowed_backend_ip_range: '10.2.3.0/24'
 
 govuk::node::s_asset_base::firewall_allow_ip_range: '10.2.3.0/24'
 govuk::node::s_backend_lb::backend_servers:
@@ -157,7 +149,6 @@ govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 grafana::dashboards::machine_suffix_metrics: '_staging'
 
 hosts::production::carrenza_vcloud: true
-hosts::production::external_licensify: true
 hosts::production::ip_api_lb: '10.2.4.254'
 hosts::production::ip_backend_lb: '10.2.3.254'
 hosts::production::ip_bouncer: '37.26.91.5'
@@ -292,7 +283,7 @@ hosts::production::backend::hosts:
     ip: '10.2.3.90'
     legacy_aliases:
       - 'master.mysql'
-      - "mysql.backend.%{hiera('internal_tld')}"
+      - "mysql.backend.%{hiera('app_domain')}"
   mysql-slave-1:
     ip: '10.2.3.91'
     legacy_aliases:
@@ -325,7 +316,7 @@ hosts::production::backend::hosts:
     ip: '10.2.3.60'
     legacy_aliases:
       - 'transition-master.postgresql'
-      - "transition-postgresql.backend.%{hiera('internal_tld')}"
+      - "transition-postgresql.backend.%{hiera('app_domain')}"
   transition-postgresql-slave-1:
     ip: '10.2.3.61'
     legacy_aliases:
@@ -348,7 +339,7 @@ hosts::production::backend::hosts:
     ip: '10.2.3.30'
     legacy_aliases:
       - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('internal_tld')}"
+      - "whitehall-mysql.backend.%{hiera('app_domain')}"
   whitehall-mysql-slave-1:
     ip: '10.2.3.31'
     legacy_aliases:
