@@ -26,9 +26,8 @@
     publishers:
         - description-setter:
             regexp: 'Deployed ([^ ]+) \(resolved'
-        - trigger-parameterized-builds:
-            - project: Smokey
-              condition: 'SUCCESS'
+        - trigger:
+            project: Smokey
     wrappers:
         - ansicolor:
             colormap: xterm
