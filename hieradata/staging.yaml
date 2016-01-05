@@ -523,6 +523,10 @@ postfix::smarthost:
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
+router::nginx::robotstxt: |
+  User-agent: *
+  Disallow: /
+
 shell::shell_prompt_string: 'staging'
 
 users::pentest_machines:
