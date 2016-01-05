@@ -1,0 +1,14 @@
+---
+- job:
+    name: Sanitize_publishing_API_data
+    display-name: Sanitize_publishing_API_data
+    project-type: freestyle
+    description: "Discards access limited drafts after data sync completes."
+    <%- if @auth_token -%>
+    auth-token: <%= @auth_token %>
+    <%- end -%>
+    logrotate:
+      artifactNumToKeep: 10
+    builders:
+       - shell: |
+           ssh deploy@backend-1.backend 'cd /var/apps/publishing-api && sudo -u deploy govuk_setenv publishing-api bundle exec rake sanitize_data'
