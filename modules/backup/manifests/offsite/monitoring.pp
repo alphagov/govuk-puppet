@@ -41,9 +41,9 @@ class backup::offsite::monitoring(
     host_name           => $offsite_fqdn,
   }
 
-  icinga::check { "check_disk_logs-backup_${offsite_hostname}":
-    check_command       => 'check_nrpe_1arg!check_disk_logs-backup',
-    service_description => 'low available disk space /srv/logs-backup',
+  icinga::check { "check_disk_backup-logs_${offsite_hostname}":
+    check_command       => 'check_nrpe_1arg!check_disk_backup-logs',
+    service_description => 'low available disk space /srv/backup-logs',
     use                 => 'govuk_high_priority',
     host_name           => $offsite_fqdn,
   }
