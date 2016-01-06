@@ -2,7 +2,6 @@
 class govuk::node::s_bouncer inherits govuk::node::s_base {
 
   include govuk_bouncer::gor
-  include govuk::apps::bouncer
   include govuk::node::s_ruby_app_server
   include nginx
 

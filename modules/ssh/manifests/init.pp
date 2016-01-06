@@ -1,4 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: ssh
+#
+# Export SSH host keys to the Puppetmaster and collect host
+# keys of all other machines managed by the same Puppetmaster.
+#
 class ssh {
 
   anchor { 'ssh::begin':

@@ -267,60 +267,6 @@ govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
 govuk::node::s_asset_base::flag_new_whitehall_attachment_processing: "%{hiera('govuk::node::s_asset_master::flag_new_whitehall_attachment_processing')}"
 govuk::node::s_asset_slave::flag_new_whitehall_attachment_processing: "%{hiera('govuk::node::s_asset_master::flag_new_whitehall_attachment_processing')}"
 
-govuk::node::s_backend::apps:
-  - govuk::apps::asset_manager
-  - govuk::apps::business_support_api
-  - govuk::apps::canary_backend
-  - govuk::apps::collections_publisher
-  - govuk::apps::contacts
-  - govuk::apps::content_register
-  - govuk::apps::content_tagger
-  - govuk::apps::contentapi
-  - govuk::apps::email_alert_api
-  - govuk::apps::email_alert_monitor
-  - govuk::apps::email_alert_service
-  - govuk::apps::event_store
-  - govuk::apps::frontend
-  - govuk::apps::govuk_delivery
-  - govuk::apps::hmrc_manuals_api
-  - govuk::apps::imminence
-  - govuk::apps::kibana
-  - govuk::apps::maslow
-  - govuk::apps::need_api
-  - govuk::apps::panopticon
-  - govuk::apps::policy_publisher
-  - govuk::apps::publisher
-  - govuk::apps::publishing_api
-  - govuk::apps::release
-  - govuk::apps::search_admin
-  - govuk::apps::service_manual_publisher
-  - govuk::apps::short_url_manager
-  - govuk::apps::sidekiq_monitoring
-  - govuk::apps::signon
-  - govuk::apps::specialist_publisher
-  - govuk::apps::support
-  - govuk::apps::support_api
-  - govuk::apps::tariff_admin
-  - govuk::apps::tariff_api
-  - govuk::apps::transition
-  - govuk::apps::travel_advice_publisher
-
-govuk::node::s_frontend::apps:
-  - govuk::apps::canary_frontend
-  - govuk::apps::collections
-  - govuk::apps::contacts
-  - govuk::apps::contacts_frontend
-  - govuk::apps::designprinciples
-  - govuk::apps::email_alert_frontend
-  - govuk::apps::feedback
-  - govuk::apps::frontend
-  - govuk::apps::government_frontend
-  - govuk::apps::info_frontend
-  - govuk::apps::manuals_frontend
-  - govuk::apps::multipage_frontend
-  - govuk::apps::specialist_frontend
-  - govuk::apps::static
-
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 
 govuk::ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

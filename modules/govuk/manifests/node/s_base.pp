@@ -2,7 +2,16 @@
 #
 # Base node definition. Every machine inherits from this.
 #
-class govuk::node::s_base {
+# === Parameters
+#
+# [*apps*]
+#   An array of GOV.UK applications that should be included on this machine.
+#
+class govuk::node::s_base (
+  $apps = [],
+) {
+  validate_array($apps)
+
   include backup::client
   include base
   include fail2ban
@@ -26,6 +35,9 @@ class govuk::node::s_base {
   include rkhunter
   include users
   include resolvconf
+
+  $app_classes = regsubst($apps, '^', 'govuk::apps::')
+  include $app_classes
 
   class { 'rsyslog':
     purge_rsyslog_d => true,

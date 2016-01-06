@@ -9,6 +9,44 @@ govuk::apps::event_store::mongodb_servers:
 
 govuk::apps::frontend::vhost_protected: true
 
+govuk::node::s_base::apps:
+  - asset_manager
+  - business_support_api
+  - canary_backend
+  - collections_publisher
+  - contacts
+  - content_register
+  - content_tagger
+  - contentapi
+  - email_alert_api
+  - email_alert_monitor
+  - email_alert_service
+  - event_store
+  - frontend
+  - govuk_delivery
+  - hmrc_manuals_api
+  - imminence
+  - kibana
+  - maslow
+  - need_api
+  - panopticon
+  - policy_publisher
+  - publisher
+  - publishing_api
+  - release
+  - search_admin
+  - service_manual_publisher
+  - short_url_manager
+  - sidekiq_monitoring
+  - signon
+  - specialist_publisher
+  - support
+  - support_api
+  - tariff_admin
+  - tariff_api
+  - transition
+  - travel_advice_publisher
+
 govuk_elasticsearch::local_proxy::servers:
   - 'elasticsearch-1.backend'
   - 'elasticsearch-2.backend'

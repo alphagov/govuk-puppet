@@ -64,7 +64,4 @@ class govuk::node::s_frontend_lb (
     'email-campaign-frontend':
       servers       => $email_campaign_frontend_servers,
   }
-
-  include govuk::apps::publicapi
-  include govuk::apps::public_event_store
 }

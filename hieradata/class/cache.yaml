@@ -11,4 +11,7 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-2.router'
   - 'router-backend-3.router'
 
+govuk::node::s_base::apps:
+  - router
+
 nginx::package::nginx_package: 'nginx-extras'

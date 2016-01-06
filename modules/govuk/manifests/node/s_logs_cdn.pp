@@ -2,5 +2,4 @@
 class govuk::node::s_logs_cdn inherits govuk::node::s_base {
   include govuk_cdnlogs
   include govuk::node::s_ruby_app_server
-  include govuk::apps::govuk_cdn_logs_monitor
 }

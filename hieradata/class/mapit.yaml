@@ -1,5 +1,8 @@
 ---
 
+govuk::node::s_base::apps:
+  - mapit
+
 lv:
   data:
     pv: '/dev/sdb1'

@@ -5,8 +5,6 @@
 class govuk::node::s_search inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
-  include govuk::apps::rummager
-
   include nginx
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx

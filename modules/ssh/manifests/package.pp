@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: ssh::package
+#
+# Install packages to set up SSH on a machine.
+#
 class ssh::package {
 
   package { 'openssh-server':
