@@ -513,6 +513,8 @@ icinga::nginx::enable_basic_auth: false
 licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::ses::region: eu-west-1
+# FIXME: Remove this line after testing completed
+monitoring::checks::vpn_tunnels::enabled: false
 
 postfix::smarthost:
 - 'email-smtp.us-east-1.amazonaws.com:587'

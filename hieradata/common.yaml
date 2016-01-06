@@ -836,6 +836,20 @@ monitoring::checks::smokey::features:
   check_draft_environment:
     feature: draft_environment
 
+monitoring::checks::vpn_tunnels::endpoints:
+  check_ping_api_gateway_dr:
+    check_command: "check_ping_external!%{hiera('environment_ip_prefix')}.12.1!10.0,20%!50.0,60%"
+    service_description: "Unable to ping DR API VPN gateway"
+  check_ping_backend_gateway_dr:
+    check_command: "check_ping_external!%{hiera('environment_ip_prefix')}.11.1!10.0,20%!50.0,60%"
+    service_description: "Unable to ping DR Backend VPN gateway"
+  check_ping_redirector_gateway_dr:
+    check_command: "check_ping_external!%{hiera('environment_ip_prefix')}.13.1!10.0,20%!50.0,60%"
+    service_description: "Unable to ping DR Redirector VPN gateway"
+  check_ping_router_gateway_dr:
+    check_command: "check_ping_external!%{hiera('environment_ip_prefix')}.9.1!10.0,20%!50.0,60%"
+    service_description: "Unable to ping DR Router VPN gateway"
+
 nginx::package::version: '1.4.6-1ubuntu3.1'
 
 nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
