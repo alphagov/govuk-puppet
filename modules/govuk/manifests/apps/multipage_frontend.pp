@@ -6,12 +6,14 @@ class govuk::apps::multipage_frontend(
   $port = '3118',
   $enabled = false,
 ) {
-  govuk::app { 'multipage-frontend':
-    app_type              => 'rack',
-    port                  => $port,
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'multipage-frontend',
-    vhost                 => $vhost,
-    health_check_path     => '/healthcheck',
+  if $enabled {
+    govuk::app { 'multipage-frontend':
+      app_type              => 'rack',
+      port                  => $port,
+      asset_pipeline        => true,
+      asset_pipeline_prefix => 'multipage-frontend',
+      vhost                 => $vhost,
+      health_check_path     => '/healthcheck',
+    }
   }
 }
