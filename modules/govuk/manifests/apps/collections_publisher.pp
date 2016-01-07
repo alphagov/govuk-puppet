@@ -17,17 +17,16 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::collections_publisher(
   $panopticon_bearer_token = 'example',
   $port = '3078',
   $enable_procfile_worker = true,
+  $publishing_api_bearer_token = undef,
 ) {
-
-  govuk::app::envvar { "${title}-PANOPTICON_BEARER_TOKEN":
-    app     => 'collections-publisher',
-    varname => 'PANOPTICON_BEARER_TOKEN',
-    value   => $panopticon_bearer_token,
-  }
 
   govuk::app { 'collections-publisher':
     app_type           => 'rack',
@@ -37,6 +36,18 @@ class govuk::apps::collections_publisher(
     log_format_is_json => true,
     asset_pipeline     => true,
     deny_framing       => true,
+  }
+
+  govuk::app::envvar { "${title}-PANOPTICON_BEARER_TOKEN":
+    app     => 'collections-publisher',
+    varname => 'PANOPTICON_BEARER_TOKEN',
+    value   => $panopticon_bearer_token,
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => 'collections-publisher',
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 
   govuk::procfile::worker {'collections-publisher':

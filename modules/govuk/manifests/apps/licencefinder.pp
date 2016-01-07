@@ -21,12 +21,17 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::licencefinder(
   $port = '3014',
   $errbit_api_key = undef,
   $mongodb_nodes,
   $mongodb_name = 'licence_finder_production',
   $secret_key_base = undef,
+  $publishing_api_bearer_token = undef,
 ) {
 
   $app_name = 'licencefinder'
@@ -63,5 +68,11 @@ class govuk::apps::licencefinder(
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
     }
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => $app_name,
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 }

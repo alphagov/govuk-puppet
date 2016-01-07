@@ -4,6 +4,7 @@ class govuk::apps::email_campaign_frontend(
   $enabled = true,
   $errbit_api_key = undef,
   $secret_key_base = undef,
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'email-campaign-frontend'
 
@@ -19,6 +20,11 @@ class govuk::apps::email_campaign_frontend(
 
     Govuk::App::Envvar {
       app => $app_name,
+    }
+
+    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
     }
 
     if $errbit_api_key != undef {

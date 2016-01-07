@@ -2,8 +2,17 @@
 #
 # Configure the contentapi application - https://github.com/alphagov/govuk_content_api
 #
+# [*port*]
+#   The port that the app is served on.
+#   Default: 3022
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::contentapi (
   $port = '3022',
+  $publishing_api_bearer_token = undef,
 ) {
 
   govuk::app { 'contentapi':
@@ -16,4 +25,9 @@ class govuk::apps::contentapi (
     nagios_memory_critical => 3500000000,
   }
 
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => 'contentapi',
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
+  }
 }

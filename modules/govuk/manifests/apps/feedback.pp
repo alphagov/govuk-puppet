@@ -14,11 +14,16 @@
 # [*support_api_bearer_token*]
 #   The bearer token to allow this app to submit anonymous feedback to the Support API.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::feedback(
   $port = '3028',
   $errbit_api_key = undef,
   $secret_key_base = undef,
   $support_api_bearer_token = undef,
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'feedback'
 
@@ -53,6 +58,13 @@ class govuk::apps::feedback(
     govuk::app::envvar { "${title}-SUPPORT_API_BEARER_TOKEN":
       varname => 'SUPPORT_API_BEARER_TOKEN',
       value   => $support_api_bearer_token,
+    }
+  }
+
+  if $publishing_api_bearer_token != undef {
+    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
     }
   }
 }
