@@ -32,8 +32,8 @@ class govuk::apps::efg (
     to                    => ["localhost:${port}"],
     aliases               => ['efg.production.alphagov.co.uk'],
     protected             => false,
+    ssl_certtype          => 'sflg',
     ssl_only              => true,
-    ssl_manage_cert       => false,
     extra_config          => '
   location /sflg/ {
     rewrite ^ https://$host/? permanent;

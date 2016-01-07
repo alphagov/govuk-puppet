@@ -14,6 +14,10 @@
 #
 define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
+    'sflg': {
+        $cert = hiera('sflg_certificate', '')
+        $key = hiera('sflg_key', '')
+    }
     'wildcard_alphagov': {
         $cert = hiera('wildcard_alphagov_crt', '')
         $key = hiera('wildcard_alphagov_key', '')

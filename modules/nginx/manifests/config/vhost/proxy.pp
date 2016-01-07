@@ -45,9 +45,6 @@ define nginx::config::vhost::proxy(
   $logstream = present,
   $is_default_vhost = false,
   $ssl_certtype = 'wildcard_alphagov',
-  $ssl_manage_cert = true,  # This is a *horrible* hack to make EFG work.
-                            # Please, please, remove when we have a
-                            # sensible means of managing SSL certificates.
   $hidden_paths = [],
   $static_app = false,
   $single_page_app = false,
@@ -82,10 +79,8 @@ define nginx::config::vhost::proxy(
   # Whether to enable basic auth protection. Used by template.
   $enable_basic_auth = hiera('nginx_enable_basic_auth', true)
 
-  if $ssl_manage_cert {
-    nginx::config::ssl { $name:
-      certtype => $ssl_certtype,
-    }
+  nginx::config::ssl { $name:
+    certtype => $ssl_certtype,
   }
   nginx::config::site { $name:
     ensure  => $ensure,
