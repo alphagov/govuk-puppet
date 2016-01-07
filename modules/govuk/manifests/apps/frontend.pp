@@ -1,8 +1,30 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::frontend
+#
+# Application to serve mainstream formats, the homepage, and search.
+#
+# === Parameters
+#
+# [*port*]
+#   The port that the app is served on.
+#   Default: 3005
+#
+# [*enable_homepage_nocache_location*]
+#   Adds nginx configuration to never cache the homepage/no-cache location.
+#   Default: true
+#
+# [*vhost_protected*]
+#   Should this vhost be protected with HTTP Basic auth?
+#   Default: undef
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::frontend(
   $port = '3005',
   $enable_homepage_nocache_location = true,
   $vhost_protected = false,
+  $publishing_api_bearer_token = undef,
 ) {
   validate_bool($enable_homepage_nocache_location)
 
@@ -26,5 +48,11 @@ class govuk::apps::frontend(
     asset_pipeline        => true,
     asset_pipeline_prefix => 'frontend',
     nginx_extra_config    => $nginx_extra_config,
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => 'frontend',
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 }

@@ -32,6 +32,10 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::content_tagger(
   $port = '3116',
   $secret_key_base = undef,
@@ -42,6 +46,7 @@ class govuk::apps::content_tagger(
   $db_name = 'content_tagger_production',
   $oauth_id = '',
   $oauth_secret = '',
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'content-tagger'
 
@@ -76,6 +81,9 @@ class govuk::apps::content_tagger(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 
   if $::govuk_node_class != 'development' {

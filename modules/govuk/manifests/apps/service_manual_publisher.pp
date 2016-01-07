@@ -35,6 +35,10 @@
 # [*disable_publishing*]
 #   Disable publishing actions for documents.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
   $db_name = 'service-manual-publisher_production',
@@ -46,6 +50,7 @@ class govuk::apps::service_manual_publisher(
   $port = 3111,
   $secret_key_base = undef,
   $disable_publishing = false,
+  $publishing_api_bearer_token = undef,
 ) {
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
@@ -73,6 +78,9 @@ class govuk::apps::service_manual_publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 
   if $disable_publishing {

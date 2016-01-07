@@ -11,13 +11,20 @@
 #
 # [*port*]
 #   The port the app will listen on.
+#   Default: 3009
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker service.
+#   Default: true
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
 #
 class govuk::apps::rummager(
   $port = '3009',
   $enable_procfile_worker = true,
+  $publishing_api_bearer_token = undef,
 ) {
   include aspell
 
@@ -53,8 +60,12 @@ class govuk::apps::rummager(
     app            => 'rummager',
   }
 
-  govuk::app::envvar { "${title}-TAXON_IMPORT_FILE":
-    varname => 'TAXON_IMPORT_FILE',
-    value   => '/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv',
+  govuk::app::envvar {
+    "${title}-TAXON_IMPORT_FILE":
+      varname => 'TAXON_IMPORT_FILE',
+      value   => '/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv';
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 }

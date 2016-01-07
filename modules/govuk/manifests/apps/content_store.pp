@@ -20,12 +20,17 @@
 # [*default_ttl*]
 #   The default cache timeout in seconds.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
   $mongodb_name,
   $vhost,
   $default_ttl = '1800',
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'content-store'
 
@@ -47,8 +52,12 @@ class govuk::apps::content_store(
     database => $mongodb_name,
   }
 
-  govuk::app::envvar { "${title}-DEFAULT_TTL":
+  govuk::app::envvar {
+    "${title}-DEFAULT_TTL":
       varname => 'DEFAULT_TTL',
-      value   => $default_ttl,
+      value   => $default_ttl;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 }

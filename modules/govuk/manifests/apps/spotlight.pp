@@ -15,12 +15,17 @@
 #
 # [*port*]
 #   What port should the app run on?
+
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
 #
 class govuk::apps::spotlight (
   $alert_5xx_warning_rate,
   $alert_5xx_critical_rate,
   $enabled = false,
   $port = '3057',
+  $publishing_api_bearer_token = undef,
 ) {
 
   if $enabled {
@@ -33,6 +38,12 @@ class govuk::apps::spotlight (
       vhost_ssl_only          => true,
       health_check_path       => '/_status',
       log_format_is_json      => true,
+    }
+
+    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      app     => 'spotlight',
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
     }
   }
 }

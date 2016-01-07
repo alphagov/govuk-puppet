@@ -5,19 +5,27 @@
 # === Parameters
 #
 # [*port*]
-#   The port which the app runs on
+#   The port which the app runs on.
+#   Default: 3000
 #
 # [*data_import_passive_check*]
 #   Boolean, whether we should be monitoring publisher's local
 #   authority data import
+#   Default: false
 #
 # [*enable_procfile_worker*]
 #   Boolean, whether the procfile worker should be enabled
+#   Default: true
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
 #
 class govuk::apps::publisher(
     $port = '3000',
     $data_import_passive_check = false,
-    $enable_procfile_worker = true
+    $enable_procfile_worker = true,
+    $publishing_api_bearer_token = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -68,5 +76,11 @@ class govuk::apps::publisher(
 
   govuk::procfile::worker {'publisher':
     enable_service => $enable_procfile_worker,
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => 'publisher',
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 }
