@@ -49,7 +49,6 @@ define nginx::config::vhost::proxy(
                             # Please, please, remove when we have a
                             # sensible means of managing SSL certificates.
   $hidden_paths = [],
-  $static_app = false,
   $single_page_app = false,
   $read_timeout = 15,
   $ensure = 'present',
