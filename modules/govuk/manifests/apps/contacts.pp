@@ -1,10 +1,41 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::contacts
+#
+# An application to route requests between multiple content-store
+# endpoints based on whether they're live or in other states.
+#
+# === Parameters
+#
+# [*enabled*]
+#   Whether the app is enabled.
+#   Default: true
+#
+# [*vhost*]
+#   Virtual host for this application.
+#   Default: contacts
+#
+# [*port*]
+#   The port that the app is served on.
+#   Default: 3051
+#
+# [*vhost_protected*]
+#   Should this vhost be protected with HTTP Basic auth?
+#   Default: undef
+#
+# [*extra_aliases*]
+#   Other vhosts on which the app is served.
+#   Default: []
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::contacts(
   $enabled = true,
   $vhost = 'contacts',
   $port = '3051',
   $vhost_protected = undef,
-  $extra_aliases = []
+  $extra_aliases = [],
+  $publishing_api_bearer_token = undef,
 ) {
 
   validate_array($extra_aliases)
@@ -27,6 +58,12 @@ class govuk::apps::contacts(
           try_files $uri @app;
         }
       ',
+    }
+
+    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      app     => 'contacts',
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
     }
   }
 }

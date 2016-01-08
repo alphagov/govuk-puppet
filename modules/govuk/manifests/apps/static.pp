@@ -6,10 +6,14 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
+
+# [*port*]
+#   The port that the app is served on.
+#   Default: 3013
 #
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
-#   Default: ''
+#   Default: undef
 #
 # [*draft_environment*]
 #   A boolean to indicate whether we are in the draft environment.
@@ -19,6 +23,11 @@
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
+#   Default: undef
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
 #
 class govuk::apps::static(
   $vhost,
@@ -26,6 +35,7 @@ class govuk::apps::static(
   $errbit_api_key = undef,
   $draft_environment = false,
   $secret_key_base = undef,
+  $publishing_api_bearer_token = undef,
 ) {
   $app_domain = hiera('app_domain')
   $asset_manager_host = "asset-manager.${app_domain}"
@@ -67,5 +77,10 @@ class govuk::apps::static(
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
     }
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 }
