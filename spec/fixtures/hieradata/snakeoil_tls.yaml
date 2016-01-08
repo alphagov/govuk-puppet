@@ -1,0 +1,63 @@
+---
+# Use a valid TLS certificate and key here (self-signed for `localhost`) to
+# prevent validate_x509_rsa_key_pair() from erroring:
+#
+# https://github.com/puppetlabs/puppetlabs-stdlib#validate_x509_rsa_key_pair
+#
+snakeoil_tls_crt: |
+  -----BEGIN CERTIFICATE-----
+  MIIC9jCCAeCgAwIBAgIRAK11n3X7aypJ7FPM8UFyAeowCwYJKoZIhvcNAQELMBIx
+  EDAOBgNVBAoTB0FjbWUgQ28wHhcNMTUxMTIzMjIzOTU4WhcNMTYxMTIyMjIzOTU4
+  WjASMRAwDgYDVQQKEwdBY21lIENvMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+  CgKCAQEAz9bY/piKahD10AiJSfbI2A8NG5UwRz0r9T/WfvNVdhgrsGFgNQjvpUoZ
+  nNJpQIHBbgMOiXqfATFjJl5FjEkSf7GUHohlGVls9MX2JmVvknzsiitd75H/EJd+
+  N+k915lix8Vqmj8d1CTlbF/8tEjzANI67Vqw5QTuqebO7rkIUvRg6yiRfSo75FK1
+  RinCJyl++kmleBwQZBInQyg95GvJ5JTqMzBs67DeeyzskDhTeTePRYVF2NwL8QzY
+  htvLIBERTNsyU5i7nkxY5ptUwgFUwd93LH4Q19tPqL5C5RZqXxhE51thOOwafm+a
+  W/cRkqYqV+tv+j1jJ3WICyF1JNW0BQIDAQABo0swSTAOBgNVHQ8BAf8EBAMCAKAw
+  EwYDVR0lBAwwCgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAUBgNVHREEDTALggls
+  b2NhbGhvc3QwCwYJKoZIhvcNAQELA4IBAQAzRo0hpVTrFQZLIXpwvKwZVGvJdCkV
+  P95DTsSk/VTGV+/YtxrRqks++hJZnctm2PbnTsCAoIP3AMx+vicCKiKrxvpsLU8/
+  +6cowUbcuGMdSQktwDqbAgEhQlLsETll06w1D/KC+ejOc4+LRn3GQcEyGDtMk/EX
+  IeAvBZHr4/kVXWnfo6kzCLcku1f8yE/yDEFClZe9XV1Lk/s+3YfXVtNnMJJ1giZI
+  QVOe6CkmuQq+4AtIeW8aLkvlfp632jag1F77a1y+L268koKkj0hBMrtcErVQaxmq
+  xym0+soR4Tk4pTIGckeFglrLxkP2JpM/yTwSEAVlmG9vgTliYKyR0uMl
+  -----END CERTIFICATE-----
+
+snakeoil_tls_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIEogIBAAKCAQEAz9bY/piKahD10AiJSfbI2A8NG5UwRz0r9T/WfvNVdhgrsGFg
+  NQjvpUoZnNJpQIHBbgMOiXqfATFjJl5FjEkSf7GUHohlGVls9MX2JmVvknzsiitd
+  75H/EJd+N+k915lix8Vqmj8d1CTlbF/8tEjzANI67Vqw5QTuqebO7rkIUvRg6yiR
+  fSo75FK1RinCJyl++kmleBwQZBInQyg95GvJ5JTqMzBs67DeeyzskDhTeTePRYVF
+  2NwL8QzYhtvLIBERTNsyU5i7nkxY5ptUwgFUwd93LH4Q19tPqL5C5RZqXxhE51th
+  OOwafm+aW/cRkqYqV+tv+j1jJ3WICyF1JNW0BQIDAQABAoIBADAiZ/r+xP+vkd5u
+  O61/lCBFzBlZQecdybJw6HJaVK6XBndA9hESUr4LHUdui6W+51ddKd65IV4bXAUk
+  zCKjQb+FFvLDT/bA+TTvLATUdTSN7hJJ3OWBAHuNOlQklof6JCB0Hi4+89+P8/pX
+  eKUgR/cmuTMDT/iaXdPHeqFbBQyA1ZpQFRjN5LyyJMS/9FkywuNc5wlpsArtc51T
+  gIKENUZCuPhosR+kMFc2iuTNvqZWPhvouSrmhi2O6nSqV+oy0+irlqSpCF2GsCI8
+  72TtLpq94Grrq0BEH5avouV+Lp4k83vO65OKCQKUFQlxz3Xkxm2U3J7KzxqnRtM3
+  /b+cJ/kCgYEA6/yOnaEYhH/7ijhZbPn8RujXZ5VGJXKJqIuaPiHMmHVS5p1j6Bah
+  2PcnqJA2IlLs3UloN+ziAxAIH6KCBiwlQ/uPBNMMaJsIjPNBEy8axjndKhKUpidg
+  R0OJ7RQqMShOJ8akrSfWdPtXC/GBuwCYE//t77GgZaIMO3FcT9EKA48CgYEA4Xcx
+  Fia0Jg9iyAhNmUOXI6hWcGENavMx01+x7XFhbnMjIKTZevFfTnTkrX6HyLXyGtMU
+  gHOn+k4PE/purI4ARrKO8m5wYEKqSIt4dBMTkIXXirfQjXgfjR8E4T/aPe5fOFZo
+  7OYuxLRtzmG1C2sW4txwKAKX1LaWcVx/RLSttSsCgYBbcj8Brk+F6OJcqYFdzXGJ
+  OOlf5mSMVlopyg83THmwCqbZXtw8L6kAHqZrl5airmfDSJLuOQlMDoZXW+3u3mSC
+  d5TwVahVUN57YDgzaumBLyMZDqIz0MZqVy23hTzkV64Rk9R0lR9xrYQJyMhw4sYL
+  2f0mCTsSpzz+O+t9so+i2QKBgEC38gMlwPhb2kMI/x1LZYr6uzUu5qcYf+jowy4h
+  KZKGwkKQj0zXFEB1FV8nvtpCP+irRmtIx6L13SYi8LnfWPzyLE4ynVdES5TfVAgd
+  obQOdzx+XwL8xDHCAaiWp5K3ZeXKB/xYZnxYPlzLdyh76Ond1OPnOqX4c16+6llS
+  c7pZAoGATd9NckT0XtXLEsF3IraDivq8dP6bccX2DNfS8UeEvRRrRwpFpSRrmuGb
+  jbG4yzoIX4RjQfj/z48hwhJB+cKiN9WwcPsFXtHe7v3F6BRwK0JUfrCiXad8/SGZ
+  KAf7Dfqi608zBdnPWHacre2Y35gPHB00nFQOLS6u46aBNSq07YA=
+  -----END RSA PRIVATE KEY-----
+
+sflg_certificate: "%{hiera('snakeoil_tls_crt')}"
+sflg_key: "%{hiera('snakeoil_tls_key')}"
+
+wildcard_alphagov_crt: "%{hiera('snakeoil_tls_crt')}"
+wildcard_alphagov_key: "%{hiera('snakeoil_tls_key')}"
+
+www_crt: "%{hiera('snakeoil_tls_crt')}"
+www_key: "%{hiera('snakeoil_tls_key')}"

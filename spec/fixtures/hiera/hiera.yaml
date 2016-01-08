@@ -5,3 +5,4 @@
   :datadir: 'spec/fixtures/hieradata'
 :hierarchy:
   - 'common'
+  - 'snakeoil_tls'
