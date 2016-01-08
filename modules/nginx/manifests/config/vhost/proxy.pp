@@ -46,7 +46,6 @@ define nginx::config::vhost::proxy(
   $is_default_vhost = false,
   $ssl_certtype = 'wildcard_alphagov',
   $hidden_paths = [],
-  $static_app = false,
   $single_page_app = false,
   $read_timeout = 15,
   $ensure = 'present',
