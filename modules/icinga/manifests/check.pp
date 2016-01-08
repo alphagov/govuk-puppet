@@ -51,6 +51,9 @@
 #   templates. This is so you can pass a group to a check without
 #   having to define a new service template
 #
+# [*event_handler*]
+#   A command to run when the check changes state
+#
 define icinga::check (
   $host_name,
   $ensure                     = 'present',
@@ -66,6 +69,7 @@ define icinga::check (
   $first_notification_delay   = undef,
   $attempts_before_hard_state = undef,
   $contact_groups             = undef,
+  $event_handler              = undef,
 ) {
 
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")

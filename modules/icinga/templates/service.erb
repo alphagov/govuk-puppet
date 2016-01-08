@@ -27,4 +27,7 @@ define service {
 <%- if @contact_groups -%>
         contact_groups            +<%= [@contact_groups].flatten.join(',') %>
 <%- end -%>
+<%- if @event_handler -%>
+        event_handler             <%= @event_handler %>
+<%- end -%>
 }

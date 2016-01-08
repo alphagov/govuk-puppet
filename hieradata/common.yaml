@@ -338,6 +338,8 @@ govuk_sudo::sudo_conf:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/nginx'
   deploy_service_varnish:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/varnish'
+  icinga_init_ctl:
+    content: 'nagios ALL=NOPASSWD:/sbin/initctl'
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 

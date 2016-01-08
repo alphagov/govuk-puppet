@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# Icinga event handler script for restarting an application on a remote machine
+# when it begins consuming too much memory.
+#
+
+SERVICESTATE=$1
+SERVICESTATETYPE=$2
+HOSTADDRESS=$3
+APPNAME=$4
+
+case "${SERVICESTATE}" in
+  OK)
+    # Service just came back up, so don't do anything
+    ;;
+  WARNING|CRITICAL)
+    case "${SERVICESTATETYPE}" in
+      SOFT)
+        ;;
+      HARD)
+        logger --tag govuk_icinga_event_handler "Restarting app ${APPNAME} because it's using too much memory"
+        /usr/lib/nagios/plugins/check_nrpe -H ${HOSTADDRESS} -c reload_service ${APPNAME}
+        ;;
+    esac
+    ;;
+  UNKNOWN)
+    ;;
+esac
+
+exit 0
