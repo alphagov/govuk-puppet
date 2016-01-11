@@ -1,6 +1,6 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'careful'
+govuk::safe_to_reboot::can_reboot: 'overnight'
 govuk::safe_to_reboot::reason: 'Check for primary, reboot secondaries, step down primary, reboot primary'
 
 lv:
