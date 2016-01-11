@@ -939,6 +939,30 @@ router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
+router::nginx::robotstxt: |
+  User-agent: *
+  Disallow: /*/print$
+  # Don't allow indexing of search results
+  Disallow: /search?
+  # We only allow indexing of the licence-finder landing page
+  Disallow: /licence-finder/
+  Allow: /licence-finder
+  # We only allow indexing of the finance finder landing page
+  Disallow: /business-finance-support-finder/*
+  Allow: /business-finance-support-finder
+  Disallow: /apply-for-a-licence/
+  # Don't allow indexing of user needs pages
+  Disallow: /info/*
+  Sitemap: https://www.gov.uk/sitemap.xml
+  Crawl-delay: 0.5
+  # https://ahrefs.com/robot/ crawls the site frequently
+  User-agent: AhrefsBot
+  Crawl-delay: 10
+  # https://www.deepcrawl.com/bot/ makes lots of requests. Ideally
+  # we'd slow it down rather than blocking it but it doesn't mention
+  # whether or not it supports crawl-delay.
+  User-agent: deepcrawl
+  Disallow: /
 
 ssh::config::allow_users_enable: true
 

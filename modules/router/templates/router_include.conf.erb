@@ -61,6 +61,10 @@ location / {
 
   <%- end -%>
 
+  location /robots.txt {
+    root /usr/share/nginx/www;
+  }
+
   proxy_pass http://varnish;
 }
 
