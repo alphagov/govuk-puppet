@@ -14,9 +14,14 @@
 #   start.
 #   Default: undef
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::businesssupportfinder(
   $port = '3024',
   $secret_key_base = undef,
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'businesssupportfinder'
 
@@ -27,6 +32,12 @@ class govuk::apps::businesssupportfinder(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'businesssupportfinder',
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => $app_name,
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 
   if $secret_key_base != undef {

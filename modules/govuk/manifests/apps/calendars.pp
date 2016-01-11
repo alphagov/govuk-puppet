@@ -12,9 +12,14 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::calendars(
   $port = '3011',
   $secret_key_base = undef,
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'calendars'
 
@@ -29,6 +34,11 @@ class govuk::apps::calendars(
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 
   if $secret_key_base {

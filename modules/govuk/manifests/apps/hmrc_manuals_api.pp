@@ -23,11 +23,16 @@
 #   API and Rummager.
 #   Default: true
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
   $allow_unknown_hmrc_manual_slugs = false,
   $publish_topics = true,
+  $publishing_api_bearer_token = undef,
 ) {
 
   Govuk::App::Envvar {
@@ -48,6 +53,11 @@ class govuk::apps::hmrc_manuals_api(
         varname => 'PUBLISH_TOPICS',
         value => '1';
     }
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 
   govuk::app { 'hmrc-manuals-api':

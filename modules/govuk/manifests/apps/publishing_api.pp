@@ -1,7 +1,7 @@
 # == Class: govuk::apps::publishing_api
 #
-# An application to route requests between multiple content-store
-# endpoints based on whether they're live or in other states.
+# An application to act as a central store for all publishing content
+# on GOV.UK.
 #
 # === Parameters
 #
@@ -54,6 +54,12 @@
 #   Enables the sidekiq background worker.
 #   Default: true
 #
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
+#
 class govuk::apps::publishing_api(
   $port = '3093',
   $content_store = '',
@@ -68,6 +74,8 @@ class govuk::apps::publishing_api(
   $redis_host = undef,
   $redis_port = '6379',
   $enable_procfile_worker = true,
+  $oauth_id = undef,
+  $oauth_secret = undef,
 ) {
   $app_name = 'publishing-api'
 
@@ -107,6 +115,12 @@ class govuk::apps::publishing_api(
     "${title}-REDIS_PORT":
       varname => 'REDIS_PORT',
       value   => $redis_port;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
   }
 
   if $secret_key_base != undef {

@@ -11,6 +11,7 @@ class govuk::apps::whitehall(
   $nagios_memory_critical = undef,
   $prevent_single_host = true,
   $enable_procfile_worker = true,
+  $publishing_api_bearer_token = undef,
 ) {
 
   $app_domain = hiera('app_domain')
@@ -181,6 +182,12 @@ class govuk::apps::whitehall(
         app     => 'whitehall',
         varname => 'GOVUK_ASSET_ROOT',
         value   => "//whitehall-admin.${app_domain}";
+    }
+
+    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      app     => 'whitehall',
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
     }
   }
 }

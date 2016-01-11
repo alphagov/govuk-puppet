@@ -25,12 +25,17 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::panopticon(
   $port = '3003',
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'panopticon',
   $rabbitmq_password = 'panopticon',
   $enable_procfile_worker = true,
+  $publishing_api_bearer_token = undef,
 ) {
   govuk::app { 'panopticon':
     app_type           => 'rack',
@@ -44,6 +49,11 @@ class govuk::apps::panopticon(
 
   Govuk::App::Envvar {
     app => 'panopticon',
+  }
+
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 
   govuk::app::envvar::rabbitmq { 'panopticon':
