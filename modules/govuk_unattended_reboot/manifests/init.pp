@@ -7,14 +7,13 @@
 #
 # [*enabled*]
 #   Whether to enable unattended reboots.
-#   Default: false
 #
 # [*monitoring_basic_auth*]
 #   A hash containing a `username` and a `password` to access monitoring
 #   which is protected by basic authentication.
 #
 class govuk_unattended_reboot (
-  $enabled = false,
+  $enabled = true,
   $monitoring_basic_auth = {},
 ) {
 

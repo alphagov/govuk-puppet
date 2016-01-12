@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+# Test whether the replica set is healthy. The value of `ok` should
+# be 1 which will cause grep to exit with code 0.
+mongo --quiet --eval 'rs.status().ok' | grep --quiet 1
+
+# Test whether this node is the primary. The conditional will evaluate
+# to false if the node is safe to reboot which will cause grep to exit
+# with code 0.
+# FIXME: This could be extended to step down the primary and then carry
+# on with the reboot.
+mongo --quiet --eval 'db.isMaster().primary === db.isMaster().me' | grep --quiet false
+
+exit 0
