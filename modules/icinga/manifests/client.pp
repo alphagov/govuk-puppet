@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: icinga::client
+#
+# Sets up a host in Icinga that checks can be associated with.
+#
 class icinga::client {
 
   anchor { 'icinga::client::begin':
@@ -34,8 +37,9 @@ class icinga::client {
   }
 
   @@icinga::host { $::fqdn:
-    hostalias => $::fqdn,
-    address   => $::ipaddress,
+    hostalias    => $::fqdn,
+    address      => $::ipaddress,
+    display_name => $::fqdn_short,
   }
 
   Icinga::Nrpe_config <| |>
