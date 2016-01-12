@@ -3,7 +3,8 @@ define icinga::host (
   $hostalias  = $::fqdn,
   $address    = $::ipaddress,
   $use        = 'generic-host',
-  $host_name  = $::fqdn
+  $host_name  = $::fqdn,
+  $display_name = $::fqdn_short,
 ) {
 
   file {"/etc/icinga/conf.d/icinga_host_${title}":
