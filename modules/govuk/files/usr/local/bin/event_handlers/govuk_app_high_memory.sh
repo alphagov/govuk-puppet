@@ -18,8 +18,8 @@ case "${SERVICESTATE}" in
       SOFT)
         ;;
       HARD)
-        logger --tag govuk_icinga_event_handler "Restarting app ${APPNAME} because it's using too much memory"
-        /usr/lib/nagios/plugins/check_nrpe -H ${HOSTADDRESS} -c reload_service ${APPNAME}
+        logger --tag govuk_icinga_event_handler "Restarting app ${APPNAME} on ${HOSTADDRESS} because it's using too much memory"
+        /usr/lib/nagios/plugins/check_nrpe -H ${HOSTADDRESS} -c reload_service -a ${APPNAME}
         ;;
     esac
     ;;

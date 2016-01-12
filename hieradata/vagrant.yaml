@@ -153,6 +153,7 @@ govuk_postgresql::server::snakeoil_ssl_key: |
   vxBODhF5cvyO/S2jUuvApGU4dU2KULT5Dv3/Lh/Otg==
   -----END RSA PRIVATE KEY-----
 
+icinga::config::enable_event_handlers: true
 icinga::nginx::enable_basic_auth: false
 
 shell::shell_prompt_string: 'dev'
