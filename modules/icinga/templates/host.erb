@@ -1,7 +1,8 @@
 define host {
-        use        <%= @use %>
-        alias      <%= @hostalias %>
-        address    <%= @address %>
-        host_name  <%= @hostalias %>
-        hostgroups all
+        use          <%= @use %>
+        alias        <%= @hostalias %>
+        address      <%= @address %>
+        display_name <%= @fqdn_short %>
+        host_name    <%= @hostalias %>
+        hostgroups   all
 }
