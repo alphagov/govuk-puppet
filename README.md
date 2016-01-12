@@ -24,7 +24,7 @@ contributing to this repository.
 
 [style]: https://github.com/alphagov/styleguides/blob/master/puppet.md
 
-Pay particular attention to the section **Things that should not be in the Puppet Repo**
+Pay particular attention to the section '[Things that should not be in the Puppet Repo](https://github.com/alphagov/styleguides/blob/master/puppet.md#things-that-should-not-be-in-the-puppet-repo)'.
 
 ## Dependencies
 
