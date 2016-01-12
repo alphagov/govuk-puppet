@@ -4,10 +4,9 @@
 
 Facter.add("fqdn_metrics") do
  setcode do
-    fqdn = Facter.value("fqdn").dup
-    fqdn.gsub!(/\./, '_')
-    fqdn.gsub!(/_publishing_service_gov_uk$/, '')
+    fqdn_metrics = Facter.value("fqdn_short").dup
+    fqdn_metrics.gsub!(/\./, '_')
 
-    fqdn
+    fqdn_metrics
   end
 end
