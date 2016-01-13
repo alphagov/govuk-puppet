@@ -9,13 +9,8 @@
 #   Whether the app is enabled.
 #   Default: true
 #
-# [*publishing_api_bearer_token*]
-#   The bearer token to use when communicating with Publishing API.
-#   Default: undef
-#
 class govuk::apps::performanceplatform_big_screen_view (
   $enabled = false,
-  $publishing_api_bearer_token = undef,
 ) {
   include govuk::deploy
 
@@ -33,11 +28,6 @@ class govuk::apps::performanceplatform_big_screen_view (
       vhost           => $vhost_full,
       ssl_only        => true,
       app_port        => 3058,
-    }
-    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => $app_name,
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token,
     }
   }
 }
