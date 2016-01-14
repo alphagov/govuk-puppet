@@ -39,6 +39,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
+#   Default: undef
+#
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
   $db_name = 'service-manual-publisher_production',
@@ -51,6 +55,7 @@ class govuk::apps::service_manual_publisher(
   $secret_key_base = undef,
   $disable_publishing = false,
   $publishing_api_bearer_token = undef,
+  $asset_manager_bearer_token = undef,
 ) {
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
@@ -81,6 +86,9 @@ class govuk::apps::service_manual_publisher(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-ASSET_MANAGER_BEARER_TOKEN":
+      varname => 'ASSET_MANAGER_BEARER_TOKEN',
+      value   => $asset_manager_bearer_token;
   }
 
   if $disable_publishing {
