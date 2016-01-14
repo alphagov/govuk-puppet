@@ -51,4 +51,9 @@ class icinga::client {
 
   Icinga::Nrpe_config <| |>
   Icinga::Plugin <| |>
+
+  icinga::plugin { 'reload_service':
+    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/reload_service',
+  }
+
 }
