@@ -96,7 +96,7 @@ class govuk::node::s_asset_slave (
     }
   }
 
-  $master_metrics_hostname = regsubst($::fqdn_metrics, 'slave', 'master')
+  $master_metrics_hostname = regsubst($::fqdn_metrics, 'slave-\d', 'master-1')
   $graphite_mnt_uploads_metric = 'df-mnt-uploads.df_complex-used'
   $master_metric = "${master_metrics_hostname}.${graphite_mnt_uploads_metric}"
   $slave_metric = "${::fqdn_metrics}.${graphite_mnt_uploads_metric}"
