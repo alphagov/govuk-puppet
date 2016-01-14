@@ -8,7 +8,7 @@ class govuk_jenkins::job::tagging_migration_check (
 
   $check_name = 'tagging_migration_check'
   $service_description = 'Tagging migration check'
-  $job_url = "https://deploy.${app_domain}/job/tagging_migration_check"
+  $job_url = "https://deploy.${app_domain}/job/tagging-migration-verifier/"
 
   file { '/etc/jenkins_jobs/jobs/tagging_migration_check.yaml':
     ensure  => present,
