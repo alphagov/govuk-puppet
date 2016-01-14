@@ -10,8 +10,188 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "title": "Origin",
+      "title": "Edge",
       "height": "250px",
+      "editable": false,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "EDGE (15 mins' lag)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 5,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "edge_health.json",
+              "title": "Edge health",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "timeShift(movingAverage(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-requests), '1min'), '-15min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": " req/s",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null",
+          "valueName": "current",
+          "prefixFontSize": "80%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,100,150",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "EDGE HTTP 4XX (15 mins' lag)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 10,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "edge_health.json",
+              "title": "Edge health",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_4xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "80%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,1,2",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "EDGE HTTP 5XX (15 mins' lag)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 11,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "edge_health.json",
+              "title": "Edge health",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_5xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "80%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,0.5,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        }
+      ],
+      "showTitle": false
+    },
+    {
+      "title": "Origin",
+      "height": "400px",
       "editable": false,
       "collapse": false,
       "collapsable": true,
@@ -189,186 +369,6 @@
         }
       ],
       "notice": false,
-      "showTitle": false
-    },
-    {
-      "title": "Edge",
-      "height": "400px",
-      "editable": false,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "EDGE (15 mins' lag)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 5,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "edge_health.json",
-              "title": "Edge health",
-              "url": "/#/dashboard/file/edge_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "timeShift(movingAverage(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-requests), '1min'), '-15min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": " req/s",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null",
-          "valueName": "current",
-          "prefixFontSize": "80%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,100,150",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        },
-        {
-          "title": "EDGE HTTP 4XX (15 mins' lag)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 10,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "edge_health.json",
-              "title": "Edge health",
-              "url": "/#/dashboard/file/edge_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_4xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "80%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,1,2",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        },
-        {
-          "title": "EDGE HTTP 5XX (15 mins' lag)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 11,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "edge_health.json",
-              "title": "Edge health",
-              "url": "/#/dashboard/file/edge_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_5xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "80%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,0.5,1",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        }
-      ],
       "showTitle": false
     }
   ],
