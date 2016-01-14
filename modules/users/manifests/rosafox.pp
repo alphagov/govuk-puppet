@@ -3,7 +3,7 @@ class users::rosafox {
   govuk::user { 'rosafox':
     fullname => 'Rosa Fox',
     email    => 'rosa.fox@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/iFVHaFNWHDOcU31p0jimTkC/9R4cBNPYMBkKf4s5c0tPkMjs7ICi+ou4oauHiVKpBX1YIaF7zk+UnFpoi/UKeYTnjp27YeHDhjW/koaRlaUuTUCPrWmKTgsPPRU+7eeHcNXk+cAHI0ihMePDOiPT1902+WGGJ74mtHfMfQT+AzqmSAOVbBtOA5/H6donRiDoie4b3o7kG9FHvbdur5cIO7KoZzJsORX8ehrodDcfaI0avSkrciE5yM8EQY/1/9BbKEWqvFfUXL+XWejkylbrB4L+Py6Mc3/jJHp6nUcXDeZ1jGUYOWwnaJwag1Rwil/NQ+rATrtnWj4Z5YJC/shSMhwYxS8m5fMmL/SI8mjSbLGwdFZ68hlpb7Ex5ATJWOCyZJl8ujBzypB6KWFSVWrkICHubNvL+UUbfipjHZuVTbC/gEbjtq0Rt6/rFsU5aGFbgyP+2dkO2PpoCMPS38ZA+qNgpsiuQTetx5IyQ0RF9XD0DSUUUP1Zjok1c5xEcto60otDtXvl6+1sogD7LG7oRbSt3aPFbiCeEV0TwjToqSkGfy/KCXk+HNh13nFQ+//PFtOPS3NiYXoJYNoficRdER9mFwFFDvqQYxfJI1KeSBS6A4dpyxU1NiLgT2iBmmwp7u1/tyVQON0EHDphlACCKqupWSbPqa+NviwL5qApbQ== rosafox89@gmail.com
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCctajq+RyUOUwy+vrC3P2lsmSGec7mVR9FV/M59WK3B5+EIvydBd4uGJxxqEaj/F1r7q8M5h3Nqt7vdyxOZNcaC8JgT1Pr27HYU2d8s28Jd6wbvrgh+w+oqF77CF2GpUfa1DTvFT8EK3Jd0EidbuaW+qPuloVv3mFuSB+3htAWbHp6bgBjUACkzd3S6K1mnl2vQ34Rzml6hwL2xPzI5fEVXnmszt76ovrj7DgL7YD2E60P425JfLfYXrdmNWNPXV4hMLUxfPpinuXYRUIKAfy//s5I1JEgrrupj0+GWbcAnCcpVXibRXpcdeCFelRGQrkf+A4wafzqulnxH+Fuiw0dI1G0lYL1kwG+VL6L1ippS56fPlTGHzuXZjuwOXjTSilfNO1iWlWnBHLqKEng7N1voRzEOpHJFmjsHZ9sm6YVMh/27kmcYtqdxJph3xd99kLzvSxp3uey4Gtxws1fyfx78UF4jCjgwXBE62SM/1fZBrN4EvEhCUfqr57Gd+FPxxLSWz5tzT0vjAHdl6QZzkpNNm0QWCS9Xr706+htFHibuiCx5gs3TEsr9sbHx8EWfPFMxMqleTL9cvsoGovAW0J/ku+MgL3hKwItKRiTDGt3KTsLTOT/Rez5xfOttm3TMKxd1Qq/qK2ZC93/gZOGtSflnz6/U2z6/PnKphs8VOkmsQ== rosafox89@gmail.com
 ',
   }
 }
