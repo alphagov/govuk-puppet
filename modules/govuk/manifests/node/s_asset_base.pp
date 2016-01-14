@@ -7,11 +7,7 @@
 # [*firewall_allow_ip_range*]
 #   The IP range that is allowed to access asset machines
 #
-# [*flag_new_whitehall_attachment_processing*]
-#   Feature flag for whether the new attachment processing should be used
-#
 class govuk::node::s_asset_base (
-  $flag_new_whitehall_attachment_processing = false,
   $firewall_allow_ip_range,
 ) inherits govuk::node::s_base{
   validate_string($firewall_allow_ip_range)
@@ -95,15 +91,9 @@ class govuk::node::s_asset_base (
     mode   => '0755',
   }
 
-  if $flag_new_whitehall_attachment_processing {
-    file { '/usr/local/bin/sync-assets.sh':
-      ensure => absent,
-    }
-  } else {
-    file { '/usr/local/bin/sync-assets.sh':
-      content => template('govuk/node/s_asset_base/sync-assets.sh.erb'),
-      mode    => '0755',
-    }
+  # FIXME: Remove this resource when the file is purged from production
+  file { '/usr/local/bin/sync-assets.sh':
+    ensure => absent,
   }
 
   cron { 'tmpreaper-bulk-upload-zip-file-tmp':
