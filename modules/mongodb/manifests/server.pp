@@ -41,7 +41,6 @@ class mongodb::server (
     }
   }
 
-  include govuk_unattended_reboot::mongodb
   include mongodb::repository
 
   if $development {
