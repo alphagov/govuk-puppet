@@ -73,7 +73,6 @@ govuk_jenkins::config::admins:
   - paulhayes
   - paulmartin
   - richardboulton
-  - robyoung
   - rosafox
   - stevelaing
   - stuartgale
@@ -279,7 +278,6 @@ users::usernames:
   - paulmartin
   - richardboulton
   - robinwhittleton
-  - robyoung
   - rosafox
   - seemasatish
   - simonhughesdon
