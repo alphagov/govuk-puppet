@@ -49,7 +49,7 @@ mod 'gdsoperations/gor',
   :ref => 'v0.2.0'
 mod 'alphagov/harden',
   :git => 'git://github.com/alphagov/puppet-harden.git',
-  :ref => 'v0.1.2'
+  :ref => 'fa2c51e994b87e71e7b424b6c0048b70c2df36b0'
 mod 'alphagov/puppet-rcs',
   :git => 'git://github.com/alphagov/puppet-rcs.git'
 mod 'elasticsearch/logstash',
