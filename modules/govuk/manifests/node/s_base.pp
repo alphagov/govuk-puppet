@@ -26,6 +26,7 @@ class govuk::node::s_base (
   include grub2
   include harden
   include hosts
+  include ::limits
   include monitoring::client
   include nano
   include postfix
