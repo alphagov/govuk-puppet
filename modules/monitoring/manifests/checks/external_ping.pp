@@ -68,7 +68,7 @@ define monitoring::checks::external_ping(
 
   icinga::check { "check_external_ping_${title}":
     host_name           => $::fqdn,
-    service_description => "Unable to ping ${title} at ${host}",
+    service_description => "Unable to ping ${title}",
     notification_period => $notification_period,
     use                 => $use,
     notes_url           => $notes_url,

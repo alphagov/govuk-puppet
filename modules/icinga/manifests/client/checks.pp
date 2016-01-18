@@ -1,7 +1,17 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: icinga::client::checks
+#
+# This class provides the default checks for a client machine.
+#
+# === Parameters:
+# [*disk_time_warn*]
+#   The disk time in milliseconds that will causing a warning state.
+#
+# [*disk_time_critical*]
+#   The disk time in milliseconds that will cause a critical state.
+#
 class icinga::client::checks (
-  $disk_time_warn = 100, # milliseconds
-  $disk_time_critical = 200 # milliseconds
+  $disk_time_warn = 100,
+  $disk_time_critical = 200,
 ) {
 
   include icinga::client::check_cputype

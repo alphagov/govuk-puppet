@@ -8,6 +8,10 @@ class monitoring::client {
   include collectd
   include collectd::plugin::tcp
 
+  if ($::vdc == 'licensify') or ($::vdc == 'efg') or ($::vdc =~ /^*_dr$/)  {
+    include monitoring::client::vpn_service_dependency
+  }
+
   # Provides:
   # - `notify-reboot-required` which is referenced in the `postinst`
   #   of some packages in order to request that the system be rebooted at a

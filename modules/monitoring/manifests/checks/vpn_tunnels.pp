@@ -23,5 +23,7 @@ class monitoring::checks::vpn_tunnels (
 
   if $enabled {
     create_resources('monitoring::checks::external_ping', $endpoints, $defaults)
+
+    Icinga::Service_dependency <<| |>>
   }
 }
