@@ -9,9 +9,9 @@
 
 - job:
     name: whitehall_update_integration_data
-    display-name: whitehall_update_integration_data
+    display-name: Update Whitehall database
     project-type: freestyle
-    description: 'Copies down latest sanitised backup from production'
+    description: 'Imports the latest production database dump for Whitehall'
     scm:
       - env-sync-and-backup_whitehall_update_integration_data
     logrotate:
