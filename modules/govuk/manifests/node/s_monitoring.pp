@@ -32,11 +32,11 @@ class govuk::node::s_monitoring (
     root         => '/dev/null',
   }
 
-  harden::limit { 'nagios-nofile':
-    domain => 'nagios',
-    type   => '-', # set both hard and soft limits
-    item   => 'nofile',
-    value  => '16384',
+  limits::limits { 'nagios_nofile':
+    ensure     => present,
+    user       => 'nagios',
+    limit_type => 'nofile',
+    both       => 16384,
   }
 
   file { '/opt/smokey':

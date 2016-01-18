@@ -48,12 +48,12 @@ class govuk::node::s_graphite (
     ],
   }
 
-  harden::limit { 'www-data-nofile':
-    domain => 'www-data',
-    type   => '-', # set both hard and soft limits
-    item   => 'nofile',
-    value  => '16384',
-    notify => Class['graphite::service'],
+  limits::limits { 'www-data_nofile':
+    ensure     => present,
+    user       => 'www-data',
+    limit_type => 'nofile',
+    both       => 16384,
+    notify     => Class['graphite::service'],
   }
 
   file { '/etc/cron.daily/prune-whisper-files.sh':

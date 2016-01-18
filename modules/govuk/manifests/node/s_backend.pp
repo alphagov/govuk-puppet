@@ -6,18 +6,18 @@
 class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_ruby_app_server
 
-  harden::limit { 'root-nofile':
-    domain => 'root',
-    type   => '-', # set both hard and soft limits
-    item   => 'nofile',
-    value  => '16384',
+  limits::limits { 'root_nofile':
+    ensure     => present,
+    user       => 'root',
+    limit_type => 'nofile',
+    both       => 16384,
   }
 
-  harden::limit { 'root-nproc':
-    domain => 'root',
-    type   => '-', # set both hard and soft limits
-    item   => 'nproc',
-    value  => '1024',
+  limits::limits { 'root_nproc':
+    ensure     => present,
+    user       => 'root',
+    limit_type => 'nproc',
+    both       => 1024,
   }
 
   package { 'graphviz':
