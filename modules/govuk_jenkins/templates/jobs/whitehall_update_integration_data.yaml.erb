@@ -1,9 +1,19 @@
 ---
+- scm:
+    name: env-sync-and-backup_whitehall_update_integration_data
+    scm:
+        - git:
+            url: git@github.gds:gds/env-sync-and-backup.git
+            branches:
+              - master
+
 - job:
     name: whitehall_update_integration_data
     display-name: whitehall_update_integration_data
     project-type: freestyle
     description: 'Copies down latest sanitised backup from production'
+    scm:
+      - env-sync-and-backup_whitehall_update_integration_data
     logrotate:
         artifactNumToKeep: 10
     builders:
