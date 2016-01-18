@@ -58,24 +58,14 @@ class hosts::production (
 
   validate_bool($carrenza_vcloud)
 
-  if !is_ip_address($ip_api_lb) {
-    fail("ip_api_lb is not a valid IP address: ${ip_api_lb}")
-  }
-  if !is_ip_address($ip_backend_lb) {
-    fail("ip_backend_lb is not a valid IP address: ${ip_backend_lb}")
-  }
-  if !is_ip_address($ip_bouncer) {
-    fail("ip_bouncer is not a valid IP address: ${ip_bouncer}")
-  }
-  if !is_ip_address($ip_draft_api_lb) {
-    fail("ip_draft_api_lb is not a valid IP address: ${ip_draft_api_lb}")
-  }
-  if !is_ip_address($ip_frontend_lb) {
-    fail("ip_frontend_lb is not a valid IP address: ${ip_frontend_lb}")
-  }
-  if !is_ip_address($ip_licensify_lb) {
-    fail("ip_licensify_lb is not a valid IP address: ${ip_licensify_lb}")
-  }
+  validate_ip_address(
+    $ip_api_lb,
+    $ip_backend_lb,
+    $ip_bouncer,
+    $ip_draft_api_lb,
+    $ip_frontend_lb,
+    $ip_licensify_lb
+  )
 
   #api vdc machines
   class { 'hosts::production::api':
