@@ -25,6 +25,13 @@ class govuk::apps::govuk_cdn_logs_monitor (
   $processed_data_dir = '/mnt/logs_cdn/data',
 ) {
   if $enabled {
+    file { $processed_data_dir:
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'deploy',
+      group  => 'deploy',
+    }
+
     Govuk::App::Envvar {
       app => 'govuk-cdn-logs-monitor',
     }
