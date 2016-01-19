@@ -9,9 +9,9 @@
 
 - job:
     name: Deploy_Puppet
-    display-name: Deploy_Puppet
+    display-name: Deploy Puppet
     project-type: freestyle
-    description: "<a href='http://www.flickr.com/photos/fatty/9158066939/'><img src='https://farm3.staticflickr.com/2835/9158066939_374360ed56_n.jpg'></a><p>This job deploys the puppet release branch by default. To promote something into the release branch so it can be deployed to <%= @environment -%>, see the instructions on the <a href='https://ci-new.alphagov.co.uk/job/Puppet_Promote_To_Release_Ready/'>Puppet_Promote_To_Release_Ready</a> job.</p>"
+    description: "<a href='http://www.flickr.com/photos/fatty/9158066939/'><img src='https://farm3.staticflickr.com/2835/9158066939_374360ed56_n.jpg'></a><p>This job deploys the puppet release branch by default. To promote something into the release branch so it can be deployed to <%= @environment -%>, see the instructions on the <a href='https://ci.dev.publishing.service.gov.uk/job/Puppet_Promote_To_Release_Ready/'>Puppet_Promote_To_Release_Ready</a> job.</p>"
     <%- if @auth_token -%>
     auth-token: <%= @auth_token %>
     <%- end -%>
