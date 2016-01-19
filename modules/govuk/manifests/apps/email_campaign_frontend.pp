@@ -1,5 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::email_campaign_frontend(
+  $vhost,
   $port = 3109,
   $enabled = true,
   $errbit_api_key = undef,
@@ -16,6 +17,7 @@ class govuk::apps::email_campaign_frontend(
       log_format_is_json    => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'email-campaign-frontend',
+      vhost                 => $vhost,
     }
 
     Govuk::App::Envvar {

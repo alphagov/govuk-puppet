@@ -22,6 +22,7 @@ class govuk::node::s_frontend_lb (
       'draft-collections',
       'draft-contacts-frontend',
       'draft-email-alert-frontend',
+      'draft-email-campaign-frontend',
       'draft-government-frontend',
       'draft-manuals-frontend',
       'draft-multipage-frontend',

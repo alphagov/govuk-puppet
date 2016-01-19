@@ -122,6 +122,7 @@ govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 govuk::apps::email_alert_monitor::enabled: true
 govuk::apps::email_campaign_api::mongodb_name: 'email_campaign_api_development'
 govuk::apps::email_campaign_api::mongodb_nodes: ['localhost']
+govuk::apps::email_campaign_frontend::vhost: 'email-campaign-frontend'
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
