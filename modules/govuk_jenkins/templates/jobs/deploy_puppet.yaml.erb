@@ -28,6 +28,10 @@
             regexp: 'Deployed ([^ ]+) \(resolved'
         - trigger:
             project: Smokey
+        - trigger-parameterized-builds:
+            - project: GDS_Production_Backup
+              predefined-parameters: TARGET_APPLICATION_GIT_REPO=$WORKSPACE/puppet
+              condition: 'UNSTABLE_OR_BETTER'
     wrappers:
         - ansicolor:
             colormap: xterm
