@@ -29,7 +29,7 @@
 # [*execution_failure_criteria*]
 #   A comma-seperated set of criteria that determine what state the service is
 #   in for how actively the dependent service is checked.
-#   Default: 'n': none (services are always checked)
+#   Default: 'w,c': warning state, critical state
 #
 # [*notifcation_failure_criteria*]
 #   A comma-seperated set of criteria that determines when notifcations should
@@ -41,7 +41,7 @@ define icinga::service_dependency (
   $host_name                      = undef,
   $service_description            = undef,
   $dependent_service_description  = undef,
-  $execution_failure_criteria     = 'n',
+  $execution_failure_criteria     = 'w,c',
   $notification_failure_criteria  = 'w,c',
 ) {
 
