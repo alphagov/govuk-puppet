@@ -16,6 +16,7 @@ mod 'puppetlabs/postgresql'
 mod 'puppetlabs/stdlib', '>= 4.2.0'
 mod 'rjw1/nano'
 mod 'rtyler/jenkins'
+mod 'saz/limits', '2.3.0'
 mod 'saz/memcached'
 mod 'saz/ntp'
 mod 'saz/rsyslog', '2.2.1'
@@ -49,7 +50,7 @@ mod 'gdsoperations/gor',
   :ref => 'v0.2.0'
 mod 'alphagov/harden',
   :git => 'git://github.com/alphagov/puppet-harden.git',
-  :ref => 'fa2c51e994b87e71e7b424b6c0048b70c2df36b0'
+  :ref => '69bcbb3'
 mod 'alphagov/puppet-rcs',
   :git => 'git://github.com/alphagov/puppet-rcs.git'
 mod 'elasticsearch/logstash',

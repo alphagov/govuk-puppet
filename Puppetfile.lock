@@ -54,6 +54,7 @@ FORGE
       puppetlabs-apt (>= 0.0.3)
       puppetlabs-java (>= 1.0.1)
       puppetlabs-stdlib (>= 2.0.0)
+    saz-limits (2.3.0)
     saz-memcached (2.7.1)
       puppetlabs-firewall (>= 0.1.0)
       puppetlabs-stdlib (>= 3.2.0)
@@ -107,8 +108,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-harden.git
-  ref: fa2c51e994b87e71e7b424b6c0048b70c2df36b0
-  sha: fa2c51e994b87e71e7b424b6c0048b70c2df36b0
+  ref: 69bcbb3
+  sha: 69bcbb3aaec7819968478a8510c128d0cdb9c3f6
   specs:
     alphagov-harden (0.0.1)
 
@@ -215,6 +216,7 @@ DEPENDENCIES
   puppetlabs-stdlib (>= 4.2.0)
   rjw1-nano (>= 0)
   rtyler-jenkins (>= 0)
+  saz-limits (= 2.3.0)
   saz-memcached (>= 0)
   saz-ntp (>= 0)
   saz-rsyslog (= 2.2.1)

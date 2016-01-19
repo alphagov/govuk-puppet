@@ -25,18 +25,19 @@ class govuk::deploy::config(
   $govuk_env = 'production',
   $website_root,
 ){
-  harden::limit { 'deploy-nofile':
-    domain => 'deploy',
-    type   => '-', # set both hard and soft limits
-    item   => 'nofile',
-    value  => '16384',
+
+  limits::limits { 'deploy_nofile':
+    ensure     => present,
+    user       => 'deploy',
+    limit_type => 'nofile',
+    both       => 16384,
   }
 
-  harden::limit { 'deploy-nproc':
-    domain => 'deploy',
-    type   => '-',
-    item   => 'nproc',
-    value  => '1024',
+  limits::limits { 'deploy_nproc':
+    ensure     => present,
+    user       => 'deploy',
+    limit_type => 'nproc',
+    both       => 1024,
   }
 
   file { '/etc/govuk/unicorn.rb':

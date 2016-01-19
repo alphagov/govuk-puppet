@@ -789,6 +789,23 @@ icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 
+limits::entries:
+  'default_core':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'core'
+    both: 0
+  'default_nproc':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'nproc'
+    hard: 256
+  'default_nofile':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'nofile'
+    hard: 2048
+
 mapit::config::postgresql_password: "%{hiera('govuk::node::s_mapit_server::postgresql_password')}"
 
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
