@@ -50,7 +50,6 @@ govuk_jenkins::config::admins:
   - bradleywright
   - brendanbutler
   - chrispatuzzo
-  - chrisroos
   - ci_alphagov
   - danielroseman
   - davidbasalla
@@ -61,10 +60,8 @@ govuk_jenkins::config::admins:
   - isabelllong
   - jackscotti
   - jakebenilov
-  - jamesmead
   - jamiecobbett
   - jennyduckett
-  - joshmyers
   - leenagupte
   - mathildathompson
   - mattbostock
@@ -78,8 +75,6 @@ govuk_jenkins::config::admins:
   - stuartgale
   - tadast
   - tatianasoukiassian
-  - tijmenbrommet
-  - timothymower
   - tombooth
   - tommypalmer
 
@@ -248,7 +243,6 @@ users::usernames:
   - bradleyw
   - brendanbutler
   - chrispatuzzo
-  - chrisroos
   - christophwong
   - daivaughan
   - danielroseman
@@ -260,13 +254,9 @@ users::usernames:
   - grahampengelly
   - isabelllong
   - jackscotti
-  - jamesmead
   - jamiec
   - jennyduckett
-  - joshmyers
-  - leelongmore
   - leenagupte
-  - marksheldon
   - mathildathompson
   - matmoore
   - mattbostock
@@ -280,12 +270,9 @@ users::usernames:
   - rosafox
   - seemasatish
   - simonhughesdon
-  - stephenrichards
   - stevelaing
   - stuartgale
   - tadast
   - tatianasoukiassian
-  - tijmenbrommet
-  - timothymower
   - tombooth
   - tommypalmer
