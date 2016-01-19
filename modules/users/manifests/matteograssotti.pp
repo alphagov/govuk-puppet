@@ -1,3 +1,4 @@
+# Creates the matteograssotti user
 class users::matteograssotti {
   govuk::user { 'matteograssotti':
     fullname => 'Matteo Grassotti',
