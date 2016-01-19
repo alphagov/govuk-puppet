@@ -13,7 +13,9 @@ mod 'puppetlabs/gcc'
 mod 'puppetlabs/java_ks'
 mod 'puppetlabs/mysql'
 mod 'puppetlabs/postgresql'
-mod 'puppetlabs/stdlib', '>= 4.2.0'
+mod 'puppetlabs/stdlib',
+  :git => 'git://github.com/puppetlabs/puppetlabs-stdlib.git',
+  :ref => 'f875770245d6ce205dbf97f109d323a473d3e249'
 mod 'rjw1/nano'
 mod 'rtyler/jenkins'
 mod 'saz/limits', '2.3.0'

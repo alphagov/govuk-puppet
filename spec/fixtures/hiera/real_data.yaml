@@ -6,3 +6,4 @@
 :hierarchy:
   - '%{::environment}'
   - 'common'
+  - '../spec/fixtures/hieradata/snakeoil_tls'

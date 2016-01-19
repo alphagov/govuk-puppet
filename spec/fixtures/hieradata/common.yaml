@@ -43,6 +43,3 @@ users::pentest_machines: ['foo']
 users::pentest_usernames: ['andre_the_giant']
 # This encrypted password was generated with `mkpasswd --method=sha-512` and a password of 'password'
 users::root_password_encrypted: '$6$gwBpG15Z0dCJ$.8BBgOp4zu6vOwxckV1RiQ73hz440NKY4TC/ViUELkDMhvfDfHyIiFg2guwKcmjsxd4AZLDz7Va3IUK4WCDn31'
-
-www_crt: WWW_CRT
-www_key: WWW_KEY

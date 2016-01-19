@@ -47,7 +47,6 @@ FORGE
       puppetlabs-concat (< 2.0.0, >= 1.0.0)
       puppetlabs-firewall (>= 0.0.4)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
-    puppetlabs-stdlib (4.9.0)
     rjw1-nano (0.0.1)
     rtyler-jenkins (1.2.0)
       darin-zypprepo (>= 1.0.1)
@@ -170,6 +169,13 @@ GIT
       puppetlabs-stdlib (< 5.0.0, >= 2.0.0)
 
 GIT
+  remote: git://github.com/puppetlabs/puppetlabs-stdlib.git
+  ref: f875770245d6ce205dbf97f109d323a473d3e249
+  sha: f875770245d6ce205dbf97f109d323a473d3e249
+  specs:
+    puppetlabs-stdlib (4.10.0)
+
+GIT
   remote: git://github.com/solarkennedy/puppet-etcd.git
   ref: e053368
   sha: e0533682739be582a11c12f68d5415b6326d131d
@@ -213,7 +219,7 @@ DEPENDENCIES
   puppetlabs-mysql (>= 0)
   puppetlabs-postgresql (>= 0)
   puppetlabs-rabbitmq (>= 0)
-  puppetlabs-stdlib (>= 4.2.0)
+  puppetlabs-stdlib (>= 0)
   rjw1-nano (>= 0)
   rtyler-jenkins (>= 0)
   saz-limits (= 2.3.0)

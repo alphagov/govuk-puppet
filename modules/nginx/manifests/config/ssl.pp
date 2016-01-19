@@ -31,6 +31,10 @@ define nginx::config::ssl( $certtype, $ensure = 'present' ) {
     }
   }
 
+  if $ensure == 'present' {
+    validate_x509_rsa_key_pair($cert, $key)
+  }
+
   file { "/etc/nginx/ssl/${name}.crt":
     ensure  => $ensure,
     content => $cert,
