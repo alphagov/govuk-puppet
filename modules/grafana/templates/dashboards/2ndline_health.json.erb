@@ -10,190 +10,8 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "title": "Origin",
-      "height": "250px",
-      "editable": false,
-      "collapse": false,
-      "collapsable": true,
-      "panels": [
-        {
-          "title": "ORIGIN",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 3,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "origin_health.json",
-              "title": "Origin health",
-              "url": "/#/dashboard/file/origin_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "movingAverage(sumSeries(cache-?_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests), '1min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": " req/s",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,25,35",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        },
-        {
-          "title": "ORIGIN HTTP 4XX",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 8,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "origin_health.json",
-              "title": "Origin health",
-              "url": "/#/dashboard/file/origin_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,3,5",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        },
-        {
-          "title": "ORIGIN HTTP 5XX",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 7,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "origin_health.json",
-              "title": "Origin health",
-              "url": "/#/dashboard/file/origin_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,1,2",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        }
-      ],
-      "notice": false,
-      "showTitle": false
-    },
-    {
       "title": "Edge",
-      "height": "400px",
+      "height": "250px",
       "editable": false,
       "collapse": false,
       "panels": [
@@ -369,6 +187,245 @@
           "height": "250"
         }
       ],
+      "showTitle": false
+    },
+    {
+      "title": "Origin",
+      "height": "400px",
+      "editable": false,
+      "collapse": false,
+      "collapsable": true,
+      "panels": [
+        {
+          "title": "ORIGIN",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 3,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "movingAverage(sumSeries(cache-?_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests), '1min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "",
+          "postfix": " req/s",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,25,35",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "ORIGIN HTTP 4XX (EXCLUDES 429s)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 8,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "movingAverage(asPercent(divideSeries(diffSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_429)), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,3,5",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "ORIGIN HTTP 5XX",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 7,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,1,2",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        },
+        {
+          "title": "ORIGIN HTTP 429 (TOO MANY REQUESTS)",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 12,
+          "links": [
+            {
+              "type": "absolute",
+              "name": "Drilldown dashboard",
+              "dashboard": "origin_health.json",
+              "title": "Origin health",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_429), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "hide": false
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "percent",
+          "prefix": "",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
+          "nullPointMode": "null as zero",
+          "valueName": "current",
+          "prefixFontSize": "50%",
+          "valueFontSize": "200%",
+          "postfixFontSize": "80%",
+          "thresholds": "0,3,5",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "sparkline": {
+            "show": true,
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "height": "250"
+        }
+      ],
+      "notice": false,
       "showTitle": false
     }
   ],
