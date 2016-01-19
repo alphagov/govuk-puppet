@@ -65,6 +65,7 @@ govuk_jenkins::config::admins:
   - leenagupte
   - mathildathompson
   - mattbostock
+  - matteograssotti
   - murraysteele
   - paulbowsher
   - paulhayes
@@ -260,6 +261,7 @@ users::usernames:
   - mathildathompson
   - matmoore
   - mattbostock
+  - matteograssotti
   - mobaig
   - murraysteele
   - paulbowsher
