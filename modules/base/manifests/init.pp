@@ -10,17 +10,17 @@ class base {
   include base::packages
   include base::supported_kernel
   include cron
+  include curl
   include gcc
+  include govuk_apt::unused_kernels
+  include govuk_sudo
   include logrotate
+  include motd
   include ntp
   include screen
   include shell
   include ssh
-  include motd
-  include govuk_apt::unused_kernels
-  include govuk_sudo
   include timezone
   include tmpreaper
   include wget
-  include curl
 }
