@@ -8,11 +8,17 @@
 #   This specifies the hour at which the full daily sync should
 #   occur.
 #
+# [*asset_slave_ip_ranges*]
+#   A hash of IP addresses that the asset slave machines run on.
+#
 class govuk::node::s_asset_master (
   $copy_attachments_hour = 4,
+  $asset_slave_ip_ranges = {},
 ) inherits govuk::node::s_asset_base {
 
   include assets::ssh_private_key
+
+  create_resources('ufw::allow', $asset_slave_ip_ranges)
 
   file { '/var/run/virus_scan':
     ensure => directory,
