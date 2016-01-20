@@ -1,6 +1,12 @@
 # Multipage-frontend is a Ruby on Rails frontend application
 # for rendering content grouped in multiple parts or pages.
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#
+# [*port*]
+#   What port should the app run on?
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -14,31 +20,28 @@
 class govuk::apps::multipage_frontend(
   $vhost,
   $port = '3118',
-  $enabled = false,
   $errbit_api_key = undef,
   $secret_key_base = undef,
 ) {
-  if $enabled {
-    govuk::app { 'multipage-frontend':
-      app_type              => 'rack',
-      port                  => $port,
-      asset_pipeline        => true,
-      asset_pipeline_prefix => 'multipage-frontend',
-      vhost                 => $vhost,
-      health_check_path     => '/healthcheck',
-    }
+  govuk::app { 'multipage-frontend':
+    app_type              => 'rack',
+    port                  => $port,
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'multipage-frontend',
+    vhost                 => $vhost,
+    health_check_path     => '/healthcheck',
+  }
 
-    Govuk::App::Envvar {
-      app    => 'multipage-frontend'
-    }
+  Govuk::App::Envvar {
+    app    => 'multipage-frontend'
+  }
 
-    govuk::app::envvar {
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
-      "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base;
-    }
+  govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
   }
 }
