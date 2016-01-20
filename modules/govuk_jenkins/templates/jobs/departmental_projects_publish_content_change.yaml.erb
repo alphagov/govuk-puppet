@@ -1,0 +1,27 @@
+---
+- scm:
+    name: dp_publish_content_change
+    scm:
+        - git:
+            url: https://github.gds/email-campaign/email-campaign-frontend
+            branches:
+              - master
+
+- job:
+    name: Departmental_projects_publish_content_change
+    display-name: Departmental_projects_publish_content_change
+    project-type: freestyle
+    description: "<p>Supports github publishing by running rake tasks to publish changed content</p>"
+    scm:
+      - dp_publish_content_change
+    logrotate:
+      artifactNumToKeep: 30
+    builders:
+        - shell: |
+            ssh deploy@email-campaign-frontend-1.frontend "cd /var/apps/email-campaign-frontend && govuk_setenv email-campaign-frontend bundle exec rake publish_content:draft_and_publish_all"
+    triggers:
+        - project: email-campaign-frontend
+          condition: 'SUCCESS'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
