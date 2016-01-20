@@ -61,6 +61,12 @@ location / {
 
   <%- end -%>
 
+  # HTML verification for DWP YouTube channel
+  location = /dla-ending/google6db9c061ce178960.html {
+    add_header Content-Type text/html;
+    return 200 '';
+  }
+
   location /robots.txt {
     root /usr/share/nginx/www;
   }
