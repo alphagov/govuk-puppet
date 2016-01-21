@@ -4,7 +4,7 @@ require 'yaml'
 # govuk-provisioning repo parallel to this.
 def load_nodes
   yaml_dir = File.expand_path(
-    "../../govuk-provisioning/vcloud-launcher/integration_carrenza/",
+    "../../govuk-provisioning/vcloud-launcher/*integration_carrenza/",
     __FILE__
   )
   yaml_local = File.expand_path("../nodes.local.yaml", __FILE__)
@@ -16,7 +16,7 @@ def load_nodes
     exit 1
   end
 
-  unless File.exists?(yaml_dir)
+  unless Dir.glob(yaml_dir).any?
     puts "Unable to find nodes in 'govuk-provisioning' repo"
     puts
     return {}
