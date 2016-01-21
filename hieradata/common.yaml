@@ -846,19 +846,19 @@ monitoring::checks::smokey::features:
   check_draft_environment:
     feature: draft_environment
 
-monitoring::checks::vpn_tunnels::endpoints:
+monitoring::vpn_gateways::endpoints:
   vpn_gateway_api_dr:
-    host: "%{hiera('environment_ip_prefix')}.12.1"
+    address: "%{hiera('environment_ip_prefix')}.12.1"
   vpn_gateway_backend_dr:
-    host: "%{hiera('environment_ip_prefix')}.11.1"
+    address: "%{hiera('environment_ip_prefix')}.11.1"
   vpn_gateway_efg:
-    host: "10.4.0.1"
+    address: "10.4.0.1"
   vpn_gateway_licensify:
-    host: "10.5.0.1"
+    address: "10.5.0.1"
   vpn_gateway_redirector_dr:
-    host: "%{hiera('environment_ip_prefix')}.13.1"
+    address: "%{hiera('environment_ip_prefix')}.13.1"
   vpn_gateway_router_dr:
-    host: "%{hiera('environment_ip_prefix')}.9.1"
+    address: "%{hiera('environment_ip_prefix')}.9.1"
 
 nginx::package::version: '1.4.6-1ubuntu3.1'
 
