@@ -6,10 +6,10 @@
 class govuk::safe_to_reboot::careful (
   $reason,
 ) {
-  govuk::envvar { 'SAFE_TO_REBOOT':
+  govuk_envvar { 'SAFE_TO_REBOOT':
     value => 'careful',
   }
-  govuk::envvar { 'SAFE_TO_REBOOT_REASON':
+  govuk_envvar { 'SAFE_TO_REBOOT_REASON':
     value => $reason,
   }
 }

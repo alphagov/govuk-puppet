@@ -78,7 +78,7 @@ class govuk::deploy::config(
 
   $app_domain = hiera('app_domain')
 
-  govuk::envvar {
+  govuk_envvar {
     'GOVUK_ENV': value => $govuk_env;
     'NODE_ENV': value => $govuk_env;
     'RACK_ENV':  value => $govuk_env;
