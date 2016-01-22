@@ -25,7 +25,7 @@ describe 'govuk::mount', :type => :define do
 
   context 'custom params' do
     let(:title) { 'gruffalo' }
-    let(:pre_condition) { 'govuk::lvm{"elephant": pv => "/dev/africa", vg => "serengeti"}' }
+    let(:pre_condition) { 'govuk_lvm{"elephant": pv => "/dev/africa", vg => "serengeti"}' }
     let(:params) {{
       :disk         => '/dev/mouse',
       :mountoptions => 'snake=1',
@@ -33,7 +33,7 @@ describe 'govuk::mount', :type => :define do
       :govuk_lvm    => 'elephant',
     }}
 
-    it { is_expected.to contain_govuk__lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
+    it { is_expected.to contain_govuk_lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
 
     it { is_expected.to contain_tune_ext('/dev/mouse').that_requires('Ext4mount[gruffalo]') }
 
