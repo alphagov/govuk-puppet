@@ -13,7 +13,7 @@ describe 'nginx::package', :type => :class do
         'notify'  => 'Class[Nginx::Restart]',
       )
       is_expected.to contain_package('nginx').with_ensure('purged')
-      is_expected.to contain_class('govuk::ppa')
+      is_expected.to contain_class('govuk_ppa')
     end
   end
   context 'version set' do

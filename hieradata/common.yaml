@@ -401,7 +401,7 @@ govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 
-govuk::ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_sshkeys::deployment_keys:
   github.com:

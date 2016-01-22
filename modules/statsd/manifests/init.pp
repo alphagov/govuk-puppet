@@ -5,7 +5,7 @@
 class statsd(
   $graphite_hostname
 ) {
-  include govuk::ppa
+  include govuk_ppa
   include nodejs
 
   package { 'statsd':

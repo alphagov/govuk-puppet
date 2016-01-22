@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class icinga::package {
 
-  include govuk::ppa
+  include govuk_ppa
 
   # icinga3-cgi has apache2 as a `Recommends:` so it may get unintentionally
   # installed. This gets rid of it in that eventually.

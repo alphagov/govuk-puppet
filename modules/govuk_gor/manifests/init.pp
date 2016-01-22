@@ -18,7 +18,7 @@ class govuk_gor(
   $enable = false,
   $version = 'latest',
 ) {
-  include govuk::ppa
+  include govuk_ppa
 
   validate_bool($enable)
 

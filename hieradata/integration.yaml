@@ -217,7 +217,7 @@ govuk::node::s_whitehall_backend::sync_mirror: true
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
 
 # FIXME: This PPA should be renamed 'integration'
-govuk::ppa::path: 'preview'
+govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
 

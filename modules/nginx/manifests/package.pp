@@ -17,7 +17,7 @@ class nginx::package(
   $version       = 'present',
 ) {
 
-  include govuk::ppa
+  include govuk_ppa
 
   # nginx package actually has nothing useful in it; we normally need nginx-full
   package { 'nginx':
