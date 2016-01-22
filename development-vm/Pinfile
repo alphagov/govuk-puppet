@@ -32,7 +32,7 @@ process :'event-store'
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']
 process :'finder-api'
-process :frontend => [:static, :contentapi, :rummager]
+process :frontend => [:static, :contentapi, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static]
 process :'info-frontend' => [:static, :'metadata-api']
 process :imminence
