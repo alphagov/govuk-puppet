@@ -1,4 +1,4 @@
-# == Class: govuk::sshkeys
+# == Class: govuk_sshkeys
 #
 # Add predefined SSH host keys to a machine. These keys are intended to be for
 # hosts that a machine will almost always have to connect to.
@@ -13,7 +13,7 @@
 #   allow the data replication script to work without prompting to connect
 #   to hosts.
 #
-class govuk::sshkeys (
+class govuk_sshkeys (
   $deployment_keys = {},
   $development_keys = {},
 ) {
