@@ -261,7 +261,7 @@ govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 
-govuk::htpasswd::http_username: "%{hiera('http_username')}"
+govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"

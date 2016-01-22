@@ -55,7 +55,7 @@ define nginx::config::vhost::proxy(
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
-  include govuk::htpasswd
+  include govuk_htpasswd
 
   $proxy_vhost_template = 'nginx/proxy-vhost.conf'
   $logpath = '/var/log/nginx'

@@ -37,7 +37,7 @@ class govuk::node::s_cache (
   $enable_authenticating_proxy = false,
 ) inherits govuk::node::s_base {
 
-  include govuk::htpasswd
+  include govuk_htpasswd
   include router::gor
 
   class { 'nginx':
