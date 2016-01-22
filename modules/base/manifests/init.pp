@@ -13,7 +13,7 @@ class base {
   include curl
   include gcc
   include govuk::deploy
-  include govuk::envsys
+  include govuk_envsys
   include govuk_scripts
   include govuk_apt::unused_kernels
   include govuk_sshkeys
