@@ -6,7 +6,7 @@
 # known to puppetdb who instantiate that class. Thus to get a list of
 # machines that are safe to reboot we can do:
 #
-#    govuk_node_list -C 'govuk::safe_to_reboot::yes'
+#    govuk_node_list -C 'govuk_safe_to_reboot::yes'
 #
 # [*can_reboot*]
 #   Can this machine be rebooted with impunity? ['yes', 'no', 'careful']
@@ -16,11 +16,11 @@
 #   What is the reasoning for the above state
 #   Default: ''
 #
-class govuk::safe_to_reboot (
+class govuk_safe_to_reboot (
   $can_reboot = 'yes',
   $reason = ''
 ) {
-  $reboot_class = "govuk::safe_to_reboot::${can_reboot}"
+  $reboot_class = "govuk_safe_to_reboot::${can_reboot}"
 
   case $can_reboot {
     'no', 'careful': {
@@ -41,7 +41,7 @@ class govuk::safe_to_reboot (
             $real_reason = 'Not flagged specifically so assuming safe to reboot'
           }
     default: {
-            fail("Invalid value for govuk::safe_to_reboot::can_reboot: ${can_reboot}")
+            fail("Invalid value for govuk_safe_to_reboot::can_reboot: ${can_reboot}")
           }
     }
 

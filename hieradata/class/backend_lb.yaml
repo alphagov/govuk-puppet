@@ -1,6 +1,6 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'careful'
-govuk::safe_to_reboot::reason: 'NAT rule points directly at backend-lb-1 for backend services. Need to switch this before rebooting to backend-2'
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'NAT rule points directly at backend-lb-1 for backend services. Need to switch this before rebooting to backend-2'
 
 nginx::logging::days_to_keep: '45'

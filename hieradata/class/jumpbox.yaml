@@ -1,4 +1,4 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'careful'
-govuk::safe_to_reboot::reason: 'Warn connected users before rebooting'
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'Warn connected users before rebooting'

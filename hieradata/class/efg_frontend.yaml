@@ -3,8 +3,8 @@
 govuk::node::s_base::apps:
   - efg
 
-govuk::safe_to_reboot::can_reboot: 'overnight'
-govuk::safe_to_reboot::reason: 'There is only one EFG frontend'
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'There is only one EFG frontend'
 
 lv:
   data:

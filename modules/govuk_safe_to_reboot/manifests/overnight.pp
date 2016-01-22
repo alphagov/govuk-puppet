@@ -3,7 +3,7 @@
 #  [*reason*]
 #  Why is this machine flagged as this rebootability
 #
-class govuk::safe_to_reboot::overnight (
+class govuk_safe_to_reboot::overnight (
   $reason,
 ) {
   govuk_envvar { 'SAFE_TO_REBOOT':

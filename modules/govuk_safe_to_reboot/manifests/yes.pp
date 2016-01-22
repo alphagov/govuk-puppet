@@ -3,11 +3,11 @@
 #  [*reason*]
 #  Why is this machine flagged as this rebootability
 #
-class govuk::safe_to_reboot::careful (
+class govuk_safe_to_reboot::yes (
   $reason,
 ) {
   govuk_envvar { 'SAFE_TO_REBOOT':
-    value => 'careful',
+    value => 'yes',
   }
   govuk_envvar { 'SAFE_TO_REBOOT_REASON':
     value => $reason,
