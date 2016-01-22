@@ -65,6 +65,14 @@
             "parameters": {
               "index": "not_analyzed",
               "type": "object"
+            },
+            "cdn_backend": {
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "last_success": {
+              "type": "date",
+              "include_in_all": false
             }
           },
           "type": "object"
