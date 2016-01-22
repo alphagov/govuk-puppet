@@ -28,7 +28,7 @@ class govuk_jenkins (
 ) {
   validate_hash($config, $plugins)
 
-  include govuk::python
+  include govuk_python
   include govuk_jenkins::job_builder
   include govuk_jenkins::ssh_key
   include govuk_jenkins::config

@@ -5,7 +5,7 @@ class govuk::apps::govuk_delivery(
   $enable_procfile_worker = true,
 ) {
   if $enabled {
-    include govuk::python
+    include govuk_python
 
     govuk::app { 'govuk-delivery':
       app_type           => 'procfile',
