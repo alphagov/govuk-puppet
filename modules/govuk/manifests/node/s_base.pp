@@ -14,7 +14,7 @@ class govuk::node::s_base (
 
   include backup::client
   include base
-  include govuk::firewall
+  include govuk_firewall
   include govuk::safe_to_reboot
   include govuk_rbenv
   include govuk_unattended_reboot
