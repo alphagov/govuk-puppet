@@ -1,8 +1,8 @@
-# == Class: govuk::tagalog
+# == Class: govuk::logging
 #
 # Install tagalog, which provides logship, used by govuk::logstream
 #
-class govuk::tagalog {
+class govuk_logging {
   package { 'tagalog':
     ensure   => '0.4.0',
     provider => 'pip',

@@ -43,7 +43,7 @@ class govuk::gor(
     package_ensure => $version,
     service_ensure => $gor_service_ensure,
   } ->
-  govuk::logstream { 'gor_upstart_log':
+  govuk_logging::logstream { 'gor_upstart_log':
     ensure  => $logstream_ensure,
     fields  => {'application' => 'gor'},
     logfile => '/var/log/upstart/gor.log',

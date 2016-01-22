@@ -80,7 +80,7 @@ class govuk::node::s_base (
     matches => '/var/log/govuk/*.log',
   }
 
-  govuk::logstream {
+  govuk_logging::logstream {
     'apt-history':
       logfile => '/var/log/apt/history.log',
       tags    => ['history'],

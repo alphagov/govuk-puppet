@@ -29,7 +29,7 @@ class govuk_etcd ($peers) {
     peers => $actual_peers
   }
 
-  govuk::logstream { 'etcd-logstream':
+  govuk_logging::logstream { 'etcd-logstream':
     logfile => '/var/log/upstart/etcd.log',
     fields  => {'application' => 'etcd'},
     tags    => ['stdout', 'stderr', 'upstart', 'etcd'],

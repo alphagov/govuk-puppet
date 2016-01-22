@@ -66,7 +66,7 @@ class govuk::apps::panopticon(
     enable_service => $enable_procfile_worker,
   }
 
-  govuk::logstream { 'panopticon-org-import-json-log':
+  govuk_logging::logstream { 'panopticon-org-import-json-log':
     logfile => '/var/apps/panopticon/log/organisation_import.json.log',
     fields  => {'application' => 'panopticon'},
     json    => true,

@@ -8,7 +8,7 @@ class varnish::monitoring {
     require => Package['varnish'],
   }
 
-  govuk::logstream { 'varnishncsa':
+  govuk_logging::logstream { 'varnishncsa':
     logfile => '/var/log/varnish/varnishncsa.log',
     fields  => {'application' => 'varnish'},
   }

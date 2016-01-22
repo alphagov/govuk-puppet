@@ -64,7 +64,7 @@ class govuk::apps::email_campaign_api(
       enable_service => $enable_procfile_worker,
     }
 
-    govuk::logstream { 'email_campaign_api_sidekiq_json_log':
+    govuk_logging::logstream { 'email_campaign_api_sidekiq_json_log':
       logfile => '/var/apps/email-campaign-api/log/sidekiq.json.log',
       fields  => {'application' => 'email-campaign-api-sidekiq'},
       json    => true,

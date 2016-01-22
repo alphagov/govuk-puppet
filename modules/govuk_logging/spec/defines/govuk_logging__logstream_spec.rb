@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::logstream', :type => :define do
+describe 'govuk_logging::logstream', :type => :define do
   let(:default_shipper) { 'redis,\$REDIS_SERVERS,key=logs,bulk=true,bulk_index=logs-current' }
   let(:default_filters) { 'init_txt,add_timestamp,add_source_host' }
   let(:title) { 'giraffe' }

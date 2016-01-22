@@ -57,7 +57,7 @@ class govuk::apps::router (
     host_name           => $::fqdn,
   }
 
-  govuk::logstream { 'router-error-json-log':
+  govuk_logging::logstream { 'router-error-json-log':
     logfile => $error_log,
     tags    => ['error'],
     fields  => {'application' => 'router'},

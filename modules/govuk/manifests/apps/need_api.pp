@@ -37,7 +37,7 @@ class govuk::apps::need_api(
     log_format_is_json => true,
   }
 
-  govuk::logstream { 'need-api-org-import-json-log':
+  govuk_logging::logstream { 'need-api-org-import-json-log':
     logfile => '/var/apps/need-api/log/organisation_import.json.log',
     fields  => {'application' => 'need-api'},
     json    => true,
