@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::user', :type => :define do
+describe 'govuk_user', :type => :define do
   let(:title) { 'hungrycaterpillar' }
   let(:ssh_dir) { '/home/hungrycaterpillar/.ssh' }
   let(:ssh_file) { '/home/hungrycaterpillar/.ssh/authorized_keys' }

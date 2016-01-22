@@ -15,7 +15,7 @@ describe 'govuk_crawler', :type => :class do
   it { is_expected.to contain_file('/foo/error') }
 
   it {
-    # Leaky abstraction? We need to know that govuk::user creates the
+    # Leaky abstraction? We need to know that govuk_user creates the
     # parent directory for our file.
     is_expected.to contain_file('/home/govuk-crawler/.ssh').with_ensure('directory')
   }

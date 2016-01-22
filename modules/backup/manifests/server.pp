@@ -37,7 +37,7 @@ class backup::server (
     mode   => '0700',
   }
 
-  # Parent dir is provided by govuk::user in backup::client.
+  # Parent dir is provided by govuk_user in backup::client.
   file {'/home/govuk-backup/.ssh/id_rsa':
     ensure  => file,
     owner   => 'govuk-backup',
