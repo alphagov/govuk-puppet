@@ -28,7 +28,7 @@ class govuk::node::s_development (
   include tmpreaper
 
   include govuk_python
-  include govuk::testing_tools
+  include govuk_testing_tools
 
   include govuk_rbenv::all
 
