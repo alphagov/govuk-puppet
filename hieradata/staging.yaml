@@ -513,6 +513,7 @@ icinga::nginx::enable_basic_auth: false
 #Do not enable this without speaking to Brad first
 licensify::apps::licensing_web_forms::enabled: false
 
+monitoring::checks::enable_support_check: false
 monitoring::checks::ses::region: eu-west-1
 
 # FIXME: Remove this line to enable after testing completed in Integration
