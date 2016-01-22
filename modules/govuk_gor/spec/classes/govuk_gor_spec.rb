@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::gor', :type => :class do
+describe 'govuk_gor', :type => :class do
   let(:args_default) {{
     '-input-raw'          => 'localhost:7999',
     '-output-http-method' => %w{GET HEAD OPTIONS},

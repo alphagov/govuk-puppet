@@ -29,7 +29,7 @@
             set +e
 
             echo "Disabling Gor traffic replay"
-            for box in $(govuk_node_list -C 'govuk::gor'); do
+            for box in $(govuk_node_list -C 'govuk_gor'); do
               ssh deploy@${box} 'echo "true" > /etc/govuk/env.d/FACTER_data_sync_in_progress; sudo initctl stop gor';
             done
 
@@ -38,7 +38,7 @@
             EXITCODE=$?
 
             echo "Re-enabling Gor traffic replay"
-            for box in $(govuk_node_list -C 'govuk::gor'); do
+            for box in $(govuk_node_list -C 'govuk_gor'); do
               ssh deploy@${box} 'echo "" > /etc/govuk/env.d/FACTER_data_sync_in_progress; sudo initctl start gor';
             done
 

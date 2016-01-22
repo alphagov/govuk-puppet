@@ -26,7 +26,7 @@ class govuk_bouncer::gor (
     $gor_targets        = []
   }
 
-  class { 'govuk::gor':
+  class { 'govuk_gor':
     args   => {
       '-input-raw'          => ':80',
       '-output-http'        => $gor_targets,

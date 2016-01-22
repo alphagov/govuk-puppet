@@ -1,4 +1,4 @@
-# == Class: govuk::gor
+# == Class: govuk_gor
 #
 # Setup gor traffic replay for GOV.UK
 #
@@ -13,7 +13,7 @@
 # [*version*]
 #   Which version of the Go package to install; defaults to latest
 #
-class govuk::gor(
+class govuk_gor(
   $args = {},
   $enable = false,
   $version = 'latest',
