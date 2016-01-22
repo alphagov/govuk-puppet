@@ -20,7 +20,7 @@ class govuk::node::s_licensify_mongo (
   if $licensify_mongo_encrypted {
     include ecryptfs
     motd::snippet {'01-encrypted-licensify': }
-    Govuk::Mount['/mnt/encrypted'] -> Class['mongodb::server']
+    Govuk_mount['/mnt/encrypted'] -> Class['mongodb::server']
 
     # Actual low disk space would get caught by the /mnt/encrypted check however this will catch it not being mounted.
     # Only check if MongoDB's data is on an encrypted filesystem; otherwise /var/lib/mongodb is not used as a mountpoint.
@@ -33,5 +33,5 @@ class govuk::node::s_licensify_mongo (
     }
   }
 
-  Govuk::Mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
+  Govuk_mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
 }

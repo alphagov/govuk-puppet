@@ -5,7 +5,7 @@
 class govuk::node::s_api_postgresql_base inherits govuk::node::s_base {
   include govuk::apps::stagecraft::postgresql_db
 
-  Govuk::Mount['/var/lib/postgresql'] -> Class['govuk_postgresql::server']
+  Govuk_mount['/var/lib/postgresql'] -> Class['govuk_postgresql::server']
 
   include govuk_postgresql::tuning
 }

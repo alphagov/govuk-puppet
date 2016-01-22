@@ -14,7 +14,7 @@
 # === Example
 #
 # To create a logical volume called test on volume group example using /dev/sdb1 as the physical volume.
-# This would be available as /dev/mapper/example-test for mounting by govuk::mount
+# This would be available as /dev/mapper/example-test for mounting by govuk_mount
 #
 #   govuk_lvm { 'test':
 #     pv => '/dev/sdb1',

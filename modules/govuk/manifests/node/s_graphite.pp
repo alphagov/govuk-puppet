@@ -24,7 +24,7 @@ class govuk::node::s_graphite (
     storage_aggregation_source => 'puppet:///modules/govuk/node/s_graphite/storage-aggregation.conf',
     storage_schemas_source     => 'puppet:///modules/govuk/node/s_graphite/storage-schemas.conf',
     carbon_source              => 'puppet:///modules/govuk/node/s_graphite/carbon.conf',
-    require                    => Govuk::Mount[$graphite_path],
+    require                    => Govuk_mount[$graphite_path],
   }
 
   # FIXME: Remove this patch when Graphite is upgraded past 0.9.13

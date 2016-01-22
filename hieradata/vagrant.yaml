@@ -36,7 +36,7 @@ govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 
 govuk_lvm::no_op: true
 
-govuk::mount::no_op: true
+govuk_mount::no_op: true
 
 govuk::node::s_api_lb::api_servers:
   - "api-1.api"

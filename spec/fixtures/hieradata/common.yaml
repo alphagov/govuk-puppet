@@ -9,7 +9,7 @@ govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 govuk::deploy::config::asset_root: 'http://assets.example.com'
 govuk::deploy::config::website_root: 'http://www.example.com'
 
-govuk::mount::no_op: false
+govuk_mount::no_op: false
 
 govuk_app_enable_services: false
 

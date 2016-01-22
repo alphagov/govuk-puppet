@@ -1,0 +1,7 @@
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: 'modules/govuk_mount/spec/fixtures/hieradata'
+:hierarchy:
+  - 'common'

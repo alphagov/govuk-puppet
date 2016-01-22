@@ -66,7 +66,7 @@ describe 'govuk_lvm', :type => :define do
       :vg    => 'orange',
     }}
     let(:hiera_data) {{
-      :'govuk::mount::no_op' => true,
+      :'govuk_mount::no_op' => true,
     }}
 
     it { is_expected.not_to contain_ext4mount('purple') }

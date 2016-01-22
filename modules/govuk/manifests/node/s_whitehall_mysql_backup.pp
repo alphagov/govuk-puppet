@@ -2,6 +2,6 @@
 class govuk::node::s_whitehall_mysql_backup inherits govuk::node::s_whitehall_mysql_slave {
   class { 'backup::mysql':
     mysql_dump_password => hiera('mysql_root',''),
-    require             => Govuk::Mount['/var/lib/automysqlbackup'],
+    require             => Govuk_mount['/var/lib/automysqlbackup'],
   }
 }

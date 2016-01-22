@@ -39,7 +39,7 @@ class govuk::node::s_asset_base (
     require => [
       Group['assets'],
       User['assets'],
-      Govuk::Mount['/mnt/uploads']
+      Govuk_mount['/mnt/uploads']
     ],
   }
 

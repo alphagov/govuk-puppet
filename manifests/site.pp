@@ -55,7 +55,7 @@ node default {
   create_resources('govuk_lvm', $lv)
   # Create mounts from hiera
   $mount = hiera('mount',{})
-  create_resources('govuk::mount', $mount)
+  create_resources('govuk_mount', $mount)
 
   # This has to be included after all other govuk_rbenv::* includes in the
   # parse order. See comments on the class for details.

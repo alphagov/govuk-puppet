@@ -26,5 +26,5 @@ class govuk::node::s_mysql_master () inherits govuk::node::s_base {
     outgoing => 3306,
   }
 
-  Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
+  Govuk_mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
 }

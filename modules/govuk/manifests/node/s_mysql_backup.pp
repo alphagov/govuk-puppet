@@ -4,7 +4,7 @@ class govuk::node::s_mysql_backup inherits govuk::node::s_base {
 
   class { 'backup::mysql':
     mysql_dump_password => $root_password,
-    require             => Govuk::Mount['/var/lib/automysqlbackup'],
+    require             => Govuk_mount['/var/lib/automysqlbackup'],
   }
 
   class { 'govuk_mysql::server':
@@ -17,5 +17,5 @@ class govuk::node::s_mysql_backup inherits govuk::node::s_base {
     outgoing => 3306,
   }
 
-  Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
+  Govuk_mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
 }

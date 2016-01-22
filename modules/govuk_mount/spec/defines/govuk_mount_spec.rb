@@ -1,7 +1,7 @@
 require_relative '../../../../spec_helper'
 
 # FIXME: We're unable to test the Nagios exported resources.
-describe 'govuk::mount', :type => :define do
+describe 'govuk_mount', :type => :define do
   let(:title) { '/mnt/gruffalo' }
 
   context 'param defaults (undef)' do
