@@ -49,13 +49,13 @@ define govuk::logstream (
       ensure    => present,
       content   => template('govuk/logstream.erb'),
       notify    => Service["logstream-${upstart_name}"],
-      subscribe => Class['govuk::logging'],
+      subscribe => Class['govuk::tagalog'],
     }
 
     service { "logstream-${upstart_name}":
       ensure    => running,
       provider  => 'upstart',
-      subscribe => Class['govuk::logging'],
+      subscribe => Class['govuk::tagalog'],
     }
   } else {
     file { "/etc/init/logstream-${upstart_name}.conf":
