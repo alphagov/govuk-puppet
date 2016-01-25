@@ -51,16 +51,6 @@ class govuk::node::s_asset_master (
     require => $cron_requires,
   }
 
-  # FIXME: Remove these resources when purged from production
-  cron { 'virus-scan-incoming':
-    ensure => absent,
-    user   => 'assets',
-  }
-  cron { 'virus-scan-incoming-draft':
-    ensure => absent,
-    user   => 'assets',
-  }
-
   cron { 'rsync-clean':
     user    => 'assets',
     hour    => $copy_attachments_hour,

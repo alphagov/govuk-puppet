@@ -40,21 +40,6 @@ class govuk::node::s_asset_slave (
     require  => File['/data/master-uploads'],
   }
 
-  # FIXME: These resources have been removed from machines using Puppet. They
-  # can be removed from this repository once they are purged from production.
-  file { '/var/run/whitehall-assets':
-    ensure => 'absent',
-    force  => true,
-  }
-  cron { 'sync-assets-from-master':
-    ensure => absent,
-    user   => 'assets',
-  }
-  cron { 'sync-assets-from-master-draft':
-    ensure => absent,
-    user   => 'assets',
-  }
-
   cron { 'sync-asset-manager-from-master':
     user    => 'assets',
     minute  => '*/10',
