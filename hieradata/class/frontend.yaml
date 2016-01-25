@@ -4,6 +4,7 @@ govuk::apps::collections::vhost: 'collections'
 govuk::apps::contacts::vhost: 'contacts-frontend-old'
 govuk::apps::contacts_frontend::vhost: 'contacts-frontend'
 govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
+govuk::apps::email_campaign_frontend::vhost: 'email-campaign-frontend'
 govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::multipage_frontend::vhost: 'multipage-frontend'
@@ -17,6 +18,7 @@ govuk::node::s_base::apps:
   - contacts_frontend
   - designprinciples
   - email_alert_frontend
+  - email_campaign_frontend
   - feedback
   - frontend
   - government_frontend
