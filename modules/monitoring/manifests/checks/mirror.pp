@@ -22,9 +22,10 @@ class monitoring::checks::mirror (
     $provider1_vhost     = "www-origin.${provider1_subdomain}"
     
     icinga::host { "mirror0.${provider0_subdomain}":
-      host_name => 'mirror0.provider0',
-      hostalias => "mirror0.${provider0_subdomain}",
-      address   => "mirror0.${provider0_subdomain}",
+      host_name    => 'mirror0.provider0',
+      hostalias    => "mirror0.${provider0_subdomain}",
+      address      => "mirror0.${provider0_subdomain}",
+      display_name => 'mirror0.provider0',
     }
 
     icinga::check { 'check_mirror0_provider0_up_to_date':
@@ -52,21 +53,24 @@ class monitoring::checks::mirror (
     }
 
     icinga::host { "mirror1.${provider0_subdomain}":
-      host_name => 'mirror1.provider0',
-      hostalias => "mirror1.${provider0_subdomain}",
-      address   => "mirror1.${provider0_subdomain}",
+      host_name    => 'mirror1.provider0',
+      hostalias    => "mirror1.${provider0_subdomain}",
+      address      => "mirror1.${provider0_subdomain}",
+      display_name => 'mirror1.provider0',
     }
 
     icinga::host { "mirror0.${provider1_subdomain}":
-      host_name => 'mirror0.provider1',
-      hostalias => "mirror0.${provider1_subdomain}",
-      address   => "mirror0.${provider1_subdomain}",
+      host_name    => 'mirror0.provider1',
+      hostalias    => "mirror0.${provider1_subdomain}",
+      address      => "mirror0.${provider1_subdomain}",
+      display_name => 'mirror0.provider1',
     }
 
     icinga::host { "mirror1.${provider1_subdomain}":
-      host_name => 'mirror1.provider1',
-      hostalias => "mirror1.${provider1_subdomain}",
-      address   => "mirror1.${provider1_subdomain}",
+      host_name    => 'mirror1.provider1',
+      hostalias    => "mirror1.${provider1_subdomain}",
+      address      => "mirror1.${provider1_subdomain}",
+      display_name => 'mirror1.provider1',
     }
 
     icinga::check { 'check_mirror0_provider0_disk':
