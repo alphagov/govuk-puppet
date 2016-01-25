@@ -91,11 +91,6 @@ class govuk::node::s_asset_base (
     mode   => '0755',
   }
 
-  # FIXME: Remove this resource when the file is purged from production
-  file { '/usr/local/bin/sync-assets.sh':
-    ensure => absent,
-  }
-
   cron { 'tmpreaper-bulk-upload-zip-file-tmp':
     command => '/usr/sbin/tmpreaper -am 24h /mnt/uploads/whitehall/bulk-upload-zip-file-tmp/',
     user    => 'root',
