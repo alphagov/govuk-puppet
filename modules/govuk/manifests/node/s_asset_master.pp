@@ -62,8 +62,8 @@ class govuk::node::s_asset_master (
   cron { 'rsync-clean-draft':
     user    => 'assets',
     hour    => $copy_attachments_hour,
-    minute  => '18',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/draft-clean',
+    minute  => '48',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean-draft.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/draft-clean',
     require => $cron_requires,
   }
 
