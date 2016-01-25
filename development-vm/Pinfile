@@ -2,7 +2,8 @@
 # See https://github.com/JordanHatch/bowler for some more info
 
 process :'authenticating-proxy' => [:'government-frontend']
-process :asset_manager
+process :asset_manager => [:'asset-manager-worker']
+process :'asset-manager-worker'
 process :backdrop => [:backdrop_read, :backdrop_write, :stagecraft]
 process :backdrop_read
 process :backdrop_write
