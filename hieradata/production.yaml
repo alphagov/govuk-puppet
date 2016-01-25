@@ -156,7 +156,6 @@ govuk::node::s_api_lb::search_servers:
 
 govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
 govuk::node::s_asset_base::firewall_allowed_ip_range: '10.3.3.0/24'
-govuk::node::s_asset_slave::offsite_backups: true
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
