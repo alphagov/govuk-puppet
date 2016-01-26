@@ -16,7 +16,6 @@ process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager]
 process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, :asset_manager]
-process :'content-register'
 process :'content-store'
 process :'content-tagger' => [:'draft-content-store', :'publishing-api']
 process :'draft-content-store'
@@ -38,7 +37,7 @@ process :'government-frontend' => [:'content-store', :static]
 process :'info-frontend' => [:static, :'metadata-api']
 process :imminence
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
-process :'hmrc-manuals-api' => [:'publishing-api', :rummager, :'content-register']
+process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi]
 process :mapit
@@ -48,7 +47,7 @@ process :'multipage-frontend' => [:static, :'content-store']
 process :need_api
 process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
-process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
+process :'policy-publisher' => [:'publishing-api', :rummager]
 process :publisher => [:panopticon, :contentapi]
 process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
 process :'publishing-api-worker' => [:'content-store', :'router-api']
@@ -74,8 +73,8 @@ process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager]
-process :whitehall => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
-process :'whitehall-admin-tagging-test' => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
+process :whitehall => [:contentapi, :static, :'publishing-api', :rummager, :panopticon]
+process :'whitehall-admin-tagging-test' => [:contentapi, :static, :'publishing-api', :rummager, :panopticon]
 
 # pseudo process to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
