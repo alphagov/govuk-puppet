@@ -1,0 +1,24 @@
+---
+- scm:
+    name: dp_publish_existing_content
+    scm:
+        - git:
+            url: https://github.gds/email-campaign/email-campaign-frontend
+            branches:
+              - master
+
+- job:
+    name: Departmental_projects_publish_existing_content
+    display-name: Departmental_projects_publish_existing_content
+    project-type: freestyle
+    description: "<p>Publish content already on live site in content store</p>"
+    scm:
+      - dp_publish_existing_content
+    logrotate:
+      artifactNumToKeep: 30
+    builders:
+        - shell: |
+            ssh deploy@email-campaign-frontend-1.frontend "cd /var/apps/email-campaign-frontend && govuk_setenv email-campaign-frontend bundle exec rake publish_content:publish_existing_content"
+    wrappers:
+        - ansicolor:
+            colormap: xterm

@@ -92,6 +92,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::copy_licensify_data_to_staging
   - govuk_jenkins::job::copy_sanitised_whitehall_database
   - govuk_jenkins::job::departmental_projects_publish_content_change
+  - govuk_jenkins::job::departmental_projects_publish_existing_content
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_cdn
   - govuk_jenkins::job::deploy_licensify
