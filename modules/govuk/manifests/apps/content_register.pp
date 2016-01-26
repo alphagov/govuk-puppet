@@ -29,7 +29,6 @@ class govuk::apps::content_register(
   $rabbitmq_password = 'content_register',
 ) {
   govuk::app { 'content-register':
-    ensure             => absent,
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
@@ -37,7 +36,22 @@ class govuk::apps::content_register(
     log_format_is_json => true,
   }
 
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
+  Govuk::App::Envvar {
+    app => 'content-register',
+  }
+
+  govuk::app::envvar::rabbitmq { 'content-register':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
+  }
+
   govuk::procfile::worker {'content-register':
-    ensure => absent,
+    enable_service => $enable_procfile_worker,
+  }
+  govuk_rabbitmq::monitor_consumers {'content-register_rabbitmq-consumers':
+    rabbitmq_queue => 'content_register',
   }
 }

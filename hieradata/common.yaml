@@ -154,6 +154,12 @@ govuk::apps::backdrop_write::enabled: true
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 
+govuk::apps::content_register::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_register::rabbitmq_hosts:
+  - rabbitmq-1.backend
+  - rabbitmq-2.backend
+  - rabbitmq-3.backend
+
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
@@ -547,6 +553,7 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
+  - 'content-register'
   - 'contentapi'
   - 'email-alert-api'
   - 'email-alert-monitor'
