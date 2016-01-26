@@ -6,9 +6,6 @@
 #
 # === Parameters
 #
-# [*namevar*]
-#   The RabbitMQ username
-#
 # [*amqp_pass*]
 #   The RabbitMQ password
 #
@@ -28,22 +25,29 @@
 #   The type of exchange to create if create_exchange is set.
 #   (default: 'topic')
 #
+# [*ensure*]
+#   Determines whether to create or delete the consumer.
+#   (default: ensure)
+#
 define govuk_rabbitmq::consumer (
   $amqp_pass,
   $amqp_exchange,
   $amqp_queue,
   $is_test_exchange = false,
   $exchange_type = 'topic',
+  $ensure = present,
 ) {
   $amqp_user = $title
 
   rabbitmq_user { $amqp_user:
+    ensure   => $ensure,
     password => $amqp_pass,
   }
 
   if $is_test_exchange {
     govuk_rabbitmq::exchange { "${amqp_exchange}@/":
-      type => $exchange_type,
+      ensure => $ensure,
+      type   => $exchange_type,
     }
     $write_permission = "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})$"
   } else {
@@ -51,6 +55,7 @@ define govuk_rabbitmq::consumer (
   }
 
   rabbitmq_user_permissions { "${amqp_user}@/":
+    ensure               => $ensure,
     configure_permission => "^(amq\\.gen.*|${amqp_queue})$",
     write_permission     => $write_permission,
     read_permission      => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})$",
