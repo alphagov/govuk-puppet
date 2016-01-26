@@ -16,7 +16,7 @@
 #   (default: false)
 #
 class govuk::apps::content_register::rabbitmq (
-  $password  = 'content_register',
+  $password = 'content_register',
   $configure_test_details = false,
 ) {
 

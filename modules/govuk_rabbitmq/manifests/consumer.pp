@@ -43,7 +43,7 @@ define govuk_rabbitmq::consumer (
 
   if $is_test_exchange {
     govuk_rabbitmq::exchange { "${amqp_exchange}@/":
-      type     => $exchange_type,
+      type => $exchange_type,
     }
     $write_permission = "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})$"
   } else {
