@@ -21,7 +21,6 @@ class govuk::apps::content_register::rabbitmq (
 ) {
 
   govuk_rabbitmq::consumer { 'content_register':
-    ensure        => absent,
     amqp_pass     => $password,
     amqp_exchange => 'published_documents',
     amqp_queue    => 'content_register',
@@ -29,7 +28,6 @@ class govuk::apps::content_register::rabbitmq (
 
   if $configure_test_details {
     govuk_rabbitmq::consumer { 'content_register_test':
-      ensure           => absent,
       amqp_pass        => $password,
       amqp_exchange    => 'content_register_published_documents_test_exchange',
       amqp_queue       => 'content_register_test',

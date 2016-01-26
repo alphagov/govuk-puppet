@@ -40,7 +40,16 @@ class govuk::apps::content_register(
     app => 'content-register',
   }
 
+  govuk::app::envvar::rabbitmq { 'content-register':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
+  }
+
   govuk::procfile::worker {'content-register':
-    ensure => absent,
+    enable_service => $enable_procfile_worker,
+  }
+  govuk_rabbitmq::monitor_consumers {'content-register_rabbitmq-consumers':
+    rabbitmq_queue => 'content_register',
   }
 }
