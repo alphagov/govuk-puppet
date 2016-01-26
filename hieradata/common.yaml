@@ -547,6 +547,7 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
+  - 'content-register'
   - 'contentapi'
   - 'email-alert-api'
   - 'email-alert-monitor'

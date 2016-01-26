@@ -241,6 +241,7 @@ hosts::development::apps:
   - 'contacts-frontend'
   - 'contacts-frontend-old'
   - 'contentapi'
+  - 'content-register'
   - 'content-store'
   - 'content-tagger'
   - 'designprinciples'
