@@ -183,11 +183,11 @@ class govuk::apps::whitehall(
         varname => 'GOVUK_ASSET_ROOT',
         value   => "//whitehall-admin.${app_domain}";
     }
+  }
 
-    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => 'whitehall',
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token,
-    }
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => 'whitehall',
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 }
