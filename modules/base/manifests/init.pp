@@ -14,6 +14,7 @@ class base {
   include gcc
   include govuk::deploy
   include govuk::envsys
+  include govuk::scripts
   include govuk::sshkeys
   include govuk_apt::unused_kernels
   include govuk_sudo
