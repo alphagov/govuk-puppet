@@ -53,6 +53,7 @@ base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
 
+govuk::apps::content_register::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_monitor::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
