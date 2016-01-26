@@ -82,7 +82,6 @@ govuk_jenkins::config::admins:
   - tombooth
   - tommypalmer
 
-govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
   - govuk_jenkins::job::deploy_app

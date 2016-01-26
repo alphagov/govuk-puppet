@@ -81,7 +81,6 @@ govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::job_builder::environment: 'production'
-govuk_jenkins::job_builder::manage_jobs: true
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::build_offsite_backup
