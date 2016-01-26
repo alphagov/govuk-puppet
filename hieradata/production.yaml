@@ -126,7 +126,7 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'skyscape-production'
 
 govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "production.performance.service.gov.uk"
-govuk_jenkins::job::performance_platform_smokey::pp_auth_domain: "performance.service.gov.uk"
+govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "performance.service.gov.uk"
 
 govuk_jenkins::job::smokey::build_branch: 'master'
 
