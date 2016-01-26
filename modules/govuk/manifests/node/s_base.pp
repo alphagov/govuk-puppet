@@ -28,7 +28,6 @@ class govuk::node::s_base (
   include hosts
   include ::limits
   include monitoring::client
-  include nano
   include postfix
   include puppet
   include puppet::cronjob
