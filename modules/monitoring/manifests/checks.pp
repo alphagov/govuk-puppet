@@ -19,7 +19,6 @@ class monitoring::checks (
   include monitoring::checks::ses
   include monitoring::checks::smokey
   include monitoring::checks::reboots
-  include monitoring::checks::vpn_tunnels
 
   $app_domain = hiera('app_domain')
 
