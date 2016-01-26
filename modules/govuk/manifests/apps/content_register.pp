@@ -36,6 +36,8 @@ class govuk::apps::content_register(
     log_format_is_json => true,
   }
 
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
   Govuk::App::Envvar {
     app => 'content-register',
   }
