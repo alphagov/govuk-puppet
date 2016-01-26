@@ -15,12 +15,9 @@ class govuk::node::s_base (
   include backup::client
   include base
   include fail2ban
-  include govuk::deploy
-  include govuk::envsys
   include govuk::firewall
   include govuk::safe_to_reboot
   include govuk::scripts
-  include govuk::sshkeys
   include govuk_rbenv
   include govuk_unattended_reboot
   include grub2
@@ -30,12 +27,9 @@ class govuk::node::s_base (
   include monitoring::client
   include nano
   include postfix
-  include puppet
   include puppet::cronjob
   include rcs
   include rkhunter
-  include users
-  include resolvconf
 
   $app_classes = regsubst($apps, '^', 'govuk::apps::')
   include $app_classes
