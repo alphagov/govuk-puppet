@@ -48,8 +48,8 @@
             default: <%= @cdn_password_encrypted %>
             <%- end -%>
         - string:
-            name: BOUNCER_HOSTNAME
-            description: The bouncer origin hostname.
+            name: APP_DOMAIN
+            description: The domain that applications are deployed under
             <%- if @app_domain -%>
-            default: bouncer.<%= @app_domain %>
+            default: <%= @app_domain %>
             <%- end -%>
