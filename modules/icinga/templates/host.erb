@@ -5,4 +5,7 @@ define host {
         display_name <%= @display_name %>
         host_name    <%= @hostalias %>
         hostgroups   all
+        <%- if @parents -%>
+        parents      <%= @parents %>
+        <%- end -%>
 }
