@@ -23,5 +23,10 @@
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@backend-2.backend 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
     publishers:
+        - trigger-parameterized-builds:
+            - project: Deploy_App
+              predefined-parameters: |
+                TARGET_APPLICATION=content-register
+                DEPLOY_TASK=deploy:hard_restart
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
