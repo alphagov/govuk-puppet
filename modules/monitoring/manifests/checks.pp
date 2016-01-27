@@ -10,9 +10,13 @@
 # [*http_password*]
 #   Password for $http_username
 #
+# [*enable_support_check*]
+#   Enable monitoring for check_support_default_queue_size
+#
 class monitoring::checks (
   $http_username = 'UNSET',
   $http_password = 'UNSET',
+  $enable_support_check = true,
 ) {
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
@@ -93,15 +97,15 @@ class monitoring::checks (
   }
   # END signon
 
-  # START support
-  icinga::check::graphite { 'check_support_default_queue_size':
-    target    => 'stats.gauges.govuk.app.support.queues.default',
-    warning   => 10,
-    critical  => 20,
-    desc      => 'support app background processing: unexpectedly large default queue size',
-    host_name => $::fqdn,
+  if $enable_support_check {
+    icinga::check::graphite { 'check_support_default_queue_size':
+      target    => 'stats.gauges.govuk.app.support.queues.default',
+      warning   => 10,
+      critical  => 20,
+      desc      => 'support app background processing: unexpectedly large default queue size',
+      host_name => $::fqdn,
+    }
   }
-  # END support
 
   icinga::plugin { 'check_hsts_headers':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_hsts_headers',
