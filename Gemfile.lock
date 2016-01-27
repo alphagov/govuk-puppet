@@ -68,8 +68,7 @@ GEM
       json_pure
       rgen (~> 0.6.5)
     puppet-lint (1.0.1)
-    puppet-syntax (1.1.1)
-      puppet (>= 2.7.0)
+    puppet-syntax (2.1.0)
       rake
     puppet_forge (1.0.3)
       her (~> 0.6)
@@ -118,7 +117,7 @@ DEPENDENCIES
   parallel_tests
   puppet (~> 3.6.0)
   puppet-lint
-  puppet-syntax
+  puppet-syntax (= 2.1.0)
   puppetlabs_spec_helper
   rake
   rspec-puppet
