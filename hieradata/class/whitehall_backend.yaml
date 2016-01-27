@@ -1,5 +1,7 @@
 ---
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   data:
     pv: '/dev/sdb1'

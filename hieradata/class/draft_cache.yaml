@@ -27,6 +27,8 @@ govuk::node::s_base::apps:
 
 govuk::node::s_cache::enable_authenticating_proxy: true
 
+govuk_rbenv::rubies: 'all'
+
 nginx::package::nginx_package: 'nginx-extras'
 
 router::nginx::check_requests_warning: '@0'

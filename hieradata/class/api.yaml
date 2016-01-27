@@ -6,3 +6,5 @@ govuk::node::s_base::apps:
   - metadata_api
   - stagecraft
   - 'stagecraft::worker'
+
+govuk_rbenv::rubies: 'all'

@@ -3,6 +3,8 @@
 govuk::node::s_base::apps:
   - email_campaign_frontend
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   data:
     pv: '/dev/sdb1'

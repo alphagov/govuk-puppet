@@ -17,6 +17,8 @@ govuk::node::s_base::apps:
 govuk::safe_to_reboot::can_reboot: 'careful'
 govuk::safe_to_reboot::reason: 'Check for primary, reboot secondaries, step down primary, reboot primary'
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   mongodb:
     pv: '/dev/sdb1'

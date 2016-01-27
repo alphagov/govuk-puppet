@@ -3,7 +3,6 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
   include nginx
   include govuk_jenkins
   include govuk::ghe_vpn
-  include govuk_rbenv::all
 
   # Close connection if vhost not known
   nginx::config::vhost::default { 'default':

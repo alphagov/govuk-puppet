@@ -2,6 +2,8 @@
 
 govuk_cdnlogs::log_dir: '/mnt/logs_cdn'
 
+govuk_rbenv::rubies: 'all'
+
 govuk::node::s_base::apps:
   - govuk_cdn_logs_monitor
 

@@ -57,7 +57,7 @@ node default {
   $mount = hiera('mount',{})
   create_resources('govuk::mount', $mount)
 
-  # This has to be included after all other govuk_rbenv::* includes in the
+  # This has to be included after the main govuk_rbenv include in the
   # parse order. See comments on the class for details.
   include govuk_rbenv::cleanup
 }

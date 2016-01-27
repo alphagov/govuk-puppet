@@ -10,6 +10,8 @@ govuk::apps::content_store::vhost: 'content-store'
 govuk::node::s_base::apps:
   - content_store
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   data:
     pv: '/dev/sdb1'

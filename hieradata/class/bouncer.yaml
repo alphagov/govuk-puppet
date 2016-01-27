@@ -2,3 +2,5 @@
 
 govuk::node::s_base::apps:
   - bouncer
+
+govuk_rbenv::rubies: 'all'

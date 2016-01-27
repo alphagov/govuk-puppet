@@ -17,6 +17,7 @@ class base {
   include govuk::scripts
   include govuk::sshkeys
   include govuk_apt::unused_kernels
+  include govuk_rbenv
   include govuk_sudo
   include logrotate
   include motd

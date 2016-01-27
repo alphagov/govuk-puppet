@@ -6,6 +6,8 @@ govuk::node::s_base::apps:
 govuk::safe_to_reboot::can_reboot: 'overnight'
 govuk::safe_to_reboot::reason: 'There is only one EFG frontend'
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   data:
     pv: '/dev/sdb1'
