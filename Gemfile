@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "rake"
-gem "puppet-syntax"
+gem "puppet-syntax", '2.1.0'
 gem "puppet-lint"
 gem "puppet", "~> 3.6.0"
 gem "hiera", "1.3.4"
