@@ -14,11 +14,17 @@
 #   integer between 0 and 7 inclusive - 1 is Monday, 2 is Tuesday etc.)
 #   Default: 7 (Sunday)
 #
+# [*daily_hour*]
+#   The hour of the day to run cron.daily jobs (an integer between 0 - 23)
+#   Default: 5
+#
 class cron (
   $weekly_dow = 7,
+  $daily_hour = 5,
 ) {
 
   validate_integer($weekly_dow, 7, 0)
+  validate_integer($daily_hour, 23, 0)
 
   resources { 'cron':
     purge => true,

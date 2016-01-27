@@ -3,6 +3,8 @@ app_domain: 'staging.publishing.service.gov.uk'
 
 base::supported_kernel::enabled: true
 
+cron::daily_hour: 6
+
 environment_ip_prefix: '10.2'
 
 govuk::apps::content_register::db::backend_ip_range: '10.2.3.0/24'
