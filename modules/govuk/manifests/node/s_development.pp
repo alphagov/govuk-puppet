@@ -25,6 +25,7 @@ class govuk::node::s_development (
   include govuk_rabbitmq
   include redis
   include tmpreaper
+  include last_puppet_run
 
   include govuk::python
   include govuk::testing_tools
