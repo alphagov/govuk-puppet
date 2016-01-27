@@ -1,11 +1,12 @@
 define host {
-        use          <%= @use %>
-        alias        <%= @hostalias %>
-        address      <%= @address %>
-        display_name <%= @display_name %>
-        host_name    <%= @hostalias %>
-        hostgroups   all
+        use                  <%= @use %>
+        alias                <%= @hostalias %>
+        address              <%= @address %>
+        display_name         <%= @display_name %>
+        host_name            <%= @hostalias %>
+        hostgroups           all
+        notification_period  <%= @notification_period %>
         <%- if @parents -%>
-        parents      <%= @parents %>
+        parents              <%= @parents %>
         <%- end -%>
 }

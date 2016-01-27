@@ -12,10 +12,11 @@ define monitoring::network_checks (
   $address,
 ) {
     icinga::host { $title:
-      host_name    => $title,
-      hostalias    => $title,
-      address      => $address,
-      display_name => $title,
+      host_name           => $title,
+      hostalias           => $title,
+      address             => $address,
+      display_name        => $title,
+      notification_period => 'inoffice',
     }
 
     icinga::check { "check_ping_${title}":

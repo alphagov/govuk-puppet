@@ -6,6 +6,8 @@ describe 'icinga::host', :type => :define do
   it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg') }
   it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').without_content(/parents/) }
 
+  it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').with_content(/notification_period\s+24x7/) }
+
   context 'Host parents required' do
     let(:params) {{
       'parents' => 'vpn_gateway_test'

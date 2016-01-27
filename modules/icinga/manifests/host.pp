@@ -27,6 +27,10 @@
 #    for example a router. If the parent is down then it will be assumed that
 #    the child will also be down.
 #
+#  [*notification_period*]
+#    The icinga::timeperiod for when Icinga will send out notifications
+#    if this host is unavailable.
+#
 define icinga::host (
   $hostalias  = $::fqdn,
   $address    = $::ipaddress,
@@ -34,6 +38,7 @@ define icinga::host (
   $host_name  = $::fqdn,
   $display_name = $::fqdn_short,
   $parents = undef,
+  $notification_period = '24x7',
 ) {
 
   file {"/etc/icinga/conf.d/icinga_host_${title}":
