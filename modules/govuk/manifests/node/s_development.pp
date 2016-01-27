@@ -16,16 +16,16 @@ class govuk::node::s_development (
   include golang
   include govuk_apt::disable_pipelining
   include govuk_mysql::libdev
+  include govuk_rabbitmq
   include hosts::development
   include imagemagick
+  include last_puppet_run
   include memcached
   include mongodb::server
   include mysql::client
   include nodejs
-  include govuk_rabbitmq
   include redis
   include tmpreaper
-  include last_puppet_run
 
   include govuk::python
   include govuk::testing_tools
