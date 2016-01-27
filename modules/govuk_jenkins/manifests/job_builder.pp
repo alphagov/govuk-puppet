@@ -20,9 +20,6 @@
 # [*jenkins_url*]
 #   The URL to access Jenkins
 #
-# [*manage_jobs*]
-#   Whether jobs should be created and modified by jenkins-job-builder
-#
 # [*jobs*]
 #   An Array of jobs which creates `govuk_jenkins::job` resources
 #
@@ -32,7 +29,6 @@ class govuk_jenkins::job_builder (
   $jenkins_user = 'deploy',
   $jenkins_api_token = '',
   $jenkins_url = 'http://localhost:8080/',
-  $manage_jobs = false,
   $jobs = [],
 ) {
 
@@ -55,23 +51,21 @@ class govuk_jenkins::job_builder (
     require => File['/etc/jenkins_jobs'],
   }
 
-  if $manage_jobs {
-    file { '/etc/jenkins_jobs/jobs':
-      ensure  => directory,
-      purge   => true,
-      recurse => true,
-    }
+  file { '/etc/jenkins_jobs/jobs':
+    ensure  => directory,
+    purge   => true,
+    recurse => true,
+  }
 
-    include $jobs
+  include $jobs
 
-    exec { 'jenkins_jobs_update':
-      command => 'jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
-      onlyif  => "curl ${jenkins_url}",
-      require => [
-        File['/etc/jenkins_jobs/jenkins_jobs.ini'],
-        Package['jenkins-job-builder'],
-      ],
-    }
+  exec { 'jenkins_jobs_update':
+    command => 'jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
+    onlyif  => "curl ${jenkins_url}",
+    require => [
+      File['/etc/jenkins_jobs/jenkins_jobs.ini'],
+      Package['jenkins-job-builder'],
+    ],
   }
 
 }

@@ -82,9 +82,7 @@ class govuk_jenkins (
   }
 
   # Runtime dependency of: https://github.com/alphagov/search-analytics
-  package { 'libffi-dev':
-    ensure => present,
-  }
+  include libffi
 
   file { "${jenkins_home}/.gitconfig":
     source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',

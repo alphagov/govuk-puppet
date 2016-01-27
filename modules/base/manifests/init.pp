@@ -12,15 +12,22 @@ class base {
   include cron
   include curl
   include gcc
+  include govuk::deploy
+  include govuk::envsys
+  include govuk::scripts
+  include govuk::sshkeys
   include govuk_apt::unused_kernels
   include govuk_sudo
   include logrotate
   include motd
   include ntp
+  include puppet
+  include resolvconf
   include screen
   include shell
   include ssh
   include timezone
   include tmpreaper
+  include users
   include wget
 }

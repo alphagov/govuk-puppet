@@ -11,7 +11,6 @@ class govuk::node::s_development (
   $apps = [],
 ) {
   include base
-  include resolvconf
 
   include assets::user
   include golang
@@ -23,17 +22,12 @@ class govuk::node::s_development (
   include mongodb::server
   include mysql::client
   include nodejs
-  include puppet
   include govuk_rabbitmq
   include redis
   include tmpreaper
-  include users
 
-  include govuk::deploy
-  include govuk::envsys
   include govuk::python
   include govuk::testing_tools
-  include govuk::sshkeys
 
   include govuk_rbenv::all
 

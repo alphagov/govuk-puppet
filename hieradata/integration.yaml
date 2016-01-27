@@ -82,7 +82,6 @@ govuk_jenkins::config::admins:
   - tombooth
   - tommypalmer
 
-govuk_jenkins::job_builder::manage_jobs: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
   - govuk_jenkins::job::departmental_projects_publish_content_change
@@ -130,7 +129,6 @@ govuk_jenkins::job::data_sync_complete_integration::signon_domain_new: integrati
 govuk_jenkins::job::data_sync_complete_integration::pp_signon_domain_old: performance.service.gov.uk
 govuk_jenkins::job::data_sync_complete_integration::pp_signon_domain_new: preview.performance.service.gov.uk
 
-govuk_mysql::server::innodb_file_per_table: true
 govuk_mysql::server::slow_query_log: true
 
 govuk::node::s_api_lb::api_servers:
@@ -210,7 +208,6 @@ govuk::ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
 
-hosts::production::carrenza_vcloud: true
 hosts::production::ip_api_lb: '10.1.4.254'
 hosts::production::ip_backend_lb: '10.1.3.254'
 hosts::production::ip_bouncer: '31.210.245.101'
