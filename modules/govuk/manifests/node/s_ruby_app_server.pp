@@ -8,9 +8,10 @@ class govuk::node::s_ruby_app_server {
   # which depends on ExecJS, depends on Node.js
   include nodejs
 
+  # FIXME: Remove once purged from production
   package {
-    'dictionaries-common': ensure => installed;
-    'wbritish-small':      ensure => installed;
-    'miscfiles':           ensure => installed;
+    'dictionaries-common': ensure => purged;
+    'wbritish-small':      ensure => purged;
+    'miscfiles':           ensure => purged;
   }
 }
