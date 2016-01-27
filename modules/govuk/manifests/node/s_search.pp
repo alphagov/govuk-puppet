@@ -3,7 +3,7 @@
 # Machines for running the search applications (initially rummager) in the api vDC
 #
 class govuk::node::s_search inherits govuk::node::s_base {
-  include govuk::node::s_ruby_app_server
+  include govuk::node::s_app_server
 
   include nginx
 

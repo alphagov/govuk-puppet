@@ -3,7 +3,7 @@
 # Frontend machines for email campaigns.
 #
 class govuk::node::s_email_campaign_frontend inherits govuk::node::s_base {
-  include govuk::node::s_ruby_app_server
+  include govuk::node::s_app_server
 
   include nginx
 
