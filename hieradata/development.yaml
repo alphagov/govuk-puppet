@@ -50,6 +50,7 @@ govuk::node::s_development::apps:
   - 'errbit'
   - 'event_store'
   - 'feedback'
+  - 'financial_publisher'
   - 'finder_frontend'
   - 'frontend'
   - 'government_frontend'
@@ -125,6 +126,7 @@ govuk::apps::email_campaign_api::mongodb_nodes: ['localhost']
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
+govuk::apps::financial_publisher::enabled: true
 govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
@@ -259,6 +261,7 @@ hosts::development::apps:
   - 'errbit'
   - 'event-store'
   - 'feedback'
+  - 'financial-publisher'
   - 'finder-frontend'
   - 'frontend'
   - 'govuk-delivery'
