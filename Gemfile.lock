@@ -52,10 +52,10 @@ GEM
       librarian (>= 0.1.2)
       puppet_forge
       rsync
-    metaclass (0.0.1)
+    metaclass (0.0.4)
     mini_portile (0.6.2)
     minitest (5.4.3)
-    mocha (0.14.0)
+    mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.10.1)
     multipart-post (2.0.0)
@@ -72,11 +72,12 @@ GEM
       rake
     puppet_forge (1.0.3)
       her (~> 0.6)
-    puppetlabs_spec_helper (0.4.1)
-      mocha (>= 0.10.5)
+    puppetlabs_spec_helper (1.0.1)
+      mocha
+      puppet-lint
+      puppet-syntax
       rake
-      rspec (>= 2.9.0)
-      rspec-puppet (>= 0.1.1)
+      rspec-puppet
     rake (10.1.0)
     rgen (0.6.6)
     rspec (3.3.0)
@@ -118,7 +119,7 @@ DEPENDENCIES
   puppet (~> 3.6.0)
   puppet-lint
   puppet-syntax (= 2.1.0)
-  puppetlabs_spec_helper
+  puppetlabs_spec_helper (= 1.0.1)
   rake
   rspec-puppet
   sshkey (= 1.7.0)
