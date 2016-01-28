@@ -17,14 +17,34 @@
 #   Whether to enable the procfile worker service.
 #   Default: true
 #
+# [*enable_publishing_api_document_indexer*]
+#   Whether to enable the procfile indexing service.
+#   Default: false
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*rabbitmq_hosts*]
+#   RabbitMQ hosts to connect to.
+#   Default: localhost
+#
+# [*rabbitmq_user*]
+#   RabbitMQ username.
+#   Default: rummager
+#
+# [*rabbitmq_password*]
+#   RabbitMQ password.
+#   Default: rummager
+#
 class govuk::apps::rummager(
   $port = '3009',
   $enable_procfile_worker = true,
+  $enable_publishing_api_document_indexer = false,
   $publishing_api_bearer_token = undef,
+  $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_user = 'rummager',
+  $rabbitmq_password = 'rummager',
 ) {
   include aspell
 
@@ -52,8 +72,24 @@ class govuk::apps::rummager(
     ',
   }
 
+  govuk::app::envvar::rabbitmq { 'rummager':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
+  }
+
   govuk::procfile::worker { 'rummager':
     enable_service => $enable_procfile_worker,
+  }
+
+  govuk::procfile::worker { 'rummager-publishing-api-document-indexer':
+    setenv_as      => 'rummager',
+    enable_service => $enable_publishing_api_document_indexer,
+    process_type   => 'publishing-api-document-indexer',
+  }
+
+  govuk_rabbitmq::monitor_consumers {'rummager-publishing-api-document-indexer':
+    rabbitmq_queue => 'rummager_to_be_indexed',
   }
 
   Govuk::App::Envvar {
