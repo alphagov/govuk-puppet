@@ -26,6 +26,7 @@ class govuk::node::s_backend_lb (
       'content-register',
       'content-tagger',
       'email-alert-monitor',
+      'financial-publisher',
       'hmrc-manuals-api',
       'imminence',
       'maslow',
