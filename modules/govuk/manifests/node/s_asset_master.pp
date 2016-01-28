@@ -51,20 +51,22 @@ class govuk::node::s_asset_master (
     require => $cron_requires,
   }
 
-  cron { 'rsync-clean':
+  # FIXME: There may be a couple of directories underneath /mnt/uploads that shouldn't be synced.
+  # Over time we should exclude directories once we know they're not required.
+  cron { 'rsync-uploads':
     user    => 'assets',
     hour    => $copy_attachments_hour,
     minute  => '18',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/clean',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-uploads.lock /usr/local/bin/copy-attachments.sh /mnt/uploads',
     require => $cron_requires,
   }
 
+  # FIXME: Remove once purged from production
+  cron { 'rsync-clean':
+    ensure => absent,
+  }
   cron { 'rsync-clean-draft':
-    user    => 'assets',
-    hour    => $copy_attachments_hour,
-    minute  => '48',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-clean-draft.lock /usr/local/bin/copy-attachments.sh /mnt/uploads/whitehall/draft-clean',
-    require => $cron_requires,
+    ensure => absent,
   }
 
   @@icinga::passive_check { "check_process_attachments_${::hostname}":
