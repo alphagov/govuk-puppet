@@ -54,11 +54,14 @@ define govuk::procfile::worker (
       }
     }
   } else {
-    service { $service_name:
-      ensure => false,
-    } ->
+    exec { "stop_service_${service_name}":
+      command => "service ${service_name} stop",
+      onlyif  => "service ${service_name} status | grep running",
+    }
+
     file { "/etc/init/${service_name}.conf":
-      ensure => absent,
+      ensure  => absent,
+      require => Exec["stop_service_${service_name}"],
     }
   }
 }
