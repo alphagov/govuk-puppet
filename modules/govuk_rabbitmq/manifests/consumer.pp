@@ -37,12 +37,9 @@ define govuk_rabbitmq::consumer (
   $exchange_type = 'topic',
   $ensure = present,
 ) {
-  $amqp_user = $title
+  validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
-  rabbitmq_user { $amqp_user:
-    ensure   => $ensure,
-    password => $amqp_pass,
-  }
+  $amqp_user = $title
 
   if $is_test_exchange {
     govuk_rabbitmq::exchange { "${amqp_exchange}@/":
@@ -54,10 +51,23 @@ define govuk_rabbitmq::consumer (
     $write_permission = "^(amq\\.gen.*|${amqp_queue})$"
   }
 
-  rabbitmq_user_permissions { "${amqp_user}@/":
-    ensure               => $ensure,
-    configure_permission => "^(amq\\.gen.*|${amqp_queue})$",
-    write_permission     => $write_permission,
-    read_permission      => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})$",
+  if $ensure == present {
+    rabbitmq_user { $amqp_user:
+      ensure   => present,
+      password => $amqp_pass,
+    } ->
+    rabbitmq_user_permissions { "${amqp_user}@/":
+      ensure               => present,
+      configure_permission => "^(amq\\.gen.*|${amqp_queue})$",
+      write_permission     => $write_permission,
+      read_permission      => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})$",
+    }
+  } else {
+    rabbitmq_user_permissions { "${amqp_user}@/":
+      ensure => absent,
+    } ->
+    rabbitmq_user { $amqp_user:
+      ensure   => absent,
+    }
   }
 }
