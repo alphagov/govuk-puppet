@@ -79,7 +79,6 @@ govuk_jenkins::config::admins:
   - seemasatish
   - stevelaing
   - stuartgale
-  - tadast
   - tatianasoukiassian
   - tombooth
   - tommypalmer
@@ -279,7 +278,6 @@ users::usernames:
   - simonhughesdon
   - stevelaing
   - stuartgale
-  - tadast
   - tatianasoukiassian
   - tombooth
   - tommypalmer
