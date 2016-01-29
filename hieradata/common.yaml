@@ -585,6 +585,7 @@ hosts::production::backend::app_hostnames:
   - 'publishing-api'
   - 'search-admin'
   - 'service-manual-publisher'
+  - 'share-sale-publisher'
   - 'short-url-manager'
   - 'signon'
   - 'specialist-publisher'
