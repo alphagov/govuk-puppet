@@ -11,7 +11,7 @@ describe 'govuk_elasticsearch::firewall_transport_rule', :type => :define do
       # Realise the virtual resources so they get added to the catalogue
       Ufw::Allow <| |>
 
-      govuk::host { 'giraffe':
+      govuk_host { 'giraffe':
         ip  => '10.0.0.1',
         vdc => 'test',
       }
@@ -53,7 +53,7 @@ describe 'govuk_elasticsearch::firewall_transport_rule', :type => :define do
 
       expect {
         subject.call
-      }.to raise_error(Puppet::Error, /Could not find govuk::host instance for non-existent/)
+      }.to raise_error(Puppet::Error, /Could not find govuk_host instance for non-existent/)
     end
 
     it "should error if given garbage input" do

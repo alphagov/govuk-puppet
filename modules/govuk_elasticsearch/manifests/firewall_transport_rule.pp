@@ -1,7 +1,7 @@
 # == Define: govuk_elasticsearch::firewall_transport_rule
 #
 # Create a firewall allow rule for a given host:port.  This looks up the ip for
-# the host by finding the corresponding govuk::host instance, and creates a
+# the host by finding the corresponding govuk_host instance, and creates a
 # corresponding UFW allow rule for the given port (or 9300 if unspecified).
 #
 define govuk_elasticsearch::firewall_transport_rule {
@@ -15,9 +15,9 @@ define govuk_elasticsearch::firewall_transport_rule {
 
   if $hostname != 'localhost' {
 
-    $ip = getparam(Govuk::Host[$hostname], 'ip')
+    $ip = getparam(Govuk_host[$hostname], 'ip')
     if $ip == '' {
-      fail("Could not find govuk::host instance for ${hostname}")
+      fail("Could not find govuk_host instance for ${hostname}")
     }
 
     $port_real = $hostport ? {

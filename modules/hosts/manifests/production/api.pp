@@ -8,7 +8,7 @@
 #   Domain to be used in vhost aliases
 #
 # [*hosts*]
-#   Hosts used to create govuk::host resources (hostfile entries).
+#   Hosts used to create govuk_host resources (hostfile entries).
 #
 # [*app_hostnames*]
 #   Application names
@@ -34,19 +34,19 @@ class hosts::production::api (
   $api_aliases = regsubst($app_hostnames, '$', ".${app_domain}")
   $draft_api_aliases = regsubst($draft_app_hostnames, '$', ".${app_domain}")
 
-  govuk::host { 'api-internal-lb':
+  govuk_host { 'api-internal-lb':
     ip             => $internal_lb_ip,
     legacy_aliases => $api_aliases,
   }
 
-  govuk::host { 'draft-api-internal-lb':
+  govuk_host { 'draft-api-internal-lb':
     ip             => $draft_internal_lb_ip,
     legacy_aliases => $draft_api_aliases,
   }
 
-  Govuk::Host {
+  Govuk_host {
     vdc => 'api',
   }
 
-  create_resources('govuk::host', $hosts)
+  create_resources('govuk_host', $hosts)
 }

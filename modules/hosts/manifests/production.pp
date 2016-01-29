@@ -74,17 +74,17 @@ class hosts::production (
   }
 
   #efg vdc machines
-  govuk::host { 'efg-mysql-master-1':
+  govuk_host { 'efg-mysql-master-1':
     ip             => '10.4.0.10',
     vdc            => 'efg',
     legacy_aliases => ['efg.master.mysql'],
   }
 
-  govuk::host { 'efg-frontend-1':
+  govuk_host { 'efg-frontend-1':
     ip  => '10.4.0.2',
     vdc => 'efg',
   }
-  govuk::host { 'efg-mysql-slave-1':
+  govuk_host { 'efg-mysql-slave-1':
     ip             => '10.4.0.11',
     vdc            => 'efg',
     legacy_aliases => ['efg.slave.mysql'],

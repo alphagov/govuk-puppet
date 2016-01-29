@@ -124,11 +124,11 @@ describe 'govuk_elasticsearch', :type => :class do
       # Realise the virtual resources so they get added to the catalogue
       Ufw::Allow <| |>
 
-      govuk::host { 'test-1':
+      govuk_host { 'test-1':
         ip  => '10.0.0.1',
         vdc => 'foo',
       }
-      govuk::host { 'test-2':
+      govuk_host { 'test-2':
         ip  => '10.0.0.2',
         vdc => 'foo',
       }

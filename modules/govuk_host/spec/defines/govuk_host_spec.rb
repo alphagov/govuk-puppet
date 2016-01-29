@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::host', :type => :define do
+describe 'govuk_host', :type => :define do
   let(:title) { 'giraffe' }
   let(:params) { { :ip => '1.2.3.4', :vdc => 'foobar' } }
 

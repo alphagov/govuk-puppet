@@ -24,18 +24,18 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
 
   @ufw::allow { 'allow-elasticsearch-http-9200-from-search-1':
     port    => 9200,
-    from    => getparam(Govuk::Host['search-1'], 'ip'),
-    require => Govuk::Host['search-1'],
+    from    => getparam(Govuk_host['search-1'], 'ip'),
+    require => Govuk_host['search-1'],
   }
   @ufw::allow { 'allow-elasticsearch-http-9200-from-search-2':
     port    => 9200,
-    from    => getparam(Govuk::Host['search-2'], 'ip'),
-    require => Govuk::Host['search-2'],
+    from    => getparam(Govuk_host['search-2'], 'ip'),
+    require => Govuk_host['search-2'],
   }
   @ufw::allow { 'allow-elasticsearch-http-9200-from-search-3':
     port    => 9200,
-    from    => getparam(Govuk::Host['search-3'], 'ip'),
-    require => Govuk::Host['search-3'],
+    from    => getparam(Govuk_host['search-3'], 'ip'),
+    require => Govuk_host['search-3'],
   }
 
   elasticsearch::plugin { 'mobz/elasticsearch-head':

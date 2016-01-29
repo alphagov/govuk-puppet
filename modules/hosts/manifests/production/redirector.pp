@@ -8,20 +8,20 @@
 #   The IP address of the bouncer vse load-balancer
 #
 # [*hosts*]
-#   Hosts used to create govuk::host resources (hostfile entries).
+#   Hosts used to create govuk_host resources (hostfile entries).
 #
 class hosts::production::redirector (
   $hosts = {},
   $ip_bouncer,
 ) {
 
-  Govuk::Host {
+  Govuk_host {
     vdc => 'redirector',
   }
 
-  govuk::host { 'bouncer-vse-lb':
+  govuk_host { 'bouncer-vse-lb':
     ip  => $ip_bouncer,
   }
 
-  create_resources('govuk::host', $hosts)
+  create_resources('govuk_host', $hosts)
 }
