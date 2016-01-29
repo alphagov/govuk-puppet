@@ -76,7 +76,7 @@ define loadbalancer::balance(
   if ! defined(File['/etc/nginx/includes/maintenance.conf']) {
     file { '/etc/nginx/includes/maintenance.conf':
       ensure  => present,
-      content => template('govuk/maintenance.conf.erb'),
+      content => template('loadbalancer/etc/nginx/includes/maintenance.conf.erb'),
       require => File['/etc/nginx/includes'],
       notify  => Class['nginx::service'],
     }
@@ -88,7 +88,7 @@ define loadbalancer::balance(
   if ! defined(File['/usr/share/nginx/html/maintenance.html']) {
     file { '/usr/share/nginx/html/maintenance.html':
       ensure  => present,
-      content => template('govuk/maintenance_page.erb'),
+      content => template('loadbalancer/usr/share/nginx/html/maintenance_page.erb'),
     }
   }
 }
