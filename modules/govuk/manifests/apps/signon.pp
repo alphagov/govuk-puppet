@@ -37,7 +37,7 @@ class govuk::apps::signon(
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/users/sign_in',
-    log_format_is_json => true,
+    legacy_logging     => false,
     vhost_aliases      => ['signonotron'],
     logstream          => $ensure_logstream,
     asset_pipeline     => true,
