@@ -1,4 +1,17 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Define: govuk::app::config
+#
+# Configure a GOV.UK application
+#
+# === Parameters
+#
+# FIXME: Document all parameters
+#
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 define govuk::app::config (
   $app_type,
   $domain,
