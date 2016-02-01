@@ -1,7 +1,7 @@
 ---
 
-govuk::apps::whitehall::nagios_memory_warning: 5368709120
-govuk::apps::whitehall::nagios_memory_cricial: 6442450944
+govuk::apps::whitehall::nagios_memory_warning: 5368
+govuk::apps::whitehall::nagios_memory_cricial: 6442
 
 lv:
   data:

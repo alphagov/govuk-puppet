@@ -238,4 +238,50 @@ describe 'govuk::app::config', :type => :define do
       end
     end
   end
+
+  context 'when setting memory alert thresholds' do
+    let(:title) { 'giraffe' }
+    let(:default_params) {{
+      :port => 8000,
+      :app_type => 'rack',
+      :domain => 'foo.bar.baz',
+      :vhost_full => 'giraffe.foo.bar.baz',
+    }}
+    let(:facts) {{
+      :hostname => 'foo',
+    }}
+
+    context 'with good params' do
+      let(:params) { default_params.merge({
+        :nagios_memory_warning => 3000,
+        :nagios_memory_critical => 4000,
+      })}
+
+      it 'not raise an error' do
+        is_expected.not_to raise_error
+      end
+    end
+
+    context 'warning param set too low' do
+      let(:params) { default_params.merge({
+        :nagios_memory_warning => 1,
+        :nagios_memory_critical => 4000,
+      })}
+
+      it 'raises an error' do
+        is_expected.to raise_error(Puppet::Error, /nagios_memory_warning_real must be specified in MB/)
+      end
+    end
+
+    context 'warning param set too high' do
+      let(:params) { default_params.merge({
+        :nagios_memory_warning => 111000,
+        :nagios_memory_critical => 4000,
+      })}
+
+      it 'raises an error' do
+        is_expected.to raise_error(Puppet::Error, /nagios_memory_warning_real must be specified in MB/)
+      end
+    end
+  end
 end
