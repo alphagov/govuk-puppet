@@ -2,15 +2,34 @@
 #
 # Configure the VPN connection to GitHub Enterprise (GHE)
 #
-class govuk_ghe_vpn {
+# === Parameters
+#
+# Document parameters here.
+#
+# [*url*]
+#   VPN endpoint to connect to
+#
+# [*username*]
+#   VPN username
+#
+# [*password*]
+#   VPN password
+#
+class govuk_ghe_vpn (
+  $url,
+  $username,
+  $password,
+) {
 
   host { 'github.gds':
     ip      => '192.168.9.110',
     comment => 'Ignore VPN DNS and set static host for GHE',
   }
 
-  # Other params come from hiera.
   class { '::openconnect':
+    url       => $url,
+    user      => $username,
+    pass      => $password,
     dnsupdate => false,
   }
 
