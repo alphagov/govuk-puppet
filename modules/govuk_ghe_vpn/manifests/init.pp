@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_ghe_vpn
+#
+# Configure the VPN connection to GitHub Enterprise (GHE)
+#
 class govuk_ghe_vpn {
 
   host { 'github.gds':
