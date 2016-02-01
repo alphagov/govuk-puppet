@@ -1,4 +1,4 @@
-# class govuk::apps::imminence
+# == Class: govuk::apps::imminence
 #
 # Imminence manages sets of (somewhat) structured data for use
 # elsewhere on GOV.UK. It's primarily used for geographical data such
@@ -10,12 +10,16 @@
 # [*port*]
 #   The port that Imminence is served on.
 #   Default: 3002
+#
 # [*enable_procfile_worker*]
 #   Whether to enable the Procfile worker.
+#
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
+#
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
