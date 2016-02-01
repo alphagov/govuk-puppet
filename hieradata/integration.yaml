@@ -218,7 +218,7 @@ hosts::production::licensify_hosts:
   licensify.integration.publishing.service.gov.uk:
     ip: '31.210.245.116'
   licensify-admin.integration.publishing.service.gov.uk:
-    ip: '31.210.245.104'
+    ip: '31.210.245.117'
 
 icinga::client::check_cputype::cputype: 'amd'
 icinga::config::enable_event_handlers: true
