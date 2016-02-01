@@ -1,9 +1,16 @@
+ # Used by Puppet Librarian
 .tmp/
 /vendor/modules/
+
 # Put "--profile" in a file called .rspec to get per-test timing results
 .rspec
+
 # Written by Cap and read by puppet_config_version
 REVISION
+
+# Used by Vagrant
 /development/.vagrant
 /development/Vagrantfile.localconfig
+
+# Used by Puppet Hiera eYAML GPG
 /gpg/random_seed
