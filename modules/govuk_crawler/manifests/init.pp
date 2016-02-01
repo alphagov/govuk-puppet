@@ -182,14 +182,11 @@ class govuk_crawler(
     }
   }
 
-  cron { 'seed-crawler':
-    ensure      => $seed_ensure,
-    user        => $crawler_user,
-    hour        => 18,
-    minute      => 0,
-    environment => ['MAILTO=""'],
-    command     => "/usr/bin/setlock -n ${seeder_lock_path} ${seeder_script_wrapper_path}",
-    require     => [File[$seeder_script_wrapper_path], Package['daemontools']],
+  file { '/etc/cron.d/seed-crawler':
+    ensure  => $seed_ensure,
+    mode    => '0755',
+    content => template('govuk_crawler/seed-crawler-wrapper-cron.erb'),
+    require => [File[$seeder_script_wrapper_path], Package['daemontools']],
   }
 
   $sync_ensure = $sync_enable ? {
