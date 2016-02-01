@@ -4,7 +4,7 @@ class monitoring::client::apt {
     source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_apt_security_updates.cfg',
   }
   @icinga::plugin { 'check_apt_security_updates':
-    ensure => absent
+    ensure => absent,
   }
   @@icinga::check { "check_apt_security_updates_${::hostname}":
     check_command              => 'check_nrpe!check_apt_security_updates!0 0',
@@ -20,6 +20,6 @@ class monitoring::client::apt {
     source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_reboot_required.cfg',
   }
   @icinga::plugin { 'check_reboot_required':
-    ensure => absent
+    ensure => absent,
   }
 }

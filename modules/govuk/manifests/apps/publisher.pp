@@ -48,7 +48,7 @@ class govuk::apps::publisher(
     location ~ /raw/(.*) {
       internal;
       alias /var/apps/publisher/reports/$1;
-    }'
+    }',
   }
 
   $service_desc = 'publisher local authority data importer error'

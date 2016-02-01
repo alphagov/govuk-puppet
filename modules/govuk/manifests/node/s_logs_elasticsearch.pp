@@ -26,7 +26,7 @@ class govuk::node::s_logs_elasticsearch(
     minimum_master_nodes => '2',
     host                 => $::fqdn,
     log_index_type_count => {
-      'logs-current' => ['syslog']
+      'logs-current' => ['syslog'],
     },
     disable_gc_alerts    => true,
     require              => [
@@ -86,7 +86,7 @@ class govuk::node::s_logs_elasticsearch(
       require => [
         Class['govuk_elasticsearch::estools'],
         File['/usr/local/bin/es-rotate-passive-check'],
-      ]
+      ],
     }
   } else {
     cron { 'elasticsearch-rotate-indices':

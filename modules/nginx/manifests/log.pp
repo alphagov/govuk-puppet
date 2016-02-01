@@ -18,7 +18,7 @@ define nginx::log (
     fields        => {'application' => $logname},
     json          => $json,
     statsd_metric => $statsd_metric,
-    statsd_timers => $statsd_timers
+    statsd_timers => $statsd_timers,
   }
 
 }

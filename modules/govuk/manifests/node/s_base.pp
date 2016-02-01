@@ -52,11 +52,11 @@ class govuk::node::s_base (
   # for rsyslogs
 
   rsyslog::snippet { 'aaa-disable-ratelimit':
-    content => '$SystemLogRateLimitInterval 0'
+    content => '$SystemLogRateLimitInterval 0',
   }
 
   rsyslog::snippet { 'aaa-disable-remote-audispd':
-    content => ':programname, isequal, "audispd"  ~'
+    content => ':programname, isequal, "audispd"  ~',
   }
 
   rsyslog::snippet { 'aaa-local3-for-govuk-apps':

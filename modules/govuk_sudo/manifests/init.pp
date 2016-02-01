@@ -15,7 +15,7 @@ class govuk_sudo ()
 
   # Configure upstream module to use the sudoers file provided by govuk_sudo
   class { 'sudo':
-    source => 'puppet:///modules/govuk_sudo/sudoers'
+    source => 'puppet:///modules/govuk_sudo/sudoers',
   }
 
   # FIXME: Remove hiera_hash and use automatic parameter lookups

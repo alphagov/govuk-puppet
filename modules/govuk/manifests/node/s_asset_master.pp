@@ -27,13 +27,11 @@ class govuk::node::s_asset_master (
 
   # daemontools provides setlock
   $cron_requires = [
-    File[
-      '/usr/local/bin/copy-attachments.sh',
-      '/usr/local/bin/process-uploaded-attachments.sh',
-      '/usr/local/bin/virus_scan.sh',
-      '/usr/local/bin/virus-scan-file.sh',
-      '/var/run/virus_scan'
-    ],
+    File['/usr/local/bin/copy-attachments.sh'],
+    File['/usr/local/bin/process-uploaded-attachments.sh'],
+    File['/usr/local/bin/virus_scan.sh'],
+    File['/usr/local/bin/virus-scan-file.sh'],
+    File['/var/run/virus_scan'],
     Package['daemontools'],
   ]
 

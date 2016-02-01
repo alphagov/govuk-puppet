@@ -20,7 +20,7 @@ class monitoring::client {
   package {'gds-nagios-plugins':
     ensure   => '1.4.0',
     provider => 'pip',
-    require  => Package['update-notifier-common']
+    require  => Package['update-notifier-common'],
   }
 
   class { 'statsd':

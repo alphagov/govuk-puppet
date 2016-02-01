@@ -5,7 +5,7 @@ class licensify::apps::licensing_web_forms( $port = 9450, $enabled = false ) inh
       ensure            => absent,
       app_type          => 'procfile',
       port              => $port,
-      health_check_path => '/'
+      health_check_path => '/',
     }
   }
 }

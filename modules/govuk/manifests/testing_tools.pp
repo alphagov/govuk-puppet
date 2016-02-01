@@ -5,7 +5,7 @@ class govuk::testing_tools {
   package { [
     'qt4-qmake',     # needed for capybara-webkit
     'qt4-dev-tools', #    "            "
-    'xvfb'
+    'xvfb',
     ]:
     ensure => installed;
   }
@@ -21,7 +21,7 @@ class govuk::testing_tools {
     require  => [
       Package['xvfb'],
       File['/etc/init/xvfb.conf'],
-    ]
+    ],
   }
 
 }

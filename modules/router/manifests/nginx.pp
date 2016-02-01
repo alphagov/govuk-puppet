@@ -64,11 +64,11 @@ class router::nginx (
   $app_domain = hiera('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
-    certtype => 'wildcard_alphagov'
+    certtype => 'wildcard_alphagov',
   }
 
   nginx::config::ssl { 'www.gov.uk':
-    certtype => 'www'
+    certtype => 'www',
   }
 
   nginx::conf { 'rate-limiting':

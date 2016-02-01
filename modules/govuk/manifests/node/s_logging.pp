@@ -64,7 +64,7 @@ class govuk::node::s_logging (
     pattern   => [ '<%{POSINT:syslog_pri}>%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{PROG:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}' ],
     add_field => {
       'received_at'   => '%{@timestamp}',
-      'received_from' => '%{@source_host}'
+      'received_from' => '%{@source_host}',
     },
     order     => '11',
   }
@@ -84,7 +84,7 @@ class govuk::node::s_logging (
     exclude_tags => [ '_grokparsefailure' ],
     replace      => {
       '@source_host' => '%{syslog_hostname}',
-      '@message'     => '%{syslog_message}'
+      '@message'     => '%{syslog_message}',
     },
   }
   logstash::filter::mutate {'syslog-2':

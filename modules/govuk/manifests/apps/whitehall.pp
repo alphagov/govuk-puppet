@@ -56,7 +56,7 @@ class govuk::apps::whitehall(
         proxy_set_header Host 'whitehall-admin.${app_domain}';
         proxy_pass https://whitehall-admin.${app_domain};
       }
-      "
+      ",
     }
   }
 
@@ -147,7 +147,7 @@ class govuk::apps::whitehall(
       location /healthcheck/overdue {
         try_files $uri @app;
       }
-    '
+    ',
     }
 
     govuk::logstream { 'whitehall_scheduled_publishing_json_log':

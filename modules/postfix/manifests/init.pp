@@ -48,7 +48,7 @@ class postfix (
   }
   class { 'postfix::service': }
   anchor { 'postfix::end':
-    require => Class['postfix::service']
+    require => Class['postfix::service'],
   }
 
 }

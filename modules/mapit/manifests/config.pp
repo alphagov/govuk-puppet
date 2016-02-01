@@ -20,7 +20,7 @@ class mapit::config (
     require =>  [
                   User['mapit'],
                   Exec['unzip_mapit'],
-                ]
+                ],
   }
 
   file { '/data/vhost/mapit/mapit/conf/general.yml':
@@ -29,6 +29,6 @@ class mapit::config (
     require =>  [
                   User['mapit'],
                   Exec['unzip_mapit'],
-                ]
+                ],
   }
 }

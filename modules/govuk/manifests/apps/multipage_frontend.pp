@@ -33,7 +33,7 @@ class govuk::apps::multipage_frontend(
   }
 
   Govuk::App::Envvar {
-    app    => 'multipage-frontend'
+    app    => 'multipage-frontend',
   }
 
   govuk::app::envvar {

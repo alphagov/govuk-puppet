@@ -4,9 +4,9 @@ class icinga::client::package {
   package { [
     'nagios-plugins-basic',
     'nagios-plugins-standard',
-    'nagios-nrpe-server'
+    'nagios-nrpe-server',
   ]:
-    ensure => present
+    ensure => present,
   }
 
 }

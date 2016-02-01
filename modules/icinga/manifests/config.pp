@@ -83,7 +83,7 @@ class icinga::config (
   }
 
   file { '/etc/nagios-plugins/config/check_nrpe.cfg':
-    source => 'puppet:///modules/icinga/etc/nagios-plugins/config/check_nrpe.cfg'
+    source => 'puppet:///modules/icinga/etc/nagios-plugins/config/check_nrpe.cfg',
   }
 
   user { 'www-data':

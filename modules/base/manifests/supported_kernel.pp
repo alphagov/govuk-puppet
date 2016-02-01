@@ -27,8 +27,9 @@ class base::supported_kernel (
       if ($latest_lts_supported != 'none') {
         ensure_packages([
                 "linux-generic-lts-${latest_lts_supported}",
-                "linux-image-generic-lts-${latest_lts_supported}"
+                "linux-image-generic-lts-${latest_lts_supported}",
             ])
+
         @@icinga::check { "check_supported_kernel_${::hostname}":
             check_command       => 'check_nrpe_1arg!check_supported_kernel',
             service_description => 'machine is not running a supported kernel',
