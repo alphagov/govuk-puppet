@@ -4,6 +4,6 @@
 .rspec
 # Written by Cap and read by puppet_config_version
 REVISION
-.vagrant
+/development/.vagrant
 /development/Vagrantfile.localconfig
 /gpg/random_seed
