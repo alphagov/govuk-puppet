@@ -153,6 +153,11 @@ govuk::apps::backdrop_read::enabled: true
 govuk::apps::backdrop_write::enabled: true
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
+govuk::apps::bouncer::nagios_memory_warning: 4294967296
+govuk::apps::bouncer::nagios_memory_cricial: 6442450944
+
+govuk::apps::contentapi::nagios_memory_warning: 3000000000
+govuk::apps::contentapi::nagios_memory_cricial: 3500000000
 
 govuk::apps::content_register::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_register::rabbitmq_hosts:
@@ -255,6 +260,10 @@ govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 
 govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::apps::tariff::nagios_memory_warning: 2800000000
+
+govuk::apps::tariff_api::nagios_memory_warning: 2684354560
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 

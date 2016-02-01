@@ -20,12 +20,20 @@
 # [*db_name*]
 #   The database name to use in DATABASE_URL.
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::bouncer(
   $db_username = 'bouncer',
   $db_password = '',
   $db_hostname = '',
   $db_name = 'transition_production',
   $port = '3049',
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
 
   govuk::app { 'bouncer':
@@ -36,9 +44,8 @@ class govuk::apps::bouncer(
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
     enable_nginx_vhost     => false,
-    # The limits below are 4*2^30 (4GB) and 6*2^30 (6GB) respectively
-    nagios_memory_warning  => 4 << 30,
-    nagios_memory_critical => 6 << 30,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
 
   include govuk_postgresql::client

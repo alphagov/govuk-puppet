@@ -19,12 +19,20 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::imminence(
   $port = '3002',
   $enable_procfile_worker = true,
   $mongodb_nodes = undef,
   $mongodb_name = 'imminence_production',
   $secret_key_base = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
 
   $app_name = 'imminence'
@@ -34,12 +42,14 @@ class govuk::apps::imminence(
   }
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    vhost_ssl_only     => true,
-    health_check_path  => '/',
-    log_format_is_json => true,
-    asset_pipeline     => true,
+    app_type               => 'rack',
+    port                   => $port,
+    vhost_ssl_only         => true,
+    health_check_path      => '/',
+    log_format_is_json     => true,
+    asset_pipeline         => true,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
 
   if $secret_key_base {

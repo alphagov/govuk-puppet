@@ -1,5 +1,8 @@
 ---
 
+govuk::apps::whitehall::nagios_memory_warning: 10737418240
+govuk::apps::whitehall::nagios_memory_cricial: 12884901888
+
 govuk::safe_to_reboot::can_reboot: 'overnight'
 govuk::safe_to_reboot::reason: 'Whitehall application is slow to start, recommend rebooting a single node at a time'
 

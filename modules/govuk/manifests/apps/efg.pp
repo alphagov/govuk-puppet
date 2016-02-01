@@ -10,17 +10,27 @@
 # [*vhost_name*]
 #   External domain name that EFG should be available on
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::efg (
   $port = '3019',
   $vhost_name,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
   validate_string($vhost_name)
 
   govuk::app { 'efg':
-    app_type           => 'rack',
-    port               => $port,
-    enable_nginx_vhost => false,
-    health_check_path  => '/healthcheck',
+    app_type               => 'rack',
+    port                   => $port,
+    enable_nginx_vhost     => false,
+    health_check_path      => '/healthcheck',
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
 
   govuk::app::envvar { 'EFG_HOST':
