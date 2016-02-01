@@ -606,6 +606,10 @@ hosts::production::frontend::hosts:
     ip: '10.1.2.2'
   frontend-2:
     ip: '10.1.2.3'
+  draft-email-campaign-frontend-1:
+    ip: '10.1.2.202'
+  draft-email-campaign-frontend-2:
+    ip: '10.1.2.203'
   draft-frontend-1:
     ip: '10.1.2.200'
   draft-frontend-2:
