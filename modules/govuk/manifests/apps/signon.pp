@@ -1,4 +1,4 @@
-# govuk::apps::signon
+# == Class: govuk::apps::signon
 #
 # The GOV.UK Signon application -- single sign-on service for GOV.UK
 #
