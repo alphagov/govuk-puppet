@@ -6,7 +6,7 @@ Vagrant node definitions for GOV.UK
 
 You will need access to the repos:
 
-- [`govuk-puppet`](https://github.com/alphagov/govuk-puppet) obviously
+- [`govuk-puppet`](https://github.com/alphagov/govuk-puppet) for configuration management of the nodes
 - `govuk-provisioning` for node definitions
 
 ## Setup
