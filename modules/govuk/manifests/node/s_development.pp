@@ -30,8 +30,6 @@ class govuk::node::s_development (
   include govuk::python
   include govuk::testing_tools
 
-  include govuk_rbenv::all
-
   include router::assets_origin
 
   $app_classes = regsubst($apps, '^', 'govuk::apps::')

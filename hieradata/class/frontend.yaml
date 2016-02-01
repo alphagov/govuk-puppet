@@ -26,6 +26,8 @@ govuk::node::s_base::apps:
   - specialist_frontend
   - static
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   data:
     pv: '/dev/sdb1'

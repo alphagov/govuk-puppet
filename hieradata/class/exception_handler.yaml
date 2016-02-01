@@ -3,6 +3,8 @@
 govuk::node::s_base::apps:
   - errbit
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   mongodb:
     pv:

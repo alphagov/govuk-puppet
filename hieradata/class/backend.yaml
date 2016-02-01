@@ -53,6 +53,8 @@ govuk_elasticsearch::local_proxy::servers:
   - 'elasticsearch-2.backend'
   - 'elasticsearch-3.backend'
 
+govuk_rbenv::rubies: 'all'
+
 lv:
   data:
     pv: '/dev/sdb1'
