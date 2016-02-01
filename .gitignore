@@ -1,14 +1,5 @@
-*~
-.#*
-\#*
-.idea
-.project
 .tmp/
-/.bundle/
-/.gems/
-/build/
 /vendor/modules/
-.DS_Store
 # Put "--profile" in a file called .rspec to get per-test timing results
 .rspec
 # Written by Cap and read by puppet_config_version
