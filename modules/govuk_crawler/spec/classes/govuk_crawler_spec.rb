@@ -26,7 +26,7 @@ describe 'govuk_crawler', :type => :class do
 
   describe "seed_enable" do
     context "false (default)" do
-      it { is_expected.to contain_cron('seed-crawler').with_ensure('absent') }
+      it { is_expected.to contain_file('/etc/cron.d/seed-crawler').with_ensure('absent') }
     end
 
     context "true" do
@@ -36,7 +36,7 @@ describe 'govuk_crawler', :type => :class do
         })
       }
 
-      it { is_expected.to contain_cron('seed-crawler').with_ensure('present') }
+      it { is_expected.to contain_file('/etc/cron.d/seed-crawler').with_ensure('present') }
     end
   end
 
