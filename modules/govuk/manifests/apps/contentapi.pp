@@ -2,6 +2,8 @@
 #
 # Configure the contentapi application - https://github.com/alphagov/govuk_content_api
 #
+# === Parameters
+#
 # [*port*]
 #   The port that the app is served on.
 #   Default: 3022
