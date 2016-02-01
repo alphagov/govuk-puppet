@@ -1,6 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::tagalog
+#
+# Install tagalog, which provides logship, used by govuk::logstream
+#
 class govuk::tagalog {
-  # tagalog provides logship, used by govuk::logstream
   package { 'tagalog':
     ensure   => '0.4.0',
     provider => 'pip',
