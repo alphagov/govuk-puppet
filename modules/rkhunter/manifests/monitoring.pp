@@ -52,8 +52,8 @@ class rkhunter::monitoring {
   @@icinga::passive_check { "check_rkhunter_${::hostname}":
     service_description => 'rkhunter warnings',
     host_name           => $::fqdn,
-    # 86400 seconds in a day, so 90000 seconds in 25 hours (cron should run daily)
-    freshness_threshold => 90000,
+    # 26 hours (cron should run daily, with some leeway)
+    freshness_threshold => 93600,
     notes_url           => monitoring_docs_url(rkhunter-warnings),
     require             => File['/etc/cron.daily/rkhunter-passive-check'],
   }
