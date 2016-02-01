@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_whitehall_frontend
+#
+# Configures a frontend server for the Whitehall application
+#
 class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
   include govuk::node::s_app_server
   include nginx
