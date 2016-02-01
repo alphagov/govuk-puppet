@@ -8,6 +8,7 @@ backup::mysql::rotation_monthly: '28'
 base::supported_kernel::enabled: true
 
 cron::weekly_dow: 1
+cron::daily_hour: 6
 
 govuk::apps::email_alert_monitor::enabled: true
 govuk::apps::email_campaign_api::enable_procfile_worker: true
