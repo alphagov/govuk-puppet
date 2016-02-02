@@ -11,7 +11,9 @@ govuk_postgresql::server::primary::slave_addresses:
 
 lv:
   postgresql:
-    pv: '/dev/sdb1'
+    pv:
+      - '/dev/sdb1'
+      - '/dev/sdd1'
     vg: 'backups'
   data:
     pv: '/dev/sdc1'
