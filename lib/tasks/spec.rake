@@ -25,7 +25,6 @@ namespace :spec do
       postgresql_base
       redis_base
       ruby_app_server
-      test
       transition_postgresql_base
     )
 
