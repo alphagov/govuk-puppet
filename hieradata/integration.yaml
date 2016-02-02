@@ -72,6 +72,7 @@ govuk_jenkins::config::admins:
   - matmoore
   - mattbostock
   - matteograssotti
+  - mobaig
   - murraysteele
   - paulbowsher
   - paulhayes
@@ -82,6 +83,7 @@ govuk_jenkins::config::admins:
   - stevelaing
   - stuartgale
   - tatianasoukiassian
+  - tijmenbrommet
   - tombooth
   - tommypalmer
 
