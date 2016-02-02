@@ -6,12 +6,12 @@ function send_nsca {
     # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
     if [ -z ${CODE+x} ]; then
         CODE=3
-        OUTPUT="UNKNOWN: seeder-wrapper-script exited before seeder returned an exit code"
+        OUTPUT="UNKNOWN: seed-crawler-wrapper-script exited before seeder returned an exit code"
     fi
     # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
     if [ -z ${OUTPUT+x} ]; then
         CODE=3
-        OUTPUT="UNKNOWN: seeder-wrapper exited before setting OUTPUT - this should never happen"
+        OUTPUT="UNKNOWN: seed-crawler-wrapper exited before setting OUTPUT - this should never happen"
     fi
     printf "<%= @ipaddress %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
     exit $?
@@ -21,6 +21,9 @@ trap send_nsca EXIT
 export GOVUK_CRAWLER_AMQP_PASS='<%= @amqp_pass %>'
 
 OUTPUT=`<%= @seeder_script_path %> <%= @seeder_script_args %>`
+
+logger -p local3.info -t seed-crawler-wrapper "$OUTPUT"
+
 CODE=$?
 if [ "$OUTPUT" == "" ]; then
   OUTPUT="Seeder script exited with no output"
