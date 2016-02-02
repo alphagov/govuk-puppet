@@ -67,6 +67,7 @@ govuk_jenkins::config::admins:
   - jakebenilov
   - jamiecobbett
   - jennyduckett
+  - leelongmore
   - leenagupte
   - mathildathompson
   - matmoore
@@ -265,6 +266,7 @@ users::usernames:
   - jackscotti
   - jamiec
   - jennyduckett
+  - leelongmore
   - leenagupte
   - mathildathompson
   - matmoore
