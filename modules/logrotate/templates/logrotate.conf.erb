@@ -1,4 +1,7 @@
 <%= @matches %> {
+  <%- if @user && @group -%>
+  su <%= @user -%> <%= @group -%>
+  <%- end -%>
   daily
   missingok
   rotate <%= @days_to_keep %>
