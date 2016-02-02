@@ -4,7 +4,7 @@
   rotate 28
   compress
   delaycompress
-  notifempty
+  ifempty
   create 0640 www-data adm
   sharedscripts
   prerotate
