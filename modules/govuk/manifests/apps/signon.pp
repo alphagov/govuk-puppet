@@ -22,15 +22,9 @@ class govuk::apps::signon(
   $port = '3016',
   $enable_procfile_worker = true,
   $devise_secret_key = undef,
-  $enable_logstream = false,
   $redis_url = undef,
 ) {
   $app_name = 'signon'
-
-  $ensure_logstream = $enable_logstream ? {
-    true  => 'present',
-    false => 'absent'
-  }
 
   govuk::app { $app_name:
     app_type           => 'rack',
@@ -39,7 +33,6 @@ class govuk::apps::signon(
     health_check_path  => '/users/sign_in',
     legacy_logging     => false,
     vhost_aliases      => ['signonotron'],
-    logstream          => $ensure_logstream,
     asset_pipeline     => true,
     deny_framing       => true,
   }
