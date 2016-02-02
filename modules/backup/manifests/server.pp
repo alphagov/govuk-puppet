@@ -10,8 +10,13 @@
 #
 #   Default: ''
 #
+# [*backup_hour*]
+#   Specify when a backup should occur.
+#   Default: 7am
+#
 class backup::server (
   $backup_private_key = '',
+  $backup_hour = 7,
 ) {
 
   include backup::client
@@ -44,7 +49,7 @@ class backup::server (
   cron { 'cron_govuk-backup_daily':
     command => 'run-parts /etc/backup',
     user    => 'govuk-backup',
-    hour    => '7',
+    hour    => $backup_hour,
     minute  => '0',
   }
 
