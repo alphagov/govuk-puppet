@@ -12,10 +12,20 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*errbit_api_key*]
+#   Errbit API key for sending errors.
+#   Default: undef
+#
+# [*errbit_host*]
+#   Errbit server hostname
+#   Default: undef
+#
 
 class govuk::apps::share_sale_publisher(
   $port = 3119,
   $enabled = false,
+  $errbit_api_key = undef,
+  $errbit_host = undef,
   $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'share-sale-publisher'
@@ -34,10 +44,16 @@ class govuk::apps::share_sale_publisher(
       app => $app_name,
     }
 
-    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token,
+    govuk::app::envvar {
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
+      "${title}-ERRBIT_HOST":
+        varname => 'ERRBIT_HOST',
+        value   => $errbit_host,
     }
   }
 }
-
