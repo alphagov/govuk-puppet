@@ -210,11 +210,15 @@ define govuk::app::config (
   @logrotate::conf { "govuk-${title}":
     ensure  => $ensure,
     matches => "/var/log/${title}/*.log",
+    user    => 'deploy',
+    group   => 'deploy',
   }
 
   @logrotate::conf { "govuk-${title}-rack":
     ensure  => $ensure,
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
+    user    => 'deploy',
+    group   => 'deploy',
   }
 
   if $health_check_path != 'NOTSET' {
