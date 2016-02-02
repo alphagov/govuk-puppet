@@ -73,6 +73,14 @@
             "last_success": {
               "type": "date",
               "include_in_all": false
+            },
+            "path": {
+              "type": "string",
+              "copy_to": "@fields.path_exact"
+            },
+            "path_exact": {
+              "index": "not_analyzed",
+              "type": "string"
             }
           },
           "type": "object"
