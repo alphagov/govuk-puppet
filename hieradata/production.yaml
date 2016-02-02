@@ -452,6 +452,10 @@ hosts::production::frontend::hosts:
     ip: '10.3.2.3'
   frontend-3:
     ip: '10.3.2.4'
+  draft-email-campaign-frontend-1:
+    ip: '10.3.2.202'
+  draft-email-campaign-frontend-2:
+    ip: '10.3.2.203'
   draft-frontend-1:
     ip: '10.3.2.200'
   draft-frontend-2:
