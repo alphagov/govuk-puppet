@@ -27,14 +27,14 @@ class govuk::apps::signon(
   $app_name = 'signon'
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    vhost_ssl_only     => true,
-    health_check_path  => '/users/sign_in',
-    legacy_logging     => false,
-    vhost_aliases      => ['signonotron'],
-    asset_pipeline     => true,
-    deny_framing       => true,
+    app_type          => 'rack',
+    port              => $port,
+    vhost_ssl_only    => true,
+    health_check_path => '/users/sign_in',
+    legacy_logging    => false,
+    vhost_aliases     => ['signonotron'],
+    asset_pipeline    => true,
+    deny_framing      => true,
   }
 
   Govuk::App::Envvar {
