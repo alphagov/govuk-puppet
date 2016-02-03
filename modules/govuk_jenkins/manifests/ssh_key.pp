@@ -55,7 +55,7 @@ class govuk_jenkins::ssh_key (
   }
 
   package { 'keychain':
-    ensure => 'installed'
+    ensure => 'installed',
   }
 
   file { "${home_dir}/.profile":

@@ -74,7 +74,7 @@ class backup::assets(
   sshkey { $dest_host :
     ensure => present,
     type   => 'ssh-rsa',
-    key    => $dest_host_key
+    key    => $dest_host_key,
   }
 
   create_resources('backup::offsite::job', $jobs, {

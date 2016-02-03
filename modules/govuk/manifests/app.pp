@@ -388,7 +388,7 @@ define govuk::app (
                           {metric => "${statsd_timer_prefix}.time_db",
                             value => '@fields.db'},
                           {metric => "${statsd_timer_prefix}.time_view",
-                            value => '@fields.view'}]
+                            value => '@fields.view'}],
       }
     }
 
@@ -405,7 +405,7 @@ define govuk::app (
                         {metric => "${statsd_timer_prefix}.time_db",
                           value => '@fields.db'},
                         {metric => "${statsd_timer_prefix}.time_view",
-                          value => '@fields.view'}]
+                          value => '@fields.view'}],
     }
 
     govuk::logstream { "${title}-app-err":

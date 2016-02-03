@@ -34,7 +34,7 @@ class govuk_rabbitmq (
   # Added here: https://github.com/puppetlabs/puppetlabs-rabbitmq/pull/193
   rabbitmq_user { $monitoring_user:
     admin    => true,
-    password => $monitoring_password
+    password => $monitoring_password,
   }
 
   rabbitmq_user_permissions { "${monitoring_user}@${root_vhost}":
@@ -55,10 +55,10 @@ class govuk_rabbitmq (
     unless  => "rabbitmqctl list_policies | grep -qE '^${root_vhost}\\s+${ha_name}\\s+${pattern}\\s+${definition}\\s+0$'",
     path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
     require => Class['rabbitmq::service'],
-    before  => Anchor['rabbitmq::end']
+    before  => Anchor['rabbitmq::end'],
   }
 
   class { 'collectd::plugin::rabbitmq':
-    monitoring_password => $monitoring_password
+    monitoring_password => $monitoring_password,
   }
 }

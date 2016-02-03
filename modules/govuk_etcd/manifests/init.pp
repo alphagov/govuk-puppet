@@ -26,7 +26,7 @@ class govuk_etcd ($peers) {
   include govuk_etcd::monitoring
 
   class { 'etcd':
-    peers => $actual_peers
+    peers => $actual_peers,
   }
 
   govuk::logstream { 'etcd-logstream':

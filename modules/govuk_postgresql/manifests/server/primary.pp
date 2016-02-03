@@ -57,7 +57,7 @@ class govuk_postgresql::server::primary (
     'auth_method' => $auth_method,
     'database' => $database,
     'type' => $type,
-    'user' => $user
+    'user' => $user,
   }
 
   create_resources('postgresql::server::pg_hba_rule', $slave_addresses, $pg_hba_defaults)

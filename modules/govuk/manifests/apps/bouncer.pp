@@ -50,7 +50,7 @@ class govuk::apps::bouncer(
     vhost            => "bouncer.${app_domain}",
     app_port         => $port,
     ssl_only         => false,
-    is_default_vhost => true
+    is_default_vhost => true,
   }
 
   govuk::apps::bouncer::vhost { 'businesslink':
@@ -85,7 +85,7 @@ class govuk::apps::bouncer(
       # Serve the businesslink masthead image for requests like:
       #   /lrc/lrcHeader?type=logo&xgovs9k=voa&xgovr3h=r2010
       '/lrc/lrcHeader' => 'try_files /xgovsnl/images/ecawater/wtlproducts/bl1000/logo_nonjava.jpg @app',
-    }
+    },
   }
 
   govuk::apps::bouncer::vhost { 'businesslink_ukwelcomes':
@@ -106,7 +106,7 @@ class govuk::apps::bouncer(
       # We are working on getting each of the ~150 local councils to use the GOV.UK
       # URL directly, but this will take time.
       '/eff/action/worldPayCallback' => 'proxy_pass https://www.gov.uk/apply-for-a-licence/payment/worldpayCallback',
-    }
+    },
   }
 
   govuk::apps::bouncer::vhost { 'directgov':

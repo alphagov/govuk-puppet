@@ -127,7 +127,7 @@ class govuk_crawler(
   package { 'govuk_mirrorer':
       ensure   => '1.3.2',
       provider => system_gem,
-      notify   => Package['govuk_seed_crawler']
+      notify   => Package['govuk_seed_crawler'],
   }
   # END TODO
 
@@ -200,7 +200,7 @@ class govuk_crawler(
     minute      => '0',
     environment => 'MAILTO=""',
     command     => "/usr/bin/setlock -n ${sync_lock_path} ${sync_script_path}",
-    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['daemontools']]
+    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['daemontools']],
   }
 
   file { $sync_error_dir:

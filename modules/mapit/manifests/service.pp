@@ -10,6 +10,6 @@ class mapit::service {
       require   =>  [
                       File['/etc/init/mapit.conf'],
                       Exec['unzip_mapit']
-                    ]
+                    ],
   }
 }

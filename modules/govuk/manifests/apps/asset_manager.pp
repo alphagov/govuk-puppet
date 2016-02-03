@@ -67,7 +67,7 @@ class govuk::apps::asset_manager(
       location ~ /raw/(.*) {
         internal;
         alias /var/apps/asset-manager/uploads/assets/$1;
-      }'
+      }',
     }
 
     if $secret_key_base {

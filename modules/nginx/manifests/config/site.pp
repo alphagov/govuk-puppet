@@ -33,7 +33,7 @@ define nginx::config::site(
     ensure  => $ensure_link,
     target  => "/etc/nginx/sites-available/${title}",
     require => [Class['nginx::package'], File["/etc/nginx/sites-available/${title}"]],
-    notify  => Class['nginx::service']
+    notify  => Class['nginx::service'],
   }
 
 }

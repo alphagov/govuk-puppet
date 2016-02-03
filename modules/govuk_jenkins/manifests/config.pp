@@ -82,7 +82,7 @@ class govuk_jenkins::config (
       require => File['/var/lib/jenkins'],
       owner   => 'jenkins',
       group   => 'jenkins',
-      notify  => Service['jenkins']
+      notify  => Service['jenkins'],
     }
   }
 }

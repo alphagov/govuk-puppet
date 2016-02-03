@@ -78,7 +78,7 @@ define loadbalancer::balance(
       ensure  => present,
       content => template('govuk/maintenance.conf.erb'),
       require => File['/etc/nginx/includes'],
-      notify  => Class['nginx::service']
+      notify  => Class['nginx::service'],
     }
   }
 

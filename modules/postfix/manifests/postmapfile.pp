@@ -11,7 +11,7 @@ define postfix::postmapfile($name) {
                 ensure  => present,
                 mode    => '0644',
                 content => template("postfix/etc/postfix/${name}.erb"),
-                notify  => Exec["postmap_${name}"]
+                notify  => Exec["postmap_${name}"],
         }
 }
 

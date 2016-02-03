@@ -3,7 +3,7 @@ class puppet::master::config ($unicorn_port = '9090') {
 
   file { '/etc/puppet/config.ru':
     require => Exec['install rack 1.0.1'],
-    source  => 'puppet:///modules/puppet/etc/puppet/config.ru'
+    source  => 'puppet:///modules/puppet/etc/puppet/config.ru',
   }
 
 
@@ -14,7 +14,7 @@ class puppet::master::config ($unicorn_port = '9090') {
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
   }
   file {'/etc/puppet/routes.yaml':
-    source => 'puppet:///modules/puppet/etc/puppet/routes.yaml'
+    source => 'puppet:///modules/puppet/etc/puppet/routes.yaml',
   }
   file { '/usr/local/bin/puppet_config_version':
     ensure => present,
@@ -39,7 +39,7 @@ class puppet::master::config ($unicorn_port = '9090') {
   # https://tickets.puppetlabs.com/browse/PUP-1033
   file { [
     '/var/lib/puppet/lib/puppet/type',
-    '/var/lib/puppet/lib/puppet/parser'
+    '/var/lib/puppet/lib/puppet/parser',
     ]:
     ensure  => undef,
     owner   => undef,

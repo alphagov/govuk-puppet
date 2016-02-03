@@ -70,7 +70,7 @@ define govuk::app::config (
   unless $ensure == 'absent' {
     # This sets the default app and ensure for this resource type in the current scope
     Govuk::App::Envvar {
-      app    => $title
+      app    => $title,
     }
 
     # Used more than once in this class.

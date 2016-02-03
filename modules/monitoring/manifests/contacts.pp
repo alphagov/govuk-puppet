@@ -124,10 +124,10 @@ class monitoring::contacts (
       $graphite_members,
       $slack_members,
       $pager_members,
-    ])
+    ]),
   }
   icinga::service_template { 'govuk_urgent_priority':
-    contact_groups => ['urgent-priority']
+    contact_groups => ['urgent-priority'],
   }
 
   # High
@@ -136,10 +136,10 @@ class monitoring::contacts (
     members     => flatten([
       $graphite_members,
       $slack_members,
-    ])
+    ]),
   }
   icinga::service_template { 'govuk_high_priority':
-    contact_groups => ['high-priority']
+    contact_groups => ['high-priority'],
   }
 
   # Normal
@@ -148,10 +148,10 @@ class monitoring::contacts (
     members     => flatten([
       $graphite_members,
       $slack_members,
-    ])
+    ]),
   }
   icinga::service_template { 'govuk_normal_priority':
-    contact_groups => ['normal-priority']
+    contact_groups => ['normal-priority'],
   }
 
   # Regular
@@ -160,13 +160,13 @@ class monitoring::contacts (
     members     => flatten([
       $graphite_members,
       $slack_members,
-    ])
+    ]),
   }
   icinga::service_template { [
     'govuk_regular_service',
     'govuk_low_priority',
     'govuk_unprio_priority',
   ]:
-    contact_groups => ['regular']
+    contact_groups => ['regular'],
   }
 }

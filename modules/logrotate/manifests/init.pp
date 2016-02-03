@@ -4,7 +4,7 @@
 #
 class logrotate {
   package { 'logrotate':
-    ensure => installed
+    ensure => installed,
   }
 
   Logrotate::Conf <| |>

@@ -35,7 +35,7 @@ class router::gor (
       '-input-raw'          => 'localhost:7999',
       '-output-http'        => prefix(keys($replay_targets), 'https://'),
       '-output-http-method' => [
-        'GET', 'HEAD', 'OPTIONS'
+        'GET', 'HEAD', 'OPTIONS',
       ],
     },
     enable => $enabled,

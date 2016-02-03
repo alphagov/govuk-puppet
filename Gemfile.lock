@@ -68,6 +68,8 @@ GEM
       json_pure
       rgen (~> 0.6.5)
     puppet-lint (1.0.1)
+    puppet-lint-trailing_comma-check (0.3.1)
+      puppet-lint (~> 1.0)
     puppet-syntax (2.1.0)
       rake
     puppet_forge (1.0.3)
@@ -118,6 +120,7 @@ DEPENDENCIES
   parallel_tests
   puppet (~> 3.6.0)
   puppet-lint
+  puppet-lint-trailing_comma-check
   puppet-syntax (= 2.1.0)
   puppetlabs_spec_helper (= 1.0.1)
   rake

@@ -38,7 +38,7 @@ class monitoring::checks::ses (
 
     icinga::plugin { 'check_aws_quota':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
-        require => Package['boto']
+        require => Package['boto'],
     }
 
     icinga::check_config { 'check_aws_quota':

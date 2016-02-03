@@ -24,7 +24,7 @@ class puppet::master::package(
 
   exec {'install rack 1.0.1':
     command => 'gem install rack --no-rdoc --no-ri --version 1.0.1',
-    unless  => 'gem list | grep "rack.*1.0.1"'
+    unless  => 'gem list | grep "rack.*1.0.1"',
   }
 
   package { 'puppetdb-terminus':
