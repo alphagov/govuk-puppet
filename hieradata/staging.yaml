@@ -111,6 +111,9 @@ govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
   - 'calculators-frontend-2.frontend'
   - 'calculators-frontend-3.frontend'
+govuk::node::s_frontend_lb::draft_email_campaign_frontend_servers:
+  - 'draft-email-campaign-frontend-1.frontend'
+  - 'draft-email-campaign-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'
@@ -363,6 +366,10 @@ hosts::production::frontend::hosts:
     ip: '10.2.2.3'
   frontend-3:
     ip: '10.2.2.4'
+  draft-email-campaign-frontend-1:
+    ip: '10.2.2.202'
+  draft-email-campaign-frontend-2:
+    ip: '10.2.2.203'
   draft-frontend-1:
     ip: '10.2.2.200'
   draft-frontend-2:

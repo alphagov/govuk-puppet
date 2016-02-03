@@ -175,6 +175,9 @@ govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
   - 'calculators-frontend-2.frontend'
+govuk::node::s_frontend_lb::draft_email_campaign_frontend_servers:
+  - 'draft-email-campaign-frontend-1.frontend'
+  - 'draft-email-campaign-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'
