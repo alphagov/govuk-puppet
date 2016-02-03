@@ -25,7 +25,6 @@ class govuk::node::s_backend_lb (
       'contacts-admin',
       'content-register',
       'content-tagger',
-      'email-alert-monitor',
       'hmrc-manuals-api',
       'imminence',
       'maslow',

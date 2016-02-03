@@ -175,8 +175,6 @@ govuk::apps::email_campaign_api::mongodb_nodes:
   - 'email-campaign-mongo-2.api'
   - 'email-campaign-mongo-3.api'
 
-govuk::apps::email_alert_monitor::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
@@ -567,7 +565,6 @@ hosts::production::backend::app_hostnames:
   - 'content-register'
   - 'contentapi'
   - 'email-alert-api'
-  - 'email-alert-monitor'
   - 'errbit'
   - 'event-store'
   - 'govuk-delivery'
