@@ -150,7 +150,7 @@ class govuk::node::s_development (
 
   package {
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
-    'wbritish-small': ensure => installed;
+    'wbritish-small': ensure => purged; # FIXME: Remove once purged from most dev VMs
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
     'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
   }
