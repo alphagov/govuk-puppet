@@ -7,10 +7,10 @@ class golang {
   include govuk::ppa
 
   class { 'goenv':
-    global_version => '1.5.1',
+    global_version => '1.5.3',
     require        => Class['govuk::ppa'],
   }
-  goenv::version { ['1.3.3', '1.4.2', '1.4.3', '1.5.1']: }
+  goenv::version { ['1.3.3', '1.4.2', '1.4.3', '1.5.1', '1.5.3']: }
 
   # FIXME: Remove once cleaned up everywhere.
   goenv::version { ['1.2.2', '1.3.1', '1.4.1']:
