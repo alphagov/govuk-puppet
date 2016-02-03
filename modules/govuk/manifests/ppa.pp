@@ -27,7 +27,7 @@ class govuk::ppa (
     apt::source { 'govuk-ppa':
       location     => "http://${apt_mirror_hostname}/govuk/ppa/${path}",
       architecture => $::architecture,
-      key          => '37E3ACBB',
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
     }
   } else {
     apt::ppa { 'ppa:gds/govuk': }

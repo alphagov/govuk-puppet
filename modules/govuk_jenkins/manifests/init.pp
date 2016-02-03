@@ -96,7 +96,7 @@ class govuk_jenkins (
     location     => "http://${apt_mirror_hostname}/jenkins",
     release      => 'binary',
     architecture => $::architecture,
-    key          => '37E3ACBB',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
   class { 'jenkins':
