@@ -19,7 +19,6 @@ govuk::node::s_base::apps:
   - content_tagger
   - contentapi
   - email_alert_api
-  - email_alert_monitor
   - email_alert_service
   - event_store
   - frontend
