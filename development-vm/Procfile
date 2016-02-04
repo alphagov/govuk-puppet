@@ -88,7 +88,7 @@ government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../governm
 # courts-api used to use port 3092, but is no longer running in any environment
 publishing-api:        govuk_setenv publishing-api        ./run_in.sh ../publishing-api bundle exec rails s -p 3093
 publishing-api-worker: govuk_setenv publishing-api        ./run_in.sh ../publishing-api bundle exec sidekiq -C ./config/sidekiq.yml
-email-alert-monitor:   govuk_setenv email-alert-monitor   ./run_in.sh ../email-alert-monitor bundle exec rails s -p 3094
+# email-alert-monitor used 3094, service is now retired
 # courts-frontend used to use port 3095, but is no longer running in any environment
 # entity-extractor used 3096, service is now retired
 event-store:           govuk_setenv event-store           ./run_in.sh ../event-store make run # port 3097
