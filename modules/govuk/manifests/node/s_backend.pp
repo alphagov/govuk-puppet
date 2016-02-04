@@ -4,7 +4,7 @@
 # publishing, administration and management applications.
 #
 class govuk::node::s_backend inherits govuk::node::s_base {
-  include govuk::node::s_ruby_app_server
+  include govuk::node::s_app_server
 
   limits::limits { 'root_nofile':
     ensure     => present,

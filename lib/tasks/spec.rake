@@ -20,11 +20,11 @@ namespace :spec do
     # machine classes, and therefore aren't intended to be instantiated directly.
     $nodes_spec_blacklist_classes = %w(
       api_postgresql_base
+      app_server
       asset_base
       base
       postgresql_base
       redis_base
-      ruby_app_server
       transition_postgresql_base
     )
 

@@ -1,5 +1,11 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_ruby_app_server {
+# == Class: govuk::node::s_app_server
+#
+# A class containing dependencies for application servers. This class
+# is deprecated; nothing new should be added to it and things should
+# be removed over time. The classes this includes and the packages it
+# installs are too broad.
+#
+class govuk::node::s_app_server {
   include govuk_mysql::libdev
   include govuk_rbenv::all
   include mysql::client
