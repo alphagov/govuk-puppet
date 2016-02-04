@@ -1,6 +1,8 @@
 ---
 app_domain: 'staging.publishing.service.gov.uk'
 
+backup::server::backup_hour: 8
+
 base::supported_kernel::enabled: true
 
 cron::daily_hour: 6

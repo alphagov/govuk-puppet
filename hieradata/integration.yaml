@@ -4,6 +4,7 @@ app_domain: 'integration.publishing.service.gov.uk'
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
 backup::mysql::rotation_monthly: '28'
+backup::server::backup_hour: 8
 
 base::supported_kernel::enabled: true
 
