@@ -1,0 +1,55 @@
+---
+- scm:
+    name: email-alert-check
+    scm:
+        - git:
+            url: git@github.com:alphagov/email-alert-monitoring.git
+            branches:
+              - master
+
+- job:
+    name: email-alert-check
+    display-name: EmailAlertCheck
+    project-type: freestyle
+    description: "This job checks if email alerts have been emailed"
+    scm:
+      - email-alert-check
+    logrotate:
+        artifactNumToKeep: 100
+    triggers:
+        - timed: '21 * * * *' # every hour on the 21st minute
+    builders:
+        - shell: |
+            bundle install
+            bundle exec rake run
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+              - name: GOOGLE_OAUTH_CREDENTIALS
+                password:
+                  '<%= @google_oauth_credentials %>'
+              - name: GOOGLE_CLIENT_ID
+                password:
+                  '<%= @google_client_id %>'
+              - name: GOOGLE_CLIENT_SECRET
+                password:
+                  '<%= @google_client_secret %>'
+              - name: EMAILS_THAT_SHOULD_RECEIVE_DRUG_ALERTS
+                password:
+                  '<%= @emails_that_should_receive_drug_alerts %>'
