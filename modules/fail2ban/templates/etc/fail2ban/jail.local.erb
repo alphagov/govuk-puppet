@@ -5,6 +5,10 @@
 #
 [DEFAULT]
 
+<% unless @whitelist.empty? %>
+ignoreip = <%= @whitelist.join(' ') %>
+<% end %>
+
 # https://github.com/alphagov/govuk-puppet/commit/e343f1a
 backend = polling
 
