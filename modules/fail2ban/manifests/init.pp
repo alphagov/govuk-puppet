@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: fail2ban
+#
+# Installs fail2ban and manages the related service and config files.
+#
 class fail2ban {
 
   anchor { 'fail2ban::begin':
