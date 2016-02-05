@@ -46,7 +46,7 @@ class govuk::node::s_development (
 
   class { 'govuk_elasticsearch':
     cluster_name       => 'govuk-development',
-    heap_size          => '256m',
+    heap_size          => '1024m',
     number_of_shards   => '1',
     number_of_replicas => '0',
     require            => Class['govuk_java::set_defaults'],
