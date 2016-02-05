@@ -20,12 +20,19 @@
 #   Errbit server hostname
 #   Default: undef
 #
-
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
+#
 class govuk::apps::share_sale_publisher(
   $port = 3119,
   $enabled = false,
   $errbit_api_key = undef,
   $errbit_host = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'share-sale-publisher'
@@ -53,7 +60,13 @@ class govuk::apps::share_sale_publisher(
         value   => $errbit_api_key;
       "${title}-ERRBIT_HOST":
         varname => 'ERRBIT_HOST',
-        value   => $errbit_host,
+        value   => $errbit_host;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret,
     }
   }
 }
