@@ -1,0 +1,4 @@
+.vagrant
+.bundle/
+vendor/
+nodes.local.yaml
