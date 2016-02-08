@@ -8,6 +8,13 @@
 #   The port that publishing API is served on.
 #   Default: 3119
 #
+# [*mongodb_nodes*]
+#   Array of hostnames for the mongo cluster to use.
+#
+# [*mongodb_name*]
+#   The mongo database to be used. Overriden in development
+#   to be 'share_sale_publisher_development'.
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -28,6 +35,8 @@
 #
 class govuk::apps::share_sale_publisher(
   $port = 3119,
+  $mongodb_nodes,
+  $mongodb_name,
   $enabled = false,
   $errbit_api_key = undef,
   $errbit_host = undef,
@@ -49,6 +58,11 @@ class govuk::apps::share_sale_publisher(
 
     Govuk::App::Envvar {
       app => $app_name,
+    }
+
+    govuk::app::envvar::mongodb_uri { $app_name:
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
     }
 
     govuk::app::envvar {

@@ -163,6 +163,8 @@ govuk::apps::router_api::vhost: 'router-api'
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
 govuk::apps::share_sale_publisher::enabled: true
+govuk::apps::share_sale_publisher::mongodb_nodes: ['localhost']
+govuk::apps::share_sale_publisher::mongodb_name: 'share_sale_publisher_development'
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::signon::redis_url: redis://localhost:6379/0
 govuk::apps::smartanswers::expose_govspeak: true
