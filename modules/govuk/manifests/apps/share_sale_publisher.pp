@@ -33,6 +33,12 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*secret_key_base*]
+#   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
+#   rails 4.x signed cookie mechanism. If unset the app will be unable to
+#   start.
+#   Default: undef
+#
 class govuk::apps::share_sale_publisher(
   $port = 3119,
   $mongodb_nodes,
@@ -43,6 +49,7 @@ class govuk::apps::share_sale_publisher(
   $oauth_id = undef,
   $oauth_secret = undef,
   $publishing_api_bearer_token = undef,
+  $secret_key_base = undef,
 ) {
   $app_name = 'share-sale-publisher'
 
@@ -81,6 +88,13 @@ class govuk::apps::share_sale_publisher(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret,
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
     }
   }
 }
