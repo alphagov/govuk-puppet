@@ -83,10 +83,10 @@ Vagrant.configure("2") do |config|
       end
 
       # These can't be NFS because OSX won't export overlapping paths.
-      c.vm.synced_folder "../govuk-puppet/gpg", "/etc/puppet/gpg", :owner => 'puppet', :group => 'puppet'
+      c.vm.synced_folder "gpg", "/etc/puppet/gpg", :owner => 'puppet', :group => 'puppet'
       # Additional shared folders for Puppet Master nodes.
       if node_name =~ /^puppetmaster/
-        c.vm.synced_folder "../govuk-puppet", "/usr/share/puppet/production/current"
+        c.vm.synced_folder ".", "/usr/share/puppet/production/current"
       end
 
       # run a script to partition extra disks for lvm if they exist.
