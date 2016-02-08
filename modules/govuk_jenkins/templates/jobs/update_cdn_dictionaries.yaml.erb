@@ -1,0 +1,40 @@
+---
+- scm:
+    name: update_cdn_dictionaries
+    scm:
+        - git:
+            url: git@github.gds:gds/cdn-configs
+            branches:
+              - master
+
+- job:
+    name: Update_CDN_Dictionaries
+    display-name: Update CDN dictionaries
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.gds/gds/cdn-configs/
+    scm:
+      - update_cdn_dictionaries
+    builders:
+        - shell: |
+            cd fastly
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec ./dictionaries/configure_dictionaries ${vhost} <%= @environment %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '#${BUILD_NUMBER} ${ENV,var="vhost"}'
+    parameters:
+        - choice:
+            name: vhost
+            choices:
+                - PLEASE CHOOSE ONE
+                - www
+        - string:
+            name: FASTLY_USER
+            default: false
+        - password:
+            name: FASTLY_PASS
+            default: false
