@@ -20,7 +20,7 @@
         - timed: '21 * * * *' # every hour on the 21st minute
     builders:
         - shell: |
-            bundle install
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake run
     publishers:
       - trigger-parameterized-builds:
