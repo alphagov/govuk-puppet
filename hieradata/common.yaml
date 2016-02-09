@@ -79,6 +79,12 @@ backup::offsite::jobs:
     hour: 8,
     minute: 13,
     # No encryption because of size and sensitivity
+  'govuk-cdn-logs':
+    sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
+    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-cdn-logs/"
+    hour: 7,
+    minute: 12,
+    # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
 base::packages::gems:
   ruby-shadow:
