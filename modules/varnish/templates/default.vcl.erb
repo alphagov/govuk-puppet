@@ -18,6 +18,8 @@ acl purge_acl {
 sub vcl_recv {
   unset req.http.GOVUK-Request-Id;
   set req.http.GOVUK-Request-Id = server.identity + "-" + req.xid;
+  unset req.http.GOVUK-Original-Url;
+  set req.http.GOVUK-Original-Url = req.url;
 
   set req.backend = upstream;
 
