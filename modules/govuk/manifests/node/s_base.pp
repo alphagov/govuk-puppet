@@ -14,6 +14,7 @@ class govuk::node::s_base (
 
   include backup::client
   include base
+  include fail2ban
   include govuk::firewall
   include govuk::safe_to_reboot
   include govuk_rbenv
