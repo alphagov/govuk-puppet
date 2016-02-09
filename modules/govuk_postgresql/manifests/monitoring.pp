@@ -4,16 +4,15 @@
 #
 # === Parameters
 #
-# [*user*]
-#   Username of a monitoring account to create in PostgreSQL
-#
 # [*password*]
 #   The password that you'd like to set for $user
 #
 class govuk_postgresql::monitoring (
-  $user,
   $password,
 ) {
+
+  # This user is granted access to databases in the `govuk_postgresql::monitoring::db` defined type.
+  $user = 'nagios'
 
   package { 'check-postgres':
     ensure => installed,
