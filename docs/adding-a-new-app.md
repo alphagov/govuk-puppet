@@ -2,17 +2,19 @@
 
 This Puppet repository defines all the apps which run on GOV.UK.
 
-Create a new file in `modules/govuk/manifests/apps` named `myapp.pp`:
+Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 
 ```
 # Be sure to include documentation of the class at the top of the file, as
 # per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc.
 #
-# You may wish to copy an existing app, eg. courts-api:
-# https://github.com/alphagov/govuk-puppet/blob/c6e940f0/modules/govuk/manifests/apps/courts_api.pp
+# You may wish to copy an existing app, eg. calculators:
+# https://github.com/alphagov/govuk-puppet/blob/3e926f0d/modules/govuk/manifests/apps/calculators.pp
 #
-class govuk::apps::myapp( $port = 3456 ) {
-  govuk::app { 'myapp':
+class govuk::apps::my_app (
+  $port = 3456,
+) {
+  govuk::app { 'my-app':
     app_type          => 'rack',
     port              => $port,
     vhost_ssl_only    => true,
@@ -22,26 +24,26 @@ class govuk::apps::myapp( $port = 3456 ) {
 ```
 
 The `health_check_path` must be an endpoint on the application returning a
-HTTP 200 status for an unauthenticated request. Nagios checks for the application are
+HTTP 200 status for an unauthenticated request. Monitoring checks for the application are
 configured using this path and fail if the request isn't successful.
 
-Additional arguments can be specified to configure basic auth, nagios checks and logging.
+Additional arguments can be specified to configure basic auth, monitoring checks and logging.
 These are defined and explained in `modules/govuk/manifests/app.pp`.
 
 ## Feature flags
 
 If the app is not ready to be deployed to production, you should use a feature
-flag so that it is only enabled in the preview environment:
+flag so that it is only enabled in environments where it's expected to be running:
 
 ```
-# modules/govuk/manifests/apps/myapp.pp
-class govuk::apps::myapp(
+# modules/govuk/manifests/apps/my_app.pp
+class govuk::apps::my_app (
   $port = 3456,
   $enabled = false,
 ) {
 
   if $enabled {
-    govuk::app { 'myapp':
+    govuk::app { 'my-app':
       app_type          => 'rack',
       port              => $port,
       vhost_ssl_only    => true,
@@ -56,23 +58,16 @@ development config:
 
 ```
 # hieradata/development.yaml
-govuk::apps::myapp::enabled: true
+govuk::apps::my_app::enabled: true
 ```
 
-The flag can be enabled on preview by adding the flag to the hiera preview
-config in the [deployment repository](https://github.gds/gds/deployment):
+The flag can be enabled in integration by setting it to true in the hiera
+config in `hieradata/`:
 
 ```
-# puppet/hieradata/integration.yaml
-govuk::apps::myapp::enabled: true
+# hieradata/integration.yaml
+govuk::apps::my_app::enabled: true
 ```
-
-When you're ready to deploy the app to production, set the feature flag to
-true in staging and production by adding similar configuration in their
-`hieradata` files. Then redeploy the version of puppet that is currently live
-on that environment. Redeploying the currently live version of puppet avoids
-depending on other people's changes to puppet, and works because `hieradata`
-is always redeployed from the `master` branch.
 
 Remove the feature flag when you're ready to deploy the app to production, by
 setting the default to be `true` and removing all the flags in the hieradata
@@ -88,7 +83,7 @@ should be included in the development environment.
 # hieradata/development.yaml
 #   & hieradata/class/[node].yaml
 govuk::node::s_base::apps:
-  - myapp
+  - my_app
 ```
 
 Most apps will live on the frontend or backend boxes. These boxes use a load balancer, which
@@ -103,8 +98,8 @@ on whether the hosts are external or internal.
 ```
 loadbalancer::balance {
   [
-    ..
-    "myapp",
+    ...
+    'my-app',
   ]:
 ```
 
@@ -116,7 +111,7 @@ For the development environment:
 # hieradata/development.yaml
 hosts::development::apps:
   - ...
-  - myapp
+  - my_app
 ```
 
 For production-like environments, you need to add the app to the appropriate
@@ -126,5 +121,5 @@ array in the `hieradata/common.yaml` file.
 # hieradata/common.yaml
 hosts::production::backend::app_hostnames:
   - ...
-  - 'myapp'
+  - 'my_app'
 ```
