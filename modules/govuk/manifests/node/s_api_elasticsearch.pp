@@ -43,6 +43,11 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     instances  => $::fqdn,
   }
 
+  elasticsearch::plugin { 'elasticsearch/elasticsearch-cloud-aws/2.4.2':
+    module_dir => 'cloud-aws',
+    instances  => $::fqdn,
+  }
+
   collectd::plugin::tcpconn { 'es-9200':
     incoming => 9200,
     outgoing => 9200,
