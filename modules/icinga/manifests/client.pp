@@ -51,4 +51,5 @@ class icinga::client {
 
   Icinga::Nrpe_config <| |>
   Icinga::Plugin <| |>
+  Icinga::Plugin <<| |>>
 }
