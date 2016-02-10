@@ -10,10 +10,6 @@ class monitoring::event_handler::app_high_memory () {
     require => File['/usr/local/bin/event_handlers/govuk_app_high_memory.sh'],
   }
 
-  @icinga::plugin { 'reload_service':
-    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/reload_service',
-  }
-
   file { '/usr/local/bin/event_handlers/govuk_app_high_memory.sh':
     source => 'puppet:///modules/govuk/usr/local/bin/event_handlers/govuk_app_high_memory.sh',
     mode   => '0755',
