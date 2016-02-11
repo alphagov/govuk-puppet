@@ -24,6 +24,18 @@ if args.secret_key is None:
     print "UNKNOWN: You have not supplied an AWS secret key"
     sys.exit(3)
 
+# By default boto is very patient - failed requests can be retried 5 times, and
+# the http socket timeout is a minute.
+#
+# The check itself times out sooner than that so we want to shorten this so
+# that it can be handled by the plugin itself.
+#
+if not boto.config.has_section('Boto'):
+    boto.config.add_section('Boto')
+
+boto.config.set('Boto', 'http_socket_timeout', '5')
+boto.config.set('Boto', 'num_retries', '2')
+
 try:
     conn = boto.ses.connect_to_region(
         args.region,
