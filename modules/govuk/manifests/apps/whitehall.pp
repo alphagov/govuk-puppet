@@ -150,13 +150,13 @@ class govuk::apps::whitehall(
     ',
     }
 
-    govuk::logstream { 'whitehall_scheduled_publishing_json_log':
+    govuk_logging::logstream { 'whitehall_scheduled_publishing_json_log':
       logfile => '/var/apps/whitehall/log/production_scheduled_publishing.json.log',
       fields  => {'application' => 'whitehall'},
       json    => true,
     }
 
-    govuk::logstream { 'whitehall_sidekiq_json_log':
+    govuk_logging::logstream { 'whitehall_sidekiq_json_log':
       logfile => '/var/apps/whitehall/log/sidekiq.json.log',
       fields  => {'application' => 'whitehall-sidekiq'},
       json    => true,

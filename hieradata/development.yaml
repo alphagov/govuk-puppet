@@ -192,11 +192,11 @@ govuk::deploy::setup_actionmailer_ses_config: false
 
 govuk::lvm::no_op: true
 
-govuk::logstream::disabled: true
-
 govuk::mount::no_op: true
 
 govuk_elasticsearch::version: '1.4.4'
+
+govuk_logging::logstream::disabled: true
 
 govuk_mysql::server::slow_query_log: true
 

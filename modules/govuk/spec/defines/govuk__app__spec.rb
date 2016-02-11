@@ -122,19 +122,19 @@ describe 'govuk::app', :type => :define do
       end
 
       it "collects stdout logging as JSON" do
-        expect(subject).to contain_govuk__logstream("#{title}-app-out")
+        expect(subject).to contain_govuk_logging__logstream("#{title}-app-out")
           .with_logfile("/var/log/#{title}/app.out.log")
           .with_json(true)
       end
 
       it "collects stderr logging as plain text" do
-        expect(subject).to contain_govuk__logstream("#{title}-app-err")
+        expect(subject).to contain_govuk_logging__logstream("#{title}-app-err")
           .with_logfile("/var/log/#{title}/app.err.log")
           .with_json(false)
       end
 
       it "removes collection of the apps production.log" do
-        expect(subject).to contain_govuk__logstream("#{title}-production-log")
+        expect(subject).to contain_govuk_logging__logstream("#{title}-production-log")
           .with_ensure("absent")
       end
     end
@@ -145,13 +145,13 @@ describe 'govuk::app', :type => :define do
       end
 
       it "collects stderr logging as plain text" do
-        expect(subject).to contain_govuk__logstream("#{title}-app-err")
+        expect(subject).to contain_govuk_logging__logstream("#{title}-app-err")
           .with_logfile("/var/log/#{title}/app.err.log")
           .with_json(false)
       end
 
       it "collects the app production.log as plain text by default" do
-        expect(subject).to contain_govuk__logstream("#{title}-production-log")
+        expect(subject).to contain_govuk_logging__logstream("#{title}-production-log")
           .with_logfile("/data/vhost/#{title}.environment.example.com/shared/log/production.log")
           .with_json(false)
       end
@@ -159,7 +159,7 @@ describe 'govuk::app', :type => :define do
       it "collects the app production.json.log as JSON when requested" do
         params[:log_format_is_json] = true
 
-        expect(subject).to contain_govuk__logstream("#{title}-production-log")
+        expect(subject).to contain_govuk_logging__logstream("#{title}-production-log")
           .with_logfile("/data/vhost/#{title}.environment.example.com/shared/log/production.json.log")
           .with_json(true)
       end
@@ -173,7 +173,7 @@ describe 'govuk::app', :type => :define do
             :log_format_is_json => true,
           )
 
-          expect(subject).to contain_govuk__logstream("#{title}-app-err")
+          expect(subject).to contain_govuk_logging__logstream("#{title}-app-err")
             .with_logfile("/var/log/#{title}/app.err.log")
             .with("json" => true)
         end

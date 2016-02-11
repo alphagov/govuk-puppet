@@ -43,13 +43,13 @@ class govuk::apps::email_alert_api(
       enable_service => $enable_procfile_worker,
     }
 
-    govuk::logstream { 'email_alert_api_sidekiq_json_log':
+    govuk_logging::logstream { 'email_alert_api_sidekiq_json_log':
       logfile => '/var/apps/email-alert-api/log/sidekiq.json.log',
       fields  => {'application' => 'email-alert-api-sidekiq'},
       json    => true,
     }
 
-    govuk::logstream { 'govdelivery_json_log':
+    govuk_logging::logstream { 'govdelivery_json_log':
       logfile => '/var/apps/email-alert-api/log/govdelivery.log',
       fields  => {'application' => 'email-alert-api-govdelivery'},
       json    => true,

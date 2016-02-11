@@ -31,8 +31,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'govuk::mount::no_op',
     'govuk::lvm::no_op',
 
-    # logstream defined type needs a global disable flag for dev vm
-    'govuk::logstream::disabled',
     # govuk::app::nginx_vhost defined type needs a global disable flag for
     # asset pipeline on dev vm
     'govuk::app::nginx_vhost::asset_pipeline_enabled',
@@ -40,6 +38,10 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # FIXME: Existing violations. These should be refactored.
     'govuk_app_enable_capistrano_layout',
     'govuk_app_enable_services',
+
+    # logstream defined type needs a global disable flag for dev vm
+    'govuk_logging::logstream::disabled',
+
     'mysql_replica_password',
     'mysql_root',
     'nginx_enable_basic_auth',

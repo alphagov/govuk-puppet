@@ -18,14 +18,14 @@ class govuk_mysql::server::logging(
   $error_log,
   $slow_query_log=undef,
 ) {
-  govuk::logstream { 'mysql-error-logs':
+  govuk_logging::logstream { 'mysql-error-logs':
     logfile => $error_log,
     tags    => ['error'],
     fields  => {'application' => 'mysql'},
   }
 
   if $slow_query_log {
-    govuk::logstream { 'mysql-slow-query-logs':
+    govuk_logging::logstream { 'mysql-slow-query-logs':
       logfile => $slow_query_log,
       tags    => ['slow-query'],
       fields  => {'application' => 'mysql'},

@@ -337,14 +337,14 @@ define govuk::app (
     'absent'  => 'absent',
   }
 
-  govuk::logstream { "${title}-upstart-out":
+  govuk_logging::logstream { "${title}-upstart-out":
     ensure  => $logstream_ensure,
     logfile => "/var/log/${title}/upstart.out.log",
     tags    => ['stdout', 'upstart'],
     fields  => {'application' => $title},
   }
 
-  govuk::logstream { "${title}-upstart-err":
+  govuk_logging::logstream { "${title}-upstart-err":
     ensure  => $logstream_ensure,
     logfile => "/var/log/${title}/upstart.err.log",
     tags    => ['stderr', 'upstart'],
@@ -361,7 +361,7 @@ define govuk::app (
       $err_log_json = undef
     }
 
-    govuk::logstream { "${title}-app-err":
+    govuk_logging::logstream { "${title}-app-err":
       ensure  => $logstream_ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['stderr', 'app'],
@@ -376,7 +376,7 @@ define govuk::app (
         default => "/data/vhost/${vhost_full}/shared/log/production.log"
       }
 
-      govuk::logstream { "${title}-production-log":
+      govuk_logging::logstream { "${title}-production-log":
         ensure        => $logstream_ensure,
         logfile       => $log_path,
         tags          => ['stdout', 'application'],
@@ -393,7 +393,7 @@ define govuk::app (
     }
 
   } else {
-    govuk::logstream { "${title}-app-out":
+    govuk_logging::logstream { "${title}-app-out":
       ensure        => $logstream_ensure,
       logfile       => "/var/log/${title}/app.out.log",
       tags          => ['application'],
@@ -408,7 +408,7 @@ define govuk::app (
                           value => '@fields.view'}],
     }
 
-    govuk::logstream { "${title}-app-err":
+    govuk_logging::logstream { "${title}-app-err":
       ensure  => $logstream_ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['application'],
@@ -416,7 +416,7 @@ define govuk::app (
     }
 
     # Support apps transitioning from legacy_logging.
-    govuk::logstream { "${title}-production-log":
+    govuk_logging::logstream { "${title}-production-log":
       ensure  => absent,
       logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
     }
