@@ -74,6 +74,8 @@ define govuk::user(
     $membership = 'minimum'
   }
 
+  validate_re($expiry, '^(absent|\d{4}-\d{2}-\d{2})$')
+
   user { $title:
     ensure     => $ensure,
     comment    => "${fullname} <${email}>",
