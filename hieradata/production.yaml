@@ -61,7 +61,6 @@ govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::panopticon::enable_procfile_worker: false
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
-govuk::apps::service_manual_publisher::disable_publishing: true
 
 govuk::deploy::actionmailer_enable_delivery: true
 

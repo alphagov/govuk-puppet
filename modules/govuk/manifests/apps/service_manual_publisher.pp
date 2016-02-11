@@ -32,9 +32,6 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
-# [*disable_publishing*]
-#   Disable publishing actions for documents.
-#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -53,7 +50,6 @@ class govuk::apps::service_manual_publisher(
   $oauth_secret = '',
   $port = 3111,
   $secret_key_base = undef,
-  $disable_publishing = false,
   $publishing_api_bearer_token = undef,
   $asset_manager_bearer_token = undef,
 ) {
@@ -89,14 +85,6 @@ class govuk::apps::service_manual_publisher(
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
       varname => 'ASSET_MANAGER_BEARER_TOKEN',
       value   => $asset_manager_bearer_token;
-  }
-
-  if $disable_publishing {
-    govuk::app::envvar {
-      "${title}-DISABLE_PUBLISHING":
-        varname => 'DISABLE_PUBLISHING',
-        value   => '1';
-    }
   }
 
   if $secret_key_base != undef {
