@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+# Check whether any lockfiles are present from other jobs
+# before an unattended reboot takes place.
+# Other than the etcd lock locksmith uses to coordinate reboots
+# accross machines, unattended-reboot doesn't acquire any locks itself,
+# so this won't block jobs from starting after the check has run.
+from os.path import isfile
+from sys import exit
+from subprocess import call
+
+LOCKFILES = <%= @lock_filenames.to_s %>
+
+for lockfile in LOCKFILES:
+    if not isfile(lockfile):
+      continue
+
+    rc = call(['setlock', '-n', lockfile, 'true'])
+    if rc != 0:
+        exit(rc)
