@@ -70,7 +70,8 @@ search-admin:          govuk_setenv search-admin          ./run_in.sh ../search-
 contacts-frontend:     govuk_setenv contacts-frontend     ./run_in.sh ../contacts-frontend bundle exec rails s -p 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../support-api    bundle exec rails s -p 3075
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../short-url-manager   bundle exec rails s -p 3076
-# smartdown-frontend and then content-register used to use port 3077
+# smartdown-frontend used to use port 3077, but is no longer running in any environment. hence, content-register took it over.
+content-register:      govuk_setenv content-register      ./run_in.sh ../content-register  bundle exec rails s -p 3077
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../collections-publisher bundle exec rails s -p 3078
 # sidekiq-monitoring uses 3079-3081 and 3086
 service-manual:        govuk_setenv service-manual        ./run_in.sh ../government-service-design-manual  bundle exec unicorn -p 3082
