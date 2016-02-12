@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+import json
+import re
+import sys
+from subprocess import check_output
+
+
+def node_health(health_code):
+    return "OK" if health_code == 1 else "ERROR"
+
+
+def mongo_command(command):
+    return ['mongo', '--quiet', '--eval', command]
+
+
+def strip_dates(raw_output):
+    """
+    mongodb returns invalid JSON.
+    """
+    stripped_isodates = re.sub(r'ISODate\((.*?)\)', r'\1', raw_output)
+    return re.sub(r'Timestamp\((.*?)\)', r'"\1"', stripped_isodates)
+
+
+def run_mongo_command(command):
+    """
+    Parse the json output of a mongo command. Errors if return code is non-zero.
+    """
+    response = strip_dates(check_output(mongo_command('printjson(%s)' % command)))
+    return json.loads(response)
+
+
+def get_cluster_status():
+    status = run_mongo_command('rs.status()')
+    parsed_statuses = []
+
+    for member_status in status['members']:
+        parsed_status = {
+            'health': node_health(member_status['health']),
+            'state': member_status['stateStr'],
+        }
+        parsed_statuses.append(parsed_status)
+
+    return parsed_statuses
+
+
+def cluster_is_ok(member_statuses):
+    health_ok = all(s['health'] == 'OK' for s in member_statuses)
+    state_ok = all(s['state'] in ['PRIMARY', 'SECONDARY']
+                   for s in member_statuses)
+    one_primary = len([s for s in member_statuses
+                       if s['state'] == 'PRIMARY']) == 1
+
+    return health_ok and state_ok and one_primary
+
+
+def i_am_primary():
+    return run_mongo_command('db.isMaster().primary === db.isMaster().me')
+
+
+if __name__ == '__main__':
+    member_statuses = get_cluster_status()
+    if cluster_is_ok(member_statuses) and not i_am_primary():
+        sys.exit(0)
+    else:
+        sys.exit(1)
