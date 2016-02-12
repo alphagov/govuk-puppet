@@ -20,6 +20,7 @@
         - timed: '0 * * * *' # every hour
     builders:
         - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bin/verify_migrated_apps
     publishers:
       - trigger-parameterized-builds:
