@@ -79,6 +79,12 @@ backup::offsite::jobs:
     hour: 8,
     minute: 13,
     # No encryption because of size and sensitivity
+  'govuk-cdn-logs':
+    sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
+    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-cdn-logs/"
+    hour: 7,
+    minute: 12,
+    # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
 base::packages::gems:
   ruby-shadow:
@@ -181,6 +187,8 @@ govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-3.backend
 
 govuk::apps::finder_frontend::enabled: true
+
+govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
 govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"

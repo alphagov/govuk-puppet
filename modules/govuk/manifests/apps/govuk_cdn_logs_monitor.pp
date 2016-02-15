@@ -17,12 +17,11 @@
 #
 # [*processed_data_dir*]
 #   Directory that processed data from the logs is stored in
-#   Default: processed
 #
 class govuk::apps::govuk_cdn_logs_monitor (
   $enabled = true,
   $cdn_log_dir = '/mnt/logs_cdn',
-  $processed_data_dir = '/mnt/logs_cdn/data',
+  $processed_data_dir,
 ) {
   if $enabled {
     file { $processed_data_dir:
