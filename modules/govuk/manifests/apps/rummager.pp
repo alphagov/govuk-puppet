@@ -98,10 +98,6 @@ class govuk::apps::rummager(
     process_type   => 'publishing-api-document-indexer',
   }
 
-  govuk_rabbitmq::monitor_consumers {'rummager-publishing-api-document-indexer':
-    rabbitmq_queue => 'rummager_to_be_indexed',
-  }
-
   Govuk::App::Envvar {
     app            => 'rummager',
   }
