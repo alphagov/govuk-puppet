@@ -46,7 +46,7 @@ namespace :spec do
     node_classes = get_node_classes
 
     NUM_PROCESSES = [
-      Facter.value('processors')['count'],
+      Facter.value('processorcount').to_i,
       node_classes.length
     ].min
 
