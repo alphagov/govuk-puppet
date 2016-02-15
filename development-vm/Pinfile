@@ -26,7 +26,7 @@ process :'email-alert-api'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
 process :'email-campaign-api'
-process :'email-campaign-frontend' => [:'email-campaign-api', :static]
+process :'email-campaign-frontend' => [:'content-store', :'email-campaign-api', :static]
 process :errbit
 process :'event-store'
 process :feedback => [:static, :support, :'support-api']
