@@ -115,6 +115,7 @@ base::packages::packages:
   - 'tcpdump'
   - 'tmux'
   - 'tree'
+  - 'update-notifier-common'
   - 'unzip'
   - 'vim-nox'
   - 'xz-utils'
@@ -351,6 +352,8 @@ govuk_sudo::sudo_conf:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
 govuk_unattended_reboot::enabled: true
+govuk_unattended_reboot::mongodb::enabled: true
+
 govuk_unattended_reboot::monitoring_basic_auth:
   username: "%{hiera('http_username')}"
   password: "%{hiera('http_password')}"
