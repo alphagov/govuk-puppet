@@ -21,7 +21,7 @@
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            bin/verify_migrated_apps
+            bundle exec bin/verify_migrated_apps
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
