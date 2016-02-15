@@ -103,6 +103,11 @@ class govuk::node::s_base (
     ensure => purged,
   }
 
+  # FIXME: remove once this has been deployed
+  package { 'fail2ban':
+    ensure => purged,
+  }
+
   # Remove user on first Puppet run after bootstrapping.
   user { 'ubuntu':
     ensure => absent,
