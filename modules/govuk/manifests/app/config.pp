@@ -1,4 +1,17 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Define: govuk::app::config
+#
+# Configure a GOV.UK application
+#
+# === Parameters
+#
+# FIXME: Document all parameters
+#
+# [*nagios_memory_warning*]
+#   Memory use, in MB, at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use, in MB, at which Nagios should generate a critical alert.
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -20,8 +33,8 @@ define govuk::app::config (
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
   $unicorn_herder_timeout = 'NOTSET',
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
+  $nagios_memory_warning = 700,
+  $nagios_memory_critical = 800,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $upstart_post_start_script = undef,
@@ -39,15 +52,25 @@ define govuk::app::config (
     'present' => 'file',
     'absent'  => 'absent',
   }
-  $nagios_memory_warning_real = $nagios_memory_warning ? {
-    undef    => 2000000000,
-    default  => $nagios_memory_warning,
-  }
 
-  $nagios_memory_critical_real = $nagios_memory_critical ? {
-    undef    => 3000000000,
-    default  => $nagios_memory_critical,
-  }
+  # Use the International System of Units (SI) value of 1 million bytes in a MB
+  # as it makes it simpler to evaluate memory usage when looking at our
+  # metrics, which record memory usage in bytes
+  $si_megabyte = 1000000
+  $nagios_memory_warning_real = $nagios_memory_warning * $si_megabyte
+  $nagios_memory_critical_real = $nagios_memory_critical * $si_megabyte
+
+  # Check memory thresholds are sane
+  # i.e. 10MB or more but less than 100GB, i.e. between 8-11 digits long
+  # FIXME: Lower max memory threshold to 10GB once Whitehall thresholds are lowered to a sane level
+  #
+  # Tell Puppet Lint to ignore double quoted string as `validate_re` does
+  # not except a Fixnum type so we convert it to a string.
+  #
+  # lint:ignore:only_variable_string
+  validate_re("${nagios_memory_warning_real}", '^\d{8,11}$', '$nagios_memory_warning_real must be specified in MB')
+  validate_re("${nagios_memory_critical_real}", '^\d{8,11}$', '$nagios_memory_warning_real must be specified in MB')
+  # lint:endignore
 
   # Ensure config dir exists
   file { "/etc/govuk/${title}":

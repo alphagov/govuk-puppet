@@ -1,5 +1,8 @@
 ---
 
+govuk::apps::whitehall::nagios_memory_warning: 5368
+govuk::apps::whitehall::nagios_memory_cricial: 6442
+
 lv:
   data:
     pv: '/dev/sdb1'

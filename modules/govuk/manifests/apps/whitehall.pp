@@ -1,6 +1,21 @@
+# == Class: govuk::apps::whitehall
 #
-# [$prevent_single_host] - This manifest will deliberately fail if the frontend and admin are on the same machine
-#                          and this flag is not set in hiera
+# Configure the whitehall application
+#
+# === Parameters
+#
+# FIXME: Document all class parameters
+#
+# [*prevent_single_host*]
+#   This manifest will deliberately fail if the frontend and admin are on the
+#   same machine and this flag is not set in hiera
+#
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::whitehall(
   $vhost = 'whitehall',
   $port = '3020',

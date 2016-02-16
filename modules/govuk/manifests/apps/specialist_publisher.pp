@@ -24,23 +24,33 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::specialist_publisher(
   $port = '3064',
   $enabled = false,
   $enable_procfile_worker = true,
   $publish_pre_production_finders = false,
   $publishing_api_bearer_token = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
 
   if $enabled {
     govuk::app { 'specialist-publisher':
-      app_type           => 'rack',
-      port               => $port,
-      health_check_path  => '/specialist-documents',
-      log_format_is_json => true,
-      nginx_extra_config => '
+      app_type               => 'rack',
+      port                   => $port,
+      health_check_path      => '/specialist-documents',
+      log_format_is_json     => true,
+      nginx_extra_config     => '
 client_max_body_size 500m;
 ',
+      nagios_memory_warning  => $nagios_memory_warning,
+      nagios_memory_critical => $nagios_memory_critical,
     }
 
     Govuk::App::Envvar {

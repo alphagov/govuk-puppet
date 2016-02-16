@@ -1,15 +1,30 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps::tariff_api
+#
+# Configure the tariff-api application
+#
+# === Parameters
+#
+# FIXME: Document all parameters
+#
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::tariff_api(
     $port = '3018',
-    $enable_procfile_worker = true
+    $enable_procfile_worker = true,
+    $nagios_memory_warning = undef,
+    $nagios_memory_critical = undef,
   ) {
   govuk::app { 'tariff-api':
-    app_type              => 'rack',
-    port                  => $port,
-    health_check_path     => '/healthcheck',
-    log_format_is_json    => true,
-    #2.5GB for a warning
-    nagios_memory_warning => 2684354560,
+    app_type               => 'rack',
+    port                   => $port,
+    health_check_path      => '/healthcheck',
+    log_format_is_json     => true,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
   govuk::procfile::worker {'tariff-api':
     enable_service => $enable_procfile_worker,

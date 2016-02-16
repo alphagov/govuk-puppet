@@ -45,6 +45,12 @@
 #   RabbitMQ password.
 #   Default: rummager
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::rummager(
   $port = '3009',
   $enable_procfile_worker = true,
@@ -55,20 +61,22 @@ class govuk::apps::rummager(
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'rummager',
   $rabbitmq_password = 'rummager',
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
   include aspell
 
   govuk::app { 'rummager':
-    app_type           => 'rack',
-    port               => $port,
-    health_check_path  => '/unified_search?q=search_healthcheck',
+    app_type               => 'rack',
+    port                   => $port,
+    health_check_path      => '/unified_search?q=search_healthcheck',
 
     # support search as an alias for ease of migration from old
     # cluster running in backend VDC.
-    vhost_aliases      => ['search'],
+    vhost_aliases          => ['search'],
 
-    log_format_is_json => true,
-    nginx_extra_config => '
+    log_format_is_json     => true,
+    nginx_extra_config     => '
     client_max_body_size 500m;
 
     location ^~ /sitemap.xml {
@@ -80,6 +88,8 @@ class govuk::apps::rummager(
       add_header Cache-Control public;
     }
     ',
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
 
   govuk::app::envvar::rabbitmq { 'rummager':

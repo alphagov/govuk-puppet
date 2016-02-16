@@ -24,6 +24,12 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
@@ -31,16 +37,20 @@ class govuk::apps::content_store(
   $vhost,
   $default_ttl = '1800',
   $publishing_api_bearer_token = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
   $app_name = 'content-store'
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-    vhost              => $vhost,
+    app_type               => 'rack',
+    port                   => $port,
+    vhost_ssl_only         => true,
+    health_check_path      => '/healthcheck',
+    log_format_is_json     => true,
+    vhost                  => $vhost,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
 
   Govuk::App::Envvar {

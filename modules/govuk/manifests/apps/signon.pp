@@ -1,4 +1,4 @@
-# govuk::apps::signon
+# == Class: govuk::apps::signon
 #
 # The GOV.UK Signon application -- single sign-on service for GOV.UK
 #
@@ -18,23 +18,33 @@
 # [*redis_url*]
 #   The URL used by the Sidekiq queue to connect to the backing Redis instance.
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::signon(
   $port = '3016',
   $enable_procfile_worker = true,
   $devise_secret_key = undef,
   $redis_url = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
   $app_name = 'signon'
 
   govuk::app { $app_name:
-    app_type          => 'rack',
-    port              => $port,
-    vhost_ssl_only    => true,
-    health_check_path => '/users/sign_in',
-    legacy_logging    => false,
-    vhost_aliases     => ['signonotron'],
-    asset_pipeline    => true,
-    deny_framing      => true,
+    app_type               => 'rack',
+    port                   => $port,
+    vhost_ssl_only         => true,
+    health_check_path      => '/users/sign_in',
+    legacy_logging         => false,
+    vhost_aliases          => ['signonotron'],
+    asset_pipeline         => true,
+    deny_framing           => true,
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
   }
 
   Govuk::App::Envvar {
