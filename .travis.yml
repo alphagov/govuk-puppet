@@ -1,9 +1,13 @@
 language: ruby
 sudo: false
+cache:
+  directories:
+    - vendor/bundle
+    - vendor/modules
 rvm:
   - 1.9.3
 install:
-  - bundle install
+  - bundle install --jobs=3 --retry=3 --deployment --path=${BUNDLE_PATH:-vendor/bundle}
   - bundle exec rake librarian:install
 script:
   - bundle exec rake lint
