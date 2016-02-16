@@ -15,8 +15,8 @@ class base {
   include govuk::deploy
   include govuk::envsys
   include govuk_scripts
-  include govuk::sshkeys
   include govuk_apt::unused_kernels
+  include govuk_sshkeys
   include govuk_sudo
   include logrotate
   include motd
