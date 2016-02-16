@@ -18,6 +18,7 @@ class base {
   include govuk_apt::unused_kernels
   include govuk_sshkeys
   include govuk_sudo
+  include govuk_unattended_reboot
   include logrotate
   include motd
   include ntp
