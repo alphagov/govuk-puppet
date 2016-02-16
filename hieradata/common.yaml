@@ -161,10 +161,10 @@ govuk::apps::backdrop_write::enabled: true
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 govuk::apps::bouncer::nagios_memory_warning: 1400
-govuk::apps::bouncer::nagios_memory_cricial: 1500
+govuk::apps::bouncer::nagios_memory_critical: 1500
 
 govuk::apps::contentapi::nagios_memory_warning: 3800
-govuk::apps::contentapi::nagios_memory_cricial: 4000
+govuk::apps::contentapi::nagios_memory_critical: 4000
 
 govuk::apps::content_register::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_register::rabbitmq_hosts:
@@ -173,14 +173,14 @@ govuk::apps::content_register::rabbitmq_hosts:
   - rabbitmq-3.backend
 
 govuk::apps::content_store::nagios_memory_warning: 800
-govuk::apps::content_store::nagios_memory_cricial: 900
+govuk::apps::content_store::nagios_memory_critical: 900
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 govuk::apps::efg::nagios_memory_warning: 1600
-govuk::apps::efg::nagios_memory_cricial: 1800
+govuk::apps::efg::nagios_memory_critical: 1800
 
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -198,17 +198,17 @@ govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-3.backend
 
 govuk::apps::email_campaign_frontend::nagios_memory_warning: 1000
-govuk::apps::email_campaign_frontend::nagios_memory_cricial: 1100
+govuk::apps::email_campaign_frontend::nagios_memory_critical: 1100
 
 govuk::apps::errbit::nagios_memory_warning: 2600
-govuk::apps::errbit::nagios_memory_cricial: 3000
+govuk::apps::errbit::nagios_memory_critical: 3000
 
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::nagios_memory_warning: 2000
-govuk::apps::finder_frontend::nagios_memory_cricial: 2500
+govuk::apps::finder_frontend::nagios_memory_critical: 2500
 
 govuk::apps::frontend::nagios_memory_warning: 1200
-govuk::apps::frontend::nagios_memory_cricial: 1400
+govuk::apps::frontend::nagios_memory_critical: 1400
 
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
@@ -236,7 +236,7 @@ govuk::apps::imminence::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 govuk::apps::imminence::nagios_memory_warning: 1200
-govuk::apps::imminence::nagios_memory_cricial: 1400
+govuk::apps::imminence::nagios_memory_critical: 1400
 
 govuk::apps::info_frontend::enabled: true
 govuk::apps::metadata_api::enabled: true
@@ -273,30 +273,30 @@ govuk::apps::publishing_api::redis_host: 'redis-1.backend'
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::rummager::nagios_memory_warning: 4600
-govuk::apps::rummager::nagios_memory_cricial: 4900
+govuk::apps::rummager::nagios_memory_critical: 4900
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
 govuk::apps::signon::nagios_memory_warning: 900
-govuk::apps::signon::nagios_memory_cricial: 1000
+govuk::apps::signon::nagios_memory_critical: 1000
 
 govuk::apps::specialist_frontend::enabled: true
 govuk::apps::specialist_frontend::nagios_memory_warning: 2000
-govuk::apps::specialist_frontend::nagios_memory_cricial: 2200
+govuk::apps::specialist_frontend::nagios_memory_critical: 2200
 
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::nagios_memory_warning: 800
-govuk::apps::specialist_publisher::nagios_memory_cricial: 900
+govuk::apps::specialist_publisher::nagios_memory_critical: 900
 
 govuk::apps::spotlight::enabled: true
 govuk::apps::spotlight::alert_5xx_warning_rate: 0.2
 govuk::apps::spotlight::alert_5xx_critical_rate: 0.3
 govuk::apps::spotlight::nagios_memory_warning: 2000
-govuk::apps::spotlight::nagios_memory_cricial: 2200
+govuk::apps::spotlight::nagios_memory_critical: 2200
 
 govuk::apps::smartanswers::nagios_memory_warning: 4000
-govuk::apps::smartanswers::nagios_memory_cricial: 45000
+govuk::apps::smartanswers::nagios_memory_critical: 45000
 
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
@@ -307,10 +307,10 @@ govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_p
 govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::tariff::nagios_memory_warning: 3200
-govuk::apps::tariff::nagios_memory_cricial: 3600
+govuk::apps::tariff::nagios_memory_critical: 3600
 
 govuk::apps::tariff_api::nagios_memory_warning: 1800
-govuk::apps::tariff_api::nagios_memory_cricial: 2000
+govuk::apps::tariff_api::nagios_memory_critical: 2000
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
