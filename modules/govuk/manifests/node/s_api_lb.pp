@@ -4,6 +4,7 @@ class govuk::node::s_api_lb (
   $content_store_servers,
   $draft_content_store_servers,
   $email_campaign_api_servers,
+  $mapit_servers,
   $search_servers,
 ) {
   include govuk::node::s_base
@@ -58,6 +59,14 @@ class govuk::node::s_api_lb (
   loadbalancer::balance { 'email-campaign-api':
     servers       => $email_campaign_api_servers,
     internal_only => true,
+  }
+
+  if !empty($mapit_servers) {
+    loadbalancer::balance { 'mapit':
+      servers       => $mapit_servers,
+      internal_only => true,
+      https_only    => false, # FIXME: Remove for #51136581
+    }
   }
 
   loadbalancer::balance {

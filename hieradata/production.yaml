@@ -143,12 +143,13 @@ govuk::node::s_api_lb::content_store_servers:
   - "content-store-2.api"
   - "content-store-3.api"
 govuk::node::s_api_lb::draft_content_store_servers:
-- "draft-content-store-1.api"
-- "draft-content-store-2.api"
+  - "draft-content-store-1.api"
+  - "draft-content-store-2.api"
 govuk::node::s_api_lb::email_campaign_api_servers:
   - "email-campaign-api-1.api"
   - "email-campaign-api-2.api"
   - "email-campaign-api-3.api"
+govuk::node::s_api_lb::mapit_servers: [] # doesn't exist in production yet
 govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
