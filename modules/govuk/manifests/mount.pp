@@ -16,7 +16,7 @@
 #   Default: 5
 #
 # [*govuk_lvm*]
-#   If you're using govuk::lvm to create a logical volume pass the title so
+#   If you're using govuk_lvm to create a logical volume pass the title so
 #   that it gets run before the ext4mount.
 #
 # See the ext4mount module/define for all other parameters. They are defined
@@ -39,7 +39,7 @@ define govuk::mount(
 
   unless hiera(govuk::mount::no_op, false) {
     if $govuk_lvm != undef {
-      Govuk::Lvm[$govuk_lvm] -> Ext4mount[$title]
+      Govuk_lvm[$govuk_lvm] -> Ext4mount[$title]
     }
 
     ext4mount { $title:

@@ -1,4 +1,4 @@
-# == Define: govuk::lvm
+# == Define: govuk_lvm
 #
 # Module to wrap lvm::volume so we dont try to do it on vagrant machines.
 # the title of the resource will be the logical volume name.
@@ -16,19 +16,19 @@
 # To create a logical volume called test on volume group example using /dev/sdb1 as the physical volume.
 # This would be available as /dev/mapper/example-test for mounting by govuk::mount
 #
-#   govuk::lvm { 'test':
+#   govuk_lvm { 'test':
 #     pv => '/dev/sdb1',
 #     vg => 'example',
 #   }
 #
-define govuk::lvm(
+define govuk_lvm(
   # lvm::volume[] options (@dcarley longs for **kwargs)
   $pv,
   $vg,
   $ensure = present,
   $fstype = 'ext4',
   ) {
-  unless hiera(govuk::lvm::no_op, false) {
+  unless hiera(govuk_lvm::no_op, false) {
 
     $filesystem = "/dev/${vg}/${title}"
 

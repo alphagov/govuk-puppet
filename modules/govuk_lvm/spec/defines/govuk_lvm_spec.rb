@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::lvm', :type => :define do
+describe 'govuk_lvm', :type => :define do
   let(:title) { 'purple' }
 
   context 'with no params' do

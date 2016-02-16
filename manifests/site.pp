@@ -52,7 +52,7 @@ node default {
 
   # Create logical volumes from hiera
   $lv = hiera('lv',{})
-  create_resources('govuk::lvm', $lv)
+  create_resources('govuk_lvm', $lv)
   # Create mounts from hiera
   $mount = hiera('mount',{})
   create_resources('govuk::mount', $mount)

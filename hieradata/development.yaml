@@ -190,7 +190,7 @@ govuk::deploy::config::errbit_environment_name: 'development'
 govuk::deploy::config::govuk_env: 'development'
 govuk::deploy::setup_actionmailer_ses_config: false
 
-govuk::lvm::no_op: true
+govuk_lvm::no_op: true
 
 govuk::mount::no_op: true
 
