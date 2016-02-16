@@ -11,7 +11,7 @@ class monitoring {
   include icinga
   include nsca::server
 
-  include govuk::htpasswd
+  include govuk_htpasswd
 
   # Monitoring server only.
   include monitoring::contacts

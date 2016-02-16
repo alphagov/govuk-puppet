@@ -1,4 +1,4 @@
-# == Class: govuk::htpasswd
+# == Class: govuk_htpasswd
 #
 # Create an htpasswd file which can be used for HTTP basic authentication
 #
@@ -7,7 +7,7 @@
 # [*http_users*]
 #   Array of users with a password hash.
 #
-class govuk::htpasswd (
+class govuk_htpasswd (
   $http_users = {},
 ){
 

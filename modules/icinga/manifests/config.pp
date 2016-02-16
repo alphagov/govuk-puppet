@@ -21,7 +21,7 @@ class icinga::config (
 
   validate_bool($enable_event_handlers)
 
-  include govuk::htpasswd
+  include govuk_htpasswd
   include icinga::config::pingdom
   include icinga::config::smokey
 
