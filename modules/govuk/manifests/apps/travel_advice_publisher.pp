@@ -8,6 +8,10 @@
 #   The port that publishing API is served on.
 #   Default: 3078
 #
+# [*enable_email_alerts*]
+#   Send email alerts via the email-alert-api
+#   Default: false
+#
 # [*mongodb_name*]
 #   The Mongo database to be used.
 #
@@ -23,6 +27,7 @@
 #
 class govuk::apps::travel_advice_publisher(
   $port = '3035',
+  $enable_email_alerts = false,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
   $secret_key_base = undef,
@@ -58,5 +63,15 @@ class govuk::apps::travel_advice_publisher(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+  }
+
+  validate_bool($enable_email_alerts)
+
+  if ($enable_email_alerts) {
+    govuk::app::envvar {
+      "${title}-SEND_EMAIL_ALERTS":
+        varname => 'SEND_EMAIL_ALERTS',
+        value   => '1';
+    }
   }
 }
