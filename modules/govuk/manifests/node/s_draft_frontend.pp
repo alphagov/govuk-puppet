@@ -8,7 +8,7 @@
 class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
   include govuk::node::s_frontend
 
-  govuk::envvar { 'PLEK_HOSTNAME_PREFIX':
+  govuk_envvar { 'PLEK_HOSTNAME_PREFIX':
     value => 'draft-',
   }
 }
