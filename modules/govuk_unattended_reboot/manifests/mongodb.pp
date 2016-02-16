@@ -6,7 +6,7 @@
 # === Parameters
 #
 # [*enabled*]
-#   Whether to enable unattended reboots.
+#   Whether to enable the check for unattended reboots.
 #
 class govuk_unattended_reboot::mongodb (
   $enabled = false
