@@ -22,7 +22,7 @@ class govuk::node::s_logs_redis inherits govuk::node::s_redis_base {
   # river for each redis server to read the data into a logstash-compatible
   # index.
   @@govuk_elasticsearch::river { "logging-${::hostname}":
-    content => template('govuk/redis_river.json.erb'),
+    content => template('govuk/node/s_logs_redis/redis_river.json.erb'),
     tag     => 'logging',
   }
 

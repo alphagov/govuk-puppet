@@ -41,7 +41,7 @@ class govuk::node::s_logging (
     provider    => 'custom',
     jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
-    initfile    => 'puppet:///modules/govuk/logstash.init.Debian',
+    initfile    => 'puppet:///modules/govuk/node/s_logging/logstash.init.Debian',
     require     => [
       Curl::Fetch['logstash-monolithic'],
       Govuk::Mount['/srv']
