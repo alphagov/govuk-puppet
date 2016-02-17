@@ -20,6 +20,10 @@ class govuk::node::s_backend_lb (
 
   loadbalancer::balance {
     [
+      'signon',
+    ]:
+      https_only => true;
+    [
       'business-support-api',
       'collections-publisher',
       'contacts-admin',
@@ -36,7 +40,6 @@ class govuk::node::s_backend_lb (
       'search-admin',
       'service-manual-publisher',
       'share-sale-publisher',
-      'signon',
       'specialist-publisher',
       'short-url-manager',
       'support',
