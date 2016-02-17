@@ -1,4 +1,27 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_backend_lb
+#
+# Sets up a backend loadbalancer
+#
+# === Parameters
+#
+# [*perfplat_public_app_domain*]
+#   The public application domain for the Performance Platform
+#
+# [*backend_servers*]
+#   An array of backend app servers
+#
+# [*mapit_servers*]
+#   An array of mapit servers
+#
+# [*performance_backend_servers*]
+#   An array of Performance Platform backend app servers
+#
+# [*whitehall_backend_servers*]
+#   An array of whitehall backend app servers
+#
+# [*maintenance_mode*]
+#   Whether the backend should be taken offline in nginx
+#
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
