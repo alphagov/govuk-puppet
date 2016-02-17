@@ -70,4 +70,9 @@ define govuk_rabbitmq::consumer (
       ensure   => absent,
     }
   }
+
+  govuk_rabbitmq::monitor_consumers {"${title}_consumer_monitoring":
+    rabbitmq_hostname => 'localhost',
+    rabbitmq_queue    => $amqp_queue,
+  }
 }

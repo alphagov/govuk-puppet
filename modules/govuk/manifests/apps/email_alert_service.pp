@@ -31,9 +31,6 @@ class govuk::apps::email_alert_service(
     enable_nginx_vhost => false,
     command            => './bin/email_alert_service',
   }
-  govuk_rabbitmq::monitor_consumers {'email-alert-service_rabbitmq-consumers':
-    rabbitmq_queue     => 'email_alert_service',
-  }
 
   Govuk::App::Envvar {
     app => 'email-alert-service',
