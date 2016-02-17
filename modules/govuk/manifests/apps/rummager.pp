@@ -117,9 +117,6 @@ class govuk::apps::rummager(
   }
 
   govuk::app::envvar {
-    "${title}-TAXON_IMPORT_FILE":
-      varname => 'TAXON_IMPORT_FILE',
-      value   => '/data/apps/rummager/shared/alpha_taxonomy/import_dataset.csv';
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
