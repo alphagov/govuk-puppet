@@ -88,13 +88,11 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { 'errbit':
-    servers    => $errbit_servers,
-    https_only => false, # FIXME: Remove for #51136581
+    servers => $errbit_servers,
   }
 
   loadbalancer::balance { 'kibana':
     read_timeout => 5,
-    https_only   => false, # FIXME: Remove for #51136581
   }
 
   loadbalancer::balance { 'mapit':
