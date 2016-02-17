@@ -7,7 +7,7 @@ class govuk::deploy (
     $aws_ses_smtp_password = 'UNSET',
 ){
   include govuk_logging
-  include govuk::python
+  include govuk_python
   include harden
   include unicornherder
 
