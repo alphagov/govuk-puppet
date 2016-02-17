@@ -78,7 +78,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data
   - govuk_jenkins::job::email_alert_check
-  - govuk_jenkins::job::fetch_prototype_taxonomy_data
   - govuk_jenkins::job::gds_production_backup
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
   - govuk_jenkins::job::launch_vms
