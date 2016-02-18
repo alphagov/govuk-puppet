@@ -13,8 +13,8 @@ describe 'loadbalancer::balance', :type => :define do
       is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
         .with_content(/server giraffe-1:443.*server giraffe-2:443.*server giraffe-3:443/m)
         .with_content(/listen\s+443 ssl/)
+      is_expected.to contain_nginx__config__site('giraffe.environment.example.com').with_content(/listen\s+80;\n\s+rewrite/)
       is_expected.not_to contain_nginx__config__site('giraffe.environment.example.com').with_content(/deny all/)
-      is_expected.not_to contain_nginx__config__site('giraffe.environment.example.com').with_content(/listen\s+80/)
     end
   end
 
