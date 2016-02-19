@@ -4,6 +4,14 @@ upstream <%= @vhost %>-upstream {
 <%- end -%>
 }
 
+<%- if @https_only -%>
+server {
+  server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
+  listen 80;
+  rewrite ^/(.*) https://$host/$1 permanent;
+}
+<%- end -%>
+
 server {
   server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
 

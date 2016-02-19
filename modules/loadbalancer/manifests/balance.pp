@@ -89,6 +89,7 @@ define loadbalancer::balance(
     file { '/usr/share/nginx/html/maintenance.html':
       ensure  => present,
       content => template('loadbalancer/usr/share/nginx/html/maintenance_page.erb'),
+      require => File['/usr/share/nginx'],
     }
   }
 }
