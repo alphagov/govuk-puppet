@@ -24,7 +24,7 @@ describe 'govuk_postgresql::server', :type => :class do
               address     => '0.0.0.0/0',
               auth_method => 'md5',
               database    => 'replication',
-              type        => 'host',
+              'type'      => 'host',
               user        => 'replication',
             }
           }
