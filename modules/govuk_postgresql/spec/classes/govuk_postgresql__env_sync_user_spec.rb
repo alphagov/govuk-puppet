@@ -38,7 +38,7 @@ describe 'govuk_postgresql::env_sync_user', :type => :class do
   context 'no password provided' do
     it {
       is_expected.to raise_error(
-        Puppet::Error, /^Must pass password to/
+        Puppet::Error, /Must pass password to/
       )
     }
   end
