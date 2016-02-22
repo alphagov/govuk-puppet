@@ -50,7 +50,7 @@ describe 'govuk_postgresql::server', :type => :class do
     context 'no sub-classes are loaded' do
       it {
         is_expected.to raise_error(
-          Puppet::Error, /^Class govuk_postgresql::server cannot be used directly/
+          Puppet::Error, /Class govuk_postgresql::server cannot be used directly/
         )
       }
     end
