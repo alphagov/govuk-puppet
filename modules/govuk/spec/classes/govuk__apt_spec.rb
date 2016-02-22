@@ -3,6 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'govuk::node::s_apt' do
   let(:facts) {{
     :concat_basedir => '/var/lib/puppet/concat/',
+    :vdc            => 'fake_vdc',
   }}
   let(:node) { 'apt-1.management.somethingsomething' }
   let(:pre_condition) { 'govuk::mount { "/root/dir": }' }

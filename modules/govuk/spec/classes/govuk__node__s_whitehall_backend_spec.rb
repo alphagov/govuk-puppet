@@ -4,7 +4,8 @@ describe 'govuk::node::s_whitehall_backend', :type => :class do
   let(:node) { 'whitehall-backend-1.backend.somethingsomething' }
   let(:facts) {{
     :concat_basedir => '/var/lib/puppet/concat/',
-    :memorysize =>  '15.95 GB',
+    :memorysize     => '15.95 GB',
+    :vdc            => 'fake_vdc',
   }}
   context 'sync_mirror is true' do
     let(:params) {{ :sync_mirror => true }}
