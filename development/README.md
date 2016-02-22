@@ -26,10 +26,6 @@ checking for other manufacturers.
   * You have [OSX GCC tools installed](https://github.com/kennethreitz/osx-gcc-installer) (or via XCode)
   * You have [VirtualBox](https://www.virtualbox.org/) installed
   * You have an account on [GitHub.com](https://github.com)
-  * You have an account on
-    [GDS's GitHub Enterprise](https://github.gds) and you can see the
-    [Puppet repository](https://github.com/alphagov/govuk-puppet) (which you can,
-    because you're reading this)
   * You have a recent version of [Vagrant](https://www.vagrantup.com/downloads.html)
     installed - these instructions may work with older versions, but
     they're not officially supported
