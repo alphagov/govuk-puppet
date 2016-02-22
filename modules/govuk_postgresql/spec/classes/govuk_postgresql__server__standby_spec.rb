@@ -13,7 +13,9 @@ describe 'govuk_postgresql::server::standby', :type => :class do
   let(:pg_resync_slave) { '/usr/local/bin/pg_resync_slave' }
 
   let(:facts) {{
-    :concat_basedir => '/tmp/concat',
+    :concat_basedir         => '/tmp/concat',
+    :operatingsystem        => 'Ubuntu',
+    :operatingsystemrelease => '14.04',
   }}
   let(:params) {{
     :master_host     => param_host,
