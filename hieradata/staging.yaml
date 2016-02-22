@@ -15,6 +15,7 @@ govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.ca
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::sidekiq_monitoring::enabled: true
+govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
