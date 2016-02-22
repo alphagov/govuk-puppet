@@ -4,13 +4,21 @@
 #
 # === Parameters
 #
+# [*hiera_eyaml_gpg_version*]
+#  Specify the version of hiera_eyaml_gpg to install.
+#
 # [*puppetdb_version*]
 #   Specify the version of puppetdb-terminus to install which should match
 #   the puppetdb installation. Passed in by parent class.
 #
+# [*unicorn_port*]
+#   Specify the port on which unicorn (and hence the puppetmaster) should
+#   listen.
+#
 class puppet::master::package(
   $hiera_eyaml_gpg_version = 'latest',
   $puppetdb_version = 'present',
+  $unicorn_port = '9090',
 ) {
   include ::puppet
 

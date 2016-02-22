@@ -34,6 +34,7 @@ class puppet::master(
       Class['unicornherder'],
       Anchor['puppet::master::begin'],
     ],
+    unicorn_port     => $unicorn_port,
   }
   class{'puppet::master::config':
     unicorn_port => $unicorn_port,
