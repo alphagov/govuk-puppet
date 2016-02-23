@@ -3,9 +3,16 @@
 # Nginx log centralisation and rotation.
 #
 class nginx::logging {
-  file { '/etc/logrotate.d/nginx':
-    ensure => present,
-    source => 'puppet:///modules/nginx/etc/logrotate.d/nginx',
+  @logrotate::conf { 'nginx':
+    matches         => '/var/log/nginx/*.log',
+    days_to_keep    => '28',
+    copytruncate    => false,
+    create          => '0640 www-data adm',
+    delaycompress   => true,
+    prerotate       => 'if [ -d /etc/logrotate.d/httpd-prerotate ]; then run-parts /etc/logrotate.d/httpd-prerotate; fi',
+    postrotate      => '[ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`',
+    rotate_if_empty => true,
+    sharedscripts   => true,
   }
 
   nginx::log {
