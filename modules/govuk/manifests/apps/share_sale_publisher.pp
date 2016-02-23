@@ -19,6 +19,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
+#   Default: undef
+#
 # [*errbit_api_key*]
 #   Errbit API key for sending errors.
 #   Default: undef
@@ -43,6 +47,7 @@ class govuk::apps::share_sale_publisher(
   $port = 3119,
   $mongodb_nodes,
   $mongodb_name,
+  $asset_manager_bearer_token = undef,
   $enabled = false,
   $errbit_api_key = undef,
   $errbit_host = undef,
@@ -73,6 +78,9 @@ class govuk::apps::share_sale_publisher(
     }
 
     govuk::app::envvar {
+      "${title}-ASSET_MANAGER_BEARER_TOKEN":
+        varname => 'ASSET_MANAGER_BEARER_TOKEN',
+        value   => $asset_manager_bearer_token;
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
