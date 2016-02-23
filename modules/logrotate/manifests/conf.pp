@@ -19,6 +19,9 @@
 # [*group*]
 #   If provided with `$user`, the group to pass to `su`
 #
+# [*copytruncate*]
+#   Boolean, sets the copytruncate option in logrotate
+#
 # [*create*]
 #   A string to pass to the create option in logrotate
 #
@@ -43,6 +46,7 @@ define logrotate::conf (
   $ensure = 'present',
   $user = undef,
   $group = undef,
+  $copytruncate = true,
   $create = undef,
   $delaycompress = false,
   $prerotate = undef,

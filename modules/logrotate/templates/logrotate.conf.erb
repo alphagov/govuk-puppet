@@ -14,7 +14,9 @@
   <%- else -%>
   notifempty
   <%- end -%>
+  <%- if @copytruncate -%>
   copytruncate
+  <%- end -%>
   <%- if @create -%>
   create <%= @create %>
   <%- end -%>
