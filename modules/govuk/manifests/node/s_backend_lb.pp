@@ -37,15 +37,10 @@ class govuk::node::s_backend_lb (
   $app_domain = hiera('app_domain')
 
   Loadbalancer::Balance {
-    servers => $backend_servers,
     maintenance_mode => $maintenance_mode,
   }
 
   loadbalancer::balance {
-    [
-      'signon',
-    ]:
-      https_only => true;
     [
       'business-support-api',
       'collections-publisher',
@@ -63,6 +58,7 @@ class govuk::node::s_backend_lb (
       'search-admin',
       'service-manual-publisher',
       'share-sale-publisher',
+      'signon',
       'specialist-publisher',
       'short-url-manager',
       'support',
@@ -70,7 +66,7 @@ class govuk::node::s_backend_lb (
       'travel-advice-publisher',
       'transition',
     ]:
-      https_only => false; # FIXME: Remove for #51136581
+      servers => $backend_servers;
     [
       'asset-manager',
       'canary-backend',
@@ -84,10 +80,10 @@ class govuk::node::s_backend_lb (
       'tariff-api',
     ]:
       https_only    => false, # FIXME: Remove for #51136581
-      internal_only => true;
+      internal_only => true,
+      servers       => $backend_servers;
     'whitehall-admin':
-      https_only => false, # FIXME: Remove for #51136581
-      servers    => $whitehall_backend_servers;
+      servers => $whitehall_backend_servers;
   }
 
   loadbalancer::balance { 'errbit':
@@ -96,6 +92,7 @@ class govuk::node::s_backend_lb (
 
   loadbalancer::balance { 'kibana':
     read_timeout => 5,
+    servers      => $backend_servers,
   }
 
   loadbalancer::balance { 'mapit':
