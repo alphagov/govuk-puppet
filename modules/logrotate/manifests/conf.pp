@@ -19,6 +19,12 @@
 # [*group*]
 #   If provided with `$user`, the group to pass to `su`
 #
+# [*create*]
+#   A string to pass to the create option in logrotate
+#
+# [*delaycompress*]
+#   Boolean, sets the delaycompress option in logrotate
+#
 # [*prerotate*]
 #   A script for logrotate to run before rotating
 #
@@ -28,15 +34,21 @@
 # [*rotate_if_empty*]
 #   Boolean, tells logrotate to rotate the file even if it is empty
 #
+# [*sharedscripts*]
+#   Boolean, sets the sharedscripts option in logrotate
+#
 define logrotate::conf (
   $matches,
   $days_to_keep = '31',
   $ensure = 'present',
   $user = undef,
   $group = undef,
+  $create = undef,
+  $delaycompress = false,
   $prerotate = undef,
   $postrotate = undef,
   $rotate_if_empty = false,
+  $sharedscripts = false,
 ) {
 
   file { "/etc/logrotate.d/${title}":
