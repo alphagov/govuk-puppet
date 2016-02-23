@@ -42,12 +42,16 @@ class govuk::node::s_backend_lb (
 
   loadbalancer::balance {
     [
+      'hmrc-manuals-api',
+    ]:
+      error_on_http => true,
+      servers       => $backend_servers;
+    [
       'business-support-api',
       'collections-publisher',
       'contacts-admin',
       'content-register',
       'content-tagger',
-      'hmrc-manuals-api',
       'imminence',
       'maslow',
       'panopticon',
