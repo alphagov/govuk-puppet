@@ -2,10 +2,17 @@
 #
 # Nginx log centralisation and rotation.
 #
-class nginx::logging {
+# === Parameters
+#
+# [*days_to_keep*]
+#   The number of days that logrotate should keep logs for.
+#
+class nginx::logging (
+  $days_to_keep = '28',
+) {
   @logrotate::conf { 'nginx':
     matches         => '/var/log/nginx/*.log',
-    days_to_keep    => '28',
+    days_to_keep    => $days_to_keep,
     copytruncate    => false,
     create          => '0640 www-data adm',
     delaycompress   => true,
