@@ -14,6 +14,11 @@
 # [*aliases*]
 #   Additional server names for the loadbalanced service.
 #
+# [*error_on_http*]
+#   Whether we should serve an error for HTTP requests. Generally we
+#   prefer to redirect from HTTP to HTTPS to provide a good user experience,
+#   but for APIs and machine-only apps we can serve errors for HTTP connections.
+#
 # [*https_port*]
 #   Port to listen on for HTTPS.
 #   Default: 443
@@ -40,6 +45,7 @@
 define loadbalancer::balance(
     $servers,
     $aliases = [],
+    $error_on_http = false,
     $https_port = 443,
     $https_redirect = true,
     $internal_only = false,
