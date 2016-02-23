@@ -19,12 +19,20 @@
 # [*group*]
 #   If provided with `$user`, the group to pass to `su`
 #
+# [*prerotate*]
+#   A script for logrotate to run before rotating
+#
+# [*postrotate*]
+#   A script for logrotate to run after rotating
+#
 define logrotate::conf (
   $matches,
   $days_to_keep = '31',
   $ensure = 'present',
   $user = undef,
   $group = undef,
+  $prerotate = undef,
+  $postrotate = undef,
 ) {
 
   file { "/etc/logrotate.d/${title}":

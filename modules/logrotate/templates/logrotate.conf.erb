@@ -8,4 +8,14 @@
   compress
   notifempty
   copytruncate
+  <%- if @prerotate -%>
+  prerotate
+    <%= @prerotate %>
+  endscript
+  <%- end -%>
+  <%- if @postrotate -%>
+  postrotate
+    <%= @postrotate %>
+  endscript
+  <%- end -%>
 }
