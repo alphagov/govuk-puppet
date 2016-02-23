@@ -25,6 +25,9 @@
 # [*postrotate*]
 #   A script for logrotate to run after rotating
 #
+# [*rotate_if_empty*]
+#   Boolean, tells logrotate to rotate the file even if it is empty
+#
 define logrotate::conf (
   $matches,
   $days_to_keep = '31',
@@ -33,6 +36,7 @@ define logrotate::conf (
   $group = undef,
   $prerotate = undef,
   $postrotate = undef,
+  $rotate_if_empty = false,
 ) {
 
   file { "/etc/logrotate.d/${title}":

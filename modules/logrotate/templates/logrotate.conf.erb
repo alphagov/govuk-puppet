@@ -6,7 +6,11 @@
   missingok
   rotate <%= @days_to_keep %>
   compress
+  <%- if @rotate_if_empty -%>
+  ifempty
+  <%- else -%>
   notifempty
+  <%- end -%>
   copytruncate
   <%- if @prerotate -%>
   prerotate
