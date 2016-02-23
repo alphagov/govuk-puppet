@@ -4,7 +4,7 @@ upstream <%= @vhost %>-upstream {
 <%- end -%>
 }
 
-<%- if @https_only -%>
+<%- if @https_redirect -%>
 server {
   server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
   listen 80;
@@ -15,7 +15,7 @@ server {
 server {
   server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
 
-  <%- unless @https_only -%>
+  <%- unless @https_redirect -%>
   listen              80;
   <%- end -%>
   listen              <%= @https_port %> ssl;

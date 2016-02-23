@@ -11,9 +11,9 @@ class govuk::node::s_licensify_lb (
   loadbalancer::balance {
     # Licensify frontend
     'licensify':
-      https_only    => false,
-      servers       => $licensify_frontend_servers,
-      internal_only => true;
+      https_redirect => false,
+      servers        => $licensify_frontend_servers,
+      internal_only  => true;
 
     # Licensify upload pdf public endpoint
     'uploadlicence':
@@ -27,9 +27,9 @@ class govuk::node::s_licensify_lb (
 
     # Licensing web forms
     'licensing-web-forms':
-      https_only    => true,
-      servers       => $licensify_frontend_servers,
-      internal_only => true;
+      https_redirect => true,
+      servers        => $licensify_frontend_servers,
+      internal_only  => true;
 
   }
   if ($enable_feed_console) {

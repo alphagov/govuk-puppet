@@ -79,9 +79,9 @@ class govuk::node::s_backend_lb (
       'support-api',
       'tariff-api',
     ]:
-      https_only    => false, # FIXME: Remove for #51136581
-      internal_only => true,
-      servers       => $backend_servers;
+      https_redirect => false, # FIXME: Remove for #51136581
+      internal_only  => true,
+      servers        => $backend_servers;
     'whitehall-admin':
       servers => $whitehall_backend_servers;
   }
@@ -96,16 +96,16 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { 'mapit':
-    servers       => $mapit_servers,
-    internal_only => true,
-    https_only    => false, # FIXME: Remove for #51136581
+    servers        => $mapit_servers,
+    internal_only  => true,
+    https_redirect => false, # FIXME: Remove for #51136581
   }
 
   if !empty($performance_backend_servers) {
     loadbalancer::balance { 'performanceplatform-admin':
-      servers       => $performance_backend_servers,
-      internal_only => false,
-      https_only    => true,
+      servers        => $performance_backend_servers,
+      internal_only  => false,
+      https_redirect => true,
     }
   }
 

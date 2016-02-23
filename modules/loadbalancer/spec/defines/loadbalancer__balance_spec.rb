@@ -65,11 +65,11 @@ describe 'loadbalancer::balance', :type => :define do
     end
   end
 
-  context 'https_only load balancer' do
+  context 'https_redirect at the load balancer' do
     let(:title) { 'giraffe' }
     let(:params) {
       {
-        :https_only => false,
+        :https_redirect => false,
         :servers => ['giraffe-1', 'giraffe-2', 'giraffe-3'],
       }
     }
