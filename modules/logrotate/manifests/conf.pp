@@ -1,4 +1,24 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Define: logrotate::conf
+#
+# Creates a logrotate config file on disk
+#
+# === Parameters
+#
+# [*matches*]
+#   A glob of files that the logrotate should match
+#
+# [*days_to_keep*]
+#   The number of days that logs should be retained
+#
+# [*ensure*]
+#   Whether the logrotate config should be created
+#
+# [*user*]
+#   If provided with `$group`, the user to pass to `su`
+#
+# [*group*]
+#   If provided with `$user`, the group to pass to `su`
+#
 define logrotate::conf (
   $matches,
   $days_to_keep = '31',
