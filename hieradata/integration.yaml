@@ -150,6 +150,7 @@ govuk::node::s_api_lb::email_campaign_api_servers:
   - "email-campaign-api-2.api"
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
+  - "mapit-2.api"
 govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
