@@ -124,6 +124,8 @@ class govuk_elasticsearch (
     legacy_elasticsearch => versioncmp($version, '1.0.0') < 0, # version 0.x has different stats URLs etc.
   }
 
+  include govuk_unattended_reboot::elasticsearch
+
   if $open_firewall_from_all {
     @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
       port => $http_port,
