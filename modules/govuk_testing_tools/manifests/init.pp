@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::testing_tools {
+class govuk_testing_tools {
   include phantomjs
 
   package { [
@@ -12,7 +12,7 @@ class govuk::testing_tools {
 
   file { '/etc/init/xvfb.conf':
     ensure => present,
-    source => 'puppet:///modules/govuk/xvfb.conf',
+    source => 'puppet:///modules/govuk_testing_tools/xvfb.conf',
   }
 
   service { 'xvfb':
