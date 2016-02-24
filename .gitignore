@@ -17,3 +17,4 @@ REVISION
 /development/Vagrantfile.localconfig
 /gpg/random_seed
 nodes.local.yaml
+gpg_recipients/.*last_updated
