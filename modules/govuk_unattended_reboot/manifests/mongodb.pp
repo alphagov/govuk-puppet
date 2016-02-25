@@ -21,12 +21,17 @@ class govuk_unattended_reboot::mongodb (
     $file_ensure = absent
   }
 
-  file { "${check_scripts_directory}/02_mongodb.py":
+  file { "${check_scripts_directory}/02_mongodb":
     ensure  => $file_ensure,
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
-    source  => "puppet:///modules/govuk_unattended_reboot/${check_scripts_directory}/02_mongodb.py",
+    source  => "puppet:///modules/govuk_unattended_reboot/${check_scripts_directory}/02_mongodb",
     require => File[$check_scripts_directory],
+  }
+
+  # FIXME: Remove once deployed
+  file { "${check_scripts_directory}/02_mongodb.py":
+    ensure => absent,
   }
 }

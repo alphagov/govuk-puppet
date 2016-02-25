@@ -15,12 +15,17 @@ class govuk_unattended_reboot::elasticsearch (
   $config_directory = '/etc/unattended-reboot'
   $check_scripts_directory = "${config_directory}/check"
 
-  file { "${check_scripts_directory}/02_elasticsearch.py":
+  file { "${check_scripts_directory}/02_elasticsearch":
     ensure  => present,
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
-    source  => "puppet:///modules/govuk_unattended_reboot/${check_scripts_directory}/02_elasticsearch.py",
+    source  => "puppet:///modules/govuk_unattended_reboot/${check_scripts_directory}/02_elasticsearch",
     require => File[$check_scripts_directory],
+  }
+
+  # FIXME: Remove once deployed
+  file { "${check_scripts_directory}/02_elasticsearch.py":
+    ensure => absent,
   }
 }
