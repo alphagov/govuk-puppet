@@ -116,11 +116,11 @@ class govuk::apps::rummager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-AWS_S3_KEY":
-      varname => 'AWS_S3_KEY',
+    "${title}-AWS_ACCESS_KEY_ID":
+      varname => 'AWS_ACCESS_KEY_ID',
       value   => $aws_s3_key;
-    "${title}-AWS_S3_SECRET":
-      varname => 'AWS_S3_SECRET',
+    "${title}-AWS_SECRET_ACCESS_KEY":
+      varname => 'AWS_SECRET_ACCESS_KEY',
       value   => $aws_s3_secret;
   }
 }
