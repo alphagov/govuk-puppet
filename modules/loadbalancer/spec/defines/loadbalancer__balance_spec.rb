@@ -1,6 +1,10 @@
 require_relative '../../../../spec_helper'
 
 describe 'loadbalancer::balance', :type => :define do
+  let(:default_params) {{
+    :servers => ['server-1'],
+  }}
+
   context 'external load balancer' do
     let(:title) { 'giraffe' }
     let(:params) {
@@ -63,22 +67,55 @@ describe 'loadbalancer::balance', :type => :define do
           .with_content(/listen\s+8443 ssl/)
       end
     end
-  end
 
-  context 'https_only load balancer' do
-    let(:title) { 'giraffe' }
-    let(:params) {
-      {
-        :https_only => false,
-        :servers => ['giraffe-1', 'giraffe-2', 'giraffe-3'],
-      }
-    }
+    context 'HTTP and HTTPS behaviour' do
+      describe 'error_on_http is true, https_redirect is true' do
+        let(:params) { default_params.merge({
+          :error_on_http => true,
+          :https_redirect => true,
+        })}
 
-    it 'should create nginx config for loadbalancing' do
-      is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
-        .with_content(/server giraffe-1:443.*server giraffe-2:443.*server giraffe-3:443/m)
-        .with_content(/listen\s+80/)
-        .with_content(/listen\s+443 ssl/)
+        it 'should serve errors for HTTP' do
+          is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
+            .with_content(/listen 80;\n\s+return 426/)
+        end
+      end
+
+      describe 'error_on_http is true, https_redirect is false' do
+        let(:params) { default_params.merge({
+          :error_on_http => true,
+          :https_redirect => false,
+        })}
+
+        it 'should serve errors for HTTP' do
+          is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
+            .with_content(/listen 80;\n\s+return 426/)
+        end
+      end
+
+      describe 'error_on_http is false, https_redirect is true' do
+        let(:params) { default_params.merge({
+          :error_on_http => false,
+          :https_redirect => true,
+        })}
+
+        it 'should redirect from HTTP to HTTPS' do
+          is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
+            .with_content(/listen 80;\n\s+rewrite \^\/\(\.\*\) https/)
+        end
+      end
+
+      describe 'error_on_http is false, https_redirect is false' do
+        let(:params) { default_params.merge({
+          :error_on_http => false,
+          :https_redirect => false,
+        })}
+
+        it 'should serve the loadbalanced app over HTTP and HTTPS' do
+          is_expected.to contain_nginx__config__site('giraffe.environment.example.com')
+            .with_content(/listen\s+80;\n\s+listen\s+443 ssl;/)
+        end
+      end
     end
   end
 end
