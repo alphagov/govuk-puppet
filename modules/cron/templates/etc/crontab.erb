@@ -8,8 +8,8 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h dom mon dow user  command
-<%= @hourly_min %> *    * * *   root    cd / && run-parts --report /etc/cron.hourly
-<%= @daily_min %> <%= @daily_hour %>    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
-<%= @weekly_min %> 6    * * <%= @weekly_dow %>   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
-<%= @monthly_min %> 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+<%= @hourly_min %> *    * * *   root    cd / && run-parts --report --regex '.*' /etc/cron.hourly
+<%= @daily_min %> <%= @daily_hour %>    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report --regex '.*' /etc/cron.daily )
+<%= @weekly_min %> 6    * * <%= @weekly_dow %>   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report --regex '.*' /etc/cron.weekly )
+<%= @monthly_min %> 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report --regex '.*' /etc/cron.monthly )
 #
