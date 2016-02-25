@@ -72,6 +72,7 @@ define govuk_rabbitmq::consumer (
   }
 
   govuk_rabbitmq::monitor_consumers {"${title}_consumer_monitoring":
+    ensure            => $ensure,
     rabbitmq_hostname => 'localhost',
     rabbitmq_queue    => $amqp_queue,
   }

@@ -5,6 +5,9 @@
 # [*rabbitmq_queue*]
 # The queue to monitor
 #
+# [*ensure*]
+#   Whether the monitoring should be created
+#
 # [*rabbitmq_hostname*]
 # The hostname of a server in the rabbitmq cluster
 # Default: rabbitmq-1.backend
@@ -19,17 +22,20 @@
 # Default: 15672
 define govuk_rabbitmq::monitor_consumers (
   $rabbitmq_queue,
+  $ensure = present,
   $rabbitmq_hostname = 'rabbitmq-1.backend',
   $rabbitmq_user = 'monitoring',
   $rabbitmq_admin_port = 15672,
 ){
 
-  include icinga::plugin::check_rabbitmq_consumers
+  if $ensure == present {
+    include icinga::plugin::check_rabbitmq_consumers
 
-  @@icinga::check { "check_rabbitmq_consumers_for_${rabbitmq_queue}_on_${::hostname}":
-    check_command       => "check_nrpe!check_rabbitmq_consumers!${rabbitmq_hostname} ${rabbitmq_admin_port} ${rabbitmq_queue} ${rabbitmq_user}",
-    service_description => "Check that there is at least one non-idle consumer for rabbitmq queue ${rabbitmq_queue}",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(check-for-non-idle-consumers),
+    @@icinga::check { "check_rabbitmq_consumers_for_${rabbitmq_queue}_on_${::hostname}":
+      check_command       => "check_nrpe!check_rabbitmq_consumers!${rabbitmq_hostname} ${rabbitmq_admin_port} ${rabbitmq_queue} ${rabbitmq_user}",
+      service_description => "Check that there is at least one non-idle consumer for rabbitmq queue ${rabbitmq_queue}",
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(check-for-non-idle-consumers),
+    }
   }
 }
