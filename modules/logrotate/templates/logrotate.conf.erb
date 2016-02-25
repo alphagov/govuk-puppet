@@ -6,6 +6,31 @@
   missingok
   rotate <%= @days_to_keep %>
   compress
+  <%- if @delaycompress -%>
+  delaycompress
+  <%- end -%>
+  <%- if @rotate_if_empty -%>
+  ifempty
+  <%- else -%>
   notifempty
+  <%- end -%>
+  <%- if @copytruncate -%>
   copytruncate
+  <%- end -%>
+  <%- if @create -%>
+  create <%= @create %>
+  <%- end -%>
+  <%- if @sharedscripts -%>
+  sharedscripts
+  <%- end -%>
+  <%- if @prerotate -%>
+  prerotate
+    <%= @prerotate %>
+  endscript
+  <%- end -%>
+  <%- if @postrotate -%>
+  postrotate
+    <%= @postrotate %>
+  endscript
+  <%- end -%>
 }

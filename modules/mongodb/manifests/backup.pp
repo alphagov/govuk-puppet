@@ -63,10 +63,13 @@ class mongodb::backup(
     tags    => ['backup', 'automongodbbackup', 'mongo'],
   }
 
-  file { '/etc/logrotate.d/automongodbbackup':
-    ensure  => $present,
-    source  => 'puppet:///modules/mongodb/etc/logrotate.d/automongodbbackup',
-    require => Class['logrotate'],
+  @logrotate::conf { 'automongodbbackup':
+    ensure        => $present,
+    matches       => '/var/log/automongodbbackup/backup.log',
+    days_to_keep  => '31',
+    delaycompress => true,
+    copytruncate  => false,
+    create        => '644 root root',
   }
 
   if $enabled_real {
