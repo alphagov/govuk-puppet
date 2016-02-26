@@ -66,7 +66,7 @@ mod 'alphagov/tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
 
 # Our modules on the Forge.
-mod 'gdsoperations/aptly'
+mod 'gdsoperations/aptly', '0.3.0'
 mod 'gdsoperations/auditd', '0.2.0'
 mod 'gdsoperations/goenv', '0.0.4'
 mod 'gdsoperations/graphite', '~> 2.0.5'
