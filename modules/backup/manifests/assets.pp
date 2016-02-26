@@ -50,6 +50,8 @@ class backup::assets(
   }
 
   if $backup_private_gpg_key and $backup_private_gpg_key_fingerprint {
+    validate_re($backup_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
+
     file { '/root/.gnupg':
       ensure => directory,
       mode   => '0700',
@@ -62,8 +64,7 @@ class backup::assets(
     }
 
     exec { 'import_gpg_secret_key':
-      command     => "gpg --allow-secret-key-import --import /root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc",
-      unless      => "gpg --list-secret-keys | grep -Eqs ${backup_private_gpg_key_fingerprint}",
+      command     => "gpg --batch --delete-secret-and-public-key ${backup_private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc",
       user        => 'root',
       group       => 'root',
       subscribe   => File["/root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc"],
