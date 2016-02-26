@@ -2,7 +2,7 @@
 dir = File.expand_path('../../', File.dirname(__FILE__))
 $LOAD_PATH.unshift File.join(dir, 'lib')
 
-# We don't need rspec-puppet from spec_helper. Just facter.
+require_relative '../../../../spec_helper'
 require 'facter'
 
 describe 'fqdn_short' do
