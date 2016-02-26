@@ -3,6 +3,70 @@ HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
 
+deployable_applications: &deployable_applications
+  - asset-manager
+  - authenticating-proxy
+  - bouncer
+  - business-support-api
+  - business-support-finder
+  - calculators
+  - calendars
+  - collections
+  - collections-publisher
+  - contacts-admin
+  - contacts-frontend
+  - content-register
+  - content-store
+  - content-tagger
+  - courts-api
+  - courts-frontend
+  - design-principles
+  - EFG
+  - email-alert-api
+  - email-alert-frontend
+  - email-alert-monitor
+  - email-alert-service
+  - errbit
+  - feedback
+  - finder-frontend
+  - frontend
+  - government-frontend
+  - govuk_content_api
+  - govuk_need_api
+  - hmrc-manuals-api
+  - imminence
+  - info-frontend
+  - kibana-gds
+  - licence-finder
+  - manuals-frontend
+  - maslow
+  - panopticon
+  - policy-publisher
+  - publisher
+  - publishing-api
+  - recommended-links
+  - release
+  - router-api
+  - rummager
+  - search-admin
+  - short-url-manager
+  - sidekiq-monitoring
+  - signonotron2
+  - smart-answers
+  - smokey
+  - specialist-frontend
+  - specialist-publisher
+  - static
+  - support
+  - support-api
+  - trade-tariff-admin
+  - trade-tariff-backend
+  - trade-tariff-frontend
+  - transition
+  - travel-advice-publisher
+  - url-arbiter
+  - whitehall
+
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
 apt::apt_update_frequency: 'daily'
@@ -385,6 +449,9 @@ govuk_jenkins::job::smokey::auth_password: "%{hiera('http_password')}"
 govuk_jenkins::job::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk_jenkins::job::smokey::signon_email: "%{hiera('smokey_signon_email')}"
 govuk_jenkins::job::smokey::signon_password: "%{hiera('smokey_signon_password')}"
+
+govuk_jenkins::job::run_rake_task::applications: *deployable_applications
+govuk_jenkins::job::deploy_app::applications: *deployable_applications
 
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"

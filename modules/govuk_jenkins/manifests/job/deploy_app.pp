@@ -22,6 +22,7 @@ class govuk_jenkins::job::deploy_app (
   $app_domain = undef,
   $auth_token = undef,
   $ci_deploy_jenkins_api_key = undef,
+  $applications = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/deploy_app.yaml':
     ensure  => present,
