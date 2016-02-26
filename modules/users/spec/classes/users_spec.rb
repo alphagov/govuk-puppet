@@ -4,15 +4,15 @@ require 'sshkey'
 describe "users", :type => "class" do
   context 'on whitelisted node pentest user should be created' do
     let(:facts) {{ :hostname => 'foo' }}
-    let(:pre_condition) { 'class users::andre_the_giant { govuk::user { "andre_the_giant": } }' }
+    let(:pre_condition) { 'class users::andre_the_giant { govuk_user { "andre_the_giant": } }' }
 
-    it { is_expected.to contain_govuk__user('andre_the_giant') }
+    it { is_expected.to contain_govuk_user('andre_the_giant') }
   end
 
   context 'on non-whitelisted node pentest user should not be created' do
     let(:facts) {{ :hostname => 'bar' }}
 
-    it { is_expected.not_to contain_govuk__user('andre_the_giant') }
+    it { is_expected.not_to contain_govuk_user('andre_the_giant') }
   end
 end
 
@@ -43,7 +43,7 @@ username_whitelist = %w{
 user_list.each do |username|
   describe "users::#{username}", :type => "class" do
     it 'should have a username of the correct form' do
-      user = subject.call.resource('govuk::user', username)
+      user = subject.call.resource('govuk_user', username)
       expect(user).not_to be_nil
 
       unless username_whitelist.include?(username)
@@ -56,7 +56,7 @@ user_list.each do |username|
     end
 
     it 'should have a strong SSH key' do
-      user = subject.call.resource('govuk::user', username)
+      user = subject.call.resource('govuk_user', username)
       ssh_keys = user[:ssh_key]
 
       # Support for multiple SSH keys

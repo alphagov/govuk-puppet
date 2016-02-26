@@ -98,7 +98,7 @@ class govuk_crawler(
   create_resources('sshkey', $ssh_keys)
 
   # User used to rsync crawled content to the remote mirror
-  govuk::user { $crawler_user:
+  govuk_user { $crawler_user:
     fullname => 'GOV.UK Crawler',
     email    => 'webops@digital.cabinet-office.gov.uk',
   }
@@ -107,7 +107,7 @@ class govuk_crawler(
     owner   => $crawler_user,
     mode    => '0600',
     content => $ssh_private_key,
-    require => Govuk::User[$crawler_user],
+    require => Govuk_user[$crawler_user],
   }
 
   file { $seeder_lock_path:

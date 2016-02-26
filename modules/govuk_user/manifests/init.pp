@@ -1,4 +1,4 @@
-# == Type: govuk::user
+# == Type: govuk_user
 #
 # Set up a user with default settings for the GOV.UK stack
 #
@@ -38,7 +38,7 @@
 #   existing file being removed. The `.ssh` directory will be created for
 #   present users regardless of whether `ssh_key` is passed.
 #
-define govuk::user(
+define govuk_user(
   $ensure = present,
   $fullname = 'No Name',
   $email = 'no.name@digital.cabinet-office.gov.uk',
