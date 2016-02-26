@@ -959,6 +959,7 @@ postgresql_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.13/32"
 postgresql_transition_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.61/32"
 postgresql_transition_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.61/32"
 
+postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
 
 puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
