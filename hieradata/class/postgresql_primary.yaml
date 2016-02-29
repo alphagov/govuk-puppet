@@ -14,6 +14,7 @@ lv:
     pv:
       - '/dev/sdb1'
       - '/dev/sdd1'
+      - '/dev/sde1'
     vg: 'backups'
   data:
     pv: '/dev/sdc1'
