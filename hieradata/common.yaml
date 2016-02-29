@@ -186,7 +186,6 @@ govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::email_campaign_api::errbit_environment_name: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
-govuk::apps::email_campaign_api::errbit_host: "https://errbit.%{hiera('app_domain')}"
 govuk::apps::email_campaign_api::mongodb_nodes:
   - 'email-campaign-mongo-1.api'
   - 'email-campaign-mongo-2.api'
