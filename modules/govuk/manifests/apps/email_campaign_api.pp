@@ -29,7 +29,6 @@ class govuk::apps::email_campaign_api(
   $enabled = true,
   $enable_procfile_worker = false,
   $errbit_api_key = undef,
-  $errbit_environment_name,
   $secret_key_base = undef,
   $gov_delivery_endpoint = undef,
   $gov_delivery_code = undef,
@@ -73,9 +72,6 @@ class govuk::apps::email_campaign_api(
       "${title}-ERRBIT_API_KEY":
           varname => 'ERRBIT_API_KEY',
           value   => $errbit_api_key;
-      "${title}-ERRBIT_ENVIRONMENT_NAME":
-          varname => 'ERRBIT_ENVIRONMENT_NAME',
-          value   => $errbit_environment_name;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
