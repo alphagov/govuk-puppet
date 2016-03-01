@@ -16,6 +16,9 @@
     properties:
         - github:
             url: https://github.gds/gds/env-sync-and-backup/
+        - inject:
+            properties-content: |
+              PARALLEL_JOBS=2
     scm:
       - env-sync-and-backup_Copy_Data_to_Staging
     logrotate:
@@ -73,8 +76,6 @@
     wrappers:
         - ansicolor:
             colormap: xterm
-        - inject:
-            script-content: PARALLEL_JOBS=2
     parameters:
         - choice:
             name: JOBLIST
