@@ -1,4 +1,5 @@
 STARTEPOCH=`date +%s`
 
-# Put a temporary file on disk to indicate that MySQL is currently backing up
-touch /var/lock/mysql-backup.lock
+# Use setlock to indicate that MySQL is currently backing up
+setlock -n /var/lock/mysql-backup.lock sleep infinity &
+SETLOCK_PID=$!
