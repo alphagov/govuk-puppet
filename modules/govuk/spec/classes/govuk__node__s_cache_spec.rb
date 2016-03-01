@@ -3,7 +3,10 @@ require_relative '../../../../spec_helper'
 describe 'govuk::node::s_cache', :type => :class do
   let(:node) { 'cache-1.router.somethingsomething' }
   let(:pre_condition) { '$concat_basedir = "/tmp"' }
-  let(:facts) { { :memorysize_mb => 3953.43 } }
+  let(:facts) {{
+    :memorysize_mb => 3953.43,
+    :vdc           => 'fake_vdc',
+  }}
 
   context 'by default' do
     it 'sets the varnish upstream port to the router' do
