@@ -54,12 +54,12 @@ class govuk_unattended_reboot (
     content => template("govuk_unattended_reboot${check_scripts_directory}/00_safety.erb"),
   }
 
-  file { "${check_scripts_directory}/00_lockfile.py":
+  file { "${check_scripts_directory}/00_lockfile":
     ensure  => $file_ensure,
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
-    content => template("govuk_unattended_reboot${check_scripts_directory}/00_lockfile.py.erb"),
+    content => template("govuk_unattended_reboot${check_scripts_directory}/00_lockfile.erb"),
   }
 
   file { "${check_scripts_directory}/01_alerts":
@@ -84,7 +84,7 @@ class govuk_unattended_reboot (
     check_scripts_directory => $check_scripts_directory,
     require                 => [
       File["${check_scripts_directory}/00_safety"],
-      File["${check_scripts_directory}/00_lockfile.py"],
+      File["${check_scripts_directory}/00_lockfile"],
       File["${check_scripts_directory}/01_alerts"]
     ],
   }
