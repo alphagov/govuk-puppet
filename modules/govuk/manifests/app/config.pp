@@ -18,6 +18,7 @@ define govuk::app::config (
   $port,
   $vhost_full,
   $command = 'NOTSET',
+  $create_pidfile = 'NOTSET',
   $vhost_aliases = [],
   $vhost_protected = false,
   $vhost_ssl_only = false,
@@ -133,6 +134,13 @@ define govuk::app::config (
       govuk::app::envvar { "${title}-UNICORN_HERDER_TIMEOUT":
         varname => 'UNICORN_HERDER_TIMEOUT',
         value   => $unicorn_herder_timeout;
+      }
+    }
+
+    if $app_type == 'procfile' and $create_pidfile {
+      govuk::app::envvar { "${title}-GOVUK_MAKE_PIDFILE":
+        varname => 'GOVUK_MAKE_PIDFILE',
+        value   => '--make-pid';
       }
     }
 

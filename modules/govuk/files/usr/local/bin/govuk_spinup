@@ -57,7 +57,10 @@ case "$GOVUK_APP_TYPE" in
   procfile)
     status "Spawning 'web' task from Procfile"
     CMD=$(<Procfile grep '^web:' | cut -d':' -f2-)
-    MAKE_PIDFILE="--make-pidfile"
+
+    if [ ${GOVUK_MAKE_PIDFILE:-UNSET} != "UNSET" ]; then
+      MAKE_PIDFILE="--make-pidfile"
+    fi
     ;;
 
   bare)

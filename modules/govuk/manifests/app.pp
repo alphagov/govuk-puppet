@@ -37,6 +37,18 @@
 # `GOVUK_APP_CMD` which is used by `govuk_spinup`.
 #
 #
+# [*create-pidfile*]
+# Determines whether a pidfile is created when a `procfile` app is started
+#
+# By default procfile apps will create pid files (via the --make-pid switch
+# in govuk_spinup).
+# If the create-pidfile value is set to false, then a pid file will not be
+# created.  This is appropriate when using unicornherder with gunicorn.
+# The value defaults to 'NOTSET' (as opposed to true) to try to flag up that
+# this doesn't apply to all app types. (eg Rack apps don't create pid files
+# by default)
+#
+#
 # [*logstream*]
 # choose whether or not to create a log tailing upstart job
 #
@@ -236,6 +248,7 @@ define govuk::app (
   $app_type,
   $port = 'NOTSET',
   $command = undef,
+  $create_pidfile = 'NOTSET',
   $logstream = present,
   $legacy_logging = true,
   $log_format_is_json = false,
@@ -298,6 +311,7 @@ define govuk::app (
     require                   => Govuk::App::Package[$title],
     app_type                  => $app_type,
     command                   => $command,
+    create_pidfile            => $create_pidfile,
     domain                    => $app_domain,
     port                      => $port,
     vhost_aliases             => $vhost_aliases,
