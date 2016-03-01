@@ -59,10 +59,11 @@ class govuk::apps::service_manual_publisher(
   $app_name = 'service-manual-publisher'
 
   govuk::app { $app_name:
-    app_type          => 'rack',
-    port              => $port,
-    vhost_ssl_only    => true,
-    health_check_path => '/healthcheck',
+    app_type           => 'rack',
+    log_format_is_json => true,
+    port               => $port,
+    vhost_ssl_only     => true,
+    health_check_path  => '/healthcheck',
   }
 
   Govuk::App::Envvar {
