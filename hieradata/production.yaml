@@ -65,6 +65,7 @@ govuk_jenkins::config::manage_config: true
 govuk_jenkins::job_builder::environment: 'production'
 
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::bouncer_cdn
   - govuk_jenkins::job::build_offsite_backup
   - govuk_jenkins::job::check_cdn_ip_ranges
   - govuk_jenkins::job::ci_network_config
@@ -86,7 +87,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
   - govuk_jenkins::job::performance_platform_smokey
-  - govuk_jenkins::job::bouncer_cdn
   - govuk_jenkins::job::run_govuk_complaint_rate_report
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::search_fetch_analytics_data
