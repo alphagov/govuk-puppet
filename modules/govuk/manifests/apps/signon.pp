@@ -68,4 +68,6 @@ class govuk::apps::signon(
       value   => $redis_url,
     }
   }
+
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 }
