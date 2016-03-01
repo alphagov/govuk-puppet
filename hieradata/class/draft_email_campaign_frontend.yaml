@@ -1,4 +1,5 @@
 ---
+govuk::apps::email_campaign_frontend::vhost: 'draft-email-campaign-frontend'
 
 govuk::node::s_base::apps:
   - email_campaign_frontend

@@ -6,6 +6,9 @@
 #
 # FIXME: Document all class parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -13,6 +16,7 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::email_campaign_frontend(
+  $vhost,
   $port = 3109,
   $enabled = true,
   $errbit_api_key = undef,
@@ -33,6 +37,7 @@ class govuk::apps::email_campaign_frontend(
       asset_pipeline_prefix  => 'email-campaign-frontend',
       nagios_memory_warning  => $nagios_memory_warning,
       nagios_memory_critical => $nagios_memory_critical,
+      vhost                  => $vhost,
     }
 
     Govuk::App::Envvar {
