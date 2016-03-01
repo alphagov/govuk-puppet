@@ -115,6 +115,7 @@ content-tagger: govuk_setenv content-tagger  ./run_in.sh ../content-tagger bundl
 # sidekiq-monitoring for email-campaign-api uses 3117
 multipage-frontend: govuk_setenv multipage-frontend  ./run_in.sh ../multipage-frontend bundle exec rails s -p 3118
 share-sale-publisher: govuk_setenv share-sale-publisher ./run_in.sh ../share-sale-publisher bundle exec rails s -p 3119
+# sidekiq-monitoring for imminence uses 3120
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
