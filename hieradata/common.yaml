@@ -64,7 +64,6 @@ deployable_applications: &deployable_applications
   - trade-tariff-frontend
   - transition
   - travel-advice-publisher
-  - url-arbiter
   - whitehall
 
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
