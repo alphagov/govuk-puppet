@@ -1,7 +1,4 @@
 ---
-
-govuk::apps::collections::vhost: 'collections'
-
 govuk::node::s_base::apps:
   - canary_frontend
   - collections
