@@ -134,7 +134,6 @@ govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
-govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::mapit::enabled: true
 govuk::apps::multipage_frontend::enabled: true
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'

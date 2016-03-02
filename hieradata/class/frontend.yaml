@@ -5,7 +5,6 @@ govuk::apps::contacts::vhost: 'contacts-frontend-old'
 govuk::apps::contacts_frontend::vhost: 'contacts-frontend'
 govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 govuk::apps::government_frontend::vhost: 'government-frontend'
-govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 
 govuk::node::s_base::apps:
   - canary_frontend
