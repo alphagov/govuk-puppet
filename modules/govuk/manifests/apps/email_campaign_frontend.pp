@@ -8,6 +8,7 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
+#   Default: email-campaign-frontend
 #
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
@@ -16,7 +17,7 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::email_campaign_frontend(
-  $vhost,
+  $vhost = 'email-campaign-frontend',
   $port = 3109,
   $enabled = true,
   $errbit_api_key = undef,

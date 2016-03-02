@@ -101,7 +101,6 @@ govuk::node::s_development::apps:
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
-govuk::apps::email_campaign_frontend::vhost: 'email-campaign-frontend'
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::asset_manager::mongodb_name: 'govuk_assets_development'
 govuk::apps::asset_manager::mongodb_nodes: ['localhost']
