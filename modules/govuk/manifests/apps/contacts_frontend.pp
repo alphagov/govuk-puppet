@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::apps::contacts_frontend (
-  $vhost,
+  $vhost = 'contacts-frontend',
   $port = '3074',
 ) {
   govuk::app { 'contacts-frontend':
