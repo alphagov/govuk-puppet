@@ -20,6 +20,7 @@
 #
 # [*vhost*]
 #   Virtual host to be used by the application.
+#   Default: router-api
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -29,7 +30,7 @@ class govuk::apps::router_api(
   $mongodb_name,
   $mongodb_nodes,
   $router_nodes,
-  $vhost,
+  $vhost = 'router-api',
   $secret_key_base = undef,
 ) {
   $app_name = 'router-api'
