@@ -46,6 +46,10 @@ server {
     proxy_pass http://localhost:3117;
   }
 
+  location /imminence {
+    proxy_pass http://localhost:3120;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }
