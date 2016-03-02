@@ -3,6 +3,7 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
+#   Default: 'multipage-frontend'
 #
 # [*port*]
 #   What port should the app run on?
@@ -18,7 +19,7 @@
 #   Default: undef
 #
 class govuk::apps::multipage_frontend(
-  $vhost,
+  $vhost = 'multipage-frontend',
   $port = '3118',
   $errbit_api_key = undef,
   $secret_key_base = undef,
