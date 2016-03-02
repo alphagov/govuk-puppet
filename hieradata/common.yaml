@@ -8,19 +8,19 @@ deployable_applications: &deployable_applications
   - authenticating-proxy
   - bouncer
   - business-support-api
-  - business-support-finder
+  - businesssupportfinder
   - calculators
   - calendars
   - collections
   - collections-publisher
-  - contacts-admin
+  - contacts
   - contacts-frontend
   - content-register
   - content-store
   - content-tagger
   - courts-api
   - courts-frontend
-  - design-principles
+  - designprinciples
   - EFG
   - email-alert-api
   - email-alert-frontend
@@ -52,7 +52,7 @@ deployable_applications: &deployable_applications
   - short-url-manager
   - sidekiq-monitoring
   - signonotron2
-  - smart-answers
+  - smartanswers
   - smokey
   - specialist-frontend
   - specialist-publisher
