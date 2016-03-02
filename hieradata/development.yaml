@@ -176,7 +176,6 @@ govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
-govuk::apps::static::vhost: 'static'
 govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
