@@ -3,7 +3,6 @@
 govuk::apps::collections::vhost: 'collections'
 govuk::apps::contacts::vhost: 'contacts-frontend-old'
 govuk::apps::contacts_frontend::vhost: 'contacts-frontend'
-govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 
 govuk::node::s_base::apps:
   - canary_frontend

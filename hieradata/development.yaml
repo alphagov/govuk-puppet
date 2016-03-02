@@ -120,7 +120,6 @@ govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_store::vhost: 'content-store'
 govuk::apps::email_alert_api::enable_procfile_worker: false
-govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 govuk::apps::email_campaign_api::mongodb_name: 'email_campaign_api_development'
 govuk::apps::email_campaign_api::mongodb_nodes: ['localhost']
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']

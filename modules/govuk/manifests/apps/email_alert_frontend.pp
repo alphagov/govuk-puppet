@@ -10,12 +10,13 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
+#   Default: 'email-alert-frontend'
 #
 # [*port*]
 #   What port should the app run on?
 #
 class govuk::apps::email_alert_frontend(
-  $vhost,
+  $vhost = 'email-alert-frontend',
   $port = '3099',
 ) {
   govuk::app { 'email-alert-frontend':
