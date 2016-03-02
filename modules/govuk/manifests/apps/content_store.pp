@@ -16,6 +16,7 @@
 #
 # [*vhost*]
 #   Virtual host for this application.
+#   Default: content-store
 #
 # [*default_ttl*]
 #   The default cache timeout in seconds.
@@ -34,7 +35,7 @@ class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
   $mongodb_name,
-  $vhost,
+  $vhost = 'content-store',
   $default_ttl = '1800',
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
