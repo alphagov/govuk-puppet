@@ -10,7 +10,7 @@
 #
 # [*vhost*]
 #   Virtual host for this application.
-#   Default: contacts
+#   Default: contacts-frontend-old
 #
 # [*port*]
 #   The port that the app is served on.
@@ -30,7 +30,7 @@
 #
 class govuk::apps::contacts(
   $enabled = true,
-  $vhost = 'contacts',
+  $vhost = 'contacts-frontend-old',
   $port = '3051',
   $vhost_protected = undef,
   $extra_aliases = [],

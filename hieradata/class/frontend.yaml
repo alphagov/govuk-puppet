@@ -1,7 +1,6 @@
 ---
 
 govuk::apps::collections::vhost: 'collections'
-govuk::apps::contacts::vhost: 'contacts-frontend-old'
 
 govuk::node::s_base::apps:
   - canary_frontend
