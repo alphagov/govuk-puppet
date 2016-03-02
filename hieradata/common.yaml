@@ -43,6 +43,7 @@ deployable_applications: &deployable_applications
   - info-frontend
   - kibana-gds
   - licence-finder
+  - local-links-manager
   - manuals-frontend
   - mapit
   - maslow
@@ -717,6 +718,7 @@ hosts::production::backend::app_hostnames:
   - 'hmrc-manuals-api'
   - 'imminence'
   - 'kibana'
+  - 'local-links-manager'
   - 'mapit'
   - 'maslow'
   - 'need-api'

@@ -79,6 +79,7 @@ class govuk::node::s_backend_lb (
       'event-store',
       'govuk-delivery',
       'need-api',
+      'local-links-manager',
       'publishing-api',
       'support-api',
       'tariff-api',
