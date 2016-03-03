@@ -1,4 +1,4 @@
-require_relative '../../../spec_helper'
+require_relative '../../../../spec_helper'
 
 describe 'govuk_etcd', :type => :class do
   context 'When specifying a list of peers' do
