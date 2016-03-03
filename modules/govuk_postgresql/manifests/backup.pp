@@ -34,4 +34,7 @@ class govuk_postgresql::backup {
         source => 'puppet:///modules/govuk_postgresql/etc/postgresql-backup-pre',
     }
 
+    # Include offsite backups to S3
+    include govuk_postgresql::wal_e::backup
+
 }

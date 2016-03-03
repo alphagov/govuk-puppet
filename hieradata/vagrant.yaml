@@ -157,6 +157,11 @@ govuk_postgresql::server::snakeoil_ssl_key: |
   vxBODhF5cvyO/S2jUuvApGU4dU2KULT5Dv3/Lh/Otg==
   -----END RSA PRIVATE KEY-----
 
+govuk_postgresql::wal_e::backup::aws_access_key_id: '123456789'
+govuk_postgresql::wal_e::backup::aws_secret_access_key: 'thisisafakekey'
+govuk_postgresql::wal_e::backup::s3_bucket_url: 's3://foo/bar'
+govuk_postgresql::wal_e::backup::enabled: true
+
 icinga::config::enable_event_handlers: true
 icinga::nginx::enable_basic_auth: false
 
