@@ -82,7 +82,7 @@
               "index": "not_analyzed",
               "type": "string"
             },
-            "original_url": {
+            "govuk_original_url": {
               "index": "not_analyzed",
               "type": "string"
             }
