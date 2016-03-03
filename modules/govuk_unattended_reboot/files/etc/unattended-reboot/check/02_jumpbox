@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Ensure no users are logged in
+[[ $(/usr/bin/w --no-header | /usr/bin/wc -l) -eq 0 ]]

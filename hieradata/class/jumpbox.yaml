@@ -1,4 +1,4 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'careful'
-govuk::safe_to_reboot::reason: 'Warn connected users before rebooting'
+govuk::safe_to_reboot::can_reboot: 'overnight'
+govuk::safe_to_reboot::reason: 'Will only reboot if no users are connected'
