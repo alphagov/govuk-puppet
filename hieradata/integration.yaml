@@ -51,7 +51,6 @@ govuk_jenkins::config::admins:
   - alextorrance
   - benlovell
   - bobwalker
-  - bradleywright
   - brendanbutler
   - chrispatuzzo
   - christophwong
@@ -305,7 +304,6 @@ users::usernames:
   - benilovj
   - benlovell
   - bob
-  - bradleyw
   - brendanbutler
   - chrispatuzzo
   - christophwong

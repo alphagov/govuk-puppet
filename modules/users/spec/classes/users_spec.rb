@@ -34,7 +34,6 @@ end
 username_whitelist = %w{
   benilovj
   bob
-  bradleyw
   elliot
   jackscotti
   jamiec
