@@ -37,7 +37,6 @@ username_whitelist = %w{
   bradleyw
   elliot
   jackscotti
-  jamiec
 }
 
 user_list.each do |username|
