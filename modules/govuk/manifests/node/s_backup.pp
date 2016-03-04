@@ -30,7 +30,7 @@ class govuk::node::s_backup (
   validate_bool($backup_licensify)
 
   class {'backup::server':
-    require => Govuk::Mount['/data/backups'],
+    require => Govuk_mount['/data/backups'],
   }
 
   # To accommodate futzing around with databases, we install a MySQL server

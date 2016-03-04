@@ -15,7 +15,7 @@ class govuk::node::s_mapit_server (
 
   include mapit
 
-  Govuk::Mount['/var/lib/postgresql']
+  Govuk_mount['/var/lib/postgresql']
   ->
   class { 'govuk_postgresql::server::standalone': }
   postgresql::server::config_entry { 'standard_conforming_strings':

@@ -20,7 +20,7 @@ class govuk::node::s_apt (
     },
   }
 
-  Govuk::Mount[$root_dir] -> Class['aptly']
+  Govuk_mount[$root_dir] -> Class['aptly']
 
   file { $root_dir:
     ensure  => directory,

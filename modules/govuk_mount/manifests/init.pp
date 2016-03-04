@@ -1,4 +1,4 @@
-# == Define: govuk::mount
+# == Define: govuk_mount
 #
 # Wrapper for `Ext4mount[]` which will automatically setup new monitoring checks
 # for free space and inodes.
@@ -23,7 +23,7 @@
 # as `undef` here so that upstream defaults are respected, except for
 # `mountpoint` which needs to default to `$title`.
 #
-define govuk::mount(
+define govuk_mount(
   $percent_threshold_warning = 10,
   $percent_threshold_critical = 5,
   $govuk_lvm = undef,
@@ -37,7 +37,7 @@ define govuk::mount(
   $mountpoint_graphite = regsubst($mountpoint, '/', '-', 'G')
   $graphite_target = "${::fqdn_metrics}.df${mountpoint_graphite}.df_complex-free"
 
-  unless hiera(govuk::mount::no_op, false) {
+  unless hiera(govuk_mount::no_op, false) {
     if $govuk_lvm != undef {
       Govuk_lvm[$govuk_lvm] -> Ext4mount[$title]
     }

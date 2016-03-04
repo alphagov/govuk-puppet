@@ -31,7 +31,7 @@ class govuk::node::s_logs_elasticsearch(
     disable_gc_alerts    => true,
     require              => [
       Class['govuk_java::openjdk7::jre'],
-      Govuk::Mount['/mnt/elasticsearch']
+      Govuk_mount['/mnt/elasticsearch']
     ],
   }
 
@@ -103,5 +103,5 @@ class govuk::node::s_logs_elasticsearch(
     host_name => $::fqdn,
   }
 
-  Govuk::Mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
+  Govuk_mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
 }

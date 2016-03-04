@@ -9,7 +9,7 @@ class govuk::node::s_logging (
   # we want this to be a syslog server which also forwards to logstash
   class { 'rsyslog::server':
     custom_config => 'govuk/etc/rsyslog.d/server-logstash.conf.erb',
-    require       => Govuk::Mount['/srv'],
+    require       => Govuk_mount['/srv'],
   }
 
   # we want all the other machines to be able to send syslog on 514/tcp to this machine
@@ -44,7 +44,7 @@ class govuk::node::s_logging (
     initfile    => 'puppet:///modules/govuk/node/s_logging/logstash.init.Debian',
     require     => [
       Curl::Fetch['logstash-monolithic'],
-      Govuk::Mount['/srv']
+      Govuk_mount['/srv']
     ],
   }
 

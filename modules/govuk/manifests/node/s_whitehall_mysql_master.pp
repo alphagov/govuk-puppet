@@ -35,5 +35,5 @@ class govuk::node::s_whitehall_mysql_master (
     outgoing => 3306,
   }
 
-  Govuk::Mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
+  Govuk_mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
 }
