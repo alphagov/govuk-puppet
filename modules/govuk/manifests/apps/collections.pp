@@ -6,12 +6,13 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
+#   Default: collections
 #
 # [*port*]
 #   What port should the app run on?
 #
 class govuk::apps::collections(
-  $vhost,
+  $vhost = 'collections',
   $port = '3070',
 ) {
   govuk::app { 'collections':

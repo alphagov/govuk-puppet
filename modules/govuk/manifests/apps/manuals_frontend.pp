@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#   Default: 'manuals-frontend'
+#
 # [*port*]
 #   The port that the app is served on.
 #   Default: 3072
@@ -13,7 +17,7 @@
 #   Default: undef
 #
 class govuk::apps::manuals_frontend(
-  $vhost,
+  $vhost = 'manuals-frontend',
   $port = '3072',
   $publishing_api_bearer_token = undef,
 ) {

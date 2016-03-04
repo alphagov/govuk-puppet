@@ -6,7 +6,8 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
-
+#   Default: static
+#
 # [*port*]
 #   The port that the app is served on.
 #   Default: 3013
@@ -30,7 +31,7 @@
 #   Default: undef
 #
 class govuk::apps::static(
-  $vhost,
+  $vhost = 'static',
   $port = '3013',
   $errbit_api_key = undef,
   $draft_environment = false,

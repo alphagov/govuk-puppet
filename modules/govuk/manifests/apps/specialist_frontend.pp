@@ -7,6 +7,7 @@
 #
 # [*vhost*]
 #   Virtual host used by the application.
+#   Default: specialist-frontend
 #
 # [*port*]
 #   What port should the app run on?
@@ -21,7 +22,7 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::specialist_frontend(
-  $vhost,
+  $vhost = 'specialist-frontend',
   $port = '3065',
   $enabled = false,
   $nagios_memory_warning = undef,

@@ -101,7 +101,6 @@ govuk::node::s_development::apps:
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
-govuk::apps::email_campaign_frontend::vhost: 'email-campaign-frontend'
 govuk::apps::asset_manager::enable_delayed_job_worker: false
 govuk::apps::asset_manager::mongodb_name: 'govuk_assets_development'
 govuk::apps::asset_manager::mongodb_nodes: ['localhost']
@@ -109,18 +108,14 @@ govuk::apps::authenticating_proxy::mongodb_name: 'authenticating_proxy_developme
 govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-frontend.dev.gov.uk'
 govuk::apps::backdrop_write::enable_procfile_worker: false
-govuk::apps::collections::vhost: 'collections'
 govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-frontend-old', 'contacts-admin']
-govuk::apps::contacts_frontend::vhost: 'contacts-frontend'
 govuk::apps::content_register::enable_procfile_worker: false
 govuk::apps::content_register::rabbitmq::configure_test_details: true
 govuk::apps::content_register::rabbitmq_hosts: ['localhost']
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
-govuk::apps::content_store::vhost: 'content-store'
 govuk::apps::email_alert_api::enable_procfile_worker: false
-govuk::apps::email_alert_frontend::vhost: 'email-alert-frontend'
 govuk::apps::email_campaign_api::mongodb_name: 'email_campaign_api_development'
 govuk::apps::email_campaign_api::mongodb_nodes: ['localhost']
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
@@ -129,14 +124,11 @@ govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
-govuk::apps::government_frontend::vhost: 'government-frontend'
 govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
-govuk::apps::manuals_frontend::vhost: 'manuals-frontend'
 govuk::apps::mapit::enabled: true
-govuk::apps::multipage_frontend::vhost: 'multipage-frontend'
 govuk::apps::multipage_frontend::enabled: true
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
@@ -161,7 +153,6 @@ govuk::apps::router::vhost_aliases: ["www"]
 govuk::apps::router_api::mongodb_name: 'router'
 govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::router_api::router_nodes: ['localhost:3055']
-govuk::apps::router_api::vhost: 'router-api'
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
 govuk::apps::share_sale_publisher::enabled: true
@@ -170,13 +161,11 @@ govuk::apps::share_sale_publisher::mongodb_name: 'share_sale_publisher_developme
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::signon::redis_url: redis://localhost:6379/0
 govuk::apps::smartanswers::expose_govspeak: true
-govuk::apps::specialist_frontend::vhost: 'specialist-frontend'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
-govuk::apps::static::vhost: 'static'
 govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
