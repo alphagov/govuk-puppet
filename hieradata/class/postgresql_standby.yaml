@@ -1,7 +1,7 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'no'
-govuk::safe_to_reboot::reason: 'Apps point directly to this machine for reading.'
+govuk_safe_to_reboot::can_reboot: 'no'
+govuk_safe_to_reboot::reason: 'Apps point directly to this machine for reading.'
 
 govuk_postgresql::server::standby::master_host: 'postgresql-primary-1.backend'
 

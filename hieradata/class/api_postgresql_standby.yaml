@@ -1,7 +1,7 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'careful'
-govuk::safe_to_reboot::reason: 'We take backups from this machine; rebooting during backup will cause it to fail'
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'We take backups from this machine; rebooting during backup will cause it to fail'
 
 govuk_postgresql::server::standby::master_host: 'api-postgresql-primary-1.api'
 

@@ -1,7 +1,7 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'overnight'
-govuk::safe_to_reboot::reason: 'Single master database, applications not resilient'
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Single master database, applications not resilient'
 
 lv:
   data:

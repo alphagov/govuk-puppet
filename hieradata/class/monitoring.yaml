@@ -1,4 +1,4 @@
 ---
 
-govuk::safe_to_reboot::can_reboot: 'overnight'
-govuk::safe_to_reboot::reason: 'We lose alerting while this is down'
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'We lose alerting while this is down'
