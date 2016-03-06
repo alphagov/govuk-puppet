@@ -27,7 +27,7 @@
 class govuk::apps::email_campaign_api(
   $port = 3110,
   $enabled = true,
-  $enable_procfile_worker = false,
+  $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $secret_key_base = undef,
   $gov_delivery_endpoint = undef,
