@@ -58,6 +58,8 @@ class govuk::apps::rummager(
   $publishing_api_bearer_token = undef,
   $aws_s3_key = undef,
   $aws_s3_secret = undef,
+  $aws_s3_bucket_name = undef,
+  $aws_s3_bucket_region = 'eu-west-1',
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'rummager',
   $rabbitmq_password = 'rummager',
@@ -122,5 +124,11 @@ class govuk::apps::rummager(
     "${title}-AWS_SECRET_ACCESS_KEY":
       varname => 'AWS_SECRET_ACCESS_KEY',
       value   => $aws_s3_secret;
+    "${title}-AWS_BUCKET_NAME":
+      varname => 'AWS_BUCKET_NAME',
+      value   => $aws_s3_bucket_name;
+    "${title}-AWS_BUCKET_REGION":
+      varname => 'AWS_BUCKET_REGION',
+      value   => $aws_s3_bucket_region;
   }
 }
