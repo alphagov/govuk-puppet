@@ -40,6 +40,14 @@
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
 #
+# [*http_username*]
+#   The http basic auth username when running on integration.
+#   Default: undef
+#
+# [*http_password*]
+#   The http basic auth password when running on integration.
+#   Default: undef
+#
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
   $db_name = 'service-manual-publisher_production',
@@ -52,6 +60,8 @@ class govuk::apps::service_manual_publisher(
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
   $asset_manager_bearer_token = undef,
+  $http_username = undef,
+  $http_password = undef,
 ) {
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
@@ -86,6 +96,12 @@ class govuk::apps::service_manual_publisher(
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
       varname => 'ASSET_MANAGER_BEARER_TOKEN',
       value   => $asset_manager_bearer_token;
+    "${title}-HTTP_USERNAME":
+      varname => 'HTTP_USERNAME',
+      value   => $http_username;
+    "${title}-HTTP_PASSWORD":
+      varname => 'HTTP_PASSWORD',
+      value   => $http_password;
   }
 
   if $secret_key_base != undef {
