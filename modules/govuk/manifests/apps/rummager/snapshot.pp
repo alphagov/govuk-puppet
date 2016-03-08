@@ -22,6 +22,7 @@ class govuk::apps::rummager::snapshot (
   $snapshot_enable = false,
   $snapshot_user = 'deploy',
   $snapshot_service_desc = 'rummager-snapshot',
+  $pruning_service_desc = 'rummager-pruning',
 ) {
 
   $snapshot_ensure = $snapshot_enable ? {
