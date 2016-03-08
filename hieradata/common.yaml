@@ -47,6 +47,7 @@ deployable_applications: &deployable_applications
   - mapit
   - maslow
   - metadata-api
+  - multipage-frontend
   - panopticon
   - performanceplatform-admin
   - performanceplatform-big-screen-view
