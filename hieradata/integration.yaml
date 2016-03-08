@@ -86,6 +86,7 @@ govuk_jenkins::config::admins:
   - stevelaing
   - stuartgale
   - tatianasoukiassian
+  - theodorvararu
   - tijmenbrommet
 
 govuk_jenkins::job_builder::jobs:
@@ -339,4 +340,5 @@ users::usernames:
   - stevelaing
   - stuartgale
   - tatianasoukiassian
+  - theodorvararu
   - tijmenbrommet
