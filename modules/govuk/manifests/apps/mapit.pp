@@ -19,6 +19,7 @@ class govuk::apps::mapit (
   if $enabled {
     govuk::app { 'mapit':
       app_type           => 'procfile',
+      create_pidfile     => false,
       port               => $port,
       vhost_ssl_only     => true,
       health_check_path  => '/',
