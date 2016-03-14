@@ -24,12 +24,20 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*mongodb_name*]
+#   The Mongo database to be used.
+#
+# [*mongodb_nodes*]
+#   Array of hostnames for the mongo cluster to use.
+#
 class govuk::apps::publisher(
     $port = '3000',
     $data_import_passive_check = false,
     $enable_procfile_worker = true,
     $publishing_api_bearer_token = undef,
     $secret_key_base = undef,
+    $mongodb_name = undef,
+    $mongodb_nodes = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -80,6 +88,13 @@ class govuk::apps::publisher(
 
   govuk::procfile::worker {'publisher':
     enable_service => $enable_procfile_worker,
+  }
+
+  if $mongodb_nodes != undef {
+    govuk::app::envvar::mongodb_uri { 'publisher':
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
+    }
   }
 
   govuk::app::envvar {
