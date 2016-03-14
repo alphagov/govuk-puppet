@@ -3,7 +3,7 @@
 # Set up grafana.
 #
 class grafana {
-  include govuk::ppa
+  include govuk_ppa
 
   include grafana::dashboards
 

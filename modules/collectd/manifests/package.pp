@@ -14,7 +14,7 @@ class collectd::package (
   $collectd_version = '5.4.0-3ubuntu2',
   $yajl_package = 'libyajl2',
 ) {
-  include govuk::ppa
+  include govuk_ppa
 
   # collectd contains only configuration files, which we're overriding anyway
   package { 'collectd':

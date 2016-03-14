@@ -1,4 +1,4 @@
-# == Class: govuk::ppa
+# == Class: govuk_ppa
 #
 # === Parameters
 #
@@ -17,7 +17,7 @@
 #   only allow you to access the latest version.
 #   Default: true
 #
-class govuk::ppa (
+class govuk_ppa (
   $apt_mirror_hostname = undef,
   $path = 'production',
   $use_mirror = true,

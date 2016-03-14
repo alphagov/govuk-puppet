@@ -10,7 +10,7 @@
 class govuk_java::oracle7::jdk ( $ensure = present ) {
 
   if $ensure != absent {
-    include govuk::ppa
+    include govuk_ppa
 
     File['/var/cache/oracle-jdk7-installer'] -> Exec['download-oracle-java7'] ->
       File['/var/local/oracle-java7-installer.preseed'] -> Package['oracle-java7-installer']

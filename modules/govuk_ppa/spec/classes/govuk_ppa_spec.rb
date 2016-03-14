@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk::ppa', :type => :class do
+describe 'govuk_ppa', :type => :class do
   describe '#path' do
     context 'production (default)' do
       let(:params) {{
