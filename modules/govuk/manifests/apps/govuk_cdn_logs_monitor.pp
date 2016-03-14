@@ -24,13 +24,6 @@ class govuk::apps::govuk_cdn_logs_monitor (
   $processed_data_dir,
 ) {
 
-  # FIXME: Remove once purged
-  file { '/mnt/logs_cdn_processed':
-    ensure  => absent,
-    force   => true,
-    recurse => true,
-  }
-
   if $enabled {
     file { $processed_data_dir:
       ensure => directory,

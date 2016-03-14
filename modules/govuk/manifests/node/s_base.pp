@@ -102,20 +102,8 @@ class govuk::node::s_base (
     ensure => purged,
   }
 
-  # FIXME: remove once this has been deployed
-  package { 'fail2ban':
-    ensure => purged,
-  }
-
   # Remove user on first Puppet run after bootstrapping.
   user { 'ubuntu':
     ensure => absent,
-  }
-
-  # FIXME: Mitigation for: http://www.ubuntu.com/usn/usn-2643-1/
-  #        Remove when we have rebooted all machines
-  file { '/etc/modprobe.d/blacklist-overlayfs.conf':
-    ensure  => file,
-    content => "blacklist overlayfs\n",
   }
 }

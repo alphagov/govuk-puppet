@@ -343,8 +343,7 @@ define govuk::app (
 
   govuk::app::service { $title:
     ensure    => $ensure,
-    # FIXME: Uncomment once deployed
-    #subscribe => Class['govuk::deploy'],
+    subscribe => Class['govuk::deploy'],
   }
 
   $logstream_ensure = $ensure ? {

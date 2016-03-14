@@ -59,14 +59,6 @@ class govuk::node::s_asset_master (
     require => $cron_requires,
   }
 
-  # FIXME: Remove once purged from production
-  cron { 'rsync-clean':
-    ensure => absent,
-  }
-  cron { 'rsync-clean-draft':
-    ensure => absent,
-  }
-
   @@icinga::passive_check { "check_process_attachments_${::hostname}":
     service_description => 'Process attachments last run',
     host_name           => $::fqdn,

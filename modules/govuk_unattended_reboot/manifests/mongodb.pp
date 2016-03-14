@@ -30,8 +30,4 @@ class govuk_unattended_reboot::mongodb (
     require => File[$check_scripts_directory],
   }
 
-  # FIXME: Remove once deployed
-  file { "${check_scripts_directory}/02_mongodb.py":
-    ensure => absent,
-  }
 }
