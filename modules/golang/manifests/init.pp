@@ -12,11 +12,6 @@ class golang {
   }
   goenv::version { ['1.3.3', '1.4.2', '1.4.3', '1.5.1', '1.5.3']: }
 
-  # FIXME: Remove once cleaned up everywhere.
-  goenv::version { ['1.2.2', '1.3.1', '1.4.1']:
-    ensure => absent,
-  }
-
   package { ['golang-gom', 'godep']:
     ensure  => latest,
     require => Class['govuk::ppa'],

@@ -13,11 +13,4 @@ class govuk::node::s_app_server {
   # sprockets-rails, the library which compiles assets, depends on Uglifier,
   # which depends on ExecJS, depends on Node.js
   include nodejs
-
-  # FIXME: Remove once purged from production
-  package {
-    'dictionaries-common': ensure => purged;
-    'wbritish-small':      ensure => purged;
-    'miscfiles':           ensure => purged;
-  }
 }

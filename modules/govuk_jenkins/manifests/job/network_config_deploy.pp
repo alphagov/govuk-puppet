@@ -16,10 +16,4 @@ class govuk_jenkins::job::network_config_deploy (
     content => template('govuk_jenkins/jobs/network_config_deploy.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
-
-  # FIXME: Remove when this file is purged from production
-  file { '/etc/jenkins_jobs/jobs/network_config_deploy_dryrun.yaml':
-    ensure => absent,
-    notify => Exec['jenkins_jobs_update'],
-  }
 }
