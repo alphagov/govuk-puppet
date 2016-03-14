@@ -1,4 +1,4 @@
-# == Type: govuk::host
+# == Type: govuk_host
 #
 # Make defining a host that abides to GOV.UK convention easier. The
 # resource's title should be the host unqualified name (e.g. `jumpbox-1`).
@@ -20,7 +20,7 @@
 # [*service_aliases*]
 #   An array of service names aliased to this host.
 #
-define govuk::host(
+define govuk_host(
   $vdc,
   $ip,
   $ensure = present,

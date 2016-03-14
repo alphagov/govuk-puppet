@@ -8,7 +8,7 @@
 #   Domain to be used in vhost aliases
 #
 # [*hosts*]
-#   Hosts used to create govuk::host resources (hostfile entries).
+#   Hosts used to create govuk_host resources (hostfile entries).
 #
 # [*app_hostnames*]
 #   Application names
@@ -23,16 +23,16 @@ class hosts::production::frontend (
   $internal_lb_ip,
 ) {
 
-  Govuk::Host {
+  Govuk_host {
     vdc => 'frontend',
   }
 
   $frontend_aliases = regsubst($app_hostnames, '$', ".${app_domain}")
 
-  govuk::host { 'frontend-internal-lb':
+  govuk_host { 'frontend-internal-lb':
     ip             => $internal_lb_ip,
     legacy_aliases => $frontend_aliases,
   }
 
-  create_resources('govuk::host', $hosts)
+  create_resources('govuk_host', $hosts)
 }

@@ -5,15 +5,15 @@
 # === Parameters:
 #
 # [*hosts*]
-#   Hosts used to create govuk::host resources (hostfile entries).
+#   Hosts used to create govuk_host resources (hostfile entries).
 #
 class hosts::production::router (
   $hosts = {},
 ) {
 
-  Govuk::Host {
+  Govuk_host {
     vdc => 'router',
   }
 
-  create_resources('govuk::host', $hosts)
+  create_resources('govuk_host', $hosts)
 }
