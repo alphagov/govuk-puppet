@@ -21,11 +21,15 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::publisher(
     $port = '3000',
     $data_import_passive_check = false,
     $enable_procfile_worker = true,
     $publishing_api_bearer_token = undef,
+    $secret_key_base = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -78,9 +82,14 @@ class govuk::apps::publisher(
     enable_service => $enable_procfile_worker,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'publisher',
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      app     => 'publisher',
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+    "${title}-SECRET_KEY_BASE":
+      app     => 'publisher',
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
   }
 }
