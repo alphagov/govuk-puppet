@@ -63,9 +63,8 @@ class govuk::node::s_api_lb (
 
   if !empty($mapit_servers) {
     loadbalancer::balance { 'mapit':
-      servers        => $mapit_servers,
-      internal_only  => true,
-      https_redirect => false, # FIXME: Remove for #51136581
+      servers       => $mapit_servers,
+      internal_only => true,
     }
   }
 
