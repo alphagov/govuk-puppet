@@ -7,9 +7,6 @@
 # There are other definition files but this is a good canary.
 #
 class clamav::monitoring {
-  # Convert days to seconds.
-  $warning_age = 2 * (24 * 60 * 60)
-
   file { '/usr/local/bin/check_clamav_definitions':
     ensure => present,
     source => 'puppet:///modules/clamav/usr/local/bin/check_clamav_definitions',
@@ -24,7 +21,7 @@ class clamav::monitoring {
   }
 
   @@icinga::check { "check_clamav_definitions_${::hostname}":
-    check_command       => "check_nrpe!check_clamav_definitions!${warning_age} 0",
+    check_command       => 'check_nrpe_1arg!check_clamav_definitions',
     service_description => 'clamav definitions out of date',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(clamav-definitions-out-of-date),
