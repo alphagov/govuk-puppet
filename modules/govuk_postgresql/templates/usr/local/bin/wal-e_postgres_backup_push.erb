@@ -2,6 +2,9 @@
 
 set -e
 
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
 # The default Icinga passive alert assumes that the script failed
 NAGIOS_CODE=2
 NAGIOS_MESSAGE="CRITICAL: PostgreSQL WAL-E backup push to S3 failed"
