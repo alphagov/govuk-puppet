@@ -12,6 +12,7 @@ govuk::node::s_base::apps:
   - info_frontend
   - manuals_frontend
   - multipage_frontend
+  - service_manual_frontend
   - specialist_frontend
   - static
 

@@ -62,6 +62,7 @@ deployable_applications: &deployable_applications
   - router-api
   - rummager
   - search-admin
+  - service-manual-frontend
   - service-manual-publisher
   - share-sale-publisher
   - short-url-manager
@@ -817,6 +818,7 @@ hosts::production::frontend::app_hostnames:
   - 'draft-email-campaign-frontend'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
+  - 'draft-service-manual-frontend'
   - 'draft-specialist-frontend'
   - 'draft-static'
   - 'email-campaign-frontend'
@@ -833,6 +835,7 @@ hosts::production::frontend::app_hostnames:
   - 'publicapi'
   - 'public-event-store'
   - 'service-manual'
+  - 'service-manual-frontend'
   - 'smartanswers'
   - 'spotlight'
   - 'specialist-frontend'
@@ -1127,6 +1130,7 @@ router::assets_origin::asset_routes:
   '/manuals-frontend/': "manuals-frontend"
   '/multipage-frontend/': "multipage-frontend"
   '/licencefinder/': "licencefinder"
+  '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
   '/specialist-frontend/': "specialist-frontend"
   '/spotlight/': "spotlight"
