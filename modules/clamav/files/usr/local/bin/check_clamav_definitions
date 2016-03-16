@@ -1,26 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-set -euo pipefail
+clamscan_version = `/usr/bin/clamscan --version`.strip
+clamscan_dns = `/usr/bin/dig +short -t txt current.cvd.clamav.net`.gsub('"', '').strip
 
-if [[ $# -ne 2 ]]
-then
-  echo "Usage: check_clamav_definitions [warning] [critical]"
-  exit 1
-fi
+current_version = clamscan_version.split('/', 3)[1].to_i
+latest_version = clamscan_dns.split(':', 8)[2].to_i
 
-WARNING_THRESHOLD=$1
-CRITICAL_THRESHOLD=$2
+versions_behind = latest_version - current_version
 
-if [ -f "/var/lib/clamav/daily.cld" ]
-then
-  CLAM_FILE="/var/lib/clamav/daily.cld"
-elif [ -f "/var/lib/clamav/daily.cvd" ]
-then
-  CLAM_FILE="/var/lib/clamav/daily.cvd"
-else
-  echo "Neither daily.cld nor daily.cvd exist, so exiting with critical."
-  exit 2
-fi
-
-/usr/lib/nagios/plugins/check_file_age -f "${CLAM_FILE}" \
-  -w${WARNING_THRESHOLD} -c${CRITICAL_THRESHOLD}
+if versions_behind < 0
+  raise 'Error parsing ClamAV definition versions'
+elsif versions_behind > 2
+  raise 'ClamAV database is out-of-date'
+end
