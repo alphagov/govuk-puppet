@@ -7,7 +7,9 @@
       <p>This is run to delete old (7 days) Elasticsearch snapshots.</p>"
     builders:
         - shell: |
-            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=all govuk_setenv rummager bundle exec rake rummager:snapshot:clean)'
+            # "setlock -N" blocks until the lock can be acquired
+            # "bundle exec keep-file-descriptors" is required for setlock to detect the lock is still in use
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=all setlock -N <%= snapshot_lock_path %> govuk_setenv rummager bundle exec --keep-file-descriptors rake rummager:snapshot:clean)'
     triggers:
         - timed: '5 4 * * *' # 4:05
     publishers:

@@ -24,10 +24,17 @@ class govuk::apps::rummager::snapshot (
   $snapshot_service_desc = 'rummager-snapshot',
   $pruning_service_desc = 'rummager-pruning',
 ) {
+  $snapshot_lock_path = '/var/run/elasticsearch-snapshot.lock'
 
   $snapshot_ensure = $snapshot_enable ? {
     true    => present,
     default => absent,
+  }
+
+  file { $snapshot_lock_path:
+    ensure => present,
+    mode   => '0700',
+    owner  => $snapshot_user,
   }
 
   file { '/etc/cron.d/snapshot':

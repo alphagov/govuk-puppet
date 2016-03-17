@@ -19,11 +19,14 @@ function send_nsca {
 trap send_nsca EXIT
 
 cd /var/apps/rummager
-OUTPUT=`RUMMAGER_INDEX=all /usr/local/bin/govuk_setenv rummager bundle exec rake rummager:snapshot:run`
+
+# "setlock -nx" forces the snapshot to be skipped if we cannot acquire the lock
+# "bundle exec keep-file-descriptors" is required for setlock to detect the lock is still in use
+OUTPUT=$(RUMMAGER_INDEX=all setlock -nx <%= snapshot_lock_path %> /usr/local/bin/govuk_setenv rummager bundle exec --keep-file-descriptors rake rummager:snapshot:run 2>&1)
 
 CODE=$?
 if [ "$OUTPUT" == "" ]; then
-  OUTPUT="rummager-snapshot script exited with no output"
+  OUTPUT="rummager-snapshot script exited with no output or couldn't acquire a lock"
 fi
 # Force everything that isn't OK to be a WARNING
 if [ $CODE -gt 0 ]; then
