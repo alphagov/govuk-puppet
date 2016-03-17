@@ -13,7 +13,7 @@
 #
 class govuk::apps::service_manual_frontend(
   $vhost = 'service-manual-frontend',
-  $port = '3090',
+  $port = 3122,
 ) {
   Govuk::App::Envvar {
     app => 'service-manual-frontend',
