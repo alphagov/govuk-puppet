@@ -62,6 +62,10 @@ class govuk::node::s_apt (
       location => 'http://packages.elasticsearch.org/elasticsearch/1.4/debian',
       release  => 'stable',
       key      => 'D88E42B4';
+    'elasticsearch-1.5':
+      location => 'http://packages.elastic.co/elasticsearch/1.5/debian',
+      release  => 'stable',
+      key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
     'rabbitmq':
       location => 'http://www.rabbitmq.com/debian',
       release  => 'testing',
