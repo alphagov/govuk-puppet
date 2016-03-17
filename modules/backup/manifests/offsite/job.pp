@@ -1,4 +1,4 @@
-# == Define: backup::assets::job
+# == Define: backup::offsite::job
 #
 # Setup and monitor a duplicity job for offsite backups.
 #
