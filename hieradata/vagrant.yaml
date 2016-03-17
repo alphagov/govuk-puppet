@@ -23,7 +23,6 @@ assets::ssh_private_key::key: |
 
 base::supported_kernel::enabled: true
 
-govuk::apps::mapit::enabled: true
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true

@@ -315,6 +315,7 @@ govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
 
 govuk::apps::info_frontend::enabled: true
+govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
 
 govuk::apps::need_api::mongodb_nodes:
