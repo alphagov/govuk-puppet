@@ -117,6 +117,7 @@ multipage-frontend:    govuk_setenv multipage-frontend    ./run_in.sh ../multipa
 share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../share-sale-publisher bundle exec rails s -p 3119
 # sidekiq-monitoring for imminence uses 3120
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../local-links-manager bundle exec rails s -p 3121
+service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../service-manual-frontend bundle exec rails s -p 3122
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
