@@ -3,7 +3,7 @@
 # Install packages for Puppet and various fixups that we require.
 #
 class puppet::package (
-  $facter_version = '1.7.5-1puppetlabs1',
+  $facter_version = '2.0.2-1puppetlabs1',
   $hiera_version = '1.3.4-1puppetlabs1',
   $puppet_version = '3.6.2-1puppetlabs1',
 ) {
