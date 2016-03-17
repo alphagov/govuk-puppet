@@ -42,7 +42,7 @@ GEM
     highline (1.6.21)
     i18n (0.6.11)
     json (1.8.1)
-    json_pure (1.8.1)
+    json_pure (1.8.3)
     librarian (0.1.2)
       highline
       thor (~> 0.15)
@@ -60,11 +60,10 @@ GEM
     parallel (0.5.19)
     parallel_tests (0.8.14)
       parallel
-    puppet (3.6.2)
+    puppet (3.8.5)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
       json_pure
-      rgen (~> 0.6.5)
     puppet-lint (1.0.1)
     puppet-lint-trailing_comma-check (0.3.1)
       puppet-lint (~> 1.0)
@@ -79,7 +78,6 @@ GEM
       rake
       rspec-puppet
     rake (10.1.0)
-    rgen (0.6.6)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -117,7 +115,7 @@ DEPENDENCIES
   librarian-puppet
   parallel
   parallel_tests
-  puppet (= 3.6.2)
+  puppet (= 3.8.5)
   puppet-lint
   puppet-lint-trailing_comma-check
   puppet-syntax (= 2.1.0)
@@ -126,3 +124,6 @@ DEPENDENCIES
   rspec-puppet
   sshkey (= 1.7.0)
   webmock (~> 1.20.0)
+
+BUNDLED WITH
+   1.10.5
