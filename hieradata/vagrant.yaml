@@ -156,6 +156,8 @@ govuk_postgresql::server::snakeoil_ssl_key: |
   vxBODhF5cvyO/S2jUuvApGU4dU2KULT5Dv3/Lh/Otg==
   -----END RSA PRIVATE KEY-----
 
+govuk_postgresql::wal_e::backup::enabled: true
+
 icinga::config::enable_event_handlers: true
 icinga::nginx::enable_basic_auth: false
 
