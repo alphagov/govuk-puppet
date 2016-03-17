@@ -57,6 +57,7 @@ process :'router-api'
 process :rummager => [:contentapi]
 process :screenshot_as_a_service
 process :'search-admin' => :rummager
+process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api']
 process :'share-sale-publisher' => [:asset_manager, :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
