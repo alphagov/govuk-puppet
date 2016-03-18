@@ -165,7 +165,6 @@ class monitoring::contacts (
   icinga::service_template { [
     'govuk_regular_service',
     'govuk_low_priority',
-    'govuk_unprio_priority',
   ]:
     contact_groups => ['regular'],
   }
