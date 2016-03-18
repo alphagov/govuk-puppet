@@ -34,6 +34,8 @@ govuk::deploy::config::errbit_environment_name: 'vagrant'
 govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
 govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 
+govuk_keepalived::auth_pass: 'THISNOTAREALPASSWORD'
+
 govuk_lvm::no_op: true
 
 govuk_mount::no_op: true
