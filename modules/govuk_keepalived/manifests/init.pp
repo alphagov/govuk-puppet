@@ -29,22 +29,30 @@ class govuk_keepalived (
 
   include keepalived
 
+  $notify_script_path = '/usr/local/bin/vrrp_notify.sh'
   $track_script = 'check_nginx'
   $min_num_procs = 3
+
+  file { $notify_script_path :
+    ensure => present,
+    mode   => '0755',
+    source => 'puppet:///modules/govuk_keepalived/usr/local/bin/vrrp_notify.sh',
+  }
 
   keepalived::vrrp::script { $track_script:
     script => 'curl --max-time 1 -H \'Host: monitoring-vhost.test\' localhost 2>/dev/null | grep -q \'nginx is ok\'',
   }
 
   $defaults = {
-    'auth_pass'    => $auth_pass,
-    'advert_int'   => 5,
-    'auth_type'    => 'PASS',
-    'interface'    => $interface,
-    'nopreempt'    => true,
-    'priority'     => fqdn_rand(254) + 1, # Priorities 0 and 255 have special meaning
-    'state'        => 'BACKUP',
-    'track_script' => $track_script,
+    'auth_pass'     => $auth_pass,
+    'advert_int'    => 5,
+    'auth_type'     => 'PASS',
+    'interface'     => $interface,
+    'nopreempt'     => true,
+    'priority'      => fqdn_rand(254) + 1, # Priorities 0 and 255 have special meaning
+    'state'         => 'BACKUP',
+    'notify_script' => $notify_script_path,
+    'track_script'  => $track_script,
   }
 
   create_resources(keepalived::vrrp::instance, $instances, $defaults)
