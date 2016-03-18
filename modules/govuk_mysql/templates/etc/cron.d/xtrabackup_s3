@@ -1,0 +1,3 @@
+MAILTO=""
+<% @base_backup_cron_minute %> <% @base_backup_cron_hour %> * * * setlock -N /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_base
+<% @incremental_backup_cron_minute %> * * * * setlock -n /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_incremental

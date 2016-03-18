@@ -83,6 +83,7 @@ class govuk::node::s_apt (
       release  => 'binary/', # Trailing slash is significant.
       key      => 'D50582E6';
   }
+  aptly::repo { 'gof3r': }
   aptly::repo { 'govuk-jenkins': }
   aptly::repo { 'terraform': }
 
