@@ -161,6 +161,8 @@ govuk_postgresql::wal_e::backup::enabled: true
 icinga::config::enable_event_handlers: true
 icinga::nginx::enable_basic_auth: false
 
+puppet::package::puppet_version: '3.8.5-1puppetlabs1'
+
 shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_users:
