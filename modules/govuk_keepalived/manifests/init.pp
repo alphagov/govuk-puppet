@@ -20,6 +20,14 @@ class govuk_keepalived (
   $instances,
   $interface = 'eth0',
 ) {
+  validate_hash($instances)
+
+  if ($auth_pass != undef) {
+    # FIXME: Replace 9999 with empty string once
+    # the stdlib supports an infinite upper bound:
+    # https://github.com/puppetlabs/puppetlabs-stdlib/blob/b6383d259cf4917edd832ba31cf4dae2b4201235/spec/functions/validate_slength_spec.rb#L57-L60
+    validate_slength($auth_pass, 9999, 12)
+  }
 
   if ($auth_pass == undef and size($instances) > 0) {
     fail('VRRP instances defined but auth_pass parameter not set')
