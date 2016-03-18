@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*auth_pass*]
+#   Password used by VRRP protocol for authentication.
+#
 # [*instances*]
 #   Hash of `keepalived::vrrp::instance` resources.
 #   Default: {}
@@ -13,9 +16,15 @@
 #   Default: eth0
 #
 class govuk_keepalived (
+  $auth_pass = undef,
   $instances,
   $interface = 'eth0',
 ) {
+
+  if ($auth_pass == undef and size($instances) > 0) {
+    fail('VRRP instances defined but auth_pass parameter not set')
+  }
+
   include keepalived
 
   $track_script = 'check_nginx'
@@ -26,6 +35,7 @@ class govuk_keepalived (
   }
 
   $defaults = {
+    'auth_pass'    => $auth_pass,
     'advert_int'   => 5,
     'auth_type'    => 'PASS',
     'interface'    => $interface,
