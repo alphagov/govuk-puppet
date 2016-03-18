@@ -18,7 +18,7 @@ process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, :asset_manager]
 process :'content-register'
 process :'content-store'
-process :'content-tagger' => [:'draft-content-store', :'publishing-api']
+process :'content-tagger' => [:'publishing-api']
 process :'draft-content-store'
 process :designprinciples => :static
 process :efg
