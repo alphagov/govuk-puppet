@@ -3,9 +3,3 @@
 govuk::node::s_base::apps:
   - publicapi
   - public_event_store
-
-govuk_keepalived::instances:
-  frontend:
-    virtual_ipaddress: '10.2.1.3'
-    virtual_router_id: 10
-    auth_pass: 'ZY0pUZQnnhIPd2EBFVqpnHPl'
