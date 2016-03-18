@@ -1,5 +1,8 @@
 ---
 
+govuk_unattended_reboot::lock_filenames:
+  - /var/lock/mysql-backup.lock
+
 lv:
   data:
     pv: '/dev/sdb1'

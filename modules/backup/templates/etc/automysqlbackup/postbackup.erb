@@ -18,5 +18,5 @@ FINISHEPOCH=`date +%s`
 TOTALTIME=$(expr $FINISHEPOCH - $STARTEPOCH)
 logger -t automysqlbackup "MySQL backed up in T:$TOTALTIME seconds"
 
-# Remove the temporary file added by the prebackup
-rm /var/lock/mysql-backup.lock
+# Remove the temporary lock added by the prebackup
+kill ${SETLOCK_PID}

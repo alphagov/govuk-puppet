@@ -13,9 +13,13 @@
 #   A hash containing a `username` and a `password` to access monitoring
 #   which is protected by basic authentication.
 #
+# [*lock_filenames*]
+#   An array of filenames to check for locks on before allowing an unattended
+#   reboot to take place.
 class govuk_unattended_reboot (
   $enabled = false,
   $monitoring_basic_auth = {},
+  $lock_filenames = ['/var/run/unattended-reboot.lock'],
 ) {
 
   validate_bool($enabled)
@@ -50,6 +54,14 @@ class govuk_unattended_reboot (
     content => template("govuk_unattended_reboot${check_scripts_directory}/00_safety.erb"),
   }
 
+  file { "${check_scripts_directory}/00_lockfile":
+    ensure  => $file_ensure,
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+    content => template("govuk_unattended_reboot${check_scripts_directory}/00_lockfile.erb"),
+  }
+
   file { "${check_scripts_directory}/01_alerts":
     ensure  => $file_ensure,
     mode    => '0755',
@@ -70,6 +82,10 @@ class govuk_unattended_reboot (
   class { '::unattended_reboot':
     enabled                 => $enabled,
     check_scripts_directory => $check_scripts_directory,
-    require                 => [ File["${check_scripts_directory}/00_safety"], File["${check_scripts_directory}/01_alerts"] ],
+    require                 => [
+      File["${check_scripts_directory}/00_safety"],
+      File["${check_scripts_directory}/00_lockfile"],
+      File["${check_scripts_directory}/01_alerts"]
+    ],
   }
 }
