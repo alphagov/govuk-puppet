@@ -8,4 +8,12 @@ class puppetdb::package($package_ensure) {
     require => Class['puppet::package'],
   }
 
+  # FIXME: Remove once deployed to production
+  package { 'openjdk-6-jre-headless':
+    ensure => 'absent',
+  }
+  package { 'openjdk-6-jre-lib':
+    ensure => 'absent',
+  }
+
 }

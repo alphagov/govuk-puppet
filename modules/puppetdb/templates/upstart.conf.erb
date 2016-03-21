@@ -19,7 +19,8 @@ script
                          -- \
                          <%= @java_args %> \
                          -XX:OnOutOfMemoryError="kill -9 %p" \
-                         -jar /usr/share/puppetdb/puppetdb.jar \
+                         -cp /usr/share/puppetdb/puppetdb.jar \
+                         clojure.main -m com.puppetlabs.puppetdb.core \
                          services -c /etc/puppetdb/conf.d \
                          >> /var/log/puppetdb/upstart.out.log \
                          2>> /var/log/puppetdb/upstart.err.log
