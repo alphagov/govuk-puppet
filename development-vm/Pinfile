@@ -48,7 +48,7 @@ process :need_api
 process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => ['content-register', :'publishing-api', :rummager]
-process :publisher => [:panopticon, :contentapi]
+process :publisher => [:panopticon, :'publishing-api']
 process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
