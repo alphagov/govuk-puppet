@@ -1,15 +1,27 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby:
 
-DIST_PREFERRED = 'trusty'
+DIST_PREFERRED = :trusty
 min_required_vagrant_version = '1.4.0'
 DEFAULT_VM_PARAMS = {
   memory: 4096,
   cpus: 2,
 }
-LATEST_BOX_VERSIONS = {
-  'precise' => '20141112',
-  'trusty'  => '20141112',
+BOXES = {
+  virtualbox: {
+    bucket: 'govuk-dev-boxes-test',
+    latest_versions: {
+      precise: '20160321',
+      trusty: '20160321',
+    },
+  },
+  vmware_fusion: {
+    bucket: 'gds-boxes',
+    latest_versions: {
+      precise: '20141112',
+      trusty: '20141112',
+    },
+  },
 }
 
 def common_config(config)
@@ -30,7 +42,7 @@ def common_config(config)
 end
 
 def default_config(config)
-  dist = ENV['govuk_dev_dist'] || DIST_PREFERRED
+  dist = (ENV['govuk_dev_dist'] or DIST_PREFERRED).to_sym
   if dist != DIST_PREFERRED
     puts <<EOS
 [warn] Ubuntu version has been overridden with the environment variable
@@ -40,10 +52,10 @@ def default_config(config)
 EOS
   end
 
-  default_box = "govuk_dev_#{dist}64_#{LATEST_BOX_VERSIONS[dist]}"
+  default_box = "govuk_dev_#{dist}64_#{BOXES[:virtualbox][:latest_versions][dist]}"
 
   config.vm.box = default_box
-  config.vm.box_url = "http://gds-boxes.s3.amazonaws.com/#{default_box}.box"
+  config.vm.box_url = "http://#{BOXES[:virtualbox][:bucket]}.s3.amazonaws.com/#{default_box}.box"
   # Static IP for NFS and DNS
   config.vm.network :private_network, :ip => "10.1.1.254"
   config.vm.hostname = "development.development"
@@ -80,11 +92,11 @@ Vagrant.configure("2") do |config|
   config = default_config(config)
 
   config.vm.provider :vmware_fusion do |vm, override|
-    dist = ENV['govuk_dev_dist'] || DIST_PREFERRED
-    latest_version = LATEST_BOX_VERSIONS[dist]
+    dist = (ENV['govuk_dev_dist'] or DIST_PREFERRED).to_sym
+    latest_version = BOXES[:vmware_fusion][:latest_versions][dist]
     box_name = "govuk_dev_#{dist}64_vmware_fusion_#{latest_version}"
     override.vm.box = box_name
-    override.vm.box_url = "http://gds-boxes.s3.amazonaws.com/#{box_name}.box"
+    override.vm.box_url = "http://#{BOXES[:vmware_fusion][:bucket]}.s3.amazonaws.com/#{box_name}.box"
     vm.vmx["displayName"] = "devvm"
     vm.vmx["memsize"] = DEFAULT_VM_PARAMS[:memory]
     vm.vmx["numvcpus"] = DEFAULT_VM_PARAMS[:cpus]
