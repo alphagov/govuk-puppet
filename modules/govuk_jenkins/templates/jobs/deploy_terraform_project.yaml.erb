@@ -1,0 +1,47 @@
+---
+- scm:
+    name: govuk-terraform-provisioning_Deploy_Terraform_Project
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-terraform-provisioning.git
+            branches:
+                - master
+- job:
+    name: Deploy_Terraform_Project
+    display-name: Deploy_Terraform_Project
+    project-type: freestyle
+    description: |
+      Deploy a specific Terraform project in <%= @environment -%>.
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-terraform-provisioning/
+        - inject:
+            properties-content: |
+              DEPLOY_ENV=${ENVIRONMENT}
+              PROJECT_NAME=${PROJECT_NAME}
+    scm:
+        - govuk-terraform-provisioning_Deploy_Terraform_Project
+    builders:
+        - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec rake ${ACTION}
+
+    parameters:
+        - string:
+            name: AWS_ACCESS_KEY_ID
+            description: Your AWS access key ID
+            default: false
+        - password:
+            name: AWS_SECRET_ACCESS_KEY
+            description: Your AWS secret access key
+            default: false
+        - choice:
+            name: ACTION
+            description: Choose whether to plan (default) or apply
+            choices:
+                - plan
+                - apply
+        - choice:
+            name: PROJECT_NAME
+            description: Name of the project you wish to deploy
+            choices: <%= ['-- Choose a project'] + @projects %>
