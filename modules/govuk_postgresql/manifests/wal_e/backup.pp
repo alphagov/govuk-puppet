@@ -90,21 +90,21 @@ class govuk_postgresql::wal_e::backup (
       content => $aws_access_key_id,
       owner   => 'postgres',
       group   => 'postgres',
-      mode    => '0660',
+      mode    => '0640',
     }
 
     file { '/etc/wal-e/env.d/WALE_S3_PREFIX':
       content => $s3_bucket_url,
       owner   => 'postgres',
       group   => 'postgres',
-      mode    => '0660',
+      mode    => '0640',
     }
 
     file { '/etc/wal-e/env.d/AWS_REGION':
       content => $aws_region,
       owner   => 'postgres',
       group   => 'postgres',
-      mode    => '0660',
+      mode    => '0640',
     }
 
     if $wale_private_gpg_key and $wale_private_gpg_key_fingerprint {
@@ -114,7 +114,7 @@ class govuk_postgresql::wal_e::backup (
         content => $wale_private_gpg_key_fingerprint,
         owner   => 'postgres',
         group   => 'postgres',
-        mode    => '0660',
+        mode    => '0640',
       }
 
       file { '/var/lib/postgresql/.gnupg':
@@ -154,13 +154,13 @@ class govuk_postgresql::wal_e::backup (
     file { '/etc/cron.d/wal-e_postgres_base_backup_push_cron':
       ensure  => present,
       content => template('govuk_postgresql/etc/cron.d/wal-e_postgres_backup_push_cron.erb'),
-      mode    => '0775',
+      mode    => '0755',
     }
 
     file { '/usr/local/bin/wal-e_postgres_base_backup_push':
       ensure  => present,
       content => template('govuk_postgresql/usr/local/bin/wal-e_postgres_backup_push.erb'),
-      mode    => '0775',
+      mode    => '0755',
       require => Class['govuk_postgresql::wal_e::package'],
     }
 
