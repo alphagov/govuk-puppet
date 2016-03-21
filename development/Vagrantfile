@@ -48,7 +48,7 @@ EOS
   default_box = "govuk_dev_#{dist}64_#{BOXES[:virtualbox][:latest_versions][dist]}"
 
   config.vm.box = default_box
-  config.vm.box_url = "http://#{BOXES[:virtualbox][:bucket]}.s3.amazonaws.com/#{default_box}.box"
+  config.vm.box_url = "https://#{BOXES[:virtualbox][:bucket]}.s3.amazonaws.com/#{default_box}.box"
   # Static IP for NFS and DNS
   config.vm.network :private_network, :ip => "10.1.1.254"
   config.vm.hostname = "development.development"

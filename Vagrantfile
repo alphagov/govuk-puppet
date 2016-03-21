@@ -12,7 +12,7 @@ def get_box(dist, version)
   
   name  = "govuk_dev_#{dist}64_#{version}"
   bucket = 'govuk-dev-boxes-test'
-  url = "http://#{bucket}.s3.amazonaws.com/#{name}.box"
+  url = "https://#{bucket}.s3.amazonaws.com/#{name}.box"
 
   return name, url
 end
