@@ -44,6 +44,11 @@ govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-production
+
+# Disable icinga alert and rabbitmq setup for the publishing api document indexer
+govuk::apps::rummager::rabbitmq::ensure: false
+govuk::apps::rummager::enable_publishing_api_document_indexer: false
+
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk::deploy::actionmailer_enable_delivery: true
