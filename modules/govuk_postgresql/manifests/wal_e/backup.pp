@@ -165,10 +165,10 @@ class govuk_postgresql::wal_e::backup (
     }
 
     $threshold_secs = 28 * 3600
-    $service_desc = 'PostgreSQL WAL-E base backup push'
+    $service_desc_wale = 'PostgreSQL WAL-E base backup push'
 
     @@icinga::passive_check { "check_wale_base_backup_push-${::hostname}":
-        service_description => $service_desc,
+        service_description => $service_desc_wale,
         freshness_threshold => $threshold_secs,
         host_name           => $::fqdn,
       }
