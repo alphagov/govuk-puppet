@@ -334,7 +334,6 @@ postgresql_api_slave_addresses_live: '127.0.0.1/32'
 postgresql_slave_addresses_live: '127.0.0.1/32'
 postgresql_transition_slave_addresses_live: '127.0.0.1/32'
 
-puppet::package::puppet_version: '3.8.5-1puppetlabs1'
 puppet::use_puppetmaster: false
 
 shell::shell_prompt_string: 'dev'
