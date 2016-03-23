@@ -5,7 +5,7 @@
 class puppet::package (
   $facter_version = '2.0.2-1puppetlabs1',
   $hiera_version = '1.3.4-1puppetlabs1',
-  $puppet_version = '3.6.2-1puppetlabs1',
+  $puppet_version = '3.8.5-1puppetlabs1',
 ) {
   # Pin the desired Puppet version so that Puppet doesn't update
   # without us having tested the new version first. If Puppet breaks,
