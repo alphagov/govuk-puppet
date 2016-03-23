@@ -157,15 +157,15 @@ class govuk_postgresql::wal_e::backup (
       mode    => '0755',
     }
 
+    $threshold_secs = 28 * 3600
+    $service_desc_wale = 'PostgreSQL WAL-E base backup push'
+
     file { '/usr/local/bin/wal-e_postgres_base_backup_push':
       ensure  => present,
       content => template('govuk_postgresql/usr/local/bin/wal-e_postgres_backup_push.erb'),
       mode    => '0755',
       require => Class['govuk_postgresql::wal_e::package'],
     }
-
-    $threshold_secs = 28 * 3600
-    $service_desc_wale = 'PostgreSQL WAL-E base backup push'
 
     @@icinga::passive_check { "check_wale_base_backup_push-${::hostname}":
         service_description => $service_desc_wale,
