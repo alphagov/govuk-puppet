@@ -8,14 +8,17 @@ min_required_vagrant_version = '1.3.0'
 # Construct box name and URL from distro and version.
 def get_box(dist, version, provider)
   dist    ||= "trusty"
-  version ||= "20141112"
 
   if provider == "vmware_fusion"
+    version ||= '20141112'
     name  = "govuk_dev_#{dist}64_vmware_fusion_#{version}"
+    bucket = 'gds-boxes'
   else
+    version ||= '20160323'
     name  = "govuk_dev_#{dist}64_#{version}"
+    bucket = 'govuk-dev-boxes-test'
   end
-  url   = "http://gds-boxes.s3.amazonaws.com/#{name}.box"
+  url = "http://#{bucket}.s3.amazonaws.com/#{name}.box"
 
   return name, url
 end

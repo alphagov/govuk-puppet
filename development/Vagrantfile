@@ -11,8 +11,8 @@ BOXES = {
   virtualbox: {
     bucket: 'govuk-dev-boxes-test',
     latest_versions: {
-      precise: '20160321',
-      trusty: '20160321',
+      precise: '20160323',
+      trusty: '20160323',
     },
   },
   vmware_fusion: {
