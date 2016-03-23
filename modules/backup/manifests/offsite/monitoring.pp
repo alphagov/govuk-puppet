@@ -10,10 +10,15 @@
 # [*offsite_hostname*]
 #   Descriptive hostname for use in Icinga check - eg "backup0.provider0"
 #
+# [*monitor_cdn_logs_disk*]
+#   If true, monitor disk space on /srv/backup-cdn-logs
+#
 class backup::offsite::monitoring(
   $offsite_fqdn,
   $offsite_hostname,
+  $monitor_cdn_logs_disk = false,
 ){
+  validate_bool($monitor_cdn_logs_disk)
 
   icinga::host { $offsite_fqdn:
     hostalias => $offsite_fqdn,
@@ -46,6 +51,15 @@ class backup::offsite::monitoring(
     service_description => 'low available disk space /srv/backup-logs',
     use                 => 'govuk_high_priority',
     host_name           => $offsite_fqdn,
+  }
+
+  if $monitor_cdn_logs_disk {
+    icinga::check { "check_disk_backup-cdn-logs_${offsite_hostname}":
+      check_command       => 'check_nrpe_1arg!check_disk_backup-cdn-logs',
+      service_description => 'low available disk space /srv/backup-cdn-logs',
+      use                 => 'govuk_high_priority',
+      host_name           => $offsite_fqdn,
+    }
   }
 
   icinga::check { "check_ssh_${offsite_hostname}":
