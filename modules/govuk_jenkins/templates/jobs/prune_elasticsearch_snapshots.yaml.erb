@@ -1,0 +1,29 @@
+---
+- job:
+    name: prune-elasticsearch-snapshots
+    display-name: prune-elasticsearch-snapshots
+    project-type: freestyle
+    description: "<p>Delete old Elasticsearch snapshots</p>
+      <p>This is run to delete old (7 days) Elasticsearch snapshots.</p>"
+    builders:
+        - shell: |
+            # "setlock -N" blocks until the lock can be acquired
+            # "bundle exec keep-file-descriptors" is required for setlock to detect the lock is still in use
+            ssh deploy@search-1.api '(cd /var/apps/rummager; RUMMAGER_INDEX=all setlock -N <%= snapshot_lock_path %> govuk_setenv rummager bundle exec --keep-file-descriptors rake rummager:snapshot:clean)'
+    triggers:
+        - timed: '5 4 * * *' # 4:05
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
+    wrappers:
+        - ansicolor:
+            colormap: xterm

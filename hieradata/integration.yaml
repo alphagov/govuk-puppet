@@ -21,6 +21,7 @@ govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::rummager::enable_publishing_api_document_indexer: true
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-integration
+govuk::apps::rummager::snapshot::snapshot_enable: true
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::sidekiq_monitoring::enabled: true
@@ -101,6 +102,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
   - govuk_jenkins::job::performance_platform_smokey
+  - govuk_jenkins::job::prune_elasticsearch_snapshots
   - govuk_jenkins::job::run_rake_task
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::sanitize_publishing_api_data

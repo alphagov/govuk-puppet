@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -u
+
+function send_nsca {
+    # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
+    if [ -z ${CODE+x} ]; then
+        CODE=3
+        OUTPUT="UNKNOWN: rummager-snapshot script exited before seeder returned an exit code"
+    fi
+    # unusual ${var+x} construct explained: http://stackoverflow.com/a/13864829
+    if [ -z ${OUTPUT+x} ]; then
+        CODE=3
+        OUTPUT="UNKNOWN: rummager-snapshot exited before setting OUTPUT - this should never happen"
+    fi
+    printf "<%= @ipaddress %>\t<%= @snapshot_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+    exit $?
+}
+trap send_nsca EXIT
+
+cd /var/apps/rummager
+
+# "setlock -nx" forces the snapshot to be skipped if we cannot acquire the lock
+# "bundle exec keep-file-descriptors" is required for setlock to detect the lock is still in use
+OUTPUT=$(RUMMAGER_INDEX=all setlock -nx <%= snapshot_lock_path %> /usr/local/bin/govuk_setenv rummager bundle exec --keep-file-descriptors rake rummager:snapshot:run 2>&1)
+
+CODE=$?
+if [ "$OUTPUT" == "" ]; then
+  OUTPUT="rummager-snapshot script exited with no output or couldn't acquire a lock"
+fi
+# Force everything that isn't OK to be a WARNING
+if [ $CODE -gt 0 ]; then
+  CODE=1
+fi
+
+logger -p local3.info -t rummager-snapshot "$OUTPUT"

@@ -12,4 +12,10 @@ class govuk::node::s_search inherits govuk::node::s_base {
 
   # Local proxy for Rummager to access ES cluster.
   include govuk_elasticsearch::local_proxy
+
+  # Run a script every 5 minutes to create repository (idempotent)
+  # and take a search index snapshot.
+  if $::hostname == 'search-1' {
+    include govuk::apps::rummager::snapshot
+  }
 }
