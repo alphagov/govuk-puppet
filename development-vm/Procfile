@@ -32,6 +32,7 @@ support:               govuk_setenv support               ./run_in.sh ../support
 contracts-finder:                                         ./run_in.sh ../contracts-finder bundle exec rails server -p 3033
 # url-arbiter used to use 3034 but has been retired
 travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../travel-advice-publisher bundle exec rails s -p 3035
+travel_advice_publisher_worker: govuk_setenv travel-advice-publisher ./run_in.sh ../travel-advice-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 release:               govuk_setenv release               ./run_in.sh ../release        bundle exec rails server -p 3036
 asset_manager:         govuk_setenv asset-manager         ./run_in.sh ../asset-manager  bundle exec rails s -p 3037
 asset-manager-worker:  govuk_setenv asset-manager         ./run_in.sh ../asset-manager  bundle exec rake jobs:work
