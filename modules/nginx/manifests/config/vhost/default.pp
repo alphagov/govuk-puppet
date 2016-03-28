@@ -26,9 +26,6 @@ define nginx::config::vhost::default(
   $ssl_certtype = 'wildcard_alphagov',
 ) {
 
-  # Whether to enable SSL. Used by template.
-  $enable_ssl = hiera('nginx_enable_ssl', true)
-
   nginx::config::ssl { $title:
     certtype => $ssl_certtype,
   }
