@@ -98,6 +98,8 @@ govuk::node::s_development::apps:
   - 'travel_advice_publisher'
   - 'whitehall'
 
+govuk::node::s_development::ssl_certificate: "%{hiera('wildcard_alphagov_crt')}"
+
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
