@@ -40,7 +40,6 @@ class govuk::apps::static(
 ) {
   $app_domain = hiera('app_domain')
   $asset_manager_host = "asset-manager.${app_domain}"
-  $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
 
   govuk::app { $app_name:
