@@ -9,7 +9,7 @@ sed -e "s;^  :datadir: .*$;  :datadir: '/var/govuk/govuk-puppet/hieradata';g" /v
 # Filter warnings about 'storeconfigs' not being set
 exec sudo \
   RBENV_VERSION=1.9.3 \
-  /usr/bin/puppet apply /var/govuk/govuk-puppet/manifests/site.pp \
+  puppet apply /var/govuk/govuk-puppet/manifests/site.pp \
   --trusted_node_data \
   --environment ${ENVIRONMENT:-development} \
   --modulepath /var/govuk/govuk-puppet/modules:/var/govuk/govuk-puppet/vendor/modules \
