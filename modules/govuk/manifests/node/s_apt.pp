@@ -83,9 +83,8 @@ class govuk::node::s_apt (
       release  => 'binary/', # Trailing slash is significant.
       key      => 'D50582E6';
   }
-  aptly::repo {
-    'govuk-jenkins':
-  }
+  aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'terraform': }
 
   include nginx
   nginx::config::site { 'apt.cluster':
