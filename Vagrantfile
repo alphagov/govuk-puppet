@@ -6,19 +6,13 @@ require_relative 'load_nodes'
 min_required_vagrant_version = '1.3.0'
 
 # Construct box name and URL from distro and version.
-def get_box(dist, version, provider)
+def get_box(dist, version)
   dist    ||= "trusty"
-
-  if provider == "vmware_fusion"
-    version ||= '20141112'
-    name  = "govuk_dev_#{dist}64_vmware_fusion_#{version}"
-    bucket = 'gds-boxes'
-  else
-    version ||= '20160323'
-    name  = "govuk_dev_#{dist}64_#{version}"
-    bucket = 'govuk-dev-boxes-test'
-  end
-  url = "http://#{bucket}.s3.amazonaws.com/#{name}.box"
+  version ||= '20160323'
+  
+  name  = "govuk_dev_#{dist}64_#{version}"
+  bucket = 'govuk-dev-boxes-test'
+  url = "https://#{bucket}.s3.amazonaws.com/#{name}.box"
 
   return name, url
 end
@@ -42,7 +36,6 @@ Vagrant.configure("2") do |config|
       box_name, box_url = get_box(
         node_opts["box_dist"],
         node_opts["box_version"],
-        "virtualbox"
       )
       c.vm.box = box_name
       c.vm.box_url = box_url
@@ -66,18 +59,6 @@ Vagrant.configure("2") do |config|
       end
 
       c.vm.provider(:virtualbox) { |vb| vb.customize(modifyvm_args) }
-
-      c.vm.provider(:vmware_fusion) do |vf, override|
-        if node_opts.has_key?("memory")
-          vf.vmx["memsize"] = node_opts["memory"]
-        end
-        vf.vmx["displayName"] = node_name
-        override.vm.box, override.vm.box_url = get_box(
-          node_opts["box_dist"],
-          node_opts["box_version"],
-          "vmware_fusion"
-        )
-      end
 
       if ENV['VAGRANT_GOVUK_NFS'] == "no"
         c.vm.synced_folder "..", "/var/govuk"
