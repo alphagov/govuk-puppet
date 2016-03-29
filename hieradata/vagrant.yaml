@@ -5,6 +5,7 @@ app_domain: 'dev.gov.uk'
 
 backup::offsite::monitoring::offsite_fqdn: backup.gov.uk
 backup::offsite::monitoring::offsite_hostname: backup0.provider0
+backup::offsite::monitoring::monitor_cdn_logs_disk: true
 
 assets::ssh_authorized_key::key: 'AAAAB3NzaC1yc2EAAAADAQABAAAAYQDCIfGHdqJj9IMkdwXtieDW15ZnR9GAqcnUwjQOMvySEst54705ekxcKwjRFTaYmawlifQTOgFDPkMwp72s2Zd+0ZiR7lfSzBQctbCptS/SgTNNltvplVt8nUbz9H0jLy8='
 assets::ssh_private_key::key: |
