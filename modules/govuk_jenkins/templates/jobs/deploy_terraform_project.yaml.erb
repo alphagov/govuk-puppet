@@ -17,8 +17,7 @@
             url: https://github.com/alphagov/govuk-terraform-provisioning/
         - inject:
             properties-content: |
-              DEPLOY_ENV=${ENVIRONMENT}
-              PROJECT_NAME=${PROJECT_NAME}
+              DEPLOY_ENV=<%= @environment %>
     scm:
         - govuk-terraform-provisioning_Deploy_Terraform_Project
     builders:
