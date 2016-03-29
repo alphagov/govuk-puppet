@@ -149,6 +149,12 @@ You may also need to make sure the plugin has been started:
 
     vagrant dns --start
 
+If you're having issues with your host machine resolving hosts, try purging and reinstalling the DNS config:
+
+    vagrant dns --purge
+    vagrant dns --install
+    vagrant dns --start
+
 ### Errors fetching packages
 
 GDS have an apt repository at http://apt.production.alphagov.co.uk/ This is not accessible on the internet, so if you're trying to provision the virtual machine outside of the GDS office, you have a little bit of work to do. The prerequisites talk about needing an LDAP account to access GDS Github Enterprise, so you should have an account which lets you access the VPN.
