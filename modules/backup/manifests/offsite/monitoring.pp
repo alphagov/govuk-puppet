@@ -21,8 +21,9 @@ class backup::offsite::monitoring(
   validate_bool($monitor_cdn_logs_disk)
 
   icinga::host { $offsite_fqdn:
-    hostalias => $offsite_fqdn,
-    address   => $offsite_fqdn,
+    hostalias    => $offsite_fqdn,
+    address      => $offsite_fqdn,
+    display_name => $offsite_hostname,
   }
 
   icinga::check { "check_disk_${offsite_hostname}":
