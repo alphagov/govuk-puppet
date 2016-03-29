@@ -68,6 +68,7 @@ govuk_jenkins::config::admins:
   - jennyduckett
   - leelongmore
   - leenagupte
+  - lauramartin
   - mathildathompson
   - matmoore
   - mattbostock
@@ -76,7 +77,6 @@ govuk_jenkins::config::admins:
   - murraysteele
   - paulbowsher
   - paulhayes
-  - paulmartin
   - richardboulton
   - rosafox
   - seemasatish
@@ -320,6 +320,7 @@ users::usernames:
   - isabelllong
   - jackscotti
   - jennyduckett
+  - lauramartin
   - leelongmore
   - leenagupte
   - mathildathompson
@@ -330,7 +331,6 @@ users::usernames:
   - murraysteele
   - paulbowsher
   - paulhayes
-  - paulmartin
   - richardboulton
   - robinwhittleton
   - rosafox
