@@ -35,12 +35,12 @@ ENV.fetch('classes').split(",").each do |class_name|
 
     # Pull in some required bits from top-level site.pp
     let(:pre_condition) { <<-EOT
-$govuk_node_class = "#{class_name}"
+      $govuk_node_class = "#{class_name}"
 
-$lv = hiera('lv',{})
-create_resources('govuk_lvm', $lv)
-$mount = hiera('mount',{})
-create_resources('govuk_mount', $mount)
+      $lv = hiera('lv',{})
+      create_resources('govuk_lvm', $lv)
+      $mount = hiera('mount',{})
+      create_resources('govuk_mount', $mount)
       EOT
     }
 

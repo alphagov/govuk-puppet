@@ -245,6 +245,7 @@ hosts::production::backend::app_hostnames:
   - 'hmrc-manuals-api'
   - 'imminence'
   - 'kibana'
+  - 'local-links-manager'
   - 'maslow'
   - 'need-api'
   - 'panopticon'

@@ -43,6 +43,7 @@ deployable_applications: &deployable_applications
   - info-frontend
   - kibana-gds
   - licence-finder
+  - local-links-manager
   - manuals-frontend
   - mapit
   - maslow
@@ -315,6 +316,10 @@ govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
 
 govuk::apps::info_frontend::enabled: true
+
+govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
 govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
 
@@ -724,6 +729,7 @@ hosts::production::backend::app_hostnames:
   - 'hmrc-manuals-api'
   - 'imminence'
   - 'kibana'
+  - 'local-links-manager'
   - 'mapit'
   - 'maslow'
   - 'need-api'

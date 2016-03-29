@@ -44,6 +44,7 @@ govuk::node::s_base::apps:
   - hmrc_manuals_api
   - imminence
   - kibana
+  - local_links_manager
   - maslow
   - need_api
   - panopticon
