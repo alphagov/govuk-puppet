@@ -53,28 +53,28 @@ class govuk::apps::local_links_manager(
       vhost_ssl_only    => true,
       health_check_path => '/healthcheck',
     }
-  }
 
-  Govuk::App::Envvar {
-    app    => $app_name,
-  }
+    Govuk::App::Envvar {
+      app    => $app_name,
+    }
 
-  govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
-    "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
-  }
+    govuk::app::envvar {
+      "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
+      "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+    }
 
-  if $::govuk_node_class != 'development' {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
+    if $::govuk_node_class != 'development' {
+      govuk::app::envvar::database_url { $app_name:
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        database => $db_name,
+      }
     }
   }
 }
