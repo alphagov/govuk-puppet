@@ -25,6 +25,17 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: 6379
+#
+# [*enable_procfile_worker*]
+#   Enables the sidekiq background worker.
+#   Default: true
+#
 class govuk::apps::travel_advice_publisher(
   $port = '3035',
   $enable_email_alerts = false,
@@ -32,6 +43,9 @@ class govuk::apps::travel_advice_publisher(
   $mongodb_nodes = undef,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = '6379',
+  $enable_procfile_worker = true,
 ) {
   $app_name = 'travel-advice-publisher'
 
@@ -63,6 +77,12 @@ class govuk::apps::travel_advice_publisher(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-REDIS_HOST":
+      varname => 'REDIS_HOST',
+      value   => $redis_host;
+    "${title}-REDIS_PORT":
+      varname => 'REDIS_PORT',
+      value   => $redis_port;
   }
 
   validate_bool($enable_email_alerts)
