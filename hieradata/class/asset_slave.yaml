@@ -1,7 +1,5 @@
 ---
 
-backup::assets::archive_directory: '/mnt/duplicity-cache'
-
 govuk_safe_to_reboot::can_reboot: 'careful'
 govuk_safe_to_reboot::reason: 'Check that offsite sync job is not running before rebooting'
 
@@ -11,10 +9,6 @@ lv:
       - '/dev/sdb1'
       - '/dev/sdc1'
     vg: 'uploads'
-  cache:
-    pv:
-      - '/dev/sdd1'
-    vg: 'duplicity'
 
 mount:
   /mnt/uploads:
@@ -22,10 +16,4 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
     percent_threshold_warning: 5
-    percent_threshold_critical: 2
-  /mnt/duplicity-cache:
-    disk: '/dev/mapper/duplicity-cache'
-    govuk_lvm: 'cache'
-    mountoptions: 'defaults'
-    percent_threshold_warning: 10 
     percent_threshold_critical: 2
