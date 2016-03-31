@@ -40,6 +40,7 @@ process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager, :'content-register']
 process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi]
+process :'local-links-manager'
 process :mapit
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
