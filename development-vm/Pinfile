@@ -31,7 +31,6 @@ process :errbit
 process :'event-store'
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']
-process :'finder-api'
 process :frontend => [:static, :contentapi, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static]
 process :'info-frontend' => [:static, :'metadata-api']
@@ -78,7 +77,6 @@ process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager, :'travel_advice_publisher_worker']
 process :travel_advice_publisher_worker
 process :whitehall => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
-process :'whitehall-admin-tagging-test' => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
 
 # pseudo process to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being

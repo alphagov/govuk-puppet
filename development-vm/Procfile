@@ -28,8 +28,7 @@ errbit:                govuk_setenv errbit                ./run_in.sh ../errbit 
 private-frontend:      govuk_setenv frontend              ./run_in.sh ../frontend       bundle exec rails server -p 3030
 support:               govuk_setenv support               ./run_in.sh ../support        bundle exec rails s -p 3031
 # publicapi:uses port 3032
-# This will probably be renamed?
-contracts-finder:                                         ./run_in.sh ../contracts-finder bundle exec rails server -p 3033
+# contracts-finder used to use port 3033
 # url-arbiter used to use 3034 but has been retired
 travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../travel-advice-publisher bundle exec rails s -p 3035
 travel_advice_publisher_worker: govuk_setenv travel-advice-publisher ./run_in.sh ../travel-advice-publisher bundle exec sidekiq -C ./config/sidekiq.yml
@@ -58,7 +57,7 @@ spotlight:                                                ./run_in.sh ../spotlig
 screenshot_as_a_service:                                  ./run_in.sh ../screenshot-as-a-service ./start-app.sh # port 3059 and 3060
 business-support-api:  govuk_setenv business-support-api  ./run_in.sh ../business-support-api bundle exec rails s -p 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
-finder-api:            govuk_setenv finder-api            ./run_in.sh ../finder-api     bundle exec mr-sparkle --force-polling -- -p 3063
+# finder-api used to use port 3063
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../specialist-publisher bundle exec foreman start
 specialist-frontend:   govuk_setenv specialist-frontend   ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../content-store  bundle exec rails s -p 3068
@@ -111,7 +110,7 @@ service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../
 # govuk-pact-broker uses port 3112
 # govuk-component-guide uses port 3113
 # sidekiq-monitoring for publishing-api uses 3114
-whitehall-admin-tagging-test: govuk_setenv whitehall-admin-tagging-test ./run_in.sh ../whitehall bin/tagging_test 3115
+# whitehall-admin-tagging-test used to use port 3115
 content-tagger:        govuk_setenv content-tagger        ./run_in.sh ../content-tagger bundle exec rails s -p 3116
 # sidekiq-monitoring for email-campaign-api uses 3117
 multipage-frontend:    govuk_setenv multipage-frontend    ./run_in.sh ../multipage-frontend bundle exec rails s -p 3118
