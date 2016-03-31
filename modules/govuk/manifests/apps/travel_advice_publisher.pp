@@ -94,4 +94,8 @@ class govuk::apps::travel_advice_publisher(
         value   => '1';
     }
   }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
+  }
 }
