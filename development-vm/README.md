@@ -80,9 +80,11 @@ Procfile in `/var/govuk/development`:
     dev$ cd /var/govuk/development
     dev$ foreman start
 
-The above command will use the Procfile and start everything at once. This can
-be slow to startup so if you know what you're working on you're probably
-better running just those parts using
+The above command will use the Procfile and start everything at once. This will
+almost certainly fail, since you will not have all the appropriate code downloaded,
+and possibly don't have access to some repos. Even if you have all targets mentioned
+in the Procfile downloaded, it will be slow to startup so if you know what you're
+working on you're probably better running just those parts using
 [Bowler](https://github.com/JordanHatch/bowler). To install bowler:
 
     dev$ sudo gem install bowler
