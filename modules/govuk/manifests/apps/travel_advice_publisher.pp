@@ -86,7 +86,6 @@ class govuk::apps::travel_advice_publisher(
   }
 
   validate_bool($enable_email_alerts)
-
   if ($enable_email_alerts) {
     govuk::app::envvar {
       "${title}-SEND_EMAIL_ALERTS":
@@ -95,6 +94,7 @@ class govuk::apps::travel_advice_publisher(
     }
   }
 
+  validate_bool($enable_procfile_worker)
   govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
