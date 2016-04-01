@@ -74,7 +74,7 @@ process :tariff_admin => [:tradetariffapi]
 process :tradetariff => [:tradetariffapi, :static, :contentapi]
 process :tradetariffapi
 process :transition
-process :travel_advice_publisher => [:panopticon, :asset_manager, :'travel_advice_publisher_worker']
+process :travel_advice_publisher => [:panopticon, :asset_manager, :'travel_advice_publisher_worker', :'email-alert-api']
 process :travel_advice_publisher_worker
 process :whitehall => [:'content-register', :contentapi, :static, :'publishing-api', :rummager, :panopticon]
 
