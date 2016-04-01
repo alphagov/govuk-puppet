@@ -1,4 +1,69 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Define: govuk::app::nginx_vhost
+#
+# Sets up an nginx vhost which proxies to an application
+#
+# === Parameters
+#
+# [*vhost*]
+#   Title of the vhost
+#
+# [*app_port*]
+#   Port the app runs on
+#
+# [*aliases*]
+#   Other hostnames to serve the app on
+#
+# [*protected*]
+#   Boolean, whether basic auth should be enabled for this app
+#
+# [*protected_location*]
+#   Prefix path to protect with basic auth, defaults to everything
+#
+# [*ssl_only*]
+#   Whether the app should only be available on a secure connection
+#
+# [*logstream*]
+#   Whether nginx logs should be shipped to the logging box
+#
+# [*nginx_extra_config*]
+#   A string containing additional nginx config
+#
+# [*nginx_extra_app_config*]
+#   A string containing additional nginx config for the `app` location block
+#
+# [*intercept_errors*]
+#   Boolean, whether to set nginx's `proxy_intercept_errors`
+#
+# [*deny_framing*]
+#   Boolean, whether nginx should instruct browsers to not allow framing the page
+#
+# [*is_default_vhost*]
+#   Boolean, whether to set `default_server` in nginx
+#
+# [*asset_pipeline*]
+#   Boolean, whether to enable the Rails asset pipeline
+#
+# [*asset_pipeline_prefix*]
+#   Path that nginx will serve assets from
+#
+# [*hidden_paths*]
+#   Array of paths that nginx will force to return an error
+#
+# [*single_page_app*]
+#   String, if set the vhost will attempt to serve files from this directory
+#
+# [*read_timeout*]
+#   Number of seconds the vhost will wait for a response before timing out
+#
+# [*ensure*]
+#   Whether to create the nginx vhost, present/absent
+#
+# [*alert_5xx_warning_rate*]
+#   The error percentage that triggers a warning alert
+#
+# [*alert_5xx_critical_rate*]
+#   The error percentage that triggers a critical alert
+#
 define govuk::app::nginx_vhost (
   $vhost,
   $app_port,

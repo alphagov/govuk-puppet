@@ -11,9 +11,45 @@
 #   Boolean whether the upstream servers are running on HTTPS/443.
 #   Default: false
 #
+# [*aliases*]
+#   Other hostnames to serve the app on
+#
+# [*extra_config*]
+#   A string containing additional nginx config
+#
+# [*extra_app_config*]
+#   A string containing additional nginx config for the `app` location block
+#
+# [*intercept_errors*]
+#   Boolean, whether to set nginx's `proxy_intercept_errors`
+#
+# [*deny_framing*]
+#   Boolean, whether nginx should instruct browsers to not allow framing the page
+#
+# [*protected*]
+#   Boolean, whether or not the vhost should be protected with basic auth
+#
+# [*protected_location*]
+#   Prefix path to protect with basic auth, defaults to everything
+#
+# [*root*]
+#   The root directory for nginx to serve requests from
+#
+# [*ssl_only*]
+#   Whether the app should only be available on a secure connection
+#
+# [*logstream*]
+#   Whether nginx logs should be shipped to the logging box
+#
+# [*is_default_vhost*]
+#   Boolean, whether to set `default_server` in nginx
+#
 # [*ssl_certtype*]
 #   Type of certificate from the predefined list in `nginx::config::ssl`.
 #   Default: 'wildcard_alphagov'
+#
+# [*hidden_paths*]
+#   Array of paths that nginx will force to return an error
 #
 # [*single_page_app*]
 #   Direct all requests that are not static files to the file specified by
@@ -23,19 +59,14 @@
 #   Configure the amount of time the proxy vhost will wait before returning
 #   a 504 to the client
 #
+# [*ensure*]
+#   Whether to create the nginx vhost, present/absent
+#
 # [*alert_5xx_warning_rate*]
 #   The error percentage that triggers a warning alert
 #
 # [*alert_5xx_critical_rate*]
 #   The error percentage that triggers a critical alert
-#
-# [*protected*]
-#   Boolean, whether or not the vhost should be protected with basic auth
-#
-# [*protected_location*]
-#   Prefix path to protect with basic auth, defaults to everything
-#
-# TODO: More docs!
 #
 define nginx::config::vhost::proxy(
   $to,
@@ -56,7 +87,6 @@ define nginx::config::vhost::proxy(
   $single_page_app = false,
   $read_timeout = 15,
   $ensure = 'present',
-
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
 ) {
