@@ -88,7 +88,8 @@ class govuk::node::s_backend_lb (
       internal_only  => true,
       servers        => $backend_servers;
     'whitehall-admin':
-      servers => $whitehall_backend_servers;
+      deny_crawlers => true,
+      servers       => $whitehall_backend_servers;
   }
 
   loadbalancer::balance { 'errbit':

@@ -14,6 +14,10 @@
 # [*aliases*]
 #   Additional server names for the loadbalanced service.
 #
+# [*deny_crawlers*]
+#   Boolean, whether the loadbalancer should serve a robots.txt that
+#   prevents crawlers from indexing the thing being balanced.
+#
 # [*error_on_http*]
 #   Whether we should serve an error for HTTP requests. Generally we
 #   prefer to redirect from HTTP to HTTPS to provide a good user experience,
@@ -45,6 +49,7 @@
 define loadbalancer::balance(
     $servers,
     $aliases = [],
+    $deny_crawlers = false,
     $error_on_http = false,
     $https_port = 443,
     $https_redirect = true,

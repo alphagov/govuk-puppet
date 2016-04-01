@@ -57,6 +57,13 @@ server {
     root /usr/share/nginx/html;
   }
 
+  <%- if @deny_crawlers -%>
+  location = /robots.txt {
+    add_header content-type text/plain;
+    return 200 'User-agent: *\nDisallow: /';
+  }
+  <%- end -%>
+
   location / {
     <%- if @internal_only -%>
     # Only accept connnections from internal machines
