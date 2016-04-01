@@ -40,6 +40,16 @@ else
     if vagrant dns --install > /dev/null 2>&1; then
         info "Started vagrant-dns"
     fi
+
+    # Install the development SSL certificate to the Keychain
+    if security find-certificate -c "*.dev.gov.uk" > /dev/null 2>&1; then
+        info "Certificate for development already installed"
+    else
+        info "Installing certificate for development"
+        TEMPORARY_CERT_FILE=$(mktemp /tmp/XXXXXXX)
+        ruby -e "require 'yaml'; puts YAML.load_file('../hieradata/development_credentials.yaml')['wildcard_alphagov_crt']" | openssl x509 -outform der -out $TEMPORARY_CERT_FILE
+        security add-certificates $TEMPORARY_CERT_FILE
+    fi
 fi
 
 info "Development environment now bootstrapped."
