@@ -46,6 +46,7 @@ govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-production
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 
 govuk::deploy::actionmailer_enable_delivery: true
 
