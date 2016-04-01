@@ -24,6 +24,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*email_alert_api_bearer_token*]
+#   The bearer token to use when communicating with Email Alert API.
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -36,6 +40,7 @@ class govuk::apps::specialist_publisher(
   $enable_procfile_worker = true,
   $publish_pre_production_finders = false,
   $publishing_api_bearer_token = undef,
+  $email_alert_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
@@ -69,9 +74,13 @@ client_max_body_size 500m;
       enable_service => $enable_procfile_worker,
     }
 
-    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    govuk::app::envvar {
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token,
+      value   => $publishing_api_bearer_token;
+      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
     }
   }
 }
