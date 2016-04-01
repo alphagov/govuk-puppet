@@ -29,6 +29,12 @@
 # [*alert_5xx_critical_rate*]
 #   The error percentage that triggers a critical alert
 #
+# [*protected*]
+#   Boolean, whether or not the vhost should be protected with basic auth
+#
+# [*protected_location*]
+#   Prefix path to protect with basic auth, defaults to everything
+#
 # TODO: More docs!
 #
 define nginx::config::vhost::proxy(
@@ -40,6 +46,7 @@ define nginx::config::vhost::proxy(
   $intercept_errors = false,
   $deny_framing = false,
   $protected = true,
+  $protected_location = '/',
   $root = "/data/vhost/${title}/current/public",
   $ssl_only = false,
   $logstream = present,
