@@ -1,0 +1,26 @@
+---
+- scm:
+    name: build_fpm_package
+    scm:
+        - git:
+            url: git@github.com:alphagov/packager.git
+            branches:
+              - master
+
+- job:
+    name: build_fpm_package
+    display-name: Build fpm package
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.com/alphagov/packager/
+    scm:
+      - build_fpm_package
+    parameters:
+        - string:
+            name: RECIPE_NAME
+            description: The name of an fpm-cookery recipe
+    builders:
+        - shell: |
+            cd fpm/
+            ./build.sh
