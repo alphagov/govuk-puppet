@@ -37,6 +37,7 @@ deployable_applications: &deployable_applications
   - government-frontend
   - govuk-delivery
   - govuk_content_api
+  - govuk_crawler_worker
   - govuk_need_api
   - hmrc-manuals-api
   - imminence
