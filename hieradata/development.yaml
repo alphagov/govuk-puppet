@@ -58,6 +58,7 @@ govuk::node::s_development::apps:
   - 'info_frontend'
   - 'kibana'
   - 'licencefinder'
+  - 'local_links_manager'
   - 'manuals_frontend'
   - 'mapit'
   - 'maslow'
