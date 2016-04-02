@@ -59,7 +59,7 @@ else
   PV_COMMAND="cat"
 fi
 
-for file in $(find $POSTGRESQL_DIR -name '*_production*.sql.gz'); do
+for file in $(find $POSTGRESQL_DIR -name '*_production*day.sql.gz'); do
   if $DRY_RUN; then
     status "PostgreSQL (not) restoring $(basename $file)"
   else
