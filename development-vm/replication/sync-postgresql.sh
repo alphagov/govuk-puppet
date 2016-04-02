@@ -51,7 +51,6 @@ else
 fi
 
 NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
-DUMP_MUNGE_COMMAND="${NAME_MUNGE_COMMAND} -f $(dirname $0)/mappings/postgresql.sed"
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
@@ -80,9 +79,30 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*day.sql.gz'); do
     status $PROD_DB_NAME '->' $TARGET_DB_NAME
 
     export PGOPTIONS='-c client_min_messages=WARNING -c maintenance_work_mem=500MB'
-    PSQL_COMMAND="sudo -E -u postgres psql -q"
+    PSQL_COMMAND="sudo -E -u postgres psql -qAt"
+    $PSQL_COMMAND -c "DROP DATABASE IF EXISTS \"${PROD_DB_NAME}\""
+    $PV_COMMAND $file | zcat | ($PSQL_COMMAND > /dev/null 2>&1) | sed '/role.*does not exist/d'
     $PSQL_COMMAND -c "DROP DATABASE IF EXISTS \"${TARGET_DB_NAME}\""
-    $PV_COMMAND $file | zcat | $DUMP_MUNGE_COMMAND | ($PSQL_COMMAND > /dev/null)
+    $PSQL_COMMAND -c "ALTER DATABASE \"${PROD_DB_NAME}\" RENAME TO \"${TARGET_DB_NAME}\""
+    $PSQL_COMMAND -c "ALTER DATABASE \"${TARGET_DB_NAME}\" OWNER TO \"vagrant\""
+
+    # Change table ownership
+    for tbl in $(${PSQL_COMMAND} -c "SELECT tablename FROM pg_tables WHERE schemaname = 'public';" ${TARGET_DB_NAME})
+    do
+      ${PSQL_COMMAND} -c "ALTER TABLE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
+    done
+
+    # Change view ownership
+    for tbl in $(${PSQL_COMMAND} -c "SELECT table_name FROM information_schema.views WHERE table_schema = 'public';" ${TARGET_DB_NAME})
+    do
+      ${PSQL_COMMAND} -c "ALTER TABLE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
+    done
+
+    # Change sequence ownership
+    for tbl in $(${PSQL_COMMAND} -c "SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = 'public';" ${TARGET_DB_NAME})
+    do
+      ${PSQL_COMMAND} -c "ALTER TABLE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
+    done
   fi
 done
 
