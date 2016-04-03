@@ -52,7 +52,6 @@ fi
 
 echo "Mapping database names for a development VM"
 NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
-DUMP_MUNGE_COMMAND="${NAME_MUNGE_COMMAND} -f $(dirname $0)/mappings/mysql.sed"
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
@@ -73,10 +72,18 @@ for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
       fi
     done
 
+    TEMP_SED_SCRIPT=$(mktemp)
+    awk '{print "/^CREATE DATABASE/,+10",$0}' $(dirname $0)/mappings/names.sed > ${TEMP_SED_SCRIPT}
+    if [[ -f $(dirname $0)/mappings/dbs/${PROD_DB_NAME}.sed ]] ; then
+      cat $(dirname $0)/mappings/dbs/${PROD_DB_NAME}.sed >> ${TEMP_SED_SCRIPT}
+    fi
+    DB_MUNGE_COMMAND="sed -f ${TEMP_SED_SCRIPT}"
+
     MYSQL_ARGUMENTS="-u root"
     status $PROD_DB_NAME '->' $TARGET_DB_NAME
-    mysql $MYSQL_ARGUMENTS -e "drop database if exists $TARGET_DB_NAME"
-    $PV_COMMAND $file | bzcat | $DUMP_MUNGE_COMMAND | mysql $MYSQL_ARGUMENTS
+    mysql $MYSQL_ARGUMENTS -e "DROP DATABASE IF EXISTS $TARGET_DB_NAME"
+    $PV_COMMAND $file | bzcat | ${DB_MUNGE_COMMAND} | mysql $MYSQL_ARGUMENTS
+    rm ${TEMP_SED_SCRIPT}
   fi
 done
 
