@@ -126,3 +126,4 @@ service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../ser
 # canary-frontend: doesn't currently use a port. reserved 3200
 # canary-backend: doesn't currently use a port. reserved 3201
 # kibana: reserved 3202
+# # sidekiq-monitoring for travel-advice-publisher uses 3203
