@@ -1,4 +1,4 @@
-# Creates the mattbostock user
+# Creates the mathildathompson user
 class users::mathildathompson {
   govuk_user { 'mathildathompson':
     fullname => 'Mathilda Thompson',
