@@ -4,18 +4,12 @@
 #
 # === Parameters:
 #
-# [*enable_basic_auth*]
-#   Boolean. Whether basic auth should be enabled or disabled.
-#
 # [*graphite_path*]
 #   Path to the installation of Graphite.
 #
 class govuk::node::s_graphite (
-  $enable_basic_auth = true,
   $graphite_path = '/opt/graphite',
 ) inherits govuk::node::s_base {
-  validate_bool($enable_basic_auth)
-
   class { 'graphite':
     version                    => '0.9.13',
     port                       => '33333',
@@ -102,7 +96,7 @@ class govuk::node::s_graphite (
     to           => ['localhost:33333'],
     root         => "${graphite_path}/webapp",
     aliases      => ['graphite.*'],
-    protected    => $enable_basic_auth,
+    protected    => false,
     extra_config => $cors_headers,
   }
 
