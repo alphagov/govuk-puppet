@@ -14,7 +14,7 @@
 #   Password for $http_username
 #
 class icinga::config (
-  $enable_event_handlers = false,
+  $enable_event_handlers = true,
   $http_username = '',
   $http_password = '',
 ) {

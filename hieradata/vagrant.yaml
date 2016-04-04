@@ -160,8 +160,6 @@ govuk_postgresql::server::snakeoil_ssl_key: |
 
 govuk_postgresql::wal_e::backup::enabled: true
 
-icinga::config::enable_event_handlers: true
-
 shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_users:
