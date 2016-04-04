@@ -3,11 +3,15 @@
 # [*apt_mirror_hostname*]
 #   The hostname of an APT mirror
 #
+# [*aws_account_id*]
+#   The account ID for Amazon Web Services, required by our Terraform code
+#
 # [*projects*]
 #   An array that contains the list of projects currently configured to deploy
 #
 class govuk_jenkins::job::deploy_terraform_project (
   $apt_mirror_hostname = '',
+  $aws_account_id = '',
   $projects = [],
 ) {
   validate_array($projects)

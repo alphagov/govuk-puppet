@@ -22,6 +22,7 @@
         - govuk-terraform-provisioning_Deploy_Terraform_Project
     builders:
         - shell: |
+            export TF_VAR_account_id=<%= @aws_account_id %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec rake ${ACTION}
 
