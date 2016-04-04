@@ -42,7 +42,7 @@ class govuk_jenkins::job::email_alert_check (
       notify  => Exec['jenkins_jobs_update'];
     '/etc/jenkins_jobs/jobs/travel_advice_email_alert_check.yaml':
       ensure  => present,
-      content => template('govuk_jenkins/jobs/email_alert_check.yaml.erb'),
+      content => template('govuk_jenkins/jobs/travel_advice_email_alert_check.yaml.erb'),
       notify  => Exec['jenkins_jobs_update'];
   }
 
