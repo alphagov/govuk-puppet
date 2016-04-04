@@ -202,6 +202,12 @@ up once newer ones have been downloaded. To get over this, it is
 advised to periodically `rm -r` older directories in
 `development/replication/backups`.
 
+Some tables aren't included in the standard replication. This is due to their
+size relative to their usefulness in development. These exemptions can be found
+in the `replication/mappings/dbs` folder, and are skipped by small sed scripts
+that delete entire `INSERT INTO` lines from the dumps. To force these tables to
+be restored, simply delete or rename the relevant sed script and run replication.
+
 ## 9. Accessing remote environments
 
 ### 9.1 Access to the web frontend
