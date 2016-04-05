@@ -61,6 +61,7 @@ govuk_jenkins::config::admins:
   - davidsingleton
   - deanwilson
   - elliotcrosbymccullough
+  - emmabeynon
   - grahampengelly
   - henryturner
   - ikennaokpala
@@ -317,6 +318,7 @@ users::usernames:
   - deanwilson
   - douglasroper
   - elliot
+  - emmabeynon
   - gemmaleigh
   - grahampengelly
   - henryturner
