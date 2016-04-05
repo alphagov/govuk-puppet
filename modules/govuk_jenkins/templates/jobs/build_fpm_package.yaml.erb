@@ -24,3 +24,6 @@
         - shell: |
             cd fpm/
             ./build.sh
+    publishers:
+        - archive:
+            artifacts: 'build/*.deb'
