@@ -7,8 +7,13 @@
 # [*apps*]
 #   An array of applications that should be included on this machine.
 #
+# [*ssl_certificate*]
+#   An SSL certificate for applications in development that can be added
+#   to the root trust store.
+#
 class govuk::node::s_development (
   $apps = [],
+  $ssl_certificate = '',
 ) {
   include base
 
@@ -149,8 +154,20 @@ class govuk::node::s_development (
   }
 
   package {
+    'ca-certificates': ensure => installed; # Allows us to trust a self-signed SSL certificate
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
     'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
+  }
+
+  file { '/usr/local/share/ca-certificates/dev_gov_uk.crt':
+    content => $ssl_certificate,
+    require => Package['ca-certificates'],
+    notify  => Exec['update_ca_certificates'],
+  }
+
+  exec { 'update_ca_certificates':
+    command     => 'update-ca-certificates',
+    refreshonly => true,
   }
 }

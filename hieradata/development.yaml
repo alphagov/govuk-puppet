@@ -99,6 +99,8 @@ govuk::node::s_development::apps:
   - 'travel_advice_publisher'
   - 'whitehall'
 
+govuk::node::s_development::ssl_certificate: "%{hiera('wildcard_alphagov_crt')}"
+
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
@@ -331,7 +333,6 @@ mongodb::server::development: true
 mongodb::server::replicaset_members:
   'localhost':
 
-nginx_enable_ssl: false
 nginx_enable_basic_auth: false
 
 postgresql_api_slave_addresses_live: '127.0.0.1/32'

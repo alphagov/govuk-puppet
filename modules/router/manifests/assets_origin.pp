@@ -26,7 +26,6 @@ class router::assets_origin(
   validate_array($vhost_aliases)
 
   $app_domain = hiera('app_domain')
-  $enable_ssl = hiera('nginx_enable_ssl', true)
 
   # suspect we want `protected => false` here
   # once appropriate firewalling is in place?
