@@ -285,7 +285,6 @@ hosts::production::licensify_hosts:
     ip: '31.210.245.117'
 
 icinga::client::check_cputype::cputype: 'amd'
-icinga::config::enable_event_handlers: true
 
 licensify::apps::licensing_web_forms::enabled: true
 
