@@ -70,6 +70,7 @@ govuk_jenkins::config::admins:
   - jakebenilov
   - jennyduckett
   - jonauman
+  - katiesmith
   - leelongmore
   - leenagupte
   - lauramartin
@@ -327,6 +328,7 @@ users::usernames:
   - jackscotti
   - jennyduckett
   - jonauman
+  - katiesmith
   - lauramartin
   - leelongmore
   - leenagupte
