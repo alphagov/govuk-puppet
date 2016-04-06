@@ -27,6 +27,11 @@ govuk::node::s_base::apps:
 
 govuk::node::s_cache::enable_authenticating_proxy: true
 
+govuk_keepalived::instances:
+  draft_cache:
+    virtual_ipaddress: "%{hiera('environment_ip_prefix')}.1.230"
+    virtual_router_id: 10
+
 nginx::package::nginx_package: 'nginx-extras'
 
 router::nginx::check_requests_warning: '@0'

@@ -1,6 +1,7 @@
 forge "https://forgeapi.puppetlabs.com"
 
 mod 'adrien/alternatives'
+mod 'arioch/keepalived', '1.2.4'
 mod 'attachmentgenie/ufw', '1.0.3'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'

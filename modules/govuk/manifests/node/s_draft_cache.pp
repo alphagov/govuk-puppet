@@ -7,6 +7,7 @@
 #
 class govuk::node::s_draft_cache() {
   include govuk::node::s_cache
+  include govuk_keepalived
 
   govuk_envvar { 'PLEK_HOSTNAME_PREFIX':
     value => 'draft-',
