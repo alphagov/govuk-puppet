@@ -246,7 +246,7 @@
 #
 define govuk::app (
   $app_type,
-  $port = 'NOTSET',
+  $port = 0,
   $command = undef,
   $create_pidfile = 'NOTSET',
   $logstream = present,
@@ -282,14 +282,20 @@ define govuk::app (
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
     fail 'Invalid argument $app_type to govuk::app! Must be one of "procfile", "rack", or "bare"'
   }
-  if ($app_type in ['procfile', 'rack']) and ($port == 'NOTSET') {
+
+  if ($app_type in ['procfile', 'rack']) and ($port == 0) {
     fail 'Must pass port when $app_type is "procfile" or "rack"'
   }
+
   if ($app_type == 'bare') and !($command) {
     fail 'Invalid $command parameter'
   }
+
+  if ($app_type in ['procfile', 'rack']) {
+    validate_integer($port, 65535, 1025)
+  }
+
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
-  validate_string($port)
 
   $vhost_real = $vhost ? {
     undef    => $title,
