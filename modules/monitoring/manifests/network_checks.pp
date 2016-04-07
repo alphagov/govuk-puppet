@@ -1,4 +1,4 @@
-# == Class: monitoring::network_checks
+# == Define: monitoring::network_checks
 #
 # Create a host with specified IP address and name, and include a basic ping
 # check.
@@ -17,6 +17,7 @@ define monitoring::network_checks (
       address             => $address,
       display_name        => $title,
       notification_period => 'inoffice',
+      use                 => 'third-party-host',
     }
 
     icinga::check { "check_ping_${title}":
