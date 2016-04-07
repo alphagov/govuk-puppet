@@ -14,7 +14,7 @@
 # Written by Cap and read by puppet_config_version
 REVISION
 .vagrant
-/development/Vagrantfile.localconfig
+/development-vm/Vagrantfile.localconfig
 /gpg/random_seed
 nodes.local.yaml
 gpg_recipients/.*last_updated
