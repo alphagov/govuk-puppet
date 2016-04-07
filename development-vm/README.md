@@ -60,7 +60,7 @@ Assuming your Puppet code is checked out into:
 
 the following commands will bootstrap your VM:
 
-    cd ~/govuk/govuk-puppet/development
+    cd ~/govuk/govuk-puppet/development-vm
     ./bootstrap.sh
 
 and follow the instructions. Your machine will be automatically
