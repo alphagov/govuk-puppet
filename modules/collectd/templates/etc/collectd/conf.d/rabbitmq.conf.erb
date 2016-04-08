@@ -1,14 +1,15 @@
-# Configuration for collectd-rabbitmq plugin
-LoadPlugin python
+# Configuration for rabbitmq-collectd-plugin
+
+<LoadPlugin python>
+    Globals true
+</LoadPlugin>
+
 <Plugin python>
-  LogTraces true
-  Interactive false
-  Import "collectd_rabbitmq.collectd_plugin"
-  <Module "collectd_rabbitmq.collectd_plugin">
-    Username "monitoring"
-    Password "<%= @monitoring_password %>"
-    Realm "rabbitmq"
-    Host "localhost"
-    Port "15672"
-  </Module>
+    ModulePath "/usr/lib/collectd/python/"
+    Import rabbitmq
+
+    <Module rabbitmq>
+        User monitoring
+        Pass <%= @monitoring_password %>
+    </Module>
 </Plugin>
