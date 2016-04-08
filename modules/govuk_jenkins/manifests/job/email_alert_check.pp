@@ -54,7 +54,7 @@ class govuk_jenkins::job::email_alert_check (
       action_url          => $drug_job_url,
       notes_url           => monitoring_docs_url(email-alerts);
     "${travel_advice_check_name}_${::hostname}":
-      use                 => 'govuk_urgent_priority',
+      service_template    => 'govuk_urgent_priority',
       service_description => $travel_advice_service_description,
       host_name           => $::fqdn,
       freshness_threshold => 5400, # 90 minutes
