@@ -32,12 +32,16 @@
 #   and why the alert might exist. Should link to a section of the
 #   "opsmanual". This will be included in the Nagios UI and email alerts.
 #
+# [*service_template*]
+#   Which parent Icinga service to inherit from
+#
 define icinga::passive_check (
   $service_description,
   $host_name,
   $freshness_threshold = '',
   $action_url          = undef,
-  $notes_url           = undef
+  $notes_url           = undef,
+  $service_template = 'govuk_regular_service',
 ){
 
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
