@@ -36,6 +36,8 @@ hosts::production::management::hosts:
   jumpbox-1:
     ip: '10.1.0.100'
 
+mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
+
 router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
 
 users::pentest_machines: ['foo']
