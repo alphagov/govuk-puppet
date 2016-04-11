@@ -38,4 +38,7 @@ class govuk::apps::backdrop_write::rabbitmq (
     write_permission     => '.*',
   }
 
+  rabbitmq_user_permissions { "${govuk_rabbitmq::monitoring_user}@/${amqp_vhost}":
+    read_permission      => '.*',
+  }
 }
