@@ -71,6 +71,7 @@ deployable_applications: &deployable_applications
   - smokey
   - specialist-frontend
   - specialist-publisher
+  - specialist-publisher-rebuild
   - spotlight
   - stagecraft
   - static
@@ -750,6 +751,7 @@ hosts::production::backend::app_hostnames:
   - 'short-url-manager'
   - 'signon'
   - 'specialist-publisher'
+  - 'specialist-publisher-rebuild'
   - 'support'
   - 'support-api'
   - 'tariff-admin'
