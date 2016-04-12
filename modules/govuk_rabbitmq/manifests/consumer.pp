@@ -63,9 +63,6 @@ define govuk_rabbitmq::consumer (
       read_permission      => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})$",
     }
   } else {
-    rabbitmq_user_permissions { "${amqp_user}@/":
-      ensure => absent,
-    } ->
     rabbitmq_user { $amqp_user:
       ensure   => absent,
     }
