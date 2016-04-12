@@ -32,5 +32,6 @@ class govuk::apps::email_alert_service::rabbitmq (
     amqp_pass     => $amqp_pass,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
+    routing_key   => '*.major.#',
   }
 }

@@ -3,6 +3,13 @@
 # Permissions for the backdrop_write application to write messages to and the
 # Procfile worker read from Backdrop's AMQP exchange.
 #
+# Note that stagecraft and backdrop_write rabbitmq config is deliberately different
+# from our regular govuk_rabbitmq module. This is because the queues are managed by
+# celery rather than using our standard ruby gem, and the performance platform project
+# is still in alpha and therefore needs more flexibility.
+# When performance platform enters beta we expect it to update its config to match the
+# usual pattern (or possibly to stop using rabbitmq at all).
+#
 # === Parameters
 #
 # [*amqp_user*]

@@ -33,11 +33,13 @@ define govuk_rabbitmq::consumer (
   $amqp_pass,
   $amqp_exchange,
   $amqp_queue,
+  $routing_key,
   $is_test_exchange = false,
   $exchange_type = 'topic',
   $ensure = present,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
+  validate_re($routing_key, '^.+$', '$routing_key must be non-empty')
 
   $amqp_user = $title
 
@@ -66,6 +68,23 @@ define govuk_rabbitmq::consumer (
     rabbitmq_user { $amqp_user:
       ensure   => absent,
     }
+  }
+
+  rabbitmq_queue { "${amqp_queue}@/":
+    ensure      => $ensure,
+    user        => 'root',
+    password    => $::govuk_rabbitmq::root_password,
+    durable     => true,
+    auto_delete => false,
+    arguments   => {},
+  } ->
+  rabbitmq_binding { "${amqp_exchange}@${amqp_queue}@/":
+    ensure           => $ensure,
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => $routing_key,
+    arguments        => {},
   }
 
   govuk_rabbitmq::monitor_consumers {"${title}_consumer_monitoring":

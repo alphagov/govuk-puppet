@@ -24,6 +24,7 @@ class govuk::apps::content_register::rabbitmq (
     amqp_pass     => $password,
     amqp_exchange => 'published_documents',
     amqp_queue    => 'content_register',
+    routing_key   => '#',
   }
 
   if $configure_test_details {
@@ -31,6 +32,7 @@ class govuk::apps::content_register::rabbitmq (
       amqp_pass        => $password,
       amqp_exchange    => 'content_register_published_documents_test_exchange',
       amqp_queue       => 'content_register_test',
+      routing_key      => '#',
       is_test_exchange => true,
     }
   }

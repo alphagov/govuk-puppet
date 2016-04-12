@@ -35,6 +35,7 @@ class govuk::apps::email_alert_service::rabbitmq_test_permissions (
     amqp_pass        => $amqp_pass,
     amqp_exchange    => $amqp_exchange,
     amqp_queue       => $amqp_queue,
+    routing_key      => '*.major.#',
     is_test_exchange => true,
   }
 }

@@ -28,5 +28,6 @@ class govuk::apps::rummager::rabbitmq (
     amqp_pass     => $password,
     amqp_exchange => 'published_documents',
     amqp_queue    => 'rummager_to_be_indexed',
+    routing_key   => '*.links',
   }
 }
