@@ -65,6 +65,7 @@ class govuk::node::s_backend_lb (
       'share-sale-publisher',
       'signon',
       'specialist-publisher',
+      'specialist-publisher-rebuild',
       'short-url-manager',
       'support',
       'tariff-admin',

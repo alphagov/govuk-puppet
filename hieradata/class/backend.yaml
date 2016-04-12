@@ -27,6 +27,12 @@ govuk::apps::share_sale_publisher::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
+govuk::apps::specialist_publisher_rebuild::mongodb_name: 'specialist_publisher_rebuild_production'
+govuk::apps::specialist_publisher_rebuild::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
 govuk::apps::travel_advice_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::travel_advice_publisher::mongodb_nodes:
   - 'mongo-1.backend'
@@ -65,6 +71,7 @@ govuk::node::s_base::apps:
   - sidekiq_monitoring
   - signon
   - specialist_publisher
+  - specialist_publisher_rebuild
   - support
   - support_api
   - tariff_admin
