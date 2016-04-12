@@ -104,7 +104,13 @@ class govuk::apps::rummager(
     enable_service => $enable_procfile_worker,
   }
 
+  $toggled_ensure = $enable_publishing_api_document_indexer ? {
+    true    => present,
+    default => absent,
+  }
+
   govuk::procfile::worker { 'rummager-publishing-api-document-indexer':
+    ensure         => $toggled_ensure,
     setenv_as      => 'rummager',
     enable_service => $enable_publishing_api_document_indexer,
     process_type   => 'publishing-api-document-indexer',
