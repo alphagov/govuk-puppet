@@ -1,0 +1,27 @@
+# == Class: Govuk_mysql::Xtrabackup::Packages
+#
+# === Parameters
+#
+# [*apt_mirror_hostname*]
+#   The hostname of an APT mirror
+#
+class govuk_mysql::xtrabackup::packages (
+  $apt_mirror_hostname  = '',
+) {
+  package { 'xtrabackup':
+    ensure  => present,
+    require => Class[Mysql::Server],
+  }
+
+  apt::source { 'gof3r':
+    location     => "http://${apt_mirror_hostname}/gof3r",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
+
+  package { 'gof3r':
+    ensure  => '0.5.0',
+    require => Apt::Source['gof3r'],
+  }
+}
