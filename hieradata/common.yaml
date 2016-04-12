@@ -497,7 +497,7 @@ govuk_jenkins::job::deploy_terraform_project::projects:
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
-govuk_mysql::xtrabackup::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_postgresql::server::configure_env_sync_user: true
 
