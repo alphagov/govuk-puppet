@@ -118,7 +118,7 @@ share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../share-s
 # sidekiq-monitoring for imminence uses 3120
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../local-links-manager bundle exec rails s -p 3121
 service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../service-manual-frontend bundle exec rails s -p 3122
-#reserving specialist publisher on port 3123
+specialist-publisher-rebuild:  govuk_setenv specialist-publisher-rebuild  ./run_in.sh ../specialist-publisher-rebuild bundle exec rails s -p 3123
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
