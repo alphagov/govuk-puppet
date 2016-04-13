@@ -182,6 +182,12 @@ class govuk_crawler(
     }
   }
 
+  # FIXME: Remove when deployed to production
+  cron { 'seed-crawler':
+    ensure => absent,
+    user   => $crawler_user,
+  }
+
   file { '/etc/cron.d/seed-crawler':
     ensure  => $seed_ensure,
     mode    => '0755',

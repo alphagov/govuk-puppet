@@ -295,7 +295,7 @@ govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('a
 govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
 # FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
 govuk::apps::govuk_crawler_worker::blacklist_paths:
-  - '/api/content'
+  - '/api/'
   - '/apply-for-a-licence'
   - '/business-finance-support-finder'
   - '/government/announcements.atom'
