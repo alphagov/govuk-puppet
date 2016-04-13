@@ -17,14 +17,6 @@ class collectd::plugin::rabbitmq (
     provider => pip,
   }
 
-  @file { '/usr/share/collectd/types.db.rabbitmq':
-    ensure  => present,
-    source  => 'puppet:///modules/collectd/usr/share/collectd/types.db.rabbitmq',
-    tag     => 'collectd::plugin',
-    notify  => File['/etc/collectd/conf.d/rabbitmq.conf'],
-    require => Package['collectd-core'],
-  }
-
   @collectd::plugin { 'rabbitmq':
     content => template('collectd/etc/collectd/conf.d/rabbitmq.conf.erb'),
     require => Package['collectd-rabbitmq'],
