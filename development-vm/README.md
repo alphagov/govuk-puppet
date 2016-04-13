@@ -50,7 +50,7 @@ that, you just need Git and the information in the next section.
 ## 3. Running the VM
 
 See
-[the Puppet development README](https://github.com/alphagov/govuk-puppet/blob/master/development/README.md)
+[the Puppet development README](https://github.com/alphagov/govuk-puppet/blob/master/development-vm/README.md)
 for more information.
 
 ## 4. Set up the apps
