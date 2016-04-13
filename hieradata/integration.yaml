@@ -87,7 +87,6 @@ govuk_jenkins::config::admins:
   - seemasatish
   - simonhughesdon
   - stevelaing
-  - stuartgale
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
@@ -296,7 +295,6 @@ users::usernames:
   - seemasatish
   - simonhughesdon
   - stevelaing
-  - stuartgale
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
