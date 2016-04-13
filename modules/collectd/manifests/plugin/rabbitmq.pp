@@ -1,31 +1,32 @@
 # == Class: collectd::plugin::rabbitmq
 #
-# Sets up a collectd plugin to monitor RabbitMQ.
+# Sets up the NYTimes collectd-rabbitmq collectd plugin to monitor RabbitMQ.
+# See https://github.com/NYTimes/collectd-rabbitmq
 #
 # === Parameters
 #
 # [*monitoring_password*]
-#   The password to a user which can access monitoring information from RabbitMQ.
+#   The password to the 'monitoring' user which can access monitoring information from RabbitMQ.
 #
 class collectd::plugin::rabbitmq (
   $monitoring_password,
   ){
-  include collectd::plugin::python
 
-  @file { '/usr/lib/collectd/python/rabbitmq.py':
-    ensure => present,
-    source => 'puppet:///modules/collectd/usr/lib/collectd/python/rabbitmq.py',
-    tag    => 'collectd::plugin',
-    notify => File['/etc/collectd/conf.d/rabbitmq.conf'],
+  @package { 'collectd-rabbitmq':
+    ensure   => '1.3.0',
+    provider => pip,
   }
 
-  @file { '/usr/lib/collectd/python/rabbitmq.pyc':
-    ensure => undef,
-    tag    => 'collectd::plugin',
+  @file { '/usr/share/collectd/types.db.rabbitmq':
+    ensure  => present,
+    source  => 'puppet:///modules/collectd/usr/share/collectd/types.db.rabbitmq',
+    tag     => 'collectd::plugin',
+    notify  => File['/etc/collectd/conf.d/rabbitmq.conf'],
+    require => Package['collectd-core'],
   }
 
   @collectd::plugin { 'rabbitmq':
     content => template('collectd/etc/collectd/conf.d/rabbitmq.conf.erb'),
-    require => Class['collectd::plugin::python'],
+    require => Package['collectd-rabbitmq'],
   }
 }
