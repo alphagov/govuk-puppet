@@ -53,8 +53,8 @@ class govuk::node::s_asset_slave (
 
   @@icinga::check::graphite { "asset_master_and_slave_disk_space_similar_from_${::hostname}":
     target    => "movingMedian(absolute(transformNull(diffSeries(${slave_metric},${master_metric}),0)),10)",
-    critical  => to_bytes('256 MB'),
-    warning   => to_bytes('128 MB'),
+    critical  => to_bytes('512 MB'),
+    warning   => to_bytes('384 MB'),
     desc      => 'Asset master and slave are using about the same amount of disk space',
     host_name => $::fqdn,
   }
