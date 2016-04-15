@@ -90,6 +90,7 @@ govuk_jenkins::config::admins:
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
+  - pablomanrubia
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
@@ -300,3 +301,4 @@ users::usernames:
   - theodorvararu
   - tijmenbrommet
   - tomhipkin
+  - pablomanrubia
