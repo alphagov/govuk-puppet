@@ -21,7 +21,7 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
     }
 
     it {
-      is_expected.to contain_rabbitmq_binding('an_exchange@a_queue@/').with(
+      is_expected.to contain_rabbitmq_binding('binding_some routing key_an_exchange@a_queue@/').with(
           :destination_type => 'queue',
           :routing_key      => 'some routing key',
       )
