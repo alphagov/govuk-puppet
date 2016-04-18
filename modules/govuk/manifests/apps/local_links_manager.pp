@@ -34,11 +34,21 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
+# [*oauth_id*]
+#   Sets the OAuth ID for using GDS-SSO
+#   Default: undef
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key for using GDS-SSO
+#   Default: undef
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = false,
   $errbit_api_key = undef,
   $secret_key_base = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $db_hostname = undef,
   $db_username = 'local_links_manager',
   $db_password = undef,
@@ -65,6 +75,12 @@ class govuk::apps::local_links_manager(
       "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
     }
 
     if $::govuk_node_class != 'development' {
