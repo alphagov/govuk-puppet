@@ -43,7 +43,7 @@ deployable_applications: &deployable_applications
   - imminence
   - info-frontend
   - kibana-gds
-  - licence-finder
+  - licencefinder
   - local-links-manager
   - manuals-frontend
   - mapit
