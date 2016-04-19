@@ -6,7 +6,7 @@
             url: git@github.gds:gds/alphagov-deployment.git
             branches:
               - <%= @alphagov_deployment_branch %>
-            wipe-workspace: false
+            wipe-workspace: true
 
 - job:
     name: Deploy_App
@@ -29,15 +29,22 @@
             export TAG="$TAG"
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
-            mkdir -p "$WORKSPACE/$TARGET_APPLICATION/"
-            cd "$WORKSPACE/$TARGET_APPLICATION/"
+            cd "$WORKSPACE/"
             logger -p INFO -t jenkins "DEPLOYMENT: ${JOB_NAME} ${BUILD_NUMBER} ${TARGET_APPLICATION} ${TAG} (${BUILD_URL})"
-            if [ -e "deploy.sh" ]; then
-              echo "---> Found deploy.sh, running 'sh -e deploy.sh'" >&2
-              exec sh -e deploy.sh
+            if [ -d "$TARGET_APPLICATION" ]; then
+              cd "$TARGET_APPLICATION/"
+              if [ -e "deploy.sh" ]; then
+                echo "---> Found deploy.sh, running 'sh -e deploy.sh'" >&2
+                exec sh -e deploy.sh
+              else
+                echo "---> No deploy.sh found, running 'bundle exec cap \"${DEPLOY_TASK}\"'" >&2
+                exec bundle exec cap "$DEPLOY_TASK"
+              fi
             else
-              echo "---> No deploy.sh found, running 'bundle exec cap \"${DEPLOY_TASK}\"'" >&2
-              exec bundle exec cap "$DEPLOY_TASK"
+              git clone "git@github.com:alphagov/${TARGET_APPLICATION}.git"
+              cd "$TARGET_APPLICATION/"
+              git checkout $TAG
+              BUNDLE_GEMFILE=${WORKSPACE}/Gemfile bundle exec cap "$DEPLOY_TASK"
             fi
     publishers:
         - trigger:
