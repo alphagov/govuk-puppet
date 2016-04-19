@@ -8,9 +8,24 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :amqp_pass => 'super_secret',
       :amqp_exchange => 'an_exchange',
       :amqp_queue => 'a_queue',
+      :routing_key => 'some routing key',
     }}
 
     it { is_expected.to contain_rabbitmq_user('a_user').with_password('super_secret') }
+
+    it {
+      is_expected.to contain_rabbitmq_queue('a_queue@/').with(
+          :durable     => true,
+          :auto_delete => false,
+      )
+    }
+
+    it {
+      is_expected.to contain_rabbitmq_binding('binding_some routing key_an_exchange@a_queue@/').with(
+          :destination_type => 'queue',
+          :routing_key      => 'some routing key',
+      )
+    }
 
     it {
       is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
@@ -28,6 +43,7 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :amqp_pass => 'super_secret',
       :amqp_exchange => 'an_exchange',
       :amqp_queue => 'a_queue',
+      :routing_key => 'some routing key',
       :is_test_exchange => true,
     }}
 
@@ -47,6 +63,7 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :amqp_pass => 'super_secret',
       :amqp_exchange => 'an_exchange',
       :amqp_queue => 'a_queue',
+      :routing_key => 'some routing key',
       :is_test_exchange => true,
       :exchange_type => 'direct',
     }}

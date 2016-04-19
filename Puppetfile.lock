@@ -46,6 +46,10 @@ FORGE
       puppetlabs-apt (< 2.0.0, >= 1.1.0)
       puppetlabs-concat (< 2.0.0, >= 1.1.0)
       puppetlabs-stdlib (~> 4.0)
+    puppetlabs-rabbitmq (5.3.1)
+      nanliu-staging (< 2.0.0, >= 0.3.1)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
     puppetlabs-stdlib (4.11.0)
     rtyler-jenkins (1.2.0)
       darin-zypprepo (>= 1.0.1)
@@ -158,16 +162,6 @@ GIT
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
-  remote: git://github.com/puppetlabs/puppetlabs-rabbitmq.git
-  ref: master
-  sha: eb3d5460f6ba163b31f6659888c7f109475af487
-  specs:
-    puppetlabs-rabbitmq (5.0.0)
-      nanliu-staging (< 2.0.0, >= 0.3.1)
-      puppetlabs-apt (< 2.0.0, >= 1.0.0)
-      puppetlabs-stdlib (< 5.0.0, >= 2.0.0)
-
-GIT
   remote: git://github.com/solarkennedy/puppet-etcd.git
   ref: e053368
   sha: e0533682739be582a11c12f68d5415b6326d131d
@@ -210,7 +204,7 @@ DEPENDENCIES
   puppetlabs-lvm (>= 0)
   puppetlabs-mysql (>= 0)
   puppetlabs-postgresql (= 4.1.0)
-  puppetlabs-rabbitmq (>= 0)
+  puppetlabs-rabbitmq (= 5.3.1)
   puppetlabs-stdlib (>= 4.10.0)
   rtyler-jenkins (>= 0)
   saz-limits (= 2.3.0)

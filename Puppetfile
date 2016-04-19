@@ -13,6 +13,7 @@ mod 'puppetlabs/gcc'
 mod 'puppetlabs/java_ks'
 mod 'puppetlabs/mysql'
 mod 'puppetlabs/postgresql', '4.1.0'
+mod 'puppetlabs/rabbitmq', '5.3.1'
 mod 'puppetlabs/stdlib', '>= 4.10.0'
 mod 'rtyler/jenkins'
 mod 'saz/limits', '2.3.0'
@@ -60,8 +61,6 @@ mod 'KyleAnderson/etcd',
   :ref => 'e053368'
 mod 'puppetlabs/lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
-mod 'puppetlabs/rabbitmq',
-  :git => 'git://github.com/puppetlabs/puppetlabs-rabbitmq.git'
 mod 'alphagov/tune_ext',
   :git => 'git://github.com/alphagov/puppet-tune_ext.git'
 
