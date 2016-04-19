@@ -159,7 +159,7 @@ class router::nginx (
     target              => "${::fqdn_metrics}.nginx.nginx_requests",
     warning             => $check_requests_warning,
     critical            => $check_requests_critical,
-    desc                => 'nginx requests - too low',
+    desc                => 'Minimum HTTP request rate for www-origin',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(nginx-requests-too-low),
     notification_period => 'inoffice',
