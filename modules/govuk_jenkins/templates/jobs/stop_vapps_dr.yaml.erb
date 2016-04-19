@@ -1,0 +1,43 @@
+---
+- scm:
+    name: govuk-provisioning_stop_vapps_dr
+    scm:
+        - git:
+            url: git@github.gds:gds/govuk-provisioning.git
+            branches:
+                - master
+            skip-tag: true
+            wipe-workspace: false
+
+- job:
+    name: stop_vapps_dr
+    display-name: Stop vApps DR
+    description: |
+        Stops all non-critical DR vApps in vCloud Director.
+        Can be used to save money by running automatically every evening.
+        Requires vApps to be owned by the vCloud user that this script runs under,
+        otherwise the vApps are not visible to the script.
+    project-type: freestyle
+    properties:
+        - inject:
+            properties-content: |
+              USERNAME=<%= @vcloud_properties_dr['username'] %>
+              VCLOUD_ORG=<%= @vcloud_properties_dr['org'] %>
+              VCLOUD_ENV=<%= @vcloud_properties_dr['env'] %>
+              VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
+              VCLOUD_HOST=<%= @vcloud_properties_dr['host'] %>
+    scm:
+        - govuk-provisioning_stop_vapps_dr
+    wrappers:
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+                - name: VCLOUD_PASSWORD
+                  password: '<%= @vcloud_properties_dr['password'] -%>'
+    builders:
+        - shell: |
+            cd tools/start_stop_vapps/
+            ./run.sh ./start_stop_all_vapps.rb stop
+    triggers:
+        - timed: '0 19 * * 1-5'

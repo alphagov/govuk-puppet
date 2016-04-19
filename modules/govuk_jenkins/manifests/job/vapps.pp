@@ -14,6 +14,7 @@
 #
 class govuk_jenkins::job::vapps (
   $vcloud_properties = {},
+  $vcloud_properties_dr = {},
 ) {
   file { '/etc/jenkins_jobs/jobs/start_vapps.yaml':
     ensure  => present,
@@ -23,6 +24,16 @@ class govuk_jenkins::job::vapps (
   file { '/etc/jenkins_jobs/jobs/stop_vapps.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/stop_vapps.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
+  }
+  file { '/etc/jenkins_jobs/jobs/start_vapps_dr.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/start_vapps_dr.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
+  }
+  file { '/etc/jenkins_jobs/jobs/stop_vapps_dr.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/stop_vapps_dr.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }
