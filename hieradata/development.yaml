@@ -123,7 +123,6 @@ govuk::apps::email_campaign_api::mongodb_nodes: ['localhost']
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
-govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
 govuk::apps::govuk_cdn_logs_monitor::enabled: false
