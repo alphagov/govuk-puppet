@@ -29,11 +29,9 @@ class govuk_rabbitmq (
     write_permission     => '.*',
   }
 
-  # FIXME: Consider using a normal user with a "monitoring" user tag.  Not
-  # configurable from puppet using the current puppetlabs/rabbitmq (4.0).
-  # Added here: https://github.com/puppetlabs/puppetlabs-rabbitmq/pull/193
   rabbitmq_user { $monitoring_user:
-    admin    => true,
+    admin    => false,
+    tags     => [ 'monitoring' ],
     password => $monitoring_password,
   }
 
