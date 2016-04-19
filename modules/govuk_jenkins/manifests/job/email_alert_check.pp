@@ -25,6 +25,7 @@ class govuk_jenkins::job::email_alert_check (
   $google_client_secret = undef,
   $emails_that_should_receive_drug_alerts = undef,
   $emails_that_should_receive_travel_advice_alerts = undef,
+  $errbit_api_key = undef,
   $app_domain = hiera('app_domain'),
 ) {
 
