@@ -25,4 +25,11 @@ class govuk_scripts {
     mode   => '0755',
   }
 
+  # govuk_app_console: opens a console for a specified application
+  file { '/usr/local/bin/govuk_app_console':
+    ensure => present,
+    source => "puppet:///modules/govuk_scripts/usr/local/bin/govuk_app_console",
+    mode   => '0755',
+  }
+
 }
