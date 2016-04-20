@@ -11,7 +11,9 @@
     display-name: Deploy_Terraform_Project
     project-type: freestyle
     description: |
-      Deploy a specific Terraform project in <%= @environment -%>.
+        Deploy a specific Terraform project in <%= @environment -%>.
+        Projects currently available can be found in Github: https://github.com/alphagov/govuk-terraform-provisioning/tree/master/projects
+
     properties:
         - github:
             url: https://github.com/alphagov/govuk-terraform-provisioning/
@@ -41,7 +43,7 @@
             choices:
                 - plan
                 - apply
-        - choice:
+        - string:
             name: PROJECT_NAME
             description: Name of the project you wish to deploy
-            choices: <%= ['-- Choose a project'] + @projects %>
+            default: false

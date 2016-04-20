@@ -12,10 +12,7 @@
 class govuk_jenkins::job::deploy_terraform_project (
   $apt_mirror_hostname = '',
   $aws_account_id = '',
-  $projects = [],
 ) {
-  validate_array($projects)
-
   file { '/etc/jenkins_jobs/jobs/deploy_terraform_project.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/deploy_terraform_project.yaml.erb'),

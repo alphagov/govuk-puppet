@@ -482,18 +482,6 @@ govuk_jenkins::job::smokey::signon_password: "%{hiera('smokey_signon_password')}
 govuk_jenkins::job::run_rake_task::applications: *deployable_applications
 govuk_jenkins::job::deploy_app::applications: *deployable_applications
 
-govuk_jenkins::job::deploy_terraform_project::projects:
-  - base_aws_infrastructure
-  - dev_vm
-  - elasticsearch_snapshots
-  - mongodb-backup-s3
-  - mysql_xtrabackups
-  - packer_ami_builder
-  - uktt_data
-  - wal-e_backups_api-postgresql
-  - wal-e_backups_postgresql
-  - wal-e_backups_transition-postgresql
-
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
