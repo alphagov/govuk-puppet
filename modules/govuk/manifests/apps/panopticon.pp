@@ -29,6 +29,15 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
+# [*mongodb_name*]
+#   The Mongo database to be used.
+#
+# [*mongodb_nodes*]
+#   Array of hostnames for the mongo cluster to use.
+#
 class govuk::apps::panopticon(
   $port = '3003',
   $rabbitmq_hosts = ['localhost'],
@@ -36,6 +45,9 @@ class govuk::apps::panopticon(
   $rabbitmq_password = 'panopticon',
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
+  $secret_key_base = undef,
+  $mongodb_name = undef,
+  $mongodb_nodes = undef,
 ) {
   govuk::app { 'panopticon':
     app_type           => 'rack',
@@ -51,9 +63,20 @@ class govuk::apps::panopticon(
     app => 'panopticon',
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+    "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
+  }
+
+  if $mongodb_nodes != undef {
+    govuk::app::envvar::mongodb_uri { 'panopticon':
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
+    }
   }
 
   govuk::app::envvar::rabbitmq { 'panopticon':
