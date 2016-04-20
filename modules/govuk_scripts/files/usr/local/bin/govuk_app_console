@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#
+# govuk_app_console: opens a console for a specified application
+#
+# Currently supports Rails apps and any app with a `console`
+# binary in the root (e.g. rummager).
+#
+
+set -eu
+
+if [ "$#" -ne "1" ] || [ "$1" = "-h" ]; then
+  echo "Usage: $(basename "$0") app_name" >&2
+  exit 1
+fi
+
+cd /var/apps/$1
+
+if [ -f bin/rails ]; then
+  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails console
+elif [ -f console ]; then
+  sudo -u deploy govuk_setenv $1 bundle exec ./console
+else
+  echo "I don't know how to run a console for $1"
+  exit 1
+fi
