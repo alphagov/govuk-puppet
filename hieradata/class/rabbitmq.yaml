@@ -4,7 +4,6 @@ govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - backdrop_write
   - content_register
   - email_alert_service
-  - govuk_crawler_worker
   - panopticon
   - publishing_api
   - rummager

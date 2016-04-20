@@ -36,6 +36,7 @@ class govuk::apps::govuk_crawler_worker (
   $airbrake_api_key = '',
   $airbrake_endpoint = '',
   $airbrake_env = '',
+  $amqp_host = 'localhost',
   $amqp_pass = 'guest',
   $blacklist_paths = [],
   $enabled   = false,
@@ -58,7 +59,7 @@ class govuk::apps::govuk_crawler_worker (
       'AIRBRAKE_ENV':
         value => $airbrake_env;
       'AMQP_ADDRESS':
-        value => "amqp://govuk_crawler_worker:${amqp_pass}@rabbitmq-1:5672/";
+        value => "amqp://govuk_crawler_worker:${amqp_pass}@${amqp_host}:5672/";
       'AMQP_EXCHANGE':
         value => 'govuk_crawler_exchange';
       'AMQP_MESSAGE_QUEUE':
@@ -93,5 +94,7 @@ class govuk::apps::govuk_crawler_worker (
       command            => './govuk_crawler_worker -json',
       health_check_path  => '/healthcheck',
     }
+
+    include govuk::apps::govuk_crawler_worker::rabbitmq
   }
 }
