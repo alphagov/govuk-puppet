@@ -3,10 +3,10 @@
     name: alphagov-deployment_Deploy_App
     scm:
         - git:
-            url: git@github.gds:gds/alphagov-deployment.git
+            url: git@github.com:alphagov/govuk-app-deployment.git
             branches:
-              - <%= @alphagov_deployment_branch %>
-            wipe-workspace: false
+              - master
+            wipe-workspace: true
 
 - job:
     name: Deploy_App
@@ -18,27 +18,17 @@
     <%- end -%>
     properties:
         - github:
-            url: https://github.gds/gds/alphagov-deployment/
+            url: https://github.com/alphagov/govuk-app-deployment
     scm:
       - alphagov-deployment_Deploy_App
     builders:
         - shell: |
-            ./jenkins.sh
             export DEPLOY_TO="<%= @environment -%>"
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
-            mkdir -p "$WORKSPACE/$TARGET_APPLICATION/"
-            cd "$WORKSPACE/$TARGET_APPLICATION/"
-            logger -p INFO -t jenkins "DEPLOYMENT: ${JOB_NAME} ${BUILD_NUMBER} ${TARGET_APPLICATION} ${TAG} (${BUILD_URL})"
-            if [ -e "deploy.sh" ]; then
-              echo "---> Found deploy.sh, running 'sh -e deploy.sh'" >&2
-              exec sh -e deploy.sh
-            else
-              echo "---> No deploy.sh found, running 'bundle exec cap \"${DEPLOY_TASK}\"'" >&2
-              exec bundle exec cap "$DEPLOY_TASK"
-            fi
+            ./jenkins.sh
     publishers:
         - trigger:
             project: Smokey
