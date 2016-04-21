@@ -1,11 +1,18 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_scripts {
 
-  # govuk_node_list is a simple script that lists nodes of specified classes
-  # using puppetdb
-  file { '/usr/local/bin/govuk_node_list':
+  # govuk_app_console: opens a console for a specified application
+  file { '/usr/local/bin/govuk_app_console':
     ensure => present,
-    source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_node_list',
+    source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_app_console',
+    mode   => '0755',
+  }
+
+  # govuk_check_security_upgrades list packages which need a security upgrade
+  file { '/usr/local/bin/govuk_check_security_upgrades':
+    ensure => present,
+    #FIXME Needs updating when precise is no longer used
+    source => "puppet:///modules/govuk_scripts/usr/local/bin/govuk_check_security_upgrades_${::lsbdistcodename}",
     mode   => '0755',
   }
 
@@ -17,11 +24,11 @@ class govuk_scripts {
     mode   => '0755',
   }
 
-  # govuk_check_security_upgrades list packages which need a security upgrade
-  file { '/usr/local/bin/govuk_check_security_upgrades':
+  # govuk_node_list is a simple script that lists nodes of specified classes
+  # using puppetdb
+  file { '/usr/local/bin/govuk_node_list':
     ensure => present,
-    #FIXME Needs updating when precise is no longer used
-    source => "puppet:///modules/govuk_scripts/usr/local/bin/govuk_check_security_upgrades_${::lsbdistcodename}",
+    source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_node_list',
     mode   => '0755',
   }
 
