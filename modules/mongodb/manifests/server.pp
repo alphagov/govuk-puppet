@@ -107,4 +107,5 @@ class mongodb::server (
       'mongodb::configure_replica_set'
     ],
   }
+
 }

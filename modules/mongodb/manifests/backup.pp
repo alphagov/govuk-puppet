@@ -17,6 +17,7 @@ class mongodb::backup(
   $replicaset_members,
   $enabled = true,
   $domonthly = true,
+  $s3_backups = false,
 ) {
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
@@ -74,6 +75,11 @@ class mongodb::backup(
 
   if $enabled_real {
     include logrotate
+
+    if $s3_backups {
+      include mongodb::s3backup::backup
+      include mongodb::s3backup::package
+    }
 
     @@icinga::passive_check { "check_automongodbbackup-${::hostname}":
       service_description => $service_desc,
