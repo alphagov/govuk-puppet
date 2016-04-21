@@ -14,6 +14,9 @@
 class govuk::node::s_asset_master (
   $copy_attachments_hour = 4,
   $asset_slave_ip_ranges = {},
+  $s3_bucket = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
 ) inherits govuk::node::s_asset_base {
 
   include assets::ssh_private_key
@@ -23,6 +26,42 @@ class govuk::node::s_asset_master (
   file { '/var/run/virus_scan':
     ensure => directory,
     owner  => 'assets',
+  }
+
+  file { '/usr/local/bin/process-uploaded-attachments.sh':
+    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh'),
+    mode    => '0755',
+  }
+
+  file { '/usr/local/bin/copy-attachments.sh':
+    content => template('govuk/node/s_asset_base/copy-attachments.sh'),
+    mode    => '0755',
+  }
+
+  if $s3_bucket {
+    package { 's3cmd':
+      ensure   => present,
+      provider => 'pip',
+    }
+
+    file { '/home/assets/.s3cfg':
+      ensure  => present,
+      content => template('govuk/node/s_asset_base/s3cfg'),
+      owner   => 'assets',
+      group   => 'assets',
+    }
+
+    file {
+    [ '/etc/govuk/aws', '/etc/govuk/aws/env.d']:
+      ensure => directory;
+    '/etc/govuk/aws/env.d/AWS_ACCESS_KEY_ID':
+      ensure  => present,
+      content => $aws_access_key_id;
+    '/etc/govuk/aws/env.d/AWS_SECRET_ACCESS_KEY':
+      ensure  => present,
+      content => $aws_secret_access_key;
+    }
+
   }
 
   # daemontools provides setlock

@@ -27,3 +27,11 @@ for NODE in $ASSET_SLAVE_NODES; do
     logger -t copy_attachments "Attachments errored while copying to $NODE"
   fi
 done
+
+<% if @s3_bucket %>
+  if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --server-side-encryption sync --skip-existing --deleted-removed "$DIRECTORY_TO_COPY/" "s3://<%= @s3_bucket -%>$DIRECTORY_TO_COPY/"; then
+    logger -t process_uploaded_attachment "Attachments copied to S3 (<%= @s3_bucket -%>) successfully"
+  else
+    logger -t process_uploaded_attachment "Attachments errored while copying to S3 (<%= @s3_bucket -%>)"
+  fi
+<% end %>
