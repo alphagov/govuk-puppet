@@ -42,7 +42,7 @@ while IFS= read -r -d '' FILE
         fi
       done
       <% if @s3_bucket %>
-        if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --server-side-encryption put "$FILE_PATH" "s3://<%= @s3_bucket -%>$CLEAN_DIR/"; then
+        if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --server-side-encryption put "$FILE_PATH" "s3://<%= @s3_bucket -%>$CLEAN_DIR/$FILE_PATH"; then
           logger -t process_uploaded_attachment "File $FILE copied to S3 (<%= @s3_bucket -%>)"
         else
           logger -t process_uploaded_attachment "File $FILE failed to copy to S3 (<%= @s3_bucket -%>)"
