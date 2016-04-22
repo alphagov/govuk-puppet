@@ -293,6 +293,7 @@ hosts::development::apps:
   - 'search'
   - 'search-admin'
   - 'service-manual'
+  - 'service-manual-frontend'
   - 'service-manual-publisher'
   - 'share-sale-publisher'
   - 'short-url-manager'
