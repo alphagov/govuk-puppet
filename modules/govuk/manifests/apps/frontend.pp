@@ -29,7 +29,6 @@ class govuk::apps::frontend(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
-  $nginx_extra_config = ''
 
   govuk::app { 'frontend':
     app_type               => 'rack',
@@ -40,7 +39,6 @@ class govuk::apps::frontend(
     log_format_is_json     => true,
     asset_pipeline         => true,
     asset_pipeline_prefix  => 'frontend',
-    nginx_extra_config     => $nginx_extra_config,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
   }
