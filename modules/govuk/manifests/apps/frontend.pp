@@ -8,10 +8,6 @@
 #   The port that the app is served on.
 #   Default: 3005
 #
-# [*enable_homepage_nocache_location*]
-#   Adds nginx configuration to never cache the homepage/no-cache location.
-#   Default: true
-#
 # [*vhost_protected*]
 #   Should this vhost be protected with HTTP Basic auth?
 #   Default: undef
@@ -28,23 +24,11 @@
 #
 class govuk::apps::frontend(
   $port = '3005',
-  $enable_homepage_nocache_location = true,
   $vhost_protected = false,
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
-  validate_bool($enable_homepage_nocache_location)
-
-  if ($enable_homepage_nocache_location) {
-    $nginx_extra_config = '
-  location ^~ /frontend/homepage/no-cache/ {
-    expires epoch;
-  }
-'
-  } else {
-    $nginx_extra_config = ''
-  }
 
   govuk::app { 'frontend':
     app_type               => 'rack',
@@ -55,7 +39,6 @@ class govuk::apps::frontend(
     log_format_is_json     => true,
     asset_pipeline         => true,
     asset_pipeline_prefix  => 'frontend',
-    nginx_extra_config     => $nginx_extra_config,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
   }
