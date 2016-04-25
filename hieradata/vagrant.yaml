@@ -62,9 +62,6 @@ govuk::node::s_backend_lb::backend_servers:
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
-govuk::node::s_backend_lb::mapit_servers:
-  - 'mapit-server-1.backend'
-  - 'mapit-server-2.backend'
 govuk::node::s_backend_lb::performance_backend_servers:
   - 'performance-backend-1.backend'
   - 'performance-backend-2.backend'
