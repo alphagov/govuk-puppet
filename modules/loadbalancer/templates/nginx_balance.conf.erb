@@ -18,6 +18,11 @@ server {
 }
 <%- end -%>
 
+map $upstream_http_govuk_request_id $govuk_request_id {
+  default $upstream_http_govuk_request_id;
+  '' $new_uuid;
+}
+
 server {
   server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
 
@@ -40,7 +45,12 @@ server {
   proxy_set_header X-Forwarded-Server $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Forwarded-Proto $scheme;
-  proxy_set_header GOVUK-Request-Id $pid-$msec-$remote_addr-$request_length;
+
+  # Set GOVUK-Request-Id if not already set.
+  # Uses the `map` specified above.
+  set $new_uuid $pid-$msec-$remote_addr-$request_length;
+  proxy_set_header GOVUK-Request-Id $govuk_request_id;
+
   proxy_redirect off;
 
   proxy_connect_timeout 1s;
