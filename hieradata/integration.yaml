@@ -85,7 +85,6 @@ govuk_jenkins::config::admins:
   - paulhayes
   - richardboulton
   - rosafox
-  - seemasatish
   - simonhughesdon
   - stevelaing
   - tatianasoukiassian
@@ -300,7 +299,6 @@ users::usernames:
   - robinwhittleton
   - rosafox
   - russellgarner
-  - seemasatish
   - simonhughesdon
   - stevelaing
   - tatianasoukiassian
