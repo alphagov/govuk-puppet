@@ -61,7 +61,7 @@ class mongodb::s3backup::backup(
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
   $server = 'localhost',
-  $standalone  = False,
+  $standalone = false,
   $user = 'govuk-backups'
   ){
 
@@ -119,6 +119,13 @@ class mongodb::s3backup::backup(
     group   => $user,
     mode    => '0755',
     require => User[$user],
+  }
+
+  file { $backup_dir:
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0750',
   }
 
   # push gpg key

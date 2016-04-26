@@ -13,6 +13,9 @@
 # [*domonthly*]
 #   Whether monthly backups should be enabled or disabled
 #
+# [*s3_backups*]
+#   Whether S3 backups should be enabled or disabled
+
 class mongodb::backup(
   $replicaset_members,
   $enabled = true,
@@ -73,13 +76,13 @@ class mongodb::backup(
     create        => '644 root root',
   }
 
+  if $s3_backups and $enabled_real {
+    include mongodb::s3backup::backup
+    include mongodb::s3backup::package
+  }
+  
   if $enabled_real {
     include logrotate
-
-    if $s3_backups {
-      include mongodb::s3backup::backup
-      include mongodb::s3backup::package
-    }
 
     @@icinga::passive_check { "check_automongodbbackup-${::hostname}":
       service_description => $service_desc,
