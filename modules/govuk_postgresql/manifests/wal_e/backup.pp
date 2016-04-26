@@ -67,7 +67,7 @@ class govuk_postgresql::wal_e::backup (
       'archive_mode':
         value => 'on';
       'archive_command':
-        value => 'envdir /etc/wal-e/env.d /usr/local/bin/wal-e wal-push %p';
+        value => '/usr/local/bin/wal-e_postgres_archiving_wrapper';
       'archive_timeout':
         value => '60';
     }
@@ -170,6 +170,22 @@ class govuk_postgresql::wal_e::backup (
     @@icinga::passive_check { "check_wale_base_backup_push-${::hostname}":
         service_description => $service_desc_wale,
         freshness_threshold => $threshold_secs,
+        host_name           => $::fqdn,
+      }
+
+    $threshold_secs_archiving = 900
+    $service_desc_wale_archiving = 'PostgreSQL WAL-E archiving to S3'
+
+    file { '/usr/local/bin/wal-e_postgres_archiving_wrapper':
+      ensure  => present,
+      content => template('govuk_postgresql/usr/local/bin/wal-e_postgres_archiving_wrapper.erb'),
+      mode    => '0755',
+      require => Class['govuk_postgresql::wal_e::package'],
+    }
+
+    @@icinga::passive_check { "check_wale_archiving-${::hostname}":
+        service_description => $service_desc_wale_archiving,
+        freshness_threshold => $threshold_secs_archiving,
         host_name           => $::fqdn,
       }
   }
