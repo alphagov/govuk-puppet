@@ -26,7 +26,7 @@
            ssh deploy@frontend-1.frontend 'cd /var/apps/info-frontend ; govuk_setenv info-frontend bundle exec rake router:register'
     publishers:
         - trigger-parameterized-builds:
-            <%- %w{ publishing-api collections-publisher service-manual-publisher content-register }.each do |app| -%>
+            <%- %w{ publishing-api collections-publisher service-manual-publisher content-register local-links-manager }.each do |app| -%>
             - project: Deploy_App
               predefined-parameters: |
                 TARGET_APPLICATION=<%= app %>
