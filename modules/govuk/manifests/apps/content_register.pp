@@ -29,15 +29,12 @@ class govuk::apps::content_register(
   $rabbitmq_password = 'content_register',
 ) {
   govuk::app { 'content-register':
+    ensure             => 'absent',
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
-  }
-
-  Govuk::App::Envvar {
-    app => 'content-register',
   }
 
   govuk::procfile::worker {'content-register':
