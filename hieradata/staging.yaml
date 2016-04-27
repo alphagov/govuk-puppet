@@ -109,9 +109,6 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-2.backend'
   - 'whitehall-backend-3.backend'
   - 'whitehall-backend-4.backend'
-govuk::node::s_backend_lb::mapit_servers:
-  - 'mapit-server-1.backend'
-  - 'mapit-server-2.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'staging.performance.service.gov.uk'
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_frontend_lb::calculators_frontend_servers:
@@ -279,10 +276,6 @@ hosts::production::backend::hosts:
     ip: '10.2.3.17'
   exception-handler-1:
     ip: '10.2.3.40'
-  mapit-server-1:
-    ip: '10.2.3.9'
-  mapit-server-2:
-    ip: '10.2.3.10'
   mongo-1:
     ip: '10.2.3.6'
     service_aliases:
