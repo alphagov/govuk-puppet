@@ -434,7 +434,7 @@ govuk_cdnlogs::service_port_map:
   assets: 6515
   bouncer: 6516
 
-govuk_crawler::amqp_host: 'rabbitmq-1.backend'
+govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
