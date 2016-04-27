@@ -18,10 +18,25 @@ server {
 }
 <%- end -%>
 
-map $upstream_http_govuk_request_id $govuk_request_id {
-  default $upstream_http_govuk_request_id;
-  '' $new_uuid;
-}
+# Set GOVUK-Request-Id if not set
+# See http://nginx.org/en/docs/http/ngx_http_perl_module.html
+perl_modules perl/lib;
+perl_set $govuk_request_id '
+  sub {
+    my $r = shift;
+    my $current_header = $r->header_in("GOVUK-Request-Id");
+
+    if (defined $current_header && $current_header ne "") {
+      return $current_header;
+    } else {
+      my $pid = $r->variable("pid");
+      my $msec = $r->variable("msec");
+      my $remote_addr = $r->variable("remote_addr");
+      my $request_length = $r->variable("request_length");
+      return "$pid-$msec-$remote_addr-$request_length";
+    }
+  }
+';
 
 server {
   server_name <%= @vhost_real %> <%= @aliases.join(" ") unless @aliases.empty? %>;
@@ -45,10 +60,6 @@ server {
   proxy_set_header X-Forwarded-Server $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Forwarded-Proto $scheme;
-
-  # Set GOVUK-Request-Id if not already set.
-  # Uses the `map` specified above.
-  set $new_uuid $pid-$msec-$remote_addr-$request_length;
   proxy_set_header GOVUK-Request-Id $govuk_request_id;
 
   proxy_redirect off;
