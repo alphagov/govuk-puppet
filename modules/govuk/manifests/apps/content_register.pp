@@ -40,13 +40,7 @@ class govuk::apps::content_register(
     app => 'content-register',
   }
 
-  govuk::app::envvar::rabbitmq { 'content-register':
-    hosts    => $rabbitmq_hosts,
-    user     => $rabbitmq_user,
-    password => $rabbitmq_password,
-  }
-
   govuk::procfile::worker {'content-register':
-    enable_service => $enable_procfile_worker,
+    ensure => absent,
   }
 }

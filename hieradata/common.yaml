@@ -248,11 +248,6 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
 
-govuk::apps::content_register::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-
 govuk::apps::content_store::nagios_memory_warning: 900
 govuk::apps::content_store::nagios_memory_critical: 1000
 
