@@ -1,9 +1,9 @@
 ---
 - scm:
-    name: alphagov-deployment_GDS_Production_Backup
+    name: govuk-app-deployment_GDS_Production_Backup
     scm:
         - git:
-            url: git@github.gds:gds/alphagov-deployment.git
+            url: git@github.com:alphagov/govuk-app-deployment.git
             branches:
               - release
 
@@ -16,7 +16,7 @@
         After a production deployment, this job pushes the state of the deployed repository to the
         <a href="https://github.gds/gds-production-backup/">gds-production-backup organisation in GitHub Enterprise</a>.
     scm:
-      - alphagov-deployment_GDS_Production_Backup
+      - govuk-app-deployment_GDS_Production_Backup
     builders:
         - shell: |
             sh sync_to_ghe.sh
