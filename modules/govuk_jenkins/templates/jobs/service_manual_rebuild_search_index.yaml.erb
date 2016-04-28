@@ -11,8 +11,8 @@
     builders:
         - shell: |
             if [ "$TARGET_APPLICATION" = "designprinciples" ]; then
-            ssh deploy@search-1.api.<%= @environment -%> 'cd /var/apps/rummager && RUMMAGER_INDEX=service-manual govuk_setenv rummager bundle exec rake rummager:switch_to_empty_index '
-            ssh deploy@frontend-1.frontend.<%= @environment -%> 'cd /var/apps/designprinciples && govuk_setenv designprinciples bundle exec rake rummager:index'
+            ssh deploy@search-1.api 'cd /var/apps/rummager && RUMMAGER_INDEX=service-manual govuk_setenv rummager bundle exec rake rummager:switch_to_empty_index '
+            ssh deploy@frontend-1.frontend 'cd /var/apps/designprinciples && govuk_setenv designprinciples bundle exec rake rummager:index'
             else
               echo "Not building '$TARGET_APPLICATION'"
             fi
