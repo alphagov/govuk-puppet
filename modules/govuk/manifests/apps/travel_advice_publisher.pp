@@ -6,7 +6,7 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3078
+#   Default: 3035
 #
 # [*enable_email_alerts*]
 #   Send email alerts via the email-alert-api
