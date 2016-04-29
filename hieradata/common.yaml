@@ -36,6 +36,7 @@ deployable_applications: &deployable_applications
   - frontend
   - government-frontend
   - govuk-delivery
+  - govuk-cdn-logs-monitor
   - govuk_content_api
   - govuk_crawler_worker
   - govuk_need_api
