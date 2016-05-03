@@ -17,7 +17,6 @@ deployable_applications: &deployable_applications
   - collections-publisher
   - contacts
   - contacts-frontend
-  - content-register
   - content-store
   - content-tagger
   - courts-api
@@ -247,12 +246,6 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
-
-govuk::apps::content_register::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_register::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
 
 govuk::apps::content_store::nagios_memory_warning: 900
 govuk::apps::content_store::nagios_memory_critical: 1000
@@ -718,7 +711,6 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
-  - 'content-register'
   - 'contentapi'
   - 'email-alert-api'
   - 'errbit'

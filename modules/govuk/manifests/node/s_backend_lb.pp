@@ -46,7 +46,6 @@ class govuk::node::s_backend_lb (
       'business-support-api',
       'collections-publisher',
       'contacts-admin',
-      'content-register',
       'content-tagger',
       'imminence',
       'local-links-manager',
