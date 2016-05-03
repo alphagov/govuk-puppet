@@ -2,7 +2,6 @@
 
 govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - backdrop_write
-  - content_register
   - email_alert_service
   - panopticon
   - publishing_api
