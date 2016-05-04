@@ -1,4 +1,4 @@
-# == Class: Govuk_postgresql::Wal_e::Backup
+# == Define: Govuk_postgresql::Wal_e::Backup
 #
 # Creates an offsite backup of a chosen PostgreSQL database
 # to an S3 bucket using WAL-E:
@@ -29,6 +29,12 @@
 # [*wale_private_gpg_key_fingerprint*]
 #   The GPG key fingerprint for the above GPG key.
 #
+# [*archive_timeout*]
+#   The number of seconds before PostgreSQL forces creating a new WAL segment
+#   in seconds.
+#   http://www.postgresql.org/docs/9.3/static/runtime-config-wal.html
+#   Default: 300
+#
 # [*hour*]
 #   The hour(s) the daily base backup cron job runs.
 #   Default: 6
@@ -43,23 +49,19 @@
 #   everything.
 #   Default: /var/lib/postgresql/9.3/main
 #
-# [*enabled*]
-#   Whether or not to enable WAL-E backups to S3.
-#
 
-class govuk_postgresql::wal_e::backup (
-  $aws_access_key_id = undef,
-  $aws_secret_access_key = undef,
-  $s3_bucket_url = undef,
+define govuk_postgresql::wal_e::backup (
+  $aws_access_key_id,
+  $aws_secret_access_key,
+  $s3_bucket_url,
   $aws_region = 'eu-west-1',
   $wale_private_gpg_key = undef,
   $wale_private_gpg_key_fingerprint = undef,
+  $archive_timeout = '300',
   $hour = 6,
   $minute = 20,
   $db_dir = '/var/lib/postgresql/9.3/main',
-  $enabled = false,
 ) {
-  if $enabled {
     include govuk_postgresql::wal_e::package
 
     # Continuous archiving to S3
@@ -69,7 +71,7 @@ class govuk_postgresql::wal_e::backup (
       'archive_command':
         value => '/usr/local/bin/wal-e_postgres_archiving_wrapper';
       'archive_timeout':
-        value => '60';
+        value => $archive_timeout;
     }
 
     file { [ '/etc/wal-e', '/etc/wal-e/env.d' ]:
@@ -188,5 +190,4 @@ class govuk_postgresql::wal_e::backup (
         freshness_threshold => $threshold_secs_archiving,
         host_name           => $::fqdn,
       }
-  }
 }
