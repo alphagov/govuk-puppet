@@ -45,6 +45,11 @@
   exceeds policy maximum so memory limit is 1GB).
 -->
 <policymap>
+  <policy domain="coder" rights="none" pattern="EPHEMERAL" />
+  <policy domain="coder" rights="none" pattern="URL" />
+  <policy domain="coder" rights="none" pattern="HTTPS" />
+  <policy domain="coder" rights="none" pattern="MVG" />
+  <policy domain="coder" rights="none" pattern="MSL" />
   <!-- <policy domain="system" name="precision" value="6"/> -->
   <!-- <policy domain="resource" name="temporary-path" value="/tmp"/> -->
   <!-- <policy domain="resource" name="memory" value="2GiB"/> -->
