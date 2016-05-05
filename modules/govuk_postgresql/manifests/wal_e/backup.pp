@@ -67,7 +67,7 @@ class govuk_postgresql::wal_e::backup (
       'archive_mode':
         value => 'on';
       'archive_command':
-        value => '/usr/local/bin/wal-e_postgres_archiving_wrapper';
+        value => '/usr/local/bin/wal-e_postgres_archiving_wrapper %p';
       'archive_timeout':
         value => '60';
     }

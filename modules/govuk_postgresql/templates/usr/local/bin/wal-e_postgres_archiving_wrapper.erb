@@ -17,7 +17,7 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
-envdir /etc/wal-e/env.d /usr/local/bin/wal-e wal-push %p
+envdir /etc/wal-e/env.d /usr/local/bin/wal-e wal-push $1
 
 if [ $? == 0 ]
   then
