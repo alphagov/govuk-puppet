@@ -10,9 +10,6 @@
 # [*auth_password*]
 #   HTTP basic auth password
 #
-# [*build_branch*]
-#   Branch of alphagov/smokey.git to build in Jenkins job
-#
 # [*efg_username*]
 #   Username to sign in to EFG
 #
@@ -34,7 +31,6 @@
 class govuk_jenkins::job::smokey (
   $auth_username = undef,
   $auth_password = undef,
-  $build_branch = 'master',
   $efg_username = undef,
   $efg_password = undef,
   $signon_email = undef,
