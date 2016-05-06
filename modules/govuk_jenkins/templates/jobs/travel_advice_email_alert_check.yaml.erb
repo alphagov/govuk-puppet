@@ -17,7 +17,7 @@
     logrotate:
         artifactNumToKeep: 100
     triggers:
-        - timed: '21 * * * *' # every hour on the 21st minute
+        - timed: '*/15 * * * *' # every 15 minutes
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
