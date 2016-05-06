@@ -4,14 +4,10 @@
 #
 # === Parameters
 #
-# [*mongo_backup_disk*]
-#   The backup disk for MongoDB.
-#
 # [*licensify_mongo_encrypted*]
 #   If true, MongoDB data will be stored on a partition that is encrypted at rest.
 #
 class govuk::node::s_licensify_mongo (
-  $mongodb_backup_disk,
   $licensify_mongo_encrypted = false
 ) inherits govuk::node::s_base {
   include mongodb::server
