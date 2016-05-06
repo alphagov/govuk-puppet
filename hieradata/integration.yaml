@@ -160,7 +160,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
 
-govuk::node::s_asset_base::firewall_allow_ip_range: '10.1.3.0/24'
 govuk::node::s_asset_master::copy_attachments_hour: 11
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
