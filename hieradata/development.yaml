@@ -124,6 +124,7 @@ govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
 govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
+govuk::apps::kibana::elasticsearch_host: 'localhost'
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
 govuk::apps::local_links_manager::enabled: true
 govuk::apps::multipage_frontend::enabled: true
