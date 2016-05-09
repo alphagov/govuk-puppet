@@ -138,6 +138,37 @@ ssh-add -L  # list key and location on host machine
 You're likely on the production VPN. Disconnect the VPN and `reload`
 your VM.
 
+#### Vagrant error :NFS is reporting that your exports file is invalid
+```
+==> default: Exporting NFS shared folders...
+NFS is reporting that your exports file is invalid. Vagrant does
+this check before making any changes to the file. Please correct
+the issues below and execute "vagrant reload":
+
+exports:2: path contains non-directory or non-existent components: /Users/<username>/path/to/vagrant
+exports:2: no usable directories in export entry
+exports:2: using fallback (marked offline): /
+exports:5: path contains non-directory or non-existent components: /Users/<username>/path/to/vagrant
+exports:5: no usable directories in export entry
+exports:5: using fallback (marked offline): /
+```
+
+This means that you may already have old vagrant path definitions in your `/etc/exports` file.
+
+Try opening up `/etc/exports` file to identify old or unwanted vagrant paths and removing them if necessary
+
+On opening `/etc/exports` file each set begins with # VAGRANT-BEGIN: and ends with # VAGRANT-END:. Make sure to delete these and any other lines between VAGRANT-BEGIN: and VAGRANT-END:
+
+or maybe
+
+```
+sudo rm /etc/exports
+sudo touch /etc/exports
+
+vagrant halt
+vagrant up
+```
+
 ### Errors with vagrant-dns having updated vagrant
 
 If after updating vagrant, you get errors regarding vagrant-dns when provisioning the VM you will need to reinstall the vagrant-dns plugin:
