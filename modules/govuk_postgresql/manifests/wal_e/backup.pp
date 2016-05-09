@@ -56,11 +56,12 @@ class govuk_postgresql::wal_e::backup (
   $wale_private_gpg_key_fingerprint = undef,
   $hour = 6,
   $minute = 20,
-  $db_dir = '/var/lib/postgresql/9.3/main',
+  $db_dir = $postgresql::globals::datadir,
   $enabled = false,
 ) {
   if $enabled {
     include govuk_postgresql::wal_e::package
+    include govuk_postgresql::wal_e::recovery
 
     # Continuous archiving to S3
     postgresql::server::config_entry {
