@@ -27,7 +27,7 @@
 class govuk::apps::service_manual_frontend(
   $vhost = 'service-manual-frontend',
   $port = 3122,
-  $enabled = false,
+  $enabled = true,
   $errbit_api_key = undef,
   $secret_key_base = undef,
 ) {
