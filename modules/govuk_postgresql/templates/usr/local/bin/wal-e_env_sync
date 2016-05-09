@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# PostgreSQL WAL-E Environment Sync
+#
+# This is a wrapper script which sets up prerequisites for an encrypted WAL-E
+# backup from an Amazon S3 bucket, and moves the backup into place. It restores
+# the very latest back-up available.
+#
+export RECOVERY_FILE=<%= @datadir -%>/recovery.conf
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+# Stop the PostgreSQL service
+sudo service postgresql stop
+
+# Push the passphrase to a file so we can decrypt without prompt
+sudo echo "passphrase <%= @wale_private_gpg_key_passphrase %>" >> /var/lib/postgresql/.gnupg/gpg.conf
+
+# Start the restore process
+sudo -iu postgres envdir <%= @env_sync_envdir %> /usr/local/bin/wal-e backup-fetch --blind-restore /var/lib/postgresql/9.3/main LATEST
+
+# Remove the GPG stuff
+sudo sed '/passphrase/d' /var/lib/postgresql/.gnupg/gpg.conf || exit 1
+
+# Add the recovery.conf configuration (this is renamed to recovery.done after PostgreSQL starts)
+sudo -iu postgres echo "restore_command = \'envdir /etc/wal-e/env.d /usr/local/bin/wal-e wal-fetch \"%f\" \"%p\"\'" > $RECOVERY_FILE
+
+# Start the PostgreSQL service
+sudo service postgresql start
