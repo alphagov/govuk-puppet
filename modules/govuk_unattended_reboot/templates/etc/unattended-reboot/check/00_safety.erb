@@ -3,3 +3,8 @@
 if ! [[ "$(/usr/local/bin/govuk_setenv default /usr/bin/printenv SAFE_TO_REBOOT)" =~ ^(yes|overnight)$ ]]; then
   exit 1
 fi
+
+# Don't reboot while logrotate is running
+if /usr/bin/pgrep "logrotate" > /dev/null; then
+  exit 1
+fi
