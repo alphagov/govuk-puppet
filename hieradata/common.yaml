@@ -1152,7 +1152,5 @@ unattended_reboot::cron_env_vars:
 unattended_reboot::cron_hour: '0-5'
 unattended_reboot::etcd_endpoints:
   - "http://etcd-1.management:4001"
-  - "http://etcd-2.management:4001"
-  - "http://etcd-3.management:4001"
 
 unicornherder::version: '0.0.8'
