@@ -116,6 +116,13 @@ class govuk::node::s_asset_master (
     notes_url           => monitoring_docs_url(asset-master-attachment-processing),
   }
 
+  @@icinga::passive_check { "full_attachments_sync_${::hostname}":
+    service_description => 'Full attachments sync',
+    host_name           => $::fqdn,
+    freshness_threshold => 100800,
+    notes_url           => monitoring_docs_url(full-attachments-sync),
+  }
+
   cron { 'virus-scan-clean':
     user    => 'assets',
     hour    => '*',
