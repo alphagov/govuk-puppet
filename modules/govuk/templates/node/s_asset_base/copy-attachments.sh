@@ -6,6 +6,18 @@ export DIRECTORY_TO_COPY=$1
 
 set -u
 
+# The default Icinga passive alert assumes that the script failed
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Full attachments sync failed"
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+  printf "<%= @ipaddress %>\tFull attachments sync\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
+
+trap nagios_passive EXIT
+
 usage() {
   echo "USAGE: $0 <directory_to_copy>"
   echo
@@ -35,3 +47,17 @@ done
     logger -t process_uploaded_attachment "Attachments errored while copying to S3 (<%= @s3_bucket -%>)"
   fi
 <% end %>
+
+if [ $? == 0 ]
+  then
+    STATUS=0
+  else
+    STATUS=1
+fi
+
+if [ $STATUS -eq 0 ]; then
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="Full attachments sync succeeded"
+fi
+
+exit $STATUS
