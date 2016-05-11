@@ -18,7 +18,6 @@ govuk::apps::email_campaign_api::mongodb_nodes:
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-integration@digital.cabinet-office.gov.uk'
 govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
-govuk::apps::local_links_manager::enabled: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::rummager::enable_publishing_api_document_indexer: false
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-integration

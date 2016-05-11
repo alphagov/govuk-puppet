@@ -9,6 +9,7 @@
 #
 # [*enabled*]
 #   Should the app exist?
+#   Default: true
 #
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
@@ -44,7 +45,7 @@
 #
 class govuk::apps::local_links_manager(
   $port = 3121,
-  $enabled = false,
+  $enabled = true,
   $errbit_api_key = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
