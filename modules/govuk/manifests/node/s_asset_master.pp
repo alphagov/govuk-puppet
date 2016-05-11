@@ -40,7 +40,10 @@ class govuk::node::s_asset_master (
 
   if $s3_bucket {
 
-    ensure_packages( { 's3cmd' => { provider => 'pip' } } )
+    package { 's3cmd':
+      ensure   => 'present',
+      provider => 'pip',
+    }
 
     file { '/home/assets/.s3cfg':
       ensure  => present,
