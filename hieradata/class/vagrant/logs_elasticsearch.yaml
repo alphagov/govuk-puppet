@@ -1,0 +1,9 @@
+---
+# should set to real values
+govuk_elasticsearch::aws_access_key: 'ABCDEFGHIJKLMNOPQRST'
+govuk_elasticsearch::aws_secret_key: 'n4AQffsnBJ5rcQK9DBn5eYHVuDqhT5DVCYa7ZU9tt'
+
+govuk_elasticsearch::snapshot_backups:
+   'kibana-int':
+     s3_bucket: 'govuk-elasticsearch-vagrant'
+     s3_path: 'test'

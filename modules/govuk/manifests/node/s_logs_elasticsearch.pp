@@ -35,6 +35,24 @@ class govuk::node::s_logs_elasticsearch(
     ],
   }
 
+  case $govuk_elasticsearch::version {
+    /^0.9/: { $cloud_aws_version = '1.16.0' }
+    /^1.0/: { $cloud_aws_version = '2.0.0' }
+    /^1.1/: { $cloud_aws_version = '2.1.1' }
+    /^1.2/: { $cloud_aws_version = '2.2.0' }
+    /^1.3/: { $cloud_aws_version = '2.3.0' }
+    /^1.4/: { $cloud_aws_version = '2.4.2' }
+    /^1.5/: { $cloud_aws_version = '2.5.1' }
+    /^1.6/: { $cloud_aws_version = '2.6.1' }
+    /^1.7/: { $cloud_aws_version = '2.7.1' }
+    default: { fail('Plugin version must match elasticsearch version, see README at https://github.com/elastic/elasticsearch-cloud-aws') }
+  }
+
+  elasticsearch::plugin { "elasticsearch/elasticsearch-cloud-aws/${cloud_aws_version}":
+    module_dir => 'cloud-aws',
+    instances  => $::fqdn,
+  }
+
   elasticsearch::plugin { 'mobz/elasticsearch-head':
     module_dir => 'head',
     instances  => $::fqdn,

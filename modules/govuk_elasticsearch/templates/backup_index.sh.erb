@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+repo=<%= @s3_bucket %>
+timestamp=$(date +%Y-%m-%dt%H:%M:%S)
+snapshot=${timestamp}-<%= @title %>
+
+curl --fail -XPUT "http://localhost:<%= @http_port %>/_snapshot/${repo}/${snapshot}?wait_for_completion=true" -d '{
+  "indices": "<%= @title %>",
+  "ignore_unavailable": "true",
+  "include_global_state": false
+}'

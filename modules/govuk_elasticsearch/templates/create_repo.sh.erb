@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+repo=<%= @s3_bucket %>
+
+curl --fail -XPUT "http://localhost:<%= @http_port %>/_snapshot/$repo" -d '{
+  "type": "s3",
+  "settings": {
+    "bucket": "<%= @s3_bucket %>",
+    "region": "<%= @s3_region %>"<% if @s3_path %>,
+    "base_path": "<%= @s3_path %>"
+<% end -%>
+  }
+}'
