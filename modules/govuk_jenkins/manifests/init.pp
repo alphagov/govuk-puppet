@@ -81,7 +81,10 @@ class govuk_jenkins (
     provider => system_gem,
   }
 
-  ensure_packages( { 's3cmd' => { provider => 'pip' } } )
+  package { 's3cmd':
+    ensure   => 'present',
+    provider => 'pip',
+  }
 
   # Runtime dependency of: https://github.com/alphagov/search-analytics
   include libffi
