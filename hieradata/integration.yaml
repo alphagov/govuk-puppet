@@ -24,7 +24,6 @@ govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-int
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher_rebuild::enabled: true
-govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
 
@@ -159,7 +158,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-1.api"
   - "search-2.api"
 
-govuk::node::s_asset_base::firewall_allow_ip_range: '10.1.3.0/24'
 govuk::node::s_asset_master::copy_attachments_hour: 11
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
@@ -208,7 +206,6 @@ govuk::node::s_licensify_lb::licensify_backend_servers:
 govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-1.licensify'
   - 'licensify-frontend-2.licensify'
-govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
 govuk::node::s_logging::compress_srv_logs_hour: '9'
 govuk::node::s_monitoring::offsite_backups: false

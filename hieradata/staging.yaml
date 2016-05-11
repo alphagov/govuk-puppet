@@ -13,7 +13,6 @@ govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
-govuk::apps::sidekiq_monitoring::enabled: true
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
@@ -70,6 +69,7 @@ govuk_jenkins::job::data_sync_complete_staging::pp_signon_domain_new: staging.pe
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=='
 
 govuk_mysql::server::expire_log_days: 1
+govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
 govuk_mysql::server::slow_query_log: true
 
 govuk::node::s_api_lb::api_servers:
@@ -94,7 +94,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-2.api"
   - "search-3.api"
 
-govuk::node::s_asset_base::firewall_allow_ip_range: '10.2.3.0/24'
 govuk::node::s_asset_master::copy_attachments_hour: 7
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
@@ -149,7 +148,6 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-1.licensify'
   - 'licensify-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
-govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/sdb1'
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
@@ -528,8 +526,8 @@ monitoring::checks::enable_support_check: false
 monitoring::checks::ses::region: eu-west-1
 
 postfix::smarthost:
-- 'email-smtp.us-east-1.amazonaws.com:587'
-- 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
+  - 'email-smtp.us-east-1.amazonaws.com:587'
+  - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 

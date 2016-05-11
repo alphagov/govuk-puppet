@@ -115,8 +115,6 @@ govuk_jenkins::job::network_config_deploy::environments:
 govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "production.performance.service.gov.uk"
 govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "performance.service.gov.uk"
 
-govuk_jenkins::job::smokey::build_branch: 'master'
-
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=='
 
 govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
@@ -144,7 +142,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-3.api"
 
 govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
-govuk::node::s_asset_base::firewall_allowed_ip_range: '10.3.3.0/24'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
@@ -197,7 +194,6 @@ govuk::node::s_licensify_lb::licensify_backend_servers:
 govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-1.licensify'
   - 'licensify-frontend-2.licensify'
-govuk::node::s_licensify_mongo::mongodb_backup_disk: '/dev/mapper/backups-automongodbbackup'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'

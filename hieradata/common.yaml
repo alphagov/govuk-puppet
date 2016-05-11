@@ -414,7 +414,7 @@ govuk_jenkins::job::deploy_terraform_project::apt_mirror_hostname: "%{hiera('apt
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
-govuk::node::s_asset_base::firewall_allow_ip_range: 10.3.0.0/16
+govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 
