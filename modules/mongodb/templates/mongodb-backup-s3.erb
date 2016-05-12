@@ -17,12 +17,6 @@ date_format = '%Y-%m-%d:%H:%M:%S'
 mongo_server = '<%= @server %>'
 key_fingerprint = '<%= @private_gpg_key_fingerprint %>'
 s3_bucket = '<%= @s3_bucket %>'
-<% if standalone -%>
-standalone = True
-<% else -%>
-standalone = False
-<% end -%>
-start = datetime.now().strftime(date_format)
 start_time = time.time()
 today = datetime.today().strftime('%Y-%m-%d')
 ############################################
@@ -31,22 +25,21 @@ def logger(str):
     print datetime.now().strftime(date_format) + ': ' + str
 
 def get_mongo_nodes():
-    if not standalone:
-      logger('Find Secondary Mongo members')
-      try:
-          mongo_nodes = subprocess.check_output(["mongo",  mongo_server, "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
-      except OSError:
-          sys.exit('Trouble querying mongo server: %s' % mongo_server)
+    logger('Find Secondary Mongo members')
+    try:
+        mongo_nodes = subprocess.check_output(["mongo",  mongo_server, "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
+    except OSError:
+        sys.exit('Trouble querying mongo server: %s' % mongo_server)
 
-      nodes = json.loads(mongo_nodes)
-      secondary_nodes = { x["name"] for x in nodes if x["stateStr"] == "SECONDARY" }
+    nodes = json.loads(mongo_nodes)
+    secondary_nodes = { x["name"] for x in nodes if x["stateStr"] == "SECONDARY" }
 
+    if secondary_nodes:
       backup_nodes = random.sample(secondary_nodes,1)
     else:
       backup_nodes = ['localhost']
 
     backup_node = backup_nodes[0]
-    print "Backing up ", backup_node
     return backup_node
 
 def backup_mongo(node):
@@ -87,11 +80,17 @@ def push_to_s3(backup_dir, dir):
         sys.exit(e)
 
 def cleanup_local():
-    logger('Start cleanup filesystem')
+    try:
+        backup_dir
+    except NameError:
+        print "%s not defined" % backup_dir
+    else:
+        logger('Start cleanup of %s' % backup_dir)
+
     if backup_dir not in ['','/']:
         rm_tree = backup_dir + '/'
         try:
-            subprocess.call(['rm', '-rf', rm_tree])
+            shutil.rmtree(rm_tree, ignore_errors=True)
             print 'Cleaned up %s' % rm_tree
         except Exception as e:
             sys.exit(e)

@@ -1,11 +1,21 @@
 ---
+mongodb::server::replicaset_members:
+  'mongo-1':
+  'mongo-2':
+  'mongo-3':
+    hidden: true
+    priority: 0
+
 mongodb::backup::s3_backups: true
 
+# replace with real values
 mongodb::s3backup::backup::aws_access_key_id: '1234567890abcd' 
 mongodb::s3backup::backup::aws_secret_access_key: 'ABCDEFGHIJKLMNOP1234567890'
+
 mongodb::s3backup::backup::s3_bucket: govuk-mongodb-backup-s3-vagrant
 mongodb::s3backup::backup::standalone: true
 mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
+
 # Randomly generated GPG key. Generate your own and encrypt
 # this key when using against real data
 mongodb::s3backup::backup::private_gpg_key: |
@@ -44,4 +54,3 @@ mongodb::s3backup::backup::private_gpg_key: |
   Ez/E3CEAE2MU6kwYzOv/IR8DRQJmdJDAp/KXrBi9y9A=
   =iGOp
   -----END PGP PRIVATE KEY BLOCK-----
-
