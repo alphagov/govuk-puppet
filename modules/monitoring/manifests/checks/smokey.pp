@@ -14,14 +14,6 @@ class monitoring::checks::smokey (
 ) {
   validate_hash($features)
 
-  # FIXME: Remove once deployed to production
-  service { 'smokey-nagios':
-    ensure => stopped,
-  } ->
-  file { '/etc/init/smokey-nagios.conf':
-    ensure => absent,
-  }
-
   $service_file = '/etc/init/smokey-loop.conf'
 
   # TODO: Should this really run as root?
