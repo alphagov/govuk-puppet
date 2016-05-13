@@ -50,12 +50,9 @@ class govuk::node::s_graphite (
     notify     => Class['graphite::service'],
   }
 
+  # FIXME: Remove once deployed
   file { '/etc/cron.daily/prune-whisper-files':
-    ensure  => present,
-    content => template('govuk/node/s_graphite/prune-whisper-files.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
+    ensure => absent,
   }
 
   @@icinga::check { "check_carbon_cache_running_on_${::hostname}":
