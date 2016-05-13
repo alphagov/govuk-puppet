@@ -14,7 +14,7 @@ usage() {
   exit 1
 }
 
-if [ ! $DIRECTORY_TO_SYNC ]; then
+if [ ! "$DIRECTORY_TO_SYNC" ]; then
  usage
 fi
 

@@ -26,7 +26,7 @@ usage() {
   exit 1
 }
 
-if [ ! $DIRECTORY_TO_COPY ]; then
+if [ ! "$DIRECTORY_TO_COPY" ]; then
  usage
 fi
 
