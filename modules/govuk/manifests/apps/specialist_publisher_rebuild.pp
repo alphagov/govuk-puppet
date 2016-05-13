@@ -39,6 +39,10 @@
 #   Sets the OAuth Secret Key for using GDS-SSO
 #   Default: undef
 #
+# [*publish_pre_production_finders*]
+#   Whether to enable publishing of pre-production finders
+#   Default: false
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -59,6 +63,7 @@ class govuk::apps::specialist_publisher_rebuild(
   $mongodb_name,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $publish_pre_production_finders = undef,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
 ) {
@@ -101,6 +106,14 @@ class govuk::apps::specialist_publisher_rebuild(
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
+    }
+
+    if $publish_pre_production_finders {
+      govuk::app::envvar {
+        "${title}-PUBLISH_PRE_PRODUCTION_FINDERS":
+          varname => 'PUBLISH_PRE_PRODUCTION_FINDERS',
+          value => '1';
+      }
     }
 
     if $secret_key_base != undef {
