@@ -70,13 +70,22 @@ class govuk::node::s_asset_master (
 
     file {
     [ '/etc/govuk/aws', '/etc/govuk/aws/env.d']:
-      ensure => directory;
+      ensure  => directory,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0750';
     '/etc/govuk/aws/env.d/AWS_ACCESS_KEY_ID':
       ensure  => present,
-      content => $aws_access_key_id;
+      content => $aws_access_key_id,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0640';
     '/etc/govuk/aws/env.d/AWS_SECRET_ACCESS_KEY':
       ensure  => present,
-      content => $aws_secret_access_key;
+      content => $aws_secret_access_key,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0640';
     }
 
     if $s3_env_sync_enabled {
