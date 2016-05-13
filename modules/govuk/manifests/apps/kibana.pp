@@ -25,7 +25,7 @@
 #
 class govuk::apps::kibana (
   $elasticsearch_host = 'logs-elasticsearch-1.management',
-  $port = '3202',
+  $port = 3202,
   $secret_key = undef,
   $signon_client_id = undef,
   $signon_client_secret = undef,
