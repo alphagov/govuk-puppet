@@ -40,7 +40,7 @@ for NODE in $ASSET_SLAVE_NODES; do
   fi
 done
 
-<% if @s3_bucket %>
+<% if @s3_bucket && !@s3_env_sync_enabled %>
   if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --cache-file=/tmp/s3cmd_attachments.cache --server-side-encryption sync --exclude="lost+found" --skip-existing --delete-removed "$DIRECTORY_TO_COPY/" "s3://<%= @s3_bucket -%>$DIRECTORY_TO_COPY/"; then
     logger -t copy_attachments "Attachments copied to S3 (<%= @s3_bucket -%>) successfully"
   else

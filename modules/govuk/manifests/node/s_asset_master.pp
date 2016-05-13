@@ -11,12 +11,28 @@
 # [*asset_slave_ip_ranges*]
 #   A hash of IP addresses that the asset slave machines run on.
 #
+# [*s3_bucket*]
+#   The URL of an S3 bucket. This can be used to either push backups or
+#   sync from an environment. Format should be the full URL:
+#   e.g s3://foo-bucket/
+#
+# [*aws_access_key_id*]
+#   The AWS key ID for the bucket you are accessing.
+#
+# [*aws_secret_access_key*]
+#   The secret part of the keypair.
+#
+# [*s3_env_sync_enabled*]
+#   When this is enabled, it will pull down and apply backups from the
+#   specified bucket, and will not push any of it's own backups.
+#
 class govuk::node::s_asset_master (
   $copy_attachments_hour = 4,
   $asset_slave_ip_ranges = {},
   $s3_bucket = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
+  $s3_env_sync_enabled = false,
 ) inherits govuk::node::s_asset_base {
 
   include assets::ssh_private_key
@@ -61,6 +77,13 @@ class govuk::node::s_asset_master (
     '/etc/govuk/aws/env.d/AWS_SECRET_ACCESS_KEY':
       ensure  => present,
       content => $aws_secret_access_key;
+    }
+
+    if $s3_env_sync_enabled {
+      file { '/usr/local/bin/attachments-s3-env-sync.sh':
+        ensure  => present,
+        content => template('govuk/node/s_asset_base/attachments-s3-env-sync.sh.erb'),
+      }
     }
 
   }
