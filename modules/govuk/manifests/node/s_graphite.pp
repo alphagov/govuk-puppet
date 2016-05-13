@@ -58,11 +58,6 @@ class govuk::node::s_graphite (
     mode    => '0755',
   }
 
-  # FIXME: Remove once deployed
-  file { '/etc/cron.daily/prune-whisper-files.sh':
-    ensure  => absent,
-  }
-
   @@icinga::check { "check_carbon_cache_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-cache.py',
     service_description => 'carbon-cache running',
