@@ -173,6 +173,7 @@ define govuk_postgresql::wal_e::backup (
         service_description => $service_desc_wale,
         freshness_threshold => $threshold_secs,
         host_name           => $::fqdn,
+        notes_url           => monitoring_docs_url(postgresql-s3-backups),
       }
 
     $threshold_secs_archiving = 900
@@ -189,5 +190,6 @@ define govuk_postgresql::wal_e::backup (
         service_description => $service_desc_wale_archiving,
         freshness_threshold => $threshold_secs_archiving,
         host_name           => $::fqdn,
+        notes_url           => monitoring_docs_url(postgresql-s3-backups),
       }
 }
