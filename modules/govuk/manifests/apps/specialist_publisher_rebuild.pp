@@ -63,7 +63,7 @@ class govuk::apps::specialist_publisher_rebuild(
   $mongodb_name,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $publish_pre_production_finders = undef,
+  $publish_pre_production_finders = false,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
 ) {
