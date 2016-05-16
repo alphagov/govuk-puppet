@@ -7,4 +7,12 @@ class icinga::service {
     hasrestart => true,
   }
 
+  govuk_logging::logstream { 'icinga_server':
+    ensure  => 'present',
+    fields  => {'application' => 'icinga'},
+    logfile => '/var/log/icinga/icinga.log',
+    tags    => ['monitoring', 'icinga'],
+    require => Service['icinga'],
+  }
+
 }
