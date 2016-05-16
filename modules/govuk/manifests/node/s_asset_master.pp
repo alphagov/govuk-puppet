@@ -45,12 +45,12 @@ class govuk::node::s_asset_master (
   }
 
   file { '/usr/local/bin/process-uploaded-attachments.sh':
-    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh'),
+    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh.erb'),
     mode    => '0755',
   }
 
   file { '/usr/local/bin/copy-attachments.sh':
-    content => template('govuk/node/s_asset_base/copy-attachments.sh'),
+    content => template('govuk/node/s_asset_base/copy-attachments.sh.erb'),
     mode    => '0755',
   }
 
@@ -63,7 +63,7 @@ class govuk::node::s_asset_master (
 
     file { '/home/assets/.s3cfg':
       ensure  => present,
-      content => template('govuk/node/s_asset_base/s3cfg'),
+      content => template('govuk/node/s_asset_base/s3cfg.erb'),
       owner   => 'assets',
       group   => 'assets',
     }
