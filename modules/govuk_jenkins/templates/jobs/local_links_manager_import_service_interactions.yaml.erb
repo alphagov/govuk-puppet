@@ -1,0 +1,27 @@
+---
+- job:
+    name: Local_Links_Manager_Import_Service_Interactions
+    display-name: Local_Links_Manager_Import_Service_Interactions
+    project-type: freestyle
+    description: |
+      Runs the rake task to import all services and interactions into Local Links Manager on the 1st of each month
+    logrotate:
+      artifactNumToKeep: 10
+    triggers:
+        - timed: '0 0 1 * *'
+    builders:
+        - shell: |
+            ssh deploy@backend-1.backend.production "cd /var/apps/local-links-manager && govuk_setenv local-links-manager bundle exec rake import:service_interactions:import_all"
+            echo "Local Links Manager services and interactions importer has run"
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
