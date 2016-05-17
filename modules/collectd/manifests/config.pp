@@ -36,6 +36,7 @@ class collectd::config {
     source => 'puppet:///modules/collectd/etc/collectd/conf.d/network.conf.client',
   }
 
+  include ::collectd::plugin::file_handles
   # Always collect basic processlist info.
   include ::collectd::plugin::processes
   include ::collectd::plugin::tcpconns
