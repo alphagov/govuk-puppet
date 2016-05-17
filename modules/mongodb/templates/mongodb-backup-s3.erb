@@ -14,7 +14,6 @@ import time
 ############################################
 backup_dir = '<%= @backup_dir %>'
 date_format = '%Y-%m-%d:%H:%M:%S'
-mongo_server = '<%= @server %>'
 key_fingerprint = '<%= @private_gpg_key_fingerprint %>'
 s3_bucket = '<%= @s3_bucket %>'
 standalone = '<%= @standalone %>'
@@ -29,7 +28,7 @@ def logger(str):
 if not standalone:
   logger('Find Secondary Mongo members')
   try:
-      mongo_nodes = subprocess.check_output(["mongo",  mongo_server, "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
+      mongo_nodes = subprocess.check_output(["mongo", "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
   except OSError:
       print 'Trouble querying mongo server'
 

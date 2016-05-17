@@ -10,7 +10,6 @@ describe 'mongodb::s3backup::backup', :type => :class do
     :private_gpg_key             => 'test-key-content',
     :private_gpg_key_fingerprint => 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF',
     :s3_bucket                   => 'foo-bucket',
-    :server                      => 'localhost',
     :user                        => 'foo-user'
   }}
 

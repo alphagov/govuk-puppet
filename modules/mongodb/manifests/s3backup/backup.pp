@@ -37,11 +37,6 @@
 #   will be uploaded. It should be created by the
 #   user
 #
-# [*server*]
-#   Defines the server to connect to. The backup
-#   script will pick a secondary to backup, unless
-#   'standalone' is 'True'
-#
 # [*standalone*]
 #   If true, will backup localhost instead of a
 #   Secondary
@@ -60,7 +55,6 @@ class mongodb::s3backup::backup(
   $private_gpg_key = undef,
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
-  $server = 'localhost',
   $standalone  = False,
   $user = 'govuk-backups'
   ){
