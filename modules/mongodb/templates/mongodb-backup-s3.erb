@@ -13,17 +13,16 @@ import time
 # Variables
 ############################################
 backup_dir = '<%= @backup_dir %>'
-date_format = '%Y-%m-%d:%H:%M:%S'
 key_fingerprint = '<%= @private_gpg_key_fingerprint %>'
 s3_bucket = '<%= @s3_bucket %>'
 standalone = '<%= @standalone %>'
-start = datetime.now().strftime(date_format)
+start = datetime.now().replace(microsecond=0).isoformat()
 start_time = time.time()
 file = 'mongodump-<%= @fqdn %>-' + start + '.tar.gz.gpg'
 ############################################
 
 def logger(str):
-    print datetime.now().strftime(date_format) + ': ' + str
+    print datetime.now().replace(microsecond=0).isoformat() + ': ' + str
 
 if not standalone:
   logger('Find Secondary Mongo members')
