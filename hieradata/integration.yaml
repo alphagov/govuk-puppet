@@ -74,7 +74,6 @@ govuk_jenkins::config::admins:
   - leelongmore
   - leenagupte
   - lauramartin
-  - mathildathompson
   - matmoore
   - matteograssotti
   - mobaig
@@ -282,7 +281,6 @@ users::usernames:
   - lauramartin
   - leelongmore
   - leenagupte
-  - mathildathompson
   - matmoore
   - matteograssotti
   - mobaig
