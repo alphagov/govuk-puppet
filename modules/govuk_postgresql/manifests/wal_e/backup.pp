@@ -60,7 +60,7 @@ define govuk_postgresql::wal_e::backup (
   $archive_timeout = '300',
   $hour = 6,
   $minute = 20,
-  $db_dir = $postgresql::globals::datadir,
+  $db_dir = $postgresql::params::datadir,
 ) {
     include govuk_postgresql::wal_e::package
 

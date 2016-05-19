@@ -39,9 +39,10 @@ define govuk_postgresql::wal_e::env_sync (
   $aws_region = 'eu-west-1',
 ) {
 
-    $env_sync_envdir = '/etc/wal-e/env.d/env_sync'
+    $env_sync_envdir = '/etc/wal-e/env_sync/env.d'
+    $datadir = $postgresql::params::datadir
 
-    file { $env_sync_envdir:
+    file { [ '/etc/wal-e/env_sync', $env_sync_envdir ]:
       ensure  => directory,
       owner   => 'postgres',
       group   => 'postgres',
@@ -77,6 +78,13 @@ define govuk_postgresql::wal_e::env_sync (
       mode    => '0640',
     }
 
+    file { "${env_sync_envdir}/GPG_PASSPHRASE":
+      content => $wale_private_gpg_key_passphrase,
+      owner   => 'postgres',
+      group   => 'postgres',
+      mode    => '0640',
+    }
+
     file { "/var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc":
       ensure  => present,
       mode    => '0600',
@@ -85,7 +93,7 @@ define govuk_postgresql::wal_e::env_sync (
       group   => 'postgres',
     }
 
-    exec { "import_gpg_secret_key_${::hostname}":
+    exec { "import_gpg_secret_key_for_env_sync_${::hostname}":
       command     => "gpg --batch --delete-secret-and-public-key ${wale_private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc",
       user        => 'postgres',
       group       => 'postgres',
@@ -93,12 +101,11 @@ define govuk_postgresql::wal_e::env_sync (
       refreshonly => true,
     }
 
-    $datadir = $postgresql::globals::datadir
-
     file { '/usr/local/bin/wal-e_env_sync':
       ensure  => present,
       content => template('govuk_postgresql/usr/local/bin/wal-e_env_sync'),
-      require => Class['govuk_postgresql::wal_e::backup'],
+      mode    => '0755',
+      require => Package['wal-e'],
     }
 
 }
