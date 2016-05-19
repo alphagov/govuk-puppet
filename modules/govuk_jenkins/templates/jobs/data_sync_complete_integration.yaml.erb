@@ -22,6 +22,8 @@
            ssh deploy@calculators-frontend-1.frontend 'cd /var/apps/smartanswers ; govuk_setenv smartanswers bundle exec rake panopticon:register'
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@backend-2.backend 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+           # Publish any pre-production finders from Specialist Publisher Rebuild.
+           ssh deploy@$(govuk_node_list -c backend | shuf -n 1) 'cd /var/apps/specialist-publisher-rebuild ; govuk_setenv specialist-publisher-rebuild bundle exec rake publishing_api:publish_finders rummager:publish_finders'
     publishers:
         - trigger-parameterized-builds:
             <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager }.each do |app| -%>
