@@ -41,10 +41,6 @@
 #   If true, will backup localhost instead of a
 #   Secondary
 #
-# [*user*]
-#   Defines the system user that will be created
-#   to run the backups
-
 class mongodb::s3backup::backup(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
@@ -56,43 +52,39 @@ class mongodb::s3backup::backup(
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
   $standalone  = False,
-  $user = 'govuk-backups'
   ){
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
-# create user
-  user { $user:
-    ensure     => 'present',
-    managehome => true,
-  }
+  include backup::client
+  $backup_user = 'govuk-backup'
 
 # push env files
   file { [$env_dir,"${env_dir}/env.d"]:
     ensure => directory,
-    owner  => $user,
-    group  => $user,
+    owner  => $backup_user,
+    group  => $backup_user,
     mode   => '0770',
   }
 
     file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
       content => $aws_secret_access_key,
-      owner   => $user,
-      group   => $user,
+      owner   => $backup_user,
+      group   => $backup_user,
       mode    => '0660',
     }
 
     file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
       content => $aws_access_key_id,
-      owner   => $user,
-      group   => $user,
+      owner   => $backup_user,
+      group   => $backup_user,
       mode    => '0640',
     }
 
     file { "${env_dir}/env.d/AWS_REGION":
       content => $aws_region,
-      owner   => $user,
-      group   => $user,
+      owner   => $backup_user,
+      group   => $backup_user,
       mode    => '0640',
     }
 
@@ -100,56 +92,57 @@ class mongodb::s3backup::backup(
   file { '/usr/local/bin/mongodb-backup-s3':
     ensure  => present,
     content => template('mongodb/mongodb-backup-s3.erb'),
-    owner   => $user,
-    group   => $user,
+    owner   => $backup_user,
+    group   => $backup_user,
     mode    => '0755',
-    require => User[$user],
+    require => User[$backup_user],
   }
 
   file { '/usr/local/bin/mongodb-backup-s3-wrapper':
     ensure  => present,
     content => template('mongodb/mongodb-backup-s3-wrapper.erb'),
-    owner   => $user,
-    group   => $user,
+    owner   => $backup_user,
+    group   => $backup_user,
     mode    => '0755',
-    require => User[$user],
+    require => User[$backup_user],
   }
 
   # push gpg key
-  file { "/home/${user}/.gnupg":
+  file { "/home/${backup_user}/.gnupg":
     ensure => directory,
     mode   => '0700',
-    owner  => $user,
-    group  => $user,
+    owner  => $backup_user,
+    group  => $backup_user,
   }
 
-  file { "/home/${user}/.gnupg/gpg.conf":
+  file { "/home/${backup_user}/.gnupg/gpg.conf":
     ensure  => present,
     content => 'trust-model always',
     mode    => '0600',
-    owner   => $user,
-    group   => $user,
+    owner   => $backup_user,
+    group   => $backup_user,
   }
 
-  file { "/home/${user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc":
+  file { "/home/${backup_user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc":
     ensure  => present,
     mode    => '0600',
     content => $private_gpg_key,
-    owner   => $user,
-    group   => $user,
+    owner   => $backup_user,
+    group   => $backup_user,
   }
 
   # import key
   exec { "import_gpg_secret_key_${::hostname}":
-    command     => "gpg --batch --delete-secret-and-public-key ${private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /home/${user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc",
-    user        => $user,
-    group       => $user,
-    subscribe   => File["/home/${user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc"],
+    command     => "gpg --batch --delete-secret-and-public-key ${private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /home/${backup_user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc",
+    user        => $backup_user,
+    group       => $backup_user,
+    subscribe   => File["/home/${backup_user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc"],
     refreshonly => true,
   }
 
-  # cron
-  include mongodb::s3backup::cron
+  class { 'mongodb::s3backup::cron':
+    user => $backup_user,
+  }
 
   # monitoring
   $threshold_secs = 28 * 3600
