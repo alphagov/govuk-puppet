@@ -8,6 +8,13 @@
 #   The port that publishing API is served on.
 #   Default: 3123
 #
+# [*custom_http_host*]
+#   This setting allows the default HTTP Host header to be overridden.
+#
+#   An example of where this is useful is if requests are handled by different
+#   backend applications but use the same hostname.
+#   Default: undef
+#
 # [*asset_manager_bearer_token*]
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
@@ -69,11 +76,13 @@ class govuk::apps::specialist_publisher_rebuild(
   $secret_token = undef,
 ) {
   $app_name = 'specialist-publisher-rebuild'
+  $app_domain = hiera('app_domain')
 
   if $enabled {
     govuk::app { $app_name:
       app_type           => 'rack',
       port               => $port,
+      custom_http_host   => "specialist-publisher.${app_domain}",
       health_check_path  => '/healthcheck',
       log_format_is_json => true,
       asset_pipeline     => true,
