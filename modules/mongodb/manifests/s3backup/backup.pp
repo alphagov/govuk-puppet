@@ -59,41 +59,33 @@ class mongodb::s3backup::backup(
   include backup::client
   $backup_user = 'govuk-backup'
 
-# push env files
+  File {
+    owner => $backup_user,
+    group => $backup_user,
+    mode  => '0660',
+  }
+
   file { [$env_dir,"${env_dir}/env.d"]:
     ensure => directory,
-    owner  => $backup_user,
-    group  => $backup_user,
     mode   => '0770',
   }
 
     file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
       content => $aws_secret_access_key,
-      owner   => $backup_user,
-      group   => $backup_user,
-      mode    => '0660',
     }
 
     file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
       content => $aws_access_key_id,
-      owner   => $backup_user,
-      group   => $backup_user,
-      mode    => '0640',
     }
 
     file { "${env_dir}/env.d/AWS_REGION":
       content => $aws_region,
-      owner   => $backup_user,
-      group   => $backup_user,
-      mode    => '0640',
     }
 
   # push scripts
   file { '/usr/local/bin/mongodb-backup-s3':
     ensure  => present,
     content => template('mongodb/mongodb-backup-s3.erb'),
-    owner   => $backup_user,
-    group   => $backup_user,
     mode    => '0755',
     require => User[$backup_user],
   }
@@ -101,8 +93,6 @@ class mongodb::s3backup::backup(
   file { '/usr/local/bin/mongodb-backup-s3-wrapper':
     ensure  => present,
     content => template('mongodb/mongodb-backup-s3-wrapper.erb'),
-    owner   => $backup_user,
-    group   => $backup_user,
     mode    => '0755',
     require => User[$backup_user],
   }
@@ -111,24 +101,18 @@ class mongodb::s3backup::backup(
   file { "/home/${backup_user}/.gnupg":
     ensure => directory,
     mode   => '0700',
-    owner  => $backup_user,
-    group  => $backup_user,
   }
 
   file { "/home/${backup_user}/.gnupg/gpg.conf":
     ensure  => present,
     content => 'trust-model always',
     mode    => '0600',
-    owner   => $backup_user,
-    group   => $backup_user,
   }
 
   file { "/home/${backup_user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc":
     ensure  => present,
     mode    => '0600',
     content => $private_gpg_key,
-    owner   => $backup_user,
-    group   => $backup_user,
   }
 
   # import key
