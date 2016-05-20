@@ -73,6 +73,7 @@ deployable_applications: &deployable_applications
   - specialist-frontend
   - specialist-publisher
   - specialist-publisher-rebuild
+  - specialist-publisher-rebuild-standalone
   - spotlight
   - stagecraft
   - static
@@ -742,6 +743,7 @@ hosts::production::backend::app_hostnames:
   - 'signon'
   - 'specialist-publisher'
   - 'specialist-publisher-rebuild'
+  - 'specialist-publisher-rebuild-standalone'
   - 'support'
   - 'support-api'
   - 'tariff-admin'

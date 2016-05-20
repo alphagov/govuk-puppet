@@ -86,6 +86,13 @@ server {
   }
   <%- end -%>
 
+  <% @modified_paths.each do |path, config| %>
+  location <%= path %> {
+    proxy_set_header Host <%= config['app'] %>.<%= @vhost_suffix %>;
+    proxy_pass https://<%= @vhost %>-upstream;
+  }
+  <% end %>
+
   location / {
     <%- if @internal_only -%>
     # Only accept connnections from internal machines

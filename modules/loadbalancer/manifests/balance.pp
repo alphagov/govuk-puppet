@@ -57,6 +57,7 @@ define loadbalancer::balance(
     $vhost = $title,
     $read_timeout = 15,
     $maintenance_mode = false,
+    $modified_paths = {},
 ) {
 
   $vhost_suffix = hiera('app_domain')

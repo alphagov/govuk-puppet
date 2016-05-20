@@ -1,6 +1,6 @@
-# == Class: govuk::apps::specialist_publisher_rebuild
+# == Class: govuk::apps::specialist_publisher_rebuild_standalone
 #
-# A rebuild of specialist-publisher, a publishing app for specialist documents and manuals.
+# An Integration-only instance of specialist-publisher-rebuild, a publishing app for specialist documents and manuals.
 #
 # === Parameters
 #
@@ -61,8 +61,8 @@
 #   specialist publisher rebuild can share signed cookies with version 1.
 #   Default: undef
 #
-class govuk::apps::specialist_publisher_rebuild(
-  $port = 3123,
+class govuk::apps::specialist_publisher_rebuild_standalone(
+  $port = 3204,
   $asset_manager_bearer_token = undef,
   $errbit_api_key = undef,
   $email_alert_api_bearer_token = undef,
@@ -75,14 +75,12 @@ class govuk::apps::specialist_publisher_rebuild(
   $publishing_api_bearer_token = undef,
   $secret_token = undef,
 ) {
-  $app_name = 'specialist-publisher-rebuild'
-  $app_domain = hiera('app_domain')
+  $app_name = 'specialist-publisher-rebuild-standalone'
 
   if $enabled {
     govuk::app { $app_name:
       app_type           => 'rack',
       port               => $port,
-      custom_http_host   => "specialist-publisher.${app_domain}",
       health_check_path  => '/healthcheck',
       log_format_is_json => true,
       asset_pipeline     => true,

@@ -43,6 +43,15 @@ class govuk::node::s_backend_lb (
       error_on_http => true,
       servers       => $backend_servers;
     [
+      'specialist-publisher',
+    ]:
+      modified_paths => {
+        '/sp-rebuild/assets' => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+      },
+      servers => $backend_servers;
+    [
       'business-support-api',
       'collections-publisher',
       'contacts-admin',
@@ -59,8 +68,8 @@ class govuk::node::s_backend_lb (
       'service-manual-publisher',
       'share-sale-publisher',
       'signon',
-      'specialist-publisher',
       'specialist-publisher-rebuild',
+      'specialist-publisher-rebuild-standalone',
       'short-url-manager',
       'support',
       'tariff-admin',
