@@ -47,10 +47,11 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*secret_key_base*]
-#   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
+# [*secret_token*]
+#   Used to set the app ENV var SECRET_TOKEN which is used to configure
 #   rails 4.x signed cookie mechanism. If unset the app will be unable to
-#   start.
+#   start. SECRET_TOKEN is used rather than SECRET_KEY_BASE so that
+#   specialist publisher rebuild can share signed cookies with version 1.
 #   Default: undef
 #
 class govuk::apps::specialist_publisher_rebuild(
@@ -65,7 +66,7 @@ class govuk::apps::specialist_publisher_rebuild(
   $oauth_secret = undef,
   $publish_pre_production_finders = false,
   $publishing_api_bearer_token = undef,
-  $secret_key_base = undef,
+  $secret_token = undef,
 ) {
   $app_name = 'specialist-publisher-rebuild'
 
@@ -116,10 +117,10 @@ class govuk::apps::specialist_publisher_rebuild(
       }
     }
 
-    if $secret_key_base != undef {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base,
+    if $secret_token != undef {
+      govuk::app::envvar { "${title}-SECRET_TOKEN":
+        varname => 'SECRET_TOKEN',
+        value   => $secret_token,
       }
     }
   }
