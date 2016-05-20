@@ -11,12 +11,28 @@
 # [*asset_slave_ip_ranges*]
 #   A hash of IP addresses that the asset slave machines run on.
 #
+# [*s3_bucket*]
+#   The URL of an S3 bucket. This can be used to either push backups or
+#   sync from an environment. Format should be the full URL:
+#   e.g s3://foo-bucket/
+#
+# [*aws_access_key_id*]
+#   The AWS key ID for the bucket you are accessing.
+#
+# [*aws_secret_access_key*]
+#   The secret part of the keypair.
+#
+# [*s3_env_sync_enabled*]
+#   When this is enabled, it will pull down and apply backups from the
+#   specified bucket, and will not push any of it's own backups.
+#
 class govuk::node::s_asset_master (
   $copy_attachments_hour = 4,
   $asset_slave_ip_ranges = {},
   $s3_bucket = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
+  $s3_env_sync_enabled = false,
 ) inherits govuk::node::s_asset_base {
 
   include assets::ssh_private_key
@@ -29,12 +45,12 @@ class govuk::node::s_asset_master (
   }
 
   file { '/usr/local/bin/process-uploaded-attachments.sh':
-    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh'),
+    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh.erb'),
     mode    => '0755',
   }
 
   file { '/usr/local/bin/copy-attachments.sh':
-    content => template('govuk/node/s_asset_base/copy-attachments.sh'),
+    content => template('govuk/node/s_asset_base/copy-attachments.sh.erb'),
     mode    => '0755',
   }
 
@@ -47,20 +63,36 @@ class govuk::node::s_asset_master (
 
     file { '/home/assets/.s3cfg':
       ensure  => present,
-      content => template('govuk/node/s_asset_base/s3cfg'),
+      content => template('govuk/node/s_asset_base/s3cfg.erb'),
       owner   => 'assets',
       group   => 'assets',
     }
 
     file {
     [ '/etc/govuk/aws', '/etc/govuk/aws/env.d']:
-      ensure => directory;
+      ensure  => directory,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0750';
     '/etc/govuk/aws/env.d/AWS_ACCESS_KEY_ID':
       ensure  => present,
-      content => $aws_access_key_id;
+      content => $aws_access_key_id,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0640';
     '/etc/govuk/aws/env.d/AWS_SECRET_ACCESS_KEY':
       ensure  => present,
-      content => $aws_secret_access_key;
+      content => $aws_secret_access_key,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0640';
+    }
+
+    if $s3_env_sync_enabled {
+      file { '/usr/local/bin/attachments-s3-env-sync.sh':
+        ensure  => present,
+        content => template('govuk/node/s_asset_base/attachments-s3-env-sync.sh.erb'),
+      }
     }
 
   }
