@@ -70,17 +70,17 @@ class mongodb::s3backup::backup(
     mode   => '0770',
   }
 
-    file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
-      content => $aws_secret_access_key,
-    }
+  file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
+    content => $aws_secret_access_key,
+  }
 
-    file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
-      content => $aws_access_key_id,
-    }
+  file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
+    content => $aws_access_key_id,
+  }
 
-    file { "${env_dir}/env.d/AWS_REGION":
-      content => $aws_region,
-    }
+  file { "${env_dir}/env.d/AWS_REGION":
+    content => $aws_region,
+  }
 
   # push scripts
   file { '/usr/local/bin/mongodb-backup-s3':
