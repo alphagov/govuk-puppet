@@ -95,6 +95,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_cdn
   - govuk_jenkins::job::deploy_govuk_content_schemas
+  - govuk_jenkins::job::deploy_lambda_app
   - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data

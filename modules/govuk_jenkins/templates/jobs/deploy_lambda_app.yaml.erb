@@ -1,0 +1,54 @@
+---
+- scm:
+    name: govuk-lambda-app-deployment_Deploy_Lambda_App
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-lambda-app-deployment.git
+            branches:
+              - master
+            wipe-workspace: true
+
+- job:
+    name: Deploy_Lambda_App
+    display-name: Deploy_Lambda_App
+    project-type: freestyle
+    description: "This job uploads an AWS Lambda app to an S3 bucket and kicks off the relevant Terraform job"
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-lambda-app-deployment
+        - inject:
+            properties-content: |
+              ENVIRONMENT=<%= @environment %>
+    scm:
+      - govuk-lambda-app-deployment_Deploy_Lambda_App
+    builders:
+      - shell: |
+          cd $TARGET_APPLICATION
+          source ./jenkins.sh # this job should create the source ready for uploading to an S3 bucket
+          s3cmd sync $FILE_TO_UPLOAD s3://govuk-lambda-applications-$ENVIRONMENT/${TARGET_APPLICATION}/
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Deploy_Terraform_Project
+              predefined-parameters: |
+                AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                ACTION=apply
+                PROJECT_NAME=${TARGET_APPLICATION}
+              condition: 'UNSTABLE_OR_BETTER'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: TARGET_APPLICATION
+            description: Lambda application to deploy.
+            choices: <%= ['-- Choose an app'] + @lambda_apps %>
+    parameters:
+        - string:
+            name: AWS_ACCESS_KEY_ID
+            description: Your AWS access key ID
+            default: false
+        - password:
+            name: AWS_SECRET_ACCESS_KEY
+            description: Your AWS secret access key
+            default: false
