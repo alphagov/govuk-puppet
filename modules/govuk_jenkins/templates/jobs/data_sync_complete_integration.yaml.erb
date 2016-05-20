@@ -41,10 +41,5 @@
               condition: 'SUCCESS'
             <%- end -%>
             - project: Sanitize_publishing_API_data
-        - postbuildscript:
-            builders:
-               - shell: |
-                   # Load seed data to Service Manual Publisher integration box for testing purposes. Remove this when service-manual-publisher makes it to production
-                   ssh deploy@backend-1.backend.production 'cd /var/apps/service-manual-publisher ; govuk_setenv service-manual-publisher bundle exec rake db:schema:load db:seed'
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
