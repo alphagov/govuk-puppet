@@ -1,0 +1,22 @@
+---
+
+app_domain: 'publishing.service.gov.uk'
+
+govuk_safe_to_reboot::can_reboot: 'no'
+
+govuk::deploy::actionmailer_enable_delivery: true
+
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
+govuk::deploy::config::asset_root: 'https://assets.digital.cabinet-office.gov.uk'
+govuk::deploy::config::website_root: 'https://www.gov.uk'
+
+# Remove `router::nginx::robotstxt` from staging config
+
+monitoring::checks::mirror::enabled: true
+monitoring::checks::ses::region: us-east-1
+monitoring::contacts::notify_graphite: true
+monitoring::contacts::notify_pager: true
+monitoring::edge::enabled: true
+monitoring::pagerduty_drill::enabled: true
+
+shell::shell_prompt_string: 'staging-promoted'
