@@ -91,6 +91,7 @@ class govuk::node::s_asset_master (
     if $s3_env_sync_enabled {
       file { '/usr/local/bin/attachments-s3-env-sync.sh':
         ensure  => present,
+        mode    => '0755',
         content => template('govuk/node/s_asset_base/attachments-s3-env-sync.sh.erb'),
       }
     }
