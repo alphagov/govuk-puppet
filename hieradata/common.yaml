@@ -380,6 +380,8 @@ govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::nagios_memory_warning: 800
 govuk::apps::specialist_publisher::nagios_memory_critical: 900
 
+govuk::apps::specialist_publisher_rebuild::enabled: true
+
 govuk::apps::spotlight::enabled: true
 govuk::apps::spotlight::alert_5xx_warning_rate: 0.2
 govuk::apps::spotlight::alert_5xx_critical_rate: 0.3
