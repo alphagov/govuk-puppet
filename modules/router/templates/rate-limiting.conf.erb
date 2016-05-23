@@ -8,6 +8,7 @@ map $http_Rate_Limit_Token $limit_req {
 
 limit_req_zone $limit_req zone=rate:30m rate=10r/s;
 limit_req_zone $limit_req zone=contact:5m rate=6r/m;
+limit_req_zone $limit_req zone=performance:5m rate=5r/s;
 limit_conn_zone $limit_req zone=connections:10m;
 
 # Return 429 (Too Many Requests) instead of the default 503.
