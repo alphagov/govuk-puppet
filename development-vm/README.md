@@ -153,6 +153,8 @@ Those databases include:
 EFG isn't synced out of production because GOV.UK doesn't host the non-production
 instance of that application.
 
+Mapit's database will be downloaded in the Mapit repo and therefore will be not be in the backups folder.
+
 To get production data on to your local vm you will need to either have access
 to integration or a mongo and a mysql export from someone that does. If you
 have integration access then importing the latest data can be done by running
