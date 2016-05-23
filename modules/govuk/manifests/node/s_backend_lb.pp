@@ -71,7 +71,6 @@ class govuk::node::s_backend_lb (
       'service-manual-publisher',
       'share-sale-publisher',
       'signon',
-      'specialist-publisher-rebuild',
       'specialist-publisher-rebuild-standalone',
       'short-url-manager',
       'support',
@@ -89,6 +88,7 @@ class govuk::node::s_backend_lb (
       'govuk-delivery',
       'need-api',
       'publishing-api',
+      'specialist-publisher-rebuild',
       'support-api',
       'tariff-api',
     ]:
