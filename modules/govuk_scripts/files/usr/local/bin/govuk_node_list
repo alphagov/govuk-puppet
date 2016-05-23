@@ -6,6 +6,7 @@ from __future__ import print_function
 # to avoid the need to depend on any other packages.
 from optparse import OptionParser
 import json
+import random
 import string
 import sys
 import urllib
@@ -66,6 +67,9 @@ def main():
     res = urllib2.urlopen('http://puppetdb.cluster/v2/{0}?{1}'.format(endpoint, qs))
     hosts = json.load(res)
 
+    if opts.single_node and len(hosts) > 0:
+        hosts = [random.choice(hosts)]
+
     for host in hosts:
         print(host[host_key])
 
@@ -101,6 +105,13 @@ parser.add_option(
     help='Do not show DR nodes',
     action="store_false",
     dest='dr_nodes',
+)
+
+parser.add_option(
+    '--single-node',
+    help='Select a single node at random',
+    action='store_true',
+    dest='single_node',
 )
 
 if __name__ == '__main__':

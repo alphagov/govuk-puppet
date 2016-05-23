@@ -13,15 +13,15 @@
        - shell: |
            <%- if @signon_domain_old and @signon_domain_new -%>
            # Fix signon application hostnames
-           ssh deploy@backend-2.backend 'cd /var/apps/signon && OLD_DOMAIN=<%= @signon_domain_old -%> NEW_DOMAIN=<%= @signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= @signon_domain_old -%> NEW_DOMAIN=<%= @signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
            <%- end -%>
            <%- if @pp_signon_domain_old and @pp_signon_domain_new -%>
-           ssh deploy@backend-2.backend 'cd /var/apps/signon && OLD_DOMAIN=<%= @pp_signon_domain_old -%> NEW_DOMAIN=<%= @pp_signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= @pp_signon_domain_old -%> NEW_DOMAIN=<%= @pp_signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
            <%- end -%>
            # Queue up any whitehall scheduled editions that have been transferred across.
-           ssh deploy@whitehall-backend-2.backend 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
+           ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
            # Queue up any publisher scheduled editions that have been transferred across.
-           ssh deploy@backend-2.backend 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
     publishers:
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk

@@ -13,17 +13,17 @@
        - shell: |
            <%- if @signon_domain_old and @signon_domain_new -%>
            # Fix signon application hostnames
-           ssh deploy@backend-2.backend 'cd /var/apps/signon && OLD_DOMAIN=<%= @signon_domain_old -%> NEW_DOMAIN=<%= @signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= @signon_domain_old -%> NEW_DOMAIN=<%= @signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
            <%- end -%>
            <%- if @pp_signon_domain_old and @pp_signon_domain_new -%>
-           ssh deploy@backend-2.backend 'cd /var/apps/signon && OLD_DOMAIN=<%= @pp_signon_domain_old -%> NEW_DOMAIN=<%= @pp_signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= @pp_signon_domain_old -%> NEW_DOMAIN=<%= @pp_signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
            <%- end -%>
            # Re-register smartanswers to pick up drafts.
-           ssh deploy@calculators-frontend-1.frontend 'cd /var/apps/smartanswers ; govuk_setenv smartanswers bundle exec rake panopticon:register'
+           ssh deploy@$(govuk_node_list -c calculators_frontend --single-node) 'cd /var/apps/smartanswers ; govuk_setenv smartanswers bundle exec rake panopticon:register'
            # Queue up any publisher scheduled editions that have been transferred across.
-           ssh deploy@backend-2.backend 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
            # Publish any pre-production finders from Specialist Publisher Rebuild.
-           ssh deploy@$(govuk_node_list -c backend | shuf -n 1) 'cd /var/apps/specialist-publisher-rebuild ; govuk_setenv specialist-publisher-rebuild bundle exec rake publishing_api:publish_finders rummager:publish_finders'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/specialist-publisher-rebuild ; govuk_setenv specialist-publisher-rebuild bundle exec rake publishing_api:publish_finders rummager:publish_finders'
     publishers:
         - trigger-parameterized-builds:
             <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager }.each do |app| -%>
@@ -41,10 +41,5 @@
               condition: 'SUCCESS'
             <%- end -%>
             - project: Sanitize_publishing_API_data
-        - postbuildscript:
-            builders:
-               - shell: |
-                   # Load seed data to Service Manual Publisher integration box for testing purposes. Remove this when service-manual-publisher makes it to production
-                   ssh deploy@backend-1.backend.production 'cd /var/apps/service-manual-publisher ; govuk_setenv service-manual-publisher bundle exec rake db:schema:load db:seed'
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
