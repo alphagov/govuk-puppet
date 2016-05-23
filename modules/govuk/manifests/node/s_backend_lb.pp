@@ -46,7 +46,10 @@ class govuk::node::s_backend_lb (
       'specialist-publisher',
     ]:
       modified_paths => {
-        '/sp-rebuild/assets' => {
+        '/sp-rebuild/assets'   => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/rebuild-healthcheck' => {
           'app' => 'specialist-publisher-rebuild',
         },
       },
