@@ -33,7 +33,7 @@ process :'finder-frontend' => [:static, :rummager, :'content-store']
 process :frontend => [:static, :contentapi, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static]
 process :'info-frontend' => [:static, :'metadata-api']
-process :imminence
+process :imminence => [:mapit]
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
