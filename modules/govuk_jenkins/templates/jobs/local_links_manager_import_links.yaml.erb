@@ -10,9 +10,13 @@
     triggers:
         - timed: 'H 5 * * *'
     builders:
-        - shell: |
-            ssh deploy@backend-1.backend.production "cd /var/apps/local-links-manager && govuk_setenv local-links-manager bundle exec rake import:links:import_all"
-            echo "Local Links Manager links importer has run"
+        - trigger-builds:
+            - project: run-rake-task
+              block: true
+              predefined-parameters: |
+                  TARGET_APPLICATION=local-links-manager
+                  MACHINE_CLASS=backend
+                  RAKE_TASK=import:links:import_all
     publishers:
         - trigger-parameterized-builds:
             - project: Success_Passive_Check
