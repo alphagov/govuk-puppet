@@ -27,6 +27,12 @@ else
   $(dirname $0)/sync-postgresql.sh "$@" transition-postgresql-master-1.backend.integration
 fi
 
+if ignored "mapit"; then
+  status "Skipping mapit"
+else
+  $(dirname $0)/sync-mapit.sh
+fi
+
 $(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.integration
 $(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.integration
 
