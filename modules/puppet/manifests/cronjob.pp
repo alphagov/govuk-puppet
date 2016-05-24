@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: puppet::cronjob
+#
+# Sets up a cronjob that runs Puppet periodically.
+#
 class puppet::cronjob {
 
   $first = fqdn_rand(30)
