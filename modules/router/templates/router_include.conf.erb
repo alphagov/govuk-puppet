@@ -41,8 +41,8 @@ location ~ ^/apply-for-a-licence/assets/ {
   proxy_pass http://varnish;
 }
 
-location ~ ^/performance/.+\.(json|png)$ {
-  limit_req zone=rate burst=25 nodelay;
+location /performance/ {
+  limit_req zone=performance burst=10 nodelay;
   proxy_pass http://varnish;
 }
 
