@@ -5,7 +5,7 @@
     project-type: freestyle
     description: "Run a rake task on an application."
     builders:
-      - shell: ssh deploy@$MACHINE "cd /var/apps/$TARGET_APPLICATION && govuk_setenv $TARGET_APPLICATION bundle exec rake $RAKE_TASK"
+      - shell: ssh deploy@$(govuk_node_list -c $MACHINE_CLASS --single-node) "cd /var/apps/$TARGET_APPLICATION && govuk_setenv $TARGET_APPLICATION bundle exec rake $RAKE_TASK"
     wrappers:
       - ansicolor:
           colormap: xterm
@@ -15,26 +15,26 @@
           description: Choose the application to run the rake task in
           choices: <%= ['-- Choose an app'] + @applications %>
       - choice:
-          name: MACHINE
-          description: Choose the machine this app is running on
+          name: MACHINE_CLASS
+          description: Choose the machine class this app is running on
           choices:
-            - api-1.api
-            - backend-1.backend
-            - bouncer-1.redirector
-            - calculators-frontend-1.frontend
-            - content-store-1.api
-            - draft-cache-1.router
-            - draft-content-store-1.api
-            - draft-email-campaign-frontend-1.frontend
-            - draft-frontend-1.frontend
-            - email-campaign-api-1.api
-            - email-campaign-frontend-1.frontend
-            - exception-handler-1.backend
-            - frontend-1.frontend
-            - router-backend-1.router
-            - search-1.api
-            - whitehall-backend-1.backend
-            - whitehall-frontend-1.frontend
+            - api
+            - backend
+            - bouncer
+            - calculators_frontend
+            - content_store
+            - draft_cache
+            - draft_content_store
+            - draft_email_campaign_frontend
+            - draft_frontend
+            - email_campaign_api
+            - email_campaign_frontend
+            - exception_handler
+            - frontend
+            - router_backend
+            - search
+            - whitehall_backend
+            - whitehall_frontend
       - string:
           name: RAKE_TASK
           description: Name of rake task to run (try `-T` to print the tasks)
