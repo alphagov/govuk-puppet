@@ -6,6 +6,8 @@ govuk::node::s_asset_master::asset_slave_ip_ranges:
   asset_slave_2_nfs:
     from: "%{hiera('environment_ip_prefix')}.11.21"
 
+govuk::node::s_asset_base::s3_bucket: 's3://govuk-attachments-production'
+
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Mounted by backend machines, causes attachment delivery failures'
 

@@ -1,0 +1,1 @@
+govuk::node::s_asset_base::process_uploaded_attachments_to_s3: true

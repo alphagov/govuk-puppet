@@ -1,1 +1,3 @@
 icinga::client::check_cputype::cputype: 'amd'
+govuk::node::s_asset_base::push_attachments_to_s3: true
+govuk::node::s_asset_base::s3_bucket: 's3://govuk-attachments-production'
