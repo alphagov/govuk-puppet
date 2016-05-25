@@ -7,8 +7,37 @@
 # [*firewall_allow_ip_range*]
 #   The IP range that is allowed to access asset machines
 #
+# [*s3_bucket*]
+#   The URL of an S3 bucket. This can be used to either push backups or
+#   sync from an environment. Format should be the full URL:
+#   e.g s3://foo-bucket/
+#
+# [*aws_access_key_id*]
+#   The AWS key ID for the bucket you are accessing.
+#
+# [*aws_secret_access_key*]
+#   The secret part of the keypair.
+#
+# [*process_uploaded_attachments_to_s3*]
+#   A boolean that when true means that when files are initially processed after
+#   being uploaded they copied to an S3 bucket as well as the asset slaves.
+#
+# [*push_attachments_to_s3*]
+#   A boolean that when true schedules a full rsync-like push of all files to an
+#   S3 bucket.
+#
+# [*s3_env_sync_enabled*]
+#   When this is enabled, it will pull down and apply backups from the
+#   specified bucket, and will not push any of it's own backups.
+#
 class govuk::node::s_asset_base (
   $firewall_allow_ip_range,
+  $s3_bucket = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $process_uploaded_attachments_to_s3 = false,
+  $push_attachments_to_s3 = false,
+  $s3_env_sync_enabled = false,
 ) inherits govuk::node::s_base{
   validate_string($firewall_allow_ip_range)
 
@@ -98,5 +127,72 @@ class govuk::node::s_asset_base (
     user    => 'root',
     hour    => 5,
     minute  => 25,
+  }
+
+  file { '/usr/local/bin/process-uploaded-attachments.sh':
+    content => template('govuk/node/s_asset_base/process-uploaded-attachments.sh.erb'),
+    mode    => '0755',
+  }
+
+  file { '/usr/local/bin/copy-attachments.sh':
+    content => template('govuk/node/s_asset_base/copy-attachments.sh.erb'),
+    mode    => '0755',
+  }
+
+  if $s3_bucket {
+
+    package { 's3cmd':
+      ensure   => 'present',
+      provider => 'pip',
+    }
+
+    file { '/home/assets/.s3cfg':
+      ensure  => present,
+      content => template('govuk/node/s_asset_base/s3cfg.erb'),
+      owner   => 'assets',
+      group   => 'assets',
+    }
+
+    file {
+    [ '/etc/govuk/aws', '/etc/govuk/aws/env.d']:
+      ensure  => directory,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0750';
+    '/etc/govuk/aws/env.d/AWS_ACCESS_KEY_ID':
+      ensure  => present,
+      content => $aws_access_key_id,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0640';
+    '/etc/govuk/aws/env.d/AWS_SECRET_ACCESS_KEY':
+      ensure  => present,
+      content => $aws_secret_access_key,
+      owner   => 'assets',
+      group   => 'assets',
+      mode    => '0640';
+    }
+
+    if $s3_env_sync_enabled {
+      file { '/usr/local/bin/attachments-s3-env-sync.sh':
+        ensure  => present,
+        mode    => '0755',
+        content => template('govuk/node/s_asset_base/attachments-s3-env-sync.sh.erb'),
+      }
+    }
+
+    if $push_attachments_to_s3 {
+      file { '/etc/cron.daily/push_attachments_to_s3':
+      content => template('govuk/node/s_asset_base/push-attachments-to-s3.sh.erb'),
+      mode    => '0744',
+    }
+
+      @@icinga::passive_check { "push_attachments_to_s3_${::hostname}":
+        service_description => 'Push attachments to S3',
+        host_name           => $::fqdn,
+        freshness_threshold => 100800,
+        notes_url           => monitoring_docs_url(full-attachments-sync),
+      }
+    }
   }
 }
