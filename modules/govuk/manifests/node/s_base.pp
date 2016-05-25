@@ -23,7 +23,6 @@ class govuk::node::s_base (
   include ::limits
   include monitoring::client
   include postfix
-  include puppet::cronjob
   include rcs
   include rkhunter
 

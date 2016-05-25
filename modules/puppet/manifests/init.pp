@@ -6,6 +6,7 @@ class puppet (
   # Be absolutely certain we have a bool as strings are weird
   validate_bool($use_puppetmaster)
 
+  include puppet::cronjob
   include puppet::repository
   include puppet::package
   include puppet::monitoring

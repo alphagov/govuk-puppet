@@ -339,6 +339,7 @@ postgresql_slave_addresses_live: '127.0.0.1/32'
 postgresql_transition_slave_addresses_live: '127.0.0.1/32'
 
 puppet::use_puppetmaster: false
+puppet::cronjob::enabled: false
 
 shell::shell_prompt_string: 'dev'
 
