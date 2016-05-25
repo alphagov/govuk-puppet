@@ -78,6 +78,11 @@ class govuk::node::s_logging (
                 'MMM  d HH:mm:ss' ],
     order => '13',
   }
+  logstash::filter::mutate { 'logrus-msg-field':
+    rename => {
+      'msg' => '@message',
+    },
+  }
   logstash::filter::mutate {'syslog-1':
     type         => 'syslog',
     order        => '14',
