@@ -82,6 +82,10 @@ class govuk::node::s_apt (
       location => 'http://pkg.jenkins-ci.org/debian-stable',
       release  => 'binary/', # Trailing slash is significant.
       key      => 'D50582E6';
+    'percona':
+      location => 'http://repo.percona.com/apt',
+      release  => 'trusty',
+      key      => '1C4CBDCDCD2EFD2A';
   }
   aptly::repo { 'gof3r': }
   aptly::repo { 'govuk-jenkins': }
