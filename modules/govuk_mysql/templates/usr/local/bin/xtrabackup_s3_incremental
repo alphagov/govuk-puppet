@@ -18,7 +18,11 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
-innobackupex --incremental-basedir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress --incremental . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k $(cat /var/lib/mysql/xtrabackup_date)/incremental-$(date +%Y%m%d-%H%M%S).xbcrypt
+if [ -e /var/lib/mysql/xtrabackup_date ]; then
+  envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/incremental.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/incremental-$(date +%Y%m%d-%H%M).xbcrypt
+fi
+
+innobackupex --incremental-basedir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress --incremental . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt
 
 if [ $? == 0 ]
   then
