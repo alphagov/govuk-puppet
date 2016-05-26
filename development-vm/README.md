@@ -192,7 +192,7 @@ In order to check if the plugin started correctly, you can run:
     vagrant dns --start -o
 
 If you're still having issues you can try to update the vagrant-dns plugin:
-    
+
     vagrant plugin update vagrant-dns
 
 ### Errors fetching packages
@@ -222,3 +222,15 @@ sudo service mongodb start
 Seeing `chown` / `OperationNotPermitted` errors during the `librarian:install` rake task?
 
 Try `vagrant provision` on your host machine, as above.
+
+#### Hostname provisioning errors
+
+If you use Vagrant v1.8.x, you may encounter an error along these lines during provisioning:
+
+```
+Default: Setting hostname...
+/opt/vagrant/embedded/gems/gems/vagrant-1.8.1/plugins/guests/ubuntu/cap/change_host_name.rb:37:in `block in init_package': unexpected return (LocalJumpError)
+    from /opt/vagrant/embedded/gems/gems/vagrant-1.8.1/plugins/communicators/ssh/communicator.rb:222:in `call’
+```
+
+Try `sudo vim`ing (or `sudo nano`, whichever you prefer) into that file and removing the offending `return` line.
