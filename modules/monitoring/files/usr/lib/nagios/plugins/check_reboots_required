@@ -1,23 +1,44 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-exitcode=0
-declare -a needing_reboot
+all_machines = `/usr/local/bin/govuk_node_list`.split("\n")
 
-for host in $(/usr/local/bin/govuk_node_list); do
-  /usr/lib/nagios/plugins/check_nrpe -H ${host} -t 20 -c check_reboot_required -u > /dev/null 2>&1
-  result=$?
-  if [[ $result -eq 1 || $result -eq 2 ]]; then
-    exitcode=1
-    needing_reboot+=("${host}")
-  fi
-done
+unsafe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::careful,govuk_safe_to_reboot::no`.split("\n")
+safe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::yes,govuk_safe_to_reboot::overnight`.split("\n")
 
-if [[ $exitcode -eq 0 ]]; then
-  echo "OK: no hosts needing reboot"
+# Safety check that we haven't added other safe to reboot options
+# that we don't account for here.
+unchecked_machines = all_machines - (unsafe_machines + safe_machines)
+
+if unchecked_machines.length > 0
+  puts "Some machines have a 'safe to reboot' class which isn't in check_reboots_required"
+  exit 3
+end
+
+[unsafe_machines, safe_machines].each do |host_list|
+  host_list.delete_if do |host|
+    `/usr/lib/nagios/plugins/check_nrpe -H #{host} -t 20 -c check_reboot_required -u`
+    $?.to_i == 0
+  end
+end
+
+if safe_machines.length + unsafe_machines.length == 0
+  puts 'No hosts need to be rebooted'
   exit 0
 else
-  echo "WARNING: ${#needing_reboot[@]} hosts require a reboot."
-  echo "The following hosts are marked as requiring a reboot by apt:"
-  printf "%s\n" "${needing_reboot[@]}"
+  puts 'Some hosts need to be rebooted to apply updates'
+  if unsafe_machines.length > 0
+    puts "\n"
+    puts 'These hosts need to be rebooted manually:'
+    unsafe_machines.each do |hostname|
+      puts "- #{hostname}"
+    end
+  end
+  if safe_machines.length > 0
+    puts "\n"
+    puts 'These hosts should reboot overnight:'
+    safe_machines.each do |hostname|
+      puts "- #{hostname}"
+    end
+  end
   exit 1
-fi
+end
