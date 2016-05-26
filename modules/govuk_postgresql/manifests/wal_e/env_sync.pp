@@ -85,6 +85,13 @@ define govuk_postgresql::wal_e::env_sync (
       mode    => '0640',
     }
 
+    file { "${env_sync_envdir}/WALE_GPG_KEY_ID":
+      content => $wale_private_gpg_key_fingerprint,
+      owner   => 'postgres',
+      group   => 'postgres',
+      mode    => '0640',
+    }
+
     file { "/var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc":
       ensure  => present,
       mode    => '0600',
