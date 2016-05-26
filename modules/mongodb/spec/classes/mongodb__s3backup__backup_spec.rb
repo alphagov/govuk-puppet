@@ -14,6 +14,8 @@ describe 'mongodb::s3backup::backup', :type => :class do
     :user                        => 'foo-user'
   }}
 
+  let(:facts) {{ :hostname => 'mongo-server-1' }}
+
   context 'mongodb s3backups with AWS defined' do
 
     it { is_expected.to contain_file('/etc/foo/').with_ensure('directory') }
@@ -28,7 +30,7 @@ describe 'mongodb::s3backup::backup', :type => :class do
     it { is_expected.to contain_file('/home/foo-user/.gnupg').with_ensure('directory') }
     it { is_expected.to contain_file('/home/foo-user/.gnupg/gpg.conf').with_content(/trust-model\ always/) }
     it { is_expected.to contain_file('/home/foo-user/.gnupg/CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF_secret_key.asc').with_content('test-key-content') }
-    it { is_expected.to contain_exec('import_gpg_secret_key')
+    it { is_expected.to contain_exec("import_gpg_secret_key_mongo-server-1")
          .with_refreshonly(true)
     }
   end

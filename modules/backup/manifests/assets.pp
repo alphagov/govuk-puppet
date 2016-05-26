@@ -63,7 +63,7 @@ class backup::assets(
       content => $backup_private_gpg_key,
     }
 
-    exec { 'import_gpg_secret_key':
+    exec { "import_gpg_secret_key_${::hostname}":
       command     => "gpg --batch --delete-secret-and-public-key ${backup_private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc",
       user        => 'root',
       group       => 'root',

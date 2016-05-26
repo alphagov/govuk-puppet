@@ -60,7 +60,7 @@ define govuk_postgresql::wal_e::backup (
   $archive_timeout = '300',
   $hour = 6,
   $minute = 20,
-  $db_dir = '/var/lib/postgresql/9.3/main',
+  $db_dir = $postgresql::params::datadir,
 ) {
     include govuk_postgresql::wal_e::package
 
@@ -143,7 +143,7 @@ define govuk_postgresql::wal_e::backup (
         group   => 'postgres',
       }
 
-      exec { 'import_gpg_secret_key':
+      exec { "import_gpg_secret_key_${::hostname}":
         command     => "gpg --batch --delete-secret-and-public-key ${wale_private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc",
         user        => 'postgres',
         group       => 'postgres',

@@ -146,7 +146,7 @@ class mongodb::s3backup::backup(
   }
 
   # import key
-  exec { 'import_gpg_secret_key':
+  exec { "import_gpg_secret_key_${::hostname}":
     command     => "gpg --batch --delete-secret-and-public-key ${private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /home/${user}/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc",
     user        => $user,
     group       => $user,
