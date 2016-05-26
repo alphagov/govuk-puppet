@@ -16,8 +16,6 @@ class govuk_mysql::server (
   $innodb_buffer_pool_size_proportion='0.25',
   ){
 
-  include govuk_mysql::xtrabackup::backup
-
   $mysql_error_log = '/var/log/mysql/error.log'
 
   # The proportion of memory used by innodb_buffer_pool_size is configurable using hiera
