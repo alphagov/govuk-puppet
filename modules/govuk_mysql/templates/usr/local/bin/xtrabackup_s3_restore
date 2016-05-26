@@ -1,0 +1,73 @@
+#!/bin/bash
+# This script should be run with sudo
+#
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+set -e
+
+DATE=$(date +%s)
+BASE_DIR=/tmp/mysql/basedir/$DATE/
+INCR_DIR=/tmp/mysql/incremental/$DATE/
+
+echo "Starting MySQL environment sync"
+
+# Check to see if Puppet is disabled, and skip the environment sync if it is
+# as we dumbly assume the server is under maintenance
+if test -f /var/lib/puppet/state/agent_disabled.lock; then
+  echo "Puppet is already disabled! Skipping environment sync and quitting"
+  exit 1
+else
+  # Create directories to restore into
+  for dir in "$BASE_DIR" "$INCR_DIR"; do
+    mkdir -p $dir
+  done
+
+  # Pull the latest backups from S3
+  envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | xbstream -x -C $BASE_DIR
+
+  envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | xbstream -x -C $INCR_DIR
+
+  # Decompress the backups
+  for dir in "$BASE_DIR" "$INCR_DIR"; do
+    innobackupex --decompress $dir
+  done
+
+  # Prepare the data and apply the logs
+  innobackupex --apply-log --redo-only $BASE_DIR
+  innobackupex --apply-log $BASE_DIR --incremental-dir=$INCR_DIR
+
+  # Stop the service before we copy the data across
+  service mysql stop
+
+  # Ensure that it's definitely not running before we move data directories
+  if /bin/pidof mysql
+    echo "MySQL still running, exiting"
+    exit 1
+  fi
+
+  # Move the current directory to a backup location
+  echo "Backing up current dir"
+  mv /var/lib/mysql /var/lib/mysql-bak
+
+  # Recreate the datadir
+  mkdir /var/lib/mysql
+
+  # Copy the restored data
+  innobackupex --copy-back $BASE_DIR
+
+  # Update to correct permissions
+  echo "Correcting permissions"
+  chown -R mysql:mysql /var/lib/mysql
+
+  # Start the service
+  service mysql start
+
+  # Clean up
+  echo "Cleaning up"
+  rm -rf /var/lib/mysql-bak $BASE_DIR $INCR_DIR
+
+  # Re-enable Puppet and run it to ensure passwords are updated
+  govuk_puppet --enable && govuk_puppet
+
+  echo "MySQL environment sync completely successfully"
+fi
