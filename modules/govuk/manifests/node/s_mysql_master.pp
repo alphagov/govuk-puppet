@@ -1,5 +1,10 @@
 # Configure a MySQL Master server for GOV.UK
-class govuk::node::s_mysql_master () inherits govuk::node::s_base {
+class govuk::node::s_mysql_master (
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $s3_bucket_name = undef,
+  $encryption_key = undef,
+) inherits govuk::node::s_base {
   $replica_password = hiera('mysql_replica_password', '')
   $root_password = hiera('mysql_root', '')
 
@@ -27,4 +32,13 @@ class govuk::node::s_mysql_master () inherits govuk::node::s_base {
   }
 
   Govuk_mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
+
+  if $s3_bucket_name {
+    govuk_mysql::xtrabackup::restore { $::hostname:
+      aws_access_key_id     => $aws_access_key_id,
+      aws_secret_access_key => $aws_secret_access_key,
+      s3_bucket_name        => $s3_bucket_name,
+      encryption_key        => $encryption_key,
+    }
+  }
 }

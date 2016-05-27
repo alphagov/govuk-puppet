@@ -199,6 +199,7 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
   - 'licensify-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::enable_fastly_metrics: true
+govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
 
 govuk_crawler::seed_enable: true
