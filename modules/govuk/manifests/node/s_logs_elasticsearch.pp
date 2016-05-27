@@ -23,7 +23,6 @@ class govuk::node::s_logs_elasticsearch(
     cluster_name         => 'logging',
     heap_size            => "${es_heap_size}m",
     number_of_replicas   => '1',
-    minimum_master_nodes => '2',
     host                 => $::fqdn,
     log_index_type_count => {
       'logs-current' => ['syslog'],
