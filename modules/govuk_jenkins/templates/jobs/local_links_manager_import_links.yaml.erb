@@ -1,14 +1,14 @@
 ---
 - job:
-    name: Local_Links_Manager_Import_Service_Interactions
-    display-name: Local_Links_Manager_Import_Service_Interactions
+    name: Local_Links_Manager_Import_Links
+    display-name: Local_Links_Manager_Import_Links
     project-type: freestyle
     description: |
-      Runs the rake task to import all services and interactions into Local Links Manager on the 1st of each month
+      Runs the rake task to import all links to service interactions for local authorities into Local Links Manager every day
     logrotate:
       artifactNumToKeep: 10
     triggers:
-        - timed: '0 0 1 * *'
+        - timed: 'H 5 * * *'
     builders:
         - trigger-builds:
             - project: run-rake-task
@@ -16,7 +16,7 @@
               predefined-parameters: |
                   TARGET_APPLICATION=local-links-manager
                   MACHINE_CLASS=backend
-                  RAKE_TASK=import:service_interactions:import_all
+                  RAKE_TASK=import:links:import_all
     publishers:
         - trigger-parameterized-builds:
             - project: Success_Passive_Check
