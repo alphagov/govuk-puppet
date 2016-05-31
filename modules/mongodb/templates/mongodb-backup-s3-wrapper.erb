@@ -17,7 +17,7 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
-envdir <%= @env_dir %>/env.d /usr/local/bin/mongodb-backup-s3
+/usr/local/bin/mongodb-backup-s3
 
 if [ $? == 0 ]
   then

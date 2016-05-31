@@ -1,9 +1,9 @@
 #
 class mongodb::s3backup::package {
 
-  $packages = ['boto3', 'python-dateutil', 'simplejson']
+  
 
-  package { $packages:
+  package { 's3cmd' :
     ensure   => present,
     provider => pip,
   }

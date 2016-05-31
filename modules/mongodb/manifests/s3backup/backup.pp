@@ -18,9 +18,9 @@
 #   Defines whether to enable the cron job. Value
 #   should be true or false
 #
-# [*env_dir*]
-#   Defines directory for the environment
-#   variables
+# [*backup_node*]
+#   Defines the host where the backup will 
+#   take place
 #
 # [*private_gpg_key*]
 #   Defines the ascii exported private gpg to
@@ -46,8 +46,8 @@ class mongodb::s3backup::backup(
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $backup_dir = '/var/lib/s3backup',
+  $backup_node = undef,
   $cron = true,
-  $env_dir = '/etc/mongo_s3backup',
   $private_gpg_key = undef,
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
@@ -65,28 +65,11 @@ class mongodb::s3backup::backup(
     mode  => '0660',
   }
 
-  file { [$env_dir,"${env_dir}/env.d"]:
-    ensure => directory,
-    mode   => '0770',
-  }
-
-  file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
-    content => $aws_secret_access_key,
-  }
-
-  file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
-    content => $aws_access_key_id,
-  }
-
-  file { "${env_dir}/env.d/AWS_REGION":
-    content => $aws_region,
-  }
-
   # push scripts
   file { '/usr/local/bin/mongodb-backup-s3':
     ensure  => present,
     content => template('mongodb/mongodb-backup-s3.erb'),
-    mode    => '0755',
+    mode    => '0750',
     require => User[$backup_user],
   }
 

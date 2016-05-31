@@ -1,0 +1,45 @@
+#!/bin/bash
+
+
+BACKUP_NODE=<%= @backup_node %>
+BACKUP_DIR=<%= @backup_dir %>
+BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
+KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
+S3_BUCKET=<%= @s3_bucket %>
+
+
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+function time_taken {
+  TIME="$(date +%s%N)"
+  $@
+  TIME="$(($(date +%s%N)-TIME))"
+  SECS="$((TIME/1000000000))"
+  MILLISECS="$((TIME/100000000))"
+  printf " FINISHED IN: %02d:%02d:%02d.%02d\n" "$((SECS/3600%24))" "$((SECS/60%60))" "$((SECS%60))" "${MILLISECS}"
+
+}
+
+echo "................STARTING BACKUP..................."
+
+
+time_taken mongodump -h $BACKUP_NODE -o $BACKUP_DIR
+
+
+
+echo "................COMPRESSING AND ENCRYPTING................."
+
+
+time_taken `tar cvz $BACKUP_DIR | gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT`
+
+
+export AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
+export AWS_SECRET_ACCESS_KEY=<%= @ws_secret_access_key %>
+
+echo "................UPLOADING TO S3.................."
+
+time_taken s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET
+
+rm -f $BACKUP_DIR/mongodump-*
+
+
