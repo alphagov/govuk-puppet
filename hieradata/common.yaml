@@ -308,6 +308,7 @@ govuk::apps::govuk_crawler_worker::blacklist_paths:
 govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::govuk_crawler_worker::root_urls:
   - 'https://assets.digital.cabinet-office.gov.uk/'
+  - 'https://assets.publishing.service.gov.uk/'
   - 'https://www.gov.uk/'
 
 govuk::apps::imminence::mongodb_nodes:
