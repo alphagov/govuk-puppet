@@ -116,6 +116,7 @@ govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_campaign_api::mongodb_name: 'email_campaign_api_development'
 govuk::apps::email_campaign_api::mongodb_nodes: ['localhost']
+govuk::apps::email_campaign_api::enable_procfile_worker: false
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
@@ -172,6 +173,7 @@ govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::redis_host: 'localhost'
+govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 govuk::apps::whitehall::configure_admin: true
 govuk::apps::whitehall::configure_frontend: true
 govuk::apps::whitehall::enable_procfile_worker: false
