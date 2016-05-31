@@ -42,7 +42,7 @@ mod 'alphagov/curl',
   :ref => '4f657d5cbbb617dd6b1c6a9a371b1f3d667b3922'
 mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
-  :ref => 'e238b6708c6d0a379d06599b25e6d2b68c3b8852'
+  :ref => '99d165aa2a7949e7dee15184cfd4570fe72e965c'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gdsoperations/gor',
