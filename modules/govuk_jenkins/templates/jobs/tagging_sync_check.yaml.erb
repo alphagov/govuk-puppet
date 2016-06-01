@@ -18,6 +18,7 @@
         artifactNumToKeep: 100
     builders:
         - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bin/run_automated_checks
     wrappers:
         - ansicolor:
