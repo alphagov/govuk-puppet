@@ -17,65 +17,105 @@ date_format = '%Y-%m-%d:%H:%M:%S'
 mongo_server = '<%= @server %>'
 key_fingerprint = '<%= @private_gpg_key_fingerprint %>'
 s3_bucket = '<%= @s3_bucket %>'
-standalone = '<%= @standalone %>'
-start = datetime.now().strftime(date_format)
 start_time = time.time()
-file = 'mongodump-<%= @fqdn %>-' + start + '.tar.gz.gpg'
+today = datetime.today().strftime('%Y-%m-%d')
 ############################################
 
 def logger(str):
     print datetime.now().strftime(date_format) + ': ' + str
 
-if not standalone:
-  logger('Find Secondary Mongo members')
-  try:
-      mongo_nodes = subprocess.check_output(["mongo",  mongo_server, "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
-  except OSError:
-      print 'Trouble querying mongo server'
+def get_mongo_nodes():
+    logger('Find Secondary Mongo members')
+    try:
+        mongo_nodes = subprocess.check_output(["mongo",  mongo_server, "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
+    except OSError:
+        sys.exit('Trouble querying mongo server: %s' % mongo_server)
 
-  nodes = json.loads(mongo_nodes)
-  secondary_nodes = { x["name"] for x in nodes if x["stateStr"] == "SECONDARY" }
+    nodes = json.loads(mongo_nodes)
+    secondary_nodes = { x["name"] for x in nodes if x["stateStr"] == "SECONDARY" }
 
-  backup_node = random.sample(secondary_nodes,1)
-else:
-  backup_node = ['localhost']
-print "Backing up", backup_node[0]
+    if secondary_nodes:
+      backup_nodes = random.sample(secondary_nodes,1)
+    else:
+      backup_nodes = ['localhost']
 
-logger('Start mongo backup')
-try:
-    subprocess.call(['mongodump', '-h', backup_node[0], '-o', backup_dir])
-except OSError:
-    print 'There was a problem backing up the mongo database'
+    backup_node = backup_nodes[0]
+    return backup_node
 
-logger('End mongo backup')
+def backup_mongo(node):
+    logger('Start mongo backup')
+    try:
+        subprocess.call(['mongodump', '-h', node, '-o', backup_dir])
+    except OSError:
+        sys.exit('There was a problem backing up the mongo database')
+    logger('End mongo backup')
 
-logger('Start compress and encrypt backups')
+def get_subdirs(parent):
+    subdirs = os.listdir(parent)
+    return subdirs
 
-tar = subprocess.Popen(['tar', '-cvz', backup_dir], stdout=subprocess.PIPE)
-gpg = subprocess.Popen(['gpg', '-e', '-o', backup_dir + '/' + file, '-r', key_fingerprint, '--cipher-algo', 'AES256', '--force-mdc'], stdin=tar.stdout, stdout=subprocess.PIPE)
-tar.stdout.close()
-gpg.communicate()
+def compress_and_encrypt(backup_dir, dir):
+    logger('Start compress and encrypt backups for %s' % dir)
+    subdir = backup_dir + '/' + str(dir)
+    enc_file = backup_dir + '/' + str(dir) + '.tar.gz.gpg'
+    try:
+        tar = subprocess.Popen(['tar', '-cvz', subdir], stdout=subprocess.PIPE)
+        gpg = subprocess.Popen(['gpg', '-e', '-o', str(enc_file) , '-r', key_fingerprint, '--cipher-algo', 'AES256', '--force-mdc'], stdin=tar.stdout, stdout=subprocess.PIPE)
+        tar.stdout.close()
+        gpg.communicate()
+    except OSError as e:
+        sys.exit('There was a problem compressing and encrypting the database')
+    logger('End compress and encrypt backups for %s' % dir)
 
-logger('End compress and encrypt backups')
+def push_to_s3(backup_dir, dir):
+    try:
+        enc_file = str(dir) + '.tar.gz.gpg'
+        logger('Start upload file %s to S3' % enc_file)
+        s3 = boto3.resource('s3')
+        s3_key = str(today) + '/' + str(enc_file)
+        source = backup_dir + '/' + str(enc_file)
+        s3.Object(s3_bucket, s3_key).put(Body=open(source, 'rb'))
+        logger('End upload file %s to S3' % enc_file)
+    except Exception as e:
+        sys.exit(e)
 
-s3 = boto3.resource('s3')
+def cleanup_local():
+    try:
+        backup_dir
+    except NameError:
+        print "%s not defined" % backup_dir
+    else:
+        logger('Start cleanup of %s' % backup_dir)
 
-logger('Start upload file to S3')
+    if backup_dir not in ['','/']:
+        rm_tree = backup_dir + '/'
+        try:
+            shutil.rmtree(rm_tree, ignore_errors=True)
+            print 'Cleaned up %s' % rm_tree
+        except Exception as e:
+            sys.exit(e)
+    logger('End cleanup filesystem')
 
-s3_file = backup_dir + '/' + file
-s3.Object(s3_bucket, s3_file).put(Body=open(s3_file, 'rb'))
+def get_run_time():
+    end_time = time.time()
+    delta = round((end_time - start_time), 2)
+    run_time = "Script completed in " + str(delta) + " seconds."
+    return run_time
 
-logger('End upload file to S3')
+cleanup_local()
 
-logger('Start cleanup filesystem')
+backup_node = get_mongo_nodes()
+backup_mongo(backup_node)
 
-delete_tree = backup_dir + '/*'
-[os.remove(os.path.join(backup_dir,f)) for f in os.listdir(backup_dir) if f.endswith(".gpg")]
-shutil.rmtree(delete_tree)
+subdirs = get_subdirs(backup_dir)
+logger('*** Start Compress and Encrypt ***')
+for dir in subdirs:
+    compress_and_encrypt(backup_dir, dir)
+logger('*** End Compress and Encrypt ***')
 
-logger('End cleanup filesystem')
+logger('*** Start upload to S3 ***')
+for file in subdirs:
+    push_to_s3(backup_dir, file)
+logger('*** End upload to S3 ***')
 
-end_time = time.time()
-delta = end_time - start_time
-
-print 'Script completed in     : %.1f seconds' % delta
+get_run_time()

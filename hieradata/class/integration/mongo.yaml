@@ -1,0 +1,4 @@
+---
+
+mongodb::backup::s3_backups: true
+mongodb::s3backup::backup::s3_bucket: govuk-mongodb-backup-s3-integration

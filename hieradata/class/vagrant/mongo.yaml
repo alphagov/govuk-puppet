@@ -1,0 +1,56 @@
+---
+mongodb::server::replicaset_members:
+  'mongo-1':
+  'mongo-2':
+  'mongo-3':
+    hidden: true
+    priority: 0
+
+mongodb::backup::s3_backups: true
+
+# replace with real values
+mongodb::s3backup::backup::aws_access_key_id: '1234567890abcd' 
+mongodb::s3backup::backup::aws_secret_access_key: 'ABCDEFGHIJKLMNOP1234567890'
+
+mongodb::s3backup::backup::s3_bucket: govuk-mongodb-backup-s3-vagrant
+mongodb::s3backup::backup::standalone: true
+mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
+
+# Randomly generated GPG key. Generate your own and encrypt
+# this key when using against real data
+mongodb::s3backup::backup::private_gpg_key: |
+  -----BEGIN PGP PRIVATE KEY BLOCK-----
+  Version: GnuPG v1
+
+  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
+  =iGOp
+  -----END PGP PRIVATE KEY BLOCK-----

@@ -38,17 +38,10 @@
 #   user
 #
 # [*server*]
-#   Defines the server to connect to. The backup
-#   script will pick a secondary to backup, unless
-#   'standalone' is 'True'
+#   Defines the server on which to run the backup
+#   script. The script chooses a server to backup,
+#   which could be diferent from this server. 
 #
-# [*standalone*]
-#   If true, will backup localhost instead of a
-#   Secondary
-#
-# [*user*]
-#   Defines the system user that will be created
-#   to run the backups
 
 class mongodb::s3backup::backup(
   $aws_access_key_id = undef,
@@ -61,17 +54,12 @@ class mongodb::s3backup::backup(
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
   $server = 'localhost',
-  $standalone  = False,
-  $user = 'govuk-backups'
   ){
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
-# create user
-  user { $user:
-    ensure     => 'present',
-    managehome => true,
-  }
+  require backup::client
+  $user = 'govuk-backup'
 
 # push env files
   file { [$env_dir,"${env_dir}/env.d"]:
@@ -81,26 +69,26 @@ class mongodb::s3backup::backup(
     mode   => '0770',
   }
 
-    file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
-      content => $aws_secret_access_key,
-      owner   => $user,
-      group   => $user,
-      mode    => '0660',
-    }
+  file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
+    content => $aws_secret_access_key,
+    owner   => $user,
+    group   => $user,
+    mode    => '0640',
+  }
 
-    file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
-      content => $aws_access_key_id,
-      owner   => $user,
-      group   => $user,
-      mode    => '0640',
-    }
+  file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
+    content => $aws_access_key_id,
+    owner   => $user,
+    group   => $user,
+    mode    => '0640',
+  }
 
-    file { "${env_dir}/env.d/AWS_REGION":
-      content => $aws_region,
-      owner   => $user,
-      group   => $user,
-      mode    => '0640',
-    }
+  file { "${env_dir}/env.d/AWS_REGION":
+    content => $aws_region,
+    owner   => $user,
+    group   => $user,
+    mode    => '0640',
+  }
 
   # push scripts
   file { '/usr/local/bin/mongodb-backup-s3':
@@ -119,6 +107,13 @@ class mongodb::s3backup::backup(
     group   => $user,
     mode    => '0755',
     require => User[$user],
+  }
+
+  file { $backup_dir:
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0750',
   }
 
   # push gpg key
