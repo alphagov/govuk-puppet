@@ -140,6 +140,7 @@ class govuk_elasticsearch (
   govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
 
   include govuk_elasticsearch::estools
+  include govuk_elasticsearch::plugins
 
   anchor { 'govuk_elasticsearch::end': }
 }

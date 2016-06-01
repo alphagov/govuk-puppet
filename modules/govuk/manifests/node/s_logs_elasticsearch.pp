@@ -34,11 +34,6 @@ class govuk::node::s_logs_elasticsearch(
     ],
   }
 
-  elasticsearch::plugin { 'mobz/elasticsearch-head':
-    module_dir => 'head',
-    instances  => $::fqdn,
-  }
-
   elasticsearch::plugin { 'redis-river':
     module_dir => 'redis-river',
     url        => 'https://github.com/downloads/leeadkins/elasticsearch-redis-river/elasticsearch-redis-river-0.0.4.zip',

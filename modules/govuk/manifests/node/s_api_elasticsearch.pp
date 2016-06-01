@@ -42,11 +42,6 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     require => Govuk_host['search-3'],
   }
 
-  elasticsearch::plugin { 'mobz/elasticsearch-head':
-    module_dir => 'head',
-    instances  => $::fqdn,
-  }
-
   elasticsearch::plugin { "elasticsearch/elasticsearch-cloud-aws/${cloud_aws_version}":
     module_dir => 'cloud-aws',
     instances  => $::fqdn,
