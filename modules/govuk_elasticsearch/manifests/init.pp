@@ -6,10 +6,13 @@
 # === Parameters
 #
 # Lots missing!
+# [*aws_access_key*]
+#   The AWS access key IDfor the IAM user with access to the S3 bucket where
+#   index snapshots will go
 #
-# [*version*]
-#   The version of elasticsearch to install.  This must specify an exact
-#   version (eg 1.4.2)
+# [*aws_secret_key*]
+#   The AWS secret access key for the IAM user with access to the S3 bucket where
+#   index snapshots will go
 #
 # [*manage_repo*]
 #   Whether to configure an apt source for our mirror of the elasticsearch
@@ -22,6 +25,10 @@
 #   specific machines.
 #   Default: true
 #
+# [*version*]
+#   The version of elasticsearch to install.  This must specify an exact
+#   version (eg 1.4.2)
+#
 class govuk_elasticsearch (
   $version,
   $cluster_hosts = ['localhost'],
@@ -29,13 +36,16 @@ class govuk_elasticsearch (
   $heap_size = '512m',
   $number_of_shards = '3',
   $number_of_replicas = '1',
-  $minimum_master_nodes = '1',
+  $minimum_master_nodes = '2',
   $refresh_interval = '1s',
   $host = 'localhost',
   $log_index_type_count = {},
   $disable_gc_alerts = false,
   $manage_repo = true,
   $open_firewall_from_all = true,
+  $snapshot_backups = {},
+  $aws_access_key = '',
+  $aws_secret_key = '',
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -82,11 +92,17 @@ class govuk_elasticsearch (
     'http.port'                => $http_port,
     'discovery'                => {
       'zen' => {
-        'minimum_master_nodes' => $minimum_master_nodes,
+        'minimum_master_nodes' => 2,
         'ping'                 => {
           'multicast.enabled' => false,
           'unicast.hosts'     => $cluster_hosts,
         },
+      },
+    },
+    'cloud'                    => {
+      'aws' => {
+        'access_key' => $aws_access_key,
+        'secret_key' => $aws_secret_key,
       },
     },
   }
@@ -111,6 +127,12 @@ class govuk_elasticsearch (
     init_defaults => {
       'ES_HEAP_SIZE' => $heap_size,
     },
+  }
+
+  exec { 'secure_es_yaml':
+    command     => "chmod 0640 /etc/elasticsearch/${::fqdn}/elasticsearch.yml",
+    subscribe   => Elasticsearch::Instance[$::fqdn],
+    refreshonly => true,
   }
 
   Class['elasticsearch'] -> Elasticsearch::Instance[$::fqdn] -> Anchor['govuk_elasticsearch::end']
@@ -142,4 +164,7 @@ class govuk_elasticsearch (
   include govuk_elasticsearch::estools
 
   anchor { 'govuk_elasticsearch::end': }
+
+  create_resources(govuk_elasticsearch::snapshot, $govuk_elasticsearch::snapshot_backups)
+
 }
