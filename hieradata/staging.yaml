@@ -96,7 +96,6 @@ govuk::node::s_api_lb::search_servers:
   - "search-3.api"
 
 govuk::node::s_asset_master::copy_attachments_hour: 7
-govuk::node::s_asset_master::s3_env_sync_enabled: true
 
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
