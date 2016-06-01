@@ -214,7 +214,8 @@ govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
 govuk::node::s_logging::compress_srv_logs_hour: '9'
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_whitehall_backend::sync_mirror: true
-govuk::node::s_transition_postgresql_master::env_sync_enabled: true
+
+govuk::node::s_transition_postgresql_base::env_sync_enabled: true
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
 
 govuk_sudo::sudo_conf:
