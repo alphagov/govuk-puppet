@@ -108,36 +108,9 @@ This way, commits you make on the VM get your name and email set on them:
 
 ## 7. Create a user account on our remote servers
 
-To get access to connect to machines in our environments you'll need to make
-a pull request against the Puppet repository to create a user account and add
-your public key.
+Follow [the docs in the Puppet repository to create an account][account-docs].
 
-Create yourself a manifest in `govuk-puppet/modules/users/manifests/`. If your LDAP username
-is `friendlygiraffe` the manifest will be called `friendlygiraffe.pp` and will look
-like this:
-
-```
-# Creates the friendlygiraffe user
-class users::friendlygiraffe {
-  govuk::user { 'friendlygiraffe':
-    fullname => 'Friendly Giraffe',
-    email    => 'friendly.giraffe@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAA... friendlygiraffe-laptop-20130101',
-  }
-}
-```
-
-To get access to integration, add your username to `hieradata/integration.yaml` under
-the section `users::usernames`.
-
-Once you've made a pull request and somebody has merged it to master, it will
-automatically deploy to integration within a few minutes.
-
-Production access isn't automatically granted to new starters - it requires
-being on the 2nd line support rotation and some knowledge of the GOV.UK stack.
-To get access to staging and production, make a pull request to add your
-username to `hieradata/staging.yaml` and `hieradata/production.yaml` under
-`ssh::config::allow_users` and `users::usernames`.
+[account-docs]: https://github.com/alphagov/govuk-puppet/blob/master/docs/creating-a-user-account.md
 
 ## 8. Import production data
 
