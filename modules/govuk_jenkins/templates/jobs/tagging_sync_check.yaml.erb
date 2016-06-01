@@ -1,0 +1,27 @@
+---
+- scm:
+    name: tagging-sync-check
+    scm:
+        - git:
+            url: git@github.com:alphagov/finding-things-migration-checker.git
+            branches:
+              - master
+
+- job:
+    name: tagging-sync-check
+    display-name: Tagging sync check
+    project-type: freestyle
+    description: "This job checks if taggings are in sync between Rummager and Publishing API. See https://github.com/alphagov/finding-things-migration-checker"
+    scm:
+      - tagging-sync-check
+    logrotate:
+        artifactNumToKeep: 100
+    builders:
+        - shell: |
+            bin/run_automated_checks
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    publishers:
+        - archive:
+            artifacts: '*.csv'
