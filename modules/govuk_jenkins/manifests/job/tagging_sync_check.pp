@@ -2,8 +2,17 @@
 #
 # Create a file on disk that can be parsed by jenkins-job-builder.
 #
+# === Parameters
+#
+# [*app_domain*]
+#   The app_domain.
+#
+# [*publishing_api_bearer_token*]
+#   A valid Publishing API bearer token belonging to a API user
+#
 class govuk_jenkins::job::tagging_sync_check (
   $app_domain = hiera('app_domain'),
+  $publishing_api_bearer_token = undef,
 ) {
 
   $check_name = 'tagging_sync_check'

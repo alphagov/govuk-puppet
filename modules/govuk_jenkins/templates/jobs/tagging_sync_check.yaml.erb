@@ -19,7 +19,7 @@
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            bin/run_automated_checks
+            PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %> bin/run_automated_checks
     wrappers:
         - ansicolor:
             colormap: xterm
