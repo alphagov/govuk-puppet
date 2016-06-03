@@ -44,11 +44,20 @@ class rkhunter::monitoring {
   }
 
   # Script to run rkhunter as a passive check
-  file { '/etc/cron.daily/rkhunter-passive-check':
+  file { '/usr/local/bin/rkhunter-passive-check':
     ensure  => present,
     mode    => '0755',
     content => template('rkhunter/rkhunter-passive-check.erb'),
   }
+
+  # Run it twice a day to stop superfluous alerting
+  cron::crondotdee { 'rkhunter-passive-check':
+    command => '/usr/local/bin/rkhunter-passive-check',
+    hour    => '6,14',
+    minute  => '0',
+    mailto  => '',
+  }
+
   @@icinga::passive_check { "check_rkhunter_${::hostname}":
     service_description => 'rkhunter warnings',
     host_name           => $::fqdn,

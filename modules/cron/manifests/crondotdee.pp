@@ -4,7 +4,7 @@
 # Default behaviour is to set a command, minute and hour and to run as root.
 #
 # Note: set hour/minute/day/month/weekday as a string rather than an integer as
-# they could potentially contain non-integer values, so keep it consisent.
+# they could potentially contain non-integer values, so keep it consistent.
 #
 # === Parameters:
 #
@@ -12,10 +12,10 @@
 #   The command to schedule. Required.
 #
 # [*hour*]
-#   The hour(s) to run. Default is 09:00.
+#   The hour(s) to run.
 #
 # [*minute*]
-#   The minute(s) to run. Default is on the hour.
+#   The minute(s) to run.
 #
 # [*day*]
 #   The day to run. Default is everyday.
@@ -36,8 +36,8 @@
 #   suppress mailing any output.
 define cron::crondotdee (
   $command,
-  $hour = '9',
-  $minute = '0',
+  $hour,
+  $minute,
   $day = '*',
   $month = '*',
   $weekday = '*',
@@ -48,6 +48,9 @@ define cron::crondotdee (
     ensure  => present,
     content => template('cron/etc/cron.d/crondotdee.erb'),
     require => File['/etc/cron.d'],
+    mode    => '0644',
+    owner   => 'root',
+    group   => 'root',
   }
 }
 
