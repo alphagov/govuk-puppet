@@ -8,10 +8,6 @@ class govuk::node::s_logs_elasticsearch(
 
   include govuk_java::openjdk7::jre
 
-  class { 'govuk_java::oracle7::jdk':
-    ensure => absent,
-  }
-
   $cluster_hostnames = [
     'logs-elasticsearch-1',
     'logs-elasticsearch-2',
