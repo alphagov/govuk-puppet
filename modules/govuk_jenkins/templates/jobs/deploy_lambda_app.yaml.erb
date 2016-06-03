@@ -23,6 +23,7 @@
       - govuk-lambda-app-deployment_Deploy_Lambda_App
     builders:
       - shell: |
+          #!/usr/bin/env bash
           cd $TARGET_APPLICATION
           source ./jenkins.sh # this job should create the source ready for uploading to an S3 bucket
           s3cmd sync $FILE_TO_UPLOAD s3://govuk-lambda-applications-$ENVIRONMENT/${TARGET_APPLICATION}/
