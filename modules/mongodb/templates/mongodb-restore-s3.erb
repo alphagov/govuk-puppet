@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
+AWS_SECRET_ACCESS_KEY=<%= @aws_secret_access_key %>
+S3_BUCKET=<%= @s3_bucket %>
+BACKUP_DIR=<%= @backup_dir %>
+
+cd $BACKUP_DIR
+
+
+TIME="$(date +%s)"
+
+s3cmd get --force `s3cmd ls s3://${S3_BUCKET}/mongodump* | tail -1 | awk '{print $4}'`| \
+awk '{print $4}' | tr -d "'" | \
+xargs gpg --yes --quiet --output mongodump.tar.gz --decrypt && tar xzf mongodump.tar.gz
+
+TIME="$(($(date +%s)-TIME))"
+printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
+
+TIME="$(date +%s)"
+
+mongorestore --quiet var/
+
+TIME="$(($(date +%s)-TIME))"
+printf "RESTORE COMPLETED IN: ${TIME}s\n"
+
+
+rm -rf var/ mongodump*

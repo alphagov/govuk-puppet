@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+# The default Icinga passive alert assumes that the script failed
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Mongodb backup push to S3 failed"
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
+
+trap nagios_passive EXIT
+
+envdir <%= @env_dir %>/env.d /usr/local/bin/mongodb-restore-s3-wrapper
+
+if [ $? == 0 ]
+then
+STATUS=0
+else
+STATUS=1
+fi
+
+if [ $STATUS -eq 0 ]; then
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: Mongodb restore from S3 succeeded"
+fi
+
+exit $STATUS
