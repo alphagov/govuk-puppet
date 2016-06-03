@@ -23,18 +23,12 @@
       - govuk-lambda-app-deployment_Deploy_Lambda_App
     builders:
       - shell: |
+          #!/usr/bin/env bash
           cd $TARGET_APPLICATION
           source ./jenkins.sh # this job should create the source ready for uploading to an S3 bucket
           s3cmd sync $FILE_TO_UPLOAD s3://govuk-lambda-applications-$ENVIRONMENT/${TARGET_APPLICATION}/
-    publishers:
-        - trigger-parameterized-builds:
-            - project: Deploy_Terraform_Project
-              predefined-parameters: |
-                AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                ACTION=apply
-                PROJECT_NAME=${TARGET_APPLICATION}
-              condition: 'UNSTABLE_OR_BETTER'
+          echo "${FILE_TO_UPLOAD} was uploaded to S3"
+          echo "Now deploy the Terraform project ${TARGET_APPLICATION} with params TF_VAR_LAMBDA_FILENAME=${FILE_TO_UPLOAD}"
     wrappers:
         - ansicolor:
             colormap: xterm
@@ -43,7 +37,6 @@
             name: TARGET_APPLICATION
             description: Lambda application to deploy.
             choices: <%= ['-- Choose an app'] + @lambda_apps %>
-    parameters:
         - string:
             name: AWS_ACCESS_KEY_ID
             description: Your AWS access key ID

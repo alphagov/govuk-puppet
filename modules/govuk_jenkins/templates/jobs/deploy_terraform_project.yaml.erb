@@ -24,6 +24,9 @@
         - govuk-terraform-provisioning_Deploy_Terraform_Project
     builders:
         - shell: |
+            if [ -n "$ADDITIONAL_ENVIRONMENT_VARIABLES" ]; then
+                export $ADDITIONAL_ENVIRONMENT_VARIABLES
+            fi
             export TF_VAR_account_id=<%= @aws_account_id %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec rake ${ACTION}
@@ -46,4 +49,8 @@
         - string:
             name: PROJECT_NAME
             description: Name of the project you wish to deploy
+            default: false
+        - string:
+            name: ADDITIONAL_ENVIRONMENT_VARIABLES
+            description: A space-separated list of KEY=value environment variables (optional)
             default: false
