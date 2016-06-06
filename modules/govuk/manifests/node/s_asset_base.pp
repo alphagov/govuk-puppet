@@ -182,10 +182,18 @@ class govuk::node::s_asset_base (
     }
 
     if $push_attachments_to_s3 {
-      file { '/etc/cron.daily/push_attachments_to_s3':
+      file { '/usr/local/bin/push_attachments_to_s3.sh':
+      ensure  => present,
       content => template('govuk/node/s_asset_base/push-attachments-to-s3.sh.erb'),
-      mode    => '0744',
+      mode    => '0755',
     }
+
+      cron { 'push_attachments_to_s3':
+        command => '/usr/bin/setlock -n /var/run/virus_scan/push-attachments.lock /usr/local/bin/push_attachments_to_s3.sh /mnt/uploads',
+        user    => 'assets',
+        hour    => 6,
+        minute  => 0,
+      }
 
       @@icinga::passive_check { "push_attachments_to_s3_${::hostname}":
         service_description => 'Push attachments to S3',
