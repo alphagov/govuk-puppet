@@ -1,0 +1,32 @@
+#!/bin/bash
+
+S3_BUCKET=<%= @s3_bucket %>
+BACKUP_DIR=<%= @backup_dir %>
+
+function time_taken {
+  TIME="$(date +%s%N)"
+  $@
+  TIME="$(($(date +%s%N)-TIME))"
+  SECS="$((TIME/1000000000))"
+  MILLISECS="$((TIME/100000000))"
+  printf " FINISHED IN: %02d:%02d:%02d.%02d\n" "$((SECS/3600%24))" "$((SECS/60%60))" "$((SECS%60))" "${MILLISECS}"
+
+}
+
+cd $BACKUP_DIR
+
+export AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
+export AWS_SECRET_ACCESS_KEY=<%= @ws_secret_access_key %>
+
+echo "................FETCHING LATEST BACKUP...................."
+
+time_taken $(s3cmd get --force `s3cmd ls s3://${s3_bucket}/mongodump* | tail -1 | awk '{print $4}'`| \
+awk '{print $4}' | tr -d "'" | \
+xargs gpg --yes --output mongodump.tar.gz --decrypt && tar xzf mongodump.tar.gz)
+
+echo "................RESTORING BACKUP..........................."
+
+time_taken mongorestore var/
+
+
+rm -rf var/ mongo*
