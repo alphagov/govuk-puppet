@@ -390,7 +390,7 @@ govuk::apps::spotlight::nagios_memory_warning: 2000
 govuk::apps::spotlight::nagios_memory_critical: 2200
 
 govuk::apps::smartanswers::nagios_memory_warning: 4000
-govuk::apps::smartanswers::nagios_memory_critical: 45000
+govuk::apps::smartanswers::nagios_memory_critical: 4500
 
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
