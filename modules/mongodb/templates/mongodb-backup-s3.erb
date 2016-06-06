@@ -23,9 +23,11 @@ function time_taken {
 time_taken mongodump -h $BACKUP_NODE -o $BACKUP_DIR
 
 
-
-time_taken tar cvz $BACKUP_DIR | gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT
-
+TIME="$(date +%s)"
+tar cvz $BACKUP_DIR | gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT
+TIME="$(($(date +%s)-TIME))"
+SECS="$((TIME))"
+printf " FINISHED IN: %02d:%02d:%02d\n" "$((SECS/3600%24))" "$((SECS/60%60))" "$((SECS%60))"
 
 export AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
 export AWS_SECRET_ACCESS_KEY=<%= @ws_secret_access_key %>

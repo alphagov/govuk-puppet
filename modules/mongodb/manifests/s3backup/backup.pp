@@ -37,10 +37,6 @@
 #   will be uploaded. It should be created by the
 #   user
 #
-# [*standalone*]
-#   If true, will backup localhost instead of a
-#   Secondary
-#
 class mongodb::s3backup::backup(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
@@ -51,7 +47,6 @@ class mongodb::s3backup::backup(
   $private_gpg_key = undef,
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
-  $standalone  = False,
   ){
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
