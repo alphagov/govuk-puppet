@@ -22,6 +22,9 @@
               DEPLOY_ENV=<%= @environment %>
     scm:
         - govuk-terraform-provisioning_Deploy_Terraform_Project
+    wrappers:
+        - ansicolor:
+            colormap: xterm
     builders:
         - shell: |
             if [ -n "$ADDITIONAL_ENVIRONMENT_VARIABLES" ]; then
