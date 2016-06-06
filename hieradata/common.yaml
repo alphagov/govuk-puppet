@@ -249,8 +249,8 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
 
-govuk::apps::content_store::nagios_memory_warning: 1000
-govuk::apps::content_store::nagios_memory_critical: 1100
+govuk::apps::content_store::nagios_memory_warning: 1200
+govuk::apps::content_store::nagios_memory_critical: 1300
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -378,8 +378,8 @@ govuk::apps::specialist_frontend::nagios_memory_warning: 2000
 govuk::apps::specialist_frontend::nagios_memory_critical: 2200
 
 govuk::apps::specialist_publisher::enabled: true
-govuk::apps::specialist_publisher::nagios_memory_warning: 800
-govuk::apps::specialist_publisher::nagios_memory_critical: 900
+govuk::apps::specialist_publisher::nagios_memory_warning: 1100
+govuk::apps::specialist_publisher::nagios_memory_critical: 1200
 
 govuk::apps::specialist_publisher_rebuild::enabled: true
 
@@ -390,7 +390,7 @@ govuk::apps::spotlight::nagios_memory_warning: 2000
 govuk::apps::spotlight::nagios_memory_critical: 2200
 
 govuk::apps::smartanswers::nagios_memory_warning: 4000
-govuk::apps::smartanswers::nagios_memory_critical: 45000
+govuk::apps::smartanswers::nagios_memory_critical: 4500
 
 govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::worker::enabled: true
