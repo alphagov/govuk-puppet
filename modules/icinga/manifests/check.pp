@@ -75,8 +75,8 @@ define icinga::check (
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
 
   $app_domain = hiera('app_domain')
-  $graph_width = 600
-  $graph_height = 300
+  $graph_width = 1000
+  $graph_height = 600
 
   $check_filename = "/etc/icinga/conf.d/icinga_host_${host_name}/${title}.cfg"
 

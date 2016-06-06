@@ -84,8 +84,8 @@ define icinga::check::graphite(
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
   $app_domain = hiera('app_domain')
-  $graph_width = 600
-  $graph_height = 300
+  $graph_width = 1000
+  $graph_height = 600
 
   # Only display lines when threshold is an integer or float.
   $warn_line = $warning ? {
