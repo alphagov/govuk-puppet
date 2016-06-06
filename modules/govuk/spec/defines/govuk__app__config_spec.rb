@@ -269,7 +269,7 @@ describe 'govuk::app::config', :type => :define do
       })}
 
       it 'raises an error' do
-        is_expected.to raise_error(Puppet::Error, /nagios_memory_warning_real must be specified in MB/)
+        is_expected.to raise_error(Puppet::Error, /Expected 1 to be greater or equal to 100/)
       end
     end
 
@@ -280,7 +280,7 @@ describe 'govuk::app::config', :type => :define do
       })}
 
       it 'raises an error' do
-        is_expected.to raise_error(Puppet::Error, /nagios_memory_warning_real must be specified in MB/)
+        is_expected.to raise_error(Puppet::Error, /Expected 111000 to be smaller or equal to 12000/)
       end
     end
   end
