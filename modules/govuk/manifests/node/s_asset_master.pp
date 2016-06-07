@@ -20,11 +20,6 @@ class govuk::node::s_asset_master (
 
   create_resources('ufw::allow', $asset_slave_ip_ranges)
 
-  file { '/var/run/virus_scan':
-    ensure => directory,
-    owner  => 'assets',
-  }
-
   # daemontools provides setlock
   $cron_requires = [
     File['/usr/local/bin/copy-attachments.sh'],
