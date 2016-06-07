@@ -1,39 +1,58 @@
 #!/bin/bash
 
+set -e
 
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+# The default Icinga passive alert assumes that the script failed
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Mongodb backup push to S3 failed"
 BACKUP_NODE=<%= @backup_node %>
 BACKUP_DIR=<%= @backup_dir %>
 BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
 KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
 S3_BUCKET=<%= @s3_bucket %>
 
-
-exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
-
-function time_taken {
-  TIME="$(date +%s)"
-  $@
-  TIME="$(($(date +%s)-TIME))"
-  SECS="$((TIME))"
-  printf " FINISHED IN: %02d:%02d:%02d\n" "$((SECS/3600%24))" "$((SECS/60%60))" "$((SECS%60))"
-
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
+trap nagios_passive EXIT
 
-time_taken mongodump -h $BACKUP_NODE -o $BACKUP_DIR
-
-
+# Backup mongodb
 TIME="$(date +%s)"
-tar cvz $BACKUP_DIR | gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT
+/usr/bin/mongodump -h $BACKUP_NODE -o $BACKUP_DIR --quiet
 TIME="$(($(date +%s)-TIME))"
-SECS="$((TIME))"
-printf " FINISHED IN: %02d:%02d:%02d\n" "$((SECS/3600%24))" "$((SECS/60%60))" "$((SECS%60))"
+printf "BACKUP COMPLETED IN: ${TIME}s\n"
 
-export AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
-export AWS_SECRET_ACCESS_KEY=<%= @ws_secret_access_key %>
+# Compress and encrypt backup
+TIME="$(date +%s)"
+(/bin/tar cvz $BACKUP_DIR | /usr/bin/gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT) &> /dev/null
+TIME="$(($(date +%s)-TIME))"
+printf "COMPRESSION AND ENCRYPTION FINISHED IN: ${TIME}s\n"
 
-s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET
+# Upload backup to s3 bucket
+TIME="$(date +%s)"
+/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET --quiet
+TIME="$(($(date +%s)-TIME))"
+printf "BACKUP UPLOADED IN: ${TIME}s\n"
 
-rm -f $BACKUP_DIR/mongodump-*
+# Tidy up
+/bin/rm -f $BACKUP_DIR/mongodump-*
 
+if [ $? == 0 ]
+then
+STATUS=0
+else
+STATUS=1
+fi
 
+if [ $STATUS -eq 0 ]; then
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: Mongodb backup push to S3 succeeded"
+fi
+
+exit $STATUS
