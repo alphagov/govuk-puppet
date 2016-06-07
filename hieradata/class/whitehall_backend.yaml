@@ -1,7 +1,14 @@
 ---
 
+govuk::apps::whitehall::configure_admin: true
 govuk::apps::whitehall::nagios_memory_warning: 5368
 govuk::apps::whitehall::nagios_memory_critical: 6442
+govuk::apps::whitehall::port: 3026
+govuk::apps::whitehall::vhost: 'whitehall-admin'
+govuk::apps::whitehall::vhost_protected: true
+
+govuk::node::s_base::apps:
+  - whitehall
 
 lv:
   data:

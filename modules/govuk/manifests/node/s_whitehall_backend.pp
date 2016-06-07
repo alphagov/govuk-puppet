@@ -8,13 +8,6 @@ class govuk::node::s_whitehall_backend (
 
   include imagemagick
 
-  class { 'govuk::apps::whitehall':
-    configure_admin => true,
-    port            => 3026,
-    vhost_protected => true,
-    vhost           => 'whitehall-admin',
-  }
-
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
 
