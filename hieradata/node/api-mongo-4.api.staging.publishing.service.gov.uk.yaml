@@ -1,1 +1,3 @@
 icinga::client::check_cputype::cputype: 'amd'
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
