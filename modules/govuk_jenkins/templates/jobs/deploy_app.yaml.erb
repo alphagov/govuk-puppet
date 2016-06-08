@@ -23,11 +23,17 @@
       - alphagov-deployment_Deploy_App
     builders:
         - shell: |
+            #!/usr/bin/env bash
             export DEPLOY_TO="<%= @environment -%>"
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
+
+            if [ "$DEPLOY_FROM_GITHUB_ENTERPRISE" == "true" ]; then
+              export GIT_ORIGIN_PREFIX="git@github.gds:gds-production-backup"
+            fi
+
             ./jenkins.sh
     publishers:
         - trigger:
@@ -60,3 +66,7 @@
             name: TAG
             description: Git tag/committish to deploy.
             default: release
+        - bool:
+            name: DEPLOY_FROM_GITHUB_ENTERPRISE
+            default: false
+            description: Whether to deploy from GitHub Enterprise in case public GitHub is unavailable
