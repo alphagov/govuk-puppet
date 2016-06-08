@@ -54,6 +54,17 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: 6379
+#
+# [*enable_procfile_worker*]
+#   Enables the sidekiq background worker.
+#   Default: true
+#
 # [*secret_token*]
 #   Used to set the app ENV var SECRET_TOKEN which is used to configure
 #   rails 4.x signed cookie mechanism. If unset the app will be unable to
@@ -73,6 +84,9 @@ class govuk::apps::specialist_publisher_rebuild_standalone(
   $oauth_secret = undef,
   $publish_pre_production_finders = false,
   $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = '6379',
+  $enable_procfile_worker = true,
   $secret_token = undef,
 ) {
   $app_name = 'specialist-publisher-rebuild-standalone'
@@ -84,6 +98,16 @@ class govuk::apps::specialist_publisher_rebuild_standalone(
       health_check_path  => '/healthcheck',
       log_format_is_json => true,
       asset_pipeline     => true,
+    }
+
+    govuk::procfile::worker {'specialist-publisher-rebuild-standalone':
+      enable_service => $enable_procfile_worker,
+    }
+
+    govuk_logging::logstream { 'specialist-publisher-rebuild-standalone_sidekiq_json_log':
+      logfile => '/var/apps/specialist-publisher-rebuild-standalone/log/sidekiq.json.log',
+      fields  => {'application' => 'specialist-publisher-rebuild-standalone'},
+      json    => true,
     }
 
     Govuk::App::Envvar {
@@ -114,6 +138,12 @@ class govuk::apps::specialist_publisher_rebuild_standalone(
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
+      "${title}-REDIS_HOST":
+        varname => 'REDIS_HOST',
+        value   => $redis_host;
+      "${title}-REDIS_PORT":
+        varname => 'REDIS_PORT',
+        value   => $redis_port;
     }
 
     if $publish_pre_production_finders {
