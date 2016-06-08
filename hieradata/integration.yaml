@@ -52,6 +52,7 @@ govuk_jenkins::config::admins:
   - benhyland
   - bobwalker
   - brendanbutler
+  - chrislee
   - chrispatuzzo
   - christophwong
   - ci_alphagov
