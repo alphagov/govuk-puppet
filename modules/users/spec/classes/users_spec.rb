@@ -32,7 +32,6 @@ end
 # We shouldn't be adding users to this list unless their username does not
 # follow the standard form AND is their LDAP username
 username_whitelist = %w{
-  benilovj
   bob
   elliot
   jackscotti

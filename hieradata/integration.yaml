@@ -69,7 +69,6 @@ govuk_jenkins::config::admins:
   - ikennaokpala
   - isabelllong
   - jackscotti
-  - jakebenilov
   - jennyduckett
   - katiesmith
   - leelongmore
@@ -262,7 +261,6 @@ users::usernames:
   - alexmuller
   - alextorrance
   - benhyland
-  - benilovj
   - bob
   - brendanbutler
   - chrislee
