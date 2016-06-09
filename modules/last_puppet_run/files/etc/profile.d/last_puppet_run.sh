@@ -8,5 +8,5 @@ if [[ $difference -ge 3 ]]; then
   yellow="\e[0;33m"
   reset="\e[0m"
 
-  echo -e "${yellow}It has been more than ${difference} days since you last ran govuk_puppet.${reset}"
+  echo -e "${yellow}It has been more than ${difference} days since you last pulled govuk-puppet and ran govuk_puppet.${reset}"
 fi
