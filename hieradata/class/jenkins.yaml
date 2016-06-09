@@ -91,6 +91,8 @@ govuk_jenkins::plugins:
     version: '0.0.8'
   show-build-parameters:
     version: '1.0'
+  timestamper:
+    version: '1.8.2'
   token-macro:
     version: '1.9'
   versionnumber:
