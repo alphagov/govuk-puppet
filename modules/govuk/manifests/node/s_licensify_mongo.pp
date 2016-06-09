@@ -11,7 +11,11 @@ class govuk::node::s_licensify_mongo (
   $licensify_mongo_encrypted = false
 ) inherits govuk::node::s_base {
   include mongodb::server
-  include govuk_java::openjdk6::jre
+
+  # FIXME: Remove once deployed
+  package { 'openjdk-6-jre-headless':
+    ensure => absent,
+  }
 
   if $licensify_mongo_encrypted {
     include ecryptfs

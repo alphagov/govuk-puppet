@@ -204,6 +204,8 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-2.frontend'
 govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
+govuk::node::s_licensify_backend::java8: true
+govuk::node::s_licensify_frontend::java8: true
 govuk::node::s_licensify_lb::enable_feed_console: true
 govuk::node::s_licensify_lb::licensify_backend_servers:
   - 'licensify-backend-1.licensify'
