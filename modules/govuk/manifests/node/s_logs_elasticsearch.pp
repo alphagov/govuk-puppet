@@ -23,7 +23,6 @@ class govuk::node::s_logs_elasticsearch(
     cluster_name         => 'logging',
     heap_size            => "${es_heap_size}m",
     number_of_replicas   => '1',
-    minimum_master_nodes => '2',
     host                 => $::fqdn,
     log_index_type_count => {
       'logs-current' => ['syslog'],
@@ -33,11 +32,6 @@ class govuk::node::s_logs_elasticsearch(
       Class['govuk_java::openjdk7::jre'],
       Govuk_mount['/mnt/elasticsearch']
     ],
-  }
-
-  elasticsearch::plugin { 'mobz/elasticsearch-head':
-    module_dir => 'head',
-    instances  => $::fqdn,
   }
 
   elasticsearch::plugin { 'redis-river':

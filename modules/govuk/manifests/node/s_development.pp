@@ -54,11 +54,6 @@ class govuk::node::s_development (
     require            => Class['govuk_java::set_defaults'],
   }
 
-  elasticsearch::plugin { 'mobz/elasticsearch-head':
-    module_dir => 'head',
-    instances  => $::fqdn,
-  }
-
   include nginx
 
   nginx::config::vhost::default { 'default': }

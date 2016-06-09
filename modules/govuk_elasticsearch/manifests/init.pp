@@ -29,7 +29,7 @@ class govuk_elasticsearch (
   $heap_size = '512m',
   $number_of_shards = '3',
   $number_of_replicas = '1',
-  $minimum_master_nodes = '1',
+  $minimum_master_nodes = '2',
   $refresh_interval = '1s',
   $host = 'localhost',
   $log_index_type_count = {},
@@ -140,6 +140,7 @@ class govuk_elasticsearch (
   govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
 
   include govuk_elasticsearch::estools
+  include govuk_elasticsearch::plugins
 
   anchor { 'govuk_elasticsearch::end': }
 }

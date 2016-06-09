@@ -16,7 +16,6 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     cluster_name           => 'govuk-content',
     heap_size              => "${es_heap_size}m",
     number_of_replicas     => '1',
-    minimum_master_nodes   => '2',
     host                   => $::fqdn,
     open_firewall_from_all => false,
     require                => Class['govuk_java::openjdk7::jre'],
@@ -36,16 +35,6 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     port    => 9200,
     from    => getparam(Govuk_host['search-3'], 'ip'),
     require => Govuk_host['search-3'],
-  }
-
-  elasticsearch::plugin { 'mobz/elasticsearch-head':
-    module_dir => 'head',
-    instances  => $::fqdn,
-  }
-
-  elasticsearch::plugin { 'elasticsearch/elasticsearch-cloud-aws/2.4.2':
-    module_dir => 'cloud-aws',
-    instances  => $::fqdn,
   }
 
   collectd::plugin::tcpconn { 'es-9200':
