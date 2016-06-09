@@ -40,6 +40,10 @@ govuk_cdnlogs::monitoring_enabled: false
 govuk_crawler::seed_enable: true
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
+govik_elasticsearch::backup::s3_bucket: 'kibana-dashboards'
+govuk_elasticsearch::backup::es_repo: 'kibana-dashboards'
+govuk_elasticsearch::backup::es_indices:
+  - kibana_int
 
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
