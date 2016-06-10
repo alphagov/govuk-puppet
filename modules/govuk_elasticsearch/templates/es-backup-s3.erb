@@ -6,14 +6,13 @@ set -e
 exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 S3_BUCKET=<%= @s3_bucket %>
+ES_REPO=<%= @es_repo %>
+ES_INDICES=<%= @es_indices %>
 AWS_REGION=<%= @aws_region %>
 AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
 AWS_SECRET_ACCESS_KEY=<%= @aws_secret_access_key %>
-ES_REPO=<%= @aws_repo %>
-ES_INDICES=<%= @es_indices.join(',') %>
 
-
-# indices: option below allows us to specify indexes in a comma separated list rather than snap-shooting everything. However we can set
+# indices: option allows us to specify indexes in a comma separated list rather than snap-shooting everything. However we can set
 # the $ES_REPO variable to '_all' to snapshot all indices.
 #
 # ignore_unavailable: option when true will cause indices that do not exist to be ignored during snapshot
@@ -22,7 +21,7 @@ ES_INDICES=<%= @es_indices.join(',') %>
 # The entire snapshot will fail if one or more indices participating in the snapshot don’t have all primary shards available
 
 
-envdir <%= @env_dir %>/env.d curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/"${ES_REPO}"?wait_for_completion=true&pretty" -d '{
+/usr/bin/envdir <%= @env_dir %>/env.d /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/"${ES_REPO}"?wait_for_completion=true&pretty" -d '{
   "type": "s3",
   "settings": {
     "bucket": "'"${S3_BUCKET}"'",

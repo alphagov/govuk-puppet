@@ -38,16 +38,13 @@ class govuk_elasticsearch::backup(
   $s3_bucket = undef,
   $cron = true,
   $env_dir = '/etc/es_s3backup',
-  $user = 'govuk-backups',
+  $user = backup::client::govuk-backup,
   $es_repo = undef,
-  $es_indices = [join(regsubst($govuk_elasticsearch::backup::es_indices, '.*', '"\1"'), ",")]
+  $es_indices = [
+    join(regsubst($govuk_elasticsearch::backup::es_indices, '.*', '"\1"'), ',')]
   ){
 
-  # create user
-  user { $user:
-  ensure     => 'present',
-  managehome => true,
-  }
+  include backup::client
 
   # push env files
   file { [$env_dir,"${env_dir}/env.d"]:
@@ -79,10 +76,10 @@ class govuk_elasticsearch::backup(
   }
 
   file { 'es-backup-s3':
-    path  => '/usr/local/bin',
-    owner => $user,
-    group => $user,
-    mode  => '0550',
+    path    => '/usr/local/bin',
+    owner   => $user,
+    group   => $user,
+    mode    => '0550',
     content => template('govuk_elasticsearch/es-backup-s3.erb'),
   }
 
@@ -91,6 +88,5 @@ class govuk_elasticsearch::backup(
     user    => $user,
     hour    => 0,
   }
-
 
 }
