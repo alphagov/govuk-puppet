@@ -61,6 +61,7 @@ govuk_jenkins::config::admins:
   - davidsilva
   - davidsingleton
   - deanwilson
+  - deborahchua
   - douglasroper
   - elliotcrosbymccullough
   - emmabeynon
@@ -275,6 +276,7 @@ users::usernames:
   - davidsilva
   - davidsingleton
   - deanwilson
+  - deborahchua
   - douglasroper
   - elliot
   - emmabeynon
