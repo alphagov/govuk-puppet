@@ -4,20 +4,13 @@
 # [*user*]
 #   The user to run the cronjob as.
 #
-class mongodb::s3backup::cron(
-  $user = mongodb::s3backup::backup::user
-) {
+class mongodb::s3backup::cron {
 
   cron { 'mongodb-s3backup':
     command => '/usr/local/bin/mongodb-backup-s3-wrapper',
-    user    => $user,
+    user    => $mongodb::s3backup::user,
     minute  => '*/15',
-  }
-
-  cron { 'mongodb-s3restore':
-    command => '/usr/local/bin/mongodb-restore-s3-wrapper',
-    user    =>  $user,
-    hour    => 3,
+    require => [Class['mongodb::s3backup::package'],Class['mongodb::s3backup::backup']],
   }
 
 }

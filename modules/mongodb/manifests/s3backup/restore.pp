@@ -39,28 +39,17 @@ class mongodb::s3backup::restore(
   $env_dir = '/etc/mongo_s3backup',
   $s3_bucket  = 'govuk-mongodb-backup-s3',
   $backup_dir = '/var/lib/s3backup',
+  $user = backup::client::govuk-backup,
   $cron = false
 ){
   include backup::client
-  $backup_user = 'govuk-backup'
-
-  File {
-    owner => $backup_user,
-    group => $backup_user,
-    mode  => '0660',
-  }
 
   file { '/usr/local/bin/mongodb-restore-s3':
     ensure  => file,
     content => template('mongodb/mongodb-restore-s3.erb'),
-    mode    => '0750',
-    require => User[$backup_user],
+    mode    => '0770',
+    owner   => $user,
+    group   => $user,
   }
 
-  file { '/usr/local/bin/mongodb-restore-s3-wrapper':
-    ensure  => file,
-    content => template('mongodb/mongodb-restore-s3-wrapper.erb'),
-    mode    => '0755',
-    require => User[$backup_user],
-  }
 }
