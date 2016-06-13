@@ -6,12 +6,12 @@ backup::assets::archive_directory: '/mnt/duplicity-cache'
 lv:
   data:
     pv:
-      - '/dev/sdb1'
       - '/dev/sdc1'
+      - '/dev/sdd1'
     vg: 'uploads'
   cache:
     pv:
-      - '/dev/sdd1'
+      - '/dev/sda1'
     vg: 'duplicity'
 
 mount:
@@ -25,5 +25,5 @@ mount:
     disk: '/dev/mapper/duplicity-cache'
     govuk_lvm: 'cache'
     mountoptions: 'defaults'
-    percent_threshold_warning: 10 
+    percent_threshold_warning: 10
     percent_threshold_critical: 2
