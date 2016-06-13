@@ -151,7 +151,7 @@ govuk::apps::router::vhost_aliases: ["www"]
 govuk::apps::router_api::mongodb_name: 'router'
 govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::router_api::router_nodes: ['localhost:3055']
-govuk::apps::rummager::enable_procfile_worker: false
+govuk::apps::rummager::enable_procfile_worker: true
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
 govuk::apps::share_sale_publisher::enabled: true
 govuk::apps::share_sale_publisher::mongodb_nodes: ['localhost']
