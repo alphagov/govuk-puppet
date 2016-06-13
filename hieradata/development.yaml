@@ -164,6 +164,8 @@ govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher_rebuild::mongodb_name: 'specialist_publisher_rebuild_production'
 govuk::apps::specialist_publisher_rebuild::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher_rebuild::publish_pre_production_finders: true
+govuk::apps::specialist_publisher_rebuild::redis_host: 'localhost'
+govuk::apps::specialist_publisher_rebuild_standalone::redis_host: 'localhost'
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
