@@ -10,15 +10,15 @@
 #
 # [*password*]
 #   The password for the RabbitMQ user (default: 'rummager')
-# [*enable_publishing_api_document_indexer*]
+# [*enable_publishing_listener*]
 #   Whether or not to configure the queue for the rummager indexer
 #
 class govuk::apps::rummager::rabbitmq (
   $password  = 'rummager',
-  $enable_publishing_api_document_indexer = false,
+  $enable_publishing_listener = true,
 ) {
 
-  $toggled_ensure = $enable_publishing_api_document_indexer ? {
+  $toggled_ensure = $enable_publishing_listener ? {
     true    => present,
     default => absent,
   }

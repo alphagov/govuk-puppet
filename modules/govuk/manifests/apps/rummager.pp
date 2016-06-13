@@ -17,7 +17,7 @@
 #   Whether to enable the procfile worker service.
 #   Default: true
 #
-# [*enable_publishing_api_document_indexer*]
+# [*enable_publishing_listener*]
 #   Whether to enable the procfile indexing service.
 #   Default: false
 #
@@ -54,7 +54,7 @@
 class govuk::apps::rummager(
   $port = '3009',
   $enable_procfile_worker = true,
-  $enable_publishing_api_document_indexer = false,
+  $enable_publishing_listener = false,
   $publishing_api_bearer_token = undef,
   $aws_s3_key = undef,
   $aws_s3_secret = undef,
@@ -104,16 +104,16 @@ class govuk::apps::rummager(
     enable_service => $enable_procfile_worker,
   }
 
-  $toggled_ensure = $enable_publishing_api_document_indexer ? {
+  $toggled_ensure = $enable_publishing_listener ? {
     true    => present,
     default => absent,
   }
 
-  govuk::procfile::worker { 'rummager-publishing-api-document-indexer':
+  govuk::procfile::worker { 'rummager-publishing-queue-listener':
     ensure         => $toggled_ensure,
     setenv_as      => 'rummager',
-    enable_service => $enable_publishing_api_document_indexer,
-    process_type   => 'publishing-api-document-indexer',
+    enable_service => $enable_publishing_listener,
+    process_type   => 'publishing-queue-listener',
   }
 
   Govuk::App::Envvar {
