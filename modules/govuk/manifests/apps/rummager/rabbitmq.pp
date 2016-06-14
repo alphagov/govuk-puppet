@@ -15,7 +15,7 @@
 #
 class govuk::apps::rummager::rabbitmq (
   $password  = 'rummager',
-  $enable_publishing_listener = true,
+  $enable_publishing_listener = false,
 ) {
 
   $toggled_ensure = $enable_publishing_listener ? {
