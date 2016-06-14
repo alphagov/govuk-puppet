@@ -336,7 +336,6 @@ mongodb::server::replicaset_members:
   'localhost':
 
 nginx_enable_ssl: false
-nginx_enable_basic_auth: false
 
 postgresql_api_slave_addresses_live: '127.0.0.1/32'
 postgresql_slave_addresses_live: '127.0.0.1/32'

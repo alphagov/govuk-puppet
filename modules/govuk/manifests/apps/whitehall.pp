@@ -81,7 +81,7 @@ class govuk::apps::whitehall(
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost                 => "whitehall-admin.${app_domain}",
       app_port              => $port,
-      protected             => true,
+      protected             => $vhost_protected,
       protected_location    => '/government/admin/fact_check_requests/',
       deny_framing          => true,
       asset_pipeline        => true,

@@ -120,8 +120,6 @@ define nginx::config::vhost::proxy(
 
   # Whether to enable SSL. Used by template.
   $enable_ssl = hiera('nginx_enable_ssl', true)
-  # Whether to enable basic auth protection. Used by template.
-  $enable_basic_auth = hiera('nginx_enable_basic_auth', true)
 
   nginx::config::ssl { $name:
     certtype => $ssl_certtype,

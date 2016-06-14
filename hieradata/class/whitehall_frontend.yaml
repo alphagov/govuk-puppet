@@ -1,7 +1,13 @@
 ---
 
+govuk::apps::whitehall::configure_frontend: true
 govuk::apps::whitehall::nagios_memory_warning: 10737
 govuk::apps::whitehall::nagios_memory_critical: 12884
+govuk::apps::whitehall::vhost: 'whitehall-frontend'
+govuk::apps::whitehall::vhost_protected: false
+
+govuk::node::s_base::apps:
+  - whitehall
 
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'Whitehall application is slow to start, recommend rebooting a single node at a time'
