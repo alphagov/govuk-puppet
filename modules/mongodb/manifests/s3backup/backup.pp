@@ -56,6 +56,7 @@ class mongodb::s3backup::backup(
   $private_gpg_key = undef,
   $private_gpg_key_fingerprint,
   $s3_bucket  = 'govuk-mongodb-backup-s3',
+  $s3_bucket_daily = 'govuk-mongodb-backup-s3-daily',
   $user = 'govuk-backups'
 ){
 
