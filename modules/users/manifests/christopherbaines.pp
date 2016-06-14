@@ -1,0 +1,10 @@
+# Creates the christopherbaines user
+class users::christopherbaines { govuk_user { 'christopherbaines':
+    fullname => 'Christopher Baines',
+    email    => 'christopher.baines@digital.cabinet-office.gov.uk',
+    ssh_key  => [
+        'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCudd/9XjKFYQc4racSyvGyEjjEWB9lxGUE1xals8StpoQkeNHgvVzy7On3eJRalv05C8gG19F6qmFJ6WKRaEvERmm57rqVBzbOJjTkwuVkfCmyWGg0iVRgIBDrrA5beYS5kohaVnPl4JGvyDDHTesTNvAePdBcdCo6NvGO5DhCanINWrWwH7Vz+IZQgkOufHc1NLjSFjMpXaxhsSeUnAbLLYuMUWVpjrrWRCj9ULiJ+8hjKiar+Omh/LVfsebgEtXZOQ9ggz3FIrDJw3l1vVUDj1XN8WOZ02NHNz09JfP3ywG+cVpM5a5e7BD+WEFI68WZSayiDF4F5oGOq+GFLx6/Yvc9H9CUw7IKbCoDWjgNuzBKRkrISGtOMB+B6UE+7EIM8iBY6gVv5jyBl/CkT51a3lw0mrkrpx+UkJE1GV6hiQd8w8huixp8D3I17qrfIR5Ifk0FekPFdoT/+UHQVio8h4l5P95sBKHt8Sy+Bx719iUnxYqQlaZvk6ScrTMK8FZ5ltzT49nwOYueXDvJ6wUV4tLwzuGBn/xW1rDYADCUKRav8RLWHfEpcFhQuL++pFCm55B4hiv0VlHqA3C5bnvIVl+v3UeSe1ClF+NlSTNugRHQTmgc3ImBipLveUP9++PzcRk4VuKlR1kMLVV1sYsUklA1R3JnO38Vaeq07mOPMw== chris@debian-in-virtualbox',
+        'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMMcAHEC+qzgyla97Uj8tuZRbDXFdvtqTmFdelkXipvSD8xXtlDZnK8LFFddPlJHU+AEbisX8abAE7E7iCscdzqTe2chUyilyYCF9FtCDn2ySh8zbfw+eOH3IZEsNI8mlXxjcK50VIUpFBkEDLtoxIVny20MgWCgDlABrtYTa4jN06rUu575y3WZ2x5HoEn1N5/r4TeuahTzQ0nPa+/nITyGTHNaiQkycd68dVeqTvaxnPh1UTWfKmSlMsrBuwCd3kCIJKX0/VmvlbNmGNRWowawPXimUJLppdgYi1xmV8v6SykgMarJi7OHfGcQOJtArFclKuGZxepDqir+fWL4/ZMKlffo5YK+ZicAg7A3WFhGuxxgCVbIrVYZG+T+wrNuCmKOf3B9xckbvlVPIeauibNVV8v/6tmzlmev7PUIXidsirL9TcLCkZe56jG+ohokpRjM00xuqS8wuMP2krGlLsAIGsqkIehQY05kbJtVMfHx5N9exTOcbbYu86fFvH3gPWW4qrdQoe0+UuC02xTj3rti2CN/DJlrn7LuNB+6dIRYp3eXC7YLtyl2rMACEG69I8zh2+QiRTajp9xMDVDd/tgWY/TlXDCXUkzup0Udw1yG9kPUcP0rjCpCce+3dpYQYKpjzwdD44FHlBskSFuEiRvCdOEWrwQNA3QeAKyt3Mew== christopherbaines@gds3901.local',
+    ],
+  }
+}
