@@ -53,6 +53,7 @@ govuk_jenkins::config::admins:
   - brendanbutler
   - chrislee
   - chrispatuzzo
+  - christopherbaines
   - christophwong
   - ci_alphagov
   - danielroseman
@@ -269,6 +270,7 @@ users::usernames:
   - brendanbutler
   - chrislee
   - chrispatuzzo
+  - christopherbaines
   - christophwong
   - daivaughan
   - danielroseman
