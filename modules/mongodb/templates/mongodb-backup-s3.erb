@@ -1,81 +1,58 @@
-#!/usr/bin/env python
-from datetime import datetime
-import boto3
-import json
-import random
-import os
-import shutil
-import subprocess
-import sys
-import time
+#!/bin/bash
 
-############################################
-# Variables
-############################################
-backup_dir = '<%= @backup_dir %>'
-date_format = '%Y-%m-%d:%H:%M:%S'
-mongo_server = '<%= @server %>'
-key_fingerprint = '<%= @private_gpg_key_fingerprint %>'
-s3_bucket = '<%= @s3_bucket %>'
-standalone = '<%= @standalone %>'
-start = datetime.now().strftime(date_format)
-start_time = time.time()
-file = 'mongodump-<%= @fqdn %>-' + start + '.tar.gz.gpg'
-############################################
+set -e
 
-def logger(str):
-    print datetime.now().strftime(date_format) + ': ' + str
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
-if not standalone:
-  logger('Find Secondary Mongo members')
-  try:
-      mongo_nodes = subprocess.check_output(["mongo",  mongo_server, "--quiet", "--eval", "printjson(rs.status().members.map(function(m) { return {'name':m.name, 'stateStr':m.stateStr} }))"])
-  except OSError:
-      print 'Trouble querying mongo server'
+# The default Icinga passive alert assumes that the script failed
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Mongodb backup push to S3 failed"
+BACKUP_NODE=<%= @backup_node %>
+BACKUP_DIR=<%= @backup_dir %>
+BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
+KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
+S3_BUCKET=<%= @s3_bucket %>
 
-  nodes = json.loads(mongo_nodes)
-  secondary_nodes = { x["name"] for x in nodes if x["stateStr"] == "SECONDARY" }
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
 
-  backup_node = random.sample(secondary_nodes,1)
-else:
-  backup_node = ['localhost']
-print "Backing up", backup_node[0]
+trap nagios_passive EXIT
 
-logger('Start mongo backup')
-try:
-    subprocess.call(['mongodump', '-h', backup_node[0], '-o', backup_dir])
-except OSError:
-    print 'There was a problem backing up the mongo database'
+# Backup mongodb
+TIME="$(date +%s)"
+/usr/bin/mongodump -h $BACKUP_NODE -o $BACKUP_DIR --quiet
+TIME="$(($(date +%s)-TIME))"
+printf "BACKUP COMPLETED IN: ${TIME}s\n"
 
-logger('End mongo backup')
+# Compress and encrypt backup
+TIME="$(date +%s)"
+(/bin/tar cvz $BACKUP_DIR | /usr/bin/gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT) &> /dev/null
+TIME="$(($(date +%s)-TIME))"
+printf "COMPRESSION AND ENCRYPTION FINISHED IN: ${TIME}s\n"
 
-logger('Start compress and encrypt backups')
+# Upload backup to s3 bucket
+TIME="$(date +%s)"
+/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET --quiet
+TIME="$(($(date +%s)-TIME))"
+printf "BACKUP UPLOADED IN: ${TIME}s\n"
 
-tar = subprocess.Popen(['tar', '-cvz', backup_dir], stdout=subprocess.PIPE)
-gpg = subprocess.Popen(['gpg', '-e', '-o', backup_dir + '/' + file, '-r', key_fingerprint, '--cipher-algo', 'AES256', '--force-mdc'], stdin=tar.stdout, stdout=subprocess.PIPE)
-tar.stdout.close()
-gpg.communicate()
+# Tidy up
+/bin/rm -f $BACKUP_DIR/mongodump-*
 
-logger('End compress and encrypt backups')
+if [ $? == 0 ]
+then
+STATUS=0
+else
+STATUS=1
+fi
 
-s3 = boto3.resource('s3')
+if [ $STATUS -eq 0 ]; then
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: Mongodb backup push to S3 succeeded"
+fi
 
-logger('Start upload file to S3')
-
-s3_file = backup_dir + '/' + file
-s3.Object(s3_bucket, s3_file).put(Body=open(s3_file, 'rb'))
-
-logger('End upload file to S3')
-
-logger('Start cleanup filesystem')
-
-delete_tree = backup_dir + '/*'
-[os.remove(os.path.join(backup_dir,f)) for f in os.listdir(backup_dir) if f.endswith(".gpg")]
-shutil.rmtree(delete_tree)
-
-logger('End cleanup filesystem')
-
-end_time = time.time()
-delta = end_time - start_time
-
-print 'Script completed in     : %.1f seconds' % delta
+exit $STATUS
