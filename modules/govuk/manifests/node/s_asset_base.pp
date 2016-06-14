@@ -173,6 +173,11 @@ class govuk::node::s_asset_base (
       mode    => '0640';
     }
 
+    file { '/var/run/virus_scan':
+      ensure => directory,
+      owner  => 'assets',
+    }
+
     if $s3_env_sync_enabled {
       file { '/usr/local/bin/attachments-s3-env-sync.sh':
         ensure  => present,
@@ -183,10 +188,15 @@ class govuk::node::s_asset_base (
 
     if $push_attachments_to_s3 {
       file { '/usr/local/bin/push_attachments_to_s3.sh':
-      ensure  => present,
-      content => template('govuk/node/s_asset_base/push-attachments-to-s3.sh.erb'),
-      mode    => '0755',
-    }
+        ensure  => present,
+        content => template('govuk/node/s_asset_base/push-attachments-to-s3.sh.erb'),
+        mode    => '0755',
+      }
+
+      # FIXME: remove after this has been deployed
+      file { '/etc/cron.daily/push_attachments_to_s3':
+        ensure => absent,
+      }
 
       cron { 'push_attachments_to_s3':
         command => '/usr/bin/setlock -n /var/run/virus_scan/push-attachments.lock /usr/local/bin/push_attachments_to_s3.sh /mnt/uploads',
