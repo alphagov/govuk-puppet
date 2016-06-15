@@ -37,6 +37,16 @@ LoadPlugin postgresql
     </Result>
   </Query>
 
+  <Query publishing_api_content_item_count>
+    Statement "SELECT count(*) AS count \
+               FROM content_items;"
+
+    <Result>
+      Type counter
+      ValuesFrom "count"
+    </Result>
+  </Query>
+
   <Database postgres>
     Instance "global"
     Host "localhost"
@@ -55,5 +65,13 @@ LoadPlugin postgresql
     SSLMode "prefer"
     # By not specifying a specific query, we pull in the defaults
     # which are specific to the `postgres` database
+  </Database>
+
+  <Database publishing_api_production>
+    Host "localhost"
+    User "<%= @user %>"
+    Password "<%= @password %>"
+    SSLMode "prefer"
+    Query publishing_api_content_item_count
   </Database>
 </Plugin>
