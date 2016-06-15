@@ -47,7 +47,7 @@ define cron::crondotdee (
   file { "/etc/cron.d/${title}":
     ensure  => present,
     content => template('cron/etc/cron.d/crondotdee.erb'),
-    require => File['/etc/cron.d'],
+    require => Class['cron'],
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
