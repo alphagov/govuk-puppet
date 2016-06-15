@@ -1,7 +1,6 @@
 {
   "id": null,
-  "title": "Rummager Queues",
-  "originalTitle": "Rummager Queues",
+  "title": "Rummager search indexing dashboard",
   "tags": [],
   "style": "dark",
   "timezone": "utc",
@@ -10,43 +9,16 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "title": "rummager_to_be_indexed consumer results",
-      "height": "250px",
+      "height": "400px",
       "editable": true,
       "collapse": false,
       "panels": [
         {
-          "title": "rummager_to_be_indexed consumer results",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
           "id": 1,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
+          "title": "Publishing queue consumer activity (RabbitMQ)",
+          "span": 6,
+          "type": "graph",
           "bars": true,
-          "stack": true,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
           "nullPointMode": "null as zero",
           "steppedLine": false,
           "tooltip": {
@@ -55,39 +27,60 @@
           },
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.uncaught_exception, '1minute', 'sum'), 'max'), 'uncaught_exception')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.uncaught_exception, '1minute', 'sum'), 'max'), 'Error')"
             },
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.discarded, '1minute', 'sum'), 'max'), 'discarded')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.discarded, '1minute', 'sum'), 'max'), 'Discarded')"
             },
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.retried, '1minute', 'sum'), 'max'), 'retried')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.retried, '1minute', 'sum'), 'max'), 'Retried')"
             },
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.acked, '1minute', 'sum'), 'max'), 'acked')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.rummager_to_be_indexed.acked, '1minute', 'sum'), 'max'), 'Success')"
             }
           ],
           "aliasColors": {
-            "acked": "#00C200",
-            "retried": "#00CAFA",
-            "discarded": "#FF7100",
-            "uncaught_exception": "#EE0000"
+            "Success": "#00C200",
+            "Retried": "#00CAFA",
+            "Discarded": "#FF7100",
+            "Error": "#EE0000"
           },
-          "maxDataPoints": "",
-          "leftYAxisLabel": "msgs per min"
+          "grid": {
+            "leftMin": 0
+          },
+          "leftYAxisLabel": "Messages per minute"
+        },
+        {
+          "id": 5,
+          "title": "Sidekiq worker activity (search indexing)",
+          "span": 6,
+          "editable": true,
+          "type": "graph",
+          "targets": [
+            {
+              "target": "alias(sumSeries(consolidateBy(summarize(stats.govuk.app.rummager.workers.Indexer.*.success, '10s', 'max'), 'max')), 'Success')"
+            },
+            {
+              "target": "alias(sumSeries(consolidateBy(summarize(stats.govuk.app.rummager.workers.Indexer.*.failure, '10s', 'max'), 'max')), 'Failure')"
+            }
+          ],
+          "aliasColors": {
+            "Success": "#00C200",
+            "Failure": "#EE0000"
+          },
+          "leftYAxisLabel": "message count"
         }
       ]
     },
     {
-      "title": "rummager_to_be_indexed queue depth",
-      "height": "250px",
+      "height": "400px",
       "editable": true,
       "collapse": false,
       "panels": [
         {
-          "title": "rummager_to_be_indexed queue depth",
+          "title": "Publishing queue consumer queue size (RabbitMQ)",
           "error": false,
-          "span": 12,
+          "span": 6,
           "editable": true,
           "type": "graph",
           "id": 2,
@@ -124,29 +117,21 @@
           },
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(rabbitmq_%2F.queues-rummager_to_be_indexed.messages_ready, '10s', 'max'), 'max'), 'messages_ready')"
+              "target": "alias(consolidateBy(summarize(rabbitmq_%2F.queues-rummager_to_be_indexed.messages_ready, '10s', 'max'), 'max'), 'Unprocessed')"
             }
           ],
           "aliasColors": {
-            "messages_ready": "#0662D9"
+            "Unprocessed": "#0662D9"
           },
           "leftYAxisLabel": "message count"
-        }
-      ]
-    },
-    {
-      "title": "rummager_to_be_indexed consumer depth",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
+        },
         {
-          "title": "rummager_to_be_indexed consumer depth",
+          "title": "Sidekiq queue size",
           "error": false,
-          "span": 12,
+          "span": 6,
           "editable": true,
           "type": "graph",
-          "id": 3,
+          "id": 2,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -180,11 +165,11 @@
           },
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(rabbitmq_%2F.queues-rummager_to_be_indexed.messages_unacknowledged, '10s', 'max'), 'max'), 'messages_unacknowledged')"
+              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.workers.enqueued, '10s', 'max'), 'max'), 'Unprocessed')"
             }
           ],
           "aliasColors": {
-            "messages_unacknowledged": "#0662D9"
+            "Unprocessed": "#0662D9"
           },
           "leftYAxisLabel": "message count"
         }
@@ -225,10 +210,10 @@
     }
   ],
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
-  "refresh": "30s",
+  "refresh": "5s",
   "version": 6,
   "hideAllLegends": false
 }
