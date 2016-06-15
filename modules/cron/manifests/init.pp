@@ -30,8 +30,13 @@ class cron (
     purge => true,
   }
 
+  package { 'cron':
+    ensure => 'installed',
+  }
+
   service { 'cron':
-    ensure => running,
+    ensure  => running,
+    require => Package['cron'],
   }
 
   # set the timings of the scheduled tasks at different times
