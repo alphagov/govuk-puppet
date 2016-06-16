@@ -19,6 +19,7 @@
           "span": 6,
           "type": "graph",
           "bars": true,
+          "lines": false,
           "nullPointMode": "null as zero",
           "steppedLine": false,
           "tooltip": {
@@ -54,19 +55,25 @@
           "id": 5,
           "title": "Sidekiq worker activity (search indexing)",
           "span": 6,
-          "editable": true,
           "type": "graph",
+          "lines": false,
+          "bars": true,
+          "nullPointMode": "null as zero",
+          "steppedLine": false,
           "targets": [
             {
-              "target": "alias(sumSeries(consolidateBy(summarize(stats.govuk.app.rummager.workers.Indexer.*.success, '10s', 'max'), 'max')), 'Success')"
+              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.success), '10s', 'max'), 'max'), 'Success')"
             },
             {
-              "target": "alias(sumSeries(consolidateBy(summarize(stats.govuk.app.rummager.workers.Indexer.*.failure, '10s', 'max'), 'max')), 'Failure')"
+              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.failure), '10s', 'max'), 'max'), 'Failure')"
             }
           ],
           "aliasColors": {
             "Success": "#00C200",
             "Failure": "#EE0000"
+          },
+          "grid": {
+            "leftMin": 0
           },
           "leftYAxisLabel": "message count"
         }
