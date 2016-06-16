@@ -64,6 +64,6 @@ class rkhunter::monitoring {
     # 26 hours (cron should run daily, with some leeway)
     freshness_threshold => 93600,
     notes_url           => monitoring_docs_url(rkhunter-warnings),
-    require             => File['/etc/cron.daily/rkhunter-passive-check'],
+    require             => File['/etc/cron.d/rkhunter-passive-check'],
   }
 }
