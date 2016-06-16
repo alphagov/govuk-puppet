@@ -217,7 +217,7 @@
     }
   ],
   "time": {
-    "from": "now-24h",
+    "from": "now-2h",
     "to": "now"
   },
   "refresh": "5s",
