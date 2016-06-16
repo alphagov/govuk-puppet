@@ -41,7 +41,7 @@
           ],
           "aliasColors": {
             "Success": "#00C200",
-            "Retried": "#00CAFA",
+            "Retried": "#FF9900",
             "Discarded": "#FF7100",
             "Error": "#EE0000"
           },
