@@ -16,6 +16,8 @@ define govuk::app::envvar (
   $varname = $title,
   $notify_service  = true,
 ) {
+  validate_string($value)
+
   if $notify_service {
     file { "${envdir}/${varname}":
       ensure  => present,
