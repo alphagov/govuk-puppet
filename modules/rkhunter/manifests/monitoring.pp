@@ -55,7 +55,6 @@ class rkhunter::monitoring {
     command => '/usr/local/bin/rkhunter-passive-check',
     hour    => '6,14',
     minute  => '0',
-    mailto  => '',
   }
 
   @@icinga::passive_check { "check_rkhunter_${::hostname}":
