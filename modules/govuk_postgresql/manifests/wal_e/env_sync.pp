@@ -38,7 +38,8 @@ define govuk_postgresql::wal_e::env_sync (
   $wale_private_gpg_key_passphrase,
   $aws_region = 'eu-west-1',
 ) {
-
+    include govuk_postgresql::wal_e::package
+    
     $env_sync_envdir = '/etc/wal-e/env_sync/env.d'
     $datadir = $postgresql::params::datadir
 
