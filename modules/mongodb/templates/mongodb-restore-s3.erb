@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+S3_BUCKET=<%= @s3_bucket %>
+BACKUP_DIR=<%= @backup_dir %>
+PRIMARY=$(mongo --quiet --eval 'db.isMaster().ismaster')
+
+cd $BACKUP_DIR
+
+
+TIME="$(date +%s)"
+
+# Download and decrypt backup
+/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force `/usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | \
+tail -1 | awk '{print $4}'`| awk '{print $4}' | tr -d "'" | \
+xargs /usr/bin/gpg --yes --quiet --output mongodump.tar.gz --decrypt && tar xzf mongodump.tar.gz
+
+TIME="$(($(date +%s)-TIME))"
+printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
+
+
+TIME="$(date +%s)"
+
+if [ $PRIMARY = "true" ]; then
+
+    # Restore mongo database
+    /usr/bin/mongorestore --quiet var/
+
+    # Tidy up
+    /bin/rm -rf var/ mongodump*
+
+    TIME="$(($(date +%s)-TIME))"
+    printf "RESTORE COMPLETED IN: ${TIME}s\n"
+
+else
+
+    # Check if mongo is running
+    /bin/ps -ef | grep mongod | grep -v grep > /dev/null
+
+    # Clear data directory to invoke an initial sync
+    if [ $? != 0 ]; then
+        /bin/rm -rf /var/lib/mongodb/* && /usr/sbin/service mongod start
+    else
+        /usr/sbin/service mongod stop && /bin/rm -rf /var/lib/mongodb/*
+
+        /usr/sbin/service mongod start
+    fi
+
+    TIME="$(($(date +%s)-TIME))"
+    printf "DATA FLUSHED IN: ${TIME}s\n"
+
+fi
+
+
+if [ $? == 0 ]
+then
+STATUS=0
+else
+STATUS=1
+fi
+
+exit $STATUS

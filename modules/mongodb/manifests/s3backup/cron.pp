@@ -5,6 +5,11 @@
 # [*user*]
 #   The user to run the cronjob as.
 #
+# Runs a backup of MongoDB to Amazon S3 as a cron job.
+#
+# [*user*]
+#   The user to run the cronjob as.
+#
 class mongodb::s3backup::cron {
 
   cron { 'mongodb-s3backup':
