@@ -62,10 +62,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.success), '1minute', 'max'), 'max'), 'Success')"
+              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.success), '1minute', 'sum'), 'max'), 'Success')"
             },
             {
-              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.failure), '1minute', 'max'), 'max'), 'Failure')"
+              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.failure), '1minute', 'sum'), 'max'), 'Failure')"
             }
           ],
           "aliasColors": {
