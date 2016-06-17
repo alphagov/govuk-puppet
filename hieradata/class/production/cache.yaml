@@ -2,8 +2,7 @@
 
 # NOTE: These values should not be changed lightly once set.
 #
-# If changed, the old host record must be cleaned up; see the FIXME in
-# router::gor.
+# If changed, the old host record must be cleaned up;
 router::gor::replay_targets:
   'www-origin.staging.publishing.service.gov.uk':
-    ip: '31.210.245.66'
+    ip: '195.225.216.146'
