@@ -130,7 +130,10 @@
           "aliasColors": {
             "Unprocessed": "#0662D9"
           },
-          "leftYAxisLabel": "message count"
+          "leftYAxisLabel": "message count",
+          "grid": {
+            "leftMin": 0
+          }
         },
         {
           "title": "Sidekiq queue size",
@@ -178,7 +181,10 @@
           "aliasColors": {
             "Unprocessed": "#0662D9"
           },
-          "leftYAxisLabel": "message count"
+          "leftYAxisLabel": "message count",
+          "grid": {
+            "leftMin": 0
+          }
         }
       ]
     }
