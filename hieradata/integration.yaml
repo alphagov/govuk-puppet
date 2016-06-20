@@ -85,6 +85,7 @@ govuk_jenkins::config::admins:
   - mikaelallison
   - mobaig
   - murraysteele
+  - oliverbyford
   - paulbowsher
   - paulhayes
   - richardboulton
@@ -305,6 +306,7 @@ users::usernames:
   - mobaig
   - murraysteele
   - nickcolley
+  - oliverbyford
   - paulbowsher
   - paulhayes
   - richardboulton
