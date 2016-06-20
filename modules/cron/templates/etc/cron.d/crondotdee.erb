@@ -1,4 +1,4 @@
-<% if @mailto %>
+<% unless @mailto.nil? || @mailto.empty? %>
 MAILTO=<%= @mailto %>
 <% end %>
 <%= @minute %> <%= @hour %> <%= @day %> <%= @month %> <%= @weekday %> <%= @user %> <%= @command %>
