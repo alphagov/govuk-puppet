@@ -5,6 +5,7 @@ class govuk_rabbitmq::monitoring (
 ) {
 
   include icinga::plugin::check_http_timeout_noncrit
+  include icinga::plugin::check_rabbitmq_watermark
 
   @icinga::nrpe_config { 'check_rabbitmq_network_partition':
     content => template('govuk_rabbitmq/check_rabbitmq_network_partition.cfg.erb'),
@@ -20,6 +21,12 @@ class govuk_rabbitmq::monitoring (
   @@icinga::check { "check_rabbitmq_network_partitions_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_rabbitmq_network_partition',
     service_description => 'RabbitMQ network partition has occurred',
+    host_name           => $::fqdn,
+  }
+
+  @@icinga::check { "check_rabbitmq_watermark_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_rabbitmq_watermark',
+    service_description => 'RabbitMQ high watermark has been exceeded',
     host_name           => $::fqdn,
   }
 }
