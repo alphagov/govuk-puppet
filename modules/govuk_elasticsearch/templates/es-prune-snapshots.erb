@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+ES_REPOS=(<%= @repositories %>)
+LIMIT=<%= @es_snapshot_limit %>
+
+for i in ${ES_REPOS[@]}; do
+  # This gets snapshots for the repo but leaves behind 'n' youngest snapshots, 'n' being the LIMIT set above
+  SNAPSHOTS=$(/usr/bin/curl --connect-timeout 10 -sS -XGET "127.0.0.1:9200/_snapshot/${ES_REPOS[$i]}/_all" | /usr/bin/jq --raw-output ".snapshots[:-${LIMIT}][].snapshot")
+
+  for SNAPSHOT in $SNAPSHOTS; do
+    /usr/bin/curl --connect-timeout 10 -s -XDELETE "127.0.0.1:9200/_snapshot/${ES_REPOS}/${SNAPSHOT}?pretty"
+  done
+done
+
