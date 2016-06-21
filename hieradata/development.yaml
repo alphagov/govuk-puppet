@@ -161,6 +161,7 @@ govuk::apps::signon::redis_url: redis://localhost:6379/0
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
+govuk::apps::specialist_publisher_rebuild::enable_procfile_worker: false
 govuk::apps::specialist_publisher_rebuild::mongodb_name: 'specialist_publisher_rebuild_production'
 govuk::apps::specialist_publisher_rebuild::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher_rebuild::publish_pre_production_finders: true
