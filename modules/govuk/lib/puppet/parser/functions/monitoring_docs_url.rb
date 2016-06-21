@@ -2,16 +2,27 @@ module Puppet::Parser::Functions
   newfunction(:monitoring_docs_url, :type => :rvalue, :doc => <<-EOS
 Return a URL for documentation about one of our monitoring alerts
 
-The argument should be the anchor that the documentation is located at
+The first argument should be an anchor where the docs can be found
+
+If the optional second argument is true, the first argument should be the
+name of a page rather than a slug.
     EOS
   ) do |args|
 
-    raise(ArgumentError, "monitoring_docs_url: Wrong number of arguments " +
-      "given #{args.size} for 1") unless args.size == 1
+    if args.size < 1 or args.size > 2
+      raise(ArgumentError, "monitoring_docs_url: Wrong number of arguments " +
+      "(given #{args.size})")
+    end
 
-    monitoring_docs_location = 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html'
-    monitoring_docs_anchor = args[0]
+    key = args[0]
+    base_path = 'https://github.gds/pages/gds/opsmanual/2nd-line'
 
-    return "#{monitoring_docs_location}##{monitoring_docs_anchor}"
+    if args[1]
+      url = "#{base_path}/alerts/#{key}.html"
+    else
+      url = "#{base_path}/nagios.html##{key}"
+    end
+
+    return url
   end
 end
