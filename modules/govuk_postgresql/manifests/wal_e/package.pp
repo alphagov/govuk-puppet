@@ -20,13 +20,13 @@ class govuk_postgresql::wal_e::package {
   # pip should take care of version deps but we need to manually upgrade
   # a couple of things
 
-  $pip_deps = [
-    'requests',
-    'six',
-  ]
+  package { 'requests':
+    ensure   => '2.10.0',
+    provider => pip,
+  }
 
-  package { $pip_deps:
-    ensure   => latest,
+  package { 'six':
+    ensure   => '1.10.0',
     provider => pip,
   }
 }
