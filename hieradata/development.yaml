@@ -153,6 +153,8 @@ govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::rummager::enable_procfile_worker: true
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
+govuk::apps::rummager::enable_publishing_listener: true
+govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
 govuk::apps::share_sale_publisher::enabled: true
 govuk::apps::share_sale_publisher::mongodb_nodes: ['localhost']
 govuk::apps::share_sale_publisher::mongodb_name: 'share_sale_publisher_development'
