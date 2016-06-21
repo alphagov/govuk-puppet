@@ -43,7 +43,7 @@ define govuk_postgresql::wal_e::env_sync (
     $env_sync_envdir = '/etc/wal-e/env_sync/env.d'
     $datadir = $postgresql::params::datadir
 
-    file { [ '/etc/wal-e', '/etc/wal-e/env_sync', $env_sync_envdir ]:
+    file { [ '/etc/wal-e/env_sync', $env_sync_envdir ]:
       ensure  => directory,
       owner   => 'postgres',
       group   => 'postgres',

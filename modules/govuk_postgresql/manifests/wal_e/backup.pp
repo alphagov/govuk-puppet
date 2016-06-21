@@ -74,7 +74,7 @@ define govuk_postgresql::wal_e::backup (
         value => $archive_timeout;
     }
 
-    file { [ '/etc/wal-e', '/etc/wal-e/env.d' ]:
+    file { '/etc/wal-e/env.d':
       ensure => directory,
       owner  => 'postgres',
       group  => 'postgres',
