@@ -29,13 +29,13 @@ else
   sudo service postgresql stop
 
   # Push the passphrase to a file so we can decrypt without prompt
-  sudo envdir <%= @env_sync_envdir %> sh -c  'echo passphrase $GPG_PASSPHRASE >> /var/lib/postgresql/.gnupg/gpg.conf'
+  sudo envdir /etc/wal-e/env_sync/env.d sh -c  'echo -n "\npassphrase ${GPG_PASSPHRASE}\n" >> /var/lib/postgresql/.gnupg/gpg.conf'
 
   # Start the restore process
   sudo -iu postgres envdir <%= @env_sync_envdir %> /usr/local/bin/wal-e backup-fetch --blind-restore <%= @datadir -%> LATEST
 
   # Add the recovery.conf configuration (this is renamed to recovery.done after PostgreSQL starts)
-  sudo -iu postgres echo "restore_command = 'envdir <%= @env_sync_envdir %> /usr/local/bin/wal-e wal-fetch \"%f\" \"%p\"'" > $RECOVERY_FILE
+  sudo -iu postgres sh -c "echo \"restore_command = 'envdir /etc/wal-e/env_sync/env.d /usr/local/bin/wal-e wal-fetch \"%f\" \"%p\"'\" > $RECOVERY_FILE"
 
   # Start the PostgreSQL service
   sudo service postgresql start
