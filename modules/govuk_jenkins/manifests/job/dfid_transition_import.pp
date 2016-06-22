@@ -7,8 +7,13 @@
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
+#
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
+#   Default: undef
 class govuk_jenkins::job::dfid_transition_import (
   $publishing_api_bearer_token = undef,
+  $asset_manager_bearer_token = undef,
 ) {
 
   file {
