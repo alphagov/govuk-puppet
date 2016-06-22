@@ -39,9 +39,11 @@ define govuk_postgresql::wal_e::env_sync (
   $aws_region = 'eu-west-1',
 ) {
     include govuk_postgresql::wal_e::package
-    
+
     $env_sync_envdir = '/etc/wal-e/env_sync/env.d'
     $datadir = $postgresql::params::datadir
+
+    validate_re($wale_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
     file { [ '/etc/wal-e/env_sync', $env_sync_envdir ]:
       ensure  => directory,
