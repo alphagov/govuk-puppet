@@ -64,6 +64,8 @@ define govuk_postgresql::wal_e::backup (
 ) {
     include govuk_postgresql::wal_e::package
 
+    validate_re($wale_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
+
     # Continuous archiving to S3
     postgresql::server::config_entry {
       'archive_mode':
