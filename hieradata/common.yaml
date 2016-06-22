@@ -361,6 +361,8 @@ govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_pref
 
 govuk::apps::rummager::nagios_memory_warning: 4600
 govuk::apps::rummager::nagios_memory_critical: 4900
+govuk::apps::rummager::enable_publishing_listener: true
+govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
