@@ -78,10 +78,6 @@ class govuk::node::s_apt (
       location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
       release  => 'dist',
       key      => '7F0CEB10';
-    'mongodb3.2':
-      location => 'https://repo.mongodb.org/apt/ubuntu',
-      release  => 'trusty/mongodb-org/3.2',
-      key      => 'EA312927';
     'jenkins':
       location => 'http://pkg.jenkins-ci.org/debian-stable',
       release  => 'binary/', # Trailing slash is significant.
