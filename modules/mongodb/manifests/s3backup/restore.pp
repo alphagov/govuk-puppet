@@ -5,8 +5,10 @@
 # === Parameters:
 #
 # [*aws_access_key_id*]
+#   Key used to sign programmatic requests in AWS
 #
 # [*aws_secret_access_key*]
+#   Key used to sign programmatic requests in AWS
 #
 # [*backup_dir*]
 #   Defines the directory to restore the backups
@@ -37,9 +39,9 @@ class mongodb::s3backup::restore(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $env_dir = '/etc/mongo_s3backup',
-  $s3_bucket  = 'govuk-mongodb-backup-s3',
+  $s3_bucket  = undef,
   $backup_dir = '/var/lib/s3backup',
-  $user = mongodb::s3backup::backup::user,
+  $user = 'govuk-backup',
   $cron = false
 ){
   include backup::client
