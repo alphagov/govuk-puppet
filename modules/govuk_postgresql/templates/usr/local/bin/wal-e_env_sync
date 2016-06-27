@@ -43,5 +43,8 @@ else
   # Enable and run Puppet to update passwords
   govuk_puppet --enable && govuk_puppet
 
+  # If Puppet does not remove the passphrase from the file, ensure this is cleaned up
+  sudo -iu postgres sed -i '/passphrase/d' /var/lib/postgresql/.gnupg/gpg.conf
+
   echo "PostgreSQL environment sync finished"
 fi
