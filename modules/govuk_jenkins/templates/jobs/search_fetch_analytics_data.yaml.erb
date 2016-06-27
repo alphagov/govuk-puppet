@@ -11,8 +11,15 @@
     name: search-fetch-analytics-data
     display-name: search-fetch-analytics-data
     project-type: freestyle
-    description: "<p>Fetch analytics data from Google Analytics and index in search</p>
-      <p>This is run nightly to update the information used by search to return more popular pages first.</p>"
+    description: |
+      <p>Fetch analytics data from Google Analytics and index in search</p>
+      <p>This is run nightly to update the information used by search to return more popular pages first.</p>
+      <p><strong>While running this task, Rummager's indexes will be locked and no indexing will take place. This task should only be run at night.</strong></p>
+      <p>More information:</p>
+      <ul>
+        <li><a href='https://github.com/alphagov/search-analytics'>alphagov/search-analytics on GitHub</a></li>
+        <li><a href='https://github.com/alphagov/rummager/blob/master/docs/popularity.md'>Docs on Rummager</a></li>
+      </ul>
     scm:
       - search-analytics_search-fetch-analytics-data
     builders:
