@@ -113,7 +113,7 @@ define govuk_postgresql::wal_e::env_sync (
 
     file { '/usr/local/bin/wal-e_env_sync':
       ensure  => present,
-      content => template('govuk_postgresql/usr/local/bin/wal-e_env_sync'),
+      content => template('govuk_postgresql/usr/local/bin/wal-e_env_sync.erb'),
       mode    => '0755',
       require => Package['wal-e'],
     }
