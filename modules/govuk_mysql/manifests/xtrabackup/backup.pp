@@ -29,6 +29,10 @@
 # [*incremental_backup_cron_minute*]
 #   The minute(s) that the incremental backup(s) run(s).
 #
+# [*mailto*]
+#   Where the cronjob should mail any output of the job run. Everything already
+#   gets logged in syslog, so default to nowhere.
+#
 define govuk_mysql::xtrabackup::backup (
   $aws_access_key_id,
   $aws_secret_access_key,
@@ -38,6 +42,7 @@ define govuk_mysql::xtrabackup::backup (
   $base_backup_cron_minute = 10,
   $base_backup_cron_hour = 6,
   $incremental_backup_cron_minute = '*/15',
+  $mailto = '""',
 ) {
   include govuk_mysql::xtrabackup::packages
 
@@ -63,7 +68,7 @@ define govuk_mysql::xtrabackup::backup (
 
   file { '/usr/local/bin/xtrabackup_s3_base':
     ensure  => 'present',
-    content => template('govuk_mysql/usr/local/bin/xtrabackup_s3_base'),
+    content => template('govuk_mysql/usr/local/bin/xtrabackup_s3_base.erb'),
     mode    => '0755',
   }
 
@@ -78,7 +83,7 @@ define govuk_mysql::xtrabackup::backup (
 
   file { '/usr/local/bin/xtrabackup_s3_incremental':
     ensure  => 'present',
-    content => template('govuk_mysql/usr/local/bin/xtrabackup_s3_incremental'),
+    content => template('govuk_mysql/usr/local/bin/xtrabackup_s3_incremental.erb'),
     mode    => '0755',
   }
 
@@ -88,9 +93,17 @@ define govuk_mysql::xtrabackup::backup (
     host_name           => $::fqdn,
   }
 
-  file { '/etc/cron.d/xtrabackup_s3':
-    ensure  => 'present',
-    content => template('govuk_mysql/etc/cron.d/xtrabackup_s3'),
-    mode    => '0755',
+  cron::crondotdee { 'xtrabackup_s3_base':
+    command => '/usr/bin/setlock -N /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_base',
+    hour    => $base_backup_cron_hour,
+    minute  => $base_backup_cron_minute,
+    mailto  => $mailto,
+  }
+
+  cron::crondotdee { 'xtrabackup_s3_incremental':
+    command => '/usr/bin/setlock -n /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_incremental',
+    hour    => '*',
+    minute  => $incremental_backup_cron_minute,
+    mailto  => $mailto,
   }
 }

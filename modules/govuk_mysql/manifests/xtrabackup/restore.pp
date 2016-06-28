@@ -35,7 +35,7 @@ define govuk_mysql::xtrabackup::restore (
 
   file { '/usr/local/bin/xtrabackup_s3_restore':
     ensure  => 'present',
-    content => template('govuk_mysql/usr/local/bin/xtrabackup_s3_restore'),
+    content => template('govuk_mysql/usr/local/bin/xtrabackup_s3_restore.erb'),
     mode    => '0755',
     require => Class['govuk_mysql::xtrabackup::packages'],
   }
