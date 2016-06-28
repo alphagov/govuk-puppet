@@ -19,7 +19,7 @@ class govuk_jenkins::job::local_links_manager_import_service_interactions (
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 1224000,
+    freshness_threshold => (32 * 24 * 60 * 60), #the job runs monthly on the 1st
     action_url          => $job_url,
   }
 }
