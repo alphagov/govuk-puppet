@@ -13,6 +13,21 @@ class govuk_mysql::xtrabackup::packages (
     require => Class[Mysql::Server],
   }
 
+  package { 's3cmd':
+    ensure   => 'present',
+    provider => 'pip',
+  }
+
+  file { '/root/.s3cfg':
+    ensure  => present,
+    content => template('govuk_mysql/s3cfg.erb'),
+    mode    => '0600',
+  }
+
+  package { 'qpress':
+    ensure => present,
+  }
+
   apt::source { 'gof3r':
     location     => "http://${apt_mirror_hostname}/gof3r",
     release      => $::lsbdistcodename,

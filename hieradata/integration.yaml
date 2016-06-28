@@ -222,6 +222,7 @@ govuk::node::s_licensify_lb::licensify_frontend_servers:
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
 govuk::node::s_logging::compress_srv_logs_hour: '9'
 govuk::node::s_monitoring::offsite_backups: false
+govuk::node::s_mysql_master::s3_bucket_name: 'govuk-mysql-xtrabackups-integration'
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::node::s_transition_postgresql_base::env_sync_enabled: true
