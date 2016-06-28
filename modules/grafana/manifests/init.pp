@@ -15,9 +15,9 @@ class grafana {
     ensure => directory,
   }
 
-  file { '/etc/grafana/config.js':
+  file { '/etc/grafana/grafana.ini':
     ensure => file,
-    source => 'puppet:///modules/grafana/config.js',
+    source => 'puppet:///modules/grafana/grafana.ini',
   }
 
   nginx::config::site { 'grafana':
