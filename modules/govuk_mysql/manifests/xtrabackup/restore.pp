@@ -12,6 +12,8 @@ define govuk_mysql::xtrabackup::restore (
 ) {
   $env_sync_envdir = '/etc/mysql/xtrabackup/env_sync/env.d'
 
+  include govuk_mysql::xtrabackup::packages
+
   file {[
         '/etc/mysql/xtrabackup',
         '/etc/mysql/xtrabackup/env_sync',
