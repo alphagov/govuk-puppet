@@ -66,7 +66,13 @@ class mongodb::s3backup::backup(
     managehome => true,
   }
 
-  # push env files
+  file { $backup_dir:
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0750',
+  }
+
   file { [$env_dir,"${env_dir}/env.d"]:
     ensure => directory,
     owner  => $user,
