@@ -13,8 +13,7 @@ class govuk::node::s_apt (
   # `apt::source` resources will need to specify an `architecture` param to
   # select only "amd64" or "binary".
   class { 'aptly':
-    package_ensure => '0.6',
-    config         => {
+    config => {
       'rootDir'       => $root_dir,
       'architectures' => [$::architecture],
     },
