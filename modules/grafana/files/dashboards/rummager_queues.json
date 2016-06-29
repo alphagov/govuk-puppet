@@ -52,8 +52,8 @@
           "leftYAxisLabel": "Messages per minute"
         },
         {
-          "id": 5,
-          "title": "Sidekiq worker activity (search indexing)",
+          "id": 2,
+          "title": "Sidekiq AmendWorker activity (search indexing)",
           "span": 6,
           "type": "graph",
           "lines": false,
@@ -62,10 +62,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.success), '1minute', 'sum'), 'max'), 'Success')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.AmendWorker.success, '1minute', 'sum'), 'max'), 'Success')"
             },
             {
-              "target": "alias(consolidateBy(summarize(sumSeries(stats.govuk.app.rummager.workers.Indexer.*.failure), '1minute', 'sum'), 'max'), 'Failure')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.AmendWorker.failure, '1minute', 'sum'), 'max'), 'Failure')"
             }
           ],
           "aliasColors": {
@@ -75,22 +75,22 @@
           "grid": {
             "leftMin": 0
           },
-          "leftYAxisLabel": "message count"
+          "leftYAxisLabel": "Messages per minute"
         }
       ]
     },
     {
-      "height": "400px",
+      "height": "200px",
       "editable": true,
       "collapse": false,
       "panels": [
         {
-          "title": "Publishing queue consumer queue size (RabbitMQ)",
+          "title": "Publishing queue size (RabbitMQ)",
           "error": false,
           "span": 6,
           "editable": true,
           "type": "graph",
-          "id": 2,
+          "id": 3,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -141,7 +141,7 @@
           "span": 6,
           "editable": true,
           "type": "graph",
-          "id": 2,
+          "id": 4,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -175,11 +175,15 @@
           },
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.workers.enqueued, '10s', 'max'), 'max'), 'Unprocessed')"
+              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.workers.enqueued, '10s', 'max'), 'max'), 'Enqueued')"
+            },
+            {
+              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.workers.retry_set_size, '10s', 'max'), 'max'), 'Retry Set')"
             }
           ],
           "aliasColors": {
-            "Unprocessed": "#0662D9"
+            "Enqueued": "#0662D9",
+            "Retry Set": "#BA43A9"
           },
           "leftYAxisLabel": "message count",
           "grid": {
