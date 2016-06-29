@@ -24,7 +24,7 @@ trap nagios_passive EXIT
 
 # Backup mongodb
 TIME="$(date +%s)"
-/usr/bin/mongodump -h $BACKUP_NODE -o $BACKUP_DIR --quiet
+/usr/bin/mongodump -h $BACKUP_NODE -o $BACKUP_DIR
 TIME="$(($(date +%s)-TIME))"
 printf "BACKUP COMPLETED IN: ${TIME}s\n"
 
