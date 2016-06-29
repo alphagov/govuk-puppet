@@ -6,7 +6,7 @@
     description: "<p>Triggers the broken link checker rake task on whitehall-backend-1.</p>"
     builders:
         - shell: |
-            ssh deploy@whitehall-backend-1.backend 'cd /var/apps/whitehall; govuk_setenv whitehall nohup bundle exec rake generate_broken_link_reports[/tmp/bad_link_reports,departments-policy-content@digital.cabinet-office.gov.uk]'
+            ssh deploy@whitehall-backend-1.backend 'cd /var/apps/whitehall; govuk_setenv whitehall nohup bundle exec rake generate_broken_link_reports[/tmp/bad_link_reports,second-line-content@digital.cabinet-office.gov.uk]'
             echo "Broken link checker run"
     triggers:
         - timed: '0 2 1 * *'
