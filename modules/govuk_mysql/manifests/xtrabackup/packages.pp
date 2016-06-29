@@ -25,10 +25,10 @@ class govuk_mysql::xtrabackup::packages (
   }
 
   apt::source { 'percona':
-    location     => "https://${apt_mirror_hostname}/percona",
+    location     => "http://${apt_mirror_hostname}/percona",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '1C4CBDCDCD2EFD2A',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
   package { 'qpress':
