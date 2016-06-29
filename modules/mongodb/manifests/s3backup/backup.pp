@@ -14,6 +14,10 @@
 # [*backup_dir*]
 #   Defines the directory to dump the backups
 #
+# [*backup_node*]
+#   Define the host to take the backup from.
+#   Defaults to localhost
+#
 # [*cron*]
 #   Defines whether to enable the cron job. Value
 #   should be true or false
@@ -46,6 +50,7 @@ class mongodb::s3backup::backup(
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $backup_dir = '/var/lib/s3backup',
+  $backup_node = 'localhost',
   $cron = true,
   $env_dir = '/etc/mongo_s3backup',
   $private_gpg_key = undef,
@@ -56,7 +61,6 @@ class mongodb::s3backup::backup(
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
-  # create user
   user { $user:
     ensure     => 'present',
     managehome => true,
