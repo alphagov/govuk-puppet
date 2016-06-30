@@ -11,7 +11,12 @@
     name: tagging-sync-check
     display-name: Tagging sync check
     project-type: freestyle
-    description: "This job checks if taggings are in sync between Rummager and Publishing API. See https://github.com/alphagov/finding-things-migration-checker"
+    description: |
+      This job checks if taggings are in sync between Rummager and Publishing API.
+      See https://github.com/alphagov/finding-things-migration-checker
+
+      Only runs the "MissingLinks" check. This check verifies that tags from
+      publishing-api are synced correctly with the search index. 
     scm:
       - tagging-sync-check
     logrotate:
@@ -19,7 +24,7 @@
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %> bin/run_automated_checks
+            PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %> bin/run_automated_checks MissingLinks
     wrappers:
         - ansicolor:
             colormap: xterm
