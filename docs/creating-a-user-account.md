@@ -18,12 +18,11 @@ In [`modules/users/`][users] create a manifest file for yourself. There are
 
 ## Add yourself to the list of users
 
-Add the name of your manifest (your username) into the list of `users::usernames` in hieradata.
+Add the name of your manifest (your username) into the list of `users::usernames` in hieradata/integration.yaml.
 
 ## Add yourself to the list of Jenkins users
 
-There's another bit of hieradata for `govuk_jenkins::config::admins` which will give you access
-to the deployment Jenkins. Add your LDAP username (usually your full name) to this list.
+There's another bit of hieradata in integration.yaml for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your LDAP username (usually your full name) to this list.
 
 ## Staging and production
 
