@@ -40,11 +40,16 @@ class govuk_elasticsearch::backup(
   $env_dir = '/etc/es_s3backup',
   $user = backup::client::govuk-backup,
   $es_repo = undef,
+  $enabled = fasle,
   $es_indices = [
     join(regsubst($govuk_elasticsearch::backup::es_indices, '.*', '"\1"'), ',')]
   ){
 
   include backup::client
+
+  if $enabled {
+    include govuk_elasticsearch::housekeeping
+  }
 
   # push env files
   file { [$env_dir,"${env_dir}/env.d"]:
