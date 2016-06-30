@@ -40,14 +40,14 @@ class govuk_elasticsearch::backup(
   $env_dir = '/etc/es_s3backup',
   $user = backup::client::govuk-backup,
   $es_repo = undef,
-  $enabled = fasle,
+  $housekeeping_enabled = fasle,
   $es_indices = [
     join(regsubst($govuk_elasticsearch::backup::es_indices, '.*', '"\1"'), ',')]
   ){
 
   include backup::client
 
-  if $enabled {
+  if $housekeeping_enabled {
     include govuk_elasticsearch::housekeeping
   }
 

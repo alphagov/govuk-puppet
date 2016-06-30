@@ -1,0 +1,2 @@
+---
+govuk_elasticsearch::backup::housekeeping_enabled: true
