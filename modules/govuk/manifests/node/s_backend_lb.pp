@@ -52,6 +52,9 @@ class govuk::node::s_backend_lb (
         '/rebuild-healthcheck' => {
           'app' => 'specialist-publisher-rebuild',
         },
+        '/preview'             => {
+          'app' => 'specialist-publisher-rebuild',
+        },
       },
       servers => $backend_servers;
     [
