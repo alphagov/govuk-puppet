@@ -1,0 +1,38 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+hosts::production::external_licensify: false
+
+hosts::production::licensify::app_hostnames:
+  - 'licensify'
+  - 'uploadlicence'
+  - 'licensify-admin'
+  - 'licensing-web-forms'
+
+lv:
+  mongodb:
+    pv: '/dev/sdb1'
+    vg: 'backup'
+  databases:
+    pv: '/dev/sdc1'
+    vg: 'mongodb'
+
+mount:
+  /var/lib/mongodb:
+    disk: '/dev/mapper/mongodb-databases'
+    govuk_lvm: 'databases'
+    mountoptions: 'defaults'
+  /var/lib/automongodbbackup:
+    disk: '/dev/mapper/backup-mongodb'
+    govuk_lvm: 'mongodb'
+    mountoptions: 'defaults'
+
+mongodb::server::replicaset_members:
+  'licensing-mongo-1':
+  'licensing-mongo-2':
+  'licensing-mongo-3':
+
+# Disable monthly backups to limit the retention of IL3 data.
+mongodb::backup::domonthly: false
