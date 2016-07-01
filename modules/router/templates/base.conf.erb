@@ -2,12 +2,6 @@ upstream varnish {
   server localhost:7999;
 }
 
-# Function to lowercase a uri
-perl_set $uri_lowercase 'sub {
-  my $r = shift;
-  return lc($r->uri);
-}';
-
 server {
   server_name www.gov.uk www.<%= @app_domain %> www-origin.<%= @app_domain %>;
   listen 80;
