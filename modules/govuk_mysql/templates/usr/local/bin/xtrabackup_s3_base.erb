@@ -19,7 +19,7 @@ function nagios_passive () {
 trap nagios_passive EXIT
 
 if [ -e /var/lib/mysql/xtrabackup_date ]; then
-  envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/base.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/base.xbcrypt
+  envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv --recursive s3://<%= @s3_bucket_name %>/latest/base.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/base.xbcrypt
 fi
 
 date +%Y%m%d-%H%M > /var/lib/mysql/xtrabackup_date
