@@ -70,8 +70,8 @@ class govuk::node::s_apt (
       release  => 'stable',
       key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
     'grafana':
-      location => 'https://packagecloud.io/grafana/stable/debian',
-      release  => 'main',
+      location => 'https://packagecloud.io/grafana/stable/ubuntu',
+      release  => 'trusty',
       key      => '418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB';
     'rabbitmq':
       location => 'http://www.rabbitmq.com/debian',
