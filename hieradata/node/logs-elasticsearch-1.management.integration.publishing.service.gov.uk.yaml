@@ -1,2 +1,6 @@
 ---
-govuk_elasticsearch::backup::housekeeping_enabled: true
+govuk_elasticsearch::backup::enabled: true
+govuk_elasticsearch::backup::s3_bucket: 'logs-elasticsearch'
+govuk_elasticsearch::backup::es_repo: 'snapshots'
+govuk_elasticsearch::backup::es_indices:
+  - kibana_int

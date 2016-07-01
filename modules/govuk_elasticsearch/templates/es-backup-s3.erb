@@ -5,6 +5,9 @@ set -e
 # Redirect stdout and stderr to syslog
 exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
+# The default Icinga passive alert assumes that the script failed
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Elasticsearch backup push to S3 failed"
 S3_BUCKET=<%= @s3_bucket %>
 ES_REPO=<%= @es_repo %>
 ES_INDICES=<%= @es_indices %>
@@ -12,6 +15,14 @@ ES_SNAPSHOT=snapshot_$(date +%d_%m_%y)
 AWS_REGION=<%= @aws_region %>
 AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
 AWS_SECRET_ACCESS_KEY=<%= @aws_secret_access_key %>
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
+
+trap nagios_passive EXIT
 
 /usr/bin/envdir <%= @env_dir %>/env.d  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/"${ES_REPO}"?wait_for_completion=true&pretty" -d '{
   "type": "s3",
@@ -25,10 +36,8 @@ AWS_SECRET_ACCESS_KEY=<%= @aws_secret_access_key %>
   }'
 
 
-# indices: option allows us to specify indexes in a comma separated list rather than snap-shooting everything. However we can set
+# indices: option allows us to specify indexes in a comma separated list rather than snap shotting everything. However we can set
 # the $ES_REPO variable to '_all' to snapshot all indices.
-#
-# ignore_unavailable: option when true will cause indices that do not exist to be ignored during snapshot
 #
 # include_global_state: option will prevent the cluster global state from being stored as part of the snapshot.
 # The entire snapshot will fail if one or more indices participating in the snapshot don’t have all primary shards available
@@ -36,15 +45,7 @@ AWS_SECRET_ACCESS_KEY=<%= @aws_secret_access_key %>
 if [ $? -eq 0 ]; then
 
   /usr/bin/envdir <%= @env_dir %>/env.d /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/"${ES_REPO}"/"${ES_SNAPSHOT}"?wait_for_completion=true&pretty" -d '{
-    "type": "s3",
-    "settings": {
-      "bucket": "'"${S3_BUCKET}"'",
-      "region": "'"${AWS_REGION}"'",
-      "access_key": "'"${AWS_ACCESS_KEY_ID}"'",
-      "secret_key": "'"${AWS_SECRET_ACCESS_KEY}"'"
-    },
     "indices": "'"${ES_INDICES}"'",
-    "ignore_unavailable": "true",
     "include_global_state": "false",
     "compress": "true",
     "server_side_encryption": "true"
@@ -53,3 +54,18 @@ if [ $? -eq 0 ]; then
 else
   echo "Snapshot Failed"
 fi
+
+
+if [ $? == 0 ]
+then
+STATUS=0
+else
+STATUS=1
+fi
+
+if [ $STATUS -eq 0 ]; then
+NAGIOS_CODE=0
+NAGIOS_MESSAGE="OK: Elasticsearch backup push to S3 succeeded"
+fi
+
+exit $STATUS
