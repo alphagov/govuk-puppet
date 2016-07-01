@@ -53,6 +53,7 @@ govuk_jenkins::config::admins:
   - benhyland
   - bobwalker
   - brendanbutler
+  - carlosvilhena
   - carolinegreen
   - chrislee
   - chrispatuzzo
@@ -271,6 +272,7 @@ users::usernames:
   - benhyland
   - bob
   - brendanbutler
+  - carlosvilhena
   - carolinegreen
   - chrislee
   - chrispatuzzo
