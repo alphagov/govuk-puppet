@@ -28,6 +28,6 @@ class govuk_rabbitmq::monitoring (
     check_command       => 'check_nrpe_1arg!check_rabbitmq_watermark',
     service_description => 'RabbitMQ high watermark has been exceeded',
     host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(check-rabbitmq-watermark),
+    notes_url           => monitoring_docs_url(rabbitmq-high-watermark-has-been-exceeded),
   }
 }
