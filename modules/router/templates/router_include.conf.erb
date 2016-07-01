@@ -26,6 +26,19 @@ access_log /var/log/nginx/lb-access.log timed_combined;
 access_log /var/log/nginx/lb-json.event.access.log json_event;
 error_log  /var/log/nginx/lb-error.log;
 
+# explicitly match 'space' only urls to avoid
+# the downcase location causing a redirect loop for https://www.gov.uk/ / /
+location ~ /[\s\/]+$ {
+  rewrite ^(.*)$ $scheme://$host;
+}
+
+# If slug contains no lowercase letters then lowercase it
+# eg www.gov.uk/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
+# eg WWW.GOV.UK/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
+location ~ /[A-Z\W\d]+$ {
+  rewrite ^(.*)$ $scheme://$host$uri_lowercase permanent;
+}
+
 location ~ ^/apply-for-a-licence/? {
   proxy_intercept_errors off;
 
