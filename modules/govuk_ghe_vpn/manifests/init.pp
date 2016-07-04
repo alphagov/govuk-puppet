@@ -45,6 +45,7 @@ class govuk_ghe_vpn (
 
   @@icinga::check { "check_ghe_connection_on_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_ghe_responding',
+    notes_url           => monitoring_docs_url('github-enterprise-connectivity', true),
     service_description => 'Connection to GitHub Enterprise over HTTPS',
     host_name           => $::fqdn,
   }
