@@ -89,6 +89,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::local_links_manager_import_service_interactions
   - govuk_jenkins::job::local_links_manager_import_links
+  - govuk_jenkins::job::local_links_manager_check_links
   - govuk_jenkins::job::mirror_network_config
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks

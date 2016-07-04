@@ -1,14 +1,14 @@
 ---
 - job:
-    name: Local_Links_Manager_Import_Links
-    display-name: Local_Links_Manager_Import_Links
+    name: Local_Links_Manager_Check_Links
+    display-name: Local_Links_Manager_Check_Links
     project-type: freestyle
     description: |
-      Runs the rake task to import all links to service interactions for local authorities into Local Links Manager every day
+      Runs the rake task to check the status of links in Local Links Manager every day
     logrotate:
       artifactNumToKeep: 10
     triggers:
-        - timed: 'H 1 * * *'
+        - timed: 'H 2 * * *'
     builders:
         - trigger-builds:
             - project: run-rake-task
@@ -16,7 +16,7 @@
               predefined-parameters: |
                   TARGET_APPLICATION=local-links-manager
                   MACHINE_CLASS=backend
-                  RAKE_TASK=import:links:import_all
+                  RAKE_TASK=check-links
     publishers:
         - trigger-parameterized-builds:
             - project: Success_Passive_Check
