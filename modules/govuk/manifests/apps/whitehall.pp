@@ -27,6 +27,8 @@ class govuk::apps::whitehall(
   $prevent_single_host = true,
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
+  $redis_host = 'redis-1.backend',
+  $redis_port = '6379',
 ) {
 
   $app_domain = hiera('app_domain')
