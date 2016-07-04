@@ -8,7 +8,7 @@
     logrotate:
       artifactNumToKeep: 10
     triggers:
-        - timed: 'H 5 * * *'
+        - timed: 'H 1 * * *'
     builders:
         - trigger-builds:
             - project: run-rake-task
