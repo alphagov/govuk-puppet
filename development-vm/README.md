@@ -56,7 +56,11 @@ At this point, you should be able to ssh into your vagrant vm by running `vagran
 
 ## 3. Set up the apps
 
-Most of our apps are written in Ruby and use [Bundler](http://bundler.io/rationale.html) to manage their
+If you didn't use Boxen, you will first need to clone some project repositories:
+
+    ./checkout-repos.sh < alphagov_repos
+
+Most of our apps are written in Ruby and use [Bundler][bundler] to manage their
 dependencies. They won't be able to boot without their dependencies, so we need
 to install them:
 
@@ -72,6 +76,8 @@ be able to ignore some errors.
 
     dev$ PROC_COUNT=1 ./update-bundler.sh
 
+[bundler]: http://bundler.io/rationale.html
+
 ## 4. Running the apps
 
 GOV.UK repositories live in `/var/govuk` (a directory which is shared between
@@ -86,7 +92,7 @@ almost certainly fail, since you will not have all the appropriate code download
 and possibly don't have access to some repos. Even if you have all targets mentioned
 in the Procfile downloaded, it will be slow to startup so if you know what you're
 working on you're probably better running just those parts using
-[Bowler](https://github.com/JordanHatch/bowler). To install bowler:
+[Bowler][bowler]. To install bowler:
 
     dev$ sudo gem install bowler
 
@@ -99,6 +105,8 @@ served from your local copy, run foreman with the STATIC_DEV variable defined
 and make sure you're not setting static=0:
 
     dev$ STATIC_DEV="http://static.dev.gov.uk" bowl planner static
+
+[bowler]: https://github.com/JordanHatch/bowler
 
 ## 5. Set Your Git User and Email
 
