@@ -229,6 +229,8 @@ govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
 
+govuk_postgresql::server::standby::pgpassfile_enabled: true
+
 govuk_sudo::sudo_conf:
   deploy_service_postgresql:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
