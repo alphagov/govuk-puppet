@@ -43,6 +43,14 @@
 #   Sets the OAuth Secret Key for using GDS-SSO
 #   Default: undef
 #
+# [*redis_host*]
+#   Sets the host environment variable for a Redis connection
+#   Default: undef
+#
+# [*redis_port*]
+#   Sets the port number environment variable for a Redis connection
+#   Default: 6379
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -54,6 +62,8 @@ class govuk::apps::local_links_manager(
   $db_username = 'local_links_manager',
   $db_password = undef,
   $db_name = 'local-links-manager_production',
+  $redis_host = undef,
+  $redis_port = '6379',
 ) {
   $app_name = 'local-links-manager'
 
@@ -82,6 +92,12 @@ class govuk::apps::local_links_manager(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
+      "${title}-REDIS_HOST":
+        varname => 'REDIS_HOST',
+        value   => $redis_host;
+      "${title}-REDIS_PORT":
+        varname => 'REDIS_PORT',
+        value   => $redis_port;
     }
 
     if $::govuk_node_class != 'development' {
