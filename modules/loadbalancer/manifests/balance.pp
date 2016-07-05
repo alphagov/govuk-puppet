@@ -64,7 +64,7 @@ define loadbalancer::balance(
   $vhost_real = "${vhost}.${vhost_suffix}"
 
   nginx::config::ssl { $vhost_real:
-    certtype => 'wildcard_alphagov',
+    certtype => 'wildcard_publishing',
   }
 
   nginx::config::site { $vhost_real:

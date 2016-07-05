@@ -35,7 +35,7 @@ class router::assets_origin(
   }
 
   nginx::config::ssl { $vhost_name:
-    certtype => 'wildcard_alphagov',
+    certtype => 'wildcard_publishing',
   }
 
   nginx::log {

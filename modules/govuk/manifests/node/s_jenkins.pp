@@ -12,7 +12,7 @@ class govuk::node::s_jenkins inherits govuk::node::s_base {
   }
 
   nginx::config::ssl { 'jenkins':
-    certtype => 'wildcard_alphagov',
+    certtype => 'wildcard_publishing',
   }
 
   nginx::config::site { 'jenkins':

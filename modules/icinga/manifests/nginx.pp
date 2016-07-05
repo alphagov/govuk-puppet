@@ -6,7 +6,7 @@ class icinga::nginx {
   include ::nginx
 
   nginx::config::ssl { 'nagios':
-    certtype => 'wildcard_alphagov',
+    certtype => 'wildcard_publishing',
   }
 
   nginx::config::site { 'nagios':

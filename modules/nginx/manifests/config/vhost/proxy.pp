@@ -53,7 +53,7 @@
 #
 # [*ssl_certtype*]
 #   Type of certificate from the predefined list in `nginx::config::ssl`.
-#   Default: 'wildcard_alphagov'
+#   Default: 'wildcard_publishing'
 #
 # [*hidden_paths*]
 #   Array of paths that nginx will force to return an error
@@ -90,7 +90,7 @@ define nginx::config::vhost::proxy(
   $ssl_only = false,
   $logstream = present,
   $is_default_vhost = false,
-  $ssl_certtype = 'wildcard_alphagov',
+  $ssl_certtype = 'wildcard_publishing',
   $hidden_paths = [],
   $single_page_app = false,
   $read_timeout = 15,

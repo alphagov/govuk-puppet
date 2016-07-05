@@ -26,7 +26,7 @@ class licensify::apps::licensify (
   $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')
   $counter_basename = "${::fqdn_metrics}.nginx_logs.${vhost_escaped}"
 
-  nginx::config::ssl { $vhost_name: certtype => 'wildcard_alphagov' }
+  nginx::config::ssl { $vhost_name: certtype => 'wildcard_publishing' }
   nginx::config::site { $vhost_name: content => template('licensify/licensify-upload-vhost.conf') }
   nginx::log {
     "${vhost_name}-json.event.access.log":
