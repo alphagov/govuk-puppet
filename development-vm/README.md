@@ -80,32 +80,36 @@ be able to ignore some errors.
 
 ## 4. Running the apps
 
-GOV.UK repositories live in `/var/govuk` (a directory which is shared between
-your Mac and your VM) and you can easily run multiple services using the
-Procfile in `/var/govuk/development`:
+You can run any of the GOV.UK apps from the `/var/govuk/development` directory.
+
+The examples in this section may not work until you've imported production data (see below).
+
+You can use [foreman][foreman] to run a single app. The available apps are defined in the Procfile.
 
     dev$ cd /var/govuk/development
-    dev$ foreman start
+    dev$ foreman start rummager
 
-The above command will use the Procfile and start everything at once. This will
-almost certainly fail, since you will not have all the appropriate code downloaded,
-and possibly don't have access to some repos. Even if you have all targets mentioned
-in the Procfile downloaded, it will be slow to startup so if you know what you're
-working on you're probably better running just those parts using
-[Bowler][bowler]. To install bowler:
+Since many of apps depend on other apps, we normally run them using [Bowler][bowler] instead of foreman. To install bowler:
 
     dev$ sudo gem install bowler
 
 Then to run particular apps with bowler:
 
-    dev$ bowl publisher panopticon
+    dev$ bowl publisher content-tagger
 
-If you want to run the project in development mod with the static assets
-served from your local copy, run foreman with the STATIC_DEV variable defined
+This will also run all of the dependencies defined in the Pinfile.
+
+If you don't need an optional dependency, you can pass the `-w` option:
+
+    dev$ bowl whitehall -w mapit
+
+If you want to run the project in development mode with the static assets
+served from your local copy, run bowler with the STATIC_DEV variable defined
 and make sure you're not setting static=0:
 
     dev$ STATIC_DEV="http://static.dev.gov.uk" bowl planner static
 
+[foreman]: http://ddollar.github.io/foreman/
 [bowler]: https://github.com/JordanHatch/bowler
 
 ## 5. Set Your Git User and Email
