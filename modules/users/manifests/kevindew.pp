@@ -1,0 +1,11 @@
+# Creates the kevindew user
+class users::kevindew {
+  govuk_user { 'kevindew':
+    fullname => 'Kevin Dew',
+    email    => 'kevin.dew@digital.cabinet-office.gov.uk',
+    ssh_key  => [
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDi9acfyqQt+8LjfSTmUPpLrJBKeFkm5BABhH3uwput15GTJm4tm3aIwa/Q34dbtLHqCyLe2NO/L8mWxcFiVkY1jAKXYtgklWu5/PelL5peioG8+apqM5jqk59OS6XnUNIMf6hwYb7ERpMbtbDIRJ+yqdiahQxtTQ/G/Qn40zKZ0hgv5FOhDGshTPjG5AfxUKJYKYPK/d0CG3i0ZmRuo4DMiAYb5lG72pq0YxLH9JqEvexNZbnjwglgULhdwy1cyu5wOI9+udRS4QEcMVhVni+v6OcJzaF6ZlnjCbANVOKv9MYSg6TaC2rtl1qlJ0wEa0cV6DaEgCg28PZygtY9Rsh3tE6dlMvfHJz2C3PSkJTQQiOFhlmL7zwegXCoofCV0zx6aH/ejzzXDxCUTajPmpp7IYzY6k1/0QqBhXm6FWfVjjG7T9h3bbuuXu/GPuMPitU7Mma8Hq4hsJtyAyLC6J/YQGb1px1uQU/VGyYvc/+6W9ygxx5DTVs9DQjJ37IDkSDmsoHfW1TQLrEuuNdXUD1BME82ePpFiihCSK1TlKewWYbGwzVd7BkysuuvHIqaNWEq+orLeJTVr/aITy8fEofoVVIbCVyD9x/T8E09iJ9YmWEOJj0PCSwDkYxb01pgZHti1yIgAiwazz20Y0nFHuDYcLLls4nzA4KTtXn7jFn5VQ== kevin.dew@digital.cabinet-office.gov.uk',
+      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCsHFBiNzkj0MiW8xIWDLaq9QvSO8GgjtaK3HSyob2WMVIdKVUQPVuQiR8O4B3mmFU0iCXgZt+XPLJ5gKT1jic/46BMl5eaGPBWEnPe5F5nOwCZPVzH9m2EVV20Glk+58WsVJaIJ9CL0zzkSFPiJtbO9riTvZXihCJ2dHZZXGK92s6yYVu1WevJDSGDvz6thQXsyiz+TCmCsKTemlS2iM3YPwJZKRyDOWT61yZ5OHizub7a0CFDJG8xrVYnd43Z5JFpyDpfD5Kahid6mxLWbWVsW4xCiC4I4egEckwP6H+Yj8gwas6IXdQiC6uRuFvCn3xV4X5yF3YuGF3JsYk1rxNnkm8Stk7JuAgWrmdabtW1ZshWmNOBQcL0rgyPM3e+tHcHE13F7k5NHIsUwPfx8evMguEPgi4g+gAbZqkqgR/MhQ1gjnJsSNQS9L/diqcIpogaHOLjC1aH7p+ply9ZYtYm3lQofCvF6T1BruaGSShiwitK6GhXDG+5sKPuIy30tQFNMdt0tHuxAZTsCmKSJFOHb1JWuG3txQkiCMhEHkX4BGsbQRRNPLkbu+IKdTA+6FfcwSZwTkinABvl+MRGk2yd4tjXimI/yPV1rWgxysMpE20TMO1PtBLLvtqm4V4a2wdoLMRQD7EWE72vYUPqvzok66chdO4UPNnmYfUqI+5DAw== kevin.dew@digital.cabinet-office.gov.uk',
+    ],
+  }
+}
