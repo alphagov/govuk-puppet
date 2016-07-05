@@ -51,6 +51,10 @@
 #   Sets the port number environment variable for a Redis connection
 #   Default: 6379
 #
+# [*link_checker_passive_check*]
+#   Enables the link checker passive check for Icinga
+#   Default: false
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -64,6 +68,7 @@ class govuk::apps::local_links_manager(
   $db_name = 'local-links-manager_production',
   $redis_host = undef,
   $redis_port = '6379',
+  $link_checker_passive_check = false,
 ) {
   $app_name = 'local-links-manager'
 
@@ -98,6 +103,14 @@ class govuk::apps::local_links_manager(
       "${title}-REDIS_PORT":
         varname => 'REDIS_PORT',
         value   => $redis_port;
+    }
+
+    if $link_checker_passive_check {
+      @@icinga::passive_check { "link-checker-${::hostname}":
+        service_description => 'Local Links Manager link checker rake task',
+        host_name           => $::fqdn,
+        freshness_threshold => 26 * (60 * 60),
+      }
     }
 
     if $::govuk_node_class != 'development' {
