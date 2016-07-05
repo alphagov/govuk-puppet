@@ -7,18 +7,13 @@ help you get your development machine set up with our development environment.
 
 Our development environment is an Ubuntu virtual machine with a view to
 achieving [dev-prod parity][1]. By default, the steps below will set you up
-with a [VirtualBox][2] VM, managed and configured by [Vagrant][3]. If you feel
-strongly about using another piece of software (such as VMWare) for your
-development VM, you may find instructions for doing so [on the wiki][4].
-
-Either way, you will need virtualisation enabled in your BIOS, otherwise it
-won't work. This tends to be enabled by default on Macs, but is worth
-checking for other manufacturers.
+with a [VirtualBox][2] VM, managed and configured by [Vagrant][3]. You don't have
+to develop on the VM, but we strongly recommend it.
+If you encounter problems with the development VM you can always ask for help in the #govuk-developers slack channel.
 
 [1]: http://www.12factor.net/dev-prod-parity
 [2]: https://www.virtualbox.org/
 [3]: http://vagrantup.com/
-[4]: https://github.com/alphagov/wiki/wiki
 
 Commands that look like this:
 
