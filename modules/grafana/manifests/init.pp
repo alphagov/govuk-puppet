@@ -14,6 +14,10 @@ class grafana {
     ensure => directory,
   }
 
+  file { '/etc/grafana/config.js':
+    ensure => absent,
+  }
+
   file { '/etc/grafana/grafana.ini':
     ensure => file,
     source => 'puppet:///modules/grafana/grafana.ini',
