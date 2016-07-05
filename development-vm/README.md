@@ -56,7 +56,7 @@ At this point, you should be able to ssh into your vagrant vm by running `vagran
 
 ## 3. Set up the apps
 
-Most of our apps are written in Ruby and use Bundler to manage their
+Most of our apps are written in Ruby and use [Bundler](http://bundler.io/rationale.html) to manage their
 dependencies. They won't be able to boot without their dependencies, so we need
 to install them:
 
@@ -224,8 +224,7 @@ and your SSH config is up-to-date, you can connect to machines with:
 
 ## 9. Keeping your VM up to date
 
-There are a few scripts that should be run regularly to keep your VM up to date. In the
-`development` there is `update-git.sh` and `update-bundler.sh` to keep your projects up
+There are a few scripts that should be run regularly to keep your VM up to date. In `development` there is `update-git.sh` and `update-bundler.sh` to help keep your projects and their dependencies up
 to date. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
 
 All of the above can be run at once with a single command `update-all.sh`.
