@@ -18,4 +18,10 @@ class monitoring::client {
     graphite_hostname => 'graphite.cluster',
   }
 
+  file { '/usr/local/bin/notify_passive_check':
+    ensure  => present,
+    mode    => '0755',
+    content => template('govuk/notify_passive_check.erb'),
+  }
+
 }
