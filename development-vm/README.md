@@ -25,6 +25,11 @@ should be run in the shell on your Mac, whereas commands that look like this:
 
 should be run in the shell on the development VM.
 
+This repository contains tools you'll find useful during development, and scripts for replicating data
+from our integration environment.
+
+The configuration you'll need for your VM lives in a separate repository, govuk-puppet. When we talk about `development-vm`, we mean `govuk_puppet/development-vm`, which is where you'll run vagrant from.
+
 ## 1. Prerequisites and assumptions
 
   * You are using a Mac
@@ -36,19 +41,20 @@ should be run in the shell on the development VM.
 
         /usr/bin/ssh-add -K yourkey
 
-## 2. Install dev tools and the VM
-
-You probably want
-[GDS Boxen](https://github.com/alphagov/gds-boxen). If you don't want
-that, you just need Git and the information in the next section.
-
-## 3. Running the VM
+## 2. Install the VM
 
 See
 [the Puppet development README](https://github.com/alphagov/govuk-puppet/blob/master/development-vm/README.md)
-for more information.
+for more information on installing the VM.
 
-## 4. Set up the apps
+You may find it useful to use
+[GDS Boxen](https://github.com/alphagov/gds-boxen), which will install the required dependencies for you.
+
+At this point, you should be able to ssh into your vagrant vm by running `vagrant ssh` from `govuk_puppet/development-vm`.
+
+`~/govuk/` on your host machine is mounted as `/var/govuk` inside the VM. Any app repositories you clone should go here.
+
+## 3. Set up the apps
 
 Most of our apps are written in Ruby and use Bundler to manage their
 dependencies. They won't be able to boot without their dependencies, so we need
@@ -66,7 +72,7 @@ be able to ignore some errors.
 
     dev$ PROC_COUNT=1 ./update-bundler.sh
 
-## 5. Running the apps
+## 4. Running the apps
 
 GOV.UK repositories live in `/var/govuk` (a directory which is shared between
 your Mac and your VM) and you can easily run multiple services using the
@@ -94,20 +100,20 @@ and make sure you're not setting static=0:
 
     dev$ STATIC_DEV="http://static.dev.gov.uk" bowl planner static
 
-## 6. Set Your Git User and Email
+## 5. Set Your Git User and Email
 
 This way, commits you make on the VM get your name and email set on them:
 
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
 
-## 7. Create a user account on our remote servers
+## 6. Create a user account on our remote servers
 
 Follow [the docs in the Puppet repository to create an account][account-docs].
 
 [account-docs]: https://github.com/alphagov/govuk-puppet/blob/master/docs/creating-a-user-account.md
 
-## 8. Import production data
+## 7. Import production data
 
 These dumps are generated from production data in the early hours each day,
 and are then downloaded from integration.
@@ -178,9 +184,9 @@ in the `replication/mappings/dbs` folder, and are skipped by small sed scripts
 that delete entire `INSERT INTO` lines from the dumps. To force these tables to
 be restored, simply delete or rename the relevant sed script and run replication.
 
-## 9. Accessing remote environments
+## 8. Accessing remote environments
 
-### 9.1 Access to the web frontend
+### 8.1 Access to the web frontend
 
 Most GOV.UK web applications and services are available via the public Internet,
 on URLs of the following form:
@@ -192,7 +198,7 @@ on URLs of the following form:
 The basic authentication username and password is widely known, so just ask somebody
 on your team if you don't know it.
 
-### 9.2 Access to servers via SSH
+### 8.2 Access to servers via SSH
 
 Note: This assumes that you have followed the previous steps, and have your machine's public
 key added to the Puppet repository, and this has been deployed to the environment
@@ -216,7 +222,7 @@ and your SSH config is up-to-date, you can connect to machines with:
     $ ssh backend-1.backend.staging
     $ ssh backend-1.backend.production
 
-## 10. Keeping your VM up to date
+## 9. Keeping your VM up to date
 
 There are a few scripts that should be run regularly to keep your VM up to date. In the
 `development` there is `update-git.sh` and `update-bundler.sh` to keep your projects up
