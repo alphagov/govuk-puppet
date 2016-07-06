@@ -203,9 +203,18 @@ class govuk::apps::whitehall(
     }
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'whitehall',
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      app     => 'whitehall',
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+    "${title}-REDIS_HOST":
+      app     => 'whitehall',
+      varname => 'REDIS_HOST',
+      value   => $redis_host;
+    "${title}-REDIS_PORT":
+      app     => 'whitehall',
+      varname => 'REDIS_PORT',
+      value   => $redis_port;
   }
 }
