@@ -98,6 +98,7 @@ govuk_jenkins::config::admins:
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
+  - timblair
   - pablomanrubia
 
 govuk_jenkins::job_builder::jobs:
@@ -321,5 +322,6 @@ users::usernames:
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
+  - timblair
   - tomhipkin
   - pablomanrubia
