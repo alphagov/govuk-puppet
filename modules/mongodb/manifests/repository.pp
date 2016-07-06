@@ -25,6 +25,15 @@ class mongodb::repository(
       architecture => $::architecture,
       key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
     }
+
+    apt::source { 'mongodb3.2':
+      location     => "http://${apt_mirror_hostname}/mongodb3.2",
+      release      => 'trusty-mongodb-org-3.2',
+      repos        => 'multiverse',
+      architecture => $::architecture,
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    }
+
   } else {
     apt::source { 'mongodb':
       location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
