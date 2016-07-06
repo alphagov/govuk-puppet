@@ -41,7 +41,7 @@ environment_ip_prefix: '10.3'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::local_links_manager::link_checker_passive_check: true
+govuk::apps::local_links_manager::local_links_manager_passive_checks: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-production
@@ -88,8 +88,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::gds_production_backup
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
   - govuk_jenkins::job::launch_vms
-  - govuk_jenkins::job::local_links_manager_import_service_interactions
-  - govuk_jenkins::job::local_links_manager_import_links
   - govuk_jenkins::job::mirror_network_config
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks

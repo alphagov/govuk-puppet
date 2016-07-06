@@ -51,8 +51,8 @@
 #   Sets the port number environment variable for a Redis connection
 #   Default: 6379
 #
-# [*link_checker_passive_check*]
-#   Enables the link checker passive check for Icinga
+# [*local_links_manager_passive_checks*]
+#   Enables the passive checks in Icinga for the local links manager cron jobs
 #   Default: false
 #
 class govuk::apps::local_links_manager(
@@ -68,7 +68,7 @@ class govuk::apps::local_links_manager(
   $db_name = 'local-links-manager_production',
   $redis_host = undef,
   $redis_port = '6379',
-  $link_checker_passive_check = false,
+  $local_links_manager_passive_checks = false,
 ) {
   $app_name = 'local-links-manager'
 
@@ -105,11 +105,23 @@ class govuk::apps::local_links_manager(
         value   => $redis_port;
     }
 
-    if $link_checker_passive_check {
+    if $local_links_manager_passive_checks {
       @@icinga::passive_check { "link-checker-${::hostname}":
         service_description => 'Local Links Manager link checker rake task',
         host_name           => $::fqdn,
         freshness_threshold => 26 * (60 * 60),
+      }
+
+      @@icinga::passive_check { "local-links-manager-import-service-interactions_${::hostname}":
+        service_description => 'Import services and interactions into local-links-manager',
+        host_name           => $::fqdn,
+        freshness_threshold => (32 * 24 * 60 * 60), #the job runs monthly on the 1st
+      }
+
+      @@icinga::passive_check { "local-links-manager-import-links_${::hostname}":
+        service_description => 'Import links to service interactions for local authorities into local-links-manager',
+        host_name           => $::fqdn,
+        freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
       }
     }
 
