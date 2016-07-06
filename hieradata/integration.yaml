@@ -86,6 +86,7 @@ govuk_jenkins::config::admins:
   - mobaig
   - murraysteele
   - oliverbyford
+  - pablomanrubia
   - paulbowsher
   - paulhayes
   - richardboulton
@@ -99,7 +100,6 @@ govuk_jenkins::config::admins:
   - theodorvararu
   - tijmenbrommet
   - timblair
-  - pablomanrubia
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
@@ -309,6 +309,7 @@ users::usernames:
   - murraysteele
   - nickcolley
   - oliverbyford
+  - pablomanrubia
   - paulbowsher
   - paulhayes
   - richardboulton
@@ -324,4 +325,3 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomhipkin
-  - pablomanrubia
