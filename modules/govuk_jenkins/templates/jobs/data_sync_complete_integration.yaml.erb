@@ -11,13 +11,6 @@
       artifactNumToKeep: 10
     builders:
        - shell: |
-           <%- if @signon_domain_old and @signon_domain_new -%>
-           # Fix signon application hostnames
-           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= @signon_domain_old -%> NEW_DOMAIN=<%= @signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
-           <%- end -%>
-           <%- if @pp_signon_domain_old and @pp_signon_domain_new -%>
-           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= @pp_signon_domain_old -%> NEW_DOMAIN=<%= @pp_signon_domain_new -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
-           <%- end -%>
            # Re-register smartanswers to pick up drafts.
            ssh deploy@$(govuk_node_list -c calculators_frontend --single-node) 'cd /var/apps/smartanswers ; govuk_setenv smartanswers bundle exec rake panopticon:register'
            # Queue up any publisher scheduled editions that have been transferred across.
