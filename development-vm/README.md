@@ -7,18 +7,13 @@ help you get your development machine set up with our development environment.
 
 Our development environment is an Ubuntu virtual machine with a view to
 achieving [dev-prod parity][1]. By default, the steps below will set you up
-with a [VirtualBox][2] VM, managed and configured by [Vagrant][3]. If you feel
-strongly about using another piece of software (such as VMWare) for your
-development VM, you may find instructions for doing so [on the wiki][4].
-
-Either way, you will need virtualisation enabled in your BIOS, otherwise it
-won't work. This tends to be enabled by default on Macs, but is worth
-checking for other manufacturers.
+with a [VirtualBox][2] VM, managed and configured by [Vagrant][3]. You don't have
+to develop on the VM, but we strongly recommend it.
+If you encounter problems with the development VM you can always ask for help in the #govuk-developers slack channel.
 
 [1]: http://www.12factor.net/dev-prod-parity
 [2]: https://www.virtualbox.org/
 [3]: http://vagrantup.com/
-[4]: https://github.com/alphagov/wiki/wiki
 
 Commands that look like this:
 
@@ -29,6 +24,11 @@ should be run in the shell on your Mac, whereas commands that look like this:
     dev$ echo "Linux for human beings"
 
 should be run in the shell on the development VM.
+
+This repository contains tools you'll find useful during development, and scripts for replicating data
+from our integration environment.
+
+The configuration you'll need for your VM lives in a separate repository, govuk-puppet. When we talk about `development-vm`, we mean `govuk_puppet/development-vm`, which is where you'll run vagrant from.
 
 ## 1. Prerequisites and assumptions
 
@@ -41,21 +41,26 @@ should be run in the shell on the development VM.
 
         /usr/bin/ssh-add -K yourkey
 
-## 2. Install dev tools and the VM
-
-You probably want
-[GDS Boxen](https://github.com/alphagov/gds-boxen). If you don't want
-that, you just need Git and the information in the next section.
-
-## 3. Running the VM
+## 2. Install the VM
 
 See
 [the Puppet development README](https://github.com/alphagov/govuk-puppet/blob/master/development-vm/README.md)
-for more information.
+for more information on installing the VM.
 
-## 4. Set up the apps
+You may find it useful to use
+[GDS Boxen](https://github.com/alphagov/gds-boxen), which will install the required dependencies for you.
 
-Most of our apps are written in Ruby and use Bundler to manage their
+At this point, you should be able to ssh into your vagrant vm by running `vagrant ssh` from `govuk_puppet/development-vm`.
+
+`~/govuk/` on your host machine is mounted as `/var/govuk` inside the VM. Any app repositories you clone should go here.
+
+## 3. Set up the apps
+
+If you didn't use Boxen, you will first need to clone some project repositories:
+
+    ./checkout-repos.sh < alphagov_repos
+
+Most of our apps are written in Ruby and use [Bundler][bundler] to manage their
 dependencies. They won't be able to boot without their dependencies, so we need
 to install them:
 
@@ -71,48 +76,56 @@ be able to ignore some errors.
 
     dev$ PROC_COUNT=1 ./update-bundler.sh
 
-## 5. Running the apps
+[bundler]: http://bundler.io/rationale.html
 
-GOV.UK repositories live in `/var/govuk` (a directory which is shared between
-your Mac and your VM) and you can easily run multiple services using the
-Procfile in `/var/govuk/development`:
+## 4. Running the apps
+
+You can run any of the GOV.UK apps from the `/var/govuk/development` directory.
+
+The examples in this section may not work until you've imported production data (see below).
+
+You can use [foreman][foreman] to run a single app. The available apps are defined in the Procfile.
 
     dev$ cd /var/govuk/development
-    dev$ foreman start
+    dev$ foreman start rummager
 
-The above command will use the Procfile and start everything at once. This will
-almost certainly fail, since you will not have all the appropriate code downloaded,
-and possibly don't have access to some repos. Even if you have all targets mentioned
-in the Procfile downloaded, it will be slow to startup so if you know what you're
-working on you're probably better running just those parts using
-[Bowler](https://github.com/JordanHatch/bowler). To install bowler:
+Since many of apps depend on other apps, we normally run them using [Bowler][bowler] instead of foreman. To install bowler:
 
     dev$ sudo gem install bowler
 
 Then to run particular apps with bowler:
 
-    dev$ bowl publisher panopticon
+    dev$ bowl publisher content-tagger
 
-If you want to run the project in development mod with the static assets
-served from your local copy, run foreman with the STATIC_DEV variable defined
+This will also run all of the dependencies defined in the Pinfile.
+
+If you don't need an optional dependency, you can pass the `-w` option:
+
+    dev$ bowl whitehall -w mapit
+
+If you want to run the project in development mode with the static assets
+served from your local copy, run bowler with the STATIC_DEV variable defined
 and make sure you're not setting static=0:
 
     dev$ STATIC_DEV="http://static.dev.gov.uk" bowl planner static
 
-## 6. Set Your Git User and Email
+[foreman]: http://ddollar.github.io/foreman/
+[bowler]: https://github.com/JordanHatch/bowler
+
+## 5. Set Your Git User and Email
 
 This way, commits you make on the VM get your name and email set on them:
 
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
 
-## 7. Create a user account on our remote servers
+## 6. Create a user account on our remote servers
 
 Follow [the docs in the Puppet repository to create an account][account-docs].
 
 [account-docs]: https://github.com/alphagov/govuk-puppet/blob/master/docs/creating-a-user-account.md
 
-## 8. Import production data
+## 7. Import production data
 
 These dumps are generated from production data in the early hours each day,
 and are then downloaded from integration.
@@ -183,9 +196,9 @@ in the `replication/mappings/dbs` folder, and are skipped by small sed scripts
 that delete entire `INSERT INTO` lines from the dumps. To force these tables to
 be restored, simply delete or rename the relevant sed script and run replication.
 
-## 9. Accessing remote environments
+## 8. Accessing remote environments
 
-### 9.1 Access to the web frontend
+### 8.1 Access to the web frontend
 
 Most GOV.UK web applications and services are available via the public Internet,
 on URLs of the following form:
@@ -197,7 +210,7 @@ on URLs of the following form:
 The basic authentication username and password is widely known, so just ask somebody
 on your team if you don't know it.
 
-### 9.2 Access to servers via SSH
+### 8.2 Access to servers via SSH
 
 Note: This assumes that you have followed the previous steps, and have your machine's public
 key added to the Puppet repository, and this has been deployed to the environment
@@ -221,10 +234,9 @@ and your SSH config is up-to-date, you can connect to machines with:
     $ ssh backend-1.backend.staging
     $ ssh backend-1.backend.production
 
-## 10. Keeping your VM up to date
+## 9. Keeping your VM up to date
 
-There are a few scripts that should be run regularly to keep your VM up to date. In the
-`development` there is `update-git.sh` and `update-bundler.sh` to keep your projects up
+There are a few scripts that should be run regularly to keep your VM up to date. In `development` there is `update-git.sh` and `update-bundler.sh` to help keep your projects and their dependencies up
 to date. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
 
 All of the above can be run at once with a single command `update-all.sh`.
