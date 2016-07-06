@@ -3,8 +3,7 @@
 # Set up grafana.
 #
 class grafana {
-  include govuk_ppa
-
+  include grafana::repo
   include grafana::dashboards
 
   package { 'grafana':
@@ -16,8 +15,12 @@ class grafana {
   }
 
   file { '/etc/grafana/config.js':
+    ensure => absent,
+  }
+
+  file { '/etc/grafana/grafana.ini':
     ensure => file,
-    source => 'puppet:///modules/grafana/config.js',
+    source => 'puppet:///modules/grafana/grafana.ini',
   }
 
   nginx::config::site { 'grafana':
