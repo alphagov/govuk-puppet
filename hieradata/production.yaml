@@ -41,6 +41,7 @@ environment_ip_prefix: '10.3'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false
+govuk::apps::local_links_manager::link_checker_passive_check: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::data_import_passive_check: true
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-production

@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+SERVICE_DESC=$1
+NAGIOS_CODE=$2
+NAGIOS_MESSAGE=$3
+
+if [ -n "$SERVICE_DESC" ] && [ -n "$NAGIOS_CODE" ] && [ -n "$NAGIOS_MESSAGE" ]; then
+  printf "<%= @ipaddress %>\t$SERVICE_DESC\t$NAGIOS_CODE\t$NAGIOS_MESSAGE\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+else
+  logger "Failed to submit passive check. Insufficient parameters: SERVICE_DESC=$SERVICE_DESC NAGIOS_CODE=$NAGIOS_CODE NAGIOS_MESSAGE=$NAGIOS_MESSAGE"
+  exit 1
+fi
