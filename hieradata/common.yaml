@@ -327,6 +327,7 @@ govuk::apps::kibana::signon_root: "https://signon.%{hiera('app_domain')}"
 
 govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::local_links_manager::redis_host: 'redis-1.backend'
 
 govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
