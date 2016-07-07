@@ -86,12 +86,6 @@ govuk::node::s_frontend_lb::frontend_servers:
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
-govuk::node::s_licensify_lb::licensify_backend_servers:
-  - 'licensify-backend-1.licensify'
-  - 'licensify-backend-2.licensify'
-govuk::node::s_licensify_lb::licensify_frontend_servers:
-  - 'licensify-frontend-1.licensify'
-  - 'licensify-frontend-2.licensify'
 govuk::node::s_frontend_lb::performance_frontend_servers:
   - 'performance-frontend-1.frontend'
   - 'performance-frontend-2.frontend'
