@@ -51,6 +51,8 @@ unknown classes or functions such as:
 - `Could not find class apt for …`
 - `Puppet::Parser::AST::Resource failed with error ArgumentError: Invalid resource type apt::source …`
 
+It may affect errors relating to classes you have not modified when running spec tests after a rebase.
+
 This should also fix errors while trying to run `govuk_puppet`, of the form:
 
 - `chown: changing ownership of '/home/vagrant/.puppet/[…]': Operation not permitted`
