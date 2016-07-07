@@ -21,10 +21,10 @@
         <li><a href='https://github.com/alphagov/rummager/blob/master/docs/popularity.md'>Docs on Rummager</a></li>
       </ul>
     scm:
-      - search-analytics_search-fetch-analytics-data
+        - search-analytics_search-fetch-analytics-data
     builders:
         - shell: |
-          ./nightly-run.sh
+            ./nightly-run.sh
     triggers:
         - timed: '5 4 * * *'
     publishers:
