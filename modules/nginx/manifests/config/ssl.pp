@@ -9,8 +9,9 @@
 #   Mandatory key used to lookup value from hiera. It performs no other
 #   magic. Permitted values:
 #
+#     - sflg
+#     - wildcard_publishing
 #     - www
-#     - wildcard_alphagov
 #
 define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
@@ -18,9 +19,9 @@ define nginx::config::ssl( $certtype, $ensure = 'present' ) {
         $cert = hiera('sflg_certificate', '')
         $key = hiera('sflg_key', '')
     }
-    'wildcard_alphagov': {
-        $cert = hiera('wildcard_alphagov_crt', '')
-        $key = hiera('wildcard_alphagov_key', '')
+    'wildcard_publishing': {
+        $cert = hiera('wildcard_publishing_certificate', '')
+        $key = hiera('wildcard_publishing_key', '')
     }
     'www': {
         $cert = hiera('www_crt', '')

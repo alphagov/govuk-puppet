@@ -47,8 +47,8 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'nginx_enable_ssl',
     'sflg_certificate',
     'sflg_key',
-    'wildcard_alphagov_crt',
-    'wildcard_alphagov_key',
+    'wildcard_publishing_certificate',
+    'wildcard_publishing_key',
     'www_crt',
     'www_key',
   ]

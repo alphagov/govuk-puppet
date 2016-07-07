@@ -13,9 +13,9 @@
 #
 # [*certtype*]
 #   The "type" of cert to use. See `nginx::config::ssl`.
-#   Default: wildcard_alphagov
+#   Default: wildcard_publishing
 #
-define nginx::config::vhost::redirect($to, $certtype = 'wildcard_alphagov') {
+define nginx::config::vhost::redirect($to, $certtype = 'wildcard_publishing') {
   nginx::config::site { $name:
     content => template('nginx/redirect-vhost.conf'),
   }

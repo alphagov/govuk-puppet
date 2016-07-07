@@ -17,13 +17,13 @@
 #
 # [*ssl_certtype*]
 #   Type of SSL cert passed to nginx::config::ssl
-#   Default: wildcard_alphagov
+#   Default: wildcard_publishing
 #
 define nginx::config::vhost::default(
   $extra_config = '',
   $status = '500',
   $status_message = "'{\"error\": \"Fell through to default vhost\"}\\n'",
-  $ssl_certtype = 'wildcard_alphagov',
+  $ssl_certtype = 'wildcard_publishing',
 ) {
 
   # Whether to enable SSL. Used by template.

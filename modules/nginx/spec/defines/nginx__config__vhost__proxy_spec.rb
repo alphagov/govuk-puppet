@@ -111,7 +111,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
-  context 'with ssl_certtype wildcard_alphagov' do
+  context 'with ssl_certtype wildcard_publishing' do
     let(:params) do
       {
         :to => ['a.internal'],
@@ -119,7 +119,7 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
 
     it {
-      is_expected.to contain_nginx__config__ssl('rabbit').with_certtype('wildcard_alphagov')
+      is_expected.to contain_nginx__config__ssl('rabbit').with_certtype('wildcard_publishing')
     }
   end
 
