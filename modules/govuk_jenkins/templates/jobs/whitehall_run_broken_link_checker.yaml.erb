@@ -18,15 +18,15 @@
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
         - trigger-parameterized-builds:
             - project: success_passive_check
-                condition: 'SUCCESS'
-                predefined-parameters: |
-                    NSCA_CHECK_DESCRIPTION=<%= @service_description %>
-                    NSCA_OUTPUT=<%= @service_description %> successful
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> successful
             - project: failure_passive_check
-                condition: 'FAILED'
-                predefined-parameters: |
-                    NSCA_CHECK_DESCRIPTION=<%= @service_description %>
-                    NSCA_OUTPUT=<%= @service_description %> failed
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
     logrotate:
         artifactNumToKeep: 10
 
