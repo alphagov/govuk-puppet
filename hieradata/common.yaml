@@ -865,6 +865,14 @@ hosts::production::licensify::hosts:
     ip: '10.5.0.101'
   licensify-lb-2:
     ip: '10.5.0.102'
+  licensing-frontend-1:
+    ip: '10.5.0.12'
+  licensing-frontend-2:
+    ip: '10.5.0.13'
+  licensing-backend-1:
+    ip: '10.5.0.14'
+  licensing-backend-2:
+    ip: '10.5.0.15'
 
 hosts::production::management::hosts:
   jenkins-1:
