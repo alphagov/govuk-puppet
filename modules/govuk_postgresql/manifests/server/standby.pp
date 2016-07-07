@@ -11,9 +11,15 @@
 # [*master_password*]
 #   Password to authenticate against the master.
 #
+# [*pgpassfile_enabled*]
+#   This creates a password file so you can automatically resync a slave from
+#   a master without prompt (to be used in batch jobs). Should be explictly
+#   allowed in an environment for security reasons.
+#
 class govuk_postgresql::server::standby (
   $master_host,
   $master_password,
+  $pgpassfile_enabled = false,
 ) {
   include govuk_postgresql::server
 
@@ -51,6 +57,16 @@ class govuk_postgresql::server::standby (
     ensure  => present,
     mode    => '0755',
     content => template('govuk_postgresql/usr/local/bin/pg_resync_slave.erb'),
+  }
+  if $pgpassfile_enabled {
+    file { '/var/lib/postgresql/.pgpass':
+      ensure  => present,
+      mode    => '0600',
+      owner   => $pg_user,
+      group   => $pg_group,
+      content => "${master_host}:5432:*:${username}:${master_password}",
+      require => Class['Govuk_postgresql::server'],
+    }
   }
 
   $metric_suffix = 'postgresql-global.bytes-xlog_position'
