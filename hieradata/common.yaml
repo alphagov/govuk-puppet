@@ -880,6 +880,12 @@ hosts::production::licensify::hosts:
     ip: '10.5.0.14'
   licensing-backend-2:
     ip: '10.5.0.15'
+  licensing-mongo-1:
+    ip: '10.5.0.16'
+  licensing-mongo-2:
+    ip: '10.5.0.17'
+  licensing-mongo-3:
+    ip: '10.5.0.18'
 
 hosts::production::management::hosts:
   jenkins-1:
