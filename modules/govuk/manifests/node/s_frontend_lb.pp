@@ -5,11 +5,12 @@ class govuk::node::s_frontend_lb (
   $draft_frontend_servers,
   $email_campaign_frontend_servers,
   $frontend_servers,
-  $whitehall_frontend_servers,
   $hide_frontend_apps = true,
   $performance_frontend_apps = [],
   $performance_frontend_servers = [],
 ){
+  $whitehall_frontend_servers = split(generate('/usr/local/bin/govuk_node_list', '-c', 'whitehall_frontend'), '\n')
+
   include govuk::node::s_base
   include loadbalancer
 
