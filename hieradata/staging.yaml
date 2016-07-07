@@ -139,14 +139,6 @@ govuk::node::s_frontend_lb::performance_frontend_servers:
 govuk::node::s_frontend_lb::performance_frontend_apps:
   - 'spotlight'
   - 'performanceplatform-big-screen-view'
-govuk::node::s_frontend_lb::whitehall_frontend_servers:
-  - 'whitehall-frontend-1.frontend'
-  - 'whitehall-frontend-2.frontend'
-  - 'whitehall-frontend-3.frontend'
-  - 'whitehall-frontend-4.frontend'
-  - 'whitehall-frontend-5.frontend'
-  - 'whitehall-frontend-6.frontend'
-  - 'whitehall-frontend-7.frontend'
 govuk::node::s_licensify_lb::licensify_backend_servers:
   - 'licensify-backend-1.licensify'
   - 'licensify-backend-2.licensify'

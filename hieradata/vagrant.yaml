@@ -83,9 +83,6 @@ govuk::node::s_frontend_lb::email_campaign_frontend_servers:
 govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'
-govuk::node::s_frontend_lb::whitehall_frontend_servers:
-  - 'whitehall-frontend-1.frontend'
-  - 'whitehall-frontend-2.frontend'
 govuk::node::s_licensify_lb::licensify_backend_servers:
   - 'licensify-backend-1.licensify'
   - 'licensify-backend-2.licensify'
