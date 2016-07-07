@@ -1,4 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_licensify_lb
+#
+# Sets up a loadbalancer machine for licensing
+#
+# === Parameters
+#
+# [*licensify_frontend_servers*]
+#   An array of machines where the frontend app lives
+#
+# [*licensify_backend_servers*]
+#   An array of machines where the backend app lives
+#
+# [*enable_feed_console*]
+#   Boolean, whether the licensify-feed app should be loadbalanced
+#
 class govuk::node::s_licensify_lb (
   $licensify_frontend_servers,
   $licensify_backend_servers,
