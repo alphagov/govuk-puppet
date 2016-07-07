@@ -433,10 +433,10 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
-govuk::node::s_licensify_lb::licensify_backend_servers:
+govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensify-backend-1.licensify'
   - 'licensify-backend-2.licensify'
-govuk::node::s_licensify_lb::licensify_frontend_servers:
+govuk::node::s_licensify_lb::frontend_app_servers:
   - 'licensify-frontend-1.licensify'
   - 'licensify-frontend-2.licensify'
 
