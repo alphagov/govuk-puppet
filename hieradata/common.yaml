@@ -287,6 +287,9 @@ govuk::apps::frontend::nagios_memory_critical: 1400
 
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
+govuk::apps::publisher::redis_host: 'redis-1.backend'
+govuk::apps::publisher::redis_port: '6379'
+
 govuk::apps::whitehall::redis_host: 'redis-1.backend'
 govuk::apps::whitehall::redis_port: '6379'
 
