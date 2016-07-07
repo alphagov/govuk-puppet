@@ -433,6 +433,13 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
+govuk::node::s_licensify_lb::backend_app_servers:
+  - 'licensify-backend-1.licensify'
+  - 'licensify-backend-2.licensify'
+govuk::node::s_licensify_lb::frontend_app_servers:
+  - 'licensify-frontend-1.licensify'
+  - 'licensify-frontend-2.licensify'
+
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
@@ -865,6 +872,14 @@ hosts::production::licensify::hosts:
     ip: '10.5.0.101'
   licensify-lb-2:
     ip: '10.5.0.102'
+  licensing-frontend-1:
+    ip: '10.5.0.12'
+  licensing-frontend-2:
+    ip: '10.5.0.13'
+  licensing-backend-1:
+    ip: '10.5.0.14'
+  licensing-backend-2:
+    ip: '10.5.0.15'
 
 hosts::production::management::hosts:
   jenkins-1:

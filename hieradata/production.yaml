@@ -188,12 +188,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-5.frontend'
   - 'whitehall-frontend-6.frontend'
   - 'whitehall-frontend-7.frontend'
-govuk::node::s_licensify_lb::licensify_backend_servers:
-  - 'licensify-backend-1.licensify'
-  - 'licensify-backend-2.licensify'
-govuk::node::s_licensify_lb::licensify_frontend_servers:
-  - 'licensify-frontend-1.licensify'
-  - 'licensify-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
