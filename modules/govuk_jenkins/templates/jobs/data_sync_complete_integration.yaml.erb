@@ -38,5 +38,10 @@
               condition: 'SUCCESS'
             <%- end -%>
             - project: Sanitize_publishing_API_data
+            - project: run-rake-task
+              predefined-parameters: |
+                TARGET_APPLICATION=router-api
+                MACHINE_CLASS=router_backend
+                RAKE_TASK=backend:modify_url[tariff,https://tariff-frontend-dev.cloudapps.digital/]
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
