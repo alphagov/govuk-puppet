@@ -37,6 +37,16 @@ LoadPlugin postgresql
     </Result>
   </Query>
 
+  <Query publishing_api_content_item_count>
+    Statement "SELECT count(*) AS count \
+               FROM publishing_api_production.content_items;"
+
+    <Result>
+      Type counter
+      ValuesFrom "count"
+    </Result>
+  </Query>
+
   <Database postgres>
     Instance "global"
     Host "localhost"
