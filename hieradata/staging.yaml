@@ -149,7 +149,7 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-7.frontend'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::offsite_backups: false
-govuk::node::s_mysql_master::s3_bucket_name: 'govuk-mysql-xtrabackups-staging'
+govuk::node::s_mysql_master::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
