@@ -4,6 +4,9 @@
 #
 # == Parameters
 #
+# [*errbit_api_key*]
+#   An API key to send exceptions to Errbit.
+#
 # [*port*]
 #   The port on which Bouncer is served on.
 #   Default: 3049
@@ -27,6 +30,7 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::bouncer(
+  $errbit_api_key = '',
   $db_username = 'bouncer',
   $db_password = '',
   $db_hostname = '',
@@ -35,6 +39,10 @@ class govuk::apps::bouncer(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
+
+  Govuk::App::Envvar {
+    app => 'bouncer',
+  }
 
   govuk::app { 'bouncer':
     app_type               => 'rack',
@@ -175,5 +183,11 @@ class govuk::apps::bouncer(
       host     => $db_hostname,
       database => $db_name,
     }
+  }
+
+  govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
   }
 }
