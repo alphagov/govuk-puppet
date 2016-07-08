@@ -10,7 +10,7 @@ class grafana::repo (
 ) {
   apt::source { 'grafana':
     location     => "http://${apt_mirror_hostname}/grafana",
-    release      => 'main',
+    release      => 'jessie',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
