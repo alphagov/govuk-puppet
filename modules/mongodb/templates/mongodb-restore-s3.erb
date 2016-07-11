@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+S3_BUCKET=<%= @s3_bucket %>
+BACKUP_DIR=<%= @backup_dir %>
+
+cd $BACKUP_DIR
+
+
+TIME="$(date +%s)"
+
+# Download and decrypt backup
+  /usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force `/usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | \
+  tail -1 | /usr/bin/awk '{print $4}'`| /usr/bin/awk '{print $4}' | /usr/bin/tr -d "'" | \
+  /usr/bin/xargs /usr/bin/gpg --yes --quiet --output mongodump.tar.gz --decrypt && /bin/tar xzf mongodump.tar.gz
+
+TIME="$(($(date +%s)-TIME))"
+/usr/bin/printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
+
+
+TIME="$(date +%s)"
+
+
+# Restore mongo database
+  /usr/bin/mongorestore var/ > /dev/null
+
+# Tidy up
+  /bin/rm -rf var/ mongodump*
+
+TIME="$(($(date +%s)-TIME))"
+/usr/bin/printf "RESTORE COMPLETED IN: ${TIME}s\n"
+
+
+
+
+
+
