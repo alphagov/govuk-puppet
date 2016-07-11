@@ -102,8 +102,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-gor.git
-  ref: v0.2.0
-  sha: 9c14ec8013242e954b4c7182ac758f3416e385a0
+  ref: v0.3.0
+  sha: 4cd99c5b37453a1dfd7dcea50c2cd7201473803e
   specs:
     gdsoperations-gor (0.2.0)
       puppetlabs-stdlib (>= 3.0.0)
