@@ -1,7 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class mongodb::service {
+# == Class: Mongodb::Service
+#
+# Manages the MongoDB service
+#
+# === Parameters
+#
+# [*service_name*]
+# Name of the MongoDB service. In 2.x, this is 'mongodb', and in 3.x this is
+# 'mongod'.
+#
+class mongodb::service (
+  $service_name = 'mongodb',
+) {
 
-  service { 'mongodb':
+  service { $service_name:
     ensure     => running,
     hasrestart => true,
     hasstatus  => true,
