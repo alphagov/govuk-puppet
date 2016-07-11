@@ -21,8 +21,7 @@ server {
 }
 
 server {
-  # www-origin-staging.<appdomain> is necessary as a target for Gor from Production
-  server_name         www.<%= @app_domain %> www-origin.<%= @app_domain %> draft-origin.<%= @app_domain %> www-origin-staging.<%= @app_domain %>;
+  server_name         www.<%= @app_domain %> www-origin.<%= @app_domain %> draft-origin.<%= @app_domain %>;
   listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/www.<%= @app_domain %>.crt;
   ssl_certificate_key /etc/nginx/ssl/www.<%= @app_domain %>.key;
