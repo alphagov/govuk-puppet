@@ -1,3 +1,4 @@
+# FIXME  Once deployed please remove user and file references that ensure absent
 # == Class: mongodb::s3backup::backup
 #
 # Backup a MongoDB server to AWS S3
@@ -54,16 +55,18 @@ class mongodb::s3backup::backup(
   $cron = true,
   $env_dir = '/etc/mongo_s3backup',
   $private_gpg_key = undef,
-  $private_gpg_key_fingerprint,
-  $s3_bucket  = 'govuk-mongodb-backup-s3',
-  $user = 'govuk-backups'
+  $private_gpg_key_fingerprint = undef,
+  $s3_bucket  = undef,
+  $s3_bucket_daily = undef,
+  $user = 'govuk-backup'
 ){
+
+  include backup::client
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
-  user { $user:
-    ensure     => 'present',
-    managehome => true,
+  user { 'govuk-backups':
+    ensure => absent,
   }
 
   file { $backup_dir:
@@ -101,6 +104,13 @@ class mongodb::s3backup::backup(
     mode    => '0640',
   }
 
+  file { '/var/lib/s3backup':
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0775',
+  }
+
   # push script
   file { '/usr/local/bin/mongodb-backup-s3':
     ensure  => present,
@@ -109,6 +119,10 @@ class mongodb::s3backup::backup(
     group   => $user,
     mode    => '0755',
     require => User[$user],
+  }
+
+  file { '/usr/local/bin/mongodb-backup-s3-wrapper':
+    ensure => absent,
   }
 
   # push gpg key
@@ -158,3 +172,4 @@ class mongodb::s3backup::backup(
   }
 
 }
+

@@ -13,6 +13,7 @@ BACKUP_DIR=<%= @backup_dir %>
 BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
 KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
 S3_BUCKET=<%= @s3_bucket %>
+S3_BUCKET_DAILY=<%= @s3_bucket_daily %>
 
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
@@ -30,25 +31,24 @@ printf "BACKUP COMPLETED IN: ${TIME}s\n"
 
 # Compress and encrypt backup
 TIME="$(date +%s)"
-(/bin/tar cvz $BACKUP_DIR | /usr/bin/gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT) &> /dev/null
+(/bin/tar cvz $BACKUP_DIR | /usr/bin/gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT)
 TIME="$(($(date +%s)-TIME))"
 printf "COMPRESSION AND ENCRYPTION FINISHED IN: ${TIME}s\n"
 
 # Upload backup to s3 bucket
 TIME="$(date +%s)"
-/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET --quiet
+if [ $1 == "daily" ]; then
+
+    /usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET_DAILY --quiet
+else
+    /usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET --quiet
+fi
 TIME="$(($(date +%s)-TIME))"
 printf "BACKUP UPLOADED IN: ${TIME}s\n"
 
 # Tidy up
 /bin/rm -f $BACKUP_DIR/mongodump-*
 
-if [ $? == 0 ]
-then
-STATUS=0
-else
-STATUS=1
-fi
 
 if [ $STATUS -eq 0 ]; then
 NAGIOS_CODE=0
