@@ -104,13 +104,6 @@ class mongodb::s3backup::backup(
     mode    => '0640',
   }
 
-  file { '/var/lib/s3backup':
-    ensure => directory,
-    owner  => $user,
-    group  => $user,
-    mode   => '0775',
-  }
-
   # push script
   file { '/usr/local/bin/mongodb-backup-s3':
     ensure  => present,
