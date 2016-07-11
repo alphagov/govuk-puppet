@@ -3,6 +3,6 @@ class users::davidbasalla {
   govuk_user { 'davidbasalla':
     fullname => 'David Basalla',
     email    => 'david.basalla@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa REPLACE ME',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC31mwz5ec37o5fDmo0WdSpR37JftzDTlishE/pXiLLipVtEIhbqbefuv8XMZiiH6oGfBUms4fyRdIxhIDcsRozgFQ0mBp6BXypur6sWbJmV8Lvc08PAw7DxXOkBYLXSvobbeTFc16welZlQ+UGN9WZ9mxfBg3gUCTRxPb5YD8C10nrI5fFkcaGL4qCmXwZ0gGj5RZZbEoxe16CfwXsOCQ7ub7pQjAd9POewkXjX3QHN+5LkcrfSHpeZs16vZOvAjnNGjXK3yw97wKpPlASEbcWaPgTRmq1NFGuoT4rnN9BoJ2k0IECtBsVl/P9U4RgtX0ulDfH6VlpDnwfYtmvRKMSp7bnKdS2zRnLKshTItg0kGRkWzQs6icKz+U7qgTNF0YQt/QPda4p2ETe8eJktPktMvzLJ+3yAbWPAEEkGaET8zdP9MOfjR3HNtJ4l5sIZvgihu/kLAAIDwI8ewQdl8yI9/VHAwbIx1EsdW3SBhkU4mjtZV8bRFCI400dwRXjcecHWzka2NDYkAfMQ9GiA15uBU4eI7oLgdoT3WOSdyDwdwQ5Lk8EFools60BHb0X5dH1XPCntPqc772dKTYBKFu/5E57+BWQURwEoFS48UkV9PUgoHtppIlabbiTikdouIeXVQO5HTCgEFs0paccrZnh8C3pyQ2QGTw4BXDQyToa4w== davidbasalla@gmail.com',
   }
 }
