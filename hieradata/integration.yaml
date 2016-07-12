@@ -76,6 +76,7 @@ govuk_jenkins::config::admins:
   - isabelllong
   - jackscotti
   - jennyduckett
+  - kanemorgan
   - katiesmith
   - kevindew
   - leelongmore
@@ -101,6 +102,7 @@ govuk_jenkins::config::admins:
   - theodorvararu
   - tijmenbrommet
   - timblair
+  - tomwhite
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
@@ -294,6 +296,7 @@ users::usernames:
   - isabelllong
   - jackscotti
   - jennyduckett
+  - kanemorgan
   - katiesmith
   - kevindew
   - lauramartin
@@ -322,3 +325,4 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomhipkin
+  - tomwhite
