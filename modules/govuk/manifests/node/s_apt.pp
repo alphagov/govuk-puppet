@@ -95,6 +95,7 @@ class govuk::node::s_apt (
       key      => '1C4CBDCDCD2EFD2A';
   }
   aptly::repo { 'gof3r': }
+  aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
   aptly::repo { 'terraform': }
 
