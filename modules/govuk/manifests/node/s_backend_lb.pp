@@ -55,6 +55,9 @@ class govuk::node::s_backend_lb (
         '/preview'             => {
           'app' => 'specialist-publisher-rebuild',
         },
+        '/raib-reports'        => {
+          'app' => 'specialist-publisher-rebuild',
+        },
       },
       servers => $backend_servers;
     [
