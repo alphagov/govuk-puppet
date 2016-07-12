@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*apt_mirror_hostname*]
+#   Hostname of the APT mirror to install Gor from
+#
 # [*args*]
 #   Command-line arguments to pass to Gor executable, defaults to an empty hash
 #
@@ -14,11 +17,16 @@
 #   Which version of the Go package to install; defaults to latest
 #
 class govuk_gor(
+  $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
-  $version = 'latest',
+  $version = '0.14.1',
 ) {
-  include govuk_ppa
+
+  apt::source { 'gor':
+    location => "http://${apt_mirror_hostname}/gor",
+    key      => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
 
   validate_bool($enable)
 
@@ -36,6 +44,12 @@ class govuk_gor(
     $gor_service_ensure = stopped
     $nagios_ensure      = absent
     $logstream_ensure   = absent
+  }
+
+  # FIXME: Remove once deployed to production
+  # The old version of gor was installed to `/usr/bin` but the new version is in `/usr/local/bin`
+  file { '/usr/bin/gor':
+    ensure => absent,
   }
 
   class { '::gor':

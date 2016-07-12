@@ -5,8 +5,9 @@ describe 'router::gor', :type => :class do
     :replay_targets => replay_targets,
   }}
   let(:args_default) {{
-    '-input-raw'          => 'localhost:7999',
-    '-output-http-method' => %w{GET HEAD OPTIONS},
+    '-input-raw'          => ':7999',
+    '-http-allow-method'  => %w{GET HEAD OPTIONS},
+    '-http-original-host' => '',
   }}
 
   context 'no targets defined (disabled)' do
