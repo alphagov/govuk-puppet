@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::node::s_elasticsearch
+#
+# Class to define machines that run ElasticSearch
+#
 class govuk::node::s_elasticsearch inherits govuk::node::s_base {
   include govuk_java::oracle7::jre
 

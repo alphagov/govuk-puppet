@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# Class: rkhunter
+#
+# Install, configure and periodically run rkhunter on our hosts
+#
 class rkhunter {
 
   anchor { 'rkhunter::begin':
