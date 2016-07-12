@@ -181,6 +181,7 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
 govuk::node::s_backup::backup_efg: false
 govuk::node::s_backup::backup_email_campaign: false
+govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_frontend_lb::calculators_frontend_servers:
