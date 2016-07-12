@@ -1,4 +1,8 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: icinga::client::package
+#
+# This class ensures that the nrpe server and common monitoring plugins are
+# installed on the host you want to monitor.
+#
 class icinga::client::package {
 
   package { [

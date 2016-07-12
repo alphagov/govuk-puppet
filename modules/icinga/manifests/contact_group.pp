@@ -1,4 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Define: icinga::contact_group
+#
+# Create the configuration for the named contact group and its members
+#
+# === Parameters
+#
+# [*group_alias*]
+#   A free form string describing this contact group.
+#
+# [*members*]
+#   An array of members that should be in this contact group.
+#
 define icinga::contact_group ($group_alias, $members) {
 
   $group_name = $name
