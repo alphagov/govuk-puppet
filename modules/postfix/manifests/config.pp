@@ -1,4 +1,25 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: postfix::config
+#
+# Manage the postfix servers configuration
+#
+# === Parameters
+#
+# [*smarthost*]
+#   Hostname to relay all mail through. This will also trigger the rewriting
+#   of local accounts to a centralised mailing list.
+#
+# [*smarthost_user*]
+#   User to authenticate all relayed mail with.
+#
+# [*smarthost_pass*]
+#   Pass to authenticate all relayed mail with.
+#
+# [*rewrite_mail_domain*]
+#   Rewrite outbound mail so it appears to come from the given domain
+#
+# [*rewrite_mail_list*]
+#   The mail user/list name to use in the rewrite rules
+#
 class postfix::config(
   $smarthost,
   $smarthost_user,
