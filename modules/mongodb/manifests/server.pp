@@ -32,9 +32,11 @@ class mongodb::server (
   if versioncmp($version, '3.0.0') >= 0 {
     $service_name = 'mongod'
     $package_name = 'mongodb-org'
+    $config_filename = '/etc/mongod.conf'
   } else {
     $service_name = 'mongodb'
     $package_name = 'mongodb-10gen'
+    $config_filename = '/etc/mongodb.conf'
   }
 
   validate_bool($development)
@@ -72,6 +74,7 @@ class mongodb::server (
   }
 
   class { 'mongodb::config':
+    config_filename => $config_filename,
     dbpath          => $dbpath,
     development     => $development,
     oplog_size      => $oplog_size,

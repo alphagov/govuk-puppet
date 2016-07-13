@@ -23,7 +23,7 @@ describe 'mongodb::server', :type => :class do
      } }
     it do
       is_expected.to contain_package('mongodb-org').with_ensure('3.2.7')
-      is_expected.to contain_file('/etc/mongodb.conf')
+      is_expected.to contain_file('/etc/mongod.conf')
       is_expected.to contain_class('mongodb::service').with_service_name('mongod')
     end
   end
