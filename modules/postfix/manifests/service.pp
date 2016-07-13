@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: postfix::service
+#
+# Manage the postfix service
+#
 class postfix::service {
   service { 'postfix':
     ensure  => running,
