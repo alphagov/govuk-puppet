@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: varnish::service
+#
+# Manage the varnish service
+#
 class varnish::service {
 
   service { 'varnish':
