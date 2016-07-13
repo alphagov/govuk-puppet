@@ -1,4 +1,3 @@
-# FIXME  Once deployed please remove user and file references that ensure absent
 # == Class: mongodb::s3backup::backup
 #
 # Backup a MongoDB server to AWS S3
@@ -6,8 +5,10 @@
 # === Parameters:
 #
 # [*aws_access_key_id*]
+#   AWS access key
 #
 # [*aws_secret_access_key*]
+#   AWS secret access key
 #
 # [*aws_region*]
 #   AWS region for the S3 bucket
@@ -42,6 +43,10 @@
 #   will be uploaded. It should be created by the
 #   user
 #
+# [*s3_bucket_daily*]
+#   Defines the AWS S3 bucket where the backups
+#   will be uploaded on a daily basis
+#
 # [*user*]
 #   Defines the system user that will be created
 #   to run the backups
@@ -65,9 +70,6 @@ class mongodb::s3backup::backup(
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
-  user { 'govuk-backups':
-    ensure => absent,
-  }
 
   file { $backup_dir:
     ensure => directory,
@@ -114,9 +116,6 @@ class mongodb::s3backup::backup(
     require => User[$user],
   }
 
-  file { '/usr/local/bin/mongodb-backup-s3-wrapper':
-    ensure => absent,
-  }
 
   # push gpg key
   file { "/home/${user}/.gnupg":
