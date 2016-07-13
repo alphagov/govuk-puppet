@@ -32,6 +32,10 @@
 # [*root_urls*]
 #   A list of hostnames that the crawler should crawl
 #
+# [*rate_limit_token*]
+#   Sets the header "Rate-Limit-Token" which ensures that the crawler is
+#   whitelisted by the rate limiting function (receiving 429 status)
+#
 class govuk::apps::govuk_crawler_worker (
   $airbrake_api_key = '',
   $airbrake_endpoint = '',
@@ -43,6 +47,7 @@ class govuk::apps::govuk_crawler_worker (
   $mirror_root = '/mnt/crawler_worker',
   $port = '3074',
   $root_urls = [],
+  $rate_limit_token = undef,
 ) {
   validate_array($blacklist_paths, $root_urls)
 
@@ -78,6 +83,8 @@ class govuk::apps::govuk_crawler_worker (
         value => $mirror_root;
       'TTL_EXPIRE_TIME':
         value => '24h';
+      'RATE_LIMIT_TOKEN':
+        value => $rate_limit_token;
     }
 
     file { $mirror_root:
