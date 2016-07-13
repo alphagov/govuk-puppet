@@ -1,3 +1,5 @@
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-2.backend"
 
+govuk::node::s_bouncer::minimum_request_rate: 2
+
 icinga::client::check_cputype::cputype: 'amd'
