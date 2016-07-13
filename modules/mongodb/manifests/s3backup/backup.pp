@@ -106,17 +106,6 @@ class mongodb::s3backup::backup(
     mode    => '0640',
   }
 
-  # push script
-  file { '/usr/local/bin/mongodb-backup-s3':
-    ensure  => present,
-    content => template('mongodb/mongodb-backup-s3.erb'),
-    owner   => $user,
-    group   => $user,
-    mode    => '0755',
-    require => User[$user],
-  }
-
-
   # push gpg key
   file { "/home/${user}/.gnupg":
     ensure => directory,
@@ -156,6 +145,16 @@ class mongodb::s3backup::backup(
   # monitoring
   $threshold_secs = 28 * 3600
   $service_desc = 'Mongodb s3backup'
+
+  # push script
+  file { '/usr/local/bin/mongodb-backup-s3':
+    ensure  => present,
+    content => template('mongodb/mongodb-backup-s3.erb'),
+    owner   => $user,
+    group   => $user,
+    mode    => '0755',
+    require => User[$user],
+  }
 
   @@icinga::passive_check { "check_mongodb_s3backup-${::hostname}":
     service_description => $service_desc,
