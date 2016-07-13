@@ -42,7 +42,7 @@ deployable_applications: &deployable_applications
   - hmrc-manuals-api
   - imminence
   - info-frontend
-  - kibana-gds
+  - kibana
   - licencefinder
   - local-links-manager
   - manuals-frontend
