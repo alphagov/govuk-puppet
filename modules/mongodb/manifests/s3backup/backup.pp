@@ -156,6 +156,12 @@ class mongodb::s3backup::backup(
     require => User[$user],
   }
 
+  # FIXME: remove when the file has been purged
+  file { '/var/spool/cron/crontabs/govuk-backups':
+    ensure => 'absent',
+  }
+
+
   @@icinga::passive_check { "check_mongodb_s3backup-${::hostname}":
     service_description => $service_desc,
     freshness_threshold => $threshold_secs,
