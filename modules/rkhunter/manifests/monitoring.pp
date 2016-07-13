@@ -66,8 +66,4 @@ class rkhunter::monitoring {
     require             => File['/etc/cron.d/rkhunter-passive-check'],
   }
 
-  # FIXME: remove once the file has gone from all hosts.
-  file { '/etc/cron.daily/rkhunter-passive-check':
-    ensure => 'absent',
-  }
 }
