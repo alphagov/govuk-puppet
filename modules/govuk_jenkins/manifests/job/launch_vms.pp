@@ -18,7 +18,6 @@ class govuk_jenkins::job::launch_vms (
   $vcloud_properties = {},
   $vcloud_properties_dr = {},
   $vcloud_properties_licensify = {},
-  $vcloud_host = undef,
 ) {
   validate_hash($vcloud_properties, $vcloud_properties_dr, $vcloud_properties_licensify)
 
