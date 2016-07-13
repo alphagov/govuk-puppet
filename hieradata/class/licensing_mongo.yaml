@@ -37,5 +37,4 @@ mongodb::server::replicaset_members:
 # Disable monthly backups to limit the retention of IL3 data.
 mongodb::backup::domonthly: false
 
-mongodb::server::package_name: 'mongodb-org'
 mongodb::server::version: '3.2.7'

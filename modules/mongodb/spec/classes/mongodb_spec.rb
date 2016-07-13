@@ -16,23 +16,21 @@ describe 'mongodb::server', :type => :class do
     end
   end
 
-  describe "overriding the package name" do
+  describe "with package version > 3" do
     let(:params) { {
-      'version' => '2.0.7',
-      'package_name' => 'mongodb20-10gen',
+      'version' => '3.2.7',
       'replicaset_members' => {'mongo-box-1' => {}},
-    } }
-
+     } }
     it do
-      is_expected.to contain_package('mongodb20-10gen').with_ensure('2.0.7')
+      is_expected.to contain_package('mongodb-org').with_ensure('3.2.7')
       is_expected.to contain_file('/etc/mongodb.conf')
+      is_expected.to contain_class('mongodb::service').with_service_name('mongod')
     end
   end
 
   describe "not setting the replica set members" do
     let(:params) { {
       'version' => '2.0.7',
-      'package_name' => 'mongodb20-10gen',
     } }
 
     it do
@@ -43,7 +41,6 @@ describe 'mongodb::server', :type => :class do
   describe "replica set can have one member" do
     let(:params) { {
       'version' => '2.0.7',
-      'package_name' => 'mongodb20-10gen',
       'replicaset_members' => {'mongo-box-1' => {}},
     } }
 
@@ -56,7 +53,6 @@ describe 'mongodb::server', :type => :class do
   describe "setting three replica set members" do
     let(:params) { {
       'version' => '2.0.7',
-      'package_name' => 'mongodb20-10gen',
       'replicaset_members' => {
         'mongo-box-1' => {},
         'mongo-box-2' => {},
@@ -79,7 +75,6 @@ describe 'mongodb::server', :type => :class do
     let(:params) {{
       'version' => '2.0.7',
       'oplog_size' => '1234',
-      'package_name' => 'mongodb20-10gen',
       'replicaset_members' => {'mongo-box-1' => {}},
     }}
 

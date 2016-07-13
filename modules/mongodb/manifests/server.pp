@@ -23,12 +23,20 @@
 #
 class mongodb::server (
   $version,
-  $package_name = 'mongodb-10gen',
   $dbpath = '/var/lib/mongodb',
   $oplog_size = undef,
   $replicaset_members = {},
   $development = false,
 ) {
+
+  if versioncmp($version, '3.0.0') >= 0 {
+    $service_name = 'mongod'
+    $package_name = 'mongodb-org'
+  } else {
+    $service_name = 'mongodb'
+    $package_name = 'mongodb-10gen'
+  }
+
   validate_bool($development)
   validate_hash($replicaset_members)
   if empty($replicaset_members) {
@@ -87,7 +95,8 @@ class mongodb::server (
   }
 
   class { 'mongodb::service':
-    require => Class['mongodb::logging'],
+    service_name => $service_name,
+    require      => Class['mongodb::logging'],
   }
 
   class { 'mongodb::monitoring':
