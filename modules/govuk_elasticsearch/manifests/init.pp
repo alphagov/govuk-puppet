@@ -22,6 +22,9 @@
 #   specific machines.
 #   Default: true
 #
+# [*backup_enabled*]
+#   Boolean. Whether backup class will be included.
+#
 class govuk_elasticsearch (
   $version,
   $cluster_hosts = ['localhost'],
@@ -36,6 +39,7 @@ class govuk_elasticsearch (
   $disable_gc_alerts = false,
   $manage_repo = true,
   $open_firewall_from_all = true,
+  $backup_enabled = false
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -142,5 +146,8 @@ class govuk_elasticsearch (
   include govuk_elasticsearch::estools
   include govuk_elasticsearch::plugins
 
+  if $backup_enabled {
+    include govuk_elasticsearch::backup
+  }
   anchor { 'govuk_elasticsearch::end': }
 }
