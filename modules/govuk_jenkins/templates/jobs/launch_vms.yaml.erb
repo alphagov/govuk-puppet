@@ -22,7 +22,7 @@
               VCLOUD_ORG=<%= @vcloud_properties['organisation'] %>
               VCLOUD_ENV=<%= @vcloud_properties['environment'] %>
               VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
-              VCLOUD_HOST=<%= @vcloud_host %>
+              VCLOUD_HOST=<%= @vcloud_properties['host'] %>
     scm:
       - govuk-provisioning_Launch_VMs
     builders:
