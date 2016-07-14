@@ -12,8 +12,8 @@ BACKUP_NODE=<%= @backup_node %>
 BACKUP_DIR=<%= @backup_dir %>
 BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
 KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
-S3_BUCKET=<%= @s3_bucket %>
-S3_BUCKET_DAILY=<%= @s3_bucket_daily %>
+S3_BUCKET=<%= @s3_bucket %>/<%= @fqdn %>
+S3_BUCKET_DAILY=<%= @s3_bucket_daily %>/<%= @fqdn %>
 
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
