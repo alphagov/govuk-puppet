@@ -246,6 +246,9 @@ govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 
+govuk::apps::collections_publisher::redis_host: 'redis-1.backend'
+govuk::apps::collections_publisher::redis_port: '6379'
+
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
 
