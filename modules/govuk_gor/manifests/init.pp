@@ -20,7 +20,7 @@ class govuk_gor(
   $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
-  $version = '0.14.1',
+  $version = '0.9.4',
 ) {
 
   apt::source { 'gor':
@@ -28,6 +28,8 @@ class govuk_gor(
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
     architecture => $::architecture,
   }
+
+  include govuk_ppa
 
   validate_bool($enable)
 
@@ -45,12 +47,6 @@ class govuk_gor(
     $gor_service_ensure = stopped
     $nagios_ensure      = absent
     $logstream_ensure   = absent
-  }
-
-  # FIXME: Remove once deployed to production
-  # The old version of gor was installed to `/usr/bin` but the new version is in `/usr/local/bin`
-  file { '/usr/bin/gor':
-    ensure => absent,
   }
 
   class { '::gor':
