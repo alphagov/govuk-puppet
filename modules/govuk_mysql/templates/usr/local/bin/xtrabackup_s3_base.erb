@@ -4,7 +4,7 @@ exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 set -e
 
-TYPE=$1
+TMPNAME=base.tmp-$(date '+%s')
 
 # The default Icinga passive alert assumes that the script failed
 NAGIOS_CODE=2
@@ -18,13 +18,25 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
+# Mark if a backup has already been taken
+BACKUPEXIST=false
 if [ -e /var/lib/mysql/xtrabackup_date ]; then
+  BACKUPEXIST=true
+fi
+
+# Set a new backup date
+date +%Y%m%d-%H%M > /var/lib/mysql/xtrabackup_date
+
+# Copy the latest backup into a temporary filename
+innobackupex --extra-lsndir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/$TMPNAME
+
+# If a previous backup exists then move it to an archive directory
+if $BACKUPEXIST; then
   envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv --recursive s3://<%= @s3_bucket_name %>/latest/base.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/base.xbcrypt
 fi
 
-date +%Y%m%d-%H%M > /var/lib/mysql/xtrabackup_date
-
-innobackupex --extra-lsndir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt
+# Rename the temporary backup to a name used by the restore method
+envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv --recursive s3://<%= @s3_bucket_name %>/latest/$TMPNAME s3://<%= @s3_bucket_name %>/latest/base.xbcrypt
 
 if [ $? == 0 ]
   then

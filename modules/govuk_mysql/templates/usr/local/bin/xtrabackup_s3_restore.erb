@@ -17,6 +17,9 @@ if test -f /var/lib/puppet/state/agent_disabled.lock; then
   echo "Puppet is already disabled! Skipping environment sync and quitting"
   exit 1
 else
+
+  govuk_puppet --disable "MySQL environment sync (by $0)"
+
   # Create directories to restore into
   for dir in "$BASE_DIR" "$INCR_DIR"; do
     mkdir -p $dir
@@ -40,17 +43,19 @@ else
   service mysql stop
 
   # Ensure that it's definitely not running before we move data directories
-  if /bin/pidof mysql
+  if /bin/pidof mysqld; then
     echo "MySQL still running, exiting"
     exit 1
   fi
 
-  # Move the current directory to a backup location
+  # Copy the current directory to a backup location; we cannot move this if
+  # the directory is a mount point so we need to copy
   echo "Backing up current dir"
-  mv /var/lib/mysql /var/lib/mysql-bak
+  TEMPDIR=mysql-$(date '+%s')
+  cp -R /var/lib/mysql /var/lib/$TEMPDIR
 
-  # Recreate the datadir
-  mkdir /var/lib/mysql
+  # Remove contents of the datadir
+  rm -rf /var/lib/mysql/*
 
   # Copy the restored data
   innobackupex --copy-back $BASE_DIR
@@ -64,7 +69,7 @@ else
 
   # Clean up
   echo "Cleaning up"
-  rm -rf /var/lib/mysql-bak $BASE_DIR $INCR_DIR
+  rm -rf /var/lib/$TEMPDIR $BASE_DIR $INCR_DIR
 
   # Re-enable Puppet and run it to ensure passwords are updated
   govuk_puppet --enable && govuk_puppet
