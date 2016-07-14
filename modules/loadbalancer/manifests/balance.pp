@@ -94,13 +94,14 @@ define loadbalancer::balance(
     }
   }
 
-  #FIXME - This maintenance page is currently hardcoded with assets etc
-  #        that it shouldn't be. Specific to migration. Should be changed
-  #        after migration is completed.
+  # FIXME: Remove once this file has been purged from all machines
   if ! defined(File['/usr/share/nginx/html/maintenance.html']) {
     file { '/usr/share/nginx/html/maintenance.html':
-      ensure  => present,
-      content => template('loadbalancer/usr/share/nginx/html/maintenance_page.erb'),
+      ensure => absent,
     }
+  }
+
+  if $maintenance_mode {
+    include loadbalancer::maintenance
   }
 }
