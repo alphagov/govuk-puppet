@@ -4,8 +4,7 @@ describe 'govuk_bouncer::gor', :type => :class do
   let(:ip_address) { '127.0.0.1' }
   let(:args_default) {{
     '-input-raw'          => ':80',
-    '-http-allow-method'  => %w{GET HEAD OPTIONS},
-    '-http-original-host' => '',
+    '-output-http-method' => %w{GET HEAD OPTIONS},
   }}
 
   context 'default (disabled)' do
