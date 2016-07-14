@@ -20,7 +20,7 @@ class govuk_gor(
   $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
-  $version = '0.9.4',
+  $version = '0.9.4~ppa1',
 ) {
 
   apt::source { 'gor':
