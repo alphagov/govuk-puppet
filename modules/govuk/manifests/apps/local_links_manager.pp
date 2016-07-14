@@ -123,6 +123,12 @@ class govuk::apps::local_links_manager(
         host_name           => $::fqdn,
         freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
       }
+
+      @@icinga::passive_check { "local-links-manager-check-homepage-urls_${::hostname}":
+        service_description => 'Check for blank homepage urls in local-links-manager',
+        host_name           => $::fqdn,
+        freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
+      }
     }
 
     if $::govuk_node_class != 'development' {
