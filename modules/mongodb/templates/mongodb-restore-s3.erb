@@ -5,7 +5,7 @@ set -e
 # Redirect stdout and stderr to syslog
 exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
-S3_BUCKET=<%= @s3_bucket %>
+S3_BUCKET=<%= @s3_bucket %>/<%= @fqdn %>
 BACKUP_DIR=<%= @backup_dir %>
 
 cd $BACKUP_DIR
