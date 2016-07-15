@@ -35,7 +35,7 @@ while IFS= read -r -d '' FILE
     if /usr/local/bin/virus-scan-file.sh "$FILE"; then
       rsync --relative "$FILE_PATH" "$CLEAN_DIR"
       for NODE in $ASSET_SLAVE_NODES; do
-        if rsync -e "ssh -q" --quiet --timeout=10 --relative "$FILE_PATH" $NODE:$CLEAN_DIR; then
+        if /usr/bin/timeout 120 rsync -e "ssh -q" --quiet --timeout=10 --relative "$FILE_PATH" $NODE:$CLEAN_DIR; then
           logger -t process_uploaded_attachment "File $FILE copied to $NODE"
         else
           logger -t process_uploaded_attachment "File $FILE failed to copy to $NODE"
