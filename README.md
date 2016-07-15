@@ -158,7 +158,7 @@ Node definitions can be overridden with a `nodes.local.yaml` file in the
 vagrant-govuk directory. This is merged on top of all other node
 definitions. The following keys are currently available for customisation:
 
-- `box_dist` Ubuntu distribution. Currently "precise".
+- `box_dist` Ubuntu distribution. Currently "trusty".
 - `box_version` Internal version number of the GDS basebox.
 - `memory` Amount of RAM. Default is "384".
 - `ip` IP address for hostonly networking. Currently all subnets are /16.
