@@ -8,6 +8,7 @@
 #   The config file mongo should use. This varies between mongo 2 and 3.
 #
 # [*dbpath*]
+#   Path to database on filesystem
 #
 # [*development*]
 #   Disable journalling and enable query profiling.
@@ -24,8 +25,12 @@
 #   'production' unless $development is true, in which
 #   case it is set to 'development'.
 #
+# [*template_name*]
+#   The name of the template that will be used as the config file.
+#
 class mongodb::config (
-  $config_filename = '/etc/mongodb.conf',
+  $config_filename,
+  $template_name,
   $dbpath = '/var/lib/mongodb',
   $development,
   $oplog_size = undef,
@@ -33,13 +38,14 @@ class mongodb::config (
 ) {
   validate_bool($development)
 
-  # Class params are used in the templates below.
 
-  file { $config_filename:
-    ensure  => present,
-    content => template('mongodb/mongodb.conf'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-  }
+  # Class params are used in the templates below.
+    file { $config_filename:
+      ensure  => present,
+      content => template("mongodb/${template_name}"),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+    }
+
 }
