@@ -1,0 +1,13 @@
+---
+
+# NOTE: These values should not be changed lightly once set.
+#
+# If changed, the old host record must be cleaned up;
+router::gor::replay_targets:
+  'www-origin.integration.publishing.service.gov.uk':
+    ip: '31.210.245.98'
+
+govuk_gor::version: '0.14.1'
+govuk_gor::binary_path: '/usr/local/bin/gor'
+govuk_gor::envvars:
+  GODEBUG: 'netdns=go'

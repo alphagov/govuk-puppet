@@ -16,11 +16,19 @@
 # [*version*]
 #   Which version of the Go package to install; defaults to latest
 #
+# [*binary_path*]
+#   Explicitly set the location of the Gor binary.
+#
+# [*envvars*]
+#   Set any environment variables that will be loaded into the Gor service.
+#
 class govuk_gor(
   $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
   $version = '0.9.4~ppa1',
+  $binary_path = '/usr/bin/gor',
+  $envvars = {},
 ) {
 
   apt::source { 'gor':
@@ -53,6 +61,8 @@ class govuk_gor(
     args           => $args,
     package_ensure => $version,
     service_ensure => $gor_service_ensure,
+    envvars        => $envvars,
+    binary_path    => $binary_path,
   } ->
   govuk_logging::logstream { 'gor_upstart_log':
     ensure  => $logstream_ensure,
