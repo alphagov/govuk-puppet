@@ -36,6 +36,7 @@ govuk::node::s_development::apps:
   - 'content_tagger'
   - 'contentapi'
   - 'designprinciples'
+  - 'dfid_transition'
   - 'efg'
   - 'email_alert_api'
   - 'email_alert_frontend'
