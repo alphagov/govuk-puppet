@@ -1,50 +1,47 @@
 {
+  "id": null,
   "title": "origin health",
-  "services": {
-    "filter": {
-      "list": [],
-      "time": {
-        "from": "now-6h",
-        "to": "now"
-      }
-    }
-  },
+  "originalTitle": "origin health",
+  "tags": [],
+  "style": "dark",
+  "timezone": "utc",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "one",
-      "height": "400px",
-      "editable": true,
-      "collapse": false,
       "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "400px",
+      "notice": false,
       "panels": [
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 10,
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -60,165 +57,91 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 10,
-          "linewidth": 0,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": true,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 0,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": true,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "aliasSub(stats.cache-*_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "aliasSub(stats.cache-*_router.nginx_logs.www-origin.http_5xx,\".*(cache-\\d+).*\", \"\\1\")",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "HTTP 5xx/s",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 1,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
-          "interval": "5m",
-          "intervals": [
-            "auto",
-            "1s",
-            "1m",
-            "5m",
-            "10m",
-            "30m",
-            "1h",
-            "3h",
-            "12h",
-            "1d",
-            "1w",
-            "1y"
-          ],
-          "lines": true,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
           "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": true,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "interactive": true,
-          "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "targets": [
-            {
-              "target": "aliasSub(movingMedian(cache-*_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests, '1min'),\".*(cache-\\d+).*\", \"\\1\")"
-            }
-          ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "HTTP total/s",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
-        },
-        {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false,
-            "query": "*",
-            "size": 20,
-            "field": "_type",
-            "sort": [
-              "_score",
-              "desc"
-            ]
-          },
-          "auto_int": true,
-          "resolution": 100,
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -234,94 +157,212 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 10,
-          "linewidth": 0,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": true,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-1\")"
-            },
-            {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-2\")"
-            },
-            {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-3\")"
+              "target": "aliasSub(movingMedian(cache-*_router.nginx.nginx_requests, '1min'),\".*(cache-\\d+).*\", \"\\1\")",
+              "refId": "A"
             }
           ],
+          "title": "HTTP total/s",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 2,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
+        },
+        {
           "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "HTTP error/pc",
-          "datasource": null,
+          "annotate": {
+            "enable": false,
+            "field": "_type",
+            "query": "*",
+            "size": 20,
+            "sort": [
+              "_score",
+              "desc"
+            ]
+          },
+          "auto_int": true,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 10,
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
+          "interval": "5m",
+          "intervals": [
+            "auto",
+            "1s",
+            "1m",
+            "5m",
+            "10m",
+            "30m",
+            "1h",
+            "3h",
+            "12h",
+            "1d",
+            "1w",
+            "1y"
+          ],
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "legend_counts": true,
+          "lines": true,
+          "linewidth": 0,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-1\")",
+              "refId": "A",
+              "textEditor": true
+            },
+            {
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-2\")",
+              "refId": "B",
+              "textEditor": true
+            },
+            {
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-3\")",
+              "refId": "C",
+              "textEditor": true
+            }
+          ],
+          "title": "HTTP error/pc",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 3,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
       ],
-      "notice": false
+      "title": "one"
     },
     {
-      "title": "two",
-      "height": "400px",
-      "editable": true,
-      "collapse": false,
       "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "400px",
+      "notice": false,
       "panels": [
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 0,
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -337,165 +378,91 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "aliasSub(stats.timers.cache-*_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.time_request.mean,\".*(cache-\\d+).*\", \"\\1\")"
+              "target": "aliasSub(stats.timers.cache-*_router.nginx_logs.www-origin.time_request.mean,\".*(cache-\\d+).*\", \"\\1\")",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "Cache resp/avg",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 4,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
-          "interval": "5m",
-          "intervals": [
-            "auto",
-            "1s",
-            "1m",
-            "5m",
-            "10m",
-            "30m",
-            "1h",
-            "3h",
-            "12h",
-            "1d",
-            "1w",
-            "1y"
-          ],
-          "lines": true,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
           "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "interactive": true,
-          "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "targets": [
-            {
-              "target": "aliasByNode(highestMax(*.nginx.nginx_connections-writing,6),0)"
-            }
-          ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "Nginx cnx writing/top6",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
-        },
-        {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false,
-            "query": "*",
-            "size": 20,
-            "field": "_type",
-            "sort": [
-              "_score",
-              "desc"
-            ]
-          },
-          "auto_int": true,
-          "resolution": 100,
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -511,140 +478,233 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 10,
-          "linewidth": 0,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "maximumAbove(aliasSub(groupByNode(stats.*_frontend<%= @machine_suffix_metrics -%>.nginx_logs.*_<%= @app_domain_metrics -%>.http_500,3,\"sum\"),\"_.*\",\"\"),0)"
+              "target": "aliasByNode(highestMax(*.nginx.nginx_connections-writing,6),0)",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "HTTP 5xx/app",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
-        }
-      ],
-      "notice": false
-    }
-  ],
-  "editable": true,
-  "failover": false,
-  "panel_hints": true,
-  "style": "dark",
-  "pulldowns": [
-    {
-      "type": "filtering",
-      "collapse": false,
-      "notice": false,
-      "enable": false
-    },
-    {
-      "type": "annotations",
-      "enable": true,
-      "annotations": [
-        {
-          "name": "all deploys",
-          "type": "graphite events",
-          "showLine": true,
-          "iconColor": "#C0C6BE",
-          "lineColor": "rgba(32, 230, 25, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "tags": "deploys"
+          "title": "Nginx cnx writing/top6",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 5,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "name": "all restarts",
-          "type": "graphite metric",
-          "showLine": true,
-          "iconColor": "#FF2020",
-          "lineColor": "rgba(255, 32, 32, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "target": "substr(stats.govuk.app.*.restarts,3,5)"
+          "aliasColors": {},
+          "annotate": {
+            "enable": false,
+            "field": "_type",
+            "query": "*",
+            "size": 20,
+            "sort": [
+              "_score",
+              "desc"
+            ]
+          },
+          "auto_int": true,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 10,
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
+          "interval": "5m",
+          "intervals": [
+            "auto",
+            "1s",
+            "1m",
+            "5m",
+            "10m",
+            "30m",
+            "1h",
+            "3h",
+            "12h",
+            "1d",
+            "1w",
+            "1y"
+          ],
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "legend_counts": true,
+          "lines": true,
+          "linewidth": 0,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "maximumAbove(aliasSub(groupByNode(stats.*_frontend.nginx_logs.*_publishing_service_gov_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP 5xx/app",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 6,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
-      ]
+      ],
+      "title": "two"
     }
   ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
-    }
-  ],
-  "loader": {
-    "save_gist": false,
-    "save_elasticsearch": false,
-    "save_local": true,
-    "save_default": true,
-    "save_temp": true,
-    "save_temp_ttl_enable": true,
-    "save_temp_ttl": "30d",
-    "load_gist": false,
-    "load_elasticsearch": false,
-    "load_elasticsearch_size": 20,
-    "load_local": true,
-    "hide": false
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": [
+      {
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(32, 230, 25, 0.592157)",
+        "name": "all deploys",
+        "showLine": true,
+        "tags": "deploys",
+        "type": "graphite events"
+      },
+      {
+        "enable": true,
+        "iconColor": "#FF2020",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 32, 32, 0.592157)",
+        "name": "all restarts",
+        "showLine": true,
+        "target": "substr(stats.govuk.app.*.restarts,3,5)",
+        "type": "graphite metric"
+      }
+    ]
   },
   "refresh": "1m",
-  "tags": [],
-  "timezone": "utc"
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }

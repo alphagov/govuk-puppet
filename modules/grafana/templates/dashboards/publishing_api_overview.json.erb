@@ -248,7 +248,7 @@
         },
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "datasource": "Elasticsearch",
           "editable": true,
           "error": false,
@@ -272,7 +272,7 @@
             "total": false,
             "values": true
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
@@ -315,7 +315,7 @@
               "hide": false,
               "metrics": [
                 {
-                  "field": "request_time",
+                  "field": "@fields.duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
@@ -354,7 +354,7 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "request_time",
+                  "field": "@fields.duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
@@ -393,7 +393,7 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "request_time",
+                  "field": "@fields.duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
@@ -432,7 +432,7 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "request_time",
+                  "field": "@fields.duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
@@ -471,7 +471,7 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "request_time",
+                  "field": "@fields.duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
@@ -497,7 +497,7 @@
           },
           "yaxes": [
             {
-              "format": "s",
+              "format": "ms",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -665,7 +665,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Publishing API db size",
+          "title": "Publishing API Postgresql Metrics",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -735,6 +735,6 @@
   },
   "refresh": false,
   "schemaVersion": 12,
-  "version": 25,
+  "version": 0,
   "links": []
 }
