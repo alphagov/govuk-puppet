@@ -10,53 +10,12 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "title": "Edge",
-      "height": "250px",
-      "editable": false,
       "collapse": false,
+      "editable": false,
+      "height": "250px",
       "panels": [
         {
-          "title": "EDGE (15 mins' lag)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 5,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "edge_health.json",
-              "title": "Edge health",
-              "url": "/#/dashboard/file/edge_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "timeShift(movingAverage(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-requests), '1min'), '-15min')",
-              "hide": false
-            }
-          ],
           "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": " req/s",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null",
-          "valueName": "current",
-          "prefixFontSize": "80%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,100,150",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -64,113 +23,132 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "height": "250",
+          "id": 5,
+          "interval": null,
+          "links": [
+            {
+              "dashboard": "edge_health.json",
+              "name": "Drilldown dashboard",
+              "title": "Edge health",
+              "type": "absolute",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "null",
+          "nullText": null,
+          "postfix": " req/s",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "80%",
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": true
           },
-          "height": "250"
+          "targets": [
+            {
+              "hide": false,
+              "target": "timeShift(movingAverage(sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-requests), '1min'), '-15min')",
+              "refId": "A"
+            }
+          ],
+          "thresholds": "100,150",
+          "title": "EDGE (15 mins' lag)",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
         },
         {
-          "title": "EDGE HTTP 4XX (15 mins' lag)",
-          "error": false,
-          "span": 4,
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
           "editable": true,
-          "type": "singlestat",
+          "error": false,
+          "format": "percent",
+          "height": "250",
           "id": 10,
+          "interval": null,
           "links": [
             {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
               "dashboard": "edge_health.json",
+              "name": "Drilldown dashboard",
               "title": "Edge health",
+              "type": "absolute",
               "url": "/#/dashboard/file/edge_health.json"
             }
           ],
           "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_4xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
           "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "80%",
-          "valueFontSize": "200%",
+          "nullText": null,
+          "postfix": "",
           "postfixFontSize": "80%",
-          "thresholds": "0,1,2",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
+          "prefix": "",
+          "prefixFontSize": "80%",
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": true
           },
-          "height": "250"
+          "targets": [
+            {
+              "hide": false,
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-status_4xx), sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "refId": "A",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "1,2",
+          "title": "EDGE HTTP 4XX (15 mins' lag)",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
         },
         {
-          "title": "EDGE HTTP 5XX (15 mins' lag)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 11,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "edge_health.json",
-              "title": "Edge health",
-              "url": "/#/dashboard/file/edge_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_5xx), sumSeries(monitoring-1_management<%= @machine_suffix_metrics -%>.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
-              "hide": false
-            }
-          ],
           "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "80%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,0.5,1",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -178,66 +156,77 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "editable": true,
+          "error": false,
+          "format": "percent",
+          "height": "250",
+          "id": 11,
+          "interval": null,
+          "links": [
+            {
+              "dashboard": "edge_health.json",
+              "name": "Drilldown dashboard",
+              "title": "Edge health",
+              "type": "absolute",
+              "url": "/#/dashboard/file/edge_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "null as zero",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "80%",
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": true
           },
-          "height": "250"
+          "targets": [
+            {
+              "hide": false,
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-status_5xx), sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "refId": "A",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "0.5,1",
+          "title": "EDGE HTTP 5XX (15 mins' lag)",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
         }
       ],
-      "showTitle": false
+      "showTitle": false,
+      "title": "Edge"
     },
     {
-      "title": "Origin",
-      "height": "400px",
-      "editable": false,
-      "collapse": false,
       "collapsable": true,
+      "collapse": false,
+      "editable": false,
+      "height": "400px",
+      "notice": false,
       "panels": [
         {
-          "title": "ORIGIN",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 3,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "origin_health.json",
-              "title": "Origin health",
-              "url": "/#/dashboard/file/origin_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "movingAverage(sumSeries(cache-?_router<%= @machine_suffix_metrics -%>.nginx.nginx_requests), '1min')",
-              "hide": false
-            }
-          ],
           "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": " req/s",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,25,35",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -245,56 +234,132 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "height": "250",
+          "id": 3,
+          "interval": null,
+          "links": [
+            {
+              "dashboard": "origin_health.json",
+              "name": "Drilldown dashboard",
+              "title": "Origin health",
+              "type": "absolute",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "null",
+          "nullText": null,
+          "postfix": " req/s",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": true
           },
-          "height": "250"
+          "targets": [
+            {
+              "hide": false,
+              "target": "movingAverage(sumSeries(cache-?_router.nginx.nginx_requests), '1min')",
+              "refId": "A"
+            }
+          ],
+          "thresholds": "25,35",
+          "title": "ORIGIN",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
         },
         {
-          "title": "ORIGIN HTTP 4XX (EXCLUDES 429s)",
-          "error": false,
-          "span": 4,
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
           "editable": true,
-          "type": "singlestat",
+          "error": false,
+          "format": "percent",
+          "height": "250",
           "id": 8,
+          "interval": null,
           "links": [
             {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
               "dashboard": "origin_health.json",
+              "name": "Drilldown dashboard",
               "title": "Origin health",
+              "type": "absolute",
               "url": "/#/dashboard/file/origin_health.json"
             }
           ],
           "maxDataPoints": 100,
-          "interval": null,
+          "nullPointMode": "null as zero",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
           "targets": [
             {
-              "target": "movingAverage(asPercent(divideSeries(diffSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_429)), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
-              "hide": false
+              "hide": false,
+              "target": "movingAverage(asPercent(divideSeries(diffSeries(sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_429)), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "refId": "A",
+              "textEditor": true
             }
           ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "3,5",
+          "title": "ORIGIN HTTP 4XX (EXCLUDES 429s)",
+          "type": "singlestat",
+          "valueFontSize": "200%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "null as zero",
           "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,3,5",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
+        },
+        {
+          "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -302,113 +367,66 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          },
-          "height": "250"
-        },
-        {
-          "title": "ORIGIN HTTP 5XX",
-          "error": false,
-          "span": 4,
           "editable": true,
-          "type": "singlestat",
+          "error": false,
+          "format": "percent",
+          "height": "250",
           "id": 7,
+          "interval": null,
           "links": [
             {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
               "dashboard": "origin_health.json",
+              "name": "Drilldown dashboard",
               "title": "Origin health",
+              "type": "absolute",
               "url": "/#/dashboard/file/origin_health.json"
             }
           ],
           "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
-              "hide": false
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
           "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
+          "nullText": null,
+          "postfix": "",
           "postfixFontSize": "80%",
-          "thresholds": "0,1,2",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": true
           },
-          "height": "250"
+          "targets": [
+            {
+              "hide": false,
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "refId": "A",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "1,2",
+          "title": "ORIGIN HTTP 5XX",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
         },
         {
-          "title": "ORIGIN HTTP 429 (TOO MANY REQUESTS)",
-          "error": false,
-          "span": 4,
-          "editable": true,
-          "type": "singlestat",
-          "id": 12,
-          "links": [
-            {
-              "type": "absolute",
-              "name": "Drilldown dashboard",
-              "dashboard": "origin_health.json",
-              "title": "Origin health",
-              "url": "/#/dashboard/file/origin_health.json"
-            }
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_429), sumSeries(stats.cache-?_router<%= @machine_suffix_metrics -%>.nginx_logs.www-origin.http_*xx)),1), '1min')",
-              "hide": false
-            }
-          ],
           "cacheTimeout": null,
-          "format": "percent",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "null as zero",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "200%",
-          "postfixFontSize": "80%",
-          "thresholds": "0,3,5",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -416,65 +434,114 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
+          "editable": true,
+          "error": false,
+          "format": "percent",
+          "height": "250",
+          "id": 12,
+          "interval": null,
+          "links": [
+            {
+              "dashboard": "origin_health.json",
+              "name": "Drilldown dashboard",
+              "title": "Origin health",
+              "type": "absolute",
+              "url": "/#/dashboard/file/origin_health.json"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "null as zero",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
           "sparkline": {
-            "show": true,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
+            "show": true
           },
-          "height": "250"
+          "targets": [
+            {
+              "hide": false,
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_429), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "refId": "A",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "3,5",
+          "title": "ORIGIN HTTP 429 (TOO MANY REQUESTS)",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "datasource": "Graphite",
+          "gauge": {
+            "show": false,
+            "minValue": 0,
+            "maxValue": 100,
+            "thresholdMarkers": true,
+            "thresholdLabels": false
+          }
         }
       ],
-      "notice": false,
-      "showTitle": false
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": false,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
+      "showTitle": false,
+      "title": "Origin"
     }
   ],
   "time": {
     "from": "now-24h",
     "to": "now"
   },
+  "timepicker": {
+    "collapse": false,
+    "enable": false,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
   "templating": {
-    "list": [],
-    "enable": false
+    "enable": false,
+    "list": []
   },
   "annotations": {
-    "list": [],
-    "enable": false
+    "enable": false,
+    "list": []
   },
   "refresh": "1m",
-  "version": 6,
-  "hideAllLegends": false
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }
