@@ -1,244 +1,251 @@
 {
+  "id": null,
   "title": "Application 4XX and 5XX codes",
-  "services": {
-    "filter": {
-      "list": [],
-      "time": {
-        "from": "now-6h",
-        "to": "now"
-      }
-    }
-  },
+  "originalTitle": "Application 4XX and 5XX codes",
+  "tags": [],
+  "style": "dark",
+  "timezone": "utc",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "123",
-      "height": "600px",
-      "editable": true,
-      "collapse": false,
       "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "600px",
+      "notice": false,
       "panels": [
         {
-          "span": 12,
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "datasource": "Graphite",
           "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "fill": 0,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "groupByNode(stats.frontend-?_frontend*.nginx_logs.*.http_4xx, 3, \"sumSeries\")",
+              "refId": "A"
+            },
+            {
+              "target": "groupByNode(stats.*-frontend-?_frontend*.nginx_logs.*.http_4xx, 3, \"sumSeries\")",
+              "refId": "B"
+            }
+          ],
+          "title": "4XX by Application",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "id": 1,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "aliasColors": {},
+          "seriesOverrides": []
+        }
+      ],
+      "title": "123"
+    },
+    {
+      "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "600px",
+      "notice": false,
+      "panels": [
+        {
           "annotate": {
             "enable": false
           },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
           "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "targets": [
-            {
-              "target": "groupByNode(stats.frontend-?_frontend*.nginx_logs.*.http_4xx, 3, \"sumSeries\")"
-            },
-            {
-              "target": "groupByNode(stats.*-frontend-?_frontend*.nginx_logs.*.http_4xx, 3, \"sumSeries\")"
-            }
-          ],
-          "aliasYAxis": {},
-          "title": "4XX by Application"
-        }
-      ],
-      "notice": false
-    },
-    {
-      "title": "123",
-      "height": "600px",
-      "editable": true,
-      "collapse": false,
-      "collapsable": true,
-      "panels": [
-        {
-          "span": 12,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
           "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "editable": true,
+          "fill": 0,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 12,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "groupByNode(stats.frontend-?_frontend*.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
+              "target": "groupByNode(stats.frontend-?_frontend*.nginx_logs.*.http_5xx, 3, \"sumSeries\")",
+              "refId": "A"
             },
             {
-              "target": "groupByNode(stats.*-frontend-?_frontend*.nginx_logs.*.http_5xx, 3, \"sumSeries\")"
+              "target": "groupByNode(stats.*-frontend-?_frontend*.nginx_logs.*.http_5xx, 3, \"sumSeries\")",
+              "refId": "B"
             }
           ],
-          "aliasYAxis": {},
-          "title": "5XX by Application"
+          "title": "5XX by Application",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "id": 2,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "aliasColors": {},
+          "seriesOverrides": []
         }
       ],
-      "notice": false
+      "title": "123"
     }
   ],
-  "editable": true,
-  "failover": false,
-  "panel_hints": true,
-  "style": "dark",
-  "pulldowns": [
-    {
-      "type": "filtering",
-      "collapse": false,
-      "notice": false,
-      "enable": false
-    },
-    {
-      "type": "annotations",
-      "enable": true,
-      "annotations": [
-        {
-          "name": "all deploys",
-          "type": "graphite events",
-          "showLine": true,
-          "iconColor": "#C0C6BE",
-          "lineColor": "rgba(32, 230, 25, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "tags": "deploys"
-        },
-        {
-          "name": "all restarts",
-          "type": "graphite metric",
-          "showLine": true,
-          "iconColor": "#FF2020",
-          "lineColor": "rgba(255, 32, 32, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "target": "substr(stats.govuk.app.*.restarts,3,5)"
-        }
-      ]
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
-    }
-  ],
-  "loader": {
-    "save_gist": false,
-    "save_elasticsearch": false,
-    "save_local": true,
-    "save_default": true,
-    "save_temp": true,
-    "save_temp_ttl_enable": true,
-    "save_temp_ttl": "30d",
-    "load_gist": false,
-    "load_elasticsearch": false,
-    "load_elasticsearch_size": 20,
-    "load_local": true,
-    "hide": false
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": [
+      {
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(32, 230, 25, 0.592157)",
+        "name": "all deploys",
+        "showLine": true,
+        "tags": "deploys",
+        "type": "graphite events"
+      },
+      {
+        "enable": true,
+        "iconColor": "#FF2020",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 32, 32, 0.592157)",
+        "name": "all restarts",
+        "showLine": true,
+        "target": "substr(stats.govuk.app.*.restarts,3,5)",
+        "type": "graphite metric"
+      }
+    ]
   },
   "refresh": "1m",
-  "tags": [],
-  "timezone": "utc"
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }

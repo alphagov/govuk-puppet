@@ -1,490 +1,549 @@
 {
+  "id": null,
   "title": "whitehall",
-  "services": {
-    "filter": {
-      "list": [],
-      "time": {
-        "from": "now-6h",
-        "to": "now"
-      }
-    }
-  },
+  "originalTitle": "whitehall",
+  "tags": [],
+  "style": "dark",
+  "timezone": "utc",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "HTTP Status Codes",
+      "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "300px",
+      "notice": false,
       "panels": [
         {
-          "span": 6,
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "datasource": "Graphite",
           "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "fill": 0,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 6,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-frontend-?_frontend<%= @machine_suffix_metrics -%>.nginx_logs.whitehall-frontend_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
+              "target": "groupByNode(stats.whitehall-frontend-?_frontend.nginx_logs.whitehall-frontend_publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "Frontend 5xx Errors"
+          "title": "Frontend 5xx Errors",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "id": 1,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 6,
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "datasource": "Graphite",
           "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "fill": 0,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "groupByNode(stats.whitehall-backend-?_backend.nginx_logs.whitehall-admin_publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Backend 5xx Errors",
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "id": 2,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
+        }
+      ],
+      "title": "HTTP Status Codes"
+    },
+    {
+      "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "300px",
+      "notice": false,
+      "panels": [
+        {
+          "aliasColors": {},
           "annotate": {
             "enable": false
           },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
           "bars": false,
-          "stack": false,
+          "datasource": "Graphite",
+          "fill": 0,
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 6,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-backend-?_backend<%= @machine_suffix_metrics -%>.nginx_logs.whitehall-admin_<%= @app_domain_metrics -%>.http_5xx,4,\"sumSeries\")"
+              "target": "groupByNode(whitehall-frontend-*_frontend.nginx.nginx_connections-writing,-1,\"sum\")",
+              "refId": "A"
+            },
+            {
+              "target": "groupByNode(whitehall-frontend-*_frontend.nginx.nginx_requests,-1,\"sum\")",
+              "refId": "B"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
-          "title": "Backend 5xx Errors"
-        }
-      ],
-      "height": "80",
-      "collapse": false,
-      "collapsable": true,
-      "editable": true,
-      "notice": false
-    },
-    {
-      "title": "NginX Status",
-      "panels": [
-        {
-          "type": "graphite",
-          "span": 6,
           "title": "Frontend Nginx Connections",
-          "targets": [
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "id": 3,
+          "yaxes": [
             {
-              "target": "groupByNode(whitehall-frontend-*_frontend<%= @machine_suffix_metrics -%>.nginx.nginx_connections-writing,-1,\"sum\")"
+              "show": true,
+              "format": "short"
             },
             {
-              "target": "groupByNode(whitehall-frontend-*_frontend<%= @machine_suffix_metrics -%>.nginx.nginx_requests,-1,\"sum\")"
+              "show": true,
+              "format": "short"
             }
           ],
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          "xaxis": {
+            "show": true
           },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "aliasColors": {},
-          "aliasYAxis": {}
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "type": "graphite",
-          "span": 6,
-          "title": "Backend Nginx Connections",
-          "targets": [
-            {
-              "target": "groupByNode(whitehall-backend-*_backend<%= @machine_suffix_metrics -%>.nginx.nginx_connections-writing,-1,\"sum\")"
-            },
-            {
-              "target": "groupByNode(whitehall-backend-*_backend<%= @machine_suffix_metrics -%>.nginx.nginx_requests,-1,\"sum\")"
-            }
-          ],
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "datasource": "Graphite",
+          "fill": 0,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
           "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 6,
+          "stack": false,
           "steppedLine": false,
+          "targets": [
+            {
+              "target": "groupByNode(whitehall-backend-*_backend.nginx.nginx_connections-writing,-1,\"sum\")",
+              "refId": "A"
+            },
+            {
+              "target": "groupByNode(whitehall-backend-*_backend.nginx.nginx_requests,-1,\"sum\")",
+              "refId": "B"
+            }
+          ],
+          "title": "Backend Nginx Connections",
           "tooltip": {
+            "query_as_alias": true,
             "value_type": "cumulative",
-            "query_as_alias": true
+            "shared": true,
+            "msResolution": true
           },
-          "aliasColors": {},
-          "aliasYAxis": {}
+          "type": "graph",
+          "zerofill": true,
+          "id": 4,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
       ],
-      "height": "80",
-      "collapse": false,
-      "collapsable": true,
-      "editable": true,
-      "notice": false
+      "title": "NginX Status"
     },
     {
-      "title": "ES & MySQL CPU",
+      "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "300px",
+      "notice": false,
       "panels": [
         {
-          "type": "graphite",
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "datasource": "Graphite",
+          "fill": 0,
+          "grid": {
+            "max": null,
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
           "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "alias(sumSeries(whitehall-mysql-master-1_backend.cpu-*.cpu-user),\"Master CPU Usage\")",
+              "refId": "A"
+            },
+            {
+              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend.cpu-*.cpu-user),\"Slave-1 CPU Usage\")",
+              "refId": "B"
+            },
+            {
+              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend.cpu-*.cpu-user),\"Slave-2 CPU Usage\")",
+              "refId": "C"
+            }
+          ],
           "title": "MySQL CPU Usage",
-          "targets": [
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "id": 5,
+          "yaxes": [
             {
-              "target": "alias(sumSeries(whitehall-mysql-master-1_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user),\"Master CPU Usage\")"
+              "show": true,
+              "format": "short"
             },
             {
-              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user),\"Slave-1 CPU Usage\")"
-            },
-            {
-              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user),\"Slave-2 CPU Usage\")"
+              "show": true,
+              "format": "short"
             }
           ],
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "datasource": "Graphite",
+          "fill": 0,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
           "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
-          "aliasColors": {},
-          "aliasYAxis": {}
-        },
-        {
-          "type": "graphite",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
           "span": 6,
-          "title": "ElasticSearch CPU Usage",
+          "stack": false,
+          "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend<%= @machine_suffix_metrics -%>.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend<%= @machine_suffix_metrics -%>\",\"\")"
+              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend\",\"\")",
+              "refId": "A"
             }
           ],
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "annotate": {
-            "enable": false
-          },
-          "resolution": 100,
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
-          "percentage": false,
-          "zerofill": true,
-          "nullPointMode": "connected",
-          "steppedLine": false,
+          "title": "ElasticSearch CPU Usage",
           "tooltip": {
+            "query_as_alias": true,
             "value_type": "cumulative",
-            "query_as_alias": true
+            "shared": true,
+            "msResolution": true
           },
-          "aliasColors": {},
-          "aliasYAxis": {}
+          "type": "graph",
+          "zerofill": true,
+          "id": 6,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
       ],
-      "height": "80",
-      "collapse": false,
-      "collapsable": true,
-      "editable": true,
-      "notice": false
+      "title": "ES & MySQL CPU"
     }
   ],
-  "editable": true,
-  "failover": false,
-  "panel_hints": true,
-  "style": "dark",
-  "pulldowns": [
-    {
-      "type": "filtering",
-      "collapse": false,
-      "notice": false,
-      "enable": false
-    },
-    {
-      "type": "annotations",
-      "enable": true,
-      "annotations": [
-        {
-          "name": "whitehall deploys",
-          "type": "graphite events",
-          "showLine": true,
-          "iconColor": "#C0C6BE",
-          "lineColor": "rgba(32, 230, 25, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "tags": "whitehall"
-        },
-        {
-          "name": "whitehall restarts",
-          "type": "graphite metric",
-          "showLine": true,
-          "iconColor": "#FF2020",
-          "lineColor": "rgba(255, 32, 32, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "target": "substr(stats.govuk.app.whitehall.restarts,3,5)"
-        }
-      ]
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
-    }
-  ],
-  "loader": {
-    "save_gist": false,
-    "save_elasticsearch": false,
-    "save_local": true,
-    "save_default": true,
-    "save_temp": true,
-    "save_temp_ttl_enable": true,
-    "save_temp_ttl": "30d",
-    "load_gist": false,
-    "load_elasticsearch": false,
-    "load_elasticsearch_size": 20,
-    "load_local": true,
-    "hide": false
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": [
+      {
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(32, 230, 25, 0.592157)",
+        "name": "whitehall deploys",
+        "showLine": true,
+        "tags": "whitehall",
+        "type": "graphite events"
+      },
+      {
+        "enable": true,
+        "iconColor": "#FF2020",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 32, 32, 0.592157)",
+        "name": "whitehall restarts",
+        "showLine": true,
+        "target": "substr(stats.govuk.app.whitehall.restarts,3,5)",
+        "type": "graphite metric"
+      }
+    ]
   },
   "refresh": "1m",
-  "tags": [],
-  "timezone": "utc"
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }

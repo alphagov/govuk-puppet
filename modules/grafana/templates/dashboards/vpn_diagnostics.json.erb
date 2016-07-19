@@ -10,404 +10,468 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "DR Redirector VPN State",
-          "error": false,
-          "span": 12,
+          "aliasColors": {},
+          "bars": true,
+          "datasource": "Graphite",
           "editable": true,
-          "type": "graph",
+          "error": false,
+          "fill": 10,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 1,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
-          ],
-          "grid": {
-            "leftMax": 0.5,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
           },
           "lines": false,
-          "fill": 10,
           "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "links": [],
           "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": true,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "bouncer-4_redirector<%= @machine_suffix_metrics -%>.processes.*",
-              "hide": false
+              "hide": false,
+              "target": "bouncer-4_redirector.processes.*",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "title": "DR Redirector VPN State",
+          "tooltip": {
+            "shared": false,
+            "value_type": "cumulative",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": 0.5,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null
         },
         {
-          "title": "DR API VPN State",
-          "error": false,
-          "span": 12,
+          "aliasColors": {},
+          "bars": true,
+          "datasource": null,
           "editable": true,
-          "type": "graph",
+          "error": false,
+          "fill": 10,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 4,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
-          ],
-          "grid": {
-            "leftMax": 0.5,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
           },
           "lines": false,
-          "fill": 10,
           "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "links": [],
           "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": true,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "api-mongo-4_api<%= @machine_suffix_metrics -%>.processes.*",
-              "hide": false
+              "hide": false,
+              "target": "api-mongo-4_api.processes.*",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "title": "DR API VPN State",
+          "tooltip": {
+            "shared": false,
+            "value_type": "cumulative",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": 0.5,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null
         },
         {
-          "title": "DR Backend VPN State",
-          "error": false,
-          "span": 12,
+          "aliasColors": {},
+          "bars": true,
+          "datasource": null,
           "editable": true,
-          "type": "graph",
+          "error": false,
+          "fill": 10,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 5,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
-          ],
-          "grid": {
-            "leftMax": 0.5,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
           },
           "lines": false,
-          "fill": 10,
           "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
-            "current": false,
-            "total": false,
-            "avg": false
-          },
+          "links": [],
           "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": true,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "postgresql-standby-2_backend<%= @machine_suffix_metrics -%>.processes.*",
-              "hide": false
+              "hide": false,
+              "target": "postgresql-standby-2_backend.processes.*",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "title": "DR Backend VPN State",
+          "tooltip": {
+            "shared": false,
+            "value_type": "cumulative",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": 0.5,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null
         },
         {
-          "title": "DR Router VPN State",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 6,
+          "aliasColors": {},
+          "bars": true,
           "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "none",
-            "short"
-          ],
+          "editable": true,
+          "error": false,
+          "fill": 10,
           "grid": {
-            "leftMax": 0.5,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
-          "fill": 10,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": false,
-          "percentage": false,
+          "id": 6,
           "legend": {
-            "show": false,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
           "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": true,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "router-backend-4_router<%= @machine_suffix_metrics -%>.processes.*",
-              "hide": false
+              "hide": false,
+              "target": "router-backend-4_router.processes.*",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "title": "DR Router VPN State",
+          "tooltip": {
+            "shared": false,
+            "value_type": "cumulative",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": 0.5,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null
         }
-      ]
+      ],
+      "title": "New row"
     },
     {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "Skyscape Licensify VPN State",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 2,
+          "aliasColors": {},
+          "bars": true,
           "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "editable": true,
+          "error": false,
+          "fill": 0,
           "grid": {
-            "leftMax": 0.5,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": false,
-          "percentage": false,
+          "id": 2,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
           "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": true,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "licensify-frontend-1_licensify<%= @machine_suffix_metrics -%>.processes.*"
+              "target": "licensify-frontend-1_licensify.processes.*",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "title": "Skyscape Licensify VPN State",
+          "tooltip": {
+            "shared": false,
+            "value_type": "cumulative",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": 0.5,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null
         },
         {
-          "title": "Skyscape EFG VPN State",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 7,
+          "aliasColors": {},
+          "bars": true,
           "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
+          "editable": true,
+          "error": false,
+          "fill": 0,
           "grid": {
-            "leftMax": 0.5,
-            "rightMax": null,
-            "leftMin": 0,
-            "rightMin": null,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "lines": false,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": true,
-          "stack": false,
-          "percentage": false,
+          "id": 7,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
           "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
           "steppedLine": true,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "efg-mysql-master-1_efg<%= @machine_suffix_metrics -%>.processes.*"
+              "target": "efg-mysql-master-1_efg.processes.*",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "seriesOverrides": [],
-          "links": []
+          "title": "Skyscape EFG VPN State",
+          "tooltip": {
+            "shared": false,
+            "value_type": "cumulative",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": 0.5,
+              "format": "short"
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null
         }
-      ]
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
       ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
+      "title": "New row"
     }
   ],
   "time": {
     "from": "now-7d",
     "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
   },
   "templating": {
     "list": []
@@ -416,6 +480,7 @@
     "list": []
   },
   "refresh": false,
-  "version": 6,
-  "hideAllLegends": false
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }

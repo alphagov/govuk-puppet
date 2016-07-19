@@ -1,50 +1,46 @@
 {
+  "id": null,
   "title": "application health",
-  "services": {
-    "filter": {
-      "list": [],
-      "time": {
-        "from": "now-6h",
-        "to": "now"
-      }
-    }
-  },
+  "originalTitle": "application health",
+  "tags": [],
+  "style": "dark",
+  "timezone": "utc",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
   "rows": [
     {
-      "title": "one",
-      "height": "400px",
-      "editable": true,
-      "collapse": false,
       "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "400px",
+      "notice": false,
       "panels": [
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": 1500,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 0,
+          "grid": {
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -60,81 +56,95 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")",
+              "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.backend-?_backend<%= @machine_suffix_metrics -%>.contentapi.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.backend-?_backend.contentapi.time_*.mean,4,\"avg\")",
+              "refId": "B"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "contentapi resp/avg",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 1,
+          "yaxes": [
+            {
+              "show": true,
+              "max": 1500,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": 1500,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 0,
+          "grid": {
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -150,81 +160,95 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend<%= @machine_suffix_metrics -%>.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")",
+              "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend<%= @machine_suffix_metrics -%>.smartanswers.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend.smartanswers.time_*.mean,4,\"avg\")",
+              "refId": "B"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "smartanswers resp/avg",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 2,
+          "yaxes": [
+            {
+              "show": true,
+              "max": 1500,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": 1500,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 0,
+          "grid": {
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -240,91 +264,105 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend<%= @machine_suffix_metrics -%>.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")",
+              "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.frontend-?_frontend<%= @machine_suffix_metrics -%>.frontend.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.frontend-?_frontend.frontend.time_*.mean,4,\"avg\")",
+              "refId": "B"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "frontend resp/avg",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 3,
+          "yaxes": [
+            {
+              "show": true,
+              "max": 1500,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
       ],
-      "notice": false
+      "title": "one"
     },
     {
-      "title": "two",
-      "height": "400px",
-      "editable": true,
-      "collapse": false,
       "collapsable": true,
+      "collapse": false,
+      "editable": true,
+      "height": "400px",
+      "notice": false,
       "panels": [
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": 1500,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 0,
+          "grid": {
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -340,81 +378,95 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.search-?_api<%= @machine_suffix_metrics -%>.nginx_logs.rummager_*.time_request.mean),1000),\"nginx\")"
+              "target": "alias(scale(averageSeries(stats.timers.search-?_api.nginx_logs.rummager_*.time_request.mean),1000),\"nginx\")",
+              "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.search-?_api<%= @machine_suffix_metrics -%>.rummager.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.search-?_api.rummager.time_*.mean,4,\"avg\")",
+              "refId": "B"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "rummager resp/avg",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 4,
+          "yaxes": [
+            {
+              "show": true,
+              "max": 1500,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 4,
-          "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
-          "grid": {
-            "max": 1500,
-            "min": 0,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "aliasColors": {},
           "annotate": {
             "enable": false,
+            "field": "_type",
             "query": "*",
             "size": 20,
-            "field": "_type",
             "sort": [
               "_score",
               "desc"
             ]
           },
           "auto_int": true,
-          "resolution": 100,
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "fill": 0,
+          "grid": {
+            "min": 0,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -430,78 +482,92 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 0,
-          "linewidth": 1,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend<%= @machine_suffix_metrics -%>.whitehall.time_*.mean,4,\"avg\")"
+              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend.whitehall.time_*.mean,4,\"avg\")",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "whitehall fe resp/avg",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 5,
+          "yaxes": [
+            {
+              "show": true,
+              "max": 1500,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "span": 4,
+          "aliasColors": {},
+          "annotate": {
+            "enable": false,
+            "field": "_type",
+            "query": "*",
+            "size": 20,
+            "sort": [
+              "_score",
+              "desc"
+            ]
+          },
+          "auto_int": true,
+          "bars": false,
+          "datasource": "Graphite",
           "editable": true,
-          "type": "graphite",
-          "loadingEditor": false,
-          "x-axis": true,
-          "y-axis": true,
-          "scale": 1,
+          "fill": 10,
           "grid": {
             "max": null,
             "min": 0,
             "threshold1": null,
-            "threshold2": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "annotate": {
-            "enable": false,
-            "query": "*",
-            "size": 20,
-            "field": "_type",
-            "sort": [
-              "_score",
-              "desc"
-            ]
-          },
-          "auto_int": true,
-          "resolution": 100,
+          "interactive": true,
           "interval": "5m",
           "intervals": [
             "auto",
@@ -517,140 +583,133 @@
             "1w",
             "1y"
           ],
-          "lines": true,
-          "fill": 10,
-          "linewidth": 0,
-          "points": false,
-          "pointradius": 5,
-          "bars": false,
-          "stack": false,
-          "spyable": true,
-          "zoomlinks": false,
-          "options": false,
           "legend": {
-            "show": true,
-            "values": false,
-            "min": false,
-            "max": false,
+            "avg": false,
             "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
             "total": false,
-            "avg": false
+            "values": false
           },
-          "interactive": true,
           "legend_counts": true,
-          "percentage": false,
-          "zerofill": true,
+          "lines": true,
+          "linewidth": 0,
+          "loadingEditor": false,
           "nullPointMode": "connected",
+          "options": false,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "span": 4,
+          "spyable": true,
+          "stack": false,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "query_as_alias": true
-          },
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.*_frontend<%= @machine_suffix_metrics -%>.nginx_logs.*_<%= @app_domain_metrics -%>.http_503,3,\"sum\"),\"_.*\",\"\")"
+              "target": "aliasSub(groupByNode(stats.*_frontend.nginx_logs.*_publishing_service_gov_uk.http_503,3,\"sum\"),\"_.*\",\"\")",
+              "refId": "A"
             }
           ],
-          "aliasColors": {},
-          "aliasYAxis": {},
           "title": "fe HTTP 503/s",
-          "datasource": null,
-          "renderer": "flot",
-          "y_formats": [
-            "none",
-            "none"
-          ]
+          "tooltip": {
+            "query_as_alias": true,
+            "value_type": "cumulative",
+            "shared": true,
+            "msResolution": true
+          },
+          "type": "graph",
+          "zerofill": true,
+          "zoomlinks": false,
+          "id": 6,
+          "yaxes": [
+            {
+              "show": true,
+              "format": "none"
+            },
+            {
+              "show": true,
+              "format": "none"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
       ],
-      "notice": false
+      "title": "two"
     }
   ],
-  "editable": true,
-  "failover": false,
-  "panel_hints": true,
-  "style": "dark",
-  "pulldowns": [
-    {
-      "type": "filtering",
-      "collapse": false,
-      "notice": false,
-      "enable": false
-    },
-    {
-      "type": "annotations",
-      "enable": true,
-      "annotations": [
-        {
-          "name": "all deploys",
-          "type": "graphite events",
-          "showLine": true,
-          "iconColor": "#C0C6BE",
-          "lineColor": "rgba(32, 230, 25, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "tags": "deploys"
-        },
-        {
-          "name": "all restarts",
-          "type": "graphite metric",
-          "showLine": true,
-          "iconColor": "#FF2020",
-          "lineColor": "rgba(255, 32, 32, 0.592157)",
-          "iconSize": 13,
-          "enable": true,
-          "target": "substr(stats.govuk.app.*.restarts,3,5)"
-        }
-      ]
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
-      ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
-    }
-  ],
-  "loader": {
-    "save_gist": false,
-    "save_elasticsearch": true,
-    "save_local": true,
-    "save_default": true,
-    "save_temp": true,
-    "save_temp_ttl_enable": true,
-    "save_temp_ttl": "30d",
-    "load_gist": false,
-    "load_elasticsearch": true,
-    "load_elasticsearch_size": 20,
-    "load_local": false,
-    "hide": false
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": [
+      {
+        "enable": true,
+        "iconColor": "#C0C6BE",
+        "iconSize": 13,
+        "lineColor": "rgba(32, 230, 25, 0.592157)",
+        "name": "all deploys",
+        "showLine": true,
+        "tags": "deploys",
+        "type": "graphite events"
+      },
+      {
+        "enable": true,
+        "iconColor": "#FF2020",
+        "iconSize": 13,
+        "lineColor": "rgba(255, 32, 32, 0.592157)",
+        "name": "all restarts",
+        "showLine": true,
+        "target": "substr(stats.govuk.app.*.restarts,3,5)",
+        "type": "graphite metric"
+      }
+    ]
   },
   "refresh": "1m",
-  "tags": [],
-  "timezone": "utc"
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }
