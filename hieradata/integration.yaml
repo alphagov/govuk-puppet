@@ -23,6 +23,7 @@ govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::rummager::aws_s3_bucket_name: govuk-api-elasticsearch-snapshots-integration
 
 govuk::apps::smartanswers::expose_govspeak: true
+govuk::apps::dfid_transition::enable_procfile_worker: true
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher_rebuild::publish_pre_production_finders: true
 govuk::apps::specialist_publisher_rebuild_standalone::enabled: true
