@@ -11,7 +11,6 @@ describe 'mongodb::config', :type => :class do
       }}
 
       it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/^replSet = production$/) }
-      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/^profile = 1$/) }
       it { is_expected.to contain_file('/etc/mongodb.conf').without_content(/noprealloc|journal|nojournal/) }
       it { is_expected.to contain_file('/etc/mongodb.conf').without_content(/^oplogSize =/) }
     end
@@ -25,7 +24,6 @@ describe 'mongodb::config', :type => :class do
       }}
 
       it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/replSet = development$/) }
-      it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/^profile = 2$/) }
       it { is_expected.to contain_file('/etc/mongodb.conf').with_content(/noprealloc|journal|nojournal/) }
     end
   end
@@ -41,7 +39,6 @@ describe 'mongodb::config', :type => :class do
       }}
 
       it { is_expected.to contain_file('/etc/mongod.conf').with_content(/^replication:\n\s\soplogSizeMB:\s7168 # 7 \* 1024\n\s\sreplSetName:\sproduction/) }
-      it { is_expected.to contain_file('/etc/mongod.conf').with_content(/\s\sprofile: 1/) }
       it { is_expected.to contain_file('/etc/mongod.conf').with_content(/\s\sjournal:\n\s\s\s\senabled: true/) }
     end
 
@@ -54,8 +51,7 @@ describe 'mongodb::config', :type => :class do
           :template_name => 'mongod.conf.erb'
       }}
 
-      it { is_expected.to contain_file('/etc/mongod.conf').with_content(/^replication:\n\s\soplogSizeMB:\n\s\sreplSetName:\sdevelopment/) }
-      it { is_expected.to contain_file('/etc/mongod.conf').with_content(/\s\sprofile: 2/) }
+      it { is_expected.to contain_file('/etc/mongod.conf').with_content(/replSetName:\sdevelopment/) }
       it { is_expected.to contain_file('/etc/mongod.conf').with_content(/\s\sjournal:\n\s\s\s\senabled: false/) }
     end
 
