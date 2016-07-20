@@ -6,36 +6,21 @@
 # Where and how to store data.
 storage:
 # Omit trailing slash
-  dbPath: <%= @dbPath %>
+  dbPath: <%= @dbpath %>
 
-if <%= @development -%>
   journal:
+    <%- if @development -%>
     enabled: false
-
-# Query profiling level. Capture data regarding performance.
-  profile: 2
-
-# replicaset options
-replication:
-  oplogSizeMB:
-  replSetName: <%= @replicaset_name %>
-
-   <%= @else -%>
-
-  journal:
+    <%- else -%>
     enabled: true
-
-# Query profiling level. Capture data regarding performance.
-  profile: 1
+    <%- end -%>
 
 # replicaset options
 replication:
+  <%- if @oplog_size -%>
   oplogSizeMB: <%= @oplog_size %>
+  <%- end -%>
   replSetName: <%= @replicaset_name %>
-
-
-
-  <%= @end -%>
 
 # where to write logging data.
 systemLog:
@@ -47,5 +32,4 @@ systemLog:
 net:
   port: 27017
   bindIp: 127.0.0.1
-
 
