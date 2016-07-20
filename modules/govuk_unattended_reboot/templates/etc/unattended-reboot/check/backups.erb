@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+LOCK_FILES=(<%= @check_lockfiles %>)
+
+# If any lock files above are present. The  machine will not reboot.
+
+  for i in ${LOCK_FILES[@]}; do
+
+    if [[ -f ${i} ]]; then
+
+      exit 1
+
+    fi
+
+  done

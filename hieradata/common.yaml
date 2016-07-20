@@ -537,6 +537,8 @@ govuk_sudo::sudo_conf:
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
 govuk_unattended_reboot::elasticsearch::enabled: true
+govuk_unattended_reboot::lock_files:
+  - '/var/lock/mongodb-s3backup'
 
 govuk_unattended_reboot::monitoring_basic_auth:
   username: "%{hiera('http_username')}"
