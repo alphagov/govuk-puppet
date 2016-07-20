@@ -382,6 +382,8 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environme
 govuk::apps::share_sale_publisher::enabled: true
 
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
+govuk::apps::signon::redis_host: 'redis-1.backend'
+govuk::apps::signon::redis_port: '6379'
 govuk::apps::signon::nagios_memory_warning: 900
 govuk::apps::signon::nagios_memory_critical: 1000
 
