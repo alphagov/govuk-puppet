@@ -35,7 +35,7 @@
 #   Redis port for sidekiq and AttachmentIndex.
 #   Default: 6379
 class govuk::apps::dfid_transition (
-  $port = 9999,
+  $port = 3124,
   $enabled = true,
   $enable_procfile_worker = undef,
   $asset_manager_bearer_token = undef,
