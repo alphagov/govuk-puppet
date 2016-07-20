@@ -122,6 +122,11 @@ service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../ser
 specialist-publisher-rebuild:  govuk_setenv specialist-publisher-rebuild  ./run_in.sh ../specialist-publisher-rebuild bundle exec rails s -p 3123
 specialist-publisher-rebuild-worker: govuk_setenv specialist-publisher-rebuild ./run_in.sh ../specialist-publisher-rebuild bundle exec sidekiq -C ./config/sidekiq.yml
 
+# dfid-transition needs a port reserving because its app type in govuk-puppet is 'procfile'. It's not used
+# right now but may get a temporary rack app for monitoring the sidekiq queues.
+# dfid-transition: govuk_setenv dfid-transition ./run_in.sh ../dfid-transition bundle exec rackup 3124
+dfid-transition-worker: govuk_setenv dfid-transition ./run_in.sh ../dfid-transition bundle exec sidekiq -C ./config/sidekiq.yml
+
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
 # Firewall block rule on port 3170 (for testing connect timeouts)
