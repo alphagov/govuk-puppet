@@ -5,8 +5,20 @@
 # === Parameters:
 #
 # [*version*]
+#   Version of mongodb. Should resolve to 2.6
+#
 # [*package_name*]
+#   The name of the mongo install
+#
 # [*dbpath*]
+#   Path to database on filesystem
+#
+# [*config_filename*]
+#   Name and path of the main configuration file
+#
+# [*template_name*]
+#   The name of the template that will be used as the config file.
+#
 # [*oplog_size*]
 #   Defines size of the oplog in megabytes.
 #   If undefined, we use MongoDB's default.
@@ -33,10 +45,12 @@ class mongodb::server (
     $service_name = 'mongod'
     $package_name = 'mongodb-org'
     $config_filename = '/etc/mongod.conf'
+    $template_name = 'mongod.conf.erb'
   } else {
     $service_name = 'mongodb'
     $package_name = 'mongodb-10gen'
     $config_filename = '/etc/mongodb.conf'
+    $template_name = 'mongodb.conf'
   }
 
   validate_bool($development)
@@ -79,6 +93,7 @@ class mongodb::server (
     development     => $development,
     oplog_size      => $oplog_size,
     replicaset_name => $replicaset_name,
+    template_name   => $template_name,
     require         => Class['mongodb::package'],
     notify          => Class['mongodb::service'];
   }
