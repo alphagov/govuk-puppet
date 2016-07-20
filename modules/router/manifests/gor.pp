@@ -32,7 +32,7 @@ class router::gor (
 
   class { 'govuk_gor':
     args   => {
-      '-input-raw'          => 'localhost:7999',
+      '-input-raw'          => '127.0.0.1:7999',
       '-output-http'        => prefix(keys($replay_targets), 'https://'),
       '-output-http-method' => [
         'GET', 'HEAD', 'OPTIONS',

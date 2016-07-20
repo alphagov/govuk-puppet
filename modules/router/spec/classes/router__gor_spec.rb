@@ -5,7 +5,7 @@ describe 'router::gor', :type => :class do
     :replay_targets => replay_targets,
   }}
   let(:args_default) {{
-    '-input-raw'          => 'localhost:7999',
+    '-input-raw'          => '127.0.0.1:7999',
     '-output-http-method' => %w{GET HEAD OPTIONS},
   }}
 
