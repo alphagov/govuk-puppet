@@ -21,6 +21,7 @@ class monitoring::checks (
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
   include monitoring::checks::ses
+  include monitoring::checks::sidekiq
   include monitoring::checks::smokey
   include monitoring::checks::reboots
 
