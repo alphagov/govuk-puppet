@@ -78,8 +78,8 @@ and that's it. Now you can get to work!
 * If you have < 8GB of RAM on your host machine, you will need to reduce the
   RAM available to the VM. You can also add extra RAM if you require more.
   You can do both of these things in a `Vagrantfile.localconfig` file in this
-  directory, which is automatically read by Vagrant (don't forget to re-run
-  `vagrant up`!):
+  directory, which is automatically read by Vagrant (don't forget to run
+  `vagrant reload`!):
 
         $ cat ./Vagrantfile.localconfig
         config.vm.provider :virtualbox do |vm|
