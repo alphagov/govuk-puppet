@@ -58,7 +58,7 @@ class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
 
   @@icinga::check { "check_mongod_replset_state_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!replset_state',
-    service_description => 'monogod replset state',
+    service_description => 'mongod replset state',
     host_name           => $::fqdn,
   }
 }
