@@ -1,5 +1,3 @@
-# FIXME Remove lines 34 to 37 after this has been deployed
-#
 # == Class: mongodb::s3backup::cron
 #
 # Runs a backup of MongoDB to Amazon S3 as a cron job.
@@ -29,8 +27,4 @@ class mongodb::s3backup::cron(
     minute  => '0',
   }
 
-  cron { 'mongodb-s3backup':
-    ensure => absent,
-    user   => root,
-  }
 }
