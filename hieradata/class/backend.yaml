@@ -59,6 +59,7 @@ govuk::node::s_base::apps:
   - contacts
   - content_tagger
   - contentapi
+  - dfid_transition
   - email_alert_api
   - email_alert_service
   - event_store
