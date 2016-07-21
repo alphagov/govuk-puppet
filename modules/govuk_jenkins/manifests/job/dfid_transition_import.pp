@@ -14,6 +14,8 @@
 class govuk_jenkins::job::dfid_transition_import (
   $publishing_api_bearer_token = undef,
   $asset_manager_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = 6379
 ) {
 
   file {
