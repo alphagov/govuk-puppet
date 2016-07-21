@@ -37,7 +37,7 @@ printf "COMPRESSION AND ENCRYPTION FINISHED IN: ${TIME}s\n"
 
 # Upload backup to s3 bucket
 TIME="$(date +%s)"
-if [ $1 == "daily" ]; then
+if [[ $1 == "daily" ]]; then
 
     /usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET_DAILY --quiet
 else
