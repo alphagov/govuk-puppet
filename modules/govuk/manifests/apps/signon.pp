@@ -29,6 +29,8 @@ class govuk::apps::signon(
   $enable_procfile_worker = true,
   $devise_secret_key = undef,
   $redis_url = undef,
+  $redis_host = 'redis-1.backend',
+  $redis_port = '6379',
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
@@ -63,9 +65,18 @@ class govuk::apps::signon(
   }
 
   if $redis_url != undef {
-    govuk::app::envvar { "${title}-REDIS_URL":
-      varname => 'REDIS_URL',
-      value   => $redis_url,
+    govuk::app::envvar {
+      "${title}-REDIS_URL":
+        varname => 'REDIS_URL',
+        value   => $redis_url;
+      "${title}-REDIS_HOST":
+        app     => $app_name,
+        varname => 'REDIS_HOST',
+        value   => $redis_host;
+      "${title}-REDIS_PORT":
+        app     => $app_name,
+        varname => 'REDIS_PORT',
+        value   => $redis_port;
     }
   }
 
