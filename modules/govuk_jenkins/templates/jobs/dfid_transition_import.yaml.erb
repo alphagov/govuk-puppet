@@ -25,6 +25,9 @@
     wrappers:
         - ansicolor:
             colormap: xterm
+        - inject:
+            properties-content: REDIS_HOST=<%= @redis_host %>
+            properties-content: REDIS_PORT=<%= @redis_port %>
         - inject-passwords:
             global: false
             mask-password-params: true

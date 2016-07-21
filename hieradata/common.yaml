@@ -294,6 +294,8 @@ govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 govuk::apps::dfid_transition::redis_host: 'redis-1.backend'
 govuk::apps::dfid_transition::redis_port: '6379'
 govuk::apps::dfid_transition::enable_procfile_worker: false
+govuk_jenkins::job::dfid_transition_import::redis_host: 'redis-1.backend'
+govuk_jenkins::job::dfid_transition_import::redis_port: '6379'
 
 govuk::apps::publisher::redis_host: 'redis-1.backend'
 govuk::apps::publisher::redis_port: '6379'
