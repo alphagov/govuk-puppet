@@ -232,4 +232,4 @@ Default: Setting hostname...
     from /opt/vagrant/embedded/gems/gems/vagrant-1.8.1/plugins/communicators/ssh/communicator.rb:222:in `call’
 ```
 
-Try `sudo vim`ing (or `sudo nano`, whichever you prefer) into that file and removing the offending `return` line.
+Updating to the latest version (v1.8.5+) might resolve this error. If not, try `sudo vim`ing (or `sudo nano`, whichever you prefer) into that file and removing the offending `return` line.
