@@ -22,12 +22,13 @@
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake load:outputs
-    wrappers:
-        - ansicolor:
-            colormap: xterm
+    properties:
         - inject:
             properties-content: REDIS_HOST=<%= @redis_host %>
             properties-content: REDIS_PORT=<%= @redis_port %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
         - inject-passwords:
             global: false
             mask-password-params: true
