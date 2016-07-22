@@ -34,4 +34,5 @@ class govuk::node::s_licensify_mongo (
   }
 
   Govuk_mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
+  Govuk_mount['/var/lib/s3backup'] -> Class['mongodb::backup']
 }
