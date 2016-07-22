@@ -3,7 +3,7 @@ require_relative '../../../../spec_helper'
 describe 'govuk_bouncer::gor', :type => :class do
   let(:ip_address) { '127.0.0.1' }
   let(:args_default) {{
-    '-input-raw'          => ':80',
+    '-input-raw'          => ':3049',
     '-http-allow-method' => %w{GET HEAD OPTIONS},
     '-http-original-host' => '',
   }}
