@@ -759,6 +759,7 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'contentapi'
+  - 'dfid-transition'
   - 'email-alert-api'
   - 'errbit'
   - 'event-store'
