@@ -65,6 +65,7 @@ class govuk::node::s_backend_lb (
       'collections-publisher',
       'contacts-admin',
       'content-tagger',
+      'dfid-transition',
       'imminence',
       'local-links-manager',
       'maslow',
