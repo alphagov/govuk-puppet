@@ -57,7 +57,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "GET /v2/content",
+              "alias": "GET V2 content",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -78,40 +78,12 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2\\/content*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2/content*\" AND @fields.method:GET",
               "refId": "E",
               "timeField": "@timestamp"
             },
             {
-              "alias": "All",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "status",
-                  "id": "1",
-                  "meta": {},
-                  "settings": {},
-                  "type": "count"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509]",
-              "refId": "B",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "GET linkables",
+              "alias": "GET V2 linkables",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -132,12 +104,12 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2\\/linkables*\"",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET AND @fields.request:\"*/v2/linkables*\"",
               "refId": "A",
               "timeField": "@timestamp"
             },
             {
-              "alias": "PUT /v2/content",
+              "alias": "PUT V2 content",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -163,7 +135,7 @@
               "timeField": "@timestamp"
             },
             {
-              "alias": "POST /v2/publish",
+              "alias": "POST V2 publish",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -184,12 +156,12 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2/publish*\"",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:POST AND @fields.request:\"*/v2/content/*/publish*\"",
               "refId": "D",
               "timeField": "@timestamp"
             },
             {
-              "alias": "PATCH /v2/links",
+              "alias": "PATCH V2 links",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -210,9 +182,113 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2\\/links*\" AND @fields.method:PATCH",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2/links*\" AND @fields.method:PATCH",
               "refId": "F",
               "timeField": "@timestamp"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "count",
+                  "id": "1",
+                  "field": "select field"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "G",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET AND @fields.request:\"*/v2/linked*\"",
+              "alias": "GET V2 linked"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "count",
+                  "id": "1",
+                  "field": "select field"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "B",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:POST AND @fields.request:\"*/v2/content/*/unpublish*\"",
+              "alias": "POST V2 unpublish"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "count",
+                  "id": "1",
+                  "field": "select field"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "H",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET AND @fields.request:\"*/v2/grouped-content-and-links*\"",
+              "alias": "GET V2 grouped-content-and-links"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "count",
+                  "id": "1",
+                  "field": "select field"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "I",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:POST AND @fields.request:\"*/v2/content/*/discard-draft*\"",
+              "alias": "POST V2 discard-draft"
             }
           ],
           "timeFrom": null,
@@ -262,7 +338,7 @@
           "id": 3,
           "isNew": true,
           "legend": {
-            "avg": false,
+            "avg": true,
             "current": false,
             "hideEmpty": false,
             "hideZero": true,
@@ -290,17 +366,6 @@
               "bucketAggs": [
                 {
                   "fake": true,
-                  "field": "@fields.govuk_request_id",
-                  "id": "6",
-                  "settings": {
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                },
-                {
-                  "fake": true,
                   "field": "@timestamp",
                   "id": "5",
                   "settings": {
@@ -322,7 +387,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linkables*\" AND _exists_:@fields.govuk_request_id",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linkables*\" AND @fields.method:GET",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -330,17 +395,6 @@
               "alias": "GET /v2/content",
               "bucketAggs": [
                 {
-                  "fake": true,
-                  "field": "@fields.govuk_request_id",
-                  "id": "4",
-                  "settings": {
-                    "order": "asc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                },
-                {
                   "field": "@timestamp",
                   "id": "2",
                   "settings": {
@@ -361,7 +415,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:GET AND _exists_:@fields.govuk_request_id",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:GET",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -369,17 +423,6 @@
               "alias": "PUT /v2/content",
               "bucketAggs": [
                 {
-                  "fake": true,
-                  "field": "@fields.govuk_request_id",
-                  "id": "4",
-                  "settings": {
-                    "order": "asc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                },
-                {
                   "field": "@timestamp",
                   "id": "2",
                   "settings": {
@@ -400,7 +443,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:PUT AND _exists_:@fields.govuk_request_id",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:PUT",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -408,17 +451,6 @@
               "alias": "PATCH /v2/links",
               "bucketAggs": [
                 {
-                  "fake": true,
-                  "field": "@fields.govuk_request_id",
-                  "id": "4",
-                  "settings": {
-                    "order": "asc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                },
-                {
                   "field": "@timestamp",
                   "id": "2",
                   "settings": {
@@ -439,7 +471,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links*\" AND @fields.method:PATCH AND _exists_:@fields.govuk_request_id",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links/*\" AND @fields.method:PATCH",
               "refId": "D",
               "timeField": "@timestamp"
             },
@@ -447,17 +479,6 @@
               "alias": "POST /v2/publish",
               "bucketAggs": [
                 {
-                  "fake": true,
-                  "field": "@fields.govuk_request_id",
-                  "id": "4",
-                  "settings": {
-                    "order": "asc",
-                    "orderBy": "_term",
-                    "size": "10"
-                  },
-                  "type": "terms"
-                },
-                {
                   "field": "@timestamp",
                   "id": "2",
                   "settings": {
@@ -478,9 +499,121 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/publish*\" AND @fields.method:POST AND _exists_:@fields.govuk_request_id",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*/publish*\" AND @fields.method:POST",
               "refId": "E",
               "timeField": "@timestamp"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "max",
+                  "id": "1",
+                  "field": "@fields.duration",
+                  "settings": {},
+                  "meta": {}
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "F",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*/unpublish*\" AND @fields.method:POST",
+              "alias": "POST /v2/unpublish"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "max",
+                  "id": "1",
+                  "field": "@fields.duration",
+                  "settings": {},
+                  "meta": {}
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "G",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linked*\" AND @fields.method:GET",
+              "alias": "GET /v2/linked"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "max",
+                  "id": "1",
+                  "field": "@fields.duration",
+                  "settings": {},
+                  "meta": {}
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "H",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/new-linkables*\" AND @fields.method:GET",
+              "alias": "GET /v2/new-linkables"
+            },
+            {
+              "metrics": [
+                {
+                  "type": "max",
+                  "id": "1",
+                  "field": "@fields.duration",
+                  "settings": {},
+                  "meta": {}
+                }
+              ],
+              "dsType": "elasticsearch",
+              "bucketAggs": [
+                {
+                  "type": "date_histogram",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "field": "@timestamp"
+                }
+              ],
+              "timeField": "@timestamp",
+              "refId": "I",
+              "alias": "/v2/grouped-content-and-links",
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/grouped-content-and-links*\" AND @fields.method:GET"
             }
           ],
           "timeFrom": null,
