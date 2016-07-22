@@ -26,8 +26,8 @@ class govuk_gor(
   $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
-  $version = '0.9.4~ppa1',
-  $binary_path = '/usr/bin/gor',
+  $version = '0.14.1',
+  $binary_path = '/usr/local/bin/gor',
   $envvars = {},
 ) {
 
