@@ -2,8 +2,3 @@
 
 govuk_bouncer::gor::enabled: true
 govuk_bouncer::gor::ip_address: '31.210.245.101'
-
-govuk_gor::version: '0.14.1'
-govuk_gor::binary_path: '/usr/local/bin/gor'
-govuk_gor::envvars:
-  GODEBUG: 'netdns=go'

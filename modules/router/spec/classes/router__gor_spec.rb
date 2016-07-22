@@ -6,7 +6,8 @@ describe 'router::gor', :type => :class do
   }}
   let(:args_default) {{
     '-input-raw'          => '127.0.0.1:7999',
-    '-output-http-method' => %w{GET HEAD OPTIONS},
+    '-http-allow-method' => %w{GET HEAD OPTIONS},
+    '-http-original-host' => '',
   }}
 
   context 'no targets defined (disabled)' do
@@ -29,6 +30,9 @@ describe 'router::gor', :type => :class do
         :args   => args_default.merge({
           '-output-http' => ["https://#{target_host}"],
         }),
+        :envvars => {
+          'GODEBUG' => 'netdns=go',
+        }
       )
     }
   end

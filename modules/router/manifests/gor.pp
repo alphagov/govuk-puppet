@@ -31,13 +31,17 @@ class router::gor (
   create_resources('host', $replay_targets, $host_defaults)
 
   class { 'govuk_gor':
-    args   => {
+    args    => {
       '-input-raw'          => '127.0.0.1:7999',
       '-output-http'        => prefix(keys($replay_targets), 'https://'),
-      '-output-http-method' => [
+      '-http-allow-method'  => [
         'GET', 'HEAD', 'OPTIONS',
       ],
+      '-http-original-host' => '',
     },
-    enable => $enabled,
+    envvars => {
+      'GODEBUG' => 'netdns=go',
+    },
+    enable  => $enabled,
   }
 }

@@ -4,7 +4,8 @@ describe 'govuk_bouncer::gor', :type => :class do
   let(:ip_address) { '127.0.0.1' }
   let(:args_default) {{
     '-input-raw'          => ':80',
-    '-output-http-method' => %w{GET HEAD OPTIONS},
+    '-http-allow-method' => %w{GET HEAD OPTIONS},
+    '-http-original-host' => '',
   }}
 
   context 'default (disabled)' do
@@ -29,6 +30,9 @@ describe 'govuk_bouncer::gor', :type => :class do
         :args           => args_default.merge({
           '-output-http' => ["http://#{ip_address}"],
         }),
+        :envvars => {
+          'GODEBUG' => 'netdns=go',
+        }
       )
     }
   end
