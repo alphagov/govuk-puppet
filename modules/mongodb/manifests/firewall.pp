@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: mongodb::firewall
+#
+# Allow network traffic through firewall for mongodb
+#
 class mongodb::firewall {
   @ufw::allow { 'allow-mongod-27017-from-all':
     port => 27017,

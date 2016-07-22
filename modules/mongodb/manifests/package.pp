@@ -1,4 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: mongodb::package
+#
+# Define which mongodb package to install
+#
+# === Parameters
+#
+# [*version*]
+#   Version of mongodb package
+#
+# [*package_name*]
+#   Name of mongodb package
+#
 class mongodb::package(
   $version,
   $package_name = 'mongodb-10gen',

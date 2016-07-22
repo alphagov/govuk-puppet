@@ -1,5 +1,15 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class mongodb::monitoring ($dbpath = '/var/lib/mongodb') {
+# == Class: mongodb::monitoring
+#
+# Configures monitoring for mongodb
+#
+# === Parameters
+#
+# [*dbpath*]
+#   Where mongodb stores data on disk
+#
+class mongodb::monitoring (
+  $dbpath = '/var/lib/mongodb'
+) {
 
   include mongodb::python
 
