@@ -30,6 +30,10 @@ server {
     proxy_pass http://localhost:3086;
   }
 
+  location /dfid-transition {
+    proxy_pass http://localhost:3124;
+  }
+
   location /email-alert-api {
     proxy_pass http://localhost:3089;
   }
