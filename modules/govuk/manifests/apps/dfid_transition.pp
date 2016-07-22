@@ -36,7 +36,7 @@
 #   Default: 6379
 class govuk::apps::dfid_transition (
   $port = 3124,
-  $enabled = true,
+  $enabled = false,
   $enable_procfile_worker = undef,
   $asset_manager_bearer_token = undef,
   $publishing_api_bearer_token = undef,
