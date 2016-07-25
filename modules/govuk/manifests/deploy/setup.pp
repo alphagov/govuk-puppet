@@ -34,13 +34,13 @@ class govuk::deploy::setup (
   }
 
   user { 'deploy':
-    ensure      => present,
-    home        => '/home/deploy',
-    managehome  => true,
-    groups      => ['assets'],
-    shell       => '/bin/bash',
-    gid         => 'deploy',
-    require     => [Group['deploy'],Group['assets']];
+    ensure     => present,
+    home       => '/home/deploy',
+    managehome => true,
+    groups     => ['assets'],
+    shell      => '/bin/bash',
+    gid        => 'deploy',
+    require    => [Group['deploy'],Group['assets']];
   }
 
   file { '/etc/govuk':

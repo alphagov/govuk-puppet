@@ -47,8 +47,8 @@ class varnish (
   class { 'varnish::config':
     strip_cookies => $strip_cookies,
     upstream_port => $upstream_port,
-    require => Class['varnish::package'],
-    notify  => Class['varnish::service'];
+    require       => Class['varnish::package'],
+    notify        => Class['varnish::service'];
   }
   class { 'collectd::plugin::varnish':
     require => Class['varnish::config'],

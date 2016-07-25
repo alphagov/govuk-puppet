@@ -39,12 +39,12 @@ class govuk::apps::efg (
   }
 
   nginx::config::vhost::proxy { $vhost_name:
-    to                    => ["localhost:${port}"],
-    aliases               => ['efg.production.alphagov.co.uk'],
-    protected             => false,
-    ssl_certtype          => 'sflg',
-    ssl_only              => true,
-    extra_config          => '
+    to           => ["localhost:${port}"],
+    aliases      => ['efg.production.alphagov.co.uk'],
+    protected    => false,
+    ssl_certtype => 'sflg',
+    ssl_only     => true,
+    extra_config => '
   location /sflg/ {
     rewrite ^ https://$host/? permanent;
   }

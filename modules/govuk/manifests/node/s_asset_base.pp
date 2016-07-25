@@ -155,10 +155,10 @@ class govuk::node::s_asset_base (
 
     file {
     [ '/etc/govuk/aws', '/etc/govuk/aws/env.d']:
-      ensure  => directory,
-      owner   => 'assets',
-      group   => 'assets',
-      mode    => '0750';
+      ensure => directory,
+      owner  => 'assets',
+      group  => 'assets',
+      mode   => '0750';
     '/etc/govuk/aws/env.d/AWS_ACCESS_KEY_ID':
       ensure  => present,
       content => $aws_access_key_id,

@@ -43,7 +43,7 @@ class govuk::apps::hmrc_manuals_api(
     govuk::app::envvar {
       "${title}-ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS":
         varname => 'ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS',
-        value => '1';
+        value   => '1';
     }
   }
 
@@ -51,7 +51,7 @@ class govuk::apps::hmrc_manuals_api(
     govuk::app::envvar {
       "${title}-PUBLISH_TOPICS":
         varname => 'PUBLISH_TOPICS',
-        value => '1';
+        value   => '1';
     }
   }
 

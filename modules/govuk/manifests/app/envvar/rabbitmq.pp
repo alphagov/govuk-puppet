@@ -45,6 +45,6 @@ define govuk::app::envvar::rabbitmq (
       value   => $user;
     "${title}-RABBITMQ_PASSWORD":
       varname => 'RABBITMQ_PASSWORD',
-      value => $password;
+      value   => $password;
   }
 }

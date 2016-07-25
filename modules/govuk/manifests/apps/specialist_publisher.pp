@@ -66,7 +66,7 @@ client_max_body_size 500m;
       govuk::app::envvar {
         "${title}-PUBLISH_PRE_PRODUCTION_FINDERS":
           varname => 'PUBLISH_PRE_PRODUCTION_FINDERS',
-          value => '1';
+          value   => '1';
       }
     }
 

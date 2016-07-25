@@ -19,9 +19,9 @@ class puppetdb($package_ensure) {
   }
 
   class { 'puppetdb::package':
-    package_ensure  => $package_ensure,
-    require         => Anchor['puppetdb::begin'],
-    notify          => Class['puppetdb::service'];
+    package_ensure => $package_ensure,
+    require        => Anchor['puppetdb::begin'],
+    notify         => Class['puppetdb::service'];
   }
 
   class { 'puppetdb::config':
