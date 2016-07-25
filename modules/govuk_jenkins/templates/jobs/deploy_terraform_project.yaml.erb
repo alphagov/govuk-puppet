@@ -25,6 +25,8 @@
     wrappers:
         - ansicolor:
             colormap: xterm
+        - build-name:
+            name: '${ENV,var="PROJECT_NAME"} ${ENV,var="ACTION"}'
     builders:
         - shell: |
             if [ -n "$ADDITIONAL_ENVIRONMENT_VARIABLES" ]; then
