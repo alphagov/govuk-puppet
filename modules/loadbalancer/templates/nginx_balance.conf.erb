@@ -75,8 +75,8 @@ server {
   access_log /var/log/nginx/<%= @vhost_real %>-json.event.access.log json_event;
   error_log /var/log/nginx/<%= @vhost_real %>-error.log;
 
-  location = /maintenance.html {
-    root /usr/share/nginx/html;
+  location = /scheduled_maintenance.html {
+    root /usr/share/nginx/www;
   }
 
   <%- if @deny_crawlers -%>
@@ -102,7 +102,7 @@ server {
     <%- end -%>
     include includes/maintenance.conf;
     if ($maintenance = 1) {
-      error_page 503 /maintenance.html;
+      error_page 503 /scheduled_maintenance.html;
       return 503;
     }
     proxy_pass https://<%= @vhost %>-upstream;
