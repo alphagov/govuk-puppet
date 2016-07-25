@@ -6,7 +6,7 @@ FileList['lib/puppet-lint/plugins/*.rb'].each do |plugin|
 end
 
 PuppetLint.configuration.with_filename = true
-PuppetLint.configuration.send("disable_80chars")
+PuppetLint.configuration.send("disable_140chars")
 
 desc "Run puppet-lint on one or more modules"
 task :lint do
