@@ -2,7 +2,7 @@
 #
 # Nagios alerts for Mirror staleness.
 #
-# === Variables:
+# === Parameters
 #
 # [*enabled*]
 #   Can be used to disable checks/alerts for a given environment.
