@@ -150,7 +150,7 @@ class govuk::apps::specialist_publisher_rebuild_standalone(
       govuk::app::envvar {
         "${title}-PUBLISH_PRE_PRODUCTION_FINDERS":
           varname => 'PUBLISH_PRE_PRODUCTION_FINDERS',
-          value => '1';
+          value   => '1';
       }
     }
 

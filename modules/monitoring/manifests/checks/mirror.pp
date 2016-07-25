@@ -20,7 +20,7 @@ class monitoring::checks::mirror (
     $provider1_subdomain = 'mirror.provider1.production.govuk.service.gov.uk'
     $provider0_vhost     = "www-origin.${provider0_subdomain}"
     $provider1_vhost     = "www-origin.${provider1_subdomain}"
-    
+
     icinga::host { "mirror0.${provider0_subdomain}":
       host_name    => 'mirror0.provider0',
       hostalias    => "mirror0.${provider0_subdomain}",

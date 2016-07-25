@@ -99,9 +99,9 @@ class mongodb::server (
   }
 
   class { 'mongodb::configure_replica_set':
-    replicaset_name   => $replicaset_name,
-    members           => $replicaset_members,
-    require           => Class['mongodb::service'];
+    replicaset_name => $replicaset_name,
+    members         => $replicaset_members,
+    require         => Class['mongodb::service'];
   }
 
   class { 'mongodb::logging':

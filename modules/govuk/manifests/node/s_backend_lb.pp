@@ -62,7 +62,7 @@ class govuk::node::s_backend_lb (
           'app' => 'specialist-publisher-rebuild',
         },
       },
-      servers => $backend_servers;
+      servers        => $backend_servers;
     [
       'business-support-api',
       'collections-publisher',
