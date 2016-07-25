@@ -2,7 +2,7 @@
 #
 # Nagios alerts for SES quota limits.
 #
-# === Variables:
+# === Parameters
 #
 # [*region*]
 #   Which SES region should be checked ['us-east-1','eu-west-1']

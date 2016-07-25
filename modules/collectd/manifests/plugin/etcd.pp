@@ -2,7 +2,7 @@
 #
 # Collectd plugin for etcd using the cURL-JSON plugin.
 #
-# === Variables
+# === Parameters
 #
 # [*client_endpoint*]
 #   Determines the etcd client URL (typically on port 4001) to use when retrieving metrics.
