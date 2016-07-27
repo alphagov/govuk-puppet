@@ -27,4 +27,9 @@ class mongodb::s3backup::cron(
     minute  => '0',
   }
 
+# FIXME Please remove this resource one merged
+  cron { 'mongodb-s3backup':
+    ensure => absent,
+  }
+
 }
