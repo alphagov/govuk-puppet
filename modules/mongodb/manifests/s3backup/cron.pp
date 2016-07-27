@@ -10,7 +10,7 @@ class mongodb::s3backup::cron(
   $user = 'govuk-backup',
 ) {
 
-  include backup::client
+  include ::backup::client
   require mongodb::s3backup::package
   require mongodb::s3backup::backup
 

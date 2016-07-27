@@ -66,7 +66,7 @@ class mongodb::s3backup::backup(
   $user = 'govuk-backup'
 ){
 
-  include backup::client
+  include ::backup::client
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
@@ -153,7 +153,7 @@ class mongodb::s3backup::backup(
     owner   => $user,
     group   => $user,
     mode    => '0755',
-    require => User[$user],
+    require => Class['mongodb::s3backup::package'],
   }
 
 

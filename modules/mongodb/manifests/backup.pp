@@ -13,11 +13,19 @@
 # [*domonthly*]
 #   Whether monthly backups should be enabled or disabled
 #
+# [*s3_backups*]
+#   Whether to provision machine to perform s3 backups
+#
+# [*s3_restores*]
+#   Whether to provision machine to perform s3 restores. Idealy this is class
+#   should only be applied to mongo instances acting as PRIMARY
+#
 class mongodb::backup(
   $replicaset_members,
   $enabled = true,
   $domonthly = true,
   $s3_backups = false,
+  $s3_restores = false,
 ) {
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
@@ -78,7 +86,10 @@ class mongodb::backup(
 
     if $s3_backups {
       include mongodb::s3backup::backup
-      include mongodb::s3backup::package
+    }
+
+    if $s3_restores {
+      include mongodb::s3backup::restore
     }
 
     @@icinga::passive_check { "check_automongodbbackup-${::hostname}":
