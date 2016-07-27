@@ -7,7 +7,7 @@ class govuk_rbenv::all {
   include govuk_rbenv
 
   rbenv::version { '1.9.3-p484':
-    bundler_version => '1.6.5',
+    ensure => absent, # FIXME: Remove this resource once purged everywhere
   }
 
   rbenv::version { '2.1.2':
