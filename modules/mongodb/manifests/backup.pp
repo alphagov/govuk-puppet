@@ -84,19 +84,19 @@ class mongodb::backup(
   if $enabled_real {
     include logrotate
 
-    if $s3_backups {
-      include mongodb::s3backup::backup
-    }
-
-    if $s3_restores {
-      include mongodb::s3backup::restore
-    }
-
     @@icinga::passive_check { "check_automongodbbackup-${::hostname}":
       service_description => $service_desc,
       freshness_threshold => $threshold_secs,
       host_name           => $::fqdn,
     }
+  }
+
+  if $s3_backups {
+    include mongodb::s3backup::backup
+  }
+
+  if $s3_restores {
+    include mongodb::s3backup::restore
   }
 
 }

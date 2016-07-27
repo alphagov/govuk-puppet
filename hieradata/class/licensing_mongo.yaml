@@ -12,9 +12,6 @@ hosts::production::licensify::app_hostnames:
   - 'licensing-web-forms'
 
 lv:
-  mongodb:
-    pv: '/dev/sdb1'
-    vg: 'backup'
   databases:
     pv: '/dev/sdc1'
     vg: 'mongodb'
@@ -24,17 +21,13 @@ mount:
     disk: '/dev/mapper/mongodb-databases'
     govuk_lvm: 'databases'
     mountoptions: 'defaults'
-  /var/lib/automongodbbackup:
-    disk: '/dev/mapper/backup-mongodb'
-    govuk_lvm: 'mongodb'
-    mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
   'licensing-mongo-1':
   'licensing-mongo-2':
   'licensing-mongo-3':
 
-# Disable monthly backups to limit the retention of IL3 data.
-mongodb::backup::domonthly: false
+# Only s3backups will be implemented on licensing
+mongodb::backup::enabled: false
 
 mongodb::server::version: '3.2.7'
