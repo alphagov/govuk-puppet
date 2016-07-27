@@ -63,6 +63,7 @@ govuk_jenkins::config::admins:
   - chrispatuzzo
   - christopherbaines
   - ci_alphagov
+  - daivaughan
   - danielroseman
   - davidbasalla
   - davidsilva
@@ -90,6 +91,7 @@ govuk_jenkins::config::admins:
   - mikaelallison
   - mobaig
   - murraysteele
+  - neilvanbeinum
   - oliverbyford
   - pablomanrubia
   - paulbowsher
@@ -105,6 +107,7 @@ govuk_jenkins::config::admins:
   - theodorvararu
   - tijmenbrommet
   - timblair
+  - tomrussell
   - tomwhite
 
 govuk_jenkins::job_builder::jobs:
