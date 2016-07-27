@@ -2,6 +2,7 @@
 class govuk::node::s_logs_elasticsearch(
   $rotate_hour = 00,
   $rotate_minute = 01,
+  $indices_days_to_keep = 13,
 ) inherits govuk::node::s_base {
 
   $es_heap_size = floor($::memorysize_mb / 2)
