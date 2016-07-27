@@ -24,8 +24,9 @@
             bundle exec rake load:outputs
     properties:
         - inject:
-            properties-content: REDIS_HOST=<%= @redis_host %>
-            properties-content: REDIS_PORT=<%= @redis_port %>
+            properties-content: |
+              REDIS_HOST=<%= @redis_host %>
+              REDIS_PORT=<%= @redis_port %>
     wrappers:
         - ansicolor:
             colormap: xterm
