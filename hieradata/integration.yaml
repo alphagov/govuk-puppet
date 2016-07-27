@@ -63,6 +63,7 @@ govuk_jenkins::config::admins:
   - chrispatuzzo
   - christopherbaines
   - ci_alphagov
+  - daivaughan
   - danielroseman
   - davidbasalla
   - davidsilva
