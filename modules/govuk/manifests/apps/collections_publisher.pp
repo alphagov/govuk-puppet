@@ -50,7 +50,7 @@ class govuk::apps::collections_publisher(
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
   $redis_host = 'redis-1.backend',
-  $redis_port = '6379',
+  $redis_port = undef,
 ) {
 
   govuk::app { 'collections-publisher':
@@ -65,6 +65,11 @@ class govuk::apps::collections_publisher(
 
   Govuk::App::Envvar {
     app =>  'collections-publisher',
+  }
+
+  govuk::app::envvar::redis { 'collections-publisher':
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $secret_key_base {
@@ -90,12 +95,6 @@ class govuk::apps::collections_publisher(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-REDIS_HOST":
-      varname => 'REDIS_HOST',
-      value   => $redis_host;
-    "${title}-REDIS_PORT":
-      varname => 'REDIS_PORT',
-      value   => $redis_port;
   }
 
   govuk::procfile::worker {'collections-publisher':

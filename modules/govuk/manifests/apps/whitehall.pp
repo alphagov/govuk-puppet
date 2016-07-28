@@ -28,7 +28,7 @@ class govuk::apps::whitehall(
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
   $redis_host = 'redis-1.backend',
-  $redis_port = '6379',
+  $redis_port = undef,
 ) {
 
   $app_domain = hiera('app_domain')
@@ -203,18 +203,15 @@ class govuk::apps::whitehall(
     }
   }
 
+  govuk::app::envvar::redis { 'whitehall':
+    host => $redis_host,
+    port => $redis_port,
+  }
+
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       app     => 'whitehall',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-REDIS_HOST":
-      app     => 'whitehall',
-      varname => 'REDIS_HOST',
-      value   => $redis_host;
-    "${title}-REDIS_PORT":
-      app     => 'whitehall',
-      varname => 'REDIS_PORT',
-      value   => $redis_port;
   }
 }

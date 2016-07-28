@@ -54,6 +54,11 @@ class govuk::apps::dfid_transition (
       enable_service => $enable_procfile_worker,
     }
 
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
     govuk::app::envvar {
       "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
@@ -61,12 +66,6 @@ class govuk::apps::dfid_transition (
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
-      "${title}-REDIS_HOST":
-        varname => 'REDIS_HOST',
-        value   => $redis_host;
-      "${title}-REDIS_PORT":
-        varname => 'REDIS_PORT',
-        value   => $redis_port;
     }
 
     govuk::app { $app_name:

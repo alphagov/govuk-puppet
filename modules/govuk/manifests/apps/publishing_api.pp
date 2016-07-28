@@ -72,7 +72,7 @@ class govuk::apps::publishing_api(
   $db_password = undef,
   $db_name = 'publishing_api_production',
   $redis_host = undef,
-  $redis_port = '6379',
+  $redis_port = undef,
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -96,6 +96,11 @@ class govuk::apps::publishing_api(
     app => $app_name,
   }
 
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
+  }
+
   govuk::app::envvar {
     "${title}-CONTENT_STORE":
       varname => 'CONTENT_STORE',
@@ -109,12 +114,6 @@ class govuk::apps::publishing_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-REDIS_HOST":
-      varname => 'REDIS_HOST',
-      value   => $redis_host;
-    "${title}-REDIS_PORT":
-      varname => 'REDIS_PORT',
-      value   => $redis_port;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

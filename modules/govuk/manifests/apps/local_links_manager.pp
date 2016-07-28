@@ -67,7 +67,7 @@ class govuk::apps::local_links_manager(
   $db_password = undef,
   $db_name = 'local-links-manager_production',
   $redis_host = undef,
-  $redis_port = '6379',
+  $redis_port = undef,
   $local_links_manager_passive_checks = false,
 ) {
   $app_name = 'local-links-manager'
@@ -84,6 +84,11 @@ class govuk::apps::local_links_manager(
       app    => $app_name,
     }
 
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
     govuk::app::envvar {
       "${title}-ERRBIT_API_KEY":
         varname => 'ERRBIT_API_KEY',
@@ -97,12 +102,6 @@ class govuk::apps::local_links_manager(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-REDIS_HOST":
-        varname => 'REDIS_HOST',
-        value   => $redis_host;
-      "${title}-REDIS_PORT":
-        varname => 'REDIS_PORT',
-        value   => $redis_port;
     }
 
     if $local_links_manager_passive_checks {

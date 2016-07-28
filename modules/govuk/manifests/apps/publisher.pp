@@ -33,7 +33,7 @@ class govuk::apps::publisher(
     $mongodb_name = undef,
     $mongodb_nodes = undef,
     $redis_host = 'redis-1.backend',
-    $redis_port = '6379',
+    $redis_port = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -83,6 +83,11 @@ class govuk::apps::publisher(
     }
   }
 
+  govuk::app::envvar::redis { 'publisher':
+    host => $redis_host,
+    port => $redis_port,
+  }
+
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       app     => 'publisher',
@@ -92,13 +97,5 @@ class govuk::apps::publisher(
       app     => 'publisher',
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
-    "${title}-REDIS_HOST":
-      app     => 'publisher',
-      varname => 'REDIS_HOST',
-      value   => $redis_host;
-    "${title}-REDIS_PORT":
-      app     => 'publisher',
-      varname => 'REDIS_PORT',
-      value   => $redis_port;
   }
 }

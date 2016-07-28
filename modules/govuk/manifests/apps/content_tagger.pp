@@ -78,6 +78,11 @@ class govuk::apps::content_tagger(
     app => $app_name,
   }
 
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
+  }
+
   if $secret_key_base {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
@@ -98,12 +103,6 @@ class govuk::apps::content_tagger(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-REDIS_HOST":
-      varname => 'REDIS_HOST',
-      value   => $redis_host;
-    "${title}-REDIS_PORT":
-      varname => 'REDIS_PORT',
-      value   => $redis_port;
   }
 
   if $::govuk_node_class != 'development' {
