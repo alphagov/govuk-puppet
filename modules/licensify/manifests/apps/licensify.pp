@@ -3,6 +3,8 @@ class licensify::apps::licensify (
   $port = 9000,
   $aws_ses_access_key = '',
   $aws_ses_secret_key = '',
+  $aws_application_form_access_key = '',
+  $aws_application_form_secret_key = '',
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify':
@@ -14,9 +16,11 @@ class licensify::apps::licensify (
   }
 
   licensify::apps::envvars { 'licensify':
-    app                => 'licensify',
-    aws_ses_access_key => $aws_ses_access_key,
-    aws_ses_secret_key => $aws_ses_secret_key,
+    app                             => 'licensify',
+    aws_ses_access_key              => $aws_ses_access_key,
+    aws_ses_secret_key              => $aws_ses_secret_key,
+    aws_application_form_access_key => $aws_application_form_access_key,
+    aws_application_form_secret_key => $aws_application_form_secret_key,
   }
 
   licensify::build_clean { 'licensify': }
