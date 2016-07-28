@@ -184,6 +184,16 @@ Then, from `development/replication` run.
 
     dev$ ./replicate-data-local.sh -d path/to/dir -s
 
+The `replicate-data-local.sh` script accepts the following arguments:
+
+    -F file  Use a custom SSH configuration file.
+    -u user  SSH user to log in as (overrides SSH config).
+    -d dir   Use named directory to store and load backups.
+    -s       Skip downloading the backups (use with -d to load old backups).
+    -r       Reset ignore list. This overrides any default ignores.
+    -i       Databases to ignore. Can be used multiple times, or as a quoted space-delimited list.
+    -n       Don't actually import anything (dry run).
+
 After replicating data a few times, your machine might be running low
 on disk space. This is because the old database dumps aren't cleaned
 up once newer ones have been downloaded. To get over this, it is
