@@ -30,6 +30,7 @@ class mongodb::s3backup::cron(
 # FIXME Please remove this resource one merged
   cron { 'mongodb-s3backup':
     ensure => absent,
+    user   => $user,
   }
 
 }
