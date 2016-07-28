@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: mongodb::logging
+#
+# Configure logging for mongodb
+#
 class mongodb::logging {
   govuk_logging::logstream { 'mongodb-logstream':
     logfile => '/var/log/upstart/mongodb.log',
