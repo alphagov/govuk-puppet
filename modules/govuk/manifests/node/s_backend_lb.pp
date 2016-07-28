@@ -61,6 +61,9 @@ class govuk::node::s_backend_lb (
         '/maib-reports'        => {
           'app' => 'specialist-publisher-rebuild',
         },
+        '/aaib-reports'        => {
+          'app' => 'specialist-publisher-rebuild',
+        },
       },
       servers        => $backend_servers;
     [
