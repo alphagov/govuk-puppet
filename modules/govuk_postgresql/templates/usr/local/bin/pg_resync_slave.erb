@@ -12,12 +12,6 @@ FILES_TO_KEEP="
   ${DATADIR}/server.key
 "
 
-BRUTE=0
-
-if [ $1 == '--brute-force' ]; then
-  BRUTE=1
-fi
-
 if [ -z ${DATADIR} ]; then
   echo "DATADIR variable is empty"
   exit 1
@@ -43,12 +37,7 @@ done
 
 # Delay deletion and move instead of copy so that the service is down for
 # the minimal amount of time possible.
-if [ $BRUTE == 1 ]; then
-  sudo -u <%= @pg_user %> rm -rf ${DATADIR}
-else
-  sudo -u <%= @pg_user %> mv ${DATADIR} ${DATADIR_DELETE}
-fi
-
+sudo -u <%= @pg_user %> mv ${DATADIR} ${DATADIR_DELETE}
 sudo -u <%= @pg_user %> mv ${SYNCDIR} ${DATADIR}
 
 # Copy replication config, in case it's a new machine or the details have
