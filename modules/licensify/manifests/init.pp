@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: licensify
+#
+# Installs and manages the licensify application and dependant resources
+#
 class licensify {
   include licensify::apps
 }
