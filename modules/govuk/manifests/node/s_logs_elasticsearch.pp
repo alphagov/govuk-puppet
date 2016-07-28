@@ -1,7 +1,22 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: Govuk::Node::S_logs_elasticsearch
+#
+#  Node class for the logs_elasticsearch machines.
+#
+# === Parameters:
+#
+# [*rotate_hour*]
+#   The hour to rotate elasticsearch indices.
+#
+# [*rotate_minute*]
+#   The minute to rotate elasticsearch indices.
+#
+# [*indices_days_to_keep*]
+#   The number of elasticsearch indices to keep in days.
+#
 class govuk::node::s_logs_elasticsearch(
   $rotate_hour = 00,
   $rotate_minute = 01,
+  $indices_days_to_keep = 13,
 ) inherits govuk::node::s_base {
 
   $es_heap_size = floor($::memorysize_mb / 2)

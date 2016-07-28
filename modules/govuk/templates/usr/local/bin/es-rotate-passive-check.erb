@@ -4,7 +4,7 @@
 exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 #FIXME: 2014-01-12 - Ideally this should be 21 days - need to fix logstasher gem first
-ARGS='--delete-old --delete-maxage 15 --optimize-old --optimize-maxage 1 logs'
+ARGS='--delete-old --delete-maxage <%= @indices_days_to_keep %> --optimize-old --optimize-maxage 1 logs'
 CMD="/usr/local/bin/es-rotate"
 
 function send_to_monitoring() {
