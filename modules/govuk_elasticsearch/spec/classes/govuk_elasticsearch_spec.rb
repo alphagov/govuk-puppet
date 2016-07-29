@@ -23,11 +23,11 @@ describe 'govuk_elasticsearch', :type => :class do
 
   describe '#manage_repo' do
     let(:params) {{
-      :version => '1.7.0',
+      :version => '1.4.3',
     }}
 
     context 'true (default)' do
-      it { is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.7') }
+      it { is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.4') }
 
       it "should handle the repo for 0.90.x" do
         params[:version] = '0.90.3'
@@ -115,7 +115,7 @@ describe 'govuk_elasticsearch', :type => :class do
 
   describe "setting transport firewall rules" do
     let(:params) {{
-      :version => '1.7.0',
+      :version => '1.4.3',
       :open_firewall_from_all => false,
     }}
 
@@ -175,7 +175,7 @@ describe 'govuk_elasticsearch', :type => :class do
 
   describe "disabling default http 9200 firewall rule" do
     let(:params) {{
-      :version => '1.7.0',
+      :version => '1.4.3',
     }}
 
     let(:pre_condition) {
