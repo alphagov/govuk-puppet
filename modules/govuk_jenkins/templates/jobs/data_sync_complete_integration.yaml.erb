@@ -43,5 +43,10 @@
                 TARGET_APPLICATION=router-api
                 MACHINE_CLASS=router_backend
                 RAKE_TASK=backend:modify_url[tariff,https://tariff-frontend-dev.cloudapps.digital/]
+            - project: run-rake-task
+              predefined-parameters: |
+                TARGET_APPLICATION=whitehall
+                MACHINE_CLASS=whitehall_backend
+                RAKE_TASK=publishing:scheduled:requeue_all_jobs
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
