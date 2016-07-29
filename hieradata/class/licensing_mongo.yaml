@@ -15,11 +15,18 @@ lv:
   databases:
     pv: '/dev/sdc1'
     vg: 'mongodb'
+  s3backup:
+    pv: '/dev/sdb1'
+    vg: 's3backup'
 
 mount:
   /var/lib/mongodb:
     disk: '/dev/mapper/mongodb-databases'
     govuk_lvm: 'databases'
+    mountoptions: 'defaults'
+  /var/lib/s3backup:
+    disk: '/dev/mapper/mongodb-s3backup'
+    govuk_lvm: 's3backup'
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
