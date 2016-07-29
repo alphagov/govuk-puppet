@@ -70,7 +70,7 @@ class govuk::apps::dfid_transition (
     }
 
     govuk::app { $app_name:
-      app_type           => 'rack',
+      app_type           => 'procfile',
       port               => $port,
       enable_nginx_vhost => true,
     }
