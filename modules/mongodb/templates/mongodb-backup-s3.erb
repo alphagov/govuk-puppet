@@ -14,6 +14,7 @@ BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
 KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
 S3_BUCKET=<%= @s3_bucket %>/<%= @fqdn %>
 S3_BUCKET_DAILY=<%= @s3_bucket_daily %>/<%= @fqdn %>
+LOCKFILE=/var/lock/mongodb-s3backup
 
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
@@ -55,9 +56,14 @@ else
   STATUS=1
 fi
 
+# Remove lock file
+if [ -f $LOCKFILE ]; then
+  rm -f $LOCKFILE
+fi
+
 if [ $STATUS -eq 0 ]; then
-NAGIOS_CODE=0
-NAGIOS_MESSAGE="OK: Mongodb backup push to S3 succeeded"
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: Mongodb backup push to S3 succeeded"
 fi
 
 exit $STATUS
