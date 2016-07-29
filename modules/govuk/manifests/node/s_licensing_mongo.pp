@@ -11,4 +11,5 @@ class govuk::node::s_licensing_mongo inherits govuk::node::s_base {
   }
 
   Govuk_mount['/var/lib/mongodb'] -> Class['mongodb::server']
+  Govuk_mount['/var/lib/s3backup'] -> Class['mongodb::backup']
 }
