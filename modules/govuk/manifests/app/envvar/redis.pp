@@ -28,5 +28,8 @@ define govuk::app::envvar::redis (
     "${title}-redis_port":
       varname => 'REDIS_PORT',
       value   => $port;
+    "${title}-redis_url":
+      varname => 'REDIS_URL',
+      value   => "redis://${host}:${port}";
   }
 }

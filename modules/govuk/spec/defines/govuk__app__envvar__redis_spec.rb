@@ -19,6 +19,13 @@ describe 'govuk::app::envvar::redis', :type => :define do
                        .with_varname('REDIS_PORT')
                        .with_value('6379')
     end
+
+    it 'sets a Redis URL with the default values' do
+      is_expected.to contain_govuk__app__envvar("#{title}-redis_url")
+                       .with_app(title)
+                       .with_varname('REDIS_URL')
+                       .with_value('redis://127.0.0.1:6379')
+    end
   end
 
   context 'with some good parameters' do
@@ -38,6 +45,13 @@ describe 'govuk::app::envvar::redis', :type => :define do
                        .with_app(title)
                        .with_varname('REDIS_PORT')
                        .with_value(port)
+    end
+
+    it 'sets a Redis URL' do
+      is_expected.to contain_govuk__app__envvar("#{title}-redis_url")
+                       .with_app(title)
+                       .with_varname('REDIS_URL')
+                       .with_value('redis://redis.backend:1234')
     end
   end
 end
