@@ -21,14 +21,17 @@ function nagios_passive () {
 printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
-trap nagios_passive EXIT
-
 # Remove any tarballs created as a result of running this script regardless of the exit status
 function housekeeping() {
   /bin/rm -f $BACKUP_DIR/mongodump-*
 }
 
-trap housekeeping EXIT
+function exit_trap() {
+  nagios_passive
+  housekeeping
+}
+
+trap exit_trap EXIT
 
 # Backup mongodb
 TIME="$(date +%s)"
