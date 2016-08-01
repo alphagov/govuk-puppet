@@ -154,8 +154,8 @@ described below.
 
 #### Customisation
 
-Node definitions can be overridden with a `nodes.local.yaml` file in the
-vagrant-govuk directory. This is merged on top of all other node
+Node definitions can be overridden with a `nodes.local.yaml` file in this
+directory. This is merged on top of all other node
 definitions. The following keys are currently available for customisation:
 
 - `box_dist` Ubuntu distribution. Currently "trusty".
