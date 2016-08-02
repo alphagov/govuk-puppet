@@ -55,6 +55,26 @@ describe 'govuk::app::envvar::redis', :type => :define do
     end
   end
 
+  context 'with a specific app' do
+    let(:app) { 'enclosure' }
+    let(:params) { { app: app } }
+
+    it 'uses that app when setting the host variable' do
+      is_expected.to contain_govuk__app__envvar("#{title}-redis_host")
+                       .with_app(app)
+    end
+
+    it 'uses that app when setting the port variable' do
+      is_expected.to contain_govuk__app__envvar("#{title}-redis_port")
+                       .with_app(app)
+    end
+
+    it 'uses that app when setting the url variable' do
+      is_expected.to contain_govuk__app__envvar("#{title}-redis_url")
+                       .with_app(app)
+    end
+  end
+
   context 'white a prefix' do
     let(:params) { { prefix: 'zoo' } }
 
