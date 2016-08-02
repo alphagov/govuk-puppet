@@ -45,6 +45,14 @@
 #   RabbitMQ password.
 #   Default: rummager
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -63,6 +71,8 @@ class govuk::apps::rummager(
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'rummager',
   $rabbitmq_password = 'rummager',
+  $redis_host = undef,
+  $redis_port = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
@@ -98,6 +108,11 @@ class govuk::apps::rummager(
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+  }
+
+  govuk::app::envvar::redis { 'rummager':
+    host => $redis_host,
+    port => $redis_port,
   }
 
   govuk::procfile::worker { 'rummager':

@@ -16,6 +16,14 @@
 #   Should the Foreman-based background worker be enabled by default. Set in
 #   hiera.
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -26,6 +34,8 @@ class govuk::apps::email_alert_api(
   $sidekiq_queue_size_warning = '2',
   $sidekiq_queue_latency_critical = '60',
   $sidekiq_queue_latency_warning = '30',
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
 
   if $enabled {
@@ -57,6 +67,11 @@ class govuk::apps::email_alert_api(
 
     Govuk::App::Envvar {
       app => 'email-alert-api',
+    }
+
+    govuk::app::envvar::redis { 'email-alert-api':
+      host => $redis_host,
+      port => $redis_port,
     }
 
     govuk::app::envvar { "${title}-SIDEKIQ_RETRY_CRITICAL_THRESHOLD":
