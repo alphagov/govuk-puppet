@@ -16,6 +16,14 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::whitehall(
   $vhost = 'whitehall',
   $port = '3020',
@@ -27,7 +35,7 @@ class govuk::apps::whitehall(
   $prevent_single_host = true,
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
-  $redis_host = 'redis-1.backend',
+  $redis_host = undef,
   $redis_port = undef,
 ) {
 

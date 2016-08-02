@@ -37,11 +37,12 @@
 #   Default: undef
 #
 # [*redis_host*]
-#   Redis host for sidekiq.
+#   Redis host for Sidekiq.
+#   Default: undef
 #
 # [*redis_port*]
-#   Redis port for sidekiq.
-#   Default: 6379
+#   Redis port for Sidekiq.
+#   Default: undef
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
@@ -58,8 +59,8 @@ class govuk::apps::content_tagger(
   $oauth_id = '',
   $oauth_secret = '',
   $publishing_api_bearer_token = undef,
-  $redis_host = 'redis-1.backend',
-  $redis_port = '6379',
+  $redis_host = undef,
+  $redis_port = undef,
   $enable_procfile_worker = true,
 ) {
   $app_name = 'content-tagger'

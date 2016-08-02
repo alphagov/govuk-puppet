@@ -34,11 +34,12 @@
 #   Default: undef
 #
 # [*redis_host*]
-#   Redis host for sidekiq.
+#   Redis host for Sidekiq.
+#   Default: undef
 #
 # [*redis_port*]
-#   Redis port for sidekiq.
-#   Default: 6379
+#   Redis port for Sidekiq.
+#   Default: undef
 #
 class govuk::apps::collections_publisher(
   $panopticon_bearer_token = 'example',
@@ -49,7 +50,7 @@ class govuk::apps::collections_publisher(
   $oauth_secret = undef,
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
-  $redis_host = 'redis-1.backend',
+  $redis_host = undef,
   $redis_port = undef,
 ) {
 

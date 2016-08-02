@@ -25,6 +25,14 @@
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
@@ -32,7 +40,7 @@ class govuk::apps::publisher(
     $secret_key_base = undef,
     $mongodb_name = undef,
     $mongodb_nodes = undef,
-    $redis_host = 'redis-1.backend',
+    $redis_host = undef,
     $redis_port = undef,
   ) {
 

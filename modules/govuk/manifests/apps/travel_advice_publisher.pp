@@ -26,11 +26,12 @@
 #   Default: undef
 #
 # [*redis_host*]
-#   Redis host for sidekiq.
+#   Redis host for Sidekiq.
+#   Default: undef
 #
 # [*redis_port*]
-#   Redis port for sidekiq.
-#   Default: 6379
+#   Redis port for Sidekiq.
+#   Default: undef
 #
 # [*enable_procfile_worker*]
 #   Enables the sidekiq background worker.

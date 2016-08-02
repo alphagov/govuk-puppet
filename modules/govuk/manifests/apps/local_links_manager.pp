@@ -44,12 +44,12 @@
 #   Default: undef
 #
 # [*redis_host*]
-#   Sets the host environment variable for a Redis connection
+#   Redis host for Sidekiq.
 #   Default: undef
 #
 # [*redis_port*]
-#   Sets the port number environment variable for a Redis connection
-#   Default: 6379
+#   Redis port for Sidekiq.
+#   Default: undef
 #
 # [*local_links_manager_passive_checks*]
 #   Enables the passive checks in Icinga for the local links manager cron jobs

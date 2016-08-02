@@ -24,14 +24,22 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::signon(
   $port = '3016',
   $enable_procfile_worker = true,
   $devise_secret_key = undef,
-  $redis_host = 'redis-1.backend',
-  $redis_port = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'signon'
 

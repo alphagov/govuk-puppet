@@ -29,11 +29,13 @@
 #   Default: undef
 #
 # [*redis_host*]
-#   Redis host for sidekiq and AttachmentIndex.
+#   Redis host for Sidekiq and AttachmentIndex.
+#   Default: undef
 #
 # [*redis_port*]
-#   Redis port for sidekiq and AttachmentIndex.
-#   Default: 6379
+#   Redis port for Sidekiq and AttachmentIndex.
+#   Default: undef
+#
 class govuk::apps::dfid_transition (
   $port = 3124,
   $enabled = false,

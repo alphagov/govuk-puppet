@@ -111,12 +111,10 @@ govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-frontend.dev.gov.uk'
 govuk::apps::backdrop_write::enable_procfile_worker: false
 govuk::apps::collections_publisher::enable_procfile_worker: false
-govuk::apps::collections_publisher::redis_host: 'localhost'
 govuk::apps::contacts::extra_aliases: ['contacts-frontend-old', 'contacts-admin']
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::dfid_transition::enable_procfile_worker: false
-govuk::apps::content_tagger::redis_host: 'localhost'
 govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_campaign_api::mongodb_name: 'email_campaign_api_development'
@@ -132,7 +130,6 @@ govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::kibana::elasticsearch_host: 'localhost'
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
-govuk::apps::local_links_manager:redis_host: 'localhost'
 govuk::apps::multipage_frontend::enabled: true
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
@@ -147,7 +144,6 @@ govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
 govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.dev.gov.uk'
 govuk::apps::publishing_api::enable_procfile_worker: false
 govuk::apps::publishing_api::rabbitmq::configure_test_exchange: true
-govuk::apps::publishing_api::redis_host: 'localhost'
 govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
@@ -165,7 +161,6 @@ govuk::apps::share_sale_publisher::enabled: true
 govuk::apps::share_sale_publisher::mongodb_nodes: ['localhost']
 govuk::apps::share_sale_publisher::mongodb_name: 'share_sale_publisher_development'
 govuk::apps::signon::enable_procfile_worker: false
-govuk::apps::signon::redis_url: redis://localhost:6379/0
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
@@ -173,8 +168,6 @@ govuk::apps::specialist_publisher_rebuild::enable_procfile_worker: false
 govuk::apps::specialist_publisher_rebuild::mongodb_name: 'specialist_publisher_rebuild_production'
 govuk::apps::specialist_publisher_rebuild::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher_rebuild::publish_pre_production_finders: true
-govuk::apps::specialist_publisher_rebuild::redis_host: 'localhost'
-govuk::apps::specialist_publisher_rebuild_standalone::redis_host: 'localhost'
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
@@ -183,7 +176,6 @@ govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
-govuk::apps::travel_advice_publisher::redis_host: 'localhost'
 govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 govuk::apps::whitehall::configure_admin: true
 govuk::apps::whitehall::configure_frontend: true
@@ -354,6 +346,8 @@ puppet::use_puppetmaster: false
 puppet::cronjob::enabled: false
 
 shell::shell_prompt_string: 'dev'
+
+sidekiq::host: 'localhost'
 
 ssh::config::allow_x11_forwarding: true
 
