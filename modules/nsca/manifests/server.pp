@@ -33,4 +33,10 @@ class nsca::server {
     require   => Package['icinga'],
   }
 
+  @@icinga::check { "check_nsca_running_${::hostname}":
+    check_command       => 'check_nrpe!check_proc_running!nsca',
+    service_description => 'nsca not running',
+    host_name           => $::fqdn,
+  }
+
 }
