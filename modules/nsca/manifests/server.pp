@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: nsca::server
+#
+# Installs and manages the Nagios Service Check Acceptor service.
+#
 class nsca::server {
   include icinga # to set up the 'nagios' user for nsca
   include nsca
@@ -29,4 +32,5 @@ class nsca::server {
     # -- ppotter 2013-02-07
     require   => Package['icinga'],
   }
+
 }
