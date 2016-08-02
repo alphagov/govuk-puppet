@@ -54,4 +54,26 @@ describe 'govuk::app::envvar::redis', :type => :define do
                        .with_value('redis://redis.backend:1234')
     end
   end
+
+  context 'white a prefix' do
+    let(:params) { { prefix: 'zoo' } }
+
+    it 'adds a prefix to the host variable' do
+      is_expected.to contain_govuk__app__envvar("#{title}-zoo_redis_host")
+                       .with_app(title)
+                       .with_varname('ZOO_REDIS_HOST')
+    end
+
+    it 'adds a prefix to the port variable' do
+      is_expected.to contain_govuk__app__envvar("#{title}-zoo_redis_port")
+                       .with_app(title)
+                       .with_varname('ZOO_REDIS_PORT')
+    end
+
+    it 'adds a prefix to the url variable' do
+      is_expected.to contain_govuk__app__envvar("#{title}-zoo_redis_url")
+                       .with_app(title)
+                       .with_varname('ZOO_REDIS_URL')
+    end
+  end
 end
