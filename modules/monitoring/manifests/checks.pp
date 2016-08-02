@@ -23,9 +23,12 @@ class monitoring::checks (
   include monitoring::checks::ses
   include monitoring::checks::sidekiq
   include monitoring::checks::smokey
-  include monitoring::checks::reboots
 
   $app_domain = hiera('app_domain')
+
+  if $app_domain != 'integration.publishing.service.gov.uk' {
+    include monitoring::checks::reboots
+  }
 
   include icinga::plugin::check_http_timeout_noncrit
 
