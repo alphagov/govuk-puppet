@@ -121,7 +121,7 @@
           "targets": [
             {
               "hide": false,
-              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-status_4xx), sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk,redirector}.requests-status_?xx)),1), '1min'), '-15min')",
+              "target": "timeShift(movingAverage(asPercent(divideSeries(sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk}.requests-status_4xx), sumSeries(monitoring-1_management.cdn_fastly-{assets,govuk}.requests-status_?xx)),1), '1min'), '-15min')",
               "refId": "A",
               "textEditor": true
             }
