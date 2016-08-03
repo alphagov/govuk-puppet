@@ -258,6 +258,7 @@ govuk::apps::content_store::nagios_memory_critical: 1300
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_tagger::enable_procfile_worker: true
 
 govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 govuk::apps::efg::nagios_memory_warning: 1600

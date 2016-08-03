@@ -36,6 +36,17 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: 6379
+#
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 class govuk::apps::content_tagger(
   $port = '3116',
   $secret_key_base = undef,
@@ -47,6 +58,9 @@ class govuk::apps::content_tagger(
   $oauth_id = '',
   $oauth_secret = '',
   $publishing_api_bearer_token = undef,
+  $redis_host = 'redis-1.backend',
+  $redis_port = '6379',
+  $enable_procfile_worker = true,
 ) {
   $app_name = 'content-tagger'
 
@@ -84,6 +98,12 @@ class govuk::apps::content_tagger(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-REDIS_HOST":
+      varname => 'REDIS_HOST',
+      value   => $redis_host;
+    "${title}-REDIS_PORT":
+      varname => 'REDIS_PORT',
+      value   => $redis_port;
   }
 
   if $::govuk_node_class != 'development' {
@@ -94,5 +114,9 @@ class govuk::apps::content_tagger(
       host     => $db_hostname,
       database => $db_name,
     }
+  }
+
+  govuk::procfile::worker { 'content-tagger':
+    enable_service => $enable_procfile_worker,
   }
 }
