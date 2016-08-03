@@ -64,7 +64,7 @@ class govuk::node::s_backend_lb (
         '/dfid-research-outputs' => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/aaib-reports'        => {
+        '/aaib-reports'          => {
           'app' => 'specialist-publisher-rebuild',
         },
       },
