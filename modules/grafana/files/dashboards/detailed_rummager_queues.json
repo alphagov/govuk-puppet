@@ -1,6 +1,7 @@
 {
   "id": null,
   "title": "Rummager search indexing dashboard - details",
+  "originalTitle": "Rummager search indexing dashboard - details",
   "tags": [],
   "style": "dark",
   "timezone": "utc",
@@ -9,141 +10,267 @@
   "sharedCrosshair": false,
   "rows": [
     {
-      "height": "400px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "400px",
       "panels": [
         {
-          "id": 1,
-          "title": "Message processor status counts",
-          "span": 4,
-          "type": "graph",
-          "bars": true,
-          "lines": false,
-          "nullPointMode": "null as zero",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "shared": false
-          },
-          "targets": [
-            {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.message_queue.indexer.accepted, '1minute', 'sum'), 'max'), 'Accepted')"
-            },
-            {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.message_queue.indexer.rejected, '1minute', 'sum'), 'max'), 'Ignored')"
-            }
-          ],
           "aliasColors": {
             "Accepted": "#00C200",
             "Ignored": "#FF9900"
           },
-          "leftYAxisLabel": "Messages per minute",
+          "bars": true,
           "grid": {
-            "leftMin": 0
-          }
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "lines": false,
+          "nullPointMode": "null as zero",
+          "span": 4,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.message_queue.indexer.accepted, '1minute', 'sum'), 'max'), 'Accepted')",
+              "refId": "A"
+            },
+            {
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.message_queue.indexer.rejected, '1minute', 'sum'), 'max'), 'Ignored')",
+              "refId": "B"
+            }
+          ],
+          "title": "Message processor status counts",
+          "tooltip": {
+            "shared": false,
+            "value_type": "individual",
+            "msResolution": true
+          },
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "format": "short",
+              "label": "Messages per minute"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          },
+          "datasource": "Graphite",
+          "renderer": "flot",
+          "fill": 1,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
+          "aliasColors": {
+            "Failure": "#EE0000",
+            "Success": "#00C200"
+          },
+          "bars": true,
+          "grid": {
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
           "id": 2,
-          "title": "Sidekiq BulkIndexWorker activity (search indexing)",
-          "span": 4,
-          "type": "graph",
-          "bars": true,
           "lines": false,
           "nullPointMode": "null as zero",
+          "span": 4,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.BulkIndexWorker.success, '1minute', 'sum'), 'max'), 'Success')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.BulkIndexWorker.success, '1minute', 'sum'), 'max'), 'Success')",
+              "refId": "A"
             },
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.BulkIndexWorker.failure, '1minute', 'sum'), 'max'), 'Failure')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.BulkIndexWorker.failure, '1minute', 'sum'), 'max'), 'Failure')",
+              "refId": "B"
             }
           ],
-          "aliasColors": {
-            "Success": "#00C200",
-            "Failure": "#EE0000"
+          "title": "Sidekiq BulkIndexWorker activity (search indexing)",
+          "tooltip": {
+            "shared": false,
+            "value_type": "individual",
+            "msResolution": true
           },
-          "grid": {
-            "leftMin": 0
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "format": "short",
+              "label": "Messages per minute"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
           },
-          "leftYAxisLabel": "Messages per minute"
+          "datasource": "Graphite",
+          "renderer": "flot",
+          "fill": 1,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         },
         {
-          "id": 3,
-          "title": "Sidekiq DeleteWorker activity (search indexing)",
-          "span": 4,
-          "type": "graph",
+          "aliasColors": {
+            "Failure": "#EE0000",
+            "Success": "#00C200"
+          },
           "bars": true,
+          "grid": {
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
           "lines": false,
           "nullPointMode": "null as zero",
+          "span": 4,
           "steppedLine": false,
-          "tooltip": {
-            "value_type": "individual",
-            "shared": false
-          },
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.DeleteWorker.success, '1minute', 'sum'), 'max'), 'Success')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.DeleteWorker.success, '1minute', 'sum'), 'max'), 'Success')",
+              "refId": "A"
             },
             {
-              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.DeleteWorker.failure, '1minute', 'sum'), 'max'), 'Failure')"
+              "target": "alias(consolidateBy(summarize(stats_counts.govuk.app.rummager.workers.Indexer.DeleteWorker.failure, '1minute', 'sum'), 'max'), 'Failure')",
+              "refId": "B"
             }
           ],
-          "aliasColors": {
-            "Success": "#00C200",
-            "Failure": "#EE0000"
+          "title": "Sidekiq DeleteWorker activity (search indexing)",
+          "tooltip": {
+            "shared": false,
+            "value_type": "individual",
+            "msResolution": true
           },
-          "grid": {
-            "leftMin": 0
+          "type": "graph",
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "format": "short",
+              "label": "Messages per minute"
+            },
+            {
+              "show": true,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
           },
-          "leftYAxisLabel": "Messages per minute"
+          "datasource": "Graphite",
+          "renderer": "flot",
+          "fill": 1,
+          "linewidth": 2,
+          "points": false,
+          "pointradius": 5,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": false,
+            "min": false,
+            "max": false,
+            "current": false,
+            "total": false,
+            "avg": false
+          },
+          "timeFrom": null,
+          "timeShift": null,
+          "seriesOverrides": []
         }
-      ]
-    }
-  ],
-  "nav": [
-    {
-      "type": "timepicker",
-      "collapse": false,
-      "notice": false,
-      "enable": true,
-      "status": "Stable",
-      "time_options": [
-        "5m",
-        "15m",
-        "1h",
-        "6h",
-        "12h",
-        "24h",
-        "2d",
-        "7d",
-        "30d"
       ],
-      "refresh_intervals": [
-        "5s",
-        "10s",
-        "30s",
-        "1m",
-        "5m",
-        "15m",
-        "30m",
-        "1h",
-        "2h",
-        "1d"
-      ],
-      "now": true
+      "title": "Row"
     }
   ],
   "time": {
     "from": "now-2h",
     "to": "now"
   },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
   "refresh": "5s",
-  "version": 6,
-  "hideAllLegends": false
+  "schemaVersion": 12,
+  "version": 0,
+  "links": []
 }
