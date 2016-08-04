@@ -8,11 +8,218 @@ fi
 
 START_TIME=`date +%s%3N`
 
-# Allow return code 2 in case -v/--detailed-exitcodes is passed.
-RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@" || [ $? -eq 2 ]
+remove_all_locks() {
 
-TIME_TOOK=$((`date +%s%3N`-START_TIME))
-echo "<%= @fqdn_metrics %>.puppet.run_duration:${TIME_TOOK}|ms" | nc -w 1 -u localhost 8125
+	if ls *.lock 1> /dev/null 2>&1; then #there are locks
 
-# We should only reach here if a last_run_summary was written.
-/usr/local/bin/puppet_passive_check_update >/dev/null
+                        for filename in *.lock
+                        do
+                                rm $filename
+                                echo "Removed: $filename"
+                        done
+	fi
+
+	shift #Pop off --remove-all-locks
+
+	do_puppet --enable "$@" #Re-enable puppet
+
+}
+
+listlocks() {
+
+	#list all current locks, date, name, reason, identifier
+        #simplify this structure. push the date and a (kind of) 
+	#uuid to the filename. Keep the reason, name and uuid as
+	#the lockfile content
+
+	#NB The last field (the lock identifier) can be grabbed with
+	#a simple awk '{print $NF}' in a script
+
+	if ls *.lock 1> /dev/null 2>&1; then
+
+        	for filename in *.lock
+               	 	do
+               	        	line=$(head -n 1 "$filename") #Grab file contents
+               	         	echo "$filename : $line"
+               	 	done
+
+	else
+		echo "No lock files present"
+	fi
+
+}
+
+do_puppet() {
+
+	# Allow return code 2 in case -v/--detailed-exitcodes is passed.
+	RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@" || [ $? -eq 2 ]
+
+	TIME_TOOK=$((`date +%s%3N`-START_TIME))
+	echo "<%= @fqdn_metrics %>.puppet.run_duration:${TIME_TOOK}|ms" | nc -w 1 -u localhost 8125
+
+	# We should only reach here if a last_run_summary was written.
+	/usr/local/bin/puppet_passive_check_update >/dev/null
+	exit 0;
+
+}
+
+
+usage() {
+
+	programname=$0
+
+	echo "usage: $programname"
+	echo "	--disable : add a lock, requires calling script name as second parameter, reason as third parameter"
+	echo "	--enable : remove a single lock, requires calling script name as second parameter"
+	echo "	--list-locks : show all current locks"
+	echo "	--remove-all-locks : remove all locks and enable govuk_puppet"
+
+	exit 1
+
+}
+
+GOVUK_STATE_DIR="/var/run/lock/puppet" #created by puppet
+
+#change working directory or die
+cd "$GOVUK_STATE_DIR" || { echo "Unable to access locks directory: '$GOVUK_STATE_DIR'" 1>&2 ; exit 1; }
+
+OPTION=${1:-}
+
+if  [ -z "$OPTION" ]
+then
+	OPTION=help #Show usage if no command line arguments are present
+fi
+
+case "$OPTION" in
+
+--disable)
+
+	#require a calling script to identify itself and a reason
+	#append a datetime stamp to assist in locating old / forgotten locks
+	#write the lockfile containing the reason, then 
+	#do puppet agent --disable
+
+	LOCK_DATE=`date +%Y-%m-%d`	
+
+	CALLER=${2:-}
+
+	if [ -z "$CALLER" ] #Check if a calling script has been specified
+	#This is now effectively the uuid for the lock as it will fail
+	#to add a second lock with the same CALLER
+
+        then
+                #It wasn't
+                echo "Calling script required as second parameter; exiting."
+                exit 1;
+        fi
+
+	REASON=${3:-} 
+
+	if [ -z "$REASON" ] #Check if a reason has been passed
+	then 
+		#It wasn't
+		echo "Reason required as third parameter (quote-wrap); exiting."
+		exit 1;
+	fi
+	
+	#Check if CALLER is already present as a lock
+
+	if ls *.$CALLER.lock 1> /dev/null 2>&1; then #it's a duplicate lock request, reject it
+
+		echo "Lock already present: $CALLER ; exiting."
+		exit 1;
+
+        fi
+
+   	#Create the lock
+		LOCKFILE=puppet_disable_lock.$LOCK_DATE.$CALLER.lock
+		echo "Creating $LOCKFILE, lock reference: $CALLER"
+		touch "$LOCKFILE" || { echo "Unable to create lock '$LOCKFILE'" 1>&2 ; exit 1; }
+		echo "$REASON" >> $LOCKFILE
+		do_puppet "$@" #Disable puppet agent - helpfully the parameter required is the same
+	
+	exit 0;
+	;;
+
+--list-locks)
+
+	listlocks;
+	exit 0;
+	;;
+		
+--enable)
+
+	#remove lock by identifier
+
+	CALLER=${2:-}
+
+	if [ -z "$CALLER" ] #If no calling script is passed, exit.
+	then
+		echo "Calling script required as second parameter; exiting."
+		exit 1;
+	fi
+
+	if ls *.$CALLER.lock 1> /dev/null 2>&1; then #if the lock exists remove it
+
+		for filename in *.$CALLER.lock
+                	do
+				rm $filename && echo "Removed lock: $filename";
+                	done
+
+		#Now check if it any locks remain. If not, re-enable puppet agent.
+
+		if ls *.lock 1> /dev/null 2>&1; then #there are more locks
+
+			exit 0;
+
+		else #there are no locks left, re-enable
+
+			do_puppet "$@"
+
+		fi
+	
+		exit 0;
+	
+	else
+		echo "No lock with identifier: $CALLER found. Exiting."
+		exit 1;
+	fi
+
+	;;
+
+--remove-all-locks)
+
+	#iterate over lockfiles and remove all of them
+	remove_all_locks "$@";
+	exit 0;
+	;;
+
+
+help|--help|-h)
+
+	usage
+	exit 0;
+	;;
+
+*)
+
+	#Everything else (there are a lot of possible options to capture), so:
+	#Test first to see if there are any locks. If there are, bug out, otherwise
+	#just pass through to puppet agent.
+
+	if ls *.lock 1> /dev/null 2>&1; then #there are locks
+
+		echo "Locks exist; govuk_puppet currently disabled."
+		listlocks
+		exit 1
+
+        else
+
+		do_puppet "$@"
+		exit 0
+	
+	fi
+
+	;;
+
+esac
