@@ -83,11 +83,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")",
+              "target": "alias(scale(averageSeries(stats.timers.backend-?_backend*.nginx_logs.contentapi_*.time_request.mean),1000),\"nginx\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.backend-?_backend.contentapi.time_*.mean,4,\"avg\")",
+              "target": "groupByNode(stats.timers.backend-?_backend*.contentapi.time_*.mean,4,\"avg\")",
               "refId": "B"
             }
           ],
@@ -187,11 +187,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")",
+              "target": "alias(scale(averageSeries(stats.timers.calculators-frontend-?_frontend*.nginx_logs.smartanswers_*.time_request.mean),1000),\"nginx\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend.smartanswers.time_*.mean,4,\"avg\")",
+              "target": "groupByNode(stats.timers.calculators-frontend-?_frontend*.smartanswers.time_*.mean,4,\"avg\")",
               "refId": "B"
             }
           ],
@@ -291,11 +291,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")",
+              "target": "alias(scale(averageSeries(stats.timers.frontend-?_frontend*.nginx_logs.frontend_*.time_request.mean),1000),\"nginx\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.frontend-?_frontend.frontend.time_*.mean,4,\"avg\")",
+              "target": "groupByNode(stats.timers.frontend-?_frontend.frontend*.time_*.mean,4,\"avg\")",
               "refId": "B"
             }
           ],
@@ -509,7 +509,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend.whitehall.time_*.mean,4,\"avg\")",
+              "target": "groupByNode(stats.timers.whitehall-frontend-?_frontend*.whitehall.time_*.mean,4,\"avg\")",
               "refId": "A"
             }
           ],
@@ -610,7 +610,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.*_frontend.nginx_logs.*_publishing_service_gov_uk.http_503,3,\"sum\"),\"_.*\",\"\")",
+              "target": "aliasSub(groupByNode(stats.*_frontend*.nginx_logs.*_publishing_service_gov_uk.http_503,3,\"sum\"),\"_.*\",\"\")",
               "refId": "A"
             }
           ],

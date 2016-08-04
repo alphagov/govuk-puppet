@@ -57,7 +57,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-frontend-?_frontend.nginx_logs.whitehall-frontend_publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
+              "target": "groupByNode(stats.whitehall-frontend-?_frontend.nginx_logs.whitehall-frontend_*publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
               "refId": "A"
             }
           ],
@@ -129,7 +129,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-backend-?_backend.nginx_logs.whitehall-admin_publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
+              "target": "groupByNode(stats.whitehall-backend-?_backend*.nginx_logs.whitehall-admin_publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
               "refId": "A"
             }
           ],
@@ -283,11 +283,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(whitehall-backend-*_backend.nginx.nginx_connections-writing,-1,\"sum\")",
+              "target": "groupByNode(whitehall-backend-*_backend*.nginx.nginx_connections-writing,-1,\"sum\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(whitehall-backend-*_backend.nginx.nginx_requests,-1,\"sum\")",
+              "target": "groupByNode(whitehall-backend-*_backend*.nginx.nginx_requests,-1,\"sum\")",
               "refId": "B"
             }
           ],
@@ -367,15 +367,15 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(sumSeries(whitehall-mysql-master-1_backend.cpu-*.cpu-user),\"Master CPU Usage\")",
+              "target": "alias(sumSeries(whitehall-mysql-master-1_backend*.cpu-*.cpu-user),\"Master CPU Usage\")",
               "refId": "A"
             },
             {
-              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend.cpu-*.cpu-user),\"Slave-1 CPU Usage\")",
+              "target": "alias(sumSeries(whitehall-mysql-slave-1_backend*.cpu-*.cpu-user),\"Slave-1 CPU Usage\")",
               "refId": "B"
             },
             {
-              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend.cpu-*.cpu-user),\"Slave-2 CPU Usage\")",
+              "target": "alias(sumSeries(whitehall-mysql-slave-2_backend*.cpu-*.cpu-user),\"Slave-2 CPU Usage\")",
               "refId": "C"
             }
           ],
@@ -445,7 +445,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend\",\"\")",
+              "target": "aliasSub(groupByNode({elasticsearch,support}-?_backend*.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend\",\"\")",
               "refId": "A"
             }
           ],
