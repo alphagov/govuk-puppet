@@ -54,6 +54,10 @@ server {
     proxy_pass http://localhost:3120;
   }
 
+  location /content-tagger {
+    proxy_pass http://localhost:3125;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }
