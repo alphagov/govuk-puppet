@@ -127,10 +127,11 @@ specialist-publisher-rebuild-worker: govuk_setenv specialist-publisher-rebuild .
 # dfid-transition: govuk_setenv dfid-transition ./run_in.sh ../dfid-transition bundle exec rackup 3124
 dfid-transition-worker: govuk_setenv dfid-transition ./run_in.sh ../dfid-transition bundle exec sidekiq -C ./config/sidekiq.yml
 
+# sidekiq-monitoring for content-tagger uses 3125
+
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
 # Firewall block rule on port 3170 (for testing connect timeouts)
-
 # canary-frontend: doesn't currently use a port. reserved 3200
 # canary-backend: doesn't currently use a port. reserved 3201
 # kibana: reserved 3202
