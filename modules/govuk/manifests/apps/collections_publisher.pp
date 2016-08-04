@@ -13,6 +13,18 @@
 #   The port that publishing API is served on.
 #   Default: 3078
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
+# [*oauth_id*]
+#   Sets the OAuth ID used by gds-sso
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key used by gds-sso
+#
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
@@ -21,9 +33,20 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: 6379
+#
 class govuk::apps::collections_publisher(
   $panopticon_bearer_token = 'example',
   $port = '3078',
+  $secret_key_base = undef,
+  $errbit_api_key = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
   $redis_host = 'redis-1.backend',
@@ -44,7 +67,23 @@ class govuk::apps::collections_publisher(
     app =>  'collections-publisher',
   }
 
+  if $secret_key_base {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
+    }
+  }
+
   govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-PANOPTICON_BEARER_TOKEN":
       varname => 'PANOPTICON_BEARER_TOKEN',
       value   => $panopticon_bearer_token;
