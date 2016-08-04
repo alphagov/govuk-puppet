@@ -52,7 +52,7 @@ contacts-admin:        govuk_setenv contacts              ./run_in.sh ../contact
 need_api:              govuk_setenv need-api              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
 maslow:                govuk_setenv maslow                ./run_in.sh ../maslow         bundle exec rails s -p 3053
 # router uses 3054 and 3055
-router:                govuk_setenv router                ./run_in.sh ../router         make run
+router:                govuk_setenv router                ./run_in.sh ../gopath/src/github.com/alphagov/router         make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../router-api     bundle exec rails s -p 3056
 spotlight:                                                ./run_in.sh ../spotlight ./start-app.sh # port 3057
 # content_planner used to use 3058
