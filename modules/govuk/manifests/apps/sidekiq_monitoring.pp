@@ -128,6 +128,7 @@ class govuk::apps::sidekiq_monitoring (
     app_type           => 'bare',
     command            => 'bundle exec foreman start',
     enable_nginx_vhost => false,
+    hasrestart         => true,
   }
 
   govuk::app::envvar::redis {

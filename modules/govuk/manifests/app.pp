@@ -239,6 +239,9 @@
 # [*ensure*]
 # allow govuk app to be removed.
 #
+# [*hasrestart*]
+# specify if the app init script has a restart command
+# Default: false
 #
 # [*depends_on_nfs*]
 # Start the application after mounted filesystems. Some applications
@@ -282,6 +285,7 @@ define govuk::app (
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
+  $hasrestart = false,
   $depends_on_nfs = false,
   $read_timeout = 15,
 ) {
@@ -356,8 +360,9 @@ define govuk::app (
   }
 
   govuk::app::service { $title:
-    ensure    => $ensure,
-    subscribe => Class['govuk::deploy'],
+    ensure     => $ensure,
+    hasrestart => $hasrestart,
+    subscribe  => Class['govuk::deploy'],
   }
 
   $logstream_ensure = $ensure ? {
