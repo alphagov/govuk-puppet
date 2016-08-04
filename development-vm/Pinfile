@@ -17,7 +17,7 @@ process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager]
 process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, :asset_manager]
 process :'content-store'
-process :'content-tagger' => [:'publishing-api']
+process :'content-tagger' => [:'publishing-api', :'content-tagger-sidekiq']
 process :'draft-content-store'
 process :designprinciples => :static
 process :efg
