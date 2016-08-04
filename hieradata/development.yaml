@@ -350,7 +350,7 @@ puppet::cronjob::enabled: false
 
 shell::shell_prompt_string: 'dev'
 
-sidekiq::host: 'localhost'
+sidekiq_host: 'localhost'
 
 ssh::config::allow_x11_forwarding: true
 
