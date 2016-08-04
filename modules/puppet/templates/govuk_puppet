@@ -85,11 +85,6 @@ cd "$GOVUK_STATE_DIR" || { echo "Unable to access locks directory: '$GOVUK_STATE
 
 OPTION=${1:-}
 
-if  [ -z "$OPTION" ]
-then
-	OPTION=help #Show usage if no command line arguments are present
-fi
-
 case "$OPTION" in
 
 --disable)
