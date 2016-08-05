@@ -296,8 +296,6 @@ govuk::apps::dfid_transition::enabled: true
 govuk::apps::dfid_transition::enable_procfile_worker: true
 govuk::apps::dfid_transition::redis_host: 'redis-1.backend'
 govuk::apps::dfid_transition::redis_port: '6379'
-govuk_jenkins::job::dfid_transition_import::redis_host: 'redis-1.backend'
-govuk_jenkins::job::dfid_transition_import::redis_port: '6379'
 
 govuk::apps::publisher::redis_host: 'redis-1.backend'
 govuk::apps::publisher::redis_port: '6379'
