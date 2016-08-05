@@ -8,11 +8,6 @@
 #   The port which the app runs on.
 #   Default: 3000
 #
-# [*data_import_passive_check*]
-#   Boolean, whether we should be monitoring publisher's local
-#   authority data import
-#   Default: false
-#
 # [*enable_procfile_worker*]
 #   Boolean, whether the procfile worker should be enabled
 #   Default: true
@@ -32,7 +27,6 @@
 #
 class govuk::apps::publisher(
     $port = '3000',
-    $data_import_passive_check = false,
     $enable_procfile_worker = true,
     $publishing_api_bearer_token = undef,
     $secret_key_base = undef,
@@ -65,8 +59,6 @@ class govuk::apps::publisher(
     }',
   }
 
-  $service_desc = 'publisher local authority data importer error'
-
   file { '/usr/local/bin/local_authority_import_check':
     ensure  => present,
     mode    => '0755',
@@ -78,14 +70,6 @@ class govuk::apps::publisher(
     mode   => '0775',
     owner  => 'assets',
     group  => 'assets',
-  }
-
-  if $data_import_passive_check {
-    @@icinga::passive_check { "check-local-authority-data-importer-${::hostname}":
-      service_description => $service_desc,
-      host_name           => $::fqdn,
-      freshness_threshold => 28 * (60 * 60),
-    }
   }
 
   govuk::procfile::worker {'publisher':
