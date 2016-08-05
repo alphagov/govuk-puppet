@@ -10,7 +10,7 @@
 
 - job:
     name: Licensify_Deploy
-    display-name: Licensify_Deploy
+    display-name: Deploy_Licensify
     project-type: freestyle
     scm:
       - alphagov-deployment_Licensify_Deploy
@@ -18,9 +18,10 @@
         - shell: |
             cd "$WORKSPACE"
             echo "Grabbing Build ${artefact_number} Artifacts from Jenkins"
-            curl -O https://licensify:<%= @ci_new_jenkins_api_key -%>@ci-new.alphagov.co.uk/job/Licensify/${artefact_number}/artifact/backend/dist/backend-${app_version}.zip
-            curl -O https://licensify:<%= @ci_new_jenkins_api_key -%>@ci-new.alphagov.co.uk/job/Licensify/${artefact_number}/artifact/feed/dist/feed-${app_version}.zip
-            curl -O https://licensify:<%= @ci_new_jenkins_api_key -%>@ci-new.alphagov.co.uk/job/Licensify/${artefact_number}/artifact/frontend/dist/frontend-${app_version}.zip
+            CI_BASE_URL="https://licensify:<%= @ci_new_jenkins_api_key -%>@ci.dev.publishing.service.gov.uk/job/${CI_JOB_NAME}/${artefact_number}/artifact"
+            curl -O "${CI_BASE_URL}/backend/${ARTIFACT_PATH}/backend-${app_version}.zip"
+            curl -O "${CI_BASE_URL}/feed/${ARTIFACT_PATH}/feed-${app_version}.zip"
+            curl -O "${CI_BASE_URL}/frontend/${ARTIFACT_PATH}/frontend-${app_version}.zip"
             logger -p INFO -t jenkins "DEPLOYMENT: ${JOB_NAME} ${artefact_number} (${BUILD_URL})"
             export app_version=${app_version}
             exec bash -e elms/deploy/deploy.sh
@@ -46,3 +47,11 @@
         - string:
             name: app_version
             description: version of the application (i.e. 1.0.8)
+        - string:
+            name: CI_JOB_NAME
+            default: Licensify
+            description: Which job on CI Jenkins to fetch the artifact from
+        - string:
+            name: ARTIFACT_PATH
+            default: dist
+            description: The path on CI Jenkins where the artifacts are stored
