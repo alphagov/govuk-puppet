@@ -44,6 +44,7 @@ class puppet (
     ensure  => present,
     mode    => '0755',
     content => template($govuk_puppet_template),
+    require => File['/var/run/lock/puppet'],
   }
 
   file { '/var/run/lock/puppet':
