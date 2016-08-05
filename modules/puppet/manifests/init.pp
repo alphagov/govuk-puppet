@@ -46,13 +46,6 @@ class puppet (
     content => template($govuk_puppet_template),
   }
 
-  file { '/var/run/lock/puppet':
-      ensure => 'directory',
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0700',
-  }
-
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
     ensure   => stopped,
     provider => base,
