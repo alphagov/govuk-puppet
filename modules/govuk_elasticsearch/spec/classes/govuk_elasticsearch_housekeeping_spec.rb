@@ -3,7 +3,7 @@ require_relative '../../../../spec_helper'
   describe 'govuk_elasticsearch::housekeeping', :type => :class do
 
     let(:params) {{
-        :es_repos => [
+        :es_repo => [
             'kibana-lint',
             'kibana-mint',
             'kibana_tint'
