@@ -117,7 +117,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data
   - govuk_jenkins::job::deploy_terraform_project
-  - govuk_jenkins::job::dfid_transition_import
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
   - govuk_jenkins::job::govuk_delivery_configure_integration_catchall_feed
   - govuk_jenkins::job::launch_vms
