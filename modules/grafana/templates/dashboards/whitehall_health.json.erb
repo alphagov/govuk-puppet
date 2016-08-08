@@ -57,7 +57,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-frontend-?_frontend.nginx_logs.whitehall-frontend_*publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
+              "target": "groupByNode(stats.whitehall-frontend-?_frontend*.nginx_logs.whitehall-frontend_*publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
               "refId": "A"
             }
           ],
@@ -129,7 +129,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.whitehall-backend-?_backend*.nginx_logs.whitehall-admin_publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
+              "target": "groupByNode(stats.whitehall-backend-?_backend*.nginx_logs.whitehall-admin_*publishing_service_gov_uk.http_5xx,4,\"sumSeries\")",
               "refId": "A"
             }
           ],
@@ -209,11 +209,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(whitehall-frontend-*_frontend.nginx.nginx_connections-writing,-1,\"sum\")",
+              "target": "groupByNode(whitehall-frontend-*_frontend*.nginx.nginx_connections-writing,-1,\"sum\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(whitehall-frontend-*_frontend.nginx.nginx_requests,-1,\"sum\")",
+              "target": "groupByNode(whitehall-frontend-*_frontend*.nginx.nginx_requests,-1,\"sum\")",
               "refId": "B"
             }
           ],

@@ -405,11 +405,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.search-?_api.nginx_logs.rummager_*.time_request.mean),1000),\"nginx\")",
+              "target": "alias(scale(averageSeries(stats.timers.search-?_api*.nginx_logs.rummager_*.time_request.mean),1000),\"nginx\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.search-?_api.rummager.time_*.mean,4,\"avg\")",
+              "target": "groupByNode(stats.timers.search-?_api*.rummager.time_*.mean,4,\"avg\")",
               "refId": "B"
             }
           ],

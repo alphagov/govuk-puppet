@@ -22,7 +22,7 @@
               "target": "aliasByNode(highestCurrent(scale(currentAbove(*.uptime.uptime, 0),0.00001157407407),10), 0)"
             }
           ],
-          "datasource": null,
+          "datasource": "Graphite",
           "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
@@ -81,7 +81,7 @@
               "target": "aliasByNode(currentBelow(scale(currentAbove(*.uptime.uptime, 0),0.00027777777778),24), 0)"
             }
           ],
-          "datasource": null,
+          "datasource": "Graphite",
           "renderer": "flot",
           "x-axis": true,
           "y-axis": true,

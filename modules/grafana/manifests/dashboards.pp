@@ -31,7 +31,6 @@ class grafana::dashboards (
     "${dashboard_directory}/2ndline_health.json": content => template('grafana/dashboards/2ndline_health.json.erb');
     "${dashboard_directory}/application_http_error_codes.json": content => template('grafana/dashboards/application_http_error_codes.json.erb');
     "${dashboard_directory}/application_health.json": content => template('grafana/dashboards/application_health.json.erb');
-    "${dashboard_directory}/vpn_diagnostics.json": content => template('grafana/dashboards/vpn_diagnostics.json.erb');
     "${dashboard_directory}/edge_health.json": content => template('grafana/dashboards/edge_health.json.erb');
     "${dashboard_directory}/origin_health.json": content => template('grafana/dashboards/origin_health.json.erb');
     "${dashboard_directory}/whitehall_health.json": content => template('grafana/dashboards/whitehall_health.json.erb');
