@@ -55,8 +55,7 @@ class govuk_elasticsearch::backup(
     $json_es_indices = join(regsubst($es_indices, '(.*)', '"\1"'), ',')
 
     include ::backup::client
-#   FIXME This include will cause tests to fail until the PR for housekeeping is merged
-    #include govuk_elasticsearch::housekeeping
+    include govuk_elasticsearch::housekeeping
 
 
     # push env files

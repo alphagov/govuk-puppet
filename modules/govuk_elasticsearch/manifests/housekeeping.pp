@@ -5,8 +5,9 @@
 #
 # === Parameters:
 #
-# [*es_repos*]
-#   The local elasticsearch repositories where snapshots are stored
+# [*es_repo*]
+#   The local elasticsearch repositories where snapshots are stored.
+#   This could be either a single element or an aray.
 #
 # [*es_snapshot_limit*]
 #   The number of snapshots we want to keep
@@ -20,17 +21,17 @@
 #   A string array of Elasticsearch repositories
 #
 class govuk_elasticsearch::housekeeping(
-  $es_repos,
+  $es_repo = [],
   $es_snapshot_limit = 5,
   $user = 'govuk-backup',
   ) {
 
-  if $es_repos == undef {
+  if $es_repo == undef {
     fail('No Elasticsearch repositories were set')
   } else {
     # Validates a maximum and minimum string length
-    validate_slength($es_repos, 120, 3)
-    $repositories = join(regsubst($es_repos,'(.*)','"\1"'), ' ')
+    validate_slength($es_repo, 120, 3)
+    $repositories = join(regsubst($es_repo,'(.*)','"\1"'), ' ')
   }
 
     # This is a CLI JSON processor which allows us to "awk" the data on the fly
