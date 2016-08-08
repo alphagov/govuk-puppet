@@ -35,7 +35,7 @@ class govuk::apps::email_campaign_api(
   $gov_delivery_username = undef,
   $gov_delivery_password = undef,
   $redis_host='api-redis-1.api',
-  $redis_port='6379',
+  $redis_port= undef,
   $mongodb_nodes,
   $mongodb_name = 'email_campaign_api',
 ) {
@@ -68,6 +68,11 @@ class govuk::apps::email_campaign_api(
       json    => true,
     }
 
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
     govuk::app::envvar {
       "${title}-ERRBIT_API_KEY":
           varname => 'ERRBIT_API_KEY',
@@ -87,12 +92,6 @@ class govuk::apps::email_campaign_api(
       "${title}-GOV_DELIVERY_PASSWORD":
           varname => 'GOV_DELIVERY_PASSWORD',
           value   => $gov_delivery_password;
-      "${title}-REDIS_HOST":
-          varname => 'REDIS_HOST',
-          value   => $redis_host;
-      "${title}-REDIS_PORT":
-          varname => 'REDIS_PORT',
-          value   => $redis_port;
     }
   }
 }

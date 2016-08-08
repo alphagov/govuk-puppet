@@ -26,11 +26,12 @@
 #   Default: undef
 #
 # [*redis_host*]
-#   Redis host for sidekiq.
+#   Redis host for Sidekiq.
+#   Default: undef
 #
 # [*redis_port*]
-#   Redis port for sidekiq.
-#   Default: 6379
+#   Redis port for Sidekiq.
+#   Default: undef
 #
 # [*enable_procfile_worker*]
 #   Enables the sidekiq background worker.
@@ -44,7 +45,7 @@ class govuk::apps::travel_advice_publisher(
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
-  $redis_port = '6379',
+  $redis_port = undef,
   $enable_procfile_worker = true,
 ) {
   $app_name = 'travel-advice-publisher'
@@ -70,6 +71,11 @@ class govuk::apps::travel_advice_publisher(
     }
   }
 
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
+  }
+
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
@@ -77,12 +83,6 @@ class govuk::apps::travel_advice_publisher(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
-    "${title}-REDIS_HOST":
-      varname => 'REDIS_HOST',
-      value   => $redis_host;
-    "${title}-REDIS_PORT":
-      varname => 'REDIS_PORT',
-      value   => $redis_port;
   }
 
   validate_bool($enable_email_alerts)

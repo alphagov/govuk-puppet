@@ -20,6 +20,14 @@
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -34,9 +42,12 @@ class govuk::apps::imminence(
   $enable_procfile_worker = true,
   $mongodb_nodes = undef,
   $mongodb_name = 'imminence_production',
+  $redis_host = undef,
+  $redis_port = undef,
   $secret_key_base = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+
 ) {
 
   $app_name = 'imminence'
@@ -54,6 +65,11 @@ class govuk::apps::imminence(
     asset_pipeline         => true,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $secret_key_base {

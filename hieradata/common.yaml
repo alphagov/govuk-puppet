@@ -247,8 +247,8 @@ govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 
-govuk::apps::collections_publisher::redis_host: 'redis-1.backend'
-govuk::apps::collections_publisher::redis_port: '6379'
+govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
@@ -259,6 +259,8 @@ govuk::apps::content_store::nagios_memory_critical: 1300
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_tagger::enable_procfile_worker: true
+govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 govuk::apps::efg::nagios_memory_warning: 1600
@@ -266,11 +268,15 @@ govuk::apps::efg::nagios_memory_critical: 1800
 
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_campaign_api::mongodb_nodes:
   - 'email-campaign-mongo-1.api'
   - 'email-campaign-mongo-2.api'
   - 'email-campaign-mongo-3.api'
+govuk::apps::email_campaign_api::redis_host: 'api-redis-1.api'
+govuk::apps::email_campaign_api::redis_port: '6379'
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
@@ -294,14 +300,14 @@ govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
 govuk::apps::dfid_transition::enabled: true
 govuk::apps::dfid_transition::enable_procfile_worker: true
-govuk::apps::dfid_transition::redis_host: 'redis-1.backend'
-govuk::apps::dfid_transition::redis_port: '6379'
+govuk::apps::dfid_transition::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::dfid_transition::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::publisher::redis_host: 'redis-1.backend'
-govuk::apps::publisher::redis_port: '6379'
+govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::whitehall::redis_host: 'redis-1.backend'
-govuk::apps::whitehall::redis_port: '6379'
+govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
 govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
@@ -331,6 +337,8 @@ govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
+govuk::apps::imminence::redis_host: 'redis-2.backend'
+govuk::apps::imminence::redis_port: '6379'
 govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
 
@@ -340,7 +348,8 @@ govuk::apps::kibana::signon_root: "https://signon.%{hiera('app_domain')}"
 
 govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::local_links_manager::redis_host: 'redis-1.backend'
+govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
@@ -373,13 +382,16 @@ govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_pr
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
-govuk::apps::publishing_api::redis_host: 'redis-1.backend'
+govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::rummager::nagios_memory_warning: 4600
 govuk::apps::rummager::nagios_memory_critical: 4900
 govuk::apps::rummager::enable_publishing_listener: true
 govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
+govuk::apps::rummager::redis_host: 'api-redis-1.api'
+govuk::apps::rummager::redis_port: '6379'
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
@@ -388,9 +400,32 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environme
 
 govuk::apps::share_sale_publisher::enabled: true
 
+govuk::apps::sidekiq_monitoring::dfid_transition_redis_host: "%{hiera('govuk::apps::dfid_transition::redis_host')}"
+govuk::apps::sidekiq_monitoring::dfid_transition_redis_port: "%{hiera('govuk::apps::dfid_transition::redis_port')}"
+govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::email_alert_api_redis_port: "%{hiera('govuk::apps::email_alert_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::email_campaign_api_redis_host: "%{hiera('govuk::apps::email_campaign_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::email_campaign_api_redis_port: "%{hiera('govuk::apps::email_campaign_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::imminence_redis_host: "%{hiera('govuk::apps::imminence::redis_host')}"
+govuk::apps::sidekiq_monitoring::imminence_redis_port: "%{hiera('govuk::apps::imminence::redis_port')}"
+govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
+govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
+govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
+govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
+govuk::apps::sidekiq_monitoring::signon_redis_port: "%{hiera('govuk::apps::signon::redis_port')}"
+govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_host: "%{hiera('govuk::apps::travel_advice_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_port: "%{hiera('govuk::apps::travel_advice_publisher::redis_port')}"
+govuk::apps::sidekiq_monitoring::transition_redis_host: "%{hiera('govuk::apps::transition::redis_host')}"
+govuk::apps::sidekiq_monitoring::transition_redis_port: "%{hiera('govuk::apps::transition::redis_port')}"
+govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('govuk::apps::whitehall::redis_host')}"
+govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('govuk::apps::whitehall::redis_port')}"
+
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
-govuk::apps::signon::redis_host: 'redis-1.backend'
-govuk::apps::signon::redis_port: '6379'
+govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::signon::nagios_memory_warning: 900
 govuk::apps::signon::nagios_memory_critical: 1000
 
@@ -403,8 +438,10 @@ govuk::apps::specialist_publisher::nagios_memory_warning: 1100
 govuk::apps::specialist_publisher::nagios_memory_critical: 1200
 
 govuk::apps::specialist_publisher_rebuild::enabled: true
-govuk::apps::specialist_publisher_rebuild::redis_host: 'redis-1.backend'
-govuk::apps::specialist_publisher_rebuild_standalone::redis_host: 'redis-1.backend'
+govuk::apps::specialist_publisher_rebuild::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::specialist_publisher_rebuild::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::specialist_publisher_rebuild_standalone::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::specialist_publisher_rebuild_standalone::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::spotlight::enabled: true
 govuk::apps::spotlight::alert_5xx_warning_rate: 0.2
@@ -430,8 +467,11 @@ govuk::apps::tariff_api::nagios_memory_warning: 1800
 govuk::apps::tariff_api::nagios_memory_critical: 2000
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::transition::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::travel_advice_publisher::redis_host: 'redis-1.backend'
+govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
@@ -1207,6 +1247,9 @@ router::nginx::robotstxt: |
   # whether or not it supports crawl-delay.
   User-agent: deepcrawl
   Disallow: /
+
+sidekiq_host: 'redis-1.backend'
+sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
 

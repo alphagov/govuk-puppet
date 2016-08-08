@@ -1,6 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define govuk::app::service (
   $ensure = 'present',
+  $hasrestart = false,
 ) {
 
   $enable_service = hiera('govuk_app_enable_services', true)
@@ -16,7 +17,8 @@ define govuk::app::service (
     }
   } else {
     service { $title:
-      provider => 'upstart',
+      provider   => 'upstart',
+      hasrestart => $hasrestart,
     }
     if $enable_service {
       Service[$title] {

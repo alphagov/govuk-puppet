@@ -18,6 +18,14 @@
 # [*oauth_secret*]
 #   The Signon OAuth secret for this app
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -26,6 +34,8 @@ class govuk::apps::transition(
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $redis_host = undef,
+  $redis_port = undef,
   $secret_key_base = undef
 ) {
   $app_name = 'transition'
@@ -47,6 +57,11 @@ class govuk::apps::transition(
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $secret_key_base {
