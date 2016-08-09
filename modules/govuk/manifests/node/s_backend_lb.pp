@@ -46,25 +46,31 @@ class govuk::node::s_backend_lb (
       'specialist-publisher',
     ]:
       modified_paths => {
-        '/sp-rebuild/assets'     => {
+        '/sp-rebuild/assets'               => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/rebuild-healthcheck'   => {
+        '/rebuild-healthcheck'             => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/preview'               => {
+        '/preview'                         => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/raib-reports'          => {
+        '/raib-reports'                    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/maib-reports'          => {
+        '/maib-reports'                    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/dfid-research-outputs' => {
+        '/dfid-research-outputs'           => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/aaib-reports'          => {
+        '/aaib-reports'                    => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/cma-cases'                       => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/international-development-funds' => {
           'app' => 'specialist-publisher-rebuild',
         },
       },
