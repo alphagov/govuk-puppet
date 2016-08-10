@@ -73,6 +73,12 @@ class govuk::node::s_backend_lb (
         '/international-development-funds' => {
           'app' => 'specialist-publisher-rebuild',
         },
+        '/countryside-stewardship-grants'  => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/esi-funds'                       => {
+          'app' => 'specialist-publisher-rebuild',
+        },
       },
       servers        => $backend_servers;
     [
