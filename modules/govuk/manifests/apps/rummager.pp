@@ -25,14 +25,6 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*aws_s3_key*]
-#   AWS access key for uploading API search index snapshots
-#   Default: undef
-#
-# [*aws_s3_secret*]
-#   AWS access secret for uploading API search index snapshots
-#   Default: undef
-#
 # [*rabbitmq_hosts*]
 #   RabbitMQ hosts to connect to.
 #   Default: localhost
@@ -64,10 +56,6 @@ class govuk::apps::rummager(
   $enable_procfile_worker = true,
   $enable_publishing_listener = false,
   $publishing_api_bearer_token = undef,
-  $aws_s3_key = undef,
-  $aws_s3_secret = undef,
-  $aws_s3_bucket_name = undef,
-  $aws_s3_bucket_region = 'eu-west-1',
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'rummager',
   $rabbitmq_password = 'rummager',
@@ -139,17 +127,5 @@ class govuk::apps::rummager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-AWS_ACCESS_KEY_ID":
-      varname => 'AWS_ACCESS_KEY_ID',
-      value   => $aws_s3_key;
-    "${title}-AWS_SECRET_ACCESS_KEY":
-      varname => 'AWS_SECRET_ACCESS_KEY',
-      value   => $aws_s3_secret;
-    "${title}-AWS_BUCKET_NAME":
-      varname => 'AWS_BUCKET_NAME',
-      value   => $aws_s3_bucket_name;
-    "${title}-AWS_BUCKET_REGION":
-      varname => 'AWS_BUCKET_REGION',
-      value   => $aws_s3_bucket_region;
   }
 }
