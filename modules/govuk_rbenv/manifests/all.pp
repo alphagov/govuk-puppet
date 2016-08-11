@@ -3,8 +3,22 @@
 # Installs rbenv and the full set of rubies.  This is provides the set of
 # rubies that are needed to run our ruby apps.
 #
-class govuk_rbenv::all {
+# === Parameters
+#
+# [*apt_mirror_hostname*]
+#   Hostname of the APT mirror to install packages from
+#
+class govuk_rbenv::all (
+  $apt_mirror_hostname = undef,
+) {
   include govuk_rbenv
+
+  apt::source { 'rbenv-ruby':
+    location     => "http://${apt_mirror_hostname}/rbenv-ruby",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
 
   rbenv::version { '1.9.3-p484':
     ensure => absent, # FIXME: Remove this resource once purged everywhere

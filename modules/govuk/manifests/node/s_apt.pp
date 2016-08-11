@@ -97,6 +97,7 @@ class govuk::node::s_apt (
   aptly::repo { 'gof3r': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'rbenv-ruby': }
   aptly::repo { 'terraform': }
 
   include nginx
