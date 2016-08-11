@@ -117,18 +117,6 @@ class govuk::apps::local_links_manager(
         freshness_threshold => (32 * 24 * 60 * 60), #the job runs monthly on the 1st
       }
 
-      @@icinga::passive_check { "local-links-manager-import-links_${::hostname}":
-        service_description => 'Import links to service interactions for local authorities into local-links-manager',
-        host_name           => $::fqdn,
-        freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
-      }
-
-      @@icinga::passive_check { "local-links-manager-check-homepage-urls_${::hostname}":
-        service_description => 'Check for blank homepage urls in local-links-manager',
-        host_name           => $::fqdn,
-        freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
-      }
-
       @@icinga::passive_check { "local-links-manager-export-links_${::hostname}":
         service_description => 'Export links to CSV from local-links-manager',
         host_name           => $::fqdn,
