@@ -52,7 +52,7 @@ contacts-admin:        govuk_setenv contacts              ./run_in.sh ../contact
 need_api:              govuk_setenv need-api              ./run_in.sh ../govuk_need_api bundle exec rails s -p 3052
 maslow:                govuk_setenv maslow                ./run_in.sh ../maslow         bundle exec rails s -p 3053
 # router uses 3054 and 3055
-router:                govuk_setenv router                ./run_in.sh ../gopath/src/github.com/alphagov/router         make run
+router:                govuk_setenv router                ./run_go.sh router            make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../router-api     bundle exec rails s -p 3056
 spotlight:                                                ./run_in.sh ../spotlight ./start-app.sh # port 3057
 # content_planner used to use 3058
@@ -81,7 +81,7 @@ service-manual:        govuk_setenv service-manual        ./run_in.sh ../governm
 info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../info-frontend bundle exec rails s -p 3085
 # sidekiq-monitoring for transition uses 3086
 # metadata-api uses 3087
-metadata-api:          govuk_setenv metadata-api          ./run_in.sh ../gopath/src/github.com/alphagov/metadata-api make run
+metadata-api:          govuk_setenv metadata-api          ./run_go.sh metadata-api      make run
 email-alert-api:       govuk_setenv email-alert-api       ./run_in.sh ../email-alert-api bundle exec foreman start
 email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../email-alert-service bundle exec bin/email_alert_service
 # sidekiq-monitoring for email-alert-api uses 3089
