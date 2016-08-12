@@ -36,7 +36,6 @@ govuk::node::s_development::apps:
   - 'content_tagger'
   - 'contentapi'
   - 'designprinciples'
-  - 'dfid_transition'
   - 'efg'
   - 'email_alert_api'
   - 'email_alert_frontend'
@@ -114,7 +113,6 @@ govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-frontend-old', 'contacts-admin']
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
-govuk::apps::dfid_transition::enable_procfile_worker: false
 govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_campaign_api::mongodb_name: 'email_campaign_api_development'
