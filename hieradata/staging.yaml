@@ -9,6 +9,7 @@ cron::daily_hour: 6
 
 environment_ip_prefix: '10.2'
 
+govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false

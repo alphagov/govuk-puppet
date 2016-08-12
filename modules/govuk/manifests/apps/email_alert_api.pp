@@ -24,6 +24,12 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*allow_govdelivery_topic_syncing*]
+#   If set to `true`, allows the running of a script which deletes all topics
+#   in GovDelivery and replaces them with copies from the email alert API database.
+#   Must only be configured to `true` in staging or integration, never production.
+#   Default: false
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -36,6 +42,7 @@ class govuk::apps::email_alert_api(
   $sidekiq_queue_latency_warning = '30',
   $redis_host = undef,
   $redis_port = undef,
+  $allow_govdelivery_topic_syncing = false,
 ) {
 
   if $enabled {
@@ -102,6 +109,13 @@ class govuk::apps::email_alert_api(
     govuk::app::envvar { "${title}-SIDEKIQ_QUEUE_LATENCY_WARNING_THRESHOLD":
       varname => 'SIDEKIQ_QUEUE_LATENCY_WARNING',
       value   => $sidekiq_queue_latency_warning;
+    }
+
+    if $allow_govdelivery_topic_syncing {
+      govuk::app::envvar { "${title}-ALLOW_GOVDELIVERY_SYNC":
+        varname => 'ALLOW_GOVDELIVERY_SYNC',
+        value   => 'allow';
+      }
     }
   }
 }

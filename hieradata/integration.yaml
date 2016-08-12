@@ -11,6 +11,7 @@ base::supported_kernel::enabled: true
 cron::weekly_dow: 1
 cron::daily_hour: 6
 
+govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::email_campaign_api::mongodb_nodes:
   - 'api-mongo-1.api'
   - 'api-mongo-2.api'
