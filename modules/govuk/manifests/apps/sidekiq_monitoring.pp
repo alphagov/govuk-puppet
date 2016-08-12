@@ -12,14 +12,6 @@
 #   Redis port for Content Tagger Sidekiq.
 #   Default: undef
 #
-# [*dfid_transition_redis_host*]
-#   Redis host for DFID Transition Sidekiq.
-#   Default: undef
-#
-# [*dfid_transition_redis_port*]
-#   Redis port for DFID Transition Sidekiq.
-#   Default: undef
-#
 # [*email_alert_api_redis_host*]
 #   Redis host for Email Alert API Sidekiq.
 #   Default: undef
@@ -103,8 +95,6 @@
 class govuk::apps::sidekiq_monitoring (
   $content_tagger_redis_host = undef,
   $content_tagger_redis_port = undef,
-  $dfid_transition_redis_host = undef,
-  $dfid_transition_redis_port = undef,
   $email_alert_api_redis_host = undef,
   $email_alert_api_redis_port = undef,
   $email_campaign_api_redis_host = undef,
@@ -146,11 +136,6 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'content_tagger',
       host   => $content_tagger_redis_host,
       port   => $content_tagger_redis_port;
-
-    "${app_name}_dfid_transition":
-      prefix => 'dfid_transition',
-      host   => $dfid_transition_redis_host,
-      port   => $dfid_transition_redis_port;
 
     "${app_name}_email_alert_api":
       prefix => 'email_alert_api',
