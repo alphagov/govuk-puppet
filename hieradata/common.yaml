@@ -573,6 +573,8 @@ govuk_postgresql::server::configure_env_sync_user: true
 
 govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_sudo::sudo_conf:
   deploy_init_ctl:
     content: 'deploy ALL=NOPASSWD:/sbin/initctl'
