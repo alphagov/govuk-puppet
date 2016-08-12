@@ -19,7 +19,7 @@ class govuk_jenkins::job::copy_licensify_data_to_staging (
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 612000,
+    freshness_threshold => 115200,
     action_url          => $job_url,
   }
 }
