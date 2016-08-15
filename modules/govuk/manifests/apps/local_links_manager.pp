@@ -128,6 +128,12 @@ class govuk::apps::local_links_manager(
         host_name           => $::fqdn,
         freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
       }
+
+      @@icinga::passive_check { "local-links-manager-export-links_${::hostname}":
+        service_description => 'Export links to CSV from local-links-manager',
+        host_name           => $::fqdn,
+        freshness_threshold => (25 * 60 * 60), # 25 hrs (e.g. just over a day)
+      }
     }
 
     if $::govuk_node_class != 'development' {
