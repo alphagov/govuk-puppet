@@ -123,7 +123,7 @@ class govuk_crawler(
   }
 
   package { 'govuk_seed_crawler':
-        ensure   => '1.0.0',
+        ensure   => '2.0.0',
         provider => system_gem,
   }
 
