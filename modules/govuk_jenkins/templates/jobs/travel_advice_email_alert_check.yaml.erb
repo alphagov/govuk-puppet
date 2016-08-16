@@ -23,6 +23,10 @@
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake run_travel_alerts
     publishers:
+      - text-finder:
+          regexp: "Could not read from remote repository"
+          also-check-console-output: true
+          unstable-if-found: true
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
           condition: 'SUCCESS'
