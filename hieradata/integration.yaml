@@ -75,6 +75,7 @@ govuk_jenkins::config::admins:
   - ikennaokpala
   - isabelllong
   - jackscotti
+  - jamesrobinson
   - jennyduckett
   - kanemorgan
   - katiesmith
@@ -302,6 +303,7 @@ users::usernames:
   - ikennaokpala
   - isabelllong
   - jackscotti
+  - jamesrobinson
   - jennyduckett
   - kanemorgan
   - katiesmith
