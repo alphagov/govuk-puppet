@@ -97,7 +97,12 @@ class govuk::node::s_backend_lb (
         '/vehicle-recalls-and-faults-alerts' => {
           'app' => 'specialist-publisher-rebuild',
         },
-
+        '/drug-safety-updates'               => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/medical-safety-alerts'             => {
+          'app' => 'specialist-publisher-rebuild',
+        },
       },
       servers        => $backend_servers;
     [
