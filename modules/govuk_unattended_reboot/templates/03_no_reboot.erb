@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+LOCK_FILES=$(ls -A <%= @lock_dir %>)
+
+  # If any files exist within the lock directory. The Server will not reboot
+
+  if [[ $LOCK_FILES ]]; then
+
+    printf "REBOOT ABORTED BECAUSE THESE FILES EXIST WITHIN <%= @lock_dir %> :\n${LOCK_FILES}\n"
+
+    exit 1
+
+  else
+
+    exit 0
+
+  fi
