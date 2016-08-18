@@ -20,10 +20,6 @@ class govuk_rbenv::all (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  rbenv::version { '1.9.3-p484':
-    ensure => absent, # FIXME: Remove this resource once purged everywhere
-  }
-
   rbenv::version { '2.1.2':
     bundler_version => '1.6.5',
   }
