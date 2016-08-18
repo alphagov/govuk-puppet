@@ -71,6 +71,7 @@ class govuk::apps::dfid_transition (
     }
 
     govuk::app { $app_name:
+      ensure             => absent,
       app_type           => 'procfile',
       port               => $port,
       enable_nginx_vhost => true,
