@@ -230,6 +230,7 @@ govuk::node::s_mysql_master::s3_bucket_name: 'govuk-mysql-xtrabackups-production
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
