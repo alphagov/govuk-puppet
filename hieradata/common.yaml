@@ -501,6 +501,7 @@ govuk::node::s_licensify_lb::frontend_app_servers:
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
+govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_sshkeys::deployment_keys:
