@@ -46,58 +46,39 @@ class govuk::node::s_backend_lb (
       'specialist-publisher',
     ]:
       modified_paths => {
-        '/sp-rebuild/assets'                 => {
+        '/sp-rebuild/assets'               => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/rebuild-healthcheck'               => {
+        '/rebuild-healthcheck'             => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/preview'                           => {
+        '/preview'                         => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/raib-reports'                      => {
+        '/raib-reports'                    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/maib-reports'                      => {
+        '/maib-reports'                    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/dfid-research-outputs'             => {
+        '/dfid-research-outputs'           => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/aaib-reports'                      => {
+        '/aaib-reports'                    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/cma-cases'                         => {
+        '/cma-cases'                       => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/international-development-funds'   => {
+        '/international-development-funds' => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/countryside-stewardship-grants'    => {
+        '/countryside-stewardship-grants'  => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/esi-funds'                         => {
+        '/esi-funds'                       => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/tax-tribunal-decisions'            => {
-          'app' => 'specialist-publisher-rebuild',
-        },
-        '/utaac-decisions'                   => {
-          'app' => 'specialist-publisher-rebuild',
-        },
-        '/et-decisions'                      => {
-          'app' => 'specialist-publisher-rebuild',
-        },
-        '/eat-decisions'                     => {
-          'app' => 'specialist-publisher-rebuild',
-        },
-        '/asylum-support-decisions'          => {
-          'app' => 'specialist-publisher-rebuild',
-        },
-        '/vehicle-recalls-and-faults-alerts' => {
-          'app' => 'specialist-publisher-rebuild',
-        },
-
       },
       servers        => $backend_servers;
     [
