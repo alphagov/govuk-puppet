@@ -79,6 +79,9 @@ class govuk::node::s_backend_lb (
         '/esi-funds'                       => {
           'app' => 'specialist-publisher-rebuild',
         },
+        '/cma-cases'           => {
+          'app' => 'specialist-publisher-rebuild',
+        },
       },
       servers        => $backend_servers;
     [
