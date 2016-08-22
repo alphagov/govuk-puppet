@@ -8,8 +8,7 @@ fi
 
 START_TIME=`date +%s%3N`
 
-# Allow return code 2 in case -v/--detailed-exitcodes is passed.
-RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@" || [ $? -eq 2 ]
+RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@"
 
 TIME_TOOK=$((`date +%s%3N`-START_TIME))
 echo "<%= @fqdn_metrics %>.puppet.run_duration:${TIME_TOOK}|ms" | nc -w 1 -u localhost 8125
