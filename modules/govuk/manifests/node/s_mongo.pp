@@ -12,4 +12,6 @@ class govuk::node::s_mongo inherits govuk::node::s_base {
 
   Govuk_mount['/var/lib/mongodb'] -> Class['mongodb::server']
   Govuk_mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
+  Govuk_mount['/var/lib/s3backup'] -> Class['mongodb::backup']
+
 }

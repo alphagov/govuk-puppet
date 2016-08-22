@@ -23,6 +23,9 @@ lv:
   data:
     pv: '/dev/sdc1'
     vg: 'mongodb'
+  s3backups:
+    pv: '/dev/sdd1'
+    vg: 'mongo'
 
 mount:
   /var/lib/mongodb:
@@ -32,6 +35,10 @@ mount:
   /var/lib/automongodbbackup:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
+    mountoptions: 'defaults'
+  /var/lib/s3backup:
+    disk: '/dev/mapper/mongo-s3backups'
+    govuk_lvm: 's3backups'
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
