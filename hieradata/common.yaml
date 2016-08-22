@@ -316,6 +316,7 @@ govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/api/'
   - '/apply-for-a-licence'
   - '/business-finance-support-finder'
+  - '/dfid-research-outputs/'
   - '/drug-device-alerts.atom'
   - '/drug-safety-update.atom'
   - '/foreign-travel-advice.atom'
