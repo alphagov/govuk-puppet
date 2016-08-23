@@ -62,7 +62,7 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*day.sql.gz'); do
   if $DRY_RUN; then
     status "PostgreSQL (not) restoring $(basename $file)"
   else
-    PROD_DB_NAME=$(zgrep -m 1 -o '\\connect \(.*\)' < $file | sed 's/\\connect \("\?\)\(.*\)\1/\2/')
+    PROD_DB_NAME=$(zgrep -m 1 -o '\\connect \(.*\)' < $file | sed 's/\\connect \("\?\)\(.*\)\1/\2/' | sed 's/-reuse-previous=on "dbname=\x27\(.*\)\x27"/\1/' )
     if [ -z "${PROD_DB_NAME}" ]; then
       warning "Failed to find database name in ${file}. Skipping..."
       continue
