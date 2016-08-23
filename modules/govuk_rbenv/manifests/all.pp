@@ -13,11 +13,13 @@ class govuk_rbenv::all (
 ) {
   include govuk_rbenv
 
-  apt::source { 'rbenv-ruby':
-    location     => "http://${apt_mirror_hostname}/rbenv-ruby",
-    release      => $::lsbdistcodename,
-    architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  if $::lsbdistcodename == 'trusty' {
+    apt::source { 'rbenv-ruby':
+      location     => "http://${apt_mirror_hostname}/rbenv-ruby",
+      release      => $::lsbdistcodename,
+      architecture => $::architecture,
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    }
   }
 
   rbenv::version { '2.1.2':
