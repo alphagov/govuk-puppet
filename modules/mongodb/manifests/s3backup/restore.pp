@@ -46,6 +46,7 @@ class mongodb::s3backup::restore(
 ){
 
   include ::backup::client
+  contain ::mongodb::s3backup::package
 
   file { '/usr/local/bin/mongodb-restore-s3':
     ensure  => file,
@@ -53,7 +54,7 @@ class mongodb::s3backup::restore(
     mode    => '0770',
     owner   => $user,
     group   => $user,
-    require => Class[mongodb::s3backup::package],
+    require => Class['::mongodb::s3backup::package'],
   }
 
 }
