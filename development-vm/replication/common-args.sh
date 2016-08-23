@@ -20,13 +20,22 @@ OPTIONS:
     -r       Reset ignore list. This overrides any default ignores.
     -i       Databases to ignore. Can be used multiple times, or as a quoted space-delimited list
     -n       Don't actually import anything (dry run)
-
+    -m       Skip MongoDB import
+    -p       Skip PostgreSQL import
+    -q       Skip MySQL import
+    -e       Skip Elasticsearch import
+    -t       Skip Mapit import
 
 EOF
 }
 
 DIR="backups/$(date +%Y-%m-%d)"
 SKIP_DOWNLOAD=false
+SKIP_MONGO=false
+SKIP_POSTGRES=false
+SKIP_MYSQL=false
+SKIP_ELASTIC=false
+SKIP_MAPIT=false
 DRY_RUN=false
 # By default, ignore large databases which are not useful when replicated.
 IGNORE="tariff tariff_temporal tariff_demo event_store transition backdrop support_contacts"
@@ -42,7 +51,7 @@ function ignored() {
   return 1
 }
 
-while getopts "hF:u:d:sri:n" OPTION
+while getopts "hF:u:d:sri:n:mpqet" OPTION
 do
   case $OPTION in
     h )
@@ -69,6 +78,21 @@ do
       ;;
     n )
       DRY_RUN=true
+      ;;
+    m )
+      SKIP_MONGO=true
+      ;;
+    p )
+      SKIP_POSTGRES=true
+      ;;
+    q )
+      SKIP_MYSQL=true
+      ;;
+    e )
+      SKIP_ELASTIC=true
+      ;;
+    t )
+      SKIP_MAPIT=true
       ;;
   esac
 done

@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+if $SKIP_MAPIT; then
+  exit
+fi
+
 MAPIT_DIRECTORY=/var/govuk/mapit
 
 if [ -d "$MAPIT_DIRECTORY" ]; then
