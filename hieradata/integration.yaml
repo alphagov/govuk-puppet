@@ -215,13 +215,7 @@ govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_backend::java8: true
 govuk::node::s_licensify_frontend::java8: true
-govuk::node::s_licensify_lb::backend_app_servers:
-  - 'licensing-backend-1.licensify'
-  - 'licensing-backend-2.licensify'
 govuk::node::s_licensify_lb::enable_feed_console: true
-govuk::node::s_licensify_lb::frontend_app_servers:
-  - 'licensing-frontend-1.licensify'
-  - 'licensing-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
 govuk::node::s_logging::compress_srv_logs_hour: '9'
 govuk::node::s_monitoring::offsite_backups: false
