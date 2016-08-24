@@ -137,7 +137,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::whitehall_update_integration_data
 govuk_jenkins::job_builder::environment: 'integration'
 
-govuk_jenkins::job::deploy_licensify::alphagov_deployment_branch: 'master'
 govuk_jenkins::job::deploy_puppet::commitish: 'integration'
 
 govuk_jenkins::job::network_config_deploy::environments:
