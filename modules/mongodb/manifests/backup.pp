@@ -25,7 +25,6 @@ class mongodb::backup(
   $enabled = true,
   $domonthly = true,
   $s3_backups = false,
-  $s3_restores = false,
 ) {
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
@@ -91,12 +90,21 @@ class mongodb::backup(
     }
   }
 
-  if $s3_backups {
-    include mongodb::s3backup::backup
-  }
+  $scripts = ['/usr/local/bin/mongodb-restore-s3','/usr/local/bin/mongodb-backup-s3'] # Shell scripts used to perform backups and restores to and from s3
+  $jobs    = ['mongodb-s3backup-realtime','mongodb-s3-night-backup'] # Cron jobs that perform backups to s3 'mongodb::s3backup::cron'
 
-  if $s3_restores {
-    include mongodb::s3backup::restore
+  if $s3_backups {
+      include ::mongodb::s3backup::backup
+  } else {
+
+      file { $scripts :
+        ensure => absent,
+      }
+
+      cron { $jobs :
+        ensure => absent,
+        user   => $::backup::client::user,
+      }
   }
 
 }
