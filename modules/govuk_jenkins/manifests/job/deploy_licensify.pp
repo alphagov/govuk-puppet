@@ -4,15 +4,10 @@
 #
 # === Parameters
 #
-# [*alphagov_deployment_branch*]
-#   The branch of the `alphagov-deployment` repository to use to
-#   deploy applications
-#
 # [*ci_new_jenkins_api_key*]
 #   API key to download build artefacts from CI servers
 #
 class govuk_jenkins::job::deploy_licensify (
-  $alphagov_deployment_branch = 'release',
   $ci_new_jenkins_api_key = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/deploy_licensify.yaml':
