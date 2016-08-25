@@ -38,43 +38,17 @@
 #
 class govuk::apps::dfid_transition (
   $port = 3124,
-  $enabled = false,
-  $enable_procfile_worker = undef,
-  $asset_manager_bearer_token = undef,
-  $publishing_api_bearer_token = undef,
-  $redis_host = undef,
-  $redis_port = undef,
 ) {
   $app_name = 'dfid-transition'
 
-  if $enabled {
-    Govuk::App::Envvar {
-      app => $app_name,
-    }
+  govuk::procfile::worker {$app_name:
+    ensure => absent,
+  }
 
-    govuk::procfile::worker {$app_name:
-      enable_service => $enable_procfile_worker,
-    }
-
-    govuk::app::envvar::redis { $app_name:
-      host => $redis_host,
-      port => $redis_port,
-    }
-
-    govuk::app::envvar {
-      "${title}-ASSET_MANAGER_BEARER_TOKEN":
-        varname => 'ASSET_MANAGER_BEARER_TOKEN',
-        value   => $asset_manager_bearer_token;
-      "${title}-PUBLISHING_API_BEARER_TOKEN":
-        varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token;
-    }
-
-    govuk::app { $app_name:
-      ensure             => absent,
-      app_type           => 'procfile',
-      port               => $port,
-      enable_nginx_vhost => true,
-    }
+  govuk::app { $app_name:
+    ensure             => absent,
+    app_type           => 'procfile',
+    port               => $port,
+    enable_nginx_vhost => true,
   }
 }
