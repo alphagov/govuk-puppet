@@ -71,6 +71,10 @@
 # [*alert_5xx_critical_rate*]
 #   The error percentage that triggers a critical alert
 #
+# [*proxy_http_version_1_1_enabled*]
+#   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
+#   to the app server.
+#
 define govuk::app::nginx_vhost (
   $vhost,
   $app_port,
@@ -93,6 +97,7 @@ define govuk::app::nginx_vhost (
   $ensure = 'present',
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
+  $proxy_http_version_1_1_enabled = false,
 ) {
 
   # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
@@ -110,23 +115,24 @@ define govuk::app::nginx_vhost (
   }
 
   nginx::config::vhost::proxy { $vhost:
-    ensure                  => $ensure,
-    to                      => ["localhost:${app_port}"],
-    aliases                 => $aliases,
-    protected               => $protected,
-    protected_location      => $protected_location,
-    ssl_only                => $ssl_only,
-    logstream               => $logstream,
-    extra_config            => $nginx_extra_config_real,
-    extra_app_config        => $nginx_extra_app_config,
-    intercept_errors        => $intercept_errors,
-    deny_framing            => $deny_framing,
-    custom_http_host        => $custom_http_host,
-    is_default_vhost        => $is_default_vhost,
-    hidden_paths            => $hidden_paths,
-    single_page_app         => $single_page_app,
-    read_timeout            => $read_timeout,
-    alert_5xx_warning_rate  => $alert_5xx_warning_rate,
-    alert_5xx_critical_rate => $alert_5xx_critical_rate,
+    ensure                         => $ensure,
+    to                             => ["localhost:${app_port}"],
+    aliases                        => $aliases,
+    protected                      => $protected,
+    protected_location             => $protected_location,
+    ssl_only                       => $ssl_only,
+    logstream                      => $logstream,
+    extra_config                   => $nginx_extra_config_real,
+    extra_app_config               => $nginx_extra_app_config,
+    intercept_errors               => $intercept_errors,
+    deny_framing                   => $deny_framing,
+    custom_http_host               => $custom_http_host,
+    is_default_vhost               => $is_default_vhost,
+    hidden_paths                   => $hidden_paths,
+    single_page_app                => $single_page_app,
+    read_timeout                   => $read_timeout,
+    alert_5xx_warning_rate         => $alert_5xx_warning_rate,
+    alert_5xx_critical_rate        => $alert_5xx_critical_rate,
+    proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
   }
 }
