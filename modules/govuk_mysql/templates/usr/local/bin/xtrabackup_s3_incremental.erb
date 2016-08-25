@@ -18,22 +18,19 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
-# Mark if a backup has already been taken
-BACKUPEXIST=false
+# Mark if a base backup has ever been taken
 if [ -e /var/lib/mysql/xtrabackup_date ]; then
-  BACKUPEXIST=true
-fi
 
-# Copy the latest incremental backup into a temporary filename
-innobackupex --incremental-basedir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress --incremental . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/$TMPNAME
+  # Copy the latest incremental backup into a temporary filename
+  innobackupex --incremental-basedir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress --incremental . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/$TMPNAME
 
-# If a previous backup exists then move it to an archive directory
-if $BACKUPEXIST; then
+  # If a previous backup exists then move it to an archive directory
   envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/incremental.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/incremental-$(date +%Y%m%d-%H%M).xbcrypt || echo "No previous backup found for archiving"
-fi
 
-# Rename the temporary backup to a name used by the restore method
-envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/$TMPNAME s3://<%= @s3_bucket_name %>/latest/incremental.xbcrypt
+  # Rename the temporary backup to a name used by the restore method
+  envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/$TMPNAME s3://<%= @s3_bucket_name %>/latest/incremental.xbcrypt
+
+fi
 
 if [ $? == 0 ]
   then
