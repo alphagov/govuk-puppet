@@ -29,7 +29,7 @@ innobackupex --incremental-basedir='/var/lib/mysql/' --encrypt=AES256 --encrypt-
 
 # If a previous backup exists then move it to an archive directory
 if $BACKUPEXIST; then
-  envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/incremental.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/incremental-$(date +%Y%m%d-%H%M).xbcrypt
+  envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/s3cmd mv s3://<%= @s3_bucket_name %>/latest/incremental.xbcrypt s3://<%= @s3_bucket_name %>/$(cat /var/lib/mysql/xtrabackup_date)/incremental-$(date +%Y%m%d-%H%M).xbcrypt || echo "No previous backup found for archiving"
 fi
 
 # Rename the temporary backup to a name used by the restore method
