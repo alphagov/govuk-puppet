@@ -8,11 +8,12 @@ class licensify::apps::licensify (
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify':
-    app_type           => 'procfile',
-    port               => $port,
-    nginx_extra_config => template('licensify/nginx_extra'),
-    health_check_path  => '/api/licences',
-    require            => File['/etc/licensing'],
+    app_type                       => 'procfile',
+    port                           => $port,
+    nginx_extra_config             => template('licensify/nginx_extra'),
+    health_check_path              => '/api/licences',
+    require                        => File['/etc/licensing'],
+    proxy_http_version_1_1_enabled => true,
   }
 
   licensify::apps::envvars { 'licensify':

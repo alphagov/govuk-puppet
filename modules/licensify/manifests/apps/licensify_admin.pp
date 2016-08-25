@@ -8,10 +8,11 @@ class licensify::apps::licensify_admin(
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify-admin':
-    app_type          => 'procfile',
-    port              => $port,
-    health_check_path => '/login',
-    require           => File['/etc/licensing'],
+    app_type                       => 'procfile',
+    port                           => $port,
+    health_check_path              => '/login',
+    require                        => File['/etc/licensing'],
+    proxy_http_version_1_1_enabled => true,
   }
 
   licensify::apps::envvars { 'licensify-admin':
