@@ -19,7 +19,7 @@ function nagios_passive () {
 trap nagios_passive EXIT
 
 # Set a new backup date
-date +%Y%m%d-%H%M > /var/lib/mysql/xtrabackup_date
+date +%Y%m%d-%H%M%S > /var/lib/mysql/xtrabackup_date
 
 # Copy the latest backup into a temporary filename
 innobackupex --extra-lsndir='/var/lib/mysql/' --encrypt=AES256 --encrypt-key="<%= @encryption_key %>" --stream=xbstream --compress . | envdir /etc/mysql/xtrabackup/env.d /usr/local/bin/gof3r put --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/$TMPNAME
