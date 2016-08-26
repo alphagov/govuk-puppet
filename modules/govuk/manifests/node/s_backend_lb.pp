@@ -46,61 +46,61 @@ class govuk::node::s_backend_lb (
       'specialist-publisher',
     ]:
       modified_paths => {
-        '/sp-rebuild/assets'                 => {
+        '/sp-rebuild/assets'                    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/rebuild-healthcheck'               => {
+        '/rebuild-healthcheck'                  => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/preview'                           => {
+        '/preview'                              => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/raib-reports'                      => {
+        '/raib-reports'                         => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/maib-reports'                      => {
+        '/maib-reports'                         => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/dfid-research-outputs'             => {
+        '/dfid-research-outputs'                => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/aaib-reports'                      => {
+        '/aaib-reports'                         => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/cma-cases'                         => {
+        '/cma-cases'                            => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/international-development-funds'   => {
+        '/international-development-funds'      => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/countryside-stewardship-grants'    => {
+        '/countryside-stewardship-grants'       => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/esi-funds'                         => {
+        '/esi-funds'                            => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/tax-tribunal-decisions'            => {
+        '/tax-tribunal-decisions'               => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/utaac-decisions'                   => {
+        '/utaac-decisions'                      => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/et-decisions'                      => {
+        '/employment-tribunal-decisions'        => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/eat-decisions'                     => {
+        '/employment-appeal-tribunal-decisions' => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/asylum-support-decisions'          => {
+        '/asylum-support-decisions'             => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/vehicle-recalls-and-faults-alerts' => {
+        '/vehicle-recalls-and-faults-alerts'    => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/drug-safety-updates'               => {
+        '/drug-safety-updates'                  => {
           'app' => 'specialist-publisher-rebuild',
         },
-        '/medical-safety-alerts'             => {
+        '/medical-safety-alerts'                => {
           'app' => 'specialist-publisher-rebuild',
         },
       },
