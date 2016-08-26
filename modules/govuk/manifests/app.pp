@@ -104,13 +104,6 @@
 # reports the app's status as OK.
 #
 #
-# [*intercept_errors*]
-# should nginx intercept application errors
-#
-# If set to true, the nginx fronting the application will intercept
-# application errors and serve default error pages
-#
-#
 # [*deny_framing*]
 # should we allow this app to be framed
 #
@@ -269,7 +262,6 @@ define govuk::app (
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
   $json_health_check = false,
-  $intercept_errors = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $vhost = undef,
@@ -346,7 +338,6 @@ define govuk::app (
     health_check_path              => $health_check_path,
     expose_health_check            => $expose_health_check,
     json_health_check              => $json_health_check,
-    intercept_errors               => $intercept_errors,
     deny_framing                   => $deny_framing,
     enable_nginx_vhost             => $enable_nginx_vhost,
     logstream                      => $logstream,
