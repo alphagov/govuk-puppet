@@ -52,7 +52,7 @@ class govuk::node::s_backup (
 
   backup::directory {'backup_mongodb_backups_licensify_mongo':
     directory => '/var/lib/automongodbbackup/',
-    fq_dn     => "licensify-mongo-1.licensify.${app_domain}",
+    fq_dn     => "licensing-mongo-1.licensify.${app_domain}",
     priority  => '002',
   }
 
