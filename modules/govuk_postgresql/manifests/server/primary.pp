@@ -42,10 +42,15 @@ class govuk_postgresql::server::primary (
       value => 'hot_standby';
     'max_wal_senders':
       value => 3;
-    'checkpoint_segments':
-      value => 8;
     'wal_keep_segments':
       value => 256;
+  }
+
+  if versioncmp($::postgresql::globals::version, '9.5') < 0 {
+    postgresql::server::config_entry {
+      'checkpoint_segments':
+        value => 8,
+    }
   }
 
   postgresql::server::role { $user:

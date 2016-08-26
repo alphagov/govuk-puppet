@@ -68,6 +68,7 @@ class govuk_postgresql::server (
     }
   }
 
+  include govuk_postgresql::mirror
   include postgresql::server::contrib
 
   if $configure_env_sync_user {

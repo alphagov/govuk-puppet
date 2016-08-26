@@ -152,6 +152,7 @@ govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_mysql_master::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
@@ -335,6 +336,12 @@ hosts::production::backend::hosts:
       - 'transition-slave.postgresql'
   transition-postgresql-slave-2:
     ip: '10.2.11.61'
+  transition-postgresql-primary-1:
+    ip: '10.2.3.160'
+  transition-postgresql-standby-1:
+    ip: '10.2.3.161'
+  transition-postgresql-standby-2:
+    ip: '10.2.11.161'
   whitehall-backend-1:
     ip: '10.2.3.25'
   whitehall-backend-2:

@@ -1,0 +1,5 @@
+---
+
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: '10.1.13.0/24'
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
