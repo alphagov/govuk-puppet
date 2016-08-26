@@ -600,3 +600,6 @@ postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 shell::shell_prompt_string: 'production'
+
+mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-production'
+mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-production'
