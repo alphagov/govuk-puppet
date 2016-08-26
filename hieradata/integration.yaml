@@ -103,6 +103,7 @@ govuk_jenkins::config::admins:
   - theodorvararu
   - tijmenbrommet
   - timblair
+  - tomridd
   - tomrussell
   - tomwhite
 
@@ -325,5 +326,6 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomhipkin
+  - tomridd
   - tomrussell
   - tomwhite
