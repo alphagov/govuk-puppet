@@ -123,6 +123,12 @@ class govuk::apps::publishing_api(
       value   => $oauth_secret;
   }
 
+  govuk_logging::logstream { 'publishing_api_sidekiq_json_log':
+    logfile => '/var/apps/publishing-api/log/sidekiq.json.log',
+    fields  => {'application' => 'publishing-api-sidekiq'},
+    json    => true,
+  }
+
   if $secret_key_base != undef {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
