@@ -69,14 +69,14 @@ class govuk_unattended_reboot (
   $lock_dir = "${config_directory}/no-reboot"
 
   file { $lock_dir:
-    ensure => directory,
+    ensure => $directory_ensure,
     mode   => '0777',
     owner  => 'root',
     group  => 'root',
   }
 
   file { '03_no_reboot':
-    ensure  => file,
+    ensure  => $file_ensure,
     path    => "${check_scripts_directory}/03_no_reboot",
     mode    => '0755',
     owner   => 'root',
