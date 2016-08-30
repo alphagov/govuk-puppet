@@ -38,9 +38,6 @@
 # [*nginx_extra_app_config*]
 #   A string containing additional nginx config for the `app` location block
 #
-# [*intercept_errors*]
-#   Boolean, whether to set nginx's `proxy_intercept_errors`
-#
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
@@ -86,7 +83,6 @@ define govuk::app::nginx_vhost (
   $logstream = present,
   $nginx_extra_config = '',
   $nginx_extra_app_config = '',
-  $intercept_errors = false,
   $deny_framing = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
@@ -124,7 +120,6 @@ define govuk::app::nginx_vhost (
     logstream                      => $logstream,
     extra_config                   => $nginx_extra_config_real,
     extra_app_config               => $nginx_extra_app_config,
-    intercept_errors               => $intercept_errors,
     deny_framing                   => $deny_framing,
     custom_http_host               => $custom_http_host,
     is_default_vhost               => $is_default_vhost,

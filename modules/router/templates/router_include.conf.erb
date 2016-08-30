@@ -34,8 +34,6 @@ location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
 }
 
 location ~ ^/apply-for-a-licence/? {
-  proxy_intercept_errors off;
-
   # Set proxy timeout to 50 seconds as a quick fix for problems
   # where civica QueryPayments calls are taking too long.
   proxy_read_timeout 50;

@@ -27,9 +27,6 @@
 # [*extra_app_config*]
 #   A string containing additional nginx config for the `app` location block
 #
-# [*intercept_errors*]
-#   Boolean, whether to set nginx's `proxy_intercept_errors`
-#
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
@@ -86,7 +83,6 @@ define nginx::config::vhost::proxy(
   $custom_http_host = undef,
   $extra_config = '',
   $extra_app_config = '',
-  $intercept_errors = false,
   $deny_framing = false,
   $protected = true,
   $protected_location = '/',
