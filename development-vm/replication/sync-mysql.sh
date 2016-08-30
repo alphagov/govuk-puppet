@@ -8,6 +8,11 @@ set -eu
 USAGE_LINE="$0 [options] SRC_HOSTNAME"
 USAGE_DESCRIPTION="Load the most recent MySQL dump files from the given host."
 . ./common-args.sh
+
+if $SKIP_MYSQL; then
+  exit
+fi
+
 shift $(($OPTIND-1))
 
 if [ $# -ne 1 ]; then
