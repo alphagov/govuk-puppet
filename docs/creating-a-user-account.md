@@ -22,7 +22,7 @@ Add the name of your manifest (your username) into the list of `users::usernames
 
 ## Add yourself to the list of Jenkins users
 
-There's another bit of hieradata in integration.yaml for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your LDAP username (usually your full name) to this list.
+There's another bit of hieradata in integration.yaml for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your github enterprise username (usually your full name) to this list.
 
 ## Staging and production
 
