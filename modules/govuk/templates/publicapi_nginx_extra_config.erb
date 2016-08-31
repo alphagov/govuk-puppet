@@ -27,7 +27,7 @@
   location ~ ^/api/search.json {
     expires 30m;
 
-    rewrite ^/api/search.json(.*) /unified_search.json$1 break;
+    rewrite ^/api/search.json(.*) /search.json$1 break;
 
     proxy_set_header Host <%= @rummager_api %>;
     proxy_set_header API-PREFIX api;
