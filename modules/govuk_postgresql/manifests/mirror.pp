@@ -5,10 +5,12 @@
 class govuk_postgresql::mirror (
   $apt_mirror_hostname = undef,
 ) {
-  apt::source { 'postgresql':
-    location     => "http://${apt_mirror_hostname}/postgresql",
-    release      => "${::lsbdistcodename}-pgdg",
-    architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  if $::lsbdistcodename == 'trusty' {
+    apt::source { 'postgresql':
+      location     => "http://${apt_mirror_hostname}/postgresql",
+      release      => "${::lsbdistcodename}-pgdg",
+      architecture => $::architecture,
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    }
   }
 }
