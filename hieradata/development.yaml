@@ -233,6 +233,7 @@ govuk_unattended_reboot::mongodb::enabled: false
 govuk_unattended_reboot::elasticsearch::enabled: false
 
 hosts::development::apps:
+  - 'assets-origin'
   - 'asset-manager'
   - 'bouncer'
   - 'backdrop-write'
