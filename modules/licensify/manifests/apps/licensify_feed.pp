@@ -4,7 +4,8 @@ class licensify::apps::licensify_feed(
   $aws_ses_access_key = '',
   $aws_ses_secret_key = '',
   $aws_application_form_access_key = '',
-  $aws_application_form_secret_key = ''
+  $aws_application_form_secret_key = '',
+  $environment = '',
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify-feed':
@@ -21,6 +22,7 @@ class licensify::apps::licensify_feed(
     aws_ses_secret_key              => $aws_ses_secret_key,
     aws_application_form_access_key => $aws_application_form_access_key,
     aws_application_form_secret_key => $aws_application_form_secret_key,
+    environment                     => $environment,
   }
 
   licensify::build_clean { 'licensify-feed': }

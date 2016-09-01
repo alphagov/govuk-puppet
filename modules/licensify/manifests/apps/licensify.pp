@@ -5,6 +5,7 @@ class licensify::apps::licensify (
   $aws_ses_secret_key = '',
   $aws_application_form_access_key = '',
   $aws_application_form_secret_key = '',
+  $environment = '',
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify':
@@ -22,6 +23,7 @@ class licensify::apps::licensify (
     aws_ses_secret_key              => $aws_ses_secret_key,
     aws_application_form_access_key => $aws_application_form_access_key,
     aws_application_form_secret_key => $aws_application_form_secret_key,
+    environment                     => $environment,
   }
 
   licensify::build_clean { 'licensify': }
