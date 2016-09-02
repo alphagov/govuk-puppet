@@ -1214,7 +1214,6 @@ router::assets_origin::asset_routes:
   '/specialist-frontend/': "specialist-frontend"
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
-  '/tariff/': "tariff"
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
