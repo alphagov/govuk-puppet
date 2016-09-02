@@ -92,9 +92,6 @@ govuk::node::s_development::apps:
   - 'static'
   - 'support'
   - 'support_api'
-  - 'tariff'
-  - 'tariff_admin'
-  - 'tariff_api'
   - 'transition'
   - 'travel_advice_publisher'
   - 'whitehall'
@@ -174,7 +171,6 @@ govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
-govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::enable_procfile_worker: false
@@ -308,9 +304,6 @@ hosts::development::apps:
   - 'static'
   - 'support'
   - 'support-api'
-  - 'tariff-admin'
-  - 'tariff-api'
-  - 'tariff'
   - 'transition'
   - 'travel-advice-publisher'
   - 'whitehall-admin'

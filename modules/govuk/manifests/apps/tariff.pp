@@ -1,6 +1,7 @@
 # == Class: govuk::apps::tariff
 #
 # App details at: https://github.com/alphagov/trade-tariff-frontend
+# FIXME: Remove this class when removed from all environments
 #
 # === Parameters
 #
@@ -25,6 +26,7 @@ class govuk::apps::tariff(
   $nagios_memory_critical = undef,
 ) {
   govuk::app { 'tariff':
+    ensure                 => 'absent',
     app_type               => 'rack',
     port                   => $port,
     health_check_path      => '/trade-tariff/healthcheck',
@@ -35,9 +37,4 @@ class govuk::apps::tariff(
     nagios_memory_critical => $nagios_memory_critical,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'tariff',
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
-  }
 }

@@ -79,9 +79,6 @@ deployable_applications: &deployable_applications
   - static
   - support
   - support-api
-  - trade-tariff-admin
-  - trade-tariff-backend
-  - trade-tariff-frontend
   - transition
   - travel-advice-publisher
   - whitehall
@@ -832,8 +829,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild-standalone'
   - 'support'
   - 'support-api'
-  - 'tariff-admin'
-  - 'tariff-api'
   - 'transition'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
@@ -911,7 +906,6 @@ hosts::production::frontend::app_hostnames:
   - 'spotlight'
   - 'specialist-frontend'
   - 'static'
-  - 'tariff'
   - 'whitehall-frontend'
 
 hosts::production::licensify::hosts:
@@ -1220,7 +1214,6 @@ router::assets_origin::asset_routes:
   '/specialist-frontend/': "specialist-frontend"
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
-  '/tariff/': "tariff"
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
