@@ -96,7 +96,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::service_manual_rebuild_search_index
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
-  - govuk_jenkins::job::trade_tariff_reindex_elasticsearch
   - govuk_jenkins::job::transition_load_all_data
   - govuk_jenkins::job::transition_load_site_config
   - govuk_jenkins::job::transition_load_transition_stats_hits
