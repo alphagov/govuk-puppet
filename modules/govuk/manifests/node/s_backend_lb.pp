@@ -125,7 +125,6 @@ class govuk::node::s_backend_lb (
       'specialist-publisher-rebuild-standalone',
       'short-url-manager',
       'support',
-      'tariff-admin',
       'travel-advice-publisher',
       'transition',
     ]:
@@ -141,7 +140,6 @@ class govuk::node::s_backend_lb (
       'publishing-api',
       'specialist-publisher-rebuild',
       'support-api',
-      'tariff-api',
     ]:
       https_redirect => false, # FIXME: Remove for #51136581
       internal_only  => true,
