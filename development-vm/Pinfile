@@ -80,7 +80,7 @@ process :tradetariffapi
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager, :'travel_advice_publisher_worker', :'email-alert-api']
 process :travel_advice_publisher_worker
-process :whitehall => [:contentapi, :static, :'publishing-api', :rummager, :panopticon]
+process :whitehall => [:static, :'publishing-api', :rummager, :panopticon]
 
 # pseudo process to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
