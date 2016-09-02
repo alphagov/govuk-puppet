@@ -92,9 +92,6 @@ govuk::node::s_development::apps:
   - 'static'
   - 'support'
   - 'support_api'
-  - 'tariff'
-  - 'tariff_admin'
-  - 'tariff_api'
   - 'transition'
   - 'travel_advice_publisher'
   - 'whitehall'
@@ -155,8 +152,8 @@ govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
-govuk::apps::rummager::enable_publishing_listener: false
-govuk::apps::rummager::rabbitmq::enable_publishing_listener: false
+govuk::apps::rummager::enable_publishing_listener: true
+govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
 govuk::apps::rummager::redis_host: 'localhost'
 govuk::apps::share_sale_publisher::enabled: true
 govuk::apps::share_sale_publisher::mongodb_nodes: ['localhost']
@@ -174,7 +171,6 @@ govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
-govuk::apps::tariff_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::enable_procfile_worker: false
@@ -233,6 +229,7 @@ govuk_unattended_reboot::mongodb::enabled: false
 govuk_unattended_reboot::elasticsearch::enabled: false
 
 hosts::development::apps:
+  - 'assets-origin'
   - 'asset-manager'
   - 'bouncer'
   - 'backdrop-write'
@@ -307,9 +304,6 @@ hosts::development::apps:
   - 'static'
   - 'support'
   - 'support-api'
-  - 'tariff-admin'
-  - 'tariff-api'
-  - 'tariff'
   - 'transition'
   - 'travel-advice-publisher'
   - 'whitehall-admin'

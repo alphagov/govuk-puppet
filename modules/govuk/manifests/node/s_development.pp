@@ -103,14 +103,6 @@ class govuk::node::s_development (
       user     => 'signonotron2',
       password => 'signonotron2';
 
-    ['tariff_admin_development', 'tariff_admin_test']:
-      user     => 'tariff_admin',
-      password => 'tariff_admin';
-
-    ['tariff_development', 'tariff_test']:
-      user     => 'tariff',
-      password => 'tariff';
-
     [
       'whitehall_development',
       'whitehall_test',
