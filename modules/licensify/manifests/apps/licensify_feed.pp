@@ -13,6 +13,7 @@ class licensify::apps::licensify_feed(
     vhost_protected                => true,
     require                        => File['/etc/licensing'],
     proxy_http_version_1_1_enabled => true,
+    health_check_path              => '/licence-management/feed/process-applications',
   }
 
   licensify::apps::envvars { 'licensify-feed':
