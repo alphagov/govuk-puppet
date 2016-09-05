@@ -27,5 +27,6 @@ class govuk_jenkins::job::copy_data_to_integration (
     host_name           => $::fqdn,
     freshness_threshold => 115200,
     action_url          => $job_url,
+    notes_url           => monitoring_docs_url('data-sync', true),
   }
 }
