@@ -3,6 +3,8 @@
 require 'json'
 require 'yaml'
 
+WARNING = 1
+
 puppet_agent_summary_filename = "/var/lib/puppet/state/last_run_summary.yaml"
 puppet_agent_disabled_lockfile = "/var/lib/puppet/state/agent_disabled.lock"
 
@@ -11,6 +13,13 @@ if File.file?(puppet_agent_disabled_lockfile)
 
   puts "Puppet is disabled: #{disabled_reason}"
   exit 1
+end
+
+hours_since_last_run = (Time.now - File.mtime(puppet_agent_summary_filename)) / 3600
+
+if hours_since_last_run > 2
+  puts "Puppet has not run in #{hours_since_last_run.to_i} hours"
+  exit WARNING
 end
 
 begin
