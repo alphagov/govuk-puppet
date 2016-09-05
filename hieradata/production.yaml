@@ -584,6 +584,9 @@ hosts::production::router::hosts:
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
 
+licensify::apps::licensify_admin::environment: 'production'
+licensify::apps::licensify::environment: 'production'
+licensify::apps::licensify_feed::environment: 'production'
 #Do not enable this without speaking to Dai Vaughan first
 licensify::apps::licensing_web_forms::enabled: false
 
