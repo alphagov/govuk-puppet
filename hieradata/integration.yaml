@@ -53,6 +53,7 @@ govuk_jenkins::config::admins:
   - anikahenke
   - bobwalker
   - brendanbutler
+  - carlosmartinez
   - carlosvilhena
   - carolinegreen
   - chrislee
@@ -281,6 +282,7 @@ users::usernames:
   - bevanloon
   - bob
   - brendanbutler
+  - carlosmartinez
   - carlosvilhena
   - carolinegreen
   - chrislee
