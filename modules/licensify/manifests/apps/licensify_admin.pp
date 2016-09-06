@@ -11,7 +11,8 @@ class licensify::apps::licensify_admin(
   govuk::app { 'licensify-admin':
     app_type                       => 'procfile',
     port                           => $port,
-    health_check_path              => '/login',
+    health_check_path              => '/healthcheck',
+    json_health_check              => true,
     require                        => File['/etc/licensing'],
     proxy_http_version_1_1_enabled => true,
   }
