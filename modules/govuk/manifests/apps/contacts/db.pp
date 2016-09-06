@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk::apps:contacts:db
+#
+# MySQL to store content for the Contacts app
+# https://github.com/alphagov/contacts-admin
+#
+# === Parameters
+#
+# [*password*]
+#   The DB user password.
+#
 class govuk::apps::contacts::db (
   $mysql_contacts_admin = '',
   $mysql_contacts_frontend =  '',
