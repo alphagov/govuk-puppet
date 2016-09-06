@@ -14,19 +14,25 @@
 #
 # [*process_type*]
 #   The type of process to spawn, defined in the application's Procfile.
-#   This variable is used by the govuk/procfile-worker.conf.erb template.
+#   This variable is used by the govuk/procfile-worker_child.conf.erb template.
 #   Default: 'worker'
 #
 # [*setenv_as*]
 #   The application name to use when calling `govuk_setenv`.
-#   This variable is used by the govuk/procfile-worker.conf.erb template.
+#   This variable is used by the govuk/procfile-worker_child.conf.erb template.
 #   Default: $title
+#
+# [*process_count*]
+#   The number of instances to run of this procfile worker.
+#   This variable is used by the govuk/procfile-worker.conf.erb template.
+#   Default: 1
 #
 define govuk::procfile::worker (
   $enable_service = true,
   $ensure = present,
   $process_type = 'worker',
   $setenv_as = $title,
+  $process_count = 1,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
@@ -38,6 +44,13 @@ define govuk::procfile::worker (
     file { "/etc/init/${service_name}.conf":
       ensure    => present,
       content   => template('govuk/procfile-worker.conf.erb'),
+      notify    => Service[$service_name],
+      subscribe => Class['Govuk::Procfile'],
+    }
+
+    file { "/etc/init/${service_name}_child.conf":
+      ensure    => present,
+      content   => template('govuk/procfile-worker_child.conf.erb'),
       notify    => Service[$service_name],
       subscribe => Class['Govuk::Procfile'],
     }
@@ -60,6 +73,11 @@ define govuk::procfile::worker (
     }
 
     file { "/etc/init/${service_name}.conf":
+      ensure  => absent,
+      require => Exec["stop_service_${service_name}"],
+    }
+
+    file { "/etc/init/${service_name}-child.conf":
       ensure  => absent,
       require => Exec["stop_service_${service_name}"],
     }

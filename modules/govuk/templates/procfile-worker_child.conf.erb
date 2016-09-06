@@ -1,0 +1,11 @@
+description "Child procfile background worker for <%= @title %>"
+
+instance $INDEX
+
+respawn
+
+# If the app respawns more than 5 times in 20 seconds, it has deeper problems
+# and should be killed off.
+respawn limit 5 20
+
+exec govuk_setenv <%= @setenv_as %> govuk_run_procfile_worker <%= @process_type %>
