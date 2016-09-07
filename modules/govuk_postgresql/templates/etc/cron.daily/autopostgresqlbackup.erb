@@ -344,6 +344,16 @@ dbdump () {
   touch $2
   chmod 600 $2
   for db in $1 ; do
+    <% if @environment == 'integration' %>
+    # The Publishing API events table takes up a lot of space in the
+    # backup, which is downloaded by lots of people in GOV.UK, and not
+    # needed by most of them, so exclude this from the backup on
+    # integration.
+    if [ "$db" = "publishing_api_production" ]; then
+      OPT="$OPT --exclude-table-data=events"
+    fi
+    <% end %>
+
     if [ -n "$SU_USERNAME" ]; then
       if [ "$db" = "$GLOBALS_OBJECTS" ]; then
         su $SU_USERNAME -c "pg_dumpall $PGHOST --globals-only" >> $2
