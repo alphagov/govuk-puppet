@@ -13,19 +13,11 @@ def mongo_command(command):
     return ['mongo', '--quiet', '--eval', command]
 
 
-def strip_dates(raw_output):
-    """
-    mongodb returns invalid JSON.
-    """
-    stripped_isodates = re.sub(r'ISODate\((.*?)\)', r'\1', raw_output)
-    return re.sub(r'Timestamp\((.*?)\)', r'"\1"', stripped_isodates)
-
-
 def run_mongo_command(command):
     """
     Parse the json output of a mongo command. Errors if return code is non-zero.
     """
-    response = strip_dates(check_output(mongo_command('printjson(%s)' % command)))
+    response = check_output(mongo_command('JSON.stringify(%s)' % command))
     return json.loads(response)
 
 
