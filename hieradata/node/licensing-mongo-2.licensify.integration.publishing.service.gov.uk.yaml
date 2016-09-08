@@ -1,1 +1,3 @@
 mongodb::backup::s3_backups: true
+mongodb::s3backup::cron::realtime_hour: '*/6'
+mongodb::s3backup::cron::realtime_minute: '0'
