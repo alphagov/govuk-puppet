@@ -7,35 +7,35 @@ exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 S3_BUCKET=<%= @s3_bucket %>/<%= @fqdn %>
 BACKUP_DIR=<%= @backup_dir %>
+KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
+REPLSET=$(/usr/bin/mongo --quiet --eval "db.isMaster().setName")
+PRIMARY=$(/usr/bin/mongo --quiet --eval "db.isMaster().primary")
 
 cd $BACKUP_DIR
 
+function housekeeping {
+  # Purge /var/lib/s3backup
+  /bin/rm -rf $BACKUP_DIR/*
+}
+trap housekeeping EXIT
+
+housekeeping
 
 TIME="$(date +%s)"
-
-# Download and decrypt backup
-/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force `/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | \
-  tail -1 | /usr/bin/awk '{print $4}'`| /usr/bin/awk '{print $4}' | /usr/bin/tr -d "'" | \
-  /usr/bin/xargs /usr/bin/gpg --yes --quiet --output mongodump.tar.gz --decrypt && /bin/tar xzf mongodump.tar.gz
+# Download and decrypt most recent backup
+/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force `/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | /usr/bin/tail -1 | /usr/bin/awk '{print $4}'`| /usr/bin/awk '{print $4}' | /usr/bin/tr -d "'" && \
+/usr/bin/gpg --yes --decrypt --output mongodump.tar.gz mongodump.*.tar.gz.gpg -r $KEY_FINGERPRINT && /bin/tar xzf mongodump.tar.gz
 
 TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
 
+# Remove backup archive before restore begins
+/bin/rm -f $BACKUP_DIR/mongodump.*
 
 TIME="$(date +%s)"
-
-
-# Restore mongo database
-  /usr/bin/mongorestore var/ > /dev/null
-
-# Tidy up
-  /bin/rm -rf mongodump*
+# Restore mongo database backup
+/usr/bin/mongorestore $BACKUP_DIR --host=$REPLSET/$PRIMARY --drop
 
 TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "RESTORE COMPLETED IN: ${TIME}s\n"
-
-
-
-
-
 
