@@ -8,6 +8,10 @@
 #
 class mongodb::s3backup::cron(
   $user = 'govuk-backup',
+  $realtime_hour = '*',
+  $realtime_minute = '*/15',
+  $daily_hour = 0,
+  $daily_minute = 0,
 ) {
 
   include ::backup::client
@@ -18,14 +22,15 @@ class mongodb::s3backup::cron(
   cron { 'mongodb-s3backup-realtime':
     command => '/usr/bin/setlock -n /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3',
     user    => $user,
-    minute  => '*/15',
+    hour    => $realtime_hour,
+    minute  => $realtime_minute,
   }
 
   cron { 'mongodb-s3-night-backup':
     command => '/usr/bin/setlock /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3 daily',
     user    => $user,
-    hour    => '0',
-    minute  => '0',
+    hour    => $daily_hour,
+    minute  => $daily_minute,
   }
 
   # FIXME Please remove resource once merged
