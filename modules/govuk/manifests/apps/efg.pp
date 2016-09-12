@@ -47,15 +47,6 @@ class govuk::apps::efg (
     protected    => false,
     ssl_certtype => $ssl_certtype,
     ssl_only     => true,
-    extra_config => '
-  location /sflg/ {
-    rewrite ^ https://$host/? permanent;
-  }
-
-  location /training/ {
-    rewrite ^ https://training.sflg.gov.uk/? redirect;
-  }
-';
   }
 
   @@icinga::check::graphite { "check_efg_login_failures_${::hostname}":
