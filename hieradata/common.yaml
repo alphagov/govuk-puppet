@@ -258,7 +258,8 @@ govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
+govuk::apps::efg::ssl_certtype: 'wildcard_publishing'
+govuk::apps::efg::vhost_name: "efg.%{hiera('app_domain')}"
 govuk::apps::efg::nagios_memory_warning: 1600
 govuk::apps::efg::nagios_memory_critical: 1800
 

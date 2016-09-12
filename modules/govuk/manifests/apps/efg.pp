@@ -10,6 +10,9 @@
 # [*vhost_name*]
 #   External domain name that EFG should be available on
 #
+# [*ssl_certtype*]
+#   Which certificate EFG should use in each environment
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -18,6 +21,7 @@
 #
 class govuk::apps::efg (
   $port = '3019',
+  $ssl_certtype,
   $vhost_name,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -40,19 +44,9 @@ class govuk::apps::efg (
 
   nginx::config::vhost::proxy { $vhost_name:
     to           => ["localhost:${port}"],
-    aliases      => ['efg.production.alphagov.co.uk'],
     protected    => false,
-    ssl_certtype => 'sflg',
+    ssl_certtype => $ssl_certtype,
     ssl_only     => true,
-    extra_config => '
-  location /sflg/ {
-    rewrite ^ https://$host/? permanent;
-  }
-
-  location /training/ {
-    rewrite ^ https://training.sflg.gov.uk/? redirect;
-  }
-';
   }
 
   @@icinga::check::graphite { "check_efg_login_failures_${::hostname}":
