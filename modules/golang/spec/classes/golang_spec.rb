@@ -13,7 +13,7 @@ describe 'golang', :type => :class do
   end
 
   context 'not in development' do
-    let(:facts) {{}}
+    let(:facts) {{domain: 'somethingelse'}}
     it { is_expected.not_to contain_file(file_path) }
   end
 end
