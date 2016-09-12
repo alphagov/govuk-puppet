@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -eu
+SERVICE_NAME=$1
+EXPECTED_WORKERS=$2
+
+# Bail if not an integer.
+[[ $EXPECTED_WORKERS != *[!0-9]* ]] || exit_unknown
+
+set +e
+trap - ERR
+
+$(dirname $0)/check_upstart_status -j ${SERVICE_NAME}
+
+for i in $(seq 1 $EXPECTED_WORKERS);
+do
+  $(dirname $0)/check_upstart_status -j ${SERVICE_NAME}_child -i INDEX=${i}
+done

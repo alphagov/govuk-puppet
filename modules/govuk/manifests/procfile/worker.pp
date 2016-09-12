@@ -60,8 +60,9 @@ define govuk::procfile::worker (
     }
 
     if $enable_service {
-      @@icinga::check { "check_app_${title}_procfile_worker_upstart_up_${::hostname}":
-        check_command       => "check_nrpe!check_upstart_status!${service_name}",
+      include icinga::client::check_procfile_workers
+      @@icinga::check { "check_app_${title}_procfile_workers_count_${::hostname}":
+        check_command       => "check_nrpe!check_procfile_workers!${service_name} ${process_count}",
         service_description => "${title} procfile worker upstart up",
         host_name           => $::fqdn,
       }
