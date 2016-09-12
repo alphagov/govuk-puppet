@@ -18,7 +18,6 @@ lv:
   encrypted:
     pv: '/dev/sdc1'
     vg: 'mongodb'
-
 mount:
   /mnt/encrypted:
     disk: '/dev/mapper/mongodb-encrypted'

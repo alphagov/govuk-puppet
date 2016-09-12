@@ -93,7 +93,12 @@ class govuk::node::s_apt (
       location => 'http://repo.percona.com/apt',
       release  => 'trusty',
       key      => '1C4CBDCDCD2EFD2A';
+    'postgresql':
+      location => 'http://apt.postgresql.org/pub/repos/apt/',
+      release  => 'trusty-pgdg',
+      key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
   }
+
   aptly::repo { 'gof3r': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }

@@ -104,13 +104,6 @@
 # reports the app's status as OK.
 #
 #
-# [*intercept_errors*]
-# should nginx intercept application errors
-#
-# If set to true, the nginx fronting the application will intercept
-# application errors and serve default error pages
-#
-#
 # [*deny_framing*]
 # should we allow this app to be framed
 #
@@ -253,6 +246,10 @@
 # Configure the amount of time the nginx proxy vhost will wait for the
 # backing app before it sends the client a 504. It defaults to 15 seconds.
 #
+# [*proxy_http_version_1_1_enabled*]
+#   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
+#   to the app server.
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -265,7 +262,6 @@ define govuk::app (
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
   $json_health_check = false,
-  $intercept_errors = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $vhost = undef,
@@ -288,6 +284,7 @@ define govuk::app (
   $hasrestart = false,
   $depends_on_nfs = false,
   $read_timeout = 15,
+  $proxy_http_version_1_1_enabled = false,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -324,39 +321,39 @@ define govuk::app (
   }
 
   govuk::app::config { $title:
-    ensure                    => $ensure,
-    require                   => Govuk::App::Package[$title],
-    app_type                  => $app_type,
-    command                   => $command,
-    create_pidfile            => $create_pidfile,
-    domain                    => $app_domain,
-    port                      => $port,
-    custom_http_host          => $custom_http_host,
-    vhost_aliases             => $vhost_aliases,
-    vhost_full                => $vhost_full,
-    vhost_protected           => $vhost_protected,
-    vhost_ssl_only            => $vhost_ssl_only,
-    nginx_extra_config        => $nginx_extra_config,
-    nginx_extra_app_config    => $nginx_extra_app_config,
-    health_check_path         => $health_check_path,
-    expose_health_check       => $expose_health_check,
-    json_health_check         => $json_health_check,
-    intercept_errors          => $intercept_errors,
-    deny_framing              => $deny_framing,
-    enable_nginx_vhost        => $enable_nginx_vhost,
-    logstream                 => $logstream,
-    nagios_cpu_warning        => $nagios_cpu_warning,
-    nagios_cpu_critical       => $nagios_cpu_critical,
-    nagios_memory_warning     => $nagios_memory_warning,
-    nagios_memory_critical    => $nagios_memory_critical,
-    alert_5xx_warning_rate    => $alert_5xx_warning_rate,
-    alert_5xx_critical_rate   => $alert_5xx_critical_rate,
-    unicorn_herder_timeout    => $unicorn_herder_timeout,
-    upstart_post_start_script => $upstart_post_start_script,
-    asset_pipeline            => $asset_pipeline,
-    asset_pipeline_prefix     => $asset_pipeline_prefix,
-    depends_on_nfs            => $depends_on_nfs,
-    read_timeout              => $read_timeout,
+    ensure                         => $ensure,
+    require                        => Govuk::App::Package[$title],
+    app_type                       => $app_type,
+    command                        => $command,
+    create_pidfile                 => $create_pidfile,
+    domain                         => $app_domain,
+    port                           => $port,
+    custom_http_host               => $custom_http_host,
+    vhost_aliases                  => $vhost_aliases,
+    vhost_full                     => $vhost_full,
+    vhost_protected                => $vhost_protected,
+    vhost_ssl_only                 => $vhost_ssl_only,
+    nginx_extra_config             => $nginx_extra_config,
+    nginx_extra_app_config         => $nginx_extra_app_config,
+    health_check_path              => $health_check_path,
+    expose_health_check            => $expose_health_check,
+    json_health_check              => $json_health_check,
+    deny_framing                   => $deny_framing,
+    enable_nginx_vhost             => $enable_nginx_vhost,
+    logstream                      => $logstream,
+    nagios_cpu_warning             => $nagios_cpu_warning,
+    nagios_cpu_critical            => $nagios_cpu_critical,
+    nagios_memory_warning          => $nagios_memory_warning,
+    nagios_memory_critical         => $nagios_memory_critical,
+    alert_5xx_warning_rate         => $alert_5xx_warning_rate,
+    alert_5xx_critical_rate        => $alert_5xx_critical_rate,
+    unicorn_herder_timeout         => $unicorn_herder_timeout,
+    upstart_post_start_script      => $upstart_post_start_script,
+    asset_pipeline                 => $asset_pipeline,
+    asset_pipeline_prefix          => $asset_pipeline_prefix,
+    depends_on_nfs                 => $depends_on_nfs,
+    read_timeout                   => $read_timeout,
+    proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
   }
 
   govuk::app::service { $title:

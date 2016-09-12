@@ -1,0 +1,25 @@
+---
+postgresql::globals::version: '9.5'
+
+govuk_safe_to_reboot::can_reboot: 'no'
+govuk_safe_to_reboot::reason: 'Single point of failure for Bouncer application'
+
+lv:
+  postgresql:
+    pv: '/dev/sdb1'
+    vg: 'backups'
+  data:
+    pv: '/dev/sdc1'
+    vg: 'postgresql'
+
+mount:
+  /var/lib/postgresql:
+    disk: '/dev/mapper/postgresql-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/autopostgresqlbackup:
+    disk: '/dev/mapper/backups-postgresql'
+    govuk_lvm: 'postgresql'
+    mountoptions: 'defaults'
+
+govuk_postgresql::server::standby::master_host: 'transition-postgresql-primary-1.backend'

@@ -4,14 +4,18 @@ class licensify::apps::licensify_feed(
   $aws_ses_access_key = '',
   $aws_ses_secret_key = '',
   $aws_application_form_access_key = '',
-  $aws_application_form_secret_key = ''
+  $aws_application_form_secret_key = '',
+  $environment = '',
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify-feed':
-    app_type        => 'procfile',
-    port            => $port,
-    vhost_protected => true,
-    require         => File['/etc/licensing'],
+    app_type                       => 'procfile',
+    port                           => $port,
+    vhost_protected                => true,
+    require                        => File['/etc/licensing'],
+    proxy_http_version_1_1_enabled => true,
+    log_format_is_json             => true,
+    health_check_path              => '/licence-management/feed/process-applications',
   }
 
   licensify::apps::envvars { 'licensify-feed':
@@ -20,6 +24,7 @@ class licensify::apps::licensify_feed(
     aws_ses_secret_key              => $aws_ses_secret_key,
     aws_application_form_access_key => $aws_application_form_access_key,
     aws_application_form_secret_key => $aws_application_form_secret_key,
+    environment                     => $environment,
   }
 
   licensify::build_clean { 'licensify-feed': }

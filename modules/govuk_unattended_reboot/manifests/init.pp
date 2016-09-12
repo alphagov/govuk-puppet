@@ -13,6 +13,13 @@
 #   A hash containing a `username` and a `password` to access monitoring
 #   which is protected by basic authentication.
 #
+# === Variables
+#
+# [*lock_dir*]
+#   path => /etc/unattended-reboot/no-reboot/
+#   The directory in which a process places a file while in progress to
+#   prevent the host from rebooting.
+#
 class govuk_unattended_reboot (
   $enabled = false,
   $monitoring_basic_auth = {},
@@ -57,6 +64,24 @@ class govuk_unattended_reboot (
     group   => 'root',
     content => template("govuk_unattended_reboot${check_scripts_directory}/01_alerts.erb"),
     require => File['/usr/local/bin/check_icinga'],
+  }
+
+  $lock_dir = "${config_directory}/no-reboot"
+
+  file { $lock_dir:
+    ensure => $directory_ensure,
+    mode   => '0777',
+    owner  => 'root',
+    group  => 'root',
+  }
+
+  file { '03_no_reboot':
+    ensure  => $file_ensure,
+    path    => "${check_scripts_directory}/03_no_reboot",
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+    content => template('govuk_unattended_reboot/03_no_reboot.erb'),
   }
 
   file { '/usr/local/bin/check_icinga':

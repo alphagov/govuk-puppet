@@ -11,6 +11,7 @@ NAGIOS_MESSAGE="CRITICAL: Mongodb backup push to S3 failed"
 BACKUP_NODE=<%= @backup_node %>
 BACKUP_DIR=<%= @backup_dir %>
 BACKUP_FILE=mongodump-<%= @fqdn %>.$(date +%F_%T).tar.gz.gpg
+LOCK_FILE=/etc/unattended-reboot/no-reboot/mongodb-s3backup
 KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
 S3_BUCKET=<%= @s3_bucket %>/<%= @fqdn %>/
 S3_BUCKET_DAILY=<%= @s3_bucket_daily %>/<%= @fqdn %>/
@@ -21,9 +22,10 @@ function nagios_passive () {
 printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 
-# Remove any tarballs created as a result of running this script regardless of the exit status
+# Remove any tarballs and/or locks created as a result of running this script regardless of the exit status
 function housekeeping() {
   /bin/rm -f $BACKUP_DIR/mongodump-*
+  /bin/rm -f $LOCK_FILE
 }
 
 function exit_trap() {

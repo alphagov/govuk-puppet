@@ -25,6 +25,8 @@ define licensify::apps::envvars(
   $aws_ses_secret_key,
   $aws_application_form_access_key,
   $aws_application_form_secret_key,
+  $environment,
+  $aws_application_form_bucket_name = 'govuk-licensing-application-forms'
 ) {
 
   Govuk::App::Envvar {
@@ -43,6 +45,12 @@ define licensify::apps::envvars(
     value   => $aws_ses_secret_key,
   }
 
+  $bucket_name = "${aws_application_form_bucket_name}-${environment}"
+
+  govuk::app::envvar { "${app}-APPLICATION_FORM_BUCKET_NAME":
+    varname => 'APPLICATION_FORM_BUCKET_NAME',
+    value   => $bucket_name,
+  }
   govuk::app::envvar { "${app}-APPLICATION_FORM_AWS_ACCESS_KEY_ID":
     varname => 'APPLICATION_FORM_AWS_ACCESS_KEY_ID',
     value   => $aws_application_form_access_key,

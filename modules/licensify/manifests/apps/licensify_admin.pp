@@ -5,13 +5,16 @@ class licensify::apps::licensify_admin(
   $aws_ses_secret_key = '',
   $aws_application_form_access_key = '',
   $aws_application_form_secret_key = '',
+  $environment = '',
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify-admin':
-    app_type          => 'procfile',
-    port              => $port,
-    health_check_path => '/login',
-    require           => File['/etc/licensing'],
+    app_type                       => 'procfile',
+    port                           => $port,
+    health_check_path              => '/login',
+    require                        => File['/etc/licensing'],
+    proxy_http_version_1_1_enabled => true,
+    log_format_is_json             => true,
   }
 
   licensify::apps::envvars { 'licensify-admin':
@@ -20,6 +23,7 @@ class licensify::apps::licensify_admin(
     aws_ses_secret_key              => $aws_ses_secret_key,
     aws_application_form_access_key => $aws_application_form_access_key,
     aws_application_form_secret_key => $aws_application_form_secret_key,
+    environment                     => $environment,
   }
 
   licensify::build_clean { 'licensify-admin': }

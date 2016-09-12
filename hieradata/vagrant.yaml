@@ -94,6 +94,7 @@ govuk::node::s_frontend_lb::performance_frontend_apps:
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '127.0.0.1'
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_staging

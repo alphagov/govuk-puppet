@@ -12,6 +12,10 @@
 # [*nagios_memory_critical*]
 #   Memory use, in MB, at which Nagios should generate a critical alert.
 #
+# [*proxy_http_version_1_1_enabled*]
+#   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
+#   to the app server.
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -28,7 +32,6 @@ define govuk::app::config (
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
   $json_health_check = false,
-  $intercept_errors = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $logstream = present,
@@ -45,6 +48,7 @@ define govuk::app::config (
   $ensure = 'present',
   $depends_on_nfs = false,
   $read_timeout = 15,
+  $proxy_http_version_1_1_enabled = false,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -175,24 +179,24 @@ define govuk::app::config (
 
     # Expose this application from nginx
     govuk::app::nginx_vhost { $title:
-      ensure                  => $ensure,
-      vhost                   => $vhost_full,
-      aliases                 => $vhost_aliases_real,
-      protected               => $vhost_protected,
-      custom_http_host        => $custom_http_host,
-      app_port                => $port,
-      ssl_only                => $vhost_ssl_only,
-      nginx_extra_config      => $nginx_extra_config,
-      nginx_extra_app_config  => $nginx_extra_app_config,
-      intercept_errors        => $intercept_errors,
-      deny_framing            => $deny_framing,
-      logstream               => $logstream,
-      asset_pipeline          => $asset_pipeline,
-      asset_pipeline_prefix   => $asset_pipeline_prefix,
-      hidden_paths            => $hidden_paths,
-      read_timeout            => $read_timeout,
-      alert_5xx_warning_rate  => $alert_5xx_warning_rate,
-      alert_5xx_critical_rate => $alert_5xx_critical_rate,
+      ensure                         => $ensure,
+      vhost                          => $vhost_full,
+      aliases                        => $vhost_aliases_real,
+      protected                      => $vhost_protected,
+      custom_http_host               => $custom_http_host,
+      app_port                       => $port,
+      ssl_only                       => $vhost_ssl_only,
+      nginx_extra_config             => $nginx_extra_config,
+      nginx_extra_app_config         => $nginx_extra_app_config,
+      deny_framing                   => $deny_framing,
+      logstream                      => $logstream,
+      asset_pipeline                 => $asset_pipeline,
+      asset_pipeline_prefix          => $asset_pipeline_prefix,
+      hidden_paths                   => $hidden_paths,
+      read_timeout                   => $read_timeout,
+      alert_5xx_warning_rate         => $alert_5xx_warning_rate,
+      alert_5xx_critical_rate        => $alert_5xx_critical_rate,
+      proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     }
   }
   $title_underscore = regsubst($title, '\.', '_', 'G')
@@ -287,6 +291,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_unicorn_ruby_version!${title}",
       service_description => "${title} is not running the expected ruby version",
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url('ruby-version', true),
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":

@@ -22,7 +22,6 @@ deployable_applications: &deployable_applications
   - courts-api
   - courts-frontend
   - designprinciples
-  - dfid-transition
   - EFG
   - email-alert-api
   - email-alert-frontend
@@ -80,9 +79,6 @@ deployable_applications: &deployable_applications
   - static
   - support
   - support-api
-  - trade-tariff-admin
-  - trade-tariff-backend
-  - trade-tariff-frontend
   - transition
   - travel-advice-publisher
   - whitehall
@@ -298,11 +294,6 @@ govuk::apps::frontend::nagios_memory_critical: 1400
 
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
-govuk::apps::dfid_transition::enabled: true
-govuk::apps::dfid_transition::enable_procfile_worker: true
-govuk::apps::dfid_transition::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::dfid_transition::redis_port: "%{hiera('sidekiq_port')}"
-
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -402,8 +393,6 @@ govuk::apps::share_sale_publisher::enabled: true
 
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_port: "%{hiera('govuk::apps::content_tagger::redis_port')}"
-govuk::apps::sidekiq_monitoring::dfid_transition_redis_host: "%{hiera('govuk::apps::dfid_transition::redis_host')}"
-govuk::apps::sidekiq_monitoring::dfid_transition_redis_port: "%{hiera('govuk::apps::dfid_transition::redis_port')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_port: "%{hiera('govuk::apps::email_alert_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::email_campaign_api_redis_host: "%{hiera('govuk::apps::email_campaign_api::redis_host')}"
@@ -455,6 +444,8 @@ govuk::apps::smartanswers::nagios_memory_warning: 4000
 govuk::apps::smartanswers::nagios_memory_critical: 4500
 
 govuk::apps::stagecraft::enabled: true
+govuk::apps::stagecraft::database_password: "%{hiera('govuk::apps::stagecraft::postgresql_db::password')}"
+govuk::apps::stagecraft::message_queue_password: "%{hiera('govuk::apps::stagecraft::rabbitmq::amqp_pass')}"
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
@@ -490,14 +481,16 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::node::s_licensify_lb::backend_app_servers:
-  - 'licensify-backend-1.licensify'
-  - 'licensify-backend-2.licensify'
+  - 'licensing-backend-1.licensify'
+  - 'licensing-backend-2.licensify'
 govuk::node::s_licensify_lb::frontend_app_servers:
-  - 'licensify-frontend-1.licensify'
-  - 'licensify-frontend-2.licensify'
+  - 'licensing-frontend-1.licensify'
+  - 'licensing-frontend-2.licensify'
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
+govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_sshkeys::deployment_keys:
@@ -776,6 +769,12 @@ hosts::production::backend::hosts:
       - 'transition-slave.postgresql'
   transition-postgresql-slave-2:
     ip: '10.1.11.61'
+  transition-postgresql-primary-1:
+    ip: '10.1.3.160'
+  transition-postgresql-standby-1:
+    ip: '10.1.3.161'
+  transition-postgresql-standby-2:
+    ip: '10.1.11.161'
   whitehall-backend-1:
     ip: '10.1.3.25'
   whitehall-backend-2:
@@ -804,7 +803,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'contentapi'
   - 'content-tagger'
-  - 'dfid-transition'
   - 'email-alert-api'
   - 'errbit'
   - 'event-store'
@@ -831,8 +829,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild-standalone'
   - 'support'
   - 'support-api'
-  - 'tariff-admin'
-  - 'tariff-api'
   - 'transition'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
@@ -910,7 +906,6 @@ hosts::production::frontend::app_hostnames:
   - 'spotlight'
   - 'specialist-frontend'
   - 'static'
-  - 'tariff'
   - 'whitehall-frontend'
 
 hosts::production::licensify::hosts:
@@ -1155,6 +1150,8 @@ postgresql_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.13/32"
 postgresql_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.13/32"
 postgresql_transition_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.61/32"
 postgresql_transition_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.61/32"
+postgresql_transition_standby_addresses_live: "%{hiera('environment_ip_prefix')}.3.61/32"
+postgresql_transition_standby_addresses_dr: "%{hiera('environment_ip_prefix')}.11.61/32"
 
 postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
@@ -1217,7 +1214,6 @@ router::assets_origin::asset_routes:
   '/specialist-frontend/': "specialist-frontend"
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
-  '/tariff/': "tariff"
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'

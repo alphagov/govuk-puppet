@@ -73,23 +73,6 @@ describe 'govuk::app::config', :type => :define do
       it { is_expected.not_to contain_nginx__config__vhost__proxy('giraffe.example.com') }
     end
 
-    context 'with intercept_errors true' do
-      let(:params) do
-        {
-          :port => 8000,
-          :app_type => 'rack',
-          :domain => 'example.com',
-          :vhost_full => 'giraffe.example.com',
-          :intercept_errors => true,
-        }
-      end
-
-      it do
-        is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com')
-          .with_intercept_errors(true)
-      end
-    end
-
     context 'with unicorn_herder_timeout and app_type rack' do
       let(:params) do
         {

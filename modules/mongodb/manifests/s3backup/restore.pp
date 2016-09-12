@@ -39,13 +39,14 @@ class mongodb::s3backup::restore(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $env_dir = '/etc/mongo_s3backup',
-  $s3_bucket  = undef,
+  $s3_bucket  = $::mongodb::s3backup::backup::s3_bucket,
   $backup_dir = '/var/lib/s3backup',
   $user = 'govuk-backup',
   $cron = false
 ){
 
   include ::backup::client
+  contain ::mongodb::s3backup::package
 
   file { '/usr/local/bin/mongodb-restore-s3':
     ensure  => file,
@@ -53,7 +54,7 @@ class mongodb::s3backup::restore(
     mode    => '0770',
     owner   => $user,
     group   => $user,
-    require => Class[mongodb::s3backup::package],
+    require => Class['::mongodb::s3backup::package'],
   }
 
 }

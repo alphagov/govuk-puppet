@@ -67,20 +67,6 @@ describe 'nginx::config::vhost::proxy', :type => :define do
 
   end
 
-  context 'with intercept_errors true' do
-    let(:params) do
-      {
-        :to => ['a.internal'],
-        :intercept_errors => true,
-      }
-    end
-
-    it 'should intercept errors' do
-      is_expected.to contain_nginx__config__site('rabbit')
-        .with_content(/proxy_intercept_errors on;/)
-    end
-  end
-
   context 'with deny_framing true' do
     let(:params) do
       {

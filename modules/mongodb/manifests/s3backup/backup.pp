@@ -67,6 +67,7 @@ class mongodb::s3backup::backup(
 ){
 
   include ::backup::client
+  include ::mongodb::s3backup::restore
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 

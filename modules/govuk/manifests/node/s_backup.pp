@@ -15,19 +15,13 @@
 #   Boolean indicating whether or not the email-campaign-api Mongo database
 #   should be backed up.
 #
-# [*backup_licensify*]
-#   Boolean indicating whether or not the Licensify Mongo database
-#   should be backed up.
-#
 class govuk::node::s_backup (
   $directories = {},
   $backup_efg = true,
   $backup_email_campaign = true,
-  $backup_licensify = true,
 ) inherits govuk::node::s_base {
 
   validate_bool($backup_efg)
-  validate_bool($backup_licensify)
 
   class {'backup::server':
     require => Govuk_mount['/data/backups'],
@@ -52,14 +46,6 @@ class govuk::node::s_backup (
     backup::directory {'backup_mysql_backups_efg_mysql':
       directory => '/var/lib/automysqlbackup/',
       fq_dn     => "efg-mysql-slave-1.efg.${app_domain}",
-      priority  => '002',
-    }
-  }
-
-  if $backup_licensify {
-    backup::directory {'backup_mongodb_backups_licensify_mongo':
-      directory => '/var/lib/automongodbbackup/',
-      fq_dn     => "licensify-mongo-1.licensify.${app_domain}",
       priority  => '002',
     }
   }

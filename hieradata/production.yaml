@@ -90,13 +90,13 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
   - govuk_jenkins::job::performance_platform_smokey
+  - govuk_jenkins::job::publishing_api_check_validity
   - govuk_jenkins::job::run_rake_task
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::search_fetch_analytics_data
   - govuk_jenkins::job::service_manual_rebuild_search_index
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
-  - govuk_jenkins::job::trade_tariff_reindex_elasticsearch
   - govuk_jenkins::job::transition_load_all_data
   - govuk_jenkins::job::transition_load_site_config
   - govuk_jenkins::job::transition_load_transition_stats_hits
@@ -190,6 +190,7 @@ govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.3.5.0/24'
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
@@ -388,6 +389,12 @@ hosts::production::backend::hosts:
       - 'transition-slave.postgresql'
   transition-postgresql-slave-2:
     ip: '10.3.11.61'
+  transition-postgresql-primary-1:
+    ip: '10.3.3.160'
+  transition-postgresql-standby-1:
+    ip: '10.3.3.161'
+  transition-postgresql-standby-2:
+    ip: '10.3.11.161'
   whitehall-backend-1:
     ip: '10.3.3.25'
   whitehall-backend-2:
@@ -578,6 +585,9 @@ hosts::production::router::hosts:
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
 
+licensify::apps::licensify_admin::environment: 'production'
+licensify::apps::licensify::environment: 'production'
+licensify::apps::licensify_feed::environment: 'production'
 #Do not enable this without speaking to Dai Vaughan first
 licensify::apps::licensing_web_forms::enabled: false
 
@@ -600,3 +610,6 @@ postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 shell::shell_prompt_string: 'production'
+
+mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-production'
+mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-production'

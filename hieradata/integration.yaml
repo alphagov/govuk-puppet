@@ -53,6 +53,7 @@ govuk_jenkins::config::admins:
   - anikahenke
   - bobwalker
   - brendanbutler
+  - carlosmartinez
   - carlosvilhena
   - carolinegreen
   - chrislee
@@ -64,6 +65,7 @@ govuk_jenkins::config::admins:
   - davidbasalla
   - davidsilva
   - davidsingleton
+  - dazahern
   - deanwilson
   - deborahchua
   - douglasroper
@@ -97,13 +99,13 @@ govuk_jenkins::config::admins:
   - richardboulton
   - rosafox
   - rubenarakelyan
-  - russellgarner
   - simonhughesdon
   - stevelaing
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
   - timblair
+  - tomridd
   - tomrussell
   - tomwhite
 
@@ -137,7 +139,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::whitehall_update_integration_data
 govuk_jenkins::job_builder::environment: 'integration'
 
-govuk_jenkins::job::deploy_licensify::alphagov_deployment_branch: 'master'
 govuk_jenkins::job::deploy_puppet::commitish: 'integration'
 
 govuk_jenkins::job::network_config_deploy::environments:
@@ -216,13 +217,7 @@ govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_backend::java8: true
 govuk::node::s_licensify_frontend::java8: true
-govuk::node::s_licensify_lb::backend_app_servers:
-  - 'licensing-backend-1.licensify'
-  - 'licensing-backend-2.licensify'
 govuk::node::s_licensify_lb::enable_feed_console: true
-govuk::node::s_licensify_lb::frontend_app_servers:
-  - 'licensing-frontend-1.licensify'
-  - 'licensing-frontend-2.licensify'
 govuk::node::s_licensify_mongo::licensify_mongo_encrypted: false
 govuk::node::s_logging::compress_srv_logs_hour: '9'
 govuk::node::s_monitoring::offsite_backups: false
@@ -230,6 +225,7 @@ govuk::node::s_mysql_master::s3_bucket_name: 'govuk-mysql-xtrabackups-production
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
@@ -255,6 +251,9 @@ hosts::production::licensify_hosts:
 
 icinga::client::check_cputype::cputype: 'amd'
 
+licensify::apps::licensify_admin::environment: 'integration'
+licensify::apps::licensify::environment: 'integration'
+licensify::apps::licensify_feed::environment: 'integration'
 licensify::apps::licensing_web_forms::enabled: true
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-integration'
@@ -279,8 +278,10 @@ users::usernames:
   - alextorrance
   - andrewgarner
   - anikahenke
+  - bevanloon
   - bob
   - brendanbutler
+  - carlosmartinez
   - carlosvilhena
   - carolinegreen
   - chrislee
@@ -291,6 +292,7 @@ users::usernames:
   - davidbasalla
   - davidsilva
   - davidsingleton
+  - dazahern
   - deanwilson
   - deborahchua
   - douglasroper
@@ -326,7 +328,6 @@ users::usernames:
   - robinwhittleton
   - rosafox
   - rubenarakelyan
-  - russellgarner
   - simonhughesdon
   - stevelaing
   - tatianasoukiassian
@@ -334,5 +335,6 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomhipkin
+  - tomridd
   - tomrussell
   - tomwhite

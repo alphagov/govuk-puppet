@@ -27,9 +27,6 @@
 # [*extra_app_config*]
 #   A string containing additional nginx config for the `app` location block
 #
-# [*intercept_errors*]
-#   Boolean, whether to set nginx's `proxy_intercept_errors`
-#
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
@@ -75,6 +72,10 @@
 # [*alert_5xx_critical_rate*]
 #   The error percentage that triggers a critical alert
 #
+# [*proxy_http_version_1_1_enabled*]
+#   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
+#   to the app server.
+#
 define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
@@ -82,7 +83,6 @@ define nginx::config::vhost::proxy(
   $custom_http_host = undef,
   $extra_config = '',
   $extra_app_config = '',
-  $intercept_errors = false,
   $deny_framing = false,
   $protected = true,
   $protected_location = '/',
@@ -97,6 +97,7 @@ define nginx::config::vhost::proxy(
   $ensure = 'present',
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
+  $proxy_http_version_1_1_enabled = false,
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
