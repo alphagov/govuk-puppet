@@ -29,10 +29,6 @@
                 TARGET_APPLICATION=<%= app %>
                 DEPLOY_TASK=deploy:migrate_and_hard_restart
             <%- end -%>
-            - project: Deploy_App
-              predefined-parameters: |
-                TARGET_APPLICATION=specialist-publisher
-                DEPLOY_TASK=deploy:migrations
             <%- %w{ govuk_delivery_configure_integration_catchall_feed transition_run_database_migrations }.each do |job| -%>
             - project: <%= job %>
               condition: 'SUCCESS'
