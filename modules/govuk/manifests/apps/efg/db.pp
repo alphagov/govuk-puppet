@@ -1,13 +1,20 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: Govuk::Apps::Efg::Db
+#
+# Create the EFG application database
+#
+# === Parameters
+#
+# [*mysql_password*]
+#   The MySQL password for the 'efg_production' database
+#
 class govuk::apps::efg::db (
-  $mysql_efg = '',
-  $mysql_efg_il0 = ''
+  $mysql_password = '',
 ){
 
   mysql::db { 'efg_production':
     user     => 'efg',
     host     => '%',
-    password => $mysql_efg,
+    password => $mysql_password,
   }
 
   # Previously in 9c8eff3 we were creating two mysql::db with the same user (efg@%) but two different passwords.
