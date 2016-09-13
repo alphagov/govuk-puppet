@@ -17,6 +17,8 @@ process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager]
 process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, :asset_manager]
 process :'content-store'
+# Example usage: bowl [your-app] dummy-content-store --without content-store
+process :'dummy-content-store'
 process :'content-tagger' => [:'publishing-api', :'content-tagger-sidekiq']
 process :'draft-content-store'
 process :designprinciples => :static
