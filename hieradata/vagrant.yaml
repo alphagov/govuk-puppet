@@ -160,7 +160,9 @@ ssh::config::allow_users:
 users::usernames:
   - null_user
 
-mongodb::s3backup::backup::s3_bucket : 'example-s3-bucket'
+mongodb::backup::s3_backups: true
+mongodb::s3backup::backup::s3_bucket: 'example-s3-bucket'
+mongodb::s3backup::backup::s3_bucket_daily: 'example-s3-bucket-daily'
 # Randomly generated GPG key. Generate your own and encrypt
 # this key when using against real data
 mongodb::s3backup::backup::private_gpg_key: |
@@ -201,4 +203,3 @@ mongodb::s3backup::backup::private_gpg_key: |
   -----END PGP PRIVATE KEY BLOCK-----
 
 mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
-mongodb::s3backup::backup::standalone: 'True'
