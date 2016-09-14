@@ -68,6 +68,6 @@ log "user.info" "Finished synchronising to GOV.UK mirrors"
 
 if [ $EXITCODE -eq 0 ]; then
   NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully"
+  NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully (took ${DURATION_UPLOAD}ms )"
 fi
 exit $EXITCODE
