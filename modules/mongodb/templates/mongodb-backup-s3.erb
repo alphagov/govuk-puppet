@@ -43,7 +43,7 @@ printf "BACKUP COMPLETED IN: ${TIME}s\n"
 
 # Compress and encrypt backup
 TIME="$(date +%s)"
-(/bin/tar cvz $BACKUP_DIR | /usr/bin/gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT)
+(/bin/tar cvz $BACKUP_DIR --exclude=lost+found | /usr/bin/gpg -e -o $BACKUP_DIR/$BACKUP_FILE -r $KEY_FINGERPRINT)
 TIME="$(($(date +%s)-TIME))"
 printf "COMPRESSION AND ENCRYPTION FINISHED IN: ${TIME}s\n"
 
