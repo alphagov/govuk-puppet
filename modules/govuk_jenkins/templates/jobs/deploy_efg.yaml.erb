@@ -1,0 +1,79 @@
+---
+- scm:
+    name: alphagov-deployment_Deploy_App
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-app-deployment.git
+            branches:
+              - master
+            wipe-workspace: true
+
+- job:
+    name: Deploy_EFG
+    display-name: Deploy_EFG
+    project-type: freestyle
+    description: "<% if @environment != 'integration' %><a href=\"http://www.flickr.com/photos/fatty/9158066939/\">\r\n  <img src=\"https://farm3.staticflickr.com/2835/9158066939_374360ed56_n.jpg\">\r\n</a>\r\n<% end %><h2>You can monitor the application health using the <a href=\"https://grafana.<%= @app_domain %>/#/dashboard/file/application_http_error_codes.json\">4XX and 5XX status dashboard</a></h2>\r\n"
+    <%- if @auth_token -%>
+    auth-token: <%= @auth_token %>
+    <%- end -%>
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-app-deployment
+    scm:
+      - alphagov-deployment_Deploy_App
+    builders:
+        - shell: |
+            #!/usr/bin/env bash
+            export DEPLOY_TO="<%= @environment -%>"
+            export DEPLOY_TASK="$DEPLOY_TASK"
+            export TAG="$TAG"
+            export ORGANISATION="<%= @environment -%>"
+            export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
+
+            if [ "$DEPLOY_FROM_GITHUB_ENTERPRISE" == "true" ]; then
+              export GIT_ORIGIN_PREFIX="git@github.gds:gds-production-backup"
+            fi
+
+            ./jenkins.sh
+        - trigger-parameterized-builds:
+            - project: Deploy_EFG
+              predefined-parameters: |
+                TARGET_APPLICATION=efg-training
+                TARGET_APPLICATION_GIT_REPO=$WORKSPACE/EFG
+              condition: 'UNSTABLE_OR_BETTER'
+    publishers:
+        - trigger:
+            project: Smokey
+        - trigger-parameterized-builds:
+            - project: GDS_Production_Backup, service-manual_rebuild_search_index
+              predefined-parameters: |
+                TARGET_APPLICATION=$TARGET_APPLICATION
+                TARGET_APPLICATION_GIT_REPO=$WORKSPACE/$TARGET_APPLICATION
+              condition: 'SUCCESS'
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
+    parameters:
+        - choice:
+            name: TARGET_APPLICATION
+            description: Application to deploy.
+            choices:
+                - EFG
+        - choice:
+            name: DEPLOY_TASK
+            description: Capistrano task to run.
+            choices:
+                - deploy
+                - deploy:migrate_and_hard_restart
+                - deploy:migrations
+                - deploy:hard_restart
+        - string:
+            name: TAG
+            description: Git tag/committish to deploy.
+            default: release
+        - bool:
+            name: DEPLOY_FROM_GITHUB_ENTERPRISE
+            default: false
+            description: Whether to deploy from GitHub Enterprise in case public GitHub is unavailable
