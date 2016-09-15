@@ -13,6 +13,12 @@
 # [*ssl_certtype*]
 #   Which certificate EFG should use in each environment
 #
+# [*devise_pepper*]
+#   The key used to encrypt passwords for Devise, passed in as an environment variable
+#
+# [*devise_secret_key*]
+#   The secret_key setting for Devise, passed in as an environment variable
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -23,6 +29,8 @@ class govuk::apps::efg (
   $port = '3019',
   $ssl_certtype,
   $vhost_name,
+  $devise_pepper = undef,
+  $devise_secret_key = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
@@ -37,9 +45,20 @@ class govuk::apps::efg (
     nagios_memory_critical => $nagios_memory_critical,
   }
 
-  govuk::app::envvar { 'EFG_HOST':
-    app   => 'efg',
-    value => $vhost_name,
+  Govuk::App::Envvar {
+    app => 'efg',
+  }
+
+  govuk::app::envvar {
+    "${title}-EFG_HOST":
+      varname => 'EFG_HOST',
+      value   => $vhost_name;
+    "${title}-DEVISE_PEPPER":
+      varname => 'DEVISE_PEPPER',
+      value   => $devise_pepper;
+    "${title}-DEVISE_SECRET_KEY":
+      varname => 'DEVISE_SECRET_KEY',
+      value   => $devise_secret_key;
   }
 
   nginx::config::vhost::proxy { $vhost_name:
