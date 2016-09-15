@@ -63,7 +63,11 @@ sub vcl_recv {
   # Don't waste our internal cache on uploaded assets (large) which are
   # typically cached for a long time at the CDN edge.
   if (req.url ~ "^/government/uploads/") {
-    return(pass);
+    if (req.request == "PURGE") {
+      error 200 "Path excluded from varnish";
+    } else {
+      return(pass);
+    }
   }
 
   # Serve stale period. This is the period for which Varnish is *allowed* to
