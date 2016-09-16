@@ -61,6 +61,7 @@ business-support-api:  govuk_setenv business-support-api  ./run_in.sh ../busines
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
 # finder-api used to use port 3063
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../specialist-publisher bundle exec foreman start
+manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../manuals-publisher bundle exec foreman start
 specialist-frontend:   govuk_setenv specialist-frontend   ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../content-store  bundle exec rails s -p 3068
 # content-store will also uses 3069
