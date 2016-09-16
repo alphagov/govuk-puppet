@@ -7,9 +7,6 @@ class govuk::node::s_whitehall_mysql_slave inherits govuk::node::s_base {
     tmp_table_size        => '256M',
     max_heap_table_size   => '256M',
     innodb_file_per_table => true,
-    # FIXME
-    # Slow query log is turned ON for a short period of analysis.
-    slow_query_log        => true,
   }
   include govuk_mysql::server::slave
 
