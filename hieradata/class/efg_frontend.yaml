@@ -2,6 +2,7 @@
 
 govuk::node::s_base::apps:
   - efg
+  - efg_training
 
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'There is only one EFG frontend'
