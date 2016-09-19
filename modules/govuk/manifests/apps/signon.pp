@@ -12,6 +12,9 @@
 #   Whether to enable the procfile worker. Typically used to disable the worker
 #   on the dev VM.
 #
+# [*devise_pepper*]
+#   The pepper used by Devise to encrypt passwords more strongly.
+#
 # [*devise_secret_key*]
 #   The secret key used by Devise to generate random tokens.
 #
@@ -35,6 +38,7 @@
 class govuk::apps::signon(
   $port = '3016',
   $enable_procfile_worker = true,
+  $devise_pepper = undef,
   $devise_secret_key = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -64,11 +68,13 @@ class govuk::apps::signon(
     enable_service => $enable_procfile_worker,
   }
 
-  if $devise_secret_key != undef {
-    govuk::app::envvar { "${title}-DEVISE_SECRET_KEY":
+  govuk::app::envvar {
+    "${title}-DEVISE_PEPPER":
+      varname => 'DEVISE_PEPPER',
+      value   => $devise_pepper;
+    "${title}-DEVISE_SECRET_KEY":
       varname => 'DEVISE_SECRET_KEY',
-      value   => $devise_secret_key,
-    }
+      value   => $devise_secret_key;
   }
 
   govuk::app::envvar::redis { $app_name:
