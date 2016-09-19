@@ -61,6 +61,10 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*rabbitmq_password*]
+#   A password to connect to RabbitMQ:
+#   https://github.com/alphagov/publishing-api/blob/master/config/rabbitmq.yml
+#
 class govuk::apps::publishing_api(
   $port = '3093',
   $content_store = '',
@@ -77,6 +81,7 @@ class govuk::apps::publishing_api(
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $rabbitmq_password = undef,
 ) {
   $app_name = 'publishing-api'
 
@@ -121,6 +126,9 @@ class govuk::apps::publishing_api(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-RABBITMQ_PASSWORD":
+      varname => 'RABBITMQ_PASSWORD',
+      value   => $rabbitmq_password;
   }
 
   govuk_logging::logstream { 'publishing_api_sidekiq_json_log':
