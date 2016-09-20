@@ -1,7 +1,19 @@
+# == Class: govuk::node::s_efg_mysql_master
+#
 # Configure a MySQL Master server for EFG
-class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
-  $replica_password = hiera('mysql_replica_password', '')
-  $root_password = hiera('mysql_root', '')
+#
+# === Parameters
+#
+# [*replica_password*]
+#   MySQL replication password
+#
+# [*root_password*]
+#   MySQL root password
+#
+class govuk::node::s_efg_mysql_master (
+  $replica_password,
+  $root_password,
+) inherits govuk::node::s_base {
 
   class { 'govuk_mysql::server':
     root_password => $root_password,
