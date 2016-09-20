@@ -42,14 +42,15 @@ my $exit_value = $ERRORS{'UNKNOWN'} ;
 
 my %options=();
 
-getopts("j:", \%options);
+getopts("i:j:", \%options);
 
-if (scalar(keys(%options))<1 )
+if ($options{'j'} eq "")
 {
   show_usage();
 }
 
 my $jobName = $options{'j'};
+my $jobInstance = $options{'i'};
 my $exit_value_human="";
 my $retval;
 my $goal;
@@ -57,6 +58,11 @@ my $state;
 
 #Run command and get result
 my $cmd = "status $jobName";
+
+if (length $jobInstance)
+{
+  $cmd = "$cmd $jobInstance";
+}
 $retval = `$cmd`;
 
 #Get return code
@@ -154,6 +160,7 @@ sub show_usage
   print "./check_upstart_status.pl -j jobName\n";
   print "\n";
   print "-j jobName\t\t The name of the upstart job you want to check\n";
+  print "-i jobInstance\t\t (optional) The instance of the job, e.g. INDEX=1\n";
   print "\n\n";
 
   exit $exit_value;

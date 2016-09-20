@@ -14,19 +14,25 @@
 #
 # [*process_type*]
 #   The type of process to spawn, defined in the application's Procfile.
-#   This variable is used by the govuk/procfile-worker.conf.erb template.
+#   This variable is used by the govuk/procfile-worker_child.conf.erb template.
 #   Default: 'worker'
 #
 # [*setenv_as*]
 #   The application name to use when calling `govuk_setenv`.
-#   This variable is used by the govuk/procfile-worker.conf.erb template.
+#   This variable is used by the govuk/procfile-worker_child.conf.erb template.
 #   Default: $title
+#
+# [*process_count*]
+#   The number of instances to run of this procfile worker.
+#   This variable is used by the govuk/procfile-worker.conf.erb template.
+#   Default: 1
 #
 define govuk::procfile::worker (
   $enable_service = true,
   $ensure = present,
   $process_type = 'worker',
   $setenv_as = $title,
+  $process_count = 1,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
@@ -42,13 +48,21 @@ define govuk::procfile::worker (
       subscribe => Class['Govuk::Procfile'],
     }
 
+    file { "/etc/init/${service_name}_child.conf":
+      ensure    => present,
+      content   => template('govuk/procfile-worker_child.conf.erb'),
+      notify    => Service[$service_name],
+      subscribe => Class['Govuk::Procfile'],
+    }
+
     service { $service_name:
       ensure => $enable_service,
     }
 
     if $enable_service {
-      @@icinga::check { "check_app_${title}_procfile_worker_upstart_up_${::hostname}":
-        check_command       => "check_nrpe!check_upstart_status!${service_name}",
+      include icinga::client::check_procfile_workers
+      @@icinga::check { "check_app_${title}_procfile_workers_count_${::hostname}":
+        check_command       => "check_nrpe!check_procfile_workers!${service_name} ${process_count}",
         service_description => "${title} procfile worker upstart up",
         host_name           => $::fqdn,
       }
@@ -60,6 +74,11 @@ define govuk::procfile::worker (
     }
 
     file { "/etc/init/${service_name}.conf":
+      ensure  => absent,
+      require => Exec["stop_service_${service_name}"],
+    }
+
+    file { "/etc/init/${service_name}-child.conf":
       ensure  => absent,
       require => Exec["stop_service_${service_name}"],
     }

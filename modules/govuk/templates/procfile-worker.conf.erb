@@ -1,4 +1,4 @@
-description "Procfile background worker for <%= @title %>"
+description "Procfile background worker manager for <%= @title %>"
 
 start on runlevel [2345]
 stop on runlevel [!2345]
@@ -7,10 +7,23 @@ stop on runlevel [!2345]
 manual
 <%- end -%>
 
-respawn
+pre-start script
+    for inst in $(seq 1 <%= @process_count%>)
+    do
+        start <%= @service_name%>_child INDEX=$inst
+    done
+end script
 
-# If the app respawns more than 5 times in 20 seconds, it has deeper problems
-# and should be killed off.
-respawn limit 5 20
+post-stop script
+    for inst in $(initctl list | grep "^<%= @service_name%>_child " | awk '{print $2}' | tr -d ')' | tr -d '(')
+    do
+        stop <%= @service_name%>_child INDEX=$inst
+    done
 
-exec govuk_setenv <%= @setenv_as %> govuk_run_procfile_worker <%= @process_type %>
+    # For backwards compatibility, also see if this job has a running process and kill it
+    pids=$(initctl list | awk '/^<%= @service_name%> start\/running, process/ {print $4}')
+    for pid in $pids
+    do
+      kill $pid
+    done
+end script

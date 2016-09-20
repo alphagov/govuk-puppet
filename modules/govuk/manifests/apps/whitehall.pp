@@ -37,6 +37,7 @@ class govuk::apps::whitehall(
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $procfile_worker_process_count = 1,
 ) {
 
   $app_domain = hiera('app_domain')
@@ -191,6 +192,7 @@ class govuk::apps::whitehall(
     govuk::procfile::worker { 'whitehall-admin':
       setenv_as      => 'whitehall',
       enable_service => $enable_procfile_worker,
+      process_count  => $procfile_worker_process_count,
     }
 
     # FIXME: Remove this when Whitehall is using Rack 1.7
