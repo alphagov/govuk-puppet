@@ -20,14 +20,14 @@ class mongodb::s3backup::cron(
 
   # Here we use setlock to prevent the jobs from running asynchronously
   cron { 'mongodb-s3backup-realtime':
-    command => '/usr/bin/setlock -n /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3',
+    command => '/usr/bin/ionice -c 2 -n 6 /usr/bin/setlock -n /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3',
     user    => $user,
     hour    => $realtime_hour,
     minute  => $realtime_minute,
   }
 
   cron { 'mongodb-s3-night-backup':
-    command => '/usr/bin/setlock /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3 daily',
+    command => '/usr/bin/ionice -c 2 -n 6 /usr/bin/setlock /etc/unattended-reboot/no-reboot/mongodb-s3backup /usr/local/bin/mongodb-backup-s3 daily',
     user    => $user,
     hour    => $daily_hour,
     minute  => $daily_minute,
