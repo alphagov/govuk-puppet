@@ -488,6 +488,10 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
+# FIXME: EFG should use different MySQL passwords to our other MySQL machines
+govuk::node::s_efg_mysql_master::replica_password: "%{hiera('mysql_replica_password')}"
+govuk::node::s_efg_mysql_master::root_password: "%{hiera('mysql_root')}"
+
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend-1.licensify'
   - 'licensing-backend-2.licensify'

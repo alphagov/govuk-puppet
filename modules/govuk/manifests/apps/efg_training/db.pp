@@ -11,8 +11,8 @@ class govuk::apps::efg_training::db (
   $mysql_password = '',
 ){
 
-  mysql::db { 'efg_training':
-    user     => 'efg',
+  mysql::db { 'efg_training_production':
+    user     => 'efg_training',
     host     => '%',
     password => $mysql_password,
   }
