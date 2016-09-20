@@ -506,6 +506,10 @@ govuk::node::s_licensify_lb::frontend_app_servers:
   - 'licensing-frontend-1.licensify'
   - 'licensing-frontend-2.licensify'
 
+govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
+govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
+govuk::node::s_mysql_master::encryption_key: "${hiera('govuk::node::s_mysql_backup::encryption_key')}"
+
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
