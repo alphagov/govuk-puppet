@@ -14,5 +14,9 @@ class govuk::node::s_efg_mysql_master inherits govuk::node::s_base {
     require => Class['govuk_mysql::server'],
   }
 
+  class {'govuk::apps::efg_training::db':
+    require => Class['govuk_mysql::server'],
+  }
+
   Govuk_mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
 }
