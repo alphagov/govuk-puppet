@@ -5,6 +5,17 @@
 # [*user*]
 #   The user to run the cronjob as.
 #
+# [*realtime_hour*]
+#   The hour in which the realtime cron job will execute.
+#
+# [*realtime_minute*]
+#   The miniute in which the realtime cron job will execute.
+#
+# [*daily_hour*]
+#   The hour in which the daily cron job will execute.
+#
+# [*daily_minute*]
+#   The minute in which the daily cron job will execute.
 #
 class mongodb::s3backup::cron(
   $user = 'govuk-backup',
