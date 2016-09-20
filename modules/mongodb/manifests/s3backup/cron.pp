@@ -33,9 +33,4 @@ class mongodb::s3backup::cron(
     minute  => $daily_minute,
   }
 
-  # FIXME Please remove resource once merged
-  file { '/var/lock/mongodb-s3backup':
-    ensure => absent,
-  }
-
 }
