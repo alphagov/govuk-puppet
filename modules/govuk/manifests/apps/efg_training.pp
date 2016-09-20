@@ -38,7 +38,7 @@ class govuk::apps::efg_training (
   }
 
   govuk::app::envvar { 'Training_EFG_HOST':
-    app     => 'efg-training',
+    app     => 'efg_training',
     value   => $vhost_name,
     varname => 'EFG_HOST',
   }
