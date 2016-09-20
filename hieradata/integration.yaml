@@ -57,7 +57,6 @@ govuk_jenkins::config::admins:
   - carlosmartinez
   - carlosvilhena
   - carolinegreen
-  - chrispatuzzo
   - christopherbaines
   - ci_alphagov
   - daivaughan
@@ -285,7 +284,6 @@ users::usernames:
   - carlosmartinez
   - carlosvilhena
   - carolinegreen
-  - chrispatuzzo
   - christopherbaines
   - daivaughan
   - danielroseman
