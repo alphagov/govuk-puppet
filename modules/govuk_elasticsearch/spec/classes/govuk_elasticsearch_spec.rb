@@ -173,7 +173,7 @@ describe 'govuk_elasticsearch', :type => :class do
     end
   end
 
-  describe "disabling default http 9200 firewall rule" do
+  describe "firewall rules" do
     let(:params) {{
       :version => '1.7.0',
     }}
@@ -183,14 +183,14 @@ describe 'govuk_elasticsearch', :type => :class do
       "Ufw::Allow <| |>"
     }
 
-    it "should create the firewall by default" do
-      expect(subject).to contain_ufw__allow('allow-elasticsearch-http-9200-from-all')
+    it "should be closed by default" do
+      expect(subject).to have_ufw__allow_resource_count(0)
     end
 
-    it "should not create it when requested" do
-      params[:open_firewall_from_all] = false
+    it "should be open when requested" do
+      params[:open_firewall_from_all] = true
 
-      expect(subject).to have_ufw__allow_resource_count(0)
+      expect(subject).to contain_ufw__allow('allow-elasticsearch-http-9200-from-all')
     end
   end
 
