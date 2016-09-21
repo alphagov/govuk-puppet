@@ -28,7 +28,7 @@ class govuk::apps::efg_training (
 ) {
   validate_string($vhost_name)
 
-  $app_name = 'efg_training'
+  $app_name = 'efg-training'
 
   govuk::app { $app_name:
     app_type               => 'rack',
