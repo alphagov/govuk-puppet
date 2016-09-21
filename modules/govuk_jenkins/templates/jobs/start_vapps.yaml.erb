@@ -16,6 +16,8 @@
         Starts all vApps in vCloud Director.
         Requires vApps to be owned by the vCloud user that this script runs under,
         otherwise the vApps are not visible to the script.
+        This job is always safe to run and is the first thing to do if the
+        environment isn't working.
     project-type: freestyle
     properties:
         - inject:
