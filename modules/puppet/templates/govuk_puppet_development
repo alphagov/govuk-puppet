@@ -1,2 +1,12 @@
 #!/bin/sh
 exec sh /var/govuk/govuk-puppet/tools/puppet-apply-dev "$@"
+
+cat<<EOT
+
+Now puppet has finished if you want to upgrade your packages please run:
+
+    sudo /usr/bin/unattended-upgrades
+
+This may take a while and should run silently if there are no errors.
+
+EOT
