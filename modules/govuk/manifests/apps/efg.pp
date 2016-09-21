@@ -49,7 +49,9 @@ class govuk::apps::efg (
 ) {
   validate_string($vhost_name)
 
-  govuk::app { 'efg':
+  $app_name = 'efg'
+
+  govuk::app { $app_name:
     app_type               => 'rack',
     port                   => $port,
     enable_nginx_vhost     => false,
@@ -59,7 +61,7 @@ class govuk::apps::efg (
   }
 
   Govuk::App::Envvar {
-    app => 'efg',
+    app => $app_name,
   }
 
   govuk::app::envvar {
@@ -91,7 +93,7 @@ class govuk::apps::efg (
   }
 
   @@icinga::check::graphite { "check_efg_login_failures_${::hostname}":
-    target    => 'sumSeries(stats.govuk.app.efg.*.logins.failure)',
+    target    => "sumSeries(stats.govuk.${app_name}.efg.*.logins.failure)",
     warning   => 10,
     critical  => 15,
     desc      => 'EFG login failures',

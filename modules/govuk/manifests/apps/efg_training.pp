@@ -28,7 +28,9 @@ class govuk::apps::efg_training (
 ) {
   validate_string($vhost_name)
 
-  govuk::app { 'efg_training':
+  $app_name = 'efg_training'
+
+  govuk::app { $app_name:
     app_type               => 'rack',
     port                   => $port,
     enable_nginx_vhost     => false,
@@ -38,7 +40,7 @@ class govuk::apps::efg_training (
   }
 
   govuk::app::envvar { 'Training_EFG_HOST':
-    app     => 'efg_training',
+    app     => $app_name,
     value   => $vhost_name,
     varname => 'EFG_HOST',
   }
@@ -51,7 +53,7 @@ class govuk::apps::efg_training (
   }
 
   @@icinga::check::graphite { "check_efg_training_login_failures_${::hostname}":
-    target    => 'sumSeries(stats.govuk.app.efg_training.*.logins.failure)',
+    target    => "sumSeries(stats.govuk.app.${app_name}.*.logins.failure)",
     warning   => 10,
     critical  => 15,
     desc      => 'EFG_TRAINING login failures',
