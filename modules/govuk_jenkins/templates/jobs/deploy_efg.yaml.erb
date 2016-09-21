@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: alphagov-deployment_Deploy_App
+    name: alphagov-deployment_Deploy_EFG
     scm:
         - git:
             url: git@github.com:alphagov/govuk-app-deployment.git
@@ -12,15 +12,15 @@
     name: Deploy_EFG
     display-name: Deploy_EFG
     project-type: freestyle
-    description: "<% if @environment != 'integration' %><a href=\"http://www.flickr.com/photos/fatty/9158066939/\">\r\n  <img src=\"https://farm3.staticflickr.com/2835/9158066939_374360ed56_n.jpg\">\r\n</a>\r\n<% end %><h2>You can monitor the application health using the <a href=\"https://grafana.<%= @app_domain %>/#/dashboard/file/application_http_error_codes.json\">4XX and 5XX status dashboard</a></h2>\r\n"
-    <%- if @auth_token -%>
-    auth-token: <%= @auth_token %>
-    <%- end -%>
+    description: "This job will also trigger a deploy of efg-training"
     properties:
         - github:
             url: https://github.com/alphagov/govuk-app-deployment
+        - inject:
+            properties-content: |
+              TARGET_APPLICATION=efg
     scm:
-      - alphagov-deployment_Deploy_App
+      - alphagov-deployment_Deploy_EFG
     builders:
         - shell: |
             #!/usr/bin/env bash
@@ -35,32 +35,28 @@
             fi
 
             ./jenkins.sh
-        - trigger-parameterized-builds:
-            - project: Deploy_EFG
-              predefined-parameters: |
-                TARGET_APPLICATION=efg-training
-                TARGET_APPLICATION_GIT_REPO=$WORKSPACE/EFG
-              condition: 'UNSTABLE_OR_BETTER'
     publishers:
         - trigger:
             project: Smokey
         - trigger-parameterized-builds:
+            - project: Deploy_App
+              predefined-parameters: |
+                TARGET_APPLICATION=efg-training
+                DEPLOY_TASK=deploy
+                TAG=$TAG
+                DEPLOY_FROM_GITHUB_ENTERPRISE=false
+              condition: 'SUCCESS'
             - project: GDS_Production_Backup, service-manual_rebuild_search_index
               predefined-parameters: |
                 TARGET_APPLICATION=$TARGET_APPLICATION
                 TARGET_APPLICATION_GIT_REPO=$WORKSPACE/$TARGET_APPLICATION
-              condition: 'SUCCESS'
+              condition: 'UNSTABLE_OR_BETTER'
     wrappers:
         - ansicolor:
             colormap: xterm
         - build-name:
             name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
     parameters:
-        - choice:
-            name: TARGET_APPLICATION
-            description: Application to deploy.
-            choices:
-                - EFG
         - choice:
             name: DEPLOY_TASK
             description: Capistrano task to run.
