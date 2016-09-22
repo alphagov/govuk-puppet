@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<hudson.plugins.rake.Rake_-RakeDescriptor plugin="rake@1.8.0">
-  <installations/>
-  <rvm>
-    <path></path>
-  </rvm>
-</hudson.plugins.rake.Rake_-RakeDescriptor>

@@ -1,4 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildDescriptor plugin="groovy-postbuild@1.8">
-  <enableSecurity>false</enableSecurity>
-</org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildDescriptor>
