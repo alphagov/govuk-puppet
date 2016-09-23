@@ -46,6 +46,7 @@ deployable_applications: &deployable_applications
   - licencefinder
   - local-links-manager
   - manuals-frontend
+  - manuals-publisher
   - mapit
   - maslow
   - metadata-api
@@ -824,6 +825,7 @@ hosts::production::backend::app_hostnames:
   - 'kibana'
   - 'local-links-manager'
   - 'maslow'
+  - 'manuals-publisher'
   - 'need-api'
   - 'panopticon'
   - 'performanceplatform-admin'

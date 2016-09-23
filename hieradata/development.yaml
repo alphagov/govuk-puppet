@@ -59,6 +59,7 @@ govuk::node::s_development::apps:
   - 'licencefinder'
   - 'local_links_manager'
   - 'manuals_frontend'
+  - 'manuals_publisher'
   - 'mapit'
   - 'maslow'
   - 'metadata_api'
@@ -128,6 +129,9 @@ govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::imminence::redis_host: 'localhost'
 govuk::apps::kibana::elasticsearch_host: 'localhost'
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
+govuk::apps::manuals_publisher::enable_procfile_worker: false
+govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
+govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
 govuk::apps::multipage_frontend::enabled: true
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
@@ -271,6 +275,7 @@ hosts::development::apps:
   - 'licencefinder'
   - 'local-links-manager'
   - 'manuals-frontend'
+  - 'manuals-publisher'
   - 'mapit'
   - 'multipage-frontend'
   - 'maslow'

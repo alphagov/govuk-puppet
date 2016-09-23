@@ -112,6 +112,7 @@ class govuk::node::s_backend_lb (
       'content-tagger',
       'imminence',
       'local-links-manager',
+      'manuals-publisher',
       'maslow',
       'panopticon',
       'policy-publisher',
