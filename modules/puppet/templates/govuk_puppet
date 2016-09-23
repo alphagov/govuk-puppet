@@ -182,7 +182,7 @@ if [ "$locked" == 1 ];then
 fi
 
 set +e
-RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize $puppet_args
+RBENV_VERSION=2.1.8 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@"
 set -e
 
 TIME_TOOK=$((`date +%s%3N`-start_time))
