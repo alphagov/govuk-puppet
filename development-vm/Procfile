@@ -139,3 +139,4 @@ dfid-transition-worker: govuk_setenv dfid-transition ./run_in.sh ../dfid-transit
 # kibana: reserved 3202
 # # sidekiq-monitoring for travel-advice-publisher uses 3203
 # grafana: reserved 3204
+# manuals-publisher: reserved 3205
