@@ -51,7 +51,7 @@
 #   Default: 6379
 #
 class govuk::apps::manuals_publisher(
-  $port = 3064,
+  $port = 3205,
   $asset_manager_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
   $enable_procfile_worker = true,
