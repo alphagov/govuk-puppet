@@ -59,32 +59,18 @@ govuk_jenkins::plugins:
     version: '1.58'
   github-oauth:
     version: '0.19'
-  gradle:
-    version: '1.24'
   greenballs:
     version: '1.14'
-  groovy-postbuild:
-    version: '2.2'
-  instant-messaging:
-    version: '1.33'
-  ircbot:
-    version: '2.26'
   jquery:
     version: '1.7.2-1'
-  nodelabelparameter:
-    version: '1.5.1'
   parameterized-trigger:
     version: '2.26'
-  rake:
-    version: '1.8.0'
   rebuild:
     version: '1.22'
   role-strategy:
     version: '2.2.0'
   run-condition:
     version: '1.0'
-  sbt:
-    version: '1.5'
   scm-api:
     version: '0.2'
   scm-sync-configuration:
