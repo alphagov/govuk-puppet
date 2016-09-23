@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*port*]
-#   The port that publishing API is served on.
+#   The port that Manuals Publisher is served on.
 #   Default: 3064
 #
 # [*asset_manager_bearer_token*]
@@ -15,10 +15,6 @@
 # [*email_alert_api_bearer_token*]
 #   The bearer token to use when communicating with Email Alert API.
 #   Default: undef
-#
-# [*enabled*]
-#   Whether the app is enabled.
-#   Default: false
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
@@ -58,7 +54,6 @@ class govuk::apps::manuals_publisher(
   $port = 3064,
   $asset_manager_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
-  $enabled = false,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $mongodb_nodes,
@@ -72,59 +67,57 @@ class govuk::apps::manuals_publisher(
 ) {
   $app_name = 'manuals-publisher'
 
-  if $enabled {
-    govuk::app { $app_name:
-      app_type           => 'rack',
-      port               => $port,
-      health_check_path  => '/healthcheck',
-      log_format_is_json => true,
-      nginx_extra_config => 'client_max_body_size 500m;',
-    }
+  govuk::app { $app_name:
+    app_type           => 'rack',
+    port               => $port,
+    health_check_path  => '/healthcheck',
+    log_format_is_json => true,
+    nginx_extra_config => 'client_max_body_size 500m;',
+  }
 
-    Govuk::App::Envvar {
-      app => $app_name,
-    }
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
 
-    govuk::procfile::worker {'manuals-publisher':
-      enable_service => $enable_procfile_worker,
-    }
+  govuk::procfile::worker {'manuals-publisher':
+    enable_service => $enable_procfile_worker,
+  }
 
-    govuk::app::envvar::mongodb_uri { $app_name:
-      hosts    => $mongodb_nodes,
-      database => $mongodb_name,
-    }
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
+  }
 
-    govuk::app::envvar::redis { $app_name:
-      host => $redis_host,
-      port => $redis_port,
-    }
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
+  }
 
-    govuk::app::envvar {
-      "${title}-ASSET_MANAGER_BEARER_TOKEN":
-        varname => 'ASSET_MANAGER_BEARER_TOKEN',
-        value   => $asset_manager_bearer_token;
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
-      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
-        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
-        value   => $email_alert_api_bearer_token;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
-      "${title}-PUBLISHING_API_BEARER_TOKEN":
-        varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token;
-    }
+  govuk::app::envvar {
+    "${title}-ASSET_MANAGER_BEARER_TOKEN":
+      varname => 'ASSET_MANAGER_BEARER_TOKEN',
+      value   => $asset_manager_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+  }
 
-    if $secret_token != undef {
-      govuk::app::envvar { "${title}-SECRET_TOKEN":
-        varname => 'SECRET_TOKEN',
-        value   => $secret_token,
-      }
+  if $secret_token != undef {
+    govuk::app::envvar { "${title}-SECRET_TOKEN":
+      varname => 'SECRET_TOKEN',
+      value   => $secret_token,
     }
   }
 }
