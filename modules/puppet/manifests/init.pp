@@ -1,4 +1,13 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: puppet
+#
+# Sets up configuration management.
+#
+# === Parameters
+#
+# [*use_puppetmaster*]
+#   Whether this environment should be controlled by a master
+#   or should run from a local catalog.
+#
 class puppet (
     $use_puppetmaster = true
   ) {
