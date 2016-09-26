@@ -301,6 +301,9 @@ govuk::apps::frontend::nagios_memory_critical: 1400
 
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
+govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 
