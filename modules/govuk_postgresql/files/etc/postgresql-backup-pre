@@ -1,4 +1,8 @@
 #!/bin/bash
 
+
 # Log the time we started
 logger -t autopostgresqlbackup autopostgresqlbackup started
+
+#Prevent host from rebooting while backup is in progress...
+/usr/bin/touch /etc/unattended-reboot/no-reboot/autopostgresqlbackup.lock
