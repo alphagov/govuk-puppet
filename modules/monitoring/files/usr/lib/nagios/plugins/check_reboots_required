@@ -29,14 +29,14 @@ else
   if unsafe_machines.length > 0
     puts "\n"
     puts 'These hosts need to be rebooted manually:'
-    unsafe_machines.each do |hostname|
+    unsafe_machines.sort.each do |hostname|
       puts "- #{hostname}"
     end
   end
   if safe_machines.length > 0
     puts "\n"
     puts 'These hosts should reboot overnight:'
-    safe_machines.each do |hostname|
+    safe_machines.sort.each do |hostname|
       puts "- #{hostname}"
     end
   end
