@@ -68,6 +68,7 @@ govuk::node::s_base::apps:
   - imminence
   - kibana
   - local_links_manager
+  - manuals_publisher
   - maslow
   - need_api
   - panopticon
