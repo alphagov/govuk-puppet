@@ -94,14 +94,14 @@ define govuk_mysql::xtrabackup::backup (
   }
 
   cron::crondotdee { 'xtrabackup_s3_base':
-    command => '/usr/bin/setlock -N /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_base',
+    command => '/usr/bin/timeout 1h /usr/bin/setlock -N /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_base',
     hour    => $base_backup_cron_hour,
     minute  => $base_backup_cron_minute,
     mailto  => $mailto,
   }
 
   cron::crondotdee { 'xtrabackup_s3_incremental':
-    command => '/usr/bin/setlock -n /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_incremental',
+    command => '/usr/bin/timeout 30m /usr/bin/setlock -n /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_incremental',
     hour    => '*',
     minute  => $incremental_backup_cron_minute,
     mailto  => $mailto,
