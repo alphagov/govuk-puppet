@@ -93,6 +93,15 @@ class govuk::apps::manuals_publisher(
     port => $redis_port,
   }
 
+  # FIXME: This templated list of mongodb nodes is a temporary measure to allow
+  # us to run manuals publisher on earlier ruby versions as ruby 2.1 cannot
+  # parse the comma delimited MONGODB_URI var.
+  # Either MONGODB_URI or MONGODB_NODES should be removed from this module once
+  # we have resolved ruby version issues.
+  # Please talk to Steve Laing for more information.
+  $mongodb_nodes_template = '<%= @mongodb_nodes.map { |node| "- #{node}:27017" }.join("\n") %>'
+  $mongodb_nodes_string = inline_template($mongodb_nodes_template)
+
   govuk::app::envvar {
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
       varname => 'ASSET_MANAGER_BEARER_TOKEN',
@@ -103,6 +112,9 @@ class govuk::apps::manuals_publisher(
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
       varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
       value   => $email_alert_api_bearer_token;
+    "${title}-MONGODB_NODES":
+      varname => 'MONGODB_NODES',
+      value   => $mongodb_nodes_string;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
