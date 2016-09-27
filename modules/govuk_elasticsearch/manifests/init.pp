@@ -20,7 +20,6 @@
 #   Whether to add a firewall allow rule allowing all access to port 9200 (the
 #   main http port). Typically set to false to allow restricting access to
 #   specific machines.
-#   Default: true
 #
 # [*backup_enabled*]
 #   Boolean. Whether backup class will be included.
@@ -38,7 +37,7 @@ class govuk_elasticsearch (
   $log_index_type_count = {},
   $disable_gc_alerts = false,
   $manage_repo = true,
-  $open_firewall_from_all = true,
+  $open_firewall_from_all = false,
   $backup_enabled = false
 ) {
 

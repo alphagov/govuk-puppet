@@ -30,16 +30,17 @@ class govuk::node::s_logs_elasticsearch(
   ]
 
   class { 'govuk_elasticsearch':
-    cluster_hosts        => regsubst($cluster_hostnames, '^.*$', '\0.management:9300'),
-    cluster_name         => 'logging',
-    heap_size            => "${es_heap_size}m",
-    number_of_replicas   => '1',
-    host                 => $::fqdn,
-    log_index_type_count => {
+    cluster_hosts          => regsubst($cluster_hostnames, '^.*$', '\0.management:9300'),
+    cluster_name           => 'logging',
+    heap_size              => "${es_heap_size}m",
+    number_of_replicas     => '1',
+    host                   => $::fqdn,
+    log_index_type_count   => {
       'logs-current' => ['syslog'],
     },
-    disable_gc_alerts    => true,
-    require              => [
+    disable_gc_alerts      => true,
+    open_firewall_from_all => true,
+    require                => [
       Class['govuk_java::openjdk7::jre'],
       Govuk_mount['/mnt/elasticsearch']
     ],

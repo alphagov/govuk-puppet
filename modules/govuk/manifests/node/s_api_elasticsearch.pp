@@ -37,6 +37,22 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     require => Govuk_host['search-3'],
   }
 
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-calculators-frontend-1':
+    port    => 9200,
+    from    => getparam(Govuk_host['calculators-frontend-1'], 'ip'),
+    require => Govuk_host['calculators-frontend-1'],
+  }
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-calculators-frontend-2':
+    port    => 9200,
+    from    => getparam(Govuk_host['calculators-frontend-2'], 'ip'),
+    require => Govuk_host['calculators-frontend-2'],
+  }
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-calculators-frontend-3':
+    port    => 9200,
+    from    => getparam(Govuk_host['calculators-frontend-3'], 'ip'),
+    require => Govuk_host['calculators-frontend-3'],
+  }
+
   collectd::plugin::tcpconn { 'es-9200':
     incoming => 9200,
     outgoing => 9200,
