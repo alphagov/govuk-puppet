@@ -91,7 +91,6 @@ govuk::node::s_frontend_lb::performance_frontend_servers:
   - 'performance-frontend-2.frontend'
 govuk::node::s_frontend_lb::performance_frontend_apps:
   - 'spotlight'
-govuk::node::s_licensify_mongo::licensify_mongo_encrypted: true
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '127.0.0.1'
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"

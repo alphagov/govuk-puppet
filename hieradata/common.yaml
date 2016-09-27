@@ -926,20 +926,6 @@ hosts::production::frontend::app_hostnames:
   - 'whitehall-frontend'
 
 hosts::production::licensify::hosts:
-  licensify-frontend-1:
-    ip: '10.5.0.2'
-  licensify-frontend-2:
-    ip: '10.5.0.3'
-  licensify-backend-1:
-    ip: '10.5.0.4'
-  licensify-backend-2:
-    ip: '10.5.0.5'
-  licensify-mongo-1:
-    ip: '10.5.0.6'
-  licensify-mongo-2:
-    ip: '10.5.0.7'
-  licensify-mongo-3:
-    ip: '10.5.0.8'
   licensify-lb-1:
     ip: '10.5.0.101'
   licensify-lb-2:
