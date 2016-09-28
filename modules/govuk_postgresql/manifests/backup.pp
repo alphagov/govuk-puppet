@@ -2,6 +2,14 @@
 #
 # This class sets up local backups for PostgreSQL.
 #
+# === Parameters
+#
+# [*auto_postgresql_backup_hour*]
+#  The hour(s) that auto_postgresql_backup(s) run(s).
+#
+# [*auto_postgresql_backup_minute*]
+#  The minute(s) that auto_postgresql_backup(s) run(s).
+#
 # === Variables
 #
 # [*threshold_secs*]
@@ -11,13 +19,24 @@
 # [*service_desc*]
 #  A simple description of the check that is alerting.
 #
-class govuk_postgresql::backup {
+class govuk_postgresql::backup (
+  $auto_postgresql_backup_hour = 7,
+  $auto_postgresql_backup_minute = 30,
+) {
+
     $threshold_secs = 28 * 3600
     $service_desc = 'AutoPostgreSQL backup'
 
-    file {'/etc/cron.daily/autopostgresqlbackup':
+    file {'/usr/local/bin/autopostgresqlbackup':
         mode    => '0755',
-        content => template('govuk_postgresql/etc/cron.daily/autopostgresqlbackup.erb'),
+        content => template('govuk_postgresql/usr/local/bin/autopostgresqlbackup.erb'),
+        require => File['/etc/default/autopostgresqlbackup'],
+    }
+
+    cron::crondotdee { 'auto_postgresql_backup':
+        command => '/usr/local/bin/autopostgresqlbackup',
+        hour    => $auto_postgresql_backup_hour,
+        minute  => $auto_postgresql_backup_minute,
     }
 
     @@icinga::passive_check { "check_autopostgresqlbackup-${::hostname}":
@@ -32,7 +51,6 @@ class govuk_postgresql::backup {
     #    PREBACKUP="/etc/postgresql-backup-pre"
     file {'/etc/default/autopostgresqlbackup':
         source  => 'puppet:///modules/govuk_postgresql/etc/default/autopostgresqlbackup',
-        require => File['/etc/cron.daily/autopostgresqlbackup'],
     }
 
     include backup::client
