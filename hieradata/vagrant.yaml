@@ -34,6 +34,16 @@ govuk::deploy::config::errbit_environment_name: 'vagrant'
 govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
 govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 
+govuk_elasticsearch::backup_enabled: true
+govuk_elasticsearch::backup::s3_bucket: 'elasticsearch'
+govuk_elasticsearch::backup::es_repo: 'snapshots'
+govuk_elasticsearch::backup::es_indices:
+  - 'foo'
+  - 'bar'
+govuk_elasticsearch::backup::aws_access_key_id: 'foo'
+govuk_elasticsearch::backup::aws_secret_access_key: 'bar'
+
+
 govuk_lvm::no_op: true
 
 govuk_mount::no_op: true

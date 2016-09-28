@@ -39,10 +39,10 @@
 #   Formatted indexes to be backed up when script is invoked
 #
 class govuk_elasticsearch::backup(
-  $aws_access_key_id = undef,
-  $aws_secret_access_key = undef,
+  $aws_access_key_id,
+  $aws_secret_access_key,
   $aws_region = 'eu-west-1',
-  $s3_bucket = undef,
+  $s3_bucket,
   $env_dir = '/etc/es_s3backup',
   $user = 'govuk-backup',
   $es_repo = undef,
