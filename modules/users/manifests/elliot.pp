@@ -1,8 +1,0 @@
-# Creates the elliot user
-class users::elliot {
-  govuk_user { 'elliot':
-    fullname => 'Elliot Crosby-McCullough',
-    email    => 'elliot.crosby-mccullough@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDozuKT8j3aciI4z86/Vf74zsZviHQpCqLJXMCG6Cl1Pf8dOZYnDbI4hPGnpBRNrticmTPzGeXG9bsMe30x3+NMupkIZhfLQKJKmWnoLoEse8kUx8q5/eH4oHybuXYisBT2n3ORq4JUQbjDmjTJfOELCL0os8554RSMlIjzhS9U11z1NwyjCOeDSA0GzwIhEg0phc9zNpMiD8koj89alCpFiktm4EdjXmhGyQVNSffRxwwIgAc/XswL2+2AfZ6vR2xJQMMNM2y2XkIKsaCsRYOVN0UjOTuvEgg5CWrniOy+3nipcSk7YzjUv7ozGIdIaUTSVwzRtD3B9zjobQHUIOOum1fDnKaJJIQba0SwFYe2mLmPK0DN5SyfE884jsOk+Tj8KpKFcVof071GFC9e+2TdPGkFqkVUZFXhjDdV8LbJENtVKhDnv6C8Foo6Ir9RG5gzFaGRrzeKeQkgubH7DJyFAHUaeVVrzK+24ca0ef9xZvFLa0KwWR2Cv6xvS3kUuv6JSvInCW6sdfmMx18M3kqPJcn5TQljEJg5Vz7/lDORUP3/pmgv5sKYrDIWRTIbfMGCrh1S91fPWLGnOIpOjRVF9Dseb4gkax3dZ2n5lQZp0xIUXXHVT7eNKcWpCAqmxvPy4cnZCKD9WzgjT2ZP0ZhaXTob6Uy57yewTVzTaqvTlw== Elliot Crosby-McCullough',
-  }
-}
