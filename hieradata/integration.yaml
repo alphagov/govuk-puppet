@@ -68,7 +68,6 @@ govuk_jenkins::config::admins:
   - deanwilson
   - deborahchua
   - douglasroper
-  - elliotcrosbymccullough
   - emmabeynon
   - felicitymoon
   - grahampengelly
@@ -291,7 +290,6 @@ users::usernames:
   - deanwilson
   - deborahchua
   - douglasroper
-  - elliot
   - emmabeynon
   - felicitymoon
   - gemmaleigh
