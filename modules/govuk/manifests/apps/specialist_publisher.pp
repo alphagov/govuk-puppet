@@ -6,7 +6,7 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3123
+#   Default: 3064
 #
 # [*custom_http_host*]
 #   This setting allows the default HTTP Host header to be overridden.
@@ -73,7 +73,7 @@
 #   Default: undef
 #
 class govuk::apps::specialist_publisher(
-  $port = 3123,
+  $port = 3064,
   $asset_manager_bearer_token = undef,
   $errbit_api_key = undef,
   $email_alert_api_bearer_token = undef,

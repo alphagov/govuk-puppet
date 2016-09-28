@@ -43,6 +43,69 @@ class govuk::node::s_backend_lb (
       error_on_http => true,
       servers       => $backend_servers;
     [
+      'specialist-publisher',
+    ]:
+      modified_paths => {
+        '/sp-rebuild/assets'                    => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/rebuild-healthcheck'                  => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/preview'                              => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/raib-reports'                         => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/maib-reports'                         => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/dfid-research-outputs'                => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/aaib-reports'                         => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/cma-cases'                            => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/international-development-funds'      => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/countryside-stewardship-grants'       => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/esi-funds'                            => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/tax-tribunal-decisions'               => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/utaac-decisions'                      => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/employment-tribunal-decisions'        => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/employment-appeal-tribunal-decisions' => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/asylum-support-decisions'             => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/vehicle-recalls-and-faults-alerts'    => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/drug-safety-updates'                  => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+        '/medical-safety-alerts'                => {
+          'app' => 'specialist-publisher-rebuild',
+        },
+      },
+      servers        => $backend_servers;
+    [
       'business-support-api',
       'collections-publisher',
       'contacts-admin',
@@ -59,7 +122,6 @@ class govuk::node::s_backend_lb (
       'service-manual-publisher',
       'share-sale-publisher',
       'signon',
-      'specialist-publisher',
       'specialist-publisher-rebuild-standalone',
       'short-url-manager',
       'support',
