@@ -247,6 +247,9 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
 
