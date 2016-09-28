@@ -43,7 +43,7 @@ class govuk_elasticsearch::backup(
   $aws_secret_access_key,
   $aws_region = 'eu-west-1',
   $s3_bucket,
-  $env_dir = '/etc/es_s3backup',
+  $aws_source_file = '/etc/awspasswd',
   $user = 'govuk-backup',
   $es_repo = undef,
   $es_indices = []
@@ -57,34 +57,12 @@ class govuk_elasticsearch::backup(
     include ::backup::client
     include govuk_elasticsearch::housekeeping
 
-
-    # push env files
-    file { [$env_dir,"${env_dir}/env.d"]:
-      ensure => directory,
-      owner  => $user,
-      group  => $user,
-      mode   => '0750',
-    }
-
-    file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
-      content => $aws_secret_access_key,
+    file { $aws_source_file:
+      ensure  => present,
       owner   => $user,
       group   => $user,
       mode    => '0640',
-    }
-
-    file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
-      content => $aws_access_key_id,
-      owner   => $user,
-      group   => $user,
-      mode    => '0640',
-    }
-
-    file { "${env_dir}/env.d/AWS_REGION":
-      content => $aws_region,
-      owner   => $user,
-      group   => $user,
-      mode    => '0640',
+      content => template('govuk_elasticsearch/awspasswd.erb'),
     }
 
     @@icinga::passive_check { "check_esindexbackup-${::hostname}":

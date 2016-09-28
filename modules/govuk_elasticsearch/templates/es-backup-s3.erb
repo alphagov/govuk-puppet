@@ -5,16 +5,14 @@ set -e
 # Redirect stdout and stderr to syslog
 exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
+source <%= @aws_source_file %>
+
 # The default Icinga passive alert assumes that the script failed
 NAGIOS_CODE=2
 NAGIOS_MESSAGE="CRITICAL: Elasticsearch index backup push to S3 failed"
-S3_BUCKET=<%= @s3_bucket %>
 ES_REPO=<%= @es_repo %>
 ES_INDICES=<%= @json_es_indices %>
 ES_SNAPSHOT=snapshot_$(date +%d_%m_%y)
-AWS_REGION=<%= @aws_region %>
-AWS_ACCESS_KEY_ID=<%= @aws_access_key_id %>
-AWS_SECRET_ACCESS_KEY=<%= @aws_secret_access_key %>
 
 # PARAMETERS FOR ELASTICSEARCH SNAPSHOT REPOSITORY
 REPO_DATA=$(cat <<EOD
