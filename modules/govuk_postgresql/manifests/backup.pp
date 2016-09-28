@@ -1,4 +1,16 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# Class: govuk_postgresql::backup
+#
+# This class sets up local backups for PostgreSQL.
+#
+# === Variables
+#
+# [*threshold_secs*]
+#  The time period in which an alert should be raised if no passive check
+#  submissions have been received.
+#
+# [*service_desc*]
+#  A simple description of the check that is alerting.
+#
 class govuk_postgresql::backup {
     $threshold_secs = 28 * 3600
     $service_desc = 'AutoPostgreSQL backup'
