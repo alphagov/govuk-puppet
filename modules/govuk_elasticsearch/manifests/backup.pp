@@ -88,4 +88,13 @@ class govuk_elasticsearch::backup(
       minute  => 0,
     }
 
+
+    file { 'es-restore-s3':
+      path    => '/usr/local/bin/es-restore-s3',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template('govuk_elasticsearch/es-restore-s3.erb'),
+    }
+
 }
