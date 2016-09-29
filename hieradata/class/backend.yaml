@@ -33,7 +33,7 @@ govuk::apps::share_sale_publisher::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::specialist_publisher::mongodb_name: 'specialist_publisher_production'
+govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::specialist_publisher::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
