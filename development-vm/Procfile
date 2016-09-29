@@ -13,8 +13,8 @@ static:                govuk_setenv static                ./run_in.sh ../static 
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../licence-finder bundle exec rails server -p 3014
 # migratorator used 3015
 signon:                govuk_setenv signon                ./run_in.sh ../signonotron2   bundle exec rails server -p 3016
-tradetariff:           govuk_setenv tariff                ./run_in.sh ../trade-tariff-frontend   bundle exec rails server -p 3017
-tradetariffapi:        govuk_setenv tariff-api            ./run_in.sh ../trade-tariff-backend  bundle exec rails server -p 3018
+# tradetariff used 3017
+# tradetariffapi used 3018
 efg:                   govuk_setenv efg                   ./run_in.sh ../EFG            bundle exec rails server -p 3019
 # reviewomatic used 3021
 # reviewomaticexplore used 3023
@@ -43,7 +43,7 @@ asset-manager-worker:  govuk_setenv asset-manager         ./run_in.sh ../asset-m
 # tariff_demo_api: grabbing port 3043 in integration only
 transition:            govuk_setenv transition            ./run_in.sh ../transition     bundle exec rails s -p 3044
 # tariff_demo: grabbing port 3045 in integration only
-tariff_admin:          govuk_setenv tariff-admin          ./run_in.sh ../trade-tariff-admin bundle exec rails server -p 3046
+# tariff_admin used 3046
 calculators:           govuk_setenv calculators           ./run_in.sh ../calculators    bundle exec rails s -p 3047
 # fact-cave used to use port 3048
 bouncer:               govuk_setenv bouncer               ./run_in.sh ../bouncer        bundle exec mr-sparkle --force-polling -- -p 3049

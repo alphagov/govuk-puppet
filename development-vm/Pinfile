@@ -76,9 +76,6 @@ process :stagecraft => [:backdrop_write]
 process :static
 process :support => [:'support-api']
 process :'support-api'
-process :tariff_admin => [:tradetariffapi]
-process :tradetariff => [:tradetariffapi, :static, :contentapi]
-process :tradetariffapi
 process :transition
 process :travel_advice_publisher => [:panopticon, :asset_manager, :'travel_advice_publisher_worker', :'email-alert-api']
 process :travel_advice_publisher_worker
