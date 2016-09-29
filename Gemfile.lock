@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/alphagov/hiera-eyaml-gpg.git
+  remote: https://github.com/alphagov/hiera-eyaml-gpg.git
   revision: b10d8a890a4aff78b90e4662fe1e2d5b1690937b
   branch: avoid_gpghome_env_var
   specs:
