@@ -2,7 +2,7 @@
 class puppet::master::config ($unicorn_port = '9090') {
 
   file { '/etc/puppet/config.ru':
-    require => Exec['install rack 1.0.1'],
+    require => Package['rack'],
     source  => 'puppet:///modules/puppet/etc/puppet/config.ru',
   }
 

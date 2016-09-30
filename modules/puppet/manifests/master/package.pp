@@ -30,9 +30,9 @@ class puppet::master::package(
     provider => system_gem,
   }
 
-  exec {'install rack 1.0.1':
-    command => 'gem install rack --no-rdoc --no-ri --version 1.0.1',
-    unless  => 'gem list | grep "rack.*1.0.1"',
+  package { 'rack':
+    ensure   => '1.0.1',
+    provider => system_gem,
   }
 
   package { 'puppetdb-terminus':
