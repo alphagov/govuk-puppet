@@ -160,6 +160,8 @@ users::usernames:
   - null_user
 
 mongodb::backup::s3_backups: true
+mongodb::s3backup::cron::realtime_hour: '*'
+mongodb::s3backup::cron::realtime_minute: '*/30'
 mongodb::s3backup::backup::s3_bucket: 'example-s3-bucket'
 mongodb::s3backup::backup::s3_bucket_daily: 'example-s3-bucket-daily'
 # Randomly generated GPG key. Generate your own and encrypt
