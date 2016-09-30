@@ -12,7 +12,6 @@ govuk::node::s_base::apps:
   - finder_frontend
   - licencefinder
   - smartanswers
-  - tariff
 
 lv:
   data:
