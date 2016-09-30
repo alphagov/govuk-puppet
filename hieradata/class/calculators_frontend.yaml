@@ -1,9 +1,9 @@
 ---
 
 govuk_elasticsearch::local_proxy::servers:
-  - 'elasticsearch-1.backend'
-  - 'elasticsearch-2.backend'
-  - 'elasticsearch-3.backend'
+  - 'api-elasticsearch-1.api'
+  - 'api-elasticsearch-2.api'
+  - 'api-elasticsearch-3.api'
 
 govuk::node::s_base::apps:
   - businesssupportfinder
