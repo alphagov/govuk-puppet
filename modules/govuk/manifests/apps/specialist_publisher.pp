@@ -92,8 +92,10 @@ class govuk::apps::specialist_publisher(
   $secret_token = undef,
 ) {
 
+  $app_name = 'specialist-publisher'
+
   if $enabled {
-    govuk::app { 'specialist-publisher':
+    govuk::app { $app_name:
       app_type               => 'rack',
       port                   => $port,
       health_check_path      => '/healthcheck',
@@ -106,14 +108,14 @@ client_max_body_size 500m;
       asset_pipeline         => true,
     }
 
-    govuk_logging::logstream { 'specialist-publisher_sidekiq_json_log':
-      logfile => '/var/apps/specialist-publisher/log/sidekiq.json.log',
-      fields  => {'application' => 'specialist-publisher'},
+    govuk_logging::logstream { "${app_name}_sidekiq_json_log":
+      logfile => "/var/apps/${app_name}/log/sidekiq.json.log",
+      fields  => {'application' => $app_name},
       json    => true,
     }
 
     Govuk::App::Envvar {
-      app => 'specialist-publisher',
+      app => $app_name,
     }
 
     govuk::app::envvar::mongodb_uri { $app_name:
@@ -134,7 +136,7 @@ client_max_body_size 500m;
       }
     }
 
-    govuk::procfile::worker { 'specialist-publisher':
+    govuk::procfile::worker { $app_name:
       enable_service => $enable_procfile_worker,
     }
 
