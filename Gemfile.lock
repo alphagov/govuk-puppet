@@ -126,6 +126,3 @@ DEPENDENCIES
   rspec-puppet
   sshkey (= 1.7.0)
   webmock (~> 1.20.0)
-
-BUNDLED WITH
-   1.11.2
