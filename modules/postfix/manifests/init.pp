@@ -23,9 +23,9 @@
 #   Pass to authenticate all relayed mail with.
 #
 class postfix (
-  $smarthost = '',
-  $smarthost_user = '',
-  $smarthost_pass = '',
+  $smarthost = undef,
+  $smarthost_user = undef,
+  $smarthost_pass = undef,
   $rewrite_mail_domain = 'localhost',
   $rewrite_mail_list = 'noemail'
 ) {
