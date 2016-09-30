@@ -33,6 +33,12 @@
 # [*es_indices*]
 #   Elaticsearch indexes
 #
+# [*cron_hour*]
+#   The hour that the job should run
+#
+# [*cron_minute*]
+#   The minute that the job should run
+#
 # === Variables
 #
 # [*json_es_indices*]
@@ -46,7 +52,9 @@ class govuk_elasticsearch::backup(
   $aws_source_file = '/etc/awspasswd',
   $user = 'govuk-backup',
   $es_repo = undef,
-  $es_indices = []
+  $es_indices = [],
+  $cron_hour = 0,
+  $cron_minute = 0,
 ){
 
 
@@ -84,8 +92,8 @@ class govuk_elasticsearch::backup(
       ensure  => present,
       command => '/usr/local/bin/es-backup-s3',
       user    => $user,
-      hour    => 0,
-      minute  => 0,
+      hour    => $cron_hour,
+      minute  => $cron_minute,
     }
 
 
