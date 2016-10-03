@@ -38,3 +38,6 @@ mongodb::server::replicaset_members:
   'mongo-4':
     hidden: true
     priority: 0
+
+mongodb::s3backup::cron::minute: '*/30'
+mongodb::s3backup::cron::backup_type: 'incremental'

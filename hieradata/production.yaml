@@ -618,3 +618,7 @@ shell::shell_prompt_string: 'production'
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-production'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-production'
+
+mongodb::s3backup::cron::backup_type: 'daily'
+mongodb::s3backup::cron::hour: '19'
+mongodb::s3backup::cron::minute: '30'

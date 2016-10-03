@@ -561,3 +561,7 @@ users::pentest_machines:
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
+
+mongodb::s3backup::cron::backup_type: 'daily'
+mongodb::s3backup::cron::hour: '19'
+mongodb::s3backup::cron::minute: '30'

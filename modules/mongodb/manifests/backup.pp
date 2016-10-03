@@ -91,7 +91,7 @@ class mongodb::backup(
   }
 
   $scripts = ['/usr/local/bin/mongodb-restore-s3','/usr/local/bin/mongodb-backup-s3'] # Shell scripts used to perform backups and restores to and from s3
-  $jobs    = ['mongodb-s3backup-realtime','mongodb-s3-night-backup'] # Cron jobs that perform backups to s3 'mongodb::s3backup::cron'
+  $jobs    = ['mongodb-s3backup-daily','mongodb-s3backup-incremental'] # Cron jobs that perform backups to s3 'mongodb::s3backup::cron'
 
   if $s3_backups {
       include ::mongodb::s3backup::backup
