@@ -22,7 +22,7 @@ deployable_applications: &deployable_applications
   - courts-api
   - courts-frontend
   - designprinciples
-  - EFG
+  - efg-training
   - email-alert-api
   - email-alert-frontend
   - email-alert-monitor

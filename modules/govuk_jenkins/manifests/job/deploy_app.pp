@@ -24,4 +24,10 @@ class govuk_jenkins::job::deploy_app (
     content => template('govuk_jenkins/jobs/deploy_app.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
+
+  file { '/etc/jenkins_jobs/jobs/deploy_efg.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/deploy_efg.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
+  }
 }
