@@ -330,7 +330,6 @@ govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/government/uploads'
   - '/licence-finder'
   - '/search'
-  - '/trade-tariff'
 
 govuk::apps::govuk_crawler_worker::enabled: true
 govuk::apps::govuk_crawler_worker::root_urls:
@@ -467,12 +466,6 @@ govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 
 govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-
-govuk::apps::tariff::nagios_memory_warning: 3200
-govuk::apps::tariff::nagios_memory_critical: 3600
-
-govuk::apps::tariff_api::nagios_memory_warning: 1800
-govuk::apps::tariff_api::nagios_memory_critical: 2000
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::transition::redis_host: "%{hiera('sidekiq_host')}"

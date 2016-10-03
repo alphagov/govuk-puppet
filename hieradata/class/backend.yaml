@@ -97,8 +97,6 @@ govuk::node::s_base::apps:
   - specialist_publisher_rebuild_standalone
   - support
   - support_api
-  - tariff_admin
-  - tariff_api
   - transition
   - travel_advice_publisher
 
