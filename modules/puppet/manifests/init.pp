@@ -1,9 +1,23 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: puppet
+#
+# Sets up configuration management.
+#
+# === Parameters
+#
+# [*use_puppetmaster*]
+#   Whether this environment should be controlled by a master
+#   or should run from a local catalog.
+#
+# [*future_parser*]
+#   Boolean, whether or not to use Puppet's future parser to
+#   help upgrade to Puppet 4.
+#
 class puppet (
-    $use_puppetmaster = true
+    $future_parser = false,
+    $use_puppetmaster = true,
   ) {
 
-  # Be absolutely certain we have a bool as strings are weird
+  validate_bool($future_parser)
   validate_bool($use_puppetmaster)
 
   include puppet::cronjob

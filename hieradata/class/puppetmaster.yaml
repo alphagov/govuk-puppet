@@ -1,3 +1,5 @@
 ---
 
 govuk_postgresql::server::listen_addresses: localhost
+
+puppet::future_parser: true
