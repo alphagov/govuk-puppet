@@ -2,5 +2,3 @@
 
 govuk_safe_to_reboot::can_reboot: 'careful'
 govuk_safe_to_reboot::reason: 'Warn connected users before rebooting'
-
-puppet::future_parser: true
