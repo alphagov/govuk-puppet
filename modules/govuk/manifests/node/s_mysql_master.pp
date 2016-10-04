@@ -1,4 +1,21 @@
-# Configure a MySQL Master server for GOV.UK
+# == Class: Govuk::Node::S_mysql_master
+#
+#  Set up a GOV.UK MySQL Master machine
+#
+# === Parameters:
+#
+#  [*aws_access_key_id*]
+#    AWS access key ID for the S3 bucket
+#
+#  [*aws_secret_access_key*]
+#    AWS secret key for the S3 bucket
+#
+#  [*s3_bucket_name*]
+#    Name of the S3 bucket
+#
+#  [*encryption_key*]
+#    Encryption key that decrypts the backup
+#
 class govuk::node::s_mysql_master (
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
@@ -31,7 +48,7 @@ class govuk::node::s_mysql_master (
 
   Govuk_mount['/var/lib/mysql'] -> Class['govuk_mysql::server']
 
-  if $s3_bucket_name {
+  if $s3_bucket_name and $aws_access_key_id and $aws_secret_access_key {
     govuk_mysql::xtrabackup::restore { $::hostname:
       aws_access_key_id     => $aws_access_key_id,
       aws_secret_access_key => $aws_secret_access_key,
