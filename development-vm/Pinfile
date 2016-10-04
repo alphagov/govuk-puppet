@@ -41,6 +41,7 @@ process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi]
 process :'local-links-manager'
+process :'manuals-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
 process :mapit
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
