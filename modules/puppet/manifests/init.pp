@@ -8,16 +8,11 @@
 #   Whether this environment should be controlled by a master
 #   or should run from a local catalog.
 #
-# [*future_parser*]
-#   Boolean, whether or not to use Puppet's future parser to
-#   help upgrade to Puppet 4.
-#
 class puppet (
-    $future_parser = false,
-    $use_puppetmaster = true,
+    $use_puppetmaster = true
   ) {
 
-  validate_bool($future_parser)
+  # Be absolutely certain we have a bool as strings are weird
   validate_bool($use_puppetmaster)
 
   include puppet::cronjob

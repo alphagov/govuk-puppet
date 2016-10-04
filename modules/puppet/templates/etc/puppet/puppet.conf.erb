@@ -7,10 +7,6 @@ environment = <%= scope.lookupvar("::environment") %>
 <%- if @use_puppetmaster == false -%>
 environmentpath = /var/govuk/govuk-puppet/environments
 <%- end -%>
-<%- if @future_parser == true -%>
-parser = future
-stringify_facts = false
-<%- end -%>
 
 [master]
 reports = store
