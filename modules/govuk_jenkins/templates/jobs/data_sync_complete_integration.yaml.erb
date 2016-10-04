@@ -27,7 +27,7 @@
             - project: Deploy_App
               predefined-parameters: |
                 TARGET_APPLICATION=<%= app %>
-                DEPLOY_TASK=deploy:migrate_and_hard_restart
+                DEPLOY_TASK=app:migrate_and_hard_restart
             <%- end -%>
             <%- %w{ govuk_delivery_configure_integration_catchall_feed transition_run_database_migrations }.each do |job| -%>
             - project: <%= job %>

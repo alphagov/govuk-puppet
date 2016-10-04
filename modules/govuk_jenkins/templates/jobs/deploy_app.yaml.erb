@@ -56,12 +56,18 @@
             choices: <%= ['-- Choose an app'] + @applications %>
         - choice:
             name: DEPLOY_TASK
-            description: Capistrano task to run (also available as $DEPLOY_TASK in deploy.sh)
+            description: |
+              Capistrano task to run (also available as $DEPLOY_TASK in deploy.sh)<br>
+              <code>deploy</code> will typically include migrations, however this is dependent on the project configuration.<br>
+              <code>hard_restart</code> tasks are generally used for when a ruby version changes, and tend to only be configured for ruby projects.
             choices:
                 - deploy
-                - deploy:migrate_and_hard_restart
-                - deploy:migrations
-                - deploy:hard_restart
+                - deploy:with_hard_restart
+                - deploy:with_migrations
+                - deploy:without_migrations
+                - app:migrate
+                - app:hard_restart
+                - app:migrate_and_hard_restart
         - string:
             name: TAG
             description: Git tag/committish to deploy.
