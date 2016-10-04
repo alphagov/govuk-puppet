@@ -1,2 +1,0 @@
----
-govuk::node::s_transition_postgresql_base::env_sync_enabled: true

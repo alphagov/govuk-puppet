@@ -194,4 +194,11 @@ define govuk_postgresql::wal_e::backup (
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url(postgresql-s3-backups),
       }
+
+    file { '/usr/local/bin/wal-e_restore':
+      ensure  => present,
+      content => template('govuk_postgresql/usr/local/bin/wal-e_restore.erb'),
+      mode    => '0755',
+      require => Class['govuk_postgresql::wal_e::package'],
+    }
 }

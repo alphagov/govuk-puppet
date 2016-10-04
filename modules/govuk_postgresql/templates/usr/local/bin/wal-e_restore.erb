@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# PostgreSQL Restore
+#
+# This is a wrapper script which sets up prerequisites for an encrypted WAL-E
+# backup from an Amazon S3 bucket, and moves the backup into place. It restores
+# the very latest back-up available.
+#
+export RECOVERY_FILE=<%= @datadir -%>/recovery.conf
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+# Check if Puppet is enabled
+if sudo test -f /var/lib/puppet/state/agent_disabled.lock; then
+  # If it isn't then quit
+  echo "Puppet agent disabled! If Puppet cannot run then we will not be able"
+  echo "to resync passwords and things will break. Quitting"
+  exit 1
+else
+  echo "PostgreSQL environment sync starting"
+
+  # Otherwise go ahead and disable Puppet to start the sync
+  govuk_puppet --disable "Disabling Puppet to sync data (by $0)"
+
+  # Stop the PostgreSQL service
+  sudo service postgresql stop
+
+  # Start the restore process
+  sudo -iu postgres envdir /etc/wal-e/env.d /usr/local/bin/wal-e backup-fetch --blind-restore <%= @datadir -%> LATEST
+
+  # Add the recovery.conf configuration (this is renamed to recovery.done after PostgreSQL starts)
+  sudo -iu postgres sh -c "echo \"restore_command = 'envdir /etc/wal-e/env.d /usr/local/bin/wal-e wal-fetch \"%f\" \"%p\"'\" > $RECOVERY_FILE"
+
+  # Start the PostgreSQL service
+  sudo service postgresql start
+
+  # Enable and run Puppet to update passwords
+  govuk_puppet --enable && govuk_puppet
+
+  echo "PostgreSQL environment sync finished"
+fi
