@@ -21,6 +21,7 @@ process :'content-store'
 process :'dummy-content-store'
 process :'content-tagger' => [:'publishing-api', :'content-tagger-sidekiq']
 process :'draft-content-store'
+process :'draft-government-frontend' => [:'draft-content-store', :static]
 process :designprinciples => :static
 process :efg
 process :'email-alert-api'

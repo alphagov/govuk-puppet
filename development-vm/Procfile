@@ -131,6 +131,8 @@ dfid-transition-worker: govuk_setenv dfid-transition ./run_in.sh ../dfid-transit
 
 # sidekiq-monitoring for content-tagger uses 3125
 
+draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ../government-frontend bundle exec rails s -p 3126 -P tmp/pids/draft-government-frontend.pid
+
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
 # Firewall block rule on port 3170 (for testing connect timeouts)
