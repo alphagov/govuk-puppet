@@ -95,4 +95,16 @@ class govuk::apps::authenticating_proxy(
       value   => $secret_key_base,
     }
   }
+
+  $app_domain = hiera('app_domain')
+  govuk::app::envvar {
+    "${title}-PLEK_SERVICE_SIGNON_URI":
+      app     => $app_name,
+      varname => 'PLEK_SERVICE_SIGNON_URI',
+      value   => "https://signon.${app_domain}";
+    "${title}-PLEK_SERVICE_ERRBIT_URI":
+      app     => $app_name,
+      varname => 'PLEK_SERVICE_ERRBIT_URI',
+      value   => "https://errbit.${app_domain}";
+  }
 }
