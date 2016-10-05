@@ -30,14 +30,14 @@ Class['apt::update'] -> Package <|
   tag != 'no_require_apt_update'
 |>
 
+# Top-level variable also used by `hiera.yml`.
+# Cannot be spoofed by Facter from `puppet agent`.
+$govuk_node_class = govuk_node_class()
+
 if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
   fail("Hiera eYAML GPG encryption backend is not working; you should read: \
 https://github.gds/pages/gds/opsmanual/infrastructure/howto/encrypted-hiera-data.html?#puppet-fails-because-my-it-can-t-find-a-usable-gpg-key")
 }
-
-# Top-level variable also used by `hiera.yml`.
-# Cannot be spoofed by Facter from `puppet agent`.
-$govuk_node_class = govuk_node_class()
 
 node default {
   if $::lsbdistcodename == 'lucid' {
