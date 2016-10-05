@@ -51,6 +51,7 @@ govuk::node::s_development::apps:
   - 'finder_frontend'
   - 'frontend'
   - 'government_frontend'
+  - 'government_frontend::enable_running_in_draft_mode'
   - 'govuk_delivery'
   - 'hmrc_manuals_api'
   - 'imminence'
@@ -123,6 +124,7 @@ govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
+govuk::apps::government_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.dev.gov.uk'
 govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::govuk_delivery::enable_procfile_worker: false
 govuk::apps::imminence::enable_procfile_worker: false
