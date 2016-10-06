@@ -93,7 +93,7 @@ class govuk::apps::efg (
   }
 
   @@icinga::check::graphite { "check_efg_login_failures_${::hostname}":
-    target    => "sumSeries(stats.govuk.${app_name}.efg.*.logins.failure)",
+    target    => "sumSeries(stats.govuk.app.${app_name}.*.logins.failure)",
     warning   => 10,
     critical  => 15,
     desc      => 'EFG login failures',
