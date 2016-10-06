@@ -29,8 +29,8 @@ function housekeeping() {
 }
 
 function exit_trap() {
-  nagios_passive
   housekeeping
+  nagios_passive
 }
 
 trap exit_trap EXIT
