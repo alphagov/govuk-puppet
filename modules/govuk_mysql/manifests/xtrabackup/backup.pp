@@ -76,6 +76,7 @@ define govuk_mysql::xtrabackup::backup (
     service_description => $base_service_desc,
     freshness_threshold => $base_threshold_secs,
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(mysql-xtrabackups-to-s3),
   }
 
   $incremental_threshold_secs = 15 * 60
@@ -91,6 +92,7 @@ define govuk_mysql::xtrabackup::backup (
     service_description => $incremental_service_desc,
     freshness_threshold => $incremental_threshold_secs,
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(mysql-xtrabackups-to-s3),
   }
 
   cron::crondotdee { 'xtrabackup_s3_base':
