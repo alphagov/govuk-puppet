@@ -1104,8 +1104,6 @@ monitoring::checks::smokey::features:
     feature: contacts
   check_efg:
     feature: efg
-  check_email_campaign:
-    feature: email_campaign
   check_frontend:
     feature: frontend
   check_licencefinder:
