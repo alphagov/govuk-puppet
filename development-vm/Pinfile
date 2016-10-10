@@ -9,9 +9,9 @@ process :backdrop_read
 process :backdrop_write
 process :bouncer
 process :'business-support-api' => [:contentapi]
-process :businesssupportfinder => [:static, :contentapi, :'business-support-api']
-process :calculators => [:static, :contentapi]
-process :calendars => [:static, :contentapi]
+process :businesssupportfinder => [:static, :contentapi, :'content-store', :'business-support-api']
+process :calculators => [:static, :contentapi, :'content-store']
+process :calendars => [:static, :contentapi, :'content-store']
 process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager]
 process :'contacts-frontend' => [:static, :'content-store']
@@ -22,8 +22,8 @@ process :'dummy-content-store'
 process :'content-tagger' => [:'publishing-api', :'content-tagger-sidekiq']
 process :'draft-content-store'
 process :'draft-government-frontend' => [
-  :'draft-content-store', 
-  :'government-frontend', 
+  :'draft-content-store',
+  :'government-frontend',
   :static
 ]
 process :designprinciples => :static
@@ -44,7 +44,7 @@ process :imminence => [:mapit]
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
-process :licencefinder => [:static, :contentapi]
+process :licencefinder => [:static, :contentapi, :'content-store']
 process :'local-links-manager'
 process :'manuals-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
 process :mapit
@@ -71,7 +71,7 @@ process :'service-manual-publisher' => [:'publishing-api', :rummager]
 process :'share-sale-publisher' => [:asset_manager, :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
-process :smartanswers => [:static, :contentapi, :imminence]
+process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
 process :'specialist-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-rebuild' => [:'publishing-api', :asset_manager, :'specialist-publisher-rebuild-worker']
 process :'specialist-publisher-rebuild-worker' => [:rummager, :'email-alert-api']
