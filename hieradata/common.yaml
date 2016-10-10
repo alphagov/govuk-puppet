@@ -276,6 +276,11 @@ govuk::apps::efg_training::vhost_name: "efg-training.%{hiera('app_domain')}"
 govuk::apps::efg_training::nagios_memory_warning: 1600
 govuk::apps::efg_training::nagios_memory_critical: 1800
 
+govuk::apps::efg_training_rebuild::ssl_certtype: 'wildcard_publishing'
+govuk::apps::efg_training_rebuild::vhost_name: "efg-training-rebuild.%{hiera('app_domain')}"
+govuk::apps::efg_training_rebuild::nagios_memory_warning: 1600
+govuk::apps::efg_training_rebuild::nagios_memory_critical: 1800
+
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
