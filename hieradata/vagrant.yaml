@@ -47,9 +47,6 @@ govuk::node::s_api_lb::content_store_servers:
 govuk::node::s_api_lb::draft_content_store_servers:
   - "draft-content-store-1.api"
   - "draft-content-store-2.api"
-govuk::node::s_api_lb::email_campaign_api_servers:
-  - "email-campaign-api-1.api"
-  - "email-campaign-api-2.api"
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
 govuk::node::s_api_lb::search_servers:
@@ -71,15 +68,9 @@ govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
   - 'calculators-frontend-2.frontend'
-govuk::node::s_frontend_lb::draft_email_campaign_frontend_servers:
-  - 'draft-email-campaign-frontend-1.frontend'
-  - 'draft-email-campaign-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'
-govuk::node::s_frontend_lb::email_campaign_frontend_servers:
-  - "email-campaign-frontend-1.frontend"
-  - "email-campaign-frontend-2.frontend"
 govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'

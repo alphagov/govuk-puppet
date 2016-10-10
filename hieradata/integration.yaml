@@ -12,10 +12,6 @@ cron::weekly_dow: 1
 cron::daily_hour: 6
 
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
-govuk::apps::email_campaign_api::mongodb_nodes:
-  - 'api-mongo-1.api'
-  - 'api-mongo-2.api'
-  - 'api-mongo-3.api'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-integration@digital.cabinet-office.gov.uk'
 govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
@@ -161,9 +157,6 @@ govuk::node::s_api_lb::content_store_servers:
 govuk::node::s_api_lb::draft_content_store_servers:
   - "draft-content-store-1.api"
   - "draft-content-store-2.api"
-govuk::node::s_api_lb::email_campaign_api_servers:
-  - "email-campaign-api-1.api"
-  - "email-campaign-api-2.api"
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
   - "mapit-2.api"
@@ -185,22 +178,15 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
 govuk::node::s_backup::backup_efg: false
 govuk::node::s_backup::backup_efg_training: false
-govuk::node::s_backup::backup_email_campaign: false
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
   - 'calculators-frontend-2.frontend'
-govuk::node::s_frontend_lb::draft_email_campaign_frontend_servers:
-  - 'draft-email-campaign-frontend-1.frontend'
-  - 'draft-email-campaign-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'
-govuk::node::s_frontend_lb::email_campaign_frontend_servers:
-  - "email-campaign-frontend-1.frontend"
-  - "email-campaign-frontend-2.frontend"
 govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'

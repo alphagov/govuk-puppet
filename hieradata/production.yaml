@@ -133,10 +133,6 @@ govuk::node::s_api_lb::content_store_servers:
 govuk::node::s_api_lb::draft_content_store_servers:
   - "draft-content-store-1.api"
   - "draft-content-store-2.api"
-govuk::node::s_api_lb::email_campaign_api_servers:
-  - "email-campaign-api-1.api"
-  - "email-campaign-api-2.api"
-  - "email-campaign-api-3.api"
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
   - "mapit-2.api"
@@ -164,16 +160,9 @@ govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
   - 'calculators-frontend-2.frontend'
   - 'calculators-frontend-3.frontend'
-govuk::node::s_frontend_lb::draft_email_campaign_frontend_servers:
-  - 'draft-email-campaign-frontend-1.frontend'
-  - 'draft-email-campaign-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'
-govuk::node::s_frontend_lb::email_campaign_frontend_servers:
-  - "email-campaign-frontend-1.frontend"
-  - "email-campaign-frontend-2.frontend"
-  - "email-campaign-frontend-3.frontend"
 govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'
@@ -275,18 +264,6 @@ hosts::production::api::hosts:
     ip: '10.3.4.200'
   draft-content-store-2:
     ip: '10.3.4.201'
-  email-campaign-api-1:
-    ip: '10.3.4.50'
-  email-campaign-api-2:
-    ip: '10.3.4.51'
-  email-campaign-api-3:
-    ip: '10.3.4.52'
-  email-campaign-mongo-1:
-    ip: '10.3.4.53'
-  email-campaign-mongo-2:
-    ip: '10.3.4.54'
-  email-campaign-mongo-3:
-    ip: '10.3.4.55'
   mapit-1:
     ip: '10.3.4.60'
   mapit-2:
@@ -442,20 +419,10 @@ hosts::production::frontend::hosts:
     ip: '10.3.2.3'
   frontend-3:
     ip: '10.3.2.4'
-  draft-email-campaign-frontend-1:
-    ip: '10.3.2.202'
-  draft-email-campaign-frontend-2:
-    ip: '10.3.2.203'
   draft-frontend-1:
     ip: '10.3.2.200'
   draft-frontend-2:
     ip: '10.3.2.201'
-  email-campaign-frontend-1:
-    ip: '10.3.2.30'
-  email-campaign-frontend-2:
-    ip: '10.3.2.31'
-  email-campaign-frontend-3:
-    ip: '10.3.2.32'
   performance-frontend-1:
     ip: '10.3.2.20'
   performance-frontend-2:

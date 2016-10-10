@@ -20,14 +20,6 @@
 #   Redis port for Email Alert API Sidekiq.
 #   Default: undef
 #
-# [*email_campaign_api_redis_host*]
-#   Redis host for Email Campaign API Sidekiq.
-#   Default: undef
-#
-# [*email_campaign_api_redis_port*]
-#   Redis port for Email Campaign API Sidekiq.
-#   Default: undef
-#
 # [*imminence_redis_host*]
 #   Redis host for Imminence Sidekiq.
 #   Default: undef
@@ -97,8 +89,6 @@ class govuk::apps::sidekiq_monitoring (
   $content_tagger_redis_port = undef,
   $email_alert_api_redis_host = undef,
   $email_alert_api_redis_port = undef,
-  $email_campaign_api_redis_host = undef,
-  $email_campaign_api_redis_port = undef,
   $imminence_redis_host = undef,
   $imminence_redis_port = undef,
   $publisher_redis_host = undef,
@@ -141,11 +131,6 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'email_alert_api',
       host   => $email_alert_api_redis_host,
       port   => $email_alert_api_redis_port;
-
-    "${app_name}_email_campaign_api":
-      prefix => 'email_campaign_api',
-      host   => $email_campaign_api_redis_host,
-      port   => $email_campaign_api_redis_port;
 
     "${app_name}_imminence":
       prefix => 'imminence',
