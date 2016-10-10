@@ -67,6 +67,11 @@ to install them:
     dev$ cd /var/govuk/development
     dev$ ./update-bundler.sh
 
+There are a handful of Python apps which use [PIP][pip].
+You will probably need to install these dependencies too, so run:
+
+    dev$ ./update-pip.sh
+
 For many apps, they won't be usable until you create a user by hand in their
 database, or grab a copy of production data (see below).
 
@@ -77,6 +82,7 @@ be able to ignore some errors.
     dev$ PROC_COUNT=1 ./update-bundler.sh
 
 [bundler]: http://bundler.io/rationale.html
+[pip]: https://pip.pypa.io/en/stable/
 
 ## 4. Running the apps
 
