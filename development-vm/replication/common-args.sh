@@ -38,7 +38,7 @@ SKIP_ELASTIC=false
 SKIP_MAPIT=false
 DRY_RUN=false
 # By default, ignore large databases which are not useful when replicated.
-IGNORE="tariff tariff_temporal tariff_demo event_store transition backdrop support_contacts"
+IGNORE="event_store transition backdrop support_contacts"
 
 # Test whether the given value is in the ignore list.
 function ignored() {
