@@ -1,0 +1,1608 @@
+{
+  "id": 13,
+  "title": "Processes",
+  "originalTitle": "Processes",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "350px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "$host.$processes.ps_cputime.user"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "user cpu time",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "$host.$processes.ps_rss"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "ps_rss",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "$host.$processes.ps_count.processes"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "processes count",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "title": "Row"
+    }
+  ],
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "allValue": "*",
+        "current": {
+          "value": [
+            "content-store-1_api",
+            "content-store-2_api",
+            "content-store-3_api"
+          ],
+          "text": "content-store-1_api + content-store-2_api + content-store-3_api"
+        },
+        "datasource": "Graphite",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Host",
+        "multi": true,
+        "name": "host",
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": false
+          },
+          {
+            "text": "api-1_api",
+            "value": "api-1_api",
+            "selected": false
+          },
+          {
+            "text": "api-2_api",
+            "value": "api-2_api",
+            "selected": false
+          },
+          {
+            "text": "api-elasticsearch-1_api",
+            "value": "api-elasticsearch-1_api",
+            "selected": false
+          },
+          {
+            "text": "api-elasticsearch-2_api",
+            "value": "api-elasticsearch-2_api",
+            "selected": false
+          },
+          {
+            "text": "api-elasticsearch-3_api",
+            "value": "api-elasticsearch-3_api",
+            "selected": false
+          },
+          {
+            "text": "api-lb-1_api",
+            "value": "api-lb-1_api",
+            "selected": false
+          },
+          {
+            "text": "api-lb-2_api",
+            "value": "api-lb-2_api",
+            "selected": false
+          },
+          {
+            "text": "api-mongo-1_api",
+            "value": "api-mongo-1_api",
+            "selected": false
+          },
+          {
+            "text": "api-mongo-2_api",
+            "value": "api-mongo-2_api",
+            "selected": false
+          },
+          {
+            "text": "api-mongo-3_api",
+            "value": "api-mongo-3_api",
+            "selected": false
+          },
+          {
+            "text": "api-mongo-4_api",
+            "value": "api-mongo-4_api",
+            "selected": false
+          },
+          {
+            "text": "api-postgresql-primary-1_api",
+            "value": "api-postgresql-primary-1_api",
+            "selected": false
+          },
+          {
+            "text": "api-postgresql-standby-1_api",
+            "value": "api-postgresql-standby-1_api",
+            "selected": false
+          },
+          {
+            "text": "api-postgresql-standby-2_api",
+            "value": "api-postgresql-standby-2_api",
+            "selected": false
+          },
+          {
+            "text": "api-redis-1_api",
+            "value": "api-redis-1_api",
+            "selected": false
+          },
+          {
+            "text": "apt-1_management",
+            "value": "apt-1_management",
+            "selected": false
+          },
+          {
+            "text": "asset-master-1_backend",
+            "value": "asset-master-1_backend",
+            "selected": false
+          },
+          {
+            "text": "asset-slave-1_backend",
+            "value": "asset-slave-1_backend",
+            "selected": false
+          },
+          {
+            "text": "asset-slave-2_backend",
+            "value": "asset-slave-2_backend",
+            "selected": false
+          },
+          {
+            "text": "backend-1_backend",
+            "value": "backend-1_backend",
+            "selected": false
+          },
+          {
+            "text": "backend-2_backend",
+            "value": "backend-2_backend",
+            "selected": false
+          },
+          {
+            "text": "backend-3_backend",
+            "value": "backend-3_backend",
+            "selected": false
+          },
+          {
+            "text": "backend-lb-1_backend",
+            "value": "backend-lb-1_backend",
+            "selected": false
+          },
+          {
+            "text": "backend-lb-2_backend",
+            "value": "backend-lb-2_backend",
+            "selected": false
+          },
+          {
+            "text": "backup-1_management",
+            "value": "backup-1_management",
+            "selected": false
+          },
+          {
+            "text": "bouncer-1_redirector",
+            "value": "bouncer-1_redirector",
+            "selected": false
+          },
+          {
+            "text": "bouncer-2_redirector",
+            "value": "bouncer-2_redirector",
+            "selected": false
+          },
+          {
+            "text": "bouncer-3_redirector",
+            "value": "bouncer-3_redirector",
+            "selected": false
+          },
+          {
+            "text": "bouncer-4_redirector",
+            "value": "bouncer-4_redirector",
+            "selected": false
+          },
+          {
+            "text": "bouncer-5_redirector",
+            "value": "bouncer-5_redirector",
+            "selected": false
+          },
+          {
+            "text": "bouncer-6_redirector",
+            "value": "bouncer-6_redirector",
+            "selected": false
+          },
+          {
+            "text": "cache-1_router",
+            "value": "cache-1_router",
+            "selected": false
+          },
+          {
+            "text": "cache-2_router",
+            "value": "cache-2_router",
+            "selected": false
+          },
+          {
+            "text": "cache-3_router",
+            "value": "cache-3_router",
+            "selected": false
+          },
+          {
+            "text": "calculators-frontend-1_frontend",
+            "value": "calculators-frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "calculators-frontend-2_frontend",
+            "value": "calculators-frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "calculators-frontend-3_frontend",
+            "value": "calculators-frontend-3_frontend",
+            "selected": false
+          },
+          {
+            "text": "carbon",
+            "value": "carbon",
+            "selected": false
+          },
+          {
+            "text": "content-store-1_api",
+            "value": "content-store-1_api",
+            "selected": true
+          },
+          {
+            "text": "content-store-2_api",
+            "value": "content-store-2_api",
+            "selected": true
+          },
+          {
+            "text": "content-store-3_api",
+            "value": "content-store-3_api",
+            "selected": true
+          },
+          {
+            "text": "draft-cache-1_router",
+            "value": "draft-cache-1_router",
+            "selected": false
+          },
+          {
+            "text": "draft-cache-2_router",
+            "value": "draft-cache-2_router",
+            "selected": false
+          },
+          {
+            "text": "draft-content-store-1_api",
+            "value": "draft-content-store-1_api",
+            "selected": false
+          },
+          {
+            "text": "draft-content-store-2_api",
+            "value": "draft-content-store-2_api",
+            "selected": false
+          },
+          {
+            "text": "draft-email-campaign-frontend-1_frontend",
+            "value": "draft-email-campaign-frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "draft-email-campaign-frontend-2_frontend",
+            "value": "draft-email-campaign-frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "draft-frontend-1_frontend",
+            "value": "draft-frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "draft-frontend-2_frontend",
+            "value": "draft-frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "efg-frontend-1_efg",
+            "value": "efg-frontend-1_efg",
+            "selected": false
+          },
+          {
+            "text": "efg-frontend-1_efg_production",
+            "value": "efg-frontend-1_efg_production",
+            "selected": false
+          },
+          {
+            "text": "efg-mysql-master-1_efg",
+            "value": "efg-mysql-master-1_efg",
+            "selected": false
+          },
+          {
+            "text": "efg-mysql-master-1_efg_production",
+            "value": "efg-mysql-master-1_efg_production",
+            "selected": false
+          },
+          {
+            "text": "efg-mysql-slave-1_efg",
+            "value": "efg-mysql-slave-1_efg",
+            "selected": false
+          },
+          {
+            "text": "efg-mysql-slave-1_efg_production",
+            "value": "efg-mysql-slave-1_efg_production",
+            "selected": false
+          },
+          {
+            "text": "elasticsearch-1_backend",
+            "value": "elasticsearch-1_backend",
+            "selected": false
+          },
+          {
+            "text": "elasticsearch-2_backend",
+            "value": "elasticsearch-2_backend",
+            "selected": false
+          },
+          {
+            "text": "elasticsearch-3_backend",
+            "value": "elasticsearch-3_backend",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-api-1_api",
+            "value": "email-campaign-api-1_api",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-api-2_api",
+            "value": "email-campaign-api-2_api",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-api-3_api",
+            "value": "email-campaign-api-3_api",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-frontend-1_frontend",
+            "value": "email-campaign-frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-frontend-2_frontend",
+            "value": "email-campaign-frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-frontend-3_frontend",
+            "value": "email-campaign-frontend-3_frontend",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-mongo-1_api",
+            "value": "email-campaign-mongo-1_api",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-mongo-2_api",
+            "value": "email-campaign-mongo-2_api",
+            "selected": false
+          },
+          {
+            "text": "email-campaign-mongo-3_api",
+            "value": "email-campaign-mongo-3_api",
+            "selected": false
+          },
+          {
+            "text": "etcd-1_management",
+            "value": "etcd-1_management",
+            "selected": false
+          },
+          {
+            "text": "etcd-2_management",
+            "value": "etcd-2_management",
+            "selected": false
+          },
+          {
+            "text": "etcd-3_management",
+            "value": "etcd-3_management",
+            "selected": false
+          },
+          {
+            "text": "exception-handler-1_backend",
+            "value": "exception-handler-1_backend",
+            "selected": false
+          },
+          {
+            "text": "frontend-1_frontend",
+            "value": "frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "frontend-2_frontend",
+            "value": "frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "frontend-3_frontend",
+            "value": "frontend-3_frontend",
+            "selected": false
+          },
+          {
+            "text": "frontend-lb-1_frontend",
+            "value": "frontend-lb-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "frontend-lb-2_frontend",
+            "value": "frontend-lb-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "graphite-1_management",
+            "value": "graphite-1_management",
+            "selected": false
+          },
+          {
+            "text": "jenkins-1_management",
+            "value": "jenkins-1_management",
+            "selected": false
+          },
+          {
+            "text": "jumpbox-1_management",
+            "value": "jumpbox-1_management",
+            "selected": false
+          },
+          {
+            "text": "jumpbox-2_management",
+            "value": "jumpbox-2_management",
+            "selected": false
+          },
+          {
+            "text": "licensify-backend-1_licensify",
+            "value": "licensify-backend-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-backend-2_licensify",
+            "value": "licensify-backend-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-frontend-1_licensify",
+            "value": "licensify-frontend-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-frontend-2_licensify",
+            "value": "licensify-frontend-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-lb-1_licensify",
+            "value": "licensify-lb-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-lb-2_licensify",
+            "value": "licensify-lb-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-mongo-1_licensify",
+            "value": "licensify-mongo-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-mongo-2_licensify",
+            "value": "licensify-mongo-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensify-mongo-3_licensify",
+            "value": "licensify-mongo-3_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-backend-1_licensify",
+            "value": "licensing-backend-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-backend-1_licensify_production",
+            "value": "licensing-backend-1_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "licensing-backend-2_licensify",
+            "value": "licensing-backend-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-backend-2_licensify_production",
+            "value": "licensing-backend-2_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "licensing-frontend-1_licensify",
+            "value": "licensing-frontend-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-frontend-1_licensify_production",
+            "value": "licensing-frontend-1_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "licensing-frontend-2_licensify",
+            "value": "licensing-frontend-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-frontend-2_licensify_production",
+            "value": "licensing-frontend-2_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "licensing-mongo-1_licensify",
+            "value": "licensing-mongo-1_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-mongo-1_licensify_production",
+            "value": "licensing-mongo-1_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "licensing-mongo-2_licensify",
+            "value": "licensing-mongo-2_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-mongo-2_licensify_production",
+            "value": "licensing-mongo-2_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "licensing-mongo-3_licensify",
+            "value": "licensing-mongo-3_licensify",
+            "selected": false
+          },
+          {
+            "text": "licensing-mongo-3_licensify_production",
+            "value": "licensing-mongo-3_licensify_production",
+            "selected": false
+          },
+          {
+            "text": "logging-1_management",
+            "value": "logging-1_management",
+            "selected": false
+          },
+          {
+            "text": "logs-cdn-1_management",
+            "value": "logs-cdn-1_management",
+            "selected": false
+          },
+          {
+            "text": "logs-elasticsearch-1_management",
+            "value": "logs-elasticsearch-1_management",
+            "selected": false
+          },
+          {
+            "text": "logs-elasticsearch-2_management",
+            "value": "logs-elasticsearch-2_management",
+            "selected": false
+          },
+          {
+            "text": "logs-elasticsearch-3_management",
+            "value": "logs-elasticsearch-3_management",
+            "selected": false
+          },
+          {
+            "text": "logs-redis-1_management",
+            "value": "logs-redis-1_management",
+            "selected": false
+          },
+          {
+            "text": "logs-redis-2_management",
+            "value": "logs-redis-2_management",
+            "selected": false
+          },
+          {
+            "text": "mapit-1_api",
+            "value": "mapit-1_api",
+            "selected": false
+          },
+          {
+            "text": "mapit-2_api",
+            "value": "mapit-2_api",
+            "selected": false
+          },
+          {
+            "text": "mapit-server-1_backend",
+            "value": "mapit-server-1_backend",
+            "selected": false
+          },
+          {
+            "text": "mapit-server-2_backend",
+            "value": "mapit-server-2_backend",
+            "selected": false
+          },
+          {
+            "text": "mirrorer-1",
+            "value": "mirrorer-1",
+            "selected": false
+          },
+          {
+            "text": "mirrorer-1_management",
+            "value": "mirrorer-1_management",
+            "selected": false
+          },
+          {
+            "text": "mongo-1_backend",
+            "value": "mongo-1_backend",
+            "selected": false
+          },
+          {
+            "text": "mongo-2_backend",
+            "value": "mongo-2_backend",
+            "selected": false
+          },
+          {
+            "text": "mongo-3_backend",
+            "value": "mongo-3_backend",
+            "selected": false
+          },
+          {
+            "text": "mongo-4_backend",
+            "value": "mongo-4_backend",
+            "selected": false
+          },
+          {
+            "text": "monitoring-1_management",
+            "value": "monitoring-1_management",
+            "selected": false
+          },
+          {
+            "text": "mysql-backup-1_backend",
+            "value": "mysql-backup-1_backend",
+            "selected": false
+          },
+          {
+            "text": "mysql-master-1_backend",
+            "value": "mysql-master-1_backend",
+            "selected": false
+          },
+          {
+            "text": "mysql-slave-1_backend",
+            "value": "mysql-slave-1_backend",
+            "selected": false
+          },
+          {
+            "text": "mysql-slave-2_backend",
+            "value": "mysql-slave-2_backend",
+            "selected": false
+          },
+          {
+            "text": "mysql-slave-3_backend",
+            "value": "mysql-slave-3_backend",
+            "selected": false
+          },
+          {
+            "text": "performance-backend-1_backend",
+            "value": "performance-backend-1_backend",
+            "selected": false
+          },
+          {
+            "text": "performance-backend-2_backend",
+            "value": "performance-backend-2_backend",
+            "selected": false
+          },
+          {
+            "text": "performance-frontend-1_frontend",
+            "value": "performance-frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "performance-frontend-2_frontend",
+            "value": "performance-frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "performance-mongo-1_api",
+            "value": "performance-mongo-1_api",
+            "selected": false
+          },
+          {
+            "text": "performance-mongo-2_api",
+            "value": "performance-mongo-2_api",
+            "selected": false
+          },
+          {
+            "text": "performance-mongo-3_api",
+            "value": "performance-mongo-3_api",
+            "selected": false
+          },
+          {
+            "text": "performance-mongo-4_api",
+            "value": "performance-mongo-4_api",
+            "selected": false
+          },
+          {
+            "text": "postgresql-primary-1_backend",
+            "value": "postgresql-primary-1_backend",
+            "selected": false
+          },
+          {
+            "text": "postgresql-standby-1_backend",
+            "value": "postgresql-standby-1_backend",
+            "selected": false
+          },
+          {
+            "text": "postgresql-standby-2_backend",
+            "value": "postgresql-standby-2_backend",
+            "selected": false
+          },
+          {
+            "text": "puppetmaster-1_management",
+            "value": "puppetmaster-1_management",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq-1",
+            "value": "rabbitmq-1",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq-1_backend",
+            "value": "rabbitmq-1_backend",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq-2",
+            "value": "rabbitmq-2",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq-2_backend",
+            "value": "rabbitmq-2_backend",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq-3",
+            "value": "rabbitmq-3",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq-3_backend",
+            "value": "rabbitmq-3_backend",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq_%2F",
+            "value": "rabbitmq_%2F",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq_%2Fbackdrop_write",
+            "value": "rabbitmq_%2Fbackdrop_write",
+            "selected": false
+          },
+          {
+            "text": "rabbitmq_%2Fstagecraft",
+            "value": "rabbitmq_%2Fstagecraft",
+            "selected": false
+          },
+          {
+            "text": "redis-1_backend",
+            "value": "redis-1_backend",
+            "selected": false
+          },
+          {
+            "text": "redis-2_backend",
+            "value": "redis-2_backend",
+            "selected": false
+          },
+          {
+            "text": "router-backend-1_router",
+            "value": "router-backend-1_router",
+            "selected": false
+          },
+          {
+            "text": "router-backend-2_router",
+            "value": "router-backend-2_router",
+            "selected": false
+          },
+          {
+            "text": "router-backend-3_router",
+            "value": "router-backend-3_router",
+            "selected": false
+          },
+          {
+            "text": "router-backend-4_router",
+            "value": "router-backend-4_router",
+            "selected": false
+          },
+          {
+            "text": "search-1_api",
+            "value": "search-1_api",
+            "selected": false
+          },
+          {
+            "text": "search-2_api",
+            "value": "search-2_api",
+            "selected": false
+          },
+          {
+            "text": "search-3_api",
+            "value": "search-3_api",
+            "selected": false
+          },
+          {
+            "text": "stats",
+            "value": "stats",
+            "selected": false
+          },
+          {
+            "text": "stats_counts",
+            "value": "stats_counts",
+            "selected": false
+          },
+          {
+            "text": "statsd",
+            "value": "statsd",
+            "selected": false
+          },
+          {
+            "text": "transition-postgresql-master-1_backend",
+            "value": "transition-postgresql-master-1_backend",
+            "selected": false
+          },
+          {
+            "text": "transition-postgresql-slave-1_backend",
+            "value": "transition-postgresql-slave-1_backend",
+            "selected": false
+          },
+          {
+            "text": "transition-postgresql-slave-2_backend",
+            "value": "transition-postgresql-slave-2_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-backend-1_backend",
+            "value": "whitehall-backend-1_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-backend-2_backend",
+            "value": "whitehall-backend-2_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-backend-3_backend",
+            "value": "whitehall-backend-3_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-backend-4_backend",
+            "value": "whitehall-backend-4_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-1_frontend",
+            "value": "whitehall-frontend-1_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-2_frontend",
+            "value": "whitehall-frontend-2_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-3_frontend",
+            "value": "whitehall-frontend-3_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-4_frontend",
+            "value": "whitehall-frontend-4_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-5_frontend",
+            "value": "whitehall-frontend-5_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-6_frontend",
+            "value": "whitehall-frontend-6_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-frontend-7_frontend",
+            "value": "whitehall-frontend-7_frontend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-mysql-backup-1_backend",
+            "value": "whitehall-mysql-backup-1_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-mysql-master-1_backend",
+            "value": "whitehall-mysql-master-1_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-mysql-slave-1_backend",
+            "value": "whitehall-mysql-slave-1_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-mysql-slave-2_backend",
+            "value": "whitehall-mysql-slave-2_backend",
+            "selected": false
+          },
+          {
+            "text": "whitehall-mysql-slave-3_backend",
+            "value": "whitehall-mysql-slave-3_backend",
+            "selected": false
+          }
+        ],
+        "query": "*",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": "processes-*",
+        "current": {
+          "value": [
+            "processes-app-content-store"
+          ],
+          "text": "processes-app-content-store"
+        },
+        "datasource": "Graphite",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Processes",
+        "multi": true,
+        "name": "processes",
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": false
+          },
+          {
+            "text": "processes-app-asset-manager",
+            "value": "processes-app-asset-manager",
+            "selected": false
+          },
+          {
+            "text": "processes-app-authenticating-proxy",
+            "value": "processes-app-authenticating-proxy",
+            "selected": false
+          },
+          {
+            "text": "processes-app-backdrop-read",
+            "value": "processes-app-backdrop-read",
+            "selected": false
+          },
+          {
+            "text": "processes-app-backdrop-write",
+            "value": "processes-app-backdrop-write",
+            "selected": false
+          },
+          {
+            "text": "processes-app-bouncer",
+            "value": "processes-app-bouncer",
+            "selected": false
+          },
+          {
+            "text": "processes-app-business-support-api",
+            "value": "processes-app-business-support-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-businesssupportfinder",
+            "value": "processes-app-businesssupportfinder",
+            "selected": false
+          },
+          {
+            "text": "processes-app-calculators",
+            "value": "processes-app-calculators",
+            "selected": false
+          },
+          {
+            "text": "processes-app-calendars",
+            "value": "processes-app-calendars",
+            "selected": false
+          },
+          {
+            "text": "processes-app-collections",
+            "value": "processes-app-collections",
+            "selected": false
+          },
+          {
+            "text": "processes-app-collections-publisher",
+            "value": "processes-app-collections-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-contacts",
+            "value": "processes-app-contacts",
+            "selected": false
+          },
+          {
+            "text": "processes-app-contacts-frontend",
+            "value": "processes-app-contacts-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-content-register",
+            "value": "processes-app-content-register",
+            "selected": false
+          },
+          {
+            "text": "processes-app-content-store",
+            "value": "processes-app-content-store",
+            "selected": true
+          },
+          {
+            "text": "processes-app-content-tagger",
+            "value": "processes-app-content-tagger",
+            "selected": false
+          },
+          {
+            "text": "processes-app-contentapi",
+            "value": "processes-app-contentapi",
+            "selected": false
+          },
+          {
+            "text": "processes-app-designprinciples",
+            "value": "processes-app-designprinciples",
+            "selected": false
+          },
+          {
+            "text": "processes-app-dfid-transition",
+            "value": "processes-app-dfid-transition",
+            "selected": false
+          },
+          {
+            "text": "processes-app-efg",
+            "value": "processes-app-efg",
+            "selected": false
+          },
+          {
+            "text": "processes-app-efg-training",
+            "value": "processes-app-efg-training",
+            "selected": false
+          },
+          {
+            "text": "processes-app-efg_training",
+            "value": "processes-app-efg_training",
+            "selected": false
+          },
+          {
+            "text": "processes-app-email-alert-api",
+            "value": "processes-app-email-alert-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-email-alert-frontend",
+            "value": "processes-app-email-alert-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-email-alert-service",
+            "value": "processes-app-email-alert-service",
+            "selected": false
+          },
+          {
+            "text": "processes-app-email-campaign-api",
+            "value": "processes-app-email-campaign-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-email-campaign-frontend",
+            "value": "processes-app-email-campaign-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-errbit",
+            "value": "processes-app-errbit",
+            "selected": false
+          },
+          {
+            "text": "processes-app-feedback",
+            "value": "processes-app-feedback",
+            "selected": false
+          },
+          {
+            "text": "processes-app-finder-frontend",
+            "value": "processes-app-finder-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-frontend",
+            "value": "processes-app-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-government-frontend",
+            "value": "processes-app-government-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-govuk-cdn-logs-monitor",
+            "value": "processes-app-govuk-cdn-logs-monitor",
+            "selected": false
+          },
+          {
+            "text": "processes-app-govuk_crawler_worker",
+            "value": "processes-app-govuk_crawler_worker",
+            "selected": false
+          },
+          {
+            "text": "processes-app-hmrc-manuals-api",
+            "value": "processes-app-hmrc-manuals-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-imminence",
+            "value": "processes-app-imminence",
+            "selected": false
+          },
+          {
+            "text": "processes-app-info-frontend",
+            "value": "processes-app-info-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-kibana",
+            "value": "processes-app-kibana",
+            "selected": false
+          },
+          {
+            "text": "processes-app-licencefinder",
+            "value": "processes-app-licencefinder",
+            "selected": false
+          },
+          {
+            "text": "processes-app-local-links-manager",
+            "value": "processes-app-local-links-manager",
+            "selected": false
+          },
+          {
+            "text": "processes-app-manuals-frontend",
+            "value": "processes-app-manuals-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-manuals-publisher",
+            "value": "processes-app-manuals-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-maslow",
+            "value": "processes-app-maslow",
+            "selected": false
+          },
+          {
+            "text": "processes-app-metadata-api",
+            "value": "processes-app-metadata-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-multipage-frontend",
+            "value": "processes-app-multipage-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-need-api",
+            "value": "processes-app-need-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-panopticon",
+            "value": "processes-app-panopticon",
+            "selected": false
+          },
+          {
+            "text": "processes-app-performanceplatform-admin",
+            "value": "processes-app-performanceplatform-admin",
+            "selected": false
+          },
+          {
+            "text": "processes-app-policy-publisher",
+            "value": "processes-app-policy-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-publisher",
+            "value": "processes-app-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-publishing-api",
+            "value": "processes-app-publishing-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-release",
+            "value": "processes-app-release",
+            "selected": false
+          },
+          {
+            "text": "processes-app-router",
+            "value": "processes-app-router",
+            "selected": false
+          },
+          {
+            "text": "processes-app-router-api",
+            "value": "processes-app-router-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-rummager",
+            "value": "processes-app-rummager",
+            "selected": false
+          },
+          {
+            "text": "processes-app-search-admin",
+            "value": "processes-app-search-admin",
+            "selected": false
+          },
+          {
+            "text": "processes-app-service-manual-frontend",
+            "value": "processes-app-service-manual-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-service-manual-publisher",
+            "value": "processes-app-service-manual-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-share-sale-publisher",
+            "value": "processes-app-share-sale-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-short-url-manager",
+            "value": "processes-app-short-url-manager",
+            "selected": false
+          },
+          {
+            "text": "processes-app-sidekiq-monitoring",
+            "value": "processes-app-sidekiq-monitoring",
+            "selected": false
+          },
+          {
+            "text": "processes-app-signon",
+            "value": "processes-app-signon",
+            "selected": false
+          },
+          {
+            "text": "processes-app-smartanswers",
+            "value": "processes-app-smartanswers",
+            "selected": false
+          },
+          {
+            "text": "processes-app-specialist-frontend",
+            "value": "processes-app-specialist-frontend",
+            "selected": false
+          },
+          {
+            "text": "processes-app-specialist-publisher",
+            "value": "processes-app-specialist-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-specialist-publisher-rebuild",
+            "value": "processes-app-specialist-publisher-rebuild",
+            "selected": false
+          },
+          {
+            "text": "processes-app-spotlight",
+            "value": "processes-app-spotlight",
+            "selected": false
+          },
+          {
+            "text": "processes-app-stagecraft",
+            "value": "processes-app-stagecraft",
+            "selected": false
+          },
+          {
+            "text": "processes-app-static",
+            "value": "processes-app-static",
+            "selected": false
+          },
+          {
+            "text": "processes-app-support",
+            "value": "processes-app-support",
+            "selected": false
+          },
+          {
+            "text": "processes-app-support-api",
+            "value": "processes-app-support-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-tariff",
+            "value": "processes-app-tariff",
+            "selected": false
+          },
+          {
+            "text": "processes-app-tariff-admin",
+            "value": "processes-app-tariff-admin",
+            "selected": false
+          },
+          {
+            "text": "processes-app-tariff-api",
+            "value": "processes-app-tariff-api",
+            "selected": false
+          },
+          {
+            "text": "processes-app-transition",
+            "value": "processes-app-transition",
+            "selected": false
+          },
+          {
+            "text": "processes-app-travel-advice-publisher",
+            "value": "processes-app-travel-advice-publisher",
+            "selected": false
+          },
+          {
+            "text": "processes-app-whitehall",
+            "value": "processes-app-whitehall",
+            "selected": false
+          }
+        ],
+        "query": "*.processes-*",
+        "refresh": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "1m",
+  "schemaVersion": 12,
+  "version": 5,
+  "links": []
+}
