@@ -93,6 +93,7 @@ class govuk::apps::specialist_publisher_rebuild_standalone(
 
   if $enabled {
     govuk::app { $app_name:
+      ensure             => absent,
       app_type           => 'rack',
       port               => $port,
       health_check_path  => '/healthcheck',
@@ -101,10 +102,12 @@ class govuk::apps::specialist_publisher_rebuild_standalone(
     }
 
     govuk::procfile::worker {'specialist-publisher-rebuild-standalone':
+      ensure         => absent,
       enable_service => $enable_procfile_worker,
     }
 
     govuk_logging::logstream { 'specialist-publisher-rebuild-standalone_sidekiq_json_log':
+      ensure  => absent,
       logfile => '/var/apps/specialist-publisher-rebuild-standalone/log/sidekiq.json.log',
       fields  => {'application' => 'specialist-publisher-rebuild-standalone'},
       json    => true,
