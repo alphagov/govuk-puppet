@@ -79,6 +79,8 @@ class govuk::apps::content_store(
     }
   }
 
+  $trade_tariff_uri = hiera('trade_tariff_uri')
+
   govuk::app::envvar {
     "${title}-DEFAULT_TTL":
       varname => 'DEFAULT_TTL',
@@ -89,5 +91,8 @@ class govuk::apps::content_store(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+    "${title}-PLEK_SERVICE_TARIFF_URI":
+      varname => 'PLEK_SERVICE_TARIFF_URI',
+      value   =>  $trade_tariff_uri;
   }
 }

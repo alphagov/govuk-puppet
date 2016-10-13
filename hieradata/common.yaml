@@ -1271,3 +1271,5 @@ unattended_reboot::etcd_endpoints:
   - "http://etcd-1.management:4001"
 
 unicornherder::version: '0.0.8'
+
+trade_tariff_uri: 'https://tariff-frontend-dev.cloudapps.digital/'
