@@ -12,6 +12,7 @@
 class icinga::client::checks (
   $disk_time_warn = 100,
   $disk_time_critical = 200,
+  $disk_time_window_minutes = 5,
 ) {
 
   include icinga::client::check_cputype
@@ -111,7 +112,6 @@ class icinga::client::checks (
   # This will not alert on short spikes in I/O unless they are very large.
   # Instead, it is intended to alert on persistent high I/O.
 
-  $disk_time_window_minutes = 5
   $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
 
   @@icinga::check::graphite { "check_disk_time_${::hostname}":
