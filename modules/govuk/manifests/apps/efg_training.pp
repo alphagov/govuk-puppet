@@ -36,7 +36,7 @@
 #   The secret token Rails uses to encrypt cookies and stuff like that.
 #
 class govuk::apps::efg_training (
-  $port = '3126',
+  $port = '3129',
   $ssl_certtype,
   $vhost_name,
   $devise_pepper = undef,
