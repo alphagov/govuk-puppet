@@ -22,6 +22,7 @@ govuk_content_models
 hmrc-manuals-api
 imminence
 licence-finder
+local-links-manager
 mapit
 panopticon
 policy-publisher
