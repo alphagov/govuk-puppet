@@ -29,6 +29,8 @@ govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza STAGING'
 govuk_jenkins::config::manage_config: true
 
+govuk_elasticsearch::dump::run_es_dump_hour: '4'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_staging
   - govuk_jenkins::job::deploy_app
