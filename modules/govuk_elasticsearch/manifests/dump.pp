@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_elasticsearch::dump (
-  $run_es_dump_hour = '3',
+  $run_es_dump_hour = '4',
 ) {
   package { 'es_dump_restore':
     ensure   => '2.0.0',
