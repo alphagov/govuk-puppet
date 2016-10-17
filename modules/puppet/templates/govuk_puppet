@@ -6,13 +6,190 @@ if [ "$(id -u)" -ne "0" ]; then
   exec sudo "$BASH_SOURCE" "$@"
 fi
 
-START_TIME=`date +%s%3N`
+## variable defaults and setup
+app_name=$(basename "$0")
+
+puppet_lock=/var/lib/puppet/state/agent_disabled.lock
+lock_dir=/var/run/lock/puppet
+
+lock_name=default # TODO validate this
+lock_reason='' # default to no value to match current invocations
+
+start_time=`date +%s%3N`
+
+##############################################
+
+usage() {
+cat<<EOH
+
+Options:
+
+ -d [lock_directory]
+  The directory to store the locks in. Defaults to $lock_dir
+
+ -h
+  Shows this help information
+
+ -l
+  List locks. Show all the existing locks
+
+ -n [lock_name]
+  The name this lock should be taken out under. Defaults to 'default'
+  for compatibility with older invocations.
+
+ -r [lock_reason]
+  The reason puppet has been disabled. This is currently optional
+  to support the older invocation style.
+
+Examples:
+
+  # deprecated lock and unlock commands:
+  # to lock puppet the current way with a default lock and no reason
+  $app_name --disable
+
+  # and then to reenable puppet
+  $app_name --enable
+
+
+
+  # newer style with explicit lock names
+  # be explicit with the reason and the name of the lock
+  $app_name -n postgres_backups -r 'Running postgres restore' --disable
+
+  # show the lock exists
+  $app_name -l
+
+  # remove the named lock
+  $app_name -n postgres_backups --enable
+
+EOH
+
+exit 0
+}
+
+###############################
+
+write_lock() {
+  local lock_file="${lock_dir}/${lock_name}.lock"
+  local time_stamp=$(date +%Y%m%d-%H%M%S)
+
+  if [ -e "$lock_file" ];then
+    echo "A lock named ${lock_name} already exists. Exiting"
+    exit 1
+  fi
+
+  touch $puppet_lock
+
+  echo "${time_stamp} :: $lock_reason" > $lock_file
+}
+
+###############################
+
+remove_lock() {
+  local lock_file="${lock_dir}/${lock_name}.lock"
+
+  if [ ! -e "$lock_file" ];then
+    echo "No lock named ${lock_name} found. Exiting"
+    exit 1
+  fi
+
+  rm $lock_file
+
+  if [ -e "$lock_file" ];then
+    echo "Failed to remove ${lock_file}"
+    exit 1
+  fi
+
+  # only remove the puppet level lock file once all wrapper locks have been removed
+  local locked=$(has_locks)
+  if [ "$locked" == 0 ];then
+    rm $puppet_lock
+
+    if [ -e "$lock_file" ];then
+      echo "Failed to remove ${puppet_lock}"
+      exit 1
+    fi
+  fi
+
+}
+
+###############################
+
+list_locks() {
+  for file in $(ls ${lock_dir}/*.lock 2>/dev/null)
+  do
+    local lock=$(basename -s .lock $file)
+    local content=$(cat "${file}")
+    echo "${lock}: ${content}"
+  done
+}
+
+###############################
+
+has_locks() {
+  local locked=0
+
+  if $(ls ${lock_dir}/*.lock >/dev/null 2>&1);then
+    locked=1
+  fi
+
+  echo "$locked"
+}
+
+###############################
+
+puppet_args=''
+
+while getopts "d:r:n:-:hl" option
+do
+  case $option in
+    d ) lock_dir="$OPTARG"                      ;;
+    r ) lock_reason="$OPTARG"                   ;;
+    n ) lock_name="$OPTARG"                     ;;
+    l ) list_locks ; exit 0                     ;;
+    h ) usage                                   ;;
+    - ) puppet_args="${puppet_args} --$OPTARG " ;;
+    * ) usage                                   ;;
+  esac
+done
+
+if [ ! -d "$lock_dir" ] || [ ! -w "$lock_dir" ];then
+  echo "$app_name: lock directory $lock_dir is not accessible"
+  exit 1
+fi
+
+# log invocations that don't specify their own lock file
+if [ "$lock_name" == 'default' ];then
+  echo "$app_name: No explicit lock name reason was given. Using defaults."
+fi
+
+if [[ " ${puppet_args} " =~ "--disable " ]]; then
+  shift "$((OPTIND - 1))"
+  lock_reason=${1-:$lock_reason}
+
+  if [ -z "$lock_reason" ];then
+    echo "$app_name: No lock reason was given. Please supply one"
+    exit 1
+  fi
+
+  write_lock
+fi
+
+if [[ " ${puppet_args} " =~ "--enable " ]]; then
+  remove_lock
+fi
+
+locked=$(has_locks)
+if [ "$locked" == 1 ];then
+  list_locks
+  exit 1
+fi
 
 set +e
-RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize "$@"
+RBENV_VERSION=1.9.3 /usr/local/bin/govuk_setenv default puppet agent --onetime --no-daemonize $puppet_args
 set -e
 
-TIME_TOOK=$((`date +%s%3N`-START_TIME))
+TIME_TOOK=$((`date +%s%3N`-start_time))
 echo "<%= @fqdn_metrics %>.puppet.run_duration:${TIME_TOOK}|ms" | nc -w 1 -u localhost 8125
 
 /usr/local/bin/puppet_passive_check_update >/dev/null
