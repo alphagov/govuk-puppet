@@ -49,10 +49,17 @@ class puppet (
     $govuk_puppet_template = 'puppet/govuk_puppet_development'
   }
 
+  $lock_dir = '/var/run/lock/puppet'
+
+  file { $lock_dir:
+    ensure => directory,
+  }
+
   file { '/usr/local/bin/govuk_puppet':
     ensure  => present,
     mode    => '0755',
     content => template($govuk_puppet_template),
+    require => File[$lock_dir],
   }
 
   service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
