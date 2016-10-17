@@ -10,7 +10,7 @@ fi
 app_name=$(basename "$0")
 
 puppet_lock=/var/lib/puppet/state/agent_disabled.lock
-lock_dir=/var/run/lock/puppet
+lock_dir=<%= @lock_dir %>
 
 lock_name=default # TODO validate this
 lock_reason='' # default to no value to match current invocations
