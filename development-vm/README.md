@@ -25,9 +25,8 @@ checking for other manufacturers.
 
   * You have [OSX GCC tools installed](https://github.com/kennethreitz/osx-gcc-installer) (or via XCode)
   * You have [VirtualBox](https://www.virtualbox.org/) installed
+  * You have [Vagrant](https://www.vagrantup.com/downloads.html) installed
   * You have an account on [GitHub.com](https://github.com)
-  * You have [Vagrant 1.7.4](https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4.dmg)
-    installed.
   * You have some other repositories from GDS checked out to work on -
     these should be located alongside the `govuk-puppet` repository we're in
     now (e.g `~/govuk/govuk-puppet:~/govuk/frontend`)
