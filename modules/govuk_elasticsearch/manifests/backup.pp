@@ -33,20 +33,28 @@
 # [*es_indices*]
 #   Elaticsearch indexes
 #
+# [*cron_hour*]
+#   The hour that the job should run
+#
+# [*cron_minute*]
+#   The minute that the job should run
+#
 # === Variables
 #
 # [*json_es_indices*]
 #   Formatted indexes to be backed up when script is invoked
 #
 class govuk_elasticsearch::backup(
-  $aws_access_key_id = undef,
-  $aws_secret_access_key = undef,
+  $aws_access_key_id,
+  $aws_secret_access_key,
   $aws_region = 'eu-west-1',
-  $s3_bucket = undef,
-  $env_dir = '/etc/es_s3backup',
+  $s3_bucket,
+  $aws_source_file = '/etc/awspasswd',
   $user = 'govuk-backup',
   $es_repo = undef,
-  $es_indices = []
+  $es_indices = [],
+  $cron_hour = 0,
+  $cron_minute = 0,
 ){
 
 
@@ -57,34 +65,12 @@ class govuk_elasticsearch::backup(
     include ::backup::client
     include govuk_elasticsearch::housekeeping
 
-
-    # push env files
-    file { [$env_dir,"${env_dir}/env.d"]:
-      ensure => directory,
-      owner  => $user,
-      group  => $user,
-      mode   => '0750',
-    }
-
-    file { "${env_dir}/env.d/AWS_SECRET_ACCESS_KEY":
-      content => $aws_secret_access_key,
+    file { $aws_source_file:
+      ensure  => present,
       owner   => $user,
       group   => $user,
       mode    => '0640',
-    }
-
-    file { "${env_dir}/env.d/AWS_ACCESS_KEY_ID":
-      content => $aws_access_key_id,
-      owner   => $user,
-      group   => $user,
-      mode    => '0640',
-    }
-
-    file { "${env_dir}/env.d/AWS_REGION":
-      content => $aws_region,
-      owner   => $user,
-      group   => $user,
-      mode    => '0640',
+      content => template('govuk_elasticsearch/awspasswd.erb'),
     }
 
     @@icinga::passive_check { "check_esindexbackup-${::hostname}":
@@ -106,8 +92,17 @@ class govuk_elasticsearch::backup(
       ensure  => present,
       command => '/usr/local/bin/es-backup-s3',
       user    => $user,
-      hour    => 0,
-      minute  => 0,
+      hour    => $cron_hour,
+      minute  => $cron_minute,
+    }
+
+
+    file { 'es-restore-s3':
+      path    => '/usr/local/bin/es-restore-s3',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template('govuk_elasticsearch/es-restore-s3.erb'),
     }
 
 }

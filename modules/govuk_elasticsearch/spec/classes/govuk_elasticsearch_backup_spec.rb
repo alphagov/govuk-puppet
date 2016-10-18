@@ -6,7 +6,10 @@ require_relative '../../../../spec_helper'
         :es_indices => [
             'cagney',
             'lacey'
-        ]
+        ],
+        :aws_secret_access_key => 'foo',
+        :aws_access_key_id => 'bar',
+        :s3_bucket => 'mybucket',
     }}
 
     context 'Check file' do

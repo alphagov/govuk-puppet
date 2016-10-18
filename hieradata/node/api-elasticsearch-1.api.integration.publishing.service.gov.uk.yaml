@@ -2,3 +2,5 @@
 govuk_elasticsearch::backup_enabled: true
 govuk_elasticsearch::backup::s3_bucket: 'govuk-api-elasticsearch-integration'
 govuk_elasticsearch::backup::es_repo: 'snapshots'
+govuk_elasticsearch::backup::cron_hour: 18
+govuk_elasticsearch::backup::cron_minute: 10
