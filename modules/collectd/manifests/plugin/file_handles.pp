@@ -12,6 +12,7 @@ class collectd::plugin::file_handles(
     group   => 'root',
     content => file('collectd/usr/lib/collectd/file_handles.sh'),
     tag     => 'collectd::plugin',
+    require => Class['collectd::package'],
   }
 
   @collectd::plugin { 'file_handles':
