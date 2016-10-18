@@ -30,7 +30,7 @@ TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
 
 # Remove backup archive before restore begins
-/bin/rm -f $BACKUP_DIR/mongodump.*
+/bin/rm -f $BACKUP_DIR/mongodump*
 
 TIME="$(date +%s)"
 # Restore mongo database backup
