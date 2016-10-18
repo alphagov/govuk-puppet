@@ -27,8 +27,6 @@ deployable_applications: &deployable_applications
   - email-alert-frontend
   - email-alert-monitor
   - email-alert-service
-  - email-campaign-api
-  - email-campaign-frontend
   - errbit
   - feedback
   - finder-frontend
@@ -277,20 +275,10 @@ govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_pre
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::email_campaign_api::mongodb_nodes:
-  - 'email-campaign-mongo-1.api'
-  - 'email-campaign-mongo-2.api'
-  - 'email-campaign-mongo-3.api'
-govuk::apps::email_campaign_api::redis_host: 'api-redis-1.api'
-govuk::apps::email_campaign_api::redis_port: '6379'
-
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
   - rabbitmq-3.backend
-
-govuk::apps::email_campaign_frontend::nagios_memory_warning: 1000
-govuk::apps::email_campaign_frontend::nagios_memory_critical: 1100
 
 govuk::apps::errbit::nagios_memory_warning: 2600
 govuk::apps::errbit::nagios_memory_critical: 3000
@@ -409,8 +397,6 @@ govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::app
 govuk::apps::sidekiq_monitoring::content_tagger_redis_port: "%{hiera('govuk::apps::content_tagger::redis_port')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_port: "%{hiera('govuk::apps::email_alert_api::redis_port')}"
-govuk::apps::sidekiq_monitoring::email_campaign_api_redis_host: "%{hiera('govuk::apps::email_campaign_api::redis_host')}"
-govuk::apps::sidekiq_monitoring::email_campaign_api_redis_port: "%{hiera('govuk::apps::email_campaign_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::imminence_redis_host: "%{hiera('govuk::apps::imminence::redis_host')}"
 govuk::apps::sidekiq_monitoring::imminence_redis_port: "%{hiera('govuk::apps::imminence::redis_port')}"
 govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::publisher::redis_host')}"
@@ -661,14 +647,6 @@ hosts::production::api::hosts:
     ip: '10.1.4.200'
   draft-content-store-2:
     ip: '10.1.4.201'
-  email-campaign-api-1:
-    ip: '10.1.4.50'
-  email-campaign-api-2:
-    ip: '10.1.4.51'
-  # FIXME: email-campaign-mongo-1 doesn't exist, but it's required
-  # so that the catalog compiles for the node specs.
-  email-campaign-mongo-1:
-    ip: '10.1.4.53'
   mapit-1:
     ip: '10.1.4.60'
   mapit-2:
@@ -694,7 +672,6 @@ hosts::production::api::app_hostnames:
   - 'backdrop-read'
   - 'backdrop-write'
   - 'content-store'
-  - 'email-campaign-api'
   - 'mapit'
   - 'metadata-api'
   - 'rummager'
@@ -869,18 +846,10 @@ hosts::production::frontend::hosts:
     ip: '10.1.2.2'
   frontend-2:
     ip: '10.1.2.3'
-  draft-email-campaign-frontend-1:
-    ip: '10.1.2.202'
-  draft-email-campaign-frontend-2:
-    ip: '10.1.2.203'
   draft-frontend-1:
     ip: '10.1.2.200'
   draft-frontend-2:
     ip: '10.1.2.201'
-  email-campaign-frontend-1:
-    ip: '10.1.2.30'
-  email-campaign-frontend-2:
-    ip: '10.1.2.31'
   performance-frontend-1:
     ip: '10.1.2.20'
   performance-frontend-2:
@@ -908,13 +877,11 @@ hosts::production::frontend::app_hostnames:
   - 'draft-collections'
   - 'draft-contacts-frontend'
   - 'draft-email-alert-frontend'
-  - 'draft-email-campaign-frontend'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
   - 'draft-service-manual-frontend'
   - 'draft-specialist-frontend'
   - 'draft-static'
-  - 'email-campaign-frontend'
   - 'email-alert-frontend'
   - 'feedback'
   - 'finder-frontend'
@@ -1208,7 +1175,6 @@ router::assets_origin::asset_routes:
   '/contacts-frontend/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
   '/email-alert-frontend/': "email-alert-frontend"
-  '/email-campaign-frontend/': "email-campaign-frontend"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"
   '/frontend/': "frontend"

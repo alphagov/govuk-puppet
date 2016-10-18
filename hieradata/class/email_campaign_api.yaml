@@ -1,4 +1,0 @@
----
-
-govuk::node::s_base::apps:
-  - email_campaign_api
