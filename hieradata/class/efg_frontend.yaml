@@ -2,6 +2,7 @@
 
 govuk::node::s_base::apps:
   - efg
+  - efg_rebuild
   - efg_training
 
 govuk_safe_to_reboot::can_reboot: 'overnight'
