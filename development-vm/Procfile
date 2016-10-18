@@ -108,8 +108,8 @@ admin:                                                    ./run_in.sh ../perform
 # datainsight-insidegov-recorder used to use port 3106, but is no longer running in any environment
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../authenticating-proxy bundle exec rails s -p 3107
 mapit:                 govuk_setenv mapit                 ./run_in.sh ../mapit ./startup.sh # mapit uses port 3108
-email-campaign-frontend: govuk_setenv email-campaign-frontend  ./run_in.sh ../email-campaign-frontend bundle exec rails s -p 3109
-email-campaign-api:    govuk_setenv email-campaign-api    ./run_in.sh ../email-campaign-api bundle exec foreman start
+# email-campaign-frontend used 3109
+# email-campaign-api used 3110
 service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../service-manual-publisher bundle exec rails s -p 3111
 # govuk-pact-broker uses port 3112
 # govuk-component-guide uses port 3113
