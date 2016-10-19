@@ -49,7 +49,7 @@ class puppet (
     $govuk_puppet_template = 'puppet/govuk_puppet_development'
   }
 
-  $lock_dir = '/var/lock/govuk_puppet'
+  $lock_dir = '/var/lib/govuk_puppet'
 
   file { $lock_dir:
     ensure => directory,
