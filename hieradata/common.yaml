@@ -390,6 +390,11 @@ govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
+govuk::apps::release::db_hostname: "master.mysql"
+govuk::apps::release::db_username: "release"
+govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
+govuk::apps::release::github_username: "govuk-ci"
+
 govuk::apps::rummager::nagios_memory_warning: 4600
 govuk::apps::rummager::nagios_memory_critical: 4900
 govuk::apps::rummager::enable_publishing_listener: true
