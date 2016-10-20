@@ -31,11 +31,19 @@ else
     rm -rf $dir/*
   done
 
-  # Pull the latest backups from S3
-  envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | xbstream -x -C $BASE_DIR
+  # Pull, then decrypt the latest backups from S3
+  cd $BASE_DIR && envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | xbstream -x -C $BASE_DIR
 
-  envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | xbstream -x -C $INCR_DIR
+  for i in `find . -iname "*\.xbcrypt"`; do
+    xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" < $i > $(dirname $i)/$(basename $i .xbcrypt) && rm $i
+  done
 
+  cd $INCR_DIR && envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | xbstream -x -C $INCR_DIR
+
+  for i in `find . -iname "*\.xbcrypt"`; do
+    xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" < $i > $(dirname $i)/$(basename $i .xbcrypt) && rm $i
+  done
+  
   # Decompress the backups
   for dir in "$BASE_DIR" "$INCR_DIR"; do
     innobackupex --decompress $dir
