@@ -158,11 +158,6 @@ if [ ! -d "$lock_dir" ] || [ ! -w "$lock_dir" ];then
   exit 1
 fi
 
-# log invocations that don't specify their own lock file
-if [ "$lock_name" == 'default' ];then
-  echo "$app_name: No explicit lock name reason was given. Using defaults."
-fi
-
 if [[ " ${puppet_args} " =~ "--disable " ]]; then
   shift "$((OPTIND - 1))"
   lock_reason=${1-:$lock_reason}
