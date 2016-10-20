@@ -193,15 +193,10 @@ class govuk::node::s_asset_base (
         mode    => '0755',
       }
 
-      # FIXME: remove after this has been deployed
-      file { '/etc/cron.daily/push_attachments_to_s3':
-        ensure => absent,
-      }
-
       cron { 'push_attachments_to_s3':
         command => '/usr/bin/setlock -n /var/run/virus_scan/push-attachments.lock /usr/local/bin/push_attachments_to_s3.sh /mnt/uploads',
         user    => 'assets',
-        hour    => 6,
+        hour    => 21,
         minute  => 0,
       }
 
