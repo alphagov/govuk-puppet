@@ -44,7 +44,7 @@ process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi, :'content-store']
 process :'local-links-manager'
-process :'manuals-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
+process :'manuals-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api']
 process :mapit
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
@@ -70,9 +70,8 @@ process :'share-sale-publisher' => [:asset_manager, :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
-process :'specialist-publisher' => [:panopticon, :asset_manager, :rummager, :'publishing-api', :'email-alert-api']
-process :'specialist-publisher-rebuild' => [:'publishing-api', :asset_manager, :'specialist-publisher-rebuild-worker']
-process :'specialist-publisher-rebuild-worker' => [:rummager, :'email-alert-api']
+process :'specialist-publisher' => [:asset_manager, :rummager, :'publishing-api', :'email-alert-api']
+process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
 process :'dfid-transition-worker' => [:'publishing-api', :rummager, :asset_manager]
 process :'specialist-frontend' => [:static, :contentapi, :'content-store']
 process :spotlight
