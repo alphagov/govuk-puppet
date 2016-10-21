@@ -8,6 +8,11 @@ describe 'govuk_cdnlogs', :type => :class do
     :service_port_map => { 'elephant' => 123 },
   }}
 
+  let(:facts) {{
+    :ipaddress_eth0 => '10.10.10.10',
+  }}
+
+
   context 'all params' do
     let(:params) { default_params }
 
