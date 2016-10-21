@@ -407,8 +407,6 @@ govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
-govuk::apps::share_sale_publisher::enabled: true
-
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_port: "%{hiera('govuk::apps::content_tagger::redis_port')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
