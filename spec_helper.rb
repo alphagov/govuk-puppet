@@ -37,5 +37,6 @@ RSpec.configure do |c|
     :lsbdistcodename         => dist_preferred.capitalize,
     :lsbmajdistrelease       => 14,
     :architecture            => 'amd64',
+    :fqdn_metrics            => 'fakehost-1_management',
   }
 end
