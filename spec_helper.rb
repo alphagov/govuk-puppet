@@ -35,5 +35,6 @@ RSpec.configure do |c|
     :operatingsystemrelease  => possible_releases[dist_preferred],
     :lsbdistid               => 'Debian',
     :lsbdistcodename         => dist_preferred.capitalize,
+    :architecture            => 'amd64',
   }
 end
