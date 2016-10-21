@@ -61,7 +61,6 @@ class govuk::node::s_backend_lb (
       'share-sale-publisher',
       'signon',
       'specialist-publisher',
-      'specialist-publisher-rebuild-standalone',
       'short-url-manager',
       'support',
       'travel-advice-publisher',
@@ -77,7 +76,6 @@ class govuk::node::s_backend_lb (
       'govuk-delivery',
       'need-api',
       'publishing-api',
-      'specialist-publisher-rebuild',
       'support-api',
     ]:
       https_redirect => false, # FIXME: Remove for #51136581
