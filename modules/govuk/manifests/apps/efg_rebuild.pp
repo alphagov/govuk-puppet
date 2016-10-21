@@ -50,7 +50,7 @@ class govuk::apps::efg_rebuild (
 ) {
   validate_string($vhost_name)
 
-  $app_name = 'efg_rebuild'
+  $app_name = 'efg-rebuild'
 
   govuk::app { $app_name:
     app_type               => 'rack',
