@@ -12,17 +12,10 @@ INCR_DIR=$CURRENT_RESTORE/incremental
 
 echo "Starting MySQL environment sync"
 
-# Check to see if Puppet is disabled, and skip the environment sync if it is
-# as we dumbly assume the server is under maintenance
-if test -f /var/lib/puppet/state/agent_disabled.lock; then
-  echo "Puppet is already disabled! Skipping environment sync and quitting"
-  exit 1
-else
+  /usr/local/bin/govuk_puppet -n mysql_restore -r "MySQL environment sync (by $0)" --disable
 
-  /usr/local/bin/govuk_puppet --disable "MySQL environment sync (by $0)"
-
-  # Create directories to restore into
-  if [[ ! -d "$CURRENT_RESTORE" && ! -d "$BASE_DIR" && ! -d "$INCR_DIR" ]]; then
+  # Create directories to restore into OR Purge {$BASE_DIR,$INCR_DIR} if they already exist
+  if [[ ! -d "$CURRENT_RESTORE"; ! -d "$BASE_DIR"; ! -d "$INCR_DIR" ]]; then
     for dir in "$BASE_DIR" "$INCR_DIR"; do
       /bin/mkdir -p $dir
     done
@@ -31,6 +24,7 @@ else
       /bin/rm -rf $dir/*
     done
   fi
+
   # Pull, then decrypt the latest backups from S3
   cd $BASE_DIR && /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | /usr/bin/xbstream -x -C $BASE_DIR
 
@@ -86,8 +80,6 @@ else
   /bin/rm -rf /var/lib/$TEMPDIR $BASE_DIR $INCR_DIR
 
   # Re-enable Puppet and run it to ensure passwords are updated
-  /usr/local/bin/govuk_puppet --enable && /usr/local/bin/govuk_puppet
+  /usr/local/bin/govuk_puppet -n mysql_restore --enable && /usr/local/bin/govuk_puppet
 
   echo "MySQL environment sync completely successfully"
-fi
-
