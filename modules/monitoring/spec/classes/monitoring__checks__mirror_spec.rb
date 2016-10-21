@@ -7,6 +7,8 @@ describe 'monitoring::checks::mirror', :type => :class do
   let(:facts) {{
     :fqdn       => "dummy.host",
     :cache_bust => Time.now,
+    :ipaddress  => '10.10.10.10',
+    :fqdn_short => 'fakehost-1.management',
   }}
 
   context 'checks enabled with hiera' do
