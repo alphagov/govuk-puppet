@@ -62,6 +62,7 @@ business-support-api:  govuk_setenv business-support-api  ./run_in.sh ../busines
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../finder-frontend bundle exec rails s -p 3062
 # finder-api used to use port 3063
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../specialist-publisher bundle exec foreman start
+specialist-publisher-worker: govuk_setenv specialist-publisher ./run_in.sh ../specialist-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../manuals-publisher bundle exec foreman start
 specialist-frontend:   govuk_setenv specialist-frontend   ./run_in.sh ../specialist-frontend bundle exec rails s -p 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../content-store  bundle exec rails s -p 3068
@@ -123,8 +124,6 @@ share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../share-s
 # sidekiq-monitoring for imminence uses 3120
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../local-links-manager bundle exec rails s -p 3121
 service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../service-manual-frontend bundle exec rails s -p 3122
-specialist-publisher-rebuild:  govuk_setenv specialist-publisher-rebuild  ./run_in.sh ../specialist-publisher-rebuild bundle exec rails s -p 3123
-specialist-publisher-rebuild-worker: govuk_setenv specialist-publisher-rebuild ./run_in.sh ../specialist-publisher-rebuild bundle exec sidekiq -C ./config/sidekiq.yml
 
 # dfid-transition needs a port reserving because its app type in govuk-puppet is 'procfile'. It's not used
 # right now but may get a temporary rack app for monitoring the sidekiq queues.
