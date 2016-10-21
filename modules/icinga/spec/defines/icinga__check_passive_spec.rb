@@ -4,7 +4,8 @@ describe 'icinga::passive_check', :type => :define do
   let(:title) { 'check_giraffes' }
   let(:file_path) { '/etc/icinga/conf.d/icinga_host_warden.zoo.tld/check_giraffes.cfg' }
   let(:facts) {{
-    :fqdn => 'warden.zoo.tld',
+    :fqdn      => 'warden.zoo.tld',
+    :ipaddress => '10.10.10.10',
   }}
   let(:pre_condition) {
     "icinga::host { 'warden.zoo.tld': }"

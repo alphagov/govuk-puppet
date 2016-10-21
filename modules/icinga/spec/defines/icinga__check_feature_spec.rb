@@ -4,8 +4,10 @@ describe 'icinga::check_feature', :type => :define do
   let(:title) { 'check_test_feature' }
   let(:pre_condition) {  'icinga::host{"test_host.blah.blah":}' }
   let(:facts) {{
-    "hostname"    => "test_host",
-    "fqdn"        => "test_host.blah.blah"
+    "hostname"   => "test_host",
+    "fqdn"       => "test_host.blah.blah",
+    "ipaddress"  => '10.10.10.10',
+    "fqdn_short" => 'fakehost-1.management',
   }}
   let(:params) {{
     "feature"   => "test_feature"

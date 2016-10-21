@@ -2,7 +2,12 @@ require_relative '../../../../spec_helper'
 
 describe 'icinga::check::graphite', :type => :define do
 
-  let(:facts) {{ :fqdn => 'warden.zoo.tld' }}
+  let(:facts) {{
+    :fqdn       => 'warden.zoo.tld',
+    :fqdn_short => 'warden.zoo',
+    :ipaddress  => '10.10.10.10',
+  }}
+
   let(:pre_condition) { 'icinga::host { "warden.zoo.tld": }' }
 
   context 'when required params are passed' do

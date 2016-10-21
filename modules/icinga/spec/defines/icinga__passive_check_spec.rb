@@ -14,6 +14,7 @@ end
 # icinga::passive_check should create file using right template (we'll check for some known content)
 describe 'icinga::passive_check', :type => :define do
   let(:title) { 'heartbeat' }
+  let(:facts) {{ 'ipaddress' => '10.10.10.10' }}
   let(:pre_condition) {  'icinga::host{"bruce-forsyth":}' }
   let(:params) {{
     "host_name" => "bruce-forsyth",
