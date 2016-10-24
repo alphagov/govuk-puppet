@@ -114,55 +114,5 @@ class govuk::apps::specialist_publisher_rebuild(
       fields  => {'application' => 'specialist-publisher-rebuild'},
       json    => true,
     }
-
-    Govuk::App::Envvar {
-      app => $app_name,
-    }
-
-    govuk::app::envvar::mongodb_uri { $app_name:
-      hosts    => $mongodb_nodes,
-      database => $mongodb_name,
-    }
-
-    govuk::app::envvar::redis { $app_name:
-      host => $redis_host,
-      port => $redis_port,
-    }
-
-    govuk::app::envvar {
-      "${title}-ASSET_MANAGER_BEARER_TOKEN":
-        varname => 'ASSET_MANAGER_BEARER_TOKEN',
-        value   => $asset_manager_bearer_token;
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
-      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
-        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
-        value   => $email_alert_api_bearer_token;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
-      "${title}-PUBLISHING_API_BEARER_TOKEN":
-        varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token;
-    }
-
-    if $publish_pre_production_finders {
-      govuk::app::envvar {
-        "${title}-PUBLISH_PRE_PRODUCTION_FINDERS":
-          varname => 'PUBLISH_PRE_PRODUCTION_FINDERS',
-          value   => '1';
-      }
-    }
-
-    if $secret_token != undef {
-      govuk::app::envvar { "${title}-SECRET_TOKEN":
-        varname => 'SECRET_TOKEN',
-        value   => $secret_token,
-      }
-    }
   }
 }
