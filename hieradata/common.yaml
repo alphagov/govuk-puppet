@@ -110,12 +110,6 @@ apt::sources:
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}-security'
     repos: 'main restricted universe multiverse'
-apt::unattended_upgrades::blacklist:
- - 'mysql-server.*'
-apt::unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
-apt::unattended_upgrades::origins:
- - "%{::lsbdistid} stable"
- - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
 _: &offsite_gpg_key '13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
 _: &offsite_host 'backup0.backup.provider1.production.govuk.service.gov.uk'
@@ -1249,6 +1243,13 @@ unattended_reboot::cron_env_vars:
 unattended_reboot::cron_hour: '0-5'
 unattended_reboot::etcd_endpoints:
   - "http://etcd-1.management:4001"
+
+unattended_upgrades::blacklist:
+ - 'mysql-server.*'
+unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
+unattended_upgrades::origins:
+ - "%{::lsbdistid} stable"
+ - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
 unicornherder::version: '0.0.8'
 

@@ -6,7 +6,6 @@
 class base {
   include apparmor
   include apt
-  include apt::unattended_upgrades
   include base::packages
   include base::supported_kernel
   include cron
@@ -29,6 +28,7 @@ class base {
   include ssh
   include timezone
   include tmpreaper
+  include unattended_upgrades
   include users
   include wget
 }
