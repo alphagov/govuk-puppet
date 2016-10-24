@@ -12,9 +12,9 @@ class base {
   include curl
   include gcc
   include govuk::deploy
+  include govuk_apt::unused_kernels
   include govuk_envsys
   include govuk_scripts
-  include govuk_apt::unused_kernels
   include govuk_sshkeys
   include govuk_sudo
   include govuk_unattended_reboot
