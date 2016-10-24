@@ -1,6 +1,11 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_ppa', :type => :class do
+  let (:facts) {{
+    :lsbdistcode    => 'trusty',
+    :lsbdistid      => 'Ubuntu',
+    :lsbdistrelease => '14.04',
+  }}
   describe '#path' do
     context 'production (default)' do
       let(:params) {{
