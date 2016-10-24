@@ -168,6 +168,7 @@ if [[ " ${puppet_args} " =~ "--disable " ]]; then
   fi
 
   write_lock
+  exit 0
 fi
 
 if [[ " ${puppet_args} " =~ "--enable " ]]; then
