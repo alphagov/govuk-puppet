@@ -91,22 +91,18 @@ apt::purge_sources_list: true
 apt::purge_sources_list_d: true
 apt::sources:
   ubuntu:
-    include_src: false
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}'
     repos: 'main restricted universe multiverse'
   ubuntu-updates:
-    include_src: false
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}-updates'
     repos: 'main restricted universe multiverse'
   ubuntu-backports:
-    include_src: false
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}-backports'
     repos: 'main restricted universe multiverse'
   ubuntu-security:
-    include_src: false
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}-security'
     repos: 'main restricted universe multiverse'
