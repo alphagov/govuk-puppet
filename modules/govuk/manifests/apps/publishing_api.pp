@@ -65,6 +65,9 @@
 #   A password to connect to RabbitMQ:
 #   https://github.com/alphagov/publishing-api/blob/master/config/rabbitmq.yml
 #
+# [*govuk_content_schemas_path*]
+#   The path for generated govuk-content-schemas
+#
 class govuk::apps::publishing_api(
   $port = '3093',
   $content_store = '',
@@ -82,6 +85,7 @@ class govuk::apps::publishing_api(
   $oauth_id = undef,
   $oauth_secret = undef,
   $rabbitmq_password = undef,
+  $govuk_content_schemas_path = '',
 ) {
   $app_name = 'publishing-api'
 
@@ -129,6 +133,9 @@ class govuk::apps::publishing_api(
     "${title}-RABBITMQ_PASSWORD":
       varname => 'RABBITMQ_PASSWORD',
       value   => $rabbitmq_password;
+    "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
+      varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
+      value   => $govuk_content_schemas_path;
   }
 
   govuk_logging::logstream { 'publishing_api_sidekiq_json_log':

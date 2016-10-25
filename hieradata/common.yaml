@@ -389,6 +389,7 @@ govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishin
 govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/publishing-api/shared/govuk-content-schemas/'
 
 govuk::apps::release::db_hostname: "master.mysql"
 govuk::apps::release::db_username: "release"
