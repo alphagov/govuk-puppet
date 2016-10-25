@@ -72,8 +72,6 @@ deployable_applications: &deployable_applications
   - smokey
   - specialist-frontend
   - specialist-publisher
-  - specialist-publisher-rebuild
-  - specialist-publisher-rebuild-standalone
   - spotlight
   - stagecraft
   - static
@@ -443,12 +441,6 @@ govuk::apps::specialist_publisher::nagios_memory_warning: 1100
 govuk::apps::specialist_publisher::nagios_memory_critical: 1200
 govuk::apps::specialist_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::specialist_publisher_rebuild::enabled: true
-govuk::apps::specialist_publisher_rebuild::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::specialist_publisher_rebuild::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::specialist_publisher_rebuild_standalone::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::specialist_publisher_rebuild_standalone::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::spotlight::enabled: true
 govuk::apps::spotlight::alert_5xx_warning_rate: 0.2
