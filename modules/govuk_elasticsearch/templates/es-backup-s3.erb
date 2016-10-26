@@ -49,7 +49,7 @@ printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAG
 trap nagios_passive EXIT
 
 
-/usr/bin/envdir <%= @env_dir %>/env.d  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/${ES_REPO}?wait_for_completion=true&pretty" -d "$REPO_DATA"
+/usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/${ES_REPO}?wait_for_completion=true&pretty" -d "$REPO_DATA"
 
 
 # indices: option allows us to specify indexes in a comma separated list rather than taking a snapshot of everything. However we can set
@@ -61,7 +61,7 @@ trap nagios_passive EXIT
 
 if [ $? -eq 0 ]; then
 
-  /usr/bin/envdir <%= @env_dir %>/env.d /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/${ES_REPO}/${ES_SNAPSHOT}?wait_for_completion=true&pretty" -d "$SNAPSHOT_DATA" &> /dev/null
+/usr/bin/curl --connect-timeout 10 -sS -XPUT "http://127.0.0.1:9200/_snapshot/${ES_REPO}/${ES_SNAPSHOT}?wait_for_completion=true&pretty" -d "$SNAPSHOT_DATA" &> /dev/null
 
 
 fi
