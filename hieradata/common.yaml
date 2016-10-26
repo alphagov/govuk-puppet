@@ -1118,7 +1118,7 @@ monitoring::vpn_gateways::endpoints:
   vpn_gateway_router_dr:
     address: "%{hiera('environment_ip_prefix')}.9.1"
 
-nginx::package::version: '1.4.6-1ubuntu3.5'
+nginx::package::version: '1.4.6-1ubuntu3.6'
 
 nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
 
