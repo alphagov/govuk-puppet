@@ -26,7 +26,15 @@ class govuk::node::s_efg_mysql_master (
     require => Class['govuk_mysql::server'],
   }
 
+  class {'govuk::apps::efg_rebuild::db':
+    require => Class['govuk_mysql::server'],
+  }
+
   class {'govuk::apps::efg_training::db':
+    require => Class['govuk_mysql::server'],
+  }
+
+  class {'govuk::apps::efg_training_rebuild::db':
     require => Class['govuk_mysql::server'],
   }
 
