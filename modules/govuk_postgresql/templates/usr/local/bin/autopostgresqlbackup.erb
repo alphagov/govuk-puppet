@@ -346,9 +346,9 @@ dbdump () {
   for db in $1 ; do
     if [ -n "$SU_USERNAME" ]; then
       if [ "$db" = "$GLOBALS_OBJECTS" ]; then
-        su $SU_USERNAME -c "pg_dumpall $PGHOST --globals-only" >> $2
+        su - $SU_USERNAME -c "pg_dumpall $PGHOST --globals-only" >> $2
       else
-        su $SU_USERNAME -c "pg_dump $PGHOST $OPT $db" >> $2
+        su - $SU_USERNAME -c "pg_dump $PGHOST $OPT $db" >> $2
       fi
     else
       if [ "$db" = "$GLOBALS_OBJECTS" ]; then
@@ -419,7 +419,7 @@ fi
 # If backing up all DBs on the server
 if [ "$DBNAMES" = "all" ]; then
   if [ -n "$SU_USERNAME" ]; then
-    DBNAMES="$(su $SU_USERNAME -c "LANG=C psql -U $USERNAME $PGHOST -l -A -F: | sed -ne '/:/ { /Name:Owner/d; /template0/d; s/:.*$//; p }'")"
+    DBNAMES="$(su - $SU_USERNAME -c "LANG=C psql -U $USERNAME $PGHOST -l -A -F: | sed -ne '/:/ { /Name:Owner/d; /template0/d; s/:.*$//; p }'")"
   else
     DBNAMES="`LANG=C psql -U $USERNAME $PGHOST -l -A -F: | sed -ne "/:/ { /Name:Owner/d; /template0/d; s/:.*$//; p }"`"
   fi
