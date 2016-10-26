@@ -10,7 +10,7 @@ process :backdrop_write
 process :bouncer
 process :'business-support-api' => [:contentapi]
 process :'business-support-finder' => [:static, :contentapi, :'content-store', :'business-support-api']
-process :calculators => [:static, :contentapi, :'content-store']
+process :calculators => [:static, :'content-store']
 process :calendars => [:static, :contentapi, :'content-store']
 process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager]
