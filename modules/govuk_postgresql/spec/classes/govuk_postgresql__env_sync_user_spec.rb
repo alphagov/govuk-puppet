@@ -3,6 +3,8 @@ require_relative '../../../../spec_helper'
 describe 'govuk_postgresql::env_sync_user', :type => :class do
   let(:facts) {{
     :concat_basedir => '/tmp/concat',
+    :id             => 'fake_id',
+    :kernel         => 'Linux',
   }}
   let(:pre_condition) { <<-EOS
     include govuk_postgresql::server::standalone

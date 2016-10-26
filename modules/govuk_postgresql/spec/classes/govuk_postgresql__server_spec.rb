@@ -3,6 +3,8 @@ require_relative '../../../../spec_helper'
 describe 'govuk_postgresql::server', :type => :class do
   let(:facts) {{
     :concat_basedir => '/tmp/concat',
+    :id             => 'fake_id',
+    :kernel         => 'Linux',
   }}
 
   describe 'prevent direct use' do

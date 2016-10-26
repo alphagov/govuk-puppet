@@ -10,6 +10,10 @@ describe 'icinga::check', :type => :define do
     :host_name           => "bruce-forsyth",
     :service_description => "to see you nice",
   }}
+  let(:facts) {{
+    :ipaddress  => '10.10.10.10',
+    :fqdn_short => 'fakehost-1.management',
+  }}
 
   context "validating service description" do
     context "when service description is valid" do

@@ -5,6 +5,9 @@ describe 'govuk_elasticsearch::firewall_transport_rule', :type => :define do
   context "with a bare hostname" do
     let(:title) { @title }
     let(:params) {{}}
+    let(:facts) {{
+      :ipaddress_eth0 => '10.10.10.10',
+    }}
 
     let(:pre_condition) {
       <<-EOT

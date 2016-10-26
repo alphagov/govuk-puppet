@@ -35,5 +35,8 @@ RSpec.configure do |c|
     :operatingsystemrelease  => possible_releases[dist_preferred],
     :lsbdistid               => 'Debian',
     :lsbdistcodename         => dist_preferred.capitalize,
+    :lsbmajdistrelease       => 14,
+    :architecture            => 'amd64',
+    :fqdn_metrics            => 'fakehost-1_management',
   }
 end

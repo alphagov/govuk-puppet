@@ -3,6 +3,11 @@ require_relative '../../../../spec_helper'
 describe 'icinga::host', :type => :define do
   let(:title) { 'bruce-forsyth' }
 
+  let(:facts) {{
+    :ipaddress  => '10.10.10.10',
+    :fqdn_short => 'fakehost-1.management',
+  }}
+
   it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg') }
   it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').without_content(/parents/) }
 

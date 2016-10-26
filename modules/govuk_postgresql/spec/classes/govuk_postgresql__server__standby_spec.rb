@@ -16,6 +16,8 @@ describe 'govuk_postgresql::server::standby', :type => :class do
     :concat_basedir         => '/tmp/concat',
     :operatingsystem        => 'Ubuntu',
     :operatingsystemrelease => '14.04',
+    :id                     => 'fake_id',
+    :kernel                 => 'Linux',
   }}
   let(:params) {{
     :master_host     => param_host,
