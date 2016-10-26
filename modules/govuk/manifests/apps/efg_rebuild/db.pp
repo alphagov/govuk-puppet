@@ -22,10 +22,10 @@ class govuk::apps::efg_rebuild::db (
     privileges => 'ALL',
   }
 
-  mysql_grant { 'efg_rebuild@%/efg_rebuild_il0.*':
-      user       => 'efg_rebuild@%',
-      table      => 'efg_rebuild_il0.*',
-      privileges => 'ALL',
+  mysql_grant { 'efg_rebuild@%/efg_il0.*':
+    user       => 'efg_rebuild@%',
+    table      => 'efg_il0.*',
+    privileges => 'ALL',
   }
 
 }

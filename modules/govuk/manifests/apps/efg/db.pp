@@ -26,9 +26,9 @@ class govuk::apps::efg::db (
     collate => 'utf8_general_ci',
   }
   mysql_grant { 'efg@%/efg_il0.*':
-      user       => 'efg@%',
-      table      => 'efg_il0.*',
-      privileges => 'ALL',
+    user       => 'efg@%',
+    table      => 'efg_il0.*',
+    privileges => 'ALL',
   }
 
 }

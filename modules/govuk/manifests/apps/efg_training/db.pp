@@ -25,10 +25,10 @@ class govuk::apps::efg_training::db (
     charset => 'utf8',
     collate => 'utf8_general_ci',
   }
-  mysql_grant { 'efg@%/efg_training_il0.*':
-      user       => 'efg@%',
-      table      => 'efg_training_il0.*',
-      privileges => 'ALL',
+  mysql_grant { 'efg_training@%/efg_training_il0.*':
+    user       => 'efg_training@%',
+    table      => 'efg_training_il0.*',
+    privileges => 'ALL',
   }
 
 }
