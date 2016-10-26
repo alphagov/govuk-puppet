@@ -637,9 +637,8 @@ if [ -s "$LOGERR" ]
     STATUS=0
 fi
 
-# Clean up Logfile
-rm -f "$LOGFILE"
-rm -f "$LOGERR"
+# Clean up Logfiles older than two weeks
+/usr/bin/find $BACKUPDIR -iname *.log -mtime +14 -type f -delete
 
 if [ $STATUS -eq 0 ]; then
   NAGIOS_CODE=0
