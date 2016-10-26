@@ -99,7 +99,6 @@ govuk_jenkins::config::admins:
   - timblair
   - tomgladhill
   - tomridd
-  - tomrussell
   - tomwhite
 
 govuk_jenkins::job_builder::jobs:
@@ -319,5 +318,4 @@ users::usernames:
   - timblair
   - tomgladhill
   - tomridd
-  - tomrussell
   - tomwhite
