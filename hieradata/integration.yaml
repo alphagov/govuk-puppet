@@ -98,9 +98,6 @@ govuk_jenkins::config::admins:
   - tijmenbrommet
   - timblair
   - tomgladhill
-  - tomridd
-  - tomrussell
-  - tomwhite
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
@@ -318,6 +315,3 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomgladhill
-  - tomridd
-  - tomrussell
-  - tomwhite
