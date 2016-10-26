@@ -12,11 +12,6 @@ Ufw::Allow {
   ip  => 'any',
 }
 
-# Many of the 3rd party repos we use don't provide sources.
-Apt::Source {
-  include_src => false,
-}
-
 # Ensure update is always run before any package installs.
 # title conditions prevent a dependency loop within apt module.
 Class['apt::update'] -> Package <|

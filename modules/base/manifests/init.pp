@@ -6,16 +6,15 @@
 class base {
   include apparmor
   include apt
-  include apt::unattended_upgrades
   include base::packages
   include base::supported_kernel
   include cron
   include curl
   include gcc
   include govuk::deploy
+  include govuk_apt::unused_kernels
   include govuk_envsys
   include govuk_scripts
-  include govuk_apt::unused_kernels
   include govuk_sshkeys
   include govuk_sudo
   include govuk_unattended_reboot
@@ -29,6 +28,7 @@ class base {
   include ssh
   include timezone
   include tmpreaper
+  include unattended_upgrades
   include users
   include wget
 }

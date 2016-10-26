@@ -22,6 +22,8 @@ class govuk_ppa (
   $path = 'production',
   $use_mirror = true,
 ) {
+  include ::apt
+
   validate_bool($use_mirror)
   if $use_mirror {
     apt::source { 'govuk-ppa':

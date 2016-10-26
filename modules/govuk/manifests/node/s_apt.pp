@@ -34,17 +34,17 @@ class govuk::node::s_apt (
     'aptly':
       location => 'http://repo.aptly.info',
       release  => 'squeeze',
-      key      => '2A194991';
+      key      => '9E3E53F19C7DE460';
     'puppetlabs-precise':
       location => 'http://apt.puppetlabs.com/',
       repos    => ['main', 'dependencies'],
       release  => 'precise',
-      key      => '4BD6EC30';
+      key      => 'EF8D349F';
     'puppetlabs-trusty':
       location => 'http://apt.puppetlabs.com/',
       repos    => ['main', 'dependencies'],
       release  => 'trusty',
-      key      => '4BD6EC30';
+      key      => 'EF8D349F';
     'govuk-ppa-precise':
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'precise',
@@ -76,7 +76,7 @@ class govuk::node::s_apt (
     'rabbitmq':
       location => 'http://www.rabbitmq.com/debian',
       release  => 'testing',
-      key      => '056E8E56';
+      key      => '6026DFCA';
     'mongodb':
       location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
       release  => 'dist',
@@ -92,7 +92,7 @@ class govuk::node::s_apt (
     'percona':
       location => 'http://repo.percona.com/apt',
       release  => 'trusty',
-      key      => '1C4CBDCDCD2EFD2A';
+      key      => '8507EFA5';
     'postgresql':
       location => 'http://apt.postgresql.org/pub/repos/apt/',
       release  => 'trusty-pgdg',
