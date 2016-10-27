@@ -31,11 +31,9 @@
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.
-#   Default: undef
 #
 # [*redis_port*]
 #   Redis port for Sidekiq.
-#   Default: undef
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
