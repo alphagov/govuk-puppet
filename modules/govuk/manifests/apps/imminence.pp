@@ -14,11 +14,20 @@
 # [*enable_procfile_worker*]
 #   Whether to enable the Procfile worker.
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
 #
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
+#
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.
@@ -40,10 +49,13 @@
 class govuk::apps::imminence(
   $port = '3002',
   $enable_procfile_worker = true,
+  $errbit_api_key = undef,
   $mongodb_nodes = undef,
   $mongodb_name = 'imminence_production',
   $redis_host = undef,
   $redis_port = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $secret_key_base = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -65,6 +77,18 @@ class govuk::apps::imminence(
     asset_pipeline         => true,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
+  }
+
+  govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
   }
 
   govuk::app::envvar::redis { $app_name:
