@@ -36,6 +36,7 @@ deployable_applications: &deployable_applications
   - govuk-delivery
   - govuk-cdn-logs-monitor
   - govuk_content_api
+  - govuk-content-schemas
   - govuk_crawler_worker
   - govuk_need_api
   - hmrc-manuals-api
