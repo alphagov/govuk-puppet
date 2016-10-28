@@ -14,6 +14,7 @@ cron::daily_hour: 6
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-integration@digital.cabinet-office.gov.uk'
 govuk::apps::event_store::enabled: true
+govuk::apps::govuk_delivery::list_title_format: 'INTEGRATION: %s'
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 

@@ -325,6 +325,15 @@ govuk::apps::govuk_crawler_worker::root_urls:
   - 'https://assets.publishing.service.gov.uk/'
   - 'https://www.gov.uk/'
 
+govuk::apps::govuk_delivery::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::govuk_delivery::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::govuk_delivery::mongodb_hosts:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+govuk::apps::govuk_delivery::mongodb_database: 'govuk_delivery'
+govuk::apps::govuk_delivery::list_title_format: '%s'
+
 govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
