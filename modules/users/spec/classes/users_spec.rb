@@ -33,7 +33,6 @@ end
 # follow the standard form AND is their LDAP username
 username_whitelist = %w{
   bob
-  jackscotti
 }
 
 user_list.each do |username|
