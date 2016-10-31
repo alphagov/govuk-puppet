@@ -2,9 +2,6 @@
 
 set -e
 
-# Redirect stdout and stderr to syslog
-exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
-
 S3_BUCKET=<%= @s3_bucket %>/<%= @fqdn %>
 BACKUP_DIR=<%= @backup_dir %>
 KEY_FINGERPRINT=<%= @private_gpg_key_fingerprint %>
@@ -23,8 +20,14 @@ housekeeping
 
 TIME="$(date +%s)"
 # Download and decrypt most recent backup
-/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force `/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | /usr/bin/tail -1 | /usr/bin/awk '{print $4}'`| /usr/bin/awk '{print $4}' | /usr/bin/tr -d "'" && \
-/usr/bin/gpg --yes --decrypt --output mongodump.tar.gz mongodump.*.tar.gz.gpg -r $KEY_FINGERPRINT && /bin/tar xzf mongodump.tar.gz
+LATEST_BACKUP=`/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | /usr/bin/tail -1 | /usr/bin/awk '{print $4}'`
+/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force "$LATEST_BACKUP"
+
+# Enter the passphrase to unlock the gpg secret key
+/bin/echo "Enter gpg Passphrase: "
+read -s PASSPHRASE
+
+/usr/bin/gpg --yes --passphrase "$PASSPHRASE" mongodump*.tar.gz.gpg && /bin/tar xzf mongodump*
 
 TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
@@ -34,7 +37,7 @@ TIME="$(($(date +%s)-TIME))"
 
 TIME="$(date +%s)"
 # Restore mongo database backup
-/usr/bin/mongorestore $BACKUP_DIR --host=$REPLSET/$PRIMARY --drop
+/usr/bin/mongorestore $BACKUP_DIR --host=$REPLSET/$PRIMARY --drop  # Drop each target collection/database before restoring
 
 TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "RESTORE COMPLETED IN: ${TIME}s\n"
