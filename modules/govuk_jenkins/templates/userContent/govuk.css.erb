@@ -1,0 +1,53 @@
+#top-panel {
+  background: #222;
+  height: 52px;
+}
+
+#top-panel table {
+  border-bottom: 5px solid <%= @theme_colour %>;
+}
+
+#top-panel table td {
+  height: 47px;
+}
+
+#breadcrumbs::before {
+  content: "<%= @theme_environment_name %>";
+  float: left;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  display: inline-block;
+  background-color: <%= @theme_colour %>;
+  margin: 3px 0 0 3px;
+  padding: 1px 3px;
+  color: <%= @theme_text_colour %>;
+  border-radius: 3px;
+}
+
+#jenkins-home-link {
+  background: transparent url(header-crown.png) no-repeat center left;
+  margin-left: 6px;
+  display: inline-block;
+  height: 47px;
+  padding-left: 2em;
+}
+
+#jenkins-home-link img {
+  display: none;
+}
+
+#jenkins-home-link::after {
+  content: "GOV.UK Jenkins";
+  color: white;
+  font-weight: normal;
+  font-family: "GillSans", "Gill Sans MT", "Gill Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  display: inline-block;
+  padding: 15px 0 0
+;
+}
+
+#jenkins-home-link:hover::after {
+  text-decoration: underline;
+}
+

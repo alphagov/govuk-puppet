@@ -38,6 +38,9 @@ govuk_elasticsearch::dump::run_es_dump_hour: '9'
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza INTEGRATION'
+govuk_jenkins::config::theme_colour: '#ffbf47'
+govuk_jenkins::config::theme_text_colour: 'black'
+govuk_jenkins::config::theme_environment_name: 'Integration'
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::config::admins:

@@ -63,9 +63,12 @@ govuk::deploy::setup::ssh_keys:
 govuk_bouncer::gor::enabled: true
 govuk_bouncer::gor::ip_address: '195.225.216.149'
 
-govuk_jenkins::config::banner_colour_background: '#ff3300'
+govuk_jenkins::config::banner_colour_background: '#df3034'
 govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
+govuk_jenkins::config::theme_colour: '#df3034'
+govuk_jenkins::config::theme_text_colour: 'white'
+govuk_jenkins::config::theme_environment_name: 'Production'
 govuk_jenkins::config::manage_config: true
 
 govuk_jenkins::job_builder::environment: 'production'
