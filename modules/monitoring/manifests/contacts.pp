@@ -49,35 +49,45 @@ class monitoring::contacts (
 ) {
   validate_bool($notify_pager, $notify_slack, $notify_graphite)
 
+  $midnight_day_start = '00:00'
+  $office_day_start = '09:30'
+  $office_day_end = '17:30'
+  $midnight_day_end = '24:00'
+
+  $all_day = "${midnight_day_start}-${midnight_day_end}"
+  $office_day = "${office_day_start}-${office_day_end}"
+  $oncall_early_day = "${midnight_day_start}-${office_day_start}"
+  $oncall_late_day = "${office_day_end}-${midnight_day_end}"
+
   icinga::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
-    sun              => '00:00-24:00',
-    mon              => '00:00-24:00',
-    tue              => '00:00-24:00',
-    wed              => '00:00-24:00',
-    thu              => '00:00-24:00',
-    fri              => '00:00-24:00',
-    sat              => '00:00-24:00',
+    sun              => $all_day,
+    mon              => $all_day,
+    tue              => $all_day,
+    wed              => $all_day,
+    thu              => $all_day,
+    fri              => $all_day,
+    sat              => $all_day,
   }
 
   icinga::timeperiod { 'inoffice':
     timeperiod_alias => '2nd line in-office hours',
-    mon              => '08:30-16:30',
-    tue              => '08:30-16:30',
-    wed              => '08:30-16:30',
-    thu              => '08:30-16:30',
-    fri              => '08:30-16:30',
+    mon              => $office_day,
+    tue              => $office_day,
+    wed              => $office_day,
+    thu              => $office_day,
+    fri              => $office_day,
   }
 
   icinga::timeperiod { 'oncall':
     timeperiod_alias => '2nd line out of hours',
-    sun              => '00:00-24:00',
-    mon              => '00:00-08:30,16:30-24:00',
-    tue              => '00:00-08:30,16:30-24:00',
-    wed              => '00:00-08:30,16:30-24:00',
-    thu              => '00:00-08:30,16:30-24:00',
-    fri              => '00:00-08:30,16:30-24:00',
-    sat              => '00:00-24:00',
+    sun              => $all_day,
+    mon              => "${oncall_early_day},${oncall_late_day}",
+    tue              => "${oncall_early_day},${oncall_late_day}",
+    wed              => "${oncall_early_day},${oncall_late_day}",
+    thu              => "${oncall_early_day},${oncall_late_day}",
+    fri              => "${oncall_early_day},${oncall_late_day}",
+    sat              => $all_day,
   }
 
   icinga::timeperiod { 'never':
