@@ -2,9 +2,11 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk_elasticsearch', :type => :class do
   let(:facts) {{
-    :fqdn        => 'test.example.com',
-    :kernel      => 'Linux',
-    :rubyversion => '1.9.3',
+    :fqdn           => 'test.example.com',
+    :ipaddress_eth0 => '10.10.10.10',
+    :kernel         => 'Linux',
+    :puppetversion  => '3.8.6',
+    :rubyversion    => '1.9.3',
   }}
 
   describe '#version' do

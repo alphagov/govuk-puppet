@@ -4,6 +4,9 @@ describe 'router::gor', :type => :class do
   let(:params) {{
     :replay_targets => replay_targets,
   }}
+  let(:facts) {{
+    'data_sync_in_progress' => true,
+  }}
   let(:args_default) {{
     '-input-raw'          => '127.0.0.1:7999',
     '-http-allow-method' => %w{GET HEAD OPTIONS},

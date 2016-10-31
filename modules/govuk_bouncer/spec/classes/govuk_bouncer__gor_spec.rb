@@ -7,6 +7,9 @@ describe 'govuk_bouncer::gor', :type => :class do
     '-http-allow-method' => %w{GET HEAD OPTIONS},
     '-http-original-host' => '',
   }}
+  let(:facts) {{
+    'data_sync_in_progress' => true,
+  }}
 
   context 'default (disabled)' do
     let(:params) {{ }}
