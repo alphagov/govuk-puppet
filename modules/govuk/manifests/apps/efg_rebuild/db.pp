@@ -18,7 +18,7 @@ class govuk::apps::efg_rebuild::db (
 
   mysql_grant { 'efg_rebuild@%/efg_production.*':
     user       => 'efg_rebuild@%',
-    table      => 'efg_rebuild.*',
+    table      => 'efg_production.*',
     privileges => 'ALL',
   }
 
