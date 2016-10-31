@@ -81,6 +81,7 @@ class govuk::node::s_logs_elasticsearch(
       service_description => 'es-rotate',
       host_name           => $::fqdn,
       freshness_threshold => 25 * (60 * 60), # 25 hours
+      notes_url           => monitoring_docs_url(es-rotate),
     }
 
     cron { 'elasticsearch-rotate-indices':
