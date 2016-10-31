@@ -44,6 +44,7 @@ govuk_jenkins::config::admins:
   - aaronkeogh
   - alexmuller
   - alextorrance
+  - anafernandez
   - andrewgarner
   - anikahenke
   - bevanloon
@@ -259,6 +260,7 @@ shell::shell_prompt_string: 'integration'
 users::usernames:
   - alexmuller
   - alextorrance
+  - anafernandez
   - andrewgarner
   - anikahenke
   - bevanloon
