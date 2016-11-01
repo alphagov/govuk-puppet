@@ -5,18 +5,18 @@ exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 set -e
 
-DATE=$(date +%s)
-BASE_DIR=/tmp/mysql/basedir/$DATE/
-INCR_DIR=/tmp/mysql/incremental/$DATE/
+DATE=$(/bin/date +%F)
+CURRENT_RESTORE=/tmp/mysql/$DATE
+BASE_DIR=$CURRENT_RESTORE/basedir
+INCR_DIR=$CURRENT_RESTORE/incremental
 
   echo "Starting MySQL environment sync"
 
   /usr/local/bin/govuk_puppet -n mysql_restore -r "MySQL environment sync (by $0)" --disable
 
   # Create directories to restore into
-  for dir in "$BASE_DIR" "$INCR_DIR"; do
-    /bin/mkdir -p $dir
-  done
+  /bin/rm -rf "$BASE_DIR" "$INCR_DIR"
+  /bin/mkdir -p "$BASE_DIR" "$INCR_DIR"
 
   # Pull the latest backups from S3
   /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | /usr/bin/xbstream -x -C $BASE_DIR
