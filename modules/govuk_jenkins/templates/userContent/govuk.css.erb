@@ -1,16 +1,3 @@
-#top-panel {
-  background: #222;
-  height: 52px;
-}
-
-#top-panel table {
-  border-bottom: 5px solid <%= @theme_colour %>;
-}
-
-#top-panel table td {
-  height: 47px;
-}
-
 #breadcrumbs::before {
   content: "<%= @theme_environment_name %>";
   float: left;
@@ -43,11 +30,47 @@
   font-family: "GillSans", "Gill Sans MT", "Gill Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 20px;
   display: inline-block;
-  padding: 15px 0 0
-;
+  padding: 15px 0 0;
 }
 
 #jenkins-home-link:hover::after {
   text-decoration: underline;
 }
 
+/* Jenkins 1 */
+#top-panel {
+  background: #222;
+  height: 52px;
+}
+
+#top-panel table {
+  border-bottom: 5px solid <%= @theme_colour %>;
+}
+
+#top-panel table td {
+  height: 47px;
+}
+
+/* Jenkins 2 */
+div#header {
+  background: #222;
+  height: 52px;
+  border-bottom: 5px solid <%= @theme_colour %>;
+}
+
+div#header .logo {
+  margin-left: 10px;
+}
+
+div#header #jenkins-home-link::after {
+  padding: 18px 0 0 18px;
+}
+
+div#header .searchbox, div#header .login {
+  padding: 12px 11px 0;
+}
+
+div#header #visible-am-button {
+  height: 47px;
+  line-height: 47px;
+}
