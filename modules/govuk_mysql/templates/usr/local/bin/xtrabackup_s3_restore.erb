@@ -18,10 +18,18 @@ INCR_DIR=$CURRENT_RESTORE/incremental
   /bin/rm -rf "$BASE_DIR" "$INCR_DIR"
   /bin/mkdir -p "$BASE_DIR" "$INCR_DIR"
 
-  # Pull the latest backups from S3
-  /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | /usr/bin/xbstream -x -C $BASE_DIR
+  # Pull, then decrypt the latest backups from S3
+  cd $BASE_DIR && /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | /usr/bin/xbstream -x -C $BASE_DIR
 
-  /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | /usr/bin/xbstream -x -C $INCR_DIR
+  for i in `/usr/bin/find . -iname "*\.xbcrypt"`; do
+    /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" < $i > $(/usr/bin/dirname $i)/$(/usr/bin/basename $i .xbcrypt) && /bin/rm $i
+  done
+
+  cd $INCR_DIR && /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | /usr/bin/xbstream -x -C $INCR_DIR
+
+  for i in `/usr/bin/find . -iname "*\.xbcrypt"`; do
+    /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" < $i > $(/usr/bin/dirname $i)/$(/usr/bin/basename $i .xbcrypt) && /bin/rm $i
+  done
 
   # Decompress the backups
   for dir in "$BASE_DIR" "$INCR_DIR"; do
