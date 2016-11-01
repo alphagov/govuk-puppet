@@ -20,6 +20,9 @@ describe 'govuk_gor', :type => :class do
       'args' => args_default,
       :enable => true,
     }}
+    let(:facts) {{
+      'data_sync_in_progress' => false,
+    }}
 
     it { is_expected.to contain_govuk_logging__logstream('gor_upstart_log').with_ensure('present') }
 
