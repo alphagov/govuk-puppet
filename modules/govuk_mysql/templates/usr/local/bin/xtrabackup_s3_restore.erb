@@ -33,7 +33,7 @@ INCR_DIR=$CURRENT_RESTORE/incremental
 
   # Decompress the backups
   for dir in "$BASE_DIR" "$INCR_DIR"; do
-    /usr/bin/innobackupex --decompress $dir
+    /usr/bin/innobackupex --decompress $dir --parallel=4   # "GO FAST....." Use four threads if available
   done
 
   # Prepare the data and apply the logs
