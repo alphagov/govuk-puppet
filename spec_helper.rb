@@ -39,5 +39,6 @@ RSpec.configure do |c|
     :architecture            => 'amd64',
     :fqdn_metrics            => 'fakehost-1_management',
     :puppetversion           => '3.8.6',
+    :kernel                  => 'Linux',
   }
 end

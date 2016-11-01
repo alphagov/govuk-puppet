@@ -5,7 +5,6 @@ describe 'puppet::master', :type => :class do
   let(:facts) {{
     :concat_basedir => '/var/lib/puppet/concat/',
     :id             => 'root',
-    :kernel         => 'Linux',
     :path           => 'concatted_file',
   }}
 
