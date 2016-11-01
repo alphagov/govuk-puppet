@@ -11,6 +11,12 @@
 # [*enable_delayed_job_worker*]
 #   Whether or not to enable the background worker for Delayed Job.
 #   Boolean value.
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+# [*oauth_id*]
+#   Sets the OAuth ID
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 # [*mongodb_nodes*]
@@ -22,6 +28,9 @@ class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
   $enable_delayed_job_worker = true,
+  $errbit_api_key = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $secret_key_base = undef,
   $mongodb_nodes,
   $mongodb_name = 'govuk_assets_production',
@@ -68,6 +77,18 @@ class govuk::apps::asset_manager(
         internal;
         alias /var/apps/asset-manager/uploads/assets/$1;
       }',
+    }
+
+    govuk::app::envvar {
+      "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
     }
 
     if $secret_key_base {
