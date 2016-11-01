@@ -97,11 +97,16 @@ class govuk::node::s_apt (
       location => 'http://apt.postgresql.org/pub/repos/apt/',
       release  => 'trusty-pgdg',
       key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
+    'openconnect-ppa':
+      location => 'http://ppa.launchpad.net/openconnect/backport/ubuntu',
+      release  => 'trusty',
+      key      => '0FB9E84C';
   }
 
   aptly::repo { 'gof3r': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'openconnect-ppa': }
   aptly::repo { 'rbenv-ruby': }
   aptly::repo { 'terraform': }
 
