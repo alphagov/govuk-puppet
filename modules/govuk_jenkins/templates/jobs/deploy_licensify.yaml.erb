@@ -46,12 +46,12 @@
             description: This is the build number from CI Jenkins
         - string:
             name: app_version
-            description: version of the application (i.e. 1.0.8)
+            description: version of the application (i.e. 1.1.0)
         - string:
             name: CI_JOB_NAME
             default: Licensify
             description: Which job on CI Jenkins to fetch the artifact from
         - string:
             name: ARTIFACT_PATH
-            default: dist
+            default: target/universal
             description: The path on CI Jenkins where the artifacts are stored
