@@ -22,8 +22,8 @@ deployable_applications: &deployable_applications
   - courts-api
   - courts-frontend
   - designprinciples
-  - efg-rebuild
   - efg-training
+  - efg-training-rebuild
   - email-alert-api
   - email-alert-frontend
   - email-alert-monitor
