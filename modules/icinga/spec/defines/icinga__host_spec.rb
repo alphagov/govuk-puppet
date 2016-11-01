@@ -19,12 +19,18 @@ describe 'icinga::host', :type => :define do
     }}
 
     shared_examples 'a host with parents' do
+      let(:facts) {{
+        :ipaddress  => '10.10.10.10',
+        :fqdn_short => 'fakehost-1.management',
+      }}
+
       it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').with_content(/parents\s+vpn_gateway_test/) }
     end
 
     describe 'On a DR machine' do
       let(:facts) {{
-        'vdc' => 'test_dr',
+        'ipaddress' => '10.10.10.10',
+        'vdc'       => 'test_dr',
       }}
 
       it_behaves_like 'a host with parents'
@@ -32,7 +38,8 @@ describe 'icinga::host', :type => :define do
 
     describe 'On a Licensify machine' do
       let(:facts) {{
-        'vdc' => 'licensify',
+        'ipaddress' => '10.10.10.10',
+        'vdc'       => 'licensify',
       }}
 
       it_behaves_like 'a host with parents'
