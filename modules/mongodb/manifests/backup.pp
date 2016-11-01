@@ -103,7 +103,7 @@ class mongodb::backup(
 
       cron { $jobs :
         ensure => absent,
-        user   => $::backup::client::user,
+        user   => 'govuk-backup',
       }
   }
 
