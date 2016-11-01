@@ -5,42 +5,50 @@ exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
 set -e
 
-DATE=$(date +%s)
-BASE_DIR=/tmp/mysql/basedir/$DATE/
-INCR_DIR=/tmp/mysql/incremental/$DATE/
+DATE=$(/bin/date +%F)
+CURRENT_RESTORE=/tmp/mysql/$DATE
+BASE_DIR=$CURRENT_RESTORE/basedir
+INCR_DIR=$CURRENT_RESTORE/incremental
 
 echo "Starting MySQL environment sync"
 
-# Check to see if Puppet is disabled, and skip the environment sync if it is
-# as we dumbly assume the server is under maintenance
-if test -f /var/lib/puppet/state/agent_disabled.lock; then
-  echo "Puppet is already disabled! Skipping environment sync and quitting"
-  exit 1
-else
+  /usr/local/bin/govuk_puppet -n mysql_restore -r "MySQL environment sync (by $0)" --disable
 
-  govuk_puppet --disable "MySQL environment sync (by $0)"
+  # Create directories to restore into OR Purge {$BASE_DIR,$INCR_DIR} if they already exist
+  if [[ ! -d "$CURRENT_RESTORE"; ! -d "$BASE_DIR"; ! -d "$INCR_DIR" ]]; then
+    for dir in "$BASE_DIR" "$INCR_DIR"; do
+      /bin/mkdir -p $dir
+    done
+  else
+    for dir in "$BASE_DIR" "$INCR_DIR"; do
+      /bin/rm -rf $dir/*
+    done
+  fi
 
-  # Create directories to restore into
-  for dir in "$BASE_DIR" "$INCR_DIR"; do
-    mkdir -p $dir
+  # Pull, then decrypt the latest backups from S3
+  cd $BASE_DIR && /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | /usr/bin/xbstream -x -C $BASE_DIR
+
+  for i in `/usr/bin/find . -iname "*\.xbcrypt"`; do
+    /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" < $i > $(/usr/bin/dirname $i)/$(/usr/bin/basename $i .xbcrypt) && /bin/rm $i
   done
 
-  # Pull the latest backups from S3
-  envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/base.xbcrypt | xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | xbstream -x -C $BASE_DIR
+  cd $INCR_DIR && /usr/bin/envdir <%= @env_sync_envdir %> /usr/local/bin/gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | /usr/bin/xbstream -x -C $INCR_DIR
 
-  envdir <%= @env_sync_envdir %> gof3r get --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @s3_bucket_name %> -k latest/incremental.xbcrypt | xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" | xbstream -x -C $INCR_DIR
+  for i in `/usr/bin/find . -iname "*\.xbcrypt"`; do
+    /usr/bin/xbcrypt --encrypt-algo=AES256 --decrypt --encrypt-key="<%= @encryption_key %>" < $i > $(/usr/bin/dirname $i)/$(/usr/bin/basename $i .xbcrypt) && /bin/rm $i
+  done
 
   # Decompress the backups
   for dir in "$BASE_DIR" "$INCR_DIR"; do
-    innobackupex --decompress $dir
+    /usr/bin/innobackupex --decompress $dir --parallel=4   # "GO FAST....." Use four threads if available 
   done
 
   # Prepare the data and apply the logs
-  innobackupex --apply-log --redo-only $BASE_DIR
-  innobackupex --apply-log $BASE_DIR --incremental-dir=$INCR_DIR
+  /usr/bin/innobackupex --apply-log --redo-only $BASE_DIR
+  /usr/bin/innobackupex --apply-log $BASE_DIR --incremental-dir=$INCR_DIR
 
   # Stop the service before we copy the data across
-  service mysql stop
+  /usr/sbin/service mysql stop
 
   # Ensure that it's definitely not running before we move data directories
   if /bin/pidof mysqld; then
@@ -52,27 +60,26 @@ else
   # the directory is a mount point so we need to copy
   echo "Backing up current dir"
   TEMPDIR=mysql-$(date '+%s')
-  cp -R /var/lib/mysql /var/lib/$TEMPDIR
+  /bin/cp -R /var/lib/mysql /var/lib/$TEMPDIR
 
   # Remove contents of the datadir
-  rm -rf /var/lib/mysql/*
+  /bin/rm -rf /var/lib/mysql/*
 
   # Copy the restored data
-  innobackupex --copy-back $BASE_DIR
+  /usr/bin/innobackupex --copy-back $BASE_DIR
 
   # Update to correct permissions
   echo "Correcting permissions"
-  chown -R mysql:mysql /var/lib/mysql
+  /bin/chown -R mysql:mysql /var/lib/mysql
 
   # Start the service
-  service mysql start
+  /usr/sbin/service mysql start
 
   # Clean up
   echo "Cleaning up"
-  rm -rf /var/lib/$TEMPDIR $BASE_DIR $INCR_DIR
+  /bin/rm -rf /var/lib/$TEMPDIR $BASE_DIR $INCR_DIR
 
   # Re-enable Puppet and run it to ensure passwords are updated
-  govuk_puppet --enable && govuk_puppet
+  /usr/local/bin/govuk_puppet -n mysql_restore --enable && /usr/local/bin/govuk_puppet
 
   echo "MySQL environment sync completely successfully"
-fi
