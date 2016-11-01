@@ -52,8 +52,8 @@ INCR_DIR=$CURRENT_RESTORE/incremental
   # Copy the current directory to a backup location; we cannot move this if
   # the directory is a mount point so we need to copy
   echo "Backing up current dir"
-  TEMPDIR=mysql-$(date '+%s')
-  /bin/cp -R /var/lib/mysql /var/lib/$TEMPDIR
+  TEMP_DIR=/var/lib/mysql-$(date '+%s')
+  /bin/cp -R /var/lib/mysql $TEMP_DIR
 
   # Remove contents of the datadir
   /bin/rm -rf /var/lib/mysql/*
@@ -70,7 +70,7 @@ INCR_DIR=$CURRENT_RESTORE/incremental
 
   # Clean up
   echo "Cleaning up"
-  /bin/rm -rf /var/lib/$TEMPDIR $BASE_DIR $INCR_DIR
+  /bin/rm -rf $TEMP_DIR $BASE_DIR $INCR_DIR
 
   # Re-enable Puppet and run it to ensure passwords are updated
   /usr/local/bin/govuk_puppet -n mysql_restore --enable && /usr/local/bin/govuk_puppet
