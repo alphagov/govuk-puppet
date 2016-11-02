@@ -4,4 +4,6 @@
 #
 class govuk::node::s_ci_agent inherits govuk::node::s_base {
 
+  include ::govuk_ci::agent
+
 }
