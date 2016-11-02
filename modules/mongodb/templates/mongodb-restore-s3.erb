@@ -27,7 +27,7 @@ LATEST_BACKUP=`/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd ls s3:
 /bin/echo "Enter gpg Passphrase: "
 read -s PASSPHRASE
 
-/usr/bin/gpg --yes --passphrase "$PASSPHRASE" mongodump*.tar.gz.gpg && /bin/tar xzf mongodump*
+/usr/bin/gpg --yes --passphrase "$PASSPHRASE" mongodump*.tar.gz.gpg && /bin/tar xzf mongodump* || exit 1
 
 TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "DOWNLOAD AND DECRYPTION FINISHED IN: ${TIME}s\n"
