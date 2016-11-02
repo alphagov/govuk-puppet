@@ -5,5 +5,6 @@
 class govuk_ci::agent {
 
   include ::govuk_ci::agent::redis
+  include ::govuk_ci::agent::rabbitmq
 
 }
