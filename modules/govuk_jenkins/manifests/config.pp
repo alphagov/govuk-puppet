@@ -35,6 +35,15 @@
 # [*github_client_secret*]
 #   The Github client secret is used to authenticate against Github.
 #
+# [*theme_colour*]
+#   The colour that is used to indicate the environment in Jenkins web interface.
+#
+# [*theme_text_colour*]
+#   The colour of text that sits on theme_colour.
+#
+# [*theme_environiment_name*]
+#   The environment name that is shown in Jenkins.
+#
 # [*admins*]
 #   List of admins that have "admin" permissions in Jenkins.
 #
@@ -48,6 +57,9 @@ class govuk_jenkins::config (
   $banner_colour_text = 'white',
   $banner_string = 'Jenkins',
   $environment_variables = {},
+  $theme_colour = '#222',
+  $theme_text_colour = 'white',
+  $theme_environment_name = 'Jenkins',
   $github_web_uri,
   $github_api_uri,
   $github_client_id,
@@ -80,6 +92,22 @@ class govuk_jenkins::config (
       ensure  => present,
       content => template('govuk_jenkins/config/config.xml.erb'),
       require => File['/var/lib/jenkins'],
+      owner   => 'jenkins',
+      group   => 'jenkins',
+      notify  => Service['jenkins'],
+    }
+
+    file { '/var/lib/jenkins/userContent/header-crown.png':
+      ensure => present,
+      source => 'puppet:///modules/govuk_jenkins/userContent/header-crown.png',
+      owner  => 'jenkins',
+      group  => 'jenkins',
+      notify => Service['jenkins'],
+    }
+
+    file { '/var/lib/jenkins/userContent/govuk.css':
+      ensure  => present,
+      content => template('govuk_jenkins/userContent/govuk.css.erb'),
       owner   => 'jenkins',
       group   => 'jenkins',
       notify  => Service['jenkins'],
