@@ -90,6 +90,16 @@ class hosts::production (
     legacy_aliases => ['efg.slave.mysql'],
   }
 
+  govuk_host { 'ci-master-1':
+    ip  => '10.1.6.10',
+    vdc => 'ci',
+  }
+
+  govuk_host { 'ci-agent-1':
+    ip  => '10.1.6.21',
+    vdc => 'ci',
+  }
+
   # elms (licence finder) vdc machines
   class { 'hosts::production::licensify':
     app_domain     => $app_domain,
