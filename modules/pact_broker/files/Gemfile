@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem "pact_broker", "~> 1.9.0"
+
+gem "pg", "0.18.3"
+gem "unicorn", "~> 4.9"

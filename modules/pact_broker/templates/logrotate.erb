@@ -1,0 +1,8 @@
+/var/log/pact_broker*.log {
+  size 1M
+  copytruncate
+  rotate 5
+  compress
+  delaycompress
+  create <%= @user %> <%= @user %>
+}

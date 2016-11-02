@@ -1,0 +1,26 @@
+description "GOV.UK pact broker"
+
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+# If the app respawns more than 5 times in 20 seconds, it has deeper problems
+# and should be killed off.
+respawn limit 5 20
+
+setuid <%= @user %>
+setgid <%= @user %>
+chdir <%= @deploy_dir %>/app
+
+env DATABASE_URL='postgres://<%= @db_user %>:<%= CGI.escape(@db_password) %>@localhost/<%= @db_name %>'
+env AUTH_USERNAME='<%= @auth_user %>'
+env AUTH_PASSWORD='<%= @auth_password %>'
+
+script
+  # Using `bash -l` to pick up profile including rbenv setup
+  exec bash -l -c "exec bundle exec unicorn -c <%= @deploy_dir %>/unicorn.rb" \
+    >>/var/log/pact_broker.log \
+    2>>/var/log/pact_broker.err.log
+end script
