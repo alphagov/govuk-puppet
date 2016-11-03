@@ -23,7 +23,7 @@
 #
 # [*vhost*]
 #   Virtual host for this application.
-#   Default: contacts-frontend-old
+#   Default: contacts-admin
 #
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
@@ -83,7 +83,7 @@ class govuk::apps::contacts(
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
-  $vhost = 'contacts-frontend-old',
+  $vhost = 'contacts-admin',
   $port = '3051',
   $vhost_protected = undef,
   $extra_aliases = [],
