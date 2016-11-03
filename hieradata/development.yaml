@@ -66,7 +66,6 @@ govuk::node::s_development::apps:
   - 'multipage_frontend'
   - 'need_api'
   - 'panopticon'
-  - 'panopticon::rabbitmq'
   - 'performanceplatform_admin'
   - 'policy_publisher'
   - 'public_event_store'
@@ -130,9 +129,6 @@ govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
 govuk::apps::multipage_frontend::enabled: true
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
-govuk::apps::panopticon::enable_procfile_worker: false
-govuk::apps::panopticon::rabbitmq::configure_test_details: true
-govuk::apps::panopticon::rabbitmq_hosts: ['localhost']
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::privateapi_ssl: false

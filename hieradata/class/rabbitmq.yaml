@@ -3,7 +3,6 @@
 govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - backdrop_write
   - email_alert_service
-  - panopticon
   - publishing_api
   - rummager
   - stagecraft
