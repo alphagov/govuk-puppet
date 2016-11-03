@@ -27,6 +27,11 @@ class govuk_postgresql::backup (
     $threshold_secs = 28 * 3600
     $service_desc = 'AutoPostgreSQL backup'
 
+    #FIXME Remove once this has been deployed.
+    file {'/etc/cron.daily/autopostgresqlbackup':
+        ensure => absent,
+    }
+
     file {'/usr/local/bin/autopostgresqlbackup':
         mode    => '0755',
         content => template('govuk_postgresql/usr/local/bin/autopostgresqlbackup.erb'),
