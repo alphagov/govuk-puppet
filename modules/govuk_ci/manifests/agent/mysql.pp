@@ -3,7 +3,7 @@
 # Installs and configures mysql-server
 #
 class govuk_ci::agent::mysql {
-  contain ::govuk_mysql
+  contain ::govuk_mysql::server
 
   mysql::db {
     'collections_publisher_test':

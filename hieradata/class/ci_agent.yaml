@@ -6,3 +6,4 @@ mongodb::server::replicaset_members:
 
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
 postgresql::globals::version: '9.3'
+govuk_mysql::server::innodb_flush_log_at_trx_commit: 0
