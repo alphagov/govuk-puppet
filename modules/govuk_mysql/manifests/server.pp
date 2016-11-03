@@ -3,6 +3,13 @@
 # This is an abstraction for puppetlabs/mysql to enforce a set of sensible
 # defaults and setup associated monitoring.
 #
+# === Parameters
+#
+# [*innodb_flush_log_at_trx_commit*]
+#   Controls if the filesystem flushes after every transaction commit.
+#   Do not set this to anything other than 1 (default) or 2, except in CI
+#   otherwise you risk losing data.
+#
 class govuk_mysql::server (
   $root_password=undef,
   $tmp_table_size='128M',
@@ -12,6 +19,7 @@ class govuk_mysql::server (
   $query_cache_limit='1M',
   $query_cache_size='128M',
   $expire_log_days=3,
+  $innodb_flush_log_at_trx_commit=1,
   $slow_query_log=false,
   $innodb_buffer_pool_size_proportion='0.25',
   ){
@@ -53,7 +61,7 @@ class govuk_mysql::server (
       'query_cache_size'               => $query_cache_size,
       'query_cache_limit'              => $query_cache_limit,
       'expire_logs_days'               => $expire_log_days,
-      'innodb_flush_log_at_trx_commit' => '1',
+      'innodb_flush_log_at_trx_commit' => $innodb_flush_log_at_trx_commit,
       'log-queries-not-using-indexes'  => true,
       'log_error'                      => $mysql_error_log,
       'slow_query_log'                 => $slow_query_log_value,
