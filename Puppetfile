@@ -21,7 +21,7 @@ mod 'saz/limits', '2.3.0'
 mod 'saz/memcached'
 mod 'saz/ntp'
 mod 'saz/rsyslog', '3.2.0'
-mod 'saz/sudo', '3.0.1'
+mod 'saz/sudo', '3.1.0'
 mod 'saz/timezone'
 mod 'stankevich/python', '1.9.8'
 
