@@ -136,6 +136,8 @@ govuk_jenkins::job_builder::environment: 'integration'
 
 govuk_jenkins::job::deploy_puppet::commitish: 'integration'
 
+govuk_jenkins::job::smokey::smokey_task: 'test:integration'
+
 govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-integration'
   - 'carrenza-integration-dr'

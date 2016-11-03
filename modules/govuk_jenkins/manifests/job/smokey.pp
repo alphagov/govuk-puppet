@@ -28,6 +28,9 @@
 # [*smokey_rate_limit_token*]
 #   Token to pass as an HTTP header to bypass rate limiting
 #
+# [*smokey_task*]
+#   The rake task to run for the tests
+#
 class govuk_jenkins::job::smokey (
   $auth_username = undef,
   $auth_password = undef,
@@ -37,6 +40,7 @@ class govuk_jenkins::job::smokey (
   $signon_password = undef,
   $smokey_bearer_token = undef,
   $smokey_rate_limit_token = undef,
+  $smokey_task = 'test:production',
 ) {
   file { '/etc/jenkins_jobs/jobs/smokey.yaml':
     ensure  => present,

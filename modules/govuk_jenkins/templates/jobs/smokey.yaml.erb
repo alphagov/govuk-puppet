@@ -27,6 +27,7 @@
             export SIGNON_PASSWORD='<%= @signon_password %>'
             export BEARER_TOKEN=<%= @smokey_bearer_token %>
             export RATE_LIMIT_TOKEN=<%= @smokey_rate_limit_token %>
+            export MYTASK=<%= @smokey_task %>
             set -x
             ./jenkins.sh
     wrappers:
