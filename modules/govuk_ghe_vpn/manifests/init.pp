@@ -19,7 +19,10 @@ class govuk_ghe_vpn (
   $url,
   $username,
   $password,
+  $openconnect_version = 'present',
 ) {
+
+  include govuk_ppa
 
   host { 'github.gds':
     ip      => '192.168.9.110',
@@ -31,6 +34,7 @@ class govuk_ghe_vpn (
     user      => $username,
     pass      => $password,
     dnsupdate => false,
+    version   => $openconnect_version,
   }
 
   @@icinga::check { "check_openconnect_upstart_up_${::hostname}":
