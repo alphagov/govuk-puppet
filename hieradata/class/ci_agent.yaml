@@ -4,7 +4,5 @@ mongodb::server::development: true
 mongodb::server::replicaset_members:
   "%{::hostname}":
 
-
-
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
 postgresql::globals::version: '9.3'

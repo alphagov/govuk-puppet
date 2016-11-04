@@ -15,6 +15,8 @@ class govuk_ci::agent::postgresql (
   include ::postgresql::server::postgis # Required to load the PostGIS extension for mapit
   include ::postgresql::lib::devel
 
+  validate_slength($mapit_role_password, 20, 3)
+
   postgresql::server::role { 'jenkins':
     password_hash => postgresql_password('jenkins', 'jenkins'),
     createdb      => true,
