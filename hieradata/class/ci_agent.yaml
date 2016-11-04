@@ -7,3 +7,4 @@ mongodb::server::replicaset_members:
 
 
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
+postgresql::globals::version: '9.3'
