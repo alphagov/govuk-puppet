@@ -8,18 +8,11 @@
 #   The port that the app is served on.
 #   Default: 3022
 #
-# [*publishing_api_bearer_token*]
-#   The bearer token to use when communicating with Publishing API.
-#   Default: undef
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
-# [*secret_key_base*]
-#   The key for Rails to use when signing/encrypting sessions.
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
 #
 # [*mongodb_name*]
 #   The Mongo database to be used.
@@ -27,14 +20,36 @@
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
+#
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::contentapi (
   $port = '3022',
-  $publishing_api_bearer_token = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
-  $secret_key_base = undef,
+  $asset_manager_bearer_token = undef,
+  $errbit_api_key = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
+  $publishing_api_bearer_token = undef,
+  $secret_key_base = undef,
 ) {
 
   govuk::app { 'contentapi':
@@ -54,13 +69,24 @@ class govuk::apps::contentapi (
     }
   }
 
+  Govuk::App::Envvar {
+    app => 'contentapi',
+  }
+
   govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => 'contentapi',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
     "${title}-SECRET_KEY_BASE":
-      app     => 'contentapi',
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
   }
