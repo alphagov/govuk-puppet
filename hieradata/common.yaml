@@ -360,11 +360,6 @@ govuk::apps::need_api::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::panopticon::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
