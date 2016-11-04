@@ -13,7 +13,8 @@ process :'business-support-finder' => [:static, :'content-store', :'business-sup
 process :calculators => [:static, :'content-store']
 process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :rummager]
-process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager]
+process :'collections-publisher' => [:panopticon, :'publishing-api', :rummager, :'collections-publisher-worker']
+process :'collections-publisher-worker'
 process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, :asset_manager]
 process :'content-store'
