@@ -3,3 +3,7 @@ mongodb::server::version: '3.2.7'
 mongodb::server::development: true
 mongodb::server::replicaset_members:
   "%{::hostname}":
+
+
+
+govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
