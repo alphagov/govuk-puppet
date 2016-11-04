@@ -833,6 +833,7 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'contentapi'
   - 'content-tagger'
+  - 'draft-whitehall-frontend'
   - 'email-alert-api'
   - 'errbit'
   - 'event-store'
