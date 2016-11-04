@@ -90,6 +90,19 @@ class monitoring::checks (
   }
   # END ssl certificate checks
 
+  # START DNS checks
+  icinga::check_config { 'check_dig_google':
+    source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_dig_google.cfg',
+  }
+
+  icinga::check { 'check_www_gov_uk_dns':
+    check_command       => 'check_dig_google!www.gov.uk!-a www-cdn.production.govuk.service.gov.uk --timeout 10 -w 2 -c 3 -T CNAME',
+    host_name           => $::fqdn,
+    service_description => 'check www.gov.uk DNS record',
+    require             => Icinga::Check_config['check_dig_google'],
+  }
+  # END DNS checks
+
   # START signon
   icinga::check::graphite { 'check_signon_queue_sizes':
     # Check signon background worker average queue sizes over a 5 min period
