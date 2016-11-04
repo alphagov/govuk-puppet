@@ -8,5 +8,6 @@ class govuk_ci::agent {
   include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::agent::elasticsearch
   include ::govuk_ci::agent::mongodb
+  include ::govuk_ci::agent::postgresql
 
 }
