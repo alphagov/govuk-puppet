@@ -74,7 +74,7 @@ process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
 process :'specialist-publisher' => [:asset_manager, :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
 process :'dfid-transition-worker' => [:'publishing-api', :rummager, :asset_manager]
-process :'specialist-frontend' => [:static, :contentapi, :'content-store']
+process :'specialist-frontend' => [:static, :'content-store']
 process :spotlight
 process :stagecraft => [:backdrop_write]
 process :static
