@@ -70,7 +70,7 @@ INCR_DIR=$CURRENT_RESTORE/incremental
 
   # Clean up
   echo "Cleaning up"
-  /bin/rm -rf $TEMP_DIR $BASE_DIR $INCR_DIR
+  cd $CURRENT_RESTORE && /bin/rm -rf $TEMP_DIR $BASE_DIR $INCR_DIR
 
   # Re-enable Puppet and run it to ensure passwords are updated
   /usr/local/bin/govuk_puppet -n mysql_restore --enable && /usr/local/bin/govuk_puppet
