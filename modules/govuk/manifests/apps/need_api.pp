@@ -9,6 +9,10 @@
 #   The port that publishing API is served on.
 #   Default: 3093
 #
+# [*elasticsearch_hosts*]
+#   A string of comma-separated list of Elasticsearch hosts,
+#   for example: es-host-1:9200,es-host-2:9200
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -19,14 +23,19 @@
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
 #
+# [*redis_host*]
+#   The hostname of a Redis instance to connect to
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::need_api(
   $port = '3052',
+  $elasticsearch_hosts = undef,
   $errbit_api_key = '',
   $mongodb_nodes,
   $mongodb_name = 'govuk_needs_production',
+  $redis_host = undef,
   $secret_key_base = undef,
 ) {
   govuk::app { 'need-api':
@@ -47,9 +56,15 @@ class govuk::apps::need_api(
     app => 'need-api',
   }
   govuk::app::envvar {
+    "${title}-ELASTICSEARCH_HOSTS":
+      varname => 'ELASTICSEARCH_HOSTS',
+      value   => $elasticsearch_hosts;
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+    "${title}-REDIS_HOST":
+      varname => 'REDIS_HOST',
+      value   => $redis_host;
   }
 
   validate_array($mongodb_nodes)
