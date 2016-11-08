@@ -97,8 +97,8 @@ class govuk_jenkins (
     require => User['jenkins'],
   }
 
-  apt::source { 'jenkins':
-    location     => "http://${apt_mirror_hostname}/jenkins",
+  apt::source { 'govuk-jenkins':
+    location     => "http://${apt_mirror_hostname}/govuk-jenkins",
     release      => 'binary',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',

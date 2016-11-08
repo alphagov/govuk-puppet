@@ -85,10 +85,6 @@ class govuk::node::s_apt (
       location => 'https://repo.mongodb.org/apt/ubuntu',
       release  => 'trusty/mongodb-org/3.2',
       key      => 'EA312927';
-    'jenkins':
-      location => 'http://pkg.jenkins-ci.org/debian-stable',
-      release  => 'binary/', # Trailing slash is significant.
-      key      => 'D50582E6';
     'percona':
       location => 'http://repo.percona.com/apt',
       release  => 'trusty',
