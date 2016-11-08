@@ -5,6 +5,7 @@
 class govuk_ci::master {
 
   include ::govuk_jenkins
+  include ::govuk_ci::credentials
 
 }
 
