@@ -111,6 +111,7 @@ class govuk_jenkins (
     configure_firewall => false,
     config_hash        => $config,
     manage_user        => false,
+    manage_group       => false,
     plugin_hash        => $plugins,
     require            => Class['govuk_java::set_defaults'],
   }
