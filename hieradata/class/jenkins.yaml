@@ -14,13 +14,13 @@ govuk_jenkins::config:
   JENKINS_HOME:
     value: /var/lib/jenkins
   RUN_STANDALONE:
-    value: true
+    value: 'true'
   JENKINS_LOG:
     value: /var/log/jenkins/$NAME.log
   MAXOPENFILES:
-    value: 8192
+    value: '8192'
   HTTP_PORT:
-    value: 8080
+    value: '8080'
   PREFIX:
     value: /jenkins
   JENKINS_ARGS:
