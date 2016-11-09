@@ -99,7 +99,7 @@ class govuk_jenkins (
 
   apt::source { 'govuk-jenkins':
     location     => "http://${apt_mirror_hostname}/govuk-jenkins",
-    release      => 'binary',
+    release      => 'stable',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
