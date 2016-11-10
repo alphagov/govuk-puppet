@@ -57,8 +57,4 @@ class govuk_jenkins::package (
     require            => Class['govuk_java::set_defaults'],
   }
 
-  file { '/etc/default/jenkins':
-    ensure => file,
-    notify => Class['jenkins::service'],
-  }
 }
