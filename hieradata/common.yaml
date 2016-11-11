@@ -874,7 +874,6 @@ hosts::production::frontend::app_hostnames:
   - 'canary-frontend'
   - 'collections'
   - 'contacts-frontend'
-  - 'contacts-frontend-old'
   - 'designprinciples'
   - 'draft-collections'
   - 'draft-contacts-frontend'
@@ -1173,7 +1172,6 @@ router::assets_origin::asset_routes:
   '/calculators/': "calculators"
   '/calendars/': "calendars"
   '/collections/': "collections"
-  '/contacts-assets/': "contacts-frontend-old"
   '/contacts-frontend/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
   '/email-alert-frontend/': "email-alert-frontend"
