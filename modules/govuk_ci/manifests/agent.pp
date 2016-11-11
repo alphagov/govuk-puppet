@@ -10,5 +10,6 @@ class govuk_ci::agent {
   include ::govuk_ci::agent::mongodb
   include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::mysql
+  include ::govuk_java::oracle8
 
 }
