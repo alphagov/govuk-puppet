@@ -5,4 +5,3 @@
 class govuk_ci::master {
 
 }
-
