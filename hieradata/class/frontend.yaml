@@ -2,7 +2,6 @@
 govuk::node::s_base::apps:
   - canary_frontend
   - collections
-  - contacts
   - contacts_frontend
   - designprinciples
   - email_alert_frontend
