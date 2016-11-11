@@ -1,7 +1,6 @@
 ---
 
 govuk::apps::contacts::vhost: contacts-admin
-govuk::apps::contacts::enable_admin_routes: 'enabled'
 govuk::apps::contacts::db_hostname: 'mysql-master-1.backend'
 govuk::apps::contacts::db_username: 'contacts'
 govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_admin')}"

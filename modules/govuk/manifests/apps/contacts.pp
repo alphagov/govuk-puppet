@@ -8,9 +8,6 @@
 #   Whether the app is enabled.
 #   Default: true
 #
-# [*enable_admin_routes]
-#   Enables /admin route for the app running on backend servers only
-#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -78,7 +75,6 @@ class govuk::apps::contacts(
   $db_username = undef,
   $db_password = undef,
   $enabled = true,
-  $enable_admin_routes = undef,
   $errbit_api_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -125,9 +121,6 @@ class govuk::apps::contacts(
     }
 
     govuk::app::envvar {
-      "${title}-ENABLE_ADMIN_ROUTES":
-      varname => 'ENABLE_ADMIN_ROUTES',
-      value   => $enable_admin_routes;
       "${title}-ERRBIT_API_KEY":
         varname => 'ERRBIT_API_KEY',
         value   => $errbit_api_key;
