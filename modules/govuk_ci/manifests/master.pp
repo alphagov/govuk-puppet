@@ -4,4 +4,6 @@
 #
 class govuk_ci::master {
 
+  include ::govuk_ci::credentials
+
 }
