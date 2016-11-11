@@ -18,8 +18,8 @@ govuk_cdnlogs::monitoring_enabled: false
 govuk_jenkins::package::apt_mirror_hostname: 'apt.example.com'
 
 govuk_jenkins::config::github_api_uri: foo
-govuk_jenkins::config::github_client_id: bar
-govuk_jenkins::config::github_client_secret: baz
+govuk_jenkins::github_client_id: bar
+govuk_jenkins::github_client_secret: baz
 govuk_jenkins::config::github_web_uri: wibble
 
 govuk_postgresql::server::snakeoil_ssl_certificate: certificate

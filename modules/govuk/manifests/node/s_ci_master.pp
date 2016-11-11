@@ -4,7 +4,6 @@
 #
 class govuk::node::s_ci_master inherits govuk::node::s_base {
   include ::nginx
-  include ::govuk_ghe_vpn
   include ::govuk_rbenv::all
   include ::govuk_ci::master
 
