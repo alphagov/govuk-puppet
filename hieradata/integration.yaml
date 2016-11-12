@@ -253,6 +253,10 @@ mongodb::backup::mongo_backup_node: 'localhost'
 monitoring::checks::enable_support_check: false
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: eu-west-1
+monitoring::checks::smokey::features:
+  check_licensing:
+    feature: licensing
+    enabled: false
 
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
