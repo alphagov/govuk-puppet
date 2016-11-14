@@ -127,8 +127,10 @@ govuk::apps::manuals_publisher::enable_procfile_worker: false
 govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
 govuk::apps::multipage_frontend::enabled: true
+govuk::apps::need_api::elasticsearch_hosts: 'localhost:9200'
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
+govuk::apps::need_api::redis_host: '127.0.0.1'
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::privateapi_ssl: false
