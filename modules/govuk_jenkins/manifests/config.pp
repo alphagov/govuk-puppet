@@ -47,10 +47,6 @@
 # [*admins*]
 #   List of admins that have "admin" permissions in Jenkins.
 #
-# [*manage_config*]
-#   Option to manage the Jenkins config or not. This is set so we do not
-#   overwrite configuration in live environments.
-#
 class govuk_jenkins::config (
   $app_domain = hiera('app_domain'),
   $banner_colour_background = 'black',
@@ -65,118 +61,114 @@ class govuk_jenkins::config (
   $github_client_id,
   $github_client_secret,
   $admins = [],
-  $manage_config = false,
 ) {
 
   validate_array($admins)
 
-  if $manage_config {
+  File {
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    notify => Service['jenkins'],
+  }
 
-    File {
-      owner  => 'jenkins',
-      group  => 'jenkins',
-      notify => Service['jenkins'],
-    }
+  file {'/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml',
+  }
 
-    file {'/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml',
-    }
+  file {'/var/lib/jenkins/com.sonyericsson.rebuild.RebuildDescriptor.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/com.sonyericsson.rebuild.RebuildDescriptor.xml',
+  }
 
-    file {'/var/lib/jenkins/com.sonyericsson.rebuild.RebuildDescriptor.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/com.sonyericsson.rebuild.RebuildDescriptor.xml',
-    }
+  file {'/var/lib/jenkins/envInject.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/envInject.xml',
+  }
 
-    file {'/var/lib/jenkins/envInject.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/envInject.xml',
-    }
+  file {'/var/lib/jenkins/hudson.model.UpdateCenter.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.model.UpdateCenter.xml',
+  }
 
-    file {'/var/lib/jenkins/hudson.model.UpdateCenter.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.model.UpdateCenter.xml',
-    }
+  file {'/var/lib/jenkins/hudson.plugins.ansicolor.AnsiColorBuildWrapper.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.plugins.ansicolor.AnsiColorBuildWrapper.xml',
+  }
 
-    file {'/var/lib/jenkins/hudson.plugins.ansicolor.AnsiColorBuildWrapper.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.plugins.ansicolor.AnsiColorBuildWrapper.xml',
-    }
+  file {'/var/lib/jenkins/hudson.plugins.git.GitTool.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.plugins.git.GitTool.xml',
+  }
 
-    file {'/var/lib/jenkins/hudson.plugins.git.GitTool.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.plugins.git.GitTool.xml',
-    }
+  file {'/var/lib/jenkins/hudson.plugins.sitemonitor.SiteMonitorRecorder.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.plugins.sitemonitor.SiteMonitorRecorder.xml',
+  }
 
-    file {'/var/lib/jenkins/hudson.plugins.sitemonitor.SiteMonitorRecorder.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.plugins.sitemonitor.SiteMonitorRecorder.xml',
-    }
+  file {'/var/lib/jenkins/hudson.tasks.Shell.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.tasks.Shell.xml',
+  }
 
-    file {'/var/lib/jenkins/hudson.tasks.Shell.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/hudson.tasks.Shell.xml',
-    }
+  file {'/var/lib/jenkins/jenkins.model.ArtifactManagerConfiguration.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.model.ArtifactManagerConfiguration.xml',
+  }
 
-    file {'/var/lib/jenkins/jenkins.model.ArtifactManagerConfiguration.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.model.ArtifactManagerConfiguration.xml',
-    }
+  file {'/var/lib/jenkins/jenkins.model.DownloadSettings.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.model.DownloadSettings.xml',
+  }
 
-    file {'/var/lib/jenkins/jenkins.model.DownloadSettings.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.model.DownloadSettings.xml',
-    }
+  file {'/var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml',
+  }
 
-    file {'/var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.mvn.GlobalMavenConfig.xml',
-    }
+  file {'/var/lib/jenkins/jenkins.security.QueueItemAuthenticatorConfiguration.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.security.QueueItemAuthenticatorConfiguration.xml',
+  }
 
-    file {'/var/lib/jenkins/jenkins.security.QueueItemAuthenticatorConfiguration.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.security.QueueItemAuthenticatorConfiguration.xml',
-    }
+  file {'/var/lib/jenkins/org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder.xml',
+  }
 
-    file {'/var/lib/jenkins/org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder.xml',
-    }
+  file {'/var/lib/jenkins/org.jenkinsci.plugins.gitclient.JGitTool.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jenkinsci.plugins.gitclient.JGitTool.xml',
+  }
 
-    file {'/var/lib/jenkins/org.jenkinsci.plugins.gitclient.JGitTool.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jenkinsci.plugins.gitclient.JGitTool.xml',
-    }
+  file {'/var/lib/jenkins/org.jvnet.hudson.plugins.SSHBuildWrapper.xml':
+    ensure => file,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jvnet.hudson.plugins.SSHBuildWrapper.xml',
+  }
 
-    file {'/var/lib/jenkins/org.jvnet.hudson.plugins.SSHBuildWrapper.xml':
-      ensure => file,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jvnet.hudson.plugins.SSHBuildWrapper.xml',
-    }
+  file { '/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml':
+    ensure => present,
+    source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml',
+  }
 
-    file { '/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml':
-      ensure => present,
-      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.codefirst.SimpleThemeDecorator.xml',
-    }
+  file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
+    ensure  => present,
+    content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
+  }
 
-    file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
-      ensure  => present,
-      content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
-    }
+  file { '/var/lib/jenkins/config.xml':
+    ensure  => present,
+    content => template('govuk_jenkins/config/config.xml.erb'),
+    require => File['/var/lib/jenkins'],
+  }
 
-    file { '/var/lib/jenkins/config.xml':
-      ensure  => present,
-      content => template('govuk_jenkins/config/config.xml.erb'),
-      require => File['/var/lib/jenkins'],
-    }
+  file { '/var/lib/jenkins/userContent/header-crown.png':
+    ensure => present,
+    source => 'puppet:///modules/govuk_jenkins/userContent/header-crown.png',
+  }
 
-    file { '/var/lib/jenkins/userContent/header-crown.png':
-      ensure => present,
-      source => 'puppet:///modules/govuk_jenkins/userContent/header-crown.png',
-    }
-
-    file { '/var/lib/jenkins/userContent/govuk.css':
-      ensure  => present,
-      content => template('govuk_jenkins/userContent/govuk.css.erb'),
-    }
+  file { '/var/lib/jenkins/userContent/govuk.css':
+    ensure  => present,
+    content => template('govuk_jenkins/userContent/govuk.css.erb'),
   }
 }
