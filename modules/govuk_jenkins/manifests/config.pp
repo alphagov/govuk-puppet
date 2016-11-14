@@ -51,6 +51,9 @@
 #   Option to manage the Jenkins config or not. This is set so we do not
 #   overwrite configuration in live environments.
 #
+# [*version*]
+#   Specify the version of Jenkins
+#
 class govuk_jenkins::config (
   $app_domain = hiera('app_domain'),
   $banner_colour_background = 'black',
@@ -66,6 +69,7 @@ class govuk_jenkins::config (
   $github_client_secret,
   $admins = [],
   $manage_config = false,
+  $version = $govuk_jenkins::version,
 ) {
 
   validate_array($admins)

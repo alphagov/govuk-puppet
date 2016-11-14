@@ -19,7 +19,7 @@
 #
 class govuk_jenkins::package (
   $apt_mirror_hostname,
-  $version = '1.554.2',
+  $version = $govuk_jenkins::version,
   $config  = {},
   $plugins = {},
   ) {

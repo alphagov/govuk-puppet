@@ -23,6 +23,9 @@
 # [*ssh_public_key*]
 #   The SSH public key of the Jenkins user
 #
+# [*version*]
+#   Specify the version of Jenkins
+#
 class govuk_jenkins (
   $github_enterprise_cert,
   $github_enterprise_hostname,
@@ -31,6 +34,7 @@ class govuk_jenkins (
   $plugins = {},
   $ssh_private_key = undef,
   $ssh_public_key = undef,
+  $version = '1.554.2',
 ) {
   validate_hash($config, $plugins)
 
