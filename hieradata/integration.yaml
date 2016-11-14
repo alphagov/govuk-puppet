@@ -35,8 +35,6 @@ govuk_crawler::seed_enable: true
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
-govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
-
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza INTEGRATION'
