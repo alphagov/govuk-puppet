@@ -215,6 +215,28 @@ sudo rm /var/lib/mongodb/mongod.lock
 sudo service mongodb start
 ```
 
+### Errors with Vagrant 1.8.7
+
+If you use Vagrant 1.8.7 you may have this problem:
+
+```
+➜  development-vm git:(master) vagrant up
+installing vagrant-dns plugin is recommended
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'govuk_dev_trusty64_20160323' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: >= 0
+==> default: Box file was not detected as metadata. Adding it directly...
+==> default: Adding box 'govuk_dev_trusty64_20160323' (v0) for provider: virtualbox
+    default: Downloading: https://govuk-dev-boxes-test.s3.amazonaws.com/govuk_dev_trusty64_20160323.box
+An error occurred while downloading the remote file. The error
+message, if any, is reproduced below. Please fix this error and try
+again.
+```
+
+it looks like a problem with this specific version of Vagrant. Using version 1.8.6 works instead: https://releases.hashicorp.com/vagrant/1.8.6/
+You can find more information about this issue here: https://github.com/mitchellh/vagrant/issues/8002
+
 #### `librarian:install` fails due to permission errors
 
 Seeing `chown` / `OperationNotPermitted` errors during the `librarian:install` rake task?
