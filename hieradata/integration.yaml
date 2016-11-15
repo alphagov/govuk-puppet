@@ -48,6 +48,7 @@ govuk_jenkins::config::admins:
   - alexmuller
   - alextorrance
   - anafernandez
+  - andreagrandi
   - andrewgarner
   - anikahenke
   - bevanloon
@@ -269,6 +270,7 @@ users::usernames:
   - alexmuller
   - alextorrance
   - anafernandez
+  - andreagrandi
   - andrewgarner
   - anikahenke
   - bevanloon
