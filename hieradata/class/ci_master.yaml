@@ -80,7 +80,7 @@ govuk_jenkins::plugins:
     slack:
         version: "2.0.1"
     subversion:
-        version: "2.5.7"
+        version: "2.7.1"
     matrix-project:
         version: "1.7.1"
     jquery:
@@ -103,3 +103,15 @@ govuk_jenkins::plugins:
         version: "2.6"
     workflow-step-api:
         version: "2.5"
+    display-url-api:
+        version: "0.5"
+    scm-api:
+        version: "1.3"
+    workflow-scm-step:
+        version: "2.3"
+    mapdb-api:
+        version: "1.0.9.0"
+    credentials:
+        version: "2.1.8"
+    script-security:
+        version: "1.24"
