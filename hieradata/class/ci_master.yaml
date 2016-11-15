@@ -114,3 +114,5 @@ govuk_jenkins::plugins:
         version: "1.0.9.0"
     script-security:
         version: "1.24"
+    plain-credentials:
+        version: "1.1"
