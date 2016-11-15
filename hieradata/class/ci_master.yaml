@@ -62,7 +62,7 @@ govuk_jenkins::plugins:
     violations:
         version: "0.7.11"
     mailer:
-        version: "1.8"
+        version: "1.18"
     rubyMetrics:
         version: "1.6.4"
     description-setter:
@@ -79,3 +79,27 @@ govuk_jenkins::plugins:
         version: "1.25"
     slack:
         version: "2.0.1"
+    subversion:
+        version: "2.5.7"
+    matrix-project:
+        version: "1.7.1"
+    jquery:
+        version: "1.11.2-0"
+    structs:
+        version: "1.5"
+    workflow-basic-steps:
+        version: "2.3"
+    resource-disposer:
+        version: "0.3"
+    maven-plugin:
+        version: "2.14"
+    javadoc:
+        version: "1.4"
+    junit:
+        version: "1.19"
+    token-macro:
+        version: "2.0"
+    workflow-api:
+        version: "2.6"
+    workflow-step-api:
+        version: "2.5"
