@@ -81,7 +81,7 @@ govuk_jenkins::plugins:
     slack:
         version: "2.0.1"
     subversion:
-        version: "2.5.7"
+        version: "2.7.1"
     matrix-project:
         version: "1.7.1"
     jquery:
