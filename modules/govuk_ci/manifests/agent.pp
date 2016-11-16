@@ -12,4 +12,10 @@ class govuk_ci::agent {
   include ::govuk_ci::agent::mysql
   include ::govuk_java::oracle8
 
+  ufw::allow { 'allow-jenkins-slave-swarm-to-listen-on-ephemeral-ports':
+    port  => '32768:65535',
+    proto => 'udp',
+    ip    => 'any',
+  }
+
 }
