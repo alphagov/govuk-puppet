@@ -65,6 +65,18 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     it { is_expected.to contain_nginx__config__site('rabbit')
       .with_content(/^\s+proxy_pass https:\/\/rabbit-proxy;$/) }
 
+    context 'with to_ssl_port "8443"' do
+      before do
+        params[:to_ssl_port] = '8443'
+      end
+
+      it 'should use the provided value' do
+        is_expected.to contain_nginx__config__site('rabbit')
+          .with_content(/server a\.internal:8443;/)
+          .with_content(/server b\.internal:8443;/)
+          .with_content(/server c\.internal:8443;/)
+      end
+    end
   end
 
   context 'with deny_framing true' do
