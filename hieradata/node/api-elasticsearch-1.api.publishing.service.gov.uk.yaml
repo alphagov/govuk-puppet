@@ -1,0 +1,4 @@
+---
+govuk_elasticsearch::backup_enabled: true
+govuk_elasticsearch::backup::s3_bucket: 'govuk-api-elasticsearch-production'
+govuk_elasticsearch::backup::es_repo: 'snapshots'
