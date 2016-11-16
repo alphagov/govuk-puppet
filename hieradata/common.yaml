@@ -238,6 +238,8 @@ govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::contentapi::memcached_entitystore_url: "memcached://localhost:11211/contentapi-entity"
+govuk::apps::contentapi::memcached_metastore_url: "memcached://localhost:11211/contentapi-meta"
 govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
 

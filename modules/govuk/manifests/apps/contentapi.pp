@@ -14,6 +14,12 @@
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
+# [*memcached_entitystore_url*]
+#   Memcached url for entitystore
+#
+# [*memcached_metastore_url*]
+#   Memcached url for metastore
+#
 # [*mongodb_name*]
 #   The Mongo database to be used.
 #
@@ -42,6 +48,8 @@ class govuk::apps::contentapi (
   $port = '3022',
   $asset_manager_bearer_token = undef,
   $errbit_api_key = undef,
+  $memcached_entitystore_url = undef,
+  $memcached_metastore_url = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
   $nagios_memory_warning = undef,
@@ -77,6 +85,12 @@ class govuk::apps::contentapi (
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+    "${title}-MEMCACHED_ENTITYSTORE":
+      varname => 'MEMCACHED_ENTITYSTORE',
+      value   => $memcached_entitystore_url;
+    "${title}-MEMCACHED_METASTORE":
+      varname => 'MEMCACHED_METASTORE',
+      value   => $memcached_metastore_url;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
