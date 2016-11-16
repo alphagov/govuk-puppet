@@ -39,7 +39,7 @@ The configuration you'll need for your VM lives in a separate repository, govuk-
   * You should have [generated and registered](https://help.github.com/categories/56/articles) SSH key pairs for your Mac for both your GitHub accounts (later you may need to do this on your vagrant box too).
   * On a new mac, you should import the SSH key you generated into your keychain. Once you have done this, it will be available to the VM you'll install in the next step.
 
-        /usr/bin/ssh-add -K yourkey
+        mac$ /usr/bin/ssh-add -K yourkey
 
 ## 2. Install the VM
 
