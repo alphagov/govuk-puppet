@@ -11,6 +11,12 @@
 # [*github_enterprise_hostname*]
 #   The hostname of Github Enterprise
 #
+# [*github_client_id*]
+#   The Github client ID is used as the user to authenticate against Github.
+#
+# [*github_client_secret*]
+#   The Github client secret is used to authenticate against Github.
+#
 # [*config*]
 #   A hash of Jenkins config options to set
 #
@@ -30,6 +36,8 @@ class govuk_jenkins (
   $github_enterprise_cert,
   $github_enterprise_hostname,
   $github_enterprise_cert_path,
+  $github_client_id,
+  $github_client_secret,
   $config = {},
   $plugins = {},
   $ssh_private_key = undef,
@@ -39,8 +47,12 @@ class govuk_jenkins (
   validate_hash($config, $plugins)
 
   include ::govuk_python
-  include ::govuk_jenkins::config
   include ::govuk_jenkins::job_builder
+
+  class { 'govuk_jenkins::config':
+    github_client_id     => $github_client_id,
+    github_client_secret => $github_client_secret,
+  }
 
   class { 'govuk_jenkins::user':
     private_key => $ssh_private_key,
