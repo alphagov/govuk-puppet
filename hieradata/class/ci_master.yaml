@@ -116,3 +116,13 @@ govuk_jenkins::plugins:
         version: "1.24"
     plain-credentials:
         version: "1.1"
+    bouncycastle-api:
+        version: "2.16.0"
+    windows-slaves:
+        version: "1.2"
+    matrix-auth:
+        version: "1.4"
+    antisamy-markup-formatter:
+        version: "1.5"
+    icon-shim:
+        version: "2.0.3"
