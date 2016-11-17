@@ -885,6 +885,7 @@ hosts::production::frontend::app_hostnames:
   - 'draft-email-alert-frontend'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
+  - 'draft-multipage-frontend'
   - 'draft-service-manual-frontend'
   - 'draft-specialist-frontend'
   - 'draft-static'

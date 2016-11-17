@@ -8,7 +8,10 @@
 class govuk::node::s_draft_cache() {
   include govuk::node::s_cache
 
-  govuk_envvar { 'PLEK_HOSTNAME_PREFIX':
-    value => 'draft-',
+  $app_domain = hiera('app_domain')
+
+  govuk_envvar {
+    'PLEK_HOSTNAME_PREFIX': value => 'draft-';
+    'PLEK_SERVICE_ERRBIT_URI': value => "https://errbit.${app_domain}";
   }
 }
