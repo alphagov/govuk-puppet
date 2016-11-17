@@ -43,6 +43,7 @@ govuk_elasticsearch::backup::es_indices:
 govuk_elasticsearch::backup::aws_access_key_id: 'foo'
 govuk_elasticsearch::backup::aws_secret_access_key: 'bar'
 
+govuk_elasticsearch::minimum_master_nodes: '1'
 
 govuk_lvm::no_op: true
 
