@@ -21,6 +21,7 @@ class govuk_ci::master (
   $github_client_secret,
   $ghe_vpn_username,
   $ghe_vpn_password,
+  $jenkins_api_token,
 ){
 
   include ::govuk_ci::credentials
@@ -28,6 +29,7 @@ class govuk_ci::master (
   class { '::govuk_jenkins':
     github_client_id     => $github_client_id,
     github_client_secret => $github_client_secret,
+    jenkins_api_token    => $jenkins_api_token,
   }
 
   class { 'govuk_ghe_vpn':
