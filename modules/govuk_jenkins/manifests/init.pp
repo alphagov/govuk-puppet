@@ -43,11 +43,15 @@ class govuk_jenkins (
   $ssh_private_key = undef,
   $ssh_public_key = undef,
   $version = '1.554.2',
+  $jenkins_api_token = '',
 ) {
   validate_hash($config, $plugins)
 
   include ::govuk_python
-  include ::govuk_jenkins::job_builder
+
+  class { 'govuk_jenkins::job_builder':
+    jenkins_api_token => $jenkins_api_token,
+  }
 
   class { 'govuk_jenkins::config':
     github_client_id     => $github_client_id,
