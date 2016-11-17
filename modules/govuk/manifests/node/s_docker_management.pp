@@ -13,6 +13,12 @@ class govuk::node::s_docker_management inherits govuk::node::s_base {
     require   => Class['docker'],
   }
 
+  @@icinga::check { "check_dockerd_running_${::hostname}":
+    check_command       => 'check_nrpe!check_proc_running!dockerd',
+    service_description => 'dockerd running',
+    host_name           => $::fqdn,
+  }
+
   ::docker::run { 'etcd':
     image   => "${etcd_image}:${etcd_image_version}",
     ports   => ['2379:2379','2380:2380'],
