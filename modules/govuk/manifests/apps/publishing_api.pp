@@ -68,6 +68,18 @@
 # [*govuk_content_schemas_path*]
 #   The path for generated govuk-content-schemas
 #
+# [*event_log_aws_bucketname*]
+#   The S3 bucket used to store the event logs.
+#
+# [*event_log_aws_username*]
+#   The AWS IAM username that grants access to the event_log_aws_bucketname
+#
+# [*event_log_aws_access_id*]
+#  The access key that grants access to event_log_aws_bucketname for event_log_aws_username
+#
+# [*event_log_aws_secret_key*]
+#  The secret key that grants access to event_log_aws_bucketname for event_log_aws_username
+#
 class govuk::apps::publishing_api(
   $port = '3093',
   $content_store = '',
@@ -86,6 +98,10 @@ class govuk::apps::publishing_api(
   $oauth_secret = undef,
   $rabbitmq_password = undef,
   $govuk_content_schemas_path = '',
+  $event_log_aws_bucketname = undef,
+  $event_log_aws_username   = undef,
+  $event_log_aws_access_id  = undef,
+  $event_log_aws_secret_key = undef,
 ) {
   $app_name = 'publishing-api'
 
@@ -136,6 +152,18 @@ class govuk::apps::publishing_api(
     "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
       varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
       value   => $govuk_content_schemas_path;
+    "${title}-EVENT_LOG_AWS_BUCKETNAME":
+      varname => 'EVENT_LOG_AWS_BUCKETNAME',
+      value   => $event_log_aws_bucketname;
+    "${title}-EVENT_LOG_AWS_USERNAME":
+      varname => 'EVENT_LOG_AWS_USERNAME',
+      value   => $event_log_aws_username;
+    "${title}-EVENT_LOG_AWS_ACCESS_ID":
+      varname => 'EVENT_LOG_AWS_ACCESS_ID',
+      value   => $event_log_aws_access_id;
+    "${title}-EVENT_LOG_AWS_SECRET_KEY":
+      varname => 'EVENT_LOG_AWS_SECRET_KEY',
+      value   => $event_log_aws_secret_key;
   }
 
   govuk_logging::logstream { 'publishing_api_sidekiq_json_log':
