@@ -15,7 +15,15 @@
 #   A username of a user on Jenkins who has permission to create and modify jobs
 #
 # [*jenkins_api_token*]
-#   The API token for $jenkins_user
+#   The API token for $jenkins_user.
+#
+#   By default, in newer versions of Jenkins you will be unable to view another
+#   users token. To get past this, temporarily set the following as an argument under
+#   JAVA_ARGS in the init script and restart the Jenkins service:
+#
+#   "-Djenkins.security.ApiTokenProperty.showTokenToAdmins=true"
+#
+#   Ref: https://wiki.jenkins-ci.org/display/JENKINS/Features+controlled+by+system+properties
 #
 # [*jenkins_url*]
 #   The URL to access Jenkins
