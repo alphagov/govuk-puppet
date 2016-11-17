@@ -18,7 +18,7 @@ class govuk::node::s_ci_master inherits govuk::node::s_base {
   }
 
   nginx::config::site { 'jenkins':
-    content => template('govuk/node/s_jenkins/jenkins.conf.erb'),
+    content => template('govuk/node/s_ci_master/jenkins.conf.erb'),
     require => Nginx::Config::Ssl['jenkins'],
   }
 }
