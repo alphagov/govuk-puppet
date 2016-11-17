@@ -51,7 +51,7 @@ function ignored() {
   return 1
 }
 
-while getopts "hF:u:d:sri:n:mpqet" OPTION
+while getopts "hF:u:d:sri:nmpqet" OPTION
 do
   case $OPTION in
     h )
