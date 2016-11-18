@@ -29,9 +29,6 @@
 # [*ssl_only*]
 #   Whether the app should only be available on a secure connection
 #
-# [*logstream*]
-#   Whether nginx logs should be shipped to the logging box
-#
 # [*nginx_extra_config*]
 #   A string containing additional nginx config
 #
@@ -77,7 +74,6 @@ define govuk::app::nginx_vhost (
   $protected = false,
   $protected_location = '/',
   $ssl_only = false,
-  $logstream = present,
   $nginx_extra_config = '',
   $deny_framing = false,
   $is_default_vhost = false,
@@ -113,7 +109,6 @@ define govuk::app::nginx_vhost (
     protected                      => $protected,
     protected_location             => $protected_location,
     ssl_only                       => $ssl_only,
-    logstream                      => $logstream,
     extra_config                   => $nginx_extra_config_real,
     deny_framing                   => $deny_framing,
     custom_http_host               => $custom_http_host,

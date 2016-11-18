@@ -42,9 +42,6 @@
 # [*ssl_only*]
 #   Whether the app should only be available on a secure connection
 #
-# [*logstream*]
-#   Whether nginx logs should be shipped to the logging box
-#
 # [*is_default_vhost*]
 #   Boolean, whether to set `default_server` in nginx
 #
@@ -88,7 +85,6 @@ define nginx::config::vhost::proxy(
   $protected_location = '/',
   $root = "/data/vhost/${title}/current/public",
   $ssl_only = false,
-  $logstream = present,
   $is_default_vhost = false,
   $ssl_certtype = 'wildcard_publishing',
   $hidden_paths = [],
@@ -132,22 +128,17 @@ define nginx::config::vhost::proxy(
 
   $counter_basename = "${::fqdn_metrics}.nginx_logs.${title_escaped}"
 
-  $logstream_ensure = $ensure ? {
-    'present' => $logstream,
-    default   => $ensure,
-  }
-
   nginx::log {
     $json_access_log:
       json          => true,
       logpath       => $logpath,
-      logstream     => $logstream_ensure,
+      logstream     => $ensure,
       statsd_metric => "${counter_basename}.http_%{@fields.status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
                           value => '@fields.request_time'}];
     $error_log:
       logpath   => $logpath,
-      logstream => $logstream_ensure;
+      logstream => $ensure;
   }
 
   statsd::counter { "${counter_basename}.http_500": }

@@ -55,13 +55,6 @@
 # backend applications but use the same hostname.
 # Default: undef
 #
-# [*logstream*]
-# choose whether or not to create a log tailing upstart job
-#
-# If set present, logstream upstart job will be created for a selection of
-# logs we care about.
-#
-#
 # [*legacy_logging*]
 # Whether to support the legacy logging scheme where we collect application
 # logs directly, instead of having logs log to stdout/stderr.
@@ -242,7 +235,6 @@ define govuk::app (
   $command = undef,
   $create_pidfile = 'NOTSET',
   $custom_http_host = undef,
-  $logstream = present,
   $legacy_logging = true,
   $log_format_is_json = false,
   $health_check_path = 'NOTSET',
@@ -323,7 +315,6 @@ define govuk::app (
     json_health_check              => $json_health_check,
     deny_framing                   => $deny_framing,
     enable_nginx_vhost             => $enable_nginx_vhost,
-    logstream                      => $logstream,
     nagios_cpu_warning             => $nagios_cpu_warning,
     nagios_cpu_critical            => $nagios_cpu_critical,
     nagios_memory_warning          => $nagios_memory_warning,
@@ -344,20 +335,15 @@ define govuk::app (
     subscribe  => Class['govuk::deploy'],
   }
 
-  $logstream_ensure = $ensure ? {
-    'present' => $logstream,
-    'absent'  => 'absent',
-  }
-
   govuk_logging::logstream { "${title}-upstart-out":
-    ensure  => $logstream_ensure,
+    ensure  => $ensure,
     logfile => "/var/log/${title}/upstart.out.log",
     tags    => ['stdout', 'upstart'],
     fields  => {'application' => $title},
   }
 
   govuk_logging::logstream { "${title}-upstart-err":
-    ensure  => $logstream_ensure,
+    ensure  => $ensure,
     logfile => "/var/log/${title}/upstart.err.log",
     tags    => ['stderr', 'upstart'],
     fields  => {'application' => $title},
@@ -374,7 +360,7 @@ define govuk::app (
     }
 
     govuk_logging::logstream { "${title}-app-err":
-      ensure  => $logstream_ensure,
+      ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['stderr', 'app'],
       json    => $err_log_json,
@@ -389,7 +375,7 @@ define govuk::app (
       }
 
       govuk_logging::logstream { "${title}-production-log":
-        ensure        => $logstream_ensure,
+        ensure        => $ensure,
         logfile       => $log_path,
         tags          => ['stdout', 'application'],
         fields        => {'application' => $title},
@@ -406,7 +392,7 @@ define govuk::app (
 
   } else {
     govuk_logging::logstream { "${title}-app-out":
-      ensure        => $logstream_ensure,
+      ensure        => $ensure,
       logfile       => "/var/log/${title}/app.out.log",
       tags          => ['application'],
       json          => true,
@@ -421,7 +407,7 @@ define govuk::app (
     }
 
     govuk_logging::logstream { "${title}-app-err":
-      ensure  => $logstream_ensure,
+      ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['application'],
       fields  => {'application' => $title},
