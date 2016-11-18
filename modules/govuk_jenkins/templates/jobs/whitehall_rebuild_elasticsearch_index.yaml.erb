@@ -3,7 +3,7 @@
     name: Whitehall_rebuild_elasticsearch_index
     display-name: Whitehall_rebuild_elasticsearch_index
     project-type: freestyle
-    description: "<p>Rebuild the whitehall elasticsearch indexes (both the \"government\" and the \"detailed\" index). This works by exporting the index data in json bulk format, copying      it to a machine running Rummager, and then running the Rummager <code>bulk_load</code> script. It locks the index at the start of the process so that incoming index jobs will queue      up until the re-index is complete. This avoids losing any updates during the re-index, but does mean that updates wont be reflected in the search index while the process runs.</p><      p> The bulk_load also loads the data into an un-connected index and switches the alias at the end of the indexing job this means that there's no down time during re-indexing.  Howe      ver, the whitehall and detailed indexes contain a few documents from the \"recommended-links\" application, which will be lost by this process.  Therefore, this triggers a redeploy      of the recommended-links application after this script has run to re-populate the recommended links documents.</p>"
+    description: "<p>Rebuild the whitehall elasticsearch indexes (both the \"government\" and the \"detailed\" index). This works by exporting the index data in json bulk format, copying      it to a machine running Rummager, and then running the Rummager <code>bulk_load</code> script. It locks the index at the start of the process so that incoming index jobs will queue      up until the re-index is complete. This avoids losing any updates during the re-index, but does mean that updates wont be reflected in the search index while the process runs.</p><      p> The bulk_load also loads the data into an un-connected index and switches the alias at the end of the indexing job this means that there's no down time during re-indexing.</p>"
     builders:
         - shell: |
             ssh deploy@search-1.api '
@@ -41,11 +41,3 @@
             rm -f /tmp/rummager_dump_government.jsonl /tmp/rummager_dump_detailed.jsonl
             ' &&
             rm -f /tmp/rummager_dump_government.jsonl /tmp/rummager_dump_detailed.jsonl
-    publishers:
-        - trigger-parameterized-builds:
-            - project: Deploy_App
-              condition: 'SUCCESS'
-              predefined-parameters: |
-                TARGET_APPLICATION=recommended-links
-                TAG=deployed-to-production
-                DEPLOY_TASK=deploy
