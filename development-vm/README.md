@@ -212,6 +212,17 @@ in the `replication/mappings/dbs` folder, and are skipped by small sed scripts
 that delete entire `INSERT INTO` lines from the dumps. To force these tables to
 be restored, simply delete or rename the relevant sed script and run replication.
 
+If you take your laptop home at night, you may want to download the data while in
+the office and restore it overnight to minimise disruption. First, do the download
+on your host as the unzipping is a lot quicker when not run over NFS:
+
+    mac$ ./replicate-data-local.sh -F ../ssh_config -u your_ssh_username -n
+
+Then when you get home (or if you have a spare hour during meetings) run the script
+on your VM and specify the backup directory for the date you performed the download:
+
+    dev$ ./replicate-data-local.sh -s -d backups/2016-11-17
+
 ## 8. Accessing remote environments
 
 ### 8.1 Access to the web frontend
