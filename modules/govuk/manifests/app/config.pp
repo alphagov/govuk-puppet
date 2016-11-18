@@ -33,8 +33,6 @@ define govuk::app::config (
   $json_health_check = false,
   $deny_framing = false,
   $enable_nginx_vhost = true,
-  $nagios_cpu_warning = 150,
-  $nagios_cpu_critical = 200,
   $unicorn_herder_timeout = 'NOTSET',
   $nagios_memory_warning = 700,
   $nagios_memory_critical = 800,
@@ -209,8 +207,8 @@ define govuk::app::config (
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure    => $ensure,
       target    => "scale(sumSeries(${::fqdn_metrics}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
-      warning   => $nagios_cpu_warning,
-      critical  => $nagios_cpu_critical,
+      warning   => 150,
+      critical  => 200,
       desc      => "high CPU usage for ${title} app",
       host_name => $::fqdn,
     }

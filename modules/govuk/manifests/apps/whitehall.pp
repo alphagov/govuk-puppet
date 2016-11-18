@@ -61,8 +61,6 @@ class govuk::apps::whitehall(
     json_health_check      => true,
     depends_on_nfs         => true,
     enable_nginx_vhost     => false,
-    nagios_cpu_warning     => 300,
-    nagios_cpu_critical    => 400,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
     unicorn_herder_timeout => 45,

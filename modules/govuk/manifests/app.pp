@@ -152,22 +152,6 @@
 # discouraged, and it is included for backwards compatibility purposes only.
 #
 #
-# [*nagios_cpu_warning*]
-# percentage at which Nagios should generate a warning
-#
-# This parameter is used to change the threshold of the exported nagios
-# cpu usage check. It defaults to 150% for a warning and does not generally
-# need to be altered.
-#
-#
-# [*nagios_cpu_critical*]
-# percentage at which Nagios should generate a critical
-#
-# This parameter is used to change the threshold of the exported nagios
-# cpu usage check. It defaults to 200% for a critical and does not generally
-# need to be altered.
-#
-#
 # [*nagios_memory_warning*]
 # memory use at which Nagios should generate a warning
 #
@@ -247,8 +231,6 @@ define govuk::app (
   $vhost_protected = false,
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
-  $nagios_cpu_warning = 150,
-  $nagios_cpu_critical = 200,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $nagios_memory_warning = undef,
@@ -315,8 +297,6 @@ define govuk::app (
     json_health_check              => $json_health_check,
     deny_framing                   => $deny_framing,
     enable_nginx_vhost             => $enable_nginx_vhost,
-    nagios_cpu_warning             => $nagios_cpu_warning,
-    nagios_cpu_critical            => $nagios_cpu_critical,
     nagios_memory_warning          => $nagios_memory_warning,
     nagios_memory_critical         => $nagios_memory_critical,
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,
