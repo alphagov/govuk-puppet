@@ -159,14 +159,6 @@
 # discouraged, and it is included for backwards compatibility purposes only.
 #
 #
-# [*nginx_extra_app_config*]
-# additional @app block configuration
-#
-# This parameter is used to add additional logic (like proxy
-# fallback behaviour) to the default downstream proxy functionality
-# used in Nginx.
-#
-#
 # [*nagios_cpu_warning*]
 # percentage at which Nagios should generate a warning
 #
@@ -263,7 +255,6 @@ define govuk::app (
   $vhost_protected = false,
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
-  $nginx_extra_app_config = '',
   $nagios_cpu_warning = 150,
   $nagios_cpu_critical = 200,
   $alert_5xx_warning_rate = 0.05,
@@ -327,7 +318,6 @@ define govuk::app (
     vhost_protected                => $vhost_protected,
     vhost_ssl_only                 => $vhost_ssl_only,
     nginx_extra_config             => $nginx_extra_config,
-    nginx_extra_app_config         => $nginx_extra_app_config,
     health_check_path              => $health_check_path,
     expose_health_check            => $expose_health_check,
     json_health_check              => $json_health_check,

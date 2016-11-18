@@ -35,9 +35,6 @@
 # [*nginx_extra_config*]
 #   A string containing additional nginx config
 #
-# [*nginx_extra_app_config*]
-#   A string containing additional nginx config for the `app` location block
-#
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
@@ -82,7 +79,6 @@ define govuk::app::nginx_vhost (
   $ssl_only = false,
   $logstream = present,
   $nginx_extra_config = '',
-  $nginx_extra_app_config = '',
   $deny_framing = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
@@ -119,7 +115,6 @@ define govuk::app::nginx_vhost (
     ssl_only                       => $ssl_only,
     logstream                      => $logstream,
     extra_config                   => $nginx_extra_config_real,
-    extra_app_config               => $nginx_extra_app_config,
     deny_framing                   => $deny_framing,
     custom_http_host               => $custom_http_host,
     is_default_vhost               => $is_default_vhost,
