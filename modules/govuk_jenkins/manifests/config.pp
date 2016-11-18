@@ -48,8 +48,7 @@
 #   List of admins that have "admin" permissions in Jenkins.
 #
 # [*manage_config*]
-#   Option to manage the Jenkins config or not. This is set so we do not
-#   overwrite configuration in live environments.
+#   Boolean option to manage the Jenkins configuration directory.
 #
 # [*version*]
 #   Specify the version of Jenkins
@@ -68,7 +67,7 @@ class govuk_jenkins::config (
   $github_client_id,
   $github_client_secret,
   $admins = [],
-  $manage_config = false,
+  $manage_config = true,
   $version = $govuk_jenkins::version,
 ) {
 

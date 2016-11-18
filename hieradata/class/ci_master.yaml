@@ -1,4 +1,7 @@
 ---
+# FIXME: This should be set to true once this Jenkins instance is set up.
+govuk_jenkins::config::manage_config: false
+
 govuk_jenkins::version: '2.19.2'
 
 govuk_jenkins::plugins:
