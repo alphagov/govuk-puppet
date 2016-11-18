@@ -3,16 +3,12 @@
 # Install a loadbalancer configuration for the specified hosts.
 #
 # By default, this will install an Nginx load balancing proxy configuration
-# for "$title.$app_domain". You can specify additional server names to listen
-# to using the `aliases` parameter.
+# for "$title.$app_domain".
 #
 # === Parameters
 #
 # [*servers*]
 #   Array of IPs or hostname of the upstream servers.
-#
-# [*aliases*]
-#   Additional server names for the loadbalanced service.
 #
 # [*deny_crawlers*]
 #   Boolean, whether the loadbalancer should serve a robots.txt that
@@ -48,7 +44,6 @@
 #
 define loadbalancer::balance(
     $servers,
-    $aliases = [],
     $deny_crawlers = false,
     $error_on_http = false,
     $https_port = 443,
