@@ -48,13 +48,6 @@
 # this doesn't apply to all app types. (eg Rack apps don't create pid files
 # by default)
 #
-# [*custom_http_host*]
-# This setting allows the default HTTP Host header to be overridden.
-#
-# An example of where this is useful is if requests are handled by different
-# backend applications but use the same hostname.
-# Default: undef
-#
 # [*legacy_logging*]
 # Whether to support the legacy logging scheme where we collect application
 # logs directly, instead of having logs log to stdout/stderr.
@@ -218,7 +211,6 @@ define govuk::app (
   $port = 0,
   $command = undef,
   $create_pidfile = 'NOTSET',
-  $custom_http_host = undef,
   $legacy_logging = true,
   $log_format_is_json = false,
   $health_check_path = 'NOTSET',
@@ -286,7 +278,6 @@ define govuk::app (
     create_pidfile                 => $create_pidfile,
     domain                         => $app_domain,
     port                           => $port,
-    custom_http_host               => $custom_http_host,
     vhost_aliases                  => $vhost_aliases,
     vhost_full                     => $vhost_full,
     vhost_protected                => $vhost_protected,

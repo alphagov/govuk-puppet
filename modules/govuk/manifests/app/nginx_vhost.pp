@@ -10,13 +10,6 @@
 # [*app_port*]
 #   Port the app runs on
 #
-# [*custom_http_host*]
-#   This setting allows the default HTTP Host header to be overridden.
-#
-#   An example of where this is useful is if requests are handled by different
-#   backend applications but use the same hostname.
-#   Default: undef
-#
 # [*aliases*]
 #   Other hostnames to serve the app on
 #
@@ -69,7 +62,6 @@
 define govuk::app::nginx_vhost (
   $vhost,
   $app_port,
-  $custom_http_host = undef,
   $aliases = [],
   $protected = false,
   $protected_location = '/',
@@ -111,7 +103,6 @@ define govuk::app::nginx_vhost (
     ssl_only                       => $ssl_only,
     extra_config                   => $nginx_extra_config_real,
     deny_framing                   => $deny_framing,
-    custom_http_host               => $custom_http_host,
     is_default_vhost               => $is_default_vhost,
     hidden_paths                   => $hidden_paths,
     single_page_app                => $single_page_app,

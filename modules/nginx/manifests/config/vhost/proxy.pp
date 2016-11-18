@@ -14,13 +14,6 @@
 # [*aliases*]
 #   Other hostnames to serve the app on
 #
-# [*custom_http_host*]
-#   This setting allows the default HTTP Host header to be overridden.
-#
-#   An example of where this is useful is if requests are handled by different
-#   backend applications but use the same hostname.
-#   Default: undef
-#
 # [*extra_config*]
 #   A string containing additional nginx config
 #
@@ -77,7 +70,6 @@ define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
   $aliases = [],
-  $custom_http_host = undef,
   $extra_config = '',
   $extra_app_config = '',
   $deny_framing = false,
