@@ -31,13 +31,6 @@ LOCAL_ARCHIVE_PATH="${DIR}/elasticsearch/${SRC_HOSTNAME}"
 
 status "Starting search index replication from ${SRC_HOSTNAME}"
 
-if curl $LOCAL_ES_HOST -o /dev/null 2> /dev/null; then
-  ok "Elasticsearch is running on ${LOCAL_ES_HOST}"
-else
-  error "Elasticsearch is not running on ${LOCAL_ES_HOST}. Aborting..."
-  exit 1
-fi
-
 if $SKIP_DOWNLOAD; then
   status "Skipping fetch of new archives"
 
@@ -95,6 +88,13 @@ do
   if $DRY_RUN; then
     status "$f (dry run)"
   else
+    if curl $LOCAL_ES_HOST -o /dev/null 2> /dev/null; then
+      ok "Elasticsearch is running on ${LOCAL_ES_HOST}"
+    else
+      error "Elasticsearch is not running on ${LOCAL_ES_HOST}. Aborting..."
+      exit 1
+    fi
+
     alias_name=$(basename $f .zip)
     iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr [:upper:] [:lower:])z"
     real_name="$alias_name-$iso_date-00000000-0000-0000-0000-000000000000"

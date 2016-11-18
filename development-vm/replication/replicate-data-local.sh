@@ -17,7 +17,7 @@ $(dirname $0)/sync-mongo.sh "$@" mongo-1.backend.integration
 $(dirname $0)/sync-mongo.sh "$@" api-mongo-1.api.integration
 $(dirname $0)/sync-mongo.sh "$@" router-backend-1.router.integration
 
-if ! $SKIP_MONGO; then
+if ! $SKIP_MONGO && ! $DRY_RUN; then
   status "Munging router backend hostnames for dev VM"
   mongo --quiet --eval 'db = db.getSiblingDB("router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".integration.publishing.service.gov.uk", ".dev.gov.uk"); db.backends.save(b); } );'
 fi
@@ -38,8 +38,11 @@ fi
 $(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.integration
 $(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.integration
 
-status "Munging Signon db tokens for dev VM"
-if [[ -d $(dirname $0)/../../signonotron2 ]]; then
-  cd $(dirname $0)/../../signonotron2 && bundle install && bundle exec ruby script/make_oauth_work_in_dev
+if ! $DRY_RUN; then
+  status "Munging Signon db tokens for dev VM"
+  if [[ -d $(dirname $0)/../../signonotron2 ]]; then
+    cd $(dirname $0)/../../signonotron2 && bundle install && bundle exec ruby script/make_oauth_work_in_dev
+  fi
 fi
+
 ok "Data replication complete"
