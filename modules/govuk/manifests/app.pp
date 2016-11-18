@@ -213,12 +213,6 @@
 # daemonize' error that occurs if an application doesn't load within
 # the timeout period.
 #
-#
-# [*upstart_post_start_script*]
-# an optional script to be added to a post-start
-# stanza in the upstart config.
-#
-#
 # [*asset_pipeline*]
 # should we enable some asset pipeline specific rules in the
 # nginx config.
@@ -277,7 +271,6 @@ define govuk::app (
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_herder_timeout = undef,
-  $upstart_post_start_script = undef,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
@@ -348,7 +341,6 @@ define govuk::app (
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,
     alert_5xx_critical_rate        => $alert_5xx_critical_rate,
     unicorn_herder_timeout         => $unicorn_herder_timeout,
-    upstart_post_start_script      => $upstart_post_start_script,
     asset_pipeline                 => $asset_pipeline,
     asset_pipeline_prefix          => $asset_pipeline_prefix,
     depends_on_nfs                 => $depends_on_nfs,

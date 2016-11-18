@@ -42,7 +42,6 @@ define govuk::app::config (
   $nagios_memory_critical = 800,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
-  $upstart_post_start_script = undef,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',

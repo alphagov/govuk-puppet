@@ -115,22 +115,6 @@ describe 'govuk::app::config', :type => :define do
       end
     end
 
-    context 'with an upstart post-start script' do
-      let(:params) do
-        {
-          :port => 8000,
-          :app_type => 'rack',
-          :domain => 'foo.bar.baz',
-          :vhost_full => 'giraffe.foo.bar.baz',
-          :upstart_post_start_script => '/bin/true',
-        }
-      end
-
-      it do
-        is_expected.to contain_file('/etc/init/giraffe.conf').with(:content => %r{post-start script\s*\n\s*/bin/true\s*\n\s*end script})
-      end
-    end
-
     context 'with asset_pipeline => true' do
       let(:params) do
         {
