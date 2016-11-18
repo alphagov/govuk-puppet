@@ -124,6 +124,8 @@ govuk_jenkins::plugins:
       version: "0.5"
     slack:
       version: "2.0.1"
+    ssh-agent:
+      version: "1.13"
     ssh-credentials:
       version: "1.12"
     structs:
