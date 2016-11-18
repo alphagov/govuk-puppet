@@ -8,8 +8,11 @@
 #   Errbit API key for sending errors.
 #   Default: undef
 #
-# [*mongodb_nodes_string*]
-#   List of mongo hostnames and ports.
+# [*mongodb_name*]
+#   The mongo database to be used.
+#
+# [*mongodb_nodes*]
+#   Array of hostnames for the mongo cluster to use.
 #   Default: undef
 #
 # [*oauth_id*]
@@ -35,18 +38,30 @@
 #   Redis port for sidekiq.
 #   Default: 6379
 #
+# [*secret_key_base*]
+#   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
+#   rails 4.x signed cookie mechanism. If unset the app will be unable to
+#   start.
+#   Default: undef
+#
 class govuk::apps::short_url_manager(
   $errbit_api_key = undef,
-  $mongodb_nodes_string = undef,
+  $mongodb_name = undef,
+  $mongodb_nodes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $publishing_api_bearer_token = undef,
   $port = '3076',
   $redis_host = undef,
   $redis_port = '6379',
+  $secret_key_base = undef,
 ) {
 
   $app_name = 'short-url-manager'
+
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
 
   govuk::app { $app_name:
     app_type           => 'rack',
@@ -60,9 +75,6 @@ class govuk::apps::short_url_manager(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-MONGODB_NODES":
-      varname => 'MONGODB_NODES',
-      value   => $mongodb_nodes_string;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
@@ -70,14 +82,24 @@ class govuk::apps::short_url_manager(
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => 'short-url-manager',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
   }
 
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
+  }
+
   govuk::app::envvar::redis { $app_name:
-    host      => $redis_host,
-    port      => $redis_port,
-    namespace => $app_name,
+    host => $redis_host,
+    port => $redis_port,
+  }
+
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
+    }
   }
 }

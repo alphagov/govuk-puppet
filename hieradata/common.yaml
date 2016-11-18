@@ -298,6 +298,9 @@ govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::whitehall::procfile_worker_process_count: 2

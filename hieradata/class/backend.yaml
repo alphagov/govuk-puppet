@@ -37,6 +37,12 @@ govuk::apps::publisher::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
+govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_production'
+govuk::apps::short_url_manager::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
 govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::specialist_publisher::mongodb_nodes:
   - 'mongo-1.backend'

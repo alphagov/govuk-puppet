@@ -156,6 +156,8 @@ govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
 govuk::apps::rummager::redis_host: 'localhost'
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
+govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_development'
+govuk::apps::short_url_manager::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::mongodb_nodes: ['localhost']
