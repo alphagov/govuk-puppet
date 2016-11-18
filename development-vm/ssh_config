@@ -1,6 +1,3 @@
-Host *
-  UseRoaming no
-
 # Integration
 # -------
 Host jumpbox.integration.publishing.service.gov.uk
