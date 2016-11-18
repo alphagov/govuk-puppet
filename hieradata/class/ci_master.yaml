@@ -126,3 +126,39 @@ govuk_jenkins::plugins:
         version: "1.5"
     icon-shim:
         version: "2.0.3"
+    git-server:
+        version: "1.7"
+    pipeline-graph-analysis:
+        version: "1.2"
+    pipeline-build-step:
+        version: "2.3"
+    workflow-cps:
+        version: "2.23"
+    pipeline-input-step:
+        version: "2.5"
+    workflow-job:
+        version: "2.9"
+    pipeline-milestone-step:
+        version: "1.2"
+    workflow-multibranch:
+        version: "2.9.2"
+    workflow-durable-task-step:
+        version: "2.5"
+    pipeline-stage-view:
+        version: "2.2"
+    pipeline-stage-step:
+        version: "2.2"
+    workflow-support:
+        version: "2.11"
+    durable-task:
+        version: "1.12"
+    ace-editor:
+        version: "1.1"
+    handlebars:
+        version: "1.1.1"
+    jquery-detached:
+        version: "1.2.1"
+    momentjs:
+        version: "1.1.1"
+    workflow-aggregator:
+        version: "2.4"
