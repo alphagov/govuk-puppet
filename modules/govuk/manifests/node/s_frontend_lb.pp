@@ -4,7 +4,6 @@ class govuk::node::s_frontend_lb (
   $draft_frontend_servers,
   $frontend_servers,
   $whitehall_frontend_servers,
-  $hide_frontend_apps = true,
   $performance_frontend_apps = [],
   $performance_frontend_servers = [],
 ){
@@ -13,7 +12,7 @@ class govuk::node::s_frontend_lb (
 
   Loadbalancer::Balance {
     https_redirect => false, # Varnish/Router can't speak HTTPS.
-    internal_only  => $hide_frontend_apps,
+    internal_only  => true,
   }
 
   loadbalancer::balance {
