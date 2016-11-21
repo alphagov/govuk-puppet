@@ -78,9 +78,8 @@ class govuk::node::s_backend_lb (
       'publishing-api',
       'support-api',
     ]:
-      https_redirect => false, # FIXME: Remove for #51136581
-      internal_only  => true,
-      servers        => $backend_servers;
+      internal_only => true,
+      servers       => $backend_servers;
     [
       'whitehall-admin',
       'draft-whitehall-frontend',

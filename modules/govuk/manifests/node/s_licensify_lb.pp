@@ -25,9 +25,8 @@ class govuk::node::s_licensify_lb (
   loadbalancer::balance {
     # Licensify frontend
     'licensify':
-      https_redirect => false,
-      servers        => $frontend_app_servers,
-      internal_only  => true;
+      servers       => $frontend_app_servers,
+      internal_only => true;
 
     # Licensify upload pdf public endpoint
     'uploadlicence':
