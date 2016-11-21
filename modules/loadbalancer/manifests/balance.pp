@@ -94,13 +94,6 @@ define loadbalancer::balance(
     }
   }
 
-  # FIXME: Remove once this file has been purged from all machines
-  if ! defined(File['/usr/share/nginx/html/maintenance.html']) {
-    file { '/usr/share/nginx/html/maintenance.html':
-      ensure => absent,
-    }
-  }
-
   if $maintenance_mode {
     include loadbalancer::maintenance
   }
