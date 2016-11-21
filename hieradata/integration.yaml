@@ -20,6 +20,7 @@ govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 
+govuk::apps::signon::instance_name: 'integration'
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::support_api::pp_data_url: 'https://www.preview.performance.service.gov.uk'
