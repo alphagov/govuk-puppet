@@ -37,6 +37,9 @@ class govuk_ci::master (
     password => $ghe_vpn_password,
   }
 
+  # Collect exported jobs
+  Govuk_ci::Job <<| |>>
+
   ufw::allow {'jenkins-slave-to-jenkins-master-on-tcp':
     port  => '32768:65535',
     proto => 'tcp',
