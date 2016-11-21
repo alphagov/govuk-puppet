@@ -1,0 +1,18 @@
+---
+- job:
+    name: integration-puppet-deploy
+    display-name: integration-puppet-deploy
+    project-type: freestyle
+    description: "Kicks off a Puppet deploy in the integration environment"
+    builders:
+      - shell: |
+          JSON="{\"parameter\": [{\"name\": \"TAG\", \"value\": \"$TAG\"}], \"\": \"\"}"
+
+          curl -f -XPOST https://<%= @jenkins_integration__api_user %>:<%= @jenkins_integration_api_password %>@deploy.integration.publishing.service.gov.uk/job/Deploy_Puppet/build --data-urlencode json="$JSON"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - string:
+            name: TAG
+            description: 'Git tag/committish to deploy.'
+            default: 'release'

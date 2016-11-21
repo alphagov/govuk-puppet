@@ -1,6 +1,9 @@
 ---
 govuk_jenkins::version: '2.19.2'
 
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::integration_deploy
+
 govuk_jenkins::plugins:
     ace-editor:
       version: "1.1"
