@@ -37,6 +37,9 @@ class govuk_ci::master (
     password => $ghe_vpn_password,
   }
 
+  # Add govuk-puppet job
+  govuk_ci::job { 'govuk-puppet': }
+
   # Collect exported jobs
   Govuk_ci::Job <<| |>>
 
