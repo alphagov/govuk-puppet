@@ -18,7 +18,7 @@ define govuk_ci::job (
   $job_config_directory = '/var/lib/jenkins/jobs'
   $application_directory = "${job_config_directory}/${app}"
 
-  file { [ $job_config_directory, $application_directory ]:
+  file { $application_directory :
     ensure => directory,
     owner  => 'jenkins',
     group  => 'jenkins',
