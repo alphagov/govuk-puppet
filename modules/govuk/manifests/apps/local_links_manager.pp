@@ -133,5 +133,8 @@ class govuk::apps::local_links_manager(
         database => $db_name,
       }
     }
+
+    @@govuk_ci::job { 'local-links-manager': }
+
   }
 }

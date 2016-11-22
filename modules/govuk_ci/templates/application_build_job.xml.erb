@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.9.2">
+  <actions/>
+  <description></description>
+  <properties/>
+  <views>
+    <hudson.model.AllView>
+      <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <healthMetrics/>
+  <icon class="com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon" plugin="cloudbees-folder@5.13"/>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@5.13">
+    <pruneDeadBranches>true</pruneDeadBranches>
+    <daysToKeep>0</daysToKeep>
+    <numToKeep>50</numToKeep>
+  </orphanedItemStrategy>
+  <triggers/>
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11.1">
+    <data>
+      <jenkins.branch.BranchSource>
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
+          <id>45dd6853-59d2-4695-80ac-4520f8a2b64f</id>
+          <checkoutCredentialsId>SAME</checkoutCredentialsId>
+          <scanCredentialsId>github-token-govuk-ci-username</scanCredentialsId>
+          <repoOwner>alphagov</repoOwner>
+          <repository><%= @repository %></repository>
+          <includes>*</includes>
+          <excludes></excludes>
+          <buildOriginBranch>true</buildOriginBranch>
+          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
+          <buildOriginPRMerge>true</buildOriginPRMerge>
+          <buildOriginPRHead>false</buildOriginPRHead>
+          <buildForkPRMerge>false</buildForkPRMerge>
+          <buildForkPRHead>false</buildForkPRHead>
+        </source>
+        <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+          <properties class="empty-list"/>
+        </strategy>
+      </jenkins.branch.BranchSource>
+    </data>
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </sources>
+  <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </factory>
+</org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>

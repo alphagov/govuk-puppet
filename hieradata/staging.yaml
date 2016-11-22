@@ -31,7 +31,6 @@ govuk_jenkins::config::banner_string: 'Carrenza STAGING'
 govuk_jenkins::config::theme_colour: '#ffbf47'
 govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'Staging'
-govuk_jenkins::config::manage_config: true
 
 govuk_elasticsearch::dump::run_es_dump_hour: '4'
 
