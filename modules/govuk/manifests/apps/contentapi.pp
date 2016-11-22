@@ -82,6 +82,9 @@ class govuk::apps::contentapi (
   }
 
   govuk::app::envvar {
+    "${title}-ASSET_MANAGER_BEARER_TOKEN":
+      varname => 'ASSET_MANAGER_BEARER_TOKEN',
+      value   => $asset_manager_bearer_token;
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
