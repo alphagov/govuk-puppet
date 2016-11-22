@@ -41,6 +41,7 @@ class rkhunter::monitoring {
     check_command       => "check_nrpe!check_file_age!\"-f /var/lib/rkhunter/db/mirrors.dat -c0 -w${warning_age}\"",
     service_description => 'rkhunter definitions not updated',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(rkhunter-warnings),
   }
 
   # Script to run rkhunter as a passive check
