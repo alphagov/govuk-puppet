@@ -33,7 +33,7 @@
 #
 define icinga::host (
   $hostalias  = $::fqdn,
-  $address    = $::ipaddress,
+  $address    = $::ipaddress_eth0,
   $use        = 'generic-host',
   $host_name  = $::fqdn,
   $display_name = $::fqdn_short,
