@@ -4,7 +4,7 @@
 #
 class imagemagick {
   package { 'imagemagick':
-    ensure => '8:6.7.7.10-6ubuntu3.1',
+    ensure => '8:6.7.7.10-6ubuntu3.2',
   }
 
   file { '/etc/ImageMagick/policy.xml':
