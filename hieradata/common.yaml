@@ -576,6 +576,8 @@ govuk_jenkins::job::smokey::signon_password: "%{hiera('smokey_signon_password')}
 govuk_jenkins::job::run_rake_task::applications: *deployable_applications
 govuk_jenkins::job::deploy_app::applications: *deployable_applications
 
+govuk_jenkins::job::integration_deploy::applications: *deployable_applications
+
 govuk_jenkins::job::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
 
