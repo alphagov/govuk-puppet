@@ -36,6 +36,7 @@ SKIP_POSTGRES=false
 SKIP_MYSQL=false
 SKIP_ELASTIC=false
 SKIP_MAPIT=false
+SSH_CONFIG="../ssh_config"
 DRY_RUN=false
 # By default, ignore large databases which are not useful when replicated.
 IGNORE="event_store transition backdrop support_contacts"

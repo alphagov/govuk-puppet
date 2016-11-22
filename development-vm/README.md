@@ -152,7 +152,7 @@ to integration or a mongo and a mysql export from someone that does. If you
 have integration access then importing the latest data can be done by running
 the following from `development/replication`.
 
-    dev$ ./replicate-data-local.sh -F ../ssh_config -u $USERNAME
+    dev$ ./replicate-data-local.sh -u $USERNAME
 
 If you do not have integration access, ask someone to give you a copy of their
 dump.  This should be a directory structure similar to:
@@ -216,7 +216,7 @@ If you take your laptop home at night, you may want to download the data while i
 the office and restore it overnight to minimise disruption. First, do the download
 on your host as the unzipping is a lot quicker when not run over NFS:
 
-    mac$ ./replicate-data-local.sh -F ../ssh_config -u your_ssh_username -n
+    mac$ ./replicate-data-local.sh -u your_ssh_username -n
 
 Then when you get home (or if you have a spare hour during meetings) run the script
 on your VM and specify the backup directory for the date you performed the download:
