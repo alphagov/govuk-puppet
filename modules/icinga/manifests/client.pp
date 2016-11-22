@@ -44,7 +44,7 @@ class icinga::client {
 
   @@icinga::host { $::fqdn:
     hostalias    => $::fqdn,
-    address      => $::ipaddress,
+    address      => $::ipaddress_eth0,
     display_name => $::fqdn_short,
     parents      => $parents,
   }
