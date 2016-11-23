@@ -53,6 +53,25 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     require => Govuk_host['calculators-frontend-3'],
   }
 
+  # FIXME: Remove these firewall rules by moving the need-api app from the backend
+  # machines to the API machines. The MongoDB database will need to move too.
+  # There are more firewall rules in govuk-provisioning that can also be removed.
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-backend-1':
+    port    => 9200,
+    from    => getparam(Govuk_host['backend-1'], 'ip'),
+    require => Govuk_host['backend-1'],
+  }
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-backend-2':
+    port    => 9200,
+    from    => getparam(Govuk_host['backend-2'], 'ip'),
+    require => Govuk_host['backend-2'],
+  }
+  @ufw::allow { 'allow-elasticsearch-http-9200-from-backend-3':
+    port    => 9200,
+    from    => getparam(Govuk_host['backend-3'], 'ip'),
+    require => Govuk_host['backend-3'],
+  }
+
   collectd::plugin::tcpconn { 'es-9200':
     incoming => 9200,
     outgoing => 9200,
