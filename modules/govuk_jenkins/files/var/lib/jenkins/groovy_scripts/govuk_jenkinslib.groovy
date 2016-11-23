@@ -39,7 +39,7 @@ def deployIntegration(String repository, String branch, String tag, String deplo
   if (branch == 'master'){
     // Deploy on Integration
     stage("Deploy on Integration") {
-      build job: 'integration-deploy', parameters: [string(name: 'TARGET_APPLICATION', value: repository), string(name: 'TAG', value: tag), string(name: 'DEPLOY_TASK', value: deployTask)]
+      build job: 'integration-app-deploy', parameters: [string(name: 'TARGET_APPLICATION', value: repository), string(name: 'TAG', value: tag), string(name: 'DEPLOY_TASK', value: deployTask)]
     }
   }
 
