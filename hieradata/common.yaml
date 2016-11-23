@@ -3,83 +3,96 @@ HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
 
+# If the repository name is the same as the application name
+# we don't need to explicitly declare the repository, but we
+# need to add an empty hash
 deployable_applications: &deployable_applications
-  - asset-manager
-  - authenticating-proxy
-  - backdrop-read
-  - backdrop-write
-  - bouncer
-  - business-support-api
-  - businesssupportfinder
-  - calculators
-  - calendars
-  - collections
-  - collections-publisher
-  - contacts
-  - contacts-frontend
-  - content-store
-  - content-tagger
-  - courts-api
-  - courts-frontend
-  - designprinciples
-  - efg-training
-  - efg-training-rebuild
-  - email-alert-api
-  - email-alert-frontend
-  - email-alert-monitor
-  - email-alert-service
-  - errbit
-  - feedback
-  - finder-frontend
-  - frontend
-  - government-frontend
-  - govuk-delivery
-  - govuk-cdn-logs-monitor
-  - govuk_content_api
-  - govuk-content-schemas
-  - govuk_crawler_worker
-  - govuk_need_api
-  - hmrc-manuals-api
-  - imminence
-  - info-frontend
-  - kibana
-  - licencefinder
-  - local-links-manager
-  - manuals-frontend
-  - manuals-publisher
-  - mapit
-  - maslow
-  - metadata-api
-  - multipage-frontend
-  - panopticon
-  - performanceplatform-admin
-  - performanceplatform-big-screen-view
-  - policy-publisher
-  - publisher
-  - publishing-api
-  - release
-  - router
-  - router-api
-  - rummager
-  - search-admin
-  - service-manual-frontend
-  - service-manual-publisher
-  - share-sale-publisher
-  - short-url-manager
-  - sidekiq-monitoring
-  - signonotron2
-  - smartanswers
-  - smokey
-  - specialist-frontend
-  - specialist-publisher
-  - spotlight
-  - stagecraft
-  - static
-  - support
-  - support-api
-  - transition
-  - travel-advice-publisher
-  - whitehall
+  asset-manager: {}
+  authenticating-proxy: {}
+  backdrop-read:
+    repository: 'backdrop'
+  backdrop-write:
+    repository: 'backdrop'
+  bouncer: {}
+  business-support-api: {}
+  businesssupportfinder:
+    repository: 'business-support-finder'
+  calculators: {}
+  calendars: {}
+  collections: {}
+  collections-publisher: {}
+  contacts:
+    repository: 'contacts-admin'
+  contacts-frontend: {}
+  content-store: {}
+  content-tagger: {}
+  courts-api: {}
+  courts-frontend: {}
+  designprinciples:
+    repository: 'design-principles'
+  efg-training:
+    repository: 'EFG'
+  efg-training-rebuild:
+    repository: 'EFG'
+  email-alert-api: {}
+  email-alert-frontend: {}
+  email-alert-monitor: {}
+  email-alert-service: {}
+  errbit: {}
+  feedback: {}
+  finder-frontend: {}
+  frontend: {}
+  government-frontend: {}
+  govuk-delivery: {}
+  govuk-cdn-logs-monitor: {}
+  govuk_content_api: {}
+  govuk-content-schemas: {}
+  govuk_crawler_worker: {}
+  govuk_need_api: {}
+  hmrc-manuals-api: {}
+  imminence: {}
+  info-frontend: {}
+  kibana:
+    repository: 'kibana-gds'
+  licencefinder:
+    repository: 'licence-finder'
+  local-links-manager: {}
+  manuals-frontend: {}
+  manuals-publisher: {}
+  mapit: {}
+  maslow: {}
+  metadata-api: {}
+  multipage-frontend: {}
+  panopticon: {}
+  performanceplatform-admin: {}
+  performanceplatform-big-screen-view: {}
+  policy-publisher: {}
+  publisher: {}
+  publishing-api: {}
+  release: {}
+  router: {}
+  router-api: {}
+  rummager: {}
+  search-admin: {}
+  service-manual-frontend: {}
+  service-manual-publisher: {}
+  share-sale-publisher: {}
+  short-url-manager: {}
+  sidekiq-monitoring: {}
+  signonotron2: {}
+  smartanswers:
+    repository: 'smart-answers'
+  smokey: {}
+  specialist-frontend: {}
+  specialist-publisher: {}
+  spotlight: {}
+  stagecraft: {}
+  static: {}
+  support: {}
+  support-api: {}
+  transition: {}
+  travel-advice-publisher: {}
+  whitehall: {}
 
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
@@ -527,6 +540,8 @@ govuk_cdnlogs::service_port_map:
   govuk: 6514
   assets: 6515
   bouncer: 6516
+
+govuk_ci::master::pipeline_jobs: *deployable_applications
 
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'

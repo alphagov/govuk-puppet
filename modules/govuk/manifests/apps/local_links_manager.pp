@@ -134,7 +134,5 @@ class govuk::apps::local_links_manager(
       }
     }
 
-    @@govuk_ci::job { 'local-links-manager': }
-
   }
 }

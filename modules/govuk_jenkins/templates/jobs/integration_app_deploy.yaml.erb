@@ -17,7 +17,7 @@
         - choice:
             name: TARGET_APPLICATION
             description: 'Application to deploy'
-            choices: <%= ['-- Choose an app'] + @applications %>
+            choices: <%= ['-- Choose an app'] + @applications.keys %>
         - string:
             name: TAG
             description: 'Git tag/committish to deploy.'
