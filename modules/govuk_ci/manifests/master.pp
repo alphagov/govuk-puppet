@@ -27,6 +27,9 @@ class govuk_ci::master (
 
   include ::govuk_ci::credentials
 
+  # After these users have been created, you'll have to retrieve the API token from the UI
+  ::govuk_jenkins::api_user { 'jenkins_agent': }
+
   class { '::govuk_jenkins':
     github_client_id     => $github_client_id,
     github_client_secret => $github_client_secret,
