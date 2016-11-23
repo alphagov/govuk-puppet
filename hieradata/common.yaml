@@ -542,6 +542,7 @@ govuk_cdnlogs::service_port_map:
   bouncer: 6516
 
 govuk_ci::master::pipeline_jobs: *deployable_applications
+govuk_ci::agent::swarm::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
