@@ -22,6 +22,7 @@ class govuk_ci::master (
   $ghe_vpn_username,
   $ghe_vpn_password,
   $jenkins_api_token,
+  $pipeline_jobs = {},
 ){
 
   include ::govuk_ci::credentials
@@ -40,8 +41,8 @@ class govuk_ci::master (
   # Add govuk-puppet job
   govuk_ci::job { 'govuk-puppet': }
 
-  # Collect exported jobs
-  Govuk_ci::Job <<| |>>
+  # Add pipeline jobs from applications hash in Hieradata
+  create_resources(govuk_ci::job, $pipeline_jobs)
 
   ufw::allow {'jenkins-slave-to-jenkins-master-on-tcp':
     port  => '32768:65535',

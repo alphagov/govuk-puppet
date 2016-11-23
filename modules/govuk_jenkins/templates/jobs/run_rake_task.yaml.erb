@@ -13,7 +13,7 @@
       - choice:
           name: TARGET_APPLICATION
           description: Choose the application to run the rake task in
-          choices: <%= ['-- Choose an app'] + @applications %>
+          choices: <%= ['-- Choose an app'] + @applications.keys %>
       - choice:
           name: MACHINE_CLASS
           description: Choose the machine class this app is running on
