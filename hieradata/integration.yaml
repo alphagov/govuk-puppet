@@ -25,6 +25,8 @@ govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::support_api::pp_data_url: 'https://www.preview.performance.service.gov.uk'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
+govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
+govuk::apps::whitehall::highlight_words_to_avoid: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'integration'
