@@ -1,0 +1,13 @@
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+script
+        test -f /etc/default/locale && . /etc/default/locale || true
+        export LANG
+        exec start-stop-daemon --start -c jenkins --exec /usr/bin/java \
+                --name jenkins-agent --  -jar <%= @swarm_client_dest %> \
+                -username agent -password <%= @agent_user_api_token %> \
+                -name <%= @hostname %> -executors 2 \
+                -autoDiscoveryAddress <%= @discovery_addr %> \
+                -fsroot /home/jenkins -labels '<%= @labels %>'
+end script

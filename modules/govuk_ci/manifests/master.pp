@@ -16,6 +16,9 @@
 # [*ghe_vpn_password*]
 #   The password to authenticate against the Github Enterprise VPN
 #
+# [*agent_user*]
+#   The user account used by jenkins agents authenticate with the jenkins master
+#
 class govuk_ci::master (
   $github_client_id,
   $github_client_secret,
@@ -23,9 +26,12 @@ class govuk_ci::master (
   $ghe_vpn_password,
   $jenkins_api_token,
   $pipeline_jobs = {},
+  $agent_user = 'agent_user',
 ){
 
   include ::govuk_ci::credentials
+
+  ::govuk_jenkins::api_user { $agent_user: }
 
   class { '::govuk_jenkins':
     github_client_id     => $github_client_id,

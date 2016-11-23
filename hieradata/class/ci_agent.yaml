@@ -9,3 +9,5 @@ postgresql::globals::version: '9.3'
 govuk_mysql::server::innodb_flush_log_at_trx_commit: 0
 
 govuk_elasticsearch::minimum_master_nodes: '1'
+
+govuk_ci::agent::swarm::swarm_client_url: 'https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/2.2/swarm-client-2.2-jar-with-dependencies.jar'
