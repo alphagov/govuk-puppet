@@ -17,3 +17,7 @@
             name: TAG
             description: 'Git tag/committish to deploy.'
             default: 'release'
+    publishers:
+        - description-setter:
+            regexp: ""
+            description: "$TAG"

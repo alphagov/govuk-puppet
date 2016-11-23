@@ -29,3 +29,10 @@
               - deploy
               - deploy:migrations
               - deploy:setup
+    publishers:
+        - description-setter:
+            regexp: ""
+            description: "$TARGET_APPLICATION $TAG"
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+            send-to-individuals: true
