@@ -92,14 +92,6 @@ class govuk::apps::efg_training_rebuild (
     ssl_only     => true,
   }
 
-  @@icinga::check::graphite { "check_efg_training_rebuild_login_failures_${::hostname}":
-    target    => "sumSeries(stats.govuk.app.${app_name}.*.logins.failure)",
-    warning   => 10,
-    critical  => 15,
-    desc      => 'EFG_TRAINING login failures',
-    host_name => $::fqdn,
-  }
-
   ramdisk { 'efg_training_rebuild_sqlite':
     ensure => present,
     path   => '/var/efg-training-rebuild-data',
