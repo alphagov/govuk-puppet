@@ -1,6 +1,14 @@
 ---
-# FIXME: This should be set to true once this Jenkins instance is set up.
-govuk_jenkins::config::manage_config: false
+govuk_jenkins::config::banner_colour_background: '#009ACD'
+govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_string: 'Carrenza CI'
+govuk_jenkins::config::theme_colour: '#009ACD'
+govuk_jenkins::config::theme_text_colour: 'black'
+govuk_jenkins::config::theme_environment_name: 'CI'
+govuk_jenkins::config::views:
+  GOVUK_Infrastructure:
+    - 'govuk-puppet'
+    - 'integration-puppet-deploy'
 
 govuk_jenkins::version: '2.19.2'
 
