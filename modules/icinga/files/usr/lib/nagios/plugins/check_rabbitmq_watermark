@@ -157,7 +157,7 @@ for my $check (@checks) {
     }
 }
 
-my($code, $message) = $p->check_messages(join_all=>', ');
+my($code, $message) = $p->check_messages();
 $p->nagios_exit(
     return_code => $code,
     message => $message
