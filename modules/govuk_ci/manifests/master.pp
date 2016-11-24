@@ -1,8 +1,10 @@
-# == Class: govuk_ci::master
+# Class govuk_ci::master
 #
-# Class to manage continuous deployment master
+# === Parameters
 #
-# === Parameters:
+# [*agent_user*]
+#   The user Jenkins agent's will use to make api calls.
+#   This user's invoked from jenkins jobs.
 #
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
@@ -17,6 +19,7 @@
 #   The password to authenticate against the Github Enterprise VPN
 #
 class govuk_ci::master (
+  $agent_user = 'agent',
   $github_client_id,
   $github_client_secret,
   $ghe_vpn_username,
@@ -26,6 +29,10 @@ class govuk_ci::master (
 ){
 
   include ::govuk_ci::credentials
+
+  govuk_jenkins::api_user { 'pingdom': }
+  govuk_jenkins::api_user { 'github_build_trigger': }
+  govuk_jenkins::api_user { 'deploy_jenkins': }
 
   class { '::govuk_jenkins':
     github_client_id     => $github_client_id,
