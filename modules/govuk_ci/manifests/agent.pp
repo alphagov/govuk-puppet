@@ -18,4 +18,9 @@ class govuk_ci::agent {
     ip    => 'any',
   }
 
+  # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
+  File<|title == '/etc/sudoers.d/'|> {
+    mode => '0555',
+  }
+
 }
