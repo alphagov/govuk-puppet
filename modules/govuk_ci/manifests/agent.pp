@@ -10,6 +10,7 @@ class govuk_ci::agent {
   include ::govuk_ci::agent::mongodb
   include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::mysql
+  include ::govuk_ci::agent::swarm
   include ::govuk_java::oracle8
 
   ufw::allow { 'allow-jenkins-slave-swarm-to-listen-on-ephemeral-ports':
