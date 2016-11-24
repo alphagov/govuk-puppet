@@ -177,6 +177,10 @@ class govuk::apps::whitehall(
     ',
     }
 
+    nginx::config::vhost::static { "draft-whitehall-frontend.${app_domain}":
+      locations => {'/government/uploads' => '/data/uploads/whitehall/clean'},
+    }
+
     govuk_logging::logstream { 'whitehall_scheduled_publishing_json_log':
       logfile => '/var/apps/whitehall/log/production_scheduled_publishing.json.log',
       fields  => {'application' => 'whitehall'},
