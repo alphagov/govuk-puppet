@@ -44,6 +44,9 @@
 # [*theme_environiment_name*]
 #   The environment name that is shown in Jenkins.
 #
+# [*views*]
+#   Create a "list view" which contains specified jobs.
+#
 # [*admins*]
 #   List of admins that have "admin" permissions in Jenkins.
 #
@@ -62,6 +65,7 @@ class govuk_jenkins::config (
   $theme_colour = '#222',
   $theme_text_colour = 'white',
   $theme_environment_name = 'Jenkins',
+  $views = {},
   $github_web_uri,
   $github_api_uri,
   $github_client_id,
@@ -72,6 +76,7 @@ class govuk_jenkins::config (
 ) {
 
   validate_array($admins)
+  validate_hash($views)
 
   if $manage_config {
 
