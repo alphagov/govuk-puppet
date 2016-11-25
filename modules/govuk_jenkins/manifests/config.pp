@@ -59,6 +59,14 @@
 # [*version*]
 #   Specify the version of Jenkins
 #
+# [*create_agent_role*]
+#   If enabled, this creates a role and assigns an "agent" user to that role
+#   so that it may connect to the master
+#
+# [*jenkins_agent_user*]
+#   The username of the Jenkins "agent" user used to authenticate against
+#   the master
+#
 class govuk_jenkins::config (
   $url_prefix = 'deploy',
   $app_domain = hiera('app_domain'),
@@ -77,6 +85,8 @@ class govuk_jenkins::config (
   $admins = [],
   $manage_config = true,
   $version = $govuk_jenkins::version,
+  $create_agent_role = false,
+  $jenkins_agent_user = 'jenkins_agent',
 ) {
 
   $url = "${url_prefix}.${app_domain}"
