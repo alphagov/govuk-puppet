@@ -14,6 +14,10 @@ mkdir -p build
 set +e
 # don't fail build if rake lint fails; it stops jenkins from parsing the results
 bundle exec rake lint >build/puppet-lint
+if [[ -s build/puppet-lint ]]
+then
+  touch build/puppet-lint-errors
+fi
 set -e
 
 exit $RESULT

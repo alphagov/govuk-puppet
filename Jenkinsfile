@@ -14,8 +14,7 @@ node {
 
       sh "${WORKSPACE}/jenkins.sh"
       if (env.BRANCH_NAME != 'master'){
-        File file = new File("${WORKSPACE}/build/puppet-lint")
-        if (file.exists() && file.length() > 0) {
+        if (fileExists 'build/puppet-lint-errors') {
           step([$class: 'GitHubCommitStatusSetter',
                 statusResultSource: [$class: 'ConditionalStatusResultSource', 
                                      results: [[$class: 'BetterThanOrEqualBuildResult', 
