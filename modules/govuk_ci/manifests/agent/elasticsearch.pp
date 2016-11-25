@@ -12,11 +12,10 @@ class govuk_ci::agent::elasticsearch {
   }
 
   class { 'govuk_elasticsearch':
-    cluster_hosts          => ["${::hostname}:9300"],
-    cluster_name           => 'elasticsearch',
-    host                   => $::fqdn,
-    open_firewall_from_all => true,
-    require                => [Class['govuk_java::openjdk7::jre'],Class['govuk_java::set_defaults']],
+    cluster_hosts => ["${::hostname}:9300"],
+    cluster_name  => 'elasticsearch',
+    host          => $::fqdn,
+    require       => [Class['govuk_java::openjdk7::jre'],Class['govuk_java::set_defaults']],
   }
 
 }
