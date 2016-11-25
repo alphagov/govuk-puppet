@@ -1,8 +1,5 @@
 ---
 govuk_ci::agent::swarm::agent_labels:
-  - 'elasticsearch-1.7.5'
-  - 'postgresql-9.3'
   - 'mongodb-2.4'
-  - 'ubuntu-trusty'
 
 mongodb::server::version: '2.4.9'
