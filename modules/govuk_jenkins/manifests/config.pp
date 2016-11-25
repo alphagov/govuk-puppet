@@ -7,9 +7,12 @@
 #
 # == Parameters:
 #
+# [*url_prefix*]
+#   The prefix used on the URL to access the Jenkins instance. Default is 'deploy',
+#   which would create "https://deploy.${app_domain}"
+#
 # [*app_domain*]
-#   The full domain for this environment. This is specifically used
-#   within Location Configuration template.
+#   The domain name applied to the Jenkins instance URL
 #
 # [*banner_colour_background*]
 #   The background colour of the banner to display in the Jenkins web interface.
@@ -57,6 +60,7 @@
 #   Specify the version of Jenkins
 #
 class govuk_jenkins::config (
+  $url_prefix = 'deploy',
   $app_domain = hiera('app_domain'),
   $banner_colour_background = 'black',
   $banner_colour_text = 'white',
@@ -74,6 +78,8 @@ class govuk_jenkins::config (
   $manage_config = true,
   $version = $govuk_jenkins::version,
 ) {
+
+  $url = "${url_prefix}.${app_domain}"
 
   validate_array($admins)
   validate_hash($views)
