@@ -64,9 +64,10 @@ class govuk_ci::agent::swarm(
 
   # The apt source which hosts the package
   apt::source { $swarm_client_package :
-    location => "http://${apt_mirror_hostname}/${$swarm_client_package}",
-    release  => $::lsbdistcodename,
-    key      => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    location     => "http://${apt_mirror_hostname}/${$swarm_client_package}",
+    release      => 'trusty',
+    architecture => $::architecture,
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
   package { $swarm_client_package :
