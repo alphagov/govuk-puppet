@@ -48,20 +48,6 @@
 # this doesn't apply to all app types. (eg Rack apps don't create pid files
 # by default)
 #
-# [*custom_http_host*]
-# This setting allows the default HTTP Host header to be overridden.
-#
-# An example of where this is useful is if requests are handled by different
-# backend applications but use the same hostname.
-# Default: undef
-#
-# [*logstream*]
-# choose whether or not to create a log tailing upstart job
-#
-# If set present, logstream upstart job will be created for a selection of
-# logs we care about.
-#
-#
 # [*legacy_logging*]
 # Whether to support the legacy logging scheme where we collect application
 # logs directly, instead of having logs log to stdout/stderr.
@@ -159,30 +145,6 @@
 # discouraged, and it is included for backwards compatibility purposes only.
 #
 #
-# [*nginx_extra_app_config*]
-# additional @app block configuration
-#
-# This parameter is used to add additional logic (like proxy
-# fallback behaviour) to the default downstream proxy functionality
-# used in Nginx.
-#
-#
-# [*nagios_cpu_warning*]
-# percentage at which Nagios should generate a warning
-#
-# This parameter is used to change the threshold of the exported nagios
-# cpu usage check. It defaults to 150% for a warning and does not generally
-# need to be altered.
-#
-#
-# [*nagios_cpu_critical*]
-# percentage at which Nagios should generate a critical
-#
-# This parameter is used to change the threshold of the exported nagios
-# cpu usage check. It defaults to 200% for a critical and does not generally
-# need to be altered.
-#
-#
 # [*nagios_memory_warning*]
 # memory use at which Nagios should generate a warning
 #
@@ -212,12 +174,6 @@
 # Provides a way to override the default wait period for the 'failed to
 # daemonize' error that occurs if an application doesn't load within
 # the timeout period.
-#
-#
-# [*upstart_post_start_script*]
-# an optional script to be added to a post-start
-# stanza in the upstart config.
-#
 #
 # [*asset_pipeline*]
 # should we enable some asset pipeline specific rules in the
@@ -255,8 +211,6 @@ define govuk::app (
   $port = 0,
   $command = undef,
   $create_pidfile = 'NOTSET',
-  $custom_http_host = undef,
-  $logstream = present,
   $legacy_logging = true,
   $log_format_is_json = false,
   $health_check_path = 'NOTSET',
@@ -269,15 +223,11 @@ define govuk::app (
   $vhost_protected = false,
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
-  $nginx_extra_app_config = '',
-  $nagios_cpu_warning = 150,
-  $nagios_cpu_critical = 200,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_herder_timeout = undef,
-  $upstart_post_start_script = undef,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
@@ -328,27 +278,21 @@ define govuk::app (
     create_pidfile                 => $create_pidfile,
     domain                         => $app_domain,
     port                           => $port,
-    custom_http_host               => $custom_http_host,
     vhost_aliases                  => $vhost_aliases,
     vhost_full                     => $vhost_full,
     vhost_protected                => $vhost_protected,
     vhost_ssl_only                 => $vhost_ssl_only,
     nginx_extra_config             => $nginx_extra_config,
-    nginx_extra_app_config         => $nginx_extra_app_config,
     health_check_path              => $health_check_path,
     expose_health_check            => $expose_health_check,
     json_health_check              => $json_health_check,
     deny_framing                   => $deny_framing,
     enable_nginx_vhost             => $enable_nginx_vhost,
-    logstream                      => $logstream,
-    nagios_cpu_warning             => $nagios_cpu_warning,
-    nagios_cpu_critical            => $nagios_cpu_critical,
     nagios_memory_warning          => $nagios_memory_warning,
     nagios_memory_critical         => $nagios_memory_critical,
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,
     alert_5xx_critical_rate        => $alert_5xx_critical_rate,
     unicorn_herder_timeout         => $unicorn_herder_timeout,
-    upstart_post_start_script      => $upstart_post_start_script,
     asset_pipeline                 => $asset_pipeline,
     asset_pipeline_prefix          => $asset_pipeline_prefix,
     depends_on_nfs                 => $depends_on_nfs,
@@ -362,20 +306,15 @@ define govuk::app (
     subscribe  => Class['govuk::deploy'],
   }
 
-  $logstream_ensure = $ensure ? {
-    'present' => $logstream,
-    'absent'  => 'absent',
-  }
-
   govuk_logging::logstream { "${title}-upstart-out":
-    ensure  => $logstream_ensure,
+    ensure  => $ensure,
     logfile => "/var/log/${title}/upstart.out.log",
     tags    => ['stdout', 'upstart'],
     fields  => {'application' => $title},
   }
 
   govuk_logging::logstream { "${title}-upstart-err":
-    ensure  => $logstream_ensure,
+    ensure  => $ensure,
     logfile => "/var/log/${title}/upstart.err.log",
     tags    => ['stderr', 'upstart'],
     fields  => {'application' => $title},
@@ -392,7 +331,7 @@ define govuk::app (
     }
 
     govuk_logging::logstream { "${title}-app-err":
-      ensure  => $logstream_ensure,
+      ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['stderr', 'app'],
       json    => $err_log_json,
@@ -407,7 +346,7 @@ define govuk::app (
       }
 
       govuk_logging::logstream { "${title}-production-log":
-        ensure        => $logstream_ensure,
+        ensure        => $ensure,
         logfile       => $log_path,
         tags          => ['stdout', 'application'],
         fields        => {'application' => $title},
@@ -424,7 +363,7 @@ define govuk::app (
 
   } else {
     govuk_logging::logstream { "${title}-app-out":
-      ensure        => $logstream_ensure,
+      ensure        => $ensure,
       logfile       => "/var/log/${title}/app.out.log",
       tags          => ['application'],
       json          => true,
@@ -439,7 +378,7 @@ define govuk::app (
     }
 
     govuk_logging::logstream { "${title}-app-err":
-      ensure  => $logstream_ensure,
+      ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['application'],
       fields  => {'application' => $title},

@@ -10,13 +10,6 @@
 # [*app_port*]
 #   Port the app runs on
 #
-# [*custom_http_host*]
-#   This setting allows the default HTTP Host header to be overridden.
-#
-#   An example of where this is useful is if requests are handled by different
-#   backend applications but use the same hostname.
-#   Default: undef
-#
 # [*aliases*]
 #   Other hostnames to serve the app on
 #
@@ -29,14 +22,8 @@
 # [*ssl_only*]
 #   Whether the app should only be available on a secure connection
 #
-# [*logstream*]
-#   Whether nginx logs should be shipped to the logging box
-#
 # [*nginx_extra_config*]
 #   A string containing additional nginx config
-#
-# [*nginx_extra_app_config*]
-#   A string containing additional nginx config for the `app` location block
 #
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
@@ -75,14 +62,11 @@
 define govuk::app::nginx_vhost (
   $vhost,
   $app_port,
-  $custom_http_host = undef,
   $aliases = [],
   $protected = false,
   $protected_location = '/',
   $ssl_only = false,
-  $logstream = present,
   $nginx_extra_config = '',
-  $nginx_extra_app_config = '',
   $deny_framing = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
@@ -117,11 +101,8 @@ define govuk::app::nginx_vhost (
     protected                      => $protected,
     protected_location             => $protected_location,
     ssl_only                       => $ssl_only,
-    logstream                      => $logstream,
     extra_config                   => $nginx_extra_config_real,
-    extra_app_config               => $nginx_extra_app_config,
     deny_framing                   => $deny_framing,
-    custom_http_host               => $custom_http_host,
     is_default_vhost               => $is_default_vhost,
     hidden_paths                   => $hidden_paths,
     single_page_app                => $single_page_app,

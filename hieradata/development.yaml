@@ -287,7 +287,6 @@ hosts::development::apps:
   - 'service-manual'
   - 'service-manual-frontend'
   - 'service-manual-publisher'
-  - 'share-sale-publisher'
   - 'short-url-manager'
   - 'signon'
   - 'smartanswers'

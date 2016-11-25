@@ -75,7 +75,6 @@ govuk::node::s_base::apps:
   - release
   - search_admin
   - service_manual_publisher
-  - share_sale_publisher
   - short_url_manager
   - sidekiq_monitoring
   - signon

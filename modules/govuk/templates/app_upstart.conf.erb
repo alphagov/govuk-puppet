@@ -28,9 +28,3 @@ script
     >>/var/log/<%= @title %>/upstart.out.log \
     2>>/var/log/<%= @title %>/upstart.err.log
 end script
-<%- if @upstart_post_start_script -%>
-
-post-start script
-  <%= @upstart_post_start_script %>
-end script
-<%- end -%>
