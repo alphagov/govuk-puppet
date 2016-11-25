@@ -1,3 +1,5 @@
 ---
+govuk_ci::agent::swarm::agent_labels:
+  - 'mongodb-2.4'
+
 mongodb::server::version: '2.4.9'
-postgresql::globals::version: '9.5'
