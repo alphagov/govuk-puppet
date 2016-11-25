@@ -46,7 +46,7 @@
 class govuk_ci::agent::swarm(
   $swarm_user           = 'jenkins',
   $agent_labels         = [],
-  $discovery_addr       = '10.1.6.255',
+  $ci_master            = 'ci-master-1',
   $agent_user_api_token = undef,     # Corresponding user: 'jenkins_agent'
   $swarm_client_package = 'jenkins-agent',
   $swarm_client_dest    = '/usr/local/bin/jenkins-agent',
