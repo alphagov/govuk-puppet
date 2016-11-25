@@ -14,7 +14,7 @@ node {
 
       sh "${WORKSPACE}/jenkins.sh"
       if (env.BRANCH_NAME != 'master'){
-        if (fileExists 'build/puppet-lint-errors') {
+        if (fileExists('build/puppet-lint-errors')) {
           step([$class: 'GitHubCommitStatusSetter',
                 statusResultSource: [$class: 'ConditionalStatusResultSource', 
                                      results: [[$class: 'BetterThanOrEqualBuildResult', 
