@@ -98,9 +98,8 @@ class govuk::node::s_backend_lb (
 
   if !empty($performance_backend_servers) {
     loadbalancer::balance { 'performanceplatform-admin':
-      servers        => $performance_backend_servers,
-      internal_only  => false,
-      https_redirect => true,
+      servers       => $performance_backend_servers,
+      internal_only => false,
     }
   }
 

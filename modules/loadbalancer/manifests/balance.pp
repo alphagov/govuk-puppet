@@ -23,10 +23,6 @@
 #   Port to listen on for HTTPS.
 #   Default: 443
 #
-# [*https_redirect*]
-#   Boolean, whether requests on port 80 should be redirected to HTTPS.
-#   Default: true
-#
 # [*internal_only*]
 #   Limit access to the loadbalanced service to internal IP address only.
 #   Default: false
@@ -47,7 +43,6 @@ define loadbalancer::balance(
     $deny_crawlers = false,
     $error_on_http = false,
     $https_port = 443,
-    $https_redirect = true,
     $internal_only = false,
     $vhost = $title,
     $read_timeout = 15,
