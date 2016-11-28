@@ -20,4 +20,5 @@ class govuk_jenkins::user (
     managehome => true,
     shell      => '/bin/bash',
   }
+
 }
