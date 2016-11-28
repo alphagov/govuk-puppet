@@ -11,8 +11,7 @@ class govuk::node::s_frontend_lb (
   include loadbalancer
 
   Loadbalancer::Balance {
-    https_redirect => false, # Varnish/Router can't speak HTTPS.
-    internal_only  => true,
+    internal_only => true,
   }
 
   loadbalancer::balance {

@@ -40,9 +40,8 @@ class govuk::node::s_licensify_lb (
 
     # Licensing web forms
     'licensing-web-forms':
-      https_redirect => true,
-      servers        => $frontend_app_servers,
-      internal_only  => true;
+      servers       => $frontend_app_servers,
+      internal_only => true;
 
   }
   if ($enable_feed_console) {

@@ -10,7 +10,7 @@ server {
   listen 80;
   return 426 "Request cannot be completed using a plaintext HTTP connection. Retry over HTTPS.\n";
 }
-<%- elsif @https_redirect -%>
+<%- else -%>
 server {
   server_name <%= @vhost_real %> ;
   listen 80;
@@ -41,9 +41,6 @@ perl_set $govuk_request_id '
 server {
   server_name <%= @vhost_real %> ;
 
-  <%- if @https_redirect == false and @error_on_http == false -%>
-  listen              80;
-  <%- end -%>
   listen              <%= @https_port %> ssl;
   ssl_certificate     /etc/nginx/ssl/<%= @vhost_real %>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= @vhost_real %>.key;
