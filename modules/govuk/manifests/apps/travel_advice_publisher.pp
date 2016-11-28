@@ -4,13 +4,21 @@
 #
 # === Parameters
 #
-# [*port*]
-#   The port that publishing API is served on.
-#   Default: 3035
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
+#   Default: undef
 #
 # [*enable_email_alerts*]
 #   Send email alerts via the email-alert-api
 #   Default: false
+#
+# [*enable_procfile_worker*]
+#   Enables the sidekiq background worker.
+#   Default: true
+#
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#   Default: undef
 #
 # [*mongodb_name*]
 #   The Mongo database to be used.
@@ -18,8 +26,19 @@
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
-# [*secret_key_base*]
-#   The key for Rails to use when signing/encrypting sessions.
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
+#
+# [*panopticon_bearer_token*]
+#   The bearer token to use when communicating with Panopticon.
+#   Default: undef
+#
+# [*port*]
+#   The port that publishing API is served on.
+#   Default: 3035
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
@@ -33,20 +52,24 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
-# [*enable_procfile_worker*]
-#   Enables the sidekiq background worker.
-#   Default: true
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::travel_advice_publisher(
-  $port = '3035',
+  $asset_manager_bearer_token = undef,
   $enable_email_alerts = false,
+  $enable_procfile_worker = true,
+  $errbit_api_key = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
-  $secret_key_base = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
+  $panopticon_bearer_token = undef,
+  $port = '3035',
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
-  $enable_procfile_worker = true,
+  $secret_key_base = undef,
 ) {
   $app_name = 'travel-advice-publisher'
 
@@ -77,6 +100,21 @@ class govuk::apps::travel_advice_publisher(
   }
 
   govuk::app::envvar {
+    "${title}-ASSET_MANAGER_BEARER_TOKEN":
+      varname => 'ASSET_MANAGER_BEARER_TOKEN',
+      value   => $asset_manager_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+    "${title}-PANOPTICON_BEARER_TOKEN":
+      varname => 'PANOPTICON_BEARER_TOKEN',
+      value   => $panopticon_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
