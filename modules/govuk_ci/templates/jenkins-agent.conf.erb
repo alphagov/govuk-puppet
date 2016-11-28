@@ -8,6 +8,6 @@ script
                 --name jenkins-agent --  -jar <%= @swarm_client_dest %> \
                 -username jenkins_agent -password <%= @agent_user_api_token %> \
                 -name <%= @hostname %> -executors 2 \
-                -autoDiscoveryAddress <%= @discovery_addr %> \
+                -master https://<%= @ci_master %>/ \
                 -fsroot /home/jenkins -labels '<%= @labels %>'
 end script
