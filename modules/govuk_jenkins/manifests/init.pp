@@ -107,20 +107,4 @@ class govuk_jenkins (
   include govuk_mysql::libdev
   include mysql::client
 
-  # Add common functions for Jenkinsfile used by Pipeline jobs
-  file { '/var/lib/jenkins/groovy_scripts':
-    ensure  => directory,
-    owner   => 'jenkins',
-    group   => 'jenkins',
-    require => Class['govuk_jenkins::package'],
-  }
-
-  file { '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy':
-    ensure  => file,
-    owner   => 'jenkins',
-    group   => 'jenkins',
-    source  => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy',
-    require => File['/var/lib/jenkins/groovy_scripts'],
-  }
-
 }

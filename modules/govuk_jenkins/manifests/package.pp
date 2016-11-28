@@ -57,4 +57,8 @@ class govuk_jenkins::package (
     require            => Class['govuk_java::set_defaults'],
   }
 
+  class { 'govuk_jenkins::pipeline':
+    require => Class['jenkins'],
+  }
+
 }
