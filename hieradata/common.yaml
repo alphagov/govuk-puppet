@@ -870,7 +870,7 @@ hosts::production::backend::app_hostnames:
 
 hosts::production::ci::hosts:
   ci-master-1:
-    ip: '10.2.6.10'
+    ip: '10.1.6.10'
   ci-agent-1:
     ip: '10.1.6.21'
   ci-agent-2:
