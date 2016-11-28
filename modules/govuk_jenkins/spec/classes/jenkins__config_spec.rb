@@ -15,12 +15,27 @@ describe 'govuk_jenkins::config', :type => :class do
       it { is_expected.not_to contain_file('/var/lib/jenkins/config.xml') }
     end
 
-    context 'true' do
+    context 'true running jenkins version 2.19.2' do
       let (:params) { default_params.merge({
         :manage_config => true,
+        :version       => '2.19.2',
       })}
 
       it { is_expected.to contain_file('/var/lib/jenkins/config.xml').with_content(/<githubWebUri>wibble/) }
+      it { is_expected.to contain_file('/var/lib/jenkins/config.xml').with_content(/2.19.2/) }
+      it { is_expected.to contain_file('/var/lib/jenkins/config.xml').with_content(/<crumbIssuer\sclass="hudson.security.csrf.DefaultCrumbIssuer">/) }
+    end
+
+    # We do not want to apply the CSRF protection on our existing jenkins environment
+    context 'true running jenkins version 1.554.2' do
+      let (:params) { default_params.merge({
+       :manage_config => true,
+       :version       => '1.554.2',
+       })}
+
+      it { is_expected.to contain_file('/var/lib/jenkins/config.xml').with_content(/<githubWebUri>wibble/) }
+      it { is_expected.to contain_file('/var/lib/jenkins/config.xml').with_content(/1.554.2/) }
+      it { is_expected.to contain_file('/var/lib/jenkins/config.xml').without_content(/<crumbIssuer\sclass="hudson.security.csrf.DefaultCrumbIssuer">/) }
     end
   end
 end

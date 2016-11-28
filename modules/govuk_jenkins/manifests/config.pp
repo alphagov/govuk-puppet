@@ -179,7 +179,7 @@ class govuk_jenkins::config (
 
     file { '/var/lib/jenkins/config.xml':
       ensure  => present,
-      content => template('govuk_jenkins/config/config.xml.erb'),
+      content => template("govuk_jenkins/config/config.${version}.xml.erb"),
       require => File['/var/lib/jenkins'],
     }
 
