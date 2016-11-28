@@ -73,6 +73,8 @@ class hosts::production (
     internal_lb_ip      => $ip_backend_lb,
   }
 
+  class { 'hosts::production::ci': }
+
   #efg vdc machines
   govuk_host { 'efg-mysql-master-1':
     ip             => '10.4.0.10',
@@ -88,16 +90,6 @@ class hosts::production (
     ip             => '10.4.0.11',
     vdc            => 'efg',
     legacy_aliases => ['efg.slave.mysql'],
-  }
-
-  govuk_host { 'ci-master-1':
-    ip  => '10.1.6.10',
-    vdc => 'ci',
-  }
-
-  govuk_host { 'ci-agent-1':
-    ip  => '10.1.6.21',
-    vdc => 'ci',
   }
 
   # elms (licence finder) vdc machines
