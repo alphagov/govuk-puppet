@@ -11,11 +11,9 @@
 #
 # === Parameters
 #
-# [*swarm_user*]
-#   The user that invokes the swarm client
-#
-# [*swarm_user_home*]
-#   The swarm user's home directory
+# [*fsroot*]
+#   The top level directory for jenkins workspaces and other jenkins files and directories.
+#   Typically $JENKINS_HOME
 #
 # [*agent_labels*]
 #   The agent labels advertise what resources a particular jenkins agent has available.
@@ -51,8 +49,7 @@
 #   The number of executors an agent can allocate to running jobs
 #
 class govuk_ci::agent::swarm(
-  $swarm_user           = 'jenkins',
-  $swarm_user_home      = '/var/lib/jenkins',
+  $fsroot               = '/var/lib/jenkins',
   $agent_labels         = [],
   $ci_master            = 'ci-master-1',
   $agent_user_api_token = undef,     # Corresponding user: 'jenkins_agent'
@@ -62,24 +59,11 @@ class govuk_ci::agent::swarm(
   $executors            = '4',
 ) {
 
+  require ::govuk_jenkins::user
   include ::govuk_jenkins::pipeline
 
   validate_array($agent_labels)
   $labels = join($agent_labels, ' ') # Convert the Hiera array to a space separated list
-
-  file { $swarm_user_home :          # Create jenkins home directory
-    ensure => directory,
-    owner  => $swarm_user,
-    group  => $swarm_user,
-    mode   => '0775',
-  }
-
-  user { $swarm_user :
-    comment => 'I run the jenkins swarm client',
-    home    => $swarm_user_home,
-    shell   => '/bin/sh',
-    require => File[$swarm_user_home],
-  }
 
   # The apt source which hosts the package
   apt::source { $swarm_client_package :

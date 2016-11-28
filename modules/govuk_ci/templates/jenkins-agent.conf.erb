@@ -9,5 +9,5 @@ script
                 -username jenkins_agent -password <%= @agent_user_api_token %> \
                 -name <%= @hostname %> -executors <%= @executors %> \
                 -master https://<%= @ci_master %>/ \
-                -fsroot <%= @swarm_user_home %> -labels '<%= @labels %>'
+                -fsroot <%= @fsroot %> -labels '<%= @labels %>'
 end script
