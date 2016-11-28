@@ -90,9 +90,10 @@ class govuk_ci::agent::swarm(
   }
 
   service { $swarm_client_package :
-    ensure   => running,
-    provider => upstart,
-    require  => File['jenkins-agent.conf'],
+    ensure    => running,
+    provider  => upstart,
+    require   => File['jenkins-agent.conf'],
+    subscribe => File['jenkins-agent.conf'],
   }
 
   # FIXME This directory becomes obsolete once the File resource $swarm_user_home is created
