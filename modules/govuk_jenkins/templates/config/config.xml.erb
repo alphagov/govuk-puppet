@@ -7,7 +7,7 @@
     <string>jenkins.security.RekeySecretAdminMonitor</string>
   </disabledAdministrativeMonitors>
   <version><%= @version %></version>
-  <numExecutors>4</numExecutors>
+  <numExecutors><%= @executors %></numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy">
