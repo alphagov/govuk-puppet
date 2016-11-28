@@ -489,7 +489,7 @@ hosts::production::router::hosts:
 licensify::apps::licensify_admin::environment: 'staging'
 licensify::apps::licensify::environment: 'staging'
 licensify::apps::licensify_feed::environment: 'staging'
-#Do not enable this without speaking to Dai Vaughan first
+#Do not enable this without speaking to Tim Blair first
 licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::enable_support_check: false
