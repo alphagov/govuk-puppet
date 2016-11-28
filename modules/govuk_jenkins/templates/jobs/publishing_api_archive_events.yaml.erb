@@ -1,0 +1,17 @@
+---
+- job:
+    name: Publishing_API_Archive_Events
+    display-name: Publishing_API_Archive_Events
+    project-type: freestyle
+    description: "This job periodically archives publishing API events to S3"
+    logrotate:
+      artifactNumToKeep: 10
+    publishers:
+        - trigger-parameterized-builds:
+          - project: run-rake-task
+            predefined-parameters: |
+              TARGET_APPLICATION=publishing-api
+              MACHINE_CLASS=backend
+              RAKE_TASK=events:export_to_s3
+    triggers:
+        - timed: 'H 5 * * 0'
