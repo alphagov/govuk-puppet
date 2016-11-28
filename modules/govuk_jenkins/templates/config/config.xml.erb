@@ -48,6 +48,20 @@
           <% end -%>
         </assignedSIDs>
       </role>
+      <%- if @create_agent_role -%>
+      <role name="agent" pattern=".*">
+        <permissions>
+          <permission>hudson.model.Computer.Delete</permission>
+          <permission>hudson.model.Computer.Disconnect</permission>
+          <permission>hudson.model.Computer.Connect</permission>
+          <permission>hudson.model.Computer.Create</permission>
+          <permission>hudson.model.Computer.Configure</permission>
+        </permissions>
+        <assignedSIDs>
+          <sid><%= @jenkins_agent_user %></sid>
+        </assignedSIDs>
+      </role>
+      <%- end -%>
       <role name="github" pattern=".*">
         <permissions>
           <permission>hudson.model.Item.Read</permission>
