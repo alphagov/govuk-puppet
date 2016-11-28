@@ -43,6 +43,9 @@
 # [*apt_mirror_hostname*]
 #   The base url of the ppa. The value can be found in hiera
 #
+# [*executors*]
+#   The number of executors an agent can allocate to running jobs
+#
 class govuk_ci::agent::swarm(
   $swarm_user           = 'jenkins',
   $agent_labels         = [],
@@ -51,6 +54,7 @@ class govuk_ci::agent::swarm(
   $swarm_client_package = 'jenkins-agent',
   $swarm_client_dest    = '/usr/local/bin/jenkins-agent',
   $apt_mirror_hostname  = undef,
+  $executors            = '4',
 ) {
 
   validate_array($agent_labels)
