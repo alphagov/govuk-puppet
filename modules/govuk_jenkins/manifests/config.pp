@@ -67,6 +67,9 @@
 #   The username of the Jenkins "agent" user used to authenticate against
 #   the master
 #
+# [*executors*]
+#   The number of executors a master can allocate to running jobs
+#
 class govuk_jenkins::config (
   $url_prefix = 'deploy',
   $app_domain = hiera('app_domain'),
@@ -87,6 +90,7 @@ class govuk_jenkins::config (
   $version = $govuk_jenkins::version,
   $create_agent_role = false,
   $jenkins_agent_user = 'jenkins_agent',
+  $executors = '4',
 ) {
 
   $url = "${url_prefix}.${app_domain}"

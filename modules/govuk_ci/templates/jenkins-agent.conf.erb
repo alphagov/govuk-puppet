@@ -7,6 +7,6 @@ script
         exec start-stop-daemon --start -c jenkins --exec /usr/bin/java \
                 --name jenkins-agent --  -jar <%= @swarm_client_dest %> \
                 -username jenkins_agent -password <%= @agent_user_api_token %> \
-                -name <%= @hostname %> -executors 2 \
+                -name <%= @hostname %> -executors <%= @executors %> \
                 -master https://<%= @ci_master %>/ \
                 -fsroot <%= @swarm_user_home %> -labels '<%= @labels %>'

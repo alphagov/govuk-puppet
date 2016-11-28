@@ -12,6 +12,7 @@ govuk_jenkins::config::views:
     - 'integration-puppet-deploy'
 
 govuk_jenkins::config::create_agent_role: true
+govuk_jenkins::config::executors: '0'
 
 govuk_jenkins::version: '2.19.2'
 
