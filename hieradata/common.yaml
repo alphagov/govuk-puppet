@@ -868,6 +868,20 @@ hosts::production::backend::app_hostnames:
   - 'travel-advice-publisher'
   - 'whitehall-admin'
 
+hosts::production::ci::hosts:
+  ci-master-1:
+    ip: '10.2.6.10'
+  ci-agent-1:
+    ip: '10.1.6.21'
+  ci-agent-2:
+    ip: '10.1.6.22'
+  ci-agent-3:
+    ip: '10.1.6.23'
+  ci-agent-4:
+    ip: '10.1.6.24'
+  ci-agent-5:
+    ip: '10.1.6.25'
+
 hosts::production::frontend::hosts:
   calculators-frontend-1:
     ip: '10.1.2.11'
