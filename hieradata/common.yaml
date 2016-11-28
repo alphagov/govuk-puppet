@@ -475,6 +475,11 @@ govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 
+govuk::apps::support::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::support::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
+govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+
 govuk::apps::support_api::db_name: 'support_contacts_production'
 govuk::apps::support_api::db_hostname: 'postgresql-primary-1.backend'
 govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
