@@ -564,17 +564,24 @@ govuk_cdnlogs::service_port_map:
 govuk_ci::master::pipeline_jobs:
   <<: *deployable_applications
   async_experiments: {}
+  backdrop-transactions-explorer-collector: {}
   cdn-acceptance-tests: {}
   content-register: {}
+  deployment:
+    source: 'git'
   deprecated_columns: {}
   event-store: {}
   finder-api: {}
   finding-things-migration-checker: {}
+  gapy: {}
   gds-api-adapters: {}
   gds-scala-common: {}
   gds-sso: {}
   gds_zendesk: {}
+  gem_publisher: {}
+  google-auth-bridge: {}
   govspeak: {}
+  govuk-app-deployment: {}
   govuk-diff-pages: {}
   govuk_admin_template: {}
   govuk_bad_link_finder: {}
@@ -590,17 +597,40 @@ govuk_ci::master::pipeline_jobs:
   govuk_message_queue_consumer: {}
   govuk_mirrorer: {}
   govuk_navigation_helpers: {}
+  govuk-provisioning:
+    source: 'git'
   govuk_seed_crawler: {}
   govuk_schemas_gem: {}
   govuk_security_audit: {}
   govuk_sidekiq: {}
+  govuk_template: {}
+  licensify:
+    source: 'git'
   omniauth-gds: {}
   opsmanual: {}
   optic14n: {}
+  performance-datastore: {}
+  performanceplatform-client.py: {}
+  performanceplatform-collector: {}
+  performanceplatform-documentation: {}
+  performanceplatform-govuk-stats: {}
   plek: {}
+  pp-manual:
+    source: 'git'
   pre-transition-stats: {}
   rack-logstasher: {}
+  rails_translation_manager: {}
+  router-data:
+    source: 'git'
   rummageable: {}
+  screenshot-as-a-service: {}
+  shared_mustache: {}
+  slimmer: {}
+  smartdown: {}
+  spotlight-performance: {}
+  transition-config: {}
+  ubuntu_unused_kernels:
+    repo_owner: 'gds-operations'
 
 govuk_ci::agent::swarm::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
