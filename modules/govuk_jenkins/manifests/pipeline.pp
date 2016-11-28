@@ -18,7 +18,7 @@ class govuk_jenkins::pipeline (
     ensure  => directory,
     owner   => $user,
     group   => $group,
-    require => File['/var/lib/jenkins'],
+    require => Class['govuk_jenkins::user'],
   }
 
   file { '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy':

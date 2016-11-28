@@ -44,6 +44,8 @@ class govuk_jenkins (
   $ssh_public_key = undef,
   $version = '1.554.2',
   $jenkins_api_token = '',
+  $jenkins_user = 'jenkins',
+  $jenkins_homedir = '/var/lib/jenkins',
 ) {
   validate_hash($config, $plugins)
 
@@ -58,14 +60,29 @@ class govuk_jenkins (
     github_client_secret => $github_client_secret,
   }
 
-  class { 'govuk_jenkins::user':
-    private_key => $ssh_private_key,
-    public_key  => $ssh_public_key,
-  }
-
   class { 'govuk_jenkins::package':
     config  => $config,
     plugins => $plugins,
+  }
+
+  class { 'govuk_jenkins::user':
+    home_directory => $jenkins_homedir,
+    username       => $jenkins_user,
+  }
+
+  class { 'govuk_jenkins::ssh_key':
+    private_key  => $ssh_private_key,
+    public_key   => $ssh_public_key,
+    jenkins_user => $jenkins_user,
+    home_dir     => $jenkins_homedir,
+  }
+
+  file { "${jenkins_homedir}/.gitconfig":
+    source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
+    owner   => $jenkins_user,
+    group   => $jenkins_user,
+    mode    => '0644',
+    require => Class['govuk_jenkins::user'],
   }
 
   # In addition to the keystore below, this path is also referenced by the
