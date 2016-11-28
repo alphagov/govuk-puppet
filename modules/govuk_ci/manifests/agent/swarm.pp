@@ -1,3 +1,4 @@
+# FIXME Remove File resource '/home/jenkins' once merged
 # Class govuk_ci::agent::swarm
 #
 # Joins a jenkins agent machine to a jenkins master/cluster by downloading and invoking the swarm client.
@@ -12,6 +13,9 @@
 #
 # [*swarm_user*]
 #   The user that invokes the swarm client
+#
+# [*swarm_user_home*]
+#   The swarm user's home directory
 #
 # [*agent_labels*]
 #   The agent labels advertise what resources a particular jenkins agent has available.
@@ -45,6 +49,7 @@
 #
 class govuk_ci::agent::swarm(
   $swarm_user           = 'jenkins',
+  $swarm_user_home      = '/var/lib/jenkins',
   $agent_labels         = [],
   $ci_master            = 'ci-master-1',
   $agent_user_api_token = undef,     # Corresponding user: 'jenkins_agent'
@@ -53,13 +58,23 @@ class govuk_ci::agent::swarm(
   $apt_mirror_hostname  = undef,
 ) {
 
+  include ::govuk_jenkins::pipeline
+
   validate_array($agent_labels)
   $labels = join($agent_labels, ' ') # Convert the Hiera array to a space separated list
 
+  file { $swarm_user_home :          # Create jenkins home directory
+    ensure => directory,
+    owner  => $swarm_user,
+    group  => $swarm_user,
+    mode   => '0775',
+  }
+
   user { $swarm_user :
-    comment    => 'I run the jenkins swarm client',
-    managehome => true,
-    shell      => '/bin/sh',
+    comment => 'I run the jenkins swarm client',
+    home    => $swarm_user_home,
+    shell   => '/bin/sh',
+    require => File[$swarm_user_home],
   }
 
   # The apt source which hosts the package
@@ -90,6 +105,11 @@ class govuk_ci::agent::swarm(
     ensure   => running,
     provider => upstart,
     require  => File['jenkins-agent.conf'],
+  }
+
+  # FIXME This directory becomes obsolete once the File resource $swarm_user_home is created
+  file { '/home/jenkins' :
+    ensure => absent,
   }
 
 }
