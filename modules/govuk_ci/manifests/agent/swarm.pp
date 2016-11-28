@@ -1,4 +1,3 @@
-# FIXME Remove File resource '/home/jenkins' once merged
 # Class govuk_ci::agent::swarm
 #
 # Joins a jenkins agent machine to a jenkins master/cluster by downloading and invoking the swarm client.
@@ -90,14 +89,10 @@ class govuk_ci::agent::swarm(
   }
 
   service { $swarm_client_package :
-    ensure   => running,
-    provider => upstart,
-    require  => File['jenkins-agent.conf'],
-  }
-
-  # FIXME This directory becomes obsolete once the File resource $swarm_user_home is created
-  file { '/home/jenkins' :
-    ensure => absent,
+    ensure    => running,
+    provider  => upstart,
+    require   => File['jenkins-agent.conf'],
+    subscribe => File['jenkins-agent.conf'],
   }
 
 }
