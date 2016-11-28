@@ -29,4 +29,16 @@ class govuk_jenkins::job::integration_deploy (
     content => template('govuk_jenkins/jobs/integration_puppet_deploy.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
+
+  file { '/etc/jenkins_jobs/jobs/integration_licensify_deploy.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/integration_licensify_deploy.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
+  }
+
+  file { '/etc/jenkins_jobs/jobs/integration_router_data_deploy.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/integration_router_data_deploy.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
+  }
 }
