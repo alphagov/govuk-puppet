@@ -146,7 +146,7 @@ class govuk::apps::signon(
 
   if $::govuk_node_class != 'development' {
     govuk::app::envvar::database_url { $app_name:
-      type     => 'mysql',
+      type     => 'mysql2',
       username => $db_username,
       password => $db_password,
       host     => $db_hostname,
