@@ -32,6 +32,9 @@
 # [*version*]
 #   Specify the version of Jenkins
 #
+# [*environment_variables*]
+#   A hash of environment variables that should be set for all Jenkins jobs.
+#
 class govuk_jenkins (
   $github_enterprise_cert,
   $github_enterprise_hostname,
@@ -46,6 +49,7 @@ class govuk_jenkins (
   $jenkins_api_token = '',
   $jenkins_user = 'jenkins',
   $jenkins_homedir = '/var/lib/jenkins',
+  $environment_variables = {},
 ) {
   validate_hash($config, $plugins)
 
@@ -56,8 +60,9 @@ class govuk_jenkins (
   }
 
   class { 'govuk_jenkins::config':
-    github_client_id     => $github_client_id,
-    github_client_secret => $github_client_secret,
+    github_client_id      => $github_client_id,
+    github_client_secret  => $github_client_secret,
+    environment_variables => $environment_variables,
   }
 
   class { 'govuk_jenkins::package':

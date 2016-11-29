@@ -16,6 +16,9 @@
 # [*ghe_vpn_password*]
 #   The password to authenticate against the Github Enterprise VPN
 #
+# [*environment_variables*]
+#   A hash of environment variables that should be set for all Jenkins jobs.
+#
 class govuk_ci::master (
   $github_client_id,
   $github_client_secret,
@@ -23,6 +26,7 @@ class govuk_ci::master (
   $ghe_vpn_password,
   $jenkins_api_token,
   $pipeline_jobs = {},
+  $environment_variables = {},
 ){
 
   include ::govuk_ci::credentials
@@ -31,9 +35,10 @@ class govuk_ci::master (
   govuk_jenkins::api_user { 'jenkins_agent': }
 
   class { '::govuk_jenkins':
-    github_client_id     => $github_client_id,
-    github_client_secret => $github_client_secret,
-    jenkins_api_token    => $jenkins_api_token,
+    github_client_id      => $github_client_id,
+    github_client_secret  => $github_client_secret,
+    jenkins_api_token     => $jenkins_api_token,
+    environment_variables => $environment_variables,
   }
 
   class { 'govuk_ghe_vpn':
