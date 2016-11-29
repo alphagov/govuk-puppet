@@ -23,6 +23,14 @@
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
 #
+# [*oauth_id*]
+#   Sets the OAuth ID for using GDS-SSO
+#   Default: undef
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key for using GDS-SSO
+#   Default: undef
+#
 # [*redis_host*]
 #   The hostname of a Redis instance to connect to
 #
@@ -35,6 +43,8 @@ class govuk::apps::need_api(
   $errbit_api_key = '',
   $mongodb_nodes,
   $mongodb_name = 'govuk_needs_production',
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $redis_host = undef,
   $secret_key_base = undef,
 ) {
@@ -62,6 +72,12 @@ class govuk::apps::need_api(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-REDIS_HOST":
       varname => 'REDIS_HOST',
       value   => $redis_host;
