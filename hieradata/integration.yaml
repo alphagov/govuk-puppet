@@ -74,6 +74,7 @@ govuk_jenkins::config::admins:
   - isabelllong
   - jamesrobinson
   - jennyduckett
+  - joshmcmillan
   - kanemorgan
   - katiesmith
   - kelvingan
@@ -265,6 +266,7 @@ users::usernames:
   - isabelllong
   - jamesrobinson
   - jennyduckett
+  - joshmcmillan
   - kanemorgan
   - katiesmith
   - kelvingan
