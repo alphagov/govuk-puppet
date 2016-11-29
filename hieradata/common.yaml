@@ -380,7 +380,7 @@ govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
 
-govuk::apps::need_api::elasticsearch_hosts: 'elasticsearch-1.backend:9200'
+govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
 
 govuk::apps::need_api::mongodb_nodes:
   - 'mongo-1.backend'
