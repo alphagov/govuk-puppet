@@ -12,6 +12,9 @@ node {
 
     stage("Build") {
 
+      // Explicitly set the path for the Jenkins swarm service on the agent
+      env.PATH = "/usr/lib/rbenv/shims:/usr/lib/rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
       sh "${WORKSPACE}/jenkins.sh"
       if (env.BRANCH_NAME != 'master'){
         if (fileExists('build/puppet-lint-errors')) {
