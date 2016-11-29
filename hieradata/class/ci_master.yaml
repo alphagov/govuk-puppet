@@ -11,6 +11,10 @@ govuk_jenkins::config::views:
     - 'govuk-puppet'
     - 'integration-puppet-deploy'
 
+govuk_jenkins::config:
+  PATH:
+    value: '/usr/lib/rbenv/shims:/usr/lib/goenv/shims:${PATH}'
+
 govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
