@@ -4,13 +4,17 @@
 #
 # === Parameters
 #
-# [*port*]
-#   The port that it is served on.
-#   Default: 3016
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
 #
-# [*enable_procfile_worker*]
-#   Whether to enable the procfile worker. Typically used to disable the worker
-#   on the dev VM.
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
 #
 # [*devise_pepper*]
 #   The pepper used by Devise to encrypt passwords more strongly.
@@ -18,14 +22,27 @@
 # [*devise_secret_key*]
 #   The secret key used by Devise to generate random tokens.
 #
-# [*redis_url*]
-#   The URL used by the Sidekiq queue to connect to the backing Redis instance.
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker. Typically used to disable the worker
+#   on the dev VM.
+#
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#   Default: ''
+#
+# [*instance_name*]
+#   Environment specific name used when sending emails.
+#   Default: undef
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
 #
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
+# [*port*]
+#   The port that it is served on.
+#   Default: 3016
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.
@@ -35,15 +52,34 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*scheduled_rake_tasks*]
+#   Rake tasks and timings
+#   Default: undef
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
+# [*sso_push_user_email*]
+#   Email address for the SSO sync push user.
+#
 class govuk::apps::signon(
-  $port = '3016',
-  $enable_procfile_worker = true,
+  $db_hostname = undef,
+  $db_name = undef,
+  $db_password = undef,
+  $db_username = undef,
   $devise_pepper = undef,
   $devise_secret_key = undef,
-  $nagios_memory_warning = undef,
+  $enable_procfile_worker = true,
+  $errbit_api_key = undef,
+  $instance_name = undef,
   $nagios_memory_critical = undef,
+  $nagios_memory_warning = undef,
+  $port = '3016',
   $redis_host = undef,
   $redis_port = undef,
+  $scheduled_rake_tasks = undef,
+  $secret_key_base = undef,
+  $sso_push_user_email = undef,
 ) {
   $app_name = 'signon'
 
@@ -75,11 +111,47 @@ class govuk::apps::signon(
     "${title}-DEVISE_SECRET_KEY":
       varname => 'DEVISE_SECRET_KEY',
       value   => $devise_secret_key;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-INSTANCE_NAME":
+      varname => 'INSTANCE_NAME',
+      value   => $instance_name;
+    "${title}-SSO_PUSH_USER_EMAIL":
+      varname => 'SSO_PUSH_USER_EMAIL',
+      value   => $sso_push_user_email;
   }
 
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
+  }
+
+  if $scheduled_rake_tasks != undef {
+    $scheduled_rake_tasks_json = inline_template('<%= @scheduled_rake_tasks.to_json %>')
+
+    govuk::app::envvar {
+      "${title}-SCHEDULED_RAKE_TASKS":
+        varname => 'SCHEDULED_RAKE_TASKS',
+        value   => $scheduled_rake_tasks_json,
+    }
+  }
+
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
+    }
+  }
+
+  if $::govuk_node_class != 'development' {
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
+    }
   }
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem

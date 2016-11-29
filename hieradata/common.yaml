@@ -451,6 +451,10 @@ govuk::apps::sidekiq_monitoring::transition_redis_port: "%{hiera('govuk::apps::t
 govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('govuk::apps::whitehall::redis_host')}"
 govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('govuk::apps::whitehall::redis_port')}"
 
+govuk::apps::signon::db_hostname: 'mysql.master'
+govuk::apps::signon::db_name: 'signon_production'
+govuk::apps::signon::db_password: "%{hiera('govuk::apps::signon::db::mysql_signonotron')}"
+govuk::apps::signon::db_username: 'signon'
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
 govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
