@@ -10,61 +10,35 @@ node {
       checkout scm
     }
 
-    stage("Build") {
-
-      sh "${WORKSPACE}/jenkins.sh"
-      if (env.BRANCH_NAME != 'master'){
-        if (fileExists('build/puppet-lint-errors')) {
-          step([$class: 'GitHubCommitStatusSetter',
-                statusResultSource: [$class: 'ConditionalStatusResultSource', 
-                                     results: [[$class: 'BetterThanOrEqualBuildResult', 
-                                                message: 'Build env.BUILD_NUMBER succeeded, but has lint!', 
-                                                result: 'FAILURE', 
-                                                state: 'ERROR']]
-                                    ]
-              ])
-         }
-      }
+    stage("Bundle install") {
+      sh 'bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment'
     }
 
-    stage("Puppet-Lint warnings check") {
-      step([$class: 'WarningsPublisher',
-            consoleParsers: [], 
-            defaultEncoding: '',
-            failedNewAll: '',
-            failedNewHigh: '',
-            failedNewLow: '',
-            failedNewNormal: '',
-            failedTotalAll: '',
-            failedTotalHigh: '', 
-            failedTotalLow: '', 
-            failedTotalNormal: '', 
-            healthy: '', 
-            parserConfigurations: [[parserName: 'Puppet-Lint', 
-                                    pattern: 'build/puppet-lint']], 
-            unHealthy: '', 
-            unstableNewAll: '', 
-            unstableNewHigh: '', 
-            unstableNewLow: '', 
-            unstableNewNormal: '', 
-            unstableTotalAll: '', 
-            unstableTotalHigh: '', 
-            unstableTotalLow: '', 
-            unstableTotalNormal: ''])
+    stage("puppet-librarian install") {
+      sh "bundle exec rake librarian:install"
+    }
+
+    stage("Spec tests") {
+      sh "bundle exec rake all_but_lint"
+    }
+
+    stage("Lint check") {
+      sh "bundle exec rake lint"
     }
 
     stage("Push release tag") {
       echo 'Pushing tag'
-      //govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+      govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
     }
 
     // Deploy on Integration (only master)
     if (env.BRANCH_NAME == 'master'){
       stage("Deploy on Integration") {
-        build job: 'integration-puppet-deploy', parameters: [string(name: 'TAG', value: 'release_' + env.BUILD_NUMBER)]
+        build job: 'integration-puppet-deploy',
+        parameters: [string(name: 'TAG', value: 'release_' + env.BUILD_NUMBER)]
       }
     }
-   
+
   } catch (e) {
     currentBuild.result = "FAILED"
     step([$class: 'Mailer',
