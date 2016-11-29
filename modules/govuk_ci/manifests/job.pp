@@ -26,6 +26,8 @@ define govuk_ci::job (
 
   file { "${application_directory}/config.xml":
     ensure  => present,
+    owner   => 'jenkins',
+    group   => 'jenkins',
     content => template('govuk_ci/application_build_job.xml.erb'),
     require => File[$application_directory],
   }
