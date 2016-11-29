@@ -16,7 +16,6 @@ govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-integration@digita
 govuk::apps::event_store::enabled: true
 govuk::apps::govuk_delivery::list_title_format: 'INTEGRATION: %s'
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
-govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 
