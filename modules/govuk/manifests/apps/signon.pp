@@ -52,10 +52,6 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
-# [*scheduled_rake_tasks*]
-#   Rake tasks and timings
-#   Default: undef
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -77,7 +73,6 @@ class govuk::apps::signon(
   $port = '3016',
   $redis_host = undef,
   $redis_port = undef,
-  $scheduled_rake_tasks = undef,
   $secret_key_base = undef,
   $sso_push_user_email = undef,
 ) {
@@ -125,16 +120,6 @@ class govuk::apps::signon(
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
-  }
-
-  if $scheduled_rake_tasks != undef {
-    $scheduled_rake_tasks_json = inline_template('<%= @scheduled_rake_tasks.to_json %>')
-
-    govuk::app::envvar {
-      "${title}-SCHEDULED_RAKE_TASKS":
-        varname => 'SCHEDULED_RAKE_TASKS',
-        value   => $scheduled_rake_tasks_json,
-    }
   }
 
   if $secret_key_base != undef {
