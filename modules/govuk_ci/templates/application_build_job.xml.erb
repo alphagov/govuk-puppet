@@ -24,11 +24,12 @@
   <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11.1">
     <data>
       <jenkins.branch.BranchSource>
+<%- if @source == 'github' -%>
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
           <id>45dd6853-59d2-4695-80ac-4520f8a2b64f</id>
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>github-token-govuk-ci-username</scanCredentialsId>
-          <repoOwner>alphagov</repoOwner>
+          <repoOwner><%= @repo_owner %></repoOwner>
           <repository><%= @repository %></repository>
           <includes>*</includes>
           <excludes></excludes>
@@ -39,6 +40,16 @@
           <buildForkPRMerge>false</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
         </source>
+<%- elsif @source == 'git' -%>
+        <source class="jenkins.plugins.git.GitSCMSource" plugin="git@3.0.0">
+          <id>edb8c02e-1e3b-45c5-bd14-325d5413bbd8</id>
+          <remote>git@github.gds:gds/<%= @repository %>.git</remote>
+          <credentialsId>github-enterprise-token-govukjenkinsci-username</credentialsId>
+          <includes>*</includes>
+          <excludes></excludes>
+          <ignoreOnPushNotifications>false</ignoreOnPushNotifications>
+        </source>
+<%- end -%>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
           <properties class="empty-list"/>
         </strategy>
