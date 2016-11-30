@@ -48,7 +48,6 @@
 #   The number of executors an agent can allocate to running jobs
 #
 class govuk_ci::agent::swarm(
-  $fsroot               = '/var/lib/jenkins',
   $agent_labels         = [],
   $ci_master            = 'ci-master-1',
   $agent_user_api_token = undef,     # Corresponding user: 'jenkins_agent'
@@ -58,15 +57,11 @@ class govuk_ci::agent::swarm(
   $executors            = '4',
 ) {
 
+  $fsroot = '/var/lib/jenkins'
+  # If $fsroot is different to jenkins_home we need to manage the directory in this class
+
   require ::govuk_jenkins::user
   include ::govuk_jenkins::pipeline
-
-  file { $fsroot:
-    ensure => 'directory',
-    owner  => 'jenkins',
-    group  => 'jenkins',
-    mode   => '0750',
-  }
 
   validate_array($agent_labels)
   $labels = join($agent_labels, ' ') # Convert the Hiera array to a space separated list
