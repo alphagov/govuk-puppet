@@ -26,6 +26,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::passive_checks
   - govuk_jenkins::job::performance_platform_smokey
   - govuk_jenkins::job::publishing_api_check_validity
+  - govuk_jenkins::job::publishing_api_archive_events
   - govuk_jenkins::job::run_rake_task
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::search_fetch_analytics_data
