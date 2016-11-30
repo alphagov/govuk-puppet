@@ -9,7 +9,7 @@
           JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"$DEPLOY_TASK\"}], \"\": \"\"}"
 
           # Deploy to integration environment
-          echo curl -f -XPOST https://<%= @jenkins_integration_api_user %>:<%= @jenkins_integration_api_password %>@deploy.integration.publishing.service.gov.uk/job/Deploy_App/build --data-urlencode json="$JSON"
+          echo curl -f -XPOST https://<%= @jenkins_integration_api_user %>:<%= @jenkins_integration_api_password %>@jenkins-1.management/job/Deploy_App/build --data-urlencode json="$JSON"
     wrappers:
         - ansicolor:
             colormap: xterm
