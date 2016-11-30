@@ -21,4 +21,12 @@ class govuk_jenkins::user (
     shell      => '/bin/bash',
   }
 
+  file { "${home_directory}/.gitconfig":
+    source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
+    owner   => $username,
+    group   => $username,
+    mode    => '0644',
+    require => User[$username],
+  }
+
 }
