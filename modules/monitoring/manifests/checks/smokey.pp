@@ -18,8 +18,8 @@ class monitoring::checks::smokey (
 
   # TODO: Should this really run as root?
   file { $service_file:
-    ensure => present,
-    source => "puppet:///modules/monitoring${service_file}",
+    ensure  => present,
+    content => template('monitoring/smokey-loop.conf'),
   }
 
   service { 'smokey-loop':
