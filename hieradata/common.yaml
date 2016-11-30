@@ -995,6 +995,8 @@ hosts::production::licensify::hosts:
 hosts::production::management::hosts:
   jenkins-1:
     ip: '10.1.0.3'
+    legacy_aliases:
+      - "deploy.%{hiera('app_domain')}"
   puppetmaster-1:
     ip: '10.1.0.5'
     legacy_aliases:
