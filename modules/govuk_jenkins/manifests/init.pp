@@ -82,14 +82,6 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
-  file { "${jenkins_homedir}/.gitconfig":
-    source  => 'puppet:///modules/govuk_jenkins/dot-gitconfig',
-    owner   => $jenkins_user,
-    group   => $jenkins_user,
-    mode    => '0644',
-    require => Class['govuk_jenkins::user'],
-  }
-
   # In addition to the keystore below, this path is also referenced by the
   # `GITHUB_GDS_CA_BUNDLE` environment variable in Jenkins which is used by
   # ghtools during GitHub.com -> GitHub Enterprise repo backups.
