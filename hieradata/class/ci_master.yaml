@@ -102,6 +102,8 @@ govuk_jenkins::plugins:
       version: "1.1.1"
     monitoring:
       version: "1.62.0"
+    nodelabelparameter:
+      version: "1.7.2"
     parameterized-trigger:
       version: "2.32"
     pipeline-build-step:
@@ -190,5 +192,3 @@ govuk_jenkins::plugins:
       version: "2.11"
     ws-cleanup:
       version: "0.32"
-    nodelabelparameter:
-      version: "1.7.2"
