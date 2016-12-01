@@ -1,0 +1,73 @@
+---
+- job:
+    name: signon_rake_oauth_access_grants_delete_expired
+    display-name: signon_rake_oauth_access_grants_delete_expired
+    project-type: freestyle
+    description: "<p>Regularly run the oauth_access_grants:delete_expired rake task for Signonotron2.</p>"
+    publishers:
+        - trigger-parameterized-builds:
+            - project: run-rake-task
+              predefined-parameters: |
+                TARGET_APPLICATION=signon
+                MACHINE_CLASS=backend
+                RAKE_TASK=oauth_access_grants:delete_expired
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+    triggers:
+      - timed: <%= @rake_oauth_access_grants_delete_expired_frequency %>
+    logrotate:
+        artifactNumToKeep: 10
+- job:
+    name: signon_rake_organisations_fetch
+    display-name: signon_rake_organisations_fetch
+    project-type: freestyle
+    description: "<p>Regularly run the organisations:fetch rake task for Signonotron2.</p>"
+    publishers:
+        - trigger-parameterized-builds:
+            - project: run-rake-task
+              predefined-parameters: |
+                TARGET_APPLICATION=signon
+                MACHINE_CLASS=backend
+                RAKE_TASK=organisations:fetch
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+    triggers:
+      - timed: <%= @rake_organisations_fetch_frequency %>
+    logrotate:
+        artifactNumToKeep: 10
+- job:
+    name: signon_rake_users_suspend_inactive
+    display-name: signon_rake_users_suspend_inactive
+    project-type: freestyle
+    description: "<p>Regularly run the users:suspend_inactive rake task for Signonotron2.</p>"
+    publishers:
+        - trigger-parameterized-builds:
+            - project: run-rake-task
+              predefined-parameters: |
+                TARGET_APPLICATION=signon
+                MACHINE_CLASS=backend
+                RAKE_TASK=users:suspend_inactive
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+    triggers:
+      - timed: <%= @rake_users_suspend_inactive_frequency %>
+        logrotate:
+            artifactNumToKeep: 10
+- job:
+    name: signon_rake_users_send_suspension_reminders
+    display-name: signon_rake_users_send_suspension_reminders
+    project-type: freestyle
+    description: "<p>Regularly run the users:send_suspension_reminders rake task for Signonotron2.</p>"
+    publishers:
+        - trigger-parameterized-builds:
+            - project: run-rake-task
+              predefined-parameters: |
+                TARGET_APPLICATION=signon
+                MACHINE_CLASS=backend
+                RAKE_TASK=users:send_suspension_reminders
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+    triggers:
+      - timed: <%= @rake_users_send_suspension_reminders_frequency %>
+        logrotate:
+            artifactNumToKeep: 10

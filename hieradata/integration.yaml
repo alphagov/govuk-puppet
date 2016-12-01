@@ -113,6 +113,12 @@ govuk_jenkins::job_builder::environment: 'integration'
 
 govuk_jenkins::job::deploy_puppet::commitish: 'integration'
 
+govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
+govuk_jenkins::job::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '30 11 * * 2'
+govuk_jenkins::job::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 11 * * *'
+govuk_jenkins::job::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '15 11 * * *'
+govuk_jenkins::job::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency: '45 11 * * *'
+
 govuk_jenkins::job::smokey::smokey_task: 'test:integration'
 
 govuk_jenkins::job::network_config_deploy::environments:
