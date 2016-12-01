@@ -197,6 +197,10 @@ class govuk_jenkins::config (
       content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
     }
 
+    if versioncmp($version, '2.0.0') == 1 {
+      $csrf_version = true
+    }
+
     file { '/var/lib/jenkins/config.xml':
       ensure  => present,
       content => template('govuk_jenkins/config/config.xml.erb'),

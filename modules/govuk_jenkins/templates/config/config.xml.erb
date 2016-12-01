@@ -145,6 +145,11 @@
   <primaryView>All</primaryView>
   <slaveAgentPort><%= @agent_tcp_port %></slaveAgentPort>
   <label></label>
+ <% if @csrf_version -%>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+ <% end -%>
   <nodeProperties/>
   <globalNodeProperties>
     <hudson.slaves.EnvironmentVariablesNodeProperty>
