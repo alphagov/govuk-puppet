@@ -13,10 +13,14 @@
 # [*jenkins_integration_api_password*]
 #   The password used to authenticate with the deployment Jenkins in Integration.
 #
+# [*puppet_auth_token*]
+#   This token is used to authenticate with the deploy job in Integration.
+#
 class govuk_jenkins::job::integration_deploy (
   $applications = undef,
   $jenkins_integration_api_user = undef,
   $jenkins_integration_api_password = undef,
+  $puppet_auth_token = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/integration_app_deploy.yaml':
     ensure  => present,
