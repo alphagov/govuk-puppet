@@ -70,6 +70,11 @@
 # [*executors*]
 #   The number of executors a master can allocate to running jobs
 #
+# [*agent_tcp_port*]
+#   When set to anything other than 0, it specifies the TCP port that the
+#   Jenkins master connects to the Jenkins agent with (when using the JNLP
+#   agent). Default is '0', which enables setting a random port number.
+#
 class govuk_jenkins::config (
   $url_prefix = 'deploy',
   $app_domain = hiera('app_domain'),
@@ -91,6 +96,7 @@ class govuk_jenkins::config (
   $create_agent_role = false,
   $jenkins_agent_user = 'jenkins_agent',
   $executors = '4',
+  $agent_tcp_port = '0',
 ) {
 
   $url = "${url_prefix}.${app_domain}"
