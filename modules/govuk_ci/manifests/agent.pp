@@ -21,6 +21,13 @@ class govuk_ci::agent {
     ip    => 'any',
   }
 
+  # Fixed TCP port for JNLP agents
+  ufw::allow { 'allow-jenkins-master-to-connect-via-jnlp':
+    port  => '54322',
+    proto => 'tcp',
+    ip    => '10.1.6.10',
+  }
+
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
   File<|title == '/etc/sudoers.d/'|> {
     mode => '0555',
