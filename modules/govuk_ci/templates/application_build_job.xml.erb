@@ -32,7 +32,7 @@
           <repoOwner><%= @repo_owner %></repoOwner>
           <repository><%= @repository %></repository>
           <includes>*</includes>
-          <excludes></excludes>
+          <excludes>release deployed-to-* integration staging production</excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
           <buildOriginPRMerge>false</buildOriginPRMerge>
@@ -46,7 +46,7 @@
           <remote>git@github.gds:gds/<%= @repository %>.git</remote>
           <credentialsId>github-enterprise-token-govukjenkinsci-username</credentialsId>
           <includes>*</includes>
-          <excludes></excludes>
+          <excludes>release deployed-to-* integration staging production</excludes>
           <ignoreOnPushNotifications>false</ignoreOnPushNotifications>
         </source>
 <%- end -%>
