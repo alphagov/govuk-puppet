@@ -98,7 +98,7 @@ class govuk_ci::agent::swarm(
   }
 
   @@icinga::check { "check_jenkins-agent_running_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!jenkins-agent',
+    check_command       => 'check_nrpe!check_proc_running_with_arg!java /bin/jenkins-agent',
     host_name           => $::fqdn,
     service_description => 'jenkins-agent running',
   }
