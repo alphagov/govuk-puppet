@@ -190,3 +190,5 @@ govuk_jenkins::plugins:
       version: "2.11"
     ws-cleanup:
       version: "0.32"
+    nodelabelparameter:
+      version: "1.7.2"
