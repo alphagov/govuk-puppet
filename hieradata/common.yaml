@@ -256,6 +256,7 @@ govuk::apps::contentapi::nagios_memory_critical: 4000
 
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
+govuk::apps::content_store::trade_tariff_uri: "https://%{hiera('trade_tariff_hostname')}"
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -1374,6 +1375,8 @@ sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
 
+trade_tariff_hostname: 'tariff-frontend-dev.cloudapps.digital'
+
 unattended_reboot::cron_env_vars:
   - 'MAILTO=""'
 unattended_reboot::cron_hour: '0-5'
@@ -1388,5 +1391,3 @@ unattended_upgrades::origins:
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
 unicornherder::version: '0.0.8'
-
-trade_tariff_uri: 'https://tariff-frontend-dev.cloudapps.digital'
