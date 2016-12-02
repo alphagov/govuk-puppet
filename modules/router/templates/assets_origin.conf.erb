@@ -45,6 +45,14 @@ server {
   }
 
   <%- end -%>
+
+  <%- if @trade_tariff_host -%>
+  location /tariff/ {
+    proxy_set_header Host <%= @trade_tariff_host %>;
+    proxy_pass https://<%= @trade_tariff_host %>;
+  }
+  <%- end -%>
+
   location / {
     proxy_set_header Host static.<%= @app_domain %>;
     proxy_pass <%= @enable_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
