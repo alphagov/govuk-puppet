@@ -103,6 +103,8 @@ govuk_jenkins::plugins:
       version: "1.1.1"
     monitoring:
       version: "1.62.0"
+    next-build-number:
+      version: "1.4"
     nodelabelparameter:
       version: "1.7.2"
     parameterized-trigger:
