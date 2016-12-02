@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jenkins.model.DownloadSettings>
-  <useBrowser>true</useBrowser>
+  <useBrowser>false</useBrowser>
 </jenkins.model.DownloadSettings>
