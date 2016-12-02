@@ -71,6 +71,8 @@ govuk_jenkins::plugins:
       version: "0.24"
     github:
       version: "1.22.4"
+    golang:
+      version: "1.1"
     gradle:
       version: "1.25"
     greenballs:
