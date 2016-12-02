@@ -99,7 +99,22 @@ class govuk::apps::manuals_publisher(
   # Either MONGODB_URI or MONGODB_NODES should be removed from this module once
   # we have resolved ruby version issues.
   # Please talk to Steve Laing for more information.
-  $mongodb_nodes_template = '<%= @mongodb_nodes.map { |node| "- #{node}:27017" }.join("\n") %>'
+  # The first line shouldn't be indented, but the other lines need to be so
+  # that they line up with the YAML file they're inserted into.  For example
+  # given yaml like:
+  # nodes:
+  #   - <%= ENV['MONGODB_NODES'] %>
+  # we want:
+  # nodes:
+  #   - - first_node
+  #     - second_node
+  # which means the first_node line needs no indent, but second_node line
+  # needs a 4 char indent (in the real file the indent is 6 chars as nodes
+  # is itself indented).
+  $mongodb_nodes_template = '<%
+    first_node, *other_nodes = @mongodb_nodes
+    yaml_version = (["- #{first_node}:27017"] + other_nodes.map { |node| "      - #{node}:27017" }).join("\n")
+    %><%= yaml_version %>'
   $mongodb_nodes_string = inline_template($mongodb_nodes_template)
 
   govuk::app::envvar {
