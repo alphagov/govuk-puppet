@@ -41,7 +41,12 @@ class govuk_jenkins::job::smokey (
   $smokey_bearer_token = undef,
   $smokey_rate_limit_token = undef,
   $smokey_task = 'test:production',
+  $app_domain = hiera('app_domain')
 ) {
+  $slack_team_domain = 'govuk'
+  $slack_room = '2ndline'
+  $slack_build_server_url = "https://deploy.${app_domain}/"
+
   file { '/etc/jenkins_jobs/jobs/smokey.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/smokey.yaml.erb'),
