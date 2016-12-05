@@ -91,10 +91,11 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-curl.git
-  ref: 4f657d5cbbb617dd6b1c6a9a371b1f3d667b3922
-  sha: 4f657d5cbbb617dd6b1c6a9a371b1f3d667b3922
+  ref: 38eed380819ebf6a50668ec600953dc9e15d79c2
+  sha: 38eed380819ebf6a50668ec600953dc9e15d79c2
   specs:
     alphagov-curl (0.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-duplicity.git

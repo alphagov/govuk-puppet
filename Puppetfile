@@ -41,7 +41,7 @@ mod 'alphagov/apparmor',
   :git => 'git://github.com/alphagov/puppet-apparmor.git'
 mod 'alphagov/curl',
   :git => 'git://github.com/alphagov/puppet-curl.git',
-  :ref => '4f657d5cbbb617dd6b1c6a9a371b1f3d667b3922'
+  :ref => '38eed380819ebf6a50668ec600953dc9e15d79c2'
 mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
   :ref => '99d165aa2a7949e7dee15184cfd4570fe72e965c'
