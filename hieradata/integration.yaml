@@ -103,6 +103,7 @@ govuk_jenkins::config::admins:
   - rubenarakelyan
   - simonhughesdon
   - stevelaing
+  - suzannehamilton
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
@@ -302,6 +303,7 @@ users::usernames:
   - rubenarakelyan
   - simonhughesdon
   - stevelaing
+  - suzannehamilton
   - tatianasoukiassian
   - theodorvararu
   - tijmenbrommet
