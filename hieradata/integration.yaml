@@ -105,6 +105,7 @@ govuk_jenkins::config::admins:
   - suzannehamilton
   - tatianasoukiassian
   - theodorvararu
+  - thomasleese
   - tijmenbrommet
   - timblair
   - tomgladhill
@@ -304,6 +305,7 @@ users::usernames:
   - suzannehamilton
   - tatianasoukiassian
   - theodorvararu
+  - thomasleese
   - tijmenbrommet
   - timblair
   - tomgladhill
