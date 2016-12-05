@@ -62,7 +62,6 @@ govuk_jenkins::config::admins:
   - carolinegreen
   - christopherbaines
   - ci_alphagov
-  - daivaughan
   - danielroseman
   - davidbasalla
   - davidsilva
@@ -260,7 +259,6 @@ users::usernames:
   - carlosvilhena
   - carolinegreen
   - christopherbaines
-  - daivaughan
   - danielroseman
   - davidbasalla
   - davidsilva
