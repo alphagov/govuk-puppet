@@ -1241,6 +1241,8 @@ monitoring::checks::smokey::features:
     feature: whitehall
   check_draft_environment:
     feature: draft_environment
+  check_travel_advice:
+    feature: travel_advice
 
 monitoring::vpn_gateways::endpoints:
   vpn_gateway_api_dr:
