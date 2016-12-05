@@ -11,19 +11,19 @@ node {
     }
 
     stage("Bundle install") {
-      sh 'bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment'
+      govuk.bundleApp()
     }
 
     stage("puppet-librarian install") {
-      sh "bundle exec rake librarian:install"
+      govuk.runRakeTask('librarian:install')
     }
 
     stage("Spec tests") {
-      sh "bundle exec rake all_but_lint"
+      govuk.runRakeTask('all_but_lint')
     }
 
     stage("Lint check") {
-      sh "bundle exec rake lint"
+      govuk.runRakeTask('lint')
     }
 
     stage("Push release tag") {
