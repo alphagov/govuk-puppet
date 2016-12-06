@@ -167,6 +167,16 @@ vagrant halt
 vagrant up
 ```
 
+### Errors installing vagrant-dns
+
+Installing vagrant-dns with `vagrant plugin install vagrant-dns` against Vagrant 1.9 installed may give an error like:
+
+```
+/opt/vagrant/embedded/lib/ruby/2.2.0/rubygems/dependency.rb:315:in `to_specs': Could not find 'celluloid' (>= 0.16.0) among 45 total gem(s) (Gem::LoadError)
+```
+
+It looks like this might be a problem with Vagrant 1.9.0, because installing 1.8.6 fixes the problem. The issue has been raised with vagrant-dns, so they may have a better workaround: https://github.com/BerlinVagrant/vagrant-dns/issues/45
+
 ### Errors with vagrant-dns having updated vagrant
 
 If after updating vagrant, you get errors regarding vagrant-dns when provisioning the VM you will need to reinstall the vagrant-dns plugin:
