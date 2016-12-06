@@ -3,6 +3,7 @@
 class govuk::node::s_docker_management inherits govuk::node::s_base {
 
   include ::docker
+  include ::govuk_containers::docker_security_bench
 
   $etcd_image = 'quay.io/coreos/etcd'
   $etcd_image_version = 'v3.0.13'
