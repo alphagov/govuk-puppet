@@ -48,6 +48,7 @@ def setEnvGitCommit() {
  * Runs the ruby linter
  */
 def rubyLinter() {
+  setEnvGitCommit()
   if (BRANCH_NAME != 'master') {
     echo 'Running Ruby linter'
     sh("bundle exec govuk-lint-ruby \
