@@ -13,7 +13,12 @@
 class govuk_jenkins::job::deploy_puppet (
   $auth_token = undef,
   $commitish   = 'release',
+  $app_domain = hiera('app_domain')
 ) {
+  $slack_team_domain = 'govuk'
+  $slack_room = '2ndline'
+  $slack_build_server_url = "https://deploy.${app_domain}/"
+
   file { '/etc/jenkins_jobs/jobs/deploy_puppet.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/deploy_puppet.yaml.erb'),

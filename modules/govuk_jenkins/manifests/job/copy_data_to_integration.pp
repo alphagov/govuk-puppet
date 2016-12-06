@@ -16,6 +16,10 @@ class govuk_jenkins::job::copy_data_to_integration (
   $service_description = 'Copy Data to Integration'
   $job_url = "https://deploy.${app_domain}/job/copy_data_to_integration"
 
+  $slack_team_domain = 'govuk'
+  $slack_room = '2ndline'
+  $slack_build_server_url = "https://deploy.${app_domain}/"
+
   file { '/etc/jenkins_jobs/jobs/copy_data_to_integration.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/copy_data_to_integration.yaml.erb'),
