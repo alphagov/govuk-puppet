@@ -44,7 +44,7 @@
         <source class="jenkins.plugins.git.GitSCMSource" plugin="git@3.0.0">
           <id>edb8c02e-1e3b-45c5-bd14-325d5413bbd8</id>
           <remote>git@github.gds:gds/<%= @repository %>.git</remote>
-          <credentialsId>github-enterprise-token-govukjenkinsci-username</credentialsId>
+          <credentialsId>govuk-ci-ssh-key</credentialsId>
           <includes>*</includes>
           <excludes>release deployed-to-* integration staging production</excludes>
           <ignoreOnPushNotifications>false</ignoreOnPushNotifications>
