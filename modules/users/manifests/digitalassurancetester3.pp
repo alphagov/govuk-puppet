@@ -3,6 +3,6 @@ class users::digitalassurancetester3 {
   govuk::user { 'digitalassurancetester3':
     fullname => 'digitalassurancetester3',
     email    => 'digitalassurancetester3@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD97CynStwWbI/g4ovWMxD6vrjwfzuKxOwHA1Ol/KinDWTdHUQZGovchIfLOzDZ+eOocMMlIrltVWtrkP89HecT1goJV2i+eU5+4vrIBadcIsbwyvepgcoiB1jE1CTa/lgbz2HK8+r36AEdYhtjBcwJ663wSJaVxiQh/3r36Wy2WK4U2bRh4wz6rPhSRK4HUuBrgxLzDpj4a8OdtuMF5UtzcOm1FcjjEEiMKxkk0cQAcutsccJ+26HyPrJseXhuJyq9zE8LvKr6eRxwvJCryB0CbEu0maT+cXoKj/yCv9UQ+kFW7s4UmT+4EioT5jigB8jtB3Xwo6SieIyfl9tg6tbl mike@dawk42',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDznvuU2Izj0HSMCg1qOs/7ySGdK1t69JROLJ9bbo+n7q+Ckwgc5DZOlpxLA95GpJvBjxtsyBxejIqK+Wi4ZSZK1i+hDt4595864vAUPBwOqfdih7pnsoxhaVvtzlICUpl0hZr7F6DGc9IYTDIGtrMyMS4TVKclDyuGlfY5lh3nnLI4EHAtcdPPzQIlaVIz9+MNUes7Jm0pO7fn7TC5mRgLuRDIx2GK/AzOpKrttzKDSBGXQwlm85lqy0H4M3RouqC7Vt8wzgXc3wSnjEg2o23BNnDHzbh6PJcFs8HcNiMx5bfpLk2238WYqK6jZcWSJ8rL9k6sS6w2Rgyo4wiVookN8H3YRMI+/MZ6cjvDgUsXQCq8DjqJbw09D7YKzEjFksDt1MGMXwH0A9kNd5aPF+/gORtghLiAsDRZHJ8zZmP6MAkGNfXa3b1VqBTYzKvAaDuzkEHJNEGV5I2r2C5x8FXZjI+Fk8kv2dL/fcKoqBRb1jPekZb7LayvdvGnHLKTcTmuo27q7Am8HsnjFM3sZ8uZsj3uc0kmgr6H8VIVHeFzJItAkoIiTlKgA1oZwJ2Ku3D+GRptbjpO81dY00skVUCw+yCmyaTUVACDyAE19L42Uh9jdefSZY68DGrh0kI6H98aEH1m/Z2ia6DjkyzZTAjQ+saod123LBuhMw0R5zdCbQ== mike@dawk42',
   }
 }
