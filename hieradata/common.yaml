@@ -619,6 +619,7 @@ govuk_ci::master::pipeline_jobs:
   pp-manual:
     source: 'git'
   pre-transition-stats: {}
+  publishing-e2e-docker: {}
   rack-logstasher: {}
   rails_translation_manager: {}
   router-data:
