@@ -31,7 +31,7 @@ def mergeMasterBranch() {
  */
 def setEnvar(String key, String value) {
   echo 'Setting environment variable'
-  sh("export ${key}=${value}")
+  env."${key}" = value
 }
 
 /**
