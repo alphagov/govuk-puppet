@@ -13,6 +13,7 @@ class govuk_ci::agent {
   include ::govuk_ci::agent::swarm
   include ::govuk_ci::vpn
   include ::govuk_java::oracle8
+  include ::govuk_jenkins::github_enterprise_cert
   include ::govuk_rbenv::all
   include ::golang
 

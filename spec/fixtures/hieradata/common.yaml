@@ -21,6 +21,9 @@ govuk_jenkins::config::github_api_uri: foo
 govuk_jenkins::github_client_id: bar
 govuk_jenkins::github_client_secret: baz
 govuk_jenkins::config::github_web_uri: wibble
+govuk_jenkins::github_enterprise_cert::certificate: 'certcertcert'
+govuk_jenkins::github_enterprise_cert::certificate_path: 'wobble'
+govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: 'dibble'
 
 govuk_postgresql::server::snakeoil_ssl_certificate: certificate
 govuk_postgresql::server::snakeoil_ssl_key: key
