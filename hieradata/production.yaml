@@ -544,6 +544,7 @@ licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::mirror::enabled: true
 monitoring::checks::ses::region: us-east-1
+monitoring::checks::smokey::environment: 'production'
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true

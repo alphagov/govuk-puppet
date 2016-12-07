@@ -8,9 +8,12 @@
 #
 # [*features*]
 #   A hash of features that should be executed by Icinga.
+# [*environment*]
+#   String to pass to the tests_json_output.sh script, e.g. integration
 #
 class monitoring::checks::smokey (
-  $features = {}
+  $features = {},
+  $environment = '',
 ) {
   validate_hash($features)
 
