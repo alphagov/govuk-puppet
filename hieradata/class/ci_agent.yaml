@@ -14,3 +14,5 @@ govuk_mysql::server::innodb_flush_log_at_trx_commit: 0
 govuk_elasticsearch::minimum_master_nodes: '1'
 govuk_elasticsearch::version: '1.7.5'
 govuk_elasticsearch::number_of_replicas: '0'
+
+icinga::client::check_cputype::cputype: 'intel'
