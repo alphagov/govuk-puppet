@@ -12,5 +12,6 @@ script
                 -username jenkins_agent -password <%= @agent_user_api_token %> \
                 -name <%= @hostname %> -executors <%= @executors %> \
                 -master https://<%= @ci_master %>/ \
-                -fsroot <%= @fsroot %> -labels '<%= @labels %>'
+                -fsroot <%= @fsroot %> -labels '<%= @labels %>' \
+                -disableClientsUniqueId
 end script
