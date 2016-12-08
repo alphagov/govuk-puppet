@@ -2,6 +2,12 @@
 #
 # Installs and configures Docker and Docker Compose
 class govuk_ci::agent::docker {
-  include ::docker
+
+  # Jenkins user needs to be able to build and manage containers
+  class { '::docker':
+    docker_users => ['jenkins'],
+  }
+
   include ::docker::compose
+
 }
