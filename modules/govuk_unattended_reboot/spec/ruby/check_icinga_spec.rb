@@ -122,7 +122,10 @@ EOF
 
     context 'when something is alerting' do
       it 'raises an exception for a hard critical service alert' do
+        @original_stderr = $stderr
+        $stderr.reopen(File.new(File::NULL, 'w'))
         expect{ CheckIcinga.parse_for_alerts!(json_body_service_critical_hard) }.to raise_error(IcingaError, /1 service alerts found/)
+        $stderr = @original_stderr
       end
 
       it 'raises an exception for a soft critical host alert' do
