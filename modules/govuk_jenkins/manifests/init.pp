@@ -5,12 +5,6 @@
 #
 # === Parameters:
 #
-# [*github_enterprise_cert*]
-#   PEM certificate for GitHub Enterprise.
-#
-# [*github_enterprise_hostname*]
-#   The hostname of Github Enterprise
-#
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
 #
@@ -36,9 +30,6 @@
 #   A hash of environment variables that should be set for all Jenkins jobs.
 #
 class govuk_jenkins (
-  $github_enterprise_cert,
-  $github_enterprise_hostname,
-  $github_enterprise_cert_path,
   $github_client_id,
   $github_client_secret,
   $config = {},
@@ -82,23 +73,10 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
-  # In addition to the keystore below, this path is also referenced by the
-  # `GITHUB_GDS_CA_BUNDLE` environment variable in Jenkins which is used by
-  # ghtools during GitHub.com -> GitHub Enterprise repo backups.
-  file { $github_enterprise_cert_path:
-    ensure  => file,
-    content => $github_enterprise_cert,
-  }
+  include ::govuk_jenkins::github_enterprise_cert
 
-  java_ks { "${github_enterprise_hostname}:cacerts":
-    ensure       => latest,
-    certificate  => $github_enterprise_cert_path,
-    target       => '/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/security/cacerts',
-    password     => 'changeit',
-    trustcacerts => true,
-    notify       => Class['jenkins::service'],
-    require      => Class['govuk_java::openjdk7::jre'],
-  }
+  # Jenkins service needs to be restarted to reload the Java keystore
+  Class['govuk_jenkins::github_enterprise_cert'] ~> Class['jenkins::service']
 
   package { 'ghtools':
     ensure   => '0.20.0',
