@@ -6,7 +6,7 @@ describe 'govuk_postgresql::db', :type => :define do
         :concat_basedir => '/tmp/concat',
     }}
     let(:pre_condition) { <<-EOS
-      include govuk_postgresql::server::not_slave
+      include govuk_postgresql::server::standalone
       EOS
     }
 
