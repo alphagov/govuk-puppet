@@ -16,6 +16,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*need_api_bearer_token*]
+#   The bearer token to use when communicating with Need API.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -37,6 +41,7 @@ class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
     $publishing_api_bearer_token = undef,
+    $need_api_bearer_token = undef,
     $secret_key_base = undef,
     $mongodb_name = undef,
     $mongodb_nodes = undef,
@@ -101,6 +106,10 @@ class govuk::apps::publisher(
       app     => 'publisher',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-NEED_API_BEARER_TOKEN":
+      app     => 'publisher',
+      varname => 'NEED_API_BEARER_TOKEN',
+      value   => $need_api_bearer_token;
     "${title}-SECRET_KEY_BASE":
       app     => 'publisher',
       varname => 'SECRET_KEY_BASE',
