@@ -518,9 +518,9 @@ users::pentest_machines:
   - 'postgresql-primary-1'
 
 users::pentest_usernames:
-  - 'digitalassurancetester1'
-  - 'digitalassurancetester2'
-  - 'digitalassurancetester3'
+  - 'digitalassurancetesterone'
+  - 'digitalassurancetestertwo'
+  - 'digitalassurancetesterthree'
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
