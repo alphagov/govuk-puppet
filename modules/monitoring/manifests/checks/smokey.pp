@@ -8,9 +8,12 @@
 #
 # [*features*]
 #   A hash of features that should be executed by Icinga.
+# [*environment*]
+#   String to pass to the tests_json_output.sh script, e.g. integration
 #
 class monitoring::checks::smokey (
-  $features = {}
+  $features = {},
+  $environment = '',
 ) {
   validate_hash($features)
 
@@ -18,8 +21,8 @@ class monitoring::checks::smokey (
 
   # TODO: Should this really run as root?
   file { $service_file:
-    ensure => present,
-    source => "puppet:///modules/monitoring${service_file}",
+    ensure  => present,
+    content => template('monitoring/smokey-loop.conf'),
   }
 
   service { 'smokey-loop':

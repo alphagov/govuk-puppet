@@ -494,6 +494,7 @@ licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::enable_support_check: false
 monitoring::checks::ses::region: eu-west-1
+monitoring::checks::smokey::environment: 'staging'
 
 postfix::smarthost:
   - 'email-smtp.us-east-1.amazonaws.com:587'
