@@ -11,6 +11,9 @@
 #   Uses the Nginx realip module (http://nginx.org/en/docs/http/ngx_http_realip_module.html)
 #   to change the client IP address to the one in the specified HTTP header.
 #
+# [*trade_tariff_host*]
+#   The hostname where trade tariff is available on the internet to proxy to for assets.
+#
 # [*vhost_aliases*]
 #   Array of other vhosts that assets should be served on at origin
 #
@@ -20,6 +23,7 @@
 class router::assets_origin(
   $asset_routes = {},
   $real_ip_header = '',
+  $trade_tariff_host = undef,
   $vhost_aliases = [],
   $vhost_name,
 ) {

@@ -38,6 +38,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*trade_tariff_uri*]
+#   A URI where Trade Tariff is available on the internet.
+#
 class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
@@ -49,6 +52,7 @@ class govuk::apps::content_store(
   $nagios_memory_critical = undef,
   $errbit_api_key = '',
   $secret_key_base = undef,
+  $trade_tariff_uri = '',
 ) {
   $app_name = 'content-store'
 
@@ -78,8 +82,6 @@ class govuk::apps::content_store(
       value   => $secret_key_base;
     }
   }
-
-  $trade_tariff_uri = hiera('trade_tariff_uri')
 
   govuk::app::envvar {
     "${title}-DEFAULT_TTL":
