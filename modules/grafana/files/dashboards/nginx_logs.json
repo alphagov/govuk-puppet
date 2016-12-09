@@ -1,0 +1,211 @@
+{
+  "id": 15,
+  "title": "NGinx Logs",
+  "originalTitle": "NGinx Logs",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "700px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "height": "800",
+          "id": 1,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/http_2.*/",
+              "color": "#629E51"
+            },
+            {
+              "alias": "/http_3.*/",
+              "color": "#64B0C8"
+            },
+            {
+              "alias": "/http_4.*/",
+              "color": "#E0752D"
+            },
+            {
+              "alias": "/http_5.*/",
+              "color": "#BF1B00"
+            }
+          ],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "stats.$Machines.nginx_logs.$Hostname.http_$Status",
+              "textEditor": false
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "NGinx Logs",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "title": "Row"
+    }
+  ],
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "value": [
+            "$__all"
+          ],
+          "text": "All",
+          "tags": []
+        },
+        "datasource": "Graphite",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Machines",
+        "options": [],
+        "query": "stats.*",
+        "refresh": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "value": [
+            "whitehall-frontend_publishing_service_gov_uk"
+          ],
+          "text": "whitehall-frontend_publishing_service_gov_uk"
+        },
+        "datasource": "Graphite",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Hostname",
+        "options": [],
+        "query": "stats.*.nginx_logs.*",
+        "refresh": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "value": [
+            "2xx",
+            "3xx",
+            "4xx",
+            "5xx"
+          ],
+          "text": "2xx + 3xx + 4xx + 5xx"
+        },
+        "datasource": "Graphite",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "Status",
+        "options": [],
+        "query": "stats.*.nginx_logs.*.*",
+        "refresh": 1,
+        "regex": "/http_(.*)/",
+        "type": "query"
+      }
+    ]
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "1m",
+  "schemaVersion": 12,
+  "version": 7,
+  "links": []
+}
