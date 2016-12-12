@@ -13,6 +13,7 @@ class base {
   include gcc
   include govuk::deploy
   include govuk_apt::unused_kernels
+  include govuk_apt::package_blacklist
   include govuk_envsys
   include govuk_scripts
   include govuk_sshkeys
