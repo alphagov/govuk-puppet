@@ -19,7 +19,6 @@ class base {
   include govuk_sudo
   include govuk_unattended_reboot
   include logrotate
-  include motd
   include ntp
   include puppet
   include resolvconf
