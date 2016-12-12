@@ -8,7 +8,7 @@
     auth-token: <%= @auth_token %>
     <%- end -%>
     logrotate:
-      artifactNumToKeep: 10
+      numToKeep: 10
     builders:
        - shell: |
            # Clear the Sidekiq queues to stop any residual 'stale' jobs running

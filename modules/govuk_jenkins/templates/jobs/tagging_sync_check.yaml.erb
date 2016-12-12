@@ -16,11 +16,11 @@
       See https://github.com/alphagov/finding-things-migration-checker
 
       Only runs the "MissingLinks" check. This check verifies that tags from
-      publishing-api are synced correctly with the search index. 
+      publishing-api are synced correctly with the search index.
     scm:
       - tagging-sync-check
     logrotate:
-        artifactNumToKeep: 100
+        numToKeep: 100
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}"

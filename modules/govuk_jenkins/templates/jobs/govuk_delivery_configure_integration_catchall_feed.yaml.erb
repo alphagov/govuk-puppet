@@ -8,7 +8,7 @@
     auth-token: <%= @auth_token %>
     <%- end -%>
     logrotate:
-      artifactNumToKeep: 10
+      numToKeep: 10
     builders:
        - shell: |
            ssh deploy@backend-1.backend 'cd /var/apps/govuk-delivery && ./venv/bin/python scripts/activate_integration_catchall_topic_mapping.py'

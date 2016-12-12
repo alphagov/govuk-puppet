@@ -15,7 +15,7 @@
     scm:
       - env-sync-and-backup_<%= @job_slug %>
     logrotate:
-        artifactNumToKeep: 10
+        numToKeep: 10
     builders:
         - shell: |
             export WHITEHALL_MYSQL_PASSWORD="<%= @whitehall_mysql_password -%>"

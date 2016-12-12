@@ -5,7 +5,7 @@
     project-type: freestyle
     description: "This job checks the data within the Publishing API for any invalid data"
     logrotate:
-      artifactNumToKeep: 10
+      numToKeep: 10
     publishers:
         - trigger-parameterized-builds:
           - project: run-rake-task

@@ -5,7 +5,7 @@
     project-type: freestyle
     description: "This job periodically archives publishing API events to S3"
     logrotate:
-      artifactNumToKeep: 10
+      numToKeep: 10
     publishers:
         - trigger-parameterized-builds:
           - project: run-rake-task

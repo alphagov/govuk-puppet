@@ -5,7 +5,7 @@
     project-type: freestyle
     description: "This job triggers the Data_Sync_Complete jobs on a remote Jenkins machine"
     logrotate:
-        artifactNumToKeep: 10
+        numToKeep: 10
     builders:
         - shell: |
             echo "Triggering post-sync job on $HOSTNAME"

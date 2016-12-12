@@ -15,7 +15,7 @@
     scm:
       - transition-config_Transition_load_site_config
     logrotate:
-      artifactNumToKeep: 30
+      numToKeep: 30
     builders:
         - shell: |
             rsync --delete -avz -e ssh ./ deploy@backend-1.backend:/var/apps/transition/data/transition-config

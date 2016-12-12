@@ -15,7 +15,7 @@
     scm:
       - travel-advice-email-alert-check
     logrotate:
-        artifactNumToKeep: 100
+        numToKeep: 100
     triggers:
         - timed: '*/15 * * * *' # every 15 minutes
     builders:
