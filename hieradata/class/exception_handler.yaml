@@ -23,5 +23,7 @@ mount:
     govuk_lvm: 'mongodb'
     mountoptions: 'defaults'
 
+mongodb::firewall::enable_firewall_rules: false
+
 mongodb::server::replicaset_members:
   'exception-handler-1':
