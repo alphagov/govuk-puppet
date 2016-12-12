@@ -5,16 +5,16 @@
 class govuk_postgresql::wal_e::package {
 
   file { '/etc/wal-e':
-    ensure => directory,
-    owner  => 'postgres',
-    group  => 'postgres',
-    mode   => '0775',
+    ensure  => directory,
+    owner   => 'postgres',
+    group   => 'postgres',
+    mode    => '0775',
+    require => Class['govuk_postgresql::server'],
   }
 
   package { 'wal-e':
     ensure   => present,
     provider => pip,
-    require  => [ Class['govuk_postgresql::server'], File['/etc/wal-e'] ],
   }
 
   $dependencies = [

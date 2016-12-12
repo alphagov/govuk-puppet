@@ -122,10 +122,11 @@ define govuk_postgresql::wal_e::backup (
       }
 
       file { '/var/lib/postgresql/.gnupg':
-        ensure => directory,
-        mode   => '0700',
-        owner  => 'postgres',
-        group  => 'postgres',
+        ensure  => directory,
+        mode    => '0700',
+        owner   => 'postgres',
+        group   => 'postgres',
+        require => Class['govuk_postgresql::server'],
       }
 
       # This ensures that stuff can be encrypted without prompt
