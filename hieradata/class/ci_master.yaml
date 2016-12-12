@@ -197,3 +197,5 @@ govuk_jenkins::plugins:
       version: "2.11"
     ws-cleanup:
       version: "0.32"
+
+icinga::client::check_cputype::cputype: 'intel'
