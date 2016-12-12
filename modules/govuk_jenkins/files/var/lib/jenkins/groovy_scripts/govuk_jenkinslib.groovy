@@ -78,15 +78,15 @@ def precompileAssets() {
 }
 
 /**
- * Clone govuk-content-schemas depedency for contract tests
+ * Clone govuk-content-schemas dependency for contract tests
  */
-def contentSchemaDependency(String schemaGitCommit) {
+def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
   sshagent(['govuk-ci-ssh-key']) {
     echo 'Cloning govuk-content-schemas'
     sh('rm -rf tmp/govuk-content-schemas')
     sh('git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas')
     sh('cd tmp/govuk-content-schemas')
-    sh("git checkout ${schemaGitCommit}:-deployed-to-production")
+    sh("git checkout ${schemaGitCommit}")
   }
 }
 
