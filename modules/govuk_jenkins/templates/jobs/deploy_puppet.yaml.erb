@@ -34,8 +34,6 @@
         - shell: |
            sh -eu puppet/deploy.sh
     publishers:
-        - description-setter:
-            regexp: 'Deployed ([^ ]+) \(resolved'
         - trigger:
             project: Smokey
         - trigger-parameterized-builds:
