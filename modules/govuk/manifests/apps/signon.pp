@@ -109,9 +109,6 @@ class govuk::apps::signon(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-INSTANCE_NAME":
-      varname => 'INSTANCE_NAME',
-      value   => $instance_name;
     "${title}-SSO_PUSH_USER_EMAIL":
       varname => 'SSO_PUSH_USER_EMAIL',
       value   => $sso_push_user_email;
@@ -120,6 +117,13 @@ class govuk::apps::signon(
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
+  }
+
+  if $instance_name != undef {
+    govuk::app::envvar { "${title}-INSTANCE_NAME":
+      varname => 'INSTANCE_NAME',
+      value   => $instance_name,
+    }
   }
 
   if $secret_key_base != undef {
