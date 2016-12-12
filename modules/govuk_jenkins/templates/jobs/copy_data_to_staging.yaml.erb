@@ -22,7 +22,7 @@
     scm:
       - env-sync-and-backup_Copy_Data_to_Staging
     logrotate:
-        artifactNumToKeep: 10
+        numToKeep: 10
     triggers:
         - timed: 'H 1 * * *'
     builders:

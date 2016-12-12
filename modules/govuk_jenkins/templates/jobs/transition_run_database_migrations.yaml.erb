@@ -10,7 +10,7 @@
     auth-token: <%= @auth_token %>
     <%- end -%>
     logrotate:
-      artifactNumToKeep: 10
+      numToKeep: 10
     builders:
        - shell: |
            ssh deploy@backend-1.backend.production "cd /var/apps/transition && govuk_setenv transition bundle exec rake db:migrate"

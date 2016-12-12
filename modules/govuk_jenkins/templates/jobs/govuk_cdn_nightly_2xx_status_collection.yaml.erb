@@ -26,6 +26,6 @@
             govuk_setenv govuk-cdn-logs-monitor bundle exec ruby scripts/process_completed_logs.rb
           '
     logrotate:
-      artifactNumToKeep: 14
+      numToKeep: 14
     triggers:
       - timed: 'H 7 * * *'

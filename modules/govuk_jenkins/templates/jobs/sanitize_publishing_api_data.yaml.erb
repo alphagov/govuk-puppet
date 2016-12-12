@@ -8,7 +8,7 @@
     auth-token: <%= @auth_token %>
     <%- end -%>
     logrotate:
-      artifactNumToKeep: 10
+      numToKeep: 10
     builders:
        - shell: |
            ssh deploy@backend-1.backend 'cd /var/apps/publishing-api && sudo -u deploy govuk_setenv publishing-api bundle exec rake sanitize_data'

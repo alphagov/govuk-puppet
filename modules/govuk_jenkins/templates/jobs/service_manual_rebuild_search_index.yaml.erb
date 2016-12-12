@@ -7,7 +7,7 @@
       <p><strong>NB</strong> this isn't atomic - the index will be empty for a short while
       (a few seconds, if all goes well). Traffic on this manual is low enough that this isn't a big problem.</p>"
     logrotate:
-      artifactNumToKeep: 3
+      numToKeep: 3
     builders:
         - shell: |
             if [ "$TARGET_APPLICATION" = "designprinciples" ]; then

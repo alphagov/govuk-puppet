@@ -20,7 +20,7 @@
     scm:
       - env-sync-and-backup_copy_sanitised_whitehall_database
     logrotate:
-        artifactNumToKeep: 10
+        numToKeep: 10
     triggers:
         - timed: '15 5 * * 1-5'
     builders:
