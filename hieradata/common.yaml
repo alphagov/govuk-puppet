@@ -512,6 +512,9 @@ govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 
+govuk_apt::package_blacklist:
+  - 'systemd'
+
 govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
 
 govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
