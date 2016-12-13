@@ -1,0 +1,28 @@
+---
+- job:
+    name: DeployLicensify_UKCloud
+    display-name: DeployLicensify_UKCloud
+    project-type: freestyle
+    description: "Deploys the Licensing application to UKCloud (formerly Skyscape) infrastructure"
+    properties:
+      - github:
+          url: https://github.gds/gds/alphagov-deployment/
+    builders:
+      - shell: |
+          JSON="{\"parameter\": [{\"name\": \"BETA_PAYMENT_ACCOUNTS\", \"value\": \"false\"}, {\"name\": \"artefact_number\", \"value\": \"$artefact_number\"}, {\"name\": \"app_version\", \"value\": $appVersion}, {\"name\": \"CI_JOB_NAME\", \"value\": \"Licensify\"}, {\"name\": \"ARTIFACT_PATH\", \"value\": \"target/universal\"}], \"\": \"\"}"
+
+          # Deploy to integration environment
+          curl -f -XPOST https://<%= @jenkins_integration_api_user %>:<%= @jenkins_integration_api_password %>@deploy.integration.publishing.service.gov.uk/job/Licensify_Deploy/build -d token=<%= @puppet_auth_token %> --data-urlencode json="$JSON"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+      - copyartifact-build-selector:
+          name: BUILD_SELECTOR
+          which-build: upstream-build
+          fallback-to-last-successful: true
+    publishers:
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+            send-to-individuals: true
+            notify-every-unstable-build: true
