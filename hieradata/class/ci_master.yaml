@@ -153,6 +153,8 @@ govuk_jenkins::plugins:
       version: "1.13"
     ssh-credentials:
       version: "1.12"
+    ssh-slaves:
+      version: "1.11"
     structs:
       version: "1.5"
     subversion:
