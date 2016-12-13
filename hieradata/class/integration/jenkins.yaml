@@ -18,6 +18,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::sanitize_publishing_api_data
   - govuk_jenkins::job::service_manual_rebuild_search_index
+  - govuk_jenkins::job::signon_cron_rake_tasks
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::tagging_sync_check
