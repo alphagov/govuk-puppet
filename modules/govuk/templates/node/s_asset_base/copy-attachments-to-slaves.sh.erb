@@ -30,7 +30,7 @@ fi
 
 ASSET_SLAVE_NODES=$(/usr/local/bin/govuk_node_list -c asset_slave)
 
-for FILELIST in $(ls $FILELIST_DIR); do
+for FILELIST in $(find $FILELIST_DIR -type f); do
   for FILENAME in $(cat $FILELIST); do
     for NODE in $ASSET_SLAVE_NODES; do
       if /usr/bin/timeout 20 rsync -e "ssh -q" --quiet --timeout=10 --relative "${FILENAME}" $NODE:$FILENAME; then
@@ -50,7 +50,7 @@ for FILELIST in $(ls $FILELIST_DIR); do
   rm -f $FILELIST
 done
 
-if [ $? == 0 ]
+if [ $? == 0 ]; then
   NAGIOS_CODE=0
   NAGIOS_MESSAGE="Copying attachments to asset slaves succeeded"
 fi
