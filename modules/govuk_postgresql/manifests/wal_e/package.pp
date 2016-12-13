@@ -13,7 +13,7 @@ class govuk_postgresql::wal_e::package {
   }
 
   package { 'wal-e':
-    ensure   => present,
+    ensure   => '0.9.2',
     provider => pip,
   }
 
