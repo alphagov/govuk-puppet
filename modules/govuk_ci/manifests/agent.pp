@@ -31,20 +31,6 @@ class govuk_ci::agent(
   include ::govuk_rbenv::all
   include ::golang
 
-  ufw::allow { 'allow-jenkins-slave-swarm-to-listen-on-ephemeral-ports':
-    port  => '32768:65535',
-    proto => 'udp',
-    ip    => 'any',
-  }
-
-  # Fixed TCP port for JNLP agents
-  ufw::allow { 'allow-jenkins-master-to-connect-via-jnlp':
-    port  => '54322',
-    proto => 'tcp',
-    ip    => 'any',
-    from  => '10.1.6.10',
-  }
-
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
   File<|title == '/etc/sudoers.d/'|> {
     mode => '0555',
@@ -58,4 +44,8 @@ class govuk_ci::agent(
     require => Class['::govuk_jenkins::user'],
   }
 
+  # FIXME: set the package to absent when/if the agents are connecting over SSH
+  service { 'jenkins-agent':
+    ensure => 'stopped',
+  }
 }

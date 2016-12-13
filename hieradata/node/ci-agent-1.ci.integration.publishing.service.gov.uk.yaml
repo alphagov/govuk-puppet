@@ -1,8 +1,4 @@
 ---
-govuk_ci::agent::swarm::agent_labels:
-  - 'mongodb-2.4'
-  - 'docker'
-
 mongodb::server::version: '2.4.9'
 
 govuk_ci::agent::docker_enabled: true
