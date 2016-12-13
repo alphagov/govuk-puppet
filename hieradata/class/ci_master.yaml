@@ -9,7 +9,16 @@ govuk_jenkins::config::theme_environment_name: 'CI'
 govuk_jenkins::config::views:
   GOVUK_Infrastructure:
     - 'govuk-puppet'
+    - 'router'
+    - 'router-api'
     - 'integration-puppet-deploy'
+  Finding_Things:
+    - 'collections-publisher'
+    - 'govuk-content-schemas'
+    - 'rummager'
+  Publishing_Platform:
+    - 'content-store'
+    - 'publishing-api'
 
 govuk_jenkins::config::agent_tcp_port: '54322'
 govuk_jenkins::config::create_agent_role: true
