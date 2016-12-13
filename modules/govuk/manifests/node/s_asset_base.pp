@@ -134,6 +134,11 @@ class govuk::node::s_asset_base (
     mode    => '0755',
   }
 
+  file { '/usr/local/bin/copy-attachments-to-slaves.sh':
+    content => template('govuk/node/s_asset_base/copy-attachments-to-slaves.sh.erb'),
+    mode    => '0755',
+  }
+
   file { '/usr/local/bin/copy-attachments.sh':
     content => template('govuk/node/s_asset_base/copy-attachments.sh.erb'),
     mode    => '0755',

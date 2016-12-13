@@ -33,14 +33,21 @@ class govuk::node::s_asset_master (
   cron { 'process-incoming-files':
     user    => 'assets',
     minute  => '*',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/incoming.lock /usr/local/bin/process-uploaded-attachments.sh /mnt/uploads/whitehall/incoming /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/incoming.lock /usr/local/bin/process-uploaded-attachments.sh /mnt/uploads/whitehall/incoming /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected /tmp/attachments',
     require => $cron_requires,
   }
 
   cron { 'process-draft-incoming-files':
     user    => 'assets',
     minute  => '*',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/incoming-draft.lock /usr/local/bin/process-uploaded-attachments.sh /mnt/uploads/whitehall/draft-incoming /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
+    command => '/usr/bin/setlock -n /var/run/virus_scan/incoming-draft.lock /usr/local/bin/process-uploaded-attachments.sh /mnt/uploads/whitehall/draft-incoming /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected /tmp/attachments',
+    require => $cron_requires,
+  }
+
+  cron { 'copy-attachments-to-slaves':
+    user    => 'assets',
+    minute  => '*',
+    command => '/usr/bin/setlock /var/run/virus_scan/copy-attachments-to-slaves.lock /usr/local/bin/copy-attachments-to-slaves.sh /tmp/attachments',
     require => $cron_requires,
   }
 
@@ -66,6 +73,13 @@ class govuk::node::s_asset_master (
 
   @@icinga::passive_check { "check_process_attachments_${::hostname}":
     service_description => 'Process attachments last run',
+    host_name           => $::fqdn,
+    freshness_threshold => 1800,
+    notes_url           => monitoring_docs_url(asset-master-attachment-processing),
+  }
+
+  @@icinga::passive_check { "copy_attachments_to_slaves_${::hostname}":
+    service_description => 'Copy attachments to asset slaves',
     host_name           => $::fqdn,
     freshness_threshold => 1800,
     notes_url           => monitoring_docs_url(asset-master-attachment-processing),

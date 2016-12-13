@@ -1,0 +1,58 @@
+#!/bin/bash
+
+set -eu
+
+FILELIST_DIR=$1
+
+# The default Icinga passive alert assumes that the script failed
+NAGIOS_CODE=2
+NAGIOS_MESSAGE="CRITICAL: Copy attachments to asset slaves failed"
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+  printf "<%= @ipaddress %>\tCopy attachments to asset slaves\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+}
+
+trap nagios_passive EXIT
+
+usage() {
+  echo "USAGE: $0 <filelist_dir>"
+  echo
+  echo "Copies files in all filelists within <filelist_dir> to each asset slave"
+  echo
+  exit 1
+}
+
+if [ ! "${FILELIST_DIR}" ]; then
+  usage
+fi
+
+ASSET_SLAVE_NODES=$(/usr/local/bin/govuk_node_list -c asset_slave)
+
+for FILELIST in $(ls $FILELIST_DIR); do
+  for FILENAME in $(cat $FILELIST); do
+    for NODE in $ASSET_SLAVE_NODES; do
+      if /usr/bin/timeout 20 rsync -e "ssh -q" --quiet --timeout=10 --relative "${FILENAME}" $NODE:$FILENAME; then
+        logger -t copy_attachments_to_slaves "File ${FILENAME} copied to ${NODE}"
+      else
+        logger -t copy_attachments_to_slaves "File ${FILENAME} failed to copy to ${NODE}"
+      fi
+    done
+    <% if @s3_bucket && @process_uploaded_attachments_to_s3 %>
+      if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --server-side-encryption put "$FILENAME" "s3://<%= @s3_bucket -%>${FILENAME}"; then
+        logger -t copy_attachments_to_slaves "File ${FILENAME} copied to S3 (<%= @s3_bucket -%>)"
+      else
+        logger -t copy_attachments_to_slaves "File ${FILENAME} failed to copy to S3 (<%= @s3_bucket -%>)"
+      fi
+    <% end %>
+  done
+  rm -f $FILELIST
+done
+
+if [ $? == 0 ]
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="Copying attachments to asset slaves succeeded"
+fi
+
+exit $NAGIOS_CODE
