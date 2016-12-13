@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<slave>
+  <name><%= @agent_name %></name>
+  <description><%= @description %></description>
+  <remoteFS><%= @jenkins_home %></remoteFS>
+  <numExecutors><%= @executors %></numExecutors>
+  <mode>NORMAL</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.12">
+    <host><%= @agent_hostname %></host>
+    <port><%= @ssh_port %></port>
+    <credentialsId><%= @credentials_id %></credentialsId>
+    <maxNumRetries>0</maxNumRetries>
+    <retryWaitTime>0</retryWaitTime>
+  </launcher>
+  <label><%= @labels %></label>
+  <nodeProperties/>
+</slave>
+
