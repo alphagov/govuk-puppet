@@ -5,6 +5,10 @@
 class govuk_ci::agent::mysql {
   contain ::govuk_mysql::server
 
+  ensure_packages([
+    'libmysqlclient-dev',
+  ])
+
   mysql::db {
     'collections_publisher_test':
       user     => 'collections_pub',
