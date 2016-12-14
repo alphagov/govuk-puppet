@@ -85,8 +85,9 @@ def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
     echo 'Cloning govuk-content-schemas'
     sh('rm -rf tmp/govuk-content-schemas')
     sh('git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas')
-    sh('cd tmp/govuk-content-schemas')
-    sh("git checkout ${schemaGitCommit}")
+    dir("tmp/govuk-content-schemas") {
+      sh("git checkout ${schemaGitCommit}")
+    }
   }
 }
 
