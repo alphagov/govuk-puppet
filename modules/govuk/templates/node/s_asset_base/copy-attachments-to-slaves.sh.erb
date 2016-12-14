@@ -33,7 +33,7 @@ ASSET_SLAVE_NODES=$(/usr/local/bin/govuk_node_list -c asset_slave)
 for FILELIST in $(find $FILELIST_DIR -type f); do
   for FILENAME in $(cat $FILELIST); do
     for NODE in $ASSET_SLAVE_NODES; do
-      if /usr/bin/timeout 20 rsync -e "ssh -q" --quiet --timeout=10 "${FILENAME}" $NODE:$FILENAME; then
+      if /usr/bin/timeout 20 rsync -e "ssh -q" --quiet --timeout=10 --relative "${FILENAME}" $NODE:/; then
         logger -t copy_attachments_to_slaves "File ${FILENAME} copied to ${NODE}"
       else
         logger -t copy_attachments_to_slaves "File ${FILENAME} failed to copy to ${NODE}"
