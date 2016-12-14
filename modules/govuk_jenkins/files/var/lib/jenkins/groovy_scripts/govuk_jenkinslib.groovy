@@ -47,7 +47,7 @@ def setEnvGitCommit() {
 /**
  * Runs the ruby linter
  */
-def rubyLinter() {
+def rubyLinter(String dirs = 'app spec lib') {
   setEnvGitCommit()
   if (BRANCH_NAME != 'master') {
     echo 'Running Ruby linter'
@@ -56,7 +56,7 @@ def rubyLinter() {
        --cached \
        --format html --out rubocop-${GIT_COMMIT}.html \
        --format clang \
-       app spec lib"
+       ${dirs}"
     )
   }
 }
