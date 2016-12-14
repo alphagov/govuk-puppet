@@ -99,4 +99,14 @@ class govuk_jenkins (
   include govuk_mysql::libdev
   include mysql::client
 
+  # This is required to create Jenkins SSH slaves, but it cannot be declared
+  # in the defined type itself
+  file { "${jenkins_homedir}/nodes":
+    ensure  => directory,
+    owner   => $jenkins_user,
+    group   => $jenkins_user,
+    mode    => '0775',
+    require => Class['govuk_jenkins::user'],
+  }
+
 }

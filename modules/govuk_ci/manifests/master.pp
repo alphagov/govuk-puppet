@@ -19,7 +19,13 @@ class govuk_ci::master (
   $jenkins_api_token,
   $pipeline_jobs = {},
   $environment_variables = {},
+  $ci_agents = {},
+  $credentials_id,
 ){
+
+  validate_hash($ci_agents)
+  validate_hash($pipeline_jobs)
+  validate_hash($environment_variables)
 
   include ::govuk_ci::credentials
   include ::govuk_ci::vpn
@@ -56,5 +62,9 @@ class govuk_ci::master (
   File<|title == '/etc/sudoers.d/'|> {
     mode => '0555',
   }
+
+  create_resources('::govuk_jenkins::ssh_slave', $ci_agents, {
+    'credentials_id' => $credentials_id,
+  })
 
 }

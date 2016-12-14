@@ -11,7 +11,6 @@ govuk_jenkins::config::views:
     - 'govuk-puppet'
     - 'integration-puppet-deploy'
 
-govuk_jenkins::config::agent_tcp_port: '54322'
 govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
@@ -153,6 +152,8 @@ govuk_jenkins::plugins:
       version: "1.13"
     ssh-credentials:
       version: "1.12"
+    ssh-slaves:
+      version: "1.11"
     structs:
       version: "1.5"
     subversion:
