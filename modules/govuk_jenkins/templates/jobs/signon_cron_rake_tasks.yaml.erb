@@ -8,7 +8,7 @@
         - trigger-parameterized-builds:
             - project: run-rake-task
               predefined-parameters: |
-                TARGET_APPLICATION=signon
+                TARGET_APPLICATION=signonotron2
                 MACHINE_CLASS=backend
                 RAKE_TASK=oauth_access_grants:delete_expired
         - email:
@@ -26,7 +26,7 @@
         - trigger-parameterized-builds:
             - project: run-rake-task
               predefined-parameters: |
-                TARGET_APPLICATION=signon
+                TARGET_APPLICATION=signonotron2
                 MACHINE_CLASS=backend
                 RAKE_TASK=organisations:fetch
         - email:
@@ -44,7 +44,7 @@
         - trigger-parameterized-builds:
             - project: run-rake-task
               predefined-parameters: |
-                TARGET_APPLICATION=signon
+                TARGET_APPLICATION=signonotron2
                 MACHINE_CLASS=backend
                 RAKE_TASK=users:suspend_inactive
         - email:
@@ -62,7 +62,7 @@
         - trigger-parameterized-builds:
             - project: run-rake-task
               predefined-parameters: |
-                TARGET_APPLICATION=signon
+                TARGET_APPLICATION=signonotron2
                 MACHINE_CLASS=backend
                 RAKE_TASK=users:send_suspension_reminders
         - email:
