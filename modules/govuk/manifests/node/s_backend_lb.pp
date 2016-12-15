@@ -106,4 +106,8 @@ class govuk::node::s_backend_lb (
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
     to => "https://admin.${perfplat_public_app_domain}/",
   }
+
+  nginx::config::vhost::proxy { "docs.${app_domain}" :
+    to => ['http://govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com/'],
+  }
 }
