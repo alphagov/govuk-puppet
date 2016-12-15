@@ -6,16 +6,12 @@
 #
 # FIXME: Document missing parameters
 #
-# [*legacy_elasticsearch*]
-#   Whether this is a pre-1.x elasticsearch installation.  Defaults to false
-#
 class govuk_elasticsearch::monitoring (
   $host_count,
   $cluster_name,
   $http_port,
   $log_index_type_count,
   $disable_gc_alerts,
-  $legacy_elasticsearch = false,
 ) {
 
   validate_bool($disable_gc_alerts)
@@ -23,7 +19,6 @@ class govuk_elasticsearch::monitoring (
   class { 'collectd::plugin::elasticsearch':
     es_port              => $http_port,
     log_index_type_count => $log_index_type_count,
-    legacy_elasticsearch => $legacy_elasticsearch,
   }
 
   unless $disable_gc_alerts {

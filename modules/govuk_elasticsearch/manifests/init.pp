@@ -100,10 +100,6 @@ class govuk_elasticsearch (
       'action.destructive_requires_name' => true,
       'script.groovy.sandbox.enabled' => true
     })
-  } elsif versioncmp($version, '0.90.12') >= 0 {
-      $instance_config_real = merge($instance_config,{
-        'action.disable_delete_all_indices' => true
-    })
   } else {
     $instance_config_real = $instance_config
   }
@@ -124,7 +120,6 @@ class govuk_elasticsearch (
     http_port            => $http_port,
     log_index_type_count => $log_index_type_count,
     disable_gc_alerts    => $disable_gc_alerts,
-    legacy_elasticsearch => versioncmp($version, '1.0.0') < 0, # version 0.x has different stats URLs etc.
   }
 
   include govuk_unattended_reboot::elasticsearch
