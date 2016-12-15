@@ -32,11 +32,6 @@ describe 'govuk_elasticsearch', :type => :class do
     context 'true (default)' do
       it { is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.7') }
 
-      it "should handle the repo for 0.90.x" do
-        params[:version] = '0.90.3'
-        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('0.90')
-      end
-
       it "should handle the repo for 1.4.x" do
         params[:version] = '1.4.2'
         is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.4')
@@ -58,13 +53,6 @@ describe 'govuk_elasticsearch', :type => :class do
   describe "destructive actions require name to be used explicitly" do
     let (:params) {{}}
 
-    it "should not be added to 0.90.12" do
-      params[:version] = '0.90.12'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]).not_to have_key('action.destructive_requires_name')
-    end
-
     it "should be added to 1.4.4" do
       params[:version] = '1.4.4'
 
@@ -76,13 +64,6 @@ describe 'govuk_elasticsearch', :type => :class do
   describe "disable deletion of all indicies by default" do
     let (:params) {{}}
 
-    it "should be added to 0.90.12" do
-      params[:version] = '0.90.12'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]).to have_key('action.disable_delete_all_indices')
-    end
-
     it "should not be added to 1.4.4" do
      params[:version] = '1.4.4'
 
@@ -93,13 +74,6 @@ describe 'govuk_elasticsearch', :type => :class do
 
   describe "enabling dynamic scripting" do
     let(:params) {{}}
-
-    it "should not be added to 0.90" do
-      params[:version] = '0.90.3'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
-    end
 
     it "should not be added for 1.4.2" do
       params[:version] = '1.4.2'
@@ -194,22 +168,6 @@ describe 'govuk_elasticsearch', :type => :class do
       params[:open_firewall_from_all] = true
 
       expect(subject).to contain_ufw__allow('allow-elasticsearch-http-9200-from-all')
-    end
-  end
-
-  describe "monitoring legacy_elasticsearch" do
-    let(:params) {{
-      "version" => "1.4.2",
-    }}
-
-    it "is true for pre-1.x versions" do
-      params["version"] = "0.90.2"
-
-      expect(subject).to contain_class('govuk_elasticsearch::monitoring').with_legacy_elasticsearch(true)
-    end
-
-    it "is false for later versions" do
-      expect(subject).to contain_class('govuk_elasticsearch::monitoring').with_legacy_elasticsearch(false)
     end
   end
 end

@@ -53,10 +53,6 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'trusty',
       key      => '914D5813';
-    'elasticsearch-0.90':
-      location => 'http://packages.elasticsearch.org/elasticsearch/0.90/debian',
-      release  => 'stable',
-      key      => 'D88E42B4';
     'elasticsearch-1.4':
       location => 'http://packages.elasticsearch.org/elasticsearch/1.4/debian',
       release  => 'stable',

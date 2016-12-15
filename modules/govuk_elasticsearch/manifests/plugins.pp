@@ -10,7 +10,6 @@ class govuk_elasticsearch::plugins {
   }
 
   case $govuk_elasticsearch::version {
-    /^0.90/: { $cloud_aws_version = '1.16.0' }
     /^1.4/:  { $cloud_aws_version = '2.4.2' }
     /^1.5/:  { $cloud_aws_version = '2.5.1' }
     /^1.7/:  { $cloud_aws_version = '2.7.1' }

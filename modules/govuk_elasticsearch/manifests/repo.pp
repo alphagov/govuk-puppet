@@ -14,7 +14,7 @@
 #   Hostname to use for the APT mirror.
 #
 # [*repo_version*]
-#   The Version series to add the repo for (0.90, 1.4 etc...)
+#   The Version series to add the repo for (1.4 etc...)
 #
 class govuk_elasticsearch::repo(
   $apt_mirror_hostname = undef,
