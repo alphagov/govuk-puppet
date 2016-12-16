@@ -34,7 +34,6 @@ deployable_applications: &deployable_applications
     repository: 'EFG'
   email-alert-api: {}
   email-alert-frontend: {}
-  email-alert-monitor: {}
   email-alert-service: {}
   errbit: {}
   feedback: {}
