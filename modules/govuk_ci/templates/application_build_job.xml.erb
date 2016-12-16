@@ -38,7 +38,7 @@
 <%- end -%>
           <repository><%= @repository %></repository>
           <includes>*</includes>
-          <excludes>release deployed-to-* integration staging production</excludes>
+          <excludes><%= @branches_to_exclude.join(' ') =></excludes>
           <buildOriginBranch>true</buildOriginBranch>
           <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
           <buildOriginPRMerge>false</buildOriginPRMerge>
@@ -57,4 +57,3 @@
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </factory>
 </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>
-
