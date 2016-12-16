@@ -26,8 +26,6 @@ deployable_applications: &deployable_applications
   contacts-frontend: {}
   content-store: {}
   content-tagger: {}
-  courts-api: {}
-  courts-frontend: {}
   designprinciples:
     repository: 'design-principles'
   efg-training:
