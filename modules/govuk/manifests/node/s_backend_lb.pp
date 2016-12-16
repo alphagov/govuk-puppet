@@ -108,6 +108,6 @@ class govuk::node::s_backend_lb (
   }
 
   nginx::config::vhost::proxy { "docs.${app_domain}" :
-    to => ['http://govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com/'],
+    to => ['govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com'],
   }
 }
