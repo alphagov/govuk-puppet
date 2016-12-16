@@ -566,12 +566,10 @@ govuk_ci::master::pipeline_jobs:
   async_experiments: {}
   backdrop-transactions-explorer-collector: {}
   cdn-acceptance-tests: {}
-  content-register: {}
   deployment:
     source: 'git'
   deprecated_columns: {}
   event-store: {}
-  finder-api: {}
   gapy: {}
   gds-api-adapters: {}
   gds-scala-common: {}
@@ -627,7 +625,6 @@ govuk_ci::master::pipeline_jobs:
   screenshot-as-a-service: {}
   shared_mustache: {}
   slimmer: {}
-  smartdown: {}
   spotlight-performance: {}
   transition-config: {}
   ubuntu_unused_kernels:
