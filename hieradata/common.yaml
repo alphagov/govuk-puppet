@@ -314,6 +314,8 @@ govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::support_api::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+
 govuk::apps::whitehall::admin_db_hostname: whitehall-master.mysql
 govuk::apps::whitehall::admin_key_space_limit: '262144'
 govuk::apps::whitehall::admin_db_name: whitehall_production
