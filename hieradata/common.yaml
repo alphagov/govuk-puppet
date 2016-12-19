@@ -20,7 +20,8 @@ deployable_applications: &deployable_applications
   calculators: {}
   calendars: {}
   collections: {}
-  collections-publisher: {}
+  collections-publisher:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   contacts:
     repository: 'contacts-admin'
   contacts-frontend: {}
