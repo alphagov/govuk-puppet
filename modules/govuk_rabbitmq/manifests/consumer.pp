@@ -60,6 +60,8 @@ define govuk_rabbitmq::consumer (
 
   $amqp_user = $title
 
+  include ::govuk_rabbitmq
+
   if $is_test_exchange {
     govuk_rabbitmq::exchange { "${amqp_exchange}@/":
       ensure => $ensure,
