@@ -30,6 +30,10 @@ govuk_postgresql::server::snakeoil_ssl_key: key
 
 govuk_postgresql::monitoring::password: password
 
+govuk_rabbitmq::monitoring_password: 'rabbit_monitor'
+govuk_rabbitmq::root_password: 'rabbit_root'
+govuk_rabbitmq::repo::apt_mirror_hostname: 'rabbit_repo'
+
 hosts::production::backend::hosts:
   whitehall-backend-1:
     ip: '10.3.0.25'
@@ -42,6 +46,9 @@ hosts::production::management::hosts:
     ip: '10.1.0.100'
 
 mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
+
+# if this is true then it conflicts with govuk_rabbit apt management
+rabbitmq::manage_repos: false
 
 router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
 
