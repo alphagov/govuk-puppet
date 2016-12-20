@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Desc : Plugin to check status of Jenkins agents. Should be run
+# on the master.
+
+PROGNAME=$(basename "$0")
+
+if [ -z "$1" ]
+then
+  echo -e "Use : $PROGNAME <Jenkins agent hostname> -- Ex : $PROGNAME ci-agent-1 \n "
+  exit 3
+fi
+
+if /usr/bin/curl -sk 'https://localhost:443/computer/api/json' \
+   | /usr/bin/jq '.computer[] | select(.displayName=="${1}")' \
+   | /usr/bin/jq '{offline}' \
+   | /bin/grep -q "false"
+then
+  echo "OK: Jenkins agent is online"
+  exit 0
+else
+  echo "Critical: Jenkins agent is offline"
+  exit 2
+fi
