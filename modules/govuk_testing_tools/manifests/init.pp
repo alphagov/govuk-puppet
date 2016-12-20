@@ -1,4 +1,7 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: govuk_testing_tools
+#
+# Installs packages required by testing environments such as CI agents
+#
 class govuk_testing_tools {
   include imagemagick
   include phantomjs
