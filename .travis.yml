@@ -6,9 +6,15 @@ cache:
     - vendor/modules
 rvm:
   - 1.9.3
+env:
+  - PUPPET_RSPEC_STRICT_VARIABLES=0
+  - PUPPET_RSPEC_STRICT_VARIABLES=1
 install:
   - bundle install --jobs=3 --retry=3 --deployment --path=${BUNDLE_PATH:-vendor/bundle}
   - bundle exec rake librarian:install
 script:
   - bundle exec rake lint
   - bundle exec rake all_but_lint
+matrix:
+  allow_failures:
+    - env: PUPPET_RSPEC_STRICT_VARIABLES=1
