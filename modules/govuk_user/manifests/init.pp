@@ -65,6 +65,7 @@ define govuk_user(
   } else {
     $dir_ensure = undef
     $key_ensure = absent
+    $key_content = undef
   }
 
   validate_bool($purgegroups)
