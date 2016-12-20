@@ -46,7 +46,7 @@
                 TAG=$TAG
                 DEPLOY_FROM_GITHUB_ENTERPRISE=false
               condition: 'SUCCESS'
-            - project: GDS_Production_Backup, service-manual_rebuild_search_index
+            - project: GDS_Production_Backup
               predefined-parameters: |
                 TARGET_APPLICATION=$TARGET_APPLICATION
                 TARGET_APPLICATION_GIT_REPO=$WORKSPACE/$TARGET_APPLICATION
