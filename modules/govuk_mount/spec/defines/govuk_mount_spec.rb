@@ -4,20 +4,6 @@ require_relative '../../../../spec_helper'
 describe 'govuk_mount', :type => :define do
   let(:title) { '/mnt/gruffalo' }
 
-  context 'param defaults (undef)' do
-    let(:params) {{ }}
-
-    context 'environment fox' do
-      it {
-        is_expected.to contain_ext4mount('/mnt/gruffalo').with(
-          :disk         => nil,
-          :mountoptions => nil,
-          :mountpoint   => '/mnt/gruffalo',
-        )
-      }
-    end
-  end
-
   context 'no_op => true' do
     let(:hiera_config) { File.expand_path('../../fixtures/hiera/hiera.yaml', __FILE__) }
     it { is_expected.not_to contain_ext4mount('/mnt/gruffalo') }
