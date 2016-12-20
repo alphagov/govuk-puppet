@@ -66,6 +66,9 @@
 #   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
 #   to the app server.
 #
+# [*http_host*]
+#   The HTTP `Host` header. Defaults to the HTTP host.
+#
 define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
@@ -86,6 +89,7 @@ define nginx::config::vhost::proxy(
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $proxy_http_version_1_1_enabled = false,
+  $http_host = undef,
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
