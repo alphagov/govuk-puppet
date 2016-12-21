@@ -155,15 +155,17 @@ def pushTag(String repository, String branch, String tag) {
 /**
  * Method to deploy an application on the Integration environment
  *
- * @param repository Github repository
+ * @param application ID of the application, which should match the ID
+          configured in puppet and which is usually the same as the repository
+          name
  * @param branch Branch name
  * @param tag Tag to deploy
  * @param deployTask Deploy task (deploy, deploy:migrations or deploy:setup)
  */
-def deployIntegration(String repository, String branch, String tag, String deployTask) {
+def deployIntegration(String application, String branch, String tag, String deployTask) {
 
   if (branch == 'master') {
-    build job: 'integration-app-deploy', parameters: [string(name: 'TARGET_APPLICATION', value: repository), string(name: 'TAG', value: tag), string(name: 'DEPLOY_TASK', value: deployTask)]
+    build job: 'integration-app-deploy', parameters: [string(name: 'TARGET_APPLICATION', value: application), string(name: 'TAG', value: tag), string(name: 'DEPLOY_TASK', value: deployTask)]
   }
 
 }
