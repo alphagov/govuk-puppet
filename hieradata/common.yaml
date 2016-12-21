@@ -570,7 +570,7 @@ govuk_ci::master::pipeline_jobs:
   backdrop-transactions-explorer-collector: {}
   cdn-acceptance-tests: {}
   deployment:
-    source: 'git'
+    source: 'github-enterprise'
   deprecated_columns: {}
   event-store: {}
   gapy: {}
@@ -598,17 +598,17 @@ govuk_ci::master::pipeline_jobs:
   govuk_mirrorer: {}
   govuk_navigation_helpers: {}
   govuk-provisioning:
-    source: 'git'
+    source: 'github-enterprise'
   govuk_seed_crawler: {}
   govuk_schemas_gem: {}
   govuk_security_audit: {}
   govuk_sidekiq: {}
   govuk_template: {}
   licensify:
-    source: 'git'
+    source: 'github-enterprise'
   omniauth-gds: {}
   opsmanual:
-    source: 'git'
+    source: 'github-enterprise'
   optic14n: {}
   performance-datastore: {}
   performanceplatform-client.py: {}
@@ -617,13 +617,13 @@ govuk_ci::master::pipeline_jobs:
   performanceplatform-govuk-stats: {}
   plek: {}
   pp-manual:
-    source: 'git'
+    source: 'github-enterprise'
   pre-transition-stats: {}
   publishing-e2e-docker: {}
   rack-logstasher: {}
   rails_translation_manager: {}
   router-data:
-    source: 'git'
+    source: 'github-enterprise'
   rummageable: {}
   screenshot-as-a-service: {}
   shared_mustache: {}

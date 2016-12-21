@@ -30,7 +30,7 @@
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>github-token-govuk-ci-username</scanCredentialsId>
           <repoOwner><%= @repo_owner %></repoOwner>
-<%- elsif @source == 'git' -%>
+<%- elsif @source == 'github-enterprise' -%>
           <apiUri>https://github.gds/api/v3/</apiUri>
           <checkoutCredentialsId>SAME</checkoutCredentialsId>
           <scanCredentialsId>github-enterprise-token-govukjenkinsci-username</scanCredentialsId>
