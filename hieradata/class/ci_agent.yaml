@@ -13,3 +13,14 @@ govuk_elasticsearch::version: '1.7.5'
 govuk_elasticsearch::number_of_replicas: '0'
 
 icinga::client::check_cputype::cputype: 'intel'
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'jenkins'
+
+mount:
+  /var/lib/jenkins:
+    disk: '/dev/mapper/jenkins-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
