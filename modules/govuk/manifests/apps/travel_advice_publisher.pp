@@ -55,6 +55,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*show_historical_edition_link*]
+#   Feature flag for showing in-app historical previews.
+#
 class govuk::apps::travel_advice_publisher(
   $asset_manager_bearer_token = undef,
   $enable_email_alerts = false,
@@ -70,6 +73,7 @@ class govuk::apps::travel_advice_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $show_historical_edition_link = false,
 ) {
   $app_name = 'travel-advice-publisher'
 
@@ -121,6 +125,15 @@ class govuk::apps::travel_advice_publisher(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+  }
+
+  validate_bool($show_historical_edition_link)
+  if ($show_historical_edition_link) {
+    govuk::app::envvar {
+      "${title}-SHOW_HISTORICAL_EDITION_LINK":
+        varname => 'SHOW_HISTORICAL_EDITION_LINK',
+        value   => '1';
+    }
   }
 
   validate_bool($enable_email_alerts)
