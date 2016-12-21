@@ -12,8 +12,8 @@ then
 fi
 
 if /usr/bin/curl -sk 'https://localhost:443/computer/api/json' \
-   | /usr/bin/jq '.computer[] | select(.displayName=="${1}")' \
-   | /usr/bin/jq '{offline}' \
+   | /usr/bin/jq ".computer[] | select(.displayName==\"${1}\")" \
+   | /usr/bin/jq "{offline}" \
    | /bin/grep -q "false"
 then
   echo "OK: Jenkins agent is online"
