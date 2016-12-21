@@ -98,6 +98,7 @@ govuk_jenkins::config::admins:
   - richardboulton
   - rosafox
   - rubenarakelyan
+  - samcook
   - simonhughesdon
   - stevelaing
   - suzannehamilton
@@ -298,6 +299,7 @@ users::usernames:
   - robinwhittleton
   - rosafox
   - rubenarakelyan
+  - samcook
   - simonhughesdon
   - stevelaing
   - suzannehamilton
