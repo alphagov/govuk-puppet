@@ -1,6 +1,6 @@
 ---
 
-collectd::package:collectd_version: '5.5.1-1'
+collectd::package::collectd_version: '5.5.1-1'
 
 nodejs::version: '4.2.6'
 
