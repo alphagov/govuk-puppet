@@ -40,7 +40,7 @@ def load_nodes
           'ip' => network.fetch('ip_address'),
         }
 
-        config['box_dist'] = ['precise', 'trusty'].find { |dist| vapp['vapp_template_name'].include? dist }
+        config['box_dist'] = ['precise', 'trusty', 'xenial'].find { |dist| vapp['vapp_template_name'].include? dist }
 
         [name, config]
       }
