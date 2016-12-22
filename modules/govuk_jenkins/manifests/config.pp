@@ -1,4 +1,4 @@
-# Class: govuk_jenkins::config.pp
+# Class: govuk_jenkins::config
 #
 # This class templates the standard Jenkins configuration XML files.
 # If configuration is not due to change often templating this config
