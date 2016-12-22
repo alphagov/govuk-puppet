@@ -5,6 +5,11 @@ describe 'govuk_jenkins::package', :type => :class do
     :apt_mirror_hostname => 'apt.example.com',
     :version             => '1.554.2',
   }}
+
+  let(:facts) {{
+    :jenkins_plugins => 'fake_plugin 1.0'
+  }}
+
   it { is_expected.to contain_class('jenkins').with(
     'version'            => '1.554.2',
     'repo'               => 'false',
