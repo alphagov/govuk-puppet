@@ -26,6 +26,8 @@ class nginx::config (
 
   file { '/etc/nginx/ssl':
     ensure  => directory,
+    purge   => true,
+    recurse => true,
     require => File['/etc/nginx'],
   }
 
