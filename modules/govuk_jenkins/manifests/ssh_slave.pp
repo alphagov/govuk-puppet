@@ -54,7 +54,7 @@ define govuk_jenkins::ssh_slave (
     content => template('govuk_jenkins/ssh_slave_config.xml.erb'),
     owner   => $jenkins_user,
     group   => $jenkins_user,
-    notify  => Service['jenkins'],
+    notify  => Class['Govuk_jenkins::Safe_restart'],
   }
 
   include icinga::client::check_jenkins_agent
