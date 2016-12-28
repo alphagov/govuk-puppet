@@ -48,10 +48,6 @@ class nginx::config (
   nginx::conf {'map-sts':
     source => 'puppet:///modules/nginx/map-sts.conf',
   }
-  # replaced by nginx::conf above
-  file { '/etc/nginx/sts.conf':
-    ensure => absent,
-  }
 
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available', '/etc/nginx/conf.d']:
     ensure  => directory,
