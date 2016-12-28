@@ -27,11 +27,16 @@ node {
     }
 
     stage("Push release tag") {
+      echo 'Pushing tag'
       govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
     }
 
-    stage("Deploy on Integration") {
-      govuk.deployIntegration(REPOSITORY, env.BRANCH_NAME, 'release', 'deploy')
+    // Deploy on Integration (only master)
+    if (env.BRANCH_NAME == 'master'){
+      stage("Deploy on Integration") {
+        build job: 'integration-puppet-deploy',
+        parameters: [string(name: 'TAG', value: 'release_' + env.BUILD_NUMBER)]
+      }
     }
 
   } catch (e) {
