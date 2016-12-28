@@ -14,7 +14,8 @@ strict_variables = true
 <%- end -%>
 
 [master]
-reports = store
+reports = store,sentry
+report = true
 storeconfigs = true
 storeconfigs_backend = puppetdb
 hiera_config = /usr/share/puppet/production/current/hiera.yml
@@ -23,5 +24,5 @@ environmentpath = /usr/share/puppet/production/current/environments
 <%- end -%>
 
 [agent]
-report = false
+report = true
 configtimeout = 600
