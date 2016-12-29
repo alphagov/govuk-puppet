@@ -15,10 +15,14 @@
 #   Specify the port on which unicorn (and hence the puppetmaster) should
 #   listen.
 #
+# [*puppet_sentry_dsn*]
+#   This is the DSN to send puppet reports to.
+#
 class puppet::master::package(
   $hiera_eyaml_gpg_version = 'latest',
   $puppetdb_version = 'present',
   $unicorn_port = '9090',
+  $puppet_sentry_dsn = undef,
 ) {
   include ::puppet
 
@@ -37,6 +41,11 @@ class puppet::master::package(
 
   package { 'puppetdb-terminus':
     ensure  => $puppetdb_version,
+  }
+
+  package { 'sentry-raven':
+    ensure   => '2.2.0',
+    provider => 'system_gem',
   }
 
   file {['/var/log/puppetmaster','/var/run/puppetmaster']:

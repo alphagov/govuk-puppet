@@ -135,6 +135,13 @@ GIT
       puppetlabs-stdlib (>= 4.0.0)
 
 GIT
+  remote: git://github.com/alphagov/puppet-reporter-sentry.git
+  ref: master
+  sha: 3bc1bb147c1e8822eaa90caad637034258b5b258
+  specs:
+    alphagov-puppet-reporter-sentry (0.0.1)
+
+GIT
   remote: git://github.com/alphagov/puppet-tune_ext.git
   ref: master
   sha: a500c9a6263712388ea4b052e0cc93d9c11d7644
@@ -188,6 +195,7 @@ DEPENDENCIES
   alphagov-duplicity (>= 0)
   alphagov-harden (>= 0)
   alphagov-puppet-rcs (>= 0)
+  alphagov-puppet-reporter-sentry (>= 0)
   alphagov-tune_ext (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)
