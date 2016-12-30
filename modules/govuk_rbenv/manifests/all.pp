@@ -13,13 +13,11 @@ class govuk_rbenv::all (
 ) {
   include govuk_rbenv
 
-  if $::lsbdistcodename == 'trusty' {
-    apt::source { 'rbenv-ruby':
-      location     => "http://${apt_mirror_hostname}/rbenv-ruby",
-      release      => $::lsbdistcodename,
-      architecture => $::architecture,
-      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
-    }
+  apt::source { 'rbenv-ruby':
+    location     => "http://${apt_mirror_hostname}/rbenv-ruby",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
   rbenv::version { '2.1.2':
@@ -60,16 +58,10 @@ class govuk_rbenv::all (
   rbenv::version { '2.3.0':
     bundler_version => '1.11.2',
   }
-  if $::lsbdistcodename == 'trusty' {
-    rbenv::version { '2.3.1':
-      bundler_version => '1.11.2',
-    }
-    rbenv::alias { '2.3':
-      to_version => '2.3.1',
-    }
-  } else {
-    rbenv::alias { '2.3':
-      to_version => '2.3.0',
-    }
+  rbenv::version { '2.3.1':
+    bundler_version => '1.11.2',
+  }
+  rbenv::alias { '2.3':
+    to_version => '2.3.1',
   }
 }
