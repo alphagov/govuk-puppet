@@ -1,0 +1,52 @@
+---
+- scm:
+    name: Deploy_DNS
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-dns.git
+            branches:
+              - master
+            wipe-workspace: true
+            clean:
+                after: true
+
+- job:
+    name: Deploy_DNS
+    display-name: Deploy_DNS
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-dns/
+    scm:
+      - Deploy_DNS
+    builders:
+        - shell: |
+            export DEPLOY_ENV=<%= @environment %>
+            export DYN_ZONE_ID='<%= @dyn_zone_id %>'
+            export ROUTE53_ZONE_ID='<%= @route53_zone_id %>'
+            export DYN_CUSTOMER_NAME='<%= @dyn_customer_name %>'
+            ./jenkins.sh
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: PROVIDERS
+            choices:
+                - PICK ONE
+                - all
+                - dyn
+                - route53
+        - string:
+            name: AWS_ACCESS_KEY_ID
+            default: false
+        - string:
+            name: AWS_SECRET_ACCESS_KEY
+            default: false
+        - string:
+            name: DYN_USERNAME
+            default: false
+        - string:
+            name: DYN_PASSWORD
+            default: false
+
