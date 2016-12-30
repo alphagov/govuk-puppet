@@ -32,10 +32,10 @@ class govuk_rbenv::all (
     bundler_version => '1.8.3',
   }
   rbenv::version { '2.1.6':
-    bundler_version => '1.9.4',
+    ensure => absent, # FIXME: Tidy up once deployed
   }
   rbenv::version { '2.1.7':
-    bundler_version => '1.10.6',
+    ensure => absent, # FIXME: Tidy up once deployed
   }
   rbenv::version { '2.1.8':
     bundler_version => '1.10.6',
