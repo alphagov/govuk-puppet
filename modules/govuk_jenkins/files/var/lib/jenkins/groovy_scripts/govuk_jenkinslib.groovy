@@ -52,6 +52,27 @@ def initializeParameters(Map<String, String> defaultBuildParams) {
 }
 
 /**
+ * Define Jenkins build parameters relating to content schema tests. These are
+ * useful parameters to add to a build which can be run to test changes to the
+ * content schemas, because they allow the schema build to trigger a build of
+ * the project. The project build itself still needs to check for the values of
+ * these parameters and handle them sensibly.
+ *
+ * @return array of build parameter definitions
+ */
+def schemaTestParameters() {
+  return [
+    [$class: 'BooleanParameterDefinition',
+      name: 'IS_SCHEMA_TEST',
+      defaultValue: false,
+      description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
+    [$class: 'StringParameterDefinition',
+      name: 'SCHEMA_BRANCH',
+      defaultValue: DEFAULT_SCHEMA_BRANCH,
+      description: 'The branch of govuk-content-schemas to test against']]
+}
+
+/**
  * Sets the current git commit in the env. Used by the linter
  */
 def setEnvGitCommit() {
