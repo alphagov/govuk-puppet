@@ -49,6 +49,7 @@ govuk_jenkins::config::theme_environment_name: 'Integration'
 
 govuk_jenkins::config::admins:
   - aaronkeogh
+  - alecgibson
   - alexmuller
   - alextorrance
   - anafernandez
@@ -249,6 +250,7 @@ router::nginx::check_requests_critical: '@0.25'
 shell::shell_prompt_string: 'integration'
 
 users::usernames:
+  - alecgibson
   - alexmuller
   - alextorrance
   - anafernandez
