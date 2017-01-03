@@ -52,6 +52,58 @@ def initializeParameters(Map<String, String> defaultBuildParams) {
 }
 
 /**
+ * Define Jenkins build parameters relating to content schema tests. These are
+ * useful parameters to add to a build which can be run to test changes to the
+ * content schemas, because they allow the schema build to trigger a build of
+ * the project. The project build itself still needs to check for the values of
+ * these parameters and handle them sensibly.
+ *
+ * @return array of build parameter definitions
+ */
+def schemaTestParameters() {
+  return [
+    [$class: 'BooleanParameterDefinition',
+      name: 'IS_SCHEMA_TEST',
+      defaultValue: false,
+      description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
+    [$class: 'StringParameterDefinition',
+      name: 'SCHEMA_BRANCH',
+      defaultValue: DEFAULT_SCHEMA_BRANCH,
+      description: 'The branch of govuk-content-schemas to test against']]
+}
+
+/**
+ * Check whether the Jenkins build should be run for the current branch, either
+ * because it is a regular branch build or because it is being run to test the
+ * content schema.
+ *
+ * Jenkinsfiles should run this check if the project is used to test updates to
+ * the content schema. Other projects should be configured in Puppet to exclude
+ * builds of non-dev branches, so this check is unnecessary.
+ */
+def isAllowedBranchBuild(
+  String currentBranchName,
+  String deployedBranchName = "deployed-to-production") {
+
+  if (currentBranchName == deployedBranchName) {
+    if (env.IS_SCHEMA_TEST == "true") {
+      echo "Branch is '${deployedBranchName}' and this is a schema test " +
+        "build. Proceeding with build."
+      return true
+    } else {
+      echo "Branch is '${deployedBranchName}', but this is not marked as " +
+        "a schema test build. '${deployedBranchName}' should only be " +
+        "built as part of a schema test, so this build will stop here."
+      return false
+    }
+  }
+
+  echo "Branch is '${currentBranchName}', so this is a regular dev branch " +
+    "build. Proceeding with build."
+  return true
+}
+
+/**
  * Sets the current git commit in the env. Used by the linter
  */
 def setEnvGitCommit() {
