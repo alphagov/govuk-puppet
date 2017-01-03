@@ -13,11 +13,11 @@
 # Default: title
 #
 # [*repo_owner*]
-# Github repository owner
+# Github repository owner. If source is set to 'github-enterprise' repo_owner will always be set to 'gds'.
 # Default: alphagov
 #
 # [*source*]
-# Type of Branch Source plugin to use in the Jenkins job. It can be 'github' or 'git' (for Github Enterprise projects)
+# Type of Branch Source plugin to use in the Jenkins job. It can be 'github' or 'github-enterprise' (for Github Enterprise projects)
 # Default: github
 #
 # [*branches_to_exclude*]
@@ -33,7 +33,7 @@ define govuk_ci::job (
   $branches_to_exclude = ['release', 'deployed-to-*', 'integration', 'staging', 'production'],
 ) {
 
-  validate_re($source, '^(github|git)$', 'Invalid source value, it must be github or git')
+  validate_re($source, '^(github|github-enterprise)$', 'Invalid source value, it must be github or github-enterprise')
 
   $job_config_directory = '/var/lib/jenkins/jobs'
   $application_directory = "${job_config_directory}/${app}"

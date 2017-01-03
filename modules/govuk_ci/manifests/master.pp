@@ -40,8 +40,11 @@ class govuk_ci::master (
     environment_variables => $environment_variables,
   }
 
-  # Add govuk-puppet job
+  # Manually add jobs that we do not want to included in the 'Deploy App' job
   govuk_ci::job { 'govuk-puppet': }
+  govuk_ci::job { 'govuk-dns-config':
+    source => 'github-enterprise',
+  }
 
   # Add pipeline jobs from applications hash in Hieradata
   create_resources(govuk_ci::job, $pipeline_jobs)
