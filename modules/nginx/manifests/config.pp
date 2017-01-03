@@ -26,6 +26,8 @@ class nginx::config (
 
   file { '/etc/nginx/ssl':
     ensure  => directory,
+    purge   => true,
+    recurse => true,
     require => File['/etc/nginx'],
   }
 
@@ -45,10 +47,6 @@ class nginx::config (
 
   nginx::conf {'map-sts':
     source => 'puppet:///modules/nginx/map-sts.conf',
-  }
-  # replaced by nginx::conf above
-  file { '/etc/nginx/sts.conf':
-    ensure => absent,
   }
 
   file { ['/etc/nginx/sites-enabled', '/etc/nginx/sites-available', '/etc/nginx/conf.d']:
