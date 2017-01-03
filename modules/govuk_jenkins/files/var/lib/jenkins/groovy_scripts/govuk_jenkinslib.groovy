@@ -73,6 +73,37 @@ def schemaTestParameters() {
 }
 
 /**
+ * Check whether the Jenkins build should be run for the current branch, either
+ * because it is a regular branch build or because it is being run to test the
+ * content schema.
+ *
+ * Jenkinsfiles should run this check if the project is used to test updates to
+ * the content schema. Other projects should be configured in Puppet to exclude
+ * builds of non-dev branches, so this check is unnecessary.
+ */
+def isAllowedBranchBuild(
+  String currentBranchName,
+  String deployedBranchName = "deployed-to-production") {
+
+  if (currentBranchName == deployedBranchName) {
+    if (env.IS_SCHEMA_TEST == "true") {
+      echo "Branch is '${deployedBranchName}' and this is a schema test " +
+        "build. Proceeding with build."
+      return true
+    } else {
+      echo "Branch is '${deployedBranchName}', but this is not marked as " +
+        "a schema test build. '${deployedBranchName}' should only be " +
+        "built as part of a schema test, so this build will stop here."
+      return false
+    }
+  }
+
+  echo "Branch is '${currentBranchName}', so this is a regular dev branch " +
+    "build. Proceeding with build."
+  return true
+}
+
+/**
  * Sets the current git commit in the env. Used by the linter
  */
 def setEnvGitCommit() {
