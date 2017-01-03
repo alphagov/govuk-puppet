@@ -44,7 +44,7 @@ class govuk_ci::credentials (
     owner   => $jenkins_user,
     group   => $jenkins_user,
     mode    => '0600',
-    require => Class['::govuk_jenkins'],
+    require => Class['::govuk_jenkins::user'],
   }
 
   file {'jenkins_dotgem_dir':
