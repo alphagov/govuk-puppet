@@ -27,7 +27,7 @@ class govuk_jenkins::job::deploy_terraform_project (
   }
 
   package { 'terraform':
-    ensure  => '0.7.9',
+    ensure  => '0.8.1',
     require => Apt::Source['terraform'],
   }
 
