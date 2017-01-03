@@ -35,6 +35,23 @@ def setEnvar(String key, String value) {
 }
 
 /**
+ * Ensure that the build parameters are set to their default values if they are
+ * missing. This fixes an issue where the parameters are missing on the very
+ * first pipeline build of a new branch (JENKINS-40574). They are set correctly
+ * on every subsequent build, whether it is triggered automatically by a branch
+ * push or manually by a Jenkins user.
+ *
+ * @param defaultBuildParams map of build parameter names to default values
+ */
+def initializeParameters(Map<String, String> defaultBuildParams) {
+  for (param in defaultBuildParams) {
+    if (env."${param.key}" == null) {
+      setEnvar(param.key, param.value)
+    }
+  }
+}
+
+/**
  * Sets the current git commit in the env. Used by the linter
  */
 def setEnvGitCommit() {
