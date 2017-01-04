@@ -35,7 +35,6 @@ else
   $(dirname $0)/sync-mapit.sh
 fi
 
-$(dirname $0)/sync-elasticsearch.sh "$@" elasticsearch-1.backend.integration
 $(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.integration
 
 if ! $DRY_RUN; then

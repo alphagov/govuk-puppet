@@ -159,15 +159,13 @@ dump.  This should be a directory structure similar to:
 
     dir
     ├── elasticsearch
-    │   ├── api-elasticsearch-1.api.integration
-    │   │   ├── detailed.zip
-    │   │   ├── government.zip
-    │   │   ├── mainstream.zip
-    │   │   ├── metasearch.zip
-    │   │   ├── page-traffic.zip
-    │   │   └── service-manual.zip
-    │   └── elasticsearch-1.backend.integration
-    │       └── maslow.zip
+    │   └── api-elasticsearch-1.api.integration
+    │       ├── detailed.zip
+    │       ├── government.zip
+    │       ├── mainstream.zip
+    │       ├── metasearch.zip
+    │       ├── page-traffic.zip
+    │       └── service-manual.zip
     ├── mongo
     │   ├── api-mongo-1.api.integration
     │   │   └── 2015-06-02_05h33m.Tuesday.tgz
