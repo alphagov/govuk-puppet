@@ -40,21 +40,23 @@ class puppet::package (
     require => Package['puppet'],
   }
 
-  # FIXME: Remove when we no longer bootstrap Vagrant and vCloud with gems.
-  exec { 'remove_puppet_gem':
-    command => '/usr/bin/gem uninstall --all --no-executables puppet',
-    onlyif  => '/usr/bin/gem list -i \'^puppet$\'',
-    require => Package['puppet-common'],
-  }
-  exec { 'remove_hiera_gem':
-    command => '/usr/bin/gem uninstall --all --no-executables hiera',
-    onlyif  => '/usr/bin/gem list -i \'^hiera$\'',
-    require => Exec['remove_puppet_gem'],
-  }
-  exec { 'remove_facter_gem':
-    command => '/usr/bin/gem uninstall --all --no-executables facter',
-    onlyif  => '/usr/bin/gem list -i \'^facter$\'',
-    require => Exec['remove_puppet_gem'],
+  unless $::lsbdistcodename == 'xenial' {
+    # FIXME: Remove when we no longer bootstrap Vagrant and vCloud with gems.
+    exec { 'remove_puppet_gem':
+      command => '/usr/bin/gem uninstall --all --no-executables puppet',
+      onlyif  => '/usr/bin/gem list -i \'^puppet$\'',
+      require => Package['puppet-common'],
+    }
+    exec { 'remove_hiera_gem':
+      command => '/usr/bin/gem uninstall --all --no-executables hiera',
+      onlyif  => '/usr/bin/gem list -i \'^hiera$\'',
+      require => Exec['remove_puppet_gem'],
+    }
+    exec { 'remove_facter_gem':
+      command => '/usr/bin/gem uninstall --all --no-executables facter',
+      onlyif  => '/usr/bin/gem list -i \'^facter$\'',
+      require => Exec['remove_puppet_gem'],
+    }
   }
 
   file { '/usr/bin/puppet':
