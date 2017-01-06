@@ -149,8 +149,6 @@ govuk_jenkins::plugins:
       version: "1.0"
     scm-api:
       version: "1.3"
-    scm-sync-configuration:
-      version: "0.0.10"
     script-security:
       version: "1.24"
     sitemonitor:
@@ -165,8 +163,6 @@ govuk_jenkins::plugins:
       version: "1.11"
     structs:
       version: "1.5"
-    subversion:
-      version: "2.7.1"
     swarm:
       version: "2.2"
     text-finder:
