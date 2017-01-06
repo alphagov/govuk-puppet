@@ -17,9 +17,11 @@ deployable_applications: &deployable_applications
   business-support-api: {}
   businesssupportfinder:
     repository: 'business-support-finder'
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   calculators: {}
   calendars: {}
-  collections: {}
+  collections:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   collections-publisher:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   contacts:
@@ -38,7 +40,8 @@ deployable_applications: &deployable_applications
   email-alert-service: {}
   errbit: {}
   feedback: {}
-  finder-frontend: {}
+  finder-frontend:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   frontend: {}
   government-frontend: {}
   govuk-delivery: {}
@@ -64,13 +67,15 @@ deployable_applications: &deployable_applications
   panopticon: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
-  policy-publisher: {}
+  policy-publisher:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   publisher: {}
   publishing-api: {}
   release: {}
   router: {}
   router-api: {}
-  rummager: {}
+  rummager:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
@@ -83,7 +88,8 @@ deployable_applications: &deployable_applications
     repository: 'smart-answers'
   smokey: {}
   specialist-frontend: {}
-  specialist-publisher: {}
+  specialist-publisher:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   spotlight: {}
   stagecraft: {}
   static: {}
