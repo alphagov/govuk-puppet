@@ -3,6 +3,8 @@
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Single point of failure for Transition application'
 
+icinga::client::contact_groups: 'urgent-priority'
+
 lv:
   data:
     pv: '/dev/sdb1'

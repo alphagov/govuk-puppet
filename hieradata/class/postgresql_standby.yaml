@@ -5,6 +5,8 @@ govuk_safe_to_reboot::reason: 'Apps point directly to this machine for reading.'
 
 govuk_postgresql::server::standby::master_host: 'postgresql-primary-1.backend'
 
+icinga::client::contact_groups: 'urgent-priority'
+
 lv:
   postgresql:
     pv: '/dev/sdb1'

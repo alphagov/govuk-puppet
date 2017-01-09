@@ -4,6 +4,8 @@ postgresql::globals::version: '9.5'
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Single point of failure for Bouncer application'
 
+icinga::client::contact_groups: 'urgent-priority'
+
 lv:
   postgresql:
     pv: '/dev/sdb1'
