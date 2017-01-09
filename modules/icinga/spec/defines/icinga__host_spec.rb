@@ -12,6 +12,14 @@ describe 'icinga::host', :type => :define do
   it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').without_content(/parents/) }
 
   it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').with_content(/notification_period\s+24x7/) }
+  it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').with_content(/contact_groups\s+high-priority/) }
+
+  context 'Contact group set' do
+    let(:params) {{
+      'contact_groups' => 'urgent-priority'
+    }}
+    it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth.cfg').with_content(/contact_groups\s+urgent-priority/) }
+    end
 
   context 'Host parents required' do
     let(:params) {{

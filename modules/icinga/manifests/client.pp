@@ -2,7 +2,15 @@
 #
 # Sets up a host in Icinga that checks can be associated with.
 #
-class icinga::client {
+# === Parameters
+# 
+# [*contact_groups*]
+#   Sets the contact groups for host. Defaults to high priority.  
+# 
+class icinga::client (
+  $contact_groups = 'high-priority'
+)
+{
 
   anchor { 'icinga::client::begin':
     before => Class['icinga::client::package'],
@@ -43,10 +51,11 @@ class icinga::client {
   }
 
   @@icinga::host { $::fqdn:
-    hostalias    => $::fqdn,
-    address      => $::ipaddress_eth0,
-    display_name => $::fqdn_short,
-    parents      => $parents,
+    hostalias      => $::fqdn,
+    address        => $::ipaddress_eth0,
+    display_name   => $::fqdn_short,
+    parents        => $parents,
+    contact_groups => $contact_groups,
   }
 
   Icinga::Nrpe_config <| |>
