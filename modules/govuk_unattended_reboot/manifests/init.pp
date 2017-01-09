@@ -36,6 +36,15 @@ class govuk_unattended_reboot (
     $directory_ensure = absent
   }
 
+  if $::lsbdistcodename == 'xenial' {
+    apt::source { 'locksmithctl':
+      location     => "http://${apt_mirror_hostname}/locksmithctl",
+      release      => $::lsbdistcodename,
+      architecture => $::architecture,
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    }
+  }
+
   $config_directory = '/etc/unattended-reboot'
   $check_scripts_directory = "${config_directory}/check"
 
