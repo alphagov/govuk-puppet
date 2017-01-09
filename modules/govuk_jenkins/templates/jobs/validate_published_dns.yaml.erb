@@ -1,0 +1,24 @@
+---
+- job:
+    name: Validate_published_dns
+    display-name: Validate_published_dns
+    project-type: freestyle
+    description: "<p>Check that the published DNS records match those in the <a href='https://github.gds/govuk-dns-config'>govuk-dns-config repo</a> YAML file.</p>"
+    logrotate:
+        numToKeep: 30
+    builders:
+        - shell: |
+            set -e
+            rm -rf govuk-dns-config
+            git clone --branch master --depth 1 git@github.gds:gds/govuk-dns-config.git
+            cd govuk-dns-config
+            bundle install
+            bundle exec rake validate_dns
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    publishers:
+        - email:
+            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+    triggers:
+        - timed: '@midnight'
