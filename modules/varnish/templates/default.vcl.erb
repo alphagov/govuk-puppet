@@ -79,9 +79,38 @@ sub vcl_recv {
   # Strip cookies from inbound requests. Corresponding rule in vcl_fetch{}
   # For simplicity and security most applications should not use cookies.
   # With the exception of:
-  #   - Licensing
+  #   - Licensing application
+  #   - AB Testing cookies in any application
   if (req.url !~ "^/apply-for-a-licence") {
-    unset req.http.Cookie;
+    if (req.http.Cookie) {
+      # Strip out any cookies which are not whitelisted using in-place regex
+      # substitution, since it is the only process available in VCL.
+
+      # Prepend a semicolon to make the first cookie consistent with subsequent
+      # cookies, which makes it easier to search for whitelisted cookies
+      set req.http.Cookie = ";" + req.http.Cookie;
+
+      # Remove any whitespace, so that whitespace can be added as a maker in
+      # later steps
+      set req.http.Cookie = regsuball(req.http.Cookie, "\s", "");
+
+      # Prepend a space to any whitelisted cookies (which are matched case-
+      # insensitively) as a marker to use in later steps
+      # TODO: Read from a cookie whitelist in a config file, rather than hard-coding allowed cookies
+      set req.http.Cookie = regsuball(req.http.Cookie, "(?i);abtest-example=", "; abtest-example=");
+
+      # Delete all cookies which do not have the space marker, i.e. those which
+      # are not whitelisted
+      set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ]+", ";");
+
+      # Clean up the extraneous semicolons and whitespace which were added
+      # earlier or are left-over from deleting non-whitelisted cookies
+      set req.http.Cookie = regsuball(req.http.Cookie, "^;|\s|;$", "");
+
+      if (req.http.Cookie == "") {
+        unset req.http.Cookie;
+      }
+    }
   }
   <% end %>
 
@@ -115,9 +144,20 @@ sub vcl_fetch {
   unset beresp.http.X-Runtime;
 
   <% if @strip_cookies %>
-  # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
+  # Strip cookies (except A/B testing or licence cookies) from outbound
+  # requests. Corresponding rule in vcl_recv{}
   if (req.url !~ "^/apply-for-a-licence") {
-    unset beresp.http.Set-Cookie;
+    if (beresp.http.Set-Cookie) {
+      set beresp.http.Set-Cookie = ";" + beresp.http.Set-Cookie;
+      set beresp.http.Set-Cookie = regsuball(beresp.http.Set-Cookie, "\s", "");
+      set beresp.http.Set-Cookie = regsuball(beresp.http.Set-Cookie, "(?i);abtest-example=", "; abtest-example=");
+      set beresp.http.Set-Cookie = regsuball(beresp.http.Set-Cookie, ";[^ ]+", ";");
+      set beresp.http.Set-Cookie = regsuball(beresp.http.Set-Cookie, "^;|\s|;$", "");
+
+      if (beresp.http.Set-Cookie == "") {
+        unset beresp.http.Set-Cookie;
+      }
+    }
   }
   <% end %>
 
