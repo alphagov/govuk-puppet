@@ -96,7 +96,9 @@ class govuk::node::s_apt (
   aptly::repo { 'govuk-jenkins': }
   aptly::repo { 'govuk-rubygems': }
   aptly::repo { 'jenkins-agent': }
+  aptly::repo { 'locksmithctl': }
   aptly::repo { 'rbenv-ruby': }
+  aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
 
   include nginx
