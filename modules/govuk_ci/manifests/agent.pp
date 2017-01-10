@@ -50,4 +50,8 @@ class govuk_ci::agent(
   service { 'jenkins-agent':
     ensure => 'stopped',
   }
+
+  package { 'libgdal-dev': # needed for mapit
+    ensure => installed,
+  }
 }
