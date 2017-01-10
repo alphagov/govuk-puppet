@@ -15,8 +15,6 @@
            for host in $(govuk_node_list -c redis); do
               ssh deploy@${host} 'redis-cli flushall'
            done
-           # Re-register smartanswers to pick up drafts.
-           ssh deploy@$(govuk_node_list -c calculators_frontend --single-node) 'cd /var/apps/smartanswers ; govuk_setenv smartanswers bundle exec rake panopticon:register'
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
            # Publish any pre-production finders from Specialist Publisher.
