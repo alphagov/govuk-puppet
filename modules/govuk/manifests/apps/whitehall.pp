@@ -69,10 +69,6 @@
 #   Sets the OAuth Secret Key for using GDS-SSO
 #   Default: undef
 #
-# [*panopticon_bearer_token*]
-#   The bearer token to use when communicating with Panopticon.
-#   Default: undef
-#
 # [*port*]
 #   The port where the Rails app is running.
 #   Default: 3020
@@ -120,7 +116,6 @@ class govuk::apps::whitehall(
   $oauth_id = undef,
   $oauth_secret = undef,
   $port = '3020',
-  $panopticon_bearer_token = undef,
   $prevent_single_host = true,
   $procfile_worker_process_count = 1,
   $publishing_api_bearer_token = undef,
@@ -337,9 +332,6 @@ class govuk::apps::whitehall(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-PANOPTICON_BEARER_TOKEN":
-        varname => 'PANOPTICON_BEARER_TOKEN',
-        value   => $panopticon_bearer_token;
     }
 
     if $::govuk_node_class != 'development' {
