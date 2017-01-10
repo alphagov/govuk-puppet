@@ -13,6 +13,9 @@
 # [*destination*]
 #   Remote URL to backup to.
 #
+# [*bucket*]
+#   Name of the s3 bucket to push backups to
+#
 # [*weekday*]
 #   Day of the week on which to begin back-up
 #   Default: undef, upstream default of daily
@@ -38,17 +41,26 @@
 # [*pre_command*]
 #   Duplicity command to run before backup
 #
+# [*aws_access_key_id*]
+#   AWS access key
+#
+# [*aws_secret_access_key*]
+#   AWS secret access key
+#
 define backup::offsite::job(
   $sources,
-  $destination,
   $hour,
   $minute,
+  $destination = undef,
+  $bucket = undef,
   $weekday = undef,
   $ensure = 'present',
   $user = 'govuk-backup',
   $gpg_key_id = undef,
   $archive_directory = undef,
   $pre_command = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
 ){
   validate_re($ensure, '^(present|absent)$')
 
@@ -58,6 +70,9 @@ define backup::offsite::job(
   duplicity { $title:
     ensure                => $ensure,
     directory             => $sources,
+    bucket                => $bucket,
+    dest_id               => $aws_access_key_id,
+    dest_key              => $aws_secret_access_key,
     target                => $destination,
     weekday               => $weekday,
     hour                  => $hour,

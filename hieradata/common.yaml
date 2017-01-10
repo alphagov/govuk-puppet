@@ -158,6 +158,18 @@ backup::offsite::jobs:
     hour: 8,
     minute: 13,
     gpg_key_id: *offsite_gpg_key
+  'govuk-datastores-s3':
+    sources:
+      - '/data/backups/*/var/lib/automongodbbackup/latest'
+      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
+      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
+      - '/data/backups/archived'
+    bucket: 'govuk-offsite-backups'
+    aws_access_key_id: "%hiera('backup::offsite::job::aws_access_key_id')"
+    aws_secret_access_key: "%hiera('backup::offsite::job::aws_secret_access_key')"
+    hour: 8,
+    minute: 13,
+    gpg_key_id: *offsite_gpg_key
   'govuk-graphite':
     sources: '/data/backups/*/opt/graphite/storage/whisper'
     destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-graphite/"
