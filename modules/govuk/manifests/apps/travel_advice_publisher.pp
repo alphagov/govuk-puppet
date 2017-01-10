@@ -32,10 +32,6 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
-# [*panopticon_bearer_token*]
-#   The bearer token to use when communicating with Panopticon.
-#   Default: undef
-#
 # [*port*]
 #   The port that publishing API is served on.
 #   Default: 3035
@@ -67,7 +63,6 @@ class govuk::apps::travel_advice_publisher(
   $mongodb_nodes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $panopticon_bearer_token = undef,
   $port = '3035',
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
@@ -116,9 +111,6 @@ class govuk::apps::travel_advice_publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-    "${title}-PANOPTICON_BEARER_TOKEN":
-      varname => 'PANOPTICON_BEARER_TOKEN',
-      value   => $panopticon_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
