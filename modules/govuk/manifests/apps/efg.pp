@@ -92,14 +92,6 @@ class govuk::apps::efg (
     ssl_only     => true,
   }
 
-  @@icinga::check::graphite { "check_efg_login_failures_${::hostname}":
-    target    => "sumSeries(stats.govuk.app.${app_name}.*.logins.failure)",
-    warning   => 10,
-    critical  => 15,
-    desc      => 'EFG login failures',
-    host_name => $::fqdn,
-  }
-
   ramdisk { 'efg_sqlite':
     ensure => present,
     path   => '/var/efg-data',
