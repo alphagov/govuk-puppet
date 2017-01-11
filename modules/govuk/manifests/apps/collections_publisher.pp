@@ -5,10 +5,6 @@
 #
 # === Parameters
 #
-# [*panopticon_bearer_token*]
-#   The bearer token to use when communicating with Panopticon.
-#   Default: example
-#
 # [*port*]
 #   The port that publishing API is served on.
 #   Default: 3078
@@ -42,7 +38,6 @@
 #   Default: undef
 #
 class govuk::apps::collections_publisher(
-  $panopticon_bearer_token = 'example',
   $port = '3078',
   $secret_key_base = undef,
   $errbit_api_key = undef,
@@ -90,9 +85,6 @@ class govuk::apps::collections_publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-    "${title}-PANOPTICON_BEARER_TOKEN":
-      varname => 'PANOPTICON_BEARER_TOKEN',
-      value   => $panopticon_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
