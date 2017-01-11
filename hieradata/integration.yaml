@@ -55,6 +55,7 @@ govuk_jenkins::config::admins:
   - alextorrance
   - anafernandez
   - andrewgarner
+  - andrewhilton
   - anikahenke
   - bevanloon
   - bobwalker
@@ -257,6 +258,7 @@ users::usernames:
   - alextorrance
   - anafernandez
   - andrewgarner
+  - andrewhilton
   - anikahenke
   - bevanloon
   - bob
