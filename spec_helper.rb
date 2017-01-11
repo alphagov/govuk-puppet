@@ -42,6 +42,7 @@ RSpec.configure do |c|
     :fqdn_metrics            => 'fakehost-1_management',
     :puppetversion           => '3.8.6',
     :kernel                  => 'Linux',
-    :ipaddress_eth0         => '127.0.0.1',
+    :ipaddress_eth0          => '127.0.0.1',
+    :govuk_node_class        => 'fakehost',
   }
 end
