@@ -8,6 +8,10 @@
 #   Errbit API key for sending errors.
 #   Default: undef
 #
+# [*instance_name*]
+#   Environment specific name used when sending emails.
+#   Default: undef
+#
 # [*mongodb_name*]
 #   The mongo database to be used.
 #
@@ -46,6 +50,7 @@
 #
 class govuk::apps::short_url_manager(
   $errbit_api_key = undef,
+  $instance_name = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
   $oauth_id = undef,
@@ -100,6 +105,13 @@ class govuk::apps::short_url_manager(
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
+    }
+  }
+
+  if $instance_name != undef {
+    govuk::app::envvar { "${title}-INSTANCE_NAME":
+      varname => 'INSTANCE_NAME',
+      value   => $instance_name,
     }
   }
 }
