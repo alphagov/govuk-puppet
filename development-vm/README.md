@@ -211,6 +211,12 @@ GOV.UK have an apt repository at http://apt.publishing.service.gov.uk/ This is n
 2. [Connect to the Aviation House VPN](https://github.com/jabley/homedir/commit/2682f094024524cb7e31ca447694bdf81b1239a2)
 3. `vagrant provision` should now be able to download packages when running apt
 
+You may also need to run `sudo apt-get update` if you get errors that look something like:
+
+```
+E: Unable to locate package rbenv-ruby-2.4.0
+E: Couldn't find any package by regex 'rbenv-ruby-2.4.0'
+```
 
 ### Errors running `govuk_puppet` on VM
 
