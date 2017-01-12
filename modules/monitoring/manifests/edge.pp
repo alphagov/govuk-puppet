@@ -20,6 +20,7 @@ class monitoring::edge (
       critical  => 0.1,
       host_name => $::fqdn,
       from      => '30minutes',
+      notes_url => monitoring_docs_url('fastly-error-rate', true),
     }
   }
 
