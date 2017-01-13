@@ -83,7 +83,7 @@ class puppet::master(
   }
 
   cron::crondotdee { 'puppet_report_purge':
-    command => "/usr/bin/find /var/lib/puppet/reports/ -type f -mtime +1 -delete",
+    command => '/usr/bin/find /var/lib/puppet/reports/ -type f -mtime +1 -delete',
     hour    => 6,
     minute  => 45,
   }
