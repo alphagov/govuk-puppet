@@ -78,4 +78,5 @@ for dir in `ls vendor/modules`; do
 done
 
 info "running puppet"
+info "***If you see: E: Unable to locate package... errors, run sudo apt-get update***"
 exec /var/govuk/govuk-puppet/tools/puppet-apply "$@"
