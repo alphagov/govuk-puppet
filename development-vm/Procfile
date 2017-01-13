@@ -149,3 +149,5 @@ efg_training_rebuild: govuk_setenv efg_training ./run_in.sh ../EFG_training bund
 # # sidekiq-monitoring for travel-advice-publisher uses 3203
 # grafana: reserved 3204
 # manuals-publisher: reserved 3205
+
+content-performance-manager: govuk_setenv content-performance-manager ./run_in.sh ../content-performance-manager bundle exec rails s -p 3206
