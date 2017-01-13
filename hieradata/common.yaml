@@ -27,6 +27,7 @@ deployable_applications: &deployable_applications
   contacts:
     repository: 'contacts-admin'
   contacts-frontend: {}
+  content-performance-manager: {}
   content-store: {}
   content-tagger: {}
   designprinciples:
@@ -965,6 +966,7 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'contentapi'
+  - 'content-performance-manager'
   - 'content-tagger'
   - 'docs'
   - 'draft-whitehall-frontend'
