@@ -48,8 +48,9 @@ server {
 
   <%- if @trade_tariff_host -%>
   location /tariff/ {
+    set $trade_tariff_backend "https://<%= @trade_tariff_host %>";
     proxy_set_header Host <%= @trade_tariff_host %>;
-    proxy_pass https://<%= @trade_tariff_host %>;
+    proxy_pass $trade_tariff_backend;
   }
   <%- end -%>
 
