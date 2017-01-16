@@ -28,7 +28,8 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   contacts-frontend: {}
   content-store: {}
-  content-tagger: {}
+  content-tagger:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   designprinciples:
     repository: 'design-principles'
   efg-training:
@@ -97,7 +98,8 @@ deployable_applications: &deployable_applications
   support-api: {}
   transition: {}
   travel-advice-publisher: {}
-  whitehall: {}
+  whitehall:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
 
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
