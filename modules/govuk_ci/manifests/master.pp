@@ -70,4 +70,10 @@ class govuk_ci::master (
     'credentials_id' => $credentials_id,
   })
 
+  cron::crondotdee { 'Clean up pipeline workspace':
+    command => 'find /var/lib/jenkins/workspace/*@script -maxdepth 0 -type d -mtime +1 -exec rm -rf {} \;',
+    hour    => 7,
+    minute  => 45,
+  }
+
 }
