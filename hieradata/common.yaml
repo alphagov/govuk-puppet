@@ -129,6 +129,7 @@ _: &offsite_gpg_key '13B84C37AB52D76B3F53CF0E7C34BD7A05119BA4'
 _: &offsite_host 'backup0.backup.provider1.production.govuk.service.gov.uk'
 _: &offsite_ssh_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDR88DkaA+y/fQUYcIN15t/1IpiFf4rCZdoIlXfCiVLE2TaDQY7viH/1y0DV2fQiSUg+17Hz/RK6wKw09V0nPw/edGUYR7kUZ6m1bbNkny/d5YgZLEyrW1to99f2LvsLYRsQJWXSlpi2uYMaScmbDbVZrUoIAovJv2jpBjhXKIVd/NhQ19LTTS2rqSukL+TImQ1+nO26UMLeRoLLDzdboPebR5pVQE0khAZZOnEfD7V5jObqu8VlO7U/xHaC5M4tz9CNmk1nhMgZtHQd5hLANCx1hROWdmJeH7egzPD7d9fBwL2gi2SQXf1LgEub+ZEIVYWSJ+14PqVzuxCTS0aOGmp'
 
+backup::assets::backup_private_gpg_key_fingerprint: *offsite_gpg_key
 backup::assets::dest_host: *offsite_host
 backup::assets::dest_host_key: *offsite_ssh_key
 backup::assets::jobs:
