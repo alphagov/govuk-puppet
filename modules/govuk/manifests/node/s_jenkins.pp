@@ -26,6 +26,11 @@ class govuk::node::s_jenkins (
   include govuk_ghe_vpn
   include govuk_rbenv::all
 
+  # To run smokey tests
+  package { 'libqtwebkit-dev':
+    ensure => present,
+  }
+
   class { 'govuk_jenkins':
     github_client_id      => $github_client_id,
     github_client_secret  => $github_client_secret,
