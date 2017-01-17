@@ -8,7 +8,7 @@
 #   The port that it is served on.
 #   Default: 3206
 #
-# [*cpm_govuk_view_id*]
+# [*google_analytics_govuk_view_id*]
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
 #
@@ -38,6 +38,13 @@
 class govuk::apps::content_performance_manager(
   $port = '3206',
   $publishing_api_bearer_token = undef,
+  $google_analytics_govuk_view_id = undef,
+  $google_private_key = undef,
+  $google_client_email = undef,
+  $db_hostname = undef,
+  $db_username = 'content_performance_manager',
+  $db_password = undef,
+  $db_name = 'content_performance_manager_production',
 ) {
   $app_name = 'content-performance-manager'
 
