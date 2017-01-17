@@ -19,6 +19,11 @@ error () {
   echo "${ANSI_RED}${@}${ANSI_RESET}" >&2
 }
 
+warn () {
+  start "$REPO"
+  echo "${ANSI_YELLOW}${@}${ANSI_RESET}" >&2
+}
+
 start () {
   local repo="$1"
   repo=$(truncate 25 "$repo")
@@ -49,11 +54,10 @@ for REPO in $(find_pip_repos)
 do
   cd "../$REPO"
 
-  virtualenv -q "$DIRECTORY"
-
   if [ -f lock ]; then
     warn "skipped because 'lock' file exists"
   else
+    virtualenv -q "$DIRECTORY"
     echo "Updating $REPO..."
     outputfile=$(mktemp -t update-pip.XXXXXX)
     trap "rm -f '$outputfile'" EXIT
