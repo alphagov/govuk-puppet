@@ -83,11 +83,6 @@ class govuk_jenkins (
     provider => pip,
   }
 
-  package { 'brakeman':
-    ensure   => 'installed',
-    provider => system_gem,
-  }
-
   package { 's3cmd':
     ensure   => 'present',
     provider => 'pip',
