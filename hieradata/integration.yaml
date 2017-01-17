@@ -28,6 +28,7 @@ govuk::apps::travel_advice_publisher::show_historical_edition_link: true
 govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
 govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::whitehall::highlight_words_to_avoid: true
+govuk::apps::collections::enable_new_navigation: "yes"
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'integration'

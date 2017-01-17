@@ -17,11 +17,15 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*enable_new_navigation*]
+#   Should we show the new navigation pages?
+#
 class govuk::apps::collections(
   $vhost = 'collections',
   $port = '3070',
   $errbit_api_key = undef,
   $secret_key_base = undef,
+  $enable_new_navigation = undef
 ) {
   govuk::app { 'collections':
     app_type              => 'rack',
@@ -44,5 +48,8 @@ class govuk::apps::collections(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
+    "${title}-ENABLE_NEW_NAVIGATION":
+        varname => 'ENABLE_NEW_NAVIGATION',
+        value   => $enable_new_navigation;
   }
 }
