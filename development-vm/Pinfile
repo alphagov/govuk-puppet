@@ -17,6 +17,7 @@ process :'collections-publisher' => [:'publishing-api', :rummager, :'collections
 process :'collections-publisher-worker'
 process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, :asset_manager]
+process :'content-performance-manager'
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
 process :'dummy-content-store'
