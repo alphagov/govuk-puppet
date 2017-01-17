@@ -2,3 +2,6 @@
 
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Single point of failure for applications, no clustering'
+
+icinga::client::contact_groups: 'urgent-priority'
+

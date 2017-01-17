@@ -5,6 +5,8 @@ govuk::node::s_whitehall_mysql_master::whitehall_fe_password: "%{hiera('mysql_wh
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Single master database, applications not resilient'
 
+icinga::client::contact_groups: 'urgent-priority'
+
 lv:
   data:
     pv: '/dev/sdb1'

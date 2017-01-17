@@ -9,6 +9,8 @@ govuk_postgresql::server::primary::slave_addresses:
   dr:
     address: "%{hiera('postgresql_slave_addresses_dr')}"
 
+icinga::client::contact_groups: 'urgent-priority'
+
 lv:
   postgresql:
     pv:

@@ -31,6 +31,9 @@
 #    The icinga::timeperiod for when Icinga will send out notifications
 #    if this host is unavailable.
 #
+#  [*contact_groups*]
+#    Set the contact groups for the host.
+
 define icinga::host (
   $hostalias  = $::fqdn,
   $address    = $::ipaddress_eth0,
@@ -39,6 +42,7 @@ define icinga::host (
   $display_name = $::fqdn_short,
   $parents = undef,
   $notification_period = '24x7',
+  $contact_groups = 'high-priority',
 ) {
 
   file {"/etc/icinga/conf.d/icinga_host_${title}":

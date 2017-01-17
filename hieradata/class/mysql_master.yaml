@@ -9,6 +9,8 @@ govuk_mysql::server::query_cache_size: '256M'
 govuk_mysql::server::tmp_table_size: '512M'
 govuk_mysql::server::max_heap_table_size: '512M'
 
+icinga::client::contact_groups: 'urgent-priority'
+
 lv:
   data:
     pv: '/dev/sdb1'

@@ -6,6 +6,7 @@ define host {
         host_name            <%= @hostalias %>
         hostgroups           all
         notification_period  <%= @notification_period %>
+        contact_groups       <%= @contact_groups %>
         <%- if @parents -%>
         parents              <%= @parents %>
         <%- end -%>
