@@ -11,7 +11,7 @@
 #
 class nginx (
   $server_names_hash_max_size = 512,
-  $variables_hash_max_size = 512,
+  $variables_hash_max_size = 1024,
   $denied_ip_addresses = []) {
 
   anchor { 'nginx::begin':

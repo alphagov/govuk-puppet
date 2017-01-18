@@ -15,7 +15,7 @@
 #
 class nginx::config (
   $server_names_hash_max_size,
-  $variables_hash_max_size = 512,
+  $variables_hash_max_size = 1024,
   $denied_ip_addresses) {
 
   file { '/etc/nginx':

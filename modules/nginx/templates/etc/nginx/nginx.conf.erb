@@ -19,7 +19,7 @@ http {
     server_names_hash_max_size <%= @server_names_hash_max_size -%>;
     server_names_hash_bucket_size 128;
     variables_hash_max_size <%= @variables_hash_max_size -%>;
-    variables_hash_bucket_size 64;
+    variables_hash_bucket_size 128;
     proxy_headers_hash_bucket_size 128;
     map_hash_bucket_size 128;
 
