@@ -37,8 +37,10 @@ deployable_applications: &deployable_applications
   efg-training-rebuild:
     repository: 'EFG'
   email-alert-api: {}
-  email-alert-frontend: {}
-  email-alert-service: {}
+  email-alert-frontend:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  email-alert-service:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   errbit: {}
   feedback: {}
   finder-frontend:
