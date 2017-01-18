@@ -20,8 +20,8 @@
 #  A simple description of the check that is alerting.
 #
 class govuk_postgresql::backup (
-  $auto_postgresql_backup_hour = 7,
-  $auto_postgresql_backup_minute = 30,
+  $auto_postgresql_backup_hour = 8,
+  $auto_postgresql_backup_minute = 0,
 ) {
 
     $threshold_secs = 28 * 3600

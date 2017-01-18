@@ -1,3 +1,0 @@
----
-govuk_postgresql::backup::auto_postgresql_backup_hour: 8
-govuk_postgresql::backup::auto_postgresql_backup_minute: 15
