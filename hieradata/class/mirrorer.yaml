@@ -19,3 +19,6 @@ mount:
     disk: '/dev/mapper/crawler-worker'
     govuk_lvm: 'worker'
     mountoptions: 'defaults'
+
+rabbitmq::config_variables:
+  'vm_memory_high_watermark': '0.5'
