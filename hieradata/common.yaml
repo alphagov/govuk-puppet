@@ -85,9 +85,7 @@ deployable_applications: &deployable_applications
   service-manual-publisher: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
-  signon:
-    repository: 'signonotron2'
-  signonotron2: {}
+  signon: {}
   smartanswers:
     repository: 'smart-answers'
   smokey: {}
