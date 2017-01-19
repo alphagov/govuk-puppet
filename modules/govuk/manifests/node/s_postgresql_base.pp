@@ -3,6 +3,7 @@
 # Base node for s_postgresql_{master,slave}
 #
 class govuk::node::s_postgresql_base inherits govuk::node::s_base {
+  include govuk::apps::content_performance_manager::db
   include govuk::apps::content_tagger::db
   include govuk::apps::email_alert_api::db
   include govuk::apps::local_links_manager::db
