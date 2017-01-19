@@ -60,6 +60,7 @@ govuk::node::s_base::apps:
   - canary_backend
   - collections_publisher
   - contacts
+  - content_performance_manager
   - content_tagger
   - contentapi
   - email_alert_api
