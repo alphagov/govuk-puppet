@@ -19,11 +19,16 @@
 # [*website_root*]
 #   The location that the website is served from, including protocol.
 #
+# [*appsignal_api_key*]
+#   Appsignal API key (https://appsignal.com/gov-dot-uk). For evaluation on
+#   integration.
+#
 class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
   $govuk_env = 'production',
   $website_root,
+  $appsignal_api_key = undef,
 ){
 
   limits::limits { 'deploy_nofile':
@@ -85,6 +90,7 @@ class govuk::deploy::config(
     'RAILS_ENV': value => $govuk_env;
 
     'ERRBIT_ENVIRONMENT_NAME': value   => $errbit_environment_name;
+    'APPSIGNAL_API_KEY': value         => $appsignal_api_key;
     'GOVUK_APP_DOMAIN': value          => $app_domain;
     'GOVUK_ASSET_HOST': value          => $asset_root;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
