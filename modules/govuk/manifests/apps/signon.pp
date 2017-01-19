@@ -84,7 +84,6 @@ class govuk::apps::signon(
     vhost_ssl_only         => true,
     health_check_path      => '/users/sign_in',
     legacy_logging         => false,
-    vhost_aliases          => ['signonotron'],
     asset_pipeline         => true,
     deny_framing           => true,
     nagios_memory_warning  => $nagios_memory_warning,
