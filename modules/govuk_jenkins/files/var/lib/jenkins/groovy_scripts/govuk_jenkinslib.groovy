@@ -19,7 +19,7 @@ def cleanupGit() {
  */
 def mergeMasterBranch() {
   echo 'Attempting merge of master branch'
-  sh('git merge --no-commit origin/master || git merge --abort')
+  sh('git merge --no-commit --no-ff origin/master || git merge --abort')
 }
 
 /**
