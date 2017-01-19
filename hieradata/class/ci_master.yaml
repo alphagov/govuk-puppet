@@ -147,7 +147,7 @@ govuk_jenkins::plugins:
       version: "1.6.4"
     run-condition:
       version: "1.0"
-    safe-restart:
+    saferestart:
       version: "0.3"
     scm-api:
       version: "1.3"
