@@ -37,6 +37,10 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*jwt_auth_secret*]
+#   The secret used to encode JWT authentication tokens. This value needs to be
+#   shared with authenticating-proxy which decodes the tokens.
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
@@ -47,6 +51,7 @@ class govuk::apps::publisher(
     $mongodb_nodes = undef,
     $redis_host = undef,
     $redis_port = undef,
+    $jwt_auth_secret = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -110,6 +115,10 @@ class govuk::apps::publisher(
       app     => 'publisher',
       varname => 'NEED_API_BEARER_TOKEN',
       value   => $need_api_bearer_token;
+    "${title}-JWT_AUTH_SECRET":
+      app     => 'publisher',
+      varname => 'JWT_AUTH_SECRET',
+      value   => $jwt_auth_secret;
     "${title}-SECRET_KEY_BASE":
       app     => 'publisher',
       varname => 'SECRET_KEY_BASE',

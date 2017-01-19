@@ -16,19 +16,29 @@
 #   The port that it is served on.
 #   Default: 3107
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#   Default: ''
+#
 # [*govuk_upstream_uri*]
 #   The URI of the upstream service that we proxy to.
 #   Default: undef
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: ''
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
 #
 # [*secret_key_base*]
 #   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
 #   rails 4.x signed cookie mechanism. If unset the app will be unable to
 #   start.
 #   Default: undef
+#
+# [*jwt_auth_secret*]
+#   The secret used to decode JWT authentication tokens. This value needs to be
+#   shared with the publishing apps that generate the encoded tokens.
 #
 class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
@@ -39,6 +49,7 @@ class govuk::apps::authenticating_proxy(
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
+  $jwt_auth_secret = undef,
 ) {
   $app_name = 'authenticating-proxy'
 
@@ -93,6 +104,14 @@ class govuk::apps::authenticating_proxy(
       app     => $app_name,
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
+    }
+  }
+
+  if $jwt_auth_secret != undef {
+    govuk::app::envvar { "${title}-JWT_AUTH_SECRET":
+      app     => $app_name,
+      varname => 'JWT_AUTH_SECRET',
+      value   => $jwt_auth_secret,
     }
   }
 

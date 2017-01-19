@@ -320,6 +320,7 @@ hosts::development::services:
   - support
   - whitehall
 
+jwt_auth_secret: '010b3c3d6419a68932c6c8e85d45da40ec161592e0e34c5357a9f510a3ccc52bfec5aebba03041b36e9bbf4299445b4f096ec7be6aef68393d3fd8321eb2628a'
 memcached::max_memory: 64
 memcached::listen_ip: '127.0.0.1'
 

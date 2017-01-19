@@ -259,6 +259,7 @@ govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
+govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::backdrop_read::enabled: true
 govuk::apps::backdrop_write::enabled: true
 
@@ -332,6 +333,7 @@ govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -349,6 +351,7 @@ govuk::apps::whitehall::db_hostname: whitehall-slave.mysql
 govuk::apps::whitehall::db_name: whitehall_production
 govuk::apps::whitehall::db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall')}"
 govuk::apps::whitehall::db_username: whitehall_fe
+govuk::apps::whitehall::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::whitehall::procfile_worker_process_count: 2
