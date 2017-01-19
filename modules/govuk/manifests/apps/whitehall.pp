@@ -94,6 +94,10 @@
 #   The key for Rails to use when signing/encrypting sessions.
 #   Default: undef
 #
+# [*jwt_auth_secret*]
+#   The secret used to encode JWT authentication tokens. This value needs to be
+#   shared with authenticating-proxy which decodes the tokens.
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -124,7 +128,8 @@ class govuk::apps::whitehall(
   $secret_key_base = undef,
   $vhost = 'whitehall',
   $vhost_protected,
-  $enable_tagging_to_new_taxonomy = undef
+  $enable_tagging_to_new_taxonomy = undef,
+  $jwt_auth_secret = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -381,6 +386,13 @@ class govuk::apps::whitehall(
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
+    }
+  }
+
+  if $jwt_auth_secret != undef {
+    govuk::app::envvar { "${title}-JWT_AUTH_SECRET":
+      varname => 'JWT_AUTH_SECRET',
+      value   => $jwt_auth_secret,
     }
   }
 }
