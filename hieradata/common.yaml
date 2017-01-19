@@ -72,7 +72,8 @@ deployable_applications: &deployable_applications
   performanceplatform-big-screen-view: {}
   policy-publisher:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  publisher: {}
+  publisher:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   publishing-api: {}
   release: {}
   router: {}
