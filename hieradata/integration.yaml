@@ -197,6 +197,7 @@ govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_lb::enable_feed_console: true
 govuk::node::s_logging::compress_srv_logs_hour: '9'
+govuk::node::s_mirrorer::daily_queue_purge: true
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-integration'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
