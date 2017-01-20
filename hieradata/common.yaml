@@ -278,6 +278,7 @@ govuk::apps::contentapi::nagios_memory_warning: 3800
 govuk::apps::contentapi::nagios_memory_critical: 4000
 
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
