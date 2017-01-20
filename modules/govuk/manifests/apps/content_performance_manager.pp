@@ -8,6 +8,9 @@
 #   The port that it is served on.
 #   Default: 3206
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 # [*google_analytics_govuk_view_id*]
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
@@ -37,6 +40,7 @@
 #
 class govuk::apps::content_performance_manager(
   $port = '3206',
+  $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
   $google_analytics_govuk_view_id = undef,
   $google_private_key = undef,
@@ -70,6 +74,13 @@ class govuk::apps::content_performance_manager(
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
+  }
+
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
+    }
   }
 
   if $::govuk_node_class != 'development' {
