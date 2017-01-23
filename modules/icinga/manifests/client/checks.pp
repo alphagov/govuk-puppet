@@ -71,7 +71,7 @@ class icinga::client::checks (
 
   @@icinga::check { "check_users_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_users',
-    service_description => 'high user logins',
+    service_description => 'high number of ssh sessions',
     host_name           => $::fqdn,
   }
 
