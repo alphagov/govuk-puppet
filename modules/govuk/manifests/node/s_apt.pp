@@ -91,6 +91,7 @@ class govuk::node::s_apt (
       key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
   }
 
+  aptly::repo { 'elastic-beats': }
   aptly::repo { 'gof3r': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
