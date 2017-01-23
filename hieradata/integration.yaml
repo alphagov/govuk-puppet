@@ -106,6 +106,7 @@ govuk_jenkins::config::admins:
   - rubenarakelyan
   - samcook
   - simonhughesdon
+  - stephenharker
   - stevelaing
   - suzannehamilton
   - tatianasoukiassian
@@ -312,6 +313,7 @@ users::usernames:
   - rubenarakelyan
   - samcook
   - simonhughesdon
+  - stephenharker
   - stevelaing
   - suzannehamilton
   - tatianasoukiassian
