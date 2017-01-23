@@ -53,11 +53,10 @@ class govuk::apps::content_performance_manager(
   $app_name = 'content-performance-manager'
 
   govuk::app { $app_name:
-    app_type              => 'rack',
-    port                  => $port,
-    health_check_path     => '/',
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'content-performance-manager',
+    app_type          => 'rack',
+    port              => $port,
+    health_check_path => '/',
+    asset_pipeline    => true,
   }
 
   Govuk::App::Envvar {
