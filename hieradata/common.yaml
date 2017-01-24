@@ -540,6 +540,8 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 
