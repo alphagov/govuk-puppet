@@ -43,6 +43,75 @@ The `secret_key_base` is used to encrypt user sessions. If it's not defined the 
 Additional arguments can be specified to configure basic auth, monitoring checks and logging.
 These are defined and explained in `modules/govuk/manifests/app.pp`.
 
+## Database setup
+
+Create a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
+
+```
+# Be sure to include documentation of the class at the top of the file, as
+# per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc.
+#
+# You may wish to copy an existing app, eg. calculators:
+# https://github.com/alphagov/govuk-puppet/blob/3e926f0d/modules/govuk/manifests/apps/publishing_api/db.pp
+#
+class govuk::apps::my_app::db (
+  $password,
+  $backend_ip_range = undef,
+) {
+  govuk_postgresql::db { 'my_app_production':
+    user                    => 'my_app',
+    password                => $password,
+    allow_auth_from_backend => true,
+    backend_ip_range        => $backend_ip_range,
+  }
+}
+```
+
+Then add the database config to the main application manifest.
+
+```
+$db_hostname = undef,
+$db_username = 'my_app',
+$db_password = undef,
+$db_name = 'my_app_production',
+.
+.
+.
+.
+if $::govuk_node_class != 'development' {
+ govuk::app::envvar::database_url { $app_name:
+   type     => 'postgresql',
+   username => $db_username,
+   password => $db_password,
+   host     => $db_hostname,
+   database => $db_name,
+ }
+}
+```
+
+Add a value for `db_hostname` to the `hieradata/common.yaml` file.
+
+```
+# hieradata/common.yaml
+govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
+```
+
+Add the application to the database servers. For example, if your application has a
+postgresql database, add an entry to the `govuk::node::s_postgresql_base` class in `modules/govuk/manifests/node/s_postgresql_base.pp`
+
+```
+# modules/govuk/manifests/node/s_postgresql_base.pp
+class govuk::node::s_postgresql_base inherits govuk::node::s_base {
+  include govuk::apps::my_app::db
+  .
+  .
+  .
+}
+```
+
+Add a value for `db_password` in each of the credential files in the `deployment` repo.
+This entry should be encrypted.
+
 ## Feature flags
 
 If the app is not ready to be deployed to production, you should use a feature
