@@ -37,6 +37,8 @@ govuk_jenkins::plugins:
       version: "0.4.2"
     antisamy-markup-formatter:
       version: "1.5"
+    authentication-tokens:
+      version: "1.3"
     blueocean:
       version: "1.0.0-b18"
     blueocean-autofavorite:
@@ -49,6 +51,8 @@ govuk_jenkins::plugins:
       version: "1.0.0-b18"
     blueocean-display-url:
       version: "1.3"
+    blueocean-events:
+      version: "1.0.0-b18"
     blueocean-git-pipeline:
       version: "1.0.0-b18"
     blueocean-github-pipeline:
@@ -91,10 +95,16 @@ govuk_jenkins::plugins:
       version: "1.10"
     display-url-api:
       version: "0.5"
+    docker-commons:
+      version: "1.6"
+    docker-workflow:
+      version: "1.9"
     durable-task:
       version: "1.12"
     envinject:
       version: "1.93.1"
+    favorite:
+      version: "2.0.4"
     findbugs:
       version: "4.65"
     git-client:
@@ -119,6 +129,8 @@ govuk_jenkins::plugins:
       version: "1.1.1"
     icon-shim:
       version: "2.0.3"
+    jackson2-api:
+      version: "2.7.3"
     javadoc:
       version: "1.4"
     jenkinswalldisplay:
@@ -139,6 +151,8 @@ govuk_jenkins::plugins:
       version: "1.7.1"
     maven-plugin:
       version: "2.14"
+    metrics:
+      version: "3.1.2.9"
     momentjs:
       version: "1.1.1"
     monitoring:
@@ -157,8 +171,16 @@ govuk_jenkins::plugins:
       version: "2.5"
     pipeline-milestone-step:
       version: "1.2"
+    pipeline-model-api:
+      version: "0.8.2"
+    pipeline-model-declarative-agent:
+      version: "0.8.2"
+    pipeline-model-definition:
+      version: "0.8.2"
     pipeline-stage-step:
       version: "2.2"
+    pipeline-stage-tags-metadata:
+      version: "0.8.2"
     pipeline-stage-view:
       version: "2.2"
     plain-credentials:
@@ -187,6 +209,8 @@ govuk_jenkins::plugins:
       version: "0.5"
     slack:
       version: "2.0.1"
+    sse-gateway:
+      version: "1.13"
     ssh-agent:
       version: "1.13"
     ssh-credentials:
@@ -203,6 +227,8 @@ govuk_jenkins::plugins:
       version: "1.9.0"
     token-macro:
       version: "2.0"
+    variant:
+      version: "1.1"
     versionnumber:
       version: "1.8.1"
     violations:
