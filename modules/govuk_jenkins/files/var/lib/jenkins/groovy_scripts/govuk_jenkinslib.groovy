@@ -136,6 +136,7 @@ def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
     dir("tmp/govuk-content-schemas") {
       sh("git checkout ${schemaGitCommit}")
     }
+    env."GOVUK_CONTENT_SCHEMAS_PATH" = "tmp/govuk-content-schemas"
   }
 }
 
@@ -144,7 +145,7 @@ def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
  */
 def setupDb() {
   echo 'Setting up database'
-  sh('bundle exec rails db:drop db:create db:environment:set db:schema:load')
+  sh('RAILS_ENV=test bundle exec rake db:drop db:create db:environment:set db:schema:load')
 }
 
 /**
@@ -163,7 +164,7 @@ def bundleApp() {
  */
 def runTests(String test_task = 'default') {
   echo 'Running tests'
-  sh("bundle exec rails ${test_task}")
+  sh("bundle exec rake ${test_task}")
 }
 
 /**
