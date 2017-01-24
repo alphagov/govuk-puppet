@@ -112,6 +112,22 @@ class govuk::node::s_postgresql_base inherits govuk::node::s_base {
 Add a value for `db_password` in each of the credential files in the `deployment` repo.
 This entry should be encrypted.
 
+## Environment variables
+
+If your application needs other environment variables, they will need to be added to
+the application manifest too.
+
+```
+govuk::app::envvar {
+  "${title}-ENV_VAR_NAME":
+    varname => 'ENV_VAR_NAME',
+    value   => $env_var_name;
+}
+```
+
+The `title` defaults to the name of the application, e.g. `MY-APP`. It's used like a namespace,
+so multiple apps can set environment variables with the same name.
+
 ## Feature flags
 
 If the app is not ready to be deployed to production, you should use a feature
