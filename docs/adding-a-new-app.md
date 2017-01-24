@@ -27,6 +27,18 @@ The `health_check_path` must be an endpoint on the application returning a
 HTTP 200 status for an unauthenticated request. Monitoring checks for the application are
 configured using this path and fail if the request isn't successful.
 
+If your app uses the default web rails web server (on the the GOV.UK stack, this is [Unicorn](https://rubygems.org/gems/unicorn/versions/5.1.0)), you will need to add an entry for `secret_key_base`.
+
+```
+if $secret_key_base != undef {
+  govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+  varname => 'SECRET_KEY_BASE',
+  value   => $secret_key_base,
+}
+```
+
+The `secret_key_base` is used to encrypt user sessions. If it not defined the application will not start.
+
 Additional arguments can be specified to configure basic auth, monitoring checks and logging.
 These are defined and explained in `modules/govuk/manifests/app.pp`.
 
