@@ -81,8 +81,10 @@ deployable_applications: &deployable_applications
   rummager:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   search-admin: {}
-  service-manual-frontend: {}
-  service-manual-publisher: {}
+  service-manual-frontend:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  service-manual-publisher:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   short-url-manager: {}
   sidekiq-monitoring: {}
   signon: {}
