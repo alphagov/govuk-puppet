@@ -25,7 +25,7 @@ class govuk::node::s_jenkins (
   include nginx
   include govuk_ghe_vpn
   include govuk_rbenv::all
-  include ::govuk_testing_tools
+  include ::govuk_testing_tools::smokey
 
   class { 'govuk_jenkins':
     github_client_id      => $github_client_id,
