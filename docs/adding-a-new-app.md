@@ -37,7 +37,8 @@ if $secret_key_base != undef {
 }
 ```
 
-The `secret_key_base` is used to encrypt user sessions. If it not defined the application will not start.
+The `secret_key_base` is used to encrypt user sessions. If it's not defined the application will not start. The value of
+`secret_key_base` should be encrypted in the `deployment` repo.
 
 Additional arguments can be specified to configure basic auth, monitoring checks and logging.
 These are defined and explained in `modules/govuk/manifests/app.pp`.
