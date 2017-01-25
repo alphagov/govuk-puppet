@@ -15,11 +15,23 @@ def cleanupGit() {
 /**
  * Try to merge master into the current branch, and abort if it doesn't exit
  * cleanly (ie there are conflicts). This will be a noop if the current branch
- * is master.
+ * is master or is in the history for master, e.g. a previously-merged dev
+ * branch or the deployed-to-production branch.
  */
 def mergeMasterBranch() {
-  echo 'Attempting merge of master branch'
-  sh('git merge --no-commit origin/master || git merge --abort')
+  def isCurrentCommitOnMaster = sh(
+    script: 'git rev-list origin/master | grep $(git rev-parse HEAD)',
+    returnStatus: true
+  ) == 0
+
+  if (isCurrentCommitOnMaster) {
+    echo "Current commit is on master, so building this branch without " +
+      "merging in master branch."
+  } else {
+    echo "Current commit is not on master, so attempting merge of master " +
+      "branch before proceeding with build"
+    sh('git merge --no-commit origin/master || git merge --abort')
+  }
 }
 
 /**
