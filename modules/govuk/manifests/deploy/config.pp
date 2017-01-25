@@ -23,12 +23,17 @@
 #   Appsignal API key (https://appsignal.com/gov-dot-uk). For evaluation on
 #   integration.
 #
+# [*enable_new_navigation*]
+#   If set to "yes" will display the new navigation across any app that
+#   makes use of this flag.
+#
 class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
   $govuk_env = 'production',
   $website_root,
   $appsignal_api_key = undef,
+  $enable_new_navigation = undef,
 ){
 
   limits::limits { 'deploy_nofile':
@@ -95,5 +100,6 @@ class govuk::deploy::config(
     'GOVUK_ASSET_HOST': value          => $asset_root;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
     'GOVUK_WEBSITE_ROOT': value        => $website_root;
+    'ENABLE_NEW_NAVIGATION': value     => $enable_new_navigation;
   }
 }

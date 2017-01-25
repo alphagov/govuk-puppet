@@ -179,6 +179,7 @@ govuk::apps::whitehall::vhost_protected: false
 
 govuk::deploy::config::errbit_environment_name: 'development'
 govuk::deploy::config::govuk_env: 'development'
+govuk::deploy::config::enable_new_navigation: "yes"
 govuk::deploy::setup_actionmailer_ses_config: false
 
 govuk_lvm::no_op: true
