@@ -16,10 +16,18 @@ def cleanupGit() {
  * Try to merge master into the current branch, and abort if it doesn't exit
  * cleanly (ie there are conflicts). This will be a noop if the current branch
  * is master.
+ *
+ * Only merges master if this is a regular development branch. The merge is
+ * skipped if this is a content schema test, because schema tests should be run
+ * against the exact branch specified, rather than fast-forwarded to master.
  */
 def mergeMasterBranch() {
-  echo 'Attempting merge of master branch'
-  sh('git merge --no-commit origin/master || git merge --abort')
+  if (isContentSchemaTest()) {
+    echo "This is a schema test, so building the '${env.BRANCH_NAME}' without merging master"
+  } else {
+    echo 'Attempting merge of master branch'
+    sh('git merge --no-commit origin/master || git merge --abort')
+  }
 }
 
 /**
@@ -52,6 +60,15 @@ def initializeParameters(Map<String, String> defaultBuildParams) {
 }
 
 /**
+ * Check if current build is a content schema test. This relies on the build
+ * setting an environment variable 'IS_SCHEMA_TEST' to 'true', which could be
+ * done by setting a build parameter.
+ */
+def isContentSchemaTest() {
+  return env.IS_SCHEMA_TEST == "true"
+}
+
+/**
  * Check whether the Jenkins build should be run for the current branch, either
  * because it is a regular branch build or because it is being run to test the
  * content schema.
@@ -65,7 +82,7 @@ def isAllowedBranchBuild(
   String deployedBranchName = "deployed-to-production") {
 
   if (currentBranchName == deployedBranchName) {
-    if (env.IS_SCHEMA_TEST == "true") {
+    if (isContentSchemaTest()) {
       echo "Branch is '${deployedBranchName}' and this is a schema test " +
         "build. Proceeding with build."
       return true
