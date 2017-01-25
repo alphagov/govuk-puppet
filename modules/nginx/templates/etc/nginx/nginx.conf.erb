@@ -30,7 +30,8 @@ http {
       '"$request" $status $body_bytes_sent '
       '"$http_referer" "$http_user_agent" '
       '$request_time $upstream_response_time '
-      '$gzip_ratio $sent_http_x_cache $sent_http_location $http_host';
+      '$gzip_ratio $sent_http_x_cache $sent_http_location $http_host '
+      '$ssl_protocol $ssl_cipher';
 
     log_format json_event '{ "@timestamp": "$time_iso8601", '
                          '"@fields": { '
@@ -55,7 +56,9 @@ http {
                          '"govuk_request_id": "$http_govuk_request_id", '
                          '"govuk_original_url": "$http_govuk_original_url", '
                          '"govuk_dependency_resolution_source_content_id": "$http_govuk_dependency_resolution_source_content_id", '
-                         '"varnish_id": "$http_x_varnish" } }';
+                         '"varnish_id": "$http_x_varnish", '
+                         '"ssl_protocol": "$ssl_protocol", '
+                         '"ssl_cipher": "$ssl_cipher" } }';
 
     access_log  /var/log/nginx/access.log timed_combined;
     access_log  /var/log/nginx/json.event.access.log json_event;
