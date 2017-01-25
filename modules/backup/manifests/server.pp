@@ -17,6 +17,7 @@
 class backup::server (
   $backup_private_key = '',
   $backup_hour = 7,
+  $backup_minute = 0,
 ) {
 
   include backup::client
@@ -50,7 +51,7 @@ class backup::server (
     command => 'run-parts /etc/backup',
     user    => 'govuk-backup',
     hour    => $backup_hour,
-    minute  => '0',
+    minute  => $backup_minute,
   }
 
   Backup::Directory   <<||>> { }
