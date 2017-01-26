@@ -45,9 +45,6 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-staging-dr'
   - 'skyscape-staging'
 
-govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "staging.performance.service.gov.uk"
-govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "staging.performance.service.gov.uk"
-
 govuk_jenkins::job::data_sync_complete_staging::signon_domains_to_migrate:
   -
     old: publishing.service.gov.uk

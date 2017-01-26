@@ -80,9 +80,6 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-production-dr'
   - 'skyscape-production'
 
-govuk_jenkins::job::performance_platform_smokey::pp_full_app_domain: "production.performance.service.gov.uk"
-govuk_jenkins::job::performance_platform_smokey::pp_app_domain: "performance.service.gov.uk"
-
 govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
 govuk_jenkins::job::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '0 12 * * 0'
 govuk_jenkins::job::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 3 * * *'
