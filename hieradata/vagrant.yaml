@@ -111,8 +111,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
+  - govuk_jenkins::job::run_smokey_after_deploy
   - govuk_jenkins::job::run_whitehall_data_migrations
-  - govuk_jenkins::job::smokey
   - govuk_jenkins::job::update_cdn_dictionaries
 govuk_jenkins::job_builder::environment: 'dev'
 
