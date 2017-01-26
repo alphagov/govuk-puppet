@@ -27,7 +27,7 @@
             exec bash -e elms/deploy/deploy.sh
     publishers:
         - trigger:
-            project: Smokey
+            project: run-smokey-after-deploy
             condition: 'SUCCESS'
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
