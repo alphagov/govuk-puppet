@@ -1254,7 +1254,7 @@ mongodb::server::version: '2.4.9'
 monitoring::checks::http_username: "%{hiera('http_username')}"
 monitoring::checks::http_password: "%{hiera('http_password')}"
 
-monitoring::checks::smokey::features:
+monitoring::checks::run_smokey_in_loop::features:
   check_bouncer:
     feature: bouncer
   check_businesssupportfinder:

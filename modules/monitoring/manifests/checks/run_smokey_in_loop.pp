@@ -1,4 +1,4 @@
-# Class: monitoring::checks::smokey
+# Class: monitoring::checks::run_smokey_in_loop
 #
 # Monitoring checks based on Smokey (cucumber HTTP tests). smokey-loop runs
 # constantly and writes the results to a JSON file atomically. That output
@@ -11,7 +11,7 @@
 # [*environment*]
 #   String to pass to the tests_json_output.sh script, e.g. integration
 #
-class monitoring::checks::smokey (
+class monitoring::checks::run_smokey_in_loop (
   $features = {},
   $environment = '',
 ) {

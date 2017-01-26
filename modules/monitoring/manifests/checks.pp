@@ -22,7 +22,7 @@ class monitoring::checks (
   include monitoring::checks::pingdom
   include monitoring::checks::ses
   include monitoring::checks::sidekiq
-  include monitoring::checks::smokey
+  include monitoring::checks::run_smokey_in_loop
 
   $app_domain = hiera('app_domain')
 
