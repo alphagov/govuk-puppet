@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: smokey_Smokey_Deploy
+    name: smokey-repo
     scm:
         - git:
             url: git@github.com:alphagov/smokey.git
@@ -15,7 +15,7 @@
         - github:
             url: https://github.com/alphagov/smokey/
     scm:
-      - smokey_Smokey_Deploy
+      - smokey-repo
     builders:
         - shell: |
             export DEPLOY_TO=monitoring-1
