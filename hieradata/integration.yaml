@@ -12,6 +12,7 @@ base::supported_kernel::enabled: true
 cron::weekly_dow: 1
 cron::daily_hour: 6
 
+govuk::apps::content_performance_manager::enabled: true
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-integration@digital.cabinet-office.gov.uk'
 govuk::apps::event_store::enabled: true
