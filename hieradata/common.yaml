@@ -79,8 +79,7 @@ deployable_applications: &deployable_applications
   release: {}
   router: {}
   router-api: {}
-  rummager:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  rummager: {}
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
