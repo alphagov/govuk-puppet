@@ -8,8 +8,9 @@
               - master
 
 - job:
-    name: Smokey_Deploy
-    display-name: Smokey_Deploy
+    name: deploy-smokey-to-monitoring
+    display-name: "Deploy Smokey to monitoring"
+    description: "Deploy Smokey to monitoring machines so Icinga can run the tests in a loop."
     project-type: freestyle
     properties:
         - github:
