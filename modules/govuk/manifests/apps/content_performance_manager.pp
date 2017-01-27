@@ -8,8 +8,8 @@
 #   The port that it is served on.
 #   Default: 3206
 #
-# [*enabled*]
-#   Whether the application should be enabled. Can be specified for each
+# [*ensure*]
+#   Whether the application should be exist. Can be specified for each
 #   environment using deployment hieradata.
 #
 # [*secret_key_base*]
@@ -44,7 +44,7 @@
 #
 class govuk::apps::content_performance_manager(
   $port = '3206',
-  $enabled = false,
+  $ensure = 'present',
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
   $google_analytics_govuk_view_id = undef,
@@ -57,13 +57,12 @@ class govuk::apps::content_performance_manager(
 ) {
   $app_name = 'content-performance-manager'
 
-  if $enabled {
-    govuk::app { $app_name:
-      app_type          => 'rack',
-      port              => $port,
-      health_check_path => '/',
-      asset_pipeline    => true,
-    }
+  govuk::app { $app_name:
+    ensure            => $ensure,
+    app_type          => 'rack',
+    port              => $port,
+    health_check_path => '/',
+    asset_pipeline    => true,
   }
 
   Govuk::App::Envvar {
