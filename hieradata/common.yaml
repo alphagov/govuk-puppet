@@ -664,19 +664,19 @@ govuk_ci::master::ci_agents:
   ci-agent-1:
     agent_hostname: 'ci-agent-1.ci'
     description: 'Build agent with docker'
-    labels: 'mongodb-2.4 docker'
+    labels: 'mongodb-2.4 docker ci-agent-1'
   ci-agent-2:
     agent_hostname: 'ci-agent-2.ci'
-    labels: 'mongodb-2.4'
+    labels: 'mongodb-2.4 ci-agent-2'
   ci-agent-3:
     agent_hostname: 'ci-agent-3.ci'
-    labels: 'mongodb-2.4'
+    labels: 'mongodb-2.4 ci-agent-3'
   ci-agent-4:
     agent_hostname: 'ci-agent-4.ci'
-    labels: 'mongodb-3.2'
+    labels: 'mongodb-3.2 ci-agent-4'
   ci-agent-5:
     agent_hostname: 'ci-agent-5.ci'
-    labels: 'mongodb-3.2'
+    labels: 'mongodb-3.2 ci-agent-5'
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
