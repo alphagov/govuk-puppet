@@ -2,11 +2,16 @@
 #
 # === Parameters
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::maslow(
   $port = '3053',
+  $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
 ) {
   $app_name = 'maslow'
@@ -21,6 +26,12 @@ class govuk::apps::maslow(
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token;
   }
 
   if $secret_key_base != undef {
