@@ -38,6 +38,8 @@ base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
 
+govuk::apps::content_performance_manager::ensure: 'absent'
+
 govuk::apps::efg::ssl_certtype: 'sflg'
 govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
 
