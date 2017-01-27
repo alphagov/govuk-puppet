@@ -1171,6 +1171,8 @@ hosts::production::management::hosts:
       - 'apt'
   docker-management-1:
     ip: '10.1.0.80'
+    service_aliases:
+      - 'etcd'
   jumpbox-1:
     ip: '10.1.0.100'
   mirrorer-1:

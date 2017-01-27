@@ -256,6 +256,9 @@ router::nginx::check_requests_critical: '@0.25'
 
 shell::shell_prompt_string: 'integration'
 
+unattended_reboot::etcd_endpoints:
+ - "http://etcd.cluster:2379"
+
 users::usernames:
   - alecgibson
   - alexmuller
