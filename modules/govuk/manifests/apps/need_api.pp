@@ -9,6 +9,10 @@
 #   The port that publishing API is served on.
 #   Default: 3093
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 # [*elasticsearch_hosts*]
 #   A string of comma-separated list of Elasticsearch hosts,
 #   for example: es-host-1:9200,es-host-2:9200
@@ -39,6 +43,7 @@
 #
 class govuk::apps::need_api(
   $port = '3052',
+  $publishing_api_bearer_token = undef,
   $elasticsearch_hosts = undef,
   $errbit_api_key = '',
   $mongodb_nodes,
@@ -66,6 +71,9 @@ class govuk::apps::need_api(
     app => 'need-api',
   }
   govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
     "${title}-ELASTICSEARCH_HOSTS":
       varname => 'ELASTICSEARCH_HOSTS',
       value   => $elasticsearch_hosts;
