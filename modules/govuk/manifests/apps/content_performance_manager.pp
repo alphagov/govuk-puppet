@@ -65,36 +65,38 @@ class govuk::apps::content_performance_manager(
     asset_pipeline    => true,
   }
 
-  Govuk::App::Envvar {
-    app    => $app_name,
-  }
-
-  govuk::app::envvar {
-    "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
-      varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
-      value   => $google_analytics_govuk_view_id;
-    "${title}-GOOGLE_PRIVATE_KEY":
-      varname => 'GOOGLE_PRIVATE_KEY',
-      value   => $google_private_key;
-    "${title}-GOOGLE_CLIENT_EMAIL":
-      varname => 'GOOGLE_CLIENT_EMAIL',
-      value   => $google_client_email;
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
+  if $ensure == 'present' {
+    Govuk::App::Envvar {
+      app    => $app_name,
     }
-  }
 
-  if $::govuk_node_class != 'development' {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
+    govuk::app::envvar {
+      "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
+        varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
+        value   => $google_analytics_govuk_view_id;
+      "${title}-GOOGLE_PRIVATE_KEY":
+        varname => 'GOOGLE_PRIVATE_KEY',
+        value   => $google_private_key;
+      "${title}-GOOGLE_CLIENT_EMAIL":
+        varname => 'GOOGLE_CLIENT_EMAIL',
+        value   => $google_client_email;
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
+    }
+
+    if $::govuk_node_class != 'development' {
+      govuk::app::envvar::database_url { $app_name:
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        database => $db_name,
+      }
     }
   }
 }
