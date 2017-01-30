@@ -67,6 +67,7 @@ govuk_jenkins::config::admins:
   - carlosvilhena
   - carolinegreen
   - christopherbaines
+  - chrisroos
   - ci_alphagov
   - danielroseman
   - davidbasalla
@@ -82,6 +83,7 @@ govuk_jenkins::config::admins:
   - ikennaokpala
   - isabelllong
   - jamesrobinson
+  - jamesmead
   - jennyduckett
   - joshmcmillan
   - kanemorgan
