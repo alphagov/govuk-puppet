@@ -70,6 +70,7 @@ govuk_jenkins::config::admins:
   - ci_alphagov
   - danielroseman
   - davidbasalla
+  - davidhenry
   - davidsilva
   - davidsingleton
   - dazahern
@@ -275,6 +276,7 @@ users::usernames:
   - christopherbaines
   - danielroseman
   - davidbasalla
+  - davidhenry
   - davidsilva
   - davidsingleton
   - dazahern
