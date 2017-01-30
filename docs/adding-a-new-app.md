@@ -131,7 +131,10 @@ so multiple apps can set environment variables with the same name.
 ## Feature flags
 
 If the app is not ready to be deployed to production, you should use a feature
-flag so that it is only enabled in environments where it's expected to be running:
+flag so that it is only enabled in environments where it's expected to be running.
+
+The feature flag tells puppet whether or not the application and reporting frameworks should be created for an app in the environment.
+If you don't add a feature flag, but are not planning to deploy the application to production yet, the alerting framework will still be created and all of the checks (e.g. does the app exist) will constantly fail.
 
 ```
 # modules/govuk/manifests/apps/my_app.pp
