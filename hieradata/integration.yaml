@@ -96,6 +96,7 @@ govuk_jenkins::config::admins:
   - matmoore
   - matteograssotti
   - mikaelallison
+  - mobaig
   - murraysteele
   - neilvanbeinum
   - nickcolley
@@ -303,6 +304,7 @@ users::usernames:
   - matmoore
   - matteograssotti
   - mikaelallison
+  - mobaig
   - murraysteele
   - neilvanbeinum
   - nickcolley
