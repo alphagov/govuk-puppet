@@ -74,30 +74,18 @@ class govuk_ci::agent::mysql {
       user     => 'tariff',
       password => 'tariff',
       require  => Class['::mysql::server'];
+  }
 
-    [
-      'whitehall_development',
-      'whitehall_test',
-      'whitehall_test1',
-      'whitehall_test2',
-      'whitehall_test3',
-      'whitehall_test4',
-      'whitehall_test5',
-      'whitehall_test6',
-      'whitehall_test7',
-      'whitehall_test8',
-      'whitehall_test9',
-      'whitehall_test10',
-      'whitehall_test11',
-      'whitehall_test12',
-      'whitehall_test13',
-      'whitehall_test14',
-      'whitehall_test15',
-      'whitehall_test16',
-    ]:
-      user     => 'whitehall',
-      password => 'whitehall',
-      grant    => ['ALL'],
-      require  => Class['::mysql::server'];
+  # Whitehall tests create the databases, so we just need to create a user that
+  # has access to any whitehall database matching that description
+  mysql_user { 'whitehall@%':
+    ensure        => 'present',
+    password_hash => mysql_password('whitehall'),
+  }
+
+  mysql_grant { 'whitehall@%whitehall_%.*':
+    user       => 'whitehall@%',
+    table      => 'whitehall_%.*',
+    privileges => 'ALL',
   }
 }
