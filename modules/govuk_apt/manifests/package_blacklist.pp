@@ -5,9 +5,11 @@
 # specified will appear as unavailable for installation.
 #
 class govuk_apt::package_blacklist {
-  apt::pin { 'blacklist_systemd':
-    packages => 'systemd',
-    priority => '-1',
-    origin   => '""',
+  unless $::lsbdistcodename == 'xenial' {
+    apt::pin { 'blacklist_systemd':
+      packages => 'systemd',
+      priority => '-1',
+      origin   => '""',
+    }
   }
 }
