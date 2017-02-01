@@ -1,0 +1,37 @@
+---
+- scm:
+    name: env-sync-and-backup_Performance_Platform_Data_Sync
+    scm:
+        - git:
+            url: git@github.gds:gds/env-sync-and-backup.git
+            branches:
+              - master
+
+- job:
+    name: Performance_Platform_Data_Sync
+    display-name: Performance_Platform_Data_Sync
+    project-type: freestyle
+    description: |
+        This job copies the Performance Platform database from production to integration.
+    properties:
+        - github:
+            url: https://github.gds/gds/env-sync-and-backup/
+    scm:
+      - env-sync-and-backup_Performance_Platform_Data_Sync
+    logrotate:
+        numToKeep: 10
+    builders:
+        - shell: |
+            set -eu
+            cd "${WORKSPACE}"
+            echo "Syncing data"
+            bash sync production integration
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: JOBLIST
+            description: 'Choose the thing to sync.'
+            choices:
+                - mongo-pp
