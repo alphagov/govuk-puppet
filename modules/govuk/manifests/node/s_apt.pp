@@ -45,6 +45,11 @@ class govuk::node::s_apt (
       repos    => ['main', 'dependencies'],
       release  => 'trusty',
       key      => 'EF8D349F';
+    'puppetlabs-xenial':
+      location => 'http://apt.puppetlabs.com/',
+      repos    => ['PC1'],
+      release  => 'xenial',
+      key      => 'EF8D349F';
     'govuk-ppa-precise':
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'precise',
