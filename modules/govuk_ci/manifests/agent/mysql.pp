@@ -88,4 +88,11 @@ class govuk_ci::agent::mysql {
     table      => 'whitehall_%.*',
     privileges => 'ALL',
   }
+
+  file { '/etc/mysql/conf.d/custom.cnf':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk_ci/mysql_custom_config',
+    notify  => Class['::mysql::server::service'],
+    require => Class['::govuk_mysql::server'],
+  }
 }
