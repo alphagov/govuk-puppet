@@ -8,7 +8,7 @@
 # need to restart an application before it picks up a changed environment
 # variable.
 
-define govuk_envvar ($value, $envdir = '/etc/govuk/env.d', $varname = $title) {
+define govuk_envvar ($value = undef, $envdir = '/etc/govuk/env.d', $varname = $title) {
 
   file { "${envdir}/${varname}":
     content => $value,
