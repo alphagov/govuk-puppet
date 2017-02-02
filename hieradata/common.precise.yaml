@@ -9,6 +9,4 @@ nginx::package::version: '1.4.4-1~precise0'
 
 postgresql::globals::version: '9.1'
 
-puppet::master::puppetdb_version: '1.3.2-1puppetlabs1'
-
 resolvconf::options: []
