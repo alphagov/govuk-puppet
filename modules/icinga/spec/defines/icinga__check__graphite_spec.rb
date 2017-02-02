@@ -103,6 +103,12 @@ describe 'icinga::check::graphite', :type => :define do
         :check_command => 'check_graphite_metric_args!sumSeries(zoo.*.deer)!@30!@40!-F 23minutes --droplast 1',
       )
     end
+
+    it 'should contain a warning line and critical line' do
+      is_expected.to contain_icinga__check('count_inverse_deer').with(
+        :action_url    => /^https:\/\/graphite\.environment\.example\.com\/render\/\?width=\d+&height=\d+&colorList=[a-z,]+&target=alias\(dashed\(constantLine\(40\)\),%22critical%22\)&target=alias\(dashed\(constantLine\(30\)\),%22warning%22\)&target=sumSeries\(zoo\.\*\.deer\)$/,
+      )
+    end
   end
 
   context 'when ensure is passed' do
@@ -139,7 +145,7 @@ describe 'icinga::check::graphite', :type => :define do
 
       it { is_expected.to raise_error(Puppet::Error, /Invalid ensure value/) }
     end
-    
+
     context 'ensure => true' do
       let(:title) { 'count_nothing' }
       let(:params) {{
