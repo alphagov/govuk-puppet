@@ -170,7 +170,7 @@ backup::offsite::jobs:
       - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
       - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
       - '/data/backups/archived'
-    bucket: 'govuk-offsite-backups'
+    bucket: 'govuk-offsite-backups-production'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 8,
