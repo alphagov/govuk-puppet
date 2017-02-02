@@ -3,9 +3,5 @@
 # Installs packages required by smokey
 #
 class govuk_testing_tools::smokey {
-  include ::xvfb
-
-  package { 'libqtwebkit-dev':
-    ensure => present,
-  }
+  include phantomjs
 }
