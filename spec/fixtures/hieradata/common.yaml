@@ -47,6 +47,9 @@ hosts::production::management::hosts:
 
 mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
 
+# FIXME: this has been added to avoid a bug until we move to v3 of the module
+mysql::client::package_ensure: 'present'
+
 # if this is true then it conflicts with govuk_rabbit apt management
 rabbitmq::manage_repos: false
 
