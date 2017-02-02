@@ -5,10 +5,44 @@
 #
 # === Parameters
 #
+# [*root_password*]
+#   Set the MySQL root password.
+#
+# [*tmp_table_size*]
+#   The maximum size of internal in-memory temporary tables.
+#
+# [*max_heap_table_size*]
+#   This variable sets the maximum size to which user-created MEMORY tables
+#   are permitted to grow.
+#
+# [*innodb_file_per_table*]
+#   When innodb_file_per_table is enabled (the default), InnoDB stores the data
+#   and indexes for each newly created table in a separate .ibd file instead
+#   of the system tablespace.
+#
+# [*key_buffer_size*]
+#   MyISAM variable which determines the size of the index buffers held in
+#   memory, which affects the speed of index reads.
+#
+# [*query_cache_limit*]
+#   The maximum size of an individual query that can be cached.
+#
+# [*query_cache_size*]
+#   The size of the query cache.
+#
+# [*expire_log_days*]
+#   The number of days for automatic binary log file removal.
+#
 # [*innodb_flush_log_at_trx_commit*]
 #   Controls if the filesystem flushes after every transaction commit.
 #   Do not set this to anything other than 1 (default) or 2, except in CI
 #   otherwise you risk losing data.
+#
+# [*slow_query_log*]
+#   Set to enable the slow query log.
+#
+# [*innodb_buffer_pool_size_proportion*]
+#   The proportion of machine memory used by the innodb buffer.
 #
 class govuk_mysql::server (
   $root_password=undef,
