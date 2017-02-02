@@ -3,6 +3,10 @@ require_relative '../../../../spec_helper'
 describe 'govuk_rabbitmq::consumer', :type => :define do
   let(:title) { 'a_user' }
 
+  let(:facts) {{
+    staging_http_get: 'curl',
+  }}
+
   context 'minimum info' do
     let(:params) {{
       :amqp_pass => 'super_secret',
