@@ -157,7 +157,7 @@ def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
  */
 def setupDb() {
   echo 'Setting up database'
-  sh('RAILS_ENV=test bundle exec rake db:drop db:create db:environment:set db:schema:load')
+  sh('RAILS_ENV=test bundle exec rake db:environment:set db:drop db:create db:schema:load')
 }
 
 /**
