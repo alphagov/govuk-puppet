@@ -1,0 +1,27 @@
+<%
+input_filter = @json.to_s == 'true' ? 'init_json' : 'init_txt'
+filters = [input_filter, 'add_timestamp', 'add_source_host']
+filters << (['add_tags'] + @tags).join(':') unless @tags.empty?
+filters << (['add_fields'] + @fields.map {|k,v| "#{k}=#{v}"}).join(':') unless @fields.empty?
+-%>
+<%
+shippers = ["redis,#{@redis_servers},key=logs,bulk=true,bulk_index=logs-current"]
+if @json.to_s == 'true'
+  shippers << ['statsd_counter', "metric=#{@statsd_metric}"].join(',') if @statsd_metric
+
+  @statsd_timers.each do |timer|
+    shippers << ['statsd_timer', "metric=#{timer['metric']}","timed_field=#{timer['value']}"].join(',')
+  end
+end
+-%>
+[Unit]
+Description=GOV.UK Logstream: Application Logging
+ConditionFileNotEmpty=<%= @logfile %>
+
+[Service]
+ExecStart=/bin/sh -c '/usr/bin/tail -F <%= @logfile %> | /usr/local/bin/logship -f <%= filters.join(',') %> -s <%= shippers.join(' ') %>'
+Restart=on-failure
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target
