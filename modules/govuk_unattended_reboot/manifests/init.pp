@@ -9,6 +9,10 @@
 #   Whether to enable unattended reboots.
 #   Default: false
 #
+# [*manage_repo_class*]
+#   Whether to use a separate repository to install Locksmith
+#   Default: false (use 'govuk_ppa' repository)
+#
 # [*monitoring_basic_auth*]
 #   A hash containing a `username` and a `password` to access monitoring
 #   which is protected by basic authentication.
@@ -22,10 +26,12 @@
 #
 class govuk_unattended_reboot (
   $enabled = false,
+  $manage_repo_class = false,
   $monitoring_basic_auth = {},
 ) {
 
   validate_bool($enabled)
+  validate_bool($manage_repo_class)
   validate_hash($monitoring_basic_auth)
 
   if ($enabled) {
@@ -41,6 +47,10 @@ class govuk_unattended_reboot (
 
   $node_class_search_phrase = regsubst($::govuk_node_class, '_', '-')
   $icinga_url = "https://alert.cluster/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
+
+  if $manage_repo_class {
+    include govuk_unattended_reboot::repo
+  }
 
   file { [ $config_directory, $check_scripts_directory ]:
     ensure => $directory_ensure,

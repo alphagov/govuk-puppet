@@ -2,11 +2,29 @@
 #
 # This class installs and sets-up statsd
 #
+# === Parameters
+#
+# [*graphite_hostname*]
+#   Graphite hostname
+#
+# [*manage_repo_class*]
+#   Whether to use a separate repository to install Statsd
+#   Default: false (use 'govuk_ppa' repository)
+#
 class statsd(
-  $graphite_hostname
+  $graphite_hostname,
+  $manage_repo_class = false,
 ) {
-  include govuk_ppa
+
+  validate_bool($manage_repo_class)
+
   include nodejs
+
+  if $manage_repo_class {
+    include statsd::repo
+  } else {
+    include govuk_ppa
+  }
 
   package { 'statsd':
     ensure  => 'latest',

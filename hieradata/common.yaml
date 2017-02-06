@@ -110,6 +110,10 @@ apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
 apt::purge_sources_list: true
 apt::purge_sources_list_d: true
+apt::purge:
+  preferences.d: true
+  sources.list: true
+  sources.list.d: true
 apt::sources:
   ubuntu:
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
@@ -1429,6 +1433,9 @@ sidekiq_host: 'redis-1.backend'
 sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
+
+statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 trade_tariff_hostname: 'tariff-frontend-dev.cloudapps.digital'
 
