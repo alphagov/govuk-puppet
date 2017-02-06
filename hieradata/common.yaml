@@ -1307,6 +1307,9 @@ monitoring::vpn_gateways::endpoints:
   vpn_gateway_router_dr:
     address: "%{hiera('environment_ip_prefix')}.9.1"
 
+# FIXME: this has been added to avoid a bug until we move to v3 of the module
+mysql::client::package_ensure: 'present'
+
 nginx::package::version: '1.4.6-1ubuntu3.7'
 
 nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
