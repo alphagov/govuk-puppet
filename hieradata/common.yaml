@@ -1271,6 +1271,8 @@ monitoring::checks::smokey::features:
     feature: calendars
   check_contacts:
     feature: contacts
+  check_efg:
+    feature: efg
   check_frontend:
     feature: frontend
   check_licencefinder:
@@ -1304,6 +1306,8 @@ monitoring::vpn_gateways::endpoints:
     address: "%{hiera('environment_ip_prefix')}.12.1"
   vpn_gateway_backend_dr:
     address: "%{hiera('environment_ip_prefix')}.11.1"
+  vpn_gateway_efg:
+    address: "10.4.0.1"
   vpn_gateway_licensify:
     address: "10.5.0.1"
   vpn_gateway_redirector_dr:
