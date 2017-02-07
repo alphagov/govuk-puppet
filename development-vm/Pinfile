@@ -39,6 +39,8 @@ process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']
 process :frontend => [:static, :contentapi, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static]
+process :'govuk-delivery'
+process :'govuk-delivery-worker'
 process :'info-frontend' => [:static, :'metadata-api']
 process :imminence => [:mapit]
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
