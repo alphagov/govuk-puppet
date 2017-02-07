@@ -64,16 +64,6 @@ class govuk_ci::agent::mysql {
       user     => 'support_contacts',
       password => 'support_contacts',
       require  => Class['::mysql::server'];
-
-    'tariff_admin_test':
-      user     => 'tariff_admin',
-      password => 'tariff_admin',
-      require  => Class['::mysql::server'];
-
-    'tariff_test':
-      user     => 'tariff',
-      password => 'tariff',
-      require  => Class['::mysql::server'];
   }
 
   # Whitehall tests create the databases, so we just need to create a user that
