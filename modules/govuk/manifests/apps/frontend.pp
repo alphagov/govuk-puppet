@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#   Default: 'frontend'
+#
 # [*port*]
 #   The port that the app is served on.
 #   Default: 3005
@@ -23,6 +27,7 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::frontend(
+  $vhost = 'frontend',
   $port = '3005',
   $vhost_protected = false,
   $publishing_api_bearer_token = undef,
@@ -41,6 +46,7 @@ class govuk::apps::frontend(
     asset_pipeline_prefix  => 'frontend',
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
+    vhost                  => $vhost,
   }
 
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
