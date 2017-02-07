@@ -48,7 +48,9 @@ deployable_applications: &deployable_applications
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   frontend: {}
   government-frontend: {}
-  govuk-delivery: {}
+  govuk-delivery:
+    repository: 'govuk_delivery'
+    source: 'github-enterprise'
   govuk-cdn-logs-monitor: {}
   govuk_content_api: {}
   govuk-content-schemas: {}
