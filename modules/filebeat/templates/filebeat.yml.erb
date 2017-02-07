@@ -1,0 +1,137 @@
+###################### Filebeat Configuration Example #########################
+
+# This file is an example configuration file highlighting only the most common
+# options. The filebeat.full.yml file from the same directory contains all the
+# supported options with more comments. You can use it as a reference.
+#
+# You can find the full configuration reference here:
+# https://www.elastic.co/guide/en/beats/filebeat/index.html
+
+#================================ General =====================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+name: <%= @filebeat_config['beat_name'] %>
+
+# The tags of the shipper are included in their own field with each
+# transaction published.
+#tags: ["service-X", "web-tier"]
+
+# Optional fields that you can specify to add additional information to the
+# output.
+#fields:
+#  env: staging
+
+#================================= Paths ======================================
+
+# The home path for the filebeat installation. This is the default base path
+# for all other path settings and for miscellaneous files that come with the
+# distribution (for example, the sample dashboards).
+# If not set by a CLI flag or in the configuration file, the default for the
+# home path is the location of the binary.
+#path.home:
+
+# The configuration path for the filebeat installation. This is the default
+# base path for configuration files, including the main YAML configuration file
+# and the Elasticsearch template file. If not set by a CLI flag or in the
+# configuration file, the default for the configuration path is the home path.
+path.config: /etc/filebeat/conf.d
+
+# The data path for the filebeat installation. This is the default base path
+# for all the files in which filebeat needs to store its data. If not set by a
+# CLI flag or in the configuration file, the default for the data path is a data
+# subdirectory inside the home path.
+#path.data: ${path.home}/data
+
+# The logs path for a filebeat installation. This is the default location for
+# the Beat's log files. If not set by a CLI flag or in the configuration file,
+# the default for the logs path is a logs subdirectory inside the home path.
+#path.logs: ${path.home}/logs
+
+#================================ Outputs =====================================
+
+# Configure what outputs to use when sending the data collected by the beat.
+# Multiple outputs may be used.
+
+<%- if @filebeat_config['output']['logstash'] != nil -%>
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  <%- if @filebeat_config['output']['logstash']['enabled'] != nil -%>
+  enabled: <%= @filebeat_config['output']['logstash']['enabled'] %>
+  <%- end -%>
+  hosts:
+  <%- @filebeat_config['output']['logstash']['hosts'].each do |host| -%>
+    - <%= host %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['worker'] != nil -%>
+  worker: <%= @filebeat_config['output']['logstash']['worker'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['compression_level'] != nil -%>
+  compression_level: <%= @filebeat_config['output']['logstash']['compression_level'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['loadbalance'] != nil -%>
+  loadbalance: <%= @filebeat_config['output']['logstash']['loadbalance'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['pipelining'] != nil -%>
+  pipelining: <%= @filebeat_config['output']['logstash']['pipelining'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['index'] != nil -%>
+  index: <%= @filebeat_config['output']['logstash']['index'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['proxy_url'] != nil -%>
+  proxy_url: <%= @filebeat_config['output']['logstash']['proxy_url'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['proxy_use_local_resolver'] != nil -%>
+  proxy_use_local_resolver: <%= @filebeat_config['output']['logstash']['proxy_use_local_resolver'] %>
+  <%- end -%>
+  <%- if @filebeat_config['output']['logstash']['ssl'] != nil -%>
+  ssl:
+    <%- if @filebeat_config['output']['logstash']['ssl']['enabled'] == false -%>
+    enabled: false
+    <%- else -%>
+    enabled: true
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['verification_mode'] != nil -%>
+    verification_mode: <%= @filebeat_config['output']['logstash']['ssl']['verification_mode'] %>
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['certificate_authorities'] != nil -%>
+    certificate_authorities:
+    <%- @filebeat_config['output']['logstash']['ssl']['certificate_authorities'].each do |ca| -%>
+      - <%= ca %>
+    <%- end -%>
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['certificate'] != nil -%>
+    certificate: "<%= @filebeat_config['output']['logstash']['ssl']['certificate'] %>"
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['key'] != nil -%>
+    key: "<%= @filebeat_config['output']['logstash']['ssl']['key'] %>"
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['key_passphrase'] != nil -%>
+    key_passphrase: '<%= @filebeat_config['output']['logstash']['ssl']['key_passphrase'] %>'
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['cipher_suites'] != nil -%>
+    cipher_suites:
+    <%- @filebeat_config['output']['logstash']['ssl']['cipher_suites'].each do |cipher_suite| -%>
+      - <%= cipher_suite %>
+    <%- end -%>
+    <%- end -%>
+    <%- if @filebeat_config['output']['logstash']['ssl']['curve_types'] != nil -%>
+    curve_types:
+    <%- @filebeat_config['output']['logstash']['ssl']['curve_types'].each do |curve_type| -%>
+      - <%= curve_type %>
+    <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<%- end -%>
+
+#================================ Logging =====================================
+
+# Sets log level. The default log level is info.
+# Available log levels are: critical, error, warning, info, debug
+#logging.level: debug
+
+# At debug level, you can selectively enable logging only for some components.
+# To enable all selectors use ["*"]. Examples of other selectors are "beat",
+# "publish", "service".
+#logging.selectors: ["*"]
+
