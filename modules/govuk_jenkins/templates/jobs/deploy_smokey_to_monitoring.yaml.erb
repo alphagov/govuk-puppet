@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: smokey_Smokey_Deploy
+    name: smokey-repo
     scm:
         - git:
             url: git@github.com:alphagov/smokey.git
@@ -8,14 +8,15 @@
               - master
 
 - job:
-    name: Smokey_Deploy
-    display-name: Smokey_Deploy
+    name: deploy-smokey-to-monitoring
+    display-name: "Deploy Smokey to monitoring"
+    description: "Deploy Smokey to monitoring machines so Icinga can run the tests in a loop."
     project-type: freestyle
     properties:
         - github:
             url: https://github.com/alphagov/smokey/
     scm:
-      - smokey_Smokey_Deploy
+      - smokey-repo
     builders:
         - shell: |
             export DEPLOY_TO=monitoring-1

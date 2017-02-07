@@ -7,6 +7,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data
+  - govuk_jenkins::job::deploy_smokey_to_monitoring
   - govuk_jenkins::job::deploy_terraform_project
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
   - govuk_jenkins::job::govuk_delivery_configure_integration_catchall_feed
@@ -14,11 +15,10 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
   - govuk_jenkins::job::run_rake_task
+  - govuk_jenkins::job::run_smokey_after_deploy
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::sanitize_publishing_api_data
   - govuk_jenkins::job::signon_cron_rake_tasks
-  - govuk_jenkins::job::smokey
-  - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::transition_load_site_config
   - govuk_jenkins::job::transition_load_transition_stats_hits
   - govuk_jenkins::job::transition_run_database_migrations

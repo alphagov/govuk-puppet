@@ -133,7 +133,7 @@ govuk_jenkins::job::signon_cron_rake_tasks::rake_organisations_fetch_frequency: 
 govuk_jenkins::job::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '15 11 * * *'
 govuk_jenkins::job::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency: '45 11 * * *'
 
-govuk_jenkins::job::smokey::smokey_task: 'test:integration'
+govuk_jenkins::job::run_smokey_after_deploy::smokey_task: 'test:integration'
 
 govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-integration'
@@ -249,7 +249,7 @@ mongodb::s3backup::cron::daily_hour: 16
 monitoring::checks::enable_support_check: false
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: eu-west-1
-monitoring::checks::smokey::environment: 'integration'
+monitoring::checks::run_smokey_in_loop::environment: 'integration'
 
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'

@@ -37,7 +37,7 @@
             ./jenkins.sh
     publishers:
         - trigger:
-            project: Smokey
+            project: run-smokey-after-deploy
         - trigger-parameterized-builds:
             - project: GDS_Production_Backup
               predefined-parameters: |

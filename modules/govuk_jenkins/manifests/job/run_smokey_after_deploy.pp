@@ -1,4 +1,4 @@
-# == Class: govuk_jenkins::job::smokey
+# == Class: govuk_jenkins::job::run_smokey_after_deploy
 #
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
@@ -31,7 +31,7 @@
 # [*smokey_task*]
 #   The rake task to run for the tests
 #
-class govuk_jenkins::job::smokey (
+class govuk_jenkins::job::run_smokey_after_deploy (
   $auth_username = undef,
   $auth_password = undef,
   $efg_username = undef,
@@ -47,9 +47,9 @@ class govuk_jenkins::job::smokey (
   $slack_room = '2ndline'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
-  file { '/etc/jenkins_jobs/jobs/smokey.yaml':
+  file { '/etc/jenkins_jobs/jobs/run_smokey_after_deploy.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/smokey.yaml.erb'),
+    content => template('govuk_jenkins/jobs/run_smokey_after_deploy.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 }

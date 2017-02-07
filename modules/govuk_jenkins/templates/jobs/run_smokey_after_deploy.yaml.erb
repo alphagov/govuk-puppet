@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: smokey_Smokey
+    name: smokey-repo
     scm:
         - git:
             url: git@github.com:alphagov/smokey.git
@@ -8,11 +8,12 @@
               - master
 
 - job:
-    name: Smokey
-    display-name: Smokey
+    name: run-smokey-after-deploy
+    display-name: "Run smoke tests (Smokey) after deploy"
+    description: "This job is configured to run the smoke tests (https://github.com/alphagov/smokey) after applications are deployed. When the tests fail it sends a message to the #2ndline Slack channel."
     project-type: freestyle
     scm:
-      - smokey_Smokey
+      - smokey-repo
     properties:
       - slack:
           notify-start: false

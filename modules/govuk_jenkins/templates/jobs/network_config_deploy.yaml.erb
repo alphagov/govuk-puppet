@@ -30,7 +30,7 @@
             ./vcloud-edge_gateway/jenkins.sh ${TARGET_ENVIRONMENT} ${DRY_RUN_FLAG}
     publishers:
         - trigger:
-            project: Smokey
+            project: run-smokey-after-deploy
     wrappers:
         - ansicolor:
             colormap: xterm

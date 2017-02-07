@@ -17,6 +17,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data
+  - govuk_jenkins::job::deploy_smokey_to_monitoring
   - govuk_jenkins::job::deploy_terraform_project
   - govuk_jenkins::job::email_alert_check
   - govuk_jenkins::job::gds_production_backup
@@ -28,11 +29,10 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::performance_platform_data_sync
   - govuk_jenkins::job::publishing_api_archive_events
   - govuk_jenkins::job::run_rake_task
+  - govuk_jenkins::job::run_smokey_after_deploy
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::search_fetch_analytics_data
   - govuk_jenkins::job::signon_cron_rake_tasks
-  - govuk_jenkins::job::smokey
-  - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::transition_load_all_data
   - govuk_jenkins::job::transition_load_site_config
   - govuk_jenkins::job::transition_load_transition_stats_hits
