@@ -5,6 +5,42 @@
 class govuk_ci::agent::mysql {
   contain ::govuk_mysql::server
 
+  # We want to run MySQL on a ramdisk, so this creates the directory so that it
+  # can be mounted.
+  file { '/var/lib/mysql':
+    ensure  => directory,
+    owner   => 'mysql',
+    group   => 'mysql',
+    before  => Mount['/var/lib/mysql'],
+    require => User['mysql'],
+  }
+
+  user { 'mysql':
+    ensure => present,
+    shell  => '/bin/false',
+  }
+
+  # Mount the MySQL datadir in ramdisk, and make sure this is completed before
+  # the MySQL class runs. When the MySQL class runs it recreates the datadir
+  # as usual
+  mount { '/var/lib/mysql':
+    ensure   => 'mounted',
+    device   => 'tmpfs',
+    fstype   => 'tmpfs',
+    options  => 'size=2G,noatime',
+    remounts => true,
+    atboot   => true,
+    before   => Class['::govuk_mysql::server'],
+    require  => File['/var/lib/mysql'],
+  }
+
+  # On boot, the server will not have a working MySQL install until Puppet runs,
+  # so we should ensure that this runs after every boot
+  file { '/etc/cron.d/run_puppet_on_boot':
+    ensure  => present,
+    content => '@reboot root /usr/local/bin/govuk_puppet',
+  }
+
   ensure_packages([
     'libmysqlclient-dev',
   ])
