@@ -6,6 +6,8 @@ govuk_ppa::repo_ensure: 'absent'
 
 govuk_unattended_reboot::manage_repo_class: true
 
+nginx::package::version: 'present'
+
 nodejs::version: '4.2.6~dfsg-1ubuntu4.1'
 
 puppet::package::facter_version: '2.4.6-1'
