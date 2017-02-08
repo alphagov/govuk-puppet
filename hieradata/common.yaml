@@ -627,6 +627,7 @@ govuk_ci::master::pipeline_jobs:
   govuk-app-deployment: {}
   govuk-diff-pages: {}
   govuk_admin_template: {}
+  govuk_ab_testing: {}
   govuk_bad_link_finder: {}
   govuk_client_url-arbiter: {}
   govuk_content_models: {}
