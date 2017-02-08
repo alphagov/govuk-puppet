@@ -1,0 +1,12 @@
+# This file is managed by Puppet
+#
+# Custom MySQL configuration for CI agents only
+#
+[mysqld]
+query_cache_type = 0
+log_queries_not_using_indexes = 0
+thread_cache_size = 24
+table_definition_cache = 4096
+table_open_cache = 4096
+optimizer_search_depth = 0
+join_buffer_size = 512k
