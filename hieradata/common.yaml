@@ -55,6 +55,8 @@ deployable_applications: &deployable_applications
   govuk_content_api: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
+  govuk_navigation_helpers:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   govuk_need_api: {}
   hmrc-manuals-api: {}
   imminence: {}
