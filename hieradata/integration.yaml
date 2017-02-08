@@ -93,6 +93,7 @@ govuk_jenkins::config::admins:
   - kelvingan
   - kevindew
   - lauramartin
+  - leebriggs
   - leelongmore
   - leenagupte
   - lyndongarvey
@@ -304,6 +305,7 @@ users::usernames:
   - kelvingan
   - kevindew
   - lauramartin
+  - leebriggs
   - leelongmore
   - leenagupte
   - lyndongarvey
