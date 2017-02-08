@@ -107,12 +107,14 @@ class govuk_ci::agent::mysql {
   mysql_user { 'whitehall@%':
     ensure        => 'present',
     password_hash => mysql_password('whitehall'),
+    require       => Class['::govuk_mysql::server'],
   }
 
   mysql_grant { 'whitehall@%whitehall_%.*':
     user       => 'whitehall@%',
     table      => 'whitehall_%.*',
     privileges => 'ALL',
+    require    => Class['::govuk_mysql::server'],
   }
 
   file { '/etc/mysql/conf.d/custom.cnf':
