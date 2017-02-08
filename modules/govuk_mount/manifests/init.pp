@@ -67,5 +67,6 @@ define govuk_mount(
     service_description => "low available disk inodes on ${mountpoint}",
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(low-available-disk-inodes),
   }
 }
