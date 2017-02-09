@@ -17,7 +17,6 @@ describe 'backup::assets', :type => :class do
       'caterpillar' => {
         'sources'     => '/srv/orange',
         'destination' => 'rsync://backup.example.com//srv/backup',
-        'hour'        => 1,
         'hour'        => 2,
         'minute'      => 30,
       },
