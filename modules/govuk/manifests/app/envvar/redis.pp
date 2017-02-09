@@ -22,7 +22,7 @@ define govuk::app::envvar::redis (
   $app    = undef,
   $prefix = undef,
   $host   = '127.0.0.1',
-  $port   = 6379,
+  $port   = '6379',
 ) {
 
   Govuk::App::Envvar {
