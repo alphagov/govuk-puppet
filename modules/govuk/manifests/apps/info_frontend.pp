@@ -28,13 +28,19 @@ class govuk::apps::info_frontend(
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
 ) {
-  govuk::app { 'info-frontend':
+  $app_name = 'info-frontend'
+
+  govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
     vhost_aliases         => ['info-frontend'],
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'info-frontend',
+  }
+
+  Govuk::App::Envvar {
+    app => $app_name,
   }
 
   if $secret_key_base != undef {
@@ -46,11 +52,9 @@ class govuk::apps::info_frontend(
 
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => 'info-frontend',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
     "${title}-ERRBIT_API_KEY":
-      app     => 'info-frontend',
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
   }
