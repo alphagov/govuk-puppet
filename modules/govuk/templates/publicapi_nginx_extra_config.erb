@@ -29,6 +29,7 @@
 
     rewrite ^/api/search.json(.*) /search.json$1 break;
 
+    add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @rummager_api %>;
     proxy_set_header API-PREFIX api;
     proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
@@ -41,6 +42,7 @@
 
     expires 30m;
 
+    add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @content_store_api %>;
     proxy_pass <%= @privateapi_protocol %>://<%= @content_store_api %>;
   }
