@@ -67,10 +67,18 @@ class puppet (
     require => File[$lock_dir],
   }
 
-  service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
-    ensure   => stopped,
-    provider => base,
-    pattern  => '/usr/bin/puppet agent$',
-    require  => Class['puppet::package'],
+  if $::lsbdistcodename == 'xenial' {
+    service { 'puppet':
+      ensure  => stopped,
+      enable  => false,
+      require => Class['puppet::package'],
+    }
+  } else {
+    service { 'puppet': # we're using cron, so we don't want the daemonized puppet agent
+      ensure   => stopped,
+      provider => base,
+      pattern  => '/usr/bin/puppet agent$',
+      require  => Class['puppet::package'],
+    }
   }
 }
