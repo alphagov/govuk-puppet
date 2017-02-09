@@ -13,10 +13,12 @@ def cleanupGit() {
 }
 
 /**
- * Try to merge master into the current branch, and abort if it doesn't exit
- * cleanly (ie there are conflicts). This will be a noop if the current branch
- * is master or is in the history for master, e.g. a previously-merged dev
- * branch or the deployed-to-production branch.
+ * Try to merge master into the current branch
+ *
+ * This will abort if it doesn't exit cleanly (ie there are conflicts), and
+ * will be a noop if the current branch is master or is in the history for
+ * master, e.g. a previously-merged dev branch or the deployed-to-production
+ * branch.
  */
 def mergeMasterBranch() {
   def isCurrentCommitOnMaster = sh(
@@ -37,9 +39,10 @@ def mergeMasterBranch() {
 /**
  * Sets environment variable
  *
+ * Cannot iterate over maps in Jenkins2 currently
+ *
  * @param key
  * @param value
- * Cannot iterate over maps in Jenkins2 currently
  */
 def setEnvar(String key, String value) {
   echo 'Setting environment variable'
@@ -47,10 +50,11 @@ def setEnvar(String key, String value) {
 }
 
 /**
- * Ensure that the build parameters are set to their default values if they are
- * missing. This fixes an issue where the parameters are missing on the very
- * first pipeline build of a new branch (JENKINS-40574). They are set correctly
- * on every subsequent build, whether it is triggered automatically by a branch
+ * Ensure missing build parameters are set to their default values
+ *
+ * This fixes an issue where the parameters are missing on the very first
+ * pipeline build of a new branch (JENKINS-40574). They are set correctly on
+ * every subsequent build, whether it is triggered automatically by a branch
  * push or manually by a Jenkins user.
  *
  * @param defaultBuildParams map of build parameter names to default values
@@ -64,13 +68,14 @@ def initializeParameters(Map<String, String> defaultBuildParams) {
 }
 
 /**
- * Check whether the Jenkins build should be run for the current branch, either
- * because it is a regular branch build or because it is being run to test the
- * content schema.
+ * Check whether the Jenkins build should be run for the current branch
  *
- * Jenkinsfiles should run this check if the project is used to test updates to
- * the content schema. Other projects should be configured in Puppet to exclude
- * builds of non-dev branches, so this check is unnecessary.
+ * Builds can be run if it's against a regular branch build or if it is
+ * being run to test the content schema.
+ *
+ * Jenkinsfiles should run this check if the project is used to test updates
+ * to the content schema. Other projects should be configured in Puppet to
+ * exclude builds of non-dev branches, so this check is unnecessary.
  */
 def isAllowedBranchBuild(
   String currentBranchName,
@@ -98,7 +103,7 @@ def isAllowedBranchBuild(
  * Sets the current git commit in the env. Used by the linter
  */
 def setEnvGitCommit() {
-  env.GIT_COMMIT = sh (
+  env.GIT_COMMIT = sh(
       script: 'git rev-parse --short HEAD',
       returnStdout: true
   ).trim()
@@ -162,7 +167,6 @@ def setupDb() {
 
 /**
  * Bundles all the gems
- *
  */
 def bundleApp() {
   echo 'Bundling'
@@ -197,7 +201,6 @@ def runRakeTask(String rake_task) {
  * @param tag Tag name
  */
 def pushTag(String repository, String branch, String tag) {
-
   if (branch == 'master'){
     echo 'Pushing tag'
     sshagent(['govuk-ci-ssh-key']) {
@@ -210,25 +213,26 @@ def pushTag(String repository, String branch, String tag) {
   } else {
     echo 'No tagging on branch'
   }
-
 }
 
 /**
- * Method to deploy an application on the Integration environment
+ * Deploy application on the Integration environment
  *
  * @param application ID of the application, which should match the ID
-          configured in puppet and which is usually the same as the repository
-          name
+ *        configured in puppet and which is usually the same as the repository
+ *        name
  * @param branch Branch name
  * @param tag Tag to deploy
  * @param deployTask Deploy task (deploy, deploy:migrations or deploy:setup)
  */
 def deployIntegration(String application, String branch, String tag, String deployTask) {
-
   if (branch == 'master') {
-    build job: 'integration-app-deploy', parameters: [string(name: 'TARGET_APPLICATION', value: application), string(name: 'TAG', value: tag), string(name: 'DEPLOY_TASK', value: deployTask)]
+    build job: 'integration-app-deploy', parameters: [
+      string(name: 'TARGET_APPLICATION', value: application),
+      string(name: 'TAG', value: tag),
+      string(name: 'DEPLOY_TASK', value: deployTask)
+    ]
   }
-
 }
 
 return this;
