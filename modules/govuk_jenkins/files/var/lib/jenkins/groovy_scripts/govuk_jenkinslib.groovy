@@ -124,9 +124,9 @@ def rubyLinter(String dirs = 'app spec lib') {
 /**
  * Runs the SASS linter
  */
-def sassLinter() {
+def sassLinter(String dirs = 'app/assets/stylesheets') {
   echo 'Running SASS linter'
-  sh('bundle exec govuk-lint-sass app/assets/stylesheets')
+  sh("bundle exec govuk-lint-sass ${dirs}")
 }
 
 /**
