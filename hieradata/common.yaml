@@ -1084,6 +1084,7 @@ hosts::production::frontend::app_hostnames:
   - 'draft-collections'
   - 'draft-contacts-frontend'
   - 'draft-email-alert-frontend'
+  - 'draft-frontend'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
   - 'draft-multipage-frontend'

@@ -3,6 +3,7 @@
 govuk::apps::collections::vhost: 'draft-collections'
 govuk::apps::contacts_frontend::vhost: 'draft-contacts-frontend'
 govuk::apps::email_alert_frontend::vhost: 'draft-email-alert-frontend'
+govuk::apps::frontend::vhost: 'draft-frontend'
 govuk::apps::government_frontend::vhost: 'draft-government-frontend'
 govuk::apps::manuals_frontend::vhost: 'draft-manuals-frontend'
 govuk::apps::multipage_frontend::vhost: 'draft-multipage-frontend'
@@ -27,6 +28,7 @@ govuk::node::s_base::apps:
  - collections
  - contacts_frontend
  - email_alert_frontend
+ - frontend
  - government_frontend
  - manuals_frontend
  - multipage_frontend
