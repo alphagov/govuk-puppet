@@ -126,8 +126,6 @@ govuk_jenkins::config::admins:
 
 govuk_jenkins::job_builder::environment: 'integration'
 
-govuk_jenkins::job::deploy_puppet::commitish: 'integration'
-
 govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
 govuk_jenkins::job::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '30 11 * * 2'
 govuk_jenkins::job::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 11 * * *'
