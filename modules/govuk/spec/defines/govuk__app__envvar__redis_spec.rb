@@ -30,7 +30,7 @@ describe 'govuk::app::envvar::redis', :type => :define do
 
   context 'with some good parameters' do
     let(:host) { 'redis.backend' }
-    let(:port) { 1234 }
+    let(:port) { '1234' }
     let(:params) { { host: host, port: port } }
 
     it 'sets the Redis host' do

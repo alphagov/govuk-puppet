@@ -14,7 +14,7 @@ describe 'govuk::app', :type => :define do
   context 'with good params' do
     let(:params) do
       {
-        :port => 8000,
+        :port => '8000',
         :app_type => 'rack',
       }
     end
@@ -49,7 +49,7 @@ describe 'govuk::app', :type => :define do
     let(:params) do
       {
         :app_type => 'rack',
-        :port => 8000,
+        :port => '8000',
         :health_check_path => '/healthcheck',
         :expose_health_check => false,
       }
@@ -113,7 +113,7 @@ describe 'govuk::app', :type => :define do
   describe "logging" do
     let(:params) {{
       :app_type => 'rack',
-      :port => 8000,
+      :port => '8000',
     }}
 
     context "a 12-factor app" do

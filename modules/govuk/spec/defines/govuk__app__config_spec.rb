@@ -15,7 +15,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with good params' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :domain => 'foo.bar.baz',
           :vhost_full => 'giraffe.foo.bar.baz',
@@ -48,7 +48,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with aliases' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :vhost_aliases => ['foo','bar'],
           :domain => 'example.com',
@@ -62,7 +62,7 @@ describe 'govuk::app::config', :type => :define do
     context 'without vhost' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :domain => 'example.com',
           :vhost_full => 'giraffe.example.com',
@@ -76,25 +76,25 @@ describe 'govuk::app::config', :type => :define do
     context 'with unicorn_herder_timeout and app_type rack' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :domain => 'example.com',
           :vhost_full => 'giraffe.example.com',
-          :unicorn_herder_timeout => 60
+          :unicorn_herder_timeout => '60'
         }
       end
 
       it do
         is_expected.to contain_govuk__app__envvar('giraffe-UNICORN_HERDER_TIMEOUT').with(
           :varname => 'UNICORN_HERDER_TIMEOUT',
-          :value   => 60
+          :value   => '60'
         )
       end
     end
 
     context 'with app_type => bare, command => ./launch_zoo' do
       let(:params) {{
-        :port => 123,
+        :port => '123',
         :app_type => 'bare',
         :domain => 'example.com',
         :vhost_full => 'giraffe.example.com',
@@ -118,7 +118,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with asset_pipeline => true' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :vhost_full => 'giraffe.example.com',
           :domain => 'example.com',
@@ -134,7 +134,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with asset_pipeline => true, asset_pipeline_prefix => "giraffe_assets"' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :vhost_full => 'giraffe.example.com',
           :domain => 'example.com',
@@ -151,7 +151,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with asset_pipeline enabled and nginx_extra_config' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :vhost_full => 'giraffe.example.com',
           :domain => 'example.com',
@@ -167,7 +167,7 @@ describe 'govuk::app::config', :type => :define do
 
     context 'when govuk_app_enable_services is false' do
       let(:params) {{
-        :port => 8000,
+        :port => '8000',
         :app_type => 'rack',
         :domain => 'foo.bar.baz',
         :vhost_full => 'giraffe.foo.bar.baz',
@@ -188,7 +188,7 @@ describe 'govuk::app::config', :type => :define do
     context 'with good params' do
       let(:params) do
         {
-          :port => 8000,
+          :port => '8000',
           :app_type => 'rack',
           :domain => 'foo.bar.baz',
           :vhost_full => 'big.giraffe.foo.bar.baz',
@@ -209,7 +209,7 @@ describe 'govuk::app::config', :type => :define do
   context 'when setting memory alert thresholds' do
     let(:title) { 'giraffe' }
     let(:default_params) {{
-      :port => 8000,
+      :port => '8000',
       :app_type => 'rack',
       :domain => 'foo.bar.baz',
       :vhost_full => 'giraffe.foo.bar.baz',
