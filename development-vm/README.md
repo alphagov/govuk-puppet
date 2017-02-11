@@ -93,6 +93,9 @@ and that's it. Now you can get to work!
 
 * To re-run Puppet, just SSH into your VM and run `govuk_puppet`.
 
+* If for example you want to install ZSH, your default root password is `vagrant`.
+  (https://www.vagrantup.com/docs/boxes/base.html#root-password-quot-vagrant-quot)
+
 ## Troubleshooting
 
 ### Errors loading the Vagrantfile
