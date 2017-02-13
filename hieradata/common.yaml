@@ -466,7 +466,7 @@ govuk::apps::rummager::redis_port: '6379'
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'master.mysql'
-govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::password')}"
+govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::mysql_search_admin')}"
 govuk::apps::search_admin::db_username: 'search_admin'
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
