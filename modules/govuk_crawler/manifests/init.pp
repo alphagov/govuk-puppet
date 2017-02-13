@@ -79,6 +79,8 @@ class govuk_crawler(
   $sync_enable = false,
   $targets = [],
 ) {
+  include govuk_crawler::config
+
   validate_array($targets)
   validate_hash($ssh_keys)
 
@@ -125,6 +127,12 @@ class govuk_crawler(
   package { 'govuk_seed_crawler':
         ensure   => '2.0.0',
         provider => system_gem,
+  }
+
+  # Needed to copy to AWS S3
+  package { 'awscli':
+        ensure   => present,
+        provider => pip,
   }
 
   $sync_service_desc = 'Mirror sync'
@@ -191,7 +199,7 @@ class govuk_crawler(
     minute      => '0',
     environment => 'MAILTO=""',
     command     => "/usr/bin/setlock -n ${sync_lock_path} ${sync_script_path}",
-    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['daemontools']],
+    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['daemontools'], Package['awscli'], Class['govuk_crawler::config']],
   }
 
   file { $sync_error_dir:

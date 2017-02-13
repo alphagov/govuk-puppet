@@ -51,7 +51,14 @@ EXITCODE=0
 for TARGET in ${TARGETS}; do
   log "user.info" "Started uploading to ${TARGET}"
 
-  if rsync -az --exclude 'lost+found' ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data; then
+  # Toggle the command: whether we will use rsync of the s3 sync.
+  if [[ $TARGET = s3://* ]]; then
+    CMD="govuk_setenv s3_sync_mirror aws s3 sync ${MIRROR_ROOT}/. ${TARGET}"
+  else
+    CMD="rsync -az --exclude 'lost+found' ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data"
+  fi
+
+  if eval $CMD; then
     log "user.info" "Finished uploading to mirror ${TARGET}"
   else
     EXITCODE=1
