@@ -37,3 +37,5 @@ mongodb::server::replicaset_members:
   'api-mongo-4':
     hidden: true
     priority: 0
+
+icinga::client::checks::disk_time_window_minutes: 7

@@ -9,6 +9,10 @@
 # [*disk_time_critical*]
 #   The disk time in milliseconds that will cause a critical state.
 #
+# [*disk_time_window_minutes*]
+#   The duration in minutes to include in the moving average window
+#   for disk time checks.
+#
 class icinga::client::checks (
   $disk_time_warn = 100,
   $disk_time_critical = 200,
