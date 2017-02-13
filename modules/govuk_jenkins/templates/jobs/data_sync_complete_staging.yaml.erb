@@ -23,10 +23,6 @@
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
     publishers:
         - trigger-parameterized-builds:
-            - project: Deploy_App
-              predefined-parameters: |
-                TARGET_APPLICATION=content-performance-manager
-                DEPLOY_TASK=app:migrate_and_hard_restart
             - project: run-rake-task
               predefined-parameters: |
                 TARGET_APPLICATION=router-api
@@ -37,10 +33,5 @@
                 TARGET_APPLICATION=email-alert-api
                 MACHINE_CLASS=backend
                 RAKE_TASK=sync_govdelivery_topic_mappings
-            - project: run-rake-task
-              predefined-parameters: |
-                TARGET_APPLICATION=content-performance-manager
-                MACHINE_CLASS=backend
-                RAKE_TASK=import:all_organisations
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
