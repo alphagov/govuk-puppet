@@ -21,7 +21,7 @@
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/specialist-publisher ; govuk_setenv specialist-publisher bundle exec rake publishing_api:publish_finders rummager:publish_finders'
     publishers:
         - trigger-parameterized-builds:
-            <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager content-performance-manager }.each do |app| -%>
+            <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager }.each do |app| -%>
             - project: Deploy_App
               predefined-parameters: |
                 TARGET_APPLICATION=<%= app %>
@@ -47,10 +47,5 @@
                 TARGET_APPLICATION=email-alert-api
                 MACHINE_CLASS=backend
                 RAKE_TASK=sync_govdelivery_topic_mappings
-            - project: run-rake-task
-              predefined-parameters: |
-                TARGET_APPLICATION=content-performance-manager
-                MACHINE_CLASS=backend
-                RAKE_TASK=import:all_organisations
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
