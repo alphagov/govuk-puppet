@@ -156,6 +156,24 @@ backup::assets::jobs:
     minute: 13
     user: 'root'
     gpg_key_id: *offsite_gpg_key
+  'assets-whitehall-s3':
+    sources: '/mnt/uploads/whitehall'
+    bucket: 'govuk-offsite-backups-production'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 4
+    minute: 20
+    user: 'root'
+    gpg_key_id: *offsite_gpg_key
+  'asset-manager-s3':
+    sources: '/mnt/uploads/asset-manager'
+    bucket: 'govuk-offsite-backups-production'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 4
+    minute: 13
+    user: 'root'
+    gpg_key_id: *offsite_gpg_key
 
 backup::offsite::dest_host: *offsite_host
 backup::offsite::dest_host_key: *offsite_ssh_key
