@@ -477,6 +477,8 @@ hosts::production::management::hosts:
       - 'apt'
   docker-management-1:
     ip: '10.3.0.80'
+    service_aliases:
+      - 'etcd'
   jumpbox-1:
     ip: '10.3.0.100'
   mirrorer-1:
@@ -567,3 +569,6 @@ mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-production'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-production'
 
 trade_tariff_hostname: 'tariff-frontend-production.cloudapps.digital'
+
+unattended_reboot::etcd_endpoints:
+ - "http://etcd.cluster:2379"
