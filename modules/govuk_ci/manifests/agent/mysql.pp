@@ -11,7 +11,6 @@ class govuk_ci::agent::mysql {
     ensure  => directory,
     owner   => 'mysql',
     group   => 'mysql',
-    before  => Mount['/var/lib/mysql'],
     require => User['mysql'],
   }
 
