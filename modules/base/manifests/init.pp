@@ -10,7 +10,6 @@ class base {
   include base::supported_kernel
   include cron
   include curl
-  include gcc
   include govuk::deploy
   include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist
@@ -31,4 +30,6 @@ class base {
   include unattended_upgrades
   include users
   include wget
+
+  ensure_packages([ 'gcc', 'build-essential' ])
 }
