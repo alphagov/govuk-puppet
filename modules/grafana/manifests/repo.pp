@@ -1,15 +1,8 @@
 # == Class: grafana::repo
 #
-# === Parameters:
-#
-# [*apt_mirror_hostname*]
-#   Hostname to use for the APT mirror.
-#
-class grafana::repo (
-  $apt_mirror_hostname,
-) {
+class grafana::repo {
   apt::source { 'grafana':
-    location     => "http://${apt_mirror_hostname}/grafana",
+    location     => 'http://apt_mirror.cluster/grafana',
     release      => 'jessie',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',

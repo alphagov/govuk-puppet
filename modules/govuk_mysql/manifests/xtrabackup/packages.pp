@@ -1,13 +1,7 @@
 # == Class: Govuk_mysql::Xtrabackup::Packages
 #
-# === Parameters
-#
-# [*apt_mirror_hostname*]
-#   The hostname of an APT mirror
-#
-class govuk_mysql::xtrabackup::packages (
-  $apt_mirror_hostname  = '',
-) {
+class govuk_mysql::xtrabackup::packages {
+
   package { 'xtrabackup':
     ensure  => present,
     require => Class[Mysql::Server],
@@ -25,7 +19,7 @@ class govuk_mysql::xtrabackup::packages (
   }
 
   apt::source { 'percona':
-    location     => "http://${apt_mirror_hostname}/percona",
+    location     => 'http://apt_mirror.cluster/percona',
     release      => $::lsbdistcodename,
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
@@ -36,7 +30,7 @@ class govuk_mysql::xtrabackup::packages (
   }
 
   apt::source { 'gof3r':
-    location     => "http://${apt_mirror_hostname}/gof3r",
+    location     => 'http://apt_mirror.cluster/gof3r',
     release      => $::lsbdistcodename,
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',

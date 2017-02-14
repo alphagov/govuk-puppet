@@ -4,10 +4,6 @@
 #
 # === Parameters
 #
-# [*apt_mirror_hostname*]
-#   Hostname to use for the APT mirror.
-#   Defaults to undefined because `$use_mirror` can be disabled.
-#
 # [*use_mirror*]
 #   Whether to use our own mirror of the PuppetLabs repo. You may want to
 #   temporarily disable this if you're bringing up a new production
@@ -15,7 +11,6 @@
 #   Default: true
 #
 class puppet::repository(
-  $apt_mirror_hostname = undef,
   $use_mirror = true,
 ) {
   # This is installed by bootstrapping. `apt::source` takes its place.
@@ -26,7 +21,7 @@ class puppet::repository(
   validate_bool($use_mirror)
   if $use_mirror {
     apt::source { 'puppetlabs':
-      location     => "http://${apt_mirror_hostname}/puppetlabs-${::lsbdistcodename}",
+      location     => "http://apt_mirror.cluster/puppetlabs-${::lsbdistcodename}",
       release      => $::lsbdistcodename,
       architecture => $::architecture,
       key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',

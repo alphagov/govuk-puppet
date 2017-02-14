@@ -8,20 +8,16 @@ describe 'govuk_ppa', :type => :class do
   }}
   describe '#path' do
     context 'production (default)' do
-      let(:params) {{
-        :apt_mirror_hostname => 'apt.example.com',
-      }}
 
-      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/production') }
+      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt_mirror.cluster/govuk/ppa/production') }
     end
 
     context 'another environment' do
       let(:params) {{
-        :apt_mirror_hostname => 'apt.example.com',
         :path => 'another-environment',
       }}
 
-      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt.example.com/govuk/ppa/another-environment') }
+      it { is_expected.to contain_apt__source('govuk-ppa').with_location('http://apt_mirror.cluster/govuk/ppa/another-environment') }
     end
   end
 

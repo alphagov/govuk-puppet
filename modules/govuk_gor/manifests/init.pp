@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-# [*apt_mirror_hostname*]
-#   Hostname of the APT mirror to install Gor from
-#
 # [*args*]
 #   Command-line arguments to pass to Gor executable, defaults to an empty hash
 #
@@ -23,7 +20,6 @@
 #   Set any environment variables that will be loaded into the Gor service.
 #
 class govuk_gor(
-  $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
   $version = '0.14.1',
@@ -32,7 +28,7 @@ class govuk_gor(
 ) {
 
   apt::source { 'gor':
-    location     => "http://${apt_mirror_hostname}/gor",
+    location     => 'http://apt_mirror.cluster/gor',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
     architecture => $::architecture,
   }
