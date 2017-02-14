@@ -19,6 +19,12 @@ class govuk_ci::agent::mysql {
     shell  => '/bin/false',
   }
 
+  exec { 'mysql_install_db':
+    command => '/usr/bin/mysql_install_db',
+    unless  => '/usr/bin/test -d /var/lib/mysql/mysql',
+    require => [Mount['/var/lib/mysql'], Package['mysql-server']],
+  }
+
   # Mount the MySQL datadir in ramdisk, and make sure this is completed before
   # the MySQL class runs. When the MySQL class runs it recreates the datadir
   # as usual
@@ -31,6 +37,7 @@ class govuk_ci::agent::mysql {
     atboot   => true,
     before   => Class['::govuk_mysql::server'],
     require  => File['/var/lib/mysql'],
+    notify   => Exec['mysql_install_db'],
   }
 
   # On boot, the server will not have a working MySQL install until Puppet runs,
