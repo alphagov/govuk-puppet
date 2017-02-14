@@ -25,10 +25,52 @@ backup::assets::jobs:
     user: 'root'
     gpg_key_id: *offsite_gpg_key
     pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
+  'assets-whitehall-s3':
+    sources: '/mnt/uploads/whitehall'
+    bucket: 'govuk-offsite-backups-production'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 4
+    minute: 20
+    user: 'root'
+    gpg_key_id: *offsite_gpg_key
+  'asset-manager-s3':
+    sources: '/mnt/uploads/asset-manager'
+    bucket: 'govuk-offsite-backups-production'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 4
+    minute: 13
+    user: 'root'
+    gpg_key_id: *offsite_gpg_key
+
 
 backup::offsite::dest_host: *offsite_host
 backup::offsite::dest_host_key: *offsite_ssh_host_key
 backup::offsite::enable: true
+backup::offsite::jobs:
+  'govuk-datastores':
+    sources:
+      - '/data/backups/*/var/lib/automongodbbackup/latest'
+      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
+      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
+      - '/data/backups/archived'
+    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-data/"
+    hour: 8,
+    minute: 13,
+    gpg_key_id: *offsite_gpg_key
+  'govuk-datastores-s3':
+    sources:
+      - '/data/backups/*/var/lib/automongodbbackup/latest'
+      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
+      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
+      - '/data/backups/archived'
+    bucket: 'govuk-offsite-backups-production'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 8,
+    minute: 13,
+    gpg_key_id: *offsite_gpg_key
 
 backup::offsite::monitoring::offsite_fqdn: *offsite_host
 backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
