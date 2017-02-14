@@ -104,6 +104,9 @@ class govuk::node::s_apt (
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
   aptly::repo { 'rbenv-ruby': }
+  aptly::repo { 'rbenv-ruby-xenial':
+    distribution => 'xenial',
+  }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
 
