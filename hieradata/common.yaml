@@ -1518,7 +1518,7 @@ unattended_reboot::cron_env_vars:
   - 'MAILTO=""'
 unattended_reboot::cron_hour: '0-5'
 unattended_reboot::etcd_endpoints:
-  - "http://etcd-1.management:4001"
+  - "http://etcd.cluster:2379"
 
 unattended_upgrades::blacklist:
  - 'mysql-server.*'
