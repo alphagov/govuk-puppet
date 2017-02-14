@@ -12,6 +12,7 @@ class base {
   include curl
   include gcc
   include govuk::deploy
+  include govuk_apt::local_mirror_alias
   include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist
   include govuk_envsys

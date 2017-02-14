@@ -552,6 +552,8 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk_apt::local_mirror_alias::address: '10.3.0.75'
+
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
