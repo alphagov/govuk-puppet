@@ -38,4 +38,6 @@ class govuk::node::s_docker_management inherits govuk::node::s_base {
     host_name           => $::fqdn,
   }
 
+  include ::collectd::plugin::etcd
+
 }
