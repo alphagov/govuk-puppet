@@ -23,6 +23,7 @@ class govuk_ci::agent(
     include ::govuk_ci::agent::elasticsearch
   }
   include ::golang
+  include ::guix
   include ::govuk_ci::agent::gcloud
   include ::govuk_ci::agent::mongodb
   include ::govuk_ci::agent::mysql
