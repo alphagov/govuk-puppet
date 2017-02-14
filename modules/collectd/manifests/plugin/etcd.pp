@@ -13,8 +13,8 @@
 class collectd::plugin::etcd {
   include collectd::plugin::curl_json
 
-  $client_endpoint = "${::fqdn}:4001"
-  $peer_endpoint = "${::fqdn}:7001"
+  $client_endpoint = "${::fqdn}:2379"
+  $peer_endpoint = "${::fqdn}:2380"
 
   @collectd::plugin { 'etcd':
     content => template('collectd/etc/collectd/conf.d/etcd.conf.erb'),
