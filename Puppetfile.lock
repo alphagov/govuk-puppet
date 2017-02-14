@@ -142,13 +142,6 @@ GIT
     alphagov-puppet-reporter-sentry (0.0.1)
 
 GIT
-  remote: git://github.com/alphagov/puppet-tune_ext.git
-  ref: master
-  sha: a500c9a6263712388ea4b052e0cc93d9c11d7644
-  specs:
-    alphagov-tune_ext (0.0.1)
-
-GIT
   remote: git://github.com/alphagov/puppetlabs-lvm.git
   ref: master
   sha: 2082a276093c96e67a676f0c6076c0841f918a17
@@ -196,7 +189,6 @@ DEPENDENCIES
   alphagov-harden (>= 0)
   alphagov-puppet-rcs (>= 0)
   alphagov-puppet-reporter-sentry (>= 0)
-  alphagov-tune_ext (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   benjamin-ramdisk (= 0.0.1)
   camptocamp-augeas (= 1.1.0)
