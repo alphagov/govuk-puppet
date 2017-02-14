@@ -284,9 +284,6 @@ duplicity::packages::version: '0.6.23-1ubuntu4.1'
 
 environment_ip_prefix: '10.1'
 
-etcd::peer_heartbeat_interval: 100
-etcd::peer_election_timeout: 500
-
 filebeat::prospectors:
   apt-history:
     paths:
@@ -1245,12 +1242,6 @@ hosts::production::management::hosts:
     ip: '10.1.0.41'
   backup-1:
     ip: '10.1.0.50'
-  etcd-1:
-    ip: '10.1.0.60'
-  etcd-2:
-    ip: '10.1.0.61'
-  etcd-3:
-    ip: '10.1.0.62'
   apt-1:
     ip: '10.1.0.75'
     service_aliases:

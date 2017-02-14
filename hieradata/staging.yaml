@@ -417,12 +417,6 @@ hosts::production::management::hosts:
     ip: '10.2.0.41'
   backup-1:
     ip: '10.2.0.50'
-  etcd-1:
-    ip: '10.2.0.60'
-  etcd-2:
-    ip: '10.2.0.61'
-  etcd-3:
-    ip: '10.2.0.62'
   apt-1:
     ip: '10.2.0.75'
     service_aliases:
