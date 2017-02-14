@@ -14,7 +14,7 @@ describe 'puppet::master', :type => :class do
     is_expected.to contain_service('puppetmaster').with_provider('upstart').with_ensure('running')
   end
 
-  it { is_expected.to contain_class('puppetdb') }
+  it { is_expected.to contain_class('govuk_puppetdb') }
   it { is_expected.to contain_class('puppet::master::nginx') }
 
   it do

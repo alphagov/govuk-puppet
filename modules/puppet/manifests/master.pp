@@ -19,7 +19,7 @@ class puppet::master(
   include puppet::repository
   include unicornherder
 
-  class { '::puppetdb':
+  class { '::govuk_puppetdb':
     package_ensure => $puppetdb_version,
   }
 
