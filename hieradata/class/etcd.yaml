@@ -1,7 +1,0 @@
----
-
-govuk_etcd::peers:
-  - "etcd-1.management:7001"
-
-etcd::manage_log_dir: false
-etcd::manage_service_file: false

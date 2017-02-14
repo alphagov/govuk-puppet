@@ -57,9 +57,6 @@ mod 'alphagov/puppet-rcs',
 mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
-mod 'KyleAnderson/etcd',
-  :git => 'git://github.com/solarkennedy/puppet-etcd.git',
-  :ref => 'e053368'
 mod 'puppetlabs/lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 mod 'alphagov/puppet-reporter-sentry',

@@ -171,16 +171,7 @@ GIT
     nextrevision-automysqlbackup (0.2.4)
       puppetlabs-stdlib (>= 3.0.0)
 
-GIT
-  remote: git://github.com/solarkennedy/puppet-etcd.git
-  ref: e053368
-  sha: e0533682739be582a11c12f68d5415b6326d131d
-  specs:
-    KyleAnderson-etcd (0.4.2)
-      puppetlabs-stdlib (>= 3.2.0)
-
 DEPENDENCIES
-  KyleAnderson-etcd (>= 0)
   adrien-alternatives (>= 0)
   alphagov-apparmor (>= 0)
   alphagov-curl (>= 0)
