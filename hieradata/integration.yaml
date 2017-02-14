@@ -31,6 +31,9 @@ govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hie
 govuk::apps::whitehall::highlight_words_to_avoid: true
 govuk::apps::whitehall::enable_tagging_to_new_taxonomy: "yes"
 
+govuk_beat::hosts:
+  - "%{hiera('logstash_host')}:5566"
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'integration'
 govuk::deploy::config::enable_new_navigation: "yes"

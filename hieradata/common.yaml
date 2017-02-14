@@ -262,6 +262,51 @@ environment_ip_prefix: '10.1'
 etcd::peer_heartbeat_interval: 100
 etcd::peer_election_timeout: 500
 
+filebeat::prospectors:
+  apt-history:
+    paths:
+      - '/var/log/apt/history.log'
+    tags:
+      - 'history'
+    fields:
+      application: 'apt'
+  apt-term:
+    paths:
+      - '/var/log/apt/term.log'
+    tags:
+      - 'term'
+    fields:
+      application: 'apt'
+  dpkg:
+    paths:
+      - '/var/log/dpkg.log'
+    fields:
+      application: 'dpkg'
+  syslog:
+    paths:
+      - '/var/log/syslog'
+    fields:
+      application: 'syslog'
+  unattended-upgrades:
+    paths:
+      - '/var/log/unattended-upgrades/unattended-upgrades.log'
+    tags:
+      - 'unattended'
+    fields:
+      application: 'apt'
+  unattended-upgrades-shutdown:
+    paths:
+      - '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log'
+    tags:
+      - 'unattended'
+    fields:
+      application: 'apt'
+  rkhunter:
+    paths:
+      - '/var/log/rkhunter.log'
+    fields:
+      application: 'rkhunter'
+
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'

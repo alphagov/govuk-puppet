@@ -1,6 +1,6 @@
 # == Class: govuk_beat
 #
-# Wrapper for the upstream 'filebeat' module. 
+# Wrapper for the upstream 'filebeat' module.
 #
 # === Examples
 #
@@ -14,17 +14,24 @@
 #
 # === Parameters:
 #
-# [*filebeat_outputs*]
-#   Configure what outputs to use when sending the data collected by the beat
+# [*hosts*]
+#   Configure Logstash hosts to send the data collected by the beat
 #
-#   Default: Logstash on localhost
+#   Default: localhost
 #
 class govuk_beat (
-  $filebeat_outputs = { logstash => { enabled => true, hosts => ['127.0.0.1:5566'], }, },
+  $hosts = ['127.0.0.1:5566'],
 ){
+  validate_array($hosts)
 
   class { '::govuk_beat::repo': }
 
+  $filebeat_outputs = {
+    logstash => {
+      hosts   => $hosts,
+      enabled => true,
+    },
+  }
   # Configure Filebeat. The outputs parameter needs a default value for
   # the process to start
   class { '::filebeat' :
