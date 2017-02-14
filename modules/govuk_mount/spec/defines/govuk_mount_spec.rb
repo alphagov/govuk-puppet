@@ -21,7 +21,7 @@ describe 'govuk_mount', :type => :define do
 
     it { is_expected.to contain_govuk_lvm('elephant').that_comes_before('Ext4mount[gruffalo]') }
 
-    it { is_expected.to contain_tune_ext('/dev/mouse').that_requires('Ext4mount[gruffalo]') }
+    it { is_expected.to contain_govuk_tune_ext('/dev/mouse').that_requires('Ext4mount[gruffalo]') }
 
     it {
       is_expected.to contain_ext4mount('gruffalo').with(
