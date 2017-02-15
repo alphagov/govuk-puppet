@@ -15,7 +15,7 @@ class govuk::node::s_base (
   include backup::client
   include base
   # Remove conditional to install filebeat on other environments
-  if $::environment =~ /vagrant|integration/ {
+  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
     include govuk_beat
   }
   include govuk_firewall
