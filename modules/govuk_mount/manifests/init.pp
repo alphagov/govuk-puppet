@@ -48,7 +48,7 @@ define govuk_mount(
       mountpoint   => $mountpoint,
     }
 
-    tune_ext { $disk:
+    govuk_tune_ext { $disk:
       require => Ext4mount[$title],
     }
   }

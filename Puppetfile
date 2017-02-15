@@ -62,8 +62,6 @@ mod 'KyleAnderson/etcd',
   :ref => 'e053368'
 mod 'puppetlabs/lvm',
   :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
-mod 'alphagov/tune_ext',
-  :git => 'git://github.com/alphagov/puppet-tune_ext.git'
 mod 'alphagov/puppet-reporter-sentry',
   :git => 'git://github.com/alphagov/puppet-reporter-sentry.git'
 
