@@ -70,7 +70,6 @@ deployable_applications: &deployable_applications
   maslow: {}
   metadata-api: {}
   multipage-frontend: {}
-  panopticon: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
   policy-publisher:
