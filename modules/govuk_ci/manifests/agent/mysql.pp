@@ -44,7 +44,8 @@ class govuk_ci::agent::mysql {
   # so we should ensure that this runs after every boot
   file { '/etc/cron.d/run_puppet_on_boot':
     ensure  => present,
-    content => '@reboot root /usr/local/bin/govuk_puppet',
+    # Double quotes to ensure a newline otherwise cron will ignore it
+    content => "@reboot root /usr/local/bin/govuk_puppet \n",
   }
 
   ensure_packages([
