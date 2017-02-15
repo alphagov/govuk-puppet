@@ -18,6 +18,10 @@ RSpec.configure do |c|
 
   c.strict_variables = ENV['PUPPET_RSPEC_STRICT_VARIABLES'] == '1'
 
+  if ENV['PUPPET_RSPEC_FUTURE_PARSER'] == '1'
+    c.parser = 'future'
+  end
+
   possible_releases = {
     'precise' => '12.04',
     'trusty'  => '14.04',
