@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class puppetdb::package($package_ensure) {
+class govuk_puppetdb::package($package_ensure) {
 
   include puppet::repository
 

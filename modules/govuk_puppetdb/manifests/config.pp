@@ -1,5 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class puppetdb::config {
+class govuk_puppetdb::config {
 
   $puppetdb_postgres_password = ''
   $java_args = '-Xmx1024m'
@@ -25,7 +25,7 @@ class puppetdb::config {
   # alone. Its contents will be modified by the puppetdb-ssl-setup script above.
   file { '/etc/puppetdb/conf.d/database.ini':
     ensure  => 'present',
-    content => template('puppetdb/database.ini.erb'),
+    content => template('govuk_puppetdb/database.ini.erb'),
   }
 
   file { '/etc/puppetdb/conf.d/puppetdb.ini':
@@ -40,7 +40,7 @@ class puppetdb::config {
 
   file { '/etc/init/puppetdb.conf':
     ensure  => 'present',
-    content => template('puppetdb/upstart.conf.erb'),
+    content => template('govuk_puppetdb/upstart.conf.erb'),
   }
 
   govuk_postgresql::db { 'puppetdb':
