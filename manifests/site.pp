@@ -35,10 +35,6 @@ https://github.gds/pages/gds/opsmanual/infrastructure/howto/encrypted-hiera-data
 }
 
 node default {
-  if $::lsbdistcodename == 'lucid' {
-    fail('Ubuntu Lucid is no longer supported')
-  }
-
   govuk_check_hostname_facts()
 
   # This will fail with an error if the node class doesn't exist.
