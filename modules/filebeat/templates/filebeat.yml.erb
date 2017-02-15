@@ -7,6 +7,12 @@
 # You can find the full configuration reference here:
 # https://www.elastic.co/guide/en/beats/filebeat/index.html
 
+#========================= Filebeat global options ============================
+
+# The full path to the directory that contains additional prospector configuration
+# files. Each configuration file must end with .yml
+filebeat.config_dir: /etc/filebeat/conf.d
+
 #================================ General =====================================
 
 # The name of the shipper that publishes the network data. It can be used to group
@@ -35,7 +41,7 @@ name: <%= @filebeat_config['beat_name'] %>
 # base path for configuration files, including the main YAML configuration file
 # and the Elasticsearch template file. If not set by a CLI flag or in the
 # configuration file, the default for the configuration path is the home path.
-path.config: /etc/filebeat/conf.d
+#path.config: /etc/filebeat/conf.d
 
 # The data path for the filebeat installation. This is the default base path
 # for all the files in which filebeat needs to store its data. If not set by a
