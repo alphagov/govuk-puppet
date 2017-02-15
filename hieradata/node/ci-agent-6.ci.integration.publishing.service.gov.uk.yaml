@@ -1,0 +1,3 @@
+---
+
+govuk_elasticsearch::enabled: false
