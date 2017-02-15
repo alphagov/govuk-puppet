@@ -44,6 +44,8 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-staging-dr'
   - 'skyscape-staging'
 
+govuk_jenkins::job::smokey::smokey_task: 'test:staging'
+
 govuk_jenkins::job::data_sync_complete_staging::signon_domains_to_migrate:
   -
     old: publishing.service.gov.uk
