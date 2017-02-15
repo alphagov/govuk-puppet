@@ -52,7 +52,6 @@ class govuk::node::s_backend_lb (
       'local-links-manager',
       'manuals-publisher',
       'maslow',
-      'panopticon',
       'policy-publisher',
       'private-frontend',
       'publisher',
