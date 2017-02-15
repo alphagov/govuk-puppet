@@ -98,7 +98,8 @@ deployable_applications: &deployable_applications
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   spotlight: {}
   stagecraft: {}
-  static: {}
+  static:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   support: {}
   support-api: {}
   transition: {}
