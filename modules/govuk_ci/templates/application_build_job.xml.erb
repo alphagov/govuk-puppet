@@ -27,7 +27,7 @@
         <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
           <id>45dd6853-59d2-4695-80ac-4520f8a2b64f</id>
 <%- if @source == 'github' -%>
-          <checkoutCredentialsId>SAME</checkoutCredentialsId>
+          <checkoutCredentialsId>govuk-ci-ssh-key</checkoutCredentialsId>
           <scanCredentialsId>github-token-govuk-ci-username</scanCredentialsId>
           <repoOwner><%= @repo_owner %></repoOwner>
 <%- elsif @source == 'github-enterprise' -%>
