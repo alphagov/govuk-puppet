@@ -13,7 +13,7 @@ calendars:             govuk_setenv calendars             ./run_in.sh ../calenda
 static:                govuk_setenv static                ./run_in.sh ../static         bundle exec rails server -p 3013
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../licence-finder bundle exec rails server -p 3014
 # migratorator used 3015
-signon:                govuk_setenv signon                ./run_in.sh ../signonotron2   bundle exec rails server -p 3016
+signon:                govuk_setenv signon                ./run_in.sh ../signon         bundle exec rails server -p 3016
 # tradetariff used 3017
 # tradetariffapi used 3018
 efg:                   govuk_setenv efg                   ./run_in.sh ../EFG            bundle exec rails server -p 3019
