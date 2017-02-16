@@ -109,7 +109,7 @@ class govuk_jenkins::config (
     File {
       owner  => 'jenkins',
       group  => 'jenkins',
-      notify => Class['Govuk_jenkins::Safe_restart'],
+      notify => Class['Govuk_jenkins::Reload'],
     }
 
     file {'/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml':

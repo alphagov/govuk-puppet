@@ -50,7 +50,7 @@ define govuk_ci::job (
     group   => 'jenkins',
     content => template('govuk_ci/application_build_job.xml.erb'),
     require => File[$application_directory],
-    notify  => Class['Govuk_jenkins::Safe_restart'],
+    notify  => Class['Govuk_jenkins::Reload'],
   }
 
 }

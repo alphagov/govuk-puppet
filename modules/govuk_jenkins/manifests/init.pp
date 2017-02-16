@@ -74,7 +74,7 @@ class govuk_jenkins (
   }
 
   include ::govuk_jenkins::github_enterprise_cert
-  include ::govuk_jenkins::safe_restart
+  include ::govuk_jenkins::reload
 
   # Jenkins service needs to be restarted to reload the Java keystore
   Class['govuk_jenkins::github_enterprise_cert'] ~> Class['jenkins::service']
