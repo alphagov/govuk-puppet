@@ -30,12 +30,12 @@ class govuk_puppetdb::config {
 
   file { '/etc/puppetdb/conf.d/puppetdb.ini':
     ensure => 'present',
-    source => 'puppet:///modules/puppetdb/puppetdb.ini',
+    source => 'puppet:///modules/govuk_puppetdb/puppetdb.ini',
   }
 
   file { '/etc/puppetdb/conf.d/repl.ini':
     ensure => 'present',
-    source => 'puppet:///modules/puppetdb/repl.ini',
+    source => 'puppet:///modules/govuk_puppetdb/repl.ini',
   }
 
   file { '/etc/init/puppetdb.conf':
