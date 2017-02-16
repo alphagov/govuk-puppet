@@ -26,7 +26,9 @@ deployable_applications: &deployable_applications
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   contacts:
     repository: 'contacts-admin'
-  contacts-frontend: {}
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  contacts-frontend:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   content-performance-manager: {}
   content-store: {}
   content-tagger:
@@ -56,16 +58,20 @@ deployable_applications: &deployable_applications
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
   govuk_need_api: {}
-  hmrc-manuals-api: {}
+  hmrc-manuals-api:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   imminence: {}
   info-frontend: {}
   kibana:
     repository: 'kibana-gds'
   licencefinder:
     repository: 'licence-finder'
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   local-links-manager: {}
-  manuals-frontend: {}
-  manuals-publisher: {}
+  manuals-frontend:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  manuals-publisher:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   mapit: {}
   maslow: {}
   metadata-api: {}
@@ -93,7 +99,8 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   smokey: {}
-  specialist-frontend: {}
+  specialist-frontend:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   specialist-publisher:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   spotlight: {}
