@@ -54,10 +54,9 @@ process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
 process :'multipage-frontend' => [:static, :'content-store']
 process :need_api
-process :panopticon => [:'publishing-api', :'router-api', :rummager]
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
-process :publisher => [:panopticon, :'publishing-api', 'publisher-worker'] # for some requests also uses: mapit
+process :publisher => [:'publishing-api', 'publisher-worker'] # for some requests also uses: mapit
 process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release

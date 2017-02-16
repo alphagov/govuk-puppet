@@ -1,7 +1,7 @@
 publisher:             govuk_setenv publisher             ./run_in.sh ../publisher      bundle exec rails server -p 3000
 publisher-worker:      govuk_setenv publisher             ./run_in.sh ../publisher      foreman start worker
 imminence:             govuk_setenv imminence             ./run_in.sh ../imminence      bundle exec rails server -p 3002
-panopticon:            govuk_setenv panopticon            ./run_in.sh ../panopticon     bundle exec rails server -p 3003
+# panopticon used 3003
 # needotron formerly used port 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../frontend       bundle exec rails server -p 3005
 # planner formerly used port 3007
