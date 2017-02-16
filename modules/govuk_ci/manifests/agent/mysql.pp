@@ -83,11 +83,6 @@ class govuk_ci::agent::mysql {
       password => 'efg',
       require  => Class['::mysql::server'];
 
-    'panopticon_test':
-      user     => 'panopticon',
-      password => 'panopticon',
-      require  => Class['::mysql::server'];
-
     ['release_development', 'release_test']:
       user     => 'release',
       password => 'release',

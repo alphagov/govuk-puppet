@@ -267,7 +267,6 @@ hosts::development::apps:
   - 'maslow'
   - 'metadata-api'
   - 'need-api'
-  - 'panopticon'
   - 'performanceplatform-admin'
   - 'policy-publisher'
   - 'private-frontend'

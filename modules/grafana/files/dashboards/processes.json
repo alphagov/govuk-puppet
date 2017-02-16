@@ -1437,11 +1437,6 @@
             "selected": false
           },
           {
-            "text": "processes-app-panopticon",
-            "value": "processes-app-panopticon",
-            "selected": false
-          },
-          {
             "text": "processes-app-performanceplatform-admin",
             "value": "processes-app-performanceplatform-admin",
             "selected": false
