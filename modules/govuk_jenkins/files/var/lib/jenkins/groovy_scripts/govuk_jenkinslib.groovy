@@ -166,11 +166,19 @@ def setupDb() {
 }
 
 /**
- * Bundles all the gems
+ * Bundles all the gems in deployment mode
  */
 def bundleApp() {
   echo 'Bundling'
   sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME} --deployment --without development")
+}
+
+/**
+ * Bundles all the gems
+ */
+def bundleGem() {
+  echo 'Bundling'
+  sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME} --without development")
 }
 
 /**
