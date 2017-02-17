@@ -717,6 +717,7 @@ govuk_ci::master::pipeline_jobs:
   govuk_schemas_gem: {}
   govuk_security_audit: {}
   govuk_sidekiq: {}
+  govuk_taxonomy_helpers: {}
   govuk_template: {}
   licensify:
     source: 'github-enterprise'
