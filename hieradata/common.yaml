@@ -18,8 +18,10 @@ deployable_applications: &deployable_applications
   businesssupportfinder:
     repository: 'business-support-finder'
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  calculators: {}
-  calendars: {}
+  calculators:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  calendars:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   collections:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   collections-publisher:
@@ -97,6 +99,7 @@ deployable_applications: &deployable_applications
   signon: {}
   smartanswers:
     repository: 'smart-answers'
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   smokey: {}
   specialist-frontend:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
