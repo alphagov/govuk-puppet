@@ -178,7 +178,7 @@ def bundleApp() {
  */
 def bundleGem() {
   echo 'Bundling'
-  sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME} --without development")
+  sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME}")
 }
 
 /**
