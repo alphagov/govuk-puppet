@@ -769,6 +769,10 @@ govuk_ci::master::ci_agents:
   ci-agent-5:
     agent_hostname: 'ci-agent-5.ci'
     labels: 'mongodb-3.2 ci-agent-5 elasticsearch'
+  ci-agent-6:
+    agent_hostname: 'ci-agent-6.ci'
+    labels: 'ci-agent-6 xenial'
+
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
@@ -1115,6 +1119,8 @@ hosts::production::ci::hosts:
     ip: '10.1.6.24'
   ci-agent-5:
     ip: '10.1.6.25'
+  ci-agent-6:
+    ip: '10.1.6.26'
 
 hosts::production::frontend::hosts:
   calculators-frontend-1:

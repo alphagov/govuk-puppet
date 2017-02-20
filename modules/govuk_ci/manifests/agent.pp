@@ -10,16 +10,22 @@
 # [*master_ssh_key*]
 #   The public SSH key of the CI master to enable SSH based agent builds
 #
+# [*elasticsearch_enabled*]
+#   Boolean.  Allows the exclusion of the elasticsearch class.
+#
 class govuk_ci::agent(
   $docker_enabled = false,
   $master_ssh_key = undef,
+  $elasticsearch_enabled = true,
 ) {
   include ::govuk_ci::agent::redis
   if $docker_enabled {
     include ::govuk_ci::agent::docker
   }
+  if $elasticsearch_enabled {
+    include ::govuk_ci::agent::elasticsearch
+  }
   include ::govuk_ci::agent::rabbitmq
-  include ::govuk_ci::agent::elasticsearch
   include ::govuk_ci::agent::mongodb
   include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::mysql
