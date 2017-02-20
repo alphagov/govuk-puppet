@@ -77,7 +77,6 @@ govuk_jenkins::config::admins:
   - davidhenry
   - davidsilva
   - davidsingleton
-  - dazahern
   - deanwilson
   - deborahchua
   - douglasroper
@@ -285,7 +284,6 @@ users::usernames:
   - davidhenry
   - davidsilva
   - davidsingleton
-  - dazahern
   - deanwilson
   - deborahchua
   - douglasroper
