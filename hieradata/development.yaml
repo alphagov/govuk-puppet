@@ -63,7 +63,6 @@ govuk::node::s_development::apps:
   - 'metadata_api'
   - 'multipage_frontend'
   - 'need_api'
-  - 'panopticon'
   - 'performanceplatform_admin'
   - 'policy_publisher'
   - 'public_event_store'

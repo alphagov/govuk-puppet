@@ -69,7 +69,6 @@ govuk::node::s_base::apps:
   - manuals_publisher
   - maslow
   - need_api
-  - panopticon
   - policy_publisher
   - publisher
   - publishing_api
