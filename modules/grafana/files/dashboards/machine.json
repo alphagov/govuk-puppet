@@ -583,21 +583,6 @@
             "selected": false
           },
           {
-            "text": "etcd-1_management",
-            "value": "etcd-1_management",
-            "selected": false
-          },
-          {
-            "text": "etcd-2_management",
-            "value": "etcd-2_management",
-            "selected": false
-          },
-          {
-            "text": "etcd-3_management",
-            "value": "etcd-3_management",
-            "selected": false
-          },
-          {
             "text": "exception-handler-1_backend",
             "value": "exception-handler-1_backend",
             "selected": false
