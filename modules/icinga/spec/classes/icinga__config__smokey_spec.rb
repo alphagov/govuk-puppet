@@ -20,9 +20,6 @@ EOS
     let(:params) {{
       'http_username' => 'test_username',
       'http_password' => 'test_password',
-      'efg_domain' => 'bear',
-      'efg_username' => 'snake',
-      'efg_password' => 'hippo',
       'smokey_signon_email' => 'crocodile',
       'smokey_signon_password' => 'monkey',
       'smokey_bearer_token' => 'tortoise',
@@ -35,9 +32,6 @@ EOS
 export AUTH_PASSWORD="test_password"
 export AUTH_USERNAME="test_username"
 export BEARER_TOKEN="tortoise"
-export EFG_DOMAIN="bear"
-export EFG_PASSWORD="hippo"
-export EFG_USERNAME="snake"
 export SIGNON_EMAIL="crocodile"
 export SIGNON_PASSWORD="monkey"
 EOS

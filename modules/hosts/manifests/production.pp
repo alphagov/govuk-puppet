@@ -75,23 +75,6 @@ class hosts::production (
 
   class { 'hosts::production::ci': }
 
-  #efg vdc machines
-  govuk_host { 'efg-mysql-master-1':
-    ip             => '10.4.0.10',
-    vdc            => 'efg',
-    legacy_aliases => ['efg.master.mysql'],
-  }
-
-  govuk_host { 'efg-frontend-1':
-    ip  => '10.4.0.2',
-    vdc => 'efg',
-  }
-  govuk_host { 'efg-mysql-slave-1':
-    ip             => '10.4.0.11',
-    vdc            => 'efg',
-    legacy_aliases => ['efg.slave.mysql'],
-  }
-
   # elms (licence finder) vdc machines
   class { 'hosts::production::licensify':
     app_domain     => $app_domain,

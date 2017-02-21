@@ -37,10 +37,6 @@ deployable_applications: &deployable_applications
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   designprinciples:
     repository: 'design-principles'
-  efg-training:
-    repository: 'EFG'
-  efg-training-rebuild:
-    repository: 'EFG'
   email-alert-api: {}
   email-alert-frontend:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
@@ -373,26 +369,6 @@ govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::efg::ssl_certtype: 'wildcard_publishing'
-govuk::apps::efg::vhost_name: "efg.%{hiera('app_domain')}"
-govuk::apps::efg::nagios_memory_warning: 1600
-govuk::apps::efg::nagios_memory_critical: 1800
-
-govuk::apps::efg_rebuild::ssl_certtype: 'wildcard_publishing'
-govuk::apps::efg_rebuild::vhost_name: "efg-rebuild.%{hiera('app_domain')}"
-govuk::apps::efg_rebuild::nagios_memory_warning: 1600
-govuk::apps::efg_rebuild::nagios_memory_critical: 1800
-
-govuk::apps::efg_training::ssl_certtype: 'wildcard_publishing'
-govuk::apps::efg_training::vhost_name: "efg-training.%{hiera('app_domain')}"
-govuk::apps::efg_training::nagios_memory_warning: 1600
-govuk::apps::efg_training::nagios_memory_critical: 1800
-
-govuk::apps::efg_training_rebuild::ssl_certtype: 'wildcard_publishing'
-govuk::apps::efg_training_rebuild::vhost_name: "efg-training-rebuild.%{hiera('app_domain')}"
-govuk::apps::efg_training_rebuild::nagios_memory_warning: 1600
-govuk::apps::efg_training_rebuild::nagios_memory_critical: 1800
-
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
@@ -644,10 +620,6 @@ govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix'
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-
-# FIXME: EFG should use different MySQL passwords to our other MySQL machines
-govuk::node::s_efg_mysql_master::replica_password: "%{hiera('mysql_replica_password')}"
-govuk::node::s_efg_mysql_master::root_password: "%{hiera('mysql_root')}"
 
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend-1.licensify'
@@ -1386,8 +1358,6 @@ monitoring::vpn_gateways::endpoints:
     address: "%{hiera('environment_ip_prefix')}.12.1"
   vpn_gateway_backend_dr:
     address: "%{hiera('environment_ip_prefix')}.11.1"
-  vpn_gateway_efg:
-    address: "10.4.0.1"
   vpn_gateway_licensify:
     address: "10.5.0.1"
   vpn_gateway_redirector_dr:

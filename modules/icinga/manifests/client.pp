@@ -44,7 +44,7 @@ class icinga::client (
     ],
   }
 
-  if ($::vdc == 'licensify') or ($::vdc == 'efg') or ($::vdc =~ /^*_dr$/) {
+  if ($::vdc == 'licensify') or ($::vdc =~ /^*_dr$/) {
     $parents = "vpn_gateway_${::vdc}"
   } else {
     $parents = undef
