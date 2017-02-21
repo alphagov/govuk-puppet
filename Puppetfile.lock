@@ -90,8 +90,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-curl.git
-  ref: 0526e885cf91eca4cdd3336e63070e159d5121ae
-  sha: 0526e885cf91eca4cdd3336e63070e159d5121ae
+  ref: 9e07f56c2e0f59b5a27db7d148cda6d47da4b771
+  sha: 9e07f56c2e0f59b5a27db7d148cda6d47da4b771
   specs:
     alphagov-curl (0.0.1)
       puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
