@@ -536,36 +536,6 @@
             "selected": false
           },
           {
-            "text": "efg-frontend-1_efg",
-            "value": "efg-frontend-1_efg",
-            "selected": false
-          },
-          {
-            "text": "efg-frontend-1_efg_production",
-            "value": "efg-frontend-1_efg_production",
-            "selected": false
-          },
-          {
-            "text": "efg-mysql-master-1_efg",
-            "value": "efg-mysql-master-1_efg",
-            "selected": false
-          },
-          {
-            "text": "efg-mysql-master-1_efg_production",
-            "value": "efg-mysql-master-1_efg_production",
-            "selected": false
-          },
-          {
-            "text": "efg-mysql-slave-1_efg",
-            "value": "efg-mysql-slave-1_efg",
-            "selected": false
-          },
-          {
-            "text": "efg-mysql-slave-1_efg_production",
-            "value": "efg-mysql-slave-1_efg_production",
-            "selected": false
-          },
-          {
             "text": "elasticsearch-1_backend",
             "value": "elasticsearch-1_backend",
             "selected": false
@@ -1284,21 +1254,6 @@
           {
             "text": "processes-app-dfid-transition",
             "value": "processes-app-dfid-transition",
-            "selected": false
-          },
-          {
-            "text": "processes-app-efg",
-            "value": "processes-app-efg",
-            "selected": false
-          },
-          {
-            "text": "processes-app-efg-training",
-            "value": "processes-app-efg-training",
-            "selected": false
-          },
-          {
-            "text": "processes-app-efg_training",
-            "value": "processes-app-efg_training",
             "selected": false
           },
           {
