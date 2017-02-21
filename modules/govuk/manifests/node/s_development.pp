@@ -76,18 +76,6 @@ class govuk::node::s_development (
       user     => 'contacts',
       password => 'contacts';
 
-    [
-      'efg_development',
-      'efg_test',
-      'efg_test1',
-      'efg_test2',
-      'efg_test3',
-      'efg_test4',
-      'efg_il0',
-    ]:
-      user     => 'efg',
-      password => 'efg';
-
     ['release_development', 'release_test']:
       user     => 'release',
       password => 'release';
