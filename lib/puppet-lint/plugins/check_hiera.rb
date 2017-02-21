@@ -45,8 +45,6 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'mysql_replica_password',
     'mysql_root',
     'nginx_enable_ssl',
-    'sflg_certificate',
-    'sflg_key',
     'wildcard_publishing_certificate',
     'wildcard_publishing_key',
     'www_crt',
