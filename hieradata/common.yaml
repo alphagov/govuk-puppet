@@ -298,6 +298,11 @@ filebeat::prospectors:
       - 'history'
     fields:
       application: 'apt'
+    multiline:
+      pattern: '^$'
+      negate: true
+      match: 'after'
+      timeout: 30
   apt-term:
     paths:
       - '/var/log/apt/term.log'
