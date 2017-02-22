@@ -142,9 +142,6 @@ Those databases include:
 - Licensify
 - Signon
 
-EFG isn't synced out of production because GOV.UK doesn't host the non-production
-instance of that application.
-
 Mapit's database will be downloaded in the Mapit repo and therefore will be not be in the backups folder.
 
 To get production data on to your local vm you will need to either have access
