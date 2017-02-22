@@ -23,6 +23,9 @@
 #   Google authentication email
 #   Default: undef
 #
+# [*ga_pageview_batch_size*]
+#   Default batch size of requests to Google API
+#   Default: 3000
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
@@ -45,6 +48,7 @@ class govuk::apps::content_performance_manager(
   $google_analytics_govuk_view_id = undef,
   $google_private_key = undef,
   $google_client_email = undef,
+  $ga_pageview_batch_size = '3000',
   $db_hostname = undef,
   $db_username = 'content_performance_manager',
   $db_password = undef,
@@ -73,6 +77,9 @@ class govuk::apps::content_performance_manager(
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
+    "${title}-GA_PAGEVIEW_BATCH_SIZE":
+      varname => 'GA_PAGEVIEW_BATCH_SIZE',
+      value   => $ga_pageview_batch_size;
   }
 
   if $secret_key_base != undef {
