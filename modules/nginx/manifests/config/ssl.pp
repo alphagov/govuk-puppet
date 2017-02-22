@@ -9,16 +9,11 @@
 #   Mandatory key used to lookup value from hiera. It performs no other
 #   magic. Permitted values:
 #
-#     - sflg
 #     - wildcard_publishing
 #     - www
 #
 define nginx::config::ssl( $certtype, $ensure = 'present' ) {
   case $certtype {
-    'sflg': {
-        $cert = hiera('sflg_certificate', '')
-        $key = hiera('sflg_key', '')
-    }
     'wildcard_publishing': {
         $cert = hiera('wildcard_publishing_certificate', '')
         $key = hiera('wildcard_publishing_key', '')

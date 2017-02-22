@@ -52,13 +52,5 @@ describe 'icinga::host', :type => :define do
 
       it_behaves_like 'a host with parents'
     end
-
-    describe 'On an EFG machine' do
-      let(:facts) {{
-        'vdc' => 'efg',
-      }}
-
-      it_behaves_like 'a host with parents'
-    end
   end
 end

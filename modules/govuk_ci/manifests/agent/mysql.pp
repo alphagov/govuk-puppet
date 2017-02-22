@@ -68,21 +68,6 @@ class govuk_ci::agent::mysql {
       password => 'content_planner',
       require  => Class['::mysql::server'];
 
-    [
-      'efg_test',
-      'efg_test1',
-      'efg_test2',
-      'efg_test3',
-      'efg_test4',
-      'efg_test5',
-      'efg_test6',
-      'efg_test7',
-      'efg_test8',
-    ]:
-      user     => 'efg',
-      password => 'efg',
-      require  => Class['::mysql::server'];
-
     ['release_development', 'release_test']:
       user     => 'release',
       password => 'release',

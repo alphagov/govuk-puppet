@@ -10,12 +10,6 @@
 # [*auth_password*]
 #   HTTP basic auth password
 #
-# [*efg_username*]
-#   Username to sign in to EFG
-#
-# [*efg_password*]
-#   Password to sign in to EFG
-#
 # [*signon_email*]
 #   Username to sign in to Signon
 #
@@ -34,8 +28,6 @@
 class govuk_jenkins::job::smokey (
   $auth_username = undef,
   $auth_password = undef,
-  $efg_username = undef,
-  $efg_password = undef,
   $signon_email = undef,
   $signon_password = undef,
   $smokey_bearer_token = undef,

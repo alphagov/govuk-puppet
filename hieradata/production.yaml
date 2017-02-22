@@ -80,12 +80,6 @@ base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
 
-govuk::apps::efg::ssl_certtype: 'sflg'
-govuk::apps::efg::vhost_name: "www.sflg.gov.uk"
-
-govuk::apps::efg_training::ssl_certtype: 'sflg'
-govuk::apps::efg_training::vhost_name: "training.sflg.gov.uk"
-
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false

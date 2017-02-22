@@ -4,15 +4,6 @@
 #
 # === Parameters
 #
-# [*efg_domain*]
-#   Public-facing domain name that EFG is hosted on
-#
-# [*efg_username*]
-#   Username to login to EFG's web interface
-#
-# [*efg_password*]
-#   Password that goes with $efg_username
-#
 # [*http_username*]
 #   Basic auth username
 #
@@ -32,9 +23,6 @@
 #   Bearer token for something
 #
 class icinga::config::smokey (
-  $efg_domain = 'UNSET',
-  $efg_username = 'UNSET',
-  $efg_password = 'UNSET',
   $http_username = 'UNSET',
   $http_password = 'UNSET',
   $rate_limit_token = 'UNSET',
@@ -45,9 +33,6 @@ class icinga::config::smokey (
   $smokey_vars = {
     'AUTH_USERNAME'    => $http_username,
     'AUTH_PASSWORD'    => $http_password,
-    'EFG_DOMAIN'       => $efg_domain,
-    'EFG_USERNAME'     => $efg_username,
-    'EFG_PASSWORD'     => $efg_password,
     'SIGNON_EMAIL'     => $smokey_signon_email,
     'SIGNON_PASSWORD'  => $smokey_signon_password,
     'BEARER_TOKEN'     => $smokey_bearer_token,
