@@ -76,4 +76,15 @@ class govuk_postgresql::server::primary (
 
   create_resources('postgresql::server::pg_hba_rule', $slave_addresses, $pg_hba_defaults)
 
+  $warning_conns = $max_connections * 0.8
+  $critical_conns = $max_connections * 0.9
+
+  @@icinga::check::graphite { "check_postgres_conns_used_${::hostname}":
+    target    => "${::fqdn_metrics}.postgresql-global.pg_numbackends",
+    desc      => 'postgres high connections used',
+    warning   => $warning_conns,
+    critical  => $critical_conns,
+    host_name => $::fqdn,
+  }
+
 }
