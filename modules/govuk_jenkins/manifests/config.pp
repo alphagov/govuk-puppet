@@ -53,6 +53,9 @@
 # [*admins*]
 #   List of admins that have "admin" permissions in Jenkins.
 #
+# [*devs*]
+#   List of users that have "developer" permissions in Jenkins.
+#
 # [*manage_config*]
 #   Boolean option to manage the Jenkins configuration directory.
 #
@@ -97,11 +100,13 @@ class govuk_jenkins::config (
   $jenkins_agent_user = 'jenkins_agent',
   $executors = '4',
   $agent_tcp_port = '0',
+  $devs = [],
 ) {
 
   $url = "${url_prefix}.${app_domain}"
 
   validate_array($admins)
+  validate_array($devs)
   validate_hash($views)
 
   if $manage_config {

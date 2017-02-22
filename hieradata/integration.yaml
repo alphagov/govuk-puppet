@@ -55,6 +55,13 @@ govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'Integration'
 
 govuk_jenkins::config::admins:
+  - anafernandez
+  - deanwilson
+  - lauramartin
+  - mikaelallison
+  - samcook
+
+govuk_jenkins::config:devs:
   - aaronkeogh
   - alecgibson
   - alexmuller
