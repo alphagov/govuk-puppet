@@ -243,4 +243,49 @@ def deployIntegration(String application, String branch, String tag, String depl
   }
 }
 
+/**
+ * Publish a gem to rubygems.org
+ *
+ * @param repository Name of the gem repository. This should match the name of the gemspec file.
+ * @param branch Branch name being published. Only publishes if this is 'master'
+ */
+def publishGem(String repository, String branch) {
+  if (branch != 'master') {
+    return
+  }
+
+  def version = sh(
+    script: /ruby -e "puts eval(File.read('${repository}.gemspec'), TOPLEVEL_BINDING).version.to_s"/,
+    returnStdout: true
+  ).trim()
+
+  def taggedReleaseExists = sh(
+    script: "git tag | grep v${version}",
+    returnStatus: true
+  ) == 0
+
+  if (taggedReleaseExists) {
+    echo "Version ${version} has already been tagged on Github. Skipping publication."
+    return
+  } else {
+    echo('Pushing tag')
+    govuk.pushTag(repository, branch, 'v' + version)
+  }
+
+  def escapedVersion = version.replaceAll(/\./, /\\\\./)
+  def versionAlreadyPublished = sh(
+    script: /gem list ^${repository}\$ --remote --all --quiet | grep [^0-9\\.]${escapedVersion}[^0-9\\.]/,
+    returnStatus: true
+  ) == 0
+
+  if (versionAlreadyPublished) {
+    echo "Version ${version} has already been published to rubygems.org. Skipping publication."
+    return
+  } else {
+    echo('Publishing gem')
+    sh("gem build ${repository}.gemspec")
+    sh("gem push ${repository}-${version}.gem")
+  }
+}
+
 return this;
