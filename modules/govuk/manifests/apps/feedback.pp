@@ -24,7 +24,7 @@ class govuk::apps::feedback(
   $secret_key_base = undef,
   $support_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
-  $assisted_digital_help_with_fees_google_spreadsheet_key = undef,
+  $assisted_digital_google_spreadsheet_key = undef,
   $google_client_email = undef,
   $google_private_key = undef,
 ) {
@@ -69,10 +69,10 @@ class govuk::apps::feedback(
     value   => $publishing_api_bearer_token,
   }
 
-  if $assisted_digital_help_with_fees_google_spreadsheet_key != undef {
-    govuk::app::envvar { "${title}-ASSISTED_DIGITAL_HELP_WITH_FEES_GOOGLE_SPREADSHEET_KEY":
-      varname => 'ASSISTED_DIGITAL_HELP_WITH_FEES_GOOGLE_SPREADSHEET_KEY',
-      value   => $assisted_digital_help_with_fees_google_spreadsheet_key,
+  if $assisted_digital_google_spreadsheet_key != undef {
+    govuk::app::envvar { "${title}-ASSISTED_DIGITAL_GOOGLE_SPREADSHEET_KEY":
+      varname => 'ASSISTED_DIGITAL_GOOGLE_SPREADSHEET_KEY',
+      value   => $assisted_digital_google_spreadsheet_key,
     }
   }
 
