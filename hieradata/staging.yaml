@@ -19,6 +19,7 @@ govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::whitehall::enable_tagging_to_new_taxonomy: "yes"
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
