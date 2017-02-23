@@ -13,6 +13,19 @@ def cleanupGit() {
 }
 
 /**
+ * Checkout repo using SSH key
+ */
+def checkoutFromGitHubWithSSH(String repository, String org = 'alphagov', String url = 'github.com') {
+  checkout([$class: 'GitSCM',
+    branches: scm.branches,
+    userRemoteConfigs: [[
+      credentialsId: 'govuk-ci-ssh-key',
+      url: "git@${url}:${org}/${repository}.git"
+    ]]
+  ])
+}
+
+/**
  * Try to merge master into the current branch
  *
  * This will abort if it doesn't exit cleanly (ie there are conflicts), and
