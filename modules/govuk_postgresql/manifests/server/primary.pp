@@ -22,7 +22,13 @@
 #
 # [*user*]
 #   Specifies which database user name(s) the pg_hba record matches.
-
+#
+# [*max_connections*]
+#   The maximum number of connections the server can connect. It always reserves
+#   3 for superuser connections, but if it runs out it can have an impact on
+#   applications waiting for connections. Ideally applications should close
+#   their connections to the database, but this doesn't always happen.
+#   Default: 100
 class govuk_postgresql::server::primary (
   $auth_method = 'md5',
   $database = 'replication',
@@ -30,6 +36,7 @@ class govuk_postgresql::server::primary (
   $slave_password,
   $type = 'host',
   $user = 'replication',
+  $max_connections = 100,
 ) {
   include govuk_postgresql::backup
   include govuk_postgresql::server
@@ -44,6 +51,8 @@ class govuk_postgresql::server::primary (
       value => 3;
     'wal_keep_segments':
       value => 256;
+    'max_connections':
+      value => $max_connections;
   }
 
   if versioncmp($::postgresql::globals::version, '9.5') < 0 {
@@ -66,5 +75,16 @@ class govuk_postgresql::server::primary (
   }
 
   create_resources('postgresql::server::pg_hba_rule', $slave_addresses, $pg_hba_defaults)
+
+  $warning_conns = $max_connections * 0.8
+  $critical_conns = $max_connections * 0.9
+
+  @@icinga::check::graphite { "check_postgres_conns_used_${::hostname}":
+    target    => "${::fqdn_metrics}.postgresql-global.pg_numbackends",
+    desc      => 'postgres high connections used',
+    warning   => $warning_conns,
+    critical  => $critical_conns,
+    host_name => $::fqdn,
+  }
 
 }
