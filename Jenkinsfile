@@ -7,7 +7,7 @@ node {
 
   try {
     stage("Checkout") {
-      checkout scm
+      govuk.checkoutFromGitHubWithSSH(REPOSITORY)
     }
 
     stage("Bundle install") {
@@ -48,4 +48,6 @@ node {
     throw e
   }
 
+  // Wipe the workspace
+  deleteDir()
 }
