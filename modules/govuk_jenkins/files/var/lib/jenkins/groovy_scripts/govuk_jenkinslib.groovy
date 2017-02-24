@@ -282,7 +282,7 @@ def publishGem(String repository, String branch) {
     return
   } else {
     echo('Pushing tag')
-    govuk.pushTag(repository, branch, 'v' + version)
+    pushTag(repository, branch, 'v' + version)
   }
 
   def escapedVersion = version.replaceAll(/\./, /\\\\./)
