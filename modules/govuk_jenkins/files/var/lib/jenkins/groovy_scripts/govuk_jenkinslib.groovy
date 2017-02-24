@@ -272,6 +272,11 @@ def publishGem(String repository, String branch) {
     returnStdout: true
   ).trim()
 
+  sshagent(['govuk-ci-ssh-key']) {
+    echo "Fetching remote tags"
+    sh("git fetch --tags")
+  }
+
   def taggedReleaseExists = sh(
     script: "git tag | grep v${version}",
     returnStatus: true
@@ -282,7 +287,7 @@ def publishGem(String repository, String branch) {
     return
   } else {
     echo('Pushing tag')
-    govuk.pushTag(repository, branch, 'v' + version)
+    pushTag(repository, branch, 'v' + version)
   }
 
   def escapedVersion = version.replaceAll(/\./, /\\\\./)
