@@ -19,7 +19,7 @@ class govuk_jenkins::reload (
   require ::govuk_jenkins
 
   curl::fetch { 'Jenkins CLI tool':
-    source      => 'http://localhost:8080/nlpJars/jenkins-cli.jar',
+    source      => 'http://localhost:8080/jnlpJars/jenkins-cli.jar',
     destination => "${jenkins_home}/jenkins-cli.jar",
     timeout     => 0,
     verbose     => false,
