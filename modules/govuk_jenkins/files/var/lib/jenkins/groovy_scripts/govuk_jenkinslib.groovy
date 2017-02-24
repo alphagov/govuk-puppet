@@ -272,6 +272,11 @@ def publishGem(String repository, String branch) {
     returnStdout: true
   ).trim()
 
+  sshagent(['govuk-ci-ssh-key']) {
+    echo "Fetching remote tags"
+    sh("git fetch --tags")
+  }
+
   def taggedReleaseExists = sh(
     script: "git tag | grep v${version}",
     returnStatus: true
