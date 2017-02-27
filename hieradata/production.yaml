@@ -34,6 +34,7 @@ backup::assets::jobs:
     minute: 20
     user: 'root'
     gpg_key_id: *offsite_gpg_key
+    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
   'asset-manager-s3':
     sources: '/mnt/uploads/asset-manager'
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/asset-manager/'
@@ -43,6 +44,7 @@ backup::assets::jobs:
     minute: 13
     user: 'root'
     gpg_key_id: *offsite_gpg_key
+    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
 
 
 backup::offsite::dest_host: *offsite_host
