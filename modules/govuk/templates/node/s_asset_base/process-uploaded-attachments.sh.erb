@@ -31,6 +31,9 @@ cd "$INCOMING_DIR"
 while IFS= read -r -d '' FILE
   do
     logger -t process_uploaded_attachment "Processing uploaded file $FILE"
+    # Send metric to Statsd
+    WAITING_TIME=$(expr $(date +%s) - $(stat -c %Y $FILE))
+    echo "govuk.app.asset-master.scan-queue:${WAITING_TIME}|ms" | nc -w 1 -u localhost 8125
     # This parameter substition strips "$INCOMING_DIR/" from the beginning of $FILE.
     FILE_PATH=${FILE#$INCOMING_DIR/}
     if /usr/local/bin/virus-scan-file.sh "$FILE"; then
