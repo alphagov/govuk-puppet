@@ -1,3 +1,9 @@
+location /static/a.gif {
+  expires -1;
+  add_header Last-Modified "";
+  empty_gif;
+}
+
 location /__canary__ {
   default_type application/json;
   add_header cache-control "max-age=0, no-store, no-cache";
