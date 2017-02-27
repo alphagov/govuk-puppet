@@ -47,7 +47,6 @@ backup::assets::jobs:
 
 backup::offsite::dest_host: *offsite_host
 backup::offsite::dest_host_key: *offsite_ssh_host_key
-backup::offsite::enable: true
 backup::offsite::jobs:
   'govuk-datastores':
     sources:
@@ -159,6 +158,9 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-3.backend'
   - 'whitehall-backend-4.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'performance.service.gov.uk'
+
+govuk::node::s_backup::offsite_backups: true
+
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'

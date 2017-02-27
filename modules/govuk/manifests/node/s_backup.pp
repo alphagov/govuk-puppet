@@ -7,9 +7,14 @@
 # [*directories*]
 #   A hash defining which directories should be backed up.
 #
+# [*offsite_backups*]
+#   Set true to enable to offsite backups
+#
 class govuk::node::s_backup (
   $directories = {},
+  $offsite_backups = false,
 ) inherits govuk::node::s_base {
+  validate_bool($offsite_backups)
 
   class {'backup::server':
     require => Govuk_mount['/data/backups'],
@@ -24,8 +29,9 @@ class govuk::node::s_backup (
     require => Class['govuk_mysql::server'],
   }
 
-  include backup::offsite
-
+  if $offsite_backups {
+    include backup::offsite
+  }
   create_resources('backup::directory', $directories)
 
 }
