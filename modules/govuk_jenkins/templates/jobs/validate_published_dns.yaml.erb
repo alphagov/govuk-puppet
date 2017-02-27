@@ -12,7 +12,7 @@
             rm -rf govuk-dns-config
             git clone --branch master --depth 1 git@github.gds:gds/govuk-dns-config.git
             cd govuk-dns-config
-            bundle install
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec rake validate_dns
     wrappers:
         - ansicolor:
