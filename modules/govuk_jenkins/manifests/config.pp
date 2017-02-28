@@ -109,7 +109,17 @@ class govuk_jenkins::config (
     File {
       owner  => 'jenkins',
       group  => 'jenkins',
-      notify => Class['Govuk_jenkins::Reload'],
+    }
+
+    # FIXME: Remove once all Jenkinses are upgraded to at least 2.0.0
+    if versioncmp($version, '2.0.0') == 1 {
+      File {
+        notify => Class['Govuk_jenkins::Reload'],
+      }
+    } else {
+      File {
+        notify => Service['jenkins'],
+      }
     }
 
     file {'/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml':
