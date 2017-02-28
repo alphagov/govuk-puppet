@@ -129,8 +129,12 @@ class govuk_crawler(
         provider => system_gem,
   }
 
-  # Needed to copy to AWS S3
+  # FIXME: remove this once this has run in production
   package { 'awscli':
+        ensure   => absent,
+  }
+  # Needed to copy to AWS S3
+  package { 's3cmd':
         ensure   => present,
         provider => pip,
   }
