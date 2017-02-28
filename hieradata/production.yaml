@@ -27,22 +27,24 @@ backup::assets::jobs:
     pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
   'assets-whitehall-s3':
     sources: '/mnt/uploads/whitehall'
-    bucket: 'govuk-offsite-backups-production'
+    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/assets-whitehall/'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 4
     minute: 20
     user: 'root'
     gpg_key_id: *offsite_gpg_key
+    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
   'asset-manager-s3':
     sources: '/mnt/uploads/asset-manager'
-    bucket: 'govuk-offsite-backups-production'
+    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/asset-manager/'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 4
     minute: 13
     user: 'root'
     gpg_key_id: *offsite_gpg_key
+    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
 
 
 backup::offsite::dest_host: *offsite_host
@@ -65,7 +67,7 @@ backup::offsite::jobs:
       - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
       - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
       - '/data/backups/archived'
-    bucket: 'govuk-offsite-backups-production'
+    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/govuk-datastores/'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 8,
