@@ -92,6 +92,14 @@ class govuk::node::s_asset_master (
     notes_url           => monitoring_docs_url(full-attachments-sync),
   }
 
+  @@icinga::check::graphite { "check_uploads_scan_waiting_time_${::hostname}":
+    target    => 'stats.timers.govuk.app.asset-master.scan-queue.upper_90',
+    warning   => 1200,
+    critical  => 2400,
+    desc      => 'Waiting time to pass virus scan',
+    host_name => $::fqdn,
+  }
+
   cron { 'virus-scan-clean':
     user    => 'assets',
     hour    => '*',
