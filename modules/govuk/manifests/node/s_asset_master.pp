@@ -14,6 +14,8 @@
 class govuk::node::s_asset_master (
   $copy_attachments_hour = 4,
   $asset_slave_ip_ranges = {},
+  $incoming_uploads_count_warning = 100,
+  $incoming_uploads_count_critical = 1000
 ) inherits govuk::node::s_asset_base {
 
   include assets::ssh_private_key
@@ -29,6 +31,8 @@ class govuk::node::s_asset_master (
     File['/var/run/virus_scan'],
     Package['daemontools'],
   ]
+
+  $incoming_directory = '/mnt/uploads/whitehall/incoming'
 
   cron { 'process-incoming-files':
     user    => 'assets',
@@ -71,6 +75,11 @@ class govuk::node::s_asset_master (
     user   => 'assets',
   }
 
+  collectd::plugin::file_count {
+    'whitehall_incoming':
+      directory => $incoming_directory;
+  }
+
   @@icinga::passive_check { "check_process_attachments_${::hostname}":
     service_description => 'Process attachments last run',
     host_name           => $::fqdn,
@@ -90,6 +99,14 @@ class govuk::node::s_asset_master (
     host_name           => $::fqdn,
     freshness_threshold => 100800,
     notes_url           => monitoring_docs_url(full-attachments-sync),
+  }
+
+  @@icinga::check::graphite { "check_whitehall_incoming_uploads_count-${::hostname}":
+    target    => "${::fqdn_metrics}.filecount-mnt_uploads_whitehall_incoming.files",
+    desc      => 'Whitehall incoming uploads count',
+    warning   => $incoming_uploads_count_warning,
+    critical  => $incoming_uploads_count_critical,
+    host_name => $::fqdn,
   }
 
   cron { 'virus-scan-clean':

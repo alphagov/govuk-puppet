@@ -9,9 +9,9 @@ describe "collectd::plugin::file_count", :type => :define do
 
   it {
     is_expected.to contain_collectd__plugin("file count: #{title}").with_content(<<-EOS
+LoadPlugin "filecount"
 <Plugin "filecount">
   <Directory "#{directory}">
-    Instance "#{directory}"
   </Directory>
 </Plugin>
 EOS
