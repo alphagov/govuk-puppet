@@ -36,6 +36,7 @@ class govuk_ci::agent(
   include ::govuk_jenkins::user
   include ::govuk_jenkins::pipeline
   include ::govuk_rbenv::all
+  include ::govuk_sysdig
   include ::golang
   include ::govuk_testing_tools
 
