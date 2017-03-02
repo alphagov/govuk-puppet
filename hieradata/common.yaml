@@ -827,6 +827,8 @@ govuk_sudo::sudo_conf:
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
+govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
 govuk_unattended_reboot::elasticsearch::enabled: true
