@@ -27,9 +27,4 @@ class grafana {
     source => 'puppet:///modules/grafana/vhost.conf',
   }
 
-  # FIXME: remove this code once all grafanasa are upgraded from 1.9
-  file { '/etc/grafana/config.js':
-    ensure => absent,
-  }
-
 }
