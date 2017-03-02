@@ -3,6 +3,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_staging
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_cdn
+  - govuk_jenkins::job::deploy_dns
   - govuk_jenkins::job::deploy_lambda_app
   - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
