@@ -94,6 +94,10 @@ class govuk::node::s_apt (
       location => 'http://apt.postgresql.org/pub/repos/apt/',
       release  => 'trusty-pgdg',
       key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
+    'sysdig':
+      location => 'http://download.draios.com/stable/deb',
+      release  => 'stable-amd64/',
+      key      => 'D27A72F32D867DF9300A241574490FD6EC51E8C4';
   }
 
   aptly::repo { 'elastic-beats': }
