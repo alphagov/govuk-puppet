@@ -7,7 +7,7 @@ node {
 
   try {
     stage("Checkout") {
-      govuk.checkoutFromGitHubWithSSH(REPOSITORY)
+      checkout scm
     }
 
     stage("Bundle install") {
