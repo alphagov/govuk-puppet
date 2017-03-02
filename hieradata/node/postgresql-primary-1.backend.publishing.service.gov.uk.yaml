@@ -1,1 +1,0 @@
-govuk_postgresql::server::primary::max_connections: 200

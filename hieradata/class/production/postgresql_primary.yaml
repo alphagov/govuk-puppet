@@ -9,3 +9,5 @@ lv:
   data:
     pv: '/dev/sdd1'
     vg: 'postgresql'
+
+govuk_postgresql::server::max_connections: 200
