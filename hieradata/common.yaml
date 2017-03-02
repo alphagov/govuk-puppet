@@ -693,7 +693,7 @@ govuk_ci::master::pipeline_jobs:
   govuk-provisioning:
     source: 'github-enterprise'
   govuk_seed_crawler: {}
-  govuk_schemas_gem: {}
+  govuk_schemas: {}
   govuk_security_audit: {}
   govuk_sidekiq: {}
   govuk_taxonomy_helpers: {}
