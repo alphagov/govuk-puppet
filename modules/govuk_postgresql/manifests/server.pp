@@ -18,11 +18,18 @@
 # [*configure_env_sync_user*]
 #   Whether a user for syncing data across environments should be created.
 #
+# [*max_connections*]
+#   The maximum number of connections the server can connect. It always reserves
+#   3 for superuser connections, but if it runs out it can have an impact on
+#   applications waiting for connections. Ideally applications should close
+#   their connections to the database, but this doesn't always happen.
+#   Default: 100
 class govuk_postgresql::server (
     $snakeoil_ssl_certificate,
     $snakeoil_ssl_key,
     $listen_addresses = '*',
     $configure_env_sync_user = false,
+    $max_connections = 100,
 ) {
   if !(
     defined(Class["${name}::standalone"]) or
@@ -79,5 +86,21 @@ class govuk_postgresql::server (
   collectd::plugin::tcpconn { 'postgresql':
     incoming => 5432,
     outgoing => 5432,
+  }
+
+  postgresql::server::config_entry {
+    'max_connections':
+      value => $max_connections;
+  }
+
+  $warning_conns = $max_connections * 0.8
+  $critical_conns = $max_connections * 0.9
+
+  @@icinga::check::graphite { "check_postgres_conns_used_${::hostname}":
+    target    => "${::fqdn_metrics}.postgresql-global.pg_numbackends",
+    desc      => 'postgres high connections used',
+    warning   => $warning_conns,
+    critical  => $critical_conns,
+    host_name => $::fqdn,
   }
 }
