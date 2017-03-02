@@ -25,6 +25,9 @@
             export DYN_ZONE_ID='<%= @dyn_zone_id %>'
             export ROUTE53_ZONE_ID='<%= @route53_zone_id %>'
             export DYN_CUSTOMER_NAME='<%= @dyn_customer_name %>'
+            export GCE_ZONE_ID='<%= @gce_zone_id %>'
+            export GCE_CREDENTIALS='<%= @gce_credentials %>'
+            export GCE_REGION='<%= @gce_region %>'
             ./jenkins.sh
     wrappers:
         - ansicolor:
@@ -36,12 +39,19 @@
                 - PICK ONE
                 - all
                 - dyn
+                - gce
                 - route53
         - string:
             name: AWS_ACCESS_KEY_ID
             default: false
         - password:
             name: AWS_SECRET_ACCESS_KEY
+            default: false
+        - string:
+            name: GOOGLE_CLIENT_ID
+            default: false
+        - password:
+            name: GOOGLE_PRIVATE_KEY_ID
             default: false
         - string:
             name: DYN_USERNAME
