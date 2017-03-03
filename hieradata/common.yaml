@@ -91,7 +91,8 @@ deployable_applications: &deployable_applications
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   service-manual-publisher:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  short-url-manager: {}
+  short-url-manager:
+    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   sidekiq-monitoring: {}
   signon: {}
   smartanswers:
