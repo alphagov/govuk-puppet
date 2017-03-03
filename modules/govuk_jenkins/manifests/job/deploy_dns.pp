@@ -47,6 +47,8 @@ class govuk_jenkins::job::deploy_dns (
   $route53_zone_id = undef,
 ) {
 
+  contain '::govuk_jenkins::packages::terraform'
+
   file { '/etc/jenkins_jobs/jobs/deploy_dns.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/deploy_dns.yaml.erb'),
@@ -68,7 +70,5 @@ class govuk_jenkins::job::deploy_dns (
     content => template('govuk_jenkins/gce_credentials.json.erb'),
     require => File['/etc/gce'],
   }
-
-  ensure_packages(['terraform'])
 
 }

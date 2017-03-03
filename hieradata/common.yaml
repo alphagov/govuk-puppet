@@ -536,7 +536,7 @@ govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
-govuk_jenkins::job::deploy_terraform_project::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
