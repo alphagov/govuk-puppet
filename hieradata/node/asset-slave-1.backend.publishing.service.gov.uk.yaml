@@ -12,6 +12,7 @@ lv:
   cache:
     pv:
       - '/dev/sda1'
+      - '/dev/sde1'
     vg: 'duplicity'
 
 mount:
