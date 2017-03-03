@@ -21,46 +21,46 @@ class govuk_rbenv::all (
   }
 
   rbenv::version { '2.1.2':
-    bundler_version => '1.6.5',
+    bundler_version => '1.14.5',
   }
   rbenv::version { '2.1.4':
-    bundler_version => '1.7.4',
+    bundler_version => '1.14.5',
   }
   rbenv::version { '2.1.5':
-    bundler_version => '1.8.3',
+    bundler_version => '1.14.5',
   }
   rbenv::version { '2.1.8':
-    bundler_version => '1.10.6',
+    bundler_version => '1.14.5',
   }
   rbenv::alias { '2.1':
     to_version => '2.1.8',
   }
 
   rbenv::version { '2.2.2':
-    bundler_version => '1.9.4',
+    bundler_version => '1.14.5',
   }
   rbenv::version { '2.2.3':
-    bundler_version => '1.10.6',
+    bundler_version => '1.14.5',
   }
   rbenv::version { '2.2.4':
-    bundler_version => '1.10.6',
+    bundler_version => '1.14.5',
   }
   rbenv::alias { '2.2':
     to_version => '2.2.4',
   }
 
   rbenv::version { '2.3.0':
-    bundler_version => '1.11.2',
+    bundler_version => '1.14.5',
   }
   rbenv::version { '2.3.1':
-    bundler_version => '1.11.2',
+    bundler_version => '1.14.5',
   }
   rbenv::alias { '2.3':
     to_version => '2.3.1',
   }
 
   rbenv::version { '2.4.0':
-    bundler_version => '1.13.7',
+    bundler_version => '1.14.5',
   }
   rbenv::alias { '2.4':
     to_version => '2.4.0',
