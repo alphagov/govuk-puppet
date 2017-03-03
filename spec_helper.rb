@@ -48,4 +48,9 @@ RSpec.configure do |c|
     :kernel                  => 'Linux',
     :ipaddress_eth0          => '127.0.0.1',
   }
+
+  c.after(:suite) do
+    RSpec::Puppet::Coverage.report!
+  end
+
 end
