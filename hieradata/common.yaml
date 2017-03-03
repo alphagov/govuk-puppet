@@ -114,8 +114,6 @@ deployable_applications: &deployable_applications
   whitehall:
     branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
 
-apt_mirror_hostname: 'apt.production.alphagov.co.uk'
-
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
 apt::purge_sources_list: true
@@ -525,18 +523,14 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_apt::local_mirror_alias::address: '10.3.0.75'
 
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 
 govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
 
-govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk_htpasswd::http_username: "%{hiera('http_username')}"
-
-govuk_jenkins::job::deploy_terraform_project::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -560,9 +554,6 @@ govuk::node::s_whitehall_mysql_master::encryption_key: "${hiera('govuk::node::s_
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
-govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_sshkeys::deployment_keys:
   github.com:
@@ -670,14 +661,10 @@ govuk_ci::master::ci_agents:
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
-govuk_ci::agent::swarm::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
-govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::github_enterprise_cert::certificate: |
     -----BEGIN CERTIFICATE-----
     MIIEdDCCA1ygAwIBAgIJAKt4YiHj0+tVMA0GCSqGSIb3DQEBBQUAMIGCMQswCQYD
@@ -728,13 +715,8 @@ govuk_jenkins::job::deploy_lambda_app::lambda_apps:
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
-govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_postgresql::server::configure_env_sync_user: true
-
-govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_sudo::sudo_conf:
   deploy_init_ctl:
@@ -758,7 +740,6 @@ govuk_unattended_reboot::monitoring_basic_auth:
   username: "%{hiera('http_username')}"
   password: "%{hiera('http_password')}"
 
-grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 
@@ -1240,7 +1221,6 @@ limits::entries:
     limit_type: 'nofile'
     hard: 2048
 
-mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
 
 monitoring::checks::http_username: "%{hiera('http_username')}"
@@ -1322,8 +1302,6 @@ postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
 
 puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
-
-puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 rabbitmq::delete_guest_user: true
 rabbitmq::config_stomp: true
@@ -1417,9 +1395,6 @@ sidekiq_host: 'redis-1.backend'
 sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
-
-statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 trade_tariff_hostname: 'tariff-frontend-dev.cloudapps.digital'
 

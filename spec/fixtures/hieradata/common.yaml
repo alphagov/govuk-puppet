@@ -15,8 +15,6 @@ govuk_app_enable_services: false
 
 govuk_cdnlogs::monitoring_enabled: false
 
-govuk_jenkins::package::apt_mirror_hostname: 'apt.example.com'
-
 govuk_jenkins::config::github_api_uri: foo
 govuk_jenkins::github_client_id: bar
 govuk_jenkins::github_client_secret: baz
@@ -32,7 +30,6 @@ govuk_postgresql::monitoring::password: password
 
 govuk_rabbitmq::monitoring_password: 'rabbit_monitor'
 govuk_rabbitmq::root_password: 'rabbit_root'
-govuk_rabbitmq::repo::apt_mirror_hostname: 'rabbit_repo'
 
 hosts::production::backend::hosts:
   whitehall-backend-1:

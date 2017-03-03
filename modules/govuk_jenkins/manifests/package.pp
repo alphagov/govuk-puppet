@@ -4,10 +4,6 @@
 #
 # === Parameters:
 #
-# [*apt_mirror_hostname*]
-#   The hostname for the apt mirror to add to enable fetching specific
-#   packages
-#
 # [*version*]
 #   Specify the version of Jenkins you wish to install
 #
@@ -18,7 +14,6 @@
 #   A hash of plugins to enable
 #
 class govuk_jenkins::package (
-  $apt_mirror_hostname,
   $version = $govuk_jenkins::version,
   $config  = {},
   $plugins = {},
@@ -29,7 +24,7 @@ class govuk_jenkins::package (
   include govuk_java::openjdk7::jre
 
   apt::source { 'govuk-jenkins':
-    location     => "http://${apt_mirror_hostname}/govuk-jenkins",
+    location     => 'http://apt_mirror.cluster/govuk-jenkins',
     release      => 'stable',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',

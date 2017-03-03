@@ -41,9 +41,6 @@
 # [*swarm_client_dest*]
 #   Path to the swarm client binary.
 #
-# [*apt_mirror_hostname*]
-#   The base url of the ppa. The value can be found in hiera
-#
 # [*executors*]
 #   The number of executors an agent can allocate to running jobs
 #
@@ -53,7 +50,6 @@ class govuk_ci::agent::swarm(
   $agent_user_api_token = undef,     # Corresponding user: 'jenkins_agent'
   $swarm_client_package = 'jenkins-agent',
   $swarm_client_dest    = '/usr/local/bin/jenkins-agent',
-  $apt_mirror_hostname  = undef,
   $executors            = '4',
 ) {
 
@@ -68,7 +64,7 @@ class govuk_ci::agent::swarm(
 
   # The apt source which hosts the package
   apt::source { $swarm_client_package :
-    location     => "http://${apt_mirror_hostname}/${$swarm_client_package}",
+    location     => "http://apt_mirror.cluster/${$swarm_client_package}",
     release      => 'trusty',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
