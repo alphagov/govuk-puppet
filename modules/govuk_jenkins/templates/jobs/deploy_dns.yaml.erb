@@ -29,6 +29,7 @@
             export GOOGLE_REGION=${GOOGLE_REGION}
             export GOOGLE_MANAGED_ZONE=${GOOGLE_MANAGED_ZONE}
             export GOOGLE_PROJECT=${GOOGLE_PROJECT}
+            export DRY_RUN=${DRY_RUN}
             ./jenkins.sh
     wrappers:
         - ansicolor:
@@ -66,3 +67,7 @@
             name: GOOGLE_PROJECT
             description: The name of the Google Compute Engine project that contains the dns zone you want to interact with.
             default: <%= @gce_project_id %>
+        - bool:
+            name: DRY_RUN
+            default: true
+            description: When dry run is enabled, it will show a diff but will not deploy changes.
