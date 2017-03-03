@@ -21,7 +21,7 @@ class govuk_rbenv::all (
   }
 
   rbenv::version { '2.1.2':
-    bundler_version => '1.14.5',
+    ensure => absent # FIXME: Tidy up once deployed
   }
   rbenv::version { '2.1.4':
     bundler_version => '1.14.5',
