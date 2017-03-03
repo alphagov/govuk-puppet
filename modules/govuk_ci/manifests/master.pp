@@ -76,4 +76,12 @@ class govuk_ci::master (
     minute  => 45,
   }
 
+  # Restart Jenkins nightly: using the govuk_jenkins::reload class means that Jenkins goes for long
+  # periods without a restart, which seems to cause some issues with the service.
+  cron::crondotdee { 'restart_jenkins_service':
+    command => '/usr/sbin/service jenkins restart',
+    hour    => 0,
+    minute  => 0,
+  }
+
 }
