@@ -26,6 +26,7 @@ checking for other manufacturers.
   * You have [OSX GCC tools installed](https://github.com/kennethreitz/osx-gcc-installer) (or via XCode)
   * You have [VirtualBox](https://www.virtualbox.org/) installed
   * You have [Vagrant](https://www.vagrantup.com/downloads.html) installed
+  * you have vagrant-dns plugin installed ` vagrant plugin install vagrant-dns `
   * You have an account on [GitHub.com](https://github.com)
   * You have some other repositories from GOV.UK checked out to work on -
     these should be located alongside the `govuk-puppet` repository we're in
