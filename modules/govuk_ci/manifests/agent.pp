@@ -18,6 +18,7 @@ class govuk_ci::agent(
   $master_ssh_key = undef,
   $elasticsearch_enabled = true,
 ) {
+  include ::clamav
   include ::govuk_ci::agent::redis
   if $docker_enabled {
     include ::govuk_ci::agent::docker
