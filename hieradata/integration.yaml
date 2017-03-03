@@ -79,7 +79,6 @@ govuk_jenkins::config::admins:
   - davidsingleton
   - deanwilson
   - deborahchua
-  - douglasroper
   - elenatanasoiu
   - emmabeynon
   - grahampengelly
@@ -282,7 +281,6 @@ users::usernames:
   - davidsingleton
   - deanwilson
   - deborahchua
-  - douglasroper
   - elenatanasoiu
   - emmabeynon
   - gemmaleigh
