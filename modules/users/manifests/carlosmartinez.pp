@@ -1,7 +1,0 @@
-# Creates the carlosmartinez user
-class users::carlosmartinez { govuk_user { 'carlosmartinez':
-    fullname => 'Carlos Martinez',
-    email    => 'carlos.martinez@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNoTEVxprq/RFi5lahOD+Fw+X1753nWl4pGqBtDZkQiIse/NRTSJurZZXxA4LuyFR0HS8JalOqqrTBKlx4qICycntc2WsbMrIpxjLkRkUu7XLvFVlqFXWQE41VHAYXw1P2oT5oZfMY5YoR8dtX3RqrRC0TSZqeQfgJNrUB8xxnV3wT4sUxBJQ0JiFoxZna3KZWgJSbgl1EZPAIjsEKmTr3a54GZyxaPsJc3Qf2ciSGkC92rmOa2XLBjEMkh4rxJtidwIPt5IU/JHyDOh894LZRWyJLqd5oAJW9JSSVo0O540pkABPXBcVeCEYRAbdhg+54EouJvJ7zkcLOI0vS+fDIbbH9SnBFckYeEFtzddWoT3ZK4hVj1vt9n0YJQ6jyycmtXrr4481dCCERVeWBraYffonF5ehD4nwdms7p18MEbDorJHxzDjiX1hqxKGPj3DpqXx03ecAseDYTOY5Ibw3+67bbiq1gTOHn1G5eX2+CoU55duzmTsuc3C5kfh9WgJUEr6QkSPFL/08iZoz9ZGYQk6sgQKpAAR6fswH6EAak0DveQZKHRlAIEXDaihDdeoNbcI8jgQ7BZDk3/PMQLet2nsZ895L/1QMV/Bj48LaYcrMMSujvYsbaLTFvnhtnZrKU0b3axOsZqRxnl6ltmL+m8F77yvvxbvKTiiDcdlVZLw== carlosjmtz@gmail.com',
-  }
-}
