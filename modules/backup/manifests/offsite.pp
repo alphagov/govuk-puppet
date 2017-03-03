@@ -24,19 +24,12 @@
 #    Place to store the Duplicity cache - the default is ~/.cache/duplicity
 #
 class backup::offsite(
-  $enable = false,
   $jobs,
   $dest_host,
   $dest_host_key,
   $archive_directory,
 ) {
   validate_hash($jobs)
-  validate_bool($enable)
-  $ensure_backup = $enable ? {
-    true    => present,
-    default => absent,
-  }
-
   include backup::client
 
   sshkey { $dest_host:
@@ -46,7 +39,6 @@ class backup::offsite(
   }
 
   create_resources('backup::offsite::job', $jobs, {
-    'ensure'            => $ensure_backup,
     'archive_directory' => $archive_directory,
   })
 }

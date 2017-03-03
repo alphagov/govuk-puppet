@@ -49,7 +49,6 @@ backup::assets::jobs:
 
 backup::offsite::dest_host: *offsite_host
 backup::offsite::dest_host_key: *offsite_ssh_host_key
-backup::offsite::enable: true
 backup::offsite::jobs:
   'govuk-datastores':
     sources:
@@ -73,6 +72,19 @@ backup::offsite::jobs:
     hour: 8,
     minute: 13,
     gpg_key_id: *offsite_gpg_key
+  'govuk-graphite':
+    sources: '/data/backups/*/opt/graphite/storage/whisper'
+    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-graphite/"
+    weekday: 6
+    hour: 8,
+    minute: 13,
+    # No encryption because of size and sensitivity
+  'govuk-cdn-logs':
+    sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
+    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-cdn-logs/"
+    hour: 7,
+    minute: 12,
+    # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
 backup::offsite::monitoring::offsite_fqdn: *offsite_host
 backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
@@ -164,6 +176,9 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-3.backend'
   - 'whitehall-backend-4.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'performance.service.gov.uk'
+
+govuk::node::s_backup::offsite_backups: true
+
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_frontend_lb::calculators_frontend_servers:
   - 'calculators-frontend-1.frontend'
