@@ -78,6 +78,14 @@ backup::offsite::jobs:
     weekday: 6
     hour: 8,
     minute: 13,
+  'govuk-graphite-s3':
+    sources: '/data/backups/*/opt/graphite/storage/whisper'
+    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/backup-graphite/'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    weekday: 6
+    hour: 8,
+    minute: 13,
     # No encryption because of size and sensitivity
   'govuk-cdn-logs':
     sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
