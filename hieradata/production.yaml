@@ -92,6 +92,13 @@ backup::offsite::jobs:
     destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-cdn-logs/"
     hour: 7,
     minute: 12,
+  'govuk-cdn-logs-s3':
+    sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
+    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/backup-cdn-logs/'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 7,
+    minute: 12,
     # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
 backup::offsite::monitoring::offsite_fqdn: *offsite_host
