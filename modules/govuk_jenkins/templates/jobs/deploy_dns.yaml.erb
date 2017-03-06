@@ -22,9 +22,7 @@
     builders:
         - shell: |
             export DEPLOY_ENV=<%= @environment %>
-            export DYN_ZONE_ID='<%= @dyn_zone_id %>'
             export ROUTE53_ZONE_ID='<%= @route53_zone_id %>'
-            export DYN_CUSTOMER_NAME='<%= @dyn_customer_name %>'
             export GOOGLE_CREDENTIALS="`cat <%= @credentials_file_path %>`"
             export GOOGLE_REGION=${GOOGLE_REGION}
             export GOOGLE_MANAGED_ZONE=${GOOGLE_MANAGED_ZONE}
@@ -39,7 +37,6 @@
             choices:
                 - PICK ONE
                 - all
-                - dyn
                 - gce
                 - route53
         - string:
@@ -47,12 +44,6 @@
             default: false
         - password:
             name: AWS_SECRET_ACCESS_KEY
-            default: false
-        - string:
-            name: DYN_USERNAME
-            default: false
-        - password:
-            name: DYN_PASSWORD
             default: false
         - string:
             name: GOOGLE_REGION
