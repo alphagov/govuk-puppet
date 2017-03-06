@@ -24,9 +24,6 @@
             export DEPLOY_ENV=<%= @environment %>
             export ROUTE53_ZONE_ID='<%= @route53_zone_id %>'
             export GOOGLE_CREDENTIALS="`cat <%= @credentials_file_path %>`"
-            export GOOGLE_REGION=${GOOGLE_REGION}
-            export GOOGLE_MANAGED_ZONE=${GOOGLE_MANAGED_ZONE}
-            export GOOGLE_PROJECT=${GOOGLE_PROJECT}
             ./jenkins.sh ${ACTION}
     wrappers:
         - ansicolor:
