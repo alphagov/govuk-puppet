@@ -29,6 +29,7 @@ govuk::deploy::setup::ssh_keys:
 
 govuk_cdnlogs::monitoring_enabled: false
 
+govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
 govuk_crawler::targets:
   - 's3://govuk-mirror-staging'
