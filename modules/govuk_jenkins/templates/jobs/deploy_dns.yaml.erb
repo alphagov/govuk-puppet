@@ -25,7 +25,7 @@
             export DYN_ZONE_ID='<%= @dyn_zone_id %>'
             export ROUTE53_ZONE_ID='<%= @route53_zone_id %>'
             export DYN_CUSTOMER_NAME='<%= @dyn_customer_name %>'
-            export GOOGLE_CREDENTIALS='<%= @credentials_file_path %>'
+            export GOOGLE_CREDENTIALS="`cat <%= @credentials_file_path %>`"
             export GOOGLE_REGION=${GOOGLE_REGION}
             export GOOGLE_MANAGED_ZONE=${GOOGLE_MANAGED_ZONE}
             export GOOGLE_PROJECT=${GOOGLE_PROJECT}
