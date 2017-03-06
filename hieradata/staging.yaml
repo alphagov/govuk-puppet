@@ -29,6 +29,10 @@ govuk::deploy::setup::ssh_keys:
 
 govuk_cdnlogs::monitoring_enabled: false
 
+govuk_crawler::sync_enable: true
+govuk_crawler::targets:
+  - 's3://govuk-mirror-staging'
+
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza STAGING'
