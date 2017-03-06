@@ -8,15 +8,19 @@
 #   Errbit API key used by airbrake
 #   Default: ''
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 # [*support_api_bearer_token*]
 #   The bearer token to allow this app to submit anonymous feedback to the Support API.
 #
-# [*publishing_api_bearer_token*]
-#   The bearer token to use when communicating with Publishing API.
-#   Default: undef
+# [*survey_notify_service_api_key*]
+#   The API key to allow this app to talk to GOV.UK Notify and send emails
+#   to people who want to sign up to take a survey
 #
 class govuk::apps::feedback(
   $port = '3028',
@@ -27,6 +31,7 @@ class govuk::apps::feedback(
   $assisted_digital_google_spreadsheet_key = undef,
   $google_client_email = undef,
   $google_private_key = undef,
+  $survey_notify_service_api_key = undef,
 ) {
   $app_name = 'feedback'
 
@@ -87,6 +92,13 @@ class govuk::apps::feedback(
     govuk::app::envvar { "${title}-GOOGLE_PRIVATE_KEY":
       varname => 'GOOGLE_PRIVATE_KEY',
       value   => $google_private_key,
+    }
+  }
+
+  if $survey_notify_service_api_key != undef {
+    govuk::app::envvar { "${title}-SURVEY_NOTIFY_SERVICE_API_KEY":
+      varname => 'SURVEY_NOTIFY_SERVICE_API_KEY',
+      value   => $survey_notify_service_api_key,
     }
   }
 }
