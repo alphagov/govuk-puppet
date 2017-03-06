@@ -51,8 +51,12 @@
             description: See available zones https://cloud.google.com/compute/images/zones_diagram.svg
             default: europe-west1
         - string:
-            name: GOOGLE_MANAGED_ZONE
-            description: Name of the DNS Zone
+            name: GOOGLE_ZONE_NAME
+            description: Friendly name of the DNS zone within the Google project
+            default: false
+        - string:
+            name: GOOGLE_DNS_NAME
+            description: Full DNS name of the zone (i.e. foo.example.com)
             default: false
         - string:
             name: GOOGLE_PROJECT
