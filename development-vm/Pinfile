@@ -29,7 +29,6 @@ process :'draft-government-frontend' => [
   :static
 ]
 process :designprinciples => :static
-process :efg
 process :'email-alert-api'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
