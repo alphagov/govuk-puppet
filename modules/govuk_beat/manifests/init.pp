@@ -28,10 +28,14 @@ class govuk_beat (
 
   $filebeat_outputs = {
     logstash => {
-      hosts   => $hosts,
       enabled => true,
+      hosts   => $hosts,
+      ssl     => {
+        enabled => true,
+      },
     },
   }
+
   # Configure Filebeat. The outputs parameter needs a default value for
   # the process to start
   class { '::filebeat' :
