@@ -31,6 +31,7 @@ class backup::offsite(
 ) {
   validate_hash($jobs)
   include backup::client
+  include backup::repo
 
   sshkey { $dest_host:
     ensure => present,

@@ -98,6 +98,10 @@ class govuk::node::s_apt (
       location => 'http://download.draios.com/stable/deb',
       release  => 'stable-amd64/',
       key      => 'D27A72F32D867DF9300A241574490FD6EC51E8C4';
+    'duplicity':
+      location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
+      release  => 'trusty',
+      key      => 'AF953139C1DF9EF3476DE1D58F571BB27A86F4A2';
   }
 
   aptly::repo { 'elastic-beats': }
