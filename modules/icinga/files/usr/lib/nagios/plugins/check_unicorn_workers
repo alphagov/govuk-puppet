@@ -19,7 +19,7 @@ fi
 
 cd /var/apps/${APPLICATION}/
 EXPECTED_WORKERS=$(env -i /usr/local/bin/govuk_setenv ${APPLICATION} \
-    env GOVUK_APP_LOGROOT=/tmp bundle exec ruby \
+    env HOME=/tmp GOVUK_APP_LOGROOT=/tmp bundle exec ruby \
     -e 'require "unicorn"; puts Unicorn::Configurator.new(:config_file => "'${CONFIG_FILE}'")[:worker_processes]' \
     2>/dev/null)
 
