@@ -267,6 +267,9 @@ govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 
+govuk::apps::collections::nagios_memory_warning: 900
+govuk::apps::collections::nagios_memory_critical: 1000
+
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
