@@ -26,6 +26,18 @@ def checkoutFromGitHubWithSSH(String repository, String org = 'alphagov', String
 }
 
 /**
+  * Check if the git HEAD is ahead of master.
+  * This will be false for development branches and true for release branches,
+  * and master itself.
+  */
+def isCurrentCommitOnMaster() {
+  sh(
+    script: 'git rev-list origin/master | grep $(git rev-parse HEAD)',
+    returnStatus: true
+  ) == 0
+}
+
+/**
  * Try to merge master into the current branch
  *
  * This will abort if it doesn't exit cleanly (ie there are conflicts), and
@@ -34,12 +46,7 @@ def checkoutFromGitHubWithSSH(String repository, String org = 'alphagov', String
  * branch.
  */
 def mergeMasterBranch() {
-  def isCurrentCommitOnMaster = sh(
-    script: 'git rev-list origin/master | grep $(git rev-parse HEAD)',
-    returnStatus: true
-  ) == 0
-
-  if (isCurrentCommitOnMaster) {
+  if (isCurrentCommitOnMaster()) {
     echo "Current commit is on master, so building this branch without " +
       "merging in master branch."
   } else {
@@ -123,11 +130,11 @@ def setEnvGitCommit() {
 }
 
 /**
- * Runs the ruby linter
+ * Runs the ruby linter. Only lint commits that are not in master.
  */
 def rubyLinter(String dirs = 'app spec lib') {
   setEnvGitCommit()
-  if (BRANCH_NAME != 'master') {
+  if (!isCurrentCommitOnMaster()) {
     echo 'Running Ruby linter'
     sh("bundle exec govuk-lint-ruby \
        --diff \
