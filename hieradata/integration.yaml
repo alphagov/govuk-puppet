@@ -104,6 +104,7 @@ govuk_jenkins::config::admins:
   - nickcolley
   - oliverbyford
   - pablomanrubia
+  - paulastepinska
   - paulbowsher
   - paulhayes
   - richardboulton
@@ -306,6 +307,7 @@ users::usernames:
   - nickcolley
   - oliverbyford
   - pablomanrubia
+  - paulastepinska
   - paulbowsher
   - paulhayes
   - richardboulton
