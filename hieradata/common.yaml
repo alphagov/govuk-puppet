@@ -666,9 +666,6 @@ govuk_ci::master::ci_agents:
   ci-agent-5:
     agent_hostname: 'ci-agent-5.ci'
     labels: 'mongodb-3.2 ci-agent-5 elasticsearch'
-  ci-agent-6:
-    agent_hostname: 'ci-agent-6.ci'
-    labels: 'ci-agent-6 xenial'
 
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
