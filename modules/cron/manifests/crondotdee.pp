@@ -34,6 +34,11 @@
 #   Specifically set where the cron should attempt to email output to.
 #   Example would be a user or an email address, or use an empty string to
 #   suppress mailing any output.
+#
+# [*ensure*]
+#   Ensure the file is created. Set to 'absent' to remove the cron job if it is
+#   no longer required.
+#
 define cron::crondotdee (
   $command,
   $hour,
@@ -43,9 +48,10 @@ define cron::crondotdee (
   $weekday = '*',
   $user = 'root',
   $mailto = undef,
+  $ensure = 'present',
 ) {
   file { "/etc/cron.d/${title}":
-    ensure  => present,
+    ensure  => $ensure,
     content => template('cron/etc/cron.d/crondotdee.erb'),
     require => Class['cron'],
     mode    => '0644',
