@@ -199,7 +199,7 @@ class govuk_crawler(
     minute      => '0',
     environment => 'MAILTO=""',
     command     => "/usr/bin/setlock -n ${sync_lock_path} ${sync_script_path}",
-    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['daemontools'], Package['awscli'], Class['govuk_crawler::config']],
+    require     => [File[$sync_error_dir], File[$sync_script_path], File[$sync_lock_path], Package['s3cmd'], Package['daemontools'], Class['govuk_crawler::config']],
   }
 
   file { $sync_error_dir:
