@@ -102,7 +102,7 @@ def isAllowedBranchBuild(
   String deployedBranchName = "deployed-to-production") {
 
   if (currentBranchName == deployedBranchName) {
-    if (params.IS_SCHEMA_TEST == "true") {
+    if (params.IS_SCHEMA_TEST) {
       echo "Branch is '${deployedBranchName}' and this is a schema test " +
         "build. Proceeding with build."
       return true
