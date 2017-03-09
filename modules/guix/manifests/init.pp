@@ -4,7 +4,7 @@
 # === Parameters:
 #
 # [*version*]
-# String, default '0.11.0'. Specify the version of Guix to install.
+# String, default '0.12.0'. Specify the version of Guix to install.
 #
 # [*base_url*]
 # String, default ''ftp://alpha.gnu.org/gnu/guix'. Set the base URL to use
@@ -29,11 +29,11 @@
 # === Examples
 #
 #    guix {
-#      version  => '0.11.0',
+#      version  => '0.12.0',
 #    }
 #
 class guix (
-  $version        = '0.11.0',
+  $version        = '0.12.0',
   $base_url       = 'ftp://alpha.gnu.org/gnu/guix',
   $install_cwd    = '/tmp',
   $download_file  = 'guix-binary.tar.xz',
