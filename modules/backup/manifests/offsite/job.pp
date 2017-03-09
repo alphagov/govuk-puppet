@@ -47,6 +47,17 @@
 # [*aws_secret_access_key*]
 #   AWS secret access key
 #
+# [*s3_use_multiprocessing*]
+#   Make use of duplicity option to run multiple processes when uploading to
+#   S3
+#
+# [*s3_multipart_chunk_size*]
+#   The size of a multipart chunk, the default is 25MB. For larger datasets this
+#   should be higher. The smaller the chunk, the more files are split up.
+#
+# [*s3_multipart_max_procs*]
+#   The maximum number of processes the multiprocessing can start.
+#
 define backup::offsite::job(
   $sources,
   $hour,
@@ -61,6 +72,9 @@ define backup::offsite::job(
   $pre_command = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
+  $s3_use_multiprocessing = undef,
+  $s3_multipart_chunk_size = undef,
+  $s3_multipart_max_procs = undef,
 ){
   validate_re($ensure, '^(present|absent)$')
 
@@ -68,22 +82,25 @@ define backup::offsite::job(
   $service_description = "offsite backups: ${title}"
 
   duplicity { $title:
-    ensure                => $ensure,
-    directory             => $sources,
-    bucket                => $bucket,
-    dest_id               => $aws_access_key_id,
-    dest_key              => $aws_secret_access_key,
-    target                => $destination,
-    weekday               => $weekday,
-    hour                  => $hour,
-    minute                => $minute,
-    user                  => $user,
-    pubkey_id             => $gpg_key_id,
-    pre_command           => $pre_command,
-    post_command          => template('backup/post_command.sh.erb'),
-    archive_directory     => $archive_directory,
-    remove_all_but_n_full => 2,
-    full_if_older_than    => '7D',
+    ensure                  => $ensure,
+    directory               => $sources,
+    bucket                  => $bucket,
+    dest_id                 => $aws_access_key_id,
+    dest_key                => $aws_secret_access_key,
+    target                  => $destination,
+    weekday                 => $weekday,
+    hour                    => $hour,
+    minute                  => $minute,
+    user                    => $user,
+    pubkey_id               => $gpg_key_id,
+    pre_command             => $pre_command,
+    post_command            => template('backup/post_command.sh.erb'),
+    archive_directory       => $archive_directory,
+    remove_all_but_n_full   => 2,
+    full_if_older_than      => '7D',
+    s3_use_multiprocessing  => $s3_use_multiprocessing,
+    s3_multipart_chunk_size => $s3_multipart_chunk_size,
+    s3_multipart_max_procs  => $s3_multipart_max_procs,
   }
 
   if $weekday == undef { # duplicity job runs daily
