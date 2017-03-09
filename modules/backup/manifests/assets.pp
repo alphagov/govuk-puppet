@@ -38,6 +38,8 @@ class backup::assets(
 ) {
   validate_hash($jobs)
 
+  include backup::repo
+
   file { '/root/.ssh' :
     ensure => directory,
     mode   => '0700',

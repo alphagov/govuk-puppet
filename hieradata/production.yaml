@@ -35,6 +35,9 @@ backup::assets::jobs:
     user: 'root'
     gpg_key_id: *offsite_gpg_key
     pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
+    s3_use_multiprocessing: true
+    s3_multipart_chunk_size: 200
+    s3_multipart_max_procs: 4
   'asset-manager-s3':
     sources: '/mnt/uploads/asset-manager'
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/asset-manager/'
@@ -45,7 +48,6 @@ backup::assets::jobs:
     user: 'root'
     gpg_key_id: *offsite_gpg_key
     pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
-
 
 backup::offsite::dest_host: *offsite_host
 backup::offsite::dest_host_key: *offsite_ssh_host_key
@@ -86,6 +88,8 @@ backup::offsite::jobs:
     weekday: 6
     hour: 8,
     minute: 13,
+    s3_use_multiprocessing: true
+    s3_multipart_max_procs: 4
     # No encryption because of size and sensitivity
   'govuk-cdn-logs':
     sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"

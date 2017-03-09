@@ -142,6 +142,8 @@ apt::sources:
     release: '%{::lsbdistcodename}-security'
     repos: 'main restricted universe multiverse'
 
+backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 base::packages::gems:
   ruby-shadow:
     ensure: 2.5.0
