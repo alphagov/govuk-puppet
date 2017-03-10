@@ -292,7 +292,6 @@ def publishGem(String repository, String branch) {
 
   if (versionAlreadyPublished) {
     echo "Version ${version} has already been published to rubygems.org. Skipping publication."
-    return
   } else {
     echo('Publishing gem')
     sh("gem build ${repository}.gemspec")
@@ -306,7 +305,6 @@ def publishGem(String repository, String branch) {
 
   if (taggedReleaseExists) {
     echo "Version ${version} has already been tagged on Github. Skipping publication."
-    return
   } else {
     echo('Pushing tag')
     pushTag(repository, branch, 'v' + version)
