@@ -298,19 +298,6 @@ def publishGem(String repository, String branch) {
     sh("git fetch --tags")
   }
 
-  def taggedReleaseExists = sh(
-    script: "git tag | grep v${version}",
-    returnStatus: true
-  ) == 0
-
-  if (taggedReleaseExists) {
-    echo "Version ${version} has already been tagged on Github. Skipping publication."
-    return
-  } else {
-    echo('Pushing tag')
-    pushTag(repository, branch, 'v' + version)
-  }
-
   def escapedVersion = version.replaceAll(/\./, /\\\\./)
   def versionAlreadyPublished = sh(
     script: /gem list ^${repository}\$ --remote --all --quiet | grep [^0-9\\.]${escapedVersion}[^0-9\\.]/,
@@ -319,11 +306,22 @@ def publishGem(String repository, String branch) {
 
   if (versionAlreadyPublished) {
     echo "Version ${version} has already been published to rubygems.org. Skipping publication."
-    return
   } else {
     echo('Publishing gem')
     sh("gem build ${repository}.gemspec")
     sh("gem push ${repository}-${version}.gem")
+  }
+
+  def taggedReleaseExists = sh(
+    script: "git ls-remote --exit-code --tags origin v${version}",
+    returnStatus: true
+  ) == 0
+
+  if (taggedReleaseExists) {
+    echo "Version ${version} has already been tagged on Github. Skipping publication."
+  } else {
+    echo('Pushing tag')
+    pushTag(repository, branch, 'v' + version)
   }
 }
 
