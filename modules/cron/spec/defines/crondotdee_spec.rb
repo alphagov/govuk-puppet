@@ -32,4 +32,11 @@ describe 'cron::crondotdee' do
     it { should contain_file('/etc/cron.d/true_cron').without_content(/MAILTO/) }
   end
 
+  context 'with ensure set to absent' do
+    let(:params) { default_params.merge({
+      :ensure => 'absent',
+    })}
+
+    it { is_expected.to contain_file('/etc/cron.d/true_cron').with_ensure('absent') }
+  end
 end
