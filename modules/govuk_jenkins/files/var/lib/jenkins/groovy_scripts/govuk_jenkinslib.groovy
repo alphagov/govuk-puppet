@@ -235,8 +235,22 @@ def pushTag(String repository, String branch, String tag) {
       sh("git tag -a ${tag} -m 'Jenkinsfile tagging with ${tag}'")
       echo "Tagging alphagov/${repository} master branch -> ${tag}"
       sh("git push git@github.com:alphagov/${repository}.git ${tag}")
-      echo "Updating alphagov/${repository} release branch"
-      sh("git push git@github.com:alphagov/${repository}.git HEAD:release")
+
+      // TODO: pushTag would be better if it only did exactly that,
+      // but lots of Jenkinsfiles expect it to also update the release
+      // branch. There are cases where release branches are not used
+      // (e.g. repositories containing Ruby gems). For now, just check
+      // if the release branch exists on the remote, and only push to it
+      // if it does.
+      def releaseBranchExists = sh(
+        script: "git ls-remote --exit-code --refs origin release",
+        returnStatus: true
+      ) == 0
+
+      if (releaseBranchExists) {
+        echo "Updating alphagov/${repository} release branch"
+        sh("git push git@github.com:alphagov/${repository}.git HEAD:release")
+      }
     }
   } else {
     echo 'No tagging on branch'
