@@ -201,7 +201,7 @@ collectd::plugin::tcp::metrics:
   - 'ActiveOpens'
   - 'PassiveOpens'
 
-duplicity::packages::version: '0.6.23-1ubuntu4.1'
+duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
 environment_ip_prefix: '10.1'
 
