@@ -235,8 +235,6 @@ def pushTag(String repository, String branch, String tag) {
       sh("git tag -a ${tag} -m 'Jenkinsfile tagging with ${tag}'")
       echo "Tagging alphagov/${repository} master branch -> ${tag}"
       sh("git push git@github.com:alphagov/${repository}.git ${tag}")
-      echo "Updating alphagov/${repository} release branch"
-      sh("git push git@github.com:alphagov/${repository}.git HEAD:release")
     }
   } else {
     echo 'No tagging on branch'
