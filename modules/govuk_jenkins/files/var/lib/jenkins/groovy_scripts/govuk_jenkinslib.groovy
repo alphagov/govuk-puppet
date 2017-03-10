@@ -249,7 +249,7 @@ def pushTag(String repository, String branch, String tag) {
 
       if (releaseBranchExists) {
         echo "Updating alphagov/${repository} release branch"
-        sh("git push git@github.com:alphagov/${repository}.git HEAD:release")
+        sh("git push git@github.com:alphagov/${repository}.git HEAD:refs/heads/release")
       }
     }
   } else {
