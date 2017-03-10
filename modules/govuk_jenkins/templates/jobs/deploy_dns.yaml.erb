@@ -22,13 +22,7 @@
     builders:
         - shell: |
             export DEPLOY_ENV=<%= @environment %>
-            export DYN_ZONE_ID='<%= @dyn_zone_id %>'
-            export ROUTE53_ZONE_ID='<%= @route53_zone_id %>'
-            export DYN_CUSTOMER_NAME='<%= @dyn_customer_name %>'
-            export GOOGLE_CREDENTIALS='<%= @credentials_file_path %>'
-            export GOOGLE_REGION=${GOOGLE_REGION}
-            export GOOGLE_MANAGED_ZONE=${GOOGLE_MANAGED_ZONE}
-            export GOOGLE_PROJECT=${GOOGLE_PROJECT}
+            export GOOGLE_CREDENTIALS="`cat <%= @credentials_file_path %>`"
             ./jenkins.sh ${ACTION}
     wrappers:
         - ansicolor:
@@ -39,28 +33,30 @@
             choices:
                 - PICK ONE
                 - all
-                - dyn
                 - gce
                 - route53
         - string:
             name: AWS_ACCESS_KEY_ID
             default: false
+            description: This is required for all providers
         - password:
             name: AWS_SECRET_ACCESS_KEY
             default: false
+            description: This is required for all providers
         - string:
-            name: DYN_USERNAME
-            default: false
-        - password:
-            name: DYN_PASSWORD
-            default: false
+            name: ROUTE53_ZONE_ID
+            default: <%= @route53_zone_id %>
         - string:
             name: GOOGLE_REGION
             description: See available zones https://cloud.google.com/compute/images/zones_diagram.svg
             default: europe-west1
         - string:
-            name: GOOGLE_MANAGED_ZONE
-            description: Name of the DNS Zone
+            name: GOOGLE_ZONE_NAME
+            description: Friendly name of the DNS zone within the Google project
+            default: false
+        - string:
+            name: GOOGLE_DNS_NAME
+            description: Full DNS name of the zone (i.e. foo.example.com)
             default: false
         - string:
             name: GOOGLE_PROJECT
