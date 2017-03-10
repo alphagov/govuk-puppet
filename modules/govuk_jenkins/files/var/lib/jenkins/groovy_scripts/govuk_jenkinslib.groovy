@@ -300,7 +300,7 @@ def publishGem(String repository, String branch) {
   }
 
   def taggedReleaseExists = sh(
-    script: "git tag | grep v${version}",
+    script: "git ls-remote --exit-code --tags origin v${version}",
     returnStatus: true
   ) == 0
 
