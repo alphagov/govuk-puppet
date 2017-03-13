@@ -9,20 +9,24 @@
  */
 def cleanupGit() {
   echo 'Cleaning up git'
-  sh('git clean -fdx')
+  withStatsdTiming("cleanup_git") {
+    sh('git clean -fdx')
+  }
 }
 
 /**
  * Checkout repo using SSH key
  */
 def checkoutFromGitHubWithSSH(String repository, String org = 'alphagov', String url = 'github.com') {
-  checkout([$class: 'GitSCM',
-    branches: scm.branches,
-    userRemoteConfigs: [[
-      credentialsId: 'govuk-ci-ssh-key',
-      url: "git@${url}:${org}/${repository}.git"
-    ]]
-  ])
+  withStatsdTiming("github_ssh_checkout") {
+    checkout([$class: 'GitSCM',
+      branches: scm.branches,
+      userRemoteConfigs: [[
+        credentialsId: 'govuk-ci-ssh-key',
+        url: "git@${url}:${org}/${repository}.git"
+      ]]
+    ])
+  }
 }
 
 /**
@@ -136,13 +140,16 @@ def rubyLinter(String dirs = 'app spec lib') {
   setEnvGitCommit()
   if (!isCurrentCommitOnMaster()) {
     echo 'Running Ruby linter'
-    sh("bundle exec govuk-lint-ruby \
-       --diff \
-       --cached \
-       --format html --out rubocop-${GIT_COMMIT}.html \
-       --format clang \
-       ${dirs}"
-    )
+
+    withStatsdTiming("ruby_lint") {
+      sh("bundle exec govuk-lint-ruby \
+         --diff \
+         --cached \
+         --format html --out rubocop-${GIT_COMMIT}.html \
+         --format clang \
+         ${dirs}"
+      )
+    }
   }
 }
 
@@ -151,7 +158,9 @@ def rubyLinter(String dirs = 'app spec lib') {
  */
 def sassLinter(String dirs = 'app/assets/stylesheets') {
   echo 'Running SASS linter'
-  sh("bundle exec govuk-lint-sass ${dirs}")
+  withStatsdTiming("sass_lint") {
+    sh("bundle exec govuk-lint-sass ${dirs}")
+  }
 }
 
 /**
@@ -159,7 +168,9 @@ def sassLinter(String dirs = 'app/assets/stylesheets') {
  */
 def precompileAssets() {
   echo 'Precompiling the assets'
-  sh('bundle exec rake assets:clean assets:precompile')
+  withStatsdTiming("assets_precompile") {
+    sh('bundle exec rake assets:clean assets:precompile')
+  }
 }
 
 /**
@@ -182,7 +193,9 @@ def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
  */
 def setupDb() {
   echo 'Setting up database'
-  sh('RAILS_ENV=test bundle exec rake db:environment:set db:drop db:create db:schema:load')
+  withStatsdTiming("setup_db") {
+    sh('RAILS_ENV=test bundle exec rake db:environment:set db:drop db:create db:schema:load')
+  }
 }
 
 /**
@@ -190,7 +203,9 @@ def setupDb() {
  */
 def bundleApp() {
   echo 'Bundling'
-  sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME} --deployment --without development")
+  withStatsdTiming("bundle") {
+    sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME} --deployment --without development")
+  }
 }
 
 /**
@@ -198,7 +213,9 @@ def bundleApp() {
  */
 def bundleGem() {
   echo 'Bundling'
-  sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME}")
+  withStatsdTiming("bundle") {
+    sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME}")
+  }
 }
 
 /**
@@ -207,8 +224,9 @@ def bundleGem() {
  * @param test_task Optional test_task instead of 'default'
  */
 def runTests(String test_task = 'default') {
-  echo 'Running tests'
-  sh("bundle exec rake ${test_task}")
+  withStatsdTiming("test_task") {
+    sh("bundle exec rake ${test_task}")
+  }
 }
 
 /**
@@ -218,7 +236,9 @@ def runTests(String test_task = 'default') {
  */
 def runRakeTask(String rake_task) {
   echo "Running ${rake_task} task"
-  sh("bundle exec rake ${rake_task}")
+  withStatsdTiming("rake") {
+    sh("bundle exec rake ${rake_task}")
+  }
 }
 
 /**
@@ -311,6 +331,24 @@ def publishGem(String repository, String branch) {
     sh("gem build ${repository}.gemspec")
     sh("gem push ${repository}-${version}.gem")
   }
+}
+
+/**
+ * Time the function and send the result to statsd
+ * @param key The key for statsd. The stats will be available in graphite under
+ * `stats.timers.ci.APP_NAME.KEY_NAME`
+ * @param fn Function to execute
+ */
+def withStatsdTiming(key, fn) {
+  start = System.currentTimeMillis()
+
+  fn()
+
+  now = System.currentTimeMillis()
+  runtime = now - start
+
+  project_name = JOB_NAME.split('/')[0]
+  sh 'echo "ci.' + project_name + '.' + key + ':' + runtime + '|ms" | nc -w 1 -u localhost 8125'
 }
 
 return this;
