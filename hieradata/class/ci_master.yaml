@@ -99,6 +99,8 @@ govuk_jenkins::plugins:
       version: "1.11.2-0"
     junit:
       version: "1.19"
+    lockable-resources:
+      version: "1.11.1"
     mailer:
       version: "1.18"
     mapdb-api:
