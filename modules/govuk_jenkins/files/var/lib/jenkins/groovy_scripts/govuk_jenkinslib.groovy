@@ -204,7 +204,9 @@ def setupDb() {
 def bundleApp() {
   echo 'Bundling'
   withStatsdTiming("bundle") {
-    sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME} --deployment --without development")
+    lock ("bundle_install-$NODE_NAME") {
+      sh("bundle install --path ${JENKINS_HOME}/bundles --deployment --without development")
+    }
   }
 }
 
@@ -214,7 +216,9 @@ def bundleApp() {
 def bundleGem() {
   echo 'Bundling'
   withStatsdTiming("bundle") {
-    sh("bundle install --path ${JENKINS_HOME}/bundles/${JOB_NAME}")
+    lock ("bundle_install-$NODE_NAME") {
+      sh("bundle install --path ${JENKINS_HOME}/bundles")
+    }
   }
 }
 
