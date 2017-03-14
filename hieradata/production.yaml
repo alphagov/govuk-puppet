@@ -1,30 +1,10 @@
 ---
 
 _: &offsite_gpg_key 'E240885935A3A7C22C3B07D597D47738D7E71BFA'
-_: &offsite_host 'backup0.backup.provider0.production.govuk.service.gov.uk'
-_: &offsite_ssh_host_key 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDJb4hocHMvkgk5ebOl7fzzNmgJb4N3LbGc3dm8Grvmx9QTnyG3nWyF1g0j69IvOAIhhZZd62ntzXN8a3PaPhxVPG6rA8D5LHSBBhXC1cwiG9FYKccdwYruNit8OgPuXmsCqXKleW6bqIgARDdj5iVDo1HNkWl05r1vH+RWjZFAB6p4D1RoTFCvbu8OI0nybS1rx2w+zZmCof92w8RcgYt2oaX9+n2enP7aL76Bg88pkElJvDSg8UQ61Dm9hVRb15KBAw0GsfydIRk2SY3SJsn5lRjrUPSmSPfb2VPpprYLNcf3wvINi0zW2Nv0pqnY5jRaHfFvpfgajQznxMDD18u1'
 
 app_domain: 'publishing.service.gov.uk'
 
-backup::assets::dest_host: *offsite_host
-backup::assets::dest_host_key: *offsite_ssh_host_key
 backup::assets::jobs:
-  'assets-whitehall':
-    sources: '/mnt/uploads/whitehall'
-    destination: "rsync://govuk-assets@%{hiera('backup::assets::dest_host')}//srv/backup-assets/whitehall"
-    hour: 4
-    minute: 20
-    user: 'root'
-    gpg_key_id: *offsite_gpg_key
-    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
-  'asset-manager':
-    sources: '/mnt/uploads/asset-manager'
-    destination: "rsync://govuk-assets@%{hiera('backup::assets::dest_host')}//srv/backup-assets/asset-manager"
-    hour: 4
-    minute: 13
-    user: 'root'
-    gpg_key_id: *offsite_gpg_key
-    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
   'assets-whitehall-s3':
     sources: '/mnt/uploads/whitehall'
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/assets-whitehall/'
@@ -49,19 +29,7 @@ backup::assets::jobs:
     gpg_key_id: *offsite_gpg_key
     pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
 
-backup::offsite::dest_host: *offsite_host
-backup::offsite::dest_host_key: *offsite_ssh_host_key
 backup::offsite::jobs:
-  'govuk-datastores':
-    sources:
-      - '/data/backups/*/var/lib/automongodbbackup/latest'
-      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
-      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
-      - '/data/backups/archived'
-    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-data/"
-    hour: 8,
-    minute: 13,
-    gpg_key_id: *offsite_gpg_key
   'govuk-datastores-s3':
     sources:
       - '/data/backups/*/var/lib/automongodbbackup/latest'
@@ -74,12 +42,6 @@ backup::offsite::jobs:
     hour: 8,
     minute: 13,
     gpg_key_id: *offsite_gpg_key
-  'govuk-graphite':
-    sources: '/data/backups/*/opt/graphite/storage/whisper'
-    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-graphite/"
-    weekday: 6
-    hour: 8,
-    minute: 13,
   'govuk-graphite-s3':
     sources: '/data/backups/*/opt/graphite/storage/whisper'
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/backup-graphite/'
@@ -91,11 +53,6 @@ backup::offsite::jobs:
     s3_use_multiprocessing: true
     s3_multipart_max_procs: 4
     # No encryption because of size and sensitivity
-  'govuk-cdn-logs':
-    sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
-    destination: "rsync://%{hiera('backup::offsite::dest_host')}//srv/backup-cdn-logs/"
-    hour: 7,
-    minute: 12,
   'govuk-cdn-logs-s3':
     sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/backup-cdn-logs/'
@@ -104,10 +61,6 @@ backup::offsite::jobs:
     hour: 7,
     minute: 12,
     # CDN logs are backed up unencrypted because they don't contain any sensitive information
-
-backup::offsite::monitoring::offsite_fqdn: *offsite_host
-backup::offsite::monitoring::offsite_hostname: 'backup0.provider0'
-backup::offsite::monitoring::monitor_cdn_logs_disk: true
 
 base::supported_kernel::enabled: true
 
