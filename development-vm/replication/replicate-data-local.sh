@@ -39,8 +39,8 @@ $(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.integration
 
 if ! $DRY_RUN; then
   status "Munging Signon db tokens for dev VM"
-  if [[ -d $(dirname $0)/../../signonotron2 ]]; then
-    cd $(dirname $0)/../../signonotron2 && bundle install && bundle exec ruby script/make_oauth_work_in_dev
+  if [[ -d $(dirname $0)/../../signon ]]; then
+    cd $(dirname $0)/../../signon && bundle install && bundle exec ruby script/make_oauth_work_in_dev
   fi
 fi
 
