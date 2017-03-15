@@ -430,7 +430,7 @@ def buildProject(sassLint = true) {
 
     if (hasLint()) {
       stage("Lint Ruby") {
-        rubyLinter()
+        rubyLinter("app lib spec test")
       }
     } else {
       echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
