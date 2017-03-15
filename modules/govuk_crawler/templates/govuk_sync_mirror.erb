@@ -53,7 +53,9 @@ for TARGET in ${TARGETS}; do
 
   # Toggle the command: whether we will use rsync of the s3 sync.
   if [[ $TARGET = s3://* ]]; then
-    CMD="/usr/local/bin/govuk_setenv s3_sync_mirror /usr/local/bin/s3cmd sync --cache-file=/tmp/s3cmd_mirror_sync.cache --exclude=\"lost+found\" ${MIRROR_ROOT}/. ${TARGET}"
+    # With s3cmd sync, target needs to end with /
+    if [[ ! $(echo ${TARGET} | egrep '/$') ]] ; then TARGET="${TARGET}/" ; fi
+    CMD="/usr/local/bin/govuk_setenv s3_sync_mirror /usr/local/bin/s3cmd sync --cache-file=/tmp/s3cmd_mirror_sync.cache --exclude=\"lost+found\" ${MIRROR_ROOT}/ ${TARGET}"
   else
     CMD="rsync -az --exclude 'lost+found' ${MIRROR_ROOT}/. ${TARGET}:/srv/mirror_data"
   fi

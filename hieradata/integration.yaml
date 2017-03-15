@@ -42,7 +42,7 @@ govuk_cdnlogs::monitoring_enabled: false
 govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
 govuk_crawler::targets:
-  - 's3://govuk-mirror-integration'
+  - 's3://govuk-mirror-integration/'
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
