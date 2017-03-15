@@ -336,10 +336,14 @@ def publishGem(String repository, String branch) {
     sh("gem push ${repository}-${version}.gem")
   }
 
-  def taggedReleaseExists = sh(
-    script: "git ls-remote --exit-code --tags origin v${version}",
-    returnStatus: true
-  ) == 0
+  def taggedReleaseExists = false
+
+  sshagent(['govuk-ci-ssh-key']) {
+    taggedReleaseExists = sh(
+      script: "git ls-remote --exit-code --tags origin v${version}",
+      returnStatus: true
+    ) == 0
+  }
 
   if (taggedReleaseExists) {
     echo "Version ${version} has already been tagged on Github. Skipping publication."
