@@ -63,10 +63,4 @@ class govuk_ci::agent(
   package { 'libgdal-dev': # needed for mapit
     ensure => installed,
   }
-
-  cron::crondotdee { 'clean_up_bundles':
-    command => 'find /var/lib/jenkins/bundles/* -maxdepth 1 -type d -mtime +1 -exec rm -rf {} \;',
-    hour    => 7,
-    minute  => 45,
-  }
 }
