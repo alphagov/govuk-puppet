@@ -1,8 +1,8 @@
 # Creates the tatianasoukiassian user
 class users::tatianasoukiassian {
   govuk_user { 'tatianasoukiassian':
-    fullname => 'Tatiana Soukiassian',
-    email    => 'tatiana.soukiassian@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDD1oitANDo9Sn/uc0El3iFsRLb0rmHQ2rMx6TKojtfvlSUEClhxhkYZflykpAAeFiyFO3A3eo5/QoP6G2fqc+L4h70Td5tniXVC2ht2UO+UqcSEStkaEFbUCn9lD+jkD+Ta0tpXwA0lmcZtfTk2e2kpNu9ecx3bvKfe3apY9K+4g83I3971BDNK3eCjszvC4QCzr9NG9ssrg4DH+5AmMXn6mRxF0TMgmt3jbJ23i3snEJyRQK4KPy0GEOx3NFyVQACj3wv6ZN+elo3rSGOuiuwFrQKNdte/NfUkRm2Sh3GU+6vGiJfBiw2/J6OqyRORAYoCvy+73A805a/mNsH7y16+P9A+thsMusYVtr6nUP7+nm9iLo3G4t1zNIRJ6h4Z/M6Zt1nFzfvCrOgK2xTkwXPvzqXAshsjl2/ls8FU9Co7WHQmBGrHinBCadEABgXx27ruWYI4lfSL3/5w5PBoMm24m3WoFH9swo51HLVdE3r3ZxN7XP4BHVIpBpAzIxyguKHEuMHXRGwFklfsVuC9fOuap284pZvemc2FJthSvn+wUMglFGIWhyoFLGJJ5ihwgRD+uFkXt4NUf5N5BbdLGKdqRZGzuaSV9Fl65FTIpV/frmFixY1vfls6GRj4Vrtm/zU8oO3fhlRwhCKVmMjdSKjzQxu1w9kG1rP89wGOpziPw== tatiana.soukiassian@digital.cabinet-office.gov.uk',
+    fullname => 'Tatiana Stantonian',
+    email    => 'tatiana.stantonian@digital.cabinet-office.gov.uk',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDhN7TCHKZz3pfOojUQsvNnL9nccoDPY1KvObGPrHLnaPEx7mj151vfmowbBglcoLViSz4Uv8IN4yeYI7ICU1/rvQIND3XbzEk0euID57Yuw+B/3q+5a9FgfTf4XFK70da5LMZoKPG0D5pkLTr3SKlN8jr+ACUX99wGv8Ec2FNtziBwIxoZxLr4sOdB1hF1US6dX3/XHedGqhdblzkKpcztP7XvW1wEmgzZWNmHLdE1zxlWpiJ2RujbKKrV7LC4cfBehY+eUSzP92Ar7kenhGeQzM9x47UUCSUoPWS2lqNVT4ONaxpn1oiC2aRe39ke94zIwZHkhqGwLVxQw+EB/cuPvPAJQh4baVg2Axb468awG890RS0Kn4Sd9FMSRxR4koP8TsYbRAAzQ6Eqdwf0t748zH6Yc9RqAFR8Yrvajna1qOVe6hIRY/WlWFyZpjMGqWiC9q843wFi7MDh/LQmOqrS2uX5TYBlUP8dvf5iJfoxRPL0vB4QqGjAZToy3G5I5sUqQzAC0P5L/+lzwKfEjxBtGrIxySeVZLV9GU/ZWinQq8Pvsp7WYzxL+1DrOreu725MJC8dOiCV7lAtoR7OP7ydyJNi5R0kZ8uhc5dDorcri9XzxhxahLJO97T8ImG9qpY8mfSYoE2cuOFLeHLenvhnsP3fGTpaZFGdWMvu8XK4ew== tatiana.stantonian@digital.cabinet-office.gov.uk',
   }
 }
