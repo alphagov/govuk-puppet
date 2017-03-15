@@ -38,6 +38,10 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::content_performance_manager(
   $port = '3206',
   $secret_key_base = undef,
@@ -73,6 +77,9 @@ class govuk::apps::content_performance_manager(
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 
   if $secret_key_base != undef {
