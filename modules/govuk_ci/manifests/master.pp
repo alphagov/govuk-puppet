@@ -28,6 +28,7 @@ class govuk_ci::master (
   validate_hash($environment_variables)
 
   include ::govuk_ci::credentials
+  include ::govuk_ci::limits
   include ::govuk_ci::vpn
 
   # After these users have been created, you'll have to retrieve the API token from the UI
