@@ -394,11 +394,6 @@ def buildProject(sassLint = true) {
   ])
 
   try {
-    initializeParameters([
-      'IS_SCHEMA_TEST': 'false',
-      'SCHEMA_BRANCH': 'deployed-to-production',
-    ])
-
     if (!isAllowedBranchBuild(env.BRANCH_NAME)) {
       return
     }
@@ -421,7 +416,7 @@ def buildProject(sassLint = true) {
     }
 
     stage("Set up content schema dependency") {
-      contentSchemaDependency(env.SCHEMA_BRANCH)
+      contentSchemaDependency(params.SCHEMA_BRANCH)
       setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
     }
 
