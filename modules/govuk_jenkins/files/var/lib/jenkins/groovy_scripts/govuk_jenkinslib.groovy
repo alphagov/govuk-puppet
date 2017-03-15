@@ -463,17 +463,19 @@ def buildProject(sassLint = true) {
       }
     }
 
-    if (isGem()) {
-      stage("Publish Gem to Rubygems") {
-        publishGem(repoName, env.BRANCH_NAME)
-      }
-    } else {
-      stage("Push release tag") {
-        pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
-      }
+    if (env.BRANCH_NAME == "master") {
+      if (isGem()) {
+        stage("Publish Gem to Rubygems") {
+          publishGem(repoName, env.BRANCH_NAME)
+        }
+      } else {
+        stage("Push release tag") {
+          pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+        }
 
-      stage("Deploy to integration") {
-        deployIntegration(repoName, env.BRANCH_NAME, 'release', 'deploy')
+        stage("Deploy to integration") {
+          deployIntegration(repoName, env.BRANCH_NAME, 'release', 'deploy')
+        }
       }
     }
 
