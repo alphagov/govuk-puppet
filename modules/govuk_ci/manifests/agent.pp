@@ -31,6 +31,7 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::mysql
   include ::govuk_ci::credentials
+  include ::govuk_ci::limits
   include ::govuk_ci::vpn
   include ::govuk_java::oracle8
   include ::govuk_jenkins::github_enterprise_cert
