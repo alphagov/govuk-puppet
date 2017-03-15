@@ -86,7 +86,7 @@ for file in $(find $POSTGRESQL_DIR -name '*_production*day.sql.gz'); do
     export PGOPTIONS='-c client_min_messages=WARNING -c maintenance_work_mem=500MB'
     PSQL_COMMAND="sudo -E -u postgres psql -qAt"
     $PSQL_COMMAND -c "DROP DATABASE IF EXISTS \"${PROD_DB_NAME}\""
-    $PV_COMMAND $file | zcat | ($PSQL_COMMAND > /dev/null 2>&1) | sed '/role.*does not exist/d'
+    $PV_COMMAND $file | zcat | ($PSQL_COMMAND > /tmp/sync-postgresql-${PROD_DB_NAME} 2>&1)
     $PSQL_COMMAND -c "DROP DATABASE IF EXISTS \"${TARGET_DB_NAME}\""
     $PSQL_COMMAND -c "ALTER DATABASE \"${PROD_DB_NAME}\" RENAME TO \"${TARGET_DB_NAME}\""
     $PSQL_COMMAND -c "ALTER DATABASE \"${TARGET_DB_NAME}\" OWNER TO \"vagrant\""
