@@ -451,7 +451,10 @@ def buildProject(sassLint = true) {
     }
 
     stage("Run tests") {
-      runTests()
+      // Prevent a project's tests from running in parallel on the same node
+      lock("$repoName-$NODE_NAME-test") {
+        runTests()
+      }
     }
 
     if (hasAssets()) {
