@@ -367,4 +367,158 @@ def withStatsdTiming(key, fn) {
   sh 'echo "ci.' + project_name + '.' + key + ':' + runtime + '|ms" | nc -w 1 -u localhost 8125'
 }
 
+/**
+ * Build the project
+ * @param sassLint Whether or not to run the SASS linter
+ */
+def buildProject(sassLint = true) {
+  repoName = JOB_NAME.split('/')[0]
+
+  properties([
+    buildDiscarder(
+      logRotator(
+        numToKeepStr: '50')
+      ),
+    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
+    [$class: 'ParametersDefinitionProperty',
+      parameterDefinitions: [
+        [$class: 'BooleanParameterDefinition',
+          name: 'IS_SCHEMA_TEST',
+          defaultValue: false,
+          description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
+        [$class: 'StringParameterDefinition',
+          name: 'SCHEMA_BRANCH',
+          defaultValue: 'deployed-to-production',
+          description: 'The branch of govuk-content-schemas to test against']]
+    ],
+  ])
+
+  try {
+    if (!isAllowedBranchBuild(env.BRANCH_NAME)) {
+      return
+    }
+
+    stage("Checkout") {
+      checkoutFromGitHubWithSSH(repoName)
+    }
+
+    stage("Clean up workspace") {
+      cleanupGit()
+    }
+
+    stage("Merge master") {
+      mergeMasterBranch()
+    }
+
+    stage("Configure environment") {
+      setEnvar("RAILS_ENV", "test")
+      setEnvar("RACK_ENV", "test")
+    }
+
+    stage("Set up content schema dependency") {
+      contentSchemaDependency(params.SCHEMA_BRANCH)
+      setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
+    }
+
+    stage("bundle install") {
+      if (isGem()) {
+        bundleGem()
+      } else {
+        bundleApp()
+      }
+    }
+
+    if (hasLint()) {
+      stage("Lint Ruby") {
+        rubyLinter("app lib spec test")
+      }
+    } else {
+      echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
+    }
+
+    if (hasAssets() && sassLint) {
+      stage("Lint SASS") {
+        sassLinter()
+      }
+    } else {
+      echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
+    }
+
+    if (hasDatabase()) {
+      stage("Set up the database") {
+        runRakeTask("db:drop db:create db:schema:load")
+      }
+    }
+
+    stage("Run tests") {
+      // Prevent a project's tests from running in parallel on the same node
+      lock("$repoName-$NODE_NAME-test") {
+        runTests()
+      }
+    }
+
+    if (hasAssets() && !params.IS_SCHEMA_TEST) {
+      stage("Precompile assets") {
+        precompileAssets()
+      }
+    }
+
+    if (env.BRANCH_NAME == "master") {
+      if (isGem()) {
+        stage("Publish Gem to Rubygems") {
+          publishGem(repoName, env.BRANCH_NAME)
+        }
+      } else {
+        stage("Push release tag") {
+          pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+        }
+
+        stage("Deploy to integration") {
+          deployIntegration(repoName, env.BRANCH_NAME, 'release', 'deploy')
+        }
+      }
+    }
+
+  } catch (e) {
+    currentBuild.result = "FAILED"
+    step([$class: 'Mailer',
+          notifyEveryUnstableBuild: true,
+          recipients: 'govuk-ci-notifications@digital.cabinet-office.gov.uk',
+          sendToIndividuals: true])
+    throw e
+  }
+}
+
+/**
+ * Does this project use Rails-style assets?
+ */
+def hasAssets() {
+  sh(script: "test -d app/assets", returnStatus: true) == 0
+}
+
+/**
+ * Does this project use GOV.UK lint?
+ */
+def hasLint() {
+  sh(script: "grep 'govuk-lint' Gemfile.lock", returnStatus: true) == 0
+}
+
+/**
+ * Is this a Ruby gem?
+ *
+ * Determined by checking the presence of a `.gemspec` file
+ */
+def isGem() {
+  sh(script: "ls | grep gemspec", returnStatus: true) == 0
+}
+
+/**
+ * Does this project use a Rails-style database?
+ *
+ * Determined by checking the presence of a `database.yml` file
+ */
+def hasDatabase() {
+  sh(script: "test -e config/database.yml", returnStatus: true) == 0
+}
+
 return this;
