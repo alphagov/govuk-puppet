@@ -457,7 +457,7 @@ def buildProject(sassLint = true) {
       }
     }
 
-    if (hasAssets()) {
+    if (hasAssets() && !params.IS_SCHEMA_TEST) {
       stage("Precompile assets") {
         precompileAssets()
       }
