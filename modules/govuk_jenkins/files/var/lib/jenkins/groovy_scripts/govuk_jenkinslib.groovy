@@ -417,6 +417,7 @@ def buildProject(sassLint = true) {
     stage("Configure environment") {
       setEnvar("RAILS_ENV", "test")
       setEnvar("RACK_ENV", "test")
+      setEnvar("DISPLAY", ":99")
     }
 
     stage("Set up content schema dependency") {
