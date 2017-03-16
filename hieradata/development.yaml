@@ -104,6 +104,7 @@ govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-fronte
 govuk::apps::backdrop_write::enable_procfile_worker: false
 govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-admin']
+govuk::apps::content_performance_manager::enable_delayed_job_worker: false
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_tagger::enable_procfile_worker: false
