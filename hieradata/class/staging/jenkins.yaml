@@ -1,4 +1,6 @@
 ---
+govuk_jenkins::version: '1.554.2'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_staging
   - govuk_jenkins::job::deploy_app
