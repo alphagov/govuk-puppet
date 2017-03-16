@@ -1,4 +1,6 @@
 ---
+govuk_jenkins::version: '1.554.2'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::bouncer_cdn
   - govuk_jenkins::job::build_fpm_package
