@@ -47,7 +47,4 @@ class govuk::node::s_monitoring (
     group  => 'deploy',
   }
 
-  if $offsite_backups {
-    include backup::offsite::monitoring
-  }
 }

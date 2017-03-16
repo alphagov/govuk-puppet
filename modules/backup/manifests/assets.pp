@@ -30,9 +30,6 @@
 class backup::assets(
   $backup_private_gpg_key = undef,
   $backup_private_gpg_key_fingerprint = undef,
-  $backup_private_key,
-  $dest_host,
-  $dest_host_key,
   $jobs,
   $archive_directory,
 ) {
@@ -40,15 +37,14 @@ class backup::assets(
 
   include backup::repo
 
+  # FIXME: remove after deployed to Production
   file { '/root/.ssh' :
-    ensure => directory,
-    mode   => '0700',
+    ensure => absent,
   }
 
+  # FIXME: remove after deployed to Production
   file { '/root/.ssh/id_rsa':
-    ensure  => present,
-    mode    => '0600',
-    content => $backup_private_key,
+    ensure  => absent,
   }
 
   if $backup_private_gpg_key and $backup_private_gpg_key_fingerprint {
@@ -72,12 +68,6 @@ class backup::assets(
       subscribe   => File["/root/.gnupg/${backup_private_gpg_key_fingerprint}_secret_key.asc"],
       refreshonly => true,
     }
-  }
-
-  sshkey { $dest_host :
-    ensure => present,
-    type   => 'ssh-rsa',
-    key    => $dest_host_key,
   }
 
   create_resources('backup::offsite::job', $jobs, {

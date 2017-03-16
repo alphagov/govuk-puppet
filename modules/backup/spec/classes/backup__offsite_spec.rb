@@ -3,8 +3,6 @@ require_relative '../../../../spec_helper'
 describe 'backup::offsite', :type => :class do
   let(:default_params) {{
     :archive_directory => '/foo/bar',
-    :dest_host         => 'unused',
-    :dest_host_key     => 'unused',
     :jobs              => {
       'hungry' => {
         'sources'     => ['/srv/strawberry', '/srv/apple'],
@@ -42,20 +40,4 @@ describe 'backup::offsite', :type => :class do
     )}
   end
 
-  describe 'dest_host_key' do
-    let(:params) { default_params.merge({
-      :dest_host     => 'ice.cream',
-      :dest_host_key => 'pickle',
-    })}
-
-    it {
-      is_expected.to contain_sshkey('ice.cream').with_key('pickle')
-    }
-
-    it {
-      # Leaky abstraction? We need to know that govuk_user creates the
-      # parent directory for our file.
-      is_expected.to contain_file('/home/govuk-backup/.ssh').with_ensure('directory')
-    }
-  end
 end
