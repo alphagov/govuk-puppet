@@ -441,7 +441,7 @@ def buildProject(sassLint = true) {
       echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
     }
 
-    if (hasAssets() && sassLint) {
+    if (hasAssets() && hasLint() && sassLint) {
       stage("Lint SASS") {
         sassLinter()
       }
