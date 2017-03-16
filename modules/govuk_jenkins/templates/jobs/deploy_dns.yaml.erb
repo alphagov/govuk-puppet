@@ -19,6 +19,11 @@
             url: https://github.com/alphagov/govuk-dns/
     scm:
       - Deploy_DNS
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '${ENV,var="PROVIDERS"} ${ENV,var="ACTION"}'
     builders:
         - shell: |
             export DEPLOY_ENV=<%= @environment %>
