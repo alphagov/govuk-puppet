@@ -17,8 +17,19 @@
     wrappers:
         - ansicolor:
             colormap: xterm
+    parameters:
+        - string:
+            name: CUSTOM_NS
+            default: false
+            description: Specify a custom nameserver to query
+        - string:
+            name: ZONEFILE
+            default: publishing.service.gov.uk.yaml
+            description: Set the zonefile to test
+    <% if @run_daily %>
     publishers:
         - email:
             recipients: 2nd-line-support@digital.cabinet-office.gov.uk
     triggers:
         - timed: '@midnight'
+    <% end %>

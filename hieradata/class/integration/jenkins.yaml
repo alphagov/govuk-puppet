@@ -22,5 +22,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::transition_load_site_config
   - govuk_jenkins::job::transition_load_transition_stats_hits
+  - govuk_jenkins::job::validate_published_dns
   - govuk_jenkins::job::vapps
   - govuk_jenkins::job::whitehall_update_integration_data
