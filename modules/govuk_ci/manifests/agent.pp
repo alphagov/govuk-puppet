@@ -26,20 +26,21 @@ class govuk_ci::agent(
   if $elasticsearch_enabled {
     include ::govuk_ci::agent::elasticsearch
   }
-  include ::govuk_ci::agent::rabbitmq
+  include ::golang
   include ::govuk_ci::agent::mongodb
-  include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::mysql
+  include ::govuk_ci::agent::postgresql
+  include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
   include ::govuk_ci::vpn
   include ::govuk_java::oracle8
   include ::govuk_jenkins::github_enterprise_cert
-  include ::govuk_jenkins::user
+  include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::pipeline
+  include ::govuk_jenkins::user
   include ::govuk_rbenv::all
   include ::govuk_sysdig
-  include ::golang
   include ::govuk_testing_tools
 
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
