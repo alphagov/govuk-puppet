@@ -1,6 +1,4 @@
 ---
-govuk_jenkins::version: '1.554.2'
-
 govuk_jenkins::plugins:
   ansicolor:
     version: '0.3.1'
