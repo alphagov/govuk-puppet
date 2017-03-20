@@ -8,7 +8,7 @@ class govuk_containers::etcd {
   include ::collectd::plugin::etcd
 
   $etcd_image = 'quay.io/coreos/etcd'
-  $etcd_image_version = 'v3.0.13'
+  $etcd_image_version = 'v3.1.3'
 
   ::docker::image { $etcd_image:
     ensure    => 'present',
