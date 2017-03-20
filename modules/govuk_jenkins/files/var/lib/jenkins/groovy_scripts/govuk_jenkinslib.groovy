@@ -393,13 +393,21 @@ def buildProject(sassLint = true) {
         [$class: 'StringParameterDefinition',
           name: 'SCHEMA_BRANCH',
           defaultValue: 'deployed-to-production',
-          description: 'The branch of govuk-content-schemas to test against']]
+          description: 'The branch of govuk-content-schemas to test against'],
+        [$class: 'StringParameterDefinition',
+          name: 'SCHEMA_COMMIT',
+          defaultValue: 'invalid',
+          description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test']],
     ],
   ])
 
   try {
     if (!isAllowedBranchBuild(env.BRANCH_NAME)) {
       return
+    }
+
+    if (params.IS_SCHEMA_TEST) {
+      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job is building on Jenkins", 'PENDING')
     }
 
     stage("Checkout") {
@@ -483,6 +491,9 @@ def buildProject(sassLint = true) {
         }
       }
     }
+    if (params.IS_SCHEMA_TEST) {
+      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job succeeded on Jenkins", 'SUCCESS')
+    }
 
   } catch (e) {
     currentBuild.result = "FAILED"
@@ -490,6 +501,9 @@ def buildProject(sassLint = true) {
           notifyEveryUnstableBuild: true,
           recipients: 'govuk-ci-notifications@digital.cabinet-office.gov.uk',
           sendToIndividuals: true])
+    if (params.IS_SCHEMA_TEST) {
+      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job failed on Jenkins", 'FAILED')
+    }
     throw e
   }
 }
@@ -524,6 +538,27 @@ def isGem() {
  */
 def hasDatabase() {
   sh(script: "test -e config/database.yml", returnStatus: true) == 0
+}
+
+/**
+ * Manually set build status in Github.
+ *
+ * Useful for downstream builds that want to report on the upstream PR.
+ *
+ * @param repoName Name of the repo being built
+ * @param commit SHA of the triggering commit on govuk-content-schemas
+ * @param message The message to report
+ * @param state The build state: one of PENDING, SUCCESS, FAILED
+ */
+def setBuildStatus(repoName, commit, message, state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commit],
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/alphagov/govuk-content-schemas"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "continuous-integration/jenkins/${repoName}"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
 }
 
 return this;
