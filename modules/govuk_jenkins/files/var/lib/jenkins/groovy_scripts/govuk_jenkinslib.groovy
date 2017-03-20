@@ -457,15 +457,15 @@ def buildProject(sassLint = true) {
       echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
     }
 
-    if (hasDatabase()) {
-      stage("Set up the database") {
-        runRakeTask("db:drop db:create db:schema:load")
+    // Prevent a project's tests from running in parallel on the same node
+    lock("$repoName-$NODE_NAME-test") {
+      if (hasDatabase()) {
+        stage("Set up the database") {
+            runRakeTask("db:drop db:create db:schema:load")
+        }
       }
-    }
 
-    stage("Run tests") {
-      // Prevent a project's tests from running in parallel on the same node
-      lock("$repoName-$NODE_NAME-test") {
+      stage("Run tests") {
         runTests()
       }
     }
