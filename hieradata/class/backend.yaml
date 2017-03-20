@@ -42,7 +42,7 @@ govuk::apps::specialist_publisher::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::travel_advice_publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::travel_advice_publisher::mongodb_name: 'travel_advice_publisher_production'
 govuk::apps::travel_advice_publisher::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
