@@ -41,6 +41,7 @@ class govuk_ci::agent(
   include ::govuk_sysdig
   include ::golang
   include ::govuk_testing_tools
+  include ::govuk_jenkins::packages::terraform
 
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
   File<|title == '/etc/sudoers.d/'|> {
