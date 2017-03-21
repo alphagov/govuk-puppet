@@ -43,6 +43,10 @@
                 - gce
                 - route53
         - string:
+            name: ZONEFILE
+            default: publishing.service.gov.uk.yaml
+            description: Set the zonefile to deploy
+        - string:
             name: AWS_ACCESS_KEY_ID
             default: false
             description: This is required for all providers
