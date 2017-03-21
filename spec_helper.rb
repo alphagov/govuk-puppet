@@ -50,7 +50,21 @@ RSpec.configure do |c|
   }
 
   c.after(:suite) do
-    RSpec::Puppet::Coverage.report!
-  end
+    if ENV.fetch('FULL_COVERAGE_REPORT', false)
+      RSpec::Puppet::Coverage.report!
+    else
+      # The report! method is hard-coded to use `puts` so the only way to
+      # modify its behaviour is to capture STDOUT and re-write it here.
+      captured_stdout = StringIO.new
+      $stdout = captured_stdout
 
+      RSpec::Puppet::Coverage.report!
+
+      lines = $stdout.string.split("\n")
+
+      # Only match the three lines we care about
+      summary = lines.select{ |l| /^(?:Total|Touched|Resource)/ =~ l }.join("\n")
+      STDOUT.puts "\n\n#{summary}"
+    end
+  end
 end

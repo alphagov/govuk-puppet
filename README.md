@@ -122,6 +122,24 @@ variable `classes` for the rake task, e.g.
 
     $ bundle exec rake spec:nodes classes=frontend,backend
 
+### Test Coverage
+
+Each test suite's results are followed by a summary of how many resources that suite covers, how many the tests touch and the coverage as a percentage. e.g.
+
+```bash
+Total resources:   175
+Touched resources: 36
+Resource coverage: 20.57%
+```
+
+A list of untouched resources can be gained by setting the `FULL_COVERAGE_REPORT` environment variable before running the tests:
+
+```
+FULL_COVERAGE_REPORT=true bundle exec rake spec
+```
+
+***Warning*** Given the number of modules that have limited tests this will produce a very large amount of output unless the tests are scoped.
+
 ### Vagrant testing
 
 #### Prerequisites
