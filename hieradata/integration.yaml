@@ -68,6 +68,7 @@ govuk_jenkins::config::admins:
   - brendanbutler
   - carlosvilhena
   - carolinegreen
+  - chriscarter
   - chrislowis
   - christopherbaines
   - chrisroos
@@ -273,6 +274,7 @@ users::usernames:
   - brendanbutler
   - carlosvilhena
   - carolinegreen
+    chriscarter
   - chrislowis
   - chrisroos
   - christopherbaines
