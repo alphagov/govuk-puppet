@@ -1,0 +1,61 @@
+---
+
+govuk_jenkins::plugins:
+  ansicolor:
+    version: '0.4.2'
+  build-name-setter:
+    version: '1.6.5'
+  build-pipeline-plugin:
+    version: '1.5.4'
+  build-with-parameters:
+    version: '1.3'
+  conditional-buildstep:
+    version: '1.3.5'
+  copyartifact:
+    version: '1.38.1'
+  description-setter:
+    version: '1.10'
+  downstream-buildview:
+    version: '1.9'
+  envinject:
+    version: '1.93.1'
+  external-monitor-job:
+    version: '1.7'
+  git:
+    version: '3.0.0'
+  git-client:
+    version: '2.3.0'
+  github-api:
+    version: '1.79'
+  github-oauth:
+    version: '0.19'
+  greenballs:
+    version: '1.15'
+  jquery:
+    version: '1.11.2-0'
+  parameterized-trigger:
+    version: '2.32'
+  rebuild:
+    version: '1.25'
+  role-strategy:
+    version: '2.3.2'
+  run-condition:
+    version: '1.0'
+  simple-theme-plugin:
+    version: '0.3'
+  scm-api:
+    version: '1.3'
+  show-build-parameters:
+    version: '1.0'
+  slack:
+    version: '2.0.1'
+  text-finder:
+    version: '1.10'
+  timestamper:
+    version: '1.8.8'
+  token-macro:
+    version: '2.0'
+  versionnumber:
+    version: '1.8.1'
+  ws-cleanup:
+    version: '0.32'

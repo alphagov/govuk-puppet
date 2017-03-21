@@ -1,0 +1,23 @@
+server {
+  listen 443 ssl;
+  server_name deploy.*;
+
+  ssl_certificate     /etc/nginx/ssl/jenkins.crt;
+  ssl_certificate_key /etc/nginx/ssl/jenkins.key;
+
+  location / {
+    proxy_pass http://localhost:8080;
+
+    include /etc/nginx/add-sts.conf;
+
+    location /api/json {
+      proxy_pass http://localhost:8080;
+
+      add_header "Access-Control-Allow-Origin" "*";
+      add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS";
+      add_header "Access-Control-Allow-Headers" "origin, authorization, cookie, accept";
+      add_header "Access-Control-Allow-Credentials" "true";
+    }
+
+  }
+}
