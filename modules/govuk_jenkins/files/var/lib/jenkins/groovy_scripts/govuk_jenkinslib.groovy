@@ -1,8 +1,175 @@
 #!/usr/bin/env groovy
 
-/*
- * Common functions for GOVUK Jenkinsfiles
+/**
+ * # Setting up CI on GOV.UK
+ *
+ * For most Ruby projects, the following `Jenkinsfile` is sufficient:
+ *
+ * ```groovy
+ * #!/usr/bin/env groovy
+ *
+ * node {
+ *   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
+ *   govuk.buildProject()
+ * }
+ * ```
+ *
+ * This will set up dependencies, run the tests and report back to GitHub.
+ *
+ * For applications: the `master` branch of applications will be deployed to integration
+ *
+ * For gems: if the version has changed, the latest version will be released to rubygems.org
+ *
+ * ## Exceptions
+ *
+ * If you use `govuk-lint` but aren't linting your SASS yet (you should), you can
+ * disable linting:
+ *
+ * ```groovy
+ * #!/usr/bin/env groovy
+ *
+ * node {
+ *   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
+ *   govuk.buildProject(
+ *     false // disable SASS linting
+ *   )
+ * }
+ * ```
+ *
+ * @param sassLint Whether or not to run the SASS linter
  */
+def buildProject(sassLint = true) {
+  repoName = JOB_NAME.split('/')[0]
+
+  properties([
+    buildDiscarder(
+      logRotator(
+        numToKeepStr: '50')
+      ),
+    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
+    [$class: 'ParametersDefinitionProperty',
+      parameterDefinitions: [
+        [$class: 'BooleanParameterDefinition',
+          name: 'IS_SCHEMA_TEST',
+          defaultValue: false,
+          description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
+        [$class: 'StringParameterDefinition',
+          name: 'SCHEMA_BRANCH',
+          defaultValue: 'deployed-to-production',
+          description: 'The branch of govuk-content-schemas to test against'],
+        [$class: 'StringParameterDefinition',
+          name: 'SCHEMA_COMMIT',
+          defaultValue: 'invalid',
+          description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test']],
+    ],
+  ])
+
+  try {
+    if (!isAllowedBranchBuild(env.BRANCH_NAME)) {
+      return
+    }
+
+    if (params.IS_SCHEMA_TEST) {
+      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job is building on Jenkins", 'PENDING')
+    }
+
+    stage("Checkout") {
+      checkoutFromGitHubWithSSH(repoName)
+    }
+
+    stage("Clean up workspace") {
+      cleanupGit()
+    }
+
+    stage("Merge master") {
+      mergeMasterBranch()
+    }
+
+    stage("Configure environment") {
+      setEnvar("RAILS_ENV", "test")
+      setEnvar("RACK_ENV", "test")
+      setEnvar("DISPLAY", ":99")
+    }
+
+    stage("Set up content schema dependency") {
+      contentSchemaDependency(params.SCHEMA_BRANCH)
+      setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
+    }
+
+    stage("bundle install") {
+      if (isGem()) {
+        bundleGem()
+      } else {
+        bundleApp()
+      }
+    }
+
+    if (hasLint()) {
+      stage("Lint Ruby") {
+        rubyLinter("app lib spec test")
+      }
+    } else {
+      echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
+    }
+
+    if (hasAssets() && hasLint() && sassLint) {
+      stage("Lint SASS") {
+        sassLinter()
+      }
+    } else {
+      echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
+    }
+
+    // Prevent a project's tests from running in parallel on the same node
+    lock("$repoName-$NODE_NAME-test") {
+      if (hasDatabase()) {
+        stage("Set up the database") {
+            runRakeTask("db:drop db:create db:schema:load")
+        }
+      }
+
+      stage("Run tests") {
+        runTests()
+      }
+    }
+
+    if (hasAssets() && !params.IS_SCHEMA_TEST) {
+      stage("Precompile assets") {
+        precompileAssets()
+      }
+    }
+
+    if (env.BRANCH_NAME == "master") {
+      if (isGem()) {
+        stage("Publish Gem to Rubygems") {
+          publishGem(repoName, env.BRANCH_NAME)
+        }
+      } else {
+        stage("Push release tag") {
+          pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+        }
+
+        stage("Deploy to integration") {
+          deployIntegration(repoName, env.BRANCH_NAME, 'release', 'deploy')
+        }
+      }
+    }
+    if (params.IS_SCHEMA_TEST) {
+      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job succeeded on Jenkins", 'SUCCESS')
+    }
+
+  } catch (e) {
+    currentBuild.result = "FAILED"
+    step([$class: 'Mailer',
+          notifyEveryUnstableBuild: true,
+          recipients: 'govuk-ci-notifications@digital.cabinet-office.gov.uk',
+          sendToIndividuals: true])
+    if (params.IS_SCHEMA_TEST) {
+      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job failed on Jenkins", 'FAILED')
+    }
+    throw e
+  }
+}
 
 /**
  * Cleanup anything left from previous test runs
@@ -369,143 +536,6 @@ def withStatsdTiming(key, fn) {
 
   project_name = JOB_NAME.split('/')[0]
   sh 'echo "ci.' + project_name + '.' + key + ':' + runtime + '|ms" | nc -w 1 -u localhost 8125'
-}
-
-/**
- * Build the project
- * @param sassLint Whether or not to run the SASS linter
- */
-def buildProject(sassLint = true) {
-  repoName = JOB_NAME.split('/')[0]
-
-  properties([
-    buildDiscarder(
-      logRotator(
-        numToKeepStr: '50')
-      ),
-    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
-    [$class: 'ParametersDefinitionProperty',
-      parameterDefinitions: [
-        [$class: 'BooleanParameterDefinition',
-          name: 'IS_SCHEMA_TEST',
-          defaultValue: false,
-          description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
-        [$class: 'StringParameterDefinition',
-          name: 'SCHEMA_BRANCH',
-          defaultValue: 'deployed-to-production',
-          description: 'The branch of govuk-content-schemas to test against'],
-        [$class: 'StringParameterDefinition',
-          name: 'SCHEMA_COMMIT',
-          defaultValue: 'invalid',
-          description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test']],
-    ],
-  ])
-
-  try {
-    if (!isAllowedBranchBuild(env.BRANCH_NAME)) {
-      return
-    }
-
-    if (params.IS_SCHEMA_TEST) {
-      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job is building on Jenkins", 'PENDING')
-    }
-
-    stage("Checkout") {
-      checkoutFromGitHubWithSSH(repoName)
-    }
-
-    stage("Clean up workspace") {
-      cleanupGit()
-    }
-
-    stage("Merge master") {
-      mergeMasterBranch()
-    }
-
-    stage("Configure environment") {
-      setEnvar("RAILS_ENV", "test")
-      setEnvar("RACK_ENV", "test")
-      setEnvar("DISPLAY", ":99")
-    }
-
-    stage("Set up content schema dependency") {
-      contentSchemaDependency(params.SCHEMA_BRANCH)
-      setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
-    }
-
-    stage("bundle install") {
-      if (isGem()) {
-        bundleGem()
-      } else {
-        bundleApp()
-      }
-    }
-
-    if (hasLint()) {
-      stage("Lint Ruby") {
-        rubyLinter("app lib spec test")
-      }
-    } else {
-      echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
-    }
-
-    if (hasAssets() && hasLint() && sassLint) {
-      stage("Lint SASS") {
-        sassLinter()
-      }
-    } else {
-      echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
-    }
-
-    // Prevent a project's tests from running in parallel on the same node
-    lock("$repoName-$NODE_NAME-test") {
-      if (hasDatabase()) {
-        stage("Set up the database") {
-            runRakeTask("db:drop db:create db:schema:load")
-        }
-      }
-
-      stage("Run tests") {
-        runTests()
-      }
-    }
-
-    if (hasAssets() && !params.IS_SCHEMA_TEST) {
-      stage("Precompile assets") {
-        precompileAssets()
-      }
-    }
-
-    if (env.BRANCH_NAME == "master") {
-      if (isGem()) {
-        stage("Publish Gem to Rubygems") {
-          publishGem(repoName, env.BRANCH_NAME)
-        }
-      } else {
-        stage("Push release tag") {
-          pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
-        }
-
-        stage("Deploy to integration") {
-          deployIntegration(repoName, env.BRANCH_NAME, 'release', 'deploy')
-        }
-      }
-    }
-    if (params.IS_SCHEMA_TEST) {
-      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job succeeded on Jenkins", 'SUCCESS')
-    }
-
-  } catch (e) {
-    currentBuild.result = "FAILED"
-    step([$class: 'Mailer',
-          notifyEveryUnstableBuild: true,
-          recipients: 'govuk-ci-notifications@digital.cabinet-office.gov.uk',
-          sendToIndividuals: true])
-    if (params.IS_SCHEMA_TEST) {
-      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job failed on Jenkins", 'FAILED')
-    }
-    throw e
-  }
 }
 
 /**
