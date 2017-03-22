@@ -46,7 +46,7 @@ class govuk::apps::content_store(
   $mongodb_nodes,
   $mongodb_name,
   $vhost = 'content-store',
-  $default_ttl = '1800',
+  $default_ttl = '900',
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
