@@ -77,7 +77,6 @@ govuk_jenkins::config::admins:
   - davidbasalla
   - davidhenry
   - davidsilva
-  - davidsingleton
   - deanwilson
   - deborahchua
   - elenatanasoiu
@@ -282,7 +281,6 @@ users::usernames:
   - davidbasalla
   - davidhenry
   - davidsilva
-  - davidsingleton
   - deanwilson
   - deborahchua
   - elenatanasoiu
