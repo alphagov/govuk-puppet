@@ -15,8 +15,6 @@ deployable_applications: &deployable_applications
     repository: 'backdrop'
   bouncer: {}
   business-support-api: {}
-  businesssupportfinder:
-    repository: 'business-support-finder'
   calculators: {}
   calendars: {}
   collections: {}
@@ -1028,7 +1026,6 @@ hosts::production::frontend::hosts:
 hosts::production::external_licensify: true
 
 hosts::production::frontend::app_hostnames:
-  - 'businesssupportfinder'
   - 'calculators'
   - 'calendars'
   - 'canary-frontend'
@@ -1230,8 +1227,6 @@ monitoring::checks::http_password: "%{hiera('http_password')}"
 monitoring::checks::smokey::features:
   check_bouncer:
     feature: bouncer
-  check_businesssupportfinder:
-    feature: businesssupportfinder
   check_calendars:
     feature: calendars
   check_contacts:
@@ -1335,7 +1330,6 @@ resolvconf::options:
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
 router::assets_origin::asset_routes:
-  '/businesssupportfinder/': "businesssupportfinder"
   '/calculators/': "calculators"
   '/calendars/': "calendars"
   '/collections/': "collections"

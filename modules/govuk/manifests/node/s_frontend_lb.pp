@@ -47,7 +47,6 @@ class govuk::node::s_frontend_lb (
     ]:
       servers       => $frontend_servers;
     [
-      'businesssupportfinder',
       'calculators',
       'calendars',
       'finder-frontend',
