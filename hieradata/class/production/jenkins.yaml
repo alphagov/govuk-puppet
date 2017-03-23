@@ -19,6 +19,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data
   - govuk_jenkins::job::deploy_terraform_project
+  - govuk_jenkins::job::dump_content
   - govuk_jenkins::job::dump_routes
   - govuk_jenkins::job::email_alert_check
   - govuk_jenkins::job::gds_production_backup
