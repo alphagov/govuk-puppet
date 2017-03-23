@@ -196,6 +196,7 @@ govuk_crawler::targets:
   - 'mirror-rsync@mirror1.mirror.provider0.production.govuk.service.gov.uk'
   - 'mirror-rsync@mirror0.mirror.provider1.production.govuk.service.gov.uk'
   - 'mirror-rsync@mirror1.mirror.provider1.production.govuk.service.gov.uk'
+  - 's3://govuk-mirror-production/'
 govuk_crawler::ssh_keys:
   mirror0.mirror.provider0.production.govuk.service.gov.uk:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDVmyDpdl3eJSx74GssbsEQpLVuh9XMFGDU0GRj1LRGIKL44PN4FlwpoHGrUI8uw/E2ZV9I6GEJisK8h9GP/njJEsMOTRPfRD3GxkDR5SfrE3bL7uNHdn6QvxdOIFXRLdphTNCbtL3FTqGTBB/jG55N5p2uy/gbLI/fzN7K1ldpe7NKCmBxnFFqFAqwjFaHIjIBs/QxLu3yiaXN2OnyYaRIhN7zQ0NEkvwEpa1X9VtWQbVU7/s3jxssU+BhFIF/7CSevwDMoaVgila8jD4dCbBvpAYPW7ZY1emmzuFSSF3mwq1qe/hI7Xh/G+zBQ+HQ0RoeImGdcK7AGZTkAcoX5GoB'
