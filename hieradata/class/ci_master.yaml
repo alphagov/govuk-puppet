@@ -87,6 +87,8 @@ govuk_jenkins::plugins:
       version: "1.15"
     handlebars:
       version: "1.1.1"
+    htmlpublisher:
+      version: "1.12"
     icon-shim:
       version: "2.0.3"
     javadoc:
@@ -186,7 +188,7 @@ govuk_jenkins::plugins:
     workflow-aggregator:
       version: "2.4"
     workflow-api:
-      version: "2.6"
+      version: "2.12"
     workflow-basic-steps:
       version: "2.3"
     workflow-cps:
@@ -202,7 +204,7 @@ govuk_jenkins::plugins:
     workflow-scm-step:
       version: "2.3"
     workflow-step-api:
-      version: "2.5"
+      version: "2.9"
     workflow-support:
       version: "2.11"
     ws-cleanup:
