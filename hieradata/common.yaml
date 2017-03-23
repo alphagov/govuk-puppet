@@ -17,37 +17,25 @@ deployable_applications: &deployable_applications
   business-support-api: {}
   businesssupportfinder:
     repository: 'business-support-finder'
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  calculators:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  calendars:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  collections:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  collections-publisher:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  calculators: {}
+  calendars: {}
+  collections: {}
+  collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  contacts-frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  contacts-frontend: {}
   content-performance-manager: {}
   content-store: {}
-  content-tagger:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  content-tagger: {}
   designprinciples:
     repository: 'design-principles'
   email-alert-api: {}
-  email-alert-frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  email-alert-service:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  email-alert-frontend: {}
+  email-alert-service: {}
   errbit: {}
   feedback: {}
-  finder-frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  finder-frontend: {}
+  frontend: {}
   government-frontend: {}
   govuk-delivery:
     repository: 'govuk_delivery'
@@ -57,63 +45,48 @@ deployable_applications: &deployable_applications
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
   govuk_need_api: {}
-  hmrc-manuals-api:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  hmrc-manuals-api: {}
   imminence: {}
   info-frontend: {}
   kibana:
     repository: 'kibana-gds'
   licencefinder:
     repository: 'licence-finder'
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   local-links-manager: {}
-  manuals-frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  manuals-publisher:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  manuals-frontend: {}
+  manuals-publisher: {}
   mapit: {}
   maslow: {}
   metadata-api: {}
   multipage-frontend: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
-  policy-publisher:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  publisher:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  publishing-api:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  policy-publisher: {}
+  publisher: {}
+  publishing-api: {}
   release: {}
   router: {}
   router-api: {}
   rummager: {}
   search-admin: {}
-  service-manual-frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  service-manual-publisher:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  short-url-manager:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  service-manual-frontend: {}
+  service-manual-publisher: {}
+  short-url-manager: {}
   sidekiq-monitoring: {}
   signon: {}
   smartanswers:
     repository: 'smart-answers'
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
   smokey: {}
-  specialist-frontend:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
-  specialist-publisher:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  specialist-frontend: {}
+  specialist-publisher: {}
   spotlight: {}
   stagecraft: {}
-  static:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  static: {}
   support: {}
   support-api: {}
   transition: {}
   travel-advice-publisher: {}
-  whitehall:
-    branches_to_exclude: ['release', 'deployed-to-integration', 'deployed-to-staging']
+  whitehall: {}
 
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 

@@ -23,14 +23,21 @@
 # [*branches_to_exclude*]
 # Array of branches which should _not_ be built by the CI server, for example because they are labels for releases
 # rather than development work. '*' may be used as a wildcard.
-# Default: release deployed-to-* integration staging production
+# Default: release, deployed-to-integration, deployed-to-staging, integration, staging, production
 #
 define govuk_ci::job (
   $app = $title,
   $repository = $title,
   $repo_owner = 'alphagov',
   $source = 'github',
-  $branches_to_exclude = ['release', 'deployed-to-*', 'integration', 'staging', 'production'],
+  $branches_to_exclude = [
+    'release',
+    'deployed-to-integration',
+    'deployed-to-staging',
+    'integration',
+    'staging',
+    'production',
+  ],
 ) {
 
   validate_re($source, '^(github|github-enterprise)$', 'Invalid source value, it must be github or github-enterprise')
