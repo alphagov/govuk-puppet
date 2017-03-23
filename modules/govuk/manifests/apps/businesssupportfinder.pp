@@ -26,25 +26,12 @@ class govuk::apps::businesssupportfinder(
   $app_name = 'businesssupportfinder'
 
   govuk::app { $app_name:
+    ensure                => 'absent',
     app_type              => 'rack',
     port                  => $port,
     health_check_path     => '/business-finance-support-finder',
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'businesssupportfinder',
-  }
-
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => $app_name,
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      app     => $app_name,
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
   }
 }
