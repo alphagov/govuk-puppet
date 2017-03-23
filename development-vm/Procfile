@@ -23,7 +23,7 @@ whitehall:             govuk_setenv whitehall             ./run_in.sh ../whiteha
 whitehall-worker:      govuk_setenv whitehall             ./run_in.sh ../whitehall      bundle exec sidekiq -C ./config/sidekiq.yml
 contentapi:            govuk_setenv contentapi            ./run_in.sh ../govuk_content_api bundle exec mr-sparkle --force-polling --pattern "rabl|rb|ru|txt|yml" -- -p 3022
 designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../design-principles bundle exec rails server -p 3023
-business-support-finder: govuk_setenv businesssupportfinder ./run_in.sh ../business-support-finder bundle exec rails server -p 3024
+# business-support-finder formerly used port 3024
 # whitehall_search: uses port 3025
 # whitehall_admin: uses port 3026
 # datainsight-frontend used to use port 3027 but is no longer running in any environment
