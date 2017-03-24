@@ -6,6 +6,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::build_offsite_backup
   - govuk_jenkins::job::check_cdn_ip_ranges
   - govuk_jenkins::job::check_pingdom_ip_ranges
+  - govuk_jenkins::job::check_content_store_inconsistencies
+  - govuk_jenkins::job::check_publishing_api_inconsistencies
   - govuk_jenkins::job::ci_network_config
   - govuk_jenkins::job::copy_data_to_integration
   - govuk_jenkins::job::copy_data_to_staging

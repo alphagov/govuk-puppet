@@ -1,0 +1,28 @@
+---
+- job:
+  name: Check_Publishing_API_Inconsistencies
+  display-name: Check_Publishing_API_Inconsistencies
+  project-type: freestyle
+  description: >
+    This job checks for inconsistencies between the publishing-api and the content-store.
+  logrotate:
+    numToKeep: 10
+  builders:
+    - copyartifact:
+      project: run-rake-task
+      filter: *.csv.gz
+  publishers:
+    - trigger-parameterized-builds:
+      - project: run-rake-task
+        predefined-parameters: |
+          TARGET_APPLICATION=publishing-api
+          MACHINE_CLASS=backend
+          RAKE_TASK=check_content_consistency[live,content.csv.gz]
+    - trigger-parameterized-builds:
+      - project: run-rake-task
+        predefined-parameters: |
+          TARGET_APPLICATION=publishing-api
+          MACHINE_CLASS=backend
+          RAKE_TASK=check_content_consistency[draft,draft-content.csv.gz]
+  triggers:
+    - timed: 'H 5 * * *'

@@ -1,0 +1,38 @@
+---
+- scm:
+    name: router-data
+    scm:
+      - git:
+         url: https://github.gds/gds/router-data
+         branches:
+          - origin/master
+
+- job:
+  name: Check_Content_Store_Inconsistencies
+  display-name: Check_Content_Store_Inconsistencies
+  project-type: freestyle
+  description: >
+    This job checks for inconsistencies between the content store and the router-api.
+  logrotate:
+    numToKeep: 10
+  scm:
+    - router-data
+  builders:
+    - copyartifact:
+      project: run-rake-task
+      filter: *.csv.gz
+  publishers:
+    - trigger-parameterized-builds:
+      - project: run-rake-task
+        predefined-parameters: |
+          TARGET_APPLICATION=content-store
+          MACHINE_CLASS=content_store
+          RAKE_TASK=check_content_consistency[routes.csv.gz,router-data]
+    - trigger-parameterized-builds:
+      - project: run-rake-task
+        predefined-parameters: |
+          TARGET_APPLICATION=content-store
+          MACHINE_CLASS=draft_content_store
+          RAKE_TASK=check_content_consistency[draft-routes.csv.gz,router-data]
+  triggers:
+    - timed: 'H 5 * * *'
