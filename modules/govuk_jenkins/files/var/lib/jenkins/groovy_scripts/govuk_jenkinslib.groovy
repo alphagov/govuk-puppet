@@ -418,7 +418,7 @@ def runTests(String test_task = 'default') {
 def testGemWithAllRubies(extraRubyVersions = []) {
   def rubyVersions = ["2.2", "2.3", "2.4"]
 
-  rubyVersions.addAll(extraVersions)
+  rubyVersions.addAll(extraRubyVersions)
 
   for (rubyVersion in rubyVersions) {
     stage("Test with ruby $rubyVersion") {
