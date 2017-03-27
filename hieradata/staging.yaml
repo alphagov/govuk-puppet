@@ -287,6 +287,12 @@ hosts::production::backend::hosts:
     ip: '10.2.3.13'
   postgresql-standby-2:
     ip: '10.2.11.13'
+  publishing-api-1:
+    ip: '10.2.3.45'
+  publishing-api-2:
+    ip: '10.2.3.46'
+  publishing-api-3:
+    ip: '10.2.3.47'
   rabbitmq-1:
     ip: '10.2.3.70'
   rabbitmq-2:
