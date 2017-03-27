@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Source plugin Array
+. <%= @plugins_list %>
+
+# Jenkins Host
+HOST=localhost:8080
+
+JENKINS_URL=pluginManager/installNecessaryPlugins
+
+# API User
+API_USERNAME=<%= @jenkins_api_user %>
+
+#API user's password
+. <%= @jenkins_source_file %>
+
+usage() {
+cat <<EOH
+
+You must supply the password for your user account in Jenkins.
+
+EOH
+
+}
+
+# Check that a password is submitted
+if [[ -z "$API_PASSWORD" ]]; then
+  usage
+  exit 1
+fi
+
+# Get user's api Token
+API_TOKEN=$(curl http://localhost:8080/user/"${API_USERNAME}"/configure?pretty --user "${API_USERNAME}":"${API_PASSWORD}" |grep -o 'value\=\"[a-z0-9]\{32\}\"' | tr -d '"'| sed 's/\<value\>//' | tr -d '=')
+
+# Get CSRF Token Crumb Header
+CSRF_CRUMB_HEADER=$(curl -XGET 'http://'"${API_USERNAME}"':'"${API_TOKEN}"'@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+
+#Install plugins
+for i in "${PLUGINS[@]}"; do
+  curl --fail --silent -XPOST 'http://'"${API_USERNAME}"':'"${API_TOKEN}"'@'"${HOST}"'/'"${JENKINS_URL}"'' -d '<jenkins><install plugin="'"${i}"'" /></jenkins>' -H ''"${CSRF_CRUMB_HEADER}"''
+done
+
+if [[ $? -eq 22 ]]; then
+  printf "\nFailed to authenticate.  Possibly a bad password?\n"
+  exit 1
+else
+  printf "\n SUCCESS \n"
+
+fi
+
