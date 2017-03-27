@@ -37,8 +37,10 @@
  * ```
  *
  * @param sassLint Whether or not to run the SASS linter
+ * @param extraRubyVersions Optional Ruby versions to run the tests against in
+ * addition to the versions currently supported by all GOV.UK applications
  */
-def buildProject(sassLint = true) {
+def buildProject(sassLint = true, extraRubyVersions = []) {
   repoName = JOB_NAME.split('/')[0]
 
   properties([
@@ -128,8 +130,12 @@ def buildProject(sassLint = true) {
         }
       }
 
-      stage("Run tests") {
-        runTests()
+      if (isGem()) {
+        testGemWithAllRubies(extraRubyVersions)
+      } else {
+        stage("Run tests") {
+          runTests()
+        }
       }
     }
 
@@ -398,6 +404,32 @@ def runTests(String test_task = 'default') {
   withStatsdTiming("test_task") {
     sh("bundle exec rake ${test_task}")
   }
+}
+
+/**
+ * Runs the tests with all the Ruby versions that are currently supported.
+ *
+ * Adds a Jenkins stage for each Ruby version, so do not call this from within
+ * a stage.
+ *
+ * @param extraRubyVersions Optional Ruby versions to run the tests against in
+ * addition to the versions currently supported by all GOV.UK applications
+ */
+def testGemWithAllRubies(extraRubyVersions = []) {
+  def rubyVersions = ["2.2", "2.3", "2.4"]
+
+  rubyVersions.addAll(extraVersions)
+
+  for (rubyVersion in rubyVersions) {
+    stage("Test with ruby $rubyVersion") {
+      sh "rm -f Gemfile.lock"
+      setEnvar("RBENV_VERSION", rubyVersion)
+      bundleGem()
+
+      runTests()
+    }
+  }
+  sh "unset RBENV_VERSION"
 }
 
 /**
