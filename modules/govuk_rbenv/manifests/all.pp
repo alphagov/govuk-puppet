@@ -20,9 +20,6 @@ class govuk_rbenv::all (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  rbenv::version { '2.1.2':
-    ensure => absent # FIXME: Tidy up once deployed
-  }
   rbenv::version { '2.1.4':
     bundler_version => '1.14.5',
   }
