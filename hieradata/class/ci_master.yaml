@@ -23,7 +23,7 @@ govuk_jenkins::config::views:
 govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
-govuk_jenkins::version: '2.19.2'
+govuk_jenkins::version: '2.32.3'
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::integration_deploy
@@ -32,9 +32,9 @@ govuk_jenkins::plugins:
     ace-editor:
       version: "1.1"
     analysis-core:
-      version: "1.79"
+      version: "1.84"
     ansicolor:
-      version: "0.4.2"
+      version: "0.5.0"
     antisamy-markup-formatter:
       version: "1.5"
     bouncycastle-api:
@@ -42,13 +42,13 @@ govuk_jenkins::plugins:
     brakeman:
       version: "0.8"
     branch-api:
-      version: "1.11.1"
+      version: "2.0.8"
     build-name-setter:
       version: "1.6.5"
     build-pipeline-plugin:
-      version: "1.5.4"
+      version: "1.5.6"
     cloudbees-folder:
-      version: "5.13"
+      version: "6.0.3"
     cobertura:
       version: "1.9.8"
     conditional-buildstep:
@@ -60,29 +60,29 @@ govuk_jenkins::plugins:
     description-setter:
       version: "1.10"
     display-url-api:
-      version: "0.5"
+      version: "1.1.1"
     durable-task:
-      version: "1.12"
+      version: "1.13"
     envinject:
       version: "1.93.1"
     findbugs:
-      version: "4.65"
+      version: "4.69"
     git-client:
-      version: "2.1.0"
+      version: "2.4.0"
     git-server:
       version: "1.7"
     git:
-      version: "3.0.0"
+      version: "3.1.0"
     github-api:
       version: "1.79"
     github-branch-source:
-      version: "1.10"
+      version: "2.0.4"
     github-oauth:
-      version: "0.24"
+      version: "0.25"
     github:
-      version: "1.22.4"
+      version: "1.26.1"
     gradle:
-      version: "1.25"
+      version: "1.26"
     greenballs:
       version: "1.15"
     handlebars:
@@ -100,77 +100,77 @@ govuk_jenkins::plugins:
     jquery:
       version: "1.11.2-0"
     junit:
-      version: "1.19"
+      version: "1.20"
     lockable-resources:
       version: "1.11.2"
     mailer:
-      version: "1.18"
+      version: "1.20"
     mapdb-api:
       version: "1.0.9.0"
     matrix-auth:
       version: "1.4"
     matrix-project:
-      version: "1.7.1"
+      version: "1.9"
     maven-plugin:
-      version: "2.14"
+      version: "2.15.1"
     momentjs:
       version: "1.1.1"
     monitoring:
-      version: "1.62.0"
+      version: "1.65.1"
     next-build-number:
       version: "1.4"
     nodelabelparameter:
       version: "1.7.2"
     parameterized-trigger:
-      version: "2.32"
+      version: "2.33"
     pipeline-build-step:
-      version: "2.3"
+      version: "2.4"
     pipeline-graph-analysis:
-      version: "1.2"
+      version: "1.3"
     pipeline-input-step:
       version: "2.5"
     pipeline-milestone-step:
-      version: "1.2"
+      version: "1.3"
     pipeline-stage-step:
       version: "2.2"
     pipeline-stage-view:
-      version: "2.2"
+      version: "2.6"
     plain-credentials:
-      version: "1.3"
+      version: "1.4"
     rake:
       version: "1.8.0"
     rebuild:
       version: "1.25"
     resource-disposer:
-      version: "0.3"
+      version: "0.6"
     role-strategy:
       version: "2.3.2"
     ruby:
       version: "1.2"
     rubyMetrics:
-      version: "1.6.4"
+      version: "1.6.5"
     run-condition:
       version: "1.0"
     saferestart:
       version: "0.3"
     scm-api:
-      version: "1.3"
+      version: "2.1.1"
     script-security:
-      version: "1.24"
+      version: "1.27"
     sitemonitor:
       version: "0.5"
     slack:
-      version: "2.0.1"
-    ssh-agent:
-      version: "1.13"
-    ssh-credentials:
-      version: "1.12"
-    ssh-slaves:
-      version: "1.11"
-    structs:
-      version: "1.5"
-    swarm:
       version: "2.2"
+    ssh-agent:
+      version: "1.14"
+    ssh-credentials:
+      version: "1.13"
+    ssh-slaves:
+      version: "1.16"
+    structs:
+      version: "1.6"
+    swarm:
+      version: "3.3"
     text-finder:
       version: "1.10"
     throttle-concurrents:
@@ -182,31 +182,31 @@ govuk_jenkins::plugins:
     violations:
       version: "0.7.11"
     warnings:
-      version: "4.6"
+      version: "4.60"
     windows-slaves:
-      version: "1.2"
+      version: "1.3.1"
     workflow-aggregator:
-      version: "2.4"
+      version: "2.5"
     workflow-api:
       version: "2.12"
     workflow-basic-steps:
-      version: "2.3"
-    workflow-cps:
-      version: "2.23"
-    workflow-cps-global-lib:
       version: "2.4"
+    workflow-cps:
+      version: "2.29"
+    workflow-cps-global-lib:
+      version: "2.7"
     workflow-durable-task-step:
-      version: "2.5"
+      version: "2.10"
     workflow-job:
-      version: "2.9"
+      version: "2.10"
     workflow-multibranch:
-      version: "2.9.2"
+      version: "2.14"
     workflow-scm-step:
-      version: "2.3"
+      version: "2.4"
     workflow-step-api:
       version: "2.9"
     workflow-support:
-      version: "2.11"
+      version: "2.13"
     ws-cleanup:
       version: "0.32"
 
