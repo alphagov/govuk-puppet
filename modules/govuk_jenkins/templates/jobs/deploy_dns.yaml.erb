@@ -32,9 +32,6 @@
         - shell: |
             export DEPLOY_ENV=<%= @environment %>
             ./jenkins.sh ${ACTION}
-    wrappers:
-        - ansicolor:
-            colormap: xterm
     parameters:
         - choice:
             name: PROVIDERS
