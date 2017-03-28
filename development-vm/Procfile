@@ -152,4 +152,5 @@ draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ..
 # grafana: reserved 3204
 # manuals-publisher: reserved 3205
 
-content-performance-manager: govuk_setenv content-performance-manager ./run_in.sh ../content-performance-manager bundle exec rails s -p 3206
+content-performance-manager:          govuk_setenv content-performance-manager ./run_in.sh ../content-performance-manager bundle exec rails s -p 3206
+content-performance-manager-sidekiq:  govuk_setenv content-performance-manager ./run_in.sh ../content-performance-manager bundle exec sidekiq -C ./config/sidekiq.yml
