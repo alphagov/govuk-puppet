@@ -38,6 +38,14 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -51,6 +59,8 @@ class govuk::apps::content_performance_manager(
   $google_private_key = undef,
   $port = '3206',
   $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
   $secret_key_base = undef,
 ) {
   $app_name = 'content-performance-manager'
@@ -79,6 +89,11 @@ class govuk::apps::content_performance_manager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $secret_key_base != undef {
