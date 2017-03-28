@@ -24,12 +24,13 @@
             colormap: xterm
         - build-name:
             name: '${ENV,var="PROVIDERS"} ${ENV,var="ACTION"}'
+        - credentials-binding:
+            - text:
+               credential-id: <%= @gce_credential_id %>
+               variable: GOOGLE_CREDENTIALS
     builders:
         - shell: |
             export DEPLOY_ENV=<%= @environment %>
-            set +x
-            export GOOGLE_CREDENTIALS="`cat <%= @credentials_file_path %>`"
-            set -x
             ./jenkins.sh ${ACTION}
     wrappers:
         - ansicolor:
