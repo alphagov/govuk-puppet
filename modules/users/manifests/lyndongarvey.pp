@@ -1,6 +1,7 @@
 # Create the lyndongarvey user
 class users::lyndongarvey {
   govuk_user { 'lyndongarvey':
+    ensure   => absent,
     fullname => 'Lyndon Garvey',
     email    => 'lyndon.garvey@digital.justice.gov.uk',
     ssh_key  => [
