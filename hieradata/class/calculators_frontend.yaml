@@ -6,6 +6,7 @@ govuk_elasticsearch::local_proxy::servers:
   - 'api-elasticsearch-3.api'
 
 govuk::node::s_base::apps:
+  - businesssupportfinder
   - calculators
   - calendars
   - finder_frontend
