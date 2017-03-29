@@ -6,12 +6,13 @@
   <numExecutors><%= @executors %></numExecutors>
   <mode>NORMAL</mode>
   <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
-  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.12">
+  <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.16">
     <host><%= @agent_hostname %></host>
     <port><%= @ssh_port %></port>
     <credentialsId><%= @credentials_id %></credentialsId>
     <maxNumRetries>0</maxNumRetries>
     <retryWaitTime>0</retryWaitTime>
+    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
   </launcher>
   <label><%= @labels %></label>
   <nodeProperties/>
