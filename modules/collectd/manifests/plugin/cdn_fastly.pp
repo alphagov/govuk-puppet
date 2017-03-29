@@ -14,7 +14,7 @@
 #   A hash of services. In the format:
 #   `{ 'friendly_name' => 'service_id', }`
 #
-class collectd::plugin::cdn_fastly(
+class collectd::plugin::cdn_fastly (
   $username,
   $password,
   $services,

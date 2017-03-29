@@ -1,5 +1,6 @@
 #
 # Plugin to collectd statistics from MongoDB
+# Source https://github.com/sebest/collectd-mongodb
 #
 
 import collectd
