@@ -959,7 +959,6 @@ hosts::production::backend::app_hostnames:
   - 'need-api'
   - 'performanceplatform-admin'
   - 'policy-publisher'
-  - 'private-frontend'
   - 'publisher'
   - 'publishing-api'
   - 'search-admin'
