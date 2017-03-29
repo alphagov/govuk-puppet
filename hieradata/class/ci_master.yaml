@@ -72,7 +72,7 @@ govuk_jenkins::plugins:
     git-server:
       version: "1.7"
     git:
-      version: "3.1.0"
+      version: "3.2.0"
     github-api:
       version: "1.85"
     github-branch-source:
