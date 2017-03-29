@@ -29,7 +29,6 @@ designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../design-
 # datainsight-frontend used to use port 3027 but is no longer running in any environment
 feedback:              govuk_setenv feedback              ./run_in.sh ../feedback       bundle exec rails server -p 3028
 errbit:                govuk_setenv errbit                ./run_in.sh ../errbit         bundle exec rails server -p 3029
-private-frontend:      govuk_setenv frontend              ./run_in.sh ../frontend       bundle exec rails server -p 3030
 support:               govuk_setenv support               ./run_in.sh ../support        bundle exec rails s -p 3031
 # publicapi:uses port 3032
 # contracts-finder used to use port 3033
