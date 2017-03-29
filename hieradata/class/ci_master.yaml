@@ -74,7 +74,7 @@ govuk_jenkins::plugins:
     git:
       version: "3.1.0"
     github-api:
-      version: "1.79"
+      version: "1.85"
     github-branch-source:
       version: "2.0.4"
     github-oauth:
@@ -130,7 +130,7 @@ govuk_jenkins::plugins:
     pipeline-input-step:
       version: "2.5"
     pipeline-milestone-step:
-      version: "1.3"
+      version: "1.3.1"
     pipeline-stage-step:
       version: "2.2"
     pipeline-stage-view:
