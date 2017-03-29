@@ -15,6 +15,9 @@
 # [*enabled*]
 #   Whether the app is enabled in this environment.
 #
+# [*errbit_api_key*]
+#   Errbit API key used by Airbrake
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -25,12 +28,15 @@ class govuk::apps::specialist_frontend(
   $vhost = 'specialist-frontend',
   $port = '3065',
   $enabled = false,
+  $errbit_api_key = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
 
+  $app_name = 'specialist-frontend'
+
   if $enabled {
-    govuk::app { 'specialist-frontend':
+    govuk::app { $app_name:
       app_type               => 'rack',
       port                   => $port,
       vhost_aliases          => ['private-specialist-frontend'],
@@ -40,6 +46,16 @@ class govuk::apps::specialist_frontend(
       vhost                  => $vhost,
       nagios_memory_warning  => $nagios_memory_warning,
       nagios_memory_critical => $nagios_memory_critical,
+    }
+
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
+
+    govuk::app::envvar {
+      "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
     }
   }
 }
