@@ -21,7 +21,7 @@ class monitoring::pagerduty_drill (
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
-      hour    => 11,
+      hour    => 10,
       minute  => 0,
       command => "touch ${filename}",
     }
@@ -30,7 +30,7 @@ class monitoring::pagerduty_drill (
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
-      hour    => 11,
+      hour    => 10,
       minute  => 15,
       command => "rm -f ${filename}",
     }
