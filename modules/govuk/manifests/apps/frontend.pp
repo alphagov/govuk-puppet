@@ -38,7 +38,6 @@ class govuk::apps::frontend(
   govuk::app { 'frontend':
     app_type               => 'rack',
     port                   => $port,
-    vhost_aliases          => ['private-frontend'],
     vhost_protected        => $vhost_protected,
     health_check_path      => '/',
     log_format_is_json     => true,

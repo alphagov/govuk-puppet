@@ -266,7 +266,6 @@ hosts::development::apps:
   - 'need-api'
   - 'performanceplatform-admin'
   - 'policy-publisher'
-  - 'private-frontend'
   - 'publicapi'
   - 'public-event-store'
   - 'publisher'

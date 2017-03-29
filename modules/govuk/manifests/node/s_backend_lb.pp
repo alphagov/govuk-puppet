@@ -53,7 +53,6 @@ class govuk::node::s_backend_lb (
       'manuals-publisher',
       'maslow',
       'policy-publisher',
-      'private-frontend',
       'publisher',
       'release',
       'search-admin',
