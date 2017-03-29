@@ -578,6 +578,7 @@ govuk_ci::master::pipeline_jobs:
   govuk_content_models: {}
   govuk-content-schema-test-helpers: {}
   govuk-dummy_content_store: {}
+  govuk-developer-docs: {}
   govuk_document_types: {}
   govuk_elements: {}
   govuk_frontend_toolkit: {}
