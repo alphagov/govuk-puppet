@@ -87,12 +87,16 @@ define govuk_user(
     membership => $membership,
     require    => Class['shell'],
     shell      => $shell,
-  } ->
-  file { $home:
-    ensure => directory,
-    owner  => $title,
-    group  => $title,
-    mode   => '0750',
+  }
+
+  if ($ensure == present) {
+    file { $home:
+      ensure  => directory,
+      owner   => $title,
+      group   => $title,
+      mode    => '0750',
+      require => User[$title],
+    }
   }
 
   # FIXME: Manage group?
