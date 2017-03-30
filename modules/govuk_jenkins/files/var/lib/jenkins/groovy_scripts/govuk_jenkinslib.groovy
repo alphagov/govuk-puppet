@@ -30,18 +30,35 @@
  *
  * node {
  *   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
- *   govuk.buildProject(
- *     false // disable SASS linting
- *   )
+ *   govuk.buildProject(sassLint: false)
  * }
  * ```
  *
- * @param sassLint Whether or not to run the SASS linter
- * @param extraRubyVersions Optional Ruby versions to run the tests against in
- * addition to the versions currently supported by all GOV.UK applications
+ * @param options Map of build options:
+ *        - sassLint Whether or not to run the SASS linter. Default: true
+ *        - extraRubyVersions Ruby versions to run the tests against in
+ *          addition to the versions currently supported by all GOV.UK
+ *          applications. Only applies to gems because they may be used in
+ *          projects with different Ruby versions. Default: []
+ *        - beforeTest A closure containing commands to run before the test
+ *          stage, such as environment variable configuration
+ *        - overrideTestTask A closure containing commands to run to test the
+ *          project. This will run instead of the default `bundle exec rake`
+ *        - afterTest A closure containing commands to run after the test stage,
+ *          such as report publishing
  */
-def buildProject(sassLint = true, extraRubyVersions = []) {
+def buildProject(options = [:]) {
+
   repoName = JOB_NAME.split('/')[0]
+
+  // TODO: Simplify this when no Jenkinsfile calls buildProject with a boolean
+  // parameter
+  def sassLint = true
+  if (options.getClass() == Boolean) {
+    sassLint = options
+  } else if (options.sassLint != null) {
+    sassLint = options.sassLint
+  }
 
   properties([
     buildDiscarder(
@@ -122,6 +139,11 @@ def buildProject(sassLint = true, extraRubyVersions = []) {
       echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
     }
 
+    if (options.beforeTest) {
+      echo "Running pre-test tasks"
+      options.beforeTest.call()
+    }
+
     // Prevent a project's tests from running in parallel on the same node
     lock("$repoName-$NODE_NAME-test") {
       if (hasDatabase()) {
@@ -130,13 +152,24 @@ def buildProject(sassLint = true, extraRubyVersions = []) {
         }
       }
 
-      if (isGem()) {
-        testGemWithAllRubies(extraRubyVersions)
+      if (options.overrideTestTask) {
+        echo "Running custom test task"
+        options.overrideTestTask.call()
       } else {
-        stage("Run tests") {
-          runTests()
+        if (isGem()) {
+          def extraRubyVersions = options.extraRubyVersions == null ? [] : options.extraRubyVersions
+          testGemWithAllRubies(extraRubyVersions)
+        } else {
+          stage("Run tests") {
+            runTests()
+          }
         }
       }
+    }
+
+    if (options.afterTest) {
+      echo "Running post-test tasks"
+      options.afterTest.call()
     }
 
     if (hasAssets() && !params.IS_SCHEMA_TEST) {
