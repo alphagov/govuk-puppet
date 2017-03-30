@@ -11,6 +11,7 @@ govuk::apps::event_store::mongodb_servers:
   - 'mongo-3.backend'
 
 govuk::apps::frontend::vhost_protected: true
+govuk::apps::frontend::ensure: 'absent'
 
 govuk::apps::contentapi::mongodb_name: 'govuk_content_production'
 govuk::apps::contentapi::mongodb_nodes:
