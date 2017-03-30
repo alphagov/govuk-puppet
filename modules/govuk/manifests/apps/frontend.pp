@@ -4,10 +4,6 @@
 #
 # === Parameters
 #
-# [*ensure*]
-#   Whether the app should be present or absent
-#   Default: 'present'
-#
 # [*vhost*]
 #   Virtual host used by the application.
 #   Default: 'frontend'
@@ -31,7 +27,6 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::frontend(
-  $ensure = 'present',
   $vhost = 'frontend',
   $port = '3005',
   $vhost_protected = false,
@@ -41,7 +36,6 @@ class govuk::apps::frontend(
 ) {
 
   govuk::app { 'frontend':
-    ensure                 => $ensure,
     app_type               => 'rack',
     port                   => $port,
     vhost_protected        => $vhost_protected,
@@ -59,11 +53,9 @@ class govuk::apps::frontend(
   ',
   }
 
-  if $ensure == 'present' {
-    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => 'frontend',
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token,
-    }
+  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    app     => 'frontend',
+    varname => 'PUBLISHING_API_BEARER_TOKEN',
+    value   => $publishing_api_bearer_token,
   }
 }
