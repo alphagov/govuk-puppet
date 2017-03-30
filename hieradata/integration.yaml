@@ -95,7 +95,6 @@ govuk_jenkins::config::admins:
   - leebriggs
   - leelongmore
   - leenagupte
-  - lyndongarvey
   - matmoore
   - matteograssotti
   - mikaelallison
@@ -299,7 +298,6 @@ users::usernames:
   - leebriggs
   - leelongmore
   - leenagupte
-  - lyndongarvey
   - matmoore
   - matteograssotti
   - mikaelallison
