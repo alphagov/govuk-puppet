@@ -30,18 +30,28 @@
  *
  * node {
  *   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
- *   govuk.buildProject(
- *     false // disable SASS linting
- *   )
+ *   govuk.buildProject(sassLint: false)
  * }
  * ```
  *
- * @param sassLint Whether or not to run the SASS linter
- * @param extraRubyVersions Optional Ruby versions to run the tests against in
- * addition to the versions currently supported by all GOV.UK applications
+ * @param options Map of build options:
+ *        - sassLint Whether or not to run the SASS linter. Default: true
+ *        - extraRubyVersions Ruby versions to run the tests against in
+ *          addition to the versions currently supported by all GOV.UK
+ *          applications. Default: []
  */
-def buildProject(sassLint = true, extraRubyVersions = []) {
+def buildProject(options = [:]) {
+
   repoName = JOB_NAME.split('/')[0]
+
+  // TODO: Simplify this when no Jenkinsfile calls buildProject with a boolean
+  // parameter
+  def sassLint = true
+  if (options.getClass() == Boolean) {
+    sassLint = options
+  } else if (options.sassLint != null) {
+    sassLint = options.sassLint
+  }
 
   properties([
     buildDiscarder(
@@ -130,6 +140,7 @@ def buildProject(sassLint = true, extraRubyVersions = []) {
         }
       }
 
+      def extraRubyVersions = options.extraRubyVersions == null ? [] : options.extraRubyVersions
       if (isGem()) {
         testGemWithAllRubies(extraRubyVersions)
       } else {
