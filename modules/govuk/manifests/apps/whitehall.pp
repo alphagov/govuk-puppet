@@ -128,7 +128,6 @@ class govuk::apps::whitehall(
   $secret_key_base = undef,
   $vhost = 'whitehall',
   $vhost_protected,
-  $enable_tagging_to_new_taxonomy = undef,
   $jwt_auth_secret = undef,
 ) {
 
@@ -369,9 +368,6 @@ class govuk::apps::whitehall(
     "${title}-UNICORN_WORKER_PROCESSES":
       varname => 'UNICORN_WORKER_PROCESSES',
       value   => $unicorn_worker_processes;
-    "${title}-ENABLE_TAGGING_TO_NEW_TAXONOMY":
-      varname => 'ENABLE_TAGGING_TO_NEW_TAXONOMY',
-      value   => $enable_tagging_to_new_taxonomy;
   }
 
   if $basic_auth_credentials != undef {
