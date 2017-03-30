@@ -10,8 +10,6 @@ govuk::apps::event_store::mongodb_servers:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::frontend::vhost_protected: true
-
 govuk::apps::contentapi::mongodb_name: 'govuk_content_production'
 govuk::apps::contentapi::mongodb_nodes:
   - 'mongo-1.backend'
@@ -60,7 +58,6 @@ govuk::node::s_base::apps:
   - email_alert_api
   - email_alert_service
   - event_store
-  - frontend
   - govuk_delivery
   - hmrc_manuals_api
   - imminence
