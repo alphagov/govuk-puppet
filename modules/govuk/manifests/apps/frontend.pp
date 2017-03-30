@@ -59,9 +59,11 @@ class govuk::apps::frontend(
   ',
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'frontend',
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  if $ensure == 'present' {
+    govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      app     => 'frontend',
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
+    }
   }
 }
