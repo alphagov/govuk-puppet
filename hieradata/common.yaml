@@ -42,6 +42,7 @@ deployable_applications: &deployable_applications
   govuk_content_api: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
+  govuk-tagging-monitor: {}
   govuk_need_api: {}
   hmrc-manuals-api: {}
   imminence: {}
