@@ -51,14 +51,18 @@ def buildProject(options = [:]) {
 
   repoName = JOB_NAME.split('/')[0]
 
-  // TODO: Simplify this when no Jenkinsfile calls buildProject with a boolean
-  // parameter
+  // TODO: Simplify these initialization steps when no Jenkinsfile calls
+  // buildProject with a boolean parameter
   def sassLint = true
   if (options.getClass() == Boolean) {
     sassLint = options
   } else if (options.sassLint != null) {
     sassLint = options.sassLint
   }
+  // Assume that the parameter is a Map if it is not a boolean. We cannot
+  // Simplify call `options instanceof Map` because `instanceof` is blocked by
+  // the Jenkins security plugin
+  def hasTestOptions = options.getClass() != Boolean
 
   properties([
     buildDiscarder(
@@ -139,7 +143,7 @@ def buildProject(options = [:]) {
       echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
     }
 
-    if (options.beforeTest) {
+    if (hasTestOptions && options.beforeTest) {
       echo "Running pre-test tasks"
       options.beforeTest.call()
     }
@@ -152,7 +156,7 @@ def buildProject(options = [:]) {
         }
       }
 
-      if (options.overrideTestTask) {
+      if (hasTestOptions && options.overrideTestTask) {
         echo "Running custom test task"
         options.overrideTestTask.call()
       } else {
@@ -167,7 +171,7 @@ def buildProject(options = [:]) {
       }
     }
 
-    if (options.afterTest) {
+    if (hasTestOptions && options.afterTest) {
       echo "Running post-test tasks"
       options.afterTest.call()
     }
