@@ -21,6 +21,8 @@
            ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+           # Update govuk-delivery's database for this environment.
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/govuk-delivery ; ./venv/bin/python scripts/update_data_after_sync.py'
     publishers:
         - trigger-parameterized-builds:
             - project: run-rake-task
