@@ -575,7 +575,6 @@ govuk_ci::master::pipeline_jobs:
   govuk-diff-pages: {}
   govuk_admin_template: {}
   govuk_ab_testing: {}
-  govuk-client-url_arbiter: {}
   govuk_content_models: {}
   govuk-content-schema-test-helpers: {}
   govuk-dummy_content_store: {}
