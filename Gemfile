@@ -18,9 +18,3 @@ gem "sshkey", "1.7.0"
 gem "parallel_tests"
 gem "parallel"
 gem "librarian-puppet"
-
-# for the test kitchen testing
-gem 'test-kitchen'
-gem 'kitchen-inspec'
-gem 'kitchen-puppet'
-gem 'kitchen-ec2'
