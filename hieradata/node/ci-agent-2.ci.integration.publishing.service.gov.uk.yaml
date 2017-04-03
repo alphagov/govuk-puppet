@@ -1,2 +1,4 @@
 ---
 mongodb::server::version: '2.4.9'
+
+govuk_ci::agent::guix_enabled: true
