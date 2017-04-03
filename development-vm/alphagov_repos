@@ -23,6 +23,7 @@ govuk-content-schemas
 govuk-puppet
 govuk_content_api
 govuk_content_models
+govuk_need_api
 hmrc-manuals-api
 imminence
 info-frontend
@@ -33,7 +34,6 @@ local-links-manager
 mapit
 maslow
 metadata-api
-need-api
 policy-publisher
 publisher
 publishing-api
