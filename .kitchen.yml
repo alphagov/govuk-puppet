@@ -1,0 +1,44 @@
+---
+driver:
+  name: ec2
+  aws_ssh_key_id: "<%= ENV['TEST_KITCHEN_EC2_SSH_KEY_ID'] %>"
+  security_group_ids: [ "<%= ENV['TEST_KITCHEN_EC2_SECURITY_GROUP_ID'] %>"]
+  region: "eu-central-1"
+  instance_type: t2.large
+  associate_public_ip: true
+  interface: dns
+  shared_credentials_profile: "<%= ENV['TEST_KITCHEN_EC2_PROFILE'] %>"
+  tags:
+    created-by: test-kitchen
+    owner: "<%= ENV['USER'] %>"
+
+
+transport:
+  ssh_key: "~/.ssh/<%= ENV['TEST_KITCHEN_EC2_SSH_KEY_ID'] %>.pem"
+  connection_timeout: 10
+  connection_retries: 5
+  username: ubuntu
+
+
+provisioner:
+  name: puppet_apply
+  require_chef_for_busser: false
+  manifests_path: test/manifests/
+  modules_path: modules/
+
+verifier:
+  name: inspec
+
+
+platforms:
+  - name: ubuntu-1404-puppet-3
+    driver:
+      image_id: ami-1daf7f72
+      tags:
+        Name: "<%= ENV['USER'] %>-ubuntu-1404-puppet-3-test-kitchen"
+
+
+suites:
+  - name: libffi
+    provisioner:
+      manifest: libffi.pp
