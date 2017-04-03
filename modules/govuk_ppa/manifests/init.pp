@@ -29,8 +29,10 @@ class govuk_ppa (
 ) {
   include ::apt
 
+  validate_slength($apt_mirror_hostname, 255, 5)
   validate_re($repo_ensure, '^(present|absent)$', 'Invalid repo_ensure value')
   validate_bool($use_mirror)
+
   if $use_mirror {
     apt::source { 'govuk-ppa':
       ensure       => $repo_ensure,
