@@ -105,6 +105,8 @@ class govuk::apps::publishing_api(
 ) {
   $app_name = 'publishing-api'
 
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
   govuk::app { $app_name:
     app_type          => 'rack',
     port              => $port,
