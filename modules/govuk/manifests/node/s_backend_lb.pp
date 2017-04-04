@@ -16,6 +16,9 @@
 # [*whitehall_backend_servers*]
 #   An array of whitehall backend app servers
 #
+# [*publishing_api_backend_servers*]
+#   An array of publishing-api backend app servers
+#
 # [*maintenance_mode*]
 #   Whether the backend should be taken offline in nginx
 #
@@ -24,6 +27,7 @@ class govuk::node::s_backend_lb (
   $backend_servers,
   $performance_backend_servers = [],
   $whitehall_backend_servers,
+  $publishing_api_backend_servers,
   $maintenance_mode = false,
 ){
   include govuk::node::s_base
@@ -73,7 +77,6 @@ class govuk::node::s_backend_lb (
       'event-store',
       'govuk-delivery',
       'need-api',
-      'publishing-api',
       'support-api',
     ]:
       internal_only => true,
@@ -84,6 +87,11 @@ class govuk::node::s_backend_lb (
     ]:
       deny_crawlers => true,
       servers       => $whitehall_backend_servers;
+    [
+      'publishing-api',
+    ]:
+      internal_only => true,
+      servers       => $publishing_api_backend_servers;
   }
 
   loadbalancer::balance { 'errbit':

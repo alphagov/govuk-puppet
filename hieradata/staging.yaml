@@ -98,6 +98,13 @@ govuk::node::s_backend_lb::backend_servers:
 govuk::node::s_backend_lb::performance_backend_servers:
   - 'performance-backend-1.backend'
   - 'performance-backend-2.backend'
+govuk::node::s_backend_lb::publishing_api_backend_servers:
+  - 'backend-1.backend'
+  - 'backend-2.backend'
+  - 'backend-3.backend'
+  - 'publishing-api-1.backend'
+  - 'publishing-api-2.backend'
+  - 'publishing-api-3.backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
@@ -287,6 +294,12 @@ hosts::production::backend::hosts:
     ip: '10.2.3.13'
   postgresql-standby-2:
     ip: '10.2.11.13'
+  publishing-api-1:
+    ip: '10.2.3.45'
+  publishing-api-2:
+    ip: '10.2.3.46'
+  publishing-api-3:
+    ip: '10.2.3.47'
   rabbitmq-1:
     ip: '10.2.3.70'
   rabbitmq-2:

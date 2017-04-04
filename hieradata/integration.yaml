@@ -171,6 +171,11 @@ govuk::node::s_backend_lb::performance_backend_servers:
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
+govuk::node::s_backend_lb::publishing_api_backend_servers:
+  - 'backend-1.backend'
+  - 'backend-2.backend'
+  - 'publishing-api-1.backend'
+  - 'publishing-api-2.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
