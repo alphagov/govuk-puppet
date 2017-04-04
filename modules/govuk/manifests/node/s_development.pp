@@ -13,6 +13,7 @@ class govuk::node::s_development (
   include base
 
   include assets::user
+  include clamav::run_fake_virus_scan
   include golang
   include govuk_apt::disable_pipelining
   include govuk_mysql::libdev
