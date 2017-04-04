@@ -1,4 +1,5 @@
 app_domain: 'environment.example.com'
+apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
 collectd::plugin::postgresql::password: 'password'
 
@@ -29,6 +30,8 @@ govuk_postgresql::server::snakeoil_ssl_certificate: certificate
 govuk_postgresql::server::snakeoil_ssl_key: key
 
 govuk_postgresql::monitoring::password: password
+
+govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_rabbitmq::monitoring_password: 'rabbit_monitor'
 govuk_rabbitmq::root_password: 'rabbit_root'
