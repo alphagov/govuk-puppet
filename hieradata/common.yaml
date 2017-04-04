@@ -50,6 +50,7 @@ deployable_applications: &deployable_applications
     repository: 'kibana-gds'
   licencefinder:
     repository: 'licence-finder'
+  link-checker: {}
   local-links-manager: {}
   manuals-frontend: {}
   manuals-publisher: {}
