@@ -1,0 +1,5 @@
+/.env
+/.foreman
+/.ruby-version
+/replication/backups/
+/replication/es_archives/

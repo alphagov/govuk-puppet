@@ -1,0 +1,37 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bowler (2.1.0)
+      foreman (>= 0.35.0)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
+    es_dump_restore (2.0.0)
+      httpclient
+      multi_json
+      progress_bar
+      rake
+      rubyzip (>= 1.0.0)
+      thor
+    foreman (0.75.0)
+      dotenv (~> 0.11.1)
+      thor (~> 0.19.1)
+    highline (1.6.21)
+    httpclient (2.6.0.1)
+    multi_json (1.11.1)
+    options (2.3.2)
+    progress_bar (1.0.3)
+      highline (~> 1.6.1)
+      options (~> 2.3.0)
+    rake (10.4.2)
+    rubyzip (1.1.5)
+    thor (0.19.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bowler (~> 2.1.0)
+  es_dump_restore (~> 2.0.0)
+  foreman (= 0.75.0)
+  rubyzip (>= 1.1.5)
