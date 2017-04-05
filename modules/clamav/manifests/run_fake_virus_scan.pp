@@ -6,7 +6,7 @@
 #
 class clamav::run_fake_virus_scan {
   cron::crondotdee { 'run_fake_virus_scan':
-    command => 'cd /var/apps/whitehall ; /usr/local/bin/govuk_setenv whitehall bundle exec rake development:fake_virus_scan > /dev/null',
+    command => 'cd /var/apps/whitehall ; /usr/local/bin/govuk_setenv whitehall bundle exec rake development:fake_virus_scan > /dev/null 2>&1',
     hour    => '*',
     minute  => '*',
     user    => 'vagrant',
