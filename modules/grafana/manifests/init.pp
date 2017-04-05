@@ -7,7 +7,7 @@ class grafana {
   include grafana::dashboards
 
   package { 'grafana':
-    ensure  => latest,
+    ensure  => '3.1.1',
     require => Class['grafana::repo'],
   }
 
