@@ -1,0 +1,91 @@
+# This allows you to turn-on processes in Foreman instead of turning them off when running only part of the stack
+# See https://github.com/JordanHatch/bowler for some more info
+
+process :'authenticating-proxy' => [:'government-frontend']
+process :asset_manager => [:'asset-manager-worker']
+process :'asset-manager-worker'
+process :backdrop => [:backdrop_read, :backdrop_write, :stagecraft]
+process :backdrop_read
+process :backdrop_write
+process :bouncer
+process :'business-support-api' => [:contentapi]
+process :calculators => [:static, :'content-store']
+process :calendars => [:static, :'content-store']
+process :collections => [:static, :'content-store', :rummager]
+process :'collections-publisher' => [:'publishing-api', :rummager, :'collections-publisher-worker']
+process :'collections-publisher-worker'
+process :'contacts-frontend' => [:static, :'content-store']
+process :contentapi => [:imminence, :asset_manager]
+process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq']
+process :'content-store'
+# Example usage: bowl [your-app] dummy-content-store --without content-store
+process :'dummy-content-store'
+process :'content-tagger' => [:'publishing-api', :'content-tagger-sidekiq']
+process :'draft-content-store'
+process :'draft-government-frontend' => [
+  :'draft-content-store',
+  :'government-frontend',
+  :static
+]
+process :designprinciples => :static
+process :'email-alert-api'
+process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
+process :'email-alert-service'
+process :errbit
+process :'event-store'
+process :feedback => [:static, :support, :'support-api']
+process :'finder-frontend' => [:static, :rummager, :'content-store']
+process :frontend => [:static, :contentapi, :'content-store', :rummager]
+process :'government-frontend' => [:'content-store', :static, :rummager]
+process :'govuk-delivery'
+process :'govuk-delivery-worker'
+process :'info-frontend' => [:static, :'metadata-api']
+process :imminence => [:mapit]
+process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
+process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
+process :'manuals-frontend' => [:static, :'content-store']
+process :licencefinder => [:static, :contentapi, :'content-store']
+process :'local-links-manager'
+process :'manuals-publisher' => [:asset_manager, :rummager, :'publishing-api']
+process :mapit
+process :maslow => :need_api
+process :'metadata-api' => [:contentapi, :need_api]
+process :'multipage-frontend' => [:static, :'content-store']
+process :need_api
+process :'performanceplatform-admin' => [:stagecraft]
+process :'policy-publisher' => [:'publishing-api', :rummager]
+process :publisher => [:'publishing-api', 'publisher-worker'] # for some requests also uses: mapit
+process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
+process :'publishing-api-worker' => [:'content-store', :'router-api']
+process :release
+process :router
+process :'router-api'
+process :rummager => [:"publishing-api", :"rummager-sidekiq", :"rummager-publishing-listener"]
+process :"rummager-sidekiq"
+process :"rummager-publishing-listener"
+process :screenshot_as_a_service
+process :'search-admin' => :rummager
+process :'service-manual-frontend' => [:'content-store', :static]
+process :'service-manual-publisher' => [:'publishing-api', :rummager]
+process :'share-sale-publisher' => [:asset_manager, :'publishing-api']
+process :'short-url-manager' => [:'publishing-api']
+process :signon
+process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
+process :'specialist-publisher' => [:asset_manager, :rummager, :'publishing-api', :'email-alert-api']
+process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
+process :'dfid-transition-worker' => [:'publishing-api', :rummager, :asset_manager]
+process :'specialist-frontend' => [:static, :'content-store']
+process :spotlight
+process :stagecraft => [:backdrop_write]
+process :static
+process :support => [:'support-api']
+process :'support-api'
+process :transition
+process :travel_advice_publisher => [:static, :asset_manager, :'travel_advice_publisher_worker', :'email-alert-api']
+process :travel_advice_publisher_worker
+process :whitehall => [:static, :'publishing-api', :rummager, :'whitehall-worker']
+
+# pseudo process to reflect what's needed for www.dev.gov.uk to work at all
+# www.dev.gov.uk will still depend on the relevant other frontend applications being
+# started, because always starting them all would kill the dev VM.
+process :www => :router
