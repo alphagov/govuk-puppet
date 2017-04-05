@@ -1,0 +1,56 @@
+publisher:             govuk_setenv publisher             ./run_in.sh ../publisher      ./script/rails server -p 3000
+imminence:             govuk_setenv imminence             ./run_in.sh ../imminence      ./script/rails server -p 3002
+panopticon:            govuk_setenv panopticon            ./run_in.sh ../panopticon     ./script/rails server -p 3003
+needotron:             ./run_in.sh ../need-o-tron    ./script/rails server -p 3004
+frontend:              govuk_setenv frontend              ./run_in.sh ../frontend       ./script/rails server -p 3005
+# planner formerly used port 3007
+rummager:              ./run_in.sh ../rummager       bundle exec shotgun -p 3009
+smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../smart-answers  ./script/rails server -p 3010
+calendars:             govuk_setenv calendars             ./run_in.sh ../calendars      ./script/rails server -p 3011
+static:                govuk_setenv static                ./run_in.sh ../static         ./script/rails server -p 3013
+licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../licence-finder ./script/rails server -p 3014
+migratorator:          govuk_setenv migratorator          ./run_in.sh ../migratorator   bundle exec unicorn -p 3015
+signon:                govuk_setenv signon                ./run_in.sh ../signonotron2   ./script/rails server -p 3016
+tradetariff:           govuk_setenv tariff                ./run_in.sh ../trade-tariff-frontend   ./script/rails server -p 3017
+tradetariffapi:        govuk_setenv tariff-api            ./run_in.sh ../trade-tariff-backend  ./script/rails server -p 3018
+efg:                   govuk_setenv efg                   ./run_in.sh ../EFG            ./script/rails server -p 3019
+whitehall:             govuk_setenv whitehall    ./run_in.sh ../whitehall      ./script/rails server -p 3020
+reviewomatic:          ./run_in.sh ../review-o-matic ./script/rails server -p 3021
+reviewomaticexplore:   PORT=3023 ./run_in.sh ../review-o-matic-explore npm start
+contentapi:            govuk_setenv contentapi            ./run_in.sh ../govuk_content_api bundle exec shotgun -p 3022 --server thin
+designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../design-principles ./script/rails server -p 3023
+businesssupportfinder: govuk_setenv businesssupportfinder ./run_in.sh ../business-support-finder ./script/rails server -p 3024
+# whitehall_search: uses port 3025
+# whitehall_admin: uses port 3026
+datainsight:           govuk_setenv datainsight-frontend  ./run_in.sh ../datainsight-frontend bundle exec unicorn -p 3027
+feedback:              govuk_setenv feedback              ./run_in.sh ../feedback       ./script/rails server -p 3028
+errbit:                ./run_in.sh ../errbit      ./script/rails server -p 3029
+private-frontend:      ./run_in.sh ../frontend       ./script/rails server -p 3030
+support:               govuk_setenv support               ./run_in.sh ../support        ./script/rails s -p 3031
+# publicapi:uses port 3032
+# This will probably be renamed?
+contracts-finder:      ./run_in.sh ../contracts-finder ./script/rails server -p 3033
+# travel_advice_frontend formerly used port 3034 (briefly)
+travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../travel-advice-publisher ./script/rails s -p 3035
+release:               ./run_in.sh ../release ./script/rails server -p 3036
+asset_manager:         govuk_setenv asset-manager         ./run_in.sh ../asset-manager  ./script/rails s -p 3037
+backdrop_read:        ./run_in.sh ../backdrop ./start-app.sh read 3038
+backdrop_write:       ./run_in.sh ../backdrop ./start-app.sh write 3039
+limelight:             govuk_setenv limelight ./run_in.sh ../limelight bundle exec unicorn -p 3040
+transaction_wrappers:  ./run_in.sh ../transaction-wrappers bundle exec unicorn -p 3041
+
+datainsight_weekly_reach_exposer:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec unicorn -p 3102
+datainsight_todays_activity_exposer: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec unicorn -p 3103
+datainsight_format_success_exposer:  ./run_in.sh ../datainsight-format-success-recorder bundle exec unicorn -p 3104
+datainsight_everything_exposer:      ./run_in.sh ../datainsight-everything-recorder bundle exec unicorn -p 3105
+datainsight_insidegov_exposer:       ./run_in.sh ../datainsight-insidegov-recorder bundle exec unicorn -p 3106
+
+datainsight_weekly_reach_recorder:    ./run_in.sh ../datainsight-weekly-reach-recorder bundle exec bin/recorder run
+datainsight_todays_activity_recorder: ./run_in.sh ../datainsight-todays-activity-recorder bundle exec bin/recorder run
+datainsight_format_success_recorder:  ./run_in.sh ../datainsight-format-success-recorder bundle exec bin/recorder run
+datainsight_everything_recorder:      ./run_in.sh ../datainsight-everything-recorder bundle exec bin/recorder run
+datainsight_insidegov_recorder:       ./run_in.sh ../datainsight-insidegov-recorder bundle exec bin/recorder run
+
+# canary-frontend: doesn't currently use a port. reserved 3200 
+# canary-backend: doesn't currently use a port. reserved 3201
+# kibana: reserved 3202

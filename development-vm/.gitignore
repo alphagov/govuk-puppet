@@ -1,0 +1,5 @@
+/.env
+/.foreman
+/.vagrant
+/Vagrantfile.local
+/replication/backups/

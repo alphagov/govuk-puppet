@@ -1,0 +1,11 @@
+bash_profile.d
+==============
+
+This directory contains bash scripts and aliases which may be useful for developers. 
+
+Contents:
+  
+  set_credentials.sh - handy way to store AWS credentials securely
+
+
+

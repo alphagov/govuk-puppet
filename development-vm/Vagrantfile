@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby:
+
+#
+# NB: please don't use ruby 1.9 syntax in this file until the default system
+#     ruby shipping with Mac OS X becomes ruby 1.9
+#
+
+latest_box_versions = {
+  'lucid'   => '20130220',
+  'precise' => '20130220',
+}
+
+Vagrant::Config.run do |config|
+  if (ENV['govuk_dev_dist'].nil?)
+    puts "[info] Environment variable govuk_dev_dist not set, using Ubuntu 10.04"
+    puts "       please set govuk_dev_dist='lucid' or govuk_dev_dist='precise' in your "
+    puts "       environment variables to change versions. e.g.:"
+    puts "       #> echo \"export govuk_dev_dist='lucid'\" >> ~/.bash_profile "
+    dist = 'lucid'
+  else
+    dist = ENV['govuk_dev_dist']
+  end
+
+  config.vm.box = "govuk_dev_#{dist}64_#{latest_box_versions[dist]}"
+  config.vm.box_url = "http://gds-boxes.s3.amazonaws.com/#{config.vm.box}.box"
+  config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+
+  # You may want to up the memory / CPUs to get better performance in the VM.
+  # Example given below to put in Vagrantfile.local if you want to do so.
+  # config.vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
+
+  config.dns.tld = "dev.gov.uk"
+  config.dns.patterns = [/^.*dev.gov.uk$/]
+  config.vm.host_name = ENV['VAGRANT_HOSTNAME'] || 'vm'
+
+  config.ssh.forward_agent = true
+
+  config.vm.share_folder "govuk", "/var/govuk", "..", :nfs => true
+
+  if File.exist? 'Vagrantfile.local'
+    instance_eval File.read('Vagrantfile.local'), 'Vagrantfile.local'
+  end
+end

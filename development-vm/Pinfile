@@ -1,0 +1,42 @@
+# This allows you to turn-on processes in Foreman instead of turning them off when running only part of the stack
+# See https://github.com/JordanHatch/bowler for some more info
+
+process :asset_manager
+process :backdrop_read
+process :backdrop_write
+process :businesssupportfinder => [:static, :contentapi, :imminence]
+process :calendars => [:static, :contentapi]
+process :contentapi => [:imminence, :asset_manager]
+process :'contact-o-tron'
+process :designprinciples => :static
+process :efg
+process :errbit
+process :fco
+process :feedback => [:static]
+process :frontend => [:static, :contentapi, :rummager]
+process :imminence
+process :jobs
+process :licencefinder => [:static, :contentapi]
+process :limelight => [:static, :limelight]
+process :migratorator
+process :needotron
+process :panopticon
+process :planner => [:static, :contentapi]
+process :publisher => :panopticon
+process :release
+process :reviewomatic => :migratorator
+process :reviewomaticexplore => :reviewomatic
+process :rummager
+process :signon
+process :smartanswers => [:static, :contentapi, :imminence]
+process :static
+process :support
+process :tradetariff => [:tradetariffapi, :static, :contentapi]
+process :tradetariffapi
+process :transaction_wrappers => :static
+process :travel_advice_publisher => [:panopticon, :asset_manager]
+process :whitehall => :static
+
+process :datainsight => [:static, :datainsight, :datainsight_weekly_reach_exposer, :datainsight_todays_activity_exposer, :datainsight_format_success_exposer, :datainsight_insidegov_exposer]
+process :'datainsight-exposers' => [:datainsight_weekly_reach_exposer, :datainsight_todays_activity_exposer, :datainsight_format_success_exposer, :datainsight_everything_exposer, :datainsight_insidegov_exposer]
+process :'datainsight-recorders' => [:datainsight_weekly_reach_recorder, :datainsight_todays_activity_recorder, :datainsight_format_success_recorder, :datainsight_everything_recorder, :datainsight_insidegov_recorder]
