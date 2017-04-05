@@ -63,7 +63,7 @@ cd "$(dirname "$0")"
 
 REPO="$1"
 
-cd "../$REPO"
+cd "../../$REPO"
 
 BRANCH=$(git symbolic-ref HEAD | sed 's|^refs/heads/||')
 
