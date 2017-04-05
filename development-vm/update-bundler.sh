@@ -7,7 +7,7 @@ set -e
 cd "$(dirname "$0")"
 
 find_repos () {
-  ls -d ../*/Gemfile | cut -d/ -f2
+  ls -d ../../*/Gemfile | cut -d/ -f3
 }
 
 
