@@ -141,6 +141,8 @@ draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ..
 # efg_rebuild used 3127
 # efg_training_rebuild used 3128
 
+draft-specialist-frontend: govuk_setenv draft-specialist-frontend ./run_in.sh ../../specialist-frontend bundle exec rails s -p 3130 -P tmp/pids/draft-specialist-frontend.pid
+
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
 # Firewall block rule on port 3170 (for testing connect timeouts)

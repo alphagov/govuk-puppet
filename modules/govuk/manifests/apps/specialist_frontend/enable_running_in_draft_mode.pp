@@ -1,13 +1,13 @@
-# == Class govuk::apps::government_frontend::enable_running_in_draft_mode
+# == Class govuk::apps::specialist_frontend::enable_running_in_draft_mode
 #
-# Enables running government-frontend to serve content pages from the draft content store
+# Enables running specialist-frontend to serve content pages from the draft content store
 #
-class govuk::apps::government_frontend::enable_running_in_draft_mode(
+class govuk::apps::specialist_frontend::enable_running_in_draft_mode(
   $content_store = '',
-  $port          = '3126',
-  $vhost         = 'draft-government-frontend',
+  $port          = '3130',
+  $vhost         = 'draft-specialist-frontend',
 ) {
-  $app_name = 'draft-government-frontend'
+  $app_name = 'draft-specialist-frontend'
 
   Govuk::App::Envvar {
     app => $app_name,
