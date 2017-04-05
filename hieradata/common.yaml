@@ -42,6 +42,7 @@ deployable_applications: &deployable_applications
   govuk_content_api: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
+  govuk-link-checker: {}
   govuk_need_api: {}
   hmrc-manuals-api: {}
   imminence: {}
@@ -50,7 +51,6 @@ deployable_applications: &deployable_applications
     repository: 'kibana-gds'
   licencefinder:
     repository: 'licence-finder'
-  link-checker: {}
   local-links-manager: {}
   manuals-frontend: {}
   manuals-publisher: {}
