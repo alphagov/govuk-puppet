@@ -20,6 +20,10 @@
 #   Whether the app is enabled.
 #   Default: false
 #
+# [*enable_procfile_worker*]
+#   Enables the sidekiq background worker.
+#   Default: true
+#
 # [*errbit_api_key*]
 #   Errbit API key for sending errors.
 #   Default: undef
@@ -47,6 +51,7 @@ class govuk::apps::link_checker_api (
   $db_password = undef,
   $db_name = 'link_checker_api_production',
   $enabled = false,
+  $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $port = 3208,
   $redis_host = undef,
@@ -68,6 +73,10 @@ class govuk::apps::link_checker_api (
 
     Govuk::App::Envvar {
       app => $app_name,
+    }
+
+    govuk::procfile::worker { $app_name:
+      enable_service => $enable_procfile_worker,
     }
 
     govuk::app::envvar::redis { $app_name:
