@@ -25,10 +25,7 @@ should be run in the shell on your Mac, whereas commands that look like this:
 
 should be run in the shell on the development VM.
 
-This repository contains tools you'll find useful during development, and scripts for replicating data
-from our integration environment.
-
-The configuration you'll need for your VM lives in a separate repository, govuk-puppet. When we talk about `development-vm`, we mean `govuk_puppet/development-vm`, which is where you'll run vagrant from.
+This folder contains tools you'll find useful during development, and scripts for replicating data from our integration environment.
 
 ## 1. Prerequisites and assumptions
 
@@ -64,7 +61,7 @@ Most of our apps are written in Ruby and use [Bundler][bundler] to manage their
 dependencies. They won't be able to boot without their dependencies, so we need
 to install them:
 
-    dev$ cd /var/govuk/development
+    dev$ cd /var/govuk/govuk-puppet/development-vm
     dev$ ./update-bundler.sh
 
 There are a handful of Python apps which use [PIP][pip].
@@ -86,13 +83,13 @@ be able to ignore some errors.
 
 ## 4. Running the apps
 
-You can run any of the GOV.UK apps from the `/var/govuk/development` directory.
+You can run any of the GOV.UK apps from the `/var/govuk/govuk-puppet/development-vm` directory.
 
 The examples in this section may not work until you've imported production data (see below).
 
 You can use [foreman][foreman] to run a single app. The available apps are defined in the Procfile.
 
-    dev$ cd /var/govuk/development
+    dev$ cd /var/govuk/govuk-puppet/development-vm
     dev$ foreman start rummager
 
 Since many of apps depend on other apps, we normally run them using [Bowler][bowler] instead of foreman. To install bowler:
@@ -147,7 +144,7 @@ Mapit's database will be downloaded in the Mapit repo and therefore will be not 
 To get production data on to your local vm you will need to either have access
 to integration or a mongo and a mysql export from someone that does. If you
 have integration access then importing the latest data can be done by running
-the following from `development/replication`.
+the following from `govuk-puppet/development-vm/replication`.
 
     dev$ ./replicate-data-local.sh -u $USERNAME
 
@@ -181,7 +178,7 @@ dump.  This should be a directory structure similar to:
         └── transition-postgresql-master-1.backend.integration
             └── latest.tbz2
 
-Then, from `development/replication` run.
+Then, from `govuk-puppet/development-vm/replication` run.
 
     dev$ ./replicate-data-local.sh -d path/to/dir -s
 
@@ -199,7 +196,7 @@ After replicating data a few times, your machine might be running low
 on disk space. This is because the old database dumps aren't cleaned
 up once newer ones have been downloaded. To get over this, it is
 advised to periodically `rm -r` older directories in
-`development/replication/backups`.
+`govuk-puppet/development-vm/replication/backups`.
 
 Some tables aren't included in the standard replication. This is due to their
 size relative to their usefulness in development. These exemptions can be found
@@ -258,7 +255,7 @@ and your SSH config is up-to-date, you can connect to machines with:
 
 ## 9. Keeping your VM up to date
 
-There are a few scripts that should be run regularly to keep your VM up to date. In `development` there is `update-git.sh` and `update-bundler.sh` to help keep your projects and their dependencies up
+There are a few scripts that should be run regularly to keep your VM up to date. In `govuk-puppet/development-vm` there is `update-git.sh` and `update-bundler.sh` to help keep your projects and their dependencies up
 to date. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
 
 All of the above can be run at once with a single command `update-all.sh`.
