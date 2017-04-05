@@ -6,5 +6,5 @@ cd "$(dirname "$0")"
 
 while read repo
 do
-  git clone git@github.com:alphagov/$repo.git ../$repo
+  git clone git@github.com:alphagov/$repo.git ../../$repo
 done < "${1:-/dev/stdin}"
