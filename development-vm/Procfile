@@ -154,3 +154,4 @@ draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ..
 #content-performance-manager reserve 3207 for sidekiq monitoring
 content-performance-manager:          govuk_setenv content-performance-manager ./run_in.sh ../content-performance-manager bundle exec rails s -p 3206
 content-performance-manager-sidekiq:  govuk_setenv content-performance-manager ./run_in.sh ../content-performance-manager bundle exec sidekiq -C ./config/sidekiq.yml
+#link-checker-api reserves port 3208
