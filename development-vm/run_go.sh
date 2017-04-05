@@ -8,9 +8,9 @@ gopath_dir=$(basename $GOPATH)
 org_path="$gopath_dir/src/github.com/alphagov"
 repo_path="$org_path/$app_name"
 
-if [ -d "../$app_name" ] && [ ! -d "../$repo_path" ]; then
+if [ -d "../../$app_name" ] && [ ! -d "../../$repo_path" ]; then
   (
-    cd ..
+    cd ../..
     mkdir -p "$org_path"
     mv "$app_name" "$org_path"
     ln -s "$repo_path" "$app_name"
@@ -23,4 +23,4 @@ if [ -d "../$app_name" ] && [ ! -d "../$repo_path" ]; then
 fi
 
 shift
-./run_in.sh "../$repo_path" "$@"
+./run_in.sh "../../$repo_path" "$@"
