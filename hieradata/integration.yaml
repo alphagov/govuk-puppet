@@ -60,6 +60,7 @@ govuk_jenkins::config::admins:
   - anafernandez
   - andrewgarner
   - andrewhilton
+  - andrienricketts
   - andydriver
   - anikahenke
   - bevanloon
@@ -268,6 +269,7 @@ users::usernames:
   - anafernandez
   - andrewgarner
   - andrewhilton
+  - andrienricketts
   - andydriver
   - anikahenke
   - bevanloon
