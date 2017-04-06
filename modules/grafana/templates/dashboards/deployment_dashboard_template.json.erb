@@ -1,6 +1,6 @@
 {
   "id": 29,
-  "title": "Deployment dashboard - Whitehall",
+  "title": "Deployment dashboard - <%= @app_name %>",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -39,7 +39,7 @@
           "aliasColors": {},
           "bars": false,
           "datasource": "Graphite",
-          "description": "Shows the process count for Whitehall backend machines. During deployment the number of processes should double and then return to normal. Code should be tested once the old processes have been killed.",
+          "description": "Shows the process count for <%= @app_name %> backend machines. During deployment the number of processes should double and then return to normal. Code should be tested once the old processes have been killed.",
           "fill": 1,
           "grid": {
             "threshold1": null,
@@ -88,7 +88,7 @@
                 }
               ],
               "refId": "A",
-              "target": "whitehall-backend-*_backend*.processes-app-whitehall.ps_count.processes",
+              "target": "*_backend*.processes-app-<%= @app_name %>.ps_count.processes",
               "textEditor": true,
               "timeField": "@timestamp"
             }
@@ -166,7 +166,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(stats.whitehall-*.nginx_logs.*whitehall-*.http_5xx, 3, 'sum')",
+              "target": "groupByNode(stats.*.nginx_logs.<%= @app_name %>*.http_5xx, 3, 'sum')",
               "textEditor": true
             }
           ],
@@ -268,12 +268,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(hitcount(stats.govuk.app.whitehall.all.deploys, '5m'), 'Deploys')",
+              "target": "alias(hitcount(stats.govuk.app.<%= @app_name %>.all.deploys, '5m'), 'Deploys')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(hitcount(stats.govuk.app.whitehall.errbit.errors_occurred, '5m'), 'Errors')",
+              "target": "alias(hitcount(stats.govuk.app.<%= @app_name %>.errbit.errors_occurred, '5m'), 'Errors')",
               "textEditor": true
             }
           ],
@@ -341,12 +341,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "integral(hitcount(sumSeries(stats.whitehall-*.nginx_logs.*whitehall-*.http_5xx), '1s'))"
+              "target": "integral(hitcount(sumSeries(stats.*.nginx_logs.<%= @app_name %>*.http_5xx), '1s'))"
             }
           ],
           "thresholds": "2,5",
           "timeFrom": "5m",
-          "title": "Whitehall 500s over last 5 minutes",
+          "title": "<%= @app_name %> 500s over last 5 minutes",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -415,12 +415,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "integral(hitcount(sumSeries(stats.whitehall-*.nginx_logs.*whitehall-*.http_5xx), '1s'))"
+              "target": "integral(hitcount(sumSeries(stats.*.nginx_logs.<%= @app_name %>*.http_5xx), '1s'))"
             }
           ],
           "thresholds": "2,5",
           "timeFrom": null,
-          "title": "Whitehall 500s over full time range",
+          "title": "<%= @app_name %> 500s over full time range",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -433,7 +433,7 @@
           "valueName": "current"
         },
         {
-          "content": "<ul style=\"font-size: 20px;\">\n<li><a target=\"_blank\" href=\"https://errbit.publishing.service.gov.uk/apps/53020d6c0da11585f10000e7\">Errbit</a></li>\n</ul>\n",
+          "content": "<ul style=\"font-size: 20px;\">\n<li><a target=\"_blank\" href=\"https://errbit.<%= @app_domain %>/\">Errbit</a></li>\n</ul>\n",
           "editable": true,
           "error": false,
           "id": 12,
@@ -447,6 +447,7 @@
           "title": "Useful links",
           "type": "text"
         },
+        <% unless @has_workers %>
         {
           "columns": [
             {
@@ -500,7 +501,7 @@
           "targets": [
             {
               "refId": "C",
-              "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.whitehall.workers.*.failure, '5m'),0), 5 )",
+              "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.workers.*.failure, '5m'),0), 5 )",
               "textEditor": true
             }
           ],
@@ -563,7 +564,7 @@
           "targets": [
             {
               "refId": "D",
-              "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.whitehall.workers.*.success, '5m'),0), 5)",
+              "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.workers.*.success, '5m'),0), 5)",
               "textEditor": true
             }
           ],
@@ -573,6 +574,7 @@
           "transform": "timeseries_aggregations",
           "type": "table"
         }
+        <% end %>
       ],
       "repeat": null,
       "repeatIteration": null,
@@ -666,7 +668,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:whitehall AND @fields.status:[ 500 TO 599 ]",
+              "query": "@fields.application:<%= @app_name %> AND @fields.status:[ 500 TO 599 ]",
               "refId": "A",
               "target": "",
               "timeField": "@timestamp"
@@ -787,7 +789,7 @@
                   "type": "percentiles"
                 }
               ],
-              "query": "@fields.application:whitehall",
+              "query": "@fields.application:<%= @app_name %>",
               "refId": "A",
               "timeField": "@timestamp"
             }
@@ -867,14 +869,14 @@
         "enable": true,
         "iconColor": "rgba(255, 96, 96, 1)",
         "name": "Deploys",
-        "target": "stats.govuk.app.whitehall.all.deploys"
+        "target": "stats.govuk.app.<%= @app_name %>.all.deploys"
       },
       {
         "datasource": "Graphite",
         "enable": true,
         "iconColor": "rgb(225, 251, 0)",
         "name": "Restarts",
-        "target": "substr(stats.govuk.app.whitehall.restarts,3,5)"
+        "target": "substr(stats.govuk.app.<%= @app_name %>.restarts,3,5)"
       }
     ]
   },

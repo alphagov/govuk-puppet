@@ -740,6 +740,11 @@ govuk_unattended_reboot::monitoring_basic_auth:
 grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
+grafana::dashboards::deployment_applications:
+  whitehall: {}
+  publisher: {}
+  specialist-publisher:
+    has_workers: false
 
 grub2::recordfail_timeout: 5
 
