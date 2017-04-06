@@ -230,6 +230,8 @@
         "name": "all deploys",
         "showLine": true,
         "tags": "deploys",
+        "datasource": "Graphite",
+        "target": "stats.govuk.app.*.all.deploys",
         "type": "graphite events"
       },
       {
@@ -239,6 +241,7 @@
         "lineColor": "rgba(255, 32, 32, 0.592157)",
         "name": "all restarts",
         "showLine": true,
+        "datasource": "Graphite",
         "target": "substr(stats.govuk.app.*.restarts,3,5)",
         "type": "graphite metric"
       }
