@@ -89,11 +89,12 @@ if $::govuk_node_class != 'development' {
 }
 ```
 
-Add a value for `db_hostname` to the `hieradata/common.yaml` file.
+Add a value for `db_hostname` and `db::backend_ip_range` to the `hieradata/common.yaml` file.
 
 ```
 # hieradata/common.yaml
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 ```
 
 Add the application to the database servers. For example, if your application has a
@@ -111,6 +112,9 @@ class govuk::node::s_postgresql_base inherits govuk::node::s_base {
 
 Add a value for `db_password` in each of the credential files in the `deployment` repo.
 This entry should be encrypted.
+
+Add a values for `db::password` and `db_password` in `hieradata/vagrant_credentials.yaml`.
+This is necessary for puppet specs to pass on CI.
 
 ## Environment variables
 
