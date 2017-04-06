@@ -35,5 +35,6 @@ class grafana::dashboards (
     "${dashboard_directory}/origin_health.json": content => template('grafana/dashboards/origin_health.json.erb');
     "${dashboard_directory}/whitehall_health.json": content => template('grafana/dashboards/whitehall_health.json.erb');
     "${dashboard_directory}/publishing_api_overview.json": content => template('grafana/dashboards/publishing_api_overview.json.erb');
+    "${dashboard_directory}/deployment_whitehall.json": content => template('grafana/dashboards/deployment_whitehall.json.erb');
   }
 }
