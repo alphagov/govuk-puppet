@@ -62,6 +62,7 @@ govuk::node::s_base::apps:
   - hmrc_manuals_api
   - imminence
   - kibana
+  - link_checker_api
   - local_links_manager
   - manuals_publisher
   - maslow
