@@ -30,6 +30,14 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::static(
   $vhost = 'static',
   $port = '3013',
@@ -37,6 +45,8 @@ class govuk::apps::static(
   $draft_environment = false,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_domain = hiera('app_domain')
   $asset_manager_host = "asset-manager.${app_domain}"
@@ -78,6 +88,11 @@ class govuk::apps::static(
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
     }
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
