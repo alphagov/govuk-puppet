@@ -27,6 +27,11 @@ process :'draft-government-frontend' => [
   :'government-frontend',
   :static
 ]
+process :'draft-manuals-frontend' => [
+  :'draft-content-store',
+  :'manuals-frontend',
+  :static
+]
 process :'draft-specialist-frontend' => [
   :'draft-content-store',
   :'specialist-frontend',

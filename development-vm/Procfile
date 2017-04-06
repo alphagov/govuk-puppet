@@ -142,6 +142,7 @@ draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ..
 # efg_training_rebuild used 3128
 
 draft-specialist-frontend: govuk_setenv draft-specialist-frontend ./run_in.sh ../../specialist-frontend bundle exec rails s -p 3130 -P tmp/pids/draft-specialist-frontend.pid
+draft-manuals-frontend: govuk_setenv draft-manuals-frontend ./run_in.sh ../../manuals-frontend bundle exec rails s -p 3131 -P tmp/pids/draft-manuals-frontend.pid
 
 # Frontend JS test runner uses port 3150
 # Router test suite uses ports 3160-3169
