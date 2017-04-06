@@ -24,7 +24,7 @@ ENV.fetch('classes').split(",").each do |class_name|
   describe "govuk::node::s_#{class_name}", :type => :class do
     let(:node) { "#{node_hostname}-1.example.com" }
     let(:facts) {{
-      :environment => (class_name == "development" ? "development" : 'vagrant'),
+      :environment => (class_name =~ /^(development|training)$/ ? "development" : 'vagrant'),
       :concat_basedir => '/var/lib/puppet/concat/',
       :kernel => 'Linux',
       :memorysize =>  '3.86 GB',

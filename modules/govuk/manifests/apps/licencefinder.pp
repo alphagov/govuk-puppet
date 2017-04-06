@@ -54,7 +54,7 @@ class govuk::apps::licencefinder(
     }
   }
 
-  if $::govuk_node_class != 'development' {
+  if $::govuk_node_class !~ /^(development|training)$/ {
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,

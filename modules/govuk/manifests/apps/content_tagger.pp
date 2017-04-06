@@ -106,7 +106,7 @@ class govuk::apps::content_tagger(
       value   => $publishing_api_bearer_token;
   }
 
-  if $::govuk_node_class != 'development' {
+  if $::govuk_node_class !~ /^(development|training)$/ {
     govuk::app::envvar::database_url { $app_name:
       type     => 'postgresql',
       username => $db_username,

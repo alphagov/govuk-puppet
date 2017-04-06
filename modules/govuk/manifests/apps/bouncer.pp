@@ -175,7 +175,7 @@ class govuk::apps::bouncer(
       logstream     => present;
   }
 
-  if $::govuk_node_class != 'development' {
+  if $::govuk_node_class !~ /^(development|training)$/ {
     govuk::app::envvar::database_url { 'bouncer':
       type     => 'postgresql',
       username => $db_username,
