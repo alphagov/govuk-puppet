@@ -2,7 +2,7 @@
 # See https://github.com/JordanHatch/bowler for some more info
 
 process :'authenticating-proxy' => [:'government-frontend']
-process :asset_manager => [:'asset-manager-worker']
+process :'asset-manager' => [:'asset-manager-worker']
 process :'asset-manager-worker'
 process :backdrop => [:backdrop_read, :backdrop_write, :stagecraft]
 process :backdrop_read
@@ -15,7 +15,7 @@ process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:'publishing-api', :rummager, :'collections-publisher-worker']
 process :'collections-publisher-worker'
 process :'contacts-frontend' => [:static, :'content-store']
-process :contentapi => [:imminence, :asset_manager]
+process :contentapi => [:imminence, 'asset-manager']
 process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq']
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
@@ -56,7 +56,7 @@ process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi, :'content-store']
 process :'local-links-manager'
-process :'manuals-publisher' => [:asset_manager, :rummager, :'publishing-api']
+process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
 process :maslow => :need_api
 process :'metadata-api' => [:contentapi, :need_api]
@@ -77,13 +77,13 @@ process :screenshot_as_a_service
 process :'search-admin' => :rummager
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api', :rummager]
-process :'share-sale-publisher' => [:asset_manager, :'publishing-api']
+process :'share-sale-publisher' => ['asset-manager', :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
-process :'specialist-publisher' => [:asset_manager, :rummager, :'publishing-api', :'email-alert-api']
+process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
-process :'dfid-transition-worker' => [:'publishing-api', :rummager, :asset_manager]
+process :'dfid-transition-worker' => [:'publishing-api', :rummager, 'asset-manager']
 process :'specialist-frontend' => [:static, :'content-store']
 process :spotlight
 process :stagecraft => [:backdrop_write]
@@ -91,7 +91,7 @@ process :static
 process :support => [:'support-api']
 process :'support-api'
 process :transition
-process :travel_advice_publisher => [:static, :asset_manager, :'travel_advice_publisher_worker', :'email-alert-api']
+process :travel_advice_publisher => [:static, 'asset-manager', :'travel_advice_publisher_worker', :'email-alert-api']
 process :travel_advice_publisher_worker
 process :whitehall => [:static, :'publishing-api', :rummager, :'whitehall-worker']
 
