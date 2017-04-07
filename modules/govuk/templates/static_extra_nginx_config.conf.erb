@@ -1,7 +1,9 @@
-location /static/a.gif {
+location /static/a {
   expires -1;
   add_header Last-Modified "";
-  empty_gif;
+
+  default_type text/plain;
+  return 200 '';
 }
 
 location /__canary__ {
