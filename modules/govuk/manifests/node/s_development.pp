@@ -21,6 +21,7 @@ class govuk::node::s_development (
   include hosts::development
   include imagemagick
   include last_puppet_run
+  include mailhog
   include memcached
   include mongodb::server
   include mysql::client

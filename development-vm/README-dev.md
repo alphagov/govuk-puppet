@@ -217,9 +217,16 @@ on your VM and specify the backup directory for the date you performed the downl
 
     dev$ ./replicate-data-local.sh -s -d backups/2016-11-17
 
-## 8. Access remote environments
+## 8. View emails sent by apps in the VM
 
-### 8.1 Access to the web frontend
+The development VM has MailHog installed, which captures emails sent via SMTP by
+apps and displays them in a webmail-like interface. Apps need to be configured
+to send emails via SMTP to port 1025 for this to work. MailHog can be accessed
+at `http://www.dev.gov.uk:8025`.
+
+## 9. Access remote environments
+
+### 9.1 Access to the web frontend
 
 Most GOV.UK web applications and services are available via the public Internet,
 on URLs of the following form:
@@ -231,7 +238,7 @@ on URLs of the following form:
 The basic authentication username and password is widely known, so just ask somebody
 on your team if you don't know it.
 
-### 8.2 Access to servers via SSH
+### 9.2 Access to servers via SSH
 
 Note: This assumes that you have followed the previous steps, and have your machine's public
 key added to the Puppet repository, and this has been deployed to the environment
@@ -255,7 +262,7 @@ and your SSH config is up-to-date, you can connect to machines with:
     $ ssh backend-1.backend.staging
     $ ssh backend-1.backend.production
 
-## 9. Keep your VM up to date
+## 10. Keep your VM up to date
 
 There are a few scripts that should be run regularly to keep your VM up to date. In `govuk-puppet/development-vm` there is `update-git.sh` and `update-bundler.sh` to help keep your projects and their dependencies up
 to date. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
