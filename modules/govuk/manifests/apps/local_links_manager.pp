@@ -55,6 +55,18 @@
 #   Enables the passive checks in Icinga for the local links manager cron jobs
 #   Default: false
 #
+# [*google_analytics_govuk_view_id*]
+#   The view id of GOV.UK in Google Analytics
+#   Default: undef
+#
+# [*google_client_email*]
+#   Google authentication email
+#   Default: undef
+#
+# [*google_private_key*]
+#   Google authentication private key
+#   Default: undef
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -69,6 +81,9 @@ class govuk::apps::local_links_manager(
   $redis_host = undef,
   $redis_port = undef,
   $local_links_manager_passive_checks = false,
+  $google_analytics_govuk_view_id = undef,
+  $google_client_email = undef,
+  $google_private_key = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -93,6 +108,15 @@ class govuk::apps::local_links_manager(
       "${title}-ERRBIT_API_KEY":
         varname => 'ERRBIT_API_KEY',
         value   => $errbit_api_key;
+      "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
+        varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
+        value   => $google_analytics_govuk_view_id;
+      "${title}-GOOGLE_CLIENT_EMAIL":
+        varname => 'GOOGLE_CLIENT_EMAIL',
+        value   => $google_client_email;
+      "${title}-GOOGLE_PRIVATE_KEY":
+        varname => 'GOOGLE_PRIVATE_KEY',
+        value   => $google_private_key;
       "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
