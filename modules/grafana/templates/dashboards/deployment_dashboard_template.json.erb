@@ -54,7 +54,7 @@
         <%= scope.function_template(["grafana/dashboards/deployment_panels/_recent_500_count.json.erb"]) %>,
         <%= scope.function_template(["grafana/dashboards/deployment_panels/_period_500_count.json.erb"]) %>,
         <%= scope.function_template(["grafana/dashboards/deployment_panels/_links.json.erb"]) %>
-        <% unless @has_workers %>
+        <% if @has_workers %>
         ,
         <%= scope.function_template(["grafana/dashboards/deployment_panels/_worker_failures.json.erb"]) %>,
         <%= scope.function_template(["grafana/dashboards/deployment_panels/_worker_successes.json.erb"]) %>
