@@ -744,10 +744,59 @@ grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
-  whitehall: {}
+  asset-manager: {}
+  authenticating-proxy: {}
+  business-support-api: {}
+  calculators: {}
+  calendars: {}
+  collections: {}
+  collections-publisher: {}
+  contacts: {}
+  contacts-frontend: {}
+  content-performance-manager: {}
+  content-store: {}
+  content-tagger: {}
+  email-alert-api: {}
+  email-alert-frontend: {}
+  feedback: {}
+  finder-frontend: {}
+  frontend: {}
+  government-frontend: {}
+  govuk_content_api: {}
+  govuk_need_api: {}
+  hmrc-manuals-api: {}
+  imminence: {}
+  info-frontend: {}
+  licencefinder: {}
+  link-checker-api: {}
+  local-links-manager: {}
+  manuals-frontend: {}
+  manuals-publisher: {}
+  mapit: {}
+  maslow: {}
+  metadata-api: {}
+  multipage-frontend: {}
+  policy-publisher: {}
   publisher: {}
+  publishing-api: {}
+  release: {}
+  router-api: {}
+  rummager: {}
+  search-admin: {}
+  service-manual-frontend: {}
+  service-manual-publisher: {}
+  short-url-manager: {}
+  signon: {}
+  smartanswers: {}
+  specialist-frontend: {}
   specialist-publisher:
     has_workers: false
+  static: {}
+  support: {}
+  support-api: {}
+  transition: {}
+  travel-advice-publisher: {}
+  whitehall: {}
 
 grub2::recordfail_timeout: 5
 
