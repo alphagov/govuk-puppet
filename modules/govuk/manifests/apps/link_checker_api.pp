@@ -28,6 +28,11 @@
 #   Errbit API key for sending errors.
 #   Default: undef
 #
+# [*google_api_key*]
+#   A Google API Key which will be used for Google Safebrowing checks. If
+#   uset these checks won't be performed
+#   Default: undef
+#
 # [*port*]
 #   The port that it is served on.
 #   Default: 3208
@@ -53,6 +58,7 @@ class govuk::apps::link_checker_api (
   $enabled = false,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $google_api_key = undef,
   $port = 3208,
   $redis_host = undef,
   $redis_port = undef,
@@ -89,6 +95,12 @@ class govuk::apps::link_checker_api (
       value   => $errbit_api_key;
     }
 
+    if $google_api_key != undef {
+      govuk::app::envvar { "${title}-GOOGLE_API_KEY":
+        varname => 'GOOGLE_API_KEY',
+        value   => $google_api_key,
+      }
+    }
     if $secret_key_base != undef {
       govuk::app::envvar { "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
