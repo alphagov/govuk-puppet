@@ -139,6 +139,8 @@ Those databases include:
 - Licensify
 - Signon
 
+However, the dump includes the Signon database from integration.
+
 Mapit's database will be downloaded in the Mapit repo and therefore will be not be in the backups folder.
 
 To get production data on to your local vm you will need to either have access
