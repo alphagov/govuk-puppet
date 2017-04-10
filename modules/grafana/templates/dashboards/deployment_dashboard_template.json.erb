@@ -30,61 +30,24 @@
       "title": "Dashboard Row",
       "titleSize": "h6"
     },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": 290,
-      "panels": [
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_processor_count.json.erb"]) %>,
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_5xx_rate.json.erb"]) %>
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": 250,
-      "panels": [
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_error_deploy_counts.json.erb"]) %>,
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_recent_500_count.json.erb"]) %>,
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_period_500_count.json.erb"]) %>,
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_links.json.erb"]) %>
-        <% if @has_workers %>
-        ,
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_worker_failures.json.erb"]) %>,
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_worker_successes.json.erb"]) %>
-        <% end %>
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_errors_by_controller_action.json.erb"]) %>
-      ],
-      "title": "New row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        <%= scope.function_template(["grafana/dashboards/deployment_panels/_response_times_by_controller.json.erb"]) %>
-      ],
-      "title": "New row"
-    }
+    <% @panel_partials.each_with_index do |row, i| %>
+      <%= ',' if i > 0 %> {
+        "collapse": false,
+        "editable": true,
+        "height": 250,
+        "panels": [
+          <% row.each_with_index do |panel_name, j| %>
+            <%= ',' if j > 0 %> <%= scope.function_template(["grafana/dashboards/deployment_panels/_#{panel_name}.json.erb"]) %>
+          <% end %>
+        ],
+        "repeat": null,
+        "repeatIteration": null,
+        "repeatRowId": null,
+        "showTitle": false,
+        "title": "Dashboard Row",
+        "titleSize": "h6"
+      }
+    <% end %>
   ],
   "time": {
     "from": "now/d",
