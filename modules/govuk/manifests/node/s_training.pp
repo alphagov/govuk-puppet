@@ -4,9 +4,7 @@
 #
 # === Parameters
 #
-class govuk::node::s_training {
-  include govuk::node::s_development
-
+class govuk::node::s_training inherits govuk::node::s_development {
   postgresql::server::role {
     'ubuntu':
       password_hash => postgresql_password('vagrant', 'vagrant'),
