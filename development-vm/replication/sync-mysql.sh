@@ -56,7 +56,12 @@ else
 fi
 
 echo "Mapping database names for a development VM"
-NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+
+if $RENAME_DATABASES; then
+  NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+else
+  NAME_MUNGE_COMMAND="cat"
+fi
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
@@ -78,7 +83,9 @@ for file in $(find $MYSQL_DIR -name 'daily*production*.sql.bz2'); do
     done
 
     TEMP_SED_SCRIPT=$(mktemp)
-    awk '{print "/^CREATE DATABASE/,+10",$0}' $(dirname $0)/mappings/names.sed > ${TEMP_SED_SCRIPT}
+    if $RENAME_DATABASES; then
+      awk '{print "/^CREATE DATABASE/,+10",$0}' $(dirname $0)/mappings/names.sed > ${TEMP_SED_SCRIPT}
+    fi
     if [[ -f $(dirname $0)/mappings/dbs/${PROD_DB_NAME}.sed ]] ; then
       cat $(dirname $0)/mappings/dbs/${PROD_DB_NAME}.sed >> ${TEMP_SED_SCRIPT}
     fi

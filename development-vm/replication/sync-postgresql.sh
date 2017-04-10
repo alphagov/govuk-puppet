@@ -55,7 +55,11 @@ else
   touch $POSTGRESQL_DIR/.extracted
 fi
 
-NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+if $RENAME_DATABASES; then
+  NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+else
+  NAME_MUNGE_COMMAND="cat"
+fi
 
 if which pv >/dev/null 2>&1; then
   PV_COMMAND="pv"
