@@ -755,8 +755,10 @@ grafana::dashboards::deployment_applications:
   contacts-frontend: {}
   content-performance-manager: {}
   content-store: {}
-  content-tagger: {}
-  email-alert-api: {}
+  content-tagger:
+    has_workers: true
+  email-alert-api:
+    has_workers: true
   email-alert-frontend: {}
   feedback: {}
   finder-frontend: {}
@@ -765,7 +767,8 @@ grafana::dashboards::deployment_applications:
   govuk_content_api: {}
   govuk_need_api: {}
   hmrc-manuals-api: {}
-  imminence: {}
+  imminence:
+    has_workers: true
   info-frontend: {}
   licencefinder: {}
   link-checker-api: {}
@@ -777,26 +780,33 @@ grafana::dashboards::deployment_applications:
   metadata-api: {}
   multipage-frontend: {}
   policy-publisher: {}
-  publisher: {}
-  publishing-api: {}
+  publisher:
+    has_workers: true
+  publishing-api:
+    has_workers: true
   release: {}
   router-api: {}
-  rummager: {}
+  rummager:
+    has_workers: true
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
-  signon: {}
+  signon:
+    has_workers: true
   smartanswers: {}
   specialist-frontend: {}
-  specialist-publisher:
-    has_workers: false
+  specialist-publisher: {}
   static: {}
   support: {}
   support-api: {}
-  transition: {}
-  travel-advice-publisher: {}
-  whitehall: {}
+  transition:
+    has_workers: true
+  travel-advice-publisher:
+    has_workers: true
+  whitehall:
+    has_workers: true
+
 
 grub2::recordfail_timeout: 5
 
