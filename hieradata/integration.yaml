@@ -1,9 +1,22 @@
 ---
+_: &offsite_gpg_key 'DA204134165653A8D32526FCDBAB06CD60D07A2C'
 app_domain: 'integration.publishing.service.gov.uk'
 
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
 backup::mysql::rotation_monthly: '28'
+backup::offsite::jobs:
+  'govuk-datastores-s3':
+    sources:
+      - '/data/backups/*/var/lib/automongodbbackup/latest'
+      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
+      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
+    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-integration/govuk-datastores/'
+    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
+    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
+    hour: 8,
+    minute: 13,
+    gpg_key_id: *offsite_gpg_key
 backup::server::backup_hour: 8
 backup::server::backup_minute: 30
 
@@ -178,6 +191,7 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
+govuk::node::s_backup::offsite_backups: true
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
