@@ -140,6 +140,16 @@ FULL_COVERAGE_REPORT=true bundle exec rake spec
 
 ***Warning*** Given the number of modules that have limited tests this will produce a very large amount of output unless the tests are scoped.
 
+### Rspec Basic Mode
+
+It is sometimes useful to have access to the normal RSpec Rake task. This exposes the `SPEC` and `SPEC_OPTS` environment variables that mean you can set the test specification and RSpec options respectively. This gives finer grain control when it is needed. e.g.
+
+    $ bundle exec rake rspec_basic_mode SPEC="./modules/collectd/spec/classes/collectd__package_spec.rb:7" SPEC_OPTS="-c"
+
+runs the single test at line 7 of `collectd__package_spec.rb` with colour mode enabled.
+
+***Warning*** using this option disables parallel running of tests and the `mod` arguments will not work.
+
 ### Vagrant testing
 
 #### Prerequisites

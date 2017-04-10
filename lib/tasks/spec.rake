@@ -1,9 +1,13 @@
 require 'open3'
 require 'parallel_tests'
 require 'parallel_tests/cli'
+require 'rspec/core/rake_task'
+
+desc "Use the basic rspec rake task with no options WARNING: slow"
+RSpec::Core::RakeTask.new(:rspec_basic_mode)
 
 namespace :spec do
-  desc "Run puppet specs"
+  desc "Run puppet specs normally (in parallel)."
   task :normal do
     matched_files = FileList[*get_modules.map { |x| "#{x}/spec/**/*_spec.rb" }]
 
