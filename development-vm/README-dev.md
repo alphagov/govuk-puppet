@@ -81,7 +81,7 @@ be able to ignore some errors.
 [bundler]: http://bundler.io/rationale.html
 [pip]: https://pip.pypa.io/en/stable/
 
-## 4. Running the apps
+## 4. Run the apps
 
 You can run any of the GOV.UK apps from the `/var/govuk/govuk-puppet/development-vm` directory.
 
@@ -115,7 +115,7 @@ and make sure you're not setting static=0:
 [foreman]: http://ddollar.github.io/foreman/
 [bowler]: https://github.com/JordanHatch/bowler
 
-## 5. Set Your Git User and Email
+## 5. Set your git name and email
 
 This way, commits you make on the VM get your name and email set on them:
 
@@ -215,7 +215,7 @@ on your VM and specify the backup directory for the date you performed the downl
 
     dev$ ./replicate-data-local.sh -s -d backups/2016-11-17
 
-## 8. Accessing remote environments
+## 8. Access remote environments
 
 ### 8.1 Access to the web frontend
 
@@ -253,9 +253,9 @@ and your SSH config is up-to-date, you can connect to machines with:
     $ ssh backend-1.backend.staging
     $ ssh backend-1.backend.production
 
-## 9. Keeping your VM up to date
+## 9. Keep your VM up to date
 
 There are a few scripts that should be run regularly to keep your VM up to date. In `govuk-puppet/development-vm` there is `update-git.sh` and `update-bundler.sh` to help keep your projects and their dependencies up
 to date. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
 
-All of the above can be run at once with a single command `update-all.sh`.
+All of the above can be run at once with a single command: `update-all.sh`.
