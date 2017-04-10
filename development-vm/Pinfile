@@ -55,7 +55,9 @@ process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :'manuals-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :contentapi, :'content-store']
-process :'local-links-manager'
+process :'link-checker-api' => [:'link-checker-api-sidekiq']
+process :'link-checker-api-sidekiq'
+process :'local-links-manager' => [:'link-checker-api']
 process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
 process :maslow => :need_api
