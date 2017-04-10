@@ -20,4 +20,8 @@ cd ${REPOS_DIR}
 while read repo
 do
   git clone https://github.com/alphagov/$repo.git $repo
+  if [[ $repo == "govuk-puppet" ]]
+  then
+    git clone -b add-training-environment  https://github.com/alphagov/$repo.git $repo
+  fi
 done < "${1:-/dev/stdin}"
