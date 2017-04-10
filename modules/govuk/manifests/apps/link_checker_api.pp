@@ -39,9 +39,9 @@
 #   Redis port for sidekiq.
 #   Default: 6379
 #
-# [*secret_token*]
-#   Used to set the app ENV var SECRET_TOKEN which is used to configure
-#   rails 4.x signed cookie mechanism. If unset the app will be unable to
+# [*secret_key_base*]
+#   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
+#   rails 4.1+ signed cookie mechanism. If unset the app will be unable to
 #   start.
 #   Default: undef
 #
@@ -56,7 +56,7 @@ class govuk::apps::link_checker_api (
   $port = 3208,
   $redis_host = undef,
   $redis_port = undef,
-  $secret_token = undef,
+  $secret_key_base = undef,
 ) {
   $app_name = 'link-checker-api'
 
@@ -89,10 +89,10 @@ class govuk::apps::link_checker_api (
       value   => $errbit_api_key;
     }
 
-    if $secret_token != undef {
-      govuk::app::envvar { "${title}-SECRET_TOKEN":
-        varname => 'SECRET_TOKEN',
-        value   => $secret_token,
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
       }
     }
 
