@@ -142,7 +142,7 @@ FULL_COVERAGE_REPORT=true bundle exec rake spec
 
 ### Rspec Basic Mode
 
-It is sometimes useful to have access to the normal RSpec Rake task. This gives access to e.g. `SPEC` and `SPEC_OPTS` environment variables in order to set the test specification and RSpec options respectively. This gives finer grain control when it is needed. e.g.
+It is sometimes useful to have access to the normal RSpec Rake task. This exposes the `SPEC` and `SPEC_OPTS` environment variables that mean you can set the test specification and RSpec options respectively. This gives finer grain control when it is needed. e.g.
 
     $ bundle exec rake rspec_basic_mode SPEC="./modules/collectd/spec/classes/collectd__package_spec.rb:7" SPEC_OPTS="-c"
 
