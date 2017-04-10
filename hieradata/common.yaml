@@ -652,7 +652,6 @@ govuk_ci::master::ci_agents:
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
-govuk_ci::agent::swarm::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
