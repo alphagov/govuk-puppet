@@ -21,7 +21,7 @@ define grafana::dashboards::deployment_dashboard (
   $app_name = $title,
   $dashboard_directory = undef,
   $app_domain = undef,
-  $has_workers = true,
+  $has_workers = false,
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
