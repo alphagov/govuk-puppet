@@ -26,6 +26,14 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port = '3005',
@@ -33,6 +41,8 @@ class govuk::apps::frontend(
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
 
   govuk::app { 'frontend':
@@ -51,6 +61,11 @@ class govuk::apps::frontend(
     expires epoch;
   }
   ',
+  }
+
+  govuk::app::envvar::redis { 'frontend':
+    host => $redis_host,
+    port => $redis_port,
   }
 
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
