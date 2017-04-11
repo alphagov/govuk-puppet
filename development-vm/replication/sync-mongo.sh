@@ -56,7 +56,12 @@ else
 fi
 
 echo "Mapping database names for a development VM"
-NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+
+if $RENAME_DATABASES; then
+  NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
+else
+  NAME_MUNGE_COMMAND="cat"
+fi
 
 for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
   if $DRY_RUN; then

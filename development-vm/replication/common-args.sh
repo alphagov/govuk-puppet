@@ -17,8 +17,9 @@ OPTIONS:
     -u user  SSH user to log in as (overrides SSH config)
     -d dir   Use named directory to store and load backups
     -s       Skip downloading the backups (use with -d to load old backups)
-    -r       Reset ignore list. This overrides any default ignores.
+    -r       Reset ignore list. This overrides any default ignores
     -i       Databases to ignore. Can be used multiple times, or as a quoted space-delimited list
+    -o       Don't rename databases (*_production to *_development)
     -n       Don't actually import anything (dry run)
     -m       Skip MongoDB import
     -p       Skip PostgreSQL import
@@ -37,6 +38,7 @@ SKIP_MYSQL=false
 SKIP_ELASTIC=false
 SKIP_MAPIT=false
 SSH_CONFIG="../ssh_config"
+RENAME_DATABASES=true
 DRY_RUN=false
 # By default, ignore large databases which are not useful when replicated.
 IGNORE="event_store transition backdrop support_contacts"
@@ -52,7 +54,7 @@ function ignored() {
   return 1
 }
 
-while getopts "hF:u:d:sri:nmpqet" OPTION
+while getopts "hF:u:d:sri:onmpqet" OPTION
 do
   case $OPTION in
     h )
@@ -76,6 +78,9 @@ do
       ;;
     i )
       IGNORE="$IGNORE $OPTARG"
+      ;;
+    o )
+      RENAME_DATABASES=false
       ;;
     n )
       DRY_RUN=true
