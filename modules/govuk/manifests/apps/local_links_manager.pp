@@ -67,6 +67,10 @@
 #   Google authentication private key
 #   Default: undef
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -84,6 +88,7 @@ class govuk::apps::local_links_manager(
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -126,6 +131,9 @@ class govuk::apps::local_links_manager(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
     }
 
     if $local_links_manager_passive_checks {
