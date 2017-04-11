@@ -1,0 +1,12 @@
+---
+- job:
+    name: remove-emergency-banner
+    display-name: Remove the emergency banner
+    project-type: freestyle
+    description: "Remove the emergency banner from GOV.UK."
+    builders:
+      # The argument to `-c` is in this case `frontend` but the value is used by both `static` and `frontend` applications
+      - shell: ssh deploy@$(govuk_node_list -c frontend --single-node) "cd /var/apps/static && govuk_setenv static bundle exec rake emergency_banner:remove"
+    wrappers:
+      - ansicolor:
+          colormap: xterm
