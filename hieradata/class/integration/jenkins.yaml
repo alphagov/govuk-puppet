@@ -4,6 +4,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_cdn
   - govuk_jenkins::job::deploy_dns
+  - govuk_jenkins::job::deploy_emergency_banner
   - govuk_jenkins::job::deploy_lambda_app
   - govuk_jenkins::job::deploy_licensify
   - govuk_jenkins::job::deploy_puppet
@@ -13,6 +14,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
+  - govuk_jenkins::job::remove_emergency_banner
   - govuk_jenkins::job::run_rake_task
   - govuk_jenkins::job::run_whitehall_data_migrations
   - govuk_jenkins::job::sanitize_publishing_api_data
