@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START POST-INSTALL"
 # Source DISTRIB_ env vars
 . /etc/lsb-release
 
@@ -67,10 +68,22 @@ sudo apt-get install -y awscli
 sudo apt-get -y autoremove
 sudo apt-get clean
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END POST-INSTALL"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHECKOUT REPOSITORIES"
 sudo mkdir -p /var/govuk
 sudo /vagrant/checkout-repos.sh -d /var/govuk /vagrant/alphagov_repos
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHECKOUT REPOSITORIES"
+echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PUPPET-APPLY"
 sudo NO_GIT_PULL=1 /var/govuk/govuk-puppet/tools/puppet-apply-dev
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PUPPET-APPLY"
+echo
 
-
-
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RESTORE DATABASES"
+sudo -i -u root gpg --allow-secret-key-import --import $(ls -tr1 /vagrant/*_secret_key.asc | tail -1)
+sudo -i -u root /var/govuk/govuk-puppet/training-vm/restore-backups.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
+echo

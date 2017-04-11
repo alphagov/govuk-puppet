@@ -19,9 +19,10 @@ cd ${REPOS_DIR}
 
 while read repo
 do
-  git clone https://github.com/alphagov/$repo.git $repo
+  OPTION_BRANCH=""
   if [[ $repo == "govuk-puppet" ]]
   then
-    git clone -b add-training-environment  https://github.com/alphagov/$repo.git $repo
+    OPTION_BRANCH="-b add-training-environment "
   fi
+  git clone ${OPTION_BRANCH} https://github.com/alphagov/$repo.git $repo
 done < "${1:-/dev/stdin}"
