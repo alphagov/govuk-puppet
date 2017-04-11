@@ -1,0 +1,29 @@
+---
+- job:
+    name: deploy-emergency-banner
+    display-name: Deploy the emergency banner
+    project-type: freestyle
+    description: "Deploy the emergency banner on GOV.UK."
+    builders:
+      # The argument to `-c` is in this case `frontend` but the value is used by both `static` and `frontend` applications
+      - shell: ssh deploy@$(govuk_node_list -c frontend --single-node) "cd /var/apps/static && govuk_setenv static bundle exec rake emergency_banner:deploy[$CAMPAIGN_CLASS,$HEADING,$SHORT_DESCRIPTION,$LINK]"
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+    parameters:
+      - choice:
+          name: CAMPAIGN_CLASS
+          description: Choose the colour of banner to deploy
+          choices:
+            - black
+            - green
+            - red
+      - string:
+          name: HEADING
+          description: The title of the banner
+      - string:
+          name: SHORT_DESCRIPTION
+          description: The text that appears under the title
+      - string:
+          name: LINK
+          description: The more information link
