@@ -22,6 +22,10 @@ start_time=`date +%s%3N`
 usage() {
 cat<<EOH
 
+$app_name [OPTIONS] - [PUPPET ARGS]
+
+Wraps 'puppet agent' and provides locking facilities for it.
+
 Options:
 
  -d [lock_directory]
@@ -41,7 +45,19 @@ Options:
   The reason puppet has been disabled. This is currently optional
   to support the older invocation style.
 
+Puppet args:
+  Arguments passed to 'puppet agent' as well as:
+
+ --enable
+  Remove the lock on puppet, return it to normal operation on this host.
+
+ --disable
+  Add a lock on puppet, to prevent it running on this host.
+
 Examples:
+
+  # testing, without applying, puppet changes
+  $app_name --noop --test
 
   # deprecated lock and unlock commands:
   # to lock puppet the current way with a default lock and no reason
@@ -54,7 +70,7 @@ Examples:
 
   # newer style with explicit lock names
   # be explicit with the reason and the name of the lock
-  $app_name -n postgres_backups -r 'Running postgres restore' --disable
+  $app_name -n <your_name> -r 'Running postgres restore' --disable
 
   # show the lock exists
   $app_name -l
