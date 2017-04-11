@@ -590,6 +590,7 @@ govuk_ci::master::pipeline_jobs:
   govuk_frontend_toolkit: {}
   govuk_frontend_toolkit_gem: {}
   govuk_frontend_toolkit_npm: {}
+  govuk-guix: {}
   govuk-lint: {}
   govuk_message_queue_consumer: {}
   govuk_mirrorer: {}
