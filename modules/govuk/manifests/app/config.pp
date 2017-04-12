@@ -267,7 +267,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
       service_description => "${title} app unicornherder not running",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(app-unicornherder-running),
+      notes_url           => monitoring_docs_url(unicorn-herder),
     }
     include icinga::client::check_unicorn_workers
     @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
