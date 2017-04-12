@@ -40,7 +40,7 @@ class monitoring::pagerduty_drill (
       use                 => 'govuk_urgent_priority',
       service_description => 'PagerDuty test drill in progress',
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(pagerduty-dry-run),
+      notes_url           => monitoring_docs_url(pagerduty-drill),
     }
   }
 }
