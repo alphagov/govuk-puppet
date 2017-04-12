@@ -96,6 +96,7 @@ govuk_jenkins::config::admins:
   - elenatanasoiu
   - emmabeynon
   - grahampengelly
+  - gregorambrozic
   - ianmaddison
   - ikennaokpala
   - isabelllong
@@ -305,6 +306,7 @@ users::usernames:
   - emmabeynon
   - gemmaleigh
   - grahampengelly
+  - gregorambrozic
   - ianmaddison
   - ikennaokpala
   - isabelllong
