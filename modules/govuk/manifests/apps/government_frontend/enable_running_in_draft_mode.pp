@@ -28,5 +28,8 @@ class govuk::apps::government_frontend::enable_running_in_draft_mode(
     "${title}-PLEK_SERVICE_CONTENT_STORE_URI":
       varname => 'PLEK_SERVICE_CONTENT_STORE_URI',
       value   => $content_store;
+    "${title}-PLEK_HOSTNAME_PREFIX":
+      varname => 'PLEK_HOSTNAME_PREFIX',
+      value   => 'draft-';
   }
 }
