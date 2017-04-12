@@ -755,7 +755,8 @@ grafana::dashboards::deployment_applications:
   calendars: {}
   collections: {}
   collections-publisher: {}
-  contacts: {}
+  contacts:
+    docs_name: 'contacts-admin'
   contacts-frontend: {}
   content-performance-manager: {}
   content-store: {}
@@ -774,7 +775,8 @@ grafana::dashboards::deployment_applications:
   imminence:
     has_workers: true
   info-frontend: {}
-  licencefinder: {}
+  licencefinder:
+    docs_name: 'licence-finder'
   link-checker-api: {}
   local-links-manager: {}
   manuals-frontend: {}
@@ -798,7 +800,8 @@ grafana::dashboards::deployment_applications:
   short-url-manager: {}
   signon:
     has_workers: true
-  smartanswers: {}
+  smartanswers:
+    docs_name: 'smart-answers'
   specialist-frontend: {}
   specialist-publisher: {}
   static: {}
