@@ -4,10 +4,10 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] START POST-INSTALL"
 # Source DISTRIB_ env vars
 . /etc/lsb-release
 
+sudo sed -i '1 i\127.0.0.1 training.dev.gov.uk training' /etc/hosts
 sudo hostname training
 sudo domainname dev.gov.uk
 sudo echo "training" > /etc/hostname
-sudo sed -i '1 i\127.0.0.1 training.dev.gov.uk training' /etc/hosts
 
 # Know when this box was created
 date > ~/vagrant_box_build_time
@@ -71,9 +71,17 @@ sudo apt-get clean
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END POST-INSTALL"
 echo
 
+if [[ ! -d /home/ubuntu/provisioner ]]
+then
+  echo "[$(date '+%H:%M:%S %d-%m-%Y')] ERROR /home/ubuntu/provisioner directory does not exist"
+  exit
+else
+  chmod +x /home/ubuntu/provisioner/*.sh
+fi
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHECKOUT REPOSITORIES"
 sudo mkdir -p /var/govuk
-sudo /vagrant/checkout-repos.sh -d /var/govuk /vagrant/alphagov_repos
+sudo /home/ubuntu/provisioner/checkout-repos.sh -d /var/govuk /home/ubuntu/provisioner/alphagov_repos
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHECKOUT REPOSITORIES"
 echo
 
@@ -83,7 +91,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PUPPET-APPLY"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RESTORE DATABASES"
-sudo -i -u root gpg --allow-secret-key-import --import $(ls -tr1 /vagrant/*_secret_key.asc | tail -1)
-sudo -i -u root /var/govuk/govuk-puppet/training-vm/restore-backups.sh
+sudo -i -u root gpg --allow-secret-key-import --import $(ls -tr1 /home/ubuntu/provisioner/.secrets/*_secret_key.asc | tail -1)
+sudo -i -u root /home/ubuntu/provisioner/restore-backups.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
 echo

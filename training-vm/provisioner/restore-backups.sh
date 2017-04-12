@@ -1,6 +1,7 @@
 #!/bin/bash
 
-GPG_PASS=$(cat /vagrant/duplicity_passphrase)
+BINDIR=$(dirname $0)
+GPG_PASS=$(cat ${BINDIR}/.secrets/duplicity_passphrase)
 
 for MYSQLDB in mysql-backup-1.backend whitehall-mysql-backup-1.backend
 do
@@ -23,4 +24,4 @@ done
 cd /var/govuk/govuk-puppet/development-vm/replication
 ./replicate-data-local.sh -s -d /var/backups -i signon -e
 
-/var/govuk/govuk-puppet/training-vm/es-restore-s3.sh
+${BINDIR}/es-restore-s3.sh
