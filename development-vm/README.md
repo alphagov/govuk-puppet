@@ -1,4 +1,4 @@
-## Welcome to GOV.UK.
+Welcome to GOV.UK.
 
 Our development environment is an Ubuntu virtual machine (VM). We aim to achieve [dev-prod parity](http://www.12factor.net/dev-prod-parity).
 
@@ -6,15 +6,15 @@ Follow the steps on this page to get your GDS development environment running wi
 
 > You'll need to use a Mac to follow this guide.
 
-It's expected to take roughly a day to complete this guide, start to finish. There's a lot of things to download, and loads of installers need to do their thing.
+It will take you roughly one day to do everything in this guide from start to finish. There are lots of things to download, and loads of installers need to do their thing.
 
-> You will need up to 50GB of free space on your hard-drive to run the whole of gov.uk.
+> You'll need up to 50GB of free space on your hard-drive to run the whole of GOV.UK.
 
-### Developing outside the VM
+**Developing outside the VM**
 
 You don't have to develop on the VM, but we strongly recommend it. If you have problems with the development VM you can always ask for help in the #govuk-developers Slack channel.
 
-### Where you should run commands
+**Where you should run commands**
 
 Run mac$ commands in the shell on your Mac:
 
@@ -36,61 +36,49 @@ First, install:
 ## 2. Create your GitHub accounts
 
 1. Set up a [GitHub](https://www.github.com) account.
-1. Get yourself added to the [alphagov organisation](https://github.com/alphagov). Your tech lead will be able to facilitate this.
-1. Set up a GitHub Enterprise (private) account and be added to the `gds` organisation.
+1. Ask your tech lead to add you to the [alphagov organisation](https://github.com/alphagov).
+1. Set up a [GitHub Enterprise](https://github.gds) (private) account and ask to be added to the `gds` organisation.
 1. [Generate and register an SSH key pair](https://help.github.com/categories/56/articles) for your Mac for your GitHub account.
 1. Import the SSH key into your keychain. Once you’ve done this, it’ll be available to the VM you'll install in the next step.
 
         mac$ /usr/bin/ssh-add -K yourkey
 
-1. Test that it all works by running `ssh -T git@github.com`
+1. Test that it all works by running `ssh -T git@github.com`.
 
-Now check out the gov.uk Puppet repo, which contains the configuration and automation you'll need to get up and running:
+## 3. Create a user in Integration and CI
+
+User accounts in our Integration and CI environments are managed in the [govuk-puppet](https://github.com/alphagov/govuk-puppet) repository.
 
     mac$ mkdir ~/govuk
     mac$ cd ~/govuk
     mac$ git clone git@github.com:alphagov/govuk-puppet.git
 
-## 3. Create a user in Integration and CI
-
-User accounts in our integration and CI environments are managed in the [govuk-puppet](https://github.com/alphagov/govuk-puppet) repository that you just cloned.
-
-To create a new account, start by creating an SSH key of sufficient key strength.
+To create a new account, start by creating an SSH key of sufficient key strength. A minimum key length of 4096 bits is required, for example:
 
     mac$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/alphagov
 
-Now create a user manifest in `~/govuk/govuk-puppet/modules/users/manifests` with your username and the public key we just created.
+Now create a user manifest in `~/govuk/govuk-puppet/modules/users/manifests` with your username and the public key you just created. Your username should use the `firstnamelastname` format.
 
 Add the name of your manifest (your username) into the list of `users::usernames` in `hieradata/integration.yaml`.
 
 There's another bit of hieradata in `integration.yaml` for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your GitHub Enterprise username (usually your full name) to this list.
 
-Create a pull request with these changes. Once it has been reviewed by a member of the gov.uk team, you can merge it and it will automatically deploy to the integration environment. (This will come in handy in later steps.)
+Create a pull request with these changes. Once it has been reviewed by a member of the GOV.UK team, you can merge it and it will automatically deploy to the Integration environment. This will come in handy later.
 
 ## 4. Boot your VM
 
-Now you can run the VM bootstrap script:
+Run the VM bootstrap script:
 
     mac$ cd govuk-puppet/development-vm
     mac$ ./bootstrap
 
-This will take a little while, but it will throw up a question or two in your console so check back on it occassionally. Now might be a good time to scan through the [gov.uk technology blog](https://gdstechnology.blog.gov.uk/category/gov-uk/) while puppet runs.
+This will take a little while, but it will throw up a question or two in your console so check back on it occassionally. Now might be a good time to scan through the [GOV.UK technology blog](https://gdstechnology.blog.gov.uk/category/gov-uk/) while Puppet runs.
 
 Once your VM is running, you should be able to SSH into it with:
 
     mac$ vagrant ssh
 
-> Your VM comes pre-configured with an IP address. This is visible in the Vagrantfile, but currently defaults to `10.1.1.254`.
-
 > Your default Vagrant root password is `vagrant`.
-
-### Suspending and restarting your VM
-
-Run these commmands in the `~/govuk/govuk-puppet/development-vm` folder:
-
-    mac$ vagrant suspend # save the state of the VM and power-off
-    mac$ vagrant up      # power-on the virtual machine
-    mac$ vagrant reload  # reboot the VM
 
 ### Set your Git username and email
 
@@ -98,6 +86,14 @@ You can assign your name and email to commits on the VM:
 
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
+
+### Suspending and restarting your VM
+
+For later reference. You can control the state of the virtual machine with these Vagrant commmands. Run them in the `~/govuk/govuk-puppet/development-vm` folder.
+
+    mac$ vagrant suspend # save the state of the VM and power-off
+    mac$ vagrant up      # power-on the virtual machine
+    mac$ vagrant reload  # reboot the VM
 
 ## 5. Set up your apps
 
@@ -118,23 +114,42 @@ There are also some Python apps, which use [PIP](https://pip.pypa.io/en/stable/)
 
 ## 6. Access remote environments
 
-### Access servers via SSH
+Your pull request from earlier will hopefully have been merged by now. It's time to test your access to servers via SSH.
 
-By now hopefully your pull request from earlier will have been merged. It's time to test your access to servers via SSH.
+While the applications are available directly via the public internet, SSH access to the environment is via a ‘jumpbox’. You’ll need to configure your machine to use this jumpbox, using this example SSH config file:
 
-While the applications are available directly via the public
-internet, SSH access to the environment is via a ‘jumpbox’. You’ll need to configure your machine to use this jumpbox, using this [example configuration](https://github.com/alphagov/gds-boxen/blob/master/modules/gds_ssh_config/files/gds_ssh_config)
+```
+Host *
+  UseRoaming no
 
-Copy that file into `~/.ssh/config`, and you will able able to be able to
-ssh into any box in the infrastructure directly, by running, for
-example, `ssh mongo-1.backend.production`.
+Host *.integration
+    IdentityFile ~/.ssh/alphagov
+    User $USERNAME
 
-Assuming you have created an SSH keypair, the public key has been distributed and your SSH config is up-to-date, you can connect to machines with:
+# Integration
+# -------
+Host jumpbox.integration.publishing.service.gov.uk
+  ProxyCommand none
 
-    $ ssh backend-1.backend.integration
+Host *.integration.publishing.service.gov.uk
+  ProxyCommand ssh -e none %r@jumpbox.integration.publishing.service.gov.uk -W %h:%p
 
-> **Is your username on your local machine different to the one being used
-    remotely?** Add a `User joebloggs` line to each Host section.
+Host jumpbox-1.management.integration
+  Hostname jumpbox.integration.publishing.service.gov.uk
+  ProxyCommand none
+
+Host jumpbox-2.management.integration
+  Hostname jumpbox.integration.publishing.service.gov.uk
+  Port     1022
+  ProxyCommand none
+
+Host *.integration
+  ProxyCommand ssh -e none %r@jumpbox-1.management.integration -W $(echo %h | sed 's/\.integration$//'):%p
+```
+
+Copy that file into the `~/.ssh/config` file on your mac, and you should be able to ssh into any box in the Integration environment directly. Test that it works, by running:
+
+    mac$ ssh backend-1.backend.integration
 
 ## 7. Import production data
 
@@ -154,7 +169,7 @@ If you have integration access, you can import the latest data by running:
     dev$ cd /var/govuk/govuk-puppet/development-vm/replication
     dev$ ./replicate-data-local.sh -u $USERNAME -F ../ssh_config
 
-> Downloading and installing database exports for every app on gov.uk takes a bunch of compute resources and time.
+> Downloading and installing database exports for every app on GOV.UK takes a bunch of compute resources and time.
 
 If you don’t have integration access, ask someone to give you a copy of their dump. Then, from `govuk-puppet/development-vm/replication` run:
 
@@ -191,10 +206,10 @@ The following invocation will do all of this for you.
 
 This will run:
 
-1. `git pull` on each of the applications checked out in `/var/govuk`
-1. `govuk_puppet` to bring the latest configuration to the dev VM
-1. `bundle install` for each Ruby application to install any missing gems
-1. `pip install` to update runtime dependencies for any python apps
+* `git pull` on each of the applications checked out in `/var/govuk`
+* `govuk_puppet` to bring the latest configuration to the dev VM
+* `bundle install` for each Ruby application to install any missing gems
+* `pip install` to update runtime dependencies for any python apps
 
 ## 10. Access the web frontend
 
@@ -209,4 +224,4 @@ The basic authentication username and password is widely known, so just ask some
 
 ## 11. Troubleshooting
 
-See this page in [the dev manual](#TODO) for troubleshooting tips related to the use of Vagrant and the development VM.
+If you're having trouble with Vagrant or the development VM, there are [troubleshooting tips](https://docs.publishing.service.gov.uk/manual.html) in the dev manual.
