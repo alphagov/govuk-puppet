@@ -98,7 +98,7 @@ class govuk::node::s_asset_master (
     critical  => 2400,
     desc      => 'Waiting time to pass virus scan',
     host_name => $::fqdn,
-    notes_url => monitoring_docs_url('virus-scanning', true),
+    notes_url => monitoring_docs_url(virus-scanning),
   }
 
   cron { 'virus-scan-clean':

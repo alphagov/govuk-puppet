@@ -282,7 +282,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_unicorn_ruby_version!${title}",
       service_description => "${title} is not running the expected ruby version",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url('ruby-version', true),
+      notes_url           => monitoring_docs_url(ruby-version),
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
