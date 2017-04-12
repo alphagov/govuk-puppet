@@ -26,5 +26,6 @@ define monitoring::network_checks (
       use                 => 'govuk_high_priority',
       service_description => 'unable to ping',
       host_name           => $title,
+      notes_url           => monitoring_docs_url(vpn-down),
     }
 }
