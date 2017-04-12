@@ -172,6 +172,12 @@ class govuk::apps::whitehall(
 
   if $configure_frontend == true {
 
+    if $::govuk_node_class == 'development' {
+      $app_protocol = 'http'
+    } else {
+      $app_protocol = 'https'
+    }
+
     govuk::app::nginx_vhost { 'whitehall-frontend':
       vhost                 => "whitehall-frontend.${app_domain}",
       protected             => $vhost_protected,
@@ -181,7 +187,7 @@ class govuk::apps::whitehall(
       nginx_extra_config    => "
       location /government/uploads {
         proxy_set_header Host 'whitehall-admin.${app_domain}';
-        proxy_pass https://whitehall-admin.${app_domain};
+        proxy_pass ${app_protocol}://whitehall-admin.${app_domain};
       }
       ",
     }
