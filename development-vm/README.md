@@ -16,11 +16,11 @@ You don't have to develop on the VM, but we strongly recommend it. If you have p
 
 **Where you should run commands**
 
-Run mac$ commands in the shell on your Mac:
+Run `mac$` commands in the shell on your Mac:
 
     mac$ echo "Think Different"
 
-Run dev$ commands in the shell on the development VM:
+Run `dev$` commands in the shell on the development VM:
 
     dev$ echo "Linux for human beings"
 
@@ -61,7 +61,7 @@ Now create a user manifest in `~/govuk/govuk-puppet/modules/users/manifests` wit
 
 Add the name of your manifest (your username) into the list of `users::usernames` in `hieradata/integration.yaml`.
 
-There's another bit of hieradata in `integration.yaml` for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your GitHub Enterprise username (usually your full name) to this list.
+There's another bit of hieradata in `integration.yaml` for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your **GitHub Enterprise** username to this list.
 
 Create a pull request with these changes. Once it has been reviewed by a member of the GOV.UK team, you can merge it and it will automatically deploy to the Integration environment. This will come in handy later.
 
@@ -116,6 +116,8 @@ There are also some Python apps, which use [PIP](https://pip.pypa.io/en/stable/)
 
 Your pull request from earlier will hopefully have been merged by now. It's time to test your access to servers via SSH.
 
+> If you're not in the office right now, you'll need to be connected to the Aviation House VPN for SSH access to Integration.
+
 While the applications are available directly via the public internet, SSH access to the environment is via a ‘jumpbox’. You’ll need to configure your machine to use this jumpbox, using this example SSH config file:
 
 ```
@@ -150,6 +152,10 @@ Host *.integration
 Copy that file into the `~/.ssh/config` file on your mac, and you should be able to ssh into any box in the Integration environment directly. Test that it works, by running:
 
     mac$ ssh backend-1.backend.integration
+
+If that works then create an ssh config file inside the VM with the same contents. You can choose whether to import your `alphagov` keypair to the VM or to use the built in key-forwarding, but if you opt for the latter you should remove the `IdentityFile` declaration. Test that you can reach Integration from your VM:
+
+    dev$ ssh backend-1.backend.integration
 
 ## 7. Import production data
 
