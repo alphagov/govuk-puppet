@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit 1
+fi
+
+/usr/bin/java -jar <%= @jenkins_home %>/jenkins-cli.jar -s http://localhost:8080/ -i <%= @jenkins_home %>/.ssh/id_rsa $1
