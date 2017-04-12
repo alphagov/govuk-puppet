@@ -35,7 +35,7 @@ define govuk_rabbitmq::monitor_consumers (
       check_command       => "check_nrpe!check_rabbitmq_consumers!${rabbitmq_hostname} ${rabbitmq_admin_port} ${rabbitmq_queue} ${rabbitmq_user}",
       service_description => "Check that there is at least one non-idle consumer for rabbitmq queue ${rabbitmq_queue}",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(check-for-non-idle-consumers),
+      notes_url           => monitoring_docs_url(rabbitmq-no-consumers-listening),
     }
   }
 }

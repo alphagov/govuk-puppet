@@ -12,12 +12,7 @@ describe 'monitoring_docs_url' do
   end
 
   it 'should return a URL with the correct anchor' do
-    broken_thing_url = 'https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#broken-thing'
+    broken_thing_url = 'https://docs.publishing.service.gov.uk/manual/alerts/broken-thing.html'
     expect(scope.function_monitoring_docs_url(['broken-thing'])).to eq(broken_thing_url)
-  end
-
-  it 'should return a new-style URL with optional second param' do
-    broken_thing_url = 'https://github.gds/pages/gds/opsmanual/2nd-line/alerts/broken-thing.html'
-    expect(scope.function_monitoring_docs_url(['broken-thing', true])).to eq(broken_thing_url)
   end
 end

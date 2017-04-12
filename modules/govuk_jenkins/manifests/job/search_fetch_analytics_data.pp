@@ -22,5 +22,6 @@ class govuk_jenkins::job::search_fetch_analytics_data (
     host_name           => $::fqdn,
     freshness_threshold => 104400,
     action_url          => $job_url,
+    notes_url           => monitoring_docs_url(fetch-analytics-data-for-search-failed),
   }
 }

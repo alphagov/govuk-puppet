@@ -22,7 +22,7 @@ class govuk::node::s_redis_base {
     warning   => to_bytes("${redis_mem_warn}M"),
     critical  => to_bytes("${redis_mem_crit}M"),
     desc      => 'redis memory usage',
-    notes_url => monitoring_docs_url('redis', true),
+    notes_url => monitoring_docs_url(redis),
     host_name => $::fqdn,
   }
 
@@ -31,7 +31,7 @@ class govuk::node::s_redis_base {
     warning   => 1000,
     critical  => 2000,
     desc      => 'redis connected clients',
-    notes_url => monitoring_docs_url('redis', true),
+    notes_url => monitoring_docs_url(redis),
     host_name => $::fqdn,
   }
 

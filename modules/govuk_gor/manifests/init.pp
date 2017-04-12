@@ -76,6 +76,6 @@ class govuk_gor(
     check_command       => 'check_nrpe!check_proc_running!gor',
     host_name           => $::fqdn,
     service_description => 'gor running',
-    notes_url           => monitoring_docs_url('gor', true),
+    notes_url           => monitoring_docs_url(gor),
   }
 }

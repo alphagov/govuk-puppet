@@ -89,7 +89,6 @@ class govuk::node::s_asset_master (
     service_description => 'Full attachments sync',
     host_name           => $::fqdn,
     freshness_threshold => 100800,
-    notes_url           => monitoring_docs_url(full-attachments-sync),
   }
 
   @@icinga::check::graphite { "check_uploads_scan_waiting_time_${::hostname}":
@@ -98,7 +97,7 @@ class govuk::node::s_asset_master (
     critical  => 2400,
     desc      => 'Waiting time to pass virus scan',
     host_name => $::fqdn,
-    notes_url => monitoring_docs_url('virus-scanning', true),
+    notes_url => monitoring_docs_url(virus-scanning),
   }
 
   cron { 'virus-scan-clean':

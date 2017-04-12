@@ -267,7 +267,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
       service_description => "${title} app unicornherder not running",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(app-unicornherder-running),
+      notes_url           => monitoring_docs_url(unicorn-herder),
     }
     include icinga::client::check_unicorn_workers
     @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
@@ -282,7 +282,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_unicorn_ruby_version!${title}",
       service_description => "${title} is not running the expected ruby version",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url('ruby-version', true),
+      notes_url           => monitoring_docs_url(ruby-version),
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
