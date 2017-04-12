@@ -73,7 +73,9 @@ govuk::node::s_development::apps:
   - 'publishing_api::rabbitmq'
   - 'release'
   - 'router'
+  - 'router::enable_running_in_draft_mode'
   - 'router_api'
+  - 'router_api::enable_running_in_draft_mode'
   - 'rummager'
   - 'rummager::rabbitmq'
   - 'search_admin'
@@ -149,9 +151,17 @@ govuk::apps::router::enable_nginx_vhost: true
 govuk::apps::router::mongodb_name: "%{hiera('govuk::apps::router_api::mongodb_name')}"
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::router::vhost_aliases: ["www"]
+govuk::apps::router::enable_running_in_draft_mode::error_log: STDERR
+govuk::apps::router::enable_running_in_draft_mode::enable_nginx_vhost: true
+govuk::apps::router::enable_running_in_draft_mode::mongodb_name: "draft_router"
+govuk::apps::router::enable_running_in_draft_mode::mongodb_nodes: ['localhost']
+govuk::apps::router::enable_running_in_draft_mode::vhost_aliases: ["draft-origin"]
 govuk::apps::router_api::mongodb_name: 'router'
 govuk::apps::router_api::mongodb_nodes: ['localhost']
 govuk::apps::router_api::router_nodes: ['localhost:3055']
+govuk::apps::router_api::enable_running_in_draft_mode::mongodb_name: 'draft_router'
+govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhost']
+govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
 govuk::apps::rummager::enable_publishing_listener: true
@@ -250,6 +260,8 @@ hosts::development::apps:
   - 'draft-content-store'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
+  - 'draft-router-api'
+  - 'draft-router'
   - 'draft-specialist-frontend'
   - 'draft-static'
   - 'draft-whitehall-frontend'

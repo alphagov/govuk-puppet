@@ -32,6 +32,8 @@ process :'draft-manuals-frontend' => [
   :'manuals-frontend',
   :static
 ]
+process :'draft-router'
+process :'draft-router-api'
 process :'draft-specialist-frontend' => [
   :'draft-content-store',
   :'specialist-frontend',
@@ -68,7 +70,7 @@ process :need_api
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
 process :publisher => [:'publishing-api', 'publisher-worker'] # for some requests also uses: mapit
-process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'publishing-api-worker' ]
+process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker' ]
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
 process :router
