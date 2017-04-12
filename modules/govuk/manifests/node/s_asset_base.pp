@@ -209,7 +209,6 @@ class govuk::node::s_asset_base (
         service_description => 'Push attachments to S3',
         host_name           => $::fqdn,
         freshness_threshold => 100800,
-        notes_url           => monitoring_docs_url(full-attachments-sync),
       }
     }
   }
