@@ -47,6 +47,9 @@ class govuk::apps::content_store::enable_running_in_draft_mode() {
     "${title}-PORT":
       varname => 'PORT',
       value   => $draft_content_store_port;
+    "${title}-PLEK_HOSTNAME_PREFIX":
+      varname => 'PLEK_HOSTNAME_PREFIX',
+      value   => 'draft-';
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
