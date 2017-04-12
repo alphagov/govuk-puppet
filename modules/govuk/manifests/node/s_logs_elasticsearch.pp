@@ -108,7 +108,7 @@ class govuk::node::s_logs_elasticsearch(
     warning   => '0.000001:',
     desc      => 'elasticsearch not receiving syslog from logstash',
     host_name => $::fqdn,
-    notes_url => monitoring_docs_url(elasticsearch-not-receiving-syslog-from-logstash-check),
+    notes_url => monitoring_docs_url(elasticsearch-not-receiving-syslog),
   }
 
   Govuk_mount['/mnt/elasticsearch'] -> Class['govuk_elasticsearch']
