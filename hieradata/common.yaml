@@ -749,14 +749,11 @@ grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
   asset-manager: {}
-  authenticating-proxy: {}
   business-support-api: {}
   calculators: {}
   calendars: {}
   collections: {}
   collections-publisher: {}
-  contacts:
-    docs_name: 'contacts-admin'
   contacts-frontend: {}
   content-performance-manager: {}
   content-store: {}
@@ -769,8 +766,6 @@ grafana::dashboards::deployment_applications:
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
-  govuk_content_api: {}
-  govuk_need_api: {}
   hmrc-manuals-api: {}
   imminence:
     has_workers: true
@@ -785,7 +780,6 @@ grafana::dashboards::deployment_applications:
   maslow: {}
   metadata-api: {}
   multipage-frontend: {}
-  policy-publisher: {}
   publisher:
     has_workers: true
   publishing-api:
