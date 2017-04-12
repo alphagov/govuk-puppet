@@ -6,7 +6,11 @@
 #
 # [*app_name*]
 #   The dashboard application identifier name. This matches the name of the
-#   name of the deployed application
+#   deployed application
+#
+# [*docs_name*]
+#   The dashboard application repository used for linking to the documentation
+#   page for the application
 #
 # [*dashboard_directory*]
 #   The directory where the Grafana config json files are created
@@ -19,6 +23,7 @@
 #
 define grafana::dashboards::deployment_dashboard (
   $app_name = $title,
+  $docs_name = $title,
   $dashboard_directory = undef,
   $app_domain = undef,
   $has_workers = false,
