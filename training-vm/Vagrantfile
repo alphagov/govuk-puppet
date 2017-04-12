@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
         'Ebs.DeleteOnTermination' => true
       },
     ]
-    aws.iam_instance_profile_name = ENV['AWS_IAM_INSTANCE_PROFILE_NAME']
-    aws.region = ENV['AWS_REGION']
+    aws.iam_instance_profile_name = "govuk-training"
+    aws.region = "eu-west-1"
     aws.subnet_id = ENV['AWS_SUBNET']
     aws.instance_type = "t2.xlarge"
     aws.security_groups = ENV['AWS_SECURITY_GROUPS']
