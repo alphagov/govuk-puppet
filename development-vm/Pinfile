@@ -37,6 +37,7 @@ process :'draft-specialist-frontend' => [
   :'specialist-frontend',
   :static
 ]
+process :'draft-static'
 process :designprinciples => :static
 process :'email-alert-api'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
