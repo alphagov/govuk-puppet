@@ -1,6 +1,9 @@
 variable "training_ssh_key_path" {}
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
+variable "instance_govuk-training_name" {
+  default = "govuk-training"
+}
 
 provider "aws" {
   region     = "eu-west-1"
@@ -31,7 +34,7 @@ resource "aws_instance" "govuk-training" {
   }
   user_data              = "${file("training_user_data.txt")}"
   tags {
-    Name = "govuk-training"
+    Name = "${var.instance_govuk-training_name}"
   }
   provisioner "file" {
     source      = "provisioner"
