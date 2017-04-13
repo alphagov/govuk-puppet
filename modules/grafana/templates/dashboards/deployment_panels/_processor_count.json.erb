@@ -3,7 +3,7 @@
   "bars": false,
   "datasource": "Graphite",
   "description": "Shows the process count for <%= @app_name %> backend machines. During deployment the number of processes should double and then return to normal. Code should be tested once the old processes have been killed.",
-  "fill": 1,
+  "fill": 0,
   "grid": {
     "threshold1": null,
     "threshold1Color": "rgba(216, 200, 27, 0.27)",
@@ -13,17 +13,19 @@
   "id": 1,
   "legend": {
     "avg": false,
-    "current": false,
+    "current": true,
     "max": false,
     "min": false,
     "show": true,
     "total": false,
-    "values": false
+    "values": true,
+    "alignAsTable": true,
+    "rightSide": true
   },
   "lines": true,
   "linewidth": 1,
   "links": [],
-  "nullPointMode": "null",
+  "nullPointMode": "null as zero",
   "percentage": false,
   "pointradius": 5,
   "points": false,
@@ -51,7 +53,7 @@
         }
       ],
       "refId": "A",
-      "target": "*_backend*.processes-app-<%= @app_name %>.ps_count.processes",
+      "target": "aliasByNode(*.processes-app-<%= @app_name %>.ps_count.processes,0)",
       "textEditor": true,
       "timeField": "@timestamp"
     }
@@ -90,5 +92,6 @@
       "min": null,
       "show": true
     }
-  ]
+  ],
+  "decimals": 0
 }
