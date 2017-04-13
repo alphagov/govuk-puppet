@@ -1,3 +1,5 @@
+# Getting Started
+
 Welcome to GOV.UK.
 
 Our development environment is an Ubuntu virtual machine (VM). We aim to achieve [dev-prod parity](http://www.12factor.net/dev-prod-parity).
@@ -53,7 +55,7 @@ User accounts in our Integration and CI environments are managed in the [govuk-p
     mac$ cd ~/govuk
     mac$ git clone git@github.com:alphagov/govuk-puppet.git
 
-To create a new account, start by creating an SSH key of sufficient key strength. A minimum key length of 4096 bits is required, for example:
+To create a new account, start by creating an SSH key at least 4096 bits long. For example:
 
     mac$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/alphagov
 
@@ -70,7 +72,7 @@ Create a pull request with these changes. Once it has been reviewed by a member 
 Run the VM bootstrap script:
 
     mac$ cd govuk-puppet/development-vm
-    mac$ ./bootstrap
+    mac$ vagrant up
 
 This will take a little while, but it will throw up a question or two in your console so check back on it occassionally. Now might be a good time to scan through the [GOV.UK technology blog](https://gdstechnology.blog.gov.uk/category/gov-uk/) while Puppet runs.
 
@@ -78,7 +80,7 @@ Once your VM is running, you should be able to SSH into it with:
 
     mac$ vagrant ssh
 
-> Your default Vagrant root password is `vagrant`.
+> See the full command list by typing `vagrant --help`
 
 ### Set your Git username and email
 
@@ -86,14 +88,6 @@ You can assign your name and email to commits on the VM:
 
     dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
     dev$ git config --global user.name "Friendly Giraffe"
-
-### Suspending and restarting your VM
-
-For later reference. You can control the state of the virtual machine with these Vagrant commmands. Run them in the `~/govuk/govuk-puppet/development-vm` folder.
-
-    mac$ vagrant suspend # save the state of the VM and power-off
-    mac$ vagrant up      # power-on the virtual machine
-    mac$ vagrant reload  # reboot the VM
 
 ## 5. Set up your apps
 
@@ -149,11 +143,11 @@ Host *.integration
   ProxyCommand ssh -e none %r@jumpbox-1.management.integration -W $(echo %h | sed 's/\.integration$//'):%p
 ```
 
-Copy that file into the `~/.ssh/config` file on your mac, and you should be able to ssh into any box in the Integration environment directly. Test that it works, by running:
+Copy that into the `~/.ssh/config` file on your mac, substituting your username for `$USERNAME`. You should then be able to ssh into any box in the Integration environment directly. Test that it works, by running:
 
     mac$ ssh backend-1.backend.integration
 
-If that works then create an ssh config file inside the VM with the same contents. You can choose whether to import your `alphagov` keypair to the VM or to use the built in key-forwarding, but if you opt for the latter you should remove the `IdentityFile` declaration. Test that you can reach Integration from your VM:
+Next, create an ssh config file inside the VM with the same contents. You can choose whether to import your `alphagov` keypair to the VM or to use the built in key-forwarding. If you choose the latter, then remove the `IdentityFile` declaration. Test that you can reach Integration from your VM:
 
     dev$ ssh backend-1.backend.integration
 
