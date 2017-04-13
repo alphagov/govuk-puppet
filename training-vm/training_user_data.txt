@@ -81,7 +81,7 @@ fi
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHECKOUT REPOSITORIES"
 sudo mkdir -p /var/govuk
-sudo /home/ubuntu/provisioner/checkout-repos.sh -d /var/govuk /home/ubuntu/provisioner/alphagov_repos
+sudo DEPLOYED_TO_PRODUCTION=true /home/ubuntu/provisioner/checkout-repos.sh -d /var/govuk /home/ubuntu/provisioner/alphagov_repos
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHECKOUT REPOSITORIES"
 echo
 
@@ -94,4 +94,14 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RESTORE DATABASES"
 sudo -i -u root gpg --allow-secret-key-import --import $(ls -tr1 /home/ubuntu/provisioner/.secrets/*_secret_key.asc | tail -1)
 sudo -i -u root /home/ubuntu/provisioner/restore-backups.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START UPDATE BUNDLER"
+sudo /var/govuk/govuk-puppet/development-vm/update-bundler.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
+sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
 echo
