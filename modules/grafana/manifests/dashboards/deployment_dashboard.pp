@@ -52,6 +52,8 @@ define grafana::dashboards::deployment_dashboard (
   )
 
   file {
-    "${dashboard_directory}/deployment_${app_name}.json": content => template('grafana/dashboards/deployment_dashboard_template.json.erb');
+    "${dashboard_directory}/deployment_${app_name}.json":
+    notify  => Service['grafana-server'],
+    content => template('grafana/dashboards/deployment_dashboard_template.json.erb');
   }
 }
