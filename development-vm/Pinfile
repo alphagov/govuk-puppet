@@ -14,6 +14,7 @@ process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:'publishing-api', :rummager, :'collections-publisher-worker']
 process :'collections-publisher-worker'
+process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, 'asset-manager']
 process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq']
@@ -22,25 +23,13 @@ process :'content-store'
 process :'dummy-content-store'
 process :'content-tagger' => [:'publishing-api', :'content-tagger-sidekiq']
 process :'draft-content-store'
-process :'draft-government-frontend' => [
-  :'draft-content-store',
-  :'government-frontend',
-  :static
-]
-process :'draft-manuals-frontend' => [
-  :'draft-content-store',
-  :'manuals-frontend',
-  :static
-]
+process :'draft-government-frontend' => [:'government-frontend', :'draft-content-store', :'draft-static']
+process :'draft-manuals-frontend' => [:'manuals-frontend', :'draft-content-store', :'draft-static']
 process :'draft-router'
 process :'draft-router-api'
-process :'draft-specialist-frontend' => [
-  :'draft-content-store',
-  :'specialist-frontend',
-  :static
-]
+process :'draft-specialist-frontend' => [:'specialist-frontend', :'draft-content-store', :'draft-static']
 process :'draft-static'
-process :designprinciples => :static
+process :designprinciples => [:static]
 process :'email-alert-api'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
@@ -52,15 +41,14 @@ process :frontend => [:static, :contentapi, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static, :rummager]
 process :'govuk-delivery'
 process :'govuk-delivery-worker'
-process :'info-frontend' => [:static, :'metadata-api']
-process :imminence => [:mapit]
-process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
-process :'manuals-frontend' => [:static, :'content-store']
+process :imminence => [:mapit]
+process :'info-frontend' => [:static, :'metadata-api']
 process :licencefinder => [:static, :contentapi, :'content-store']
 process :'link-checker-api' => [:'link-checker-api-sidekiq']
 process :'link-checker-api-sidekiq'
 process :'local-links-manager' => [:'link-checker-api']
+process :'manuals-frontend' => [:static, :'content-store']
 process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
 process :maslow => :need_api
@@ -70,26 +58,25 @@ process :need_api
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
 process :publisher => [:'publishing-api', 'publisher-worker'] # for some requests also uses: mapit
-process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker' ]
+process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
 process :router
 process :'router-api'
-process :rummager => [:"publishing-api", :"rummager-sidekiq", :"rummager-publishing-listener"]
-process :"rummager-sidekiq"
-process :"rummager-publishing-listener"
+process :rummager => [:'publishing-api', :'rummager-sidekiq', :'rummager-publishing-listener']
+process :'rummager-sidekiq'
+process :'rummager-publishing-listener'
 process :screenshot_as_a_service
-process :'search-admin' => :rummager
+process :'search-admin' => [:rummager]
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api', :rummager]
 process :'share-sale-publisher' => ['asset-manager', :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
+process :'specialist-frontend' => [:static, :'content-store']
 process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
-process :'dfid-transition-worker' => [:'publishing-api', :rummager, 'asset-manager']
-process :'specialist-frontend' => [:static, :'content-store']
 process :spotlight
 process :stagecraft => [:backdrop_write]
 process :static
@@ -100,7 +87,8 @@ process :travel_advice_publisher => [:static, 'asset-manager', :'travel_advice_p
 process :travel_advice_publisher_worker
 process :whitehall => [:static, :'publishing-api', :rummager, :'whitehall-worker']
 
-# pseudo process to reflect what's needed for www.dev.gov.uk to work at all
+# pseudo processes to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
 # started, because always starting them all would kill the dev VM.
 process :www => :router
+process :'draft-origin' => :'draft-router'
