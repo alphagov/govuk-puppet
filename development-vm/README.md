@@ -1,276 +1,226 @@
-# Developing on GOV.UK Virtual Machines
+# Get started
 
-Welcome to GOV.UK. The following instructions show you how to get your
-development environment running.
 
-## 0. Context
+Welcome to GOV.UK.
 
-Our development environment is an Ubuntu virtual machine with a view
-to achieving [dev-prod parity][1]. By default, the steps below will
-set you up with a [VirtualBox][2] VM, managed and configured by
-[Vagrant][3]. If you feel strongly about using another piece of
-software (such as VMWare) for your development VM, you may find
-instructions for doing so [on the wiki][4].
+Follow the steps on this page to get your GDS development environment running with a [VirtualBox](https://www.virtualbox.org/) VM, managed and configured by [Vagrant](http://vagrantup.com/).
 
-Either way, you will need virtualisation enabled in your BIOS, otherwise it
-won't work. This tends to be enabled by default on Macs, but is worth
-checking for other manufacturers.
+> You'll need to use a Mac to follow this guide.
 
-[1]: http://www.12factor.net/dev-prod-parity
-[2]: https://www.virtualbox.org/
-[3]: http://vagrantup.com/
-[4]: https://github.com/alphagov/wiki/wiki
+It will take you roughly one day to do everything in this guide from start to finish. There are lots of things to download, and loads of installers need to do their thing.
 
-## 1. Prerequisites and assumptions
+> You'll need up to 50GB of free space on your hard-drive to run the whole of GOV.UK.
 
-  * You have [OSX GCC tools installed](https://github.com/kennethreitz/osx-gcc-installer) (or via XCode)
-  * You have [VirtualBox](https://www.virtualbox.org/) installed
-  * You have [Vagrant](https://www.vagrantup.com/downloads.html) installed
-  * you have vagrant-dns plugin installed ` vagrant plugin install vagrant-dns `
-  * You have an account on [GitHub.com](https://github.com)
-  * You have some other repositories from GOV.UK checked out to work on -
-    these should be located alongside the `govuk-puppet` repository we're in
-    now (e.g `~/govuk/govuk-puppet:~/govuk/frontend`)
+**Developing outside the VM**
 
-### A note on Boxen
+You don't have to develop on the VM, but we strongly recommend it. If you have problems with the development VM you can always ask for help in the #govuk-developers Slack channel.
 
-If you have a GDS issued laptop and you want to automate most of this,
-consider building your laptop using
-[GDS Boxen](https://github.com/alphagov/gds-boxen). Specifically
-you'll want these things:
+**Where you should run commands**
 
-    include vagrant
-    include virtualbox
-    vagrant::plugin { 'vagrant-dns': }
-    include projects::puppet
+Run `mac$` commands in the shell on your Mac:
 
-If your profile is based on
+    mac$ echo "Think Different"
 
-    include gds-development
+Run `dev$` commands in the shell on the development VM:
 
-then you will already have these, and will automatically get any
-improvements made in that module. This is the recommended approach.
+    dev$ echo "Linux for human beings"
 
-## 2. Booting your VM
+**If you run into problems**
 
-Assuming your Puppet code is checked out into:
+If you're having trouble with Vagrant or the development VM, there are [troubleshooting tips](https://docs.publishing.service.gov.uk/manual/troubleshooting-vagrant.html) in the dev manual. Of course you should also feel free to call on your colleagues or ask in the #govuk-developers channel in Slack.
 
-    ~/govuk/govuk-puppet
+## 1. Install some dependencies
 
-the following commands will bootstrap your VM:
+First, install:
 
-    cd ~/govuk/govuk-puppet/development-vm
-    ./bootstrap.sh
+* [OSX GCC tools](https://github.com/kennethreitz/osx-gcc-installer)
+* [VirtualBox](https://www.virtualbox.org/)
+* [Vagrant](https://www.vagrantup.com/downloads.html)
+* vagrant-dns plugin: `vagrant plugin install vagrant-dns`
 
-and follow the instructions. Your machine will be automatically
-provisioned so you shouldn't have to do anything once it's finished.
+## 2. Create your GitHub accounts
 
-Once your VM is running you should be able to SSH into it:
+1. Set up a [GitHub](https://www.github.com) account.
+1. Ask your tech lead to add you to the [alphagov organisation](https://github.com/alphagov).
+1. Set up a [GitHub Enterprise](https://github.gds) (private) account and ask to be added to the `gds` organisation.
+1. [Generate and register an SSH key pair](https://help.github.com/categories/56/articles) for your Mac for your GitHub account.
+1. Import the SSH key into your keychain. Once you’ve done this, it’ll be available to the VM you'll install in the next step.
 
-    vagrant ssh
+        mac$ /usr/bin/ssh-add -K yourkey
 
-and that's it. Now you can get to work!
+1. Test that it all works by running `ssh -T git@github.com`.
 
-## Extras
+## 3. Create a user in Integration and CI
 
-* Your VM comes pre-configured with an IP address. This is visible in
-  the [Vagrantfile](./Vagrantfile) (but currently defaults to `10.1.1.254`)
-* If you have < 8GB of RAM on your host machine, you will need to reduce the
-  RAM available to the VM. You can also add extra RAM if you require more.
-  You can do both of these things in a `Vagrantfile.localconfig` file in this
-  directory, which is automatically read by Vagrant (don't forget to run
-  `vagrant reload`!):
+User accounts in our Integration and CI environments are managed in the [govuk-puppet](https://github.com/alphagov/govuk-puppet) repository.
 
-        $ cat ./Vagrantfile.localconfig
-        config.vm.provider :virtualbox do |vm|
-          vm.customize [ "modifyvm", :id, "--memory", "1024", "--cpus", "2" ]
-        end
+    mac$ mkdir ~/govuk
+    mac$ cd ~/govuk
+    mac$ git clone git@github.com:alphagov/govuk-puppet.git
 
-* If you want to be able to SSH into your VM directly, consider using `vagrant
-  ssh` as it'll always do the right thing. If you need direct access (for
-  `rsync`, `scp` or similar), you'll need to manually configure your ssh
-  configuration: run `vagrant ssh-config --host dev` and paste the output into
-  your `~/.ssh/config`. It'll now be available to SSH into using `ssh dev`.
+To create a new account, start by creating an SSH key at least 4096 bits long. For example:
 
-* To re-run Puppet, just SSH into your VM and run `govuk_puppet`.
+    mac$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f ~/.ssh/alphagov
 
-* If for example you want to install ZSH, your default root password is `vagrant`.
-  (https://www.vagrantup.com/docs/boxes/base.html#root-password-quot-vagrant-quot)
+Now create a user manifest in `~/govuk/govuk-puppet/modules/users/manifests` with your username and the public key you just created. Your username should use the `firstnamelastname` format.
 
-## Troubleshooting
+Add the name of your manifest (your username) into the list of `users::usernames` in `hieradata/integration.yaml`.
 
-### Errors loading the Vagrantfile
+There's another bit of hieradata in `integration.yaml` for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your **GitHub Enterprise** username to this list.
 
-If you're encountering errors loading the `Vagrantfile`, check you're running the right version:
+Create a pull request with these changes. Once it has been reviewed by a member of the GOV.UK team, you can merge it and it will automatically deploy to the Integration environment. This will come in handy later.
 
-    vagrant --version
+## 4. Boot your VM
 
-if it reports a version below `1.3.x`, you're out of date. This can be
-verified by running `which rbenv`, which will likely report a path
-like `/opt/boxen/rbenv/shims/vagrant`.
+Run the VM bootstrap script:
 
-This means you're still running the old Gem installed version of
-Vagrant, which can be forcibly removed by running the following
-script (directly on the terminal):
+    mac$ cd govuk-puppet/development-vm
+    mac$ vagrant up
 
-```shell
-for version in `rbenv versions --bare`; do
-    rbenv local $version
-    gem uninstall vagrant
-    gem uninstall vagrant-dns
-done
-```
+This will take a little while, but it will throw up a question or two in your console so check back on it occassionally. Now might be a good time to scan through the [GOV.UK technology blog](https://gdstechnology.blog.gov.uk/category/gov-uk/) while Puppet runs.
 
-then run `rbenv rehash` to make sure all the Gem installed shims are
-removed from your `PATH`.
+Once your VM is running, you should be able to SSH into it with:
 
-### Permission denied (publickey).
+    mac$ vagrant ssh
 
-You need to forward your publickey to the vm. Run `ssh-add` from the host machine, then attempt to provision your machine again.
+> See the full command list by typing `vagrant --help`
 
-To confirm your key has been forwarded to the development vm you can run
+### Set your Git username and email
+
+You can assign your name and email to commits on the VM:
+
+    dev$ git config --global user.email "friendly.giraffe@digital.cabinet-office.gov.uk"
+    dev$ git config --global user.name "Friendly Giraffe"
+
+## 5. Set up your apps
+
+Begin by checking out all of the gov.uk services. There's a handy shortcut:
+
+    dev$ cd /var/govuk/govuk-puppet/development-vm
+    dev$ ./checkout-repos.sh < alphagov_repos
+
+Most of our apps are written in Ruby and use [Bundler](http://bundler.io/rationale.html) to manage their dependencies. To boot apps, you’ll also need to install those dependencies:
+
+    dev$ ./update-bundler.sh
+
+There are also some Python apps, which use [PIP](https://pip.pypa.io/en/stable/). You’ll probably need to install those dependencies too, so run:
+
+    dev$ ./update-pip.sh
+
+> `~/govuk/` on your host machine is mounted as `/var/govuk` inside the VM. Any app repositories you clone should go here.
+
+## 6. Access remote environments
+
+Your pull request from earlier will hopefully have been merged by now. It's time to test your access to servers via SSH.
+
+> If you're not in the office right now, you'll need to be connected to the Aviation House VPN for SSH access to Integration.
+
+While the applications are available directly via the public internet, SSH access to the environment is via a ‘jumpbox’. You’ll need to configure your machine to use this jumpbox, using this example SSH config file:
 
 ```
-vagrant ssh # ssh onto vm
-ssh-add -L  # list key and location on host machine
+Host *
+  UseRoaming no
+
+Host *.integration
+    IdentityFile ~/.ssh/alphagov
+    User $USERNAME
+
+# Integration
+# -------
+Host jumpbox.integration.publishing.service.gov.uk
+  ProxyCommand none
+
+Host *.integration.publishing.service.gov.uk
+  ProxyCommand ssh -e none %r@jumpbox.integration.publishing.service.gov.uk -W %h:%p
+
+Host jumpbox-1.management.integration
+  Hostname jumpbox.integration.publishing.service.gov.uk
+  ProxyCommand none
+
+Host jumpbox-2.management.integration
+  Hostname jumpbox.integration.publishing.service.gov.uk
+  Port     1022
+  ProxyCommand none
+
+Host *.integration
+  ProxyCommand ssh -e none %r@jumpbox-1.management.integration -W $(echo %h | sed 's/\.integration$//'):%p
 ```
 
-### Errors with NFS
+Copy that into the `~/.ssh/config` file on your mac, substituting your username for `$USERNAME`. You should then be able to ssh into any box in the Integration environment directly. Test that it works, by running:
 
-You're likely on the production VPN. Disconnect the VPN and `reload`
-your VM.
+    mac$ ssh backend-1.backend.integration
 
-#### Vagrant error :NFS is reporting that your exports file is invalid
-```
-==> default: Exporting NFS shared folders...
-NFS is reporting that your exports file is invalid. Vagrant does
-this check before making any changes to the file. Please correct
-the issues below and execute "vagrant reload":
+Next, create an ssh config file inside the VM with the same contents. You can choose whether to import your `alphagov` keypair to the VM or to use the built in key-forwarding. If you choose the latter, then remove the `IdentityFile` declaration. Test that you can reach Integration from your VM:
 
-exports:2: path contains non-directory or non-existent components: /Users/<username>/path/to/vagrant
-exports:2: no usable directories in export entry
-exports:2: using fallback (marked offline): /
-exports:5: path contains non-directory or non-existent components: /Users/<username>/path/to/vagrant
-exports:5: no usable directories in export entry
-exports:5: using fallback (marked offline): /
-```
+    dev$ ssh backend-1.backend.integration
 
-This means that you may already have old vagrant path definitions in your `/etc/exports` file.
+## 7. Import production data
 
-Try opening up `/etc/exports` file to identify old or unwanted vagrant paths and removing them if necessary
+Dumps are generated from production data in the early hours each day, and are then downloaded from integration.
 
-On opening `/etc/exports` file each set begins with # VAGRANT-BEGIN: and ends with # VAGRANT-END:. Make sure to delete these and any other lines between VAGRANT-BEGIN: and VAGRANT-END:
+> Databases will take a long time to download. They’ll also take up a lot of disk space (up to ~30GB uncompressed).
 
-or maybe
+To get production data on to your local VM, you’ll need to have either:
 
-```
-sudo rm /etc/exports
-sudo touch /etc/exports
+* access to integration
+* database exports from someone that does
 
-vagrant halt
-vagrant up
-```
+> The Licensify and Signon databases aren't synced out of production because of security concerns. Mapit's database is downloaded in the Mapit repo, so won’t be in the backups folder.
 
-### Errors installing vagrant-dns
+If you have integration access, you can import the latest data by running:
 
-Installing vagrant-dns with `vagrant plugin install vagrant-dns` against Vagrant 1.9 installed may give an error like:
+    dev$ cd /var/govuk/govuk-puppet/development-vm/replication
+    dev$ ./replicate-data-local.sh -u $USERNAME -F ../ssh_config
 
-```
-/opt/vagrant/embedded/lib/ruby/2.2.0/rubygems/dependency.rb:315:in `to_specs': Could not find 'celluloid' (>= 0.16.0) among 45 total gem(s) (Gem::LoadError)
-```
+> Downloading and installing database exports for every app on GOV.UK takes a bunch of compute resources and time.
 
-It looks like this might be a problem with Vagrant 1.9.0, because installing 1.8.6 fixes the problem. The issue has been raised with vagrant-dns, so they may have a better workaround: https://github.com/BerlinVagrant/vagrant-dns/issues/45
+If you don’t have integration access, ask someone to give you a copy of their dump. Then, from `govuk-puppet/development-vm/replication` run:
 
-### Errors with vagrant-dns having updated vagrant
+    dev$ ./replicate-data-local.sh -d path/to/dir -s
 
-If after updating vagrant, you get errors regarding vagrant-dns when provisioning the VM you will need to reinstall the vagrant-dns plugin:
+### If you’re running out of disk space
 
-    vagrant plugin uninstall vagrant-dns
-    vagrant plugin install vagrant-dns
+After replicating data a few times, your machine might be running low on disk space. This is because the old database dumps aren't cleaned up once newer ones have been downloaded. To solve this, you can periodically `rm -r` older directories in `govuk-puppet/development-vm/replication/backups`.
 
-You may also need to make sure the plugin has been started:
+## 8. Run your apps
 
-    vagrant dns --start
+You can run any of the GOV.UK apps from the `/var/govuk/govuk-puppet/development-vm` directory. You’ll first need to run `bundle install` in this folder to install the required gems.
 
-If you're having issues with your host machine resolving hosts, try purging and reinstalling the DNS config:
+Since many of our apps depend on other apps, we normally run them using [bowler](https://github.com/JordanHatch/bowler) instead of foreman.
 
-    vagrant dns --purge
-    vagrant dns --install
-    vagrant dns --start
+To run particular apps with bowler, use:
 
-In order to check if the plugin started correctly, you can run:
+    dev$ bowl content-tagger
 
-    ps aux | grep vagrant-dns
-    vagrant dns --start -o
+This will also run all of the dependencies defined in the Pinfile.
 
-If you're still having issues you can try to update the vagrant-dns plugin:
+If you don't need an optional dependency, you can pass the `-w` option:
 
-    vagrant plugin update vagrant-dns
+    dev$ bowl whitehall -w mapit
 
-### Errors fetching packages
+## 9. Keep your VM up to date
 
-GOV.UK have an apt repository at http://apt.publishing.service.gov.uk/ This is not accessible on the internet, so if you're trying to provision the virtual machine outside of the GDS office, you have a little bit of work to do. The prerequisites talk about needing an LDAP account to access GDS Github Enterprise, so you should have an account which lets you access the VPN.
+There are a few scripts that should be run regularly to keep your VM up to date. In `govuk-puppet/development-vm` there is `update-git.sh` and `update-bundler.sh` to help with this. Also, `govuk_puppet` should be run from anywhere on the VM regularly.
 
-1. [Install openconnect](https://github.com/alphagov/gds-boxen/blob/1ba02125e0/modules/people/manifests/jabley.pp#L31)
-2. [Connect to the Aviation House VPN](https://github.com/jabley/homedir/commit/2682f094024524cb7e31ca447694bdf81b1239a2)
-3. `vagrant provision` should now be able to download packages when running apt
+The following invocation will do all of this for you.
 
-You may also need to run `sudo apt-get update` if you get errors that look something like:
+    dev$ cd /var/govuk/govuk-puppet/development-vm
+    dev$ ./update-all.sh
 
-```
-E: Unable to locate package rbenv-ruby-2.4.0
-E: Couldn't find any package by regex 'rbenv-ruby-2.4.0'
-```
+This will run:
 
-### Errors running `govuk_puppet` on VM
+* `git pull` on each of the applications checked out in `/var/govuk`
+* `govuk_puppet` to bring the latest configuration to the dev VM
+* `bundle install` for each Ruby application to install any missing gems
+* `pip install` to update runtime dependencies for any python apps
 
-Generally, you might want to try `vagrant provision` on your host machine, which does the same thing as `govuk_puppet`, but in a more reliable fashion.
+## 10. Access the web frontend
 
-### Can't connect to Mongo
+Most GOV.UK web applications and services are available via the public internet, on the following forms of URL:
 
-This is probably happening because your VM didn't shut down cleanly. You should be running `vagrant halt` or `vagrant suspend` but if you had to kill your VM or restart your machine mongo won't be able to connect. You can fix this by deleting your `mongod.lock` and restarting mongodb.
+* [http://publisher.dev.gov.uk](http://publisher.dev.gov.uk) (local dev, requires the application to be running)
+* [https://www-origin.integration.publishing.service.gov.uk](https://www-origin.integration.publishing.service.gov.uk) (integration, HTTP basic auth)
+* [https://deploy.staging.publishing.service.gov.uk](https://deploy.staging.publishing.service.gov.uk) (staging, restricted to GDS office IP addresses)
+* [https://alert.publishing.service.gov.uk](https://alert.publishing.service.gov.uk) (production, restricted to GDS office IP addresses)
 
-```
-sudo rm /var/lib/mongodb/mongod.lock
-sudo service mongodb start
-```
-
-### Errors with Vagrant 1.8.7
-
-If you use Vagrant 1.8.7 you may have this problem:
-
-```
-➜  development-vm git:(master) vagrant up
-installing vagrant-dns plugin is recommended
-Bringing machine 'default' up with 'virtualbox' provider...
-==> default: Box 'govuk_dev_trusty64_20160323' could not be found. Attempting to find and install...
-    default: Box Provider: virtualbox
-    default: Box Version: >= 0
-==> default: Box file was not detected as metadata. Adding it directly...
-==> default: Adding box 'govuk_dev_trusty64_20160323' (v0) for provider: virtualbox
-    default: Downloading: https://govuk-dev-boxes-test.s3.amazonaws.com/govuk_dev_trusty64_20160323.box
-An error occurred while downloading the remote file. The error
-message, if any, is reproduced below. Please fix this error and try
-again.
-```
-
-it looks like a problem with this specific version of Vagrant. Using version 1.8.6 works instead: https://releases.hashicorp.com/vagrant/1.8.6/
-You can find more information about this issue here: https://github.com/mitchellh/vagrant/issues/8002
-
-#### `librarian:install` fails due to permission errors
-
-Seeing `chown` / `OperationNotPermitted` errors during the `librarian:install` rake task?
-
-Try `vagrant provision` on your host machine, as above.
-
-#### Hostname provisioning errors
-
-If you use Vagrant v1.8.x, you may encounter an error along these lines during provisioning:
-
-```
-Default: Setting hostname...
-/opt/vagrant/embedded/gems/gems/vagrant-1.8.1/plugins/guests/ubuntu/cap/change_host_name.rb:37:in `block in init_package': unexpected return (LocalJumpError)
-    from /opt/vagrant/embedded/gems/gems/vagrant-1.8.1/plugins/communicators/ssh/communicator.rb:222:in `call’
-```
-
-Updating to the latest version (v1.8.5+) might resolve this error. If not, try `sudo vim`ing (or `sudo nano`, whichever you prefer) into that file and removing the offending `return` line.
+The basic authentication username and password is widely known, so just ask somebody on your team if you don't know it.
