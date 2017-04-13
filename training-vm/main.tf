@@ -1,7 +1,7 @@
 variable "training_ssh_key_path" {}
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
-variable "instance_govuk-training_name" {
+variable "instance_govuk_training_name" {
   default = "govuk-training"
 }
 
@@ -34,7 +34,7 @@ resource "aws_instance" "govuk-training" {
   }
   user_data              = "${file("training_user_data.txt")}"
   tags {
-    Name = "${var.instance_govuk-training_name}"
+    Name = "${var.instance_govuk_training_name}"
   }
   provisioner "file" {
     source      = "provisioner"
@@ -48,5 +48,21 @@ resource "aws_instance" "govuk-training" {
 }
 
 output "ip" {
-  value = "${aws_instance.govuk-training.public_dns}"
+  value = "${aws_instance.govuk-training.public_ip}"
+}
+
+resource "aws_route53_record" "vm-1-a-record" {
+  zone_id = "${data.terraform_remote_state.govuk-training_vpc.route53_zone_id}",
+  name = "vm-1",
+  type = "A",
+  ttl = "300",
+  records = ["${aws_instance.govuk-training.public_ip}"]
+}
+
+resource "aws_route53_record" "wildcard-cname-record" {
+  zone_id = "${data.terraform_remote_state.govuk-training_vpc.route53_zone_id}",
+  name = "*",
+  type = "CNAME",
+  ttl = "3600",
+  records = ["vm-1"]
 }
