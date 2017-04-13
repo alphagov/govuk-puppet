@@ -38,3 +38,31 @@ resource "aws_instance" "govuk-training" {
 output "ip" {
   value = "${aws_instance.govuk-training.public_dns}"
 }
+
+// Configure DNS.
+// We need to delegate training.publising.service.gov.uk to the
+// NS servers this outputs.
+
+resource "aws_route53_zone" "training-zone" {
+  name = "training.publishing.service.gov.uk."
+}
+
+output "ns_servers" {
+  value = ["${aws_route53_zone.training-zone.name_servers.*}"],
+}
+
+resource "aws_route53_record" "vm-1-a-record" {
+  zone_id = "${aws_route53_zone.training-zone.zone_id}",
+  name = "vm-1",
+  type = "A",
+  ttl = "300",
+  records = ["${aws_instance.govuk-training.public_ip}"]
+}
+
+resource "aws_route53_record" "wildcard-cname-record" {
+  zone_id = "${aws_route53_zone.training-zone.zone_id}",
+  name = "*",
+  type = "CNAME",
+  ttl = "3600",
+  records = ["vm-1"]
+}
