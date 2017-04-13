@@ -1,8 +1,7 @@
-# Getting Started
+# Get started
+
 
 Welcome to GOV.UK.
-
-Our development environment is an Ubuntu virtual machine (VM). We aim to achieve [dev-prod parity](http://www.12factor.net/dev-prod-parity).
 
 Follow the steps on this page to get your GDS development environment running with a [VirtualBox](https://www.virtualbox.org/) VM, managed and configured by [Vagrant](http://vagrantup.com/).
 
@@ -25,6 +24,10 @@ Run `mac$` commands in the shell on your Mac:
 Run `dev$` commands in the shell on the development VM:
 
     dev$ echo "Linux for human beings"
+
+**If you run into problems**
+
+If you're having trouble with Vagrant or the development VM, there are [troubleshooting tips](https://docs.publishing.service.gov.uk/manual/troubleshooting-vagrant.html) in the dev manual. Of course you should also feel free to call on your colleagues or ask in the #govuk-developers channel in Slack.
 
 ## 1. Install some dependencies
 
@@ -221,7 +224,3 @@ Most GOV.UK web applications and services are available via the public internet,
 * [https://alert.publishing.service.gov.uk](https://alert.publishing.service.gov.uk) (production, restricted to GDS office IP addresses)
 
 The basic authentication username and password is widely known, so just ask somebody on your team if you don't know it.
-
-## 11. Troubleshooting
-
-If you're having trouble with Vagrant or the development VM, there are [troubleshooting tips](https://docs.publishing.service.gov.uk/manual.html) in the dev manual.
