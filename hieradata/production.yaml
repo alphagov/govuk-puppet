@@ -481,6 +481,7 @@ hosts::production::management::hosts:
     ip: '10.3.0.22'
     legacy_aliases:
       - "graphite.%{hiera('app_domain')}"
+      - "grafana.%{hiera('app_domain')}"
     service_aliases:
       - 'graphite'
   logs-cdn-1:
