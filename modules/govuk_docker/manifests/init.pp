@@ -6,6 +6,11 @@ class govuk_docker {
 
   include ::docker
 
+  package { 'ctop':
+    ensure   => 'present',
+    provider => pip,
+  }
+
   @@icinga::check { "check_dockerd_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!dockerd',
     service_description => 'dockerd running',
