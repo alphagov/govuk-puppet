@@ -8,13 +8,22 @@ provider "aws" {
   secret_key = "${var.aws_secret_access_key}"
 }
 
+data "terraform_remote_state" "govuk-training_vpc" {
+  backend = "s3"
+  config {
+    bucket = "govuk-terraform-state-integration"
+    key    = "terraform-training-environment.tfstate"
+    region = "eu-west-1"
+  }
+}
+
 resource "aws_instance" "govuk-training" {
   ami                    = "ami-a192bad2"
   instance_type          = "t2.xlarge"
   key_name               = "govuk-training-integration"
-  vpc_security_group_ids = ["sg-805389f9"]
-  subnet_id              = "subnet-74dbee10"
-  iam_instance_profile   = "govuk-training"
+  vpc_security_group_ids = ["${data.terraform_remote_state.govuk-training_vpc.public_security_group_ids}"]
+  subnet_id              = "${data.terraform_remote_state.govuk-training_vpc.public_subnet_ids}"
+  iam_instance_profile   = "${data.terraform_remote_state.govuk-training_vpc.govuk-training_instance_profile}"
   ebs_block_device {
     device_name = "/dev/sda1"
     volume_size = 100
