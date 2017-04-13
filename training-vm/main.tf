@@ -64,5 +64,5 @@ resource "aws_route53_record" "wildcard-cname-record" {
   name = "*",
   type = "CNAME",
   ttl = "3600",
-  records = ["vm-1"]
+  records = ["vm-1.training.publishing.service.gov.uk."]
 }

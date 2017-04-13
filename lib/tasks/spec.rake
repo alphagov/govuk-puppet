@@ -25,6 +25,7 @@ namespace :spec do
       base
       postgresql_base
       redis_base
+      training
       transition_postgresql_base
     )
 
