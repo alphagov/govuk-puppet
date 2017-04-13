@@ -123,4 +123,8 @@ class govuk::node::s_apt (
     content => template('govuk/node/s_apt/vhost.conf.erb'),
   }
 
+  # Manage our local Gemstash mirror. Deployed via a docker container
+  include ::govuk_docker
+  include ::govuk_containers::gemstash
+
 }

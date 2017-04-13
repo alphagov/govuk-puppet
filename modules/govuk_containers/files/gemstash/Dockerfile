@@ -1,7 +1,11 @@
 FROM alpine:3.3
-MAINTAINER  govuk-role-platform-accounts-members@digital.cabinet-office.gov.uk
+LABEL maintainer="govuk-role-platform-accounts-members@digital.cabinet-office.gov.uk" \
+      description="Runs a Gemstash server on top of Alpine" \
+      version="0.1.0"
 
-RUN apk add --no-cache --virtual .ruby-builddeps \
+RUN apk update \
+    # Things we need in order to build ruby
+    && apk add --no-cache --virtual .ruby-builddeps \
         autoconf \
         bison \
         bzip2 \
@@ -16,33 +20,33 @@ RUN apk add --no-cache --virtual .ruby-builddeps \
         libxml2-dev \
         libxslt-dev \
         linux-headers \
-        ncurses-dev \
         make \
+        ncurses-dev \
         openssl \
         openssl-dev \
         procps \
         readline-dev \
         ruby \
         tar \
+        xz \
         yaml-dev \
         zlib-dev \
-        xz \
-    &&\
-    apk add --no-cache --virtual .ruby-rundeps \
+    # Things we need to run the container
+    && apk add --no-cache --virtual .ruby-rundeps \
+        curl \
         ruby \
         ruby-dev \
         sqlite-dev \
-        curl \
-    ruby-io-console \
-    ruby-json \
-    &&\
-    gem install --no-ri --no-rdoc gemstash \
-    &&\
-    apk del .ruby-builddeps
+        ruby-io-console \
+        ruby-json \
+    # Get gemstash
+    && gem install --no-ri --no-rdoc gemstash \
+    # Clean up build dependencies
+    && apk del .ruby-builddeps
 
 EXPOSE 9292
 
-HEALTHCHECK --interval=15s --timeout=3s \
-  CMD curl -f http://localhost:9292/ || exit 1
+HEALTHCHECK --interval=15s --timeout=3s\
+        CMD curl -f http://localhost:9292/ || exit 1
 
-CMD ["/usr/bin/gemstash", "start", "--no-daemonize"]
+CMD ["gemstash", "start", "--no-daemonize"]
