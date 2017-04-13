@@ -192,7 +192,7 @@ class govuk::apps::whitehall(
       ",
     }
 
-    if $::govuk_node_class != 'development' or $::environment != 'development' {
+    if $::environment != 'development' {
       govuk::app::envvar::database_url { $app_name:
         type     => 'mysql2',
         username => $db_username,
@@ -345,7 +345,7 @@ class govuk::apps::whitehall(
         value   => $oauth_secret;
     }
 
-    if $::govuk_node_class != 'development' or $::environment != 'development' {
+    if $::environment != 'development' {
       govuk::app::envvar::database_url { $app_name:
         type     => 'mysql2',
         username => $admin_db_username,
