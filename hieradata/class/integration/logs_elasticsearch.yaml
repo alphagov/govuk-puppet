@@ -1,3 +1,17 @@
 ---
 
 govuk_elasticsearch::version: '1.5.2'
+
+lv:
+  data:
+    pv:
+        - '/dev/sdb1'
+    vg: 'elasticsearch'
+
+mount:
+  /mnt/elasticsearch:
+    disk: '/dev/mapper/elasticsearch-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 16
+    percent_threshold_critical: 11
