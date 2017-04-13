@@ -807,6 +807,8 @@ grafana::dashboards::deployment_applications:
     has_workers: true
   whitehall:
     has_workers: true
+    error_threshold: 50
+    warning_threshold: 25
 
 
 grub2::recordfail_timeout: 5

@@ -23,7 +23,7 @@
     "col": 1,
     "desc": true
   },
-  "span": 4,
+  "span": 6,
   "styles": [
     {
       "dateFormat": "YYYY-MM-DD HH:mm:ss",
@@ -31,28 +31,31 @@
       "type": "date"
     },
     {
-      "colorMode": null,
+      "colorMode": "cell",
       "colors": [
-        "rgba(245, 54, 54, 0.9)",
+        "rgba(50, 172, 45, 0.97)",
         "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
+        "rgba(245, 54, 54, 0.9)"
       ],
-      "decimals": 2,
+      "decimals": 0,
       "pattern": "/.*/",
-      "thresholds": [],
+      "thresholds": [
+        "<%= @warning_threshold %>",
+        "<%= @error_threshold %>"
+      ],
       "type": "number",
       "unit": "short"
     }
   ],
   "targets": [
     {
-      "refId": "A",
-      "target": "alias(hitcount(stats.govuk.app.<%= @app_name %>.all.deploys, '5m'), 'Deploys')",
+      "refId": "B",
+      "target": "alias(hitcount(stats.govuk.app.<%= @app_name %>.errbit.errors_occurred, '5m'), 'Errors')",
       "textEditor": true
     },
     {
-      "refId": "B",
-      "target": "alias(hitcount(stats.govuk.app.<%= @app_name %>.errbit.errors_occurred, '5m'), 'Errors')",
+      "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.<%= @app_name %>*.http_5xx), '5m'), '5XXs')",
+      "refId": "C",
       "textEditor": true
     }
   ],

@@ -21,12 +21,17 @@
 # [*has_workers*]
 #   Whether the application uses workers
 #
+# [*error_threshold*]
+#   Point at which count turns `red` in the error count table data
+#
 define grafana::dashboards::deployment_dashboard (
   $app_name = $title,
   $docs_name = $title,
   $dashboard_directory = undef,
   $app_domain = undef,
   $has_workers = false,
+  $error_threshold = 20,
+  $warning_threshold = 10,
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
@@ -37,7 +42,7 @@ define grafana::dashboards::deployment_dashboard (
   $panel_partials = concat(
     [
       ['processor_count', '5xx_rate'],
-      ['error_deploy_counts', 'recent_500_count', 'period_500_count', 'links']
+      ['error_counts_table', 'links']
     ],
     $worker_row,
     [
