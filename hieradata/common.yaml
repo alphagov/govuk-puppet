@@ -1180,6 +1180,7 @@ hosts::production::management::hosts:
     ip: '10.1.0.20'
     legacy_aliases:
       - 'monitoring'
+      - "grafana.%{hiera('app_domain')}"
     service_aliases:
       - 'alert'
       - 'monitoring'
@@ -1187,7 +1188,6 @@ hosts::production::management::hosts:
     ip: '10.1.0.22'
     legacy_aliases:
       - "graphite.%{hiera('app_domain')}"
-      - "grafana.%{hiera('app_domain')}"
     service_aliases:
       - 'graphite'
   logs-cdn-1:
