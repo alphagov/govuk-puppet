@@ -21,9 +21,16 @@ lv:
   data:
     pv: '/dev/sdb1'
     vg: 'jenkins'
+  docker:
+    pv: '/dev/sdc1'
+    vg: 'data'
 
 mount:
   /var/lib/jenkins:
     disk: '/dev/mapper/jenkins-data'
     govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/docker:
+    disk: '/dev/mapper/data-docker'
+    govuk_lvm: 'docker'
     mountoptions: 'defaults'
