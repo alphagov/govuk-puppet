@@ -750,36 +750,85 @@ grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
   asset-manager: {}
   business-support-api: {}
-  calculators: {}
+  calculators:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
   calendars: {}
   collections: {}
-  collections-publisher: {}
-  contacts-frontend: {}
-  content-performance-manager: {}
+  collections-publisher:
+    # Low usage
+    show_controller_errors: false
+    show_slow_requests: false
+  contacts-frontend:
+    # Missing data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
+  content-performance-manager:
+    # Missing duration, status, controller fields
+    show_controller_errors: false
+    show_slow_requests: false
   content-store: {}
   content-tagger:
     has_workers: true
   email-alert-api:
     has_workers: true
-  email-alert-frontend: {}
+  email-alert-frontend:
+    # Missing duration, status, controller fields
+    show_controller_errors: false
+    show_slow_requests: false
   feedback: {}
   finder-frontend: {}
-  frontend: {}
+  frontend:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
   government-frontend: {}
-  hmrc-manuals-api: {}
+  hmrc-manuals-api:
+    # Missing @fields.status
+    show_controller_errors: false
   imminence:
+    # Missing @fields.status
+    show_controller_errors: false
     has_workers: true
   info-frontend: {}
   licencefinder:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
     docs_name: 'licence-finder'
-  link-checker-api: {}
-  local-links-manager: {}
-  manuals-frontend: {}
-  manuals-publisher: {}
-  mapit: {}
-  maslow: {}
-  metadata-api: {}
-  multipage-frontend: {}
+  link-checker-api:
+    # Missing kibana logs with this name
+    show_controller_errors: false
+    show_slow_requests: false
+  local-links-manager:
+    # Missing status, duration, controller
+    show_controller_errors: false
+    show_slow_requests: false
+  manuals-frontend:
+    # Missing status, duration, controller
+    show_controller_errors: false
+    show_slow_requests: false
+  manuals-publisher:
+    # Very low usage
+    show_controller_errors: false
+    show_slow_requests: false
+  mapit:
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
+  maslow:
+    # Very low usage
+    show_controller_errors: false
+    show_slow_requests: false
+  metadata-api:
+    # status instead of @fields.status, missing duration, controller
+    show_controller_errors: false
+    show_slow_requests: false
+  multipage-frontend:
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
   publisher:
     has_workers: true
   publishing-api:
@@ -787,10 +836,19 @@ grafana::dashboards::deployment_applications:
   release: {}
   router-api: {}
   rummager:
+    # @fields.controller is blank and rummager is a sinatra app
+    show_controller_errors: false
+    show_slow_requests: false
     has_workers: true
-  search-admin: {}
+  search-admin:
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
   service-manual-frontend: {}
-  service-manual-publisher: {}
+  service-manual-publisher:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
   short-url-manager: {}
   signon:
     has_workers: true
@@ -802,6 +860,9 @@ grafana::dashboards::deployment_applications:
   support: {}
   support-api: {}
   transition:
+    # Status, duration, controller missing @fields.prefix
+    show_controller_errors: false
+    show_slow_requests: false
     has_workers: true
   travel-advice-publisher:
     has_workers: true
