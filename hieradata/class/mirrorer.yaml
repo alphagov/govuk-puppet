@@ -11,7 +11,9 @@ icinga::client::checks::disk_time_critical: 250 # milliseconds
 
 lv:
   worker:
-    pv: '/dev/sdb1'
+    pv:
+      - '/dev/sdb1'
+      - '/dev/sdc1'
     vg: 'crawler'
 
 mount:
