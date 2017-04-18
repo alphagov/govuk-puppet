@@ -36,6 +36,12 @@ class monitoring::checks::ses (
         provider => pip,
     }
 
+    file { '/etc/boto.cfg' :
+      ensure => present,
+      mode   => '0744',
+      source => 'puppet:///modules/monitoring/etc/boto.cfg'
+    }
+
     icinga::plugin { 'check_aws_quota':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
         require => Package['boto'],
