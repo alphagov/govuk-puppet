@@ -32,11 +32,29 @@ define grafana::dashboards::deployment_dashboard (
   $has_workers = false,
   $error_threshold = 20,
   $warning_threshold = 10,
+  $show_controller_errors = true,
+  $show_slow_requests = true
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
   } else {
     $worker_row = []
+  }
+
+  if $show_controller_errors {
+    $errors_by_controller_row = [
+      ['errors_by_controller_action']
+    ]
+  } else {
+    $errors_by_controller_row = []
+  }
+
+  if $show_slow_requests {
+    $duration_by_controller_row = [
+      ['response_times_by_controller']
+    ]
+  } else {
+    $duration_by_controller_row = []
   }
 
   $panel_partials = concat(
@@ -45,10 +63,8 @@ define grafana::dashboards::deployment_dashboard (
       ['error_counts_table', 'links']
     ],
     $worker_row,
-    [
-      ['errors_by_controller_action'],
-      ['response_times_by_controller']
-    ]
+    $errors_by_controller_row,
+    $duration_by_controller_row
   )
 
   file {
