@@ -98,7 +98,9 @@ class hosts::production (
   #router vdc machines
   class { 'hosts::production::router': }
 
-  # 3rd-party hosts
+  ## 3rd-party hosts
+
+  # This is used by licensing / licensify hosts
   host { 'gds01prod.aptosolutions.co.uk':
     ip => '185.40.10.139',
   }
