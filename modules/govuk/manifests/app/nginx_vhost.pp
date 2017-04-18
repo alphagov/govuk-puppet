@@ -94,11 +94,19 @@ define govuk::app::nginx_vhost (
     $nginx_extra_config_real = $nginx_extra_config
   }
 
+  # Force HTTP basic auth for the training environment, since it doesn't have
+  # the cache servers which do this in the integration environment
+  if $::govuk_node_class == 'training' {
+    $really_protected = true
+  } else {
+    $really_protected = $protected
+  }
+
   nginx::config::vhost::proxy { $vhost:
     ensure                         => $ensure,
     to                             => ["localhost:${app_port}"],
     aliases                        => $aliases,
-    protected                      => $protected,
+    protected                      => $really_protected,
     protected_location             => $protected_location,
     ssl_only                       => $ssl_only,
     extra_config                   => $nginx_extra_config_real,
