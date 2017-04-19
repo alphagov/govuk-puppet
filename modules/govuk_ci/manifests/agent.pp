@@ -4,9 +4,6 @@
 #
 # === Parameters:
 #
-# [*docker_enabled*]
-#   Set to true to install the Docker service on this agent. Defaults to true
-#
 # [*master_ssh_key*]
 #   The public SSH key of the CI master to enable SSH based agent builds
 #
@@ -14,15 +11,12 @@
 #   Boolean.  Allows the exclusion of the elasticsearch class.
 #
 class govuk_ci::agent(
-  $docker_enabled = true,
   $master_ssh_key = undef,
   $elasticsearch_enabled = true,
 ) {
   include ::clamav
   include ::govuk_ci::agent::redis
-  if $docker_enabled {
-    include ::govuk_ci::agent::docker
-  }
+  include ::govuk_ci::agent::docker
   if $elasticsearch_enabled {
     include ::govuk_ci::agent::elasticsearch
   }
