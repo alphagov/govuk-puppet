@@ -26,6 +26,10 @@ server {
     proxy_pass http://localhost:3081;
   }
 
+  location /dfid-transition {
+    proxy_pass http://localhost:3124;
+  }
+
   location /transition {
     proxy_pass http://localhost:3086;
   }
