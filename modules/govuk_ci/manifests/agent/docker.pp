@@ -7,7 +7,7 @@ class govuk_ci::agent::docker {
   Govuk_mount['/var/lib/docker'] ->
 
   # Jenkins user needs to be able to build and manage containers
-  class { '::docker':
+  class { '::govuk_docker':
     docker_users => ['jenkins'],
   }
 

@@ -2,9 +2,26 @@
 #
 # Install and run docker
 #
-class govuk_docker {
+# === Parameters:
+#
+# [*docker_users*]
+#   Specify an array of users to add to the docker group
+#   Default is empty
+#
+# [*version*]
+#   Pin a version to use
+#   Default is present
+#
+class govuk_docker (
+  $docker_users = [],
+  $version = 'present',
+){
+  validate_array($docker_users)
 
-  include ::docker
+  class { '::docker':
+    docker_users => $docker_users,
+    version      => $version,
+  }
 
   package { 'ctop':
     ensure   => 'present',
