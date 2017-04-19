@@ -447,6 +447,7 @@ hosts::production::management::hosts:
     ip: '10.2.0.75'
     service_aliases:
       - 'apt'
+      - 'gemstash'
   docker-management-1:
     ip: '10.2.0.80'
     service_aliases:

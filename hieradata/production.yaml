@@ -514,6 +514,7 @@ hosts::production::management::hosts:
       - "%{hiera('apt_mirror_hostname')}"
     service_aliases:
       - 'apt'
+      - 'gemstash'
   docker-management-1:
     ip: '10.3.0.80'
     service_aliases:
