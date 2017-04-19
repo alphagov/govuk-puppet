@@ -1,0 +1,71 @@
+---
+- scm:
+    name: Deploy_Training
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-puppet.git
+            branches:
+              - master
+            wipe-workspace: true
+            clean:
+                after: true
+
+- job:
+    name: Deploy_Training
+    display-name: Deploy_Training
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-puppet/
+    scm:
+      - Deploy_Training
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '${ENV,var="ACTION"} ${ENV,var="INSTANCE_NAME"}'
+        - credentials-binding:
+            - text:
+               credential-id: <%= @credential_id_govuk_ci_aws_access_key_id %>
+               variable: TF_VAR_aws_access_key_id
+            - text:
+               credential-id: <%= @credential_id_govuk_ci_aws_secret_access_key %>
+               variable: TF_VAR_aws_secret_access_key
+            - text:
+               credential-id: <%= @credential_id_govuk_ci_aws_access_key_id %>
+               variable: AWS_ACCESS_KEY_ID
+            - text:
+               credential-id: <%= @credential_id_govuk_ci_aws_secret_access_key %>
+               variable: AWS_SECRET_ACCESS_KEY
+            - file:
+               credential-id: <%= @credential_id_gpg_key_duplicity_integration %>
+               variable: GPG_KEY_DUPLICITY
+            - file:
+               credential-id: <%= @credential_id_gpg_key_duplicity_integration_passphrase %>
+               variable: GPG_KEY_PASSPHRASE
+            - file:
+               credential-id: <%= @credential_id_govuk_training_ssh_key %>
+               variable: TF_VAR_training_ssh_key_path
+    triggers:
+        - timed: 'H 4 * * 1'
+    builders:
+        - shell: |
+            cd training-vm
+            mkdir provisioner/.secrets
+            cp ${GPG_KEY_DUPLICITY} provisioner/.secrets/DA204134165653A8D32526FCDBAB06CD60D07A2C_secret_key.asc
+            cp ${GPG_KEY_PASSPHRASE} provisioner/.secrets/duplicity_passphrase
+            terraform remote config -backend=s3 -backend-config="acl=private" -backend-config="bucket=govuk-terraform-state-integration" -backend-config="encrypt=true" -backend-config="key=terraform-jenkins-Deploy_Training.tfstate" -backend-config="region=eu-west-1"
+            export TF_VAR_instance_govuk_training_name=${INSTANCE_NAME}
+            terraform ${ACTION} .
+    parameters:
+        - string:
+            name: INSTANCE_NAME
+            default: govuk-training
+            description: Set VM name tag
+        - choice:
+            name: ACTION
+            description: Choose whether to plan (default), apply or destroy
+            choices:
+                - plan
+                - apply
+                - destroy --force

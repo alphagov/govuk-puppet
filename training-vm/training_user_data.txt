@@ -1,0 +1,112 @@
+#!/bin/bash
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START POST-INSTALL"
+# Source DISTRIB_ env vars
+. /etc/lsb-release
+
+sudo sed -i '1 i\127.0.0.1 training.dev.gov.uk training' /etc/hosts
+sudo hostname training
+sudo domainname dev.gov.uk
+sudo echo "training" > /etc/hostname
+
+# Know when this box was created
+date > ~/vagrant_box_build_time
+
+# Clean out old partial lists
+sudo rm -rf /var/lib/apt/lists/*
+# Get a clean list of packages
+sudo apt-get update -qq
+# Upgrade to the latest packages
+sudo apt-get -y upgrade
+
+# Install packages we need
+if [ "${DISTRIB_CODENAME}" = "xenial" ]; then
+  sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev git-core moreutils dkms nfs-common ruby ruby-dev libruby python-software-properties virt-what dbus
+else
+  sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev git-core moreutils dkms nfs-common ruby1.9.1 ruby1.9.1-dev libruby1.9.1 python-software-properties virt-what
+fi
+
+# Add GOV.UK PPA for Hiera eYAML GPG package
+if [ "${DISTRIB_CODENAME}" != "xenial" ]; then
+  sudo echo "deb [arch=amd64] http://apt.publishing.service.gov.uk/govuk/ppa/production ${DISTRIB_CODENAME} main" >> /etc/apt/sources.list.d/govuk-ppa.list
+  sudo apt-key adv --recv-keys --keyserver keys.gnupg.net 37E3ACBB
+fi
+
+# Install Puppet
+sudo adduser --system --group --home /var/lib/puppet puppet
+TMPFILE=$(mktemp)
+# The pc1 release that Puppetlabs supply for versions other than Xenial do not
+# supply the version of Puppet we need.
+if [ "${DISTRIB_CODENAME}" = "xenial" ]; then
+  wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-pc1-${DISTRIB_CODENAME}.deb
+else
+  wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODENAME}.deb
+fi
+
+sudo dpkg -i ${TMPFILE}
+rm ${TMPFILE}
+sudo apt-get update -qq
+
+if [ "${DISTRIB_CODENAME}" = "xenial" ]; then
+  sudo apt-get install -y puppet='3.8.5*' puppet-common='3.8.5*' facter hiera-eyaml ruby-gpgme
+  # this isn't available as a debian package, but works alongside the packages we install
+  sudo gem install hiera-eyaml-gpg --no-ri --no-rdoc
+else
+  sudo apt-get install -y puppet='3.8.5*' puppet-common='3.8.5*' facter='2.0.2*' ruby-hiera-eyaml-gpg
+
+  # Make sure our ruby is 1.9.3p0 again after Puppet has required ruby1.8
+  sudo update-alternatives --set ruby /usr/bin/ruby1.9.1
+fi
+
+sudo locale-gen "en_GB.UTF-8"
+sudo dpkg-reconfigure locales
+
+# Install AWS CLI
+sudo apt-get install -y awscli
+
+# Remove items used for building, since they aren't needed anymore
+sudo apt-get -y autoremove
+sudo apt-get clean
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END POST-INSTALL"
+echo
+
+if [[ ! -d /home/ubuntu/provisioner ]]
+then
+  echo "[$(date '+%H:%M:%S %d-%m-%Y')] ERROR /home/ubuntu/provisioner directory does not exist"
+  exit
+else
+  chmod +x /home/ubuntu/provisioner/*.sh
+fi
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHECKOUT REPOSITORIES"
+sudo mkdir -p /var/govuk
+sudo DEPLOYED_TO_PRODUCTION=true /home/ubuntu/provisioner/checkout-repos.sh -d /var/govuk /home/ubuntu/provisioner/alphagov_repos
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHECKOUT REPOSITORIES"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PUPPET-APPLY"
+sudo NO_GIT_PULL=1 /var/govuk/govuk-puppet/tools/puppet-apply-dev
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PUPPET-APPLY"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RESTORE DATABASES"
+sudo -i -u root gpg --allow-secret-key-import --import $(ls -tr1 /home/ubuntu/provisioner/.secrets/*_secret_key.asc | tail -1)
+sudo -i -u root /home/ubuntu/provisioner/restore-backups.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START UPDATE BUNDLER"
+sudo /var/govuk/govuk-puppet/development-vm/update-bundler.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
+sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RUN UPSTART APPS"
+sudo /home/ubuntu/provisioner/start-training-environment.sh < /home/ubuntu/provisioner/alphagov_apps
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RUN UPSTART APPS"
+echo
