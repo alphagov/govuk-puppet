@@ -29,6 +29,11 @@ govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: true
 govuk::apps::stagecraft::celerycam::enabled: true
 
+# An example configuration for env vars
+govuk_containers::apps::release::envvars:
+  DATABASE: 'password'
+  BLUE: 'green'
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
 govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
