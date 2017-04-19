@@ -109,6 +109,7 @@ def buildProject(options = [:]) {
     }
 
     stage("Configure environment") {
+      setEnvar("DISABLE_DATABASE_ENVIRONMENT_CHECK", "1")
       setEnvar("RAILS_ENV", "test")
       setEnvar("RACK_ENV", "test")
       setEnvar("DISPLAY", ":99")
