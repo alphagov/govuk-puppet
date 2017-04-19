@@ -249,6 +249,10 @@ hosts::production::backend::hosts:
     ip: '10.2.3.101'
   backend-lb-2:
     ip: '10.2.3.102'
+  docker-backend-1:
+    ip: '10.2.3.111'
+  docker-backend-2:
+    ip: '10.2.3.112'
   elasticsearch-1:
     ip: '10.2.3.15'
   elasticsearch-2:
