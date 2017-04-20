@@ -15,7 +15,7 @@
 #   An array of local ports to map in the format of ['1234:1234'].
 #
 # [*envvars*]
-#   A hash of environment variables to start the container with.
+#   An array of environment variables to start the container with.
 #
 # [*command*]
 #   A command to start the container with.
@@ -28,13 +28,13 @@ define govuk_containers::app (
   $image,
   $image_tag,
   $port,
-  $envvars = {},
+  $envvars = [],
   $command = undef,
   $restart_attempts = 3,
 ) {
   require ::govuk_docker
 
-  validate_hash($envvars) # These are converted to an array in the upstream module
+  validate_array($envvars)
   validate_re($restart_attempts, [ 'never', 'always', '^\d$' ])
 
   $exposed_port = "${port}:${port}"

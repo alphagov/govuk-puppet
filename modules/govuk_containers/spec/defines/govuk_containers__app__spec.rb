@@ -30,7 +30,7 @@ describe 'govuk_containers::app', :type => :define do
   context 'setting environment variables' do
     let(:params) do
       {
-        :envvars => { 'cheese' => 'milk', 'wheat' => 'bread' },
+        :envvars => [ 'cheese=milk', 'wheat=bread' ],
       }.merge(default_params)
     end
 
@@ -38,7 +38,7 @@ describe 'govuk_containers::app', :type => :define do
       is_expected.to contain_docker__run('bella').with(
         'image' => 'cat:v1',
         'ports' => '1234:1234',
-        'env' => {"cheese"=>"milk", "wheat"=>"bread"},
+        'env' => [ 'cheese=milk', 'wheat=bread' ],
         'extra_parameters' => '--restart=on-failure:3',
       )
     end
