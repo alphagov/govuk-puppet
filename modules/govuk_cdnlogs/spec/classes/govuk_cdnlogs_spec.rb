@@ -122,7 +122,7 @@ ruleset\(name="cdn-giraffe"\) \{
         it 'should rotate the elephant logs hourly' do
           is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
             .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
-            .with_content(/rotate 720/)
+            .with_content(/maxage 30/)
         end
       end
     end
