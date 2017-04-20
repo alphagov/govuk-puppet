@@ -18,6 +18,7 @@ script:
   - bundle exec rake lint
   - bundle exec rake all_but_lint
 matrix:
+  fast_finish: true
   allow_failures:
     - env: PUPPET_RSPEC_STRICT_VARIABLES=1
     - env: PUPPET_RSPEC_FUTURE_PARSER=1
