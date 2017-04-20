@@ -47,7 +47,7 @@
                credential-id: <%= @credential_id_govuk_training_ssh_key %>
                variable: TF_VAR_training_ssh_key_path
     triggers:
-        - timed: 'H 4 * * 1'
+        - parameterized-timer: 'H 4 * * 1 % ACTION=apply'
     builders:
         - shell: |
             cd training-vm
