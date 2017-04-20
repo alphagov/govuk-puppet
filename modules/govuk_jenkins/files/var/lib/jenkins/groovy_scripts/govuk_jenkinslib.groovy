@@ -63,6 +63,8 @@
  *          project. This will run instead of the default `bundle exec rake`
  *        - afterTest A closure containing commands to run after the test stage,
  *          such as report publishing
+ *        - newStyleDockerTags. Tag docker images with timestamp and git SHA
+ *          rather than the default of the build number
  */
 def buildProject(options = [:]) {
 
@@ -224,7 +226,14 @@ def buildProject(options = [:]) {
 
         if (hasDockerfile()) {
           stage("Tag Docker image") {
-            pushDockerImage(repoName, env.BRANCH_NAME, "release_${env.BUILD_NUMBER}")
+            if (options.newStyleDockerTags) {
+              gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+              timestamp = sh(returnStdout: true, script: 'date +%s')
+              dockerTag = "release_${timestamp}_${gitCommit}"
+            } else {
+              dockerTag = "release_${env.BUILD_NUMBER}"
+            }
+            pushDockerImage(repoName, env.BRANCH_NAME, dockerTag)
           }
         }
 
