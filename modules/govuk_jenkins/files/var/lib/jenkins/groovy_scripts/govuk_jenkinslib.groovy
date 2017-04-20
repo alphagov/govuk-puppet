@@ -128,12 +128,6 @@ def buildProject(options = [:]) {
       }
     }
 
-    if (hasDockerfile()) {
-      stage("Build Docker image") {
-        buildDockerImage(repoName, env.BRANCH_NAME)
-      }
-    }
-
     if (hasLint()) {
       stage("Lint Ruby") {
         rubyLinter("app lib spec test")
@@ -148,6 +142,12 @@ def buildProject(options = [:]) {
       }
     } else {
       echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
+    }
+
+    if (hasDockerfile()) {
+      stage("Build Docker image") {
+        buildDockerImage(repoName, env.BRANCH_NAME)
+      }
     }
 
     if (hasTestOptions && options.beforeTest) {
