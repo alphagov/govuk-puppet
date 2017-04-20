@@ -13,4 +13,15 @@ class govuk_ci::agent::docker {
 
   include ::docker::compose
 
+  cron::crondotdee { 'remove_docker_dangling_images' :
+    hour    => 10,
+    minute  => 0,
+    command => 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)',
+  }
+
+  cron::crondotdee { 'remove_docker_dangling_volumes' :
+    hour    => 10,
+    minute  => 2,
+    command => 'docker volume rm $(docker volume ls -qf dangling=true)',
+  }
 }
