@@ -4,9 +4,9 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] START POST-INSTALL"
 # Source DISTRIB_ env vars
 . /etc/lsb-release
 
-sudo sed -i '1 i\127.0.0.1 training.dev.gov.uk training' /etc/hosts
+sudo sed -i '1 i\127.0.0.1 training.publishing.service.gov.uk training' /etc/hosts
 sudo hostname training
-sudo domainname dev.gov.uk
+sudo domainname publishing.service.gov.uk
 sudo echo "training" > /etc/hostname
 
 # Know when this box was created

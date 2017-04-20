@@ -1,3 +1,17 @@
+---
+
+app_domain: 'training.publishing.service.gov.uk'
+
+govuk::deploy::config::asset_root: 'https://assets-origin.training.publishing.service.gov.uk'
+govuk::deploy::config::website_root: 'https://www.training.publishing.service.gov.uk'
+
+govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-frontend.training.publishing.service.gov.uk'
+govuk::apps::government_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
+govuk::apps::manuals_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
+govuk::apps::publishing_api::content_store: 'http://content-store.training.publishing.service.gov.uk'
+govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
+govuk::apps::specialist_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
+
 users::usernames:
   - alecgibson
   - alexmuller
@@ -66,5 +80,3 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomgladhill
-
-
