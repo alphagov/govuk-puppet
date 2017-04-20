@@ -14,3 +14,10 @@ chmod u=wr,go=r latest.tbz2
 
 # Log the time we finished
 logger -t autopostgresqlbackup autopostgresqlbackup finished
+
+# Remove lock file after backup has finished regardless of the status
+function remove_lock {
+  /bin/rm -f /etc/unattended-reboot/no-reboot/autopostgresqlbackup.lock
+}
+
+trap remove_lock EXIT
