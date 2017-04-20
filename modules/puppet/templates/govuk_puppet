@@ -85,6 +85,9 @@ exit 0
 
 ###############################
 
+# Ensure the lock directory exists
+test -d $lock_dir || mkdir -p $lock_dir
+
 write_lock() {
   local lock_file="${lock_dir}/${lock_name}.lock"
   local time_stamp=$(date +%Y%m%d-%H%M%S)
