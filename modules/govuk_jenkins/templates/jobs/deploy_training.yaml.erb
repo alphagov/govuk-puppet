@@ -47,7 +47,7 @@
                credential-id: <%= @credential_id_govuk_training_ssh_key %>
                variable: TF_VAR_training_ssh_key_path
     triggers:
-        - parameterized-timer: 'H 4 * * 1 % ACTION=apply'
+        - timed: 'H 4 * * 1'
     builders:
         - shell: |
             cd training-vm
@@ -55,17 +55,17 @@
             cp ${GPG_KEY_DUPLICITY} provisioner/.secrets/DA204134165653A8D32526FCDBAB06CD60D07A2C_secret_key.asc
             cp ${GPG_KEY_PASSPHRASE} provisioner/.secrets/duplicity_passphrase
             terraform remote config -backend=s3 -backend-config="acl=private" -backend-config="bucket=govuk-terraform-state-integration" -backend-config="encrypt=true" -backend-config="key=terraform-jenkins-Deploy_Training.tfstate" -backend-config="region=eu-west-1"
+            if [[ -z ${INSTANCE_NAME} ]] ; then INSTANCE_NAME=govuk-training-$(date '+%Y%m%d') ; fi
             export TF_VAR_instance_govuk_training_name=${INSTANCE_NAME}
             terraform ${ACTION} .
     parameters:
         - string:
             name: INSTANCE_NAME
-            default: govuk-training
-            description: Set VM name tag
+            description: AWS instance name tag. If this parameter is empty, the builder uses govuk-training-YYYYMMDD
         - choice:
             name: ACTION
-            description: Choose whether to plan (default), apply or destroy
+            description: Choose whether to plan, apply (default) or destroy
             choices:
-                - plan
                 - apply
+                - plan
                 - destroy --force
