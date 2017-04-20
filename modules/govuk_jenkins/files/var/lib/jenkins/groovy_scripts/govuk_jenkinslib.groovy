@@ -34,6 +34,23 @@
  * }
  * ```
  *
+ * If you need to run tests using a command other than the default rake task
+ * you can do this by specifying the `overrideTestTask` option:
+ *
+ * ```groovy
+ * #!/usr/bin/env groovy
+ *
+ * node {
+ *   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
+ *
+ *   govuk.buildProject(overrideTestTask: {
+ *     stage("Run custom tests") {
+ *       govuk.runRakeTask("super-special-tests")
+ *     }
+ *   })
+ * }
+ *```
+ *
  * @param options Map of build options:
  *        - sassLint Whether or not to run the SASS linter. Default: true
  *        - extraRubyVersions Ruby versions to run the tests against in
