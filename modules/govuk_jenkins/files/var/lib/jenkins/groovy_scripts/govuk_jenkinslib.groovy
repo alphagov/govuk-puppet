@@ -128,6 +128,12 @@ def buildProject(options = [:]) {
       }
     }
 
+    if (hasDockerfile()) {
+      stage("Build Docker image") {
+        buildDockerImage(repoName, env.BRANCH_NAME)
+      }
+    }
+
     if (hasLint()) {
       stage("Lint Ruby") {
         rubyLinter("app lib spec test")
@@ -183,6 +189,12 @@ def buildProject(options = [:]) {
       }
     }
 
+    if (hasDockerfile()) {
+      stage("Push Docker image") {
+        pushDockerImage(repoName, env.BRANCH_NAME)
+      }
+    }
+
     if (env.BRANCH_NAME == "master") {
       if (isGem()) {
         stage("Publish Gem to Rubygems") {
@@ -191,6 +203,12 @@ def buildProject(options = [:]) {
       } else {
         stage("Push release tag") {
           pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+        }
+
+        if (hasDockerfile()) {
+          stage("Tag Docker image") {
+            pushDockerImage(repoName, env.BRANCH_NAME, "release_${env.BUILD_NUMBER}")
+          }
         }
 
         stage("Deploy to integration") {
@@ -638,6 +656,20 @@ def isGem() {
  */
 def hasDatabase() {
   sh(script: "test -e config/database.yml", returnStatus: true) == 0
+}
+
+def hasDockerfile() {
+  sh(script: "test -e Dockerfile", returnStatus: true) == 0
+}
+
+def buildDockerImage(imageName, tagName) {
+  docker.build("govuk/${imageName}:${tagName}")
+}
+
+def pushDockerImage(imageName, tagName, asTag = null) {
+  docker.withRegistry('https://index.docker.io/v1/', 'govukci-docker-hub') {
+    docker.image("govuk/${imageName}:${tagName}").push(asTag ?: tagName)
+  }
 }
 
 /**
