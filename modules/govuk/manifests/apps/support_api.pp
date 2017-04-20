@@ -132,7 +132,7 @@ class govuk::apps::support_api(
     }
   }
 
-  if $::govuk_node_class != 'development' {
+  if $::govuk_node_class !~ /^(development|training)$/ {
     govuk::app::envvar::database_url { $app_name:
       type     => 'postgresql',
       username => $db_username,

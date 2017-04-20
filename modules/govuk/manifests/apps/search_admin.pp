@@ -82,7 +82,7 @@ class govuk::apps::search_admin(
     }
   }
 
-  if $::govuk_node_class != 'development' {
+  if $::govuk_node_class !~ /^(development|training)$/ {
     govuk::app::envvar::database_url { $app_name:
       type     => 'mysql2',
       username => $db_username,
