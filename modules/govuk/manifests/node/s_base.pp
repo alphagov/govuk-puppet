@@ -57,7 +57,7 @@ class govuk::node::s_base (
   }
 
   rsyslog::snippet { 'aaa-disable-remote-audispd':
-    content => ':programname, isequal, "audispd"  ~',
+    content => ':programname, isequal, "audispd"  stop',
   }
 
   rsyslog::snippet { 'aaa-local3-for-govuk-apps':

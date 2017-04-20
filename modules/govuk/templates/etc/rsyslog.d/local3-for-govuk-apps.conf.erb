@@ -3,5 +3,5 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 $template local3_program,"/var/log/govuk/%programname%.log"
 
 :syslogfacility-text, isequal, "local3" ?local3_program
-& ~
-# Adding & ~ makes sure log message is not passed to any further rule
+& stop
+# Adding '& stop' makes sure log message is not passed to any further rule
