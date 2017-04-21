@@ -3,6 +3,11 @@ HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
 
+apt::pin:
+  'systemd':
+    priority: '-1'
+    originator: ''
+
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
 # need to add an empty hash
