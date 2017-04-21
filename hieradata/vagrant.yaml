@@ -43,6 +43,11 @@ govuk_containers::apps::release::envvars:
   - "DATABASE=password"
   - "BLUE=green"
 
+govuk_containers::frontend::haproxy::backend_mappings:
+  - "release.%{hiera('app_domain')}": "release"
+govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
+govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard_publishing_key')}"
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
 govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
