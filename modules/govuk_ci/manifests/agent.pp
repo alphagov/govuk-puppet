@@ -50,11 +50,6 @@ class govuk_ci::agent(
     require => Class['::govuk_jenkins::user'],
   }
 
-  # FIXME: set the package to absent when/if the agents are connecting over SSH
-  service { 'jenkins-agent':
-    ensure => 'stopped',
-  }
-
   package { 'libgdal-dev': # needed for mapit
     ensure => installed,
   }
