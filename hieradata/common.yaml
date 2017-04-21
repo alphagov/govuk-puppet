@@ -1132,8 +1132,6 @@ hosts::production::ci::hosts:
     ip: '10.1.6.24'
   ci-agent-5:
     ip: '10.1.6.25'
-  ci-agent-6:
-    ip: '10.1.6.26'
 
 hosts::production::frontend::hosts:
   calculators-frontend-1:
