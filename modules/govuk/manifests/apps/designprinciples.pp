@@ -23,6 +23,7 @@ class govuk::apps::designprinciples(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'designprinciples',
+    repo_name             => 'design-principles',
   }
 
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":

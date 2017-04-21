@@ -1,6 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define govuk::app::package (
   $vhost_full,
+  $repo_name = $title,
   $ensure = 'present',
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
@@ -57,7 +58,7 @@ define govuk::app::package (
   } else {
     file { "/var/apps/${title}":
       ensure => $ensure_link,
-      target => "/var/govuk/${title}";
+      target => "/var/govuk/${repo_name}";
     }
   }
 

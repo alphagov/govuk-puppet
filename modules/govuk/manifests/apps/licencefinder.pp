@@ -43,6 +43,7 @@ class govuk::apps::licencefinder(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'licencefinder',
+    repo_name             => 'licence-finder',
   }
 
   if $errbit_api_key {

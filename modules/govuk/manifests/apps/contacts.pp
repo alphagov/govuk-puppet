@@ -101,6 +101,7 @@ class govuk::apps::contacts(
       asset_pipeline        => true,
       asset_pipeline_prefix => 'contacts-assets',
       vhost_aliases         => $extra_aliases,
+      repo_name             => 'contacts-admin',
       nginx_extra_config    => '
         # Don\'t ask for basic auth on SSO API pages so we can sync
         # permissions.
