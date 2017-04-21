@@ -66,22 +66,9 @@
  *        - newStyleDockerTags. Tag docker images with timestamp and git SHA
  *          rather than the default of the build number
  */
-def buildProject(options = [:]) {
+def buildProject(Map options = [:]) {
 
   repoName = JOB_NAME.split('/')[0]
-
-  // TODO: Simplify these initialization steps when no Jenkinsfile calls
-  // buildProject with a boolean parameter
-  def sassLint = true
-  if (options.getClass() == Boolean) {
-    sassLint = options
-  } else if (options.sassLint != null) {
-    sassLint = options.sassLint
-  }
-  // Assume that the parameter is a Map if it is not a boolean. We cannot
-  // Simplify call `options instanceof Map` because `instanceof` is blocked by
-  // the Jenkins security plugin
-  def hasOtherOptions = options.getClass() != Boolean
 
   properties([
     buildDiscarder(
@@ -155,7 +142,7 @@ def buildProject(options = [:]) {
       echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
     }
 
-    if (hasAssets() && hasLint() && sassLint) {
+    if (hasAssets() && hasLint() && options.sassLint) {
       stage("Lint SASS") {
         sassLinter()
       }
@@ -169,7 +156,7 @@ def buildProject(options = [:]) {
       }
     }
 
-    if (hasOtherOptions && options.beforeTest) {
+    if (options.beforeTest) {
       echo "Running pre-test tasks"
       options.beforeTest.call()
     }
@@ -182,7 +169,7 @@ def buildProject(options = [:]) {
         }
       }
 
-      if (hasOtherOptions && options.overrideTestTask) {
+      if (options.overrideTestTask) {
         echo "Running custom test task"
         options.overrideTestTask.call()
       } else {
@@ -197,7 +184,7 @@ def buildProject(options = [:]) {
       }
     }
 
-    if (hasOtherOptions && options.afterTest) {
+    if (options.afterTest) {
       echo "Running post-test tasks"
       options.afterTest.call()
     }
