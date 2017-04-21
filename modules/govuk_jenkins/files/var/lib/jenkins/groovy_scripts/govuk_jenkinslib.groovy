@@ -228,7 +228,7 @@ def buildProject(options = [:]) {
           stage("Tag Docker image") {
             if (options.newStyleDockerTags) {
               gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-              timestamp = sh(returnStdout: true, script: 'date +%s')
+              timestamp = sh(returnStdout: true, script: 'date +%s').trim()
               dockerTag = "release_${timestamp}_${gitCommit}"
             } else {
               dockerTag = "release_${env.BUILD_NUMBER}"
