@@ -81,7 +81,7 @@ def buildProject(options = [:]) {
   // Assume that the parameter is a Map if it is not a boolean. We cannot
   // Simplify call `options instanceof Map` because `instanceof` is blocked by
   // the Jenkins security plugin
-  def hasTestOptions = options.getClass() != Boolean
+  def hasOtherOptions = options.getClass() != Boolean
 
   properties([
     buildDiscarder(
@@ -169,7 +169,7 @@ def buildProject(options = [:]) {
       }
     }
 
-    if (hasTestOptions && options.beforeTest) {
+    if (hasOtherOptions && options.beforeTest) {
       echo "Running pre-test tasks"
       options.beforeTest.call()
     }
@@ -182,7 +182,7 @@ def buildProject(options = [:]) {
         }
       }
 
-      if (hasTestOptions && options.overrideTestTask) {
+      if (hasOtherOptions && options.overrideTestTask) {
         echo "Running custom test task"
         options.overrideTestTask.call()
       } else {
@@ -197,7 +197,7 @@ def buildProject(options = [:]) {
       }
     }
 
-    if (hasTestOptions && options.afterTest) {
+    if (hasOtherOptions && options.afterTest) {
       echo "Running post-test tasks"
       options.afterTest.call()
     }
@@ -226,13 +226,9 @@ def buildProject(options = [:]) {
 
         if (hasDockerfile()) {
           stage("Tag Docker image") {
-            if (options.newStyleDockerTags) {
-              gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
-              timestamp = sh(returnStdout: true, script: 'date +%s')
-              dockerTag = "release_${timestamp}_${gitCommit}"
-            } else {
-              dockerTag = "release_${env.BUILD_NUMBER}"
-            }
+            dockerTag = options.newStyleDockerTags ?
+                        getNewStyleDockerTag() :
+                        "release_${env.BUILD_NUMBER}"
             pushDockerImage(repoName, env.BRANCH_NAME, dockerTag)
           }
         }
@@ -378,14 +374,18 @@ def isAllowedBranchBuild(
   return true
 }
 
+def getGitCommit() {
+  return sh(
+      script: 'git rev-parse --short HEAD',
+      returnStdout: true
+  ).trim()
+}
+
 /**
  * Sets the current git commit in the env. Used by the linter
  */
 def setEnvGitCommit() {
-  env.GIT_COMMIT = sh(
-      script: 'git rev-parse --short HEAD',
-      returnStdout: true
-  ).trim()
+  env.GIT_COMMIT = getGitCommit()
 }
 
 /**
@@ -692,10 +692,24 @@ def buildDockerImage(imageName, tagName) {
   docker.build("govuk/${imageName}:${tagName}")
 }
 
+
+/*
+ * Push the image to the govuk docker hub and tag it. If `asTag` is set then
+ * the image is also tagged with that value otherwise the `tagName` is used.
+ */
 def pushDockerImage(imageName, tagName, asTag = null) {
   docker.withRegistry('https://index.docker.io/v1/', 'govukci-docker-hub') {
     docker.image("govuk/${imageName}:${tagName}").push(asTag ?: tagName)
   }
+}
+
+/*
+ * Return string formatted to the new tag style of `release_<timestamp>_<sha>`
+ */
+def getNewStyleDockerTag(){
+  gitCommit = getGitCommit()
+  timestamp = sh(returnStdout: true, script: 'date +%s').trim()
+  return "release_${timestamp}_${gitCommit}"
 }
 
 /**
