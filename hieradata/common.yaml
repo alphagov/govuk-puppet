@@ -692,6 +692,7 @@ govuk_jenkins::github_enterprise_cert::certificate: |
     -----END CERTIFICATE-----
 govuk_jenkins::github_enterprise_cert::certificate_path: "/var/lib/jenkins/github.gds.pem"
 govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: "github.gds"
+govuk_jenkins::github_enterprise_cert_path: "/var/lib/jenkins/github.gds.pem"
 govuk_jenkins::config::github_api_uri: "%{hiera('govuk_jenkins::config::github_web_uri')}/api/v3"
 govuk_jenkins::config::github_web_uri: "https://%{hiera('govuk_jenkins::github_enterprise_cert::github_enterprise_hostname')}"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
