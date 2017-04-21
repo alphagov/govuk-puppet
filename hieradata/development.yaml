@@ -199,6 +199,7 @@ govuk_lvm::no_op: true
 govuk_mount::no_op: true
 
 govuk_elasticsearch::version: '1.7.5'
+govuk_elasticsearch::cors_enabled: true
 
 govuk_logging::logstream::disabled: true
 

@@ -24,6 +24,17 @@
 # [*backup_enabled*]
 #   Boolean. Whether backup class will be included.
 #
+# [*cors_enabled*]
+#   Boolean. Whether cross-origin-resource-sharing is enabled.  i.e. whether a
+#   browser on another origin can execute requests against Elasticsearch.
+#
+# [*cors_accept_headers*]
+#   Comma separated list of request headers that are accepted for CORS requests.
+#
+# [*cors_allow_origin]
+#   Origins to allow if cors_enabled is set to true. The value is intepreted as
+#   a regular expression if it starts with a leading '/'.
+#
 class govuk_elasticsearch (
   $version,
   $cluster_hosts = ['localhost'],
@@ -38,7 +49,10 @@ class govuk_elasticsearch (
   $disable_gc_alerts = false,
   $manage_repo = true,
   $open_firewall_from_all = false,
-  $backup_enabled = false
+  $backup_enabled = false,
+  $cors_enabled = false,
+  $cors_allow_headers = 'X-Requested-With, Content-Type, Content-Length, If-Modified-Since',
+  $cors_allow_origin = 'http://app.quepid.com'
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -83,6 +97,9 @@ class govuk_elasticsearch (
     'network.publish_host'     => $::fqdn,
     'node.name'                => $::fqdn,
     'http.port'                => $http_port,
+    'http.cors.enabled'        => $cors_enabled,
+    'http.cors.allow-headers'  => $cors_allow_headers,
+    'http.cors.allow-origin'   => $cors_allow_origin,
     'discovery'                => {
       'zen' => {
         'minimum_master_nodes' => $minimum_master_nodes,
