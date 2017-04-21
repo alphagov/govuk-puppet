@@ -23,7 +23,19 @@ class govuk_containers::frontend::haproxy (
   $wildcard_publishing_key,
 ) {
 
-  include ::haproxy
+  # Override global default options in the upstream module
+  class { '::haproxy':
+    global_options   => {
+      'log'     => "${::ipaddress_lo} local0",
+      'chroot'  => '/var/lib/haproxy',
+      'pidfile' => '/var/run/haproxy.pid',
+      'maxconn' => '4000',
+      'user'    => 'haproxy',
+      'group'   => 'haproxy',
+      'daemon'  => '',
+      'stats'   => 'socket /var/lib/haproxy/stats mode 600 level admin',
+    },
+  }
 
   apt::pin { 'haproxy':
     packages => 'haproxy',
@@ -42,6 +54,10 @@ class govuk_containers::frontend::haproxy (
     mode    => '0640',
     content => inline_template("${wildcard_publishing_certificate}${wildcard_publishing_key}"),
     require => File['/etc/haproxy/ssl'],
+  }
+
+  rsyslog::snippet { 'haproxy':
+    content => "\$ModLoad imudp\n\$UDPServerRun 514\n\$UDPServerAddress 127.0.0.1\nlocal0.* /var/log/haproxy.log",
   }
 
   haproxy::frontend { $::hostname:
