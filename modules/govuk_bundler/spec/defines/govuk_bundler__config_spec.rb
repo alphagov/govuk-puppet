@@ -2,6 +2,7 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk_bundler::config', :type => :define do
   let(:title) { 'bundler-test' }
+  let(:params) {{ :user_home => '/home/deploy' }}
 
   it { is_expected.to compile }
 

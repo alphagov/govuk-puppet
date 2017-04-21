@@ -13,7 +13,7 @@
 #   Default: http://gemstash.cluster
 #
 define govuk_bundler::config(
-  $user_home = '/home/deploy',
+  $user_home,
   $server = 'http://gemstash.cluster',
 ) {
   file { "${user_home}/.bundle":

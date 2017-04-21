@@ -22,6 +22,7 @@ class govuk::deploy::setup (
     $aws_ses_smtp_host,
     $aws_ses_smtp_username,
     $aws_ses_smtp_password,
+    $gemstash_server = 'http://gemstash.cluster',
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
 ){
   validate_hash($ssh_keys)
@@ -97,5 +98,11 @@ class govuk::deploy::setup (
       content => template('govuk/etc/govuk/actionmailer_ses_smtp_config.erb'),
       require => File['/etc/govuk'],
     }
+  }
+
+  govuk_bundler::config { 'deploy-bundler':
+    server    => $gemstash_server,
+    require   => User['deploy'],
+    user_home => '/home/deploy',
   }
 }

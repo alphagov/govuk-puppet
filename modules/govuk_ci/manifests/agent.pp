@@ -13,6 +13,7 @@
 class govuk_ci::agent(
   $master_ssh_key = undef,
   $elasticsearch_enabled = true,
+  $gemstash_server = 'http://gemstash.cluster',
 ) {
   include ::clamav
   include ::govuk_ci::agent::redis
@@ -52,5 +53,10 @@ class govuk_ci::agent(
 
   package { 'libgdal-dev': # needed for mapit
     ensure => installed,
+  }
+
+  govuk_bundler::config {'jenkins-bundler':
+    server    => $gemstash_server,
+    user_home => '/var/lib/jenkins',
   }
 }
