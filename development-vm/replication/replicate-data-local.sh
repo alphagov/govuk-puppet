@@ -38,8 +38,10 @@ fi
 
 $(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.integration
 
-status "Deleting old elasticsearch indexes"
-ruby $(dirname $0)/delete_closed_indices.rb
+if ! $SKIP_ELASTIC && ! $DRY_RUN; then
+  status "Deleting old elasticsearch indexes"
+  ruby $(dirname $0)/delete_closed_indices.rb
+fi
 
 if ! $DRY_RUN; then
   status "Munging Signon db tokens for dev VM"
