@@ -45,7 +45,7 @@ class govuk_ci::agent::mysql {
   file { '/etc/cron.d/run_puppet_on_boot':
     ensure  => present,
     # Double quotes to ensure a newline otherwise cron will ignore it
-    content => "@reboot root /usr/local/bin/govuk_puppet \n",
+    content => "@reboot root /usr/sbin/service mysql stop; rm -rf /var/lib/mysql && /usr/local/bin/govuk_puppet \n",
   }
 
   ensure_packages([
