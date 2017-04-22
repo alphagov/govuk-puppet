@@ -7,7 +7,7 @@ app_domain: 'publishing.service.gov.uk'
 backup::assets::jobs:
   'assets-whitehall-s3':
     sources: '/mnt/uploads/whitehall'
-    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/assets-whitehall/'
+    bucket: 'govuk-offsite-backups-production'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 4
@@ -20,7 +20,7 @@ backup::assets::jobs:
     s3_multipart_max_procs: 4
   'asset-manager-s3':
     sources: '/mnt/uploads/asset-manager'
-    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/asset-manager/'
+    bucket: 'govuk-offsite-backups-production'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 4
@@ -36,7 +36,7 @@ backup::offsite::jobs:
       - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
       - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
       - '/data/backups/archived'
-    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/govuk-datastores/'
+    bucket: 'govuk-offsite-backups-production'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
     aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
     hour: 8,
