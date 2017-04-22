@@ -89,4 +89,13 @@ class govuk::node::s_graphite (
 
   include collectd::server
   include grafana
+
+  if $::domain =~ /^.*\.staging\.publishing\.service\.gov\.uk/ {
+    cron { 'carbon-aggregator-restart':
+      command => '/usr/sbin/service carbon-aggregator restart',
+      user    => 'root',
+      minute  => '*/5',
+    }
+  }
+
 }
