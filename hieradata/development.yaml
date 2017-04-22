@@ -116,6 +116,7 @@ govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
+govuk::apps::frontend::enable_homepage_nocache_location: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::hmrc_manuals_api::enable_procfile_worker: false
 govuk::apps::government_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.dev.gov.uk'
