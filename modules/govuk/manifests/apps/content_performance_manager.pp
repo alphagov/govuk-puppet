@@ -23,6 +23,9 @@
 #   Google authentication email
 #   Default: undef
 #
+# [*enable_delayed_job_worker*]
+#   Whether or not to enable the background worker for Delayed Job.
+#   Boolean value.
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
@@ -50,6 +53,7 @@ class govuk::apps::content_performance_manager(
   $google_private_key = undef,
   $google_client_email = undef,
   $db_hostname = undef,
+  $enable_delayed_job_worker = true,
   $db_username = 'content_performance_manager',
   $db_password = undef,
   $db_name = 'content_performance_manager_production',
@@ -97,5 +101,9 @@ class govuk::apps::content_performance_manager(
       host     => $db_hostname,
       database => $db_name,
     }
+  }
+
+  govuk::delayed_job::worker { 'content-performance-manager':
+    enable_service => $enable_delayed_job_worker,
   }
 }
