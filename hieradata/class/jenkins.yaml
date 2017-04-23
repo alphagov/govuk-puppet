@@ -95,3 +95,6 @@ govuk_jenkins::plugins:
     version: '1.5'
   ws-cleanup:
     version: '0.25'
+
+govuk_jenkins::jenkins_plugins::plugin_hash:
+# Populate with plugins
