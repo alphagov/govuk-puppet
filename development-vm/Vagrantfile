@@ -54,6 +54,8 @@ EOS
   config.vm.hostname = "development.development"
   config.vm.provision :shell, :privileged => false, :inline => "NO_GIT_PULL=1 /var/govuk/govuk-puppet/tools/puppet-apply-dev"
   config.vm.provision :shell, :inline => "/usr/sbin/usermod -aG assets vagrant"
+  config.vm.provision :file, source: "certs/auto_cert_config", destination: "auto_cert_config"
+  config.vm.provision :shell, :path => "certs/generate_self_signed_certificate.sh"
 
   config
 end
