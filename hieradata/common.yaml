@@ -666,6 +666,11 @@ govuk_containers::apps::release::envvars:
   - "SECRET_KEY_BASE=%{hiera('govuk::apps::release::secret_key_base')}"
   - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
 
+govuk_containers::frontend::haproxy::backend_mappings:
+  - "release.%{hiera('app_domain')}": "release"
+govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
+govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard_publishing_key')}"
+
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
