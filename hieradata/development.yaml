@@ -198,6 +198,8 @@ govuk_lvm::no_op: true
 
 govuk_mount::no_op: true
 
+govuk::deploy::setup::gemstash_server: 'https://rubygems.org'
+
 govuk_containers::app::config::global_envvars:
   - "GOVUK_ENV=development"
   - "NODE_ENV=development"
