@@ -31,7 +31,7 @@ class govuk_containers::gemstash(
     ports            => ['9292:9292'],
     image            => $gemstash_image,
     require          => Docker::Image[$gemstash_image],
-    volumes          => ['/var/lib/gemstash', '/root/.gemstash'],
+    volumes          => ['/var/lib/gemstash:/root/.gemstash'],
     extra_parameters => ['-P'],
   }
 
