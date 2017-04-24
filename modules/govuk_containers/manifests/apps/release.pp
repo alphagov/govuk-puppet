@@ -4,7 +4,7 @@
 #
 class govuk_containers::apps::release (
   $image = 'govuk/release',
-  $image_tag = 'release_243',
+  $image_tag = 'master',
   $port = '3036',
   $envvars = [],
 ) {
