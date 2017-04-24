@@ -185,7 +185,7 @@
 # match the application's config.assets.prefix (which defaults to 'assets').
 # Should only be set if the application is being deployed to the GOV.UK frontend.
 # The value is where the pages served by the application can be found on gov.uk.
-# e.g. The whitehall app has an asset_pipeline_prefix of `government`, that means 
+# e.g. The whitehall app has an asset_pipeline_prefix of `government`, that means
 # all of the whitehall pages can be found at `gov.uk/government`.  If the value
 # is set for an app deployed to a backend server, the assets (css, images etc)
 # are copied to the wrong place and the app doesn't render correctly.
@@ -211,6 +211,14 @@
 # [*proxy_http_version_1_1_enabled*]
 #   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
 #   to the app server.
+#
+#
+# [*repo_name*]
+# the name of the repository that contains this app, if it is different from
+# $title
+#
+# This parameter is used to ensure symlinks are created correctly if the app
+# name and repo name don't match
 #
 define govuk::app (
   $app_type,
@@ -241,6 +249,7 @@ define govuk::app (
   $depends_on_nfs = false,
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
+  $repo_name = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -274,6 +283,7 @@ define govuk::app (
   govuk::app::package { $title:
     ensure     => $ensure,
     vhost_full => $vhost_full,
+    repo_name  => $repo_name,
   }
 
   govuk::app::config { $title:

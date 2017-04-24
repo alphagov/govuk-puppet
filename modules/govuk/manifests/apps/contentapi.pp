@@ -68,6 +68,7 @@ class govuk::apps::contentapi (
     nginx_extra_config     => 'proxy_set_header API-PREFIX $http_api_prefix;',
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
+    repo_name              => 'govuk_content_api',
   }
 
   if $mongodb_nodes != undef {

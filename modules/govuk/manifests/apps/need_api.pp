@@ -59,6 +59,7 @@ class govuk::apps::need_api(
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
+    repo_name          => 'govuk_need_api',
   }
 
   govuk_logging::logstream { 'need-api-org-import-json-log':

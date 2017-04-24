@@ -56,5 +56,6 @@ class govuk::apps::smartanswers(
     asset_pipeline_prefix  => 'smartanswers',
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
+    repo_name              => 'smart-answers',
   }
 }

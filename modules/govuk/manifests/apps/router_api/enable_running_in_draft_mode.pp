@@ -44,6 +44,7 @@ class govuk::apps::router_api::enable_running_in_draft_mode(
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
     vhost              => $vhost,
+    repo_name          => 'router-api',
   }
 
   Govuk::App::Envvar {

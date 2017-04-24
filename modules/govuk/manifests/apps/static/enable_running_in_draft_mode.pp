@@ -62,6 +62,7 @@ class govuk::apps::static::enable_running_in_draft_mode(
     asset_pipeline        => true,
     asset_pipeline_prefix => $app_name,
     vhost                 => $vhost,
+    repo_name             => 'static',
   }
 
   Govuk::App::Envvar {

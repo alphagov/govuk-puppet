@@ -47,5 +47,6 @@ class govuk::apps::router::enable_running_in_draft_mode(
     port               => $port,
     enable_nginx_vhost => $enable_nginx_vhost,
     vhost_aliases      => $vhost_aliases,
+    repo_name          => 'router',
   }
 }
