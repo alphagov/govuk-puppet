@@ -80,4 +80,8 @@ class govuk_containers::frontend::haproxy (
     mappings => $backend_mappings,
   }
 
+  @ufw::allow { 'allow-https-from-all':
+    port => 443,
+  }
+
 }
