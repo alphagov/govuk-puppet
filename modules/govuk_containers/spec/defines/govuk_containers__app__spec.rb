@@ -21,6 +21,7 @@ describe 'govuk_containers::app', :type => :define do
         'image_tag' => 'v1',
       )
       is_expected.to contain_docker__run('bella').with(
+        'net' => 'host',
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
@@ -38,6 +39,7 @@ describe 'govuk_containers::app', :type => :define do
 
     it do
       is_expected.to contain_docker__run('bella').with(
+        'net' => 'host',
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
@@ -56,6 +58,7 @@ describe 'govuk_containers::app', :type => :define do
 
     it do
       is_expected.to contain_docker__run('bella').with(
+        'net' => 'host',
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
@@ -73,6 +76,7 @@ describe 'govuk_containers::app', :type => :define do
 
     it do
       is_expected.to contain_docker__run('bella').with(
+        'net' => 'host',
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
