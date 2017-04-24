@@ -230,17 +230,6 @@ filebeat::prospectors:
     fields:
       application: 'rkhunter'
 
-govuk_containers::app::config::global_envvars:
-  - "GOVUK_ENV=production"
-  - "NODE_ENV=production"
-  - "RACK_ENV=production"
-  - "RAILS_ENV=production"
-  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
-  - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
-  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
-  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
-  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
-
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
@@ -668,6 +657,17 @@ govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
 
+govuk_containers::app::config::global_envvars:
+  - "GOVUK_ENV=production"
+  - "NODE_ENV=production"
+  - "RACK_ENV=production"
+  - "RAILS_ENV=production"
+  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
+  - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
+  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
+
 govuk_containers::apps::release::envvars:
   - "ERRBIT_API_KEY=%{hiera('govuk::apps::release::errbit_api_key')}"
   - "OAUTH_ID=%{hiera('govuk::apps::release::oauth_id')}"
@@ -676,6 +676,11 @@ govuk_containers::apps::release::envvars:
   - "GITHUB_ACCESS_TOKEN=%{hiera('govuk::apps::release::github_access_token')}"
   - "SECRET_KEY_BASE=%{hiera('govuk::apps::release::secret_key_base')}"
   - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
+
+govuk_containers::frontend::haproxy::backend_mappings:
+  - "release.%{hiera('app_domain')}": "release"
+govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
+govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard_publishing_key')}"
 
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
