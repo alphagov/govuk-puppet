@@ -230,17 +230,6 @@ filebeat::prospectors:
     fields:
       application: 'rkhunter'
 
-govuk_containers::app::config::global_envvars:
-  - "GOVUK_ENV=production"
-  - "NODE_ENV=production"
-  - "RACK_ENV=production"
-  - "RAILS_ENV=production"
-  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
-  - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
-  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
-  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
-  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
-
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
@@ -667,6 +656,17 @@ govuk_ci::master::ci_agents:
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
+
+govuk_containers::app::config::global_envvars:
+  - "GOVUK_ENV=production"
+  - "NODE_ENV=production"
+  - "RACK_ENV=production"
+  - "RAILS_ENV=production"
+  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
+  - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
+  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
 govuk_containers::apps::release::envvars:
   - "ERRBIT_API_KEY=%{hiera('govuk::apps::release::errbit_api_key')}"
