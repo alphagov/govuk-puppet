@@ -657,6 +657,15 @@ govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
 
+govuk_containers::apps::release::envvars:
+  - "ERRBIT_API_KEY=%{hiera('govuk::apps::release::errbit_api_key')}"
+  - "OAUTH_ID=%{hiera('govuk::apps::release::oauth_id')}"
+  - "OAUTH_SECRET=%{hiera('govuk::apps::release::oauth_secret')}"
+  - "GITHUB_USERNAME=%{hiera('govuk::apps::release::github_username')}"
+  - "GITHUB_ACCESS_TOKEN=%{hiera('govuk::apps::release::github_access_token')}"
+  - "SECRET_KEY_BASE=%{hiera('govuk::apps::release::secret_key_base')}"
+  - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
+
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
