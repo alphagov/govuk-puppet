@@ -1,0 +1,15 @@
+server {
+  # This serves:
+  #   - `gemstash.cluster` internally.
+  #   - `gemstash.APP_DOMAIN` externally.
+  server_name gemstash.*;
+  listen 80;
+
+  access_log /var/log/nginx/gemstash-access.log timed_combined;
+  access_log /var/log/nginx/gemstash-json.event.access.log json_event;
+  error_log /var/log/nginx/gemstash-error.log;
+
+  location / {
+    proxy_pass http://localhost:9292;
+  }
+}

@@ -120,7 +120,10 @@ class govuk::node::s_apt (
 
   include nginx
   nginx::config::site { 'apt.cluster':
-    content => template('govuk/node/s_apt/vhost.conf.erb'),
+    content => template('govuk/node/s_apt/apt_cluster_vhost.conf.erb'),
+  }
+  nginx::config::site { 'gemstash.cluster':
+    content => template('govuk/node/s_apt/gemstash_cluster_vhost.conf.erb'),
   }
 
   # Manage our local Gemstash mirror. Deployed via a docker container
