@@ -63,6 +63,7 @@ define govuk_containers::app (
   }
 
   ::docker::run { $title:
+    net              => 'host',
     image            => "${image}:${image_tag}",
     ports            => [$exposed_port],
     env              => $envvars,
