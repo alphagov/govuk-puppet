@@ -17,6 +17,10 @@
 # [*envvars*]
 #   An array of environment variables to start the container with.
 #
+# [*global_env_file*]
+#   Location of the file which holds global environment variables assigned
+#   to every container that runs.
+#
 # [*command*]
 #   A command to start the container with.
 #
@@ -29,10 +33,12 @@ define govuk_containers::app (
   $image_tag,
   $port,
   $envvars = [],
+  $global_env_file = '/etc/global.env',
   $command = undef,
   $restart_attempts = 3,
 ) {
   require ::govuk_docker
+  require ::govuk_containers::app::config
 
   validate_array($envvars)
   validate_re($restart_attempts, [ 'never', 'always', '^\d$' ])
@@ -60,9 +66,11 @@ define govuk_containers::app (
     image            => "${image}:${image_tag}",
     ports            => [$exposed_port],
     env              => $envvars,
+    env_file         => $global_env_file,
     command          => $command,
     extra_parameters => $extra_params,
     require          => Docker::Image[$image],
+    subscribe        => Class[Govuk_containers::App::Config],
   }
 
   @@icinga::check { "${title}_process_${::hostname}":
