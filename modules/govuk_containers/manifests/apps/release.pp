@@ -16,4 +16,9 @@ class govuk_containers::apps::release (
     port      => $port,
     envvars   => $envvars,
   }
+
+  govuk_containers::balancermember { 'release':
+    port => $port,
+  }
+
 }
