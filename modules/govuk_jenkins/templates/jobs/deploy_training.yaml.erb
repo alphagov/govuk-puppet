@@ -55,7 +55,7 @@
             cp ${GPG_KEY_DUPLICITY} provisioner/.secrets/DA204134165653A8D32526FCDBAB06CD60D07A2C_secret_key.asc
             cp ${GPG_KEY_PASSPHRASE} provisioner/.secrets/duplicity_passphrase
             terraform remote config -backend=s3 -backend-config="acl=private" -backend-config="bucket=govuk-terraform-state-integration" -backend-config="encrypt=true" -backend-config="key=terraform-jenkins-Deploy_Training.tfstate" -backend-config="region=eu-west-1"
-            if [[ -z ${INSTANCE_NAME} ]] ; then INSTANCE_NAME=govuk-training-$(date '+%Y%m%d') ; fi
+            if [ -z ${INSTANCE_NAME} ] ; then INSTANCE_NAME=govuk-training-$(date '+%Y%m%d') ; fi
             export TF_VAR_instance_govuk_training_name=${INSTANCE_NAME}
             terraform ${ACTION} .
     parameters:
