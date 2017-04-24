@@ -4,55 +4,64 @@
 #
 # === Parameters
 #
-# [*port*]
-#   The port that it is served on.
-#   Default: 3206
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#   Default: undef
 #
-# [*secret_key_base*]
-#   The key for Rails to use when signing/encrypting sessions.
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#   Default: undef
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
 #
 # [*google_analytics_govuk_view_id*]
 #   The view id of GOV.UK in Google Analytics
-#   Default: undef
-#
-# [*google_private_key*]
-#   Google authentication private key
 #   Default: undef
 #
 # [*google_client_email*]
 #   Google authentication email
 #   Default: undef
 #
-#
-# [*db_hostname*]
-#   The hostname of the database server to use in the DATABASE_URL.
+# [*google_private_key*]
+#   Google authentication private key
 #   Default: undef
 #
-# [*db_username*]
-#   The username to use in the DATABASE_URL.
-#
-# [*db_password*]
-#   The password for the database.
-#   Default: undef
-#
-# [*db_name*]
-#   The database name to use in the DATABASE_URL.
+# [*port*]
+#   The port that it is served on.
+#   Default: 3206
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::content_performance_manager(
-  $port = '3206',
-  $secret_key_base = undef,
-  $publishing_api_bearer_token = undef,
-  $google_analytics_govuk_view_id = undef,
-  $google_private_key = undef,
-  $google_client_email = undef,
   $db_hostname = undef,
-  $db_username = 'content_performance_manager',
-  $db_password = undef,
   $db_name = 'content_performance_manager_production',
+  $db_password = undef,
+  $db_username = 'content_performance_manager',
+  $google_analytics_govuk_view_id = undef,
+  $google_client_email = undef,
+  $google_private_key = undef,
+  $port = '3206',
+  $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
+  $secret_key_base = undef,
 ) {
   $app_name = 'content-performance-manager'
 
@@ -80,6 +89,11 @@ class govuk::apps::content_performance_manager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $secret_key_base != undef {
