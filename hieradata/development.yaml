@@ -198,6 +198,17 @@ govuk_lvm::no_op: true
 
 govuk_mount::no_op: true
 
+govuk_containers::app::config::global_envvars:
+  - "GOVUK_ENV=development"
+  - "NODE_ENV=development"
+  - "RACK_ENV=development"
+  - "RAILS_ENV=development"
+  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
+  - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
+  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
+
 govuk_elasticsearch::version: '1.7.5'
 
 govuk_logging::logstream::disabled: true
