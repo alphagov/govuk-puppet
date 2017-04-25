@@ -17,7 +17,6 @@ class govuk::node::s_frontend_lb (
   loadbalancer::balance {
     [
       'draft-collections',
-      'draft-contacts-frontend',
       'draft-email-alert-frontend',
       'draft-frontend',
       'draft-government-frontend',
@@ -31,7 +30,6 @@ class govuk::node::s_frontend_lb (
     [
       'canary-frontend',
       'collections',
-      'contacts-frontend',
       'designprinciples',
       'email-alert-frontend',
       'feedback',
