@@ -21,7 +21,6 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
-  contacts-frontend: {}
   content-performance-manager: {}
   content-store: {}
   content-tagger: {}
