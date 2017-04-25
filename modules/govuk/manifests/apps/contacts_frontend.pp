@@ -4,6 +4,7 @@ class govuk::apps::contacts_frontend (
   $port = '3074',
 ) {
   govuk::app { 'contacts-frontend':
+    ensure                => 'absent',
     app_type              => 'rack',
     port                  => $port,
     health_check_path     => '/healthcheck',
