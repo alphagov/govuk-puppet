@@ -212,6 +212,7 @@ govuk_containers::app::config::global_envvars:
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
 govuk_elasticsearch::version: '1.7.5'
+govuk_elasticsearch::cors_enabled: true
 
 govuk_logging::logstream::disabled: true
 
