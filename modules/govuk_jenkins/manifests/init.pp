@@ -73,6 +73,7 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
+  include ::govuk_jenkins::cli
   include ::govuk_jenkins::github_enterprise_cert
   include ::govuk_jenkins::reload
 
