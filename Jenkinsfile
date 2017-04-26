@@ -26,13 +26,13 @@ node {
       govuk.runRakeTask('lint')
     }
 
-    stage("Push release tag") {
-      echo 'Pushing tag'
-      govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
-    }
-
     // Deploy on Integration (only master)
     if (env.BRANCH_NAME == 'master'){
+      stage("Push release tag") {
+        echo 'Pushing tag'
+        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+      }
+
       stage("Deploy on Integration") {
         build job: 'integration-puppet-deploy',
         parameters: [string(name: 'TAG', value: 'release_' + env.BUILD_NUMBER)]
