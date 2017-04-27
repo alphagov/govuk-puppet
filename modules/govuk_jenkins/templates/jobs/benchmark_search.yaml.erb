@@ -1,0 +1,53 @@
+---
+- scm:
+    name: rummager_<%= @job_name %>
+    scm:
+        - git:
+            url: git@github.com:alphagov/rummager.git
+            branches:
+              - master
+
+- job:
+    name: <%= @job_name %>
+    display-name: <%= @job_name %>
+    project-type: freestyle
+    description: |
+      <p><%= @service_description %></p>
+      <p>More information:</p>
+      <ul>
+        <li><a href='https://github.com/alphagov/rummager/blob/master/docs/health-check.md'>Healthcheck docs on Github</a></li>
+      </ul>
+    scm:
+        - rummager_<%= @job_name %>
+    builders:
+        - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}";
+            bundle exec bin/health_check --download
+            bundle exec bin/health_check --json=https://www-origin.<%= @app_domain %>/api/search.json --type=<%= @test_type %> --auth="$AUTH_USERNAME:$AUTH_PASSWORD"
+    triggers:
+        - timed: '<%= @cron_schedule %>'
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
+    properties:
+        - inject:
+            properties-content: |
+              AUTH_USERNAME=<%= @auth_username %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+                - name: AUTH_PASSWORD
+                  password: '<%= @auth_password %>'
