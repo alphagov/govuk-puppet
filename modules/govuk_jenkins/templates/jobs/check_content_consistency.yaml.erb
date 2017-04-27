@@ -1,0 +1,91 @@
+---
+- scm:
+    name: check-content-consistency
+    scm:
+      - git:
+          url: git@github.gds:gds/router-data.git
+          basedir: router-data
+          branches:
+            - master
+- job:
+    name: Check_Content_Consistency
+    display-name: Check_Content_Consistency
+    project-type: freestyle
+    description: |
+      This job checks for consistency between the router-api, content-store
+      and publishing-api.
+    scm:
+      - check-content-consistency
+    logrotate:
+      numToKeep: 10
+    triggers:
+        - timed: 'H 5 * * *'
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          cd "${WORKSPACE}"
+
+          ROUTER_BACKEND=$(govuk_node_list --single-node -c router_backend)
+          DRAFT_CACHE=$(govuk_node_list --single-node -c draft_cache)
+          CONTENT_STORE=$(govuk_node_list --single-node -c content_store)
+          DRAFT_CONTENT_STORE=$(govuk_node_list --single-node -c draft_content_store)
+          BACKEND=$(govuk_node_list --single-node -c backend)
+          TIME=$(date -u +"%Y%m%d_%H%M%S")
+
+          ROUTES_CSV_GZ="routes-$TIME.csv.gz"
+          CONTENT_CSV_GZ="content-$TIME.csv.gz"
+
+          echo "Using:"
+          echo $ROUTER_BACKEND
+          echo $DRAFT_CACHE
+          echo $CONTENT_STORE
+          echo $DRAFT_CONTENT_STORE
+          echo $BACKEND
+          echo $ROUTES_CSV_GZ
+          echo $CONTENT_CSV_GZ
+
+          echo "Dumping the live routes"
+          ssh deploy@$ROUTER_BACKEND "cd /var/apps/router-api && govuk_setenv router-api bundle exec rake dump_routes[/home/deploy/$ROUTES_CSV_GZ]"
+          scp deploy@$ROUTER_BACKEND:$ROUTES_CSV_GZ .
+          ssh deploy@$ROUTER_BACKEND "rm $ROUTES_CSV_GZ"
+
+          echo "Dumping the draft routes"
+          ssh deploy@$DRAFT_CACHE "cd /var/apps/router-api && govuk_setenv router-api bundle exec rake dump_routes[/home/deploy/draft-$ROUTES_CSV_GZ]"
+          scp deploy@$DRAFT_CACHE:draft-$ROUTES_CSV_GZ .
+          ssh deploy@$DRAFT_CACHE "rm draft-$ROUTES_CSV_GZ"
+
+          echo "Dumping the live content"
+          ssh deploy@$CONTENT_STORE "cd /var/apps/content-store && govuk_setenv content-store bundle exec rake dump_content[/home/deploy/$CONTENT_CSV_GZ]"
+          scp deploy@$CONTENT_STORE:$CONTENT_CSV_GZ .
+          ssh deploy@$CONTENT_STORE "rm $CONTENT_CSV_GZ"
+
+          echo "Dumping the draft content"
+          ssh deploy@$DRAFT_CONTENT_STORE "cd /var/apps/content-store && govuk_setenv content-store bundle exec rake dump_content[/home/deploy/draft-$CONTENT_CSV_GZ]"
+          scp deploy@$DRAFT_CONTENT_STORE:draft-$CONTENT_CSV_GZ .
+          ssh deploy@$DRAFT_CONTENT_STORE "rm draft-$CONTENT_CSV_GZ"
+
+          echo "Checking live route consistency"
+          scp -r router-data deploy@$CONTENT_STORE:
+          scp $ROUTES_CSV_GZ deploy@$CONTENT_STORE:
+          ssh deploy@$CONTENT_STORE "cd /var/apps/content-store && govuk_setenv content-store bundle exec rake check_route_consistency[/home/deploy/$ROUTES_CSV_GZ,/home/deploy/router-data/]"
+          ssh deploy@$CONTENT_STORE "rm $ROUTES_CSV_GZ"
+          ssh deploy@$CONTENT_STORE "rm -rf router-data"
+
+          echo "Checking draft route consistency"
+          scp -r router-data deploy@$DRAFT_CONTENT_STORE:
+          scp draft-$ROUTES_CSV_GZ deploy@$DRAFT_CONTENT_STORE:
+          ssh deploy@$DRAFT_CONTENT_STORE "cd /var/apps/content-store && govuk_setenv content-store bundle exec rake check_route_consistency[/home/deploy/draft-$ROUTES_CSV_GZ,/home/deploy/router-data/]"
+          ssh deploy@$DRAFT_CONTENT_STORE "rm draft-$ROUTES_CSV_GZ"
+          ssh deploy@$DRAFT_CONTENT_STORE "rm -rf router-data"
+
+          echo "Checking live content consistency"
+          scp $CONTENT_CSV_GZ deploy@$BACKEND:
+          ssh deploy@$BACKEND "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[live,/home/deploy/$CONTENT_CSV_GZ]"
+          ssh deploy@$BACKEND "rm $CONTENT_CSV_GZ"
+
+          echo "Checking draft content consistency"
+          scp draft-$CONTENT_CSV_GZ deploy@$BACKEND:
+          ssh deploy@$BACKEND "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[draft,/home/deploy/draft-$CONTENT_CSV_GZ]"
+          ssh deploy@$BACKEND "rm draft-$CONTENT_CSV_GZ"
