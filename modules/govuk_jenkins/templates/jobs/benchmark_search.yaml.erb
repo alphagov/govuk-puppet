@@ -23,7 +23,7 @@
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}";
             bundle exec bin/health_check --download
-            bundle exec bin/health_check --json=https://www-origin.<%= @app_domain %>/api/search.json --type=<%= @test_type %> --auth="$AUTH_USERNAME:$AUTH_PASSWORD"
+            bundle exec bin/health_check --json=https://www-origin.<%= @app_domain %>/api/search.json --type=<%= @test_type %> --auth="$AUTH_USERNAME:$AUTH_PASSWORD" --rate_limit_token=$RATE_LIMIT_TOKEN
     triggers:
         - timed: '<%= @cron_schedule %>'
     publishers:
@@ -66,3 +66,5 @@
             job-passwords:
                 - name: AUTH_PASSWORD
                   password: '<%= @auth_password %>'
+                - name: RATE_LIMIT_TOKEN
+                  password: '<%= @rate_limit_token %>'

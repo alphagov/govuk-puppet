@@ -5,7 +5,8 @@
 class govuk_jenkins::job::search_benchmark (
   $app_domain = hiera('app_domain'),
   $auth_username = undef,
-  $auth_password = undef
+  $auth_password = undef,
+  $rate_limit_token = undef
 ) {
 
   $test_type = 'results'
