@@ -1,4 +1,4 @@
-# == Class: icinga::client::check_unicorn_workers
+# == Class: icinga::client::check_json_healthcheck
 #
 # Install a Nagios plugin that alerts when an app's health check reports a
 # problem

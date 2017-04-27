@@ -1,1 +1,0 @@
-check_json_healthcheck
