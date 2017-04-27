@@ -14,6 +14,10 @@ class govuk_jenkins::job::search_test_spelling_suggestions (
   $job_url = "https://deploy.${app_domain}/job/search_test_spelling_suggestions/"
   $cron_schedule = '0 5 * * *'
 
+  $slack_team_domain = 'govuk'
+  $slack_room = 'search-team'
+  $slack_build_server_url = "https://deploy.${app_domain}/"
+
   file { '/etc/jenkins_jobs/jobs/search_test_spelling.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/benchmark_search.yaml.erb'),
