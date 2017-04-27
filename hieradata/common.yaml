@@ -721,6 +721,12 @@ govuk_jenkins::config::github_api_uri: "%{hiera('govuk_jenkins::config::github_w
 govuk_jenkins::config::github_web_uri: "https://%{hiera('govuk_jenkins::github_enterprise_cert::github_enterprise_hostname')}"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
 
+govuk_jenkins::job::search_benchmark::auth_username: "%{hiera('http_username')}"
+govuk_jenkins::job::search_benchmark::auth_password: "%{hiera('http_password')}"
+
+govuk_jenkins::job::search_test_spelling_suggestions::auth_username: "%{hiera('http_username')}"
+govuk_jenkins::job::search_test_spelling_suggestions::auth_password: "%{hiera('http_password')}"
+
 govuk_jenkins::job::smokey::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::job::smokey::auth_password: "%{hiera('http_password')}"
 govuk_jenkins::job::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
