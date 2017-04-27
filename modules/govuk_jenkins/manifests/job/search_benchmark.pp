@@ -13,7 +13,9 @@ class govuk_jenkins::job::search_benchmark (
   $job_name = 'search_benchmark'
   $service_description = 'Benchmark search queries from https://docs.google.com/spreadsheets/d/1JjSoy68vscNjrvQm8b9hHt0nbZgFxk8lrcTdqV08iHk'
   $job_url = "https://deploy.${app_domain}/job/search_benchmark/"
-  $cron_schedule = '30 4 * * *'
+  # TODO: #search-team to make this run once a day once this job no longer hits
+  # the nginx rate limit. Adjust the freshness to 104400 at the same time.
+  $cron_schedule = '5 4 1 4 *'
 
   $slack_team_domain = 'govuk'
   $slack_room = 'search-team'
@@ -28,7 +30,7 @@ class govuk_jenkins::job::search_benchmark (
   @@icinga::passive_check { "${job_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 104400,
+    freshness_threshold => 31536000,
     action_url          => $job_url,
     notes_url           => monitoring_docs_url(search-healthcheck),
   }
