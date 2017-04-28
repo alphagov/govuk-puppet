@@ -12,6 +12,8 @@ class govuk::node::s_development (
 ) {
   include base
 
+  include ::govuk_containers::apps::release
+
   include assets::user
   include clamav::run_fake_virus_scan
   include golang

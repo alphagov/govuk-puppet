@@ -8,6 +8,7 @@ describe 'govuk_containers::app', :type => :define do
       :image => 'cat',
       :image_tag => 'v1',
       :port => '1234',
+      :running => true,
       :global_env_file => '/etc/global.env',
     }
   end
@@ -25,6 +26,7 @@ describe 'govuk_containers::app', :type => :define do
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
+        'running' => true,
         'extra_parameters' => '--restart=on-failure:3',
       )
     end
@@ -44,6 +46,7 @@ describe 'govuk_containers::app', :type => :define do
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
         'env' => [ 'cheese=milk', 'wheat=bread' ],
+        'running' => true,
         'extra_parameters' => '--restart=on-failure:3',
       )
     end
@@ -62,6 +65,7 @@ describe 'govuk_containers::app', :type => :define do
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
+        'running' => true,
         'extra_parameters' => '--restart=no',
       )
     end
@@ -80,6 +84,7 @@ describe 'govuk_containers::app', :type => :define do
         'image' => 'cat:v1',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
+        'running' => true,
         'extra_parameters' => '--restart=always',
       )
     end

@@ -200,6 +200,12 @@ govuk_mount::no_op: true
 
 govuk::deploy::setup::gemstash_server: 'https://rubygems.org'
 
+govuk_containers::apps::release::running: false
+govuk_containers::apps::release::enable_haproxy: false
+
+govuk_containers::apps::release::envvars:
+  - "DATABASE_URL=mysql2://release:release@mysql.cluster/release_development"
+
 govuk_containers::app::config::global_envvars:
   - "GOVUK_ENV=development"
   - "NODE_ENV=development"

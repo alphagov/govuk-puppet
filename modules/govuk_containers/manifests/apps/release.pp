@@ -7,6 +7,8 @@ class govuk_containers::apps::release (
   $image_tag = 'master',
   $port = '3036',
   $envvars = [],
+  $running = true,
+  $enable_haproxy = true,
 ) {
   validate_array($envvars)
 
@@ -15,10 +17,12 @@ class govuk_containers::apps::release (
     image_tag => $image_tag,
     port      => $port,
     envvars   => $envvars,
+    running   => $running,
   }
 
-  govuk_containers::balancermember { 'release':
-    port => $port,
+  if $enable_haproxy {
+    govuk_containers::balancermember { 'release':
+      port => $port,
+    }
   }
-
 }

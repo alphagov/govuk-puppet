@@ -28,6 +28,10 @@
 #   An array of extra paramaters to set.
 #   Default is to always try restarting the app.
 #
+# [*running*]
+#   Puppet will ensure the running state of the container.
+#   Default: true
+#
 define govuk_containers::app (
   $image,
   $image_tag,
@@ -36,12 +40,14 @@ define govuk_containers::app (
   $global_env_file = '/etc/global.env',
   $command = undef,
   $restart_attempts = 3,
+  $running = true,
 ) {
   require ::govuk_docker
   require ::govuk_containers::app::config
 
   validate_array($envvars)
   validate_re($restart_attempts, [ 'never', 'always', '^\d$' ])
+  validate_bool($running)
 
   $exposed_port = "${port}:${port}"
 
@@ -68,6 +74,7 @@ define govuk_containers::app (
     ports            => [$exposed_port],
     env              => $envvars,
     env_file         => $global_env_file,
+    running          => $running,
     command          => $command,
     extra_parameters => $extra_params,
     require          => Docker::Image[$image],
