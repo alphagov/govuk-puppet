@@ -30,6 +30,6 @@ class govuk_jenkins::job::search_benchmark (
     host_name           => $::fqdn,
     freshness_threshold => 104400,
     action_url          => $job_url,
-    notes_url           => monitoring_docs_url(search-healthcheck),
+    notes_url           => monitoring_docs_url(search-benchmarking),
   }
 }
