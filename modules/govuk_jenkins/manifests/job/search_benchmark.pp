@@ -11,7 +11,7 @@ class govuk_jenkins::job::search_benchmark (
 
   $test_type = 'results'
   $job_name = 'search_benchmark'
-  $service_description = 'Benchmark search queries from https://docs.google.com/spreadsheets/d/1JjSoy68vscNjrvQm8b9hHt0nbZgFxk8lrcTdqV08iHk'
+  $service_description = 'Benchmark search queries'
   $job_url = "https://deploy.${app_domain}/job/search_benchmark/"
   $cron_schedule = '30 4 * * *'
 
