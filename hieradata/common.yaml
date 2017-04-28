@@ -758,6 +758,8 @@ govuk_sudo::sudo_conf:
     content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
   deploy_init_ctl:
     content: 'deploy ALL=NOPASSWD:/sbin/initctl'
+  deploy_service_docker:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/docker-*'
   deploy_service_nginx:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/nginx'
   deploy_service_varnish:
