@@ -68,6 +68,9 @@
                 - deploy:with_hard_restart
                 - deploy:with_migrations
                 - deploy:without_migrations
+                - deploy_docker
+                - deploy_docker:pull
+                - deploy_docker:tag_to_current
                 - app:migrate
                 - app:hard_restart
                 - app:migrate_and_hard_restart
