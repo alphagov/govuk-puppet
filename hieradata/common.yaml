@@ -754,6 +754,8 @@ govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_sudo::sudo_conf:
+  deploy_docker_image:
+    content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
   deploy_init_ctl:
     content: 'deploy ALL=NOPASSWD:/sbin/initctl'
   deploy_service_nginx:
