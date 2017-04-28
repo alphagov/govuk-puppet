@@ -9,7 +9,9 @@
 #   The container image to run.
 #
 # [*image_tag*]
-#   The tag of the image to run.
+#   The image tag to run. In our deployment this should not be specified
+#   as we will explicitly tag images. However, for local development this
+#   parameter can be set.
 #
 # [*ports*]
 #   An array of local ports to map in the format of ['1234:1234'].
@@ -30,8 +32,8 @@
 #
 define govuk_containers::app (
   $image,
-  $image_tag,
   $port,
+  $image_tag = 'current',
   $envvars = [],
   $global_env_file = '/etc/global.env',
   $command = undef,
@@ -57,11 +59,6 @@ define govuk_containers::app (
     $restart_arg,
   ]
 
-  ::docker::image { $image:
-    ensure    => 'present',
-    image_tag => $image_tag,
-  }
-
   ::docker::run { $title:
     net              => 'host',
     image            => "${image}:${image_tag}",
@@ -70,13 +67,7 @@ define govuk_containers::app (
     env_file         => $global_env_file,
     command          => $command,
     extra_parameters => $extra_params,
-    require          => Docker::Image[$image],
     subscribe        => Class[Govuk_containers::App::Config],
   }
 
-  @@icinga::check { "${title}_process_${::hostname}":
-    check_command       => "check_nrpe!check_proc_running!${title}",
-    service_description => "${title} running",
-    host_name           => $::fqdn,
-  }
 }
