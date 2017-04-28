@@ -11,7 +11,7 @@ class govuk_jenkins::job::search_test_spelling_suggestions (
 
   $test_type = 'suggestions'
   $job_name = 'search_test_spelling_suggestions'
-  $service_description = 'Check for spelling suggestions (see https://docs.google.com/spreadsheets/d/1JjSoy68vscNjrvQm8b9hHt0nbZgFxk8lrcTdqV08iHk)'
+  $service_description = 'Check for spelling suggestions'
   $job_url = "https://deploy.${app_domain}/job/search_test_spelling_suggestions/"
   $cron_schedule = '0 5 * * *'
 
@@ -30,6 +30,6 @@ class govuk_jenkins::job::search_test_spelling_suggestions (
     host_name           => $::fqdn,
     freshness_threshold => 104400,
     action_url          => $job_url,
-    notes_url           => monitoring_docs_url(search-healthcheck),
+    notes_url           => monitoring_docs_url(search-spelling-suggestions),
   }
 }
