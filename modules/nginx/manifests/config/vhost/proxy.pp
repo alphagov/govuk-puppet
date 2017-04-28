@@ -11,6 +11,10 @@
 #   Boolean whether the upstream servers are running on HTTPS/443.
 #   Default: false
 #
+# [*to_ssl_port*]
+#   String override port as an alternative to 443.
+#   Default: '443'
+#
 # [*aliases*]
 #   Other hostnames to serve the app on
 #
@@ -72,6 +76,7 @@
 define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
+  $to_ssl_port = '443',
   $aliases = [],
   $extra_config = '',
   $extra_app_config = '',
@@ -103,7 +108,7 @@ define nginx::config::vhost::proxy(
   $title_escaped = regsubst($title, '\.', '_', 'G')
 
   $to_port = $to_ssl ? {
-    true    => ':443',
+    true    => ":${to_ssl_port}",
     default => '',
   }
   $to_proto = $to_ssl ? {
