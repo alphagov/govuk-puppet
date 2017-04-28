@@ -74,9 +74,4 @@ define govuk_containers::app (
     subscribe        => Class[Govuk_containers::App::Config],
   }
 
-  @@icinga::check { "${title}_process_${::hostname}":
-    check_command       => "check_nrpe!check_proc_running!${title}",
-    service_description => "${title} running",
-    host_name           => $::fqdn,
-  }
 }
