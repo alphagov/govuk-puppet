@@ -6,7 +6,6 @@ describe 'govuk_containers::app', :type => :define do
   let :default_params do
     {
       :image => 'cat',
-      :image_tag => 'v1',
       :port => '1234',
       :global_env_file => '/etc/global.env',
     }
@@ -16,13 +15,9 @@ describe 'govuk_containers::app', :type => :define do
     let(:params) { default_params }
 
     it do
-      is_expected.to contain_docker__image('cat').with(
-        'ensure' => 'present',
-        'image_tag' => 'v1',
-      )
       is_expected.to contain_docker__run('bella').with(
         'net' => 'host',
-        'image' => 'cat:v1',
+        'image' => 'cat:current',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
         'extra_parameters' => '--restart=on-failure:3',
@@ -40,7 +35,7 @@ describe 'govuk_containers::app', :type => :define do
     it do
       is_expected.to contain_docker__run('bella').with(
         'net' => 'host',
-        'image' => 'cat:v1',
+        'image' => 'cat:current',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
         'env' => [ 'cheese=milk', 'wheat=bread' ],
@@ -59,7 +54,7 @@ describe 'govuk_containers::app', :type => :define do
     it do
       is_expected.to contain_docker__run('bella').with(
         'net' => 'host',
-        'image' => 'cat:v1',
+        'image' => 'cat:current',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
         'extra_parameters' => '--restart=no',
@@ -77,7 +72,7 @@ describe 'govuk_containers::app', :type => :define do
     it do
       is_expected.to contain_docker__run('bella').with(
         'net' => 'host',
-        'image' => 'cat:v1',
+        'image' => 'cat:current',
         'ports' => '1234:1234',
         'env_file' => '/etc/global.env',
         'extra_parameters' => '--restart=always',
