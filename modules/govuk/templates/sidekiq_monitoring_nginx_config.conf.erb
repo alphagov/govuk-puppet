@@ -58,6 +58,10 @@ server {
     proxy_pass http://localhost:3210;
   }
 
+  location /link-checker-api {
+    proxy_pass http://localhost:3209;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }

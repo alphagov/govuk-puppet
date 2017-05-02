@@ -28,6 +28,14 @@
 #   Redis port for Imminence Sidekiq.
 #   Default: undef
 #
+# [*link_checker_api_redis_host*]
+#   Redis host for Link Checker API Sidekiq.
+#   Default: undef
+#
+# [*link_checker_api_redis_port*]
+#   Redis port for Link Checker API Sidekiq.
+#   Default: undef
+#
 # [*publisher_redis_host*]
 #   Redis host for Publisher Sidekiq.
 #   Default: undef
@@ -99,6 +107,8 @@ class govuk::apps::sidekiq_monitoring (
   $email_alert_api_redis_port = undef,
   $imminence_redis_host = undef,
   $imminence_redis_port = undef,
+  $link_checker_api_redis_host = undef,
+  $link_checker_api_redis_port = undef,
   $publisher_redis_host = undef,
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
@@ -107,8 +117,8 @@ class govuk::apps::sidekiq_monitoring (
   $rummager_redis_port = undef,
   $signon_redis_host = undef,
   $signon_redis_port = undef,
-  $specailist_publisher_redis_host = undef,
-  $specailist_publisher_redis_port = undef,
+  $specialist_publisher_redis_host = undef,
+  $specialist_publisher_redis_port = undef,
   $travel_advice_publisher_redis_host = undef,
   $travel_advice_publisher_redis_port = undef,
   $transition_redis_host = undef,
@@ -146,6 +156,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'imminence',
       host   => $imminence_redis_host,
       port   => $imminence_redis_port;
+
+    "${app_name}_link_checker_api":
+      prefix => 'link_checker_api',
+      host   => $link_checker_api_redis_host,
+      port   => $link_checker_api_redis_port;
 
     "${app_name}_publisher":
       prefix => 'publisher',
