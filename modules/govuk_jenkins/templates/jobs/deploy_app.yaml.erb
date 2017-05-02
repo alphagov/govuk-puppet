@@ -68,9 +68,6 @@
                 - deploy:with_hard_restart
                 - deploy:with_migrations
                 - deploy:without_migrations
-                - deploy_docker
-                - deploy_docker:pull
-                - deploy_docker:tag_to_current
                 - app:migrate
                 - app:hard_restart
                 - app:migrate_and_hard_restart
@@ -82,3 +79,7 @@
             name: DEPLOY_FROM_GITHUB_ENTERPRISE
             default: false
             description: Whether to deploy from GitHub Enterprise in case public GitHub is unavailable
+        - bool:
+            name: DOCKER
+            default: false
+            description: Whether to deploy the app as a docker container
