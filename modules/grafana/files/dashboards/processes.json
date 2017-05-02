@@ -1215,12 +1215,7 @@
             "text": "processes-app-contacts",
             "value": "processes-app-contacts",
             "selected": false
-          },
-          {
-            "text": "processes-app-contacts-frontend",
-            "value": "processes-app-contacts-frontend",
-            "selected": false
-          },
+          },          
           {
             "text": "processes-app-content-register",
             "value": "processes-app-content-register",

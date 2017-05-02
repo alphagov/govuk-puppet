@@ -266,7 +266,6 @@ hosts::development::apps:
   - 'collections'
   - 'collections-publisher'
   - 'contacts-admin'
-  - 'contacts-frontend'
   - 'contentapi'
   - 'content-store'
   - 'content-tagger'

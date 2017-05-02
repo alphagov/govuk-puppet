@@ -21,7 +21,6 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
-  contacts-frontend: {}
   content-performance-manager: {}
   content-store: {}
   content-tagger: {}
@@ -1206,10 +1205,8 @@ hosts::production::frontend::app_hostnames:
   - 'calendars'
   - 'canary-frontend'
   - 'collections'
-  - 'contacts-frontend'
   - 'designprinciples'
   - 'draft-collections'
-  - 'draft-contacts-frontend'
   - 'draft-email-alert-frontend'
   - 'draft-frontend'
   - 'draft-government-frontend'
@@ -1511,7 +1508,6 @@ router::assets_origin::asset_routes:
   '/calculators/': "calculators"
   '/calendars/': "calendars"
   '/collections/': "collections"
-  '/contacts-frontend/': "contacts-frontend"
   '/designprinciples/': "designprinciples"
   '/email-alert-frontend/': "email-alert-frontend"
   '/feedback/': "feedback"
