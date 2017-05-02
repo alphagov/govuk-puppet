@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*port*]
 #   The port that publishing API is served on.
 #   Default: 3093
@@ -81,6 +84,7 @@
 #  The secret key that grants access to event_log_aws_bucketname for event_log_aws_username
 #
 class govuk::apps::publishing_api(
+  $ensure = 'present',
   $port = '3093',
   $content_store = '',
   $draft_content_store = '',
@@ -105,9 +109,12 @@ class govuk::apps::publishing_api(
 ) {
   $app_name = 'publishing-api'
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   govuk::app { $app_name:
+    ensure            => $ensure,
     app_type          => 'rack',
     port              => $port,
     vhost_ssl_only    => true,
