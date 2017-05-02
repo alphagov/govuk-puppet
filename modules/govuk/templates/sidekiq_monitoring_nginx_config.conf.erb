@@ -14,16 +14,40 @@ server {
     try_files $uri/index.html $uri.html $uri @app;
   }
 
+  location /content-tagger {
+    proxy_pass http://localhost:3125;
+  }
+
+  location /email-alert-api {
+    proxy_pass http://localhost:3089;
+  }
+
+  location /imminence {
+    proxy_pass http://localhost:3120;
+  }
+
+  location /link-checker-api {
+    proxy_pass http://localhost:3209;
+  }
+
   location /publisher {
     proxy_pass http://localhost:3079;
+  }
+
+  location /publishing-api {
+    proxy_pass http://localhost:3114;
+  }
+
+  location /rummager {
+    proxy_pass http://localhost:3091;
   }
 
   location /signon {
     proxy_pass http://localhost:3080;
   }
 
-  location /whitehall {
-    proxy_pass http://localhost:3081;
+  location /specialist-publisher {
+    proxy_pass http://localhost:3210;
   }
 
   location /transition {
@@ -34,24 +58,8 @@ server {
     proxy_pass http://localhost:3203;
   }
 
-  location /email-alert-api {
-    proxy_pass http://localhost:3089;
-  }
-
-  location /rummager {
-    proxy_pass http://localhost:3091;
-  }
-
-  location /publishing-api {
-    proxy_pass http://localhost:3114;
-  }
-
-  location /imminence {
-    proxy_pass http://localhost:3120;
-  }
-
-  location /content-tagger {
-    proxy_pass http://localhost:3125;
+  location /whitehall {
+    proxy_pass http://localhost:3081;
   }
 
   root /data/vhost/<%= @full_domain %>/current/public;
