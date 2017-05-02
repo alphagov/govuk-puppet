@@ -28,5 +28,10 @@ fi
 
 while read repo
 do
-  git clone $branch https://github.com/alphagov/$repo.git $repo
+  if [[ -z $(git ls-remote --heads https://github.com/alphagov/$repo.git $branch) ]]
+  then
+    git clone https://github.com/alphagov/$repo.git $repo
+  else
+    git clone $branch https://github.com/alphagov/$repo.git $repo
+  fi
 done < "${1:-/dev/stdin}"
