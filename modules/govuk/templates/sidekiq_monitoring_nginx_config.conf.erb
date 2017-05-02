@@ -54,6 +54,10 @@ server {
     proxy_pass http://localhost:3125;
   }
 
+  location /specialist-publisher {
+    proxy_pass http://localhost:3210;
+  }
+
   root /data/vhost/<%= @full_domain %>/current/public;
 
 }

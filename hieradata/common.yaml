@@ -446,6 +446,8 @@ govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rum
 govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
 govuk::apps::sidekiq_monitoring::signon_redis_port: "%{hiera('govuk::apps::signon::redis_port')}"
+govuk::apps::sidekiq_monitoring::specialist_publisher_redis_host: "%{hiera('govuk::apps::specialist_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::specialist_publisher_redis_port: "%{hiera('govuk::apps::specialist_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_host: "%{hiera('govuk::apps::travel_advice_publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_port: "%{hiera('govuk::apps::travel_advice_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::transition_redis_host: "%{hiera('govuk::apps::transition::redis_host')}"
