@@ -23,7 +23,7 @@ govuk_jenkins::config::views:
 govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
-govuk_jenkins::version: '2.46.1'
+govuk_jenkins::version: '2.46.2'
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::integration_deploy
@@ -42,17 +42,17 @@ govuk_jenkins::plugins:
     bouncycastle-api:
       version: "2.16.1"
     brakeman:
-      version: "0.8"
+      version: "0.11"
     branch-api:
-      version: "2.0.8"
+      version: "2.0.9"
     build-name-setter:
       version: "1.6.5"
     build-pipeline-plugin:
       version: "1.5.6"
     cloudbees-folder:
-      version: "6.0.3"
+      version: "6.0.4"
     cobertura:
-      version: "1.9.8"
+      version: "1.10"
     conditional-buildstep:
       version: "1.3.5"
     copyartifact:
@@ -62,7 +62,7 @@ govuk_jenkins::plugins:
     description-setter:
       version: "1.10"
     display-url-api:
-      version: "1.1.1"
+      version: "2.0"
     docker-commons:
       version: "1.6"
     docker-workflow:
@@ -74,17 +74,17 @@ govuk_jenkins::plugins:
     findbugs:
       version: "4.70"
     git-client:
-      version: "2.4.1"
+      version: "2.4.5"
     git:
-      version: "3.2.0"
+      version: "3.3.0"
     github-api:
       version: "1.85"
     github-branch-source:
       version: "2.0.5"
     github:
-      version: "1.26.2"
+      version: "1.27.0"
     github-oauth:
-      version: "0.25"
+      version: "0.27"
     git-server:
       version: "1.7"
     gradle:
@@ -94,7 +94,7 @@ govuk_jenkins::plugins:
     handlebars:
       version: "1.1.1"
     htmlpublisher:
-      version: "1.12"
+      version: "1.13"
     icon-shim:
       version: "2.0.3"
     javadoc:
@@ -116,7 +116,7 @@ govuk_jenkins::plugins:
     matrix-auth:
       version: "1.5"
     matrix-project:
-      version: "1.9"
+      version: "1.10"
     maven-plugin:
       version: "2.15.1"
     momentjs:
@@ -134,23 +134,23 @@ govuk_jenkins::plugins:
     pipeline-graph-analysis:
       version: "1.3"
     pipeline-input-step:
-      version: "2.5"
+      version: "2.7"
     pipeline-milestone-step:
       version: "1.3.1"
     pipeline-model-api:
-      version: "1.1.2"
+      version: "1.1.4"
     pipeline-model-declarative-agent:
       version: "1.1.1"
     pipeline-model-definition:
-      version: "1.1.2"
+      version: "1.1.4"
     pipeline-model-extensions:
-      version: "1.1.2"
+      version: "1.1.4"
     pipeline-rest-api:
       version: "2.6"
     pipeline-stage-step:
       version: "2.2"
     pipeline-stage-tags-metadata:
-      version: "1.1.2"
+      version: "1.1.4"
     pipeline-stage-view:
       version: "2.6"
     plain-credentials:
@@ -184,7 +184,7 @@ govuk_jenkins::plugins:
     ssh-credentials:
       version: "1.13"
     ssh-slaves:
-      version: "1.16"
+      version: "1.17"
     structs:
       version: "1.6"
     swarm:
@@ -206,15 +206,15 @@ govuk_jenkins::plugins:
     workflow-aggregator:
       version: "2.5"
     workflow-api:
-      version: "2.12"
+      version: "2.13"
     workflow-basic-steps:
       version: "2.4"
     workflow-cps-global-lib:
-      version: "2.7"
+      version: "2.8"
     workflow-cps:
-      version: "2.29"
+      version: "2.30"
     workflow-durable-task-step:
-      version: "2.10"
+      version: "2.11"
     workflow-job:
       version: "2.10"
     workflow-multibranch:
@@ -226,6 +226,6 @@ govuk_jenkins::plugins:
     workflow-support:
       version: "2.14"
     ws-cleanup:
-      version: "0.32"
+      version: "0.33"
 
 icinga::client::check_cputype::cputype: 'intel'
