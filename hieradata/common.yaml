@@ -798,10 +798,6 @@ grafana::dashboards::deployment_applications:
     # Low usage
     show_controller_errors: false
     show_slow_requests: false
-  contacts-frontend:
-    # Missing data in kibana
-    show_controller_errors: false
-    show_slow_requests: false
   content-performance-manager:
     # Missing duration, status, controller fields
     show_controller_errors: false
