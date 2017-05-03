@@ -17,6 +17,8 @@ class govuk::apps::stagecraft (
   $enabled = false,
   $database_password = undef,
   $message_queue_password = undef,
+  $fernet_key = undef,
+  $fernet_use_hkdf = undef,
 ) {
   $app_name = 'stagecraft'
 
@@ -51,6 +53,12 @@ class govuk::apps::stagecraft (
       "${title}-MESSAGE_QUEUE_PASSWORD":
         varname => 'MESSAGE_QUEUE_PASSWORD',
         value   => $message_queue_password;
+      "${title}-FERNET_USE_HKDF":
+        varname => 'FERNET_USE_HKDF',
+        value   => $fernet_use_hkdf;
+      "${title}-FERNET_KEY":
+        varname => 'FERNET_KEY',
+        value   => $fernet_key;
     }
   }
 }
