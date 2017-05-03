@@ -80,6 +80,9 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
 govuk::node::s_backend_lb::performance_backend_servers:
   - 'performance-backend-1.backend'
   - 'performance-backend-2.backend'
+govuk::node::s_backend_lb::docker_backend_servers:
+  - 'docker-backend-1.backend'
+  - 'docker-backend-2.backend'
 
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 

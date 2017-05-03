@@ -10,6 +10,9 @@
 # [*backend_servers*]
 #   An array of backend app servers
 #
+# [*docker_backend_servers*]
+#   An array of Docker backend app servers
+#
 # [*performance_backend_servers*]
 #   An array of Performance Platform backend app servers
 #
@@ -25,6 +28,7 @@
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
+  $docker_backend_servers = [],
   $performance_backend_servers = [],
   $whitehall_backend_servers,
   $publishing_api_backend_servers,
@@ -59,7 +63,6 @@ class govuk::node::s_backend_lb (
       'maslow',
       'policy-publisher',
       'publisher',
-      'release',
       'search-admin',
       'service-manual-publisher',
       'signon',
@@ -109,6 +112,19 @@ class govuk::node::s_backend_lb (
       servers       => $performance_backend_servers,
       internal_only => false,
     }
+  }
+
+  if !empty($docker_backend_servers) {
+    $_backend_servers = $docker_backend_servers
+  } else {
+    $_backend_servers = $backend_servers
+  }
+
+  loadbalancer::balance {
+    [
+      'release',
+    ]:
+      servers => $_backend_servers;
   }
 
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
