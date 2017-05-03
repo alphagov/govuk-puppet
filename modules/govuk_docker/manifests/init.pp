@@ -28,6 +28,11 @@ class govuk_docker (
     provider => pip,
   }
 
+  # We currently only have logit set up for
+  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
+    include ::govuk_docker::logspout
+  }
+
   @@icinga::check { "check_dockerd_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!dockerd',
     service_description => 'dockerd running',
