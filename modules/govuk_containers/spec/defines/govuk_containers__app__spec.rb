@@ -89,4 +89,15 @@ describe 'govuk_containers::app', :type => :define do
 
     it { is_expected.to raise_error(Puppet::Error, /validate_re/) }
   end
+
+  context 'setting healthcheck_path and enable json_healthcheck includes check_json_healthcheck class' do
+    let(:params) do
+      {
+        :healthcheck_path => '/foo',
+        :json_healthcheck => true,
+      }.merge(default_params)
+    end
+
+    it { is_expected.to contain_class('icinga::client::check_json_healthcheck') }
+  end
 end
