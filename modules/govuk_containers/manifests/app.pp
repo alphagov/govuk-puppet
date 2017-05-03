@@ -39,6 +39,8 @@ define govuk_containers::app (
   $global_env_file = '/etc/global.env',
   $command = undef,
   $restart_attempts = 3,
+  $healthcheck_path = undef,
+  $json_healthcheck = false,
 ) {
   require ::govuk_docker
   require ::govuk_containers::app::config
@@ -70,6 +72,29 @@ define govuk_containers::app (
     command          => $command,
     extra_parameters => $extra_params,
     subscribe        => Class[Govuk_containers::App::Config],
+  }
+
+  if $healthcheck_path {
+    @@icinga::check { "check_app_${title}_up_on_${::hostname}":
+      ensure              => $ensure,
+      check_command       => "check_nrpe!check_app_up!${port} ${healthcheck_path}",
+      service_description => "${title} app healthcheck",
+      host_name           => $::fqdn,
+    }
+    if $json_healthcheck {
+      include icinga::client::check_json_healthcheck
+
+      $healthcheck_desc      = "${title} app health check not ok"
+      $healthcheck_opsmanual = regsubst($healthcheck_desc, ' ', '-', 'G')
+
+      @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
+        ensure              => $ensure,
+        check_command       => "check_nrpe!check_json_healthcheck!${port} ${healthcheck_path}",
+        service_description => $healthcheck_desc,
+        host_name           => $::fqdn,
+        notes_url           => monitoring_docs_url($healthcheck_opsmanual),
+      }
+    }
   }
 
 }
