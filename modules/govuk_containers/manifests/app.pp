@@ -8,13 +8,17 @@
 # [*image*]
 #   The container image to run.
 #
+# [*port*]
+#   An array of local ports to map in the format of ['1234:1234'].
+#
+# [*ensure*]
+#   Whether to ensure the frameworking for the app to exist.
+#   Default: present
+#
 # [*image_tag*]
 #   The image tag to run. In our deployment this should not be specified
 #   as we will explicitly tag images. However, for local development this
 #   parameter can be set.
-#
-# [*ports*]
-#   An array of local ports to map in the format of ['1234:1234'].
 #
 # [*envvars*]
 #   An array of environment variables to start the container with.
@@ -26,9 +30,16 @@
 # [*command*]
 #   A command to start the container with.
 #
-# [*extra_params*]
-#   An array of extra paramaters to set.
-#   Default is to always try restarting the app.
+# [*restart_attempts*]
+#   Amount of times to attempt restarting the container if it's detected
+#   as unhealthy.
+#   Default is to always try restarting the app a maximum of 3 times.
+#
+# [*healthcheck_path*]
+#   The path where the healthcheck for the application resides.
+#
+# [*json_healthcheck*]
+#   Whether the healthcheck is JSON format.
 #
 define govuk_containers::app (
   $image,
