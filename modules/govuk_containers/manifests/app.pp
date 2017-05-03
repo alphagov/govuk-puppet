@@ -33,6 +33,7 @@
 define govuk_containers::app (
   $image,
   $port,
+  $ensure = 'present',
   $image_tag = 'current',
   $envvars = [],
   $global_env_file = '/etc/global.env',
@@ -60,6 +61,7 @@ define govuk_containers::app (
   ]
 
   ::docker::run { $title:
+    ensure           => $ensure,
     net              => 'host',
     image            => "${image}:${image_tag}",
     ports            => [$exposed_port],
