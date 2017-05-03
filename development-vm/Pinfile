@@ -15,7 +15,6 @@ process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:'publishing-api', :rummager, :'collections-publisher-worker']
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
-process :'contacts-frontend' => [:static, :'content-store']
 process :contentapi => [:imminence, 'asset-manager']
 process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq']
 process :'content-store'
