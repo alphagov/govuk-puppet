@@ -29,7 +29,6 @@ govuk::node::s_development::apps:
   - 'collections'
   - 'collections_publisher'
   - 'contacts'
-  - 'contacts_frontend'
   - 'content_performance_manager'
   - 'content_store'
   - 'content_store::enable_running_in_draft_mode'
