@@ -37,11 +37,12 @@ class govuk_docker::logspout (
   }
 
   ::docker::run { 'logspout':
-    image   => "${image_name}:${image_tag}",
-    require => Docker::Image[$image_name],
-    env     => [$tag_env],
-    volumes => ['/var/run/docker.sock:/var/run/docker.sock'],
-    command => "logstash+tls://${endpoint}",
+    image            => "${image_name}:${image_tag}",
+    require          => Docker::Image[$image_name],
+    env              => [$tag_env],
+    volumes          => ['/var/run/docker.sock:/var/run/docker.sock'],
+    command          => "logstash+tls://${endpoint}",
+    extra_parameters => ['--restart=on-failure:3'],
   }
 
   @@icinga::check { "check_logspout_running_${::hostname}":
