@@ -82,7 +82,6 @@ govuk_jenkins::config::admins:
   - brendanbutler
   - carlosvilhena
   - carolinegreen
-  - chriscarter
   - chrislowis
   - christopherbaines
   - chrisroos
@@ -115,11 +114,9 @@ govuk_jenkins::config::admins:
   - matteograssotti
   - mobaig
   - murraysteele
-  - neilvanbeinum
   - nickcolley
   - oliverbyford
   - pablomanrubia
-  - paulastepinska
   - paulbowsher
   - paulhayes
   - richardboulton
