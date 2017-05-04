@@ -33,7 +33,7 @@ If you're having trouble with Vagrant or the development VM, there are [troubles
 
 First, install:
 
-* [OSX GCC tools](https://github.com/kennethreitz/osx-gcc-installer)
+* git command line tool: either from the managed software center or from [git-scm](https://git-scm.com/downloads)
 * [VirtualBox](https://www.virtualbox.org/)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * vagrant-dns plugin: `vagrant plugin install vagrant-dns`
@@ -43,7 +43,7 @@ First, install:
 1. Set up a [GitHub](https://www.github.com) account.
 1. Ask your tech lead to add you to the [alphagov organisation](https://github.com/alphagov).
 1. Set up a [GitHub Enterprise](https://github.gds) (private) account and ask to be added to the `gds` organisation.
-1. [Generate and register an SSH key pair](https://help.github.com/categories/56/articles) for your Mac for your GitHub account.
+1. [Generate and register an SSH key pair](https://help.github.com/articles/connecting-to-github-with-ssh/) for your Mac for your GitHub account.
 1. Import the SSH key into your keychain. Once you’ve done this, it’ll be available to the VM you'll install in the next step.
 
         mac$ /usr/bin/ssh-add -K yourkey
