@@ -14,7 +14,6 @@ deployable_applications: &deployable_applications
   backdrop-write:
     repository: 'backdrop'
   bouncer: {}
-  business-support-api: {}
   calculators: {}
   calendars: {}
   collections: {}
@@ -787,7 +786,6 @@ grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
   asset-manager: {}
-  business-support-api: {}
   calculators:
     # Status, duration, controller missing @fields. prefix
     show_controller_errors: false
@@ -1114,7 +1112,6 @@ hosts::production::backend::hosts:
 
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
-  - 'business-support-api'
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'

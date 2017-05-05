@@ -1187,11 +1187,6 @@
             "selected": false
           },
           {
-            "text": "processes-app-business-support-api",
-            "value": "processes-app-business-support-api",
-            "selected": false
-          },
-          {
             "text": "processes-app-calculators",
             "value": "processes-app-calculators",
             "selected": false
@@ -1215,7 +1210,7 @@
             "text": "processes-app-contacts",
             "value": "processes-app-contacts",
             "selected": false
-          },          
+          },
           {
             "text": "processes-app-content-register",
             "value": "processes-app-content-register",

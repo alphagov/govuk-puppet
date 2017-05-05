@@ -11,19 +11,6 @@
     proxy_pass <%= @privateapi_protocol %>://<%= @whitehallapi %>;
   }
 
-  location ~ ^/api/business-support-schemes([/?.].*)?$ {
-    expires 30m;
-
-    # Remove the prefix before passing through
-    # Can't just do this using the proxy_pass URL, because we're
-    # having to match the incoming path on a regular expression
-    rewrite ^/api/?(.*) /$1 break;
-
-    proxy_set_header Host <%= @business_support_api %>;
-    proxy_set_header API-PREFIX api;
-    proxy_pass <%= @privateapi_protocol %>://<%= @business_support_api %>;
-  }
-
   location ~ ^/api/search.json {
     expires 30m;
 
