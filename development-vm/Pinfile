@@ -8,7 +8,6 @@ process :backdrop => [:backdrop_read, :backdrop_write, :stagecraft]
 process :backdrop_read
 process :backdrop_write
 process :bouncer
-process :'business-support-api' => [:contentapi]
 process :calculators => [:static, :'content-store']
 process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :rummager]

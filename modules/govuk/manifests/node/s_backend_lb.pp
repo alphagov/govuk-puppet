@@ -51,7 +51,6 @@ class govuk::node::s_backend_lb (
       error_on_http => true,
       servers       => $backend_servers;
     [
-      'business-support-api',
       'collections-publisher',
       'contacts-admin',
       'content-performance-manager',

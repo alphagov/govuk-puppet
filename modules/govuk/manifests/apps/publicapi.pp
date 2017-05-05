@@ -9,7 +9,6 @@ class govuk::apps::publicapi (
 
   $privateapi = "contentapi.${app_domain}"
   $whitehallapi = "whitehall-frontend.${app_domain}"
-  $business_support_api = "business-support-api.${app_domain}"
   $rummager_api = "search.${app_domain}"
   $content_store_api = "content-store.${app_domain}"
 

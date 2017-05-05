@@ -257,7 +257,6 @@ hosts::development::apps:
   - 'bouncer'
   - 'backdrop-write'
   - 'backdrop-read'
-  - 'business-support-api'
   - 'calculators'
   - 'calendars'
   - 'canary-backend'
