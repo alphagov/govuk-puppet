@@ -102,15 +102,11 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
       release  => 'trusty',
       key      => 'AF953139C1DF9EF3476DE1D58F571BB27A86F4A2';
-    'google-cloud-sdk-trusty':
-      location => 'https://packages.cloud.google.com/apt',
-      repos    => ['main'],
-      release  => 'cloud-sdk-trusty',
-      key      => 'A7317B0F';
   }
 
   aptly::repo { 'elastic-beats': }
   aptly::repo { 'gof3r': }
+  aptly::repo { 'google-cloud-sdk-trusty': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
   aptly::repo { 'govuk-rubygems': }
