@@ -105,7 +105,7 @@ class govuk::node::s_apt (
     'google-cloud-sdk-trusty':
       location => 'https://packages.cloud.google.com/apt',
       repos    => ['main'],
-      release  => 'trusty',
+      release  => 'cloud-sdk-trusty',
       key      => 'A7317B0F';
   }
 
