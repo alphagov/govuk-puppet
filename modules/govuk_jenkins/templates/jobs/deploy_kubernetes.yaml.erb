@@ -1,0 +1,50 @@
+---
+- scm:
+    name: Deploy_Kubernetes
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-gcp-discovery.git
+            branches:
+              - master
+            wipe-workspace: true
+            clean:
+                after: true
+
+- job:
+    name: Deploy_Kubernetes
+    display-name: Deploy_Kubernetes
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-gcp-discovery/
+    scm:
+      - Deploy_Kubernetes
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
+        - credentials-binding:
+            - text:
+               credential-id: <%= @gce_credential_id %>
+               variable: GOOGLE_CREDENTIALS
+    builders:
+        - shell: |
+            echo placeholder
+    parameters:
+        - string:
+            name: GOOGLE_PROJECT
+            description: Google Compute Engine project
+            default: <%= @gce_project_id %>
+        - string:
+            name: TARGET_APPLICATION
+            description: Application to deploy.
+        - choice:
+            name: DEPLOY_TASK
+            description: Task
+            choices:
+                - deploy
+        - string:
+            name: TAG
+            description: Git tag/committish to deploy.
+            default: release
