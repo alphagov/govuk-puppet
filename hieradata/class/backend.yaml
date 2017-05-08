@@ -48,7 +48,6 @@ govuk::apps::travel_advice_publisher::mongodb_nodes:
 
 govuk::node::s_base::apps:
   - asset_manager
-  - business_support_api
   - canary_backend
   - collections_publisher
   - contacts
