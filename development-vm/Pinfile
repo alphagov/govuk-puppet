@@ -55,7 +55,7 @@ process :'multipage-frontend' => [:static, :'content-store']
 process :need_api
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
-process :publisher => [:'publishing-api', 'publisher-worker'] # for some requests also uses: mapit
+process :publisher => [:'publishing-api', 'publisher-worker', :calendars] # for some requests also uses: mapit
 process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
