@@ -61,10 +61,6 @@ govuk_jenkins::plugins:
     version: '1.58'
   github-oauth:
     version: '0.19'
-  google-oauth-plugin:
-    version: '0.5'
-  google-container-registry-auth:
-    version: '0.3'
   greenballs:
     version: '1.14'
   jquery:
