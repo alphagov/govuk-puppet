@@ -87,6 +87,10 @@ govuk_jenkins::plugins:
       version: "0.27"
     git-server:
       version: "1.7"
+    google-oauth-plugin:
+      version: '0.5'
+    google-container-registry-auth:
+      version: '0.3'
     gradle:
       version: "1.26"
     greenballs:
