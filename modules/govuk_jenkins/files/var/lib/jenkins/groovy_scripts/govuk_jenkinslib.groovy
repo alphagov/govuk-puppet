@@ -198,10 +198,6 @@ def buildProject(Map options = [:]) {
     if (hasDockerfile()) {
       stage("Push Docker image") {
         pushDockerImage(repoName, env.BRANCH_NAME)
-        docker.withRegistry('https://gcr.io', 'gcr:govuk-test') {
-          img = docker.Image('govuk/repoName').tag('gcr.io/govuk-test/jenkins-test')
-          img.push('latest')
-        }
       }
     }
 
