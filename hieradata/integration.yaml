@@ -76,6 +76,7 @@ govuk_jenkins::config::admins:
   - andrewhilton
   - andrienricketts
   - andydriver
+  - andysellick
   - anikahenke
   - bevanloon
   - bobwalker
@@ -287,6 +288,7 @@ users::usernames:
   - andrewhilton
   - andrienricketts
   - andydriver
+  - andysellick
   - anikahenke
   - bevanloon
   - bob
