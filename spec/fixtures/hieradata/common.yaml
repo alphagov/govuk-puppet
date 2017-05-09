@@ -7,6 +7,8 @@ govuk::apps::router::mongodb_name: ['router']
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 
+govuk_ci::agent::gcloud::apt_mirror_hostname: 'apt.example.com'
+
 govuk::deploy::config::asset_root: 'http://assets.example.com'
 govuk::deploy::config::website_root: 'http://www.example.com'
 
