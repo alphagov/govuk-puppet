@@ -84,6 +84,7 @@ govuk_jenkins::config::admins:
   - carlosvilhena
   - carolinegreen
   - chrislowis
+  - chrispatuzzo
   - christopherbaines
   - chrisroos
   - ci_alphagov
@@ -296,6 +297,7 @@ users::usernames:
   - carlosvilhena
   - carolinegreen
   - chrislowis
+  - chrispatuzzo
   - chrisroos
   - christopherbaines
   - danielroseman
