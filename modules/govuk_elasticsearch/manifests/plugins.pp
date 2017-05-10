@@ -9,6 +9,12 @@ class govuk_elasticsearch::plugins {
     instances  => $::fqdn,
   }
 
+  elasticsearch::plugin { 'elasticsearch-migration':
+    module_dir => 'migration',
+    url        => 'https://github.com/elastic/elasticsearch-migration/releases/download/v1.19/elasticsearch-migration-1.19.zip',
+    instances  => $::fqdn,
+  }
+
   case $govuk_elasticsearch::version {
     /^1.4/:  { $cloud_aws_version = '2.4.2' }
     /^1.5/:  { $cloud_aws_version = '2.5.1' }
