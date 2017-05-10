@@ -54,6 +54,7 @@ class govuk::apps::content_performance_manager(
   $db_name = 'content_performance_manager_production',
   $db_password = undef,
   $db_username = 'content_performance_manager',
+  $enable_procfile_worker = true,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
@@ -74,6 +75,10 @@ class govuk::apps::content_performance_manager(
 
   Govuk::App::Envvar {
     app    => $app_name,
+  }
+
+  govuk::procfile::worker {$app_name:
+    enable_service => $enable_procfile_worker,
   }
 
   govuk::app::envvar {
