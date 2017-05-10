@@ -204,11 +204,7 @@ def buildProject(Map options = [:]) {
         pushDockerImage(repoName, env.BRANCH_NAME)
 
         if (params.PUSH_TO_GCR) {
-
-          withCredentials([file(credentialsId: 'govuk-test', variable: 'gcrCredFile')]) {
-            sh("gcloud auth activate-service-account --key-file ${gcrCredFile}")
-            sh("gcloud docker -- push gcr.io/govuk-test/${repoName}")
-          }
+          pushDockerImageToGCR(repoName, env.BRANCH_NAME)
         }
       }
     }
@@ -229,13 +225,6 @@ def buildProject(Map options = [:]) {
                         getNewStyleDockerTag() :
                         "release_${env.BUILD_NUMBER}"
             pushDockerImage(repoName, env.BRANCH_NAME, dockerTag)
-            if (params.PUSH_TO_GCR) {
-
-              withCredentials([file(credentialsId: 'govuk-test', variable: 'gcrCredFile')]) {
-                sh("gcloud auth activate-service-account --key-file ${gcrCredFile}")
-                sh("gcloud container images add-tag gcr.io/govuk-test/${repoName} gcr.io/govuk-test/${repoName}:${dockerTag}")
-              }
-            }
           }
         }
 
@@ -706,6 +695,24 @@ def buildDockerImage(imageName, tagName) {
 def pushDockerImage(imageName, tagName, asTag = null) {
   docker.withRegistry('https://index.docker.io/v1/', 'govukci-docker-hub') {
     docker.image("govuk/${imageName}:${tagName}").push(asTag ?: tagName)
+  }
+}
+
+def pushDockerImageToGCR(imageName, tagName) {
+  gcrName = "gcr.io/govuk-test/${imageName}"
+  docker.build(gcrName)
+
+  withCredentials([file(credentialsId: 'govuk-test', variable: 'GCR_CRED_FILE')]) {
+    // We don't want to interpolate this command as GCR_CRED_FILE is set as an
+    // environment variable in bash.
+    command = 'gcloud auth activate-service-account --key-file "$GCR_CRED_FILE"'
+    sh command
+    // We do want to interpolate this command to get the value of gcrName
+    command = "gcloud docker -- push ${gcrName}"
+    sh command
+    // Add the tag, again this needs to be interpolated
+    command = "gcloud container images add-tag ${gcrName} ${gcrName}:${tagName}"
+    sh command
   }
 }
 
