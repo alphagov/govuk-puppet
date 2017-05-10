@@ -142,9 +142,6 @@ govuk::node::s_backend_lb::performance_backend_servers:
   - 'performance-backend-1.backend'
   - 'performance-backend-2.backend'
 govuk::node::s_backend_lb::publishing_api_backend_servers:
-  - 'backend-1.backend'
-  - 'backend-2.backend'
-  - 'backend-3.backend'
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
   - 'publishing-api-3.backend'
