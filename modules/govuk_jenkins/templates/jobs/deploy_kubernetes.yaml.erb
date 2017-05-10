@@ -5,7 +5,7 @@
         - git:
             url: git@github.com:alphagov/govuk-gcp-discovery.git
             branches:
-              - master
+              - deployments
             wipe-workspace: true
             clean:
                 after: true
@@ -25,17 +25,14 @@
         - build-name:
             name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
         - credentials-binding:
-            - text:
+            - file:
                credential-id: <%= @gce_credential_id %>
-               variable: GOOGLE_CREDENTIALS
+               variable: GOOGLE_APPLICATION_CREDENTIALS
     builders:
         - shell: |
-            echo placeholder
+            cd govuk-k8s-deployment
+            ./deployment.sh
     parameters:
-        - string:
-            name: GOOGLE_PROJECT
-            description: Google Compute Engine project
-            default: <%= @gce_project_id %>
         - string:
             name: TARGET_APPLICATION
             description: Application to deploy.
