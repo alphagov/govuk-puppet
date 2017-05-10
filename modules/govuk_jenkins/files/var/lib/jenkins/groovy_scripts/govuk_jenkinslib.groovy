@@ -169,7 +169,7 @@ def buildProject(Map options = [:]) {
     lock("$repoName-$NODE_NAME-test") {
       if (hasDatabase()) {
         stage("Set up the database") {
-            runRakeTask("db:drop db:create db:schema:load")
+            runRakeTask("db:reset")
         }
       }
 
