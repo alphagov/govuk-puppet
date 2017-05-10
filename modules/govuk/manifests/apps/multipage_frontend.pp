@@ -25,6 +25,7 @@ class govuk::apps::multipage_frontend(
   $secret_key_base = undef,
 ) {
   govuk::app { 'multipage-frontend':
+    ensure                => 'absent',
     app_type              => 'rack',
     port                  => $port,
     asset_pipeline        => true,
