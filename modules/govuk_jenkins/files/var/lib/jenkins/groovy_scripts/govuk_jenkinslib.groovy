@@ -205,7 +205,7 @@ def buildProject(Map options = [:]) {
 
         if (params.PUSH_TO_GCR) {
 
-          withCredentials([File(credentialsId: 'govuk-test', variable: 'gcrCredFile')]) {
+          withCredentials([file(credentialsId: 'govuk-test', variable: 'gcrCredFile')]) {
             sh("gcloud auth activate-service-account --key-file ${gcrCredFile}")
             sh("gcloud docker -- push gcr.io/govuk-test/${repoName}")
           }
@@ -231,7 +231,7 @@ def buildProject(Map options = [:]) {
             pushDockerImage(repoName, env.BRANCH_NAME, dockerTag)
             if (params.PUSH_TO_GCR) {
 
-              withCredentials([File(credentialsId: 'govuk-test', variable: 'gcrCredFile')]) {
+              withCredentials([file(credentialsId: 'govuk-test', variable: 'gcrCredFile')]) {
                 sh("gcloud auth activate-service-account --key-file ${gcrCredFile}")
                 sh("gcloud container images add-tag gcr.io/govuk-test/${repoName} gcr.io/govuk-test/${repoName}:${dockerTag}")
               }
