@@ -1426,8 +1426,6 @@ monitoring::checks::smokey::features:
     feature: smartanswers
   check_static_mirrors:
     feature: mirror
-  check_tariff:
-    feature: tariff
   check_whitehall:
     feature: whitehall
   check_draft_environment:
