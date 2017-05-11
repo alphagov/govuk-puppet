@@ -97,18 +97,6 @@
           <sid>github</sid>
         </assignedSIDs>
       </role>
-      <role name="read_only" pattern=".*">
-        <permissions>
-          <%- if @jenkins_2 -%>
-          <permission>hudson.model.Item.Read</permission>
-          <permission>hudson.model.Hudson.Read</permission>
-          <%- else -%>
-          <permission>hudson.model.Hudson.Read</permission>
-          <permission>hudson.model.Item.Read</permission>
-          <%- end -%>
-        </permissions>
-        <assignedSIDs/>
-      </role>
     </roleMap>
     <roleMap type="slaveRoles"/>
     <roleMap type="projectRoles"/>
