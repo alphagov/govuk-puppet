@@ -31,7 +31,7 @@
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
 
             if [ "$DEPLOY_FROM_GITHUB_ENTERPRISE" == "true" ]; then
-              export GIT_ORIGIN_PREFIX="git@github.gds:gds-production-backup"
+              export GIT_ORIGIN_PREFIX="git@github.digital.cabinet-office.gov.uk:gds-production-backup"
             fi
 
             ./jenkins.sh

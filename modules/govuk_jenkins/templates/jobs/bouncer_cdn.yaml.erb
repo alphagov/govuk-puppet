@@ -3,7 +3,7 @@
     name: cdn-configs_Bouncer_CDN
     scm:
         - git:
-            url: git@github.gds:gds/cdn-configs.git
+            url: git@github.digital.cabinet-office.gov.uk:gds/cdn-configs.git
             branches:
               - master
 
@@ -14,7 +14,7 @@
     description: "After a loading new site config into the Transition app, this job will make sure that the traffic hitting the CDN for those domains is routed to Bouncer."
     properties:
         - github:
-            url: https://github.gds/gds/cdn-configs/
+            url: https://github.digital.cabinet-office.gov.uk/gds/cdn-configs/
     scm:
         - cdn-configs_Bouncer_CDN
     logrotate:

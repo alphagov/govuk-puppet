@@ -24,7 +24,7 @@ class govuk_ghe_vpn (
 
   include govuk_ppa
 
-  host { 'github.gds':
+  host { 'github.digital.cabinet-office.gov.uk':
     ip      => '192.168.9.110',
     comment => 'Ignore VPN DNS and set static host for GHE',
   }

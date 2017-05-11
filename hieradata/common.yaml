@@ -562,7 +562,7 @@ govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_sshkeys::deployment_keys:
   github.com:
     key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
-  github.gds:
+  github.digital.cabinet-office.gov.uk:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC5y+7bm9YIMJXYbSdk2pVzl/w110eFrLIvirT4HKYATp7pxV454T2YoWIvIbtKF7GKz1SwX79uKePmwFKBQ8LIYlmFBbcYf8j3Jl9Px4vcmDPkWjZlfg/aqZUJI3WqwVCNelYM+RTlgtDsME8hIK2FbyPIjotF1WRsE1JgsMLfpzK/rVACGbktfQdmgY+56Ze9WA/rfCCKvrCtdavFR1rNxwkjm+GMImlcgmYTIT8BCEM2pkK0dIEJwKJWBVyyRBcTwHZDgvfVM/EyEfe+gIsgiQTORa1JaScHntH7Q7CBagpXvQHr/tSngGvbSBM1vMRLdtrw8BF5//AmNLOW3glZ'
 
 govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
@@ -723,8 +723,8 @@ govuk_jenkins::github_enterprise_cert::certificate: |
     LG8Mr4r1mOsqtUPYYjCN77EOwkRUucvIt1zNPoiD21OXzzxdOIUOUq6l/kERSfba
     LWIWJn/KXkog8bU776IixxWlO8l1TwiCUoDS9YsLIKIRCT74QE48qA==
     -----END CERTIFICATE-----
-govuk_jenkins::github_enterprise_cert::certificate_path: "/var/lib/jenkins/github.gds.pem"
-govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: "github.gds"
+govuk_jenkins::github_enterprise_cert::certificate_path: "/var/lib/jenkins/github.digital.cabinet-office.gov.uk.pem"
+govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: "github.digital.cabinet-office.gov.uk"
 govuk_jenkins::config::github_api_uri: "%{hiera('govuk_jenkins::config::github_web_uri')}/api/v3"
 govuk_jenkins::config::github_web_uri: "https://%{hiera('govuk_jenkins::github_enterprise_cert::github_enterprise_hostname')}"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
@@ -1412,7 +1412,7 @@ monitoring::checks::smokey::features:
     feature: frontend
   check_licencefinder:
     feature: licencefinder
-    notes_url: "https://github.gds/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks"
+    notes_url: "https://github.digital.cabinet-office.gov.uk/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks"
   check_licensing:
     feature: licensing
   check_publishing:

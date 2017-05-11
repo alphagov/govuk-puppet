@@ -3,7 +3,7 @@
     name: govuk-provisioning_Launch_VMs_Licensify
     scm:
         - git:
-            url: git@github.gds:gds/govuk-provisioning.git
+            url: git@github.digital.cabinet-office.gov.uk:gds/govuk-provisioning.git
             branches:
               - master
 - job:
@@ -16,7 +16,7 @@
       with `fab <%= @environment -%> puppet.sign_certificates`
     properties:
         - github:
-            url: https://github.gds/gds/alphagov-deployment/
+            url: https://github.digital.cabinet-office.gov.uk/gds/alphagov-deployment/
         - inject:
             properties-content: |
               VCLOUD_ORG=<%= @vcloud_properties_licensify['organisation'] %>
