@@ -1569,8 +1569,6 @@ ssh::config::allow_users_enable: true
 statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-trade_tariff_hostname: 'tariff-frontend-dev.cloudapps.digital'
-
 unattended_reboot::cron_env_vars:
   - 'MAILTO=""'
 unattended_reboot::cron_hour: '0-5'
