@@ -1528,8 +1528,6 @@ router::assets_origin::asset_routes:
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
 
-router::assets_origin::trade_tariff_host: "%{hiera('trade_tariff_hostname')}"
-
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
