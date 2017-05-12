@@ -55,7 +55,6 @@ deployable_applications: &deployable_applications
   mapit: {}
   maslow: {}
   metadata-api: {}
-  multipage-frontend: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
   policy-publisher: {}
@@ -74,7 +73,6 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   smokey: {}
-  specialist-frontend: {}
   specialist-publisher: {}
   spotlight: {}
   stagecraft: {}
@@ -875,10 +873,6 @@ grafana::dashboards::deployment_applications:
     # status instead of @fields.status, missing duration, controller
     show_controller_errors: false
     show_slow_requests: false
-  multipage-frontend:
-    # No data in kibana
-    show_controller_errors: false
-    show_slow_requests: false
   publisher:
     has_workers: true
   publishing-api:
@@ -904,7 +898,6 @@ grafana::dashboards::deployment_applications:
     has_workers: true
   smartanswers:
     docs_name: 'smart-answers'
-  specialist-frontend: {}
   specialist-publisher: {}
   static: {}
   support: {}
@@ -1226,9 +1219,7 @@ hosts::production::frontend::app_hostnames:
   - 'draft-frontend'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
-  - 'draft-multipage-frontend'
   - 'draft-service-manual-frontend'
-  - 'draft-specialist-frontend'
   - 'draft-static'
   - 'email-alert-frontend'
   - 'feedback'
@@ -1237,7 +1228,6 @@ hosts::production::frontend::app_hostnames:
   - 'government-frontend'
   - 'info-frontend'
   - 'manuals-frontend'
-  - 'multipage-frontend'
   - 'licencefinder'
   - 'performanceplatform-big-screen-view'
   - 'publicapi'
@@ -1246,7 +1236,6 @@ hosts::production::frontend::app_hostnames:
   - 'service-manual-frontend'
   - 'smartanswers'
   - 'spotlight'
-  - 'specialist-frontend'
   - 'static'
   - 'whitehall-frontend'
 
@@ -1534,11 +1523,9 @@ router::assets_origin::asset_routes:
   '/government-frontend/': "government-frontend"
   '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"
-  '/multipage-frontend/': "multipage-frontend"
   '/licencefinder/': "licencefinder"
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
-  '/specialist-frontend/': "specialist-frontend"
   '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
 

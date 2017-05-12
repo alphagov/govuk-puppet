@@ -37,6 +37,7 @@ class govuk::apps::specialist_frontend(
 
   if $enabled {
     govuk::app { $app_name:
+      ensure                 => 'absent',
       app_type               => 'rack',
       port                   => $port,
       vhost_aliases          => ['private-specialist-frontend'],

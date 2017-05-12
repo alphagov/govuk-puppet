@@ -1352,11 +1352,6 @@
             "selected": false
           },
           {
-            "text": "processes-app-multipage-frontend",
-            "value": "processes-app-multipage-frontend",
-            "selected": false
-          },
-          {
             "text": "processes-app-need-api",
             "value": "processes-app-need-api",
             "selected": false
@@ -1434,11 +1429,6 @@
           {
             "text": "processes-app-smartanswers",
             "value": "processes-app-smartanswers",
-            "selected": false
-          },
-          {
-            "text": "processes-app-specialist-frontend",
-            "value": "processes-app-specialist-frontend",
             "selected": false
           },
           {

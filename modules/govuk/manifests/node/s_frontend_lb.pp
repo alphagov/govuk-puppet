@@ -21,9 +21,7 @@ class govuk::node::s_frontend_lb (
       'draft-frontend',
       'draft-government-frontend',
       'draft-manuals-frontend',
-      'draft-multipage-frontend',
       'draft-service-manual-frontend',
-      'draft-specialist-frontend',
       'draft-static',
     ]:
       servers       => $draft_frontend_servers;
@@ -37,10 +35,8 @@ class govuk::node::s_frontend_lb (
       'government-frontend',
       'info-frontend',
       'manuals-frontend',
-      'multipage-frontend',
       'service-manual',
       'service-manual-frontend',
-      'specialist-frontend',
       'static',
     ]:
       servers       => $frontend_servers;
