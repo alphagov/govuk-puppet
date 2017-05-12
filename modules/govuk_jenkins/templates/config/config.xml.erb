@@ -10,6 +10,15 @@
   <numExecutors><%= @executors %></numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
+  <%- if @manage_permissions_github_teams -%>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <%- @user_permissions.map { |u| u['permissions'] }.flatten.uniq.sort.each do |permission| -%>
+    <%- @user_permissions.select { |u| u['permissions'].include? permission }.map { |u| u['user'] }.sort.each do |user| -%>
+    <permission><%= permission %>:<%= user %></permission>
+    <%- end -%>
+    <%- end -%>
+  </authorizationStrategy>
+  <%- else -%>
   <authorizationStrategy class="com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy">
     <roleMap type="globalRoles">
       <role name="Anonymouse" pattern=".*">
@@ -84,7 +93,7 @@
           <permission>hudson.model.Computer.Configure</permission>
         </permissions>
         <assignedSIDs>
-          <sid><%= @jenkins_agent_user %></sid>
+          <sid>jenkins_agent</sid>
         </assignedSIDs>
       </role>
       <%- end -%>
@@ -101,6 +110,7 @@
     <roleMap type="slaveRoles"/>
     <roleMap type="projectRoles"/>
   </authorizationStrategy>
+  <%- end -%>
   <securityRealm class="org.jenkinsci.plugins.GithubSecurityRealm">
     <githubWebUri><%= @github_web_uri -%></githubWebUri>
     <githubApiUri><%= @github_api_uri -%></githubApiUri>
