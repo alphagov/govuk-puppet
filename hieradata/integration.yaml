@@ -113,7 +113,6 @@ govuk_jenkins::config::admins:
   - leenagupte
   - matmoore
   - matteograssotti
-  - mobaig
   - murraysteele
   - nickcolley
   - oliverbyford
@@ -323,7 +322,6 @@ users::usernames:
   - leenagupte
   - matmoore
   - matteograssotti
-  - mobaig
   - murraysteele
   - nickcolley
   - oliverbyford
