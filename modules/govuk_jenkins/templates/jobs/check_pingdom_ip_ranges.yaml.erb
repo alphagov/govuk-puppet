@@ -3,7 +3,7 @@
     name: govuk-provisioning_Check_Pingdom_IP_Ranges
     scm:
         - git:
-            url: git@github.gds:gds/govuk_mirror-deployment.git
+            url: git@github.digital.cabinet-office.gov.uk:gds/govuk_mirror-deployment.git
             branches:
               - master
             wipe-workspace: false
@@ -15,7 +15,7 @@
     description: "This job compares the IP ranges that Pingdom publishes against the ranges configured in govuk-provisioning and errors if they don't match."
     properties:
         - github:
-            url: https://github.gds/gds/govuk_mirror-deployment/
+            url: https://github.digital.cabinet-office.gov.uk/gds/govuk_mirror-deployment/
     scm:
       - govuk-provisioning_Check_Pingdom_IP_Ranges
     builders:

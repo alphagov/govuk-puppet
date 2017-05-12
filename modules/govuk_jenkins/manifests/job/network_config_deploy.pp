@@ -6,7 +6,7 @@
 #
 # [*environments*]
 #   An array of environments where network config can be deployed to. The
-#   possibilities are https://github.gds/gds/govuk-provisioning/blob/master/vcloud-edge_gateway/jenkins.sh
+#   possibilities are https://github.digital.cabinet-office.gov.uk/gds/govuk-provisioning/blob/master/vcloud-edge_gateway/jenkins.sh
 #
 class govuk_jenkins::job::network_config_deploy (
   $environments = [],
