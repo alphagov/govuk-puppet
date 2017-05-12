@@ -167,16 +167,22 @@ To get production data on to your local VM, you’ll need to have either:
 
 > The Licensify and Signon databases aren't synced out of production because of security concerns. Mapit's database is downloaded in the Mapit repo, so won’t be in the backups folder.
 
-If you have integration access, you can import the latest data by running:
+If you have integration access, you can download and import the latest data by running:
 
     dev$ cd /var/govuk/govuk-puppet/development-vm/replication
     dev$ ./replicate-data-local.sh -u $USERNAME -F ../ssh_config
 
 > Downloading and installing database exports for every app on GOV.UK takes a bunch of compute resources and time.
 
-If you don’t have integration access, ask someone to give you a copy of their dump. Then, from `govuk-puppet/development-vm/replication` run:
+If you don't have integration access, ask someone to give you a copy of their dump. Then, from `govuk-puppet/development-vm/replication` run:
 
     dev$ ./replicate-data-local.sh -d path/to/dir -s
+
+You may want to download the data while in the office and restore it overnight to minimise disruption (or to provide to someone who doesn't have integration access).  First, do the download on your host, as the unzipping is a lot quicker when not run over NFS:
+
+    mac$ ./replicate-data-local.sh -u $USERNAME -n
+
+Then follow the instructions above for importing using the `-s` flag.
 
 ### If you’re running out of disk space
 
