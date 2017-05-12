@@ -167,7 +167,7 @@ If you don't have integration access, ask someone to give you a copy of their du
 
     dev$ ./replicate-data-local.sh -d path/to/dir -s
 
-For more information, see the guide in the developer docs on [copying application data locally for development](https://docs.publishing.service.gov.uk/manual/copying-data-locally.html).
+For more information, see the guide in the developer docs on [replicating application data locally for development](https://docs.publishing.service.gov.uk/manual/replicate-app-data-locally.html).
 
 ## 8. Run your apps
 
