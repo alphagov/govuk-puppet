@@ -158,29 +158,16 @@ Next, create an ssh config file inside the VM with the same contents. You can ch
 
 Dumps are generated from production data in the early hours each day, and are then downloaded from integration.
 
-> Databases will take a long time to download. They’ll also take up a lot of disk space (up to ~30GB uncompressed).
-
-To get production data on to your local VM, you’ll need to have either:
-
-* access to integration
-* database exports from someone that does
-
-> The Licensify and Signon databases aren't synced out of production because of security concerns. Mapit's database is downloaded in the Mapit repo, so won’t be in the backups folder.
-
-If you have integration access, you can import the latest data by running:
+If you have integration access, you can download and import the latest data by running:
 
     dev$ cd /var/govuk/govuk-puppet/development-vm/replication
     dev$ ./replicate-data-local.sh -u $USERNAME -F ../ssh_config
 
-> Downloading and installing database exports for every app on GOV.UK takes a bunch of compute resources and time.
-
-If you don’t have integration access, ask someone to give you a copy of their dump. Then, from `govuk-puppet/development-vm/replication` run:
+If you don't have integration access, ask someone to give you a copy of their dump. Then, from `govuk-puppet/development-vm/replication` run:
 
     dev$ ./replicate-data-local.sh -d path/to/dir -s
 
-### If you’re running out of disk space
-
-After replicating data a few times, your machine might be running low on disk space. This is because the old database dumps aren't cleaned up once newer ones have been downloaded. To solve this, you can periodically `rm -r` older directories in `govuk-puppet/development-vm/replication/backups`.
+For more information, see the guide in the developer docs on [replicating application data locally for development](https://docs.publishing.service.gov.uk/manual/replicate-app-data-locally.html).
 
 ## 8. Run your apps
 
