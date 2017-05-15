@@ -18,6 +18,9 @@
 #   non-whitelisted manual slugs.
 #   Default: false
 #
+# [*log_request_body*]
+#   Feature flag to log the body of the HTTP request
+#
 # [*publish_topics*]
 #   Feature flag to allow publishing of manual topics to the Publishing
 #   API and Rummager.
@@ -31,6 +34,7 @@ class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
   $allow_unknown_hmrc_manual_slugs = false,
+  $log_request_body = true,
   $publish_topics = true,
   $publishing_api_bearer_token = undef,
 ) {
@@ -43,6 +47,14 @@ class govuk::apps::hmrc_manuals_api(
     govuk::app::envvar {
       "${title}-ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS":
         varname => 'ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS',
+        value   => '1';
+    }
+  }
+
+  if $log_request_body {
+    govuk::app::envvar {
+      "${title}-LOG_REQUEST_BODY":
+        varname => 'LOG_REQUEST_BODY',
         value   => '1';
     }
   }
