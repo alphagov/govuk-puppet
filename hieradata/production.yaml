@@ -102,6 +102,8 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-production-dr'
   - 'skyscape-production'
 
+govuk_jenkins::job::content_performance_manager::rake_import_all_content_items_frequency: '0 2 * * *'
+
 govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
 govuk_jenkins::job::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '0 12 * * 0'
 govuk_jenkins::job::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 3 * * *'
