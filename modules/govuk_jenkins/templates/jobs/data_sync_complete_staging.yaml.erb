@@ -27,11 +27,6 @@
         - trigger-parameterized-builds:
             - project: run-rake-task
               predefined-parameters: |
-                TARGET_APPLICATION=router-api
-                MACHINE_CLASS=router_backend
-                RAKE_TASK=backend:modify_url[tariff,https://tariff-frontend-staging.cloudapps.digital/]
-            - project: run-rake-task
-              predefined-parameters: |
                 TARGET_APPLICATION=email-alert-api
                 MACHINE_CLASS=backend
                 RAKE_TASK=sync_govdelivery_topic_mappings

@@ -541,5 +541,3 @@ users::pentest_machines:
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
-
-trade_tariff_hostname: 'tariff-frontend-staging.cloudapps.digital'
