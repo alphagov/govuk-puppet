@@ -12,11 +12,9 @@
 class govuk_jenkins::job::content_performance_manager (
   $rake_import_all_content_items_frequency = undef,
 ) {
-  if $rake_import_all_content_items_frequency != undef {
-    file { '/etc/jenkins_jobs/jobs/content_performance_manager.yaml':
-      ensure  => present,
-      content => template('govuk_jenkins/jobs/content_performance_manager.yaml.erb'),
-      notify  => Exec['jenkins_jobs_update'],
-    }
+  file { '/etc/jenkins_jobs/jobs/content_performance_manager.yaml':
+    ensure  => present,
+    content => template('govuk_jenkins/jobs/content_performance_manager.yaml.erb'),
+    notify  => Exec['jenkins_jobs_update'],
   }
 }

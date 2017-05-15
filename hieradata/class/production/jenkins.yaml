@@ -8,6 +8,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::check_content_consistency
   - govuk_jenkins::job::check_pingdom_ip_ranges
   - govuk_jenkins::job::ci_network_config
+  - govuk_jenkins::job::content_performance_manager
   - govuk_jenkins::job::copy_data_to_integration
   - govuk_jenkins::job::copy_data_to_staging
   - govuk_jenkins::job::copy_licensify_data_to_staging

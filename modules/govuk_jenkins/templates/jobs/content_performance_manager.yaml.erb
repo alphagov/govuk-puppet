@@ -1,5 +1,4 @@
 ---
-<% if @rake_import_all_content_items_frequency %>
 - job:
     name: content_performance_manager_import_all_content_items
     display-name: Content Performance Manager trigger rake import:all_content_items
@@ -13,8 +12,9 @@
     publishers:
       - email:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+  <% if @rake_import_all_content_items_frequency %>
     triggers:
       - timed: <%= @rake_import_all_content_items_frequency %>
+  <% end %>
     logrotate:
         numToKeep: 10
-<% end %>
