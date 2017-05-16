@@ -35,6 +35,7 @@ class govuk::apps::multipage_frontend(
   }
 
   Govuk::App::Envvar {
+    ensure => 'absent',
     app    => 'multipage-frontend',
   }
 

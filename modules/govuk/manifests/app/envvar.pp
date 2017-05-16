@@ -17,6 +17,7 @@ define govuk::app::envvar (
   $app,
   # Value of the environment variable
   $value,
+  $ensure  = 'present',
   $envdir  = "/etc/govuk/${app}/env.d",
   $varname = $title,
   $notify_service  = true,
@@ -30,13 +31,13 @@ define govuk::app::envvar (
 
   if $notify_service {
     file { "${envdir}/${varname}":
-      ensure  => present,
+      ensure  => $ensure,
       content => $nulls_for_newlines_value,
       notify  => Govuk::App::Service[$app],
     }
   } else {
     file { "${envdir}/${varname}":
-      ensure  => present,
+      ensure  => $ensure,
       content => $nulls_for_newlines_value,
     }
   }

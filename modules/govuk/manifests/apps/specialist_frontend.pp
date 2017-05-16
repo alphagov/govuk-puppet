@@ -50,7 +50,8 @@ class govuk::apps::specialist_frontend(
     }
 
     Govuk::App::Envvar {
-      app => $app_name,
+      ensure => 'absent',
+      app    => $app_name,
     }
 
     govuk::app::envvar {
