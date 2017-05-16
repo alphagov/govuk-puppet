@@ -28,6 +28,8 @@ govuk::apps::publisher::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
+govuk::apps::publishing_api::ensure: 'absent'
+
 govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_production'
 govuk::apps::short_url_manager::mongodb_nodes:
   - 'mongo-1.backend'
