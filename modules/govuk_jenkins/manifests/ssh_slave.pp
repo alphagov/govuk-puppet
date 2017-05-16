@@ -12,6 +12,9 @@
 #   credentials. The ID is linked to the specific Jenkins instance, so must
 #   be created manually before being added to this defined type.
 #
+# [*labels*]
+#  This string represents the labels to apply to the agent.
+#
 # [*description*]
 #   Describe what the agent is used for.
 #
