@@ -176,6 +176,23 @@ class govuk::apps::publishing_api(
         varname => 'EVENT_LOG_AWS_SECRET_KEY',
         value   => $event_log_aws_secret_key;
     }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
+    }
+
+    if $::govuk_node_class !~ /^(development|training)$/ {
+      govuk::app::envvar::database_url { $app_name:
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        database => $db_name,
+      }
+    }
   }
 
   govuk_logging::logstream { 'publishing_api_sidekiq_json_log':
@@ -184,20 +201,4 @@ class govuk::apps::publishing_api(
     json    => true,
   }
 
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
-  }
-
-  if $::govuk_node_class !~ /^(development|training)$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
-    }
-  }
 }
