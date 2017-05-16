@@ -1,20 +1,20 @@
 ---
 - job:
-    name: content_performance_manager_import_all_content_items
-    display-name: Content Performance Manager trigger rake import:all_content_items
+    name: content_performance_manager_import_all_inventory
+    display-name: Content Performance Manager trigger rake import:all_inventory
     project-type: freestyle
-    description: "<p>Run the import:all_content_items rake task daily.</p>"
+    description: "<p>Run the import:all_inventory rake task.</p>"
     builders:
-      - shell: ssh deploy@$(govuk_node_list -c backend --single-node) "cd /var/apps/content-performance-manager && govuk_setenv content-performance-manager bundle exec rake import:all_content_items"
+      - shell: ssh deploy@$(govuk_node_list -c backend --single-node) "cd /var/apps/content-performance-manager && govuk_setenv content-performance-manager bundle exec rake import:all_inventory"
     wrappers:
       - ansicolor:
           colormap: xterm
     publishers:
       - email:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
-  <% if @rake_import_all_content_items_frequency %>
+  <% if @rake_import_all_inventory_frequency %>
     triggers:
-      - timed: <%= @rake_import_all_content_items_frequency %>
+      - timed: <%= @rake_import_all_inventory_frequency %>
   <% end %>
     logrotate:
         numToKeep: 10
