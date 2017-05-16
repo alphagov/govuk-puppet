@@ -74,7 +74,7 @@ class govuk::apps::govuk_crawler_worker (
       'HTTP_PORT':
         value => $port;
       'REDIS_ADDRESS':
-        value => 'redis-1:6379';
+        value => '127.0.0.1:6379';
       'REDIS_KEY_PREFIX':
         value => 'govuk_crawler_worker';
       'ROOT_URLS':
