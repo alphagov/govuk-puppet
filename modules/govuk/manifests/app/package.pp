@@ -45,6 +45,7 @@ define govuk::app::package (
     }
     file { "/data/vhost/${vhost_full}":
       ensure => $ensure_directory,
+      backup => false,
       owner  => 'deploy',
       group  => 'deploy',
       force  => true,
