@@ -127,52 +127,55 @@ class govuk::apps::publishing_api(
     enable_service => $enable_procfile_worker,
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
+  unless $ensure == 'absent' {
 
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
-  }
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
 
-  govuk::app::envvar {
-    "${title}-CONTENT_STORE":
-      varname => 'CONTENT_STORE',
-      value   => $content_store;
-    "${title}-DRAFT_CONTENT_STORE":
-      varname => 'DRAFT_CONTENT_STORE',
-      value   => $draft_content_store;
-    "${title}-SUPPRESS_DRAFT_STORE_502_ERROR":
-      varname => 'SUPPRESS_DRAFT_STORE_502_ERROR',
-      value   => $suppress_draft_store_502_error;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-RABBITMQ_PASSWORD":
-      varname => 'RABBITMQ_PASSWORD',
-      value   => $rabbitmq_password;
-    "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
-      varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
-      value   => $govuk_content_schemas_path;
-    "${title}-EVENT_LOG_AWS_BUCKETNAME":
-      varname => 'EVENT_LOG_AWS_BUCKETNAME',
-      value   => $event_log_aws_bucketname;
-    "${title}-EVENT_LOG_AWS_USERNAME":
-      varname => 'EVENT_LOG_AWS_USERNAME',
-      value   => $event_log_aws_username;
-    "${title}-EVENT_LOG_AWS_ACCESS_ID":
-      varname => 'EVENT_LOG_AWS_ACCESS_ID',
-      value   => $event_log_aws_access_id;
-    "${title}-EVENT_LOG_AWS_SECRET_KEY":
-      varname => 'EVENT_LOG_AWS_SECRET_KEY',
-      value   => $event_log_aws_secret_key;
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
+    govuk::app::envvar {
+      "${title}-CONTENT_STORE":
+        varname => 'CONTENT_STORE',
+        value   => $content_store;
+      "${title}-DRAFT_CONTENT_STORE":
+        varname => 'DRAFT_CONTENT_STORE',
+        value   => $draft_content_store;
+      "${title}-SUPPRESS_DRAFT_STORE_502_ERROR":
+        varname => 'SUPPRESS_DRAFT_STORE_502_ERROR',
+        value   => $suppress_draft_store_502_error;
+      "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-RABBITMQ_PASSWORD":
+        varname => 'RABBITMQ_PASSWORD',
+        value   => $rabbitmq_password;
+      "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
+        varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
+        value   => $govuk_content_schemas_path;
+      "${title}-EVENT_LOG_AWS_BUCKETNAME":
+        varname => 'EVENT_LOG_AWS_BUCKETNAME',
+        value   => $event_log_aws_bucketname;
+      "${title}-EVENT_LOG_AWS_USERNAME":
+        varname => 'EVENT_LOG_AWS_USERNAME',
+        value   => $event_log_aws_username;
+      "${title}-EVENT_LOG_AWS_ACCESS_ID":
+        varname => 'EVENT_LOG_AWS_ACCESS_ID',
+        value   => $event_log_aws_access_id;
+      "${title}-EVENT_LOG_AWS_SECRET_KEY":
+        varname => 'EVENT_LOG_AWS_SECRET_KEY',
+        value   => $event_log_aws_secret_key;
+    }
   }
 
   govuk_logging::logstream { 'publishing_api_sidekiq_json_log':
