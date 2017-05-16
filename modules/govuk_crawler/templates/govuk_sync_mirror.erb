@@ -17,7 +17,7 @@ function log() {
 
 function nagios_passive() {
   log "user.info" "$NAGIOS_MESSAGE Exit code was $?"
-  printf "<%= @ipaddress %>\t<%= @sync_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  printf "<%= @ipaddress_eth0 %>\t<%= @sync_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
 }
 trap nagios_passive EXIT
 
