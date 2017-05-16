@@ -12,11 +12,6 @@ class govuk::node::s_mirrorer inherits govuk::node::s_base {
   include govuk_rabbitmq
   include nginx
 
-  # FIXME: remove once deployed to Integration
-  file { '/root/purge_govuk_crawler_queue.sh':
-    ensure => 'absent',
-  }
-
   cron::crondotdee { 'purge_govuk_crawler_queue':
     ensure  => 'absent',
     hour    => 10,
