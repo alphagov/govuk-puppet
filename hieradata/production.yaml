@@ -195,18 +195,10 @@ govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
 
 govuk_crawler::targets:
-  - 'mirror-rsync@mirror0.mirror.provider0.production.govuk.service.gov.uk'
-  - 'mirror-rsync@mirror1.mirror.provider0.production.govuk.service.gov.uk'
   - 'mirror-rsync@mirror0.mirror.provider1.production.govuk.service.gov.uk'
   - 'mirror-rsync@mirror1.mirror.provider1.production.govuk.service.gov.uk'
   - 's3://govuk-mirror-production/'
 govuk_crawler::ssh_keys:
-  mirror0.mirror.provider0.production.govuk.service.gov.uk:
-    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDVmyDpdl3eJSx74GssbsEQpLVuh9XMFGDU0GRj1LRGIKL44PN4FlwpoHGrUI8uw/E2ZV9I6GEJisK8h9GP/njJEsMOTRPfRD3GxkDR5SfrE3bL7uNHdn6QvxdOIFXRLdphTNCbtL3FTqGTBB/jG55N5p2uy/gbLI/fzN7K1ldpe7NKCmBxnFFqFAqwjFaHIjIBs/QxLu3yiaXN2OnyYaRIhN7zQ0NEkvwEpa1X9VtWQbVU7/s3jxssU+BhFIF/7CSevwDMoaVgila8jD4dCbBvpAYPW7ZY1emmzuFSSF3mwq1qe/hI7Xh/G+zBQ+HQ0RoeImGdcK7AGZTkAcoX5GoB'
-    type: 'ssh-rsa'
-  mirror1.mirror.provider0.production.govuk.service.gov.uk:
-    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDkE9M2gzbIHPwjtTj4eDBWt+VWHhA7DZgBH3HzHAAfZqgNvurt1bVQi1w6Pepseq6ZuGaBYBXGhfC+zsLEy0eyzMt4INmQhlGLeVu7/Dl//biGblxXUCtutlksAQ0cszb7IoFhzzEg05wcoUw4Ew6qW/HwS4d7hYgbYyLa/WHMhYIdvzxaqAmGmwyq/IMz+fDpe8WmXqGbSfnPPqP3G1soXsGOUqbbPJGpyWEDefX65nfOMvHhaLbtM9dVcbp7uC6xdelwh3OSPK+RujXuvSHTU0rIxDYULwGn3dZapb5Y7hjJqGEdPstQiQNE8nA1Y4dIM8xhy103oqp/VFbla5EH'
-    type: 'ssh-rsa'
   mirror0.mirror.provider1.production.govuk.service.gov.uk:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VVHvPeBh8MoAEBTLpO9Xj/s5s+rqe4AN61HTzu4hGpYIB4sv+j8VHzHVHVmhP31gl9xaIiv+7BI8AstuGWPiehOIgTR+ufKyvnr1msHO59dM5Vht5i2ZVVB5WF/MphTfGT4vO3RDAZGvZXUaasBxOqqE6jrp4jF5d8WFV44mzE5PqqhAodiBGyfKDcd0gzuQhGpOsafYAy4+E+OlIbcX3LvTZyZdrC5va0l5LSVxstJjUjTSw85/m1pjSYBPMLc50T0M5SYA79G2yPaPYqux5YpA+D/0qnWlNQfR7MQdo3XO4ZGqRyjSn9/WcYsyn5KVivRd+Id6Jw8x0MwPzIVJ'
     type: 'ssh-rsa'

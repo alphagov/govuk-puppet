@@ -78,11 +78,6 @@ class monitoring::checks (
     host_name           => $::fqdn,
     service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
   }
-  icinga::check { 'check_mirror_provider0_cert_valid':
-    check_command       => 'check_ssl_cert!www-origin.mirror.provider0.production.govuk.service.gov.uk!www-origin.mirror.provider0.production.govuk.service.gov.uk!30',
-    host_name           => $::fqdn,
-    service_description => 'check the provider0 mirror SSL certificate is valid and not due to expire',
-  }
   icinga::check { 'check_mirror_provider1_cert_valid':
     check_command       => 'check_ssl_cert!www-origin.mirror.provider1.production.govuk.service.gov.uk!www-origin.mirror.provider1.production.govuk.service.gov.uk!30',
     host_name           => $::fqdn,

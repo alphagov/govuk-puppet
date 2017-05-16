@@ -16,8 +16,6 @@ describe 'monitoring::checks::mirror', :type => :class do
       'enabled' => true,
     }}
     it { is_expected.to contain_icinga__check_config('mirror_age') }
-    it { is_expected.to contain_icinga__check('check_mirror0_provider0_up_to_date') }
-    it { is_expected.to contain_icinga__check('check_mirror1_provider0_up_to_date') }
     it { is_expected.to contain_icinga__check('check_mirror0_provider1_up_to_date') }
     it { is_expected.to contain_icinga__check('check_mirror1_provider1_up_to_date') }
 end
@@ -27,9 +25,6 @@ end
       'enabled' => false,
     }}
     it { is_expected.to contain_icinga__check_config('mirror_age') }
-    it { is_expected.not_to contain_icinga__check('check_mirror0_provider0_up_to_date') }
-    it { is_expected.not_to contain_icinga__check('check_mirror1_provider0_up_to_date') }
     it { is_expected.not_to contain_icinga__check('check_mirror0_provider1_up_to_date') }
-    it { is_expected.not_to contain_icinga__check('check_mirror1_provider0_up_to_date') }
   end
 end
