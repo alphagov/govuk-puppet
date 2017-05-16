@@ -1,7 +1,7 @@
 ---
 - job:
     name: content_performance_manager_import_all_inventory
-    display-name: Content Performance Manager trigger rake import:all_inventory
+    display-name: Content Performance Manager - import inventory
     project-type: freestyle
     description: "<p>Run the import:all_inventory rake task.</p>"
     builders:
@@ -20,7 +20,7 @@
         numToKeep: 10
 - job:
     name: content_performance_manager_import_all_ga_metrics
-    display-name: Content Performance Manager trigger rake import:all_ga_metrics
+    display-name: Content Performance Manager - import GA
     project-type: freestyle
     description: "<p>Run the import:all_ga_metrics rake task.</p>"
     builders:
