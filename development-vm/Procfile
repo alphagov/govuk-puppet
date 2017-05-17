@@ -65,7 +65,7 @@ finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../../find
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../../specialist-publisher bundle exec foreman start
 specialist-publisher-worker: govuk_setenv specialist-publisher ./run_in.sh ../../specialist-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../../manuals-publisher bundle exec foreman start
-specialist-frontend:   govuk_setenv specialist-frontend   ./run_in.sh ../../specialist-frontend bundle exec rails server -p 3065
+# specialist-frontend used port 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../../content-store  bundle exec rails server -p 3068
 dummy-content-store:   govuk_setenv content-store         ./run_in.sh ../../govuk-content-schemas  bundle exec dummy_content_store
 # content-store also uses port 3069
@@ -122,7 +122,7 @@ service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../
 content-tagger:        govuk_setenv content-tagger        ./run_in.sh ../../content-tagger bundle exec rails server -p 3116
 content-tagger-sidekiq: govuk_setenv content-tagger       ./run_in.sh ../../content-tagger bundle exec sidekiq -C ./config/sidekiq.yml
 # sidekiq-monitoring for email-campaign-api uses port 3117
-multipage-frontend:    govuk_setenv multipage-frontend    ./run_in.sh ../../multipage-frontend bundle exec rails server -p 3118
+# multipage-frontend used port 3118
 share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../../share-sale-publisher bundle exec rails server -p 3119
 # sidekiq-monitoring for imminence uses port 3120
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../../local-links-manager bundle exec rails server -p 3121
@@ -133,7 +133,7 @@ draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ..
 # efg_training used port 3129
 # efg_rebuild used port 3127
 # efg_training_rebuild used port 3128
-draft-specialist-frontend: govuk_setenv draft-specialist-frontend ./run_in.sh ../../specialist-frontend bundle exec rails server -p 3130 -P tmp/pids/draft-specialist-frontend.pid
+# draft-specialist-frontend used port 3130
 draft-manuals-frontend: govuk_setenv draft-manuals-frontend ./run_in.sh ../../manuals-frontend bundle exec rails server -p 3131 -P tmp/pids/draft-manuals-frontend.pid
 draft-static:              govuk_setenv draft-static              ./run_in.sh ../../static              bundle exec rails server -p 3132 -P tmp/pids/draft-static.pid
 # draft-router uses ports 3133 and 3134

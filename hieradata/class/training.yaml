@@ -10,7 +10,6 @@ govuk::apps::government_frontend::enable_running_in_draft_mode::content_store: '
 govuk::apps::manuals_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
 govuk::apps::publishing_api::content_store: 'http://content-store.training.publishing.service.gov.uk'
 govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
-govuk::apps::specialist_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.training.publishing.service.gov.uk'
 
 users::usernames:
   - alecgibson

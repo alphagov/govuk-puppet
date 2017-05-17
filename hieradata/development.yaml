@@ -126,7 +126,6 @@ govuk::apps::link_checker_api::enabled: true
 govuk::apps::manuals_publisher::enable_procfile_worker: false
 govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
-govuk::apps::multipage_frontend::enabled: true
 govuk::apps::need_api::elasticsearch_hosts: 'localhost:9200'
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
@@ -166,7 +165,6 @@ govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_development'
 govuk::apps::short_url_manager::mongodb_nodes: ['localhost']
-govuk::apps::specialist_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.dev.gov.uk'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::mongodb_nodes: ['localhost']
@@ -269,7 +267,6 @@ hosts::development::apps:
   - 'draft-manuals-frontend'
   - 'draft-router-api'
   - 'draft-router'
-  - 'draft-specialist-frontend'
   - 'draft-static'
   - 'draft-whitehall-frontend'
   - 'email-alert-api'
@@ -290,7 +287,6 @@ hosts::development::apps:
   - 'manuals-frontend'
   - 'manuals-publisher'
   - 'mapit'
-  - 'multipage-frontend'
   - 'maslow'
   - 'metadata-api'
   - 'need-api'
@@ -313,7 +309,6 @@ hosts::development::apps:
   - 'short-url-manager'
   - 'signon'
   - 'smartanswers'
-  - 'specialist-frontend'
   - 'specialist-publisher'
   - 'spotlight'
   - 'stagecraft'

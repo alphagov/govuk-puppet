@@ -467,10 +467,6 @@ govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::signon::nagios_memory_warning: 900
 govuk::apps::signon::nagios_memory_critical: 1000
 
-govuk::apps::specialist_frontend::enabled: true
-govuk::apps::specialist_frontend::nagios_memory_warning: 2000
-govuk::apps::specialist_frontend::nagios_memory_critical: 2200
-
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::nagios_memory_warning: 1100
 govuk::apps::specialist_publisher::nagios_memory_critical: 1200

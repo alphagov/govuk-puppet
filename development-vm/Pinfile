@@ -25,7 +25,6 @@ process :'draft-government-frontend' => [:'government-frontend', :'draft-content
 process :'draft-manuals-frontend' => [:'manuals-frontend', :'draft-content-store', :'draft-static']
 process :'draft-router'
 process :'draft-router-api'
-process :'draft-specialist-frontend' => [:'specialist-frontend', :'draft-content-store', :'draft-static']
 process :'draft-static'
 process :designprinciples => [:static]
 process :'email-alert-api'
@@ -51,7 +50,6 @@ process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
 process :maslow => :need_api
 process :'metadata-api' => [:need_api]
-process :'multipage-frontend' => [:static, :'content-store']
 process :need_api
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
@@ -72,7 +70,6 @@ process :'share-sale-publisher' => ['asset-manager', :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :'content-store', :imminence]
-process :'specialist-frontend' => [:static, :'content-store']
 process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
 process :spotlight
