@@ -30,6 +30,14 @@
 #   Google authentication private key
 #   Default: undef
 #
+# [*oauth_id*]
+#   Sets the OAuth ID for using GDS-SSO
+#   Default: undef
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key for using GDS-SSO
+#   Default: undef
+#
 # [*port*]
 #   The port that it is served on.
 #   Default: 3206
@@ -58,6 +66,8 @@ class govuk::apps::content_performance_manager(
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $port = '3206',
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
@@ -91,6 +101,12 @@ class govuk::apps::content_performance_manager(
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
