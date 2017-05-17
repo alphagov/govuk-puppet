@@ -28,6 +28,14 @@ class govuk_docker (
     provider => pip,
   }
 
+  # Docker machines should run with the latest Xenial kernel to fix
+  # stability issues
+  $kernel_packages = [
+    'linux-generic-lts-xenial',
+    'linux-image-generic-lts-xenial',
+  ]
+  ensure_packages($kernel_packages)
+
   # We currently only have logit set up for
   if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
     include ::govuk_docker::logspout
