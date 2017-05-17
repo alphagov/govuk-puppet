@@ -41,6 +41,7 @@ deployable_applications: &deployable_applications
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
   govuk_need_api: {}
+  govuk-puppet: {}
   hmrc-manuals-api: {}
   imminence: {}
   info-frontend: {}
