@@ -23,7 +23,7 @@
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/govuk-delivery ; govuk_setenv govuk-delivery ./venv/bin/python scripts/update_data_after_sync.py'
     publishers:
         - trigger-parameterized-builds:
-            <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager email-alert-api transition link-checker-api }.each do |app| -%>
+            <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager email-alert-api transition link-checker-api content-performance-manager }.each do |app| -%>
             - project: Deploy_App
               predefined-parameters: |
                 TARGET_APPLICATION=<%= app %>
