@@ -28,5 +28,6 @@ class puppet::monitoring {
     host_name           => $::fqdn,
     freshness_threshold => 7200,
     action_url          => kibana3_url($kibana_url, $kibana_search),
+    notes_url           => monitoring_docs_url(puppet-last-run-errors),
   }
 }
