@@ -1,0 +1,42 @@
+---
+- scm:
+    name: backdrop_transactions_explorer_collector
+    scm:
+        - git:
+            url: git@github.com:alphagov/backdrop-transactions-explorer-collector.git
+            branches:
+              - master
+            wipe-workspace: true
+            clean:
+                after: true
+
+- job:
+    name: Backdrop_transactions_explorer_collector
+    display-name: Backdrop_transactions_explorer_collector
+    project-type: freestyle
+    properties:
+        - github:
+            url: https://github.com/alphagov/backdrop-transactions-explorer-collector/
+    scm:
+      - Backdrop_transactions_explorer_collector
+    builders:
+        - shell: |
+            set +x
+            export GOOGLE_CREDENTIALS='<%= @google_credentials %>'
+            export GOOGLE_SPREADSHEET_KEY='<%= @google_spreadsheet_key %>'
+            export GOOGLE_SPREADSHEET_WORKSHEET='<%= @google_spreadsheet_worksheet %>'
+            export BACKDROP_TOKEN='<%= @backdrop_token %>'
+            export BACKDROP_ENDPOINT='https://www.${ENVIRONMENT}.performance.service.gov.uk/data/transactional-services/summaries'
+            echo ENVIRONMENT=${ENVIRONMENT}
+            set -x
+            ./jenkins-data.sh
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: ENVIRONMENT
+            choices:
+                - preview
+                - production
+                - staging
