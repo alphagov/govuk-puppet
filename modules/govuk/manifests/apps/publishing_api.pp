@@ -124,6 +124,7 @@ class govuk::apps::publishing_api(
   }
 
   govuk::procfile::worker {'publishing-api':
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 
