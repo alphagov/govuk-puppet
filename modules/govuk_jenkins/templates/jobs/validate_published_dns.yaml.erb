@@ -3,14 +3,14 @@
     name: Validate_published_dns
     display-name: Validate_published_dns
     project-type: freestyle
-    description: "<p>Check that the published DNS records match those in the <a href='https://github.digital.cabinet-office.gov.uk/govuk-dns-config'>govuk-dns-config repo</a> YAML file.</p>"
+    description: "<p>Check that the published DNS records match those in the <a href='https://github.com/alphagov/govuk-dns-config'>govuk-dns-config repo</a> YAML file.</p>"
     logrotate:
         numToKeep: 30
     builders:
         - shell: |
             set -e
             rm -rf govuk-dns-config
-            git clone --branch master --depth 1 git@github.digital.cabinet-office.gov.uk:gds/govuk-dns-config.git
+            git clone --branch master --depth 1 git@github.com:alphagov/govuk-dns-config.git
             cd govuk-dns-config
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec rake validate_dns
