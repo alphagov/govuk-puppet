@@ -6,9 +6,13 @@
 # 
 # [*contact_groups*]
 #   Sets the contact groups for host. Defaults to high priority.  
-# 
+#
+# [*host_ipaddress*]
+#   Sets the ipaddress in the Icinga host check. Defaults to facter ipaddress_eth0
+#
 class icinga::client (
-  $contact_groups = 'high-priority'
+  $contact_groups = 'high-priority',
+  $host_ipaddress = $::ipaddress_eth0,
 )
 {
 
@@ -52,7 +56,7 @@ class icinga::client (
 
   @@icinga::host { $::fqdn:
     hostalias      => $::fqdn,
-    address        => $::ipaddress_eth0,
+    address        => $host_ipaddress,
     display_name   => $::fqdn_short,
     parents        => $parents,
     contact_groups => $contact_groups,
