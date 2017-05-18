@@ -229,7 +229,7 @@ def buildProject(Map options = [:]) {
         }
 
         stage("Deploy to integration") {
-          deployIntegration(repoName, env.BRANCH_NAME, 'release', 'deploy')
+          deployIntegration(repoName, env.BRANCH_NAME, "release_${env.BUILD_NUMBER}", 'deploy')
         }
       }
     }
