@@ -1,5 +1,6 @@
 ---
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::backdrop_transactions_explorer_collector
   - govuk_jenkins::job::check_content_consistency
   - govuk_jenkins::job::content_performance_manager
   - govuk_jenkins::job::data_sync_complete_integration
