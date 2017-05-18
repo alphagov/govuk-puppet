@@ -218,6 +218,7 @@ define govuk::app::config (
       desc          => "high memory for ${title} app",
       host_name     => $::fqdn,
       event_handler => "govuk_app_high_memory!${title}",
+      notes_url     => monitoring_docs_url(high-memory-for-application),
     }
   }
 
