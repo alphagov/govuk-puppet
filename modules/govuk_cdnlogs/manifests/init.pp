@@ -118,4 +118,7 @@ class govuk_cdnlogs (
     }
   }
 
+  class { '::govuk_cdnlogs::transition_logs': {
+    log_dir => $log_dir,
+  }
 }
