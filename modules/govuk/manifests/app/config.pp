@@ -246,7 +246,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
       service_description => "${title} app healthcheck",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url('app-healthcheck-failed'),
+      notes_url           => monitoring_docs_url(app-healthcheck-failed),
     }
     if $json_health_check {
       include icinga::client::check_json_healthcheck
