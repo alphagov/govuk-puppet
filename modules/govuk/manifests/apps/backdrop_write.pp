@@ -13,7 +13,7 @@
 #   on the dev VM.
 #
 class govuk::apps::backdrop_write (
-  $enabled = false,
+  $enabled = true,
   $enable_procfile_worker = true,
 ) {
   if $enabled {

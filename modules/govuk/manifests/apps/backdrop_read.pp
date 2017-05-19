@@ -9,7 +9,7 @@
 #   Should the app exist?
 #
 class govuk::apps::backdrop_read (
-  $enabled = false,
+  $enabled = true,
 ) {
   if $enabled {
     $port = '3101'
