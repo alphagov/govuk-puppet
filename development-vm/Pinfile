@@ -35,14 +35,14 @@ process :errbit
 process :'event-store'
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']
-process :frontend => [:static, :contentapi, :'content-store', :rummager]
+process :frontend => [:static, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static, :rummager]
 process :'govuk-delivery'
 process :'govuk-delivery-worker'
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :imminence => [:mapit]
 process :'info-frontend' => [:static, :'metadata-api']
-process :licencefinder => [:static, :contentapi, :'content-store']
+process :licencefinder => [:static, :'content-store', :rummager]
 process :'link-checker-api' => [:'link-checker-api-sidekiq']
 process :'link-checker-api-sidekiq'
 process :'local-links-manager' => [:'link-checker-api']
@@ -50,7 +50,7 @@ process :'manuals-frontend' => [:static, :'content-store']
 process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
 process :maslow => :need_api
-process :'metadata-api' => [:contentapi, :need_api]
+process :'metadata-api' => [:need_api]
 process :'multipage-frontend' => [:static, :'content-store']
 process :need_api
 process :'performanceplatform-admin' => [:stagecraft]
@@ -71,7 +71,7 @@ process :'service-manual-publisher' => [:'publishing-api', :rummager]
 process :'share-sale-publisher' => ['asset-manager', :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
-process :smartanswers => [:static, :contentapi, :'content-store', :imminence]
+process :smartanswers => [:static, :'content-store', :imminence]
 process :'specialist-frontend' => [:static, :'content-store']
 process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
