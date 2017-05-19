@@ -31,7 +31,7 @@
           DRAFT_CACHE=$(govuk_node_list --single-node -c draft_cache)
           CONTENT_STORE=$(govuk_node_list --single-node -c content_store)
           DRAFT_CONTENT_STORE=$(govuk_node_list --single-node -c draft_content_store)
-          BACKEND=$(govuk_node_list --single-node -c backend)
+          PUBLISHING_API=$(govuk_node_list --single-node -c publishing_api)
           TIME=$(date -u +"%Y%m%d_%H%M%S")
 
           ROUTES_CSV_GZ="routes-$TIME.csv.gz"
@@ -42,7 +42,7 @@
           echo $DRAFT_CACHE
           echo $CONTENT_STORE
           echo $DRAFT_CONTENT_STORE
-          echo $BACKEND
+          echo $PUBLISHING_API
           echo $ROUTES_CSV_GZ
           echo $CONTENT_CSV_GZ
 
@@ -81,11 +81,11 @@
           ssh deploy@$DRAFT_CONTENT_STORE "rm -rf router-data"
 
           echo "Checking live content consistency"
-          scp $CONTENT_CSV_GZ deploy@$BACKEND:
-          ssh deploy@$BACKEND "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[live,/home/deploy/$CONTENT_CSV_GZ]"
-          ssh deploy@$BACKEND "rm $CONTENT_CSV_GZ"
+          scp $CONTENT_CSV_GZ deploy@$PUBLISHING_API:
+          ssh deploy@$PUBLISHING_API "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[live,/home/deploy/$CONTENT_CSV_GZ]"
+          ssh deploy@$PUBLISHING_API "rm $CONTENT_CSV_GZ"
 
           echo "Checking draft content consistency"
-          scp draft-$CONTENT_CSV_GZ deploy@$BACKEND:
-          ssh deploy@$BACKEND "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[draft,/home/deploy/draft-$CONTENT_CSV_GZ]"
-          ssh deploy@$BACKEND "rm draft-$CONTENT_CSV_GZ"
+          scp draft-$CONTENT_CSV_GZ deploy@$PUBLISHING_API:
+          ssh deploy@$PUBLISHING_API "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[draft,/home/deploy/draft-$CONTENT_CSV_GZ]"
+          ssh deploy@$PUBLISHING_API "rm draft-$CONTENT_CSV_GZ"
