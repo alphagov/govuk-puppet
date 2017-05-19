@@ -1420,7 +1420,6 @@ monitoring::checks::smokey::features:
     feature: frontend
   check_licencefinder:
     feature: licencefinder
-    notes_url: "https://github.digital.cabinet-office.gov.uk/pages/gds/opsmanual/2nd-line/nagios.html#licencefinder-smokey-checks"
   check_licensing:
     feature: licensing
   check_publishing:
