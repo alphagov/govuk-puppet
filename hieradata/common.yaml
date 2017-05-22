@@ -358,7 +358,7 @@ govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
-govuk::apps::imminence::redis_host: 'redis-2.backend'
+govuk::apps::imminence::redis_host: 'redis-1.backend'
 govuk::apps::imminence::redis_port: '6379'
 govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
