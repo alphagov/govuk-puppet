@@ -43,9 +43,7 @@ class govuk_ci::master (
 
   # Manually add jobs that we do not want to included in the 'Deploy App' job
   govuk_ci::job { 'govuk-dns': }
-  govuk_ci::job { 'govuk-dns-config':
-    source => 'github-enterprise',
-  }
+  govuk_ci::job { 'govuk-dns-config': }
 
   # Add pipeline jobs from applications hash in Hieradata
   create_resources(govuk_ci::job, $pipeline_jobs)
