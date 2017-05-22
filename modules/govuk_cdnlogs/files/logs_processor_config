@@ -1,0 +1,3 @@
+compression: gzip
+pattern: "cdn-bouncer.log-*.gz"
+format: redirector
