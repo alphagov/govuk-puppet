@@ -6,6 +6,7 @@ describe 'govuk_cdnlogs::transition_logs', :type => :class do
     :private_ssh_key  => 'my key',
     :user             => 'logs_processor',
     :enabled          => true,
+    :enable_cron      => true,
   }}
 
   context 'enabled set to true' do
