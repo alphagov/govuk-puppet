@@ -41,6 +41,8 @@
         - slack:
             team-domain: <%= @slack_team_domain %>
             build-server-url: <%= @slack_build_server_url %>
+            room: '#<%= @slack_room %>'
+            auth-token: <%= @environment_variables['SEARCH_TEAM_SLACK_AUTH_TOKEN']%>
     properties:
         - inject:
             properties-content: |
@@ -55,8 +57,6 @@
             notify-backtonormal: false
             notify-repeatedfailure: false
             include-test-summary: false
-            room: '#<%= @slack_room %>'
-            token: <%= @environment_variables['SEARCH_TEAM_SLACK_AUTH_TOKEN']%>
     wrappers:
         - ansicolor:
             colormap: xterm
