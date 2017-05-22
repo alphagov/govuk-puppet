@@ -102,6 +102,7 @@ govuk_jenkins::config::admins:
   - jamesrobinson
   - jamesmead
   - jennyduckett
+  - jonathanhallam
   - kanemorgan
   - katiesmith
   - kelvingan
@@ -310,6 +311,7 @@ users::usernames:
   - jamesmead
   - jamesrobinson
   - jennyduckett
+  - jonathanhallam
   - kanemorgan
   - katiesmith
   - kelvingan
