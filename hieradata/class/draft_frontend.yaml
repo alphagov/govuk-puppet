@@ -5,9 +5,7 @@ govuk::apps::email_alert_frontend::vhost: 'draft-email-alert-frontend'
 govuk::apps::frontend::vhost: 'draft-frontend'
 govuk::apps::government_frontend::vhost: 'draft-government-frontend'
 govuk::apps::manuals_frontend::vhost: 'draft-manuals-frontend'
-govuk::apps::multipage_frontend::vhost: 'draft-multipage-frontend'
 govuk::apps::service_manual_frontend::vhost: 'draft-service-manual-frontend'
-govuk::apps::specialist_frontend::vhost: 'draft-specialist-frontend'
 
 govuk::apps::static::draft_environment: true
 govuk::apps::static::vhost: 'draft-static'
@@ -29,7 +27,5 @@ govuk::node::s_base::apps:
  - frontend
  - government_frontend
  - manuals_frontend
- - multipage_frontend
  - service_manual_frontend
- - specialist_frontend
  - static

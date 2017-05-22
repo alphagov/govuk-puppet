@@ -9,9 +9,7 @@ govuk::node::s_base::apps:
   - government_frontend
   - info_frontend
   - manuals_frontend
-  - multipage_frontend
   - service_manual_frontend
-  - specialist_frontend
   - static
 
 govuk::apps::contacts::db_hostname: 'mysql-slave-1.backend'

@@ -26,8 +26,6 @@ service-manual-frontend
 service-manual-publisher
 signon
 smartanswers
-specialist-frontend
-draft-specialist-frontend
 specialist-publisher
 travel-advice-publisher
 whitehall
