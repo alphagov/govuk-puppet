@@ -18,9 +18,20 @@ class govuk_docker (
 ){
   validate_array($docker_users)
 
-  class { '::docker':
-    docker_users => $docker_users,
-    version      => $version,
+  # We only have logit set up for integration, everywhere else use syslog
+  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
+    class { '::docker':
+      docker_users => $docker_users,
+      version      => $version,
+    }
+
+    include ::govuk_docker::logspout
+  } else {
+    class {'::docker':
+      docker_users => $docker_users,
+      version      => $version,
+      log_driver   => 'syslog',
+    }
   }
 
   package { 'ctop':
@@ -35,11 +46,6 @@ class govuk_docker (
     'linux-image-generic-lts-xenial',
   ]
   ensure_packages($kernel_packages)
-
-  # We currently only have logit set up for
-  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
-    include ::govuk_docker::logspout
-  }
 
   @@icinga::check { "check_dockerd_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!dockerd',
