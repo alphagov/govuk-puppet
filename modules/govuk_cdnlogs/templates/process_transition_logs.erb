@@ -51,5 +51,6 @@ if ! git diff --cached --quiet; then
     TIMESTAMP=$(date +"%F %T")
     git commit -m 'Bouncer Fastly hits processed on '"$TIMESTAMP"
 fi
-
+<% if @enable_cron %>
 git push origin master
+<% end %>

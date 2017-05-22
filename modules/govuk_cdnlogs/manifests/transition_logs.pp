@@ -22,7 +22,8 @@ class govuk_cdnlogs::transition_logs (
   $log_dir,
   $private_ssh_key = undef,
   $user = 'logs_processor',
-  $enabled = false,
+  $enabled = true,
+  $enable_cron = false,
 ) {
   validate_bool($enabled)
 
@@ -81,13 +82,15 @@ class govuk_cdnlogs::transition_logs (
     content => template('govuk_cdnlogs/process_transition_logs.erb'),
   }
 
-  cron::crondotdee { 'process_transition_logs':
-    ensure  => $ensure,
-    command => $process_script,
-    hour    => '*',
-    minute  => '30',
-    user    => $user,
-    require => File[$process_script],
+  if $enable_cron {
+    cron::crondotdee { 'process_transition_logs':
+      ensure  => $ensure,
+      command => $process_script,
+      hour    => '*',
+      minute  => '30',
+      user    => $user,
+      require => File[$process_script],
+    }
   }
 
   # Provides /opt/mawk required by pre-transition-stats
