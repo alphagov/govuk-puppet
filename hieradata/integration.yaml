@@ -118,6 +118,7 @@ govuk_jenkins::config::admins:
   - pablomanrubia
   - paulbowsher
   - paulhayes
+  - peterhartshorn
   - richardboulton
   - rosafox
   - rubenarakelyan
@@ -326,6 +327,7 @@ users::usernames:
   - pablomanrubia
   - paulbowsher
   - paulhayes
+  - peterhartshorn
   - richardboulton
   - rosafox
   - rubenarakelyan
