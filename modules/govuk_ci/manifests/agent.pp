@@ -16,6 +16,7 @@ class govuk_ci::agent(
   $gemstash_server = 'http://gemstash.cluster',
 ) {
   include ::clamav
+  include ::clamav::cron_freshclam
   include ::govuk_ci::agent::redis
   include ::govuk_ci::agent::docker
   if $elasticsearch_enabled {
