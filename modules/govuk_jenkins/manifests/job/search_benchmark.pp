@@ -15,10 +15,6 @@ class govuk_jenkins::job::search_benchmark (
   $job_url = "https://deploy.${app_domain}/job/search_benchmark/"
   $cron_schedule = '30 4 * * *'
 
-  $slack_team_domain = 'govuk'
-  $slack_room = 'search-team'
-  $slack_build_server_url = "https://deploy.${app_domain}/"
-
   file { '/etc/jenkins_jobs/jobs/search_benchmark.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/benchmark_search.yaml.erb'),

@@ -38,25 +38,10 @@
               predefined-parameters: |
                   NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                   NSCA_OUTPUT=<%= @service_description %> failed
-        - slack:
-            team-domain: <%= @slack_team_domain %>
-            build-server-url: <%= @slack_build_server_url %>
-            room: '#<%= @slack_room %>'
-            auth-token: <%= @environment_variables['SEARCH_TEAM_SLACK_AUTH_TOKEN']%>
     properties:
         - inject:
             properties-content: |
               AUTH_USERNAME=<%= @auth_username %>
-        - slack:
-            notify-start: false
-            notify-success: true
-            notify-aborted: true
-            notify-notbuilt: true
-            notify-unstable: true
-            notify-failure: true
-            notify-backtonormal: false
-            notify-repeatedfailure: false
-            include-test-summary: false
     wrappers:
         - ansicolor:
             colormap: xterm
