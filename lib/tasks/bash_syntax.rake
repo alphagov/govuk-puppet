@@ -25,7 +25,7 @@ task :bash_syntax do
   templates = templates.exclude(*PuppetSyntax.exclude_paths)
 
   templates.each do |erb_file|
-    next unless File.open(erb_file).read() =~ BASH_HEADER
+    next unless File.open(erb_file).gets =~ BASH_HEADER
 
     begin
       erb = ERB.new(File.read(erb_file), nil, '-')
