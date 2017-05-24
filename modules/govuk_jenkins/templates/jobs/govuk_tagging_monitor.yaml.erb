@@ -1,0 +1,30 @@
+---
+- scm:
+    name: govuk_tagging_monitor
+    scm:
+      - git:
+          url: git@github.com:alphagov/govuk-tagging-monitor.git
+          basedir: govuk-tagging-monitor
+          branches:
+            - master
+- job:
+    name: govuk_tagging_monitor
+    display-name: GOV.UK Tagging Monitor
+    project-type: freestyle
+    description: |
+      This job checks new navigation pages against a set of rules. This makes
+      sure we don't have invalid navigation pages being shown to users.
+    scm:
+      - govuk-tagging-monitor
+    logrotate:
+      numToKeep: 10
+    triggers:
+        - timed: 'H * * * *'
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          export RATE_LIMIT_TOKEN="<%= @rate_limit_token -%>"
+          bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+          bundle exec rake run
