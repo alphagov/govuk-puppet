@@ -46,6 +46,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::transition_load_transition_stats_hits
   - govuk_jenkins::job::trigger_data_sync_complete
   - govuk_jenkins::job::update_cdn_dictionaries
+  - govuk_jenkins::job::user_monitor
   - govuk_jenkins::job::validate_published_dns
   - govuk_jenkins::job::whitehall_rebuild_elasticsearch_index
   - govuk_jenkins::job::whitehall_run_broken_link_checker

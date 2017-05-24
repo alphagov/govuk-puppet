@@ -1,0 +1,46 @@
+---
+- scm:
+    name: user-monitor
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-user-reviewer.git
+            branches:
+              - master
+
+- job:
+    name: user-monitor
+    display-name: User monitor
+    project-type: freestyle
+    description: "This job checks if the correct users have access to GOV.UK resources (https://github.com/alphagov/govuk-user-reviewer)"
+    scm:
+      - user-monitor
+    logrotate:
+        numToKeep: 100
+    triggers:
+        - timed: '35 * * * *' # every hour on the 35th minute
+    builders:
+        - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            bundle exec rake run
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+              - name: GITHUB_TOKEN
+                password:
+                  '<%= @github_token %>'

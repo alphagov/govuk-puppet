@@ -611,6 +611,7 @@ govuk_ci::master::pipeline_jobs:
   govuk-tagging-monitor: {}
   govuk_taxonomy_helpers: {}
   govuk_template: {}
+  govuk-user-reviewer: {}
   licensify:
     source: 'github-enterprise'
   omniauth-gds: {}
