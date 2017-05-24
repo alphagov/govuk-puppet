@@ -1,0 +1,27 @@
+---
+- job:
+  name: Dump_Routes
+  display-name: Dump_Routes
+  project-type: freestyle
+  description: >
+    This job dumps the routes from the router-api and stores it in an artifact.
+  logrotate:
+    numToKeep: 10
+  publishers:
+    - trigger-parameterized-builds:
+      - project: run-rake-task
+        predefined-parameters: |
+          TARGET_APPLICATION=router-api
+          MACHINE_CLASS=router_backend
+          RAKE_TASK=dump_routes[routes.csv.gz]
+    - trigger-parameterized-builds:
+      - project: run-rake-task
+        predefined-parameters: |
+          TARGET_APPLICATION=router-api
+          MACHINE_CLASS=draft_cache
+          RAKE_TASK=dump_routes[draft-routes.csv.gz]
+    - archive:
+        artifacts: '*.csv.gz'
+        latest-only: true
+  triggers:
+    - timed: 'H 5 * * *'

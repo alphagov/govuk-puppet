@@ -7,6 +7,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::check_cdn_ip_ranges
   - govuk_jenkins::job::check_content_consistency
   - govuk_jenkins::job::check_pingdom_ip_ranges
+  - govuk_jenkins::job::check_content_store_inconsistencies
+  - govuk_jenkins::job::check_publishing_api_inconsistencies
   - govuk_jenkins::job::ci_network_config
   - govuk_jenkins::job::content_performance_manager
   - govuk_jenkins::job::copy_data_to_integration
@@ -22,6 +24,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::deploy_router_data
   - govuk_jenkins::job::deploy_terraform_project
+  - govuk_jenkins::job::dump_content
+  - govuk_jenkins::job::dump_routes
   - govuk_jenkins::job::email_alert_check
   - govuk_jenkins::job::gds_production_backup
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
