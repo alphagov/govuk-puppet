@@ -37,6 +37,8 @@ First, install:
 * [VirtualBox](https://www.virtualbox.org/)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * vagrant-dns plugin: `vagrant plugin install vagrant-dns`
+* install vagrant: `vagrant dns --install`
+* start vagrant: `vagrant dns --start`
 
 ## 2. Create your GitHub accounts
 
