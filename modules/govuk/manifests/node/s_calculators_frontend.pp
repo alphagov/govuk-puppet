@@ -21,4 +21,9 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
 
   Govuk_mount['/data/vhost'] -> Class['govuk::apps::calculators']
 
+  include collectd::plugin::memcached
+  class { 'memcached':
+    max_memory => '12%',
+    listen_ip  => '127.0.0.1',
+  }
 }
