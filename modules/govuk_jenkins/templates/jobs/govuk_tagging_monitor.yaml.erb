@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: govuk_tagging_monitor
+    name: govuk_tagging_monitor_repo_for_monitor
     scm:
       - git:
           url: git@github.com:alphagov/govuk-tagging-monitor.git
@@ -15,7 +15,7 @@
       This job checks new navigation pages against a set of rules. This makes
       sure we don't have invalid navigation pages being shown to users.
     scm:
-      - govuk_tagging_monitor
+      - govuk_tagging_monitor_repo_for_monitor
     logrotate:
       numToKeep: 10
     triggers:

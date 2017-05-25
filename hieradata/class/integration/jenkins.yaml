@@ -16,6 +16,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_terraform_project
   - govuk_jenkins::job::deploy_training
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
+  - govuk_jenkins::job::govuk_navigation_link_analysis
+  - govuk_jenkins::job::govuk_tagging_monitor
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::network_config_deploy
   - govuk_jenkins::job::passive_checks
