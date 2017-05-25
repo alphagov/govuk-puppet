@@ -25,6 +25,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::email_alert_check
   - govuk_jenkins::job::gds_production_backup
   - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
+  - govuk_jenkins::job::govuk_navigation_link_analysis
   - govuk_jenkins::job::govuk_tagging_monitor
   - govuk_jenkins::job::launch_vms
   - govuk_jenkins::job::mirror_network_config

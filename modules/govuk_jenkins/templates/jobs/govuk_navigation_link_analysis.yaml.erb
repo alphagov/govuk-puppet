@@ -1,0 +1,31 @@
+---
+- scm:
+    name: govuk_tagging_monitor
+    scm:
+      - git:
+          url: git@github.com:alphagov/govuk-tagging-monitor.git
+          basedir: govuk-tagging-monitor
+          branches:
+            - master
+- job:
+    name: govuk_navigation_link_analysis
+    display-name: govuk-navigation-link-analysis
+    project-type: freestyle
+    description: |
+      Monthly analysis of links displayed in the new navigation pages. The output of
+      this is needed for Performance Analysts to produce reports on how the new
+      navigation is performing.
+    scm:
+      - govuk_tagging_monitor
+    logrotate:
+      numToKeep: 10
+    triggers:
+        - timed: 'H 10 1 * *'
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          export RATE_LIMIT_TOKEN="<%= @rate_limit_token -%>"
+          bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+          bundle exec rake analyse:links
