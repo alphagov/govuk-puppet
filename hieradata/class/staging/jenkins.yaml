@@ -21,4 +21,5 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
   - govuk_jenkins::job::update_cdn_dictionaries
+  - govuk_jenkins::job::user_monitor
   - govuk_jenkins::job::validate_published_dns
