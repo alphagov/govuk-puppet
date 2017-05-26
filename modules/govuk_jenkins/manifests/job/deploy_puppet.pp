@@ -16,7 +16,7 @@ class govuk_jenkins::job::deploy_puppet (
   $app_domain = hiera('app_domain')
 ) {
   $slack_team_domain = 'govuk'
-  $slack_room = '2ndline'
+  $slack_room = 'govuk-deploy'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
   file { '/etc/jenkins_jobs/jobs/deploy_puppet.yaml':
