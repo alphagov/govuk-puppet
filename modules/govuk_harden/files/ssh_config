@@ -1,0 +1,14 @@
+Host *
+    CheckHostIP yes
+    ForwardAgent no
+    ForwardX11 no
+    ForwardX11Trusted no
+    GSSAPIAuthentication no
+    HashKnownHosts yes
+    HostbasedAuthentication no
+    PasswordAuthentication no
+    Protocol 2
+    SendEnv LANG LC_*
+    StrictHostKeyChecking ask
+    UseRoaming no
+    VisualHostKey yes
