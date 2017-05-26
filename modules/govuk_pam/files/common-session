@@ -1,0 +1,8 @@
+session [default=1]    pam_permit.so
+session requisite      pam_deny.so
+session required       pam_permit.so
+session required       pam_unix.so
+session required       pam_limits.so
+session required       pam_loginuid.so
+session optional       pam_tmpdir.so
+session optional       pam_umask.so umask=0022
