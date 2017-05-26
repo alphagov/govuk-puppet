@@ -37,7 +37,7 @@ class govuk_jenkins::job::govuk_navigation_link_analysis (
   $client_x509_cert_url = undef,
 ) {
 
-  file { '/var/lib/jenkins/govuk_navigation_link_analysis/govuk-tagging-monitor-2f614b9b92c2.json':
+  file { '/var/lib/jenkins/workspace/govuk_navigation_link_analysis/govuk-tagging-monitor-2f614b9b92c2.json':
     ensure  => present,
     content => template('govuk_jenkins/google_api/credentials.json.erb'),
     owner   => 'jenkins',

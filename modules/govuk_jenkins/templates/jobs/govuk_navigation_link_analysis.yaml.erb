@@ -26,6 +26,8 @@
           #!/bin/bash
           set -eu
 
+          cd govuk-tagging-monitor
+          cp ../govuk-tagging-monitor-2f614b9b92c2.json .
           export RATE_LIMIT_TOKEN="<%= @rate_limit_token -%>"
           bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
           bundle exec rake analyse:links
