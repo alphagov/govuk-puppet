@@ -122,13 +122,6 @@ GIT
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
-  remote: git://github.com/alphagov/puppet-harden.git
-  ref: v0.2.0
-  sha: 3de298ff60dbcf6ad896d918ca2c6f7a4fd732b8
-  specs:
-    alphagov-harden (0.0.1)
-
-GIT
   remote: git://github.com/alphagov/puppet-rcs.git
   ref: master
   sha: 6391e388dee071487ee58090495613fbcc579d80
@@ -179,7 +172,6 @@ DEPENDENCIES
   alphagov-apparmor (>= 0)
   alphagov-curl (>= 0)
   alphagov-duplicity (>= 0)
-  alphagov-harden (>= 0)
   alphagov-puppet-rcs (>= 0)
   alphagov-puppet-reporter-sentry (>= 0)
   attachmentgenie-ufw (= 1.0.3)
