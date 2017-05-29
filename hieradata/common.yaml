@@ -386,6 +386,7 @@ govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
   - rabbitmq-3.backend
+govuk::apps::rummager::rabbitmq::enable_publishing_listener: false
 
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
