@@ -50,9 +50,6 @@ mod 'puppet/ext4mount',
 mod 'gdsoperations/gor',
   :git => 'git://github.com/alphagov/puppet-gor.git',
   :ref => 'v0.3.1'
-mod 'alphagov/harden',
-  :git => 'git://github.com/alphagov/puppet-harden.git',
-  :ref => 'v0.2.0'
 mod 'alphagov/puppet-rcs',
   :git => 'git://github.com/alphagov/puppet-rcs.git'
 mod 'elasticsearch/logstash',
