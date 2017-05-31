@@ -47,7 +47,7 @@ class govuk_rbenv::all (
   }
 
   rbenv::version { '2.3.0':
-    bundler_version => '1.14.5',
+    bundler_version => '1.15.0',
   }
   rbenv::version { '2.3.1':
     bundler_version => '1.14.5',
