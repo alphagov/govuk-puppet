@@ -103,7 +103,7 @@ govuk_jenkins::config::admins:
   - jamesmead
   - jennyduckett
   - jonathanhallam
-  - joskoetsier
+  - georgekoetsier
   - kanemorgan
   - katiesmith
   - kelvingan
@@ -317,7 +317,7 @@ users::usernames:
   - jamesrobinson
   - jennyduckett
   - jonathanhallam
-  - joskoetsier
+  - georgekoetsier
   - kanemorgan
   - katiesmith
   - kelvingan
