@@ -42,7 +42,7 @@ class govuk_docker::logspout (
     env              => [$tag_env],
     volumes          => ['/var/run/docker.sock:/var/run/docker.sock'],
     command          => "logstash+tls://${endpoint}",
-    extra_parameters => ['--restart=on-failure:3'],
+    extra_parameters => ['--restart=on-failure:16'],
   }
 
   @@icinga::check { "check_logspout_running_${::hostname}":
