@@ -26,6 +26,18 @@
 # [*version*]
 #   Specify the version of Jenkins
 #
+# [*jenkins_api_user*]
+#   An API user that authenticates with the Jenkins API.
+#
+# [*jenkins_api_token*]
+#   A token to authenticate with the Jenkins API.
+#
+# [*jenkins_user*]
+#   User that runs the Jenkins service.
+#
+# [*jenkins_homedir*]
+#   Directory that Jenkins is installed into.
+#
 # [*environment_variables*]
 #   A hash of environment variables that should be set for all Jenkins jobs.
 #
@@ -37,6 +49,7 @@ class govuk_jenkins (
   $ssh_private_key = undef,
   $ssh_public_key = undef,
   $version = '1.554.2',
+  $jenkins_api_user = 'deploy',
   $jenkins_api_token = '',
   $jenkins_user = 'jenkins',
   $jenkins_homedir = '/var/lib/jenkins',
@@ -47,6 +60,12 @@ class govuk_jenkins (
   include ::govuk_python
 
   class { 'govuk_jenkins::job_builder':
+    jenkins_api_user  => $jenkins_api_user,
+    jenkins_api_token => $jenkins_api_token,
+  }
+
+  class { 'govuk_jenkins::cli':
+    jenkins_api_user  => $jenkins_api_user,
     jenkins_api_token => $jenkins_api_token,
   }
 
@@ -73,7 +92,6 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
-  include ::govuk_jenkins::cli
   include ::govuk_jenkins::github_enterprise_cert
   include ::govuk_jenkins::reload
 
