@@ -59,6 +59,7 @@ class govuk_ci::agent(
 
   govuk_bundler::config {'jenkins-bundler':
     server    => $gemstash_server,
+    username  => 'jenkins',
     user_home => '/var/lib/jenkins',
   }
 }
