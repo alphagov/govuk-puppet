@@ -64,11 +64,13 @@ To create a new account, start by creating an SSH key at least 4096 bits long. F
 
 Now create a user manifest in `~/govuk/govuk-puppet/modules/users/manifests` with your username and the public key you just created. Your username should use the `firstnamelastname` format.
 
-Add the name of your manifest (your username) into the list of `users::usernames` in `hieradata/integration.yaml`.
+Add the name of your manifest (your username) into the list of `users::usernames` in [`hieradata/integration.yaml`][integration-hiera].
 
-There's another bit of hieradata in `integration.yaml` for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your **GitHub Enterprise** username to this list.
+There's another bit of hieradata in [`integration.yaml`][integration-hiera] for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your **GitHub Enterprise** username to this list.
 
 Create a pull request with these changes. Once it has been reviewed by a member of the GOV.UK team, you can merge it and it will automatically deploy to the Integration environment. This will come in handy later.
+
+[integration-hiera]: https://github.com/alphagov/govuk-puppet/blob/master/hieradata/integration.yaml
 
 ## 4. Boot your VM
 
