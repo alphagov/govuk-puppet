@@ -6,14 +6,14 @@ class govuk_jenkins::job::search_test_spelling_suggestions (
   $app_domain = hiera('app_domain'),
   $auth_username = undef,
   $auth_password = undef,
-  $rate_limit_token = undef
+  $rate_limit_token = undef,
+  $cron_schedule = '0 5 * * *'
 ) {
 
   $test_type = 'suggestions'
   $job_name = 'search_test_spelling_suggestions'
   $service_description = 'Check for spelling suggestions'
   $job_url = "https://deploy.${app_domain}/job/search_test_spelling_suggestions/"
-  $cron_schedule = '0 5 * * *'
 
   file { '/etc/jenkins_jobs/jobs/search_test_spelling.yaml':
     ensure  => present,
