@@ -20,7 +20,8 @@
 #
 class govuk_cdnlogs::transition_logs (
   $log_dir,
-  $private_ssh_key = undef,
+  $transition_stats_private_ssh_key = undef,
+  $pre_transition_stats_private_ssh_key = undef,
   $user = 'logs_processor',
   $enabled = true,
   $enable_cron = false,
@@ -43,16 +44,34 @@ class govuk_cdnlogs::transition_logs (
   }
 
 
-  if $private_ssh_key {
+  if $transition_stats_private_ssh_key and $pre_transition_stats_private_ssh_key {
     $ssh_dir = "/home/${user}/.ssh"
 
-    file { "${ssh_dir}/id_rsa":
+    file { "${ssh_dir}/transition_stats_rsa":
       ensure  => $ensure,
       owner   => $user,
       group   => $user,
       mode    => '0600',
-      content => $private_ssh_key,
+      content => $transition_stats_private_ssh_key,
       require => File[$ssh_dir],
+    }
+
+    file { "${ssh_dir}/pre_transition_stats_rsa":
+      ensure  => $ensure,
+      owner   => $user,
+      group   => $user,
+      mode    => '0600',
+      content => $pre_transition_stats_private_ssh_key,
+      require => File[$ssh_dir],
+    }
+
+    file {"${ssh_dir}/config":
+        ensure  => $ensure,
+        owner   => $user,
+        group   => $user,
+        mode    => '0644',
+        source  => 'puppet:///modules/govuk_cdnlogs/logs_processor_ssh_config',
+        require => Govuk_user[$user],
     }
   }
 
