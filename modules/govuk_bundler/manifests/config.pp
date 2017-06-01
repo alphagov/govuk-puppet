@@ -22,6 +22,12 @@ define govuk_bundler::config(
     group  => 'root',
   }
 
+  file { "${user_home}/.bundle/cache":
+    ensure => 'directory',
+    owner  => 'deploy',
+    group  => 'deploy',
+  }
+
   file { "${user_home}/.bundle/config":
     ensure  => 'present',
     owner   => 'root',
