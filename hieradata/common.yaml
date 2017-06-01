@@ -640,6 +640,12 @@ govuk_ci::master::pipeline_jobs:
   transition-config: {}
   ubuntu_unused_kernels:
     repo_owner: 'gds-operations'
+  vcloud-core: {}
+  vcloud-edge_gateway: {}
+  vcloud-launcher: {}
+  vcloud-net_launcher: {}
+  vcloud-tools-tester: {}
+  vcloud-walker: {}
 
 govuk_ci::master::ci_agents:
   ci-agent-1:
