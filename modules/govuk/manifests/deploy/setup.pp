@@ -104,5 +104,6 @@ class govuk::deploy::setup (
     server    => $gemstash_server,
     require   => User['deploy'],
     user_home => '/home/deploy',
+    username  => 'deploy',
   }
 }

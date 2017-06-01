@@ -6,7 +6,8 @@
 #
 # [*user_home*]
 #   The home directory of the user to add the config to.
-#   Default: /home/deploy
+# [*username*]
+#   The name of the user where we will add the directories to.
 #
 # [*server*]
 #   The gemstash server to use
@@ -14,24 +15,25 @@
 #
 define govuk_bundler::config(
   $user_home,
+  $username,
   $server = 'http://gemstash.cluster',
 ) {
   file { "${user_home}/.bundle":
     ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
+    owner  => $username,
+    group  => $username,
   }
 
   file { "${user_home}/.bundle/cache":
     ensure => 'directory',
-    owner  => 'deploy',
-    group  => 'deploy',
+    owner  => $username,
+    group  => $username,
   }
 
   file { "${user_home}/.bundle/config":
     ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
+    owner   => $username,
+    group   => $username,
     mode    => '0644',
     content => template('govuk_bundler/bundle_config.erb'),
   }
