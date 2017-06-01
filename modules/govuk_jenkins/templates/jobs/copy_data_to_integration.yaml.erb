@@ -3,7 +3,7 @@
     name: env-sync-and-backup_Copy_Data_to_Integration
     scm:
         - git:
-            url: git@github.digital.cabinet-office.gov.uk:gds/env-sync-and-backup.git
+            url: git@github.com:alphagov/env-sync-and-backup.git
             branches:
               - master
 
@@ -16,7 +16,7 @@
         to keep the integration environment up to date. The signon database isn't copied.
     properties:
         - github:
-            url: https://github.digital.cabinet-office.gov.uk/gds/env-sync-and-backup/
+            url: https://github.com/alphagov/env-sync-and-backup/
         - inject:
             properties-content: |
               PARALLEL_JOBS=2
