@@ -135,4 +135,14 @@ class govuk::node::s_development (
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
     'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
   }
+
+  exec { 'unattended_upgrades':
+    command => '/usr/bin/unattended-upgrades',
+    require => Notify['unattended_upgrades'],
+  }
+
+  notify { 'unattended_upgrades':
+    message  => 'Updating apt packages',
+  }
+
 }
