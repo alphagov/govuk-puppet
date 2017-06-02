@@ -75,6 +75,7 @@ define icinga::check::graphite(
   $ensure = 'present',
   $contact_groups = undef,
   $notification_period = undef,
+  $attempts_before_hard_state = 1,
   $event_handler = undef,
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
@@ -116,7 +117,7 @@ ${crit_line}${warn_line}\
     use                        => $use,
     action_url                 => $action_url_real,
     notes_url                  => $notes_url,
-    attempts_before_hard_state => 1,
+    attempts_before_hard_state => $attempts_before_hard_state,
     contact_groups             => $contact_groups,
     notification_period        => $notification_period,
     event_handler              => $event_handler,

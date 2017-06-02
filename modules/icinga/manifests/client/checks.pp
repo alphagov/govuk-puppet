@@ -119,13 +119,14 @@ class icinga::client::checks (
   $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
 
   @@icinga::check::graphite { "check_disk_time_${::hostname}":
-    desc      => 'high disk time',
-    target    => "movingMedian(sum(${::fqdn_metrics}.disk-sd?.disk_time.*),${disk_time_window_points})",
-    args      => "--from ${disk_time_window_minutes}mins",
-    warning   => $disk_time_warn,
-    critical  => $disk_time_critical,
-    host_name => $::fqdn,
-    notes_url => monitoring_docs_url(high-disk-time),
+    desc                       => 'high disk time',
+    target                     => "movingMedian(sum(${::fqdn_metrics}.disk-sd?.disk_time.*),${disk_time_window_points})",
+    args                       => "--from ${disk_time_window_minutes}mins",
+    warning                    => $disk_time_warn,
+    critical                   => $disk_time_critical,
+    host_name                  => $::fqdn,
+    notes_url                  => monitoring_docs_url(high-disk-time),
+    attempts_before_hard_state => 2,
   }
 
   @@icinga::check { "check_ntp_time_${::hostname}":
