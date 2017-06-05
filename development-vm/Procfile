@@ -95,7 +95,7 @@ email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../emai
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../../government-frontend bundle exec rails server -p 3090
 # sidekiq-monitoring for rummager uses port 3091
 # courts-api used port 3092
-publishing-api:        govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec rails server -p 3093
+publishing-api-web:    govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec rails server -p 3093
 publishing-api-worker: govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec sidekiq -C ./config/sidekiq.yml
 # email-alert-monitor used port 3094
 # courts-frontend used port 3095
@@ -149,7 +149,7 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # grafana has reserved port 3204
 # manuals-publisher has reserved port 3205
 # sidekiq-monitoring for content-performance-manager uses port 3207
-content-performance-manager:          govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
+content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
 content-performance-manager-sidekiq:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq.yml
 # sidekiq-monitoring for link-checker-api-sidekiq uses port 3209
 link-checker-api:                     govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec rails server -p 3208
