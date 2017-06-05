@@ -13,7 +13,7 @@ case "${SERVICESTATE}" in
   OK)
     # Service just came back up, so don't do anything
     ;;
-  CRITICAL)
+  WARNING)
     case "${SERVICESTATETYPE}" in
       SOFT)
         ;;
