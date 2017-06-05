@@ -75,6 +75,12 @@ class govuk_containers::frontend::haproxy (
     },
   }
 
+  @@icinga::check { "check_haproxy_running_${::hostname}":
+    check_command       => 'check_nrpe!check_proc_running_with_arg!haproxy /etc/haproxy/haproxy.cfg',
+    service_description => 'HAProxy running',
+    host_name           => $::fqdn,
+  }
+
   haproxy::mapfile { 'domains-to-backends':
     ensure   => 'present',
     mappings => $backend_mappings,
