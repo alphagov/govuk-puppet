@@ -15,7 +15,7 @@ process :'collections-publisher' => [:'publishing-api', :rummager, :'collections
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
 process :contentapi => [:imminence, 'asset-manager']
-process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq']
+process :'content-performance-manager' => [:'publishing-api-read', :'content-performance-manager-sidekiq']
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
 process :'dummy-content-store'
@@ -54,12 +54,13 @@ process :need_api
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
 process :publisher => [:'publishing-api', 'publisher-worker', :calendars] # for some requests also uses: mapit
-process :'publishing-api' => [:'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
+process :'publishing-api-read' => [:'publishing-api-web']
+process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
 process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
 process :router
 process :'router-api'
-process :rummager => [:'publishing-api', :'rummager-sidekiq', :'rummager-publishing-listener']
+process :rummager => [:'publishing-api-read', :'rummager-sidekiq', :'rummager-publishing-listener']
 process :'rummager-sidekiq'
 process :'rummager-publishing-listener'
 process :screenshot_as_a_service
