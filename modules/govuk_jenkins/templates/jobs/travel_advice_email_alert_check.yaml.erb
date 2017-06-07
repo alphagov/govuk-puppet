@@ -31,6 +31,10 @@
           regexp: "The remote end hung up unexpectedly"
           also-check-console-output: true
           unstable-if-found: true
+      - text-finder:
+          regexp: "GitHub is offline for maintenance"
+          also-check-console-output: true
+          unstable-if-found: true
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
           condition: 'SUCCESS'
