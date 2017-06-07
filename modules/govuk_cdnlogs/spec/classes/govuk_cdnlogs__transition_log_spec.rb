@@ -3,7 +3,8 @@ require_relative '../../../../spec_helper'
 describe 'govuk_cdnlogs::transition_logs', :type => :class do
   let(:default_params) {{
     :log_dir          => '/tmp/logs',
-    :private_ssh_key  => 'my key',
+    :transition_stats_private_ssh_key  => 'transition stats key',
+    :pre_transition_stats_private_ssh_key  => 'pre transition stats key',
     :user             => 'logs_processor',
     :enabled          => true,
     :enable_cron      => true,
@@ -19,8 +20,13 @@ describe 'govuk_cdnlogs::transition_logs', :type => :class do
       })}
     end
 
-    describe 'SSH key' do
-      it { is_expected.to contain_file('/home/logs_processor/.ssh/id_rsa').with_content('my key') }
+    describe 'SSH deploy keys' do
+      it { is_expected.to contain_file('/home/logs_processor/.ssh/transition_stats_rsa').with_content('transition stats key') }
+      it { is_expected.to contain_file('/home/logs_processor/.ssh/pre_transition_stats_rsa').with_content('pre transition stats key') }
+    end
+
+    describe 'ssh config' do
+      it { is_expected.to contain_file('/home/logs_processor/.ssh/config') }
     end
 
     describe 'git config' do

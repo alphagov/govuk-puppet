@@ -1,0 +1,7 @@
+Host github.com-transition-stats
+    HostName github.com
+    IdentityFile ~/.ssh/transition_stats_rsa
+
+Host github.com-pre-transition-stats
+    HostName github.com
+    IdentityFile ~/.ssh/pre_transition_stats_rsa
