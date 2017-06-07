@@ -287,6 +287,9 @@ govuk::apps::frontend::nagios_memory_critical: 1400
 govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::government-frontend::nagios_memory_warning: 900
+govuk::apps::government-frontend::nagios_memory_critical: 1000
+
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
