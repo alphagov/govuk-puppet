@@ -3,7 +3,7 @@
     name: env-sync-and-backup_Copy_Licensify_Data_to_Staging
     scm:
         - git:
-            url: git@github.digital.cabinet-office.gov.uk:gds/env-sync-and-backup.git
+            url: git@github.com:alphagov/env-sync-and-backup.git
             branches:
               - master
 
@@ -14,7 +14,7 @@
     description: "This job currently copies Licensify MongoDB databases from production to staging"
     properties:
         - github:
-            url: https://github.digital.cabinet-office.gov.uk/gds/env-sync-and-backup/
+            url: https://github.com/alphagov/env-sync-and-backup/
         - inject:
             properties-content: |
               PARALLEL_JOBS=2
