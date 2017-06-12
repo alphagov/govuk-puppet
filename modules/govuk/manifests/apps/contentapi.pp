@@ -63,7 +63,7 @@ class govuk::apps::contentapi (
   govuk::app { 'contentapi':
     app_type               => 'rack',
     port                   => $port,
-    health_check_path      => '/vat-rates.json',
+    health_check_path      => '/healthcheck',
     log_format_is_json     => true,
     nginx_extra_config     => 'proxy_set_header API-PREFIX $http_api_prefix;',
     nagios_memory_warning  => $nagios_memory_warning,
