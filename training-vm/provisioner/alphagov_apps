@@ -32,7 +32,6 @@ whitehall
 content-store
 draft-content-store
 email-alert-api
-contentapi
 need-api
 metadata-api
 publishing-api
