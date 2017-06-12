@@ -69,7 +69,6 @@ govuk_jenkins::config::theme_environment_name: 'Integration'
 govuk_jenkins::config::admins:
   - aaronkeogh
   - alecgibson
-  - alexmuller
   - alextorrance
   - anafernandez
   - andrewgarner
@@ -283,7 +282,6 @@ shell::shell_prompt_string: 'integration'
 
 users::usernames:
   - alecgibson
-  - alexmuller
   - alextorrance
   - anafernandez
   - andrewgarner
