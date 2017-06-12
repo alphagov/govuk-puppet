@@ -37,7 +37,6 @@ deployable_applications: &deployable_applications
     repository: 'govuk_delivery'
     source: 'github-enterprise'
   govuk-cdn-logs-monitor: {}
-  govuk_content_api: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
   govuk_need_api: {}
