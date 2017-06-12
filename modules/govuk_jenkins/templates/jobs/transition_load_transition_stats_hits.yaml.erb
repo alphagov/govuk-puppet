@@ -17,4 +17,4 @@
             mkdir data
             git clone --depth 1 git@github.com:alphagov/transition-stats.git data/transition-stats
             rsync --delete -avz -e ssh data/transition-stats deploy@backend-1.backend:/var/apps/transition/data
-            ssh deploy@backend-1.backend "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:hits[data/transition-stats/hits/cdn_*]"
+            ssh deploy@backend-1.backend "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:hits[data/transition-stats/hits/logs_cdn_*]"
