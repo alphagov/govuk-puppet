@@ -108,6 +108,7 @@ class govuk_cdnlogs::transition_logs (
       hour    => '*',
       minute  => '30',
       user    => $user,
+      path    => '/usr/lib/rbenv/shims:/usr/sbin:/usr/bin:/sbin:/bin',
       require => File[$process_script],
     }
   }

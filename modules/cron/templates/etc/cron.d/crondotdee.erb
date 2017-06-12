@@ -1,4 +1,8 @@
+# This file is managed by Puppet
 <% unless @mailto.nil? || @mailto.empty? %>
 MAILTO=<%= @mailto %>
+<% end %>
+<% unless @path.nil? || @path.empty? %>
+PATH=<%= @path %>
 <% end %>
 <%= @minute %> <%= @hour %> <%= @day %> <%= @month %> <%= @weekday %> <%= @user %> <%= @command %>
