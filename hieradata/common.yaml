@@ -1134,7 +1134,6 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
-  - 'contentapi'
   - 'content-performance-manager'
   - 'content-tagger'
   - 'docs'
