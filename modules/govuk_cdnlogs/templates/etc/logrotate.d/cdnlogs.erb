@@ -9,6 +9,7 @@ to_rotate_daily.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
 -%>
 
 {
+  su root deploy
   rotate 30
   daily
   dateext

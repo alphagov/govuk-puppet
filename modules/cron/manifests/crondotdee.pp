@@ -35,6 +35,10 @@
 #   Example would be a user or an email address, or use an empty string to
 #   suppress mailing any output.
 #
+# [*path*]
+#   Set an environment path to load for the cron job
+#   eg '/usr/bin:/usr/local/bin'
+#
 # [*ensure*]
 #   Ensure the file is created. Set to 'absent' to remove the cron job if it is
 #   no longer required.
@@ -48,6 +52,7 @@ define cron::crondotdee (
   $weekday = '*',
   $user = 'root',
   $mailto = undef,
+  $path = undef,
   $ensure = 'present',
 ) {
   file { "/etc/cron.d/${title}":
