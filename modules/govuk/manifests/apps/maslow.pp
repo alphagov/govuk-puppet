@@ -2,6 +2,9 @@
 #
 # === Parameters
 #
+# [*port*]
+#   The port the app will listen on.
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
