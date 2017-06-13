@@ -10,3 +10,7 @@
       numToKeep: 10
     triggers:
         - timed: 'H 5 * * 0'
+    publishers:
+        - email:
+            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+            send-to-individuals: true
