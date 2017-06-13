@@ -20,15 +20,12 @@
 # [*gce_credential_id*]
 #   Jenkins credential ID that stores the Gcloud account.
 #
-# [*route53_zone_id*]
-#   ID of the route53 DNS zone to upload to
 #
 class govuk_jenkins::job::deploy_dns (
   $dyn_customer_name = undef,
   $dyn_zone_id = undef,
   $gce_project_id = undef,
   $gce_credential_id = undef,
-  $route53_zone_id = undef,
 ) {
 
   contain '::govuk_jenkins::packages::terraform'
