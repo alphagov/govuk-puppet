@@ -48,16 +48,16 @@ class govuk::apps::smartanswers(
   }
 
   govuk::app { 'smartanswers':
-    app_type               => 'rack',
-    port                   => $port,
-    health_check_path      => '/pay-leave-for-parents',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    asset_pipeline_prefix  => 'smartanswers',
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    app_type                => 'rack',
+    port                    => $port,
+    health_check_path       => '/pay-leave-for-parents',
+    log_format_is_json      => true,
+    asset_pipeline          => true,
+    asset_pipeline_prefix   => 'smartanswers',
+    nagios_memory_warning   => $nagios_memory_warning,
+    nagios_memory_critical  => $nagios_memory_critical,
     alert_5xx_warning_rate  => 0.001,
     alert_5xx_critical_rate => 0.005,
-    repo_name              => 'smart-answers',
+    repo_name               => 'smart-answers',
   }
 }
