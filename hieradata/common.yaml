@@ -245,11 +245,6 @@ govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::contentapi::memcached_entitystore_url: "memcached://localhost:11211/contentapi-entity"
-govuk::apps::contentapi::memcached_metastore_url: "memcached://localhost:11211/contentapi-meta"
-govuk::apps::contentapi::nagios_memory_warning: 3800
-govuk::apps::contentapi::nagios_memory_critical: 4000
-
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
