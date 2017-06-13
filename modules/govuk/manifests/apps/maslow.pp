@@ -5,6 +5,13 @@
 # [*port*]
 #   The port the app will listen on.
 #
+# [*mongodb_nodes*]
+#   Array of hostnames for the mongo cluster to use.
+#
+# [*mongodb_name*]
+#   The mongo database to be used. Overriden in development
+#   to be 'content_store_development'.
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -14,6 +21,8 @@
 #
 class govuk::apps::maslow(
   $port = '3053',
+  $mongodb_nodes,
+  $mongodb_name,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
 ) {
@@ -29,6 +38,11 @@ class govuk::apps::maslow(
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
   }
 
   govuk::app::envvar {
