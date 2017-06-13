@@ -258,7 +258,6 @@ hosts::development::apps:
   - 'collections'
   - 'collections-publisher'
   - 'contacts-admin'
-  - 'contentapi'
   - 'content-store'
   - 'content-tagger'
   - 'designprinciples'

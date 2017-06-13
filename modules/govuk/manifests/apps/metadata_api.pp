@@ -4,10 +4,6 @@
 #
 # === Parameters
 #
-# [*content_api_bearer_token*]
-#   The bearer token to use when communicating with the content API.
-#   Default: undef
-#
 # [*enabled*]
 #   Whether the app is enabled.
 #   Default: false
@@ -21,7 +17,6 @@
 #   Default: 3064
 #
 class govuk::apps::metadata_api (
-  $content_api_bearer_token = undef,
   $enabled = false,
   $need_api_bearer_token = undef,
   $port = '3087',
@@ -34,9 +29,6 @@ class govuk::apps::metadata_api (
 
   govuk::app::envvar {
     'HTTP_PORT': value => $port;
-    "${title}-CONTENT_API_BEARER_TOKEN":
-    varname => 'CONTENT_API_BEARER_TOKEN',
-    value   => $content_api_bearer_token;
     "${title}-NEED_API_BEARER_TOKEN":
     varname => 'NEED_API_BEARER_TOKEN',
     value   => $need_api_bearer_token;

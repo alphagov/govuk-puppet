@@ -10,12 +10,6 @@ govuk::apps::event_store::mongodb_servers:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::contentapi::mongodb_name: 'govuk_content_production'
-govuk::apps::contentapi::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
 govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::manuals_publisher::mongodb_nodes:
   - 'mongo-1.backend'
