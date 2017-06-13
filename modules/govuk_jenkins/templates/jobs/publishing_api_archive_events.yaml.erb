@@ -11,7 +11,7 @@
           - project: run-rake-task
             predefined-parameters: |
               TARGET_APPLICATION=publishing-api
-              MACHINE_CLASS=backend
+              MACHINE_CLASS=publishing_api
               RAKE_TASK=events:export_to_s3
     triggers:
         - timed: 'H 5 * * 0'
