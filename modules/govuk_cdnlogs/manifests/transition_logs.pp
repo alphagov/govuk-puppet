@@ -129,6 +129,15 @@ class govuk_cdnlogs::transition_logs (
       path    => '/usr/lib/rbenv/shims:/usr/sbin:/usr/bin:/sbin:/bin',
       require => File[$process_script],
     }
+
+    $service_desc = 'Transition logs processing script'
+
+    @@icinga::passive_check { "transition-logs-processing-script-${::hostname}":
+      service_description => $service_desc,
+      host_name           => $::fqdn,
+      freshness_threshold => 3600,
+      notes_url           => monitoring_docs_url(data-sources-for-transition),
+    }
   }
 
   # Provides /opt/mawk required by pre-transition-stats
