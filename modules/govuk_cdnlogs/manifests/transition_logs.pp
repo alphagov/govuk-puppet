@@ -91,7 +91,12 @@ class govuk_cdnlogs::transition_logs (
     source => 'puppet:///modules/govuk_cdnlogs/logs_processor_config',
   }
 
-  $process_script = '/usr/local/bin/process_transition_logs.sh'
+  $process_script = '/usr/local/bin/process_transition_logs'
+
+  # FIXME: remove when deployed to Production
+  file { '/usr/local/bin/process_transition_logs.sh':
+    ensure => 'absent',
+  }
 
   file { $process_script:
     ensure  => $ensure,
