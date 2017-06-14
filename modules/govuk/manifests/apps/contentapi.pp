@@ -61,6 +61,7 @@ class govuk::apps::contentapi (
 ) {
 
   govuk::app { 'contentapi':
+    ensure                 => 'absent',
     app_type               => 'rack',
     port                   => $port,
     health_check_path      => '/healthcheck',
@@ -69,43 +70,5 @@ class govuk::apps::contentapi (
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
     repo_name              => 'govuk_content_api',
-  }
-
-  if $mongodb_nodes != undef {
-    govuk::app::envvar::mongodb_uri { 'contentapi':
-      hosts    => $mongodb_nodes,
-      database => $mongodb_name,
-    }
-  }
-
-  Govuk::App::Envvar {
-    app => 'contentapi',
-  }
-
-  govuk::app::envvar {
-    "${title}-ASSET_MANAGER_BEARER_TOKEN":
-      varname => 'ASSET_MANAGER_BEARER_TOKEN',
-      value   => $asset_manager_bearer_token;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
-    "${title}-MEMCACHED_ENTITYSTORE":
-      varname => 'MEMCACHED_ENTITYSTORE',
-      value   => $memcached_entitystore_url;
-    "${title}-MEMCACHED_METASTORE":
-      varname => 'MEMCACHED_METASTORE',
-      value   => $memcached_metastore_url;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
   }
 }
