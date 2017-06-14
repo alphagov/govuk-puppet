@@ -121,6 +121,8 @@ class govuk_cdnlogs (
   # The scripts used by transition logs need to be able to write to the directory.
   file { $log_dir:
     ensure => directory,
+    owner  => 'root',
+    group  => 'deploy',
     mode   => '0775',
   }
 
