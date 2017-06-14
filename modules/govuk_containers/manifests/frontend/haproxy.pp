@@ -81,6 +81,8 @@ class govuk_containers::frontend::haproxy (
     host_name           => $::fqdn,
   }
 
+  class { 'collectd::plugin::haproxy': }
+
   haproxy::mapfile { 'domains-to-backends':
     ensure   => 'present',
     mappings => $backend_mappings,

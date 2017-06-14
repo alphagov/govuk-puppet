@@ -1,0 +1,14 @@
+
+<Plugin python>
+    # haproxy.py is at /usr/lib/collectd/python/haproxy.py
+    ModulePath "/usr/lib/collectd/python"
+
+    Import "haproxy"
+
+    <Module haproxy>
+      Socket "/var/lib/haproxy/stats"
+      <% proxies.each do |proxy| %>
+      ProxyMonitor "<%= proxy %>"
+      <% end %>
+    </Module>
+</Plugin>
