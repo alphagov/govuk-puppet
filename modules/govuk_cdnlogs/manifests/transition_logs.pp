@@ -91,6 +91,19 @@ class govuk_cdnlogs::transition_logs (
     source => 'puppet:///modules/govuk_cdnlogs/logs_processor_config',
   }
 
+  # The transition logs processing script creates a cache of processed logs
+  file { ["${log_dir}/cache", "${log_dir}/cache/archive"]:
+    ensure => $ensure_dir,
+    owner  => $user,
+    group  => $user,
+  }
+
+  file { '/etc/logrotate.d/transition_logs_cache':
+    ensure  => $ensure,
+    content => template('govuk_cdnlogs/etc/logrotate.d/transition_logs_cache.erb'),
+    require => File["${log_dir}/cache"],
+  }
+
   $process_script = '/usr/local/bin/process_transition_logs'
 
   # FIXME: remove when deployed to Production

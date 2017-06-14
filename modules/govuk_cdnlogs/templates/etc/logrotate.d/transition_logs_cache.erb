@@ -1,0 +1,12 @@
+<%= @log_dir %>/cache/*.txt
+{
+  su root deploy
+  rotate 30
+  daily
+  dateext
+  compress
+  delaycompress
+  missingok
+  notifempty
+  olddir archive
+}
