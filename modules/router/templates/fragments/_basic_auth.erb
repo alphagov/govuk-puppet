@@ -1,0 +1,8 @@
+  <%- if @vhost_protected -%>
+
+      deny all;
+      auth_basic            "Enter the GOV.UK username/password (not your personal username/password)";
+      auth_basic_user_file  /etc/govuk.htpasswd;
+      satisfy any;
+
+  <%- end -%>

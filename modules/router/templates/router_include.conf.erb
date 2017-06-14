@@ -47,6 +47,8 @@ location ~ ^/apply-for-a-licence/assets/ {
 }
 
 location ~ ^/performance/ {
+  <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
+
   limit_req zone=performance burst=10 nodelay;
   proxy_pass http://varnish;
 }
@@ -59,14 +61,7 @@ location ~ ^/contact/govuk/(|service-feedback|problem_reports|foi|page_improveme
 }
 
 location / {
-  <%- if @vhost_protected -%>
-
-      deny all;
-      auth_basic            "Enter the GOV.UK username/password (not your personal username/password)";
-      auth_basic_user_file  /etc/govuk.htpasswd;
-      satisfy any;
-
-  <%- end -%>
+  <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
 
   # HTML verification for DWP YouTube channel
   location = /dla-ending/google6db9c061ce178960.html {
