@@ -19,7 +19,7 @@ class govuk::apps::calculators(
   govuk::app { 'calculators':
     app_type              => 'rack',
     port                  => $port,
-    health_check_path     => '/child-benefit-tax-calculator',
+    health_check_path     => '/child-benefit-tax-calculator/main',
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'calculators',
