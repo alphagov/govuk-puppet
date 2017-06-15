@@ -125,6 +125,8 @@ govuk::apps::link_checker_api::enabled: true
 govuk::apps::manuals_publisher::enable_procfile_worker: false
 govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
+govuk::apps::maslow::mongodb_nodes: ['localhost']
+govuk::apps::maslow::mongodb_name: 'maslow_development'
 govuk::apps::need_api::elasticsearch_hosts: 'localhost:9200'
 govuk::apps::need_api::mongodb_name: 'govuk_needs_development'
 govuk::apps::need_api::mongodb_nodes: ['localhost']
