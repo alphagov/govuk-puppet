@@ -83,6 +83,9 @@
 # [*event_log_aws_secret_key*]
 #  The secret key that grants access to event_log_aws_bucketname for event_log_aws_username
 #
+# [*content_api_prototype*]
+#  Set to true if you want to enable the Content API prototypes within the app
+#
 class govuk::apps::publishing_api(
   $ensure = 'present',
   $port = '3093',
@@ -106,6 +109,7 @@ class govuk::apps::publishing_api(
   $event_log_aws_username   = undef,
   $event_log_aws_access_id  = undef,
   $event_log_aws_secret_key = undef,
+  $content_api_prototype = false,
 ) {
   $app_name = 'publishing-api'
 
@@ -176,6 +180,13 @@ class govuk::apps::publishing_api(
       "${title}-EVENT_LOG_AWS_SECRET_KEY":
         varname => 'EVENT_LOG_AWS_SECRET_KEY',
         value   => $event_log_aws_secret_key;
+    }
+
+    if $content_api_prototype {
+      govuk::app::envvar { "${title}-CONTENT_API_PROTOTYPE":
+        varname => 'CONTENT_API_PROTOTYPE',
+        value   => 'yes',
+      }
     }
 
     if $secret_key_base != undef {
