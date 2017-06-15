@@ -49,7 +49,6 @@ govuk::node::s_base::apps:
   - contacts
   - content_performance_manager
   - content_tagger
-  - contentapi
   - email_alert_api
   - email_alert_service
   - event_store

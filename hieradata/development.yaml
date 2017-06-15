@@ -32,7 +32,6 @@ govuk::node::s_development::apps:
   - 'content_store'
   - 'content_store::enable_running_in_draft_mode'
   - 'content_tagger'
-  - 'contentapi'
   - 'designprinciples'
   - 'email_alert_api'
   - 'email_alert_frontend'
