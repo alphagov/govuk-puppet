@@ -52,7 +52,6 @@ info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../../info
 metadata-api:          govuk_setenv metadata-api          ./run_go.sh metadata-api          make run
 email-alert-api:       govuk_setenv email-alert-api       ./run_in.sh ../../email-alert-api bundle exec foreman start
 email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../email-alert-service bundle exec bin/email_alert_service
-# sidekiq-monitoring for email-alert-api uses port 3089
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../../government-frontend bundle exec rails server -p 3090
 # sidekiq-monitoring for rummager uses port 3091
 # courts-api used port 3092
