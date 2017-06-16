@@ -10,7 +10,6 @@ calendars:             govuk_setenv calendars             ./run_in.sh ../../cale
 static:                govuk_setenv static                ./run_in.sh ../../static         bundle exec rails server -p 3013
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../../licence-finder bundle exec rails server -p 3014
 signon:                govuk_setenv signon                ./run_in.sh ../../signon         bundle exec rails server -p 3016
-# tradetariff used port 3017
 # tradetariffapi used port 3018
 # efg used port 3019
 # reviewomatic used port 3021
