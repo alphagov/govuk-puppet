@@ -13,7 +13,6 @@ signon:                govuk_setenv signon                ./run_in.sh ../../sign
 whitehall:             govuk_setenv whitehall             ./run_in.sh ../../whitehall      bundle exec rails server -p 3020
 whitehall-worker:      govuk_setenv whitehall             ./run_in.sh ../../whitehall      bundle exec sidekiq -C ./config/sidekiq.yml
 designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../../design-principles bundle exec rails server -p 3023
-# business-support-finder used port 3024
 # whitehall_search uses port 3025
 # whitehall_admin uses port 3026
 # datainsight-frontend used port 3027
