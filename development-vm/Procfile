@@ -21,7 +21,6 @@ travel_advice_publisher_worker: govuk_setenv travel-advice-publisher ./run_in.sh
 release:               govuk_setenv release               ./run_in.sh ../../release        bundle exec rails server -p 3036
 asset-manager:         govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rails server -p 3037
 asset-manager-worker:  govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rake jobs:work
-# limelight used port 3040
 # transaction_wrappers used port 3041
 govuk-delivery:        govuk_setenv govuk-delivery        ./run_in.sh ../../govuk_delivery ./startup.sh # govuk-delivery uses port 3042
 govuk-delivery-worker: govuk_setenv govuk-delivery        ./run_in.sh ../../govuk_delivery ./venv/bin/celery worker -A service
