@@ -81,7 +81,6 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # kibana has reserved port 3202
 # grafana has reserved port 3204
 # manuals-publisher has reserved port 3205
-# sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
 content-performance-manager-sidekiq:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq.yml
 # sidekiq-monitoring for link-checker-api-sidekiq uses port 3209
