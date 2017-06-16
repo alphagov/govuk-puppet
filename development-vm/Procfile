@@ -25,7 +25,6 @@ govuk-delivery:        govuk_setenv govuk-delivery        ./run_in.sh ../../govu
 govuk-delivery-worker: govuk_setenv govuk-delivery        ./run_in.sh ../../govuk_delivery ./venv/bin/celery worker -A service
 transition:            govuk_setenv transition            ./run_in.sh ../../transition     bundle exec rails server -p 3044
 calculators:           govuk_setenv calculators           ./run_in.sh ../../calculators    bundle exec rails server -p 3047
-# fact-cave used port 3048
 bouncer:               govuk_setenv bouncer               ./run_in.sh ../../bouncer        bundle exec mr-sparkle --force-polling -- -p 3049
 # fco-services used port 3050
 contacts-admin:        govuk_setenv contacts              ./run_in.sh ../../contacts-admin bundle exec rails server -p 3051
