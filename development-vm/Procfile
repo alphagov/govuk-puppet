@@ -32,7 +32,6 @@ maslow:                govuk_setenv maslow                ./run_in.sh ../../masl
 router:                govuk_setenv router                ./run_go.sh router               make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../../router-api     bundle exec rails server -p 3056
 spotlight:                                                ./run_in.sh ../../spotlight      ./start-app.sh # port 3057
-# content_planner used port 3058
 screenshot_as_a_service:                                  ./run_in.sh ../../screenshot-as-a-service ./start-app.sh # ports 3059 and 3060
 # business-support-api used port 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../../finder-frontend bundle exec rails server -p 3062
