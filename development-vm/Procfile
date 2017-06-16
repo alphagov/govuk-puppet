@@ -12,7 +12,6 @@ licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../../lice
 signon:                govuk_setenv signon                ./run_in.sh ../../signon         bundle exec rails server -p 3016
 whitehall:             govuk_setenv whitehall             ./run_in.sh ../../whitehall      bundle exec rails server -p 3020
 whitehall-worker:      govuk_setenv whitehall             ./run_in.sh ../../whitehall      bundle exec sidekiq -C ./config/sidekiq.yml
-# contentapi used port 3022
 designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../../design-principles bundle exec rails server -p 3023
 # business-support-finder used port 3024
 # whitehall_search uses port 3025
