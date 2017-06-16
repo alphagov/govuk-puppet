@@ -74,7 +74,6 @@ service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../../
 draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ../../government-frontend bundle exec rails server -p 3126 -P tmp/pids/draft-government-frontend.pid
 draft-manuals-frontend: govuk_setenv draft-manuals-frontend ./run_in.sh ../../manuals-frontend bundle exec rails server -p 3131 -P tmp/pids/draft-manuals-frontend.pid
 draft-static:              govuk_setenv draft-static              ./run_in.sh ../../static              bundle exec rails server -p 3132 -P tmp/pids/draft-static.pid
-# draft-router uses ports 3133 and 3134
 draft-router:                govuk_setenv draft-router                env BINARY=/var/govuk/gopath/src/github.com/alphagov/router/draft_router ./run_go.sh router            make run
 draft-router-api:            govuk_setenv draft-router-api            ./run_in.sh ../../router-api     bundle exec rails server -p 3135 -P tmp/pids/draft-router-api.pid
 # frontend JS test runner uses port 3150
