@@ -16,7 +16,6 @@ designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../../desi
 feedback:              govuk_setenv feedback              ./run_in.sh ../../feedback       bundle exec rails server -p 3028
 errbit:                govuk_setenv errbit                ./run_in.sh ../../errbit         bundle exec rails server -p 3029
 support:               govuk_setenv support               ./run_in.sh ../../support        bundle exec rails server -p 3031
-# url-arbiter used port 3034
 travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../../travel-advice-publisher bundle exec rails server -p 3035
 travel_advice_publisher_worker: govuk_setenv travel-advice-publisher ./run_in.sh ../../travel-advice-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 release:               govuk_setenv release               ./run_in.sh ../../release        bundle exec rails server -p 3036
