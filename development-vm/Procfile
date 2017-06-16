@@ -45,7 +45,6 @@ manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../../manu
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../../search-admin   bundle exec rails server -p 3073
 support-api:           govuk_setenv support-api           ./run_in.sh ../../support-api    bundle exec rails server -p 3075
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
-# smartdown-frontend used port 3077
 # content-register used port 3077
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../../collections-publisher bundle exec rails server -p 3078
 collections-publisher-worker: govuk_setenv collections-publisher        ./run_in.sh ../../collections-publisher bundle exec sidekiq -C ./config/sidekiq.yml
