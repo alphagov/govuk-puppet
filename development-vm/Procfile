@@ -49,7 +49,6 @@ collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../../coll
 collections-publisher-worker: govuk_setenv collections-publisher        ./run_in.sh ../../collections-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 service-manual:        govuk_setenv service-manual        ./run_in.sh ../../government-service-design-manual  bundle exec unicorn -p 3082
 info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../../info-frontend bundle exec rails server -p 3085
-# metadata-api uses port 3087
 metadata-api:          govuk_setenv metadata-api          ./run_go.sh metadata-api          make run
 email-alert-api:       govuk_setenv email-alert-api       ./run_in.sh ../../email-alert-api bundle exec foreman start
 email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../email-alert-service bundle exec bin/email_alert_service
