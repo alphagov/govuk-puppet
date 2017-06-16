@@ -65,7 +65,6 @@ stagecraft:                                               ./run_in.sh ../../stag
 admin:                                                    ./run_in.sh ../../performanceplatform-admin ./start-app.sh 3104
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../../authenticating-proxy bundle exec rails server -p 3107
 mapit:                 govuk_setenv mapit                 ./run_in.sh ../../mapit ./startup.sh # mapit uses port 3108
-# email-campaign-api used port 3110
 service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../../service-manual-publisher bundle exec rails server -p 3111
 # govuk-pact-broker uses port 3112
 # govuk-component-guide uses port 3113
