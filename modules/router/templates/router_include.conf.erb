@@ -55,7 +55,7 @@ location ~ ^/performance/ {
 
 # This list of URLS should be kept in sync with the POST-able routes in the
 # feedback application
-location ~ ^/contact/govuk/(|service-feedback|problem_reports|foi|page_improvements|email-survey-signup)$ {
+location ~ ^/contact/govuk/(|service-feedback|problem_reports|foi|page_improvements|email-survey-signup|assisted-digital-survey-feedback)$ {
   limit_req zone=contact burst=4 nodelay;
   proxy_pass http://varnish;
 }
