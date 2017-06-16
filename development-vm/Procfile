@@ -2,7 +2,6 @@ publisher:             govuk_setenv publisher             ./run_in.sh ../../publ
 publisher-worker:      govuk_setenv publisher             ./run_in.sh ../../publisher      bundle exec sidekiq -C ./config/sidekiq.yml
 imminence:             govuk_setenv imminence             ./run_in.sh ../../imminence      bundle exec rails server -p 3002
 frontend:              govuk_setenv frontend              ./run_in.sh ../../frontend       bundle exec rails server -p 3005
-# planner used port 3007
 rummager:              govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
 rummager-sidekiq:      govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec sidekiq -C ./config/sidekiq.yml
 rummager-publishing-listener: govuk_setenv rummager       ./run_in.sh ../../rummager       bundle exec rake message_queue:listen_to_publishing_queue
