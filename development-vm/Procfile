@@ -69,7 +69,6 @@ service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../
 content-tagger:        govuk_setenv content-tagger        ./run_in.sh ../../content-tagger bundle exec rails server -p 3116
 content-tagger-sidekiq: govuk_setenv content-tagger       ./run_in.sh ../../content-tagger bundle exec sidekiq -C ./config/sidekiq.yml
 share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../../share-sale-publisher bundle exec rails server -p 3119
-# sidekiq-monitoring for imminence uses port 3120
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../../local-links-manager bundle exec rails server -p 3121
 service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../../service-manual-frontend bundle exec rails server -p 3122
 # dfid-transition used port 3124
