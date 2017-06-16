@@ -63,7 +63,6 @@ backdrop_read:                                            ./run_in.sh ../../back
 backdrop_write:                                           ./run_in.sh ../../backdrop ./start-app.sh write 3102
 stagecraft:                                               ./run_in.sh ../../stagecraft ./start-app.sh 3103
 admin:                                                    ./run_in.sh ../../performanceplatform-admin ./start-app.sh 3104
-# datainsight-everything-recorder used port 3105
 # datainsight-insidegov-recorder used port 3106
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../../authenticating-proxy bundle exec rails server -p 3107
 mapit:                 govuk_setenv mapit                 ./run_in.sh ../../mapit ./startup.sh # mapit uses port 3108
