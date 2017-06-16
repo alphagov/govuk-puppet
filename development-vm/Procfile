@@ -71,7 +71,6 @@ content-tagger-sidekiq: govuk_setenv content-tagger       ./run_in.sh ../../cont
 share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../../share-sale-publisher bundle exec rails server -p 3119
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../../local-links-manager bundle exec rails server -p 3121
 service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../../service-manual-frontend bundle exec rails server -p 3122
-# sidekiq-monitoring for content-tagger uses port 3125
 draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ../../government-frontend bundle exec rails server -p 3126 -P tmp/pids/draft-government-frontend.pid
 # efg_training used port 3129
 # efg_rebuild used port 3127
