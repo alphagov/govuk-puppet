@@ -79,7 +79,6 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # canary-frontend has reserved port 3200
 # canary-backend has reserved port 3201
 # kibana has reserved port 3202
-# sidekiq-monitoring for travel-advice-publisher uses port 3203
 # grafana has reserved port 3204
 # manuals-publisher has reserved port 3205
 # sidekiq-monitoring for content-performance-manager uses port 3207
