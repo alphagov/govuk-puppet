@@ -16,7 +16,6 @@ designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../../desi
 feedback:              govuk_setenv feedback              ./run_in.sh ../../feedback       bundle exec rails server -p 3028
 errbit:                govuk_setenv errbit                ./run_in.sh ../../errbit         bundle exec rails server -p 3029
 support:               govuk_setenv support               ./run_in.sh ../../support        bundle exec rails server -p 3031
-# publicapi uses port 3032
 # contracts-finder used port 3033
 # url-arbiter used port 3034
 travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../../travel-advice-publisher bundle exec rails server -p 3035
