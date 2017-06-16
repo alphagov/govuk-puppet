@@ -1,7 +1,6 @@
 publisher:             govuk_setenv publisher             ./run_in.sh ../../publisher      bundle exec rails server -p 3000
 publisher-worker:      govuk_setenv publisher             ./run_in.sh ../../publisher      bundle exec sidekiq -C ./config/sidekiq.yml
 imminence:             govuk_setenv imminence             ./run_in.sh ../../imminence      bundle exec rails server -p 3002
-# needotron used port 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../../frontend       bundle exec rails server -p 3005
 # planner used port 3007
 rummager:              govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
