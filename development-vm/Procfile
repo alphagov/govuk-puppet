@@ -66,7 +66,6 @@ admin:                                                    ./run_in.sh ../../perf
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../../authenticating-proxy bundle exec rails server -p 3107
 mapit:                 govuk_setenv mapit                 ./run_in.sh ../../mapit ./startup.sh # mapit uses port 3108
 service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../../service-manual-publisher bundle exec rails server -p 3111
-# govuk-component-guide uses port 3113
 # sidekiq-monitoring for publishing-api uses port 3114
 # whitehall-admin-tagging-test used port 3115
 content-tagger:        govuk_setenv content-tagger        ./run_in.sh ../../content-tagger bundle exec rails server -p 3116
