@@ -39,7 +39,6 @@ specialist-publisher-worker: govuk_setenv specialist-publisher ./run_in.sh ../..
 manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../../manuals-publisher bundle exec foreman start
 content-store:         govuk_setenv content-store         ./run_in.sh ../../content-store  bundle exec rails server -p 3068
 dummy-content-store:   govuk_setenv content-store         ./run_in.sh ../../govuk-content-schemas  bundle exec dummy_content_store
-# content-store also uses port 3069
 collections:           govuk_setenv collections           ./run_in.sh ../../collections    bundle exec rails server -p 3070
 # hmrc-manuals-api uses port 3071
 hmrc-manuals-api:      govuk_setenv hmrc-manuals-api      ./run_in.sh ../../hmrc-manuals-api bundle exec foreman start
