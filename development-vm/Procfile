@@ -37,7 +37,6 @@ finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../../find
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../../specialist-publisher bundle exec foreman start
 specialist-publisher-worker: govuk_setenv specialist-publisher ./run_in.sh ../../specialist-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../../manuals-publisher bundle exec foreman start
-# specialist-frontend used port 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../../content-store  bundle exec rails server -p 3068
 dummy-content-store:   govuk_setenv content-store         ./run_in.sh ../../govuk-content-schemas  bundle exec dummy_content_store
 # content-store also uses port 3069
