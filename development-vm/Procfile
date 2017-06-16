@@ -47,7 +47,6 @@ support-api:           govuk_setenv support-api           ./run_in.sh ../../supp
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../../collections-publisher bundle exec rails server -p 3078
 collections-publisher-worker: govuk_setenv collections-publisher        ./run_in.sh ../../collections-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring uses 3079-3081 and 3086
 service-manual:        govuk_setenv service-manual        ./run_in.sh ../../government-service-design-manual  bundle exec unicorn -p 3082
 # transition-postgres used port 3083
 # collections-api used port3084
