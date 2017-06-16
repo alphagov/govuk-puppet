@@ -43,7 +43,6 @@ collections:           govuk_setenv collections           ./run_in.sh ../../coll
 hmrc-manuals-api:      govuk_setenv hmrc-manuals-api      ./run_in.sh ../../hmrc-manuals-api bundle exec foreman start
 manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../../manuals-frontend bundle exec rails server -p 3072
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../../search-admin   bundle exec rails server -p 3073
-# contacts-frontend used port 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../../support-api    bundle exec rails server -p 3075
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
 # smartdown-frontend used port 3077
