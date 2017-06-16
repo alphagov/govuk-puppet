@@ -55,7 +55,6 @@ email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../emai
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../../government-frontend bundle exec rails server -p 3090
 publishing-api-web:    govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec rails server -p 3093
 publishing-api-worker: govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec sidekiq -C ./config/sidekiq.yml
-# courts-frontend used port 3095
 # entity-extractor used port 3096
 event-store:           govuk_setenv event-store           ./run_in.sh ../../event-store    make run # port 3097
 policy-publisher:      govuk_setenv policy-publisher      ./run_in.sh ../../policy-publisher bundle exec rails server -p 3098
