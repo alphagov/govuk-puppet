@@ -11,7 +11,7 @@
 # [*environment*]
 #   Specify the environment ({production,staging,integration}). Required by some jobs.
 #
-# [*jenkins_user*]
+# [*jenkins_api_user*]
 #   A username of a user on Jenkins who has permission to create and modify jobs
 #
 # [*jenkins_api_token*]
@@ -34,7 +34,7 @@
 class govuk_jenkins::job_builder (
   $app_domain = hiera('app_domain'),
   $environment = 'development',
-  $jenkins_user = 'deploy',
+  $jenkins_api_user = 'deploy',
   $jenkins_api_token = '',
   $jenkins_url = 'http://localhost:8080/',
   $jobs = [],

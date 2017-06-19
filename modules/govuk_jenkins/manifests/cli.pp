@@ -16,8 +16,16 @@
 #   The home directory of the Jenkins install, and where to put the
 #   Jenkins CLI jar.
 #
+# [*jenkins_api_user*]
+#   The user used to authenticate with the Jenkins API.
+
+# [*jenkins_api_token*]
+#   The token used to authenticate with the Jenkins API.
+#
 class govuk_jenkins::cli (
   $jenkins_home = '/var/lib/jenkins',
+  $jenkins_api_user = 'deploy',
+  $jenkins_api_token = '',
 ) {
   require ::govuk_jenkins
 

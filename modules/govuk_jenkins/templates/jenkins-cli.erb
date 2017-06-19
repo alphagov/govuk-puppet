@@ -5,4 +5,4 @@ if [ "$EUID" -ne 0 ]
   exit 1
 fi
 
-/usr/bin/java -jar <%= @jenkins_home %>/jenkins-cli.jar -s http://localhost:8080/ -i <%= @jenkins_home %>/.ssh/id_rsa $1
+/usr/bin/java -jar <%= @jenkins_home %>/jenkins-cli.jar -s http://localhost:8080/ -http -auth <%= @jenkins_api_user %>:<%= @jenkins_api_token %> $1
