@@ -39,7 +39,7 @@ class govuk::apps::licencefinder(
   govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
-    health_check_path     => '/licence-finder',
+    health_check_path     => '/licence-finder/sectors',
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'licencefinder',
