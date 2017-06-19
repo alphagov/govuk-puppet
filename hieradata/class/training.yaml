@@ -13,7 +13,6 @@ govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.tr
 
 users::usernames:
   - alecgibson
-  - alexmuller
   - alextorrance
   - anafernandez
   - andrewgarner
