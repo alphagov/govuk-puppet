@@ -73,7 +73,6 @@ govuk_jenkins::config::admins:
   - alextorrance
   - anafernandez
   - andrewgarner
-  - andrewhilton
   - andrienricketts
   - andydriver
   - andysellick
@@ -286,7 +285,6 @@ users::usernames:
   - alextorrance
   - anafernandez
   - andrewgarner
-  - andrewhilton
   - andrienricketts
   - andydriver
   - andysellick
