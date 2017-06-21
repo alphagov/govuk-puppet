@@ -1,10 +1,7 @@
 publisher:             govuk_setenv publisher             ./run_in.sh ../../publisher      bundle exec rails server -p 3000
 publisher-worker:      govuk_setenv publisher             ./run_in.sh ../../publisher      bundle exec sidekiq -C ./config/sidekiq.yml
 imminence:             govuk_setenv imminence             ./run_in.sh ../../imminence      bundle exec rails server -p 3002
-# panopticon used port 3003
-# needotron used port 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../../frontend       bundle exec rails server -p 3005
-# planner used port 3007
 rummager:              govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
 rummager-sidekiq:      govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec sidekiq -C ./config/sidekiq.yml
 rummager-publishing-listener: govuk_setenv rummager       ./run_in.sh ../../rummager       bundle exec rake message_queue:listen_to_publishing_queue
@@ -12,94 +9,52 @@ smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../../smar
 calendars:             govuk_setenv calendars             ./run_in.sh ../../calendars      bundle exec rails server -p 3011
 static:                govuk_setenv static                ./run_in.sh ../../static         bundle exec rails server -p 3013
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../../licence-finder bundle exec rails server -p 3014
-# migratorator used port 3015
 signon:                govuk_setenv signon                ./run_in.sh ../../signon         bundle exec rails server -p 3016
-# tradetariff used port 3017
-# tradetariffapi used port 3018
-# efg used port 3019
-# reviewomatic used port 3021
-# reviewomaticexplore used port 3023
 whitehall:             govuk_setenv whitehall             ./run_in.sh ../../whitehall      bundle exec rails server -p 3020
 whitehall-worker:      govuk_setenv whitehall             ./run_in.sh ../../whitehall      bundle exec sidekiq -C ./config/sidekiq.yml
-# contentapi used port 3022
 designprinciples:      govuk_setenv designprinciples      ./run_in.sh ../../design-principles bundle exec rails server -p 3023
-# business-support-finder used port 3024
-# whitehall_search uses port 3025
-# whitehall_admin uses port 3026
-# datainsight-frontend used port 3027
 feedback:              govuk_setenv feedback              ./run_in.sh ../../feedback       bundle exec rails server -p 3028
 errbit:                govuk_setenv errbit                ./run_in.sh ../../errbit         bundle exec rails server -p 3029
 support:               govuk_setenv support               ./run_in.sh ../../support        bundle exec rails server -p 3031
-# publicapi uses port 3032
-# contracts-finder used port 3033
-# url-arbiter used port 3034
 travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../../travel-advice-publisher bundle exec rails server -p 3035
 travel_advice_publisher_worker: govuk_setenv travel-advice-publisher ./run_in.sh ../../travel-advice-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 release:               govuk_setenv release               ./run_in.sh ../../release        bundle exec rails server -p 3036
 asset-manager:         govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rails server -p 3037
 asset-manager-worker:  govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rake jobs:work
-# limelight used port 3040
-# transaction_wrappers used port 3041
 govuk-delivery:        govuk_setenv govuk-delivery        ./run_in.sh ../../govuk_delivery ./startup.sh # govuk-delivery uses port 3042
 govuk-delivery-worker: govuk_setenv govuk-delivery        ./run_in.sh ../../govuk_delivery ./venv/bin/celery worker -A service
-# tariff_demo_api uses port 3043 in integration only
 transition:            govuk_setenv transition            ./run_in.sh ../../transition     bundle exec rails server -p 3044
-# tariff_demo uses port 3045 in integration only
-# tariff_admin used port 3046
 calculators:           govuk_setenv calculators           ./run_in.sh ../../calculators    bundle exec rails server -p 3047
-# fact-cave used port 3048
 bouncer:               govuk_setenv bouncer               ./run_in.sh ../../bouncer        bundle exec mr-sparkle --force-polling -- -p 3049
-# fco-services used port 3050
 contacts-admin:        govuk_setenv contacts              ./run_in.sh ../../contacts-admin bundle exec rails server -p 3051
 need_api:              govuk_setenv need-api              ./run_in.sh ../../govuk_need_api bundle exec rails server -p 3052
 maslow:                govuk_setenv maslow                ./run_in.sh ../../maslow         bundle exec rails server -p 3053
-# router uses ports 3054 and 3055
 router:                govuk_setenv router                ./run_go.sh router               make run
 router-api:            govuk_setenv router-api            ./run_in.sh ../../router-api     bundle exec rails server -p 3056
 spotlight:                                                ./run_in.sh ../../spotlight      ./start-app.sh # port 3057
-# content_planner used port 3058
 screenshot_as_a_service:                                  ./run_in.sh ../../screenshot-as-a-service ./start-app.sh # ports 3059 and 3060
-# business-support-api used port 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../../finder-frontend bundle exec rails server -p 3062
-# finder-api used port 3063
 specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../../specialist-publisher bundle exec foreman start
 specialist-publisher-worker: govuk_setenv specialist-publisher ./run_in.sh ../../specialist-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../../manuals-publisher bundle exec foreman start
-# specialist-frontend used port 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../../content-store  bundle exec rails server -p 3068
 dummy-content-store:   govuk_setenv content-store         ./run_in.sh ../../govuk-content-schemas  bundle exec dummy_content_store
-# content-store also uses port 3069
 collections:           govuk_setenv collections           ./run_in.sh ../../collections    bundle exec rails server -p 3070
-# hmrc-manuals-api uses port 3071
 hmrc-manuals-api:      govuk_setenv hmrc-manuals-api      ./run_in.sh ../../hmrc-manuals-api bundle exec foreman start
 manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../../manuals-frontend bundle exec rails server -p 3072
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../../search-admin   bundle exec rails server -p 3073
-# contacts-frontend used port 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../../support-api    bundle exec rails server -p 3075
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
-# smartdown-frontend used port 3077
-# content-register used port 3077
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../../collections-publisher bundle exec rails server -p 3078
 collections-publisher-worker: govuk_setenv collections-publisher        ./run_in.sh ../../collections-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring uses 3079-3081 and 3086
 service-manual:        govuk_setenv service-manual        ./run_in.sh ../../government-service-design-manual  bundle exec unicorn -p 3082
-# transition-postgres used port 3083
-# collections-api used port3084
 info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../../info-frontend bundle exec rails server -p 3085
-# sidekiq-monitoring for transition uses port 3086
-# metadata-api uses port 3087
 metadata-api:          govuk_setenv metadata-api          ./run_go.sh metadata-api          make run
 email-alert-api:       govuk_setenv email-alert-api       ./run_in.sh ../../email-alert-api bundle exec foreman start
 email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../email-alert-service bundle exec bin/email_alert_service
-# sidekiq-monitoring for email-alert-api uses port 3089
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../../government-frontend bundle exec rails server -p 3090
-# sidekiq-monitoring for rummager uses port 3091
-# courts-api used port 3092
 publishing-api-web:    govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec rails server -p 3093
 publishing-api-worker: govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec sidekiq -C ./config/sidekiq.yml
-# email-alert-monitor used port 3094
-# courts-frontend used port 3095
-# entity-extractor used port 3096
 event-store:           govuk_setenv event-store           ./run_in.sh ../../event-store    make run # port 3097
 policy-publisher:      govuk_setenv policy-publisher      ./run_in.sh ../../policy-publisher bundle exec rails server -p 3098
 email-alert-frontend:  govuk_setenv email-alert-frontend  ./run_in.sh ../../email-alert-frontend bundle exec rails server -p 3099
@@ -108,50 +63,25 @@ backdrop_read:                                            ./run_in.sh ../../back
 backdrop_write:                                           ./run_in.sh ../../backdrop ./start-app.sh write 3102
 stagecraft:                                               ./run_in.sh ../../stagecraft ./start-app.sh 3103
 admin:                                                    ./run_in.sh ../../performanceplatform-admin ./start-app.sh 3104
-# datainsight-everything-recorder used port 3105
-# datainsight-insidegov-recorder used port 3106
 authenticating-proxy:  govuk_setenv authenticating-proxy  ./run_in.sh ../../authenticating-proxy bundle exec rails server -p 3107
 mapit:                 govuk_setenv mapit                 ./run_in.sh ../../mapit ./startup.sh # mapit uses port 3108
-# email-campaign-frontend used port 3109
-# email-campaign-api used port 3110
 service-manual-publisher: govuk_setenv service-manual-publisher  ./run_in.sh ../../service-manual-publisher bundle exec rails server -p 3111
-# govuk-pact-broker uses port 3112
-# govuk-component-guide uses port 3113
-# sidekiq-monitoring for publishing-api uses port 3114
-# whitehall-admin-tagging-test used port 3115
 content-tagger:        govuk_setenv content-tagger        ./run_in.sh ../../content-tagger bundle exec rails server -p 3116
 content-tagger-sidekiq: govuk_setenv content-tagger       ./run_in.sh ../../content-tagger bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring for email-campaign-api uses port 3117
-# multipage-frontend used port 3118
 share-sale-publisher:  govuk_setenv share-sale-publisher  ./run_in.sh ../../share-sale-publisher bundle exec rails server -p 3119
-# sidekiq-monitoring for imminence uses port 3120
 local-links-manager:   govuk_setenv local-links-manager   ./run_in.sh ../../local-links-manager bundle exec rails server -p 3121
 service-manual-frontend: govuk_setenv service-manual-frontend ./run_in.sh ../../service-manual-frontend bundle exec rails server -p 3122
-# dfid-transition used port 3124
-# sidekiq-monitoring for content-tagger uses port 3125
 draft-government-frontend: govuk_setenv draft-government-frontend ./run_in.sh ../../government-frontend bundle exec rails server -p 3126 -P tmp/pids/draft-government-frontend.pid
-# efg_training used port 3129
-# efg_rebuild used port 3127
-# efg_training_rebuild used port 3128
-# draft-specialist-frontend used port 3130
 draft-manuals-frontend: govuk_setenv draft-manuals-frontend ./run_in.sh ../../manuals-frontend bundle exec rails server -p 3131 -P tmp/pids/draft-manuals-frontend.pid
 draft-static:              govuk_setenv draft-static              ./run_in.sh ../../static              bundle exec rails server -p 3132 -P tmp/pids/draft-static.pid
-# draft-router uses ports 3133 and 3134
 draft-router:                govuk_setenv draft-router                env BINARY=/var/govuk/gopath/src/github.com/alphagov/router/draft_router ./run_go.sh router            make run
 draft-router-api:            govuk_setenv draft-router-api            ./run_in.sh ../../router-api     bundle exec rails server -p 3135 -P tmp/pids/draft-router-api.pid
-# frontend JS test runner uses port 3150
-# router test suite uses ports 3160-3169
-# firewall block rule on port 3170 (for testing connect timeouts)
 # canary-frontend has reserved port 3200
 # canary-backend has reserved port 3201
 # kibana has reserved port 3202
-# sidekiq-monitoring for travel-advice-publisher uses port 3203
 # grafana has reserved port 3204
 # manuals-publisher has reserved port 3205
-# sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
 content-performance-manager-sidekiq:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring for link-checker-api-sidekiq uses port 3209
 link-checker-api:                     govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec rails server -p 3208
 link-checker-api-sidekiq:             govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring for specialist-publisher uses port 3210
