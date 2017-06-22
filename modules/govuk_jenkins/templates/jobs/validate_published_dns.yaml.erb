@@ -1,17 +1,32 @@
 ---
+- scm:
+    name: dns_tools
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-dns.git
+            branches:
+              - master
+            wipe-workspace: true
+            clean:
+                after: true
 - job:
-    name: Validate_published_dns
-    display-name: Validate_published_dns
+    name: Validate_published_DNS
+    display-name: Validate_published_DNS
     project-type: freestyle
     description: "<p>Check that the published DNS records match those in the <a href='https://github.com/alphagov/govuk-dns-config'>govuk-dns-config repo</a> YAML file.</p>"
     logrotate:
         numToKeep: 30
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-dns/
+    scm:
+      - dns_tools
     builders:
         - shell: |
             set -e
             rm -rf govuk-dns-config
             git clone --branch master --depth 1 git@github.com:alphagov/govuk-dns-config.git
-            cd govuk-dns-config
+            cp "./govuk-dns-config/${ZONEFILE}" .
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec rake validate_dns
     wrappers:
