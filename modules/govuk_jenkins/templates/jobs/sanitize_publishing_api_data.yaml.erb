@@ -11,4 +11,4 @@
       numToKeep: 10
     builders:
        - shell: |
-           ssh deploy@backend-1.backend 'cd /var/apps/publishing-api && sudo -u deploy govuk_setenv publishing-api bundle exec rake sanitize_data'
+           ssh deploy@$(govuk_node_list -c publishing_api --single-node) 'cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake sanitize_data'
