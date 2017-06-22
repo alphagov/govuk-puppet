@@ -29,6 +29,18 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -45,11 +57,16 @@ class govuk::apps::collections_publisher(
   $oauth_secret = undef,
   $enable_procfile_worker = true,
   $publishing_api_bearer_token = undef,
+  $db_hostname = undef,
+  $db_username = 'collections_pub',
+  $db_password = undef,
+  $db_name = 'collections_publisher_production',
   $redis_host = undef,
   $redis_port = undef,
 ) {
+  $app_name = 'collections-publisher'
 
-  govuk::app { 'collections-publisher':
+  govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
     vhost_ssl_only     => true,
@@ -60,10 +77,10 @@ class govuk::apps::collections_publisher(
   }
 
   Govuk::App::Envvar {
-    app =>  'collections-publisher',
+    app => $app_name,
   }
 
-  govuk::app::envvar::redis { 'collections-publisher':
+  govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
   }
@@ -90,7 +107,17 @@ class govuk::apps::collections_publisher(
       value   => $publishing_api_bearer_token;
   }
 
-  govuk::procfile::worker {'collections-publisher':
+  if $::govuk_node_class !~ /^(development|training)$/ {
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql2',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
+    }
+  }
+
+  govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
 }
