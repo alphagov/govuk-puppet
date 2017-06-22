@@ -33,19 +33,23 @@ describe 'govuk_cdnlogs::transition_logs', :type => :class do
       it { is_expected.to contain_file('/home/logs_processor/.gitconfig') }
     end
 
+    describe 'cache log rotation' do
+      it { is_expected.to contain_file('/etc/logrotate.d/transition_logs_cache').with_content(/\/tmp\/logs\/cache\/\*\.txt/) }
+    end
+
     describe 'log processing config.yml' do
       it { is_expected.to contain_file('/tmp/logs/config.yml') }
     end
 
     describe 'processing script' do
-      it { is_expected.to contain_file('/usr/local/bin/process_transition_logs.sh')
+      it { is_expected.to contain_file('/usr/local/bin/process_transition_logs')
            .with_content(/LOGS_DIR='\/tmp\/logs'/)}
     end
 
     describe 'cron job' do
       it { is_expected.to contain_cron__crondotdee('process_transition_logs').with({
         :ensure  => 'present',
-        :command => '/usr/local/bin/process_transition_logs.sh',
+        :command => '/usr/local/bin/process_transition_logs',
         :user    => 'logs_processor',
       }) }
     end

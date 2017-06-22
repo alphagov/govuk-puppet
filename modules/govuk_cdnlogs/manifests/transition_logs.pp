@@ -91,7 +91,25 @@ class govuk_cdnlogs::transition_logs (
     source => 'puppet:///modules/govuk_cdnlogs/logs_processor_config',
   }
 
-  $process_script = '/usr/local/bin/process_transition_logs.sh'
+  # The transition logs processing script creates a cache of processed logs
+  file { ["${log_dir}/cache", "${log_dir}/cache/archive"]:
+    ensure => $ensure_dir,
+    owner  => $user,
+    group  => $user,
+  }
+
+  file { '/etc/logrotate.d/transition_logs_cache':
+    ensure  => $ensure,
+    content => template('govuk_cdnlogs/etc/logrotate.d/transition_logs_cache.erb'),
+    require => File["${log_dir}/cache"],
+  }
+
+  $process_script = '/usr/local/bin/process_transition_logs'
+
+  # FIXME: remove when deployed to Production
+  file { '/usr/local/bin/process_transition_logs.sh':
+    ensure => 'absent',
+  }
 
   file { $process_script:
     ensure  => $ensure,
@@ -110,6 +128,15 @@ class govuk_cdnlogs::transition_logs (
       user    => $user,
       path    => '/usr/lib/rbenv/shims:/usr/sbin:/usr/bin:/sbin:/bin',
       require => File[$process_script],
+    }
+
+    $service_desc = 'Transition logs processing script'
+
+    @@icinga::passive_check { "transition-logs-processing-script-${::hostname}":
+      service_description => $service_desc,
+      host_name           => $::fqdn,
+      freshness_threshold => 3600,
+      notes_url           => monitoring_docs_url(data-sources-for-transition),
     }
   }
 
