@@ -216,7 +216,7 @@ For the development environment:
 # hieradata/development.yaml
 hosts::development::apps:
   - ...
-  - my_app
+  - 'my-app'
 ```
 
 For production-like environments, you need to add the app to the appropriate
@@ -226,5 +226,5 @@ array in the `hieradata/common.yaml` file.
 # hieradata/common.yaml
 hosts::production::backend::app_hostnames:
   - ...
-  - 'my_app'
+  - 'my-app'
 ```
