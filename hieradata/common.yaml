@@ -39,7 +39,6 @@ deployable_applications: &deployable_applications
   govuk-cdn-logs-monitor: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
-  govuk-nav-prototype: {}
   govuk_need_api: {}
   govuk-puppet: {}
   hmrc-manuals-api: {}
@@ -1240,7 +1239,6 @@ hosts::production::frontend::app_hostnames:
   - 'finder-frontend'
   - 'frontend'
   - 'government-frontend'
-  - 'govuk-nav-prototype'
   - 'info-frontend'
   - 'manuals-frontend'
   - 'licencefinder'

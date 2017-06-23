@@ -37,7 +37,6 @@ process :frontend => [:static, :'content-store', :rummager]
 process :'government-frontend' => [:'content-store', :static, :rummager]
 process :'govuk-delivery'
 process :'govuk-delivery-worker'
-process :'govuk-nav-prototype'
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :imminence => [:mapit]
 process :'info-frontend' => [:static, :'content-store', :'metadata-api']

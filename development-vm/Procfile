@@ -155,4 +155,3 @@ content-performance-manager-sidekiq:  govuk_setenv content-performance-manager .
 link-checker-api:                     govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec rails server -p 3208
 link-checker-api-sidekiq:             govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec sidekiq -C ./config/sidekiq.yml
 # sidekiq-monitoring for specialist-publisher uses port 3210
-govuk-nav-prototype: govuk_setenv govuk-nav-prototype ./run_in.sh ../../govuk-nav-prototype bundle exec rails s -p 3211
