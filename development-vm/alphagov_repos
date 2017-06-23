@@ -19,7 +19,6 @@ government-frontend
 govuk-content-schema-test-helpers
 govuk-content-schemas
 govuk-puppet
-govuk_content_models
 govuk_need_api
 hmrc-manuals-api
 imminence
