@@ -33,7 +33,6 @@ class govuk::node::s_frontend_lb (
       'feedback',
       'frontend',
       'government-frontend',
-      'govuk-nav-prototype',
       'info-frontend',
       'manuals-frontend',
       'service-manual',
