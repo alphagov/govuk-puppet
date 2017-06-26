@@ -48,6 +48,7 @@ class govuk_postgresql::backup (
         service_description => $service_desc,
         freshness_threshold => $threshold_secs,
         host_name           => $::fqdn,
+        notes_url           => monitoring_docs_url(backup-passive-checks),
     }
 
     # Changes from upstream:
