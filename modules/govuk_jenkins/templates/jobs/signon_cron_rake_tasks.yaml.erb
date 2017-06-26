@@ -22,13 +22,15 @@
     display-name: signon_rake_organisations_fetch
     project-type: freestyle
     description: "<p>Regularly run the organisations:fetch rake task for Signonotron2.</p>"
-    publishers:
-        - trigger-parameterized-builds:
+    builders:
+        - trigger-builds:
             - project: run-rake-task
+              block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
                 MACHINE_CLASS=backend
                 RAKE_TASK=organisations:fetch
+    publishers:
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
     triggers:
