@@ -645,6 +645,8 @@ govuk_ci::master::pipeline_jobs:
     repo_owner: 'gds-operations'
   vcloud-net_launcher:
     repo_owner: 'gds-operations'
+  vcloud-tools:
+    repo_owner: 'gds-operations'
   vcloud-tools-tester:
     repo_owner: 'gds-operations'
   vcloud-walker:
