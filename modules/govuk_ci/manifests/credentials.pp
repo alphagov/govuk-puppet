@@ -4,12 +4,6 @@
 #
 # === Parameters:
 #
-# [*npm_auth*]
-#   Auth code for npm
-#
-# [*npm_email*]
-#   Email for npn
-#
 # [*rubygems_api_key*]
 #   API key to authenticate with Rubygems
 #
@@ -29,8 +23,6 @@
 #   The user that has access to these credentials
 #
 class govuk_ci::credentials (
-  $npm_auth,
-  $npm_email,
   $rubygems_api_key,
   $pypi_username,
   $pypi_test_password,
@@ -60,10 +52,6 @@ class govuk_ci::credentials (
 
   file {"${jenkins_home}/.pypirc":
     content => template('govuk_ci/pypirc.erb'),
-  }
-
-  file { "${jenkins_home}/.npmrc":
-    content => template('govuk_ci/npmrc.erb'),
   }
 }
 
