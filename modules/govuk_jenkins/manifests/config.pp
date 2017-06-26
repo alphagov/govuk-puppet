@@ -52,6 +52,15 @@
 #
 # [*admins*]
 #   List of admins that have "admin" permissions in Jenkins.
+#   Deprecated: use $manage_permissions_github_teams instead.
+#
+# [*user_permissions*]
+#   Array of hashes that contain user (string "username", or "github_org*github_team")
+#   and permissions (array of permissions).
+#
+# [*manage_permissions_github_teams*]
+#   Boolean, whether or not to manage permissions using GitHub teams
+#   instead of a list of users.
 #
 # [*manage_config*]
 #   Boolean option to manage the Jenkins configuration directory.
@@ -62,10 +71,6 @@
 # [*create_agent_role*]
 #   If enabled, this creates a role and assigns an "agent" user to that role
 #   so that it may connect to the master
-#
-# [*jenkins_agent_user*]
-#   The username of the Jenkins "agent" user used to authenticate against
-#   the master
 #
 # [*executors*]
 #   The number of executors a master can allocate to running jobs
@@ -91,10 +96,11 @@ class govuk_jenkins::config (
   $github_client_id,
   $github_client_secret,
   $admins = [],
+  $user_permissions = [],
+  $manage_permissions_github_teams = false,
   $manage_config = true,
   $version = $govuk_jenkins::version,
   $create_agent_role = false,
-  $jenkins_agent_user = 'jenkins_agent',
   $executors = '4',
   $agent_tcp_port = '0',
 ) {
@@ -102,6 +108,7 @@ class govuk_jenkins::config (
   $url = "${url_prefix}.${app_domain}"
 
   validate_array($admins)
+  validate_array($user_permissions)
   validate_hash($views)
 
   if $manage_config {
