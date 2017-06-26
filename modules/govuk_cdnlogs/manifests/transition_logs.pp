@@ -111,6 +111,8 @@ class govuk_cdnlogs::transition_logs (
     ensure => 'absent',
   }
 
+  $service_desc = 'Transition logs processing script'
+
   file { $process_script:
     ensure  => $ensure,
     owner   => $user,
@@ -129,8 +131,6 @@ class govuk_cdnlogs::transition_logs (
       path    => '/usr/lib/rbenv/shims:/usr/sbin:/usr/bin:/sbin:/bin',
       require => File[$process_script],
     }
-
-    $service_desc = 'Transition logs processing script'
 
     @@icinga::passive_check { "transition-logs-processing-script-${::hostname}":
       service_description => $service_desc,
