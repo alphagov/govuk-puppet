@@ -3,7 +3,7 @@
     name: signon_rake_oauth_access_grants_delete_expired
     display-name: signon_rake_oauth_access_grants_delete_expired
     project-type: freestyle
-    description: "<p>Regularly run the oauth_access_grants:delete_expired rake task for Signonotron2.</p>"
+    description: "<p>Regularly run the oauth_access_grants:delete_expired rake task for signon.</p>"
     publishers:
         - trigger-parameterized-builds:
             - project: run-rake-task
@@ -21,7 +21,7 @@
     name: signon_rake_organisations_fetch
     display-name: signon_rake_organisations_fetch
     project-type: freestyle
-    description: "<p>Regularly run the organisations:fetch rake task for Signonotron2.</p>"
+    description: "<p>Regularly run the organisations:fetch rake task for signon.</p>"
     builders:
         - trigger-builds:
             - project: run-rake-task
@@ -41,7 +41,7 @@
     name: signon_rake_users_suspend_inactive
     display-name: signon_rake_users_suspend_inactive
     project-type: freestyle
-    description: "<p>Regularly run the users:suspend_inactive rake task for Signonotron2.</p>"
+    description: "<p>Regularly run the users:suspend_inactive rake task for signon.</p>"
     publishers:
         - trigger-parameterized-builds:
             - project: run-rake-task
@@ -59,7 +59,7 @@
     name: signon_rake_users_send_suspension_reminders
     display-name: signon_rake_users_send_suspension_reminders
     project-type: freestyle
-    description: "<p>Regularly run the users:send_suspension_reminders rake task for Signonotron2.</p>"
+    description: "<p>Regularly run the users:send_suspension_reminders rake task for signon.</p>"
     publishers:
         - trigger-parameterized-builds:
             - project: run-rake-task
