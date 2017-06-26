@@ -39,6 +39,7 @@ class backup::mysql (
     freshness_threshold => $threshold_secs,
     host_name           => $::fqdn,
     action_url          => "https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.carrenza/${::hostname}\$20duplicity%7Csort:date",
+    notes_url           => monitoring_docs_url(backup-passive-checks),
   }
 
   ensure_packages(['mailutils'])
