@@ -4,13 +4,15 @@
     display-name: signon_rake_oauth_access_grants_delete_expired
     project-type: freestyle
     description: "<p>Regularly run the oauth_access_grants:delete_expired rake task for signon.</p>"
-    publishers:
-        - trigger-parameterized-builds:
+    builders:
+        - trigger-builds:
             - project: run-rake-task
+              block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
                 MACHINE_CLASS=backend
                 RAKE_TASK=oauth_access_grants:delete_expired
+    publishers:
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
     triggers:
@@ -42,13 +44,15 @@
     display-name: signon_rake_users_suspend_inactive
     project-type: freestyle
     description: "<p>Regularly run the users:suspend_inactive rake task for signon.</p>"
-    publishers:
-        - trigger-parameterized-builds:
+    builders:
+        - trigger-builds:
             - project: run-rake-task
+              block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
                 MACHINE_CLASS=backend
                 RAKE_TASK=users:suspend_inactive
+    publishers:
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
     triggers:
@@ -60,13 +64,15 @@
     display-name: signon_rake_users_send_suspension_reminders
     project-type: freestyle
     description: "<p>Regularly run the users:send_suspension_reminders rake task for signon.</p>"
-    publishers:
-        - trigger-parameterized-builds:
+    builders:
+        - trigger-builds:
             - project: run-rake-task
+              block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
                 MACHINE_CLASS=backend
                 RAKE_TASK=users:send_suspension_reminders
+    publishers:
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
     triggers:
