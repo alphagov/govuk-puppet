@@ -1,7 +1,7 @@
 ---
 - job:
     name: signon_rake_oauth_access_grants_delete_expired
-    display-name: Signon: Delete expired OAuth access grants (scheduled)
+    display-name: "Signon: Delete expired OAuth access grants (scheduled)"
     project-type: freestyle
     description: "<p>Regularly run the oauth_access_grants:delete_expired rake task for signon.</p>"
     builders:
@@ -21,7 +21,7 @@
         numToKeep: 10
 - job:
     name: signon_rake_organisations_fetch
-    display-name: Signon: Sync organisations with Whitehall (scheduled)
+    display-name: "Signon: Sync organisations with Whitehall (scheduled)"
     project-type: freestyle
     description: "<p>Regularly run the organisations:fetch rake task for signon.</p>"
     builders:
@@ -41,7 +41,7 @@
         numToKeep: 10
 - job:
     name: signon_rake_users_suspend_inactive
-    display-name: Signon: Suspend inactive users (scheduled)
+    display-name: "Signon: Suspend inactive users (scheduled)"
     project-type: freestyle
     description: "<p>Regularly run the users:suspend_inactive rake task for signon.</p>"
     builders:
@@ -61,7 +61,7 @@
             numToKeep: 10
 - job:
     name: signon_rake_users_send_suspension_reminders
-    display-name: Signon: Send suspension reminders (scheduled)
+    display-name: "Signon: Send suspension reminders (scheduled)"
     project-type: freestyle
     description: "<p>Regularly run the users:send_suspension_reminders rake task for signon.</p>"
     builders:
