@@ -25,5 +25,6 @@ class govuk_jenkins::job::enhanced_ecommerce (
     host_name           => $::fqdn,
     freshness_threshold => 104400,
     action_url          => $job_url,
+    notes_url           => monitoring_docs_url(enhanced-ecommerce),
   }
 }
