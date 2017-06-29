@@ -596,8 +596,7 @@ govuk_ci::master::pipeline_jobs:
   govuk_message_queue_consumer: {}
   govuk_mirrorer: {}
   govuk_navigation_helpers: {}
-  govuk-provisioning:
-    source: 'github-enterprise'
+  govuk-provisioning: {}
   govuk_seed_crawler: {}
   govuk_schemas: {}
   govuk_security_audit: {}
