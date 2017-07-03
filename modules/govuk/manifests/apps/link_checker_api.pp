@@ -66,56 +66,53 @@ class govuk::apps::link_checker_api (
 ) {
   $app_name = 'link-checker-api'
 
-  if $enabled {
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
-    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+  govuk::app { $app_name:
+    app_type          => 'rack',
+    port              => $port,
+    vhost_ssl_only    => true,
+    health_check_path => '/healthcheck',
+  }
 
-    govuk::app { $app_name:
-      app_type          => 'rack',
-      port              => $port,
-      vhost_ssl_only    => true,
-      health_check_path => '/healthcheck',
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
+  }
+
+  govuk::app::envvar { "${title}-ERRBIT_API_KEY":
+    varname => 'ERRBIT_API_KEY',
+    value   => $errbit_api_key;
+  }
+
+  if $google_api_key != undef {
+    govuk::app::envvar { "${title}-GOOGLE_API_KEY":
+      varname => 'GOOGLE_API_KEY',
+      value   => $google_api_key,
     }
-
-    Govuk::App::Envvar {
-      app => $app_name,
+  }
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
     }
+  }
 
-    govuk::procfile::worker { $app_name:
-      enable_service => $enable_procfile_worker,
-    }
-
-    govuk::app::envvar::redis { $app_name:
-      host => $redis_host,
-      port => $redis_port,
-    }
-
-    govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
-    }
-
-    if $google_api_key != undef {
-      govuk::app::envvar { "${title}-GOOGLE_API_KEY":
-        varname => 'GOOGLE_API_KEY',
-        value   => $google_api_key,
-      }
-    }
-    if $secret_key_base != undef {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base,
-      }
-    }
-
-    if $::govuk_node_class !~ /^(development|training)$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'postgresql',
-        username => $db_username,
-        password => $db_password,
-        host     => $db_hostname,
-        database => $db_name,
-      }
+  if $::govuk_node_class !~ /^(development|training)$/ {
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
     }
   }
 }
