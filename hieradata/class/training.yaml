@@ -2,6 +2,8 @@
 
 app_domain: 'training.publishing.service.gov.uk'
 
+nginx_enable_ssl: true
+
 govuk::deploy::config::asset_root: 'https://assets-origin.training.publishing.service.gov.uk'
 govuk::deploy::config::website_root: 'https://www.training.publishing.service.gov.uk'
 
