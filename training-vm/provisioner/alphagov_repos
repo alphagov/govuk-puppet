@@ -24,9 +24,9 @@ hmrc-manuals-api
 imminence
 info-frontend
 licence-finder
+local-links-manager
 manuals-frontend
 manuals-publisher
-local-links-manager
 mapit
 maslow
 metadata-api
@@ -38,6 +38,7 @@ router-api
 rummager
 service-manual-frontend
 service-manual-publisher
+signon
 slimmer
 smart-answers
 specialist-publisher
