@@ -26,8 +26,11 @@
 #
 class govuk_cdnlogs (
   $log_dir,
-  $monitoring_enabled = true,
+  $govuk_monitoring_enabled = true,
+  $bouncer_monitoring_enabled = true,
   $rotate_logs_hourly = [],
+  $warning_cdn_freshness = 1800,
+  $critical_cdn_freshness = 3600,
   $server_key,
   $server_crt,
   $service_port_map,
@@ -94,24 +97,26 @@ class govuk_cdnlogs (
     command     => '/usr/local/bin/check_rsyslog_status_bouncer',
   }
 
-  if $monitoring_enabled {
+  if $govuk_monitoring_enabled {
     if !has_key($service_port_map, 'govuk') {
       fail('Unable to monitor GOV.UK CDN logs, key not present in service_port_map.')
     }
 
-    if !has_key($service_port_map, 'bouncer') {
-      fail('Unable to monitor Bouncer CDN logs, key not present in service_port_map.')
-    }
-
     @@icinga::check { "check_govuk_cdn_logs_being_streamed_${::hostname}":
-      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c3600 -w1800\"",
+      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-govuk.log -c${critical_cdn_freshness} -w${warning_cdn_freshness}\"",
       service_description => 'GOV.UK logs are not being received from the CDN',
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(logs-are-not-being-received-from-the-cdn),
     }
+  }
+
+  if $bouncer_monitoring_enabled {
+    if !has_key($service_port_map, 'bouncer') {
+      fail('Unable to monitor Bouncer CDN logs, key not present in service_port_map.')
+    }
 
     @@icinga::check { "check_bouncer_cdn_logs_being_streamed_${::hostname}":
-      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-bouncer.log -c3600 -w1800\"",
+      check_command       => "check_nrpe!check_file_age!\"-f ${log_dir}/cdn-bouncer.log -c${critical_cdn_freshness} -w${warning_cdn_freshness}\"",
       service_description => 'Bouncer logs are not being received from the CDN',
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(logs-are-not-being-received-from-the-cdn),

@@ -6,6 +6,8 @@ describe 'govuk_cdnlogs', :type => :class do
     :server_key       => 'my key',
     :server_crt       => 'my crt',
     :service_port_map => { 'elephant' => 123 },
+    :govuk_monitoring_enabled => false,
+    :bouncer_monitoring_enabled => false,
   }}
 
   let(:facts) {{
