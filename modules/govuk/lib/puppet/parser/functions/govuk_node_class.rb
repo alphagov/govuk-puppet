@@ -21,6 +21,9 @@ EOS
       "govuk_node_class: Wrong number of arguments given #{args.size} for 0."
     ) unless args.size == 0
 
+    # Explicit early return if in AWS.
+    return lookupvar('AWS_MIGRATION') unless lookupvar('AWS_MIGRATION').empty?
+
     # http://docs.puppetlabs.com/puppet/3/reference/lang_variables.html#trusted-node-data
     trusted_hash = lookupvar('::trusted')
     raise(
