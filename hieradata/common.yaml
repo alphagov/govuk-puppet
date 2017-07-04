@@ -631,6 +631,7 @@ govuk_ci::master::pipeline_jobs:
   transition-config: {}
   ubuntu_unused_kernels:
     repo_owner: 'gds-operations'
+  vcloud-converter: {}
   vcloud-core:
     repo_owner: 'gds-operations'
   vcloud-edge_gateway:
