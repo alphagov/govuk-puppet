@@ -71,6 +71,9 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*link_checker_api_secret_token*]
+#   The secret token used when verifying web hook responses from the Link
+#   Checker API.
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -89,6 +92,7 @@ class govuk::apps::local_links_manager(
   $google_client_email = undef,
   $google_private_key = undef,
   $publishing_api_bearer_token = undef,
+  $link_checker_api_secret_token = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -134,6 +138,9 @@ class govuk::apps::local_links_manager(
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
+      "${title}-LINK_CHECKER_API_SECRET_TOKEN":
+        varname => 'LINK_CHECKER_API_SECRET_TOKEN',
+        value   => $link_checker_api_secret_token;
     }
 
     if $local_links_manager_passive_checks {
