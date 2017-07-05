@@ -1,4 +1,4 @@
-create the vanitabarrett user
+#create the vanitabarrett user
 class users::vanitabarrett {
   govuk_user { 'vanitabarrett':
     fullname => 'Vanita Barrett',
