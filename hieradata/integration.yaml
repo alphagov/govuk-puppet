@@ -134,6 +134,7 @@ govuk_jenkins::config::admins:
   - tijmenbrommet
   - timblair
   - tomgladhill
+  - vanitabarrett
 
 govuk_jenkins::job_builder::environment: 'integration'
 
@@ -348,3 +349,4 @@ users::usernames:
   - tijmenbrommet
   - timblair
   - tomgladhill
+  - vanitabarrett
