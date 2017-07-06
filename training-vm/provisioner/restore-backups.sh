@@ -22,6 +22,6 @@ do
 done
 
 cd /var/govuk/govuk-puppet/development-vm/replication
-./replicate-data-local.sh -s -d /var/backups -i signon -e
+./replicate-data-local.sh -s -d /var/backups -i signon -e -a
 
 ${BINDIR}/es-restore-s3.sh
