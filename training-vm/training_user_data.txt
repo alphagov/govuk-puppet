@@ -110,3 +110,8 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RUN UPSTART APPS"
 sudo /home/ubuntu/provisioner/start-training-environment.sh < /home/ubuntu/provisioner/alphagov_apps
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RUN UPSTART APPS"
 echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START OBTAIN LETSENCRYPT CERTIFICATES"
+sudo /home/ubuntu/provisioner/acme_certificates.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END OBTAIN LETSENCRYPT CERTIFICATES"
+echo
