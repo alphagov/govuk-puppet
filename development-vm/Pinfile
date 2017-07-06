@@ -66,7 +66,6 @@ process :screenshot_as_a_service
 process :'search-admin' => [:rummager]
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api', :rummager]
-process :'share-sale-publisher' => ['asset-manager', :'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :'content-store', :imminence]
