@@ -23,12 +23,15 @@ class govuk::node::s_base (
   include govuk_safe_to_reboot
   include govuk_rbenv
   include grub2
-  include hosts
   include ::limits
   include monitoring::client
   include postfix
   include rcs
   include rkhunter
+
+  if ! $::aws_migration {
+    include hosts
+  }
 
   $app_classes = regsubst($apps, '^', 'govuk::apps::')
   include $app_classes
