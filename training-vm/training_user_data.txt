@@ -117,6 +117,6 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RUN UPSTART APPS"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START OBTAIN LETSENCRYPT CERTIFICATES"
-sudo /home/ubuntu/provisioner/acme_certificates.sh
+sudo /home/ubuntu/provisioner/acme-certificates.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END OBTAIN LETSENCRYPT CERTIFICATES"
 echo
