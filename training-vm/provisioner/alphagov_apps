@@ -16,6 +16,7 @@ feedback
 finder-frontend
 frontend
 government-frontend
+imminence
 info-frontend
 licencefinder
 local-links-manager
@@ -31,6 +32,7 @@ router
 rummager
 service-manual-frontend
 service-manual-publisher
+short-url-manager
 signon
 smartanswers
 specialist-publisher

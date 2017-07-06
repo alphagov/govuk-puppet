@@ -38,6 +38,7 @@ router-api
 rummager
 service-manual-frontend
 service-manual-publisher
+short-url-manager
 signon
 slimmer
 smart-answers
