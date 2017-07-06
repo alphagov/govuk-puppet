@@ -22,7 +22,8 @@ EOS
     ) unless args.size == 0
 
     # Explicit early return if in AWS.
-    return lookupvar('AWS_MIGRATION') unless lookupvar('AWS_MIGRATION').empty?
+    aws_migration = lookupvar('aws_migration')
+    return aws_migration unless (aws_migration.nil? || aws_migration.empty?)
 
     # http://docs.puppetlabs.com/puppet/3/reference/lang_variables.html#trusted-node-data
     trusted_hash = lookupvar('::trusted')

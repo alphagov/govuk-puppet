@@ -11,8 +11,27 @@ describe 'govuk_node_class' do
     expect { scope.function_govuk_node_class([:gruffalo]) }.to raise_error(Puppet::ParseError, /given 1 for 0/)
   end
 
+  context 'aws_migration set' do
+    it 'should return aws_migration' do
+      aws_migration_name = 'chicken'
+      expect(scope).to receive(:lookupvar).with('aws_migration').and_return(aws_migration_name)
+      expect(scope.function_govuk_node_class([])).to eq(aws_migration_name)
+    end
+
+    it 'should not return aws_migration its an empty string' do
+      aws_migration_name = 'chicken'
+      expect(scope).to receive(:lookupvar).with('aws_migration').and_return('')
+      expect(scope).to receive(:lookupvar).with('::trusted').and_return(nil)
+      expect { scope.function_govuk_node_class([]) }.to raise_error(
+        Puppet::ParseError,
+        /Unable to lookup \$::trusted/
+      )
+    end
+  end
+
   context '$::trusted not set' do
     it 'should raise an error' do
+      expect(scope).to receive(:lookupvar).with('aws_migration').and_return(nil)
       expect(scope).to receive(:lookupvar).with('::trusted').and_return(nil)
       expect { scope.function_govuk_node_class([]) }.to raise_error(
         Puppet::ParseError,
@@ -23,6 +42,7 @@ describe 'govuk_node_class' do
 
   context '$::trusted["certname"] nil' do
     it 'should raise an error' do
+      expect(scope).to receive(:lookupvar).with('aws_migration').and_return(nil)
       expect(scope).to receive(:lookupvar).with('::trusted').and_return({
         'authenticated' => false,
         'certname'      => nil,
@@ -36,6 +56,7 @@ describe 'govuk_node_class' do
 
   context '$::trusted["certname"] empty' do
     it 'should raise an error' do
+      expect(scope).to receive(:lookupvar).with('aws_migration').and_return(nil)
       expect(scope).to receive(:lookupvar).with('::trusted').and_return({
         'authenticated' => false,
         'certname'      => '',
@@ -61,6 +82,7 @@ describe 'govuk_node_class' do
       }}
 
       it {
+        expect(scope).to receive(:lookupvar).with('aws_migration').and_return(nil)
         expect(scope).to receive(:lookupvar).with('::trusted').and_return(trusted_hash)
         expect(scope.function_govuk_node_class([])).to eq(result)
       }
