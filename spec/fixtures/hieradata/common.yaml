@@ -16,7 +16,8 @@ govuk_mount::no_op: false
 
 govuk_app_enable_services: false
 
-govuk_cdnlogs::monitoring_enabled: false
+govuk_cdnlogs::govuk_monitoring_enabled: false
+govuk_cdnlogs::bouncer_monitoring_enabled: false
 
 govuk_jenkins::package::apt_mirror_hostname: 'apt.example.com'
 
