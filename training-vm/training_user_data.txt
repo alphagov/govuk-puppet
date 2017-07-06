@@ -101,6 +101,11 @@ sudo /var/govuk/govuk-puppet/development-vm/update-bundler.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START ADD ENVIRONMENT INDICATORS"
+sudo -i -u deploy /home/ubuntu/provisioner/govuk-admin-template-environment-indicators.sh < /home/ubuntu/provisioner/alphagov_user_facing_apps
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD ENVIRONMENT INDICATORS"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
 sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
