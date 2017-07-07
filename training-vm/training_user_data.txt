@@ -120,3 +120,8 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] START OBTAIN LETSENCRYPT CERTIFICATES"
 sudo /home/ubuntu/provisioner/acme-certificates.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END OBTAIN LETSENCRYPT CERTIFICATES"
 echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START ADDING AUTHENTICATION TO NGINX CONFIGURATION"
+sudo find /etc/nginx/available_sites -name '*publishing.service.gov.uk' | xargs -n 1 /home/ubuntu/provisioner/add_auth.sh 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADDING AUTHENTICATION TO NGINX CONFIGURATION"
+echo
