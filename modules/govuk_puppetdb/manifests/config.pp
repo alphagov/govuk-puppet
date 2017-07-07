@@ -1,22 +1,28 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_puppetdb::config {
+class govuk_puppetdb::config($package_ensure) {
 
   $puppetdb_postgres_password = ''
   $java_args = '-Xmx1024m'
 
-  # By default, this script should be run by apt-get install. But if, for
-  # whatever reason, it fails on first run, or someone accidentally removes
-  # the keystore, this should ensure that it is recreated, and the appropriate
-  # config file in /etc/puppetdb/conf.d updated.
-  exec { '/usr/sbin/puppetdb-ssl-setup':
-    creates => '/etc/puppetdb/ssl/keystore.jks',
-    require => Class['puppet::master::generate_cert'],
+  # We are currently leaving puppetdb-1.x on the Precise machines and
+  # installing puppetdb-2.x on the new Trusty Puppetmasters on AWS
+  if $package_ensure =~ /^1\.*$/ {
+    # By default, this script should be run by apt-get install. But if, for
+    # whatever reason, it fails on first run, or someone accidentally removes
+    # the keystore, this should ensure that it is recreated, and the appropriate
+    # config file in /etc/puppetdb/conf.d updated.
+    exec { '/usr/sbin/puppetdb-ssl-setup':
+      creates => '/etc/puppetdb/ssl/keystore.jks',
+      require => Class['puppet::master::generate_cert'],
+    }
   }
 
-  # This kills off the SysV puppetdb script.
-  exec { 'disable-default-puppetdb':
-    command => '/etc/init.d/puppetdb stop && /bin/rm /etc/init.d/puppetdb && /usr/sbin/update-rc.d puppetdb remove',
-    unless  => '/usr/bin/test ! -e /etc/init.d/puppetdb',
+  if $package_ensure =~ /^1\.*$/ {
+    # This kills off the SysV puppetdb script.
+    exec { 'disable-default-puppetdb':
+      command => '/etc/init.d/puppetdb stop && /bin/rm /etc/init.d/puppetdb && /usr/sbin/update-rc.d puppetdb remove',
+      unless  => '/usr/bin/test ! -e /etc/init.d/puppetdb',
+    }
   }
 
   # We manage database.ini, puppetdb.ini, and repl.ini
@@ -28,9 +34,15 @@ class govuk_puppetdb::config {
     content => template('govuk_puppetdb/database.ini.erb'),
   }
 
-  file { '/etc/puppetdb/conf.d/puppetdb.ini':
+  if $package_ensure =~ /^1\.*$/ {
+    $configfile = 'puppetdb.ini'
+  } else {
+    $configfile = 'config.ini'
+  }
+
+  file { "/etc/puppetdb/conf.d/${configfile}":
     ensure => 'present',
-    source => 'puppet:///modules/govuk_puppetdb/puppetdb.ini',
+    source => "puppet:///modules/govuk_puppetdb/${configfile}",
   }
 
   file { '/etc/puppetdb/conf.d/repl.ini':
@@ -38,9 +50,11 @@ class govuk_puppetdb::config {
     source => 'puppet:///modules/govuk_puppetdb/repl.ini',
   }
 
-  file { '/etc/init/puppetdb.conf':
-    ensure  => 'present',
-    content => template('govuk_puppetdb/upstart.conf.erb'),
+  if $package_ensure =~ /^1\.*$/ {
+    file { '/etc/init/puppetdb.conf':
+      ensure  => 'present',
+      content => template('govuk_puppetdb/upstart.conf.erb'),
+    }
   }
 
   govuk_postgresql::db { 'puppetdb':
