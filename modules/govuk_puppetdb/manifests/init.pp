@@ -25,9 +25,8 @@ class govuk_puppetdb($package_ensure) {
   }
 
   class { 'govuk_puppetdb::config':
-    package_ensure => $package_ensure,
-    require        => Class['govuk_puppetdb::package'],
-    notify         => Class['govuk_puppetdb::service'];
+    require => Class['govuk_puppetdb::package'],
+    notify  => Class['govuk_puppetdb::service'];
   }
 
   class { 'govuk_puppetdb::firewall':

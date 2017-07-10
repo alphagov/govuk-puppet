@@ -1,12 +1,13 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_puppetdb::config($package_ensure) {
+class govuk_puppetdb::config {
 
   $puppetdb_postgres_password = ''
   $java_args = '-Xmx1024m'
 
   # We are currently leaving puppetdb-1.x on the Precise machines and
   # installing puppetdb-2.x on the new Trusty Puppetmasters on AWS
-  if $package_ensure =~ /^1\.*$/ {
+  # Use aws_migration fact
+  if ! $::aws_migration {
     # By default, this script should be run by apt-get install. But if, for
     # whatever reason, it fails on first run, or someone accidentally removes
     # the keystore, this should ensure that it is recreated, and the appropriate
@@ -15,9 +16,7 @@ class govuk_puppetdb::config($package_ensure) {
       creates => '/etc/puppetdb/ssl/keystore.jks',
       require => Class['puppet::master::generate_cert'],
     }
-  }
 
-  if $package_ensure =~ /^1\.*$/ {
     # This kills off the SysV puppetdb script.
     exec { 'disable-default-puppetdb':
       command => '/etc/init.d/puppetdb stop && /bin/rm /etc/init.d/puppetdb && /usr/sbin/update-rc.d puppetdb remove',
@@ -34,7 +33,7 @@ class govuk_puppetdb::config($package_ensure) {
     content => template('govuk_puppetdb/database.ini.erb'),
   }
 
-  if $package_ensure =~ /^1\.*$/ {
+  if ! $::aws_migration {
     $configfile = 'puppetdb.ini'
   } else {
     $configfile = 'config.ini'
@@ -50,7 +49,7 @@ class govuk_puppetdb::config($package_ensure) {
     source => 'puppet:///modules/govuk_puppetdb/repl.ini',
   }
 
-  if $package_ensure =~ /^1\.*$/ {
+  if ! $::aws_migration {
     file { '/etc/init/puppetdb.conf':
       ensure  => 'present',
       content => template('govuk_puppetdb/upstart.conf.erb'),
