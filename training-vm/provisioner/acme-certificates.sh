@@ -12,11 +12,11 @@ NGINX_CONF_DIR="/etc/nginx"
 LETSENCRYPT_DIR="/etc/letsencrypt"
 
 # Add repository and install certbot
-sudo apt-get update
-sudo apt-get install software-properties-common
+sudo apt-get update -qq
+sudo apt-get -y install software-properties-common
 sudo add-apt-repository -y ppa:certbot/certbot
-sudo apt-get update
-sudo apt-get install certbot
+sudo apt-get update -qq
+sudo apt-get -y install certbot
 
 # Certbot starts up its own webserver to perform the ACME protocol,
 # so free up ports 80 and 443 by stopping nginx
