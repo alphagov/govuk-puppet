@@ -80,14 +80,19 @@ else
 fi
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHECKOUT REPOSITORIES"
-sudo -i -u deploy mkdir -p /var/govuk
-sudo -i -u deploy DEPLOYED_TO_PRODUCTION=true /home/ubuntu/provisioner/checkout-repos.sh -d /var/govuk /home/ubuntu/provisioner/alphagov_repos
+sudo mkdir -p /var/govuk
+sudo DEPLOYED_TO_PRODUCTION=true /home/ubuntu/provisioner/checkout-repos.sh -d /var/govuk /home/ubuntu/provisioner/alphagov_repos
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHECKOUT REPOSITORIES"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PUPPET-APPLY"
 sudo NO_GIT_PULL=1 /var/govuk/govuk-puppet/tools/puppet-apply-dev
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PUPPET-APPLY"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHANGE REPOSITORY OWNER"
+sudo chown -R deploy:deploy /var/govuk
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RESTORE DATABASES"
