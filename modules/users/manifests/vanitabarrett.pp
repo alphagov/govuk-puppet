@@ -4,7 +4,7 @@ class users::vanitabarrett {
     fullname => 'Vanita Barrett',
     email    => 'vanita.barrett@digital.cabinet-office.gov.uk',
     ssh_key  => [
-      'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9OfueFAahSrT4POmdVNM9WC0CcbRDYCTlrwjjY0yq9MsFFrVvNP+nMq/ZidRsvA1CHAKAS9U1p4H2J/2A3SVDXwvqWdA+t8iwvdiHCWSjopfvHBFxl/4PtfBg9SXRY+C4izSN/D0ZYQMxUjPnjHnbRVzkEmpz+qBS65FrJuWjE46LzDNBUyu7bPtCrE0SNB0J1BK6qEFJWjM4cfdz82hjL25PTQ+f+dRF2doYFfxyIXuqTAac7VIfDBwGOKHwiYATG0D0ZX18Ri0YycPlIhGcbYwgtRzHF6EfgBaF9+LcloUat2mT8Q9e5XfUP715So2TgJWIOoyk0usC80sx9Gia4ErvYg7KAHTh2qvbU//9xwQsWzd1Sb87rlYJhKHGd4+H23gVjywOIPaDuZeGTLDULDocH9Eql/bvj65pOz/V6f64HDwiiJ5nwP/mBOcjQ1/D19xLNIcOhsi8ZhwuSlB1zLgEZ/XQN8/g4Mw+zOKzvD7bWineW3kTiXtLrwB6gtQLLnpdb1ynAzz7JpPiaFb0teAcYUQmF2SWSoejLosWPGkLtZHGdQ3uDe7KyIgwCyHsMcpU1bHXFQlho+K0iq1fo/qtzceHiasE3K7amveSxd+KQZrTTX/w9u4daszq65Lu+8+PK1/wEqP4GLivKPRs6lfUeci8I71+cB/OMI53ZQ== vanita.barrett@digital.cabinet-office.gov.uk',
+      ‘ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZ6qU9nwfNpsEnGFobMo6Pm/f8igB4u1iV+tDc59qzDD/3TFuTLcNt9IaMQAe3noxOoNJqmobYR6RDgN6c3CNquJkSWOYpFzMCX4UK7y8XRP2e2o9O1wiJoomDb+STR1oikWhHoqji7KCVu2zZ5N5+IzUiSJyFAV1WEHnwgJJ6clJJjaEkS5wdotX8q9z7QpMzvyBxtw8HOLMKyXAvpXTn2Zi76QNeGobygTWj4USCTZK7HyH057wETTa9s1yhFdrTcNr2V2eqjfaHQQYzReuh+lVDBfZW0SFT/Z0KNBqzr7/tpUczF0J96e6VJ/w4RKQxKxOGj+GnMP3olfI8W5PTicUZXt0J/QwMq6Z/TFAsaDKNS6G+WZWiFiK2sCp1UneK4z4Sl0T5dlM5NqRuPb/pwb4p71+YPzTQPpSyQa/2m/YGfhpIhK3ZSniRpOlpprdDBGkzxjWfZyisBtBAybcdR/IWj2iDBwwf2k6xyVZ8iD2cSAbjbboksQrCgxiv9RhjyhkUgq7LXbyiiG3tzGMyc1zN/MMT29QkAlxVoAxBbWArRn1vopRpu5+JMGddW0y40t1E92K72rkQ4nasQIogEWxvuMmhTWfGZPYiiB101BY5Y+0hGe9dBNkxHUY1oWEGFWwo5rFkKdKjHgGQA/hL6mm057Wn5sweWCpPZr2yyQ== vanita.barrett@digital.cabinet-office.gov.uk’,
     ],
   }
 }
