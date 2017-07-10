@@ -21,7 +21,11 @@ class base {
   include logrotate
   include ntp
   include puppet
-  include resolvconf
+
+  if ! $::aws_migration {
+    include resolvconf
+  }
+
   include screen
   include shell
   include ssh
