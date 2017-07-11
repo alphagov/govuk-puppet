@@ -95,6 +95,11 @@ sudo chown -R deploy:deploy /var/govuk
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START INSTALL RUBIES"
+sudo /home/ubuntu/provisioner/install-rubies.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END INSTALL RUBIES"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RESTORE DATABASES"
 sudo -i -u root gpg --allow-secret-key-import --import $(ls -tr1 /home/ubuntu/provisioner/.secrets/*_secret_key.asc | tail -1)
 sudo -i -u root /home/ubuntu/provisioner/restore-backups.sh
