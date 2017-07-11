@@ -1,0 +1,19 @@
+---
+:hierarchy:
+  # - '%{::environment}_disaster_recovery' # For disaster recovery (DR), when staging needs to become production
+  - 'node/%{::fqdn}'
+  - 'class/%{::environment}/%{::govuk_node_class}'
+  - 'class/%{::govuk_node_class}'
+  - '%{::environment}_credentials'
+  - '%{::environment}'
+  - 'common.%{::lsbdistcodename}'
+  - 'common'
+:backends:
+  - eyaml
+  - yaml
+:eyaml:
+  :datadir: '/usr/share/puppet/production/current/hieradata_aws'
+  :gpg_gnupghome: '/etc/puppet/gpg'
+  :extension: 'yaml'
+:yaml:
+  :datadir: '/usr/share/puppet/production/current/hieradata_aws'
