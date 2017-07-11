@@ -61,6 +61,8 @@
  *          stage, such as environment variable configuration
  *        - overrideTestTask A closure containing commands to run to test the
  *          project. This will run instead of the default `bundle exec rake`
+ *        - publishingE2eTests Whether or not to run the Publishing end-to-end
+*           tests.  Default: false
  *        - afterTest A closure containing commands to run after the test stage,
  *          such as report publishing
  *        - newStyleDockerTags. Tag docker images with timestamp and git SHA
@@ -185,6 +187,26 @@ def buildProject(Map options = [:]) {
             runTests()
           }
         }
+      }
+    }
+
+    if (options.publishingE2eTests == true) {
+      setEnvar("FULL_COMMIT_HASH", sh(
+        script: "git rev-parse HEAD",
+        returnStdout: true
+      ))
+      stage("End-to-end tests") {
+        if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
+          appCommitishName = repoName.replace("-", "_").toUpperCase() + "_COMMITISH"
+        } else {
+          appCommitishName = env.PUBLISHING_E2E_TESTS_APP_PARAM
+        }
+        if ( env.PUBLISHING_E2E_TESTS_BRANCH == null ) {
+          testBranch = "test-against"
+        } else {
+          testBranch = env.PUBLISHING_E2E_TESTS_BRANCH
+        }
+        runPublishingE2ETests(appCommitishName, testBranch)
       }
     }
 
@@ -744,6 +766,24 @@ def setBuildStatus(repoName, commit, message, state) {
       errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   ]);
+}
+
+def runPublishingE2ETests(appCommitishName, testBranch) {
+  build(
+    job: "publishing-e2e-tests/${testBranch}",
+    parameters: [
+      [$class: "StringParameterValue",
+        name: appCommitishName,
+        value: env.FULL_COMMIT_HASH],
+      [$class: "StringParameterValue",
+        name: "ORIGIN_REPO",
+        value: repoName],
+      [$class: "StringParameterValue",
+        name: "ORIGIN_COMMIT",
+        value: env.FULL_COMMIT_HASH]
+    ],
+    wait: false,
+  )
 }
 
 return this;
