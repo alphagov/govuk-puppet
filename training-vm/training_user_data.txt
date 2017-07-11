@@ -111,6 +111,12 @@ sudo -i -u deploy /var/govuk/govuk-puppet/development-vm/update-bundler.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START ADD HTTP BASIC AUTHENTICATION TO NGINX CONFIGURATION"
+sudo find /etc/nginx/sites-available -name '*publishing.service.gov.uk' | sudo xargs -n 1 /home/ubuntu/provisioner/add-http-basic-auth.sh
+sudo sh -c "echo -n 'betademo:N04wQhwGA777s' > /etc/nginx/.htpasswd"
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD HTTP BASIC AUTHENTICATION TO NGINX CONFIGURATION"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START ADD ENVIRONMENT INDICATORS"
 sudo -i -u deploy /home/ubuntu/provisioner/govuk-admin-template-environment-indicators.sh < /home/ubuntu/provisioner/alphagov_user_facing_apps
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD ENVIRONMENT INDICATORS"
