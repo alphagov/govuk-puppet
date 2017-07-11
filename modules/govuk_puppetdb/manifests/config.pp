@@ -2,25 +2,49 @@
 class govuk_puppetdb::config {
 
   $puppetdb_postgres_password = ''
-  $java_args = '-Xmx1024m'
 
   # We are currently leaving puppetdb-1.x on the Precise machines and
   # installing puppetdb-2.x on the new Trusty Puppetmasters on AWS
   # Use aws_migration fact
-  if ! $::aws_migration {
-    # By default, this script should be run by apt-get install. But if, for
-    # whatever reason, it fails on first run, or someone accidentally removes
-    # the keystore, this should ensure that it is recreated, and the appropriate
-    # config file in /etc/puppetdb/conf.d updated.
-    exec { '/usr/sbin/puppetdb-ssl-setup':
-      creates => '/etc/puppetdb/ssl/keystore.jks',
-      require => Class['puppet::master::generate_cert'],
-    }
+  if $::aws_migration {
+    $java_args = '-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/puppetdb/puppetdb-oom.hprof -Djava.security.egd=file:/dev/urandom'
+    $puppetdb_ssl_setup_creates = '/etc/puppetdb/ssl/ca.pem'
+    $configfile = 'config.ini'
+  } else {
+    $java_args = '-Xmx1024m'
+    $puppetdb_ssl_setup_creates = '/etc/puppetdb/ssl/keystore.jks'
+    $configfile = 'puppetdb.ini'
+  }
 
+  # By default, this script should be run by apt-get install. But if, for
+  # whatever reason, it fails on first run, or someone accidentally removes
+  # the keystore, this should ensure that it is recreated, and the appropriate
+  # config file in /etc/puppetdb/conf.d updated.
+  exec { '/usr/sbin/puppetdb-ssl-setup':
+    creates => $puppetdb_ssl_setup_creates,
+    require => Class['puppet::master::generate_cert'],
+  }
+
+  # Configure Puppetdb service:
+  # In Puppetdb 2.x use service file provided by the package, and set JAVA_ARGS in the service default options file
+  # In Puppetdb 1.x use upstart config managed by this module
+  if $::aws_migration {
+    file_line { 'default_puppetdb':
+      ensure => present,
+      path   => '/etc/default/puppetdb',
+      line   => inline_template("JAVA_ARGS=\"${java_args}\"\n"),
+      match  => '^JAVA_ARGS=',
+    }
+  } else {
     # This kills off the SysV puppetdb script.
     exec { 'disable-default-puppetdb':
       command => '/etc/init.d/puppetdb stop && /bin/rm /etc/init.d/puppetdb && /usr/sbin/update-rc.d puppetdb remove',
       unless  => '/usr/bin/test ! -e /etc/init.d/puppetdb',
+    }
+
+    file { '/etc/init/puppetdb.conf':
+      ensure  => 'present',
+      content => template('govuk_puppetdb/upstart.conf.erb'),
     }
   }
 
@@ -33,12 +57,6 @@ class govuk_puppetdb::config {
     content => template('govuk_puppetdb/database.ini.erb'),
   }
 
-  if ! $::aws_migration {
-    $configfile = 'puppetdb.ini'
-  } else {
-    $configfile = 'config.ini'
-  }
-
   file { "/etc/puppetdb/conf.d/${configfile}":
     ensure => 'present',
     source => "puppet:///modules/govuk_puppetdb/${configfile}",
@@ -47,13 +65,6 @@ class govuk_puppetdb::config {
   file { '/etc/puppetdb/conf.d/repl.ini':
     ensure => 'present',
     source => 'puppet:///modules/govuk_puppetdb/repl.ini',
-  }
-
-  if ! $::aws_migration {
-    file { '/etc/init/puppetdb.conf':
-      ensure  => 'present',
-      content => template('govuk_puppetdb/upstart.conf.erb'),
-    }
   }
 
   govuk_postgresql::db { 'puppetdb':
