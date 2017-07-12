@@ -11,6 +11,8 @@ class grafana {
     require => Class['grafana::repo'],
   }
 
+  Package['grafana'] -> Class['grafana::dashboards']
+
   service { 'grafana-server':
     ensure  => 'running',
     enable  => true,
