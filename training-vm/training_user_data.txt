@@ -90,6 +90,11 @@ sudo NO_GIT_PULL=1 /var/govuk/govuk-puppet/tools/puppet-apply-dev
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PUPPET-APPLY"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START ADD ENVIRONMENT INDICATORS"
+sudo /home/ubuntu/provisioner/govuk-admin-template-environment-indicators.sh < /home/ubuntu/provisioner/alphagov_user_facing_apps
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD ENVIRONMENT INDICATORS"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHANGE REPOSITORY OWNER"
 sudo chown -R deploy:deploy /var/govuk
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
@@ -107,7 +112,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START UPDATE BUNDLER"
-sudo -i -u deploy /var/govuk/govuk-puppet/development-vm/update-bundler.sh
+sudo /var/govuk/govuk-puppet/development-vm/update-bundler.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
 echo
 
@@ -117,13 +122,8 @@ sudo sh -c "echo -n 'betademo:N04wQhwGA777s' > /etc/nginx/.htpasswd"
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD HTTP BASIC AUTHENTICATION TO NGINX CONFIGURATION"
 echo
 
-echo "[$(date '+%H:%M:%S %d-%m-%Y')] START ADD ENVIRONMENT INDICATORS"
-sudo -i -u deploy /home/ubuntu/provisioner/govuk-admin-template-environment-indicators.sh < /home/ubuntu/provisioner/alphagov_user_facing_apps
-echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD ENVIRONMENT INDICATORS"
-echo
-
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
-sudo -i -u deploy /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
+sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
 echo
 
