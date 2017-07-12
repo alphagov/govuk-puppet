@@ -29,7 +29,7 @@ fi
 logger -t virus_scan "Starting scan on $FILENAME"
 
 set +e
-clamscan --quiet $FILENAME
+clamdscan --fdpass --quiet $FILENAME
 EXITCODE=$?
 set -e
 
