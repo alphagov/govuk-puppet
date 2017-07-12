@@ -127,6 +127,13 @@ sudo -i -u deploy /var/govuk/signon/script/prepare_training_environment --really
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START SET ENVIRONMENT VARIABLES FOR ALL APPS"
+echo "real" | sudo tee /etc/govuk/env.d/GDS_SSO_STRATEGY > /dev/null
+echo "true" | sudo tee /etc/govuk/env.d/SHOW_PRODUCTION_IMAGES > /dev/null
+echo "1025" | sudo tee /etc/govuk/env.d/SMTP_PORT > /dev/null
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END SET ENVIRONMENT VARIABLES FOR ALL APPS"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RUN UPSTART APPS"
 sudo /home/ubuntu/provisioner/start-training-environment.sh < /home/ubuntu/provisioner/alphagov_apps
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RUN UPSTART APPS"
