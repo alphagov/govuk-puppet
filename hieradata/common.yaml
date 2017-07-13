@@ -33,9 +33,7 @@ deployable_applications: &deployable_applications
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
-  govuk-delivery:
-    repository: 'govuk_delivery'
-    source: 'github-enterprise'
+  govuk-delivery: {}
   govuk-cdn-logs-monitor: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
