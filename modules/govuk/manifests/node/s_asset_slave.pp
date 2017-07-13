@@ -57,5 +57,6 @@ class govuk::node::s_asset_slave (
     warning   => to_bytes('384 MB'),
     desc      => 'Asset master and slave are using about the same amount of disk space',
     host_name => $::fqdn,
+    notes_url => monitoring_docs_url(asset-master-slave-disk-space-comparison),
   }
 }
