@@ -118,15 +118,8 @@ class govuk_jenkins::config (
       group  => 'jenkins',
     }
 
-    # FIXME: Remove once all Jenkinses are upgraded to at least 2.0.0
-    if versioncmp($version, '2.0.0') == 1 {
-      File {
-        notify => Class['Govuk_jenkins::Reload'],
-      }
-    } else {
-      File {
-        notify => Service['jenkins'],
-      }
+    File {
+      notify => Class['Govuk_jenkins::Reload'],
     }
 
     file {'/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml':
@@ -212,15 +205,6 @@ class govuk_jenkins::config (
     file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
       ensure  => present,
       content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
-    }
-
-    # FIXME: Remove once all Jenkinses are upgraded to at least 2.0.0
-    if versioncmp($version, '2.0.0') == 1 {
-      $csrf_version = true
-      $jenkins_2 = true
-      $markup_formatter_version = '1.5'
-    } else {
-      $markup_formatter_version = '1.3'
     }
 
     file { '/var/lib/jenkins/config.xml':
