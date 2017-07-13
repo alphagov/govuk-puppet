@@ -1,8 +1,7 @@
 ---
 :hierarchy:
-  # - '%{::environment}_disaster_recovery' # For disaster recovery (DR), when staging needs to become production
   - 'node/%{::fqdn}'
-  - 'class/%{::environment}/%{::govuk_node_class}'
+  - 'class/%{::aws_stackname}/%{::govuk_node_class}'
   - 'class/%{::govuk_node_class}'
   - '%{::environment}_credentials'
   - '%{::environment}'
