@@ -1,0 +1,1594 @@
+---
+HIERA_SAFETY_CHECK: true
+
+stackname: "%{::aws_stackname}"
+app_domain: "%{::aws_stackname}.internal"
+
+# If the repository name is the same as the application name
+# we don't need to explicitly declare the repository, but we
+# need to add an empty hash
+deployable_applications: &deployable_applications
+  asset-manager: {}
+  authenticating-proxy: {}
+  backdrop-read:
+    repository: 'backdrop'
+  backdrop-write:
+    repository: 'backdrop'
+  bouncer: {}
+  calculators: {}
+  calendars: {}
+  collections: {}
+  collections-publisher: {}
+  contacts:
+    repository: 'contacts-admin'
+  content-performance-manager: {}
+  content-store: {}
+  content-tagger: {}
+  designprinciples:
+    repository: 'design-principles'
+  email-alert-api: {}
+  email-alert-frontend: {}
+  email-alert-service: {}
+  errbit: {}
+  feedback: {}
+  finder-frontend: {}
+  frontend: {}
+  government-frontend: {}
+  govuk-delivery:
+    repository: 'govuk_delivery'
+    source: 'github-enterprise'
+  govuk-cdn-logs-monitor: {}
+  govuk-content-schemas: {}
+  govuk_crawler_worker: {}
+  govuk_need_api: {}
+  govuk-puppet: {}
+  hmrc-manuals-api: {}
+  imminence: {}
+  info-frontend: {}
+  kibana:
+    repository: 'kibana-gds'
+  licencefinder:
+    repository: 'licence-finder'
+  link-checker-api: {}
+  local-links-manager: {}
+  manuals-frontend: {}
+  manuals-publisher: {}
+  mapit: {}
+  maslow: {}
+  metadata-api: {}
+  performanceplatform-admin: {}
+  performanceplatform-big-screen-view: {}
+  policy-publisher: {}
+  publisher: {}
+  publishing-api: {}
+  release: {}
+  router: {}
+  router-api: {}
+  rummager: {}
+  search-admin: {}
+  service-manual-frontend: {}
+  service-manual-publisher: {}
+  short-url-manager: {}
+  sidekiq-monitoring: {}
+  signon: {}
+  smartanswers:
+    repository: 'smart-answers'
+  smokey: {}
+  specialist-publisher: {}
+  spotlight: {}
+  stagecraft: {}
+  static: {}
+  support: {}
+  support-api: {}
+  transition: {}
+  travel-advice-publisher: {}
+  whitehall: {}
+
+apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+
+apt::apt_update_frequency: 'daily'
+apt::purge_preferences_d: true
+apt::purge_sources_list: true
+apt::purge_sources_list_d: true
+apt::purge:
+  preferences.d: true
+  sources.list: true
+  sources.list.d: true
+apt::sources:
+  ubuntu:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}'
+    repos: 'main restricted universe multiverse'
+  ubuntu-updates:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-updates'
+    repos: 'main restricted universe multiverse'
+  ubuntu-backports:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-backports'
+    repos: 'main restricted universe multiverse'
+  ubuntu-security:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-security'
+    repos: 'main restricted universe multiverse'
+
+backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+base::packages::gems:
+  ruby-shadow:
+    ensure: 2.5.0
+
+base::packages::packages:
+  - 'ack-grep'
+  - 'bzip2'
+  - 'daemontools'
+  - 'dnsutils'
+  - 'dstat'
+  - 'gettext'
+  - 'git'
+  - 'htop'
+  - 'iftop'
+  - 'iotop'
+  - 'iptraf'
+  - 'less'
+  - 'libc6-dev'
+  - 'libcurl4-openssl-dev'
+  - 'libreadline-dev'
+  - 'libreadline5'
+  - 'libsqlite3-dev'
+  - 'libxml2-dev'
+  - 'libxslt1-dev'
+  - 'logtail'
+  - 'mailutils'
+  - 'man-db'
+  - 'manpages'
+  - 'ncdu'
+  - 'pv'
+  - 'strace'
+  - 'tar'
+  - 'tcpdump'
+  - 'tmux'
+  - 'tree'
+  - 'update-notifier-common'
+  - 'unzip'
+  - 'vim-nox'
+  - 'xz-utils'
+  - 'zip'
+
+collectd::plugin::tcp::metrics:
+  - 'ListenOverflows'
+  - 'ListenDrops'
+  - 'TCPLoss'
+  - 'TCPTimeouts'
+  - 'TCPFastRetrans'
+  - 'TCPLostRetransmit'
+  - 'TCPForwardRetrans'
+  - 'TCPSlowStartRetrans'
+  - 'CurrEstab'
+  - 'TCPAbortOnMemory'
+  - 'TCPBacklogDrop'
+  - 'AttemptFails'
+  - 'EstabResets'
+  - 'InErrs'
+  - 'ActiveOpens'
+  - 'PassiveOpens'
+
+duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
+
+environment_ip_prefix: '10.1'
+
+filebeat::prospectors:
+  apt-history:
+    paths:
+      - '/var/log/apt/history.log'
+    tags:
+      - 'history'
+    fields:
+      application: 'apt'
+    multiline:
+      pattern: '^$'
+      negate: true
+      match: 'after'
+      timeout: 30
+  apt-term:
+    paths:
+      - '/var/log/apt/term.log'
+    tags:
+      - 'term'
+    fields:
+      application: 'apt'
+  dpkg:
+    paths:
+      - '/var/log/dpkg.log'
+    fields:
+      application: 'dpkg'
+  syslog:
+    paths:
+      - '/var/log/syslog'
+    fields:
+      application: 'syslog'
+  unattended-upgrades:
+    paths:
+      - '/var/log/unattended-upgrades/unattended-upgrades.log'
+    tags:
+      - 'unattended'
+    fields:
+      application: 'apt'
+  unattended-upgrades-shutdown:
+    paths:
+      - '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log'
+    tags:
+      - 'unattended'
+    fields:
+      application: 'apt'
+  rkhunter:
+    paths:
+      - '/var/log/rkhunter.log'
+    fields:
+      application: 'rkhunter'
+
+govuk::apps::asset_manager::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
+
+govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
+govuk::apps::bouncer::nagios_memory_warning: 1400
+govuk::apps::bouncer::nagios_memory_critical: 1500
+
+govuk::apps::collections::nagios_memory_warning: 900
+govuk::apps::collections::nagios_memory_critical: 1000
+
+govuk::apps::collections_publisher::db_hostname: "mysql-master-1.backend"
+govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::content_store::nagios_memory_warning: 2300
+govuk::apps::content_store::nagios_memory_critical: 2500
+
+govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_tagger::enable_procfile_worker: true
+govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::email_alert_api::enabled: true
+govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::email_alert_service::rabbitmq_hosts:
+  - rabbitmq-1.backend
+  - rabbitmq-2.backend
+  - rabbitmq-3.backend
+
+govuk::apps::errbit::nagios_memory_warning: 2600
+govuk::apps::errbit::nagios_memory_critical: 3000
+
+govuk::apps::finder_frontend::enabled: true
+govuk::apps::finder_frontend::nagios_memory_warning: 2000
+govuk::apps::finder_frontend::nagios_memory_critical: 2500
+
+govuk::apps::frontend::nagios_memory_warning: 1200
+govuk::apps::frontend::nagios_memory_critical: 1400
+govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::government-frontend::nagios_memory_warning: 900
+govuk::apps::government-frontend::nagios_memory_critical: 1000
+
+govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
+
+govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
+govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::support_api::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+
+govuk::apps::whitehall::admin_db_hostname: whitehall-master.mysql
+govuk::apps::whitehall::admin_key_space_limit: '262144'
+govuk::apps::whitehall::admin_db_name: whitehall_production
+govuk::apps::whitehall::admin_db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall_admin')}"
+govuk::apps::whitehall::admin_db_username: whitehall
+govuk::apps::whitehall::db_hostname: whitehall-slave.mysql
+govuk::apps::whitehall::db_name: whitehall_production
+govuk::apps::whitehall::db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall')}"
+govuk::apps::whitehall::db_username: whitehall_fe
+govuk::apps::whitehall::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
+govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::whitehall::procfile_worker_process_count: 2
+
+govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
+govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
+# FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
+govuk::apps::govuk_crawler_worker::blacklist_paths:
+  - '/api/'
+  - '/apply-for-a-licence'
+  - '/business-finance-support-finder'
+  - '/drug-device-alerts.atom'
+  - '/drug-safety-update.atom'
+  - '/foreign-travel-advice.atom'
+  - '/government/announcements.atom'
+  - '/government/publications.atom'
+  - '/government/statistics.atom'
+  - '/government/uploads'
+  - '/licence-finder'
+  - '/search'
+
+govuk::apps::govuk_crawler_worker::enabled: true
+govuk::apps::govuk_crawler_worker::root_urls:
+  - 'https://assets.digital.cabinet-office.gov.uk/'
+  - 'https://assets.publishing.service.gov.uk/'
+  - 'https://www.gov.uk/'
+
+govuk::apps::govuk_delivery::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::govuk_delivery::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::govuk_delivery::mongodb_hosts:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+govuk::apps::govuk_delivery::mongodb_database: 'govuk_delivery'
+govuk::apps::govuk_delivery::list_title_format: '%s'
+
+govuk::apps::imminence::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+govuk::apps::imminence::redis_host: 'redis-1.backend'
+govuk::apps::imminence::redis_port: '6379'
+govuk::apps::imminence::nagios_memory_warning: 1200
+govuk::apps::imminence::nagios_memory_critical: 1400
+
+govuk::apps::info_frontend::enabled: true
+
+govuk::apps::kibana::signon_root: "https://signon.%{hiera('app_domain')}"
+
+govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::mapit::enabled: true
+govuk::apps::metadata_api::enabled: true
+
+govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
+
+govuk::apps::need_api::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
+govuk::apps::need_api::redis_host: 'redis-1.backend'
+
+govuk::apps::rummager::rabbitmq_hosts:
+  - rabbitmq-1.backend
+  - rabbitmq-2.backend
+  - rabbitmq-3.backend
+
+govuk::apps::licencefinder::mongodb_nodes:
+  - 'mongo-1.backend'
+  - 'mongo-2.backend'
+  - 'mongo-3.backend'
+
+govuk::apps::performanceplatform_admin::enabled: true
+govuk::apps::performanceplatform_big_screen_view::enabled: true
+
+govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::policy_publisher::db_hostname: "postgresql-primary-1.backend"
+
+govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
+govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
+govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishing_api::rabbitmq::amqp_pass')}"
+govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
+govuk::apps::publishing_api::nagios_memory_warning: 2500
+govuk::apps::publishing_api::nagios_memory_critical: 3000
+
+govuk::apps::release::db_hostname: "master.mysql"
+govuk::apps::release::db_username: "release"
+govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
+govuk::apps::release::github_username: "govuk-ci"
+
+govuk::apps::rummager::nagios_memory_warning: 4600
+govuk::apps::rummager::nagios_memory_critical: 4900
+govuk::apps::rummager::enable_publishing_listener: true
+govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
+govuk::apps::rummager::redis_host: 'api-redis-1.api'
+govuk::apps::rummager::redis_port: '6379'
+
+govuk::apps::search_admin::db_name: 'search_admin_production'
+govuk::apps::search_admin::db_hostname: 'master.mysql'
+govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::mysql_search_admin')}"
+govuk::apps::search_admin::db_username: 'search_admin'
+
+govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
+govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
+
+govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_tagger_redis_port: "%{hiera('govuk::apps::content_tagger::redis_port')}"
+govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::email_alert_api_redis_port: "%{hiera('govuk::apps::email_alert_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::imminence_redis_host: "%{hiera('govuk::apps::imminence::redis_host')}"
+govuk::apps::sidekiq_monitoring::imminence_redis_port: "%{hiera('govuk::apps::imminence::redis_port')}"
+govuk::apps::sidekiq_monitoring::link_checker_api_redis_host: "%{hiera('govuk::apps::link_checker_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::link_checker_api_redis_port: "%{hiera('govuk::apps::link_checker_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
+govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
+govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
+govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
+govuk::apps::sidekiq_monitoring::signon_redis_port: "%{hiera('govuk::apps::signon::redis_port')}"
+govuk::apps::sidekiq_monitoring::specialist_publisher_redis_host: "%{hiera('govuk::apps::specialist_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::specialist_publisher_redis_port: "%{hiera('govuk::apps::specialist_publisher::redis_port')}"
+govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_host: "%{hiera('govuk::apps::travel_advice_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_port: "%{hiera('govuk::apps::travel_advice_publisher::redis_port')}"
+govuk::apps::sidekiq_monitoring::transition_redis_host: "%{hiera('govuk::apps::transition::redis_host')}"
+govuk::apps::sidekiq_monitoring::transition_redis_port: "%{hiera('govuk::apps::transition::redis_port')}"
+govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('govuk::apps::whitehall::redis_host')}"
+govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('govuk::apps::whitehall::redis_port')}"
+
+govuk::apps::signon::db_hostname: 'master.mysql'
+govuk::apps::signon::db_name: 'signon_production'
+govuk::apps::signon::db_password: "%{hiera('govuk::apps::signon::db::mysql_signonotron')}"
+govuk::apps::signon::db_username: 'signon'
+govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
+govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::signon::nagios_memory_warning: 900
+govuk::apps::signon::nagios_memory_critical: 1000
+
+govuk::apps::specialist_publisher::enabled: true
+govuk::apps::specialist_publisher::nagios_memory_warning: 1100
+govuk::apps::specialist_publisher::nagios_memory_critical: 1200
+govuk::apps::specialist_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::spotlight::enabled: true
+govuk::apps::spotlight::alert_5xx_warning_rate: 0.2
+govuk::apps::spotlight::alert_5xx_critical_rate: 0.3
+govuk::apps::spotlight::nagios_memory_warning: 2000
+govuk::apps::spotlight::nagios_memory_critical: 2200
+
+govuk::apps::smartanswers::nagios_memory_warning: 4000
+govuk::apps::smartanswers::nagios_memory_critical: 4500
+
+govuk::apps::stagecraft::enabled: true
+govuk::apps::stagecraft::database_password: "%{hiera('govuk::apps::stagecraft::postgresql_db::password')}"
+govuk::apps::stagecraft::message_queue_password: "%{hiera('govuk::apps::stagecraft::rabbitmq::amqp_pass')}"
+govuk::apps::stagecraft::worker::enabled: true
+govuk::apps::stagecraft::beat::enabled: true
+govuk::apps::stagecraft::celerycam::enabled: true
+govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
+
+govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::support::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::support::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
+govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+
+govuk::apps::support_api::db_name: 'support_contacts_production'
+govuk::apps::support_api::db_hostname: 'postgresql-primary-1.backend'
+govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
+govuk::apps::support_api::db_username: 'support_contacts'
+govuk::apps::support_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::support_api::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::transition::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
+govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
+
+govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
+
+govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_htpasswd::http_username: "%{hiera('http_username')}"
+
+govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
+govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::node::s_licensify_lb::backend_app_servers:
+  - 'licensing-backend-1.licensify'
+  - 'licensing-backend-2.licensify'
+govuk::node::s_licensify_lb::frontend_app_servers:
+  - 'licensing-frontend-1.licensify'
+  - 'licensing-frontend-2.licensify'
+
+govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
+govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
+govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
+
+govuk::node::s_whitehall_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
+govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
+govuk::node::s_whitehall_mysql_master::encryption_key: "${hiera('govuk::node::s_mysql_backup::encryption_key')}"
+
+govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
+govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
+
+govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_sshkeys::deployment_keys:
+  github.com:
+    key: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
+  github.digital.cabinet-office.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC5y+7bm9YIMJXYbSdk2pVzl/w110eFrLIvirT4HKYATp7pxV454T2YoWIvIbtKF7GKz1SwX79uKePmwFKBQ8LIYlmFBbcYf8j3Jl9Px4vcmDPkWjZlfg/aqZUJI3WqwVCNelYM+RTlgtDsME8hIK2FbyPIjotF1WRsE1JgsMLfpzK/rVACGbktfQdmgY+56Ze9WA/rfCCKvrCtdavFR1rNxwkjm+GMImlcgmYTIT8BCEM2pkK0dIEJwKJWBVyyRBcTwHZDgvfVM/EyEfe+gIsgiQTORa1JaScHntH7Q7CBagpXvQHr/tSngGvbSBM1vMRLdtrw8BF5//AmNLOW3glZ'
+
+govuk_cdnlogs::rotate_logs_hourly: ['bouncer']
+govuk_cdnlogs::service_port_map:
+  govuk: 6514
+  assets: 6515
+  bouncer: 6516
+
+govuk_ci::master::pipeline_jobs:
+  <<: *deployable_applications
+  asset_bom_removal-rails: {}
+  async_experiments: {}
+  backdrop-transactions-explorer-collector: {}
+  cdn-acceptance-tests: {}
+  deployment:
+    source: 'github-enterprise'
+  deprecated_columns: {}
+  event-store: {}
+  gapy: {}
+  gds-api-adapters: {}
+  gds-scala-common: {}
+  gds-sso: {}
+  gds_zendesk: {}
+  gem_publisher: {}
+  google-auth-bridge: {}
+  govspeak: {}
+  govuk-app-deployment: {}
+  govuk-diff-pages: {}
+  govuk_admin_template: {}
+  govuk_ab_testing: {}
+  govuk-content-schema-test-helpers: {}
+  govuk-dummy_content_store: {}
+  govuk-developer-docs: {}
+  govuk_document_types: {}
+  govuk-guix: {}
+  govuk-lint: {}
+  govuk_message_queue_consumer: {}
+  govuk_mirrorer: {}
+  govuk_navigation_helpers: {}
+  govuk-provisioning: {}
+  govuk_seed_crawler: {}
+  govuk_schemas: {}
+  govuk_security_audit: {}
+  govuk_sidekiq: {}
+  govuk-tagging-monitor: {}
+  govuk_taxonomy_helpers: {}
+  govuk-user-reviewer: {}
+  licensify:
+    source: 'github-enterprise'
+  omniauth-gds: {}
+  opsmanual:
+    source: 'github-enterprise'
+  optic14n: {}
+  performance-datastore: {}
+  performanceplatform-client.py: {}
+  performanceplatform-collector: {}
+  performanceplatform-documentation: {}
+  performanceplatform-govuk-stats: {}
+  plek: {}
+  pp-manual:
+    source: 'github-enterprise'
+  pre-transition-stats: {}
+  publishing-e2e-tests: {}
+  rack-logstasher: {}
+  rails_translation_manager: {}
+  router-data:
+    source: 'github-enterprise'
+  screenshot-as-a-service: {}
+  shared_mustache: {}
+  slimmer: {}
+  spotlight-performance: {}
+  transition-config: {}
+  ubuntu_unused_kernels:
+    repo_owner: 'gds-operations'
+  vcloud-converter: {}
+  vcloud-core:
+    repo_owner: 'gds-operations'
+  vcloud-edge_gateway:
+    repo_owner: 'gds-operations'
+  vcloud-launcher:
+    repo_owner: 'gds-operations'
+  vcloud-net_launcher:
+    repo_owner: 'gds-operations'
+  vcloud-tools:
+    repo_owner: 'gds-operations'
+  vcloud-tools-tester:
+    repo_owner: 'gds-operations'
+  vcloud-walker:
+    repo_owner: 'gds-operations'
+
+govuk_ci::master::ci_agents:
+  ci-agent-1:
+    agent_hostname: 'ci-agent-1.ci'
+    labels: 'mongodb-2.4 docker ci-agent-1 elasticsearch'
+  ci-agent-2:
+    agent_hostname: 'ci-agent-2.ci'
+    labels: 'mongodb-2.4 docker ci-agent-2 elasticsearch'
+  ci-agent-3:
+    agent_hostname: 'ci-agent-3.ci'
+    labels: 'mongodb-2.4 docker ci-agent-3 elasticsearch'
+  ci-agent-4:
+    agent_hostname: 'ci-agent-4.ci'
+    labels: 'mongodb-3.2 docker ci-agent-4 elasticsearch'
+  ci-agent-5:
+    agent_hostname: 'ci-agent-5.ci'
+    labels: 'mongodb-3.2 docker ci-agent-5 elasticsearch'
+
+govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
+
+govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
+
+govuk_containers::app::config::global_envvars:
+  - "GOVUK_ENV=production"
+  - "NODE_ENV=production"
+  - "RACK_ENV=production"
+  - "RAILS_ENV=production"
+  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
+  - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
+  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
+  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
+
+govuk_containers::apps::release::envvars:
+  - "ERRBIT_API_KEY=%{hiera('govuk::apps::release::errbit_api_key')}"
+  - "OAUTH_ID=%{hiera('govuk::apps::release::oauth_id')}"
+  - "OAUTH_SECRET=%{hiera('govuk::apps::release::oauth_secret')}"
+  - "GITHUB_USERNAME=%{hiera('govuk::apps::release::github_username')}"
+  - "GITHUB_ACCESS_TOKEN=%{hiera('govuk::apps::release::github_access_token')}"
+  - "SECRET_KEY_BASE=%{hiera('govuk::apps::release::secret_key_base')}"
+  - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
+  - "RAILS_SERVE_STATIC_FILES=true"
+
+govuk_containers::frontend::haproxy::backend_mappings:
+  - "release.%{hiera('app_domain')}": "release"
+govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
+govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard_publishing_key')}"
+
+govuk_crawler::amqp_host: 'localhost'
+govuk_crawler::site_root: 'https://www.gov.uk'
+
+govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::github_enterprise_cert::certificate: |
+    -----BEGIN CERTIFICATE-----
+    MIIG0jCCBbqgAwIBAgIQf/+vsNKptrC7DAKs28C7oDANBgkqhkiG9w0BAQsFADBo
+    MQswCQYDVQQGEwJVUzEWMBQGA1UEChMNR2VvVHJ1c3QgSW5jLjEdMBsGA1UECxMU
+    RG9tYWluIFZhbGlkYXRlZCBTU0wxIjAgBgNVBAMTGUdlb1RydXN0IERWIFNTTCBT
+    SEEyNTYgQ0EwHhcNMTcwNDEzMDAwMDAwWhcNMjAwNDEyMjM1OTU5WjAvMS0wKwYD
+    VQQDDCRnaXRodWIuZGlnaXRhbC5jYWJpbmV0LW9mZmljZS5nb3YudWswggEiMA0G
+    CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC1TmTpWQd5zAolTtZxR22wteDG5YPN
+    VcgMOP2RaPEtK2eLlNx0uCv27cB/7TdmwthrAtXty8+UvcKXq7U+oWHxVQRe1nSx
+    Xr1R79LeiYa+k646lusuJKLNA4koEp2ER0UKAfQfGacukOyLZ+4+C8wK+v3+6Gak
+    JaYtszn6guXa9T023izlqEkmLeFN9vmVTiL8/YsasU3RwcxP3UHbSIOVlaT+imlO
+    b3YTGw59llWULF8Ap6TZgdQp6lgOKyWzbzzyjz33bkt4ZO6Kk0yYwkXOoEk/woeh
+    5uhqR0cAkseR3Q5Dp6Sd6vgOsOnRecqjwFhuEXNy5GjDcJ2Rc9+hwch1AgMBAAGj
+    ggOvMIIDqzAvBgNVHREEKDAmgiRnaXRodWIuZGlnaXRhbC5jYWJpbmV0LW9mZmlj
+    ZS5nb3YudWswCQYDVR0TBAIwADArBgNVHR8EJDAiMCCgHqAchhpodHRwOi8vZ3Iu
+    c3ltY2IuY29tL2dyLmNybDCBnQYDVR0gBIGVMIGSMIGPBgZngQwBAgEwgYQwPwYI
+    KwYBBQUHAgEWM2h0dHBzOi8vd3d3Lmdlb3RydXN0LmNvbS9yZXNvdXJjZXMvcmVw
+    b3NpdG9yeS9sZWdhbDBBBggrBgEFBQcCAjA1DDNodHRwczovL3d3dy5nZW90cnVz
+    dC5jb20vcmVzb3VyY2VzL3JlcG9zaXRvcnkvbGVnYWwwHwYDVR0jBBgwFoAUSeyn
+    yKn3xbssqiTn9EOzsTzoVPgwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsG
+    AQUFBwMBBggrBgEFBQcDAjBXBggrBgEFBQcBAQRLMEkwHwYIKwYBBQUHMAGGE2h0
+    dHA6Ly9nci5zeW1jZC5jb20wJgYIKwYBBQUHMAKGGmh0dHA6Ly9nci5zeW1jYi5j
+    b20vZ3IuY3J0MIIB9QYKKwYBBAHWeQIEAgSCAeUEggHhAd8AdQDd6x0reg1PpiCL
+    ga2BaHB+Lo6dAdVciI09EcTNtuy+zAAAAVtnVXUfAAAEAwBGMEQCIH2QTNQnOdYS
+    zVp/2K8LnocPpsk203aT1EIXNxcr3xO2AiBmQg28ZEWsaofh2ovbUuVYnO8lC20l
+    jCeNfgxbIVWWtQB2AKS5CZC0GFgUh7sTosxncAo8NZgE+RvfuON3zQ7IDdwQAAAB
+    W2dVdVwAAAQDAEcwRQIgSTbavoA5nz7vD6p2BcpRyRWlW0u47EWaKi02L6LztUYC
+    IQC1+SxyxPWdjh60mAjd/42So8X2tG2YtQacvdufpXRFyAB3AO5Lvbd1zmC64UJp
+    H6vhnmajD35fsHLYgwDEe4l6qP3LAAABW2dVd5wAAAQDAEgwRgIhAJlDT5PULhMs
+    0tAmRpDbZtwInT89ZlSoLN4pcCO+BQVtAiEA7gZK8bl1X6QKnwM8/rRh8p6DGkCv
+    t0Ld/hZp/CymKsMAdQC8eOHfxfY8aEZJM02hD6FfCXlpIAnAgbTz9pF/Ptm4pQAA
+    AVtnVXYSAAAEAwBGMEQCIB/zgEfu+OpnB4bIP69vfwLaubYV42FDFnbI+ZoY142y
+    AiAlYIr1CzChFYpX4yg4BO3y1oRprF7e7ab/ip5+3MEGQzANBgkqhkiG9w0BAQsF
+    AAOCAQEAs0ypwm2TqzwHzAmIFwGexPKseH7CICGMFLazHlCUBslR3Pr6P+AYT0ZX
+    nPbgZx/gaxGxqgPLdBIW8nqq+N6P2E+Yh1+9di86MeMXnP2Xgxk6a/5d1SDaGgog
+    u5wImRRcjoR9hozdyhbHCEBWM7Ec94EQSKyRhIR2lJzpKK2rZyYhEaIwBcXhaUiS
+    B7wLqK9BY3aeXVD6rIpfq9vrrGkA7EDepzgy9u0wxUiWMm2zpNZNj1Xw//lEA1Vo
+    jxn13wQ3qzfabkCZWtRawyS23a/Lt/At4KUY4Fq1wY+RuoxKoGRghaWKD0mzTD+G
+    x9cCXeHOPEAL2EKLnELmr+11VzRCVw==
+    -----END CERTIFICATE-----
+govuk_jenkins::github_enterprise_cert::certificate_path: "/var/lib/jenkins/github.digital.cabinet-office.gov.uk.pem"
+govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: "github.digital.cabinet-office.gov.uk"
+govuk_jenkins::config::github_api_uri: "%{hiera('govuk_jenkins::config::github_web_uri')}/api/v3"
+govuk_jenkins::config::github_web_uri: "https://%{hiera('govuk_jenkins::github_enterprise_cert::github_enterprise_hostname')}"
+govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
+
+govuk_jenkins::job::search_benchmark::auth_username: "%{hiera('http_username')}"
+govuk_jenkins::job::search_benchmark::auth_password: "%{hiera('http_password')}"
+
+govuk_jenkins::job::search_test_spelling_suggestions::auth_username: "%{hiera('http_username')}"
+govuk_jenkins::job::search_test_spelling_suggestions::auth_password: "%{hiera('http_password')}"
+
+govuk_jenkins::job::smokey::auth_username: "%{hiera('http_username')}"
+govuk_jenkins::job::smokey::auth_password: "%{hiera('http_password')}"
+govuk_jenkins::job::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
+govuk_jenkins::job::smokey::signon_email: "%{hiera('smokey_signon_email')}"
+govuk_jenkins::job::smokey::signon_password: "%{hiera('smokey_signon_password')}"
+
+govuk_jenkins::job::run_rake_task::applications: *deployable_applications
+govuk_jenkins::job::deploy_app::applications: *deployable_applications
+
+govuk_jenkins::job::integration_deploy::applications: *deployable_applications
+
+govuk_jenkins::job::deploy_lambda_app::lambda_apps:
+  - 'email_alert_notifications'
+
+govuk_mysql::server::expire_log_days: 3
+govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
+govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
+govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_postgresql::server::configure_env_sync_user: true
+
+govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_sudo::sudo_conf:
+  deploy_docker_image:
+    content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
+  deploy_init_ctl:
+    content: 'deploy ALL=NOPASSWD:/sbin/initctl'
+  deploy_service_docker:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/docker-*'
+  deploy_service_nginx:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/nginx'
+  deploy_service_varnish:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/varnish'
+  icinga_init_ctl:
+    content: 'nagios ALL=NOPASSWD:/sbin/initctl reload *'
+  ubuntu:
+    content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
+
+govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_unattended_reboot::enabled: true
+govuk_unattended_reboot::mongodb::enabled: true
+govuk_unattended_reboot::elasticsearch::enabled: true
+
+govuk_unattended_reboot::monitoring_basic_auth:
+  username: "%{hiera('http_username')}"
+  password: "%{hiera('http_password')}"
+
+grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+grafana::dashboards::app_domain: "%{hiera('app_domain')}"
+grafana::dashboards::machine_suffix_metrics: ''
+grafana::dashboards::deployment_applications:
+  asset-manager: {}
+  calculators:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
+  calendars: {}
+  collections: {}
+  collections-publisher:
+    # Low usage
+    show_controller_errors: false
+    show_slow_requests: false
+  content-performance-manager:
+    # Missing duration, status, controller fields
+    show_controller_errors: false
+    show_slow_requests: false
+  content-store: {}
+  content-tagger:
+    has_workers: true
+  email-alert-api:
+    has_workers: true
+  email-alert-frontend:
+    # Missing duration, status, controller fields
+    show_controller_errors: false
+    show_slow_requests: false
+  feedback: {}
+  finder-frontend: {}
+  frontend:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
+  government-frontend: {}
+  hmrc-manuals-api:
+    # Missing @fields.status
+    show_controller_errors: false
+  imminence:
+    # Missing @fields.status
+    show_controller_errors: false
+    has_workers: true
+  info-frontend: {}
+  licencefinder:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
+    docs_name: 'licence-finder'
+  link-checker-api:
+    # Missing kibana logs with this name
+    show_controller_errors: false
+    show_slow_requests: false
+  local-links-manager:
+    # Missing status, duration, controller
+    show_controller_errors: false
+    show_slow_requests: false
+  manuals-frontend:
+    # Missing status, duration, controller
+    show_controller_errors: false
+    show_slow_requests: false
+  manuals-publisher:
+    # Very low usage
+    show_controller_errors: false
+    show_slow_requests: false
+  mapit:
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
+  maslow:
+    # Very low usage
+    show_controller_errors: false
+    show_slow_requests: false
+  metadata-api:
+    # status instead of @fields.status, missing duration, controller
+    show_controller_errors: false
+    show_slow_requests: false
+  publisher:
+    has_workers: true
+  publishing-api:
+    has_workers: true
+  release: {}
+  router-api: {}
+  rummager:
+    # @fields.controller is blank and rummager is a sinatra app
+    show_controller_errors: false
+    show_slow_requests: false
+    has_workers: true
+  search-admin:
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
+  service-manual-frontend: {}
+  service-manual-publisher:
+    # Status, duration, controller missing @fields. prefix
+    show_controller_errors: false
+    show_slow_requests: false
+  short-url-manager: {}
+  signon:
+    has_workers: true
+  smartanswers:
+    docs_name: 'smart-answers'
+  specialist-publisher: {}
+  static: {}
+  support: {}
+  support-api: {}
+  transition:
+    # Status, duration, controller missing @fields.prefix
+    show_controller_errors: false
+    show_slow_requests: false
+    has_workers: true
+  travel-advice-publisher:
+    has_workers: true
+  whitehall:
+    has_workers: true
+    error_threshold: 50
+    warning_threshold: 25
+
+
+grub2::recordfail_timeout: 5
+
+hosts::production::ip_api_lb: '10.7.1.2'
+hosts::production::ip_backend_lb: '10.3.1.2'
+hosts::production::ip_draft_api_lb: '10.7.2.2'
+hosts::production::ip_frontend_lb: '10.2.1.2'
+hosts::production::ip_licensify_lb: '10.5.1.2'
+
+hosts::production::api::hosts:
+  api-1:
+    ip: '10.1.4.16'
+  api-2:
+    ip: '10.1.4.17'
+  api-elasticsearch-1:
+    ip: '10.1.4.25'
+  api-elasticsearch-2:
+    ip: '10.1.4.26'
+  api-elasticsearch-3:
+    ip: '10.1.4.27'
+  api-lb-1:
+    ip: '10.1.4.101'
+  api-lb-2:
+    ip: '10.1.4.102'
+  api-mongo-1:
+    ip: '10.1.4.21'
+  api-mongo-2:
+    ip: '10.1.4.22'
+  api-mongo-3:
+    ip: '10.1.4.23'
+  api-mongo-4:
+    ip: '10.1.12.21'
+  api-postgresql-primary-1:
+    ip: '10.1.4.40'
+  api-postgresql-standby-1:
+    ip: '10.1.4.41'
+  api-postgresql-standby-2:
+    ip: '10.1.12.41'
+  api-redis-1:
+    ip: '10.1.4.29'
+  content-store-1:
+    ip: '10.1.4.11'
+  content-store-2:
+    ip: '10.1.4.12'
+  draft-content-store-1:
+    ip: '10.1.4.200'
+  draft-content-store-2:
+    ip: '10.1.4.201'
+  mapit-1:
+    ip: '10.1.4.60'
+  mapit-2:
+    ip: '10.1.4.61'
+  performance-mongo-1:
+    ip: '10.1.4.31'
+  performance-mongo-2:
+    ip: '10.1.4.32'
+  performance-mongo-3:
+    ip: '10.1.4.33'
+  performance-mongo-4:
+    ip: '10.1.12.31'
+  search-1:
+    ip: '10.1.4.4'
+  search-2:
+    ip: '10.1.4.5'
+  # FIXME: This machine doesn't exist, but this host entry
+  # is depended upon by s_api_elasticsearch. We should fix that.
+  search-3:
+    ip: '10.1.4.6'
+
+hosts::production::api::app_hostnames:
+  - 'backdrop-read'
+  - 'backdrop-write'
+  - 'content-store'
+  - 'mapit'
+  - 'metadata-api'
+  - 'rummager'
+  - 'search'
+  - 'stagecraft'
+
+hosts::production::api::draft_app_hostnames:
+  - 'draft-content-store'
+
+hosts::production::backend::hosts:
+  asset-master-1:
+    ip: '10.1.3.20'
+    legacy_aliases:
+      - "asset-master-1.%{hiera('app_domain')}"
+      - 'asset-master'
+      - "asset-master.%{hiera('app_domain')}"
+  asset-slave-1:
+    ip: '10.1.3.21'
+    legacy_aliases:
+      - "asset-slave-1.%{hiera('app_domain')}"
+      - 'asset-slave'
+      - "asset-slave.%{hiera('app_domain')}"
+  asset-slave-2:
+    ip: '10.1.11.21'
+  backend-1:
+    ip: '10.1.3.2'
+  backend-2:
+    ip: '10.1.3.3'
+  # FIXME: This machine doesn't exist, but this host entry
+  # is depended upon by s_api_elasticsearch. We should fix that.
+  backend-3:
+    ip: '10.1.3.4'
+  backend-lb-1:
+    ip: '10.1.3.101'
+  backend-lb-2:
+    ip: '10.1.3.102'
+  docker-backend-1:
+    ip: '10.1.3.111'
+  docker-backend-2:
+    ip: '10.1.3.112'
+  elasticsearch-1:
+    ip: '10.1.3.15'
+  elasticsearch-2:
+    ip: '10.1.3.16'
+  elasticsearch-3:
+    ip: '10.1.3.17'
+  exception-handler-1:
+    ip: '10.1.3.40'
+  mongo-1:
+    ip: '10.1.3.6'
+    service_aliases:
+      - 'mongodb'
+  mongo-2:
+    ip: '10.1.3.7'
+  mongo-3:
+    ip: '10.1.3.8'
+  mongo-4:
+    ip: '10.1.11.6'
+  mysql-backup-1:
+    ip: '10.1.3.93'
+    legacy_aliases:
+      - 'backup.mysql'
+  mysql-master-1:
+    ip: '10.1.3.90'
+    legacy_aliases:
+      - 'master.mysql'
+      - "mysql.backend.%{hiera('app_domain')}"
+  mysql-slave-1:
+    ip: '10.1.3.91'
+    legacy_aliases:
+      - 'slave.mysql'
+  mysql-slave-2:
+    ip: '10.1.11.91'
+  performance-backend-1:
+    ip: '10.1.3.80'
+  performance-backend-2:
+    ip: '10.1.3.81'
+  postgresql-primary-1:
+    ip: '10.1.3.12'
+  postgresql-standby-1:
+    ip: '10.1.3.13'
+  postgresql-standby-2:
+    ip: '10.1.11.13'
+  publishing-api-1:
+    ip: '10.1.3.45'
+  publishing-api-2:
+    ip: '10.1.3.46'
+  rabbitmq-1:
+    ip: '10.1.3.70'
+  rabbitmq-2:
+    ip: '10.1.3.71'
+  rabbitmq-3:
+    ip: '10.1.3.72'
+  redis-1:
+    ip: '10.1.3.50'
+  redis-2:
+    ip: '10.1.3.51'
+  transition-postgresql-master-1:
+    ip: '10.1.3.60'
+    legacy_aliases:
+      - 'transition-master.postgresql'
+      - "transition-postgresql.backend.%{hiera('app_domain')}"
+  transition-postgresql-slave-1:
+    ip: '10.1.3.61'
+    legacy_aliases:
+      - 'transition-slave.postgresql'
+  transition-postgresql-slave-2:
+    ip: '10.1.11.61'
+  transition-postgresql-primary-1:
+    ip: '10.1.3.160'
+  transition-postgresql-standby-1:
+    ip: '10.1.3.161'
+  transition-postgresql-standby-2:
+    ip: '10.1.11.161'
+  whitehall-backend-1:
+    ip: '10.1.3.25'
+  whitehall-backend-2:
+    ip: '10.1.3.26'
+  whitehall-mysql-backup-1:
+    ip: '10.1.3.34'
+    legacy_aliases:
+      - 'whitehall-backup.mysql'
+  whitehall-mysql-master-1:
+    ip: '10.1.3.30'
+    legacy_aliases:
+      - 'whitehall-master.mysql'
+      - "whitehall-mysql.backend.%{hiera('app_domain')}"
+  whitehall-mysql-slave-1:
+    ip: '10.1.3.31'
+    legacy_aliases:
+      - 'whitehall-slave.mysql'
+  whitehall-mysql-slave-2:
+    ip: '10.1.11.31'
+
+hosts::production::backend::app_hostnames:
+  - 'asset-manager'
+  - 'canary-backend'
+  - 'collections-publisher'
+  - 'contacts-admin'
+  - 'content-performance-manager'
+  - 'content-tagger'
+  - 'docs'
+  - 'draft-whitehall-frontend'
+  - 'email-alert-api'
+  - 'errbit'
+  - 'event-store'
+  - 'govuk-delivery'
+  - 'hmrc-manuals-api'
+  - 'imminence'
+  - 'kibana'
+  - 'link-checker-api'
+  - 'local-links-manager'
+  - 'maslow'
+  - 'manuals-publisher'
+  - 'need-api'
+  - 'performanceplatform-admin'
+  - 'policy-publisher'
+  - 'publisher'
+  - 'publishing-api'
+  - 'search-admin'
+  - 'service-manual-publisher'
+  - 'short-url-manager'
+  - 'signon'
+  - 'specialist-publisher'
+  - 'specialist-publisher-rebuild'
+  - 'specialist-publisher-rebuild-standalone'
+  - 'support'
+  - 'support-api'
+  - 'transition'
+  - 'travel-advice-publisher'
+  - 'whitehall-admin'
+
+hosts::production::ci::hosts:
+  ci-master-1:
+    ip: '10.1.6.10'
+    legacy_aliases:
+    - "ci.%{hiera('app_domain')}"
+  ci-agent-1:
+    ip: '10.1.6.21'
+  ci-agent-2:
+    ip: '10.1.6.22'
+  ci-agent-3:
+    ip: '10.1.6.23'
+  ci-agent-4:
+    ip: '10.1.6.24'
+  ci-agent-5:
+    ip: '10.1.6.25'
+
+hosts::production::frontend::hosts:
+  calculators-frontend-1:
+    ip: '10.1.2.11'
+  calculators-frontend-2:
+    ip: '10.1.2.12'
+  # FIXME: This machine doesn't exist, but this host entry
+  # is depended upon by s_api_elasticsearch. We should fix that.
+  calculators-frontend-3:
+    ip: '10.1.2.13'
+  docker-frontend-1:
+    ip: '10.1.2.31'
+  docker-frontend-2:
+    ip: '10.1.2.32'
+  frontend-1:
+    ip: '10.1.2.2'
+  frontend-2:
+    ip: '10.1.2.3'
+  draft-frontend-1:
+    ip: '10.1.2.200'
+  draft-frontend-2:
+    ip: '10.1.2.201'
+  performance-frontend-1:
+    ip: '10.1.2.20'
+  performance-frontend-2:
+    ip: '10.1.2.21'
+  whitehall-frontend-1:
+    ip: '10.1.2.5'
+  whitehall-frontend-2:
+    ip: '10.1.2.6'
+  frontend-lb-1:
+    ip: '10.1.2.101'
+  frontend-lb-2:
+    ip: '10.1.2.102'
+
+hosts::production::external_licensify: true
+
+hosts::production::frontend::app_hostnames:
+  - 'calculators'
+  - 'calendars'
+  - 'canary-frontend'
+  - 'collections'
+  - 'designprinciples'
+  - 'draft-collections'
+  - 'draft-email-alert-frontend'
+  - 'draft-frontend'
+  - 'draft-government-frontend'
+  - 'draft-manuals-frontend'
+  - 'draft-service-manual-frontend'
+  - 'draft-static'
+  - 'email-alert-frontend'
+  - 'feedback'
+  - 'finder-frontend'
+  - 'frontend'
+  - 'government-frontend'
+  - 'info-frontend'
+  - 'manuals-frontend'
+  - 'licencefinder'
+  - 'performanceplatform-big-screen-view'
+  - 'publicapi'
+  - 'public-event-store'
+  - 'service-manual'
+  - 'service-manual-frontend'
+  - 'smartanswers'
+  - 'spotlight'
+  - 'static'
+  - 'whitehall-frontend'
+
+hosts::production::licensify::hosts:
+  licensify-lb-1:
+    ip: '10.5.0.101'
+  licensify-lb-2:
+    ip: '10.5.0.102'
+  licensing-frontend-1:
+    ip: '10.5.0.12'
+  licensing-frontend-2:
+    ip: '10.5.0.13'
+  licensing-backend-1:
+    ip: '10.5.0.14'
+  licensing-backend-2:
+    ip: '10.5.0.15'
+  licensing-mongo-1:
+    ip: '10.5.0.16'
+  licensing-mongo-2:
+    ip: '10.5.0.17'
+  licensing-mongo-3:
+    ip: '10.5.0.18'
+
+hosts::production::management::hosts:
+  jenkins-1:
+    ip: '10.1.0.3'
+    legacy_aliases:
+      - "deploy.%{hiera('app_domain')}"
+  deploy-1:
+    ip: '10.1.0.4'
+    legacy_aliases:
+      - "deploy-1.%{hiera('app_domain')}"
+  puppetmaster-1:
+    ip: '10.1.0.5'
+    legacy_aliases:
+      - 'puppet'
+    service_aliases:
+      - 'puppet'
+      - 'puppetdb'
+  monitoring-1:
+    ip: '10.1.0.20'
+    legacy_aliases:
+      - 'monitoring'
+      - "grafana.%{hiera('app_domain')}"
+    service_aliases:
+      - 'alert'
+      - 'monitoring'
+  graphite-1:
+    ip: '10.1.0.22'
+    legacy_aliases:
+      - "graphite.%{hiera('app_domain')}"
+    service_aliases:
+      - 'graphite'
+  logs-cdn-1:
+    ip: '10.1.0.27'
+  logging-1:
+    ip: '10.1.0.28'
+    service_aliases:
+      - 'logging'
+  logs-elasticsearch-1:
+    ip: '10.1.0.29'
+    service_aliases:
+      - 'logs-elasticsearch'
+  logs-elasticsearch-2:
+    ip: '10.1.0.30'
+  logs-elasticsearch-3:
+    ip: '10.1.0.31'
+  logs-redis-1:
+    ip: '10.1.0.40'
+  logs-redis-2:
+    ip: '10.1.0.41'
+  backup-1:
+    ip: '10.1.0.50'
+  apt-1:
+    ip: '10.1.0.75'
+    service_aliases:
+      - 'apt'
+      - 'gemstash'
+  docker-management-1:
+    ip: '10.1.0.80'
+    service_aliases:
+      - 'etcd'
+  jumpbox-1:
+    ip: '10.1.0.100'
+  mirrorer-1:
+    ip: '10.1.0.128'
+  jumpbox-2:
+    ip: '10.1.0.200'
+
+hosts::production::redirector::hosts:
+  bouncer-1:
+    ip: '10.1.5.4'
+  bouncer-2:
+    ip: '10.1.5.5'
+  bouncer-3:
+    ip: '10.1.13.4'
+  bouncer-4:
+    ip: '10.1.13.5'
+
+hosts::production::router::hosts:
+  cache-1:
+    ip: '10.1.1.2'
+  cache-2:
+    ip: '10.1.1.3'
+  draft-cache-1:
+    ip: '10.1.1.200'
+  draft-cache-2:
+    ip: '10.1.1.201'
+  router-backend-1:
+    ip: '10.1.1.10'
+  router-backend-2:
+    ip: '10.1.1.11'
+  router-backend-3:
+    ip: '10.1.1.12'
+  router-backend-4:
+    ip: '10.1.9.10'
+  cache:
+    ip: '10.1.1.254'
+    legacy_aliases:
+      - 'cache'
+      - "www.%{hiera('app_domain')}"
+      - "www-origin.%{hiera('app_domain')}"
+      - "assets-origin.%{hiera('app_domain')}"
+    service_aliases:
+      - 'cache'
+      - 'router'
+  router-backend-internal-lb:
+    ip: '10.1.1.253'
+    legacy_aliases:
+      - "router-api.%{hiera('app_domain')}"
+  draft-cache-internal-lb:
+    ip: '10.1.1.252'
+    legacy_aliases:
+      - "draft-router-api.%{hiera('app_domain')}"
+
+icinga::config::http_username: "%{hiera('http_username')}"
+icinga::config::http_password: "%{hiera('http_password')}"
+
+icinga::config::smokey::http_username: "%{hiera('http_username')}"
+icinga::config::smokey::http_password: "%{hiera('http_password')}"
+icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
+icinga::config::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
+icinga::config::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
+
+limits::entries:
+  'default_core':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'core'
+    both: 0
+  'default_nproc':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'nproc'
+    hard: 256
+  'default_nofile':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'nofile'
+    hard: 2048
+
+mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+mongodb::server::version: '2.4.9'
+
+monitoring::checks::http_username: "%{hiera('http_username')}"
+monitoring::checks::http_password: "%{hiera('http_password')}"
+
+monitoring::checks::smokey::features:
+  check_bouncer:
+    feature: bouncer
+  check_calendars:
+    feature: calendars
+  check_contacts:
+    feature: contacts
+  check_frontend:
+    feature: frontend
+  check_licencefinder:
+    feature: licencefinder
+  check_licensing:
+    feature: licensing
+  check_publishing:
+    feature: mainstream_publishing_tools
+  check_router:
+    feature: router
+  check_search:
+    feature: search
+  check_signon:
+    feature: signon
+  check_smartanswers:
+    feature: smartanswers
+  check_static_mirrors:
+    feature: mirror
+  check_whitehall:
+    feature: whitehall
+  check_draft_environment:
+    feature: draft_environment
+  check_travel_advice:
+    feature: travel_advice
+
+monitoring::vpn_gateways::endpoints:
+  vpn_gateway_api_dr:
+    address: "%{hiera('environment_ip_prefix')}.12.1"
+  vpn_gateway_backend_dr:
+    address: "%{hiera('environment_ip_prefix')}.11.1"
+  vpn_gateway_licensify:
+    address: "10.5.0.1"
+  vpn_gateway_redirector_dr:
+    address: "%{hiera('environment_ip_prefix')}.13.1"
+  vpn_gateway_router_dr:
+    address: "%{hiera('environment_ip_prefix')}.9.1"
+
+# FIXME: this has been added to avoid a bug until we move to v3 of the module
+mysql::client::package_ensure: 'present'
+
+nginx::package::version: '1.4.6-1ubuntu3.7'
+
+nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
+
+ntp::server_list:
+  - 'ntp.ubuntu.com'
+  - 'time.euro.apple.com'
+  - '0.uk.pool.ntp.org'
+  - '1.uk.pool.ntp.org'
+  - '2.uk.pool.ntp.org'
+
+postgresql_api_slave_addresses_live: "%{hiera('environment_ip_prefix')}.4.41/32"
+postgresql_api_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.12.41/32"
+postgresql_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.13/32"
+postgresql_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.13/32"
+postgresql_transition_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.61/32"
+postgresql_transition_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.61/32"
+postgresql_transition_standby_addresses_live: "%{hiera('environment_ip_prefix')}.3.161/32"
+postgresql_transition_standby_addresses_dr: "%{hiera('environment_ip_prefix')}.11.161/32"
+
+postgresql::lib::devel::link_pg_config: false
+postgresql::globals::version: '9.3'
+
+puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
+
+puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+rabbitmq::delete_guest_user: true
+rabbitmq::config_stomp: true
+# Always use our mirror because they only provide the latest package.
+rabbitmq::package_ensure: '3.4.3-1'
+rabbitmq::manage_repos: false
+
+rcs::fsckfix: 'YES'
+rcs::tmptime: '7'
+
+# TODO: These don't work in 2.6.6 so setting to false
+# consider changing if we update redis version
+redis::conf_aof_rewrite_incremental_fsync: false
+redis::conf_hz: false
+redis::conf_repl_disable_tcp_nodelay: false
+redis::conf_tcp_keepalive: false
+# end TODO
+# TODO: Replace this with `conf_tcp_keepalive`.
+redis::conf_timeout: 300
+
+resolvconf::nameservers:
+  - 8.8.8.8
+  - 8.8.4.4
+
+resolvconf::options:
+   - 'single-request-reopen'
+
+# Note: it's important that all targets here have matching host entries both in
+# production, and on the dev VM, otherwise nginx will fail to start.
+router::assets_origin::asset_routes:
+  '/calculators/': "calculators"
+  '/calendars/': "calendars"
+  '/collections/': "collections"
+  '/designprinciples/': "designprinciples"
+  '/email-alert-frontend/': "email-alert-frontend"
+  '/feedback/': "feedback"
+  '/finder-frontend/': "finder-frontend"
+  '/frontend/': "frontend"
+  '/government/assets/': "whitehall-frontend"
+  '/government/placeholder': "whitehall-frontend"
+  '/government/uploads/': "whitehall-frontend"
+  '/government-frontend/': "government-frontend"
+  '/info-frontend/': "info-frontend"
+  '/manuals-frontend/': "manuals-frontend"
+  '/licencefinder/': "licencefinder"
+  '/service-manual-frontend/': "service-manual-frontend"
+  '/smartanswers/': "smartanswers"
+  '/spotlight/': "spotlight"
+  '/stagecraft/': "stagecraft"
+
+router::assets_origin::vhost_aliases:
+  - 'assets.digital.cabinet-office.gov.uk'
+  - 'assets.publishing.service.gov.uk'
+
+router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
+
+router::nginx::check_requests_warning: '@10'
+router::nginx::check_requests_critical: '@8'
+router::nginx::robotstxt: |
+  User-agent: *
+  Disallow: /*/print$
+  # Don't allow indexing of search results
+  Disallow: /search?
+  # We only allow indexing of the licence-finder landing page
+  Disallow: /licence-finder/
+  Allow: /licence-finder
+  # We only allow indexing of the finance finder landing page
+  Disallow: /business-finance-support-finder/*
+  Allow: /business-finance-support-finder
+  Disallow: /apply-for-a-licence/
+  # Don't allow indexing of user needs pages
+  Disallow: /info/*
+  Sitemap: https://www.gov.uk/sitemap.xml
+  Crawl-delay: 0.5
+  # https://ahrefs.com/robot/ crawls the site frequently
+  User-agent: AhrefsBot
+  Crawl-delay: 10
+  # https://www.deepcrawl.com/bot/ makes lots of requests. Ideally
+  # we'd slow it down rather than blocking it but it doesn't mention
+  # whether or not it supports crawl-delay.
+  User-agent: deepcrawl
+  Disallow: /
+
+sidekiq_host: 'redis-1.backend'
+sidekiq_port: '6379'
+
+ssh::config::allow_users_enable: true
+
+statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+unattended_reboot::cron_env_vars:
+  - 'MAILTO=""'
+unattended_reboot::cron_hour: '0-5'
+unattended_reboot::etcd_endpoints:
+  - "http://etcd.%{hiera('app_domain')}:2379"
+
+unattended_upgrades::blacklist:
+ - 'mysql-server.*'
+unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
+unattended_upgrades::origins:
+ - "%{::lsbdistid} stable"
+ - "%{::lsbdistid} %{::lsbdistcodename}-security"
+
+unicornherder::version: '0.0.8'

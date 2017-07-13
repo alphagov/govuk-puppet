@@ -18,7 +18,11 @@ reports = store,sentry
 report = true
 storeconfigs = true
 storeconfigs_backend = puppetdb
+<%- if scope.lookupvar('::aws_migration') %>
+hiera_config = /usr/share/puppet/production/current/hiera_aws.yml
+<%- else -%>
 hiera_config = /usr/share/puppet/production/current/hiera.yml
+<%- end -%>
 <%- if @use_puppetmaster == true -%>
 environmentpath = /usr/share/puppet/production/current/environments
 <%- end -%>
