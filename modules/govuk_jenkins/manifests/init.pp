@@ -59,6 +59,12 @@ class govuk_jenkins (
 
   include ::govuk_python
 
+  file { "${jenkins_homedir}/workspace":
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+  }
+
   class { 'govuk_jenkins::job_builder':
     jenkins_api_user  => $jenkins_api_user,
     jenkins_api_token => $jenkins_api_token,
