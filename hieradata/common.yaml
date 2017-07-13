@@ -1272,10 +1272,6 @@ hosts::production::management::hosts:
     ip: '10.1.0.3'
     legacy_aliases:
       - "deploy.%{hiera('app_domain')}"
-  deploy-1:
-    ip: '10.1.0.4'
-    legacy_aliases:
-      - "deploy-1.%{hiera('app_domain')}"
   puppetmaster-1:
     ip: '10.1.0.5'
     legacy_aliases:
