@@ -32,11 +32,11 @@ status "Starting PostgreSQL replication from ${SRC_HOSTNAME}"
 if ! $SKIP_DOWNLOAD; then
   mkdir -p $POSTGRESQL_DIR
 
-  status "Downloading latest postgresql backup from ${SRC_HOSTNAME}"
+  status "Downloading latest PostgreSQL backup from ${SRC_HOSTNAME}"
   rsync -P -e "ssh ${SSH_CONFIG:+-F ${SSH_CONFIG}}" ${SSH_USER:+${SSH_USER}@}$POSTGRESQL_SRC $POSTGRESQL_DIR
 fi
 
-status "Importing postgresql backup from ${SRC_HOSTNAME}"
+status "Importing PostgreSQL backup from ${SRC_HOSTNAME}"
 
 if [ ! -d $POSTGRESQL_DIR ]; then
   error "No such directory $POSTGRESQL_DIR"
