@@ -29,8 +29,11 @@ class govuk_rbenv::all (
   rbenv::version { '2.1.8':
     bundler_version => '1.14.5',
   }
+  rbenv::version { '2.1.10':
+    bundler_version => '1.14.5',
+  }
   rbenv::alias { '2.1':
-    to_version => '2.1.8',
+    to_version => '2.1.10',
   }
 
   rbenv::version { '2.2.2':
@@ -42,8 +45,11 @@ class govuk_rbenv::all (
   rbenv::version { '2.2.4':
     bundler_version => '1.14.5',
   }
+  rbenv::version { '2.2.7':
+    bundler_version => '1.14.5',
+  }
   rbenv::alias { '2.2':
-    to_version => '2.2.4',
+    to_version => '2.2.7',
   }
 
   rbenv::version { '2.3.0':
@@ -52,14 +58,20 @@ class govuk_rbenv::all (
   rbenv::version { '2.3.1':
     bundler_version => '1.14.5',
   }
+  rbenv::version { '2.3.4':
+    bundler_version => '1.14.5',
+  }
   rbenv::alias { '2.3':
-    to_version => '2.3.1',
+    to_version => '2.3.4',
   }
 
   rbenv::version { '2.4.0':
     bundler_version => '1.14.5',
   }
+  rbenv::version { '2.4.1':
+    bundler_version => '1.14.5',
+  }
   rbenv::alias { '2.4':
-    to_version => '2.4.0',
+    to_version => '2.4.1',
   }
 }
