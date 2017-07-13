@@ -30,6 +30,10 @@ govuk_jenkins::config:
       --ajp13Port=-1
       --sessionTimeout=1440
 
+# FIXME: During the upgrade this stopped deploys being triggered from CI. When
+# the resolution has been configured remove this.
+govuk_jenkins::config::csrf_version: false
+
 govuk_jenkins::plugins:
   ansicolor:
     version: '0.5.0'

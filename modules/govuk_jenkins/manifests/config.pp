@@ -80,6 +80,14 @@
 #   Jenkins master connects to the Jenkins agent with (when using the JNLP
 #   agent). Default is '0', which enables setting a random port number.
 #
+# [*csrf_version*]
+#   Whether to enable Cross-Site Request Forgery protection. In the later
+#   versions of Jenkins this should be enabled by default.
+#
+# [*markup_formatter_version*]
+#   Related to the markup formatter plugin:
+#   https://wiki.jenkins.io/display/JENKINS/OWASP+Markup+Formatter+Plugin
+#
 class govuk_jenkins::config (
   $url_prefix = 'deploy',
   $app_domain = hiera('app_domain'),
@@ -103,6 +111,8 @@ class govuk_jenkins::config (
   $create_agent_role = false,
   $executors = '4',
   $agent_tcp_port = '0',
+  $csrf_version = true,
+  $markup_formatter_version = '1.5',
 ) {
 
   $url = "${url_prefix}.${app_domain}"
