@@ -1,9 +1,22 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class icinga::client::config {
+# == Class: Icinga::client::config
+#
+# Configure NRPE (an Icinga client) and its various runners.
+#
+# === Parameters
+#
+# [*allowed_hosts*]
+#   A string of comma-separated hostnames, IPs or CIDR blocks which are
+#   allowed to talk to the NRPE daemon.
+#
+#   Default: 'alert.cluster,monitoring'
+#
+class icinga::client::config (
+  $allowed_hosts = 'alert.cluster,monitoring',
+) {
 
   file { '/etc/nagios/nrpe.cfg':
-    source => 'puppet:///modules/icinga/etc/nagios/nrpe.cfg',
-    mode   => '0640',
+    content => template('icinga/etc/nagios/nrpe.cfg.erb'),
+    mode    => '0640',
   }
 
   file { '/usr/local/bin/nrpe-runner':

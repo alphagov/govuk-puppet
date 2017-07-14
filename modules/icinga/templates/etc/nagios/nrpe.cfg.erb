@@ -1,7 +1,8 @@
 ############################################################################
-# Sample NRPE Config File 
+# Sample NRPE Config File
 # Written by: Ethan Galstad (nagios@nagios.org)
-# 
+#
+# Last Modified: 11-23-2007
 #
 # NOTES:
 # This is a sample configuration file for the NRPE daemon.  It needs to be
@@ -43,9 +44,9 @@ server_port=5666
 #server_address=127.0.0.1
 
 # NRPE USER
-# This determines the effective user that the NRPE daemon should run as.  
+# This determines the effective user that the NRPE daemon should run as.
 # You can either supply a username or a UID.
-# 
+#
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
 nrpe_user=nagios
@@ -53,9 +54,9 @@ nrpe_user=nagios
 
 
 # NRPE GROUP
-# This determines the effective group that the NRPE daemon should run as.  
+# This determines the effective group that the NRPE daemon should run as.
 # You can either supply a group name or a GID.
-# 
+#
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
 nrpe_group=nagios
@@ -63,8 +64,10 @@ nrpe_group=nagios
 
 
 # ALLOWED HOST ADDRESSES
-# This is an optional comma-delimited list of IP address or hostnames 
-# that are allowed to talk to the NRPE daemon.
+# This is an optional comma-delimited list of IP address or hostnames
+# that are allowed to talk to the NRPE daemon. Network addresses with a bit mask
+# (i.e. 192.168.1.0/24) are also supported. Hostname wildcards are not currently
+# supported.
 #
 # Note: The daemon only does rudimentary checking of the client's IP
 # address.  I would highly recommend adding entries in your /etc/hosts.allow
@@ -73,15 +76,15 @@ nrpe_group=nagios
 #
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-allowed_hosts=alert.cluster,monitoring
+allowed_hosts=<%= @allowed_hosts %>
 
 # COMMAND ARGUMENT PROCESSING
 # This option determines whether or not the NRPE daemon will allow clients
 # to specify arguments to commands that are executed.  This option only works
 # if the daemon was configured with the --enable-command-args configure script
-# option.  
+# option.
 #
-# *** ENABLING THIS OPTION IS A SECURITY RISK! *** 
+# *** ENABLING THIS OPTION IS A SECURITY RISK! ***
 # Read the SECURITY file for information on some of the security implications
 # of enabling this variable.
 
@@ -91,7 +94,21 @@ allowed_hosts=alert.cluster,monitoring
 
 dont_blame_nrpe=1
 
+# BASH COMMAND SUBTITUTION
+# This option determines whether or not the NRPE daemon will allow clients
+# to specify arguments that contain bash command substitutions of the form
+# $(...).  This option only works if the daemon was configured with both
+# the --enable-command-args and --enable-bash-command-substitution configure
+# script options.
+#
+# *** ENABLING THIS OPTION IS A HIGH SECURITY RISK! ***
+# Read the SECURITY file for information on some of the security implications
+# of enabling this variable.
+#
+# Values: 0=do not allow bash command substitutions,
+#         1=allow bash command substitutions
 
+allow_bash_command_substitution=0
 
 # COMMAND PREFIX
 # This option allows you to prefix all commands with a user-defined string.
@@ -99,9 +116,9 @@ dont_blame_nrpe=1
 # command line from the command definition.
 #
 # *** THIS EXAMPLE MAY POSE A POTENTIAL SECURITY RISK, SO USE WITH CAUTION! ***
-# Usage scenario: 
+# Usage scenario:
 # Execute restricted commmands using sudo.  For this to work, you need to add
-# the nagios user to your /etc/sudoers.  An example entry for alllowing 
+# the nagios user to your /etc/sudoers.  An example entry for alllowing
 # execution of the plugins from might be:
 #
 # nagios          ALL=(ALL) NOPASSWD: /usr/lib/nagios/plugins/
@@ -110,7 +127,7 @@ dont_blame_nrpe=1
 # without asking for a password.  If you do this, make sure you don't give
 # random users write access to that directory or its contents!
 
-# command_prefix=/usr/bin/sudo 
+# command_prefix=/usr/bin/sudo
 
 
 
@@ -200,7 +217,7 @@ command[check_rw_rootfs]=/usr/lib/nagios/plugins/check_rw_rootfs
 command[check_ntp_time]=/usr/lib/nagios/plugins/check_ntp_time -4 -q -H ntp.ubuntu.com -w 2 -c 3
 
 # The following examples allow user-supplied arguments and can
-# only be used if the NRPE daemon was compiled with support for 
+# only be used if the NRPE daemon was compiled with support for
 # command arguments *AND* the dont_blame_nrpe directive in this
 # config file is set to '1'.  This poses a potential security risk, so
 # make sure you read the SECURITY file before doing this.
@@ -216,6 +233,6 @@ command[reload_service]=/usr/lib/nagios/plugins/reload_service $ARG1$
 #       if you'd prefer, you can instead place directives here
 include=/etc/nagios/nrpe_local.cfg
 
-# 
+#
 # you can place your config snipplets into nrpe.d/
 include_dir=/etc/nagios/nrpe.d/
