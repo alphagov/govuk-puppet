@@ -1,0 +1,70 @@
+---
+
+backup::offsite::archive_directory: '/data/backups/.cache/duplicity'
+
+govuk::node::s_backup::directories:
+  backup_mongodb_backups_exception_handler_1:
+    directory: /var/lib/automongodbbackup/
+    fq_dn: exception-handler-1.backend.%{hiera('app_domain')}
+    priority: '003'
+  backup_mongodb_backups_mongo:
+    directory: /var/lib/automongodbbackup/
+    fq_dn: mongo-1.backend.%{hiera('app_domain')}
+    priority: '001'
+  backup_mongodb_backups_api_mongo:
+    directory: /var/lib/automongodbbackup/
+    fq_dn: api-mongo-1.api.%{hiera('app_domain')}
+    priority: '001'
+  backup_mongodb_backups_performance_mongo:
+    directory: /var/lib/automongodbbackup/
+    fq_dn: performance-mongo-1.api.%{hiera('app_domain')}
+    priority: '001'
+  backup_mongodb_backups_router_backend:
+    directory: /var/lib/automongodbbackup/
+    fq_dn: router-backend-1.router.%{hiera('app_domain')}
+    priority: '001'
+  backup_mysql_backups_mysql_backup_1:
+    directory: /var/lib/automysqlbackup/
+    fq_dn: mysql-backup-1.backend.%{hiera('app_domain')}
+    priority: '001'
+  backup_mysql_backups_whitehall_mysql_backup_1:
+    directory: /var/lib/automysqlbackup/
+    fq_dn: whitehall-mysql-backup-1.backend.%{hiera('app_domain')}
+    priority: '001'
+  backup_postgresql_backups_postgresql_primary_1:
+    directory: /var/lib/autopostgresqlbackup/
+    fq_dn: postgresql-primary-1.backend.%{hiera('app_domain')}
+    priority: '001'
+  backup_postgresql_backups_puppetmaster_postgresql:
+    directory: /var/lib/autopostgresqlbackup/
+    fq_dn: puppetmaster-1.management.%{hiera('app_domain')}
+    priority: '003'
+  backup_postgresql_backups_transition_postgresql_master_1:
+    directory: /var/lib/autopostgresqlbackup/
+    fq_dn: transition-postgresql-master-1.backend.%{hiera('app_domain')}
+    priority: '001'
+  backup_graphite_storage_whisper_graphite-1:
+    directory: /opt/graphite/storage/whisper
+    fq_dn: graphite-1.management.%{hiera('app_domain')}
+    priority: '004'
+  processed_cdn_logs:
+    directory: "%{hiera('govuk::apps::govuk_cdn_logs_monitor::processed_data_dir')}"
+    fq_dn: "logs-cdn-1.management.%{hiera('app_domain')}"
+    priority: '003'
+
+icinga::client::checks::disk_time_warn: 750 # milliseconds
+icinga::client::checks::disk_time_critical: 1000 # milliseconds
+
+lv:
+  data:
+    pv:
+      - '/dev/xvdf'
+    vg: 'backups'
+
+mount:
+  /data/backups:
+    disk: '/dev/mapper/backups-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 2
+    percent_threshold_critical: 1
