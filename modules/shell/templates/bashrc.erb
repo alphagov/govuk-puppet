@@ -83,3 +83,8 @@ alias l='ls -CF'
 
 # Use xvfb for DISPLAY, so that some integration tests can run
 export DISPLAY=:99
+
+<%- if scope.lookupvar('::aws_migration') %>
+# Set AWS specific environment settings
+export AWS_DEFAULT_REGION=<%= @aws_region %>
+<%- end -%>
