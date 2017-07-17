@@ -14,8 +14,6 @@ static:                govuk_setenv static                ./run_in.sh ../../stat
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../../licence-finder bundle exec rails server -p 3014
 # migratorator used port 3015
 signon:                govuk_setenv signon                ./run_in.sh ../../signon         bundle exec rails server -p 3016
-# tradetariff used port 3017
-# tradetariffapi used port 3018
 # efg used port 3019
 # reviewomatic used port 3021
 # reviewomaticexplore used port 3023
@@ -42,10 +40,7 @@ asset-manager-worker:  govuk_setenv asset-manager         ./run_in.sh ../../asse
 # transaction_wrappers used port 3041
 govuk-delivery:        govuk_setenv govuk-delivery        ./run_in.sh ../../govuk-delivery ./startup.sh # govuk-delivery uses port 3042
 govuk-delivery-worker: govuk_setenv govuk-delivery        ./run_in.sh ../../govuk-delivery ./venv/bin/celery worker -A service
-# tariff_demo_api uses port 3043 in integration only
 transition:            govuk_setenv transition            ./run_in.sh ../../transition     bundle exec rails server -p 3044
-# tariff_demo uses port 3045 in integration only
-# tariff_admin used port 3046
 calculators:           govuk_setenv calculators           ./run_in.sh ../../calculators    bundle exec rails server -p 3047
 # fact-cave used port 3048
 bouncer:               govuk_setenv bouncer               ./run_in.sh ../../bouncer        bundle exec mr-sparkle --force-polling -- -p 3049
