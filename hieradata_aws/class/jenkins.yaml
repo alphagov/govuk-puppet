@@ -1,4 +1,43 @@
 ---
+jenkins_admin_permission_list: &jenkins_admin_permission_list
+  - 'hudson.model.Hudson.Administer'
+  - 'hudson.model.Hudson.Read'
+  - 'hudson.model.Hudson.RunScripts'
+  - 'hudson.model.Item.Build'
+  - 'hudson.model.Item.Cancel'
+  - 'hudson.model.Item.Configure'
+  - 'hudson.model.Item.Create'
+  - 'hudson.model.Item.Delete'
+  - 'hudson.model.Item.Discover'
+  - 'hudson.model.Item.Read'
+  - 'hudson.model.Item.Workspace'
+  - 'hudson.model.Run.Delete'
+  - 'hudson.model.Run.Update'
+  - 'hudson.model.View.Configure'
+  - 'hudson.model.View.Create'
+  - 'hudson.model.View.Delete'
+  - 'hudson.model.View.Read'
+  - 'hudson.scm.SCM.Tag'
+
+govuk_jenkins::config::manage_permissions_github_teams: true
+govuk_jenkins::config::user_permissions:
+  -
+    user: 'ci_alphagov'
+    permissions: *jenkins_admin_permission_list
+  -
+    user: 'alphagov*GOV.UK'
+    permissions: *jenkins_admin_permission_list
+  -
+    user: 'anonymous'
+    permissions:
+      - 'hudson.model.Hudson.Read'
+      - 'hudson.model.Item.Discover'
+  -
+    user: 'github'
+    permissions:
+      - 'hudson.model.Item.Build'
+      - 'hudson.model.Item.Read'
+
 govuk_jenkins::config::banner_string: 'AWS Deploy'
 
 govuk_jenkins::plugins:
