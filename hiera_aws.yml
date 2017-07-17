@@ -3,6 +3,7 @@
   - 'node/%{::fqdn}'
   - 'class/%{::aws_stackname}/%{::govuk_node_class}'
   - 'class/%{::govuk_node_class}'
+  - 'class/%{::aws_stackname}/%{::environment}_credentials'
   - '%{::environment}_credentials'
   - '%{::environment}'
   - 'common.%{::lsbdistcodename}'
