@@ -57,7 +57,11 @@ case "$TERM" in
   ;;
 esac
 
+<%- if scope.lookupvar('::aws_migration') %>
+PROMPT_EXTRA="ec2-<%= @shell_prompt_string %>-<%= @aws_stackname %>"
+<%- else -%>
 PROMPT_EXTRA="<%= @shell_prompt_string %>"
+<%- end -%>
 
 if [ "$color_prompt" = yes ]; then
   PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${PROMPT_EXTRA}-\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
