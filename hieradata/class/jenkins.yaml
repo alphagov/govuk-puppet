@@ -30,68 +30,172 @@ govuk_jenkins::config:
       --ajp13Port=-1
       --sessionTimeout=1440
 
+# FIXME: During the upgrade this stopped deploys being triggered from CI. When
+# the resolution has been configured remove this.
+govuk_jenkins::config::csrf_version: false
+
 govuk_jenkins::plugins:
+  ace-editor:
+    version: '1.1'
   ansicolor:
-    version: '0.3.1'
+    version: '0.5.0'
+  ant:
+    version: '1.5'
+  antisamy-markup-formatter:
+    version: '1.5'
+  bouncycastle-api:
+    version: '2.16.1'
+  branch-api:
+    version: '2.0.10'
   build-name-setter:
-    version: '1.3'
+    version: '1.6.7'
   build-pipeline-plugin:
-    version: '1.4.5'
+    version: '1.5.7.1'
   build-with-parameters:
-    version: '1.3'
+    version: '1.4'
+  cloudbees-folder:
+    version: '6.0.4'
   conditional-buildstep:
-    version: '1.3.3'
+    version: '1.3.6'
   copyartifact:
-    version: '1.35'
+    version: '1.38.1'
   credentials-binding:
-    version: '1.2'
+    version: '1.12'
+  cvs:
+    version: '2.13'
   description-setter:
-    version: '1.9'
+    version: '1.10'
+  display-url-api:
+    version: '2.0'
   downstream-buildview:
     version: '1.9'
-  envinject:
-    version: '1.91.1'
-  external-monitor-job:
-    version: '1.2'
-  git:
-    version: '2.2.6'
-  git-client:
-    version: '1.10.2'
-  github-api:
-    version: '1.58'
-  github-oauth:
-    version: '0.19'
-  greenballs:
+  durable-task:
     version: '1.14'
+  envinject-api:
+    version: '1.2'
+  envinject:
+    version: '2.1.3'
+  external-monitor-job:
+    version: '1.7'
+  git-client:
+    version: '2.4.6'
+  git:
+    version: '3.3.2'
+  github-api:
+    version: '1.86'
+  github-branch-source:
+    version: '2.0.8'
+  github:
+    version: '1.27.0'
+  github-oauth:
+    version: '0.27'
+  google-oauth-plugin:
+    version: '0.5'
+  gradle:
+    version: '1.27.1'
+  greenballs:
+    version: '1.15'
+  groovy-postbuild:
+    version: '2.3.1'
+  icon-shim:
+    version: '2.0.3'
+  instant-messaging:
+    version: '1.35'
+  ircbot:
+    version: '2.27'
+  jackson2-api:
+    version: '2.7.3'
+  javadoc:
+    version: '1.4'
+  jquery-detached:
+    version: '1.2.1'
   jquery:
-    version: '1.7.2-1'
+    version: '1.11.2-0'
+  junit:
+    version: '1.20'
+  ldap:
+    version: '1.16'
+  mailer:
+    version: '1.20'
+  mapdb-api:
+    version: '1.0.9.0'
+  matrix-auth:
+    version: '1.7'
+  matrix-project:
+    version: '1.11'
+  maven-plugin:
+    version: '2.17'
+  nodelabelparameter:
+    version: '1.7.2'
+  oauth-credentials:
+    version: '0.3'
+  pam-auth:
+    version: '1.3'
   parameterized-scheduler:
-    version: '0.2'
+    version: '0.4'
   parameterized-trigger:
-    version: '2.26'
+    version: '2.35.1'
   plain-credentials:
-    version: '1.0'
+    version: '1.4'
+  rake:
+    version: '1.8.0'
   rebuild:
-    version: '1.22'
+    version: '1.25'
+  resource-disposer:
+    version: '0.6'
   role-strategy:
-    version: '2.2.0'
+    version: '2.5.1'
   run-condition:
+    version: '1.0'
+  sbt:
+    version: '1.5'
+  scm-api:
+    version: '2.1.1'
+  scm-sync-configuration:
+    version: '0.0.10'
+  script-security:
+    version: '1.29.1'
+  show-build-parameters:
     version: '1.0'
   simple-theme-plugin:
     version: '0.3'
-  scm-api:
-    version: '0.2'
-  show-build-parameters:
-    version: '1.0'
   slack:
     version: '1.7'
+  ssh-credentials:
+    version: '1.13'
+  ssh-slaves:
+    version: '1.20'
+  structs:
+    version: '1.9'
+  subversion:
+    version: '2.9'
   text-finder:
     version: '1.10'
   timestamper:
-    version: '1.8.2'
+    version: '1.8.8'
   token-macro:
-    version: '1.9'
+    version: '2.1'
+  translation:
+    version: '1.15'
   versionnumber:
-    version: '1.5'
+    version: '1.8.1'
+  windows-slaves:
+    version: '1.3.1'
+  workflow-api:
+    version: '2.18'
+  workflow-cps:
+    version: '2.36.1'
+  workflow-durable-task-step:
+    version: '2.12'
+  workflow-job:
+    version: '2.11.1'
+  workflow-multibranch:
+    version: '2.16'
+  workflow-scm-step:
+    version: '2.5'
+  workflow-step-api:
+    version: '2.12'
+  workflow-support:
+    version: '2.14'
   ws-cleanup:
-    version: '0.25'
+    version: '0.33'

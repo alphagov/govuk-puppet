@@ -23,13 +23,8 @@
     <roleMap type="globalRoles">
       <role name="Anonymouse" pattern=".*">
         <permissions>
-          <%- if @jenkins_2 -%>
           <permission>hudson.model.Item.Discover</permission>
           <permission>hudson.model.Hudson.Read</permission>
-          <%- else -%>
-          <permission>hudson.model.Hudson.Read</permission>
-          <permission>hudson.model.Item.Discover</permission>
-          <%- end -%>
         </permissions>
         <assignedSIDs>
           <sid>anonymous</sid>
@@ -37,7 +32,6 @@
       </role>
       <role name="admin" pattern=".*">
         <permissions>
-          <%- if @jenkins_2 -%>
           <permission>hudson.scm.SCM.Tag</permission>
           <permission>hudson.model.View.Delete</permission>
           <permission>hudson.model.Item.Read</permission>
@@ -56,30 +50,10 @@
           <permission>hudson.model.Item.Delete</permission>
           <permission>hudson.model.Run.Update</permission>
           <permission>hudson.model.View.Configure</permission>
-          <%- else -%>
-          <permission>hudson.model.Hudson.Administer</permission>
-          <permission>hudson.model.Hudson.Read</permission>
-          <permission>hudson.model.Hudson.RunScripts</permission>
-          <permission>hudson.model.Item.Build</permission>
-          <permission>hudson.model.Item.Cancel</permission>
-          <permission>hudson.model.Item.Configure</permission>
-          <permission>hudson.model.Item.Create</permission>
-          <permission>hudson.model.Item.Delete</permission>
-          <permission>hudson.model.Item.Discover</permission>
-          <permission>hudson.model.Item.Read</permission>
-          <permission>hudson.model.Item.Workspace</permission>
-          <permission>hudson.model.Run.Delete</permission>
-          <permission>hudson.model.Run.Update</permission>
-          <permission>hudson.model.View.Configure</permission>
-          <permission>hudson.model.View.Create</permission>
-          <permission>hudson.model.View.Delete</permission>
-          <permission>hudson.model.View.Read</permission>
-          <permission>hudson.scm.SCM.Tag</permission>
-          <%- end -%>
         </permissions>
         <assignedSIDs>
           <%- @admins.each do |a| -%>
-          <%- if not @jenkins_2 -%>!<%- end -%><sid><%= a %></sid>
+          <sid><%= a %></sid>
           <%- end -%>
         </assignedSIDs>
       </role>
@@ -116,9 +90,7 @@
     <githubApiUri><%= @github_api_uri -%></githubApiUri>
     <clientID><%= @github_client_id -%></clientID>
     <clientSecret><%= @github_client_secret -%></clientSecret>
-    <%- if @jenkins_2 -%>
     <oauthScopes>read:org,user:email</oauthScopes>
-    <%- end -%>
   </securityRealm>
   <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$PatternProjectNamingStrategy">
@@ -136,9 +108,6 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds/>
-  <%- if not @jenkins_2 -%>
-  <slaves/>
-  <%- end -%>
   <quietPeriod>5</quietPeriod>
   <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
   <views>

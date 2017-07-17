@@ -80,6 +80,14 @@
 #   Jenkins master connects to the Jenkins agent with (when using the JNLP
 #   agent). Default is '0', which enables setting a random port number.
 #
+# [*csrf_version*]
+#   Whether to enable Cross-Site Request Forgery protection. In the later
+#   versions of Jenkins this should be enabled by default.
+#
+# [*markup_formatter_version*]
+#   Related to the markup formatter plugin:
+#   https://wiki.jenkins.io/display/JENKINS/OWASP+Markup+Formatter+Plugin
+#
 class govuk_jenkins::config (
   $url_prefix = 'deploy',
   $app_domain = hiera('app_domain'),
@@ -103,6 +111,8 @@ class govuk_jenkins::config (
   $create_agent_role = false,
   $executors = '4',
   $agent_tcp_port = '0',
+  $csrf_version = true,
+  $markup_formatter_version = '1.5',
 ) {
 
   $url = "${url_prefix}.${app_domain}"
@@ -118,15 +128,8 @@ class govuk_jenkins::config (
       group  => 'jenkins',
     }
 
-    # FIXME: Remove once all Jenkinses are upgraded to at least 2.0.0
-    if versioncmp($version, '2.0.0') == 1 {
-      File {
-        notify => Class['Govuk_jenkins::Reload'],
-      }
-    } else {
-      File {
-        notify => Service['jenkins'],
-      }
+    File {
+      notify => Class['Govuk_jenkins::Reload'],
     }
 
     file {'/var/lib/jenkins/com.cloudbees.jenkins.GitHubPushTrigger.xml':
@@ -212,15 +215,6 @@ class govuk_jenkins::config (
     file { '/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml':
       ensure  => present,
       content => template('govuk_jenkins/config/jenkins.model.JenkinsLocationConfiguration.xml.erb'),
-    }
-
-    # FIXME: Remove once all Jenkinses are upgraded to at least 2.0.0
-    if versioncmp($version, '2.0.0') == 1 {
-      $csrf_version = true
-      $jenkins_2 = true
-      $markup_formatter_version = '1.5'
-    } else {
-      $markup_formatter_version = '1.3'
     }
 
     file { '/var/lib/jenkins/config.xml':

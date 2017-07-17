@@ -74,8 +74,6 @@ govuk_jenkins::config::views:
 govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
-govuk_jenkins::version: '2.46.2'
-
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::integration_deploy
 
