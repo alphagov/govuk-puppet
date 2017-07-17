@@ -29,11 +29,11 @@
 # === Examples
 #
 #    guix {
-#      version  => '0.12.0',
+#      version  => '0.13.0',
 #    }
 #
 class guix (
-  $version        = '0.12.0',
+  $version        = '0.13.0',
   $base_url       = 'ftp://alpha.gnu.org/gnu/guix',
   $install_cwd    = '/tmp',
   $download_file  = 'guix-binary.tar.xz',
