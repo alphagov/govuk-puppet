@@ -132,18 +132,20 @@ class guix (
     system  => 'yes',
   }
 
-  exec { 'cp /root/.guix-profile/lib/upstart/system/guix-daemon.conf /etc/init/guix-daemon.conf':
-    alias   => 'guix-daemon.conf',
-    require => File['/root/.guix-profile'],
-    creates => '/etc/init/guix-daemon.conf',
-    user    => root,
+  file { '/etc/init/guix-daemon.conf':
+    ensure  => file,
+    owner   => root,
+    source  => 'puppet:///modules/guix/etc/init/guix-daemon.conf',
+    require => [
+      Exec['create /var/guix'],
+    ],
   }
 
   service { 'guix-daemon':
     ensure   => running,
     provider => 'upstart',
     require  => [
-      Exec['guix-daemon.conf'],
+      File['/etc/init/guix-daemon.conf'],
     ],
   }
 }
