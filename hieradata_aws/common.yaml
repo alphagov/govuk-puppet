@@ -2,7 +2,7 @@
 HIERA_SAFETY_CHECK: true
 
 stackname: "%{::aws_stackname}"
-app_domain: "%{::aws_stackname}.internal"
+app_domain: "%{::aws_stackname}.govuk.internal"
 
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
