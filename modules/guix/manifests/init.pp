@@ -34,7 +34,7 @@
 #
 class guix (
   $version        = '0.13.0',
-  $base_url       = 'ftp://alpha.gnu.org/gnu/guix',
+  $base_url       = 'https://alpha.gnu.org/gnu/guix/',
   $install_cwd    = '/tmp',
   $download_file  = 'guix-binary.tar.xz',
   $extract_dir    = 'guix-binary-unpack',
