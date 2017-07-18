@@ -744,8 +744,8 @@ govuk_jenkins::github_enterprise_cert::certificate: |
     -----END CERTIFICATE-----
 govuk_jenkins::github_enterprise_cert::certificate_path: "/var/lib/jenkins/github.digital.cabinet-office.gov.uk.pem"
 govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: "github.digital.cabinet-office.gov.uk"
-govuk_jenkins::config::github_api_uri: "%{hiera('govuk_jenkins::config::github_web_uri')}/api/v3"
-govuk_jenkins::config::github_web_uri: "https://%{hiera('govuk_jenkins::github_enterprise_cert::github_enterprise_hostname')}"
+govuk_jenkins::config::github_api_uri: "https://api.github.com"
+govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
 
 govuk_jenkins::job::search_benchmark::auth_username: "%{hiera('http_username')}"
