@@ -10,6 +10,11 @@
 # String, default ''ftp://alpha.gnu.org/gnu/guix'. Set the base URL to use
 # for download URL.
 #
+# [*key_id*]
+# String, default ''3CE464558A84FDC69DB40CFB090B11993D9AEBB5''. Key to
+# fetch, in preparation for the verification of the downloaded
+# tarball.
+#
 # [*install_cwd*]
 # String, default '/tmp'. Directory where you would like to download and
 # extract the Guix binary installation.
@@ -35,6 +40,7 @@
 class guix (
   $version        = '0.13.0',
   $base_url       = 'https://alpha.gnu.org/gnu/guix/',
+  $key_id         = '3CE464558A84FDC69DB40CFB090B11993D9AEBB5',
   $install_cwd    = '/tmp',
   $download_file  = 'guix-binary.tar.xz',
   $extract_dir    = 'guix-binary-unpack',
@@ -53,9 +59,20 @@ class guix (
     creates => "${install_cwd}/${download_file}",
   }
 
+  exec { "curl -sL -o ${install_cwd}/${download_file}.sig ${url}.sig":
+    alias   => 'download-guix-signature',
+    cwd     => $install_cwd,
+    creates => "${install_cwd}/${download_file}.sig",
+  }
+
   file { $unpacked_tarball_path:
     ensure => directory,
     alias  => 'unpacked_tarball_path',
+  }
+
+  exec { "gpg --keyserver pool.sks-keyservers.net --recv-keys ${key_id}":
+    alias  => 'fetch-public-key',
+    unless => "gpg -k ${key_id}",
   }
 
   exec { 'guix archive --authorize < /var/guix/profiles/per-user/root/guix-profile/share/guix/hydra.gnu.org.pub':
@@ -69,8 +86,11 @@ class guix (
     alias   => 'extract-guix-tarball',
     require => [
       Exec['download-guix'],
+      Exec['download-guix-signature'],
+      Exec['fetch-public-key'],
       File['unpacked_tarball_path'],
     ],
+    onlyif  => "gpg --verify ${download_file}.sig",
     cwd     => $install_cwd,
     creates => [
       "${unpacked_tarball_path}/gnu",
