@@ -23,6 +23,14 @@
 #   An array of MongoDB instance hostnames
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
+# [*aws_s3_bucket_name*]
+#   The name of the AWS S3 bucket to use for storing/serving assets
+# [*aws_region*]
+#   AWS region of the S3 bucket
+# [*aws_access_key_id*]
+#   AWS access key for a user with permission to write to the S3 bucket
+# [*aws_secret_access_key*]
+#   AWS secret key for a user with permission to write to the S3 bucket
 #
 class govuk::apps::asset_manager(
   $enabled = true,
@@ -34,6 +42,10 @@ class govuk::apps::asset_manager(
   $secret_key_base = undef,
   $mongodb_nodes,
   $mongodb_name = 'govuk_assets_production',
+  $aws_s3_bucket_name = undef,
+  $aws_region = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
 ) {
 
   $app_name = 'asset-manager'
@@ -106,6 +118,21 @@ class govuk::apps::asset_manager(
 
     govuk::delayed_job::worker { 'asset-manager':
       enable_service => $enable_delayed_job_worker,
+    }
+
+    govuk::app::envvar {
+      "${title}-AWS_S3_BUCKET":
+        varname => 'AWS_S3_BUCKET_NAME',
+        value   => $aws_s3_bucket_name;
+      "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
+      "${title}-AWS_ACCESS_KEY":
+        varname => 'AWS_ACCESS_KEY',
+        value   => $aws_access_key_id;
+      "${title}-AWS_SECRET_KEY":
+        varname => 'AWS_SECRET_KEY',
+        value   => $aws_secret_access_key;
     }
   }
 }
