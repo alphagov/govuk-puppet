@@ -82,7 +82,7 @@ class guix (
     subscribe => File['/usr/local/bin/guix'],
   }
 
-  exec { "tar xf ${install_cwd}/${download_file} -C ${install_cwd}/${extract_dir}":
+  exec { "tar xf ${install_cwd}/${download_file} -C ${unpacked_tarball_path}":
     alias   => 'extract-guix-tarball',
     require => [
       Exec['download-guix'],
