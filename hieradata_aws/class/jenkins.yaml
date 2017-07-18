@@ -1,6 +1,14 @@
 ---
 govuk_jenkins::config::banner_string: 'AWS Deploy'
 
+---
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_puppet
+  - govuk_jenkins::job::passive_checks
+  - govuk_jenkins::job::smokey
+  - govuk_jenkins::job::smokey_deploy
+
 govuk_jenkins::plugins:
   ansicolor:
     version: '0.3.1'
