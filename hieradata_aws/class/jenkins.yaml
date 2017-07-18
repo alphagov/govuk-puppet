@@ -40,7 +40,6 @@ govuk_jenkins::config::user_permissions:
 
 govuk_jenkins::config::banner_string: 'AWS Deploy'
 
----
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_app
   - govuk_jenkins::job::deploy_puppet
