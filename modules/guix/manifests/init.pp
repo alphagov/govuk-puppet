@@ -74,9 +74,12 @@ class guix (
 
   exec { 'guix archive --authorize < /var/guix/profiles/per-user/root/guix-profile/share/guix/hydra.gnu.org.pub':
     alias     => 'authorize-gnu-hydra',
-    require   => File['/root/.guix-profile'],
+    require   => [
+      Exec['create /var/guix'],
+      File['/usr/local/bin/guix'],
+    ],
     user      => root,
-    subscribe => File['/usr/local/bin/guix'],
+    creates   => '/etc/guix/acl',
   }
 
   exec { "mkdir -p ${unpacked_tarball_path} && tar xf ${install_cwd}/${download_file} -C ${unpacked_tarball_path}":
