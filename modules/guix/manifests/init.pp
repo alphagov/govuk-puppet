@@ -65,11 +65,6 @@ class guix (
     creates => "${install_cwd}/${download_file}.sig",
   }
 
-  file { $unpacked_tarball_path:
-    ensure => directory,
-    alias  => 'unpacked_tarball_path',
-  }
-
   exec { "gpg --keyserver pool.sks-keyservers.net --recv-keys ${key_id}":
     alias  => 'fetch-public-key',
     unless => "gpg -k ${key_id}",
@@ -82,13 +77,12 @@ class guix (
     subscribe => File['/usr/local/bin/guix'],
   }
 
-  exec { "tar xf ${install_cwd}/${download_file} -C ${unpacked_tarball_path}":
+  exec { "mkdir -p ${unpacked_tarball_path} && tar xf ${install_cwd}/${download_file} -C ${unpacked_tarball_path}":
     alias   => 'extract-guix-tarball',
     require => [
       Exec['download-guix'],
       Exec['download-guix-signature'],
       Exec['fetch-public-key'],
-      File['unpacked_tarball_path'],
     ],
     onlyif  => "gpg --verify ${download_file}.sig",
     cwd     => $install_cwd,
