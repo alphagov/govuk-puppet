@@ -70,6 +70,9 @@ govuk_jenkins::config::theme_environment_name: 'Integration'
 
 govuk_jenkins::job_builder::environment: 'integration'
 
+govuk_jenkins::job::integration_deploy::jenkins_integration_api_user: "%{hiera('govuk::node::s_jenkins::jenkins_api_user')}"
+govuk_jenkins::job::integration_deploy::jenkins_integration_api_password: "%{hiera('govuk::node::s_jenkins::jenkins_api_token')}"
+
 govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
 govuk_jenkins::job::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '30 11 * * 2'
 govuk_jenkins::job::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 11 * * *'
