@@ -206,7 +206,7 @@ def buildProject(Map options = [:]) {
         } else {
           testBranch = env.PUBLISHING_E2E_TESTS_BRANCH
         }
-        runPublishingE2ETests(appCommitishName, testBranch)
+        runPublishingE2ETests(appCommitishName, testBranch, repoName)
       }
     }
 
@@ -768,7 +768,7 @@ def setBuildStatus(repoName, commit, message, state) {
   ]);
 }
 
-def runPublishingE2ETests(appCommitishName, testBranch) {
+def runPublishingE2ETests(appCommitishName, testBranch, repo) {
   build(
     job: "publishing-e2e-tests/${testBranch}",
     parameters: [
@@ -777,7 +777,7 @@ def runPublishingE2ETests(appCommitishName, testBranch) {
         value: env.FULL_COMMIT_HASH],
       [$class: "StringParameterValue",
         name: "ORIGIN_REPO",
-        value: repoName],
+        value: repo],
       [$class: "StringParameterValue",
         name: "ORIGIN_COMMIT",
         value: env.FULL_COMMIT_HASH]
