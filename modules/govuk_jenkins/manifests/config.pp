@@ -105,7 +105,7 @@ class govuk_jenkins::config (
   $github_client_secret,
   $admins = [],
   $user_permissions = [],
-  $manage_permissions_github_teams = false,
+  $manage_permissions_github_teams = true,
   $manage_config = true,
   $version = $govuk_jenkins::version,
   $create_agent_role = false,

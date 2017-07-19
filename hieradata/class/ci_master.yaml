@@ -20,16 +20,12 @@ jenkins_admin_permission_list: &jenkins_admin_permission_list
   - 'hudson.model.View.Read'
   - 'hudson.scm.SCM.Tag'
 
-govuk_jenkins::config::manage_permissions_github_teams: true
 govuk_jenkins::config::user_permissions:
   -
     user: 'ci_alphagov'
     permissions: *jenkins_admin_permission_list
   -
-    user: 'gds*GOV.UK non-security-cleared-devs'
-    permissions: *jenkins_admin_permission_list
-  -
-    user: 'gds*GOV.UK security-cleared staff'
+    user: 'alphagov*GOV.UK'
     permissions: *jenkins_admin_permission_list
   -
     user: 'anonymous'
