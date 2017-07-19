@@ -57,12 +57,14 @@ class guix (
     alias   => 'download-guix',
     cwd     => $install_cwd,
     creates => "${install_cwd}/${download_file}",
+    unless  => 'test -d /gnu/store',
   }
 
   exec { "curl -sL -o ${install_cwd}/${download_file}.sig ${url}.sig":
     alias   => 'download-guix-signature',
     cwd     => $install_cwd,
     creates => "${install_cwd}/${download_file}.sig",
+    unless  => 'test -d /gnu/store',
   }
 
   exec { "gpg --keyserver pool.sks-keyservers.net --recv-keys ${key_id}":
@@ -90,6 +92,7 @@ class guix (
       "${unpacked_tarball_path}/gnu",
       "${unpacked_tarball_path}/var/guix",
     ],
+    unless  => 'test -d /gnu',
   }
 
   exec { 'mv var/guix /var/':
