@@ -34,13 +34,17 @@
 class govuk_jenkins::job_builder (
   $app_domain = hiera('app_domain'),
   $environment = 'development',
-  $jenkins_api_user = 'deploy',
+  $jenkins_api_user = 'jenkins_api_user',
   $jenkins_api_token = '',
   $jenkins_url = 'http://localhost:8080/',
   $jobs = [],
 ) {
 
   validate_array($jobs)
+
+  if $::aws_migration {
+    govuk_jenkins::api_user { 'jenkins_api_user': }
+  }
 
   package { 'jenkins-job-builder':
     ensure   => '1.6.1',

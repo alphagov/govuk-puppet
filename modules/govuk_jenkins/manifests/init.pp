@@ -98,10 +98,6 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
-  if $::aws_migration {
-    govuk_jenkins::api_user { 'jenkins_api_user': }
-  }
-
   include ::govuk_jenkins::github_enterprise_cert
   include ::govuk_jenkins::reload
 
