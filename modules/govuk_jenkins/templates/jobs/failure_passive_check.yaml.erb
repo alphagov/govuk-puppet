@@ -8,7 +8,6 @@
     builders:
       - shell: |
           IPADDRESS=$(facter ipaddress)
-          NSCA_CODE=2
           printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
     wrappers:
         - ansicolor:
@@ -20,3 +19,11 @@
         - string:
             name: NSCA_OUTPUT
             description: 'Description for the condition of the failure'
+        - choice:
+            name: NSCA_CODE
+            description: 'Type of alert to trigger. 1=warning, 2=critical, 3=unknown.'
+            # Choices are listed out of order so that 2 (critical) is the default
+            choices:
+                - '2'
+                - '1'
+                - '3'
