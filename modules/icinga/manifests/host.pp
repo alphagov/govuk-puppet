@@ -45,6 +45,11 @@ define icinga::host (
   $contact_groups = 'high-priority',
 ) {
 
+  if $::aws_migration {
+    # If it's in AWS, display the Puppet role and the IP address of the instance.
+    $display_name = "${::aws_migration} (${::ipaddress})"
+  }
+
   file {"/etc/icinga/conf.d/icinga_host_${title}":
     ensure  => directory,
     purge   => true,
