@@ -22,7 +22,7 @@ jenkins_admin_permission_list: &jenkins_admin_permission_list
 govuk_jenkins::config::manage_permissions_github_teams: true
 govuk_jenkins::config::user_permissions:
   -
-    user: 'ci_alphagov'
+    user: 'jenkins_api_user'
     permissions: *jenkins_admin_permission_list
   -
     user: 'alphagov*GOV.UK'
