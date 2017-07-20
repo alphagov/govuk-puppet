@@ -18,6 +18,14 @@
 #   non-whitelisted manual slugs.
 #   Default: false
 #
+# [*oauth_id*]
+#   Sets the OAuth ID for using GDS-SSO
+#   Default: undef
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key for using GDS-SSO
+#   Default: undef
+#
 # [*publish_topics*]
 #   Feature flag to allow publishing of manual topics to the Publishing
 #   API and Rummager.
@@ -31,6 +39,8 @@ class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
   $allow_unknown_hmrc_manual_slugs = false,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $publish_topics = true,
   $publishing_api_bearer_token = undef,
 ) {
@@ -55,9 +65,16 @@ class govuk::apps::hmrc_manuals_api(
     }
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
   }
 
   govuk::app { 'hmrc-manuals-api':
