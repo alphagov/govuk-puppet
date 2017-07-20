@@ -285,6 +285,9 @@ govuk::apps::government-frontend::nagios_memory_critical: 1000
 
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
+govuk::apps::hmrc_manuals_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::hmrc_manuals_api::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
