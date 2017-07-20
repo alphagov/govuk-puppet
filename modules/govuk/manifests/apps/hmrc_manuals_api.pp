@@ -39,6 +39,13 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: undef
+#
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
@@ -48,6 +55,8 @@ class govuk::apps::hmrc_manuals_api(
   $oauth_secret = undef,
   $publish_topics = true,
   $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
 
   Govuk::App::Envvar {
@@ -68,6 +77,11 @@ class govuk::apps::hmrc_manuals_api(
         varname => 'PUBLISH_TOPICS',
         value   => '1';
     }
+  }
+
+  govuk::app::envvar::redis { 'hmrc-manuals-api':
+    host => $redis_host,
+    port => $redis_port,
   }
 
   govuk::app::envvar {
