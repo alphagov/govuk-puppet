@@ -18,6 +18,10 @@
 #   non-whitelisted manual slugs.
 #   Default: false
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#   Default: undef
+#
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
 #   Default: undef
@@ -38,6 +42,7 @@
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
+  $errbit_api_key = undef,
   $allow_unknown_hmrc_manual_slugs = false,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -66,6 +71,9 @@ class govuk::apps::hmrc_manuals_api(
   }
 
   govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
