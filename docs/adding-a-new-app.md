@@ -38,7 +38,7 @@ if $secret_key_base != undef {
 ```
 
 The `secret_key_base` is used to encrypt user sessions. If it's not defined the application will not start. The value of
-`secret_key_base` should be encrypted in the `deployment` repo.
+`secret_key_base` should be encrypted in the `govuk-secrets` repo.
 
 Additional arguments can be specified to configure basic auth, monitoring checks and logging.
 These are defined and explained in `modules/govuk/manifests/app.pp`.
@@ -110,7 +110,7 @@ class govuk::node::s_postgresql_base inherits govuk::node::s_base {
 }
 ```
 
-Add a value for `db_password` in each of the credential files in the `deployment` repo.
+Add a value for `db_password` in each of the credential files in the `govuk-secrets` repo.
 This entry should be encrypted.
 
 Add a values for `db::password` and `db_password` in `hieradata/vagrant_credentials.yaml`.

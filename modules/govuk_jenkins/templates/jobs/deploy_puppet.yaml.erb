@@ -3,7 +3,7 @@
     name: deployment_Deploy_Puppet
     scm:
         - git:
-            url: git@github.digital.cabinet-office.gov.uk:gds/deployment.git
+            url: git@github.com:alphagov/govuk-secrets.git
             per-build-tag: false
             refspec: +refs/heads/master:refs/remotes/origin/master
             shallow-clone: true
@@ -31,7 +31,7 @@
     <%- end -%>
     properties:
         - github:
-            url: https://github.digital.cabinet-office.gov.uk/gds/deployment/
+            url: https://github.com/alphagov/govuk-secrets/
         - slack:
             notify-start: true
             notify-success: true
