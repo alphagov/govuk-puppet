@@ -51,6 +51,8 @@ FORGE
     puppetlabs-java (1.6.0)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
     puppetlabs-java_ks (1.2.5)
+    puppetlabs-lvm (0.9.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.1.0)
     puppetlabs-mysql (2.2.3)
       puppetlabs-stdlib (>= 3.2.0)
     puppetlabs-postgresql (4.8.0)
@@ -135,13 +137,6 @@ GIT
   sha: 3bc1bb147c1e8822eaa90caad637034258b5b258
   specs:
     alphagov-puppet-reporter-sentry (0.0.1)
-
-GIT
-  remote: git://github.com/alphagov/puppetlabs-lvm.git
-  ref: master
-  sha: 2082a276093c96e67a676f0c6076c0841f918a17
-  specs:
-    puppetlabs-lvm (0.1.2)
 
 GIT
   remote: git://github.com/electrical/puppet-logstash.git
