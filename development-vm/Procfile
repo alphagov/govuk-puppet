@@ -8,6 +8,7 @@ frontend:              govuk_setenv frontend              ./run_in.sh ../../fron
 rummager:              govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
 rummager-sidekiq:      govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec sidekiq -C ./config/sidekiq.yml
 rummager-publishing-listener: govuk_setenv rummager       ./run_in.sh ../../rummager       bundle exec rake message_queue:listen_to_publishing_queue
+rummager-govuk-index-listener: govuk_setenv rummager      ./run_in.sh ../../rummager       bundle exec rake message_queue:insert_data_into_govuk
 smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../../smart-answers  bundle exec rails server -p 3010
 calendars:             govuk_setenv calendars             ./run_in.sh ../../calendars      bundle exec rails server -p 3011
 static:                govuk_setenv static                ./run_in.sh ../../static         bundle exec rails server -p 3013

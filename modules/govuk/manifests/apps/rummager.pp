@@ -17,6 +17,10 @@
 #   Whether to enable the procfile worker service.
 #   Default: true
 #
+# [*enable_govuk_index_listener*]
+#   Whether to enable the procfile worker service for the govuk index.
+#   Default: false
+#
 # [*enable_publishing_listener*]
 #   Whether to enable the procfile indexing service.
 #   Default: false
@@ -35,7 +39,7 @@
 #
 # [*rabbitmq_user*]
 #   RabbitMQ username.
-#   Default: rummager
+#   This is a required parameter
 #
 # [*rabbitmq_password*]
 #   RabbitMQ password.
@@ -56,13 +60,14 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::rummager(
+  $rabbitmq_user,
   $port = '3009',
   $enable_procfile_worker = true,
+  $enable_govuk_index_listener = false,
   $enable_publishing_listener = false,
   $errbit_api_key = undef,
   $publishing_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
-  $rabbitmq_user = 'rummager',
   $rabbitmq_password = 'rummager',
   $redis_host = undef,
   $redis_port = undef,
@@ -117,11 +122,23 @@ class govuk::apps::rummager(
     default => absent,
   }
 
+  $toggled_govuk_index_listener = $enable_govuk_index_listener ? {
+    true    => present,
+    default => absent,
+  }
+
   govuk::procfile::worker { 'rummager-publishing-queue-listener':
     ensure         => $toggled_ensure,
     setenv_as      => 'rummager',
     enable_service => $enable_publishing_listener,
     process_type   => 'publishing-queue-listener',
+  }
+
+  govuk::procfile::worker { 'rummager-govuk-index-queue-listener':
+    ensure         => $toggled_govuk_index_listener,
+    setenv_as      => 'rummager',
+    enable_service => $enable_govuk_index_listener,
+    process_type   => 'govuk-index-queue-listener',
   }
 
   Govuk::App::Envvar {
