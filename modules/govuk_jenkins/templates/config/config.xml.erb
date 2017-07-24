@@ -167,6 +167,10 @@
           <string><%= name -%></string>
           <string><%= value -%></string>
           <%- end -%>
+          <%- if @aws_migration -%>
+          <string>STACKNAME</string>
+          <string><%- @aws_stackname -%></string>
+          <%- end -%>
         </tree-map>
       </envVars>
     </hudson.slaves.EnvironmentVariablesNodeProperty>
