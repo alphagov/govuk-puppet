@@ -41,11 +41,13 @@ define govuk_jenkins::api_user(
     recurse => true,
     purge   => true,
     force   => true,
+    require => File[$users_dir],
   }
 
   file { "${users_dir}/${title}/config.xml":
     ensure  => $ensure,
     content => template('govuk_jenkins/api_user.xml.erb'),
     replace => false,
+    require => File["${users_dir}/${title}"],
   }
 }
