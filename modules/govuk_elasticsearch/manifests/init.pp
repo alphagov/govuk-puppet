@@ -152,7 +152,9 @@ class govuk_elasticsearch (
     }
   }
 
-  govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
+  if ! $::aws_migration {
+    govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
+  }
 
   include govuk_elasticsearch::estools
   include govuk_elasticsearch::plugins
