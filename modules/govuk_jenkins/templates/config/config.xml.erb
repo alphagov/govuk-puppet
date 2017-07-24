@@ -162,14 +162,18 @@
           <default>
             <comparator class="hudson.util.CaseInsensitiveComparator"/>
           </default>
+          <%- if @aws_migration -%>
+          <int><%= @environment_variables.length + 1 -%></int>
+          <%- else -%>
           <int><%= @environment_variables.length -%></int>
+          <%- end -%>
           <%- @environment_variables.each do |name, value| -%>
           <string><%= name -%></string>
           <string><%= value -%></string>
           <%- end -%>
           <%- if @aws_migration -%>
           <string>STACKNAME</string>
-          <string><%- @aws_stackname -%></string>
+          <string><%= @aws_stackname -%></string>
           <%- end -%>
         </tree-map>
       </envVars>
