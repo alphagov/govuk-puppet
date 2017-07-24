@@ -73,6 +73,7 @@ class govuk::apps::content_performance_manager(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $errbit_api_key = undef,
 ) {
   $app_name = 'content-performance-manager'
 
@@ -110,6 +111,10 @@ class govuk::apps::content_performance_manager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      app     => $app_name,
+      value   => $errbit_api_key;
   }
 
   govuk::app::envvar::redis { $app_name:
