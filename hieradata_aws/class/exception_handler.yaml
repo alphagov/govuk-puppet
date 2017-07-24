@@ -1,0 +1,28 @@
+---
+
+govuk::node::s_base::apps:
+  - errbit
+
+lv:
+  mongodb:
+    pv:
+      - '/dev/xvdg'
+    vg: 'backup'
+  data:
+    pv: '/dev/xvdf'
+    vg: 'mongodb'
+
+mount:
+  /var/lib/mongodb:
+    disk: '/dev/mapper/mongodb-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/automongodbbackup:
+    disk: '/dev/mapper/backup-mongodb'
+    govuk_lvm: 'mongodb'
+    mountoptions: 'defaults'
+
+mongodb::firewall::enable_firewall_rules: false
+
+mongodb::server::replicaset_members:
+  'localhost':
