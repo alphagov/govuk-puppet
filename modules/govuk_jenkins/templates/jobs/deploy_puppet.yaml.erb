@@ -45,8 +45,12 @@
     scm:
       - deployment_Deploy_Puppet
     builders:
-        - shell: |
+           - shell: |
+           <%- if @aws_migration -%>
+           sh -eu puppet_aws/deploy.sh
+           <%- else -%>
            sh -eu puppet/deploy.sh
+           <%- end -%>
     publishers:
         - trigger:
             project: Smokey
