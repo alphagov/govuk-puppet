@@ -1026,6 +1026,12 @@ hosts::production::api::hosts:
     ip: '10.1.4.33'
   performance-mongo-4:
     ip: '10.1.12.31'
+  rummager-elasticsearch-1:
+    ip: '10.1.4.55'
+  rummager-elasticsearch-2:
+    ip: '10.1.4.56'
+  rummager-elasticsearch-3:
+    ip: '10.1.4.57'
   search-1:
     ip: '10.1.4.4'
   search-2:
