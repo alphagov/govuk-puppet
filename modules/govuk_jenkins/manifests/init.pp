@@ -130,4 +130,12 @@ class govuk_jenkins (
     require => Class['govuk_jenkins::user'],
   }
 
+  file { "${jenkins_homedir}/users":
+    ensure  => directory,
+    owner   => $jenkins_user,
+    group   => $jenkins_user,
+    mode    => '0775',
+    require => Class['govuk_jenkins::user'],
+  }
+
 }
