@@ -58,7 +58,7 @@ case "$TERM" in
 esac
 
 <%- if scope.lookupvar('::aws_migration') %>
-PROMPT_EXTRA="ec2-<%= @shell_prompt_string %>-<%= @aws_stackname %>"
+PROMPT_EXTRA="ec2-<%= @shell_prompt_string %>-<%= @aws_stackname %>-<%= @aws_migration %>"
 <%- else -%>
 PROMPT_EXTRA="<%= @shell_prompt_string %>"
 <%- end -%>
