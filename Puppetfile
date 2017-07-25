@@ -12,6 +12,7 @@ mod 'puppetlabs/apt', '2.3.0'
 mod 'puppetlabs/concat', '2.2.0'
 mod 'puppetlabs/haproxy', '1.5.0'
 mod 'puppetlabs/java_ks'
+mod 'puppetlabs/lvm'
 mod 'puppetlabs/mysql'
 mod 'puppetlabs/postgresql', '4.8.0'
 mod 'puppetlabs/rabbitmq', '5.6.0'
@@ -55,8 +56,6 @@ mod 'alphagov/puppet-rcs',
 mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
-mod 'puppetlabs/lvm',
-  :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 mod 'alphagov/puppet-reporter-sentry',
   :git => 'git://github.com/alphagov/puppet-reporter-sentry.git'
 
