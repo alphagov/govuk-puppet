@@ -39,7 +39,7 @@ process :'govuk-delivery'
 process :'govuk-delivery-worker'
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :imminence => [:mapit]
-process :'info-frontend' => [:static, :'content-store', :'metadata-api']
+process :'info-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :'content-store', :rummager]
 process :'link-checker-api' => [:'link-checker-api-sidekiq']
 process :'link-checker-api-sidekiq'
