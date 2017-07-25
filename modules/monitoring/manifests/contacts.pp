@@ -51,11 +51,14 @@ class monitoring::contacts (
 
   $midnight_day_start = '00:00'
   $office_day_start = '09:30'
+  $midday = '12:00'
   $office_day_end = '17:30'
   $midnight_day_end = '24:00'
 
   $all_day = "${midnight_day_start}-${midnight_day_end}"
   $office_day = "${office_day_start}-${office_day_end}"
+  $office_day_morning = "${office_day_start}-${midday}"
+  $office_day_afternoon = "${midday}-${office_day_end}"
   $oncall_early_day = "${midnight_day_start}-${office_day_start}"
   $oncall_late_day = "${office_day_end}-${midnight_day_end}"
 
@@ -77,6 +80,15 @@ class monitoring::contacts (
     wed              => $office_day,
     thu              => $office_day,
     fri              => $office_day,
+  }
+
+  icinga::timeperiod { 'inoffice_afternoon':
+    timeperiod_alias => '2nd line in-office hours, afternoon',
+    mon              => $office_day_afternoon,
+    tue              => $office_day_afternoon,
+    wed              => $office_day_afternoon,
+    thu              => $office_day_afternoon,
+    fri              => $office_day_afternoon,
   }
 
   icinga::timeperiod { 'oncall':
