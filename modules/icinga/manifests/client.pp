@@ -63,10 +63,13 @@ class icinga::client (
     $hostalias    = $::fqdn
   }
 
-  @@icinga::host { $::fqdn:
+  $host_name = $::fqdn
+
+  @@icinga::host { $host_name:
     hostalias      => $hostalias,
     address        => $host_ipaddress,
     display_name   => $display_name,
+    host_name      => $host_name,
     parents        => $parents,
     contact_groups => $contact_groups,
   }
