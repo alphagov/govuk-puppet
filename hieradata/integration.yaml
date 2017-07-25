@@ -150,6 +150,8 @@ govuk::node::s_api_lb::search_servers:
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
+govuk::node::s_asset_slave::notification_period: 'inoffice_afternoon'
+
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
