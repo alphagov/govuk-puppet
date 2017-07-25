@@ -34,6 +34,8 @@ govuk_jenkins::config:
 # the resolution has been configured remove this.
 govuk_jenkins::config::csrf_version: false
 
+govuk_jenkins::packages::terraform::version: '0.8.1'
+
 govuk_jenkins::plugins:
   ace-editor:
     version: '1.1'
