@@ -46,14 +46,12 @@ if Facter.value(:aws_migration)
   ]
 
   # Loop through every fact but only add it if it's in our list
-  aws_facts.each do |key, val|
-    factname = key.downcase
-    facts.each do |fact|
-      if factname == fact
-        Facter.add("aws_#{factname}") do
-          setcode do
-            val
-          end
+  aws_facts.each do |key,val|
+  factname = key.downcase
+    if facts.include?(factname)
+      Facter.add("aws_#{factname}") do
+        setcode do
+          val
         end
       end
     end
