@@ -59,9 +59,10 @@ process :'publishing-api-worker' => [:'content-store', :'router-api']
 process :release
 process :router
 process :'router-api'
-process :rummager => [:'publishing-api-read', :'rummager-sidekiq', :'rummager-publishing-listener']
+process :rummager => [:'publishing-api-read', :'rummager-sidekiq', :'rummager-publishing-listener', :'rummager-govuk-index-listener']
 process :'rummager-sidekiq'
 process :'rummager-publishing-listener'
+process :'rummager-govuk-index-listener'
 process :screenshot_as_a_service
 process :'search-admin' => [:rummager]
 process :'service-manual-frontend' => [:'content-store', :static]
