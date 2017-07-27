@@ -63,7 +63,7 @@ mod 'alphagov/puppet-reporter-sentry',
 mod 'gdsoperations/aptly', '0.6.0'
 mod 'gdsoperations/auditd', '0.2.0'
 mod 'gdsoperations/goenv', '0.0.4'
-mod 'gdsoperations/graphite', '~> 2.0.5'
+mod 'gdsoperations/graphite', '~> 2.0.6'
 mod 'gdsoperations/openconnect', '~> 1.2.1'
 mod 'gdsoperations/rbenv', '1.2.0'
 mod 'gdsoperations/resolvconf', '0.2.0'
