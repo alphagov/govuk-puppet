@@ -1,0 +1,17 @@
+---
+
+govuk::node::s_base::apps:
+  - mapit
+
+lv:
+  data:
+    pv: '/dev/xvdf'
+    vg: 'postgresql'
+
+mount:
+  /var/lib/postgresql:
+    disk: '/dev/mapper/postgresql-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+
+govuk_postgresql::server::listen_addresses: localhost
