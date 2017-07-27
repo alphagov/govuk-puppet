@@ -1557,9 +1557,6 @@ router::nginx::robotstxt: |
   # We only allow indexing of the licence-finder landing page
   Disallow: /licence-finder/
   Allow: /licence-finder
-  # We only allow indexing of the finance finder landing page
-  Disallow: /business-finance-support-finder/*
-  Allow: /business-finance-support-finder
   Disallow: /apply-for-a-licence/
   # Don't allow indexing of user needs pages
   Disallow: /info/*
