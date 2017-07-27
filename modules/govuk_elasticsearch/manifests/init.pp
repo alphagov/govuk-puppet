@@ -35,6 +35,13 @@
 #   Origins to allow if cors_enabled is set to true. The value is intepreted as
 #   a regular expression if it starts with a leading '/'.
 #
+# [*aws_cluster_name]
+#   If in AWS, specify the tag called "cluster_name" to discovery other hosts
+#   that should be part of the cluster.
+#
+# [*aws_region*]
+#   If in AWS, the region in which the cluster lives.
+#
 class govuk_elasticsearch (
   $version,
   $cluster_hosts = ['localhost'],
@@ -52,7 +59,9 @@ class govuk_elasticsearch (
   $backup_enabled = false,
   $cors_enabled = false,
   $cors_allow_headers = 'X-Requested-With, Content-Type, Content-Length, If-Modified-Since',
-  $cors_allow_origin = 'http://app.quepid.com'
+  $cors_allow_origin = 'http://app.quepid.com',
+  $aws_cluster_name = undef,
+  $aws_region = 'eu-west-1',
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -88,6 +97,28 @@ class govuk_elasticsearch (
 
   Package['elasticsearch'] ~> Exec['disable-default-elasticsearch']
 
+  if $::aws_migration {
+    $discovery_config = {
+      'type'  => 'ec2',
+      'zen'   => {
+        'minimum_master_nodes' => $minimum_master_nodes,
+      },
+      'ec2'   => {
+        'tag.cluster_name' => $aws_cluster_name,
+      },
+    }
+  } else {
+    $discovery_config = {
+      'zen' => {
+        'minimum_master_nodes' => $minimum_master_nodes,
+        'ping'                 => {
+          'multicast.enabled' => false,
+          'unicast.hosts'     => $cluster_hosts,
+        },
+      },
+    }
+  }
+
   $instance_config = {
     'cluster.name'             => $cluster_name,
     'index.number_of_replicas' => $number_of_replicas,
@@ -100,15 +131,8 @@ class govuk_elasticsearch (
     'http.cors.enabled'        => $cors_enabled,
     'http.cors.allow-headers'  => $cors_allow_headers,
     'http.cors.allow-origin'   => $cors_allow_origin,
-    'discovery'                => {
-      'zen' => {
-        'minimum_master_nodes' => $minimum_master_nodes,
-        'ping'                 => {
-          'multicast.enabled' => false,
-          'unicast.hosts'     => $cluster_hosts,
-        },
-      },
-    },
+    'discovery'                => $discovery_config,
+    'cloud.aws.region'         => $aws_region,
   }
   if versioncmp($version, '1.4.3') >= 0 {
     # 1.4.3 introduced this setting and set it to false by default
@@ -154,6 +178,12 @@ class govuk_elasticsearch (
 
   if ! $::aws_migration {
     govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
+  } else {
+    # Since UFW is setup as deny by default we need to open the up the firewall
+    # from everyone, and firewalling is handled by Security Groups
+    @ufw::allow { "allow-elasticsearch-transport-${transport_port}":
+      port => $transport_port,
+    }
   }
 
   include govuk_elasticsearch::estools
