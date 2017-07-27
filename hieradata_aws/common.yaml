@@ -1385,7 +1385,7 @@ hosts::production::router::hosts:
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
 
-icinga::client::config::allowed_hosts: "*"
+icinga::client::config::allowed_hosts: "10.0.0.0/8"
 icinga::config::http_username: "%{hiera('http_username')}"
 icinga::config::http_password: "%{hiera('http_password')}"
 
