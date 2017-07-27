@@ -42,5 +42,15 @@ class base {
       ensure  => 'present',
       content => template('base/motd.erb'),
     }
+
+    # FIXME this is a temporary solution to fix ongoing connect errors before
+    # we find the real resolution
+    cron::crondotdee { 'dhclient_reload':
+      command => '/usr/bin/host puppet >/dev/null || /sbin/dhclient -r; /sbin/dhclient',
+      hour    => '*',
+      minute  => '*/2',
+      user    => 'root',
+      mailto  => '""',
+    }
   }
 }
