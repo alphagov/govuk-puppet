@@ -9,6 +9,7 @@
 #
 class govuk_jenkins::packages::terraform (
   $apt_mirror_hostname = undef,
+  $version = '0.9.10',
 ){
 
   apt::source { 'terraform':
@@ -19,7 +20,7 @@ class govuk_jenkins::packages::terraform (
   }
 
   package { 'terraform':
-    ensure  => '0.8.1',
+    ensure  => $version,
     require => Apt::Source['terraform'],
   }
 
