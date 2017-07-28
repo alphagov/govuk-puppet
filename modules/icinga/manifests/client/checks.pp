@@ -19,7 +19,9 @@ class icinga::client::checks (
   $disk_time_window_minutes = 5,
 ) {
 
-  include icinga::client::check_cputype
+  if ! $::aws_migration {
+    include icinga::client::check_cputype
+  }
   include icinga::client::check_file_not_exists
   include icinga::client::check_linux_free_memory
   include icinga::client::check_rw_rootfs
