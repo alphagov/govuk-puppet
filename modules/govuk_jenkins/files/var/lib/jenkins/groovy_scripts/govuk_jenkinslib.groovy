@@ -61,7 +61,7 @@
  *          stage, such as environment variable configuration
  *        - overrideTestTask A closure containing commands to run to test the
  *          project. This will run instead of the default `bundle exec rake`
- *        - publishingE2eTests Whether or not to run the Publishing end-to-end
+ *        - publishingE2ETests Whether or not to run the Publishing end-to-end
 *           tests.  Default: false
  *        - afterTest A closure containing commands to run after the test stage,
  *          such as report publishing
@@ -190,11 +190,7 @@ def buildProject(Map options = [:]) {
       }
     }
 
-    if (options.publishingE2eTests == true) {
-      setEnvar("FULL_COMMIT_HASH", sh(
-        script: "git rev-parse HEAD",
-        returnStdout: true
-      ))
+    if (options.publishingE2ETests == true) {
       stage("End-to-end tests") {
         if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
           appCommitishName = repoName.replace("-", "_").toUpperCase() + "_COMMITISH"
@@ -769,20 +765,28 @@ def setBuildStatus(repoName, commit, message, state) {
 }
 
 def runPublishingE2ETests(appCommitishName, testBranch, repo) {
+  fullCommitHash = getFullCommitHash()
   build(
     job: "publishing-e2e-tests/${testBranch}",
     parameters: [
       [$class: "StringParameterValue",
         name: appCommitishName,
-        value: env.FULL_COMMIT_HASH],
+        value: fullCommitHash],
       [$class: "StringParameterValue",
         name: "ORIGIN_REPO",
         value: repo],
       [$class: "StringParameterValue",
         name: "ORIGIN_COMMIT",
-        value: env.FULL_COMMIT_HASH]
+        value: fullCommitHash]
     ],
     wait: false,
+  )
+}
+
+def getFullCommitHash() {
+  return sh(
+    script: "git rev-parse HEAD",
+    returnStdout: true
   )
 }
 
