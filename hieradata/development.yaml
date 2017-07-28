@@ -159,11 +159,6 @@ govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhos
 govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
-govuk::apps::rummager::enable_publishing_listener: true
-govuk::apps::rummager::enable_govuk_index_listener: true
-govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
-govuk::apps::rummager::rabbitmq::enable_govuk_index_listener: true
-govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
 govuk::apps::rummager::redis_host: 'localhost'
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true

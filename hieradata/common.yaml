@@ -416,8 +416,10 @@ govuk::apps::release::github_username: "govuk-ci"
 govuk::apps::rummager::nagios_memory_warning: 4600
 govuk::apps::rummager::nagios_memory_critical: 4900
 govuk::apps::rummager::enable_publishing_listener: true
+govuk::apps::rummager::enable_govuk_index_listener: true
 govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
-govuk::apps::rummager::rabbitmq_user: 'rummager'
+govuk::apps::rummager::rabbitmq::enable_govuk_index_listener: true
+govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
 govuk::apps::rummager::redis_host: 'api-redis-1.api'
 govuk::apps::rummager::redis_port: '6379'
 
