@@ -87,6 +87,9 @@ class govuk::node::s_graphite (
     extra_config => $cors_headers,
   }
 
-  include collectd::server
+  if ! $::aws_migration {
+    include collectd::server
+  }
+
   include grafana
 }

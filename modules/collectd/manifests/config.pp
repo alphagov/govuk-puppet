@@ -33,13 +33,18 @@ class collectd::config {
 
   if $::aws_migration {
     $graphite_hostname = 'graphite'
+
+    file { '/etc/collectd/conf.d/graphite.conf':
+      ensure => present,
+      source => template('collectd/etc/collectd/conf.d/graphite.conf.erb'),
+    }
   } else {
     $graphite_hostname = 'graphite.cluster'
-  }
 
-  file { '/etc/collectd/conf.d/network.conf':
-    ensure  => present,
-    content => template('collectd/etc/collectd/conf.d/network.conf.client.erb'),
+    file { '/etc/collectd/conf.d/network.conf':
+      ensure  => present,
+      content => template('collectd/etc/collectd/conf.d/network.conf.client.erb'),
+    }
   }
 
   include ::collectd::plugin::file_handles

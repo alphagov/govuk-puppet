@@ -4,7 +4,12 @@
 
 Facter.add("fqdn_metrics") do
  setcode do
-    fqdn_metrics = Facter.value("fqdn_short").dup
+    if Facter.value("aws_migration").nil?
+      fqdn_metrics = Facter.value("fqdn_short").dup
+    else
+      fqdn_metrics = "#{Facter.value(:aws_hostname)}.#{Facter.value(:aws_stackname)}.#{Facter.value(:aws_environment)}"
+    end
+
     fqdn_metrics.gsub!(/\./, '_')
 
     fqdn_metrics
