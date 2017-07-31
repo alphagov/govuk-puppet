@@ -35,8 +35,8 @@ class collectd::config {
     $graphite_hostname = 'graphite'
 
     file { '/etc/collectd/conf.d/graphite.conf':
-      ensure   => present,
-      template => template('collectd/etc/collectd/conf.d/graphite.conf.erb'),
+      ensure  => present,
+      content => template('collectd/etc/collectd/conf.d/graphite.conf.erb'),
     }
   } else {
     $graphite_hostname = 'graphite.cluster'
