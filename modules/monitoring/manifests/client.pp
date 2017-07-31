@@ -14,8 +14,14 @@ class monitoring::client {
     require  => Package['update-notifier-common'],
   }
 
+  if $::aws_migration {
+    $graphite_hostname = 'graphite'
+  } else {
+    $graphite_hostname = 'graphite.cluster'
+  }
+
   class { 'statsd':
-    graphite_hostname => 'graphite.cluster',
+    graphite_hostname => $graphite_hostname,
   }
 
   file { '/usr/local/bin/notify_passive_check':
@@ -23,5 +29,4 @@ class monitoring::client {
     mode    => '0755',
     content => template('govuk/notify_passive_check.erb'),
   }
-
 }
