@@ -8,7 +8,7 @@
     builders:
       - shell: |
           IPADDRESS=$(facter ipaddress)
-          printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+          printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
     wrappers:
         - ansicolor:
             colormap: xterm
