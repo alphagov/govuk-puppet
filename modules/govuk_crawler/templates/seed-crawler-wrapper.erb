@@ -13,7 +13,7 @@ function send_nsca {
         CODE=3
         OUTPUT="UNKNOWN: seed-crawler-wrapper exited before setting OUTPUT - this should never happen"
     fi
-    printf "<%= @ipaddress_eth0 %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+    printf "<%= @ipaddress_eth0 %>\t<%= @seed_service_desc %>\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
     exit $?
 }
 trap send_nsca EXIT
