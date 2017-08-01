@@ -20,6 +20,7 @@ class govuk::node::s_logs_elasticsearch(
   $rotate_hour = 00,
   $rotate_minute = 01,
   $indices_days_to_keep = 13,
+  $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_base {
 
   if $::aws_migration {

@@ -11,7 +11,7 @@ function send_to_monitoring() {
   local MESSAGE=$1
   local CODE=$2
 
-  printf "<%= @ipaddress %>\tes-rotate\t${CODE}\t${MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  printf "<%= @ipaddress %>\tes-rotate\t${CODE}\t${MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
 }
 
 echo "Running es-rotate at `date`"
