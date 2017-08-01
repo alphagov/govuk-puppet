@@ -20,6 +20,7 @@ define backup::directory (
     $directory,
     $fq_dn,
     $priority = undef,
+    $alert_hostname = 'alert.cluster',
 ) {
     $sanitised_dir  = regsubst($directory, '/', '_', 'G')
     $threshold_secs = 28 * (60 * 60)
