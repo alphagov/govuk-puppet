@@ -52,6 +52,7 @@ class govuk::apps::publisher(
     $redis_host = undef,
     $redis_port = undef,
     $jwt_auth_secret = undef,
+    $alert_hostname = 'alert.cluster',
   ) {
 
   govuk::app { 'publisher':
