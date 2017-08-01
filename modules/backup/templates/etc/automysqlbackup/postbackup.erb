@@ -10,7 +10,7 @@ else
 fi
 
 printf "<%= @ipaddress %>\t<%= @service_desc %>\t$NAGIOS_CODE\t$NAGIOS_MESSAGE\n" \
-  | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
 
 tar -C /var/lib/automysqlbackup -jcf /var/lib/automysqlbackup/tmp.tbz2 latest/
 mv /var/lib/automysqlbackup/tmp.tbz2 /var/lib/automysqlbackup/latest.tbz2

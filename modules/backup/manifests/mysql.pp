@@ -25,6 +25,7 @@ class backup::mysql (
   $rotation_weekly = '28',
   $rotation_monthly = '95',
   $mysql_dump_host = 'localhost',
+  $alert_hostname = 'alert.cluster',
 ) {
   validate_string($rotation_daily, $rotation_weekly, $rotation_monthly)
 
