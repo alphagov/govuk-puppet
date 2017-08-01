@@ -1,0 +1,23 @@
+---
+
+govuk::node::s_rabbitmq::apps_using_rabbitmq:
+  - backdrop_write
+  - email_alert_service
+  - publishing_api
+  - rummager
+  - stagecraft
+
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'rabbitmq-1 is a single point of failure for content-store, apps not resilient'
+
+rabbitmq::config_kernel_variables:
+  'inet_dist_listen_min': '9100'
+  'inet_dist_listen_max': '9105'
+rabbitmq::config_variables:
+  'vm_memory_high_watermark': '0.8'
+  'cluster_partition_handling': 'pause_minority'
+rabbitmq::config_additional_variables:
+  'autocluster': '[ {autocluster_log_level, debug}, {backend, aws}, {aws_autoscaling, true}, {aws_ec2_region, "eu-west-1"} ]'
+rabbitmq::cluster_node_type: 'disc'
+rabbitmq::erlang_cookie: 'EOKOWXQREETZSHFNTPEY'
+rabbitmq::wipe_db_on_cookie_change: true

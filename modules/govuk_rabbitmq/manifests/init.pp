@@ -12,11 +12,31 @@ class govuk_rabbitmq (
     monitoring_user     => $monitoring_user,
     monitoring_password => $monitoring_password,
   }
-  include govuk_rabbitmq::repo
+
+  if ! $::aws_migration {
+    include govuk_rabbitmq::repo
+  }
+
   include '::rabbitmq'
 
   rabbitmq_plugin { 'rabbitmq_stomp':
     ensure => present,
+  }
+
+  if $::aws_migration {
+    staging::file { 'autocluster-0.8.0.ez':
+      target => "/usr/lib/rabbitmq/lib/rabbitmq_server-${::rabbitmq_version}/plugins/autocluster-0.8.0.ez",
+      source => 'https://github.com/rabbitmq/rabbitmq-autocluster/releases/download/0.8.0/autocluster-0.8.0.ez',
+    }
+
+    staging::file { 'rabbitmq_aws-0.8.0.ez':
+      target => "/usr/lib/rabbitmq/lib/rabbitmq_server-${::rabbitmq_version}/plugins/rabbitmq_aws-0.8.0.ez",
+      source => 'https://github.com/rabbitmq/rabbitmq-autocluster/releases/download/0.8.0/rabbitmq_aws-0.8.0.ez',
+    }
+
+    rabbitmq_plugin { 'autocluster':
+      ensure => present,
+    }
   }
 
   rabbitmq_user { 'root':
