@@ -1,0 +1,19 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'Reboot a single node at time and check that the cluster goes green between reboots'
+
+govuk_elasticsearch::version: '2.4.6'
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'elasticsearch'
+
+mount:
+  /mnt/elasticsearch:
+    disk: '/dev/mapper/elasticsearch-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 16
+    percent_threshold_critical: 11
