@@ -38,6 +38,7 @@ class govuk::node::s_asset_base (
   $process_uploaded_attachments_to_s3 = false,
   $push_attachments_to_s3 = false,
   $s3_env_sync_enabled = false,
+  $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_base{
   validate_string($firewall_allow_ip_range)
 
