@@ -1,0 +1,22 @@
+---
+
+govuk::apps::router_api::mongodb_name: 'router'
+govuk::apps::router_api::mongodb_nodes:
+  - 'router-backend-1'
+  - 'router-backend-2'
+  - 'router-backend-3'
+govuk::apps::router_api::router_nodes:
+  - 'cache-1:3055'
+  - 'cache-2:3055'
+  - 'cache-3:3055'
+
+govuk::node::s_base::apps:
+  - router_api
+
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+mongodb::server::replicaset_members:
+  'router-backend-1':
+  'router-backend-2':
+  'router-backend-3':
