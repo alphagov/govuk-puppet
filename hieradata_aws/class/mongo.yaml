@@ -1,0 +1,12 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+icinga::client::checks::disk_time_window_minutes: 10
+
+mongodb::server::oplog_size: 7168 # 7 * 1024
+mongodb::server::replicaset_members:
+  'mongo-1':
+  'mongo-2':
+  'mongo-3':
