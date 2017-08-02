@@ -73,8 +73,14 @@ class govuk_elasticsearch (
   $http_port = '9200'
   $transport_port = '9300'
 
+  # The repository for version 2 is called "elasticsearch-2.x" for all minor versions
   if $manage_repo {
-    $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
+    if $version =~ /^2./ {
+      $repo_version = '2.x'
+    } else {
+      $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
+    }
+
     class { 'govuk_elasticsearch::repo':
       repo_version => $repo_version,
     }
