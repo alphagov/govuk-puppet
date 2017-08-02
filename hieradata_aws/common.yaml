@@ -1495,8 +1495,6 @@ puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 rabbitmq::delete_guest_user: true
 rabbitmq::config_stomp: true
 # Always use our mirror because they only provide the latest package.
-rabbitmq::package_ensure: '3.4.3-1'
-rabbitmq::manage_repos: false
 
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
