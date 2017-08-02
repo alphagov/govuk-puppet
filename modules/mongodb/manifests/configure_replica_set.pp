@@ -46,25 +46,26 @@ class mongodb::configure_replica_set (
     ],
   }
 
-  $configure_node_priority_file = '/etc/mongodb/configure-node-priority.js'
+  if ! $::aws_migration {
+    $configure_node_priority_file = '/etc/mongodb/configure-node-priority.js'
 
-  file { $configure_node_priority_file:
-    ensure  => present,
-    content => template('mongodb/configure-node-priority.js.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Class['mongodb::config'],
+    file { $configure_node_priority_file:
+      ensure  => present,
+      content => template('mongodb/configure-node-priority.js.erb'),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Class['mongodb::config'],
+    }
+
+    exec { 'configure-node-priority':
+      command => "/usr/bin/mongo --quiet ${configure_node_priority_file}",
+      onlyif  => '/usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | grep -q true',
+      require => [
+        Exec['configure-replica-set'],
+        File[$configure_node_priority_file],
+        Class['mongodb::service'],
+      ],
+    }
   }
-
-  exec { 'configure-node-priority':
-    command => "/usr/bin/mongo --quiet ${configure_node_priority_file}",
-    onlyif  => '/usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | grep -q true',
-    require => [
-      Exec['configure-replica-set'],
-      File[$configure_node_priority_file],
-      Class['mongodb::service'],
-    ],
-  }
-
 }
