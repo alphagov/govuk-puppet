@@ -9,7 +9,6 @@ class govuk::node::s_logging (
   # we want this to be a syslog server which also forwards to logstash
   class { 'rsyslog::server':
     custom_config => 'govuk/etc/rsyslog.d/server-logstash.conf.erb',
-    require       => Govuk_mount['/srv'],
   }
 
   # we want all the other machines to be able to send syslog on 514/tcp to this machine
@@ -22,8 +21,16 @@ class govuk::node::s_logging (
   include govuk_java::oracle7::jre
   # TODO: this should really be done with a package.
 
+  if $::aws_migration {
+    $logstash_jar_url = 'https://s3-eu-west-1.amazonaws.com/govuk-logstash-package-integration/logstash-1.1.9-monolithic.jar'
+  } else {
+    $logstash_jar_url = 'https://logstash.objects.dreamhost.com/release/logstash-1.1.9-monolithic.jar'
+    Govuk_mount['/srv'] -> Class['logstash']
+    Govuk_mount['/srv'] -> Class['rsyslog::server']
+  }
+
   curl::fetch { 'logstash-monolithic':
-    source      => 'https://logstash.objects.dreamhost.com/release/logstash-1.1.9-monolithic.jar',
+    source      => $logstash_jar_url,
     destination => '/var/tmp/logstash-1.1.9-monolithic.jar',
     require     => Class['govuk_java::oracle7::jre'],
   }
@@ -44,7 +51,6 @@ class govuk::node::s_logging (
     initfile    => 'puppet:///modules/govuk/node/s_logging/logstash.init.Debian',
     require     => [
       Curl::Fetch['logstash-monolithic'],
-      Govuk_mount['/srv']
     ],
   }
 
