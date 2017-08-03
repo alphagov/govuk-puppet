@@ -34,7 +34,11 @@ if @json.to_s == 'true'
 end
 -%>
 script
+    <%- if scope.lookupvar('::aws_migration') %>
+    REDIS_SERVERS=logs-redis
+    <%- else -%>
     REDIS_SERVERS=$(govuk_node_list -c logs_redis | xargs -IHOST echo redis://HOST | paste -sd ',')
+    <%- end -%>
     if [ -z "$REDIS_SERVERS" ]; then
         echo "No redis servers found from govuk_node_list"
         exit 1
