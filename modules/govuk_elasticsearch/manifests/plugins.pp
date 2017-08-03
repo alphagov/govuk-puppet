@@ -6,17 +6,6 @@ class govuk_elasticsearch::plugins (
   $elasticsearch_version = $::govuk_elasticsearch::version,
 ){
 
-  elasticsearch::plugin { 'mobz/elasticsearch-head':
-    module_dir => 'head',
-    instances  => $::fqdn,
-  }
-
-  elasticsearch::plugin { 'elasticsearch-migration':
-    module_dir => 'migration',
-    url        => 'https://github.com/elastic/elasticsearch-migration/releases/download/v1.19/elasticsearch-migration-1.19.zip',
-    instances  => $::fqdn,
-  }
-
   if versioncmp($elasticsearch_version, '2.0') < 0 {
     # If version is older than 2.0.0, then install an older plugin
     case $elasticsearch_version {
@@ -30,6 +19,18 @@ class govuk_elasticsearch::plugins (
       module_dir => 'cloud-aws',
       instances  => $::fqdn,
     }
+
+    elasticsearch::plugin { 'mobz/elasticsearch-head':
+      module_dir => 'head',
+      instances  => $::fqdn,
+    }
+
+    elasticsearch::plugin { 'elasticsearch-migration':
+      module_dir => 'migration',
+      url        => 'https://github.com/elastic/elasticsearch-migration/releases/download/v1.19/elasticsearch-migration-1.19.zip',
+      instances  => $::fqdn,
+    }
+
   }
   # If the version is 2.4, then install the plugin the 2.4 way
   elsif versioncmp($elasticsearch_version, '2.4') == 0 {
