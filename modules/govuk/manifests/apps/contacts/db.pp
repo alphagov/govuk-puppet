@@ -12,7 +12,7 @@ class govuk::apps::contacts::db (
   $mysql_contacts_admin = '',
   $mysql_contacts_frontend =  '',
 ){
-  mysql::db { 'contacts_production':
+  govuk_mysql::db { 'contacts_production':
     user     => 'contacts',
     host     => '%',
     password => $mysql_contacts_admin,
