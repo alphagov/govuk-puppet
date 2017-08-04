@@ -4,6 +4,8 @@ HIERA_SAFETY_CHECK: true
 stackname: "%{::aws_stackname}"
 app_domain: "%{::aws_stackname}.govuk.internal"
 
+backup::mysql::alert_hostname: 'alert'
+
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
 # need to add an empty hash
@@ -299,6 +301,7 @@ govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::publisher::alert_hostname: 'alert'
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
@@ -532,9 +535,12 @@ govuk_htpasswd::http_username: "%{hiera('http_username')}"
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk::node::s_api_postgresql_primary::alert_hostname: 'alert'
+
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
+govuk::node::s_asset_base::alert_hostname: 'alert'
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::node::s_licensify_lb::backend_app_servers:
@@ -544,14 +550,19 @@ govuk::node::s_licensify_lb::frontend_app_servers:
   - 'licensing-frontend-1.licensify'
   - 'licensing-frontend-2.licensify'
 
+govuk::node::s_logs_elasticsearch::alert_hostname: 'alert'
+
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
+
+govuk::node::s_postgresql_primary::alert_hostname: 'alert'
 
 govuk::node::s_whitehall_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_whitehall_mysql_master::encryption_key: "${hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
+govuk::node::s_transition_postgresql_master::alert_hostname: 'alert'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
@@ -569,6 +580,8 @@ govuk_cdnlogs::service_port_map:
   govuk: 6514
   assets: 6515
   bouncer: 6516
+
+govuk_cdnlogs::transition_logs::alert_hostname: 'alert'
 
 govuk_ci::master::pipeline_jobs:
   <<: *deployable_applications
@@ -699,9 +712,11 @@ govuk_containers::frontend::haproxy::backend_mappings:
 govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
 govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard_publishing_key')}"
 
+govuk_crawler::alert_hostname: 'alert'
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
+govuk_elasticsearch::backup::alert_hostname: 'alert'
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
@@ -751,6 +766,8 @@ govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
 
+govuk_jenkins::job::passive_checks::alert_hostname: 'alert'
+
 govuk_jenkins::job::search_benchmark::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::job::search_benchmark::auth_password: "%{hiera('http_password')}"
 
@@ -776,6 +793,7 @@ govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mys
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_postgresql::backup::alert_hostname: 'alert'
 govuk_postgresql::server::configure_env_sync_user: true
 
 govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
@@ -800,6 +818,7 @@ govuk_sudo::sudo_conf:
 
 govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
 govuk_unattended_reboot::elasticsearch::enabled: true
@@ -1412,11 +1431,15 @@ limits::entries:
     limit_type: 'nofile'
     hard: 2048
 
+mongodb::backup::alert_hostname: 'alert'
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+mongodb::s3backup::backup::alert_hostname: 'alert'
 mongodb::server::version: '2.4.9'
 
 monitoring::checks::http_username: "%{hiera('http_username')}"
 monitoring::checks::http_password: "%{hiera('http_password')}"
+monitoring::client::alert_hostname: 'alert'
+monitoring::client::graphite_hostname: 'graphite'
 
 monitoring::checks::smokey::features:
   check_bouncer:
@@ -1490,6 +1513,8 @@ postgresql::globals::version: '9.3'
 
 puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
 
+puppet::monitoring::alert_hostname: 'alert'
+
 puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 rabbitmq::delete_guest_user: true
@@ -1515,6 +1540,8 @@ resolvconf::nameservers:
 
 resolvconf::options:
    - 'single-request-reopen'
+
+rkhunter::monitoring::alert_hostname: 'alert'
 
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
