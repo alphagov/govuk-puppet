@@ -1,7 +1,6 @@
 {
   "id": null,
   "title": "Publishing API Metrics",
-  "originalTitle": "Publishing API Metrics",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -9,6 +8,528 @@
   "hideControls": false,
   "sharedCrosshair": false,
   "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "datasource": "Elasticsearch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 7,
+          "isNew": true,
+          "legend": {
+            "avg": true,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": true,
+            "max": true,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "All GET endpoints",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.method:GET",
+              "refId": "A",
+              "timeField": "@timestamp",
+              "hide": false
+            },
+            {
+              "alias": "GET /v2/content",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:GET",
+              "refId": "B",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "GET /v2/links",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links*\" AND @fields.method:GET",
+              "refId": "C",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "GET /v2/linkables",
+              "bucketAggs": [
+                {
+                  "fake": true,
+                  "field": "@timestamp",
+                  "id": "5",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "hide": false,
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linkables*\" AND @fields.method:GET",
+              "refId": "D",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "GET /v2/linked",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linked*\" AND @fields.method:GET",
+              "refId": "E",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "GET /v2/expanded-links",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/expanded-links*\" AND @fields.method:GET",
+              "refId": "F",
+              "timeField": "@timestamp",
+              "hide": false
+            },
+            {
+              "alias": "GET /v2/editions",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/editions*\" AND @fields.method:GET",
+              "refId": "G",
+              "timeField": "@timestamp",
+              "hide": false
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Request time per read endpoint",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative",
+            "sort": 0
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "datasource": "Elasticsearch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "isNew": true,
+          "legend": {
+            "avg": true,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": true,
+            "max": true,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "All POST,PUT,DELETE and PATCH",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.method:(POST,PUT,DELETE,PATCH)",
+              "refId": "A",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "PUT /v2/content",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:PUT",
+              "refId": "B",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "PATCH /v2/links",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links/*\" AND @fields.method:PATCH",
+              "refId": "C",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "POST /v2/publish",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "3",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*\" AND @fields.request:\"*/publish*\" AND @fields.method:POST",
+              "refId": "D",
+              "timeField": "@timestamp",
+              "hide": false
+            },
+            {
+              "alias": "POST /v2/unpublish",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*\" AND @fields.request:\"*/unpublish*\" AND @fields.method:POST",
+              "refId": "E",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "POST /v2/discard-draft",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "@fields.duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*\" AND @fields.request:\"*/discard-draft*\" AND @fields.method:POST",
+              "refId": "F",
+              "timeField": "@timestamp"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Request time per write endpoint",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative",
+            "sort": 0
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "title": "Row"
+    },
     {
       "collapse": false,
       "editable": true,
@@ -57,7 +578,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "alias": "GET V2 content",
+              "alias": "All",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -78,38 +599,12 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2/content*\" AND @fields.method:GET",
-              "refId": "E",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "GET V2 linkables",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET AND @fields.request:\"*/v2/linkables*\"",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509]",
               "refId": "A",
               "timeField": "@timestamp"
             },
             {
-              "alias": "PUT V2 content",
+              "alias": "GET requests",
               "bucketAggs": [
                 {
                   "field": "@timestamp",
@@ -130,165 +625,35 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2/content*\" AND @fields.method:PUT",
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET",
+              "refId": "B",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "POST,PUT,PATCH,DELETE requests",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:(POST,PUT,PATCH,DELETE)",
               "refId": "C",
               "timeField": "@timestamp"
-            },
-            {
-              "alias": "POST V2 publish",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:POST AND @fields.request:\"*/v2/content/*/publish*\"",
-              "refId": "D",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "PATCH V2 links",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "select field",
-                  "id": "1",
-                  "type": "count"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.request:\"*/v2/links*\" AND @fields.method:PATCH",
-              "refId": "F",
-              "timeField": "@timestamp"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "count",
-                  "id": "1",
-                  "field": "select field"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "G",
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET AND @fields.request:\"*/v2/linked*\"",
-              "alias": "GET V2 linked"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "count",
-                  "id": "1",
-                  "field": "select field"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "B",
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:POST AND @fields.request:\"*/v2/content/*/unpublish*\"",
-              "alias": "POST V2 unpublish"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "count",
-                  "id": "1",
-                  "field": "select field"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "H",
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET AND @fields.request:\"*/v2/grouped-content-and-links*\"",
-              "alias": "GET V2 grouped-content-and-links"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "count",
-                  "id": "1",
-                  "field": "select field"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "I",
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:POST AND @fields.request:\"*/v2/content/*/discard-draft*\"",
-              "alias": "POST V2 discard-draft"
             }
           ],
           "timeFrom": null,
@@ -297,7 +662,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -306,417 +672,6 @@
           "yaxes": [
             {
               "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": "Elasticsearch",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "id": 3,
-          "isNew": true,
-          "legend": {
-            "avg": true,
-            "current": false,
-            "hideEmpty": false,
-            "hideZero": true,
-            "max": true,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "GET /v2/linkables",
-              "bucketAggs": [
-                {
-                  "fake": true,
-                  "field": "@timestamp",
-                  "id": "5",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "hide": false,
-              "metrics": [
-                {
-                  "field": "@fields.duration",
-                  "id": "3",
-                  "meta": {},
-                  "settings": {},
-                  "type": "max"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linkables*\" AND @fields.method:GET",
-              "refId": "B",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "GET /v2/content",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "@fields.duration",
-                  "id": "3",
-                  "meta": {},
-                  "settings": {},
-                  "type": "max"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:GET",
-              "refId": "C",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "PUT /v2/content",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "@fields.duration",
-                  "id": "3",
-                  "meta": {},
-                  "settings": {},
-                  "type": "max"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:PUT",
-              "refId": "A",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "PATCH /v2/links",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "@fields.duration",
-                  "id": "3",
-                  "meta": {},
-                  "settings": {},
-                  "type": "max"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links/*\" AND @fields.method:PATCH",
-              "refId": "D",
-              "timeField": "@timestamp"
-            },
-            {
-              "alias": "POST /v2/publish",
-              "bucketAggs": [
-                {
-                  "field": "@timestamp",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "metrics": [
-                {
-                  "field": "@fields.duration",
-                  "id": "3",
-                  "meta": {},
-                  "settings": {},
-                  "type": "max"
-                }
-              ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*/publish*\" AND @fields.method:POST",
-              "refId": "E",
-              "timeField": "@timestamp"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "max",
-                  "id": "1",
-                  "field": "@fields.duration",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "F",
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*/unpublish*\" AND @fields.method:POST",
-              "alias": "POST /v2/unpublish"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "max",
-                  "id": "1",
-                  "field": "@fields.duration",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "G",
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linked*\" AND @fields.method:GET",
-              "alias": "GET /v2/linked"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "max",
-                  "id": "1",
-                  "field": "@fields.duration",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "H",
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/new-linkables*\" AND @fields.method:GET",
-              "alias": "GET /v2/new-linkables"
-            },
-            {
-              "metrics": [
-                {
-                  "type": "max",
-                  "id": "1",
-                  "field": "@fields.duration",
-                  "settings": {},
-                  "meta": {}
-                }
-              ],
-              "dsType": "elasticsearch",
-              "bucketAggs": [
-                {
-                  "type": "date_histogram",
-                  "id": "2",
-                  "settings": {
-                    "interval": "auto",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "field": "@timestamp"
-                }
-              ],
-              "timeField": "@timestamp",
-              "refId": "I",
-              "alias": "/v2/grouped-content-and-links",
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/grouped-content-and-links*\" AND @fields.method:GET"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Request time per endpoint",
-          "tooltip": {
-            "msResolution": true,
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        }
-      ],
-      "title": "Row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "Graphite",
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": 800,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": 900,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": true
-          },
-          "id": 4,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "backend-1_backend*.processes-app-publishing-api.ps_rss"
-            },
-            {
-              "refId": "B",
-              "target": "backend-2_backend*.processes-app-publishing-api.ps_rss"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Process RSS",
-          "tooltip": {
-            "msResolution": true,
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -802,7 +757,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -843,6 +799,89 @@
           "error": false,
           "fill": 1,
           "grid": {
+            "threshold1": 800,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": 900,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": true
+          },
+          "id": 4,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "publishing-api-1_backend*.processes-app-publishing-api.ps_rss"
+            },
+            {
+              "refId": "B",
+              "target": "publishing-api-2_backend*.processes-app-publishing-api.ps_rss"
+            },
+            {
+              "refId": "C",
+              "target": "publishing-api-3_backend*.processes-app-publishing-api.ps_rss"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Process RSS",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "value_type": "cumulative",
+            "sort": 0
+          },
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -868,7 +907,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -887,7 +926,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 0
           },
           "type": "graph",
           "xaxis": {
@@ -954,5 +994,6 @@
   "refresh": false,
   "schemaVersion": 12,
   "version": 0,
-  "links": []
+  "links": [],
+  "gnetId": null
 }
