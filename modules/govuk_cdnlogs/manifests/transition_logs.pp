@@ -25,6 +25,7 @@ class govuk_cdnlogs::transition_logs (
   $user = 'logs_processor',
   $enabled = true,
   $enable_cron = false,
+  $alert_hostname = 'alert.cluster',
 ) {
   validate_bool($enabled)
 

@@ -1,5 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class monitoring::client {
+class monitoring::client (
+  $graphite_hostname = 'graphite.cluster',
+  $alert_hostname = 'alert.cluster',
+) {
 
   include monitoring::client::apt
   include icinga::client
@@ -12,12 +15,6 @@ class monitoring::client {
     ensure   => '1.4.0',
     provider => 'pip',
     require  => Package['update-notifier-common'],
-  }
-
-  if $::aws_migration {
-    $graphite_hostname = 'graphite'
-  } else {
-    $graphite_hostname = 'graphite.cluster'
   }
 
   class { 'statsd':

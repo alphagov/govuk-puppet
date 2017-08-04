@@ -5,7 +5,7 @@ NAGIOS_CODE=$1
 NAGIOS_MESSAGE=$2
 
 if [ -n "$NAGIOS_CODE" ] && [ -n "$NAGIOS_MESSAGE" ]; then
-  printf "<%= @ipaddress %>\t<%= @service_desc %>\t$NAGIOS_CODE\t$NAGIOS_MESSAGE\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  printf "<%= @ipaddress %>\t<%= @service_desc %>\t$NAGIOS_CODE\t$NAGIOS_MESSAGE\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
 else
   logger "Failed to submit passive check local_authority_import_check. Insufficient parameters: NAGIOS_CODE=$NAGIOS_CODE NAGIOS_MESSAGE=$NAGIOS_MESSAGE"
   exit 1

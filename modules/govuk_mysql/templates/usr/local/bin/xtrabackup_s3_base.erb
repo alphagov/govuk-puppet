@@ -13,7 +13,7 @@ NAGIOS_MESSAGE="CRITICAL: MySQL Xtrabackup daily push to S3 failed"
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
 function nagios_passive () {
-  printf "<%= @ipaddress %>\t<%= @base_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  printf "<%= @ipaddress %>\t<%= @base_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
 }
 
 trap nagios_passive EXIT

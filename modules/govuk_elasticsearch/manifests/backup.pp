@@ -55,8 +55,8 @@ class govuk_elasticsearch::backup(
   $es_indices = [],
   $cron_hour = 0,
   $cron_minute = 0,
+  $alert_hostname = 'alert.cluster',
 ){
-
 
     $threshold_secs = 28 * 3600
     $service_desc = 'Elasticsearch-Index_Backup'
