@@ -18,7 +18,14 @@
 # can stat() the files within. There is a dependency on icinga::client for
 # the creation of that GID.
 #
-class rkhunter::monitoring {
+# === Parameters:
+#
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
+class rkhunter::monitoring (
+  $alert_hostname = 'alert.cluster',
+) {
   file { '/var/lib/rkhunter/db':
     ensure  => directory,
     owner   => 'root',
