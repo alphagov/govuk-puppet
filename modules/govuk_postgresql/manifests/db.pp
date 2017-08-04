@@ -79,54 +79,68 @@ define govuk_postgresql::db (
         $db_owner = $owner
     }
     $password_hash = postgresql_password($user, $password)
+
     if ! defined(Postgresql::Server::Role[$user]) {
         @postgresql::server::role { $user:
             password_hash => $password_hash,
             tag           => 'govuk_postgresql::server::not_slave',
         }
     }
+
+    # We do not want to include the entire govuk_postgresql::server wrapper,
+    # but require the upstream postgresql::server class to be present
+    if $::aws_migration {
+      Postgresql::Server::Db {
+        Require => [Class['postgresql::server'], Postgresql::Server::Role[$user]],
+      }
+    } else {
+      Postgresql::Server::Db {
+        Require => [Class['govuk_postgresql::server'], Postgresql::Server::Role[$user]],
+      }
+    }
+
     @postgresql::server::db {$db_name:
         encoding => $encoding,
         owner    => $db_owner,
         password => $password_hash,
         user     => $user,
         tag      => 'govuk_postgresql::server::not_slave',
-        require  => [Class['govuk_postgresql::server'], Postgresql::Server::Role[$user]],
     }
 
-    # If we asked for any extensions, install them here
-    validate_array($extensions)
-    if (!empty($extensions)) {
-        $temp_extensions = prefix($extensions,"${db_name}:")
-        @govuk_postgresql::extension { $temp_extensions:
-          tag  => 'govuk_postgresql::server::not_slave',
-        }
-    }
+    if ! $::aws_migration {
+      validate_array($extensions)
+      if (!empty($extensions)) {
+          $temp_extensions = prefix($extensions,"${db_name}:")
+          @govuk_postgresql::extension { $temp_extensions:
+            tag  => 'govuk_postgresql::server::not_slave',
+          }
+      }
 
-    if $ssl_only {
-      $hba_type = 'hostssl'
-    } else {
-      $hba_type = 'host'
-    }
+      if $ssl_only {
+        $hba_type = 'hostssl'
+      } else {
+        $hba_type = 'host'
+      }
 
-    if $allow_auth_from_api {
-        postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from API network":
-          type        => $hba_type,
-          database    => $db_name,
-          user        => $user,
-          address     => $api_ip_range,
-          auth_method => 'md5',
-        }
-    }
+      if $allow_auth_from_api {
+          postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from API network":
+            type        => $hba_type,
+            database    => $db_name,
+            user        => $user,
+            address     => $api_ip_range,
+            auth_method => 'md5',
+          }
+      }
 
-    if $allow_auth_from_backend {
-        postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
-          type        => $hba_type,
-          database    => $db_name,
-          user        => $user,
-          address     => $backend_ip_range,
-          auth_method => 'md5',
-        }
+      if $allow_auth_from_backend {
+          postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
+            type        => $hba_type,
+            database    => $db_name,
+            user        => $user,
+            address     => $backend_ip_range,
+            auth_method => 'md5',
+          }
+      }
     }
 
     collectd::plugin::postgresql_db{$db_name:}
