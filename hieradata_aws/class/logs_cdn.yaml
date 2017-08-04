@@ -1,0 +1,17 @@
+---
+
+govuk_cdnlogs::log_dir: '/mnt/logs_cdn'
+
+govuk::node::s_base::apps:
+  - govuk_cdn_logs_monitor
+
+lv:
+  data:
+    pv: '/dev/xvdf'
+    vg: 'logs_cdn'
+
+mount:
+  /mnt/logs_cdn:
+    disk: '/dev/mapper/logs_cdn-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
