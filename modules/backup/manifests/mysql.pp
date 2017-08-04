@@ -16,11 +16,15 @@
 # [*rotation_monthly*]
 #   Passed straight through to automysqlbackup::backup
 #
+# [*mysql_dump_host*]
+#   The host to dump databases from
+#
 class backup::mysql (
   $mysql_dump_password,
   $rotation_daily = '6',
   $rotation_weekly = '28',
   $rotation_monthly = '95',
+  $mysql_dump_host = 'localhost',
 ) {
   validate_string($rotation_daily, $rotation_weekly, $rotation_monthly)
 
@@ -56,7 +60,7 @@ class backup::mysql (
     mail_maxattsize              => '4000',
     mysql_dump_username          => 'root',
     mysql_dump_password          => $mysql_dump_password,
-    mysql_dump_host              => 'localhost',
+    mysql_dump_host              => $mysql_dump_host,
     mysql_dump_create_database   => 'yes',
     mysql_dump_use_separate_dirs => 'yes',
     mysql_dump_compression       => 'bzip2',
