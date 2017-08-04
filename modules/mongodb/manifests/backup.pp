@@ -25,6 +25,7 @@ class mongodb::backup(
   $enabled = true,
   $domonthly = true,
   $s3_backups = false,
+  $alert_hostname = 'alert.cluster',
 ) {
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
