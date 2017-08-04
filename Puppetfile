@@ -4,7 +4,6 @@ mod 'adrien/alternatives'
 mod 'attachmentgenie/ufw', '1.0.3'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
-mod 'elasticsearch/elasticsearch'
 mod 'fsalum/redis'
 mod 'garethr-docker', '5.3.0'
 mod 'maestrodev/wget', '>= 1.1.0'
@@ -46,6 +45,9 @@ mod 'alphagov/curl',
 mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
   :ref => '388b8343188673dc966db8840ed5c4cf7ae00470'
+mod 'elasticsearch/elasticsearch',
+  :git => 'git://github.com/alphagov/puppet-elasticsearch.git',
+  :ref => 'a0d8d3eae04a13408ec325fba5ffd36e3084f90a'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gdsoperations/gor',
