@@ -75,9 +75,9 @@ class govuk_elasticsearch (
 
   # The repository for version 2 is called "elasticsearch-2.x" for all minor versions
   if $manage_repo {
-    if $version =~ /^2./ {
+    if versioncmp($version, '2') >= 0 {
       $repo_version = '2.x'
-    } else {
+    } elsif versioncmp($version, '2') < 0 {
       $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
     }
 
