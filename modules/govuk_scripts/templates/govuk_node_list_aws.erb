@@ -1,0 +1,118 @@
+#!/usr/bin/env python
+
+from __future__ import print_function
+
+# NB: This script uses optparse, not argparse, for Python 2.6 compatibility and
+# to avoid the need to depend on any other packages.
+from optparse import OptionParser
+import json
+import random
+import string
+import sys
+import urllib
+import urllib2
+import boto3
+
+stackname = '<%= @aws_stackname -%>'
+
+def commasep_callback(option, opt, value, parser):
+    setattr(parser.values, option.dest, value.split(','))
+
+def ec2_nodes(stackname, nodeclass=None):
+    client = boto3.client('ec2')
+
+    if nodeclass:
+        response = client.describe_instances(
+                   Filters=[
+                          {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+                          {'Name': 'tag:aws_migration', 'Values': [nodeclass]},
+                          {'Name': 'instance-state-name', 'Values': ['running']}
+                   ]
+               )
+    else:
+        response = client.describe_instances(
+                   Filters=[
+                          {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+                          {'Name': 'instance-state-name','Values': ['running']}
+                   ]
+               )
+
+    nodes = response['Reservations']
+
+    hosts = []
+    for instance in nodes:
+        hosts.append((instance['Instances'][0]['NetworkInterfaces'][0]['PrivateDnsName']))
+
+    return(hosts)
+
+def main():
+    opts, args = parser.parse_args()
+
+    if opts.node_class:
+        if any('-' in c for c in opts.node_class):
+            parser.error('Node classes should not use hyphens. Hint: Try an underscore')
+
+        hosts = []
+
+        for c in opts.node_class:
+            hosts.extend(ec2_nodes(stackname, c))
+
+    elif opts.puppet_class:
+        endpoint = 'resources'
+        host_key = 'certname'
+
+        classes = [string.capwords(c, '::') for c in opts.puppet_class]
+
+        classes = [
+            '["=", "title", "{0}"]'.format(c)
+            for c in classes
+        ]
+        class_query = '["or", {0}]'.format(', '.join(classes))
+        query = '["and", ["=", "type", "Class"], {0}]'.format(class_query)
+
+        qs = urllib.urlencode({'query': query})
+        res = urllib2.urlopen('http://puppetdb.cluster/v2/{0}?{1}'.format(endpoint, qs))
+        hosts = json.load(res)
+
+    else:
+        hosts = ec2_nodes(stackname)
+
+    if opts.single_node and len(hosts) > 0:
+        hosts = [random.choice(hosts)]
+
+    for host in hosts:
+        if opts.puppet_class:
+            print(host[host_key])
+        else:
+            print(host)
+
+parser = OptionParser(description='List nodes in this environment')
+
+parser.add_option(
+    '-c', '--node-class',
+    '--class',
+    dest='node_class',
+    type='str',
+    help='Restrict the output to nodes of the specified govuk_node_class. (e.g. "frontend,backend")',
+    action='callback',
+    callback=commasep_callback
+)
+parser.add_option(
+    '-C', '--puppet-class',
+    dest='puppet_class',
+    type='str',
+    help='Restrict the output to nodes of the specified Puppet class. (e.g. "nginx,ssh")',
+    action='callback',
+    callback=commasep_callback
+)
+
+parser.add_option(
+    '--single-node',
+    help='Select a single node at random',
+    action='store_true',
+    dest='single_node',
+)
+
+if __name__ == '__main__':
+    main()
+
