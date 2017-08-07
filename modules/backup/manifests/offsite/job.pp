@@ -58,6 +58,9 @@
 # [*s3_multipart_max_procs*]
 #   The maximum number of processes the multiprocessing can start.
 #
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
 define backup::offsite::job(
   $sources,
   $hour,
@@ -75,6 +78,7 @@ define backup::offsite::job(
   $s3_use_multiprocessing = undef,
   $s3_multipart_chunk_size = undef,
   $s3_multipart_max_procs = undef,
+  $alert_hostname = 'alert.cluster',
 ){
   validate_re($ensure, '^(present|absent)$')
 

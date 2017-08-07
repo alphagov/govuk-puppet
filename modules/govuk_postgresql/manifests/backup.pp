@@ -19,9 +19,13 @@
 # [*service_desc*]
 #  A simple description of the check that is alerting.
 #
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
 class govuk_postgresql::backup (
   $auto_postgresql_backup_hour = 8,
   $auto_postgresql_backup_minute = 0,
+  $alert_hostname = 'alert.cluster',
 ) {
 
     $threshold_secs = 28 * 3600
