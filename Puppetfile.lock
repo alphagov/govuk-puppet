@@ -8,8 +8,6 @@ FORGE
     camptocamp-augeas (1.1.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     darin-zypprepo (1.0.2)
-    elasticsearch-elasticsearch (0.4.0)
-      puppetlabs-stdlib (>= 3.2.0)
     fsalum-redis (1.0.0)
       thias-sysctl (>= 0.3.0)
     garethr-docker (5.3.0)
@@ -108,6 +106,14 @@ GIT
   sha: 388b8343188673dc966db8840ed5c4cf7ae00470
   specs:
     alphagov-duplicity (0.0.1)
+
+GIT
+  remote: git://github.com/alphagov/puppet-elasticsearch.git
+  ref: a0d8d3eae04a13408ec325fba5ffd36e3084f90a
+  sha: a0d8d3eae04a13408ec325fba5ffd36e3084f90a
+  specs:
+    elasticsearch-elasticsearch (0.4.0)
+      puppetlabs-stdlib (>= 3.2.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-ext4mount.git
