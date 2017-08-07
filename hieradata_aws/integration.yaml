@@ -1,7 +1,7 @@
 ---
 _: &offsite_gpg_key 'DA204134165653A8D32526FCDBAB06CD60D07A2C'
 
-app_domain: "%{::aws_stackname}.integration.govuk.internal"
+app_domain: "%{::aws_stackname}.integration.govuk-internal.digital"
 
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
@@ -117,20 +117,15 @@ govuk::node::s_api_lb::search_servers:
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
 govuk::node::s_backend_lb::backend_servers:
-  - 'backend-1.backend'
-  - 'backend-2.backend'
+  - 'backend'
 govuk::node::s_backend_lb::performance_backend_servers:
-  - 'performance-backend-1.backend'
-  - 'performance-backend-2.backend'
+  - 'performance-backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
-  - 'whitehall-backend-1.backend'
-  - 'whitehall-backend-2.backend'
+  - 'whitehall-backend'
 govuk::node::s_backend_lb::publishing_api_backend_servers:
-  - 'publishing-api-1.backend'
-  - 'publishing-api-2.backend'
+  - 'publishing-api'
 govuk::node::s_backend_lb::docker_backend_servers:
-  - 'docker-backend-1.backend'
-  - 'docker-backend-2.backend'
+  - 'docker-backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
 govuk::node::s_backup::offsite_backups: true
 govuk::node::s_bouncer::minimum_request_rate: 0.1
