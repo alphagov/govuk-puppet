@@ -117,7 +117,7 @@ govuk::node::s_api_lb::search_servers:
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
 govuk::node::s_backend_lb::backend_servers:
-  - 'backend'
+  - 'backend-lb'
 govuk::node::s_backend_lb::performance_backend_servers:
   - 'performance-backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
