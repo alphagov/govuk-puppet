@@ -34,13 +34,6 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::signon::db': } ->
   class { '::govuk::apps::whitehall::db': }
 
-  $packages = [
-    # should this be include govuk_postgresql::client
-    'postgresql-client-9.3',
-    'mysql-client-5.5',
-  ]
+  include ::govuk_postgresql::client
 
-  package { $packages:
-    ensure =>  present,
-  }
 }

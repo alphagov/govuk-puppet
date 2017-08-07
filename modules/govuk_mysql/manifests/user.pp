@@ -12,6 +12,10 @@
 #
 # The title of this resource must be in the form of: `user@host`
 #
+# We have added a conditional for the migration to AWS. We have chosen to use
+# RDS to host our MySQL databases, and so we do not want to install and set up
+# MySQL server, or include any Puppet relationships to that effect.
+#
 # === Parameters
 #
 # [*ensure*]
@@ -31,19 +35,35 @@ define govuk_mysql::user (
 ) {
   validate_re($name, '^.+@[^/]+$')
 
-  mysql_user { $name:
-    ensure        => $ensure,
-    password_hash => $password_hash,
-    require       => Class['govuk_mysql::server'],
-  }
+  if $::aws_migration {
+    mysql_user { $name:
+      ensure        => $ensure,
+      password_hash => $password_hash,
+    }
 
-  if $ensure == 'present' {
-    mysql_grant { "${name}/${table}":
-      ensure     => $ensure,
-      user       => $name,
-      table      => $table,
-      privileges => $privileges,
-      require    => Class['govuk_mysql::server'],
+    if $ensure == 'present' {
+      mysql_grant { "${name}/${table}":
+        ensure     => $ensure,
+        user       => $name,
+        table      => $table,
+        privileges => $privileges,
+      }
+    }
+  } else {
+    mysql_user { $name:
+      ensure        => $ensure,
+      password_hash => $password_hash,
+      require       => Class['govuk_mysql::server'],
+    }
+
+    if $ensure == 'present' {
+      mysql_grant { "${name}/${table}":
+        ensure     => $ensure,
+        user       => $name,
+        table      => $table,
+        privileges => $privileges,
+        require    => Class['govuk_mysql::server'],
+      }
     }
   }
 }
