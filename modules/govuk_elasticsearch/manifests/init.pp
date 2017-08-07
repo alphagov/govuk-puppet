@@ -132,6 +132,7 @@ class govuk_elasticsearch (
     'index.refresh_interval'   => $refresh_interval,
     'transport.tcp.port'       => $transport_port,
     'network.publish_host'     => $::fqdn,
+    'network.host'             => '0.0.0.0',
     'node.name'                => $::fqdn,
     'http.port'                => $http_port,
     'http.cors.enabled'        => $cors_enabled,
