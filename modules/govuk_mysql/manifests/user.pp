@@ -38,7 +38,7 @@ define govuk_mysql::user (
 
   # only depend on a local mysql in non-aws environments (as we use RDS there)
   if ! $::aws_migration {
-    Mysql_user[$name]:
+    Mysql_user[$name] {
       require => Class['govuk_mysql::server'],
     }
   }
@@ -52,7 +52,7 @@ define govuk_mysql::user (
     }
 
     if ! $::aws_migration {
-      Mysql_grant["${name}/${table}"]:
+      Mysql_grant["${name}/${table}"] {
         require => Class['govuk_mysql::server'],
       }
     }
