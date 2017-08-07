@@ -114,7 +114,7 @@ class govuk_mysql::server (
     root_password    => $root_password,
     override_options => $mysql_config,
     purge_conf_dir   => true,
-    restart          => true,
+    restart          => false,
   }
 
   class { 'mysql::server::account_security': }
