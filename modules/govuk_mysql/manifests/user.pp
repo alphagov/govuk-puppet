@@ -34,7 +34,13 @@ define govuk_mysql::user (
   mysql_user { $name:
     ensure        => $ensure,
     password_hash => $password_hash,
-    require       => Class['govuk_mysql::server'],
+  }
+
+  # only depend on a local mysql in non-aws environments (as we use RDS there)
+  if ! $::aws_migration {
+    Mysql_user[$name] {
+      require => Class['govuk_mysql::server'],
+    }
   }
 
   if $ensure == 'present' {
@@ -43,7 +49,12 @@ define govuk_mysql::user (
       user       => $name,
       table      => $table,
       privileges => $privileges,
-      require    => Class['govuk_mysql::server'],
+    }
+
+    if ! $::aws_migration {
+      Mysql_grant["${name}/${table}"] {
+        require => Class['govuk_mysql::server'],
+      }
     }
   }
 }
