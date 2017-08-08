@@ -640,8 +640,7 @@ govuk_ci::master::pipeline_jobs:
   publishing-e2e-tests: {}
   rack-logstasher: {}
   rails_translation_manager: {}
-  router-data:
-    source: 'github-enterprise'
+  router-data: {}
   screenshot-as-a-service: {}
   shared_mustache: {}
   slimmer: {}
