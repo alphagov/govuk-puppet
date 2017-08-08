@@ -525,6 +525,7 @@ govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
+govuk::deploy::setup::gemstash_server: 'http://gemstash'
 
 govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
 
@@ -539,6 +540,9 @@ govuk::node::s_api_postgresql_primary::alert_hostname: 'alert'
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+
+govuk::node::s_apt::apt_service: 'apt'
+govuk::node::s_apt::gemstash_service: 'gemstash'
 
 govuk::node::s_asset_base::alert_hostname: 'alert'
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -565,6 +569,8 @@ govuk::node::s_whitehall_mysql_master::encryption_key: "${hiera('govuk::node::s_
 govuk::node::s_transition_postgresql_master::alert_hostname: 'alert'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
+
+govuk_bundler::config::service: 'http://gemstash'
 
 govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

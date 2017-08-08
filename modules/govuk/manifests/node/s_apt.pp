@@ -7,6 +7,8 @@
 class govuk::node::s_apt (
   $root_dir,
   $real_ip_header = undef,
+  $apt_service = 'apt.cluster',
+  $gemstash_service = 'gemstash.cluster',
 ) inherits govuk::node::s_base {
 
   # Only mirror our current arch to save space. This means that some
@@ -124,10 +126,10 @@ class govuk::node::s_apt (
   aptly::repo { 'terraform': }
 
   include nginx
-  nginx::config::site { 'apt.cluster':
+  nginx::config::site { $apt_service:
     content => template('govuk/node/s_apt/apt_cluster_vhost.conf.erb'),
   }
-  nginx::config::site { 'gemstash.cluster':
+  nginx::config::site { $gemstash_service:
     content => template('govuk/node/s_apt/gemstash_cluster_vhost.conf.erb'),
   }
 
