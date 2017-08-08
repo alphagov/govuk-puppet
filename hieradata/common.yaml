@@ -664,7 +664,7 @@ govuk_ci::master::ci_agents:
     labels: 'mongodb-2.4 docker ci-agent-2 elasticsearch terraform'
   ci-agent-3:
     agent_hostname: 'ci-agent-3.ci'
-    labels: 'mongodb-2.4 docker ci-agent-3 elasticsearch terraform'
+    labels: 'mongodb-2.4 docker ci-agent-3 elasticsearch-2.4 terraform'
   ci-agent-4:
     agent_hostname: 'ci-agent-4.ci'
     labels: 'mongodb-3.2 docker ci-agent-4 elasticsearch terraform'
