@@ -414,7 +414,7 @@ govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-conte
 govuk::apps::publishing_api::nagios_memory_warning: 2500
 govuk::apps::publishing_api::nagios_memory_critical: 3000
 
-govuk::apps::release::db_hostname: "master.mysql"
+govuk::apps::release::db_hostname: "mysql-primary"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
 govuk::apps::release::github_username: "govuk-ci"
@@ -427,7 +427,7 @@ govuk::apps::rummager::redis_host: 'api-redis-1.api'
 govuk::apps::rummager::redis_port: '6379'
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
-govuk::apps::search_admin::db_hostname: 'master.mysql'
+govuk::apps::search_admin::db_hostname: 'mysql-primary'
 govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::mysql_search_admin')}"
 govuk::apps::search_admin::db_username: 'search_admin'
 
