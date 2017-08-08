@@ -97,7 +97,7 @@ class govuk_ci::agent::mysql {
     require       => Class['::govuk_mysql::server'],
   }
 
-  mysql_grant { 'whitehall@%whitehall_%.*':
+  mysql_grant { 'whitehall@%/whitehall_%.*':
     user       => 'whitehall@%',
     table      => 'whitehall_%.*',
     privileges => 'ALL',
