@@ -1,7 +1,7 @@
 ---
 _: &offsite_gpg_key 'DA204134165653A8D32526FCDBAB06CD60D07A2C'
 
-app_domain: "%{::aws_stackname}.integration.govuk-internal.digital"
+app_domain: "%{::aws_stackname}.integration.govuk.digital"
 
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
