@@ -1,0 +1,7 @@
+---
+govuk_jenkins::config::banner_colour_background: '#005EA5'
+govuk_jenkins::config::banner_colour_text: 'white'
+govuk_jenkins::config::banner_string: 'AWS INTEGRATION: BLUESTACK'
+govuk_jenkins::config::theme_colour: '#005EA5'
+govuk_jenkins::config::theme_text_colour: 'white'
+govuk_jenkins::config::theme_environment_name: 'Integration: Blue'
