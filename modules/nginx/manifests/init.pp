@@ -72,10 +72,22 @@ class nginx (
     host_name           => $::fqdn,
   }
 
-  @@icinga::check { "check_http_response_${::hostname}":
-    check_command       => 'check_http_port!monitoring-vhost.test!5!10',
-    service_description => 'nginx http port unresponsive',
-    host_name           => $::fqdn,
+  if $::aws_migration {
+    @icinga::nrpe_config { 'check_http_local':
+      source => 'puppet:///modules/nginx/etc/nagios/nrpe.d/check_http_local.cfg',
+    }
+
+    @@icinga::check { "check_http_response_${::hostname}":
+      check_command       => 'check_nrpe!check_http_local!monitoring-vhost.test 5 10',
+      service_description => 'nginx http port unresponsive',
+      host_name           => $::fqdn,
+    }
+  } else {
+    @@icinga::check { "check_http_response_${::hostname}":
+      check_command       => 'check_http_port!monitoring-vhost.test!5!10',
+      service_description => 'nginx http port unresponsive',
+      host_name           => $::fqdn,
+    }
   }
 
   collectd::plugin::tcpconn { 'https':
