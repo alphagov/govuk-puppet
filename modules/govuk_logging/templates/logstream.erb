@@ -35,7 +35,7 @@ end
 -%>
 script
     <%- if scope.lookupvar('::aws_migration') %>
-    REDIS_SERVERS=logs-redis
+    REDIS_SERVERS=redis://logs-redis
     <%- else -%>
     REDIS_SERVERS=$(govuk_node_list -c logs_redis | xargs -IHOST echo redis://HOST | paste -sd ',')
     <%- end -%>
