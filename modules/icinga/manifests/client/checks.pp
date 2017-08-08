@@ -68,11 +68,13 @@ class icinga::client::checks (
     notes_url           => monitoring_docs_url(low-available-disk-inodes),
   }
 
-  @@icinga::check { "check_boot_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /boot',
-    service_description => 'low available disk space on /boot',
-    use                 => 'govuk_high_priority',
-    host_name           => $::fqdn,
+  if ! $::aws_migration {
+    @@icinga::check { "check_boot_disk_space_${::hostname}":
+      check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /boot',
+      service_description => 'low available disk space on /boot',
+      use                 => 'govuk_high_priority',
+      host_name           => $::fqdn,
+    }
   }
 
   @@icinga::check { "check_users_${::hostname}":
@@ -100,11 +102,24 @@ class icinga::client::checks (
     host_name           => $::fqdn,
   }
 
-  @@icinga::check { "check_ssh_${::hostname}":
-    check_command       => 'check_ssh',
-    use                 => 'govuk_high_priority',
-    service_description => 'unable to ssh',
-    host_name           => $::fqdn,
+  if $::aws_migration {
+    @icinga::nrpe_config { 'check_ssh_local':
+      source => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_ssh_local.cfg',
+    }
+
+    @@icinga::check { "check_ssh_${::hostname}":
+      check_command       => 'check_nrpe_1arg!check_ssh_local',
+      use                 => 'govuk_high_priority',
+      service_description => 'unable to ssh',
+      host_name           => $::fqdn,
+    }
+  } else {
+    @@icinga::check { "check_ssh_${::hostname}":
+      check_command       => 'check_ssh',
+      use                 => 'govuk_high_priority',
+      service_description => 'unable to ssh',
+      host_name           => $::fqdn,
+    }
   }
 
   # Check how much time the kernel is spending reading and writing to disk. This
