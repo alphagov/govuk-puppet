@@ -9,7 +9,7 @@
 #   Default: `undef`
 #
 class nodejs(
-  $version = undef
+  $version = undef,
 ) {
 
   if $version == undef {
@@ -18,7 +18,10 @@ class nodejs(
     $ensure = $version
   }
 
+  class { '::nodejs::repo': }
+
   package { 'nodejs':
     ensure  => $ensure,
+    require => Class['Nodejs::Repo'],
   }
 }
