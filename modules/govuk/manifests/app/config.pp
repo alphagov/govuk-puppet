@@ -6,6 +6,9 @@
 #
 # FIXME: Document all parameters
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*nagios_memory_warning*]
 #   Memory use, in MB, at which Nagios should generate a warning.
 #
@@ -43,6 +46,7 @@ define govuk::app::config (
   $depends_on_nfs = false,
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
+  $sentry_dsn = undef,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -119,6 +123,9 @@ define govuk::app::config (
       "${title}-GOVUK_STATSD_PREFIX":
         varname => 'GOVUK_STATSD_PREFIX',
         value   => "govuk.app.${title}.${::hostname}";
+      "${title}-SENTRY_DSN":
+        varname => 'SENTRY_DSN',
+        value   => $sentry_dsn;
     }
 
     if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {

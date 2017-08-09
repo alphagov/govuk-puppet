@@ -220,6 +220,9 @@
 # This parameter is used to ensure symlinks are created correctly if the app
 # name and repo name don't match
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -250,6 +253,7 @@ define govuk::app (
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
   $repo_name = undef,
+  $sentry_dsn = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -313,6 +317,7 @@ define govuk::app (
     asset_pipeline_prefix          => $asset_pipeline_prefix,
     depends_on_nfs                 => $depends_on_nfs,
     read_timeout                   => $read_timeout,
+    sentry_dsn                     => $sentry_dsn,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
   }
 
