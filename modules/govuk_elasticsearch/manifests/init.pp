@@ -141,15 +141,21 @@ class govuk_elasticsearch (
     'discovery'                => $discovery_config,
     'cloud.aws.region'         => $aws_region,
   }
-  if versioncmp($version, '1.4.3') >= 0 {
+
+  if versioncmp($version, '2.0.0') >= 0 {
+    # 2.0.0 changed the the setting name
+    # https://www.elastic.co/guide/en/elasticsearch/reference/2.0/modules-scripting.html
+    $instance_config_real = merge($instance_config, {
+      'action.destructive_requires_name' => true,
+      'script.engine.groovy.inline.search' => true
+    })
+  } else {
     # 1.4.3 introduced this setting and set it to false by default
     # http://www.elastic.co/guide/en/elasticsearch/reference/1.x/modules-scripting.html
-    $instance_config_real = merge($instance_config,{
+    $instance_config_real = merge($instance_config, {
       'action.destructive_requires_name' => true,
       'script.groovy.sandbox.enabled' => true
     })
-  } else {
-    $instance_config_real = $instance_config
   }
 
   elasticsearch::instance { $::fqdn:
