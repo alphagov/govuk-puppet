@@ -193,10 +193,11 @@ define govuk::app::config (
   $title_underscore = regsubst($title, '\.', '_', 'G')
 
   # Set up monitoring
-  if $app_type in ['rack', 'bare'] {
+  if $app_type in ['rack', 'bare', 'procfile'] {
     $collectd_process_regex = $app_type ? {
       'rack' => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
       'bare' => inline_template('<%= "^" + Regexp.escape(@command) + "$" -%>'),
+      'procfile' => "gunicorn .* ${govuk_app_run}/app\\.pid",
     }
     collectd::plugin::process { "app-${title_underscore}":
       ensure => $ensure,
