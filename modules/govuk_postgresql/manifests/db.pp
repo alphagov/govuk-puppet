@@ -66,6 +66,8 @@ define govuk_postgresql::db (
     $api_ip_range            = undef,
     $backend_ip_range        = undef,
     $ssl_only                = false,
+    $rds                     = false,
+    $rds_root_user           = 'changeme2',
 ) {
 
     if ($database == undef) {
@@ -84,7 +86,17 @@ define govuk_postgresql::db (
         @postgresql::server::role { $user:
             password_hash => $password_hash,
             tag           => 'govuk_postgresql::server::not_slave',
+            rds           => $rds,
         }
+    }
+
+    if $rds {
+      @govuk_postgresql::rds_sql { $user:
+        rds_root_user => $rds_root_user,
+        tag           => 'govuk_postgresql::server::not_slave',
+        before        => Postgresql::Server::Db[$db_name],
+        require       => Postgresql::Server::Role[$user],
+      }
     }
 
     # We do not want to include the entire govuk_postgresql::server wrapper,
@@ -141,8 +153,9 @@ define govuk_postgresql::db (
             auth_method => 'md5',
           }
       }
-    }
 
     collectd::plugin::postgresql_db{$db_name:}
     govuk_postgresql::monitoring::db{$db_name:}
+
+  }
 }

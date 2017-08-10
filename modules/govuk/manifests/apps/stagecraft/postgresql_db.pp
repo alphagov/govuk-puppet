@@ -11,6 +11,7 @@
 class govuk::apps::stagecraft::postgresql_db(
   $password,
   $api_ip_range = '10.7.0.0/16',
+  $rds = false,
 ){
   govuk_postgresql::db { 'stagecraft':
     user                => 'stagecraft',
@@ -18,5 +19,6 @@ class govuk::apps::stagecraft::postgresql_db(
     allow_auth_from_api => true,
     api_ip_range        => $api_ip_range,
     ssl_only            => true,
+    rds                 => $rds,
   }
 }

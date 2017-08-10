@@ -14,6 +14,7 @@
 class govuk::apps::email_alert_api::db (
   $password,
   $backend_ip_range = '10.3.0.0/16',
+  $rds = false,
 ) {
 
   govuk_postgresql::db { 'email-alert-api_production':
@@ -21,5 +22,6 @@ class govuk::apps::email_alert_api::db (
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
+    rds                     => $rds,
   }
 }

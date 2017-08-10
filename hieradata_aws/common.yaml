@@ -523,6 +523,17 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::content_performance_manager::db::rds: true
+govuk::apps::content_tagger::db::rds: true
+govuk::apps::email_alert_api::db::rds: true
+govuk::apps::link_checker_api::db::rds: true
+govuk::apps::local_links_manager::db::rds: true
+govuk::apps::policy_publisher::db::rds: true
+govuk::apps::publishing_api::db::rds: true
+govuk::apps::service_manual_publisher::db::rds: true
+govuk::apps::stagecraft::postgresql_db::rds: true
+govuk::apps::support_api::db::rds: true
+
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
