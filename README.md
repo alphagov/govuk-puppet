@@ -122,6 +122,12 @@ variable `classes` for the rake task, e.g.
 
     $ bundle exec rake spec:nodes classes=frontend,backend
 
+#### Test Hieradata
+
+During spec tests `spec/fixtures/hiera/hiera.yaml` is used to configure hieradata which *only* uses `spec/fixtures/hieradata/common.yaml` for its values (i.e. nothing from `hieradata/`).
+
+During node tests the hieradata uses the `vagrant` and `development` environments. The `development` environment should only be used if a value in `ENV['classes']` matches the regexp `/^(development|training)$/` (i.e. in normal operation it will use `vagrant`). This can mean that settings in `common.yaml` will be overwritten in accordance with hiera's `:hierarchy`.
+
 ### Test Coverage
 
 Each test suite's results are followed by a summary of how many resources that suite covers, how many the tests touch and the coverage as a percentage. e.g.
