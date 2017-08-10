@@ -1,0 +1,2 @@
+---
+postgresql::server::role::rds: true

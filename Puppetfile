@@ -13,7 +13,6 @@ mod 'puppetlabs/haproxy', '1.5.0'
 mod 'puppetlabs/java_ks'
 mod 'puppetlabs/lvm'
 mod 'puppetlabs/mysql', '3.11.0'
-mod 'puppetlabs/postgresql', '4.8.0'
 mod 'puppetlabs/rabbitmq', '5.6.0'
 mod 'puppetlabs/stdlib', '4.12.0'
 mod 'puppet/unattended_upgrades', '>= 2.1.0'
@@ -60,6 +59,9 @@ mod 'elasticsearch/logstash',
   :ref => '694fa1a'
 mod 'alphagov/puppet-reporter-sentry',
   :git => 'git://github.com/alphagov/puppet-reporter-sentry.git'
+mod 'puppetlabs/postgresql',
+  :git => 'git://github.com/alphagov/puppetlabs-postgresql.git',
+  :ref => '1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf'
 
 # Our modules on the Forge.
 mod 'gdsoperations/aptly', '0.6.0'

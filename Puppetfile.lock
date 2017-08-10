@@ -54,10 +54,6 @@ FORGE
     puppetlabs-mysql (3.11.0)
       puppet-staging (< 3.0.0, >= 1.0.1)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
-    puppetlabs-postgresql (4.8.0)
-      puppetlabs-apt (< 3.0.0, >= 1.8.0)
-      puppetlabs-concat (< 3.0.0, >= 1.1.0)
-      puppetlabs-stdlib (~> 4.0)
     puppetlabs-rabbitmq (5.6.0)
       puppet-staging (< 2.0.0, >= 0.3.1)
       puppetlabs-apt (< 3.0.0, >= 1.8.0)
@@ -147,6 +143,16 @@ GIT
     alphagov-puppet-reporter-sentry (0.0.1)
 
 GIT
+  remote: git://github.com/alphagov/puppetlabs-postgresql.git
+  ref: 1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf
+  sha: 1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf
+  specs:
+    puppetlabs-postgresql (4.8.0)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
+      puppetlabs-concat (< 3.0.0, >= 1.1.0)
+      puppetlabs-stdlib (~> 4.0)
+
+GIT
   remote: git://github.com/electrical/puppet-logstash.git
   ref: 694fa1a
   sha: 694fa1afc87e0151ae0a5121c0241cf0b3a1bbbf
@@ -204,7 +210,7 @@ DEPENDENCIES
   puppetlabs-java_ks (>= 0)
   puppetlabs-lvm (>= 0)
   puppetlabs-mysql (= 3.11.0)
-  puppetlabs-postgresql (= 4.8.0)
+  puppetlabs-postgresql (>= 0)
   puppetlabs-rabbitmq (= 5.6.0)
   puppetlabs-stdlib (= 4.12.0)
   rtyler-jenkins (= 1.7.0)
