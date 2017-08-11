@@ -44,7 +44,7 @@ govuk::node::s_backup::directories:
     fq_dn: transition-postgresql-master-1.backend.%{hiera('app_domain')}
     priority: '001'
   backup_graphite_storage_whisper_graphite-1:
-    directory: /opt/graphite/storage/whisper
+    directory: /opt/graphite/storage/backups
     fq_dn: graphite-1.management.%{hiera('app_domain')}
     priority: '004'
   processed_cdn_logs:

@@ -87,6 +87,27 @@ class govuk::node::s_graphite (
     extra_config => $cors_headers,
   }
 
+  ## Make compressed archives of Whisper data to backup off-box rather than
+  ## backing up the raw files
+  file { '/usr/local/bin/govuk_backup_graphite_whisper_files':
+    ensure => present,
+    source => 'puppet:///modules/govuk/usr/local/bin/govuk_backup_graphite_whisper_files',
+    mode   => '0755',
+  }
+
+  file { '/opt/graphite/storage/backups':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0770',
+  }
+
+  cron::crondotdee { 'create_compressed_archive_of_whisper_data':
+    command => '/usr/local/bin/govuk_backup_graphite_whisper_files',
+    hour    => 23,
+    minute  => 45,
+  }
+
   if ! $::aws_migration {
     include collectd::server
   }
