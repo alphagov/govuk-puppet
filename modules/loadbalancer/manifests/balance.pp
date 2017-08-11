@@ -53,12 +53,18 @@ define loadbalancer::balance(
   $vhost_suffix = hiera('app_domain')
   $vhost_real = "${vhost}.${vhost_suffix}"
 
-  nginx::config::ssl { $vhost_real:
-    certtype => 'wildcard_publishing',
-  }
+  if ! $::aws_migration {
+    nginx::config::ssl { $vhost_real:
+      certtype => 'wildcard_publishing',
+    }
 
-  nginx::config::site { $vhost_real:
-    content => template('loadbalancer/nginx_balance.conf.erb'),
+    nginx::config::site { $vhost_real:
+      content => template('loadbalancer/nginx_balance.conf.erb'),
+    }
+  } else {
+    nginx::config::site { $vhost_real:
+      content => template('loadbalancer/nginx_balance_no_ssl.conf.erb'),
+    }
   }
 
   nginx::log {
