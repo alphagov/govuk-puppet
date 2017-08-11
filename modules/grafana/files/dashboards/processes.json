@@ -56,7 +56,7 @@
               "target": "$host.$processes.ps_cputime.user"
             }
           ],
-          "timeFrom": "15m",
+          "timeFrom": null,
           "timeShift": null,
           "title": "user cpu time",
           "tooltip": {
