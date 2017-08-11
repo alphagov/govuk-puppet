@@ -205,7 +205,7 @@ govuk_jenkins::plugins:
   workflow-multibranch:
     version: '2.16'
   workflow-scm-step:
-    version: '2.12'
+    version: '2.5'
   workflow-step-api:
     version: '2.12'
   workflow-support:
