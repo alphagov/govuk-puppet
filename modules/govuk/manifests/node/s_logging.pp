@@ -106,8 +106,14 @@ class govuk::node::s_logging (
 
   #configure logstash outputs
 
+  if $::aws_migration {
+    $logs_elasticsearch_endpoint = 'logs-elasticsearch'
+  } else {
+    $logs_elasticsearch_endpoint = 'logs-elasticsearch.cluster'
+  }
+
   logstash::output::elasticsearch_http {'syslog':
-    host  => 'logs-elasticsearch.cluster',
+    host  => $logs_elasticsearch_endpoint,
     index => 'logs-%{+YYYY.MM.dd}',
   }
 
