@@ -1,6 +1,9 @@
 ---
 HIERA_SAFETY_CHECK: true
 
+# We are going to terminate SSL using ELBs
+nginx_enable_ssl: false
+
 stackname: "%{::aws_stackname}"
 app_domain: "%{::aws_stackname}.govuk.internal"
 
