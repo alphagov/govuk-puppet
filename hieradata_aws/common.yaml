@@ -233,9 +233,9 @@ filebeat::prospectors:
       application: 'rkhunter'
 
 govuk::apps::asset_manager::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
@@ -245,14 +245,14 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::collections::nagios_memory_warning: 900
 govuk::apps::collections::nagios_memory_critical: 1000
 
-govuk::apps::collections_publisher::db_hostname: "mysql-master-1.backend"
+govuk::apps::collections_publisher::db_hostname: "mysql-primary"
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_performance_manager::db_hostname: "postgresql-primary"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
@@ -260,7 +260,7 @@ govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
 
-govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_tagger::db_hostname: "postgresql-primary"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
@@ -296,7 +296,7 @@ govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 govuk::apps::hmrc_manuals_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::hmrc_manuals_api::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::link_checker_api::db_hostname: "postgresql-primary"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
@@ -354,17 +354,17 @@ govuk::apps::govuk_crawler_worker::root_urls:
 govuk::apps::govuk_delivery::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::govuk_delivery::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::govuk_delivery::mongodb_hosts:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
 govuk::apps::govuk_delivery::mongodb_database: 'govuk_delivery'
 govuk::apps::govuk_delivery::list_title_format: '%s'
 
 govuk::apps::imminence::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-govuk::apps::imminence::redis_host: 'redis-1.backend'
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+govuk::apps::imminence::redis_host: 'redis'
 govuk::apps::imminence::redis_port: '6379'
 govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
@@ -374,7 +374,7 @@ govuk::apps::info_frontend::enabled: true
 govuk::apps::kibana::signon_root: "https://signon.%{hiera('app_domain')}"
 govuk::apps::kibana::elasticsearch_host: "logs-elasticsearch"
 
-govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::local_links_manager::db_hostname: "postgresql-primary"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
@@ -382,14 +382,14 @@ govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::mapit::enabled: true
 govuk::apps::metadata_api::enabled: true
 
-govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
+govuk::apps::need_api::elasticsearch_hosts: 'elasticsearch:9200'
 
 govuk::apps::need_api::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
 
-govuk::apps::need_api::redis_host: 'redis-1.backend'
+govuk::apps::need_api::redis_host: 'redis'
 
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-1.backend
@@ -397,18 +397,18 @@ govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-3.backend
 
 govuk::apps::licencefinder::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
 
 govuk::apps::performanceplatform_admin::enabled: true
 govuk::apps::performanceplatform_big_screen_view::enabled: true
 
 govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::policy_publisher::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::policy_publisher::db_hostname: "postgresql-primary"
 
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
-govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::publishing_api::db_hostname: "postgresql-primary"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishing_api::rabbitmq::amqp_pass')}"
 govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
@@ -427,7 +427,7 @@ govuk::apps::rummager::nagios_memory_warning: 4600
 govuk::apps::rummager::nagios_memory_critical: 4900
 govuk::apps::rummager::enable_publishing_listener: true
 govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
-govuk::apps::rummager::redis_host: 'api-redis-1.api'
+govuk::apps::rummager::redis_host: 'api-redis'
 govuk::apps::rummager::redis_port: '6379'
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
@@ -509,7 +509,7 @@ govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cab
 govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
 govuk::apps::support_api::db_name: 'support_contacts_production'
-govuk::apps::support_api::db_hostname: 'postgresql-primary-1.backend'
+govuk::apps::support_api::db_hostname: 'postgresql-primary'
 govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
 govuk::apps::support_api::db_username: 'support_contacts'
 govuk::apps::support_api::redis_host: "%{hiera('sidekiq_host')}"
@@ -1609,7 +1609,7 @@ router::nginx::robotstxt: |
   User-agent: deepcrawl
   Disallow: /
 
-sidekiq_host: 'redis-1.backend'
+sidekiq_host: 'redis'
 sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
