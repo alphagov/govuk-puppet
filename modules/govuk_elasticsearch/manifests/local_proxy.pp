@@ -27,7 +27,7 @@
 class govuk_elasticsearch::local_proxy(
   $read_timeout = 60,
   $port = 9200,
-  $servers
+  $servers,
 ) {
   # Also used within template.
   $vhost      = 'elasticsearch-local-proxy'
