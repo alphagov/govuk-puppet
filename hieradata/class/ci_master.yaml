@@ -125,7 +125,7 @@ govuk_jenkins::plugins:
     github-api:
       version: "1.86"
     github-branch-source:
-      version: "2.2.3"
+      version: "2.0.5"
     github:
       version: "1.28.0"
     github-oauth:
