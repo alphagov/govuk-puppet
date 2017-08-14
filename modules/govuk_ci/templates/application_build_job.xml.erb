@@ -45,6 +45,15 @@
           <buildOriginPRHead>false</buildOriginPRHead>
           <buildForkPRMerge>false</buildForkPRMerge>
           <buildForkPRHead>false</buildForkPRHead>
+          <traits>
+            <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait plugin="git@3.5.1">
+              <templates>
+                <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait_-RefSpecTemplate>
+                  <value>+refs/heads/*:refs/remotes/@{remote}/*</value>
+                </jenkins.plugins.git.traits.RefSpecsSCMSourceTrait_-RefSpecTemplate>
+              </templates>
+            </jenkins.plugins.git.traits.RefSpecsSCMSourceTrait>
+          </traits>
         </source>
         <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
           <properties class="empty-list"/>
