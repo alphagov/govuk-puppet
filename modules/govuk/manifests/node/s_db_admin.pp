@@ -20,7 +20,7 @@ class govuk::node::s_db_admin(
   $postgres_host     = undef,
   $postgres_user     = undef,
   $postgres_password = undef,
-  $postgres_port     = undef,
+  $postgres_port     = '5432',
 ) {
   include ::govuk::node::s_base
 
