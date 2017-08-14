@@ -154,8 +154,9 @@ define govuk_postgresql::db (
           }
       }
 
-    collectd::plugin::postgresql_db{$db_name:}
-    govuk_postgresql::monitoring::db{$db_name:}
-
+    if ! $rds {
+      collectd::plugin::postgresql_db{$db_name:}
+      govuk_postgresql::monitoring::db{$db_name:}
+    }
   }
 }
